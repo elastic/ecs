@@ -414,11 +414,11 @@ These are common to show up in web service logs coming from the parsed user agen
 Below are some examples that demonstrate how ECS fields can be applied to
 specific use cases.
 
- * [Logging](https://github.com/elastic/ecs/blob/master/use-cases/logging.md)
  * [APM](https://github.com/elastic/ecs/blob/master/use-cases/apm.md)
- * [Filebeat Apache](https://github.com/elastic/ecs/blob/master/use-cases/filebeat-apache-access.md)
- * [Beats](https://github.com/elastic/ecs/blob/master/use-cases/beats.md)
  * [Auditbeat](https://github.com/elastic/ecs/blob/master/use-cases/auditbeat.md)
+ * [Beats](https://github.com/elastic/ecs/blob/master/use-cases/beats.md)
+ * [Filebeat Apache](https://github.com/elastic/ecs/blob/master/use-cases/filebeat-apache-access.md)
+ * [Logging](https://github.com/elastic/ecs/blob/master/use-cases/logging.md)
  * [Metricbeat](https://github.com/elastic/ecs/blob/master/use-cases/metricbeat.md)
 
 
