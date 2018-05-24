@@ -1,0 +1,50 @@
+---
+- name: device
+  title: Device
+  group: 2
+  description: >
+    Device fields are used to give additional information about the device
+    that the information is coming from.
+
+    This could be a firewall, network device, etc.
+  fields:
+    - name: mac
+      type: keyword
+      description: >
+        MAC address of the device
+    - name: ip
+      type: ip
+      description: >
+        IP address of the device.
+    - name: hostname
+      type: keyword
+      description: >
+        Hostname of the device.
+    - name: vendor
+      type: text
+      description: >
+        Device vendor information.
+    - name: version
+      type: keyword
+      description: >
+        Device version.
+    - name: serial_number
+      type: keyword
+      description: >
+        Device serial number.
+    - name: timezone.offset.sec
+      type: long
+      description: >
+        Timezone offset of the host in seconds.
+
+        Number of seconds relative to UTC. In case the offset is -01:30 the
+        value will be -5400.
+      example: -5400
+    - name: type
+      type: keyword
+      description: >
+        The type of the device the data is coming from.
+
+        There is no predefined list of device types. Some examples are
+        `endpoint`, `firewall`, `ids`, `ips`, `proxy`.
+      example: firewall

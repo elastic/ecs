@@ -1,0 +1,119 @@
+---
+- name: event
+  title: Event
+  group: 2
+  description: >
+    The event fields are used for context information about the data itself.
+  fields:
+    - name: id
+      type: keyword
+      description: >
+        Unique ID to describe the event.
+      example: 8a4f500d
+      phase: 1
+    - name: category
+      type: keyword
+      description: >
+        Event category.
+
+        This can be a user defined category.
+      example: metrics
+
+    - name: type
+      type: keyword
+      description: >
+        A type given to this kind of event which can be used for grouping.
+
+        This is normally defined by the user.
+      example: nginx-stats-metrics
+
+    - name: module
+      type: keyword
+      description: >
+        Name of the module this data is coming from.
+
+        This information is coming from the modules used in Beats or Logstash.
+      example: mysql
+
+    - name: dataset
+      type: keyword
+      description: >
+        Name of the dataset.
+
+        The concept of a `dataset` (fileset / metricset) is used in Beats as a
+        subset of modules. It contains the information which is currently
+        stored in metricset.name and metricset.module or fileset.name.
+      example: stats
+
+    - name: severity
+      type: long
+      phase: 1
+      example: "7"
+      description: >
+        Severity describes the severity of the event. What the different
+        severity values mean can very different between use cases. It's up to
+        the implementer to make sure severities are consistent across events.
+
+    - name: raw
+      type: keyword
+      phase: 1
+      # Unfortunately this example is not shown correctly yet as | do not work
+      # in tables well
+      # Is &#124; is the representation of | it works except for cases where
+      # used ticks.
+      example: "Sep 19 08:26:10 host CEF:0&#124;Security&#124;
+          threatmanager&#124;1.0&#124;100&#124;
+          worm successfully stopped&#124;10&#124;src=10.0.0.1
+          dst=2.1.2.2spt=1232"
+      description: >
+          Raw text message of entire event to be used to demonstrate log
+          integrity.
+
+    - name: hash
+      type: keyword
+      phase: 1
+      example: "123456789012345678901234567890ABCD"
+      description: >
+          Hash (perhaps logstash fingerprint) of raw field to be able to
+          demonstrate log integrity.
+
+    - name: version
+      type: keyword
+      required: true
+      description: >
+        The version field contains the version an event for ECS adheres to.
+
+        This field should be provided as part of each event to make it possible
+        to detect to which ECS version an event belongs.
+
+        event.version is a required field and must exist in all events. It
+        describes which ECS version the event adheres to.
+
+        The current version is 0.1.0.
+      example: 0.1.0
+
+    - name: duration
+      type: long
+      description: >
+        Duration of the event in nanoseconds.
+
+    - name: created
+      type: date
+      description: >
+        event.created contains the date when the event was created.
+
+        This timestamp is distinct from @timestamp in that @timestamp contains
+        the processed timestamp. For logs these two timestamps can be different
+        as the timestamp in the log line and when the event is read for example
+        by Filebeat are not identical. `@timestamp` must contain the timestamp
+        extracted from the log line, event.created when the log line is read.
+        The same could apply to package capturing where @timestamp contains the
+        timestamp extracted from the network package and event.created when the
+        event was created.
+
+        In case the two timestamps are identical, @timestamp should be used.
+
+    - name: risk_score
+      type: float
+      description: >
+        Risk score value of the event.

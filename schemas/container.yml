@@ -1,0 +1,35 @@
+---
+- name: container
+  title: Container
+  group: 2
+  description: >
+    Container fields are used for meta information about the specific container
+    the information is coming from. This should help to correlate data based
+    containers from any runtime.
+  fields:
+    - name: runtime
+      type: keyword
+      description: >
+        Runtime managing this container.
+      example: docker
+    - name: id
+      type: keyword
+      description: >
+        Unique container id.
+    - name: image.name
+      type: keyword
+      description: >
+        Name of the image the container was built on.
+    - name: image.tag
+      type: keyword
+      description: >
+        Container image tag.
+    - name: name
+      type: keyword
+      description: >
+        Container name.
+    - name: labels
+      type: object
+      object_type: keyword
+      description: >
+        Image labels.

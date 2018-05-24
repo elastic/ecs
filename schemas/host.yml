@@ -1,0 +1,88 @@
+---
+- name: host
+  title: Host
+  group: 2
+  description: >
+    All fields related to a host. A host can be a physical machine, a virtual
+    machine, and also a Docker container.
+
+    Normally the host information is related to the machine on which the event
+    was generated / collected but also can be used differently if needed.
+  fields:
+    - name: timezone.offset.sec
+      type: long
+      description: >
+        Timezone offset of the host in seconds.
+
+        Number of seconds relative to UTC. In case the offset is -01:30 the
+        value will be -5400.
+      phase: 1
+      example: -5400
+
+    - name: name
+      type: keyword
+      description: >
+        host.name is the hostname of the host.
+
+        It can contain what `hostname` returns on Unix systems, the fully
+        qualified domain name or also a name specified by the user. It is
+        up to the sender to decide which value to use.
+      phase: 1
+
+    - name: id
+      type: keyword
+      phase: 1
+      description: >
+        Unique host id.
+
+        As hostname is not always unique, this often can be configured by the
+        user. An example here is the current usage of `beat.name`.
+    - name: ip
+      type: ip
+      description: >
+        Host ip address.
+
+    - name: mac
+      type: keyword
+      description: >
+        Host mac address.
+
+    - name: type
+      type: keyword
+      description: >
+        This is the type of the host.
+
+        For Cloud providers this can be the machine type like `t2.medium`.
+        Or it vm, container for example or something user defined.
+      phase: 1
+
+    # Operating System information
+    - name: os.platform
+      type: keyword
+      description: >
+        Operating system platform (e.g. centos, ubuntu, windows).
+      example: darwin
+
+    - name: os.name
+      type: keyword
+      example: "Mac OS X"
+      description: >
+        Operating system name.
+
+    - name: os.family
+      type: keyword
+      example: "debian"
+      description: >
+        OS family (e.g. redhat, debian, freebsd, windows).
+
+    - name: os.version
+      type: keyword
+      example: "10.12.6"
+      description: >
+        Operating system version.
+
+    - name: architecture
+      type: keyword
+      example: "x86_64"
+      description: >
+        Operating system architecture.

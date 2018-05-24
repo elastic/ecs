@@ -1,0 +1,51 @@
+---
+- name: network
+  title: Network
+  group: 2
+  description: >
+    All fields related to network data.
+  fields:
+    - name: protocol
+      type: keyword
+      description: >
+        Network protocol name.
+      example: http
+    - name: direction
+      type: keyword
+      description: >
+        Direction of the network traffic.
+
+        The recommended values are:
+          * inbound
+          * outbound
+          * unknown
+      example: inbound
+
+    - name: forwarded_ip
+      type: ip
+      description: >
+        forwarded_ip indicates the host IP address when the source IP address
+        is the proxy.
+      example: 192.1.1.2
+
+    # Metrics
+    - name: inbound.bytes
+      type: long
+      description: >
+        Network inbound bytes.
+      example: 184
+    - name: inbound.packets
+      type: long
+      description: >
+        Network inbound packets.
+      example: 12
+    - name: outbound.bytes
+      type: long
+      description: >
+        Network outbound bytes.
+      example: 184
+    - name: outbound.packets
+      type: long
+      description: >
+        Network outbound packets.
+      example: 12

@@ -1,0 +1,63 @@
+---
+- name: service
+  title: Service
+  group: 2
+  description: >
+    The service fields describe the service for / from which the data was
+    collected.
+
+    If logs or metrics are collected from Redis, `service.name` would be
+    `redis`. This allows to find and correlate logs for a specific service and
+    even version with `service.version`.
+
+  fields:
+    - name: id
+      type: keyword
+      description: >
+        Unique identifier of the running service.
+
+        This id should uniquely identify this service. This makes it possible
+        to correlate logs and metrics for one specific service. For example
+        in case of issues with one redis instance, it's possible to filter on
+        the id to see metrics and logs for this single instance.
+
+      example: d37e5ebfe0ae6c4972dbe9f0174a1637bb8247f6
+      phase: 1
+
+    - name: name
+      type: keyword
+      phase: 1
+      example: "elasticsearch"
+      description: >
+        Name of the service data is collected from.
+
+        The name can be used to group logs and metrics together from one
+        service and correlate them.
+
+    - name: type
+      type: keyword
+      phase: 1
+      description: >
+        Service type.
+
+    - name: state
+      type: keyword
+      phase: 1
+      description: >
+        Current state of the service.
+    - name: version
+      type: keyword
+      phase: 1
+      example: "3.2.4"
+      description: >
+        Version of the service the data was collected from.
+
+        This allows to look at a data set only for a specific version of a
+        service.
+    - name: ephemeral_id
+      type: keyword
+      description: >
+        Ephemeral identifier of this service if one exists.
+
+        This id compared to id normally changes across restarts.
+      example: 8a4f500f

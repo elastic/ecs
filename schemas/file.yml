@@ -1,0 +1,83 @@
+---
+- name: file
+  group: 2
+  title: File
+  description: >
+    File attributes.
+  fields:
+  - name: path
+    type: text
+    description: The path to the file.
+    multi_fields:
+    - name: raw
+      type: keyword
+      description: >
+        The path to the file. This is a non-analyzed field that is useful
+        for aggregations.
+
+  - name: target_path
+    type: text
+    description: The target path for symlinks.
+    multi_fields:
+      - name: raw
+        type: keyword
+        description: >
+          The path to the file. This is a non-analyzed field that is useful
+          for aggregations.
+
+  - name: extension
+    type: keyword
+    description: >
+      The file extension.
+
+      This should allow easy filtering by file extensions.
+    example: png
+
+  - name: type
+    type: keyword
+    description: The file type (file, dir, or symlink).
+
+  - name: device
+    type: keyword
+    description: The device.
+
+  - name: inode
+    type: keyword
+    description: The inode representing the file in the filesystem.
+
+  - name: uid
+    type: keyword
+    description: >
+      The user ID (UID) or security identifier (SID) of the file owner.
+
+  - name: owner
+    type: keyword
+    description: The file owner's username.
+
+  - name: gid
+    type: keyword
+    description: The primary group ID (GID) of the file.
+
+  - name: group
+    type: keyword
+    description: The primary group name of the file.
+
+  - name: mode
+    type: keyword
+    example: 0640
+    description: The mode of the file in octal representation.
+
+  - name: size
+    type: long
+    description: The file size in bytes (field is only added when `type` is
+        `file`).
+
+  - name: mtime
+    type: date
+    description: The last modified time of the file (time when content was
+        modified).
+
+  - name: ctime
+    type: date
+    description: The last change time of the file (time when metadata was
+        changed).

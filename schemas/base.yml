@@ -1,0 +1,50 @@
+---
+- name: base
+  title: Base
+  group: 1
+  description: >
+    The base set contains all fields which are on the top level without
+    a namespace.
+
+    These are fields which are common across all types of events.
+  fields:
+    - name: "@timestamp"
+      type: date
+      required: true
+      phase: 3
+      example: "2016-05-23T08:05:34.853Z"
+      description: >
+        Timestamp when the event was created.
+
+        For log events this is expected to be when the event was generated and
+        not when it was read.
+
+        Timestamp is a required field and must exist in all events.
+
+    - name: tags
+      type: keyword
+      example: "[\"production\", \"env2\"]"
+      description: >
+        Tags is a list of keywords which are used to tag each event.
+
+    - name: labels
+      type: object
+      example: "{key1: value1, key2: value2}"
+      description: >
+        Labels is an object which contains key/value pairs.
+
+        Labels can be used to add additional meta information to events. Label
+        should not contain nested objects and all values are stored as keyword.
+
+        An example usage is the docker and k8s labels.
+
+    - name: message
+      type: text
+      phase: 1
+      example: "Hello World"
+      description: >
+        For log events the message field contains the log message.
+
+        In other use cases the message field can be used to concatenate together
+        different values which are then freely searchable. Or if multiple
+        messages exist they can be combined here into one message.

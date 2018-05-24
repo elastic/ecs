@@ -1,0 +1,49 @@
+---
+- name: cloud
+  title: Cloud
+  group: 2
+  description: >
+    All fields related to the cloud or infrastructure the events
+    are coming from.
+
+    In case Metricbeat is running on an EC2 host and fetches data from its
+    host, the cloud info is expected to contain the data about this machine. In
+    the case Metricbeat runs outside the cloud on a remote machine and fetches
+    data from a service running in the cloud it is expected to have the cloud
+    data from the machine on which the service is running in.
+  fields:
+    - name: provider
+      example: ec2
+      type: keyword
+      description: >
+        Name of the cloud provider. Example values are ec2, gce, or
+        digitalocean.
+
+    - name: availability_zone
+      example: us-east-1c
+      type: keyword
+      description: >
+        Availability zone in which this host is running.
+
+    - name: region
+      type: keyword
+      example: us-east-1
+      description: >
+        Region in which this host is running.
+
+    - name: instance.id
+      type: keyword
+      example: i-1234567890abcdef0
+      description: >
+        Instance ID of the host machine.
+
+    - name: instance.name
+      type: keyword
+      description: >
+        Instance name of the host machine.
+
+    - name: machine.type
+      type: keyword
+      example: t2.medium
+      description: >
+        Machine type of the host machine.
