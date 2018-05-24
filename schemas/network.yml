@@ -10,16 +10,6 @@
       description: >
         Network protocol name.
       example: http
-    - name: direction
-      type: keyword
-      description: >
-        Direction of the network traffic.
-
-        The recommended values are:
-          * inbound
-          * outbound
-          * unknown
-      example: inbound
 
     - name: forwarded_ip
       type: ip
@@ -29,23 +19,17 @@
       example: 192.1.1.2
 
     # Metrics
-    - name: inbound.bytes
+    - name: transfer.bytes
       type: long
       description: >
-        Network inbound bytes.
+        Network bytes transferred.
+        
+        Typically used with netflow, sflow, or cloud provider flow logs
       example: 184
-    - name: inbound.packets
+    - name: transfer.packets
       type: long
       description: >
-        Network inbound packets.
-      example: 12
-    - name: outbound.bytes
-      type: long
-      description: >
-        Network outbound bytes.
-      example: 184
-    - name: outbound.packets
-      type: long
-      description: >
-        Network outbound packets.
+        Network packets transferred.
+        
+        Typically used with netflow, sflow, or cloud provider flow logs
       example: 12

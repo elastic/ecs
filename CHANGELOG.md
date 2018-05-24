@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file based on the
 ## [Unreleased](https://github.com/elastic/ecs/compare/0.1.0...master)
 
 ### Breaking changes
+- Replaced network.inbound/outbound with less ambigious network.transfer.
 
 ### Bugfixes
 

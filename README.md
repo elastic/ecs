@@ -271,12 +271,9 @@ All fields related to network data.
 | Field  | Description  | Type  | Multi Field  | Example  |
 |---|---|---|---|---|
 | <a name="network.protocol"></a>`network.protocol`  | Network protocol name.  | keyword  |   | `http`  |
-| <a name="network.direction"></a>`network.direction`  | Direction of the network traffic.<br/>The recommended values are:<br/>  * inbound<br/>  * outbound<br/>  * unknown  | keyword  |   | `inbound`  |
 | <a name="network.forwarded_ip"></a>`network.forwarded_ip`  | forwarded_ip indicates the host IP address when the source IP address is the proxy.  | ip  |   | `192.1.1.2`  |
-| <a name="network.inbound.bytes"></a>`network.inbound.bytes`  | Network inbound bytes.  | long  |   | `184`  |
-| <a name="network.inbound.packets"></a>`network.inbound.packets`  | Network inbound packets.  | long  |   | `12`  |
-| <a name="network.outbound.bytes"></a>`network.outbound.bytes`  | Network outbound bytes.  | long  |   | `184`  |
-| <a name="network.outbound.packets"></a>`network.outbound.packets`  | Network outbound packets.  | long  |   | `12`  |
+| <a name="network.transfer.bytes"></a>`network.transfer.bytes`  | Network bytes transferred.<br/>Typically used with netflow, sflow, or cloud provider flow logs  | long  |   | `184`  |
+| <a name="network.transfer.packets"></a>`network.transfer.packets`  | Network packets transferred.<br/>Typically used with netflow, sflow, or cloud provider flow logs  | long  |   | `12`  |
 
 
 ## <a name="organization"></a> Organization fields
