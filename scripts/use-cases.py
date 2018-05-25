@@ -10,7 +10,7 @@ def write_stdout():
     link_prefix = "https://github.com/elastic/ecs"
 
     links = ""
-    for file in os.listdir("./use-cases"):
+    for file in sorted(os.listdir("./use-cases")):
 
         output = ""
 
