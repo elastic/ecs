@@ -32,6 +32,7 @@ List of available ECS fields.
  * [File fields](#file)
  * [Geoip fields](#geoip)
  * [Host fields](#host)
+ * [HTTP fields](#http)
  * [Kubernetes fields](#kubernetes)
  * [Log fields](#log)
  * [Network fields](#network)
@@ -236,6 +237,17 @@ Normally the host information is related to the machine on which the event was g
 | <a name="host.os.family"></a>`host.os.family`  | OS family (e.g. redhat, debian, freebsd, windows).  | keyword  |   | `debian`  |
 | <a name="host.os.version"></a>`host.os.version`  | Operating system version.  | keyword  |   | `10.12.6`  |
 | <a name="host.architecture"></a>`host.architecture`  | Operating system architecture.  | keyword  |   | `x86_64`  |
+
+
+## <a name="http"></a> HTTP fields
+
+Fields related to HTTP requests and responses.
+
+
+| Field  | Description  | Type  | Multi Field  | Example  |
+|---|---|---|---|---|
+| <a name="http.response.status_code"></a>`http.response.status_code`  | Http response status code.  | long  |   | `404`  |
+| <a name="http.response.body"></a>`http.response.body`  | The full http response body.  | text  |   | `Hello world`  |
 
 
 ## <a name="kubernetes"></a> Kubernetes fields

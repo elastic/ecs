@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file based on the
 ### Bugfixes
 
 ### Added
-Adds cloud.account.id for top level organizational level.
+* Adds cloud.account.id for top level organizational level. #11
+* Add `http.response.status_code` and `http.response.body` fields. #4
 
 ### Deprecated
