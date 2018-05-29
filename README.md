@@ -43,6 +43,7 @@ ECS defines these fields.
  * [Process fields](#process)
  * [Service fields](#service)
  * [Source fields](#source)
+ * [TLS fields](#tls)
  * [URL fields](#url)
  * [User fields](#user)
  * [User agent fields](#user_agent)
@@ -356,6 +357,21 @@ Source fields describe details about the source of the event.
 | <a name="source.mac"></a>`source.mac`  | MAC address of the source.  | keyword  |   |   |
 | <a name="source.domain"></a>`source.domain`  | Source domain.  | keyword  |   |   |
 | <a name="source.subdomain"></a>`source.subdomain`  | Source subdomain.  | keyword  |   |   |
+
+
+## <a name="tls"></a> TLS fields
+
+The tls fields contains the TLS related data about a specific connection.
+
+As an example in the case of Filebeat and the TCP input, the `version` field would be the version of the TLS protocol in use, the `certificates` would be the chain of certificates provided by the client and the `ciphersuite` is the encryption algorithm used for the communication.
+
+
+| Field  | Description  | Type  | Multi Field  | Example  |
+|---|---|---|---|---|
+| <a name="tls.version"></a>`tls.version`  | TLS version  | keyword  |   | `TLSv1.2`  |
+| <a name="tls.certificates"></a>`tls.certificates`  | An array of certificates.  | keyword  |   |   |
+| <a name="tls.servername"></a>`tls.servername`  | Server name requested by the client.  | keyword  |   | `localhost`  |
+| <a name="tls.ciphersuite"></a>`tls.ciphersuite`  | Name of the cipher used for the communication.  | keyword  |   | `ECDHE-ECDSA-AES-128-CBC-SHA`  |
 
 
 ## <a name="url"></a> URL fields

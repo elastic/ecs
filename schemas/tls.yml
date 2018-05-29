@@ -1,0 +1,35 @@
+---
+- name: tls
+  title: TLS
+  group: 2
+  description: >
+    The tls fields contains the TLS related data about a specific connection.
+
+    As an example in the case of Filebeat and the TCP input, the `version` field would be the
+    version of the TLS protocol in use, the `certificates` would be the chain of certificates
+    provided by the client and the `ciphersuite` is the encryption algorithm used for the
+    communication.
+  fields:
+    - name: version
+      type: keyword
+      description: >
+        TLS version
+
+      example: TLSv1.2
+    - name: certificates
+      type: keyword
+      description: >
+        An array of certificates.
+      ignore_above: 4096
+    - name: servername
+      type: keyword
+      description: >
+        Server name requested by the client.
+
+      example: localhost
+    - name: ciphersuite
+      type: keyword
+      description: >
+        Name of the cipher used for the communication.
+
+      example: ECDHE-ECDSA-AES-128-CBC-SHA
