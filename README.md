@@ -359,7 +359,7 @@ The URL object can be reused in other prefixes like `host.url.*` for example. It
 | <a name="url.port"></a>`url.port`  | The port of the request, e.g. 443.  | long  |   | `443`  |
 | <a name="url.path"></a>`url.path`  | The path of the request, e.g. "/search".  | text  |   |   |
 | <a name="url.path.raw"></a>`url.path.raw`  | The url path. This is a non-analyzed field that is useful for aggregations.  | keyword  | 1  |   |
-| <a name="url.query"></a>`url.query`  | The search describes the query string of the request, e.g. "q=elasticsearch".<br/>The `?` is excluded from the query string. In case an URL contains no `?` it is expected that the query field is left out. In case there is a `?` but no query, the query field is expected to exist with an empty string. Like this the `exists` query can be used to differentiate between the two cases.  | text  |   |   |
+| <a name="url.query"></a>`url.query`  | The query field describes the query string of the request, e.g. "q=elasticsearch".<br/>The `?` is excluded from the query string. In case an URL contains no `?` it is expected that the query field is left out. In case there is a `?` but no query, the query field is expected to exist with an empty string. Like this the `exists` query can be used to differentiate between the two cases.  | text  |   |   |
 | <a name="url.query.raw"></a>`url.query.raw`  | The url query part. This is a non-analyzed field that is useful for aggregations.  | keyword  | 1  |   |
 | <a name="url.fragment"></a>`url.fragment`  | The part of the url after the `#`, e.g. "top".<br/>The `#` is not part of the fragment.  | keyword  |   |   |
 | <a name="url.username"></a>`url.username`  | The username of the request.  | keyword  |   |   |
