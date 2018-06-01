@@ -356,7 +356,7 @@ The URL object can be reused in other prefixes like `host.url.*` for example. It
 | <a name="url.href.analyzed"></a>`url.href.analyzed`  |   | text  | 1  |   |
 | <a name="url.scheme"></a>`url.scheme`  | The scheme of the request, e.g. "https".<br/>Note: The `:` is not part of the scheme.  | keyword  |   | `https`  |
 | <a name="url.hostname"></a>`url.hostname`  | The hostname of the request, e.g. "example.com".<br/>For correlation the this field can be copied into the `host.name` field.  | keyword  |   | `elastic.co`  |
-| <a name="url.port"></a>`url.port`  | The port of the request, e.g. 443.  | long  |   | `443`  |
+| <a name="url.port"></a>`url.port`  | The port of the request, e.g. 443.  | integer  |   | `443`  |
 | <a name="url.path"></a>`url.path`  | The path of the request, e.g. "/search".  | text  |   |   |
 | <a name="url.path.raw"></a>`url.path.raw`  | The url path. This is a non-analyzed field that is useful for aggregations.  | keyword  | 1  |   |
 | <a name="url.query"></a>`url.query`  | The query field describes the query string of the request, e.g. "q=elasticsearch".<br/>The `?` is excluded from the query string. In case an URL contains no `?` it is expected that the query field is left out. In case there is a `?` but no query, the query field is expected to exist with an empty string. Like this the `exists` query can be used to differentiate between the two cases.  | text  |   |   |
