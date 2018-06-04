@@ -88,6 +88,7 @@ In case Metricbeat is running on an EC2 host and fetches data from its host, the
 | <a name="cloud.instance.id"></a>`cloud.instance.id`  | Instance ID of the host machine.  | keyword  |   | `i-1234567890abcdef0`  |
 | <a name="cloud.instance.name"></a>`cloud.instance.name`  | Instance name of the host machine.  | keyword  |   |   |
 | <a name="cloud.machine.type"></a>`cloud.machine.type`  | Machine type of the host machine.  | keyword  |   | `t2.medium`  |
+| <a name="cloud.account.id"></a>`cloud.account.id`  | The cloud account or organization id<br/>This could be the AWS account id or Google Cloud ORG Id. This should be organizational.  | keyword  |   | `666777888999`  |
 
 
 ## <a name="container"></a> Container fields
