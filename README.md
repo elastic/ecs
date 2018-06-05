@@ -355,7 +355,7 @@ The URL object can be reused in other prefixes like `host.url.*` for example. It
 | <a name="url.href"></a>`url.href`  | href contains the full url. The field is stored as keyword.<br/>`href` is an analyzed field so the parsed information can be accessed through `href.analyzed` in quries.  | keyword  |   | `https://elastic.co:443/search?q=elasticsearch#top`  |
 | <a name="url.href.analyzed"></a>`url.href.analyzed`  |   | text  | 1  |   |
 | <a name="url.scheme"></a>`url.scheme`  | The scheme of the request, e.g. "https".<br/>Note: The `:` is not part of the scheme.  | keyword  |   | `https`  |
-| <a name="url.hostname"></a>`url.hostname`  | The hostname of the request, e.g. "example.com".<br/>For correlation the this field can be copied into the `host.name` field.  | keyword  |   | `elastic.co`  |
+| <a name="url.host.name"></a>`url.host.name`  | The hostname of the request, e.g. "example.com".<br/>For correlation the this field can be copied into the `host.name` field.  | keyword  |   | `elastic.co`  |
 | <a name="url.port"></a>`url.port`  | The port of the request, e.g. 443.  | integer  |   | `443`  |
 | <a name="url.path"></a>`url.path`  | The path of the request, e.g. "/search".  | text  |   |   |
 | <a name="url.path.raw"></a>`url.path.raw`  | The url path. This is a non-analyzed field that is useful for aggregations.  | keyword  | 1  |   |
