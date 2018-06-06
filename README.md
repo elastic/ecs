@@ -37,6 +37,7 @@ List of available ECS fields.
  * [Log fields](#log)
  * [Network fields](#network)
  * [Organization fields](#organization)
+ * [Operating System fields](#os)
  * [Process fields](#process)
  * [Service fields](#service)
  * [Source fields](#source)
@@ -303,6 +304,21 @@ This can be useful if data should stored in the same index should be sometimes f
 |---|---|---|---|---|
 | <a name="organization.name"></a>`organization.name`  | Organization name.  | text  |   |   |
 | <a name="organization.id"></a>`organization.id`  | Unique identifier for the organization.  | keyword  |   |   |
+
+
+## <a name="os"></a> Operating System fields
+
+The OS fields contain information about the operating system and contains.
+
+The os fields are often used inside other prefixes like `host.os.*` or `user_agent.os.*`.
+
+
+| Field  | Description  | Type  | Multi Field  | Example  |
+|---|---|---|---|---|
+| <a name="os.platform"></a>`os.platform`  | Operating system platform (e.g. centos, ubuntu, windows).  | keyword  |   | `darwin`  |
+| <a name="os.name"></a>`os.name`  | Operating system name.  | keyword  |   | `Mac OS X`  |
+| <a name="os.family"></a>`os.family`  | OS family (e.g. redhat, debian, freebsd, windows).  | keyword  |   | `debian`  |
+| <a name="os.version"></a>`os.version`  | Operating system version as a raw string.  | keyword  |   | `10.12.6-rc2`  |
 
 
 ## <a name="process"></a> Process fields
