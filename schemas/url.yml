@@ -17,15 +17,15 @@
     URL in all its part on ingest time.
   fields:
     - name: href
-      type: keyword
+      type: text
       description: >
-        href contains the full url. The field is stored as keyword.
-
-        `href` is an analyzed field so the parsed information can be accessed
-        through `href.analyzed` in quries.
+        The full URL.
       multi_fields:
-        - name: analyzed
-          type: text
+        - name: raw
+          type: keyword
+          description: >
+            The full URL. This is a non-analyzed field that is useful
+            for aggregations.
       example: https://elastic.co:443/search?q=elasticsearch#top
     - name: scheme
       type: keyword
