@@ -2,8 +2,7 @@
 
 # Elastic Common Schema (ECS)
 
-The Elastic Common Schema (ECS) provides a common data model for
-ingesting data into Elasticsearch. The common schema helps you correlate data from sources like logs and metrics or IT operations analytics and security analytics. 
+The Elastic Common Schema (ECS) for ingesting data into Elasticsearch helps you correlate data from sources like logs and metrics or IT operations analytics and security analytics. 
 
 ECS is still under development and backward compatibility is not guaranteed. Any
 feedback on the general structure, missing fields, or existing fields is appreciated.
@@ -13,7 +12,6 @@ For contributions please read the [Contributing Guide](CONTRIBUTING.md).
 
 ## In this readme
 
-* [Implementing ECS](#implementing-ecs)
 * [Fields](#fields)
   * [Base fields](#base)
   * [Cloud fields](#cloud)
@@ -36,31 +34,9 @@ For contributions please read the [Contributing Guide](CONTRIBUTING.md).
   * [User fields](#user)
   * [User agent fields](#user_agent)
 * [Use cases](#use-cases)
+* [Implementing ECS](#implementing-ecs)
 * [FAQ](#faq-ecs)
 
-## <a name="implementing-ecs"></a>Implementing ECS
-
-**Guidelines**
-
-* The document MUST have the `@timestamp` field.
-* The [data type](https://www.elastic.co/guide/en/elasticsearch/reference/6.2/mapping-types.html) defined for an ECS field MUST be used.
-* It SHOULD have the field `event.version` to define which version of ECS it uses.
-* As many fields as possible should be mapped to ECS.
-
-**Writing fields**
-
-* All fields must be lower case
-* No special characters except `_`
-* Use underscore to combine words
-
-**Naming Fields**
-
-* *Present tense.* Use present tense unless field describes historical information.
-* *Singular or plural.* Use singular and plural names properly to reflect the field content. For example, use `requests_per_sec` rather than `request_per_sec`.
-* *General to specific.* Organise the prefixes from general to specific to allow grouping fields into objects with a prefix like `host.*`.
-* *Avoid repetition.* Avoid stuttering of words. If part of the field name is already in the prefix, do not repeat it. Example: `host.host_ip` should be `host.ip`.
-* *Use prefixes.* Fields must be prefixed except for the base fields. For example all `host` fields are prefixed with `host.`. See `dot` notation in FAQ for more details.
-* Do not use abbreviations (few exceptions like `ip` exist)
 
 ## <a name="fields"></a>Fields
 
@@ -88,12 +64,12 @@ For contributions please read the [Contributing Guide](CONTRIBUTING.md).
 
 ### <a name="base"></a> Base fields
 
-The base set contains all fields at the top level without a namespace. These are fields which are common across all types of events.
+The base set contains all fields at the top level. These are fields which are common across all types of events.
 
 
 | Field  | Description  | Type  | Multi Field  | Example  |
 |---|---|---|---|---|
-| <a name="@timestamp"></a>`@timestamp`  | Date/time when the event originated.<br/>For log events this should be the date/time when the event was generated, and not when it was read.<br/>Required field for all events.  | date  |   | `2016-05-23T08:05:34.853Z`  |
+| <a name="@timestamp"></a>`@timestamp`  | Date/time when the event originated.<br/>For log events this should be the date when the event was generated, and not when it was read.<br/>Required field for all events.  | date  |   | `2016-05-23T08:05:34.853Z`  |
 | <a name="tags"></a>`tags`  | List of keywords used to tag each event.  | keyword  |   | `["production", "env2"]`  |
 | <a name="labels"></a>`labels`  | Key/value pairs.<br/>Can be used to add meta information to events. Should not contain nested objects. All values are stored as keyword.<br/>Example: `docker` and `k8s` labels.  | object  |   | `{key1: value1, key2: value2}`  |
 | <a name="message"></a>`message`  | For log events the message field contains the log message.<br/>In other use cases the message field can be used to concatenate different values which are then freely searchable. If multiple messages exist they can be combined into one message.  | text  |   | `Hello World`  |
@@ -176,7 +152,7 @@ These fields are used to provide additional information about the device that is
 
 ### <a name="error"></a> Error fields
 
-The `error` namespace can represent errors of any kind. Use it for errors that happen while fetching events or if the event itself contains an error.
+The `error` fields can represent errors of any kind. Use them for errors that happen while fetching events or if the event itself contains an error.
 
 
 | Field  | Description  | Type  | Multi Field  | Example  |
@@ -188,22 +164,22 @@ The `error` namespace can represent errors of any kind. Use it for errors that h
 
 ### <a name="event"></a> Event fields
 
-The event fields are carry context information about the data itself.
+The event fields provide context information about the data itself.
 
 
 | Field  | Description  | Type  | Multi Field  | Example  |
 |---|---|---|---|---|
 | <a name="event.id"></a>`event.id`  | Unique ID to describe the event.  | keyword  |   | `8a4f500d`  |
-| <a name="event.category"></a>`event.category`  | Event category.<br/>TBD. This can be a user defined category.  | keyword  |   | `metrics`  |
-| <a name="event.type"></a>`event.type`  | A type given to this kind of event which can be used for grouping.<br/>TBD. This is normally defined by the user.  | keyword  |   | `nginx-stats-metrics`  |
-| <a name="event.module"></a>`event.module`  | Name of the Beats or Logstash module that is the source of the data.  | keyword  |   | `mysql`  |
+| <a name="event.category"></a>`event.category`  | Event category.<br/> Define categories that are meaningful to you and your environment.  | keyword  |   | `metrics`  |
+| <a name="event.type"></a>`event.type`  | A type given to this kind of event which can be used for grouping.<br/>Define event types that are meaningful to you and your environment.  | keyword  |   | `nginx-stats-metrics`  |
+| <a name="event.module"></a>`event.module`  | Name of the module that is the source of the data. Can be used with Beats and Logstash modules, among others. | keyword  |   | `mysql`  |
 | <a name="event.dataset"></a>`event.dataset`  | Name of the dataset.<br/>Beats uses the concept of a `dataset` (fileset/metricset) as a subset of modules. It contains the information which is currently stored in metricset.name and metricset.module or fileset.name.  | keyword  |   | `stats`  |
 | <a name="event.severity"></a>`event.severity`  | Severity of the event. Severity values can very different across use cases. The implementer should make sure that severities are consistent across events.  | long  |   | `7`  |
 | <a name="event.raw"></a>`event.raw`  | Raw text message of entire event. Used to demonstrate log integrity.  | keyword  |   | `Sep 19 08:26:10 host CEF:0&#124;Security&#124; threatmanager&#124;1.0&#124;100&#124; worm successfully stopped&#124;10&#124;src=10.0.0.1 dst=2.1.2.2spt=1232`  |
 | <a name="event.hash"></a>`event.hash`  | Hash (perhaps logstash fingerprint) of raw field to be able to demonstrate log integrity.  | keyword  |   | `123456789012345678901234567890ABCD`  |
 | <a name="event.version"></a>`event.version`  | The ECS version that an event adheres to.<br/>Required field for all events. <br/> [Current version](#ecs-version) | keyword  |   | `0.1.0`  |
 | <a name="event.duration"></a>`event.duration`  | Duration of the event in nanoseconds.  | long  |   |   |
-| <a name="event.created"></a>`event.created`  | Date the event was created.<br/>**TBD.** @timestamp and event.created both use "Time the event was created" as the description. Can we further clarify by saying WHO is doing the creating of each?<br/><br/>This field is distinct from @timestamp, even though the values may be the same in some cases.<br/>Examples: For logs, `@timestamp` contains the timestamp carried in the log line, and `event.created` contains the time when the log line is read. For package captures, `@timestamp` contains the timestamp extracted from the network package, and `event.created` contains the time the event was created. </br>If the two timestamps are identical, use [@timestamp](#timestamp). | date  |   |   |
+| <a name="event.created"></a>`event.created`  | Date/time the event was created.<br/>This field is distinct from @timestamp, even though the values may be the same in some cases.<br/>Examples: For logs, `@timestamp` contains the timestamp carried in the log line, and `event.created` contains the time when the log line is read. For package captures, `@timestamp` contains the timestamp extracted from the network package, and `event.created` contains the time the event was created. </br>If the two timestamps are identical, use [@timestamp](#timestamp). | date  |   |   |
 | <a name="event.risk_score"></a>`event.risk_score`  | Risk score value of the event.  | float  |   |   |
 
 
@@ -229,7 +205,7 @@ File fields provide details about each file.
 | <a name="file.mode"></a>`file.mode`  | Mode of the file in octal representation.  | keyword  |   | `416`  |
 | <a name="file.size"></a>`file.size`  | File size in bytes (field is only added when `type` is `file`).  | long  |   |   |
 | <a name="file.mtime"></a>`file.mtime`  | Last time file content was modified.  | date  |   |   |
-| <a name="file.ctime"></a>`file.ctime`  | Last time  file metadata changed.  | date  |   |   |
+| <a name="file.ctime"></a>`file.ctime`  | Last time file metadata changed.  | date  |   |   |
 
 
 ### <a name="geoip"></a> Geoip fields
@@ -248,20 +224,17 @@ Geoip fields carry geographical information for an ip address. The Elasticsearch
 
 ### <a name="host"></a> Host fields
 
-Host fields provide information about the host. A host can be a physical machine, a virtual machine, or a Docker container.
-
-**TBD. Originally said "physical machine, virtual machine, AND a Docker container." Should that be OR instead of AND**
-Normally host fields are related to the machine that generated/collected the event, but they can be used differently if needed.
+Host fields provide information about the host. A host can be a physical machine, a virtual machine, or a Docker container. Normally host fields are related to the machine that generated/collected the event, but they can be used differently if needed.
 
 
 | Field  | Description  | Type  | Multi Field  | Example  |
 |---|---|---|---|---|
 | <a name="host.timezone.offset.sec"></a>`host.timezone.offset.sec`  | Timezone offset of the host in seconds.<br/>Number of seconds relative to UTC. Example: If the offset is -01:30, the value will be -5400.  | long  |   | `-5400`  |
 | <a name="host.name"></a>`host.name`  | Identifier of the host.<br/>It can contain what `hostname` returns on Unix systems, the fully qualified domain name, or a name specified by the user. The sender decides which value to use.  | keyword  |   |   |
-| <a name="host.id"></a>`host.id`  | Unique host id.<br/>As hostname is not always unique, this often can be configured by the user.<br/>TBD: "This" = What speficially? <br/>Example: The current usage of `beat.name`.  | keyword  |   |   |
+| <a name="host.id"></a>`host.id`  | Unique host id.<br/>As hostname is not always unique, use values that are meaningful in your environment. <br/>Example: The current usage of `beat.name`.  | keyword  |   |   |
 | <a name="host.ip"></a>`host.ip`  | Host ip address.  | ip  |   |   |
 | <a name="host.mac"></a>`host.mac`  | Host mac address.  | keyword  |   |   |
-| <a name="host.type"></a>`host.type`  | TBD</br>Type of host.<br/>For Cloud providers this can be the machine type, such as `t2.medium`. Or it vm, container for example or something user defined.  | keyword  |   |   |
+| <a name="host.type"></a>`host.type`  | Type of host.<br/>For Cloud providers this can be the machine type, such as `t2.medium`. If vm, this could be the container, for example, or other information meaningful to you.  | keyword  |   |   |
 | <a name="host.os.platform"></a>`host.os.platform`  | Operating system platform (centos, ubuntu, windows, etc.).  | keyword  |   | `darwin`  |
 | <a name="host.os.name"></a>`host.os.name`  | Operating system name.  | keyword  |   | `Mac OS X`  |
 | <a name="host.os.family"></a>`host.os.family`  | OS family (redhat, debian, freebsd, windows, etc.).  | keyword  |   | `debian`  |
@@ -345,7 +318,7 @@ The service fields describe the service for or from which the data was collected
 
 | Field  | Description  | Type  | Multi Field  | Example  |
 |---|---|---|---|---|
-| <a name="service.id"></a>`service.id`  | Unique identifier of the service that is running.<br/>The id must uniquely identify this service. This makes it possible to correlate logs and metrics for one specific service.</br> Example: If one redis instance is experiencing problems, you can filter on the id to see metrics and logs for that single instance.  | keyword  |   | `d37e5ebfe0ae6c4972dbe9f0174a1637bb8247f6`  |
+| <a name="service.id"></a>`service.id`  | Unique identifier of the service that is running.<br/>The id must uniquely identify this service. This makes it possible to correlate logs and metrics for one specific service.</br> Example: If one Redis instance is experiencing problems, you can filter on the id to see metrics and logs for that single instance.  | keyword  |   | `d37e5ebfe0ae6c4972dbe9f0174a1637bb8247f6`  |
 | <a name="service.name"></a>`service.name`  | Name of the service data is collected from.<br/>The name can be used to group logs and metrics together from one service and correlate them. </br> Example: If you collect logs or metrics from Redis, `service.name` would be `redis`.   | keyword  |   | `elasticsearch`  |
 | <a name="service.type"></a>`service.type`  | Service type.  | keyword  |   |   |
 | <a name="service.state"></a>`service.state`  | Current state of the service.  | keyword  |   |   |
@@ -395,7 +368,7 @@ Example based on whatwg URL definition: https://github.com/whatwg/url/issues/337
 ### <a name="user"></a> User fields
 
 User fields describe information about the user that is relevant to the event.
-Fields in the `user` namespace can have one or multiple entries. If a user has more then one id, provide an array that includes all of them.
+Fields can have one or multiple entries. If a user has more then one id, provide an array that includes all of them.
 
 
 | Field  | Description  | Type  | Multi Field  | Example  |
@@ -439,6 +412,30 @@ ECS fields can be applied to common use cases.
  * [Logging](https://github.com/elastic/ecs/blob/master/use-cases/logging.md)
  * [Metricbeat](https://github.com/elastic/ecs/blob/master/use-cases/metricbeat.md)
 
+
+## <a name="implementing-ecs"></a>Implementing ECS
+
+ **Guidelines**
+
+ * The document MUST have the `@timestamp` field.
+ * The [data type](https://www.elastic.co/guide/en/elasticsearch/reference/6.2/mapping-types.html) defined for an ECS field MUST be used.
+ * It SHOULD have the field `event.version` to define which version of ECS it uses.
+ * As many fields as possible should be mapped to ECS.
+
+ **Writing fields**
+
+ * All fields must be lower case
+ * No special characters except `_`
+ * Use underscore to combine words
+
+ **Naming Fields**
+
+ * *Present tense.* Use present tense unless field describes historical information.
+ * *Singular or plural.* Use singular and plural names properly to reflect the field content. For example, use `requests_per_sec` rather than `request_per_sec`.
+ * *General to specific.* Organise the prefixes from general to specific to allow grouping fields into objects with a prefix like `host.*`.
+ * *Avoid repetition.* Avoid stuttering of words. If part of the field name is already in the prefix, do not repeat it. Example: `host.host_ip` should be `host.ip`.
+ * *Use prefixes.* Fields must be prefixed except for the base fields. For example all `host` fields are prefixed with `host.`. See `dot` notation in FAQ for more details.
+ * Do not use abbreviations (few exceptions like `ip` exist)
 
 
 ## <a name="faq-ecs"></a>FAQ
