@@ -347,26 +347,23 @@ A complete URL, with scheme, host, and path.
 
 The URL object can be reused in other prefixes like `host.url.*` for example. It is important that whenever URL is used that the same structure is used.
 
-`url.href` is a [multi field](https://www.elastic.co/guide/en/elasticsearch/reference/6.2/multi-fields.html#_multi_fields_with_multiple_analyzers) which means the data is stored as keyword `url.href` and test `url.href.analyzed`. The advantage of this is that for running a query against only a part of the url still works without having to split up the URL in all its part on ingest time.
-
-Based on whatwg URL definition: https://github.com/whatwg/url/issues/337
+`url.href` is a [multi field](https://www.elastic.co/guide/en/ elasticsearch/reference/6.2/ multi-fields.html#_multi_fields_with_multiple_analyzers) which means the data is stored as keyword `url.href` and test `url.href.analyzed`. The advantage of this is that for running a query against only a part of the url still works without having to split up the URL in all its part on ingest time.
 
 
 | Field  | Description  | Type  | Multi Field  | Example  |
 |---|---|---|---|---|
-| <a name="url.href"></a>`url.href`  | href contains the full url. The field is stored as keyword.<br/>`href` is an analyzed field so the parsed information can be accessed through `href.analyzed` in queries.  | keyword  |   | `https://elastic.co:443/search?q=elasticsearch#top`  |
+| <a name="url.href"></a>`url.href`  | href contains the full url. The field is stored as keyword.<br/>`href` is an analyzed field so the parsed information can be accessed through `href.analyzed` in quries.  | keyword  |   | `https://elastic.co:443/search?q=elasticsearch#top`  |
 | <a name="url.href.analyzed"></a>`url.href.analyzed`  |   | text  | 1  |   |
-| <a name="url.protocol"></a>`url.protocol`  | The protocol of the request, e.g. "https:".  | keyword  |   |   |
-| <a name="url.hostname"></a>`url.hostname`  | The hostname of the request, e.g. "example.com".<br/>For correlation the this field can be copied into the `host.name` field.  | keyword  |   |   |
-| <a name="url.port"></a>`url.port`  | The port of the request, e.g. 443.  | keyword  |   |   |
-| <a name="url.pathname"></a>`url.pathname`  | The path of the request, e.g. "/search".  | text  |   |   |
-| <a name="url.pathname.raw"></a>`url.pathname.raw`  | The url path. This is a non-analyzed field that is useful for aggregations.  | keyword  | 1  |   |
-| <a name="url.search"></a>`url.search`  | The search describes the query string of the request, e.g. "q=elasticsearch".  | text  |   |   |
-| <a name="url.search.raw"></a>`url.search.raw`  | The url search part. This is a non-analyzed field that is useful for aggregations.  | keyword  | 1  |   |
-| <a name="url.hash"></a>`url.hash`  | The hash of the request URL, e.g. "top".  | keyword  |   |   |
+| <a name="url.scheme"></a>`url.scheme`  | The scheme of the request, e.g. "https".<br/>Note: The `:` is not part of the scheme.  | keyword  |   | `https`  |
+| <a name="url.host.name"></a>`url.host.name`  | The hostname of the request, e.g. "example.com".<br/>For correlation the this field can be copied into the `host.name` field.  | keyword  |   | `elastic.co`  |
+| <a name="url.port"></a>`url.port`  | The port of the request, e.g. 443.  | integer  |   | `443`  |
+| <a name="url.path"></a>`url.path`  | The path of the request, e.g. "/search".  | text  |   |   |
+| <a name="url.path.raw"></a>`url.path.raw`  | The url path. This is a non-analyzed field that is useful for aggregations.  | keyword  | 1  |   |
+| <a name="url.query"></a>`url.query`  | The query field describes the query string of the request, e.g. "q=elasticsearch".<br/>The `?` is excluded from the query string. In case an URL contains no `?` it is expected that the query field is left out. In case there is a `?` but no query, the query field is expected to exist with an empty string. Like this the `exists` query can be used to differentiate between the two cases.  | text  |   |   |
+| <a name="url.query.raw"></a>`url.query.raw`  | The url query part. This is a non-analyzed field that is useful for aggregations.  | keyword  | 1  |   |
+| <a name="url.fragment"></a>`url.fragment`  | The part of the url after the `#`, e.g. "top".<br/>The `#` is not part of the fragment.  | keyword  |   |   |
 | <a name="url.username"></a>`url.username`  | The username of the request.  | keyword  |   |   |
 | <a name="url.password"></a>`url.password`  | The password of the request.  | keyword  |   |   |
-| <a name="url.extension"></a>`url.extension`  | The url extension field contains the extension of the file associated with the url.<br/>A simple example is `http://localhost/logo.png` where the extension would be `png`. There can also be more complex cases like `http://localhost/content?asset=logo.png&token=XYZ` where the extension could also be `png` but depends on the implementation.<br/>The `extension` field should be left out if the extension is not defined.  | keyword  |   | `png`  |
 
 
 ## <a name="user"></a> User fields

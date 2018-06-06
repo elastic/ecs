@@ -8,13 +8,13 @@
     example. It is important that whenever URL is used that the same structure
     is used.
 
-    `url.href` is a [multi field](https://www.elastic.co/guide/en/elasticsearch/reference/6.2/multi-fields.html#_multi_fields_with_multiple_analyzers)
+    `url.href` is a [multi field](https://www.elastic.co/guide/en/
+    elasticsearch/reference/6.2/
+    multi-fields.html#_multi_fields_with_multiple_analyzers)
     which means the data is stored as keyword `url.href` and test
     `url.href.analyzed`. The advantage of this is that for running a query
     against only a part of the url still works without having to split up the
     URL in all its part on ingest time.
-
-    Based on whatwg URL definition: https://github.com/whatwg/url/issues/337
   fields:
     - name: href
       type: keyword
@@ -22,27 +22,32 @@
         href contains the full url. The field is stored as keyword.
 
         `href` is an analyzed field so the parsed information can be accessed
-        through `href.analyzed` in queries.
+        through `href.analyzed` in quries.
       multi_fields:
         - name: analyzed
           type: text
       example: https://elastic.co:443/search?q=elasticsearch#top
-    - name: protocol
+    - name: scheme
       type: keyword
       description: >
-        The protocol of the request, e.g. "https:".
-    - name: hostname
+        The scheme of the request, e.g. "https".
+
+        Note: The `:` is not part of the scheme.
+      example: https
+    - name: host.name
       type: keyword
       description: >
         The hostname of the request, e.g. "example.com".
 
         For correlation the this field can be copied into the `host.name`
         field.
+      example: elastic.co
     - name: port
-      type: keyword
+      type: integer
       description: >
         The port of the request, e.g. 443.
-    - name: pathname
+      example: 443
+    - name: path
       type: text
       description: >
         The path of the request, e.g. "/search".
@@ -52,21 +57,29 @@
           description: >
             The url path. This is a non-analyzed field that is useful
             for aggregations.
-    - name: search
+    - name: query
       type: text
       description: >
-        The search describes the query string of the request,
+        The query field describes the query string of the request,
         e.g. "q=elasticsearch".
+
+        The `?` is excluded from the query string. In case an URL
+        contains no `?` it is expected that the query field is left out.
+        In case there is a `?` but no query, the query field is expected
+        to exist with an empty string. Like this the `exists` query can be
+        used to differentiate between the two cases.
       multi_fields:
         - name: raw
           type: keyword
           description: >
-            The url search part. This is a non-analyzed field that is useful
+            The url query part. This is a non-analyzed field that is useful
             for aggregations.
-    - name: hash
+    - name: fragment
       type: keyword
       description: >
-        The hash of the request URL, e.g. "top".
+        The part of the url after the `#`, e.g. "top".
+
+        The `#` is not part of the fragment.
     - name: username
       type: keyword
       description: >
@@ -75,15 +88,3 @@
       type: keyword
       description: >
         The password of the request.
-    - name: extension
-      type: keyword
-      description: >
-        The url extension field contains the extension of the file associated with
-        the url.
-
-        A simple example is `http://localhost/logo.png` where the extension would be `png`.
-        There can also be more complex cases like `http://localhost/content?asset=logo.png&token=XYZ`
-        where the extension could also be `png` but depends on the implementation.
-
-        The `extension` field should be left out if the extension is not defined.
-      example: png
