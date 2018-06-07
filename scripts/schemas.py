@@ -95,7 +95,7 @@ if __name__ == "__main__":
         groups = [1, 2, 3]
         f_fields = filtered_fields(sortedNamespaces, groups)
         # Print to stdout
-        print create_markdown_string(f_fields)
+        print(create_markdown_string(f_fields))
 
     else:
         groups = [1, 2, 3]

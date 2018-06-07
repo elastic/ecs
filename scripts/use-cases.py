@@ -50,7 +50,7 @@ def write_stdout():
         with open("./use-cases/" + use_case["name"] + ".md", "w") as f:
             f.write(output)
 
-    print "\n" + links + "\n\n"
+    print("\n" + links + "\n\n")
 
 
 if __name__ == "__main__":
