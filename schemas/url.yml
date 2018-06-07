@@ -2,27 +2,26 @@
 - name: url
   title: URL
   description: >
-    A complete URL, with scheme, host, and path.
+    URL fields provide a complete URL, with scheme, host, and path. The URL
+    object can be reused in other prefixes, such as `host.url.*` for
+    example. Keep the structure consistent whenever you use URL fields.
 
-    The URL object can be reused in other prefixes like `host.url.*` for
-    example. It is important that whenever URL is used that the same structure
-    is used.
-
-    `url.href` is a [multi field](https://www.elastic.co/guide/en/
-    elasticsearch/reference/6.2/
-    multi-fields.html#_multi_fields_with_multiple_analyzers)
-    which means the data is stored as keyword `url.href` and test
-    `url.href.analyzed`. The advantage of this is that for running a query
-    against only a part of the url still works without having to split up the
-    URL in all its part on ingest time.
   fields:
     - name: href
       type: keyword
       description: >
-        href contains the full url. The field is stored as keyword.
-
+        Full url. The field is stored as keyword.
+      
+        `url.href` is a [multi field](https://www.elastic.co/guide/en/
+        elasticsearch/reference/6.2/
+        multi-fields.html#_multi_fields_with_multiple_analyzers). The data is
+        stored as keyword `url.href` and test
+        `url.href.analyzed`. These fields enable you to run a query against part
+        of the url still works splitting up the URL at ingest time.  
+        
         `href` is an analyzed field so the parsed information can be accessed
-        through `href.analyzed` in quries.
+        through `href.analyzed` in queries.
+        
       multi_fields:
         - name: analyzed
           type: text
@@ -30,14 +29,14 @@
     - name: scheme
       type: keyword
       description: >
-        The scheme of the request, e.g. "https".
+        Scheme of the request, such as "https".
 
         Note: The `:` is not part of the scheme.
       example: https
     - name: host.name
       type: keyword
       description: >
-        The hostname of the request, e.g. "example.com".
+        Hostname of the request, such as "example.com".
 
         For correlation the this field can be copied into the `host.name`
         field.
@@ -45,46 +44,45 @@
     - name: port
       type: integer
       description: >
-        The port of the request, e.g. 443.
+        Port of the request, such as 443.
       example: 443
     - name: path
       type: text
       description: >
-        The path of the request, e.g. "/search".
+        Path of the request, such as "/search".
       multi_fields:
         - name: raw
           type: keyword
           description: >
-            The url path. This is a non-analyzed field that is useful
+            URL path. A non-analyzed field that is useful
             for aggregations.
     - name: query
       type: text
       description: >
         The query field describes the query string of the request,
-        e.g. "q=elasticsearch".
+        such as "q=elasticsearch".
 
-        The `?` is excluded from the query string. In case an URL
-        contains no `?` it is expected that the query field is left out.
-        In case there is a `?` but no query, the query field is expected
-        to exist with an empty string. Like this the `exists` query can be
-        used to differentiate between the two cases.
+        The `?` is excluded from the query string. If a URL contains
+        no `?`, there is no query field. If there is a `?` but no query,
+        the query field exists with an empty string. The `exists`
+        query can be used to differentiate between the two cases.
       multi_fields:
         - name: raw
           type: keyword
           description: >
-            The url query part. This is a non-analyzed field that is useful
+            URL query part. A non-analyzed field that is useful
             for aggregations.
     - name: fragment
       type: keyword
       description: >
-        The part of the url after the `#`, e.g. "top".
+        Portion of the url after the `#`, such as "top".
 
         The `#` is not part of the fragment.
     - name: username
       type: keyword
       description: >
-        The username of the request.
+        Username of the request.
     - name: password
       type: keyword
       description: >
-        The password of the request.
+        Password of the request.

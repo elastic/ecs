@@ -3,38 +3,38 @@
   title: Agent
   group: 2
   description: >
-    The agent fields contains the data about the agent/client/shipper that
+    The agent fields contain the data about the agent/client/shipper that
     created the event.
 
-    As an example in case of Beats for logs the `agent.name` is `filebeat`.
-    In the case of APM it is the agent running in the app / service. The agent
-    information does not change if data is sent through queuing system like
-    Kafka, Redis, or processing systems like Logstash or APM Server.
+    Examples: In the case of Beats for logs, the `agent.name` is `filebeat`. For
+    APM, it is the agent running in the app/service. The agent information does
+    not change if data is sent through queuing systems like Kafka, Redis, or
+    processing systems like Logstash or APM Server.
+    
   fields:
     - name: version
       type: keyword
       description: >
-        Agent version.
+        Version of the agent.
 
       example: 6.0.0-rc2
     - name: name
       type: keyword
       description: >
-        Agent name.
-
         Name of the agent.
+        
       example: filebeat
     - name: id
       type: keyword
       description: >
-        Unique identifier of this agent if one exists.
+        Unique identifier of this agent (if one exists).
 
-        In the case of Beats this would be beat.id.
+        Example: For Beats this would be beat.id.
       example: 8a4f500d
     - name: ephemeral_id
       type: keyword
       description: >
-        Ephemeral identifier of this agent if one exists.
+        Ephemeral identifier of this agent (if one exists).
 
-        This id compared to id normally changes across restarts.
+        This id normally changes across restarts, but `agent.id` does not.
       example: 8a4f500f
