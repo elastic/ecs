@@ -3,18 +3,18 @@
   title: Host
   group: 2
   description: >
-    All fields related to a host. A host can be a physical machine, a virtual
-    machine, and also a Docker container.
+    Host fields provide information related to a host. A host can be a
+    physical machine, a virtual machine, or a Docker container.
 
     Normally the host information is related to the machine on which the event
-    was generated / collected but also can be used differently if needed.
+    was generated/collected, but they can be used differently if needed.
   fields:
     - name: timezone.offset.sec
       type: long
       description: >
         Timezone offset of the host in seconds.
 
-        Number of seconds relative to UTC. In case the offset is -01:30 the
+        Number of seconds relative to UTC. If the offset is -01:30 the
         value will be -5400.
       phase: 1
       example: -5400
@@ -25,8 +25,8 @@
         host.name is the hostname of the host.
 
         It can contain what `hostname` returns on Unix systems, the fully
-        qualified domain name or also a name specified by the user. It is
-        up to the sender to decide which value to use.
+        qualified domain name, or a name specified by the user. The sender
+        decides which value to use.
       phase: 1
 
     - name: id
@@ -35,8 +35,10 @@
       description: >
         Unique host id.
 
-        As hostname is not always unique, this often can be configured by the
-        user. An example here is the current usage of `beat.name`.
+        As hostname is not always unique, use values that are meaningful
+        in your environment. 
+        
+        Example: The current usage of `beat.name`.
     - name: ip
       type: ip
       description: >
@@ -50,17 +52,18 @@
     - name: type
       type: keyword
       description: >
-        This is the type of the host.
+        Type of host.
 
         For Cloud providers this can be the machine type like `t2.medium`.
-        Or it vm, container for example or something user defined.
+        If vm, this could be the container, for example, or other information
+        meaningful in your environment.
       phase: 1
 
     # Operating System information
     - name: os.platform
       type: keyword
       description: >
-        Operating system platform (e.g. centos, ubuntu, windows).
+        Operating system platform (centos, ubuntu, windows, etc.)
       example: darwin
 
     - name: os.name
@@ -73,7 +76,7 @@
       type: keyword
       example: "debian"
       description: >
-        OS family (e.g. redhat, debian, freebsd, windows).
+        OS family (redhat, debian, freebsd, windows, etc.)
 
     - name: os.version
       type: keyword
