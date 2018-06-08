@@ -35,6 +35,7 @@ def clean_fields(fields):
 
         for field in namespace["fields"]:
             clean_string_field(field, "description")
+            clean_string_field(field, "footnote")
             clean_string_field(field, "example")
             clean_string_field(field, "type")
 
@@ -135,5 +136,8 @@ def get_markdown_table(namespace, title_prefix="##", link=False):
                 output += get_markdown_row(f, link, True)
 
     output += "\n\n"
+
+    if "footnote" in namespace:
+        output += namespace["footnote"].replace("\n", "\n\n") + "\n"
 
     return output
