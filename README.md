@@ -62,9 +62,7 @@ These are fields which are common across all types of events.
 
 ## <a name="agent"></a> Agent fields
 
-The agent fields contains the data about the agent/client/shipper that created the event.
-
-As an example in case of Beats for logs the `agent.name` is `filebeat`. In the case of APM it is the agent running in the app / service. The agent information does not change if data is sent through queuing system like Kafka, Redis, or processing systems like Logstash or APM Server.
+The agent fields contain the data about the agent/client/shipper that created the event.
 
 
 | Field  | Description  | Type  | Multi Field  | Example  |
@@ -73,6 +71,9 @@ As an example in case of Beats for logs the `agent.name` is `filebeat`. In the c
 | <a name="agent.name"></a>`agent.name`  | Agent name.<br/>Name of the agent.  | keyword  |   | `filebeat`  |
 | <a name="agent.id"></a>`agent.id`  | Unique identifier of this agent if one exists.<br/>In the case of Beats this would be beat.id.  | keyword  |   | `8a4f500d`  |
 | <a name="agent.ephemeral_id"></a>`agent.ephemeral_id`  | Ephemeral identifier of this agent if one exists.<br/>This id compared to id normally changes across restarts.  | keyword  |   | `8a4f500f`  |
+
+
+In the case of Beats for logs, the agent.name is filebeat. For APM, it is the agent running in the app/service. The agent information does not change if data is sent through queuing systems like Kafka, Redis, or processing systems such as Logstash or APM Server.
 
 
 ## <a name="cloud"></a> Cloud fields
