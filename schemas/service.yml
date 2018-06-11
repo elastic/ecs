@@ -3,12 +3,9 @@
   title: Service
   group: 2
   description: >
-    The service fields describe the service for / from which the data was
-    collected.
-
-    If logs or metrics are collected from Redis, `service.name` would be
-    `redis`. This allows to find and correlate logs for a specific service and
-    even version with `service.version`.
+    The service fields describe the service for or from which the data was
+    collected. These fields help you find and correlate logs for a specific
+    service and version.
 
   fields:
     - name: id
@@ -17,9 +14,10 @@
         Unique identifier of the running service.
 
         This id should uniquely identify this service. This makes it possible
-        to correlate logs and metrics for one specific service. For example
-        in case of issues with one redis instance, it's possible to filter on
-        the id to see metrics and logs for this single instance.
+        to correlate logs and metrics for one specific service. 
+        
+        Example: If you are experiencing issues with one redis instance, you
+        can filter on that id to see metrics and logs for that single instance.
 
       example: d37e5ebfe0ae6c4972dbe9f0174a1637bb8247f6
       phase: 1
@@ -31,8 +29,11 @@
       description: >
         Name of the service data is collected from.
 
-        The name can be used to group logs and metrics together from one
-        service and correlate them.
+        The name can be used to group and correlate logs and metrics from one
+        service.
+        
+        Example: If logs or metrics are collected from Redis, `service.name` would be
+        `redis`. 
 
     - name: type
       type: keyword
@@ -57,7 +58,7 @@
     - name: ephemeral_id
       type: keyword
       description: >
-        Ephemeral identifier of this service if one exists.
+        Ephemeral identifier of this service (if one exists).
 
-        This id compared to id normally changes across restarts.
+        This id normally changes across restarts, but `service.id` does not.
       example: 8a4f500f
