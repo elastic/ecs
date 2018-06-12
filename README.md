@@ -2,8 +2,8 @@
 
 # Elastic Common Schema (ECS)
 
-The Elastic Common Schema (ECS) is used to provide a common data model when
-ingesting data into Elasticsearch. Having a common schema allows you correlate
+The Elastic Common Schema (ECS) defines a common set of fields for
+ingesting data into Elasticsearch. A common schema helps you correlate
 data from sources like logs and metrics or IT operations
 analytics and security analytics.
 
@@ -11,16 +11,18 @@ ECS is still under development and backward compatibility is not guaranteed. Any
 feedback on the general structure, missing fields, or existing fields is appreciated.
 For contributions please read the [Contributing Guide](CONTRIBUTING.md).
 
-The current version of ECS is `0.1.0`.
+<a name="ecs-version"></a>The current version of ECS is `0.1.0`.
+
+# In this readme
 
 * [Fields](#fields)
 * [Use cases](#use-cases)
 * [Implementing ECS](#implementing-ecs)
-* [About ECS](#about-ecs)
+* [FAQ](#faq-ecs)
 
 # <a name="fields"></a>Fields
 
-List of available ECS fields.
+ECS defines these fields.
  * [Base fields](#base)
  * [Agent fields](#agent)
  * [Cloud fields](#cloud)
@@ -415,8 +417,7 @@ The user_agent fields normally come from a browser request. They often show up i
 
 # <a name="use-cases"></a>Use cases
 
-Below are some examples that demonstrate how ECS fields can be applied to
-specific use cases.
+ECS fields can be applied to common use cases.
 
  * [APM](https://github.com/elastic/ecs/blob/master/use-cases/apm.md)
  * [Auditbeat](https://github.com/elastic/ecs/blob/master/use-cases/auditbeat.md)
@@ -429,82 +430,64 @@ specific use cases.
 
 # <a name="implementing-ecs"></a>Implementing ECS
 
-## Adhere to ECS
-
-The following rules apply if an event wants to adhere to ECS
+## Guidelines
 
 * The document MUST have the `@timestamp` field.
 * The [data type](https://www.elastic.co/guide/en/elasticsearch/reference/6.2/mapping-types.html) defined for an ECS field MUST be used.
 * It SHOULD have the field `event.version` to define which version of ECS it uses.
+* As many fields as possible should be mapped to ECS.
 
-To make the most out of ECS as many fields as possible should be mapped to ECS.
-
-## Rules
-
-ECS follows the following writing and naming rules for the fields. The goal of
-these rules is to make the fields easy to remember and have a guide when new
-fields are added.
-
-Often events will contain additional fields besides ECS. These can follow the
-the same naming and writing rules but don't have to.
-
-**Writing**
+**Writing fields**
 
 * All fields must be lower case
+* Combine words using underscore
 * No special characters except `_`
-* Words are combined through underscore
 
-**Naming**
+**Naming fields**
 
-* Use present tense unless field describes historical information.
-* Use singular and plural names properly to reflect the field content. For example, use `requests_per_sec` rather than `request_per_sec`.
-* Organise the prefixes from general to specific to allow grouping fields into objects with a prefix like `host.*`.
-* Avoid stuttering of words. If part of the field name is already in the prefix, do not repeat it. Example: `host.host_ip` should be `host.ip`.
-* Fields must be prefixed except for the base fields. For example all `host` fields are prefixed with `host.`. See `dot` notation in FAQ for more details.
-* Do not use abbreviations (few exceptions like `ip` exist)
-
-# <a name="about-ecs"></a>About ECS
-
-## Scope
-
-The Elastic Common Schema defines a common set of document fields (and their respective field names) to be used in event messages stored in Elasticsearch as part of any logging or metrics use case of the Elastic Stack, including IT operations analytics and security analytics.
-
-## Goals
-
-The ECS has the following goals:
-
-* Correlate data between metrics, logs and APM
-* Correlate data coming from the same machines / hosts
-* Correlate data coming from the same service
-
-Priority on which fields are added is based on these goals.
+* *Present tense.* Use present tense unless field describes historical information.
+* *Singular or plural.* Use singular and plural names properly to reflect the field content. For example, use `requests_per_sec` rather than `request_per_sec`.
+* *General to specific.* Organise the prefixes from general to specific to allow grouping fields into objects with a prefix like `host.*`.
+* *Avoid repetition.* Avoid stuttering of words. If part of the field name is already in the prefix, do not repeat it. Example: `host.host_ip` should be `host.ip`.
+* *Use prefixes.* Fields must be prefixed except for the base fields. For example all `host` fields are prefixed with `host.`. See `dot` notation in FAQ for more details.
+* Do not use abbreviations. (A few exceptions like `ip` exist.)
 
 
-## Benefits
+# <a name="about-ecs"></a>FAQ
+
+## What are the benefits of using ECS?
 
 The benefits to a user adopting these fields and names in their clusters are:
 
-- Ability to simply correlate data from different data sources
-- Improved ability to remember commonly used field names (since there is only a single set, not a set per data source)
-- Improved ability to deduce unremembered field names (since the field naming follows a small number of rules with few exceptions)
-- Ability to re-use analysis content (searches, visualizations, dashboards, alerts, reports, and ML jobs) across multiple data sources
-- Ability to use any future Elastic-provided analysis content in their environment without modifications
+* **Data correlation.** Ability to easily correlate data from the same or different sources, including:
+    * data from metrics, logs, and apm
+    * data from the same machines/hosts
+    * data from the same service
+* **Ease of recall.** Improved ability to remember commonly used field names (because there is a single set, not a set per data source)
+* **Ease of deduction.** Improved ability to deduce field names (because the field naming follows a small number of rules with few exceptions)
+* **Reuse.** Ability to re-use analysis content (searches, visualizations, dashboards, alerts, reports, and ML jobs) across multiple data sources
+* **Future proofing.** Ability to use any future Elastic-provided analysis content in your environment without modifications
 
+## What if I have fields that conflict with ECS?
 
-## FAQ
+The [rename processor](https://www.elastic.co/guide/en/elasticsearch/reference/6.2/rename-processor.html) can help you resolve field conflicts. For example, imagine that you already have a field called "user," but ECS employs `user` as an object. You can use the rename processor on ingest time to rename your field to the matching ECS field. If your field does not match ECS, you can rename your field to `user.value` instead.
 
-### Why is ECS using a dot nation instead of an underline notation?
+## What if my events have additional fields?
+ 
+Events may contain fields in addition to ECS fields. These fields can follow the ECS naming and writing rules, but this is not a requirement.
 
-There are two common formats on how keys are formatted when ingesting data into Elasticsearch:
+## Why does ECS use a dot notation instead of an underline notation?
+
+There are two common key formats for ingesting data into Elasticsearch:
 
 * Dot notation: `user.firstname: Nicolas`, `user.lastname: Ruflin`
 * Underline notation: `user_firstname: Nicolas`, `user_lastname: Ruflin`
 
-In ECS the decision was made to use the dot notation and this entry is intended to share some background on this decision.
+For ECS we decided to use the dot notation. Here's some background on this decision.
 
-**What is the difference between the two notations?**
+### What is the difference between the two notations?
 
-When ingesting `user.firstname` and `user.lastname` it is identical to ingesting the following JSON:
+Ingesting `user.firstname` and `user.lastname` is identical to ingesting the following JSON:
 
 ```
 "user": {
@@ -513,28 +496,29 @@ When ingesting `user.firstname` and `user.lastname` it is identical to ingesting
 }
 ```
 
-This means internally in Elasticsearch `user` is represented as an [object datatype](https://www.elastic.co/guide/en/elasticsearch/reference/6.2/object.html). In the case of the underline notation both are just [string datatypes](https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-types.html).
+In Elasticsearch, `user` is represented as an [object datatype](https://www.elastic.co/guide/en/elasticsearch/reference/6.2/object.html). In the case of the underline notation, both are just [string datatypes](https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-types.html).
 
-NOTE: ECS does not used [nested datatypes](https://www.elastic.co/guide/en/elasticsearch/reference/current/nested.html) which is an array of objects.
+NOTE: ECS does not use [nested datatypes](https://www.elastic.co/guide/en/elasticsearch/reference/current/nested.html), which are arrays of objects.
 
-**Advantages of dot notation**
+### Advantages of dot notation
 
-The advantage of the dot notation is that on the Elasticsearch side each prefix is an object. Each object can have [parameters](https://www.elastic.co/guide/en/elasticsearch/reference/current/object.html#object-params) on how fields inside the object should be treated, for example if they should be index or mappings should be extended. In the context of ECS this allows for example to disable dynamic property creation for certain prefixes.
+With dot notation, each prefix in Elasticsearch is an object. Each object can have [parameters](https://www.elastic.co/guide/en/elasticsearch/reference/current/object.html#object-params) that control how fields inside the object are treated. In the context of ECS, for example, these parameters would allow you to disable dynamic property creation for certain prefixes.
 
-On the ingest side of Elasticsearch it makes it simpler to for example drop complete objects with the remove processor instead of selecting each key inside it. It does not require prior knowledge which keys will end up in the object.
+Individual objects give you more flexibility on both the ingest and the event sides.  In Elasticsearch, for example, you can use the remove processor to drop complete objects instead of selecting each key inside. You don't have to know ahead of time which keys will be in an object. 
 
-On the event producing side like in Beats it simplifies the creation of the events as on the code side each object can be treated as an object (or struct in Golang as an example) which makes constructing and modifying each part of the final event easier.
+In Beats, you can simplify the creation of events. For example, you can treat each object as an object (or struct in Golang), which makes constructing and modifying each part of the final event easier. 
 
-**Disadvantage of dot notation**
+### Disadvantage of dot notation
 
-In Elasticsearch each key can only have one type. So if `user` is an object it's not possible to have in the same index `user` as type `keyword` like `{"user": "nicolas ruflin"}`. This can be an issue in certain datasets.
+In Elasticsearch, each key can only have one type. For example, if `user` is an `object`, you can't use it as a`keyword` type in the same index, like `{"user": "nicolas ruflin"}`. This restriction can be an issue in certain datasets. For the ECS data itself, this is not an issue because all fields are predefined.
 
-For the ECS data itself this is not an issue as all fields are predefined.
+### What if I already use the underline notation?
 
-**What if I already use the underline notation?**
+Mixing the underline notation with the ECS dot notation is not a problem. As long as there are no conflicts, they can coexist in the same document.
 
-It's not a problem to mix the underline notation with the ECS do notation. They can coexist in the same document as long as there are not conflicts.
 
-**I have conflicting fields with ECS?**
 
-Assuming you already have a field user but ECS uses `user` as an object, you can use the [rename processor](https://www.elastic.co/guide/en/elasticsearch/reference/6.2/rename-processor.html) on ingest time to rename your field to either the matching ECS field or rename it to `user.value` instead if your field does not match ECS.
+
+
+
+
