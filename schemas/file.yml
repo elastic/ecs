@@ -3,47 +3,47 @@
   group: 2
   title: File
   description: >
-    File attributes.
+    File fields provide details about each file.
   fields:
   - name: path
     type: text
-    description: The path to the file.
+    description: Path to the file.
     multi_fields:
     - name: raw
       type: keyword
       description: >
-        The path to the file. This is a non-analyzed field that is useful
+        Path to the file. This is a non-analyzed field that is useful
         for aggregations.
 
   - name: target_path
     type: text
-    description: The target path for symlinks.
+    description: Target path for symlinks.
     multi_fields:
       - name: raw
         type: keyword
         description: >
-          The path to the file. This is a non-analyzed field that is useful
+          Path to the file. This is a non-analyzed field that is useful
           for aggregations.
 
   - name: extension
     type: keyword
     description: >
-      The file extension.
+      File extension.
 
       This should allow easy filtering by file extensions.
     example: png
 
   - name: type
     type: keyword
-    description: The file type (file, dir, or symlink).
+    description: File type (file, dir, or symlink).
 
   - name: device
     type: keyword
-    description: The device.
+    description: Device that is the source of the file.
 
   - name: inode
     type: keyword
-    description: The inode representing the file in the filesystem.
+    description: Inode representing the file in the filesystem.
 
   - name: uid
     type: keyword
@@ -52,32 +52,30 @@
 
   - name: owner
     type: keyword
-    description: The file owner's username.
+    description: File owner's username.
 
   - name: gid
     type: keyword
-    description: The primary group ID (GID) of the file.
+    description: Primary group ID (GID) of the file.
 
   - name: group
     type: keyword
-    description: The primary group name of the file.
+    description: Primary group name of the file.
 
   - name: mode
     type: keyword
     example: 0640
-    description: The mode of the file in octal representation.
+    description: Mode of the file in octal representation.
 
   - name: size
     type: long
-    description: The file size in bytes (field is only added when `type` is
+    description: File size in bytes (field is only added when `type` is
         `file`).
 
   - name: mtime
     type: date
-    description: The last modified time of the file (time when content was
-        modified).
+    description: Last time file content was modified.
 
   - name: ctime
     type: date
-    description: The last change time of the file (time when metadata was
-        changed).
+    description: Last time file metadata changed.

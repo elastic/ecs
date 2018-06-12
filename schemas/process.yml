@@ -4,11 +4,10 @@
   group: 2
   description: >
     These fields contain information about a process.
-
-    If metrics information is collected for a process and a process id / name
-    shows up in a log message, these fields should help to correlated the two.
-    It is expected that the `process.pid` will often also stay in the metric
-    itself and only copied to the global field for correlation.
+    These fields can help you correlate metrics information with a process id/name
+    from a log message.  The `process.pid` often stays in the metric itself and is
+    copied to the global field for correlation.
+  
   fields:
     - name: args
       type: keyword
@@ -22,7 +21,7 @@
       description: >
         Process name.
 
-        This is sometimes also known as program name or similar.
+        Sometimes called program name or similar.
       example: ssh
     - name: pid
       type: long

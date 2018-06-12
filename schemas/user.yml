@@ -3,10 +3,10 @@
   title: User
   group: 2
   description: >
-    The user fields are used to describe user information as part of the event.
-
-    All fields in user can have one or multiple entries. If a user has more
-    then one id, an array with the ids must be provided.
+    The user fields describe information about the user that is relevant
+    to  the event. Fields can have one entry or multiple entries. If a
+    user has more than one id, provide an array that includes all of
+    them.
   fields:
     - name: id
       type: keyword
@@ -17,7 +17,7 @@
       description: >
         Name of the user.
 
-        As the field is a keyword, the field will not be tokenized.
+        The field is a keyword, and will not be tokenized.
     - name: email
       type: keyword
       phase: 1
@@ -29,5 +29,5 @@
       description: >
         Unique user hash to correlate information for a user in anonymized form.
 
-        This is useful in case `user.id` or `user.name` cannot be used because
-        it contains confidential information.
+        Useful if `user.id` or `user.name` contain confidential information and
+        cannot be used.

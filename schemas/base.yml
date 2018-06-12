@@ -3,10 +3,7 @@
   title: Base
   group: 1
   description: >
-    The base set contains all fields which are on the top level without
-    a namespace.
-
-    These are fields which are common across all types of events.
+    The base set contains all fields which are on the top level. These fields are common across all types of events.
   fields:
     - name: "@timestamp"
       type: date
@@ -14,29 +11,29 @@
       phase: 3
       example: "2016-05-23T08:05:34.853Z"
       description: >
-        Timestamp when the event was created.
+        Date/time when the event originated.
 
-        For log events this is expected to be when the event was generated and
+        For log events this is the date/time when the event was generated, and
         not when it was read.
 
-        Timestamp is a required field and must exist in all events.
+        Required field for all events.
 
     - name: tags
       type: keyword
       example: "[\"production\", \"env2\"]"
       description: >
-        Tags is a list of keywords which are used to tag each event.
+        List of keywords used to tag each event.
 
     - name: labels
       type: object
       example: "{key1: value1, key2: value2}"
       description: >
-        Labels is an object which contains key/value pairs.
+        Key/value pairs.
 
-        Labels can be used to add additional meta information to events. Label
-        should not contain nested objects and all values are stored as keyword.
+        Can be used to add meta information to events. Should not contain nested
+        objects. All values are stored as keyword.
 
-        An example usage is the docker and k8s labels.
+        Example: `docker` and `k8s` labels.
 
     - name: message
       type: text
@@ -45,6 +42,6 @@
       description: >
         For log events the message field contains the log message.
 
-        In other use cases the message field can be used to concatenate together
-        different values which are then freely searchable. Or if multiple
-        messages exist they can be combined here into one message.
+        In other use cases the message field can be used to concatenate
+        different values which are then freely searchable. If multiple
+        messages exist, they can be combined into one message.

@@ -3,14 +3,14 @@
   title: Cloud
   group: 2
   description: >
-    All fields related to the cloud or infrastructure the events
+    Fields related to the cloud or infrastructure the events
     are coming from.
-
-    In case Metricbeat is running on an EC2 host and fetches data from its
-    host, the cloud info is expected to contain the data about this machine. In
-    the case Metricbeat runs outside the cloud on a remote machine and fetches
-    data from a service running in the cloud it is expected to have the cloud
-    data from the machine on which the service is running in.
+  footnote: >
+    Examples: If Metricbeat is running on an EC2 host and fetches data from its
+    host, the cloud info contains the data about this machine. If Metricbeat
+    runs on a remote machine outside the cloud and fetches data from a service
+    running in the cloud, the field contains cloud data from the machine the 
+    service is running on.
   fields:
     - name: provider
       example: ec2
@@ -52,7 +52,8 @@
       type: keyword
       example: 666777888999
       description: >
-        The cloud account or organization id
+        The cloud account or organization id used to identify different
+        entities in a multi-tenant environment.
 
-        This could be the AWS account id or Google Cloud ORG Id. This should be
-        organizational. 
+        Examples: AWS account id, Google Cloud ORG Id, or other unique
+        identifier. 
