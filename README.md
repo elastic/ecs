@@ -361,17 +361,18 @@ Source fields describe details about the source of the event.
 
 ## <a name="tls"></a> TLS fields
 
-The tls fields contains the TLS related data about a specific connection.
-
-As an example in the case of Filebeat and the TCP input, the `version` field would be the version of the TLS protocol in use, the `certificates` would be the chain of certificates provided by the client and the `ciphersuite` is the encryption algorithm used for the communication.
+The tls fields contain the TLS related data about a specific connection.
 
 
 | Field  | Description  | Type  | Multi Field  | Example  |
 |---|---|---|---|---|
-| <a name="tls.version"></a>`tls.version`  | TLS version  | keyword  |   | `TLSv1.2`  |
+| <a name="tls.version"></a>`tls.version`  | TLS version.  | keyword  |   | `TLSv1.2`  |
 | <a name="tls.certificates"></a>`tls.certificates`  | An array of certificates.  | keyword  |   |   |
 | <a name="tls.servername"></a>`tls.servername`  | Server name requested by the client.  | keyword  |   | `localhost`  |
 | <a name="tls.ciphersuite"></a>`tls.ciphersuite`  | Name of the cipher used for the communication.  | keyword  |   | `ECDHE-ECDSA-AES-128-CBC-SHA`  |
+
+
+As an example in the case of Filebeat and the TCP input, the `version` field would be the version of the TLS protocol in use, the `certificates` would be the chain of certificates provided by the client and the `ciphersuite` is the encryption algorithm used for the communication.
 
 
 ## <a name="url"></a> URL fields
