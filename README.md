@@ -165,6 +165,7 @@ The event fields are used for context information about the data itself.
 | <a name="event.id"></a>`event.id`  | Unique ID to describe the event.  | keyword  |   | `8a4f500d`  |
 | <a name="event.category"></a>`event.category`  | Event category.<br/>This can be a user defined category.  | keyword  |   | `metrics`  |
 | <a name="event.type"></a>`event.type`  | A type given to this kind of event which can be used for grouping.<br/>This is normally defined by the user.  | keyword  |   | `nginx-stats-metrics`  |
+| <a name="event.action"></a>`event.action`  | The action taken by the event.<br/>This is normally defined by the user.  | keyword  |   | `reject`  |
 | <a name="event.module"></a>`event.module`  | Name of the module this data is coming from.<br/>This information is coming from the modules used in Beats or Logstash.  | keyword  |   | `mysql`  |
 | <a name="event.dataset"></a>`event.dataset`  | Name of the dataset.<br/>The concept of a `dataset` (fileset / metricset) is used in Beats as a subset of modules. It contains the information which is currently stored in metricset.name and metricset.module or fileset.name.  | keyword  |   | `stats`  |
 | <a name="event.severity"></a>`event.severity`  | Severity describes the severity of the event. What the different severity values mean can very different between use cases. It's up to the implementer to make sure severities are consistent across events.  | long  |   | `7`  |
