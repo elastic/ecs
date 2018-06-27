@@ -1,7 +1,7 @@
 # Contributing to Elastic Common Schema (ECS)
 
-All information related to ECS is versioned in this repository. All changes to ECS
-happen through Git and Pull Requests.
+All information related to ECS is versioned in the [elastic/ecs](https://github.com/elastic/ecs) repository. All changes to ECS
+happen through Pull Requests submitted through Git.
 
 
 ## Requirements
@@ -19,25 +19,34 @@ Here are the steps for contributing to ECS.
 * Set up your git environment.
   - Create [your own fork](https://help.github.com/articles/fork-a-repo/) of the ECS repo.
   - Clone your fork to your machine.
-* Create a working branch on your machine.
+* Create a local branch to hold your changes.
   - Run `git checkout -b branch-name`, where `branch-name` is the name you want to give your local branch
 * Do your work. 
   - Make changes to the `.yml` files as needed
-* Run `make` to update generated files such as `schema.csv` and `schema.md`
+* Run `make` to update generated files. 
+  - Note that the README.md file is generated, and should not be edited directly. Source files are in the /docs directory.
 * Commit your changes locally. 
   - Run `git commit -a -m "your message"`
-* Commit your changes to your own github.com fork.
+* Push your changes to your own github.com fork.
   - Run `git push --set-upstream origin branch-name` 
-  - In this command, `origin` is an alias that references your fork )
+  - In this command, `origin` is an alias that references your fork.
 * Request feedback and permission to merge your changes. 
   - Create a [Pull Request](https://help.github.com/articles/creating-a-pull-request/) against the ECS repo. 
-  - (Look for the `Compare & pull request` button on your branch in github.com)
+  - (Look for the `Compare & pull request` button on your branch in github.com.)
 * Next steps
   - Wait for reviews on your PR.
   - Incorporate review comments and push updates if needed.
 * Thank you for your contribution!
   
-Important: Make sure to push changes only to your own fork. Changes must be approved before they are merged into the main repository.
+**Important:** Be sure to push changes only to your own fork. Changes must be approved before they are merged into the main repository.
+
+### Other ways to contribute
+
+You can contribute even if you are not an experienced Git user. You'll need a github.com account.
+* Go to the ECS repo: https://github.com/elastic/ecs
+* Click `Issues` in the nav bar under the repo name.
+* Click `New issue`.
+* Add your text, and click `Submit new issue`.
 
 ## Fields.yml
 
@@ -51,12 +60,9 @@ The file structure is similar to this:
   group: 2
   description: >
     The agent fields contain all the data about the agent/client/shipper that collected/generated the events.
-
-    As an example in case of beats for logs this is `agent.name` is `filebeat`.
-
   footnote: >
-    This tag is optional. Use it if you want to add more information after the field table. 
-    For example, you can use to show examples of how several fields might work together. 
+    In the case of beats for logs, for example,  the `agent.name` is `filebeat`.
+
   fields:
     - name: version
       type: keyword
@@ -66,20 +72,20 @@ The file structure is similar to this:
       phase: 0
 ```
 
-Each namespace has its own file. The fields for each namespace are stored in the file. `title` and `description` describe the namespace. `level` is for sorting in the documentation output.
+Each prefix has its own file. The fields for each prefix are stored in the file. `title` and `description` describe the prefix. `footnote` adds more information following the field table. `level` is for sorting in the documentation output.
 
 In the `fields` section, the `name` of the field is the first entry. 
 The `type` is the [Elasticsearch field type](https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-types.html). 
 `description` adds details about the field. 
 `example` adds an sample value.
-The `phase` field indicates the development status of the field. If `phase` is left out, the default is 0. See 
+The `phase` field indicates the development status of the field. If `phase` is left out, the default is 0.
 
 ## Phases
 
 A field's `phase` indicates where it is in its development. Different phases exist to make it easy for you to contribute new fields, while allowing for more iteration. Here are the phases:
 
 * 0 (alpha): The field is new and is up for discussion as to whether or not it should be added. The field might be removed at any time.
-* 1 (beta): It's clear that there is value of having the field in ECS and discussions about naming/namespaces have started. It's unlikely that the field will be removed, but naming might change at any time.
+* 1 (beta): It's clear that there is value of having the field in ECS and discussions about prefixes/naming have started. It's unlikely that the field will be removed, but naming might change at any time.
 * 2 (rc): The field has been accepted and is unlikely to change. It is now tested in the field.
 * 3 (GA): The field is part of ECS. Any breaking changes will happen only at a major release.
 
