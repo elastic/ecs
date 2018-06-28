@@ -45,7 +45,7 @@ Here are the steps for contributing to ECS.
 You can contribute even if you are not an experienced Git user. You'll need a github.com account.
 * Go to the ECS repo: https://github.com/elastic/ecs
 * Click `Issues` in the nav bar under the repo name.
-* Click `New issue`.
+* Click `New issue`. Provide as many details as possible to help reviewers and other contributors understand your proposal.
 * Add your text, and click `Submit new issue`.
 
 ## Fields.yml
