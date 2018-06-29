@@ -14,7 +14,7 @@ All notable changes to this project will be documented in this file based on the
 ### Added
 * Add `network.total.packets` and `network.total.bytes` field. PR#2
 * Add `event.action` field. #21
-* Add `network.name`, to track network names right in the monitoring pipeline. #25
+* Add `network.name`, to track network names in the monitoring pipeline. #25
 * Adds cloud.account.id for top level organizational level. #11
 * Add `http.response.status_code` and `http.response.body` fields. #4
 * Add fields for Operating System data. #5
