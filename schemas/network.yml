@@ -27,6 +27,22 @@
         Host IP address when the source IP address is the proxy.
       example: 192.1.1.2
 
+    - name: session_id
+      type: keyword
+      description: >
+        This is the session ID or connection ID,
+        a unique identifier for the session /connection.
+        Bro conn.log uid field gets mapped here.
+      example: 00beeff00d1234
+
+    - name: virtual_ip
+      type: ip
+      description: >
+        The virtual IP associated with a session or connection.
+        Useful when load balancers, firewalls, and routers use a
+        virtual IP to "advertise" a service.
+      example: 192.168.1.1
+
     # Metrics
     - name: inbound.bytes
       type: long
@@ -48,3 +64,13 @@
       description: >
         Network outbound packets.
       example: 12
+    - name: total.bytes
+      type: long
+      description: >
+        Network Total bytes: Usually sum (inbound.bytes, outbound.bytes)
+      example: 368
+    - name: total.packets
+      type: long
+      description: >
+        Network Total packets: Usually sum (inbound.packets, outbound.packets)
+      example: 24
