@@ -16,5 +16,6 @@ All notable changes to this project will be documented in this file based on the
 * Add `http.response.status_code` and `http.response.body` fields. #4
 * Add fields for Operating System data. #5
 * Add `log.message`. #3
+* Add http.request.method and http.version
 
 ### Deprecated
