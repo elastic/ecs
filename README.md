@@ -286,6 +286,8 @@ Fields related to network data.
 | <a name="network.protocol"></a>`network.protocol`  | Network protocol name.  | keyword  |   | `http`  |
 | <a name="network.direction"></a>`network.direction`  | Direction of the network traffic.<br/>Recommended values are:<br/>  * inbound<br/>  * outbound<br/>  * unknown  | keyword  |   | `inbound`  |
 | <a name="network.forwarded_ip"></a>`network.forwarded_ip`  | Host IP address when the source IP address is the proxy.  | ip  |   | `192.1.1.2`  |
+| <a name="network.session_id"></a>`network.session_id`  | This is the session ID or connection ID, which is a unique identifier for the session /connection. Bro conn.log uid field gets mapped here.  | keyword  |   | `0bbeef000d1234`  |
+| <a name="network.virtual_ip"></a>`network.virtual_ip`  | The virtual IP associated with a session or connection. Useful when load balancers, firewalls, and routers use a virtual IP to "advertise" a service.  | ip  |   | `192.168.1.1`  |
 | <a name="network.inbound.bytes"></a>`network.inbound.bytes`  | Network inbound bytes.  | long  |   | `184`  |
 | <a name="network.inbound.packets"></a>`network.inbound.packets`  | Network inbound packets.  | long  |   | `12`  |
 | <a name="network.outbound.bytes"></a>`network.outbound.bytes`  | Network outbound bytes.  | long  |   | `184`  |
