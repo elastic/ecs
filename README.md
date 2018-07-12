@@ -245,8 +245,10 @@ Fields related to HTTP requests and responses.
 
 | Field  | Description  | Type  | Multi Field  | Example  |
 |---|---|---|---|---|
+| <a name="http.request.method"></a>`http.request.method`  | Http request method.  | keyword  |   | `GET, POST, PUT`  |
 | <a name="http.response.status_code"></a>`http.response.status_code`  | Http response status code.  | long  |   | `404`  |
 | <a name="http.response.body"></a>`http.response.body`  | The full http response body.  | text  |   | `Hello world`  |
+| <a name="http.version"></a>`http.version`  | Http version.  | keyword  |   | `1.1`  |
 
 
 ## <a name="kubernetes"></a> Kubernetes fields
