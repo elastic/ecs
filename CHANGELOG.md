@@ -11,6 +11,7 @@ All notable changes to this project will be documented in this file based on the
 ### Bugfixes
 
 ### Added
+* Add `network.total.packets` and `network.total.bytes` field. PR#2
 * Add `event.action` field. #21
 * Adds cloud.account.id for top level organizational level. #11
 * Add `http.response.status_code` and `http.response.body` fields. #4

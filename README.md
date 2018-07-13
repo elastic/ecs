@@ -292,6 +292,8 @@ Fields related to network data.
 | <a name="network.inbound.packets"></a>`network.inbound.packets`  | Network inbound packets.  | long  |   | `12`  |
 | <a name="network.outbound.bytes"></a>`network.outbound.bytes`  | Network outbound bytes.  | long  |   | `184`  |
 | <a name="network.outbound.packets"></a>`network.outbound.packets`  | Network outbound packets.  | long  |   | `12`  |
+| <a name="network.total.bytes"></a>`network.total.bytes`  | Network total bytes. The sum of inbound.bytes + outbound.bytes.  | long  |   | `368`  |
+| <a name="network.total.packets"></a>`network.total.packets`  | Network outbound packets. The sum of inbound.packets + outbound.packets  | long  |   | `24`  |
 
 
 ## <a name="organization"></a> Organization fields
