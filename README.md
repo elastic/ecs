@@ -26,8 +26,8 @@ ECS defines these fields.
  * [Base fields](#base)
  * [Agent fields](#agent)
  * [Cloud fields](#cloud)
+ * [Connection fields](#connection)
  * [Container fields](#container)
- * [Destination fields](#destination)
  * [Device fields](#device)
  * [Error fields](#error)
  * [Event fields](#event)
@@ -42,7 +42,6 @@ ECS defines these fields.
  * [Operating System fields](#os)
  * [Process fields](#process)
  * [Service fields](#service)
- * [Source fields](#source)
  * [TLS fields](#tls)
  * [URL fields](#url)
  * [User fields](#user)
@@ -96,6 +95,29 @@ Fields related to the cloud or infrastructure the events are coming from.
 Examples: If Metricbeat is running on an EC2 host and fetches data from its host, the cloud info contains the data about this machine. If Metricbeat runs on a remote machine outside the cloud and fetches data from a service running in the cloud, the field contains cloud data from the machine the  service is running on.
 
 
+## <a name="connection"></a> Connection fields
+
+Connection related fields.
+
+
+| Field  | Description  | Type  | Multi Field  | Example  |
+|---|---|---|---|---|
+| <a name="connection.destination.host.ip"></a>`connection.destination.host.ip`  | IP address of the destination.<br/>Can be one or multiple IPv4 or IPv6 addresses.  | ip  |   |   |
+| <a name="connection.destination.host.name"></a>`connection.destination.host.name`  | Hostname of the destination.  | keyword  |   |   |
+| <a name="connection.destination.host.port"></a>`connection.destination.host.port`  | Port of the destination.  | long  |   |   |
+| <a name="connection.destination.host.mac"></a>`connection.destination.host.mac`  | MAC address of the destination.  | keyword  |   |   |
+| <a name="connection.destination.host.domain"></a>`connection.destination.host.domain`  | Destination domain.  | keyword  |   |   |
+| <a name="connection.destination.host.subdomain"></a>`connection.destination.host.subdomain`  | Destination subdomain.  | keyword  |   |   |
+| <a name="connection.source.host.ip"></a>`connection.source.host.ip`  | IP address of the source.<br/>Can be one or multiple IPv4 or IPv6 addresses.  | ip  |   |   |
+| <a name="connection.source.host.name"></a>`connection.source.host.name`  | Hostname of the source.  | keyword  |   |   |
+| <a name="connection.source.host.port"></a>`connection.source.host.port`  | Port of the source.  | long  |   |   |
+| <a name="connection.source.host.mac"></a>`connection.source.host.mac`  | MAC address of the source.  | keyword  |   |   |
+| <a name="connection.source.host.domain"></a>`connection.source.host.domain`  | Source domain.  | keyword  |   |   |
+| <a name="connection.source.host.subdomain"></a>`connection.source.host.subdomain`  | Source subdomain.  | keyword  |   |   |
+| <a name="connection.direction"></a>`connection.direction`  | Direction of the network traffic.<br/>Recommended values are:<br/>  * inbound<br/>  * outbound<br/>  * unknown  | keyword  |   | `inbound`  |
+| <a name="connection.forwarded_ip"></a>`connection.forwarded_ip`  | Host IP address when the source IP address is the proxy.  | ip  |   | `192.1.1.2`  |
+
+
 ## <a name="container"></a> Container fields
 
 Container fields are used for meta information about the specific container that is the source of information. These fields help correlate data based containers from any runtime.
@@ -109,21 +131,6 @@ Container fields are used for meta information about the specific container that
 | <a name="container.image.tag"></a>`container.image.tag`  | Container image tag.  | keyword  |   |   |
 | <a name="container.name"></a>`container.name`  | Container name.  | keyword  |   |   |
 | <a name="container.labels"></a>`container.labels`  | Image labels.  | object  |   |   |
-
-
-## <a name="destination"></a> Destination fields
-
-Destination fields describe details about the destination of a packet/event.
-
-
-| Field  | Description  | Type  | Multi Field  | Example  |
-|---|---|---|---|---|
-| <a name="destination.ip"></a>`destination.ip`  | IP address of the destination.<br/>Can be one or multiple IPv4 or IPv6 addresses.  | ip  |   |   |
-| <a name="destination.hostname"></a>`destination.hostname`  | Hostname of the destination.  | keyword  |   |   |
-| <a name="destination.port"></a>`destination.port`  | Port of the destination.  | long  |   |   |
-| <a name="destination.mac"></a>`destination.mac`  | MAC address of the destination.  | keyword  |   |   |
-| <a name="destination.domain"></a>`destination.domain`  | Destination domain.  | keyword  |   |   |
-| <a name="destination.subdomain"></a>`destination.subdomain`  | Destination subdomain.  | keyword  |   |   |
 
 
 ## <a name="device"></a> Device fields
@@ -286,8 +293,6 @@ Fields related to network data.
 | Field  | Description  | Type  | Multi Field  | Example  |
 |---|---|---|---|---|
 | <a name="network.protocol"></a>`network.protocol`  | Network protocol name.  | keyword  |   | `http`  |
-| <a name="network.direction"></a>`network.direction`  | Direction of the network traffic.<br/>Recommended values are:<br/>  * inbound<br/>  * outbound<br/>  * unknown  | keyword  |   | `inbound`  |
-| <a name="network.forwarded_ip"></a>`network.forwarded_ip`  | Host IP address when the source IP address is the proxy.  | ip  |   | `192.1.1.2`  |
 | <a name="network.inbound.bytes"></a>`network.inbound.bytes`  | Network inbound bytes.  | long  |   | `184`  |
 | <a name="network.inbound.packets"></a>`network.inbound.packets`  | Network inbound packets.  | long  |   | `12`  |
 | <a name="network.outbound.bytes"></a>`network.outbound.bytes`  | Network outbound bytes.  | long  |   | `184`  |
@@ -347,21 +352,6 @@ The service fields describe the service for or from which the data was collected
 | <a name="service.state"></a>`service.state`  | Current state of the service.  | keyword  |   |   |
 | <a name="service.version"></a>`service.version`  | Version of the service the data was collected from.<br/>This allows to look at a data set only for a specific version of a service.  | keyword  |   | `3.2.4`  |
 | <a name="service.ephemeral_id"></a>`service.ephemeral_id`  | Ephemeral identifier of this service (if one exists).<br/>This id normally changes across restarts, but `service.id` does not.  | keyword  |   | `8a4f500f`  |
-
-
-## <a name="source"></a> Source fields
-
-Source fields describe details about the source of the event.
-
-
-| Field  | Description  | Type  | Multi Field  | Example  |
-|---|---|---|---|---|
-| <a name="source.ip"></a>`source.ip`  | IP address of the source.<br/>Can be one or multiple IPv4 or IPv6 addresses.  | ip  |   |   |
-| <a name="source.hostname"></a>`source.hostname`  | Hostname of the source.  | keyword  |   |   |
-| <a name="source.port"></a>`source.port`  | Port of the source.  | long  |   |   |
-| <a name="source.mac"></a>`source.mac`  | MAC address of the source.  | keyword  |   |   |
-| <a name="source.domain"></a>`source.domain`  | Source domain.  | keyword  |   |   |
-| <a name="source.subdomain"></a>`source.subdomain`  | Source subdomain.  | keyword  |   |   |
 
 
 ## <a name="tls"></a> TLS fields

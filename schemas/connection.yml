@@ -1,0 +1,83 @@
+---
+- name: connection
+  title: Connection
+  group: 2
+  description: >
+    Connection related fields.
+  fields:
+    - name: destination.host.ip
+      type: ip
+      description: >
+        IP address of the destination.
+
+        Can be one or multiple IPv4 or IPv6 addresses.
+    - name: destination.host.name
+      type: keyword
+      description: >
+        Hostname of the destination.
+    - name: destination.host.port
+      type: long
+      description: >
+        Port of the destination.
+    - name: destination.host.mac
+      type: keyword
+      description: >
+        MAC address of the destination.
+    - name: destination.host.domain
+      type: keyword
+      phase: 1
+      description: >
+        Destination domain.
+    - name: destination.host.subdomain
+      type: keyword
+      phase: 1
+      description: >
+        Destination subdomain.
+
+    - name: source.host.ip
+      type: ip
+      description: >
+        IP address of the source.
+
+        Can be one or multiple IPv4 or IPv6 addresses.
+    - name: source.host.name
+      type: keyword
+      description: >
+        Hostname of the source.
+    - name: source.host.port
+      type: long
+      phase: 1
+      description: >
+        Port of the source.
+    - name: source.host.mac
+      type: keyword
+      phase: 1
+      description: >
+        MAC address of the source.
+    - name: source.host.domain
+      type: keyword
+      phase: 1
+      description: >
+        Source domain.
+    - name: source.host.subdomain
+      type: keyword
+      phase: 1
+      description: >
+        Source subdomain.
+
+    - name: direction
+      type: keyword
+      description: >
+        Direction of the network traffic.
+
+        Recommended values are:
+          * inbound
+          * outbound
+          * unknown
+      example: inbound
+
+    - name: forwarded_ip
+      type: ip
+      description: >
+        Host IP address when the source IP address is the proxy.
+      example: 192.1.1.2
