@@ -8,6 +8,8 @@ import os.path
 def write_stdout():
 
     link_prefix = "https://github.com/elastic/ecs"
+    schema = get_schema()
+    flat_schema = create_flat_schema(schema)
 
     links = ""
     for file in sorted(os.listdir("./use-cases")):
@@ -39,6 +41,7 @@ def write_stdout():
                 })
 
             for f2 in f["fields"]:
+                f2["ecs"] = f2["name"] in flat_schema
                 fields.append(f2)
 
         global_fields = {"name": use_case["name"], "title": use_case["title"], "description": "", "fields": fields}
@@ -51,6 +54,19 @@ def write_stdout():
             f.write(output)
 
     print("\n" + links + "\n\n")
+
+
+def create_flat_schema(schema):
+    fields = {}
+
+    for namespace in schema:
+        if len(namespace["fields"]) == 0:
+            continue
+
+        for f in namespace["fields"]:
+            fields[f["name"]] = f
+
+    return fields
 
 
 if __name__ == "__main__":
