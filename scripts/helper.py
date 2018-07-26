@@ -1,4 +1,5 @@
 import yaml
+import os
 
 
 def read_schema_file(path):
@@ -85,10 +86,12 @@ def get_markdown_row(field, link, multi_field):
     # Replace newlines with HTML representation as otherwise newlines don't work in Markdown
     description = field["description"].replace("\n", "<br/>")
 
-    # Verified and accepted fields are bold
-    verified = False
-    if 'verified' in field.keys() and field["verified"]:
-        field["name"] = "**" + field["name"] + "**"
+    show_name = field["name"]
+    non_ecs = 'ecs' in field.keys() and not field["ecs"]
+    # non ecs fields are italic
+    if non_ecs:
+        show_name = "*" + field["name"] + "*"
+        description = "*" + description + "*"
 
     example = ""
     if field["example"] != "":
@@ -101,11 +104,18 @@ def get_markdown_row(field, link, multi_field):
         multi_field = ""
 
     # If link is true, it link to the anchor is provided. This is used for the use-cases
-    if link:
-        return '| [`{}`]({}#{})  | {}  | {}  | {}  | {}  |\n'.format(field["name"], link, field["name"], description, field["type"], multi_field, example)
+    if link and not non_ecs:
+        return '| [{}]({}#{})  | {}  | {}  | {}  | {}  |\n'.format(show_name, link, field["name"], description, field["type"], multi_field, example)
 
     # By default a anchor is attached to the name
-    return '| <a name="{}"></a>`{}`  | {}  | {}  | {}  | {}  |\n'.format(field["name"], field["name"], description, field["type"], multi_field, example)
+    return '| <a name="{}"></a>{}  | {}  | {}  | {}  | {}  |\n'.format(field["name"], show_name, description, field["type"], multi_field, example)
+
+
+def get_schema():
+    fields = []
+    for file in sorted(os.listdir("schemas")):
+        fields = fields + read_schema_file("schemas/" + file)
+    return fields
 
 
 def get_markdown_table(namespace, title_prefix="##", link=False):

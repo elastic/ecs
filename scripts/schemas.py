@@ -80,9 +80,7 @@ if __name__ == "__main__":
     # Load schema files into yaml
     files = os.listdir("./schemas")
 
-    fields = []
-    for file in sorted(os.listdir("schemas")):
-        fields = fields + read_schema_file("schemas/" + file)
+    fields = get_schema()
 
     # Load all fields into object
     sortedNamespaces = sorted(fields, key=lambda field: field["group"])
