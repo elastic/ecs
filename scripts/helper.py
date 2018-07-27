@@ -100,7 +100,7 @@ def get_markdown_row(field, link, multi_field):
     if 'ecs' in field.keys():
         ecs = field["ecs"]
 
-    # non ecs fields are italic
+    # non ecs fields are in italic
     if not ecs:
         show_name = "*" + field["name"] + "*"
         description = "*" + description + "*"
