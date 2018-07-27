@@ -9,7 +9,7 @@ def read_schema_file(path):
     with open(path) as f:
         fields = yaml.load(f.read())
 
-    clean_fields(fields)
+    clean_namespace_fields(fields)
     return fields
 
 
@@ -20,12 +20,12 @@ def read_use_case_file(path):
         use_case = yaml.load(f.read())
 
     fields = use_case["fields"]
-    clean_fields(fields)
+    clean_namespace_fields(fields)
     use_case["fields"] = fields
     return use_case
 
 
-def clean_fields(fields):
+def clean_namespace_fields(fields):
     """Cleans up all fields to set defaults
     """
     for namespace in fields:
@@ -34,39 +34,47 @@ def clean_fields(fields):
         if "group" not in namespace:
             namespace["group"] = 2
 
-        for field in namespace["fields"]:
-            clean_string_field(field, "description")
-            clean_string_field(field, "footnote")
-            clean_string_field(field, "example")
-            clean_string_field(field, "type")
+        prefix = ""
+        # Prefix if not base namespace
+        if namespace["name"] != "base":
+            prefix = namespace["name"]
 
-            # Prefix if not base namespace
-            if namespace["name"] != "base":
-                field["name"] = namespace["name"] + "." + field["name"]
+        clean_fields(namespace["fields"], prefix, namespace["group"])
 
-            if 'phase' not in field.keys():
-                field["phase"] = 0
 
-            if 'group' not in field.keys():
-                # If no group set, set parent group
-                field["group"] = namespace["group"]
+def clean_fields(fields, prefix, group):
+    for field in fields:
+        clean_string_field(field, "description")
+        clean_string_field(field, "footnote")
+        clean_string_field(field, "example")
+        clean_string_field(field, "type")
 
-            if "multi_fields" in field:
-                for f in field["multi_fields"]:
-                    clean_string_field(f, "description")
-                    clean_string_field(f, "example")
-                    clean_string_field(f, "type")
+        # Add prefix if needed
+        if prefix != "":
+            field["name"] = prefix + "." + field["name"]
 
-                    # Prefix if not base namespace
-                    if namespace["name"] != "base":
-                        f["name"] = field["name"] + "." + f["name"]
+        if 'phase' not in field.keys():
+            field["phase"] = 0
 
-                    if 'phase' not in f.keys():
-                        f["phase"] = 0
+        if 'group' not in field.keys():
+            # If no group set, set parent group
+            field["group"] = group
 
-                    if 'group' not in f.keys():
-                        # If no group set, set parent group
-                        f["group"] = namespace["group"]
+        if "multi_fields" in field:
+            for f in field["multi_fields"]:
+                clean_string_field(f, "description")
+                clean_string_field(f, "example")
+                clean_string_field(f, "type")
+
+                # multi fields always have a prefix
+                f["name"] = field["name"] + "." + f["name"]
+
+                if 'phase' not in f.keys():
+                    f["phase"] = 0
+
+                if 'group' not in f.keys():
+                    # If no group set, set parent group
+                    f["group"] = group
 
 
 def clean_string_field(field, key):
@@ -87,9 +95,13 @@ def get_markdown_row(field, link, multi_field):
     description = field["description"].replace("\n", "<br/>")
 
     show_name = field["name"]
-    non_ecs = 'ecs' in field.keys() and not field["ecs"]
+
+    ecs = True
+    if 'ecs' in field.keys():
+        ecs = field["ecs"]
+
     # non ecs fields are italic
-    if non_ecs:
+    if not ecs:
         show_name = "*" + field["name"] + "*"
         description = "*" + description + "*"
 
@@ -104,7 +116,7 @@ def get_markdown_row(field, link, multi_field):
         multi_field = ""
 
     # If link is true, it link to the anchor is provided. This is used for the use-cases
-    if link and not non_ecs:
+    if link and ecs:
         return '| [{}]({}#{})  | {}  | {}  | {}  | {}  |\n'.format(show_name, link, field["name"], description, field["type"], multi_field, example)
 
     # By default a anchor is attached to the name

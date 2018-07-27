@@ -33,15 +33,26 @@ def write_stdout():
             # In case a description exists for a prefix, add is as field with .*
             if "description" in f and f["description"] != "":
                 fields.append({
-                    "name": f["name"] + ".*",
+                    "name": f["name"] + ".&ast;",
                     "description": f["description"],
                     "type": "",
                     "phase": "",
                     "example": "",
+                    "ecs": False,
                 })
 
             for f2 in f["fields"]:
-                f2["ecs"] = f2["name"] in flat_schema
+                # Complete ECS fields with ECS information if not set
+                if f2["name"] in flat_schema:
+                    f2["ecs"] = True
+                    f2["type"] = flat_schema[f2["name"]]["type"]
+                    if f2["description"] == "":
+                        f2["description"] = flat_schema[f2["name"]]["description"]
+                    if f2["example"] == "":
+                        f2["example"] = flat_schema[f2["name"]]["example"]
+                else:
+                    f2["ecs"] = False
+
                 fields.append(f2)
 
         global_fields = {"name": use_case["name"], "title": use_case["title"], "description": "", "fields": fields}

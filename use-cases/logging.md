@@ -15,7 +15,7 @@ ECS fields used in logging use cases.
 | [log.level](https://github.com/elastic/ecs#log.level)  | Log level field. Is expected to be `WARN`, `ERR`, `INFO` etc.  | keyword  |   | `ERR`  |
 | [log.line](https://github.com/elastic/ecs#log.line)  | Line number the log event was collected from.  | long  |   | `18`  |
 | [log.offset](https://github.com/elastic/ecs#log.offset)  | Offset of the log event.  | long  |   | `12`  |
-| [source.*](https://github.com/elastic/ecs#source.*)  | Describes from where the log entries come from.<br/>  |   |   |   |
+| <a name="source.&ast;"></a>*source.&ast;*  | *Describes from where the log entries come from.<br/>*  |   |   |   |
 | <a name="source.path"></a>*source.path*  | *File path of the file the data is harvested from.*  | keyword  |   | `/var/log/test.log`  |
 
 
