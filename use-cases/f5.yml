@@ -1,0 +1,103 @@
+title: F5 BIG-IP Load Balancer Syslog
+name: syslog-f5
+description:
+  ECS fields used in F5 BIG-IP Load Balancer logs
+fields:
+- name: base
+  fields:
+    - name: "@timestamp"
+      type: date
+      example: "2016-05-23T08:05:34.853Z"
+      description: >
+        Timestamp of the log line after processing. For now this is equal to event.created, as by default this is more granular then f5.timestamp
+    - name: message
+      type: date
+      example: "Hello World"
+      description: >
+        Log message of the event
+
+- name: event
+  fields:
+    - name: category
+      type: keyword
+      description: >
+        F5 event category
+      example: "Rule","Security Event","Session","System"
+    - name: module
+      type: keyword
+      description: >
+        F5 event module
+      example: "Access Policy Management","Logger","Traffic Management"
+    - name: type
+      type: keyword
+      example: "Session info","SAML response"
+      description: >
+        F5 event type
+    - name: action
+      type: keyword
+      example: "Created","Deleted"
+      description: >
+        F5 event action
+
+- name: source
+  fields:
+    - name: ip
+      type: ip
+      description: >
+        Source ip of the F5 session
+      example: 192.168.1.1
+    - name: hostname
+      type: keyword
+      example: "n01.outsideit.net"
+      description: >
+        Source hostname of the F5 session
+    - name: port
+      type: long
+      example: 443
+      description: >
+        Source port of the F5 session
+
+- name: user
+  fields:
+    - name: name
+      type: keyword
+      description: >
+        User name in the event
+      example: ruflin
+
+- name: http
+  fields:
+    - name: request.method
+      type: keyword
+      description: >
+        Http request method
+      example: "GET", "POST", "PUT"
+    - name: version
+      type: keyword
+      description: >
+        Http version
+      example: 1.1
+    - name: response.status_code
+      type: keyword
+      description: >
+        Http response status code
+      example: 404
+
+- name: url
+  fields:
+    - name: scheme
+      type: keyword
+      description: >
+        Url scheme
+      example: "http","https"
+
+- name: user_agent
+  title: User Agent
+  description: >
+    User agent fields as in schema
+  fields:
+    - name: raw
+      type: text
+      description: >
+        Raw user agent
+      example: http://elastic.co/
