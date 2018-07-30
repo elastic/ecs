@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file based on the
 ### Breaking changes
 * Change structure of URL. #7
 * Rename `url.href` `multi_field`. #18
+* Rename `geoip.*` to `geo`.
 
 ### Bugfixes
 
