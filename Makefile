@@ -1,7 +1,7 @@
-generate:
+generate: schemas readme template
+
+schemas:
 	python scripts/schemas.py
-	$(MAKE) readme
-	$(MAKE) template
 
 fmt:
 	find . -name *.py -exec autopep8 --in-place --max-line-length 120 {} \;
@@ -40,3 +40,5 @@ template:
 	go get github.com/elastic/go-ucfg/yaml
 	go get github.com/elastic/beats/libbeat/template
 	go run scripts/template.go > ./template.json
+
+.PHONY: generate schemas fmt check setup clean readme template
