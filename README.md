@@ -32,7 +32,7 @@ ECS defines these fields.
  * [Error fields](#error)
  * [Event fields](#event)
  * [File fields](#file)
- * [Geoip fields](#geoip)
+ * [Geo fields](#geo)
  * [Host fields](#host)
  * [HTTP fields](#http)
  * [Kubernetes fields](#kubernetes)
@@ -202,18 +202,18 @@ File fields provide details about each file.
 | <a name="file.ctime"></a>file.ctime  | Last time file metadata changed.  | date  |   |   |
 
 
-## <a name="geoip"></a> Geoip fields
+## <a name="geo"></a> Geo fields
 
-Geoip fields carry geo information for an ip address.  The Elasticsearch geoip plugin can do the conversion to geoip.
+Geo fields can carry data about a specific location related to an event or geo information for an IP field.
 
 
 | Field  | Description  | Type  | Multi Field  | Example  |
 |---|---|---|---|---|
-| <a name="geoip.continent_name"></a>geoip.continent_name  | Name of the continent.  | keyword  |   |   |
-| <a name="geoip.country_iso_code"></a>geoip.country_iso_code  | Country ISO code.  | keyword  |   |   |
-| <a name="geoip.location"></a>geoip.location  | Longitude and latitude.  | geo_point  |   |   |
-| <a name="geoip.region_name"></a>geoip.region_name  | Region name.  | keyword  |   |   |
-| <a name="geoip.city_name"></a>geoip.city_name  | City name.  | keyword  |   |   |
+| <a name="geo.continent_name"></a>geo.continent_name  | Name of the continent.  | keyword  |   |   |
+| <a name="geo.country_iso_code"></a>geo.country_iso_code  | Country ISO code.  | keyword  |   |   |
+| <a name="geo.location"></a>geo.location  | Longitude and latitude.  | geo_point  |   |   |
+| <a name="geo.region_name"></a>geo.region_name  | Region name.  | keyword  |   |   |
+| <a name="geo.city_name"></a>geo.city_name  | City name.  | keyword  |   |   |
 
 
 ## <a name="host"></a> Host fields
