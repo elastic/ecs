@@ -204,7 +204,7 @@ File fields provide details about each file.
 
 ## <a name="geo"></a> Geo fields
 
-Geo fields can carry data about a specific location related to an event or geo information for a IP field.
+Geo fields can carry data about a specific location related to an event or geo information for an IP field.
 
 
 | Field  | Description  | Type  | Multi Field  | Example  |
