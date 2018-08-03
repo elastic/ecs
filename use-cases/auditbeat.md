@@ -24,6 +24,9 @@ ECS usage in Auditbeat.
 | [file.mtime](https://github.com/elastic/ecs#file.mtime)  | The last modified time of the file (time when content was modified).  | date  |   |   |
 | [file.ctime](https://github.com/elastic/ecs#file.ctime)  | The last change time of the file (time when metadata was changed).  | date  |   |   |
 | <a name="hash.&ast;"></a>*hash.&ast;*  | *Hash fields used in Auditbeat.<br/>The hash field contains cryptographic hashes of data associated with the event (such as a file). The keys are names of cryptographic algorithms. The values are encoded as hexidecimal (lower-case).<br/>All fields in user can have one or multiple entries.<br/>*  |   |   |   |
+| <a name="hash.blake2b_256"></a>*hash.blake2b_256*  | *BLAKE2b-256 hash of the file.*  | keyword  |   |   |
+| <a name="hash.blake2b_384"></a>*hash.blake2b_384*  | *BLAKE2b-384 hash of the file.*  | keyword  |   |   |
+| <a name="hash.blake2b_512"></a>*hash.blake2b_512*  | *BLAKE2b-512 hash of the file.*  | keyword  |   |   |
 | <a name="hash.md5"></a>*hash.md5*  | *MD5 hash.*  | keyword  |   |   |
 | <a name="hash.sha1"></a>*hash.sha1*  | *SHA-1 hash.*  | keyword  |   |   |
 | <a name="hash.sha224"></a>*hash.sha224*  | *SHA-224 hash (SHA-2 family).*  | keyword  |   |   |
@@ -36,6 +39,7 @@ ECS usage in Auditbeat.
 | <a name="hash.sha3_256"></a>*hash.sha3_256*  | *SHA3-256 hash (SHA-3 family).*  | keyword  |   |   |
 | <a name="hash.sha3_384"></a>*hash.sha3_384*  | *SHA3-384 hash (SHA-3 family).*  | keyword  |   |   |
 | <a name="hash.sha3_512"></a>*hash.sha3_512*  | *SHA3-512 hash (SHA-3 family).*  | keyword  |   |   |
+| <a name="hash.xxh64"></a>*hash.xxh64*  | *XX64 hash of the file.*  | keyword  |   |   |
 
 
 
