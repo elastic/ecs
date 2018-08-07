@@ -19,5 +19,6 @@ All notable changes to this project will be documented in this file based on the
 * Add fields for Operating System data. #5
 * Add `log.message`. #3
 * Add http.request.method and http.version
+* Add `host.os.kernel` containing the OS kernel version. #60
 
 ### Deprecated

@@ -318,6 +318,7 @@ The OS fields contain information about the operating system. These fields are o
 | <a name="os.name"></a>os.name  | Operating system name.  | keyword  |   | `Mac OS X`  |
 | <a name="os.family"></a>os.family  | OS family (such as redhat, debian, freebsd, windows).  | keyword  |   | `debian`  |
 | <a name="os.version"></a>os.version  | Operating system version as a raw string.  | keyword  |   | `10.12.6-rc2`  |
+| <a name="os.kernel"></a>os.kernel  | Operating system kernel version as a raw string.  | keyword  |   | `4.4.0-112-generic`  |
 
 
 ## <a name="process"></a> Process fields
