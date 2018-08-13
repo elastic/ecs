@@ -112,6 +112,22 @@
       description: >
         Duration of the event in nanoseconds.
 
+    - name: created
+      type: date
+      description: >
+        event.created contains the date when the event was created.
+
+        This timestamp is distinct from @timestamp in that @timestamp contains
+        the processed timestamp. For logs these two timestamps can be different
+        as the timestamp in the log line and when the event is read for example
+        by Filebeat are not identical. `@timestamp` must contain the timestamp
+        extracted from the log line, event.created when the log line is read.
+        The same could apply to package capturing where @timestamp contains the
+        timestamp extracted from the network package and event.created when the
+        event was created.
+
+        In case the two timestamps are identical, @timestamp should be used.
+
     - name: start
       type: date
       description: >
