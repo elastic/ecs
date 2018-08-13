@@ -285,7 +285,9 @@ Fields related to network data.
 
 | Field  | Description  | Type  | Multi Field  | Example  |
 |---|---|---|---|---|
-| <a name="network.protocol"></a>network.protocol  | Network protocol name.  | keyword  |   | `http`  |
+| <a name="network.protocol"></a>network.protocol  | Network protocol name.  | keyword  |   | `tcp`  |
+| <a name="network.protocol.name"></a>network.protocol.name  | Network protocol name.  | keyword  |   | `TCP`  |
+| <a name="network.protocol.id"></a>network.protocol.id  | Network protocol id https://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml  | keyword  |   | `6`  |
 | <a name="network.direction"></a>network.direction  | Direction of the network traffic.<br/>Recommended values are:<br/>  * inbound<br/>  * outbound<br/>  * unknown  | keyword  |   | `inbound`  |
 | <a name="network.forwarded_ip"></a>network.forwarded_ip  | Host IP address when the source IP address is the proxy.  | ip  |   | `192.1.1.2`  |
 | <a name="network.inbound.bytes"></a>network.inbound.bytes  | Network inbound bytes.  | long  |   | `184`  |
