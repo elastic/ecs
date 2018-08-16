@@ -1,5 +1,5 @@
 import yaml
-import os
+import glob
 
 
 def read_schema_file(path):
@@ -125,8 +125,8 @@ def get_markdown_row(field, link, multi_field):
 
 def get_schema():
     fields = []
-    for file in sorted(os.listdir("schemas")):
-        fields = fields + read_schema_file("schemas/" + file)
+    for file in sorted(glob.glob("schemas/*.yml")):
+        fields = fields + read_schema_file(file)
     return fields
 
 
