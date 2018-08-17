@@ -28,9 +28,9 @@
 
 ElasticSearch can index text multiple ways:
 
-* `text` indexing allows for full text search, or searching arbitrary words that
+* [text](https://www.elastic.co/guide/en/elasticsearch/reference/current/text.html) indexing allows for full text search, or searching arbitrary words that
   are part of the field.
-* `keyword` indexing allows for much faster
+* [keyword](https://www.elastic.co/guide/en/elasticsearch/reference/current/keyword.html) indexing allows for much faster
   [exact match](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-term-query.html)
   and [prefix search](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-prefix-query.html),
   and allows for [aggregations](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations.html)
@@ -47,9 +47,9 @@ varied enough that full text search can be useful on them.
 Whenever both types of indexing are helpful, we use multi-fields indexing. The
 convention used is the following:
 
-* `foo`: [text](https://www.elastic.co/guide/en/elasticsearch/reference/current/text.html) indexing.
+* `foo`: `text` indexing.
   The top level of the field (its plain name) is used for full text search.
-* `foo.raw`: [keyword](https://www.elastic.co/guide/en/elasticsearch/reference/current/keyword.html) indexing.
+* `foo.raw`: `keyword` indexing.
   The nested field has suffix `.raw` and is what you will use for aggregations.
   * Performance tip: when filtering your stream in Kibana (or elsewhere), if you
     are filtering for an exact match or doing a prefix search,
