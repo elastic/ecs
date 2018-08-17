@@ -53,8 +53,8 @@ convention used is the following:
   The nested field has suffix `.raw` and is what you will use for aggregations.
   * Performance tip: when filtering your stream in Kibana (or elsewhere), if you
     are filtering for an exact match or doing a prefix search,
-    both `text` and `keyword` field can be used, but doing so on the `raw`
-    field will be much faster and less memory intensive.
+    both `text` and `keyword` field can be used, but doing so on the `keyword`
+    field (named `.raw`) will be much faster and less memory intensive.
 
 **Keyword only fields**
 
