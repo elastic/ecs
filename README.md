@@ -174,7 +174,8 @@ The event fields are used for context information about the data itself.
 | <a name="event.version"></a>event.version  | The version field contains the version an event for ECS adheres to.<br/>This field should be provided as part of each event to make it possible to detect to which ECS version an event belongs.<br/>event.version is a required field and must exist in all events. It describes which ECS version the event adheres to.<br/>The current version is 0.1.0.  | keyword  |   | `0.1.0`  |
 | <a name="event.duration"></a>event.duration  | Duration of the event in nanoseconds.  | long  |   |   |
 | <a name="event.created"></a>event.created  | event.created contains the date when the event was created.<br/>This timestamp is distinct from @timestamp in that @timestamp contains the processed timestamp. For logs these two timestamps can be different as the timestamp in the log line and when the event is read for example by Filebeat are not identical. `@timestamp` must contain the timestamp extracted from the log line, event.created when the log line is read. The same could apply to package capturing where @timestamp contains the timestamp extracted from the network package and event.created when the event was created.<br/>In case the two timestamps are identical, @timestamp should be used.  | date  |   |   |
-| <a name="event.risk_score"></a>event.risk_score  | Risk score value of the event.  | float  |   |   |
+| <a name="event.risk_score"></a>event.risk_score  | Risk score or priority of the event (e.g. security solutions). Use your system's original value here.  | float  |   |   |
+| <a name="event.risk_score_norm"></a>event.risk_score_norm  | Normalized risk score or priority of the event, on a scale of 0 to 100.<br/>This is mainly useful if you use more than one system that assigns risk scores, and you want to see a normalized value across all systems.  | float  |   |   |
 
 
 ## <a name="file"></a> File fields
