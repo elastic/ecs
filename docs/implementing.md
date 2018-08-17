@@ -30,14 +30,16 @@ ElasticSearch can index text multiple ways:
 
 * `text` indexing allows for full text search, or searching arbitrary words that
   are part of the field.
-* `keyword` indexing allows for exact match search (much faster) and allows for
-  aggregations (what Kibana visualizations are built on).
+* `keyword` indexing allows for much faster
+  [exact match](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-term-query.html)
+  and [prefix search](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-prefix-query.html),
+  and allows for [aggregations](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations.html)
+  (what Kibana visualizations are built on).
 
-In some cases only one type of indexing makes sense for a field. E.g. no need to
-do full text search on an id, and nobody needs to do an exact match search on
-a 2kb stack trace.
+In some cases, only one type of indexing makes sense for a field.
 
-However there are cases where both types of indexing can be useful.
+However there are cases where both types of indexing can be useful, and we want
+to index both ways.
 As an example, log messages can sometimes be short enough that it makes sense
 to sort them by frequency (that's an aggregation). They can also be long and
 varied enough that full text search can be useful on them.
@@ -45,19 +47,19 @@ varied enough that full text search can be useful on them.
 Whenever both types of indexing are helpful, we use multi-fields indexing. The
 convention used is the following:
 
-* `foo`: `text` indexing. The top level of the field (its plain name) is used
-  for full text search.
-* `foo.raw`: `keyword` indexing. The nested field has suffix `.raw` and is what
-  you will use for aggregations.
+* `foo`: [text](https://www.elastic.co/guide/en/elasticsearch/reference/current/text.html) indexing.
+  The top level of the field (its plain name) is used for full text search.
+* `foo.raw`: [keyword](https://www.elastic.co/guide/en/elasticsearch/reference/current/keyword.html) indexing.
+  The nested field has suffix `.raw` and is what you will use for aggregations.
   * Performance tip: when filtering your stream in Kibana (or elsewhere), if you
-    are filtering for an exact match, both `text` and `keyword` field can be
-    used, but doing so on the `raw` field will be much faster and less memory
-    intensive.
+    are filtering for an exact match or doing a prefix search,
+    both `text` and `keyword` field can be used, but doing so on the `raw`
+    field will be much faster and less memory intensive.
 
 **Keyword only fields**
 
-The fields that only make sense as type `keyword` are not named `.raw`, the
-plain field will be of type `keyword`, with no nested field.
+The fields that only make sense as type `keyword` are not named `foo.raw`, the
+plain field (`foo`) will be of type `keyword`, with no nested field.
 
 ### IDs are keywords not integers
 
