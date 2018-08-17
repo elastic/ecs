@@ -286,6 +286,7 @@ Fields related to network data.
 | Field  | Description  | Type  | Multi Field  | Example  |
 |---|---|---|---|---|
 | <a name="network.name"></a>network.name  | Name given by operators to sections of their network.  | text  |   | `Guest Wifi`  |
+| <a name="network.name.raw"></a>network.name.raw  | Name given by operators to sections of their network.  | keyword  | 1  |   |
 | <a name="network.protocol"></a>network.protocol  | Network protocol name.  | keyword  |   | `http`  |
 | <a name="network.direction"></a>network.direction  | Direction of the network traffic.<br/>Recommended values are:<br/>  * inbound<br/>  * outbound<br/>  * unknown  | keyword  |   | `inbound`  |
 | <a name="network.forwarded_ip"></a>network.forwarded_ip  | Host IP address when the source IP address is the proxy.  | ip  |   | `192.1.1.2`  |
