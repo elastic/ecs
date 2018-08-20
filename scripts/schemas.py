@@ -77,9 +77,6 @@ def filtered_fields(fields, groups):
 
 if __name__ == "__main__":
 
-    # Load schema files into yaml
-    files = os.listdir("./schemas")
-
     fields = get_schema()
 
     # Load all fields into object

@@ -12,8 +12,8 @@ import (
 
 func main() {
 
-	// For the path tob e correct, the execution must be from the top directory
-	paths, err := filepath.Glob("./schemas/*")
+	// For the path to be correct, the execution must be from the top directory
+	paths, err := filepath.Glob("./schemas/*.yml")
 	if err != nil {
 		fmt.Printf("Error: %s \n", err)
 		os.Exit(1)
