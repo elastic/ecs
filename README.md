@@ -119,7 +119,7 @@ Destination fields describe details about the destination of a packet/event.
 | Field  | Description  | Type  | Multi Field  | Example  |
 |---|---|---|---|---|
 | <a name="destination.ip"></a>destination.ip  | IP address of the destination.<br/>Can be one or multiple IPv4 or IPv6 addresses.  | ip  |   |   |
-| <a name="destination.hostname"></a>destination.hostname  | Hostname of the destination.  | keyword  |   |   |
+| <a name="destination.host.name"></a>destination.host.name  | Hostname of the destination.  | keyword  |   |   |
 | <a name="destination.port"></a>destination.port  | Port of the destination.  | long  |   |   |
 | <a name="destination.mac"></a>destination.mac  | MAC address of the destination.  | keyword  |   |   |
 | <a name="destination.domain"></a>destination.domain  | Destination domain.  | keyword  |   |   |
@@ -135,7 +135,7 @@ Device fields are used to provide additional information about the device that i
 |---|---|---|---|---|
 | <a name="device.mac"></a>device.mac  | MAC address of the device  | keyword  |   |   |
 | <a name="device.ip"></a>device.ip  | IP address of the device.  | ip  |   |   |
-| <a name="device.hostname"></a>device.hostname  | Hostname of the device.  | keyword  |   |   |
+| <a name="device.host.name"></a>device.host.name  | Hostname of the device.  | keyword  |   |   |
 | <a name="device.vendor"></a>device.vendor  | Device vendor information.  | text  |   |   |
 | <a name="device.version"></a>device.version  | Device version.  | keyword  |   |   |
 | <a name="device.serial_number"></a>device.serial_number  | Device serial number.  | keyword  |   |   |
@@ -361,7 +361,7 @@ Source fields describe details about the source of the event.
 | Field  | Description  | Type  | Multi Field  | Example  |
 |---|---|---|---|---|
 | <a name="source.ip"></a>source.ip  | IP address of the source.<br/>Can be one or multiple IPv4 or IPv6 addresses.  | ip  |   |   |
-| <a name="source.hostname"></a>source.hostname  | Hostname of the source.  | keyword  |   |   |
+| <a name="source.host.name"></a>source.host.name  | Hostname of the source.  | keyword  |   |   |
 | <a name="source.port"></a>source.port  | Port of the source.  | long  |   |   |
 | <a name="source.mac"></a>source.mac  | MAC address of the source.  | keyword  |   |   |
 | <a name="source.domain"></a>source.domain  | Source domain.  | keyword  |   |   |
