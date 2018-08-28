@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file based on the
 * Change structure of URL. #7
 * Rename `url.href` `multi_field`. #18
 * Rename `geoip.*` to `geo`.
+* Rename log.message to log.original. #106
 
 ### Bugfixes
 
