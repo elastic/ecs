@@ -276,7 +276,7 @@ Fields which are specific to log events.
 | <a name="log.level"></a>log.level  | Log level of the log event.<br/>Some examples are `WARN`, `ERR`, `INFO`.  | keyword  |   | `ERR`  |
 | <a name="log.line"></a>log.line  | Line number the log event was collected from.  | long  |   | `18`  |
 | <a name="log.offset"></a>log.offset  | Offset of the beginning of the log event.  | long  |   | `12`  |
-| <a name="log.message"></a>log.message  | This is the log message and contains the full log message before splitting it up in multiple parts.<br/>In contrast to the `message` field which can contain an extracted part of the log message, this field contains the original, full log message. It can have already some modifications applied like encoding or new lines removed to clean up the log message.<br/>This field is not indexed and doc_values are disabled so it can't be queried but the value can be retrieved from `_source`.  | keyword  |   | `Sep 19 08:26:10 localhost My log`  |
+| <a name="log.original"></a>log.original  | This is the original log message and contains the full log message before splitting it up in multiple parts.<br/>In contrast to the `message` field which can contain an extracted part of the log message, this field contains the original, full log message. It can have already some modifications applied like encoding or new lines removed to clean up the log message.<br/>This field is not indexed and doc_values are disabled so it can't be queried but the value can be retrieved from `_source`.  | keyword  |   | `Sep 19 08:26:10 localhost My log`  |
 
 
 ## <a name="network"></a> Network fields
