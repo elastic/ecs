@@ -9,6 +9,8 @@ All notable changes to this project will be documented in this file based on the
 * Rename `url.href` `multi_field`. #18
 * Rename `geoip.*` to `geo`.
 * Rename log.message to log.original. #106
+* Rename `event.raw` to `event.original`.
+* Rename `user_agent.raw` to `user_agent.original` and make it a keyword.
 
 ### Bugfixes
 

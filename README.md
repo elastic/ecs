@@ -169,7 +169,7 @@ The event fields are used for context information about the data itself.
 | <a name="event.module"></a>event.module  | Name of the module this data is coming from.<br/>This information is coming from the modules used in Beats or Logstash.  | keyword  |   | `mysql`  |
 | <a name="event.dataset"></a>event.dataset  | Name of the dataset.<br/>The concept of a `dataset` (fileset / metricset) is used in Beats as a subset of modules. It contains the information which is currently stored in metricset.name and metricset.module or fileset.name.  | keyword  |   | `stats`  |
 | <a name="event.severity"></a>event.severity  | Severity describes the severity of the event. What the different severity values mean can very different between use cases. It's up to the implementer to make sure severities are consistent across events.  | long  |   | `7`  |
-| <a name="event.raw"></a>event.raw  | Raw text message of entire event. Used to demonstrate log integrity.<br/>This field is not indexed and doc_values are disabled. It cannot be searched, but it can be retrieved from `_source`.  | keyword  |   | `Sep 19 08:26:10 host CEF:0&#124;Security&#124; threatmanager&#124;1.0&#124;100&#124; worm successfully stopped&#124;10&#124;src=10.0.0.1 dst=2.1.2.2spt=1232`  |
+| <a name="event.original"></a>event.original  | Raw text message of entire event. Used to demonstrate log integrity.<br/>This field is not indexed and doc_values are disabled. It cannot be searched, but it can be retrieved from `_source`.  | keyword  |   | `Sep 19 08:26:10 host CEF:0&#124;Security&#124; threatmanager&#124;1.0&#124;100&#124; worm successfully stopped&#124;10&#124;src=10.0.0.1 dst=2.1.2.2spt=1232`  |
 | <a name="event.hash"></a>event.hash  | Hash (perhaps logstash fingerprint) of raw field to be able to demonstrate log integrity.  | keyword  |   | `123456789012345678901234567890ABCD`  |
 | <a name="event.version"></a>event.version  | The version field contains the version an event for ECS adheres to.<br/>This field should be provided as part of each event to make it possible to detect to which ECS version an event belongs.<br/>event.version is a required field and must exist in all events. It describes which ECS version the event adheres to.<br/>The current version is 0.1.0.  | keyword  |   | `0.1.0`  |
 | <a name="event.duration"></a>event.duration  | Duration of the event in nanoseconds.  | long  |   |   |
@@ -425,7 +425,7 @@ The user_agent fields normally come from a browser request. They often show up i
 
 | Field  | Description  | Type  | Multi Field  | Example  |
 |---|---|---|---|---|
-| <a name="user_agent.raw"></a>user_agent.raw  | Unparsed version of the user_agent.  | text  |   |   |
+| <a name="user_agent.original"></a>user_agent.original  | Unparsed version of the user_agent.  | text  |   |   |
 | <a name="user_agent.device"></a>user_agent.device  | Name of the physical device.  | keyword  |   |   |
 | <a name="user_agent.version"></a>user_agent.version  | Version of the physical device.  | keyword  |   |   |
 | <a name="user_agent.major"></a>user_agent.major  | Major version of the user agent.  | long  |   |   |
