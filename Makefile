@@ -41,4 +41,13 @@ template:
 	go get github.com/elastic/beats/libbeat/template
 	go run scripts/template.go > ./template.json
 
-.PHONY: generate schemas fmt check setup clean readme template
+fields:
+	cat schemas/*.yml > fields.tmp.yml
+	sed -i.bak 's/^/  /g' fields.tmp.yml
+	sed -i.bak 's/---//g' fields.tmp.yml
+	cat scripts/fields_header.yml > fields.yml
+	cat fields.tmp.yml >> fields.yml
+	rm fields.tmp.yml.bak
+	rm fields.tmp.yml
+
+.PHONY: generate schemas fmt check setup clean readme template fields

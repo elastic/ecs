@@ -93,7 +93,7 @@ Fields related to the cloud or infrastructure the events are coming from.
 | <a name="cloud.account.id"></a>cloud.account.id  | The cloud account or organization id used to identify different entities in a multi-tenant environment.<br/>Examples: AWS account id, Google Cloud ORG Id, or other unique identifier.  | keyword  |   | `666777888999`  |
 
 
-Examples: If Metricbeat is running on an EC2 host and fetches data from its host, the cloud info contains the data about this machine. If Metricbeat runs on a remote machine outside the cloud and fetches data from a service running in the cloud, the field contains cloud data from the machine the  service is running on.
+Examples: If Metricbeat is running on an EC2 host and fetches data from its host, the cloud info contains the data about this machine. If Metricbeat runs on a remote machine outside the cloud and fetches data from a service running in the cloud, the field contains cloud data from the machine the service is running on.
 
 
 ## <a name="container"></a> Container fields
@@ -228,7 +228,7 @@ Normally the host information is related to the machine on which the event was g
 |---|---|---|---|---|
 | <a name="host.timezone.offset.sec"></a>host.timezone.offset.sec  | Timezone offset of the host in seconds.<br/>Number of seconds relative to UTC. If the offset is -01:30 the value will be -5400.  | long  |   | `-5400`  |
 | <a name="host.name"></a>host.name  | host.name is the hostname of the host.<br/>It can contain what `hostname` returns on Unix systems, the fully qualified domain name, or a name specified by the user. The sender decides which value to use.  | keyword  |   |   |
-| <a name="host.id"></a>host.id  | Unique host id.<br/>As hostname is not always unique, use values that are meaningful in your environment. <br/>Example: The current usage of `beat.name`.  | keyword  |   |   |
+| <a name="host.id"></a>host.id  | Unique host id.<br/>As hostname is not always unique, use values that are meaningful in your environment.<br/>Example: The current usage of `beat.name`.  | keyword  |   |   |
 | <a name="host.ip"></a>host.ip  | Host ip address.  | ip  |   |   |
 | <a name="host.mac"></a>host.mac  | Host mac address.  | keyword  |   |   |
 | <a name="host.type"></a>host.type  | Type of host.<br/>For Cloud providers this can be the machine type like `t2.medium`. If vm, this could be the container, for example, or other information meaningful in your environment.  | keyword  |   |   |
@@ -301,7 +301,7 @@ Fields related to network data.
 
 ## <a name="organization"></a> Organization fields
 
-The organization fields enrich data with information about the company or entity  the data is associated with. These fields help you arrange or filter data stored in an index by one or multiple organizations.
+The organization fields enrich data with information about the company or entity the data is associated with. These fields help you arrange or filter data stored in an index by one or multiple organizations.
 
 
 | Field  | Description  | Type  | Multi Field  | Example  |
@@ -345,7 +345,7 @@ The service fields describe the service for or from which the data was collected
 
 | Field  | Description  | Type  | Multi Field  | Example  |
 |---|---|---|---|---|
-| <a name="service.id"></a>service.id  | Unique identifier of the running service.<br/>This id should uniquely identify this service. This makes it possible to correlate logs and metrics for one specific service. <br/>Example: If you are experiencing issues with one redis instance, you can filter on that id to see metrics and logs for that single instance.  | keyword  |   | `d37e5ebfe0ae6c4972dbe9f0174a1637bb8247f6`  |
+| <a name="service.id"></a>service.id  | Unique identifier of the running service.<br/>This id should uniquely identify this service. This makes it possible to correlate logs and metrics for one specific service.<br/>Example: If you are experiencing issues with one redis instance, you can filter on that id to see metrics and logs for that single instance.  | keyword  |   | `d37e5ebfe0ae6c4972dbe9f0174a1637bb8247f6`  |
 | <a name="service.name"></a>service.name  | Name of the service data is collected from.<br/>The name can be used to group and correlate logs and metrics from one service.<br/>Example: If logs or metrics are collected from Redis, `service.name` would be `redis`.  | keyword  |   | `elasticsearch`  |
 | <a name="service.type"></a>service.type  | Service type.  | keyword  |   |   |
 | <a name="service.state"></a>service.state  | Current state of the service.  | keyword  |   |   |
@@ -391,7 +391,7 @@ URL fields provide a complete URL, with scheme, host, and path. The URL object c
 
 | Field  | Description  | Type  | Multi Field  | Example  |
 |---|---|---|---|---|
-| <a name="url.href"></a>url.href  | Full url. The field is stored as keyword.<br/>`url.href` is a [multi field](https://www.elastic.co/guide/en/ elasticsearch/reference/6.2/ multi-fields.html#_multi_fields_with_multiple_analyzers). The data is stored as keyword `url.href` and test `url.href.analyzed`. These fields enable you to run a query against part of the url still works splitting up the URL at ingest time.  <br/>`href` is an analyzed field so the parsed information can be accessed through `href.analyzed` in queries.  | text  |   | `https://elastic.co:443/search?q=elasticsearch#top`  |
+| <a name="url.href"></a>url.href  | Full url. The field is stored as keyword.<br/>`url.href` is a [multi field](https://www.elastic.co/guide/en/ elasticsearch/reference/6.2/ multi-fields.html#_multi_fields_with_multiple_analyzers). The data is stored as keyword `url.href` and test `url.href.analyzed`. These fields enable you to run a query against part of the url still works splitting up the URL at ingest time.<br/>`href` is an analyzed field so the parsed information can be accessed through `href.analyzed` in queries.  | text  |   | `https://elastic.co:443/search?q=elasticsearch#top`  |
 | <a name="url.href.raw"></a>url.href.raw  | The full URL. This is a non-analyzed field that is useful for aggregations.  | keyword  | 1  |   |
 | <a name="url.scheme"></a>url.scheme  | Scheme of the request, such as "https".<br/>Note: The `:` is not part of the scheme.  | keyword  |   | `https`  |
 | <a name="url.host.name"></a>url.host.name  | Hostname of the request, such as "example.com".<br/>For correlation the this field can be copied into the `host.name` field.  | keyword  |   | `elastic.co`  |
