@@ -6,11 +6,7 @@ schemas:
 fmt:
 	find . -name *.py -exec autopep8 --in-place --max-line-length 120 {} \;
 
-check:
-	# Validate that all generated changes are commited
-	$(MAKE) generate
-	$(MAKE) fmt
-
+check: generate fmt fields
 	# Check if diff is empty
 	git diff | cat
 	git update-index --refresh
@@ -43,11 +39,10 @@ template:
 
 fields:
 	cat schemas/*.yml > fields.tmp.yml
-	sed -i.bak 's/^/  /g' fields.tmp.yml
+	sed -i.bak 's/^/    /g' fields.tmp.yml
 	sed -i.bak 's/---//g' fields.tmp.yml
 	cat scripts/fields_header.yml > fields.yml
 	cat fields.tmp.yml >> fields.yml
-	rm fields.tmp.yml.bak
-	rm fields.tmp.yml
+	rm -f fields.tmp.yml fields.tmp.yml.bak
 
 .PHONY: generate schemas fmt check setup clean readme template fields
