@@ -425,7 +425,7 @@ The user_agent fields normally come from a browser request. They often show up i
 
 | Field  | Description  | Type  | Multi Field  | Example  |
 |---|---|---|---|---|
-| <a name="user_agent.original"></a>user_agent.original  | Unparsed version of the user_agent.  | keyword  |   |   |
+| <a name="user_agent.original"></a>user_agent.original  | Unparsed version of the user_agent.  | text  |   |   |
 | <a name="user_agent.device"></a>user_agent.device  | Name of the physical device.  | keyword  |   |   |
 | <a name="user_agent.version"></a>user_agent.version  | Version of the physical device.  | keyword  |   |   |
 | <a name="user_agent.major"></a>user_agent.major  | Major version of the user agent.  | long  |   |   |
