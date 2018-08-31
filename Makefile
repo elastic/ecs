@@ -1,4 +1,4 @@
-generate: schemas readme template
+generate: schemas readme template fields
 
 schemas:
 	python scripts/schemas.py
