@@ -373,7 +373,7 @@ URL fields provide a complete URL, with scheme, host, and path. The URL object c
 
 | Field  | Description  | Level  | Type  | Example  |
 |---|---|---|---|---|
-| <a name="url.href"></a>url.href | Full url. The field is stored as keyword. | extended | keyword | `https://elastic.co:443/search?q=elasticsearch#top` |
+| <a name="url.original"></a>url.original | Full original url. The field is stored as keyword. | extended | keyword | `https://elastic.co:443/search?q=elasticsearch#top` |
 | <a name="url.scheme"></a>url.scheme | Scheme of the request, such as "https".<br/>Note: The `:` is not part of the scheme. | extended | keyword | `https` |
 | <a name="url.hostname"></a>url.hostname | Hostname of the request, such as "elastic.co".<br/>In some cases a URL may refer to an IP and/or port directly, without a domain name. In this case, the IP address would go to the `hostname` field. | extended | keyword | `elastic.co` |
 | <a name="url.port"></a>url.port | Port of the request, such as 443. | extended | integer | `443` |

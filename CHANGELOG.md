@@ -24,6 +24,7 @@ All notable changes to this project will be documented in this file based on the
 * Rename `host.name` to `host.hostname` to better align with industry convention. #144
 * Update definition of `service.type` and `service.name`.
 * Redefine purpose of `agent.name` field to be user defined field.
+* Rename `url.href` to `url.original`.
 
 ### Bugfixes
 
