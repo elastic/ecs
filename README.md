@@ -119,6 +119,8 @@ Destination fields describe details about the destination of a packet/event.
 | Field  | Description  | Type  | Multi Field  | Example  |
 |---|---|---|---|---|
 | <a name="destination.ip"></a>destination.ip  | IP address of the destination.<br/>Can be one or multiple IPv4 or IPv6 addresses.  | ip  |   |   |
+| <a name="destination.cidr"></a>destination.cidr  | CIDR of the destination IP address  | ip  |   |   |
+| <a name="destination.netmask"></a>destination.netmask  | Netmask of the destination IP address  | ip  |   |   |
 | <a name="destination.hostname"></a>destination.hostname  | Hostname of the destination.  | keyword  |   |   |
 | <a name="destination.port"></a>destination.port  | Port of the destination.  | long  |   |   |
 | <a name="destination.mac"></a>destination.mac  | MAC address of the destination.  | keyword  |   |   |
@@ -363,6 +365,8 @@ Source fields describe details about the source of the event.
 | Field  | Description  | Type  | Multi Field  | Example  |
 |---|---|---|---|---|
 | <a name="source.ip"></a>source.ip  | IP address of the source.<br/>Can be one or multiple IPv4 or IPv6 addresses.  | ip  |   |   |
+| <a name="source.cidr"></a>source.cidr  | CIDR of the source IP address  | ip  |   |   |
+| <a name="source.netmask"></a>source.netmask  | Netmask of the source IP address  | ip  |   |   |
 | <a name="source.hostname"></a>source.hostname  | Hostname of the source.  | keyword  |   |   |
 | <a name="source.port"></a>source.port  | Port of the source.  | long  |   |   |
 | <a name="source.mac"></a>source.mac  | MAC address of the source.  | keyword  |   |   |
