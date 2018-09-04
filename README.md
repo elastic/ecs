@@ -291,6 +291,8 @@ Fields related to network data.
 | <a name="network.protocol"></a>network.protocol  | Network protocol name.  | keyword  |   | `http`  |
 | <a name="network.direction"></a>network.direction  | Direction of the network traffic.<br/>Recommended values are:<br/>  * inbound<br/>  * outbound<br/>  * unknown  | keyword  |   | `inbound`  |
 | <a name="network.forwarded_ip"></a>network.forwarded_ip  | Host IP address when the source IP address is the proxy.  | ip  |   | `192.1.1.2`  |
+| <a name="network.cidr"></a>network.cidr  | CIDR range of a network. Commonly used in DHCP logs.  | ip  |   | `10.0.0.0/8`  |
+| <a name="network.netmask"></a>network.netmask  | Netmask of a network  | ip  |   | `255.255.255.0`  |
 | <a name="network.inbound.bytes"></a>network.inbound.bytes  | Network inbound bytes.  | long  |   | `184`  |
 | <a name="network.inbound.packets"></a>network.inbound.packets  | Network inbound packets.  | long  |   | `12`  |
 | <a name="network.outbound.bytes"></a>network.outbound.bytes  | Network outbound bytes.  | long  |   | `184`  |
