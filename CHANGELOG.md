@@ -11,6 +11,9 @@ All notable changes to this project will be documented in this file based on the
 * Rename log.message to log.original. #106
 * Rename `event.raw` to `event.original`.
 * Rename `user_agent.raw` to `user_agent.original` and make it a keyword.
+* Rename `file.path.raw` to `file.path.keyword`, `file.target_path.raw` to `file.target_path.keyword`,
+  `url.href.raw` to `url.href.keyword`, `url.path.raw` to `url.path.keyword`,
+  and `url.query.raw` to `url.query.keyword`
 
 ### Bugfixes
 

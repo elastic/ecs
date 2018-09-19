@@ -186,9 +186,9 @@ File fields provide details about each file.
 | Field  | Description  | Type  | Multi Field  | Example  |
 |---|---|---|---|---|
 | <a name="file.path"></a>file.path  | Path to the file.  | text  |   |   |
-| <a name="file.path.raw"></a>file.path.raw  | Path to the file. This is a non-analyzed field that is useful for aggregations.  | keyword  | 1  |   |
+| <a name="file.path.keyword"></a>file.path.keyword  | Path to the file. This is a non-analyzed field that is useful for aggregations.  | keyword  | 1  |   |
 | <a name="file.target_path"></a>file.target_path  | Target path for symlinks.  | text  |   |   |
-| <a name="file.target_path.raw"></a>file.target_path.raw  | Path to the file. This is a non-analyzed field that is useful for aggregations.  | keyword  | 1  |   |
+| <a name="file.target_path.keyword"></a>file.target_path.keyword  | Path to the file. This is a non-analyzed field that is useful for aggregations.  | keyword  | 1  |   |
 | <a name="file.extension"></a>file.extension  | File extension.<br/>This should allow easy filtering by file extensions.  | keyword  |   | `png`  |
 | <a name="file.type"></a>file.type  | File type (file, dir, or symlink).  | keyword  |   |   |
 | <a name="file.device"></a>file.device  | Device that is the source of the file.  | keyword  |   |   |
@@ -392,14 +392,14 @@ URL fields provide a complete URL, with scheme, host, and path. The URL object c
 | Field  | Description  | Type  | Multi Field  | Example  |
 |---|---|---|---|---|
 | <a name="url.href"></a>url.href  | Full url. The field is stored as keyword.<br/>`url.href` is a [multi field](https://www.elastic.co/guide/en/ elasticsearch/reference/6.2/ multi-fields.html#_multi_fields_with_multiple_analyzers). The data is stored as keyword `url.href` and test `url.href.analyzed`. These fields enable you to run a query against part of the url still works splitting up the URL at ingest time.<br/>`href` is an analyzed field so the parsed information can be accessed through `href.analyzed` in queries.  | text  |   | `https://elastic.co:443/search?q=elasticsearch#top`  |
-| <a name="url.href.raw"></a>url.href.raw  | The full URL. This is a non-analyzed field that is useful for aggregations.  | keyword  | 1  |   |
+| <a name="url.href.keyword"></a>url.href.keyword  | The full URL. This is a non-analyzed field that is useful for aggregations.  | keyword  | 1  |   |
 | <a name="url.scheme"></a>url.scheme  | Scheme of the request, such as "https".<br/>Note: The `:` is not part of the scheme.  | keyword  |   | `https`  |
 | <a name="url.host.name"></a>url.host.name  | Hostname of the request, such as "example.com".<br/>For correlation the this field can be copied into the `host.name` field.  | keyword  |   | `elastic.co`  |
 | <a name="url.port"></a>url.port  | Port of the request, such as 443.  | integer  |   | `443`  |
 | <a name="url.path"></a>url.path  | Path of the request, such as "/search".  | text  |   |   |
-| <a name="url.path.raw"></a>url.path.raw  | URL path. A non-analyzed field that is useful for aggregations.  | keyword  | 1  |   |
+| <a name="url.path.keyword"></a>url.path.keyword  | URL path. A non-analyzed field that is useful for aggregations.  | keyword  | 1  |   |
 | <a name="url.query"></a>url.query  | The query field describes the query string of the request, such as "q=elasticsearch".<br/>The `?` is excluded from the query string. If a URL contains no `?`, there is no query field. If there is a `?` but no query, the query field exists with an empty string. The `exists` query can be used to differentiate between the two cases.  | text  |   |   |
-| <a name="url.query.raw"></a>url.query.raw  | URL query part. A non-analyzed field that is useful for aggregations.  | keyword  | 1  |   |
+| <a name="url.query.keyword"></a>url.query.keyword  | URL query part. A non-analyzed field that is useful for aggregations.  | keyword  | 1  |   |
 | <a name="url.fragment"></a>url.fragment  | Portion of the url after the `#`, such as "top".<br/>The `#` is not part of the fragment.  | keyword  |   |   |
 | <a name="url.username"></a>url.username  | Username of the request.  | keyword  |   |   |
 | <a name="url.password"></a>url.password  | Password of the request.  | keyword  |   |   |
