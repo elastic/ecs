@@ -29,7 +29,10 @@
         Kubernetes annotations map
 
     - name: container.name
-      type: keyword
+      type: text
       description: >
         Kubernetes container name. This name is unique within the pod only.
         It is different from the underlying `container.name` field.
+      multi_fields:
+        - name: keyword
+          type: keyword

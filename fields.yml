@@ -133,9 +133,12 @@
             Instance ID of the host machine.
     
         - name: instance.name
-          type: keyword
+          type: text
           description: >
             Instance name of the host machine.
+          multi_fields:
+            - name: keyword
+              type: keyword
     
         - name: machine.type
           type: keyword
@@ -704,10 +707,13 @@
             Kubernetes annotations map
     
         - name: container.name
-          type: keyword
+          type: text
           description: >
             Kubernetes container name. This name is unique within the pod only.
             It is different from the underlying `container.name` field.
+          multi_fields:
+            - name: keyword
+              type: keyword
     
     - name: log
       title: Log

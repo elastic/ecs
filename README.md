@@ -100,7 +100,8 @@ Fields related to the cloud or infrastructure the events are coming from.
 | <a name="cloud.availability_zone"></a>cloud.availability_zone  | Availability zone in which this host is running.  | keyword  |   | `us-east-1c`  |
 | <a name="cloud.region"></a>cloud.region  | Region in which this host is running.  | keyword  |   | `us-east-1`  |
 | <a name="cloud.instance.id"></a>cloud.instance.id  | Instance ID of the host machine.  | keyword  |   | `i-1234567890abcdef0`  |
-| <a name="cloud.instance.name"></a>cloud.instance.name  | Instance name of the host machine.  | keyword  |   |   |
+| <a name="cloud.instance.name"></a>cloud.instance.name  | Instance name of the host machine.  | text  |   |   |
+| <a name="cloud.instance.name.keyword"></a>cloud.instance.name.keyword  |   | keyword  | 1  |   |
 | <a name="cloud.machine.type"></a>cloud.machine.type  | Machine type of the host machine.  | keyword  |   | `t2.medium`  |
 | <a name="cloud.account.id"></a>cloud.account.id  | The cloud account or organization id used to identify different entities in a multi-tenant environment.<br/>Examples: AWS account id, Google Cloud ORG Id, or other unique identifier.  | keyword  |   | `666777888999`  |
 
@@ -275,7 +276,8 @@ Kubernetes fields are used for Kubernetes meta information. This information hel
 | <a name="kubernetes.namespace"></a>kubernetes.namespace  | Kubernetes namespace  | keyword  |   |   |
 | <a name="kubernetes.labels"></a>kubernetes.labels  | Kubernetes labels map  | object  |   |   |
 | <a name="kubernetes.annotations"></a>kubernetes.annotations  | Kubernetes annotations map  | object  |   |   |
-| <a name="kubernetes.container.name"></a>kubernetes.container.name  | Kubernetes container name. This name is unique within the pod only. It is different from the underlying `container.name` field.  | keyword  |   |   |
+| <a name="kubernetes.container.name"></a>kubernetes.container.name  | Kubernetes container name. This name is unique within the pod only. It is different from the underlying `container.name` field.  | text  |   |   |
+| <a name="kubernetes.container.name.keyword"></a>kubernetes.container.name.keyword  |   | keyword  | 1  |   |
 
 
 ## <a name="log"></a> Log fields
