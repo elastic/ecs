@@ -1,3 +1,15 @@
+<!--
+
+WARNING: README.md is generated based on the files under docs/
+and the field descriptions in the YAML files under schemas/.
+
+Therefore if you want to modify anything in this readme, please perform
+your changes in these other locations, then run `make`.
+
+See CONTRIBUTING.md for more details on setting up.
+
+-->
+
 **WARNING: THIS IS WORK IN PROGRESS**
 
 # Elastic Common Schema (ECS)
@@ -584,7 +596,7 @@ In Beats, you can simplify the creation of events. For example, you can treat ea
 
 ### Disadvantage of dot notation
 
-In Elasticsearch, each key can only have one type. For example, if `user` is an `object`, you can't use it as a`keyword` type in the same index, like `{"user": "nicolas ruflin"}`. This restriction can be an issue in certain datasets. For the ECS data itself, this is not an issue because all fields are predefined.
+In Elasticsearch, each key can only have one type. For example, if `user` is an `object`, you can't use it as a `keyword` type in the same index, like `{"user": "nicolas ruflin"}`. This restriction can be an issue in certain datasets. For the ECS data itself, this is not an issue because all fields are predefined.
 
 ### What if I already use the underline notation?
 

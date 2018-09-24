@@ -56,7 +56,7 @@ In Beats, you can simplify the creation of events. For example, you can treat ea
 
 ### Disadvantage of dot notation
 
-In Elasticsearch, each key can only have one type. For example, if `user` is an `object`, you can't use it as a`keyword` type in the same index, like `{"user": "nicolas ruflin"}`. This restriction can be an issue in certain datasets. For the ECS data itself, this is not an issue because all fields are predefined.
+In Elasticsearch, each key can only have one type. For example, if `user` is an `object`, you can't use it as a `keyword` type in the same index, like `{"user": "nicolas ruflin"}`. This restriction can be an issue in certain datasets. For the ECS data itself, this is not an issue because all fields are predefined.
 
 ### What if I already use the underline notation?
 
