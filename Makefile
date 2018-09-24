@@ -25,12 +25,12 @@ clean:
 	find ./use-cases -type f -name '*.md' -not -name 'README.md' -print0 | xargs -0 rm --
 
 readme:
-	cat docs/intro.md > README.md
+	cat docs/1-intro.md > README.md
 	python scripts/schemas.py --stdout=true >> README.md
-	cat docs/use-cases-header.md >> README.md
+	cat docs/2-use-cases-header.md >> README.md
 	python scripts/use-cases.py --stdout=true >> README.md
-	cat docs/implementing.md >> README.md
-	cat docs/about.md >> README.md
+	cat docs/3-implementing.md >> README.md
+	cat docs/4-about.md >> README.md
 
 template:
 	go get github.com/elastic/go-ucfg/yaml
