@@ -1,3 +1,15 @@
+<!--
+
+WARNING: README.md is generated based on the files under docs/
+and the field descriptions in the YAML files under schemas/.
+
+Therefore if you want to modify anything in this readme, please perform
+your changes in these other locations, then run `make`.
+
+See CONTRIBUTING.md for more details on setting up.
+
+-->
+
 **WARNING: THIS IS WORK IN PROGRESS**
 
 # Elastic Common Schema (ECS)
