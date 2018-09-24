@@ -137,6 +137,7 @@ Device fields are used to provide additional information about the device that i
 | <a name="device.ip"></a>device.ip  | IP address of the device.  | ip  |   |   |
 | <a name="device.hostname"></a>device.hostname  | Hostname of the device.  | keyword  |   |   |
 | <a name="device.vendor"></a>device.vendor  | Device vendor information.  | text  |   |   |
+| <a name="device.vendor.keyword"></a>device.vendor.keyword  |   | keyword  | 1  |   |
 | <a name="device.version"></a>device.version  | Device version.  | keyword  |   |   |
 | <a name="device.serial_number"></a>device.serial_number  | Device serial number.  | keyword  |   |   |
 | <a name="device.timezone.offset.sec"></a>device.timezone.offset.sec  | Timezone offset of the host in seconds.<br/>Number of seconds relative to UTC. If the offset is -01:30 the value will be -5400.  | long  |   | `-5400`  |
@@ -152,6 +153,7 @@ These fields can represent errors of any kind. Use them for errors that happen w
 |---|---|---|---|---|
 | <a name="error.id"></a>error.id  | Unique identifier for the error.  | keyword  |   |   |
 | <a name="error.message"></a>error.message  | Error message.  | text  |   |   |
+| <a name="error.message.keyword"></a>error.message.keyword  |   | keyword  | 1  |   |
 | <a name="error.code"></a>error.code  | Error code describing the error.  | keyword  |   |   |
 
 
@@ -227,7 +229,8 @@ Normally the host information is related to the machine on which the event was g
 | Field  | Description  | Type  | Multi Field  | Example  |
 |---|---|---|---|---|
 | <a name="host.timezone.offset.sec"></a>host.timezone.offset.sec  | Timezone offset of the host in seconds.<br/>Number of seconds relative to UTC. If the offset is -01:30 the value will be -5400.  | long  |   | `-5400`  |
-| <a name="host.name"></a>host.name  | host.name is the hostname of the host.<br/>It can contain what `hostname` returns on Unix systems, the fully qualified domain name, or a name specified by the user. The sender decides which value to use.  | keyword  |   |   |
+| <a name="host.name"></a>host.name  | host.name is the hostname of the host.<br/>It can contain what `hostname` returns on Unix systems, the fully qualified domain name, or a name specified by the user. The sender decides which value to use.  | text  |   |   |
+| <a name="host.name.keyword"></a>host.name.keyword  |   | keyword  | 1  |   |
 | <a name="host.id"></a>host.id  | Unique host id.<br/>As hostname is not always unique, use values that are meaningful in your environment.<br/>Example: The current usage of `beat.name`.  | keyword  |   |   |
 | <a name="host.ip"></a>host.ip  | Host ip address.  | ip  |   |   |
 | <a name="host.mac"></a>host.mac  | Host mac address.  | keyword  |   |   |
@@ -426,6 +429,7 @@ The user_agent fields normally come from a browser request. They often show up i
 | Field  | Description  | Type  | Multi Field  | Example  |
 |---|---|---|---|---|
 | <a name="user_agent.original"></a>user_agent.original  | Unparsed version of the user_agent.  | text  |   |   |
+| <a name="user_agent.original.keyword"></a>user_agent.original.keyword  |   | keyword  | 1  |   |
 | <a name="user_agent.device"></a>user_agent.device  | Name of the physical device.  | keyword  |   |   |
 | <a name="user_agent.version"></a>user_agent.version  | Version of the physical device.  | keyword  |   |   |
 | <a name="user_agent.major"></a>user_agent.major  | Major version of the user agent.  | long  |   |   |

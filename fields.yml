@@ -250,6 +250,9 @@
           type: text
           description: >
             Device vendor information.
+          multi_fields:
+            - name: keyword
+              type: keyword
         - name: version
           type: keyword
           description: >
@@ -293,6 +296,9 @@
           type: text
           description: >
             Error message.
+          multi_fields:
+            - name: keyword
+              type: keyword
     
         - name: code
           type: keyword
@@ -576,7 +582,7 @@
           example: -5400
     
         - name: name
-          type: keyword
+          type: text
           description: >
             host.name is the hostname of the host.
     
@@ -584,6 +590,9 @@
             qualified domain name, or a name specified by the user. The sender
             decides which value to use.
           phase: 1
+          multi_fields:
+            - name: keyword
+              type: keyword
     
         - name: id
           type: keyword
@@ -1196,6 +1205,9 @@
           type: text
           description: >
             Unparsed version of the user_agent.
+          multi_fields:
+            - name: keyword
+              type: keyword
         - name: device
           type: keyword
           description: >

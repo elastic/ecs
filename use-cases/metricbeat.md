@@ -21,7 +21,7 @@ ECS fields used Metricbeat.
 | <a name="error.&ast;"></a>*error.&ast;*  | *Error namespace<br/>Use for errors which can happen during fetching information for a service.<br/>*  |   |   |   |
 | [error.message](https://github.com/elastic/ecs#error.message)  | Error message returned by the service during fetching metrics.  | text  |   |   |
 | [error.code](https://github.com/elastic/ecs#error.code)  | Error code returned by the service during fetching metrics.  | keyword  |   |   |
-| [host.name](https://github.com/elastic/ecs#host.name)  | Hostname of the system metricbeat is running on or user defined name.  | keyword  |   |   |
+| [host.name](https://github.com/elastic/ecs#host.name)  | Hostname of the system metricbeat is running on or user defined name.  | text  |   |   |
 | [host.timezone.offset.sec](https://github.com/elastic/ecs#host.timezone.offset.sec)  | Timezone offset of the host in seconds.  | long  |   | `-5400`  |
 | [host.id](https://github.com/elastic/ecs#host.id)  | Unique host id.  | keyword  |   |   |
 | [event.module](https://github.com/elastic/ecs#event.module)  | Name of the module this data is coming from.  | keyword  |   | `mysql`  |
