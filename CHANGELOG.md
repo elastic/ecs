@@ -14,6 +14,8 @@ All notable changes to this project will be documented in this file based on the
 * Rename `file.path.raw` to `file.path.keyword`, `file.target_path.raw` to `file.target_path.keyword`,
   `url.href.raw` to `url.href.keyword`, `url.path.raw` to `url.path.keyword`,
   `url.query.raw` to `url.query.keyword`, and `network.name.raw` to `network.name.keyword`.
+* Make `host.name` multi-fields. This is a breaking change because the top
+  field went from datatype `keyword` to `text`.
 
 ### Bugfixes
 
@@ -27,5 +29,7 @@ All notable changes to this project will be documented in this file based on the
 * Add `log.message`. #3
 * Add http.request.method and http.version
 * Add `host.os.kernel` containing the OS kernel version. #60
+* Made the following `text` fields multi-field by adding the `.keyword` nested
+  field: `device.vendor`, `error.message` and `user_agent.original`.
 
 ### Deprecated
