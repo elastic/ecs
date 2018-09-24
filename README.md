@@ -513,23 +513,24 @@ convention used is the following:
 
 * `foo`: `text` indexing.
   The top level of the field (its plain name) is used for full text search.
-* `foo.raw`: `keyword` indexing.
-  The nested field has suffix `.raw` and is what you will use for aggregations.
+* `foo.keyword`: `keyword` indexing.
+  The nested field has suffix `.keyword` and is what you will use for aggregations.
   * Performance tip: when filtering your stream in Kibana (or elsewhere), if you
     are filtering for an exact match or doing a prefix search,
     both `text` and `keyword` field can be used, but doing so on the `keyword`
-    field (named `.raw`) will be much faster and less memory intensive.
+    field will be much faster and less memory intensive.
 
 **Keyword only fields**
 
-The fields that only make sense as type `keyword` are not named `foo.raw`, the
+The fields that only make sense as type `keyword` are not named `foo.keyword`, the
 plain field (`foo`) will be of type `keyword`, with no nested field.
 
-### IDs are keywords not integers
+### IDs are keywords, not integers
 
 Despite the fact that IDs are often integers in various systems, this is not
 always the case. Since we want to make it possible to map as many data sources
 to ECS as possible, we default to using the `keyword` type for IDs.
+
 
 # <a name="about-ecs"></a>FAQ
 
