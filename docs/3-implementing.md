@@ -20,7 +20,14 @@
 * *General to specific.* Organise the prefixes from general to specific to allow grouping fields into objects with a prefix like `host.*`.
 * *Avoid repetition.* Avoid stuttering of words. If part of the field name is already in the prefix, do not repeat it. Example: `host.host_ip` should be `host.ip`.
 * *Use prefixes.* Fields must be prefixed except for the base fields. For example all `host` fields are prefixed with `host.`. See `dot` notation in FAQ for more details.
-* Do not use abbreviations. (A few exceptions like `ip` exist.)
+* Do not use abbreviations or word contractions, use full words.
+
+**Exceptions**
+
+In some cases, ECS naming conventions are overridden by common parlance, if
+we think the common parlance will be much clearer. Examples: `ip`, `pid`,
+`hostname`, etc.
+
 
 ## Understanding ECS conventions
 
