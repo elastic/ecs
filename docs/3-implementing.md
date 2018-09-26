@@ -73,3 +73,55 @@ plain field (`foo`) will be of type `keyword`, with no nested field.
 Despite the fact that IDs are often integers in various systems, this is not
 always the case. Since we want to make it possible to map as many data sources
 to ECS as possible, we default to using the `keyword` type for IDs.
+
+## Using non-ECS fields in your event stream
+
+The goal of ECS is to define a common set of fields to make working across various
+streams easier. Each stream will have their own particularities, however, and ECS
+cannot account for all possibilities. It's therefore important that implementers
+feel at ease adding fields and top level objects in their schema that are
+not defined in ECS. This is expected.
+
+Doing so will however incur a risk of conflicting with future versions of ECS.
+Let's review some strategies to reduce the risk of conflicts happening.
+
+### Conflicts
+
+Before going into strategies, let's define what constitutes a conflict.
+
+#### Conflicts with ECS
+
+* A custom field has the same name as a new ECS field, but an incompatible type:
+  * `int` vs `long`
+  * `text` vs `keyword`
+  * `keyword` vs numeric (`integer`, `long`, etc.)
+  * discrete field vs nested object
+* A new ECS field has a completely different purpose than the custom field.
+
+The following does **not** constitute a conflict:
+
+* A custom `keyword` field gets defined with the same purpose, with a different
+  `ignore_above` value.
+* A new field is added to ECS, and matches the name and type of an existing
+  custom field.
+  * E.g. you define `process.xpid` as a `keyword` field, and ECS adds
+    `process.xpid` as a `keyword` field.
+
+#### Conflicts with Third Parties
+
+Elastic is developing ECS and is adjusting their solutions to leverage ECS.
+Third parties are also gearing up to adopt ECS, in order to reap the benefits of
+using a more common set of field names and definitions.
+
+A consequence of this is that end users may pick a set tools that
+include third parties (not just Elastic's) that conform to ECS. Because of this,
+when thinking about avoiding conflicts, it's important to consider the
+broader ecosystem, not just "will I conflict with Elastic?".
+
+### Consequences of a Conflict
+
+TODO
+
+### How to Reduce the Risk of Conflicts
+
+TODO
