@@ -92,20 +92,20 @@ Before going into strategies, let's define what constitutes a conflict.
 #### Conflicts with ECS
 
 * A custom field has the same name as a new ECS field, but an incompatible type:
-  * `int` vs `long`
+  * `float` vs `long`
   * `text` vs `keyword`
   * `keyword` vs numeric (`integer`, `long`, etc.)
-  * discrete field vs nested object
+  * discrete field vs an object (e.g. a `keyword` field vs a field that contains other fields)
 * A new ECS field has a completely different purpose than the custom field.
 
 The following does **not** constitute a conflict:
 
-* A custom `keyword` field gets defined with the same purpose, with a different
-  `ignore_above` value.
 * A new field is added to ECS, and matches the name and type of an existing
   custom field.
   * E.g. you define `process.xpid` as a `keyword` field, and ECS adds
     `process.xpid` as a `keyword` field.
+* A custom `keyword` field gets defined with the same purpose, with a different
+  `ignore_above` value than a new ECS field.
 
 #### Conflicts with Third Parties
 
@@ -113,7 +113,7 @@ Elastic is developing ECS and is adjusting their solutions to leverage ECS.
 Third parties are also gearing up to adopt ECS, in order to reap the benefits of
 using a more common set of field names and definitions.
 
-A consequence of this is that end users may pick a set tools that
+A consequence of this is that end users may pick a set of tools that
 include third parties (not just Elastic's) that conform to ECS. Because of this,
 when thinking about avoiding conflicts, it's important to consider the
 broader ecosystem, not just "will I conflict with Elastic?".
