@@ -67,7 +67,7 @@ The base set contains all fields which are on the top level. These fields are co
 |---|---|---|---|---|
 | <a name="@timestamp"></a>@timestamp  | Date/time when the event originated.<br/>For log events this is the date/time when the event was generated, and not when it was read.<br/>Required field for all events.  | date  |   | `2016-05-23T08:05:34.853Z`  |
 | <a name="tags"></a>tags  | List of keywords used to tag each event.  | keyword  |   | `["production", "env2"]`  |
-| <a name="labels"></a>labels  | Key/value pairs.<br/>Can be used to add meta information to events. Should not contain nested objects. All values are stored as keyword.<br/>Example: `docker` and `k8s` labels.  | object  |   | `{'key2': 'value2', 'key1': 'value1'}`  |
+| <a name="labels"></a>labels  | Key/value pairs.<br/>Can be used to add meta information to events. Should not contain nested objects. All values are stored as keyword.<br/>Example: `docker` and `k8s` labels.  | object  |   | `{'application': 'foo-bar', 'env': 'production'}`  |
 | <a name="message"></a>message  | For log events the message field contains the log message.<br/>In other use cases the message field can be used to concatenate different values which are then freely searchable. If multiple messages exist, they can be combined into one message.  | text  |   | `Hello World`  |
 
 
@@ -329,7 +329,7 @@ These fields contain information about a process. These fields can help you corr
 | <a name="process.name"></a>process.name  | Process name.<br/>Sometimes called program name or similar.  | keyword  |   | `ssh`  |
 | <a name="process.pid"></a>process.pid  | Process id.  | long  |   |   |
 | <a name="process.ppid"></a>process.ppid  | Process parent id.  | long  |   |   |
-| <a name="process.title"></a>process.title  | Process title.<br/>The proctitle, often the same as process name.  | keyword  |   |   |
+| <a name="process.title"></a>process.title  | Process title.<br/>The proctitle, some times the same as process name. Can also be different: for example a browser setting its title to the web page currently opened.  | keyword  |   |   |
 
 
 ## <a name="service"></a> Service fields
