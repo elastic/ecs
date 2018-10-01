@@ -8,9 +8,9 @@ You can monitor containers running in a Kubernetes cluster by adding Kubernetes-
 
 | Field  | Description  | Type  | Multi Field  | Example  |
 |---|---|---|---|---|
-| [container.id](https://github.com/elastic/ecs#container.id)  | Unique container id.  | keyword  |   | `77bf4837e7f9d6011e15784a057592fe6e07c63cf40aa4c15cbad7c879324b23`  |
+| [container.id](https://github.com/elastic/ecs#container.id)  | Unique container id.  | keyword  |   | `fdbef803fa2b`  |
 | [container.name](https://github.com/elastic/ecs#container.name)  | Container name.  | keyword  |   |   |
-| [host.name](https://github.com/elastic/ecs#host.name)  | Name of the host  | keyword  |   | `kube-high-cpu-42`  |
+| [host.name](https://github.com/elastic/ecs#host.name)  | host.name is the hostname of the host.<br/>It can contain what `hostname` returns on Unix systems, the fully qualified domain name, or a name specified by the user. The sender decides which value to use.  | keyword  |   | `kube-high-cpu-42`  |
 | <a name="kubernetes.pod.name"></a>*kubernetes.pod.name*  | *Kubernetes pod name*  | keyword  |   | `foo-webserver`  |
 | <a name="kubernetes.namespace"></a>*kubernetes.namespace*  | *Kubernetes namespace*  | keyword  |   | `foo-team`  |
 | <a name="kubernetes.labels"></a>*kubernetes.labels*  | *Kubernetes labels map*  | object  |   |   |
