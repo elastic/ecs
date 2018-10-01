@@ -14,7 +14,8 @@ All notable changes to this project will be documented in this file based on the
 * Rename `file.path.raw` to `file.path.keyword`, `file.target_path.raw` to `file.target_path.keyword`,
   `url.href.raw` to `url.href.keyword`, `url.path.raw` to `url.path.keyword`,
   `url.query.raw` to `url.query.keyword`, and `network.name.raw` to `network.name.keyword`.
-* Remove `log.offset` and `log.line` as to specific for ECS.
+* Remove `log.offset` and `log.line` as too specific for ECS.
+* Remove top level objects `kubernetes` and `tls`.
 
 ### Bugfixes
 

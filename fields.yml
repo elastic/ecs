@@ -674,41 +674,6 @@
             Http version.
           example: 1.1
     
-    - name: kubernetes
-      title: Kubernetes
-      group: 2
-      description: >
-        Kubernetes fields are used for Kubernetes meta information. This
-        information helps correlate data from Kubernetes setups.
-    
-      type: group
-      fields:
-        - name: pod.name
-          type: keyword
-          description: >
-            Kubernetes pod name
-    
-        - name: namespace
-          type: keyword
-          description: >
-            Kubernetes namespace
-    
-        - name: labels
-          type: object
-          description: >
-            Kubernetes labels map
-    
-        - name: annotations
-          type: object
-          description: >
-            Kubernetes annotations map
-    
-        - name: container.name
-          type: keyword
-          description: >
-            Kubernetes container name. This name is unique within the pod only.
-            It is different from the underlying `container.name` field.
-    
     - name: log
       title: Log
       description: >
@@ -1009,44 +974,6 @@
           phase: 1
           description: >
             Source subdomain.
-    
-    - name: tls
-      title: TLS
-      group: 2
-      description: >
-        The tls fields contain the TLS related data about a specific connection.
-    
-      footnote: >
-        As an example in the case of Filebeat and the TCP input, the `version` field would be the
-        version of the TLS protocol in use, the `certificates` would be the chain of certificates
-        provided by the client and the `ciphersuite` is the encryption algorithm used for the
-        communication.
-      type: group
-      fields:
-        - name: version
-          type: keyword
-          description: >
-            TLS version.
-    
-          example: TLSv1.2
-        - name: certificates
-          type: keyword
-          description: >
-            An array of certificates.
-          ignore_above: -1
-          doc_values: false
-        - name: servername
-          type: keyword
-          description: >
-            Server name requested by the client.
-    
-          example: localhost
-        - name: ciphersuite
-          type: keyword
-          description: >
-            Name of the cipher used for the communication.
-    
-          example: ECDHE-ECDSA-AES-128-CBC-SHA
     
     - name: url
       title: URL

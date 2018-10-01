@@ -47,7 +47,6 @@ ECS defines these fields.
  * [Geo fields](#geo)
  * [Host fields](#host)
  * [HTTP fields](#http)
- * [Kubernetes fields](#kubernetes)
  * [Log fields](#log)
  * [Network fields](#network)
  * [Organization fields](#organization)
@@ -55,7 +54,6 @@ ECS defines these fields.
  * [Process fields](#process)
  * [Service fields](#service)
  * [Source fields](#source)
- * [TLS fields](#tls)
  * [URL fields](#url)
  * [User fields](#user)
  * [User agent fields](#user_agent)
@@ -264,20 +262,6 @@ Fields related to HTTP requests and responses.
 | <a name="http.version"></a>http.version  | Http version.  | keyword  |   | `1.1`  |
 
 
-## <a name="kubernetes"></a> Kubernetes fields
-
-Kubernetes fields are used for Kubernetes meta information. This information helps correlate data from Kubernetes setups.
-
-
-| Field  | Description  | Type  | Multi Field  | Example  |
-|---|---|---|---|---|
-| <a name="kubernetes.pod.name"></a>kubernetes.pod.name  | Kubernetes pod name  | keyword  |   |   |
-| <a name="kubernetes.namespace"></a>kubernetes.namespace  | Kubernetes namespace  | keyword  |   |   |
-| <a name="kubernetes.labels"></a>kubernetes.labels  | Kubernetes labels map  | object  |   |   |
-| <a name="kubernetes.annotations"></a>kubernetes.annotations  | Kubernetes annotations map  | object  |   |   |
-| <a name="kubernetes.container.name"></a>kubernetes.container.name  | Kubernetes container name. This name is unique within the pod only. It is different from the underlying `container.name` field.  | keyword  |   |   |
-
-
 ## <a name="log"></a> Log fields
 
 Fields which are specific to log events.
@@ -378,22 +362,6 @@ Source fields describe details about the source of the event.
 | <a name="source.subdomain"></a>source.subdomain  | Source subdomain.  | keyword  |   |   |
 
 
-## <a name="tls"></a> TLS fields
-
-The tls fields contain the TLS related data about a specific connection.
-
-
-| Field  | Description  | Type  | Multi Field  | Example  |
-|---|---|---|---|---|
-| <a name="tls.version"></a>tls.version  | TLS version.  | keyword  |   | `TLSv1.2`  |
-| <a name="tls.certificates"></a>tls.certificates  | An array of certificates.  | keyword  |   |   |
-| <a name="tls.servername"></a>tls.servername  | Server name requested by the client.  | keyword  |   | `localhost`  |
-| <a name="tls.ciphersuite"></a>tls.ciphersuite  | Name of the cipher used for the communication.  | keyword  |   | `ECDHE-ECDSA-AES-128-CBC-SHA`  |
-
-
-As an example in the case of Filebeat and the TCP input, the `version` field would be the version of the TLS protocol in use, the `certificates` would be the chain of certificates provided by the client and the `ciphersuite` is the encryption algorithm used for the communication.
-
-
 ## <a name="url"></a> URL fields
 
 URL fields provide a complete URL, with scheme, host, and path. The URL object can be reused in other prefixes, such as `host.url.*` for example. Keep the structure consistent whenever you use URL fields.
@@ -463,8 +431,10 @@ Contributions of additional uses cases on top of ECS are welcome.
  * [Auditbeat](https://github.com/elastic/ecs/blob/master/use-cases/auditbeat.md)
  * [Beats](https://github.com/elastic/ecs/blob/master/use-cases/beats.md)
  * [Filebeat Apache](https://github.com/elastic/ecs/blob/master/use-cases/filebeat-apache-access.md)
+ * [Kubernetes](https://github.com/elastic/ecs/blob/master/use-cases/kubernetes.md)
  * [Logging](https://github.com/elastic/ecs/blob/master/use-cases/logging.md)
  * [Metricbeat](https://github.com/elastic/ecs/blob/master/use-cases/metricbeat.md)
+ * [TLS](https://github.com/elastic/ecs/blob/master/use-cases/tls.md)
 
 
 
