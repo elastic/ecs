@@ -431,6 +431,7 @@ Contributions of additional uses cases on top of ECS are welcome.
  * [Auditbeat](https://github.com/elastic/ecs/blob/master/use-cases/auditbeat.md)
  * [Beats](https://github.com/elastic/ecs/blob/master/use-cases/beats.md)
  * [Filebeat Apache](https://github.com/elastic/ecs/blob/master/use-cases/filebeat-apache-access.md)
+ * [Kubernetes](https://github.com/elastic/ecs/blob/master/use-cases/kubernetes.md)
  * [Logging](https://github.com/elastic/ecs/blob/master/use-cases/logging.md)
  * [Metricbeat](https://github.com/elastic/ecs/blob/master/use-cases/metricbeat.md)
 

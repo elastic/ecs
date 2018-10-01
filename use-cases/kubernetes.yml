@@ -1,0 +1,57 @@
+name: kubernetes
+title: Kubernetes
+description: >
+  You can monitor containers running in a Kubernetes cluster by adding
+  Kubernetes-specific information under `kubernetes.`
+
+fields:
+- name: container
+  fields:
+
+  - name: id
+    type: keyword
+    description: Unique container id.
+    example: 77bf4837e7f9d6011e15784a057592fe6e07c63cf40aa4c15cbad7c879324b23
+
+  - name: name
+    type: keyword
+    description: Container name.
+
+- name: host
+  fields:
+
+  - name: name
+    type: keyword
+    description: Name of the host
+    example: kube-high-cpu-42
+
+- name: kubernetes
+  fields:
+
+  - name: pod.name
+    type: keyword
+    description: >
+      Kubernetes pod name
+    example: foo-webserver
+
+  - name: namespace
+    type: keyword
+    description: >
+      Kubernetes namespace
+    example: foo-team
+
+  - name: labels
+    type: object
+    description: >
+      Kubernetes labels map
+
+  - name: annotations
+    type: object
+    description: >
+      Kubernetes annotations map
+
+  - name: container.name
+    type: keyword
+    description: >
+      Kubernetes container name. This name is unique within the pod only.
+      It is different from the `container.name` field.
