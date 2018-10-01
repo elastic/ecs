@@ -64,7 +64,6 @@
           type: date
           level: core
           required: true
-          phase: 3
           example: "2016-05-23T08:05:34.853Z"
           description: >
             Date/time when the event originated.
@@ -96,7 +95,6 @@
         - name: message
           level: core
           type: text
-          phase: 1
           example: "Hello World"
           description: >
             For log events the message field contains the log message.
@@ -228,6 +226,7 @@
         packet/event.
       type: group
       fields:
+    
         - name: ip
           level: core
           type: ip
@@ -235,31 +234,34 @@
             IP address of the destination.
     
             Can be one or multiple IPv4 or IPv6 addresses.
+    
         - name: hostname
           level: core
           type: keyword
           description: >
             Hostname of the destination.
+    
         - name: port
           level: core
           type: long
           description: >
             Port of the destination.
+    
         - name: mac
           level: core
           type: keyword
           description: >
             MAC address of the destination.
+    
         - name: domain
           level: core
           type: keyword
-          phase: 1
           description: >
             Destination domain.
+    
         - name: subdomain
           level: core
           type: keyword
-          phase: 1
           description: >
             Destination subdomain.
     
@@ -361,7 +363,6 @@
           description: >
             Unique ID to describe the event.
           example: 8a4f500d
-          phase: 1
     
         - name: category
           level: core
@@ -416,7 +417,6 @@
         - name: severity
           level: core
           type: long
-          phase: 1
           example: "7"
           description: >
             Severity describes the severity of the event. What the different
@@ -426,7 +426,6 @@
         - name: original
           level: core
           type: keyword
-          phase: 1
           # Unfortunately this example is not shown correctly yet as | do not work
           # in tables well
           # Is &#124; is the representation of | it works except for cases where
@@ -446,7 +445,6 @@
         - name: hash
           level: extended
           type: keyword
-          phase: 1
           example: "123456789012345678901234567890ABCD"
           description: >
               Hash (perhaps logstash fingerprint) of raw field to be able to
@@ -663,7 +661,6 @@
     
             Number of seconds relative to UTC. If the offset is -01:30 the
             value will be -5400.
-          phase: 1
           example: -5400
     
         - name: name
@@ -675,12 +672,10 @@
             It can contain what `hostname` returns on Unix systems, the fully
             qualified domain name, or a name specified by the user. The sender
             decides which value to use.
-          phase: 1
     
         - name: id
           level: core
           type: keyword
-          phase: 1
           description: >
             Unique host id.
     
@@ -709,7 +704,6 @@
             For Cloud providers this can be the machine type like `t2.medium`.
             If vm, this could be the container, for example, or other information
             meaningful in your environment.
-          phase: 1
     
         # Operating System information
         - name: os.platform
@@ -802,7 +796,6 @@
         - name: original
           level: core
           type: keyword
-          phase: 1
           example: "Sep 19 08:26:10 localhost My log"
           index: false
           doc_values: false
@@ -1047,12 +1040,10 @@
             can filter on that id to see metrics and logs for that single instance.
     
           example: d37e5ebfe0ae6c4972dbe9f0174a1637bb8247f6
-          phase: 1
     
         - name: name
           level: core
           type: keyword
-          phase: 1
           example: "elasticsearch"
           description: >
             Name of the service data is collected from.
@@ -1066,21 +1057,18 @@
         - name: type
           level: core
           type: keyword
-          phase: 1
           description: >
             Service type.
     
         - name: state
           level: core
           type: keyword
-          phase: 1
           description: >
             Current state of the service.
     
         - name: version
           level: core
           type: keyword
-          phase: 1
           example: "3.2.4"
           description: >
             Version of the service the data was collected from.
@@ -1122,28 +1110,24 @@
         - name: port
           level: core
           type: long
-          phase: 1
           description: >
             Port of the source.
     
         - name: mac
           level: core
           type: keyword
-          phase: 1
           description: >
             MAC address of the source.
     
         - name: domain
           level: core
           type: keyword
-          phase: 1
           description: >
             Source domain.
     
         - name: subdomain
           level: core
           type: keyword
-          phase: 1
           description: >
             Source subdomain.
     
@@ -1283,14 +1267,12 @@
         - name: email
           level: extended
           type: keyword
-          phase: 1
           description: >
             User email address.
     
         - name: hash
           level: extended
           type: keyword
-          phase: 1
           description: >
             Unique user hash to correlate information for a user in anonymized form.
     
