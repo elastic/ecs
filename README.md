@@ -434,6 +434,7 @@ Contributions of additional uses cases on top of ECS are welcome.
  * [Kubernetes](https://github.com/elastic/ecs/blob/master/use-cases/kubernetes.md)
  * [Logging](https://github.com/elastic/ecs/blob/master/use-cases/logging.md)
  * [Metricbeat](https://github.com/elastic/ecs/blob/master/use-cases/metricbeat.md)
+ * [TLS](https://github.com/elastic/ecs/blob/master/use-cases/tls.md)
 
 
 
