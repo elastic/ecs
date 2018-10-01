@@ -5,10 +5,11 @@
     URL fields provide a complete URL, with scheme, host, and path. The URL
     object can be reused in other prefixes, such as `host.url.*` for
     example. Keep the structure consistent whenever you use URL fields.
-
   type: group
   fields:
+
     - name: href
+      level: extended
       type: text
       description: >
         Full url. The field is stored as keyword.
@@ -22,7 +23,6 @@
 
         `href` is an analyzed field so the parsed information can be accessed
         through `href.analyzed` in queries.
-
       multi_fields:
         - name: keyword
           type: keyword
@@ -30,14 +30,18 @@
             The full URL. This is a non-analyzed field that is useful
             for aggregations.
       example: https://elastic.co:443/search?q=elasticsearch#top
+
     - name: scheme
+      level: extended
       type: keyword
       description: >
         Scheme of the request, such as "https".
 
         Note: The `:` is not part of the scheme.
       example: https
+
     - name: host.name
+      level: extended
       type: keyword
       description: >
         Hostname of the request, such as "example.com".
@@ -45,12 +49,16 @@
         For correlation the this field can be copied into the `host.name`
         field.
       example: elastic.co
+
     - name: port
+      level: extended
       type: integer
       description: >
         Port of the request, such as 443.
       example: 443
+
     - name: path
+      level: extended
       type: text
       description: >
         Path of the request, such as "/search".
@@ -60,7 +68,9 @@
           description: >
             URL path. A non-analyzed field that is useful
             for aggregations.
+
     - name: query
+      level: extended
       type: text
       description: >
         The query field describes the query string of the request,
@@ -76,17 +86,23 @@
           description: >
             URL query part. A non-analyzed field that is useful
             for aggregations.
+
     - name: fragment
+      level: extended
       type: keyword
       description: >
         Portion of the url after the `#`, such as "top".
 
         The `#` is not part of the fragment.
+
     - name: username
+      level: extended
       type: keyword
       description: >
         Username of the request.
+
     - name: password
+      level: extended
       type: keyword
       description: >
         Password of the request.

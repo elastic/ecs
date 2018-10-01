@@ -6,10 +6,11 @@
     The service fields describe the service for or from which the data was
     collected. These fields help you find and correlate logs for a specific
     service and version.
-
   type: group
   fields:
+
     - name: id
+      level: core
       type: keyword
       description: >
         Unique identifier of the running service.
@@ -24,6 +25,7 @@
       phase: 1
 
     - name: name
+      level: core
       type: keyword
       phase: 1
       example: "elasticsearch"
@@ -37,17 +39,21 @@
         `redis`.
 
     - name: type
+      level: core
       type: keyword
       phase: 1
       description: >
         Service type.
 
     - name: state
+      level: core
       type: keyword
       phase: 1
       description: >
         Current state of the service.
+
     - name: version
+      level: core
       type: keyword
       phase: 1
       example: "3.2.4"
@@ -56,7 +62,9 @@
 
         This allows to look at a data set only for a specific version of a
         service.
+
     - name: ephemeral_id
+      level: extended
       type: keyword
       description: >
         Ephemeral identifier of this service (if one exists).

@@ -6,7 +6,9 @@
     File fields provide details about each file.
   type: group
   fields:
+
   - name: path
+    level: extended
     type: text
     description: Path to the file.
     multi_fields:
@@ -17,6 +19,7 @@
         for aggregations.
 
   - name: target_path
+    level: extended
     type: text
     description: Target path for symlinks.
     multi_fields:
@@ -27,6 +30,7 @@
           for aggregations.
 
   - name: extension
+    level: extended
     type: keyword
     description: >
       File extension.
@@ -35,48 +39,59 @@
     example: png
 
   - name: type
+    level: extended
     type: keyword
     description: File type (file, dir, or symlink).
 
   - name: device
+    level: extended
     type: keyword
     description: Device that is the source of the file.
 
   - name: inode
+    level: extended
     type: keyword
     description: Inode representing the file in the filesystem.
 
   - name: uid
+    level: extended
     type: keyword
     description: >
       The user ID (UID) or security identifier (SID) of the file owner.
 
   - name: owner
+    level: extended
     type: keyword
     description: File owner's username.
 
   - name: gid
+    level: extended
     type: keyword
     description: Primary group ID (GID) of the file.
 
   - name: group
+    level: extended
     type: keyword
     description: Primary group name of the file.
 
   - name: mode
+    level: extended
     type: keyword
     example: 0640
     description: Mode of the file in octal representation.
 
   - name: size
+    level: extended
     type: long
     description: File size in bytes (field is only added when `type` is
         `file`).
 
   - name: mtime
+    level: extended
     type: date
     description: Last time file content was modified.
 
   - name: ctime
+    level: extended
     type: date
     description: Last time file metadata changed.
