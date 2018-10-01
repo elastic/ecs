@@ -13,8 +13,8 @@ ECS fields used in logging use cases.
 | <a name="hostname"></a>*hostname*  | *Hostname extracted from the log line.*  | keyword  |   | `www.example.com`  |
 | <a name="ip"></a>*ip*  | *IP Address extracted from the log line. Can be IPv4 or IPv6.*  | ip  |   | `192.168.1.12`  |
 | [log.level](https://github.com/elastic/ecs#log.level)  | Log level field. Is expected to be `WARN`, `ERR`, `INFO` etc.  | keyword  |   | `ERR`  |
-| [log.line](https://github.com/elastic/ecs#log.line)  | Line number the log event was collected from.  | long  |   | `18`  |
-| [log.offset](https://github.com/elastic/ecs#log.offset)  | Offset of the log event.  | long  |   | `12`  |
+| <a name="log.line"></a>*log.line*  | *Line number the log event was collected from.*  | long  |   | `18`  |
+| <a name="log.offset"></a>*log.offset*  | *Offset of the log event.*  | long  |   | `12`  |
 | <a name="source.&ast;"></a>*source.&ast;*  | *Describes from where the log entries come from.<br/>*  |   |   |   |
 | <a name="source.path"></a>*source.path*  | *File path of the file the data is harvested from.*  | keyword  |   | `/var/log/test.log`  |
 
