@@ -77,10 +77,11 @@ to ECS as possible, we default to using the `keyword` type for IDs.
 ## Using non-ECS fields in your event stream
 
 The goal of ECS is to define a common set of fields to make working across various
-streams easier. Each stream will have their own particularities, however, and ECS
-cannot account for all possibilities. It's therefore important that implementers
-feel at ease adding fields and top level objects in their schema that are
-not defined in ECS. This is expected.
+event streams easier. Each event stream will have their own particularities, however,
+and ECS cannot account for all possibilities.
+It's therefore important that implementers feel at ease adding fields and
+top level objects in their schema that are not defined in ECS.
+This is expected.
 
 Doing so will however incur a risk of conflicting with future versions of ECS.
 Let's review some strategies to reduce the risk of conflicts happening.
@@ -91,10 +92,11 @@ Before going into strategies, let's define what constitutes a conflict.
 
 #### Conflicts with ECS
 
-* A custom field has the same name as a new ECS field, but an incompatible type:
+* A custom field has the same name as a new ECS field, but a different type
+  (most field types are incompatible). Here are concrete examples:
   * `float` vs `long`
   * `text` vs `keyword`
-  * `keyword` vs numeric (`integer`, `long`, etc.)
+  * `keyword` vs any numeric (`integer`, `long`, etc.)
   * discrete field vs an object (e.g. a `keyword` field vs a field that contains other fields)
 * A new ECS field has a completely different purpose than the custom field.
 
