@@ -122,8 +122,20 @@ broader ecosystem, not just "will I conflict with Elastic?".
 
 ### Consequences of a Conflict
 
-TODO
+The consequences of a conflict will vary depending on whether you use an index
+per event stream or if you're indexing more than one stream in the same index.
+
+When indexing more than one type of event in the same index, a conflict will
+be experienced as a mapping conflict. This means all events that don't conform
+with the current mapping will be rejected by ElasticSearch.
+
+When ingesting into separate indices per event source, a conflict will not affect ingestion.
+Each event stream will be ingested in their respective index.
+The problems will be experienced at query time.
+If you have a Kibana index pattern to query all of your ECS indices at once
+(e.g. `*-ecs-*`), you will not be able to query on the conflicting fields.
+All other fields will be available to query on, however.
 
 ### How to Reduce the Risk of Conflicts
 
-TODO
+
