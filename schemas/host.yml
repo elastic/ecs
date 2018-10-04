@@ -10,17 +10,19 @@
     was generated/collected, but they can be used differently if needed.
   type: group
   fields:
+
     - name: timezone.offset.sec
+      level: extended
       type: long
       description: >
         Timezone offset of the host in seconds.
 
         Number of seconds relative to UTC. If the offset is -01:30 the
         value will be -5400.
-      phase: 1
       example: -5400
 
     - name: name
+      level: core
       type: keyword
       description: >
         host.name is the hostname of the host.
@@ -28,11 +30,10 @@
         It can contain what `hostname` returns on Unix systems, the fully
         qualified domain name, or a name specified by the user. The sender
         decides which value to use.
-      phase: 1
 
     - name: id
+      level: core
       type: keyword
-      phase: 1
       description: >
         Unique host id.
 
@@ -41,16 +42,19 @@
 
         Example: The current usage of `beat.name`.
     - name: ip
+      level: core
       type: ip
       description: >
         Host ip address.
 
     - name: mac
+      level: core
       type: keyword
       description: >
         Host mac address.
 
     - name: type
+      level: core
       type: keyword
       description: >
         Type of host.
@@ -58,34 +62,38 @@
         For Cloud providers this can be the machine type like `t2.medium`.
         If vm, this could be the container, for example, or other information
         meaningful in your environment.
-      phase: 1
 
     # Operating System information
     - name: os.platform
+      level: extended
       type: keyword
       description: >
         Operating system platform (centos, ubuntu, windows, etc.)
       example: darwin
 
     - name: os.name
+      level: extended
       type: keyword
       example: "Mac OS X"
       description: >
         Operating system name.
 
     - name: os.family
+      level: extended
       type: keyword
       example: "debian"
       description: >
         OS family (redhat, debian, freebsd, windows, etc.)
 
     - name: os.version
+      level: extended
       type: keyword
       example: "10.12.6"
       description: >
         Operating system version.
 
     - name: architecture
+      level: core
       type: keyword
       example: "x86_64"
       description: >

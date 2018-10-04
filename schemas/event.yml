@@ -6,13 +6,16 @@
     The event fields are used for context information about the data itself.
   type: group
   fields:
+
     - name: id
+      level: core
       type: keyword
       description: >
         Unique ID to describe the event.
       example: 8a4f500d
-      phase: 1
+
     - name: category
+      level: core
       type: keyword
       description: >
         Event category.
@@ -21,6 +24,7 @@
       example: metrics
 
     - name: type
+      level: core
       type: keyword
       description: >
         A type given to this kind of event which can be used for grouping.
@@ -29,6 +33,7 @@
       example: nginx-stats-metrics
 
     - name: action
+      level: core
       type: keyword
       description: >
         The action captured by the event. The type of action will vary from
@@ -40,6 +45,7 @@
       example: reject
 
     - name: module
+      level: core
       type: keyword
       description: >
         Name of the module this data is coming from.
@@ -48,6 +54,7 @@
       example: mysql
 
     - name: dataset
+      level: core
       type: keyword
       description: >
         Name of the dataset.
@@ -58,8 +65,8 @@
       example: stats
 
     - name: severity
+      level: core
       type: long
-      phase: 1
       example: "7"
       description: >
         Severity describes the severity of the event. What the different
@@ -67,8 +74,8 @@
         the implementer to make sure severities are consistent across events.
 
     - name: original
+      level: core
       type: keyword
-      phase: 1
       # Unfortunately this example is not shown correctly yet as | do not work
       # in tables well
       # Is &#124; is the representation of | it works except for cases where
@@ -86,14 +93,15 @@
       doc_values: false
 
     - name: hash
+      level: extended
       type: keyword
-      phase: 1
       example: "123456789012345678901234567890ABCD"
       description: >
           Hash (perhaps logstash fingerprint) of raw field to be able to
           demonstrate log integrity.
 
     - name: version
+      level: core
       type: keyword
       required: true
       description: >
@@ -109,11 +117,13 @@
       example: 0.1.0
 
     - name: duration
+      level: core
       type: long
       description: >
         Duration of the event in nanoseconds.
 
     - name: created
+      level: core
       type: date
       description: >
         event.created contains the date when the event was created.
@@ -130,12 +140,14 @@
         In case the two timestamps are identical, @timestamp should be used.
 
     - name: risk_score
+      level: core
       type: float
       description: >
         Risk score or priority of the event (e.g. security solutions).
         Use your system's original value here.
 
     - name: risk_score_norm
+      level: extended
       type: float
       description: >
         Normalized risk score or priority of the event, on a scale of 0 to 100.

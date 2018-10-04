@@ -7,36 +7,45 @@
     These fields can help you correlate metrics information with a process id/name
     from a log message.  The `process.pid` often stays in the metric itself and is
     copied to the global field for correlation.
-
   type: group
   fields:
+
     - name: args
+      level: extended
       type: keyword
       description: >
         Process arguments.
 
         May be filtered to protect sensitive information.
       example: ["-l", "user", "10.0.0.16"]
+
     - name: name
+      level: extended
       type: keyword
       description: >
         Process name.
 
         Sometimes called program name or similar.
       example: ssh
+
     - name: pid
+      level: core
       type: long
       description: >
         Process id.
       exmple: ssh
+
     - name: ppid
+      level: extended
       type: long
       description: >
         Process parent id.
 
     - name: title
+      level: extended
       type: keyword
       description: >
         Process title.
 
-        The proctitle, often the same as process name.
+        The proctitle, some times the same as process name. Can also be different:
+        for example a browser setting its title to the web page currently opened.

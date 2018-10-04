@@ -6,7 +6,9 @@
     Fields related to network data.
   type: group
   fields:
+
     - name: name
+      level: extended
       type: text
       description: >
         Name given by operators to sections of their network.
@@ -18,11 +20,14 @@
             Name given by operators to sections of their network.
 
     - name: protocol
+      level: core
       type: keyword
       description: >
         Network protocol name.
       example: http
+
     - name: direction
+      level: core
       type: keyword
       description: >
         Direction of the network traffic.
@@ -34,6 +39,7 @@
       example: inbound
 
     - name: forwarded_ip
+      level: core
       type: ip
       description: >
         Host IP address when the source IP address is the proxy.
@@ -41,31 +47,42 @@
 
     # Metrics
     - name: inbound.bytes
+      level: core
       type: long
       description: >
         Network inbound bytes.
       example: 184
+
     - name: inbound.packets
+      level: core
       type: long
       description: >
         Network inbound packets.
       example: 12
+
     - name: outbound.bytes
+      level: core
       type: long
       description: >
         Network outbound bytes.
       example: 184
+
     - name: outbound.packets
+      level: core
       type: long
       description: >
         Network outbound packets.
       example: 12
+
     - name: total.bytes
+      level: core
       type: long
       description: >
         Network total bytes. The sum of inbound.bytes + outbound.bytes.
       example: 368
+
     - name: total.packets
+      level: core
       type: long
       description: >
         Network outbound packets. The sum of inbound.packets + outbound.packets

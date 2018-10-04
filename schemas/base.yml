@@ -8,8 +8,8 @@
   fields:
     - name: "@timestamp"
       type: date
+      level: core
       required: true
-      phase: 3
       example: "2016-05-23T08:05:34.853Z"
       description: >
         Date/time when the event originated.
@@ -20,14 +20,16 @@
         Required field for all events.
 
     - name: tags
+      level: core
       type: keyword
       example: "[\"production\", \"env2\"]"
       description: >
         List of keywords used to tag each event.
 
     - name: labels
+      level: core
       type: object
-      example: {key1: value1, key2: value2}
+      example: {env: production, application: foo-bar}
       description: >
         Key/value pairs.
 
@@ -37,8 +39,8 @@
         Example: `docker` and `k8s` labels.
 
     - name: message
+      level: core
       type: text
-      phase: 1
       example: "Hello World"
       description: >
         For log events the message field contains the log message.
