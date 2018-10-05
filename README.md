@@ -149,7 +149,6 @@ Device fields are used to provide additional information about the device that i
 | <a name="device.vendor"></a>device.vendor  | Device vendor information.  | text  |   |   |
 | <a name="device.version"></a>device.version  | Device version.  | keyword  |   |   |
 | <a name="device.serial_number"></a>device.serial_number  | Device serial number.  | keyword  |   |   |
-| <a name="device.timezone.offset.sec"></a>device.timezone.offset.sec  | Timezone offset of the host in seconds.<br/>Number of seconds relative to UTC. If the offset is -01:30 the value will be -5400.  | long  |   | `-5400`  |
 | <a name="device.type"></a>device.type  | The type of the device the data is coming from.<br/>There is no predefined list of device types. Some examples are `endpoint`, `firewall`, `ids`, `ips`, `proxy`.  | keyword  |   | `firewall`  |
 
 
@@ -236,7 +235,6 @@ Normally the host information is related to the machine on which the event was g
 
 | Field  | Description  | Type  | Multi Field  | Example  |
 |---|---|---|---|---|
-| <a name="host.timezone.offset.sec"></a>host.timezone.offset.sec  | Timezone offset of the host in seconds.<br/>Number of seconds relative to UTC. If the offset is -01:30 the value will be -5400.  | long  |   | `-5400`  |
 | <a name="host.name"></a>host.name  | host.name is the hostname of the host.<br/>It can contain what `hostname` returns on Unix systems, the fully qualified domain name, or a name specified by the user. The sender decides which value to use.  | keyword  |   |   |
 | <a name="host.id"></a>host.id  | Unique host id.<br/>As hostname is not always unique, use values that are meaningful in your environment.<br/>Example: The current usage of `beat.name`.  | keyword  |   |   |
 | <a name="host.ip"></a>host.ip  | Host ip address.  | ip  |   |   |

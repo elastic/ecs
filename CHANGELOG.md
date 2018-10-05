@@ -7,15 +7,16 @@ All notable changes to this project will be documented in this file based on the
 ### Breaking changes
 * Change structure of URL. #7
 * Rename `url.href` `multi_field`. #18
-* Rename `geoip.*` to `geo`.
+* Rename `geoip.*` to `geo`. #58
 * Rename log.message to log.original. #106
-* Rename `event.raw` to `event.original`.
-* Rename `user_agent.raw` to `user_agent.original` and make it a keyword.
+* Rename `event.raw` to `event.original`. #107
+* Rename `user_agent.raw` to `user_agent.original` and make it a keyword. #107
 * Rename `file.path.raw` to `file.path.keyword`, `file.target_path.raw` to `file.target_path.keyword`,
   `url.href.raw` to `url.href.keyword`, `url.path.raw` to `url.path.keyword`,
-  `url.query.raw` to `url.query.keyword`, and `network.name.raw` to `network.name.keyword`.
-* Remove `log.offset` and `log.line` as too specific for ECS.
-* Remove top level objects `kubernetes` and `tls`.
+  `url.query.raw` to `url.query.keyword`, and `network.name.raw` to `network.name.keyword`. #103
+* Remove `log.offset` and `log.line` as too specific for ECS. #131
+* Remove top level objects `kubernetes` and `tls`. #132
+* Remove `*.timezone.offset.sec` fields as too specific for ECS at the moment. #134
 
 ### Bugfixes
 
