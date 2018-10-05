@@ -119,7 +119,8 @@ using a more common set of field names and definitions.
 A consequence of this is that end users may pick a set of tools that
 include third parties (not just Elastic's) that conform to ECS. Because of this,
 when thinking about avoiding conflicts, it's important to consider the
-broader ecosystem, not just "will I conflict with Elastic?".
+broader ecosystem of tools used to ingest data into ElasticSearch,
+not just "will I conflict with Elastic?".
 
 ### Consequences of a Conflict
 
@@ -131,11 +132,10 @@ be experienced as a mapping conflict. This means all events that don't conform
 with the current mapping will be rejected by ElasticSearch.
 
 When ingesting into separate indices per event source, a conflict will not affect ingestion.
-Each event stream will be ingested in their respective index.
+Each event stream will be ingested in their respective index successfully.
 The problems will be experienced at query time.
-If you have a Kibana index pattern to query all of your ECS indices at once
-(e.g. `*-ecs-*`), you will not be able to query on the conflicting fields.
-All other fields will be available to query on, however.
+If you have a Kibana index pattern to query multiple conflicting ECS indices
+at once, you will experience problems when querying the conflicting fields.
 
 ### How to Reduce the Risk of Conflicts
 
