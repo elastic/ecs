@@ -92,7 +92,8 @@ Before going into strategies, let's define what constitutes a conflict.
 
 #### Conflicts with ECS
 
-* A custom field has the same name as a new ECS field, but a different type
+* A custom field has the same name as a new ECS field, but a different
+  [type](https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-types.html)
   (most field types are incompatible). Here are concrete examples:
   * `float` vs `long`
   * `text` vs `keyword`
