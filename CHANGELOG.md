@@ -17,6 +17,7 @@ All notable changes to this project will be documented in this file based on the
 * Remove `log.offset` and `log.line` as too specific for ECS. #131
 * Remove top level objects `kubernetes` and `tls`. #132
 * Remove `*.timezone.offset.sec` fields as too specific for ECS at the moment. #134
+* Set indexing to false for `user_agent.original`.
 
 ### Bugfixes
 
