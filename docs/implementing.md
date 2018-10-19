@@ -28,38 +28,45 @@
 
 ElasticSearch can index text multiple ways:
 
-* [text](https://www.elastic.co/guide/en/elasticsearch/reference/current/text.html) indexing allows for full text search, or searching arbitrary words that
+* [text](https://www.elastic.co/guide/en/elasticsearch/reference/current/text.html)
+  indexing allows for full text search, or searching arbitrary words that
   are part of the field.
-* [keyword](https://www.elastic.co/guide/en/elasticsearch/reference/current/keyword.html) indexing allows for much faster
-  [exact match](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-term-query.html)
-  and [prefix search](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-prefix-query.html),
+* [keyword](https://www.elastic.co/guide/en/elasticsearch/reference/current/keyword.html)
+  indexing allows for much faster
+  [exact match filtering](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-term-query.html),
+  [prefix search](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-prefix-query.html),
   and allows for [aggregations](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations.html)
   (what Kibana visualizations are built on).
 
-In some cases, only one type of indexing makes sense for a field.
+By default, unless your index mapping specifies otherwise, ElasticSearch indexes
+text field as `text` at the canonical field name, and indexes as second time
+as `keyword` in a nested field:
 
-However there are cases where both types of indexing can be useful, and we want
-to index both ways.
-As an example, log messages can sometimes be short enough that it makes sense
-to sort them by frequency (that's an aggregation). They can also be long and
-varied enough that full text search can be useful on them.
+* Canonical field: `myfield` is `text`
+* Nested field: `myfield.keyword` is `keyword`
 
-Whenever both types of indexing are helpful, we use multi-fields indexing. The
-convention used is the following:
+For monitoring use cases, we need almost exclusively `keyword` indexing, with
+full text search on very few field fields. Given this premise, ECS defaults
+all text indexing to `keyword` at the top level (with only two exceptions).
+Any use case that requires full text search indexing on additional fields
+can simply add a nested field for full text search.
+Doing so does not conflict with ECS, as the canonical field name will remain
+`keyword` indexed.
 
-* `foo`: `text` indexing.
-  The top level of the field (its plain name) is used for full text search.
-* `foo.raw`: `keyword` indexing.
-  The nested field has suffix `.raw` and is what you will use for aggregations.
-  * Performance tip: when filtering your stream in Kibana (or elsewhere), if you
-    are filtering for an exact match or doing a prefix search,
-    both `text` and `keyword` field can be used, but doing so on the `keyword`
-    field (named `.raw`) will be much faster and less memory intensive.
+ECS multi-field convention for text:
 
-**Keyword only fields**
+* Canonical field: `myfield` is `keyword`
+* Nested field: `myfield.text` is `text`
 
-The fields that only make sense as type `keyword` are not named `foo.raw`, the
-plain field (`foo`) will be of type `keyword`, with no nested field.
+#### Exceptions
+
+The only two exceptions to this convention are fields `message` and `error.message`,
+which are indexed for full text search only, with no nested field.
+These two fields don't follow the new convention because they are deemed too big
+of a breaking change with these two widely used fields in Beats.
+
+Any future field that will be indexed for full text search in ECS will however
+follow the multi-field convention where `text` indexing is the nested field.
 
 ### IDs are keywords not integers
 
