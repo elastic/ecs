@@ -9,9 +9,9 @@ ECS usage in Auditbeat.
 |---|---|---|---|---|
 | [event.module](https://github.com/elastic/ecs#event.module)  | Auditbeat module name.  | keyword  |   | `mysql`  |
 | <a name="file.&ast;"></a>*file.&ast;*  | *File attributes.<br/>*  |   |   |   |
-| [file.path](https://github.com/elastic/ecs#file.path)  | The path to the file.  | text  |   |   |
+| [file.path](https://github.com/elastic/ecs#file.path)  | The path to the file.  | keyword  |   |   |
 | [file.path.raw](https://github.com/elastic/ecs#file.path.raw)  | The path to the file. This is a non-analyzed field that is useful for aggregations.  | keyword  | 1  |   |
-| [file.target_path](https://github.com/elastic/ecs#file.target_path)  | The target path for symlinks.  | text  |   |   |
+| [file.target_path](https://github.com/elastic/ecs#file.target_path)  | The target path for symlinks.  | keyword  |   |   |
 | [file.type](https://github.com/elastic/ecs#file.type)  | The file type (file, dir, or symlink).  | keyword  |   |   |
 | [file.device](https://github.com/elastic/ecs#file.device)  | The device.  | keyword  |   |   |
 | [file.inode](https://github.com/elastic/ecs#file.inode)  | The inode representing the file in the filesystem.  | keyword  |   |   |

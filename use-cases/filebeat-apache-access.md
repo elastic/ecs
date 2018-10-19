@@ -21,7 +21,7 @@ ECS fields used in Filebeat for the apache module.
 | <a name="http.response.body_sent.bytes"></a>*http.response.body_sent.bytes*  | *Http response body bytes sent, currently apache.access.body_sent.bytes*  | long  |   | `117`  |
 | <a name="http.referer"></a>*http.referer*  | *Http referrer code, currently apache.access.referrer<br/>NOTE: In the RFC its misspell as referer and has become accepted standard*  | keyword  |   | `http://elastic.co/`  |
 | <a name="user_agent.&ast;"></a>*user_agent.&ast;*  | *User agent fields as in schema. Currently under apache.access.user_agent.*<br/>*  |   |   |   |
-| [user_agent.original](https://github.com/elastic/ecs#user_agent.original)  | Original user agent. Currently apache.access.agent  | text  |   | `http://elastic.co/`  |
+| [user_agent.original](https://github.com/elastic/ecs#user_agent.original)  | Original user agent. Currently apache.access.agent  | keyword  |   | `http://elastic.co/`  |
 | <a name="geoip.&ast;"></a>*geoip.&ast;*  | *User agent fields as in schema. Currently under apache.access.geoip.*<br/>These are extracted from source.ip<br/>Should they be under source.geoip?<br/>*  |   |   |   |
 | <a name="geoip...."></a>*geoip....*  | *All geoip fields.*  | text  |   |   |
 
