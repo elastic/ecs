@@ -132,8 +132,8 @@ Destination fields describe details about the destination of a packet/event.
 | <a name="destination.hostname"></a>destination.hostname  | Hostname of the destination.  | keyword  |   |   |
 | <a name="destination.port"></a>destination.port  | Port of the destination.  | long  |   |   |
 | <a name="destination.mac"></a>destination.mac  | MAC address of the destination.  | keyword  |   |   |
-| <a name="destination.domain"></a>destination.domain  | Destination domain.  | keyword  |   |   |
-| <a name="destination.subdomain"></a>destination.subdomain  | Destination subdomain.  | keyword  |   |   |
+| <a name="destination.domain"></a>destination.domain  | Destination's registerable domain (without the subdomain).  | keyword  |   |   |
+| <a name="destination.full_domain"></a>destination.full_domain  | Full destination domain, including the subdomain.  | keyword  |   |   |
 
 
 ## <a name="device"></a> Device fields
@@ -353,8 +353,8 @@ Source fields describe details about the source of the event.
 | <a name="source.hostname"></a>source.hostname  | Hostname of the source.  | keyword  |   |   |
 | <a name="source.port"></a>source.port  | Port of the source.  | long  |   |   |
 | <a name="source.mac"></a>source.mac  | MAC address of the source.  | keyword  |   |   |
-| <a name="source.domain"></a>source.domain  | Source domain.  | keyword  |   |   |
-| <a name="source.subdomain"></a>source.subdomain  | Source subdomain.  | keyword  |   |   |
+| <a name="source.domain"></a>source.domain  | Source's registerable domain (without the subdomain).  | keyword  |   |   |
+| <a name="source.full_domain"></a>source.full_domain  | Full source domain, including the subdomain.  | keyword  |   |   |
 
 
 ## <a name="url"></a> URL fields
