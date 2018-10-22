@@ -233,7 +233,7 @@ Normally the host information is related to the machine on which the event was g
 
 | Field  | Description  | Type  | Multi Field  | Example  |
 |---|---|---|---|---|
-| <a name="host.name"></a>host.name  | host.name is the hostname of the host.<br/>It can contain what `hostname` returns on Unix systems, the fully qualified domain name, or a name specified by the user. The sender decides which value to use.  | keyword  |   |   |
+| <a name="host.hostname"></a>host.hostname  | Hostname of the host.<br/>It can contain what `hostname` returns on Unix systems, the fully qualified domain name, or a name specified by the user. The sender decides which value to use.  | keyword  |   |   |
 | <a name="host.id"></a>host.id  | Unique host id.<br/>As hostname is not always unique, use values that are meaningful in your environment.<br/>Example: The current usage of `beat.name`.  | keyword  |   |   |
 | <a name="host.ip"></a>host.ip  | Host ip address.  | ip  |   |   |
 | <a name="host.mac"></a>host.mac  | Host mac address.  | keyword  |   |   |
