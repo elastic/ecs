@@ -26,7 +26,7 @@
 
 ### Multi-fields text indexing
 
-ElasticSearch can index text multiple ways:
+Elasticsearch can index text multiple ways:
 
 * [text](https://www.elastic.co/guide/en/elasticsearch/reference/current/text.html)
   indexing allows for full text search, or searching arbitrary words that
@@ -38,35 +38,38 @@ ElasticSearch can index text multiple ways:
   and allows for [aggregations](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations.html)
   (what Kibana visualizations are built on).
 
-By default, unless your index mapping specifies otherwise, ElasticSearch indexes
-text field as `text` at the canonical field name, and indexes as second time
-as `keyword` in a nested field:
+By default, unless your index mapping or index template specifies otherwise
+(as the ECS index template does),
+Elasticsearch indexes text field as `text` at the canonical field name,
+and indexes a second time as `keyword`, nested in a multi-field.
+
+Default Elasticsearch convention:
 
 * Canonical field: `myfield` is `text`
-* Nested field: `myfield.keyword` is `keyword`
+* Multi-field: `myfield.keyword` is `keyword`
 
-For monitoring use cases, we need almost exclusively `keyword` indexing, with
-full text search on very few field fields. Given this premise, ECS defaults
-all text indexing to `keyword` at the top level (with only two exceptions).
+For monitoring use cases, `keyword` indexing is needed almost exclusively, with
+full text search on very few fields. Given this premise, ECS defaults
+all text indexing to `keyword` at the top level (with very few exceptions).
 Any use case that requires full text search indexing on additional fields
-can simply add a nested field for full text search.
-Doing so does not conflict with ECS, as the canonical field name will remain
-`keyword` indexed.
+can simply add a [multi-field](https://www.elastic.co/guide/en/elasticsearch/reference/current/multi-fields.html)
+for full text search. Doing so does not conflict with ECS,
+as the canonical field name will remain `keyword` indexed.
 
 ECS multi-field convention for text:
 
 * Canonical field: `myfield` is `keyword`
-* Nested field: `myfield.text` is `text`
+* Multi-field: `myfield.text` is `text`
 
 #### Exceptions
 
-The only two exceptions to this convention are fields `message` and `error.message`,
-which are indexed for full text search only, with no nested field.
+The only exceptions to this convention are fields `message` and `error.message`,
+which are indexed for full text search only, with no multi-field.
 These two fields don't follow the new convention because they are deemed too big
 of a breaking change with these two widely used fields in Beats.
 
 Any future field that will be indexed for full text search in ECS will however
-follow the multi-field convention where `text` indexing is the nested field.
+follow the multi-field convention where `text` indexing is nested in the multi-field.
 
 ### IDs are keywords not integers
 
