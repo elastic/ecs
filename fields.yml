@@ -1120,15 +1120,21 @@
             Note: The `:` is not part of the scheme.
           example: https
     
-        - name: host.name
+        - name: domain
           level: extended
           type: keyword
           description: >
-            Hostname of the request, such as "example.com".
+            Registerable domain of the request (without the subdomain).
     
-            For correlation the this field can be copied into the `host.name`
-            field.
           example: elastic.co
+    
+        - name: full_domain
+          level: extended
+          type: keyword
+          description: >
+            Full domain or vhost of the request.
+    
+          example: www.elastic.co
     
         - name: port
           level: extended
