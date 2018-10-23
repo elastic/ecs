@@ -366,7 +366,7 @@ URL fields provide a complete URL, with scheme, host, and path. The URL object c
 |---|---|---|---|---|
 | <a name="url.href"></a>url.href  | Full url. The field is stored as keyword.  | keyword  |   | `https://elastic.co:443/search?q=elasticsearch#top`  |
 | <a name="url.scheme"></a>url.scheme  | Scheme of the request, such as "https".<br/>Note: The `:` is not part of the scheme.  | keyword  |   | `https`  |
-| <a name="url.host.name"></a>url.host.name  | Hostname of the request, such as "example.com".<br/>For correlation the this field can be copied into the `host.name` field.  | keyword  |   | `elastic.co`  |
+| <a name="url.hostname"></a>url.hostname  | Hostname of the request, such as "elastic.co".<br/>In some cases a URL may refer to an IP and/or port directly, without a domain name. In this case, the IP address would go to the `hostname` field.  | keyword  |   | `elastic.co`  |
 | <a name="url.port"></a>url.port  | Port of the request, such as 443.  | integer  |   | `443`  |
 | <a name="url.path"></a>url.path  | Path of the request, such as "/search".  | keyword  |   |   |
 | <a name="url.query"></a>url.query  | The query field describes the query string of the request, such as "q=elasticsearch".<br/>The `?` is excluded from the query string. If a URL contains no `?`, there is no query field. If there is a `?` but no query, the query field exists with an empty string. The `exists` query can be used to differentiate between the two cases.  | keyword  |   |   |

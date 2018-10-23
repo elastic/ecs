@@ -17,7 +17,8 @@ All notable changes to this project will be documented in this file based on the
 * Remove `log.offset` and `log.line` as too specific for ECS. #131
 * Remove top level objects `kubernetes` and `tls`. #132
 * Remove `*.timezone.offset.sec` fields as too specific for ECS at the moment. #134
-* Make the following fields keyword: device.vendor, file.path, file.target_path, http.response.body, network.name, organization.name, url.href, url.path, url.query, user_agent.original 
+* Make the following fields keyword: device.vendor, file.path, file.target_path, http.response.body, network.name, organization.name, url.href, url.path, url.query, user_agent.original
+* Rename `url.host.name` to `url.hostname` to better align with industry convention.
 
 ### Bugfixes
 
