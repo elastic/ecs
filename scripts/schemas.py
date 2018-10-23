@@ -74,11 +74,13 @@ def filtered_fields(fields, groups):
 
     return new_fields
 
+
 def check_fields(fields):
     for f in fields:
         for field in list(f["fields"]):
             if field["level"] not in ["core", "extended"]:
                 raise Exception('Field {} does not have an allowed level'.format(field["name"]))
+
 
 if __name__ == "__main__":
 
