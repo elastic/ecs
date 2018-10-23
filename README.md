@@ -129,7 +129,7 @@ Destination fields describe details about the destination of a packet/event.
 | Field  | Description  | Type  | Multi Field  | Example  |
 |---|---|---|---|---|
 | <a name="destination.ip"></a>destination.ip  | IP address of the destination.<br/>Can be one or multiple IPv4 or IPv6 addresses.  | ip  |   |   |
-| <a name="destination.hostname"></a>destination.hostname  | Hostname of the destination.  | keyword  |   |   |
+| <a name="destination.hostname"></a>destination.hostname  | Hostname of the destination.<br/>Note that this is likely to be populated as an enrichment, based on asset inventory. This is because an agent is likely to only be able to determine one side of the connection.  | keyword  |   |   |
 | <a name="destination.port"></a>destination.port  | Port of the destination.  | long  |   |   |
 | <a name="destination.mac"></a>destination.mac  | MAC address of the destination.  | keyword  |   |   |
 | <a name="destination.domain"></a>destination.domain  | Destination's registerable domain (without the subdomain).  | keyword  |   |   |
@@ -350,7 +350,7 @@ Source fields describe details about the source of the event.
 | Field  | Description  | Type  | Multi Field  | Example  |
 |---|---|---|---|---|
 | <a name="source.ip"></a>source.ip  | IP address of the source.<br/>Can be one or multiple IPv4 or IPv6 addresses.  | ip  |   |   |
-| <a name="source.hostname"></a>source.hostname  | Hostname of the source.  | keyword  |   |   |
+| <a name="source.hostname"></a>source.hostname  | Hostname of the source.<br/>Note that this is likely to be populated as an enrichment, based on asset inventory. This is because an agent is likely to only be able to determine one side of the connection.  | keyword  |   |   |
 | <a name="source.port"></a>source.port  | Port of the source.  | long  |   |   |
 | <a name="source.mac"></a>source.mac  | MAC address of the source.  | keyword  |   |   |
 | <a name="source.domain"></a>source.domain  | Source's registerable domain (without the subdomain).  | keyword  |   |   |
