@@ -26,40 +26,50 @@
 
 ### Multi-fields text indexing
 
-ElasticSearch can index text multiple ways:
+Elasticsearch can index text multiple ways:
 
-* [text](https://www.elastic.co/guide/en/elasticsearch/reference/current/text.html) indexing allows for full text search, or searching arbitrary words that
+* [text](https://www.elastic.co/guide/en/elasticsearch/reference/current/text.html)
+  indexing allows for full text search, or searching arbitrary words that
   are part of the field.
-* [keyword](https://www.elastic.co/guide/en/elasticsearch/reference/current/keyword.html) indexing allows for much faster
-  [exact match](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-term-query.html)
-  and [prefix search](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-prefix-query.html),
+* [keyword](https://www.elastic.co/guide/en/elasticsearch/reference/current/keyword.html)
+  indexing allows for much faster
+  [exact match filtering](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-term-query.html),
+  [prefix search](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-prefix-query.html),
   and allows for [aggregations](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations.html)
   (what Kibana visualizations are built on).
 
-In some cases, only one type of indexing makes sense for a field.
+By default, unless your index mapping or index template specifies otherwise
+(as the ECS index template does),
+Elasticsearch indexes text field as `text` at the canonical field name,
+and indexes a second time as `keyword`, nested in a multi-field.
 
-However there are cases where both types of indexing can be useful, and we want
-to index both ways.
-As an example, log messages can sometimes be short enough that it makes sense
-to sort them by frequency (that's an aggregation). They can also be long and
-varied enough that full text search can be useful on them.
+Default Elasticsearch convention:
 
-Whenever both types of indexing are helpful, we use multi-fields indexing. The
-convention used is the following:
+* Canonical field: `myfield` is `text`
+* Multi-field: `myfield.keyword` is `keyword`
 
-* `foo`: `text` indexing.
-  The top level of the field (its plain name) is used for full text search.
-* `foo.raw`: `keyword` indexing.
-  The nested field has suffix `.raw` and is what you will use for aggregations.
-  * Performance tip: when filtering your stream in Kibana (or elsewhere), if you
-    are filtering for an exact match or doing a prefix search,
-    both `text` and `keyword` field can be used, but doing so on the `keyword`
-    field (named `.raw`) will be much faster and less memory intensive.
+For monitoring use cases, `keyword` indexing is needed almost exclusively, with
+full text search on very few fields. Given this premise, ECS defaults
+all text indexing to `keyword` at the top level (with very few exceptions).
+Any use case that requires full text search indexing on additional fields
+can simply add a [multi-field](https://www.elastic.co/guide/en/elasticsearch/reference/current/multi-fields.html)
+for full text search. Doing so does not conflict with ECS,
+as the canonical field name will remain `keyword` indexed.
 
-**Keyword only fields**
+ECS multi-field convention for text:
 
-The fields that only make sense as type `keyword` are not named `foo.raw`, the
-plain field (`foo`) will be of type `keyword`, with no nested field.
+* Canonical field: `myfield` is `keyword`
+* Multi-field: `myfield.text` is `text`
+
+#### Exceptions
+
+The only exceptions to this convention are fields `message` and `error.message`,
+which are indexed for full text search only, with no multi-field.
+These two fields don't follow the new convention because they are deemed too big
+of a breaking change with these two widely used fields in Beats.
+
+Any future field that will be indexed for full text search in ECS will however
+follow the multi-field convention where `text` indexing is nested in the multi-field.
 
 ### IDs are keywords not integers
 

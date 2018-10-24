@@ -19,6 +19,8 @@ All notable changes to this project will be documented in this file based on the
 * Remove `*.timezone.offset.sec` fields as too specific for ECS at the moment. #134
 * Make the following fields keyword: device.vendor, file.path, file.target_path, http.response.body, network.name, organization.name, url.href, url.path, url.query, user_agent.original
 * Rename `url.host.name` to `url.hostname` to better align with industry convention.
+* Make the following fields keyword: device.vendor, file.path, file.target_path, http.response.body, network.name, organization.name, url.href, url.path, url.query, user_agent.original. #137
+  * Only two fields using `text` indexing at this time are `message` and `error.message`.
 
 ### Bugfixes
 
