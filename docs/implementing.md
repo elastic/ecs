@@ -97,7 +97,7 @@ Before going into strategies, let's define what constitutes a conflict.
   (most field types are incompatible). Here are concrete examples:
   * `text` vs `keyword`
   * `keyword` vs any numeric (`integer`, `long`, etc.)
-  * discrete field vs an object (e.g. a `keyword` field vs a field that contains other fields)
+  * `nested` vs most other types (`keyword`, `long`, `ip`, etc.)
 * A new ECS field has a completely different purpose than the custom field.
 
 The following do **not** constitute conflicts:
