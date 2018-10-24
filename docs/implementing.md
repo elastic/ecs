@@ -95,14 +95,14 @@ Before going into strategies, let's define what constitutes a conflict.
 * A custom field has the same name as a new ECS field, but a different
   [type](https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-types.html)
   (most field types are incompatible). Here are concrete examples:
-  * `float` vs `long`
   * `text` vs `keyword`
   * `keyword` vs any numeric (`integer`, `long`, etc.)
   * discrete field vs an object (e.g. a `keyword` field vs a field that contains other fields)
 * A new ECS field has a completely different purpose than the custom field.
 
-The following does **not** constitute a conflict:
+The following do **not** constitute conflicts:
 
+* Numeric types like `float` and `long`
 * A new field is added to ECS, and matches the name and type of an existing
   custom field.
   * E.g. you define `process.xpid` as a `keyword` field, and ECS adds
