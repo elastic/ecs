@@ -33,7 +33,7 @@ we think the common parlance will be much clearer. Examples: `ip`, `pid`,
 
 ### Multi-fields text indexing
 
-ElasticSearch can index text multiple ways:
+Elasticsearch can index text multiple ways:
 
 * [text](https://www.elastic.co/guide/en/elasticsearch/reference/current/text.html) indexing allows for full text search, or searching arbitrary words that
   are part of the field.
@@ -119,7 +119,7 @@ using a more common set of field names and definitions.
 A consequence of this is that end users may pick a set of tools that
 include third parties (not just Elastic's) that conform to ECS. Because of this,
 when thinking about avoiding conflicts, it's important to consider the
-broader ecosystem of tools used to ingest data into ElasticSearch,
+broader ecosystem of tools used to ingest data into Elasticsearch,
 not just "will I conflict with Elastic?".
 
 ### Consequences of a Conflict
@@ -129,7 +129,7 @@ per event stream or if you're indexing more than one stream in the same index.
 
 When indexing more than one type of event in the same index, a conflict will
 be experienced as a mapping conflict. This means all events that don't conform
-with the current mapping will be rejected by ElasticSearch.
+with the current mapping will be rejected by Elasticsearch.
 
 When ingesting into separate indices per event source, a conflict will not affect ingestion.
 Each event stream will be ingested in their respective index successfully.
