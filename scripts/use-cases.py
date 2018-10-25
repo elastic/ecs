@@ -36,7 +36,7 @@ def write_stdout():
                     "name": use_case_section["name"] + ".&ast;",
                     "description": use_case_section["description"],
                     "type": "",
-                    "phase": "",
+                    "level": "",
                     "example": "",
                     "ecs": False,
                 })
@@ -46,12 +46,14 @@ def write_stdout():
                 if section_fields["name"] in flat_schema:
                     section_fields["ecs"] = True
                     section_fields["type"] = flat_schema[section_fields["name"]]["type"]
+                    section_fields["level"] = flat_schema[section_fields["name"]]["level"]
                     if section_fields["description"] == "":
                         section_fields["description"] = flat_schema[section_fields["name"]]["description"]
                     if section_fields["example"] == "":
                         section_fields["example"] = flat_schema[section_fields["name"]]["example"]
                 else:
                     section_fields["ecs"] = False
+                    section_fields["level"] = "(use case)"
 
                 fields.append(section_fields)
 

@@ -13,13 +13,13 @@ def create_csv(fields, file):
     if sys.version_info >= (3, 0):
         open_mode = "w"
 
-    # Create markdown schema output file
+    # Output schema to csv
     with open(file, open_mode) as csvfile:
         schema_writer = csv.writer(csvfile,
                                    delimiter=',',
                                    quoting=csv.QUOTE_MINIMAL,
                                    lineterminator='\n')
-        schema_writer.writerow(["Field", "Type", "Phase", "Example"])
+        schema_writer.writerow(["Field", "Type", "Level", "Example"])
 
         for namespace in fields:
             if len(namespace["fields"]) == 0:
@@ -31,7 +31,7 @@ def create_csv(fields, file):
 
             # Print fields into a table
             for field in namespaceFields:
-                schema_writer.writerow([field["name"], field["type"], field["phase"], field["example"]])
+                schema_writer.writerow([field["name"], field["type"], field["level"], field["example"]])
 
 
 def create_markdown(fields, file):
@@ -95,12 +95,14 @@ if __name__ == "__main__":
 
     check_fields(sortedNamespaces)
 
+    # Generates html for README
     if args.stdout == "true":
         groups = [1, 2, 3]
         f_fields = filtered_fields(sortedNamespaces, groups)
         # Print to stdout
         print(create_markdown_string(f_fields))
 
+    # Generates schema.csv
     else:
         groups = [1, 2, 3]
         f_fields = filtered_fields(sortedNamespaces, groups)
