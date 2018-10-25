@@ -23,7 +23,7 @@ ECS fields used in Filebeat for the apache module.
 | <a name="user_agent.&ast;"></a>*user_agent.&ast;* |  | *User agent fields as in schema. Currently under apache.access.user_agent.*<br/>* |  |  |
 | [user_agent.original](https://github.com/elastic/ecs#user_agent.original)  | extended | Original user agent. Currently apache.access.agent | keyword |  |
 | <a name="geoip.&ast;"></a>*geoip.&ast;* |  | *User agent fields as in schema. Currently under apache.access.geoip.*<br/>These are extracted from source.ip<br/>Should they be under source.geoip?<br/>* |  |  |
-| <a name="geoip...."></a>*geoip....* | (use case) | *All geoip fields.* | text |  |
+| <a name="geoip...."></a>*geoip....* | (use case) | *All geoip fields.* | keyword |  |
 
 
 
