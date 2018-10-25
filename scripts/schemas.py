@@ -42,11 +42,11 @@ def create_markdown_document(fields):
     for namespace in fields:
         if len(namespace["fields"]) == 0:
             continue
-        # Link list to field prefixes
+        # Links to each namespace / top level object
         links += " * [{} fields](#{})\n".format(namespace["title"], namespace["name"])
-        output += get_markdown_table(namespace)
+        tables += get_markdown_table(namespace)
 
-    output = links + "\n" + output + "\n\n"
+    output = links + "\n" + tables + "\n\n"
     return output
 
 
