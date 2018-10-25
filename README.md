@@ -216,6 +216,10 @@ File fields provide details about each file.
 Geo fields can carry data about a specific location related to an event or geo information for an IP field.
 
 
+The `geo` fields are expected to be nested at: `destination.geo`, `device.geo`, `host.geo`, `source.geo`.
+
+Note also that the `geo` fields are **not** expected to be used directly at the top level.
+
 | Field  | Description  | Level  | Type  | Example  |
 |---|---|---|---|---|
 | <a name="geo.continent_name"></a>geo.continent_name | Name of the continent. | core | keyword |  |
@@ -305,6 +309,10 @@ The organization fields enrich data with information about the company or entity
 The OS fields contain information about the operating system. These fields are often used inside other prefixes, such as `host.os.*` or `user_agent.os.*`.
 
 
+The `os` fields are expected to be nested at: `device.os`, `host.os`, `user_agent.os`.
+
+Note also that the `os` fields are **not** expected to be used directly at the top level.
+
 | Field  | Description  | Level  | Type  | Example  |
 |---|---|---|---|---|
 | <a name="os.platform"></a>os.platform | Operating system platform (such centos, ubuntu, windows). | extended | keyword | `darwin` |
@@ -380,6 +388,10 @@ URL fields provide a complete URL, with scheme, host, and path. The URL object c
 
 The user fields describe information about the user that is relevant to  the event. Fields can have one entry or multiple entries. If a user has more than one id, provide an array that includes all of them.
 
+
+The `user` fields are expected to be nested at: `destination.user`, `host.user`, `source.user`.
+
+Note also that the `user` fields may be used directly at the top level.
 
 | Field  | Description  | Level  | Type  | Example  |
 |---|---|---|---|---|
