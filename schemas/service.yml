@@ -26,21 +26,33 @@
     - name: name
       level: core
       type: keyword
-      example: "elasticsearch"
+      example: "elasticsearch-metrics"
       description: >
         Name of the service data is collected from.
 
-        The name can be used to group and correlate logs and metrics from one
-        service.
+        The name of the service is normally user given. This allows if two
+        instances of the same service are running on the same machine
+        they can be differentiated by the `service.name`.
 
-        Example: If logs or metrics are collected from Redis, `service.name` would be
-        `redis`.
+        Also it allows for distributed services that run on multiple hosts to
+        correlate the related instances based on the name.
+
+        In the case of Elasticsearch the service.name could contain the cluster
+        name. For Beats the service.name is by default a copy of the `service.type`
+        field if no name is specified.
 
     - name: type
       level: core
       type: keyword
+      example: "elasticsearch"
       description: >
-        Service type.
+        The type of the service data is collected from.
+
+        The type can be used to group and correlate logs and metrics from one
+        service type.
+
+        Example: If logs or metrics are collected from Elasticsearch, `service.type` would be
+        `elasticsearch`.
 
     - name: state
       level: core
