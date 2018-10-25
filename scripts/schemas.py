@@ -36,7 +36,7 @@ def create_csv(fields, file):
 
 def create_markdown_document(fields):
     # Create markdown schema output string
-    output = ""
+    tables = ""
 
     links = ""
     for namespace in fields:
@@ -46,8 +46,7 @@ def create_markdown_document(fields):
         links += " * [{} fields](#{})\n".format(namespace["title"], namespace["name"])
         tables += get_markdown_section(namespace)
 
-    output = links + "\n" + tables + "\n\n"
-    return output
+    return links + "\n" + tables + "\n\n"
 
 
 def filtered_fields(fields, groups):
