@@ -44,7 +44,7 @@ def create_markdown_document(fields):
             continue
         # Links to each namespace / top level object
         links += " * [{} fields](#{})\n".format(namespace["title"], namespace["name"])
-        tables += get_markdown_table(namespace)
+        tables += get_markdown_section(namespace)
 
     output = links + "\n" + tables + "\n\n"
     return output

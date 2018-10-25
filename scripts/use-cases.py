@@ -58,7 +58,7 @@ def write_stdout():
                 fields.append(section_fields)
 
         global_fields = {"name": use_case["name"], "title": use_case["title"], "description": "", "fields": fields}
-        output += get_markdown_table(global_fields, "###", link_prefix) + "\n"
+        output += get_markdown_section(global_fields, "###", link_prefix) + "\n"
 
         # Write output to /use-cases/use_case["name"].md file
         # Adjust links

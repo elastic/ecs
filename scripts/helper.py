@@ -122,10 +122,12 @@ def get_schema():
     return fields
 
 
-def get_markdown_table(namespace, title_prefix="##", link=False):
+def get_markdown_section(namespace, title_prefix="##", link=False):
 
+    # Title
     output = '{} <a name="{}"></a> {} fields\n\n'.format(title_prefix, namespace["name"], namespace["title"])
 
+    # Description
     # Replaces one newlines with two as otherwise double newlines do not show up in markdown
     output += namespace["description"].replace("\n", "\n\n") + "\n"
 
@@ -151,6 +153,7 @@ def get_markdown_table(namespace, title_prefix="##", link=False):
 
     output += "\n\n"
 
+    # Footnote
     if "footnote" in namespace:
         output += namespace["footnote"].replace("\n", "\n\n") + "\n"
 
