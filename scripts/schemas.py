@@ -34,18 +34,6 @@ def create_csv(fields, file):
                 schema_writer.writerow([field["name"], field["type"], field["level"], field["example"]])
 
 
-def create_markdown(fields, file):
-    # Create markdown schema output file
-    output = open(file, 'w')
-
-    for namespace in fields:
-        if len(namespace["fields"]) == 0:
-            continue
-        output.write(get_markdown_table(namespace))
-
-    output.close()
-
-
 def create_markdown_document(fields):
     # Create markdown schema output string
     output = ""
@@ -106,5 +94,4 @@ if __name__ == "__main__":
     else:
         groups = [1, 2, 3]
         f_fields = filtered_fields(sortedNamespaces, groups)
-        #create_markdown(f_fields, "schema.md")
         create_csv(f_fields, "schema.csv")
