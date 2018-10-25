@@ -306,7 +306,7 @@ The organization fields enrich data with information about the company or entity
 
 ## <a name="os"></a> Operating System fields
 
-The OS fields contain information about the operating system. These fields are often used inside other prefixes, such as `host.os.*` or `user_agent.os.*`.
+The OS fields contain information about the operating system.
 
 
 The `os` fields are expected to be nested at: `device.os`, `host.os`, `user_agent.os`.
