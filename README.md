@@ -213,7 +213,7 @@ File fields provide details about each file.
 
 ## <a name="geo"></a> Geo fields
 
-Geo fields can carry data about a specific location related to an event or geo information for an IP field.
+Geo fields can carry data about a specific location related to an event or geo information derived from an IP field.
 
 
 The `geo` fields are expected to be nested at: `destination.geo`, `device.geo`, `host.geo`, `source.geo`.
