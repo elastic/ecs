@@ -46,7 +46,7 @@ def create_markdown(fields, file):
     output.close()
 
 
-def create_markdown_string(fields):
+def create_markdown_document(fields):
     # Create markdown schema output string
     output = ""
 
@@ -100,7 +100,7 @@ if __name__ == "__main__":
         groups = [1, 2, 3]
         f_fields = filtered_fields(sortedNamespaces, groups)
         # Print to stdout
-        print(create_markdown_string(f_fields))
+        print(create_markdown_document(f_fields))
 
     # Generates schema.csv
     else:
