@@ -114,10 +114,10 @@ def get_markdown_row(field, link, multi_field):
 
     # If link is true, it link to the anchor is provided. This is used for the use-cases
     if link and ecs:
-        return '| [{}]({}#{})  | {} | {} | {} | {} |\n'.format(show_name, link, field["name"], field["level"], description, field["type"], multi_field, example)
+        return '| [{}]({}#{})  | {} | {} | {} | {} | {} |\n'.format(show_name, link, field["name"], field["level"], description, field["type"], multi_field, example)
 
     # By default a anchor is attached to the name
-    return '| <a name="{}"></a>{} | {} | {} | {} | {} |\n'.format(field["name"], show_name, field["level"], description, field["type"], multi_field, example)
+    return '| <a name="{}"></a>{} | {} | {} | {} | {} | {} |\n'.format(field["name"], show_name, field["level"], description, field["type"], multi_field, example)
 
 
 def get_schema():
