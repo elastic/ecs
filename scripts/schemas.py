@@ -95,7 +95,7 @@ if __name__ == "__main__":
 
     check_fields(sortedNamespaces)
 
-    # Generates html for README
+    # Generates Markdown for README
     if args.stdout == "true":
         groups = [1, 2, 3]
         f_fields = filtered_fields(sortedNamespaces, groups)
