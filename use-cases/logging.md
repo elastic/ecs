@@ -5,18 +5,18 @@ ECS fields used in logging use cases.
 ### <a name="logging"></a> Logging fields
 
 
-| Field  | Level  | Description  | Type  | Multi Field  | Example  |
+| Field  | Description  | Level  | Type  | Multi Field  | Example  |
 |---|---|---|---|---|---|
-| <a name="id"></a>*id* | (use case) | *Unique id of the log entry.* | keyword |  | `8a4f500d` |
-| <a name="timestamp"></a>*timestamp* | (use case) | *Timestamp of the log line.* | date |  | `2016-05-23T08:05:34.853Z` |
-| [message](https://github.com/elastic/ecs#message)  | core | The log message.<br/>This can contain the full log line or based on the processing only the extracted message part. This is expected to be human readable. | text |  | `Hello World` |
-| <a name="hostname"></a>*hostname* | (use case) | *Hostname extracted from the log line.* | keyword |  | `www.example.com` |
-| <a name="ip"></a>*ip* | (use case) | *IP Address extracted from the log line. Can be IPv4 or IPv6.* | ip |  | `192.168.1.12` |
-| [log.level](https://github.com/elastic/ecs#log.level)  | core | Log level field. Is expected to be `WARN`, `ERR`, `INFO` etc. | keyword |  | `ERR` |
-| <a name="log.line"></a>*log.line* | (use case) | *Line number the log event was collected from.* | long |  | `18` |
-| <a name="log.offset"></a>*log.offset* | (use case) | *Offset of the log event.* | long |  | `12` |
-| <a name="source.&ast;"></a>*source.&ast;* |  | *Describes from where the log entries come from.<br/>* |  |  |  |
-| <a name="source.path"></a>*source.path* | (use case) | *File path of the file the data is harvested from.* | keyword |  | `/var/log/test.log` |
+| <a name="id"></a>*id* | *Unique id of the log entry.* | (use case) | keyword |  | `8a4f500d` |
+| <a name="timestamp"></a>*timestamp* | *Timestamp of the log line.* | (use case) | date |  | `2016-05-23T08:05:34.853Z` |
+| [message](https://github.com/elastic/ecs#message)  | The log message.<br/>This can contain the full log line or based on the processing only the extracted message part. This is expected to be human readable. | core | text |  | `Hello World` |
+| <a name="hostname"></a>*hostname* | *Hostname extracted from the log line.* | (use case) | keyword |  | `www.example.com` |
+| <a name="ip"></a>*ip* | *IP Address extracted from the log line. Can be IPv4 or IPv6.* | (use case) | ip |  | `192.168.1.12` |
+| [log.level](https://github.com/elastic/ecs#log.level)  | Log level field. Is expected to be `WARN`, `ERR`, `INFO` etc. | core | keyword |  | `ERR` |
+| <a name="log.line"></a>*log.line* | *Line number the log event was collected from.* | (use case) | long |  | `18` |
+| <a name="log.offset"></a>*log.offset* | *Offset of the log event.* | (use case) | long |  | `12` |
+| <a name="source.&ast;"></a>*source.&ast;* | *Describes from where the log entries come from.<br/>* |  |  |  |  |
+| <a name="source.path"></a>*source.path* | *File path of the file the data is harvested from.* | (use case) | keyword |  | `/var/log/test.log` |
 
 
 
