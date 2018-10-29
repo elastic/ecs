@@ -218,7 +218,7 @@ Geo fields can carry data about a specific location related to an event or geo i
 
 The `geo` fields are expected to be nested at: `destination.geo`, `device.geo`, `host.geo`, `source.geo`.
 
-Note also that the `{}` fields are **not** expected to be used directly at the top level.
+Note also that the `geo` fields are **not** expected to be used directly at the top level.
 
 | Field  | Description  | Level  | Type  | Example  |
 |---|---|---|---|---|
@@ -311,7 +311,7 @@ The OS fields contain information about the operating system.
 
 The `os` fields are expected to be nested at: `device.os`, `host.os`, `user_agent.os`.
 
-Note also that the `{}` fields are **not** expected to be used directly at the top level.
+Note also that the `os` fields are **not** expected to be used directly at the top level.
 
 | Field  | Description  | Level  | Type  | Example  |
 |---|---|---|---|---|

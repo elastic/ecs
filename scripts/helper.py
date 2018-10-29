@@ -140,10 +140,11 @@ def get_markdown_section(namespace, title_prefix="##", link=False):
             section_name, ', '.join(rendered_fields))
 
         if "top_level" in namespace["reuseable"] and namespace["reuseable"]["top_level"]:
-            output += "Note also that the `{}` fields may be used directly at the top level.\n\n".format(section_name)
+            template = "Note also that the `{}` fields may be used directly at the top level.\n\n"
         else:
-            output += "Note also that the `{}` fields are **not** expected to " + \
-                "be used directly at the top level.\n\n".format(section_name)
+            template = "Note also that the `{}` fields are **not** expected to " + \
+                "be used directly at the top level.\n\n"
+        output += template.format(section_name)
 
     # Table
     titles = ["Field", "Description", "Level", "Type", "Example"]
