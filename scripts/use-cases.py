@@ -29,31 +29,33 @@ def write_stdout():
         output += "{}\n\n".format(use_case["description"])
 
         fields = []
-        for f in use_case["fields"]:
-            # In case a description exists for a prefix, add is as field with .*
-            if "description" in f and f["description"] != "":
+        for use_case_section in use_case["fields"]:
+            # In case a description exists for a prefix, add it as field with .*
+            if "description" in use_case_section and use_case_section["description"] != "":
                 fields.append({
-                    "name": f["name"] + ".&ast;",
-                    "description": f["description"],
+                    "name": use_case_section["name"] + ".&ast;",
+                    "description": use_case_section["description"],
                     "type": "",
-                    "phase": "",
+                    "level": "",
                     "example": "",
                     "ecs": False,
                 })
 
-            for f2 in f["fields"]:
+            for section_fields in use_case_section["fields"]:
                 # Complete ECS fields with ECS information if not set
-                if f2["name"] in flat_schema:
-                    f2["ecs"] = True
-                    f2["type"] = flat_schema[f2["name"]]["type"]
-                    if f2["description"] == "":
-                        f2["description"] = flat_schema[f2["name"]]["description"]
-                    if f2["example"] == "":
-                        f2["example"] = flat_schema[f2["name"]]["example"]
+                if section_fields["name"] in flat_schema:
+                    section_fields["ecs"] = True
+                    section_fields["type"] = flat_schema[section_fields["name"]]["type"]
+                    section_fields["level"] = flat_schema[section_fields["name"]]["level"]
+                    if section_fields["description"] == "":
+                        section_fields["description"] = flat_schema[section_fields["name"]]["description"]
+                    if section_fields["example"] == "":
+                        section_fields["example"] = flat_schema[section_fields["name"]]["example"]
                 else:
-                    f2["ecs"] = False
+                    section_fields["ecs"] = False
+                    section_fields["level"] = "(use case)"
 
-                fields.append(f2)
+                fields.append(section_fields)
 
         global_fields = {"name": use_case["name"], "title": use_case["title"], "description": "", "fields": fields}
         output += get_markdown_table(global_fields, "###", link_prefix) + "\n"
@@ -86,5 +88,7 @@ if __name__ == "__main__":
     parser.add_argument('--stdout', help='output to stdout instead of files')
     args = parser.parse_args()
 
+    # Outputs html of links to each use case (for the readme)
+    # and generates an html file per use case besides their each yaml file.
     if args.stdout == "true":
         write_stdout()
