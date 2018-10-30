@@ -142,7 +142,7 @@ def get_markdown_section(namespace, title_prefix="##", link=False):
         if "top_level" in namespace["reuseable"] and namespace["reuseable"]["top_level"]:
             template = "Note also that the `{}` fields may be used directly at the top level.\n\n"
         else:
-            template = "Note also that the `{}` fields are **not** expected to " + \
+            template = "Note also that the `{}` fields are not expected to " + \
                 "be used directly at the top level.\n\n"
         output += template.format(section_name)
 
