@@ -23,6 +23,7 @@ All notable changes to this project will be documented in this file based on the
   * Only two fields using `text` indexing at this time are `message` and `error.message`.
 * Rename `host.name` to `host.hostname` to better align with industry convention. #144
 * Update definition of `service.type` and `service.name`.
+* Redefine purpose of `agent.name` field to be user defined field.
 
 ### Bugfixes
 
@@ -36,5 +37,6 @@ All notable changes to this project will be documented in this file based on the
 * Add `log.message`. #3
 * Add http.request.method and http.version
 * Add `host.os.kernel` containing the OS kernel version. #60
+* Add `agent.type` field.
 
 ### Deprecated

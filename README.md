@@ -79,7 +79,8 @@ The agent fields contain the data about the agent/client/shipper that created th
 | Field  | Description  | Level  | Type  | Example  |
 |---|---|---|---|---|
 | <a name="agent.version"></a>agent.version | Version of the agent. | core | keyword | `6.0.0-rc2` |
-| <a name="agent.name"></a>agent.name | Name of the agent. | core | keyword | `filebeat` |
+| <a name="agent.name"></a>agent.name | Name of the agent.<br/>This is a name that can be given to an agent. This can be helpful if for example two Filebeat instances are running on the same host but a human readable separation is needed on which Filebeat instance data is coming from.<br/>If no name is given, the name is often left empty. | core | keyword | `foo` |
+| <a name="agent.type"></a>agent.type | Type of the agent.<br/>The agent type stays always the same and should be given by the agent used. In case of Filebeat the agent would always be Filebeat also if two Filebeat instances are run on the same machine. | core | keyword | `filebeat` |
 | <a name="agent.id"></a>agent.id | Unique identifier of this agent (if one exists).<br/>Example: For Beats this would be beat.id. | core | keyword | `8a4f500d` |
 | <a name="agent.ephemeral_id"></a>agent.ephemeral_id | Ephemeral identifier of this agent (if one exists).<br/>This id normally changes across restarts, but `agent.id` does not. | extended | keyword | `8a4f500f` |
 
