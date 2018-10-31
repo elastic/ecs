@@ -63,12 +63,12 @@ ECS defines these fields.
 The base set contains all fields which are on the top level. These fields are common across all types of events.
 
 
-| Field  | Description  | Level  | Type  | Multi Field  | Example  |
-|---|---|---|---|---|---|
-| <a name="@timestamp"></a>@timestamp | Date/time when the event originated.<br/>For log events this is the date/time when the event was generated, and not when it was read.<br/>Required field for all events. | core | date |  | `2016-05-23T08:05:34.853Z` |
-| <a name="tags"></a>tags | List of keywords used to tag each event. | core | keyword |  | `["production", "env2"]` |
-| <a name="labels"></a>labels | Key/value pairs.<br/>Can be used to add meta information to events. Should not contain nested objects. All values are stored as keyword.<br/>Example: `docker` and `k8s` labels. | core | object |  | `{'application': 'foo-bar', 'env': 'production'}` |
-| <a name="message"></a>message | For log events the message field contains the log message.<br/>In other use cases the message field can be used to concatenate different values which are then freely searchable. If multiple messages exist, they can be combined into one message. | core | text |  | `Hello World` |
+| Field  | Description  | Level  | Type  | Example  |
+|---|---|---|---|---|
+| <a name="@timestamp"></a>@timestamp | Date/time when the event originated.<br/>For log events this is the date/time when the event was generated, and not when it was read.<br/>Required field for all events. | core | date | `2016-05-23T08:05:34.853Z` |
+| <a name="tags"></a>tags | List of keywords used to tag each event. | core | keyword | `["production", "env2"]` |
+| <a name="labels"></a>labels | Key/value pairs.<br/>Can be used to add meta information to events. Should not contain nested objects. All values are stored as keyword.<br/>Example: `docker` and `k8s` labels. | core | object | `{'application': 'foo-bar', 'env': 'production'}` |
+| <a name="message"></a>message | For log events the message field contains the log message.<br/>In other use cases the message field can be used to concatenate different values which are then freely searchable. If multiple messages exist, they can be combined into one message. | core | text | `Hello World` |
 
 
 ## <a name="agent"></a> Agent fields
@@ -76,12 +76,12 @@ The base set contains all fields which are on the top level. These fields are co
 The agent fields contain the data about the agent/client/shipper that created the event.
 
 
-| Field  | Description  | Level  | Type  | Multi Field  | Example  |
-|---|---|---|---|---|---|
-| <a name="agent.version"></a>agent.version | Version of the agent. | core | keyword |  | `6.0.0-rc2` |
-| <a name="agent.name"></a>agent.name | Name of the agent. | core | keyword |  | `filebeat` |
-| <a name="agent.id"></a>agent.id | Unique identifier of this agent (if one exists).<br/>Example: For Beats this would be beat.id. | core | keyword |  | `8a4f500d` |
-| <a name="agent.ephemeral_id"></a>agent.ephemeral_id | Ephemeral identifier of this agent (if one exists).<br/>This id normally changes across restarts, but `agent.id` does not. | extended | keyword |  | `8a4f500f` |
+| Field  | Description  | Level  | Type  | Example  |
+|---|---|---|---|---|
+| <a name="agent.version"></a>agent.version | Version of the agent. | core | keyword | `6.0.0-rc2` |
+| <a name="agent.name"></a>agent.name | Name of the agent. | core | keyword | `filebeat` |
+| <a name="agent.id"></a>agent.id | Unique identifier of this agent (if one exists).<br/>Example: For Beats this would be beat.id. | core | keyword | `8a4f500d` |
+| <a name="agent.ephemeral_id"></a>agent.ephemeral_id | Ephemeral identifier of this agent (if one exists).<br/>This id normally changes across restarts, but `agent.id` does not. | extended | keyword | `8a4f500f` |
 
 
 Examples: In the case of Beats for logs, the agent.name is filebeat. For APM, it is the agent running in the app/service. The agent information does not change if data is sent through queuing systems like Kafka, Redis, or processing systems such as Logstash or APM Server.
@@ -92,15 +92,15 @@ Examples: In the case of Beats for logs, the agent.name is filebeat. For APM, it
 Fields related to the cloud or infrastructure the events are coming from.
 
 
-| Field  | Description  | Level  | Type  | Multi Field  | Example  |
-|---|---|---|---|---|---|
-| <a name="cloud.provider"></a>cloud.provider | Name of the cloud provider. Example values are ec2, gce, or digitalocean. | extended | keyword |  | `ec2` |
-| <a name="cloud.availability_zone"></a>cloud.availability_zone | Availability zone in which this host is running. | extended | keyword |  | `us-east-1c` |
-| <a name="cloud.region"></a>cloud.region | Region in which this host is running. | extended | keyword |  | `us-east-1` |
-| <a name="cloud.instance.id"></a>cloud.instance.id | Instance ID of the host machine. | extended | keyword |  | `i-1234567890abcdef0` |
-| <a name="cloud.instance.name"></a>cloud.instance.name | Instance name of the host machine. | extended | keyword |  |  |
-| <a name="cloud.machine.type"></a>cloud.machine.type | Machine type of the host machine. | extended | keyword |  | `t2.medium` |
-| <a name="cloud.account.id"></a>cloud.account.id | The cloud account or organization id used to identify different entities in a multi-tenant environment.<br/>Examples: AWS account id, Google Cloud ORG Id, or other unique identifier. | extended | keyword |  | `666777888999` |
+| Field  | Description  | Level  | Type  | Example  |
+|---|---|---|---|---|
+| <a name="cloud.provider"></a>cloud.provider | Name of the cloud provider. Example values are ec2, gce, or digitalocean. | extended | keyword | `ec2` |
+| <a name="cloud.availability_zone"></a>cloud.availability_zone | Availability zone in which this host is running. | extended | keyword | `us-east-1c` |
+| <a name="cloud.region"></a>cloud.region | Region in which this host is running. | extended | keyword | `us-east-1` |
+| <a name="cloud.instance.id"></a>cloud.instance.id | Instance ID of the host machine. | extended | keyword | `i-1234567890abcdef0` |
+| <a name="cloud.instance.name"></a>cloud.instance.name | Instance name of the host machine. | extended | keyword |  |
+| <a name="cloud.machine.type"></a>cloud.machine.type | Machine type of the host machine. | extended | keyword | `t2.medium` |
+| <a name="cloud.account.id"></a>cloud.account.id | The cloud account or organization id used to identify different entities in a multi-tenant environment.<br/>Examples: AWS account id, Google Cloud ORG Id, or other unique identifier. | extended | keyword | `666777888999` |
 
 
 Examples: If Metricbeat is running on an EC2 host and fetches data from its host, the cloud info contains the data about this machine. If Metricbeat runs on a remote machine outside the cloud and fetches data from a service running in the cloud, the field contains cloud data from the machine the service is running on.
@@ -111,14 +111,14 @@ Examples: If Metricbeat is running on an EC2 host and fetches data from its host
 Container fields are used for meta information about the specific container that is the source of information. These fields help correlate data based containers from any runtime.
 
 
-| Field  | Description  | Level  | Type  | Multi Field  | Example  |
-|---|---|---|---|---|---|
-| <a name="container.runtime"></a>container.runtime | Runtime managing this container. | extended | keyword |  | `docker` |
-| <a name="container.id"></a>container.id | Unique container id. | core | keyword |  |  |
-| <a name="container.image.name"></a>container.image.name | Name of the image the container was built on. | extended | keyword |  |  |
-| <a name="container.image.tag"></a>container.image.tag | Container image tag. | extended | keyword |  |  |
-| <a name="container.name"></a>container.name | Container name. | extended | keyword |  |  |
-| <a name="container.labels"></a>container.labels | Image labels. | extended | object |  |  |
+| Field  | Description  | Level  | Type  | Example  |
+|---|---|---|---|---|
+| <a name="container.runtime"></a>container.runtime | Runtime managing this container. | extended | keyword | `docker` |
+| <a name="container.id"></a>container.id | Unique container id. | core | keyword |  |
+| <a name="container.image.name"></a>container.image.name | Name of the image the container was built on. | extended | keyword |  |
+| <a name="container.image.tag"></a>container.image.tag | Container image tag. | extended | keyword |  |
+| <a name="container.name"></a>container.name | Container name. | extended | keyword |  |
+| <a name="container.labels"></a>container.labels | Image labels. | extended | object |  |
 
 
 ## <a name="destination"></a> Destination fields
@@ -126,14 +126,14 @@ Container fields are used for meta information about the specific container that
 Destination fields describe details about the destination of a packet/event.
 
 
-| Field  | Description  | Level  | Type  | Multi Field  | Example  |
-|---|---|---|---|---|---|
-| <a name="destination.ip"></a>destination.ip | IP address of the destination.<br/>Can be one or multiple IPv4 or IPv6 addresses. | core | ip |  |  |
-| <a name="destination.hostname"></a>destination.hostname | Hostname of the destination. | core | keyword |  |  |
-| <a name="destination.port"></a>destination.port | Port of the destination. | core | long |  |  |
-| <a name="destination.mac"></a>destination.mac | MAC address of the destination. | core | keyword |  |  |
-| <a name="destination.domain"></a>destination.domain | Destination domain. | core | keyword |  |  |
-| <a name="destination.subdomain"></a>destination.subdomain | Destination subdomain. | core | keyword |  |  |
+| Field  | Description  | Level  | Type  | Example  |
+|---|---|---|---|---|
+| <a name="destination.ip"></a>destination.ip | IP address of the destination.<br/>Can be one or multiple IPv4 or IPv6 addresses. | core | ip |  |
+| <a name="destination.hostname"></a>destination.hostname | Hostname of the destination. | core | keyword |  |
+| <a name="destination.port"></a>destination.port | Port of the destination. | core | long |  |
+| <a name="destination.mac"></a>destination.mac | MAC address of the destination. | core | keyword |  |
+| <a name="destination.domain"></a>destination.domain | Destination domain. | core | keyword |  |
+| <a name="destination.subdomain"></a>destination.subdomain | Destination subdomain. | core | keyword |  |
 
 
 ## <a name="device"></a> Device fields
@@ -141,15 +141,15 @@ Destination fields describe details about the destination of a packet/event.
 Device fields are used to provide additional information about the device that is the source of the information. This could be a firewall, network device, etc.
 
 
-| Field  | Description  | Level  | Type  | Multi Field  | Example  |
-|---|---|---|---|---|---|
-| <a name="device.mac"></a>device.mac | MAC address of the device | core | keyword |  |  |
-| <a name="device.ip"></a>device.ip | IP address of the device. | core | ip |  |  |
-| <a name="device.hostname"></a>device.hostname | Hostname of the device. | core | keyword |  |  |
-| <a name="device.vendor"></a>device.vendor | Device vendor information. | core | keyword |  |  |
-| <a name="device.version"></a>device.version | Device version. | core | keyword |  |  |
-| <a name="device.serial_number"></a>device.serial_number | Device serial number. | extended | keyword |  |  |
-| <a name="device.type"></a>device.type | The type of the device the data is coming from.<br/>There is no predefined list of device types. Some examples are `endpoint`, `firewall`, `ids`, `ips`, `proxy`. | core | keyword |  | `firewall` |
+| Field  | Description  | Level  | Type  | Example  |
+|---|---|---|---|---|
+| <a name="device.mac"></a>device.mac | MAC address of the device | core | keyword |  |
+| <a name="device.ip"></a>device.ip | IP address of the device. | core | ip |  |
+| <a name="device.hostname"></a>device.hostname | Hostname of the device. | core | keyword |  |
+| <a name="device.vendor"></a>device.vendor | Device vendor information. | core | keyword |  |
+| <a name="device.version"></a>device.version | Device version. | core | keyword |  |
+| <a name="device.serial_number"></a>device.serial_number | Device serial number. | extended | keyword |  |
+| <a name="device.type"></a>device.type | The type of the device the data is coming from.<br/>There is no predefined list of device types. Some examples are `endpoint`, `firewall`, `ids`, `ips`, `proxy`. | core | keyword | `firewall` |
 
 
 ## <a name="error"></a> Error fields
@@ -157,11 +157,11 @@ Device fields are used to provide additional information about the device that i
 These fields can represent errors of any kind. Use them for errors that happen while fetching events or in cases where the event itself contains an error.
 
 
-| Field  | Description  | Level  | Type  | Multi Field  | Example  |
-|---|---|---|---|---|---|
-| <a name="error.id"></a>error.id | Unique identifier for the error. | core | keyword |  |  |
-| <a name="error.message"></a>error.message | Error message. | core | text |  |  |
-| <a name="error.code"></a>error.code | Error code describing the error. | core | keyword |  |  |
+| Field  | Description  | Level  | Type  | Example  |
+|---|---|---|---|---|
+| <a name="error.id"></a>error.id | Unique identifier for the error. | core | keyword |  |
+| <a name="error.message"></a>error.message | Error message. | core | text |  |
+| <a name="error.code"></a>error.code | Error code describing the error. | core | keyword |  |
 
 
 ## <a name="event"></a> Event fields
@@ -169,22 +169,22 @@ These fields can represent errors of any kind. Use them for errors that happen w
 The event fields are used for context information about the data itself.
 
 
-| Field  | Description  | Level  | Type  | Multi Field  | Example  |
-|---|---|---|---|---|---|
-| <a name="event.id"></a>event.id | Unique ID to describe the event. | core | keyword |  | `8a4f500d` |
-| <a name="event.category"></a>event.category | Event category.<br/>This can be a user defined category. | core | keyword |  | `metrics` |
-| <a name="event.type"></a>event.type | A type given to this kind of event which can be used for grouping.<br/>This is normally defined by the user. | core | keyword |  | `nginx-stats-metrics` |
-| <a name="event.action"></a>event.action | The action captured by the event. The type of action will vary from system to system but is likely to include actions by security services, such as blocking or quarantining; as well as more generic actions such as login events, file i/o or proxy forwarding events.<br/>The value is normally defined by the user. | core | keyword |  | `reject` |
-| <a name="event.module"></a>event.module | Name of the module this data is coming from.<br/>This information is coming from the modules used in Beats or Logstash. | core | keyword |  | `mysql` |
-| <a name="event.dataset"></a>event.dataset | Name of the dataset.<br/>The concept of a `dataset` (fileset / metricset) is used in Beats as a subset of modules. It contains the information which is currently stored in metricset.name and metricset.module or fileset.name. | core | keyword |  | `stats` |
-| <a name="event.severity"></a>event.severity | Severity describes the severity of the event. What the different severity values mean can very different between use cases. It's up to the implementer to make sure severities are consistent across events. | core | long |  | `7` |
-| <a name="event.original"></a>event.original | Raw text message of entire event. Used to demonstrate log integrity.<br/>This field is not indexed and doc_values are disabled. It cannot be searched, but it can be retrieved from `_source`. | core | keyword |  | `Sep 19 08:26:10 host CEF:0&#124;Security&#124; threatmanager&#124;1.0&#124;100&#124; worm successfully stopped&#124;10&#124;src=10.0.0.1 dst=2.1.2.2spt=1232` |
-| <a name="event.hash"></a>event.hash | Hash (perhaps logstash fingerprint) of raw field to be able to demonstrate log integrity. | extended | keyword |  | `123456789012345678901234567890ABCD` |
-| <a name="event.version"></a>event.version | The version field contains the version an event for ECS adheres to.<br/>This field should be provided as part of each event to make it possible to detect to which ECS version an event belongs.<br/>event.version is a required field and must exist in all events. It describes which ECS version the event adheres to.<br/>The current version is 0.1.0. | core | keyword |  | `0.1.0` |
-| <a name="event.duration"></a>event.duration | Duration of the event in nanoseconds. | core | long |  |  |
-| <a name="event.created"></a>event.created | event.created contains the date when the event was created.<br/>This timestamp is distinct from @timestamp in that @timestamp contains the processed timestamp. For logs these two timestamps can be different as the timestamp in the log line and when the event is read for example by Filebeat are not identical. `@timestamp` must contain the timestamp extracted from the log line, event.created when the log line is read. The same could apply to package capturing where @timestamp contains the timestamp extracted from the network package and event.created when the event was created.<br/>In case the two timestamps are identical, @timestamp should be used. | core | date |  |  |
-| <a name="event.risk_score"></a>event.risk_score | Risk score or priority of the event (e.g. security solutions). Use your system's original value here. | core | float |  |  |
-| <a name="event.risk_score_norm"></a>event.risk_score_norm | Normalized risk score or priority of the event, on a scale of 0 to 100.<br/>This is mainly useful if you use more than one system that assigns risk scores, and you want to see a normalized value across all systems. | extended | float |  |  |
+| Field  | Description  | Level  | Type  | Example  |
+|---|---|---|---|---|
+| <a name="event.id"></a>event.id | Unique ID to describe the event. | core | keyword | `8a4f500d` |
+| <a name="event.category"></a>event.category | Event category.<br/>This can be a user defined category. | core | keyword | `metrics` |
+| <a name="event.type"></a>event.type | A type given to this kind of event which can be used for grouping.<br/>This is normally defined by the user. | core | keyword | `nginx-stats-metrics` |
+| <a name="event.action"></a>event.action | The action captured by the event. The type of action will vary from system to system but is likely to include actions by security services, such as blocking or quarantining; as well as more generic actions such as login events, file i/o or proxy forwarding events.<br/>The value is normally defined by the user. | core | keyword | `reject` |
+| <a name="event.module"></a>event.module | Name of the module this data is coming from.<br/>This information is coming from the modules used in Beats or Logstash. | core | keyword | `mysql` |
+| <a name="event.dataset"></a>event.dataset | Name of the dataset.<br/>The concept of a `dataset` (fileset / metricset) is used in Beats as a subset of modules. It contains the information which is currently stored in metricset.name and metricset.module or fileset.name. | core | keyword | `stats` |
+| <a name="event.severity"></a>event.severity | Severity describes the severity of the event. What the different severity values mean can very different between use cases. It's up to the implementer to make sure severities are consistent across events. | core | long | `7` |
+| <a name="event.original"></a>event.original | Raw text message of entire event. Used to demonstrate log integrity.<br/>This field is not indexed and doc_values are disabled. It cannot be searched, but it can be retrieved from `_source`. | core | keyword | `Sep 19 08:26:10 host CEF:0&#124;Security&#124; threatmanager&#124;1.0&#124;100&#124; worm successfully stopped&#124;10&#124;src=10.0.0.1 dst=2.1.2.2spt=1232` |
+| <a name="event.hash"></a>event.hash | Hash (perhaps logstash fingerprint) of raw field to be able to demonstrate log integrity. | extended | keyword | `123456789012345678901234567890ABCD` |
+| <a name="event.version"></a>event.version | The version field contains the version an event for ECS adheres to.<br/>This field should be provided as part of each event to make it possible to detect to which ECS version an event belongs.<br/>event.version is a required field and must exist in all events. It describes which ECS version the event adheres to.<br/>The current version is 0.1.0. | core | keyword | `0.1.0` |
+| <a name="event.duration"></a>event.duration | Duration of the event in nanoseconds. | core | long |  |
+| <a name="event.created"></a>event.created | event.created contains the date when the event was created.<br/>This timestamp is distinct from @timestamp in that @timestamp contains the processed timestamp. For logs these two timestamps can be different as the timestamp in the log line and when the event is read for example by Filebeat are not identical. `@timestamp` must contain the timestamp extracted from the log line, event.created when the log line is read. The same could apply to package capturing where @timestamp contains the timestamp extracted from the network package and event.created when the event was created.<br/>In case the two timestamps are identical, @timestamp should be used. | core | date |  |
+| <a name="event.risk_score"></a>event.risk_score | Risk score or priority of the event (e.g. security solutions). Use your system's original value here. | core | float |  |
+| <a name="event.risk_score_norm"></a>event.risk_score_norm | Normalized risk score or priority of the event, on a scale of 0 to 100.<br/>This is mainly useful if you use more than one system that assigns risk scores, and you want to see a normalized value across all systems. | extended | float |  |
 
 
 ## <a name="file"></a> File fields
@@ -192,22 +192,22 @@ The event fields are used for context information about the data itself.
 File fields provide details about each file.
 
 
-| Field  | Description  | Level  | Type  | Multi Field  | Example  |
-|---|---|---|---|---|---|
-| <a name="file.path"></a>file.path | Path to the file. | extended | keyword |  |  |
-| <a name="file.target_path"></a>file.target_path | Target path for symlinks. | extended | keyword |  |  |
-| <a name="file.extension"></a>file.extension | File extension.<br/>This should allow easy filtering by file extensions. | extended | keyword |  | `png` |
-| <a name="file.type"></a>file.type | File type (file, dir, or symlink). | extended | keyword |  |  |
-| <a name="file.device"></a>file.device | Device that is the source of the file. | extended | keyword |  |  |
-| <a name="file.inode"></a>file.inode | Inode representing the file in the filesystem. | extended | keyword |  |  |
-| <a name="file.uid"></a>file.uid | The user ID (UID) or security identifier (SID) of the file owner. | extended | keyword |  |  |
-| <a name="file.owner"></a>file.owner | File owner's username. | extended | keyword |  |  |
-| <a name="file.gid"></a>file.gid | Primary group ID (GID) of the file. | extended | keyword |  |  |
-| <a name="file.group"></a>file.group | Primary group name of the file. | extended | keyword |  |  |
-| <a name="file.mode"></a>file.mode | Mode of the file in octal representation. | extended | keyword |  | `416` |
-| <a name="file.size"></a>file.size | File size in bytes (field is only added when `type` is `file`). | extended | long |  |  |
-| <a name="file.mtime"></a>file.mtime | Last time file content was modified. | extended | date |  |  |
-| <a name="file.ctime"></a>file.ctime | Last time file metadata changed. | extended | date |  |  |
+| Field  | Description  | Level  | Type  | Example  |
+|---|---|---|---|---|
+| <a name="file.path"></a>file.path | Path to the file. | extended | keyword |  |
+| <a name="file.target_path"></a>file.target_path | Target path for symlinks. | extended | keyword |  |
+| <a name="file.extension"></a>file.extension | File extension.<br/>This should allow easy filtering by file extensions. | extended | keyword | `png` |
+| <a name="file.type"></a>file.type | File type (file, dir, or symlink). | extended | keyword |  |
+| <a name="file.device"></a>file.device | Device that is the source of the file. | extended | keyword |  |
+| <a name="file.inode"></a>file.inode | Inode representing the file in the filesystem. | extended | keyword |  |
+| <a name="file.uid"></a>file.uid | The user ID (UID) or security identifier (SID) of the file owner. | extended | keyword |  |
+| <a name="file.owner"></a>file.owner | File owner's username. | extended | keyword |  |
+| <a name="file.gid"></a>file.gid | Primary group ID (GID) of the file. | extended | keyword |  |
+| <a name="file.group"></a>file.group | Primary group name of the file. | extended | keyword |  |
+| <a name="file.mode"></a>file.mode | Mode of the file in octal representation. | extended | keyword | `416` |
+| <a name="file.size"></a>file.size | File size in bytes (field is only added when `type` is `file`). | extended | long |  |
+| <a name="file.mtime"></a>file.mtime | Last time file content was modified. | extended | date |  |
+| <a name="file.ctime"></a>file.ctime | Last time file metadata changed. | extended | date |  |
 
 
 ## <a name="geo"></a> Geo fields
@@ -215,13 +215,13 @@ File fields provide details about each file.
 Geo fields can carry data about a specific location related to an event or geo information for an IP field.
 
 
-| Field  | Description  | Level  | Type  | Multi Field  | Example  |
-|---|---|---|---|---|---|
-| <a name="geo.continent_name"></a>geo.continent_name | Name of the continent. | core | keyword |  |  |
-| <a name="geo.country_iso_code"></a>geo.country_iso_code | Country ISO code. | core | keyword |  |  |
-| <a name="geo.location"></a>geo.location | Longitude and latitude. | core | geo_point |  |  |
-| <a name="geo.region_name"></a>geo.region_name | Region name. | core | keyword |  |  |
-| <a name="geo.city_name"></a>geo.city_name | City name. | core | keyword |  |  |
+| Field  | Description  | Level  | Type  | Example  |
+|---|---|---|---|---|
+| <a name="geo.continent_name"></a>geo.continent_name | Name of the continent. | core | keyword |  |
+| <a name="geo.country_iso_code"></a>geo.country_iso_code | Country ISO code. | core | keyword |  |
+| <a name="geo.location"></a>geo.location | Longitude and latitude. | core | geo_point |  |
+| <a name="geo.region_name"></a>geo.region_name | Region name. | core | keyword |  |
+| <a name="geo.city_name"></a>geo.city_name | City name. | core | keyword |  |
 
 
 ## <a name="host"></a> Host fields
@@ -231,18 +231,18 @@ Host fields provide information related to a host. A host can be a physical mach
 Normally the host information is related to the machine on which the event was generated/collected, but they can be used differently if needed.
 
 
-| Field  | Description  | Level  | Type  | Multi Field  | Example  |
-|---|---|---|---|---|---|
-| <a name="host.hostname"></a>host.hostname | Hostname of the host.<br/>It can contain what `hostname` returns on Unix systems, the fully qualified domain name, or a name specified by the user. The sender decides which value to use. | core | keyword |  |  |
-| <a name="host.id"></a>host.id | Unique host id.<br/>As hostname is not always unique, use values that are meaningful in your environment.<br/>Example: The current usage of `beat.name`. | core | keyword |  |  |
-| <a name="host.ip"></a>host.ip | Host ip address. | core | ip |  |  |
-| <a name="host.mac"></a>host.mac | Host mac address. | core | keyword |  |  |
-| <a name="host.type"></a>host.type | Type of host.<br/>For Cloud providers this can be the machine type like `t2.medium`. If vm, this could be the container, for example, or other information meaningful in your environment. | core | keyword |  |  |
-| <a name="host.os.platform"></a>host.os.platform | Operating system platform (centos, ubuntu, windows, etc.) | extended | keyword |  | `darwin` |
-| <a name="host.os.name"></a>host.os.name | Operating system name. | extended | keyword |  | `Mac OS X` |
-| <a name="host.os.family"></a>host.os.family | OS family (redhat, debian, freebsd, windows, etc.) | extended | keyword |  | `debian` |
-| <a name="host.os.version"></a>host.os.version | Operating system version. | extended | keyword |  | `10.12.6` |
-| <a name="host.architecture"></a>host.architecture | Operating system architecture. | core | keyword |  | `x86_64` |
+| Field  | Description  | Level  | Type  | Example  |
+|---|---|---|---|---|
+| <a name="host.hostname"></a>host.hostname | Hostname of the host.<br/>It can contain what `hostname` returns on Unix systems, the fully qualified domain name, or a name specified by the user. The sender decides which value to use. | core | keyword |  |
+| <a name="host.id"></a>host.id | Unique host id.<br/>As hostname is not always unique, use values that are meaningful in your environment.<br/>Example: The current usage of `beat.name`. | core | keyword |  |
+| <a name="host.ip"></a>host.ip | Host ip address. | core | ip |  |
+| <a name="host.mac"></a>host.mac | Host mac address. | core | keyword |  |
+| <a name="host.type"></a>host.type | Type of host.<br/>For Cloud providers this can be the machine type like `t2.medium`. If vm, this could be the container, for example, or other information meaningful in your environment. | core | keyword |  |
+| <a name="host.os.platform"></a>host.os.platform | Operating system platform (centos, ubuntu, windows, etc.) | extended | keyword | `darwin` |
+| <a name="host.os.name"></a>host.os.name | Operating system name. | extended | keyword | `Mac OS X` |
+| <a name="host.os.family"></a>host.os.family | OS family (redhat, debian, freebsd, windows, etc.) | extended | keyword | `debian` |
+| <a name="host.os.version"></a>host.os.version | Operating system version. | extended | keyword | `10.12.6` |
+| <a name="host.architecture"></a>host.architecture | Operating system architecture. | core | keyword | `x86_64` |
 
 
 ## <a name="http"></a> HTTP fields
@@ -250,12 +250,12 @@ Normally the host information is related to the machine on which the event was g
 Fields related to HTTP requests and responses.
 
 
-| Field  | Description  | Level  | Type  | Multi Field  | Example  |
-|---|---|---|---|---|---|
-| <a name="http.request.method"></a>http.request.method | Http request method. | extended | keyword |  | `GET, POST, PUT` |
-| <a name="http.response.status_code"></a>http.response.status_code | Http response status code. | extended | long |  | `404` |
-| <a name="http.response.body"></a>http.response.body | The full http response body. | extended | keyword |  | `Hello world` |
-| <a name="http.version"></a>http.version | Http version. | extended | keyword |  | `1.1` |
+| Field  | Description  | Level  | Type  | Example  |
+|---|---|---|---|---|
+| <a name="http.request.method"></a>http.request.method | Http request method. | extended | keyword | `GET, POST, PUT` |
+| <a name="http.response.status_code"></a>http.response.status_code | Http response status code. | extended | long | `404` |
+| <a name="http.response.body"></a>http.response.body | The full http response body. | extended | keyword | `Hello world` |
+| <a name="http.version"></a>http.version | Http version. | extended | keyword | `1.1` |
 
 
 ## <a name="log"></a> Log fields
@@ -263,10 +263,10 @@ Fields related to HTTP requests and responses.
 Fields which are specific to log events.
 
 
-| Field  | Description  | Level  | Type  | Multi Field  | Example  |
-|---|---|---|---|---|---|
-| <a name="log.level"></a>log.level | Log level of the log event.<br/>Some examples are `WARN`, `ERR`, `INFO`. | core | keyword |  | `ERR` |
-| <a name="log.original"></a>log.original | This is the original log message and contains the full log message before splitting it up in multiple parts.<br/>In contrast to the `message` field which can contain an extracted part of the log message, this field contains the original, full log message. It can have already some modifications applied like encoding or new lines removed to clean up the log message.<br/>This field is not indexed and doc_values are disabled so it can't be queried but the value can be retrieved from `_source`. | core | keyword |  | `Sep 19 08:26:10 localhost My log` |
+| Field  | Description  | Level  | Type  | Example  |
+|---|---|---|---|---|
+| <a name="log.level"></a>log.level | Log level of the log event.<br/>Some examples are `WARN`, `ERR`, `INFO`. | core | keyword | `ERR` |
+| <a name="log.original"></a>log.original | This is the original log message and contains the full log message before splitting it up in multiple parts.<br/>In contrast to the `message` field which can contain an extracted part of the log message, this field contains the original, full log message. It can have already some modifications applied like encoding or new lines removed to clean up the log message.<br/>This field is not indexed and doc_values are disabled so it can't be queried but the value can be retrieved from `_source`. | core | keyword | `Sep 19 08:26:10 localhost My log` |
 
 
 ## <a name="network"></a> Network fields
@@ -274,18 +274,18 @@ Fields which are specific to log events.
 Fields related to network data.
 
 
-| Field  | Description  | Level  | Type  | Multi Field  | Example  |
-|---|---|---|---|---|---|
-| <a name="network.name"></a>network.name | Name given by operators to sections of their network. | extended | keyword |  | `Guest Wifi` |
-| <a name="network.protocol"></a>network.protocol | Network protocol name. | core | keyword |  | `http` |
-| <a name="network.direction"></a>network.direction | Direction of the network traffic.<br/>Recommended values are:<br/>  * inbound<br/>  * outbound<br/>  * unknown | core | keyword |  | `inbound` |
-| <a name="network.forwarded_ip"></a>network.forwarded_ip | Host IP address when the source IP address is the proxy. | core | ip |  | `192.1.1.2` |
-| <a name="network.inbound.bytes"></a>network.inbound.bytes | Network inbound bytes. | core | long |  | `184` |
-| <a name="network.inbound.packets"></a>network.inbound.packets | Network inbound packets. | core | long |  | `12` |
-| <a name="network.outbound.bytes"></a>network.outbound.bytes | Network outbound bytes. | core | long |  | `184` |
-| <a name="network.outbound.packets"></a>network.outbound.packets | Network outbound packets. | core | long |  | `12` |
-| <a name="network.total.bytes"></a>network.total.bytes | Network total bytes. The sum of inbound.bytes + outbound.bytes. | core | long |  | `368` |
-| <a name="network.total.packets"></a>network.total.packets | Network outbound packets. The sum of inbound.packets + outbound.packets | core | long |  | `24` |
+| Field  | Description  | Level  | Type  | Example  |
+|---|---|---|---|---|
+| <a name="network.name"></a>network.name | Name given by operators to sections of their network. | extended | keyword | `Guest Wifi` |
+| <a name="network.protocol"></a>network.protocol | Network protocol name. | core | keyword | `http` |
+| <a name="network.direction"></a>network.direction | Direction of the network traffic.<br/>Recommended values are:<br/>  * inbound<br/>  * outbound<br/>  * unknown | core | keyword | `inbound` |
+| <a name="network.forwarded_ip"></a>network.forwarded_ip | Host IP address when the source IP address is the proxy. | core | ip | `192.1.1.2` |
+| <a name="network.inbound.bytes"></a>network.inbound.bytes | Network inbound bytes. | core | long | `184` |
+| <a name="network.inbound.packets"></a>network.inbound.packets | Network inbound packets. | core | long | `12` |
+| <a name="network.outbound.bytes"></a>network.outbound.bytes | Network outbound bytes. | core | long | `184` |
+| <a name="network.outbound.packets"></a>network.outbound.packets | Network outbound packets. | core | long | `12` |
+| <a name="network.total.bytes"></a>network.total.bytes | Network total bytes. The sum of inbound.bytes + outbound.bytes. | core | long | `368` |
+| <a name="network.total.packets"></a>network.total.packets | Network outbound packets. The sum of inbound.packets + outbound.packets | core | long | `24` |
 
 
 ## <a name="organization"></a> Organization fields
@@ -293,10 +293,10 @@ Fields related to network data.
 The organization fields enrich data with information about the company or entity the data is associated with. These fields help you arrange or filter data stored in an index by one or multiple organizations.
 
 
-| Field  | Description  | Level  | Type  | Multi Field  | Example  |
-|---|---|---|---|---|---|
-| <a name="organization.name"></a>organization.name | Organization name. | extended | keyword |  |  |
-| <a name="organization.id"></a>organization.id | Unique identifier for the organization. | extended | keyword |  |  |
+| Field  | Description  | Level  | Type  | Example  |
+|---|---|---|---|---|
+| <a name="organization.name"></a>organization.name | Organization name. | extended | keyword |  |
+| <a name="organization.id"></a>organization.id | Unique identifier for the organization. | extended | keyword |  |
 
 
 ## <a name="os"></a> Operating System fields
@@ -304,13 +304,13 @@ The organization fields enrich data with information about the company or entity
 The OS fields contain information about the operating system. These fields are often used inside other prefixes, such as `host.os.*` or `user_agent.os.*`.
 
 
-| Field  | Description  | Level  | Type  | Multi Field  | Example  |
-|---|---|---|---|---|---|
-| <a name="os.platform"></a>os.platform | Operating system platform (such centos, ubuntu, windows). | extended | keyword |  | `darwin` |
-| <a name="os.name"></a>os.name | Operating system name. | extended | keyword |  | `Mac OS X` |
-| <a name="os.family"></a>os.family | OS family (such as redhat, debian, freebsd, windows). | extended | keyword |  | `debian` |
-| <a name="os.version"></a>os.version | Operating system version as a raw string. | extended | keyword |  | `10.12.6-rc2` |
-| <a name="os.kernel"></a>os.kernel | Operating system kernel version as a raw string. | extended | keyword |  | `4.4.0-112-generic` |
+| Field  | Description  | Level  | Type  | Example  |
+|---|---|---|---|---|
+| <a name="os.platform"></a>os.platform | Operating system platform (such centos, ubuntu, windows). | extended | keyword | `darwin` |
+| <a name="os.name"></a>os.name | Operating system name. | extended | keyword | `Mac OS X` |
+| <a name="os.family"></a>os.family | OS family (such as redhat, debian, freebsd, windows). | extended | keyword | `debian` |
+| <a name="os.version"></a>os.version | Operating system version as a raw string. | extended | keyword | `10.12.6-rc2` |
+| <a name="os.kernel"></a>os.kernel | Operating system kernel version as a raw string. | extended | keyword | `4.4.0-112-generic` |
 
 
 ## <a name="process"></a> Process fields
@@ -318,13 +318,13 @@ The OS fields contain information about the operating system. These fields are o
 These fields contain information about a process. These fields can help you correlate metrics information with a process id/name from a log message.  The `process.pid` often stays in the metric itself and is copied to the global field for correlation.
 
 
-| Field  | Description  | Level  | Type  | Multi Field  | Example  |
-|---|---|---|---|---|---|
-| <a name="process.args"></a>process.args | Process arguments.<br/>May be filtered to protect sensitive information. | extended | keyword |  | `['-l', 'user', '10.0.0.16']` |
-| <a name="process.name"></a>process.name | Process name.<br/>Sometimes called program name or similar. | extended | keyword |  | `ssh` |
-| <a name="process.pid"></a>process.pid | Process id. | core | long |  |  |
-| <a name="process.ppid"></a>process.ppid | Process parent id. | extended | long |  |  |
-| <a name="process.title"></a>process.title | Process title.<br/>The proctitle, some times the same as process name. Can also be different: for example a browser setting its title to the web page currently opened. | extended | keyword |  |  |
+| Field  | Description  | Level  | Type  | Example  |
+|---|---|---|---|---|
+| <a name="process.args"></a>process.args | Process arguments.<br/>May be filtered to protect sensitive information. | extended | keyword | `['-l', 'user', '10.0.0.16']` |
+| <a name="process.name"></a>process.name | Process name.<br/>Sometimes called program name or similar. | extended | keyword | `ssh` |
+| <a name="process.pid"></a>process.pid | Process id. | core | long |  |
+| <a name="process.ppid"></a>process.ppid | Process parent id. | extended | long |  |
+| <a name="process.title"></a>process.title | Process title.<br/>The proctitle, some times the same as process name. Can also be different: for example a browser setting its title to the web page currently opened. | extended | keyword |  |
 
 
 ## <a name="service"></a> Service fields
@@ -332,14 +332,14 @@ These fields contain information about a process. These fields can help you corr
 The service fields describe the service for or from which the data was collected. These fields help you find and correlate logs for a specific service and version.
 
 
-| Field  | Description  | Level  | Type  | Multi Field  | Example  |
-|---|---|---|---|---|---|
-| <a name="service.id"></a>service.id | Unique identifier of the running service.<br/>This id should uniquely identify this service. This makes it possible to correlate logs and metrics for one specific service.<br/>Example: If you are experiencing issues with one redis instance, you can filter on that id to see metrics and logs for that single instance. | core | keyword |  | `d37e5ebfe0ae6c4972dbe9f0174a1637bb8247f6` |
-| <a name="service.name"></a>service.name | Name of the service data is collected from.<br/>The name of the service is normally user given. This allows if two instances of the same service are running on the same machine they can be differentiated by the `service.name`.<br/>Also it allows for distributed services that run on multiple hosts to correlate the related instances based on the name.<br/>In the case of Elasticsearch the service.name could contain the cluster name. For Beats the service.name is by default a copy of the `service.type` field if no name is specified. | core | keyword |  | `elasticsearch-metrics` |
-| <a name="service.type"></a>service.type | The type of the service data is collected from.<br/>The type can be used to group and correlate logs and metrics from one service type.<br/>Example: If logs or metrics are collected from Elasticsearch, `service.type` would be `elasticsearch`. | core | keyword |  | `elasticsearch` |
-| <a name="service.state"></a>service.state | Current state of the service. | core | keyword |  |  |
-| <a name="service.version"></a>service.version | Version of the service the data was collected from.<br/>This allows to look at a data set only for a specific version of a service. | core | keyword |  | `3.2.4` |
-| <a name="service.ephemeral_id"></a>service.ephemeral_id | Ephemeral identifier of this service (if one exists).<br/>This id normally changes across restarts, but `service.id` does not. | extended | keyword |  | `8a4f500f` |
+| Field  | Description  | Level  | Type  | Example  |
+|---|---|---|---|---|
+| <a name="service.id"></a>service.id | Unique identifier of the running service.<br/>This id should uniquely identify this service. This makes it possible to correlate logs and metrics for one specific service.<br/>Example: If you are experiencing issues with one redis instance, you can filter on that id to see metrics and logs for that single instance. | core | keyword | `d37e5ebfe0ae6c4972dbe9f0174a1637bb8247f6` |
+| <a name="service.name"></a>service.name | Name of the service data is collected from.<br/>The name of the service is normally user given. This allows if two instances of the same service are running on the same machine they can be differentiated by the `service.name`.<br/>Also it allows for distributed services that run on multiple hosts to correlate the related instances based on the name.<br/>In the case of Elasticsearch the service.name could contain the cluster name. For Beats the service.name is by default a copy of the `service.type` field if no name is specified. | core | keyword | `elasticsearch-metrics` |
+| <a name="service.type"></a>service.type | The type of the service data is collected from.<br/>The type can be used to group and correlate logs and metrics from one service type.<br/>Example: If logs or metrics are collected from Elasticsearch, `service.type` would be `elasticsearch`. | core | keyword | `elasticsearch` |
+| <a name="service.state"></a>service.state | Current state of the service. | core | keyword |  |
+| <a name="service.version"></a>service.version | Version of the service the data was collected from.<br/>This allows to look at a data set only for a specific version of a service. | core | keyword | `3.2.4` |
+| <a name="service.ephemeral_id"></a>service.ephemeral_id | Ephemeral identifier of this service (if one exists).<br/>This id normally changes across restarts, but `service.id` does not. | extended | keyword | `8a4f500f` |
 
 
 ## <a name="source"></a> Source fields
@@ -347,14 +347,14 @@ The service fields describe the service for or from which the data was collected
 Source fields describe details about the source of the event.
 
 
-| Field  | Description  | Level  | Type  | Multi Field  | Example  |
-|---|---|---|---|---|---|
-| <a name="source.ip"></a>source.ip | IP address of the source.<br/>Can be one or multiple IPv4 or IPv6 addresses. | core | ip |  |  |
-| <a name="source.hostname"></a>source.hostname | Hostname of the source. | core | keyword |  |  |
-| <a name="source.port"></a>source.port | Port of the source. | core | long |  |  |
-| <a name="source.mac"></a>source.mac | MAC address of the source. | core | keyword |  |  |
-| <a name="source.domain"></a>source.domain | Source domain. | core | keyword |  |  |
-| <a name="source.subdomain"></a>source.subdomain | Source subdomain. | core | keyword |  |  |
+| Field  | Description  | Level  | Type  | Example  |
+|---|---|---|---|---|
+| <a name="source.ip"></a>source.ip | IP address of the source.<br/>Can be one or multiple IPv4 or IPv6 addresses. | core | ip |  |
+| <a name="source.hostname"></a>source.hostname | Hostname of the source. | core | keyword |  |
+| <a name="source.port"></a>source.port | Port of the source. | core | long |  |
+| <a name="source.mac"></a>source.mac | MAC address of the source. | core | keyword |  |
+| <a name="source.domain"></a>source.domain | Source domain. | core | keyword |  |
+| <a name="source.subdomain"></a>source.subdomain | Source subdomain. | core | keyword |  |
 
 
 ## <a name="url"></a> URL fields
@@ -362,17 +362,17 @@ Source fields describe details about the source of the event.
 URL fields provide a complete URL, with scheme, host, and path. The URL object can be reused in other prefixes, such as `host.url.*` for example. Keep the structure consistent whenever you use URL fields.
 
 
-| Field  | Description  | Level  | Type  | Multi Field  | Example  |
-|---|---|---|---|---|---|
-| <a name="url.href"></a>url.href | Full url. The field is stored as keyword. | extended | keyword |  | `https://elastic.co:443/search?q=elasticsearch#top` |
-| <a name="url.scheme"></a>url.scheme | Scheme of the request, such as "https".<br/>Note: The `:` is not part of the scheme. | extended | keyword |  | `https` |
-| <a name="url.hostname"></a>url.hostname | Hostname of the request, such as "elastic.co".<br/>In some cases a URL may refer to an IP and/or port directly, without a domain name. In this case, the IP address would go to the `hostname` field. | extended | keyword |  | `elastic.co` |
-| <a name="url.port"></a>url.port | Port of the request, such as 443. | extended | integer |  | `443` |
-| <a name="url.path"></a>url.path | Path of the request, such as "/search". | extended | keyword |  |  |
-| <a name="url.query"></a>url.query | The query field describes the query string of the request, such as "q=elasticsearch".<br/>The `?` is excluded from the query string. If a URL contains no `?`, there is no query field. If there is a `?` but no query, the query field exists with an empty string. The `exists` query can be used to differentiate between the two cases. | extended | keyword |  |  |
-| <a name="url.fragment"></a>url.fragment | Portion of the url after the `#`, such as "top".<br/>The `#` is not part of the fragment. | extended | keyword |  |  |
-| <a name="url.username"></a>url.username | Username of the request. | extended | keyword |  |  |
-| <a name="url.password"></a>url.password | Password of the request. | extended | keyword |  |  |
+| Field  | Description  | Level  | Type  | Example  |
+|---|---|---|---|---|
+| <a name="url.href"></a>url.href | Full url. The field is stored as keyword. | extended | keyword | `https://elastic.co:443/search?q=elasticsearch#top` |
+| <a name="url.scheme"></a>url.scheme | Scheme of the request, such as "https".<br/>Note: The `:` is not part of the scheme. | extended | keyword | `https` |
+| <a name="url.hostname"></a>url.hostname | Hostname of the request, such as "elastic.co".<br/>In some cases a URL may refer to an IP and/or port directly, without a domain name. In this case, the IP address would go to the `hostname` field. | extended | keyword | `elastic.co` |
+| <a name="url.port"></a>url.port | Port of the request, such as 443. | extended | integer | `443` |
+| <a name="url.path"></a>url.path | Path of the request, such as "/search". | extended | keyword |  |
+| <a name="url.query"></a>url.query | The query field describes the query string of the request, such as "q=elasticsearch".<br/>The `?` is excluded from the query string. If a URL contains no `?`, there is no query field. If there is a `?` but no query, the query field exists with an empty string. The `exists` query can be used to differentiate between the two cases. | extended | keyword |  |
+| <a name="url.fragment"></a>url.fragment | Portion of the url after the `#`, such as "top".<br/>The `#` is not part of the fragment. | extended | keyword |  |
+| <a name="url.username"></a>url.username | Username of the request. | extended | keyword |  |
+| <a name="url.password"></a>url.password | Password of the request. | extended | keyword |  |
 
 
 ## <a name="user"></a> User fields
@@ -380,12 +380,12 @@ URL fields provide a complete URL, with scheme, host, and path. The URL object c
 The user fields describe information about the user that is relevant to  the event. Fields can have one entry or multiple entries. If a user has more than one id, provide an array that includes all of them.
 
 
-| Field  | Description  | Level  | Type  | Multi Field  | Example  |
-|---|---|---|---|---|---|
-| <a name="user.id"></a>user.id | One or multiple unique identifiers of the user. | core | keyword |  |  |
-| <a name="user.name"></a>user.name | Name of the user.<br/>The field is a keyword, and will not be tokenized. | core | keyword |  |  |
-| <a name="user.email"></a>user.email | User email address. | extended | keyword |  |  |
-| <a name="user.hash"></a>user.hash | Unique user hash to correlate information for a user in anonymized form.<br/>Useful if `user.id` or `user.name` contain confidential information and cannot be used. | extended | keyword |  |  |
+| Field  | Description  | Level  | Type  | Example  |
+|---|---|---|---|---|
+| <a name="user.id"></a>user.id | One or multiple unique identifiers of the user. | core | keyword |  |
+| <a name="user.name"></a>user.name | Name of the user.<br/>The field is a keyword, and will not be tokenized. | core | keyword |  |
+| <a name="user.email"></a>user.email | User email address. | extended | keyword |  |
+| <a name="user.hash"></a>user.hash | Unique user hash to correlate information for a user in anonymized form.<br/>Useful if `user.id` or `user.name` contain confidential information and cannot be used. | extended | keyword |  |
 
 
 ## <a name="user_agent"></a> User agent fields
@@ -393,19 +393,19 @@ The user fields describe information about the user that is relevant to  the eve
 The user_agent fields normally come from a browser request. They often show up in web service logs coming from the parsed user agent string.
 
 
-| Field  | Description  | Level  | Type  | Multi Field  | Example  |
-|---|---|---|---|---|---|
-| <a name="user_agent.original"></a>user_agent.original | Unparsed version of the user_agent. | extended | keyword |  |  |
-| <a name="user_agent.device"></a>user_agent.device | Name of the physical device. | extended | keyword |  |  |
-| <a name="user_agent.version"></a>user_agent.version | Version of the physical device. | extended | keyword |  |  |
-| <a name="user_agent.major"></a>user_agent.major | Major version of the user agent. | extended | long |  |  |
-| <a name="user_agent.minor"></a>user_agent.minor | Minor version of the user agent. | extended | long |  |  |
-| <a name="user_agent.patch"></a>user_agent.patch | Patch version of the user agent. | extended | keyword |  |  |
-| <a name="user_agent.name"></a>user_agent.name | Name of the user agent. | extended | keyword |  | `Chrome` |
-| <a name="user_agent.os.name"></a>user_agent.os.name | Name of the operating system. | extended | keyword |  |  |
-| <a name="user_agent.os.version"></a>user_agent.os.version | Version of the operating system. | extended | keyword |  |  |
-| <a name="user_agent.os.major"></a>user_agent.os.major | Major version of the operating system. | extended | long |  |  |
-| <a name="user_agent.os.minor"></a>user_agent.os.minor | Minor version of the operating system. | extended | long |  |  |
+| Field  | Description  | Level  | Type  | Example  |
+|---|---|---|---|---|
+| <a name="user_agent.original"></a>user_agent.original | Unparsed version of the user_agent. | extended | keyword |  |
+| <a name="user_agent.device"></a>user_agent.device | Name of the physical device. | extended | keyword |  |
+| <a name="user_agent.version"></a>user_agent.version | Version of the physical device. | extended | keyword |  |
+| <a name="user_agent.major"></a>user_agent.major | Major version of the user agent. | extended | long |  |
+| <a name="user_agent.minor"></a>user_agent.minor | Minor version of the user agent. | extended | long |  |
+| <a name="user_agent.patch"></a>user_agent.patch | Patch version of the user agent. | extended | keyword |  |
+| <a name="user_agent.name"></a>user_agent.name | Name of the user agent. | extended | keyword | `Chrome` |
+| <a name="user_agent.os.name"></a>user_agent.os.name | Name of the operating system. | extended | keyword |  |
+| <a name="user_agent.os.version"></a>user_agent.os.version | Version of the operating system. | extended | keyword |  |
+| <a name="user_agent.os.major"></a>user_agent.os.major | Major version of the operating system. | extended | long |  |
+| <a name="user_agent.os.minor"></a>user_agent.os.minor | Minor version of the operating system. | extended | long |  |
 
 
 
