@@ -213,16 +213,20 @@ File fields provide details about each file.
 
 ## <a name="geo"></a> Geo fields
 
-Geo fields can carry data about a specific location related to an event or geo information for an IP field.
+Geo fields can carry data about a specific location related to an event or geo information derived from an IP field.
 
+
+The `geo` fields are expected to be nested at: `destination.geo`, `device.geo`, `host.geo`, `source.geo`.
+
+Note also that the `geo` fields are not expected to be used directly at the top level.
 
 | Field  | Description  | Level  | Type  | Example  |
 |---|---|---|---|---|
-| <a name="geo.continent_name"></a>geo.continent_name | Name of the continent. | core | keyword |  |
-| <a name="geo.country_iso_code"></a>geo.country_iso_code | Country ISO code. | core | keyword |  |
-| <a name="geo.location"></a>geo.location | Longitude and latitude. | core | geo_point |  |
-| <a name="geo.region_name"></a>geo.region_name | Region name. | core | keyword |  |
-| <a name="geo.city_name"></a>geo.city_name | City name. | core | keyword |  |
+| <a name="geo.continent_name"></a>geo.continent_name | Name of the continent. | core | keyword | `North America` |
+| <a name="geo.country_iso_code"></a>geo.country_iso_code | Country ISO code. | core | keyword | `CA` |
+| <a name="geo.location"></a>geo.location | Longitude and latitude. | core | geo_point | `{ "lon": -73.614830, "lat": 45.505918 }` |
+| <a name="geo.region_name"></a>geo.region_name | Region name. | core | keyword | `Quebec` |
+| <a name="geo.city_name"></a>geo.city_name | City name. | core | keyword | `Montreal` |
 
 
 ## <a name="host"></a> Host fields
@@ -302,8 +306,12 @@ The organization fields enrich data with information about the company or entity
 
 ## <a name="os"></a> Operating System fields
 
-The OS fields contain information about the operating system. These fields are often used inside other prefixes, such as `host.os.*` or `user_agent.os.*`.
+The OS fields contain information about the operating system.
 
+
+The `os` fields are expected to be nested at: `device.os`, `host.os`, `user_agent.os`.
+
+Note also that the `os` fields are not expected to be used directly at the top level.
 
 | Field  | Description  | Level  | Type  | Example  |
 |---|---|---|---|---|
@@ -380,6 +388,10 @@ URL fields provide a complete URL, with scheme, host, and path. The URL object c
 
 The user fields describe information about the user that is relevant to  the event. Fields can have one entry or multiple entries. If a user has more than one id, provide an array that includes all of them.
 
+
+The `user` fields are expected to be nested at: `destination.user`, `host.user`, `source.user`.
+
+Note also that the `user` fields may be used directly at the top level.
 
 | Field  | Description  | Level  | Type  | Example  |
 |---|---|---|---|---|

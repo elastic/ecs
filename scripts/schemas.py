@@ -34,32 +34,19 @@ def create_csv(fields, file):
                 schema_writer.writerow([field["name"], field["type"], field["level"], field["example"]])
 
 
-def create_markdown(fields, file):
-    # Create markdown schema output file
-    output = open(file, 'w')
-
-    for namespace in fields:
-        if len(namespace["fields"]) == 0:
-            continue
-        output.write(get_markdown_table(namespace))
-
-    output.close()
-
-
-def create_markdown_string(fields):
+def create_markdown_document(fields):
     # Create markdown schema output string
-    output = ""
+    tables = ""
 
     links = ""
     for namespace in fields:
         if len(namespace["fields"]) == 0:
             continue
-        # Link list to field prefixes
+        # Links to each namespace / top level object
         links += " * [{} fields](#{})\n".format(namespace["title"], namespace["name"])
-        output += get_markdown_table(namespace)
+        tables += get_markdown_section(namespace)
 
-    output = links + "\n" + output + "\n\n"
-    return output
+    return links + "\n" + tables + "\n\n"
 
 
 def filtered_fields(fields, groups):
@@ -100,11 +87,10 @@ if __name__ == "__main__":
         groups = [1, 2, 3]
         f_fields = filtered_fields(sortedNamespaces, groups)
         # Print to stdout
-        print(create_markdown_string(f_fields))
+        print(create_markdown_document(f_fields))
 
     # Generates schema.csv
     else:
         groups = [1, 2, 3]
         f_fields = filtered_fields(sortedNamespaces, groups)
-        #create_markdown(f_fields, "schema.md")
         create_csv(f_fields, "schema.csv")

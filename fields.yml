@@ -603,7 +603,14 @@
       group: 2
       description: >
         Geo fields can carry data about a specific location related to an event
-        or geo information for an IP field.
+        or geo information derived from an IP field.
+      reuseable:
+        top_level: false
+        expected:
+          - destination
+          - device
+          - host
+          - source
       type: group
       fields:
     
@@ -612,30 +619,35 @@
           type: keyword
           description: >
             Name of the continent.
+          example: North America
     
         - name: country_iso_code
           level: core
           type: keyword
           description: >
             Country ISO code.
+          example: CA
     
         - name: location
           level: core
           type: geo_point
           description: >
             Longitude and latitude.
+          example: '{ "lon": -73.614830, "lat": 45.505918 }'
     
         - name: region_name
           level: core
           type: keyword
           description: >
             Region name.
+          example: Quebec
     
         - name: city_name
           level: core
           type: keyword
           description: >
             City name.
+          example: Montreal
     
     - name: host
       title: Host
@@ -908,7 +920,12 @@
       group: 2
       description: >
         The OS fields contain information about the operating system.
-        These fields are often used inside other prefixes, such as `host.os.*` or `user_agent.os.*`.
+      reuseable:
+        top_level: false
+        expected:
+          - device
+          - host
+          - user_agent
       type: group
       fields:
     
@@ -1212,6 +1229,12 @@
         to  the event. Fields can have one entry or multiple entries. If a
         user has more than one id, provide an array that includes all of
         them.
+      reuseable:
+        top_level: true
+        expected:
+          - destination
+          - host
+          - source
       type: group
       fields:
     
