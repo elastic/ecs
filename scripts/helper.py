@@ -132,14 +132,14 @@ def get_markdown_section(namespace, title_prefix="##", link=False):
     # Replaces one newlines with two as otherwise double newlines do not show up in markdown
     output += namespace["description"].replace("\n", "\n\n") + "\n"
 
-    # Reuseable object details
-    if "reuseable" in namespace and "expected" in namespace["reuseable"]:
-        sorted_fields = sorted(namespace["reuseable"]["expected"])
+    # Reusable object details
+    if "reusable" in namespace and "expected" in namespace["reusable"]:
+        sorted_fields = sorted(namespace["reusable"]["expected"])
         rendered_fields = map(lambda f: "`{}.{}`".format(f, section_name), sorted_fields)
         output += "The `{}` fields are expected to be nested at: {}.\n\n".format(
             section_name, ', '.join(rendered_fields))
 
-        if "top_level" in namespace["reuseable"] and namespace["reuseable"]["top_level"]:
+        if "top_level" in namespace["reusable"] and namespace["reusable"]["top_level"]:
             template = "Note also that the `{}` fields may be used directly at the top level.\n\n"
         else:
             template = "Note also that the `{}` fields are not expected to " + \
