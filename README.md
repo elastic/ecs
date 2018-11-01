@@ -353,7 +353,7 @@ The service fields describe the service for or from which the data was collected
 
 ## <a name="source"></a> Source fields
 
-Source fields describe details about the source of the event.
+Source fields describe details about the destination of a packet/event.
 
 
 | Field  | Description  | Level  | Type  | Example  |
