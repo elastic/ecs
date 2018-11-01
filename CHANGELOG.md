@@ -27,7 +27,7 @@ All notable changes to this project will be documented in this file based on the
 * Rename `url.href` to `url.original`.
 * Remove `source.subdomain` and `destination.subdomain` fields.
 * Remove `source.hostname`, `destination.hostname`, `source.subdomain`,
-  `destination.subdomain` and `url.hostname`.
+  `destination.subdomain` and `url.hostname`. #163
 
 ### Bugfixes
 
@@ -44,6 +44,6 @@ All notable changes to this project will be documented in this file based on the
 * Add `agent.type` field.
 * Add `http.request.referrer` field. #164
 * Add `source.registered_domain`, `destination.registered_domain`,
-  `url.domain` and `url.registered_domain`.
+  `url.domain` and `url.registered_domain`. #163
 
 ### Deprecated
