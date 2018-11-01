@@ -130,10 +130,10 @@ Destination fields describe details about the destination of a packet/event.
 | Field  | Description  | Level  | Type  | Example  |
 |---|---|---|---|---|
 | <a name="destination.ip"></a>destination.ip | IP address of the destination.<br/>Can be one or multiple IPv4 or IPv6 addresses. | core | ip |  |
-| <a name="destination.hostname"></a>destination.hostname | Hostname of the destination. | core | keyword |  |
 | <a name="destination.port"></a>destination.port | Port of the destination. | core | long |  |
 | <a name="destination.mac"></a>destination.mac | MAC address of the destination. | core | keyword |  |
-| <a name="destination.domain"></a>destination.domain | Destination domain. | core | keyword |  |
+| <a name="destination.domain"></a>destination.domain | Destination domain in full. | core | keyword | `www.example.com` |
+| <a name="destination.registered_domain"></a>destination.registered_domain | Destination domain, with the subdomain stripped out.<br/>This is useful to aggregate activity on multiple subdomains more broadly.<br/>This field enables aggregating/visualizing all activity on `example.com`, whether the activity was on `www.example.com`, `assets.example.com` or `api.example.com`. | extended | keyword | `example.com` |
 
 
 ## <a name="device"></a> Device fields
@@ -359,10 +359,10 @@ Source fields describe details about the destination of a packet/event.
 | Field  | Description  | Level  | Type  | Example  |
 |---|---|---|---|---|
 | <a name="source.ip"></a>source.ip | IP address of the source.<br/>Can be one or multiple IPv4 or IPv6 addresses. | core | ip |  |
-| <a name="source.hostname"></a>source.hostname | Hostname of the source. | core | keyword |  |
 | <a name="source.port"></a>source.port | Port of the source. | core | long |  |
 | <a name="source.mac"></a>source.mac | MAC address of the source. | core | keyword |  |
-| <a name="source.domain"></a>source.domain | Source domain. | core | keyword |  |
+| <a name="source.domain"></a>source.domain | Source domain in full. | core | keyword | `www.example.com` |
+| <a name="source.registered_domain"></a>source.registered_domain | Source domain, with the subdomain stripped out.<br/>This is useful to aggregate activity on multiple subdomains more broadly.<br/>This field enables aggregating/visualizing all activity on `example.com`, whether the activity was on `www.example.com`, `assets.example.com` or `api.example.com`. | extended | keyword | `example.com` |
 
 
 ## <a name="url"></a> URL fields

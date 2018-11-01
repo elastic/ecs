@@ -252,12 +252,6 @@
     
             Can be one or multiple IPv4 or IPv6 addresses.
     
-        - name: hostname
-          level: core
-          type: keyword
-          description: >
-            Hostname of the destination.
-    
         - name: port
           level: core
           type: long
@@ -273,8 +267,22 @@
         - name: domain
           level: core
           type: keyword
+          example: www.example.com
           description: >
-            Destination domain.
+            Destination domain in full.
+    
+        - name: registered_domain
+          level: extended
+          type: keyword
+          example: example.com
+          description: >
+            Destination domain, with the subdomain stripped out.
+    
+            This is useful to aggregate activity on multiple subdomains more broadly.
+    
+            This field enables aggregating/visualizing all activity on `example.com`,
+            whether the activity was on `www.example.com`, `assets.example.com` or
+            `api.example.com`.
     
     - name: device
       title: Device
@@ -1113,12 +1121,6 @@
     
             Can be one or multiple IPv4 or IPv6 addresses.
     
-        - name: hostname
-          level: core
-          type: keyword
-          description: >
-            Hostname of the source.
-    
         - name: port
           level: core
           type: long
@@ -1134,8 +1136,22 @@
         - name: domain
           level: core
           type: keyword
+          example: www.example.com
           description: >
-            Source domain.
+            Source domain in full.
+    
+        - name: registered_domain
+          level: extended
+          type: keyword
+          example: example.com
+          description: >
+            Source domain, with the subdomain stripped out.
+    
+            This is useful to aggregate activity on multiple subdomains more broadly.
+    
+            This field enables aggregating/visualizing all activity on `example.com`,
+            whether the activity was on `www.example.com`, `assets.example.com` or
+            `api.example.com`.
     
     - name: url
       title: URL
