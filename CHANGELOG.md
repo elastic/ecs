@@ -26,6 +26,8 @@ All notable changes to this project will be documented in this file based on the
 * Redefine purpose of `agent.name` field to be user defined field.
 * Rename `url.href` to `url.original`.
 * Remove `source.subdomain` and `destination.subdomain` fields.
+* Remove `source.hostname`, `destination.hostname`, `source.subdomain`,
+  `destination.subdomain` and `url.hostname`.
 
 ### Bugfixes
 
@@ -41,5 +43,7 @@ All notable changes to this project will be documented in this file based on the
 * Add `host.os.kernel` containing the OS kernel version. #60
 * Add `agent.type` field.
 * Add `http.request.referrer` field. #164
+* Add `source.registered_domain`, `destination.registered_domain`,
+  `url.domain` and `url.registered_domain`.
 
 ### Deprecated
