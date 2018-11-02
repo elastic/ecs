@@ -39,5 +39,6 @@ All notable changes to this project will be documented in this file based on the
 * Add http.request.method and http.version
 * Add `host.os.kernel` containing the OS kernel version. #60
 * Add `agent.type` field.
+* Add `http.request.referrer` field. #164
 
 ### Deprecated
