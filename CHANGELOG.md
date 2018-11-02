@@ -25,12 +25,7 @@ All notable changes to this project will be documented in this file based on the
 * Update definition of `service.type` and `service.name`.
 * Redefine purpose of `agent.name` field to be user defined field.
 * Rename `url.href` to `url.original`.
-* Remove `source.subdomain` and `destination.subdomain` fields.
-* Remove `source.hostname`, `destination.hostname`, `source.subdomain`,
-  `destination.subdomain` and `url.hostname`. #163
-* Remove `source.hostname`, `destination.hostname`, `source.subdomain` and
-  `destination.subdomain`. #163
-* Remove `source.subdomain` and `destination.subdomain`. #163
+* Remove `source.subdomain` and `destination.subdomain` fields. #165
 
 ### Bugfixes
 
