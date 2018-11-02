@@ -134,7 +134,6 @@ Destination fields describe details about the destination of a packet/event.
 | <a name="destination.port"></a>destination.port | Port of the destination. | core | long |  |
 | <a name="destination.mac"></a>destination.mac | MAC address of the destination. | core | keyword |  |
 | <a name="destination.domain"></a>destination.domain | Destination domain. | core | keyword |  |
-| <a name="destination.subdomain"></a>destination.subdomain | Destination subdomain. | core | keyword |  |
 
 
 ## <a name="device"></a> Device fields
@@ -363,7 +362,6 @@ Source fields describe details about the source of the event.
 | <a name="source.port"></a>source.port | Port of the source. | core | long |  |
 | <a name="source.mac"></a>source.mac | MAC address of the source. | core | keyword |  |
 | <a name="source.domain"></a>source.domain | Source domain. | core | keyword |  |
-| <a name="source.subdomain"></a>source.subdomain | Source subdomain. | core | keyword |  |
 
 
 ## <a name="url"></a> URL fields
