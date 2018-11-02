@@ -30,6 +30,7 @@ All notable changes to this project will be documented in this file based on the
   `destination.subdomain` and `url.hostname`. #163
 * Remove `source.hostname`, `destination.hostname`, `source.subdomain` and
   `destination.subdomain`. #163
+* Remove `source.subdomain` and `destination.subdomain`. #163
 
 ### Bugfixes
 
@@ -47,6 +48,5 @@ All notable changes to this project will be documented in this file based on the
 * Add `http.request.referrer` field. #164
 * Add `source.registered_domain`, `destination.registered_domain`,
   `url.domain` and `url.registered_domain`. #163
-* Add `source.registered_domain`, `destination.registered_domain`. #163
 
 ### Deprecated
