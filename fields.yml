@@ -826,11 +826,45 @@
             Name given by operators to sections of their network.
           example: Guest Wifi
     
+        - name: type
+          level: core
+          type: keyword
+          description: >
+            In the OSI Model this would be the Network Layer. IPv4, IPV6, IPSec, PIM, etc
+          example: IPV4
+    
+        - name: iana_number
+          level: extended
+          type: keyword
+          description: >
+              IANA Protocol Number (https://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml).
+              Standardized list of protocols. This aligns well with NetFlow and
+              sFlow related logs which log using the IANA Protocol Number.
+          example: 6
+    
+        - name: transport
+          level: core
+          type: keyword
+          description: >
+            Same as network.iana_number, but instead using the Keyword name.
+          example: IPv6-ICMP
+    
+        - name: application
+          level: extended
+          type: keyword
+          description: >
+            A name given to an application. This can be arbitrarily assigned for
+            things like microservices, but also apply to things like skype, icq,
+            facebook, twitter. This would be used in situations where the vendor
+            or service can be decoded such as from the source/dest IP owners,
+            ports, or wire format.
+          example: AIM
+    
         - name: protocol
           level: core
           type: keyword
           description: >
-            Network protocol name.
+            L7 Network protocol name. ex. http, lumberjack, transport protocol
           example: http
     
         - name: direction
