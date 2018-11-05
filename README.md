@@ -282,7 +282,7 @@ Fields related to network data.
 | Field  | Description  | Level  | Type  | Example  |
 |---|---|---|---|---|
 | <a name="network.name"></a>network.name | Name given by operators to sections of their network. | extended | keyword | `Guest Wifi` |
-| <a name="network.type"></a>network.type | In the OSI Model this would be the Network Layer. IPv4, IPV6, IPSec, PIM, etc | core | keyword | `IPV4` |
+| <a name="network.type"></a>network.type | In the OSI Model this would be the Network Layer. IPv4, IPv6, IPSec, PIM, etc | core | keyword | `IPv4` |
 | <a name="network.iana_number"></a>network.iana_number | IANA Protocol Number (https://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml). Standardized list of protocols. This aligns well with NetFlow and sFlow related logs which log using the IANA Protocol Number. | extended | keyword | `6` |
 | <a name="network.transport"></a>network.transport | Same as network.iana_number, but instead using the Keyword name. | core | keyword | `IPv6-ICMP` |
 | <a name="network.application"></a>network.application | A name given to an application. This can be arbitrarily assigned for things like microservices, but also apply to things like skype, icq, facebook, twitter. This would be used in situations where the vendor or service can be decoded such as from the source/dest IP owners, ports, or wire format. | extended | keyword | `AIM` |
