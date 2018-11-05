@@ -26,6 +26,7 @@ All notable changes to this project will be documented in this file based on the
 * Redefine purpose of `agent.name` field to be user defined field.
 * Rename `url.href` to `url.original`.
 * Remove `source.subdomain` and `destination.subdomain` fields.
+* Rename `event.version` to `ecs.version`. #169
 
 ### Bugfixes
 

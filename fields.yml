@@ -324,6 +324,28 @@
             `endpoint`, `firewall`, `ids`, `ips`, `proxy`.
           example: firewall
     
+    - name: ecs
+      title: ECS
+      group: 2
+      description: >
+        Meta-information specific to ECS.
+      type: group
+      fields:
+    
+        - name: version
+          level: core
+          type: keyword
+          required: true
+          description: >
+            ECS version this event conforms to. `ecs.version` is a required field and must exist in all events.
+    
+            When querying across multiple indices -- which may conform to slightly
+            different ECS versions -- this field lets integrations adjust to the
+            schema version of the events.
+    
+            The current version is 0.1.0.
+          example: 0.1.0
+    
     - name: error
       title: Error
       group: 2
@@ -451,22 +473,6 @@
           description: >
               Hash (perhaps logstash fingerprint) of raw field to be able to
               demonstrate log integrity.
-    
-        - name: version
-          level: core
-          type: keyword
-          required: true
-          description: >
-            The version field contains the version an event for ECS adheres to.
-    
-            This field should be provided as part of each event to make it possible
-            to detect to which ECS version an event belongs.
-    
-            event.version is a required field and must exist in all events. It
-            describes which ECS version the event adheres to.
-    
-            The current version is 0.1.0.
-          example: 0.1.0
     
         - name: duration
           level: core

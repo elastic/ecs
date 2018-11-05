@@ -3,8 +3,9 @@
 ## Guidelines
 
 * The document MUST have the `@timestamp` field.
-* The [data type](https://www.elastic.co/guide/en/elasticsearch/reference/6.2/mapping-types.html) defined for an ECS field MUST be used.
-* It SHOULD have the field `event.version` to define which version of ECS it uses.
+* The [data type](https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-types.html)
+  defined for an ECS field MUST be used.
+* It SHOULD have the field `ecs.version` to define which version of ECS it uses.
 * As many fields as possible should be mapped to ECS.
 
 **Writing fields**
