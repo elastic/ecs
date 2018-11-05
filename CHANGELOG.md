@@ -41,5 +41,7 @@ All notable changes to this project will be documented in this file based on the
 * Add `host.os.kernel` containing the OS kernel version. #60
 * Add `agent.type` field.
 * Add `http.request.referrer` field. #164
+* Add `network.type`, `network.iana_number`, `network.transport` and
+  `network.application`. #81 and #170
 
 ### Deprecated
