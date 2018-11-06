@@ -7,21 +7,21 @@ ECS usage in Auditbeat.
 
 | Field  | Description  | Level  | Type  | Example  |
 |---|---|---|---|---|
-| [event.module](https://github.com/elastic/ecs#event.module)  | Auditbeat module name. | core | keyword | `mysql` |
+| [event.module](../README.md#event.module)  | Auditbeat module name. | core | keyword | `mysql` |
 | <a name="file.&ast;"></a>*file.&ast;* | *File attributes.<br/>* |  |  |  |
-| [file.path](https://github.com/elastic/ecs#file.path)  | The path to the file. | extended | keyword |  |
-| [file.target_path](https://github.com/elastic/ecs#file.target_path)  | The target path for symlinks. | extended | keyword |  |
-| [file.type](https://github.com/elastic/ecs#file.type)  | The file type (file, dir, or symlink). | extended | keyword |  |
-| [file.device](https://github.com/elastic/ecs#file.device)  | The device. | extended | keyword |  |
-| [file.inode](https://github.com/elastic/ecs#file.inode)  | The inode representing the file in the filesystem. | extended | keyword |  |
-| [file.uid](https://github.com/elastic/ecs#file.uid)  | The user ID (UID) or security identifier (SID) of the file owner. | extended | keyword |  |
-| [file.owner](https://github.com/elastic/ecs#file.owner)  | The file owner's username. | extended | keyword |  |
-| [file.gid](https://github.com/elastic/ecs#file.gid)  | The primary group ID (GID) of the file. | extended | keyword |  |
-| [file.group](https://github.com/elastic/ecs#file.group)  | The primary group name of the file. | extended | keyword |  |
-| [file.mode](https://github.com/elastic/ecs#file.mode)  | The mode of the file in octal representation. | extended | keyword | `416` |
-| [file.size](https://github.com/elastic/ecs#file.size)  | The file size in bytes (field is only added when `type` is `file`). | extended | long |  |
-| [file.mtime](https://github.com/elastic/ecs#file.mtime)  | The last modified time of the file (time when content was modified). | extended | date |  |
-| [file.ctime](https://github.com/elastic/ecs#file.ctime)  | The last change time of the file (time when metadata was changed). | extended | date |  |
+| [file.path](../README.md#file.path)  | The path to the file. | extended | keyword |  |
+| [file.target_path](../README.md#file.target_path)  | The target path for symlinks. | extended | keyword |  |
+| [file.type](../README.md#file.type)  | The file type (file, dir, or symlink). | extended | keyword |  |
+| [file.device](../README.md#file.device)  | The device. | extended | keyword |  |
+| [file.inode](../README.md#file.inode)  | The inode representing the file in the filesystem. | extended | keyword |  |
+| [file.uid](../README.md#file.uid)  | The user ID (UID) or security identifier (SID) of the file owner. | extended | keyword |  |
+| [file.owner](../README.md#file.owner)  | The file owner's username. | extended | keyword |  |
+| [file.gid](../README.md#file.gid)  | The primary group ID (GID) of the file. | extended | keyword |  |
+| [file.group](../README.md#file.group)  | The primary group name of the file. | extended | keyword |  |
+| [file.mode](../README.md#file.mode)  | The mode of the file in octal representation. | extended | keyword | `416` |
+| [file.size](../README.md#file.size)  | The file size in bytes (field is only added when `type` is `file`). | extended | long |  |
+| [file.mtime](../README.md#file.mtime)  | The last modified time of the file (time when content was modified). | extended | date |  |
+| [file.ctime](../README.md#file.ctime)  | The last change time of the file (time when metadata was changed). | extended | date |  |
 | <a name="hash.&ast;"></a>*hash.&ast;* | *Hash fields used in Auditbeat.<br/>The hash field contains cryptographic hashes of data associated with the event (such as a file). The keys are names of cryptographic algorithms. The values are encoded as hexidecimal (lower-case).<br/>All fields in user can have one or multiple entries.<br/>* |  |  |  |
 | <a name="hash.blake2b_256"></a>*hash.blake2b_256* | *BLAKE2b-256 hash of the file.* | (use case) | keyword |  |
 | <a name="hash.blake2b_384"></a>*hash.blake2b_384* | *BLAKE2b-384 hash of the file.* | (use case) | keyword |  |
