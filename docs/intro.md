@@ -10,7 +10,7 @@ See CONTRIBUTING.md for more details on setting up.
 
 -->
 
-**WARNING: THIS IS WORK IN PROGRESS**
+**WARNING: THE MASTER BRANCH IS FOR WORK IN PROGRESS**
 
 # Elastic Common Schema (ECS)
 
@@ -23,7 +23,14 @@ ECS is still under development and backward compatibility is not guaranteed. Any
 feedback on the general structure, missing fields, or existing fields is appreciated.
 For contributions please read the [Contributing Guide](CONTRIBUTING.md).
 
-<a name="ecs-version"></a>The current version of ECS is `0.1.0`.
+<a name="ecs-version"></a>
+# Versions
+
+The latest version of ECS is [1.0.0-beta.1](https://github.com/elastic/ecs/tag/v1.0.0-beta.1).
+You can browse past versions of ECS [here](https://github.com/elastic/ecs/releases)
+
+Note that the master branch of this repository should never be considered an
+official release of ECS.
 
 # In this readme
 
