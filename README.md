@@ -242,10 +242,6 @@ Normally the host information is related to the machine on which the event was g
 | <a name="host.ip"></a>host.ip | Host ip address. | core | ip |  |
 | <a name="host.mac"></a>host.mac | Host mac address. | core | keyword |  |
 | <a name="host.type"></a>host.type | Type of host.<br/>For Cloud providers this can be the machine type like `t2.medium`. If vm, this could be the container, for example, or other information meaningful in your environment. | core | keyword |  |
-| <a name="host.os.platform"></a>host.os.platform | Operating system platform (centos, ubuntu, windows, etc.) | extended | keyword | `darwin` |
-| <a name="host.os.name"></a>host.os.name | Operating system name. | extended | keyword | `Mac OS X` |
-| <a name="host.os.family"></a>host.os.family | OS family (redhat, debian, freebsd, windows, etc.) | extended | keyword | `debian` |
-| <a name="host.os.version"></a>host.os.version | Operating system version. | extended | keyword | `10.12.6` |
 | <a name="host.architecture"></a>host.architecture | Operating system architecture. | core | keyword | `x86_64` |
 
 
@@ -418,10 +414,6 @@ The user_agent fields normally come from a browser request. They often show up i
 | <a name="user_agent.minor"></a>user_agent.minor | Minor version of the user agent. | extended | long |  |
 | <a name="user_agent.patch"></a>user_agent.patch | Patch version of the user agent. | extended | keyword |  |
 | <a name="user_agent.name"></a>user_agent.name | Name of the user agent. | extended | keyword | `Chrome` |
-| <a name="user_agent.os.name"></a>user_agent.os.name | Name of the operating system. | extended | keyword |  |
-| <a name="user_agent.os.version"></a>user_agent.os.version | Version of the operating system. | extended | keyword |  |
-| <a name="user_agent.os.major"></a>user_agent.os.major | Major version of the operating system. | extended | long |  |
-| <a name="user_agent.os.minor"></a>user_agent.os.minor | Minor version of the operating system. | extended | long |  |
 
 
 
