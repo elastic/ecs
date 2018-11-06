@@ -44,4 +44,9 @@ All notable changes to this project will be documented in this file based on the
 * Add `network.type`, `network.iana_number`, `network.transport` and
   `network.application`. #81 and #170
 
+### Improvements
+
+* Remove duplicate definitions of the reuseable `os` field set from `host.os` and
+  `user_agent.os`.  #168
+
 ### Deprecated
