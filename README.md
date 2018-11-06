@@ -403,15 +403,15 @@ describe the full use case. The fields which are not in ECS are in italic.
 
 Contributions of additional uses cases on top of ECS are welcome.
 
- * [APM](https://github.com/elastic/ecs/blob/master/use-cases/apm.md)
- * [Auditbeat](https://github.com/elastic/ecs/blob/master/use-cases/auditbeat.md)
- * [Beats](https://github.com/elastic/ecs/blob/master/use-cases/beats.md)
- * [Filebeat Apache](https://github.com/elastic/ecs/blob/master/use-cases/filebeat-apache-access.md)
- * [Kubernetes](https://github.com/elastic/ecs/blob/master/use-cases/kubernetes.md)
- * [Logging](https://github.com/elastic/ecs/blob/master/use-cases/logging.md)
- * [Metricbeat](https://github.com/elastic/ecs/blob/master/use-cases/metricbeat.md)
- * [TLS](https://github.com/elastic/ecs/blob/master/use-cases/tls.md)
- * [Parsing web server logs](https://github.com/elastic/ecs/blob/master/use-cases/web-logs.md)
+ * [APM](use-cases/apm.md)
+ * [Auditbeat](use-cases/auditbeat.md)
+ * [Beats](use-cases/beats.md)
+ * [Filebeat Apache](use-cases/filebeat-apache-access.md)
+ * [Kubernetes](use-cases/kubernetes.md)
+ * [Logging](use-cases/logging.md)
+ * [Metricbeat](use-cases/metricbeat.md)
+ * [TLS](use-cases/tls.md)
+ * [Parsing web server logs](use-cases/web-logs.md)
 
 
 

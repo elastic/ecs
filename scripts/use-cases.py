@@ -21,7 +21,8 @@ def write_stdout():
 
         use_case = read_use_case_file("./use-cases/" + file)
 
-        schema_link = "https://github.com/elastic/ecs/blob/master/use-cases/"
+        # Intentionally a relative link, to avoid leaving forked repo or branch
+        schema_link = "use-cases/"
         # Link list to field prefixes
         links += " * [{}]({}{}.md)\n".format(use_case["title"], schema_link, use_case["name"])
 
