@@ -1,0 +1,52 @@
+title: Parsing web server logs
+name: web-logs
+description:
+  Represenging web server access logs in ECS
+fields:
+
+- name: base
+  fields:
+    - name: "@timestamp"
+      type: date
+      phase: 1
+      example: "2016-05-23T08:05:34.853Z"
+      description: >
+        Time at which the response was sent, and the web server log created.
+
+- name: http
+  title: HTTP
+  group: 2
+  description: >
+    Fields related to HTTP requests and responses.
+  type: group
+  fields:
+
+    - name: request.method
+      type: keyword
+      description: >
+        Http request method.
+      example: GET, POST, PUT
+
+    - name: request.referrer
+      type: keyword
+      description: >
+        Referrer for this HTTP request.
+      example: https://blog.example.com/
+
+    - name: response.status_code
+      type: long
+      description: >
+        Http response status code.
+      example: 404
+
+    - name: response.body
+      type: keyword
+      description: >
+        The full http response body.
+      example: Hello world
+
+    - name: version
+      type: keyword
+      description: >
+        Http version.
+      example: 1.1
