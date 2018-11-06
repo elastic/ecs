@@ -41,6 +41,7 @@ ECS defines these fields.
  * [Container fields](#container)
  * [Destination fields](#destination)
  * [Device fields](#device)
+ * [ECS fields](#ecs)
  * [Error fields](#error)
  * [Event fields](#event)
  * [File fields](#file)
@@ -152,6 +153,16 @@ Device fields are used to provide additional information about the device that i
 | <a name="device.type"></a>device.type | The type of the device the data is coming from.<br/>There is no predefined list of device types. Some examples are `endpoint`, `firewall`, `ids`, `ips`, `proxy`. | core | keyword | `firewall` |
 
 
+## <a name="ecs"></a> ECS fields
+
+Meta-information specific to ECS.
+
+
+| Field  | Description  | Level  | Type  | Example  |
+|---|---|---|---|---|
+| <a name="ecs.version"></a>ecs.version | ECS version this event conforms to. `ecs.version` is a required field and must exist in all events.<br/>When querying across multiple indices -- which may conform to slightly different ECS versions -- this field lets integrations adjust to the schema version of the events.<br/>The current version is 0.1.0. | core | keyword | `0.1.0` |
+
+
 ## <a name="error"></a> Error fields
 
 These fields can represent errors of any kind. Use them for errors that happen while fetching events or in cases where the event itself contains an error.
@@ -180,7 +191,6 @@ The event fields are used for context information about the data itself.
 | <a name="event.severity"></a>event.severity | Severity describes the severity of the event. What the different severity values mean can very different between use cases. It's up to the implementer to make sure severities are consistent across events. | core | long | `7` |
 | <a name="event.original"></a>event.original | Raw text message of entire event. Used to demonstrate log integrity.<br/>This field is not indexed and doc_values are disabled. It cannot be searched, but it can be retrieved from `_source`. | core | keyword | `Sep 19 08:26:10 host CEF:0&#124;Security&#124; threatmanager&#124;1.0&#124;100&#124; worm successfully stopped&#124;10&#124;src=10.0.0.1 dst=2.1.2.2spt=1232` |
 | <a name="event.hash"></a>event.hash | Hash (perhaps logstash fingerprint) of raw field to be able to demonstrate log integrity. | extended | keyword | `123456789012345678901234567890ABCD` |
-| <a name="event.version"></a>event.version | The version field contains the version an event for ECS adheres to.<br/>This field should be provided as part of each event to make it possible to detect to which ECS version an event belongs.<br/>event.version is a required field and must exist in all events. It describes which ECS version the event adheres to.<br/>The current version is 0.1.0. | core | keyword | `0.1.0` |
 | <a name="event.duration"></a>event.duration | Duration of the event in nanoseconds. | core | long |  |
 | <a name="event.created"></a>event.created | event.created contains the date when the event was created.<br/>This timestamp is distinct from @timestamp in that @timestamp contains the processed timestamp. For logs these two timestamps can be different as the timestamp in the log line and when the event is read for example by Filebeat are not identical. `@timestamp` must contain the timestamp extracted from the log line, event.created when the log line is read. The same could apply to package capturing where @timestamp contains the timestamp extracted from the network package and event.created when the event was created.<br/>In case the two timestamps are identical, @timestamp should be used. | core | date |  |
 | <a name="event.risk_score"></a>event.risk_score | Risk score or priority of the event (e.g. security solutions). Use your system's original value here. | core | float |  |
@@ -443,8 +453,9 @@ Contributions of additional uses cases on top of ECS are welcome.
 ## Guidelines
 
 * The document MUST have the `@timestamp` field.
-* The [data type](https://www.elastic.co/guide/en/elasticsearch/reference/6.2/mapping-types.html) defined for an ECS field MUST be used.
-* It SHOULD have the field `event.version` to define which version of ECS it uses.
+* The [data type](https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-types.html)
+  defined for an ECS field MUST be used.
+* It SHOULD have the field `ecs.version` to define which version of ECS it uses.
 * As many fields as possible should be mapped to ECS.
 
 **Writing fields**

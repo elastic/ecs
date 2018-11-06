@@ -21,23 +21,23 @@ Here are the steps for contributing to ECS.
   - Clone your fork to your machine.
 * Create a local branch to hold your changes.
   - Run `git checkout -b branch-name`, where `branch-name` is the name you want to give your local branch
-* Do your work. 
+* Do your work.
   - Make changes to the `.yml` files as needed
-* Run `make` to update generated files. 
+* Run `make` to update generated files.
   - Note that the README.md file is generated, and should not be edited directly. Source files are in the /docs directory.
-* Commit your changes locally. 
+* Commit your changes locally.
   - Run `git commit -a -m "your message"`
 * Push your changes to your own github.com fork.
-  - Run `git push --set-upstream origin branch-name` 
+  - Run `git push --set-upstream origin branch-name`
   - In this command, `origin` is an alias that references your fork.
-* Request feedback and permission to merge your changes. 
-  - Create a [Pull Request](https://help.github.com/articles/creating-a-pull-request/) against the ECS repo. 
+* Request feedback and permission to merge your changes.
+  - Create a [Pull Request](https://help.github.com/articles/creating-a-pull-request/) against the ECS repo.
   - (Look for the `Compare & pull request` button on your branch in github.com.)
 * Next steps
   - Wait for reviews on your PR.
   - Incorporate review comments and push updates if needed.
 * Thank you for your contribution!
-  
+
 **Important:** Be sure to push changes only to your own fork. Changes must be approved before they are merged into the main repository.
 
 ### Other ways to contribute
@@ -74,9 +74,9 @@ The file structure is similar to this:
 
 Each prefix has its own file. The fields for each prefix are stored in the file. `title` and `description` describe the prefix. `footnote` adds more information following the field table. `level` is for sorting in the documentation output.
 
-In the `fields` section, the `name` of the field is the first entry. 
-The `type` is the [Elasticsearch field type](https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-types.html). 
-`description` adds details about the field. 
+In the `fields` section, the `name` of the field is the first entry.
+The `type` is the [Elasticsearch field type](https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-types.html).
+`description` adds details about the field.
 `example` adds an sample value.
 The `phase` field indicates the development status of the field. If `phase` is left out, the default is 0.
 
@@ -92,8 +92,9 @@ A field's `phase` indicates where it is in its development. Different phases exi
 ## Guidelines for implementing ECS
 
 * The document MUST have the `@timestamp` field.
-* The [data type](https://www.elastic.co/guide/en/elasticsearch/reference/6.2/mapping-types.html) defined for an ECS field MUST be used.
-* It SHOULD have the field `event.version` to define which version of ECS it uses.
+* The [data type](https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-types.html)
+  defined for an ECS field MUST be used.
+* It SHOULD have the field `ecs.version` to define which version of ECS it uses.
 * As many fields as possible should be mapped to ECS.
 
 ### Writing fields
