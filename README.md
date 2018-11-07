@@ -30,6 +30,12 @@ The master branch of this repository should never be considered an
 official release of ECS. You can browse official releases of ECS
 [here](https://github.com/elastic/ecs/releases).
 
+Please note that when the README.md file and other generated files
+(like schema.csv and template.json) are not in agreement,
+the README.md should be considered the official spec.
+The other two files are simply provided as a convenience, and may not always be
+fully up to date.
+
 # In this readme
 
 * [Fields](#fields)
