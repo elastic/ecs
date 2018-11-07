@@ -15,18 +15,6 @@ All notable changes to this project will be documented in this file based on the
 
 ## 1.0.0-beta1
 
-### Caveats with this release
-
-* When the README.md file and other generated files (schema.csv and template.json)
-  are not in agreement, the README.md should be considered the official spec.
-  The other two files are simply provided as a convenience, and are not yet
-  fully up to date.
-* Two field sets have been temporarily removed from 1.0.0-beta.1. They will be
-  reintroduced as soon as the issues with them are resolved. Hopefully in time
-  for 1.0.0-beta.2. These field sets are:
-  * `http`, see #171
-  * `user_agent`, see #172
-
 ### Breaking changes
 * Change structure of URL. #7
 * Rename `url.href` `multi_field`. #18
