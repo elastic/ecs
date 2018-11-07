@@ -26,12 +26,9 @@ For contributions please read the [Contributing Guide](CONTRIBUTING.md).
 <a name="ecs-version"></a>
 # Versions
 
-The latest version of ECS is [1.0.0-beta.1](https://github.com/elastic/ecs/tag/v1.0.0-beta.1)
-([changelog](CHANGELOG.md)).
-You can browse past versions of ECS [here](https://github.com/elastic/ecs/releases)
-
-Note that the master branch of this repository should never be considered an
-official release of ECS.
+The master branch of this repository should never be considered an
+official release of ECS. You can browse official releases of ECS
+[here](https://github.com/elastic/ecs/releases).
 
 # In this readme
 
