@@ -7,7 +7,6 @@ import os.path
 
 def write_stdout():
 
-    link_prefix = "https://github.com/elastic/ecs"
     schema = get_schema()
     flat_schema = create_flat_schema(schema)
 
@@ -21,7 +20,8 @@ def write_stdout():
 
         use_case = read_use_case_file("./use-cases/" + file)
 
-        schema_link = "https://github.com/elastic/ecs/blob/master/use-cases/"
+        # Intentionally a relative link, to avoid leaving forked repo or branch
+        schema_link = "use-cases/"
         # Link list to field prefixes
         links += " * [{}]({}{}.md)\n".format(use_case["title"], schema_link, use_case["name"])
 
@@ -58,7 +58,8 @@ def write_stdout():
                 fields.append(section_fields)
 
         global_fields = {"name": use_case["name"], "title": use_case["title"], "description": "", "fields": fields}
-        output += get_markdown_section(global_fields, "###", link_prefix) + "\n"
+        # Generate use cases with a relative link to access field definitions
+        output += get_markdown_section(global_fields, "###", "../README.md") + "\n"
 
         # Write output to /use-cases/use_case["name"].md file
         # Adjust links

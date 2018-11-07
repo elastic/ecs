@@ -403,15 +403,15 @@ describe the full use case. The fields which are not in ECS are in italic.
 
 Contributions of additional uses cases on top of ECS are welcome.
 
- * [APM](https://github.com/elastic/ecs/blob/master/use-cases/apm.md)
- * [Auditbeat](https://github.com/elastic/ecs/blob/master/use-cases/auditbeat.md)
- * [Beats](https://github.com/elastic/ecs/blob/master/use-cases/beats.md)
- * [Filebeat Apache](https://github.com/elastic/ecs/blob/master/use-cases/filebeat-apache-access.md)
- * [Kubernetes](https://github.com/elastic/ecs/blob/master/use-cases/kubernetes.md)
- * [Logging](https://github.com/elastic/ecs/blob/master/use-cases/logging.md)
- * [Metricbeat](https://github.com/elastic/ecs/blob/master/use-cases/metricbeat.md)
- * [TLS](https://github.com/elastic/ecs/blob/master/use-cases/tls.md)
- * [Parsing web server logs](https://github.com/elastic/ecs/blob/master/use-cases/web-logs.md)
+ * [APM](use-cases/apm.md)
+ * [Auditbeat](use-cases/auditbeat.md)
+ * [Beats](use-cases/beats.md)
+ * [Filebeat Apache](use-cases/filebeat-apache-access.md)
+ * [Kubernetes](use-cases/kubernetes.md)
+ * [Logging](use-cases/logging.md)
+ * [Metricbeat](use-cases/metricbeat.md)
+ * [TLS](use-cases/tls.md)
+ * [Parsing web server logs](use-cases/web-logs.md)
 
 
 
@@ -518,7 +518,7 @@ The benefits to a user adopting these fields and names in their clusters are:
 
 ## What if I have fields that conflict with ECS?
 
-The [rename processor](https://www.elastic.co/guide/en/elasticsearch/reference/6.2/rename-processor.html) can help you resolve field conflicts. For example, imagine that you already have a field called "user," but ECS employs `user` as an object. You can use the rename processor on ingest time to rename your field to the matching ECS field. If your field does not match ECS, you can rename your field to `user.value` instead.
+The [rename processor](https://www.elastic.co/guide/en/elasticsearch/reference/current/rename-processor.html) can help you resolve field conflicts. For example, imagine that you already have a field called "user," but ECS employs `user` as an object. You can use the rename processor on ingest time to rename your field to the matching ECS field. If your field does not match ECS, you can rename your field to `user.value` instead.
 
 ## What if my events have additional fields?
 
@@ -544,7 +544,7 @@ Ingesting `user.firstname: Nicolas` and `user.lastname: Ruflin` is identical to 
 }
 ```
 
-In Elasticsearch, `user` is represented as an [object datatype](https://www.elastic.co/guide/en/elasticsearch/reference/6.2/object.html). In the case of the underline notation, both are just [string datatypes](https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-types.html).
+In Elasticsearch, `user` is represented as an [object datatype](https://www.elastic.co/guide/en/elasticsearch/reference/current/object.html). In the case of the underline notation, both are just [string datatypes](https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-types.html).
 
 NOTE: ECS does not use [nested datatypes](https://www.elastic.co/guide/en/elasticsearch/reference/current/nested.html), which are arrays of objects.
 
