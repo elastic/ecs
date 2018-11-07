@@ -10,7 +10,8 @@ See CONTRIBUTING.md for more details on setting up.
 
 -->
 
-**WARNING: THE MASTER BRANCH IS FOR WORK IN PROGRESS**
+WARNING: This is the master branch. The current release v1.0.0-beta1
+can be found [here](https://github.com/elastic/ecs/tree/v1.0.0-beta1).
 
 # Elastic Common Schema (ECS)
 

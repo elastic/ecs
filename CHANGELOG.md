@@ -13,7 +13,7 @@ All notable changes to this project will be documented in this file based on the
 
 ### Deprecated
 
-## 1.0.0-beta1
+## [1.0.0-beta1](https://github.com/elastic/ecs/compare/v0.1.0...v1.0.0-beta1)
 
 ### Breaking changes
 * Change structure of URL. #7
