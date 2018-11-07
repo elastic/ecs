@@ -28,6 +28,7 @@ All notable changes to this project will be documented in this file based on the
 * Remove `source.subdomain` and `destination.subdomain` fields.
 * Rename `event.version` to `ecs.version`. #169
 * Remove the `http` field set temporarily. #171
+* Remove the `user_agent` field set temporarily. #172
 
 ### Bugfixes
 
