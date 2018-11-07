@@ -56,7 +56,6 @@ ECS defines these fields.
  * [Source fields](#source)
  * [URL fields](#url)
  * [User fields](#user)
- * [User agent fields](#user_agent)
 
 ## <a name="base"></a> Base fields
 
@@ -393,22 +392,6 @@ Note also that the `user` fields may be used directly at the top level.
 | <a name="user.name"></a>user.name | Name of the user.<br/>The field is a keyword, and will not be tokenized. | core | keyword |  |
 | <a name="user.email"></a>user.email | User email address. | extended | keyword |  |
 | <a name="user.hash"></a>user.hash | Unique user hash to correlate information for a user in anonymized form.<br/>Useful if `user.id` or `user.name` contain confidential information and cannot be used. | extended | keyword |  |
-
-
-## <a name="user_agent"></a> User agent fields
-
-The user_agent fields normally come from a browser request. They often show up in web service logs coming from the parsed user agent string.
-
-
-| Field  | Description  | Level  | Type  | Example  |
-|---|---|---|---|---|
-| <a name="user_agent.original"></a>user_agent.original | Unparsed version of the user_agent. | extended | keyword |  |
-| <a name="user_agent.device"></a>user_agent.device | Name of the physical device. | extended | keyword |  |
-| <a name="user_agent.version"></a>user_agent.version | Version of the physical device. | extended | keyword |  |
-| <a name="user_agent.major"></a>user_agent.major | Major version of the user agent. | extended | long |  |
-| <a name="user_agent.minor"></a>user_agent.minor | Minor version of the user agent. | extended | long |  |
-| <a name="user_agent.patch"></a>user_agent.patch | Patch version of the user agent. | extended | keyword |  |
-| <a name="user_agent.name"></a>user_agent.name | Name of the user agent. | extended | keyword | `Chrome` |
 
 
 
