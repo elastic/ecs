@@ -359,7 +359,7 @@ Source fields describe details about the destination of a packet/event.
 
 ## <a name="url"></a> URL fields
 
-URL fields provide a complete URL, with scheme, host, and path. The URL object can be reused in other prefixes, such as `host.url.*` for example. Keep the structure consistent whenever you use URL fields.
+URL fields provide a complete URL, with scheme, host, and path.
 
 
 | Field  | Description  | Level  | Type  | Example  |
