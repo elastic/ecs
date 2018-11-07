@@ -252,12 +252,6 @@
     
             Can be one or multiple IPv4 or IPv6 addresses.
     
-        - name: hostname
-          level: core
-          type: keyword
-          description: >
-            Hostname of the destination.
-    
         - name: port
           level: core
           type: long
@@ -1069,7 +1063,8 @@
       title: Source
       group: 2
       description: >
-        Source fields describe details about the source of the event.
+        Source fields describe details about the destination of a
+        packet/event.
       type: group
       fields:
     
@@ -1080,12 +1075,6 @@
             IP address of the source.
     
             Can be one or multiple IPv4 or IPv6 addresses.
-    
-        - name: hostname
-          level: core
-          type: keyword
-          description: >
-            Hostname of the source.
     
         - name: port
           level: core
@@ -1108,9 +1097,7 @@
     - name: url
       title: URL
       description: >
-        URL fields provide a complete URL, with scheme, host, and path. The URL
-        object can be reused in other prefixes, such as `host.url.*` for
-        example. Keep the structure consistent whenever you use URL fields.
+        URL fields provide a complete URL, with scheme, host, and path.
       type: group
       fields:
     
@@ -1119,7 +1106,7 @@
           type: keyword
           description: >
             Full original url. The field is stored as keyword.
-          example: https://elastic.co:443/search?q=elasticsearch#top
+          example: https://www.elastic.co:443/search?q=elasticsearch#top
     
         - name: scheme
           level: extended
@@ -1130,15 +1117,15 @@
             Note: The `:` is not part of the scheme.
           example: https
     
-        - name: hostname
+        - name: domain
           level: extended
           type: keyword
           description: >
-            Hostname of the request, such as "elastic.co".
+            Domain of the request, such as "www.elastic.co".
     
             In some cases a URL may refer to an IP and/or port directly, without a
-            domain name. In this case, the IP address would go to the `hostname` field.
-          example: elastic.co
+            domain name. In this case, the IP address would go to the `domain` field.
+          example: www.elastic.co
     
         - name: port
           level: extended

@@ -129,7 +129,6 @@ Destination fields describe details about the destination of a packet/event.
 | Field  | Description  | Level  | Type  | Example  |
 |---|---|---|---|---|
 | <a name="destination.ip"></a>destination.ip | IP address of the destination.<br/>Can be one or multiple IPv4 or IPv6 addresses. | core | ip |  |
-| <a name="destination.hostname"></a>destination.hostname | Hostname of the destination. | core | keyword |  |
 | <a name="destination.port"></a>destination.port | Port of the destination. | core | long |  |
 | <a name="destination.mac"></a>destination.mac | MAC address of the destination. | core | keyword |  |
 | <a name="destination.domain"></a>destination.domain | Destination domain. | core | keyword |  |
@@ -347,13 +346,12 @@ The service fields describe the service for or from which the data was collected
 
 ## <a name="source"></a> Source fields
 
-Source fields describe details about the source of the event.
+Source fields describe details about the destination of a packet/event.
 
 
 | Field  | Description  | Level  | Type  | Example  |
 |---|---|---|---|---|
 | <a name="source.ip"></a>source.ip | IP address of the source.<br/>Can be one or multiple IPv4 or IPv6 addresses. | core | ip |  |
-| <a name="source.hostname"></a>source.hostname | Hostname of the source. | core | keyword |  |
 | <a name="source.port"></a>source.port | Port of the source. | core | long |  |
 | <a name="source.mac"></a>source.mac | MAC address of the source. | core | keyword |  |
 | <a name="source.domain"></a>source.domain | Source domain. | core | keyword |  |
@@ -361,14 +359,14 @@ Source fields describe details about the source of the event.
 
 ## <a name="url"></a> URL fields
 
-URL fields provide a complete URL, with scheme, host, and path. The URL object can be reused in other prefixes, such as `host.url.*` for example. Keep the structure consistent whenever you use URL fields.
+URL fields provide a complete URL, with scheme, host, and path.
 
 
 | Field  | Description  | Level  | Type  | Example  |
 |---|---|---|---|---|
-| <a name="url.original"></a>url.original | Full original url. The field is stored as keyword. | extended | keyword | `https://elastic.co:443/search?q=elasticsearch#top` |
+| <a name="url.original"></a>url.original | Full original url. The field is stored as keyword. | extended | keyword | `https://www.elastic.co:443/search?q=elasticsearch#top` |
 | <a name="url.scheme"></a>url.scheme | Scheme of the request, such as "https".<br/>Note: The `:` is not part of the scheme. | extended | keyword | `https` |
-| <a name="url.hostname"></a>url.hostname | Hostname of the request, such as "elastic.co".<br/>In some cases a URL may refer to an IP and/or port directly, without a domain name. In this case, the IP address would go to the `hostname` field. | extended | keyword | `elastic.co` |
+| <a name="url.domain"></a>url.domain | Domain of the request, such as "www.elastic.co".<br/>In some cases a URL may refer to an IP and/or port directly, without a domain name. In this case, the IP address would go to the `domain` field. | extended | keyword | `www.elastic.co` |
 | <a name="url.port"></a>url.port | Port of the request, such as 443. | extended | integer | `443` |
 | <a name="url.path"></a>url.path | Path of the request, such as "/search". | extended | keyword |  |
 | <a name="url.query"></a>url.query | The query field describes the query string of the request, such as "q=elasticsearch".<br/>The `?` is excluded from the query string. If a URL contains no `?`, there is no query field. If there is a `?` but no query, the query field exists with an empty string. The `exists` query can be used to differentiate between the two cases. | extended | keyword |  |
