@@ -1,7 +1,19 @@
 # CHANGELOG
 All notable changes to this project will be documented in this file based on the [Keep a Changelog](http://keepachangelog.com/) Standard. This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [1.0.0-beta.1](https://github.com/elastic/ecs/tag/v1.0.0-beta.1) - 2018-11-08
+## Unreleased
+
+### Breaking changes
+
+### Bugfixes
+
+### Added
+
+### Improvements
+
+### Deprecated
+
+## 1.0.0-beta1
 
 ### Caveats with this release
 
@@ -63,6 +75,6 @@ All notable changes to this project will be documented in this file based on the
 * Remove duplicate definitions of the reuseable `os` field set from `host.os` and
   `user_agent.os`.  #168
 
-## [0.1.0](https://github.com/elastic/ecs/tree/v0.1.0) - 2018-05-24
+## 0.1.0
 
-Initial commit
+Initial draft release
