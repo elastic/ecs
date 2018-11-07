@@ -1,8 +1,19 @@
-# Change Log
+# CHANGELOG
 All notable changes to this project will be documented in this file based on the [Keep a Changelog](http://keepachangelog.com/) Standard. This project adheres to [Semantic Versioning](http://semver.org/).
 
+## Unreleased
 
-## [Unreleased](https://github.com/elastic/ecs/compare/0.1.0...master)
+### Breaking changes
+
+### Bugfixes
+
+### Added
+
+### Improvements
+
+### Deprecated
+
+## 1.0.0-beta1
 
 ### Breaking changes
 * Change structure of URL. #7
@@ -32,8 +43,6 @@ All notable changes to this project will be documented in this file based on the
 * Rename `url.hostname` to `url.domain`. #175
 * Remove `source.hostname` and `destination.hostname`. #175
 
-### Bugfixes
-
 ### Added
 * Add `network.total.packets` and `network.total.bytes` field. PR#2
 * Add `event.action` field. #21
@@ -54,4 +63,6 @@ All notable changes to this project will be documented in this file based on the
 * Remove duplicate definitions of the reuseable `os` field set from `host.os` and
   `user_agent.os`.  #168
 
-### Deprecated
+## 0.1.0
+
+Initial draft release
