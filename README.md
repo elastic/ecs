@@ -47,7 +47,6 @@ ECS defines these fields.
  * [File fields](#file)
  * [Geo fields](#geo)
  * [Host fields](#host)
- * [HTTP fields](#http)
  * [Log fields](#log)
  * [Network fields](#network)
  * [Organization fields](#organization)
@@ -255,20 +254,6 @@ Normally the host information is related to the machine on which the event was g
 | <a name="host.architecture"></a>host.architecture | Operating system architecture. | core | keyword | `x86_64` |
 
 
-## <a name="http"></a> HTTP fields
-
-Fields related to HTTP requests and responses.
-
-
-| Field  | Description  | Level  | Type  | Example  |
-|---|---|---|---|---|
-| <a name="http.request.method"></a>http.request.method | Http request method. | extended | keyword | `GET, POST, PUT` |
-| <a name="http.request.referrer"></a>http.request.referrer | Referrer for this HTTP request. | extended | keyword | `https://blog.example.com/` |
-| <a name="http.response.status_code"></a>http.response.status_code | Http response status code. | extended | long | `404` |
-| <a name="http.response.body"></a>http.response.body | The full http response body. | extended | keyword | `Hello world` |
-| <a name="http.version"></a>http.version | Http version. | extended | keyword | `1.1` |
-
-
 ## <a name="log"></a> Log fields
 
 Fields which are specific to log events.
@@ -445,6 +430,7 @@ Contributions of additional uses cases on top of ECS are welcome.
  * [Logging](https://github.com/elastic/ecs/blob/master/use-cases/logging.md)
  * [Metricbeat](https://github.com/elastic/ecs/blob/master/use-cases/metricbeat.md)
  * [TLS](https://github.com/elastic/ecs/blob/master/use-cases/tls.md)
+ * [Parsing web server logs](https://github.com/elastic/ecs/blob/master/use-cases/web-logs.md)
 
 
 
