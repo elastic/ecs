@@ -1,6 +1,6 @@
 ## Parsing web server logs use case
 
-Represenging web server access logs in ECS.
+Representing web server access logs in ECS.
 This use case uses previous definitions for `http` and `user_agent` fields sets, which were taken out of ECS temporarily for Beta1. Their official definition in ECS is expected to change slightly.
 Using the fields as represented here is not expected to conflict with ECS, but may require a transition, when they are re-introduced officially.
 
