@@ -29,6 +29,8 @@ All notable changes to this project will be documented in this file based on the
 * Rename `event.version` to `ecs.version`. #169
 * Remove the `http` field set temporarily. #171
 * Remove the `user_agent` field set temporarily. #172
+* Rename `url.hostname` to `url.domain`. #175
+* Remove `source.hostname` and `destination.hostname`. #175
 
 ### Bugfixes
 
