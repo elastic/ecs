@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file based on the
 
 ### Breaking changes
 
+* Rename `network.total.bytes` to `network.bytes` and `network.total.packets`
+  to `network.packets`. #179
+* Remove `network.inbound.bytes`, `network.inbound.packets`,
+  `network.outbound.bytes` and `network.outbound.packets`. #179
+
 ### Bugfixes
 
 * Fix obvious mistake in the definition of "source", where it said "destination"
@@ -35,6 +40,8 @@ All notable changes to this project will be documented in this file based on the
 * Improved the definition of host fields #195
 
 * Clarify the semantics of `network.direction`. #212
+
+* Add `source.bytes`, `source.packets`, `destination.bytes` and `destination.packets`. #179
 
 ### Deprecated
 
