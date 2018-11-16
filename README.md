@@ -147,6 +147,8 @@ Destination fields describe details about the destination of a packet/event.
 | <a name="destination.port"></a>destination.port | Port of the destination. | core | long |  |
 | <a name="destination.mac"></a>destination.mac | MAC address of the destination. | core | keyword |  |
 | <a name="destination.domain"></a>destination.domain | Destination domain. | core | keyword |  |
+| <a name="destination.bytes"></a>destination.bytes | Bytes sent from the destination to the source. | core | long | `184` |
+| <a name="destination.packets"></a>destination.packets | Packets sent from the destination to the source. | core | long | `12` |
 
 
 ## <a name="device"></a> Device fields
@@ -322,12 +324,8 @@ The network is defined as the communication path over which a host or network ev
 | <a name="network.direction"></a>network.direction | Direction of the network traffic.<br/>Recommended values are:<br/>  * inbound<br/>  * outbound<br/>  * internal<br/>  * external<br/>  * unknown<br/><br/>When mapping events from a host-based monitoring context, populate this field from the host's point of view.<br/>When mapping events from a network or perimeter-based monitoring context, populate this field from the point of view of your network perimeter. | core | keyword | `inbound` |
 | <a name="network.forwarded_ip"></a>network.forwarded_ip | Host IP address when the source IP address is the proxy. | core | ip | `192.1.1.2` |
 | <a name="network.community_id"></a>network.community_id | A hash of source and destination IPs and ports, as well as the protocol used in a communication. This is a tool-agnostic standard to identify flows.<br/>Learn more at https://github.com/corelight/community-id-spec. | extended | keyword | `1:hO+sN4H+MG5MY/8hIrXPqc4ZQz0=` |
-| <a name="network.inbound.bytes"></a>network.inbound.bytes | Network inbound bytes. | core | long | `184` |
-| <a name="network.inbound.packets"></a>network.inbound.packets | Network inbound packets. | core | long | `12` |
-| <a name="network.outbound.bytes"></a>network.outbound.bytes | Network outbound bytes. | core | long | `184` |
-| <a name="network.outbound.packets"></a>network.outbound.packets | Network outbound packets. | core | long | `12` |
-| <a name="network.total.bytes"></a>network.total.bytes | Network total bytes. The sum of inbound.bytes + outbound.bytes. | core | long | `368` |
-| <a name="network.total.packets"></a>network.total.packets | Network outbound packets. The sum of inbound.packets + outbound.packets | core | long | `24` |
+| <a name="network.bytes"></a>network.bytes | Total bytes transferred in both directions.<br/>If `source.bytes` and `destination.bytes` are known, `network.bytes` is their sum. | core | long | `368` |
+| <a name="network.packets"></a>network.packets | Total packets transferred in both directions.<br/>If `source.packets` and `destination.packets` are known, `network.packets` is their sum. | core | long | `24` |
 
 
 ## <a name="organization"></a> Organization fields
@@ -415,6 +413,8 @@ Source fields describe details about the source of a packet/event.
 | <a name="source.port"></a>source.port | Port of the source. | core | long |  |
 | <a name="source.mac"></a>source.mac | MAC address of the source. | core | keyword |  |
 | <a name="source.domain"></a>source.domain | Source domain. | core | keyword |  |
+| <a name="source.bytes"></a>source.bytes | Bytes sent from the source to the destination. | core | long | `184` |
+| <a name="source.packets"></a>source.packets | Packets sent from the source to the destination. | core | long | `12` |
 
 
 ## <a name="url"></a> URL fields
