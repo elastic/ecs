@@ -166,6 +166,8 @@ Device fields are used to provide additional information about the device that i
 ## <a name="dns"></a> DNS fields
 
 DNS-specific event fields.
+
+
 | Field  | Description  | Level  | Type  | Example  |
 |---|---|---|---|---|
 | <a name="dns.id"></a>dns.id | The DNS packet identifier assigned by the program that generated the query. The identifier is copied to the response. | extended | keyword |  |
