@@ -318,6 +318,287 @@
             `endpoint`, `firewall`, `ids`, `ips`, `proxy`.
           example: firewall
     
+    - name: dns
+      title: DNS
+      group: 2
+      description: DNS-specific event fields.
+      type: group
+      fields:
+    
+        - name: id
+          level: extended
+          type: keyword
+          description: >
+            The DNS packet identifier assigned by the program that generated the
+            query. The identifier is copied to the response.
+          phase: 0
+    
+        - name: op_code
+          level: extended
+          type: keyword
+          description: >
+            The DNS operation code that specifies the kind of query in the message.
+            This value is set by the originator of a query and copied into the
+            response.
+          example: QUERY
+          phase: 0
+    
+        - name: flags.authoritative
+          level: extended
+          type: boolean
+          description: >
+            A DNS flag specifying that the responding server is an authority for
+            the domain name used in the question.
+          phase: 0
+    
+        - name: flags.recursion_available
+          level: extended
+          type: boolean
+          description: >
+            A DNS flag specifying whether recursive query support is available in the
+            name server.
+          phase: 0
+    
+        - name: flags.recursion_desired
+          level: extended
+          type: boolean
+          description: >
+            A DNS flag specifying that the client directs the server to pursue a
+            query recursively. Recursive query support is optional.
+          phase: 0
+    
+        - name: flags.authentic_data
+          level: extended
+          type: boolean
+          description: >
+            A DNS flag specifying that the recursive server considers the response
+            authentic.
+          phase: 0
+    
+        - name: flags.checking_disabled
+          level: extended
+          type: boolean
+          description: >
+            A DNS flag specifying that the client disables the server
+            signature validation of the query.
+          phase: 0
+    
+        - name: flags.truncated_response
+          level: extended
+          type: boolean
+          description: >
+            A DNS flag specifying that only the first 512 bytes of the reply were
+            returned.
+          phase: 0
+    
+        - name: response_code
+          level: extended
+          type: keyword
+          description: The DNS status code.
+          example: NOERROR
+          phase: 0
+    
+        - name: question.name
+          level: core
+          type: keyword
+          description: >
+            The domain name being queried. If the name field contains non-printable
+            characters (below 32 or above 126), then those characters are represented
+            as escaped base 10 integers (\DDD). Back slashes and quotes are escaped.
+            Tabs, carriage returns, and line feeds are converted to \t, \r, and
+            \n respectively.
+          example: www.google.com.
+          phase: 0
+    
+        - name: question.type
+          level: core
+          type: keyword
+          description: The type of records being queried.
+          example: AAAA
+          phase: 0
+    
+        - name: question.class
+          level: core
+          type: keyword
+          description: The class of of records being queried.
+          example: IN
+          phase: 0
+    
+        - name: question.etld_plus_one
+          level: core
+          type: keyword
+          description: The effective top-level domain (eTLD) plus one more label.
+            For example, the eTLD+1 for "foo.bar.golang.org." is "golang.org.".
+            The data for determining the eTLD comes from an embedded copy of the
+            data from http://publicsuffix.org.
+          example: amazon.co.uk.
+          phase: 0
+    
+        - name: question.size
+          level: extended
+          type: keyword
+          description: The size of name being queried (in bytes).
+          phase: 0
+    
+        - name: answers
+          level: extended
+          type: object
+          description: >
+            An array containing a dictionary about each answer section returned by
+            the server.
+          phase: 0
+    
+        - name: answers_count
+          level: extended
+          type: long
+          description: >
+            The number of resource records contained in the `dns.answers` field.
+          phase: 0
+    
+        - name: answers.name
+          level: extended
+          type: keyword
+          description: The domain name to which this resource record pertains.
+          example: example.com.
+          phase: 0
+    
+        - name: answers.type
+          level: extended
+          type: keyword
+          description: The type of data contained in this resource record.
+          example: MX
+          phase: 0
+    
+        - name: answers.class
+          level: extended
+          type: keyword
+          description: The class of DNS data contained in this resource record.
+          example: IN
+          phase: 0
+    
+        - name: answers.ttl
+          level: extended
+          type: keyword
+          description: >
+            The time interval in seconds that this resource record may be cached
+            before it should be discarded. Zero values mean that the data should
+            not be cached.
+          type: long
+          phase: 0
+    
+        - name: answers.data
+          level: extended
+          description: >
+            The data describing the resource. The meaning of this data depends
+            on the type and class of the resource record.
+          phase: 0
+    
+        - name: authorities
+          level: extended
+          type: object
+          description: >
+            An array containing a dictionary for each authority section from the
+            answer.
+          phase: 0
+    
+        - name: authorities_count
+          level: extended
+          type: long
+          description: >
+            The number of resource records contained in the `dns.authorities` field.
+          phase: 0
+    
+        - name: authorities.name
+          level: extended
+          description: The domain name to which this resource record pertains.
+          example: example.com.
+          phase: 0
+    
+        - name: authorities.type
+          level: extended
+          description: The type of data contained in this resource record.
+          example: NS
+          phase: 0
+    
+        - name: authorities.class
+          level: extended
+          description: The class of DNS data contained in this resource record.
+          example: IN
+    
+        - name: additionals
+          level: extended
+          type: object
+          description: >
+            An array containing a dictionary for each additional section from the
+            answer.
+          phase: 0
+    
+        - name: additionals_count
+          level: extended
+          type: long
+          description: >
+            The number of resource records contained in the `dns.additionals` field.
+          phase: 0
+    
+        - name: additionals.name
+          level: extended
+          description: The domain name to which this resource record pertains.
+          example: example.com.
+          phase: 0
+    
+        - name: additionals.type
+          level: extended
+          description: The type of data contained in this resource record.
+          example: NS
+          phase: 0
+    
+        - name: additionals.class
+          level: extended
+          description: The class of DNS data contained in this resource record.
+          example: IN
+          phase: 0
+    
+        - name: additionals.ttl
+          level: extended
+          description: >
+            The time interval in seconds that this resource record may be cached
+            before it should be discarded. Zero values mean that the data should
+            not be cached.
+          type: long
+          phase: 0
+    
+        - name: additionals.data
+          level: extended
+          description: >
+            The data describing the resource. The meaning of this data depends
+            on the type and class of the resource record.
+          phase: 0
+    
+        - name: opt.version
+          level: extended
+          description: The EDNS version.
+          example: "0"
+          phase: 0
+    
+        - name: opt.do
+          level: extended
+          type: boolean
+          description: If set, the transaction uses DNSSEC.
+          phase: 0
+    
+        - name: opt.ext_rcode
+          level: extended
+          description: Extended response code field.
+          example: "BADVERS"
+          phase: 0
+    
+        - name: opt.udp_size
+          level: extended
+          type: long
+          description: Requestor's UDP payload size (in bytes).
+          phase: 0
+    
+    
     - name: ecs
       title: ECS
       group: 2
