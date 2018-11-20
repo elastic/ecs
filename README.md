@@ -314,7 +314,7 @@ The organization fields enrich data with information about the company or entity
 The OS fields contain information about the operating system.
 
 
-The `os` fields are expected to be nested at: `device.os`, `host.os`, `user_agent.os`.
+The `os` fields are expected to be nested at: `device.os`, `host.os`, `agent.os`.
 
 Note also that the `os` fields are not expected to be used directly at the top level.
 
