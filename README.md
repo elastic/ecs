@@ -256,7 +256,7 @@ Normally the host information is related to the machine on which the event was g
 
 | Field  | Description  | Level  | Type  | Example  |
 |---|---|---|---|---|
-| <a name="host.hostname"></a>host.hostname | Hostname of the host.<br/>It normally contains what the hostname command returns on the host machine. | core | keyword |  |
+| <a name="host.hostname"></a>host.hostname | Hostname of the host.<br/>It normally contains what the `hostname` command returns on the host machine. | core | keyword |  |
 | <a name="host.name"></a>host.name | Name of the host.<br/>It can contain what `hostname` returns on Unix systems, the fully qualified domain name, or a name specified by the user. The sender decides which value to use. | core | keyword |  |
 | <a name="host.id"></a>host.id | Unique host id.<br/>As hostname is not always unique, use values that are meaningful in your environment.<br/>Example: The current usage of `beat.name`. | core | keyword |  |
 | <a name="host.ip"></a>host.ip | Host ip address. | core | ip |  |
