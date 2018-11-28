@@ -208,7 +208,7 @@ The event fields are used for context information about the data itself.
 
 ## <a name="file"></a> File fields
 
-File fields provide details about each file.
+A file is defined as a set of information that has been created on, or has existed on a filesystem. File objects can be associated with host events, network events, and/or file events (e.g., those produced by File Integrity Monitoring [FIM] products or services). File fields provide details about the affected file associated with the event or metric.
 
 
 | Field  | Description  | Level  | Type  | Example  |
