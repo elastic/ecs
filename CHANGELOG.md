@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file based on the
 
 ### Added
 * Add `host.name` field and clarify usage of `host.hostname`.
+* Add `event.start` and `event.end` date fields.
 
 ### Improvements
 

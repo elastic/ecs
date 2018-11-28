@@ -106,6 +106,9 @@
       description: >
         Duration of the event in nanoseconds.
 
+        If event.start and event.end are known this value should be the
+        difference between the end and start time.
+
     - name: created
       level: core
       type: date
@@ -122,6 +125,20 @@
         event was created.
 
         In case the two timestamps are identical, @timestamp should be used.
+
+    - name: start
+      level: extended
+      type: date
+      description: >
+        event.start contains the date when the event started or when the
+        activity was first observed.
+
+    - name: end
+      level: extended
+      type: date
+      description: >
+        event.end contains the date when the event ended or when the activity
+        was last observed.
 
     - name: risk_score
       level: core
