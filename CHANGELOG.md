@@ -11,7 +11,7 @@ All notable changes to this project will be documented in this file based on the
 * Add `host.name` field and clarify usage of `host.hostname`.
 
 ### Improvements
-* Improved the definition of file at the beginning of file fields #196
+* Improved the definition of the file fields #196
 
 ### Deprecated
 
