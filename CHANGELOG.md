@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file based on the
 ## Unreleased
 
 ### Breaking changes
+* Change type of labels to `json`.
 
 ### Bugfixes
 
