@@ -86,7 +86,7 @@ The base set contains all fields which are on the top level. These fields are co
 
 ## <a name="agent"></a> Agent fields
 
-The agent fields contain the data about the software entity, if any, that detects or observes events on a host, or takes measurements on a host. Examples include beats. Agents do not run on devices. ECS agent.* fields shall be populated with details of the agent running on the host where the event happened or the measurement was taken.
+The agent fields contain the data about the software entity, if any, that collects, detects, or observes events on a host, or takes measurements on a host. Examples include beats. Agents may also run on devices. ECS agent.* fields shall be populated with details of the agent running on the host or device where the event happened or the measurement was taken.
 
 
 | Field  | Description  | Level  | Type  | Example  |
