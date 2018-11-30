@@ -8,8 +8,8 @@ All notable changes to this project will be documented in this file based on the
 ### Bugfixes
 
 ### Added
-* Add `host.name` field and clarify usage of `host.hostname`.
-* Add `event.start` and `event.end` date fields.
+* Add `host.name` field and clarify usage of `host.hostname`. #187
+* Add `event.start` and `event.end` date fields. #185
 
 ### Improvements
 
