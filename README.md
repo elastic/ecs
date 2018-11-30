@@ -351,6 +351,7 @@ These fields contain information about a process. These fields can help you corr
 | Field  | Description  | Level  | Type  | Example  |
 |---|---|---|---|---|
 | <a name="process.args"></a>process.args | Process arguments.<br/>May be filtered to protect sensitive information. | extended | keyword | `['-l', 'user', '10.0.0.16']` |
+| <a name="process.executable"></a>process.executable | Full path to the process executable. | extended | keyword | `/usr/bin/ssh` |
 | <a name="process.name"></a>process.name | Process name.<br/>Sometimes called program name or similar. | extended | keyword | `ssh` |
 | <a name="process.pid"></a>process.pid | Process id. | core | long | `4242` |
 | <a name="process.ppid"></a>process.ppid | Process parent id. | extended | long |  |
