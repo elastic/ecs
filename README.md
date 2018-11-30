@@ -419,6 +419,7 @@ Note also that the `user` fields may be used directly at the top level.
 | <a name="user.name"></a>user.name | Name of the user.<br/>The field is a keyword, and will not be tokenized. | core | keyword |  |
 | <a name="user.email"></a>user.email | User email address. | extended | keyword |  |
 | <a name="user.hash"></a>user.hash | Unique user hash to correlate information for a user in anonymized form.<br/>Useful if `user.id` or `user.name` contain confidential information and cannot be used. | extended | keyword |  |
+| <a name="user.groups"></a>user.groups | Groups the user is a part of. | extended | keyword |  |
 
 
 
