@@ -985,6 +985,28 @@
       type: group
       fields:
     
+        - name: pid
+          level: core
+          type: long
+          description: >
+            Process id.
+          exmple: ssh
+    
+        - name: name
+          level: extended
+          type: keyword
+          description: >
+            Process name.
+    
+            Sometimes called program name or similar.
+          example: ssh
+    
+        - name: ppid
+          level: extended
+          type: long
+          description: >
+            Process parent id.
+    
         - name: args
           level: extended
           type: keyword
@@ -1000,28 +1022,6 @@
           description: >
             Full path to the process executable.
           example: /usr/bin/ssh
-    
-        - name: name
-          level: extended
-          type: keyword
-          description: >
-            Process name.
-    
-            Sometimes called program name or similar.
-          example: ssh
-    
-        - name: pid
-          level: core
-          type: long
-          description: >
-            Process id.
-          example: 4242
-    
-        - name: ppid
-          level: extended
-          type: long
-          description: >
-            Process parent id.
     
         - name: title
           level: extended
