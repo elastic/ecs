@@ -24,6 +24,7 @@ All notable changes to this project will be documented in this file based on the
 * Add `process.working_directory` and `process.start`. #215
 * Reintroduce `http`. #237
 * Add `user.full_name` field. #201
+* Add `network.community.id` field. #208
 
 ### Improvements
 * Improved the definition of the file fields #196
