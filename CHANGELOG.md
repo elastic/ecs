@@ -16,6 +16,7 @@ All notable changes to this project will be documented in this file based on the
 * Create new `related` field set with `related.ip`. #206
 * Add `user.group` field. #204
 * Create new `group` field set with `group.id` and `group.name`. #203
+* Add `url.full` field. #207
 
 ### Improvements
 
