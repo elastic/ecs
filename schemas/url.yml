@@ -10,7 +10,27 @@
       level: extended
       type: keyword
       description: >
-        Full original url. The field is stored as keyword.
+        Unmodified original url as seen in the event source.
+
+        Note that in network monitoring, the observed URL may be a full URL,
+        whereas in access logs, the URL is often just represented as a path.
+
+        This field is meant to represent the URL as it was observed, complete
+        or not.
+      example: >
+        https://www.elastic.co:443/search?q=elasticsearch#top
+
+        or
+
+        /search?q=elasticsearch
+
+    - name: full
+      level: extended
+      type: keyword
+      description: >
+        If full URLs are important to your use case, they should be stored in
+        `url.full`, whether this field is reconstructed or present in the
+        event source.
       example: https://www.elastic.co:443/search?q=elasticsearch#top
 
     - name: scheme
