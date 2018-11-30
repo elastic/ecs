@@ -45,7 +45,9 @@ func main() {
 		fields = append(fields, f...)
 	}
 
-	t, err := template.New("1.0.0", "ecs", "6.0.0", template.TemplateConfig{})
+  // If getting a failure on the following instantiation, check out / update Beats master
+  version := common.MustNewVersion("6.0.0")
+	t, err := template.New("1.0.0", "ecs", *version, template.TemplateConfig{})
 	if err != nil {
 		fmt.Printf("Error: %s \n", err)
 		os.Exit(1)
