@@ -58,6 +58,7 @@ ECS defines these fields.
  * [Event fields](#event)
  * [File fields](#file)
  * [Geo fields](#geo)
+ * [Group fields](#group)
  * [Host fields](#host)
  * [Log fields](#log)
  * [Network fields](#network)
@@ -248,6 +249,17 @@ Note also that the `geo` fields are not expected to be used directly at the top 
 | <a name="geo.location"></a>geo.location | Longitude and latitude. | core | geo_point | `{ "lon": -73.614830, "lat": 45.505918 }` |
 | <a name="geo.region_name"></a>geo.region_name | Region name. | core | keyword | `Quebec` |
 | <a name="geo.city_name"></a>geo.city_name | City name. | core | keyword | `Montreal` |
+
+
+## <a name="group"></a> Group fields
+
+The group fields are meant to represent groups that are relevant to the event.
+
+
+| Field  | Description  | Level  | Type  | Example  |
+|---|---|---|---|---|
+| <a name="group.id"></a>group.id | Unique identifier for the group on the system/platform. | core | keyword |  |
+| <a name="group.name"></a>group.name | Name of the group. | core | keyword |  |
 
 
 ## <a name="host"></a> Host fields
