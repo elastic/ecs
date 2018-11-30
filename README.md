@@ -404,6 +404,9 @@ Note also that the `user` fields may be used directly at the top level.
 | <a name="user.id"></a>user.id | One or multiple unique identifiers of the user. | core | keyword |  |
 | <a name="user.name"></a>user.name | Name of the user.<br/>The field is a keyword, and will not be tokenized. | core | keyword |  |
 | <a name="user.email"></a>user.email | User email address. | extended | keyword |  |
+| <a name="user.home"></a>user.home | User's home directory, if applicable. | extended | keyword |  |
+| <a name="user.shell"></a>user.shell | User's default shell or interpreter, if applicable. | extended | keyword |  |
+| <a name="user.system"></a>user.system | Should be true if this is a system user, false otherwise.<br/>If the field is absent, no statement is being made about whether this is a system user. | extended | boolean |  |
 | <a name="user.hash"></a>user.hash | Unique user hash to correlate information for a user in anonymized form.<br/>Useful if `user.id` or `user.name` contain confidential information and cannot be used. | extended | keyword |  |
 
 
