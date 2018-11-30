@@ -64,6 +64,7 @@ ECS defines these fields.
  * [Organization fields](#organization)
  * [Operating System fields](#os)
  * [Process fields](#process)
+ * [Related fields](#related)
  * [Service fields](#service)
  * [Source fields](#source)
  * [URL fields](#url)
@@ -343,6 +344,18 @@ These fields contain information about a process. These fields can help you corr
 | <a name="process.ppid"></a>process.ppid | Process parent id. | extended | long |  |
 | <a name="process.title"></a>process.title | Process title.<br/>The proctitle, some times the same as process name. Can also be different: for example a browser setting its title to the web page currently opened. | extended | keyword |  |
 | <a name="process.thread.id"></a>process.thread.id | Thread ID. | extended | long | `4242` |
+
+
+## <a name="related"></a> Related fields
+
+This field set is meant to facilitate pivoting around a piece of data. Some pieces of information can be seen in many places in ECS. To facilitate searching for them, append values to their corresponding field in `related.`.
+
+A concrete example is IP addresses, which can be under host, device, source, destination, and network.forwarded_ip. If you append all IPs to `related.ip`, you can then search for a given IP trivially, no matter where it appeared, by querying `related.ip:a.b.c.d`.
+
+
+| Field  | Description  | Level  | Type  | Example  |
+|---|---|---|---|---|
+| <a name="related.ip"></a>related.ip | All of the IPs seen on your event. | extended | ip |  |
 
 
 ## <a name="service"></a> Service fields
