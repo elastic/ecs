@@ -258,8 +258,8 @@ The group fields are meant to represent groups that are relevant to the event.
 
 | Field  | Description  | Level  | Type  | Example  |
 |---|---|---|---|---|
-| <a name="group.id"></a>group.id | Unique identifier for the group on the system/platform. | core | keyword |  |
-| <a name="group.name"></a>group.name | Name of the group. | core | keyword |  |
+| <a name="group.id"></a>group.id | Unique identifier for the group on the system/platform. | extended | keyword |  |
+| <a name="group.name"></a>group.name | Name of the group. | extended | keyword |  |
 
 
 ## <a name="host"></a> Host fields
