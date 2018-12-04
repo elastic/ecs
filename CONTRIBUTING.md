@@ -59,7 +59,7 @@ The file structure is similar to this:
   title: Agent fields
   group: 2
   description: >
-    The agent fields contain all the data about the agent/client/shipper that collected/generated the events.
+    The agent fields contain the data about the software entity, if any, that collects, detects, or observes events on a host, or takes measurements on a host. Examples include beats. Agents may also run on devices. ECS agent.* fields shall be populated with details of the agent running on the host or device where the event happened or the measurement was taken.
   footnote: >
     In the case of beats for logs, for example,  the `agent.name` is `filebeat`.
 
