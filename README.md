@@ -293,7 +293,7 @@ Fields which are specific to log events.
 
 ## <a name="network"></a> Network fields
 
-The network is defined as the communication path over which a host or network event happens. Network events do not include the transmission of an event from a host or device to the Elastic Stack. The network.* fields should be populated with details about the network activity associated with an event.
+The network is defined as the communication path over which a host or network event happens. The network.* fields should be populated with details about the network activity associated with an event.
 
 
 | Field  | Description  | Level  | Type  | Example  |
