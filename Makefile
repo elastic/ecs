@@ -18,6 +18,8 @@ check: generate fmt fields
 
 setup:
 	pip install --user --upgrade --requirement ./scripts/requirements.txt
+	go get -u github.com/elastic/go-ucfg/yaml
+	go get -u github.com/elastic/beats/libbeat/template
 
 clean:
 	rm schema.csv schema.md
