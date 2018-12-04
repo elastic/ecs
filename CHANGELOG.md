@@ -25,8 +25,6 @@ All notable changes to this project will be documented in this file based on the
 
 ### Improvements
 * Improved the definition of the file fields #196
-Improved the definition of the agent fields two places #192
-* Improved the definition of the agent fields two places #192
 * Improved the definition of the agent fields #192
 
 ### Deprecated
