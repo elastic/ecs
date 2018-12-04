@@ -293,7 +293,7 @@ Fields which are specific to log events.
 
 ## <a name="network"></a> Network fields
 
-Fields related to network data.
+The network is defined as the communication path over which a host or network event happens. The network.* fields should be populated with details about the network activity associated with an event.
 
 
 | Field  | Description  | Level  | Type  | Example  |
