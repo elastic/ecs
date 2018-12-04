@@ -312,6 +312,11 @@ Fields related to network data.
 | <a name="network.outbound.packets"></a>network.outbound.packets | Network outbound packets. | core | long | `12` |
 | <a name="network.total.bytes"></a>network.total.bytes | Network total bytes. The sum of inbound.bytes + outbound.bytes. | core | long | `368` |
 | <a name="network.total.packets"></a>network.total.packets | Network outbound packets. The sum of inbound.packets + outbound.packets | core | long | `24` |
+| <a name="network.http.request.method"></a>network.http.request.method | Http request method. | extended | keyword | `GET, POST, PUT` |
+| <a name="network.http.request.referrer"></a>network.http.request.referrer | Referrer for this HTTP request. | extended | keyword | `https://blog.example.com/` |
+| <a name="network.http.response.status_code"></a>network.http.response.status_code | Http response status code. | extended | long | `404` |
+| <a name="network.http.response.body"></a>network.http.response.body | The full http response body. | extended | keyword | `Hello world` |
+| <a name="network.http.version"></a>network.http.version | Http version. | extended | keyword | `1.1` |
 
 
 ## <a name="organization"></a> Organization fields
