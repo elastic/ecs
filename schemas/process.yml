@@ -10,14 +10,12 @@
   type: group
   fields:
 
-    - name: args
-      level: extended
-      type: keyword
+    - name: pid
+      level: core
+      type: long
       description: >
-        Process arguments.
-
-        May be filtered to protect sensitive information.
-      example: ["-l", "user", "10.0.0.16"]
+        Process id.
+      exmple: ssh
 
     - name: name
       level: extended
@@ -28,18 +26,27 @@
         Sometimes called program name or similar.
       example: ssh
 
-    - name: pid
-      level: core
-      type: long
-      description: >
-        Process id.
-      example: 4242
-
     - name: ppid
       level: extended
       type: long
       description: >
         Process parent id.
+
+    - name: args
+      level: extended
+      type: keyword
+      description: >
+        Process arguments.
+
+        May be filtered to protect sensitive information.
+      example: ["ssh", "-l", "user", "10.0.0.16"]
+
+    - name: executable
+      level: extended
+      type: keyword
+      description: >
+        Absolute path to the process executable.
+      example: /usr/bin/ssh
 
     - name: title
       level: extended
