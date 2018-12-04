@@ -264,7 +264,7 @@ The group fields are meant to represent groups that are relevant to the event.
 
 ## <a name="host"></a> Host fields
 
-A host is defined as a general computing instance that is not a device. ECS host.* fields should be populated with details about the host on which the event happened, or on which the measurement was taken. Hosts types include hardware, virtual machines, docker containers, and kubernetes nodes.
+A host is defined as a general computing instance. ECS host.* fields should be populated with details about the host on which the event happened, or on which the measurement was taken. Host types include hardware, virtual machines, Docker containers, and Kubernetes nodes.
 
 
 | Field  | Description  | Level  | Type  | Example  |
