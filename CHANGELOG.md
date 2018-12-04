@@ -7,6 +7,9 @@ All notable changes to this project will be documented in this file based on the
 
 ### Bugfixes
 
+* Fix obvious mistake in the definition of "source", where it said "destination"
+  instead of "source". #211
+
 ### Added
 * Add `host.name` field and clarify usage of `host.hostname`. #187
 * Add `event.start` and `event.end` date fields. #185
