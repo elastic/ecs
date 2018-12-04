@@ -357,6 +357,8 @@ These fields contain information about a process. These fields can help you corr
 | <a name="process.executable"></a>process.executable | Absolute path to the process executable. | extended | keyword | `/usr/bin/ssh` |
 | <a name="process.title"></a>process.title | Process title.<br/>The proctitle, some times the same as process name. Can also be different: for example a browser setting its title to the web page currently opened. | extended | keyword |  |
 | <a name="process.thread.id"></a>process.thread.id | Thread ID. | extended | long | `4242` |
+| <a name="process.start"></a>process.start | The time the process started. | extended | date | `2016-05-23T08:05:34.853Z` |
+| <a name="process.working_directory"></a>process.working_directory | The working directory of the process. | extended | keyword | `/home/alice` |
 
 
 ## <a name="related"></a> Related fields

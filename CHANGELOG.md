@@ -21,6 +21,7 @@ All notable changes to this project will be documented in this file based on the
 * Create new `group` field set with `group.id` and `group.name`. #203
 * Add `url.full` field. #207
 * Add `process.executable` field. #209
+* Add `process.working_directory` and `process.start`. #215
 
 ### Improvements
 
