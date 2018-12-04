@@ -28,7 +28,7 @@ All notable changes to this project will be documented in this file based on the
 * Improved the definition of the agent fields #192
 * Improve definition of events, logs, and metrics in event section #194
 * Improved the definition of network fields in intro section #197
-* Improved the definition of host #195
+* Improved the definition of host fields #195
 
 ### Deprecated
 
