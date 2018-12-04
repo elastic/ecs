@@ -25,6 +25,7 @@ All notable changes to this project will be documented in this file based on the
 * Reintroduce `http`. #237
 * Add `user.full_name` field. #201
 * Add `network.community_id` field. #208
+* Add fields `geo.country_name` and `geo.region_iso_code`. #214
 
 ### Improvements
 * Improved the definition of the file fields #196
