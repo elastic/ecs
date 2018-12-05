@@ -225,7 +225,7 @@ A file is defined as a set of information that has been created on, or has exist
 Geo fields can carry data about a specific location related to an event or geo information derived from an IP field.
 
 
-The `geo` fields are expected to be nested at: `destination.geo`, `device.geo`, `host.geo`, `source.geo`.
+The `geo` fields are expected to be nested at: `destination.geo`, `host.geo`, `observer.geo`, `source.geo`.
 
 Note also that the `geo` fields are not expected to be used directly at the top level.
 
@@ -344,7 +344,7 @@ The organization fields enrich data with information about the company or entity
 The OS fields contain information about the operating system.
 
 
-The `os` fields are expected to be nested at: `device.os`, `host.os`, `user_agent.os`.
+The `os` fields are expected to be nested at: `host.os`, `observer.os`, `user_agent.os`.
 
 Note also that the `os` fields are not expected to be used directly at the top level.
 
