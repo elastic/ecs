@@ -106,7 +106,7 @@ Examples: In the case of Beats for logs, the agent.name is filebeat. For APM, it
 
 ## <a name="client"></a> Client fields
 
-A client is defined as the initiator of a network connection for events regarding sessions, connections, or bidirectional flow records. For TCP events, the client is the initiator of the TCP connection that sends the SYN packet(s). For other protocols, the client is generally the initiator or requestor in the network transaction. Some systems use the term "originator" to refer the client in TCP connections. The client fields describe details about the system acting as the client in the network event. The client fields are generally not populated for packet-level events. 
+A client is defined as the initiator of a network connection for events regarding sessions, connections, or bidirectional flow records. For TCP events, the client is the initiator of the TCP connection that sends the SYN packet(s). For other protocols, the client is generally the initiator or requestor in the network transaction. Some systems use the term "originator" to refer the client in TCP connections. The client fields describe details about the system acting as the client in the network event. Client fields are usually populated in conjuction with server fields.  C/lient fields are generally not populated for packet-level events. 
 
 
 | Field  | Description  | Level  | Type  | Example  |
@@ -240,10 +240,7 @@ A file is defined as a set of information that has been created on, or has exist
 ## <a name="geo"></a> Geo fields
 
 Geo fields can carry data about a specific location related to an event or geo information derived from an IP field.
-
-
-The `geo` fields are expected to be nested at: `destination.geo`, `host.geo`, `observer.geo`, `source.geo`.
-
+The `geo` fields are expected to be nested at: `client.geo`, `destination.geo`, `observer.geo`, `host.geo`, `server.geo`, `source.geo`.
 Note also that the `geo` fields are not expected to be used directly at the top level.
 
 | Field  | Description  | Level  | Type  | Example  |
@@ -406,7 +403,7 @@ A concrete example is IP addresses, which can be under host, observer, source, d
 
 ## <a name="server"></a> Server fields
 
-A Server is defined as the responder in a network connection for events regarding sessions, connections, or bidirectional flow records. For TCP events, the server is the receiver of the initial SYN packet(s) of the TCP connection. For other protocols, the server is generally the responder in the network transaction. Some systems actually use the term "responder" to refer the server in TCP connections. The server fields describe details about the system acting as the server in the network event. The server fields are generally not populated for packet-level events.
+A Server is defined as the responder in a network connection for events regarding sessions, connections, or bidirectional flow records. For TCP events, the server is the receiver of the initial SYN packet(s) of the TCP connection. For other protocols, the server is generally the responder in the network transaction. Some systems actually use the term "responder" to refer the server in TCP connections. The server fields describe details about the system acting as the server in the network event. Server fields are usually populated in conjunction with client fields. Server fields are generally not populated for packet-level events.
 
 
 | Field  | Description  | Level  | Type  | Example  |
@@ -473,7 +470,7 @@ or
 The user fields describe information about the user that is relevant to  the event. Fields can have one entry or multiple entries. If a user has more than one id, provide an array that includes all of them.
 
 
-The `user` fields are expected to be nested at: `destination.user`, `host.user`, `source.user`.
+The `user` fields are expected to be nested at: `client.user`, `destination.user`, `host.user`, `server.user`, `source.user`.
 
 Note also that the `user` fields may be used directly at the top level.
 
