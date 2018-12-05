@@ -1,0 +1,34 @@
+---
+- name: client
+  title: Client
+  group: 2
+  description: >
+    A client is defined as the initiator of a network connection for events regarding sessions, connections, or bidirectional flow records. For TCP events, the client is the initiator of the TCP connection that sends the SYN packet(s). For other protocols, the client is generally the initiator or requestor in the network transaction. Some systems use the term "originator" to refer the client in TCP connections. The client fields describe details about the system acting as the client in the network event. The client fields are generally not populated for packet-level events. 
+  type: group
+  fields:
+
+    - name: ip
+      level: core
+      type: ip
+      description: >
+        IP address of the client.
+
+        Can be one or multiple IPv4 or IPv6 addresses.
+
+    - name: port
+      level: core
+      type: long
+      description: >
+        Port of the client.
+
+    - name: mac
+      level: core
+      type: keyword
+      description: >
+        MAC address of the client.
+
+    - name: domain
+      level: core
+      type: keyword
+      description: >
+        Client domain.
