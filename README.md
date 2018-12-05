@@ -52,7 +52,6 @@ ECS defines these fields.
  * [Cloud fields](#cloud)
  * [Container fields](#container)
  * [Destination fields](#destination)
- * [Device fields](#device)
  * [ECS fields](#ecs)
  * [Error fields](#error)
  * [Event fields](#event)
@@ -63,6 +62,7 @@ ECS defines these fields.
  * [HTTP fields](#http)
  * [Log fields](#log)
  * [Network fields](#network)
+ * [Observer fields](#observer)
  * [Organization fields](#organization)
  * [Operating System fields](#os)
  * [Process fields](#process)
@@ -149,22 +149,6 @@ Destination fields describe details about the destination of a packet/event.
 | <a name="destination.domain"></a>destination.domain | Destination domain. | core | keyword |  |
 | <a name="destination.bytes"></a>destination.bytes | Bytes sent from the destination to the source. | core | long | `184` |
 | <a name="destination.packets"></a>destination.packets | Packets sent from the destination to the source. | core | long | `12` |
-
-
-## <a name="device"></a> Device fields
-
-Device fields are used to provide additional information about the device that is the source of the information. This could be a firewall, network device, etc.
-
-
-| Field  | Description  | Level  | Type  | Example  |
-|---|---|---|---|---|
-| <a name="device.mac"></a>device.mac | MAC address of the device | core | keyword |  |
-| <a name="device.ip"></a>device.ip | IP address of the device. | core | ip |  |
-| <a name="device.hostname"></a>device.hostname | Hostname of the device. | core | keyword |  |
-| <a name="device.vendor"></a>device.vendor | Device vendor information. | core | keyword |  |
-| <a name="device.version"></a>device.version | Device version. | core | keyword |  |
-| <a name="device.serial_number"></a>device.serial_number | Device serial number. | extended | keyword |  |
-| <a name="device.type"></a>device.type | The type of the device the data is coming from.<br/>There is no predefined list of device types. Some examples are `endpoint`, `firewall`, `ids`, `ips`, `proxy`. | core | keyword | `firewall` |
 
 
 ## <a name="ecs"></a> ECS fields
@@ -326,6 +310,22 @@ The network is defined as the communication path over which a host or network ev
 | <a name="network.community_id"></a>network.community_id | A hash of source and destination IPs and ports, as well as the protocol used in a communication. This is a tool-agnostic standard to identify flows.<br/>Learn more at https://github.com/corelight/community-id-spec. | extended | keyword | `1:hO+sN4H+MG5MY/8hIrXPqc4ZQz0=` |
 | <a name="network.bytes"></a>network.bytes | Total bytes transferred in both directions.<br/>If `source.bytes` and `destination.bytes` are known, `network.bytes` is their sum. | core | long | `368` |
 | <a name="network.packets"></a>network.packets | Total packets transferred in both directions.<br/>If `source.packets` and `destination.packets` are known, `network.packets` is their sum. | core | long | `24` |
+
+
+## <a name="observer"></a> Observer fields
+
+An observer is defined as a special network, security, or application device used to detect, observe, or create network, security, or application-related events and metrics. This could be a custom hardware appliance or a server that has been configured to run special network, security, or application software. Examples include firewalls, intrusion detection/prevention systems, network monitoring sensors, web application firewalls, data loss prevention systems, and APM servers. The observer.* fields shall be populated with details of the system, if any, that detects, observes and/or creates a network, security, or application event or metric. Message queues and ETL components used in processing events or metrics are not considered observers in ECS.  
+
+
+| Field  | Description  | Level  | Type  | Example  |
+|---|---|---|---|---|
+| <a name="observer.mac"></a>observer.mac | MAC address of the observer | core | keyword |  |
+| <a name="observer.ip"></a>observer.ip | IP address of the observer. | core | ip |  |
+| <a name="observer.hostname"></a>observer.hostname | Hostname of the observer. | core | keyword |  |
+| <a name="observer.vendor"></a>observer.vendor | observer vendor information. | core | keyword |  |
+| <a name="observer.version"></a>observer.version | Observer version. | core | keyword |  |
+| <a name="observer.serial_number"></a>observer.serial_number | Observer serial number. | extended | keyword |  |
+| <a name="observer.type"></a>observer.type | The type of the observer the data is coming from.<br/>There is no predefined list of observer types. Some examples are `forwarder`, `firewall`, `ids`, `ips`, `proxy`, `poller`, `sensor`, `APM server`. | core | keyword | `firewall` |
 
 
 ## <a name="organization"></a> Organization fields
