@@ -73,6 +73,7 @@ ECS defines these fields.
  * [Source fields](#source)
  * [URL fields](#url)
  * [User fields](#user)
+ * [User agent fields](#user_agent)
 
 ## <a name="base"></a> Base fields
 
@@ -487,6 +488,20 @@ Note also that the `user` fields may be used directly at the top level.
 | <a name="user.email"></a>user.email | User email address. | extended | keyword |  |
 | <a name="user.hash"></a>user.hash | Unique user hash to correlate information for a user in anonymized form.<br/>Useful if `user.id` or `user.name` contain confidential information and cannot be used. | extended | keyword |  |
 | <a name="user.group"></a>user.group | Group the user is a part of. This field can contain a list of groups, if necessary. | extended | keyword |  |
+
+
+## <a name="user_agent"></a> User agent fields
+
+The user_agent fields normally come from a browser request. They often show up in web service logs coming from the parsed user agent string.
+
+
+| Field  | Description  | Level  | Type  | Example  |
+|---|---|---|---|---|
+| <a name="user_agent.original"></a>user_agent.original | Unparsed version of the user_agent. | extended | keyword |  |
+| <a name="user_agent.name"></a>user_agent.name | Name of the user agent. | extended | keyword | `Chrome` |
+| <a name="user_agent.version"></a>user_agent.version | Version of the user agent. | extended | keyword |  |
+| <a name="user_agent.device.name"></a>user_agent.device.name | Name of the device. | extended | keyword | `Chrome` |
+| <a name="user_agent.device.version"></a>user_agent.device.version | Version of the device. | extended | keyword |  |
 
 
 

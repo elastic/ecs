@@ -1,0 +1,39 @@
+---
+- name: user_agent
+  title: User agent
+  group: 2
+  description: >
+    The user_agent fields normally come from a browser request. They often
+    show up in web service logs coming from the parsed user agent string.
+  type: group
+  fields:
+
+    - name: original
+      level: extended
+      type: keyword
+      description: >
+        Unparsed version of the user_agent.
+
+    - name: name
+      level: extended
+      type: keyword
+      example: Chrome
+      description: >
+        Name of the user agent.
+    - name: version
+      level: extended
+      type: keyword
+      description: >
+        Version of the user agent.
+
+    - name: device.name
+      level: extended
+      type: keyword
+      example: Chrome
+      description: >
+        Name of the device.
+    - name: device.version
+      level: extended
+      type: keyword
+      description: >
+        Version of the device.
