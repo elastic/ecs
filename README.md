@@ -392,8 +392,7 @@ These fields contain information about a process. These fields can help you corr
 ## <a name="related"></a> Related fields
 
 This field set is meant to facilitate pivoting around a piece of data. Some pieces of information can be seen in many places in ECS. To facilitate searching for them, append values to their corresponding field in `related.`.
-
-A concrete example is IP addresses, which can be under host, observer, source, destination, and network.forwarded_ip. If you append all IPs to `related.ip`, you can then search for a given IP trivially, no matter where it appeared, by querying `related.ip:a.b.c.d`.
+A concrete example is IP addresses, which can be under host, observer, source, destination, client, server, and network.forwarded_ip. If you append all IPs to `related.ip`, you can then search for a given IP trivially, no matter where it appeared, by querying `related.ip:a.b.c.d`.
 
 
 | Field  | Description  | Level  | Type  | Example  |
