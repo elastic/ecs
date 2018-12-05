@@ -303,6 +303,10 @@ Fields related to HTTP activity.
 | <a name="http.response.status_code"></a>http.response.status_code | Http response status code. | extended | long | `404` |
 | <a name="http.response.body"></a>http.response.body | The full http response body. | extended | keyword | `Hello world` |
 | <a name="http.version"></a>http.version | Http version. | extended | keyword | `1.1` |
+| <a name="http.request.bytes.total"></a>http.request.bytes.total | Size in bytes of the request body and headers combined. | extended | long | `1437` |
+| <a name="http.request.bytes.body"></a>http.request.bytes.body | Size in bytes of the request body. | extended | long | `887` |
+| <a name="http.response.bytes.total"></a>http.response.bytes.total | Size in bytes of the response body and headers combined. | extended | long | `1437` |
+| <a name="http.response.bytes.body"></a>http.response.bytes.body | Size in bytes of the response body. | extended | long | `887` |
 
 
 ## <a name="log"></a> Log fields
