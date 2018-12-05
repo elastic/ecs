@@ -447,7 +447,7 @@ Note also that the `user` fields may be used directly at the top level.
 | Field  | Description  | Level  | Type  | Example  |
 |---|---|---|---|---|
 | <a name="user.id"></a>user.id | One or multiple unique identifiers of the user. | core | keyword |  |
-| <a name="user.name"></a>user.name | Programmatic name / login of the user. | core | keyword | `albert` |
+| <a name="user.name"></a>user.name | Short name or login of the user. | core | keyword | `albert` |
 | <a name="user.full_name"></a>user.full_name | User's full name, if available. | extended | keyword | `Albert Einstein` |
 | <a name="user.email"></a>user.email | User email address. | extended | keyword |  |
 | <a name="user.hash"></a>user.hash | Unique user hash to correlate information for a user in anonymized form.<br/>Useful if `user.id` or `user.name` contain confidential information and cannot be used. | extended | keyword |  |
