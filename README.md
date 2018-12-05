@@ -281,7 +281,7 @@ A host is defined as a general computing instance. ECS host.* fields should be p
 
 ## <a name="http"></a> HTTP fields
 
-Fields related to HTTP requests and responses.
+Fields related to HTTP activity.
 
 
 | Field  | Description  | Level  | Type  | Example  |
