@@ -34,6 +34,8 @@ All notable changes to this project will be documented in this file based on the
 * Improved the definition of network fields in intro section #197
 * Improved the definition of host fields #195
 
+* Clarify the semantics of `network.direction`. #212
+
 ### Deprecated
 
 ## [1.0.0-beta1](https://github.com/elastic/ecs/compare/v0.1.0...v1.0.0-beta1)
