@@ -15,6 +15,13 @@
   type: group
   fields:
 
+    - name: location
+      level: core
+      type: geo_point
+      description: >
+        Longitude and latitude.
+      example: '{ "lon": -73.614830, "lat": 45.505918 }'
+
     - name: continent_name
       level: core
       type: keyword
@@ -22,19 +29,12 @@
         Name of the continent.
       example: North America
 
-    - name: country_iso_code
+    - name: country_name
       level: core
       type: keyword
       description: >
-        Country ISO code.
-      example: CA
-
-    - name: location
-      level: core
-      type: geo_point
-      description: >
-        Longitude and latitude.
-      example: '{ "lon": -73.614830, "lat": 45.505918 }'
+        Country name.
+      example: Canada
 
     - name: region_name
       level: core
@@ -49,3 +49,17 @@
       description: >
         City name.
       example: Montreal
+
+    - name: country_iso_code
+      level: core
+      type: keyword
+      description: >
+        Country ISO code.
+      example: CA
+
+    - name: region_iso_code
+      level: core
+      type: keyword
+      description: >
+        Region ISO code.
+      example: CA-QC

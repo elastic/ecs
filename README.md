@@ -245,11 +245,13 @@ Note also that the `geo` fields are not expected to be used directly at the top 
 
 | Field  | Description  | Level  | Type  | Example  |
 |---|---|---|---|---|
-| <a name="geo.continent_name"></a>geo.continent_name | Name of the continent. | core | keyword | `North America` |
-| <a name="geo.country_iso_code"></a>geo.country_iso_code | Country ISO code. | core | keyword | `CA` |
 | <a name="geo.location"></a>geo.location | Longitude and latitude. | core | geo_point | `{ "lon": -73.614830, "lat": 45.505918 }` |
+| <a name="geo.continent_name"></a>geo.continent_name | Name of the continent. | core | keyword | `North America` |
+| <a name="geo.country_name"></a>geo.country_name | Country name. | core | keyword | `Canada` |
 | <a name="geo.region_name"></a>geo.region_name | Region name. | core | keyword | `Quebec` |
 | <a name="geo.city_name"></a>geo.city_name | City name. | core | keyword | `Montreal` |
+| <a name="geo.country_iso_code"></a>geo.country_iso_code | Country ISO code. | core | keyword | `CA` |
+| <a name="geo.region_iso_code"></a>geo.region_iso_code | Region ISO code. | core | keyword | `CA-QC` |
 
 
 ## <a name="group"></a> Group fields
