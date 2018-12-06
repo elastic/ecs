@@ -396,35 +396,55 @@
             Unique ID to describe the event.
           example: 8a4f500d
     
+        - name: kind
+          level: core
+          type: keyword
+          description: >
+            The kind of the event.
+    
+            This gives information about what type of information the event
+            contains, without being specific to the contents of the event.  Examples
+            are `event`, `state`, `alarm`.
+          example: state
+    
         - name: category
           level: core
           type: keyword
           description: >
             Event category.
     
-            This can be a user defined category.
-          example: metrics
-    
-        - name: type
-          level: core
-          type: keyword
-          description: >
-            A type given to this kind of event which can be used for grouping.
-    
-            This is normally defined by the user.
-          example: nginx-stats-metrics
+            This contains high-level information about the contents of the event. It
+            is more generic than `event.action`, in the sense that typically a
+            category contains multiple actions.
+          example: user-management
     
         - name: action
           level: core
           type: keyword
           description: >
-            The action captured by the event. The type of action will vary from
-            system to system but is likely to include actions by security services,
-            such as blocking or quarantining; as well as more generic actions such
-            as login events, file i/o or proxy forwarding events.
+            The action captured by the event.
     
-            The value is normally defined by the user.
-          example: reject
+            This describes the information in the event. It is more specific than
+            `event.category`. The value is normally defined by the user.
+          example: user-password-change
+    
+        - name: outcome
+          level: core
+          type: keyword
+          description:
+            The outcome of the event.
+    
+            If the event describes an action, this fields contains the outcome
+            of that action. Examples outcomes are `success` and `failure`.
+          example: success
+    
+        - name: type
+          level: core
+          type: keyword
+          description: >
+            Reserved for future usage.
+    
+            Please avoid using this field for user data.
     
         - name: module
           level: core
