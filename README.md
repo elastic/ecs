@@ -115,6 +115,8 @@ A client is defined as the initiator of a network connection for events regardin
 | <a name="client.port"></a>client.port | Port of the client. | core | long |  |
 | <a name="client.mac"></a>client.mac | MAC address of the client. | core | keyword |  |
 | <a name="client.domain"></a>client.domain | Client domain. | core | keyword |  |
+| <a name="client.bytes"></a>client.bytes | Bytes sent from the client to the server. | core | long | `184` |
+| <a name="client.packets"></a>client.packets | Packets sent from the client to the server. | core | long | `12` |
 
 
 ## <a name="cloud"></a> Cloud fields
@@ -411,6 +413,8 @@ A Server is defined as the responder in a network connection for events regardin
 | <a name="server.port"></a>server.port | Port of the server. | core | long |  |
 | <a name="server.mac"></a>server.mac | MAC address of the server. | core | keyword |  |
 | <a name="server.domain"></a>server.domain | Server domain. | core | keyword |  |
+| <a name="server.bytes"></a>server.bytes | Bytes sent from the server to the client. | core | long | `184` |
+| <a name="server.packets"></a>server.packets | Packets sent from the server to the client. | core | long | `12` |
 
 
 ## <a name="service"></a> Service fields
