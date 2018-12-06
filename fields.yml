@@ -292,6 +292,17 @@
       type: group
       fields:
     
+        - name: address
+          level: extended
+          type: keyword
+          description: >
+            Some event destination addresses are defined ambiguously. The event will
+            sometimes list an IP, a domain or a unix socket.  You should always
+            store the raw address in the `.address` field.
+    
+            Then it should be duplicated to `.ip` or `.domain`, depending on which
+            one it is.
+    
         - name: ip
           level: core
           type: ip
@@ -1242,6 +1253,17 @@
         A Server is defined as the responder in a network connection for events regarding sessions, connections, or bidirectional flow records. For TCP events, the server is the receiver of the initial SYN packet(s) of the TCP connection. For other protocols, the server is generally the responder in the network transaction. Some systems actually use the term "responder" to refer the server in TCP connections. The server fields describe details about the system acting as the server in the network event. Server fields are usually populated in conjunction with client fields. Server fields are generally not populated for packet-level events.
       type: group
       fields:
+    
+        - name: address
+          level: extended
+          type: keyword
+          description: >
+            Some event source addresses are defined ambiguously. The event will
+            sometimes list an IP, a domain or a unix socket.  You should always
+            store the raw address in the `.address` field.
+    
+            Then it should be duplicated to `.ip` or `.domain`, depending on which
+            one it is.
     
         - name: ip
           level: core

@@ -161,6 +161,7 @@ Destination fields describe details about the destination of a packet/event. Des
 
 | Field  | Description  | Level  | Type  | Example  |
 |---|---|---|---|---|
+| <a name="destination.address"></a>destination.address | Some event destination addresses are defined ambiguously. The event will sometimes list an IP, a domain or a unix socket.  You should always store the raw address in the `.address` field.<br/>Then it should be duplicated to `.ip` or `.domain`, depending on which one it is. | extended | keyword |  |
 | <a name="destination.ip"></a>destination.ip | IP address of the destination.<br/>Can be one or multiple IPv4 or IPv6 addresses. | core | ip |  |
 | <a name="destination.port"></a>destination.port | Port of the destination. | core | long |  |
 | <a name="destination.mac"></a>destination.mac | MAC address of the destination. | core | keyword |  |
@@ -444,6 +445,7 @@ Source fields describe details about the source of a packet/event. Source fields
 
 | Field  | Description  | Level  | Type  | Example  |
 |---|---|---|---|---|
+| <a name="source.address"></a>source.address | Some event source addresses are defined ambiguously. The event will sometimes list an IP, a domain or a unix socket.  You should always store the raw address in the `.address` field.<br/>Then it should be duplicated to `.ip` or `.domain`, depending on which one it is. | extended | keyword |  |
 | <a name="source.ip"></a>source.ip | IP address of the source.<br/>Can be one or multiple IPv4 or IPv6 addresses. | core | ip |  |
 | <a name="source.port"></a>source.port | Port of the source. | core | long |  |
 | <a name="source.mac"></a>source.mac | MAC address of the source. | core | keyword |  |
