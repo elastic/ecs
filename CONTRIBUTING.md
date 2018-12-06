@@ -84,6 +84,15 @@ The `type` is the [Elasticsearch field type](https://www.elastic.co/guide/en/ela
 `description` adds details about the field.
 `example` adds an sample value.
 
+## Phases
+
+A field's `phase` indicates where it is in its development. Different phases exist to make it easy for you to contribute new fields, while allowing for more iteration. Here are the phases:
+
+* 0 (alpha): The field is new and is up for discussion as to whether or not it should be added. The field might be removed at any time.
+* 1 (beta): It's clear that there is value of having the field in ECS and discussions about prefixes/naming have started. It's unlikely that the field will be removed, but naming might change at any time.
+* 2 (rc): The field has been accepted and is unlikely to change. It is now tested in the field.
+* 3 (GA): The field is part of ECS. Any breaking changes will happen only at a major release.
+
 ## Guidelines for implementing ECS
 
 * The document MUST have the `@timestamp` field.
