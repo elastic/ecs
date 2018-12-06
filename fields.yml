@@ -404,7 +404,9 @@
     
             This gives information about what type of information the event
             contains, without being specific to the contents of the event.  Examples
-            are `event`, `state`, `alarm`.
+            are `event`, `state`, `alarm`. Warning: In future versions of ECS, we
+            plan to provide a list of acceptable values for this field, please use
+            with caution.
           example: state
     
         - name: category
@@ -415,7 +417,10 @@
     
             This contains high-level information about the contents of the event. It
             is more generic than `event.action`, in the sense that typically a
-            category contains multiple actions.
+            category contains multiple actions. Warning: In future versions of ECS,
+            we plan to provide a list of acceptable values for this field, please
+            use with caution.
+    
           example: user-management
     
         - name: action
@@ -425,17 +430,21 @@
             The action captured by the event.
     
             This describes the information in the event. It is more specific than
-            `event.category`. The value is normally defined by the user.
+            `event.category`. Examples are `group-add`, `process-started`,
+            `file-created`. The value is normally defined by the implementer.
           example: user-password-change
     
         - name: outcome
           level: core
           type: keyword
-          description:
+          description: >
             The outcome of the event.
     
-            If the event describes an action, this fields contains the outcome
-            of that action. Examples outcomes are `success` and `failure`.
+            If the event describes an action, this fields contains the outcome of
+            that action. Examples outcomes are `success` and `failure`. Warning: In
+            future versions of ECS, we plan to provide a list of acceptable values
+            for this field, please use with caution.
+    
           example: success
     
         - name: type
