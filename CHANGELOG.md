@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file based on the
 * Remove `network.inbound.bytes`, `network.inbound.packets`,
   `network.outbound.bytes` and `network.outbound.packets`. #179
 * Changed the `event.type` definition to be only reserved.
+* Changed the `event.type` definition to be only reserved. #242
 
 ### Bugfixes
 
@@ -33,6 +34,7 @@ All notable changes to this project will be documented in this file based on the
 * Add `network.community_id` field. #208
 * Add fields `geo.country_name` and `geo.region_iso_code`. #214
 * Add `event.kind` and `event.outcome`.
+* Add `event.kind` and `event.outcome`. #242
 
 ### Improvements
 * Improved the definition of the file fields #196
@@ -40,7 +42,7 @@ All notable changes to this project will be documented in this file based on the
 * Improve definition of events, logs, and metrics in event section #194
 * Improved the definition of network fields in intro section #197
 * Improved the definition of host fields #195
-* Improved the definitions for `event.category` and `event.action`.
+* Improved the definitions for `event.category` and `event.action`. #242
 
 * Clarify the semantics of `network.direction`. #212
 
