@@ -319,6 +319,7 @@ The network is defined as the communication path over which a host or network ev
 | <a name="network.protocol"></a>network.protocol | L7 Network protocol name. ex. http, lumberjack, transport protocol | core | keyword | `http` |
 | <a name="network.direction"></a>network.direction | Direction of the network traffic.<br/>Recommended values are:<br/>  * inbound<br/>  * outbound<br/>  * unknown | core | keyword | `inbound` |
 | <a name="network.forwarded_ip"></a>network.forwarded_ip | Host IP address when the source IP address is the proxy. | core | ip | `192.1.1.2` |
+| <a name="network.community_id"></a>network.community_id | A hash of source and destination IPs and ports, as well as the protocol used in a communication. This is a tool-agnostic standard to identify flows.<br/>Learn more at https://github.com/corelight/community-id-spec. | extended | keyword | `1:hO+sN4H+MG5MY/8hIrXPqc4ZQz0=` |
 | <a name="network.inbound.bytes"></a>network.inbound.bytes | Network inbound bytes. | core | long | `184` |
 | <a name="network.inbound.packets"></a>network.inbound.packets | Network inbound packets. | core | long | `12` |
 | <a name="network.outbound.bytes"></a>network.outbound.bytes | Network outbound bytes. | core | long | `184` |
