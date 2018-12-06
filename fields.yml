@@ -269,6 +269,21 @@
           description: >
             Destination domain.
     
+        # Metrics
+        - name: bytes
+          level: core
+          type: long
+          example: 184
+          description: >
+            Bytes sent from the destination to the source.
+    
+        - name: packets
+          level: core
+          type: long
+          example: 12
+          description: >
+            Packets sent from the destination to the source.
+    
     - name: device
       title: Device
       group: 2
@@ -933,46 +948,22 @@
           example: '1:hO+sN4H+MG5MY/8hIrXPqc4ZQz0='
     
         # Metrics
-        - name: inbound.bytes
+        - name: bytes
           level: core
           type: long
           description: >
-            Network inbound bytes.
-          example: 184
+            Total bytes transferred in both directions.
     
-        - name: inbound.packets
-          level: core
-          type: long
-          description: >
-            Network inbound packets.
-          example: 12
-    
-        - name: outbound.bytes
-          level: core
-          type: long
-          description: >
-            Network outbound bytes.
-          example: 184
-    
-        - name: outbound.packets
-          level: core
-          type: long
-          description: >
-            Network outbound packets.
-          example: 12
-    
-        - name: total.bytes
-          level: core
-          type: long
-          description: >
-            Network total bytes. The sum of inbound.bytes + outbound.bytes.
+            If `source.bytes` and `destination.bytes` are known, `network.bytes` is their sum.
           example: 368
     
-        - name: total.packets
+        - name: packets
           level: core
           type: long
           description: >
-            Network outbound packets. The sum of inbound.packets + outbound.packets
+            Total packets transferred in both directions.
+    
+            If `source.packets` and `destination.packets` are known, `network.packets` is their sum.
           example: 24
     
     - name: organization
@@ -1260,6 +1251,21 @@
           type: keyword
           description: >
             Source domain.
+    
+        # Metrics
+        - name: bytes
+          level: core
+          type: long
+          example: 184
+          description: >
+            Bytes sent from the source to the destination.
+    
+        - name: packets
+          level: core
+          type: long
+          example: 12
+          description: >
+            Packets sent from the source to the destination.
     
     - name: url
       title: URL
