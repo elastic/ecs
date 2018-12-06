@@ -501,7 +501,6 @@ The user_agent fields normally come from a browser request. They often show up i
 | <a name="user_agent.name"></a>user_agent.name | Name of the user agent. | extended | keyword | `Chrome` |
 | <a name="user_agent.version"></a>user_agent.version | Version of the user agent. | extended | keyword |  |
 | <a name="user_agent.device.name"></a>user_agent.device.name | Name of the device. | extended | keyword | `Chrome` |
-| <a name="user_agent.device.version"></a>user_agent.device.version | Version of the device. | extended | keyword |  |
 
 
 
