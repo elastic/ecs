@@ -60,6 +60,7 @@ ECS defines these fields.
  * [Geo fields](#geo)
  * [Group fields](#group)
  * [Host fields](#host)
+ * [HTTP fields](#http)
  * [Log fields](#log)
  * [Network fields](#network)
  * [Organization fields](#organization)
@@ -276,6 +277,20 @@ A host is defined as a general computing instance. ECS host.* fields should be p
 | <a name="host.mac"></a>host.mac | Host mac address. | core | keyword |  |
 | <a name="host.type"></a>host.type | Type of host.<br/>For Cloud providers this can be the machine type like `t2.medium`. If vm, this could be the container, for example, or other information meaningful in your environment. | core | keyword |  |
 | <a name="host.architecture"></a>host.architecture | Operating system architecture. | core | keyword | `x86_64` |
+
+
+## <a name="http"></a> HTTP fields
+
+Fields related to HTTP activity.
+
+
+| Field  | Description  | Level  | Type  | Example  |
+|---|---|---|---|---|
+| <a name="http.request.method"></a>http.request.method | Http request method. | extended | keyword | `GET, POST, PUT` |
+| <a name="http.request.referrer"></a>http.request.referrer | Referrer for this HTTP request. | extended | keyword | `https://blog.example.com/` |
+| <a name="http.response.status_code"></a>http.response.status_code | Http response status code. | extended | long | `404` |
+| <a name="http.response.body"></a>http.response.body | The full http response body. | extended | keyword | `Hello world` |
+| <a name="http.version"></a>http.version | Http version. | extended | keyword | `1.1` |
 
 
 ## <a name="log"></a> Log fields
