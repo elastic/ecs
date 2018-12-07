@@ -1,0 +1,49 @@
+---
+- name: server
+  title: Server
+  group: 2
+  description: >
+    A Server is defined as the responder in a network connection for events regarding sessions, connections, or bidirectional flow records. For TCP events, the server is the receiver of the initial SYN packet(s) of the TCP connection. For other protocols, the server is generally the responder in the network transaction. Some systems actually use the term "responder" to refer the server in TCP connections. The server fields describe details about the system acting as the server in the network event. Server fields are usually populated in conjunction with client fields. Server fields are generally not populated for packet-level events.
+  type: group
+  fields:
+
+    - name: ip
+      level: core
+      type: ip
+      description: >
+        IP address of the server.
+
+        Can be one or multiple IPv4 or IPv6 addresses.
+
+    - name: port
+      level: core
+      type: long
+      description: >
+        Port of the server.
+
+    - name: mac
+      level: core
+      type: keyword
+      description: >
+        MAC address of the server.
+
+    - name: domain
+      level: core
+      type: keyword
+      description: >
+        Server domain.
+
+    # Metrics
+    - name: bytes
+      level: core
+      type: long
+      example: 184
+      description: >
+        Bytes sent from the server to the client.
+
+    - name: packets
+      level: core
+      type: long
+      example: 12
+      description: >
+        Packets sent from the server to the client.

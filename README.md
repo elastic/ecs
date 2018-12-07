@@ -49,6 +49,7 @@ fully up to date.
 ECS defines these fields.
  * [Base fields](#base)
  * [Agent fields](#agent)
+ * [Client fields](#client)
  * [Cloud fields](#cloud)
  * [Container fields](#container)
  * [Destination fields](#destination)
@@ -67,6 +68,7 @@ ECS defines these fields.
  * [Operating System fields](#os)
  * [Process fields](#process)
  * [Related fields](#related)
+ * [Server fields](#server)
  * [Service fields](#service)
  * [Source fields](#source)
  * [URL fields](#url)
@@ -100,6 +102,21 @@ The agent fields contain the data about the software entity, if any, that collec
 
 
 Examples: In the case of Beats for logs, the agent.name is filebeat. For APM, it is the agent running in the app/service. The agent information does not change if data is sent through queuing systems like Kafka, Redis, or processing systems such as Logstash or APM Server.
+
+
+## <a name="client"></a> Client fields
+
+A client is defined as the initiator of a network connection for events regarding sessions, connections, or bidirectional flow records. For TCP events, the client is the initiator of the TCP connection that sends the SYN packet(s). For other protocols, the client is generally the initiator or requestor in the network transaction. Some systems use the term "originator" to refer the client in TCP connections. The client fields describe details about the system acting as the client in the network event. Client fields are usually populated in conjuction with server fields.  Client fields are generally not populated for packet-level events. 
+
+
+| Field  | Description  | Level  | Type  | Example  |
+|---|---|---|---|---|
+| <a name="client.ip"></a>client.ip | IP address of the client.<br/>Can be one or multiple IPv4 or IPv6 addresses. | core | ip |  |
+| <a name="client.port"></a>client.port | Port of the client. | core | long |  |
+| <a name="client.mac"></a>client.mac | MAC address of the client. | core | keyword |  |
+| <a name="client.domain"></a>client.domain | Client domain. | core | keyword |  |
+| <a name="client.bytes"></a>client.bytes | Bytes sent from the client to the server. | core | long | `184` |
+| <a name="client.packets"></a>client.packets | Packets sent from the client to the server. | core | long | `12` |
 
 
 ## <a name="cloud"></a> Cloud fields
@@ -227,7 +244,7 @@ A file is defined as a set of information that has been created on, or has exist
 Geo fields can carry data about a specific location related to an event or geo information derived from an IP field.
 
 
-The `geo` fields are expected to be nested at: `destination.geo`, `host.geo`, `observer.geo`, `source.geo`.
+The `geo` fields are expected to be nested at: `client.geo`, `destination.geo`, `host.geo`, `observer.geo`, `server.geo`, `source.geo`.
 
 Note also that the `geo` fields are not expected to be used directly at the top level.
 
@@ -379,14 +396,27 @@ These fields contain information about a process. These fields can help you corr
 
 ## <a name="related"></a> Related fields
 
-This field set is meant to facilitate pivoting around a piece of data. Some pieces of information can be seen in many places in ECS. To facilitate searching for them, append values to their corresponding field in `related.`.
-
-A concrete example is IP addresses, which can be under host, observer, source, destination, and network.forwarded_ip. If you append all IPs to `related.ip`, you can then search for a given IP trivially, no matter where it appeared, by querying `related.ip:a.b.c.d`.
+This field set is meant to facilitate pivoting around a piece of data. Some pieces of information can be seen in many places in ECS. To facilitate searching for them, append values to their corresponding field in `related.`. A concrete example is IP addresses, which can be under host, observer, source, destination, client, server, and network.forwarded_ip. If you append all IPs to `related.ip`, you can then search for a given IP trivially, no matter where it appeared, by querying `related.ip:a.b.c.d`.
 
 
 | Field  | Description  | Level  | Type  | Example  |
 |---|---|---|---|---|
 | <a name="related.ip"></a>related.ip | All of the IPs seen on your event. | extended | ip |  |
+
+
+## <a name="server"></a> Server fields
+
+A Server is defined as the responder in a network connection for events regarding sessions, connections, or bidirectional flow records. For TCP events, the server is the receiver of the initial SYN packet(s) of the TCP connection. For other protocols, the server is generally the responder in the network transaction. Some systems actually use the term "responder" to refer the server in TCP connections. The server fields describe details about the system acting as the server in the network event. Server fields are usually populated in conjunction with client fields. Server fields are generally not populated for packet-level events.
+
+
+| Field  | Description  | Level  | Type  | Example  |
+|---|---|---|---|---|
+| <a name="server.ip"></a>server.ip | IP address of the server.<br/>Can be one or multiple IPv4 or IPv6 addresses. | core | ip |  |
+| <a name="server.port"></a>server.port | Port of the server. | core | long |  |
+| <a name="server.mac"></a>server.mac | MAC address of the server. | core | keyword |  |
+| <a name="server.domain"></a>server.domain | Server domain. | core | keyword |  |
+| <a name="server.bytes"></a>server.bytes | Bytes sent from the server to the client. | core | long | `184` |
+| <a name="server.packets"></a>server.packets | Packets sent from the server to the client. | core | long | `12` |
 
 
 ## <a name="service"></a> Service fields
@@ -445,7 +475,7 @@ or
 The user fields describe information about the user that is relevant to  the event. Fields can have one entry or multiple entries. If a user has more than one id, provide an array that includes all of them.
 
 
-The `user` fields are expected to be nested at: `destination.user`, `host.user`, `source.user`.
+The `user` fields are expected to be nested at: `client.user`, `destination.user`, `host.user`, `server.user`, `source.user`.
 
 Note also that the `user` fields may be used directly at the top level.
 
