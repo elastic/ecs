@@ -50,6 +50,8 @@ All notable changes to this project will be documented in this file based on the
 * Add `source.bytes`, `source.packets`, `destination.bytes` and `destination.packets`. #179
 * Add a readme section to declare some top level field sets are reserved for
   future use. #257
+* Clarify that `network.transport`, `network.type`, `network.application`,
+  and `network.protocol` must be lowercase. #251
 
 ### Deprecated
 
