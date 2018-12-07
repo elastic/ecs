@@ -14,7 +14,7 @@ Using the fields as represented here is not expected to conflict with ECS, but m
 | [http.request.method](../README.md#http.request.method)  | Http request method. | extended | keyword | `GET, POST, PUT` |
 | [http.request.referrer](../README.md#http.request.referrer)  | Referrer for this HTTP request. | extended | keyword | `https://blog.example.com/` |
 | [http.response.status_code](../README.md#http.response.status_code)  | Http response status code. | extended | long | `404` |
-| [http.response.body](../README.md#http.response.body)  | The full http response body. | extended | keyword | `Hello world` |
+| <a name="http.response.body"></a>*http.response.body* | *The full http response body.* | (use case) | keyword | `Hello world` |
 | [http.version](../README.md#http.version)  | Http version. | extended | keyword | `1.1` |
 | <a name="user_agent.&ast;"></a>*user_agent.&ast;* | *The user_agent fields normally come from a browser request. They often show up in web service logs coming from the parsed user agent string.<br/>* |  |  |  |
 | [user_agent.original](../README.md#user_agent.original)  | Unparsed version of the user_agent. | extended | keyword | `Mozilla/5.0 (iPhone; CPU iPhone OS 12_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0 Mobile/15E148 Safari/604.1` |

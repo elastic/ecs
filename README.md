@@ -301,12 +301,12 @@ Fields related to HTTP activity.
 | <a name="http.request.method"></a>http.request.method | Http request method.<br/>The field value must be normalized to lowercase for querying. See "Lowercase Capitalization" in the "Implementing ECS"  section. | extended | keyword | `get, post, put` |
 | <a name="http.request.referrer"></a>http.request.referrer | Referrer for this HTTP request. | extended | keyword | `https://blog.example.com/` |
 | <a name="http.response.status_code"></a>http.response.status_code | Http response status code. | extended | long | `404` |
-| <a name="http.response.body"></a>http.response.body | The full http response body. | extended | keyword | `Hello world` |
+| <a name="http.response.body.content"></a>http.response.body.content | The full http response body. | extended | keyword | `Hello world` |
 | <a name="http.version"></a>http.version | Http version. | extended | keyword | `1.1` |
-| <a name="http.request.bytes.total"></a>http.request.bytes.total | Size in bytes of the request body and headers combined. | extended | long | `1437` |
-| <a name="http.request.bytes.body"></a>http.request.bytes.body | Size in bytes of the request body. | extended | long | `887` |
-| <a name="http.response.bytes.total"></a>http.response.bytes.total | Size in bytes of the response body and headers combined. | extended | long | `1437` |
-| <a name="http.response.bytes.body"></a>http.response.bytes.body | Size in bytes of the response body. | extended | long | `887` |
+| <a name="http.request.bytes"></a>http.request.bytes | Total size in bytes of the request (body and headers). | extended | long | `1437` |
+| <a name="http.request.body.bytes"></a>http.request.body.bytes | Size in bytes of the request body. | extended | long | `887` |
+| <a name="http.response.bytes"></a>http.response.bytes | Total size in bytes of the response (body and headers). | extended | long | `1437` |
+| <a name="http.response.body.bytes"></a>http.response.body.bytes | Size in bytes of the response body. | extended | long | `887` |
 
 
 ## <a name="log"></a> Log fields
