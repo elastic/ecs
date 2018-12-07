@@ -17,13 +17,13 @@ Using the fields as represented here is not expected to conflict with ECS, but m
 | [http.response.body](../README.md#http.response.body)  | The full http response body. | extended | keyword | `Hello world` |
 | [http.version](../README.md#http.version)  | Http version. | extended | keyword | `1.1` |
 | <a name="user_agent.&ast;"></a>*user_agent.&ast;* | *The user_agent fields normally come from a browser request. They often show up in web service logs coming from the parsed user agent string.<br/>* |  |  |  |
-| <a name="user_agent.original"></a>*user_agent.original* | *Unparsed version of the user_agent.* | (use case) | keyword |  |
+| [user_agent.original](../README.md#user_agent.original)  | Unparsed version of the user_agent. | extended | keyword |  |
 | <a name="user_agent.device"></a>*user_agent.device* | *Name of the physical device.* | (use case) | keyword |  |
-| <a name="user_agent.version"></a>*user_agent.version* | *Version of the physical device.* | (use case) | keyword |  |
+| [user_agent.version](../README.md#user_agent.version)  | Version of the physical device. | extended | keyword |  |
 | <a name="user_agent.major"></a>*user_agent.major* | *Major version of the user agent.* | (use case) | long |  |
 | <a name="user_agent.minor"></a>*user_agent.minor* | *Minor version of the user agent.* | (use case) | long |  |
 | <a name="user_agent.patch"></a>*user_agent.patch* | *Patch version of the user agent.* | (use case) | keyword |  |
-| <a name="user_agent.name"></a>*user_agent.name* | *Name of the user agent.* | (use case) | keyword | `Chrome` |
+| [user_agent.name](../README.md#user_agent.name)  | Name of the user agent. | extended | keyword | `Chrome` |
 
 
 
