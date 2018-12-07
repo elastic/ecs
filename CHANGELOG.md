@@ -38,6 +38,7 @@ All notable changes to this project will be documented in this file based on the
 * Reintroduce a streamlined `user_agent` field set. #240
 * Add `geo.name` for ad hoc location names. #248
 * Add `event.timezone` to allow for proper interpretation of incomplete timestamps. #258
+* Add `http.request.body`. #263
 
 ### Improvements
 * Improved the definition of the file fields #196
