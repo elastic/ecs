@@ -294,7 +294,7 @@ Fields related to HTTP activity.
 
 | Field  | Description  | Level  | Type  | Example  |
 |---|---|---|---|---|
-| <a name="http.request.method"></a>http.request.method | Http request method. The field value must be capitalized. | extended | keyword | `GET, POST, PUT` |
+| <a name="http.request.method"></a>http.request.method | Http request method.<br/>The field value must be lowercase. | extended | keyword | `GET, POST, PUT` |
 | <a name="http.request.referrer"></a>http.request.referrer | Referrer for this HTTP request. | extended | keyword | `https://blog.example.com/` |
 | <a name="http.response.status_code"></a>http.response.status_code | Http response status code. | extended | long | `404` |
 | <a name="http.response.body"></a>http.response.body | The full http response body. | extended | keyword | `Hello world` |
