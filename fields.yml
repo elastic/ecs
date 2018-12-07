@@ -521,6 +521,17 @@
             If event.start and event.end are known this value should be the
             difference between the end and start time.
     
+        - name: timezone
+          level: extended
+          type: keyword
+          description: >
+            This field should be populated when the event's timestamp does not include
+            timezone information already (e.g. default Syslog timestamps). It's
+            optional otherwise.
+    
+            Acceptable timezone formats are: a canonical ID (e.g. "Europe/Amsterdam"),
+            abbreviated (e.g. "EST") or an HH:mm differential (e.g. "-05:00").
+    
         - name: created
           level: core
           type: date
