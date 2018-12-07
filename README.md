@@ -458,9 +458,7 @@ URL fields provide a complete URL, with scheme, host, and path.
 
 | Field  | Description  | Level  | Type  | Example  |
 |---|---|---|---|---|
-| <a name="url.original"></a>url.original | Unmodified original url as seen in the event source.<br/>Note that in network monitoring, the observed URL may be a full URL, whereas in access logs, the URL is often just represented as a path.<br/>This field is meant to represent the URL as it was observed, complete or not. | extended | keyword | `https://www.elastic.co:443/search?q=elasticsearch#top
-or
-/search?q=elasticsearch` |
+| <a name="url.original"></a>url.original | Unmodified original url as seen in the event source.<br/>Note that in network monitoring, the observed URL may be a full URL, whereas in access logs, the URL is often just represented as a path.<br/>This field is meant to represent the URL as it was observed, complete or not. | extended | keyword | `https://www.elastic.co:443/search?q=elasticsearch#top or /search?q=elasticsearch` |
 | <a name="url.full"></a>url.full | If full URLs are important to your use case, they should be stored in `url.full`, whether this field is reconstructed or present in the event source. | extended | keyword | `https://www.elastic.co:443/search?q=elasticsearch#top` |
 | <a name="url.scheme"></a>url.scheme | Scheme of the request, such as "https".<br/>Note: The `:` is not part of the scheme. | extended | keyword | `https` |
 | <a name="url.domain"></a>url.domain | Domain of the request, such as "www.elastic.co".<br/>In some cases a URL may refer to an IP and/or port directly, without a domain name. In this case, the IP address would go to the `domain` field. | extended | keyword | `www.elastic.co` |
