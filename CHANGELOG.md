@@ -36,6 +36,7 @@ All notable changes to this project will be documented in this file based on the
 * Add `event.kind` and `event.outcome`. #242
 * Add `client` and `server` objects and fields. #236
 * Reintroduce a streamlined `user_agent` field set. #240
+* Add `geo.name` for ad hoc location names. #248
 
 ### Improvements
 * Improved the definition of the file fields #196
