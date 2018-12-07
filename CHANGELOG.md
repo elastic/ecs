@@ -43,6 +43,7 @@ All notable changes to this project will be documented in this file based on the
 * Add `event.timezone` to allow for proper interpretation of incomplete timestamps. #258
 * Add fields `source.address`, `destination.address`, `client.address`, and
   `server.address`. #247
+* Add `os.full_name` to capture OS name including version. #259
 
 ### Improvements
 * Improved the definition of the file fields #196
