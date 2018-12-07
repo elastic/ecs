@@ -242,7 +242,10 @@ A file is defined as a set of information that has been created on, or has exist
 ## <a name="geo"></a> Geo fields
 
 Geo fields can carry data about a specific location related to an event or geo information derived from an IP field.
-The `geo` fields are expected to be nested at: `client.geo`, `destination.geo`, `observer.geo`, `host.geo`, `server.geo`, `source.geo`.
+
+
+The `geo` fields are expected to be nested at: `client.geo`, `destination.geo`, `host.geo`, `observer.geo`, `server.geo`, `source.geo`.
+
 Note also that the `geo` fields are not expected to be used directly at the top level.
 
 | Field  | Description  | Level  | Type  | Example  |
@@ -393,8 +396,7 @@ These fields contain information about a process. These fields can help you corr
 
 ## <a name="related"></a> Related fields
 
-This field set is meant to facilitate pivoting around a piece of data. Some pieces of information can be seen in many places in ECS. To facilitate searching for them, append values to their corresponding field in `related.`.
-A concrete example is IP addresses, which can be under host, observer, source, destination, client, server, and network.forwarded_ip. If you append all IPs to `related.ip`, you can then search for a given IP trivially, no matter where it appeared, by querying `related.ip:a.b.c.d`.
+This field set is meant to facilitate pivoting around a piece of data. Some pieces of information can be seen in many places in ECS. To facilitate searching for them, append values to their corresponding field in `related.`. A concrete example is IP addresses, which can be under host, observer, source, destination, client, server, and network.forwarded_ip. If you append all IPs to `related.ip`, you can then search for a given IP trivially, no matter where it appeared, by querying `related.ip:a.b.c.d`.
 
 
 | Field  | Description  | Level  | Type  | Example  |
