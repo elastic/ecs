@@ -52,7 +52,6 @@ ECS defines these fields.
  * [Cloud fields](#cloud)
  * [Container fields](#container)
  * [Destination fields](#destination)
- * [Device fields](#device)
  * [ECS fields](#ecs)
  * [Error fields](#error)
  * [Event fields](#event)
@@ -63,6 +62,7 @@ ECS defines these fields.
  * [HTTP fields](#http)
  * [Log fields](#log)
  * [Network fields](#network)
+ * [Observer fields](#observer)
  * [Organization fields](#organization)
  * [Operating System fields](#os)
  * [Process fields](#process)
@@ -87,7 +87,7 @@ The base set contains all fields which are on the top level. These fields are co
 
 ## <a name="agent"></a> Agent fields
 
-The agent fields contain the data about the software entity, if any, that collects, detects, or observes events on a host, or takes measurements on a host. Examples include beats. Agents may also run on devices. ECS agent.* fields shall be populated with details of the agent running on the host or device where the event happened or the measurement was taken.
+The agent fields contain the data about the software entity, if any, that collects, detects, or observes events on a host, or takes measurements on a host. Examples include Beats. Agents may also run on observers. ECS agent.* fields shall be populated with details of the agent running on the host or observer where the event happened or the measurement was taken.
 
 
 | Field  | Description  | Level  | Type  | Example  |
@@ -149,22 +149,6 @@ Destination fields describe details about the destination of a packet/event.
 | <a name="destination.domain"></a>destination.domain | Destination domain. | core | keyword |  |
 | <a name="destination.bytes"></a>destination.bytes | Bytes sent from the destination to the source. | core | long | `184` |
 | <a name="destination.packets"></a>destination.packets | Packets sent from the destination to the source. | core | long | `12` |
-
-
-## <a name="device"></a> Device fields
-
-Device fields are used to provide additional information about the device that is the source of the information. This could be a firewall, network device, etc.
-
-
-| Field  | Description  | Level  | Type  | Example  |
-|---|---|---|---|---|
-| <a name="device.mac"></a>device.mac | MAC address of the device | core | keyword |  |
-| <a name="device.ip"></a>device.ip | IP address of the device. | core | ip |  |
-| <a name="device.hostname"></a>device.hostname | Hostname of the device. | core | keyword |  |
-| <a name="device.vendor"></a>device.vendor | Device vendor information. | core | keyword |  |
-| <a name="device.version"></a>device.version | Device version. | core | keyword |  |
-| <a name="device.serial_number"></a>device.serial_number | Device serial number. | extended | keyword |  |
-| <a name="device.type"></a>device.type | The type of the device the data is coming from.<br/>There is no predefined list of device types. Some examples are `endpoint`, `firewall`, `ids`, `ips`, `proxy`. | core | keyword | `firewall` |
 
 
 ## <a name="ecs"></a> ECS fields
@@ -241,7 +225,7 @@ A file is defined as a set of information that has been created on, or has exist
 Geo fields can carry data about a specific location related to an event or geo information derived from an IP field.
 
 
-The `geo` fields are expected to be nested at: `destination.geo`, `device.geo`, `host.geo`, `source.geo`.
+The `geo` fields are expected to be nested at: `destination.geo`, `host.geo`, `observer.geo`, `source.geo`.
 
 Note also that the `geo` fields are not expected to be used directly at the top level.
 
@@ -328,6 +312,22 @@ The network is defined as the communication path over which a host or network ev
 | <a name="network.packets"></a>network.packets | Total packets transferred in both directions.<br/>If `source.packets` and `destination.packets` are known, `network.packets` is their sum. | core | long | `24` |
 
 
+## <a name="observer"></a> Observer fields
+
+An observer is defined as a special network, security, or application device used to detect, observe, or create network, security, or application-related events and metrics. This could be a custom hardware appliance or a server that has been configured to run special network, security, or application software. Examples include firewalls, intrusion detection/prevention systems, network monitoring sensors, web application firewalls, data loss prevention systems, and APM servers. The observer.* fields shall be populated with details of the system, if any, that detects, observes and/or creates a network, security, or application event or metric. Message queues and ETL components used in processing events or metrics are not considered observers in ECS.  
+
+
+| Field  | Description  | Level  | Type  | Example  |
+|---|---|---|---|---|
+| <a name="observer.mac"></a>observer.mac | MAC address of the observer | core | keyword |  |
+| <a name="observer.ip"></a>observer.ip | IP address of the observer. | core | ip |  |
+| <a name="observer.hostname"></a>observer.hostname | Hostname of the observer. | core | keyword |  |
+| <a name="observer.vendor"></a>observer.vendor | observer vendor information. | core | keyword |  |
+| <a name="observer.version"></a>observer.version | Observer version. | core | keyword |  |
+| <a name="observer.serial_number"></a>observer.serial_number | Observer serial number. | extended | keyword |  |
+| <a name="observer.type"></a>observer.type | The type of the observer the data is coming from.<br/>There is no predefined list of observer types. Some examples are `forwarder`, `firewall`, `ids`, `ips`, `proxy`, `poller`, `sensor`, `APM server`. | core | keyword | `firewall` |
+
+
 ## <a name="organization"></a> Organization fields
 
 The organization fields enrich data with information about the company or entity the data is associated with. These fields help you arrange or filter data stored in an index by one or multiple organizations.
@@ -344,7 +344,7 @@ The organization fields enrich data with information about the company or entity
 The OS fields contain information about the operating system.
 
 
-The `os` fields are expected to be nested at: `device.os`, `host.os`, `user_agent.os`.
+The `os` fields are expected to be nested at: `host.os`, `observer.os`, `user_agent.os`.
 
 Note also that the `os` fields are not expected to be used directly at the top level.
 
@@ -379,7 +379,7 @@ These fields contain information about a process. These fields can help you corr
 
 This field set is meant to facilitate pivoting around a piece of data. Some pieces of information can be seen in many places in ECS. To facilitate searching for them, append values to their corresponding field in `related.`.
 
-A concrete example is IP addresses, which can be under host, device, source, destination, and network.forwarded_ip. If you append all IPs to `related.ip`, you can then search for a given IP trivially, no matter where it appeared, by querying `related.ip:a.b.c.d`.
+A concrete example is IP addresses, which can be under host, observer, source, destination, and network.forwarded_ip. If you append all IPs to `related.ip`, you can then search for a given IP trivially, no matter where it appeared, by querying `related.ip:a.b.c.d`.
 
 
 | Field  | Description  | Level  | Type  | Example  |

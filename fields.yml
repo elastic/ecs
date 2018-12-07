@@ -9,7 +9,7 @@
       title: Agent
       group: 2
       description: >
-        The agent fields contain the data about the software entity, if any, that collects, detects, or observes events on a host, or takes measurements on a host. Examples include beats. Agents may also run on devices. ECS agent.* fields shall be populated with details of the agent running on the host or device where the event happened or the measurement was taken.
+        The agent fields contain the data about the software entity, if any, that collects, detects, or observes events on a host, or takes measurements on a host. Examples include Beats. Agents may also run on observers. ECS agent.* fields shall be populated with details of the agent running on the host or observer where the event happened or the measurement was taken.
       footnote: >
         Examples: In the case of Beats for logs, the agent.name is filebeat. For APM, it is the
         agent running in the app/service. The agent information does not change if
@@ -283,54 +283,6 @@
           example: 12
           description: >
             Packets sent from the destination to the source.
-    
-    - name: device
-      title: Device
-      group: 2
-      description: >
-        Device fields are used to provide additional information about the device
-        that is the source of the information. This could be a firewall, network device, etc.
-      type: group
-      fields:
-        - name: mac
-          level: core
-          type: keyword
-          description: >
-            MAC address of the device
-        - name: ip
-          level: core
-          type: ip
-          description: >
-            IP address of the device.
-        - name: hostname
-          level: core
-          type: keyword
-          description: >
-            Hostname of the device.
-        - name: vendor
-          level: core
-          type: keyword
-          description: >
-            Device vendor information.
-        - name: version
-          level: core
-          type: keyword
-          description: >
-            Device version.
-        - name: serial_number
-          level: extended
-          type: keyword
-          description: >
-            Device serial number.
-        - name: type
-          level: core
-          type: keyword
-          description: >
-            The type of the device the data is coming from.
-    
-            There is no predefined list of device types. Some examples are
-            `endpoint`, `firewall`, `ids`, `ips`, `proxy`.
-          example: firewall
     
     - name: ecs
       title: ECS
@@ -633,7 +585,7 @@
         top_level: false
         expected:
           - destination
-          - device
+          - observer
           - host
           - source
       type: group
@@ -966,6 +918,53 @@
             If `source.packets` and `destination.packets` are known, `network.packets` is their sum.
           example: 24
     
+    - name: observer
+      title: Observer
+      group: 2
+      description: >
+        An observer is defined as a special network, security, or application device used to detect, observe, or create network, security, or application-related events and metrics. This could be a custom hardware appliance or a server that has been configured to run special network, security, or application software. Examples include firewalls, intrusion detection/prevention systems, network monitoring sensors, web application firewalls, data loss prevention systems, and APM servers. The observer.* fields shall be populated with details of the system, if any, that detects, observes and/or creates a network, security, or application event or metric. Message queues and ETL components used in processing events or metrics are not considered observers in ECS.  
+      type: group
+      fields:
+        - name: mac
+          level: core
+          type: keyword
+          description: >
+            MAC address of the observer
+        - name: ip
+          level: core
+          type: ip
+          description: >
+            IP address of the observer.
+        - name: hostname
+          level: core
+          type: keyword
+          description: >
+            Hostname of the observer.
+        - name: vendor
+          level: core
+          type: keyword
+          description: >
+            observer vendor information.
+        - name: version
+          level: core
+          type: keyword
+          description: >
+            Observer version.
+        - name: serial_number
+          level: extended
+          type: keyword
+          description: >
+            Observer serial number.
+        - name: type
+          level: core
+          type: keyword
+          description: >
+            The type of the observer the data is coming from.
+    
+            There is no predefined list of observer types. Some examples are
+            `forwarder`, `firewall`, `ids`, `ips`, `proxy`, `poller`, `sensor`, `APM server`.
+          example: firewall
+    
     - name: organization
       title: Organization
       group: 2
@@ -995,7 +994,7 @@
       reusable:
         top_level: false
         expected:
-          - device
+          - observer
           - host
           - user_agent
       type: group
@@ -1124,7 +1123,7 @@
         searching for them, append values to their corresponding field in
         `related.`.
     
-        A concrete example is IP addresses, which can be under host, device, source,
+        A concrete example is IP addresses, which can be under host, observer, source,
         destination, and network.forwarded_ip. If you append all IPs to
         `related.ip`, you can then search for a given IP trivially,
         no matter where it appeared, by querying `related.ip:a.b.c.d`.

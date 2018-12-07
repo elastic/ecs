@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file based on the
 ## Unreleased
 
 ### Breaking changes
+* Changed `device.*` fields to `observer.*` fields to eliminate user confusion. #238
 
 * Rename `network.total.bytes` to `network.bytes` and `network.total.packets`
   to `network.packets`. #179
