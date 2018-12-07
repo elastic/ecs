@@ -46,6 +46,7 @@ All notable changes to this project will be documented in this file based on the
 * Improved the definitions for `event.category` and `event.action`. #242
 * Clarify the semantics of `network.direction`. #212
 * Add `source.bytes`, `source.packets`, `destination.bytes` and `destination.packets`. #179
+* Clarify that `http.request.method` must be lowercase. #245
 
 ### Deprecated
 
