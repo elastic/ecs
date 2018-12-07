@@ -17,7 +17,7 @@ Using the fields as represented here is not expected to conflict with ECS, but m
 | [http.response.body](../README.md#http.response.body)  | The full http response body. | extended | keyword | `Hello world` |
 | [http.version](../README.md#http.version)  | Http version. | extended | keyword | `1.1` |
 | <a name="user_agent.&ast;"></a>*user_agent.&ast;* | *The user_agent fields normally come from a browser request. They often show up in web service logs coming from the parsed user agent string.<br/>* |  |  |  |
-| [user_agent.original](../README.md#user_agent.original)  | Unparsed version of the user_agent. | extended |  | `Mozilla/5.0 (iPhone; CPU iPhone OS 12_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0 Mobile/15E148 Safari/604.1` |
+| [user_agent.original](../README.md#user_agent.original)  | Unparsed version of the user_agent. | extended | (not indexed) | `Mozilla/5.0 (iPhone; CPU iPhone OS 12_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0 Mobile/15E148 Safari/604.1` |
 | <a name="user_agent.device"></a>*user_agent.device* | *Name of the physical device.* | (use case) | keyword |  |
 | [user_agent.version](../README.md#user_agent.version)  | Version of the physical device. | extended | keyword | `12.0` |
 | <a name="user_agent.major"></a>*user_agent.major* | *Major version of the user agent.* | (use case) | long |  |
