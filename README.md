@@ -156,7 +156,7 @@ Container fields are used for meta information about the specific container that
 
 ## <a name="destination"></a> Destination fields
 
-Destination fields describe details about the destination of a packet/event. Destination fields are usually populated in conjuction with source fields.
+Destination fields describe details about the destination of a packet/event. Destination fields are usually populated in conjunction with source fields.
 
 
 | Field  | Description  | Level  | Type  | Example  |
@@ -437,7 +437,7 @@ The service fields describe the service for or from which the data was collected
 
 ## <a name="source"></a> Source fields
 
-Source fields describe details about the source of a packet/event. Source fields are usually populated in conjuction with destination fields.
+Source fields describe details about the source of a packet/event. Source fields are usually populated in conjunction with destination fields.
 
 
 | Field  | Description  | Level  | Type  | Example  |
