@@ -107,11 +107,12 @@ Examples: In the case of Beats for logs, the agent.name is filebeat. For APM, it
 
 ## <a name="client"></a> Client fields
 
-A client is defined as the initiator of a network connection for events regarding sessions, connections, or bidirectional flow records. For TCP events, the client is the initiator of the TCP connection that sends the SYN packet(s). For other protocols, the client is generally the initiator or requestor in the network transaction. Some systems use the term "originator" to refer the client in TCP connections. The client fields describe details about the system acting as the client in the network event. Client fields are usually populated in conjuction with server fields.  Client fields are generally not populated for packet-level events. 
+A client is defined as the initiator of a network connection for events regarding sessions, connections, or bidirectional flow records. For TCP events, the client is the initiator of the TCP connection that sends the SYN packet(s). For other protocols, the client is generally the initiator or requestor in the network transaction. Some systems use the term "originator" to refer the client in TCP connections. The client fields describe details about the system acting as the client in the network event. Client fields are usually populated in conjuction with server fields.  Client fields are generally not populated for packet-level events.
 
 
 | Field  | Description  | Level  | Type  | Example  |
 |---|---|---|---|---|
+| <a name="client.address"></a>client.address | Some event client addresses are defined ambiguously. The event will sometimes list an IP, a domain or a unix socket.  You should always store the raw address in the `.address` field.<br/>Then it should be duplicated to `.ip` or `.domain`, depending on which one it is. | extended | keyword |  |
 | <a name="client.ip"></a>client.ip | IP address of the client.<br/>Can be one or multiple IPv4 or IPv6 addresses. | core | ip |  |
 | <a name="client.port"></a>client.port | Port of the client. | core | long |  |
 | <a name="client.mac"></a>client.mac | MAC address of the client. | core | keyword |  |
@@ -415,6 +416,7 @@ A Server is defined as the responder in a network connection for events regardin
 
 | Field  | Description  | Level  | Type  | Example  |
 |---|---|---|---|---|
+| <a name="server.address"></a>server.address | Some event server addresses are defined ambiguously. The event will sometimes list an IP, a domain or a unix socket.  You should always store the raw address in the `.address` field.<br/>Then it should be duplicated to `.ip` or `.domain`, depending on which one it is. | extended | keyword |  |
 | <a name="server.ip"></a>server.ip | IP address of the server.<br/>Can be one or multiple IPv4 or IPv6 addresses. | core | ip |  |
 | <a name="server.port"></a>server.port | Port of the server. | core | long |  |
 | <a name="server.mac"></a>server.mac | MAC address of the server. | core | keyword |  |

@@ -123,9 +123,20 @@
       title: Client
       group: 2
       description: >
-        A client is defined as the initiator of a network connection for events regarding sessions, connections, or bidirectional flow records. For TCP events, the client is the initiator of the TCP connection that sends the SYN packet(s). For other protocols, the client is generally the initiator or requestor in the network transaction. Some systems use the term "originator" to refer the client in TCP connections. The client fields describe details about the system acting as the client in the network event. Client fields are usually populated in conjuction with server fields.  Client fields are generally not populated for packet-level events. 
+        A client is defined as the initiator of a network connection for events regarding sessions, connections, or bidirectional flow records. For TCP events, the client is the initiator of the TCP connection that sends the SYN packet(s). For other protocols, the client is generally the initiator or requestor in the network transaction. Some systems use the term "originator" to refer the client in TCP connections. The client fields describe details about the system acting as the client in the network event. Client fields are usually populated in conjuction with server fields.  Client fields are generally not populated for packet-level events.
       type: group
       fields:
+    
+        - name: address
+          level: extended
+          type: keyword
+          description: >
+            Some event client addresses are defined ambiguously. The event will
+            sometimes list an IP, a domain or a unix socket.  You should always
+            store the raw address in the `.address` field.
+    
+            Then it should be duplicated to `.ip` or `.domain`, depending on which
+            one it is.
     
         - name: ip
           level: core
@@ -1258,7 +1269,7 @@
           level: extended
           type: keyword
           description: >
-            Some event source addresses are defined ambiguously. The event will
+            Some event server addresses are defined ambiguously. The event will
             sometimes list an IP, a domain or a unix socket.  You should always
             store the raw address in the `.address` field.
     
@@ -1394,6 +1405,17 @@
         packet/event. Source fields are usually populated in conjunction with destination fields.
       type: group
       fields:
+    
+        - name: address
+          level: extended
+          type: keyword
+          description: >
+            Some event source addresses are defined ambiguously. The event will
+            sometimes list an IP, a domain or a unix socket.  You should always
+            store the raw address in the `.address` field.
+    
+            Then it should be duplicated to `.ip` or `.domain`, depending on which
+            one it is.
     
         - name: ip
           level: core
