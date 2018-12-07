@@ -35,7 +35,7 @@ All notable changes to this project will be documented in this file based on the
 * Add fields `geo.country_name` and `geo.region_iso_code`. #214
 * Add `event.kind` and `event.outcome`. #242
 * Add `client` and `server` objects and fields. #236
-* Reintroduce a streamlined `user_agent` field set. #240
+* Reintroduce a streamlined `user_agent` field set. #240, #262
 * Add `geo.name` for ad hoc location names. #248
 * Add `event.timezone` to allow for proper interpretation of incomplete timestamps. #258
 
