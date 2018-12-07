@@ -380,7 +380,8 @@ Note also that the `os` fields are not expected to be used directly at the top l
 | Field  | Description  | Level  | Type  | Example  |
 |---|---|---|---|---|
 | <a name="os.platform"></a>os.platform | Operating system platform (such centos, ubuntu, windows). | extended | keyword | `darwin` |
-| <a name="os.name"></a>os.name | Operating system name. | extended | keyword | `Mac OS X` |
+| <a name="os.name"></a>os.name | Operating system name, without the version. | extended | keyword | `Mac OS X` |
+| <a name="os.full_name"></a>os.full_name | Operating system name, including the version. | extended | keyword | `Mac OS X 10.15.1` |
 | <a name="os.family"></a>os.family | OS family (such as redhat, debian, freebsd, windows). | extended | keyword | `debian` |
 | <a name="os.version"></a>os.version | Operating system version as a raw string. | extended | keyword | `10.12.6-rc2` |
 | <a name="os.kernel"></a>os.kernel | Operating system kernel version as a raw string. | extended | keyword | `4.4.0-112-generic` |
