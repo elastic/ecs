@@ -322,11 +322,11 @@ The network is defined as the communication path over which a host or network ev
 | Field  | Description  | Level  | Type  | Example  |
 |---|---|---|---|---|
 | <a name="network.name"></a>network.name | Name given by operators to sections of their network. | extended | keyword | `Guest Wifi` |
-| <a name="network.type"></a>network.type | In the OSI Model this would be the Network Layer. ipv4, ipv6, ipsec, pim, etc<br/>The field value must be normalized to lowercase for querying. You can do so prior to ingestion by lowercasing the value, or you can use the `lowercase` normalizer in your indices. This lets you keep your field content with the original capitalization, but makes querying predictable across sources. | core | keyword | `ipv4` |
+| <a name="network.type"></a>network.type | In the OSI Model this would be the Network Layer. ipv4, ipv6, ipsec, pim, etc<br/>The field value must be normalized to lowercase for querying. See "Lowercase Capitalization" in the "Implementing ECS" section. | core | keyword | `ipv4` |
 | <a name="network.iana_number"></a>network.iana_number | IANA Protocol Number (https://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml). Standardized list of protocols. This aligns well with NetFlow and sFlow related logs which use the IANA Protocol Number. | extended | keyword | `6` |
-| <a name="network.transport"></a>network.transport | Same as network.iana_number, but instead using the Keyword name of the transport layer (udp, tcp, ipv6-icmp, etc.)<br/>The field value must be normalized to lowercase for querying. You can do so prior to ingestion by lowercasing the value, or you can use the `lowercase` normalizer in your indices. This lets you keep your field content with the original capitalization, but makes querying predictable across sources. | core | keyword | `tcp` |
-| <a name="network.application"></a>network.application | A name given to an application. This can be arbitrarily assigned for things like microservices, but also apply to things like skype, icq, facebook, twitter. This would be used in situations where the vendor or service can be decoded such as from the source/dest IP owners, ports, or wire format.<br/>The field value must be normalized to lowercase for querying. You can do so prior to ingestion by lowercasing the value, or you can use the `lowercase` normalizer in your indices. This lets you keep your field content with the original capitalization, but makes querying predictable across sources. | extended | keyword | `aim` |
-| <a name="network.protocol"></a>network.protocol | L7 Network protocol name. ex. http, lumberjack, transport protocol.<br/>The field value must be normalized to lowercase for querying. You can do so prior to ingestion by lowercasing the value, or you can use the `lowercase` normalizer in your indices. This lets you keep your field content with the original capitalization, but makes querying predictable across sources. | core | keyword | `http` |
+| <a name="network.transport"></a>network.transport | Same as network.iana_number, but instead using the Keyword name of the transport layer (udp, tcp, ipv6-icmp, etc.)<br/>The field value must be normalized to lowercase for querying. See "Lowercase Capitalization" in the "Implementing ECS"  section. | core | keyword | `tcp` |
+| <a name="network.application"></a>network.application | A name given to an application. This can be arbitrarily assigned for things like microservices, but also apply to things like skype, icq, facebook, twitter. This would be used in situations where the vendor or service can be decoded such as from the source/dest IP owners, ports, or wire format.<br/>The field value must be normalized to lowercase for querying. See "Lowercase Capitalization" in the "Implementing ECS" section. | extended | keyword | `aim` |
+| <a name="network.protocol"></a>network.protocol | L7 Network protocol name. ex. http, lumberjack, transport protocol.<br/>The field value must be normalized to lowercase for querying. See "Lowercase Capitalization" in the "Implementing ECS" section. | core | keyword | `http` |
 | <a name="network.direction"></a>network.direction | Direction of the network traffic.<br/>Recommended values are:<br/>  * inbound<br/>  * outbound<br/>  * internal<br/>  * external<br/>  * unknown<br/><br/>When mapping events from a host-based monitoring context, populate this field from the host's point of view.<br/>When mapping events from a network or perimeter-based monitoring context, populate this field from the point of view of your network perimeter. | core | keyword | `inbound` |
 | <a name="network.forwarded_ip"></a>network.forwarded_ip | Host IP address when the source IP address is the proxy. | core | ip | `192.1.1.2` |
 | <a name="network.community_id"></a>network.community_id | A hash of source and destination IPs and ports, as well as the protocol used in a communication. This is a tool-agnostic standard to identify flows.<br/>Learn more at https://github.com/corelight/community-id-spec. | extended | keyword | `1:hO+sN4H+MG5MY/8hIrXPqc4ZQz0=` |
@@ -560,6 +560,25 @@ in the future. Please avoid using them:
 * *Avoid repetition.* Avoid stuttering of words. If part of the field name is already in the prefix, do not repeat it. Example: `host.host_ip` should be `host.ip`.
 * *Use prefixes.* Fields must be prefixed except for the base fields. For example all `host` fields are prefixed with `host.`. See `dot` notation in FAQ for more details.
 * Do not use abbreviations. (A few exceptions like `ip` exist.)
+
+## Normalization
+
+In order to be help allow for correlation across different sources, ECS must sometimes
+enforce normalization on field values.
+
+### Lowercase Capitalization
+
+Some field descriptions mention they should be normalized to lowercase. Different approaches
+can be taken to accomplish this. The goal of requesting this is to avoid the same value
+appearing distinctly in aggregations, or avoid having to search for all capitalizations possible (e.g. IPV4, IPv4, ipv4).
+
+The simplest implementation of this requirement is to lowercase the value before indexing in Elasticsearch.
+This can be done with a Logstash filter or an Ingest Node processor, for example. Another approach that
+satisfies the goal is to configure the keyword indexing of the field to use
+[a normalize filter using the lowercase filter](https://www.elastic.co/guide/en/elasticsearch/reference/current/normalizer.html).
+The normalize filter leaves your data unmodified (the document still shows "IPv4", for example).
+However the value in the index will be lowercase. This satisfies the requirement of
+predictable querying and aggregation across data sources.
 
 ## Understanding ECS conventions
 
