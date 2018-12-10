@@ -52,6 +52,7 @@ All notable changes to this project will be documented in this file based on the
   future use. #257
 * Clarify that `network.transport`, `network.type`, `network.application`,
   and `network.protocol` must be lowercase. #251
+* Clarify that `http.request.method` must be lowercase. #251
 
 ### Deprecated
 
