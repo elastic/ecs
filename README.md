@@ -497,7 +497,7 @@ The user_agent fields normally come from a browser request. They often show up i
 
 | Field  | Description  | Level  | Type  | Example  |
 |---|---|---|---|---|
-| <a name="user_agent.original"></a>user_agent.original | Unparsed version of the user_agent. | extended | (not indexed) | `Mozilla/5.0 (iPhone; CPU iPhone OS 12_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0 Mobile/15E148 Safari/604.1` |
+| <a name="user_agent.original"></a>user_agent.original | Unparsed version of the user_agent. | extended | keyword | `Mozilla/5.0 (iPhone; CPU iPhone OS 12_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0 Mobile/15E148 Safari/604.1` |
 | <a name="user_agent.name"></a>user_agent.name | Name of the user agent. | extended | keyword | `Safari` |
 | <a name="user_agent.version"></a>user_agent.version | Version of the user agent. | extended | keyword | `12.0` |
 | <a name="user_agent.device.name"></a>user_agent.device.name | Name of the device. | extended | keyword | `iPhone` |
