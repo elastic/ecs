@@ -526,6 +526,16 @@ Contributions of additional uses cases on top of ECS are welcome.
 
 
 
+# <a name="reserved-names"></a>Reserved Section Names
+
+ECS does not define the following field sets yet, but the following are expected
+in the future. Please avoid using them:
+
+- `match.*`
+- `protocol.*`
+- `threat.*`
+- `vulnerability.*`
+
 # <a name="implementing-ecs"></a>Implementing ECS
 
 ## Guidelines
