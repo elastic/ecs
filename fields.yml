@@ -928,7 +928,11 @@
           description: >
             In the OSI Model this would be the Network Layer. ipv4, ipv6, ipsec, pim, etc
     
-            The field value must be lowercase.
+            The field value must be normalized to lowercase for querying. You can do
+            so prior to ingestion by lowercasing the value, or you can use the
+            `lowercase` normalizer in your indices. This lets you keep your field
+            content with the original capitalization, but makes querying predictable
+            across sources.
           example: ipv4
     
         - name: iana_number
@@ -947,7 +951,11 @@
             Same as network.iana_number, but instead using the Keyword name of the
             transport layer (udp, tcp, ipv6-icmp, etc.)
     
-            The field value must be lowercase.
+            The field value must be normalized to lowercase for querying. You can do
+            so prior to ingestion by lowercasing the value, or you can use the
+            `lowercase` normalizer in your indices. This lets you keep your field
+            content with the original capitalization, but makes querying predictable
+            across sources.
           example: tcp
     
         - name: application
@@ -960,7 +968,11 @@
             or service can be decoded such as from the source/dest IP owners,
             ports, or wire format.
     
-            The field value must be lowercase.
+            The field value must be normalized to lowercase for querying. You can do
+            so prior to ingestion by lowercasing the value, or you can use the
+            `lowercase` normalizer in your indices. This lets you keep your field
+            content with the original capitalization, but makes querying predictable
+            across sources.
           example: aim
     
         - name: protocol
@@ -969,7 +981,11 @@
           description: >
             L7 Network protocol name. ex. http, lumberjack, transport protocol.
     
-            The field value must be lowercase.
+            The field value must be normalized to lowercase for querying. You can do
+            so prior to ingestion by lowercasing the value, or you can use the
+            `lowercase` normalizer in your indices. This lets you keep your field
+            content with the original capitalization, but makes querying predictable
+            across sources.
           example: http
     
         - name: direction
