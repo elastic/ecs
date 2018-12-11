@@ -1,7 +1,20 @@
 # CHANGELOG
 All notable changes to this project will be documented in this file based on the [Keep a Changelog](http://keepachangelog.com/) Standard. This project adheres to [Semantic Versioning](http://semver.org/).
 
+
 ## Unreleased
+
+### Breaking changes
+
+### Bugfixes
+
+### Added
+
+### Improvements
+
+### Deprecated
+
+## [1.0.0-beta2](https://github.com/elastic/ecs/compare/v1.0.0-beta1...v1.0.0-beta2)
 
 ### Breaking changes
 
@@ -61,8 +74,6 @@ All notable changes to this project will be documented in this file based on the
 * Clarify that `http.request.method` must be lowercase. #251
 * Clarify that source/destination should be filled, even if client/server is
   being used. #265
-
-### Deprecated
 
 ## [1.0.0-beta1](https://github.com/elastic/ecs/compare/v0.1.0...v1.0.0-beta1)
 
