@@ -4,8 +4,8 @@ All notable changes to this project will be documented in this file based on the
 ## Unreleased
 
 ### Breaking changes
-* Changed `device.*` fields to `observer.*` fields to eliminate user confusion. #238
 
+* Changed `device.*` fields to `observer.*` fields to eliminate user confusion. #238
 * Rename `network.total.bytes` to `network.bytes` and `network.total.packets`
   to `network.packets`. #179
 * Remove `network.inbound.bytes`, `network.inbound.packets`,
@@ -30,6 +30,9 @@ All notable changes to this project will be documented in this file based on the
 * Add `process.executable` field. #209
 * Add `process.working_directory` and `process.start`. #215
 * Reintroduce `http`. #237
+  * Move `http.response.body` to `http.response.body.content`. #239
+  * Add `http.request.body.content`. #239
+  * Add HTTP size metric fields. #239
 * Add `user.full_name` field. #201
 * Add `network.community_id` field. #208
 * Add fields `geo.country_name` and `geo.region_iso_code`. #214
