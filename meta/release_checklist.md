@@ -14,7 +14,7 @@ Changelog
  - [ ] Remove empty sections from the new version's section
  - [ ] Update the tag diff link for this version
 
-Search for the previous verion name and put in the new version instead, in places where this makes sense
+Search for the previous version name and put in the new version instead, in places where this makes sense
 
 - [ ] Link to current version in the readme intro
 - [ ] The example value for `ecs.version`
