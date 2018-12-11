@@ -25,6 +25,7 @@ Git
 - [ ] Commit the changes
 - [ ] Have someone review a PR of your work
 - [ ] Merge
+- [ ] If appropriate, create a branch for further work in this version's lineage.
 
 GitHub release
 
