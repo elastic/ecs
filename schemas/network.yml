@@ -18,8 +18,11 @@
       level: core
       type: keyword
       description: >
-        In the OSI Model this would be the Network Layer. IPv4, IPv6, IPSec, PIM, etc
-      example: IPv4
+        In the OSI Model this would be the Network Layer. ipv4, ipv6, ipsec, pim, etc
+
+        The field value must be normalized to lowercase for querying. See
+        "Lowercase Capitalization" in the "Implementing ECS" section.
+      example: ipv4
 
     - name: iana_number
       level: extended
@@ -35,8 +38,11 @@
       type: keyword
       description: >
         Same as network.iana_number, but instead using the Keyword name of the
-        transport layer (UDP, TCP, IPv6-ICMP, etc.)
-      example: TCP
+        transport layer (udp, tcp, ipv6-icmp, etc.)
+
+        The field value must be normalized to lowercase for querying. See
+        "Lowercase Capitalization" in the "Implementing ECS"  section.
+      example: tcp
 
     - name: application
       level: extended
@@ -47,13 +53,19 @@
         facebook, twitter. This would be used in situations where the vendor
         or service can be decoded such as from the source/dest IP owners,
         ports, or wire format.
-      example: AIM
+
+        The field value must be normalized to lowercase for querying. See
+        "Lowercase Capitalization" in the "Implementing ECS" section.
+      example: aim
 
     - name: protocol
       level: core
       type: keyword
       description: >
-        L7 Network protocol name. ex. http, lumberjack, transport protocol
+        L7 Network protocol name. ex. http, lumberjack, transport protocol.
+
+        The field value must be normalized to lowercase for querying. See
+        "Lowercase Capitalization" in the "Implementing ECS" section.
       example: http
 
     - name: direction

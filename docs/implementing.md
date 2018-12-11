@@ -33,6 +33,25 @@ in the future. Please avoid using them:
 * *Use prefixes.* Fields must be prefixed except for the base fields. For example all `host` fields are prefixed with `host.`. See `dot` notation in FAQ for more details.
 * Do not use abbreviations. (A few exceptions like `ip` exist.)
 
+## Normalization
+
+In order to be help allow for correlation across different sources, ECS must sometimes
+enforce normalization on field values.
+
+### Lowercase Capitalization
+
+Some field descriptions mention they should be normalized to lowercase. Different approaches
+can be taken to accomplish this. The goal of requesting this is to avoid the same value
+appearing distinctly in aggregations, or avoid having to search for all capitalizations possible (e.g. IPV4, IPv4, ipv4).
+
+The simplest implementation of this requirement is to lowercase the value before indexing in Elasticsearch.
+This can be done with a Logstash filter or an Ingest Node processor, for example. Another approach that
+satisfies the goal is to configure the keyword indexing of the field to use
+[a normalize filter using the lowercase filter](https://www.elastic.co/guide/en/elasticsearch/reference/current/normalizer.html).
+The normalize filter leaves your data unmodified (the document still shows "IPv4", for example).
+However the value in the index will be lowercase. This satisfies the requirement of
+predictable querying and aggregation across data sources.
+
 ## Understanding ECS conventions
 
 ### Multi-fields text indexing
