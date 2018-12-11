@@ -12,6 +12,8 @@ All notable changes to this project will be documented in this file based on the
 
 ### Improvements
 
+* Changed `url.port` field type to `long` for consistency with other `port` fields.
+
 ### Deprecated
 
 ## [1.0.0-beta2](https://github.com/elastic/ecs/compare/v1.0.0-beta1...v1.0.0-beta2)

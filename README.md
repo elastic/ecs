@@ -477,7 +477,7 @@ URL fields provide a complete URL, with scheme, host, and path.
 | <a name="url.full"></a>url.full | If full URLs are important to your use case, they should be stored in `url.full`, whether this field is reconstructed or present in the event source. | extended | keyword | `https://www.elastic.co:443/search?q=elasticsearch#top` |
 | <a name="url.scheme"></a>url.scheme | Scheme of the request, such as "https".<br/>Note: The `:` is not part of the scheme. | extended | keyword | `https` |
 | <a name="url.domain"></a>url.domain | Domain of the request, such as "www.elastic.co".<br/>In some cases a URL may refer to an IP and/or port directly, without a domain name. In this case, the IP address would go to the `domain` field. | extended | keyword | `www.elastic.co` |
-| <a name="url.port"></a>url.port | Port of the request, such as 443. | extended | integer | `443` |
+| <a name="url.port"></a>url.port | Port of the request, such as 443. | extended | long | `443` |
 | <a name="url.path"></a>url.path | Path of the request, such as "/search". | extended | keyword |  |
 | <a name="url.query"></a>url.query | The query field describes the query string of the request, such as "q=elasticsearch".<br/>The `?` is excluded from the query string. If a URL contains no `?`, there is no query field. If there is a `?` but no query, the query field exists with an empty string. The `exists` query can be used to differentiate between the two cases. | extended | keyword |  |
 | <a name="url.fragment"></a>url.fragment | Portion of the url after the `#`, such as "top".<br/>The `#` is not part of the fragment. | extended | keyword |  |
