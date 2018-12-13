@@ -47,4 +47,10 @@ fields:
 	cat fields.tmp.yml >> fields.yml
 	rm -f fields.tmp.yml fields.tmp.yml.bak
 
-.PHONY: generate schemas fmt check setup clean readme template fields
+docs:
+ifneq (,$(wildcard ./build/docs/build_docs.py))
+	git clone --depth=1 https://github.com/elastic/docs.git ./build/docs
+endif
+	./build/docs/build_docs.pl --doc ./docs/index.asciidoc --chunk=1 -open -out ./build/html_docs
+
+.PHONY: generate schemas fmt check setup clean readme template fields docs
