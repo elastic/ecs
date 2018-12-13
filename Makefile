@@ -47,10 +47,13 @@ fields:
 	cat fields.tmp.yml >> fields.yml
 	rm -f fields.tmp.yml fields.tmp.yml.bak
 
+test:
+
+	
 docs:
-ifneq (,$(wildcard ./build/docs/*),)
-	git clone --depth=1 https://github.com/elastic/docs.git ./build/docs
-endif
+	if [[ ! -d "./build/docs" ]]; then \
+		git clone --depth=1 https://github.com/elastic/docs.git ./build/docs ; \
+	fi
 	./build/docs/build_docs.pl --doc ./docs/index.asciidoc --chunk=1 -open -out ./build/html_docs
 
 .PHONY: generate schemas fmt check setup clean readme template fields docs
