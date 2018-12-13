@@ -48,7 +48,7 @@ fields:
 	rm -f fields.tmp.yml fields.tmp.yml.bak
 
 docs:
-ifneq (,$(wildcard ./build/docs/build_docs.py))
+ifneq (,$(wildcard ./build/docs/*),)
 	git clone --depth=1 https://github.com/elastic/docs.git ./build/docs
 endif
 	./build/docs/build_docs.pl --doc ./docs/index.asciidoc --chunk=1 -open -out ./build/html_docs
