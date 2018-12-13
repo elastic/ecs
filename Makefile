@@ -49,9 +49,6 @@ fields:
 	cat fields.tmp.yml >> fields.yml
 	rm -f fields.tmp.yml fields.tmp.yml.bak
 
-test:
-
-
 docs:
 	if [ ! -d $(PWD)/build/docs ]; then \
 		git clone --depth=1 https://github.com/elastic/docs.git ./build/docs ; \
