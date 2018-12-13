@@ -11,6 +11,12 @@ go:
 before_install:
 - make setup
 
+addons:
+  apt:
+    update: true
+    packages:
+      - xsltproc
+
 jobs:
   include:
     - stage: check
@@ -18,4 +24,4 @@ jobs:
       - make check
     - stage: docs
       script:
-      - make docs
+      - OPEN_DOCS="" make docs
