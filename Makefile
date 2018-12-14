@@ -1,3 +1,5 @@
+OPEN_DOCS?="-open"
+
 generate: schemas readme template fields
 
 schemas:
@@ -47,4 +49,11 @@ fields:
 	cat fields.tmp.yml >> fields.yml
 	rm -f fields.tmp.yml fields.tmp.yml.bak
 
-.PHONY: generate schemas fmt check setup clean readme template fields
+docs:
+	if [ ! -d $(PWD)/build/docs ]; then \
+		git clone --depth=1 https://github.com/elastic/docs.git ./build/docs ; \
+	fi
+
+	./build/docs/build_docs.pl --doc ./docs/index.asciidoc --chunk=1 $(OPEN_DOCS) -out ./build/html_docs
+
+.PHONY: generate schemas fmt check setup clean readme template fields docs
