@@ -1,4 +1,5 @@
-OPEN_DOCS?="-open"
+VERSION   ?= 1.0.0-beta2
+OPEN_DOCS ?= "-open"
 
 generate: schemas readme template fields
 
@@ -39,7 +40,7 @@ readme:
 template:
 	go get github.com/elastic/go-ucfg/yaml
 	go get github.com/elastic/beats/libbeat/template
-	go run scripts/template.go > ./template.json
+	go run scripts/template.go -version=$(VERSION) > ./template.json
 
 fields:
 	cat schemas/*.yml > fields.tmp.yml
