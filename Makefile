@@ -1,4 +1,5 @@
-OPEN_DOCS?="-open"
+VERSION   ?= 1.0.0-beta2
+OPEN_DOCS ?= "-open"
 
 generate: schemas readme template fields generator
 
@@ -46,7 +47,7 @@ readme:
 template:
 	go get github.com/elastic/go-ucfg/yaml
 	go get github.com/elastic/beats/libbeat/template
-	go run scripts/template.go > ./generated/legacy/template.json
+	go run scripts/template.go -version=$(VERSION) > ./generated/legacy/template.json
 
 # Run the ECS tests
 .PHONY: test
