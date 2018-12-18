@@ -179,6 +179,7 @@ Destination fields are usually populated in conjunction with source fields.
 | <a name="destination.domain"></a>destination.domain | Destination domain. | core | keyword |  |
 | <a name="destination.bytes"></a>destination.bytes | Bytes sent from the destination to the source. | core | long | `184` |
 | <a name="destination.packets"></a>destination.packets | Packets sent from the destination to the source. | core | long | `12` |
+| <a name="destination.locality"></a>destination.locality | Locality can be either `private` or `public`. `private` indicates that the destination IP address is the ranges reserved for private networks as defined in `network.locality`. `public` indicates that the destination IP is outside of the private ranges. | extended | keyword | `public` |
 
 
 ## <a name="ecs"></a> ECS fields
@@ -365,6 +366,7 @@ The network.* fields should be populated with details about the network activity
 | <a name="network.community_id"></a>network.community_id | A hash of source and destination IPs and ports, as well as the protocol used in a communication. This is a tool-agnostic standard to identify flows.<br/>Learn more at https://github.com/corelight/community-id-spec. | extended | keyword | `1:hO+sN4H+MG5MY/8hIrXPqc4ZQz0=` |
 | <a name="network.bytes"></a>network.bytes | Total bytes transferred in both directions.<br/>If `source.bytes` and `destination.bytes` are known, `network.bytes` is their sum. | core | long | `368` |
 | <a name="network.packets"></a>network.packets | Total packets transferred in both directions.<br/>If `source.packets` and `destination.packets` are known, `network.packets` is their sum. | core | long | `24` |
+| <a name="network.locality"></a>network.locality | Locality can be either `private` or `public`. `private` indicates that both sides of the flow have IP addresses in the ranges reserved for private networks as defined below. `public` indicates that at least one side of the flow is outside of the private ranges. The IP addresses used in determining this field's value are `source.ip` and `destination.ip`.<br/>Address ranges that are considered private are * Loopback (127.0.0.0/8, ::1/128) * Unspecified (0.0.0.0, ::) * IPv4 Broadcast (255.255.255.255) * RFC 1918 - IPv4 Local Unicast (10/8, 172.16/12, 192.168/16) * RFC 3927 - IPv4 Link-Local Unicast (169.254.0.0/16) * RFC 5771 - IPv4 Local Multicast (224.0.0.0/4) * RFC 4193 - IPv6 Local Unicast (fc00::/7) * RFC 4291 - IPv6 Link-Local Unicast (fe80::/10) * RFC 4291 - IPv6 Link-Local Multicast (ff02::/8) * RFC 4291 - IPv6 Interface Local Multicast (ff01::/8) | extended | keyword | `public` |
 
 
 ## <a name="observer"></a> Observer fields
@@ -504,6 +506,7 @@ Source fields are usually populated in conjunction with destination fields.
 | <a name="source.domain"></a>source.domain | Source domain. | core | keyword |  |
 | <a name="source.bytes"></a>source.bytes | Bytes sent from the source to the destination. | core | long | `184` |
 | <a name="source.packets"></a>source.packets | Packets sent from the source to the destination. | core | long | `12` |
+| <a name="source.locality"></a>source.locality | Locality can be either `private` or `public`. `private` indicates that the source IP address is the ranges reserved for private networks as defined in `network.locality`. `public` indicates that the source IP is outside of the private ranges. | extended | keyword | `public` |
 
 
 ## <a name="url"></a> URL fields

@@ -20,6 +20,7 @@ All notable changes to this project will be documented in this file based on the
 
 * Added pointer in description of `http` field set to `url` field set. #330
 * Added an optional short field description. #330
+* Add `network.locality`, `source.locality`, and `desination.locality`. #288
 
 ### Improvements
 
