@@ -35,6 +35,10 @@ clean:
 	# Clean all markdown files for use-cases
 	find ./use-cases -type f -name '*.md' -not -name 'README.md' -print0 | xargs -0 rm --
 
+# Alias to generate source code for all languages.
+.PHONY: codegen
+codegen: gocodegen
+
 # Build schema.csv from schema files.
 .PHONY: csv
 csv: ve
@@ -67,12 +71,22 @@ fmt: ve
 
 # Alias to generate everything.
 .PHONY: generate
-generate: csv readme template fields generator
+generate: csv readme template fields codegen generator
 
 # Run the new generator
 .PHONY: generator
 generator:
 	$(PYTHON) scripts/generator.py
+
+# Generate Go code from the schema.
+.PHONY: gocodegen
+gocodegen:
+	find code/go/ecs -name '*.go' -not -name 'doc.go' | xargs rm
+	cd scripts \
+	  && $(FORCE_GO_MODULES) go run cmd/gocodegen/gocodegen.go \
+	        -version=$(VERSION) \
+	        -schema=../schemas \
+	        -out=../code/go/ecs
 
 # Check Makefile format.
 .PHONY: makelint
