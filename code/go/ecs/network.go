@@ -65,7 +65,7 @@ type Network struct {
 	//   * internal
 	//   * external
 	//   * unknown
-	// 
+	//
 	// When mapping events from a host-based monitoring context, populate this
 	// field from the host's point of view.
 	// When mapping events from a network or perimeter-based monitoring

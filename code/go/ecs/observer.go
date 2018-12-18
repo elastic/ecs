@@ -29,7 +29,7 @@ package ecs
 // populated with details of the system, if any, that detects, observes and/or
 // creates a network, security, or application event or metric. Message queues
 // and ETL components used in processing events or metrics are not considered
-// observers in ECS.  
+// observers in ECS.
 type Observer struct {
 	// MAC address of the observer
 	MAC string `ecs:"mac"`
