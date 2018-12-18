@@ -18,6 +18,7 @@
 package main
 
 import (
+	"bufio"
 	"bytes"
 	"flag"
 	"io/ioutil"
@@ -27,6 +28,8 @@ import (
 	"strings"
 	"text/template"
 	"unicode"
+
+	wordwrap "github.com/mitchellh/go-wordwrap"
 
 	"github.com/elastic/beats/libbeat/common"
 	"github.com/elastic/go-ucfg/yaml"
@@ -147,15 +150,10 @@ func main() {
 			log.Fatalf("Error: %v", err)
 		}
 
-		for key, f2 := range f {
+		for key := range f {
 			// The definitions don't have the type group in and the template
 			// generator assumes otherwise keyword as default.
 			f[key].Type = "group"
-
-			// Moves the docs under base to the top level.
-			if f2.Name == "base" {
-				f = f2.Fields
-			}
 		}
 
 		fields = append(fields, f...)
@@ -173,8 +171,8 @@ func main() {
 
 			for _, field := range group.Fields {
 				var b strings.Builder
-				for _, n := range strings.FieldsFunc(field.Name, isSeparator) {
-					b.WriteString(strings.Title(abbreviations(n)))
+				for _, w := range strings.FieldsFunc(field.Name, isSeparator) {
+					b.WriteString(strings.Title(abbreviations(w)))
 				}
 
 				dataType := goDataType(field.Name, field.Type)
@@ -223,10 +221,13 @@ func main() {
 }
 
 // isSeparate returns true if the character is a field name separator. This is
-// used to detect the separators in fields lik ephemeral_id or instance.name.
+// used to detect the separators in fields like ephemeral_id or instance.name.
 func isSeparator(c rune) bool {
 	switch c {
 	case '.', '_':
+		return true
+	case '@':
+		// This effectively filters @ from field names.
 		return true
 	default:
 		return false
@@ -236,7 +237,7 @@ func isSeparator(c rune) bool {
 // descriptionToComment builds a comment string that is wrapped at 80 chars.
 func descriptionToComment(indent, desc string) string {
 	textLength := 80 - len(strings.Replace(indent, "\t", "    ", 4)+" // ")
-	lines := strings.Split(wrapString(desc, uint(textLength)), "\n")
+	lines := strings.Split(wordwrap.WrapString(desc, uint(textLength)), "\n")
 	if len(lines) > 0 {
 		// Remove empty first line.
 		if strings.TrimSpace(lines[0]) == "" {
@@ -249,80 +250,22 @@ func descriptionToComment(indent, desc string) string {
 			lines = lines[:len(lines)-1]
 		}
 	}
-	return strings.Join(lines, "\n"+indent+"// ")
+	for i := 0; i < len(lines); i++ {
+
+	}
+	return trimTrailingWhitespace(strings.Join(lines, "\n"+indent+"// "))
 }
 
-// wrapString wraps the given string within lim width in characters.
-//
-// Wrapping is currently naive and only happens at white-space. A future
-// version of the library will implement smarter wrapping. This means that
-// pathological cases can dramatically reach past the limit, such as a very
-// long word.
-//
-// https://github.com/mitchellh/go-wordwrap
-//
-// The MIT License (MIT)
-//
-// Copyright (c) 2014 Mitchell Hashimoto
-func wrapString(s string, lim uint) string {
-	// Initialize a buffer with a slightly larger size to account for breaks
-	init := make([]byte, 0, len(s))
-	buf := bytes.NewBuffer(init)
-
-	var current uint
-	var wordBuf, spaceBuf bytes.Buffer
-
-	for _, char := range s {
-		if char == '\n' {
-			if wordBuf.Len() == 0 {
-				if current+uint(spaceBuf.Len()) > lim {
-					current = 0
-				} else {
-					current += uint(spaceBuf.Len())
-					spaceBuf.WriteTo(buf)
-				}
-				spaceBuf.Reset()
-			} else {
-				current += uint(spaceBuf.Len() + wordBuf.Len())
-				spaceBuf.WriteTo(buf)
-				spaceBuf.Reset()
-				wordBuf.WriteTo(buf)
-				wordBuf.Reset()
-			}
-			buf.WriteRune(char)
-			current = 0
-		} else if unicode.IsSpace(char) {
-			if spaceBuf.Len() == 0 || wordBuf.Len() > 0 {
-				current += uint(spaceBuf.Len() + wordBuf.Len())
-				spaceBuf.WriteTo(buf)
-				spaceBuf.Reset()
-				wordBuf.WriteTo(buf)
-				wordBuf.Reset()
-			}
-
-			spaceBuf.WriteRune(char)
-		} else {
-
-			wordBuf.WriteRune(char)
-
-			if current+uint(spaceBuf.Len()+wordBuf.Len()) > lim && uint(wordBuf.Len()) < lim {
-				buf.WriteRune('\n')
-				current = 0
-				spaceBuf.Reset()
-			}
-		}
+func trimTrailingWhitespace(text string) string {
+	var lines [][]byte
+	s := bufio.NewScanner(bytes.NewBufferString(text))
+	for s.Scan() {
+		lines = append(lines, bytes.TrimRightFunc(s.Bytes(), unicode.IsSpace))
 	}
-
-	if wordBuf.Len() == 0 {
-		if current+uint(spaceBuf.Len()) <= lim {
-			spaceBuf.WriteTo(buf)
-		}
-	} else {
-		spaceBuf.WriteTo(buf)
-		wordBuf.WriteTo(buf)
+	if err := s.Err(); err != nil {
+		log.Fatal(err)
 	}
-
-	return buf.String()
+	return string(bytes.Join(lines, []byte("\n")))
 }
 
 // goDataType returns the Go type to use for Elasticsearch mapping data type.
