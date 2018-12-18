@@ -166,15 +166,10 @@ func main() {
 			t := GoType{
 				License:     license[1:],
 				Description: descriptionToComment("", group.Description),
-				Name:        strings.Title(abbreviations(group.Name)),
+				Name:        goTypeName(group.Name),
 			}
 
 			for _, field := range group.Fields {
-				var b strings.Builder
-				for _, w := range strings.FieldsFunc(field.Name, isSeparator) {
-					b.WriteString(strings.Title(abbreviations(w)))
-				}
-
 				dataType := goDataType(field.Name, field.Type)
 				if strings.HasPrefix(dataType, "time.") {
 					t.ImportTime = true
@@ -182,7 +177,7 @@ func main() {
 
 				t.Fields = append(t.Fields, Field{
 					Comment: descriptionToComment("\t", field.Description),
-					Name:    b.String(),
+					Name:    goTypeName(field.Name),
 					Type:    dataType,
 					JSONKey: field.Name,
 				})
@@ -303,4 +298,14 @@ func abbreviations(abv string) string {
 	default:
 		return abv
 	}
+}
+
+// goTypeName removes special characters ('_', '.', '@') and returns a
+// camel-cased name.
+func goTypeName(name string) string {
+	var b strings.Builder
+	for _, w := range strings.FieldsFunc(name, isSeparator) {
+		b.WriteString(strings.Title(abbreviations(w)))
+	}
+	return b.String()
 }
