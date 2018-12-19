@@ -45,6 +45,38 @@ type Event struct {
 	// with caution.
 	Kind string `ecs:"kind"`
 
+	// The id of the tactic associated with the event.
+	// This field, frequently used in cyber security use cases, contains  the
+	// id of the tactic in use when the event was created. Examples are
+	// `ta0001`, `ta0012`, `ta0027`. Warning: In future versions of ECS, a
+	// list of acceptable values for this field may be specified, please use
+	// with caution.
+	TacticID string `ecs:"tactic_id"`
+
+	// The name of the tactic associated with the event.
+	// This field, frequently used in cyber security use cases, contains  the
+	// name of the tactic in use when the event was created. Examples are
+	// `initial_access`, `priority_definition_planning`, `persistence`.
+	// Warning: In future versions of ECS, a list of acceptable values for this
+	// field may be specified, please use with caution.
+	TacticName string `ecs:"tactic_name"`
+
+	// The id of the technique associated with the event.
+	// This field, frequently used in cyber security use cases, contains  the
+	// id of the technique in use when the event was created. Examples are
+	// `t1156`, `t1453`, `t1307`. Warning: In future versions of ECS, a  list
+	// of acceptable values for this field may be specified, please use with
+	// caution.
+	TechniqueID string `ecs:"technique_id"`
+
+	// The name of the technique associated with the event.
+	// This field, frequently used in cyber security use cases, contains  the
+	// name of the technique in use when the event was created. Examples are
+	// `account_discovery`, `access_call_log`, `analyze_data_collected`.
+	// Warning: In future versions of ECS, a list of acceptable values for this
+	// field may be specified, please use with caution.
+	TechniqueName string `ecs:"technique_name"`
+
 	// Event category.
 	// This contains high-level information about the contents of the event. It
 	// is more generic than `event.action`, in the sense that typically a
