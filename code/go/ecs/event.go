@@ -51,7 +51,7 @@ type Event struct {
 	// `ta0001`, `ta0012`, `ta0027`. Warning: In future versions of ECS, a
 	// list of acceptable values for this field may be specified, please use
 	// with caution.
-	TacticID string `ecs:"tactic_id"`
+	TacticID string `ecs:"tactic.id"`
 
 	// The name of the tactic associated with the event.
 	// This field, frequently used in cyber security use cases, contains  the
@@ -59,7 +59,7 @@ type Event struct {
 	// `initial_access`, `priority_definition_planning`, `persistence`.
 	// Warning: In future versions of ECS, a list of acceptable values for this
 	// field may be specified, please use with caution.
-	TacticName string `ecs:"tactic_name"`
+	TacticName string `ecs:"tactic.name"`
 
 	// The id of the technique associated with the event.
 	// This field, frequently used in cyber security use cases, contains  the
@@ -67,7 +67,7 @@ type Event struct {
 	// `t1156`, `t1453`, `t1307`. Warning: In future versions of ECS, a  list
 	// of acceptable values for this field may be specified, please use with
 	// caution.
-	TechniqueID string `ecs:"technique_id"`
+	TechniqueID string `ecs:"technique.id"`
 
 	// The name of the technique associated with the event.
 	// This field, frequently used in cyber security use cases, contains  the
@@ -75,7 +75,7 @@ type Event struct {
 	// `account_discovery`, `access_call_log`, `analyze_data_collected`.
 	// Warning: In future versions of ECS, a list of acceptable values for this
 	// field may be specified, please use with caution.
-	TechniqueName string `ecs:"technique_name"`
+	TechniqueName string `ecs:"technique.name"`
 
 	// Event category.
 	// This contains high-level information about the contents of the event. It
