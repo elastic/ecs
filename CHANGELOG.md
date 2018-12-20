@@ -9,6 +9,8 @@ All notable changes to this project will be documented in this file based on the
 ### Bugfixes
 
 ### Added
+* Add `event.tactic.id`, `event.technique.id`, `event.tactic.name`, and `event.technique.name`
+  fields. #289
 
 ### Improvements
 
