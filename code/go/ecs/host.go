@@ -55,4 +55,7 @@ type Host struct {
 
 	// Operating system architecture.
 	Architecture string `ecs:"architecture"`
+
+	// True if the host is running in a containerized environment.
+	Containerized string `ecs:"containerized"`
 }

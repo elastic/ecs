@@ -38,4 +38,7 @@ type Os struct {
 
 	// Operating system kernel version as a raw string.
 	Kernel string `ecs:"kernel"`
+
+	// Operating system codename as a raw string.
+	Codename string `ecs:"codename"`
 }

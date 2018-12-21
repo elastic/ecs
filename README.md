@@ -291,6 +291,7 @@ A host is defined as a general computing instance. ECS host.* fields should be p
 | <a name="host.mac"></a>host.mac | Host mac address. | core | keyword |  |
 | <a name="host.type"></a>host.type | Type of host.<br/>For Cloud providers this can be the machine type like `t2.medium`. If vm, this could be the container, for example, or other information meaningful in your environment. | core | keyword |  |
 | <a name="host.architecture"></a>host.architecture | Operating system architecture. | core | keyword | `x86_64` |
+| <a name="host.containerized"></a>host.containerized | True if the host is running in a containerized environment. | core | keyword | `True` |
 
 
 ## <a name="http"></a> HTTP fields
@@ -387,6 +388,7 @@ Note also that the `os` fields are not expected to be used directly at the top l
 | <a name="os.family"></a>os.family | OS family (such as redhat, debian, freebsd, windows). | extended | keyword | `debian` |
 | <a name="os.version"></a>os.version | Operating system version as a raw string. | extended | keyword | `10.14.1` |
 | <a name="os.kernel"></a>os.kernel | Operating system kernel version as a raw string. | extended | keyword | `4.4.0-112-generic` |
+| <a name="os.codename"></a>os.codename | Operating system codename as a raw string. | extended | keyword | `Longhorn` |
 
 
 ## <a name="process"></a> Process fields
