@@ -30,7 +30,7 @@ check-license-headers:
 # Clean deletes all temporary and generated content.
 .PHONY: clean
 clean:
-	rm -rf schema.csv schema.md fields.yml build
+	rm -rf schema.csv schema.md schema.json fields.yml build
 	# Clean all markdown files for use-cases
 	find ./use-cases -type f -name '*.md' -not -name 'README.md' -print0 | xargs -0 rm --
 
