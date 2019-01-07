@@ -40,7 +40,7 @@ type Process struct {
 
 	// Array of process arguments.
 	// May be filtered to protect sensitive information.
-	Args string `ecs:"args"`
+	Args []string `ecs:"args"`
 
 	// Absolute path to the process executable.
 	Executable string `ecs:"executable"`
