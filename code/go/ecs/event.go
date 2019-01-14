@@ -135,4 +135,17 @@ type Event struct {
 	// This is mainly useful if you use more than one system that assigns risk
 	// scores, and you want to see a normalized value across all systems.
 	RiskScoreNorm float64 `ecs:"risk_score_norm"`
+
+	// Value parsed from messages adhering to RFC 5424 or RFC 3164. It
+	// represents the process the event has originated from.
+	Facility int64 `ecs:"facility"`
+
+	// Human readable format of `event.facility`.
+	FacilityLabel string `ecs:"facility_label"`
+
+	// Value parsed from messages adhering to RFC 5424 or RFC 3164.
+	Priority int64 `ecs:"priority"`
+
+	// Human readable format of `event.priority`.
+	PriorityLabel string `ecs:"priority_label"`
 }

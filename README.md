@@ -220,6 +220,10 @@ The event fields are used for context information about the log or metric event 
 | <a name="event.end"></a>event.end | event.end contains the date when the event ended or when the activity was last observed. | extended | date |  |
 | <a name="event.risk_score"></a>event.risk_score | Risk score or priority of the event (e.g. security solutions). Use your system's original value here. | core | float |  |
 | <a name="event.risk_score_norm"></a>event.risk_score_norm | Normalized risk score or priority of the event, on a scale of 0 to 100.<br/>This is mainly useful if you use more than one system that assigns risk scores, and you want to see a normalized value across all systems. | extended | float |  |
+| <a name="event.facility"></a>event.facility | Value parsed from messages adhering to RFC 5424 or RFC 3164. It represents the process the event has originated from. | core | long | `1` |
+| <a name="event.facility_label"></a>event.facility_label | Human readable format of `event.facility`. | extended | keyword | `kernel` |
+| <a name="event.priority"></a>event.priority | Value parsed from messages adhering to RFC 5424 or RFC 3164. | core | long | `1` |
+| <a name="event.priority_label"></a>event.priority_label | Human readable format of `event.priority`. | extended | keyword | `Informational` |
 
 
 ## <a name="file"></a> File fields
