@@ -58,6 +58,7 @@ All notable changes to this project will be documented in this file based on the
   `server.address`. #247
 * Add `os.full` to capture full OS name, including version. #259
 * Add generated source code for Go. #249
+* Add syslog protocol fields to event namespace. #301
 
 ### Improvements
 * Improved the definition of the file fields #196
