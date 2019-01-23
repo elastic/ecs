@@ -6,6 +6,9 @@ All notable changes to this project will be documented in this file based on the
 
 ### Breaking changes
 
+* Remove the `user.group` `keyword` field, introduced in #204. Instead,
+  the `group` field set can be nested at `user.group` #308
+
 ### Bugfixes
 
 ### Added
