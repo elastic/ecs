@@ -271,6 +271,10 @@ Note also that the `geo` fields are not expected to be used directly at the top 
 The group fields are meant to represent groups that are relevant to the event.
 
 
+The `group` fields are expected to be nested at: `user.group`.
+
+Note also that the `group` fields may be used directly at the top level.
+
 | Field  | Description  | Level  | Type  | Example  |
 |---|---|---|---|---|
 | <a name="group.id"></a>group.id | Unique identifier for the group on the system/platform. | extended | keyword |  |
@@ -501,7 +505,6 @@ Note also that the `user` fields may be used directly at the top level.
 | <a name="user.full_name"></a>user.full_name | User's full name, if available. | extended | keyword | `Albert Einstein` |
 | <a name="user.email"></a>user.email | User email address. | extended | keyword |  |
 | <a name="user.hash"></a>user.hash | Unique user hash to correlate information for a user in anonymized form.<br/>Useful if `user.id` or `user.name` contain confidential information and cannot be used. | extended | keyword |  |
-| <a name="user.group"></a>user.group | Group the user is a part of. This field can contain a list of groups, if necessary. | extended | keyword |  |
 
 
 ## <a name="user_agent"></a> User agent fields
