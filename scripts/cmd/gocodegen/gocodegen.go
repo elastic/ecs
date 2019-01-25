@@ -295,7 +295,7 @@ func goDataType(fieldName, elasticsearchDataType string) string {
 // abbreviations capitalizes common abbreviations.
 func abbreviations(abv string) string {
 	switch strings.ToLower(abv) {
-	case "id", "ppid", "pid", "mac", "ip", "iana", "uid", "ecs":
+	case "id", "ppid", "pid", "pgid", "mac", "ip", "iana", "uid", "ecs":
 		return strings.ToUpper(abv)
 	default:
 		return abv

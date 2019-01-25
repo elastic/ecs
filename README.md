@@ -403,6 +403,7 @@ These fields contain information about a process. These fields can help you corr
 | <a name="process.pid"></a>process.pid | Process id. | core | long |  |
 | <a name="process.name"></a>process.name | Process name.<br/>Sometimes called program name or similar. | extended | keyword | `ssh` |
 | <a name="process.ppid"></a>process.ppid | Process parent id. | extended | long |  |
+| <a name="process.pgid"></a>process.pgid | Process group id. | extended | long |  |
 | <a name="process.args"></a>process.args | Process arguments.<br/>May be filtered to protect sensitive information. | extended | keyword | `['ssh', '-l', 'user', '10.0.0.16']` |
 | <a name="process.executable"></a>process.executable | Absolute path to the process executable. | extended | keyword | `/usr/bin/ssh` |
 | <a name="process.title"></a>process.title | Process title.<br/>The proctitle, some times the same as process name. Can also be different: for example a browser setting its title to the web page currently opened. | extended | keyword |  |
