@@ -38,7 +38,7 @@ type Process struct {
 	// Process parent id.
 	PPID int64 `ecs:"ppid"`
 
-	// Process group id.
+	// Identifier of the group of processes the process belongs to.
 	PGID int64 `ecs:"pgid"`
 
 	// Process arguments.
