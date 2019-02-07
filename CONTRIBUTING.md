@@ -9,8 +9,8 @@ happen through Pull Requests submitted through Git.
 You need these tools to contribute to ECS:
 
 * [Git](https://git-scm.com/)
-* [Python](https://www.python.org/)
-* [Go](https://golang.org/)
+* [Python 2.7](https://www.python.org/)
+* [Go 1.11](https://golang.org/)
 
 ## Steps to contribute
 
@@ -22,7 +22,7 @@ Here are the steps for contributing to ECS.
 * Create a local branch to hold your changes.
   - Run `git checkout -b branch-name`, where `branch-name` is the name you want to give your local branch
 * Do your work.
-  - Make changes to the `.yml` files as needed
+  - Make changes to the `.yml` files under the `schemas` directory.
 * Run `make` to update generated files.
   - Note that the README.md file is generated, and should not be edited directly. Source files are in the /docs directory.
 * Commit your changes locally.
