@@ -18,7 +18,7 @@ All notable changes to this project will be documented in this file based on the
 ### Added
 
 ### Improvements
-* Clarified the definition of the host fields #320
+* Clarified the definition of the host fields #325
 
 ### Deprecated
 
