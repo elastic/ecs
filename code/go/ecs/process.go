@@ -38,7 +38,7 @@ type Process struct {
 	// Process parent id.
 	PPID int64 `ecs:"ppid"`
 
-	// Process arguments.
+	// Array of process arguments.
 	// May be filtered to protect sensitive information.
 	Args []string `ecs:"args"`
 

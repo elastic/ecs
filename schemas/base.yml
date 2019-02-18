@@ -11,6 +11,7 @@
       level: core
       required: true
       example: "2016-05-23T08:05:34.853Z"
+      short: Date/time when the event originated.
       description: >
         Date/time when the event originated.
 
@@ -31,8 +32,9 @@
       type: object
       object_type: keyword
       example: {env: production, application: foo-bar}
+      short: Custom key/value pairs.
       description: >
-        Key/value pairs.
+        Custom key/value pairs.
 
         Can be used to add meta information to events. Should not contain nested
         objects. All values are stored as keyword.
@@ -43,9 +45,12 @@
       level: core
       type: text
       example: "Hello World"
+      short: Log message optimized for viewing in a log viewer.
       description: >
-        For log events the message field contains the log message.
+        For log events the message field contains the log message, optimized for
+        viewing in a log viewer.
 
-        In other use cases the message field can be used to concatenate
-        different values which are then freely searchable. If multiple
-        messages exist, they can be combined into one message.
+        For structured logs without an original message field, other field can
+        be concatenated to form a human-readable summary of the event.
+
+        If multiple messages exist, they can be combined into one message.

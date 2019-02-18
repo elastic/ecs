@@ -29,8 +29,9 @@
         - name: name
           level: core
           type: keyword
+          short: Custom name of the agent.
           description: >
-            Name of the agent.
+            Custom name of the agent.
     
             This is a name that can be given to an agent. This can be helpful if
             for example two Filebeat instances are running on the same host
@@ -43,6 +44,7 @@
         - name: type
           level: core
           type: keyword
+          short: Type of the agent.
           description: >
             Type of the agent.
     
@@ -54,6 +56,7 @@
         - name: id
           level: core
           type: keyword
+          short: Unique identifier of this agent.
           description: >
             Unique identifier of this agent (if one exists).
     
@@ -63,6 +66,7 @@
         - name: ephemeral_id
           level: extended
           type: keyword
+          short: Ephemeral identifier of this agent.
           description: >
             Ephemeral identifier of this agent (if one exists).
     
@@ -81,6 +85,7 @@
           level: core
           required: true
           example: "2016-05-23T08:05:34.853Z"
+          short: Date/time when the event originated.
           description: >
             Date/time when the event originated.
     
@@ -101,8 +106,9 @@
           type: object
           object_type: keyword
           example: {env: production, application: foo-bar}
+          short: Custom key/value pairs.
           description: >
-            Key/value pairs.
+            Custom key/value pairs.
     
             Can be used to add meta information to events. Should not contain nested
             objects. All values are stored as keyword.
@@ -113,12 +119,15 @@
           level: core
           type: text
           example: "Hello World"
+          short: Log message optimized for viewing in a log viewer.
           description: >
-            For log events the message field contains the log message.
+            For log events the message field contains the log message, optimized for
+            viewing in a log viewer.
     
-            In other use cases the message field can be used to concatenate
-            different values which are then freely searchable. If multiple
-            messages exist, they can be combined into one message.
+            For structured logs without an original message field, other field can
+            be concatenated to form a human-readable summary of the event.
+    
+            If multiple messages exist, they can be combined into one message.
     
     - name: client
       title: Client
@@ -133,6 +142,7 @@
         - name: address
           level: extended
           type: keyword
+          short: Client network address.
           description: >
             Some event client addresses are defined ambiguously. The event will
             sometimes list an IP, a domain or a unix socket.  You should always
@@ -144,6 +154,7 @@
         - name: ip
           level: core
           type: ip
+          short: IP address of the client.
           description: >
             IP address of the client.
     
@@ -200,8 +211,9 @@
           level: extended
           example: ec2
           type: keyword
+          short: Name of the cloud provider.
           description: >
-            Name of the cloud provider. Example values are ec2, gce, or
+            Name of the cloud provider. Example values are aws, azure, gce, or
             digitalocean.
     
         - name: availability_zone
@@ -242,6 +254,7 @@
           level: extended
           type: keyword
           example: 666777888999
+          short: The cloud account or organization id.
           description: >
             The cloud account or organization id used to identify different
             entities in a multi-tenant environment.
@@ -309,6 +322,7 @@
         - name: address
           level: extended
           type: keyword
+          short: Destination network address.
           description: >
             Some event destination addresses are defined ambiguously. The event will
             sometimes list an IP, a domain or a unix socket.  You should always
@@ -320,6 +334,7 @@
         - name: ip
           level: core
           type: ip
+          short: IP address of the destination.
           description: >
             IP address of the destination.
     
@@ -370,6 +385,7 @@
           level: core
           type: keyword
           required: true
+          short: ECS version this event conforms to.
           description: >
             ECS version this event conforms to. `ecs.version` is a required field and must exist in all events.
     
@@ -377,7 +393,7 @@
             different ECS versions -- this field lets integrations adjust to the
             schema version of the events.
     
-            The current version is 1.0.0-beta2 .
+            The current version is 1.0.0-beta2.
           example: 1.0.0-beta2
     
     - name: error
@@ -425,6 +441,7 @@
         - name: kind
           level: extended
           type: keyword
+          short: The kind of the event.
           description: >
             The kind of the event.
     
@@ -438,6 +455,7 @@
         - name: category
           level: core
           type: keyword
+          short: Event category.
           description: >
             Event category.
     
@@ -452,6 +470,7 @@
         - name: action
           level: core
           type: keyword
+          short: The action captured by the event.
           description: >
             The action captured by the event.
     
@@ -463,6 +482,7 @@
         - name: outcome
           level: extended
           type: keyword
+          short: The outcome of the event.
           description: >
             The outcome of the event.
     
@@ -476,6 +496,7 @@
         - name: type
           level: core
           type: keyword
+          short: Reserved for future usage.
           description: >
             Reserved for future usage.
     
@@ -493,6 +514,7 @@
         - name: dataset
           level: core
           type: keyword
+          short: Name of the dataset.
           description: >
             Name of the dataset.
     
@@ -505,8 +527,9 @@
           level: core
           type: long
           example: "7"
+          short: Original severity of the event.
           description: >
-            Severity describes the severity of the event. What the different
+            Severity describes the original severity of the event. What the different
             severity values mean can very different between use cases. It's up to
             the implementer to make sure severities are consistent across events.
     
@@ -521,6 +544,7 @@
               threatmanager&#124;1.0&#124;100&#124;
               worm successfully stopped&#124;10&#124;src=10.0.0.1
               dst=2.1.2.2spt=1232"
+          short: Raw text message of entire event.
           description: >
               Raw text message of entire event. Used to demonstrate log integrity.
     
@@ -540,6 +564,7 @@
         - name: duration
           level: core
           type: long
+          short: Duration of the event in nanoseconds.
           description: >
             Duration of the event in nanoseconds.
     
@@ -549,6 +574,7 @@
         - name: timezone
           level: extended
           type: keyword
+          short: Event time zone.
           description: >
             This field should be populated when the event's timestamp does not include
             timezone information already (e.g. default Syslog timestamps). It's
@@ -560,6 +586,7 @@
         - name: created
           level: core
           type: date
+          short: Time when the event was first read by an agent or by your pipeline.
           description: >
             event.created contains the date when the event was created.
     
@@ -598,6 +625,7 @@
         - name: risk_score_norm
           level: extended
           type: float
+          short: Normalized risk score or priority of the event (0-100).
           description: >
             Normalized risk score or priority of the event, on a scale of 0 to 100.
     
@@ -625,6 +653,7 @@
       - name: extension
         level: extended
         type: keyword
+        short: File extension.
         description: >
           File extension.
     
@@ -759,6 +788,7 @@
         - name: name
           level: extended
           type: keyword
+          short: User-defined description of a location.
           description: >
             User-defined description of a location, at the level of granularity they care about.
     
@@ -806,6 +836,7 @@
         - name: hostname
           level: core
           type: keyword
+          short: Hostname of the host.
           description: >
             Hostname of the host.
     
@@ -814,6 +845,7 @@
         - name: name
           level: core
           type: keyword
+          short: Name of the host.
           description: >
             Name of the host.
     
@@ -824,6 +856,7 @@
         - name: id
           level: core
           type: keyword
+          short: Unique host id.
           description: >
             Unique host id.
     
@@ -846,6 +879,7 @@
         - name: type
           level: core
           type: keyword
+          short: Type of host.
           description: >
             Type of host.
     
@@ -864,13 +898,14 @@
       title: HTTP
       group: 2
       description: >
-        Fields related to HTTP activity.
+        Fields related to HTTP activity. Use the `url` field set to store the url of the request.
       type: group
       fields:
     
         - name: request.method
           level: extended
           type: keyword
+          short: Http request method.
           description: >
             Http request method.
     
@@ -953,11 +988,12 @@
         - name: level
           level: core
           type: keyword
+          short: Log level of the log event.
           description: >
-            Log level of the log event.
+            Original log level of the log event.
     
-            Some examples are `WARN`, `ERR`, `INFO`.
-          example: ERR
+            Some examples are `warn`, `error`, `i`.
+          example: err
     
         - name: original
           level: core
@@ -965,8 +1001,8 @@
           example: "Sep 19 08:26:10 localhost My log"
           index: false
           doc_values: false
+          short: Original log message with light interpretation only (encoding, newlines).
           description: >
-    
             This is the original log message and contains the full log message
             before splitting it up in multiple parts.
     
@@ -996,6 +1032,7 @@
         - name: type
           level: core
           type: keyword
+          short: In the OSI Model this would be the Network Layer. ipv4, ipv6, ipsec, pim, etc
           description: >
             In the OSI Model this would be the Network Layer. ipv4, ipv6, ipsec, pim, etc
     
@@ -1006,6 +1043,7 @@
         - name: iana_number
           level: extended
           type: keyword
+          short: IANA Protocol Number.
           description: >
               IANA Protocol Number (https://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml).
               Standardized list of protocols. This aligns well with NetFlow and
@@ -1015,6 +1053,7 @@
         - name: transport
           level: core
           type: keyword
+          short: Protocol Name corresponding to the field `iana_number`.
           description: >
             Same as network.iana_number, but instead using the Keyword name of the
             transport layer (udp, tcp, ipv6-icmp, etc.)
@@ -1026,8 +1065,10 @@
         - name: application
           level: extended
           type: keyword
+          short: >
+            Application level protocol name.
           description: >
-            A name given to an application. This can be arbitrarily assigned for
+            A name given to an application level protocol. This can be arbitrarily assigned for
             things like microservices, but also apply to things like skype, icq,
             facebook, twitter. This would be used in situations where the vendor
             or service can be decoded such as from the source/dest IP owners,
@@ -1040,6 +1081,7 @@
         - name: protocol
           level: core
           type: keyword
+          short: L7 Network protocol name.
           description: >
             L7 Network protocol name. ex. http, lumberjack, transport protocol.
     
@@ -1050,6 +1092,7 @@
         - name: direction
           level: core
           type: keyword
+          short: Direction of the network traffic.
           description: >
             Direction of the network traffic.
     
@@ -1077,6 +1120,7 @@
         - name: community_id
           level: extended
           type: keyword
+          short: A hash of source and destination IPs and ports.
           description: >
             A hash of source and destination IPs and ports, as well as the protocol
             used in a communication. This is a tool-agnostic standard to identify
@@ -1089,6 +1133,7 @@
         - name: bytes
           level: core
           type: long
+          short: Total bytes transferred in both directions.
           description: >
             Total bytes transferred in both directions.
     
@@ -1098,6 +1143,7 @@
         - name: packets
           level: core
           type: long
+          short: Total packets transferred in both directions.
           description: >
             Total packets transferred in both directions.
     
@@ -1108,7 +1154,7 @@
       title: Observer
       group: 2
       description: >
-        An observer is defined as a special network, security, or application device used to detect, observe, or create network, security, or application-related events and metrics. This could be a custom hardware appliance or a server that has been configured to run special network, security, or application software. Examples include firewalls, intrusion detection/prevention systems, network monitoring sensors, web application firewalls, data loss prevention systems, and APM servers. The observer.* fields shall be populated with details of the system, if any, that detects, observes and/or creates a network, security, or application event or metric. Message queues and ETL components used in processing events or metrics are not considered observers in ECS.  
+        An observer is defined as a special network, security, or application device used to detect, observe, or create network, security, or application-related events and metrics. This could be a custom hardware appliance or a server that has been configured to run special network, security, or application software. Examples include firewalls, intrusion detection/prevention systems, network monitoring sensors, web application firewalls, data loss prevention systems, and APM servers. The observer.* fields shall be populated with details of the system, if any, that detects, observes and/or creates a network, security, or application event or metric. Message queues and ETL components used in processing events or metrics are not considered observers in ECS.
       type: group
       fields:
         - name: mac
@@ -1144,6 +1190,7 @@
         - name: type
           level: core
           type: keyword
+          short: The type of the observer the data is coming from.
           description: >
             The type of the observer the data is coming from.
     
@@ -1249,6 +1296,7 @@
         - name: name
           level: extended
           type: keyword
+          short: Process name.
           description: >
             Process name.
     
@@ -1264,8 +1312,9 @@
         - name: args
           level: extended
           type: keyword
+          short: Array of process arguments.
           description: >
-            Process arguments.
+            Array of process arguments.
     
             May be filtered to protect sensitive information.
           example: ["ssh", "-l", "user", "10.0.0.16"]
@@ -1280,6 +1329,7 @@
         - name: title
           level: extended
           type: keyword
+          short: Process title.
           description: >
             Process title.
     
@@ -1338,6 +1388,7 @@
         - name: address
           level: extended
           type: keyword
+          short: Server network address.
           description: >
             Some event server addresses are defined ambiguously. The event will
             sometimes list an IP, a domain or a unix socket.  You should always
@@ -1349,6 +1400,7 @@
         - name: ip
           level: core
           type: ip
+          short: IP address of the server.
           description: >
             IP address of the server.
     
@@ -1400,6 +1452,7 @@
         - name: id
           level: core
           type: keyword
+          short: Unique identifier of the running service.
           description: >
             Unique identifier of the running service.
     
@@ -1415,6 +1468,7 @@
           level: core
           type: keyword
           example: "elasticsearch-metrics"
+          short: Name of the service.
           description: >
             Name of the service data is collected from.
     
@@ -1433,6 +1487,7 @@
           level: core
           type: keyword
           example: "elasticsearch"
+          short: The type of the service.
           description: >
             The type of the service data is collected from.
     
@@ -1452,6 +1507,7 @@
           level: core
           type: keyword
           example: "3.2.4"
+          short: Version of the service.
           description: >
             Version of the service the data was collected from.
     
@@ -1461,6 +1517,7 @@
         - name: ephemeral_id
           level: extended
           type: keyword
+          short: Ephemeral identifier of this service.
           description: >
             Ephemeral identifier of this service (if one exists).
     
@@ -1479,6 +1536,7 @@
         - name: address
           level: extended
           type: keyword
+          short: Source network address.
           description: >
             Some event source addresses are defined ambiguously. The event will
             sometimes list an IP, a domain or a unix socket.  You should always
@@ -1490,6 +1548,7 @@
         - name: ip
           level: core
           type: ip
+          short: IP address of the source.
           description: >
             IP address of the source.
     
@@ -1538,6 +1597,7 @@
         - name: original
           level: extended
           type: keyword
+          short: Unmodified original url as seen in the event source.
           description: >
             Unmodified original url as seen in the event source.
     
@@ -1552,6 +1612,7 @@
         - name: full
           level: extended
           type: keyword
+          short: Full unparsed URL.
           description: >
             If full URLs are important to your use case, they should be stored in
             `url.full`, whether this field is reconstructed or present in the
@@ -1561,6 +1622,7 @@
         - name: scheme
           level: extended
           type: keyword
+          short: Scheme of the request.
           description: >
             Scheme of the request, such as "https".
     
@@ -1570,6 +1632,7 @@
         - name: domain
           level: extended
           type: keyword
+          short: Domain of the request.
           description: >
             Domain of the request, such as "www.elastic.co".
     
@@ -1593,6 +1656,7 @@
         - name: query
           level: extended
           type: keyword
+          short: Query string of the request.
           description: >
             The query field describes the query string of the request,
             such as "q=elasticsearch".
@@ -1605,6 +1669,7 @@
         - name: fragment
           level: extended
           type: keyword
+          short: Portion of the url after the `#`.
           description: >
             Portion of the url after the `#`, such as "top".
     
@@ -1670,6 +1735,7 @@
         - name: hash
           level: extended
           type: keyword
+          short: Unique user hash to correlate information for a user in anonymized form.
           description: >
             Unique user hash to correlate information for a user in anonymized form.
     

@@ -19,7 +19,8 @@
 
 package ecs
 
-// Fields related to HTTP activity.
+// Fields related to HTTP activity. Use the `url` field set to store the url of
+// the request.
 type Http struct {
 	// Http request method.
 	// The field value must be normalized to lowercase for querying. See

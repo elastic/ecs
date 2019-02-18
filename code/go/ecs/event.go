@@ -80,9 +80,10 @@ type Event struct {
 	// in metricset.name and metricset.module or fileset.name.
 	Dataset string `ecs:"dataset"`
 
-	// Severity describes the severity of the event. What the different
-	// severity values mean can very different between use cases. It's up to
-	// the implementer to make sure severities are consistent across events.
+	// Severity describes the original severity of the event. What the
+	// different severity values mean can very different between use cases.
+	// It's up to the implementer to make sure severities are consistent across
+	// events.
 	Severity int64 `ecs:"severity"`
 
 	// Raw text message of entire event. Used to demonstrate log integrity.

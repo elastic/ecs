@@ -84,8 +84,8 @@ The base set contains all fields which are on the top level. These fields are co
 |---|---|---|---|---|
 | <a name="@timestamp"></a>@timestamp | Date/time when the event originated.<br/>For log events this is the date/time when the event was generated, and not when it was read.<br/>Required field for all events. | core | date | `2016-05-23T08:05:34.853Z` |
 | <a name="tags"></a>tags | List of keywords used to tag each event. | core | keyword | `["production", "env2"]` |
-| <a name="labels"></a>labels | Key/value pairs.<br/>Can be used to add meta information to events. Should not contain nested objects. All values are stored as keyword.<br/>Example: `docker` and `k8s` labels. | core | object | `{'application': 'foo-bar', 'env': 'production'}` |
-| <a name="message"></a>message | For log events the message field contains the log message.<br/>In other use cases the message field can be used to concatenate different values which are then freely searchable. If multiple messages exist, they can be combined into one message. | core | text | `Hello World` |
+| <a name="labels"></a>labels | Custom key/value pairs.<br/>Can be used to add meta information to events. Should not contain nested objects. All values are stored as keyword.<br/>Example: `docker` and `k8s` labels. | core | object | `{'application': 'foo-bar', 'env': 'production'}` |
+| <a name="message"></a>message | For log events the message field contains the log message, optimized for viewing in a log viewer.<br/>For structured logs without an original message field, other field can be concatenated to form a human-readable summary of the event.<br/>If multiple messages exist, they can be combined into one message. | core | text | `Hello World` |
 
 
 ## <a name="agent"></a> Agent fields
@@ -96,7 +96,7 @@ The agent fields contain the data about the software entity, if any, that collec
 | Field  | Description  | Level  | Type  | Example  |
 |---|---|---|---|---|
 | <a name="agent.version"></a>agent.version | Version of the agent. | core | keyword | `6.0.0-rc2` |
-| <a name="agent.name"></a>agent.name | Name of the agent.<br/>This is a name that can be given to an agent. This can be helpful if for example two Filebeat instances are running on the same host but a human readable separation is needed on which Filebeat instance data is coming from.<br/>If no name is given, the name is often left empty. | core | keyword | `foo` |
+| <a name="agent.name"></a>agent.name | Custom name of the agent.<br/>This is a name that can be given to an agent. This can be helpful if for example two Filebeat instances are running on the same host but a human readable separation is needed on which Filebeat instance data is coming from.<br/>If no name is given, the name is often left empty. | core | keyword | `foo` |
 | <a name="agent.type"></a>agent.type | Type of the agent.<br/>The agent type stays always the same and should be given by the agent used. In case of Filebeat the agent would always be Filebeat also if two Filebeat instances are run on the same machine. | core | keyword | `filebeat` |
 | <a name="agent.id"></a>agent.id | Unique identifier of this agent (if one exists).<br/>Example: For Beats this would be beat.id. | core | keyword | `8a4f500d` |
 | <a name="agent.ephemeral_id"></a>agent.ephemeral_id | Ephemeral identifier of this agent (if one exists).<br/>This id normally changes across restarts, but `agent.id` does not. | extended | keyword | `8a4f500f` |
@@ -130,7 +130,7 @@ Fields related to the cloud or infrastructure the events are coming from.
 
 | Field  | Description  | Level  | Type  | Example  |
 |---|---|---|---|---|
-| <a name="cloud.provider"></a>cloud.provider | Name of the cloud provider. Example values are ec2, gce, or digitalocean. | extended | keyword | `ec2` |
+| <a name="cloud.provider"></a>cloud.provider | Name of the cloud provider. Example values are aws, azure, gce, or digitalocean. | extended | keyword | `ec2` |
 | <a name="cloud.availability_zone"></a>cloud.availability_zone | Availability zone in which this host is running. | extended | keyword | `us-east-1c` |
 | <a name="cloud.region"></a>cloud.region | Region in which this host is running. | extended | keyword | `us-east-1` |
 | <a name="cloud.instance.id"></a>cloud.instance.id | Instance ID of the host machine. | extended | keyword | `i-1234567890abcdef0` |
@@ -180,7 +180,7 @@ Meta-information specific to ECS.
 
 | Field  | Description  | Level  | Type  | Example  |
 |---|---|---|---|---|
-| <a name="ecs.version"></a>ecs.version | ECS version this event conforms to. `ecs.version` is a required field and must exist in all events.<br/>When querying across multiple indices -- which may conform to slightly different ECS versions -- this field lets integrations adjust to the schema version of the events.<br/>The current version is 1.0.0-beta2 . | core | keyword | `1.0.0-beta2` |
+| <a name="ecs.version"></a>ecs.version | ECS version this event conforms to. `ecs.version` is a required field and must exist in all events.<br/>When querying across multiple indices -- which may conform to slightly different ECS versions -- this field lets integrations adjust to the schema version of the events.<br/>The current version is 1.0.0-beta2. | core | keyword | `1.0.0-beta2` |
 
 
 ## <a name="error"></a> Error fields
@@ -210,7 +210,7 @@ The event fields are used for context information about the log or metric event 
 | <a name="event.type"></a>event.type | Reserved for future usage.<br/>Please avoid using this field for user data. | core | keyword |  |
 | <a name="event.module"></a>event.module | Name of the module this data is coming from.<br/>This information is coming from the modules used in Beats or Logstash. | core | keyword | `mysql` |
 | <a name="event.dataset"></a>event.dataset | Name of the dataset.<br/>The concept of a `dataset` (fileset / metricset) is used in Beats as a subset of modules. It contains the information which is currently stored in metricset.name and metricset.module or fileset.name. | core | keyword | `stats` |
-| <a name="event.severity"></a>event.severity | Severity describes the severity of the event. What the different severity values mean can very different between use cases. It's up to the implementer to make sure severities are consistent across events. | core | long | `7` |
+| <a name="event.severity"></a>event.severity | Severity describes the original severity of the event. What the different severity values mean can very different between use cases. It's up to the implementer to make sure severities are consistent across events. | core | long | `7` |
 | <a name="event.original"></a>event.original | Raw text message of entire event. Used to demonstrate log integrity.<br/>This field is not indexed and doc_values are disabled. It cannot be searched, but it can be retrieved from `_source`. | core | (not indexed) | `Sep 19 08:26:10 host CEF:0&#124;Security&#124; threatmanager&#124;1.0&#124;100&#124; worm successfully stopped&#124;10&#124;src=10.0.0.1 dst=2.1.2.2spt=1232` |
 | <a name="event.hash"></a>event.hash | Hash (perhaps logstash fingerprint) of raw field to be able to demonstrate log integrity. | extended | keyword | `123456789012345678901234567890ABCD` |
 | <a name="event.duration"></a>event.duration | Duration of the event in nanoseconds.<br/>If event.start and event.end are known this value should be the difference between the end and start time. | core | long |  |
@@ -299,7 +299,7 @@ A host is defined as a general computing instance. ECS host.* fields should be p
 
 ## <a name="http"></a> HTTP fields
 
-Fields related to HTTP activity.
+Fields related to HTTP activity. Use the `url` field set to store the url of the request.
 
 
 | Field  | Description  | Level  | Type  | Example  |
@@ -323,7 +323,7 @@ Fields which are specific to log events.
 
 | Field  | Description  | Level  | Type  | Example  |
 |---|---|---|---|---|
-| <a name="log.level"></a>log.level | Log level of the log event.<br/>Some examples are `WARN`, `ERR`, `INFO`. | core | keyword | `ERR` |
+| <a name="log.level"></a>log.level | Original log level of the log event.<br/>Some examples are `warn`, `error`, `i`. | core | keyword | `err` |
 | <a name="log.original"></a>log.original | This is the original log message and contains the full log message before splitting it up in multiple parts.<br/>In contrast to the `message` field which can contain an extracted part of the log message, this field contains the original, full log message. It can have already some modifications applied like encoding or new lines removed to clean up the log message.<br/>This field is not indexed and doc_values are disabled so it can't be queried but the value can be retrieved from `_source`. | core | (not indexed) | `Sep 19 08:26:10 localhost My log` |
 
 
@@ -338,7 +338,7 @@ The network is defined as the communication path over which a host or network ev
 | <a name="network.type"></a>network.type | In the OSI Model this would be the Network Layer. ipv4, ipv6, ipsec, pim, etc<br/>The field value must be normalized to lowercase for querying. See "Lowercase Capitalization" in the "Implementing ECS" section. | core | keyword | `ipv4` |
 | <a name="network.iana_number"></a>network.iana_number | IANA Protocol Number (https://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml). Standardized list of protocols. This aligns well with NetFlow and sFlow related logs which use the IANA Protocol Number. | extended | keyword | `6` |
 | <a name="network.transport"></a>network.transport | Same as network.iana_number, but instead using the Keyword name of the transport layer (udp, tcp, ipv6-icmp, etc.)<br/>The field value must be normalized to lowercase for querying. See "Lowercase Capitalization" in the "Implementing ECS"  section. | core | keyword | `tcp` |
-| <a name="network.application"></a>network.application | A name given to an application. This can be arbitrarily assigned for things like microservices, but also apply to things like skype, icq, facebook, twitter. This would be used in situations where the vendor or service can be decoded such as from the source/dest IP owners, ports, or wire format.<br/>The field value must be normalized to lowercase for querying. See "Lowercase Capitalization" in the "Implementing ECS" section. | extended | keyword | `aim` |
+| <a name="network.application"></a>network.application | A name given to an application level protocol. This can be arbitrarily assigned for things like microservices, but also apply to things like skype, icq, facebook, twitter. This would be used in situations where the vendor or service can be decoded such as from the source/dest IP owners, ports, or wire format.<br/>The field value must be normalized to lowercase for querying. See "Lowercase Capitalization" in the "Implementing ECS" section. | extended | keyword | `aim` |
 | <a name="network.protocol"></a>network.protocol | L7 Network protocol name. ex. http, lumberjack, transport protocol.<br/>The field value must be normalized to lowercase for querying. See "Lowercase Capitalization" in the "Implementing ECS" section. | core | keyword | `http` |
 | <a name="network.direction"></a>network.direction | Direction of the network traffic.<br/>Recommended values are:<br/>  * inbound<br/>  * outbound<br/>  * internal<br/>  * external<br/>  * unknown<br/><br/>When mapping events from a host-based monitoring context, populate this field from the host's point of view.<br/>When mapping events from a network or perimeter-based monitoring context, populate this field from the point of view of your network perimeter. | core | keyword | `inbound` |
 | <a name="network.forwarded_ip"></a>network.forwarded_ip | Host IP address when the source IP address is the proxy. | core | ip | `192.1.1.2` |
@@ -349,7 +349,7 @@ The network is defined as the communication path over which a host or network ev
 
 ## <a name="observer"></a> Observer fields
 
-An observer is defined as a special network, security, or application device used to detect, observe, or create network, security, or application-related events and metrics. This could be a custom hardware appliance or a server that has been configured to run special network, security, or application software. Examples include firewalls, intrusion detection/prevention systems, network monitoring sensors, web application firewalls, data loss prevention systems, and APM servers. The observer.* fields shall be populated with details of the system, if any, that detects, observes and/or creates a network, security, or application event or metric. Message queues and ETL components used in processing events or metrics are not considered observers in ECS.  
+An observer is defined as a special network, security, or application device used to detect, observe, or create network, security, or application-related events and metrics. This could be a custom hardware appliance or a server that has been configured to run special network, security, or application software. Examples include firewalls, intrusion detection/prevention systems, network monitoring sensors, web application firewalls, data loss prevention systems, and APM servers. The observer.* fields shall be populated with details of the system, if any, that detects, observes and/or creates a network, security, or application event or metric. Message queues and ETL components used in processing events or metrics are not considered observers in ECS.
 
 
 | Field  | Description  | Level  | Type  | Example  |
@@ -403,7 +403,7 @@ These fields contain information about a process. These fields can help you corr
 | <a name="process.pid"></a>process.pid | Process id. | core | long |  |
 | <a name="process.name"></a>process.name | Process name.<br/>Sometimes called program name or similar. | extended | keyword | `ssh` |
 | <a name="process.ppid"></a>process.ppid | Process parent id. | extended | long |  |
-| <a name="process.args"></a>process.args | Process arguments.<br/>May be filtered to protect sensitive information. | extended | keyword | `['ssh', '-l', 'user', '10.0.0.16']` |
+| <a name="process.args"></a>process.args | Array of process arguments.<br/>May be filtered to protect sensitive information. | extended | keyword | `['ssh', '-l', 'user', '10.0.0.16']` |
 | <a name="process.executable"></a>process.executable | Absolute path to the process executable. | extended | keyword | `/usr/bin/ssh` |
 | <a name="process.title"></a>process.title | Process title.<br/>The proctitle, some times the same as process name. Can also be different: for example a browser setting its title to the web page currently opened. | extended | keyword |  |
 | <a name="process.thread.id"></a>process.thread.id | Thread ID. | extended | long | `4242` |

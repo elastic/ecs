@@ -44,11 +44,11 @@ type Network struct {
 	// "Lowercase Capitalization" in the "Implementing ECS"  section.
 	Transport string `ecs:"transport"`
 
-	// A name given to an application. This can be arbitrarily assigned for
-	// things like microservices, but also apply to things like skype, icq,
-	// facebook, twitter. This would be used in situations where the vendor or
-	// service can be decoded such as from the source/dest IP owners, ports, or
-	// wire format.
+	// A name given to an application level protocol. This can be arbitrarily
+	// assigned for things like microservices, but also apply to things like
+	// skype, icq, facebook, twitter. This would be used in situations where
+	// the vendor or service can be decoded such as from the source/dest IP
+	// owners, ports, or wire format.
 	// The field value must be normalized to lowercase for querying. See
 	// "Lowercase Capitalization" in the "Implementing ECS" section.
 	Application string `ecs:"application"`
