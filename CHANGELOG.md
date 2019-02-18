@@ -25,6 +25,7 @@ All notable changes to this project will be documented in this file based on the
 * Clarified the definition of the host fields #325
 * Specify the `object_type` for field `labels`. #331
 * Loosen up definition of `geo` field set. Not necessarily geo-ip based, since `geo.name`. #333
+* Clarified the difference between @timestamp and event.created. #329
 
 ### Deprecated
 
