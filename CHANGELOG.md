@@ -14,12 +14,18 @@ All notable changes to this project will be documented in this file based on the
 * Field set name "group" was being used as a leaf field at `user.group`, instead
  of being a nesting of the field set. This goes against a driving principle of ECS,
  and has been corrected. #308
+* Replaced incorrect `ec2` example in `cloud.provider` with `aws`. #330
 
 ### Added
+
+* Added pointer in description of `http` field set to `url` field set. #330
+* Added an optional short field description. #330
 
 ### Improvements
 * Clarified the definition of the host fields #325
 * Specify the `object_type` for field `labels`. #331
+
+* Clarified the definition of the host fields. #325
 
 ### Deprecated
 
