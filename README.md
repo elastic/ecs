@@ -247,7 +247,9 @@ A file is defined as a set of information that has been created on, or has exist
 
 ## <a name="geo"></a> Geo fields
 
-Geo fields can carry data about a specific location related to an event or geo information derived from an IP field.
+Geo fields can carry data about a specific location related to an event.
+
+This geolocation information can be derived from techniques such as Geo IP, or be user-supplied.
 
 
 The `geo` fields are expected to be nested at: `client.geo`, `destination.geo`, `host.geo`, `observer.geo`, `server.geo`, `source.geo`.
