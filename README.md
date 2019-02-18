@@ -90,7 +90,9 @@ The base set contains all fields which are on the top level. These fields are co
 
 ## <a name="agent"></a> Agent fields
 
-The agent fields contain the data about the software entity, if any, that collects, detects, or observes events on a host, or takes measurements on a host. Examples include Beats. Agents may also run on observers. ECS agent.* fields shall be populated with details of the agent running on the host or observer where the event happened or the measurement was taken.
+The agent fields contain the data about the software entity, if any, that collects, detects, or observes events on a host, or takes measurements on a host.
+
+Examples include Beats. Agents may also run on observers. ECS agent.* fields shall be populated with details of the agent running on the host or observer where the event happened or the measurement was taken.
 
 
 | Field  | Description  | Level  | Type  | Example  |
@@ -107,7 +109,9 @@ Examples: In the case of Beats for logs, the agent.name is filebeat. For APM, it
 
 ## <a name="client"></a> Client fields
 
-A client is defined as the initiator of a network connection for events regarding sessions, connections, or bidirectional flow records. For TCP events, the client is the initiator of the TCP connection that sends the SYN packet(s). For other protocols, the client is generally the initiator or requestor in the network transaction. Some systems use the term "originator" to refer the client in TCP connections. The client fields describe details about the system acting as the client in the network event. Client fields are usually populated in conjunction with server fields.  Client fields are generally not populated for packet-level events.
+A client is defined as the initiator of a network connection for events regarding sessions, connections, or bidirectional flow records.
+
+For TCP events, the client is the initiator of the TCP connection that sends the SYN packet(s). For other protocols, the client is generally the initiator or requestor in the network transaction. Some systems use the term "originator" to refer the client in TCP connections. The client fields describe details about the system acting as the client in the network event. Client fields are usually populated in conjunction with server fields.  Client fields are generally not populated for packet-level events.
 
 Client / server representations can add semantic context to an exchange, which is helpful to visualize the data in certain situations. If your context falls in that category, you should still ensure that source and destination are filled appropriately.
 
@@ -144,7 +148,9 @@ Examples: If Metricbeat is running on an EC2 host and fetches data from its host
 
 ## <a name="container"></a> Container fields
 
-Container fields are used for meta information about the specific container that is the source of information. These fields help correlate data based containers from any runtime.
+Container fields are used for meta information about the specific container that is the source of information.
+
+These fields help correlate data based containers from any runtime.
 
 
 | Field  | Description  | Level  | Type  | Example  |
@@ -159,7 +165,9 @@ Container fields are used for meta information about the specific container that
 
 ## <a name="destination"></a> Destination fields
 
-Destination fields describe details about the destination of a packet/event. Destination fields are usually populated in conjunction with source fields.
+Destination fields describe details about the destination of a packet/event.
+
+Destination fields are usually populated in conjunction with source fields.
 
 
 | Field  | Description  | Level  | Type  | Example  |
@@ -185,7 +193,9 @@ Meta-information specific to ECS.
 
 ## <a name="error"></a> Error fields
 
-These fields can represent errors of any kind. Use them for errors that happen while fetching events or in cases where the event itself contains an error.
+These fields can represent errors of any kind.
+
+Use them for errors that happen while fetching events or in cases where the event itself contains an error.
 
 
 | Field  | Description  | Level  | Type  | Example  |
@@ -197,7 +207,9 @@ These fields can represent errors of any kind. Use them for errors that happen w
 
 ## <a name="event"></a> Event fields
 
-The event fields are used for context information about the log or metric event itself. A log is defined as an event containing details of something that happened. Log events must include the time at which the thing happened. Examples of log events include a process starting on a host, a network packet being sent from a source to a destination, or a network connection between a client and a server being initiated or closed. A metric is defined as an event containing one or more numerical or categorical measurements and the time at which the measurement was taken. Examples of metric events include memory pressure measured on a host, or vulnerabilities measured on a scanned host.
+The event fields are used for context information about the log or metric event itself.
+
+A log is defined as an event containing details of something that happened. Log events must include the time at which the thing happened. Examples of log events include a process starting on a host, a network packet being sent from a source to a destination, or a network connection between a client and a server being initiated or closed. A metric is defined as an event containing one or more numerical or categorical measurements and the time at which the measurement was taken. Examples of metric events include memory pressure measured on a host, or vulnerabilities measured on a scanned host.
 
 
 | Field  | Description  | Level  | Type  | Example  |
@@ -224,7 +236,9 @@ The event fields are used for context information about the log or metric event 
 
 ## <a name="file"></a> File fields
 
-A file is defined as a set of information that has been created on, or has existed on a filesystem. File objects can be associated with host events, network events, and/or file events (e.g., those produced by File Integrity Monitoring [FIM] products or services). File fields provide details about the affected file associated with the event or metric.
+A file is defined as a set of information that has been created on, or has existed on a filesystem.
+
+File objects can be associated with host events, network events, and/or file events (e.g., those produced by File Integrity Monitoring [FIM] products or services). File fields provide details about the affected file associated with the event or metric.
 
 
 | Field  | Description  | Level  | Type  | Example  |
@@ -283,7 +297,9 @@ Note also that the `group` fields may be used directly at the top level.
 
 ## <a name="host"></a> Host fields
 
-A host is defined as a general computing instance. ECS host.* fields should be populated with details about the host on which the event happened, or from which the measurement was taken. Host types include hardware, virtual machines, Docker containers, and Kubernetes nodes.
+A host is defined as a general computing instance.
+
+ECS host.* fields should be populated with details about the host on which the event happened, or from which the measurement was taken. Host types include hardware, virtual machines, Docker containers, and Kubernetes nodes.
 
 
 | Field  | Description  | Level  | Type  | Example  |
@@ -329,7 +345,9 @@ Fields which are specific to log events.
 
 ## <a name="network"></a> Network fields
 
-The network is defined as the communication path over which a host or network event happens. The network.* fields should be populated with details about the network activity associated with an event.
+The network is defined as the communication path over which a host or network event happens.
+
+The network.* fields should be populated with details about the network activity associated with an event.
 
 
 | Field  | Description  | Level  | Type  | Example  |
@@ -349,7 +367,9 @@ The network is defined as the communication path over which a host or network ev
 
 ## <a name="observer"></a> Observer fields
 
-An observer is defined as a special network, security, or application device used to detect, observe, or create network, security, or application-related events and metrics. This could be a custom hardware appliance or a server that has been configured to run special network, security, or application software. Examples include firewalls, intrusion detection/prevention systems, network monitoring sensors, web application firewalls, data loss prevention systems, and APM servers. The observer.* fields shall be populated with details of the system, if any, that detects, observes and/or creates a network, security, or application event or metric. Message queues and ETL components used in processing events or metrics are not considered observers in ECS.
+An observer is defined as a special network, security, or application device used to detect, observe, or create network, security, or application-related events and metrics.
+
+This could be a custom hardware appliance or a server that has been configured to run special network, security, or application software. Examples include firewalls, intrusion detection/prevention systems, network monitoring sensors, web application firewalls, data loss prevention systems, and APM servers. The observer.* fields shall be populated with details of the system, if any, that detects, observes and/or creates a network, security, or application event or metric. Message queues and ETL components used in processing events or metrics are not considered observers in ECS.
 
 
 | Field  | Description  | Level  | Type  | Example  |
@@ -365,7 +385,9 @@ An observer is defined as a special network, security, or application device use
 
 ## <a name="organization"></a> Organization fields
 
-The organization fields enrich data with information about the company or entity the data is associated with. These fields help you arrange or filter data stored in an index by one or multiple organizations.
+The organization fields enrich data with information about the company or entity the data is associated with.
+
+These fields help you arrange or filter data stored in an index by one or multiple organizations.
 
 
 | Field  | Description  | Level  | Type  | Example  |
@@ -395,7 +417,9 @@ Note also that the `os` fields are not expected to be used directly at the top l
 
 ## <a name="process"></a> Process fields
 
-These fields contain information about a process. These fields can help you correlate metrics information with a process id/name from a log message.  The `process.pid` often stays in the metric itself and is copied to the global field for correlation.
+These fields contain information about a process.
+
+These fields can help you correlate metrics information with a process id/name from a log message.  The `process.pid` often stays in the metric itself and is copied to the global field for correlation.
 
 
 | Field  | Description  | Level  | Type  | Example  |
@@ -413,7 +437,11 @@ These fields contain information about a process. These fields can help you corr
 
 ## <a name="related"></a> Related fields
 
-This field set is meant to facilitate pivoting around a piece of data. Some pieces of information can be seen in many places in ECS. To facilitate searching for them, append values to their corresponding field in `related.`. A concrete example is IP addresses, which can be under host, observer, source, destination, client, server, and network.forwarded_ip. If you append all IPs to `related.ip`, you can then search for a given IP trivially, no matter where it appeared, by querying `related.ip:a.b.c.d`.
+This field set is meant to facilitate pivoting around a piece of data.
+
+Some pieces of information can be seen in many places in ECS. To facilitate searching for them, append values to their corresponding field in `related.`.
+
+A concrete example is IP addresses, which can be under host, observer, source, destination, client, server, and network.forwarded_ip. If you append all IPs to `related.ip`, you can then search for a given IP trivially, no matter where it appeared, by querying `related.ip:a.b.c.d`.
 
 
 | Field  | Description  | Level  | Type  | Example  |
@@ -423,7 +451,9 @@ This field set is meant to facilitate pivoting around a piece of data. Some piec
 
 ## <a name="server"></a> Server fields
 
-A Server is defined as the responder in a network connection for events regarding sessions, connections, or bidirectional flow records. For TCP events, the server is the receiver of the initial SYN packet(s) of the TCP connection. For other protocols, the server is generally the responder in the network transaction. Some systems actually use the term "responder" to refer the server in TCP connections. The server fields describe details about the system acting as the server in the network event. Server fields are usually populated in conjunction with client fields. Server fields are generally not populated for packet-level events.
+A Server is defined as the responder in a network connection for events regarding sessions, connections, or bidirectional flow records.
+
+For TCP events, the server is the receiver of the initial SYN packet(s) of the TCP connection. For other protocols, the server is generally the responder in the network transaction. Some systems actually use the term "responder" to refer the server in TCP connections. The server fields describe details about the system acting as the server in the network event. Server fields are usually populated in conjunction with client fields. Server fields are generally not populated for packet-level events.
 
 Client / server representations can add semantic context to an exchange, which is helpful to visualize the data in certain situations. If your context falls in that category, you should still ensure that source and destination are filled appropriately.
 
@@ -441,7 +471,9 @@ Client / server representations can add semantic context to an exchange, which i
 
 ## <a name="service"></a> Service fields
 
-The service fields describe the service for or from which the data was collected. These fields help you find and correlate logs for a specific service and version.
+The service fields describe the service for or from which the data was collected.
+
+These fields help you find and correlate logs for a specific service and version.
 
 
 | Field  | Description  | Level  | Type  | Example  |
@@ -456,7 +488,9 @@ The service fields describe the service for or from which the data was collected
 
 ## <a name="source"></a> Source fields
 
-Source fields describe details about the source of a packet/event. Source fields are usually populated in conjunction with destination fields.
+Source fields describe details about the source of a packet/event.
+
+Source fields are usually populated in conjunction with destination fields.
 
 
 | Field  | Description  | Level  | Type  | Example  |
@@ -491,7 +525,9 @@ URL fields provide a complete URL, with scheme, host, and path.
 
 ## <a name="user"></a> User fields
 
-The user fields describe information about the user that is relevant to  the event. Fields can have one entry or multiple entries. If a user has more than one id, provide an array that includes all of them.
+The user fields describe information about the user that is relevant to  the event.
+
+Fields can have one entry or multiple entries. If a user has more than one id, provide an array that includes all of them.
 
 
 The `user` fields are expected to be nested at: `client.user`, `destination.user`, `host.user`, `server.user`, `source.user`.
@@ -509,7 +545,9 @@ Note also that the `user` fields may be used directly at the top level.
 
 ## <a name="user_agent"></a> User agent fields
 
-The user_agent fields normally come from a browser request. They often show up in web service logs coming from the parsed user agent string.
+The user_agent fields normally come from a browser request.
+
+They often show up in web service logs coming from the parsed user agent string.
 
 
 | Field  | Description  | Level  | Type  | Example  |

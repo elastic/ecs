@@ -20,8 +20,9 @@
 package ecs
 
 // The network is defined as the communication path over which a host or
-// network event happens. The network.* fields should be populated with details
-// about the network activity associated with an event.
+// network event happens.
+// The network.* fields should be populated with details about the network
+// activity associated with an event.
 type Network struct {
 	// Name given by operators to sections of their network.
 	Name string `ecs:"name"`

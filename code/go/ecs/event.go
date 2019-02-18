@@ -24,15 +24,15 @@ import (
 )
 
 // The event fields are used for context information about the log or metric
-// event itself. A log is defined as an event containing details of something
-// that happened. Log events must include the time at which the thing happened.
-// Examples of log events include a process starting on a host, a network
-// packet being sent from a source to a destination, or a network connection
-// between a client and a server being initiated or closed. A metric is defined
-// as an event containing one or more numerical or categorical measurements and
-// the time at which the measurement was taken. Examples of metric events
-// include memory pressure measured on a host, or vulnerabilities measured on a
-// scanned host.
+// event itself.
+// A log is defined as an event containing details of something that happened.
+// Log events must include the time at which the thing happened. Examples of
+// log events include a process starting on a host, a network packet being sent
+// from a source to a destination, or a network connection between a client and
+// a server being initiated or closed. A metric is defined as an event
+// containing one or more numerical or categorical measurements and the time at
+// which the measurement was taken. Examples of metric events include memory
+// pressure measured on a host, or vulnerabilities measured on a scanned host.
 type Event struct {
 	// Unique ID to describe the event.
 	ID string `ecs:"id"`

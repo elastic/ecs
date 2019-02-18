@@ -1,6 +1,6 @@
 {
   "agent": {
-    "description": "The agent fields contain the data about the software entity, if any, that collects, detects, or observes events on a host, or takes measurements on a host. Examples include Beats. Agents may also run on observers. ECS agent.* fields shall be populated with details of the agent running on the host or observer where the event happened or the measurement was taken.\n", 
+    "description": "The agent fields contain the data about the software entity, if any, that collects, detects, or observes events on a host, or takes measurements on a host.\nExamples include Beats. Agents may also run on observers. ECS agent.* fields shall be populated with details of the agent running on the host or observer where the event happened or the measurement was taken.\n", 
     "fields": {
       "agent.ephemeral_id": {
         "description": "Ephemeral identifier of this agent (if one exists).\nThis id normally changes across restarts, but `agent.id` does not.", 
@@ -108,7 +108,7 @@
     "type": "group"
   }, 
   "client": {
-    "description": "A client is defined as the initiator of a network connection for events regarding sessions, connections, or bidirectional flow records. For TCP events, the client is the initiator of the TCP connection that sends the SYN packet(s). For other protocols, the client is generally the initiator or requestor in the network transaction. Some systems use the term \"originator\" to refer the client in TCP connections. The client fields describe details about the system acting as the client in the network event. Client fields are usually populated in conjunction with server fields.  Client fields are generally not populated for packet-level events.\nClient / server representations can add semantic context to an exchange, which is helpful to visualize the data in certain situations. If your context falls in that category, you should still ensure that source and destination are filled appropriately.\n", 
+    "description": "A client is defined as the initiator of a network connection for events regarding sessions, connections, or bidirectional flow records.\nFor TCP events, the client is the initiator of the TCP connection that sends the SYN packet(s). For other protocols, the client is generally the initiator or requestor in the network transaction. Some systems use the term \"originator\" to refer the client in TCP connections. The client fields describe details about the system acting as the client in the network event. Client fields are usually populated in conjunction with server fields.  Client fields are generally not populated for packet-level events.\nClient / server representations can add semantic context to an exchange, which is helpful to visualize the data in certain situations. If your context falls in that category, you should still ensure that source and destination are filled appropriately.\n", 
     "fields": {
       "client.address": {
         "description": "Some event client addresses are defined ambiguously. The event will sometimes list an IP, a domain or a unix socket.  You should always store the raw address in the `.address` field.\nThen it should be duplicated to `.ip` or `.domain`, depending on which one it is.", 
@@ -266,7 +266,7 @@
     "type": "group"
   }, 
   "container": {
-    "description": "Container fields are used for meta information about the specific container that is the source of information. These fields help correlate data based containers from any runtime.\n", 
+    "description": "Container fields are used for meta information about the specific container that is the source of information.\nThese fields help correlate data based containers from any runtime.\n", 
     "fields": {
       "container.id": {
         "description": "Unique container id.", 
@@ -335,7 +335,7 @@
     "type": "group"
   }, 
   "destination": {
-    "description": "Destination fields describe details about the destination of a packet/event. Destination fields are usually populated in conjunction with source fields.\n", 
+    "description": "Destination fields describe details about the destination of a packet/event.\nDestination fields are usually populated in conjunction with source fields.\n", 
     "fields": {
       "destination.address": {
         "description": "Some event destination addresses are defined ambiguously. The event will sometimes list an IP, a domain or a unix socket.  You should always store the raw address in the `.address` field.\nThen it should be duplicated to `.ip` or `.domain`, depending on which one it is.", 
@@ -433,7 +433,7 @@
     "type": "group"
   }, 
   "error": {
-    "description": "These fields can represent errors of any kind. Use them for errors that happen while fetching events or in cases where the event itself contains an error.\n", 
+    "description": "These fields can represent errors of any kind.\nUse them for errors that happen while fetching events or in cases where the event itself contains an error.\n", 
     "fields": {
       "error.code": {
         "description": "Error code describing the error.", 
@@ -472,7 +472,7 @@
     "type": "group"
   }, 
   "event": {
-    "description": "The event fields are used for context information about the log or metric event itself. A log is defined as an event containing details of something that happened. Log events must include the time at which the thing happened. Examples of log events include a process starting on a host, a network packet being sent from a source to a destination, or a network connection between a client and a server being initiated or closed. A metric is defined as an event containing one or more numerical or categorical measurements and the time at which the measurement was taken. Examples of metric events include memory pressure measured on a host, or vulnerabilities measured on a scanned host.\n", 
+    "description": "The event fields are used for context information about the log or metric event itself.\nA log is defined as an event containing details of something that happened. Log events must include the time at which the thing happened. Examples of log events include a process starting on a host, a network packet being sent from a source to a destination, or a network connection between a client and a server being initiated or closed. A metric is defined as an event containing one or more numerical or categorical measurements and the time at which the measurement was taken. Examples of metric events include memory pressure measured on a host, or vulnerabilities measured on a scanned host.\n", 
     "fields": {
       "event.action": {
         "description": "The action captured by the event.\nThis describes the information in the event. It is more specific than `event.category`. Examples are `group-add`, `process-started`, `file-created`. The value is normally defined by the implementer.", 
@@ -661,7 +661,7 @@
     "type": "group"
   }, 
   "file": {
-    "description": "A file is defined as a set of information that has been created on, or has existed on a filesystem. File objects can be associated with host events, network events, and/or file events (e.g., those produced by File Integrity Monitoring [FIM] products or services). File fields provide details about the affected file associated with the event or metric.\n", 
+    "description": "A file is defined as a set of information that has been created on, or has existed on a filesystem.\nFile objects can be associated with host events, network events, and/or file events (e.g., those produced by File Integrity Monitoring [FIM] products or services). File fields provide details about the affected file associated with the event or metric.\n", 
     "fields": {
       "file.ctime": {
         "description": "Last time file metadata changed.", 
@@ -928,7 +928,7 @@
     "type": "group"
   }, 
   "host": {
-    "description": "A host is defined as a general computing instance. ECS host.* fields should be populated with details about the host on which the event happened, or from which the measurement was taken. Host types include hardware, virtual machines, Docker containers, and Kubernetes nodes.\n", 
+    "description": "A host is defined as a general computing instance.\nECS host.* fields should be populated with details about the host on which the event happened, or from which the measurement was taken. Host types include hardware, virtual machines, Docker containers, and Kubernetes nodes.\n", 
     "fields": {
       "host.architecture": {
         "description": "Operating system architecture.", 
@@ -1145,7 +1145,7 @@
     "type": "group"
   }, 
   "network": {
-    "description": "The network is defined as the communication path over which a host or network event happens. The network.* fields should be populated with details about the network activity associated with an event.\n", 
+    "description": "The network is defined as the communication path over which a host or network event happens.\nThe network.* fields should be populated with details about the network activity associated with an event.\n", 
     "fields": {
       "network.application": {
         "description": "A name given to an application level protocol. This can be arbitrarily assigned for things like microservices, but also apply to things like skype, icq, facebook, twitter. This would be used in situations where the vendor or service can be decoded such as from the source/dest IP owners, ports, or wire format.\nThe field value must be normalized to lowercase for querying. See \"Lowercase Capitalization\" in the \"Implementing ECS\" section.", 
@@ -1264,7 +1264,7 @@
     "type": "group"
   }, 
   "observer": {
-    "description": "An observer is defined as a special network, security, or application device used to detect, observe, or create network, security, or application-related events and metrics. This could be a custom hardware appliance or a server that has been configured to run special network, security, or application software. Examples include firewalls, intrusion detection/prevention systems, network monitoring sensors, web application firewalls, data loss prevention systems, and APM servers. The observer.* fields shall be populated with details of the system, if any, that detects, observes and/or creates a network, security, or application event or metric. Message queues and ETL components used in processing events or metrics are not considered observers in ECS.\n", 
+    "description": "An observer is defined as a special network, security, or application device used to detect, observe, or create network, security, or application-related events and metrics.\nThis could be a custom hardware appliance or a server that has been configured to run special network, security, or application software. Examples include firewalls, intrusion detection/prevention systems, network monitoring sensors, web application firewalls, data loss prevention systems, and APM servers. The observer.* fields shall be populated with details of the system, if any, that detects, observes and/or creates a network, security, or application event or metric. Message queues and ETL components used in processing events or metrics are not considered observers in ECS.\n", 
     "fields": {
       "observer.hostname": {
         "description": "Hostname of the observer.", 
@@ -1343,7 +1343,7 @@
     "type": "group"
   }, 
   "organization": {
-    "description": "The organization fields enrich data with information about the company or entity the data is associated with. These fields help you arrange or filter data stored in an index by one or multiple organizations.\n", 
+    "description": "The organization fields enrich data with information about the company or entity the data is associated with.\nThese fields help you arrange or filter data stored in an index by one or multiple organizations.\n", 
     "fields": {
       "organization.id": {
         "description": "Unique identifier for the organization.", 
@@ -1441,7 +1441,7 @@
     "type": "group"
   }, 
   "process": {
-    "description": "These fields contain information about a process. These fields can help you correlate metrics information with a process id/name from a log message.  The `process.pid` often stays in the metric itself and is copied to the global field for correlation.\n", 
+    "description": "These fields contain information about a process.\nThese fields can help you correlate metrics information with a process id/name from a log message.  The `process.pid` often stays in the metric itself and is copied to the global field for correlation.\n", 
     "fields": {
       "process.args": {
         "description": "Array of process arguments.\nMay be filtered to protect sensitive information.", 
@@ -1540,7 +1540,7 @@
     "type": "group"
   }, 
   "related": {
-    "description": "This field set is meant to facilitate pivoting around a piece of data. Some pieces of information can be seen in many places in ECS. To facilitate searching for them, append values to their corresponding field in `related.`. A concrete example is IP addresses, which can be under host, observer, source, destination, client, server, and network.forwarded_ip. If you append all IPs to `related.ip`, you can then search for a given IP trivially, no matter where it appeared, by querying `related.ip:a.b.c.d`.\n", 
+    "description": "This field set is meant to facilitate pivoting around a piece of data.\nSome pieces of information can be seen in many places in ECS. To facilitate searching for them, append values to their corresponding field in `related.`.\nA concrete example is IP addresses, which can be under host, observer, source, destination, client, server, and network.forwarded_ip. If you append all IPs to `related.ip`, you can then search for a given IP trivially, no matter where it appeared, by querying `related.ip:a.b.c.d`.\n", 
     "fields": {
       "related.ip": {
         "description": "All of the IPs seen on your event.", 
@@ -1559,7 +1559,7 @@
     "type": "group"
   }, 
   "server": {
-    "description": "A Server is defined as the responder in a network connection for events regarding sessions, connections, or bidirectional flow records. For TCP events, the server is the receiver of the initial SYN packet(s) of the TCP connection. For other protocols, the server is generally the responder in the network transaction. Some systems actually use the term \"responder\" to refer the server in TCP connections. The server fields describe details about the system acting as the server in the network event. Server fields are usually populated in conjunction with client fields. Server fields are generally not populated for packet-level events.\nClient / server representations can add semantic context to an exchange, which is helpful to visualize the data in certain situations. If your context falls in that category, you should still ensure that source and destination are filled appropriately.\n", 
+    "description": "A Server is defined as the responder in a network connection for events regarding sessions, connections, or bidirectional flow records.\nFor TCP events, the server is the receiver of the initial SYN packet(s) of the TCP connection. For other protocols, the server is generally the responder in the network transaction. Some systems actually use the term \"responder\" to refer the server in TCP connections. The server fields describe details about the system acting as the server in the network event. Server fields are usually populated in conjunction with client fields. Server fields are generally not populated for packet-level events.\nClient / server representations can add semantic context to an exchange, which is helpful to visualize the data in certain situations. If your context falls in that category, you should still ensure that source and destination are filled appropriately.\n", 
     "fields": {
       "server.address": {
         "description": "Some event server addresses are defined ambiguously. The event will sometimes list an IP, a domain or a unix socket.  You should always store the raw address in the `.address` field.\nThen it should be duplicated to `.ip` or `.domain`, depending on which one it is.", 
@@ -1638,7 +1638,7 @@
     "type": "group"
   }, 
   "service": {
-    "description": "The service fields describe the service for or from which the data was collected. These fields help you find and correlate logs for a specific service and version.\n", 
+    "description": "The service fields describe the service for or from which the data was collected.\nThese fields help you find and correlate logs for a specific service and version.\n", 
     "fields": {
       "service.ephemeral_id": {
         "description": "Ephemeral identifier of this service (if one exists).\nThis id normally changes across restarts, but `service.id` does not.", 
@@ -1707,7 +1707,7 @@
     "type": "group"
   }, 
   "source": {
-    "description": "Source fields describe details about the source of a packet/event. Source fields are usually populated in conjunction with destination fields.\n", 
+    "description": "Source fields describe details about the source of a packet/event.\nSource fields are usually populated in conjunction with destination fields.\n", 
     "fields": {
       "source.address": {
         "description": "Some event source addresses are defined ambiguously. The event will sometimes list an IP, a domain or a unix socket.  You should always store the raw address in the `.address` field.\nThen it should be duplicated to `.ip` or `.domain`, depending on which one it is.", 
@@ -1895,7 +1895,7 @@
     "type": "group"
   }, 
   "user": {
-    "description": "The user fields describe information about the user that is relevant to  the event. Fields can have one entry or multiple entries. If a user has more than one id, provide an array that includes all of them.\n", 
+    "description": "The user fields describe information about the user that is relevant to  the event.\nFields can have one entry or multiple entries. If a user has more than one id, provide an array that includes all of them.\n", 
     "fields": {
       "user.email": {
         "description": "User email address.", 
@@ -1954,7 +1954,7 @@
     "type": "group"
   }, 
   "user_agent": {
-    "description": "The user_agent fields normally come from a browser request. They often show up in web service logs coming from the parsed user agent string.\n", 
+    "description": "The user_agent fields normally come from a browser request.\nThey often show up in web service logs coming from the parsed user agent string.\n", 
     "fields": {
       "user_agent.device.name": {
         "description": "Name of the device.", 
