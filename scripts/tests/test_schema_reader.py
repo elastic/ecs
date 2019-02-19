@@ -83,5 +83,25 @@ class TestSchemaReader(unittest.TestCase):
         }
         self.assertEqual(field, expected)
 
+    def test_field_set_multi_field_defaults_missing_name(self):
+        field = {
+                'name': 'myfield',
+                'flat_name': 'myfieldset.myfield',
+                'multi_fields':[
+                    {'type':'text'}
+                ]
+        }
+        schema_reader.field_set_multi_field_defaults(field)
+        expected = {
+                'name': 'myfield',
+                'flat_name': 'myfieldset.myfield',
+                'multi_fields':[{
+                    'name':'text',
+                    'type':'text',
+                    'flat_name':'myfieldset.myfield.text',
+                }]
+        }
+        self.assertEqual(field, expected)
+
 if __name__ == '__main__':
     unittest.main()

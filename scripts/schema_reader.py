@@ -74,22 +74,25 @@ def field_set_flat_name(field, prefix):
     field['flat_name'] = prefix + field['name']
 
 def field_set_defaults(field):
+    if 'index' in field and field['index'] == False:
+        field.delete('type')
     if 'short' not in field:
         field['short'] = field['description']
-    # if 'multi_fields' in field:
-    #     field_set_multi_field_defaults(field)
+    if 'multi_fields' in field:
+        field_set_multi_field_defaults(field)
 
-# def field_set_multi_field_defaults(field):
-#     if 'short' not in field:
-#         field['short'] = field['description']
+def field_set_multi_field_defaults(parent_field):
+    """Sets defaults for each nested field in the multi_fields array"""
+    for mf in parent_field['multi_fields']:
+        if 'name' not in mf:
+            mf['name'] = mf['type']
+        mf['flat_name'] = parent_field['flat_name'] + '.' + mf['name']
 
-# def multi_fields_inherit_from_parent():
-    # if "multi_fields" in schema:
-    #     multi_field_inherit_defaults(schema['multi_fields'], schema)
-
-# def multi_field_inherit_defaults(multi_fields, parent_schema)
-#     if 'description' not in multi_fields:
-#         multi_fields['description'] = parent_schema['description']
+        # Not sure if we'll need:
+        # if 'description' not in multi_fields:
+        #     multi_fields['description'] = field['description']
+        # if 'example' not in multi_fields:
+        #     multi_fields['example'] = field['example']
 
 def finalize_schemas(schemas):
     for schema_name in schemas:
