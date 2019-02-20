@@ -1,4 +1,4 @@
-# Fields supported in schemas/*.yml
+# Fields supported in schemas/\*.yml
 
 YAML with a twist: Flattened field names equivalent to nested. E.g. `foo.bar: value` and `foo:\n  bar: value`.
 
