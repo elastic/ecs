@@ -46,6 +46,11 @@ def dict_clean_string_values(dict):
             dict[key] = value.strip()
             # TODO: Remove trailing \n?
 
+def dict_set_default(dict, key, default):
+    if key not in dict:
+        dict[key] = default
+
+
 # Finalize in memory representation of ECS field definitions (e.g. defaults, cleanup)
 
 # Schema level (data about the field sets)
@@ -60,8 +65,7 @@ def schema_cleanup_values(schema):
 
 def schema_set_default_values(schema):
     schema['type'] = 'group'
-    if 'group' not in schema:
-        schema['group'] = 2
+    dict_set_default(schema, 'group', 2)
 
 
 def schema_set_fieldset_prefix(schema):
@@ -92,10 +96,9 @@ def field_set_flat_name(field, prefix):
 
 
 def field_set_defaults(field):
+    dict_set_default(field, 'short', field['description'])
     if 'index' in field and field['index'] == False:
         field.pop('key', None)
-    if 'short' not in field:
-        field['short'] = field['description']
     if 'multi_fields' in field:
         field_set_multi_field_defaults(field)
 
@@ -103,8 +106,7 @@ def field_set_defaults(field):
 def field_set_multi_field_defaults(parent_field):
     """Sets defaults for each nested field in the multi_fields array"""
     for mf in parent_field['multi_fields']:
-        if 'name' not in mf:
-            mf['name'] = mf['type']
+        dict_set_default(mf, 'name', mf['type'])
         mf['flat_name'] = parent_field['flat_name'] + '.' + mf['name']
 
 
