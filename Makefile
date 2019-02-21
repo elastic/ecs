@@ -75,7 +75,7 @@ generate: csv readme template fields codegen generator
 # Run the new generator
 .PHONY: generator
 generator:
-	$(PYTHON) scripts/schema_reader.py
+	$(PYTHON) scripts/generator.py
 
 # Generate Go code from the schema.
 .PHONY: gocodegen

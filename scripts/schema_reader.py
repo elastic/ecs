@@ -146,12 +146,3 @@ def load_ecs():
     fields_flat = {}
     finalize_schemas(fields_nested, fields_flat)
     return (fields_nested, fields_flat)
-
-
-if __name__ == '__main__':
-    (ecs_nested, ecs_fields) = load_ecs()
-
-    with open('generated/ecs/fields_flat.yml', 'w') as outfile:
-        yaml.dump(ecs_fields, outfile, default_flow_style=False)
-    with open('generated/ecs/fields_nested.yml', 'w') as outfile:
-        yaml.dump(ecs_nested, outfile, default_flow_style=False)
