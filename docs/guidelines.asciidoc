@@ -8,11 +8,10 @@ practices.
 === General guidelines
 
 * The document MUST have the `@timestamp` field.
-* Use the https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-types.html[data type]
+* Use the {ref}/mapping-types.html[data types]
   defined for an ECS field.
 * Use the `ecs.version` field to define which version of ECS is used.
 * Map as many fields as possible to ECS.
-* TBD: Include guidelines on when people should contribute to the spec. Link to Contributing.
 
 [float]
 ==== Guidelines for writing fields
@@ -28,6 +27,15 @@ practices.
 * *Singular or plural.* Use singular and plural names properly to reflect the field content. For example, use `requests_per_sec` rather than `request_per_sec`.
 * *General to specific.* Organise the prefixes from general to specific to allow grouping fields into objects with a prefix like `host.*`.
 * *Avoid repetition.* Avoid stuttering of words. If part of the field name is already in the prefix, do not repeat it. Example: `host.host_ip` should be `host.ip`.
-* *Use prefixes.* Fields must be prefixed except for the base fields. For example all `host` fields are prefixed with `host.`. See `dot` notation in FAQ for more details.
+* *Use prefixes.* Fields must be prefixed except for the base fields. For example, all `host` fields are prefixed with `host.`. 
+See <<dot-notation>> for more details.
++
+The document structure should be nested JSON objects. If you use Beats or
+Logstash, the nesting of JSON objects is done for you automatically. If you're
+ingesting to Elasticsearch using the API, your fields must be nested
+objects, not strings containing dots.
+
 * *Avoid abbreviations when possible*. A few exceptions like `ip` exist.
+
+
 

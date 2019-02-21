@@ -1,22 +1,65 @@
 [[ecs-base]]
 === Base fields
 
-The base set contains all fields which are on the top level. These fields are common across all types of events.
+The `base` set contains top level fields that are common across all types of events
+(such as `@timestamp`, `tags`, `message`, and `labels`).
 
-[cols="<,<,<,<,<",options="header",]
-|=======================================================================
-| Field  | Description  | Level  | Type  | Example 
-| [[@timestamp]] | Date/time when the event originated. 
+
+[options="header"]
+|=====
+| Field  | Description  | Level 
+
+// ===============================================================
+
+| [[@timestamp]] 
+| Date/time when the event originated. 
 For log events this is the date/time when the event was generated, and not when it was read.
-Required field for all events. | core | date | `2016-05-23T08:05:34.853Z` 
-| tags | List of keywords used to tag each event. | core | keyword | `["production", "env2"]` 
-| labels | Key/value pairs.
+Required field for all events. 
+
+type: date
+
+Example: `2016-05-23T08:05:34.853Z` 
+
+| core 
+
+// ===============================================================
+
+| tags 
+| List of keywords used to tag each event.
+
+type: keyword
+
+Example:`["production", "env2"]` 
+
+| core  
+
+// ===============================================================
+
+| labels 
+| Key/value pairs.
 Can be used to add meta information to events. Should not contain nested objects. 
 All values are stored as keyword.
-Example: `docker` and `k8s` labels. | core | object | `{'application': 'foo-bar', 'env': 'production'}` 
-| message | For log events the message field contains the log message.
-In other use cases the message field can be used to concatenate different values which are then freely searchable. If multiple messages exist, they can be combined into one message. | core | text | `Hello World` 
-|=======================================================================
+
+type: object
+
+Examples: `docker` and `k8s` labels. Examples: `{'application': 'foo-bar', 'env': 'production'}` 
+
+| core 
+
+// ===============================================================
+
+| message 
+| For log events the message field contains the log message.
+In other use cases the message field can be used to concatenate different values
+which are then freely searchable. If multiple messages exist, they can be
+combined into one message. 
+
+type: text
+
+Example: `Hello World` 
+
+| core 
+|=====
 
 
 [[ecs-agent]]
