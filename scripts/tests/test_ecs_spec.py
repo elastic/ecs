@@ -1,11 +1,5 @@
-import schema_reader
-import sys
-import os
-
 import unittest
-
-current_dir = os.path.dirname(__file__)
-sys.path.append(os.path.join(current_dir, '..'))
+from scripts import schema_reader
 
 
 class TestEcsSpec(unittest.TestCase):

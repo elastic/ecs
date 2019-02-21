@@ -1,8 +1,6 @@
 import glob
 import yaml
 
-import pprint
-
 # File loading stuff
 
 
@@ -153,7 +151,6 @@ def load_ecs():
 if __name__ == '__main__':
     (ecs_nested, ecs_fields) = load_ecs()
 
-    print sorted(ecs_fields.keys())
     with open('generated/ecs/fields_flat.yml', 'w') as outfile:
         yaml.dump(ecs_fields, outfile, default_flow_style=False)
     with open('generated/ecs/fields_nested.yml', 'w') as outfile:

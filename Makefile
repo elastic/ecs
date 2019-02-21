@@ -70,7 +70,12 @@ fmt: ve
 
 # Alias to generate everything.
 .PHONY: generate
-generate: csv readme template fields codegen
+generate: csv readme template fields codegen generator
+
+# Run the new generator
+.PHONY: generator
+generator:
+	$(PYTHON) scripts/schema_reader.py
 
 # Generate Go code from the schema.
 .PHONY: gocodegen
@@ -118,6 +123,11 @@ template:
 	        -version=$(VERSION) \
 	        -schema=../schemas \
 	        > ../template.json
+
+# Run the ECS tests
+.PHONY: unit
+unit:
+	$(PYTHON) -m unittest discover --start-directory scripts/tests
 
 # Create a virtualenv to run Python.
 .PHONY: ve
