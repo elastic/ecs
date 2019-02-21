@@ -1,3 +1,4 @@
+import schema_reader
 import sys
 import os
 
@@ -6,43 +7,41 @@ import unittest
 current_dir = os.path.dirname(__file__)
 sys.path.append(os.path.join(current_dir, '..'))
 
-import schema_reader
 
 class TestSchemaReader(unittest.TestCase):
 
-    ## File loading stuff
+    # File loading stuff
 
-    ## Validation
+    # Validation
 
-    ## Generic helpers
+    # Generic helpers
 
     def test_clean_string_values(self):
         dict = {'dirty': ' space, the final frontier  ', 'clean': 'val', 'int': 1}
         schema_reader.dict_clean_string_values(dict)
-        self.assertEqual(dict, {'dirty': 'space, the final frontier', 'clean': 'val', 'int':1})
+        self.assertEqual(dict, {'dirty': 'space, the final frontier', 'clean': 'val', 'int': 1})
 
-    ## In memory representation
+    # In memory representation
 
-    ### schemas
+    # schemas
 
     def test_schema_set_fieldset_prefix_at_root(self):
-        schema = {'root':True, 'name':'myfieldset'}
+        schema = {'root': True, 'name': 'myfieldset'}
         schema_reader.schema_set_fieldset_prefix(schema)
         self.assertEqual(schema,
-                {'prefix':'', 'root':True, 'name':'myfieldset'})
+                         {'prefix': '', 'root': True, 'name': 'myfieldset'})
 
     def test_schema_set_fieldset_prefix_root_unspecified(self):
-        schema = {'name':'myfieldset'}
+        schema = {'name': 'myfieldset'}
         schema_reader.schema_set_fieldset_prefix(schema)
         self.assertEqual(schema,
-                {'prefix':'myfieldset.', 'name':'myfieldset'})
+                         {'prefix': 'myfieldset.', 'name': 'myfieldset'})
 
     def test_schema_set_fieldset_prefix_not_at_root(self):
-        schema = {'root':False,'name':'myfieldset'}
+        schema = {'root': False, 'name': 'myfieldset'}
         schema_reader.schema_set_fieldset_prefix(schema)
         self.assertEqual(schema,
-                {'prefix':'myfieldset.', 'root':False, 'name':'myfieldset'})
-
+                         {'prefix': 'myfieldset.', 'root': False, 'name': 'myfieldset'})
 
     def test_set_default_values_defaults(self):
         schema = {}
@@ -54,7 +53,7 @@ class TestSchemaReader(unittest.TestCase):
         schema_reader.schema_set_default_values(schema)
         self.assertEqual(schema, {'group': 1, 'type': 'group'})
 
-    ### field definitions
+    # field definitions
 
     def test_field_set_defaults_no_short(self):
         field = {'description': 'a field'}
@@ -71,37 +70,37 @@ class TestSchemaReader(unittest.TestCase):
         schema_reader.field_set_flat_name(nested, '')
         self.assertEqual(nested, {'name': 'root_field', 'flat_name': 'root_field'})
 
-
     def test_field_cleanup_values(self):
         field = {'name': 'myfield', 'description': 'a field   '}
         schema_reader.field_cleanup_values(field, 'event.')
         expected = {
-                'name': 'myfield',
-                'flat_name': 'event.myfield',
-                'description': 'a field',
-                'short': 'a field'
+            'name': 'myfield',
+            'flat_name': 'event.myfield',
+            'description': 'a field',
+            'short': 'a field'
         }
         self.assertEqual(field, expected)
 
     def test_field_set_multi_field_defaults_missing_name(self):
         field = {
-                'name': 'myfield',
-                'flat_name': 'myfieldset.myfield',
-                'multi_fields':[
-                    {'type':'text'}
-                ]
+            'name': 'myfield',
+            'flat_name': 'myfieldset.myfield',
+            'multi_fields': [
+                    {'type': 'text'}
+            ]
         }
         schema_reader.field_set_multi_field_defaults(field)
         expected = {
-                'name': 'myfield',
-                'flat_name': 'myfieldset.myfield',
-                'multi_fields':[{
-                    'name':'text',
-                    'type':'text',
-                    'flat_name':'myfieldset.myfield.text',
-                }]
+            'name': 'myfield',
+            'flat_name': 'myfieldset.myfield',
+            'multi_fields': [{
+                    'name': 'text',
+                    'type': 'text',
+                    'flat_name': 'myfieldset.myfield.text',
+            }]
         }
         self.assertEqual(field, expected)
+
 
 if __name__ == '__main__':
     unittest.main()
