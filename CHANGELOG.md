@@ -25,6 +25,7 @@ All notable changes to this project will be documented in this file based on the
 
 * Clarified the definition of the host fields #325
 * Clarified the difference between `@timestamp` and `event.created`. #329
+* Specify the `object_type` for field `labels`. #331
 
 ### Deprecated
 
