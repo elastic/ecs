@@ -89,8 +89,13 @@ def field_set_flat_name(field, prefix):
 
 def field_set_defaults(field):
     dict_set_default(field, 'short', field['description'])
-    if 'index' in field and field['index'] == False:
-        field.pop('key', None)
+    if field['type'] == 'keyword':
+        dict_set_default(field, 'ignore_above', 1024)
+    if field['type'] == 'text':
+        dict_set_default(field, 'norms', False)
+
+    if 'index' in field and not field['index']:
+        dict_set_default(field, 'doc_values', False)
     if 'multi_fields' in field:
         field_set_multi_field_defaults(field)
 

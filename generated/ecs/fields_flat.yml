@@ -23,6 +23,7 @@ agent.ephemeral_id:
     This id normally changes across restarts, but `agent.id` does not.'
   example: 8a4f500f
   flat_name: agent.ephemeral_id
+  ignore_above: 1024
   level: extended
   name: ephemeral_id
   short: 'Ephemeral identifier of this agent (if one exists).
@@ -35,6 +36,7 @@ agent.id:
     Example: For Beats this would be beat.id.'
   example: 8a4f500d
   flat_name: agent.id
+  ignore_above: 1024
   level: core
   name: id
   short: 'Unique identifier of this agent (if one exists).
@@ -51,6 +53,7 @@ agent.name:
     If no name is given, the name is often left empty.'
   example: foo
   flat_name: agent.name
+  ignore_above: 1024
   level: core
   name: name
   short: 'Name of the agent.
@@ -69,6 +72,7 @@ agent.type:
     are run on the same machine.'
   example: filebeat
   flat_name: agent.type
+  ignore_above: 1024
   level: core
   name: type
   short: 'Type of the agent.
@@ -81,6 +85,7 @@ agent.version:
   description: Version of the agent.
   example: 6.0.0-rc2
   flat_name: agent.version
+  ignore_above: 1024
   level: core
   name: version
   short: Version of the agent.
@@ -93,6 +98,7 @@ client.address:
     Then it should be duplicated to `.ip` or `.domain`, depending on which one it
     is.'
   flat_name: client.address
+  ignore_above: 1024
   level: extended
   name: address
   short: 'Some event client addresses are defined ambiguously. The event will sometimes
@@ -113,6 +119,7 @@ client.bytes:
 client.domain:
   description: Client domain.
   flat_name: client.domain
+  ignore_above: 1024
   level: core
   name: domain
   short: Client domain.
@@ -121,6 +128,7 @@ client.geo.city_name:
   description: City name.
   example: Montreal
   flat_name: client.geo.city_name
+  ignore_above: 1024
   level: core
   name: city_name
   original_fieldset: geo
@@ -130,6 +138,7 @@ client.geo.continent_name:
   description: Name of the continent.
   example: North America
   flat_name: client.geo.continent_name
+  ignore_above: 1024
   level: core
   name: continent_name
   original_fieldset: geo
@@ -139,6 +148,7 @@ client.geo.country_iso_code:
   description: Country ISO code.
   example: CA
   flat_name: client.geo.country_iso_code
+  ignore_above: 1024
   level: core
   name: country_iso_code
   original_fieldset: geo
@@ -148,6 +158,7 @@ client.geo.country_name:
   description: Country name.
   example: Canada
   flat_name: client.geo.country_name
+  ignore_above: 1024
   level: core
   name: country_name
   original_fieldset: geo
@@ -172,6 +183,7 @@ client.geo.name:
     Not typically used in automated geolocation.'
   example: boston-dc
   flat_name: client.geo.name
+  ignore_above: 1024
   level: extended
   name: name
   original_fieldset: geo
@@ -187,6 +199,7 @@ client.geo.region_iso_code:
   description: Region ISO code.
   example: CA-QC
   flat_name: client.geo.region_iso_code
+  ignore_above: 1024
   level: core
   name: region_iso_code
   original_fieldset: geo
@@ -196,6 +209,7 @@ client.geo.region_name:
   description: Region name.
   example: Quebec
   flat_name: client.geo.region_name
+  ignore_above: 1024
   level: core
   name: region_name
   original_fieldset: geo
@@ -215,6 +229,7 @@ client.ip:
 client.mac:
   description: MAC address of the client.
   flat_name: client.mac
+  ignore_above: 1024
   level: core
   name: mac
   short: MAC address of the client.
@@ -237,6 +252,7 @@ client.port:
 client.user.email:
   description: User email address.
   flat_name: client.user.email
+  ignore_above: 1024
   level: extended
   name: email
   original_fieldset: user
@@ -246,6 +262,7 @@ client.user.full_name:
   description: User's full name, if available.
   example: Albert Einstein
   flat_name: client.user.full_name
+  ignore_above: 1024
   level: extended
   name: full_name
   original_fieldset: user
@@ -258,6 +275,7 @@ client.user.hash:
     Useful if `user.id` or `user.name` contain confidential information and cannot
     be used.'
   flat_name: client.user.hash
+  ignore_above: 1024
   level: extended
   name: hash
   original_fieldset: user
@@ -269,6 +287,7 @@ client.user.hash:
 client.user.id:
   description: One or multiple unique identifiers of the user.
   flat_name: client.user.id
+  ignore_above: 1024
   level: core
   name: id
   original_fieldset: user
@@ -278,6 +297,7 @@ client.user.name:
   description: Short name or login of the user.
   example: albert
   flat_name: client.user.name
+  ignore_above: 1024
   level: core
   name: name
   original_fieldset: user
@@ -290,6 +310,7 @@ cloud.account.id:
     Examples: AWS account id, Google Cloud ORG Id, or other unique identifier.'
   example: 666777888999
   flat_name: cloud.account.id
+  ignore_above: 1024
   level: extended
   name: account.id
   short: 'The cloud account or organization id used to identify different entities
@@ -301,6 +322,7 @@ cloud.availability_zone:
   description: Availability zone in which this host is running.
   example: us-east-1c
   flat_name: cloud.availability_zone
+  ignore_above: 1024
   level: extended
   name: availability_zone
   short: Availability zone in which this host is running.
@@ -309,6 +331,7 @@ cloud.instance.id:
   description: Instance ID of the host machine.
   example: i-1234567890abcdef0
   flat_name: cloud.instance.id
+  ignore_above: 1024
   level: extended
   name: instance.id
   short: Instance ID of the host machine.
@@ -316,6 +339,7 @@ cloud.instance.id:
 cloud.instance.name:
   description: Instance name of the host machine.
   flat_name: cloud.instance.name
+  ignore_above: 1024
   level: extended
   name: instance.name
   short: Instance name of the host machine.
@@ -324,6 +348,7 @@ cloud.machine.type:
   description: Machine type of the host machine.
   example: t2.medium
   flat_name: cloud.machine.type
+  ignore_above: 1024
   level: extended
   name: machine.type
   short: Machine type of the host machine.
@@ -332,6 +357,7 @@ cloud.provider:
   description: Name of the cloud provider. Example values are ec2, gce, or digitalocean.
   example: ec2
   flat_name: cloud.provider
+  ignore_above: 1024
   level: extended
   name: provider
   short: Name of the cloud provider. Example values are ec2, gce, or digitalocean.
@@ -340,6 +366,7 @@ cloud.region:
   description: Region in which this host is running.
   example: us-east-1
   flat_name: cloud.region
+  ignore_above: 1024
   level: extended
   name: region
   short: Region in which this host is running.
@@ -347,6 +374,7 @@ cloud.region:
 container.id:
   description: Unique container id.
   flat_name: container.id
+  ignore_above: 1024
   level: core
   name: id
   short: Unique container id.
@@ -354,6 +382,7 @@ container.id:
 container.image.name:
   description: Name of the image the container was built on.
   flat_name: container.image.name
+  ignore_above: 1024
   level: extended
   name: image.name
   short: Name of the image the container was built on.
@@ -361,6 +390,7 @@ container.image.name:
 container.image.tag:
   description: Container image tag.
   flat_name: container.image.tag
+  ignore_above: 1024
   level: extended
   name: image.tag
   short: Container image tag.
@@ -376,6 +406,7 @@ container.labels:
 container.name:
   description: Container name.
   flat_name: container.name
+  ignore_above: 1024
   level: extended
   name: name
   short: Container name.
@@ -384,6 +415,7 @@ container.runtime:
   description: Runtime managing this container.
   example: docker
   flat_name: container.runtime
+  ignore_above: 1024
   level: extended
   name: runtime
   short: Runtime managing this container.
@@ -396,6 +428,7 @@ destination.address:
     Then it should be duplicated to `.ip` or `.domain`, depending on which one it
     is.'
   flat_name: destination.address
+  ignore_above: 1024
   level: extended
   name: address
   short: 'Some event destination addresses are defined ambiguously. The event will
@@ -416,6 +449,7 @@ destination.bytes:
 destination.domain:
   description: Destination domain.
   flat_name: destination.domain
+  ignore_above: 1024
   level: core
   name: domain
   short: Destination domain.
@@ -424,6 +458,7 @@ destination.geo.city_name:
   description: City name.
   example: Montreal
   flat_name: destination.geo.city_name
+  ignore_above: 1024
   level: core
   name: city_name
   original_fieldset: geo
@@ -433,6 +468,7 @@ destination.geo.continent_name:
   description: Name of the continent.
   example: North America
   flat_name: destination.geo.continent_name
+  ignore_above: 1024
   level: core
   name: continent_name
   original_fieldset: geo
@@ -442,6 +478,7 @@ destination.geo.country_iso_code:
   description: Country ISO code.
   example: CA
   flat_name: destination.geo.country_iso_code
+  ignore_above: 1024
   level: core
   name: country_iso_code
   original_fieldset: geo
@@ -451,6 +488,7 @@ destination.geo.country_name:
   description: Country name.
   example: Canada
   flat_name: destination.geo.country_name
+  ignore_above: 1024
   level: core
   name: country_name
   original_fieldset: geo
@@ -475,6 +513,7 @@ destination.geo.name:
     Not typically used in automated geolocation.'
   example: boston-dc
   flat_name: destination.geo.name
+  ignore_above: 1024
   level: extended
   name: name
   original_fieldset: geo
@@ -490,6 +529,7 @@ destination.geo.region_iso_code:
   description: Region ISO code.
   example: CA-QC
   flat_name: destination.geo.region_iso_code
+  ignore_above: 1024
   level: core
   name: region_iso_code
   original_fieldset: geo
@@ -499,6 +539,7 @@ destination.geo.region_name:
   description: Region name.
   example: Quebec
   flat_name: destination.geo.region_name
+  ignore_above: 1024
   level: core
   name: region_name
   original_fieldset: geo
@@ -518,6 +559,7 @@ destination.ip:
 destination.mac:
   description: MAC address of the destination.
   flat_name: destination.mac
+  ignore_above: 1024
   level: core
   name: mac
   short: MAC address of the destination.
@@ -540,6 +582,7 @@ destination.port:
 destination.user.email:
   description: User email address.
   flat_name: destination.user.email
+  ignore_above: 1024
   level: extended
   name: email
   original_fieldset: user
@@ -549,6 +592,7 @@ destination.user.full_name:
   description: User's full name, if available.
   example: Albert Einstein
   flat_name: destination.user.full_name
+  ignore_above: 1024
   level: extended
   name: full_name
   original_fieldset: user
@@ -561,6 +605,7 @@ destination.user.hash:
     Useful if `user.id` or `user.name` contain confidential information and cannot
     be used.'
   flat_name: destination.user.hash
+  ignore_above: 1024
   level: extended
   name: hash
   original_fieldset: user
@@ -572,6 +617,7 @@ destination.user.hash:
 destination.user.id:
   description: One or multiple unique identifiers of the user.
   flat_name: destination.user.id
+  ignore_above: 1024
   level: core
   name: id
   original_fieldset: user
@@ -581,6 +627,7 @@ destination.user.name:
   description: Short name or login of the user.
   example: albert
   flat_name: destination.user.name
+  ignore_above: 1024
   level: core
   name: name
   original_fieldset: user
@@ -597,6 +644,7 @@ ecs.version:
     The current version is 1.0.0-beta2 .'
   example: 1.0.0-beta2
   flat_name: ecs.version
+  ignore_above: 1024
   level: core
   name: version
   required: true
@@ -612,6 +660,7 @@ ecs.version:
 error.code:
   description: Error code describing the error.
   flat_name: error.code
+  ignore_above: 1024
   level: core
   name: code
   short: Error code describing the error.
@@ -619,6 +668,7 @@ error.code:
 error.id:
   description: Unique identifier for the error.
   flat_name: error.id
+  ignore_above: 1024
   level: core
   name: id
   short: Unique identifier for the error.
@@ -628,6 +678,7 @@ error.message:
   flat_name: error.message
   level: core
   name: message
+  norms: false
   short: Error message.
   type: text
 event.action:
@@ -638,6 +689,7 @@ event.action:
     defined by the implementer.'
   example: user-password-change
   flat_name: event.action
+  ignore_above: 1024
   level: core
   name: action
   short: 'The action captured by the event.
@@ -655,6 +707,7 @@ event.category:
     values for this field, please use with caution.'
   example: user-management
   flat_name: event.category
+  ignore_above: 1024
   level: core
   name: category
   short: 'Event category.
@@ -699,6 +752,7 @@ event.dataset:
     and metricset.module or fileset.name.'
   example: stats
   flat_name: event.dataset
+  ignore_above: 1024
   level: core
   name: dataset
   short: 'Name of the dataset.
@@ -734,6 +788,7 @@ event.hash:
     log integrity.
   example: 123456789012345678901234567890ABCD
   flat_name: event.hash
+  ignore_above: 1024
   level: extended
   name: hash
   short: Hash (perhaps logstash fingerprint) of raw field to be able to demonstrate
@@ -743,6 +798,7 @@ event.id:
   description: Unique ID to describe the event.
   example: 8a4f500d
   flat_name: event.id
+  ignore_above: 1024
   level: core
   name: id
   short: Unique ID to describe the event.
@@ -756,6 +812,7 @@ event.kind:
     for this field, please use with caution.'
   example: state
   flat_name: event.kind
+  ignore_above: 1024
   level: extended
   name: kind
   short: 'The kind of the event.
@@ -771,6 +828,7 @@ event.module:
     This information is coming from the modules used in Beats or Logstash.'
   example: mysql
   flat_name: event.module
+  ignore_above: 1024
   level: core
   name: module
   short: 'Name of the module this data is coming from.
@@ -786,6 +844,7 @@ event.original:
   example: Sep 19 08:26:10 host CEF:0&#124;Security&#124; threatmanager&#124;1.0&#124;100&#124;
     worm successfully stopped&#124;10&#124;src=10.0.0.1 dst=2.1.2.2spt=1232
   flat_name: event.original
+  ignore_above: 1024
   index: false
   level: core
   name: original
@@ -803,6 +862,7 @@ event.outcome:
     with caution.'
   example: success
   flat_name: event.outcome
+  ignore_above: 1024
   level: extended
   name: outcome
   short: 'The outcome of the event.
@@ -864,6 +924,7 @@ event.timezone:
     Acceptable timezone formats are: a canonical ID (e.g. "Europe/Amsterdam"), abbreviated
     (e.g. "EST") or an HH:mm differential (e.g. "-05:00").'
   flat_name: event.timezone
+  ignore_above: 1024
   level: extended
   name: timezone
   short: 'This field should be populated when the event''s timestamp does not include
@@ -878,6 +939,7 @@ event.type:
 
     Please avoid using this field for user data.'
   flat_name: event.type
+  ignore_above: 1024
   level: core
   name: type
   short: 'Reserved for future usage.
@@ -894,6 +956,7 @@ file.ctime:
 file.device:
   description: Device that is the source of the file.
   flat_name: file.device
+  ignore_above: 1024
   level: extended
   name: device
   short: Device that is the source of the file.
@@ -904,6 +967,7 @@ file.extension:
     This should allow easy filtering by file extensions.'
   example: png
   flat_name: file.extension
+  ignore_above: 1024
   level: extended
   name: extension
   short: 'File extension.
@@ -913,6 +977,7 @@ file.extension:
 file.gid:
   description: Primary group ID (GID) of the file.
   flat_name: file.gid
+  ignore_above: 1024
   level: extended
   name: gid
   short: Primary group ID (GID) of the file.
@@ -920,6 +985,7 @@ file.gid:
 file.group:
   description: Primary group name of the file.
   flat_name: file.group
+  ignore_above: 1024
   level: extended
   name: group
   short: Primary group name of the file.
@@ -927,6 +993,7 @@ file.group:
 file.inode:
   description: Inode representing the file in the filesystem.
   flat_name: file.inode
+  ignore_above: 1024
   level: extended
   name: inode
   short: Inode representing the file in the filesystem.
@@ -935,6 +1002,7 @@ file.mode:
   description: Mode of the file in octal representation.
   example: 416
   flat_name: file.mode
+  ignore_above: 1024
   level: extended
   name: mode
   short: Mode of the file in octal representation.
@@ -949,6 +1017,7 @@ file.mtime:
 file.owner:
   description: File owner's username.
   flat_name: file.owner
+  ignore_above: 1024
   level: extended
   name: owner
   short: File owner's username.
@@ -956,6 +1025,7 @@ file.owner:
 file.path:
   description: Path to the file.
   flat_name: file.path
+  ignore_above: 1024
   level: extended
   name: path
   short: Path to the file.
@@ -970,6 +1040,7 @@ file.size:
 file.target_path:
   description: Target path for symlinks.
   flat_name: file.target_path
+  ignore_above: 1024
   level: extended
   name: target_path
   short: Target path for symlinks.
@@ -977,6 +1048,7 @@ file.target_path:
 file.type:
   description: File type (file, dir, or symlink).
   flat_name: file.type
+  ignore_above: 1024
   level: extended
   name: type
   short: File type (file, dir, or symlink).
@@ -984,6 +1056,7 @@ file.type:
 file.uid:
   description: The user ID (UID) or security identifier (SID) of the file owner.
   flat_name: file.uid
+  ignore_above: 1024
   level: extended
   name: uid
   short: The user ID (UID) or security identifier (SID) of the file owner.
@@ -992,6 +1065,7 @@ geo.city_name:
   description: City name.
   example: Montreal
   flat_name: geo.city_name
+  ignore_above: 1024
   level: core
   name: city_name
   short: City name.
@@ -1000,6 +1074,7 @@ geo.continent_name:
   description: Name of the continent.
   example: North America
   flat_name: geo.continent_name
+  ignore_above: 1024
   level: core
   name: continent_name
   short: Name of the continent.
@@ -1008,6 +1083,7 @@ geo.country_iso_code:
   description: Country ISO code.
   example: CA
   flat_name: geo.country_iso_code
+  ignore_above: 1024
   level: core
   name: country_iso_code
   short: Country ISO code.
@@ -1016,6 +1092,7 @@ geo.country_name:
   description: Country name.
   example: Canada
   flat_name: geo.country_name
+  ignore_above: 1024
   level: core
   name: country_name
   short: Country name.
@@ -1038,6 +1115,7 @@ geo.name:
     Not typically used in automated geolocation.'
   example: boston-dc
   flat_name: geo.name
+  ignore_above: 1024
   level: extended
   name: name
   short: 'User-defined description of a location, at the level of granularity they
@@ -1052,6 +1130,7 @@ geo.region_iso_code:
   description: Region ISO code.
   example: CA-QC
   flat_name: geo.region_iso_code
+  ignore_above: 1024
   level: core
   name: region_iso_code
   short: Region ISO code.
@@ -1060,6 +1139,7 @@ geo.region_name:
   description: Region name.
   example: Quebec
   flat_name: geo.region_name
+  ignore_above: 1024
   level: core
   name: region_name
   short: Region name.
@@ -1067,6 +1147,7 @@ geo.region_name:
 group.id:
   description: Unique identifier for the group on the system/platform.
   flat_name: group.id
+  ignore_above: 1024
   level: extended
   name: id
   short: Unique identifier for the group on the system/platform.
@@ -1074,6 +1155,7 @@ group.id:
 group.name:
   description: Name of the group.
   flat_name: group.name
+  ignore_above: 1024
   level: extended
   name: name
   short: Name of the group.
@@ -1082,6 +1164,7 @@ host.architecture:
   description: Operating system architecture.
   example: x86_64
   flat_name: host.architecture
+  ignore_above: 1024
   level: core
   name: architecture
   short: Operating system architecture.
@@ -1090,6 +1173,7 @@ host.geo.city_name:
   description: City name.
   example: Montreal
   flat_name: host.geo.city_name
+  ignore_above: 1024
   level: core
   name: city_name
   original_fieldset: geo
@@ -1099,6 +1183,7 @@ host.geo.continent_name:
   description: Name of the continent.
   example: North America
   flat_name: host.geo.continent_name
+  ignore_above: 1024
   level: core
   name: continent_name
   original_fieldset: geo
@@ -1108,6 +1193,7 @@ host.geo.country_iso_code:
   description: Country ISO code.
   example: CA
   flat_name: host.geo.country_iso_code
+  ignore_above: 1024
   level: core
   name: country_iso_code
   original_fieldset: geo
@@ -1117,6 +1203,7 @@ host.geo.country_name:
   description: Country name.
   example: Canada
   flat_name: host.geo.country_name
+  ignore_above: 1024
   level: core
   name: country_name
   original_fieldset: geo
@@ -1141,6 +1228,7 @@ host.geo.name:
     Not typically used in automated geolocation.'
   example: boston-dc
   flat_name: host.geo.name
+  ignore_above: 1024
   level: extended
   name: name
   original_fieldset: geo
@@ -1156,6 +1244,7 @@ host.geo.region_iso_code:
   description: Region ISO code.
   example: CA-QC
   flat_name: host.geo.region_iso_code
+  ignore_above: 1024
   level: core
   name: region_iso_code
   original_fieldset: geo
@@ -1165,6 +1254,7 @@ host.geo.region_name:
   description: Region name.
   example: Quebec
   flat_name: host.geo.region_name
+  ignore_above: 1024
   level: core
   name: region_name
   original_fieldset: geo
@@ -1175,6 +1265,7 @@ host.hostname:
 
     It normally contains what the `hostname` command returns on the host machine.'
   flat_name: host.hostname
+  ignore_above: 1024
   level: core
   name: hostname
   short: 'Hostname of the host.
@@ -1188,6 +1279,7 @@ host.id:
 
     Example: The current usage of `beat.name`.'
   flat_name: host.id
+  ignore_above: 1024
   level: core
   name: id
   short: 'Unique host id.
@@ -1206,6 +1298,7 @@ host.ip:
 host.mac:
   description: Host mac address.
   flat_name: host.mac
+  ignore_above: 1024
   level: core
   name: mac
   short: Host mac address.
@@ -1216,6 +1309,7 @@ host.name:
     It can contain what `hostname` returns on Unix systems, the fully qualified domain
     name, or a name specified by the user. The sender decides which value to use.'
   flat_name: host.name
+  ignore_above: 1024
   level: core
   name: name
   short: 'Name of the host.
@@ -1227,6 +1321,7 @@ host.os.family:
   description: OS family (such as redhat, debian, freebsd, windows).
   example: debian
   flat_name: host.os.family
+  ignore_above: 1024
   level: extended
   name: family
   original_fieldset: os
@@ -1236,6 +1331,7 @@ host.os.full:
   description: Operating system name, including the version or code name.
   example: Mac OS Mojave
   flat_name: host.os.full
+  ignore_above: 1024
   level: extended
   name: full
   original_fieldset: os
@@ -1245,6 +1341,7 @@ host.os.kernel:
   description: Operating system kernel version as a raw string.
   example: 4.4.0-112-generic
   flat_name: host.os.kernel
+  ignore_above: 1024
   level: extended
   name: kernel
   original_fieldset: os
@@ -1254,6 +1351,7 @@ host.os.name:
   description: Operating system name, without the version.
   example: Mac OS X
   flat_name: host.os.name
+  ignore_above: 1024
   level: extended
   name: name
   original_fieldset: os
@@ -1263,6 +1361,7 @@ host.os.platform:
   description: Operating system platform (such centos, ubuntu, windows).
   example: darwin
   flat_name: host.os.platform
+  ignore_above: 1024
   level: extended
   name: platform
   original_fieldset: os
@@ -1272,6 +1371,7 @@ host.os.version:
   description: Operating system version as a raw string.
   example: 10.14.1
   flat_name: host.os.version
+  ignore_above: 1024
   level: extended
   name: version
   original_fieldset: os
@@ -1283,6 +1383,7 @@ host.type:
     For Cloud providers this can be the machine type like `t2.medium`. If vm, this
     could be the container, for example, or other information meaningful in your environment.'
   flat_name: host.type
+  ignore_above: 1024
   level: core
   name: type
   short: 'Type of host.
@@ -1293,6 +1394,7 @@ host.type:
 host.user.email:
   description: User email address.
   flat_name: host.user.email
+  ignore_above: 1024
   level: extended
   name: email
   original_fieldset: user
@@ -1302,6 +1404,7 @@ host.user.full_name:
   description: User's full name, if available.
   example: Albert Einstein
   flat_name: host.user.full_name
+  ignore_above: 1024
   level: extended
   name: full_name
   original_fieldset: user
@@ -1314,6 +1417,7 @@ host.user.hash:
     Useful if `user.id` or `user.name` contain confidential information and cannot
     be used.'
   flat_name: host.user.hash
+  ignore_above: 1024
   level: extended
   name: hash
   original_fieldset: user
@@ -1325,6 +1429,7 @@ host.user.hash:
 host.user.id:
   description: One or multiple unique identifiers of the user.
   flat_name: host.user.id
+  ignore_above: 1024
   level: core
   name: id
   original_fieldset: user
@@ -1334,6 +1439,7 @@ host.user.name:
   description: Short name or login of the user.
   example: albert
   flat_name: host.user.name
+  ignore_above: 1024
   level: core
   name: name
   original_fieldset: user
@@ -1351,6 +1457,7 @@ http.request.body.content:
   description: The full http request body.
   example: Hello world
   flat_name: http.request.body.content
+  ignore_above: 1024
   level: extended
   name: request.body.content
   short: The full http request body.
@@ -1370,6 +1477,7 @@ http.request.method:
     in the "Implementing ECS"  section.'
   example: get, post, put
   flat_name: http.request.method
+  ignore_above: 1024
   level: extended
   name: request.method
   short: 'Http request method.
@@ -1381,6 +1489,7 @@ http.request.referrer:
   description: Referrer for this HTTP request.
   example: https://blog.example.com/
   flat_name: http.request.referrer
+  ignore_above: 1024
   level: extended
   name: request.referrer
   short: Referrer for this HTTP request.
@@ -1397,6 +1506,7 @@ http.response.body.content:
   description: The full http response body.
   example: Hello world
   flat_name: http.response.body.content
+  ignore_above: 1024
   level: extended
   name: response.body.content
   short: The full http response body.
@@ -1421,6 +1531,7 @@ http.version:
   description: Http version.
   example: 1.1
   flat_name: http.version
+  ignore_above: 1024
   level: extended
   name: version
   short: Http version.
@@ -1451,6 +1562,7 @@ log.level:
     Some examples are `WARN`, `ERR`, `INFO`.'
   example: ERR
   flat_name: log.level
+  ignore_above: 1024
   level: core
   name: level
   short: 'Log level of the log event.
@@ -1471,6 +1583,7 @@ log.original:
   doc_values: false
   example: Sep 19 08:26:10 localhost My log
   flat_name: log.original
+  ignore_above: 1024
   index: false
   level: core
   name: original
@@ -1495,6 +1608,7 @@ message:
   flat_name: message
   level: core
   name: message
+  norms: false
   short: 'For log events the message field contains the log message.
 
     In other use cases the message field can be used to concatenate different values
@@ -1511,6 +1625,7 @@ network.application:
     in the "Implementing ECS" section.'
   example: aim
   flat_name: network.application
+  ignore_above: 1024
   level: extended
   name: application
   short: 'A name given to an application. This can be arbitrarily assigned for things
@@ -1542,6 +1657,7 @@ network.community_id:
     Learn more at https://github.com/corelight/community-id-spec.'
   example: 1:hO+sN4H+MG5MY/8hIrXPqc4ZQz0=
   flat_name: network.community_id
+  ignore_above: 1024
   level: extended
   name: community_id
   short: 'A hash of source and destination IPs and ports, as well as the protocol
@@ -1557,6 +1673,7 @@ network.direction:
     \ populate this field from the point of view of your network perimeter."
   example: inbound
   flat_name: network.direction
+  ignore_above: 1024
   level: core
   name: direction
   short: "Direction of the network traffic.\nRecommended values are:\n  * inbound\n\
@@ -1579,6 +1696,7 @@ network.iana_number:
     logs which use the IANA Protocol Number.
   example: 6
   flat_name: network.iana_number
+  ignore_above: 1024
   level: extended
   name: iana_number
   short: IANA Protocol Number (https://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml).
@@ -1589,6 +1707,7 @@ network.name:
   description: Name given by operators to sections of their network.
   example: Guest Wifi
   flat_name: network.name
+  ignore_above: 1024
   level: extended
   name: name
   short: Name given by operators to sections of their network.
@@ -1614,6 +1733,7 @@ network.protocol:
     in the "Implementing ECS" section.'
   example: http
   flat_name: network.protocol
+  ignore_above: 1024
   level: core
   name: protocol
   short: 'L7 Network protocol name. ex. http, lumberjack, transport protocol.
@@ -1629,6 +1749,7 @@ network.transport:
     in the "Implementing ECS"  section.'
   example: tcp
   flat_name: network.transport
+  ignore_above: 1024
   level: core
   name: transport
   short: 'Same as network.iana_number, but instead using the Keyword name of the transport
@@ -1645,6 +1766,7 @@ network.type:
     in the "Implementing ECS" section.'
   example: ipv4
   flat_name: network.type
+  ignore_above: 1024
   level: core
   name: type
   short: 'In the OSI Model this would be the Network Layer. ipv4, ipv6, ipsec, pim,
@@ -1657,6 +1779,7 @@ observer.geo.city_name:
   description: City name.
   example: Montreal
   flat_name: observer.geo.city_name
+  ignore_above: 1024
   level: core
   name: city_name
   original_fieldset: geo
@@ -1666,6 +1789,7 @@ observer.geo.continent_name:
   description: Name of the continent.
   example: North America
   flat_name: observer.geo.continent_name
+  ignore_above: 1024
   level: core
   name: continent_name
   original_fieldset: geo
@@ -1675,6 +1799,7 @@ observer.geo.country_iso_code:
   description: Country ISO code.
   example: CA
   flat_name: observer.geo.country_iso_code
+  ignore_above: 1024
   level: core
   name: country_iso_code
   original_fieldset: geo
@@ -1684,6 +1809,7 @@ observer.geo.country_name:
   description: Country name.
   example: Canada
   flat_name: observer.geo.country_name
+  ignore_above: 1024
   level: core
   name: country_name
   original_fieldset: geo
@@ -1708,6 +1834,7 @@ observer.geo.name:
     Not typically used in automated geolocation.'
   example: boston-dc
   flat_name: observer.geo.name
+  ignore_above: 1024
   level: extended
   name: name
   original_fieldset: geo
@@ -1723,6 +1850,7 @@ observer.geo.region_iso_code:
   description: Region ISO code.
   example: CA-QC
   flat_name: observer.geo.region_iso_code
+  ignore_above: 1024
   level: core
   name: region_iso_code
   original_fieldset: geo
@@ -1732,6 +1860,7 @@ observer.geo.region_name:
   description: Region name.
   example: Quebec
   flat_name: observer.geo.region_name
+  ignore_above: 1024
   level: core
   name: region_name
   original_fieldset: geo
@@ -1740,6 +1869,7 @@ observer.geo.region_name:
 observer.hostname:
   description: Hostname of the observer.
   flat_name: observer.hostname
+  ignore_above: 1024
   level: core
   name: hostname
   short: Hostname of the observer.
@@ -1754,6 +1884,7 @@ observer.ip:
 observer.mac:
   description: MAC address of the observer
   flat_name: observer.mac
+  ignore_above: 1024
   level: core
   name: mac
   short: MAC address of the observer
@@ -1762,6 +1893,7 @@ observer.os.family:
   description: OS family (such as redhat, debian, freebsd, windows).
   example: debian
   flat_name: observer.os.family
+  ignore_above: 1024
   level: extended
   name: family
   original_fieldset: os
@@ -1771,6 +1903,7 @@ observer.os.full:
   description: Operating system name, including the version or code name.
   example: Mac OS Mojave
   flat_name: observer.os.full
+  ignore_above: 1024
   level: extended
   name: full
   original_fieldset: os
@@ -1780,6 +1913,7 @@ observer.os.kernel:
   description: Operating system kernel version as a raw string.
   example: 4.4.0-112-generic
   flat_name: observer.os.kernel
+  ignore_above: 1024
   level: extended
   name: kernel
   original_fieldset: os
@@ -1789,6 +1923,7 @@ observer.os.name:
   description: Operating system name, without the version.
   example: Mac OS X
   flat_name: observer.os.name
+  ignore_above: 1024
   level: extended
   name: name
   original_fieldset: os
@@ -1798,6 +1933,7 @@ observer.os.platform:
   description: Operating system platform (such centos, ubuntu, windows).
   example: darwin
   flat_name: observer.os.platform
+  ignore_above: 1024
   level: extended
   name: platform
   original_fieldset: os
@@ -1807,6 +1943,7 @@ observer.os.version:
   description: Operating system version as a raw string.
   example: 10.14.1
   flat_name: observer.os.version
+  ignore_above: 1024
   level: extended
   name: version
   original_fieldset: os
@@ -1815,6 +1952,7 @@ observer.os.version:
 observer.serial_number:
   description: Observer serial number.
   flat_name: observer.serial_number
+  ignore_above: 1024
   level: extended
   name: serial_number
   short: Observer serial number.
@@ -1826,6 +1964,7 @@ observer.type:
     `firewall`, `ids`, `ips`, `proxy`, `poller`, `sensor`, `APM server`.'
   example: firewall
   flat_name: observer.type
+  ignore_above: 1024
   level: core
   name: type
   short: 'The type of the observer the data is coming from.
@@ -1836,6 +1975,7 @@ observer.type:
 observer.vendor:
   description: observer vendor information.
   flat_name: observer.vendor
+  ignore_above: 1024
   level: core
   name: vendor
   short: observer vendor information.
@@ -1843,6 +1983,7 @@ observer.vendor:
 observer.version:
   description: Observer version.
   flat_name: observer.version
+  ignore_above: 1024
   level: core
   name: version
   short: Observer version.
@@ -1850,6 +1991,7 @@ observer.version:
 organization.id:
   description: Unique identifier for the organization.
   flat_name: organization.id
+  ignore_above: 1024
   level: extended
   name: id
   short: Unique identifier for the organization.
@@ -1857,6 +1999,7 @@ organization.id:
 organization.name:
   description: Organization name.
   flat_name: organization.name
+  ignore_above: 1024
   level: extended
   name: name
   short: Organization name.
@@ -1865,6 +2008,7 @@ os.family:
   description: OS family (such as redhat, debian, freebsd, windows).
   example: debian
   flat_name: os.family
+  ignore_above: 1024
   level: extended
   name: family
   short: OS family (such as redhat, debian, freebsd, windows).
@@ -1873,6 +2017,7 @@ os.full:
   description: Operating system name, including the version or code name.
   example: Mac OS Mojave
   flat_name: os.full
+  ignore_above: 1024
   level: extended
   name: full
   short: Operating system name, including the version or code name.
@@ -1881,6 +2026,7 @@ os.kernel:
   description: Operating system kernel version as a raw string.
   example: 4.4.0-112-generic
   flat_name: os.kernel
+  ignore_above: 1024
   level: extended
   name: kernel
   short: Operating system kernel version as a raw string.
@@ -1889,6 +2035,7 @@ os.name:
   description: Operating system name, without the version.
   example: Mac OS X
   flat_name: os.name
+  ignore_above: 1024
   level: extended
   name: name
   short: Operating system name, without the version.
@@ -1897,6 +2044,7 @@ os.platform:
   description: Operating system platform (such centos, ubuntu, windows).
   example: darwin
   flat_name: os.platform
+  ignore_above: 1024
   level: extended
   name: platform
   short: Operating system platform (such centos, ubuntu, windows).
@@ -1905,6 +2053,7 @@ os.version:
   description: Operating system version as a raw string.
   example: 10.14.1
   flat_name: os.version
+  ignore_above: 1024
   level: extended
   name: version
   short: Operating system version as a raw string.
@@ -1919,6 +2068,7 @@ process.args:
   - user
   - 10.0.0.16
   flat_name: process.args
+  ignore_above: 1024
   level: extended
   name: args
   short: 'Process arguments.
@@ -1929,6 +2079,7 @@ process.executable:
   description: Absolute path to the process executable.
   example: /usr/bin/ssh
   flat_name: process.executable
+  ignore_above: 1024
   level: extended
   name: executable
   short: Absolute path to the process executable.
@@ -1939,6 +2090,7 @@ process.name:
     Sometimes called program name or similar.'
   example: ssh
   flat_name: process.name
+  ignore_above: 1024
   level: extended
   name: name
   short: 'Process name.
@@ -1982,6 +2134,7 @@ process.title:
     The proctitle, some times the same as process name. Can also be different: for
     example a browser setting its title to the web page currently opened.'
   flat_name: process.title
+  ignore_above: 1024
   level: extended
   name: title
   short: 'Process title.
@@ -1993,6 +2146,7 @@ process.working_directory:
   description: The working directory of the process.
   example: /home/alice
   flat_name: process.working_directory
+  ignore_above: 1024
   level: extended
   name: working_directory
   short: The working directory of the process.
@@ -2012,6 +2166,7 @@ server.address:
     Then it should be duplicated to `.ip` or `.domain`, depending on which one it
     is.'
   flat_name: server.address
+  ignore_above: 1024
   level: extended
   name: address
   short: 'Some event server addresses are defined ambiguously. The event will sometimes
@@ -2032,6 +2187,7 @@ server.bytes:
 server.domain:
   description: Server domain.
   flat_name: server.domain
+  ignore_above: 1024
   level: core
   name: domain
   short: Server domain.
@@ -2040,6 +2196,7 @@ server.geo.city_name:
   description: City name.
   example: Montreal
   flat_name: server.geo.city_name
+  ignore_above: 1024
   level: core
   name: city_name
   original_fieldset: geo
@@ -2049,6 +2206,7 @@ server.geo.continent_name:
   description: Name of the continent.
   example: North America
   flat_name: server.geo.continent_name
+  ignore_above: 1024
   level: core
   name: continent_name
   original_fieldset: geo
@@ -2058,6 +2216,7 @@ server.geo.country_iso_code:
   description: Country ISO code.
   example: CA
   flat_name: server.geo.country_iso_code
+  ignore_above: 1024
   level: core
   name: country_iso_code
   original_fieldset: geo
@@ -2067,6 +2226,7 @@ server.geo.country_name:
   description: Country name.
   example: Canada
   flat_name: server.geo.country_name
+  ignore_above: 1024
   level: core
   name: country_name
   original_fieldset: geo
@@ -2091,6 +2251,7 @@ server.geo.name:
     Not typically used in automated geolocation.'
   example: boston-dc
   flat_name: server.geo.name
+  ignore_above: 1024
   level: extended
   name: name
   original_fieldset: geo
@@ -2106,6 +2267,7 @@ server.geo.region_iso_code:
   description: Region ISO code.
   example: CA-QC
   flat_name: server.geo.region_iso_code
+  ignore_above: 1024
   level: core
   name: region_iso_code
   original_fieldset: geo
@@ -2115,6 +2277,7 @@ server.geo.region_name:
   description: Region name.
   example: Quebec
   flat_name: server.geo.region_name
+  ignore_above: 1024
   level: core
   name: region_name
   original_fieldset: geo
@@ -2134,6 +2297,7 @@ server.ip:
 server.mac:
   description: MAC address of the server.
   flat_name: server.mac
+  ignore_above: 1024
   level: core
   name: mac
   short: MAC address of the server.
@@ -2156,6 +2320,7 @@ server.port:
 server.user.email:
   description: User email address.
   flat_name: server.user.email
+  ignore_above: 1024
   level: extended
   name: email
   original_fieldset: user
@@ -2165,6 +2330,7 @@ server.user.full_name:
   description: User's full name, if available.
   example: Albert Einstein
   flat_name: server.user.full_name
+  ignore_above: 1024
   level: extended
   name: full_name
   original_fieldset: user
@@ -2177,6 +2343,7 @@ server.user.hash:
     Useful if `user.id` or `user.name` contain confidential information and cannot
     be used.'
   flat_name: server.user.hash
+  ignore_above: 1024
   level: extended
   name: hash
   original_fieldset: user
@@ -2188,6 +2355,7 @@ server.user.hash:
 server.user.id:
   description: One or multiple unique identifiers of the user.
   flat_name: server.user.id
+  ignore_above: 1024
   level: core
   name: id
   original_fieldset: user
@@ -2197,6 +2365,7 @@ server.user.name:
   description: Short name or login of the user.
   example: albert
   flat_name: server.user.name
+  ignore_above: 1024
   level: core
   name: name
   original_fieldset: user
@@ -2208,6 +2377,7 @@ service.ephemeral_id:
     This id normally changes across restarts, but `service.id` does not.'
   example: 8a4f500f
   flat_name: service.ephemeral_id
+  ignore_above: 1024
   level: extended
   name: ephemeral_id
   short: 'Ephemeral identifier of this service (if one exists).
@@ -2224,6 +2394,7 @@ service.id:
     on that id to see metrics and logs for that single instance.'
   example: d37e5ebfe0ae6c4972dbe9f0174a1637bb8247f6
   flat_name: service.id
+  ignore_above: 1024
   level: core
   name: id
   short: 'Unique identifier of the running service.
@@ -2249,6 +2420,7 @@ service.name:
     no name is specified.'
   example: elasticsearch-metrics
   flat_name: service.name
+  ignore_above: 1024
   level: core
   name: name
   short: 'Name of the service data is collected from.
@@ -2267,6 +2439,7 @@ service.name:
 service.state:
   description: Current state of the service.
   flat_name: service.state
+  ignore_above: 1024
   level: core
   name: state
   short: Current state of the service.
@@ -2281,6 +2454,7 @@ service.type:
     be `elasticsearch`.'
   example: elasticsearch
   flat_name: service.type
+  ignore_above: 1024
   level: core
   name: type
   short: 'The type of the service data is collected from.
@@ -2297,6 +2471,7 @@ service.version:
     This allows to look at a data set only for a specific version of a service.'
   example: 3.2.4
   flat_name: service.version
+  ignore_above: 1024
   level: core
   name: version
   short: 'Version of the service the data was collected from.
@@ -2311,6 +2486,7 @@ source.address:
     Then it should be duplicated to `.ip` or `.domain`, depending on which one it
     is.'
   flat_name: source.address
+  ignore_above: 1024
   level: extended
   name: address
   short: 'Some event source addresses are defined ambiguously. The event will sometimes
@@ -2331,6 +2507,7 @@ source.bytes:
 source.domain:
   description: Source domain.
   flat_name: source.domain
+  ignore_above: 1024
   level: core
   name: domain
   short: Source domain.
@@ -2339,6 +2516,7 @@ source.geo.city_name:
   description: City name.
   example: Montreal
   flat_name: source.geo.city_name
+  ignore_above: 1024
   level: core
   name: city_name
   original_fieldset: geo
@@ -2348,6 +2526,7 @@ source.geo.continent_name:
   description: Name of the continent.
   example: North America
   flat_name: source.geo.continent_name
+  ignore_above: 1024
   level: core
   name: continent_name
   original_fieldset: geo
@@ -2357,6 +2536,7 @@ source.geo.country_iso_code:
   description: Country ISO code.
   example: CA
   flat_name: source.geo.country_iso_code
+  ignore_above: 1024
   level: core
   name: country_iso_code
   original_fieldset: geo
@@ -2366,6 +2546,7 @@ source.geo.country_name:
   description: Country name.
   example: Canada
   flat_name: source.geo.country_name
+  ignore_above: 1024
   level: core
   name: country_name
   original_fieldset: geo
@@ -2390,6 +2571,7 @@ source.geo.name:
     Not typically used in automated geolocation.'
   example: boston-dc
   flat_name: source.geo.name
+  ignore_above: 1024
   level: extended
   name: name
   original_fieldset: geo
@@ -2405,6 +2587,7 @@ source.geo.region_iso_code:
   description: Region ISO code.
   example: CA-QC
   flat_name: source.geo.region_iso_code
+  ignore_above: 1024
   level: core
   name: region_iso_code
   original_fieldset: geo
@@ -2414,6 +2597,7 @@ source.geo.region_name:
   description: Region name.
   example: Quebec
   flat_name: source.geo.region_name
+  ignore_above: 1024
   level: core
   name: region_name
   original_fieldset: geo
@@ -2433,6 +2617,7 @@ source.ip:
 source.mac:
   description: MAC address of the source.
   flat_name: source.mac
+  ignore_above: 1024
   level: core
   name: mac
   short: MAC address of the source.
@@ -2455,6 +2640,7 @@ source.port:
 source.user.email:
   description: User email address.
   flat_name: source.user.email
+  ignore_above: 1024
   level: extended
   name: email
   original_fieldset: user
@@ -2464,6 +2650,7 @@ source.user.full_name:
   description: User's full name, if available.
   example: Albert Einstein
   flat_name: source.user.full_name
+  ignore_above: 1024
   level: extended
   name: full_name
   original_fieldset: user
@@ -2476,6 +2663,7 @@ source.user.hash:
     Useful if `user.id` or `user.name` contain confidential information and cannot
     be used.'
   flat_name: source.user.hash
+  ignore_above: 1024
   level: extended
   name: hash
   original_fieldset: user
@@ -2487,6 +2675,7 @@ source.user.hash:
 source.user.id:
   description: One or multiple unique identifiers of the user.
   flat_name: source.user.id
+  ignore_above: 1024
   level: core
   name: id
   original_fieldset: user
@@ -2496,6 +2685,7 @@ source.user.name:
   description: Short name or login of the user.
   example: albert
   flat_name: source.user.name
+  ignore_above: 1024
   level: core
   name: name
   original_fieldset: user
@@ -2505,6 +2695,7 @@ tags:
   description: List of keywords used to tag each event.
   example: '["production", "env2"]'
   flat_name: tags
+  ignore_above: 1024
   level: core
   name: tags
   short: List of keywords used to tag each event.
@@ -2516,6 +2707,7 @@ url.domain:
     name. In this case, the IP address would go to the `domain` field.'
   example: www.elastic.co
   flat_name: url.domain
+  ignore_above: 1024
   level: extended
   name: domain
   short: 'Domain of the request, such as "www.elastic.co".
@@ -2528,6 +2720,7 @@ url.fragment:
 
     The `#` is not part of the fragment.'
   flat_name: url.fragment
+  ignore_above: 1024
   level: extended
   name: fragment
   short: 'Portion of the url after the `#`, such as "top".
@@ -2539,6 +2732,7 @@ url.full:
     in `url.full`, whether this field is reconstructed or present in the event source.
   example: https://www.elastic.co:443/search?q=elasticsearch#top
   flat_name: url.full
+  ignore_above: 1024
   level: extended
   name: full
   short: If full URLs are important to your use case, they should be stored in `url.full`,
@@ -2553,6 +2747,7 @@ url.original:
     This field is meant to represent the URL as it was observed, complete or not.'
   example: https://www.elastic.co:443/search?q=elasticsearch#top or /search?q=elasticsearch
   flat_name: url.original
+  ignore_above: 1024
   level: extended
   name: original
   short: 'Unmodified original url as seen in the event source.
@@ -2565,6 +2760,7 @@ url.original:
 url.password:
   description: Password of the request.
   flat_name: url.password
+  ignore_above: 1024
   level: extended
   name: password
   short: Password of the request.
@@ -2572,6 +2768,7 @@ url.password:
 url.path:
   description: Path of the request, such as "/search".
   flat_name: url.path
+  ignore_above: 1024
   level: extended
   name: path
   short: Path of the request, such as "/search".
@@ -2583,7 +2780,7 @@ url.port:
   level: extended
   name: port
   short: Port of the request, such as 443.
-  type: integer
+  type: long
 url.query:
   description: 'The query field describes the query string of the request, such as
     "q=elasticsearch".
@@ -2593,6 +2790,7 @@ url.query:
     empty string. The `exists` query can be used to differentiate between the two
     cases.'
   flat_name: url.query
+  ignore_above: 1024
   level: extended
   name: query
   short: 'The query field describes the query string of the request, such as "q=elasticsearch".
@@ -2608,6 +2806,7 @@ url.scheme:
     Note: The `:` is not part of the scheme.'
   example: https
   flat_name: url.scheme
+  ignore_above: 1024
   level: extended
   name: scheme
   short: 'Scheme of the request, such as "https".
@@ -2617,6 +2816,7 @@ url.scheme:
 url.username:
   description: Username of the request.
   flat_name: url.username
+  ignore_above: 1024
   level: extended
   name: username
   short: Username of the request.
@@ -2624,6 +2824,7 @@ url.username:
 user.email:
   description: User email address.
   flat_name: user.email
+  ignore_above: 1024
   level: extended
   name: email
   short: User email address.
@@ -2632,6 +2833,7 @@ user.full_name:
   description: User's full name, if available.
   example: Albert Einstein
   flat_name: user.full_name
+  ignore_above: 1024
   level: extended
   name: full_name
   short: User's full name, if available.
@@ -2639,6 +2841,7 @@ user.full_name:
 user.group.id:
   description: Unique identifier for the group on the system/platform.
   flat_name: user.group.id
+  ignore_above: 1024
   level: extended
   name: id
   original_fieldset: group
@@ -2647,6 +2850,7 @@ user.group.id:
 user.group.name:
   description: Name of the group.
   flat_name: user.group.name
+  ignore_above: 1024
   level: extended
   name: name
   original_fieldset: group
@@ -2659,6 +2863,7 @@ user.hash:
     Useful if `user.id` or `user.name` contain confidential information and cannot
     be used.'
   flat_name: user.hash
+  ignore_above: 1024
   level: extended
   name: hash
   short: 'Unique user hash to correlate information for a user in anonymized form.
@@ -2669,6 +2874,7 @@ user.hash:
 user.id:
   description: One or multiple unique identifiers of the user.
   flat_name: user.id
+  ignore_above: 1024
   level: core
   name: id
   short: One or multiple unique identifiers of the user.
@@ -2677,6 +2883,7 @@ user.name:
   description: Short name or login of the user.
   example: albert
   flat_name: user.name
+  ignore_above: 1024
   level: core
   name: name
   short: Short name or login of the user.
@@ -2685,6 +2892,7 @@ user_agent.device.name:
   description: Name of the device.
   example: iPhone
   flat_name: user_agent.device.name
+  ignore_above: 1024
   level: extended
   name: device.name
   short: Name of the device.
@@ -2693,6 +2901,7 @@ user_agent.name:
   description: Name of the user agent.
   example: Safari
   flat_name: user_agent.name
+  ignore_above: 1024
   level: extended
   name: name
   short: Name of the user agent.
@@ -2702,6 +2911,7 @@ user_agent.original:
   example: Mozilla/5.0 (iPhone; CPU iPhone OS 12_1 like Mac OS X) AppleWebKit/605.1.15
     (KHTML, like Gecko) Version/12.0 Mobile/15E148 Safari/604.1
   flat_name: user_agent.original
+  ignore_above: 1024
   level: extended
   name: original
   short: Unparsed version of the user_agent.
@@ -2710,6 +2920,7 @@ user_agent.os.family:
   description: OS family (such as redhat, debian, freebsd, windows).
   example: debian
   flat_name: user_agent.os.family
+  ignore_above: 1024
   level: extended
   name: family
   original_fieldset: os
@@ -2719,6 +2930,7 @@ user_agent.os.full:
   description: Operating system name, including the version or code name.
   example: Mac OS Mojave
   flat_name: user_agent.os.full
+  ignore_above: 1024
   level: extended
   name: full
   original_fieldset: os
@@ -2728,6 +2940,7 @@ user_agent.os.kernel:
   description: Operating system kernel version as a raw string.
   example: 4.4.0-112-generic
   flat_name: user_agent.os.kernel
+  ignore_above: 1024
   level: extended
   name: kernel
   original_fieldset: os
@@ -2737,6 +2950,7 @@ user_agent.os.name:
   description: Operating system name, without the version.
   example: Mac OS X
   flat_name: user_agent.os.name
+  ignore_above: 1024
   level: extended
   name: name
   original_fieldset: os
@@ -2746,6 +2960,7 @@ user_agent.os.platform:
   description: Operating system platform (such centos, ubuntu, windows).
   example: darwin
   flat_name: user_agent.os.platform
+  ignore_above: 1024
   level: extended
   name: platform
   original_fieldset: os
@@ -2755,6 +2970,7 @@ user_agent.os.version:
   description: Operating system version as a raw string.
   example: 10.14.1
   flat_name: user_agent.os.version
+  ignore_above: 1024
   level: extended
   name: version
   original_fieldset: os
@@ -2764,6 +2980,7 @@ user_agent.version:
   description: Version of the user agent.
   example: 12.0
   flat_name: user_agent.version
+  ignore_above: 1024
   level: extended
   name: version
   short: Version of the user agent.

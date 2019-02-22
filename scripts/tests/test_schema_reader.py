@@ -50,9 +50,9 @@ class TestSchemaReader(unittest.TestCase):
     # field definitions
 
     def test_field_set_defaults_no_short(self):
-        field = {'description': 'a field'}
+        field = {'description': 'a field', 'type': 'faketype'}
         schema_reader.field_set_defaults(field)
-        self.assertEqual(field, {'description': 'a field', 'short': 'a field'})
+        self.assertEqual(field, {'description': 'a field', 'short': 'a field', 'type': 'faketype'})
 
     def test_field_set_flat_name_nested(self):
         nested = {'name': 'nested'}
@@ -65,10 +65,11 @@ class TestSchemaReader(unittest.TestCase):
         self.assertEqual(nested, {'name': 'root_field', 'flat_name': 'root_field'})
 
     def test_field_cleanup_values(self):
-        field = {'name': 'myfield', 'description': 'a field   '}
+        field = {'name': 'myfield', 'type': 'faketype', 'description': 'a field   '}
         schema_reader.field_cleanup_values(field, 'event.')
         expected = {
             'name': 'myfield',
+            'type': 'faketype',
             'flat_name': 'event.myfield',
             'description': 'a field',
             'short': 'a field'
