@@ -18,7 +18,7 @@ def main():
     if args.intermediate_only:
         exit
 
-    csv_generator.generate(ecs_flat)
+    csv_generator.generate(ecs_flat, version)
     es_template.generate(ecs_flat)
 
 
