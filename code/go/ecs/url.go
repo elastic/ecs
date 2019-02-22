@@ -19,7 +19,8 @@
 
 package ecs
 
-// URL fields provide a complete URL, with scheme, host, and path.
+// URL fields provide support for complete or partial URLs, and supports the
+// breaking down into scheme, domain, path, and so on.
 type Url struct {
 	// Unmodified original url as seen in the event source.
 	// Note that in network monitoring, the observed URL may be a full URL,
@@ -37,7 +38,7 @@ type Url struct {
 	// Note: The `:` is not part of the scheme.
 	Scheme string `ecs:"scheme"`
 
-	// Domain of the request, such as "www.elastic.co".
+	// Domain of the url, such as "www.elastic.co".
 	// In some cases a URL may refer to an IP and/or port directly, without a
 	// domain name. In this case, the IP address would go to the `domain`
 	// field.

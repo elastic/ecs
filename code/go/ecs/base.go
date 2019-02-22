@@ -23,8 +23,8 @@ import (
 	"time"
 )
 
-// The base set contains all fields which are on the top level. These fields
-// are common across all types of events.
+// The `base` field set contains all fields which are on the top level. These
+// fields are common across all types of events.
 type Base struct {
 	// Date/time when the event originated.
 	// For log events this is the date/time when the event was generated, and
@@ -35,15 +35,16 @@ type Base struct {
 	// List of keywords used to tag each event.
 	Tags string `ecs:"tags"`
 
-	// Key/value pairs.
+	// Custom key/value pairs.
 	// Can be used to add meta information to events. Should not contain nested
 	// objects. All values are stored as keyword.
 	// Example: `docker` and `k8s` labels.
 	Labels map[string]interface{} `ecs:"labels"`
 
-	// For log events the message field contains the log message.
-	// In other use cases the message field can be used to concatenate
-	// different values which are then freely searchable. If multiple messages
-	// exist, they can be combined into one message.
+	// For log events the message field contains the log message, optimized for
+	// viewing in a log viewer.
+	// For structured logs without an original message field, other fields can
+	// be concatenated to form a human-readable summary of the event.
+	// If multiple messages exist, they can be combined into one message.
 	Message string `ecs:"message"`
 }

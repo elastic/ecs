@@ -77,26 +77,28 @@ ECS defines these fields.
 
 ## <a name="base"></a> Base fields
 
-The base set contains all fields which are on the top level. These fields are common across all types of events.
+The `base` field set contains all fields which are on the top level. These fields are common across all types of events.
 
 
 | Field  | Description  | Level  | Type  | Example  |
 |---|---|---|---|---|
 | <a name="@timestamp"></a>@timestamp | Date/time when the event originated.<br/>For log events this is the date/time when the event was generated, and not when it was read.<br/>Required field for all events. | core | date | `2016-05-23T08:05:34.853Z` |
 | <a name="tags"></a>tags | List of keywords used to tag each event. | core | keyword | `["production", "env2"]` |
-| <a name="labels"></a>labels | Key/value pairs.<br/>Can be used to add meta information to events. Should not contain nested objects. All values are stored as keyword.<br/>Example: `docker` and `k8s` labels. | core | object | `{'application': 'foo-bar', 'env': 'production'}` |
-| <a name="message"></a>message | For log events the message field contains the log message.<br/>In other use cases the message field can be used to concatenate different values which are then freely searchable. If multiple messages exist, they can be combined into one message. | core | text | `Hello World` |
+| <a name="labels"></a>labels | Custom key/value pairs.<br/>Can be used to add meta information to events. Should not contain nested objects. All values are stored as keyword.<br/>Example: `docker` and `k8s` labels. | core | object | `{'application': 'foo-bar', 'env': 'production'}` |
+| <a name="message"></a>message | For log events the message field contains the log message, optimized for viewing in a log viewer.<br/>For structured logs without an original message field, other fields can be concatenated to form a human-readable summary of the event.<br/>If multiple messages exist, they can be combined into one message. | core | text | `Hello World` |
 
 
 ## <a name="agent"></a> Agent fields
 
-The agent fields contain the data about the software entity, if any, that collects, detects, or observes events on a host, or takes measurements on a host. Examples include Beats. Agents may also run on observers. ECS agent.* fields shall be populated with details of the agent running on the host or observer where the event happened or the measurement was taken.
+The agent fields contain the data about the software entity, if any, that collects, detects, or observes events on a host, or takes measurements on a host.
+
+Examples include Beats. Agents may also run on observers. ECS agent.* fields shall be populated with details of the agent running on the host or observer where the event happened or the measurement was taken.
 
 
 | Field  | Description  | Level  | Type  | Example  |
 |---|---|---|---|---|
 | <a name="agent.version"></a>agent.version | Version of the agent. | core | keyword | `6.0.0-rc2` |
-| <a name="agent.name"></a>agent.name | Name of the agent.<br/>This is a name that can be given to an agent. This can be helpful if for example two Filebeat instances are running on the same host but a human readable separation is needed on which Filebeat instance data is coming from.<br/>If no name is given, the name is often left empty. | core | keyword | `foo` |
+| <a name="agent.name"></a>agent.name | Custom name of the agent.<br/>This is a name that can be given to an agent. This can be helpful if for example two Filebeat instances are running on the same host but a human readable separation is needed on which Filebeat instance data is coming from.<br/>If no name is given, the name is often left empty. | core | keyword | `foo` |
 | <a name="agent.type"></a>agent.type | Type of the agent.<br/>The agent type stays always the same and should be given by the agent used. In case of Filebeat the agent would always be Filebeat also if two Filebeat instances are run on the same machine. | core | keyword | `filebeat` |
 | <a name="agent.id"></a>agent.id | Unique identifier of this agent (if one exists).<br/>Example: For Beats this would be beat.id. | core | keyword | `8a4f500d` |
 | <a name="agent.ephemeral_id"></a>agent.ephemeral_id | Ephemeral identifier of this agent (if one exists).<br/>This id normally changes across restarts, but `agent.id` does not. | extended | keyword | `8a4f500f` |
@@ -107,7 +109,9 @@ Examples: In the case of Beats for logs, the agent.name is filebeat. For APM, it
 
 ## <a name="client"></a> Client fields
 
-A client is defined as the initiator of a network connection for events regarding sessions, connections, or bidirectional flow records. For TCP events, the client is the initiator of the TCP connection that sends the SYN packet(s). For other protocols, the client is generally the initiator or requestor in the network transaction. Some systems use the term "originator" to refer the client in TCP connections. The client fields describe details about the system acting as the client in the network event. Client fields are usually populated in conjunction with server fields.  Client fields are generally not populated for packet-level events.
+A client is defined as the initiator of a network connection for events regarding sessions, connections, or bidirectional flow records.
+
+For TCP events, the client is the initiator of the TCP connection that sends the SYN packet(s). For other protocols, the client is generally the initiator or requestor in the network transaction. Some systems use the term "originator" to refer the client in TCP connections. The client fields describe details about the system acting as the client in the network event. Client fields are usually populated in conjunction with server fields.  Client fields are generally not populated for packet-level events.
 
 Client / server representations can add semantic context to an exchange, which is helpful to visualize the data in certain situations. If your context falls in that category, you should still ensure that source and destination are filled appropriately.
 
@@ -130,7 +134,7 @@ Fields related to the cloud or infrastructure the events are coming from.
 
 | Field  | Description  | Level  | Type  | Example  |
 |---|---|---|---|---|
-| <a name="cloud.provider"></a>cloud.provider | Name of the cloud provider. Example values are ec2, gce, or digitalocean. | extended | keyword | `ec2` |
+| <a name="cloud.provider"></a>cloud.provider | Name of the cloud provider. Example values are aws, azure, gcp, or digitalocean. | extended | keyword | `ec2` |
 | <a name="cloud.availability_zone"></a>cloud.availability_zone | Availability zone in which this host is running. | extended | keyword | `us-east-1c` |
 | <a name="cloud.region"></a>cloud.region | Region in which this host is running. | extended | keyword | `us-east-1` |
 | <a name="cloud.instance.id"></a>cloud.instance.id | Instance ID of the host machine. | extended | keyword | `i-1234567890abcdef0` |
@@ -144,7 +148,9 @@ Examples: If Metricbeat is running on an EC2 host and fetches data from its host
 
 ## <a name="container"></a> Container fields
 
-Container fields are used for meta information about the specific container that is the source of information. These fields help correlate data based containers from any runtime.
+Container fields are used for meta information about the specific container that is the source of information.
+
+These fields help correlate data based containers from any runtime.
 
 
 | Field  | Description  | Level  | Type  | Example  |
@@ -159,7 +165,9 @@ Container fields are used for meta information about the specific container that
 
 ## <a name="destination"></a> Destination fields
 
-Destination fields describe details about the destination of a packet/event. Destination fields are usually populated in conjunction with source fields.
+Destination fields describe details about the destination of a packet/event.
+
+Destination fields are usually populated in conjunction with source fields.
 
 
 | Field  | Description  | Level  | Type  | Example  |
@@ -180,12 +188,14 @@ Meta-information specific to ECS.
 
 | Field  | Description  | Level  | Type  | Example  |
 |---|---|---|---|---|
-| <a name="ecs.version"></a>ecs.version | ECS version this event conforms to. `ecs.version` is a required field and must exist in all events.<br/>When querying across multiple indices -- which may conform to slightly different ECS versions -- this field lets integrations adjust to the schema version of the events.<br/>The current version is 1.0.0-beta2 . | core | keyword | `1.0.0-beta2` |
+| <a name="ecs.version"></a>ecs.version | ECS version this event conforms to. `ecs.version` is a required field and must exist in all events.<br/>When querying across multiple indices -- which may conform to slightly different ECS versions -- this field lets integrations adjust to the schema version of the events.<br/>The current version is 1.0.0-beta2. | core | keyword | `1.0.0-beta2` |
 
 
 ## <a name="error"></a> Error fields
 
-These fields can represent errors of any kind. Use them for errors that happen while fetching events or in cases where the event itself contains an error.
+These fields can represent errors of any kind.
+
+Use them for errors that happen while fetching events or in cases where the event itself contains an error.
 
 
 | Field  | Description  | Level  | Type  | Example  |
@@ -197,7 +207,9 @@ These fields can represent errors of any kind. Use them for errors that happen w
 
 ## <a name="event"></a> Event fields
 
-The event fields are used for context information about the log or metric event itself. A log is defined as an event containing details of something that happened. Log events must include the time at which the thing happened. Examples of log events include a process starting on a host, a network packet being sent from a source to a destination, or a network connection between a client and a server being initiated or closed. A metric is defined as an event containing one or more numerical or categorical measurements and the time at which the measurement was taken. Examples of metric events include memory pressure measured on a host, or vulnerabilities measured on a scanned host.
+The event fields are used for context information about the log or metric event itself.
+
+A log is defined as an event containing details of something that happened. Log events must include the time at which the thing happened. Examples of log events include a process starting on a host, a network packet being sent from a source to a destination, or a network connection between a client and a server being initiated or closed. A metric is defined as an event containing one or more numerical or categorical measurements and the time at which the measurement was taken. Examples of metric events include memory pressure measured on a host, or vulnerabilities measured on a scanned host.
 
 
 | Field  | Description  | Level  | Type  | Example  |
@@ -210,7 +222,7 @@ The event fields are used for context information about the log or metric event 
 | <a name="event.type"></a>event.type | Reserved for future usage.<br/>Please avoid using this field for user data. | core | keyword |  |
 | <a name="event.module"></a>event.module | Name of the module this data is coming from.<br/>This information is coming from the modules used in Beats or Logstash. | core | keyword | `mysql` |
 | <a name="event.dataset"></a>event.dataset | Name of the dataset.<br/>The concept of a `dataset` (fileset / metricset) is used in Beats as a subset of modules. It contains the information which is currently stored in metricset.name and metricset.module or fileset.name. | core | keyword | `stats` |
-| <a name="event.severity"></a>event.severity | Severity describes the severity of the event. What the different severity values mean can very different between use cases. It's up to the implementer to make sure severities are consistent across events. | core | long | `7` |
+| <a name="event.severity"></a>event.severity | Severity describes the original severity of the event. What the different severity values mean can very different between use cases. It's up to the implementer to make sure severities are consistent across events. | core | long | `7` |
 | <a name="event.original"></a>event.original | Raw text message of entire event. Used to demonstrate log integrity.<br/>This field is not indexed and doc_values are disabled. It cannot be searched, but it can be retrieved from `_source`. | core | (not indexed) | `Sep 19 08:26:10 host CEF:0&#124;Security&#124; threatmanager&#124;1.0&#124;100&#124; worm successfully stopped&#124;10&#124;src=10.0.0.1 dst=2.1.2.2spt=1232` |
 | <a name="event.hash"></a>event.hash | Hash (perhaps logstash fingerprint) of raw field to be able to demonstrate log integrity. | extended | keyword | `123456789012345678901234567890ABCD` |
 | <a name="event.duration"></a>event.duration | Duration of the event in nanoseconds.<br/>If event.start and event.end are known this value should be the difference between the end and start time. | core | long |  |
@@ -224,7 +236,9 @@ The event fields are used for context information about the log or metric event 
 
 ## <a name="file"></a> File fields
 
-A file is defined as a set of information that has been created on, or has existed on a filesystem. File objects can be associated with host events, network events, and/or file events (e.g., those produced by File Integrity Monitoring [FIM] products or services). File fields provide details about the affected file associated with the event or metric.
+A file is defined as a set of information that has been created on, or has existed on a filesystem.
+
+File objects can be associated with host events, network events, and/or file events (e.g., those produced by File Integrity Monitoring [FIM] products or services). File fields provide details about the affected file associated with the event or metric.
 
 
 | Field  | Description  | Level  | Type  | Example  |
@@ -283,7 +297,9 @@ Note also that the `group` fields may be used directly at the top level.
 
 ## <a name="host"></a> Host fields
 
-A host is defined as a general computing instance. ECS host.* fields should be populated with details about the host on which the event happened, or from which the measurement was taken. Host types include hardware, virtual machines, Docker containers, and Kubernetes nodes.
+A host is defined as a general computing instance.
+
+ECS host.* fields should be populated with details about the host on which the event happened, or from which the measurement was taken. Host types include hardware, virtual machines, Docker containers, and Kubernetes nodes.
 
 
 | Field  | Description  | Level  | Type  | Example  |
@@ -299,17 +315,17 @@ A host is defined as a general computing instance. ECS host.* fields should be p
 
 ## <a name="http"></a> HTTP fields
 
-Fields related to HTTP activity.
+Fields related to HTTP activity. Use the `url` field set to store the url of the request.
 
 
 | Field  | Description  | Level  | Type  | Example  |
 |---|---|---|---|---|
-| <a name="http.request.method"></a>http.request.method | Http request method.<br/>The field value must be normalized to lowercase for querying. See "Lowercase Capitalization" in the "Implementing ECS"  section. | extended | keyword | `get, post, put` |
-| <a name="http.request.body.content"></a>http.request.body.content | The full http request body. | extended | keyword | `Hello world` |
+| <a name="http.request.method"></a>http.request.method | HTTP request method.<br/>The field value must be normalized to lowercase for querying. See "Lowercase Capitalization" in the "Implementing ECS"  section. | extended | keyword | `get, post, put` |
+| <a name="http.request.body.content"></a>http.request.body.content | The full HTTP request body. | extended | keyword | `Hello world` |
 | <a name="http.request.referrer"></a>http.request.referrer | Referrer for this HTTP request. | extended | keyword | `https://blog.example.com/` |
-| <a name="http.response.status_code"></a>http.response.status_code | Http response status code. | extended | long | `404` |
-| <a name="http.response.body.content"></a>http.response.body.content | The full http response body. | extended | keyword | `Hello world` |
-| <a name="http.version"></a>http.version | Http version. | extended | keyword | `1.1` |
+| <a name="http.response.status_code"></a>http.response.status_code | HTTP response status code. | extended | long | `404` |
+| <a name="http.response.body.content"></a>http.response.body.content | The full HTTP response body. | extended | keyword | `Hello world` |
+| <a name="http.version"></a>http.version | HTTP version. | extended | keyword | `1.1` |
 | <a name="http.request.bytes"></a>http.request.bytes | Total size in bytes of the request (body and headers). | extended | long | `1437` |
 | <a name="http.request.body.bytes"></a>http.request.body.bytes | Size in bytes of the request body. | extended | long | `887` |
 | <a name="http.response.bytes"></a>http.response.bytes | Total size in bytes of the response (body and headers). | extended | long | `1437` |
@@ -323,13 +339,15 @@ Fields which are specific to log events.
 
 | Field  | Description  | Level  | Type  | Example  |
 |---|---|---|---|---|
-| <a name="log.level"></a>log.level | Log level of the log event.<br/>Some examples are `WARN`, `ERR`, `INFO`. | core | keyword | `ERR` |
+| <a name="log.level"></a>log.level | Original log level of the log event.<br/>Some examples are `warn`, `error`, `i`. | core | keyword | `err` |
 | <a name="log.original"></a>log.original | This is the original log message and contains the full log message before splitting it up in multiple parts.<br/>In contrast to the `message` field which can contain an extracted part of the log message, this field contains the original, full log message. It can have already some modifications applied like encoding or new lines removed to clean up the log message.<br/>This field is not indexed and doc_values are disabled so it can't be queried but the value can be retrieved from `_source`. | core | (not indexed) | `Sep 19 08:26:10 localhost My log` |
 
 
 ## <a name="network"></a> Network fields
 
-The network is defined as the communication path over which a host or network event happens. The network.* fields should be populated with details about the network activity associated with an event.
+The network is defined as the communication path over which a host or network event happens.
+
+The network.* fields should be populated with details about the network activity associated with an event.
 
 
 | Field  | Description  | Level  | Type  | Example  |
@@ -338,7 +356,7 @@ The network is defined as the communication path over which a host or network ev
 | <a name="network.type"></a>network.type | In the OSI Model this would be the Network Layer. ipv4, ipv6, ipsec, pim, etc<br/>The field value must be normalized to lowercase for querying. See "Lowercase Capitalization" in the "Implementing ECS" section. | core | keyword | `ipv4` |
 | <a name="network.iana_number"></a>network.iana_number | IANA Protocol Number (https://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml). Standardized list of protocols. This aligns well with NetFlow and sFlow related logs which use the IANA Protocol Number. | extended | keyword | `6` |
 | <a name="network.transport"></a>network.transport | Same as network.iana_number, but instead using the Keyword name of the transport layer (udp, tcp, ipv6-icmp, etc.)<br/>The field value must be normalized to lowercase for querying. See "Lowercase Capitalization" in the "Implementing ECS"  section. | core | keyword | `tcp` |
-| <a name="network.application"></a>network.application | A name given to an application. This can be arbitrarily assigned for things like microservices, but also apply to things like skype, icq, facebook, twitter. This would be used in situations where the vendor or service can be decoded such as from the source/dest IP owners, ports, or wire format.<br/>The field value must be normalized to lowercase for querying. See "Lowercase Capitalization" in the "Implementing ECS" section. | extended | keyword | `aim` |
+| <a name="network.application"></a>network.application | A name given to an application level protocol. This can be arbitrarily assigned for things like microservices, but also apply to things like skype, icq, facebook, twitter. This would be used in situations where the vendor or service can be decoded such as from the source/dest IP owners, ports, or wire format.<br/>The field value must be normalized to lowercase for querying. See "Lowercase Capitalization" in the "Implementing ECS" section. | extended | keyword | `aim` |
 | <a name="network.protocol"></a>network.protocol | L7 Network protocol name. ex. http, lumberjack, transport protocol.<br/>The field value must be normalized to lowercase for querying. See "Lowercase Capitalization" in the "Implementing ECS" section. | core | keyword | `http` |
 | <a name="network.direction"></a>network.direction | Direction of the network traffic.<br/>Recommended values are:<br/>  * inbound<br/>  * outbound<br/>  * internal<br/>  * external<br/>  * unknown<br/><br/>When mapping events from a host-based monitoring context, populate this field from the host's point of view.<br/>When mapping events from a network or perimeter-based monitoring context, populate this field from the point of view of your network perimeter. | core | keyword | `inbound` |
 | <a name="network.forwarded_ip"></a>network.forwarded_ip | Host IP address when the source IP address is the proxy. | core | ip | `192.1.1.2` |
@@ -349,7 +367,9 @@ The network is defined as the communication path over which a host or network ev
 
 ## <a name="observer"></a> Observer fields
 
-An observer is defined as a special network, security, or application device used to detect, observe, or create network, security, or application-related events and metrics. This could be a custom hardware appliance or a server that has been configured to run special network, security, or application software. Examples include firewalls, intrusion detection/prevention systems, network monitoring sensors, web application firewalls, data loss prevention systems, and APM servers. The observer.* fields shall be populated with details of the system, if any, that detects, observes and/or creates a network, security, or application event or metric. Message queues and ETL components used in processing events or metrics are not considered observers in ECS.  
+An observer is defined as a special network, security, or application device used to detect, observe, or create network, security, or application-related events and metrics.
+
+This could be a custom hardware appliance or a server that has been configured to run special network, security, or application software. Examples include firewalls, intrusion detection/prevention systems, network monitoring sensors, web application firewalls, data loss prevention systems, and APM servers. The observer.* fields shall be populated with details of the system, if any, that detects, observes and/or creates a network, security, or application event or metric. Message queues and ETL components used in processing events or metrics are not considered observers in ECS.
 
 
 | Field  | Description  | Level  | Type  | Example  |
@@ -365,7 +385,9 @@ An observer is defined as a special network, security, or application device use
 
 ## <a name="organization"></a> Organization fields
 
-The organization fields enrich data with information about the company or entity the data is associated with. These fields help you arrange or filter data stored in an index by one or multiple organizations.
+The organization fields enrich data with information about the company or entity the data is associated with.
+
+These fields help you arrange or filter data stored in an index by one or multiple organizations.
 
 
 | Field  | Description  | Level  | Type  | Example  |
@@ -395,7 +417,9 @@ Note also that the `os` fields are not expected to be used directly at the top l
 
 ## <a name="process"></a> Process fields
 
-These fields contain information about a process. These fields can help you correlate metrics information with a process id/name from a log message.  The `process.pid` often stays in the metric itself and is copied to the global field for correlation.
+These fields contain information about a process.
+
+These fields can help you correlate metrics information with a process id/name from a log message.  The `process.pid` often stays in the metric itself and is copied to the global field for correlation.
 
 
 | Field  | Description  | Level  | Type  | Example  |
@@ -403,7 +427,7 @@ These fields contain information about a process. These fields can help you corr
 | <a name="process.pid"></a>process.pid | Process id. | core | long |  |
 | <a name="process.name"></a>process.name | Process name.<br/>Sometimes called program name or similar. | extended | keyword | `ssh` |
 | <a name="process.ppid"></a>process.ppid | Process parent id. | extended | long |  |
-| <a name="process.args"></a>process.args | Process arguments.<br/>May be filtered to protect sensitive information. | extended | keyword | `['ssh', '-l', 'user', '10.0.0.16']` |
+| <a name="process.args"></a>process.args | Array of process arguments.<br/>May be filtered to protect sensitive information. | extended | keyword | `['ssh', '-l', 'user', '10.0.0.16']` |
 | <a name="process.executable"></a>process.executable | Absolute path to the process executable. | extended | keyword | `/usr/bin/ssh` |
 | <a name="process.title"></a>process.title | Process title.<br/>The proctitle, some times the same as process name. Can also be different: for example a browser setting its title to the web page currently opened. | extended | keyword |  |
 | <a name="process.thread.id"></a>process.thread.id | Thread ID. | extended | long | `4242` |
@@ -413,7 +437,11 @@ These fields contain information about a process. These fields can help you corr
 
 ## <a name="related"></a> Related fields
 
-This field set is meant to facilitate pivoting around a piece of data. Some pieces of information can be seen in many places in ECS. To facilitate searching for them, append values to their corresponding field in `related.`. A concrete example is IP addresses, which can be under host, observer, source, destination, client, server, and network.forwarded_ip. If you append all IPs to `related.ip`, you can then search for a given IP trivially, no matter where it appeared, by querying `related.ip:a.b.c.d`.
+This field set is meant to facilitate pivoting around a piece of data.
+
+Some pieces of information can be seen in many places in an ECS event. To facilitate searching for them, store an array of all seen values to their corresponding field in `related.`.
+
+A concrete example is IP addresses, which can be under host, observer, source, destination, client, server, and network.forwarded_ip. If you append all IPs to `related.ip`, you can then search for a given IP trivially, no matter where it appeared, by querying `related.ip:a.b.c.d`.
 
 
 | Field  | Description  | Level  | Type  | Example  |
@@ -423,7 +451,9 @@ This field set is meant to facilitate pivoting around a piece of data. Some piec
 
 ## <a name="server"></a> Server fields
 
-A Server is defined as the responder in a network connection for events regarding sessions, connections, or bidirectional flow records. For TCP events, the server is the receiver of the initial SYN packet(s) of the TCP connection. For other protocols, the server is generally the responder in the network transaction. Some systems actually use the term "responder" to refer the server in TCP connections. The server fields describe details about the system acting as the server in the network event. Server fields are usually populated in conjunction with client fields. Server fields are generally not populated for packet-level events.
+A Server is defined as the responder in a network connection for events regarding sessions, connections, or bidirectional flow records.
+
+For TCP events, the server is the receiver of the initial SYN packet(s) of the TCP connection. For other protocols, the server is generally the responder in the network transaction. Some systems actually use the term "responder" to refer the server in TCP connections. The server fields describe details about the system acting as the server in the network event. Server fields are usually populated in conjunction with client fields. Server fields are generally not populated for packet-level events.
 
 Client / server representations can add semantic context to an exchange, which is helpful to visualize the data in certain situations. If your context falls in that category, you should still ensure that source and destination are filled appropriately.
 
@@ -441,7 +471,9 @@ Client / server representations can add semantic context to an exchange, which i
 
 ## <a name="service"></a> Service fields
 
-The service fields describe the service for or from which the data was collected. These fields help you find and correlate logs for a specific service and version.
+The service fields describe the service for or from which the data was collected.
+
+These fields help you find and correlate logs for a specific service and version.
 
 
 | Field  | Description  | Level  | Type  | Example  |
@@ -456,7 +488,9 @@ The service fields describe the service for or from which the data was collected
 
 ## <a name="source"></a> Source fields
 
-Source fields describe details about the source of a packet/event. Source fields are usually populated in conjunction with destination fields.
+Source fields describe details about the source of a packet/event.
+
+Source fields are usually populated in conjunction with destination fields.
 
 
 | Field  | Description  | Level  | Type  | Example  |
@@ -472,7 +506,7 @@ Source fields describe details about the source of a packet/event. Source fields
 
 ## <a name="url"></a> URL fields
 
-URL fields provide a complete URL, with scheme, host, and path.
+URL fields provide support for complete or partial URLs, and supports the breaking down into scheme, domain, path, and so on.
 
 
 | Field  | Description  | Level  | Type  | Example  |
@@ -480,7 +514,7 @@ URL fields provide a complete URL, with scheme, host, and path.
 | <a name="url.original"></a>url.original | Unmodified original url as seen in the event source.<br/>Note that in network monitoring, the observed URL may be a full URL, whereas in access logs, the URL is often just represented as a path.<br/>This field is meant to represent the URL as it was observed, complete or not. | extended | keyword | `https://www.elastic.co:443/search?q=elasticsearch#top or /search?q=elasticsearch` |
 | <a name="url.full"></a>url.full | If full URLs are important to your use case, they should be stored in `url.full`, whether this field is reconstructed or present in the event source. | extended | keyword | `https://www.elastic.co:443/search?q=elasticsearch#top` |
 | <a name="url.scheme"></a>url.scheme | Scheme of the request, such as "https".<br/>Note: The `:` is not part of the scheme. | extended | keyword | `https` |
-| <a name="url.domain"></a>url.domain | Domain of the request, such as "www.elastic.co".<br/>In some cases a URL may refer to an IP and/or port directly, without a domain name. In this case, the IP address would go to the `domain` field. | extended | keyword | `www.elastic.co` |
+| <a name="url.domain"></a>url.domain | Domain of the url, such as "www.elastic.co".<br/>In some cases a URL may refer to an IP and/or port directly, without a domain name. In this case, the IP address would go to the `domain` field. | extended | keyword | `www.elastic.co` |
 | <a name="url.port"></a>url.port | Port of the request, such as 443. | extended | integer | `443` |
 | <a name="url.path"></a>url.path | Path of the request, such as "/search". | extended | keyword |  |
 | <a name="url.query"></a>url.query | The query field describes the query string of the request, such as "q=elasticsearch".<br/>The `?` is excluded from the query string. If a URL contains no `?`, there is no query field. If there is a `?` but no query, the query field exists with an empty string. The `exists` query can be used to differentiate between the two cases. | extended | keyword |  |
@@ -491,7 +525,9 @@ URL fields provide a complete URL, with scheme, host, and path.
 
 ## <a name="user"></a> User fields
 
-The user fields describe information about the user that is relevant to  the event. Fields can have one entry or multiple entries. If a user has more than one id, provide an array that includes all of them.
+The user fields describe information about the user that is relevant to the event.
+
+Fields can have one entry or multiple entries. If a user has more than one id, provide an array that includes all of them.
 
 
 The `user` fields are expected to be nested at: `client.user`, `destination.user`, `host.user`, `server.user`, `source.user`.
@@ -509,7 +545,9 @@ Note also that the `user` fields may be used directly at the top level.
 
 ## <a name="user_agent"></a> User agent fields
 
-The user_agent fields normally come from a browser request. They often show up in web service logs coming from the parsed user agent string.
+The user_agent fields normally come from a browser request.
+
+They often show up in web service logs coming from the parsed user agent string.
 
 
 | Field  | Description  | Level  | Type  | Example  |

@@ -24,15 +24,15 @@ import (
 )
 
 // The event fields are used for context information about the log or metric
-// event itself. A log is defined as an event containing details of something
-// that happened. Log events must include the time at which the thing happened.
-// Examples of log events include a process starting on a host, a network
-// packet being sent from a source to a destination, or a network connection
-// between a client and a server being initiated or closed. A metric is defined
-// as an event containing one or more numerical or categorical measurements and
-// the time at which the measurement was taken. Examples of metric events
-// include memory pressure measured on a host, or vulnerabilities measured on a
-// scanned host.
+// event itself.
+// A log is defined as an event containing details of something that happened.
+// Log events must include the time at which the thing happened. Examples of
+// log events include a process starting on a host, a network packet being sent
+// from a source to a destination, or a network connection between a client and
+// a server being initiated or closed. A metric is defined as an event
+// containing one or more numerical or categorical measurements and the time at
+// which the measurement was taken. Examples of metric events include memory
+// pressure measured on a host, or vulnerabilities measured on a scanned host.
 type Event struct {
 	// Unique ID to describe the event.
 	ID string `ecs:"id"`
@@ -80,9 +80,10 @@ type Event struct {
 	// in metricset.name and metricset.module or fileset.name.
 	Dataset string `ecs:"dataset"`
 
-	// Severity describes the severity of the event. What the different
-	// severity values mean can very different between use cases. It's up to
-	// the implementer to make sure severities are consistent across events.
+	// Severity describes the original severity of the event. What the
+	// different severity values mean can very different between use cases.
+	// It's up to the implementer to make sure severities are consistent across
+	// events.
 	Severity int64 `ecs:"severity"`
 
 	// Raw text message of entire event. Used to demonstrate log integrity.
