@@ -22,10 +22,12 @@ All notable changes to this project will be documented in this file based on the
 * Added an optional short field description. #330
 
 ### Improvements
+
 * Clarified the definition of the host fields #325
 * Specify the `object_type` for field `labels`. #331
 * Loosen up definition of `geo` field set. Not necessarily geo-ip based, since `geo.name`. #333
 * Make phrasing of lowercasing directive more relevant, no matter where its shown. #332
+* Make phrasing of lowercasing directive more relevant, no matter where it's shown. #332
 
 ### Deprecated
 
