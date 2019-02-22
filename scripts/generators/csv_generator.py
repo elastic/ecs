@@ -18,17 +18,17 @@ def base_first(ecs_flat):
     return base_list + sorted_list
 
 
-def save_csv(file, data):
+def save_csv(file, sorted_fields):
     open_mode = "wb"
     if sys.version_info >= (3, 0):
         open_mode = "w"
 
-    schema_writer = csv.writer(csvfile,
-                               delimiter=',',
-                               quoting=csv.QUOTE_MINIMAL,
-                               lineterminator='\n')
-
     with open(file, open_mode) as csvfile:
+        schema_writer = csv.writer(csvfile,
+                                   delimiter=',',
+                                   quoting=csv.QUOTE_MINIMAL,
+                                   lineterminator='\n')
+
         schema_writer.writerow(["Field", "Type", "Level", "Example"])
         for field in sorted_fields:
             schema_writer.writerow([
