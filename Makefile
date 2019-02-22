@@ -15,7 +15,7 @@ VERSION          ?= 1.0.0-beta2
 # Check verifies that all of the committed files that are generated are
 # up-to-date.
 .PHONY: check
-check: generate fmt misspell makelint check-license-headers
+check: generate test fmt misspell makelint check-license-headers
 	# Check if diff is empty.
 	git diff | cat
 	git update-index --refresh
