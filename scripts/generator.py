@@ -3,6 +3,7 @@ import argparse
 
 import schema_reader
 from generators import csv_generator
+from generators import es_template
 
 def intermediate_files():
     (ecs_nested, ecs_fields) = schema_reader.load_ecs()
@@ -28,3 +29,4 @@ if __name__ == '__main__':
         exit
 
     csv_generator.generate(ecs_flat)
+    es_template.generate(ecs_flat)
