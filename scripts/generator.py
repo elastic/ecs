@@ -19,7 +19,7 @@ def main():
         exit
 
     csv_generator.generate(ecs_flat, version)
-    es_template.generate(ecs_flat)
+    es_template.generate(ecs_flat, version)
 
 
 def argument_parser():

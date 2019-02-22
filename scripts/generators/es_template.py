@@ -2,9 +2,9 @@ import json
 import sys
 
 
-def generate(ecs_flat):
+def generate(ecs_flat, version):
     template = base_template()
-    template['mappings']['_doc']['_meta']['version'] = '1.0.0-beta2'
+    template['mappings']['_doc']['_meta']['version'] = version
 
     template_fields_root = template['mappings']['_doc']['properties']
     for flat_name in ecs_flat:
