@@ -5,6 +5,7 @@ import schema_reader
 from generators import csv_generator
 from generators import es_template
 
+
 def intermediate_files():
     (ecs_nested, ecs_fields) = schema_reader.load_ecs()
     with open('generated/ecs/fields_flat.yml', 'w') as outfile:
@@ -13,12 +14,14 @@ def intermediate_files():
         yaml.dump(ecs_nested, outfile, default_flow_style=False)
     return (ecs_nested, ecs_fields)
 
+
 def argument_parser():
     parser = argparse.ArgumentParser()
     parser.add_argument('--intermediate-only', action='store_true',
-            help='generate intermediary files only')
+                        help='generate intermediary files only')
 
     return parser.parse_args()
+
 
 if __name__ == '__main__':
     args = argument_parser()

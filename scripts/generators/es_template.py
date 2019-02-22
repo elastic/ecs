@@ -25,9 +25,9 @@ def dict_add_nested(dict, nestings, value):
         if current_nesting not in dict:
             dict[current_nesting] = {'properties': {}}
         dict_add_nested(
-                dict[current_nesting]['properties'],
-                rest_nestings,
-                value)
+            dict[current_nesting]['properties'],
+            rest_nestings,
+            value)
     else:
         dict[current_nesting] = value
 
@@ -39,7 +39,7 @@ def dict_copy_existing_keys(source, destination, keys):
 
 
 def entry_for(field):
-    dict = { 'type': field['type'] }
+    dict = {'type': field['type']}
     try:
         if 'index' in field and not field['index']:
             dict_copy_existing_keys(field, dict, ['index', 'doc_values'])
@@ -64,34 +64,34 @@ def save_json(file, data):
 
 def base_template():
     return {
-            "index_patterns": ["ecs-*"],
-            "order": 1,
-            "settings": {
-              "index": {
+        "index_patterns": ["ecs-*"],
+        "order": 1,
+        "settings": {
+            "index": {
                 "mapping": {
-                  "total_fields": {
-                    "limit": 10000
-                  }
+                    "total_fields": {
+                        "limit": 10000
+                    }
                 },
                 "refresh_interval": "5s"
-              }
-            },
-            "mappings": {
-                "_doc": {
-                    "_meta": {},
-                    "date_detection": False,
-                    "dynamic_templates": [
-                        {
-                            "strings_as_keyword": {
-                                "mapping": {
-                                    "ignore_above": 1024,
-                                    "type": "keyword"
-                                },
-                                "match_mapping_type": "string"
-                            }
+            }
+        },
+        "mappings": {
+            "_doc": {
+                "_meta": {},
+                "date_detection": False,
+                "dynamic_templates": [
+                    {
+                        "strings_as_keyword": {
+                            "mapping": {
+                                "ignore_above": 1024,
+                                "type": "keyword"
+                            },
+                            "match_mapping_type": "string"
                         }
-                    ],
-                    "properties": {}
-                }
+                    }
+                ],
+                "properties": {}
             }
         }
+    }

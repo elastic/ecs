@@ -10,12 +10,10 @@ class TestGeneratorsEsTemplate(unittest.TestCase):
         es_template.dict_add_nested(dict, ['level1'], 'value')
         self.assertEqual(dict, {'level1': 'value'})
 
-
     def test_dict_add_nested(self):
         dict = {}
         es_template.dict_add_nested(dict, ['level1', 'level2'], 'value')
         self.assertEqual(dict, {'level1': {'properties': {'level2': 'value'}}})
-
 
     def test_add_siblings(self):
         dict = {'key1': 'value1', 'key2': {'properties': {'nested1': 'value12'}}}
@@ -27,7 +25,6 @@ class TestGeneratorsEsTemplate(unittest.TestCase):
             'key3': 'value3'
         })
 
-
     # dict_copy_existing_keys
 
     def test_dict_copy_existing_keys(self):
@@ -35,7 +32,6 @@ class TestGeneratorsEsTemplate(unittest.TestCase):
         destination = {}
         es_template.dict_copy_existing_keys(source, destination, ['key1', 'missingkey'])
         self.assertEqual(destination, {'key1': 'value1'})
-
 
     def test_dict_copy_existing_keys_overwrites(self):
         source = {'key1': 'new_value'}
