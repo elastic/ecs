@@ -26,15 +26,6 @@ def load_schema_files(files=schema_files()):
         fields_nested.update(new_fields)
     return fields_nested
 
-# Validation
-
-# TODO Implement validation
-
-
-def validate_schema(schema):
-    """Return schema if valid, aborts with useful message if anything is amiss"""
-    return schema
-
 # Generic helpers
 
 
@@ -45,6 +36,7 @@ def dict_clean_string_values(dict):
         if isinstance(value, basestring):
             dict[key] = value.strip()
             # TODO: Remove trailing \n?
+
 
 def dict_set_default(dict, key, default):
     if key not in dict:
