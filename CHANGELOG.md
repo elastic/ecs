@@ -14,7 +14,7 @@ All notable changes to this project will be documented in this file based on the
 * Field set name "group" was being used as a leaf field at `user.group`, instead
  of being a nesting of the field set. This goes against a driving principle of ECS,
  and has been corrected. #308
-* Replaced incorrect `ec2` example in `cloud.provider` with `aws`. #330
+* Replaced incorrect examples in `cloud.provider`. #330
 
 ### Added
 
