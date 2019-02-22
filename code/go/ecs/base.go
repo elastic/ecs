@@ -23,8 +23,8 @@ import (
 	"time"
 )
 
-// The base set contains all fields which are on the top level. These fields
-// are common across all types of events.
+// The `base` field set contains all fields which are on the top level. These
+// fields are common across all types of events.
 type Base struct {
 	// Date/time when the event originated.
 	// For log events this is the date/time when the event was generated, and
@@ -43,7 +43,7 @@ type Base struct {
 
 	// For log events the message field contains the log message, optimized for
 	// viewing in a log viewer.
-	// For structured logs without an original message field, other field can
+	// For structured logs without an original message field, other fields can
 	// be concatenated to form a human-readable summary of the event.
 	// If multiple messages exist, they can be combined into one message.
 	Message string `ecs:"message"`

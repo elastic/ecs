@@ -59,7 +59,7 @@
     "type": "group"
   }, 
   "base": {
-    "description": "The base set contains all fields which are on the top level. These fields are common across all types of events.\n", 
+    "description": "The `base` field set contains all fields which are on the top level. These fields are common across all types of events.\n", 
     "fields": {
       "@timestamp": {
         "description": "Date/time when the event originated.\nFor log events this is the date/time when the event was generated, and not when it was read.\nRequired field for all events.", 
@@ -82,7 +82,7 @@
         "type": "object"
       }, 
       "message": {
-        "description": "For log events the message field contains the log message, optimized for viewing in a log viewer.\nFor structured logs without an original message field, other field can be concatenated to form a human-readable summary of the event.\nIf multiple messages exist, they can be combined into one message.", 
+        "description": "For log events the message field contains the log message, optimized for viewing in a log viewer.\nFor structured logs without an original message field, other fields can be concatenated to form a human-readable summary of the event.\nIf multiple messages exist, they can be combined into one message.", 
         "example": "Hello World", 
         "footnote": "", 
         "group": 1, 
@@ -240,7 +240,7 @@
         "type": "keyword"
       }, 
       "cloud.provider": {
-        "description": "Name of the cloud provider. Example values are aws, azure, gce, or digitalocean.", 
+        "description": "Name of the cloud provider. Example values are aws, azure, gcp, or digitalocean.", 
         "example": "ec2", 
         "footnote": "", 
         "group": 2, 
@@ -1020,7 +1020,7 @@
         "type": "long"
       }, 
       "http.request.body.content": {
-        "description": "The full http request body.", 
+        "description": "The full HTTP request body.", 
         "example": "Hello world", 
         "footnote": "", 
         "group": 2, 
@@ -1040,7 +1040,7 @@
         "type": "long"
       }, 
       "http.request.method": {
-        "description": "Http request method.\nThe field value must be normalized to lowercase for querying. See \"Lowercase Capitalization\" in the \"Implementing ECS\"  section.", 
+        "description": "HTTP request method.\nThe field value must be normalized to lowercase for querying. See \"Lowercase Capitalization\" in the \"Implementing ECS\"  section.", 
         "example": "get, post, put", 
         "footnote": "", 
         "group": 2, 
@@ -1070,7 +1070,7 @@
         "type": "long"
       }, 
       "http.response.body.content": {
-        "description": "The full http response body.", 
+        "description": "The full HTTP response body.", 
         "example": "Hello world", 
         "footnote": "", 
         "group": 2, 
@@ -1090,7 +1090,7 @@
         "type": "long"
       }, 
       "http.response.status_code": {
-        "description": "Http response status code.", 
+        "description": "HTTP response status code.", 
         "example": "404", 
         "footnote": "", 
         "group": 2, 
@@ -1100,7 +1100,7 @@
         "type": "long"
       }, 
       "http.version": {
-        "description": "Http version.", 
+        "description": "HTTP version.", 
         "example": "1.1", 
         "footnote": "", 
         "group": 2, 
@@ -1540,7 +1540,7 @@
     "type": "group"
   }, 
   "related": {
-    "description": "This field set is meant to facilitate pivoting around a piece of data.\nSome pieces of information can be seen in many places in ECS. To facilitate searching for them, append values to their corresponding field in `related.`.\nA concrete example is IP addresses, which can be under host, observer, source, destination, client, server, and network.forwarded_ip. If you append all IPs to `related.ip`, you can then search for a given IP trivially, no matter where it appeared, by querying `related.ip:a.b.c.d`.\n", 
+    "description": "This field set is meant to facilitate pivoting around a piece of data.\nSome pieces of information can be seen in many places in an ECS event. To facilitate searching for them, store an array of all seen values to their corresponding field in `related.`.\nA concrete example is IP addresses, which can be under host, observer, source, destination, client, server, and network.forwarded_ip. If you append all IPs to `related.ip`, you can then search for a given IP trivially, no matter where it appeared, by querying `related.ip:a.b.c.d`.\n", 
     "fields": {
       "related.ip": {
         "description": "All of the IPs seen on your event.", 
@@ -1786,10 +1786,10 @@
     "type": "group"
   }, 
   "url": {
-    "description": "URL fields provide a complete URL, with scheme, host, and path.\n", 
+    "description": "URL fields provide support for complete or partial URLs, and supports the breaking down into scheme, domain, path, and so on.\n", 
     "fields": {
       "url.domain": {
-        "description": "Domain of the request, such as \"www.elastic.co\".\nIn some cases a URL may refer to an IP and/or port directly, without a domain name. In this case, the IP address would go to the `domain` field.", 
+        "description": "Domain of the url, such as \"www.elastic.co\".\nIn some cases a URL may refer to an IP and/or port directly, without a domain name. In this case, the IP address would go to the `domain` field.", 
         "example": "www.elastic.co", 
         "footnote": "", 
         "group": 2, 
@@ -1895,7 +1895,7 @@
     "type": "group"
   }, 
   "user": {
-    "description": "The user fields describe information about the user that is relevant to  the event.\nFields can have one entry or multiple entries. If a user has more than one id, provide an array that includes all of them.\n", 
+    "description": "The user fields describe information about the user that is relevant to the event.\nFields can have one entry or multiple entries. If a user has more than one id, provide an array that includes all of them.\n", 
     "fields": {
       "user.email": {
         "description": "User email address.", 

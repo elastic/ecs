@@ -8,6 +8,7 @@
     - name: agent
       title: Agent
       group: 2
+      short: Fields about the monitoring agent.
       description: >
         The agent fields contain the data about the software entity, if any, that collects, detects, or observes events on a host, or takes measurements on a host.
     
@@ -78,8 +79,10 @@
     - name: base
       title: Base
       group: 1
+      short: All fields defined directly at the top level
       description: >
-        The base set contains all fields which are on the top level. These fields are common across all types of events.
+        The `base` field set contains all fields which are on the top level.
+        These fields are common across all types of events.
       type: group
       fields:
         - name: "@timestamp"
@@ -126,7 +129,7 @@
             For log events the message field contains the log message, optimized for
             viewing in a log viewer.
     
-            For structured logs without an original message field, other field can
+            For structured logs without an original message field, other fields can
             be concatenated to form a human-readable summary of the event.
     
             If multiple messages exist, they can be combined into one message.
@@ -134,6 +137,7 @@
     - name: client
       title: Client
       group: 2
+      short: Fields about the client side of a network connection, used with server.
       description: >
         A client is defined as the initiator of a network connection for events regarding sessions, connections, or bidirectional flow records.
     
@@ -200,6 +204,7 @@
     - name: cloud
       title: Cloud
       group: 2
+      short: Fields about the cloud resource.
       description: >
         Fields related to the cloud or infrastructure the events
         are coming from.
@@ -217,7 +222,7 @@
           type: keyword
           short: Name of the cloud provider.
           description: >
-            Name of the cloud provider. Example values are aws, azure, gce, or
+            Name of the cloud provider. Example values are aws, azure, gcp, or
             digitalocean.
     
         - name: availability_zone
@@ -269,6 +274,7 @@
     - name: container
       title: Container
       group: 2
+      short: Fields describing the container that generated this event.
       description: >
         Container fields are used for meta information about the specific container
         that is the source of information.
@@ -318,6 +324,7 @@
     - name: destination
       title: Destination
       group: 2
+      short: Fields about the destination side of a network connection, used with source.
       description: >
         Destination fields describe details about the destination of a packet/event.
     
@@ -405,6 +412,7 @@
     - name: error
       title: Error
       group: 2
+      short: Fields about errors of any kind.
       description: >
         These fields can represent errors of any kind.
     
@@ -434,6 +442,7 @@
     - name: event
       title: Event
       group: 2
+      short: Fields breaking down the event details.
       description: >
         The event fields are used for context information about the log or metric event itself.
     
@@ -645,6 +654,7 @@
     - name: file
       group: 2
       title: File
+      short: Fields describing files.
       description: >
          A file is defined as a set of information that has been created on, or has existed on a filesystem.
     
@@ -733,6 +743,7 @@
     - name: geo
       title: Geo
       group: 2
+      short: Fields describing a location.
       description: >
         Geo fields can carry data about a specific location related to an event
         or geo information derived from an IP field.
@@ -814,6 +825,7 @@
       title: Group
       group: 2
       type: group
+      short: User's group relevant to the event.
       description: >
         The group fields are meant to represent groups that are relevant to the
         event.
@@ -840,6 +852,7 @@
     - name: host
       title: Host
       group: 2
+      short: Fields describing the relevant computing instance.
       description: >
         A host is defined as a general computing instance.
     
@@ -911,6 +924,7 @@
     - name: http
       title: HTTP
       group: 2
+      short: Fields describing an HTTP request.
       description: >
         Fields related to HTTP activity. Use the `url` field set to store the url of the request.
       type: group
@@ -919,9 +933,9 @@
         - name: request.method
           level: extended
           type: keyword
-          short: Http request method.
+          short: HTTP request method.
           description: >
-            Http request method.
+            HTTP request method.
     
             The field value must be normalized to lowercase for querying. See
             "Lowercase Capitalization" in the "Implementing ECS"  section.
@@ -931,7 +945,7 @@
           level: extended
           type: keyword
           description: >
-            The full http request body.
+            The full HTTP request body.
           example: Hello world
     
         - name: request.referrer
@@ -945,21 +959,21 @@
           level: extended
           type: long
           description: >
-            Http response status code.
+            HTTP response status code.
           example: 404
     
         - name: response.body.content
           level: extended
           type: keyword
           description: >
-            The full http response body.
+            The full HTTP response body.
           example: Hello world
     
         - name: version
           level: extended
           type: keyword
           description: >
-            Http version.
+            HTTP version.
           example: 1.1
     
         # Metrics
@@ -1031,6 +1045,7 @@
     - name: network
       title: Network
       group: 2
+      short: Fields describing the communication path over which the event happened.
       description: >
         The network is defined as the communication path over which a host or network event happens.
     
@@ -1169,6 +1184,7 @@
     - name: observer
       title: Observer
       group: 2
+      short: Fields describing an entity observing the event from outside the host.
       description: >
         An observer is defined as a special network, security, or application device used to detect, observe, or create network, security, or application-related events and metrics.
     
@@ -1219,6 +1235,7 @@
     - name: organization
       title: Organization
       group: 2
+      short: Fields describing the organization or company the event is associated with.
       description: >
         The organization fields enrich data with information about the company or entity
         the data is associated with.
@@ -1242,6 +1259,7 @@
     - name: os
       title: Operating System
       group: 2
+      short: OS fields contain information about the operating system.
       description: >
         The OS fields contain information about the operating system.
       reusable:
@@ -1298,6 +1316,7 @@
     - name: process
       title: Process
       group: 2
+      short: These fields contain information about a process.
       description: >
         These fields contain information about a process.
     
@@ -1381,12 +1400,13 @@
     - name: related
       title: Related
       group: 2
+      short: Fields meant to facilitate pivoting around a piece of data.
       description: >
         This field set is meant to facilitate pivoting around a piece of data.
     
-        Some pieces of information can be seen in many places in ECS. To facilitate
-        searching for them, append values to their corresponding field in
-        `related.`.
+        Some pieces of information can be seen in many places in an ECS event.
+        To facilitate searching for them, store an array of all seen values to their
+        corresponding field in `related.`.
     
         A concrete example is IP addresses, which can be under host, observer, source, destination, client, server, and network.forwarded_ip. If you append all IPs to `related.ip`, you can then search for a given IP trivially, no matter where it appeared, by querying `related.ip:a.b.c.d`.
       type: group
@@ -1401,6 +1421,7 @@
     - name: server
       title: Server
       group: 2
+      short: Fields about the server side of a network connection, used with client.
       description: >
         A Server is defined as the responder in a network connection for events regarding sessions, connections, or bidirectional flow records.
     
@@ -1467,6 +1488,7 @@
     - name: service
       title: Service
       group: 2
+      short: Fields describing the service for or from which the data was collected.
       description: >
         The service fields describe the service for or from which the data was collected.
     
@@ -1553,6 +1575,7 @@
     - name: source
       title: Source
       group: 2
+      short: Fields about the source side of a network connection, used with destination.
       description: >
         Source fields describe details about the source of a packet/event.
     
@@ -1616,8 +1639,10 @@
     
     - name: url
       title: URL
+      short: Fields that let you store URLs in various forms.
       description: >
-        URL fields provide a complete URL, with scheme, host, and path.
+        URL fields provide support for complete or partial URLs, and supports the
+        breaking down into scheme, domain, path, and so on.
       type: group
       fields:
     
@@ -1649,7 +1674,7 @@
         - name: scheme
           level: extended
           type: keyword
-          short: Scheme of the request.
+          short: Scheme of the url.
           description: >
             Scheme of the request, such as "https".
     
@@ -1659,9 +1684,9 @@
         - name: domain
           level: extended
           type: keyword
-          short: Domain of the request.
+          short: Domain of the url.
           description: >
-            Domain of the request, such as "www.elastic.co".
+            Domain of the url, such as "www.elastic.co".
     
             In some cases a URL may refer to an IP and/or port directly, without a
             domain name. In this case, the IP address would go to the `domain` field.
@@ -1717,9 +1742,10 @@
     - name: user
       title: User
       group: 2
+      short: Fields to describe the user relevant to the event.
       description: >
         The user fields describe information about the user that is relevant
-        to  the event.
+        to the event.
     
         Fields can have one entry or multiple entries. If a
         user has more than one id, provide an array that includes all of
@@ -1774,6 +1800,7 @@
     - name: user_agent
       title: User agent
       group: 2
+      short: Fields to describe a browser user_agent string.
       description: >
         The user_agent fields normally come from a browser request.
     

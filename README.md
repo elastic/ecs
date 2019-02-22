@@ -77,7 +77,7 @@ ECS defines these fields.
 
 ## <a name="base"></a> Base fields
 
-The base set contains all fields which are on the top level. These fields are common across all types of events.
+The `base` field set contains all fields which are on the top level. These fields are common across all types of events.
 
 
 | Field  | Description  | Level  | Type  | Example  |
@@ -85,7 +85,7 @@ The base set contains all fields which are on the top level. These fields are co
 | <a name="@timestamp"></a>@timestamp | Date/time when the event originated.<br/>For log events this is the date/time when the event was generated, and not when it was read.<br/>Required field for all events. | core | date | `2016-05-23T08:05:34.853Z` |
 | <a name="tags"></a>tags | List of keywords used to tag each event. | core | keyword | `["production", "env2"]` |
 | <a name="labels"></a>labels | Custom key/value pairs.<br/>Can be used to add meta information to events. Should not contain nested objects. All values are stored as keyword.<br/>Example: `docker` and `k8s` labels. | core | object | `{'application': 'foo-bar', 'env': 'production'}` |
-| <a name="message"></a>message | For log events the message field contains the log message, optimized for viewing in a log viewer.<br/>For structured logs without an original message field, other field can be concatenated to form a human-readable summary of the event.<br/>If multiple messages exist, they can be combined into one message. | core | text | `Hello World` |
+| <a name="message"></a>message | For log events the message field contains the log message, optimized for viewing in a log viewer.<br/>For structured logs without an original message field, other fields can be concatenated to form a human-readable summary of the event.<br/>If multiple messages exist, they can be combined into one message. | core | text | `Hello World` |
 
 
 ## <a name="agent"></a> Agent fields
@@ -134,7 +134,7 @@ Fields related to the cloud or infrastructure the events are coming from.
 
 | Field  | Description  | Level  | Type  | Example  |
 |---|---|---|---|---|
-| <a name="cloud.provider"></a>cloud.provider | Name of the cloud provider. Example values are aws, azure, gce, or digitalocean. | extended | keyword | `ec2` |
+| <a name="cloud.provider"></a>cloud.provider | Name of the cloud provider. Example values are aws, azure, gcp, or digitalocean. | extended | keyword | `ec2` |
 | <a name="cloud.availability_zone"></a>cloud.availability_zone | Availability zone in which this host is running. | extended | keyword | `us-east-1c` |
 | <a name="cloud.region"></a>cloud.region | Region in which this host is running. | extended | keyword | `us-east-1` |
 | <a name="cloud.instance.id"></a>cloud.instance.id | Instance ID of the host machine. | extended | keyword | `i-1234567890abcdef0` |
@@ -320,12 +320,12 @@ Fields related to HTTP activity. Use the `url` field set to store the url of the
 
 | Field  | Description  | Level  | Type  | Example  |
 |---|---|---|---|---|
-| <a name="http.request.method"></a>http.request.method | Http request method.<br/>The field value must be normalized to lowercase for querying. See "Lowercase Capitalization" in the "Implementing ECS"  section. | extended | keyword | `get, post, put` |
-| <a name="http.request.body.content"></a>http.request.body.content | The full http request body. | extended | keyword | `Hello world` |
+| <a name="http.request.method"></a>http.request.method | HTTP request method.<br/>The field value must be normalized to lowercase for querying. See "Lowercase Capitalization" in the "Implementing ECS"  section. | extended | keyword | `get, post, put` |
+| <a name="http.request.body.content"></a>http.request.body.content | The full HTTP request body. | extended | keyword | `Hello world` |
 | <a name="http.request.referrer"></a>http.request.referrer | Referrer for this HTTP request. | extended | keyword | `https://blog.example.com/` |
-| <a name="http.response.status_code"></a>http.response.status_code | Http response status code. | extended | long | `404` |
-| <a name="http.response.body.content"></a>http.response.body.content | The full http response body. | extended | keyword | `Hello world` |
-| <a name="http.version"></a>http.version | Http version. | extended | keyword | `1.1` |
+| <a name="http.response.status_code"></a>http.response.status_code | HTTP response status code. | extended | long | `404` |
+| <a name="http.response.body.content"></a>http.response.body.content | The full HTTP response body. | extended | keyword | `Hello world` |
+| <a name="http.version"></a>http.version | HTTP version. | extended | keyword | `1.1` |
 | <a name="http.request.bytes"></a>http.request.bytes | Total size in bytes of the request (body and headers). | extended | long | `1437` |
 | <a name="http.request.body.bytes"></a>http.request.body.bytes | Size in bytes of the request body. | extended | long | `887` |
 | <a name="http.response.bytes"></a>http.response.bytes | Total size in bytes of the response (body and headers). | extended | long | `1437` |
@@ -439,7 +439,7 @@ These fields can help you correlate metrics information with a process id/name f
 
 This field set is meant to facilitate pivoting around a piece of data.
 
-Some pieces of information can be seen in many places in ECS. To facilitate searching for them, append values to their corresponding field in `related.`.
+Some pieces of information can be seen in many places in an ECS event. To facilitate searching for them, store an array of all seen values to their corresponding field in `related.`.
 
 A concrete example is IP addresses, which can be under host, observer, source, destination, client, server, and network.forwarded_ip. If you append all IPs to `related.ip`, you can then search for a given IP trivially, no matter where it appeared, by querying `related.ip:a.b.c.d`.
 
@@ -506,7 +506,7 @@ Source fields are usually populated in conjunction with destination fields.
 
 ## <a name="url"></a> URL fields
 
-URL fields provide a complete URL, with scheme, host, and path.
+URL fields provide support for complete or partial URLs, and supports the breaking down into scheme, domain, path, and so on.
 
 
 | Field  | Description  | Level  | Type  | Example  |
@@ -514,7 +514,7 @@ URL fields provide a complete URL, with scheme, host, and path.
 | <a name="url.original"></a>url.original | Unmodified original url as seen in the event source.<br/>Note that in network monitoring, the observed URL may be a full URL, whereas in access logs, the URL is often just represented as a path.<br/>This field is meant to represent the URL as it was observed, complete or not. | extended | keyword | `https://www.elastic.co:443/search?q=elasticsearch#top or /search?q=elasticsearch` |
 | <a name="url.full"></a>url.full | If full URLs are important to your use case, they should be stored in `url.full`, whether this field is reconstructed or present in the event source. | extended | keyword | `https://www.elastic.co:443/search?q=elasticsearch#top` |
 | <a name="url.scheme"></a>url.scheme | Scheme of the request, such as "https".<br/>Note: The `:` is not part of the scheme. | extended | keyword | `https` |
-| <a name="url.domain"></a>url.domain | Domain of the request, such as "www.elastic.co".<br/>In some cases a URL may refer to an IP and/or port directly, without a domain name. In this case, the IP address would go to the `domain` field. | extended | keyword | `www.elastic.co` |
+| <a name="url.domain"></a>url.domain | Domain of the url, such as "www.elastic.co".<br/>In some cases a URL may refer to an IP and/or port directly, without a domain name. In this case, the IP address would go to the `domain` field. | extended | keyword | `www.elastic.co` |
 | <a name="url.port"></a>url.port | Port of the request, such as 443. | extended | integer | `443` |
 | <a name="url.path"></a>url.path | Path of the request, such as "/search". | extended | keyword |  |
 | <a name="url.query"></a>url.query | The query field describes the query string of the request, such as "q=elasticsearch".<br/>The `?` is excluded from the query string. If a URL contains no `?`, there is no query field. If there is a `?` but no query, the query field exists with an empty string. The `exists` query can be used to differentiate between the two cases. | extended | keyword |  |
@@ -525,7 +525,7 @@ URL fields provide a complete URL, with scheme, host, and path.
 
 ## <a name="user"></a> User fields
 
-The user fields describe information about the user that is relevant to  the event.
+The user fields describe information about the user that is relevant to the event.
 
 Fields can have one entry or multiple entries. If a user has more than one id, provide an array that includes all of them.
 
