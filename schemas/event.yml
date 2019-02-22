@@ -153,16 +153,17 @@
       level: core
       type: date
       description: >
-        event.created contains the date when the event was created.
+        event.created contains the date/time when the event was first read by an
+        agent, or by your pipeline.
 
-        This timestamp is distinct from @timestamp in that @timestamp contains
-        the processed timestamp. For logs these two timestamps can be different
-        as the timestamp in the log line and when the event is read for example
-        by Filebeat are not identical. `@timestamp` must contain the timestamp
-        extracted from the log line, event.created when the log line is read.
-        The same could apply to package capturing where @timestamp contains the
-        timestamp extracted from the network package and event.created when the
-        event was created.
+        This field is distinct from @timestamp in that @timestamp typically contain
+        the time extracted from the original event.
+
+        In most situations, these two timestamps will be slightly different.
+        The difference can be used to calculate the delay between your source
+        generating an event, and the time when your agent first processed it.
+        This can be used to monitor your agent's or pipeline's ability to
+        keep up with your event source.
 
         In case the two timestamps are identical, @timestamp should be used.
 
