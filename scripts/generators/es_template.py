@@ -14,6 +14,9 @@ def generate(ecs_flat):
 
     save_json('generated/elasticsearch/template.json', template)
 
+    # FIXME Only for the purpose of the PR diff
+    save_json('template.json', template)
+
 
 def dict_add_nested(dict, nestings, value):
     current_nesting = nestings[0]

@@ -6,6 +6,9 @@ def generate(ecs_flat):
     sorted_fields = base_first(ecs_flat)
     save_csv('generated/csv/fields.csv', sorted_fields)
 
+    # FIXME Only for the purpose of the PR diff
+    save_csv('schema.csv', sorted_fields)
+
 
 def base_first(ecs_flat):
     base_list = []
