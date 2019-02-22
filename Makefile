@@ -125,8 +125,8 @@ template:
 	        > ../template.json
 
 # Run the ECS tests
-.PHONY: unit
-unit:
+.PHONY: test
+test:
 	$(PYTHON) -m unittest discover --start-directory scripts/tests
 
 # Create a virtualenv to run Python.
