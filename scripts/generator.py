@@ -9,6 +9,9 @@ from generators import es_template
 def main():
     args = argument_parser()
 
+    version = read_version()
+    print "Running generator. ECS version " + version
+
     (ecs_nested, ecs_flat) = schema_reader.load_ecs()
 
     intermediate_files.generate(ecs_nested, ecs_flat)
@@ -25,6 +28,11 @@ def argument_parser():
                         help='generate intermediary files only')
 
     return parser.parse_args()
+
+
+def read_version(file='version'):
+    with open(file, 'r') as infile:
+        return infile.read().rstrip()
 
 
 if __name__ == '__main__':
