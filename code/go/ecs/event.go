@@ -108,14 +108,15 @@ type Event struct {
 	// (e.g. "-05:00").
 	Timezone string `ecs:"timezone"`
 
-	// event.created contains the time when the event was first read by an
+	// event.created contains the date/time when the event was first read by an
 	// agent, or by your pipeline.
-	// This field is distinct from @timestamp in that @timestamp should contain
-	// the time extracted from the original event.
+	// This field is distinct from @timestamp in that @timestamp typically
+	// contain the time extracted from the original event.
 	// In most situations, these two timestamps will be slightly different. The
-	// difference will represent the delay between your source generating it,
-	// when your agent first processed it. This can be used to monitor your
-	// agent's ability to keep up with your event source.
+	// difference can be used to calculate the delay between your source
+	// generating an event, and the time when your agent first processed it.
+	// This can be used to monitor your agent's or pipeline's ability to keep
+	// up with your event source.
 	// In case the two timestamps are identical, @timestamp should be used.
 	Created time.Time `ecs:"created"`
 
