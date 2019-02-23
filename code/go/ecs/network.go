@@ -92,4 +92,19 @@ type Network struct {
 	// If `source.packets` and `destination.packets` are known,
 	// `network.packets` is their sum.
 	Packets int64 `ecs:"packets"`
+
+	// Locality can be either `private` or `public`. `private` indicates that
+	// both sides of the flow have IP addresses in the ranges reserved for
+	// private networks as defined below. `public` indicates that at least one
+	// side of the flow is outside of the private ranges. The IP addresses used
+	// in determining this field's value are `source.ip` and `destination.ip`.
+	// Address ranges that are considered private are * Loopback (127.0.0.0/8,
+	// ::1/128) * Unspecified (0.0.0.0, ::) * IPv4 Broadcast (255.255.255.255)
+	// * RFC 1918 - IPv4 Local Unicast (10/8, 172.16/12, 192.168/16) * RFC 3927
+	// - IPv4 Link-Local Unicast (169.254.0.0/16) * RFC 5771 - IPv4 Local
+	// Multicast (224.0.0.0/4) * RFC 4193 - IPv6 Local Unicast (fc00::/7) * RFC
+	// 4291 - IPv6 Link-Local Unicast (fe80::/10) * RFC 4291 - IPv6 Link-Local
+	// Multicast (ff02::/8) * RFC 4291 - IPv6 Interface Local Multicast
+	// (ff01::/8)
+	Locality string `ecs:"locality"`
 }

@@ -123,6 +123,7 @@ Client / server representations can add semantic context to an exchange, which i
 | <a name="client.port"></a>client.port | Port of the client. | core | long |  |
 | <a name="client.mac"></a>client.mac | MAC address of the client. | core | keyword |  |
 | <a name="client.domain"></a>client.domain | Client domain. | core | keyword |  |
+| <a name="client.locality"></a>client.locality | Locality can be either `private` or `public`. `private` indicates that the client IP address is the ranges reserved for private networks as defined in `network.locality`. `public` indicates that the client IP is outside of the private ranges. | extended | keyword | `public` |
 | <a name="client.bytes"></a>client.bytes | Bytes sent from the client to the server. | core | long | `184` |
 | <a name="client.packets"></a>client.packets | Packets sent from the client to the server. | core | long | `12` |
 
@@ -177,9 +178,9 @@ Destination fields are usually populated in conjunction with source fields.
 | <a name="destination.port"></a>destination.port | Port of the destination. | core | long |  |
 | <a name="destination.mac"></a>destination.mac | MAC address of the destination. | core | keyword |  |
 | <a name="destination.domain"></a>destination.domain | Destination domain. | core | keyword |  |
+| <a name="destination.locality"></a>destination.locality | Locality can be either `private` or `public`. `private` indicates that the destination IP address is the ranges reserved for private networks as defined in `network.locality`. `public` indicates that the destination IP is outside of the private ranges. | extended | keyword | `public` |
 | <a name="destination.bytes"></a>destination.bytes | Bytes sent from the destination to the source. | core | long | `184` |
 | <a name="destination.packets"></a>destination.packets | Packets sent from the destination to the source. | core | long | `12` |
-| <a name="destination.locality"></a>destination.locality | Locality can be either `private` or `public`. `private` indicates that the destination IP address is the ranges reserved for private networks as defined in `network.locality`. `public` indicates that the destination IP is outside of the private ranges. | extended | keyword | `public` |
 
 
 ## <a name="ecs"></a> ECS fields
@@ -469,6 +470,7 @@ Client / server representations can add semantic context to an exchange, which i
 | <a name="server.port"></a>server.port | Port of the server. | core | long |  |
 | <a name="server.mac"></a>server.mac | MAC address of the server. | core | keyword |  |
 | <a name="server.domain"></a>server.domain | Server domain. | core | keyword |  |
+| <a name="server.locality"></a>server.locality | Locality can be either `private` or `public`. `private` indicates that the server IP address is the ranges reserved for private networks as defined in `network.locality`. `public` indicates that the server IP is outside of the private ranges. | extended | keyword | `public` |
 | <a name="server.bytes"></a>server.bytes | Bytes sent from the server to the client. | core | long | `184` |
 | <a name="server.packets"></a>server.packets | Packets sent from the server to the client. | core | long | `12` |
 
@@ -504,9 +506,9 @@ Source fields are usually populated in conjunction with destination fields.
 | <a name="source.port"></a>source.port | Port of the source. | core | long |  |
 | <a name="source.mac"></a>source.mac | MAC address of the source. | core | keyword |  |
 | <a name="source.domain"></a>source.domain | Source domain. | core | keyword |  |
+| <a name="source.locality"></a>source.locality | Locality can be either `private` or `public`. `private` indicates that the source IP address is the ranges reserved for private networks as defined in `network.locality`. `public` indicates that the source IP is outside of the private ranges. | extended | keyword | `public` |
 | <a name="source.bytes"></a>source.bytes | Bytes sent from the source to the destination. | core | long | `184` |
 | <a name="source.packets"></a>source.packets | Packets sent from the source to the destination. | core | long | `12` |
-| <a name="source.locality"></a>source.locality | Locality can be either `private` or `public`. `private` indicates that the source IP address is the ranges reserved for private networks as defined in `network.locality`. `public` indicates that the source IP is outside of the private ranges. | extended | keyword | `public` |
 
 
 ## <a name="url"></a> URL fields

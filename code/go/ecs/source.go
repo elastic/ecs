@@ -42,6 +42,12 @@ type Source struct {
 	// Source domain.
 	Domain string `ecs:"domain"`
 
+	// Locality can be either `private` or `public`. `private` indicates that
+	// the source IP address is the ranges reserved for private networks as
+	// defined in `network.locality`. `public` indicates that the source IP is
+	// outside of the private ranges.
+	Locality string `ecs:"locality"`
+
 	// Bytes sent from the source to the destination.
 	Bytes int64 `ecs:"bytes"`
 
