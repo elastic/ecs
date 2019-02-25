@@ -2,20 +2,20 @@ import json
 import sys
 
 
-def generate(ecs_flat, version):
-    template = base_template()
-    template['mappings']['_doc']['_meta']['version'] = version
-
-    template_fields_root = template['mappings']['_doc']['properties']
+def generate(ecs_flat, ecs_version):
+    field_mappings = {}
     for flat_name in ecs_flat:
         field = ecs_flat[flat_name]
         nestings = flat_name.split('.')
-        dict_add_nested(template_fields_root, nestings, entry_for(field))
+        dict_add_nested(field_mappings, nestings, entry_for(field))
 
-    save_json('generated/elasticsearch/template.json', template)
+    mappings_section = mapping_settings(ecs_version)
+    mappings_section['properties'] = field_mappings
 
-    # FIXME Only for the purpose of the PR diff
-    save_json('template.json', template)
+    generate_template_version(6, mappings_section)
+    generate_template_version(7, mappings_section)
+
+# Field mappings
 
 
 def dict_add_nested(dict, nestings, value):
@@ -53,6 +53,19 @@ def entry_for(field):
         raise ex
     return dict
 
+# Generated files
+
+
+def generate_template_version(elasticsearch_version, mappings_section):
+    template = template_settings()
+    if elasticsearch_version == 6:
+        template['mappings'] = { '_doc': mappings_section }
+    else:
+        template['mappings'] = mappings_section
+
+    filename = "generated/elasticsearch/{}/template.json".format(elasticsearch_version)
+    save_json(filename, template)
+
 
 def save_json(file, data):
     open_mode = "wb"
@@ -62,7 +75,7 @@ def save_json(file, data):
         jsonfile.write(json.dumps(data, indent=2, sort_keys=True))
 
 
-def base_template():
+def template_settings():
     return {
         "index_patterns": ["ecs-*"],
         "order": 1,
@@ -76,22 +89,24 @@ def base_template():
                 "refresh_interval": "5s"
             }
         },
-        "mappings": {
-            "_doc": {
-                "_meta": {},
-                "date_detection": False,
-                "dynamic_templates": [
-                    {
-                        "strings_as_keyword": {
-                            "mapping": {
-                                "ignore_above": 1024,
-                                "type": "keyword"
-                            },
-                            "match_mapping_type": "string"
-                        }
-                    }
-                ],
-                "properties": {}
+        "mappings": {}
+    }
+
+
+def mapping_settings(ecs_version):
+    return {
+        "_meta": {"version": ecs_version},
+        "date_detection": False,
+        "dynamic_templates": [
+            {
+                "strings_as_keyword": {
+                    "mapping": {
+                        "ignore_above": 1024,
+                        "type": "keyword"
+                    },
+                    "match_mapping_type": "string"
+                }
             }
-        }
+        ],
+        "properties": {}
     }
