@@ -9,8 +9,8 @@ from generators import es_template
 def main():
     args = argument_parser()
 
-    version = read_version()
-    print "Running generator. ECS version " + version
+    ecs_version = read_version()
+    print "Running generator. ECS version " + ecs_version
 
     (ecs_nested, ecs_flat) = schema_reader.load_ecs()
 
@@ -18,8 +18,8 @@ def main():
     if args.intermediate_only:
         exit
 
-    csv_generator.generate(ecs_flat, version)
-    es_template.generate(ecs_flat, version)
+    csv_generator.generate(ecs_flat, ecs_version)
+    es_template.generate(ecs_flat, ecs_version)
 
 
 def argument_parser():
