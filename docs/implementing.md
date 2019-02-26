@@ -21,7 +21,7 @@ in the future. Please avoid using them:
 
 **Writing fields**
 
-* All fields must be lower case
+* All field names must be lower case
 * Combine words using underscore
 * No special characters except `_`
 
@@ -33,6 +33,23 @@ in the future. Please avoid using them:
 * *Avoid repetition.* Avoid stuttering of words. If part of the field name is already in the prefix, do not repeat it. Example: `host.host_ip` should be `host.ip`.
 * *Use prefixes.* Fields must be prefixed except for the base fields. For example all `host` fields are prefixed with `host.`. See `dot` notation in FAQ for more details.
 * Do not use abbreviations. (A few exceptions like `ip` exist.)
+
+**How to populate ECS fields**
+
+* Start by populating Core fields. These fields are the most common across all use cases.
+* Populate as many Extended fields as practical. They generally apply to more narrow
+  use cases, so feel free to skip fields that are not applicable to your use case.
+* When populating ECS fields, don't hesitate to duplicate data to all applicable
+  fields. This will ensure your data will be interoperable with the most
+  applications and content (such as visualizations), whether they are made by Elastic
+  or from the community.
+* Try to populate ECS fields even if they are not in your event source. For example,
+  a Firewall event coming over syslog will not mention syslog. But `agent.type`
+  should still be set to "syslog".
+* You're free to duplicate existing fields over to ECS fields, or to migrate your
+  fields to use the ECS names. The decision is up to you or the implementation.
+  What's important for ECS content and applications is the presence of the ECS
+  fields. Other fields are custom fields, and you can use them however you prefer.
 
 ## Normalization
 
