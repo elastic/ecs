@@ -43,6 +43,8 @@ fully up to date.
 * [Use cases](#use-cases)
 * [Implementing ECS](#implementing-ecs)
 * [FAQ](#faq-ecs)
+* [About ECS](#about-ecs)
+* [Generated Files](#generated-files)
 
 # <a name="fields"></a>Fields
 
