@@ -20,9 +20,15 @@ ingesting data into Elasticsearch. A common schema helps you correlate
 data from sources like logs and metrics or IT operations
 analytics and security analytics.
 
-ECS is still under development and backward compatibility is not guaranteed. Any
-feedback on the general structure, missing fields, or existing fields is appreciated.
-For contributions please read the [Contributing Guide](CONTRIBUTING.md).
+## Maturity
+
+With ECS turning 1.0, the team will will approach improvements by following SemVer.
+This means we will only do breaking changes at major versions, and that
+we will improve ECS in a backwards compatible manner in the meantime.
+We plan to align major ECS releases with major Elastic Stack releases.
+
+Any feedback on the general structure, missing fields, or existing fields is appreciated.
+For contributions please read the [Contribution Guidelines](CONTRIBUTING.md).
 
 <a name="ecs-version"></a>
 # Versions
@@ -30,6 +36,7 @@ For contributions please read the [Contributing Guide](CONTRIBUTING.md).
 The master branch of this repository should never be considered an
 official release of ECS. You can browse official releases of ECS
 [here](https://github.com/elastic/ecs/releases).
+
 
 Please note that when the README.md file and other generated files
 (like schema.csv and template.json) are not in agreement,
