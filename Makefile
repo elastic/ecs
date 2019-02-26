@@ -110,6 +110,7 @@ readme:
 	$(PYTHON) scripts/use-cases.py --stdout=true >> README.md
 	cat docs/implementing.md >> README.md
 	cat docs/about.md >> README.md
+	cat docs/generated-files.md >> README.md
 
 # Download and setup tooling dependencies.
 .PHONY: setup
