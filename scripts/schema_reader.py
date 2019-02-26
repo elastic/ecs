@@ -93,6 +93,8 @@ def field_set_defaults(field):
         dict_set_default(field, 'ignore_above', 1024)
     if field['type'] == 'text':
         dict_set_default(field, 'norms', False)
+    if field['type'] == 'object':
+        dict_set_default(field, 'object_type', 'keyword')
 
     if 'index' in field and not field['index']:
         dict_set_default(field, 'doc_values', False)
