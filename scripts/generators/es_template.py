@@ -59,7 +59,7 @@ def entry_for(field):
 def generate_template_version(elasticsearch_version, mappings_section):
     template = template_settings()
     if elasticsearch_version == 6:
-        template['mappings'] = { '_doc': mappings_section }
+        template['mappings'] = {'_doc': mappings_section}
     else:
         template['mappings'] = mappings_section
 
