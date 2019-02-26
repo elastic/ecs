@@ -15,7 +15,7 @@ VERSION          ?= 1.0.0-beta2
 # Check verifies that all of the committed files that are generated are
 # up-to-date.
 .PHONY: check
-check: generate fmt misspell makelint check-license-headers
+check: generate test fmt misspell makelint check-license-headers
 	# Check if diff is empty.
 	git diff | cat
 	git update-index --refresh
@@ -30,7 +30,8 @@ check-license-headers:
 # Clean deletes all temporary and generated content.
 .PHONY: clean
 clean:
-	rm -rf schema.csv schema.md schema.json fields.yml build
+	rm -rf schema.json fields.yml build
+	rm -rf generated/legacy/{schema.csv,template.json}
 	# Clean all markdown files for use-cases
 	find ./use-cases -type f -name '*.md' -not -name 'README.md' -print0 | xargs -0 rm --
 
@@ -70,7 +71,12 @@ fmt: ve
 
 # Alias to generate everything.
 .PHONY: generate
-generate: csv readme template fields codegen
+generate: csv readme template fields codegen generator
+
+# Run the new generator
+.PHONY: generator
+generator:
+	$(PYTHON) scripts/generator.py
 
 # Generate Go code from the schema.
 .PHONY: gocodegen
@@ -104,6 +110,7 @@ readme:
 	$(PYTHON) scripts/use-cases.py --stdout=true >> README.md
 	cat docs/implementing.md >> README.md
 	cat docs/about.md >> README.md
+	cat docs/generated-files.md >> README.md
 
 # Download and setup tooling dependencies.
 .PHONY: setup
@@ -117,7 +124,12 @@ template:
 	  && $(FORCE_GO_MODULES) go run cmd/template/template.go \
 	        -version=$(VERSION) \
 	        -schema=../schemas \
-	        > ../template.json
+	        > ../generated/legacy/template.json
+
+# Run the ECS tests
+.PHONY: test
+test:
+	$(PYTHON) -m unittest discover --start-directory scripts/tests
 
 # Create a virtualenv to run Python.
 .PHONY: ve
