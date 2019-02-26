@@ -30,7 +30,8 @@ check-license-headers:
 # Clean deletes all temporary and generated content.
 .PHONY: clean
 clean:
-	rm -rf schema.csv schema.md schema.json fields.yml build
+	rm -rf schema.json fields.yml build
+	rm -rf generated/legacy/{schema.csv,template.json}
 	# Clean all markdown files for use-cases
 	find ./use-cases -type f -name '*.md' -not -name 'README.md' -print0 | xargs -0 rm --
 
@@ -122,7 +123,7 @@ template:
 	  && $(FORCE_GO_MODULES) go run cmd/template/template.go \
 	        -version=$(VERSION) \
 	        -schema=../schemas \
-	        > ../template.json
+	        > ../generated/legacy/template.json
 
 # Run the ECS tests
 .PHONY: test
