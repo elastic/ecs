@@ -3,9 +3,9 @@
 Crafting the perfect Elasticsearch template is an art. But here's a good starting
 point for experimentation.
 
-## Load the template
+## Instructions
 
-From your shell
+Load the template from your shell
 
 ```bash
 # Elasticsearch 7
@@ -17,7 +17,7 @@ curl -XPOST 'localhost:9200/_template/ecs-test' --header "Content-Type: applicat
   -d @'generated/elasticsearch/6/template.json'
 ```
 
-## From Kibana Dev Tools
+Play from Kibana Dev Tools
 
 ```
 # 👀
