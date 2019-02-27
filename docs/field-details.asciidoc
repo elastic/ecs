@@ -1,0 +1,2310 @@
+
+[[ecs-agent]]
+=== Agent fields
+
+The agent fields contain the data about the software entity, if any, that collects, detects, or observes events on a host, or takes measurements on a host.
+Examples include Beats. Agents may also run on observers. ECS agent.* fields shall be populated with details of the agent running on the host or observer where the event happened or the measurement was taken.
+
+[options="header"]
+|=====
+| Field  | Description  | Level / Type
+
+// ===============================================================
+
+| agent.ephemeral_id
+| Ephemeral identifier of this agent.
+
+example: 8a4f500f
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+| agent.id
+| Unique identifier of this agent.
+
+example: 8a4f500d
+
+| level: core
+
+type: keyword
+
+// ===============================================================
+
+| agent.name
+| Custom name of the agent.
+
+example: foo
+
+| level: core
+
+type: keyword
+
+// ===============================================================
+
+| agent.type
+| Type of the agent.
+
+example: filebeat
+
+| level: core
+
+type: keyword
+
+// ===============================================================
+
+| agent.version
+| Version of the agent.
+
+example: 6.0.0-rc2
+
+| level: core
+
+type: keyword
+
+// ===============================================================
+
+|=====
+
+[[ecs-base]]
+=== Base fields
+
+The `base` field set contains all fields which are on the top level. These fields are common across all types of events.
+
+[options="header"]
+|=====
+| Field  | Description  | Level / Type
+
+// ===============================================================
+
+| @timestamp
+| Date/time when the event originated.
+
+example: 2016-05-23T08:05:34.853Z
+
+| level: core
+
+type: date
+
+// ===============================================================
+
+| labels
+| Custom key/value pairs.
+
+example: {'application': 'foo-bar', 'env': 'production'}
+
+| level: core
+
+type: object
+
+// ===============================================================
+
+| message
+| Log message optimized for viewing in a log viewer.
+
+example: Hello World
+
+| level: core
+
+type: text
+
+// ===============================================================
+
+| tags
+| List of keywords used to tag each event.
+
+example: ["production", "env2"]
+
+| level: core
+
+type: keyword
+
+// ===============================================================
+
+|=====
+
+[[ecs-client]]
+=== Client fields
+
+A client is defined as the initiator of a network connection for events regarding sessions, connections, or bidirectional flow records.
+For TCP events, the client is the initiator of the TCP connection that sends the SYN packet(s). For other protocols, the client is generally the initiator or requestor in the network transaction. Some systems use the term "originator" to refer the client in TCP connections. The client fields describe details about the system acting as the client in the network event. Client fields are usually populated in conjunction with server fields.  Client fields are generally not populated for packet-level events.
+Client / server representations can add semantic context to an exchange, which is helpful to visualize the data in certain situations. If your context falls in that category, you should still ensure that source and destination are filled appropriately.
+
+[options="header"]
+|=====
+| Field  | Description  | Level / Type
+
+// ===============================================================
+
+| client.address
+| Client network address.
+
+
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+| client.bytes
+| Bytes sent from the client to the server.
+
+example: 184
+
+| level: core
+
+type: long
+
+// ===============================================================
+
+| client.domain
+| Client domain.
+
+
+
+| level: core
+
+type: keyword
+
+// ===============================================================
+
+| client.ip
+| IP address of the client.
+
+
+
+| level: core
+
+type: ip
+
+// ===============================================================
+
+| client.mac
+| MAC address of the client.
+
+
+
+| level: core
+
+type: keyword
+
+// ===============================================================
+
+| client.packets
+| Packets sent from the client to the server.
+
+example: 12
+
+| level: core
+
+type: long
+
+// ===============================================================
+
+| client.port
+| Port of the client.
+
+
+
+| level: core
+
+type: long
+
+// ===============================================================
+
+|=====
+
+[[ecs-cloud]]
+=== Cloud fields
+
+Fields related to the cloud or infrastructure the events are coming from.
+
+[options="header"]
+|=====
+| Field  | Description  | Level / Type
+
+// ===============================================================
+
+| cloud.account.id
+| The cloud account or organization id.
+
+example: 666777888999
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+| cloud.availability_zone
+| Availability zone in which this host is running.
+
+example: us-east-1c
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+| cloud.instance.id
+| Instance ID of the host machine.
+
+example: i-1234567890abcdef0
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+| cloud.instance.name
+| Instance name of the host machine.
+
+
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+| cloud.machine.type
+| Machine type of the host machine.
+
+example: t2.medium
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+| cloud.provider
+| Name of the cloud provider.
+
+example: ec2
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+| cloud.region
+| Region in which this host is running.
+
+example: us-east-1
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+|=====
+
+[[ecs-container]]
+=== Container fields
+
+Container fields are used for meta information about the specific container that is the source of information.
+These fields help correlate data based containers from any runtime.
+
+[options="header"]
+|=====
+| Field  | Description  | Level / Type
+
+// ===============================================================
+
+| container.id
+| Unique container id.
+
+
+
+| level: core
+
+type: keyword
+
+// ===============================================================
+
+| container.image.name
+| Name of the image the container was built on.
+
+
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+| container.image.tag
+| Container image tag.
+
+
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+| container.labels
+| Image labels.
+
+
+
+| level: extended
+
+type: object
+
+// ===============================================================
+
+| container.name
+| Container name.
+
+
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+| container.runtime
+| Runtime managing this container.
+
+example: docker
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+|=====
+
+[[ecs-destination]]
+=== Destination fields
+
+Destination fields describe details about the destination of a packet/event.
+Destination fields are usually populated in conjunction with source fields.
+
+[options="header"]
+|=====
+| Field  | Description  | Level / Type
+
+// ===============================================================
+
+| destination.address
+| Destination network address.
+
+
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+| destination.bytes
+| Bytes sent from the destination to the source.
+
+example: 184
+
+| level: core
+
+type: long
+
+// ===============================================================
+
+| destination.domain
+| Destination domain.
+
+
+
+| level: core
+
+type: keyword
+
+// ===============================================================
+
+| destination.ip
+| IP address of the destination.
+
+
+
+| level: core
+
+type: ip
+
+// ===============================================================
+
+| destination.mac
+| MAC address of the destination.
+
+
+
+| level: core
+
+type: keyword
+
+// ===============================================================
+
+| destination.packets
+| Packets sent from the destination to the source.
+
+example: 12
+
+| level: core
+
+type: long
+
+// ===============================================================
+
+| destination.port
+| Port of the destination.
+
+
+
+| level: core
+
+type: long
+
+// ===============================================================
+
+|=====
+
+[[ecs-ecs]]
+=== ECS fields
+
+Meta-information specific to ECS.
+
+[options="header"]
+|=====
+| Field  | Description  | Level / Type
+
+// ===============================================================
+
+| ecs.version
+| ECS version this event conforms to.
+
+example: 1.0.0-beta2
+
+| level: core
+
+type: keyword
+
+// ===============================================================
+
+|=====
+
+[[ecs-error]]
+=== Error fields
+
+These fields can represent errors of any kind.
+Use them for errors that happen while fetching events or in cases where the event itself contains an error.
+
+[options="header"]
+|=====
+| Field  | Description  | Level / Type
+
+// ===============================================================
+
+| error.code
+| Error code describing the error.
+
+
+
+| level: core
+
+type: keyword
+
+// ===============================================================
+
+| error.id
+| Unique identifier for the error.
+
+
+
+| level: core
+
+type: keyword
+
+// ===============================================================
+
+| error.message
+| Error message.
+
+
+
+| level: core
+
+type: text
+
+// ===============================================================
+
+|=====
+
+[[ecs-event]]
+=== Event fields
+
+The event fields are used for context information about the log or metric event itself.
+A log is defined as an event containing details of something that happened. Log events must include the time at which the thing happened. Examples of log events include a process starting on a host, a network packet being sent from a source to a destination, or a network connection between a client and a server being initiated or closed. A metric is defined as an event containing one or more numerical or categorical measurements and the time at which the measurement was taken. Examples of metric events include memory pressure measured on a host, or vulnerabilities measured on a scanned host.
+
+[options="header"]
+|=====
+| Field  | Description  | Level / Type
+
+// ===============================================================
+
+| event.action
+| The action captured by the event.
+
+example: user-password-change
+
+| level: core
+
+type: keyword
+
+// ===============================================================
+
+| event.category
+| Event category.
+
+example: user-management
+
+| level: core
+
+type: keyword
+
+// ===============================================================
+
+| event.created
+| Time when the event was first read by an agent or by your pipeline.
+
+
+
+| level: core
+
+type: date
+
+// ===============================================================
+
+| event.dataset
+| Name of the dataset.
+
+example: stats
+
+| level: core
+
+type: keyword
+
+// ===============================================================
+
+| event.duration
+| Duration of the event in nanoseconds.
+
+
+
+| level: core
+
+type: long
+
+// ===============================================================
+
+| event.end
+| event.end contains the date when the event ended or when the activity was last observed.
+
+
+
+| level: extended
+
+type: date
+
+// ===============================================================
+
+| event.hash
+| Hash (perhaps logstash fingerprint) of raw field to be able to demonstrate log integrity.
+
+example: 123456789012345678901234567890ABCD
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+| event.id
+| Unique ID to describe the event.
+
+example: 8a4f500d
+
+| level: core
+
+type: keyword
+
+// ===============================================================
+
+| event.kind
+| The kind of the event.
+
+example: state
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+| event.module
+| Name of the module this data is coming from.
+This information is coming from the modules used in Beats or Logstash.
+
+example: mysql
+
+| level: core
+
+type: keyword
+
+// ===============================================================
+
+| event.original
+| Raw text message of entire event.
+
+example: Sep 19 08:26:10 host CEF:0&#124;Security&#124; threatmanager&#124;1.0&#124;100&#124; worm successfully stopped&#124;10&#124;src=10.0.0.1 dst=2.1.2.2spt=1232
+
+| level: core
+
+type: keyword
+
+// ===============================================================
+
+| event.outcome
+| The outcome of the event.
+
+example: success
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+| event.risk_score
+| Risk score or priority of the event (e.g. security solutions). Use your system's original value here.
+
+
+
+| level: core
+
+type: float
+
+// ===============================================================
+
+| event.risk_score_norm
+| Normalized risk score or priority of the event (0-100).
+
+
+
+| level: extended
+
+type: float
+
+// ===============================================================
+
+| event.severity
+| Original severity of the event.
+
+example: 7
+
+| level: core
+
+type: long
+
+// ===============================================================
+
+| event.start
+| event.start contains the date when the event started or when the activity was first observed.
+
+
+
+| level: extended
+
+type: date
+
+// ===============================================================
+
+| event.timezone
+| Event time zone.
+
+
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+| event.type
+| Reserved for future usage.
+
+
+
+| level: core
+
+type: keyword
+
+// ===============================================================
+
+|=====
+
+[[ecs-file]]
+=== File fields
+
+A file is defined as a set of information that has been created on, or has existed on a filesystem.
+File objects can be associated with host events, network events, and/or file events (e.g., those produced by File Integrity Monitoring [FIM] products or services). File fields provide details about the affected file associated with the event or metric.
+
+[options="header"]
+|=====
+| Field  | Description  | Level / Type
+
+// ===============================================================
+
+| file.ctime
+| Last time file metadata changed.
+
+
+
+| level: extended
+
+type: date
+
+// ===============================================================
+
+| file.device
+| Device that is the source of the file.
+
+
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+| file.extension
+| File extension.
+
+example: png
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+| file.gid
+| Primary group ID (GID) of the file.
+
+
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+| file.group
+| Primary group name of the file.
+
+
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+| file.inode
+| Inode representing the file in the filesystem.
+
+
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+| file.mode
+| Mode of the file in octal representation.
+
+example: 416
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+| file.mtime
+| Last time file content was modified.
+
+
+
+| level: extended
+
+type: date
+
+// ===============================================================
+
+| file.owner
+| File owner's username.
+
+
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+| file.path
+| Path to the file.
+
+
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+| file.size
+| File size in bytes (field is only added when `type` is `file`).
+
+
+
+| level: extended
+
+type: long
+
+// ===============================================================
+
+| file.target_path
+| Target path for symlinks.
+
+
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+| file.type
+| File type (file, dir, or symlink).
+
+
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+| file.uid
+| The user ID (UID) or security identifier (SID) of the file owner.
+
+
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+|=====
+
+[[ecs-geo]]
+=== Geo fields
+
+Geo fields can carry data about a specific location related to an event.
+This geolocation information can be derived from techniques such as Geo IP, or be user-supplied.
+
+[options="header"]
+|=====
+| Field  | Description  | Level / Type
+
+// ===============================================================
+
+| geo.city_name
+| City name.
+
+example: Montreal
+
+| level: core
+
+type: keyword
+
+// ===============================================================
+
+| geo.continent_name
+| Name of the continent.
+
+example: North America
+
+| level: core
+
+type: keyword
+
+// ===============================================================
+
+| geo.country_iso_code
+| Country ISO code.
+
+example: CA
+
+| level: core
+
+type: keyword
+
+// ===============================================================
+
+| geo.country_name
+| Country name.
+
+example: Canada
+
+| level: core
+
+type: keyword
+
+// ===============================================================
+
+| geo.location
+| Longitude and latitude.
+
+example: { "lon": -73.614830, "lat": 45.505918 }
+
+| level: core
+
+type: geo_point
+
+// ===============================================================
+
+| geo.name
+| User-defined description of a location.
+
+example: boston-dc
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+| geo.region_iso_code
+| Region ISO code.
+
+example: CA-QC
+
+| level: core
+
+type: keyword
+
+// ===============================================================
+
+| geo.region_name
+| Region name.
+
+example: Quebec
+
+| level: core
+
+type: keyword
+
+// ===============================================================
+
+|=====
+
+[[ecs-group]]
+=== Group fields
+
+The group fields are meant to represent groups that are relevant to the event.
+
+[options="header"]
+|=====
+| Field  | Description  | Level / Type
+
+// ===============================================================
+
+| group.id
+| Unique identifier for the group on the system/platform.
+
+
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+| group.name
+| Name of the group.
+
+
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+|=====
+
+[[ecs-host]]
+=== Host fields
+
+A host is defined as a general computing instance.
+ECS host.* fields should be populated with details about the host on which the event happened, or from which the measurement was taken. Host types include hardware, virtual machines, Docker containers, and Kubernetes nodes.
+
+[options="header"]
+|=====
+| Field  | Description  | Level / Type
+
+// ===============================================================
+
+| host.architecture
+| Operating system architecture.
+
+example: x86_64
+
+| level: core
+
+type: keyword
+
+// ===============================================================
+
+| host.hostname
+| Hostname of the host.
+
+
+
+| level: core
+
+type: keyword
+
+// ===============================================================
+
+| host.id
+| Unique host id.
+
+
+
+| level: core
+
+type: keyword
+
+// ===============================================================
+
+| host.ip
+| Host ip address.
+
+
+
+| level: core
+
+type: ip
+
+// ===============================================================
+
+| host.mac
+| Host mac address.
+
+
+
+| level: core
+
+type: keyword
+
+// ===============================================================
+
+| host.name
+| Name of the host.
+
+
+
+| level: core
+
+type: keyword
+
+// ===============================================================
+
+| host.type
+| Type of host.
+
+
+
+| level: core
+
+type: keyword
+
+// ===============================================================
+
+|=====
+
+[[ecs-http]]
+=== HTTP fields
+
+Fields related to HTTP activity. Use the `url` field set to store the url of the request.
+
+[options="header"]
+|=====
+| Field  | Description  | Level / Type
+
+// ===============================================================
+
+| http.request.body.bytes
+| Size in bytes of the request body.
+
+example: 887
+
+| level: extended
+
+type: long
+
+// ===============================================================
+
+| http.request.body.content
+| The full HTTP request body.
+
+example: Hello world
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+| http.request.bytes
+| Total size in bytes of the request (body and headers).
+
+example: 1437
+
+| level: extended
+
+type: long
+
+// ===============================================================
+
+| http.request.method
+| HTTP request method.
+
+example: get, post, put
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+| http.request.referrer
+| Referrer for this HTTP request.
+
+example: https://blog.example.com/
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+| http.response.body.bytes
+| Size in bytes of the response body.
+
+example: 887
+
+| level: extended
+
+type: long
+
+// ===============================================================
+
+| http.response.body.content
+| The full HTTP response body.
+
+example: Hello world
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+| http.response.bytes
+| Total size in bytes of the response (body and headers).
+
+example: 1437
+
+| level: extended
+
+type: long
+
+// ===============================================================
+
+| http.response.status_code
+| HTTP response status code.
+
+example: 404
+
+| level: extended
+
+type: long
+
+// ===============================================================
+
+| http.version
+| HTTP version.
+
+example: 1.1
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+|=====
+
+[[ecs-log]]
+=== Log fields
+
+Fields which are specific to log events.
+
+[options="header"]
+|=====
+| Field  | Description  | Level / Type
+
+// ===============================================================
+
+| log.level
+| Log level of the log event.
+
+example: err
+
+| level: core
+
+type: keyword
+
+// ===============================================================
+
+| log.original
+| Original log message with light interpretation only (encoding, newlines).
+
+example: Sep 19 08:26:10 localhost My log
+
+| level: core
+
+type: keyword
+
+// ===============================================================
+
+|=====
+
+[[ecs-network]]
+=== Network fields
+
+The network is defined as the communication path over which a host or network event happens.
+The network.* fields should be populated with details about the network activity associated with an event.
+
+[options="header"]
+|=====
+| Field  | Description  | Level / Type
+
+// ===============================================================
+
+| network.application
+| Application level protocol name.
+
+example: aim
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+| network.bytes
+| Total bytes transferred in both directions.
+
+example: 368
+
+| level: core
+
+type: long
+
+// ===============================================================
+
+| network.community_id
+| A hash of source and destination IPs and ports.
+
+example: 1:hO+sN4H+MG5MY/8hIrXPqc4ZQz0=
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+| network.direction
+| Direction of the network traffic.
+
+example: inbound
+
+| level: core
+
+type: keyword
+
+// ===============================================================
+
+| network.forwarded_ip
+| Host IP address when the source IP address is the proxy.
+
+example: 192.1.1.2
+
+| level: core
+
+type: ip
+
+// ===============================================================
+
+| network.iana_number
+| IANA Protocol Number.
+
+example: 6
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+| network.name
+| Name given by operators to sections of their network.
+
+example: Guest Wifi
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+| network.packets
+| Total packets transferred in both directions.
+
+example: 24
+
+| level: core
+
+type: long
+
+// ===============================================================
+
+| network.protocol
+| L7 Network protocol name.
+
+example: http
+
+| level: core
+
+type: keyword
+
+// ===============================================================
+
+| network.transport
+| Protocol Name corresponding to the field `iana_number`.
+
+example: tcp
+
+| level: core
+
+type: keyword
+
+// ===============================================================
+
+| network.type
+| In the OSI Model this would be the Network Layer. ipv4, ipv6, ipsec, pim, etc
+
+example: ipv4
+
+| level: core
+
+type: keyword
+
+// ===============================================================
+
+|=====
+
+[[ecs-observer]]
+=== Observer fields
+
+An observer is defined as a special network, security, or application device used to detect, observe, or create network, security, or application-related events and metrics.
+This could be a custom hardware appliance or a server that has been configured to run special network, security, or application software. Examples include firewalls, intrusion detection/prevention systems, network monitoring sensors, web application firewalls, data loss prevention systems, and APM servers. The observer.* fields shall be populated with details of the system, if any, that detects, observes and/or creates a network, security, or application event or metric. Message queues and ETL components used in processing events or metrics are not considered observers in ECS.
+
+[options="header"]
+|=====
+| Field  | Description  | Level / Type
+
+// ===============================================================
+
+| observer.hostname
+| Hostname of the observer.
+
+
+
+| level: core
+
+type: keyword
+
+// ===============================================================
+
+| observer.ip
+| IP address of the observer.
+
+
+
+| level: core
+
+type: ip
+
+// ===============================================================
+
+| observer.mac
+| MAC address of the observer
+
+
+
+| level: core
+
+type: keyword
+
+// ===============================================================
+
+| observer.serial_number
+| Observer serial number.
+
+
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+| observer.type
+| The type of the observer the data is coming from.
+
+example: firewall
+
+| level: core
+
+type: keyword
+
+// ===============================================================
+
+| observer.vendor
+| observer vendor information.
+
+
+
+| level: core
+
+type: keyword
+
+// ===============================================================
+
+| observer.version
+| Observer version.
+
+
+
+| level: core
+
+type: keyword
+
+// ===============================================================
+
+|=====
+
+[[ecs-organization]]
+=== Organization fields
+
+The organization fields enrich data with information about the company or entity the data is associated with.
+These fields help you arrange or filter data stored in an index by one or multiple organizations.
+
+[options="header"]
+|=====
+| Field  | Description  | Level / Type
+
+// ===============================================================
+
+| organization.id
+| Unique identifier for the organization.
+
+
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+| organization.name
+| Organization name.
+
+
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+|=====
+
+[[ecs-os]]
+=== Operating System fields
+
+The OS fields contain information about the operating system.
+
+[options="header"]
+|=====
+| Field  | Description  | Level / Type
+
+// ===============================================================
+
+| os.family
+| OS family (such as redhat, debian, freebsd, windows).
+
+example: debian
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+| os.full
+| Operating system name, including the version or code name.
+
+example: Mac OS Mojave
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+| os.kernel
+| Operating system kernel version as a raw string.
+
+example: 4.4.0-112-generic
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+| os.name
+| Operating system name, without the version.
+
+example: Mac OS X
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+| os.platform
+| Operating system platform (such centos, ubuntu, windows).
+
+example: darwin
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+| os.version
+| Operating system version as a raw string.
+
+example: 10.14.1
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+|=====
+
+[[ecs-process]]
+=== Process fields
+
+These fields contain information about a process.
+These fields can help you correlate metrics information with a process id/name from a log message.  The `process.pid` often stays in the metric itself and is copied to the global field for correlation.
+
+[options="header"]
+|=====
+| Field  | Description  | Level / Type
+
+// ===============================================================
+
+| process.args
+| Array of process arguments.
+
+example: ['ssh', '-l', 'user', '10.0.0.16']
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+| process.executable
+| Absolute path to the process executable.
+
+example: /usr/bin/ssh
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+| process.name
+| Process name.
+
+example: ssh
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+| process.pid
+| Process id.
+
+
+
+| level: core
+
+type: long
+
+// ===============================================================
+
+| process.ppid
+| Process parent id.
+
+
+
+| level: extended
+
+type: long
+
+// ===============================================================
+
+| process.start
+| The time the process started.
+
+example: 2016-05-23T08:05:34.853Z
+
+| level: extended
+
+type: date
+
+// ===============================================================
+
+| process.thread.id
+| Thread ID.
+
+example: 4242
+
+| level: extended
+
+type: long
+
+// ===============================================================
+
+| process.title
+| Process title.
+
+
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+| process.working_directory
+| The working directory of the process.
+
+example: /home/alice
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+|=====
+
+[[ecs-related]]
+=== Related fields
+
+This field set is meant to facilitate pivoting around a piece of data.
+Some pieces of information can be seen in many places in an ECS event. To facilitate searching for them, store an array of all seen values to their corresponding field in `related.`.
+A concrete example is IP addresses, which can be under host, observer, source, destination, client, server, and network.forwarded_ip. If you append all IPs to `related.ip`, you can then search for a given IP trivially, no matter where it appeared, by querying `related.ip:a.b.c.d`.
+
+[options="header"]
+|=====
+| Field  | Description  | Level / Type
+
+// ===============================================================
+
+| related.ip
+| All of the IPs seen on your event.
+
+
+
+| level: extended
+
+type: ip
+
+// ===============================================================
+
+|=====
+
+[[ecs-server]]
+=== Server fields
+
+A Server is defined as the responder in a network connection for events regarding sessions, connections, or bidirectional flow records.
+For TCP events, the server is the receiver of the initial SYN packet(s) of the TCP connection. For other protocols, the server is generally the responder in the network transaction. Some systems actually use the term "responder" to refer the server in TCP connections. The server fields describe details about the system acting as the server in the network event. Server fields are usually populated in conjunction with client fields. Server fields are generally not populated for packet-level events.
+Client / server representations can add semantic context to an exchange, which is helpful to visualize the data in certain situations. If your context falls in that category, you should still ensure that source and destination are filled appropriately.
+
+[options="header"]
+|=====
+| Field  | Description  | Level / Type
+
+// ===============================================================
+
+| server.address
+| Server network address.
+
+
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+| server.bytes
+| Bytes sent from the server to the client.
+
+example: 184
+
+| level: core
+
+type: long
+
+// ===============================================================
+
+| server.domain
+| Server domain.
+
+
+
+| level: core
+
+type: keyword
+
+// ===============================================================
+
+| server.ip
+| IP address of the server.
+
+
+
+| level: core
+
+type: ip
+
+// ===============================================================
+
+| server.mac
+| MAC address of the server.
+
+
+
+| level: core
+
+type: keyword
+
+// ===============================================================
+
+| server.packets
+| Packets sent from the server to the client.
+
+example: 12
+
+| level: core
+
+type: long
+
+// ===============================================================
+
+| server.port
+| Port of the server.
+
+
+
+| level: core
+
+type: long
+
+// ===============================================================
+
+|=====
+
+[[ecs-service]]
+=== Service fields
+
+The service fields describe the service for or from which the data was collected.
+These fields help you find and correlate logs for a specific service and version.
+
+[options="header"]
+|=====
+| Field  | Description  | Level / Type
+
+// ===============================================================
+
+| service.ephemeral_id
+| Ephemeral identifier of this service.
+
+example: 8a4f500f
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+| service.id
+| Unique identifier of the running service.
+
+example: d37e5ebfe0ae6c4972dbe9f0174a1637bb8247f6
+
+| level: core
+
+type: keyword
+
+// ===============================================================
+
+| service.name
+| Name of the service.
+
+example: elasticsearch-metrics
+
+| level: core
+
+type: keyword
+
+// ===============================================================
+
+| service.state
+| Current state of the service.
+
+
+
+| level: core
+
+type: keyword
+
+// ===============================================================
+
+| service.type
+| The type of the service.
+
+example: elasticsearch
+
+| level: core
+
+type: keyword
+
+// ===============================================================
+
+| service.version
+| Version of the service.
+
+example: 3.2.4
+
+| level: core
+
+type: keyword
+
+// ===============================================================
+
+|=====
+
+[[ecs-source]]
+=== Source fields
+
+Source fields describe details about the source of a packet/event.
+Source fields are usually populated in conjunction with destination fields.
+
+[options="header"]
+|=====
+| Field  | Description  | Level / Type
+
+// ===============================================================
+
+| source.address
+| Source network address.
+
+
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+| source.bytes
+| Bytes sent from the source to the destination.
+
+example: 184
+
+| level: core
+
+type: long
+
+// ===============================================================
+
+| source.domain
+| Source domain.
+
+
+
+| level: core
+
+type: keyword
+
+// ===============================================================
+
+| source.ip
+| IP address of the source.
+
+
+
+| level: core
+
+type: ip
+
+// ===============================================================
+
+| source.mac
+| MAC address of the source.
+
+
+
+| level: core
+
+type: keyword
+
+// ===============================================================
+
+| source.packets
+| Packets sent from the source to the destination.
+
+example: 12
+
+| level: core
+
+type: long
+
+// ===============================================================
+
+| source.port
+| Port of the source.
+
+
+
+| level: core
+
+type: long
+
+// ===============================================================
+
+|=====
+
+[[ecs-url]]
+=== URL fields
+
+URL fields provide support for complete or partial URLs, and supports the breaking down into scheme, domain, path, and so on.
+
+[options="header"]
+|=====
+| Field  | Description  | Level / Type
+
+// ===============================================================
+
+| url.domain
+| Domain of the url.
+
+example: www.elastic.co
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+| url.fragment
+| Portion of the url after the `#`.
+
+
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+| url.full
+| Full unparsed URL.
+
+example: https://www.elastic.co:443/search?q=elasticsearch#top
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+| url.original
+| Unmodified original url as seen in the event source.
+
+example: https://www.elastic.co:443/search?q=elasticsearch#top or /search?q=elasticsearch
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+| url.password
+| Password of the request.
+
+
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+| url.path
+| Path of the request, such as "/search".
+
+
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+| url.port
+| Port of the request, such as 443.
+
+example: 443
+
+| level: extended
+
+type: integer
+
+// ===============================================================
+
+| url.query
+| Query string of the request.
+
+
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+| url.scheme
+| Scheme of the url.
+
+example: https
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+| url.username
+| Username of the request.
+
+
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+|=====
+
+[[ecs-user]]
+=== User fields
+
+The user fields describe information about the user that is relevant to the event.
+Fields can have one entry or multiple entries. If a user has more than one id, provide an array that includes all of them.
+
+[options="header"]
+|=====
+| Field  | Description  | Level / Type
+
+// ===============================================================
+
+| user.email
+| User email address.
+
+
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+| user.full_name
+| User's full name, if available.
+
+example: Albert Einstein
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+| user.hash
+| Unique user hash to correlate information for a user in anonymized form.
+
+
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+| user.id
+| One or multiple unique identifiers of the user.
+
+
+
+| level: core
+
+type: keyword
+
+// ===============================================================
+
+| user.name
+| Short name or login of the user.
+
+example: albert
+
+| level: core
+
+type: keyword
+
+// ===============================================================
+
+|=====
+
+[[ecs-user_agent]]
+=== User agent fields
+
+The user_agent fields normally come from a browser request.
+They often show up in web service logs coming from the parsed user agent string.
+
+[options="header"]
+|=====
+| Field  | Description  | Level / Type
+
+// ===============================================================
+
+| user_agent.device.name
+| Name of the device.
+
+example: iPhone
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+| user_agent.name
+| Name of the user agent.
+
+example: Safari
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+| user_agent.original
+| Unparsed version of the user_agent.
+
+example: Mozilla/5.0 (iPhone; CPU iPhone OS 12_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0 Mobile/15E148 Safari/604.1
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+| user_agent.version
+| Version of the user agent.
+
+example: 12.0
+
+| level: extended
+
+type: keyword
+
+// ===============================================================
+
+|=====

@@ -1,58 +1,68 @@
+
 [[ecs-fields]]
 == {ecs} Fields
 
-// Set make to generate short description for use in the Fields overview section.
-// Pull in generated field content using `include` statements
-
 [float]
-[[ecs-categories]]
-=== Field categories
+[[ecs-fieldsets]]
+=== Field Sets
 [cols="<,<",options="header",]
 |=======================================================================
-| Fields  | Description  
-| <<ecs-base,Base>> | Top level fields that are common across all types of events
-(such as `@timestamp`, `tags`, `message`, and `labels`).
-| <<ecs-agent,Agent>> | The agent fields contain data about the 
-agent/client/shipper that created the event.
-| <<ecs-cloud,Cloud>> | Fields related to the cloud or infrastructure the events are
- coming from.
-| <<ecs-container,Container>> | Container fields are used for meta information about the specific container that
-is the source of information. These fields help correlate data based containers
-from any runtime.
-| <<ecs-destination,Destination>> | Destination fields describe details about the destination of a packet/event.
-| <<ecs-device,Device>> | Device fields are used to provide additional information 
-about the device that is the source of the information. This could be a firewall, network device, etc.
+| Field Set  | Description
+
+| <<ecs-agent,Agent>> | Fields about the monitoring agent.
+
+| <<ecs-base,Base>> | All fields defined directly at the top level
+
+| <<ecs-client,Client>> | Fields about the client side of a network connection, used with server.
+
+| <<ecs-cloud,Cloud>> | Fields about the cloud resource.
+
+| <<ecs-container,Container>> | Fields describing the container that generated this event.
+
+| <<ecs-destination,Destination>> | Fields about the destination side of a network connection, used with source.
+
 | <<ecs-ecs,ECS>> | Meta-information specific to ECS.
-| <<ecs-error,Error>> | These fields can represent errors of any kind. Use them for errors that happen
-while fetching events or in cases where the event itself contains an error.
-| <<ecs-event,Event>> | The event fields are used for context information about the data itself.
-| <<ecs-file,File>> | File fields provide details about each file.
-| <<ecs-geo,Geo>> | Geo fields can carry data about a specific location related to 
-an event or geo information derived from an IP field.
-The `geo` fields are expected to be nested at: `destination.geo`, `device.geo`, `host.geo`, `source.geo`.
-| <<ecs-host,Host>> | Host fields provide information related to a host. A host can be a physical
-machine, a virtual machine, or a Docker container.
+
+| <<ecs-error,Error>> | Fields about errors of any kind.
+
+| <<ecs-event,Event>> | Fields breaking down the event details.
+
+| <<ecs-file,File>> | Fields describing files.
+
+| <<ecs-geo,Geo>> | Fields describing a location.
+
+| <<ecs-group,Group>> | User's group relevant to the event.
+
+| <<ecs-host,Host>> | Fields describing the relevant computing instance.
+
+| <<ecs-http,HTTP>> | Fields describing an HTTP request.
+
 | <<ecs-log,Log>> | Fields which are specific to log events.
-| <<ecs-network,Network>> | Fields related to network data.
-| <<ecs-organization,Organization>> | The organization fields enrich data with 
-  information about the company or entity the data is associated with. These fields help
-  you arrange or filter data stored in an index by one or multiple organizations.
-| <<ecs-os,Operating System>> | The OS fields contain information about the operating system.
-| <<ecs-process,Process>> | These fields contain information about a process. These fields can help you
-correlate metrics information with a process id/name from a log message.  The
-`process.pid` often stays in the metric itself and is copied to the global field
-for correlation.
-| <<ecs-service,Service>> | The service fields describe the service for or from which the data was
-collected. These fields help you find and correlate logs for a specific service
-and version.
-| <<ecs-source,Source>> | Source fields describe details about the destination of a packet/event.
-| <<ecs-url,URL>> | URL fields provide a complete URL, with scheme, host, and path.
-| <<ecs-user,User>> | The user fields describe information about the user 
- that is relevant to the event. Fields can have one entry or multiple entries. 
- If a user has more than one id, provide an array that includes all of them.
-|=======================================================================
 
-include::fields-gen.asciidoc[]
+| <<ecs-network,Network>> | Fields describing the communication path over which the event happened.
 
+| <<ecs-observer,Observer>> | Fields describing an entity observing the event from outside the host.
 
+| <<ecs-organization,Organization>> | Fields describing the organization or company the event is associated with.
 
+| <<ecs-os,Operating System>> | OS fields contain information about the operating system.
+
+| <<ecs-process,Process>> | These fields contain information about a process.
+
+| <<ecs-related,Related>> | Fields meant to facilitate pivoting around a piece of data.
+
+| <<ecs-server,Server>> | Fields about the server side of a network connection, used with client.
+
+| <<ecs-service,Service>> | Fields describing the service for or from which the data was collected.
+
+| <<ecs-source,Source>> | Fields about the source side of a network connection, used with destination.
+
+| <<ecs-url,URL>> | Fields that let you store URLs in various forms.
+
+| <<ecs-user,User>> | Fields to describe the user relevant to the event.
+
+| <<ecs-user_agent,User agent>> | Fields to describe a browser user_agent string.
+
+|=====
+
+include::field-details.asciidoc[]
