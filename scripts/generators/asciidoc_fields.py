@@ -14,29 +14,9 @@ def render_field_index(ecs_nested):
     page_text = index_header()
     for fieldset_name in sorted(ecs_nested):
         page_text += render_index_row(ecs_nested[fieldset_name])
-    # try:
-    #     for fieldset_name in sorted(ecs_nested):
-    #         print fieldset_name
-    #         page_text += render_index_row(ecs_nested[fieldset_name])
-    # except TypeError as ex:
-    #     print ex
-    #     print fieldset_name
-    #     raise
     page_text += table_footer()
     page_text += index_footer()
     return page_text
-
-
-# def render_index_table(fieldset):
-#     fieldset_text = fieldset_header().format(
-#             fieldset_id= 'ecs-' + fieldset['name'],
-#             fieldset_description= fieldset['description'],
-#             fieldset_title= fieldset['title']
-#     )
-#     for field_name in sorted(fieldset['fields']):
-#         fieldset_text += render_field(fieldset['fields'][field_name])
-#     fieldset_text += table_footer()
-#     return fieldset_text
 
 
 def render_index_row(fieldset):
