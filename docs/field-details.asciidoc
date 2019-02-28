@@ -1,4 +1,61 @@
 
+[[ecs-base]]
+=== Base fields
+
+The `base` field set contains all fields which are on the top level. These fields are common across all types of events.
+
+[options="header"]
+|=====
+| Field  | Description  | Level / Type
+
+// ===============================================================
+
+| @timestamp
+| Date/time when the event originated.
+
+example: 2016-05-23T08:05:34.853Z
+
+| level: core
+
+type: date
+
+// ===============================================================
+
+| labels
+| Custom key/value pairs.
+
+example: {'application': 'foo-bar', 'env': 'production'}
+
+| level: core
+
+type: object
+
+// ===============================================================
+
+| message
+| Log message optimized for viewing in a log viewer.
+
+example: Hello World
+
+| level: core
+
+type: text
+
+// ===============================================================
+
+| tags
+| List of keywords used to tag each event.
+
+example: ["production", "env2"]
+
+| level: core
+
+type: keyword
+
+// ===============================================================
+
+|=====
+
 [[ecs-agent]]
 === Agent fields
 
@@ -59,63 +116,6 @@ type: keyword
 | Version of the agent.
 
 example: 6.0.0-rc2
-
-| level: core
-
-type: keyword
-
-// ===============================================================
-
-|=====
-
-[[ecs-base]]
-=== Base fields
-
-The `base` field set contains all fields which are on the top level. These fields are common across all types of events.
-
-[options="header"]
-|=====
-| Field  | Description  | Level / Type
-
-// ===============================================================
-
-| @timestamp
-| Date/time when the event originated.
-
-example: 2016-05-23T08:05:34.853Z
-
-| level: core
-
-type: date
-
-// ===============================================================
-
-| labels
-| Custom key/value pairs.
-
-example: {'application': 'foo-bar', 'env': 'production'}
-
-| level: core
-
-type: object
-
-// ===============================================================
-
-| message
-| Log message optimized for viewing in a log viewer.
-
-example: Hello World
-
-| level: core
-
-type: text
-
-// ===============================================================
-
-| tags
-| List of keywords used to tag each event.
-
-example: ["production", "env2"]
 
 | level: core
 

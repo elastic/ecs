@@ -5,6 +5,17 @@ def generate(ecs_nested, ecs_version):
     save_asciidoc('docs/fields.asciidoc', render_field_index(ecs_nested))
     save_asciidoc('docs/field-details.asciidoc', render_field_details(ecs_nested))
 
+# Helpers
+
+
+def sorted_by_group(dict):
+    triples = []
+    for key in dict:
+        nested = dict[key]
+        triples += [(nested['group'], key, nested)]
+    return sorted(triples)
+
+
 # Rendering
 
 # Field Index
@@ -12,8 +23,9 @@ def generate(ecs_nested, ecs_version):
 
 def render_field_index(ecs_nested):
     page_text = index_header()
-    for fieldset_name in sorted(ecs_nested):
-        page_text += render_index_row(ecs_nested[fieldset_name])
+    for triple in sorted_by_group(ecs_nested):
+        (group, fieldset_name, fieldset) = triple
+        page_text += render_index_row(fieldset)
     page_text += table_footer()
     page_text += index_footer()
     return page_text
@@ -31,8 +43,9 @@ def render_index_row(fieldset):
 
 def render_field_details(ecs_nested):
     page_text = ''
-    for fieldset_name in sorted(ecs_nested):
-        page_text += render_fieldset(ecs_nested[fieldset_name])
+    for triple in sorted_by_group(ecs_nested):
+        (group, fieldset_name, fieldset) = triple
+        page_text += render_fieldset(fieldset)
     return page_text
 
 
