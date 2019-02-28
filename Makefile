@@ -6,7 +6,7 @@ FIND             := find . -type f -not -path './build/*' -not -path './.git/*'
 FORCE_GO_MODULES := GO111MODULE=on
 OPEN_DOCS        ?= "-open"
 PYTHON           := build/ve/bin/python
-VERSION          ?= 1.0.0-beta2
+VERSION           = $(shell cat version)
 
 #
 # Targets (sorted alphabetically)
