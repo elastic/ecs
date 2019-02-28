@@ -136,7 +136,7 @@ Fields related to the cloud or infrastructure the events are coming from.
 
 | Field  | Description  | Level  | Type  | Example  |
 |---|---|---|---|---|
-| <a name="cloud.provider"></a>cloud.provider | Name of the cloud provider. Example values are aws, azure, gcp, or digitalocean. | extended | keyword | `ec2` |
+| <a name="cloud.provider"></a>cloud.provider | Name of the cloud provider. Example values are aws, azure, gcp, or digitalocean. | extended | keyword | `aws` |
 | <a name="cloud.availability_zone"></a>cloud.availability_zone | Availability zone in which this host is running. | extended | keyword | `us-east-1c` |
 | <a name="cloud.region"></a>cloud.region | Region in which this host is running. | extended | keyword | `us-east-1` |
 | <a name="cloud.instance.id"></a>cloud.instance.id | Instance ID of the host machine. | extended | keyword | `i-1234567890abcdef0` |
