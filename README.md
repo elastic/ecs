@@ -692,14 +692,13 @@ follow the multi-field convention where `text` indexing is nested in the multi-f
 ### IDs and most codes are keywords, not integers
 
 Despite the fact that IDs and codes (e.g. error codes) are often integers,
-this is not always the case.
+this is not the case across all systems. IDs can also be alphanumeric, or contain
+special characters.
 Since we want to make it possible to map as many systems and data sources
 to ECS as possible, we default to using the `keyword` type for IDs and codes.
 
 Some specific kinds of codes are always integers, like HTTP status codes.
-If those have a specific corresponding specific field (as HTTP status does),
-its type can safely be an integer type.
-But generic field like `error.code` cannot have this guarantee, and are therefore `keyword`.
+For these fields specifically, using `long` can be considered.
 
 # <a name="about-ecs"></a>FAQ
 
