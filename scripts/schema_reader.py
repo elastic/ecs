@@ -79,8 +79,8 @@ def schema_fields_as_dictionary(schema):
 
 def field_cleanup_values(field, prefix):
     dict_clean_string_values(field)
-    field_set_defaults(field)
     field_set_flat_name(field, prefix)
+    field_set_defaults(field)
 
 
 def field_set_flat_name(field, prefix):
@@ -88,13 +88,17 @@ def field_set_flat_name(field, prefix):
 
 
 def field_set_defaults(field):
-    dict_set_default(field, 'short', field['description'])
     if field['type'] == 'keyword':
         dict_set_default(field, 'ignore_above', 1024)
     if field['type'] == 'text':
         dict_set_default(field, 'norms', False)
     if field['type'] == 'object':
         dict_set_default(field, 'object_type', 'keyword')
+
+    dict_set_default(field, 'short', field['description'])
+    if "\n" in field['short']:
+        raise ValueError("Short descriptions must be single line.\nField: {}\n{}".format(field['flat_name'], field))
+        # print("  Short descriptions must be single line. Field: {}".format(field['flat_name']))
 
     if 'index' in field and not field['index']:
         dict_set_default(field, 'doc_values', False)
