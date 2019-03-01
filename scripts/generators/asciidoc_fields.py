@@ -8,12 +8,20 @@ def generate(ecs_nested, ecs_version):
 # Helpers
 
 
-def sorted_by_group(dict):
-    triples = []
+def sorted_by_keys(dict, sort_keys):
+    if not isinstance(sort_keys, list):
+        sort_keys = [sort_keys]
+    tuples = []
     for key in dict:
         nested = dict[key]
-        triples += [(nested['group'], key, nested)]
-    return sorted(triples)
+
+        sort_criteria = []
+        for sort_key in sort_keys:
+            sort_criteria.append(nested[sort_key])
+        sort_criteria.append(nested)
+        tuples.append(sort_criteria)
+
+    return list(map(lambda t: t[-1], sorted(tuples)))
 
 
 # Rendering
@@ -23,8 +31,7 @@ def sorted_by_group(dict):
 
 def render_field_index(ecs_nested):
     page_text = index_header()
-    for triple in sorted_by_group(ecs_nested):
-        (group, fieldset_name, fieldset) = triple
+    for fieldset in sorted_by_keys(ecs_nested, ['group', 'name']):
         page_text += render_index_row(fieldset)
     page_text += table_footer()
     page_text += index_footer()
@@ -43,8 +50,7 @@ def render_index_row(fieldset):
 
 def render_field_details(ecs_nested):
     page_text = ''
-    for triple in sorted_by_group(ecs_nested):
-        (group, fieldset_name, fieldset) = triple
+    for fieldset in sorted_by_keys(ecs_nested, ['group', 'name']):
         page_text += render_fieldset(fieldset)
     return page_text
 

@@ -3,21 +3,39 @@ from scripts.generators import asciidoc_fields
 
 
 class TestGeneratorsAsciidocFields(unittest.TestCase):
-    # dict_add_nested
 
-    def test_sorted_by_group(self):
+    def test_sorted_by_one_key(self):
         dict = {
-                'agent': { 'group': 2 },
-                'base': { 'group': 1 },
-                'cloud': { 'group': 2 }
+                '@timestamp': { 'order': 0, 'name': '@timestamp' },
+                'message': { 'order': 3, 'name': 'message' },
+                'labels': { 'order': 1, 'name': 'labels' },
+                'tags': { 'order': 2, 'name': 'tags' }
         }
-        triples = asciidoc_fields.sorted_by_group(dict)
-        expected_triples = [
-                (1, 'base', { 'group': 1 }),
-                (2, 'agent', { 'group': 2 }),
-                (2, 'cloud', { 'group': 2 })
+        expected = [
+                { 'order': 0, 'name': '@timestamp' },
+                { 'order': 1, 'name': 'labels' },
+                { 'order': 2, 'name': 'tags' },
+                { 'order': 3, 'name': 'message' }
         ]
-        self.assertEqual(triples, expected_triples)
+        result = asciidoc_fields.sorted_by_keys(dict, 'order')
+        self.assertEqual(result, expected)
+        result = asciidoc_fields.sorted_by_keys(dict, ['order'])
+        self.assertEqual(result, expected)
+
+
+    def test_sorted_by_multiple_keys(self):
+        dict = {
+                'cloud': { 'group': 2, 'name': 'cloud' },
+                'agent': { 'group': 2, 'name': 'agent' },
+                'base': { 'group': 1, 'name': 'base' },
+        }
+        expected = [
+                { 'group': 1, 'name': 'base' },
+                { 'group': 2, 'name': 'agent' },
+                { 'group': 2, 'name': 'cloud' }
+        ]
+        result = asciidoc_fields.sorted_by_keys(dict, ['group', 'name'])
+        self.assertEqual(result, expected)
 
 
 if __name__ == '__main__':
