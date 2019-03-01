@@ -38,14 +38,14 @@ class TestSchemaReader(unittest.TestCase):
                          {'prefix': 'myfieldset.', 'root': False, 'name': 'myfieldset'})
 
     def test_set_default_values_defaults(self):
-        schema = {}
+        schema = {'description': '...'}
         schema_reader.schema_set_default_values(schema)
-        self.assertEqual(schema, {'group': 2, 'type': 'group'})
+        self.assertEqual(schema, {'group': 2, 'type': 'group', 'description': '...', 'short': '...'})
 
     def test_set_default_values_no_overwrite(self):
-        schema = {'group': 1}
+        schema = {'group': 1, 'description': '...'}
         schema_reader.schema_set_default_values(schema)
-        self.assertEqual(schema, {'group': 1, 'type': 'group'})
+        self.assertEqual(schema, {'group': 1, 'type': 'group', 'description': '...', 'short': '...'})
 
     # field definitions
 
