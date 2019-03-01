@@ -61,17 +61,11 @@ def render_fieldset(fieldset):
         fieldset_description=fieldset['description'],
         fieldset_title=fieldset['title']
     )
-    # detail_text = fieldset_details_header().format(
-    #     fieldset_name=fieldset['name'],
-    #     fieldset_title=fieldset['title']
-    # )
 
     for field in sorted_by_keys(fieldset['fields'], 'order'):
         table += render_field_summary_row(field)
-        # detail_text += render_field_details(field)
 
     table += table_footer()
-    # return table + detail_text
     return table
 
 
@@ -173,27 +167,6 @@ type: {field_type}
 | {field_level}
 
 // ===============================================================
-'''
-
-
-def fieldset_details_header():
-    return '''
-[[ecs-{fieldset_name}-details]]
-==== Field details
-'''
-
-
-def field_details():
-    return '''
-===== {field_flat_name}
-
-Level: {field_level}
-
-Datatype: {field_type}
-
-{field_description}
-
-{field_example}
 '''
 
 
