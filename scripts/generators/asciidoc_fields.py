@@ -56,32 +56,33 @@ def page_field_details(ecs_nested):
 
 
 def render_fieldset(fieldset):
-    summary_text = fieldset_summary_header().format(
+    table = fieldset_summary_header().format(
         fieldset_name=fieldset['name'],
         fieldset_description=fieldset['description'],
         fieldset_title=fieldset['title']
     )
-    detail_text = fieldset_details_header().format(
-        fieldset_name=fieldset['name'],
-        fieldset_title=fieldset['title']
-    )
+    # detail_text = fieldset_details_header().format(
+    #     fieldset_name=fieldset['name'],
+    #     fieldset_title=fieldset['title']
+    # )
 
     for field in sorted_by_keys(fieldset['fields'], 'order'):
-        summary_text += render_field_summary_row(field)
-        detail_text += render_field_details(field)
+        table += render_field_summary_row(field)
+        # detail_text += render_field_details(field)
 
-    summary_text += table_footer()
-    return summary_text + detail_text
+    table += table_footer()
+    # return table + detail_text
+    return table
 
 
 def render_field_summary_row(field):
-    # example = ''
-    # if 'example' in field:
-    #     example = "example: `{}`".format(str(field['example']))
+    example = ''
+    if 'example' in field:
+        example = "example: `{}`".format(str(field['example']))
     field_text = field_row().format(
         field_flat_name=field['flat_name'],
-        field_short=field['short'],
-        # field_example=example,
+        field_description=field['description'],
+        field_example=example,
         field_level=field['level'],
         field_type=field['type'],
     )
@@ -154,7 +155,7 @@ def fieldset_summary_header():
 
 [options="header"]
 |=====
-| Field  | Description | Type (Level)
+| Field  | Description | Level
 
 // ===============================================================
 '''
@@ -163,10 +164,13 @@ def fieldset_summary_header():
 def field_row():
     return '''
 | {field_flat_name}
-| {field_short}
-| {field_type}
+| {field_description}
 
-({field_level})
+type: {field_type}
+
+{field_example}
+
+| {field_level}
 
 // ===============================================================
 '''
