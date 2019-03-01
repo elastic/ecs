@@ -4,7 +4,7 @@
 
 The `base` field set contains all fields which are on the top level. These fields are common across all types of events.
 
-==== Fields summary
+==== Base Fields
 
 [options="header"]
 |=====
@@ -65,13 +65,39 @@ example: `Hello World`
 
 |=====
 
+[[ecs-base-nestings]]
+==== Can be nested under Host
+
+[options="header"]
+|=====
+| Nested fields | Description
+
+// ===============================================================
+
+| http://localhost:8000/ecs-geo.html[host.geo.*]
+| Fields describing a location.
+
+// ===============================================================
+
+| http://localhost:8000/ecs-os.html[host.os.*]
+| OS fields contain information about the operating system.
+
+// ===============================================================
+
+| http://localhost:8000/ecs-user.html[host.user.*]
+| Fields to describe the user relevant to the event.
+
+// ===============================================================
+
+|=====
+    
 [[ecs-agent]]
 === Agent fields
 
 The agent fields contain the data about the software entity, if any, that collects, detects, or observes events on a host, or takes measurements on a host.
 Examples include Beats. Agents may also run on observers. ECS agent.* fields shall be populated with details of the agent running on the host or observer where the event happened or the measurement was taken.
 
-==== Fields summary
+==== Agent Fields
 
 [options="header"]
 |=====
@@ -141,6 +167,32 @@ example: `8a4f500f`
 
 |=====
 
+[[ecs-agent-nestings]]
+==== Can be nested under Host
+
+[options="header"]
+|=====
+| Nested fields | Description
+
+// ===============================================================
+
+| http://localhost:8000/ecs-geo.html[host.geo.*]
+| Fields describing a location.
+
+// ===============================================================
+
+| http://localhost:8000/ecs-os.html[host.os.*]
+| OS fields contain information about the operating system.
+
+// ===============================================================
+
+| http://localhost:8000/ecs-user.html[host.user.*]
+| Fields to describe the user relevant to the event.
+
+// ===============================================================
+
+|=====
+    
 [[ecs-client]]
 === Client fields
 
@@ -148,7 +200,7 @@ A client is defined as the initiator of a network connection for events regardin
 For TCP events, the client is the initiator of the TCP connection that sends the SYN packet(s). For other protocols, the client is generally the initiator or requestor in the network transaction. Some systems use the term "originator" to refer the client in TCP connections. The client fields describe details about the system acting as the client in the network event. Client fields are usually populated in conjunction with server fields.  Client fields are generally not populated for packet-level events.
 Client / server representations can add semantic context to an exchange, which is helpful to visualize the data in certain situations. If your context falls in that category, you should still ensure that source and destination are filled appropriately.
 
-==== Fields summary
+==== Client Fields
 
 [options="header"]
 |=====
@@ -405,12 +457,38 @@ example: `boston-dc`
 
 |=====
 
+[[ecs-client-nestings]]
+==== Can be nested under Host
+
+[options="header"]
+|=====
+| Nested fields | Description
+
+// ===============================================================
+
+| http://localhost:8000/ecs-geo.html[host.geo.*]
+| Fields describing a location.
+
+// ===============================================================
+
+| http://localhost:8000/ecs-os.html[host.os.*]
+| OS fields contain information about the operating system.
+
+// ===============================================================
+
+| http://localhost:8000/ecs-user.html[host.user.*]
+| Fields to describe the user relevant to the event.
+
+// ===============================================================
+
+|=====
+    
 [[ecs-cloud]]
 === Cloud fields
 
 Fields related to the cloud or infrastructure the events are coming from.
 
-==== Fields summary
+==== Cloud Fields
 
 [options="header"]
 |=====
@@ -498,13 +576,39 @@ example: `666777888999`
 
 |=====
 
+[[ecs-cloud-nestings]]
+==== Can be nested under Host
+
+[options="header"]
+|=====
+| Nested fields | Description
+
+// ===============================================================
+
+| http://localhost:8000/ecs-geo.html[host.geo.*]
+| Fields describing a location.
+
+// ===============================================================
+
+| http://localhost:8000/ecs-os.html[host.os.*]
+| OS fields contain information about the operating system.
+
+// ===============================================================
+
+| http://localhost:8000/ecs-user.html[host.user.*]
+| Fields to describe the user relevant to the event.
+
+// ===============================================================
+
+|=====
+    
 [[ecs-container]]
 === Container fields
 
 Container fields are used for meta information about the specific container that is the source of information.
 These fields help correlate data based containers from any runtime.
 
-==== Fields summary
+==== Container Fields
 
 [options="header"]
 |=====
@@ -580,13 +684,39 @@ type: object
 
 |=====
 
+[[ecs-container-nestings]]
+==== Can be nested under Host
+
+[options="header"]
+|=====
+| Nested fields | Description
+
+// ===============================================================
+
+| http://localhost:8000/ecs-geo.html[host.geo.*]
+| Fields describing a location.
+
+// ===============================================================
+
+| http://localhost:8000/ecs-os.html[host.os.*]
+| OS fields contain information about the operating system.
+
+// ===============================================================
+
+| http://localhost:8000/ecs-user.html[host.user.*]
+| Fields to describe the user relevant to the event.
+
+// ===============================================================
+
+|=====
+    
 [[ecs-destination]]
 === Destination fields
 
 Destination fields describe details about the destination of a packet/event.
 Destination fields are usually populated in conjunction with source fields.
 
-==== Fields summary
+==== Destination Fields
 
 [options="header"]
 |=====
@@ -843,12 +973,38 @@ example: `boston-dc`
 
 |=====
 
+[[ecs-destination-nestings]]
+==== Can be nested under Host
+
+[options="header"]
+|=====
+| Nested fields | Description
+
+// ===============================================================
+
+| http://localhost:8000/ecs-geo.html[host.geo.*]
+| Fields describing a location.
+
+// ===============================================================
+
+| http://localhost:8000/ecs-os.html[host.os.*]
+| OS fields contain information about the operating system.
+
+// ===============================================================
+
+| http://localhost:8000/ecs-user.html[host.user.*]
+| Fields to describe the user relevant to the event.
+
+// ===============================================================
+
+|=====
+    
 [[ecs-ecs]]
 === ECS fields
 
 Meta-information specific to ECS.
 
-==== Fields summary
+==== ECS Fields
 
 [options="header"]
 |=====
@@ -870,13 +1026,39 @@ example: `1.0.0`
 
 |=====
 
+[[ecs-ecs-nestings]]
+==== Can be nested under Host
+
+[options="header"]
+|=====
+| Nested fields | Description
+
+// ===============================================================
+
+| http://localhost:8000/ecs-geo.html[host.geo.*]
+| Fields describing a location.
+
+// ===============================================================
+
+| http://localhost:8000/ecs-os.html[host.os.*]
+| OS fields contain information about the operating system.
+
+// ===============================================================
+
+| http://localhost:8000/ecs-user.html[host.user.*]
+| Fields to describe the user relevant to the event.
+
+// ===============================================================
+
+|=====
+    
 [[ecs-error]]
 === Error fields
 
 These fields can represent errors of any kind.
 Use them for errors that happen while fetching events or in cases where the event itself contains an error.
 
-==== Fields summary
+==== Error Fields
 
 [options="header"]
 |=====
@@ -919,13 +1101,39 @@ type: keyword
 
 |=====
 
+[[ecs-error-nestings]]
+==== Can be nested under Host
+
+[options="header"]
+|=====
+| Nested fields | Description
+
+// ===============================================================
+
+| http://localhost:8000/ecs-geo.html[host.geo.*]
+| Fields describing a location.
+
+// ===============================================================
+
+| http://localhost:8000/ecs-os.html[host.os.*]
+| OS fields contain information about the operating system.
+
+// ===============================================================
+
+| http://localhost:8000/ecs-user.html[host.user.*]
+| Fields to describe the user relevant to the event.
+
+// ===============================================================
+
+|=====
+    
 [[ecs-event]]
 === Event fields
 
 The event fields are used for context information about the log or metric event itself.
 A log is defined as an event containing details of something that happened. Log events must include the time at which the thing happened. Examples of log events include a process starting on a host, a network packet being sent from a source to a destination, or a network connection between a client and a server being initiated or closed. A metric is defined as an event containing one or more numerical or categorical measurements and the time at which the measurement was taken. Examples of metric events include memory pressure measured on a host, or vulnerabilities measured on a scanned host.
 
-==== Fields summary
+==== Event Fields
 
 [options="header"]
 |=====
@@ -1147,13 +1355,39 @@ type: float
 
 |=====
 
+[[ecs-event-nestings]]
+==== Can be nested under Host
+
+[options="header"]
+|=====
+| Nested fields | Description
+
+// ===============================================================
+
+| http://localhost:8000/ecs-geo.html[host.geo.*]
+| Fields describing a location.
+
+// ===============================================================
+
+| http://localhost:8000/ecs-os.html[host.os.*]
+| OS fields contain information about the operating system.
+
+// ===============================================================
+
+| http://localhost:8000/ecs-user.html[host.user.*]
+| Fields to describe the user relevant to the event.
+
+// ===============================================================
+
+|=====
+    
 [[ecs-file]]
 === File fields
 
 A file is defined as a set of information that has been created on, or has existed on a filesystem.
 File objects can be associated with host events, network events, and/or file events (e.g., those produced by File Integrity Monitoring [FIM] products or services). File fields provide details about the affected file associated with the event or metric.
 
-==== Fields summary
+==== File Fields
 
 [options="header"]
 |=====
@@ -1318,13 +1552,39 @@ type: date
 
 |=====
 
+[[ecs-file-nestings]]
+==== Can be nested under Host
+
+[options="header"]
+|=====
+| Nested fields | Description
+
+// ===============================================================
+
+| http://localhost:8000/ecs-geo.html[host.geo.*]
+| Fields describing a location.
+
+// ===============================================================
+
+| http://localhost:8000/ecs-os.html[host.os.*]
+| OS fields contain information about the operating system.
+
+// ===============================================================
+
+| http://localhost:8000/ecs-user.html[host.user.*]
+| Fields to describe the user relevant to the event.
+
+// ===============================================================
+
+|=====
+    
 [[ecs-geo]]
 === Geo fields
 
 Geo fields can carry data about a specific location related to an event.
 This geolocation information can be derived from techniques such as Geo IP, or be user-supplied.
 
-==== Fields summary
+==== Geo Fields
 
 [options="header"]
 |=====
@@ -1424,12 +1684,38 @@ example: `boston-dc`
 
 |=====
 
+[[ecs-geo-nestings]]
+==== Can be nested under Host
+
+[options="header"]
+|=====
+| Nested fields | Description
+
+// ===============================================================
+
+| http://localhost:8000/ecs-geo.html[host.geo.*]
+| Fields describing a location.
+
+// ===============================================================
+
+| http://localhost:8000/ecs-os.html[host.os.*]
+| OS fields contain information about the operating system.
+
+// ===============================================================
+
+| http://localhost:8000/ecs-user.html[host.user.*]
+| Fields to describe the user relevant to the event.
+
+// ===============================================================
+
+|=====
+    
 [[ecs-group]]
 === Group fields
 
 The group fields are meant to represent groups that are relevant to the event.
 
-==== Fields summary
+==== Group Fields
 
 [options="header"]
 |=====
@@ -1461,13 +1747,39 @@ type: keyword
 
 |=====
 
+[[ecs-group-nestings]]
+==== Can be nested under Host
+
+[options="header"]
+|=====
+| Nested fields | Description
+
+// ===============================================================
+
+| http://localhost:8000/ecs-geo.html[host.geo.*]
+| Fields describing a location.
+
+// ===============================================================
+
+| http://localhost:8000/ecs-os.html[host.os.*]
+| OS fields contain information about the operating system.
+
+// ===============================================================
+
+| http://localhost:8000/ecs-user.html[host.user.*]
+| Fields to describe the user relevant to the event.
+
+// ===============================================================
+
+|=====
+    
 [[ecs-host]]
 === Host fields
 
 A host is defined as a general computing instance.
 ECS host.* fields should be populated with details about the host on which the event happened, or from which the measurement was taken. Host types include hardware, virtual machines, Docker containers, and Kubernetes nodes.
 
-==== Fields summary
+==== Host Fields
 
 [options="header"]
 |=====
@@ -1793,12 +2105,38 @@ example: `boston-dc`
 
 |=====
 
+[[ecs-host-nestings]]
+==== Can be nested under Host
+
+[options="header"]
+|=====
+| Nested fields | Description
+
+// ===============================================================
+
+| http://localhost:8000/ecs-geo.html[host.geo.*]
+| Fields describing a location.
+
+// ===============================================================
+
+| http://localhost:8000/ecs-os.html[host.os.*]
+| OS fields contain information about the operating system.
+
+// ===============================================================
+
+| http://localhost:8000/ecs-user.html[host.user.*]
+| Fields to describe the user relevant to the event.
+
+// ===============================================================
+
+|=====
+    
 [[ecs-http]]
 === HTTP fields
 
 Fields related to HTTP activity. Use the `url` field set to store the url of the request.
 
-==== Fields summary
+==== HTTP Fields
 
 [options="header"]
 |=====
@@ -1919,12 +2257,38 @@ example: `887`
 
 |=====
 
+[[ecs-http-nestings]]
+==== Can be nested under Host
+
+[options="header"]
+|=====
+| Nested fields | Description
+
+// ===============================================================
+
+| http://localhost:8000/ecs-geo.html[host.geo.*]
+| Fields describing a location.
+
+// ===============================================================
+
+| http://localhost:8000/ecs-os.html[host.os.*]
+| OS fields contain information about the operating system.
+
+// ===============================================================
+
+| http://localhost:8000/ecs-user.html[host.user.*]
+| Fields to describe the user relevant to the event.
+
+// ===============================================================
+
+|=====
+    
 [[ecs-log]]
 === Log fields
 
 Fields which are specific to log events.
 
-==== Fields summary
+==== Log Fields
 
 [options="header"]
 |=====
@@ -1959,13 +2323,39 @@ example: `Sep 19 08:26:10 localhost My log`
 
 |=====
 
+[[ecs-log-nestings]]
+==== Can be nested under Host
+
+[options="header"]
+|=====
+| Nested fields | Description
+
+// ===============================================================
+
+| http://localhost:8000/ecs-geo.html[host.geo.*]
+| Fields describing a location.
+
+// ===============================================================
+
+| http://localhost:8000/ecs-os.html[host.os.*]
+| OS fields contain information about the operating system.
+
+// ===============================================================
+
+| http://localhost:8000/ecs-user.html[host.user.*]
+| Fields to describe the user relevant to the event.
+
+// ===============================================================
+
+|=====
+    
 [[ecs-network]]
 === Network fields
 
 The network is defined as the communication path over which a host or network event happens.
 The network.* fields should be populated with details about the network activity associated with an event.
 
-==== Fields summary
+==== Network Fields
 
 [options="header"]
 |=====
@@ -2112,13 +2502,39 @@ example: `24`
 
 |=====
 
+[[ecs-network-nestings]]
+==== Can be nested under Host
+
+[options="header"]
+|=====
+| Nested fields | Description
+
+// ===============================================================
+
+| http://localhost:8000/ecs-geo.html[host.geo.*]
+| Fields describing a location.
+
+// ===============================================================
+
+| http://localhost:8000/ecs-os.html[host.os.*]
+| OS fields contain information about the operating system.
+
+// ===============================================================
+
+| http://localhost:8000/ecs-user.html[host.user.*]
+| Fields to describe the user relevant to the event.
+
+// ===============================================================
+
+|=====
+    
 [[ecs-observer]]
 === Observer fields
 
 An observer is defined as a special network, security, or application device used to detect, observe, or create network, security, or application-related events and metrics.
 This could be a custom hardware appliance or a server that has been configured to run special network, security, or application software. Examples include firewalls, intrusion detection/prevention systems, network monitoring sensors, web application firewalls, data loss prevention systems, and APM servers. The observer.* fields shall be populated with details of the system, if any, that detects, observes and/or creates a network, security, or application event or metric. Message queues and ETL components used in processing events or metrics are not considered observers in ECS.
 
-==== Fields summary
+==== Observer Fields
 
 [options="header"]
 |=====
@@ -2362,13 +2778,39 @@ example: `boston-dc`
 
 |=====
 
+[[ecs-observer-nestings]]
+==== Can be nested under Host
+
+[options="header"]
+|=====
+| Nested fields | Description
+
+// ===============================================================
+
+| http://localhost:8000/ecs-geo.html[host.geo.*]
+| Fields describing a location.
+
+// ===============================================================
+
+| http://localhost:8000/ecs-os.html[host.os.*]
+| OS fields contain information about the operating system.
+
+// ===============================================================
+
+| http://localhost:8000/ecs-user.html[host.user.*]
+| Fields to describe the user relevant to the event.
+
+// ===============================================================
+
+|=====
+    
 [[ecs-organization]]
 === Organization fields
 
 The organization fields enrich data with information about the company or entity the data is associated with.
 These fields help you arrange or filter data stored in an index by one or multiple organizations.
 
-==== Fields summary
+==== Organization Fields
 
 [options="header"]
 |=====
@@ -2400,12 +2842,38 @@ type: keyword
 
 |=====
 
+[[ecs-organization-nestings]]
+==== Can be nested under Host
+
+[options="header"]
+|=====
+| Nested fields | Description
+
+// ===============================================================
+
+| http://localhost:8000/ecs-geo.html[host.geo.*]
+| Fields describing a location.
+
+// ===============================================================
+
+| http://localhost:8000/ecs-os.html[host.os.*]
+| OS fields contain information about the operating system.
+
+// ===============================================================
+
+| http://localhost:8000/ecs-user.html[host.user.*]
+| Fields to describe the user relevant to the event.
+
+// ===============================================================
+
+|=====
+    
 [[ecs-os]]
 === Operating System fields
 
 The OS fields contain information about the operating system.
 
-==== Fields summary
+==== Operating System Fields
 
 [options="header"]
 |=====
@@ -2481,13 +2949,39 @@ example: `4.4.0-112-generic`
 
 |=====
 
+[[ecs-os-nestings]]
+==== Can be nested under Host
+
+[options="header"]
+|=====
+| Nested fields | Description
+
+// ===============================================================
+
+| http://localhost:8000/ecs-geo.html[host.geo.*]
+| Fields describing a location.
+
+// ===============================================================
+
+| http://localhost:8000/ecs-os.html[host.os.*]
+| OS fields contain information about the operating system.
+
+// ===============================================================
+
+| http://localhost:8000/ecs-user.html[host.user.*]
+| Fields to describe the user relevant to the event.
+
+// ===============================================================
+
+|=====
+    
 [[ecs-process]]
 === Process fields
 
 These fields contain information about a process.
 These fields can help you correlate metrics information with a process id/name from a log message.  The `process.pid` often stays in the metric itself and is copied to the global field for correlation.
 
-==== Fields summary
+==== Process Fields
 
 [options="header"]
 |=====
@@ -2599,6 +3093,32 @@ example: `/home/alice`
 
 |=====
 
+[[ecs-process-nestings]]
+==== Can be nested under Host
+
+[options="header"]
+|=====
+| Nested fields | Description
+
+// ===============================================================
+
+| http://localhost:8000/ecs-geo.html[host.geo.*]
+| Fields describing a location.
+
+// ===============================================================
+
+| http://localhost:8000/ecs-os.html[host.os.*]
+| OS fields contain information about the operating system.
+
+// ===============================================================
+
+| http://localhost:8000/ecs-user.html[host.user.*]
+| Fields to describe the user relevant to the event.
+
+// ===============================================================
+
+|=====
+    
 [[ecs-related]]
 === Related fields
 
@@ -2606,7 +3126,7 @@ This field set is meant to facilitate pivoting around a piece of data.
 Some pieces of information can be seen in many places in an ECS event. To facilitate searching for them, store an array of all seen values to their corresponding field in `related.`.
 A concrete example is IP addresses, which can be under host, observer, source, destination, client, server, and network.forwarded_ip. If you append all IPs to `related.ip`, you can then search for a given IP trivially, no matter where it appeared, by querying `related.ip:a.b.c.d`.
 
-==== Fields summary
+==== Related Fields
 
 [options="header"]
 |=====
@@ -2627,6 +3147,32 @@ type: ip
 
 |=====
 
+[[ecs-related-nestings]]
+==== Can be nested under Host
+
+[options="header"]
+|=====
+| Nested fields | Description
+
+// ===============================================================
+
+| http://localhost:8000/ecs-geo.html[host.geo.*]
+| Fields describing a location.
+
+// ===============================================================
+
+| http://localhost:8000/ecs-os.html[host.os.*]
+| OS fields contain information about the operating system.
+
+// ===============================================================
+
+| http://localhost:8000/ecs-user.html[host.user.*]
+| Fields to describe the user relevant to the event.
+
+// ===============================================================
+
+|=====
+    
 [[ecs-server]]
 === Server fields
 
@@ -2634,7 +3180,7 @@ A Server is defined as the responder in a network connection for events regardin
 For TCP events, the server is the receiver of the initial SYN packet(s) of the TCP connection. For other protocols, the server is generally the responder in the network transaction. Some systems actually use the term "responder" to refer the server in TCP connections. The server fields describe details about the system acting as the server in the network event. Server fields are usually populated in conjunction with client fields. Server fields are generally not populated for packet-level events.
 Client / server representations can add semantic context to an exchange, which is helpful to visualize the data in certain situations. If your context falls in that category, you should still ensure that source and destination are filled appropriately.
 
-==== Fields summary
+==== Server Fields
 
 [options="header"]
 |=====
@@ -2891,13 +3437,39 @@ example: `boston-dc`
 
 |=====
 
+[[ecs-server-nestings]]
+==== Can be nested under Host
+
+[options="header"]
+|=====
+| Nested fields | Description
+
+// ===============================================================
+
+| http://localhost:8000/ecs-geo.html[host.geo.*]
+| Fields describing a location.
+
+// ===============================================================
+
+| http://localhost:8000/ecs-os.html[host.os.*]
+| OS fields contain information about the operating system.
+
+// ===============================================================
+
+| http://localhost:8000/ecs-user.html[host.user.*]
+| Fields to describe the user relevant to the event.
+
+// ===============================================================
+
+|=====
+    
 [[ecs-service]]
 === Service fields
 
 The service fields describe the service for or from which the data was collected.
 These fields help you find and correlate logs for a specific service and version.
 
-==== Fields summary
+==== Service Fields
 
 [options="header"]
 |=====
@@ -2982,13 +3554,39 @@ example: `8a4f500f`
 
 |=====
 
+[[ecs-service-nestings]]
+==== Can be nested under Host
+
+[options="header"]
+|=====
+| Nested fields | Description
+
+// ===============================================================
+
+| http://localhost:8000/ecs-geo.html[host.geo.*]
+| Fields describing a location.
+
+// ===============================================================
+
+| http://localhost:8000/ecs-os.html[host.os.*]
+| OS fields contain information about the operating system.
+
+// ===============================================================
+
+| http://localhost:8000/ecs-user.html[host.user.*]
+| Fields to describe the user relevant to the event.
+
+// ===============================================================
+
+|=====
+    
 [[ecs-source]]
 === Source fields
 
 Source fields describe details about the source of a packet/event.
 Source fields are usually populated in conjunction with destination fields.
 
-==== Fields summary
+==== Source Fields
 
 [options="header"]
 |=====
@@ -3245,12 +3843,38 @@ example: `boston-dc`
 
 |=====
 
+[[ecs-source-nestings]]
+==== Can be nested under Host
+
+[options="header"]
+|=====
+| Nested fields | Description
+
+// ===============================================================
+
+| http://localhost:8000/ecs-geo.html[host.geo.*]
+| Fields describing a location.
+
+// ===============================================================
+
+| http://localhost:8000/ecs-os.html[host.os.*]
+| OS fields contain information about the operating system.
+
+// ===============================================================
+
+| http://localhost:8000/ecs-user.html[host.user.*]
+| Fields to describe the user relevant to the event.
+
+// ===============================================================
+
+|=====
+    
 [[ecs-url]]
 === URL fields
 
 URL fields provide support for complete or partial URLs, and supports the breaking down into scheme, domain, path, and so on.
 
-==== Fields summary
+==== URL Fields
 
 [options="header"]
 |=====
@@ -3376,13 +4000,39 @@ type: keyword
 
 |=====
 
+[[ecs-url-nestings]]
+==== Can be nested under Host
+
+[options="header"]
+|=====
+| Nested fields | Description
+
+// ===============================================================
+
+| http://localhost:8000/ecs-geo.html[host.geo.*]
+| Fields describing a location.
+
+// ===============================================================
+
+| http://localhost:8000/ecs-os.html[host.os.*]
+| OS fields contain information about the operating system.
+
+// ===============================================================
+
+| http://localhost:8000/ecs-user.html[host.user.*]
+| Fields to describe the user relevant to the event.
+
+// ===============================================================
+
+|=====
+    
 [[ecs-user]]
 === User fields
 
 The user fields describe information about the user that is relevant to the event.
 Fields can have one entry or multiple entries. If a user has more than one id, provide an array that includes all of them.
 
-==== Fields summary
+==== User Fields
 
 [options="header"]
 |=====
@@ -3470,13 +4120,39 @@ type: keyword
 
 |=====
 
+[[ecs-user-nestings]]
+==== Can be nested under Host
+
+[options="header"]
+|=====
+| Nested fields | Description
+
+// ===============================================================
+
+| http://localhost:8000/ecs-geo.html[host.geo.*]
+| Fields describing a location.
+
+// ===============================================================
+
+| http://localhost:8000/ecs-os.html[host.os.*]
+| OS fields contain information about the operating system.
+
+// ===============================================================
+
+| http://localhost:8000/ecs-user.html[host.user.*]
+| Fields to describe the user relevant to the event.
+
+// ===============================================================
+
+|=====
+    
 [[ecs-user_agent]]
 === User agent fields
 
 The user_agent fields normally come from a browser request.
 They often show up in web service logs coming from the parsed user agent string.
 
-==== Fields summary
+==== User agent Fields
 
 [options="header"]
 |=====
@@ -3595,3 +4271,30 @@ example: `4.4.0-112-generic`
 // ===============================================================
 
 |=====
+
+[[ecs-user_agent-nestings]]
+==== Can be nested under Host
+
+[options="header"]
+|=====
+| Nested fields | Description
+
+// ===============================================================
+
+| http://localhost:8000/ecs-geo.html[host.geo.*]
+| Fields describing a location.
+
+// ===============================================================
+
+| http://localhost:8000/ecs-os.html[host.os.*]
+| OS fields contain information about the operating system.
+
+// ===============================================================
+
+| http://localhost:8000/ecs-user.html[host.user.*]
+| Fields to describe the user relevant to the event.
+
+// ===============================================================
+
+|=====
+    

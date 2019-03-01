@@ -66,6 +66,37 @@ def render_fieldset(fieldset):
         table += render_field_summary_row(field)
 
     table += table_footer()
+
+    table += '''
+[[ecs-{fieldset_name}-nestings]]
+==== Can be nested under Host
+
+[options="header"]
+|=====
+| Nested fields | Description
+
+// ===============================================================
+
+| http://localhost:8000/ecs-geo.html[host.geo.*]
+| Fields describing a location.
+
+// ===============================================================
+
+| http://localhost:8000/ecs-os.html[host.os.*]
+| OS fields contain information about the operating system.
+
+// ===============================================================
+
+| http://localhost:8000/ecs-user.html[host.user.*]
+| Fields to describe the user relevant to the event.
+
+// ===============================================================
+
+|=====
+    '''.format(
+            fieldset_name=fieldset['name']
+    )
+
     return table
 
 
@@ -145,7 +176,7 @@ def fieldset_summary_header():
 
 {fieldset_description}
 
-==== Fields summary
+==== {fieldset_title} Fields
 
 [options="header"]
 |=====
