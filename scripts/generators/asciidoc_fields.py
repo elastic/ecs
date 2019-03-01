@@ -61,8 +61,8 @@ def render_fieldset(fieldset):
         fieldset_description=fieldset['description'],
         fieldset_title=fieldset['title']
     )
-    for field_name in sorted(fieldset['fields']):
-        fieldset_text += render_field(fieldset['fields'][field_name])
+    for field in sorted_by_keys(fieldset['fields'], 'order'):
+        fieldset_text += render_field(field)
     fieldset_text += table_footer()
     return fieldset_text
 
