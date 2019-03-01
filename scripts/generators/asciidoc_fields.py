@@ -24,6 +24,14 @@ def sorted_by_keys(dict, sort_keys):
     return list(map(lambda t: t[-1], sorted(tuples)))
 
 
+def save_asciidoc(file, text):
+    open_mode = "wb"
+    if sys.version_info >= (3, 0):
+        open_mode = "w"
+    with open(file, open_mode) as outfile:
+        outfile.write(text)
+
+
 # Rendering
 
 # Field Index
@@ -56,14 +64,14 @@ def page_field_details(ecs_nested):
 
 
 def render_fieldset(fieldset):
-    table = fieldset_summary_header().format(
+    table = field_details_table_header().format(
         fieldset_name=fieldset['name'],
         fieldset_description=fieldset['description'],
         fieldset_title=fieldset['title']
     )
 
     for field in sorted_by_keys(fieldset['fields'], 'order'):
-        table += render_field_summary_row(field)
+        table += render_field_details_row(field)
 
     table += table_footer()
 
@@ -100,11 +108,11 @@ def render_fieldset(fieldset):
     return table
 
 
-def render_field_summary_row(field):
+def render_field_details_row(field):
     example = ''
     if 'example' in field:
         example = "example: `{}`".format(str(field['example']))
-    field_text = field_row().format(
+    field_text = field_details_row().format(
         field_flat_name=field['flat_name'],
         field_description=field['description'],
         field_example=example,
@@ -113,20 +121,6 @@ def render_field_summary_row(field):
     )
     return field_text
 
-
-def render_field_details(field):
-    example = ''
-    if 'example' in field:
-        example = "example: `{}`".format(str(field['example']))
-    field_text = field_details().format(
-        field_name=field['name'],
-        field_flat_name=field['flat_name'],
-        field_description=field['description'],
-        field_example=example,
-        field_level=field['level'],
-        field_type=field['type'],
-    )
-    return field_text
 
 # Templates
 
@@ -166,10 +160,12 @@ include::field-details.asciidoc[]
 '''
 
 
-# Field Details
+# Field Details Page
+
+# Main Fields Table
 
 
-def fieldset_summary_header():
+def field_details_table_header():
     return '''
 [[ecs-{fieldset_name}]]
 === {fieldset_title} fields
@@ -186,7 +182,7 @@ def fieldset_summary_header():
 '''
 
 
-def field_row():
+def field_details_row():
     return '''
 | {field_flat_name}
 | {field_description}
@@ -199,14 +195,3 @@ type: {field_type}
 
 // ===============================================================
 '''
-
-
-# File
-
-
-def save_asciidoc(file, text):
-    open_mode = "wb"
-    if sys.version_info >= (3, 0):
-        open_mode = "w"
-    with open(file, open_mode) as outfile:
-        outfile.write(text)
