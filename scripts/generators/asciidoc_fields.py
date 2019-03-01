@@ -64,62 +64,68 @@ def page_field_details(ecs_nested):
 
 
 def render_fieldset(fieldset):
-    table = field_details_table_header().format(
+    text = field_details_table_header().format(
         fieldset_name=fieldset['name'],
         fieldset_description=fieldset['description'],
         fieldset_title=fieldset['title']
     )
 
     for field in sorted_by_keys(fieldset['fields'], 'order'):
-        table += render_field_details_row(field)
+        text += render_field_details_row(field)
 
-    table += table_footer()
+    text += table_footer()
 
-    table += '''
-[[ecs-{fieldset_name}-nestings]]
-==== Can be nested under Host
-
-[options="header"]
-|=====
-| Nested fields | Description
-
-// ===============================================================
-
-| http://localhost:8000/ecs-geo.html[host.geo.*]
-| Fields describing a location.
-
-// ===============================================================
-
-| http://localhost:8000/ecs-os.html[host.os.*]
-| OS fields contain information about the operating system.
-
-// ===============================================================
-
-| http://localhost:8000/ecs-user.html[host.user.*]
-| Fields to describe the user relevant to the event.
-
-// ===============================================================
-
-|=====
-    '''.format(
-            fieldset_name=fieldset['name']
+    text += nestings_table_header().format(
+        fieldset_name=fieldset['name'],
+        fieldset_title=fieldset['title']
     )
 
-    return table
+    # TODO Un-hardcode
+    fieldset['nestings'] = [
+            {
+                'flat_nesting': 'host.geo.*',
+                'name':'geo',
+                'short': 'Fields describing a location.'
+            },
+            {
+                'flat_nesting': 'host.os.*',
+                'name':'os',
+                'short': 'OS fields contain information about the operating system.'
+            },
+            {
+                'flat_nesting': 'host.user.*',
+                'name':'user',
+                'short': 'Fields to describe the user relevant to the event.'
+            }
+    ]
+    for nesting in fieldset['nestings']:
+        text += render_nesting_row(nesting)
+    text += table_footer()
+
+    return text
 
 
 def render_field_details_row(field):
     example = ''
     if 'example' in field:
         example = "example: `{}`".format(str(field['example']))
-    field_text = field_details_row().format(
+    text = field_details_row().format(
         field_flat_name=field['flat_name'],
         field_description=field['description'],
         field_example=example,
         field_level=field['level'],
         field_type=field['type'],
     )
-    return field_text
+    return text
+
+
+def render_nesting_row(nesting):
+    text = nestings_row().format(
+        nesting_name=nesting['name'],
+        flat_nesting=nesting['flat_nesting'],
+        nesting_short=nesting['short'],
+    )
+    return text
 
 
 # Templates
@@ -194,4 +200,29 @@ type: {field_type}
 | {field_level}
 
 // ===============================================================
+'''
+
+
+# Nestings table
+
+def nestings_table_header():
+    return '''
+[[ecs-{fieldset_name}-nestings]]
+==== Can be nested under {fieldset_title}
+
+[options="header"]
+|=====
+| Nested fields | Description
+
+// ===============================================================
+
+'''
+
+def nestings_row():
+    return '''
+| http://localhost:8000/ecs-{nesting_name}.html[{flat_nesting}]
+| {nesting_short}
+
+// ===============================================================
+
 '''
