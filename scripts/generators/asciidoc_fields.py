@@ -82,21 +82,21 @@ def render_fieldset(fieldset):
 
     # TODO Un-hardcode
     fieldset['nestings'] = [
-            {
-                'flat_nesting': 'host.geo.*',
-                'name':'geo',
-                'short': 'Fields describing a location.'
-            },
-            {
-                'flat_nesting': 'host.os.*',
-                'name':'os',
-                'short': 'OS fields contain information about the operating system.'
-            },
-            {
-                'flat_nesting': 'host.user.*',
-                'name':'user',
-                'short': 'Fields to describe the user relevant to the event.'
-            }
+        {
+            'flat_nesting': 'host.geo.*',
+            'name': 'geo',
+            'short': 'Fields describing a location.'
+        },
+        {
+            'flat_nesting': 'host.os.*',
+            'name': 'os',
+            'short': 'OS fields contain information about the operating system.'
+        },
+        {
+            'flat_nesting': 'host.user.*',
+            'name': 'user',
+            'short': 'Fields to describe the user relevant to the event.'
+        }
     ]
     for nesting in fieldset['nestings']:
         text += render_nesting_row(nesting)
@@ -217,6 +217,7 @@ def nestings_table_header():
 // ===============================================================
 
 '''
+
 
 def nestings_row():
     return '''
