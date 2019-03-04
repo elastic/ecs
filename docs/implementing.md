@@ -36,20 +36,30 @@ in the future. Please avoid using them:
 
 **How to populate ECS fields**
 
-* Start by populating Core fields. These fields are the most common across all use cases.
-* Populate as many Extended fields as practical. They generally apply to more narrow
-  use cases, so feel free to skip fields that are not applicable to your use case.
-* When populating ECS fields, don't hesitate to duplicate data to all applicable
-  fields. This will ensure your data will be interoperable with the most
-  applications and content (such as visualizations), whether they are made by Elastic
-  or from the community.
-* Try to populate ECS fields even if they are not in your event source. For example,
-  a Firewall event coming over syslog will not mention syslog. But `agent.type`
-  should still be set to "syslog".
-* You're free to duplicate existing fields over to ECS fields, or to migrate your
-  fields to use the ECS names. The decision is up to you or the implementation.
-  What's important for ECS content and applications is the presence of the ECS
-  fields. Other fields are custom fields, and you can use them however you prefer.
+In order to maximize the level of interoperability of your data with future analysis content
+(e.g., saved searches, visualizations, dashboards, alerts, machine learning jobs,
+reports, apps, etc.); whether this content is provided by Elastic
+or shared by the community, please keep the following guidelines in mind.
+
+
+* Start by populating ECS Core fields. These fields are the most common across
+  all use cases. Your implementation should attempt to populate as many of
+  the ECS Core fields as practical.
+  * ...even if these fields or values are metadata that are not present in your
+    original event. For example, a firewall event shipped to the Elastic Stack
+    over syslog may not actually include a field with value ”syslog,” but the
+    ECS `agent.type` field should still be set to “syslog."
+  * ...even if the data has already been mapped to one ECS field. For example,
+    if you’ve mapped your event’s client IP address to ECS `client.ip`, you can
+    also copy the same value to ECS `source.ip` and append it to `related.ip`.
+* Populate as many ECS Extended fields as apply to the subject and use case of
+  your event. ECS Extended fields generally apply to more narrow use cases,
+  so feel free to skip ECS Extended fields that are not applicable to your use case.
+* You're free to choose whether to copy your event fields to ECS fields,
+  leaving your original fields intact as custom fields, or to rename your existing
+  event fields to ECS, essentially migrating them to the ECS field names.
+  Future ECS content and applications will depend only upon the presence of
+  the ECS fields, and will ignore any custom fields.
 
 ## Normalization
 
