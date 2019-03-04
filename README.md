@@ -180,7 +180,7 @@ Meta-information specific to ECS.
 
 | Field  | Description  | Level  | Type  | Example  |
 |---|---|---|---|---|
-| <a name="ecs.version"></a>ecs.version | ECS version this event conforms to. `ecs.version` is a required field and must exist in all events.<br/>When querying across multiple indices -- which may conform to slightly different ECS versions -- this field lets integrations adjust to the schema version of the events.<br/>The current version is `1.0.0`. | core | keyword | `1.0.0` |
+| <a name="ecs.version"></a>ecs.version | ECS version this event conforms to. `ecs.version` is a required field and must exist in all events.<br/>When querying across multiple indices -- which may conform to slightly different ECS versions -- this field lets integrations adjust to the schema version of the events. | core | keyword | `1.0.0` |
 
 
 ## <a name="error"></a> Error fields
