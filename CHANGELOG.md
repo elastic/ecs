@@ -15,7 +15,7 @@ All notable changes to this project will be documented in this file based on the
  of being a nesting of the field set. This goes against a driving principle of ECS,
  and has been corrected. #308
 * Replaced incorrect examples in `cloud.provider`. #330
-* Field `url.port` was defined as an `integer`, whereas we're using `long` everywhere else. The field is now set to `long`. #339
+* Changed the `url.port` type to `long`. #339
 
 ### Added
 
@@ -42,7 +42,6 @@ All notable changes to this project will be documented in this file based on the
 * Remove `network.inbound.bytes`, `network.inbound.packets`,
   `network.outbound.bytes` and `network.outbound.packets`. #179
 * Changed the `event.type` definition to be only reserved. #242
-* Changed the `url.port` type to `long`. #339
 
 ### Bugfixes
 
