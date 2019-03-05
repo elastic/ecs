@@ -6,7 +6,14 @@ All notable changes to this project will be documented in this file based on the
 
 ### Breaking changes
 
+* Remove the `user.group` `keyword` field, introduced in #204. Instead,
+  the `group` field set can be nested at `user.group`. #308
+
 ### Bugfixes
+
+* Field set name "group" was being used as a leaf field at `user.group`, instead
+ of being a nesting of the field set. This goes against a driving principle of ECS,
+ and has been corrected. #308
 
 ### Added
 

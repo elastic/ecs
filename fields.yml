@@ -768,10 +768,16 @@
     - name: group
       title: Group
       group: 2
+      type: group
       description: >
         The group fields are meant to represent groups that are relevant to the
         event.
-      type: group
+    
+      reusable:
+        top_level: true
+        expected:
+          - user
+    
       fields:
     
         - name: id
@@ -1666,13 +1672,6 @@
     
             Useful if `user.id` or `user.name` contain confidential information and
             cannot be used.
-    
-        - name: group
-          level: extended
-          type: keyword
-          description: >
-            Group the user is a part of. This field can contain a list of groups, if
-            necessary.
     
     - name: user_agent
       title: User agent
