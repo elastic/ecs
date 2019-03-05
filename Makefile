@@ -30,7 +30,8 @@ check-license-headers:
 # Clean deletes all temporary and generated content.
 .PHONY: clean
 clean:
-	rm -rf schema.csv schema.md fields.yml build
+	rm -rf fields.yml build
+	rm -rf generated/legacy/{schema.csv,template.json}
 	# Clean all markdown files for use-cases
 	find ./use-cases -type f -name '*.md' -not -name 'README.md' -print0 | xargs -0 rm --
 
@@ -66,7 +67,12 @@ fmt: ve
 
 # Alias to generate everything.
 .PHONY: generate
-generate: csv readme template fields
+generate: csv readme template fields generator
+
+# Run the new generator
+.PHONY: generator
+generator:
+	$(PYTHON) scripts/generator.py
 
 # Check Makefile format.
 .PHONY: makelint
@@ -90,6 +96,7 @@ readme:
 	$(PYTHON) scripts/use-cases.py --stdout=true >> README.md
 	cat docs/implementing.md >> README.md
 	cat docs/about.md >> README.md
+	cat docs/generated-files.md >> README.md
 
 # Download and setup tooling dependencies.
 .PHONY: setup
@@ -103,7 +110,12 @@ template:
 	  && $(FORCE_GO_MODULES) go run cmd/template/template.go \
 	        -version=$(VERSION) \
 	        -schema=../schemas \
-	        > ../template.json
+	        > ../generated/legacy/template.json
+
+# Run the ECS tests
+.PHONY: test
+test:
+	$(PYTHON) -m unittest discover --start-directory scripts/tests
 
 # Create a virtualenv to run Python.
 .PHONY: ve
