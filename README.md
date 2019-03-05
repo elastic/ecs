@@ -10,8 +10,8 @@ See CONTRIBUTING.md for more details on setting up.
 
 -->
 
-WARNING: This is the master branch. The current release v1.0.0-beta2
-can be found [here](https://github.com/elastic/ecs/tree/v1.0.0-beta2).
+WARNING: This is a development branch. The official releases can be found
+[here](https://github.com/elastic/ecs/releases).
 
 # Elastic Common Schema (ECS)
 
@@ -20,9 +20,14 @@ ingesting data into Elasticsearch. A common schema helps you correlate
 data from sources like logs and metrics or IT operations
 analytics and security analytics.
 
-ECS is still under development and backward compatibility is not guaranteed. Any
-feedback on the general structure, missing fields, or existing fields is appreciated.
-For contributions please read the [Contributing Guide](CONTRIBUTING.md).
+## Maturity
+
+With ECS turning 1.0, the team will approach improvements by following
+[Semantic Versioning](https://semver.org/).
+Generally major ECS releases are planned to be aligned with major Elastic Stack releases.
+
+Any feedback on the general structure, missing fields, or existing fields is appreciated.
+For contributions please read the [Contribution Guidelines](CONTRIBUTING.md).
 
 <a name="ecs-version"></a>
 # Versions
@@ -30,6 +35,7 @@ For contributions please read the [Contributing Guide](CONTRIBUTING.md).
 The master branch of this repository should never be considered an
 official release of ECS. You can browse official releases of ECS
 [here](https://github.com/elastic/ecs/releases).
+
 
 Please note that when the README.md file and other generated files
 (like schema.csv and template.json) are not in agreement,
