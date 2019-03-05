@@ -45,7 +45,7 @@ type Url struct {
 	Domain string `ecs:"domain"`
 
 	// Port of the request, such as 443.
-	Port int32 `ecs:"port"`
+	Port int64 `ecs:"port"`
 
 	// Path of the request, such as "/search".
 	Path string `ecs:"path"`
