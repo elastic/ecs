@@ -2,8 +2,11 @@
 - name: network
   title: Network
   group: 2
+  short: Fields describing the communication path over which the event happened.
   description: >
-    The network is defined as the communication path over which a host or network event happens. The network.* fields should be populated with details about the network activity associated with an event.
+    The network is defined as the communication path over which a host or network event happens.
+
+    The network.* fields should be populated with details about the network activity associated with an event.
   type: group
   fields:
 
@@ -17,16 +20,18 @@
     - name: type
       level: core
       type: keyword
+      short: In the OSI Model this would be the Network Layer. ipv4, ipv6, ipsec, pim, etc
       description: >
         In the OSI Model this would be the Network Layer. ipv4, ipv6, ipsec, pim, etc
 
         The field value must be normalized to lowercase for querying. See
-        "Lowercase Capitalization" in the "Implementing ECS" section.
+        the documentation section "Implementing ECS".
       example: ipv4
 
     - name: iana_number
       level: extended
       type: keyword
+      short: IANA Protocol Number.
       description: >
           IANA Protocol Number (https://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml).
           Standardized list of protocols. This aligns well with NetFlow and
@@ -36,41 +41,46 @@
     - name: transport
       level: core
       type: keyword
+      short: Protocol Name corresponding to the field `iana_number`.
       description: >
         Same as network.iana_number, but instead using the Keyword name of the
         transport layer (udp, tcp, ipv6-icmp, etc.)
 
         The field value must be normalized to lowercase for querying. See
-        "Lowercase Capitalization" in the "Implementing ECS"  section.
+        the documentation section "Implementing ECS".
       example: tcp
 
     - name: application
       level: extended
       type: keyword
+      short: >
+        Application level protocol name.
       description: >
-        A name given to an application. This can be arbitrarily assigned for
+        A name given to an application level protocol. This can be arbitrarily assigned for
         things like microservices, but also apply to things like skype, icq,
         facebook, twitter. This would be used in situations where the vendor
         or service can be decoded such as from the source/dest IP owners,
         ports, or wire format.
 
         The field value must be normalized to lowercase for querying. See
-        "Lowercase Capitalization" in the "Implementing ECS" section.
+        the documentation section "Implementing ECS".
       example: aim
 
     - name: protocol
       level: core
       type: keyword
+      short: L7 Network protocol name.
       description: >
         L7 Network protocol name. ex. http, lumberjack, transport protocol.
 
         The field value must be normalized to lowercase for querying. See
-        "Lowercase Capitalization" in the "Implementing ECS" section.
+        the documentation section "Implementing ECS".
       example: http
 
     - name: direction
       level: core
       type: keyword
+      short: Direction of the network traffic.
       description: >
         Direction of the network traffic.
 
@@ -98,6 +108,7 @@
     - name: community_id
       level: extended
       type: keyword
+      short: A hash of source and destination IPs and ports.
       description: >
         A hash of source and destination IPs and ports, as well as the protocol
         used in a communication. This is a tool-agnostic standard to identify
@@ -110,6 +121,7 @@
     - name: bytes
       level: core
       type: long
+      short: Total bytes transferred in both directions.
       description: >
         Total bytes transferred in both directions.
 
@@ -119,6 +131,7 @@
     - name: packets
       level: core
       type: long
+      short: Total packets transferred in both directions.
       description: >
         Total packets transferred in both directions.
 

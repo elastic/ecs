@@ -2,26 +2,28 @@
 - name: http
   title: HTTP
   group: 2
+  short: Fields describing an HTTP request.
   description: >
-    Fields related to HTTP activity.
+    Fields related to HTTP activity. Use the `url` field set to store the url of the request.
   type: group
   fields:
 
     - name: request.method
       level: extended
       type: keyword
+      short: HTTP request method.
       description: >
-        Http request method.
+        HTTP request method.
 
         The field value must be normalized to lowercase for querying. See
-        "Lowercase Capitalization" in the "Implementing ECS"  section.
+        the documentation section "Implementing ECS".
       example: get, post, put
 
     - name: request.body.content
       level: extended
       type: keyword
       description: >
-        The full http request body.
+        The full HTTP request body.
       example: Hello world
 
     - name: request.referrer
@@ -35,21 +37,21 @@
       level: extended
       type: long
       description: >
-        Http response status code.
+        HTTP response status code.
       example: 404
 
     - name: response.body.content
       level: extended
       type: keyword
       description: >
-        The full http response body.
+        The full HTTP response body.
       example: Hello world
 
     - name: version
       level: extended
       type: keyword
       description: >
-        Http version.
+        HTTP version.
       example: 1.1
 
     # Metrics

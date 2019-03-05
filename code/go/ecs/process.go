@@ -23,10 +23,10 @@ import (
 	"time"
 )
 
-// These fields contain information about a process. These fields can help you
-// correlate metrics information with a process id/name from a log message.
-// The `process.pid` often stays in the metric itself and is copied to the
-// global field for correlation.
+// These fields contain information about a process.
+// These fields can help you correlate metrics information with a process
+// id/name from a log message.  The `process.pid` often stays in the metric
+// itself and is copied to the global field for correlation.
 type Process struct {
 	// Process id.
 	PID int64 `ecs:"pid"`
@@ -41,7 +41,7 @@ type Process struct {
 	// Identifier of the group of processes the process belongs to.
 	PGID int64 `ecs:"pgid"`
 
-	// Process arguments.
+	// Array of process arguments.
 	// May be filtered to protect sensitive information.
 	Args []string `ecs:"args"`
 
