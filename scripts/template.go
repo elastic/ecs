@@ -46,8 +46,8 @@ func main() {
 	}
 
 	// If getting a failure on the following instantiation, check out / update Beats master
-	version := common.MustNewVersion("6.0.0")
-	t, err := template.New("1.0.0", "ecs", *version, template.TemplateConfig{})
+	version := common.MustNewVersion("7.0.0")
+	t, err := template.New("1.0.0", "ecs", *version, template.TemplateConfig{}, false)
 	if err != nil {
 		fmt.Printf("Error: %s \n", err)
 		os.Exit(1)
