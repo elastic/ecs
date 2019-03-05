@@ -15,6 +15,7 @@ All notable changes to this project will be documented in this file based on the
  of being a nesting of the field set. This goes against a driving principle of ECS,
  and has been corrected. #308
 * Replaced incorrect examples in `cloud.provider`. #330
+* Changed the `url.port` type to `long`. #339
 
 ### Added
 
