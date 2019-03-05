@@ -19,6 +19,8 @@ All notable changes to this project will be documented in this file based on the
 
 ### Improvements
 
+* Clarified the difference between `@timestamp` and `event.created`. #329
+
 ### Deprecated
 
 ## [1.0.0-beta2](https://github.com/elastic/ecs/compare/v1.0.0-beta1...v1.0.0-beta2)
