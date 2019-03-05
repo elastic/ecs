@@ -1,7 +1,6 @@
 :doctype: book
 :ecs: ECS
 
-
 include::{asciidoc-dir}/../../shared/versions.asciidoc[]
 include::{asciidoc-dir}/../../shared/attributes.asciidoc[]
 
@@ -16,58 +15,31 @@ data from sources like logs and metrics or IT operations
 analytics and security analytics.
 
 ECS is still under development and backward compatibility is not guaranteed. Any
-feedback on the general structure, missing fields, or existing fields is appreciated.
-For contributions please read the  https://github.com/elastic/ecs/blob/master/CONTRIBUTING.md[Contribution Guidelines].
+feedback on the general structure, missing fields, or existing fields is
+appreciated. For contributions please read the
+https://github.com/elastic/ecs/blob/master/CONTRIBUTING.md[Contribution
+Guidelines].
 
 [float]
-[[versions]]
-=== Versions
+[[ecs-field-types]]
+=== Types of fields
 
-The master branch of this repository should never be considered an
-official release of ECS. You can browse https://github.com/elastic/ecs/releases[official releases] of ECS.
+* *Core fields.* Fields that are most common across all use cases. 
+Focus on populating these fields first. 
 
-Please note that when the README.md file and other generated files
-(like schema.csv and template.json) are not in agreement,
-the README.md should be considered the official spec.
-The other two files are simply provided as a convenience, and may not always be
-fully up to date.
-
-/////
-Working TOC
-
-ECS Intro
-  Versions
-  MINI TOC???
-Fields (generated)
-  Base
-  Agent
-  Cloud
-  ETC
-* Use Case header = Use Cases (generated)
-* Implementing
-* About (FAQs)
-* Contributing
-* GLOSSARY? 
-
-* Mike's stuff (https://docs.google.com/document/d/1srylXQDgO0z5rbwho1o8nKIxr9icTTl_nXZGYbElxYs/edit#heading=h.y1xeds3o3jae)
-
-ECS Definitions and Entity Relationships
-** ECS data model
-** Definitions
-** Top-Level Namespaces/Objects
-** Reusable Namespaces/Objects
-** Assets and Asset Lists
-** Pseudonymized and Anonymized Data in ECS
-** Threat and Vulnerability Data in ECS
-** Revisit inbound, outbound bytes/packets
+* *Extended fields.* Any fields that are not a core field. 
+Extended fields may apply to more narrow use cases, or may be more open
+to interpretation depending on the use case. Extended fields are more likely to
+change over time.
 
 
-//////
 
 include::fields.asciidoc[]
 include::conventions.asciidoc[]
 include::guidelines.asciidoc[]
+include::convert.asciidoc[]
 include::use-cases.asciidoc[]
+include::faq.asciidoc[]
 include::contributing.asciidoc[]
 include::glossary.asciidoc[]
 

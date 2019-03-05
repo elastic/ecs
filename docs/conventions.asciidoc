@@ -1,7 +1,7 @@
 //[[ecs-conventions]]
 == {ecs} Conventions
 
-{ecs} is most effective when you understand and follow conventions.
+{ecs} is most effective when you understand and follow these guidelines and conventions.
 
 [float]
 === Multi-fields text indexing
@@ -10,15 +10,13 @@ Elasticsearch can index text using:
 
 * *Text.* Text indexing allows for full text search, or searching arbitrary words that
   are part of the field. 
-  See https://www.elastic.co/guide/en/elasticsearch/reference/current/text.html[Text datatype]
-  in the {es} Reference Guide.
+  See {ref}/text.html[Text datatype] in the {es} Reference Guide.
 * *Keywords.* Keyword indexing offers faster exact match filtering and prefix search,
-  and makes aggregations (for Kibana visualizations) possible.
+  and makes aggregations (for {kib} visualizations) possible.
   See the {es} Reference Guide for more information on 
-  https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-term-query.html[exact match filtering],
-  https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-prefix-query.html[prefix search], or 
-  https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations.html[aggregations].
-
+  {ref}/query-dsl-term-query.html[exact match filtering],
+  {ref}/query-dsl-prefix-query.html[prefix search], or 
+  {ref}/search-aggregations.html[aggregations].
 
 [float]
 ==== Default Elasticsearch convention
@@ -40,7 +38,7 @@ For monitoring use cases, `keyword` indexing is needed almost exclusively, with
 full text search on very few fields. Given this premise, ECS defaults
 all text indexing to `keyword` at the top level (with very few exceptions).
 Any use case that requires full text search indexing on additional fields
-https://www.elastic.co/guide/en/elasticsearch/reference/current/multi-fields.html[multi-field].
+can add a {ref}/multi-fields.html[multi-field]
 for full text search. Doing so does not conflict with ECS,
 as the canonical field name will remain `keyword` indexed.
 
@@ -63,7 +61,7 @@ follow the multi-field convention where `text` indexing is nested in the multi-f
 [float]
 === IDs and most codes are keywords, not integers
 
-Despite the fact that IDs and codes (e.g. error codes) are often integers,
+Despite the fact that IDs and codes (such as error codes) are often integers,
 this is not always the case.
 Since we want to make it possible to map as many systems and data sources
 to ECS as possible, we default to using the `keyword` type for IDs and codes.
