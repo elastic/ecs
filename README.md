@@ -562,7 +562,7 @@ in the future. Please avoid using them:
 
 **Writing fields**
 
-* All fields must be lower case
+* All field names must be lower case
 * Combine words using underscore
 * No special characters except `_`
 
@@ -574,6 +574,33 @@ in the future. Please avoid using them:
 * *Avoid repetition.* Avoid stuttering of words. If part of the field name is already in the prefix, do not repeat it. Example: `host.host_ip` should be `host.ip`.
 * *Use prefixes.* Fields must be prefixed except for the base fields. For example all `host` fields are prefixed with `host.`. See `dot` notation in FAQ for more details.
 * Do not use abbreviations. (A few exceptions like `ip` exist.)
+
+**How to populate ECS fields**
+
+In order to maximize the level of interoperability of your data with future analysis content
+(e.g., saved searches, visualizations, dashboards, alerts, machine learning jobs,
+reports, apps, etc.); whether this content is provided by Elastic
+or shared by the community, please keep the following guidelines in mind.
+
+
+* Start by populating ECS Core fields. These fields are the most common across
+  all use cases. Your implementation should attempt to populate as many of
+  the ECS Core fields as practical.
+  * ...even if these fields or values are metadata that are not present in your
+    original event. For example, a firewall event shipped to the Elastic Stack
+    over syslog may not actually include a field with value ”syslog,” but the
+    ECS `agent.type` field should still be set to “syslog."
+  * ...even if the data has already been mapped to one ECS field. For example,
+    if you’ve mapped your event’s client IP address to ECS `client.ip`, you can
+    also copy the same value to ECS `source.ip` and append it to `related.ip`.
+* Populate as many ECS Extended fields as apply to the subject and use case of
+  your event. ECS Extended fields generally apply to more narrow use cases,
+  so feel free to skip ECS Extended fields that are not applicable to your use case.
+* You're free to choose whether to copy your event fields to ECS fields,
+  leaving your original fields intact as custom fields, or to rename your existing
+  event fields to ECS, essentially migrating them to the ECS field names.
+  Future ECS content and applications will depend only upon the presence of
+  the ECS fields, and will ignore any custom fields.
 
 ## Normalization
 
