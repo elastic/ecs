@@ -23,6 +23,7 @@ All notable changes to this project will be documented in this file based on the
 
 ### Improvements
 
+* Make phrasing of lowercasing directive more relevant, no matter where it's shown. #332
 * Clarified the definition of the host fields #325
 * Clarified the difference between `@timestamp` and `event.created`. #329
 * Specify the `object_type` for field `labels`. #331
