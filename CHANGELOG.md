@@ -22,8 +22,8 @@ All notable changes to this project will be documented in this file based on the
 * Added an optional short field description. #330
 
 ### Improvements
-* Clarified the definition of the host fields #325
 
+* Clarified the definition of the host fields #325
 * Clarified the difference between `@timestamp` and `event.created`. #329
 
 ### Deprecated
