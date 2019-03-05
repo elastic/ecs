@@ -93,4 +93,4 @@ if __name__ == "__main__":
     else:
         groups = [1, 2, 3]
         f_fields = filtered_fields(sortedNamespaces, groups)
-        create_csv(f_fields, "schema.csv")
+        create_csv(f_fields, "generated/legacy/schema.csv")

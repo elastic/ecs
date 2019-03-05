@@ -1,4 +1,9 @@
-generate: schemas readme template fields
+generate: schemas readme template fields generator
+
+# Run the new generator
+.PHONY: generator
+generator:
+	python scripts/generator.py
 
 schemas:
 	python scripts/schemas.py
@@ -6,7 +11,7 @@ schemas:
 fmt:
 	find . -name *.py -exec autopep8 --in-place --max-line-length 120 {} \;
 
-check: generate fmt fields
+check: generate test fmt fields
 	# Check if diff is empty
 	git diff | cat
 	git update-index --refresh
@@ -22,7 +27,8 @@ setup:
 	go get -u github.com/elastic/beats/libbeat/template
 
 clean:
-	rm schema.csv schema.md
+	rm -rf fields.yml build
+	rm -rf generated/legacy/{schema.csv,template.json}
 	# Clean all markdown files for use-cases
 	find ./use-cases -type f -name '*.md' -not -name 'README.md' -print0 | xargs -0 rm --
 
@@ -33,11 +39,17 @@ readme:
 	python scripts/use-cases.py --stdout=true >> README.md
 	cat docs/implementing.md >> README.md
 	cat docs/about.md >> README.md
+	cat docs/generated-files.md >> README.md
 
 template:
 	go get github.com/elastic/go-ucfg/yaml
 	go get github.com/elastic/beats/libbeat/template
-	go run scripts/template.go > ./template.json
+	go run scripts/template.go > ./generated/legacy/template.json
+
+# Run the ECS tests
+.PHONY: test
+test:
+	python -m unittest discover --start-directory scripts/tests
 
 fields:
 	cat schemas/*.yml > fields.tmp.yml
