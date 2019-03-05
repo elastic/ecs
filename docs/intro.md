@@ -22,9 +22,8 @@ analytics and security analytics.
 
 ## Maturity
 
-With ECS turning 1.0, the team will approach improvements by following SemVer.
-This means that breaking changes will be limited to major versions, and that
-improvements will be implemented in a backwards-compatible manner in the meantime.
+With ECS turning 1.0, the team will approach improvements by following
+[Semantic Versioning](https://semver.org/).
 Generally major ECS releases are planned to be aligned with major Elastic Stack releases.
 
 Any feedback on the general structure, missing fields, or existing fields is appreciated.
