@@ -44,7 +44,7 @@ readme:
 template:
 	go get github.com/elastic/go-ucfg/yaml
 	go get github.com/elastic/beats/libbeat/template
-	go run scripts/template.go > ./template.json
+	go run scripts/template.go > ./generated/legacy/template.json
 
 # Run the ECS tests
 .PHONY: test
