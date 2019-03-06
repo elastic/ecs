@@ -79,7 +79,7 @@ func main() {
 
 	// If getting a failure on the following instantiation, check out / update Beats master
 	esVersion := common.MustNewVersion("7.0.0")
-	t, err := template.New(version, "ecs", *esVersion, template.TemplateConfig{}, false)
+	t, err := template.New(version, "ecs", *esVersion, template.TemplateConfig{})
 	if err != nil {
 		log.Fatalf("Error: %v", err)
 	}
