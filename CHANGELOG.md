@@ -41,6 +41,8 @@ All notable changes to this project will be documented in this file based on the
 * Clarified the difference between `@timestamp` and `event.created`. #329
 * Specify the `object_type` for field `labels`. #331
 * Loosen up definition of `geo` field set. Not necessarily geo-ip based, since `geo.name`. #333
+* Clarified guidelines on ID fields. #349
+* Fix the cloud.provider example. #348
 
 ## [1.0.0-beta2](https://github.com/elastic/ecs/compare/v1.0.0-beta1...v1.0.0-beta2)
 
