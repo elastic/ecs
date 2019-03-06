@@ -48,6 +48,7 @@ All notable changes to this project will be documented in this file based on the
   instead of "source". #211
 
 ### Added
+
 * Add `host.name` field and clarify usage of `host.hostname`. #187
 * Add `event.start` and `event.end` date fields. #185
 * Add `process.thread.id` field. #200
@@ -77,6 +78,7 @@ All notable changes to this project will be documented in this file based on the
 * Add generated source code for Go. #249
 
 ### Improvements
+
 * Improved the definition of the file fields #196
 * Improved the definition of the agent fields #192
 * Improve definition of events, logs, and metrics in event section #194
@@ -96,6 +98,7 @@ All notable changes to this project will be documented in this file based on the
 ## [1.0.0-beta1](https://github.com/elastic/ecs/compare/v0.1.0...v1.0.0-beta1)
 
 ### Breaking changes
+
 * Change structure of URL. #7
 * Rename `url.href` `multi_field`. #18
 * Rename `geoip.*` to `geo`. #58
@@ -124,6 +127,7 @@ All notable changes to this project will be documented in this file based on the
 * Remove `source.hostname` and `destination.hostname`. #175
 
 ### Added
+
 * Add `network.total.packets` and `network.total.bytes` field. PR#2
 * Add `event.action` field. #21
 * Add `network.name`, to track network names in the monitoring pipeline. #25
