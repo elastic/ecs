@@ -6,6 +6,18 @@ All notable changes to this project will be documented in this file based on the
 
 ### Breaking changes
 
+### Bugfixes
+
+### Added
+
+### Improvements
+
+### Deprecated
+
+## [1.0.0](https://github.com/elastic/ecs/compare/v1.0.0-beta2...v1.0.0)
+
+### Breaking changes
+
 * Remove the `user.group` `keyword` field, introduced in #204. Instead,
   the `group` field set can be nested at `user.group`. #308
 
@@ -29,8 +41,6 @@ All notable changes to this project will be documented in this file based on the
 * Clarified the difference between `@timestamp` and `event.created`. #329
 * Specify the `object_type` for field `labels`. #331
 * Loosen up definition of `geo` field set. Not necessarily geo-ip based, since `geo.name`. #333
-
-### Deprecated
 
 ## [1.0.0-beta2](https://github.com/elastic/ecs/compare/v1.0.0-beta1...v1.0.0-beta2)
 
