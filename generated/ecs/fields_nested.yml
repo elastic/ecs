@@ -190,6 +190,91 @@ client:
       name: domain
       short: Client domain.
       type: keyword
+    geo.city_name:
+      description: City name.
+      example: Montreal
+      flat_name: client.geo.city_name
+      ignore_above: 1024
+      level: core
+      name: city_name
+      original_fieldset: geo
+      short: City name.
+      type: keyword
+    geo.continent_name:
+      description: Name of the continent.
+      example: North America
+      flat_name: client.geo.continent_name
+      ignore_above: 1024
+      level: core
+      name: continent_name
+      original_fieldset: geo
+      short: Name of the continent.
+      type: keyword
+    geo.country_iso_code:
+      description: Country ISO code.
+      example: CA
+      flat_name: client.geo.country_iso_code
+      ignore_above: 1024
+      level: core
+      name: country_iso_code
+      original_fieldset: geo
+      short: Country ISO code.
+      type: keyword
+    geo.country_name:
+      description: Country name.
+      example: Canada
+      flat_name: client.geo.country_name
+      ignore_above: 1024
+      level: core
+      name: country_name
+      original_fieldset: geo
+      short: Country name.
+      type: keyword
+    geo.location:
+      description: Longitude and latitude.
+      example: '{ "lon": -73.614830, "lat": 45.505918 }'
+      flat_name: client.geo.location
+      level: core
+      name: location
+      original_fieldset: geo
+      short: Longitude and latitude.
+      type: geo_point
+    geo.name:
+      description: 'User-defined description of a location, at the level of granularity
+        they care about.
+
+        Could be the name of their data centers, the floor number, if this describes
+        a local physical entity, city names.
+
+        Not typically used in automated geolocation.'
+      example: boston-dc
+      flat_name: client.geo.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      original_fieldset: geo
+      short: User-defined description of a location.
+      type: keyword
+    geo.region_iso_code:
+      description: Region ISO code.
+      example: CA-QC
+      flat_name: client.geo.region_iso_code
+      ignore_above: 1024
+      level: core
+      name: region_iso_code
+      original_fieldset: geo
+      short: Region ISO code.
+      type: keyword
+    geo.region_name:
+      description: Region name.
+      example: Quebec
+      flat_name: client.geo.region_name
+      ignore_above: 1024
+      level: core
+      name: region_name
+      original_fieldset: geo
+      short: Region name.
+      type: keyword
     ip:
       description: 'IP address of the client.
 
@@ -222,6 +307,75 @@ client:
       name: port
       short: Port of the client.
       type: long
+    user.email:
+      description: User email address.
+      flat_name: client.user.email
+      ignore_above: 1024
+      level: extended
+      name: email
+      original_fieldset: user
+      short: User email address.
+      type: keyword
+    user.full_name:
+      description: User's full name, if available.
+      example: Albert Einstein
+      flat_name: client.user.full_name
+      ignore_above: 1024
+      level: extended
+      name: full_name
+      original_fieldset: user
+      short: User's full name, if available.
+      type: keyword
+    user.group.id:
+      description: Unique identifier for the group on the system/platform.
+      flat_name: client.user.group.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      original_fieldset: user
+      short: Unique identifier for the group on the system/platform.
+      type: keyword
+    user.group.name:
+      description: Name of the group.
+      flat_name: client.user.group.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      original_fieldset: user
+      short: Name of the group.
+      type: keyword
+    user.hash:
+      description: 'Unique user hash to correlate information for a user in anonymized
+        form.
+
+        Useful if `user.id` or `user.name` contain confidential information and cannot
+        be used.'
+      flat_name: client.user.hash
+      ignore_above: 1024
+      level: extended
+      name: hash
+      original_fieldset: user
+      short: Unique user hash to correlate information for a user in anonymized form.
+      type: keyword
+    user.id:
+      description: One or multiple unique identifiers of the user.
+      flat_name: client.user.id
+      ignore_above: 1024
+      level: core
+      name: id
+      original_fieldset: user
+      short: One or multiple unique identifiers of the user.
+      type: keyword
+    user.name:
+      description: Short name or login of the user.
+      example: albert
+      flat_name: client.user.name
+      ignore_above: 1024
+      level: core
+      name: name
+      original_fieldset: user
+      short: Short name or login of the user.
+      type: keyword
   group: 2
   name: client
   prefix: client.
@@ -404,6 +558,91 @@ destination:
       name: domain
       short: Destination domain.
       type: keyword
+    geo.city_name:
+      description: City name.
+      example: Montreal
+      flat_name: destination.geo.city_name
+      ignore_above: 1024
+      level: core
+      name: city_name
+      original_fieldset: geo
+      short: City name.
+      type: keyword
+    geo.continent_name:
+      description: Name of the continent.
+      example: North America
+      flat_name: destination.geo.continent_name
+      ignore_above: 1024
+      level: core
+      name: continent_name
+      original_fieldset: geo
+      short: Name of the continent.
+      type: keyword
+    geo.country_iso_code:
+      description: Country ISO code.
+      example: CA
+      flat_name: destination.geo.country_iso_code
+      ignore_above: 1024
+      level: core
+      name: country_iso_code
+      original_fieldset: geo
+      short: Country ISO code.
+      type: keyword
+    geo.country_name:
+      description: Country name.
+      example: Canada
+      flat_name: destination.geo.country_name
+      ignore_above: 1024
+      level: core
+      name: country_name
+      original_fieldset: geo
+      short: Country name.
+      type: keyword
+    geo.location:
+      description: Longitude and latitude.
+      example: '{ "lon": -73.614830, "lat": 45.505918 }'
+      flat_name: destination.geo.location
+      level: core
+      name: location
+      original_fieldset: geo
+      short: Longitude and latitude.
+      type: geo_point
+    geo.name:
+      description: 'User-defined description of a location, at the level of granularity
+        they care about.
+
+        Could be the name of their data centers, the floor number, if this describes
+        a local physical entity, city names.
+
+        Not typically used in automated geolocation.'
+      example: boston-dc
+      flat_name: destination.geo.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      original_fieldset: geo
+      short: User-defined description of a location.
+      type: keyword
+    geo.region_iso_code:
+      description: Region ISO code.
+      example: CA-QC
+      flat_name: destination.geo.region_iso_code
+      ignore_above: 1024
+      level: core
+      name: region_iso_code
+      original_fieldset: geo
+      short: Region ISO code.
+      type: keyword
+    geo.region_name:
+      description: Region name.
+      example: Quebec
+      flat_name: destination.geo.region_name
+      ignore_above: 1024
+      level: core
+      name: region_name
+      original_fieldset: geo
+      short: Region name.
+      type: keyword
     ip:
       description: 'IP address of the destination.
 
@@ -436,6 +675,75 @@ destination:
       name: port
       short: Port of the destination.
       type: long
+    user.email:
+      description: User email address.
+      flat_name: destination.user.email
+      ignore_above: 1024
+      level: extended
+      name: email
+      original_fieldset: user
+      short: User email address.
+      type: keyword
+    user.full_name:
+      description: User's full name, if available.
+      example: Albert Einstein
+      flat_name: destination.user.full_name
+      ignore_above: 1024
+      level: extended
+      name: full_name
+      original_fieldset: user
+      short: User's full name, if available.
+      type: keyword
+    user.group.id:
+      description: Unique identifier for the group on the system/platform.
+      flat_name: destination.user.group.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      original_fieldset: user
+      short: Unique identifier for the group on the system/platform.
+      type: keyword
+    user.group.name:
+      description: Name of the group.
+      flat_name: destination.user.group.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      original_fieldset: user
+      short: Name of the group.
+      type: keyword
+    user.hash:
+      description: 'Unique user hash to correlate information for a user in anonymized
+        form.
+
+        Useful if `user.id` or `user.name` contain confidential information and cannot
+        be used.'
+      flat_name: destination.user.hash
+      ignore_above: 1024
+      level: extended
+      name: hash
+      original_fieldset: user
+      short: Unique user hash to correlate information for a user in anonymized form.
+      type: keyword
+    user.id:
+      description: One or multiple unique identifiers of the user.
+      flat_name: destination.user.id
+      ignore_above: 1024
+      level: core
+      name: id
+      original_fieldset: user
+      short: One or multiple unique identifiers of the user.
+      type: keyword
+    user.name:
+      description: Short name or login of the user.
+      example: albert
+      flat_name: destination.user.name
+      ignore_above: 1024
+      level: core
+      name: name
+      original_fieldset: user
+      short: Short name or login of the user.
+      type: keyword
   group: 2
   name: destination
   prefix: destination.
@@ -1008,6 +1316,91 @@ host:
       name: architecture
       short: Operating system architecture.
       type: keyword
+    geo.city_name:
+      description: City name.
+      example: Montreal
+      flat_name: host.geo.city_name
+      ignore_above: 1024
+      level: core
+      name: city_name
+      original_fieldset: geo
+      short: City name.
+      type: keyword
+    geo.continent_name:
+      description: Name of the continent.
+      example: North America
+      flat_name: host.geo.continent_name
+      ignore_above: 1024
+      level: core
+      name: continent_name
+      original_fieldset: geo
+      short: Name of the continent.
+      type: keyword
+    geo.country_iso_code:
+      description: Country ISO code.
+      example: CA
+      flat_name: host.geo.country_iso_code
+      ignore_above: 1024
+      level: core
+      name: country_iso_code
+      original_fieldset: geo
+      short: Country ISO code.
+      type: keyword
+    geo.country_name:
+      description: Country name.
+      example: Canada
+      flat_name: host.geo.country_name
+      ignore_above: 1024
+      level: core
+      name: country_name
+      original_fieldset: geo
+      short: Country name.
+      type: keyword
+    geo.location:
+      description: Longitude and latitude.
+      example: '{ "lon": -73.614830, "lat": 45.505918 }'
+      flat_name: host.geo.location
+      level: core
+      name: location
+      original_fieldset: geo
+      short: Longitude and latitude.
+      type: geo_point
+    geo.name:
+      description: 'User-defined description of a location, at the level of granularity
+        they care about.
+
+        Could be the name of their data centers, the floor number, if this describes
+        a local physical entity, city names.
+
+        Not typically used in automated geolocation.'
+      example: boston-dc
+      flat_name: host.geo.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      original_fieldset: geo
+      short: User-defined description of a location.
+      type: keyword
+    geo.region_iso_code:
+      description: Region ISO code.
+      example: CA-QC
+      flat_name: host.geo.region_iso_code
+      ignore_above: 1024
+      level: core
+      name: region_iso_code
+      original_fieldset: geo
+      short: Region ISO code.
+      type: keyword
+    geo.region_name:
+      description: Region name.
+      example: Quebec
+      flat_name: host.geo.region_name
+      ignore_above: 1024
+      level: core
+      name: region_name
+      original_fieldset: geo
+      short: Region name.
+      type: keyword
     hostname:
       description: 'Hostname of the host.
 
@@ -1057,6 +1450,66 @@ host:
       name: name
       short: Name of the host.
       type: keyword
+    os.family:
+      description: OS family (such as redhat, debian, freebsd, windows).
+      example: debian
+      flat_name: host.os.family
+      ignore_above: 1024
+      level: extended
+      name: family
+      original_fieldset: os
+      short: OS family (such as redhat, debian, freebsd, windows).
+      type: keyword
+    os.full:
+      description: Operating system name, including the version or code name.
+      example: Mac OS Mojave
+      flat_name: host.os.full
+      ignore_above: 1024
+      level: extended
+      name: full
+      original_fieldset: os
+      short: Operating system name, including the version or code name.
+      type: keyword
+    os.kernel:
+      description: Operating system kernel version as a raw string.
+      example: 4.4.0-112-generic
+      flat_name: host.os.kernel
+      ignore_above: 1024
+      level: extended
+      name: kernel
+      original_fieldset: os
+      short: Operating system kernel version as a raw string.
+      type: keyword
+    os.name:
+      description: Operating system name, without the version.
+      example: Mac OS X
+      flat_name: host.os.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      original_fieldset: os
+      short: Operating system name, without the version.
+      type: keyword
+    os.platform:
+      description: Operating system platform (such centos, ubuntu, windows).
+      example: darwin
+      flat_name: host.os.platform
+      ignore_above: 1024
+      level: extended
+      name: platform
+      original_fieldset: os
+      short: Operating system platform (such centos, ubuntu, windows).
+      type: keyword
+    os.version:
+      description: Operating system version as a raw string.
+      example: 10.14.1
+      flat_name: host.os.version
+      ignore_above: 1024
+      level: extended
+      name: version
+      original_fieldset: os
+      short: Operating system version as a raw string.
+      type: keyword
     type:
       description: 'Type of host.
 
@@ -1068,6 +1521,75 @@ host:
       level: core
       name: type
       short: Type of host.
+      type: keyword
+    user.email:
+      description: User email address.
+      flat_name: host.user.email
+      ignore_above: 1024
+      level: extended
+      name: email
+      original_fieldset: user
+      short: User email address.
+      type: keyword
+    user.full_name:
+      description: User's full name, if available.
+      example: Albert Einstein
+      flat_name: host.user.full_name
+      ignore_above: 1024
+      level: extended
+      name: full_name
+      original_fieldset: user
+      short: User's full name, if available.
+      type: keyword
+    user.group.id:
+      description: Unique identifier for the group on the system/platform.
+      flat_name: host.user.group.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      original_fieldset: user
+      short: Unique identifier for the group on the system/platform.
+      type: keyword
+    user.group.name:
+      description: Name of the group.
+      flat_name: host.user.group.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      original_fieldset: user
+      short: Name of the group.
+      type: keyword
+    user.hash:
+      description: 'Unique user hash to correlate information for a user in anonymized
+        form.
+
+        Useful if `user.id` or `user.name` contain confidential information and cannot
+        be used.'
+      flat_name: host.user.hash
+      ignore_above: 1024
+      level: extended
+      name: hash
+      original_fieldset: user
+      short: Unique user hash to correlate information for a user in anonymized form.
+      type: keyword
+    user.id:
+      description: One or multiple unique identifiers of the user.
+      flat_name: host.user.id
+      ignore_above: 1024
+      level: core
+      name: id
+      original_fieldset: user
+      short: One or multiple unique identifiers of the user.
+      type: keyword
+    user.name:
+      description: Short name or login of the user.
+      example: albert
+      flat_name: host.user.name
+      ignore_above: 1024
+      level: core
+      name: name
+      original_fieldset: user
+      short: Short name or login of the user.
       type: keyword
   group: 2
   name: host
@@ -1371,6 +1893,91 @@ observer:
     and ETL components used in processing events or metrics are not considered observers
     in ECS.'
   fields:
+    geo.city_name:
+      description: City name.
+      example: Montreal
+      flat_name: observer.geo.city_name
+      ignore_above: 1024
+      level: core
+      name: city_name
+      original_fieldset: geo
+      short: City name.
+      type: keyword
+    geo.continent_name:
+      description: Name of the continent.
+      example: North America
+      flat_name: observer.geo.continent_name
+      ignore_above: 1024
+      level: core
+      name: continent_name
+      original_fieldset: geo
+      short: Name of the continent.
+      type: keyword
+    geo.country_iso_code:
+      description: Country ISO code.
+      example: CA
+      flat_name: observer.geo.country_iso_code
+      ignore_above: 1024
+      level: core
+      name: country_iso_code
+      original_fieldset: geo
+      short: Country ISO code.
+      type: keyword
+    geo.country_name:
+      description: Country name.
+      example: Canada
+      flat_name: observer.geo.country_name
+      ignore_above: 1024
+      level: core
+      name: country_name
+      original_fieldset: geo
+      short: Country name.
+      type: keyword
+    geo.location:
+      description: Longitude and latitude.
+      example: '{ "lon": -73.614830, "lat": 45.505918 }'
+      flat_name: observer.geo.location
+      level: core
+      name: location
+      original_fieldset: geo
+      short: Longitude and latitude.
+      type: geo_point
+    geo.name:
+      description: 'User-defined description of a location, at the level of granularity
+        they care about.
+
+        Could be the name of their data centers, the floor number, if this describes
+        a local physical entity, city names.
+
+        Not typically used in automated geolocation.'
+      example: boston-dc
+      flat_name: observer.geo.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      original_fieldset: geo
+      short: User-defined description of a location.
+      type: keyword
+    geo.region_iso_code:
+      description: Region ISO code.
+      example: CA-QC
+      flat_name: observer.geo.region_iso_code
+      ignore_above: 1024
+      level: core
+      name: region_iso_code
+      original_fieldset: geo
+      short: Region ISO code.
+      type: keyword
+    geo.region_name:
+      description: Region name.
+      example: Quebec
+      flat_name: observer.geo.region_name
+      ignore_above: 1024
+      level: core
+      name: region_name
+      original_fieldset: geo
+      short: Region name.
+      type: keyword
     hostname:
       description: Hostname of the observer.
       flat_name: observer.hostname
@@ -1393,6 +2000,66 @@ observer:
       level: core
       name: mac
       short: MAC address of the observer
+      type: keyword
+    os.family:
+      description: OS family (such as redhat, debian, freebsd, windows).
+      example: debian
+      flat_name: observer.os.family
+      ignore_above: 1024
+      level: extended
+      name: family
+      original_fieldset: os
+      short: OS family (such as redhat, debian, freebsd, windows).
+      type: keyword
+    os.full:
+      description: Operating system name, including the version or code name.
+      example: Mac OS Mojave
+      flat_name: observer.os.full
+      ignore_above: 1024
+      level: extended
+      name: full
+      original_fieldset: os
+      short: Operating system name, including the version or code name.
+      type: keyword
+    os.kernel:
+      description: Operating system kernel version as a raw string.
+      example: 4.4.0-112-generic
+      flat_name: observer.os.kernel
+      ignore_above: 1024
+      level: extended
+      name: kernel
+      original_fieldset: os
+      short: Operating system kernel version as a raw string.
+      type: keyword
+    os.name:
+      description: Operating system name, without the version.
+      example: Mac OS X
+      flat_name: observer.os.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      original_fieldset: os
+      short: Operating system name, without the version.
+      type: keyword
+    os.platform:
+      description: Operating system platform (such centos, ubuntu, windows).
+      example: darwin
+      flat_name: observer.os.platform
+      ignore_above: 1024
+      level: extended
+      name: platform
+      original_fieldset: os
+      short: Operating system platform (such centos, ubuntu, windows).
+      type: keyword
+    os.version:
+      description: Operating system version as a raw string.
+      example: 10.14.1
+      flat_name: observer.os.version
+      ignore_above: 1024
+      level: extended
+      name: version
+      original_fieldset: os
+      short: Operating system version as a raw string.
       type: keyword
     serial_number:
       description: Observer serial number.
@@ -1704,6 +2371,91 @@ server:
       name: domain
       short: Server domain.
       type: keyword
+    geo.city_name:
+      description: City name.
+      example: Montreal
+      flat_name: server.geo.city_name
+      ignore_above: 1024
+      level: core
+      name: city_name
+      original_fieldset: geo
+      short: City name.
+      type: keyword
+    geo.continent_name:
+      description: Name of the continent.
+      example: North America
+      flat_name: server.geo.continent_name
+      ignore_above: 1024
+      level: core
+      name: continent_name
+      original_fieldset: geo
+      short: Name of the continent.
+      type: keyword
+    geo.country_iso_code:
+      description: Country ISO code.
+      example: CA
+      flat_name: server.geo.country_iso_code
+      ignore_above: 1024
+      level: core
+      name: country_iso_code
+      original_fieldset: geo
+      short: Country ISO code.
+      type: keyword
+    geo.country_name:
+      description: Country name.
+      example: Canada
+      flat_name: server.geo.country_name
+      ignore_above: 1024
+      level: core
+      name: country_name
+      original_fieldset: geo
+      short: Country name.
+      type: keyword
+    geo.location:
+      description: Longitude and latitude.
+      example: '{ "lon": -73.614830, "lat": 45.505918 }'
+      flat_name: server.geo.location
+      level: core
+      name: location
+      original_fieldset: geo
+      short: Longitude and latitude.
+      type: geo_point
+    geo.name:
+      description: 'User-defined description of a location, at the level of granularity
+        they care about.
+
+        Could be the name of their data centers, the floor number, if this describes
+        a local physical entity, city names.
+
+        Not typically used in automated geolocation.'
+      example: boston-dc
+      flat_name: server.geo.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      original_fieldset: geo
+      short: User-defined description of a location.
+      type: keyword
+    geo.region_iso_code:
+      description: Region ISO code.
+      example: CA-QC
+      flat_name: server.geo.region_iso_code
+      ignore_above: 1024
+      level: core
+      name: region_iso_code
+      original_fieldset: geo
+      short: Region ISO code.
+      type: keyword
+    geo.region_name:
+      description: Region name.
+      example: Quebec
+      flat_name: server.geo.region_name
+      ignore_above: 1024
+      level: core
+      name: region_name
+      original_fieldset: geo
+      short: Region name.
+      type: keyword
     ip:
       description: 'IP address of the server.
 
@@ -1736,6 +2488,75 @@ server:
       name: port
       short: Port of the server.
       type: long
+    user.email:
+      description: User email address.
+      flat_name: server.user.email
+      ignore_above: 1024
+      level: extended
+      name: email
+      original_fieldset: user
+      short: User email address.
+      type: keyword
+    user.full_name:
+      description: User's full name, if available.
+      example: Albert Einstein
+      flat_name: server.user.full_name
+      ignore_above: 1024
+      level: extended
+      name: full_name
+      original_fieldset: user
+      short: User's full name, if available.
+      type: keyword
+    user.group.id:
+      description: Unique identifier for the group on the system/platform.
+      flat_name: server.user.group.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      original_fieldset: user
+      short: Unique identifier for the group on the system/platform.
+      type: keyword
+    user.group.name:
+      description: Name of the group.
+      flat_name: server.user.group.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      original_fieldset: user
+      short: Name of the group.
+      type: keyword
+    user.hash:
+      description: 'Unique user hash to correlate information for a user in anonymized
+        form.
+
+        Useful if `user.id` or `user.name` contain confidential information and cannot
+        be used.'
+      flat_name: server.user.hash
+      ignore_above: 1024
+      level: extended
+      name: hash
+      original_fieldset: user
+      short: Unique user hash to correlate information for a user in anonymized form.
+      type: keyword
+    user.id:
+      description: One or multiple unique identifiers of the user.
+      flat_name: server.user.id
+      ignore_above: 1024
+      level: core
+      name: id
+      original_fieldset: user
+      short: One or multiple unique identifiers of the user.
+      type: keyword
+    user.name:
+      description: Short name or login of the user.
+      example: albert
+      flat_name: server.user.name
+      ignore_above: 1024
+      level: core
+      name: name
+      original_fieldset: user
+      short: Short name or login of the user.
+      type: keyword
   group: 2
   name: server
   prefix: server.
@@ -1868,6 +2689,91 @@ source:
       name: domain
       short: Source domain.
       type: keyword
+    geo.city_name:
+      description: City name.
+      example: Montreal
+      flat_name: source.geo.city_name
+      ignore_above: 1024
+      level: core
+      name: city_name
+      original_fieldset: geo
+      short: City name.
+      type: keyword
+    geo.continent_name:
+      description: Name of the continent.
+      example: North America
+      flat_name: source.geo.continent_name
+      ignore_above: 1024
+      level: core
+      name: continent_name
+      original_fieldset: geo
+      short: Name of the continent.
+      type: keyword
+    geo.country_iso_code:
+      description: Country ISO code.
+      example: CA
+      flat_name: source.geo.country_iso_code
+      ignore_above: 1024
+      level: core
+      name: country_iso_code
+      original_fieldset: geo
+      short: Country ISO code.
+      type: keyword
+    geo.country_name:
+      description: Country name.
+      example: Canada
+      flat_name: source.geo.country_name
+      ignore_above: 1024
+      level: core
+      name: country_name
+      original_fieldset: geo
+      short: Country name.
+      type: keyword
+    geo.location:
+      description: Longitude and latitude.
+      example: '{ "lon": -73.614830, "lat": 45.505918 }'
+      flat_name: source.geo.location
+      level: core
+      name: location
+      original_fieldset: geo
+      short: Longitude and latitude.
+      type: geo_point
+    geo.name:
+      description: 'User-defined description of a location, at the level of granularity
+        they care about.
+
+        Could be the name of their data centers, the floor number, if this describes
+        a local physical entity, city names.
+
+        Not typically used in automated geolocation.'
+      example: boston-dc
+      flat_name: source.geo.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      original_fieldset: geo
+      short: User-defined description of a location.
+      type: keyword
+    geo.region_iso_code:
+      description: Region ISO code.
+      example: CA-QC
+      flat_name: source.geo.region_iso_code
+      ignore_above: 1024
+      level: core
+      name: region_iso_code
+      original_fieldset: geo
+      short: Region ISO code.
+      type: keyword
+    geo.region_name:
+      description: Region name.
+      example: Quebec
+      flat_name: source.geo.region_name
+      ignore_above: 1024
+      level: core
+      name: region_name
+      original_fieldset: geo
+      short: Region name.
+      type: keyword
     ip:
       description: 'IP address of the source.
 
@@ -1900,6 +2806,75 @@ source:
       name: port
       short: Port of the source.
       type: long
+    user.email:
+      description: User email address.
+      flat_name: source.user.email
+      ignore_above: 1024
+      level: extended
+      name: email
+      original_fieldset: user
+      short: User email address.
+      type: keyword
+    user.full_name:
+      description: User's full name, if available.
+      example: Albert Einstein
+      flat_name: source.user.full_name
+      ignore_above: 1024
+      level: extended
+      name: full_name
+      original_fieldset: user
+      short: User's full name, if available.
+      type: keyword
+    user.group.id:
+      description: Unique identifier for the group on the system/platform.
+      flat_name: source.user.group.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      original_fieldset: user
+      short: Unique identifier for the group on the system/platform.
+      type: keyword
+    user.group.name:
+      description: Name of the group.
+      flat_name: source.user.group.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      original_fieldset: user
+      short: Name of the group.
+      type: keyword
+    user.hash:
+      description: 'Unique user hash to correlate information for a user in anonymized
+        form.
+
+        Useful if `user.id` or `user.name` contain confidential information and cannot
+        be used.'
+      flat_name: source.user.hash
+      ignore_above: 1024
+      level: extended
+      name: hash
+      original_fieldset: user
+      short: Unique user hash to correlate information for a user in anonymized form.
+      type: keyword
+    user.id:
+      description: One or multiple unique identifiers of the user.
+      flat_name: source.user.id
+      ignore_above: 1024
+      level: core
+      name: id
+      original_fieldset: user
+      short: One or multiple unique identifiers of the user.
+      type: keyword
+    user.name:
+      description: Short name or login of the user.
+      example: albert
+      flat_name: source.user.name
+      ignore_above: 1024
+      level: core
+      name: name
+      original_fieldset: user
+      short: Short name or login of the user.
+      type: keyword
   group: 2
   name: source
   prefix: source.
@@ -2044,6 +3019,24 @@ user:
       name: full_name
       short: User's full name, if available.
       type: keyword
+    group.id:
+      description: Unique identifier for the group on the system/platform.
+      flat_name: user.group.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      original_fieldset: group
+      short: Unique identifier for the group on the system/platform.
+      type: keyword
+    group.name:
+      description: Name of the group.
+      flat_name: user.group.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      original_fieldset: group
+      short: Name of the group.
+      type: keyword
     hash:
       description: 'Unique user hash to correlate information for a user in anonymized
         form.
@@ -2119,6 +3112,66 @@ user_agent:
       level: extended
       name: original
       short: Unparsed version of the user_agent.
+      type: keyword
+    os.family:
+      description: OS family (such as redhat, debian, freebsd, windows).
+      example: debian
+      flat_name: user_agent.os.family
+      ignore_above: 1024
+      level: extended
+      name: family
+      original_fieldset: os
+      short: OS family (such as redhat, debian, freebsd, windows).
+      type: keyword
+    os.full:
+      description: Operating system name, including the version or code name.
+      example: Mac OS Mojave
+      flat_name: user_agent.os.full
+      ignore_above: 1024
+      level: extended
+      name: full
+      original_fieldset: os
+      short: Operating system name, including the version or code name.
+      type: keyword
+    os.kernel:
+      description: Operating system kernel version as a raw string.
+      example: 4.4.0-112-generic
+      flat_name: user_agent.os.kernel
+      ignore_above: 1024
+      level: extended
+      name: kernel
+      original_fieldset: os
+      short: Operating system kernel version as a raw string.
+      type: keyword
+    os.name:
+      description: Operating system name, without the version.
+      example: Mac OS X
+      flat_name: user_agent.os.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      original_fieldset: os
+      short: Operating system name, without the version.
+      type: keyword
+    os.platform:
+      description: Operating system platform (such centos, ubuntu, windows).
+      example: darwin
+      flat_name: user_agent.os.platform
+      ignore_above: 1024
+      level: extended
+      name: platform
+      original_fieldset: os
+      short: Operating system platform (such centos, ubuntu, windows).
+      type: keyword
+    os.version:
+      description: Operating system version as a raw string.
+      example: 10.14.1
+      flat_name: user_agent.os.version
+      ignore_above: 1024
+      level: extended
+      name: version
+      original_fieldset: os
+      short: Operating system version as a raw string.
       type: keyword
     version:
       description: Version of the user agent.
