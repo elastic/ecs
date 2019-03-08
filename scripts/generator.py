@@ -4,6 +4,7 @@ import schema_reader
 from generators import intermediate_files
 from generators import csv_generator
 from generators import es_template
+from generators import beats
 
 
 def main():
@@ -20,6 +21,7 @@ def main():
 
     csv_generator.generate(ecs_flat, ecs_version)
     es_template.generate(ecs_flat, ecs_version)
+    beats.generate(ecs_nested, ecs_version)
 
 
 def argument_parser():
