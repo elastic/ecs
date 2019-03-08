@@ -58,6 +58,10 @@
       Examples include Beats. Agents may also run on observers. ECS agent.* fields
       shall be populated with details of the agent running on the host or observer
       where the event happened or the measurement was taken.'
+    footnote: 'Examples: In the case of Beats for logs, the agent.name is filebeat.
+      For APM, it is the agent running in the app/service. The agent information does
+      not change if data is sent through queuing systems like Kafka, Redis, or processing
+      systems such as Logstash or APM Server.'
     type: group
     fields:
     - name: ephemeral_id
@@ -241,6 +245,11 @@
     group: 2
     description: Fields related to the cloud or infrastructure the events are coming
       from.
+    footnote: 'Examples: If Metricbeat is running on an EC2 host and fetches data
+      from its host, the cloud info contains the data about this machine. If Metricbeat
+      runs on a remote machine outside the cloud and fetches data from a service running
+      in the cloud, the field contains cloud data from the machine the service is
+      running on.'
     type: group
     fields:
     - name: availability_zone

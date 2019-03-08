@@ -6,7 +6,7 @@ def generate(ecs_nested, ecs_version):
     # base first
     beats_fields = fieldset_field_array(ecs_nested['base']['fields'])
 
-    allowed_fieldset_keys = ['name', 'title', 'group', 'description', 'type']
+    allowed_fieldset_keys = ['name', 'title', 'group', 'description', 'footnote', 'type']
     # other fieldsets
     for fieldset_name in sorted(ecs_nested):
         if 'base' == fieldset_name:
