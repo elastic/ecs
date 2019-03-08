@@ -35,7 +35,6 @@ def dict_clean_string_values(dict):
         value = dict[key]
         if isinstance(value, basestring):
             dict[key] = value.strip()
-            # TODO: Remove trailing \n?
 
 
 def dict_set_default(dict, key, default):

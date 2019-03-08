@@ -30,11 +30,14 @@ def generate(ecs_nested, ecs_version):
 
 def fieldset_field_array(source_fields):
     allowed_keys = ['name', 'level', 'required', 'type', 'object_type',
-                    'multi_fields', 'format', 'description', 'example']
+                    'ignore_above', 'multi_fields', 'format',
+                    'description', 'example']
     fields = []
-    for field_name in source_fields:
-        field = source_fields[field_name]
-        fields.append(dict_copy_keys_ordered(field, allowed_keys))
+    for nested_field_name in source_fields:
+        ecs_field = source_fields[nested_field_name]
+        beats_field = dict_copy_keys_ordered(ecs_field, allowed_keys)
+        beats_field['name'] = nested_field_name
+        fields.append(beats_field)
     return fields
 
 # Helpers

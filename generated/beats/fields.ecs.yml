@@ -46,6 +46,7 @@
   - name: tags
     level: core
     type: keyword
+    ignore_above: 1024
     description: List of keywords used to tag each event.
     example: '["production", "env2"]'
   - name: agent
@@ -67,6 +68,7 @@
     - name: ephemeral_id
       level: extended
       type: keyword
+      ignore_above: 1024
       description: 'Ephemeral identifier of this agent (if one exists).
 
         This id normally changes across restarts, but `agent.id` does not.'
@@ -74,11 +76,13 @@
     - name: version
       level: core
       type: keyword
+      ignore_above: 1024
       description: Version of the agent.
       example: 6.0.0-rc2
     - name: type
       level: core
       type: keyword
+      ignore_above: 1024
       description: 'Type of the agent.
 
         The agent type stays always the same and should be given by the agent used.
@@ -88,6 +92,7 @@
     - name: name
       level: core
       type: keyword
+      ignore_above: 1024
       description: 'Custom name of the agent.
 
         This is a name that can be given to an agent. This can be helpful if for example
@@ -99,6 +104,7 @@
     - name: id
       level: core
       type: keyword
+      ignore_above: 1024
       description: 'Unique identifier of this agent (if one exists).
 
         Example: For Beats this would be beat.id.'
@@ -126,10 +132,12 @@
     - name: domain
       level: core
       type: keyword
+      ignore_above: 1024
       description: Client domain.
-    - name: region_name
+    - name: geo.region_name
       level: core
       type: keyword
+      ignore_above: 1024
       description: Region name.
       example: Quebec
     - name: ip
@@ -138,63 +146,74 @@
       description: 'IP address of the client.
 
         Can be one or multiple IPv4 or IPv6 addresses.'
-    - name: continent_name
+    - name: geo.continent_name
       level: core
       type: keyword
+      ignore_above: 1024
       description: Name of the continent.
       example: North America
-    - name: country_iso_code
+    - name: geo.country_iso_code
       level: core
       type: keyword
+      ignore_above: 1024
       description: Country ISO code.
       example: CA
-    - name: hash
+    - name: user.hash
       level: extended
       type: keyword
+      ignore_above: 1024
       description: 'Unique user hash to correlate information for a user in anonymized
         form.
 
         Useful if `user.id` or `user.name` contain confidential information and cannot
         be used.'
-    - name: id
+    - name: user.id
       level: core
       type: keyword
+      ignore_above: 1024
       description: One or multiple unique identifiers of the user.
     - name: port
       level: core
       type: long
       description: Port of the client.
-    - name: country_name
+    - name: geo.country_name
       level: core
       type: keyword
+      ignore_above: 1024
       description: Country name.
       example: Canada
-    - name: email
+    - name: user.email
       level: extended
       type: keyword
+      ignore_above: 1024
       description: User email address.
-    - name: name
+    - name: user.group.name
       level: extended
       type: keyword
+      ignore_above: 1024
       description: Name of the group.
-    - name: name
+    - name: user.name
       level: core
       type: keyword
+      ignore_above: 1024
       description: Short name or login of the user.
       example: albert
-    - name: full_name
+    - name: user.full_name
       level: extended
       type: keyword
+      ignore_above: 1024
       description: User's full name, if available.
       example: Albert Einstein
-    - name: city_name
+    - name: geo.city_name
       level: core
       type: keyword
+      ignore_above: 1024
       description: City name.
       example: Montreal
-    - name: name
+    - name: geo.name
       level: extended
       type: keyword
+      ignore_above: 1024
       description: 'User-defined description of a location, at the level of granularity
         they care about.
 
@@ -203,25 +222,28 @@
 
         Not typically used in automated geolocation.'
       example: boston-dc
-    - name: id
+    - name: user.group.id
       level: extended
       type: keyword
+      ignore_above: 1024
       description: Unique identifier for the group on the system/platform.
     - name: address
       level: extended
       type: keyword
+      ignore_above: 1024
       description: 'Some event client addresses are defined ambiguously. The event
         will sometimes list an IP, a domain or a unix socket.  You should always store
         the raw address in the `.address` field.
 
         Then it should be duplicated to `.ip` or `.domain`, depending on which one
         it is.'
-    - name: region_iso_code
+    - name: geo.region_iso_code
       level: core
       type: keyword
+      ignore_above: 1024
       description: Region ISO code.
       example: CA-QC
-    - name: location
+    - name: geo.location
       level: core
       type: geo_point
       description: Longitude and latitude.
@@ -239,6 +261,7 @@
     - name: mac
       level: core
       type: keyword
+      ignore_above: 1024
       description: MAC address of the client.
   - name: cloud
     title: Cloud
@@ -255,25 +278,30 @@
     - name: availability_zone
       level: extended
       type: keyword
+      ignore_above: 1024
       description: Availability zone in which this host is running.
       example: us-east-1c
     - name: instance.name
       level: extended
       type: keyword
+      ignore_above: 1024
       description: Instance name of the host machine.
     - name: region
       level: extended
       type: keyword
+      ignore_above: 1024
       description: Region in which this host is running.
       example: us-east-1
     - name: machine.type
       level: extended
       type: keyword
+      ignore_above: 1024
       description: Machine type of the host machine.
       example: t2.medium
     - name: account.id
       level: extended
       type: keyword
+      ignore_above: 1024
       description: 'The cloud account or organization id used to identify different
         entities in a multi-tenant environment.
 
@@ -282,12 +310,14 @@
     - name: provider
       level: extended
       type: keyword
+      ignore_above: 1024
       description: Name of the cloud provider. Example values are aws, azure, gcp,
         or digitalocean.
       example: aws
     - name: instance.id
       level: extended
       type: keyword
+      ignore_above: 1024
       description: Instance ID of the host machine.
       example: i-1234567890abcdef0
   - name: container
@@ -302,6 +332,7 @@
     - name: name
       level: extended
       type: keyword
+      ignore_above: 1024
       description: Container name.
     - name: labels
       level: extended
@@ -311,19 +342,23 @@
     - name: image.tag
       level: extended
       type: keyword
+      ignore_above: 1024
       description: Container image tag.
     - name: runtime
       level: extended
       type: keyword
+      ignore_above: 1024
       description: Runtime managing this container.
       example: docker
     - name: image.name
       level: extended
       type: keyword
+      ignore_above: 1024
       description: Name of the image the container was built on.
     - name: id
       level: core
       type: keyword
+      ignore_above: 1024
       description: Unique container id.
   - name: destination
     title: Destination
@@ -336,10 +371,12 @@
     - name: domain
       level: core
       type: keyword
+      ignore_above: 1024
       description: Destination domain.
-    - name: region_name
+    - name: geo.region_name
       level: core
       type: keyword
+      ignore_above: 1024
       description: Region name.
       example: Quebec
     - name: ip
@@ -348,63 +385,74 @@
       description: 'IP address of the destination.
 
         Can be one or multiple IPv4 or IPv6 addresses.'
-    - name: continent_name
+    - name: geo.continent_name
       level: core
       type: keyword
+      ignore_above: 1024
       description: Name of the continent.
       example: North America
-    - name: country_iso_code
+    - name: geo.country_iso_code
       level: core
       type: keyword
+      ignore_above: 1024
       description: Country ISO code.
       example: CA
-    - name: hash
+    - name: user.hash
       level: extended
       type: keyword
+      ignore_above: 1024
       description: 'Unique user hash to correlate information for a user in anonymized
         form.
 
         Useful if `user.id` or `user.name` contain confidential information and cannot
         be used.'
-    - name: id
+    - name: user.id
       level: core
       type: keyword
+      ignore_above: 1024
       description: One or multiple unique identifiers of the user.
     - name: port
       level: core
       type: long
       description: Port of the destination.
-    - name: country_name
+    - name: geo.country_name
       level: core
       type: keyword
+      ignore_above: 1024
       description: Country name.
       example: Canada
-    - name: email
+    - name: user.email
       level: extended
       type: keyword
+      ignore_above: 1024
       description: User email address.
-    - name: name
+    - name: user.group.name
       level: extended
       type: keyword
+      ignore_above: 1024
       description: Name of the group.
-    - name: name
+    - name: user.name
       level: core
       type: keyword
+      ignore_above: 1024
       description: Short name or login of the user.
       example: albert
-    - name: full_name
+    - name: user.full_name
       level: extended
       type: keyword
+      ignore_above: 1024
       description: User's full name, if available.
       example: Albert Einstein
-    - name: city_name
+    - name: geo.city_name
       level: core
       type: keyword
+      ignore_above: 1024
       description: City name.
       example: Montreal
-    - name: name
+    - name: geo.name
       level: extended
       type: keyword
+      ignore_above: 1024
       description: 'User-defined description of a location, at the level of granularity
         they care about.
 
@@ -413,25 +461,28 @@
 
         Not typically used in automated geolocation.'
       example: boston-dc
-    - name: id
+    - name: user.group.id
       level: extended
       type: keyword
+      ignore_above: 1024
       description: Unique identifier for the group on the system/platform.
     - name: address
       level: extended
       type: keyword
+      ignore_above: 1024
       description: 'Some event destination addresses are defined ambiguously. The
         event will sometimes list an IP, a domain or a unix socket.  You should always
         store the raw address in the `.address` field.
 
         Then it should be duplicated to `.ip` or `.domain`, depending on which one
         it is.'
-    - name: region_iso_code
+    - name: geo.region_iso_code
       level: core
       type: keyword
+      ignore_above: 1024
       description: Region ISO code.
       example: CA-QC
-    - name: location
+    - name: geo.location
       level: core
       type: geo_point
       description: Longitude and latitude.
@@ -449,6 +500,7 @@
     - name: mac
       level: core
       type: keyword
+      ignore_above: 1024
       description: MAC address of the destination.
   - name: ecs
     title: ECS
@@ -460,6 +512,7 @@
       level: core
       required: true
       type: keyword
+      ignore_above: 1024
       description: 'ECS version this event conforms to. `ecs.version` is a required
         field and must exist in all events.
 
@@ -483,10 +536,12 @@
     - name: code
       level: core
       type: keyword
+      ignore_above: 1024
       description: Error code describing the error.
     - name: id
       level: core
       type: keyword
+      ignore_above: 1024
       description: Unique identifier for the error.
   - name: event
     title: Event
@@ -507,6 +562,7 @@
     - name: category
       level: core
       type: keyword
+      ignore_above: 1024
       description: 'Event category.
 
         This contains high-level information about the contents of the event. It is
@@ -522,6 +578,7 @@
     - name: kind
       level: extended
       type: keyword
+      ignore_above: 1024
       description: 'The kind of the event.
 
         This gives information about what type of information the event contains,
@@ -532,6 +589,7 @@
     - name: hash
       level: extended
       type: keyword
+      ignore_above: 1024
       description: Hash (perhaps logstash fingerprint) of raw field to be able to
         demonstrate log integrity.
       example: 123456789012345678901234567890ABCD
@@ -560,6 +618,7 @@
     - name: original
       level: core
       type: keyword
+      ignore_above: 1024
       description: 'Raw text message of entire event. Used to demonstrate log integrity.
 
         This field is not indexed and doc_values are disabled. It cannot be searched,
@@ -577,6 +636,7 @@
     - name: module
       level: core
       type: keyword
+      ignore_above: 1024
       description: 'Name of the module this data is coming from.
 
         This information is coming from the modules used in Beats or Logstash.'
@@ -584,6 +644,7 @@
     - name: dataset
       level: core
       type: keyword
+      ignore_above: 1024
       description: 'Name of the dataset.
 
         The concept of a `dataset` (fileset / metricset) is used in Beats as a subset
@@ -610,6 +671,7 @@
     - name: action
       level: core
       type: keyword
+      ignore_above: 1024
       description: 'The action captured by the event.
 
         This describes the information in the event. It is more specific than `event.category`.
@@ -619,6 +681,7 @@
     - name: timezone
       level: extended
       type: keyword
+      ignore_above: 1024
       description: 'This field should be populated when the event''s timestamp does
         not include timezone information already (e.g. default Syslog timestamps).
         It''s optional otherwise.
@@ -628,6 +691,7 @@
     - name: outcome
       level: extended
       type: keyword
+      ignore_above: 1024
       description: 'The outcome of the event.
 
         If the event describes an action, this fields contains the outcome of that
@@ -638,12 +702,14 @@
     - name: type
       level: core
       type: keyword
+      ignore_above: 1024
       description: 'Reserved for future usage.
 
         Please avoid using this field for user data.'
     - name: id
       level: core
       type: keyword
+      ignore_above: 1024
       description: Unique ID to describe the event.
       example: 8a4f500d
   - name: file
@@ -661,14 +727,17 @@
     - name: group
       level: extended
       type: keyword
+      ignore_above: 1024
       description: Primary group name of the file.
     - name: uid
       level: extended
       type: keyword
+      ignore_above: 1024
       description: The user ID (UID) or security identifier (SID) of the file owner.
     - name: extension
       level: extended
       type: keyword
+      ignore_above: 1024
       description: 'File extension.
 
         This should allow easy filtering by file extensions.'
@@ -676,6 +745,7 @@
     - name: type
       level: extended
       type: keyword
+      ignore_above: 1024
       description: File type (file, dir, or symlink).
     - name: ctime
       level: extended
@@ -684,18 +754,22 @@
     - name: target_path
       level: extended
       type: keyword
+      ignore_above: 1024
       description: Target path for symlinks.
     - name: owner
       level: extended
       type: keyword
+      ignore_above: 1024
       description: File owner's username.
     - name: gid
       level: extended
       type: keyword
+      ignore_above: 1024
       description: Primary group ID (GID) of the file.
     - name: mode
       level: extended
       type: keyword
+      ignore_above: 1024
       description: Mode of the file in octal representation.
       example: 416
     - name: mtime
@@ -705,14 +779,17 @@
     - name: device
       level: extended
       type: keyword
+      ignore_above: 1024
       description: Device that is the source of the file.
     - name: path
       level: extended
       type: keyword
+      ignore_above: 1024
       description: Path to the file.
     - name: inode
       level: extended
       type: keyword
+      ignore_above: 1024
       description: Inode representing the file in the filesystem.
     - name: size
       level: extended
@@ -731,16 +808,19 @@
     - name: region_name
       level: core
       type: keyword
+      ignore_above: 1024
       description: Region name.
       example: Quebec
     - name: country_iso_code
       level: core
       type: keyword
+      ignore_above: 1024
       description: Country ISO code.
       example: CA
     - name: name
       level: extended
       type: keyword
+      ignore_above: 1024
       description: 'User-defined description of a location, at the level of granularity
         they care about.
 
@@ -752,11 +832,13 @@
     - name: country_name
       level: core
       type: keyword
+      ignore_above: 1024
       description: Country name.
       example: Canada
     - name: city_name
       level: core
       type: keyword
+      ignore_above: 1024
       description: City name.
       example: Montreal
     - name: location
@@ -767,11 +849,13 @@
     - name: continent_name
       level: core
       type: keyword
+      ignore_above: 1024
       description: Name of the continent.
       example: North America
     - name: region_iso_code
       level: core
       type: keyword
+      ignore_above: 1024
       description: Region ISO code.
       example: CA-QC
   - name: group
@@ -784,10 +868,12 @@
     - name: id
       level: extended
       type: keyword
+      ignore_above: 1024
       description: Unique identifier for the group on the system/platform.
     - name: name
       level: extended
       type: keyword
+      ignore_above: 1024
       description: Name of the group.
   - name: host
     title: Host
@@ -799,110 +885,129 @@
       hardware, virtual machines, Docker containers, and Kubernetes nodes.'
     type: group
     fields:
-    - name: region_name
+    - name: geo.region_name
       level: core
       type: keyword
+      ignore_above: 1024
       description: Region name.
       example: Quebec
     - name: ip
       level: core
       type: ip
       description: Host ip address.
-    - name: continent_name
+    - name: geo.continent_name
       level: core
       type: keyword
+      ignore_above: 1024
       description: Name of the continent.
       example: North America
-    - name: country_iso_code
+    - name: geo.country_iso_code
       level: core
       type: keyword
+      ignore_above: 1024
       description: Country ISO code.
       example: CA
-    - name: hash
+    - name: user.hash
       level: extended
       type: keyword
+      ignore_above: 1024
       description: 'Unique user hash to correlate information for a user in anonymized
         form.
 
         Useful if `user.id` or `user.name` contain confidential information and cannot
         be used.'
-    - name: family
+    - name: os.family
       level: extended
       type: keyword
+      ignore_above: 1024
       description: OS family (such as redhat, debian, freebsd, windows).
       example: debian
-    - name: id
+    - name: user.id
       level: core
       type: keyword
+      ignore_above: 1024
       description: One or multiple unique identifiers of the user.
-    - name: name
+    - name: os.name
       level: extended
       type: keyword
+      ignore_above: 1024
       description: Operating system name, without the version.
       example: Mac OS X
     - name: id
       level: core
       type: keyword
+      ignore_above: 1024
       description: 'Unique host id.
 
         As hostname is not always unique, use values that are meaningful in your environment.
 
         Example: The current usage of `beat.name`.'
-    - name: kernel
+    - name: os.kernel
       level: extended
       type: keyword
+      ignore_above: 1024
       description: Operating system kernel version as a raw string.
       example: 4.4.0-112-generic
-    - name: country_name
+    - name: geo.country_name
       level: core
       type: keyword
+      ignore_above: 1024
       description: Country name.
       example: Canada
     - name: hostname
       level: core
       type: keyword
+      ignore_above: 1024
       description: 'Hostname of the host.
 
         It normally contains what the `hostname` command returns on the host machine.'
-    - name: email
+    - name: user.email
       level: extended
       type: keyword
+      ignore_above: 1024
       description: User email address.
-    - name: name
+    - name: user.group.name
       level: extended
       type: keyword
+      ignore_above: 1024
       description: Name of the group.
-    - name: name
+    - name: user.name
       level: core
       type: keyword
+      ignore_above: 1024
       description: Short name or login of the user.
       example: albert
     - name: type
       level: core
       type: keyword
+      ignore_above: 1024
       description: 'Type of host.
 
         For Cloud providers this can be the machine type like `t2.medium`. If vm,
         this could be the container, for example, or other information meaningful
         in your environment.'
-    - name: full_name
+    - name: user.full_name
       level: extended
       type: keyword
+      ignore_above: 1024
       description: User's full name, if available.
       example: Albert Einstein
-    - name: city_name
+    - name: geo.city_name
       level: core
       type: keyword
+      ignore_above: 1024
       description: City name.
       example: Montreal
-    - name: version
+    - name: os.version
       level: extended
       type: keyword
+      ignore_above: 1024
       description: Operating system version as a raw string.
       example: 10.14.1
-    - name: name
+    - name: geo.name
       level: extended
       type: keyword
+      ignore_above: 1024
       description: 'User-defined description of a location, at the level of granularity
         they care about.
 
@@ -914,42 +1019,49 @@
     - name: mac
       level: core
       type: keyword
+      ignore_above: 1024
       description: Host mac address.
-    - name: platform
+    - name: os.platform
       level: extended
       type: keyword
+      ignore_above: 1024
       description: Operating system platform (such centos, ubuntu, windows).
       example: darwin
     - name: name
       level: core
       type: keyword
+      ignore_above: 1024
       description: 'Name of the host.
 
         It can contain what `hostname` returns on Unix systems, the fully qualified
         domain name, or a name specified by the user. The sender decides which value
         to use.'
-    - name: region_iso_code
+    - name: geo.region_iso_code
       level: core
       type: keyword
+      ignore_above: 1024
       description: Region ISO code.
       example: CA-QC
-    - name: location
+    - name: geo.location
       level: core
       type: geo_point
       description: Longitude and latitude.
       example: '{ "lon": -73.614830, "lat": 45.505918 }'
-    - name: id
+    - name: user.group.id
       level: extended
       type: keyword
+      ignore_above: 1024
       description: Unique identifier for the group on the system/platform.
     - name: architecture
       level: core
       type: keyword
+      ignore_above: 1024
       description: Operating system architecture.
       example: x86_64
-    - name: full
+    - name: os.full
       level: extended
       type: keyword
+      ignore_above: 1024
       description: Operating system name, including the version or code name.
       example: Mac OS Mojave
   - name: http
@@ -967,6 +1079,7 @@
     - name: request.method
       level: extended
       type: keyword
+      ignore_above: 1024
       description: 'HTTP request method.
 
         The field value must be normalized to lowercase for querying. See the documentation
@@ -985,6 +1098,7 @@
     - name: request.body.content
       level: extended
       type: keyword
+      ignore_above: 1024
       description: The full HTTP request body.
       example: Hello world
     - name: response.body.bytes
@@ -995,6 +1109,7 @@
     - name: version
       level: extended
       type: keyword
+      ignore_above: 1024
       description: HTTP version.
       example: 1.1
     - name: response.status_code
@@ -1005,11 +1120,13 @@
     - name: request.referrer
       level: extended
       type: keyword
+      ignore_above: 1024
       description: Referrer for this HTTP request.
       example: https://blog.example.com/
     - name: response.body.content
       level: extended
       type: keyword
+      ignore_above: 1024
       description: The full HTTP response body.
       example: Hello world
   - name: log
@@ -1021,6 +1138,7 @@
     - name: original
       level: core
       type: keyword
+      ignore_above: 1024
       description: 'This is the original log message and contains the full log message
         before splitting it up in multiple parts.
 
@@ -1035,6 +1153,7 @@
     - name: level
       level: core
       type: keyword
+      ignore_above: 1024
       description: 'Original log level of the log event.
 
         Some examples are `warn`, `error`, `i`.'
@@ -1052,6 +1171,7 @@
     - name: direction
       level: core
       type: keyword
+      ignore_above: 1024
       description: "Direction of the network traffic.\nRecommended values are:\n \
         \ * inbound\n  * outbound\n  * internal\n  * external\n  * unknown\n\nWhen\
         \ mapping events from a host-based monitoring context, populate this field\
@@ -1070,6 +1190,7 @@
     - name: protocol
       level: core
       type: keyword
+      ignore_above: 1024
       description: 'L7 Network protocol name. ex. http, lumberjack, transport protocol.
 
         The field value must be normalized to lowercase for querying. See the documentation
@@ -1078,6 +1199,7 @@
     - name: name
       level: extended
       type: keyword
+      ignore_above: 1024
       description: Name given by operators to sections of their network.
       example: Guest Wifi
     - name: bytes
@@ -1091,6 +1213,7 @@
     - name: iana_number
       level: extended
       type: keyword
+      ignore_above: 1024
       description: IANA Protocol Number (https://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml).
         Standardized list of protocols. This aligns well with NetFlow and sFlow related
         logs which use the IANA Protocol Number.
@@ -1098,6 +1221,7 @@
     - name: community_id
       level: extended
       type: keyword
+      ignore_above: 1024
       description: 'A hash of source and destination IPs and ports, as well as the
         protocol used in a communication. This is a tool-agnostic standard to identify
         flows.
@@ -1107,6 +1231,7 @@
     - name: application
       level: extended
       type: keyword
+      ignore_above: 1024
       description: 'A name given to an application level protocol. This can be arbitrarily
         assigned for things like microservices, but also apply to things like skype,
         icq, facebook, twitter. This would be used in situations where the vendor
@@ -1124,6 +1249,7 @@
     - name: type
       level: core
       type: keyword
+      ignore_above: 1024
       description: 'In the OSI Model this would be the Network Layer. ipv4, ipv6,
         ipsec, pim, etc
 
@@ -1133,6 +1259,7 @@
     - name: transport
       level: core
       type: keyword
+      ignore_above: 1024
       description: 'Same as network.iana_number, but instead using the Keyword name
         of the transport layer (udp, tcp, ipv6-icmp, etc.)
 
@@ -1156,40 +1283,46 @@
       are not considered observers in ECS.'
     type: group
     fields:
-    - name: region_name
+    - name: geo.region_name
       level: core
       type: keyword
+      ignore_above: 1024
       description: Region name.
       example: Quebec
-    - name: continent_name
+    - name: geo.continent_name
       level: core
       type: keyword
+      ignore_above: 1024
       description: Name of the continent.
       example: North America
     - name: vendor
       level: core
       type: keyword
+      ignore_above: 1024
       description: observer vendor information.
-    - name: city_name
+    - name: geo.city_name
       level: core
       type: keyword
+      ignore_above: 1024
       description: City name.
       example: Montreal
-    - name: country_name
+    - name: geo.country_name
       level: core
       type: keyword
+      ignore_above: 1024
       description: Country name.
       example: Canada
-    - name: country_iso_code
+    - name: geo.country_iso_code
       level: core
       type: keyword
+      ignore_above: 1024
       description: Country ISO code.
       example: CA
     - name: ip
       level: core
       type: ip
       description: IP address of the observer.
-    - name: location
+    - name: geo.location
       level: core
       type: geo_point
       description: Longitude and latitude.
@@ -1197,15 +1330,18 @@
     - name: hostname
       level: core
       type: keyword
+      ignore_above: 1024
       description: Hostname of the observer.
-    - name: kernel
+    - name: os.kernel
       level: extended
       type: keyword
+      ignore_above: 1024
       description: Operating system kernel version as a raw string.
       example: 4.4.0-112-generic
-    - name: name
+    - name: geo.name
       level: extended
       type: keyword
+      ignore_above: 1024
       description: 'User-defined description of a location, at the level of granularity
         they care about.
 
@@ -1214,54 +1350,64 @@
 
         Not typically used in automated geolocation.'
       example: boston-dc
-    - name: region_iso_code
+    - name: geo.region_iso_code
       level: core
       type: keyword
+      ignore_above: 1024
       description: Region ISO code.
       example: CA-QC
     - name: mac
       level: core
       type: keyword
+      ignore_above: 1024
       description: MAC address of the observer
     - name: version
       level: core
       type: keyword
+      ignore_above: 1024
       description: Observer version.
-    - name: family
+    - name: os.family
       level: extended
       type: keyword
+      ignore_above: 1024
       description: OS family (such as redhat, debian, freebsd, windows).
       example: debian
-    - name: full
+    - name: os.full
       level: extended
       type: keyword
+      ignore_above: 1024
       description: Operating system name, including the version or code name.
       example: Mac OS Mojave
     - name: serial_number
       level: extended
       type: keyword
+      ignore_above: 1024
       description: Observer serial number.
-    - name: name
+    - name: os.name
       level: extended
       type: keyword
+      ignore_above: 1024
       description: Operating system name, without the version.
       example: Mac OS X
     - name: type
       level: core
       type: keyword
+      ignore_above: 1024
       description: 'The type of the observer the data is coming from.
 
         There is no predefined list of observer types. Some examples are `forwarder`,
         `firewall`, `ids`, `ips`, `proxy`, `poller`, `sensor`, `APM server`.'
       example: firewall
-    - name: version
+    - name: os.version
       level: extended
       type: keyword
+      ignore_above: 1024
       description: Operating system version as a raw string.
       example: 10.14.1
-    - name: platform
+    - name: os.platform
       level: extended
       type: keyword
+      ignore_above: 1024
       description: Operating system platform (such centos, ubuntu, windows).
       example: darwin
   - name: organization
@@ -1277,10 +1423,12 @@
     - name: name
       level: extended
       type: keyword
+      ignore_above: 1024
       description: Organization name.
     - name: id
       level: extended
       type: keyword
+      ignore_above: 1024
       description: Unique identifier for the organization.
   - name: os
     title: Operating System
@@ -1291,31 +1439,37 @@
     - name: kernel
       level: extended
       type: keyword
+      ignore_above: 1024
       description: Operating system kernel version as a raw string.
       example: 4.4.0-112-generic
     - name: full
       level: extended
       type: keyword
+      ignore_above: 1024
       description: Operating system name, including the version or code name.
       example: Mac OS Mojave
     - name: name
       level: extended
       type: keyword
+      ignore_above: 1024
       description: Operating system name, without the version.
       example: Mac OS X
     - name: family
       level: extended
       type: keyword
+      ignore_above: 1024
       description: OS family (such as redhat, debian, freebsd, windows).
       example: debian
     - name: platform
       level: extended
       type: keyword
+      ignore_above: 1024
       description: Operating system platform (such centos, ubuntu, windows).
       example: darwin
     - name: version
       level: extended
       type: keyword
+      ignore_above: 1024
       description: Operating system version as a raw string.
       example: 10.14.1
   - name: process
@@ -1331,6 +1485,7 @@
     - name: executable
       level: extended
       type: keyword
+      ignore_above: 1024
       description: Absolute path to the process executable.
       example: /usr/bin/ssh
     - name: thread.id
@@ -1341,6 +1496,7 @@
     - name: name
       level: extended
       type: keyword
+      ignore_above: 1024
       description: 'Process name.
 
         Sometimes called program name or similar.'
@@ -1348,6 +1504,7 @@
     - name: title
       level: extended
       type: keyword
+      ignore_above: 1024
       description: 'Process title.
 
         The proctitle, some times the same as process name. Can also be different:
@@ -1355,6 +1512,7 @@
     - name: args
       level: extended
       type: keyword
+      ignore_above: 1024
       description: 'Array of process arguments.
 
         May be filtered to protect sensitive information.'
@@ -1375,6 +1533,7 @@
     - name: working_directory
       level: extended
       type: keyword
+      ignore_above: 1024
       description: The working directory of the process.
       example: /home/alice
     - name: ppid
@@ -1424,10 +1583,12 @@
     - name: domain
       level: core
       type: keyword
+      ignore_above: 1024
       description: Server domain.
-    - name: region_name
+    - name: geo.region_name
       level: core
       type: keyword
+      ignore_above: 1024
       description: Region name.
       example: Quebec
     - name: ip
@@ -1436,63 +1597,74 @@
       description: 'IP address of the server.
 
         Can be one or multiple IPv4 or IPv6 addresses.'
-    - name: continent_name
+    - name: geo.continent_name
       level: core
       type: keyword
+      ignore_above: 1024
       description: Name of the continent.
       example: North America
-    - name: country_iso_code
+    - name: geo.country_iso_code
       level: core
       type: keyword
+      ignore_above: 1024
       description: Country ISO code.
       example: CA
-    - name: hash
+    - name: user.hash
       level: extended
       type: keyword
+      ignore_above: 1024
       description: 'Unique user hash to correlate information for a user in anonymized
         form.
 
         Useful if `user.id` or `user.name` contain confidential information and cannot
         be used.'
-    - name: id
+    - name: user.id
       level: core
       type: keyword
+      ignore_above: 1024
       description: One or multiple unique identifiers of the user.
     - name: port
       level: core
       type: long
       description: Port of the server.
-    - name: country_name
+    - name: geo.country_name
       level: core
       type: keyword
+      ignore_above: 1024
       description: Country name.
       example: Canada
-    - name: email
+    - name: user.email
       level: extended
       type: keyword
+      ignore_above: 1024
       description: User email address.
-    - name: name
+    - name: user.group.name
       level: extended
       type: keyword
+      ignore_above: 1024
       description: Name of the group.
-    - name: name
+    - name: user.name
       level: core
       type: keyword
+      ignore_above: 1024
       description: Short name or login of the user.
       example: albert
-    - name: full_name
+    - name: user.full_name
       level: extended
       type: keyword
+      ignore_above: 1024
       description: User's full name, if available.
       example: Albert Einstein
-    - name: city_name
+    - name: geo.city_name
       level: core
       type: keyword
+      ignore_above: 1024
       description: City name.
       example: Montreal
-    - name: name
+    - name: geo.name
       level: extended
       type: keyword
+      ignore_above: 1024
       description: 'User-defined description of a location, at the level of granularity
         they care about.
 
@@ -1501,25 +1673,28 @@
 
         Not typically used in automated geolocation.'
       example: boston-dc
-    - name: id
+    - name: user.group.id
       level: extended
       type: keyword
+      ignore_above: 1024
       description: Unique identifier for the group on the system/platform.
     - name: address
       level: extended
       type: keyword
+      ignore_above: 1024
       description: 'Some event server addresses are defined ambiguously. The event
         will sometimes list an IP, a domain or a unix socket.  You should always store
         the raw address in the `.address` field.
 
         Then it should be duplicated to `.ip` or `.domain`, depending on which one
         it is.'
-    - name: region_iso_code
+    - name: geo.region_iso_code
       level: core
       type: keyword
+      ignore_above: 1024
       description: Region ISO code.
       example: CA-QC
-    - name: location
+    - name: geo.location
       level: core
       type: geo_point
       description: Longitude and latitude.
@@ -1537,6 +1712,7 @@
     - name: mac
       level: core
       type: keyword
+      ignore_above: 1024
       description: MAC address of the server.
   - name: service
     title: Service
@@ -1550,6 +1726,7 @@
     - name: ephemeral_id
       level: extended
       type: keyword
+      ignore_above: 1024
       description: 'Ephemeral identifier of this service (if one exists).
 
         This id normally changes across restarts, but `service.id` does not.'
@@ -1557,6 +1734,7 @@
     - name: name
       level: core
       type: keyword
+      ignore_above: 1024
       description: 'Name of the service data is collected from.
 
         The name of the service is normally user given. This allows if two instances
@@ -1573,10 +1751,12 @@
     - name: state
       level: core
       type: keyword
+      ignore_above: 1024
       description: Current state of the service.
     - name: version
       level: core
       type: keyword
+      ignore_above: 1024
       description: 'Version of the service the data was collected from.
 
         This allows to look at a data set only for a specific version of a service.'
@@ -1584,6 +1764,7 @@
     - name: type
       level: core
       type: keyword
+      ignore_above: 1024
       description: 'The type of the service data is collected from.
 
         The type can be used to group and correlate logs and metrics from one service
@@ -1595,6 +1776,7 @@
     - name: id
       level: core
       type: keyword
+      ignore_above: 1024
       description: 'Unique identifier of the running service.
 
         This id should uniquely identify this service. This makes it possible to correlate
@@ -1614,10 +1796,12 @@
     - name: domain
       level: core
       type: keyword
+      ignore_above: 1024
       description: Source domain.
-    - name: region_name
+    - name: geo.region_name
       level: core
       type: keyword
+      ignore_above: 1024
       description: Region name.
       example: Quebec
     - name: ip
@@ -1626,63 +1810,74 @@
       description: 'IP address of the source.
 
         Can be one or multiple IPv4 or IPv6 addresses.'
-    - name: continent_name
+    - name: geo.continent_name
       level: core
       type: keyword
+      ignore_above: 1024
       description: Name of the continent.
       example: North America
-    - name: country_iso_code
+    - name: geo.country_iso_code
       level: core
       type: keyword
+      ignore_above: 1024
       description: Country ISO code.
       example: CA
-    - name: hash
+    - name: user.hash
       level: extended
       type: keyword
+      ignore_above: 1024
       description: 'Unique user hash to correlate information for a user in anonymized
         form.
 
         Useful if `user.id` or `user.name` contain confidential information and cannot
         be used.'
-    - name: id
+    - name: user.id
       level: core
       type: keyword
+      ignore_above: 1024
       description: One or multiple unique identifiers of the user.
     - name: port
       level: core
       type: long
       description: Port of the source.
-    - name: country_name
+    - name: geo.country_name
       level: core
       type: keyword
+      ignore_above: 1024
       description: Country name.
       example: Canada
-    - name: email
+    - name: user.email
       level: extended
       type: keyword
+      ignore_above: 1024
       description: User email address.
-    - name: name
+    - name: user.group.name
       level: extended
       type: keyword
+      ignore_above: 1024
       description: Name of the group.
-    - name: name
+    - name: user.name
       level: core
       type: keyword
+      ignore_above: 1024
       description: Short name or login of the user.
       example: albert
-    - name: full_name
+    - name: user.full_name
       level: extended
       type: keyword
+      ignore_above: 1024
       description: User's full name, if available.
       example: Albert Einstein
-    - name: city_name
+    - name: geo.city_name
       level: core
       type: keyword
+      ignore_above: 1024
       description: City name.
       example: Montreal
-    - name: name
+    - name: geo.name
       level: extended
       type: keyword
+      ignore_above: 1024
       description: 'User-defined description of a location, at the level of granularity
         they care about.
 
@@ -1691,25 +1886,28 @@
 
         Not typically used in automated geolocation.'
       example: boston-dc
-    - name: id
+    - name: user.group.id
       level: extended
       type: keyword
+      ignore_above: 1024
       description: Unique identifier for the group on the system/platform.
     - name: address
       level: extended
       type: keyword
+      ignore_above: 1024
       description: 'Some event source addresses are defined ambiguously. The event
         will sometimes list an IP, a domain or a unix socket.  You should always store
         the raw address in the `.address` field.
 
         Then it should be duplicated to `.ip` or `.domain`, depending on which one
         it is.'
-    - name: region_iso_code
+    - name: geo.region_iso_code
       level: core
       type: keyword
+      ignore_above: 1024
       description: Region ISO code.
       example: CA-QC
-    - name: location
+    - name: geo.location
       level: core
       type: geo_point
       description: Longitude and latitude.
@@ -1727,6 +1925,7 @@
     - name: mac
       level: core
       type: keyword
+      ignore_above: 1024
       description: MAC address of the source.
   - name: url
     title: URL
@@ -1738,10 +1937,12 @@
     - name: username
       level: extended
       type: keyword
+      ignore_above: 1024
       description: Username of the request.
     - name: domain
       level: extended
       type: keyword
+      ignore_above: 1024
       description: 'Domain of the url, such as "www.elastic.co".
 
         In some cases a URL may refer to an IP and/or port directly, without a domain
@@ -1750,6 +1951,7 @@
     - name: full
       level: extended
       type: keyword
+      ignore_above: 1024
       description: If full URLs are important to your use case, they should be stored
         in `url.full`, whether this field is reconstructed or present in the event
         source.
@@ -1757,6 +1959,7 @@
     - name: fragment
       level: extended
       type: keyword
+      ignore_above: 1024
       description: 'Portion of the url after the `#`, such as "top".
 
         The `#` is not part of the fragment.'
@@ -1768,10 +1971,12 @@
     - name: password
       level: extended
       type: keyword
+      ignore_above: 1024
       description: Password of the request.
     - name: query
       level: extended
       type: keyword
+      ignore_above: 1024
       description: 'The query field describes the query string of the request, such
         as "q=elasticsearch".
 
@@ -1782,10 +1987,12 @@
     - name: path
       level: extended
       type: keyword
+      ignore_above: 1024
       description: Path of the request, such as "/search".
     - name: scheme
       level: extended
       type: keyword
+      ignore_above: 1024
       description: 'Scheme of the request, such as "https".
 
         Note: The `:` is not part of the scheme.'
@@ -1793,6 +2000,7 @@
     - name: original
       level: extended
       type: keyword
+      ignore_above: 1024
       description: 'Unmodified original url as seen in the event source.
 
         Note that in network monitoring, the observed URL may be a full URL, whereas
@@ -1813,6 +2021,7 @@
     - name: hash
       level: extended
       type: keyword
+      ignore_above: 1024
       description: 'Unique user hash to correlate information for a user in anonymized
         form.
 
@@ -1821,28 +2030,34 @@
     - name: name
       level: core
       type: keyword
+      ignore_above: 1024
       description: Short name or login of the user.
       example: albert
-    - name: id
+    - name: group.id
       level: extended
       type: keyword
+      ignore_above: 1024
       description: Unique identifier for the group on the system/platform.
     - name: id
       level: core
       type: keyword
+      ignore_above: 1024
       description: One or multiple unique identifiers of the user.
     - name: full_name
       level: extended
       type: keyword
+      ignore_above: 1024
       description: User's full name, if available.
       example: Albert Einstein
     - name: email
       level: extended
       type: keyword
+      ignore_above: 1024
       description: User email address.
-    - name: name
+    - name: group.name
       level: extended
       type: keyword
+      ignore_above: 1024
       description: Name of the group.
   - name: user_agent
     title: User agent
@@ -1852,54 +2067,64 @@
       They often show up in web service logs coming from the parsed user agent string.'
     type: group
     fields:
-    - name: kernel
+    - name: os.kernel
       level: extended
       type: keyword
+      ignore_above: 1024
       description: Operating system kernel version as a raw string.
       example: 4.4.0-112-generic
     - name: name
       level: extended
       type: keyword
+      ignore_above: 1024
       description: Name of the user agent.
       example: Safari
-    - name: version
+    - name: os.version
       level: extended
       type: keyword
+      ignore_above: 1024
       description: Operating system version as a raw string.
       example: 10.14.1
     - name: version
       level: extended
       type: keyword
+      ignore_above: 1024
       description: Version of the user agent.
       example: 12.0
-    - name: family
+    - name: os.family
       level: extended
       type: keyword
+      ignore_above: 1024
       description: OS family (such as redhat, debian, freebsd, windows).
       example: debian
     - name: device.name
       level: extended
       type: keyword
+      ignore_above: 1024
       description: Name of the device.
       example: iPhone
-    - name: name
+    - name: os.name
       level: extended
       type: keyword
+      ignore_above: 1024
       description: Operating system name, without the version.
       example: Mac OS X
-    - name: full
+    - name: os.full
       level: extended
       type: keyword
+      ignore_above: 1024
       description: Operating system name, including the version or code name.
       example: Mac OS Mojave
     - name: original
       level: extended
       type: keyword
+      ignore_above: 1024
       description: Unparsed version of the user_agent.
       example: Mozilla/5.0 (iPhone; CPU iPhone OS 12_1 like Mac OS X) AppleWebKit/605.1.15
         (KHTML, like Gecko) Version/12.0 Mobile/15E148 Safari/604.1
-    - name: platform
+    - name: os.platform
       level: extended
       type: keyword
+      ignore_above: 1024
       description: Operating system platform (such centos, ubuntu, windows).
       example: darwin
