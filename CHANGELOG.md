@@ -1,3 +1,5 @@
+<!-- Please add new changelog entries to CHANGELOG.next.md file -->
+
 # CHANGELOG
 All notable changes to this project will be documented in this file based on the [Keep a Changelog](http://keepachangelog.com/) Standard. This project adheres to [Semantic Versioning](http://semver.org/).
 
