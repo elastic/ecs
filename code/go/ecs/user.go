@@ -19,9 +19,10 @@
 
 package ecs
 
-// The user fields describe information about the user that is relevant to  the
-// event. Fields can have one entry or multiple entries. If a user has more
-// than one id, provide an array that includes all of them.
+// The user fields describe information about the user that is relevant to the
+// event.
+// Fields can have one entry or multiple entries. If a user has more than one
+// id, provide an array that includes all of them.
 type User struct {
 	// One or multiple unique identifiers of the user.
 	ID string `ecs:"id"`
@@ -39,8 +40,4 @@ type User struct {
 	// Useful if `user.id` or `user.name` contain confidential information and
 	// cannot be used.
 	Hash string `ecs:"hash"`
-
-	// Group the user is a part of. This field can contain a list of groups, if
-	// necessary.
-	Group string `ecs:"group"`
 }
