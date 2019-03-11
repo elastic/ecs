@@ -269,6 +269,8 @@ func goDataType(fieldName, elasticsearchDataType string) string {
 	switch {
 	case fieldName == "duration" && elasticsearchDataType == "long":
 		return "time.Duration"
+	case fieldName == "args" && elasticsearchDataType == "keyword":
+		return "[]string"
 	}
 
 	switch elasticsearchDataType {
