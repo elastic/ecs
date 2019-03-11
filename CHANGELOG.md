@@ -76,7 +76,6 @@ All notable changes to this project will be documented in this file based on the
 * Add fields `source.address`, `destination.address`, `client.address`, and
   `server.address`. #247
 * Add `os.full` to capture full OS name, including version. #259
-* Add generated source code for Go. #249
 
 ### Improvements
 * Improved the definition of the file fields #196
