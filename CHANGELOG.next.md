@@ -11,6 +11,7 @@
   It generates schema.csv, Elasticsearch 6 and 7 templates, and field documentation
   for the main website. #336
 * Generator for the Beats fields.ecs.yml file. #379
+* Added field formats to all `.bytes` fields and `event.duration`. #385
 
 ### Improvements
 
