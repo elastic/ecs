@@ -1,27 +1,13 @@
 import sys
 
+from generators import ecs_helpers
+
 
 def generate(ecs_nested, ecs_version):
     save_asciidoc('docs/fields.asciidoc', page_field_index(ecs_nested))
     save_asciidoc('docs/field-details.asciidoc', page_field_details(ecs_nested))
 
 # Helpers
-
-
-def sorted_by_keys(dict, sort_keys):
-    if not isinstance(sort_keys, list):
-        sort_keys = [sort_keys]
-    tuples = []
-    for key in dict:
-        nested = dict[key]
-
-        sort_criteria = []
-        for sort_key in sort_keys:
-            sort_criteria.append(nested[sort_key])
-        sort_criteria.append(nested)
-        tuples.append(sort_criteria)
-
-    return list(map(lambda t: t[-1], sorted(tuples)))
 
 
 def save_asciidoc(file, text):
@@ -39,7 +25,7 @@ def save_asciidoc(file, text):
 
 def page_field_index(ecs_nested):
     page_text = index_header()
-    for fieldset in sorted_by_keys(ecs_nested, ['group', 'name']):
+    for fieldset in ecs_helpers.dict_sorted_by_keys(ecs_nested, ['group', 'name']):
         page_text += render_field_index_row(fieldset)
     page_text += table_footer()
     page_text += index_footer()
@@ -58,7 +44,7 @@ def render_field_index_row(fieldset):
 
 def page_field_details(ecs_nested):
     page_text = ''
-    for fieldset in sorted_by_keys(ecs_nested, ['group', 'name']):
+    for fieldset in ecs_helpers.dict_sorted_by_keys(ecs_nested, ['group', 'name']):
         page_text += render_fieldset(fieldset)
     return page_text
 
@@ -70,7 +56,7 @@ def render_fieldset(fieldset):
         fieldset_title=fieldset['title']
     )
 
-    for field in sorted_by_keys(fieldset['fields'], 'order'):
+    for field in ecs_helpers.dict_sorted_by_keys(fieldset['fields'], 'order'):
         text += render_field_details_row(field)
 
     text += table_footer()

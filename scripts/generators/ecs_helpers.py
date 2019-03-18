@@ -19,6 +19,22 @@ def dict_copy_existing_keys(source, destination, keys):
             destination[key] = source[key]
 
 
+def dict_sorted_by_keys(dict, sort_keys):
+    if not isinstance(sort_keys, list):
+        sort_keys = [sort_keys]
+    tuples = []
+    for key in dict:
+        nested = dict[key]
+
+        sort_criteria = []
+        for sort_key in sort_keys:
+            sort_criteria.append(nested[sort_key])
+        sort_criteria.append(nested)
+        tuples.append(sort_criteria)
+
+    return list(map(lambda t: t[-1], sorted(tuples)))
+
+
 def yaml_ordereddict(dumper, data):
     # YAML representation of an OrderedDict will be like a dictionary, but
     # respecting the order of the dictionary.
