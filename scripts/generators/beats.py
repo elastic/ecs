@@ -1,7 +1,7 @@
-import ecs_helpers
 import yaml
 
 from collections import OrderedDict
+from generators import ecs_helpers
 
 
 def generate(ecs_nested, ecs_version):
