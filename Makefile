@@ -65,7 +65,7 @@ fields_legacy:
 # Format code and files in the repo.
 .PHONY: fmt
 fmt: ve
-	$(FIND) -name '*.py' -exec build/ve/bin/autopep8 --in-place --max-line-length 120 {} \;
+	$(FIND) -name '*.py' -exec build/ve/bin/autopep8 --ignore E402 --in-place --max-line-length 120 {} \;
 	go get golang.org/x/tools/cmd/goimports
 	goimports -w -l -local github.com/elastic $(shell $(FIND) -name '*.go')
 
