@@ -30,8 +30,8 @@ check-license-headers:
 # Clean deletes all temporary and generated content.
 .PHONY: clean
 clean:
-	rm -rf schema.json fields.yml build
-	rm -rf generated/legacy/{schema.csv,template.json}
+	rm -rf schema.json build
+	rm -rf generated/legacy/{schema.csv,template.json,fields.yml}
 	# Clean all markdown files for use-cases
 	find ./use-cases -type f -name '*.md' -not -name 'README.md' -print0 | xargs -0 rm --
 
@@ -52,14 +52,14 @@ docs:
 	fi
 	./build/docs/build_docs.pl --doc ./docs/index.asciidoc --chunk=1 $(OPEN_DOCS) -out ./build/html_docs
 
-# Build the fields.yml file.
-.PHONY: fields
-fields:
+# Build the legacy fields.yml file.
+.PHONY: fields_legacy
+fields_legacy:
 	cat schemas/*.yml > fields.tmp.yml
 	sed -i.bak 's/^/    /g' fields.tmp.yml
 	sed -i.bak 's/---//g' fields.tmp.yml
-	cat scripts/fields_header.yml > fields.yml
-	cat fields.tmp.yml >> fields.yml
+	cat generated/legacy/fields_header.yml > generated/legacy/fields.yml
+	cat fields.tmp.yml >> generated/legacy/fields.yml
 	rm -f fields.tmp.yml fields.tmp.yml.bak
 
 # Format code and files in the repo.
@@ -71,7 +71,7 @@ fmt: ve
 
 # Alias to generate everything.
 .PHONY: generate
-generate: csv readme template fields codegen generator
+generate: csv readme template fields_legacy codegen generator
 
 # Run the new generator
 .PHONY: generator
