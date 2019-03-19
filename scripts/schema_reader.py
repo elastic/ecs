@@ -126,6 +126,13 @@ def duplicate_reusable_fieldsets(schema, fields_flat, fields_nested):
     if 'reusable' in schema:
         for new_nesting in schema['reusable']['expected']:
 
+            # List field set names expected under another field set.
+            # E.g. host.nestings = [ 'geo', 'os', 'user' ]
+            if 'nestings' not in fields_nested[new_nesting]:
+                fields_nested[new_nesting]['nestings'] = []
+            fields_nested[new_nesting]['nestings'].append(schema['name'])
+
+            # Explicitly list all leaf fields coming from field set reuse.
             for (name, field) in schema['fields'].items():
                 # Poor folks deepcopy, sorry -- A Rubyist
                 copied_field = field.copy()

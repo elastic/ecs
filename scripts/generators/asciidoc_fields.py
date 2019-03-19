@@ -45,11 +45,11 @@ def render_field_index_row(fieldset):
 def page_field_details(ecs_nested):
     page_text = ''
     for fieldset in ecs_helpers.dict_sorted_by_keys(ecs_nested, ['group', 'name']):
-        page_text += render_fieldset(fieldset)
+        page_text += render_fieldset(fieldset, ecs_nested)
     return page_text
 
 
-def render_fieldset(fieldset):
+def render_fieldset(fieldset, ecs_nested):
     text = field_details_table_header().format(
         fieldset_name=fieldset['name'],
         fieldset_description=fieldset['description'],
@@ -57,36 +57,25 @@ def render_fieldset(fieldset):
     )
 
     for field in ecs_helpers.dict_sorted_by_keys(fieldset['fields'], 'flat_name'):
-        text += render_field_details_row(field)
+        if 'original_fieldset' not in field:
+            text += render_field_details_row(field)
 
     text += table_footer()
 
-    text += nestings_table_header().format(
-        fieldset_name=fieldset['name'],
-        fieldset_title=fieldset['title']
-    )
+    if 'nestings' in fieldset:
+        text += nestings_table_header().format(
+            fieldset_name=fieldset['name'],
+            fieldset_title=fieldset['title']
+        )
 
-    # TODO Un-hardcode
-    fieldset['nestings'] = [
-        {
-            'flat_nesting': 'host.geo.*',
-            'name': 'geo',
-            'short': 'Fields describing a location.'
-        },
-        {
-            'flat_nesting': 'host.os.*',
-            'name': 'os',
-            'short': 'OS fields contain information about the operating system.'
-        },
-        {
-            'flat_nesting': 'host.user.*',
-            'name': 'user',
-            'short': 'Fields to describe the user relevant to the event.'
-        }
-    ]
-    for nesting in fieldset['nestings']:
-        text += render_nesting_row(nesting)
-    text += table_footer()
+        nestings = []
+        for nested_fs_name in sorted(fieldset['nestings']):
+            text += render_nesting_row({
+                'flat_nesting': "{}.{}.*".format(fieldset['name'], nested_fs_name),
+                'name': nested_fs_name,
+                'short': ecs_nested[nested_fs_name]['short']
+            })
+        text += table_footer()
 
     return text
 

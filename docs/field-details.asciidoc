@@ -65,36 +65,6 @@ example: `["production", "env2"]`
 
 |=====
 
-[[ecs-base-nestings]]
-==== Can be nested under Base
-
-[options="header"]
-|=====
-| Nested fields | Description
-
-// ===============================================================
-
-
-| http://localhost:8000/ecs-geo.html[host.geo.*]
-| Fields describing a location.
-
-// ===============================================================
-
-
-| http://localhost:8000/ecs-os.html[host.os.*]
-| OS fields contain information about the operating system.
-
-// ===============================================================
-
-
-| http://localhost:8000/ecs-user.html[host.user.*]
-| Fields to describe the user relevant to the event.
-
-// ===============================================================
-
-
-|=====
-
 [[ecs-agent]]
 === Agent fields
 
@@ -171,36 +141,6 @@ example: `6.0.0-rc2`
 
 |=====
 
-[[ecs-agent-nestings]]
-==== Can be nested under Agent
-
-[options="header"]
-|=====
-| Nested fields | Description
-
-// ===============================================================
-
-
-| http://localhost:8000/ecs-geo.html[host.geo.*]
-| Fields describing a location.
-
-// ===============================================================
-
-
-| http://localhost:8000/ecs-os.html[host.os.*]
-| OS fields contain information about the operating system.
-
-// ===============================================================
-
-
-| http://localhost:8000/ecs-user.html[host.user.*]
-| Fields to describe the user relevant to the event.
-
-// ===============================================================
-
-
-|=====
-
 [[ecs-client]]
 === Client fields
 
@@ -245,96 +185,6 @@ example: `184`
 type: keyword
 
 
-
-| core
-
-// ===============================================================
-
-| client.geo.city_name
-| City name.
-
-type: keyword
-
-example: `Montreal`
-
-| core
-
-// ===============================================================
-
-| client.geo.continent_name
-| Name of the continent.
-
-type: keyword
-
-example: `North America`
-
-| core
-
-// ===============================================================
-
-| client.geo.country_iso_code
-| Country ISO code.
-
-type: keyword
-
-example: `CA`
-
-| core
-
-// ===============================================================
-
-| client.geo.country_name
-| Country name.
-
-type: keyword
-
-example: `Canada`
-
-| core
-
-// ===============================================================
-
-| client.geo.location
-| Longitude and latitude.
-
-type: geo_point
-
-example: `{ "lon": -73.614830, "lat": 45.505918 }`
-
-| core
-
-// ===============================================================
-
-| client.geo.name
-| User-defined description of a location, at the level of granularity they care about.
-Could be the name of their data centers, the floor number, if this describes a local physical entity, city names.
-Not typically used in automated geolocation.
-
-type: keyword
-
-example: `boston-dc`
-
-| extended
-
-// ===============================================================
-
-| client.geo.region_iso_code
-| Region ISO code.
-
-type: keyword
-
-example: `CA-QC`
-
-| core
-
-// ===============================================================
-
-| client.geo.region_name
-| Region name.
-
-type: keyword
-
-example: `Quebec`
 
 | core
 
@@ -385,84 +235,6 @@ type: long
 
 // ===============================================================
 
-| client.user.email
-| User email address.
-
-type: keyword
-
-
-
-| extended
-
-// ===============================================================
-
-| client.user.full_name
-| User's full name, if available.
-
-type: keyword
-
-example: `Albert Einstein`
-
-| extended
-
-// ===============================================================
-
-| client.user.group.id
-| Unique identifier for the group on the system/platform.
-
-type: keyword
-
-
-
-| extended
-
-// ===============================================================
-
-| client.user.group.name
-| Name of the group.
-
-type: keyword
-
-
-
-| extended
-
-// ===============================================================
-
-| client.user.hash
-| Unique user hash to correlate information for a user in anonymized form.
-Useful if `user.id` or `user.name` contain confidential information and cannot be used.
-
-type: keyword
-
-
-
-| extended
-
-// ===============================================================
-
-| client.user.id
-| One or multiple unique identifiers of the user.
-
-type: keyword
-
-
-
-| core
-
-// ===============================================================
-
-| client.user.name
-| Short name or login of the user.
-
-type: keyword
-
-example: `albert`
-
-| core
-
-// ===============================================================
-
 |=====
 
 [[ecs-client-nestings]]
@@ -475,19 +247,13 @@ example: `albert`
 // ===============================================================
 
 
-| http://localhost:8000/ecs-geo.html[host.geo.*]
+| http://localhost:8000/ecs-geo.html[client.geo.*]
 | Fields describing a location.
 
 // ===============================================================
 
 
-| http://localhost:8000/ecs-os.html[host.os.*]
-| OS fields contain information about the operating system.
-
-// ===============================================================
-
-
-| http://localhost:8000/ecs-user.html[host.user.*]
+| http://localhost:8000/ecs-user.html[client.user.*]
 | Fields to describe the user relevant to the event.
 
 // ===============================================================
@@ -588,36 +354,6 @@ example: `us-east-1`
 
 |=====
 
-[[ecs-cloud-nestings]]
-==== Can be nested under Cloud
-
-[options="header"]
-|=====
-| Nested fields | Description
-
-// ===============================================================
-
-
-| http://localhost:8000/ecs-geo.html[host.geo.*]
-| Fields describing a location.
-
-// ===============================================================
-
-
-| http://localhost:8000/ecs-os.html[host.os.*]
-| OS fields contain information about the operating system.
-
-// ===============================================================
-
-
-| http://localhost:8000/ecs-user.html[host.user.*]
-| Fields to describe the user relevant to the event.
-
-// ===============================================================
-
-
-|=====
-
 [[ecs-container]]
 === Container fields
 
@@ -700,36 +436,6 @@ example: `docker`
 
 |=====
 
-[[ecs-container-nestings]]
-==== Can be nested under Container
-
-[options="header"]
-|=====
-| Nested fields | Description
-
-// ===============================================================
-
-
-| http://localhost:8000/ecs-geo.html[host.geo.*]
-| Fields describing a location.
-
-// ===============================================================
-
-
-| http://localhost:8000/ecs-os.html[host.os.*]
-| OS fields contain information about the operating system.
-
-// ===============================================================
-
-
-| http://localhost:8000/ecs-user.html[host.user.*]
-| Fields to describe the user relevant to the event.
-
-// ===============================================================
-
-
-|=====
-
 [[ecs-destination]]
 === Destination fields
 
@@ -773,96 +479,6 @@ example: `184`
 type: keyword
 
 
-
-| core
-
-// ===============================================================
-
-| destination.geo.city_name
-| City name.
-
-type: keyword
-
-example: `Montreal`
-
-| core
-
-// ===============================================================
-
-| destination.geo.continent_name
-| Name of the continent.
-
-type: keyword
-
-example: `North America`
-
-| core
-
-// ===============================================================
-
-| destination.geo.country_iso_code
-| Country ISO code.
-
-type: keyword
-
-example: `CA`
-
-| core
-
-// ===============================================================
-
-| destination.geo.country_name
-| Country name.
-
-type: keyword
-
-example: `Canada`
-
-| core
-
-// ===============================================================
-
-| destination.geo.location
-| Longitude and latitude.
-
-type: geo_point
-
-example: `{ "lon": -73.614830, "lat": 45.505918 }`
-
-| core
-
-// ===============================================================
-
-| destination.geo.name
-| User-defined description of a location, at the level of granularity they care about.
-Could be the name of their data centers, the floor number, if this describes a local physical entity, city names.
-Not typically used in automated geolocation.
-
-type: keyword
-
-example: `boston-dc`
-
-| extended
-
-// ===============================================================
-
-| destination.geo.region_iso_code
-| Region ISO code.
-
-type: keyword
-
-example: `CA-QC`
-
-| core
-
-// ===============================================================
-
-| destination.geo.region_name
-| Region name.
-
-type: keyword
-
-example: `Quebec`
 
 | core
 
@@ -913,84 +529,6 @@ type: long
 
 // ===============================================================
 
-| destination.user.email
-| User email address.
-
-type: keyword
-
-
-
-| extended
-
-// ===============================================================
-
-| destination.user.full_name
-| User's full name, if available.
-
-type: keyword
-
-example: `Albert Einstein`
-
-| extended
-
-// ===============================================================
-
-| destination.user.group.id
-| Unique identifier for the group on the system/platform.
-
-type: keyword
-
-
-
-| extended
-
-// ===============================================================
-
-| destination.user.group.name
-| Name of the group.
-
-type: keyword
-
-
-
-| extended
-
-// ===============================================================
-
-| destination.user.hash
-| Unique user hash to correlate information for a user in anonymized form.
-Useful if `user.id` or `user.name` contain confidential information and cannot be used.
-
-type: keyword
-
-
-
-| extended
-
-// ===============================================================
-
-| destination.user.id
-| One or multiple unique identifiers of the user.
-
-type: keyword
-
-
-
-| core
-
-// ===============================================================
-
-| destination.user.name
-| Short name or login of the user.
-
-type: keyword
-
-example: `albert`
-
-| core
-
-// ===============================================================
-
 |=====
 
 [[ecs-destination-nestings]]
@@ -1003,19 +541,13 @@ example: `albert`
 // ===============================================================
 
 
-| http://localhost:8000/ecs-geo.html[host.geo.*]
+| http://localhost:8000/ecs-geo.html[destination.geo.*]
 | Fields describing a location.
 
 // ===============================================================
 
 
-| http://localhost:8000/ecs-os.html[host.os.*]
-| OS fields contain information about the operating system.
-
-// ===============================================================
-
-
-| http://localhost:8000/ecs-user.html[host.user.*]
+| http://localhost:8000/ecs-user.html[destination.user.*]
 | Fields to describe the user relevant to the event.
 
 // ===============================================================
@@ -1047,36 +579,6 @@ example: `1.0.0`
 | core
 
 // ===============================================================
-
-|=====
-
-[[ecs-ecs-nestings]]
-==== Can be nested under ECS
-
-[options="header"]
-|=====
-| Nested fields | Description
-
-// ===============================================================
-
-
-| http://localhost:8000/ecs-geo.html[host.geo.*]
-| Fields describing a location.
-
-// ===============================================================
-
-
-| http://localhost:8000/ecs-os.html[host.os.*]
-| OS fields contain information about the operating system.
-
-// ===============================================================
-
-
-| http://localhost:8000/ecs-user.html[host.user.*]
-| Fields to describe the user relevant to the event.
-
-// ===============================================================
-
 
 |=====
 
@@ -1126,36 +628,6 @@ type: text
 | core
 
 // ===============================================================
-
-|=====
-
-[[ecs-error-nestings]]
-==== Can be nested under Error
-
-[options="header"]
-|=====
-| Nested fields | Description
-
-// ===============================================================
-
-
-| http://localhost:8000/ecs-geo.html[host.geo.*]
-| Fields describing a location.
-
-// ===============================================================
-
-
-| http://localhost:8000/ecs-os.html[host.os.*]
-| OS fields contain information about the operating system.
-
-// ===============================================================
-
-
-| http://localhost:8000/ecs-user.html[host.user.*]
-| Fields to describe the user relevant to the event.
-
-// ===============================================================
-
 
 |=====
 
@@ -1387,36 +859,6 @@ type: keyword
 
 |=====
 
-[[ecs-event-nestings]]
-==== Can be nested under Event
-
-[options="header"]
-|=====
-| Nested fields | Description
-
-// ===============================================================
-
-
-| http://localhost:8000/ecs-geo.html[host.geo.*]
-| Fields describing a location.
-
-// ===============================================================
-
-
-| http://localhost:8000/ecs-os.html[host.os.*]
-| OS fields contain information about the operating system.
-
-// ===============================================================
-
-
-| http://localhost:8000/ecs-user.html[host.user.*]
-| Fields to describe the user relevant to the event.
-
-// ===============================================================
-
-
-|=====
-
 [[ecs-file]]
 === File fields
 
@@ -1588,36 +1030,6 @@ type: keyword
 
 |=====
 
-[[ecs-file-nestings]]
-==== Can be nested under File
-
-[options="header"]
-|=====
-| Nested fields | Description
-
-// ===============================================================
-
-
-| http://localhost:8000/ecs-geo.html[host.geo.*]
-| Fields describing a location.
-
-// ===============================================================
-
-
-| http://localhost:8000/ecs-os.html[host.os.*]
-| OS fields contain information about the operating system.
-
-// ===============================================================
-
-
-| http://localhost:8000/ecs-user.html[host.user.*]
-| Fields to describe the user relevant to the event.
-
-// ===============================================================
-
-
-|=====
-
 [[ecs-geo]]
 === Geo fields
 
@@ -1724,36 +1136,6 @@ example: `Quebec`
 
 |=====
 
-[[ecs-geo-nestings]]
-==== Can be nested under Geo
-
-[options="header"]
-|=====
-| Nested fields | Description
-
-// ===============================================================
-
-
-| http://localhost:8000/ecs-geo.html[host.geo.*]
-| Fields describing a location.
-
-// ===============================================================
-
-
-| http://localhost:8000/ecs-os.html[host.os.*]
-| OS fields contain information about the operating system.
-
-// ===============================================================
-
-
-| http://localhost:8000/ecs-user.html[host.user.*]
-| Fields to describe the user relevant to the event.
-
-// ===============================================================
-
-
-|=====
-
 [[ecs-group]]
 === Group fields
 
@@ -1791,36 +1173,6 @@ type: keyword
 
 |=====
 
-[[ecs-group-nestings]]
-==== Can be nested under Group
-
-[options="header"]
-|=====
-| Nested fields | Description
-
-// ===============================================================
-
-
-| http://localhost:8000/ecs-geo.html[host.geo.*]
-| Fields describing a location.
-
-// ===============================================================
-
-
-| http://localhost:8000/ecs-os.html[host.os.*]
-| OS fields contain information about the operating system.
-
-// ===============================================================
-
-
-| http://localhost:8000/ecs-user.html[host.user.*]
-| Fields to describe the user relevant to the event.
-
-// ===============================================================
-
-
-|=====
-
 [[ecs-host]]
 === Host fields
 
@@ -1841,96 +1193,6 @@ ECS host.* fields should be populated with details about the host on which the e
 type: keyword
 
 example: `x86_64`
-
-| core
-
-// ===============================================================
-
-| host.geo.city_name
-| City name.
-
-type: keyword
-
-example: `Montreal`
-
-| core
-
-// ===============================================================
-
-| host.geo.continent_name
-| Name of the continent.
-
-type: keyword
-
-example: `North America`
-
-| core
-
-// ===============================================================
-
-| host.geo.country_iso_code
-| Country ISO code.
-
-type: keyword
-
-example: `CA`
-
-| core
-
-// ===============================================================
-
-| host.geo.country_name
-| Country name.
-
-type: keyword
-
-example: `Canada`
-
-| core
-
-// ===============================================================
-
-| host.geo.location
-| Longitude and latitude.
-
-type: geo_point
-
-example: `{ "lon": -73.614830, "lat": 45.505918 }`
-
-| core
-
-// ===============================================================
-
-| host.geo.name
-| User-defined description of a location, at the level of granularity they care about.
-Could be the name of their data centers, the floor number, if this describes a local physical entity, city names.
-Not typically used in automated geolocation.
-
-type: keyword
-
-example: `boston-dc`
-
-| extended
-
-// ===============================================================
-
-| host.geo.region_iso_code
-| Region ISO code.
-
-type: keyword
-
-example: `CA-QC`
-
-| core
-
-// ===============================================================
-
-| host.geo.region_name
-| Region name.
-
-type: keyword
-
-example: `Quebec`
 
 | core
 
@@ -1995,72 +1257,6 @@ type: keyword
 
 // ===============================================================
 
-| host.os.family
-| OS family (such as redhat, debian, freebsd, windows).
-
-type: keyword
-
-example: `debian`
-
-| extended
-
-// ===============================================================
-
-| host.os.full
-| Operating system name, including the version or code name.
-
-type: keyword
-
-example: `Mac OS Mojave`
-
-| extended
-
-// ===============================================================
-
-| host.os.kernel
-| Operating system kernel version as a raw string.
-
-type: keyword
-
-example: `4.4.0-112-generic`
-
-| extended
-
-// ===============================================================
-
-| host.os.name
-| Operating system name, without the version.
-
-type: keyword
-
-example: `Mac OS X`
-
-| extended
-
-// ===============================================================
-
-| host.os.platform
-| Operating system platform (such centos, ubuntu, windows).
-
-type: keyword
-
-example: `darwin`
-
-| extended
-
-// ===============================================================
-
-| host.os.version
-| Operating system version as a raw string.
-
-type: keyword
-
-example: `10.14.1`
-
-| extended
-
-// ===============================================================
-
 | host.type
 | Type of host.
 For Cloud providers this can be the machine type like `t2.medium`. If vm, this could be the container, for example, or other information meaningful in your environment.
@@ -2068,84 +1264,6 @@ For Cloud providers this can be the machine type like `t2.medium`. If vm, this c
 type: keyword
 
 
-
-| core
-
-// ===============================================================
-
-| host.user.email
-| User email address.
-
-type: keyword
-
-
-
-| extended
-
-// ===============================================================
-
-| host.user.full_name
-| User's full name, if available.
-
-type: keyword
-
-example: `Albert Einstein`
-
-| extended
-
-// ===============================================================
-
-| host.user.group.id
-| Unique identifier for the group on the system/platform.
-
-type: keyword
-
-
-
-| extended
-
-// ===============================================================
-
-| host.user.group.name
-| Name of the group.
-
-type: keyword
-
-
-
-| extended
-
-// ===============================================================
-
-| host.user.hash
-| Unique user hash to correlate information for a user in anonymized form.
-Useful if `user.id` or `user.name` contain confidential information and cannot be used.
-
-type: keyword
-
-
-
-| extended
-
-// ===============================================================
-
-| host.user.id
-| One or multiple unique identifiers of the user.
-
-type: keyword
-
-
-
-| core
-
-// ===============================================================
-
-| host.user.name
-| Short name or login of the user.
-
-type: keyword
-
-example: `albert`
 
 | core
 
@@ -2309,36 +1427,6 @@ example: `1.1`
 
 |=====
 
-[[ecs-http-nestings]]
-==== Can be nested under HTTP
-
-[options="header"]
-|=====
-| Nested fields | Description
-
-// ===============================================================
-
-
-| http://localhost:8000/ecs-geo.html[host.geo.*]
-| Fields describing a location.
-
-// ===============================================================
-
-
-| http://localhost:8000/ecs-os.html[host.os.*]
-| OS fields contain information about the operating system.
-
-// ===============================================================
-
-
-| http://localhost:8000/ecs-user.html[host.user.*]
-| Fields to describe the user relevant to the event.
-
-// ===============================================================
-
-
-|=====
-
 [[ecs-log]]
 === Log fields
 
@@ -2376,36 +1464,6 @@ example: `Sep 19 08:26:10 localhost My log`
 | core
 
 // ===============================================================
-
-|=====
-
-[[ecs-log-nestings]]
-==== Can be nested under Log
-
-[options="header"]
-|=====
-| Nested fields | Description
-
-// ===============================================================
-
-
-| http://localhost:8000/ecs-geo.html[host.geo.*]
-| Fields describing a location.
-
-// ===============================================================
-
-
-| http://localhost:8000/ecs-os.html[host.os.*]
-| OS fields contain information about the operating system.
-
-// ===============================================================
-
-
-| http://localhost:8000/ecs-user.html[host.user.*]
-| Fields to describe the user relevant to the event.
-
-// ===============================================================
-
 
 |=====
 
@@ -2562,36 +1620,6 @@ example: `ipv4`
 
 |=====
 
-[[ecs-network-nestings]]
-==== Can be nested under Network
-
-[options="header"]
-|=====
-| Nested fields | Description
-
-// ===============================================================
-
-
-| http://localhost:8000/ecs-geo.html[host.geo.*]
-| Fields describing a location.
-
-// ===============================================================
-
-
-| http://localhost:8000/ecs-os.html[host.os.*]
-| OS fields contain information about the operating system.
-
-// ===============================================================
-
-
-| http://localhost:8000/ecs-user.html[host.user.*]
-| Fields to describe the user relevant to the event.
-
-// ===============================================================
-
-
-|=====
-
 [[ecs-observer]]
 === Observer fields
 
@@ -2603,96 +1631,6 @@ This could be a custom hardware appliance or a server that has been configured t
 [options="header"]
 |=====
 | Field  | Description | Level
-
-// ===============================================================
-
-| observer.geo.city_name
-| City name.
-
-type: keyword
-
-example: `Montreal`
-
-| core
-
-// ===============================================================
-
-| observer.geo.continent_name
-| Name of the continent.
-
-type: keyword
-
-example: `North America`
-
-| core
-
-// ===============================================================
-
-| observer.geo.country_iso_code
-| Country ISO code.
-
-type: keyword
-
-example: `CA`
-
-| core
-
-// ===============================================================
-
-| observer.geo.country_name
-| Country name.
-
-type: keyword
-
-example: `Canada`
-
-| core
-
-// ===============================================================
-
-| observer.geo.location
-| Longitude and latitude.
-
-type: geo_point
-
-example: `{ "lon": -73.614830, "lat": 45.505918 }`
-
-| core
-
-// ===============================================================
-
-| observer.geo.name
-| User-defined description of a location, at the level of granularity they care about.
-Could be the name of their data centers, the floor number, if this describes a local physical entity, city names.
-Not typically used in automated geolocation.
-
-type: keyword
-
-example: `boston-dc`
-
-| extended
-
-// ===============================================================
-
-| observer.geo.region_iso_code
-| Region ISO code.
-
-type: keyword
-
-example: `CA-QC`
-
-| core
-
-// ===============================================================
-
-| observer.geo.region_name
-| Region name.
-
-type: keyword
-
-example: `Quebec`
-
-| core
 
 // ===============================================================
 
@@ -2726,72 +1664,6 @@ type: keyword
 
 
 | core
-
-// ===============================================================
-
-| observer.os.family
-| OS family (such as redhat, debian, freebsd, windows).
-
-type: keyword
-
-example: `debian`
-
-| extended
-
-// ===============================================================
-
-| observer.os.full
-| Operating system name, including the version or code name.
-
-type: keyword
-
-example: `Mac OS Mojave`
-
-| extended
-
-// ===============================================================
-
-| observer.os.kernel
-| Operating system kernel version as a raw string.
-
-type: keyword
-
-example: `4.4.0-112-generic`
-
-| extended
-
-// ===============================================================
-
-| observer.os.name
-| Operating system name, without the version.
-
-type: keyword
-
-example: `Mac OS X`
-
-| extended
-
-// ===============================================================
-
-| observer.os.platform
-| Operating system platform (such centos, ubuntu, windows).
-
-type: keyword
-
-example: `darwin`
-
-| extended
-
-// ===============================================================
-
-| observer.os.version
-| Operating system version as a raw string.
-
-type: keyword
-
-example: `10.14.1`
-
-| extended
 
 // ===============================================================
 
@@ -2852,20 +1724,14 @@ type: keyword
 // ===============================================================
 
 
-| http://localhost:8000/ecs-geo.html[host.geo.*]
+| http://localhost:8000/ecs-geo.html[observer.geo.*]
 | Fields describing a location.
 
 // ===============================================================
 
 
-| http://localhost:8000/ecs-os.html[host.os.*]
+| http://localhost:8000/ecs-os.html[observer.os.*]
 | OS fields contain information about the operating system.
-
-// ===============================================================
-
-
-| http://localhost:8000/ecs-user.html[host.user.*]
-| Fields to describe the user relevant to the event.
 
 // ===============================================================
 
@@ -2907,36 +1773,6 @@ type: keyword
 | extended
 
 // ===============================================================
-
-|=====
-
-[[ecs-organization-nestings]]
-==== Can be nested under Organization
-
-[options="header"]
-|=====
-| Nested fields | Description
-
-// ===============================================================
-
-
-| http://localhost:8000/ecs-geo.html[host.geo.*]
-| Fields describing a location.
-
-// ===============================================================
-
-
-| http://localhost:8000/ecs-os.html[host.os.*]
-| OS fields contain information about the operating system.
-
-// ===============================================================
-
-
-| http://localhost:8000/ecs-user.html[host.user.*]
-| Fields to describe the user relevant to the event.
-
-// ===============================================================
-
 
 |=====
 
@@ -3018,36 +1854,6 @@ example: `10.14.1`
 | extended
 
 // ===============================================================
-
-|=====
-
-[[ecs-os-nestings]]
-==== Can be nested under Operating System
-
-[options="header"]
-|=====
-| Nested fields | Description
-
-// ===============================================================
-
-
-| http://localhost:8000/ecs-geo.html[host.geo.*]
-| Fields describing a location.
-
-// ===============================================================
-
-
-| http://localhost:8000/ecs-os.html[host.os.*]
-| OS fields contain information about the operating system.
-
-// ===============================================================
-
-
-| http://localhost:8000/ecs-user.html[host.user.*]
-| Fields to describe the user relevant to the event.
-
-// ===============================================================
-
 
 |=====
 
@@ -3169,36 +1975,6 @@ example: `/home/alice`
 
 |=====
 
-[[ecs-process-nestings]]
-==== Can be nested under Process
-
-[options="header"]
-|=====
-| Nested fields | Description
-
-// ===============================================================
-
-
-| http://localhost:8000/ecs-geo.html[host.geo.*]
-| Fields describing a location.
-
-// ===============================================================
-
-
-| http://localhost:8000/ecs-os.html[host.os.*]
-| OS fields contain information about the operating system.
-
-// ===============================================================
-
-
-| http://localhost:8000/ecs-user.html[host.user.*]
-| Fields to describe the user relevant to the event.
-
-// ===============================================================
-
-
-|=====
-
 [[ecs-related]]
 === Related fields
 
@@ -3224,36 +2000,6 @@ type: ip
 | extended
 
 // ===============================================================
-
-|=====
-
-[[ecs-related-nestings]]
-==== Can be nested under Related
-
-[options="header"]
-|=====
-| Nested fields | Description
-
-// ===============================================================
-
-
-| http://localhost:8000/ecs-geo.html[host.geo.*]
-| Fields describing a location.
-
-// ===============================================================
-
-
-| http://localhost:8000/ecs-os.html[host.os.*]
-| OS fields contain information about the operating system.
-
-// ===============================================================
-
-
-| http://localhost:8000/ecs-user.html[host.user.*]
-| Fields to describe the user relevant to the event.
-
-// ===============================================================
-
 
 |=====
 
@@ -3306,96 +2052,6 @@ type: keyword
 
 // ===============================================================
 
-| server.geo.city_name
-| City name.
-
-type: keyword
-
-example: `Montreal`
-
-| core
-
-// ===============================================================
-
-| server.geo.continent_name
-| Name of the continent.
-
-type: keyword
-
-example: `North America`
-
-| core
-
-// ===============================================================
-
-| server.geo.country_iso_code
-| Country ISO code.
-
-type: keyword
-
-example: `CA`
-
-| core
-
-// ===============================================================
-
-| server.geo.country_name
-| Country name.
-
-type: keyword
-
-example: `Canada`
-
-| core
-
-// ===============================================================
-
-| server.geo.location
-| Longitude and latitude.
-
-type: geo_point
-
-example: `{ "lon": -73.614830, "lat": 45.505918 }`
-
-| core
-
-// ===============================================================
-
-| server.geo.name
-| User-defined description of a location, at the level of granularity they care about.
-Could be the name of their data centers, the floor number, if this describes a local physical entity, city names.
-Not typically used in automated geolocation.
-
-type: keyword
-
-example: `boston-dc`
-
-| extended
-
-// ===============================================================
-
-| server.geo.region_iso_code
-| Region ISO code.
-
-type: keyword
-
-example: `CA-QC`
-
-| core
-
-// ===============================================================
-
-| server.geo.region_name
-| Region name.
-
-type: keyword
-
-example: `Quebec`
-
-| core
-
-// ===============================================================
-
 | server.ip
 | IP address of the server.
 Can be one or multiple IPv4 or IPv6 addresses.
@@ -3441,84 +2097,6 @@ type: long
 
 // ===============================================================
 
-| server.user.email
-| User email address.
-
-type: keyword
-
-
-
-| extended
-
-// ===============================================================
-
-| server.user.full_name
-| User's full name, if available.
-
-type: keyword
-
-example: `Albert Einstein`
-
-| extended
-
-// ===============================================================
-
-| server.user.group.id
-| Unique identifier for the group on the system/platform.
-
-type: keyword
-
-
-
-| extended
-
-// ===============================================================
-
-| server.user.group.name
-| Name of the group.
-
-type: keyword
-
-
-
-| extended
-
-// ===============================================================
-
-| server.user.hash
-| Unique user hash to correlate information for a user in anonymized form.
-Useful if `user.id` or `user.name` contain confidential information and cannot be used.
-
-type: keyword
-
-
-
-| extended
-
-// ===============================================================
-
-| server.user.id
-| One or multiple unique identifiers of the user.
-
-type: keyword
-
-
-
-| core
-
-// ===============================================================
-
-| server.user.name
-| Short name or login of the user.
-
-type: keyword
-
-example: `albert`
-
-| core
-
-// ===============================================================
-
 |=====
 
 [[ecs-server-nestings]]
@@ -3531,19 +2109,13 @@ example: `albert`
 // ===============================================================
 
 
-| http://localhost:8000/ecs-geo.html[host.geo.*]
+| http://localhost:8000/ecs-geo.html[server.geo.*]
 | Fields describing a location.
 
 // ===============================================================
 
 
-| http://localhost:8000/ecs-os.html[host.os.*]
-| OS fields contain information about the operating system.
-
-// ===============================================================
-
-
-| http://localhost:8000/ecs-user.html[host.user.*]
+| http://localhost:8000/ecs-user.html[server.user.*]
 | Fields to describe the user relevant to the event.
 
 // ===============================================================
@@ -3642,36 +2214,6 @@ example: `3.2.4`
 
 |=====
 
-[[ecs-service-nestings]]
-==== Can be nested under Service
-
-[options="header"]
-|=====
-| Nested fields | Description
-
-// ===============================================================
-
-
-| http://localhost:8000/ecs-geo.html[host.geo.*]
-| Fields describing a location.
-
-// ===============================================================
-
-
-| http://localhost:8000/ecs-os.html[host.os.*]
-| OS fields contain information about the operating system.
-
-// ===============================================================
-
-
-| http://localhost:8000/ecs-user.html[host.user.*]
-| Fields to describe the user relevant to the event.
-
-// ===============================================================
-
-
-|=====
-
 [[ecs-source]]
 === Source fields
 
@@ -3715,96 +2257,6 @@ example: `184`
 type: keyword
 
 
-
-| core
-
-// ===============================================================
-
-| source.geo.city_name
-| City name.
-
-type: keyword
-
-example: `Montreal`
-
-| core
-
-// ===============================================================
-
-| source.geo.continent_name
-| Name of the continent.
-
-type: keyword
-
-example: `North America`
-
-| core
-
-// ===============================================================
-
-| source.geo.country_iso_code
-| Country ISO code.
-
-type: keyword
-
-example: `CA`
-
-| core
-
-// ===============================================================
-
-| source.geo.country_name
-| Country name.
-
-type: keyword
-
-example: `Canada`
-
-| core
-
-// ===============================================================
-
-| source.geo.location
-| Longitude and latitude.
-
-type: geo_point
-
-example: `{ "lon": -73.614830, "lat": 45.505918 }`
-
-| core
-
-// ===============================================================
-
-| source.geo.name
-| User-defined description of a location, at the level of granularity they care about.
-Could be the name of their data centers, the floor number, if this describes a local physical entity, city names.
-Not typically used in automated geolocation.
-
-type: keyword
-
-example: `boston-dc`
-
-| extended
-
-// ===============================================================
-
-| source.geo.region_iso_code
-| Region ISO code.
-
-type: keyword
-
-example: `CA-QC`
-
-| core
-
-// ===============================================================
-
-| source.geo.region_name
-| Region name.
-
-type: keyword
-
-example: `Quebec`
 
 | core
 
@@ -3855,84 +2307,6 @@ type: long
 
 // ===============================================================
 
-| source.user.email
-| User email address.
-
-type: keyword
-
-
-
-| extended
-
-// ===============================================================
-
-| source.user.full_name
-| User's full name, if available.
-
-type: keyword
-
-example: `Albert Einstein`
-
-| extended
-
-// ===============================================================
-
-| source.user.group.id
-| Unique identifier for the group on the system/platform.
-
-type: keyword
-
-
-
-| extended
-
-// ===============================================================
-
-| source.user.group.name
-| Name of the group.
-
-type: keyword
-
-
-
-| extended
-
-// ===============================================================
-
-| source.user.hash
-| Unique user hash to correlate information for a user in anonymized form.
-Useful if `user.id` or `user.name` contain confidential information and cannot be used.
-
-type: keyword
-
-
-
-| extended
-
-// ===============================================================
-
-| source.user.id
-| One or multiple unique identifiers of the user.
-
-type: keyword
-
-
-
-| core
-
-// ===============================================================
-
-| source.user.name
-| Short name or login of the user.
-
-type: keyword
-
-example: `albert`
-
-| core
-
-// ===============================================================
-
 |=====
 
 [[ecs-source-nestings]]
@@ -3945,19 +2319,13 @@ example: `albert`
 // ===============================================================
 
 
-| http://localhost:8000/ecs-geo.html[host.geo.*]
+| http://localhost:8000/ecs-geo.html[source.geo.*]
 | Fields describing a location.
 
 // ===============================================================
 
 
-| http://localhost:8000/ecs-os.html[host.os.*]
-| OS fields contain information about the operating system.
-
-// ===============================================================
-
-
-| http://localhost:8000/ecs-user.html[host.user.*]
+| http://localhost:8000/ecs-user.html[source.user.*]
 | Fields to describe the user relevant to the event.
 
 // ===============================================================
@@ -4096,36 +2464,6 @@ type: keyword
 
 |=====
 
-[[ecs-url-nestings]]
-==== Can be nested under URL
-
-[options="header"]
-|=====
-| Nested fields | Description
-
-// ===============================================================
-
-
-| http://localhost:8000/ecs-geo.html[host.geo.*]
-| Fields describing a location.
-
-// ===============================================================
-
-
-| http://localhost:8000/ecs-os.html[host.os.*]
-| OS fields contain information about the operating system.
-
-// ===============================================================
-
-
-| http://localhost:8000/ecs-user.html[host.user.*]
-| Fields to describe the user relevant to the event.
-
-// ===============================================================
-
-
-|=====
-
 [[ecs-user]]
 === User fields
 
@@ -4157,28 +2495,6 @@ type: keyword
 type: keyword
 
 example: `Albert Einstein`
-
-| extended
-
-// ===============================================================
-
-| user.group.id
-| Unique identifier for the group on the system/platform.
-
-type: keyword
-
-
-
-| extended
-
-// ===============================================================
-
-| user.group.name
-| Name of the group.
-
-type: keyword
-
-
 
 | extended
 
@@ -4230,20 +2546,8 @@ example: `albert`
 // ===============================================================
 
 
-| http://localhost:8000/ecs-geo.html[host.geo.*]
-| Fields describing a location.
-
-// ===============================================================
-
-
-| http://localhost:8000/ecs-os.html[host.os.*]
-| OS fields contain information about the operating system.
-
-// ===============================================================
-
-
-| http://localhost:8000/ecs-user.html[host.user.*]
-| Fields to describe the user relevant to the event.
+| http://localhost:8000/ecs-group.html[user.group.*]
+| User's group relevant to the event.
 
 // ===============================================================
 
@@ -4297,72 +2601,6 @@ example: `Mozilla/5.0 (iPhone; CPU iPhone OS 12_1 like Mac OS X) AppleWebKit/605
 
 // ===============================================================
 
-| user_agent.os.family
-| OS family (such as redhat, debian, freebsd, windows).
-
-type: keyword
-
-example: `debian`
-
-| extended
-
-// ===============================================================
-
-| user_agent.os.full
-| Operating system name, including the version or code name.
-
-type: keyword
-
-example: `Mac OS Mojave`
-
-| extended
-
-// ===============================================================
-
-| user_agent.os.kernel
-| Operating system kernel version as a raw string.
-
-type: keyword
-
-example: `4.4.0-112-generic`
-
-| extended
-
-// ===============================================================
-
-| user_agent.os.name
-| Operating system name, without the version.
-
-type: keyword
-
-example: `Mac OS X`
-
-| extended
-
-// ===============================================================
-
-| user_agent.os.platform
-| Operating system platform (such centos, ubuntu, windows).
-
-type: keyword
-
-example: `darwin`
-
-| extended
-
-// ===============================================================
-
-| user_agent.os.version
-| Operating system version as a raw string.
-
-type: keyword
-
-example: `10.14.1`
-
-| extended
-
-// ===============================================================
-
 | user_agent.version
 | Version of the user agent.
 
@@ -4386,20 +2624,8 @@ example: `12.0`
 // ===============================================================
 
 
-| http://localhost:8000/ecs-geo.html[host.geo.*]
-| Fields describing a location.
-
-// ===============================================================
-
-
-| http://localhost:8000/ecs-os.html[host.os.*]
+| http://localhost:8000/ecs-os.html[user_agent.os.*]
 | OS fields contain information about the operating system.
-
-// ===============================================================
-
-
-| http://localhost:8000/ecs-user.html[host.user.*]
-| Fields to describe the user relevant to the event.
 
 // ===============================================================
 
