@@ -53,8 +53,7 @@ def render_fieldset(fieldset, ecs_nested):
     text = field_details_table_header().format(
         fieldset_title=fieldset['title'],
         fieldset_name=fieldset['name'],
-        fieldset_description=fieldset['description'],
-        fieldset_reuses=render_fieldset_reuses_text(fieldset)
+        fieldset_description=fieldset['description']
     )
 
     for field in ecs_helpers.dict_sorted_by_keys(fieldset['fields'], 'flat_name'):
@@ -63,20 +62,7 @@ def render_fieldset(fieldset, ecs_nested):
 
     text += table_footer()
 
-    if 'nestings' in fieldset:
-        text += nestings_table_header().format(
-            fieldset_name=fieldset['name'],
-            fieldset_title=fieldset['title']
-        )
-
-        nestings = []
-        for nested_fs_name in sorted(fieldset['nestings']):
-            text += render_nesting_row({
-                'flat_nesting': "{}.{}.*".format(fieldset['name'], nested_fs_name),
-                'name': nested_fs_name,
-                'short': ecs_nested[nested_fs_name]['short']
-            })
-        text += table_footer()
+    text += render_fieldset_reuse_section(fieldset, ecs_nested)
 
     return text
 
@@ -95,7 +81,32 @@ def render_field_details_row(field):
     return text
 
 
+def render_fieldset_reuse_section(fieldset, ecs_nested):
+    '''Render the section on where field set can be nested, and which field sets can be nested here'''
+    if not ('nestings' in fieldset or 'reusable' in fieldset):
+        return ''
+
+    text = field_reuse_section().format(
+        reuse_of_fieldset=render_fieldset_reuses_text(fieldset)
+    )
+    if 'nestings' in fieldset:
+        text += nestings_table_header().format(
+            fieldset_name=fieldset['name'],
+            fieldset_title=fieldset['title']
+        )
+        nestings = []
+        for nested_fs_name in sorted(fieldset['nestings']):
+            text += render_nesting_row({
+                'flat_nesting': "{}.{}.*".format(fieldset['name'], nested_fs_name),
+                'name': nested_fs_name,
+                'short': ecs_nested[nested_fs_name]['short']
+            })
+        text += table_footer()
+    return text
+
+
 def render_fieldset_reuses_text(fieldset):
+    '''Render where a given field set is expected to be reused'''
     if 'reusable' not in fieldset:
         return ''
 
@@ -173,8 +184,6 @@ def field_details_table_header():
 
 {fieldset_description}
 
-{fieldset_reuses}
-
 ==== {fieldset_title} Field Details
 
 [options="header"]
@@ -200,12 +209,23 @@ type: {field_type}
 '''
 
 
+# Field reuse
+
+def field_reuse_section():
+    return '''
+==== Field Reuse
+
+{reuse_of_fieldset}
+
+'''
+
+
 # Nestings table
 
 def nestings_table_header():
     return '''
 [[ecs-{fieldset_name}-nestings]]
-==== Can be nested under {fieldset_title}
+===== Field sets that can be nested under {fieldset_title}
 
 [options="header"]
 |=====
