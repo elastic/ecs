@@ -56,7 +56,7 @@ def render_fieldset(fieldset):
         fieldset_title=fieldset['title']
     )
 
-    for field in ecs_helpers.dict_sorted_by_keys(fieldset['fields'], 'order'):
+    for field in ecs_helpers.dict_sorted_by_keys(fieldset['fields'], 'flat_name'):
         text += render_field_details_row(field)
 
     text += table_footer()

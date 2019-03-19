@@ -26,17 +26,6 @@ example: `2016-05-23T08:05:34.853Z`
 
 // ===============================================================
 
-| tags
-| List of keywords used to tag each event.
-
-type: keyword
-
-example: `["production", "env2"]`
-
-| core
-
-// ===============================================================
-
 | labels
 | Custom key/value pairs.
 Can be used to add meta information to events. Should not contain nested objects. All values are stored as keyword.
@@ -58,6 +47,17 @@ If multiple messages exist, they can be combined into one message.
 type: text
 
 example: `Hello World`
+
+| core
+
+// ===============================================================
+
+| tags
+| List of keywords used to tag each event.
+
+type: keyword
+
+example: `["production", "env2"]`
 
 | core
 
@@ -109,12 +109,25 @@ Examples include Beats. Agents may also run on observers. ECS agent.* fields sha
 
 // ===============================================================
 
-| agent.version
-| Version of the agent.
+| agent.ephemeral_id
+| Ephemeral identifier of this agent (if one exists).
+This id normally changes across restarts, but `agent.id` does not.
 
 type: keyword
 
-example: `6.0.0-rc2`
+example: `8a4f500f`
+
+| extended
+
+// ===============================================================
+
+| agent.id
+| Unique identifier of this agent (if one exists).
+Example: For Beats this would be beat.id.
+
+type: keyword
+
+example: `8a4f500d`
 
 | core
 
@@ -145,27 +158,14 @@ example: `filebeat`
 
 // ===============================================================
 
-| agent.id
-| Unique identifier of this agent (if one exists).
-Example: For Beats this would be beat.id.
+| agent.version
+| Version of the agent.
 
 type: keyword
 
-example: `8a4f500d`
+example: `6.0.0-rc2`
 
 | core
-
-// ===============================================================
-
-| agent.ephemeral_id
-| Ephemeral identifier of this agent (if one exists).
-This id normally changes across restarts, but `agent.id` does not.
-
-type: keyword
-
-example: `8a4f500f`
-
-| extended
 
 // ===============================================================
 
@@ -228,19 +228,19 @@ type: keyword
 
 // ===============================================================
 
-| client.geo.location
-| Longitude and latitude.
+| client.bytes
+| Bytes sent from the client to the server.
 
-type: geo_point
+type: long
 
-example: `{ "lon": -73.614830, "lat": 45.505918 }`
+example: `184`
 
 | core
 
 // ===============================================================
 
-| client.user.id
-| One or multiple unique identifiers of the user.
+| client.domain
+| Client domain.
 
 type: keyword
 
@@ -250,37 +250,14 @@ type: keyword
 
 // ===============================================================
 
-| client.user.group.id
-| Unique identifier for the group on the system/platform.
+| client.geo.city_name
+| City name.
 
 type: keyword
 
-
-
-| extended
-
-// ===============================================================
-
-| client.ip
-| IP address of the client.
-Can be one or multiple IPv4 or IPv6 addresses.
-
-type: ip
-
-
+example: `Montreal`
 
 | core
-
-// ===============================================================
-
-| client.user.group.name
-| Name of the group.
-
-type: keyword
-
-
-
-| extended
 
 // ===============================================================
 
@@ -295,23 +272,12 @@ example: `North America`
 
 // ===============================================================
 
-| client.user.name
-| Short name or login of the user.
+| client.geo.country_iso_code
+| Country ISO code.
 
 type: keyword
 
-example: `albert`
-
-| core
-
-// ===============================================================
-
-| client.port
-| Port of the client.
-
-type: long
-
-
+example: `CA`
 
 | core
 
@@ -328,14 +294,61 @@ example: `Canada`
 
 // ===============================================================
 
-| client.user.full_name
-| User's full name, if available.
+| client.geo.location
+| Longitude and latitude.
+
+type: geo_point
+
+example: `{ "lon": -73.614830, "lat": 45.505918 }`
+
+| core
+
+// ===============================================================
+
+| client.geo.name
+| User-defined description of a location, at the level of granularity they care about.
+Could be the name of their data centers, the floor number, if this describes a local physical entity, city names.
+Not typically used in automated geolocation.
 
 type: keyword
 
-example: `Albert Einstein`
+example: `boston-dc`
 
 | extended
+
+// ===============================================================
+
+| client.geo.region_iso_code
+| Region ISO code.
+
+type: keyword
+
+example: `CA-QC`
+
+| core
+
+// ===============================================================
+
+| client.geo.region_name
+| Region name.
+
+type: keyword
+
+example: `Quebec`
+
+| core
+
+// ===============================================================
+
+| client.ip
+| IP address of the client.
+Can be one or multiple IPv4 or IPv6 addresses.
+
+type: ip
+
+
+
+| core
 
 // ===============================================================
 
@@ -343,6 +356,28 @@ example: `Albert Einstein`
 | MAC address of the client.
 
 type: keyword
+
+
+
+| core
+
+// ===============================================================
+
+| client.packets
+| Packets sent from the client to the server.
+
+type: long
+
+example: `12`
+
+| core
+
+// ===============================================================
+
+| client.port
+| Port of the client.
+
+type: long
 
 
 
@@ -361,25 +396,36 @@ type: keyword
 
 // ===============================================================
 
-| client.geo.region_name
-| Region name.
+| client.user.full_name
+| User's full name, if available.
 
 type: keyword
 
-example: `Quebec`
+example: `Albert Einstein`
 
-| core
+| extended
 
 // ===============================================================
 
-| client.domain
-| Client domain.
+| client.user.group.id
+| Unique identifier for the group on the system/platform.
 
 type: keyword
 
 
 
-| core
+| extended
+
+// ===============================================================
+
+| client.user.group.name
+| Name of the group.
+
+type: keyword
+
+
+
+| extended
 
 // ===============================================================
 
@@ -395,71 +441,25 @@ type: keyword
 
 // ===============================================================
 
-| client.geo.city_name
-| City name.
+| client.user.id
+| One or multiple unique identifiers of the user.
 
 type: keyword
 
-example: `Montreal`
+
 
 | core
 
 // ===============================================================
 
-| client.bytes
-| Bytes sent from the client to the server.
-
-type: long
-
-example: `184`
-
-| core
-
-// ===============================================================
-
-| client.geo.country_iso_code
-| Country ISO code.
+| client.user.name
+| Short name or login of the user.
 
 type: keyword
 
-example: `CA`
+example: `albert`
 
 | core
-
-// ===============================================================
-
-| client.packets
-| Packets sent from the client to the server.
-
-type: long
-
-example: `12`
-
-| core
-
-// ===============================================================
-
-| client.geo.region_iso_code
-| Region ISO code.
-
-type: keyword
-
-example: `CA-QC`
-
-| core
-
-// ===============================================================
-
-| client.geo.name
-| User-defined description of a location, at the level of granularity they care about.
-Could be the name of their data centers, the floor number, if this describes a local physical entity, city names.
-Not typically used in automated geolocation.
-
-type: keyword
-
-example: `boston-dc`
-
-| extended
 
 // ===============================================================
 
@@ -508,12 +508,13 @@ Fields related to the cloud or infrastructure the events are coming from.
 
 // ===============================================================
 
-| cloud.provider
-| Name of the cloud provider. Example values are aws, azure, gcp, or digitalocean.
+| cloud.account.id
+| The cloud account or organization id used to identify different entities in a multi-tenant environment.
+Examples: AWS account id, Google Cloud ORG Id, or other unique identifier.
 
 type: keyword
 
-example: `aws`
+example: `666777888999`
 
 | extended
 
@@ -525,17 +526,6 @@ example: `aws`
 type: keyword
 
 example: `us-east-1c`
-
-| extended
-
-// ===============================================================
-
-| cloud.region
-| Region in which this host is running.
-
-type: keyword
-
-example: `us-east-1`
 
 | extended
 
@@ -574,13 +564,23 @@ example: `t2.medium`
 
 // ===============================================================
 
-| cloud.account.id
-| The cloud account or organization id used to identify different entities in a multi-tenant environment.
-Examples: AWS account id, Google Cloud ORG Id, or other unique identifier.
+| cloud.provider
+| Name of the cloud provider. Example values are aws, azure, gcp, or digitalocean.
 
 type: keyword
 
-example: `666777888999`
+example: `aws`
+
+| extended
+
+// ===============================================================
+
+| cloud.region
+| Region in which this host is running.
+
+type: keyword
+
+example: `us-east-1`
 
 | extended
 
@@ -632,17 +632,6 @@ These fields help correlate data based containers from any runtime.
 
 // ===============================================================
 
-| container.runtime
-| Runtime managing this container.
-
-type: keyword
-
-example: `docker`
-
-| extended
-
-// ===============================================================
-
 | container.id
 | Unique container id.
 
@@ -676,6 +665,17 @@ type: keyword
 
 // ===============================================================
 
+| container.labels
+| Image labels.
+
+type: object
+
+
+
+| extended
+
+// ===============================================================
+
 | container.name
 | Container name.
 
@@ -687,12 +687,12 @@ type: keyword
 
 // ===============================================================
 
-| container.labels
-| Image labels.
+| container.runtime
+| Runtime managing this container.
 
-type: object
+type: keyword
 
-
+example: `docker`
 
 | extended
 
@@ -756,19 +756,19 @@ type: keyword
 
 // ===============================================================
 
-| destination.geo.location
-| Longitude and latitude.
+| destination.bytes
+| Bytes sent from the destination to the source.
 
-type: geo_point
+type: long
 
-example: `{ "lon": -73.614830, "lat": 45.505918 }`
+example: `184`
 
 | core
 
 // ===============================================================
 
-| destination.user.id
-| One or multiple unique identifiers of the user.
+| destination.domain
+| Destination domain.
 
 type: keyword
 
@@ -778,37 +778,14 @@ type: keyword
 
 // ===============================================================
 
-| destination.user.group.id
-| Unique identifier for the group on the system/platform.
+| destination.geo.city_name
+| City name.
 
 type: keyword
 
-
-
-| extended
-
-// ===============================================================
-
-| destination.ip
-| IP address of the destination.
-Can be one or multiple IPv4 or IPv6 addresses.
-
-type: ip
-
-
+example: `Montreal`
 
 | core
-
-// ===============================================================
-
-| destination.user.group.name
-| Name of the group.
-
-type: keyword
-
-
-
-| extended
 
 // ===============================================================
 
@@ -823,23 +800,12 @@ example: `North America`
 
 // ===============================================================
 
-| destination.user.name
-| Short name or login of the user.
+| destination.geo.country_iso_code
+| Country ISO code.
 
 type: keyword
 
-example: `albert`
-
-| core
-
-// ===============================================================
-
-| destination.port
-| Port of the destination.
-
-type: long
-
-
+example: `CA`
 
 | core
 
@@ -856,14 +822,61 @@ example: `Canada`
 
 // ===============================================================
 
-| destination.user.full_name
-| User's full name, if available.
+| destination.geo.location
+| Longitude and latitude.
+
+type: geo_point
+
+example: `{ "lon": -73.614830, "lat": 45.505918 }`
+
+| core
+
+// ===============================================================
+
+| destination.geo.name
+| User-defined description of a location, at the level of granularity they care about.
+Could be the name of their data centers, the floor number, if this describes a local physical entity, city names.
+Not typically used in automated geolocation.
 
 type: keyword
 
-example: `Albert Einstein`
+example: `boston-dc`
 
 | extended
+
+// ===============================================================
+
+| destination.geo.region_iso_code
+| Region ISO code.
+
+type: keyword
+
+example: `CA-QC`
+
+| core
+
+// ===============================================================
+
+| destination.geo.region_name
+| Region name.
+
+type: keyword
+
+example: `Quebec`
+
+| core
+
+// ===============================================================
+
+| destination.ip
+| IP address of the destination.
+Can be one or multiple IPv4 or IPv6 addresses.
+
+type: ip
+
+
+
+| core
 
 // ===============================================================
 
@@ -871,6 +884,28 @@ example: `Albert Einstein`
 | MAC address of the destination.
 
 type: keyword
+
+
+
+| core
+
+// ===============================================================
+
+| destination.packets
+| Packets sent from the destination to the source.
+
+type: long
+
+example: `12`
+
+| core
+
+// ===============================================================
+
+| destination.port
+| Port of the destination.
+
+type: long
 
 
 
@@ -889,25 +924,36 @@ type: keyword
 
 // ===============================================================
 
-| destination.geo.region_name
-| Region name.
+| destination.user.full_name
+| User's full name, if available.
 
 type: keyword
 
-example: `Quebec`
+example: `Albert Einstein`
 
-| core
+| extended
 
 // ===============================================================
 
-| destination.domain
-| Destination domain.
+| destination.user.group.id
+| Unique identifier for the group on the system/platform.
 
 type: keyword
 
 
 
-| core
+| extended
+
+// ===============================================================
+
+| destination.user.group.name
+| Name of the group.
+
+type: keyword
+
+
+
+| extended
 
 // ===============================================================
 
@@ -923,71 +969,25 @@ type: keyword
 
 // ===============================================================
 
-| destination.geo.city_name
-| City name.
+| destination.user.id
+| One or multiple unique identifiers of the user.
 
 type: keyword
 
-example: `Montreal`
+
 
 | core
 
 // ===============================================================
 
-| destination.bytes
-| Bytes sent from the destination to the source.
-
-type: long
-
-example: `184`
-
-| core
-
-// ===============================================================
-
-| destination.geo.country_iso_code
-| Country ISO code.
+| destination.user.name
+| Short name or login of the user.
 
 type: keyword
 
-example: `CA`
+example: `albert`
 
 | core
-
-// ===============================================================
-
-| destination.packets
-| Packets sent from the destination to the source.
-
-type: long
-
-example: `12`
-
-| core
-
-// ===============================================================
-
-| destination.geo.region_iso_code
-| Region ISO code.
-
-type: keyword
-
-example: `CA-QC`
-
-| core
-
-// ===============================================================
-
-| destination.geo.name
-| User-defined description of a location, at the level of granularity they care about.
-Could be the name of their data centers, the floor number, if this describes a local physical entity, city names.
-Not typically used in automated geolocation.
-
-type: keyword
-
-example: `boston-dc`
-
-| extended
 
 // ===============================================================
 
@@ -1094,6 +1094,17 @@ Use them for errors that happen while fetching events or in cases where the even
 
 // ===============================================================
 
+| error.code
+| Error code describing the error.
+
+type: keyword
+
+
+
+| core
+
+// ===============================================================
+
 | error.id
 | Unique identifier for the error.
 
@@ -1109,17 +1120,6 @@ type: keyword
 | Error message.
 
 type: text
-
-
-
-| core
-
-// ===============================================================
-
-| error.code
-| Error code describing the error.
-
-type: keyword
 
 
 
@@ -1173,6 +1173,90 @@ A log is defined as an event containing details of something that happened. Log 
 
 // ===============================================================
 
+| event.action
+| The action captured by the event.
+This describes the information in the event. It is more specific than `event.category`. Examples are `group-add`, `process-started`, `file-created`. The value is normally defined by the implementer.
+
+type: keyword
+
+example: `user-password-change`
+
+| core
+
+// ===============================================================
+
+| event.category
+| Event category.
+This contains high-level information about the contents of the event. It is more generic than `event.action`, in the sense that typically a category contains multiple actions. Warning: In future versions of ECS, we plan to provide a list of acceptable values for this field, please use with caution.
+
+type: keyword
+
+example: `user-management`
+
+| core
+
+// ===============================================================
+
+| event.created
+| event.created contains the date/time when the event was first read by an agent, or by your pipeline.
+This field is distinct from @timestamp in that @timestamp typically contain the time extracted from the original event.
+In most situations, these two timestamps will be slightly different. The difference can be used to calculate the delay between your source generating an event, and the time when your agent first processed it. This can be used to monitor your agent's or pipeline's ability to keep up with your event source.
+In case the two timestamps are identical, @timestamp should be used.
+
+type: date
+
+
+
+| core
+
+// ===============================================================
+
+| event.dataset
+| Name of the dataset.
+The concept of a `dataset` (fileset / metricset) is used in Beats as a subset of modules. It contains the information which is currently stored in metricset.name and metricset.module or fileset.name.
+
+type: keyword
+
+example: `stats`
+
+| core
+
+// ===============================================================
+
+| event.duration
+| Duration of the event in nanoseconds.
+If event.start and event.end are known this value should be the difference between the end and start time.
+
+type: long
+
+
+
+| core
+
+// ===============================================================
+
+| event.end
+| event.end contains the date when the event ended or when the activity was last observed.
+
+type: date
+
+
+
+| extended
+
+// ===============================================================
+
+| event.hash
+| Hash (perhaps logstash fingerprint) of raw field to be able to demonstrate log integrity.
+
+type: keyword
+
+example: `123456789012345678901234567890ABCD`
+
+| extended
+
+// ===============================================================
+
 | event.id
 | Unique ID to describe the event.
 
@@ -1196,54 +1280,6 @@ example: `state`
 
 // ===============================================================
 
-| event.category
-| Event category.
-This contains high-level information about the contents of the event. It is more generic than `event.action`, in the sense that typically a category contains multiple actions. Warning: In future versions of ECS, we plan to provide a list of acceptable values for this field, please use with caution.
-
-type: keyword
-
-example: `user-management`
-
-| core
-
-// ===============================================================
-
-| event.action
-| The action captured by the event.
-This describes the information in the event. It is more specific than `event.category`. Examples are `group-add`, `process-started`, `file-created`. The value is normally defined by the implementer.
-
-type: keyword
-
-example: `user-password-change`
-
-| core
-
-// ===============================================================
-
-| event.outcome
-| The outcome of the event.
-If the event describes an action, this fields contains the outcome of that action. Examples outcomes are `success` and `failure`. Warning: In future versions of ECS, we plan to provide a list of acceptable values for this field, please use with caution.
-
-type: keyword
-
-example: `success`
-
-| extended
-
-// ===============================================================
-
-| event.type
-| Reserved for future usage.
-Please avoid using this field for user data.
-
-type: keyword
-
-
-
-| core
-
-// ===============================================================
-
 | event.module
 | Name of the module this data is coming from.
 This information is coming from the modules used in Beats or Logstash.
@@ -1251,29 +1287,6 @@ This information is coming from the modules used in Beats or Logstash.
 type: keyword
 
 example: `mysql`
-
-| core
-
-// ===============================================================
-
-| event.dataset
-| Name of the dataset.
-The concept of a `dataset` (fileset / metricset) is used in Beats as a subset of modules. It contains the information which is currently stored in metricset.name and metricset.module or fileset.name.
-
-type: keyword
-
-example: `stats`
-
-| core
-
-// ===============================================================
-
-| event.severity
-| Severity describes the original severity of the event. What the different severity values mean can very different between use cases. It's up to the implementer to make sure severities are consistent across events.
-
-type: long
-
-example: `7`
 
 | core
 
@@ -1291,72 +1304,13 @@ example: `Sep 19 08:26:10 host CEF:0&#124;Security&#124; threatmanager&#124;1.0&
 
 // ===============================================================
 
-| event.hash
-| Hash (perhaps logstash fingerprint) of raw field to be able to demonstrate log integrity.
+| event.outcome
+| The outcome of the event.
+If the event describes an action, this fields contains the outcome of that action. Examples outcomes are `success` and `failure`. Warning: In future versions of ECS, we plan to provide a list of acceptable values for this field, please use with caution.
 
 type: keyword
 
-example: `123456789012345678901234567890ABCD`
-
-| extended
-
-// ===============================================================
-
-| event.duration
-| Duration of the event in nanoseconds.
-If event.start and event.end are known this value should be the difference between the end and start time.
-
-type: long
-
-
-
-| core
-
-// ===============================================================
-
-| event.timezone
-| This field should be populated when the event's timestamp does not include timezone information already (e.g. default Syslog timestamps). It's optional otherwise.
-Acceptable timezone formats are: a canonical ID (e.g. "Europe/Amsterdam"), abbreviated (e.g. "EST") or an HH:mm differential (e.g. "-05:00").
-
-type: keyword
-
-
-
-| extended
-
-// ===============================================================
-
-| event.created
-| event.created contains the date/time when the event was first read by an agent, or by your pipeline.
-This field is distinct from @timestamp in that @timestamp typically contain the time extracted from the original event.
-In most situations, these two timestamps will be slightly different. The difference can be used to calculate the delay between your source generating an event, and the time when your agent first processed it. This can be used to monitor your agent's or pipeline's ability to keep up with your event source.
-In case the two timestamps are identical, @timestamp should be used.
-
-type: date
-
-
-
-| core
-
-// ===============================================================
-
-| event.start
-| event.start contains the date when the event started or when the activity was first observed.
-
-type: date
-
-
-
-| extended
-
-// ===============================================================
-
-| event.end
-| event.end contains the date when the event ended or when the activity was last observed.
-
-type: date
-
-
+example: `success`
 
 | extended
 
@@ -1382,6 +1336,52 @@ type: float
 
 
 | extended
+
+// ===============================================================
+
+| event.severity
+| Severity describes the original severity of the event. What the different severity values mean can very different between use cases. It's up to the implementer to make sure severities are consistent across events.
+
+type: long
+
+example: `7`
+
+| core
+
+// ===============================================================
+
+| event.start
+| event.start contains the date when the event started or when the activity was first observed.
+
+type: date
+
+
+
+| extended
+
+// ===============================================================
+
+| event.timezone
+| This field should be populated when the event's timestamp does not include timezone information already (e.g. default Syslog timestamps). It's optional otherwise.
+Acceptable timezone formats are: a canonical ID (e.g. "Europe/Amsterdam"), abbreviated (e.g. "EST") or an HH:mm differential (e.g. "-05:00").
+
+type: keyword
+
+
+
+| extended
+
+// ===============================================================
+
+| event.type
+| Reserved for future usage.
+Please avoid using this field for user data.
+
+type: keyword
+
+
+
+| core
 
 // ===============================================================
 
@@ -1431,44 +1431,10 @@ File objects can be associated with host events, network events, and/or file eve
 
 // ===============================================================
 
-| file.path
-| Path to the file.
+| file.ctime
+| Last time file metadata changed.
 
-type: keyword
-
-
-
-| extended
-
-// ===============================================================
-
-| file.target_path
-| Target path for symlinks.
-
-type: keyword
-
-
-
-| extended
-
-// ===============================================================
-
-| file.extension
-| File extension.
-This should allow easy filtering by file extensions.
-
-type: keyword
-
-example: `png`
-
-| extended
-
-// ===============================================================
-
-| file.type
-| File type (file, dir, or symlink).
-
-type: keyword
+type: date
 
 
 
@@ -1487,34 +1453,13 @@ type: keyword
 
 // ===============================================================
 
-| file.inode
-| Inode representing the file in the filesystem.
+| file.extension
+| File extension.
+This should allow easy filtering by file extensions.
 
 type: keyword
 
-
-
-| extended
-
-// ===============================================================
-
-| file.uid
-| The user ID (UID) or security identifier (SID) of the file owner.
-
-type: keyword
-
-
-
-| extended
-
-// ===============================================================
-
-| file.owner
-| File owner's username.
-
-type: keyword
-
-
+example: `png`
 
 | extended
 
@@ -1542,23 +1487,23 @@ type: keyword
 
 // ===============================================================
 
+| file.inode
+| Inode representing the file in the filesystem.
+
+type: keyword
+
+
+
+| extended
+
+// ===============================================================
+
 | file.mode
 | Mode of the file in octal representation.
 
 type: keyword
 
 example: `416`
-
-| extended
-
-// ===============================================================
-
-| file.size
-| File size in bytes (field is only added when `type` is `file`).
-
-type: long
-
-
 
 | extended
 
@@ -1575,10 +1520,65 @@ type: date
 
 // ===============================================================
 
-| file.ctime
-| Last time file metadata changed.
+| file.owner
+| File owner's username.
 
-type: date
+type: keyword
+
+
+
+| extended
+
+// ===============================================================
+
+| file.path
+| Path to the file.
+
+type: keyword
+
+
+
+| extended
+
+// ===============================================================
+
+| file.size
+| File size in bytes (field is only added when `type` is `file`).
+
+type: long
+
+
+
+| extended
+
+// ===============================================================
+
+| file.target_path
+| Target path for symlinks.
+
+type: keyword
+
+
+
+| extended
+
+// ===============================================================
+
+| file.type
+| File type (file, dir, or symlink).
+
+type: keyword
+
+
+
+| extended
+
+// ===============================================================
+
+| file.uid
+| The user ID (UID) or security identifier (SID) of the file owner.
+
+type: keyword
 
 
 
@@ -1632,12 +1632,12 @@ This geolocation information can be derived from techniques such as Geo IP, or b
 
 // ===============================================================
 
-| geo.location
-| Longitude and latitude.
+| geo.city_name
+| City name.
 
-type: geo_point
+type: keyword
 
-example: `{ "lon": -73.614830, "lat": 45.505918 }`
+example: `Montreal`
 
 | core
 
@@ -1654,39 +1654,6 @@ example: `North America`
 
 // ===============================================================
 
-| geo.country_name
-| Country name.
-
-type: keyword
-
-example: `Canada`
-
-| core
-
-// ===============================================================
-
-| geo.region_name
-| Region name.
-
-type: keyword
-
-example: `Quebec`
-
-| core
-
-// ===============================================================
-
-| geo.city_name
-| City name.
-
-type: keyword
-
-example: `Montreal`
-
-| core
-
-// ===============================================================
-
 | geo.country_iso_code
 | Country ISO code.
 
@@ -1698,12 +1665,23 @@ example: `CA`
 
 // ===============================================================
 
-| geo.region_iso_code
-| Region ISO code.
+| geo.country_name
+| Country name.
 
 type: keyword
 
-example: `CA-QC`
+example: `Canada`
+
+| core
+
+// ===============================================================
+
+| geo.location
+| Longitude and latitude.
+
+type: geo_point
+
+example: `{ "lon": -73.614830, "lat": 45.505918 }`
 
 | core
 
@@ -1719,6 +1697,28 @@ type: keyword
 example: `boston-dc`
 
 | extended
+
+// ===============================================================
+
+| geo.region_iso_code
+| Region ISO code.
+
+type: keyword
+
+example: `CA-QC`
+
+| core
+
+// ===============================================================
+
+| geo.region_name
+| Region name.
+
+type: keyword
+
+example: `Quebec`
+
+| core
 
 // ===============================================================
 
@@ -1835,13 +1835,56 @@ ECS host.* fields should be populated with details about the host on which the e
 
 // ===============================================================
 
-| host.hostname
-| Hostname of the host.
-It normally contains what the `hostname` command returns on the host machine.
+| host.architecture
+| Operating system architecture.
 
 type: keyword
 
+example: `x86_64`
 
+| core
+
+// ===============================================================
+
+| host.geo.city_name
+| City name.
+
+type: keyword
+
+example: `Montreal`
+
+| core
+
+// ===============================================================
+
+| host.geo.continent_name
+| Name of the continent.
+
+type: keyword
+
+example: `North America`
+
+| core
+
+// ===============================================================
+
+| host.geo.country_iso_code
+| Country ISO code.
+
+type: keyword
+
+example: `CA`
+
+| core
+
+// ===============================================================
+
+| host.geo.country_name
+| Country name.
+
+type: keyword
+
+example: `Canada`
 
 | core
 
@@ -1858,90 +1901,48 @@ example: `{ "lon": -73.614830, "lat": 45.505918 }`
 
 // ===============================================================
 
-| host.user.id
-| One or multiple unique identifiers of the user.
+| host.geo.name
+| User-defined description of a location, at the level of granularity they care about.
+Could be the name of their data centers, the floor number, if this describes a local physical entity, city names.
+Not typically used in automated geolocation.
 
 type: keyword
 
+example: `boston-dc`
 
+| extended
+
+// ===============================================================
+
+| host.geo.region_iso_code
+| Region ISO code.
+
+type: keyword
+
+example: `CA-QC`
 
 | core
 
 // ===============================================================
 
-| host.user.group.id
-| Unique identifier for the group on the system/platform.
+| host.geo.region_name
+| Region name.
 
 type: keyword
 
-
-
-| extended
-
-// ===============================================================
-
-| host.os.platform
-| Operating system platform (such centos, ubuntu, windows).
-
-type: keyword
-
-example: `darwin`
-
-| extended
-
-// ===============================================================
-
-| host.name
-| Name of the host.
-It can contain what `hostname` returns on Unix systems, the fully qualified domain name, or a name specified by the user. The sender decides which value to use.
-
-type: keyword
-
-
+example: `Quebec`
 
 | core
 
 // ===============================================================
 
-| host.user.group.name
-| Name of the group.
+| host.hostname
+| Hostname of the host.
+It normally contains what the `hostname` command returns on the host machine.
 
 type: keyword
 
 
-
-| extended
-
-// ===============================================================
-
-| host.geo.continent_name
-| Name of the continent.
-
-type: keyword
-
-example: `North America`
-
-| core
-
-// ===============================================================
-
-| host.os.name
-| Operating system name, without the version.
-
-type: keyword
-
-example: `Mac OS X`
-
-| extended
-
-// ===============================================================
-
-| host.user.name
-| Short name or login of the user.
-
-type: keyword
-
-example: `albert`
 
 | core
 
@@ -1960,78 +1961,12 @@ type: keyword
 
 // ===============================================================
 
-| host.geo.country_name
-| Country name.
-
-type: keyword
-
-example: `Canada`
-
-| core
-
-// ===============================================================
-
-| host.os.full
-| Operating system name, including the version or code name.
-
-type: keyword
-
-example: `Mac OS Mojave`
-
-| extended
-
-// ===============================================================
-
-| host.user.full_name
-| User's full name, if available.
-
-type: keyword
-
-example: `Albert Einstein`
-
-| extended
-
-// ===============================================================
-
 | host.ip
 | Host ip address.
 
 type: ip
 
 
-
-| core
-
-// ===============================================================
-
-| host.user.email
-| User email address.
-
-type: keyword
-
-
-
-| extended
-
-// ===============================================================
-
-| host.os.family
-| OS family (such as redhat, debian, freebsd, windows).
-
-type: keyword
-
-example: `debian`
-
-| extended
-
-// ===============================================================
-
-| host.geo.region_name
-| Region name.
-
-type: keyword
-
-example: `Quebec`
 
 | core
 
@@ -2048,26 +1983,70 @@ type: keyword
 
 // ===============================================================
 
-| host.user.hash
-| Unique user hash to correlate information for a user in anonymized form.
-Useful if `user.id` or `user.name` contain confidential information and cannot be used.
+| host.name
+| Name of the host.
+It can contain what `hostname` returns on Unix systems, the fully qualified domain name, or a name specified by the user. The sender decides which value to use.
 
 type: keyword
 
 
+
+| core
+
+// ===============================================================
+
+| host.os.family
+| OS family (such as redhat, debian, freebsd, windows).
+
+type: keyword
+
+example: `debian`
 
 | extended
 
 // ===============================================================
 
-| host.geo.city_name
-| City name.
+| host.os.full
+| Operating system name, including the version or code name.
 
 type: keyword
 
-example: `Montreal`
+example: `Mac OS Mojave`
 
-| core
+| extended
+
+// ===============================================================
+
+| host.os.kernel
+| Operating system kernel version as a raw string.
+
+type: keyword
+
+example: `4.4.0-112-generic`
+
+| extended
+
+// ===============================================================
+
+| host.os.name
+| Operating system name, without the version.
+
+type: keyword
+
+example: `Mac OS X`
+
+| extended
+
+// ===============================================================
+
+| host.os.platform
+| Operating system platform (such centos, ubuntu, windows).
+
+type: keyword
+
+example: `darwin`
+
+| extended
 
 // ===============================================================
 
@@ -2094,60 +2073,81 @@ type: keyword
 
 // ===============================================================
 
-| host.geo.country_iso_code
-| Country ISO code.
+| host.user.email
+| User email address.
 
 type: keyword
 
-example: `CA`
 
-| core
-
-// ===============================================================
-
-| host.os.kernel
-| Operating system kernel version as a raw string.
-
-type: keyword
-
-example: `4.4.0-112-generic`
 
 | extended
 
 // ===============================================================
 
-| host.architecture
-| Operating system architecture.
+| host.user.full_name
+| User's full name, if available.
 
 type: keyword
 
-example: `x86_64`
-
-| core
-
-// ===============================================================
-
-| host.geo.region_iso_code
-| Region ISO code.
-
-type: keyword
-
-example: `CA-QC`
-
-| core
-
-// ===============================================================
-
-| host.geo.name
-| User-defined description of a location, at the level of granularity they care about.
-Could be the name of their data centers, the floor number, if this describes a local physical entity, city names.
-Not typically used in automated geolocation.
-
-type: keyword
-
-example: `boston-dc`
+example: `Albert Einstein`
 
 | extended
+
+// ===============================================================
+
+| host.user.group.id
+| Unique identifier for the group on the system/platform.
+
+type: keyword
+
+
+
+| extended
+
+// ===============================================================
+
+| host.user.group.name
+| Name of the group.
+
+type: keyword
+
+
+
+| extended
+
+// ===============================================================
+
+| host.user.hash
+| Unique user hash to correlate information for a user in anonymized form.
+Useful if `user.id` or `user.name` contain confidential information and cannot be used.
+
+type: keyword
+
+
+
+| extended
+
+// ===============================================================
+
+| host.user.id
+| One or multiple unique identifiers of the user.
+
+type: keyword
+
+
+
+| core
+
+// ===============================================================
+
+| host.user.name
+| Short name or login of the user.
+
+type: keyword
+
+example: `albert`
+
+| core
 
 // ===============================================================
 
@@ -2196,13 +2196,12 @@ Fields related to HTTP activity. Use the `url` field set to store the url of the
 
 // ===============================================================
 
-| http.request.method
-| HTTP request method.
-The field value must be normalized to lowercase for querying. See the documentation section "Implementing ECS".
+| http.request.body.bytes
+| Size in bytes of the request body.
 
-type: keyword
+type: long
 
-example: `get, post, put`
+example: `887`
 
 | extended
 
@@ -2219,6 +2218,29 @@ example: `Hello world`
 
 // ===============================================================
 
+| http.request.bytes
+| Total size in bytes of the request (body and headers).
+
+type: long
+
+example: `1437`
+
+| extended
+
+// ===============================================================
+
+| http.request.method
+| HTTP request method.
+The field value must be normalized to lowercase for querying. See the documentation section "Implementing ECS".
+
+type: keyword
+
+example: `get, post, put`
+
+| extended
+
+// ===============================================================
+
 | http.request.referrer
 | Referrer for this HTTP request.
 
@@ -2230,12 +2252,12 @@ example: `https://blog.example.com/`
 
 // ===============================================================
 
-| http.response.status_code
-| HTTP response status code.
+| http.response.body.bytes
+| Size in bytes of the response body.
 
 type: long
 
-example: `404`
+example: `887`
 
 | extended
 
@@ -2252,39 +2274,6 @@ example: `Hello world`
 
 // ===============================================================
 
-| http.version
-| HTTP version.
-
-type: keyword
-
-example: `1.1`
-
-| extended
-
-// ===============================================================
-
-| http.request.bytes
-| Total size in bytes of the request (body and headers).
-
-type: long
-
-example: `1437`
-
-| extended
-
-// ===============================================================
-
-| http.request.body.bytes
-| Size in bytes of the request body.
-
-type: long
-
-example: `887`
-
-| extended
-
-// ===============================================================
-
 | http.response.bytes
 | Total size in bytes of the response (body and headers).
 
@@ -2296,12 +2285,23 @@ example: `1437`
 
 // ===============================================================
 
-| http.response.body.bytes
-| Size in bytes of the response body.
+| http.response.status_code
+| HTTP response status code.
 
 type: long
 
-example: `887`
+example: `404`
+
+| extended
+
+// ===============================================================
+
+| http.version
+| HTTP version.
+
+type: keyword
+
+example: `1.1`
 
 | extended
 
@@ -2423,52 +2423,6 @@ The network.* fields should be populated with details about the network activity
 
 // ===============================================================
 
-| network.name
-| Name given by operators to sections of their network.
-
-type: keyword
-
-example: `Guest Wifi`
-
-| extended
-
-// ===============================================================
-
-| network.type
-| In the OSI Model this would be the Network Layer. ipv4, ipv6, ipsec, pim, etc
-The field value must be normalized to lowercase for querying. See the documentation section "Implementing ECS".
-
-type: keyword
-
-example: `ipv4`
-
-| core
-
-// ===============================================================
-
-| network.iana_number
-| IANA Protocol Number (https://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml). Standardized list of protocols. This aligns well with NetFlow and sFlow related logs which use the IANA Protocol Number.
-
-type: keyword
-
-example: `6`
-
-| extended
-
-// ===============================================================
-
-| network.transport
-| Same as network.iana_number, but instead using the Keyword name of the transport layer (udp, tcp, ipv6-icmp, etc.)
-The field value must be normalized to lowercase for querying. See the documentation section "Implementing ECS".
-
-type: keyword
-
-example: `tcp`
-
-| core
-
-// ===============================================================
-
 | network.application
 | A name given to an application level protocol. This can be arbitrarily assigned for things like microservices, but also apply to things like skype, icq, facebook, twitter. This would be used in situations where the vendor or service can be decoded such as from the source/dest IP owners, ports, or wire format.
 The field value must be normalized to lowercase for querying. See the documentation section "Implementing ECS".
@@ -2481,15 +2435,27 @@ example: `aim`
 
 // ===============================================================
 
-| network.protocol
-| L7 Network protocol name. ex. http, lumberjack, transport protocol.
-The field value must be normalized to lowercase for querying. See the documentation section "Implementing ECS".
+| network.bytes
+| Total bytes transferred in both directions.
+If `source.bytes` and `destination.bytes` are known, `network.bytes` is their sum.
+
+type: long
+
+example: `368`
+
+| core
+
+// ===============================================================
+
+| network.community_id
+| A hash of source and destination IPs and ports, as well as the protocol used in a communication. This is a tool-agnostic standard to identify flows.
+Learn more at https://github.com/corelight/community-id-spec.
 
 type: keyword
 
-example: `http`
+example: `1:hO+sN4H+MG5MY/8hIrXPqc4ZQz0=`
 
-| core
+| extended
 
 // ===============================================================
 
@@ -2524,27 +2490,25 @@ example: `192.1.1.2`
 
 // ===============================================================
 
-| network.community_id
-| A hash of source and destination IPs and ports, as well as the protocol used in a communication. This is a tool-agnostic standard to identify flows.
-Learn more at https://github.com/corelight/community-id-spec.
+| network.iana_number
+| IANA Protocol Number (https://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml). Standardized list of protocols. This aligns well with NetFlow and sFlow related logs which use the IANA Protocol Number.
 
 type: keyword
 
-example: `1:hO+sN4H+MG5MY/8hIrXPqc4ZQz0=`
+example: `6`
 
 | extended
 
 // ===============================================================
 
-| network.bytes
-| Total bytes transferred in both directions.
-If `source.bytes` and `destination.bytes` are known, `network.bytes` is their sum.
+| network.name
+| Name given by operators to sections of their network.
 
-type: long
+type: keyword
 
-example: `368`
+example: `Guest Wifi`
 
-| core
+| extended
 
 // ===============================================================
 
@@ -2555,6 +2519,42 @@ If `source.packets` and `destination.packets` are known, `network.packets` is th
 type: long
 
 example: `24`
+
+| core
+
+// ===============================================================
+
+| network.protocol
+| L7 Network protocol name. ex. http, lumberjack, transport protocol.
+The field value must be normalized to lowercase for querying. See the documentation section "Implementing ECS".
+
+type: keyword
+
+example: `http`
+
+| core
+
+// ===============================================================
+
+| network.transport
+| Same as network.iana_number, but instead using the Keyword name of the transport layer (udp, tcp, ipv6-icmp, etc.)
+The field value must be normalized to lowercase for querying. See the documentation section "Implementing ECS".
+
+type: keyword
+
+example: `tcp`
+
+| core
+
+// ===============================================================
+
+| network.type
+| In the OSI Model this would be the Network Layer. ipv4, ipv6, ipsec, pim, etc
+The field value must be normalized to lowercase for querying. See the documentation section "Implementing ECS".
+
+type: keyword
+
+example: `ipv4`
 
 | core
 
@@ -2606,45 +2606,12 @@ This could be a custom hardware appliance or a server that has been configured t
 
 // ===============================================================
 
-| observer.mac
-| MAC address of the observer
+| observer.geo.city_name
+| City name.
 
 type: keyword
 
-
-
-| core
-
-// ===============================================================
-
-| observer.geo.location
-| Longitude and latitude.
-
-type: geo_point
-
-example: `{ "lon": -73.614830, "lat": 45.505918 }`
-
-| core
-
-// ===============================================================
-
-| observer.os.platform
-| Operating system platform (such centos, ubuntu, windows).
-
-type: keyword
-
-example: `darwin`
-
-| extended
-
-// ===============================================================
-
-| observer.ip
-| IP address of the observer.
-
-type: ip
-
-
+example: `Montreal`
 
 | core
 
@@ -2661,23 +2628,12 @@ example: `North America`
 
 // ===============================================================
 
-| observer.os.name
-| Operating system name, without the version.
+| observer.geo.country_iso_code
+| Country ISO code.
 
 type: keyword
 
-example: `Mac OS X`
-
-| extended
-
-// ===============================================================
-
-| observer.hostname
-| Hostname of the observer.
-
-type: keyword
-
-
+example: `CA`
 
 | core
 
@@ -2694,19 +2650,76 @@ example: `Canada`
 
 // ===============================================================
 
-| observer.os.full
-| Operating system name, including the version or code name.
+| observer.geo.location
+| Longitude and latitude.
+
+type: geo_point
+
+example: `{ "lon": -73.614830, "lat": 45.505918 }`
+
+| core
+
+// ===============================================================
+
+| observer.geo.name
+| User-defined description of a location, at the level of granularity they care about.
+Could be the name of their data centers, the floor number, if this describes a local physical entity, city names.
+Not typically used in automated geolocation.
 
 type: keyword
 
-example: `Mac OS Mojave`
+example: `boston-dc`
 
 | extended
 
 // ===============================================================
 
-| observer.vendor
-| observer vendor information.
+| observer.geo.region_iso_code
+| Region ISO code.
+
+type: keyword
+
+example: `CA-QC`
+
+| core
+
+// ===============================================================
+
+| observer.geo.region_name
+| Region name.
+
+type: keyword
+
+example: `Quebec`
+
+| core
+
+// ===============================================================
+
+| observer.hostname
+| Hostname of the observer.
+
+type: keyword
+
+
+
+| core
+
+// ===============================================================
+
+| observer.ip
+| IP address of the observer.
+
+type: ip
+
+
+
+| core
+
+// ===============================================================
+
+| observer.mac
+| MAC address of the observer
 
 type: keyword
 
@@ -2727,36 +2740,47 @@ example: `debian`
 
 // ===============================================================
 
-| observer.geo.region_name
-| Region name.
+| observer.os.full
+| Operating system name, including the version or code name.
 
 type: keyword
 
-example: `Quebec`
+example: `Mac OS Mojave`
 
-| core
+| extended
 
 // ===============================================================
 
-| observer.version
-| Observer version.
+| observer.os.kernel
+| Operating system kernel version as a raw string.
 
 type: keyword
 
+example: `4.4.0-112-generic`
 
-
-| core
+| extended
 
 // ===============================================================
 
-| observer.geo.city_name
-| City name.
+| observer.os.name
+| Operating system name, without the version.
 
 type: keyword
 
-example: `Montreal`
+example: `Mac OS X`
 
-| core
+| extended
+
+// ===============================================================
+
+| observer.os.platform
+| Operating system platform (such centos, ubuntu, windows).
+
+type: keyword
+
+example: `darwin`
+
+| extended
 
 // ===============================================================
 
@@ -2782,28 +2806,6 @@ type: keyword
 
 // ===============================================================
 
-| observer.geo.country_iso_code
-| Country ISO code.
-
-type: keyword
-
-example: `CA`
-
-| core
-
-// ===============================================================
-
-| observer.os.kernel
-| Operating system kernel version as a raw string.
-
-type: keyword
-
-example: `4.4.0-112-generic`
-
-| extended
-
-// ===============================================================
-
 | observer.type
 | The type of the observer the data is coming from.
 There is no predefined list of observer types. Some examples are `forwarder`, `firewall`, `ids`, `ips`, `proxy`, `poller`, `sensor`, `APM server`.
@@ -2816,27 +2818,25 @@ example: `firewall`
 
 // ===============================================================
 
-| observer.geo.region_iso_code
-| Region ISO code.
+| observer.vendor
+| observer vendor information.
 
 type: keyword
 
-example: `CA-QC`
+
 
 | core
 
 // ===============================================================
 
-| observer.geo.name
-| User-defined description of a location, at the level of granularity they care about.
-Could be the name of their data centers, the floor number, if this describes a local physical entity, city names.
-Not typically used in automated geolocation.
+| observer.version
+| Observer version.
 
 type: keyword
 
-example: `boston-dc`
 
-| extended
+
+| core
 
 // ===============================================================
 
@@ -2886,8 +2886,8 @@ These fields help you arrange or filter data stored in an index by one or multip
 
 // ===============================================================
 
-| organization.name
-| Organization name.
+| organization.id
+| Unique identifier for the organization.
 
 type: keyword
 
@@ -2897,8 +2897,8 @@ type: keyword
 
 // ===============================================================
 
-| organization.id
-| Unique identifier for the organization.
+| organization.name
+| Organization name.
 
 type: keyword
 
@@ -2953,23 +2953,12 @@ The OS fields contain information about the operating system.
 
 // ===============================================================
 
-| os.platform
-| Operating system platform (such centos, ubuntu, windows).
+| os.family
+| OS family (such as redhat, debian, freebsd, windows).
 
 type: keyword
 
-example: `darwin`
-
-| extended
-
-// ===============================================================
-
-| os.name
-| Operating system name, without the version.
-
-type: keyword
-
-example: `Mac OS X`
+example: `debian`
 
 | extended
 
@@ -2986,12 +2975,34 @@ example: `Mac OS Mojave`
 
 // ===============================================================
 
-| os.family
-| OS family (such as redhat, debian, freebsd, windows).
+| os.kernel
+| Operating system kernel version as a raw string.
 
 type: keyword
 
-example: `debian`
+example: `4.4.0-112-generic`
+
+| extended
+
+// ===============================================================
+
+| os.name
+| Operating system name, without the version.
+
+type: keyword
+
+example: `Mac OS X`
+
+| extended
+
+// ===============================================================
+
+| os.platform
+| Operating system platform (such centos, ubuntu, windows).
+
+type: keyword
+
+example: `darwin`
 
 | extended
 
@@ -3003,17 +3014,6 @@ example: `debian`
 type: keyword
 
 example: `10.14.1`
-
-| extended
-
-// ===============================================================
-
-| os.kernel
-| Operating system kernel version as a raw string.
-
-type: keyword
-
-example: `4.4.0-112-generic`
 
 | extended
 
@@ -3065,40 +3065,6 @@ These fields can help you correlate metrics information with a process id/name f
 
 // ===============================================================
 
-| process.pid
-| Process id.
-
-type: long
-
-
-
-| core
-
-// ===============================================================
-
-| process.name
-| Process name.
-Sometimes called program name or similar.
-
-type: keyword
-
-example: `ssh`
-
-| extended
-
-// ===============================================================
-
-| process.ppid
-| Process parent id.
-
-type: long
-
-
-
-| extended
-
-// ===============================================================
-
 | process.args
 | Array of process arguments.
 May be filtered to protect sensitive information.
@@ -3122,13 +3088,46 @@ example: `/usr/bin/ssh`
 
 // ===============================================================
 
-| process.title
-| Process title.
-The proctitle, some times the same as process name. Can also be different: for example a browser setting its title to the web page currently opened.
+| process.name
+| Process name.
+Sometimes called program name or similar.
 
 type: keyword
 
+example: `ssh`
 
+| extended
+
+// ===============================================================
+
+| process.pid
+| Process id.
+
+type: long
+
+
+
+| core
+
+// ===============================================================
+
+| process.ppid
+| Process parent id.
+
+type: long
+
+
+
+| extended
+
+// ===============================================================
+
+| process.start
+| The time the process started.
+
+type: date
+
+example: `2016-05-23T08:05:34.853Z`
 
 | extended
 
@@ -3145,12 +3144,13 @@ example: `4242`
 
 // ===============================================================
 
-| process.start
-| The time the process started.
+| process.title
+| Process title.
+The proctitle, some times the same as process name. Can also be different: for example a browser setting its title to the web page currently opened.
 
-type: date
+type: keyword
 
-example: `2016-05-23T08:05:34.853Z`
+
 
 | extended
 
@@ -3284,19 +3284,19 @@ type: keyword
 
 // ===============================================================
 
-| server.geo.location
-| Longitude and latitude.
+| server.bytes
+| Bytes sent from the server to the client.
 
-type: geo_point
+type: long
 
-example: `{ "lon": -73.614830, "lat": 45.505918 }`
+example: `184`
 
 | core
 
 // ===============================================================
 
-| server.user.id
-| One or multiple unique identifiers of the user.
+| server.domain
+| Server domain.
 
 type: keyword
 
@@ -3306,37 +3306,14 @@ type: keyword
 
 // ===============================================================
 
-| server.user.group.id
-| Unique identifier for the group on the system/platform.
+| server.geo.city_name
+| City name.
 
 type: keyword
 
-
-
-| extended
-
-// ===============================================================
-
-| server.ip
-| IP address of the server.
-Can be one or multiple IPv4 or IPv6 addresses.
-
-type: ip
-
-
+example: `Montreal`
 
 | core
-
-// ===============================================================
-
-| server.user.group.name
-| Name of the group.
-
-type: keyword
-
-
-
-| extended
 
 // ===============================================================
 
@@ -3351,23 +3328,12 @@ example: `North America`
 
 // ===============================================================
 
-| server.user.name
-| Short name or login of the user.
+| server.geo.country_iso_code
+| Country ISO code.
 
 type: keyword
 
-example: `albert`
-
-| core
-
-// ===============================================================
-
-| server.port
-| Port of the server.
-
-type: long
-
-
+example: `CA`
 
 | core
 
@@ -3384,14 +3350,61 @@ example: `Canada`
 
 // ===============================================================
 
-| server.user.full_name
-| User's full name, if available.
+| server.geo.location
+| Longitude and latitude.
+
+type: geo_point
+
+example: `{ "lon": -73.614830, "lat": 45.505918 }`
+
+| core
+
+// ===============================================================
+
+| server.geo.name
+| User-defined description of a location, at the level of granularity they care about.
+Could be the name of their data centers, the floor number, if this describes a local physical entity, city names.
+Not typically used in automated geolocation.
 
 type: keyword
 
-example: `Albert Einstein`
+example: `boston-dc`
 
 | extended
+
+// ===============================================================
+
+| server.geo.region_iso_code
+| Region ISO code.
+
+type: keyword
+
+example: `CA-QC`
+
+| core
+
+// ===============================================================
+
+| server.geo.region_name
+| Region name.
+
+type: keyword
+
+example: `Quebec`
+
+| core
+
+// ===============================================================
+
+| server.ip
+| IP address of the server.
+Can be one or multiple IPv4 or IPv6 addresses.
+
+type: ip
+
+
+
+| core
 
 // ===============================================================
 
@@ -3399,6 +3412,28 @@ example: `Albert Einstein`
 | MAC address of the server.
 
 type: keyword
+
+
+
+| core
+
+// ===============================================================
+
+| server.packets
+| Packets sent from the server to the client.
+
+type: long
+
+example: `12`
+
+| core
+
+// ===============================================================
+
+| server.port
+| Port of the server.
+
+type: long
 
 
 
@@ -3417,25 +3452,36 @@ type: keyword
 
 // ===============================================================
 
-| server.geo.region_name
-| Region name.
+| server.user.full_name
+| User's full name, if available.
 
 type: keyword
 
-example: `Quebec`
+example: `Albert Einstein`
 
-| core
+| extended
 
 // ===============================================================
 
-| server.domain
-| Server domain.
+| server.user.group.id
+| Unique identifier for the group on the system/platform.
 
 type: keyword
 
 
 
-| core
+| extended
+
+// ===============================================================
+
+| server.user.group.name
+| Name of the group.
+
+type: keyword
+
+
+
+| extended
 
 // ===============================================================
 
@@ -3451,71 +3497,25 @@ type: keyword
 
 // ===============================================================
 
-| server.geo.city_name
-| City name.
+| server.user.id
+| One or multiple unique identifiers of the user.
 
 type: keyword
 
-example: `Montreal`
+
 
 | core
 
 // ===============================================================
 
-| server.bytes
-| Bytes sent from the server to the client.
-
-type: long
-
-example: `184`
-
-| core
-
-// ===============================================================
-
-| server.geo.country_iso_code
-| Country ISO code.
+| server.user.name
+| Short name or login of the user.
 
 type: keyword
 
-example: `CA`
+example: `albert`
 
 | core
-
-// ===============================================================
-
-| server.packets
-| Packets sent from the server to the client.
-
-type: long
-
-example: `12`
-
-| core
-
-// ===============================================================
-
-| server.geo.region_iso_code
-| Region ISO code.
-
-type: keyword
-
-example: `CA-QC`
-
-| core
-
-// ===============================================================
-
-| server.geo.name
-| User-defined description of a location, at the level of granularity they care about.
-Could be the name of their data centers, the floor number, if this describes a local physical entity, city names.
-Not typically used in automated geolocation.
-
-type: keyword
-
-example: `boston-dc`
-
-| extended
 
 // ===============================================================
 
@@ -3565,6 +3565,18 @@ These fields help you find and correlate logs for a specific service and version
 
 // ===============================================================
 
+| service.ephemeral_id
+| Ephemeral identifier of this service (if one exists).
+This id normally changes across restarts, but `service.id` does not.
+
+type: keyword
+
+example: `8a4f500f`
+
+| extended
+
+// ===============================================================
+
 | service.id
 | Unique identifier of the running service.
 This id should uniquely identify this service. This makes it possible to correlate logs and metrics for one specific service.
@@ -3592,6 +3604,17 @@ example: `elasticsearch-metrics`
 
 // ===============================================================
 
+| service.state
+| Current state of the service.
+
+type: keyword
+
+
+
+| core
+
+// ===============================================================
+
 | service.type
 | The type of the service data is collected from.
 The type can be used to group and correlate logs and metrics from one service type.
@@ -3600,17 +3623,6 @@ Example: If logs or metrics are collected from Elasticsearch, `service.type` wou
 type: keyword
 
 example: `elasticsearch`
-
-| core
-
-// ===============================================================
-
-| service.state
-| Current state of the service.
-
-type: keyword
-
-
 
 | core
 
@@ -3625,18 +3637,6 @@ type: keyword
 example: `3.2.4`
 
 | core
-
-// ===============================================================
-
-| service.ephemeral_id
-| Ephemeral identifier of this service (if one exists).
-This id normally changes across restarts, but `service.id` does not.
-
-type: keyword
-
-example: `8a4f500f`
-
-| extended
 
 // ===============================================================
 
@@ -3698,19 +3698,19 @@ type: keyword
 
 // ===============================================================
 
-| source.geo.location
-| Longitude and latitude.
+| source.bytes
+| Bytes sent from the source to the destination.
 
-type: geo_point
+type: long
 
-example: `{ "lon": -73.614830, "lat": 45.505918 }`
+example: `184`
 
 | core
 
 // ===============================================================
 
-| source.user.id
-| One or multiple unique identifiers of the user.
+| source.domain
+| Source domain.
 
 type: keyword
 
@@ -3720,37 +3720,14 @@ type: keyword
 
 // ===============================================================
 
-| source.user.group.id
-| Unique identifier for the group on the system/platform.
+| source.geo.city_name
+| City name.
 
 type: keyword
 
-
-
-| extended
-
-// ===============================================================
-
-| source.ip
-| IP address of the source.
-Can be one or multiple IPv4 or IPv6 addresses.
-
-type: ip
-
-
+example: `Montreal`
 
 | core
-
-// ===============================================================
-
-| source.user.group.name
-| Name of the group.
-
-type: keyword
-
-
-
-| extended
 
 // ===============================================================
 
@@ -3765,23 +3742,12 @@ example: `North America`
 
 // ===============================================================
 
-| source.user.name
-| Short name or login of the user.
+| source.geo.country_iso_code
+| Country ISO code.
 
 type: keyword
 
-example: `albert`
-
-| core
-
-// ===============================================================
-
-| source.port
-| Port of the source.
-
-type: long
-
-
+example: `CA`
 
 | core
 
@@ -3798,14 +3764,61 @@ example: `Canada`
 
 // ===============================================================
 
-| source.user.full_name
-| User's full name, if available.
+| source.geo.location
+| Longitude and latitude.
+
+type: geo_point
+
+example: `{ "lon": -73.614830, "lat": 45.505918 }`
+
+| core
+
+// ===============================================================
+
+| source.geo.name
+| User-defined description of a location, at the level of granularity they care about.
+Could be the name of their data centers, the floor number, if this describes a local physical entity, city names.
+Not typically used in automated geolocation.
 
 type: keyword
 
-example: `Albert Einstein`
+example: `boston-dc`
 
 | extended
+
+// ===============================================================
+
+| source.geo.region_iso_code
+| Region ISO code.
+
+type: keyword
+
+example: `CA-QC`
+
+| core
+
+// ===============================================================
+
+| source.geo.region_name
+| Region name.
+
+type: keyword
+
+example: `Quebec`
+
+| core
+
+// ===============================================================
+
+| source.ip
+| IP address of the source.
+Can be one or multiple IPv4 or IPv6 addresses.
+
+type: ip
+
+
+
+| core
 
 // ===============================================================
 
@@ -3813,6 +3826,28 @@ example: `Albert Einstein`
 | MAC address of the source.
 
 type: keyword
+
+
+
+| core
+
+// ===============================================================
+
+| source.packets
+| Packets sent from the source to the destination.
+
+type: long
+
+example: `12`
+
+| core
+
+// ===============================================================
+
+| source.port
+| Port of the source.
+
+type: long
 
 
 
@@ -3831,25 +3866,36 @@ type: keyword
 
 // ===============================================================
 
-| source.geo.region_name
-| Region name.
+| source.user.full_name
+| User's full name, if available.
 
 type: keyword
 
-example: `Quebec`
+example: `Albert Einstein`
 
-| core
+| extended
 
 // ===============================================================
 
-| source.domain
-| Source domain.
+| source.user.group.id
+| Unique identifier for the group on the system/platform.
 
 type: keyword
 
 
 
-| core
+| extended
+
+// ===============================================================
+
+| source.user.group.name
+| Name of the group.
+
+type: keyword
+
+
+
+| extended
 
 // ===============================================================
 
@@ -3865,71 +3911,25 @@ type: keyword
 
 // ===============================================================
 
-| source.geo.city_name
-| City name.
+| source.user.id
+| One or multiple unique identifiers of the user.
 
 type: keyword
 
-example: `Montreal`
+
 
 | core
 
 // ===============================================================
 
-| source.bytes
-| Bytes sent from the source to the destination.
-
-type: long
-
-example: `184`
-
-| core
-
-// ===============================================================
-
-| source.geo.country_iso_code
-| Country ISO code.
+| source.user.name
+| Short name or login of the user.
 
 type: keyword
 
-example: `CA`
+example: `albert`
 
 | core
-
-// ===============================================================
-
-| source.packets
-| Packets sent from the source to the destination.
-
-type: long
-
-example: `12`
-
-| core
-
-// ===============================================================
-
-| source.geo.region_iso_code
-| Region ISO code.
-
-type: keyword
-
-example: `CA-QC`
-
-| core
-
-// ===============================================================
-
-| source.geo.name
-| User-defined description of a location, at the level of granularity they care about.
-Could be the name of their data centers, the floor number, if this describes a local physical entity, city names.
-Not typically used in automated geolocation.
-
-type: keyword
-
-example: `boston-dc`
-
-| extended
 
 // ===============================================================
 
@@ -3978,42 +3978,6 @@ URL fields provide support for complete or partial URLs, and supports the breaki
 
 // ===============================================================
 
-| url.original
-| Unmodified original url as seen in the event source.
-Note that in network monitoring, the observed URL may be a full URL, whereas in access logs, the URL is often just represented as a path.
-This field is meant to represent the URL as it was observed, complete or not.
-
-type: keyword
-
-example: `https://www.elastic.co:443/search?q=elasticsearch#top or /search?q=elasticsearch`
-
-| extended
-
-// ===============================================================
-
-| url.full
-| If full URLs are important to your use case, they should be stored in `url.full`, whether this field is reconstructed or present in the event source.
-
-type: keyword
-
-example: `https://www.elastic.co:443/search?q=elasticsearch#top`
-
-| extended
-
-// ===============================================================
-
-| url.scheme
-| Scheme of the request, such as "https".
-Note: The `:` is not part of the scheme.
-
-type: keyword
-
-example: `https`
-
-| extended
-
-// ===============================================================
-
 | url.domain
 | Domain of the url, such as "www.elastic.co".
 In some cases a URL may refer to an IP and/or port directly, without a domain name. In this case, the IP address would go to the `domain` field.
@@ -4021,40 +3985,6 @@ In some cases a URL may refer to an IP and/or port directly, without a domain na
 type: keyword
 
 example: `www.elastic.co`
-
-| extended
-
-// ===============================================================
-
-| url.port
-| Port of the request, such as 443.
-
-type: long
-
-example: `443`
-
-| extended
-
-// ===============================================================
-
-| url.path
-| Path of the request, such as "/search".
-
-type: keyword
-
-
-
-| extended
-
-// ===============================================================
-
-| url.query
-| The query field describes the query string of the request, such as "q=elasticsearch".
-The `?` is excluded from the query string. If a URL contains no `?`, there is no query field. If there is a `?` but no query, the query field exists with an empty string. The `exists` query can be used to differentiate between the two cases.
-
-type: keyword
-
-
 
 | extended
 
@@ -4072,8 +4002,32 @@ type: keyword
 
 // ===============================================================
 
-| url.username
-| Username of the request.
+| url.full
+| If full URLs are important to your use case, they should be stored in `url.full`, whether this field is reconstructed or present in the event source.
+
+type: keyword
+
+example: `https://www.elastic.co:443/search?q=elasticsearch#top`
+
+| extended
+
+// ===============================================================
+
+| url.original
+| Unmodified original url as seen in the event source.
+Note that in network monitoring, the observed URL may be a full URL, whereas in access logs, the URL is often just represented as a path.
+This field is meant to represent the URL as it was observed, complete or not.
+
+type: keyword
+
+example: `https://www.elastic.co:443/search?q=elasticsearch#top or /search?q=elasticsearch`
+
+| extended
+
+// ===============================================================
+
+| url.password
+| Password of the request.
 
 type: keyword
 
@@ -4083,8 +4037,54 @@ type: keyword
 
 // ===============================================================
 
-| url.password
-| Password of the request.
+| url.path
+| Path of the request, such as "/search".
+
+type: keyword
+
+
+
+| extended
+
+// ===============================================================
+
+| url.port
+| Port of the request, such as 443.
+
+type: long
+
+example: `443`
+
+| extended
+
+// ===============================================================
+
+| url.query
+| The query field describes the query string of the request, such as "q=elasticsearch".
+The `?` is excluded from the query string. If a URL contains no `?`, there is no query field. If there is a `?` but no query, the query field exists with an empty string. The `exists` query can be used to differentiate between the two cases.
+
+type: keyword
+
+
+
+| extended
+
+// ===============================================================
+
+| url.scheme
+| Scheme of the request, such as "https".
+Note: The `:` is not part of the scheme.
+
+type: keyword
+
+example: `https`
+
+| extended
+
+// ===============================================================
+
+| url.username
+| Username of the request.
 
 type: keyword
 
@@ -4140,14 +4140,25 @@ Fields can have one entry or multiple entries. If a user has more than one id, p
 
 // ===============================================================
 
-| user.id
-| One or multiple unique identifiers of the user.
+| user.email
+| User email address.
 
 type: keyword
 
 
 
-| core
+| extended
+
+// ===============================================================
+
+| user.full_name
+| User's full name, if available.
+
+type: keyword
+
+example: `Albert Einstein`
+
+| extended
 
 // ===============================================================
 
@@ -4173,39 +4184,6 @@ type: keyword
 
 // ===============================================================
 
-| user.name
-| Short name or login of the user.
-
-type: keyword
-
-example: `albert`
-
-| core
-
-// ===============================================================
-
-| user.full_name
-| User's full name, if available.
-
-type: keyword
-
-example: `Albert Einstein`
-
-| extended
-
-// ===============================================================
-
-| user.email
-| User email address.
-
-type: keyword
-
-
-
-| extended
-
-// ===============================================================
-
 | user.hash
 | Unique user hash to correlate information for a user in anonymized form.
 Useful if `user.id` or `user.name` contain confidential information and cannot be used.
@@ -4215,6 +4193,28 @@ type: keyword
 
 
 | extended
+
+// ===============================================================
+
+| user.id
+| One or multiple unique identifiers of the user.
+
+type: keyword
+
+
+
+| core
+
+// ===============================================================
+
+| user.name
+| Short name or login of the user.
+
+type: keyword
+
+example: `albert`
+
+| core
 
 // ===============================================================
 
@@ -4264,23 +4264,12 @@ They often show up in web service logs coming from the parsed user agent string.
 
 // ===============================================================
 
-| user_agent.original
-| Unparsed version of the user_agent.
+| user_agent.device.name
+| Name of the device.
 
 type: keyword
 
-example: `Mozilla/5.0 (iPhone; CPU iPhone OS 12_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0 Mobile/15E148 Safari/604.1`
-
-| extended
-
-// ===============================================================
-
-| user_agent.os.platform
-| Operating system platform (such centos, ubuntu, windows).
-
-type: keyword
-
-example: `darwin`
+example: `iPhone`
 
 | extended
 
@@ -4297,45 +4286,12 @@ example: `Safari`
 
 // ===============================================================
 
-| user_agent.os.name
-| Operating system name, without the version.
+| user_agent.original
+| Unparsed version of the user_agent.
 
 type: keyword
 
-example: `Mac OS X`
-
-| extended
-
-// ===============================================================
-
-| user_agent.version
-| Version of the user agent.
-
-type: keyword
-
-example: `12.0`
-
-| extended
-
-// ===============================================================
-
-| user_agent.os.full
-| Operating system name, including the version or code name.
-
-type: keyword
-
-example: `Mac OS Mojave`
-
-| extended
-
-// ===============================================================
-
-| user_agent.device.name
-| Name of the device.
-
-type: keyword
-
-example: `iPhone`
+example: `Mozilla/5.0 (iPhone; CPU iPhone OS 12_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0 Mobile/15E148 Safari/604.1`
 
 | extended
 
@@ -4352,12 +4308,12 @@ example: `debian`
 
 // ===============================================================
 
-| user_agent.os.version
-| Operating system version as a raw string.
+| user_agent.os.full
+| Operating system name, including the version or code name.
 
 type: keyword
 
-example: `10.14.1`
+example: `Mac OS Mojave`
 
 | extended
 
@@ -4369,6 +4325,50 @@ example: `10.14.1`
 type: keyword
 
 example: `4.4.0-112-generic`
+
+| extended
+
+// ===============================================================
+
+| user_agent.os.name
+| Operating system name, without the version.
+
+type: keyword
+
+example: `Mac OS X`
+
+| extended
+
+// ===============================================================
+
+| user_agent.os.platform
+| Operating system platform (such centos, ubuntu, windows).
+
+type: keyword
+
+example: `darwin`
+
+| extended
+
+// ===============================================================
+
+| user_agent.os.version
+| Operating system version as a raw string.
+
+type: keyword
+
+example: `10.14.1`
+
+| extended
+
+// ===============================================================
+
+| user_agent.version
+| Version of the user agent.
+
+type: keyword
+
+example: `12.0`
 
 | extended
 
