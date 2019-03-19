@@ -1,10 +1,12 @@
 
 [[ecs-base]]
-=== Base fields
+=== Base Fields
 
 The `base` field set contains all fields which are on the top level. These fields are common across all types of events.
 
-==== Base Fields
+
+
+==== Base Field Details
 
 [options="header"]
 |=====
@@ -66,12 +68,14 @@ example: `["production", "env2"]`
 |=====
 
 [[ecs-agent]]
-=== Agent fields
+=== Agent Fields
 
 The agent fields contain the data about the software entity, if any, that collects, detects, or observes events on a host, or takes measurements on a host.
 Examples include Beats. Agents may also run on observers. ECS agent.* fields shall be populated with details of the agent running on the host or observer where the event happened or the measurement was taken.
 
-==== Agent Fields
+
+
+==== Agent Field Details
 
 [options="header"]
 |=====
@@ -142,13 +146,15 @@ example: `6.0.0-rc2`
 |=====
 
 [[ecs-client]]
-=== Client fields
+=== Client Fields
 
 A client is defined as the initiator of a network connection for events regarding sessions, connections, or bidirectional flow records.
 For TCP events, the client is the initiator of the TCP connection that sends the SYN packet(s). For other protocols, the client is generally the initiator or requestor in the network transaction. Some systems use the term "originator" to refer the client in TCP connections. The client fields describe details about the system acting as the client in the network event. Client fields are usually populated in conjunction with server fields.  Client fields are generally not populated for packet-level events.
 Client / server representations can add semantic context to an exchange, which is helpful to visualize the data in certain situations. If your context falls in that category, you should still ensure that source and destination are filled appropriately.
 
-==== Client Fields
+
+
+==== Client Field Details
 
 [options="header"]
 |=====
@@ -262,11 +268,13 @@ type: long
 |=====
 
 [[ecs-cloud]]
-=== Cloud fields
+=== Cloud Fields
 
 Fields related to the cloud or infrastructure the events are coming from.
 
-==== Cloud Fields
+
+
+==== Cloud Field Details
 
 [options="header"]
 |=====
@@ -355,12 +363,14 @@ example: `us-east-1`
 |=====
 
 [[ecs-container]]
-=== Container fields
+=== Container Fields
 
 Container fields are used for meta information about the specific container that is the source of information.
 These fields help correlate data based containers from any runtime.
 
-==== Container Fields
+
+
+==== Container Field Details
 
 [options="header"]
 |=====
@@ -437,12 +447,14 @@ example: `docker`
 |=====
 
 [[ecs-destination]]
-=== Destination fields
+=== Destination Fields
 
 Destination fields describe details about the destination of a packet/event.
 Destination fields are usually populated in conjunction with source fields.
 
-==== Destination Fields
+
+
+==== Destination Field Details
 
 [options="header"]
 |=====
@@ -556,11 +568,13 @@ type: long
 |=====
 
 [[ecs-ecs]]
-=== ECS fields
+=== ECS Fields
 
 Meta-information specific to ECS.
 
-==== ECS Fields
+
+
+==== ECS Field Details
 
 [options="header"]
 |=====
@@ -583,12 +597,14 @@ example: `1.0.0`
 |=====
 
 [[ecs-error]]
-=== Error fields
+=== Error Fields
 
 These fields can represent errors of any kind.
 Use them for errors that happen while fetching events or in cases where the event itself contains an error.
 
-==== Error Fields
+
+
+==== Error Field Details
 
 [options="header"]
 |=====
@@ -632,12 +648,14 @@ type: text
 |=====
 
 [[ecs-event]]
-=== Event fields
+=== Event Fields
 
 The event fields are used for context information about the log or metric event itself.
 A log is defined as an event containing details of something that happened. Log events must include the time at which the thing happened. Examples of log events include a process starting on a host, a network packet being sent from a source to a destination, or a network connection between a client and a server being initiated or closed. A metric is defined as an event containing one or more numerical or categorical measurements and the time at which the measurement was taken. Examples of metric events include memory pressure measured on a host, or vulnerabilities measured on a scanned host.
 
-==== Event Fields
+
+
+==== Event Field Details
 
 [options="header"]
 |=====
@@ -860,12 +878,14 @@ type: keyword
 |=====
 
 [[ecs-file]]
-=== File fields
+=== File Fields
 
 A file is defined as a set of information that has been created on, or has existed on a filesystem.
 File objects can be associated with host events, network events, and/or file events (e.g., those produced by File Integrity Monitoring [FIM] products or services). File fields provide details about the affected file associated with the event or metric.
 
-==== File Fields
+
+
+==== File Field Details
 
 [options="header"]
 |=====
@@ -1031,12 +1051,18 @@ type: keyword
 |=====
 
 [[ecs-geo]]
-=== Geo fields
+=== Geo Fields
 
 Geo fields can carry data about a specific location related to an event.
 This geolocation information can be derived from techniques such as Geo IP, or be user-supplied.
 
-==== Geo Fields
+The `geo` fields are expected to be nested at: `client.geo`, `destination.geo`, `host.geo`, `observer.geo`, `server.geo`, `source.geo`.
+
+Note also that the `geo` fields are not expected to be used directly at the top level.
+
+
+
+==== Geo Field Details
 
 [options="header"]
 |=====
@@ -1137,11 +1163,17 @@ example: `Quebec`
 |=====
 
 [[ecs-group]]
-=== Group fields
+=== Group Fields
 
 The group fields are meant to represent groups that are relevant to the event.
 
-==== Group Fields
+The `group` fields are expected to be nested at: `user.group`.
+
+Note also that the `group` fields may be used directly at the top level.
+
+
+
+==== Group Field Details
 
 [options="header"]
 |=====
@@ -1174,12 +1206,14 @@ type: keyword
 |=====
 
 [[ecs-host]]
-=== Host fields
+=== Host Fields
 
 A host is defined as a general computing instance.
 ECS host.* fields should be populated with details about the host on which the event happened, or from which the measurement was taken. Host types include hardware, virtual machines, Docker containers, and Kubernetes nodes.
 
-==== Host Fields
+
+
+==== Host Field Details
 
 [options="header"]
 |=====
@@ -1302,11 +1336,13 @@ type: keyword
 |=====
 
 [[ecs-http]]
-=== HTTP fields
+=== HTTP Fields
 
 Fields related to HTTP activity. Use the `url` field set to store the url of the request.
 
-==== HTTP Fields
+
+
+==== HTTP Field Details
 
 [options="header"]
 |=====
@@ -1428,11 +1464,13 @@ example: `1.1`
 |=====
 
 [[ecs-log]]
-=== Log fields
+=== Log Fields
 
 Fields which are specific to log events.
 
-==== Log Fields
+
+
+==== Log Field Details
 
 [options="header"]
 |=====
@@ -1468,12 +1506,14 @@ example: `Sep 19 08:26:10 localhost My log`
 |=====
 
 [[ecs-network]]
-=== Network fields
+=== Network Fields
 
 The network is defined as the communication path over which a host or network event happens.
 The network.* fields should be populated with details about the network activity associated with an event.
 
-==== Network Fields
+
+
+==== Network Field Details
 
 [options="header"]
 |=====
@@ -1621,12 +1661,14 @@ example: `ipv4`
 |=====
 
 [[ecs-observer]]
-=== Observer fields
+=== Observer Fields
 
 An observer is defined as a special network, security, or application device used to detect, observe, or create network, security, or application-related events and metrics.
 This could be a custom hardware appliance or a server that has been configured to run special network, security, or application software. Examples include firewalls, intrusion detection/prevention systems, network monitoring sensors, web application firewalls, data loss prevention systems, and APM servers. The observer.* fields shall be populated with details of the system, if any, that detects, observes and/or creates a network, security, or application event or metric. Message queues and ETL components used in processing events or metrics are not considered observers in ECS.
 
-==== Observer Fields
+
+
+==== Observer Field Details
 
 [options="header"]
 |=====
@@ -1739,12 +1781,14 @@ type: keyword
 |=====
 
 [[ecs-organization]]
-=== Organization fields
+=== Organization Fields
 
 The organization fields enrich data with information about the company or entity the data is associated with.
 These fields help you arrange or filter data stored in an index by one or multiple organizations.
 
-==== Organization Fields
+
+
+==== Organization Field Details
 
 [options="header"]
 |=====
@@ -1777,11 +1821,17 @@ type: keyword
 |=====
 
 [[ecs-os]]
-=== Operating System fields
+=== Operating System Fields
 
 The OS fields contain information about the operating system.
 
-==== Operating System Fields
+The `os` fields are expected to be nested at: `host.os`, `observer.os`, `user_agent.os`.
+
+Note also that the `os` fields are not expected to be used directly at the top level.
+
+
+
+==== Operating System Field Details
 
 [options="header"]
 |=====
@@ -1858,12 +1908,14 @@ example: `10.14.1`
 |=====
 
 [[ecs-process]]
-=== Process fields
+=== Process Fields
 
 These fields contain information about a process.
 These fields can help you correlate metrics information with a process id/name from a log message.  The `process.pid` often stays in the metric itself and is copied to the global field for correlation.
 
-==== Process Fields
+
+
+==== Process Field Details
 
 [options="header"]
 |=====
@@ -1976,13 +2028,15 @@ example: `/home/alice`
 |=====
 
 [[ecs-related]]
-=== Related fields
+=== Related Fields
 
 This field set is meant to facilitate pivoting around a piece of data.
 Some pieces of information can be seen in many places in an ECS event. To facilitate searching for them, store an array of all seen values to their corresponding field in `related.`.
 A concrete example is IP addresses, which can be under host, observer, source, destination, client, server, and network.forwarded_ip. If you append all IPs to `related.ip`, you can then search for a given IP trivially, no matter where it appeared, by querying `related.ip:a.b.c.d`.
 
-==== Related Fields
+
+
+==== Related Field Details
 
 [options="header"]
 |=====
@@ -2004,13 +2058,15 @@ type: ip
 |=====
 
 [[ecs-server]]
-=== Server fields
+=== Server Fields
 
 A Server is defined as the responder in a network connection for events regarding sessions, connections, or bidirectional flow records.
 For TCP events, the server is the receiver of the initial SYN packet(s) of the TCP connection. For other protocols, the server is generally the responder in the network transaction. Some systems actually use the term "responder" to refer the server in TCP connections. The server fields describe details about the system acting as the server in the network event. Server fields are usually populated in conjunction with client fields. Server fields are generally not populated for packet-level events.
 Client / server representations can add semantic context to an exchange, which is helpful to visualize the data in certain situations. If your context falls in that category, you should still ensure that source and destination are filled appropriately.
 
-==== Server Fields
+
+
+==== Server Field Details
 
 [options="header"]
 |=====
@@ -2124,12 +2180,14 @@ type: long
 |=====
 
 [[ecs-service]]
-=== Service fields
+=== Service Fields
 
 The service fields describe the service for or from which the data was collected.
 These fields help you find and correlate logs for a specific service and version.
 
-==== Service Fields
+
+
+==== Service Field Details
 
 [options="header"]
 |=====
@@ -2215,12 +2273,14 @@ example: `3.2.4`
 |=====
 
 [[ecs-source]]
-=== Source fields
+=== Source Fields
 
 Source fields describe details about the source of a packet/event.
 Source fields are usually populated in conjunction with destination fields.
 
-==== Source Fields
+
+
+==== Source Field Details
 
 [options="header"]
 |=====
@@ -2334,11 +2394,13 @@ type: long
 |=====
 
 [[ecs-url]]
-=== URL fields
+=== URL Fields
 
 URL fields provide support for complete or partial URLs, and supports the breaking down into scheme, domain, path, and so on.
 
-==== URL Fields
+
+
+==== URL Field Details
 
 [options="header"]
 |=====
@@ -2465,12 +2527,18 @@ type: keyword
 |=====
 
 [[ecs-user]]
-=== User fields
+=== User Fields
 
 The user fields describe information about the user that is relevant to the event.
 Fields can have one entry or multiple entries. If a user has more than one id, provide an array that includes all of them.
 
-==== User Fields
+The `user` fields are expected to be nested at: `client.user`, `destination.user`, `host.user`, `server.user`, `source.user`.
+
+Note also that the `user` fields may be used directly at the top level.
+
+
+
+==== User Field Details
 
 [options="header"]
 |=====
@@ -2555,12 +2623,14 @@ example: `albert`
 |=====
 
 [[ecs-user_agent]]
-=== User agent fields
+=== User agent Fields
 
 The user_agent fields normally come from a browser request.
 They often show up in web service logs coming from the parsed user agent string.
 
-==== User agent Fields
+
+
+==== User agent Field Details
 
 [options="header"]
 |=====

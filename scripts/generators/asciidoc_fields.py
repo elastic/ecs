@@ -51,9 +51,10 @@ def page_field_details(ecs_nested):
 
 def render_fieldset(fieldset, ecs_nested):
     text = field_details_table_header().format(
+        fieldset_title=fieldset['title'],
         fieldset_name=fieldset['name'],
         fieldset_description=fieldset['description'],
-        fieldset_title=fieldset['title']
+        fieldset_reuses=render_fieldset_reuses_text(fieldset)
     )
 
     for field in ecs_helpers.dict_sorted_by_keys(fieldset['fields'], 'flat_name'):
@@ -91,6 +92,25 @@ def render_field_details_row(field):
         field_level=field['level'],
         field_type=field['type'],
     )
+    return text
+
+
+def render_fieldset_reuses_text(fieldset):
+    if 'reusable' not in fieldset:
+        return ''
+
+    section_name = fieldset['name']
+    sorted_fields = sorted(fieldset['reusable']['expected'])
+    rendered_fields = map(lambda f: "`{}.{}`".format(f, section_name), sorted_fields)
+    text = "The `{}` fields are expected to be nested at: {}.\n\n".format(
+        section_name, ', '.join(rendered_fields))
+
+    if 'top_level' in fieldset['reusable'] and fieldset['reusable']['top_level']:
+        template = "Note also that the `{}` fields may be used directly at the top level.\n\n"
+    else:
+        template = "Note also that the `{}` fields are not expected to " + \
+            "be used directly at the top level.\n\n"
+    text += template.format(section_name)
     return text
 
 
@@ -149,11 +169,13 @@ include::field-details.asciidoc[]
 def field_details_table_header():
     return '''
 [[ecs-{fieldset_name}]]
-=== {fieldset_title} fields
+=== {fieldset_title} Fields
 
 {fieldset_description}
 
-==== {fieldset_title} Fields
+{fieldset_reuses}
+
+==== {fieldset_title} Field Details
 
 [options="header"]
 |=====
