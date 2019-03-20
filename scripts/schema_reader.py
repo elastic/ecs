@@ -60,7 +60,6 @@ def schema_set_default_values(schema):
     dict_set_default(schema, 'short', schema['description'])
     if "\n" in schema['short']:
         raise ValueError("Short descriptions must be single line.\nFieldset: {}\n{}".format(schema['name'], schema))
-        # print("Short descriptions must be single line. Fieldset: {}".format(schema['name']))
 
 
 def schema_set_fieldset_prefix(schema):
