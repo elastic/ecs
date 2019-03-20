@@ -145,9 +145,16 @@
       description: >
         A client is defined as the initiator of a network connection for events regarding sessions, connections, or bidirectional flow records.
     
-        For TCP events, the client is the initiator of the TCP connection that sends the SYN packet(s). For other protocols, the client is generally the initiator or requestor in the network transaction. Some systems use the term "originator" to refer the client in TCP connections. The client fields describe details about the system acting as the client in the network event. Client fields are usually populated in conjunction with server fields.  Client fields are generally not populated for packet-level events.
+        For TCP events, the client is the initiator of the TCP connection that sends the SYN packet(s).
+        For other protocols, the client is generally the initiator or requestor in the network transaction.
+        Some systems use the term "originator" to refer the client in TCP connections.
+        The client fields describe details about the system acting as the client in the network event.
+        Client fields are usually populated in conjunction with server fields.
+        Client fields are generally not populated for packet-level events.
     
-        Client / server representations can add semantic context to an exchange, which is helpful to visualize the data in certain situations. If your context falls in that category, you should still ensure that source and destination are filled appropriately.
+        Client / server representations can add semantic context to an exchange,
+        which is helpful to visualize the data in certain situations.
+        If your context falls in that category, you should still ensure that source and destination are filled appropriately.
       type: group
       fields:
     
@@ -448,7 +455,15 @@
       description: >
         The event fields are used for context information about the log or metric event itself.
     
-        A log is defined as an event containing details of something that happened. Log events must include the time at which the thing happened. Examples of log events include a process starting on a host, a network packet being sent from a source to a destination, or a network connection between a client and a server being initiated or closed. A metric is defined as an event containing one or more numerical or categorical measurements and the time at which the measurement was taken. Examples of metric events include memory pressure measured on a host, or vulnerabilities measured on a scanned host.
+        A log is defined as an event containing details of something that happened.
+        Log events must include the time at which the thing happened.
+        Examples of log events include a process starting on a host,
+        a network packet being sent from a source to a destination,
+        or a network connection between a client and a server being initiated or closed.
+        A metric is defined as an event containing one or more numerical or
+        categorical measurements and the time at which the measurement was taken.
+        Examples of metric events include memory pressure measured on a host,
+        or vulnerabilities measured on a scanned host.
       type: group
       fields:
     
@@ -662,7 +677,9 @@
       description: >
          A file is defined as a set of information that has been created on, or has existed on a filesystem.
     
-         File objects can be associated with host events, network events, and/or file events (e.g., those produced by File Integrity Monitoring [FIM] products or services). File fields provide details about the affected file associated with the event or metric.
+         File objects can be associated with host events, network events,
+         and/or file events (e.g., those produced by File Integrity Monitoring [FIM] products or services).
+         File fields provide details about the affected file associated with the event or metric.
       type: group
       fields:
     
@@ -862,7 +879,9 @@
       description: >
         A host is defined as a general computing instance.
     
-        ECS host.* fields should be populated with details about the host on which the event happened, or from which the measurement was taken. Host types include hardware, virtual machines, Docker containers, and Kubernetes nodes.
+        ECS host.* fields should be populated with details about the host on which
+        the event happened, or from which the measurement was taken.
+        Host types include hardware, virtual machines, Docker containers, and Kubernetes nodes.
       type: group
       fields:
     
@@ -1192,9 +1211,16 @@
       group: 2
       short: Fields describing an entity observing the event from outside the host.
       description: >
-        An observer is defined as a special network, security, or application device used to detect, observe, or create network, security, or application-related events and metrics.
+        An observer is defined as a special network, security, or application device
+        used to detect, observe, or create network, security, or application-related events and metrics.
     
-        This could be a custom hardware appliance or a server that has been configured to run special network, security, or application software. Examples include firewalls, intrusion detection/prevention systems, network monitoring sensors, web application firewalls, data loss prevention systems, and APM servers. The observer.* fields shall be populated with details of the system, if any, that detects, observes and/or creates a network, security, or application event or metric. Message queues and ETL components used in processing events or metrics are not considered observers in ECS.
+        This could be a custom hardware appliance or a server that has been configured
+        to run special network, security, or application software.
+        Examples include firewalls, intrusion detection/prevention systems,
+        network monitoring sensors, web application firewalls, data loss prevention systems, and APM servers.
+        The observer.* fields shall be populated with details of the system, if any,
+        that detects, observes and/or creates a network, security, or application event or metric.
+        Message queues and ETL components used in processing events or metrics are not considered observers in ECS.
       type: group
       fields:
         - name: mac
@@ -1414,7 +1440,10 @@
         To facilitate searching for them, store an array of all seen values to their
         corresponding field in `related.`.
     
-        A concrete example is IP addresses, which can be under host, observer, source, destination, client, server, and network.forwarded_ip. If you append all IPs to `related.ip`, you can then search for a given IP trivially, no matter where it appeared, by querying `related.ip:a.b.c.d`.
+        A concrete example is IP addresses, which can be under host, observer, source,
+        destination, client, server, and network.forwarded_ip.
+        If you append all IPs to `related.ip`, you can then search for a given IP trivially,
+        no matter where it appeared, by querying `related.ip:a.b.c.d`.
       type: group
       fields:
     
@@ -1431,9 +1460,16 @@
       description: >
         A Server is defined as the responder in a network connection for events regarding sessions, connections, or bidirectional flow records.
     
-        For TCP events, the server is the receiver of the initial SYN packet(s) of the TCP connection. For other protocols, the server is generally the responder in the network transaction. Some systems actually use the term "responder" to refer the server in TCP connections. The server fields describe details about the system acting as the server in the network event. Server fields are usually populated in conjunction with client fields. Server fields are generally not populated for packet-level events.
+        For TCP events, the server is the receiver of the initial SYN packet(s) of the TCP connection.
+        For other protocols, the server is generally the responder in the network transaction.
+        Some systems actually use the term "responder" to refer the server in TCP connections.
+        The server fields describe details about the system acting as the server in the network event.
+        Server fields are usually populated in conjunction with client fields.
+        Server fields are generally not populated for packet-level events.
     
-        Client / server representations can add semantic context to an exchange, which is helpful to visualize the data in certain situations. If your context falls in that category, you should still ensure that source and destination are filled appropriately.
+        Client / server representations can add semantic context to an exchange,
+        which is helpful to visualize the data in certain situations.
+        If your context falls in that category, you should still ensure that source and destination are filled appropriately.
       type: group
       fields:
     
