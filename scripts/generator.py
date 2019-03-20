@@ -5,6 +5,7 @@ from generators import intermediate_files
 from generators import csv_generator
 from generators import es_template
 from generators import beats
+from generators import asciidoc_fields
 
 
 def main():
@@ -22,6 +23,7 @@ def main():
     csv_generator.generate(ecs_flat, ecs_version)
     es_template.generate(ecs_flat, ecs_version)
     beats.generate(ecs_nested, ecs_version)
+    asciidoc_fields.generate(ecs_nested, ecs_version)
 
 
 def argument_parser():
