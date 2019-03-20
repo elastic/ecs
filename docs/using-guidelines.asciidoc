@@ -1,11 +1,25 @@
-//[[ecs-guidelines]]
-== Guidelines and Best Practices
+[[ecs-guidelines]]
+=== Guidelines and Best Practices
 
 The {ecs} schema serves best when you follow schema guidelines and best
 practices.
 
 [float]
-=== General guidelines
+==== Types of fields
+
+ECS defines "Core" and "Extended" fields.
+
+* *Core fields.* Fields that are the most common across all use cases.
+  Focus on populating these fields first. If consuming ECS events, expect
+  these fields to be populated in most situations.
+
+* *Extended fields.* Any fields that are not a core field.
+  Extended fields may apply to more narrow use cases, or may be more open
+  to interpretation depending on the use case. Extended fields are more likely to
+  change over time.
+
+[float]
+==== General guidelines
 
 * The document MUST have the `@timestamp` field.
 * Use the {ref}/mapping-types.html[data types]
@@ -14,14 +28,14 @@ practices.
 * Map as many fields as possible to ECS.
 
 [float]
-==== Guidelines for writing fields
+===== Guidelines for writing fields
 
 * All fields must be lower case
 * Combine words using underscore
 * No special characters except `_`
 
 [float]
-==== Guidelines for naming fields
+===== Guidelines for naming fields
 
 * *Present tense.* Use present tense unless field describes historical information.
 * *Singular or plural.* Use singular and plural names properly to reflect the field content. For example, use `requests_per_sec` rather than `request_per_sec`.
@@ -36,6 +50,3 @@ ingesting to Elasticsearch using the API, your fields must be nested
 objects, not strings containing dots.
 
 * *Avoid abbreviations when possible*. A few exceptions like `ip` exist.
-
-
-

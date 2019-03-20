@@ -148,8 +148,14 @@ def table_footer():
 
 def index_header():
     return '''
-[[ecs-fields]]
-== {ecs} Fields
+[[ecs-field-reference]]
+== {ecs} Field Reference
+
+ECS defines multiple groups of related fields. They are called "field sets".
+The <<ecs-base,Base>> field set is the only one whose fields are defined
+at the top level of the events.
+All other field sets are defined as objects in {es}, under which
+all fields are defined.
 
 [float]
 [[ecs-fieldsets]]

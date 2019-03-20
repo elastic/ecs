@@ -1,10 +1,27 @@
-//[[ecs-conventions]]
-== {ecs} Conventions
+[[ecs-conventions]]
+=== {ecs} Conventions
 
 {ecs} is most effective when you understand and follow these guidelines and conventions.
 
+==== Datatype for integers
+
+Unless otherwise noted, the datatype used for integer fields should be `long`.
+
 [float]
-=== Multi-fields text indexing
+==== IDs and most codes are keywords, not integers
+
+Despite the fact that IDs and codes (such as error codes) are often integers,
+this is not always the case.
+Since we want to make it possible to map as many systems and data sources
+to ECS as possible, we default to using the `keyword` type for IDs and codes.
+
+Some specific kinds of codes are always integers, like HTTP status codes.
+If those have a specific corresponding specific field (as HTTP status does),
+its type can safely be an integer type.
+But generic field like `error.code` cannot have this guarantee, and are therefore `keyword`.
+
+[float]
+==== Multi-fields text indexing
 
 Elasticsearch can index text using:
 
@@ -19,7 +36,7 @@ Elasticsearch can index text using:
   {ref}/search-aggregations.html[aggregations].
 
 [float]
-==== Default Elasticsearch convention
+===== Default Elasticsearch convention
 
 Unless your index mapping or index template specifies otherwise
 (as the ECS index template does),
@@ -32,7 +49,7 @@ Default Elasticsearch convention:
 * Multi-field: `myfield.keyword` is `keyword`
 
 [float]
-==== ECS multi-field convention for text
+===== ECS multi-field convention for text
 
 For monitoring use cases, `keyword` indexing is needed almost exclusively, with
 full text search on very few fields. Given this premise, ECS defaults
@@ -48,7 +65,7 @@ ECS multi-field convention for text:
 * Multi-field: `myfield.text` is `text`
 
 [float]
-==== Exceptions
+===== Exceptions
 
 The only exceptions to this convention are fields `message` and `error.message`,
 which are indexed for full text search only, with no multi-field.
@@ -57,18 +74,3 @@ of a breaking change with these two widely used fields in Beats.
 
 Any future field that will be indexed for full text search in ECS will however
 follow the multi-field convention where `text` indexing is nested in the multi-field.
-
-[float]
-=== IDs and most codes are keywords, not integers
-
-Despite the fact that IDs and codes (such as error codes) are often integers,
-this is not always the case.
-Since we want to make it possible to map as many systems and data sources
-to ECS as possible, we default to using the `keyword` type for IDs and codes.
-
-Some specific kinds of codes are always integers, like HTTP status codes.
-If those have a specific corresponding specific field (as HTTP status does),
-its type can safely be an integer type.
-But generic field like `error.code` cannot have this guarantee, and are therefore `keyword`.
-
-
