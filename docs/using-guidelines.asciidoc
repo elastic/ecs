@@ -18,6 +18,7 @@ ECS defines "Core" and "Extended" fields.
   to interpretation depending on the use case. Extended fields are more likely to
   change over time.
 
+
 [float]
 ==== General guidelines
 
@@ -27,26 +28,40 @@ ECS defines "Core" and "Extended" fields.
 * Use the `ecs.version` field to define which version of ECS is used.
 * Map as many fields as possible to ECS.
 
-[float]
-===== Guidelines for writing fields
-
-* All fields must be lower case
-* Combine words using underscore
-* No special characters except `_`
 
 [float]
-===== Guidelines for naming fields
+===== Guidelines for field names
 
-* *Present tense.* Use present tense unless field describes historical information.
-* *Singular or plural.* Use singular and plural names properly to reflect the field content. For example, use `requests_per_sec` rather than `request_per_sec`.
-* *General to specific.* Organise the prefixes from general to specific to allow grouping fields into objects with a prefix like `host.*`.
-* *Avoid repetition.* Avoid stuttering of words. If part of the field name is already in the prefix, do not repeat it. Example: `host.host_ip` should be `host.ip`.
-* *Use prefixes.* Fields must be prefixed except for the base fields. For example, all `host` fields are prefixed with `host.`.
-See <<dot-notation>> for more details.
-+
-The document structure should be nested JSON objects. If you use Beats or
-Logstash, the nesting of JSON objects is done for you automatically. If you're
-ingesting to Elasticsearch using the API, your fields must be nested
-objects, not strings containing dots.
+* *Field names must be lower case*
 
-* *Avoid abbreviations when possible*. A few exceptions like `ip` exist.
+* *Combine words using underscore*
+
+* *No special characters except underscore*
+
+* *Use present tense* unless field describes historical information.
+
+* *Use singular and plural names properly* to reflect the field content.
+** For example, use `requests_per_sec` rather than `request_per_sec`.
+
+* *Use prefixes for all fields*, except for the base fields.
+** For example, all `host` fields are prefixed with `host.`
+
+* *Separate prefixes by nesting* with dots
+** The document structure should be nested JSON objects.
+   If you use Beats or Logstash, the nesting of JSON objects is done for you automatically.
+   If you're ingesting to Elasticsearch using the API, your fields must be nested
+   objects, not strings containing dots.
+** See <<dot-notation>> for more details.
+
+* *General to specific*. Organise the prefixes from general to specific to
+  allow grouping fields into objects with a prefix like `host.*`.
+
+* *Avoid repetition* or stuttering of words
+** If part of the field name is already in the prefix,
+   avoid repeat it. Example: `host.host_ip` should be `host.ip`.
+** Exceptions can be made, when changing the name of the field would break a
+   strong convention in the community. Example: `host.hostname` is an exception to this rule.
+
+* *Avoid abbreviations when possible*
+** Exceptions can be made, when the name used for the concept is too strongly
+   in favor of the abbreviation. Example: all `ip` fields are an exception to this rule.
