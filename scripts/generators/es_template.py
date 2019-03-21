@@ -1,6 +1,8 @@
 import json
 import sys
 
+from generators import ecs_helpers
+
 
 def generate(ecs_flat, ecs_version):
     field_mappings = {}
@@ -32,22 +34,16 @@ def dict_add_nested(dict, nestings, value):
         dict[current_nesting] = value
 
 
-def dict_copy_existing_keys(source, destination, keys):
-    for key in keys:
-        if key in source:
-            destination[key] = source[key]
-
-
 def entry_for(field):
     dict = {'type': field['type']}
     try:
         if 'index' in field and not field['index']:
-            dict_copy_existing_keys(field, dict, ['index', 'doc_values'])
+            ecs_helpers.dict_copy_existing_keys(field, dict, ['index', 'doc_values'])
 
         if field['type'] == 'keyword':
-            dict_copy_existing_keys(field, dict, ['ignore_above'])
+            ecs_helpers.dict_copy_existing_keys(field, dict, ['ignore_above'])
         elif field['type'] == 'text':
-            dict_copy_existing_keys(field, dict, ['norms'])
+            ecs_helpers.dict_copy_existing_keys(field, dict, ['norms'])
     except KeyError as ex:
         print ex, field
         raise ex
