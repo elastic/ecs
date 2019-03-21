@@ -15,6 +15,11 @@ Visit [the official ECS Reference Documentation](https://www.elastic.co/guide/en
 If you're looking to contribute to ECS, you're invited to look at our
 [contribution guide](CONTRIBUTING.md)
 
+## Generated artifacts
+
+Various kinds of files or programs can be generated based on ECS.
+You can learn more in [generated/README.md](generated)
+
 ## Releases of ECS
 
 The master branch of this repository should never be considered an
