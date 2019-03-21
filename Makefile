@@ -56,7 +56,7 @@ fmt: ve
 
 # Alias to generate everything.
 .PHONY: generate
-generate: readme template codegen generator
+generate: template codegen generator
 
 # Run the new generator
 .PHONY: generator
@@ -85,17 +85,6 @@ makelint:
 misspell:
 	go get github.com/client9/misspell/cmd/misspell
 	misspell README.md CONTRIBUTING.md
-
-# Build README.md by concatenating various markdown snippets.
-.PHONY: readme
-readme:
-	cat docs/intro.md > README.md
-	$(PYTHON) scripts/schemas.py --stdout=true >> README.md
-	cat docs/use-cases-header.md >> README.md
-	$(PYTHON) scripts/use-cases.py --stdout=true >> README.md
-	cat docs/implementing.md >> README.md
-	cat docs/about.md >> README.md
-	cat docs/generated-files.md >> README.md
 
 .PHONY: reload_docs
 reload_docs: generator docs
