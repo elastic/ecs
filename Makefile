@@ -71,7 +71,7 @@ fmt: ve
 
 # Alias to generate everything.
 .PHONY: generate
-generate: csv template fields_legacy codegen generator
+generate: csv template fields_legacy use_cases codegen generator
 
 # Run the new generator
 .PHONY: generator
@@ -119,6 +119,11 @@ template:
 .PHONY: test
 test:
 	$(PYTHON) -m unittest discover --start-directory scripts/tests
+
+# Generate the Use Cases
+.PHONY: use_cases
+use_cases:
+	$(PYTHON) scripts/use-cases.py --stdout=true >> /dev/null
 
 # Create a virtualenv to run Python.
 .PHONY: ve
