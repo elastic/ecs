@@ -40,10 +40,6 @@ clean:
 codegen: gocodegen
 
 # Build schema.csv from schema files.
-.PHONY: csv
-csv: ve
-	$(PYTHON) scripts/schemas.py
-
 # Build the asciidoc book.
 .PHONY: docs
 docs:
@@ -51,16 +47,6 @@ docs:
 		git clone --depth=1 https://github.com/elastic/docs.git ./build/docs ; \
 	fi
 	./build/docs/build_docs.pl --doc ./docs/index.asciidoc --chunk=1 $(OPEN_DOCS) -out ./build/html_docs
-
-# Build the legacy fields.yml file.
-.PHONY: fields_legacy
-fields_legacy:
-	cat schemas/*.yml > fields.tmp.yml
-	sed -i.bak 's/^/    /g' fields.tmp.yml
-	sed -i.bak 's/---//g' fields.tmp.yml
-	cat generated/legacy/fields_header.yml > generated/legacy/fields.yml
-	cat fields.tmp.yml >> generated/legacy/fields.yml
-	rm -f fields.tmp.yml fields.tmp.yml.bak
 
 # Format code and files in the repo.
 .PHONY: fmt
@@ -71,7 +57,7 @@ fmt: ve
 
 # Alias to generate everything.
 .PHONY: generate
-generate: csv template fields_legacy use_cases codegen generator
+generate: template legacy_fields legacy_csv legacy_readme codegen generator
 
 # Run the new generator
 .PHONY: generator
@@ -87,6 +73,31 @@ gocodegen:
 	        -version=$(VERSION) \
 	        -schema=../schemas \
 	        -out=../code/go/ecs
+
+.PHONY: legacy_csv
+legacy_csv: ve
+	$(PYTHON) scripts/schemas.py
+
+# Build the legacy fields.yml file.
+.PHONY: legacy_fields
+legacy_fields:
+	cat schemas/*.yml > fields.tmp.yml
+	sed -i.bak 's/^/    /g' fields.tmp.yml
+	sed -i.bak 's/---//g' fields.tmp.yml
+	cat generated/legacy/fields_header.yml > generated/legacy/fields.yml
+	cat fields.tmp.yml >> generated/legacy/fields.yml
+	rm -f fields.tmp.yml fields.tmp.yml.bak
+
+.PHONY: legacy_readme
+readme: ve
+	cat docs/legacy/intro.md > README.md
+	$(PYTHON) scripts/schemas.py --stdout=true >> README.md
+	cat docs/legacy/use-cases-header.md >> README.md
+	$(PYTHON) scripts/use-cases.py --stdout=true >> README.md
+	cat docs/legacy/implementing.md >> README.md
+	cat docs/legacy/about.md >> README.md
+	cat docs/legacy/generated-files.md >> README.md
+
 
 # Check Makefile format.
 .PHONY: makelint
