@@ -31,7 +31,7 @@ check-license-headers:
 .PHONY: clean
 clean:
 	rm -rf schema.json build
-	rm -rf generated/legacy/{schema.csv,template.json,fields.yml}
+	rm -rf generated/legacy/{README.md,schema.csv,template.json,fields.yml}
 	# Clean all markdown files for use-cases
 	find ./use-cases -type f -name '*.md' -not -name 'README.md' -print0 | xargs -0 rm --
 
@@ -89,14 +89,14 @@ legacy_fields:
 	rm -f fields.tmp.yml fields.tmp.yml.bak
 
 .PHONY: legacy_readme
-readme: ve
-	cat docs/legacy/intro.md > README.md
-	$(PYTHON) scripts/schemas.py --stdout=true >> README.md
-	cat docs/legacy/use-cases-header.md >> README.md
-	$(PYTHON) scripts/use-cases.py --stdout=true >> README.md
-	cat docs/legacy/implementing.md >> README.md
-	cat docs/legacy/about.md >> README.md
-	cat docs/legacy/generated-files.md >> README.md
+legacy_readme: ve
+	cat docs/legacy/intro.md > generated/legacy/README.md
+	$(PYTHON) scripts/schemas.py --stdout=true >> generated/legacy/README.md
+	cat docs/legacy/use-cases-header.md >> generated/legacy/README.md
+	$(PYTHON) scripts/use-cases.py --stdout=true >> generated/legacy/README.md
+	cat docs/legacy/implementing.md >> generated/legacy/README.md
+	cat docs/legacy/about.md >> generated/legacy/README.md
+	cat docs/legacy/generated-files.md >> generated/legacy/README.md
 
 
 # Check Makefile format.
@@ -110,7 +110,7 @@ makelint:
 .PHONY: misspell
 misspell:
 	go get github.com/client9/misspell/cmd/misspell
-	misspell README.md CONTRIBUTING.md
+	misspell README.md CONTRIBUTING.md generated/legacy/README.md
 
 # Download and setup tooling dependencies.
 .PHONY: setup
@@ -130,11 +130,6 @@ template:
 .PHONY: test
 test:
 	$(PYTHON) -m unittest discover --start-directory scripts/tests
-
-# Generate the Use Cases
-.PHONY: use_cases
-use_cases:
-	$(PYTHON) scripts/use-cases.py --stdout=true >> /dev/null
 
 # Create a virtualenv to run Python.
 .PHONY: ve
