@@ -21,3 +21,7 @@ in a spreadsheet.
   [generated/elasticsearch/README.md](elasticsearch).
 
 * `legacy/*`: various legacy generated files.
+
+If you'd like to share your own generator with the ECS community, you're welcome
+to look at our [contribution guidelines](/CONTRIBUTING.md), and then at the
+generators in `scripts/generators`.
