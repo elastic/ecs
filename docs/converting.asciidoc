@@ -12,9 +12,9 @@ Before you start a conversion, be sure that you understand the basics below.
 
 [float]
 [[core-or-ext]]
-==== Core and extended fields
+==== Core and extended levels
 
-* *Core fields.* Fields that are most common across all use cases are called *core fields*.
+* *Core fields.* Fields that are most common across all use cases are defined as *core fields*.
 +
 These generalized fields are used by analysis content
 (searches, visualizations, dashboards, alerts, machine learning jobs, reports)
@@ -23,7 +23,7 @@ fields should work properly on data from any relevant source.
 +
 Focus on populating these fields first.
 
-* *Extended fields.* Any field that is not a core field is called an *extended field*.
+* *Extended fields.* Any field that is not a core field is defined as an *extended field*.
 Extended fields may apply to more narrow use cases, or may be more open
 to interpretation depending on the use case. Extended fields are more likely to
 change over time.
@@ -36,17 +36,24 @@ Each {ecs} <<ecs-field-reference,field>> in a table is identified as core or ext
 
 Here's the recommended approach for converting an existing implementation to {ecs}.
 
-. Start with Core fields.
-+
-Populate core fields first. Look at your set of event fields, and find
-the appropriate ECS field name for each one.
+. Review each field in your original event and map it to the relevant ECS field.
 
-. Move on to Extended fields.
-+
-Map fields that may be specific to various data sources using {ecs} extended
-fields. Look at {ecs} extended fields, and decide how to populate these fields
-with the data you have available. Even if you have already mapped a field to an
-{ecs} core field, you can still map it to an extended field.
+  - Start by mapping your field to the relevant ECS Core field.
+  - If a relevant ECS Core field does not exist, map your field to the relevant ECS Extended field.
+  - If no relevant ECS Extended field exists, consider keeping your field with its original details,
+    or possibly renaming it using ECS naming guidelines and attempt to map one
+    or more of your original event fields to it.
 
-Populating both core and extended fields helps ensure reusability of ECS analysis
-content.
+. Review each ECS Core field, and attempt to populate it.
+
+  - Review your original event data again
+  - Consider populating the field based on additional meta-data such as static
+    information (e.g. add `event.type:syslog` even if syslog events don't mention this fact),
+    or information gathered from the environment (e.g. host information).
+
+. Review other extended fields from any field set you are already using, and
+  attempt to populate it as well.
+
+. Set `ecs.version` to the version of the schema you are conforming to. This will
+  allow you to upgrade your sources, pipelines and content (like dashboards)
+  smoothly in the future.
