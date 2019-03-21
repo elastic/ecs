@@ -44,24 +44,27 @@ ECS defines "Core" and "Extended" fields.
 ** For example, use `requests_per_sec` rather than `request_per_sec`.
 
 * *Use prefixes for all fields*, except for the base fields.
-** For example, all `host` fields are prefixed with `host.`
+** For example, all `host` fields are prefixed with `host.`. Such a grouping is
+   called a field set.
 
-* *Separate prefixes by nesting* with dots
+* *Nest fields inside a field set* with dots
 ** The document structure should be nested JSON objects.
    If you use Beats or Logstash, the nesting of JSON objects is done for you automatically.
    If you're ingesting to Elasticsearch using the API, your fields must be nested
    objects, not strings containing dots.
 ** See <<dot-notation>> for more details.
 
-* *General to specific*. Organise the prefixes from general to specific to
-  allow grouping fields into objects with a prefix like `host.*`.
+* *General to specific*. Organise the nesting of field sets from general to specific,
+  to allow grouping fields into objects with a prefix like `host.*`.
 
 * *Avoid repetition* or stuttering of words
-** If part of the field name is already in the prefix,
-   avoid repeat it. Example: `host.host_ip` should be `host.ip`.
+** If part of the field name is already in the name of the field set,
+   avoid repeating it. Example: `host.host_ip` should be `host.ip`.
 ** Exceptions can be made, when changing the name of the field would break a
-   strong convention in the community. Example: `host.hostname` is an exception to this rule.
+   strong convention in the community.
+   Example: `host.hostname` is an exception to this rule.
 
 * *Avoid abbreviations when possible*
 ** Exceptions can be made, when the name used for the concept is too strongly
-   in favor of the abbreviation. Example: all `ip` fields are an exception to this rule.
+   in favor of the abbreviation.
+   Example: `ip` fields, or field sets such as `os`, `geo`.
