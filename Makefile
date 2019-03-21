@@ -112,6 +112,9 @@ readme:
 	cat docs/about.md >> README.md
 	cat docs/generated-files.md >> README.md
 
+.PHONY: reload_docs
+reload_docs: generator docs
+
 # Download and setup tooling dependencies.
 .PHONY: setup
 setup: ve
