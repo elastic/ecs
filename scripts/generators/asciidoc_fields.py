@@ -153,7 +153,8 @@ def index_header():
 
 ECS defines multiple groups of related fields. They are called "field sets".
 The <<ecs-base,Base>> field set is the only one whose fields are defined
-at the top level of the events.
+at the root of the event.
+
 All other field sets are defined as objects in {es}, under which
 all fields are defined.
 
