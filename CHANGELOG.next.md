@@ -16,9 +16,13 @@
 
 ### Improvements
 
+* Make the README.md a good starting point for contributors. Redirect to main
+  website for ECS documentation itself. #395
+
 ### Deprecated
 
 * Move old `fields.yml` file from the root of the repo to `generated/legacy`. #386
+* Move the old all-in-one README.md to generated/legacy/. #395
 
 <!-- All empty sections:
 
