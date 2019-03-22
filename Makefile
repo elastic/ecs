@@ -58,6 +58,10 @@ fmt: ve
 # Alias to generate everything.
 .PHONY: generate
 generate: template legacy_fields legacy_csv legacy_use_cases codegen generator
+# Generate the Use Cases
+.PHONY: legacy_use_cases
+legacy_use_cases:
+	$(PYTHON) scripts/use-cases.py --stdout=true >> /dev/null
 
 # Run the new generator
 .PHONY: generator
@@ -92,7 +96,6 @@ legacy_fields:
 .PHONY: legacy_use_cases
 legacy_use_cases:
 	$(PYTHON) scripts/use-cases.py --stdout=true >> /dev/null
-
 
 # Check Makefile format.
 .PHONY: makelint
