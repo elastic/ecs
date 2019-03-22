@@ -31,18 +31,13 @@ check-license-headers:
 .PHONY: clean
 clean:
 	rm -rf schema.json build
-	rm -rf generated/legacy/{schema.csv,template.json}
+	rm -rf generated/legacy/template.json
 	# Clean all markdown files for use-cases
 	find ./use-cases -type f -name '*.md' -not -name 'README.md' -print0 | xargs -0 rm --
 
 # Alias to generate source code for all languages.
 .PHONY: codegen
 codegen: gocodegen
-
-# Build schema.csv from schema files.
-.PHONY: csv
-csv: ve
-	$(PYTHON) scripts/schemas.py
 
 # Build the asciidoc book.
 .PHONY: docs
@@ -61,7 +56,7 @@ fmt: ve
 
 # Alias to generate everything.
 .PHONY: generate
-generate: csv readme template codegen generator
+generate: readme template codegen generator
 
 # Run the new generator
 .PHONY: generator
