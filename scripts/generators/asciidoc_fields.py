@@ -53,7 +53,7 @@ def render_fieldset(fieldset, ecs_nested):
     text = field_details_table_header().format(
         fieldset_title=fieldset['title'],
         fieldset_name=fieldset['name'],
-        fieldset_description=fieldset['description']
+        fieldset_description=render_asciidoc_paragraphs(fieldset['description'])
     )
 
     for field in ecs_helpers.dict_sorted_by_keys(fieldset['fields'], 'flat_name'):
@@ -66,6 +66,10 @@ def render_fieldset(fieldset, ecs_nested):
 
     return text
 
+
+def render_asciidoc_paragraphs(string):
+    '''Simply double the \n'''
+    return string.replace("\n", "\n\n")
 
 def render_field_details_row(field):
     example = ''
