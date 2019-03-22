@@ -57,7 +57,7 @@ fmt: ve
 
 # Alias to generate everything.
 .PHONY: generate
-generate: template legacy_fields legacy_csv codegen generator
+generate: template legacy_fields legacy_csv legacy_use_cases codegen generator
 
 # Run the new generator
 .PHONY: generator
@@ -87,6 +87,11 @@ legacy_fields:
 	cat generated/legacy/fields_header.yml > generated/legacy/fields.yml
 	cat fields.tmp.yml >> generated/legacy/fields.yml
 	rm -f fields.tmp.yml fields.tmp.yml.bak
+
+# Generate the Use Cases
+.PHONY: legacy_use_cases
+legacy_use_cases:
+	$(PYTHON) scripts/use-cases.py --stdout=true >> /dev/null
 
 
 # Check Makefile format.
