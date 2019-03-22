@@ -5,18 +5,26 @@ The {ecs} schema serves best when you follow schema guidelines and best
 practices.
 
 [float]
-==== Types of fields
+==== ECS Field Levels
 
 ECS defines "Core" and "Extended" fields.
 
-* *Core fields.* Fields that are the most common across all use cases.
-  Focus on populating these fields first. If consuming ECS events, expect
-  these fields to be populated in most situations.
+* *Core fields.* Fields that are most common across all use cases are defined as *core fields*.
++
+These generalized fields are used by analysis content
+(searches, visualizations, dashboards, alerts, machine learning jobs, reports)
+across use cases. Analysis content designed to operate on these
+fields should work properly on data from any relevant source.
++
+Focus on populating these fields first.
 
-* *Extended fields.* Any fields that are not a core field.
-  Extended fields may apply to more narrow use cases, or may be more open
-  to interpretation depending on the use case. Extended fields are more likely to
-  change over time.
+* *Extended fields.* Any field that is not a core field is defined as an *extended field*.
+Extended fields may apply to more narrow use cases, or may be more open
+to interpretation depending on the use case. Extended fields are more likely to
+change over time.
+
+Each {ecs} <<ecs-field-reference,field>> in a table is identified as core or extended.
+
 
 
 [float]
