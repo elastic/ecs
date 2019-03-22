@@ -57,7 +57,7 @@ fmt: ve
 
 # Alias to generate everything.
 .PHONY: generate
-generate: template legacy_fields legacy_csv legacy_readme codegen generator
+generate: template legacy_fields legacy_csv codegen generator
 
 # Run the new generator
 .PHONY: generator
@@ -87,16 +87,6 @@ legacy_fields:
 	cat generated/legacy/fields_header.yml > generated/legacy/fields.yml
 	cat fields.tmp.yml >> generated/legacy/fields.yml
 	rm -f fields.tmp.yml fields.tmp.yml.bak
-
-.PHONY: legacy_readme
-legacy_readme: ve
-	cat docs/legacy/intro.md > generated/legacy/README.md
-	$(PYTHON) scripts/schemas.py --stdout=true >> generated/legacy/README.md
-	cat docs/legacy/use-cases-header.md >> generated/legacy/README.md
-	$(PYTHON) scripts/use-cases.py --stdout=true >> generated/legacy/README.md
-	cat docs/legacy/implementing.md >> generated/legacy/README.md
-	cat docs/legacy/about.md >> generated/legacy/README.md
-	cat docs/legacy/generated-files.md >> generated/legacy/README.md
 
 
 # Check Makefile format.
