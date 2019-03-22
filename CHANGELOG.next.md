@@ -22,7 +22,8 @@
 ### Deprecated
 
 * Move old `fields.yml` file from the root of the repo to `generated/legacy`. #386
-* Move the old all-in-one README.md to generated/legacy/. #395
+* Replace the old all-in-one README.md. The official documentation is
+  now on the elastic.co website. #395
 
 <!-- All empty sections:
 
