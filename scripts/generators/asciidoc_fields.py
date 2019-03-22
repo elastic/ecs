@@ -77,7 +77,7 @@ def render_field_details_row(field):
         example = "example: `{}`".format(str(field['example']))
     text = field_details_row().format(
         field_flat_name=field['flat_name'],
-        field_description=field['description'],
+        field_description=render_asciidoc_paragraphs(field['description']),
         field_example=example,
         field_level=field['level'],
         field_type=field['type'],
