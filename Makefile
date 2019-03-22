@@ -56,7 +56,7 @@ fmt: ve
 
 # Alias to generate everything.
 .PHONY: generate
-generate: template codegen generator
+generate: template legacy_use_cases codegen generator
 
 # Run the new generator
 .PHONY: generator
@@ -72,6 +72,11 @@ gocodegen:
 	        -version=$(VERSION) \
 	        -schema=../schemas \
 	        -out=../code/go/ecs
+
+# Generate the Use Cases
+.PHONY: legacy_use_cases
+legacy_use_cases:
+	$(PYTHON) scripts/use-cases.py --stdout=true >> /dev/null
 
 # Check Makefile format.
 .PHONY: makelint
