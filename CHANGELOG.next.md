@@ -18,7 +18,7 @@
 
 ### Deprecated
 
-* Move old `fields.yml` file from the root of the repo to `generated/legacy`. #386
+* Delete legacy Beats field definition `fields.yml`, as it was incomplete.
 
 <!-- All empty sections:
 
