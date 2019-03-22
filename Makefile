@@ -31,7 +31,7 @@ check-license-headers:
 .PHONY: clean
 clean:
 	rm -rf schema.json build
-	rm -rf generated/legacy/{README.md,schema.csv,template.json,fields.yml}
+	rm -rf generated/legacy/{schema.csv,template.json,fields.yml}
 	# Clean all markdown files for use-cases
 	find ./use-cases -type f -name '*.md' -not -name 'README.md' -print0 | xargs -0 rm --
 
@@ -108,7 +108,7 @@ makelint:
 .PHONY: misspell
 misspell:
 	go get github.com/client9/misspell/cmd/misspell
-	misspell README.md CONTRIBUTING.md generated/legacy/README.md
+	misspell README.md CONTRIBUTING.md
 
 # Download and setup tooling dependencies.
 .PHONY: setup
