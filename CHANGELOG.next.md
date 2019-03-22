@@ -18,7 +18,6 @@
 
 ### Deprecated
 
-* Delete legacy Beats field definition `fields.yml`, as it was incomplete.
 
 <!-- All empty sections:
 
