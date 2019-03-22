@@ -4,7 +4,7 @@ from generators import ecs_helpers
 
 
 def generate(ecs_nested, ecs_version):
-    save_asciidoc('docs/fields.asciidoc', page_field_index(ecs_nested))
+    save_asciidoc('docs/fields.asciidoc', page_field_index(ecs_nested, ecs_version))
     save_asciidoc('docs/field-details.asciidoc', page_field_details(ecs_nested))
 
 # Helpers
@@ -23,8 +23,8 @@ def save_asciidoc(file, text):
 # Field Index
 
 
-def page_field_index(ecs_nested):
-    page_text = index_header()
+def page_field_index(ecs_nested, ecs_version):
+    page_text = index_header(ecs_version)
     for fieldset in ecs_helpers.dict_sorted_by_keys(ecs_nested, ['group', 'name']):
         page_text += render_field_index_row(fieldset)
     page_text += table_footer()
@@ -146,10 +146,13 @@ def table_footer():
 # Field Index
 
 
-def index_header():
+def index_header(ecs_version):
+    # Not using format() because then asciidoc {ecs}, {es}, etc are resolved.
     return '''
 [[ecs-field-reference]]
 == {ecs} Field Reference
+
+This is the documentation of ECS version ''' + ecs_version + '''.
 
 ECS defines multiple groups of related fields. They are called "field sets".
 The <<ecs-base,Base>> field set is the only one whose fields are defined
