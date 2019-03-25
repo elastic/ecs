@@ -4,7 +4,7 @@ from generators import ecs_helpers
 
 
 def generate(ecs_nested, ecs_version):
-    save_asciidoc('docs/fields.asciidoc', page_field_index(ecs_nested))
+    save_asciidoc('docs/fields.asciidoc', page_field_index(ecs_nested, ecs_version))
     save_asciidoc('docs/field-details.asciidoc', page_field_details(ecs_nested))
 
 # Helpers
@@ -23,8 +23,8 @@ def save_asciidoc(file, text):
 # Field Index
 
 
-def page_field_index(ecs_nested):
-    page_text = index_header()
+def page_field_index(ecs_nested, ecs_version):
+    page_text = index_header(ecs_version)
     for fieldset in ecs_helpers.dict_sorted_by_keys(ecs_nested, ['group', 'name']):
         page_text += render_field_index_row(fieldset)
     page_text += table_footer()
@@ -53,7 +53,7 @@ def render_fieldset(fieldset, ecs_nested):
     text = field_details_table_header().format(
         fieldset_title=fieldset['title'],
         fieldset_name=fieldset['name'],
-        fieldset_description=fieldset['description']
+        fieldset_description=render_asciidoc_paragraphs(fieldset['description'])
     )
 
     for field in ecs_helpers.dict_sorted_by_keys(fieldset['fields'], 'flat_name'):
@@ -67,13 +67,18 @@ def render_fieldset(fieldset, ecs_nested):
     return text
 
 
+def render_asciidoc_paragraphs(string):
+    '''Simply double the \n'''
+    return string.replace("\n", "\n\n")
+
+
 def render_field_details_row(field):
     example = ''
     if 'example' in field:
         example = "example: `{}`".format(str(field['example']))
     text = field_details_row().format(
         field_flat_name=field['flat_name'],
-        field_description=field['description'],
+        field_description=render_asciidoc_paragraphs(field['description']),
         field_example=example,
         field_level=field['level'],
         field_type=field['type'],
@@ -146,10 +151,20 @@ def table_footer():
 # Field Index
 
 
-def index_header():
+def index_header(ecs_version):
+    # Not using format() because then asciidoc {ecs}, {es}, etc are resolved.
     return '''
-[[ecs-fields]]
-== {ecs} Fields
+[[ecs-field-reference]]
+== {ecs} Field Reference
+
+This is the documentation of ECS version ''' + ecs_version + '''.
+
+ECS defines multiple groups of related fields. They are called "field sets".
+The <<ecs-base,Base>> field set is the only one whose fields are defined
+at the root of the event.
+
+All other field sets are defined as objects in {es}, under which
+all fields are defined.
 
 [float]
 [[ecs-fieldsets]]
