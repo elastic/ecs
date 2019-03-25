@@ -1,4 +1,3 @@
-import csv
 import os
 import yaml
 import sys
@@ -7,33 +6,6 @@ from helper import *
 import argparse
 from functools import reduce
 import json
-
-
-def create_csv(fields, file):
-
-    open_mode = "wb"
-    if sys.version_info >= (3, 0):
-        open_mode = "w"
-
-    # Output schema to csv
-    with open(file, open_mode) as csvfile:
-        schema_writer = csv.writer(csvfile,
-                                   delimiter=',',
-                                   quoting=csv.QUOTE_MINIMAL,
-                                   lineterminator='\n')
-        schema_writer.writerow(["Field", "Type", "Level", "Example"])
-
-        for namespace in fields:
-            if len(namespace["fields"]) == 0:
-                continue
-
-            # Sort fields for easier readability
-            namespaceFields = sorted(namespace["fields"],
-                                     key=lambda field: field["name"])
-
-            # Print fields into a table
-            for field in namespaceFields:
-                schema_writer.writerow([field["name"], field["type"], field["level"], field["example"]])
 
 
 def addNamespace(namespaces, namespace):
@@ -142,5 +114,4 @@ if __name__ == "__main__":
     else:
         groups = [1, 2, 3]
         f_fields = filtered_fields(sortedNamespaces, groups)
-        create_csv(f_fields, "generated/legacy/schema.csv")
         create_json(f_fields, "schema.json")

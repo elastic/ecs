@@ -30,19 +30,14 @@ check-license-headers:
 # Clean deletes all temporary and generated content.
 .PHONY: clean
 clean:
-	rm -rf schema.json fields.yml build
-	rm -rf generated/legacy/{schema.csv,template.json}
+	rm -rf schema.json build
+	rm -rf generated/legacy/template.json
 	# Clean all markdown files for use-cases
 	find ./use-cases -type f -name '*.md' -not -name 'README.md' -print0 | xargs -0 rm --
 
 # Alias to generate source code for all languages.
 .PHONY: codegen
 codegen: gocodegen
-
-# Build schema.csv from schema files.
-.PHONY: csv
-csv: ve
-	$(PYTHON) scripts/schemas.py
 
 # Build the asciidoc book.
 .PHONY: docs
@@ -52,26 +47,16 @@ docs:
 	fi
 	./build/docs/build_docs.pl --doc ./docs/index.asciidoc --chunk=1 $(OPEN_DOCS) -out ./build/html_docs
 
-# Build the fields.yml file.
-.PHONY: fields
-fields:
-	cat schemas/*.yml > fields.tmp.yml
-	sed -i.bak 's/^/    /g' fields.tmp.yml
-	sed -i.bak 's/---//g' fields.tmp.yml
-	cat scripts/fields_header.yml > fields.yml
-	cat fields.tmp.yml >> fields.yml
-	rm -f fields.tmp.yml fields.tmp.yml.bak
-
 # Format code and files in the repo.
 .PHONY: fmt
 fmt: ve
-	$(FIND) -name '*.py' -exec build/ve/bin/autopep8 --in-place --max-line-length 120 {} \;
+	$(FIND) -name '*.py' -exec build/ve/bin/autopep8 --ignore E402 --in-place --max-line-length 120 {} \;
 	go get golang.org/x/tools/cmd/goimports
 	goimports -w -l -local github.com/elastic $(shell $(FIND) -name '*.go')
 
 # Alias to generate everything.
 .PHONY: generate
-generate: csv readme template fields codegen generator
+generate: readme template codegen generator
 
 # Run the new generator
 .PHONY: generator
@@ -111,6 +96,9 @@ readme:
 	cat docs/implementing.md >> README.md
 	cat docs/about.md >> README.md
 	cat docs/generated-files.md >> README.md
+
+.PHONY: reload_docs
+reload_docs: generator docs
 
 # Download and setup tooling dependencies.
 .PHONY: setup

@@ -35,7 +35,6 @@ def dict_clean_string_values(dict):
         value = dict[key]
         if isinstance(value, basestring):
             dict[key] = value.strip()
-            # TODO: Remove trailing \n?
 
 
 def dict_set_default(dict, key, default):
@@ -58,6 +57,9 @@ def schema_cleanup_values(schema):
 def schema_set_default_values(schema):
     schema['type'] = 'group'
     dict_set_default(schema, 'group', 2)
+    dict_set_default(schema, 'short', schema['description'])
+    if "\n" in schema['short']:
+        raise ValueError("Short descriptions must be single line.\nFieldset: {}\n{}".format(schema['name'], schema))
 
 
 def schema_set_fieldset_prefix(schema):
@@ -71,7 +73,8 @@ def schema_fields_as_dictionary(schema):
     """Re-nest the array of field names as a dictionary of 'fieldname' => { field definition }"""
     field_array = schema.pop('fields')
     schema['fields'] = {}
-    for field in field_array:
+    for order, field in enumerate(field_array):
+        field['order'] = order
         schema['fields'][field['name']] = field
 
 # Field definitions
@@ -79,8 +82,8 @@ def schema_fields_as_dictionary(schema):
 
 def field_cleanup_values(field, prefix):
     dict_clean_string_values(field)
-    field_set_defaults(field)
     field_set_flat_name(field, prefix)
+    field_set_defaults(field)
 
 
 def field_set_flat_name(field, prefix):
@@ -88,13 +91,17 @@ def field_set_flat_name(field, prefix):
 
 
 def field_set_defaults(field):
-    dict_set_default(field, 'short', field['description'])
     if field['type'] == 'keyword':
         dict_set_default(field, 'ignore_above', 1024)
     if field['type'] == 'text':
         dict_set_default(field, 'norms', False)
     if field['type'] == 'object':
         dict_set_default(field, 'object_type', 'keyword')
+
+    dict_set_default(field, 'short', field['description'])
+    if "\n" in field['short']:
+        raise ValueError("Short descriptions must be single line.\nField: {}\n{}".format(field['flat_name'], field))
+        # print("  Short descriptions must be single line. Field: {}".format(field['flat_name']))
 
     if 'index' in field and not field['index']:
         dict_set_default(field, 'doc_values', False)
@@ -109,11 +116,22 @@ def field_set_multi_field_defaults(parent_field):
         mf['flat_name'] = parent_field['flat_name'] + '.' + mf['name']
 
 
-def duplicate_reusable_fieldsets(schema, fields_flat):
-    """Copies reusable field definitions to their expected places in the flattened schema only"""
+def duplicate_reusable_fieldsets(schema, fields_flat, fields_nested):
+    """Copies reusable field definitions to their expected places"""
+    # Note: across this schema reader, functions are modifying dictionaries passed
+    # as arguments, which is usually a risk of unintended side effects.
+    # Here it simplifies the nesting of 'group' under 'user',
+    # which is in turn reusable in a few places.
     if 'reusable' in schema:
         for new_nesting in schema['reusable']['expected']:
 
+            # List field set names expected under another field set.
+            # E.g. host.nestings = [ 'geo', 'os', 'user' ]
+            if 'nestings' not in fields_nested[new_nesting]:
+                fields_nested[new_nesting]['nestings'] = []
+            fields_nested[new_nesting]['nestings'].append(schema['name'])
+
+            # Explicitly list all leaf fields coming from field set reuse.
             for (name, field) in schema['fields'].items():
                 # Poor folks deepcopy, sorry -- A Rubyist
                 copied_field = field.copy()
@@ -123,7 +141,11 @@ def duplicate_reusable_fieldsets(schema, fields_flat):
                 destination_name = new_nesting + '.' + field['flat_name']
                 copied_field['flat_name'] = destination_name
                 copied_field['original_fieldset'] = schema['name']
+
                 fields_flat[destination_name] = copied_field
+
+                # Nested: use original flat name under the destination fieldset
+                fields_nested[new_nesting]['fields'][field['flat_name']] = copied_field
 
 # Main
 
@@ -131,6 +153,7 @@ def duplicate_reusable_fieldsets(schema, fields_flat):
 def finalize_schemas(fields_nested, fields_flat):
     for schema_name in fields_nested:
         schema = fields_nested[schema_name]
+
         schema_cleanup_values(schema)
 
         for (name, field) in schema['fields'].items():
@@ -138,8 +161,12 @@ def finalize_schemas(fields_nested, fields_flat):
 
             fields_flat[field['flat_name']] = field
 
-        # TODO duplicate in nested too?
-        duplicate_reusable_fieldsets(schema, fields_flat)
+    # This happens as a second pass, so that all fieldsets have their
+    # fields array replaced with a fields dictionary.
+    for schema_name in fields_nested:
+        schema = fields_nested[schema_name]
+
+        duplicate_reusable_fieldsets(schema, fields_flat, fields_nested)
 
 
 def load_ecs():

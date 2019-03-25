@@ -10,8 +10,8 @@ See CONTRIBUTING.md for more details on setting up.
 
 -->
 
-WARNING: This is the master branch. The current release v1.0.0-beta2
-can be found [here](https://github.com/elastic/ecs/tree/v1.0.0-beta2).
+WARNING: This is a development branch. The official releases can be found
+[here](https://github.com/elastic/ecs/releases).
 
 # Elastic Common Schema (ECS)
 
@@ -20,9 +20,14 @@ ingesting data into Elasticsearch. A common schema helps you correlate
 data from sources like logs and metrics or IT operations
 analytics and security analytics.
 
-ECS is still under development and backward compatibility is not guaranteed. Any
-feedback on the general structure, missing fields, or existing fields is appreciated.
-For contributions please read the [Contributing Guide](CONTRIBUTING.md).
+## Maturity
+
+With ECS turning 1.0, the team will approach improvements by following
+[Semantic Versioning](https://semver.org/).
+Generally major ECS releases are planned to be aligned with major Elastic Stack releases.
+
+Any feedback on the general structure, missing fields, or existing fields is appreciated.
+For contributions please read the [Contribution Guidelines](CONTRIBUTING.md).
 
 <a name="ecs-version"></a>
 # Versions
@@ -30,6 +35,7 @@ For contributions please read the [Contributing Guide](CONTRIBUTING.md).
 The master branch of this repository should never be considered an
 official release of ECS. You can browse official releases of ECS
 [here](https://github.com/elastic/ecs/releases).
+
 
 Please note that when the README.md file and other generated files
 (like schema.csv and template.json) are not in agreement,
@@ -113,7 +119,7 @@ Examples: In the case of Beats for logs, the agent.name is filebeat. For APM, it
 
 A client is defined as the initiator of a network connection for events regarding sessions, connections, or bidirectional flow records.
 
-For TCP events, the client is the initiator of the TCP connection that sends the SYN packet(s). For other protocols, the client is generally the initiator or requestor in the network transaction. Some systems use the term "originator" to refer the client in TCP connections. The client fields describe details about the system acting as the client in the network event. Client fields are usually populated in conjunction with server fields.  Client fields are generally not populated for packet-level events.
+For TCP events, the client is the initiator of the TCP connection that sends the SYN packet(s). For other protocols, the client is generally the initiator or requestor in the network transaction. Some systems use the term "originator" to refer the client in TCP connections. The client fields describe details about the system acting as the client in the network event. Client fields are usually populated in conjunction with server fields. Client fields are generally not populated for packet-level events.
 
 Client / server representations can add semantic context to an exchange, which is helpful to visualize the data in certain situations. If your context falls in that category, you should still ensure that source and destination are filled appropriately.
 
@@ -520,7 +526,7 @@ URL fields provide support for complete or partial URLs, and supports the breaki
 | <a name="url.full"></a>url.full | If full URLs are important to your use case, they should be stored in `url.full`, whether this field is reconstructed or present in the event source. | extended | keyword | `https://www.elastic.co:443/search?q=elasticsearch#top` |
 | <a name="url.scheme"></a>url.scheme | Scheme of the request, such as "https".<br/>Note: The `:` is not part of the scheme. | extended | keyword | `https` |
 | <a name="url.domain"></a>url.domain | Domain of the url, such as "www.elastic.co".<br/>In some cases a URL may refer to an IP and/or port directly, without a domain name. In this case, the IP address would go to the `domain` field. | extended | keyword | `www.elastic.co` |
-| <a name="url.port"></a>url.port | Port of the request, such as 443. | extended | integer | `443` |
+| <a name="url.port"></a>url.port | Port of the request, such as 443. | extended | long | `443` |
 | <a name="url.path"></a>url.path | Path of the request, such as "/search". | extended | keyword |  |
 | <a name="url.query"></a>url.query | The query field describes the query string of the request, such as "q=elasticsearch".<br/>The `?` is excluded from the query string. If a URL contains no `?`, there is no query field. If there is a `?` but no query, the query field exists with an empty string. The `exists` query can be used to differentiate between the two cases. | extended | keyword |  |
 | <a name="url.fragment"></a>url.fragment | Portion of the url after the `#`, such as "top".<br/>The `#` is not part of the fragment. | extended | keyword |  |

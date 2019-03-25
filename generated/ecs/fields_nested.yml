@@ -16,6 +16,7 @@ agent:
       ignore_above: 1024
       level: extended
       name: ephemeral_id
+      order: 4
       short: Ephemeral identifier of this agent.
       type: keyword
     id:
@@ -27,6 +28,7 @@ agent:
       ignore_above: 1024
       level: core
       name: id
+      order: 3
       short: Unique identifier of this agent.
       type: keyword
     name:
@@ -42,6 +44,7 @@ agent:
       ignore_above: 1024
       level: core
       name: name
+      order: 1
       short: Custom name of the agent.
       type: keyword
     type:
@@ -55,6 +58,7 @@ agent:
       ignore_above: 1024
       level: core
       name: type
+      order: 2
       short: Type of the agent.
       type: keyword
     version:
@@ -64,6 +68,7 @@ agent:
       ignore_above: 1024
       level: core
       name: version
+      order: 0
       short: Version of the agent.
       type: keyword
   footnote: 'Examples: In the case of Beats for logs, the agent.name is filebeat.
@@ -94,6 +99,7 @@ base:
       flat_name: '@timestamp'
       level: core
       name: '@timestamp'
+      order: 0
       required: true
       short: Date/time when the event originated.
       type: date
@@ -111,6 +117,7 @@ base:
       level: core
       name: labels
       object_type: keyword
+      order: 2
       short: Custom key/value pairs.
       type: object
     message:
@@ -126,6 +133,7 @@ base:
       level: core
       name: message
       norms: false
+      order: 3
       short: Log message optimized for viewing in a log viewer.
       type: text
     tags:
@@ -135,6 +143,7 @@ base:
       ignore_above: 1024
       level: core
       name: tags
+      order: 1
       short: List of keywords used to tag each event.
       type: keyword
   group: 1
@@ -153,8 +162,8 @@ client:
     in the network transaction. Some systems use the term "originator" to refer the
     client in TCP connections. The client fields describe details about the system
     acting as the client in the network event. Client fields are usually populated
-    in conjunction with server fields.  Client fields are generally not populated
-    for packet-level events.
+    in conjunction with server fields. Client fields are generally not populated for
+    packet-level events.
 
     Client / server representations can add semantic context to an exchange, which
     is helpful to visualize the data in certain situations. If your context falls
@@ -172,14 +181,17 @@ client:
       ignore_above: 1024
       level: extended
       name: address
+      order: 0
       short: Client network address.
       type: keyword
     bytes:
       description: Bytes sent from the client to the server.
       example: 184
       flat_name: client.bytes
+      format: bytes
       level: core
       name: bytes
+      order: 5
       short: Bytes sent from the client to the server.
       type: long
     domain:
@@ -188,7 +200,101 @@ client:
       ignore_above: 1024
       level: core
       name: domain
+      order: 4
       short: Client domain.
+      type: keyword
+    geo.city_name:
+      description: City name.
+      example: Montreal
+      flat_name: client.geo.city_name
+      ignore_above: 1024
+      level: core
+      name: city_name
+      order: 4
+      original_fieldset: geo
+      short: City name.
+      type: keyword
+    geo.continent_name:
+      description: Name of the continent.
+      example: North America
+      flat_name: client.geo.continent_name
+      ignore_above: 1024
+      level: core
+      name: continent_name
+      order: 1
+      original_fieldset: geo
+      short: Name of the continent.
+      type: keyword
+    geo.country_iso_code:
+      description: Country ISO code.
+      example: CA
+      flat_name: client.geo.country_iso_code
+      ignore_above: 1024
+      level: core
+      name: country_iso_code
+      order: 5
+      original_fieldset: geo
+      short: Country ISO code.
+      type: keyword
+    geo.country_name:
+      description: Country name.
+      example: Canada
+      flat_name: client.geo.country_name
+      ignore_above: 1024
+      level: core
+      name: country_name
+      order: 2
+      original_fieldset: geo
+      short: Country name.
+      type: keyword
+    geo.location:
+      description: Longitude and latitude.
+      example: '{ "lon": -73.614830, "lat": 45.505918 }'
+      flat_name: client.geo.location
+      level: core
+      name: location
+      order: 0
+      original_fieldset: geo
+      short: Longitude and latitude.
+      type: geo_point
+    geo.name:
+      description: 'User-defined description of a location, at the level of granularity
+        they care about.
+
+        Could be the name of their data centers, the floor number, if this describes
+        a local physical entity, city names.
+
+        Not typically used in automated geolocation.'
+      example: boston-dc
+      flat_name: client.geo.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      order: 7
+      original_fieldset: geo
+      short: User-defined description of a location.
+      type: keyword
+    geo.region_iso_code:
+      description: Region ISO code.
+      example: CA-QC
+      flat_name: client.geo.region_iso_code
+      ignore_above: 1024
+      level: core
+      name: region_iso_code
+      order: 6
+      original_fieldset: geo
+      short: Region ISO code.
+      type: keyword
+    geo.region_name:
+      description: Region name.
+      example: Quebec
+      flat_name: client.geo.region_name
+      ignore_above: 1024
+      level: core
+      name: region_name
+      order: 3
+      original_fieldset: geo
+      short: Region name.
       type: keyword
     ip:
       description: 'IP address of the client.
@@ -197,6 +303,7 @@ client:
       flat_name: client.ip
       level: core
       name: ip
+      order: 1
       short: IP address of the client.
       type: ip
     mac:
@@ -205,6 +312,7 @@ client:
       ignore_above: 1024
       level: core
       name: mac
+      order: 3
       short: MAC address of the client.
       type: keyword
     packets:
@@ -213,6 +321,7 @@ client:
       flat_name: client.packets
       level: core
       name: packets
+      order: 6
       short: Packets sent from the client to the server.
       type: long
     port:
@@ -220,10 +329,90 @@ client:
       flat_name: client.port
       level: core
       name: port
+      order: 2
       short: Port of the client.
       type: long
+    user.email:
+      description: User email address.
+      flat_name: client.user.email
+      ignore_above: 1024
+      level: extended
+      name: email
+      order: 3
+      original_fieldset: user
+      short: User email address.
+      type: keyword
+    user.full_name:
+      description: User's full name, if available.
+      example: Albert Einstein
+      flat_name: client.user.full_name
+      ignore_above: 1024
+      level: extended
+      name: full_name
+      order: 2
+      original_fieldset: user
+      short: User's full name, if available.
+      type: keyword
+    user.group.id:
+      description: Unique identifier for the group on the system/platform.
+      flat_name: client.user.group.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      order: 0
+      original_fieldset: user
+      short: Unique identifier for the group on the system/platform.
+      type: keyword
+    user.group.name:
+      description: Name of the group.
+      flat_name: client.user.group.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      order: 1
+      original_fieldset: user
+      short: Name of the group.
+      type: keyword
+    user.hash:
+      description: 'Unique user hash to correlate information for a user in anonymized
+        form.
+
+        Useful if `user.id` or `user.name` contain confidential information and cannot
+        be used.'
+      flat_name: client.user.hash
+      ignore_above: 1024
+      level: extended
+      name: hash
+      order: 4
+      original_fieldset: user
+      short: Unique user hash to correlate information for a user in anonymized form.
+      type: keyword
+    user.id:
+      description: One or multiple unique identifiers of the user.
+      flat_name: client.user.id
+      ignore_above: 1024
+      level: core
+      name: id
+      order: 0
+      original_fieldset: user
+      short: One or multiple unique identifiers of the user.
+      type: keyword
+    user.name:
+      description: Short name or login of the user.
+      example: albert
+      flat_name: client.user.name
+      ignore_above: 1024
+      level: core
+      name: name
+      order: 1
+      original_fieldset: user
+      short: Short name or login of the user.
+      type: keyword
   group: 2
   name: client
+  nestings:
+  - geo
+  - user
   prefix: client.
   short: Fields about the client side of a network connection, used with server.
   title: Client
@@ -242,6 +431,7 @@ cloud:
       ignore_above: 1024
       level: extended
       name: account.id
+      order: 6
       short: The cloud account or organization id.
       type: keyword
     availability_zone:
@@ -251,6 +441,7 @@ cloud:
       ignore_above: 1024
       level: extended
       name: availability_zone
+      order: 1
       short: Availability zone in which this host is running.
       type: keyword
     instance.id:
@@ -260,6 +451,7 @@ cloud:
       ignore_above: 1024
       level: extended
       name: instance.id
+      order: 3
       short: Instance ID of the host machine.
       type: keyword
     instance.name:
@@ -268,6 +460,7 @@ cloud:
       ignore_above: 1024
       level: extended
       name: instance.name
+      order: 4
       short: Instance name of the host machine.
       type: keyword
     machine.type:
@@ -277,6 +470,7 @@ cloud:
       ignore_above: 1024
       level: extended
       name: machine.type
+      order: 5
       short: Machine type of the host machine.
       type: keyword
     provider:
@@ -287,6 +481,7 @@ cloud:
       ignore_above: 1024
       level: extended
       name: provider
+      order: 0
       short: Name of the cloud provider.
       type: keyword
     region:
@@ -296,6 +491,7 @@ cloud:
       ignore_above: 1024
       level: extended
       name: region
+      order: 2
       short: Region in which this host is running.
       type: keyword
   footnote: 'Examples: If Metricbeat is running on an EC2 host and fetches data from
@@ -321,6 +517,7 @@ container:
       ignore_above: 1024
       level: core
       name: id
+      order: 1
       short: Unique container id.
       type: keyword
     image.name:
@@ -329,6 +526,7 @@ container:
       ignore_above: 1024
       level: extended
       name: image.name
+      order: 2
       short: Name of the image the container was built on.
       type: keyword
     image.tag:
@@ -337,6 +535,7 @@ container:
       ignore_above: 1024
       level: extended
       name: image.tag
+      order: 3
       short: Container image tag.
       type: keyword
     labels:
@@ -345,6 +544,7 @@ container:
       level: extended
       name: labels
       object_type: keyword
+      order: 5
       short: Image labels.
       type: object
     name:
@@ -353,6 +553,7 @@ container:
       ignore_above: 1024
       level: extended
       name: name
+      order: 4
       short: Container name.
       type: keyword
     runtime:
@@ -362,6 +563,7 @@ container:
       ignore_above: 1024
       level: extended
       name: runtime
+      order: 0
       short: Runtime managing this container.
       type: keyword
   group: 2
@@ -386,14 +588,17 @@ destination:
       ignore_above: 1024
       level: extended
       name: address
+      order: 0
       short: Destination network address.
       type: keyword
     bytes:
       description: Bytes sent from the destination to the source.
       example: 184
       flat_name: destination.bytes
+      format: bytes
       level: core
       name: bytes
+      order: 5
       short: Bytes sent from the destination to the source.
       type: long
     domain:
@@ -402,7 +607,101 @@ destination:
       ignore_above: 1024
       level: core
       name: domain
+      order: 4
       short: Destination domain.
+      type: keyword
+    geo.city_name:
+      description: City name.
+      example: Montreal
+      flat_name: destination.geo.city_name
+      ignore_above: 1024
+      level: core
+      name: city_name
+      order: 4
+      original_fieldset: geo
+      short: City name.
+      type: keyword
+    geo.continent_name:
+      description: Name of the continent.
+      example: North America
+      flat_name: destination.geo.continent_name
+      ignore_above: 1024
+      level: core
+      name: continent_name
+      order: 1
+      original_fieldset: geo
+      short: Name of the continent.
+      type: keyword
+    geo.country_iso_code:
+      description: Country ISO code.
+      example: CA
+      flat_name: destination.geo.country_iso_code
+      ignore_above: 1024
+      level: core
+      name: country_iso_code
+      order: 5
+      original_fieldset: geo
+      short: Country ISO code.
+      type: keyword
+    geo.country_name:
+      description: Country name.
+      example: Canada
+      flat_name: destination.geo.country_name
+      ignore_above: 1024
+      level: core
+      name: country_name
+      order: 2
+      original_fieldset: geo
+      short: Country name.
+      type: keyword
+    geo.location:
+      description: Longitude and latitude.
+      example: '{ "lon": -73.614830, "lat": 45.505918 }'
+      flat_name: destination.geo.location
+      level: core
+      name: location
+      order: 0
+      original_fieldset: geo
+      short: Longitude and latitude.
+      type: geo_point
+    geo.name:
+      description: 'User-defined description of a location, at the level of granularity
+        they care about.
+
+        Could be the name of their data centers, the floor number, if this describes
+        a local physical entity, city names.
+
+        Not typically used in automated geolocation.'
+      example: boston-dc
+      flat_name: destination.geo.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      order: 7
+      original_fieldset: geo
+      short: User-defined description of a location.
+      type: keyword
+    geo.region_iso_code:
+      description: Region ISO code.
+      example: CA-QC
+      flat_name: destination.geo.region_iso_code
+      ignore_above: 1024
+      level: core
+      name: region_iso_code
+      order: 6
+      original_fieldset: geo
+      short: Region ISO code.
+      type: keyword
+    geo.region_name:
+      description: Region name.
+      example: Quebec
+      flat_name: destination.geo.region_name
+      ignore_above: 1024
+      level: core
+      name: region_name
+      order: 3
+      original_fieldset: geo
+      short: Region name.
       type: keyword
     ip:
       description: 'IP address of the destination.
@@ -411,6 +710,7 @@ destination:
       flat_name: destination.ip
       level: core
       name: ip
+      order: 1
       short: IP address of the destination.
       type: ip
     mac:
@@ -419,6 +719,7 @@ destination:
       ignore_above: 1024
       level: core
       name: mac
+      order: 3
       short: MAC address of the destination.
       type: keyword
     packets:
@@ -427,6 +728,7 @@ destination:
       flat_name: destination.packets
       level: core
       name: packets
+      order: 6
       short: Packets sent from the destination to the source.
       type: long
     port:
@@ -434,10 +736,90 @@ destination:
       flat_name: destination.port
       level: core
       name: port
+      order: 2
       short: Port of the destination.
       type: long
+    user.email:
+      description: User email address.
+      flat_name: destination.user.email
+      ignore_above: 1024
+      level: extended
+      name: email
+      order: 3
+      original_fieldset: user
+      short: User email address.
+      type: keyword
+    user.full_name:
+      description: User's full name, if available.
+      example: Albert Einstein
+      flat_name: destination.user.full_name
+      ignore_above: 1024
+      level: extended
+      name: full_name
+      order: 2
+      original_fieldset: user
+      short: User's full name, if available.
+      type: keyword
+    user.group.id:
+      description: Unique identifier for the group on the system/platform.
+      flat_name: destination.user.group.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      order: 0
+      original_fieldset: user
+      short: Unique identifier for the group on the system/platform.
+      type: keyword
+    user.group.name:
+      description: Name of the group.
+      flat_name: destination.user.group.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      order: 1
+      original_fieldset: user
+      short: Name of the group.
+      type: keyword
+    user.hash:
+      description: 'Unique user hash to correlate information for a user in anonymized
+        form.
+
+        Useful if `user.id` or `user.name` contain confidential information and cannot
+        be used.'
+      flat_name: destination.user.hash
+      ignore_above: 1024
+      level: extended
+      name: hash
+      order: 4
+      original_fieldset: user
+      short: Unique user hash to correlate information for a user in anonymized form.
+      type: keyword
+    user.id:
+      description: One or multiple unique identifiers of the user.
+      flat_name: destination.user.id
+      ignore_above: 1024
+      level: core
+      name: id
+      order: 0
+      original_fieldset: user
+      short: One or multiple unique identifiers of the user.
+      type: keyword
+    user.name:
+      description: Short name or login of the user.
+      example: albert
+      flat_name: destination.user.name
+      ignore_above: 1024
+      level: core
+      name: name
+      order: 1
+      original_fieldset: user
+      short: Short name or login of the user.
+      type: keyword
   group: 2
   name: destination
+  nestings:
+  - geo
+  - user
   prefix: destination.
   short: Fields about the destination side of a network connection, used with source.
   title: Destination
@@ -457,12 +839,14 @@ ecs:
       ignore_above: 1024
       level: core
       name: version
+      order: 0
       required: true
       short: ECS version this event conforms to.
       type: keyword
   group: 2
   name: ecs
   prefix: ecs.
+  short: Meta-information specific to ECS.
   title: ECS
   type: group
 error:
@@ -477,6 +861,7 @@ error:
       ignore_above: 1024
       level: core
       name: code
+      order: 2
       short: Error code describing the error.
       type: keyword
     id:
@@ -485,6 +870,7 @@ error:
       ignore_above: 1024
       level: core
       name: id
+      order: 0
       short: Unique identifier for the error.
       type: keyword
     message:
@@ -493,6 +879,7 @@ error:
       level: core
       name: message
       norms: false
+      order: 1
       short: Error message.
       type: text
   group: 2
@@ -525,6 +912,7 @@ event:
       ignore_above: 1024
       level: core
       name: action
+      order: 3
       short: The action captured by the event.
       type: keyword
     category:
@@ -539,6 +927,7 @@ event:
       ignore_above: 1024
       level: core
       name: category
+      order: 2
       short: Event category.
       type: keyword
     created:
@@ -557,6 +946,7 @@ event:
       flat_name: event.created
       level: core
       name: created
+      order: 13
       short: Time when the event was first read by an agent or by your pipeline.
       type: date
     dataset:
@@ -570,6 +960,7 @@ event:
       ignore_above: 1024
       level: core
       name: dataset
+      order: 7
       short: Name of the dataset.
       type: keyword
     duration:
@@ -578,8 +969,11 @@ event:
         If event.start and event.end are known this value should be the difference
         between the end and start time.'
       flat_name: event.duration
+      format: duration
+      input_format: nanoseconds
       level: core
       name: duration
+      order: 11
       short: Duration of the event in nanoseconds.
       type: long
     end:
@@ -588,6 +982,7 @@ event:
       flat_name: event.end
       level: extended
       name: end
+      order: 15
       short: event.end contains the date when the event ended or when the activity
         was last observed.
       type: date
@@ -599,6 +994,7 @@ event:
       ignore_above: 1024
       level: extended
       name: hash
+      order: 10
       short: Hash (perhaps logstash fingerprint) of raw field to be able to demonstrate
         log integrity.
       type: keyword
@@ -609,6 +1005,7 @@ event:
       ignore_above: 1024
       level: core
       name: id
+      order: 0
       short: Unique ID to describe the event.
       type: keyword
     kind:
@@ -623,6 +1020,7 @@ event:
       ignore_above: 1024
       level: extended
       name: kind
+      order: 1
       short: The kind of the event.
       type: keyword
     module:
@@ -634,9 +1032,8 @@ event:
       ignore_above: 1024
       level: core
       name: module
-      short: 'Name of the module this data is coming from.
-
-        This information is coming from the modules used in Beats or Logstash.'
+      order: 6
+      short: Name of the module this data is coming from.
       type: keyword
     original:
       description: 'Raw text message of entire event. Used to demonstrate log integrity.
@@ -651,6 +1048,7 @@ event:
       index: false
       level: core
       name: original
+      order: 9
       short: Raw text message of entire event.
       type: keyword
     outcome:
@@ -665,6 +1063,7 @@ event:
       ignore_above: 1024
       level: extended
       name: outcome
+      order: 4
       short: The outcome of the event.
       type: keyword
     risk_score:
@@ -673,6 +1072,7 @@ event:
       flat_name: event.risk_score
       level: core
       name: risk_score
+      order: 16
       short: Risk score or priority of the event (e.g. security solutions). Use your
         system's original value here.
       type: float
@@ -685,6 +1085,7 @@ event:
       flat_name: event.risk_score_norm
       level: extended
       name: risk_score_norm
+      order: 17
       short: Normalized risk score or priority of the event (0-100).
       type: float
     severity:
@@ -695,6 +1096,7 @@ event:
       flat_name: event.severity
       level: core
       name: severity
+      order: 8
       short: Original severity of the event.
       type: long
     start:
@@ -703,6 +1105,7 @@ event:
       flat_name: event.start
       level: extended
       name: start
+      order: 14
       short: event.start contains the date when the event started or when the activity
         was first observed.
       type: date
@@ -717,6 +1120,7 @@ event:
       ignore_above: 1024
       level: extended
       name: timezone
+      order: 12
       short: Event time zone.
       type: keyword
     type:
@@ -727,6 +1131,7 @@ event:
       ignore_above: 1024
       level: core
       name: type
+      order: 5
       short: Reserved for future usage.
       type: keyword
   group: 2
@@ -749,6 +1154,7 @@ file:
       flat_name: file.ctime
       level: extended
       name: ctime
+      order: 13
       short: Last time file metadata changed.
       type: date
     device:
@@ -757,6 +1163,7 @@ file:
       ignore_above: 1024
       level: extended
       name: device
+      order: 4
       short: Device that is the source of the file.
       type: keyword
     extension:
@@ -768,6 +1175,7 @@ file:
       ignore_above: 1024
       level: extended
       name: extension
+      order: 2
       short: File extension.
       type: keyword
     gid:
@@ -776,6 +1184,7 @@ file:
       ignore_above: 1024
       level: extended
       name: gid
+      order: 8
       short: Primary group ID (GID) of the file.
       type: keyword
     group:
@@ -784,6 +1193,7 @@ file:
       ignore_above: 1024
       level: extended
       name: group
+      order: 9
       short: Primary group name of the file.
       type: keyword
     inode:
@@ -792,6 +1202,7 @@ file:
       ignore_above: 1024
       level: extended
       name: inode
+      order: 5
       short: Inode representing the file in the filesystem.
       type: keyword
     mode:
@@ -801,6 +1212,7 @@ file:
       ignore_above: 1024
       level: extended
       name: mode
+      order: 10
       short: Mode of the file in octal representation.
       type: keyword
     mtime:
@@ -808,6 +1220,7 @@ file:
       flat_name: file.mtime
       level: extended
       name: mtime
+      order: 12
       short: Last time file content was modified.
       type: date
     owner:
@@ -816,6 +1229,7 @@ file:
       ignore_above: 1024
       level: extended
       name: owner
+      order: 7
       short: File owner's username.
       type: keyword
     path:
@@ -824,6 +1238,7 @@ file:
       ignore_above: 1024
       level: extended
       name: path
+      order: 0
       short: Path to the file.
       type: keyword
     size:
@@ -831,6 +1246,7 @@ file:
       flat_name: file.size
       level: extended
       name: size
+      order: 11
       short: File size in bytes (field is only added when `type` is `file`).
       type: long
     target_path:
@@ -839,6 +1255,7 @@ file:
       ignore_above: 1024
       level: extended
       name: target_path
+      order: 1
       short: Target path for symlinks.
       type: keyword
     type:
@@ -847,6 +1264,7 @@ file:
       ignore_above: 1024
       level: extended
       name: type
+      order: 3
       short: File type (file, dir, or symlink).
       type: keyword
     uid:
@@ -855,6 +1273,7 @@ file:
       ignore_above: 1024
       level: extended
       name: uid
+      order: 6
       short: The user ID (UID) or security identifier (SID) of the file owner.
       type: keyword
   group: 2
@@ -877,6 +1296,7 @@ geo:
       ignore_above: 1024
       level: core
       name: city_name
+      order: 4
       short: City name.
       type: keyword
     continent_name:
@@ -886,6 +1306,7 @@ geo:
       ignore_above: 1024
       level: core
       name: continent_name
+      order: 1
       short: Name of the continent.
       type: keyword
     country_iso_code:
@@ -895,6 +1316,7 @@ geo:
       ignore_above: 1024
       level: core
       name: country_iso_code
+      order: 5
       short: Country ISO code.
       type: keyword
     country_name:
@@ -904,6 +1326,7 @@ geo:
       ignore_above: 1024
       level: core
       name: country_name
+      order: 2
       short: Country name.
       type: keyword
     location:
@@ -912,6 +1335,7 @@ geo:
       flat_name: geo.location
       level: core
       name: location
+      order: 0
       short: Longitude and latitude.
       type: geo_point
     name:
@@ -927,6 +1351,7 @@ geo:
       ignore_above: 1024
       level: extended
       name: name
+      order: 7
       short: User-defined description of a location.
       type: keyword
     region_iso_code:
@@ -936,6 +1361,7 @@ geo:
       ignore_above: 1024
       level: core
       name: region_iso_code
+      order: 6
       short: Region ISO code.
       type: keyword
     region_name:
@@ -945,6 +1371,7 @@ geo:
       ignore_above: 1024
       level: core
       name: region_name
+      order: 3
       short: Region name.
       type: keyword
   group: 2
@@ -972,6 +1399,7 @@ group:
       ignore_above: 1024
       level: extended
       name: id
+      order: 0
       short: Unique identifier for the group on the system/platform.
       type: keyword
     name:
@@ -980,6 +1408,7 @@ group:
       ignore_above: 1024
       level: extended
       name: name
+      order: 1
       short: Name of the group.
       type: keyword
   group: 2
@@ -1006,7 +1435,101 @@ host:
       ignore_above: 1024
       level: core
       name: architecture
+      order: 6
       short: Operating system architecture.
+      type: keyword
+    geo.city_name:
+      description: City name.
+      example: Montreal
+      flat_name: host.geo.city_name
+      ignore_above: 1024
+      level: core
+      name: city_name
+      order: 4
+      original_fieldset: geo
+      short: City name.
+      type: keyword
+    geo.continent_name:
+      description: Name of the continent.
+      example: North America
+      flat_name: host.geo.continent_name
+      ignore_above: 1024
+      level: core
+      name: continent_name
+      order: 1
+      original_fieldset: geo
+      short: Name of the continent.
+      type: keyword
+    geo.country_iso_code:
+      description: Country ISO code.
+      example: CA
+      flat_name: host.geo.country_iso_code
+      ignore_above: 1024
+      level: core
+      name: country_iso_code
+      order: 5
+      original_fieldset: geo
+      short: Country ISO code.
+      type: keyword
+    geo.country_name:
+      description: Country name.
+      example: Canada
+      flat_name: host.geo.country_name
+      ignore_above: 1024
+      level: core
+      name: country_name
+      order: 2
+      original_fieldset: geo
+      short: Country name.
+      type: keyword
+    geo.location:
+      description: Longitude and latitude.
+      example: '{ "lon": -73.614830, "lat": 45.505918 }'
+      flat_name: host.geo.location
+      level: core
+      name: location
+      order: 0
+      original_fieldset: geo
+      short: Longitude and latitude.
+      type: geo_point
+    geo.name:
+      description: 'User-defined description of a location, at the level of granularity
+        they care about.
+
+        Could be the name of their data centers, the floor number, if this describes
+        a local physical entity, city names.
+
+        Not typically used in automated geolocation.'
+      example: boston-dc
+      flat_name: host.geo.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      order: 7
+      original_fieldset: geo
+      short: User-defined description of a location.
+      type: keyword
+    geo.region_iso_code:
+      description: Region ISO code.
+      example: CA-QC
+      flat_name: host.geo.region_iso_code
+      ignore_above: 1024
+      level: core
+      name: region_iso_code
+      order: 6
+      original_fieldset: geo
+      short: Region ISO code.
+      type: keyword
+    geo.region_name:
+      description: Region name.
+      example: Quebec
+      flat_name: host.geo.region_name
+      ignore_above: 1024
+      level: core
+      name: region_name
+      order: 3
+      original_fieldset: geo
+      short: Region name.
       type: keyword
     hostname:
       description: 'Hostname of the host.
@@ -1016,6 +1539,7 @@ host:
       ignore_above: 1024
       level: core
       name: hostname
+      order: 0
       short: Hostname of the host.
       type: keyword
     id:
@@ -1028,6 +1552,7 @@ host:
       ignore_above: 1024
       level: core
       name: id
+      order: 2
       short: Unique host id.
       type: keyword
     ip:
@@ -1035,6 +1560,7 @@ host:
       flat_name: host.ip
       level: core
       name: ip
+      order: 3
       short: Host ip address.
       type: ip
     mac:
@@ -1043,6 +1569,7 @@ host:
       ignore_above: 1024
       level: core
       name: mac
+      order: 4
       short: Host mac address.
       type: keyword
     name:
@@ -1055,7 +1582,74 @@ host:
       ignore_above: 1024
       level: core
       name: name
+      order: 1
       short: Name of the host.
+      type: keyword
+    os.family:
+      description: OS family (such as redhat, debian, freebsd, windows).
+      example: debian
+      flat_name: host.os.family
+      ignore_above: 1024
+      level: extended
+      name: family
+      order: 3
+      original_fieldset: os
+      short: OS family (such as redhat, debian, freebsd, windows).
+      type: keyword
+    os.full:
+      description: Operating system name, including the version or code name.
+      example: Mac OS Mojave
+      flat_name: host.os.full
+      ignore_above: 1024
+      level: extended
+      name: full
+      order: 2
+      original_fieldset: os
+      short: Operating system name, including the version or code name.
+      type: keyword
+    os.kernel:
+      description: Operating system kernel version as a raw string.
+      example: 4.4.0-112-generic
+      flat_name: host.os.kernel
+      ignore_above: 1024
+      level: extended
+      name: kernel
+      order: 5
+      original_fieldset: os
+      short: Operating system kernel version as a raw string.
+      type: keyword
+    os.name:
+      description: Operating system name, without the version.
+      example: Mac OS X
+      flat_name: host.os.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      order: 1
+      original_fieldset: os
+      short: Operating system name, without the version.
+      type: keyword
+    os.platform:
+      description: Operating system platform (such centos, ubuntu, windows).
+      example: darwin
+      flat_name: host.os.platform
+      ignore_above: 1024
+      level: extended
+      name: platform
+      order: 0
+      original_fieldset: os
+      short: Operating system platform (such centos, ubuntu, windows).
+      type: keyword
+    os.version:
+      description: Operating system version as a raw string.
+      example: 10.14.1
+      flat_name: host.os.version
+      ignore_above: 1024
+      level: extended
+      name: version
+      order: 4
+      original_fieldset: os
+      short: Operating system version as a raw string.
       type: keyword
     type:
       description: 'Type of host.
@@ -1067,10 +1661,91 @@ host:
       ignore_above: 1024
       level: core
       name: type
+      order: 5
       short: Type of host.
+      type: keyword
+    user.email:
+      description: User email address.
+      flat_name: host.user.email
+      ignore_above: 1024
+      level: extended
+      name: email
+      order: 3
+      original_fieldset: user
+      short: User email address.
+      type: keyword
+    user.full_name:
+      description: User's full name, if available.
+      example: Albert Einstein
+      flat_name: host.user.full_name
+      ignore_above: 1024
+      level: extended
+      name: full_name
+      order: 2
+      original_fieldset: user
+      short: User's full name, if available.
+      type: keyword
+    user.group.id:
+      description: Unique identifier for the group on the system/platform.
+      flat_name: host.user.group.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      order: 0
+      original_fieldset: user
+      short: Unique identifier for the group on the system/platform.
+      type: keyword
+    user.group.name:
+      description: Name of the group.
+      flat_name: host.user.group.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      order: 1
+      original_fieldset: user
+      short: Name of the group.
+      type: keyword
+    user.hash:
+      description: 'Unique user hash to correlate information for a user in anonymized
+        form.
+
+        Useful if `user.id` or `user.name` contain confidential information and cannot
+        be used.'
+      flat_name: host.user.hash
+      ignore_above: 1024
+      level: extended
+      name: hash
+      order: 4
+      original_fieldset: user
+      short: Unique user hash to correlate information for a user in anonymized form.
+      type: keyword
+    user.id:
+      description: One or multiple unique identifiers of the user.
+      flat_name: host.user.id
+      ignore_above: 1024
+      level: core
+      name: id
+      order: 0
+      original_fieldset: user
+      short: One or multiple unique identifiers of the user.
+      type: keyword
+    user.name:
+      description: Short name or login of the user.
+      example: albert
+      flat_name: host.user.name
+      ignore_above: 1024
+      level: core
+      name: name
+      order: 1
+      original_fieldset: user
+      short: Short name or login of the user.
       type: keyword
   group: 2
   name: host
+  nestings:
+  - geo
+  - os
+  - user
   prefix: host.
   short: Fields describing the relevant computing instance.
   title: Host
@@ -1083,8 +1758,10 @@ http:
       description: Size in bytes of the request body.
       example: 887
       flat_name: http.request.body.bytes
+      format: bytes
       level: extended
       name: request.body.bytes
+      order: 7
       short: Size in bytes of the request body.
       type: long
     request.body.content:
@@ -1094,14 +1771,17 @@ http:
       ignore_above: 1024
       level: extended
       name: request.body.content
+      order: 1
       short: The full HTTP request body.
       type: keyword
     request.bytes:
       description: Total size in bytes of the request (body and headers).
       example: 1437
       flat_name: http.request.bytes
+      format: bytes
       level: extended
       name: request.bytes
+      order: 6
       short: Total size in bytes of the request (body and headers).
       type: long
     request.method:
@@ -1114,6 +1794,7 @@ http:
       ignore_above: 1024
       level: extended
       name: request.method
+      order: 0
       short: HTTP request method.
       type: keyword
     request.referrer:
@@ -1123,14 +1804,17 @@ http:
       ignore_above: 1024
       level: extended
       name: request.referrer
+      order: 2
       short: Referrer for this HTTP request.
       type: keyword
     response.body.bytes:
       description: Size in bytes of the response body.
       example: 887
       flat_name: http.response.body.bytes
+      format: bytes
       level: extended
       name: response.body.bytes
+      order: 9
       short: Size in bytes of the response body.
       type: long
     response.body.content:
@@ -1140,14 +1824,17 @@ http:
       ignore_above: 1024
       level: extended
       name: response.body.content
+      order: 4
       short: The full HTTP response body.
       type: keyword
     response.bytes:
       description: Total size in bytes of the response (body and headers).
       example: 1437
       flat_name: http.response.bytes
+      format: bytes
       level: extended
       name: response.bytes
+      order: 8
       short: Total size in bytes of the response (body and headers).
       type: long
     response.status_code:
@@ -1156,6 +1843,7 @@ http:
       flat_name: http.response.status_code
       level: extended
       name: response.status_code
+      order: 3
       short: HTTP response status code.
       type: long
     version:
@@ -1165,6 +1853,7 @@ http:
       ignore_above: 1024
       level: extended
       name: version
+      order: 5
       short: HTTP version.
       type: keyword
   group: 2
@@ -1185,6 +1874,7 @@ log:
       ignore_above: 1024
       level: core
       name: level
+      order: 0
       short: Log level of the log event.
       type: keyword
     original:
@@ -1205,11 +1895,13 @@ log:
       index: false
       level: core
       name: original
+      order: 1
       short: Original log message with light interpretation only (encoding, newlines).
       type: keyword
   group: 2
   name: log
   prefix: log.
+  short: Fields which are specific to log events.
   title: Log
   type: group
 network:
@@ -1233,6 +1925,7 @@ network:
       ignore_above: 1024
       level: extended
       name: application
+      order: 4
       short: Application level protocol name.
       type: keyword
     bytes:
@@ -1242,8 +1935,10 @@ network:
         sum.'
       example: 368
       flat_name: network.bytes
+      format: bytes
       level: core
       name: bytes
+      order: 9
       short: Total bytes transferred in both directions.
       type: long
     community_id:
@@ -1257,6 +1952,7 @@ network:
       ignore_above: 1024
       level: extended
       name: community_id
+      order: 8
       short: A hash of source and destination IPs and ports.
       type: keyword
     direction:
@@ -1271,6 +1967,7 @@ network:
       ignore_above: 1024
       level: core
       name: direction
+      order: 6
       short: Direction of the network traffic.
       type: keyword
     forwarded_ip:
@@ -1279,6 +1976,7 @@ network:
       flat_name: network.forwarded_ip
       level: core
       name: forwarded_ip
+      order: 7
       short: Host IP address when the source IP address is the proxy.
       type: ip
     iana_number:
@@ -1290,6 +1988,7 @@ network:
       ignore_above: 1024
       level: extended
       name: iana_number
+      order: 2
       short: IANA Protocol Number.
       type: keyword
     name:
@@ -1299,6 +1998,7 @@ network:
       ignore_above: 1024
       level: extended
       name: name
+      order: 0
       short: Name given by operators to sections of their network.
       type: keyword
     packets:
@@ -1310,6 +2010,7 @@ network:
       flat_name: network.packets
       level: core
       name: packets
+      order: 10
       short: Total packets transferred in both directions.
       type: long
     protocol:
@@ -1322,6 +2023,7 @@ network:
       ignore_above: 1024
       level: core
       name: protocol
+      order: 5
       short: L7 Network protocol name.
       type: keyword
     transport:
@@ -1335,6 +2037,7 @@ network:
       ignore_above: 1024
       level: core
       name: transport
+      order: 3
       short: Protocol Name corresponding to the field `iana_number`.
       type: keyword
     type:
@@ -1348,6 +2051,7 @@ network:
       ignore_above: 1024
       level: core
       name: type
+      order: 1
       short: In the OSI Model this would be the Network Layer. ipv4, ipv6, ipsec,
         pim, etc
       type: keyword
@@ -1371,12 +2075,106 @@ observer:
     and ETL components used in processing events or metrics are not considered observers
     in ECS.'
   fields:
+    geo.city_name:
+      description: City name.
+      example: Montreal
+      flat_name: observer.geo.city_name
+      ignore_above: 1024
+      level: core
+      name: city_name
+      order: 4
+      original_fieldset: geo
+      short: City name.
+      type: keyword
+    geo.continent_name:
+      description: Name of the continent.
+      example: North America
+      flat_name: observer.geo.continent_name
+      ignore_above: 1024
+      level: core
+      name: continent_name
+      order: 1
+      original_fieldset: geo
+      short: Name of the continent.
+      type: keyword
+    geo.country_iso_code:
+      description: Country ISO code.
+      example: CA
+      flat_name: observer.geo.country_iso_code
+      ignore_above: 1024
+      level: core
+      name: country_iso_code
+      order: 5
+      original_fieldset: geo
+      short: Country ISO code.
+      type: keyword
+    geo.country_name:
+      description: Country name.
+      example: Canada
+      flat_name: observer.geo.country_name
+      ignore_above: 1024
+      level: core
+      name: country_name
+      order: 2
+      original_fieldset: geo
+      short: Country name.
+      type: keyword
+    geo.location:
+      description: Longitude and latitude.
+      example: '{ "lon": -73.614830, "lat": 45.505918 }'
+      flat_name: observer.geo.location
+      level: core
+      name: location
+      order: 0
+      original_fieldset: geo
+      short: Longitude and latitude.
+      type: geo_point
+    geo.name:
+      description: 'User-defined description of a location, at the level of granularity
+        they care about.
+
+        Could be the name of their data centers, the floor number, if this describes
+        a local physical entity, city names.
+
+        Not typically used in automated geolocation.'
+      example: boston-dc
+      flat_name: observer.geo.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      order: 7
+      original_fieldset: geo
+      short: User-defined description of a location.
+      type: keyword
+    geo.region_iso_code:
+      description: Region ISO code.
+      example: CA-QC
+      flat_name: observer.geo.region_iso_code
+      ignore_above: 1024
+      level: core
+      name: region_iso_code
+      order: 6
+      original_fieldset: geo
+      short: Region ISO code.
+      type: keyword
+    geo.region_name:
+      description: Region name.
+      example: Quebec
+      flat_name: observer.geo.region_name
+      ignore_above: 1024
+      level: core
+      name: region_name
+      order: 3
+      original_fieldset: geo
+      short: Region name.
+      type: keyword
     hostname:
       description: Hostname of the observer.
       flat_name: observer.hostname
       ignore_above: 1024
       level: core
       name: hostname
+      order: 2
       short: Hostname of the observer.
       type: keyword
     ip:
@@ -1384,6 +2182,7 @@ observer:
       flat_name: observer.ip
       level: core
       name: ip
+      order: 1
       short: IP address of the observer.
       type: ip
     mac:
@@ -1392,7 +2191,74 @@ observer:
       ignore_above: 1024
       level: core
       name: mac
+      order: 0
       short: MAC address of the observer
+      type: keyword
+    os.family:
+      description: OS family (such as redhat, debian, freebsd, windows).
+      example: debian
+      flat_name: observer.os.family
+      ignore_above: 1024
+      level: extended
+      name: family
+      order: 3
+      original_fieldset: os
+      short: OS family (such as redhat, debian, freebsd, windows).
+      type: keyword
+    os.full:
+      description: Operating system name, including the version or code name.
+      example: Mac OS Mojave
+      flat_name: observer.os.full
+      ignore_above: 1024
+      level: extended
+      name: full
+      order: 2
+      original_fieldset: os
+      short: Operating system name, including the version or code name.
+      type: keyword
+    os.kernel:
+      description: Operating system kernel version as a raw string.
+      example: 4.4.0-112-generic
+      flat_name: observer.os.kernel
+      ignore_above: 1024
+      level: extended
+      name: kernel
+      order: 5
+      original_fieldset: os
+      short: Operating system kernel version as a raw string.
+      type: keyword
+    os.name:
+      description: Operating system name, without the version.
+      example: Mac OS X
+      flat_name: observer.os.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      order: 1
+      original_fieldset: os
+      short: Operating system name, without the version.
+      type: keyword
+    os.platform:
+      description: Operating system platform (such centos, ubuntu, windows).
+      example: darwin
+      flat_name: observer.os.platform
+      ignore_above: 1024
+      level: extended
+      name: platform
+      order: 0
+      original_fieldset: os
+      short: Operating system platform (such centos, ubuntu, windows).
+      type: keyword
+    os.version:
+      description: Operating system version as a raw string.
+      example: 10.14.1
+      flat_name: observer.os.version
+      ignore_above: 1024
+      level: extended
+      name: version
+      order: 4
+      original_fieldset: os
+      short: Operating system version as a raw string.
       type: keyword
     serial_number:
       description: Observer serial number.
@@ -1400,6 +2266,7 @@ observer:
       ignore_above: 1024
       level: extended
       name: serial_number
+      order: 5
       short: Observer serial number.
       type: keyword
     type:
@@ -1412,6 +2279,7 @@ observer:
       ignore_above: 1024
       level: core
       name: type
+      order: 6
       short: The type of the observer the data is coming from.
       type: keyword
     vendor:
@@ -1420,6 +2288,7 @@ observer:
       ignore_above: 1024
       level: core
       name: vendor
+      order: 3
       short: observer vendor information.
       type: keyword
     version:
@@ -1428,10 +2297,14 @@ observer:
       ignore_above: 1024
       level: core
       name: version
+      order: 4
       short: Observer version.
       type: keyword
   group: 2
   name: observer
+  nestings:
+  - geo
+  - os
   prefix: observer.
   short: Fields describing an entity observing the event from outside the host.
   title: Observer
@@ -1449,6 +2322,7 @@ organization:
       ignore_above: 1024
       level: extended
       name: id
+      order: 1
       short: Unique identifier for the organization.
       type: keyword
     name:
@@ -1457,6 +2331,7 @@ organization:
       ignore_above: 1024
       level: extended
       name: name
+      order: 0
       short: Organization name.
       type: keyword
   group: 2
@@ -1475,6 +2350,7 @@ os:
       ignore_above: 1024
       level: extended
       name: family
+      order: 3
       short: OS family (such as redhat, debian, freebsd, windows).
       type: keyword
     full:
@@ -1484,6 +2360,7 @@ os:
       ignore_above: 1024
       level: extended
       name: full
+      order: 2
       short: Operating system name, including the version or code name.
       type: keyword
     kernel:
@@ -1493,6 +2370,7 @@ os:
       ignore_above: 1024
       level: extended
       name: kernel
+      order: 5
       short: Operating system kernel version as a raw string.
       type: keyword
     name:
@@ -1502,6 +2380,7 @@ os:
       ignore_above: 1024
       level: extended
       name: name
+      order: 1
       short: Operating system name, without the version.
       type: keyword
     platform:
@@ -1511,6 +2390,7 @@ os:
       ignore_above: 1024
       level: extended
       name: platform
+      order: 0
       short: Operating system platform (such centos, ubuntu, windows).
       type: keyword
     version:
@@ -1520,6 +2400,7 @@ os:
       ignore_above: 1024
       level: extended
       name: version
+      order: 4
       short: Operating system version as a raw string.
       type: keyword
   group: 2
@@ -1554,6 +2435,7 @@ process:
       ignore_above: 1024
       level: extended
       name: args
+      order: 4
       short: Array of process arguments.
       type: keyword
     executable:
@@ -1563,6 +2445,7 @@ process:
       ignore_above: 1024
       level: extended
       name: executable
+      order: 5
       short: Absolute path to the process executable.
       type: keyword
     name:
@@ -1574,6 +2457,7 @@ process:
       ignore_above: 1024
       level: extended
       name: name
+      order: 1
       short: Process name.
       type: keyword
     pgid:
@@ -1581,6 +2465,7 @@ process:
       flat_name: process.pgid
       level: extended
       name: pgid
+      order: 3
       short: Identifier of the group of processes the process belongs to.
       type: long
     pid:
@@ -1589,6 +2474,7 @@ process:
       flat_name: process.pid
       level: core
       name: pid
+      order: 0
       short: Process id.
       type: long
     ppid:
@@ -1596,6 +2482,7 @@ process:
       flat_name: process.ppid
       level: extended
       name: ppid
+      order: 2
       short: Process parent id.
       type: long
     start:
@@ -1604,6 +2491,7 @@ process:
       flat_name: process.start
       level: extended
       name: start
+      order: 8
       short: The time the process started.
       type: date
     thread.id:
@@ -1612,6 +2500,7 @@ process:
       flat_name: process.thread.id
       level: extended
       name: thread.id
+      order: 7
       short: Thread ID.
       type: long
     title:
@@ -1623,6 +2512,7 @@ process:
       ignore_above: 1024
       level: extended
       name: title
+      order: 6
       short: Process title.
       type: keyword
     working_directory:
@@ -1632,6 +2522,7 @@ process:
       ignore_above: 1024
       level: extended
       name: working_directory
+      order: 9
       short: The working directory of the process.
       type: keyword
   group: 2
@@ -1657,6 +2548,7 @@ related:
       flat_name: related.ip
       level: extended
       name: ip
+      order: 0
       short: All of the IPs seen on your event.
       type: ip
   group: 2
@@ -1693,14 +2585,17 @@ server:
       ignore_above: 1024
       level: extended
       name: address
+      order: 0
       short: Server network address.
       type: keyword
     bytes:
       description: Bytes sent from the server to the client.
       example: 184
       flat_name: server.bytes
+      format: bytes
       level: core
       name: bytes
+      order: 5
       short: Bytes sent from the server to the client.
       type: long
     domain:
@@ -1709,7 +2604,101 @@ server:
       ignore_above: 1024
       level: core
       name: domain
+      order: 4
       short: Server domain.
+      type: keyword
+    geo.city_name:
+      description: City name.
+      example: Montreal
+      flat_name: server.geo.city_name
+      ignore_above: 1024
+      level: core
+      name: city_name
+      order: 4
+      original_fieldset: geo
+      short: City name.
+      type: keyword
+    geo.continent_name:
+      description: Name of the continent.
+      example: North America
+      flat_name: server.geo.continent_name
+      ignore_above: 1024
+      level: core
+      name: continent_name
+      order: 1
+      original_fieldset: geo
+      short: Name of the continent.
+      type: keyword
+    geo.country_iso_code:
+      description: Country ISO code.
+      example: CA
+      flat_name: server.geo.country_iso_code
+      ignore_above: 1024
+      level: core
+      name: country_iso_code
+      order: 5
+      original_fieldset: geo
+      short: Country ISO code.
+      type: keyword
+    geo.country_name:
+      description: Country name.
+      example: Canada
+      flat_name: server.geo.country_name
+      ignore_above: 1024
+      level: core
+      name: country_name
+      order: 2
+      original_fieldset: geo
+      short: Country name.
+      type: keyword
+    geo.location:
+      description: Longitude and latitude.
+      example: '{ "lon": -73.614830, "lat": 45.505918 }'
+      flat_name: server.geo.location
+      level: core
+      name: location
+      order: 0
+      original_fieldset: geo
+      short: Longitude and latitude.
+      type: geo_point
+    geo.name:
+      description: 'User-defined description of a location, at the level of granularity
+        they care about.
+
+        Could be the name of their data centers, the floor number, if this describes
+        a local physical entity, city names.
+
+        Not typically used in automated geolocation.'
+      example: boston-dc
+      flat_name: server.geo.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      order: 7
+      original_fieldset: geo
+      short: User-defined description of a location.
+      type: keyword
+    geo.region_iso_code:
+      description: Region ISO code.
+      example: CA-QC
+      flat_name: server.geo.region_iso_code
+      ignore_above: 1024
+      level: core
+      name: region_iso_code
+      order: 6
+      original_fieldset: geo
+      short: Region ISO code.
+      type: keyword
+    geo.region_name:
+      description: Region name.
+      example: Quebec
+      flat_name: server.geo.region_name
+      ignore_above: 1024
+      level: core
+      name: region_name
+      order: 3
+      original_fieldset: geo
+      short: Region name.
       type: keyword
     ip:
       description: 'IP address of the server.
@@ -1718,6 +2707,7 @@ server:
       flat_name: server.ip
       level: core
       name: ip
+      order: 1
       short: IP address of the server.
       type: ip
     mac:
@@ -1726,6 +2716,7 @@ server:
       ignore_above: 1024
       level: core
       name: mac
+      order: 3
       short: MAC address of the server.
       type: keyword
     packets:
@@ -1734,6 +2725,7 @@ server:
       flat_name: server.packets
       level: core
       name: packets
+      order: 6
       short: Packets sent from the server to the client.
       type: long
     port:
@@ -1741,10 +2733,90 @@ server:
       flat_name: server.port
       level: core
       name: port
+      order: 2
       short: Port of the server.
       type: long
+    user.email:
+      description: User email address.
+      flat_name: server.user.email
+      ignore_above: 1024
+      level: extended
+      name: email
+      order: 3
+      original_fieldset: user
+      short: User email address.
+      type: keyword
+    user.full_name:
+      description: User's full name, if available.
+      example: Albert Einstein
+      flat_name: server.user.full_name
+      ignore_above: 1024
+      level: extended
+      name: full_name
+      order: 2
+      original_fieldset: user
+      short: User's full name, if available.
+      type: keyword
+    user.group.id:
+      description: Unique identifier for the group on the system/platform.
+      flat_name: server.user.group.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      order: 0
+      original_fieldset: user
+      short: Unique identifier for the group on the system/platform.
+      type: keyword
+    user.group.name:
+      description: Name of the group.
+      flat_name: server.user.group.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      order: 1
+      original_fieldset: user
+      short: Name of the group.
+      type: keyword
+    user.hash:
+      description: 'Unique user hash to correlate information for a user in anonymized
+        form.
+
+        Useful if `user.id` or `user.name` contain confidential information and cannot
+        be used.'
+      flat_name: server.user.hash
+      ignore_above: 1024
+      level: extended
+      name: hash
+      order: 4
+      original_fieldset: user
+      short: Unique user hash to correlate information for a user in anonymized form.
+      type: keyword
+    user.id:
+      description: One or multiple unique identifiers of the user.
+      flat_name: server.user.id
+      ignore_above: 1024
+      level: core
+      name: id
+      order: 0
+      original_fieldset: user
+      short: One or multiple unique identifiers of the user.
+      type: keyword
+    user.name:
+      description: Short name or login of the user.
+      example: albert
+      flat_name: server.user.name
+      ignore_above: 1024
+      level: core
+      name: name
+      order: 1
+      original_fieldset: user
+      short: Short name or login of the user.
+      type: keyword
   group: 2
   name: server
+  nestings:
+  - geo
+  - user
   prefix: server.
   short: Fields about the server side of a network connection, used with client.
   title: Server
@@ -1764,6 +2836,7 @@ service:
       ignore_above: 1024
       level: extended
       name: ephemeral_id
+      order: 5
       short: Ephemeral identifier of this service.
       type: keyword
     id:
@@ -1779,6 +2852,7 @@ service:
       ignore_above: 1024
       level: core
       name: id
+      order: 0
       short: Unique identifier of the running service.
       type: keyword
     name:
@@ -1799,6 +2873,7 @@ service:
       ignore_above: 1024
       level: core
       name: name
+      order: 1
       short: Name of the service.
       type: keyword
     state:
@@ -1807,6 +2882,7 @@ service:
       ignore_above: 1024
       level: core
       name: state
+      order: 3
       short: Current state of the service.
       type: keyword
     type:
@@ -1822,6 +2898,7 @@ service:
       ignore_above: 1024
       level: core
       name: type
+      order: 2
       short: The type of the service.
       type: keyword
     version:
@@ -1833,6 +2910,7 @@ service:
       ignore_above: 1024
       level: core
       name: version
+      order: 4
       short: Version of the service.
       type: keyword
   group: 2
@@ -1857,14 +2935,17 @@ source:
       ignore_above: 1024
       level: extended
       name: address
+      order: 0
       short: Source network address.
       type: keyword
     bytes:
       description: Bytes sent from the source to the destination.
       example: 184
       flat_name: source.bytes
+      format: bytes
       level: core
       name: bytes
+      order: 5
       short: Bytes sent from the source to the destination.
       type: long
     domain:
@@ -1873,7 +2954,101 @@ source:
       ignore_above: 1024
       level: core
       name: domain
+      order: 4
       short: Source domain.
+      type: keyword
+    geo.city_name:
+      description: City name.
+      example: Montreal
+      flat_name: source.geo.city_name
+      ignore_above: 1024
+      level: core
+      name: city_name
+      order: 4
+      original_fieldset: geo
+      short: City name.
+      type: keyword
+    geo.continent_name:
+      description: Name of the continent.
+      example: North America
+      flat_name: source.geo.continent_name
+      ignore_above: 1024
+      level: core
+      name: continent_name
+      order: 1
+      original_fieldset: geo
+      short: Name of the continent.
+      type: keyword
+    geo.country_iso_code:
+      description: Country ISO code.
+      example: CA
+      flat_name: source.geo.country_iso_code
+      ignore_above: 1024
+      level: core
+      name: country_iso_code
+      order: 5
+      original_fieldset: geo
+      short: Country ISO code.
+      type: keyword
+    geo.country_name:
+      description: Country name.
+      example: Canada
+      flat_name: source.geo.country_name
+      ignore_above: 1024
+      level: core
+      name: country_name
+      order: 2
+      original_fieldset: geo
+      short: Country name.
+      type: keyword
+    geo.location:
+      description: Longitude and latitude.
+      example: '{ "lon": -73.614830, "lat": 45.505918 }'
+      flat_name: source.geo.location
+      level: core
+      name: location
+      order: 0
+      original_fieldset: geo
+      short: Longitude and latitude.
+      type: geo_point
+    geo.name:
+      description: 'User-defined description of a location, at the level of granularity
+        they care about.
+
+        Could be the name of their data centers, the floor number, if this describes
+        a local physical entity, city names.
+
+        Not typically used in automated geolocation.'
+      example: boston-dc
+      flat_name: source.geo.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      order: 7
+      original_fieldset: geo
+      short: User-defined description of a location.
+      type: keyword
+    geo.region_iso_code:
+      description: Region ISO code.
+      example: CA-QC
+      flat_name: source.geo.region_iso_code
+      ignore_above: 1024
+      level: core
+      name: region_iso_code
+      order: 6
+      original_fieldset: geo
+      short: Region ISO code.
+      type: keyword
+    geo.region_name:
+      description: Region name.
+      example: Quebec
+      flat_name: source.geo.region_name
+      ignore_above: 1024
+      level: core
+      name: region_name
+      order: 3
+      original_fieldset: geo
+      short: Region name.
       type: keyword
     ip:
       description: 'IP address of the source.
@@ -1882,6 +3057,7 @@ source:
       flat_name: source.ip
       level: core
       name: ip
+      order: 1
       short: IP address of the source.
       type: ip
     mac:
@@ -1890,6 +3066,7 @@ source:
       ignore_above: 1024
       level: core
       name: mac
+      order: 3
       short: MAC address of the source.
       type: keyword
     packets:
@@ -1898,6 +3075,7 @@ source:
       flat_name: source.packets
       level: core
       name: packets
+      order: 6
       short: Packets sent from the source to the destination.
       type: long
     port:
@@ -1905,10 +3083,90 @@ source:
       flat_name: source.port
       level: core
       name: port
+      order: 2
       short: Port of the source.
       type: long
+    user.email:
+      description: User email address.
+      flat_name: source.user.email
+      ignore_above: 1024
+      level: extended
+      name: email
+      order: 3
+      original_fieldset: user
+      short: User email address.
+      type: keyword
+    user.full_name:
+      description: User's full name, if available.
+      example: Albert Einstein
+      flat_name: source.user.full_name
+      ignore_above: 1024
+      level: extended
+      name: full_name
+      order: 2
+      original_fieldset: user
+      short: User's full name, if available.
+      type: keyword
+    user.group.id:
+      description: Unique identifier for the group on the system/platform.
+      flat_name: source.user.group.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      order: 0
+      original_fieldset: user
+      short: Unique identifier for the group on the system/platform.
+      type: keyword
+    user.group.name:
+      description: Name of the group.
+      flat_name: source.user.group.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      order: 1
+      original_fieldset: user
+      short: Name of the group.
+      type: keyword
+    user.hash:
+      description: 'Unique user hash to correlate information for a user in anonymized
+        form.
+
+        Useful if `user.id` or `user.name` contain confidential information and cannot
+        be used.'
+      flat_name: source.user.hash
+      ignore_above: 1024
+      level: extended
+      name: hash
+      order: 4
+      original_fieldset: user
+      short: Unique user hash to correlate information for a user in anonymized form.
+      type: keyword
+    user.id:
+      description: One or multiple unique identifiers of the user.
+      flat_name: source.user.id
+      ignore_above: 1024
+      level: core
+      name: id
+      order: 0
+      original_fieldset: user
+      short: One or multiple unique identifiers of the user.
+      type: keyword
+    user.name:
+      description: Short name or login of the user.
+      example: albert
+      flat_name: source.user.name
+      ignore_above: 1024
+      level: core
+      name: name
+      order: 1
+      original_fieldset: user
+      short: Short name or login of the user.
+      type: keyword
   group: 2
   name: source
+  nestings:
+  - geo
+  - user
   prefix: source.
   short: Fields about the source side of a network connection, used with destination.
   title: Source
@@ -1927,6 +3185,7 @@ url:
       ignore_above: 1024
       level: extended
       name: domain
+      order: 3
       short: Domain of the url.
       type: keyword
     fragment:
@@ -1937,6 +3196,7 @@ url:
       ignore_above: 1024
       level: extended
       name: fragment
+      order: 7
       short: Portion of the url after the `#`.
       type: keyword
     full:
@@ -1948,6 +3208,7 @@ url:
       ignore_above: 1024
       level: extended
       name: full
+      order: 1
       short: Full unparsed URL.
       type: keyword
     original:
@@ -1962,6 +3223,7 @@ url:
       ignore_above: 1024
       level: extended
       name: original
+      order: 0
       short: Unmodified original url as seen in the event source.
       type: keyword
     password:
@@ -1970,6 +3232,7 @@ url:
       ignore_above: 1024
       level: extended
       name: password
+      order: 9
       short: Password of the request.
       type: keyword
     path:
@@ -1978,6 +3241,7 @@ url:
       ignore_above: 1024
       level: extended
       name: path
+      order: 5
       short: Path of the request, such as "/search".
       type: keyword
     port:
@@ -1986,8 +3250,9 @@ url:
       flat_name: url.port
       level: extended
       name: port
+      order: 4
       short: Port of the request, such as 443.
-      type: integer
+      type: long
     query:
       description: 'The query field describes the query string of the request, such
         as "q=elasticsearch".
@@ -2000,6 +3265,7 @@ url:
       ignore_above: 1024
       level: extended
       name: query
+      order: 6
       short: Query string of the request.
       type: keyword
     scheme:
@@ -2011,6 +3277,7 @@ url:
       ignore_above: 1024
       level: extended
       name: scheme
+      order: 2
       short: Scheme of the url.
       type: keyword
     username:
@@ -2019,6 +3286,7 @@ url:
       ignore_above: 1024
       level: extended
       name: username
+      order: 8
       short: Username of the request.
       type: keyword
   group: 2
@@ -2040,6 +3308,7 @@ user:
       ignore_above: 1024
       level: extended
       name: email
+      order: 3
       short: User email address.
       type: keyword
     full_name:
@@ -2049,7 +3318,28 @@ user:
       ignore_above: 1024
       level: extended
       name: full_name
+      order: 2
       short: User's full name, if available.
+      type: keyword
+    group.id:
+      description: Unique identifier for the group on the system/platform.
+      flat_name: user.group.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      order: 0
+      original_fieldset: group
+      short: Unique identifier for the group on the system/platform.
+      type: keyword
+    group.name:
+      description: Name of the group.
+      flat_name: user.group.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      order: 1
+      original_fieldset: group
+      short: Name of the group.
       type: keyword
     hash:
       description: 'Unique user hash to correlate information for a user in anonymized
@@ -2061,6 +3351,7 @@ user:
       ignore_above: 1024
       level: extended
       name: hash
+      order: 4
       short: Unique user hash to correlate information for a user in anonymized form.
       type: keyword
     id:
@@ -2069,6 +3360,7 @@ user:
       ignore_above: 1024
       level: core
       name: id
+      order: 0
       short: One or multiple unique identifiers of the user.
       type: keyword
     name:
@@ -2078,10 +3370,13 @@ user:
       ignore_above: 1024
       level: core
       name: name
+      order: 1
       short: Short name or login of the user.
       type: keyword
   group: 2
   name: user
+  nestings:
+  - group
   prefix: user.
   reusable:
     expected:
@@ -2106,6 +3401,7 @@ user_agent:
       ignore_above: 1024
       level: extended
       name: device.name
+      order: 3
       short: Name of the device.
       type: keyword
     name:
@@ -2115,6 +3411,7 @@ user_agent:
       ignore_above: 1024
       level: extended
       name: name
+      order: 1
       short: Name of the user agent.
       type: keyword
     original:
@@ -2125,7 +3422,74 @@ user_agent:
       ignore_above: 1024
       level: extended
       name: original
+      order: 0
       short: Unparsed version of the user_agent.
+      type: keyword
+    os.family:
+      description: OS family (such as redhat, debian, freebsd, windows).
+      example: debian
+      flat_name: user_agent.os.family
+      ignore_above: 1024
+      level: extended
+      name: family
+      order: 3
+      original_fieldset: os
+      short: OS family (such as redhat, debian, freebsd, windows).
+      type: keyword
+    os.full:
+      description: Operating system name, including the version or code name.
+      example: Mac OS Mojave
+      flat_name: user_agent.os.full
+      ignore_above: 1024
+      level: extended
+      name: full
+      order: 2
+      original_fieldset: os
+      short: Operating system name, including the version or code name.
+      type: keyword
+    os.kernel:
+      description: Operating system kernel version as a raw string.
+      example: 4.4.0-112-generic
+      flat_name: user_agent.os.kernel
+      ignore_above: 1024
+      level: extended
+      name: kernel
+      order: 5
+      original_fieldset: os
+      short: Operating system kernel version as a raw string.
+      type: keyword
+    os.name:
+      description: Operating system name, without the version.
+      example: Mac OS X
+      flat_name: user_agent.os.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      order: 1
+      original_fieldset: os
+      short: Operating system name, without the version.
+      type: keyword
+    os.platform:
+      description: Operating system platform (such centos, ubuntu, windows).
+      example: darwin
+      flat_name: user_agent.os.platform
+      ignore_above: 1024
+      level: extended
+      name: platform
+      order: 0
+      original_fieldset: os
+      short: Operating system platform (such centos, ubuntu, windows).
+      type: keyword
+    os.version:
+      description: Operating system version as a raw string.
+      example: 10.14.1
+      flat_name: user_agent.os.version
+      ignore_above: 1024
+      level: extended
+      name: version
+      order: 4
+      original_fieldset: os
+      short: Operating system version as a raw string.
       type: keyword
     version:
       description: Version of the user agent.
@@ -2134,10 +3498,13 @@ user_agent:
       ignore_above: 1024
       level: extended
       name: version
+      order: 2
       short: Version of the user agent.
       type: keyword
   group: 2
   name: user_agent
+  nestings:
+  - os
   prefix: user_agent.
   short: Fields to describe a browser user_agent string.
   title: User agent
