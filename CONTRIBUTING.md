@@ -88,4 +88,4 @@ The `type` is the [Elasticsearch field type](https://www.elastic.co/guide/en/ela
 
 ## Guidelines for implementing ECS
 
-Look at our [Guidelines and Best Practices](http://example.com) on the ECS documentation website.
+Look at our [Guidelines and Best Practices](https://www.elastic.co/guide/en/ecs/current/ecs-guidelines.html) on the ECS documentation website.

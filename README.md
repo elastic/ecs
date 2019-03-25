@@ -8,7 +8,7 @@ analytics and security analytics.
 ## Documentation
 
 The ECS reference is published on the main Elastic documentation website.
-Visit [the official ECS Reference Documentation](https://www.elastic.co/guide/en/ecs/reference/current/index.html).
+Visit [the official ECS Reference Documentation](https://www.elastic.co/guide/en/ecs/current/index.html).
 
 ## Contributing
 
