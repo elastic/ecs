@@ -71,6 +71,7 @@ def render_asciidoc_paragraphs(string):
     '''Simply double the \n'''
     return string.replace("\n", "\n\n")
 
+
 def render_field_details_row(field):
     example = ''
     if 'example' in field:
