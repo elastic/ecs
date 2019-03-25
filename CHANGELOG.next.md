@@ -18,7 +18,6 @@
 
 ### Deprecated
 
-* Move old `fields.yml` file from the root of the repo to `generated/legacy`. #386
 
 <!-- All empty sections:
 
