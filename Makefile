@@ -56,7 +56,7 @@ fmt: ve
 
 # Alias to generate everything.
 .PHONY: generate
-generate: readme template codegen generator
+generate: template legacy_use_cases codegen generator
 
 # Run the new generator
 .PHONY: generator
@@ -73,6 +73,11 @@ gocodegen:
 	        -schema=../schemas \
 	        -out=../code/go/ecs
 
+# Generate the Use Cases
+.PHONY: legacy_use_cases
+legacy_use_cases:
+	$(PYTHON) scripts/use-cases.py --stdout=true >> /dev/null
+
 # Check Makefile format.
 .PHONY: makelint
 makelint: SHELL:=/bin/bash
@@ -85,17 +90,6 @@ makelint:
 misspell:
 	go get github.com/client9/misspell/cmd/misspell
 	misspell README.md CONTRIBUTING.md
-
-# Build README.md by concatenating various markdown snippets.
-.PHONY: readme
-readme:
-	cat docs/intro.md > README.md
-	$(PYTHON) scripts/schemas.py --stdout=true >> README.md
-	cat docs/use-cases-header.md >> README.md
-	$(PYTHON) scripts/use-cases.py --stdout=true >> README.md
-	cat docs/implementing.md >> README.md
-	cat docs/about.md >> README.md
-	cat docs/generated-files.md >> README.md
 
 .PHONY: reload_docs
 reload_docs: generator docs
