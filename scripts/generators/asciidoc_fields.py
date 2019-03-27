@@ -253,7 +253,7 @@ def nestings_table_header():
 
 def nestings_row():
     return '''
-| http://localhost:8000/ecs-{nesting_name}.html[{flat_nesting}]
+| <<ecs-{nesting_name},{flat_nesting}>>
 | {nesting_short}
 
 // ===============================================================
