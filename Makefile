@@ -75,7 +75,7 @@ gocodegen:
 
 # Generate the Use Cases
 .PHONY: legacy_use_cases
-legacy_use_cases:
+legacy_use_cases: ve
 	$(PYTHON) scripts/use-cases.py --stdout=true >> /dev/null
 
 # Check Makefile format.

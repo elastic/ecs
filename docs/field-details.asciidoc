@@ -1172,6 +1172,29 @@ example: `1001`
 
 |=====
 
+==== Field Reuse
+
+
+
+
+[[ecs-file-nestings]]
+===== Field sets that can be nested under File
+
+[options="header"]
+|=====
+| Nested fields | Description
+
+// ===============================================================
+
+
+| <<ecs-hash,file.hash.*>>
+| Hashes, usually file hashes.
+
+// ===============================================================
+
+
+|=====
+
 [[ecs-geo]]
 === Geo Fields
 
@@ -1332,6 +1355,206 @@ type: keyword
 The `group` fields are expected to be nested at: `user.group`.
 
 Note also that the `group` fields may be used directly at the top level.
+
+
+
+
+[[ecs-hash]]
+=== Group Fields
+
+The hash fields represent different hash algorithms and their values.
+
+==== Group Field Details
+
+[options="header"]
+|=====
+| Field  | Description | Level
+
+// ===============================================================
+
+| hash.blake2b_256
+| BLAKE2b-256 hash.
+
+type: keyword
+
+
+
+| extended
+
+// ===============================================================
+
+| hash.blake2b_384
+| BLAKE2b-384 hash.
+
+type: keyword
+
+
+
+| extended
+
+// ===============================================================
+
+| hash.blake2b_512
+| BLAKE2b-512 hash.
+
+type: keyword
+
+
+
+| extended
+
+// ===============================================================
+
+| hash.md5
+| MD5 hash.
+
+type: keyword
+
+
+
+| extended
+
+// ===============================================================
+
+| hash.sha1
+| SHA1 hash.
+
+type: keyword
+
+
+
+| extended
+
+// ===============================================================
+
+| hash.sha224
+| SHA224 hash.
+
+type: keyword
+
+
+
+| extended
+
+// ===============================================================
+
+| hash.sha256
+| SHA256 hash.
+
+type: keyword
+
+
+
+| extended
+
+// ===============================================================
+
+| hash.sha384
+| SHA384 hash.
+
+type: keyword
+
+
+
+| extended
+
+// ===============================================================
+
+| hash.sha3_224
+| SHA3_224 hash.
+
+type: keyword
+
+
+
+| extended
+
+// ===============================================================
+
+| hash.sha3_256
+| SHA3_256 hash.
+
+type: keyword
+
+
+
+| extended
+
+// ===============================================================
+
+| hash.sha3_384
+| SHA3_384 hash.
+
+type: keyword
+
+
+
+| extended
+
+// ===============================================================
+
+| hash.sha3_512
+| SHA3_512 hash.
+
+type: keyword
+
+
+
+| extended
+
+// ===============================================================
+
+| hash.sha512
+| SHA512 hash.
+
+type: keyword
+
+
+
+| extended
+
+// ===============================================================
+
+| hash.sha512_224
+| SHA512/224 hash.
+
+type: keyword
+
+
+
+| extended
+
+// ===============================================================
+
+| hash.sha512_256
+| SHA512/256 hash.
+
+type: keyword
+
+
+
+| extended
+
+// ===============================================================
+
+| hash.xxh64
+| XX64 hash.
+
+type: keyword
+
+
+
+| extended
+
+// ===============================================================
+
+|=====
+
+==== Field Reuse
+
+The `hash` fields are expected to be nested at: `file.hash`, `process.hash`.
+
+Note also that the `hash` fields are not expected to be used directly at the top level.
 
 
 
@@ -2199,6 +2422,29 @@ example: `/home/alice`
 | extended
 
 // ===============================================================
+
+|=====
+
+==== Field Reuse
+
+
+
+
+[[ecs-process-nestings]]
+===== Field sets that can be nested under Process
+
+[options="header"]
+|=====
+| Nested fields | Description
+
+// ===============================================================
+
+
+| <<ecs-hash,process.hash.*>>
+| Hashes, usually file hashes.
+
+// ===============================================================
+
 
 |=====
 
