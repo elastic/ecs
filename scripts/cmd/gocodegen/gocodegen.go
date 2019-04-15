@@ -284,10 +284,12 @@ func goDataType(fieldName, elasticsearchDataType string) string {
 		return "float64"
 	case "date":
 		return "time.Time"
+	case "boolean":
+		return "bool"
 	case "object":
 		return "map[string]interface{}"
 	default:
-		log.Fatal("no translation for ", elasticsearchDataType)
+		log.Fatalf("no translation for %v (field %s)", elasticsearchDataType, fieldName)
 		return ""
 	}
 }
