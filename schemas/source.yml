@@ -2,15 +2,30 @@
 - name: source
   title: Source
   group: 2
+  short: Fields about the source side of a network connection, used with destination.
   description: >
-    Source fields describe details about the destination of a
-    packet/event.
+    Source fields describe details about the source of a packet/event.
+
+    Source fields are usually populated in conjunction with destination fields.
   type: group
   fields:
+
+    - name: address
+      level: extended
+      type: keyword
+      short: Source network address.
+      description: >
+        Some event source addresses are defined ambiguously. The event will
+        sometimes list an IP, a domain or a unix socket.  You should always
+        store the raw address in the `.address` field.
+
+        Then it should be duplicated to `.ip` or `.domain`, depending on which
+        one it is.
 
     - name: ip
       level: core
       type: ip
+      short: IP address of the source.
       description: >
         IP address of the source.
 
@@ -33,3 +48,19 @@
       type: keyword
       description: >
         Source domain.
+
+    # Metrics
+    - name: bytes
+      format: bytes
+      level: core
+      type: long
+      example: 184
+      description: >
+        Bytes sent from the source to the destination.
+
+    - name: packets
+      level: core
+      type: long
+      example: 12
+      description: >
+        Packets sent from the source to the destination.

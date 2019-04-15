@@ -1,37 +1,58 @@
-import csv
 import os
 import yaml
 import sys
 import copy
 from helper import *
 import argparse
+from functools import reduce
+import json
 
 
-def create_csv(fields, file):
+def addNamespace(namespaces, namespace):
+    namespaces[namespace["name"]] = {
+        "name": namespace["name"],
+        "title": namespace["title"],
+        "description": namespace["description"],
+        "type": namespace["type"],
+        "group": namespace["group"],
+        "fields": {}
+    }
 
+    return namespaces
+
+
+def addFields(namespaces, namespace):
+    namespaceName = namespace["name"]
+
+    def fieldAsJson(fieldsByName, field):
+        fieldsByName[field["name"]] = {
+            "name": field["name"],
+            "type": field["type"],
+            "required": field.get("required", False),
+            "description": field["description"],
+            "example": field["example"],
+            "group": field["group"],
+            "level": field["level"],
+            "footnote": field["footnote"],
+        }
+
+        return fieldsByName
+
+    namespaces[namespaceName]["fields"] = reduce(fieldAsJson, namespace["fields"], {})
+    return namespaces
+
+
+def create_json(fields, file):
     open_mode = "wb"
     if sys.version_info >= (3, 0):
         open_mode = "w"
 
-    # Output schema to csv
-    with open(file, open_mode) as csvfile:
-        schema_writer = csv.writer(csvfile,
-                                   delimiter=',',
-                                   quoting=csv.QUOTE_MINIMAL,
-                                   lineterminator='\n')
-        schema_writer.writerow(["Field", "Type", "Level", "Example"])
+    # Output schema to json
+    with open(file, open_mode) as jsonfile:
+        root = reduce(addNamespace, fields, {})
+        schema = reduce(addFields, fields, root)
 
-        for namespace in fields:
-            if len(namespace["fields"]) == 0:
-                continue
-
-            # Sort fields for easier readability
-            namespaceFields = sorted(namespace["fields"],
-                                     key=lambda field: field["name"])
-
-            # Print fields into a table
-            for field in namespaceFields:
-                schema_writer.writerow([field["name"], field["type"], field["level"], field["example"]])
+        jsonfile.write(json.dumps(schema, indent=2, sort_keys=True))
 
 
 def create_markdown_document(fields):
@@ -93,4 +114,4 @@ if __name__ == "__main__":
     else:
         groups = [1, 2, 3]
         f_fields = filtered_fields(sortedNamespaces, groups)
-        create_csv(f_fields, "schema.csv")
+        create_json(f_fields, "schema.json")

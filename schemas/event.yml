@@ -2,8 +2,19 @@
 - name: event
   title: Event
   group: 2
+  short: Fields breaking down the event details.
   description: >
-    The event fields are used for context information about the data itself.
+    The event fields are used for context information about the log or metric event itself.
+
+    A log is defined as an event containing details of something that happened.
+    Log events must include the time at which the thing happened.
+    Examples of log events include a process starting on a host,
+    a network packet being sent from a source to a destination,
+    or a network connection between a client and a server being initiated or closed.
+    A metric is defined as an event containing one or more numerical or
+    categorical measurements and the time at which the measurement was taken.
+    Examples of metric events include memory pressure measured on a host,
+    or vulnerabilities measured on a scanned host.
   type: group
   fields:
 
@@ -14,39 +25,74 @@
         Unique ID to describe the event.
       example: 8a4f500d
 
+    - name: kind
+      level: extended
+      type: keyword
+      short: The kind of the event.
+      description: >
+        The kind of the event.
+
+        This gives information about what type of information the event
+        contains, without being specific to the contents of the event.  Examples
+        are `event`, `state`, `alarm`. Warning: In future versions of ECS, we
+        plan to provide a list of acceptable values for this field, please use
+        with caution.
+      example: state
+
     - name: category
       level: core
       type: keyword
+      short: Event category.
       description: >
         Event category.
 
-        This can be a user defined category.
-      example: metrics
+        This contains high-level information about the contents of the event. It
+        is more generic than `event.action`, in the sense that typically a
+        category contains multiple actions. Warning: In future versions of ECS,
+        we plan to provide a list of acceptable values for this field, please
+        use with caution.
 
-    - name: type
-      level: core
-      type: keyword
-      description: >
-        A type given to this kind of event which can be used for grouping.
-
-        This is normally defined by the user.
-      example: nginx-stats-metrics
+      example: user-management
 
     - name: action
       level: core
       type: keyword
+      short: The action captured by the event.
       description: >
-        The action captured by the event. The type of action will vary from
-        system to system but is likely to include actions by security services,
-        such as blocking or quarantining; as well as more generic actions such
-        as login events, file i/o or proxy forwarding events.
+        The action captured by the event.
 
-        The value is normally defined by the user.
-      example: reject
+        This describes the information in the event. It is more specific than
+        `event.category`. Examples are `group-add`, `process-started`,
+        `file-created`. The value is normally defined by the implementer.
+      example: user-password-change
+
+    - name: outcome
+      level: extended
+      type: keyword
+      short: The outcome of the event.
+      description: >
+        The outcome of the event.
+
+        If the event describes an action, this fields contains the outcome of
+        that action. Examples outcomes are `success` and `failure`. Warning: In
+        future versions of ECS, we plan to provide a list of acceptable values
+        for this field, please use with caution.
+
+      example: success
+
+    - name: type
+      level: core
+      type: keyword
+      short: Reserved for future usage.
+      description: >
+        Reserved for future usage.
+
+        Please avoid using this field for user data.
 
     - name: module
       level: core
       type: keyword
+      short: Name of the module this data is coming from.
       description: >
         Name of the module this data is coming from.
 
@@ -56,6 +102,7 @@
     - name: dataset
       level: core
       type: keyword
+      short: Name of the dataset.
       description: >
         Name of the dataset.
 
@@ -68,8 +115,9 @@
       level: core
       type: long
       example: "7"
+      short: Original severity of the event.
       description: >
-        Severity describes the severity of the event. What the different
+        Severity describes the original severity of the event. What the different
         severity values mean can very different between use cases. It's up to
         the implementer to make sure severities are consistent across events.
 
@@ -84,6 +132,7 @@
           threatmanager&#124;1.0&#124;100&#124;
           worm successfully stopped&#124;10&#124;src=10.0.0.1
           dst=2.1.2.2spt=1232"
+      short: Raw text message of entire event.
       description: >
           Raw text message of entire event. Used to demonstrate log integrity.
 
@@ -103,25 +152,61 @@
     - name: duration
       level: core
       type: long
+      format: duration
+      input_format: nanoseconds
+      output_format: asMilliseconds
+      output_precision: 1
+      short: Duration of the event in nanoseconds.
       description: >
         Duration of the event in nanoseconds.
+
+        If event.start and event.end are known this value should be the
+        difference between the end and start time.
+
+    - name: timezone
+      level: extended
+      type: keyword
+      short: Event time zone.
+      description: >
+        This field should be populated when the event's timestamp does not include
+        timezone information already (e.g. default Syslog timestamps). It's
+        optional otherwise.
+
+        Acceptable timezone formats are: a canonical ID (e.g. "Europe/Amsterdam"),
+        abbreviated (e.g. "EST") or an HH:mm differential (e.g. "-05:00").
 
     - name: created
       level: core
       type: date
+      short: Time when the event was first read by an agent or by your pipeline.
       description: >
-        event.created contains the date when the event was created.
+        event.created contains the date/time when the event was first read by an
+        agent, or by your pipeline.
 
-        This timestamp is distinct from @timestamp in that @timestamp contains
-        the processed timestamp. For logs these two timestamps can be different
-        as the timestamp in the log line and when the event is read for example
-        by Filebeat are not identical. `@timestamp` must contain the timestamp
-        extracted from the log line, event.created when the log line is read.
-        The same could apply to package capturing where @timestamp contains the
-        timestamp extracted from the network package and event.created when the
-        event was created.
+        This field is distinct from @timestamp in that @timestamp typically contain
+        the time extracted from the original event.
+
+        In most situations, these two timestamps will be slightly different.
+        The difference can be used to calculate the delay between your source
+        generating an event, and the time when your agent first processed it.
+        This can be used to monitor your agent's or pipeline's ability to
+        keep up with your event source.
 
         In case the two timestamps are identical, @timestamp should be used.
+
+    - name: start
+      level: extended
+      type: date
+      description: >
+        event.start contains the date when the event started or when the
+        activity was first observed.
+
+    - name: end
+      level: extended
+      type: date
+      description: >
+        event.end contains the date when the event ended or when the activity
+        was last observed.
 
     - name: risk_score
       level: core
@@ -133,6 +218,7 @@
     - name: risk_score_norm
       level: extended
       type: float
+      short: Normalized risk score or priority of the event (0-100).
       description: >
         Normalized risk score or priority of the event, on a scale of 0 to 100.
 

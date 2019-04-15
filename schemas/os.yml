@@ -1,12 +1,13 @@
 - name: os
   title: Operating System
   group: 2
+  short: OS fields contain information about the operating system.
   description: >
     The OS fields contain information about the operating system.
   reusable:
     top_level: false
     expected:
-      - device
+      - observer
       - host
       - user_agent
   type: group
@@ -24,7 +25,14 @@
       type: keyword
       example: "Mac OS X"
       description: >
-        Operating system name.
+        Operating system name, without the version.
+
+    - name: full
+      level: extended
+      type: keyword
+      example: "Mac OS Mojave"
+      description: >
+        Operating system name, including the version or code name.
 
     - name: family
       level: extended
@@ -36,7 +44,7 @@
     - name: version
       level: extended
       type: keyword
-      example: "10.12.6-rc2"
+      example: "10.14.1"
       description: >
         Operating system version as a raw string.
 

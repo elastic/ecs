@@ -1,0 +1,88 @@
+---
+- name: http
+  title: HTTP
+  group: 2
+  short: Fields describing an HTTP request.
+  description: >
+    Fields related to HTTP activity. Use the `url` field set to store the url of the request.
+  type: group
+  fields:
+
+    - name: request.method
+      level: extended
+      type: keyword
+      short: HTTP request method.
+      description: >
+        HTTP request method.
+
+        The field value must be normalized to lowercase for querying. See
+        the documentation section "Implementing ECS".
+      example: get, post, put
+
+    - name: request.body.content
+      level: extended
+      type: keyword
+      description: >
+        The full HTTP request body.
+      example: Hello world
+
+    - name: request.referrer
+      level: extended
+      type: keyword
+      description: >
+        Referrer for this HTTP request.
+      example: https://blog.example.com/
+
+    - name: response.status_code
+      level: extended
+      type: long
+      description: >
+        HTTP response status code.
+      example: 404
+
+    - name: response.body.content
+      level: extended
+      type: keyword
+      description: >
+        The full HTTP response body.
+      example: Hello world
+
+    - name: version
+      level: extended
+      type: keyword
+      description: >
+        HTTP version.
+      example: 1.1
+
+    # Metrics
+    - name: request.bytes
+      level: extended
+      type: long
+      format: bytes
+      description: >
+        Total size in bytes of the request (body and headers).
+      example: 1437
+
+    - name: request.body.bytes
+      level: extended
+      type: long
+      format: bytes
+      description: >
+        Size in bytes of the request body.
+      example: 887
+
+    - name: response.bytes
+      level: extended
+      type: long
+      format: bytes
+      description: >
+        Total size in bytes of the response (body and headers).
+      example: 1437
+
+    - name: response.body.bytes
+      level: extended
+      type: long
+      format: bytes
+      description: >
+        Size in bytes of the response body.
+      example: 887

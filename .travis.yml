@@ -6,10 +6,23 @@ os:
 - linux
 
 go:
-- 1.10.x
+- 1.11.x
 
 before_install:
 - make setup
 
-script:
-- make check
+addons:
+  apt:
+    update: true
+    packages:
+      - xsltproc
+      - libxml2-utils
+
+jobs:
+  include:
+    - stage: check
+      script:
+      - make check
+    - stage: docs
+      script:
+      - OPEN_DOCS="" make docs

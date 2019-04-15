@@ -2,20 +2,31 @@
 - name: host
   title: Host
   group: 2
+  short: Fields describing the relevant computing instance.
   description: >
-    Host fields provide information related to a host. A host can be a
-    physical machine, a virtual machine, or a Docker container.
+    A host is defined as a general computing instance.
 
-    Normally the host information is related to the machine on which the event
-    was generated/collected, but they can be used differently if needed.
+    ECS host.* fields should be populated with details about the host on which
+    the event happened, or from which the measurement was taken.
+    Host types include hardware, virtual machines, Docker containers, and Kubernetes nodes.
   type: group
   fields:
 
     - name: hostname
       level: core
       type: keyword
+      short: Hostname of the host.
       description: >
         Hostname of the host.
+
+        It normally contains what the `hostname` command returns on the host machine.
+
+    - name: name
+      level: core
+      type: keyword
+      short: Name of the host.
+      description: >
+        Name of the host.
 
         It can contain what `hostname` returns on Unix systems, the fully
         qualified domain name, or a name specified by the user. The sender
@@ -24,6 +35,7 @@
     - name: id
       level: core
       type: keyword
+      short: Unique host id.
       description: >
         Unique host id.
 
@@ -46,6 +58,7 @@
     - name: type
       level: core
       type: keyword
+      short: Type of host.
       description: >
         Type of host.
 

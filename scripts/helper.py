@@ -83,6 +83,9 @@ def clean_string_field(field, key):
     else:
         field[key] = ""
 
+    if "index" in field and field["index"] == False:
+        field["type"] = "(not indexed)"
+
 
 def get_markdown_row(field, link, multi_field):
     """Creates a markdown table for the given fields

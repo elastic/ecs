@@ -1,0 +1,46 @@
+[[ecs-converting]]
+=== Converting a Custom Implementation
+
+A common schema helps you correlate and use data from various sources.
+
+Fields for most Elastic modules and solutions (version 7.0 and later) are mapped
+to the Elastic Common Schema. You may want to map data from other
+implementations to ECS to help you correlate data across all of your products
+and solutions.
+
+Before you start a conversion, be sure that you understand the basics below.
+
+[float]
+[[core-or-ext]]
+==== Core and extended levels
+
+Make sure you understand the distinction between Core and Extended fields,
+as explained in the <<ecs-guidelines>>.
+
+[float]
+[[ecs-conv]]
+==== An approach to mapping an existing implementation
+
+Here's the recommended approach for converting an existing implementation to {ecs}.
+
+. Review each field in your original event and map it to the relevant ECS field.
+
+  - Start by mapping your field to the relevant ECS Core field.
+  - If a relevant ECS Core field does not exist, map your field to the relevant ECS Extended field.
+  - If no relevant ECS Extended field exists, consider keeping your field with its original details,
+    or possibly renaming it using ECS naming guidelines and attempt to map one
+    or more of your original event fields to it.
+
+. Review each ECS Core field, and attempt to populate it.
+
+  - Review your original event data again
+  - Consider populating the field based on additional meta-data such as static
+    information (e.g. add `event.type:syslog` even if syslog events don't mention this fact),
+    or information gathered from the environment (e.g. host information).
+
+. Review other extended fields from any field set you are already using, and
+  attempt to populate it as well.
+
+. Set `ecs.version` to the version of the schema you are conforming to. This will
+  allow you to upgrade your sources, pipelines and content (like dashboards)
+  smoothly in the future.

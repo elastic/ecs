@@ -1,0 +1,58 @@
+---
+- name: observer
+  title: Observer
+  group: 2
+  short: Fields describing an entity observing the event from outside the host.
+  description: >
+    An observer is defined as a special network, security, or application device
+    used to detect, observe, or create network, security, or application-related events and metrics.
+
+    This could be a custom hardware appliance or a server that has been configured
+    to run special network, security, or application software.
+    Examples include firewalls, intrusion detection/prevention systems,
+    network monitoring sensors, web application firewalls, data loss prevention systems, and APM servers.
+    The observer.* fields shall be populated with details of the system, if any,
+    that detects, observes and/or creates a network, security, or application event or metric.
+    Message queues and ETL components used in processing events or metrics are not considered observers in ECS.
+  type: group
+  fields:
+    - name: mac
+      level: core
+      type: keyword
+      description: >
+        MAC address of the observer
+    - name: ip
+      level: core
+      type: ip
+      description: >
+        IP address of the observer.
+    - name: hostname
+      level: core
+      type: keyword
+      description: >
+        Hostname of the observer.
+    - name: vendor
+      level: core
+      type: keyword
+      description: >
+        observer vendor information.
+    - name: version
+      level: core
+      type: keyword
+      description: >
+        Observer version.
+    - name: serial_number
+      level: extended
+      type: keyword
+      description: >
+        Observer serial number.
+    - name: type
+      level: core
+      type: keyword
+      short: The type of the observer the data is coming from.
+      description: >
+        The type of the observer the data is coming from.
+
+        There is no predefined list of observer types. Some examples are
+        `forwarder`, `firewall`, `ids`, `ips`, `proxy`, `poller`, `sensor`, `APM server`.
+      example: firewall

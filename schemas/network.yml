@@ -2,8 +2,11 @@
 - name: network
   title: Network
   group: 2
+  short: Fields describing the communication path over which the event happened.
   description: >
-    Fields related to network data.
+    The network is defined as the communication path over which a host or network event happens.
+
+    The network.* fields should be populated with details about the network activity associated with an event.
   type: group
   fields:
 
@@ -17,13 +20,18 @@
     - name: type
       level: core
       type: keyword
+      short: In the OSI Model this would be the Network Layer. ipv4, ipv6, ipsec, pim, etc
       description: >
-        In the OSI Model this would be the Network Layer. IPv4, IPv6, IPSec, PIM, etc
-      example: IPv4
+        In the OSI Model this would be the Network Layer. ipv4, ipv6, ipsec, pim, etc
+
+        The field value must be normalized to lowercase for querying. See
+        the documentation section "Implementing ECS".
+      example: ipv4
 
     - name: iana_number
       level: extended
       type: keyword
+      short: IANA Protocol Number.
       description: >
           IANA Protocol Number (https://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml).
           Standardized list of protocols. This aligns well with NetFlow and
@@ -33,39 +41,61 @@
     - name: transport
       level: core
       type: keyword
+      short: Protocol Name corresponding to the field `iana_number`.
       description: >
         Same as network.iana_number, but instead using the Keyword name of the
-        transport layer (UDP, TCP, IPv6-ICMP, etc.)
-      example: TCP
+        transport layer (udp, tcp, ipv6-icmp, etc.)
+
+        The field value must be normalized to lowercase for querying. See
+        the documentation section "Implementing ECS".
+      example: tcp
 
     - name: application
       level: extended
       type: keyword
+      short: >
+        Application level protocol name.
       description: >
-        A name given to an application. This can be arbitrarily assigned for
+        A name given to an application level protocol. This can be arbitrarily assigned for
         things like microservices, but also apply to things like skype, icq,
         facebook, twitter. This would be used in situations where the vendor
         or service can be decoded such as from the source/dest IP owners,
         ports, or wire format.
-      example: AIM
+
+        The field value must be normalized to lowercase for querying. See
+        the documentation section "Implementing ECS".
+      example: aim
 
     - name: protocol
       level: core
       type: keyword
+      short: L7 Network protocol name.
       description: >
-        L7 Network protocol name. ex. http, lumberjack, transport protocol
+        L7 Network protocol name. ex. http, lumberjack, transport protocol.
+
+        The field value must be normalized to lowercase for querying. See
+        the documentation section "Implementing ECS".
       example: http
 
     - name: direction
       level: core
       type: keyword
+      short: Direction of the network traffic.
       description: >
         Direction of the network traffic.
 
         Recommended values are:
           * inbound
           * outbound
+          * internal
+          * external
           * unknown
+
+        When mapping events from a host-based monitoring context, populate this
+        field from the host's point of view.
+
+        When mapping events from a network or perimeter-based monitoring context,
+        populate this field from the point of view of your network perimeter.
       example: inbound
 
     - name: forwarded_ip
@@ -75,45 +105,36 @@
         Host IP address when the source IP address is the proxy.
       example: 192.1.1.2
 
+    - name: community_id
+      level: extended
+      type: keyword
+      short: A hash of source and destination IPs and ports.
+      description: >
+        A hash of source and destination IPs and ports, as well as the protocol
+        used in a communication. This is a tool-agnostic standard to identify
+        flows.
+
+        Learn more at https://github.com/corelight/community-id-spec.
+      example: '1:hO+sN4H+MG5MY/8hIrXPqc4ZQz0='
+
     # Metrics
-    - name: inbound.bytes
+    - name: bytes
       level: core
       type: long
+      format: bytes
+      short: Total bytes transferred in both directions.
       description: >
-        Network inbound bytes.
-      example: 184
+        Total bytes transferred in both directions.
 
-    - name: inbound.packets
-      level: core
-      type: long
-      description: >
-        Network inbound packets.
-      example: 12
-
-    - name: outbound.bytes
-      level: core
-      type: long
-      description: >
-        Network outbound bytes.
-      example: 184
-
-    - name: outbound.packets
-      level: core
-      type: long
-      description: >
-        Network outbound packets.
-      example: 12
-
-    - name: total.bytes
-      level: core
-      type: long
-      description: >
-        Network total bytes. The sum of inbound.bytes + outbound.bytes.
+        If `source.bytes` and `destination.bytes` are known, `network.bytes` is their sum.
       example: 368
 
-    - name: total.packets
+    - name: packets
       level: core
       type: long
+      short: Total packets transferred in both directions.
       description: >
-        Network outbound packets. The sum of inbound.packets + outbound.packets
+        Total packets transferred in both directions.
+
+        If `source.packets` and `destination.packets` are known, `network.packets` is their sum.
       example: 24

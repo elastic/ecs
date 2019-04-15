@@ -2,18 +2,30 @@
 - name: geo
   title: Geo
   group: 2
+  short: Fields describing a location.
   description: >
-    Geo fields can carry data about a specific location related to an event
-    or geo information derived from an IP field.
+    Geo fields can carry data about a specific location related to an event.
+
+    This geolocation information can be derived from techniques such as Geo IP,
+    or be user-supplied.
   reusable:
     top_level: false
     expected:
+      - client
       - destination
-      - device
+      - observer
       - host
+      - server
       - source
   type: group
   fields:
+
+    - name: location
+      level: core
+      type: geo_point
+      description: >
+        Longitude and latitude.
+      example: '{ "lon": -73.614830, "lat": 45.505918 }'
 
     - name: continent_name
       level: core
@@ -22,19 +34,12 @@
         Name of the continent.
       example: North America
 
-    - name: country_iso_code
+    - name: country_name
       level: core
       type: keyword
       description: >
-        Country ISO code.
-      example: CA
-
-    - name: location
-      level: core
-      type: geo_point
-      description: >
-        Longitude and latitude.
-      example: '{ "lon": -73.614830, "lat": 45.505918 }'
+        Country name.
+      example: Canada
 
     - name: region_name
       level: core
@@ -49,3 +54,30 @@
       description: >
         City name.
       example: Montreal
+
+    - name: country_iso_code
+      level: core
+      type: keyword
+      description: >
+        Country ISO code.
+      example: CA
+
+    - name: region_iso_code
+      level: core
+      type: keyword
+      description: >
+        Region ISO code.
+      example: CA-QC
+
+    - name: name
+      level: extended
+      type: keyword
+      short: User-defined description of a location.
+      description: >
+        User-defined description of a location, at the level of granularity they care about.
+
+        Could be the name of their data centers, the floor number, if this describes
+        a local physical entity, city names.
+
+        Not typically used in automated geolocation.
+      example: boston-dc

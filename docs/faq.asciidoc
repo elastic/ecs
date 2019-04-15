@@ -1,0 +1,101 @@
+[[ecs-faq]]
+=== Questions and Answers
+
+[float]
+[[ecs-benefits]]
+==== What are the benefits of using ECS?
+
+The benefits to a user adopting these fields and names in their clusters are:
+
+* **Data correlation.** Ability to easily correlate data from the same or different sources, including:
+** data from metrics, logs, and application performance management (apm) tools
+** data from the same machines/hosts
+** data from the same service
+* **Ease of recall.** Improved ability to remember commonly used field names (because there is a single set, not a set per data source)
+* **Ease of deduction.** Improved ability to deduce field names (because the field naming follows a small number of rules with few exceptions)
+* **Reuse.** Ability to re-use analysis content (searches, visualizations, dashboards, alerts, reports, and machine learning jobs) across multiple data sources
+* **Future proofing.** Ability to use any future Elastic-provided analysis content in your environment without modifications
+
+[float]
+[[conflict]]
+==== What if I have fields that conflict with ECS?
+
+The
+{ref}/rename-processor.html[rename
+processor] can help you resolve field conflicts. For example, imagine that you
+already have a field called "user," but ECS employs `user` as an object. You can
+use the rename processor on ingest time to rename your field to the matching ECS
+field. If your field does not match ECS, you can rename your field to
+`user.value` instead.
+
+[float]
+[[addl-fields]]
+==== What if my events have additional fields?
+
+Events may contain fields in addition to ECS fields. These fields can follow the
+ECS naming and writing rules, but this is not a requirement.
+
+[float]
+[[dot-notation]]
+==== Why does ECS use a dot notation instead of an underline notation?
+
+There are two common key formats for ingesting data into Elasticsearch:
+
+* Dot notation: `user.firstname: Nicolas`, `user.lastname: Ruflin`
+* Underline notation: `user_firstname: Nicolas`, `user_lastname: Ruflin`
+
+ECS uses the dot notation to represent nested objects.
+
+[float]
+[[notation-diff]]
+===== What is the difference between the two notations?
+
+Ingesting `user.firstname: Nicolas` and `user.lastname: Ruflin` is identical to ingesting the following JSON:
+
+[source,json]
+    "user": {
+      "firstname": "Nicolas",
+      "lastname": "Ruflin"
+    }
+
+In Elasticsearch, `user` is represented as an {ref}/object.html[object
+datatype]. In the case of the underline notation, both are just
+{ref}/mapping-types.html[string datatypes].
+
+NOTE: ECS does not use {ref}/nested.html[nested
+datatypes], which are arrays of objects.
+
+[float]
+[[dot-adv]]
+===== Advantages of dot notation
+
+With dot notation, each prefix in Elasticsearch is an object. Each object can have
+{ref}/object.html#object-params[parameters]
+that control how fields inside the object are treated. In the context of ECS,
+for example, these parameters would allow you to disable dynamic property
+creation for certain prefixes.
+
+Individual objects give you more flexibility on both the ingest and the event
+sides. In Elasticsearch, for example, you can use the remove processor to drop
+complete objects instead of selecting each key inside. You don't have to know
+ahead of time which keys will be in an object.
+
+In Beats, you can simplify the creation of events. For example, you can treat
+each object as an object (or struct in Golang), which makes constructing and
+modifying each part of the final event easier.
+
+[float]
+[[dot-disadv]]
+===== Disadvantage of dot notation
+
+In Elasticsearch, each key can have only one type. For example, if `user` is an
+`object`, you can't use it as a `keyword` type in the same index, like `{"user":
+"nicolas ruflin"}`. This restriction can be an issue in certain datasets. For
+the ECS data itself, this is not an issue because all fields are predefined.
+
+[float]
+[[underline]]
+===== What if I already use the underline notation?
+
+As long as there are no conflicts, underline notation and ECS dot notation can
+coexist in the same document.

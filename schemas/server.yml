@@ -1,0 +1,75 @@
+---
+- name: server
+  title: Server
+  group: 2
+  short: Fields about the server side of a network connection, used with client.
+  description: >
+    A Server is defined as the responder in a network connection for events regarding sessions, connections, or bidirectional flow records.
+
+    For TCP events, the server is the receiver of the initial SYN packet(s) of the TCP connection.
+    For other protocols, the server is generally the responder in the network transaction.
+    Some systems actually use the term "responder" to refer the server in TCP connections.
+    The server fields describe details about the system acting as the server in the network event.
+    Server fields are usually populated in conjunction with client fields.
+    Server fields are generally not populated for packet-level events.
+
+    Client / server representations can add semantic context to an exchange,
+    which is helpful to visualize the data in certain situations.
+    If your context falls in that category, you should still ensure that source and destination are filled appropriately.
+  type: group
+  fields:
+
+    - name: address
+      level: extended
+      type: keyword
+      short: Server network address.
+      description: >
+        Some event server addresses are defined ambiguously. The event will
+        sometimes list an IP, a domain or a unix socket.  You should always
+        store the raw address in the `.address` field.
+
+        Then it should be duplicated to `.ip` or `.domain`, depending on which
+        one it is.
+
+    - name: ip
+      level: core
+      type: ip
+      short: IP address of the server.
+      description: >
+        IP address of the server.
+
+        Can be one or multiple IPv4 or IPv6 addresses.
+
+    - name: port
+      level: core
+      type: long
+      description: >
+        Port of the server.
+
+    - name: mac
+      level: core
+      type: keyword
+      description: >
+        MAC address of the server.
+
+    - name: domain
+      level: core
+      type: keyword
+      description: >
+        Server domain.
+
+    # Metrics
+    - name: bytes
+      format: bytes
+      level: core
+      type: long
+      example: 184
+      description: >
+        Bytes sent from the server to the client.
+
+    - name: packets
+      level: core
+      type: long
+      example: 12
+      description: >
+        Packets sent from the server to the client.

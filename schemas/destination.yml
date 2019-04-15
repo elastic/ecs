@@ -2,15 +2,30 @@
 - name: destination
   title: Destination
   group: 2
+  short: Fields about the destination side of a network connection, used with source.
   description: >
-    Destination fields describe details about the destination of a
-    packet/event.
+    Destination fields describe details about the destination of a packet/event.
+
+    Destination fields are usually populated in conjunction with source fields.
   type: group
   fields:
+
+    - name: address
+      level: extended
+      type: keyword
+      short: Destination network address.
+      description: >
+        Some event destination addresses are defined ambiguously. The event will
+        sometimes list an IP, a domain or a unix socket.  You should always
+        store the raw address in the `.address` field.
+
+        Then it should be duplicated to `.ip` or `.domain`, depending on which
+        one it is.
 
     - name: ip
       level: core
       type: ip
+      short: IP address of the destination.
       description: >
         IP address of the destination.
 
@@ -33,3 +48,19 @@
       type: keyword
       description: >
         Destination domain.
+
+    # Metrics
+    - name: bytes
+      format: bytes
+      level: core
+      type: long
+      example: 184
+      description: >
+        Bytes sent from the destination to the source.
+
+    - name: packets
+      level: core
+      type: long
+      example: 12
+      description: >
+        Packets sent from the destination to the source.
