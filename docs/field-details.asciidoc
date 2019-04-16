@@ -587,6 +587,428 @@ type: long
 
 |=====
 
+[[ecs-dns]]
+=== DNS Fields
+
+DNS-specific event fields.
+
+==== DNS Field Details
+
+[options="header"]
+|=====
+| Field  | Description | Level
+
+// ===============================================================
+
+| dns.additionals
+| An array containing a dictionary for each additional section from the answer.
+
+type: object
+
+
+
+| extended
+
+// ===============================================================
+
+| dns.additionals.class
+| The class of DNS data contained in this resource record.
+
+type: keyword
+
+example: `IN`
+
+| extended
+
+// ===============================================================
+
+| dns.additionals.data
+| The data describing the resource. The meaning of this data depends on the type and class of the resource record.
+
+type: keyword
+
+
+
+| extended
+
+// ===============================================================
+
+| dns.additionals.name
+| The domain name to which this resource record pertains.
+
+type: keyword
+
+example: `example.com.`
+
+| extended
+
+// ===============================================================
+
+| dns.additionals.ttl
+| The time interval in seconds that this resource record may be cached before it should be discarded. Zero values mean that the data should not be cached.
+
+type: long
+
+
+
+| extended
+
+// ===============================================================
+
+| dns.additionals.type
+| The type of data contained in this resource record.
+
+type: keyword
+
+example: `NS`
+
+| extended
+
+// ===============================================================
+
+| dns.additionals_count
+| The number of resource records contained in the `dns.additionals` field.
+
+type: long
+
+
+
+| extended
+
+// ===============================================================
+
+| dns.answers
+| An array containing a dictionary about each answer section returned by the server.
+
+type: object
+
+
+
+| extended
+
+// ===============================================================
+
+| dns.answers.class
+| The class of DNS data contained in this resource record.
+
+type: keyword
+
+example: `IN`
+
+| extended
+
+// ===============================================================
+
+| dns.answers.data
+| The data describing the resource. The meaning of this data depends on the type and class of the resource record.
+
+type: keyword
+
+
+
+| extended
+
+// ===============================================================
+
+| dns.answers.name
+| The domain name to which this resource record pertains.
+
+type: keyword
+
+example: `example.com.`
+
+| extended
+
+// ===============================================================
+
+| dns.answers.ttl
+| The time interval in seconds that this resource record may be cached before it should be discarded. Zero values mean that the data should not be cached.
+
+type: long
+
+
+
+| extended
+
+// ===============================================================
+
+| dns.answers.type
+| The type of data contained in this resource record.
+
+type: keyword
+
+example: `MX`
+
+| extended
+
+// ===============================================================
+
+| dns.answers_count
+| The number of resource records contained in the `dns.answers` field.
+
+type: long
+
+
+
+| extended
+
+// ===============================================================
+
+| dns.authorities
+| An array containing a dictionary for each authority section from the answer.
+
+type: object
+
+
+
+| extended
+
+// ===============================================================
+
+| dns.authorities.class
+| The class of DNS data contained in this resource record.
+
+type: keyword
+
+example: `IN`
+
+| extended
+
+// ===============================================================
+
+| dns.authorities.name
+| The domain name to which this resource record pertains.
+
+type: keyword
+
+example: `example.com.`
+
+| extended
+
+// ===============================================================
+
+| dns.authorities.type
+| The type of data contained in this resource record.
+
+type: keyword
+
+example: `NS`
+
+| extended
+
+// ===============================================================
+
+| dns.authorities_count
+| The number of resource records contained in the `dns.authorities` field.
+
+type: long
+
+
+
+| extended
+
+// ===============================================================
+
+| dns.flags.authentic_data
+| A DNS flag specifying that the recursive server considers the response authentic.
+
+type: boolean
+
+
+
+| extended
+
+// ===============================================================
+
+| dns.flags.authoritative
+| A DNS flag specifying that the responding server is an authority for the domain name used in the question.
+
+type: boolean
+
+
+
+| extended
+
+// ===============================================================
+
+| dns.flags.checking_disabled
+| A DNS flag specifying that the client disables the server signature validation of the query.
+
+type: boolean
+
+
+
+| extended
+
+// ===============================================================
+
+| dns.flags.recursion_available
+| A DNS flag specifying whether recursive query support is available in the name server.
+
+type: boolean
+
+
+
+| extended
+
+// ===============================================================
+
+| dns.flags.recursion_desired
+| A DNS flag specifying that the client directs the server to pursue a query recursively. Recursive query support is optional.
+
+type: boolean
+
+
+
+| extended
+
+// ===============================================================
+
+| dns.flags.truncated_response
+| A DNS flag specifying that only the first 512 bytes of the reply were returned.
+
+type: boolean
+
+
+
+| extended
+
+// ===============================================================
+
+| dns.id
+| The DNS packet identifier assigned by the program that generated the query. The identifier is copied to the response.
+
+type: keyword
+
+
+
+| extended
+
+// ===============================================================
+
+| dns.op_code
+| The DNS operation code that specifies the kind of query in the message. This value is set by the originator of a query and copied into the response.
+
+type: keyword
+
+example: `QUERY`
+
+| extended
+
+// ===============================================================
+
+| dns.opt.do
+| If set, the transaction uses DNSSEC.
+
+type: boolean
+
+
+
+| extended
+
+// ===============================================================
+
+| dns.opt.ext_rcode
+| Extended response code field.
+
+type: keyword
+
+example: `BADVERS`
+
+| extended
+
+// ===============================================================
+
+| dns.opt.udp_size
+| Requestor's UDP payload size (in bytes).
+
+type: long
+
+
+
+| extended
+
+// ===============================================================
+
+| dns.opt.version
+| The EDNS version.
+
+type: keyword
+
+example: `0`
+
+| extended
+
+// ===============================================================
+
+| dns.question.class
+| The class of of records being queried.
+
+type: keyword
+
+example: `IN`
+
+| core
+
+// ===============================================================
+
+| dns.question.etld_plus_one
+| The effective top-level domain (eTLD) plus one more label. For example, the eTLD+1 for "foo.bar.golang.org." is "golang.org.". The data for determining the eTLD comes from an embedded copy of the data from http://publicsuffix.org.
+
+type: keyword
+
+example: `amazon.co.uk.`
+
+| core
+
+// ===============================================================
+
+| dns.question.name
+| The domain name being queried. If the name field contains non-printable characters (below 32 or above 126), then those characters are represented as escaped base 10 integers (\DDD). Back slashes and quotes are escaped. Tabs, carriage returns, and line feeds are converted to \t, \r, and \n respectively.
+
+type: keyword
+
+example: `www.google.com.`
+
+| core
+
+// ===============================================================
+
+| dns.question.size
+| The size of name being queried (in bytes).
+
+type: keyword
+
+
+
+| extended
+
+// ===============================================================
+
+| dns.question.type
+| The type of records being queried.
+
+type: keyword
+
+example: `AAAA`
+
+| core
+
+// ===============================================================
+
+| dns.response_code
+| The DNS status code.
+
+type: keyword
+
+example: `NOERROR`
+
+| extended
+
+// ===============================================================
+
+|=====
+
 [[ecs-ecs]]
 === ECS Fields
 

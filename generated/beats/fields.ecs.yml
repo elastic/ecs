@@ -505,6 +505,226 @@
       ignore_above: 1024
       description: Short name or login of the user.
       example: albert
+  - name: dns
+    title: DNS
+    group: 2
+    description: DNS-specific event fields.
+    type: group
+    fields:
+    - name: additionals
+      level: extended
+      type: object
+      object_type: keyword
+      description: An array containing a dictionary for each additional section from
+        the answer.
+    - name: additionals.class
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The class of DNS data contained in this resource record.
+      example: IN
+    - name: additionals.data
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The data describing the resource. The meaning of this data depends
+        on the type and class of the resource record.
+    - name: additionals.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The domain name to which this resource record pertains.
+      example: example.com.
+    - name: additionals.ttl
+      level: extended
+      type: long
+      description: The time interval in seconds that this resource record may be cached
+        before it should be discarded. Zero values mean that the data should not be
+        cached.
+    - name: additionals.type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The type of data contained in this resource record.
+      example: NS
+    - name: additionals_count
+      level: extended
+      type: long
+      description: The number of resource records contained in the `dns.additionals`
+        field.
+    - name: answers
+      level: extended
+      type: object
+      object_type: keyword
+      description: An array containing a dictionary about each answer section returned
+        by the server.
+    - name: answers.class
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The class of DNS data contained in this resource record.
+      example: IN
+    - name: answers.data
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The data describing the resource. The meaning of this data depends
+        on the type and class of the resource record.
+    - name: answers.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The domain name to which this resource record pertains.
+      example: example.com.
+    - name: answers.ttl
+      level: extended
+      type: long
+      description: The time interval in seconds that this resource record may be cached
+        before it should be discarded. Zero values mean that the data should not be
+        cached.
+    - name: answers.type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The type of data contained in this resource record.
+      example: MX
+    - name: answers_count
+      level: extended
+      type: long
+      description: The number of resource records contained in the `dns.answers` field.
+    - name: authorities
+      level: extended
+      type: object
+      object_type: keyword
+      description: An array containing a dictionary for each authority section from
+        the answer.
+    - name: authorities.class
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The class of DNS data contained in this resource record.
+      example: IN
+    - name: authorities.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The domain name to which this resource record pertains.
+      example: example.com.
+    - name: authorities.type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The type of data contained in this resource record.
+      example: NS
+    - name: authorities_count
+      level: extended
+      type: long
+      description: The number of resource records contained in the `dns.authorities`
+        field.
+    - name: flags.authentic_data
+      level: extended
+      type: boolean
+      description: A DNS flag specifying that the recursive server considers the response
+        authentic.
+    - name: flags.authoritative
+      level: extended
+      type: boolean
+      description: A DNS flag specifying that the responding server is an authority
+        for the domain name used in the question.
+    - name: flags.checking_disabled
+      level: extended
+      type: boolean
+      description: A DNS flag specifying that the client disables the server signature
+        validation of the query.
+    - name: flags.recursion_available
+      level: extended
+      type: boolean
+      description: A DNS flag specifying whether recursive query support is available
+        in the name server.
+    - name: flags.recursion_desired
+      level: extended
+      type: boolean
+      description: A DNS flag specifying that the client directs the server to pursue
+        a query recursively. Recursive query support is optional.
+    - name: flags.truncated_response
+      level: extended
+      type: boolean
+      description: A DNS flag specifying that only the first 512 bytes of the reply
+        were returned.
+    - name: id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The DNS packet identifier assigned by the program that generated
+        the query. The identifier is copied to the response.
+    - name: op_code
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The DNS operation code that specifies the kind of query in the
+        message. This value is set by the originator of a query and copied into the
+        response.
+      example: QUERY
+    - name: opt.do
+      level: extended
+      type: boolean
+      description: If set, the transaction uses DNSSEC.
+    - name: opt.ext_rcode
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Extended response code field.
+      example: BADVERS
+    - name: opt.udp_size
+      level: extended
+      type: long
+      description: Requestor's UDP payload size (in bytes).
+    - name: opt.version
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The EDNS version.
+      example: '0'
+    - name: question.class
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: The class of of records being queried.
+      example: IN
+    - name: question.etld_plus_one
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: The effective top-level domain (eTLD) plus one more label. For
+        example, the eTLD+1 for "foo.bar.golang.org." is "golang.org.". The data for
+        determining the eTLD comes from an embedded copy of the data from http://publicsuffix.org.
+      example: amazon.co.uk.
+    - name: question.name
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: The domain name being queried. If the name field contains non-printable
+        characters (below 32 or above 126), then those characters are represented
+        as escaped base 10 integers (\DDD). Back slashes and quotes are escaped. Tabs,
+        carriage returns, and line feeds are converted to \t, \r, and \n respectively.
+      example: www.google.com.
+    - name: question.size
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The size of name being queried (in bytes).
+    - name: question.type
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: The type of records being queried.
+      example: AAAA
+    - name: response_code
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The DNS status code.
+      example: NOERROR
   - name: ecs
     title: ECS
     group: 2

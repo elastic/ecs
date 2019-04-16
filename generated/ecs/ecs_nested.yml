@@ -824,6 +824,435 @@ destination:
   short: Fields about the destination side of a network connection, used with source.
   title: Destination
   type: group
+dns:
+  description: DNS-specific event fields.
+  fields:
+    additionals:
+      description: An array containing a dictionary for each additional section from
+        the answer.
+      flat_name: dns.additionals
+      level: extended
+      name: additionals
+      object_type: keyword
+      order: 26
+      phase: 0
+      short: An array containing a dictionary for each additional section from the
+        answer.
+      type: object
+    additionals.class:
+      description: The class of DNS data contained in this resource record.
+      example: IN
+      flat_name: dns.additionals.class
+      ignore_above: 1024
+      level: extended
+      name: additionals.class
+      order: 30
+      phase: 0
+      short: The class of DNS data contained in this resource record.
+      type: keyword
+    additionals.data:
+      description: The data describing the resource. The meaning of this data depends
+        on the type and class of the resource record.
+      flat_name: dns.additionals.data
+      ignore_above: 1024
+      level: extended
+      name: additionals.data
+      order: 32
+      phase: 0
+      short: The data describing the resource. The meaning of this data depends on
+        the type and class of the resource record.
+      type: keyword
+    additionals.name:
+      description: The domain name to which this resource record pertains.
+      example: example.com.
+      flat_name: dns.additionals.name
+      ignore_above: 1024
+      level: extended
+      name: additionals.name
+      order: 28
+      phase: 0
+      short: The domain name to which this resource record pertains.
+      type: keyword
+    additionals.ttl:
+      description: The time interval in seconds that this resource record may be cached
+        before it should be discarded. Zero values mean that the data should not be
+        cached.
+      flat_name: dns.additionals.ttl
+      level: extended
+      name: additionals.ttl
+      order: 31
+      phase: 0
+      short: The time interval in seconds that this resource record may be cached
+        before it should be discarded. Zero values mean that the data should not be
+        cached.
+      type: long
+    additionals.type:
+      description: The type of data contained in this resource record.
+      example: NS
+      flat_name: dns.additionals.type
+      ignore_above: 1024
+      level: extended
+      name: additionals.type
+      order: 29
+      phase: 0
+      short: The type of data contained in this resource record.
+      type: keyword
+    additionals_count:
+      description: The number of resource records contained in the `dns.additionals`
+        field.
+      flat_name: dns.additionals_count
+      level: extended
+      name: additionals_count
+      order: 27
+      phase: 0
+      short: The number of resource records contained in the `dns.additionals` field.
+      type: long
+    answers:
+      description: An array containing a dictionary about each answer section returned
+        by the server.
+      flat_name: dns.answers
+      level: extended
+      name: answers
+      object_type: keyword
+      order: 14
+      phase: 0
+      short: An array containing a dictionary about each answer section returned by
+        the server.
+      type: object
+    answers.class:
+      description: The class of DNS data contained in this resource record.
+      example: IN
+      flat_name: dns.answers.class
+      ignore_above: 1024
+      level: extended
+      name: answers.class
+      order: 18
+      phase: 0
+      short: The class of DNS data contained in this resource record.
+      type: keyword
+    answers.data:
+      description: The data describing the resource. The meaning of this data depends
+        on the type and class of the resource record.
+      flat_name: dns.answers.data
+      ignore_above: 1024
+      level: extended
+      name: answers.data
+      order: 20
+      phase: 0
+      short: The data describing the resource. The meaning of this data depends on
+        the type and class of the resource record.
+      type: keyword
+    answers.name:
+      description: The domain name to which this resource record pertains.
+      example: example.com.
+      flat_name: dns.answers.name
+      ignore_above: 1024
+      level: extended
+      name: answers.name
+      order: 16
+      phase: 0
+      short: The domain name to which this resource record pertains.
+      type: keyword
+    answers.ttl:
+      description: The time interval in seconds that this resource record may be cached
+        before it should be discarded. Zero values mean that the data should not be
+        cached.
+      flat_name: dns.answers.ttl
+      level: extended
+      name: answers.ttl
+      order: 19
+      phase: 0
+      short: The time interval in seconds that this resource record may be cached
+        before it should be discarded. Zero values mean that the data should not be
+        cached.
+      type: long
+    answers.type:
+      description: The type of data contained in this resource record.
+      example: MX
+      flat_name: dns.answers.type
+      ignore_above: 1024
+      level: extended
+      name: answers.type
+      order: 17
+      phase: 0
+      short: The type of data contained in this resource record.
+      type: keyword
+    answers_count:
+      description: The number of resource records contained in the `dns.answers` field.
+      flat_name: dns.answers_count
+      level: extended
+      name: answers_count
+      order: 15
+      phase: 0
+      short: The number of resource records contained in the `dns.answers` field.
+      type: long
+    authorities:
+      description: An array containing a dictionary for each authority section from
+        the answer.
+      flat_name: dns.authorities
+      level: extended
+      name: authorities
+      object_type: keyword
+      order: 21
+      phase: 0
+      short: An array containing a dictionary for each authority section from the
+        answer.
+      type: object
+    authorities.class:
+      description: The class of DNS data contained in this resource record.
+      example: IN
+      flat_name: dns.authorities.class
+      ignore_above: 1024
+      level: extended
+      name: authorities.class
+      order: 25
+      short: The class of DNS data contained in this resource record.
+      type: keyword
+    authorities.name:
+      description: The domain name to which this resource record pertains.
+      example: example.com.
+      flat_name: dns.authorities.name
+      ignore_above: 1024
+      level: extended
+      name: authorities.name
+      order: 23
+      phase: 0
+      short: The domain name to which this resource record pertains.
+      type: keyword
+    authorities.type:
+      description: The type of data contained in this resource record.
+      example: NS
+      flat_name: dns.authorities.type
+      ignore_above: 1024
+      level: extended
+      name: authorities.type
+      order: 24
+      phase: 0
+      short: The type of data contained in this resource record.
+      type: keyword
+    authorities_count:
+      description: The number of resource records contained in the `dns.authorities`
+        field.
+      flat_name: dns.authorities_count
+      level: extended
+      name: authorities_count
+      order: 22
+      phase: 0
+      short: The number of resource records contained in the `dns.authorities` field.
+      type: long
+    flags.authentic_data:
+      description: A DNS flag specifying that the recursive server considers the response
+        authentic.
+      flat_name: dns.flags.authentic_data
+      level: extended
+      name: flags.authentic_data
+      order: 5
+      phase: 0
+      short: A DNS flag specifying that the recursive server considers the response
+        authentic.
+      type: boolean
+    flags.authoritative:
+      description: A DNS flag specifying that the responding server is an authority
+        for the domain name used in the question.
+      flat_name: dns.flags.authoritative
+      level: extended
+      name: flags.authoritative
+      order: 2
+      phase: 0
+      short: A DNS flag specifying that the responding server is an authority for
+        the domain name used in the question.
+      type: boolean
+    flags.checking_disabled:
+      description: A DNS flag specifying that the client disables the server signature
+        validation of the query.
+      flat_name: dns.flags.checking_disabled
+      level: extended
+      name: flags.checking_disabled
+      order: 6
+      phase: 0
+      short: A DNS flag specifying that the client disables the server signature validation
+        of the query.
+      type: boolean
+    flags.recursion_available:
+      description: A DNS flag specifying whether recursive query support is available
+        in the name server.
+      flat_name: dns.flags.recursion_available
+      level: extended
+      name: flags.recursion_available
+      order: 3
+      phase: 0
+      short: A DNS flag specifying whether recursive query support is available in
+        the name server.
+      type: boolean
+    flags.recursion_desired:
+      description: A DNS flag specifying that the client directs the server to pursue
+        a query recursively. Recursive query support is optional.
+      flat_name: dns.flags.recursion_desired
+      level: extended
+      name: flags.recursion_desired
+      order: 4
+      phase: 0
+      short: A DNS flag specifying that the client directs the server to pursue a
+        query recursively. Recursive query support is optional.
+      type: boolean
+    flags.truncated_response:
+      description: A DNS flag specifying that only the first 512 bytes of the reply
+        were returned.
+      flat_name: dns.flags.truncated_response
+      level: extended
+      name: flags.truncated_response
+      order: 7
+      phase: 0
+      short: A DNS flag specifying that only the first 512 bytes of the reply were
+        returned.
+      type: boolean
+    id:
+      description: The DNS packet identifier assigned by the program that generated
+        the query. The identifier is copied to the response.
+      flat_name: dns.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      order: 0
+      phase: 0
+      short: The DNS packet identifier assigned by the program that generated the
+        query. The identifier is copied to the response.
+      type: keyword
+    op_code:
+      description: The DNS operation code that specifies the kind of query in the
+        message. This value is set by the originator of a query and copied into the
+        response.
+      example: QUERY
+      flat_name: dns.op_code
+      ignore_above: 1024
+      level: extended
+      name: op_code
+      order: 1
+      phase: 0
+      short: The DNS operation code that specifies the kind of query in the message.
+        This value is set by the originator of a query and copied into the response.
+      type: keyword
+    opt.do:
+      description: If set, the transaction uses DNSSEC.
+      flat_name: dns.opt.do
+      level: extended
+      name: opt.do
+      order: 34
+      phase: 0
+      short: If set, the transaction uses DNSSEC.
+      type: boolean
+    opt.ext_rcode:
+      description: Extended response code field.
+      example: BADVERS
+      flat_name: dns.opt.ext_rcode
+      ignore_above: 1024
+      level: extended
+      name: opt.ext_rcode
+      order: 35
+      phase: 0
+      short: Extended response code field.
+      type: keyword
+    opt.udp_size:
+      description: Requestor's UDP payload size (in bytes).
+      flat_name: dns.opt.udp_size
+      level: extended
+      name: opt.udp_size
+      order: 36
+      phase: 0
+      short: Requestor's UDP payload size (in bytes).
+      type: long
+    opt.version:
+      description: The EDNS version.
+      example: '0'
+      flat_name: dns.opt.version
+      ignore_above: 1024
+      level: extended
+      name: opt.version
+      order: 33
+      phase: 0
+      short: The EDNS version.
+      type: keyword
+    question.class:
+      description: The class of of records being queried.
+      example: IN
+      flat_name: dns.question.class
+      ignore_above: 1024
+      level: core
+      name: question.class
+      order: 11
+      phase: 0
+      short: The class of of records being queried.
+      type: keyword
+    question.etld_plus_one:
+      description: The effective top-level domain (eTLD) plus one more label. For
+        example, the eTLD+1 for "foo.bar.golang.org." is "golang.org.". The data for
+        determining the eTLD comes from an embedded copy of the data from http://publicsuffix.org.
+      example: amazon.co.uk.
+      flat_name: dns.question.etld_plus_one
+      ignore_above: 1024
+      level: core
+      name: question.etld_plus_one
+      order: 12
+      phase: 0
+      short: The effective top-level domain (eTLD) plus one more label. For example,
+        the eTLD+1 for "foo.bar.golang.org." is "golang.org.". The data for determining
+        the eTLD comes from an embedded copy of the data from http://publicsuffix.org.
+      type: keyword
+    question.name:
+      description: The domain name being queried. If the name field contains non-printable
+        characters (below 32 or above 126), then those characters are represented
+        as escaped base 10 integers (\DDD). Back slashes and quotes are escaped. Tabs,
+        carriage returns, and line feeds are converted to \t, \r, and \n respectively.
+      example: www.google.com.
+      flat_name: dns.question.name
+      ignore_above: 1024
+      level: core
+      name: question.name
+      order: 9
+      phase: 0
+      short: The domain name being queried. If the name field contains non-printable
+        characters (below 32 or above 126), then those characters are represented
+        as escaped base 10 integers (\DDD). Back slashes and quotes are escaped. Tabs,
+        carriage returns, and line feeds are converted to \t, \r, and \n respectively.
+      type: keyword
+    question.size:
+      description: The size of name being queried (in bytes).
+      flat_name: dns.question.size
+      ignore_above: 1024
+      level: extended
+      name: question.size
+      order: 13
+      phase: 0
+      short: The size of name being queried (in bytes).
+      type: keyword
+    question.type:
+      description: The type of records being queried.
+      example: AAAA
+      flat_name: dns.question.type
+      ignore_above: 1024
+      level: core
+      name: question.type
+      order: 10
+      phase: 0
+      short: The type of records being queried.
+      type: keyword
+    response_code:
+      description: The DNS status code.
+      example: NOERROR
+      flat_name: dns.response_code
+      ignore_above: 1024
+      level: extended
+      name: response_code
+      order: 8
+      phase: 0
+      short: The DNS status code.
+      type: keyword
+  group: 2
+  name: dns
+  prefix: dns.
+  short: DNS-specific event fields.
+  title: DNS
+  type: group
 ecs:
   description: Meta-information specific to ECS.
   fields:
