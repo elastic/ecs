@@ -26,11 +26,22 @@ def dict_add_nested(dict, nestings, value):
     if len(rest_nestings) > 0:
         if current_nesting not in dict:
             dict[current_nesting] = {'properties': {}}
-        dict_add_nested(
-            dict[current_nesting]['properties'],
-            rest_nestings,
-            value)
+        elif 'type' in dict[current_nesting] and 'object' == dict[current_nesting]['type']:
+            # When fields are nested under a key, said key is implicitly an object
+            # and we can't specify it in an ES template.
+            del dict[current_nesting]['type']
+            dict[current_nesting] = {'properties': {}}
+
+        if 'properties' in dict[current_nesting]:
+            dict_add_nested(
+                dict[current_nesting]['properties'],
+                rest_nestings,
+                value
+                )
+
     else:
+        if current_nesting in dict and 'type' in value and 'object' == value['type']:
+            return
         dict[current_nesting] = value
 
 

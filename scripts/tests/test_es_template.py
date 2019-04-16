@@ -34,10 +34,15 @@ class TestGeneratorsEsTemplate(unittest.TestCase):
             'field3': {'field': 'details 3'}
         })
 
-    # def test_dict_add_nested_to_object(self):
-    #     dict = { 'answers': { 'type': 'object' } }
-    #     es_template.dict_add_nested(dict, ['answers', 'ttl'], { 'type': 'long' })
-    #     self.assertEqual(dict, {'answers': {'properties': {'ttl': 'long'}}})
+    def test_dict_add_nested_to_explicit_object(self):
+        dict = { 'answers': { 'type': 'object' } }
+        es_template.dict_add_nested(dict, ['answers', 'ttl'], { 'type': 'long' })
+        self.assertEqual(dict, {'answers': {'properties': {'ttl': { 'type': 'long' }}}})
+
+    def test_dict_add_nested_shouldnt_clobber_with_objects(self):
+        dict = {'answers': {'properties': {'ttl': { 'type': 'long' }}}}
+        es_template.dict_add_nested(dict, ['answers'], { 'type': 'object' })
+        self.assertEqual(dict, {'answers': {'properties': {'ttl': { 'type': 'long' }}}})
 
 
 if __name__ == '__main__':
