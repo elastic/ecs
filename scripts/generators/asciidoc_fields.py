@@ -170,7 +170,7 @@ all fields are defined.
 [[ecs-fieldsets]]
 === Field Sets
 [cols="<,<",options="header",]
-|=======================================================================
+|=====
 | Field Set  | Description
 '''
 
