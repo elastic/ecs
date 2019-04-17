@@ -5,6 +5,8 @@ ingesting data into Elasticsearch. A common schema helps you correlate
 data from sources like logs and metrics or IT operations
 analytics and security analytics.
 
+## Documentation
+
 The ECS reference is published on the main Elastic documentation website.
 Visit [the official ECS Reference Documentation](https://www.elastic.co/guide/en/ecs/current/index.html).
 
