@@ -36,8 +36,7 @@ def dict_add_nested(dict, nestings, value):
             dict_add_nested(
                 dict[current_nesting]['properties'],
                 rest_nestings,
-                value
-                )
+                value)
 
     else:
         if current_nesting in dict and 'type' in value and 'object' == value['type']:
