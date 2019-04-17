@@ -4,7 +4,7 @@
 .DEFAULT_GOAL    := generate
 FIND             := find . -type f -not -path './build/*' -not -path './.git/*'
 FORCE_GO_MODULES := GO111MODULE=on
-OPEN_DOCS        ?= "-open"
+OPEN_DOCS        ?= "--open"
 PYTHON           := build/ve/bin/python
 VERSION          := $(shell cat version)
 
@@ -45,7 +45,7 @@ docs:
 	if [ ! -d $(PWD)/build/docs ]; then \
 		git clone --depth=1 https://github.com/elastic/docs.git ./build/docs ; \
 	fi
-	./build/docs/build_docs.pl --doc ./docs/index.asciidoc --chunk=1 $(OPEN_DOCS) -out ./build/html_docs
+	./build/docs/build_docs --asciidoctor --doc ./docs/index.asciidoc --chunk=1 $(OPEN_DOCS) --out ./build/html_docs
 
 # Format code and files in the repo.
 .PHONY: fmt
