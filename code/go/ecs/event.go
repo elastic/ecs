@@ -118,6 +118,12 @@ type Event struct {
 	// difference between the end and start time.
 	Duration time.Duration `ecs:"duration"`
 
+	// Sequence number of the event.
+	// The sequence number is a value published by some event sources, to make
+	// the exact ordering of events unambiguous, regarless of the timestamp
+	// precision.
+	Sequence int64 `ecs:"sequence"`
+
 	// This field should be populated when the event's timestamp does not
 	// include timezone information already (e.g. default Syslog timestamps).
 	// It's optional otherwise.

@@ -960,7 +960,7 @@ event:
       flat_name: event.created
       level: core
       name: created
-      order: 15
+      order: 16
       short: Time when the event was first read by an agent or by your pipeline.
       type: date
     dataset:
@@ -1000,7 +1000,7 @@ event:
       flat_name: event.end
       level: extended
       name: end
-      order: 17
+      order: 18
       short: event.end contains the date when the event ended or when the activity
         was last observed.
       type: date
@@ -1107,7 +1107,7 @@ event:
       flat_name: event.risk_score
       level: core
       name: risk_score
-      order: 18
+      order: 19
       short: Risk score or priority of the event (e.g. security solutions). Use your
         system's original value here.
       type: float
@@ -1120,9 +1120,20 @@ event:
       flat_name: event.risk_score_norm
       level: extended
       name: risk_score_norm
-      order: 19
+      order: 20
       short: Normalized risk score or priority of the event (0-100).
       type: float
+    sequence:
+      description: 'Sequence number of the event.
+
+        The sequence number is a value published by some event sources, to make the
+        exact ordering of events unambiguous, regarless of the timestamp precision.'
+      flat_name: event.sequence
+      level: extended
+      name: sequence
+      order: 14
+      short: Sequence number of the event.
+      type: long
     severity:
       description: Severity describes the original severity of the event. What the
         different severity values mean can very different between use cases. It's
@@ -1140,7 +1151,7 @@ event:
       flat_name: event.start
       level: extended
       name: start
-      order: 16
+      order: 17
       short: event.start contains the date when the event started or when the activity
         was first observed.
       type: date
@@ -1155,7 +1166,7 @@ event:
       ignore_above: 1024
       level: extended
       name: timezone
-      order: 14
+      order: 15
       short: Event time zone.
       type: keyword
     type:
