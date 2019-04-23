@@ -86,6 +86,14 @@ type Event struct {
 	// in metricset.name and metricset.module or fileset.name.
 	Dataset string `ecs:"dataset"`
 
+	// Source of the event.
+	// Event transports such as Syslog or the Windows Event Log typically have
+	// a single field about the source of an event. It can be the name of the
+	// software that generated the event (e.g. Sysmon, httpd), or of a
+	// subsystem of the operating system (kernel,
+	// Microsoft-Windows-Security-Auditing).
+	Provider string `ecs:"provider"`
+
 	// Severity describes the original severity of the event. What the
 	// different severity values mean can very different between use cases.
 	// It's up to the implementer to make sure severities are consistent across

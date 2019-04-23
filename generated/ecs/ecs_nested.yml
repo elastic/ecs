@@ -960,7 +960,7 @@ event:
       flat_name: event.created
       level: core
       name: created
-      order: 14
+      order: 15
       short: Time when the event was first read by an agent or by your pipeline.
       type: date
     dataset:
@@ -987,7 +987,7 @@ event:
       input_format: nanoseconds
       level: core
       name: duration
-      order: 12
+      order: 13
       output_format: asMilliseconds
       output_precision: 1
       short: Duration of the event in nanoseconds.
@@ -998,7 +998,7 @@ event:
       flat_name: event.end
       level: extended
       name: end
-      order: 16
+      order: 17
       short: event.end contains the date when the event ended or when the activity
         was last observed.
       type: date
@@ -1010,7 +1010,7 @@ event:
       ignore_above: 1024
       level: extended
       name: hash
-      order: 11
+      order: 12
       short: Hash (perhaps logstash fingerprint) of raw field to be able to demonstrate
         log integrity.
       type: keyword
@@ -1064,7 +1064,7 @@ event:
       index: false
       level: core
       name: original
-      order: 10
+      order: 11
       short: Raw text message of entire event.
       type: keyword
     outcome:
@@ -1082,13 +1082,28 @@ event:
       order: 5
       short: The outcome of the event.
       type: keyword
+    provider:
+      description: 'Source of the event.
+
+        Event transports such as Syslog or the Windows Event Log typically have a
+        single field about the source of an event. It can be the name of the software
+        that generated the event (e.g. Sysmon, httpd), or of a subsystem of the operating
+        system (kernel, Microsoft-Windows-Security-Auditing).'
+      example: kernel
+      flat_name: event.provider
+      ignore_above: 1024
+      level: extended
+      name: provider
+      order: 9
+      short: Source of the event.
+      type: keyword
     risk_score:
       description: Risk score or priority of the event (e.g. security solutions).
         Use your system's original value here.
       flat_name: event.risk_score
       level: core
       name: risk_score
-      order: 17
+      order: 18
       short: Risk score or priority of the event (e.g. security solutions). Use your
         system's original value here.
       type: float
@@ -1101,7 +1116,7 @@ event:
       flat_name: event.risk_score_norm
       level: extended
       name: risk_score_norm
-      order: 18
+      order: 19
       short: Normalized risk score or priority of the event (0-100).
       type: float
     severity:
@@ -1112,7 +1127,7 @@ event:
       flat_name: event.severity
       level: core
       name: severity
-      order: 9
+      order: 10
       short: Original severity of the event.
       type: long
     start:
@@ -1121,7 +1136,7 @@ event:
       flat_name: event.start
       level: extended
       name: start
-      order: 15
+      order: 16
       short: event.start contains the date when the event started or when the activity
         was first observed.
       type: date
@@ -1136,7 +1151,7 @@ event:
       ignore_above: 1024
       level: extended
       name: timezone
-      order: 13
+      order: 14
       short: Event time zone.
       type: keyword
     type:
