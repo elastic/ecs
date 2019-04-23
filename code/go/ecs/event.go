@@ -78,8 +78,8 @@ type Event struct {
 
 	// Name of the module this data is coming from.
 	// If your monitoring agent supports the concept of modules or plugins to
-	// parse events of a given source (e.g. Apache logs), `event.module` should
-	// contain the name of this module.
+	// process events of a given source (e.g. Apache logs), `event.module`
+	// should contain the name of this module.
 	Module string `ecs:"module"`
 
 	// Name of the dataset.
@@ -91,11 +91,10 @@ type Event struct {
 	Dataset string `ecs:"dataset"`
 
 	// Source of the event.
-	// Event transports such as Syslog or the Windows Event Log typically have
-	// a single field about the source of an event. It can be the name of the
-	// software that generated the event (e.g. Sysmon, httpd), or of a
-	// subsystem of the operating system (kernel,
-	// Microsoft-Windows-Security-Auditing).
+	// Event transports such as Syslog or the Windows Event Log typically
+	// mention the source of an event. It can be the name of the software that
+	// generated the event (e.g. Sysmon, httpd), or of a subsystem of the
+	// operating system (kernel, Microsoft-Windows-Security-Auditing).
 	Provider string `ecs:"provider"`
 
 	// Severity describes the original severity of the event. What the
