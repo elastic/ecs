@@ -77,13 +77,17 @@ type Event struct {
 	Type string `ecs:"type"`
 
 	// Name of the module this data is coming from.
-	// This information is coming from the modules used in Beats or Logstash.
+	// If your monitoring agent supports the concept of modules or plugins to
+	// parse events of a given source (e.g. Apache logs), `event.module` should
+	// contain the name of this module.
 	Module string `ecs:"module"`
 
 	// Name of the dataset.
-	// The concept of a `dataset` (fileset / metricset) is used in Beats as a
-	// subset of modules. It contains the information which is currently stored
-	// in metricset.name and metricset.module or fileset.name.
+	// If an event source publishes more than one type of log or events (e.g.
+	// access log, error log), the dataset is used to specify which dataset
+	// this comes from.
+	// It's recommended but not required to start the dataset name with the
+	// module name, followed by a dot, then the dataset name.
 	Dataset string `ecs:"dataset"`
 
 	// Source of the event.
