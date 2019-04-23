@@ -37,6 +37,12 @@ type Event struct {
 	// Unique ID to describe the event.
 	ID string `ecs:"id"`
 
+	// Identification code for this event, if one exists.
+	// Some event sources use event codes to identify messages unambiguously,
+	// regardless of message language or wording adjustments over time. An
+	// example of this is the Windows Event ID.
+	Code string `ecs:"code"`
+
 	// The kind of the event.
 	// This gives information about what type of information the event
 	// contains, without being specific to the contents of the event.  Examples
