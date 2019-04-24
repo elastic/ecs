@@ -48,6 +48,9 @@ type File struct {
 	// Device that is the source of the file.
 	Device string `ecs:"device"`
 
+	// Filesystem used on the volume.
+	System string `ecs:"system"`
+
 	// Inode representing the file in the filesystem.
 	Inode string `ecs:"inode"`
 
