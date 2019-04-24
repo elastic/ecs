@@ -1201,7 +1201,7 @@ file:
       flat_name: file.atime
       level: extended
       name: atime
-      order: 17
+      order: 18
       short: Last time the file was accessed.
       type: date
     crtime:
@@ -1209,7 +1209,7 @@ file:
       flat_name: file.crtime
       level: extended
       name: crtime
-      order: 14
+      order: 15
       short: File creation time.
       type: date
     ctime:
@@ -1217,7 +1217,7 @@ file:
       flat_name: file.ctime
       level: extended
       name: ctime
-      order: 16
+      order: 17
       short: Last time the file metadata was modified.
       type: date
     device:
@@ -1227,8 +1227,18 @@ file:
       ignore_above: 1024
       level: extended
       name: device
-      order: 5
+      order: 6
       short: Device that is the source of the file.
+      type: keyword
+    directory:
+      description: Directory where the file is located.
+      example: /home/alice
+      flat_name: file.directory
+      ignore_above: 1024
+      level: extended
+      name: directory
+      order: 1
+      short: Directory where the file is located.
       type: keyword
     extension:
       description: File extension.
@@ -1237,7 +1247,7 @@ file:
       ignore_above: 1024
       level: extended
       name: extension
-      order: 3
+      order: 4
       short: File extension.
       type: keyword
     gid:
@@ -1247,7 +1257,7 @@ file:
       ignore_above: 1024
       level: extended
       name: gid
-      order: 10
+      order: 11
       short: Primary group ID (GID) of the file.
       type: keyword
     group:
@@ -1257,7 +1267,7 @@ file:
       ignore_above: 1024
       level: extended
       name: group
-      order: 11
+      order: 12
       short: Primary group name of the file.
       type: keyword
     inode:
@@ -1267,7 +1277,7 @@ file:
       ignore_above: 1024
       level: extended
       name: inode
-      order: 7
+      order: 8
       short: Inode representing the file in the filesystem.
       type: keyword
     mode:
@@ -1277,7 +1287,7 @@ file:
       ignore_above: 1024
       level: extended
       name: mode
-      order: 12
+      order: 13
       short: Mode of the file in octal representation.
       type: keyword
     mtime:
@@ -1285,18 +1295,18 @@ file:
       flat_name: file.mtime
       level: extended
       name: mtime
-      order: 15
+      order: 16
       short: Last time the file content was modified.
       type: date
     name:
-      description: Name of the file including the extension, without the path.
+      description: Name of the file including the extension, without the directory.
       example: example.png
       flat_name: file.name
       ignore_above: 1024
       level: extended
       name: name
       order: 0
-      short: Name of the file including the extension, without the path.
+      short: Name of the file including the extension, without the directory.
       type: keyword
     owner:
       description: File owner's username.
@@ -1305,7 +1315,7 @@ file:
       ignore_above: 1024
       level: extended
       name: owner
-      order: 9
+      order: 10
       short: File owner's username.
       type: keyword
     path:
@@ -1315,7 +1325,7 @@ file:
       ignore_above: 1024
       level: extended
       name: path
-      order: 1
+      order: 2
       short: Full path to the file.
       type: keyword
     size:
@@ -1326,7 +1336,7 @@ file:
       flat_name: file.size
       level: extended
       name: size
-      order: 13
+      order: 14
       short: File size in bytes.
       type: long
     system:
@@ -1336,7 +1346,7 @@ file:
       ignore_above: 1024
       level: extended
       name: system
-      order: 6
+      order: 7
       short: Filesystem used on the volume.
       type: keyword
     target_path:
@@ -1345,7 +1355,7 @@ file:
       ignore_above: 1024
       level: extended
       name: target_path
-      order: 2
+      order: 3
       short: Target path for symlinks.
       type: keyword
     type:
@@ -1355,7 +1365,7 @@ file:
       ignore_above: 1024
       level: extended
       name: type
-      order: 4
+      order: 5
       short: File type (file, dir, or symlink).
       type: keyword
     uid:
@@ -1365,7 +1375,7 @@ file:
       ignore_above: 1024
       level: extended
       name: uid
-      order: 8
+      order: 9
       short: The user ID (UID) or security identifier (SID) of the file owner.
       type: keyword
   group: 2

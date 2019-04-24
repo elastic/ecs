@@ -30,8 +30,11 @@ import (
 // services). File fields provide details about the affected file associated
 // with the event or metric.
 type File struct {
-	// Name of the file including the extension, without the path.
+	// Name of the file including the extension, without the directory.
 	Name string `ecs:"name"`
+
+	// Directory where the file is located.
+	Directory string `ecs:"directory"`
 
 	// Full path to the file.
 	Path string `ecs:"path"`
