@@ -30,14 +30,13 @@ import (
 // services). File fields provide details about the affected file associated
 // with the event or metric.
 type File struct {
-	// Path to the file.
+	// Full path to the file.
 	Path string `ecs:"path"`
 
 	// Target path for symlinks.
 	TargetPath string `ecs:"target_path"`
 
 	// File extension.
-	// This should allow easy filtering by file extensions.
 	Extension string `ecs:"extension"`
 
 	// File type (file, dir, or symlink).
