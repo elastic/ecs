@@ -69,9 +69,15 @@ type File struct {
 	// File size in bytes (field is only added when `type` is `file`).
 	Size int64 `ecs:"size"`
 
+	// File creation time.
+	Crtime time.Time `ecs:"crtime"`
+
 	// Last time file content was modified.
 	Mtime time.Time `ecs:"mtime"`
 
-	// Last time file metadata changed.
+	// Last time file metadata was modified.
 	Ctime time.Time `ecs:"ctime"`
+
+	// Last time the file was accessed.
+	Atime time.Time `ecs:"atime"`
 }
