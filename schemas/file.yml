@@ -16,11 +16,13 @@
     level: extended
     type: keyword
     description: Name of the file including the extension, without the path.
+    example: example.png
 
   - name: path
     level: extended
     type: keyword
     description: Full path to the file.
+    example: '/home/alice/example.png'
 
   - name: target_path
     level: extended
@@ -37,49 +39,60 @@
     level: extended
     type: keyword
     description: File type (file, dir, or symlink).
+    example: file
 
   - name: device
     level: extended
     type: keyword
     description: Device that is the source of the file.
+    example: sda
 
   - name: inode
     level: extended
     type: keyword
     description: Inode representing the file in the filesystem.
+    example: '256383'
 
   - name: uid
     level: extended
     type: keyword
     description: >
       The user ID (UID) or security identifier (SID) of the file owner.
+    example: '1001'
 
   - name: owner
     level: extended
     type: keyword
     description: File owner's username.
+    example: alice
 
   - name: gid
     level: extended
     type: keyword
     description: Primary group ID (GID) of the file.
+    example: '1001'
 
   - name: group
     level: extended
     type: keyword
     description: Primary group name of the file.
+    example: alice
 
   - name: mode
     level: extended
     type: keyword
-    example: 0640
     description: Mode of the file in octal representation.
+    example: '0640'
 
   - name: size
     level: extended
     type: long
-    description: File size in bytes (field is only added when `type` is
-        `file`).
+    short: File size in bytes.
+    description: >
+      File size in bytes.
+
+      Only relevant when `file.type` is "file".
+    example: 16384
 
   - name: crtime
     level: extended

@@ -1222,6 +1222,7 @@ file:
       type: date
     device:
       description: Device that is the source of the file.
+      example: sda
       flat_name: file.device
       ignore_above: 1024
       level: extended
@@ -1241,6 +1242,7 @@ file:
       type: keyword
     gid:
       description: Primary group ID (GID) of the file.
+      example: '1001'
       flat_name: file.gid
       ignore_above: 1024
       level: extended
@@ -1250,6 +1252,7 @@ file:
       type: keyword
     group:
       description: Primary group name of the file.
+      example: alice
       flat_name: file.group
       ignore_above: 1024
       level: extended
@@ -1259,6 +1262,7 @@ file:
       type: keyword
     inode:
       description: Inode representing the file in the filesystem.
+      example: '256383'
       flat_name: file.inode
       ignore_above: 1024
       level: extended
@@ -1268,7 +1272,7 @@ file:
       type: keyword
     mode:
       description: Mode of the file in octal representation.
-      example: 416
+      example: '0640'
       flat_name: file.mode
       ignore_above: 1024
       level: extended
@@ -1286,6 +1290,7 @@ file:
       type: date
     name:
       description: Name of the file including the extension, without the path.
+      example: example.png
       flat_name: file.name
       ignore_above: 1024
       level: extended
@@ -1295,6 +1300,7 @@ file:
       type: keyword
     owner:
       description: File owner's username.
+      example: alice
       flat_name: file.owner
       ignore_above: 1024
       level: extended
@@ -1304,6 +1310,7 @@ file:
       type: keyword
     path:
       description: Full path to the file.
+      example: /home/alice/example.png
       flat_name: file.path
       ignore_above: 1024
       level: extended
@@ -1312,12 +1319,15 @@ file:
       short: Full path to the file.
       type: keyword
     size:
-      description: File size in bytes (field is only added when `type` is `file`).
+      description: 'File size in bytes.
+
+        Only relevant when `file.type` is "file".'
+      example: 16384
       flat_name: file.size
       level: extended
       name: size
       order: 12
-      short: File size in bytes (field is only added when `type` is `file`).
+      short: File size in bytes.
       type: long
     target_path:
       description: Target path for symlinks.
@@ -1330,6 +1340,7 @@ file:
       type: keyword
     type:
       description: File type (file, dir, or symlink).
+      example: file
       flat_name: file.type
       ignore_above: 1024
       level: extended
@@ -1339,6 +1350,7 @@ file:
       type: keyword
     uid:
       description: The user ID (UID) or security identifier (SID) of the file owner.
+      example: '1001'
       flat_name: file.uid
       ignore_above: 1024
       level: extended

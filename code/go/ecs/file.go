@@ -66,7 +66,8 @@ type File struct {
 	// Mode of the file in octal representation.
 	Mode string `ecs:"mode"`
 
-	// File size in bytes (field is only added when `type` is `file`).
+	// File size in bytes.
+	// Only relevant when `file.type` is "file".
 	Size int64 `ecs:"size"`
 
 	// File creation time.

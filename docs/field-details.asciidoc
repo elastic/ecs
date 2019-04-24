@@ -1002,7 +1002,7 @@ type: date
 
 type: keyword
 
-
+example: `sda`
 
 | extended
 
@@ -1024,18 +1024,7 @@ example: `png`
 
 type: keyword
 
-
-
-| extended
-
-// ===============================================================
-
-| file.name
-| Name of the file including the extension, without the path.
-
-type: keyword
-
-
+example: `1001`
 
 | extended
 
@@ -1046,7 +1035,7 @@ type: keyword
 
 type: keyword
 
-
+example: `alice`
 
 | extended
 
@@ -1057,7 +1046,7 @@ type: keyword
 
 type: keyword
 
-
+example: `256383`
 
 | extended
 
@@ -1068,7 +1057,7 @@ type: keyword
 
 type: keyword
 
-example: `416`
+example: `0640`
 
 | extended
 
@@ -1085,12 +1074,23 @@ type: date
 
 // ===============================================================
 
+| file.name
+| Name of the file including the extension, without the path.
+
+type: keyword
+
+example: `example.png`
+
+| extended
+
+// ===============================================================
+
 | file.owner
 | File owner's username.
 
 type: keyword
 
-
+example: `alice`
 
 | extended
 
@@ -1101,18 +1101,20 @@ type: keyword
 
 type: keyword
 
-
+example: `/home/alice/example.png`
 
 | extended
 
 // ===============================================================
 
 | file.size
-| File size in bytes (field is only added when `type` is `file`).
+| File size in bytes.
+
+Only relevant when `file.type` is "file".
 
 type: long
 
-
+example: `16384`
 
 | extended
 
@@ -1134,7 +1136,7 @@ type: keyword
 
 type: keyword
 
-
+example: `file`
 
 | extended
 
@@ -1145,7 +1147,7 @@ type: keyword
 
 type: keyword
 
-
+example: `1001`
 
 | extended
 

@@ -781,6 +781,7 @@
       type: keyword
       ignore_above: 1024
       description: Device that is the source of the file.
+      example: sda
     - name: extension
       level: extended
       type: keyword
@@ -792,22 +793,25 @@
       type: keyword
       ignore_above: 1024
       description: Primary group ID (GID) of the file.
+      example: '1001'
     - name: group
       level: extended
       type: keyword
       ignore_above: 1024
       description: Primary group name of the file.
+      example: alice
     - name: inode
       level: extended
       type: keyword
       ignore_above: 1024
       description: Inode representing the file in the filesystem.
+      example: '256383'
     - name: mode
       level: extended
       type: keyword
       ignore_above: 1024
       description: Mode of the file in octal representation.
-      example: 416
+      example: '0640'
     - name: mtime
       level: extended
       type: date
@@ -817,20 +821,26 @@
       type: keyword
       ignore_above: 1024
       description: Name of the file including the extension, without the path.
+      example: example.png
     - name: owner
       level: extended
       type: keyword
       ignore_above: 1024
       description: File owner's username.
+      example: alice
     - name: path
       level: extended
       type: keyword
       ignore_above: 1024
       description: Full path to the file.
+      example: /home/alice/example.png
     - name: size
       level: extended
       type: long
-      description: File size in bytes (field is only added when `type` is `file`).
+      description: 'File size in bytes.
+
+        Only relevant when `file.type` is "file".'
+      example: 16384
     - name: target_path
       level: extended
       type: keyword
@@ -841,11 +851,13 @@
       type: keyword
       ignore_above: 1024
       description: File type (file, dir, or symlink).
+      example: file
     - name: uid
       level: extended
       type: keyword
       ignore_above: 1024
       description: The user ID (UID) or security identifier (SID) of the file owner.
+      example: '1001'
   - name: geo
     title: Geo
     group: 2
