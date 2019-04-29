@@ -73,9 +73,9 @@ type File struct {
 	// Only relevant when `file.type` is "file".
 	Size int64 `ecs:"size"`
 
-	// Last time file content was modified.
+	// Last time the file content was modified.
 	Mtime time.Time `ecs:"mtime"`
 
-	// Last time file metadata changed.
+	// Last time the file attributes or metadata changed.
 	Ctime time.Time `ecs:"ctime"`
 }
