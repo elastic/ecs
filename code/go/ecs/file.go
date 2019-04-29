@@ -76,10 +76,10 @@ type File struct {
 	// File creation time.
 	Crtime time.Time `ecs:"crtime"`
 
-	// Last time the file content was modified.
+	// Last time file content was modified.
 	Mtime time.Time `ecs:"mtime"`
 
-	// Last time the file metadata was modified.
+	// Last time file metadata was modified.
 	Ctime time.Time `ecs:"ctime"`
 
 	// Last time the file was accessed.
