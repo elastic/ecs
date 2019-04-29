@@ -82,7 +82,7 @@ type File struct {
 	// Last time the file content was modified.
 	Mtime time.Time `ecs:"mtime"`
 
-	// Last time the file attributes or metadata changed.
+	// Last time the file metadata was modified.
 	Ctime time.Time `ecs:"ctime"`
 
 	// Last time the file was accessed.
