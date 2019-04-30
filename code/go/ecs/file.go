@@ -77,5 +77,8 @@ type File struct {
 	Mtime time.Time `ecs:"mtime"`
 
 	// Last time the file attributes or metadata changed.
+	// Note that changes to the file content will update `mtime`. This implies
+	// `ctime` will be adjusted at the same time, since `mtime` is an attribute
+	// of the file.
 	Ctime time.Time `ecs:"ctime"`
 }
