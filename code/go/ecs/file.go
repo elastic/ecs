@@ -85,6 +85,6 @@ type File struct {
 	// File creation time.
 	Created time.Time `ecs:"created"`
 
-	// Last time file content accessed.
+	// Last time the file was accessed.
 	Accessed time.Time `ecs:"accessed"`
 }
