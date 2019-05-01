@@ -7,7 +7,7 @@ ECS usage in Auditbeat.
 
 | Field  | Description  | Level  | Type  | Example  |
 |---|---|---|---|---|
-| [event.module](../README.md#event.module)  | Auditbeat module name. | core | keyword | `mysql` |
+| [event.module](../README.md#event.module)  | Auditbeat module name. | core | keyword | `apache` |
 | <a name="file.&ast;"></a>*file.&ast;* | *File attributes.<br/>* |  |  |  |
 | [file.path](../README.md#file.path)  | The path to the file. | extended | keyword |  |
 | [file.target_path](../README.md#file.target_path)  | The target path for symlinks. | extended | keyword |  |

@@ -912,7 +912,7 @@ event:
       ignore_above: 1024
       level: core
       name: action
-      order: 3
+      order: 4
       short: The action captured by the event.
       type: keyword
     category:
@@ -927,8 +927,22 @@ event:
       ignore_above: 1024
       level: core
       name: category
-      order: 2
+      order: 3
       short: Event category.
+      type: keyword
+    code:
+      description: 'Identification code for this event, if one exists.
+
+        Some event sources use event codes to identify messages unambiguously, regardless
+        of message language or wording adjustments over time. An example of this is
+        the Windows Event ID.'
+      example: 4648
+      flat_name: event.code
+      ignore_above: 1024
+      level: extended
+      name: code
+      order: 1
+      short: Identification code for this event.
       type: keyword
     created:
       description: 'event.created contains the date/time when the event was first
@@ -946,21 +960,24 @@ event:
       flat_name: event.created
       level: core
       name: created
-      order: 13
+      order: 16
       short: Time when the event was first read by an agent or by your pipeline.
       type: date
     dataset:
       description: 'Name of the dataset.
 
-        The concept of a `dataset` (fileset / metricset) is used in Beats as a subset
-        of modules. It contains the information which is currently stored in metricset.name
-        and metricset.module or fileset.name.'
-      example: stats
+        If an event source publishes more than one type of log or events (e.g. access
+        log, error log), the dataset is used to specify which one the event comes
+        from.
+
+        It''s recommended but not required to start the dataset name with the module
+        name, followed by a dot, then the dataset name.'
+      example: apache.access
       flat_name: event.dataset
       ignore_above: 1024
       level: core
       name: dataset
-      order: 7
+      order: 8
       short: Name of the dataset.
       type: keyword
     duration:
@@ -973,7 +990,7 @@ event:
       input_format: nanoseconds
       level: core
       name: duration
-      order: 11
+      order: 13
       output_format: asMilliseconds
       output_precision: 1
       short: Duration of the event in nanoseconds.
@@ -984,7 +1001,7 @@ event:
       flat_name: event.end
       level: extended
       name: end
-      order: 15
+      order: 18
       short: event.end contains the date when the event ended or when the activity
         was last observed.
       type: date
@@ -996,7 +1013,7 @@ event:
       ignore_above: 1024
       level: extended
       name: hash
-      order: 10
+      order: 12
       short: Hash (perhaps logstash fingerprint) of raw field to be able to demonstrate
         log integrity.
       type: keyword
@@ -1022,19 +1039,21 @@ event:
       ignore_above: 1024
       level: extended
       name: kind
-      order: 1
+      order: 2
       short: The kind of the event.
       type: keyword
     module:
       description: 'Name of the module this data is coming from.
 
-        This information is coming from the modules used in Beats or Logstash.'
-      example: mysql
+        If your monitoring agent supports the concept of modules or plugins to process
+        events of a given source (e.g. Apache logs), `event.module` should contain
+        the name of this module.'
+      example: apache
       flat_name: event.module
       ignore_above: 1024
       level: core
       name: module
-      order: 6
+      order: 7
       short: Name of the module this data is coming from.
       type: keyword
     original:
@@ -1050,7 +1069,7 @@ event:
       index: false
       level: core
       name: original
-      order: 9
+      order: 11
       short: Raw text message of entire event.
       type: keyword
     outcome:
@@ -1065,8 +1084,23 @@ event:
       ignore_above: 1024
       level: extended
       name: outcome
-      order: 4
+      order: 5
       short: The outcome of the event.
+      type: keyword
+    provider:
+      description: 'Source of the event.
+
+        Event transports such as Syslog or the Windows Event Log typically mention
+        the source of an event. It can be the name of the software that generated
+        the event (e.g. Sysmon, httpd), or of a subsystem of the operating system
+        (kernel, Microsoft-Windows-Security-Auditing).'
+      example: kernel
+      flat_name: event.provider
+      ignore_above: 1024
+      level: extended
+      name: provider
+      order: 9
+      short: Source of the event.
       type: keyword
     risk_score:
       description: Risk score or priority of the event (e.g. security solutions).
@@ -1074,7 +1108,7 @@ event:
       flat_name: event.risk_score
       level: core
       name: risk_score
-      order: 16
+      order: 19
       short: Risk score or priority of the event (e.g. security solutions). Use your
         system's original value here.
       type: float
@@ -1087,9 +1121,20 @@ event:
       flat_name: event.risk_score_norm
       level: extended
       name: risk_score_norm
-      order: 17
+      order: 20
       short: Normalized risk score or priority of the event (0-100).
       type: float
+    sequence:
+      description: 'Sequence number of the event.
+
+        The sequence number is a value published by some event sources, to make the
+        exact ordering of events unambiguous, regarless of the timestamp precision.'
+      flat_name: event.sequence
+      level: extended
+      name: sequence
+      order: 14
+      short: Sequence number of the event.
+      type: long
     severity:
       description: Severity describes the original severity of the event. What the
         different severity values mean can very different between use cases. It's
@@ -1098,7 +1143,7 @@ event:
       flat_name: event.severity
       level: core
       name: severity
-      order: 8
+      order: 10
       short: Original severity of the event.
       type: long
     start:
@@ -1107,7 +1152,7 @@ event:
       flat_name: event.start
       level: extended
       name: start
-      order: 14
+      order: 17
       short: event.start contains the date when the event started or when the activity
         was first observed.
       type: date
@@ -1122,7 +1167,7 @@ event:
       ignore_above: 1024
       level: extended
       name: timezone
-      order: 12
+      order: 15
       short: Event time zone.
       type: keyword
     type:
@@ -1133,7 +1178,7 @@ event:
       ignore_above: 1024
       level: core
       name: type
-      order: 5
+      order: 6
       short: Reserved for future usage.
       type: keyword
   group: 2
