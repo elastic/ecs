@@ -38,6 +38,9 @@ type Process struct {
 	// Process parent id.
 	PPID int64 `ecs:"ppid"`
 
+	// Identifier of the group of processes the process belongs to.
+	PGID int64 `ecs:"pgid"`
+
 	// Array of process arguments.
 	// May be filtered to protect sensitive information.
 	Args []string `ecs:"args"`
