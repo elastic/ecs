@@ -35,6 +35,7 @@ Supported keys to describe fields
 - multi\_fields (optional):
 - reusable (optional):
 - index (optional): If `False`, means field is not indexed (overrides type)
+- object_type
 
 ### Multi\_fields
 
