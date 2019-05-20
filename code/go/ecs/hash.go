@@ -20,6 +20,9 @@
 package ecs
 
 // The hash fields represent different hash algorithms and their values.
+// Field names for common hashes (e.g. MD5, SHA1) are predefined. Add fields
+// for other hashes by lowercasing the hash algorithm and using underscore
+// separators as appropriate (snake case).
 type Hash struct {
 	// BLAKE2b-256 hash.
 	Blake2b256 string `ecs:"blake2b_256"`
