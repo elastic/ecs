@@ -17,6 +17,8 @@
 
 ### Improvements
 
+* Format port numbers and numeric IDs as strings. #454
+
 ### Deprecated
 
 
