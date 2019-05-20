@@ -24,51 +24,15 @@ package ecs
 // for other hashes by lowercasing the hash algorithm and using underscore
 // separators as appropriate (snake case).
 type Hash struct {
-	// BLAKE2b-256 hash.
-	Blake2b256 string `ecs:"blake2b_256"`
-
-	// BLAKE2b-384 hash.
-	Blake2b384 string `ecs:"blake2b_384"`
-
-	// BLAKE2b-512 hash.
-	Blake2b512 string `ecs:"blake2b_512"`
-
 	// MD5 hash.
 	Md5 string `ecs:"md5"`
 
 	// SHA1 hash.
 	Sha1 string `ecs:"sha1"`
 
-	// SHA224 hash.
-	Sha224 string `ecs:"sha224"`
-
 	// SHA256 hash.
 	Sha256 string `ecs:"sha256"`
 
-	// SHA384 hash.
-	Sha384 string `ecs:"sha384"`
-
-	// SHA3_224 hash.
-	Sha3224 string `ecs:"sha3_224"`
-
-	// SHA3_256 hash.
-	Sha3256 string `ecs:"sha3_256"`
-
-	// SHA3_384 hash.
-	Sha3384 string `ecs:"sha3_384"`
-
-	// SHA3_512 hash.
-	Sha3512 string `ecs:"sha3_512"`
-
 	// SHA512 hash.
 	Sha512 string `ecs:"sha512"`
-
-	// SHA512/224 hash.
-	Sha512224 string `ecs:"sha512_224"`
-
-	// SHA512/256 hash.
-	Sha512256 string `ecs:"sha512_256"`
-
-	// XX64 hash.
-	Xxh64 string `ecs:"xxh64"`
 }
