@@ -1006,104 +1006,134 @@ event.type:
   short: Reserved for future usage.
   type: keyword
 file.ctime:
-  description: Last time file metadata changed.
+  description: 'Last time the file attributes or metadata changed.
+
+    Note that changes to the file content will update `mtime`. This implies `ctime`
+    will be adjusted at the same time, since `mtime` is an attribute of the file.'
   flat_name: file.ctime
   level: extended
   name: ctime
-  order: 13
-  short: Last time file metadata changed.
+  order: 15
+  short: Last time the file attributes or metadata changed.
   type: date
 file.device:
   description: Device that is the source of the file.
+  example: sda
   flat_name: file.device
   ignore_above: 1024
   level: extended
   name: device
-  order: 4
+  order: 6
   short: Device that is the source of the file.
   type: keyword
+file.directory:
+  description: Directory where the file is located.
+  example: /home/alice
+  flat_name: file.directory
+  ignore_above: 1024
+  level: extended
+  name: directory
+  order: 1
+  short: Directory where the file is located.
+  type: keyword
 file.extension:
-  description: 'File extension.
-
-    This should allow easy filtering by file extensions.'
+  description: File extension.
   example: png
   flat_name: file.extension
   ignore_above: 1024
   level: extended
   name: extension
-  order: 2
+  order: 4
   short: File extension.
   type: keyword
 file.gid:
   description: Primary group ID (GID) of the file.
+  example: '1001'
   flat_name: file.gid
   ignore_above: 1024
   level: extended
   name: gid
-  order: 8
+  order: 10
   short: Primary group ID (GID) of the file.
   type: keyword
 file.group:
   description: Primary group name of the file.
+  example: alice
   flat_name: file.group
   ignore_above: 1024
   level: extended
   name: group
-  order: 9
+  order: 11
   short: Primary group name of the file.
   type: keyword
 file.inode:
   description: Inode representing the file in the filesystem.
+  example: '256383'
   flat_name: file.inode
   ignore_above: 1024
   level: extended
   name: inode
-  order: 5
+  order: 7
   short: Inode representing the file in the filesystem.
   type: keyword
 file.mode:
   description: Mode of the file in octal representation.
-  example: 416
+  example: '0640'
   flat_name: file.mode
   ignore_above: 1024
   level: extended
   name: mode
-  order: 10
+  order: 12
   short: Mode of the file in octal representation.
   type: keyword
 file.mtime:
-  description: Last time file content was modified.
+  description: Last time the file content was modified.
   flat_name: file.mtime
   level: extended
   name: mtime
-  order: 12
-  short: Last time file content was modified.
+  order: 14
+  short: Last time the file content was modified.
   type: date
+file.name:
+  description: Name of the file including the extension, without the directory.
+  example: example.png
+  flat_name: file.name
+  ignore_above: 1024
+  level: extended
+  name: name
+  order: 0
+  short: Name of the file including the extension, without the directory.
+  type: keyword
 file.owner:
   description: File owner's username.
+  example: alice
   flat_name: file.owner
   ignore_above: 1024
   level: extended
   name: owner
-  order: 7
+  order: 9
   short: File owner's username.
   type: keyword
 file.path:
-  description: Path to the file.
+  description: Full path to the file.
+  example: /home/alice/example.png
   flat_name: file.path
   ignore_above: 1024
   level: extended
   name: path
-  order: 0
-  short: Path to the file.
+  order: 2
+  short: Full path to the file.
   type: keyword
 file.size:
-  description: File size in bytes (field is only added when `type` is `file`).
+  description: 'File size in bytes.
+
+    Only relevant when `file.type` is "file".'
+  example: 16384
   flat_name: file.size
   level: extended
   name: size
-  order: 11
-  short: File size in bytes (field is only added when `type` is `file`).
+  order: 13
+  short: File size in bytes.
   type: long
 file.target_path:
   description: Target path for symlinks.
@@ -1111,25 +1141,27 @@ file.target_path:
   ignore_above: 1024
   level: extended
   name: target_path
-  order: 1
+  order: 3
   short: Target path for symlinks.
   type: keyword
 file.type:
   description: File type (file, dir, or symlink).
+  example: file
   flat_name: file.type
   ignore_above: 1024
   level: extended
   name: type
-  order: 3
+  order: 5
   short: File type (file, dir, or symlink).
   type: keyword
 file.uid:
   description: The user ID (UID) or security identifier (SID) of the file owner.
+  example: '1001'
   flat_name: file.uid
   ignore_above: 1024
   level: extended
   name: uid
-  order: 6
+  order: 8
   short: The user ID (UID) or security identifier (SID) of the file owner.
   type: keyword
 geo.city_name:
