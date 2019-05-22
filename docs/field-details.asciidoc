@@ -965,7 +965,9 @@ File objects can be associated with host events, network events, and/or file eve
 // ===============================================================
 
 | file.ctime
-| Last time file metadata changed.
+| Last time the file attributes or metadata changed.
+
+Note that changes to the file content will update `mtime`. This implies `ctime` will be adjusted at the same time, since `mtime` is an attribute of the file.
 
 type: date
 
@@ -980,7 +982,18 @@ type: date
 
 type: keyword
 
+example: `sda`
 
+| extended
+
+// ===============================================================
+
+| file.directory
+| Directory where the file is located.
+
+type: keyword
+
+example: `/home/alice`
 
 | extended
 
@@ -988,8 +1001,6 @@ type: keyword
 
 | file.extension
 | File extension.
-
-This should allow easy filtering by file extensions.
 
 type: keyword
 
@@ -1004,7 +1015,7 @@ example: `png`
 
 type: keyword
 
-
+example: `1001`
 
 | extended
 
@@ -1015,7 +1026,7 @@ type: keyword
 
 type: keyword
 
-
+example: `alice`
 
 | extended
 
@@ -1026,7 +1037,7 @@ type: keyword
 
 type: keyword
 
-
+example: `256383`
 
 | extended
 
@@ -1037,18 +1048,29 @@ type: keyword
 
 type: keyword
 
-example: `416`
+example: `0640`
 
 | extended
 
 // ===============================================================
 
 | file.mtime
-| Last time file content was modified.
+| Last time the file content was modified.
 
 type: date
 
 
+
+| extended
+
+// ===============================================================
+
+| file.name
+| Name of the file including the extension, without the directory.
+
+type: keyword
+
+example: `example.png`
 
 | extended
 
@@ -1059,29 +1081,31 @@ type: date
 
 type: keyword
 
-
+example: `alice`
 
 | extended
 
 // ===============================================================
 
 | file.path
-| Path to the file.
+| Full path to the file.
 
 type: keyword
 
-
+example: `/home/alice/example.png`
 
 | extended
 
 // ===============================================================
 
 | file.size
-| File size in bytes (field is only added when `type` is `file`).
+| File size in bytes.
+
+Only relevant when `file.type` is "file".
 
 type: long
 
-
+example: `16384`
 
 | extended
 
@@ -1103,7 +1127,7 @@ type: keyword
 
 type: keyword
 
-
+example: `file`
 
 | extended
 
@@ -1114,7 +1138,7 @@ type: keyword
 
 type: keyword
 
-
+example: `1001`
 
 | extended
 

@@ -771,59 +771,81 @@
     - name: ctime
       level: extended
       type: date
-      description: Last time file metadata changed.
+      description: 'Last time the file attributes or metadata changed.
+
+        Note that changes to the file content will update `mtime`. This implies `ctime`
+        will be adjusted at the same time, since `mtime` is an attribute of the file.'
     - name: device
       level: extended
       type: keyword
       ignore_above: 1024
       description: Device that is the source of the file.
+      example: sda
+    - name: directory
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Directory where the file is located.
+      example: /home/alice
     - name: extension
       level: extended
       type: keyword
       ignore_above: 1024
-      description: 'File extension.
-
-        This should allow easy filtering by file extensions.'
+      description: File extension.
       example: png
     - name: gid
       level: extended
       type: keyword
       ignore_above: 1024
       description: Primary group ID (GID) of the file.
+      example: '1001'
     - name: group
       level: extended
       type: keyword
       ignore_above: 1024
       description: Primary group name of the file.
+      example: alice
     - name: inode
       level: extended
       type: keyword
       ignore_above: 1024
       description: Inode representing the file in the filesystem.
+      example: '256383'
     - name: mode
       level: extended
       type: keyword
       ignore_above: 1024
       description: Mode of the file in octal representation.
-      example: 416
+      example: '0640'
     - name: mtime
       level: extended
       type: date
-      description: Last time file content was modified.
+      description: Last time the file content was modified.
+    - name: name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the file including the extension, without the directory.
+      example: example.png
     - name: owner
       level: extended
       type: keyword
       ignore_above: 1024
       description: File owner's username.
+      example: alice
     - name: path
       level: extended
       type: keyword
       ignore_above: 1024
-      description: Path to the file.
+      description: Full path to the file.
+      example: /home/alice/example.png
     - name: size
       level: extended
       type: long
-      description: File size in bytes (field is only added when `type` is `file`).
+      description: 'File size in bytes.
+
+        Only relevant when `file.type` is "file".'
+      example: 16384
     - name: target_path
       level: extended
       type: keyword
@@ -834,11 +856,13 @@
       type: keyword
       ignore_above: 1024
       description: File type (file, dir, or symlink).
+      example: file
     - name: uid
       level: extended
       type: keyword
       ignore_above: 1024
       description: The user ID (UID) or security identifier (SID) of the file owner.
+      example: '1001'
   - name: geo
     title: Geo
     group: 2

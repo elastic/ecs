@@ -14,10 +14,12 @@
 * Generator for the Beats fields.ecs.yml file. #379
 * Added field formats to all `.bytes` fields and `event.duration`. #385
 * Added `event.code`, `event.sequence` and `event.provider`. #439
+* Added `file.name` and `file.directory`. #441
 
 ### Improvements
 
 * Format port numbers and numeric IDs as strings. #454
+* Added examples and improved definitions of many `file` fields. #441
 
 ### Deprecated
 
