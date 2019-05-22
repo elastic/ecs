@@ -81,4 +81,12 @@ type File struct {
 	// `ctime` will be adjusted at the same time, since `mtime` is an attribute
 	// of the file.
 	Ctime time.Time `ecs:"ctime"`
+
+	// File creation time.
+	// Note that not all filesystems store the creation time.
+	Created time.Time `ecs:"created"`
+
+	// Last time the file was accessed.
+	// Note that not all filesystems keep track of access time.
+	Accessed time.Time `ecs:"accessed"`
 }
