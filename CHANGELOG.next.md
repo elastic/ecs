@@ -19,6 +19,7 @@
 
 ### Improvements
 
+* Format port numbers and numeric IDs as strings. #454
 * Added examples and improved definitions of many `file` fields. #441
 
 ### Deprecated
