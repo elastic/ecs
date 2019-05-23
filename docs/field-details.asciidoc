@@ -1172,6 +1172,29 @@ example: `1001`
 
 |=====
 
+==== Field Reuse
+
+
+
+
+[[ecs-file-nestings]]
+===== Field sets that can be nested under File
+
+[options="header"]
+|=====
+| Nested fields | Description
+
+// ===============================================================
+
+
+| <<ecs-hash,file.hash.*>>
+| Hashes, usually file hashes.
+
+// ===============================================================
+
+
+|=====
+
 [[ecs-geo]]
 === Geo Fields
 
@@ -1332,6 +1355,76 @@ type: keyword
 The `group` fields are expected to be nested at: `user.group`.
 
 Note also that the `group` fields may be used directly at the top level.
+
+
+
+
+[[ecs-hash]]
+=== Group Fields
+
+The hash fields represent different hash algorithms and their values.
+
+Field names for common hashes (e.g. MD5, SHA1) are predefined. Add fields for other hashes by lowercasing the hash algorithm name and using underscore separators as appropriate (snake case, e.g. sha3_512).
+
+==== Group Field Details
+
+[options="header"]
+|=====
+| Field  | Description | Level
+
+// ===============================================================
+
+| hash.md5
+| MD5 hash.
+
+type: keyword
+
+
+
+| extended
+
+// ===============================================================
+
+| hash.sha1
+| SHA1 hash.
+
+type: keyword
+
+
+
+| extended
+
+// ===============================================================
+
+| hash.sha256
+| SHA256 hash.
+
+type: keyword
+
+
+
+| extended
+
+// ===============================================================
+
+| hash.sha512
+| SHA512 hash.
+
+type: keyword
+
+
+
+| extended
+
+// ===============================================================
+
+|=====
+
+==== Field Reuse
+
+The `hash` fields are expected to be nested at: `file.hash`, `process.hash`.
+
+Note also that the `hash` fields are not expected to be used directly at the top level.
 
 
 
@@ -2199,6 +2292,29 @@ example: `/home/alice`
 | extended
 
 // ===============================================================
+
+|=====
+
+==== Field Reuse
+
+
+
+
+[[ecs-process-nestings]]
+===== Field sets that can be nested under Process
+
+[options="header"]
+|=====
+| Nested fields | Description
+
+// ===============================================================
+
+
+| <<ecs-hash,process.hash.*>>
+| Hashes, usually file hashes.
+
+// ===============================================================
+
 
 |=====
 

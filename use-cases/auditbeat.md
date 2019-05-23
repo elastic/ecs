@@ -26,12 +26,12 @@ ECS usage in Auditbeat.
 | <a name="hash.blake2b_256"></a>*hash.blake2b_256* | *BLAKE2b-256 hash of the file.* | (use case) | keyword |  |
 | <a name="hash.blake2b_384"></a>*hash.blake2b_384* | *BLAKE2b-384 hash of the file.* | (use case) | keyword |  |
 | <a name="hash.blake2b_512"></a>*hash.blake2b_512* | *BLAKE2b-512 hash of the file.* | (use case) | keyword |  |
-| <a name="hash.md5"></a>*hash.md5* | *MD5 hash.* | (use case) | keyword |  |
-| <a name="hash.sha1"></a>*hash.sha1* | *SHA-1 hash.* | (use case) | keyword |  |
+| [hash.md5](../README.md#hash.md5)  | MD5 hash. | extended | keyword |  |
+| [hash.sha1](../README.md#hash.sha1)  | SHA-1 hash. | extended | keyword |  |
 | <a name="hash.sha224"></a>*hash.sha224* | *SHA-224 hash (SHA-2 family).* | (use case) | keyword |  |
-| <a name="hash.sha256"></a>*hash.sha256* | *SHA-256 hash (SHA-2 family).* | (use case) | keyword |  |
+| [hash.sha256](../README.md#hash.sha256)  | SHA-256 hash (SHA-2 family). | extended | keyword |  |
 | <a name="hash.sha384"></a>*hash.sha384* | *SHA-384 hash (SHA-2 family).* | (use case) | keyword |  |
-| <a name="hash.sha512"></a>*hash.sha512* | *SHA-512 hash (SHA-2 family).* | (use case) | keyword |  |
+| [hash.sha512](../README.md#hash.sha512)  | SHA-512 hash (SHA-2 family). | extended | keyword |  |
 | <a name="hash.sha512_224"></a>*hash.sha512_224* | *SHA-512/224 hash (SHA-2 family).* | (use case) | keyword |  |
 | <a name="hash.sha512_256"></a>*hash.sha512_256* | *SHA-512/256 hash (SHA-2 family).* | (use case) | keyword |  |
 | <a name="hash.sha3_224"></a>*hash.sha3_224* | *SHA3-224 hash (SHA-3 family).* | (use case) | keyword |  |

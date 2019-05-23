@@ -817,6 +817,26 @@
       ignore_above: 1024
       description: Primary group name of the file.
       example: alice
+    - name: hash.md5
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: MD5 hash.
+    - name: hash.sha1
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SHA1 hash.
+    - name: hash.sha256
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SHA256 hash.
+    - name: hash.sha512
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SHA512 hash.
     - name: inode
       level: extended
       type: keyword
@@ -955,6 +975,36 @@
       type: keyword
       ignore_above: 1024
       description: Name of the group.
+  - name: hash
+    title: Group
+    group: 2
+    description: 'The hash fields represent different hash algorithms and their values.
+
+      Field names for common hashes (e.g. MD5, SHA1) are predefined. Add fields for
+      other hashes by lowercasing the hash algorithm name and using underscore separators
+      as appropriate (snake case, e.g. sha3_512).'
+    type: group
+    fields:
+    - name: md5
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: MD5 hash.
+    - name: sha1
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SHA1 hash.
+    - name: sha256
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SHA256 hash.
+    - name: sha512
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SHA512 hash.
   - name: host
     title: Host
     group: 2
@@ -1586,6 +1636,26 @@
       ignore_above: 1024
       description: Absolute path to the process executable.
       example: /usr/bin/ssh
+    - name: hash.md5
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: MD5 hash.
+    - name: hash.sha1
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SHA1 hash.
+    - name: hash.sha256
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SHA256 hash.
+    - name: hash.sha512
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SHA512 hash.
     - name: name
       level: extended
       type: keyword

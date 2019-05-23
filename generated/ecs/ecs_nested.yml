@@ -1281,6 +1281,46 @@ file:
       order: 11
       short: Primary group name of the file.
       type: keyword
+    hash.md5:
+      description: MD5 hash.
+      flat_name: file.hash.md5
+      ignore_above: 1024
+      level: extended
+      name: md5
+      order: 0
+      original_fieldset: hash
+      short: MD5 hash.
+      type: keyword
+    hash.sha1:
+      description: SHA1 hash.
+      flat_name: file.hash.sha1
+      ignore_above: 1024
+      level: extended
+      name: sha1
+      order: 1
+      original_fieldset: hash
+      short: SHA1 hash.
+      type: keyword
+    hash.sha256:
+      description: SHA256 hash.
+      flat_name: file.hash.sha256
+      ignore_above: 1024
+      level: extended
+      name: sha256
+      order: 2
+      original_fieldset: hash
+      short: SHA256 hash.
+      type: keyword
+    hash.sha512:
+      description: SHA512 hash.
+      flat_name: file.hash.sha512
+      ignore_above: 1024
+      level: extended
+      name: sha512
+      order: 3
+      original_fieldset: hash
+      short: SHA512 hash.
+      type: keyword
     inode:
       description: Inode representing the file in the filesystem.
       example: '256383'
@@ -1381,6 +1421,8 @@ file:
       type: keyword
   group: 2
   name: file
+  nestings:
+  - hash
   prefix: file.
   short: Fields describing files.
   title: File
@@ -1522,6 +1564,60 @@ group:
     - user
     top_level: true
   short: User's group relevant to the event.
+  title: Group
+  type: group
+hash:
+  description: 'The hash fields represent different hash algorithms and their values.
+
+    Field names for common hashes (e.g. MD5, SHA1) are predefined. Add fields for
+    other hashes by lowercasing the hash algorithm name and using underscore separators
+    as appropriate (snake case, e.g. sha3_512).'
+  fields:
+    md5:
+      description: MD5 hash.
+      flat_name: hash.md5
+      ignore_above: 1024
+      level: extended
+      name: md5
+      order: 0
+      short: MD5 hash.
+      type: keyword
+    sha1:
+      description: SHA1 hash.
+      flat_name: hash.sha1
+      ignore_above: 1024
+      level: extended
+      name: sha1
+      order: 1
+      short: SHA1 hash.
+      type: keyword
+    sha256:
+      description: SHA256 hash.
+      flat_name: hash.sha256
+      ignore_above: 1024
+      level: extended
+      name: sha256
+      order: 2
+      short: SHA256 hash.
+      type: keyword
+    sha512:
+      description: SHA512 hash.
+      flat_name: hash.sha512
+      ignore_above: 1024
+      level: extended
+      name: sha512
+      order: 3
+      short: SHA512 hash.
+      type: keyword
+  group: 2
+  name: hash
+  prefix: hash.
+  reusable:
+    expected:
+    - file
+    - process
+    top_level: false
+  short: Hashes, usually file hashes.
   title: Group
   type: group
 host:
@@ -2552,6 +2648,46 @@ process:
       order: 5
       short: Absolute path to the process executable.
       type: keyword
+    hash.md5:
+      description: MD5 hash.
+      flat_name: process.hash.md5
+      ignore_above: 1024
+      level: extended
+      name: md5
+      order: 0
+      original_fieldset: hash
+      short: MD5 hash.
+      type: keyword
+    hash.sha1:
+      description: SHA1 hash.
+      flat_name: process.hash.sha1
+      ignore_above: 1024
+      level: extended
+      name: sha1
+      order: 1
+      original_fieldset: hash
+      short: SHA1 hash.
+      type: keyword
+    hash.sha256:
+      description: SHA256 hash.
+      flat_name: process.hash.sha256
+      ignore_above: 1024
+      level: extended
+      name: sha256
+      order: 2
+      original_fieldset: hash
+      short: SHA256 hash.
+      type: keyword
+    hash.sha512:
+      description: SHA512 hash.
+      flat_name: process.hash.sha512
+      ignore_above: 1024
+      level: extended
+      name: sha512
+      order: 3
+      original_fieldset: hash
+      short: SHA512 hash.
+      type: keyword
     name:
       description: 'Process name.
 
@@ -2635,6 +2771,8 @@ process:
       type: keyword
   group: 2
   name: process
+  nestings:
+  - hash
   prefix: process.
   short: These fields contain information about a process.
   title: Process
