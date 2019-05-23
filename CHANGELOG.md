@@ -16,7 +16,7 @@ All notable changes to this project will be documented in this file based on the
 * Generator for the asciidoc rendering of field definitions. #347
 * Generator for the Beats fields.ecs.yml file. #379
 * Remove many legacy generated files. #399
-* Specify static output format for event.duration. #432
+* Specify static output format for event.duration. #425
 
 ## [1.0.0](https://github.com/elastic/ecs/compare/v1.0.0-beta2...v1.0.0)
 
