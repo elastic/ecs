@@ -6,7 +6,7 @@
 
 ### Added
 
-* Added field formats to all `.bytes` fields and `event.duration`. #385
+* Added field formats to all `.bytes` fields and `event.duration`. #385, #425
 * Added `hash.*` field set. #426
 * Added `event.code`, `event.sequence` and `event.provider`. #439
 * Added `file.name` and `file.directory`. #441
