@@ -17,6 +17,8 @@ All notable changes to this project will be documented in this file based on the
 * Generator for the Beats fields.ecs.yml file. #379
 * Remove many legacy generated files. #399
 * Specify static output format for event.duration. #425
+* Format port numbers and numeric IDs as strings. #454
+* Add example for `process.pid` and `process.ppid`. #464, #470
 
 ## [1.0.0](https://github.com/elastic/ecs/compare/v1.0.0-beta2...v1.0.0)
 
