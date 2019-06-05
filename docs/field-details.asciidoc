@@ -1908,6 +1908,84 @@ example: `ipv4`
 
 |=====
 
+[[ecs-nodejs]]
+=== Node.js Fields
+
+Fields describing a Node.js runtime.
+
+These fields can be used for monitoring the performance of a Node.js application.
+
+==== Node.js Field Details
+
+[options="header"]
+|=====
+| Field  | Description | Level
+
+// ===============================================================
+
+| nodejs.active_handles
+| Current number of active libuv handles.
+
+The number of active libuv handles, likely held open by currently running I/O operations.
+
+type: long
+
+
+
+| extended
+
+// ===============================================================
+
+| nodejs.active_requests
+| Current number of active libuv requests.
+
+The number of active libuv requests, likely waiting for a response to an I/O operation.
+
+type: long
+
+
+
+| extended
+
+// ===============================================================
+
+| nodejs.eventloop.delay.avg.ns
+| The number of nanoseconds of event loop delay for the reporting period.
+
+Event loop delay is sampled every 10 milliseconds. Delays shorter than 10 milliseconds may not be observed, for example if a blocking operation starts and ends within the same sampling period.
+
+type: long
+
+
+
+| extended
+
+// ===============================================================
+
+| nodejs.memory.heap.allocated.bytes
+| The current allocated heap size in bytes.
+
+type: long
+
+
+
+| extended
+
+// ===============================================================
+
+| nodejs.memory.heap.used.bytes
+| The currently used heap size in bytes.
+
+type: long
+
+
+
+| extended
+
+// ===============================================================
+
+|=====
+
 [[ecs-observer]]
 === Observer Fields
 

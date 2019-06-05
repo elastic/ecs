@@ -2261,6 +2261,71 @@ network:
   short: Fields describing the communication path over which the event happened.
   title: Network
   type: group
+nodejs:
+  description: 'Fields describing a Node.js runtime.
+
+    These fields can be used for monitoring the performance of a Node.js application.'
+  fields:
+    active_handles:
+      description: 'Current number of active libuv handles.
+
+        The number of active libuv handles, likely held open by currently running
+        I/O operations.'
+      flat_name: nodejs.active_handles
+      level: extended
+      name: active_handles
+      order: 0
+      short: Current number of active libuv handles.
+      type: long
+    active_requests:
+      description: 'Current number of active libuv requests.
+
+        The number of active libuv requests, likely waiting for a response to an I/O
+        operation.'
+      flat_name: nodejs.active_requests
+      level: extended
+      name: active_requests
+      order: 1
+      short: Current number of active libuv requests.
+      type: long
+    eventloop.delay.avg.ns:
+      description: 'The number of nanoseconds of event loop delay for the reporting
+        period.
+
+        Event loop delay is sampled every 10 milliseconds. Delays shorter than 10
+        milliseconds may not be observed, for example if a blocking operation starts
+        and ends within the same sampling period.'
+      flat_name: nodejs.eventloop.delay.avg.ns
+      level: extended
+      name: eventloop.delay.avg.ns
+      order: 2
+      short: The average number of nanoseconds of event loop delay for the reporting
+        period.
+      type: long
+    memory.heap.allocated.bytes:
+      description: The current allocated heap size in bytes.
+      flat_name: nodejs.memory.heap.allocated.bytes
+      format: bytes
+      level: extended
+      name: memory.heap.allocated.bytes
+      order: 3
+      short: The current allocated heap size in bytes.
+      type: long
+    memory.heap.used.bytes:
+      description: The currently used heap size in bytes.
+      flat_name: nodejs.memory.heap.used.bytes
+      format: bytes
+      level: extended
+      name: memory.heap.used.bytes
+      order: 4
+      short: The currently used heap size in bytes.
+      type: long
+  group: 2
+  name: nodejs
+  prefix: nodejs.
+  short: Fields describing a Node.js runtime.
+  title: Node.js
+  type: group
 observer:
   description: 'An observer is defined as a special network, security, or application
     device used to detect, observe, or create network, security, or application-related
