@@ -26,22 +26,22 @@ type Nodejs struct {
 	// Current number of active libuv handles.
 	// The number of active libuv handles, likely held open by currently
 	// running I/O operations.
-	ActiveHandles int64 `ecs:"active_handles"`
+	HandlesActive int64 `ecs:"handles.active"`
 
 	// Current number of active libuv requests.
 	// The number of active libuv requests, likely waiting for a response to an
 	// I/O operation.
-	ActiveRequests int64 `ecs:"active_requests"`
+	RequestsActive int64 `ecs:"requests.active"`
 
-	// The number of nanoseconds of event loop delay for the reporting period.
+	// The average event loop delay for the reporting period.
 	// Event loop delay is sampled every 10 milliseconds. Delays shorter than
 	// 10 milliseconds may not be observed, for example if a blocking operation
 	// starts and ends within the same sampling period.
-	EventloopDelayAvgNs int64 `ecs:"eventloop.delay.avg.ns"`
+	EventloopDelayAvg int64 `ecs:"eventloop.delay.avg"`
 
 	// The current allocated heap size in bytes.
-	MemoryHeapAllocatedBytes int64 `ecs:"memory.heap.allocated.bytes"`
+	MemoryHeapAllocated int64 `ecs:"memory.heap.allocated"`
 
 	// The currently used heap size in bytes.
-	MemoryHeapUsedBytes int64 `ecs:"memory.heap.used.bytes"`
+	MemoryHeapUsed int64 `ecs:"memory.heap.used"`
 }

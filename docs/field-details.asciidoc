@@ -1923,7 +1923,20 @@ These fields can be used for monitoring the performance of a Node.js application
 
 // ===============================================================
 
-| nodejs.active_handles
+| nodejs.eventloop.delay.avg
+| The average event loop delay for the reporting period.
+
+Event loop delay is sampled every 10 milliseconds. Delays shorter than 10 milliseconds may not be observed, for example if a blocking operation starts and ends within the same sampling period.
+
+type: long
+
+
+
+| extended
+
+// ===============================================================
+
+| nodejs.handles.active
 | Current number of active libuv handles.
 
 The number of active libuv handles, likely held open by currently running I/O operations.
@@ -1936,33 +1949,7 @@ type: long
 
 // ===============================================================
 
-| nodejs.active_requests
-| Current number of active libuv requests.
-
-The number of active libuv requests, likely waiting for a response to an I/O operation.
-
-type: long
-
-
-
-| extended
-
-// ===============================================================
-
-| nodejs.eventloop.delay.avg.ns
-| The number of nanoseconds of event loop delay for the reporting period.
-
-Event loop delay is sampled every 10 milliseconds. Delays shorter than 10 milliseconds may not be observed, for example if a blocking operation starts and ends within the same sampling period.
-
-type: long
-
-
-
-| extended
-
-// ===============================================================
-
-| nodejs.memory.heap.allocated.bytes
+| nodejs.memory.heap.allocated
 | The current allocated heap size in bytes.
 
 type: long
@@ -1973,8 +1960,21 @@ type: long
 
 // ===============================================================
 
-| nodejs.memory.heap.used.bytes
+| nodejs.memory.heap.used
 | The currently used heap size in bytes.
+
+type: long
+
+
+
+| extended
+
+// ===============================================================
+
+| nodejs.requests.active
+| Current number of active libuv requests.
+
+The number of active libuv requests, likely waiting for a response to an I/O operation.
 
 type: long
 
