@@ -1,0 +1,101 @@
+---
+- name: jvm
+  title: Java Virtual Machine (JVM)
+  group: 2
+  short: Fields describing a Java virtual machine (JVM) runtime.
+  description: >
+    Fields describing a Java virtual machine (JVM) runtime.
+
+    These fields can be used for monitoring the performance of a JVM-based application.
+  type: group
+  fields:
+
+    - name: memory.heap.used
+      level: extended
+      type: long
+      format: bytes
+      description: The amount of used heap memory.
+
+    - name: memory.heap.committed
+      level: extended
+      type: long
+      format: bytes
+      short: The amount of heap memory committed for the Java virtual machine to use.
+      description: >
+        The amount of memory committed for the Java virtual machine to use.
+
+        This amount of memory is guaranteed for the Java virtual machine to use.
+
+    - name: memory.heap.max
+      level: extended
+      type: long
+      format: bytes
+      short: The maximum amount of heap memory that can be used for memory management.
+      description: >
+        The maximum amount of heap memory that can be used for memory management.
+
+        If the maximum memory size is undefined, the value is `-1`
+
+    - name: memory.non_heap.used
+      level: extended
+      type: long
+      format: bytes
+      description: The amount of used non-heap memory.
+
+    - name: memory.non_heap.committed
+      level: extended
+      type: long
+      format: bytes
+      short: The amount of non-heap memory committed for the Java virtual machine to use.
+      description: >
+        The amount of non-heap memory committed for the Java virtual machine to use.
+
+        This amount of memory is guaranteed for the Java virtual machine to use.
+
+    - name: memory.non_heap.max
+      level: extended
+      type: long
+      format: bytes
+      short: The maximum amount of non-heap memory that can be used for memory management.
+      description: >
+        The maximum amount of heap memory that can be used for memory management.
+
+        If the maximum memory size is undefined, the value is `-1`
+
+    - name: thread.count
+      level: extended
+      type: long
+      description: The current number of live threads in the JVM, including both daemon and non-daemon threads.
+
+    - name: gc.count
+      level: extended
+      type: long
+      short: The total number of garbage collections that have occurred.
+      description: >
+        The total number of garbage collections that have occurred.
+
+        This metric may be reported multiple times for different memory managers, such as
+        in the case of generational garbage collectors. The name of the memory manager is
+        recorded as `label.name`.
+
+    - name: gc.time
+      level: extended
+      type: long
+      input_format: milliseconds
+      output_format: asMilliseconds
+      output_precision: 2
+      short: The approximate accumulated collection elapsed time in milliseconds.
+      description: >
+        The approximate accumulated collection elapsed time in milliseconds.
+
+        This metric may be reported multiple times for different memory managers, such as
+        in the case of generational garbage collectors. The name of the memory manager is
+        recorded as `label.name`.
+
+    - name: gc.alloc
+      level: extended
+      type: long
+      format: bytes
+      short: An approximation of the total amount of memory allocated in heap memory.
+      description: >
+        An approximation of the total amount of memory allocated in heap memory.

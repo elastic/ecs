@@ -1780,6 +1780,115 @@ http.version:
   order: 5
   short: HTTP version.
   type: keyword
+jvm.gc.alloc:
+  description: An approximation of the total amount of memory allocated in heap memory.
+  flat_name: jvm.gc.alloc
+  format: bytes
+  level: extended
+  name: gc.alloc
+  order: 9
+  short: An approximation of the total amount of memory allocated in heap memory.
+  type: long
+jvm.gc.count:
+  description: 'The total number of garbage collections that have occurred.
+
+    This metric may be reported multiple times for different memory managers, such
+    as in the case of generational garbage collectors. The name of the memory manager
+    is recorded as `label.name`.'
+  flat_name: jvm.gc.count
+  level: extended
+  name: gc.count
+  order: 7
+  short: The total number of garbage collections that have occurred.
+  type: long
+jvm.gc.time:
+  description: 'The approximate accumulated collection elapsed time in milliseconds.
+
+    This metric may be reported multiple times for different memory managers, such
+    as in the case of generational garbage collectors. The name of the memory manager
+    is recorded as `label.name`.'
+  flat_name: jvm.gc.time
+  input_format: milliseconds
+  level: extended
+  name: gc.time
+  order: 8
+  output_format: asMilliseconds
+  output_precision: 2
+  short: The approximate accumulated collection elapsed time in milliseconds.
+  type: long
+jvm.memory.heap.committed:
+  description: 'The amount of memory committed for the Java virtual machine to use.
+
+    This amount of memory is guaranteed for the Java virtual machine to use.'
+  flat_name: jvm.memory.heap.committed
+  format: bytes
+  level: extended
+  name: memory.heap.committed
+  order: 1
+  short: The amount of heap memory committed for the Java virtual machine to use.
+  type: long
+jvm.memory.heap.max:
+  description: 'The maximum amount of heap memory that can be used for memory management.
+
+    If the maximum memory size is undefined, the value is `-1`'
+  flat_name: jvm.memory.heap.max
+  format: bytes
+  level: extended
+  name: memory.heap.max
+  order: 2
+  short: The maximum amount of heap memory that can be used for memory management.
+  type: long
+jvm.memory.heap.used:
+  description: The amount of used heap memory.
+  flat_name: jvm.memory.heap.used
+  format: bytes
+  level: extended
+  name: memory.heap.used
+  order: 0
+  short: The amount of used heap memory.
+  type: long
+jvm.memory.non_heap.committed:
+  description: 'The amount of non-heap memory committed for the Java virtual machine
+    to use.
+
+    This amount of memory is guaranteed for the Java virtual machine to use.'
+  flat_name: jvm.memory.non_heap.committed
+  format: bytes
+  level: extended
+  name: memory.non_heap.committed
+  order: 4
+  short: The amount of non-heap memory committed for the Java virtual machine to use.
+  type: long
+jvm.memory.non_heap.max:
+  description: 'The maximum amount of heap memory that can be used for memory management.
+
+    If the maximum memory size is undefined, the value is `-1`'
+  flat_name: jvm.memory.non_heap.max
+  format: bytes
+  level: extended
+  name: memory.non_heap.max
+  order: 5
+  short: The maximum amount of non-heap memory that can be used for memory management.
+  type: long
+jvm.memory.non_heap.used:
+  description: The amount of used non-heap memory.
+  flat_name: jvm.memory.non_heap.used
+  format: bytes
+  level: extended
+  name: memory.non_heap.used
+  order: 3
+  short: The amount of used non-heap memory.
+  type: long
+jvm.thread.count:
+  description: The current number of live threads in the JVM, including both daemon
+    and non-daemon threads.
+  flat_name: jvm.thread.count
+  level: extended
+  name: thread.count
+  order: 6
+  short: The current number of live threads in the JVM, including both daemon and
+    non-daemon threads.
+  type: long
 labels:
   description: 'Custom key/value pairs.
 
