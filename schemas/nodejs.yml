@@ -1,0 +1,58 @@
+---
+- name: nodejs
+  title: Node.js
+  group: 2
+  short: Fields describing a Node.js runtime.
+  description: >
+    Fields describing a Node.js runtime.
+
+    These fields can be used for monitoring the performance of a Node.js application.
+  type: group
+  fields:
+
+    - name: handles.active
+      level: extended
+      type: long
+      short: Current number of active libuv handles.
+      description: >
+        Current number of active libuv handles.
+
+        The number of active libuv handles, likely held open by currently running I/O operations.
+
+    - name: requests.active
+      level: extended
+      type: long
+      short: Current number of active libuv requests.
+      description: >
+        Current number of active libuv requests.
+
+        The number of active libuv requests, likely waiting for a response to an I/O operation.
+
+    - name: eventloop.delay.avg
+      level: extended
+      type: long
+      format: duration
+      input_format: nanoseconds
+      output_format: asMilliseconds
+      output_precision: 2
+      short: The average number of nanoseconds of event loop delay for the reporting period.
+      description: >
+        The average event loop delay for the reporting period.
+
+        Event loop delay is sampled every 10 milliseconds. Delays shorter than 10 milliseconds
+        may not be observed, for example if a blocking operation starts and ends within the same
+        sampling period.
+
+    - name: memory.heap.allocated
+      level: extended
+      type: long
+      format: bytes
+      description: >
+        The current allocated heap size in bytes.
+
+    - name: memory.heap.used
+      level: extended
+      type: long
+      format: bytes
+      description: >
+        The currently used heap size in bytes.

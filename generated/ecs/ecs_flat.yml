@@ -1987,6 +1987,61 @@ network.type:
   short: In the OSI Model this would be the Network Layer. ipv4, ipv6, ipsec, pim,
     etc
   type: keyword
+nodejs.eventloop.delay.avg:
+  description: 'The average event loop delay for the reporting period.
+
+    Event loop delay is sampled every 10 milliseconds. Delays shorter than 10 milliseconds
+    may not be observed, for example if a blocking operation starts and ends within
+    the same sampling period.'
+  flat_name: nodejs.eventloop.delay.avg
+  format: duration
+  input_format: nanoseconds
+  level: extended
+  name: eventloop.delay.avg
+  order: 2
+  output_format: asMilliseconds
+  output_precision: 2
+  short: The average number of nanoseconds of event loop delay for the reporting period.
+  type: long
+nodejs.handles.active:
+  description: 'Current number of active libuv handles.
+
+    The number of active libuv handles, likely held open by currently running I/O
+    operations.'
+  flat_name: nodejs.handles.active
+  level: extended
+  name: handles.active
+  order: 0
+  short: Current number of active libuv handles.
+  type: long
+nodejs.memory.heap.allocated:
+  description: The current allocated heap size in bytes.
+  flat_name: nodejs.memory.heap.allocated
+  format: bytes
+  level: extended
+  name: memory.heap.allocated
+  order: 3
+  short: The current allocated heap size in bytes.
+  type: long
+nodejs.memory.heap.used:
+  description: The currently used heap size in bytes.
+  flat_name: nodejs.memory.heap.used
+  format: bytes
+  level: extended
+  name: memory.heap.used
+  order: 4
+  short: The currently used heap size in bytes.
+  type: long
+nodejs.requests.active:
+  description: 'Current number of active libuv requests.
+
+    The number of active libuv requests, likely waiting for a response to an I/O operation.'
+  flat_name: nodejs.requests.active
+  level: extended
+  name: requests.active
+  order: 1
+  short: Current number of active libuv requests.
+  type: long
 observer.geo.city_name:
   description: City name.
   example: Montreal

@@ -1402,6 +1402,50 @@
         The field value must be normalized to lowercase for querying. See the documentation
         section "Implementing ECS".'
       example: ipv4
+  - name: nodejs
+    title: Node.js
+    group: 2
+    description: 'Fields describing a Node.js runtime.
+
+      These fields can be used for monitoring the performance of a Node.js application.'
+    type: group
+    fields:
+    - name: eventloop.delay.avg
+      level: extended
+      type: long
+      format: duration
+      input_format: nanoseconds
+      output_format: asMilliseconds
+      output_precision: 2
+      description: 'The average event loop delay for the reporting period.
+
+        Event loop delay is sampled every 10 milliseconds. Delays shorter than 10
+        milliseconds may not be observed, for example if a blocking operation starts
+        and ends within the same sampling period.'
+    - name: handles.active
+      level: extended
+      type: long
+      description: 'Current number of active libuv handles.
+
+        The number of active libuv handles, likely held open by currently running
+        I/O operations.'
+    - name: memory.heap.allocated
+      level: extended
+      type: long
+      format: bytes
+      description: The current allocated heap size in bytes.
+    - name: memory.heap.used
+      level: extended
+      type: long
+      format: bytes
+      description: The currently used heap size in bytes.
+    - name: requests.active
+      level: extended
+      type: long
+      description: 'Current number of active libuv requests.
+
+        The number of active libuv requests, likely waiting for a response to an I/O
+        operation.'
   - name: observer
     title: Observer
     group: 2
