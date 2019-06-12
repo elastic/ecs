@@ -76,3 +76,9 @@ Each {ecs} <<ecs-field-reference,field>> in a table is identified as core or ext
 ** Exceptions can be made, when the name used for the concept is too strongly
    in favor of the abbreviation.
    Example: `ip` fields, or field sets such as `os`, `geo`.
+
+* *Avoid declaring units*
+** So that we don't conflict with aspirations in https://github.com/elastic/elasticsearch/issues/31244,
+   avoid specifying units such as "bytes" or "sec". Until Elasticsearch and/or Kibana have
+   native support for such units, we will either rely on documentation or hard-code knowledge of
+   units for specific fields into Kibana.
