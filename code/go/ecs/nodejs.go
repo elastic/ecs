@@ -34,9 +34,10 @@ type Nodejs struct {
 	RequestsActive int64 `ecs:"requests.active"`
 
 	// The average event loop delay for the reporting period.
-	// Event loop delay is sampled every 10 milliseconds. Delays shorter than
-	// 10 milliseconds may not be observed, for example if a blocking operation
-	// starts and ends within the same sampling period.
+	// Event loop delay is periodically sampled, e.g. every 10 milliseconds,
+	// but this may vary by source. Delays shorter than the sampling period may
+	// not be observed, for example if a blocking operation starts and ends
+	// within the same sampling period.
 	EventloopDelayAvg int64 `ecs:"eventloop.delay.avg"`
 
 	// The current allocated heap size in bytes.
