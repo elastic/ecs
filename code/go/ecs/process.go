@@ -60,6 +60,9 @@ type Process struct {
 	// The time the process started.
 	Start time.Time `ecs:"start"`
 
+	// Seconds the process has been up.
+	Uptime int64 `ecs:"uptime"`
+
 	// The working directory of the process.
 	WorkingDirectory string `ecs:"working_directory"`
 }
