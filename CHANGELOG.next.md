@@ -6,6 +6,7 @@
 
 ### Added
 
+* Added `process.uptime` and `host.uptime` fields. #475
 * Added field formats to all `.bytes` fields and `event.duration`. #385, #425
 * Added `hash.*` field set. #426
 * Added `event.code`, `event.sequence` and `event.provider`. #439
