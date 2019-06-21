@@ -25,6 +25,9 @@ Here are the steps for contributing to ECS.
   - Make changes to the `.yml` files under the `schemas` directory.
 * Run `make` to update generated files.
   - Note that the README.md file is generated, and should not be edited directly. Source files are in the /docs directory.
+  - In case of dependency or availability issues the Docker-based build can be used. Build the Docker image with
+    `docker build -t ecs-build .` and then run `docker run --rm -it -v "$PWD":/ecs -w /ecs ecs-build make` to update
+    generated files.
 * Commit your changes locally.
   - Run `git commit -a -m "your message"`
 * Push your changes to your own github.com fork.
