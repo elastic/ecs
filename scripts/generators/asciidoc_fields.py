@@ -183,6 +183,9 @@ def index_row():
 
 def index_footer():
     return '''
+
+=== Fields
+
 include::field-details.asciidoc[]
 '''
 
@@ -194,6 +197,7 @@ include::field-details.asciidoc[]
 
 def field_details_table_header():
     return '''
+[float]
 [[ecs-{fieldset_name}]]
 === {fieldset_title} Fields
 
