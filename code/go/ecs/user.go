@@ -41,6 +41,7 @@ type User struct {
 	// cannot be used.
 	Hash string `ecs:"hash"`
 
-	// Name of user domain, e.g. Active Directory or LDAP domain name.
+	// Name of the directory the user is a member of.
+	// For example, an LDAP or Active Directory domain name.
 	Domain string `ecs:"domain"`
 }
