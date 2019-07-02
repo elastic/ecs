@@ -1,5 +1,5 @@
 import argparse
-
+import glob
 import schema_reader
 from generators import intermediate_files
 from generators import csv_generator
@@ -14,7 +14,8 @@ def main():
     ecs_version = read_version()
     print "Running generator. ECS version " + ecs_version
 
-    (ecs_nested, ecs_flat) = schema_reader.load_ecs()
+    # Load the default schemas
+    (ecs_nested, ecs_flat) = schema_reader.load_ecs(sorted(glob.glob("schemas/*.yml")))
 
     intermediate_files.generate(ecs_nested, ecs_flat)
     if args.intermediate_only:
