@@ -56,7 +56,7 @@ fmt: ve
 
 # Alias to generate everything.
 .PHONY: generate
-generate: template legacy_use_cases codegen generator
+generate: template legacy_use_cases codegen generator schema.json
 
 # Run the new generator
 .PHONY: generator
@@ -94,10 +94,10 @@ misspell:
 .PHONY: reload_docs
 reload_docs: generator docs
 
-# Download and setup tooling dependencies.
-.PHONY: setup
-setup: ve
-	cd scripts && $(FORCE_GO_MODULES) go mod download
+# Generate schema.json.
+.PHONY: schema.json
+schema.json: ve
+	$(PYTHON) scripts/schemas.py
 
 # Build an Elasticsearch index template.
 .PHONY: template
