@@ -154,6 +154,52 @@ example: `6.0.0-rc2`
 
 |=====
 
+[[ecs-as]]
+=== Autonomous System Fields
+
+An autonomous system (AS) is a collection of connected Internet Protocol (IP) routing prefixes under the control of one or more network operators on behalf of a single administrative entity or domain that presents a common, clearly defined routing policy to the internet.
+
+==== Autonomous System Field Details
+
+[options="header"]
+|=====
+| Field  | Description | Level
+
+// ===============================================================
+
+| as.number
+| Unique number allocated to the autonomous system. The autonomous system number (ASN) uniquely identifies each network on the Internet.
+
+type: long
+
+example: `15169`
+
+| extended
+
+// ===============================================================
+
+| as.organization.name
+| Organization name.
+
+type: keyword
+
+example: `Google LLC`
+
+| extended
+
+// ===============================================================
+
+|=====
+
+==== Field Reuse
+
+The `as` fields are expected to be nested at: `client.as`, `destination.as`, `server.as`, `source.as`.
+
+Note also that the `as` fields are not expected to be used directly at the top level.
+
+
+
+
 [[ecs-client]]
 === Client Fields
 
@@ -291,6 +337,12 @@ type: long
 [options="header"]
 |=====
 | Nested fields | Description
+
+// ===============================================================
+
+
+| <<ecs-as,client.as.*>>
+| Fields describing an Autonomous System (Internet routing prefix).
 
 // ===============================================================
 
@@ -621,6 +673,12 @@ type: long
 [options="header"]
 |=====
 | Nested fields | Description
+
+// ===============================================================
+
+
+| <<ecs-as,destination.as.*>>
+| Fields describing an Autonomous System (Internet routing prefix).
 
 // ===============================================================
 
@@ -2563,6 +2621,12 @@ type: long
 // ===============================================================
 
 
+| <<ecs-as,server.as.*>>
+| Fields describing an Autonomous System (Internet routing prefix).
+
+// ===============================================================
+
+
 | <<ecs-geo,server.geo.*>>
 | Fields describing a location.
 
@@ -2813,6 +2877,12 @@ type: long
 [options="header"]
 |=====
 | Nested fields | Description
+
+// ===============================================================
+
+
+| <<ecs-as,source.as.*>>
+| Fields describing an Autonomous System (Internet routing prefix).
 
 // ===============================================================
 
