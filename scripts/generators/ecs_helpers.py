@@ -43,7 +43,7 @@ def safe_merge_dicts(a, b):
         if key not in c:
             c[key] = b[key]
         else:
-            raise ValueError("Duplicate key found when merging dictionaries: {0}".format(key))
+            raise ValueError('Duplicate key found when merging dictionaries: {0}'.format(key))
     return c
 
 

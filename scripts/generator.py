@@ -14,17 +14,17 @@ def main():
     args = argument_parser()
 
     ecs_version = read_version()
-    print "Running generator. ECS version " + ecs_version
+    print 'Running generator. ECS version ' + ecs_version
 
     # Load the default schemas
-    print "Loading default schemas"
-    (ecs_nested, ecs_flat) = schema_reader.load_ecs(sorted(glob.glob("schemas/*.yml")))
+    print 'Loading default schemas'
+    (ecs_nested, ecs_flat) = schema_reader.load_ecs(sorted(glob.glob('schemas/*.yml')))
 
     # Maybe load user specified directory of schemas
     if args.include:
-        include_glob = os.path.join(args.include + "/*.yml")
+        include_glob = os.path.join(args.include + '/*.yml')
 
-        print "Loading user defined schemas: {0}".format(include_glob)
+        print 'Loading user defined schemas: {0}'.format(include_glob)
 
         (user_ecs_nested, user_ecs_flat) = schema_reader.load_ecs(sorted(glob.glob(include_glob)))
 
