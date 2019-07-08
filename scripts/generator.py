@@ -22,7 +22,7 @@ def main():
 
     # Maybe load user specified directory of schemas
     if args.include:
-        include_glob = os.path.join(args.include + '/*.yml')
+        include_glob = os.path.join(args.include, '*.yml')
 
         print 'Loading user defined schemas: {0}'.format(include_glob)
 
