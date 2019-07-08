@@ -47,7 +47,7 @@ def argument_parser():
     parser.add_argument('--intermediate-only', action='store_true',
                         help='generate intermediary files only')
     parser.add_argument('--include', action='store',
-                        help='include user specified directory of (custom) ecs schemas')
+                        help='include user specified directory of custom field definitions')
     return parser.parse_args()
 
 
