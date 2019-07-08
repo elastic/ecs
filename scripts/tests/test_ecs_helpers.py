@@ -56,6 +56,29 @@ class TestECSHelpers(unittest.TestCase):
         result = ecs_helpers.dict_sorted_by_keys(dict, ['group', 'name'])
         self.assertEqual(result, expected)
 
+    def test_merge_dicts(self):
+        a = {
+            'cloud': {'group': 2, 'name': 'cloud'},
+            'agent': {'group': 2, 'name': 'agent'},
+        }
+        b = {'base': {'group': 1, 'name': 'base'}}
+
+        result = ecs_helpers.safe_merge_dicts(a, b)
+
+        self.assertEquals(result,
+                          {
+                              'cloud': {'group': 2, 'name': 'cloud'},
+                              'agent': {'group': 2, 'name': 'agent'},
+                              'base': {'group': 1, 'name': 'base'}
+                          })
+
+    def test_merge_dicts_raises_if_duplicate_key_added(self):
+        a = {'cloud': {'group': 2, 'name': 'cloud'}}
+        b = {'cloud': {'group': 9, 'name': 'bazbar'}}
+
+        with self.assertRaises(ValueError):
+            ecs_helpers.safe_merge_dicts(a, b)
+
 
 if __name__ == '__main__':
     unittest.main()

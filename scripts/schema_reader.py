@@ -4,11 +4,6 @@ import yaml
 # File loading stuff
 
 
-def schema_files():
-    """Return the schema file list to load"""
-    return sorted(glob.glob("schemas/*.yml"))
-
-
 def read_schema_file(file):
     """Read a raw schema yml into a map, removing the wrapping array in each file"""
     with open(file) as f:
@@ -19,7 +14,7 @@ def read_schema_file(file):
     return fields
 
 
-def load_schema_files(files=schema_files()):
+def load_schema_files(files):
     fields_nested = {}
     for f in files:
         new_fields = read_schema_file(f)
@@ -169,8 +164,9 @@ def finalize_schemas(fields_nested, fields_flat):
         duplicate_reusable_fieldsets(schema, fields_flat, fields_nested)
 
 
-def load_ecs():
-    fields_nested = load_schema_files()
+def load_ecs(files):
+    """Loads the given list of files"""
+    fields_nested = load_schema_files(files)
     fields_flat = {}
     finalize_schemas(fields_nested, fields_flat)
     return (fields_nested, fields_flat)
