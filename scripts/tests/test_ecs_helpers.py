@@ -66,11 +66,11 @@ class TestECSHelpers(unittest.TestCase):
         result = ecs_helpers.safe_merge_dicts(a, b)
 
         self.assertEquals(result,
-            {
-                'cloud': {'group': 2, 'name': 'cloud'},
-                'agent': {'group': 2, 'name': 'agent'},
-                'base': {'group': 1, 'name': 'base'}
-            })
+                          {
+                              'cloud': {'group': 2, 'name': 'cloud'},
+                              'agent': {'group': 2, 'name': 'agent'},
+                              'base': {'group': 1, 'name': 'base'}
+                          })
 
     def test_merge_dicts_raises_if_duplicate_key_added(self):
         a = {'cloud': {'group': 2, 'name': 'cloud'}}
