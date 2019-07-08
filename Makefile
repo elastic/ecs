@@ -99,6 +99,11 @@ reload_docs: generator docs
 schema.json: ve
 	$(PYTHON) scripts/schemas.py
 
+# Download and setup tooling dependencies.
+.PHONY: setup
+setup: ve
+	cd scripts && $(FORCE_GO_MODULES) go mod download
+
 # Build an Elasticsearch index template.
 .PHONY: template
 template:
