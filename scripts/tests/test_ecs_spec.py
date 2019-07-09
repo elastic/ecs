@@ -1,6 +1,5 @@
 import os
 import sys
-import glob
 import unittest
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
@@ -8,7 +7,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from scripts import schema_reader
 
 
-(nested, flat) = schema_reader.load_ecs(sorted(glob.glob('schemas/*.yml')))
+(nested, flat) = schema_reader.load_schemas()
 
 
 class TestEcsSpec(unittest.TestCase):
