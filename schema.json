@@ -1889,7 +1889,7 @@
         "type": "keyword"
       }, 
       "service.id": {
-        "description": "Unique identifier of the running service.\nThis id should uniquely identify this service. This makes it possible to correlate logs and metrics for one specific service.\nExample: If you are experiencing issues with one redis instance, you can filter on that id to see metrics and logs for that single instance.", 
+        "description": "Unique identifier of the running service. If the service is comprised of many nodes, the `service.id` should be the same for all nodes.\nThis id should uniquely identify the service. This makes it possible to correlate logs and metrics for one specific service, no matter which particular node emitted the event.\nNote that if you need to see the events from one specific host of the service, you should filter on that `host.name` or `host.id` instead.", 
         "example": "d37e5ebfe0ae6c4972dbe9f0174a1637bb8247f6", 
         "footnote": "", 
         "group": 2, 
