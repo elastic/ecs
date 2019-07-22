@@ -1,0 +1,70 @@
+---
+- name: threat
+  title: Threat
+  group: 2
+  short: Fields describing detected threats and threat intel data
+  description: >
+    ECS threat fields encompass detected suspicious activity (e.g. IDS alert, malware activity) typically
+    reported by IDS/IPS and NGFWs, as well as threat intel/global IOC data ingested from a feed source like MISP or Anomali.
+
+  type: group
+  fields:
+
+    - name: id
+      level: extended
+      type: keyword
+      short: Threat ID
+      description: >
+        Threat ID, typically provided by reporting system or threat intel provider.
+      example: 33227 
+
+    - name: name
+      level: extended
+      type: keyword
+      short: Name or classification of the threat detected or reported
+      description: >
+        Threat name as reported by system or intel provider
+
+        The field value must be normalized to lowercase for querying. See
+        the documentation section "Implementing ECS".
+      example: ntp reserved mode denial of service
+
+    - name: tactic
+      level: extended
+      type: keyword
+      short: Mitre ATT&CK Matrix tactic
+      description: >
+          The Mitre ATT&CK Matrix Tactic categorization of the identified threat 
+      example: impact
+
+    - name: technique
+      level: extended
+      type: keyword
+      short: Mitre ATT&CK Matrix technique
+      description: >
+          The Mitre ATT&CK Matric Technique categorization of the identified threat 
+      example: endpoint denial of service
+
+    - name: description
+      level: extended
+      type: keyword
+      short: Short description of the threat
+      description: >
+        Textual description of the observed threat or threat intel that provides more context 
+      example: ntp denial of service attack 
+
+    - name: severity
+      level: extended
+      type: keyword
+      short: Severity of the threat as identified by the observer/ threat intel feed
+      description: >
+        Typically a qualitative description of the risk associated with the observed threat or IOC
+      example: high
+
+    - name: confidence
+      level: extended
+      type: keyword
+      short: Predicted accuracy of the threat identification
+      description: >
+        Typically a qualitative description of the confidence that the threat identification is correct
+      example: medium

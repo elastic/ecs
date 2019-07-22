@@ -2727,6 +2727,100 @@ type: long
 
 |=====
 
+[[ecs-threat]]
+=== Threat Fields
+
+ECS threat fields encompass detected suspicious activity (e.g. IDS alert, malware activity) typically reported by IDS/IPS and NGFWs, as well as threat intel/global IOC data ingested from a feed source like MISP or Anomali.
+
+==== Threat Field Details
+
+[options="header"]
+|=====
+| Field  | Description | Level
+
+// ===============================================================
+
+| threat.confidence
+| Typically a qualitative description of the confidence that the threat identification is correct
+
+type: keyword
+
+example: `medium`
+
+| extended
+
+// ===============================================================
+
+| threat.description
+| Textual description of the observed threat or threat intel that provides more context
+
+type: keyword
+
+example: `ntp denial of service attack`
+
+| extended
+
+// ===============================================================
+
+| threat.id
+| Threat ID, typically provided by reporting system or threat intel provider.
+
+type: keyword
+
+example: `33227`
+
+| extended
+
+// ===============================================================
+
+| threat.name
+| Threat name as reported by system or intel provider
+
+The field value must be normalized to lowercase for querying. See the documentation section "Implementing ECS".
+
+type: keyword
+
+example: `ntp reserved mode denial of service`
+
+| extended
+
+// ===============================================================
+
+| threat.severity
+| Typically a qualitative description of the risk associated with the observed threat or IOC
+
+type: keyword
+
+example: `high`
+
+| extended
+
+// ===============================================================
+
+| threat.tactic
+| The Mitre ATT&CK Matrix Tactic categorization of the identified threat
+
+type: keyword
+
+example: `impact`
+
+| extended
+
+// ===============================================================
+
+| threat.technique
+| The Mitre ATT&CK Matric Technique categorization of the identified threat
+
+type: keyword
+
+example: `endpoint denial of service`
+
+| extended
+
+// ===============================================================
+
+|=====
+
 [[ecs-url]]
 === URL Fields
 

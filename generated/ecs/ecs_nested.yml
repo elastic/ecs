@@ -3498,6 +3498,96 @@ source:
   short: Fields about the source side of a network connection, used with destination.
   title: Source
   type: group
+threat:
+  description: ECS threat fields encompass detected suspicious activity (e.g. IDS
+    alert, malware activity) typically reported by IDS/IPS and NGFWs, as well as threat
+    intel/global IOC data ingested from a feed source like MISP or Anomali.
+  fields:
+    confidence:
+      description: Typically a qualitative description of the confidence that the
+        threat identification is correct
+      example: medium
+      flat_name: threat.confidence
+      ignore_above: 1024
+      level: extended
+      name: confidence
+      order: 6
+      short: Predicted accuracy of the threat identification
+      type: keyword
+    description:
+      description: Textual description of the observed threat or threat intel that
+        provides more context
+      example: ntp denial of service attack
+      flat_name: threat.description
+      ignore_above: 1024
+      level: extended
+      name: description
+      order: 4
+      short: Short description of the threat
+      type: keyword
+    id:
+      description: Threat ID, typically provided by reporting system or threat intel
+        provider.
+      example: 33227
+      flat_name: threat.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      order: 0
+      short: Threat ID
+      type: keyword
+    name:
+      description: 'Threat name as reported by system or intel provider
+
+        The field value must be normalized to lowercase for querying. See the documentation
+        section "Implementing ECS".'
+      example: ntp reserved mode denial of service
+      flat_name: threat.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      order: 1
+      short: Name or classification of the threat detected or reported
+      type: keyword
+    severity:
+      description: Typically a qualitative description of the risk associated with
+        the observed threat or IOC
+      example: high
+      flat_name: threat.severity
+      ignore_above: 1024
+      level: extended
+      name: severity
+      order: 5
+      short: Severity of the threat as identified by the observer/ threat intel feed
+      type: keyword
+    tactic:
+      description: The Mitre ATT&CK Matrix Tactic categorization of the identified
+        threat
+      example: impact
+      flat_name: threat.tactic
+      ignore_above: 1024
+      level: extended
+      name: tactic
+      order: 2
+      short: Mitre ATT&CK Matrix tactic
+      type: keyword
+    technique:
+      description: The Mitre ATT&CK Matric Technique categorization of the identified
+        threat
+      example: endpoint denial of service
+      flat_name: threat.technique
+      ignore_above: 1024
+      level: extended
+      name: technique
+      order: 3
+      short: Mitre ATT&CK Matrix technique
+      type: keyword
+  group: 2
+  name: threat
+  prefix: threat.
+  short: Fields describing detected threats and threat intel data
+  title: Threat
+  type: group
 url:
   description: URL fields provide support for complete or partial URLs, and supports
     the breaking down into scheme, domain, path, and so on.

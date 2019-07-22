@@ -2142,6 +2142,65 @@
       ignore_above: 1024
       description: Short name or login of the user.
       example: albert
+  - name: threat
+    title: Threat
+    group: 2
+    description: ECS threat fields encompass detected suspicious activity (e.g. IDS
+      alert, malware activity) typically reported by IDS/IPS and NGFWs, as well as
+      threat intel/global IOC data ingested from a feed source like MISP or Anomali.
+    type: group
+    fields:
+    - name: confidence
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Typically a qualitative description of the confidence that the
+        threat identification is correct
+      example: medium
+    - name: description
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Textual description of the observed threat or threat intel that
+        provides more context
+      example: ntp denial of service attack
+    - name: id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Threat ID, typically provided by reporting system or threat intel
+        provider.
+      example: 33227
+    - name: name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Threat name as reported by system or intel provider
+
+        The field value must be normalized to lowercase for querying. See the documentation
+        section "Implementing ECS".'
+      example: ntp reserved mode denial of service
+    - name: severity
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Typically a qualitative description of the risk associated with
+        the observed threat or IOC
+      example: high
+    - name: tactic
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The Mitre ATT&CK Matrix Tactic categorization of the identified
+        threat
+      example: impact
+    - name: technique
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The Mitre ATT&CK Matric Technique categorization of the identified
+        threat
+      example: endpoint denial of service
   - name: url
     title: URL
     group: 2
