@@ -16,13 +16,15 @@
       type: keyword
       short: Unique identifier of the running service.
       description: >
-        Unique identifier of the running service.
+        Unique identifier of the running service. If the service is comprised of
+        many nodes, the `service.id` should be the same for all nodes.
 
-        This id should uniquely identify this service. This makes it possible
-        to correlate logs and metrics for one specific service.
+        This id should uniquely identify the service. This makes it possible
+        to correlate logs and metrics for one specific service, no matter which
+        particular node emitted the event.
 
-        Example: If you are experiencing issues with one redis instance, you
-        can filter on that id to see metrics and logs for that single instance.
+        Note that if you need to see the events from one specific host of the
+        service, you should filter on that `host.name` or `host.id` instead.
 
       example: d37e5ebfe0ae6c4972dbe9f0174a1637bb8247f6
 
