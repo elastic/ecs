@@ -34,6 +34,7 @@
       description: >
         The DNS packet identifier assigned by the program that generated the
         query. The identifier is copied to the response.
+      example: 62111
 
     - name: op_code
       level: extended
@@ -52,6 +53,7 @@
         Array of 2 letter DNS flags.
 
         Expected values are: AA, TC, RD, RA, AD, CD, DO
+      example: [RD, RA]
 
     - name: response_code
       level: extended
@@ -107,12 +109,14 @@
         The length of the name being queried (in bytes).
 
         This is useful to detect data exfiltration via DNS queries.
+      example: 42
 
     - name: answers_count
       level: extended
       type: long
       description: >
         The number of resource records contained in the `dns.answers` field.
+      example: 3
 
     - name: answers
       level: extended
