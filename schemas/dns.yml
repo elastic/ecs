@@ -7,6 +7,21 @@
   type: group
   fields:
 
+    - name: type
+      level: extended
+      type: keyword
+      short: The type of DNS event captured, query or answer.
+      description: >
+        The type of DNS event captured, query or answer.
+
+        If your source of DNS events only gives you DNS queries, you should only
+        create dns events of type `dns.type:query`.
+
+        If your source of DNS events gives you answers as well, you should create
+        one event per query (optionally as soon as the query is seen). And a
+        second event containing all query details as well as an array of answers.
+      example: answer
+
     - name: id
       level: extended
       type: keyword
@@ -23,97 +38,69 @@
         response.
       example: QUERY
 
-    - name: flags.authoritative
+    - name: flags
       level: extended
-      type: boolean
+      type: keyword
+      short: Array of DNS flags.
       description: >
-        A DNS flag specifying that the responding server is an authority for
-        the domain name used in the question.
+        Array of 2 letter DNS flags.
 
-    - name: flags.recursion_available
-      level: extended
-      type: boolean
-      description: >
-        A DNS flag specifying whether recursive query support is available in the
-        name server.
-
-    - name: flags.recursion_desired
-      level: extended
-      type: boolean
-      description: >
-        A DNS flag specifying that the client directs the server to pursue a
-        query recursively. Recursive query support is optional.
-
-    - name: flags.authentic_data
-      level: extended
-      type: boolean
-      description: >
-        A DNS flag specifying that the recursive server considers the response
-        authentic.
-
-    - name: flags.checking_disabled
-      level: extended
-      type: boolean
-      description: >
-        A DNS flag specifying that the client disables the server
-        signature validation of the query.
-
-    - name: flags.truncated_response
-      level: extended
-      type: boolean
-      description: >
-        A DNS flag specifying that only the first 512 bytes of the reply were
-        returned.
+        Expected values are: AA, TC, RD, RA, AD, CD, DO
 
     - name: response_code
       level: extended
       type: keyword
-      description: The DNS status code.
+      description: The DNS response code.
       example: NOERROR
 
     - name: question.name
-      level: core
+      level: extended
       type: keyword
+      short: The name being queried.
       description: >
-        The domain name being queried. If the name field contains non-printable
-        characters (below 32 or above 126), then those characters are represented
-        as escaped base 10 integers (\DDD). Back slashes and quotes are escaped.
-        Tabs, carriage returns, and line feeds are converted to \t, \r, and
+        The name being queried.
+
+        If the name field contains non-printable
+        characters (below 32 or above 126), those characters should be represented
+        as escaped base 10 integers (\DDD). Back slashes and quotes should be escaped.
+        Tabs, carriage returns, and line feeds should be converted to \t, \r, and
         \n respectively.
-      example: www.google.com.
+      example: www.google.com
 
     - name: question.type
-      level: core
+      level: extended
       type: keyword
-      description: The type of records being queried.
+      description: The type of record being queried.
       example: AAAA
 
     - name: question.class
-      level: core
+      level: extended
       type: keyword
       description: The class of of records being queried.
       example: IN
 
-    - name: question.etld_plus_one
-      level: core
-      type: keyword
-      description: The effective top-level domain (eTLD) plus one more label.
-        For example, the eTLD+1 for "foo.bar.golang.org." is "golang.org.".
-        The data for determining the eTLD comes from an embedded copy of the
-        data from http://publicsuffix.org.
-      example: amazon.co.uk.
-
-    - name: question.size
+    - name: question.registered_domain
       level: extended
       type: keyword
-      description: The size of name being queried (in bytes).
-
-    - name: answers
-      level: extended
-      type: object
+      short: The highest registered domain, stripped of the subdomain.
       description: >
-        An array containing a dictionary about each answer section returned by
-        the server.
+        The highest registered domain, stripped of the subdomain.
+
+        For example, the registered domain for "foo.google.com" is "google.com".
+
+        This value can be determined precisely with a list like the public
+        suffix list (http://publicsuffix.org). Trying to approximate this by
+        simply taking the last two labels will not work well for TLDs such as "co.uk".
+      example: google.com
+
+    - name: question.length
+      level: extended
+      type: long
+      short: The length of the name being queried (in bytes).
+      description: >
+        The length of the name being queried (in bytes).
+
+        This is useful to detect data exfiltration via DNS queries.
 
     - name: answers_count
       level: extended
@@ -121,17 +108,40 @@
       description: >
         The number of resource records contained in the `dns.answers` field.
 
+    - name: answers
+      level: extended
+      type: object
+      short: Array of DNS answers.
+      description: >
+        An array containing an object for each answer section returned by
+        the server.
+
+        The main keys that should be present in these objects are defined by ECS.
+        Records that have more information may contain more keys than what
+        ECS defines.
+
+        Not all sources give all details about DNS answers.  At minimum, answer
+        objects must contain the `data` key. If more information is available,
+        map as much of it to ECS as possible, and add any additional fields to
+        the answer objects as custom fields.
+
     - name: answers.name
       level: extended
       type: keyword
-      description: The domain name to which this resource record pertains.
-      example: example.com.
+      short: The domain name to which this resource record pertains.
+      description: >
+        The domain name to which this resource record pertains.
+
+        If a chain of CNAME is being resolved, each answer's `name` should be
+        the one that corresponds with the answer's `data`. It should not simply
+        be the original `question.name` repeated.
+      example: www.google.com
 
     - name: answers.type
       level: extended
       type: keyword
       description: The type of data contained in this resource record.
-      example: MX
+      example: CNAME
 
     - name: answers.class
       level: extended
@@ -141,114 +151,50 @@
 
     - name: answers.ttl
       level: extended
+      type: long
       description: >
         The time interval in seconds that this resource record may be cached
         before it should be discarded. Zero values mean that the data should
         not be cached.
-      type: long
+      example: 180
 
     - name: answers.data
       level: extended
       type: keyword
+      short: The data describing the resource.
       description: >
-        The data describing the resource. The meaning of this data depends
-        on the type and class of the resource record.
+        The data describing the resource.
 
-    - name: authorities
+        The meaning of this data depends on the type and class of the resource
+        record.
+      example: 10.10.10.10
+
+    - name: grouped.ip
       level: extended
-      type: object
+      type: ip
+      short: Array containing all IPs seen in answers.data
       description: >
-        An array containing a dictionary for each authority section from the
-        answer.
+        Array containing all IPs seen in `answers.data`.
 
-    - name: authorities_count
+        The `answers` array can be difficult to use, because of the variety of
+        data formats it can contain. Extracting all IP addresses seen in there to
+        `dns.grouped.ip` makes it possible to index them as IP addresses, and
+        makes them easier to visualize and query for.
+      example: [10.10.10.10, 10.10.10.11]
+
+    - name: grouped.domain
       level: extended
-      type: long
+      type: keyword
+      short: Array containing all domain names seen in answers.data
       description: >
-        The number of resource records contained in the `dns.authorities` field.
+        Array containing all domain names seen in answers.data
 
-    - name: authorities.name
-      type: keyword
-      level: extended
-      description: The domain name to which this resource record pertains.
-      example: example.com.
+        The `answers` array can be difficult to use, because of the variety of
+        data formats it can contain. Extracting all IP addresses seen in there to
+        `dns.grouped.ip` makes it possible to index them as IP addresses, and
+        makes them easier to visualize and query for.
 
-    - name: authorities.type
-      type: keyword
-      level: extended
-      description: The type of data contained in this resource record.
-      example: NS
-
-    - name: authorities.class
-      type: keyword
-      level: extended
-      description: The class of DNS data contained in this resource record.
-      example: IN
-
-    - name: additionals
-      level: extended
-      type: object
-      description: >
-        An array containing a dictionary for each additional section from the
-        answer.
-
-    - name: additionals_count
-      level: extended
-      type: long
-      description: >
-        The number of resource records contained in the `dns.additionals` field.
-
-    - name: additionals.name
-      type: keyword
-      level: extended
-      description: The domain name to which this resource record pertains.
-      example: example.com.
-
-    - name: additionals.type
-      type: keyword
-      level: extended
-      description: The type of data contained in this resource record.
-      example: NS
-
-    - name: additionals.class
-      type: keyword
-      level: extended
-      description: The class of DNS data contained in this resource record.
-      example: IN
-
-    - name: additionals.ttl
-      level: extended
-      description: >
-        The time interval in seconds that this resource record may be cached
-        before it should be discarded. Zero values mean that the data should
-        not be cached.
-      type: long
-
-    - name: additionals.data
-      type: keyword
-      level: extended
-      description: >
-        The data describing the resource. The meaning of this data depends
-        on the type and class of the resource record.
-
-    - name: opt.version
-      type: keyword
-      level: extended
-      description: The EDNS version.
-      example: "0"
-
-    - name: opt.do
-      level: extended
-      type: boolean
-      description: If set, the transaction uses DNSSEC.
-
-    - name: opt.ext_rcode
-      type: keyword
-      level: extended
-      description: Extended response code field.
-      example: "BADVERS"
-
-    - name: opt.udp_size
-      level: extended
-      type: long
-      description: Requestor's UDP payload size (in bytes).
+        Note that A and AAAA queries can get CNAME answers back, before the final
+        set of A or AAAA records. These CNAMEs should be appended to
+        `dns.grouped.domain`, even if the query was not for a CNAME specifically.
+      example: [example.com.someproviderdns.com]

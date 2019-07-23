@@ -21,6 +21,15 @@ package ecs
 
 // DNS-specific event fields.
 type Dns struct {
+	// The type of DNS event captured, query or answer.
+	// If your source of DNS events only gives you DNS queries, you should only
+	// create dns events of type `dns.type:query`.
+	// If your source of DNS events gives you answers as well, you should
+	// create one event per query (optionally as soon as the query is seen).
+	// And a second event containing all query details as well as an array of
+	// answers.
+	Type string `ecs:"type"`
+
 	// The DNS packet identifier assigned by the program that generated the
 	// query. The identifier is copied to the response.
 	ID string `ecs:"id"`
@@ -30,63 +39,57 @@ type Dns struct {
 	// response.
 	OpCode string `ecs:"op_code"`
 
-	// A DNS flag specifying that the responding server is an authority for the
-	// domain name used in the question.
-	FlagsAuthoritative bool `ecs:"flags.authoritative"`
+	// Array of 2 letter DNS flags.
+	// Expected values are: AA, TC, RD, RA, AD, CD, DO
+	Flags string `ecs:"flags"`
 
-	// A DNS flag specifying whether recursive query support is available in
-	// the name server.
-	FlagsRecursionAvailable bool `ecs:"flags.recursion_available"`
-
-	// A DNS flag specifying that the client directs the server to pursue a
-	// query recursively. Recursive query support is optional.
-	FlagsRecursionDesired bool `ecs:"flags.recursion_desired"`
-
-	// A DNS flag specifying that the recursive server considers the response
-	// authentic.
-	FlagsAuthenticData bool `ecs:"flags.authentic_data"`
-
-	// A DNS flag specifying that the client disables the server signature
-	// validation of the query.
-	FlagsCheckingDisabled bool `ecs:"flags.checking_disabled"`
-
-	// A DNS flag specifying that only the first 512 bytes of the reply were
-	// returned.
-	FlagsTruncatedResponse bool `ecs:"flags.truncated_response"`
-
-	// The DNS status code.
+	// The DNS response code.
 	ResponseCode string `ecs:"response_code"`
 
-	// The domain name being queried. If the name field contains non-printable
-	// characters (below 32 or above 126), then those characters are
-	// represented as escaped base 10 integers (\DDD). Back slashes and quotes
-	// are escaped. Tabs, carriage returns, and line feeds are converted to \t,
-	// \r, and \n respectively.
+	// The name being queried.
+	// If the name field contains non-printable characters (below 32 or above
+	// 126), those characters should be represented as escaped base 10 integers
+	// (\DDD). Back slashes and quotes should be escaped. Tabs, carriage
+	// returns, and line feeds should be converted to \t, \r, and \n
+	// respectively.
 	QuestionName string `ecs:"question.name"`
 
-	// The type of records being queried.
+	// The type of record being queried.
 	QuestionType string `ecs:"question.type"`
 
 	// The class of of records being queried.
 	QuestionClass string `ecs:"question.class"`
 
-	// The effective top-level domain (eTLD) plus one more label. For example,
-	// the eTLD+1 for "foo.bar.golang.org." is "golang.org.". The data for
-	// determining the eTLD comes from an embedded copy of the data from
-	// http://publicsuffix.org.
-	QuestionEtldPlusOne string `ecs:"question.etld_plus_one"`
+	// The highest registered domain, stripped of the subdomain.
+	// For example, the registered domain for "foo.google.com" is "google.com".
+	// This value can be determined precisely with a list like the public
+	// suffix list (http://publicsuffix.org). Trying to approximate this by
+	// simply taking the last two labels will not work well for TLDs such as
+	// "co.uk".
+	QuestionRegisteredDomain string `ecs:"question.registered_domain"`
 
-	// The size of name being queried (in bytes).
-	QuestionSize string `ecs:"question.size"`
-
-	// An array containing a dictionary about each answer section returned by
-	// the server.
-	Answers map[string]interface{} `ecs:"answers"`
+	// The length of the name being queried (in bytes).
+	// This is useful to detect data exfiltration via DNS queries.
+	QuestionLength int64 `ecs:"question.length"`
 
 	// The number of resource records contained in the `dns.answers` field.
 	AnswersCount int64 `ecs:"answers_count"`
 
+	// An array containing an object for each answer section returned by the
+	// server.
+	// The main keys that should be present in these objects are defined by
+	// ECS. Records that have more information may contain more keys than what
+	// ECS defines.
+	// Not all sources give all details about DNS answers.  At minimum, answer
+	// objects must contain the `data` key. If more information is available,
+	// map as much of it to ECS as possible, and add any additional fields to
+	// the answer objects as custom fields.
+	Answers map[string]interface{} `ecs:"answers"`
+
 	// The domain name to which this resource record pertains.
+	// If a chain of CNAME is being resolved, each answer's `name` should be
+	// the one that corresponds with the answer's `data`. It should not simply
+	// be the original `question.name` repeated.
 	AnswersName string `ecs:"answers.name"`
 
 	// The type of data contained in this resource record.
@@ -100,60 +103,26 @@ type Dns struct {
 	// be cached.
 	AnswersTtl int64 `ecs:"answers.ttl"`
 
-	// The data describing the resource. The meaning of this data depends on
-	// the type and class of the resource record.
+	// The data describing the resource.
+	// The meaning of this data depends on the type and class of the resource
+	// record.
 	AnswersData string `ecs:"answers.data"`
 
-	// An array containing a dictionary for each authority section from the
-	// answer.
-	Authorities map[string]interface{} `ecs:"authorities"`
+	// Array containing all IPs seen in `answers.data`.
+	// The `answers` array can be difficult to use, because of the variety of
+	// data formats it can contain. Extracting all IP addresses seen in there
+	// to `dns.grouped.ip` makes it possible to index them as IP addresses, and
+	// makes them easier to visualize and query for.
+	GroupedIP string `ecs:"grouped.ip"`
 
-	// The number of resource records contained in the `dns.authorities` field.
-	AuthoritiesCount int64 `ecs:"authorities_count"`
-
-	// The domain name to which this resource record pertains.
-	AuthoritiesName string `ecs:"authorities.name"`
-
-	// The type of data contained in this resource record.
-	AuthoritiesType string `ecs:"authorities.type"`
-
-	// The class of DNS data contained in this resource record.
-	AuthoritiesClass string `ecs:"authorities.class"`
-
-	// An array containing a dictionary for each additional section from the
-	// answer.
-	Additionals map[string]interface{} `ecs:"additionals"`
-
-	// The number of resource records contained in the `dns.additionals` field.
-	AdditionalsCount int64 `ecs:"additionals_count"`
-
-	// The domain name to which this resource record pertains.
-	AdditionalsName string `ecs:"additionals.name"`
-
-	// The type of data contained in this resource record.
-	AdditionalsType string `ecs:"additionals.type"`
-
-	// The class of DNS data contained in this resource record.
-	AdditionalsClass string `ecs:"additionals.class"`
-
-	// The time interval in seconds that this resource record may be cached
-	// before it should be discarded. Zero values mean that the data should not
-	// be cached.
-	AdditionalsTtl int64 `ecs:"additionals.ttl"`
-
-	// The data describing the resource. The meaning of this data depends on
-	// the type and class of the resource record.
-	AdditionalsData string `ecs:"additionals.data"`
-
-	// The EDNS version.
-	OptVersion string `ecs:"opt.version"`
-
-	// If set, the transaction uses DNSSEC.
-	OptDo bool `ecs:"opt.do"`
-
-	// Extended response code field.
-	OptExtRcode string `ecs:"opt.ext_rcode"`
-
-	// Requestor's UDP payload size (in bytes).
-	OptUdpSize int64 `ecs:"opt.udp_size"`
+	// Array containing all domain names seen in answers.data
+	// The `answers` array can be difficult to use, because of the variety of
+	// data formats it can contain. Extracting all IP addresses seen in there
+	// to `dns.grouped.ip` makes it possible to index them as IP addresses, and
+	// makes them easier to visualize and query for.
+	// Note that A and AAAA queries can get CNAME answers back, before the
+	// final set of A or AAAA records. These CNAMEs should be appended to
+	// `dns.grouped.domain`, even if the query was not for a CNAME
+	// specifically.
+	GroupedDomain string `ecs:"grouped.domain"`
 }

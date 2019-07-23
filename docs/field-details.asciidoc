@@ -600,85 +600,12 @@ DNS-specific event fields.
 
 // ===============================================================
 
-| dns.additionals
-| An array containing a dictionary for each additional section from the answer.
-
-type: object
-
-
-
-| extended
-
-// ===============================================================
-
-| dns.additionals.class
-| The class of DNS data contained in this resource record.
-
-type: keyword
-
-example: `IN`
-
-| extended
-
-// ===============================================================
-
-| dns.additionals.data
-| The data describing the resource. The meaning of this data depends on the type and class of the resource record.
-
-type: keyword
-
-
-
-| extended
-
-// ===============================================================
-
-| dns.additionals.name
-| The domain name to which this resource record pertains.
-
-type: keyword
-
-example: `example.com.`
-
-| extended
-
-// ===============================================================
-
-| dns.additionals.ttl
-| The time interval in seconds that this resource record may be cached before it should be discarded. Zero values mean that the data should not be cached.
-
-type: long
-
-
-
-| extended
-
-// ===============================================================
-
-| dns.additionals.type
-| The type of data contained in this resource record.
-
-type: keyword
-
-example: `NS`
-
-| extended
-
-// ===============================================================
-
-| dns.additionals_count
-| The number of resource records contained in the `dns.additionals` field.
-
-type: long
-
-
-
-| extended
-
-// ===============================================================
-
 | dns.answers
-| An array containing a dictionary about each answer section returned by the server.
+| An array containing an object for each answer section returned by the server.
+
+The main keys that should be present in these objects are defined by ECS. Records that have more information may contain more keys than what ECS defines.
+
+Not all sources give all details about DNS answers.  At minimum, answer objects must contain the `data` key. If more information is available, map as much of it to ECS as possible, and add any additional fields to the answer objects as custom fields.
 
 type: object
 
@@ -700,11 +627,13 @@ example: `IN`
 // ===============================================================
 
 | dns.answers.data
-| The data describing the resource. The meaning of this data depends on the type and class of the resource record.
+| The data describing the resource.
+
+The meaning of this data depends on the type and class of the resource record.
 
 type: keyword
 
-
+example: `10.10.10.10`
 
 | extended
 
@@ -713,9 +642,11 @@ type: keyword
 | dns.answers.name
 | The domain name to which this resource record pertains.
 
+If a chain of CNAME is being resolved, each answer's `name` should be the one that corresponds with the answer's `data`. It should not simply be the original `question.name` repeated.
+
 type: keyword
 
-example: `example.com.`
+example: `www.google.com`
 
 | extended
 
@@ -726,7 +657,7 @@ example: `example.com.`
 
 type: long
 
-
+example: `180`
 
 | extended
 
@@ -737,7 +668,7 @@ type: long
 
 type: keyword
 
-example: `MX`
+example: `CNAME`
 
 | extended
 
@@ -754,122 +685,42 @@ type: long
 
 // ===============================================================
 
-| dns.authorities
-| An array containing a dictionary for each authority section from the answer.
+| dns.flags
+| Array of 2 letter DNS flags.
 
-type: object
-
-
-
-| extended
-
-// ===============================================================
-
-| dns.authorities.class
-| The class of DNS data contained in this resource record.
+Expected values are: AA, TC, RD, RA, AD, CD, DO
 
 type: keyword
 
-example: `IN`
+
 
 | extended
 
 // ===============================================================
 
-| dns.authorities.name
-| The domain name to which this resource record pertains.
+| dns.grouped.domain
+| Array containing all domain names seen in answers.data
+
+The `answers` array can be difficult to use, because of the variety of data formats it can contain. Extracting all IP addresses seen in there to `dns.grouped.ip` makes it possible to index them as IP addresses, and makes them easier to visualize and query for.
+
+Note that A and AAAA queries can get CNAME answers back, before the final set of A or AAAA records. These CNAMEs should be appended to `dns.grouped.domain`, even if the query was not for a CNAME specifically.
 
 type: keyword
 
-example: `example.com.`
+example: `['example.com.someproviderdns.com']`
 
 | extended
 
 // ===============================================================
 
-| dns.authorities.type
-| The type of data contained in this resource record.
+| dns.grouped.ip
+| Array containing all IPs seen in `answers.data`.
 
-type: keyword
+The `answers` array can be difficult to use, because of the variety of data formats it can contain. Extracting all IP addresses seen in there to `dns.grouped.ip` makes it possible to index them as IP addresses, and makes them easier to visualize and query for.
 
-example: `NS`
+type: ip
 
-| extended
-
-// ===============================================================
-
-| dns.authorities_count
-| The number of resource records contained in the `dns.authorities` field.
-
-type: long
-
-
-
-| extended
-
-// ===============================================================
-
-| dns.flags.authentic_data
-| A DNS flag specifying that the recursive server considers the response authentic.
-
-type: boolean
-
-
-
-| extended
-
-// ===============================================================
-
-| dns.flags.authoritative
-| A DNS flag specifying that the responding server is an authority for the domain name used in the question.
-
-type: boolean
-
-
-
-| extended
-
-// ===============================================================
-
-| dns.flags.checking_disabled
-| A DNS flag specifying that the client disables the server signature validation of the query.
-
-type: boolean
-
-
-
-| extended
-
-// ===============================================================
-
-| dns.flags.recursion_available
-| A DNS flag specifying whether recursive query support is available in the name server.
-
-type: boolean
-
-
-
-| extended
-
-// ===============================================================
-
-| dns.flags.recursion_desired
-| A DNS flag specifying that the client directs the server to pursue a query recursively. Recursive query support is optional.
-
-type: boolean
-
-
-
-| extended
-
-// ===============================================================
-
-| dns.flags.truncated_response
-| A DNS flag specifying that only the first 512 bytes of the reply were returned.
-
-type: boolean
-
-
+example: `['10.10.10.10', '10.10.10.11']`
 
 | extended
 
@@ -897,30 +748,21 @@ example: `QUERY`
 
 // ===============================================================
 
-| dns.opt.do
-| If set, the transaction uses DNSSEC.
-
-type: boolean
-
-
-
-| extended
-
-// ===============================================================
-
-| dns.opt.ext_rcode
-| Extended response code field.
+| dns.question.class
+| The class of of records being queried.
 
 type: keyword
 
-example: `BADVERS`
+example: `IN`
 
 | extended
 
 // ===============================================================
 
-| dns.opt.udp_size
-| Requestor's UDP payload size (in bytes).
+| dns.question.length
+| The length of the name being queried (in bytes).
+
+This is useful to detect data exfiltration via DNS queries.
 
 type: long
 
@@ -930,78 +772,66 @@ type: long
 
 // ===============================================================
 
-| dns.opt.version
-| The EDNS version.
+| dns.question.name
+| The name being queried.
+
+If the name field contains non-printable characters (below 32 or above 126), those characters should be represented as escaped base 10 integers (\DDD). Back slashes and quotes should be escaped. Tabs, carriage returns, and line feeds should be converted to \t, \r, and \n respectively.
 
 type: keyword
 
-example: `0`
+example: `www.google.com`
 
 | extended
 
 // ===============================================================
 
-| dns.question.class
-| The class of of records being queried.
+| dns.question.registered_domain
+| The highest registered domain, stripped of the subdomain.
+
+For example, the registered domain for "foo.google.com" is "google.com".
+
+This value can be determined precisely with a list like the public suffix list (http://publicsuffix.org). Trying to approximate this by simply taking the last two labels will not work well for TLDs such as "co.uk".
 
 type: keyword
 
-example: `IN`
-
-| core
-
-// ===============================================================
-
-| dns.question.etld_plus_one
-| The effective top-level domain (eTLD) plus one more label. For example, the eTLD+1 for "foo.bar.golang.org." is "golang.org.". The data for determining the eTLD comes from an embedded copy of the data from http://publicsuffix.org.
-
-type: keyword
-
-example: `amazon.co.uk.`
-
-| core
-
-// ===============================================================
-
-| dns.question.name
-| The domain name being queried. If the name field contains non-printable characters (below 32 or above 126), then those characters are represented as escaped base 10 integers (\DDD). Back slashes and quotes are escaped. Tabs, carriage returns, and line feeds are converted to \t, \r, and \n respectively.
-
-type: keyword
-
-example: `www.google.com.`
-
-| core
-
-// ===============================================================
-
-| dns.question.size
-| The size of name being queried (in bytes).
-
-type: keyword
-
-
+example: `google.com`
 
 | extended
 
 // ===============================================================
 
 | dns.question.type
-| The type of records being queried.
+| The type of record being queried.
 
 type: keyword
 
 example: `AAAA`
 
-| core
+| extended
 
 // ===============================================================
 
 | dns.response_code
-| The DNS status code.
+| The DNS response code.
 
 type: keyword
 
 example: `NOERROR`
+
+| extended
+
+// ===============================================================
+
+| dns.type
+| The type of DNS event captured, query or answer.
+
+If your source of DNS events only gives you DNS queries, you should only create dns events of type `dns.type:query`.
+
+If your source of DNS events gives you answers as well, you should create one event per query (optionally as soon as the query is seen). And a second event containing all query details as well as an array of answers.
+
+type: keyword
+
+example: `answer`
 
 | extended
 
