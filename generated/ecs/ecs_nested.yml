@@ -984,7 +984,11 @@ destination:
   title: Destination
   type: group
 dns:
-  description: DNS-specific event fields.
+  description: 'Fields describing DNS queries and answers.
+
+    DNS events should either represent a single DNS query prior to getting answers
+    (`dns.type:query`) or they should represent a full exchange and contain the query
+    details as well as all of the answers that were provided for this query (`dns.type:answer`).'
   fields:
     answers:
       description: 'An array containing an object for each answer section returned
@@ -993,10 +997,10 @@ dns:
         The main keys that should be present in these objects are defined by ECS.
         Records that have more information may contain more keys than what ECS defines.
 
-        Not all sources give all details about DNS answers.  At minimum, answer objects
-        must contain the `data` key. If more information is available, map as much
-        of it to ECS as possible, and add any additional fields to the answer objects
-        as custom fields.'
+        Not all DNS data sources give all details about DNS answers. At minimum, answer
+        objects must contain the `data` key. If more information is available, map
+        as much of it to ECS as possible, and add any additional fields to the answer
+        objects as custom fields.'
       flat_name: dns.answers
       level: extended
       name: answers
@@ -1086,9 +1090,8 @@ dns:
       description: 'Array containing all domain names seen in answers.data
 
         The `answers` array can be difficult to use, because of the variety of data
-        formats it can contain. Extracting all IP addresses seen in there to `dns.grouped.ip`
-        makes it possible to index them as IP addresses, and makes them easier to
-        visualize and query for.
+        formats it can contain. Extracting all domain names or hostnames seen in there
+        to `dns.grouped.domain` makes them easier to visualize and query for.
 
         Note that A and AAAA queries can get CNAME answers back, before the final
         set of A or AAAA records. These CNAMEs should be appended to `dns.grouped.domain`,
@@ -1233,7 +1236,7 @@ dns:
   group: 2
   name: dns
   prefix: dns.
-  short: DNS-specific event fields.
+  short: Fields describing DNS queries and answers.
   title: DNS
   type: group
 ecs:

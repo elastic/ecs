@@ -19,7 +19,11 @@
 
 package ecs
 
-// DNS-specific event fields.
+// Fields describing DNS queries and answers.
+// DNS events should either represent a single DNS query prior to getting
+// answers (`dns.type:query`) or they should represent a full exchange and
+// contain the query details as well as all of the answers that were provided
+// for this query (`dns.type:answer`).
 type Dns struct {
 	// The type of DNS event captured, query or answer.
 	// If your source of DNS events only gives you DNS queries, you should only
@@ -80,10 +84,10 @@ type Dns struct {
 	// The main keys that should be present in these objects are defined by
 	// ECS. Records that have more information may contain more keys than what
 	// ECS defines.
-	// Not all sources give all details about DNS answers.  At minimum, answer
-	// objects must contain the `data` key. If more information is available,
-	// map as much of it to ECS as possible, and add any additional fields to
-	// the answer objects as custom fields.
+	// Not all DNS data sources give all details about DNS answers. At minimum,
+	// answer objects must contain the `data` key. If more information is
+	// available, map as much of it to ECS as possible, and add any additional
+	// fields to the answer objects as custom fields.
 	Answers map[string]interface{} `ecs:"answers"`
 
 	// The domain name to which this resource record pertains.
@@ -117,9 +121,9 @@ type Dns struct {
 
 	// Array containing all domain names seen in answers.data
 	// The `answers` array can be difficult to use, because of the variety of
-	// data formats it can contain. Extracting all IP addresses seen in there
-	// to `dns.grouped.ip` makes it possible to index them as IP addresses, and
-	// makes them easier to visualize and query for.
+	// data formats it can contain. Extracting all domain names or hostnames
+	// seen in there to `dns.grouped.domain` makes them easier to visualize and
+	// query for.
 	// Note that A and AAAA queries can get CNAME answers back, before the
 	// final set of A or AAAA records. These CNAMEs should be appended to
 	// `dns.grouped.domain`, even if the query was not for a CNAME
