@@ -47,11 +47,41 @@
             }
           }
         }, 
+        "as": {
+          "properties": {
+            "number": {
+              "type": "long"
+            }, 
+            "organization": {
+              "properties": {
+                "name": {
+                  "ignore_above": 1024, 
+                  "type": "keyword"
+                }
+              }
+            }
+          }
+        }, 
         "client": {
           "properties": {
             "address": {
               "ignore_above": 1024, 
               "type": "keyword"
+            }, 
+            "as": {
+              "properties": {
+                "number": {
+                  "type": "long"
+                }, 
+                "organization": {
+                  "properties": {
+                    "name": {
+                      "ignore_above": 1024, 
+                      "type": "keyword"
+                    }
+                  }
+                }
+              }
             }, 
             "bytes": {
               "type": "long"
@@ -102,6 +132,16 @@
               "ignore_above": 1024, 
               "type": "keyword"
             }, 
+            "nat": {
+              "properties": {
+                "ip": {
+                  "type": "ip"
+                }, 
+                "port": {
+                  "type": "long"
+                }
+              }
+            }, 
             "packets": {
               "type": "long"
             }, 
@@ -110,6 +150,10 @@
             }, 
             "user": {
               "properties": {
+                "domain": {
+                  "ignore_above": 1024, 
+                  "type": "keyword"
+                }, 
                 "email": {
                   "ignore_above": 1024, 
                   "type": "keyword"
@@ -227,6 +271,21 @@
               "ignore_above": 1024, 
               "type": "keyword"
             }, 
+            "as": {
+              "properties": {
+                "number": {
+                  "type": "long"
+                }, 
+                "organization": {
+                  "properties": {
+                    "name": {
+                      "ignore_above": 1024, 
+                      "type": "keyword"
+                    }
+                  }
+                }
+              }
+            }, 
             "bytes": {
               "type": "long"
             }, 
@@ -276,6 +335,16 @@
               "ignore_above": 1024, 
               "type": "keyword"
             }, 
+            "nat": {
+              "properties": {
+                "ip": {
+                  "type": "ip"
+                }, 
+                "port": {
+                  "type": "long"
+                }
+              }
+            }, 
             "packets": {
               "type": "long"
             }, 
@@ -284,6 +353,10 @@
             }, 
             "user": {
               "properties": {
+                "domain": {
+                  "ignore_above": 1024, 
+                  "type": "keyword"
+                }, 
                 "email": {
                   "ignore_above": 1024, 
                   "type": "keyword"
@@ -438,6 +511,10 @@
               "ignore_above": 1024, 
               "type": "keyword"
             }, 
+            "code": {
+              "ignore_above": 1024, 
+              "type": "keyword"
+            }, 
             "created": {
               "type": "date"
             }, 
@@ -477,11 +554,18 @@
               "ignore_above": 1024, 
               "type": "keyword"
             }, 
+            "provider": {
+              "ignore_above": 1024, 
+              "type": "keyword"
+            }, 
             "risk_score": {
               "type": "float"
             }, 
             "risk_score_norm": {
               "type": "float"
+            }, 
+            "sequence": {
+              "type": "long"
             }, 
             "severity": {
               "type": "long"
@@ -501,10 +585,20 @@
         }, 
         "file": {
           "properties": {
+            "accessed": {
+              "type": "date"
+            }, 
+            "created": {
+              "type": "date"
+            }, 
             "ctime": {
               "type": "date"
             }, 
             "device": {
+              "ignore_above": 1024, 
+              "type": "keyword"
+            }, 
+            "directory": {
               "ignore_above": 1024, 
               "type": "keyword"
             }, 
@@ -520,6 +614,26 @@
               "ignore_above": 1024, 
               "type": "keyword"
             }, 
+            "hash": {
+              "properties": {
+                "md5": {
+                  "ignore_above": 1024, 
+                  "type": "keyword"
+                }, 
+                "sha1": {
+                  "ignore_above": 1024, 
+                  "type": "keyword"
+                }, 
+                "sha256": {
+                  "ignore_above": 1024, 
+                  "type": "keyword"
+                }, 
+                "sha512": {
+                  "ignore_above": 1024, 
+                  "type": "keyword"
+                }
+              }
+            }, 
             "inode": {
               "ignore_above": 1024, 
               "type": "keyword"
@@ -530,6 +644,10 @@
             }, 
             "mtime": {
               "type": "date"
+            }, 
+            "name": {
+              "ignore_above": 1024, 
+              "type": "keyword"
             }, 
             "owner": {
               "ignore_above": 1024, 
@@ -598,6 +716,26 @@
               "type": "keyword"
             }, 
             "name": {
+              "ignore_above": 1024, 
+              "type": "keyword"
+            }
+          }
+        }, 
+        "hash": {
+          "properties": {
+            "md5": {
+              "ignore_above": 1024, 
+              "type": "keyword"
+            }, 
+            "sha1": {
+              "ignore_above": 1024, 
+              "type": "keyword"
+            }, 
+            "sha256": {
+              "ignore_above": 1024, 
+              "type": "keyword"
+            }, 
+            "sha512": {
               "ignore_above": 1024, 
               "type": "keyword"
             }
@@ -695,8 +833,15 @@
               "ignore_above": 1024, 
               "type": "keyword"
             }, 
+            "uptime": {
+              "type": "long"
+            }, 
             "user": {
               "properties": {
+                "domain": {
+                  "ignore_above": 1024, 
+                  "type": "keyword"
+                }, 
                 "email": {
                   "ignore_above": 1024, 
                   "type": "keyword"
@@ -998,9 +1143,32 @@
               "ignore_above": 1024, 
               "type": "keyword"
             }, 
+            "hash": {
+              "properties": {
+                "md5": {
+                  "ignore_above": 1024, 
+                  "type": "keyword"
+                }, 
+                "sha1": {
+                  "ignore_above": 1024, 
+                  "type": "keyword"
+                }, 
+                "sha256": {
+                  "ignore_above": 1024, 
+                  "type": "keyword"
+                }, 
+                "sha512": {
+                  "ignore_above": 1024, 
+                  "type": "keyword"
+                }
+              }
+            }, 
             "name": {
               "ignore_above": 1024, 
               "type": "keyword"
+            }, 
+            "pgid": {
+              "type": "long"
             }, 
             "pid": {
               "type": "long"
@@ -1022,6 +1190,9 @@
               "ignore_above": 1024, 
               "type": "keyword"
             }, 
+            "uptime": {
+              "type": "long"
+            }, 
             "working_directory": {
               "ignore_above": 1024, 
               "type": "keyword"
@@ -1040,6 +1211,21 @@
             "address": {
               "ignore_above": 1024, 
               "type": "keyword"
+            }, 
+            "as": {
+              "properties": {
+                "number": {
+                  "type": "long"
+                }, 
+                "organization": {
+                  "properties": {
+                    "name": {
+                      "ignore_above": 1024, 
+                      "type": "keyword"
+                    }
+                  }
+                }
+              }
             }, 
             "bytes": {
               "type": "long"
@@ -1090,6 +1276,16 @@
               "ignore_above": 1024, 
               "type": "keyword"
             }, 
+            "nat": {
+              "properties": {
+                "ip": {
+                  "type": "ip"
+                }, 
+                "port": {
+                  "type": "long"
+                }
+              }
+            }, 
             "packets": {
               "type": "long"
             }, 
@@ -1098,6 +1294,10 @@
             }, 
             "user": {
               "properties": {
+                "domain": {
+                  "ignore_above": 1024, 
+                  "type": "keyword"
+                }, 
                 "email": {
                   "ignore_above": 1024, 
                   "type": "keyword"
@@ -1168,6 +1368,21 @@
               "ignore_above": 1024, 
               "type": "keyword"
             }, 
+            "as": {
+              "properties": {
+                "number": {
+                  "type": "long"
+                }, 
+                "organization": {
+                  "properties": {
+                    "name": {
+                      "ignore_above": 1024, 
+                      "type": "keyword"
+                    }
+                  }
+                }
+              }
+            }, 
             "bytes": {
               "type": "long"
             }, 
@@ -1217,6 +1432,16 @@
               "ignore_above": 1024, 
               "type": "keyword"
             }, 
+            "nat": {
+              "properties": {
+                "ip": {
+                  "type": "ip"
+                }, 
+                "port": {
+                  "type": "long"
+                }
+              }
+            }, 
             "packets": {
               "type": "long"
             }, 
@@ -1225,6 +1450,10 @@
             }, 
             "user": {
               "properties": {
+                "domain": {
+                  "ignore_above": 1024, 
+                  "type": "keyword"
+                }, 
                 "email": {
                   "ignore_above": 1024, 
                   "type": "keyword"
@@ -1310,6 +1539,10 @@
         }, 
         "user": {
           "properties": {
+            "domain": {
+              "ignore_above": 1024, 
+              "type": "keyword"
+            }, 
             "email": {
               "ignore_above": 1024, 
               "type": "keyword"

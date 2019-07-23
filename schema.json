@@ -58,6 +58,35 @@
     "title": "Agent", 
     "type": "group"
   }, 
+  "as": {
+    "description": "An autonomous system (AS) is a collection of connected Internet Protocol (IP) routing prefixes under the control of one or more network operators on behalf of a single administrative entity or domain that presents a common, clearly defined routing policy to the internet.\n", 
+    "fields": {
+      "as.number": {
+        "description": "Unique number allocated to the autonomous system. The autonomous system number (ASN) uniquely identifies each network on the Internet.", 
+        "example": "15169", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "as.number", 
+        "required": false, 
+        "type": "long"
+      }, 
+      "as.organization.name": {
+        "description": "Organization name.", 
+        "example": "Google LLC", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "as.organization.name", 
+        "required": false, 
+        "type": "keyword"
+      }
+    }, 
+    "group": 2, 
+    "name": "as", 
+    "title": "Autonomous System", 
+    "type": "group"
+  }, 
   "base": {
     "description": "The `base` field set contains all fields which are on the top level. These fields are common across all types of events.\n", 
     "fields": {
@@ -159,6 +188,26 @@
         "name": "client.mac", 
         "required": false, 
         "type": "keyword"
+      }, 
+      "client.nat.ip": {
+        "description": "Translated IP of source based NAT sessions (e.g. internal client to internet).\nTypically connections traversing load balancers, firewalls, or routers.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "client.nat.ip", 
+        "required": false, 
+        "type": "ip"
+      }, 
+      "client.nat.port": {
+        "description": "Translated port of source based NAT sessions (e.g. internal client to internet).\nTypically connections traversing load balancers, firewalls, or routers.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "client.nat.port", 
+        "required": false, 
+        "type": "long"
       }, 
       "client.packets": {
         "description": "Packets sent from the client to the server.", 
@@ -387,6 +436,26 @@
         "required": false, 
         "type": "keyword"
       }, 
+      "destination.nat.ip": {
+        "description": "Translated ip of destination based NAT sessions (e.g. internet to private DMZ)\nTypically used with load balancers, firewalls, or routers.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "destination.nat.ip", 
+        "required": false, 
+        "type": "ip"
+      }, 
+      "destination.nat.port": {
+        "description": "Port the source session is translated to by NAT Device.\nTypically used with load balancers, firewalls, or routers.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "destination.nat.port", 
+        "required": false, 
+        "type": "long"
+      }, 
       "destination.packets": {
         "description": "Packets sent from the destination to the source.", 
         "example": "12", 
@@ -494,6 +563,16 @@
         "required": false, 
         "type": "keyword"
       }, 
+      "event.code": {
+        "description": "Identification code for this event, if one exists.\nSome event sources use event codes to identify messages unambiguously, regardless of message language or wording adjustments over time. An example of this is the Windows Event ID.", 
+        "example": "4648", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "event.code", 
+        "required": false, 
+        "type": "keyword"
+      }, 
       "event.created": {
         "description": "event.created contains the date/time when the event was first read by an agent, or by your pipeline.\nThis field is distinct from @timestamp in that @timestamp typically contain the time extracted from the original event.\nIn most situations, these two timestamps will be slightly different. The difference can be used to calculate the delay between your source generating an event, and the time when your agent first processed it. This can be used to monitor your agent's or pipeline's ability to keep up with your event source.\nIn case the two timestamps are identical, @timestamp should be used.", 
         "example": "", 
@@ -505,8 +584,8 @@
         "type": "date"
       }, 
       "event.dataset": {
-        "description": "Name of the dataset.\nThe concept of a `dataset` (fileset / metricset) is used in Beats as a subset of modules. It contains the information which is currently stored in metricset.name and metricset.module or fileset.name.", 
-        "example": "stats", 
+        "description": "Name of the dataset.\nIf an event source publishes more than one type of log or events (e.g. access log, error log), the dataset is used to specify which one the event comes from.\nIt's recommended but not required to start the dataset name with the module name, followed by a dot, then the dataset name.", 
+        "example": "apache.access", 
         "footnote": "", 
         "group": 2, 
         "level": "core", 
@@ -565,8 +644,8 @@
         "type": "keyword"
       }, 
       "event.module": {
-        "description": "Name of the module this data is coming from.\nThis information is coming from the modules used in Beats or Logstash.", 
-        "example": "mysql", 
+        "description": "Name of the module this data is coming from.\nIf your monitoring agent supports the concept of modules or plugins to process events of a given source (e.g. Apache logs), `event.module` should contain the name of this module.", 
+        "example": "apache", 
         "footnote": "", 
         "group": 2, 
         "level": "core", 
@@ -594,6 +673,16 @@
         "required": false, 
         "type": "keyword"
       }, 
+      "event.provider": {
+        "description": "Source of the event.\nEvent transports such as Syslog or the Windows Event Log typically mention the source of an event. It can be the name of the software that generated the event (e.g. Sysmon, httpd), or of a subsystem of the operating system (kernel, Microsoft-Windows-Security-Auditing).", 
+        "example": "kernel", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "event.provider", 
+        "required": false, 
+        "type": "keyword"
+      }, 
       "event.risk_score": {
         "description": "Risk score or priority of the event (e.g. security solutions). Use your system's original value here.", 
         "example": "", 
@@ -613,6 +702,16 @@
         "name": "event.risk_score_norm", 
         "required": false, 
         "type": "float"
+      }, 
+      "event.sequence": {
+        "description": "Sequence number of the event.\nThe sequence number is a value published by some event sources, to make the exact ordering of events unambiguous, regarless of the timestamp precision.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "event.sequence", 
+        "required": false, 
+        "type": "long"
       }, 
       "event.severity": {
         "description": "Severity describes the original severity of the event. What the different severity values mean can very different between use cases. It's up to the implementer to make sure severities are consistent across events.", 
@@ -663,8 +762,28 @@
   "file": {
     "description": "A file is defined as a set of information that has been created on, or has existed on a filesystem.\nFile objects can be associated with host events, network events, and/or file events (e.g., those produced by File Integrity Monitoring [FIM] products or services). File fields provide details about the affected file associated with the event or metric.\n", 
     "fields": {
+      "file.accessed": {
+        "description": "Last time the file was accessed.\nNote that not all filesystems keep track of access time.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "file.accessed", 
+        "required": false, 
+        "type": "date"
+      }, 
+      "file.created": {
+        "description": "File creation time.\nNote that not all filesystems store the creation time.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "file.created", 
+        "required": false, 
+        "type": "date"
+      }, 
       "file.ctime": {
-        "description": "Last time file metadata changed.", 
+        "description": "Last time the file attributes or metadata changed.\nNote that changes to the file content will update `mtime`. This implies `ctime` will be adjusted at the same time, since `mtime` is an attribute of the file.", 
         "example": "", 
         "footnote": "", 
         "group": 2, 
@@ -675,7 +794,7 @@
       }, 
       "file.device": {
         "description": "Device that is the source of the file.", 
-        "example": "", 
+        "example": "sda", 
         "footnote": "", 
         "group": 2, 
         "level": "extended", 
@@ -683,8 +802,18 @@
         "required": false, 
         "type": "keyword"
       }, 
+      "file.directory": {
+        "description": "Directory where the file is located.", 
+        "example": "/home/alice", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "file.directory", 
+        "required": false, 
+        "type": "keyword"
+      }, 
       "file.extension": {
-        "description": "File extension.\nThis should allow easy filtering by file extensions.", 
+        "description": "File extension.", 
         "example": "png", 
         "footnote": "", 
         "group": 2, 
@@ -695,7 +824,7 @@
       }, 
       "file.gid": {
         "description": "Primary group ID (GID) of the file.", 
-        "example": "", 
+        "example": "1001", 
         "footnote": "", 
         "group": 2, 
         "level": "extended", 
@@ -705,7 +834,7 @@
       }, 
       "file.group": {
         "description": "Primary group name of the file.", 
-        "example": "", 
+        "example": "alice", 
         "footnote": "", 
         "group": 2, 
         "level": "extended", 
@@ -715,7 +844,7 @@
       }, 
       "file.inode": {
         "description": "Inode representing the file in the filesystem.", 
-        "example": "", 
+        "example": "256383", 
         "footnote": "", 
         "group": 2, 
         "level": "extended", 
@@ -725,7 +854,7 @@
       }, 
       "file.mode": {
         "description": "Mode of the file in octal representation.", 
-        "example": "416", 
+        "example": "0640", 
         "footnote": "", 
         "group": 2, 
         "level": "extended", 
@@ -734,7 +863,7 @@
         "type": "keyword"
       }, 
       "file.mtime": {
-        "description": "Last time file content was modified.", 
+        "description": "Last time the file content was modified.", 
         "example": "", 
         "footnote": "", 
         "group": 2, 
@@ -743,9 +872,19 @@
         "required": false, 
         "type": "date"
       }, 
+      "file.name": {
+        "description": "Name of the file including the extension, without the directory.", 
+        "example": "example.png", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "file.name", 
+        "required": false, 
+        "type": "keyword"
+      }, 
       "file.owner": {
         "description": "File owner's username.", 
-        "example": "", 
+        "example": "alice", 
         "footnote": "", 
         "group": 2, 
         "level": "extended", 
@@ -754,8 +893,8 @@
         "type": "keyword"
       }, 
       "file.path": {
-        "description": "Path to the file.", 
-        "example": "", 
+        "description": "Full path to the file.", 
+        "example": "/home/alice/example.png", 
         "footnote": "", 
         "group": 2, 
         "level": "extended", 
@@ -764,8 +903,8 @@
         "type": "keyword"
       }, 
       "file.size": {
-        "description": "File size in bytes (field is only added when `type` is `file`).", 
-        "example": "", 
+        "description": "File size in bytes.\nOnly relevant when `file.type` is \"file\".", 
+        "example": "16384", 
         "footnote": "", 
         "group": 2, 
         "level": "extended", 
@@ -785,7 +924,7 @@
       }, 
       "file.type": {
         "description": "File type (file, dir, or symlink).", 
-        "example": "", 
+        "example": "file", 
         "footnote": "", 
         "group": 2, 
         "level": "extended", 
@@ -795,7 +934,7 @@
       }, 
       "file.uid": {
         "description": "The user ID (UID) or security identifier (SID) of the file owner.", 
-        "example": "", 
+        "example": "1001", 
         "footnote": "", 
         "group": 2, 
         "level": "extended", 
@@ -927,6 +1066,55 @@
     "title": "Group", 
     "type": "group"
   }, 
+  "hash": {
+    "description": "The hash fields represent different hash algorithms and their values.\nField names for common hashes (e.g. MD5, SHA1) are predefined. Add fields for other hashes by lowercasing the hash algorithm name and using underscore separators as appropriate (snake case, e.g. sha3_512).\n", 
+    "fields": {
+      "hash.md5": {
+        "description": "MD5 hash.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "hash.md5", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "hash.sha1": {
+        "description": "SHA1 hash.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "hash.sha1", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "hash.sha256": {
+        "description": "SHA256 hash.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "hash.sha256", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "hash.sha512": {
+        "description": "SHA512 hash.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "hash.sha512", 
+        "required": false, 
+        "type": "keyword"
+      }
+    }, 
+    "group": 2, 
+    "name": "hash", 
+    "title": "Group", 
+    "type": "group"
+  }, 
   "host": {
     "description": "A host is defined as a general computing instance.\nECS host.* fields should be populated with details about the host on which the event happened, or from which the measurement was taken. Host types include hardware, virtual machines, Docker containers, and Kubernetes nodes.\n", 
     "fields": {
@@ -999,6 +1187,16 @@
         "name": "host.type", 
         "required": false, 
         "type": "keyword"
+      }, 
+      "host.uptime": {
+        "description": "Seconds the host has been up.", 
+        "example": "1325", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "host.uptime", 
+        "required": false, 
+        "type": "long"
       }
     }, 
     "group": 2, 
@@ -1473,9 +1671,19 @@
         "required": false, 
         "type": "keyword"
       }, 
+      "process.pgid": {
+        "description": "Identifier of the group of processes the process belongs to.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "process.pgid", 
+        "required": false, 
+        "type": "long"
+      }, 
       "process.pid": {
         "description": "Process id.", 
-        "example": "", 
+        "example": "4242", 
         "footnote": "", 
         "group": 2, 
         "level": "core", 
@@ -1484,8 +1692,8 @@
         "type": "long"
       }, 
       "process.ppid": {
-        "description": "Process parent id.", 
-        "example": "", 
+        "description": "Parent process' pid.", 
+        "example": "4241", 
         "footnote": "", 
         "group": 2, 
         "level": "extended", 
@@ -1522,6 +1730,16 @@
         "name": "process.title", 
         "required": false, 
         "type": "keyword"
+      }, 
+      "process.uptime": {
+        "description": "Seconds the process has been up.", 
+        "example": "1325", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "process.uptime", 
+        "required": false, 
+        "type": "long"
       }, 
       "process.working_directory": {
         "description": "The working directory of the process.", 
@@ -1611,6 +1829,26 @@
         "required": false, 
         "type": "keyword"
       }, 
+      "server.nat.ip": {
+        "description": "Translated ip of destination based NAT sessions (e.g. internet to private DMZ)\nTypically used with load balancers, firewalls, or routers.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "server.nat.ip", 
+        "required": false, 
+        "type": "ip"
+      }, 
+      "server.nat.port": {
+        "description": "Translated port of destination based NAT sessions (e.g. internet to private DMZ)\nTypically used with load balancers, firewalls, or routers.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "server.nat.port", 
+        "required": false, 
+        "type": "long"
+      }, 
       "server.packets": {
         "description": "Packets sent from the server to the client.", 
         "example": "12", 
@@ -1651,7 +1889,7 @@
         "type": "keyword"
       }, 
       "service.id": {
-        "description": "Unique identifier of the running service.\nThis id should uniquely identify this service. This makes it possible to correlate logs and metrics for one specific service.\nExample: If you are experiencing issues with one redis instance, you can filter on that id to see metrics and logs for that single instance.", 
+        "description": "Unique identifier of the running service. If the service is comprised of many nodes, the `service.id` should be the same for all nodes.\nThis id should uniquely identify the service. This makes it possible to correlate logs and metrics for one specific service, no matter which particular node emitted the event.\nNote that if you need to see the events from one specific host of the service, you should filter on that `host.name` or `host.id` instead.", 
         "example": "d37e5ebfe0ae6c4972dbe9f0174a1637bb8247f6", 
         "footnote": "", 
         "group": 2, 
@@ -1758,6 +1996,26 @@
         "name": "source.mac", 
         "required": false, 
         "type": "keyword"
+      }, 
+      "source.nat.ip": {
+        "description": "Translated ip of source based NAT sessions (e.g. internal client to internet)\nTypically connections traversing load balancers, firewalls, or routers.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "source.nat.ip", 
+        "required": false, 
+        "type": "ip"
+      }, 
+      "source.nat.port": {
+        "description": "Translated port of source based NAT sessions. (e.g. internal client to internet)\nTypically used with load balancers, firewalls, or routers.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "source.nat.port", 
+        "required": false, 
+        "type": "long"
       }, 
       "source.packets": {
         "description": "Packets sent from the source to the destination.", 
@@ -1897,6 +2155,16 @@
   "user": {
     "description": "The user fields describe information about the user that is relevant to the event.\nFields can have one entry or multiple entries. If a user has more than one id, provide an array that includes all of them.\n", 
     "fields": {
+      "user.domain": {
+        "description": "Name of the directory the user is a member of.\nFor example, an LDAP or Active Directory domain name.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "user.domain", 
+        "required": false, 
+        "type": "keyword"
+      }, 
       "user.email": {
         "description": "User email address.", 
         "example": "", 

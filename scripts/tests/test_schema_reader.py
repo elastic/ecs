@@ -101,6 +101,10 @@ class TestSchemaReader(unittest.TestCase):
         }
         self.assertEqual(field, expected)
 
+    def test_load_schemas_with_empty_list_loads_nothing(self):
+        result = schema_reader.load_schemas([])
+        self.assertEqual(result, ({}, {}))
+
 
 if __name__ == '__main__':
     unittest.main()

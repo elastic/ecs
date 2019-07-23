@@ -80,6 +80,27 @@ agent.version:
   order: 0
   short: Version of the agent.
   type: keyword
+as.number:
+  description: Unique number allocated to the autonomous system. The autonomous system
+    number (ASN) uniquely identifies each network on the Internet.
+  example: 15169
+  flat_name: as.number
+  level: extended
+  name: number
+  order: 0
+  short: Unique number allocated to the autonomous system. The autonomous system number
+    (ASN) uniquely identifies each network on the Internet.
+  type: long
+as.organization.name:
+  description: Organization name.
+  example: Google LLC
+  flat_name: as.organization.name
+  ignore_above: 1024
+  level: extended
+  name: organization.name
+  order: 1
+  short: Organization name.
+  type: keyword
 client.address:
   description: 'Some event client addresses are defined ambiguously. The event will
     sometimes list an IP, a domain or a unix socket.  You should always store the
@@ -93,6 +114,29 @@ client.address:
   name: address
   order: 0
   short: Client network address.
+  type: keyword
+client.as.number:
+  description: Unique number allocated to the autonomous system. The autonomous system
+    number (ASN) uniquely identifies each network on the Internet.
+  example: 15169
+  flat_name: client.as.number
+  level: extended
+  name: number
+  order: 0
+  original_fieldset: as
+  short: Unique number allocated to the autonomous system. The autonomous system number
+    (ASN) uniquely identifies each network on the Internet.
+  type: long
+client.as.organization.name:
+  description: Organization name.
+  example: Google LLC
+  flat_name: client.as.organization.name
+  ignore_above: 1024
+  level: extended
+  name: organization.name
+  order: 1
+  original_fieldset: as
+  short: Organization name.
   type: keyword
 client.bytes:
   description: Bytes sent from the client to the server.
@@ -225,6 +269,29 @@ client.mac:
   order: 3
   short: MAC address of the client.
   type: keyword
+client.nat.ip:
+  description: 'Translated IP of source based NAT sessions (e.g. internal client to
+    internet).
+
+    Typically connections traversing load balancers, firewalls, or routers.'
+  flat_name: client.nat.ip
+  level: extended
+  name: nat.ip
+  order: 7
+  short: Client NAT ip address
+  type: ip
+client.nat.port:
+  description: 'Translated port of source based NAT sessions (e.g. internal client
+    to internet).
+
+    Typically connections traversing load balancers, firewalls, or routers.'
+  flat_name: client.nat.port
+  format: string
+  level: extended
+  name: nat.port
+  order: 8
+  short: Client NAT port
+  type: long
 client.packets:
   description: Packets sent from the client to the server.
   example: 12
@@ -237,11 +304,24 @@ client.packets:
 client.port:
   description: Port of the client.
   flat_name: client.port
+  format: string
   level: core
   name: port
   order: 2
   short: Port of the client.
   type: long
+client.user.domain:
+  description: 'Name of the directory the user is a member of.
+
+    For example, an LDAP or Active Directory domain name.'
+  flat_name: client.user.domain
+  ignore_above: 1024
+  level: extended
+  name: domain
+  order: 5
+  original_fieldset: user
+  short: Name of the directory the user is a member of.
+  type: keyword
 client.user.email:
   description: User email address.
   flat_name: client.user.email
@@ -460,6 +540,29 @@ destination.address:
   order: 0
   short: Destination network address.
   type: keyword
+destination.as.number:
+  description: Unique number allocated to the autonomous system. The autonomous system
+    number (ASN) uniquely identifies each network on the Internet.
+  example: 15169
+  flat_name: destination.as.number
+  level: extended
+  name: number
+  order: 0
+  original_fieldset: as
+  short: Unique number allocated to the autonomous system. The autonomous system number
+    (ASN) uniquely identifies each network on the Internet.
+  type: long
+destination.as.organization.name:
+  description: Organization name.
+  example: Google LLC
+  flat_name: destination.as.organization.name
+  ignore_above: 1024
+  level: extended
+  name: organization.name
+  order: 1
+  original_fieldset: as
+  short: Organization name.
+  type: keyword
 destination.bytes:
   description: Bytes sent from the destination to the source.
   example: 184
@@ -591,6 +694,28 @@ destination.mac:
   order: 3
   short: MAC address of the destination.
   type: keyword
+destination.nat.ip:
+  description: 'Translated ip of destination based NAT sessions (e.g. internet to
+    private DMZ)
+
+    Typically used with load balancers, firewalls, or routers.'
+  flat_name: destination.nat.ip
+  level: extended
+  name: nat.ip
+  order: 7
+  short: Destination NAT ip
+  type: ip
+destination.nat.port:
+  description: 'Port the source session is translated to by NAT Device.
+
+    Typically used with load balancers, firewalls, or routers.'
+  flat_name: destination.nat.port
+  format: string
+  level: extended
+  name: nat.port
+  order: 8
+  short: Destination NAT Port
+  type: long
 destination.packets:
   description: Packets sent from the destination to the source.
   example: 12
@@ -603,11 +728,24 @@ destination.packets:
 destination.port:
   description: Port of the destination.
   flat_name: destination.port
+  format: string
   level: core
   name: port
   order: 2
   short: Port of the destination.
   type: long
+destination.user.domain:
+  description: 'Name of the directory the user is a member of.
+
+    For example, an LDAP or Active Directory domain name.'
+  flat_name: destination.user.domain
+  ignore_above: 1024
+  level: extended
+  name: domain
+  order: 5
+  original_fieldset: user
+  short: Name of the directory the user is a member of.
+  type: keyword
 destination.user.email:
   description: User email address.
   flat_name: destination.user.email
@@ -979,7 +1117,7 @@ event.action:
   ignore_above: 1024
   level: core
   name: action
-  order: 3
+  order: 4
   short: The action captured by the event.
   type: keyword
 event.category:
@@ -994,8 +1132,22 @@ event.category:
   ignore_above: 1024
   level: core
   name: category
-  order: 2
+  order: 3
   short: Event category.
+  type: keyword
+event.code:
+  description: 'Identification code for this event, if one exists.
+
+    Some event sources use event codes to identify messages unambiguously, regardless
+    of message language or wording adjustments over time. An example of this is the
+    Windows Event ID.'
+  example: 4648
+  flat_name: event.code
+  ignore_above: 1024
+  level: extended
+  name: code
+  order: 1
+  short: Identification code for this event.
   type: keyword
 event.created:
   description: 'event.created contains the date/time when the event was first read
@@ -1013,21 +1165,23 @@ event.created:
   flat_name: event.created
   level: core
   name: created
-  order: 13
+  order: 16
   short: Time when the event was first read by an agent or by your pipeline.
   type: date
 event.dataset:
   description: 'Name of the dataset.
 
-    The concept of a `dataset` (fileset / metricset) is used in Beats as a subset
-    of modules. It contains the information which is currently stored in metricset.name
-    and metricset.module or fileset.name.'
-  example: stats
+    If an event source publishes more than one type of log or events (e.g. access
+    log, error log), the dataset is used to specify which one the event comes from.
+
+    It''s recommended but not required to start the dataset name with the module name,
+    followed by a dot, then the dataset name.'
+  example: apache.access
   flat_name: event.dataset
   ignore_above: 1024
   level: core
   name: dataset
-  order: 7
+  order: 8
   short: Name of the dataset.
   type: keyword
 event.duration:
@@ -1040,7 +1194,7 @@ event.duration:
   input_format: nanoseconds
   level: core
   name: duration
-  order: 11
+  order: 13
   output_format: asMilliseconds
   output_precision: 1
   short: Duration of the event in nanoseconds.
@@ -1051,7 +1205,7 @@ event.end:
   flat_name: event.end
   level: extended
   name: end
-  order: 15
+  order: 18
   short: event.end contains the date when the event ended or when the activity was
     last observed.
   type: date
@@ -1063,7 +1217,7 @@ event.hash:
   ignore_above: 1024
   level: extended
   name: hash
-  order: 10
+  order: 12
   short: Hash (perhaps logstash fingerprint) of raw field to be able to demonstrate
     log integrity.
   type: keyword
@@ -1089,19 +1243,21 @@ event.kind:
   ignore_above: 1024
   level: extended
   name: kind
-  order: 1
+  order: 2
   short: The kind of the event.
   type: keyword
 event.module:
   description: 'Name of the module this data is coming from.
 
-    This information is coming from the modules used in Beats or Logstash.'
-  example: mysql
+    If your monitoring agent supports the concept of modules or plugins to process
+    events of a given source (e.g. Apache logs), `event.module` should contain the
+    name of this module.'
+  example: apache
   flat_name: event.module
   ignore_above: 1024
   level: core
   name: module
-  order: 6
+  order: 7
   short: Name of the module this data is coming from.
   type: keyword
 event.original:
@@ -1117,7 +1273,7 @@ event.original:
   index: false
   level: core
   name: original
-  order: 9
+  order: 11
   short: Raw text message of entire event.
   type: keyword
 event.outcome:
@@ -1132,8 +1288,22 @@ event.outcome:
   ignore_above: 1024
   level: extended
   name: outcome
-  order: 4
+  order: 5
   short: The outcome of the event.
+  type: keyword
+event.provider:
+  description: 'Source of the event.
+
+    Event transports such as Syslog or the Windows Event Log typically mention the
+    source of an event. It can be the name of the software that generated the event
+    (e.g. Sysmon, httpd), or of a subsystem of the operating system (kernel, Microsoft-Windows-Security-Auditing).'
+  example: kernel
+  flat_name: event.provider
+  ignore_above: 1024
+  level: extended
+  name: provider
+  order: 9
+  short: Source of the event.
   type: keyword
 event.risk_score:
   description: Risk score or priority of the event (e.g. security solutions). Use
@@ -1141,7 +1311,7 @@ event.risk_score:
   flat_name: event.risk_score
   level: core
   name: risk_score
-  order: 16
+  order: 19
   short: Risk score or priority of the event (e.g. security solutions). Use your system's
     original value here.
   type: float
@@ -1154,18 +1324,31 @@ event.risk_score_norm:
   flat_name: event.risk_score_norm
   level: extended
   name: risk_score_norm
-  order: 17
+  order: 20
   short: Normalized risk score or priority of the event (0-100).
   type: float
+event.sequence:
+  description: 'Sequence number of the event.
+
+    The sequence number is a value published by some event sources, to make the exact
+    ordering of events unambiguous, regarless of the timestamp precision.'
+  flat_name: event.sequence
+  format: string
+  level: extended
+  name: sequence
+  order: 14
+  short: Sequence number of the event.
+  type: long
 event.severity:
   description: Severity describes the original severity of the event. What the different
     severity values mean can very different between use cases. It's up to the implementer
     to make sure severities are consistent across events.
   example: '7'
   flat_name: event.severity
+  format: string
   level: core
   name: severity
-  order: 8
+  order: 10
   short: Original severity of the event.
   type: long
 event.start:
@@ -1174,7 +1357,7 @@ event.start:
   flat_name: event.start
   level: extended
   name: start
-  order: 14
+  order: 17
   short: event.start contains the date when the event started or when the activity
     was first observed.
   type: date
@@ -1189,7 +1372,7 @@ event.timezone:
   ignore_above: 1024
   level: extended
   name: timezone
-  order: 12
+  order: 15
   short: Event time zone.
   type: keyword
 event.type:
@@ -1200,108 +1383,198 @@ event.type:
   ignore_above: 1024
   level: core
   name: type
-  order: 5
+  order: 6
   short: Reserved for future usage.
   type: keyword
+file.accessed:
+  description: 'Last time the file was accessed.
+
+    Note that not all filesystems keep track of access time.'
+  flat_name: file.accessed
+  level: extended
+  name: accessed
+  order: 17
+  short: Last time the file was accessed.
+  type: date
+file.created:
+  description: 'File creation time.
+
+    Note that not all filesystems store the creation time.'
+  flat_name: file.created
+  level: extended
+  name: created
+  order: 16
+  short: File creation time.
+  type: date
 file.ctime:
-  description: Last time file metadata changed.
+  description: 'Last time the file attributes or metadata changed.
+
+    Note that changes to the file content will update `mtime`. This implies `ctime`
+    will be adjusted at the same time, since `mtime` is an attribute of the file.'
   flat_name: file.ctime
   level: extended
   name: ctime
-  order: 13
-  short: Last time file metadata changed.
+  order: 15
+  short: Last time the file attributes or metadata changed.
   type: date
 file.device:
   description: Device that is the source of the file.
+  example: sda
   flat_name: file.device
   ignore_above: 1024
   level: extended
   name: device
-  order: 4
+  order: 6
   short: Device that is the source of the file.
   type: keyword
+file.directory:
+  description: Directory where the file is located.
+  example: /home/alice
+  flat_name: file.directory
+  ignore_above: 1024
+  level: extended
+  name: directory
+  order: 1
+  short: Directory where the file is located.
+  type: keyword
 file.extension:
-  description: 'File extension.
-
-    This should allow easy filtering by file extensions.'
+  description: File extension.
   example: png
   flat_name: file.extension
   ignore_above: 1024
   level: extended
   name: extension
-  order: 2
+  order: 4
   short: File extension.
   type: keyword
 file.gid:
   description: Primary group ID (GID) of the file.
+  example: '1001'
   flat_name: file.gid
   ignore_above: 1024
   level: extended
   name: gid
-  order: 8
+  order: 10
   short: Primary group ID (GID) of the file.
   type: keyword
 file.group:
   description: Primary group name of the file.
+  example: alice
   flat_name: file.group
   ignore_above: 1024
   level: extended
   name: group
-  order: 9
+  order: 11
   short: Primary group name of the file.
+  type: keyword
+file.hash.md5:
+  description: MD5 hash.
+  flat_name: file.hash.md5
+  ignore_above: 1024
+  level: extended
+  name: md5
+  order: 0
+  original_fieldset: hash
+  short: MD5 hash.
+  type: keyword
+file.hash.sha1:
+  description: SHA1 hash.
+  flat_name: file.hash.sha1
+  ignore_above: 1024
+  level: extended
+  name: sha1
+  order: 1
+  original_fieldset: hash
+  short: SHA1 hash.
+  type: keyword
+file.hash.sha256:
+  description: SHA256 hash.
+  flat_name: file.hash.sha256
+  ignore_above: 1024
+  level: extended
+  name: sha256
+  order: 2
+  original_fieldset: hash
+  short: SHA256 hash.
+  type: keyword
+file.hash.sha512:
+  description: SHA512 hash.
+  flat_name: file.hash.sha512
+  ignore_above: 1024
+  level: extended
+  name: sha512
+  order: 3
+  original_fieldset: hash
+  short: SHA512 hash.
   type: keyword
 file.inode:
   description: Inode representing the file in the filesystem.
+  example: '256383'
   flat_name: file.inode
   ignore_above: 1024
   level: extended
   name: inode
-  order: 5
+  order: 7
   short: Inode representing the file in the filesystem.
   type: keyword
 file.mode:
   description: Mode of the file in octal representation.
-  example: 416
+  example: '0640'
   flat_name: file.mode
   ignore_above: 1024
   level: extended
   name: mode
-  order: 10
+  order: 12
   short: Mode of the file in octal representation.
   type: keyword
 file.mtime:
-  description: Last time file content was modified.
+  description: Last time the file content was modified.
   flat_name: file.mtime
   level: extended
   name: mtime
-  order: 12
-  short: Last time file content was modified.
+  order: 14
+  short: Last time the file content was modified.
   type: date
+file.name:
+  description: Name of the file including the extension, without the directory.
+  example: example.png
+  flat_name: file.name
+  ignore_above: 1024
+  level: extended
+  name: name
+  order: 0
+  short: Name of the file including the extension, without the directory.
+  type: keyword
 file.owner:
   description: File owner's username.
+  example: alice
   flat_name: file.owner
   ignore_above: 1024
   level: extended
   name: owner
-  order: 7
+  order: 9
   short: File owner's username.
   type: keyword
 file.path:
-  description: Path to the file.
+  description: Full path to the file.
+  example: /home/alice/example.png
   flat_name: file.path
   ignore_above: 1024
   level: extended
   name: path
-  order: 0
-  short: Path to the file.
+  order: 2
+  short: Full path to the file.
   type: keyword
 file.size:
-  description: File size in bytes (field is only added when `type` is `file`).
+  description: 'File size in bytes.
+
+    Only relevant when `file.type` is "file".'
+  example: 16384
   flat_name: file.size
   level: extended
   name: size
-  order: 11
-  short: File size in bytes (field is only added when `type` is `file`).
+  order: 13
+  short: File size in bytes.
   type: long
 file.target_path:
   description: Target path for symlinks.
@@ -1309,25 +1582,27 @@ file.target_path:
   ignore_above: 1024
   level: extended
   name: target_path
-  order: 1
+  order: 3
   short: Target path for symlinks.
   type: keyword
 file.type:
   description: File type (file, dir, or symlink).
+  example: file
   flat_name: file.type
   ignore_above: 1024
   level: extended
   name: type
-  order: 3
+  order: 5
   short: File type (file, dir, or symlink).
   type: keyword
 file.uid:
   description: The user ID (UID) or security identifier (SID) of the file owner.
+  example: '1001'
   flat_name: file.uid
   ignore_above: 1024
   level: extended
   name: uid
-  order: 6
+  order: 8
   short: The user ID (UID) or security identifier (SID) of the file owner.
   type: keyword
 geo.city_name:
@@ -1433,6 +1708,42 @@ group.name:
   order: 1
   short: Name of the group.
   type: keyword
+hash.md5:
+  description: MD5 hash.
+  flat_name: hash.md5
+  ignore_above: 1024
+  level: extended
+  name: md5
+  order: 0
+  short: MD5 hash.
+  type: keyword
+hash.sha1:
+  description: SHA1 hash.
+  flat_name: hash.sha1
+  ignore_above: 1024
+  level: extended
+  name: sha1
+  order: 1
+  short: SHA1 hash.
+  type: keyword
+hash.sha256:
+  description: SHA256 hash.
+  flat_name: hash.sha256
+  ignore_above: 1024
+  level: extended
+  name: sha256
+  order: 2
+  short: SHA256 hash.
+  type: keyword
+hash.sha512:
+  description: SHA512 hash.
+  flat_name: hash.sha512
+  ignore_above: 1024
+  level: extended
+  name: sha512
+  order: 3
+  short: SHA512 hash.
+  type: keyword
 host.architecture:
   description: Operating system architecture.
   example: x86_64
@@ -1440,7 +1751,7 @@ host.architecture:
   ignore_above: 1024
   level: core
   name: architecture
-  order: 6
+  order: 7
   short: Operating system architecture.
   type: keyword
 host.geo.city_name:
@@ -1667,6 +1978,27 @@ host.type:
   order: 5
   short: Type of host.
   type: keyword
+host.uptime:
+  description: Seconds the host has been up.
+  example: 1325
+  flat_name: host.uptime
+  level: extended
+  name: uptime
+  order: 6
+  short: Seconds the host has been up.
+  type: long
+host.user.domain:
+  description: 'Name of the directory the user is a member of.
+
+    For example, an LDAP or Active Directory domain name.'
+  flat_name: host.user.domain
+  ignore_above: 1024
+  level: extended
+  name: domain
+  order: 5
+  original_fieldset: user
+  short: Name of the directory the user is a member of.
+  type: keyword
 host.user.email:
   description: User email address.
   flat_name: host.user.email
@@ -1830,6 +2162,7 @@ http.response.status_code:
   description: HTTP response status code.
   example: 404
   flat_name: http.response.status_code
+  format: string
   level: extended
   name: response.status_code
   order: 3
@@ -2368,7 +2701,7 @@ process.args:
   ignore_above: 1024
   level: extended
   name: args
-  order: 3
+  order: 4
   short: Array of process arguments.
   type: keyword
 process.executable:
@@ -2378,8 +2711,48 @@ process.executable:
   ignore_above: 1024
   level: extended
   name: executable
-  order: 4
+  order: 5
   short: Absolute path to the process executable.
+  type: keyword
+process.hash.md5:
+  description: MD5 hash.
+  flat_name: process.hash.md5
+  ignore_above: 1024
+  level: extended
+  name: md5
+  order: 0
+  original_fieldset: hash
+  short: MD5 hash.
+  type: keyword
+process.hash.sha1:
+  description: SHA1 hash.
+  flat_name: process.hash.sha1
+  ignore_above: 1024
+  level: extended
+  name: sha1
+  order: 1
+  original_fieldset: hash
+  short: SHA1 hash.
+  type: keyword
+process.hash.sha256:
+  description: SHA256 hash.
+  flat_name: process.hash.sha256
+  ignore_above: 1024
+  level: extended
+  name: sha256
+  order: 2
+  original_fieldset: hash
+  short: SHA256 hash.
+  type: keyword
+process.hash.sha512:
+  description: SHA512 hash.
+  flat_name: process.hash.sha512
+  ignore_above: 1024
+  level: extended
+  name: sha512
+  order: 3
+  original_fieldset: hash
+  short: SHA512 hash.
   type: keyword
 process.name:
   description: 'Process name.
@@ -2393,22 +2766,34 @@ process.name:
   order: 1
   short: Process name.
   type: keyword
+process.pgid:
+  description: Identifier of the group of processes the process belongs to.
+  flat_name: process.pgid
+  format: string
+  level: extended
+  name: pgid
+  order: 3
+  short: Identifier of the group of processes the process belongs to.
+  type: long
 process.pid:
   description: Process id.
-  exmple: ssh
+  example: 4242
   flat_name: process.pid
+  format: string
   level: core
   name: pid
   order: 0
   short: Process id.
   type: long
 process.ppid:
-  description: Process parent id.
+  description: Parent process' pid.
+  example: 4241
   flat_name: process.ppid
+  format: string
   level: extended
   name: ppid
   order: 2
-  short: Process parent id.
+  short: Parent process' pid.
   type: long
 process.start:
   description: The time the process started.
@@ -2416,16 +2801,17 @@ process.start:
   flat_name: process.start
   level: extended
   name: start
-  order: 7
+  order: 8
   short: The time the process started.
   type: date
 process.thread.id:
   description: Thread ID.
   example: 4242
   flat_name: process.thread.id
+  format: string
   level: extended
   name: thread.id
-  order: 6
+  order: 7
   short: Thread ID.
   type: long
 process.title:
@@ -2437,9 +2823,18 @@ process.title:
   ignore_above: 1024
   level: extended
   name: title
-  order: 5
+  order: 6
   short: Process title.
   type: keyword
+process.uptime:
+  description: Seconds the process has been up.
+  example: 1325
+  flat_name: process.uptime
+  level: extended
+  name: uptime
+  order: 9
+  short: Seconds the process has been up.
+  type: long
 process.working_directory:
   description: The working directory of the process.
   example: /home/alice
@@ -2447,7 +2842,7 @@ process.working_directory:
   ignore_above: 1024
   level: extended
   name: working_directory
-  order: 8
+  order: 10
   short: The working directory of the process.
   type: keyword
 related.ip:
@@ -2471,6 +2866,29 @@ server.address:
   name: address
   order: 0
   short: Server network address.
+  type: keyword
+server.as.number:
+  description: Unique number allocated to the autonomous system. The autonomous system
+    number (ASN) uniquely identifies each network on the Internet.
+  example: 15169
+  flat_name: server.as.number
+  level: extended
+  name: number
+  order: 0
+  original_fieldset: as
+  short: Unique number allocated to the autonomous system. The autonomous system number
+    (ASN) uniquely identifies each network on the Internet.
+  type: long
+server.as.organization.name:
+  description: Organization name.
+  example: Google LLC
+  flat_name: server.as.organization.name
+  ignore_above: 1024
+  level: extended
+  name: organization.name
+  order: 1
+  original_fieldset: as
+  short: Organization name.
   type: keyword
 server.bytes:
   description: Bytes sent from the server to the client.
@@ -2603,6 +3021,29 @@ server.mac:
   order: 3
   short: MAC address of the server.
   type: keyword
+server.nat.ip:
+  description: 'Translated ip of destination based NAT sessions (e.g. internet to
+    private DMZ)
+
+    Typically used with load balancers, firewalls, or routers.'
+  flat_name: server.nat.ip
+  level: extended
+  name: nat.ip
+  order: 7
+  short: Server NAT ip
+  type: ip
+server.nat.port:
+  description: 'Translated port of destination based NAT sessions (e.g. internet to
+    private DMZ)
+
+    Typically used with load balancers, firewalls, or routers.'
+  flat_name: server.nat.port
+  format: string
+  level: extended
+  name: nat.port
+  order: 8
+  short: Server NAT port
+  type: long
 server.packets:
   description: Packets sent from the server to the client.
   example: 12
@@ -2615,11 +3056,24 @@ server.packets:
 server.port:
   description: Port of the server.
   flat_name: server.port
+  format: string
   level: core
   name: port
   order: 2
   short: Port of the server.
   type: long
+server.user.domain:
+  description: 'Name of the directory the user is a member of.
+
+    For example, an LDAP or Active Directory domain name.'
+  flat_name: server.user.domain
+  ignore_above: 1024
+  level: extended
+  name: domain
+  order: 5
+  original_fieldset: user
+  short: Name of the directory the user is a member of.
+  type: keyword
 server.user.email:
   description: User email address.
   flat_name: server.user.email
@@ -2709,13 +3163,15 @@ service.ephemeral_id:
   short: Ephemeral identifier of this service.
   type: keyword
 service.id:
-  description: 'Unique identifier of the running service.
+  description: 'Unique identifier of the running service. If the service is comprised
+    of many nodes, the `service.id` should be the same for all nodes.
 
-    This id should uniquely identify this service. This makes it possible to correlate
-    logs and metrics for one specific service.
+    This id should uniquely identify the service. This makes it possible to correlate
+    logs and metrics for one specific service, no matter which particular node emitted
+    the event.
 
-    Example: If you are experiencing issues with one redis instance, you can filter
-    on that id to see metrics and logs for that single instance.'
+    Note that if you need to see the events from one specific host of the service,
+    you should filter on that `host.name` or `host.id` instead.'
   example: d37e5ebfe0ae6c4972dbe9f0174a1637bb8247f6
   flat_name: service.id
   ignore_above: 1024
@@ -2795,6 +3251,29 @@ source.address:
   name: address
   order: 0
   short: Source network address.
+  type: keyword
+source.as.number:
+  description: Unique number allocated to the autonomous system. The autonomous system
+    number (ASN) uniquely identifies each network on the Internet.
+  example: 15169
+  flat_name: source.as.number
+  level: extended
+  name: number
+  order: 0
+  original_fieldset: as
+  short: Unique number allocated to the autonomous system. The autonomous system number
+    (ASN) uniquely identifies each network on the Internet.
+  type: long
+source.as.organization.name:
+  description: Organization name.
+  example: Google LLC
+  flat_name: source.as.organization.name
+  ignore_above: 1024
+  level: extended
+  name: organization.name
+  order: 1
+  original_fieldset: as
+  short: Organization name.
   type: keyword
 source.bytes:
   description: Bytes sent from the source to the destination.
@@ -2927,6 +3406,29 @@ source.mac:
   order: 3
   short: MAC address of the source.
   type: keyword
+source.nat.ip:
+  description: 'Translated ip of source based NAT sessions (e.g. internal client to
+    internet)
+
+    Typically connections traversing load balancers, firewalls, or routers.'
+  flat_name: source.nat.ip
+  level: extended
+  name: nat.ip
+  order: 7
+  short: Source NAT ip
+  type: ip
+source.nat.port:
+  description: 'Translated port of source based NAT sessions. (e.g. internal client
+    to internet)
+
+    Typically used with load balancers, firewalls, or routers.'
+  flat_name: source.nat.port
+  format: string
+  level: extended
+  name: nat.port
+  order: 8
+  short: Source NAT port
+  type: long
 source.packets:
   description: Packets sent from the source to the destination.
   example: 12
@@ -2939,11 +3441,24 @@ source.packets:
 source.port:
   description: Port of the source.
   flat_name: source.port
+  format: string
   level: core
   name: port
   order: 2
   short: Port of the source.
   type: long
+source.user.domain:
+  description: 'Name of the directory the user is a member of.
+
+    For example, an LDAP or Active Directory domain name.'
+  flat_name: source.user.domain
+  ignore_above: 1024
+  level: extended
+  name: domain
+  order: 5
+  original_fieldset: user
+  short: Name of the directory the user is a member of.
+  type: keyword
 source.user.email:
   description: User email address.
   flat_name: source.user.email
@@ -3102,6 +3617,7 @@ url.port:
   description: Port of the request, such as 443.
   example: 443
   flat_name: url.port
+  format: string
   level: extended
   name: port
   order: 4
@@ -3142,6 +3658,17 @@ url.username:
   name: username
   order: 8
   short: Username of the request.
+  type: keyword
+user.domain:
+  description: 'Name of the directory the user is a member of.
+
+    For example, an LDAP or Active Directory domain name.'
+  flat_name: user.domain
+  ignore_above: 1024
+  level: extended
+  name: domain
+  order: 5
+  short: Name of the directory the user is a member of.
   type: keyword
 user.email:
   description: User email address.

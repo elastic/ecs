@@ -19,29 +19,20 @@
 
 package ecs
 
-// The user fields describe information about the user that is relevant to the
-// event.
-// Fields can have one entry or multiple entries. If a user has more than one
-// id, provide an array that includes all of them.
-type User struct {
-	// One or multiple unique identifiers of the user.
-	ID string `ecs:"id"`
+// The hash fields represent different hash algorithms and their values.
+// Field names for common hashes (e.g. MD5, SHA1) are predefined. Add fields
+// for other hashes by lowercasing the hash algorithm name and using underscore
+// separators as appropriate (snake case, e.g. sha3_512).
+type Hash struct {
+	// MD5 hash.
+	Md5 string `ecs:"md5"`
 
-	// Short name or login of the user.
-	Name string `ecs:"name"`
+	// SHA1 hash.
+	Sha1 string `ecs:"sha1"`
 
-	// User's full name, if available.
-	FullName string `ecs:"full_name"`
+	// SHA256 hash.
+	Sha256 string `ecs:"sha256"`
 
-	// User email address.
-	Email string `ecs:"email"`
-
-	// Unique user hash to correlate information for a user in anonymized form.
-	// Useful if `user.id` or `user.name` contain confidential information and
-	// cannot be used.
-	Hash string `ecs:"hash"`
-
-	// Name of the directory the user is a member of.
-	// For example, an LDAP or Active Directory domain name.
-	Domain string `ecs:"domain"`
+	// SHA512 hash.
+	Sha512 string `ecs:"sha512"`
 }

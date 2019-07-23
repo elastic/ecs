@@ -110,6 +110,27 @@
       ignore_above: 1024
       description: Version of the agent.
       example: 6.0.0-rc2
+  - name: as
+    title: Autonomous System
+    group: 2
+    description: An autonomous system (AS) is a collection of connected Internet Protocol
+      (IP) routing prefixes under the control of one or more network operators on
+      behalf of a single administrative entity or domain that presents a common, clearly
+      defined routing policy to the internet.
+    type: group
+    fields:
+    - name: number
+      level: extended
+      type: long
+      description: Unique number allocated to the autonomous system. The autonomous
+        system number (ASN) uniquely identifies each network on the Internet.
+      example: 15169
+    - name: organization.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Organization name.
+      example: Google LLC
   - name: client
     title: Client
     group: 2
@@ -140,6 +161,18 @@
 
         Then it should be duplicated to `.ip` or `.domain`, depending on which one
         it is.'
+    - name: as.number
+      level: extended
+      type: long
+      description: Unique number allocated to the autonomous system. The autonomous
+        system number (ASN) uniquely identifies each network on the Internet.
+      example: 15169
+    - name: as.organization.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Organization name.
+      example: Google LLC
     - name: bytes
       level: core
       type: long
@@ -215,6 +248,21 @@
       type: keyword
       ignore_above: 1024
       description: MAC address of the client.
+    - name: nat.ip
+      level: extended
+      type: ip
+      description: 'Translated IP of source based NAT sessions (e.g. internal client
+        to internet).
+
+        Typically connections traversing load balancers, firewalls, or routers.'
+    - name: nat.port
+      level: extended
+      type: long
+      format: string
+      description: 'Translated port of source based NAT sessions (e.g. internal client
+        to internet).
+
+        Typically connections traversing load balancers, firewalls, or routers.'
     - name: packets
       level: core
       type: long
@@ -223,7 +271,15 @@
     - name: port
       level: core
       type: long
+      format: string
       description: Port of the client.
+    - name: user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the user is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
     - name: user.email
       level: extended
       type: keyword
@@ -380,6 +436,18 @@
 
         Then it should be duplicated to `.ip` or `.domain`, depending on which one
         it is.'
+    - name: as.number
+      level: extended
+      type: long
+      description: Unique number allocated to the autonomous system. The autonomous
+        system number (ASN) uniquely identifies each network on the Internet.
+      example: 15169
+    - name: as.organization.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Organization name.
+      example: Google LLC
     - name: bytes
       level: core
       type: long
@@ -455,6 +523,20 @@
       type: keyword
       ignore_above: 1024
       description: MAC address of the destination.
+    - name: nat.ip
+      level: extended
+      type: ip
+      description: 'Translated ip of destination based NAT sessions (e.g. internet
+        to private DMZ)
+
+        Typically used with load balancers, firewalls, or routers.'
+    - name: nat.port
+      level: extended
+      type: long
+      format: string
+      description: 'Port the source session is translated to by NAT Device.
+
+        Typically used with load balancers, firewalls, or routers.'
     - name: packets
       level: core
       type: long
@@ -463,7 +545,15 @@
     - name: port
       level: core
       type: long
+      format: string
       description: Port of the destination.
+    - name: user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the user is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
     - name: user.email
       level: extended
       type: keyword
@@ -753,6 +843,16 @@
         multiple actions. Warning: In future versions of ECS, we plan to provide a
         list of acceptable values for this field, please use with caution.'
       example: user-management
+    - name: code
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Identification code for this event, if one exists.
+
+        Some event sources use event codes to identify messages unambiguously, regardless
+        of message language or wording adjustments over time. An example of this is
+        the Windows Event ID.'
+      example: 4648
     - name: created
       level: core
       type: date
@@ -774,10 +874,13 @@
       ignore_above: 1024
       description: 'Name of the dataset.
 
-        The concept of a `dataset` (fileset / metricset) is used in Beats as a subset
-        of modules. It contains the information which is currently stored in metricset.name
-        and metricset.module or fileset.name.'
-      example: stats
+        If an event source publishes more than one type of log or events (e.g. access
+        log, error log), the dataset is used to specify which one the event comes
+        from.
+
+        It''s recommended but not required to start the dataset name with the module
+        name, followed by a dot, then the dataset name.'
+      example: apache.access
     - name: duration
       level: core
       type: long
@@ -824,8 +927,10 @@
       ignore_above: 1024
       description: 'Name of the module this data is coming from.
 
-        This information is coming from the modules used in Beats or Logstash.'
-      example: mysql
+        If your monitoring agent supports the concept of modules or plugins to process
+        events of a given source (e.g. Apache logs), `event.module` should contain
+        the name of this module.'
+      example: apache
     - name: original
       level: core
       type: keyword
@@ -847,6 +952,17 @@
         versions of ECS, we plan to provide a list of acceptable values for this field,
         please use with caution.'
       example: success
+    - name: provider
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Source of the event.
+
+        Event transports such as Syslog or the Windows Event Log typically mention
+        the source of an event. It can be the name of the software that generated
+        the event (e.g. Sysmon, httpd), or of a subsystem of the operating system
+        (kernel, Microsoft-Windows-Security-Auditing).'
+      example: kernel
     - name: risk_score
       level: core
       type: float
@@ -860,9 +976,18 @@
 
         This is mainly useful if you use more than one system that assigns risk scores,
         and you want to see a normalized value across all systems.'
+    - name: sequence
+      level: extended
+      type: long
+      format: string
+      description: 'Sequence number of the event.
+
+        The sequence number is a value published by some event sources, to make the
+        exact ordering of events unambiguous, regarless of the timestamp precision.'
     - name: severity
       level: core
       type: long
+      format: string
       description: Severity describes the original severity of the event. What the
         different severity values mean can very different between use cases. It's
         up to the implementer to make sure severities are consistent across events.
@@ -901,62 +1026,116 @@
       the event or metric.'
     type: group
     fields:
+    - name: accessed
+      level: extended
+      type: date
+      description: 'Last time the file was accessed.
+
+        Note that not all filesystems keep track of access time.'
+    - name: created
+      level: extended
+      type: date
+      description: 'File creation time.
+
+        Note that not all filesystems store the creation time.'
     - name: ctime
       level: extended
       type: date
-      description: Last time file metadata changed.
+      description: 'Last time the file attributes or metadata changed.
+
+        Note that changes to the file content will update `mtime`. This implies `ctime`
+        will be adjusted at the same time, since `mtime` is an attribute of the file.'
     - name: device
       level: extended
       type: keyword
       ignore_above: 1024
       description: Device that is the source of the file.
+      example: sda
+    - name: directory
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Directory where the file is located.
+      example: /home/alice
     - name: extension
       level: extended
       type: keyword
       ignore_above: 1024
-      description: 'File extension.
-
-        This should allow easy filtering by file extensions.'
+      description: File extension.
       example: png
     - name: gid
       level: extended
       type: keyword
       ignore_above: 1024
       description: Primary group ID (GID) of the file.
+      example: '1001'
     - name: group
       level: extended
       type: keyword
       ignore_above: 1024
       description: Primary group name of the file.
+      example: alice
+    - name: hash.md5
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: MD5 hash.
+    - name: hash.sha1
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SHA1 hash.
+    - name: hash.sha256
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SHA256 hash.
+    - name: hash.sha512
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SHA512 hash.
     - name: inode
       level: extended
       type: keyword
       ignore_above: 1024
       description: Inode representing the file in the filesystem.
+      example: '256383'
     - name: mode
       level: extended
       type: keyword
       ignore_above: 1024
       description: Mode of the file in octal representation.
-      example: 416
+      example: '0640'
     - name: mtime
       level: extended
       type: date
-      description: Last time file content was modified.
+      description: Last time the file content was modified.
+    - name: name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the file including the extension, without the directory.
+      example: example.png
     - name: owner
       level: extended
       type: keyword
       ignore_above: 1024
       description: File owner's username.
+      example: alice
     - name: path
       level: extended
       type: keyword
       ignore_above: 1024
-      description: Path to the file.
+      description: Full path to the file.
+      example: /home/alice/example.png
     - name: size
       level: extended
       type: long
-      description: File size in bytes (field is only added when `type` is `file`).
+      description: 'File size in bytes.
+
+        Only relevant when `file.type` is "file".'
+      example: 16384
     - name: target_path
       level: extended
       type: keyword
@@ -967,11 +1146,13 @@
       type: keyword
       ignore_above: 1024
       description: File type (file, dir, or symlink).
+      example: file
     - name: uid
       level: extended
       type: keyword
       ignore_above: 1024
       description: The user ID (UID) or security identifier (SID) of the file owner.
+      example: '1001'
   - name: geo
     title: Geo
     group: 2
@@ -1052,6 +1233,36 @@
       type: keyword
       ignore_above: 1024
       description: Name of the group.
+  - name: hash
+    title: Group
+    group: 2
+    description: 'The hash fields represent different hash algorithms and their values.
+
+      Field names for common hashes (e.g. MD5, SHA1) are predefined. Add fields for
+      other hashes by lowercasing the hash algorithm name and using underscore separators
+      as appropriate (snake case, e.g. sha3_512).'
+    type: group
+    fields:
+    - name: md5
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: MD5 hash.
+    - name: sha1
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SHA1 hash.
+    - name: sha256
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SHA256 hash.
+    - name: sha512
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SHA512 hash.
   - name: host
     title: Host
     group: 2
@@ -1200,6 +1411,18 @@
         For Cloud providers this can be the machine type like `t2.medium`. If vm,
         this could be the container, for example, or other information meaningful
         in your environment.'
+    - name: uptime
+      level: extended
+      type: long
+      description: Seconds the host has been up.
+      example: 1325
+    - name: user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the user is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
     - name: user.email
       level: extended
       type: keyword
@@ -1302,6 +1525,7 @@
     - name: response.status_code
       level: extended
       type: long
+      format: string
       description: HTTP response status code.
       example: 404
     - name: version
@@ -1682,6 +1906,26 @@
       ignore_above: 1024
       description: Absolute path to the process executable.
       example: /usr/bin/ssh
+    - name: hash.md5
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: MD5 hash.
+    - name: hash.sha1
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SHA1 hash.
+    - name: hash.sha256
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SHA256 hash.
+    - name: hash.sha512
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SHA512 hash.
     - name: name
       level: extended
       type: keyword
@@ -1690,14 +1934,23 @@
 
         Sometimes called program name or similar.'
       example: ssh
+    - name: pgid
+      level: extended
+      type: long
+      format: string
+      description: Identifier of the group of processes the process belongs to.
     - name: pid
       level: core
       type: long
+      format: string
       description: Process id.
+      example: 4242
     - name: ppid
       level: extended
       type: long
-      description: Process parent id.
+      format: string
+      description: Parent process' pid.
+      example: 4241
     - name: start
       level: extended
       type: date
@@ -1706,6 +1959,7 @@
     - name: thread.id
       level: extended
       type: long
+      format: string
       description: Thread ID.
       example: 4242
     - name: title
@@ -1716,6 +1970,11 @@
 
         The proctitle, some times the same as process name. Can also be different:
         for example a browser setting its title to the web page currently opened.'
+    - name: uptime
+      level: extended
+      type: long
+      description: Seconds the process has been up.
+      example: 1325
     - name: working_directory
       level: extended
       type: keyword
@@ -1772,6 +2031,18 @@
 
         Then it should be duplicated to `.ip` or `.domain`, depending on which one
         it is.'
+    - name: as.number
+      level: extended
+      type: long
+      description: Unique number allocated to the autonomous system. The autonomous
+        system number (ASN) uniquely identifies each network on the Internet.
+      example: 15169
+    - name: as.organization.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Organization name.
+      example: Google LLC
     - name: bytes
       level: core
       type: long
@@ -1847,6 +2118,21 @@
       type: keyword
       ignore_above: 1024
       description: MAC address of the server.
+    - name: nat.ip
+      level: extended
+      type: ip
+      description: 'Translated ip of destination based NAT sessions (e.g. internet
+        to private DMZ)
+
+        Typically used with load balancers, firewalls, or routers.'
+    - name: nat.port
+      level: extended
+      type: long
+      format: string
+      description: 'Translated port of destination based NAT sessions (e.g. internet
+        to private DMZ)
+
+        Typically used with load balancers, firewalls, or routers.'
     - name: packets
       level: core
       type: long
@@ -1855,7 +2141,15 @@
     - name: port
       level: core
       type: long
+      format: string
       description: Port of the server.
+    - name: user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the user is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
     - name: user.email
       level: extended
       type: keyword
@@ -1918,13 +2212,15 @@
       level: core
       type: keyword
       ignore_above: 1024
-      description: 'Unique identifier of the running service.
+      description: 'Unique identifier of the running service. If the service is comprised
+        of many nodes, the `service.id` should be the same for all nodes.
 
-        This id should uniquely identify this service. This makes it possible to correlate
-        logs and metrics for one specific service.
+        This id should uniquely identify the service. This makes it possible to correlate
+        logs and metrics for one specific service, no matter which particular node
+        emitted the event.
 
-        Example: If you are experiencing issues with one redis instance, you can filter
-        on that id to see metrics and logs for that single instance.'
+        Note that if you need to see the events from one specific host of the service,
+        you should filter on that `host.name` or `host.id` instead.'
       example: d37e5ebfe0ae6c4972dbe9f0174a1637bb8247f6
     - name: name
       level: core
@@ -1986,6 +2282,18 @@
 
         Then it should be duplicated to `.ip` or `.domain`, depending on which one
         it is.'
+    - name: as.number
+      level: extended
+      type: long
+      description: Unique number allocated to the autonomous system. The autonomous
+        system number (ASN) uniquely identifies each network on the Internet.
+      example: 15169
+    - name: as.organization.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Organization name.
+      example: Google LLC
     - name: bytes
       level: core
       type: long
@@ -2061,6 +2369,21 @@
       type: keyword
       ignore_above: 1024
       description: MAC address of the source.
+    - name: nat.ip
+      level: extended
+      type: ip
+      description: 'Translated ip of source based NAT sessions (e.g. internal client
+        to internet)
+
+        Typically connections traversing load balancers, firewalls, or routers.'
+    - name: nat.port
+      level: extended
+      type: long
+      format: string
+      description: 'Translated port of source based NAT sessions. (e.g. internal client
+        to internet)
+
+        Typically used with load balancers, firewalls, or routers.'
     - name: packets
       level: core
       type: long
@@ -2069,7 +2392,15 @@
     - name: port
       level: core
       type: long
+      format: string
       description: Port of the source.
+    - name: user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the user is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
     - name: user.email
       level: extended
       type: keyword
@@ -2166,6 +2497,7 @@
     - name: port
       level: extended
       type: long
+      format: string
       description: Port of the request, such as 443.
       example: 443
     - name: query
@@ -2202,6 +2534,13 @@
       provide an array that includes all of them.'
     type: group
     fields:
+    - name: domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the user is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
     - name: email
       level: extended
       type: keyword

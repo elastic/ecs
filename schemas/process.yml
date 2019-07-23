@@ -13,11 +13,12 @@
   fields:
 
     - name: pid
+      format: string
       level: core
       type: long
       description: >
         Process id.
-      exmple: ssh
+      example: 4242
 
     - name: name
       level: extended
@@ -30,10 +31,19 @@
       example: ssh
 
     - name: ppid
+      format: string
       level: extended
       type: long
       description: >
-        Process parent id.
+        Parent process' pid.
+      example: 4241
+
+    - name: pgid
+      format: string
+      level: extended
+      type: long
+      description: >
+        Identifier of the group of processes the process belongs to.
 
     - name: args
       level: extended
@@ -63,6 +73,7 @@
         for example a browser setting its title to the web page currently opened.
 
     - name: thread.id
+      format: string
       level: extended
       type: long
       example: 4242
@@ -75,6 +86,13 @@
       example: "2016-05-23T08:05:34.853Z"
       description: >
         The time the process started.
+
+    - name: uptime
+      level: extended
+      type: long
+      example: 1325
+      description: >
+        Seconds the process has been up.
 
     - name: working_directory
       level: extended

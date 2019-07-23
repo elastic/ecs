@@ -25,6 +25,18 @@
         Unique ID to describe the event.
       example: 8a4f500d
 
+    - name: code
+      level: extended
+      type: keyword
+      short: Identification code for this event.
+      description: >
+        Identification code for this event, if one exists.
+
+        Some event sources use event codes to identify messages unambiguously,
+        regardless of message language or wording adjustments over time.
+        An example of this is the Windows Event ID.
+      example: 4648
+
     - name: kind
       level: extended
       type: keyword
@@ -96,8 +108,10 @@
       description: >
         Name of the module this data is coming from.
 
-        This information is coming from the modules used in Beats or Logstash.
-      example: mysql
+        If your monitoring agent supports the concept of modules or plugins to
+        process events of a given source (e.g. Apache logs),
+        `event.module` should contain the name of this module.
+      example: apache
 
     - name: dataset
       level: core
@@ -106,12 +120,30 @@
       description: >
         Name of the dataset.
 
-        The concept of a `dataset` (fileset / metricset) is used in Beats as a
-        subset of modules. It contains the information which is currently
-        stored in metricset.name and metricset.module or fileset.name.
-      example: stats
+        If an event source publishes more than one type of log or events
+        (e.g. access log, error log), the dataset is used to specify which
+        one the event comes from.
+
+        It's recommended but not required to start the dataset name with
+        the module name, followed by a dot, then the dataset name.
+      example: apache.access
+
+    - name: provider
+      level: extended
+      type: keyword
+      short: Source of the event.
+      description: >
+        Source of the event.
+
+        Event transports such as Syslog or the Windows Event Log typically
+        mention the source of an event. It can be the name of the
+        software that generated the event (e.g. Sysmon, httpd),
+        or of a subsystem of the operating system (kernel, Microsoft-Windows-Security-Auditing).
+
+      example: kernel
 
     - name: severity
+      format: string
       level: core
       type: long
       example: "7"
@@ -162,6 +194,17 @@
 
         If event.start and event.end are known this value should be the
         difference between the end and start time.
+
+    - name: sequence
+      format: string
+      level: extended
+      type: long
+      short: Sequence number of the event.
+      description: >
+        Sequence number of the event.
+
+        The sequence number is a value published by some event sources, to make the
+        exact ordering of events unambiguous, regarless of the timestamp precision.
 
     - name: timezone
       level: extended

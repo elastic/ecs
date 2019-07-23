@@ -12,10 +12,23 @@
   type: group
   fields:
 
+  - name: name
+    level: extended
+    type: keyword
+    description: Name of the file including the extension, without the directory.
+    example: example.png
+
+  - name: directory
+    level: extended
+    type: keyword
+    description: Directory where the file is located.
+    example: '/home/alice'
+
   - name: path
     level: extended
     type: keyword
-    description: Path to the file.
+    description: Full path to the file.
+    example: '/home/alice/example.png'
 
   - name: target_path
     level: extended
@@ -25,67 +38,98 @@
   - name: extension
     level: extended
     type: keyword
-    short: File extension.
-    description: >
-      File extension.
-
-      This should allow easy filtering by file extensions.
+    description: File extension.
     example: png
 
   - name: type
     level: extended
     type: keyword
     description: File type (file, dir, or symlink).
+    example: file
 
   - name: device
     level: extended
     type: keyword
     description: Device that is the source of the file.
+    example: sda
 
   - name: inode
     level: extended
     type: keyword
     description: Inode representing the file in the filesystem.
+    example: '256383'
 
   - name: uid
     level: extended
     type: keyword
     description: >
       The user ID (UID) or security identifier (SID) of the file owner.
+    example: '1001'
 
   - name: owner
     level: extended
     type: keyword
     description: File owner's username.
+    example: alice
 
   - name: gid
     level: extended
     type: keyword
     description: Primary group ID (GID) of the file.
+    example: '1001'
 
   - name: group
     level: extended
     type: keyword
     description: Primary group name of the file.
+    example: alice
 
   - name: mode
     level: extended
     type: keyword
-    example: 0640
     description: Mode of the file in octal representation.
+    example: '0640'
 
   - name: size
     level: extended
     type: long
-    description: File size in bytes (field is only added when `type` is
-        `file`).
+    short: File size in bytes.
+    description: >
+      File size in bytes.
+
+      Only relevant when `file.type` is "file".
+    example: 16384
 
   - name: mtime
     level: extended
     type: date
-    description: Last time file content was modified.
+    description: Last time the file content was modified.
 
   - name: ctime
     level: extended
     type: date
-    description: Last time file metadata changed.
+    short: Last time the file attributes or metadata changed.
+    description: >
+      Last time the file attributes or metadata changed.
+
+      Note that changes to the file content will update `mtime`. This implies
+      `ctime` will be adjusted at the same time, since `mtime` is an attribute
+      of the file.
+
+  - name: created
+    level: extended
+    type: date
+    short: File creation time.
+    description: >
+      File creation time.
+
+      Note that not all filesystems store the creation time.
+
+  - name: accessed
+    level: extended
+    type: date
+    short: Last time the file was accessed.
+    description: >
+      Last time the file was accessed.
+
+      Note that not all filesystems keep track of access time.

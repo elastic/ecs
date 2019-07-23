@@ -8,7 +8,11 @@ agent.id,keyword,core,8a4f500d,1.1.0-dev
 agent.name,keyword,core,foo,1.1.0-dev
 agent.type,keyword,core,filebeat,1.1.0-dev
 agent.version,keyword,core,6.0.0-rc2,1.1.0-dev
+as.number,long,extended,15169,1.1.0-dev
+as.organization.name,keyword,extended,Google LLC,1.1.0-dev
 client.address,keyword,extended,,1.1.0-dev
+client.as.number,long,extended,15169,1.1.0-dev
+client.as.organization.name,keyword,extended,Google LLC,1.1.0-dev
 client.bytes,long,core,184,1.1.0-dev
 client.domain,keyword,core,,1.1.0-dev
 client.geo.city_name,keyword,core,Montreal,1.1.0-dev
@@ -21,8 +25,11 @@ client.geo.region_iso_code,keyword,core,CA-QC,1.1.0-dev
 client.geo.region_name,keyword,core,Quebec,1.1.0-dev
 client.ip,ip,core,,1.1.0-dev
 client.mac,keyword,core,,1.1.0-dev
+client.nat.ip,ip,extended,,1.1.0-dev
+client.nat.port,long,extended,,1.1.0-dev
 client.packets,long,core,12,1.1.0-dev
 client.port,long,core,,1.1.0-dev
+client.user.domain,keyword,extended,,1.1.0-dev
 client.user.email,keyword,extended,,1.1.0-dev
 client.user.full_name,keyword,extended,Albert Einstein,1.1.0-dev
 client.user.group.id,keyword,extended,,1.1.0-dev
@@ -44,6 +51,8 @@ container.labels,object,extended,,1.1.0-dev
 container.name,keyword,extended,,1.1.0-dev
 container.runtime,keyword,extended,docker,1.1.0-dev
 destination.address,keyword,extended,,1.1.0-dev
+destination.as.number,long,extended,15169,1.1.0-dev
+destination.as.organization.name,keyword,extended,Google LLC,1.1.0-dev
 destination.bytes,long,core,184,1.1.0-dev
 destination.domain,keyword,core,,1.1.0-dev
 destination.geo.city_name,keyword,core,Montreal,1.1.0-dev
@@ -56,8 +65,11 @@ destination.geo.region_iso_code,keyword,core,CA-QC,1.1.0-dev
 destination.geo.region_name,keyword,core,Quebec,1.1.0-dev
 destination.ip,ip,core,,1.1.0-dev
 destination.mac,keyword,core,,1.1.0-dev
+destination.nat.ip,ip,extended,,1.1.0-dev
+destination.nat.port,long,extended,,1.1.0-dev
 destination.packets,long,core,12,1.1.0-dev
 destination.port,long,core,,1.1.0-dev
+destination.user.domain,keyword,extended,,1.1.0-dev
 destination.user.email,keyword,extended,,1.1.0-dev
 destination.user.full_name,keyword,extended,Albert Einstein,1.1.0-dev
 destination.user.group.id,keyword,extended,,1.1.0-dev
@@ -90,36 +102,47 @@ error.id,keyword,core,,1.1.0-dev
 error.message,text,core,,1.1.0-dev
 event.action,keyword,core,user-password-change,1.1.0-dev
 event.category,keyword,core,user-management,1.1.0-dev
+event.code,keyword,extended,4648,1.1.0-dev
 event.created,date,core,,1.1.0-dev
-event.dataset,keyword,core,stats,1.1.0-dev
+event.dataset,keyword,core,apache.access,1.1.0-dev
 event.duration,long,core,,1.1.0-dev
 event.end,date,extended,,1.1.0-dev
 event.hash,keyword,extended,123456789012345678901234567890ABCD,1.1.0-dev
 event.id,keyword,core,8a4f500d,1.1.0-dev
 event.kind,keyword,extended,state,1.1.0-dev
-event.module,keyword,core,mysql,1.1.0-dev
+event.module,keyword,core,apache,1.1.0-dev
 event.original,keyword,core,Sep 19 08:26:10 host CEF:0&#124;Security&#124; threatmanager&#124;1.0&#124;100&#124; worm successfully stopped&#124;10&#124;src=10.0.0.1 dst=2.1.2.2spt=1232,1.1.0-dev
 event.outcome,keyword,extended,success,1.1.0-dev
+event.provider,keyword,extended,kernel,1.1.0-dev
 event.risk_score,float,core,,1.1.0-dev
 event.risk_score_norm,float,extended,,1.1.0-dev
+event.sequence,long,extended,,1.1.0-dev
 event.severity,long,core,7,1.1.0-dev
 event.start,date,extended,,1.1.0-dev
 event.timezone,keyword,extended,,1.1.0-dev
 event.type,keyword,core,,1.1.0-dev
+file.accessed,date,extended,,1.1.0-dev
+file.created,date,extended,,1.1.0-dev
 file.ctime,date,extended,,1.1.0-dev
-file.device,keyword,extended,,1.1.0-dev
+file.device,keyword,extended,sda,1.1.0-dev
+file.directory,keyword,extended,/home/alice,1.1.0-dev
 file.extension,keyword,extended,png,1.1.0-dev
-file.gid,keyword,extended,,1.1.0-dev
-file.group,keyword,extended,,1.1.0-dev
-file.inode,keyword,extended,,1.1.0-dev
-file.mode,keyword,extended,416,1.1.0-dev
+file.gid,keyword,extended,1001,1.1.0-dev
+file.group,keyword,extended,alice,1.1.0-dev
+file.hash.md5,keyword,extended,,1.1.0-dev
+file.hash.sha1,keyword,extended,,1.1.0-dev
+file.hash.sha256,keyword,extended,,1.1.0-dev
+file.hash.sha512,keyword,extended,,1.1.0-dev
+file.inode,keyword,extended,256383,1.1.0-dev
+file.mode,keyword,extended,0640,1.1.0-dev
 file.mtime,date,extended,,1.1.0-dev
-file.owner,keyword,extended,,1.1.0-dev
-file.path,keyword,extended,,1.1.0-dev
-file.size,long,extended,,1.1.0-dev
+file.name,keyword,extended,example.png,1.1.0-dev
+file.owner,keyword,extended,alice,1.1.0-dev
+file.path,keyword,extended,/home/alice/example.png,1.1.0-dev
+file.size,long,extended,16384,1.1.0-dev
 file.target_path,keyword,extended,,1.1.0-dev
-file.type,keyword,extended,,1.1.0-dev
-file.uid,keyword,extended,,1.1.0-dev
+file.type,keyword,extended,file,1.1.0-dev
+file.uid,keyword,extended,1001,1.1.0-dev
 geo.city_name,keyword,core,Montreal,1.1.0-dev
 geo.continent_name,keyword,core,North America,1.1.0-dev
 geo.country_iso_code,keyword,core,CA,1.1.0-dev
@@ -130,6 +153,10 @@ geo.region_iso_code,keyword,core,CA-QC,1.1.0-dev
 geo.region_name,keyword,core,Quebec,1.1.0-dev
 group.id,keyword,extended,,1.1.0-dev
 group.name,keyword,extended,,1.1.0-dev
+hash.md5,keyword,extended,,1.1.0-dev
+hash.sha1,keyword,extended,,1.1.0-dev
+hash.sha256,keyword,extended,,1.1.0-dev
+hash.sha512,keyword,extended,,1.1.0-dev
 host.architecture,keyword,core,x86_64,1.1.0-dev
 host.geo.city_name,keyword,core,Montreal,1.1.0-dev
 host.geo.continent_name,keyword,core,North America,1.1.0-dev
@@ -151,6 +178,8 @@ host.os.name,keyword,extended,Mac OS X,1.1.0-dev
 host.os.platform,keyword,extended,darwin,1.1.0-dev
 host.os.version,keyword,extended,10.14.1,1.1.0-dev
 host.type,keyword,core,,1.1.0-dev
+host.uptime,long,extended,1325,1.1.0-dev
+host.user.domain,keyword,extended,,1.1.0-dev
 host.user.email,keyword,extended,,1.1.0-dev
 host.user.full_name,keyword,extended,Albert Einstein,1.1.0-dev
 host.user.group.id,keyword,extended,,1.1.0-dev
@@ -212,15 +241,23 @@ os.platform,keyword,extended,darwin,1.1.0-dev
 os.version,keyword,extended,10.14.1,1.1.0-dev
 process.args,keyword,extended,"['ssh', '-l', 'user', '10.0.0.16']",1.1.0-dev
 process.executable,keyword,extended,/usr/bin/ssh,1.1.0-dev
+process.hash.md5,keyword,extended,,1.1.0-dev
+process.hash.sha1,keyword,extended,,1.1.0-dev
+process.hash.sha256,keyword,extended,,1.1.0-dev
+process.hash.sha512,keyword,extended,,1.1.0-dev
 process.name,keyword,extended,ssh,1.1.0-dev
-process.pid,long,core,,1.1.0-dev
-process.ppid,long,extended,,1.1.0-dev
+process.pgid,long,extended,,1.1.0-dev
+process.pid,long,core,4242,1.1.0-dev
+process.ppid,long,extended,4241,1.1.0-dev
 process.start,date,extended,2016-05-23T08:05:34.853Z,1.1.0-dev
 process.thread.id,long,extended,4242,1.1.0-dev
 process.title,keyword,extended,,1.1.0-dev
+process.uptime,long,extended,1325,1.1.0-dev
 process.working_directory,keyword,extended,/home/alice,1.1.0-dev
 related.ip,ip,extended,,1.1.0-dev
 server.address,keyword,extended,,1.1.0-dev
+server.as.number,long,extended,15169,1.1.0-dev
+server.as.organization.name,keyword,extended,Google LLC,1.1.0-dev
 server.bytes,long,core,184,1.1.0-dev
 server.domain,keyword,core,,1.1.0-dev
 server.geo.city_name,keyword,core,Montreal,1.1.0-dev
@@ -233,8 +270,11 @@ server.geo.region_iso_code,keyword,core,CA-QC,1.1.0-dev
 server.geo.region_name,keyword,core,Quebec,1.1.0-dev
 server.ip,ip,core,,1.1.0-dev
 server.mac,keyword,core,,1.1.0-dev
+server.nat.ip,ip,extended,,1.1.0-dev
+server.nat.port,long,extended,,1.1.0-dev
 server.packets,long,core,12,1.1.0-dev
 server.port,long,core,,1.1.0-dev
+server.user.domain,keyword,extended,,1.1.0-dev
 server.user.email,keyword,extended,,1.1.0-dev
 server.user.full_name,keyword,extended,Albert Einstein,1.1.0-dev
 server.user.group.id,keyword,extended,,1.1.0-dev
@@ -249,6 +289,8 @@ service.state,keyword,core,,1.1.0-dev
 service.type,keyword,core,elasticsearch,1.1.0-dev
 service.version,keyword,core,3.2.4,1.1.0-dev
 source.address,keyword,extended,,1.1.0-dev
+source.as.number,long,extended,15169,1.1.0-dev
+source.as.organization.name,keyword,extended,Google LLC,1.1.0-dev
 source.bytes,long,core,184,1.1.0-dev
 source.domain,keyword,core,,1.1.0-dev
 source.geo.city_name,keyword,core,Montreal,1.1.0-dev
@@ -261,8 +303,11 @@ source.geo.region_iso_code,keyword,core,CA-QC,1.1.0-dev
 source.geo.region_name,keyword,core,Quebec,1.1.0-dev
 source.ip,ip,core,,1.1.0-dev
 source.mac,keyword,core,,1.1.0-dev
+source.nat.ip,ip,extended,,1.1.0-dev
+source.nat.port,long,extended,,1.1.0-dev
 source.packets,long,core,12,1.1.0-dev
 source.port,long,core,,1.1.0-dev
+source.user.domain,keyword,extended,,1.1.0-dev
 source.user.email,keyword,extended,,1.1.0-dev
 source.user.full_name,keyword,extended,Albert Einstein,1.1.0-dev
 source.user.group.id,keyword,extended,,1.1.0-dev
@@ -280,6 +325,7 @@ url.port,long,extended,443,1.1.0-dev
 url.query,keyword,extended,,1.1.0-dev
 url.scheme,keyword,extended,https,1.1.0-dev
 url.username,keyword,extended,,1.1.0-dev
+user.domain,keyword,extended,,1.1.0-dev
 user.email,keyword,extended,,1.1.0-dev
 user.full_name,keyword,extended,Albert Einstein,1.1.0-dev
 user.group.id,keyword,extended,,1.1.0-dev

@@ -19,29 +19,15 @@
 
 package ecs
 
-// The user fields describe information about the user that is relevant to the
-// event.
-// Fields can have one entry or multiple entries. If a user has more than one
-// id, provide an array that includes all of them.
-type User struct {
-	// One or multiple unique identifiers of the user.
-	ID string `ecs:"id"`
+// An autonomous system (AS) is a collection of connected Internet Protocol
+// (IP) routing prefixes under the control of one or more network operators on
+// behalf of a single administrative entity or domain that presents a common,
+// clearly defined routing policy to the internet.
+type AS struct {
+	// Unique number allocated to the autonomous system. The autonomous system
+	// number (ASN) uniquely identifies each network on the Internet.
+	Number int64 `ecs:"number"`
 
-	// Short name or login of the user.
-	Name string `ecs:"name"`
-
-	// User's full name, if available.
-	FullName string `ecs:"full_name"`
-
-	// User email address.
-	Email string `ecs:"email"`
-
-	// Unique user hash to correlate information for a user in anonymized form.
-	// Useful if `user.id` or `user.name` contain confidential information and
-	// cannot be used.
-	Hash string `ecs:"hash"`
-
-	// Name of the directory the user is a member of.
-	// For example, an LDAP or Active Directory domain name.
-	Domain string `ecs:"domain"`
+	// Organization name.
+	OrganizationName string `ecs:"organization.name"`
 }

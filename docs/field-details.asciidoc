@@ -154,6 +154,52 @@ example: `6.0.0-rc2`
 
 |=====
 
+[[ecs-as]]
+=== Autonomous System Fields
+
+An autonomous system (AS) is a collection of connected Internet Protocol (IP) routing prefixes under the control of one or more network operators on behalf of a single administrative entity or domain that presents a common, clearly defined routing policy to the internet.
+
+==== Autonomous System Field Details
+
+[options="header"]
+|=====
+| Field  | Description | Level
+
+// ===============================================================
+
+| as.number
+| Unique number allocated to the autonomous system. The autonomous system number (ASN) uniquely identifies each network on the Internet.
+
+type: long
+
+example: `15169`
+
+| extended
+
+// ===============================================================
+
+| as.organization.name
+| Organization name.
+
+type: keyword
+
+example: `Google LLC`
+
+| extended
+
+// ===============================================================
+
+|=====
+
+==== Field Reuse
+
+The `as` fields are expected to be nested at: `client.as`, `destination.as`, `server.as`, `source.as`.
+
+Note also that the `as` fields are not expected to be used directly at the top level.
+
+
+
+
 [[ecs-client]]
 === Client Fields
 
@@ -230,6 +276,32 @@ type: keyword
 
 // ===============================================================
 
+| client.nat.ip
+| Translated IP of source based NAT sessions (e.g. internal client to internet).
+
+Typically connections traversing load balancers, firewalls, or routers.
+
+type: ip
+
+
+
+| extended
+
+// ===============================================================
+
+| client.nat.port
+| Translated port of source based NAT sessions (e.g. internal client to internet).
+
+Typically connections traversing load balancers, firewalls, or routers.
+
+type: long
+
+
+
+| extended
+
+// ===============================================================
+
 | client.packets
 | Packets sent from the client to the server.
 
@@ -265,6 +337,12 @@ type: long
 [options="header"]
 |=====
 | Nested fields | Description
+
+// ===============================================================
+
+
+| <<ecs-as,client.as.*>>
+| Fields describing an Autonomous System (Internet routing prefix).
 
 // ===============================================================
 
@@ -534,6 +612,32 @@ type: keyword
 
 // ===============================================================
 
+| destination.nat.ip
+| Translated ip of destination based NAT sessions (e.g. internet to private DMZ)
+
+Typically used with load balancers, firewalls, or routers.
+
+type: ip
+
+
+
+| extended
+
+// ===============================================================
+
+| destination.nat.port
+| Port the source session is translated to by NAT Device.
+
+Typically used with load balancers, firewalls, or routers.
+
+type: long
+
+
+
+| extended
+
+// ===============================================================
+
 | destination.packets
 | Packets sent from the destination to the source.
 
@@ -569,6 +673,12 @@ type: long
 [options="header"]
 |=====
 | Nested fields | Description
+
+// ===============================================================
+
+
+| <<ecs-as,destination.as.*>>
+| Fields describing an Autonomous System (Internet routing prefix).
 
 // ===============================================================
 
@@ -958,6 +1068,19 @@ example: `user-management`
 
 // ===============================================================
 
+| event.code
+| Identification code for this event, if one exists.
+
+Some event sources use event codes to identify messages unambiguously, regardless of message language or wording adjustments over time. An example of this is the Windows Event ID.
+
+type: keyword
+
+example: `4648`
+
+| extended
+
+// ===============================================================
+
 | event.created
 | event.created contains the date/time when the event was first read by an agent, or by your pipeline.
 
@@ -978,11 +1101,13 @@ type: date
 | event.dataset
 | Name of the dataset.
 
-The concept of a `dataset` (fileset / metricset) is used in Beats as a subset of modules. It contains the information which is currently stored in metricset.name and metricset.module or fileset.name.
+If an event source publishes more than one type of log or events (e.g. access log, error log), the dataset is used to specify which one the event comes from.
+
+It's recommended but not required to start the dataset name with the module name, followed by a dot, then the dataset name.
 
 type: keyword
 
-example: `stats`
+example: `apache.access`
 
 | core
 
@@ -1050,11 +1175,11 @@ example: `state`
 | event.module
 | Name of the module this data is coming from.
 
-This information is coming from the modules used in Beats or Logstash.
+If your monitoring agent supports the concept of modules or plugins to process events of a given source (e.g. Apache logs), `event.module` should contain the name of this module.
 
 type: keyword
 
-example: `mysql`
+example: `apache`
 
 | core
 
@@ -1086,6 +1211,19 @@ example: `success`
 
 // ===============================================================
 
+| event.provider
+| Source of the event.
+
+Event transports such as Syslog or the Windows Event Log typically mention the source of an event. It can be the name of the software that generated the event (e.g. Sysmon, httpd), or of a subsystem of the operating system (kernel, Microsoft-Windows-Security-Auditing).
+
+type: keyword
+
+example: `kernel`
+
+| extended
+
+// ===============================================================
+
 | event.risk_score
 | Risk score or priority of the event (e.g. security solutions). Use your system's original value here.
 
@@ -1103,6 +1241,19 @@ type: float
 This is mainly useful if you use more than one system that assigns risk scores, and you want to see a normalized value across all systems.
 
 type: float
+
+
+
+| extended
+
+// ===============================================================
+
+| event.sequence
+| Sequence number of the event.
+
+The sequence number is a value published by some event sources, to make the exact ordering of events unambiguous, regarless of the timestamp precision.
+
+type: long
 
 
 
@@ -1175,8 +1326,36 @@ File objects can be associated with host events, network events, and/or file eve
 
 // ===============================================================
 
+| file.accessed
+| Last time the file was accessed.
+
+Note that not all filesystems keep track of access time.
+
+type: date
+
+
+
+| extended
+
+// ===============================================================
+
+| file.created
+| File creation time.
+
+Note that not all filesystems store the creation time.
+
+type: date
+
+
+
+| extended
+
+// ===============================================================
+
 | file.ctime
-| Last time file metadata changed.
+| Last time the file attributes or metadata changed.
+
+Note that changes to the file content will update `mtime`. This implies `ctime` will be adjusted at the same time, since `mtime` is an attribute of the file.
 
 type: date
 
@@ -1191,7 +1370,18 @@ type: date
 
 type: keyword
 
+example: `sda`
 
+| extended
+
+// ===============================================================
+
+| file.directory
+| Directory where the file is located.
+
+type: keyword
+
+example: `/home/alice`
 
 | extended
 
@@ -1199,8 +1389,6 @@ type: keyword
 
 | file.extension
 | File extension.
-
-This should allow easy filtering by file extensions.
 
 type: keyword
 
@@ -1215,7 +1403,7 @@ example: `png`
 
 type: keyword
 
-
+example: `1001`
 
 | extended
 
@@ -1226,7 +1414,7 @@ type: keyword
 
 type: keyword
 
-
+example: `alice`
 
 | extended
 
@@ -1237,7 +1425,7 @@ type: keyword
 
 type: keyword
 
-
+example: `256383`
 
 | extended
 
@@ -1248,18 +1436,29 @@ type: keyword
 
 type: keyword
 
-example: `416`
+example: `0640`
 
 | extended
 
 // ===============================================================
 
 | file.mtime
-| Last time file content was modified.
+| Last time the file content was modified.
 
 type: date
 
 
+
+| extended
+
+// ===============================================================
+
+| file.name
+| Name of the file including the extension, without the directory.
+
+type: keyword
+
+example: `example.png`
 
 | extended
 
@@ -1270,29 +1469,31 @@ type: date
 
 type: keyword
 
-
+example: `alice`
 
 | extended
 
 // ===============================================================
 
 | file.path
-| Path to the file.
+| Full path to the file.
 
 type: keyword
 
-
+example: `/home/alice/example.png`
 
 | extended
 
 // ===============================================================
 
 | file.size
-| File size in bytes (field is only added when `type` is `file`).
+| File size in bytes.
+
+Only relevant when `file.type` is "file".
 
 type: long
 
-
+example: `16384`
 
 | extended
 
@@ -1314,7 +1515,7 @@ type: keyword
 
 type: keyword
 
-
+example: `file`
 
 | extended
 
@@ -1325,11 +1526,34 @@ type: keyword
 
 type: keyword
 
-
+example: `1001`
 
 | extended
 
 // ===============================================================
+
+|=====
+
+==== Field Reuse
+
+
+
+
+[[ecs-file-nestings]]
+===== Field sets that can be nested under File
+
+[options="header"]
+|=====
+| Nested fields | Description
+
+// ===============================================================
+
+
+| <<ecs-hash,file.hash.*>>
+| Hashes, usually file hashes.
+
+// ===============================================================
+
 
 |=====
 
@@ -1497,6 +1721,76 @@ Note also that the `group` fields may be used directly at the top level.
 
 
 
+[[ecs-hash]]
+=== Group Fields
+
+The hash fields represent different hash algorithms and their values.
+
+Field names for common hashes (e.g. MD5, SHA1) are predefined. Add fields for other hashes by lowercasing the hash algorithm name and using underscore separators as appropriate (snake case, e.g. sha3_512).
+
+==== Group Field Details
+
+[options="header"]
+|=====
+| Field  | Description | Level
+
+// ===============================================================
+
+| hash.md5
+| MD5 hash.
+
+type: keyword
+
+
+
+| extended
+
+// ===============================================================
+
+| hash.sha1
+| SHA1 hash.
+
+type: keyword
+
+
+
+| extended
+
+// ===============================================================
+
+| hash.sha256
+| SHA256 hash.
+
+type: keyword
+
+
+
+| extended
+
+// ===============================================================
+
+| hash.sha512
+| SHA512 hash.
+
+type: keyword
+
+
+
+| extended
+
+// ===============================================================
+
+|=====
+
+==== Field Reuse
+
+The `hash` fields are expected to be nested at: `file.hash`, `process.hash`.
+
+Note also that the `hash` fields are not expected to be used directly at the top level.
+
+
+
+
 [[ecs-host]]
 === Host Fields
 
@@ -1596,6 +1890,17 @@ type: keyword
 
 
 | core
+
+// ===============================================================
+
+| host.uptime
+| Seconds the host has been up.
+
+type: long
+
+example: `1325`
+
+| extended
 
 // ===============================================================
 
@@ -2282,23 +2587,34 @@ example: `ssh`
 
 // ===============================================================
 
+| process.pgid
+| Identifier of the group of processes the process belongs to.
+
+type: long
+
+
+
+| extended
+
+// ===============================================================
+
 | process.pid
 | Process id.
 
 type: long
 
-
+example: `4242`
 
 | core
 
 // ===============================================================
 
 | process.ppid
-| Process parent id.
+| Parent process' pid.
 
 type: long
 
-
+example: `4241`
 
 | extended
 
@@ -2339,6 +2655,17 @@ type: keyword
 
 // ===============================================================
 
+| process.uptime
+| Seconds the process has been up.
+
+type: long
+
+example: `1325`
+
+| extended
+
+// ===============================================================
+
 | process.working_directory
 | The working directory of the process.
 
@@ -2349,6 +2676,29 @@ example: `/home/alice`
 | extended
 
 // ===============================================================
+
+|=====
+
+==== Field Reuse
+
+
+
+
+[[ecs-process-nestings]]
+===== Field sets that can be nested under Process
+
+[options="header"]
+|=====
+| Nested fields | Description
+
+// ===============================================================
+
+
+| <<ecs-hash,process.hash.*>>
+| Hashes, usually file hashes.
+
+// ===============================================================
+
 
 |=====
 
@@ -2458,6 +2808,32 @@ type: keyword
 
 // ===============================================================
 
+| server.nat.ip
+| Translated ip of destination based NAT sessions (e.g. internet to private DMZ)
+
+Typically used with load balancers, firewalls, or routers.
+
+type: ip
+
+
+
+| extended
+
+// ===============================================================
+
+| server.nat.port
+| Translated port of destination based NAT sessions (e.g. internet to private DMZ)
+
+Typically used with load balancers, firewalls, or routers.
+
+type: long
+
+
+
+| extended
+
+// ===============================================================
+
 | server.packets
 | Packets sent from the server to the client.
 
@@ -2493,6 +2869,12 @@ type: long
 [options="header"]
 |=====
 | Nested fields | Description
+
+// ===============================================================
+
+
+| <<ecs-as,server.as.*>>
+| Fields describing an Autonomous System (Internet routing prefix).
 
 // ===============================================================
 
@@ -2540,11 +2922,11 @@ example: `8a4f500f`
 // ===============================================================
 
 | service.id
-| Unique identifier of the running service.
+| Unique identifier of the running service. If the service is comprised of many nodes, the `service.id` should be the same for all nodes.
 
-This id should uniquely identify this service. This makes it possible to correlate logs and metrics for one specific service.
+This id should uniquely identify the service. This makes it possible to correlate logs and metrics for one specific service, no matter which particular node emitted the event.
 
-Example: If you are experiencing issues with one redis instance, you can filter on that id to see metrics and logs for that single instance.
+Note that if you need to see the events from one specific host of the service, you should filter on that `host.name` or `host.id` instead.
 
 type: keyword
 
@@ -2686,6 +3068,32 @@ type: keyword
 
 // ===============================================================
 
+| source.nat.ip
+| Translated ip of source based NAT sessions (e.g. internal client to internet)
+
+Typically connections traversing load balancers, firewalls, or routers.
+
+type: ip
+
+
+
+| extended
+
+// ===============================================================
+
+| source.nat.port
+| Translated port of source based NAT sessions. (e.g. internal client to internet)
+
+Typically used with load balancers, firewalls, or routers.
+
+type: long
+
+
+
+| extended
+
+// ===============================================================
+
 | source.packets
 | Packets sent from the source to the destination.
 
@@ -2721,6 +3129,12 @@ type: long
 [options="header"]
 |=====
 | Nested fields | Description
+
+// ===============================================================
+
+
+| <<ecs-as,source.as.*>>
+| Fields describing an Autonomous System (Internet routing prefix).
 
 // ===============================================================
 
@@ -2888,6 +3302,19 @@ Fields can have one entry or multiple entries. If a user has more than one id, p
 [options="header"]
 |=====
 | Field  | Description | Level
+
+// ===============================================================
+
+| user.domain
+| Name of the directory the user is a member of.
+
+For example, an LDAP or Active Directory domain name.
+
+type: keyword
+
+
+
+| extended
 
 // ===============================================================
 

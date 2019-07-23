@@ -32,6 +32,7 @@
         Can be one or multiple IPv4 or IPv6 addresses.
 
     - name: port
+      format: string
       level: core
       type: long
       description: >
@@ -64,3 +65,23 @@
       example: 12
       description: >
         Packets sent from the source to the destination.
+
+    - name: nat.ip
+      level: extended
+      type: ip
+      short: Source NAT ip
+      description: >
+        Translated ip of source based NAT sessions (e.g. internal client to internet)
+
+        Typically connections traversing load balancers, firewalls, or routers.
+    
+    - name: nat.port
+      format: string
+      level: extended
+      type: long
+      short: Source NAT port
+      description: >
+        Translated port of source based NAT sessions. (e.g. internal client to internet)
+
+        Typically used with load balancers, firewalls, or routers.
+        

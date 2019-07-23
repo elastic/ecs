@@ -56,12 +56,12 @@ fmt: ve
 
 # Alias to generate everything.
 .PHONY: generate
-generate: template legacy_use_cases codegen generator
+generate: template legacy_use_cases codegen generator schema.json
 
 # Run the new generator
 .PHONY: generator
 generator:
-	$(PYTHON) scripts/generator.py
+	$(PYTHON) scripts/generator.py --include "${INCLUDE}"
 
 # Generate Go code from the schema.
 .PHONY: gocodegen
@@ -75,7 +75,7 @@ gocodegen:
 
 # Generate the Use Cases
 .PHONY: legacy_use_cases
-legacy_use_cases:
+legacy_use_cases: ve
 	$(PYTHON) scripts/use-cases.py --stdout=true >> /dev/null
 
 # Check Makefile format.
@@ -93,6 +93,11 @@ misspell:
 
 .PHONY: reload_docs
 reload_docs: generator docs
+
+# Generate schema.json.
+.PHONY: schema.json
+schema.json: ve
+	$(PYTHON) scripts/schemas.py
 
 # Download and setup tooling dependencies.
 .PHONY: setup

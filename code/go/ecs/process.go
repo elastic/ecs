@@ -35,8 +35,11 @@ type Process struct {
 	// Sometimes called program name or similar.
 	Name string `ecs:"name"`
 
-	// Process parent id.
+	// Parent process' pid.
 	PPID int64 `ecs:"ppid"`
+
+	// Identifier of the group of processes the process belongs to.
+	PGID int64 `ecs:"pgid"`
 
 	// Array of process arguments.
 	// May be filtered to protect sensitive information.
@@ -56,6 +59,9 @@ type Process struct {
 
 	// The time the process started.
 	Start time.Time `ecs:"start"`
+
+	// Seconds the process has been up.
+	Uptime int64 `ecs:"uptime"`
 
 	// The working directory of the process.
 	WorkingDirectory string `ecs:"working_directory"`
