@@ -80,6 +80,27 @@ agent.version:
   order: 0
   short: Version of the agent.
   type: keyword
+as.number:
+  description: Unique number allocated to the autonomous system. The autonomous system
+    number (ASN) uniquely identifies each network on the Internet.
+  example: 15169
+  flat_name: as.number
+  level: extended
+  name: number
+  order: 0
+  short: Unique number allocated to the autonomous system. The autonomous system number
+    (ASN) uniquely identifies each network on the Internet.
+  type: long
+as.organization.name:
+  description: Organization name.
+  example: Google LLC
+  flat_name: as.organization.name
+  ignore_above: 1024
+  level: extended
+  name: organization.name
+  order: 1
+  short: Organization name.
+  type: keyword
 client.address:
   description: 'Some event client addresses are defined ambiguously. The event will
     sometimes list an IP, a domain or a unix socket.  You should always store the
@@ -93,6 +114,29 @@ client.address:
   name: address
   order: 0
   short: Client network address.
+  type: keyword
+client.as.number:
+  description: Unique number allocated to the autonomous system. The autonomous system
+    number (ASN) uniquely identifies each network on the Internet.
+  example: 15169
+  flat_name: client.as.number
+  level: extended
+  name: number
+  order: 0
+  original_fieldset: as
+  short: Unique number allocated to the autonomous system. The autonomous system number
+    (ASN) uniquely identifies each network on the Internet.
+  type: long
+client.as.organization.name:
+  description: Organization name.
+  example: Google LLC
+  flat_name: client.as.organization.name
+  ignore_above: 1024
+  level: extended
+  name: organization.name
+  order: 1
+  original_fieldset: as
+  short: Organization name.
   type: keyword
 client.bytes:
   description: Bytes sent from the client to the server.
@@ -225,6 +269,29 @@ client.mac:
   order: 3
   short: MAC address of the client.
   type: keyword
+client.nat.ip:
+  description: 'Translated IP of source based NAT sessions (e.g. internal client to
+    internet).
+
+    Typically connections traversing load balancers, firewalls, or routers.'
+  flat_name: client.nat.ip
+  level: extended
+  name: nat.ip
+  order: 7
+  short: Client NAT ip address
+  type: ip
+client.nat.port:
+  description: 'Translated port of source based NAT sessions (e.g. internal client
+    to internet).
+
+    Typically connections traversing load balancers, firewalls, or routers.'
+  flat_name: client.nat.port
+  format: string
+  level: extended
+  name: nat.port
+  order: 8
+  short: Client NAT port
+  type: long
 client.packets:
   description: Packets sent from the client to the server.
   example: 12
@@ -473,6 +540,29 @@ destination.address:
   order: 0
   short: Destination network address.
   type: keyword
+destination.as.number:
+  description: Unique number allocated to the autonomous system. The autonomous system
+    number (ASN) uniquely identifies each network on the Internet.
+  example: 15169
+  flat_name: destination.as.number
+  level: extended
+  name: number
+  order: 0
+  original_fieldset: as
+  short: Unique number allocated to the autonomous system. The autonomous system number
+    (ASN) uniquely identifies each network on the Internet.
+  type: long
+destination.as.organization.name:
+  description: Organization name.
+  example: Google LLC
+  flat_name: destination.as.organization.name
+  ignore_above: 1024
+  level: extended
+  name: organization.name
+  order: 1
+  original_fieldset: as
+  short: Organization name.
+  type: keyword
 destination.bytes:
   description: Bytes sent from the destination to the source.
   example: 184
@@ -604,6 +694,28 @@ destination.mac:
   order: 3
   short: MAC address of the destination.
   type: keyword
+destination.nat.ip:
+  description: 'Translated ip of destination based NAT sessions (e.g. internet to
+    private DMZ)
+
+    Typically used with load balancers, firewalls, or routers.'
+  flat_name: destination.nat.ip
+  level: extended
+  name: nat.ip
+  order: 7
+  short: Destination NAT ip
+  type: ip
+destination.nat.port:
+  description: 'Port the source session is translated to by NAT Device.
+
+    Typically used with load balancers, firewalls, or routers.'
+  flat_name: destination.nat.port
+  format: string
+  level: extended
+  name: nat.port
+  order: 8
+  short: Destination NAT Port
+  type: long
 destination.packets:
   description: Packets sent from the destination to the source.
   example: 12
@@ -2514,6 +2626,29 @@ server.address:
   order: 0
   short: Server network address.
   type: keyword
+server.as.number:
+  description: Unique number allocated to the autonomous system. The autonomous system
+    number (ASN) uniquely identifies each network on the Internet.
+  example: 15169
+  flat_name: server.as.number
+  level: extended
+  name: number
+  order: 0
+  original_fieldset: as
+  short: Unique number allocated to the autonomous system. The autonomous system number
+    (ASN) uniquely identifies each network on the Internet.
+  type: long
+server.as.organization.name:
+  description: Organization name.
+  example: Google LLC
+  flat_name: server.as.organization.name
+  ignore_above: 1024
+  level: extended
+  name: organization.name
+  order: 1
+  original_fieldset: as
+  short: Organization name.
+  type: keyword
 server.bytes:
   description: Bytes sent from the server to the client.
   example: 184
@@ -2645,6 +2780,29 @@ server.mac:
   order: 3
   short: MAC address of the server.
   type: keyword
+server.nat.ip:
+  description: 'Translated ip of destination based NAT sessions (e.g. internet to
+    private DMZ)
+
+    Typically used with load balancers, firewalls, or routers.'
+  flat_name: server.nat.ip
+  level: extended
+  name: nat.ip
+  order: 7
+  short: Server NAT ip
+  type: ip
+server.nat.port:
+  description: 'Translated port of destination based NAT sessions (e.g. internet to
+    private DMZ)
+
+    Typically used with load balancers, firewalls, or routers.'
+  flat_name: server.nat.port
+  format: string
+  level: extended
+  name: nat.port
+  order: 8
+  short: Server NAT port
+  type: long
 server.packets:
   description: Packets sent from the server to the client.
   example: 12
@@ -2764,13 +2922,15 @@ service.ephemeral_id:
   short: Ephemeral identifier of this service.
   type: keyword
 service.id:
-  description: 'Unique identifier of the running service.
+  description: 'Unique identifier of the running service. If the service is comprised
+    of many nodes, the `service.id` should be the same for all nodes.
 
-    This id should uniquely identify this service. This makes it possible to correlate
-    logs and metrics for one specific service.
+    This id should uniquely identify the service. This makes it possible to correlate
+    logs and metrics for one specific service, no matter which particular node emitted
+    the event.
 
-    Example: If you are experiencing issues with one redis instance, you can filter
-    on that id to see metrics and logs for that single instance.'
+    Note that if you need to see the events from one specific host of the service,
+    you should filter on that `host.name` or `host.id` instead.'
   example: d37e5ebfe0ae6c4972dbe9f0174a1637bb8247f6
   flat_name: service.id
   ignore_above: 1024
@@ -2850,6 +3010,29 @@ source.address:
   name: address
   order: 0
   short: Source network address.
+  type: keyword
+source.as.number:
+  description: Unique number allocated to the autonomous system. The autonomous system
+    number (ASN) uniquely identifies each network on the Internet.
+  example: 15169
+  flat_name: source.as.number
+  level: extended
+  name: number
+  order: 0
+  original_fieldset: as
+  short: Unique number allocated to the autonomous system. The autonomous system number
+    (ASN) uniquely identifies each network on the Internet.
+  type: long
+source.as.organization.name:
+  description: Organization name.
+  example: Google LLC
+  flat_name: source.as.organization.name
+  ignore_above: 1024
+  level: extended
+  name: organization.name
+  order: 1
+  original_fieldset: as
+  short: Organization name.
   type: keyword
 source.bytes:
   description: Bytes sent from the source to the destination.
@@ -2982,6 +3165,29 @@ source.mac:
   order: 3
   short: MAC address of the source.
   type: keyword
+source.nat.ip:
+  description: 'Translated ip of source based NAT sessions (e.g. internal client to
+    internet)
+
+    Typically connections traversing load balancers, firewalls, or routers.'
+  flat_name: source.nat.ip
+  level: extended
+  name: nat.ip
+  order: 7
+  short: Source NAT ip
+  type: ip
+source.nat.port:
+  description: 'Translated port of source based NAT sessions. (e.g. internal client
+    to internet)
+
+    Typically used with load balancers, firewalls, or routers.'
+  flat_name: source.nat.port
+  format: string
+  level: extended
+  name: nat.port
+  order: 8
+  short: Source NAT port
+  type: long
 source.packets:
   description: Packets sent from the source to the destination.
   example: 12
