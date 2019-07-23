@@ -482,6 +482,205 @@
     "title": "Destination", 
     "type": "group"
   }, 
+  "dns": {
+    "description": "DNS-specific event fields.\n", 
+    "fields": {
+      "dns.answers": {
+        "description": "An array containing an object for each answer section returned by the server.\nThe main keys that should be present in these objects are defined by ECS. Records that have more information may contain more keys than what ECS defines.\nNot all sources give all details about DNS answers.  At minimum, answer objects must contain the `data` key. If more information is available, map as much of it to ECS as possible, and add any additional fields to the answer objects as custom fields.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "dns.answers", 
+        "required": false, 
+        "type": "object"
+      }, 
+      "dns.answers.class": {
+        "description": "The class of DNS data contained in this resource record.", 
+        "example": "IN", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "dns.answers.class", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "dns.answers.data": {
+        "description": "The data describing the resource.\nThe meaning of this data depends on the type and class of the resource record.", 
+        "example": "10.10.10.10", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "dns.answers.data", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "dns.answers.name": {
+        "description": "The domain name to which this resource record pertains.\nIf a chain of CNAME is being resolved, each answer's `name` should be the one that corresponds with the answer's `data`. It should not simply be the original `question.name` repeated.", 
+        "example": "www.google.com", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "dns.answers.name", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "dns.answers.ttl": {
+        "description": "The time interval in seconds that this resource record may be cached before it should be discarded. Zero values mean that the data should not be cached.", 
+        "example": "180", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "dns.answers.ttl", 
+        "required": false, 
+        "type": "long"
+      }, 
+      "dns.answers.type": {
+        "description": "The type of data contained in this resource record.", 
+        "example": "CNAME", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "dns.answers.type", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "dns.answers_count": {
+        "description": "The number of resource records contained in the `dns.answers` field.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "dns.answers_count", 
+        "required": false, 
+        "type": "long"
+      }, 
+      "dns.flags": {
+        "description": "Array of 2 letter DNS flags.\nExpected values are: AA, TC, RD, RA, AD, CD, DO", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "dns.flags", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "dns.grouped.domain": {
+        "description": "Array containing all domain names seen in answers.data\nThe `answers` array can be difficult to use, because of the variety of data formats it can contain. Extracting all IP addresses seen in there to `dns.grouped.ip` makes it possible to index them as IP addresses, and makes them easier to visualize and query for.\nNote that A and AAAA queries can get CNAME answers back, before the final set of A or AAAA records. These CNAMEs should be appended to `dns.grouped.domain`, even if the query was not for a CNAME specifically.", 
+        "example": "['example.com.someproviderdns.com']", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "dns.grouped.domain", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "dns.grouped.ip": {
+        "description": "Array containing all IPs seen in `answers.data`.\nThe `answers` array can be difficult to use, because of the variety of data formats it can contain. Extracting all IP addresses seen in there to `dns.grouped.ip` makes it possible to index them as IP addresses, and makes them easier to visualize and query for.", 
+        "example": "['10.10.10.10', '10.10.10.11']", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "dns.grouped.ip", 
+        "required": false, 
+        "type": "ip"
+      }, 
+      "dns.id": {
+        "description": "The DNS packet identifier assigned by the program that generated the query. The identifier is copied to the response.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "dns.id", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "dns.op_code": {
+        "description": "The DNS operation code that specifies the kind of query in the message. This value is set by the originator of a query and copied into the response.", 
+        "example": "QUERY", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "dns.op_code", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "dns.question.class": {
+        "description": "The class of of records being queried.", 
+        "example": "IN", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "dns.question.class", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "dns.question.length": {
+        "description": "The length of the name being queried (in bytes).\nThis is useful to detect data exfiltration via DNS queries.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "dns.question.length", 
+        "required": false, 
+        "type": "long"
+      }, 
+      "dns.question.name": {
+        "description": "The name being queried.\nIf the name field contains non-printable characters (below 32 or above 126), those characters should be represented as escaped base 10 integers (\\DDD). Back slashes and quotes should be escaped. Tabs, carriage returns, and line feeds should be converted to \\t, \\r, and \\n respectively.", 
+        "example": "www.google.com", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "dns.question.name", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "dns.question.registered_domain": {
+        "description": "The highest registered domain, stripped of the subdomain.\nFor example, the registered domain for \"foo.google.com\" is \"google.com\".\nThis value can be determined precisely with a list like the public suffix list (http://publicsuffix.org). Trying to approximate this by simply taking the last two labels will not work well for TLDs such as \"co.uk\".", 
+        "example": "google.com", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "dns.question.registered_domain", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "dns.question.type": {
+        "description": "The type of record being queried.", 
+        "example": "AAAA", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "dns.question.type", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "dns.response_code": {
+        "description": "The DNS response code.", 
+        "example": "NOERROR", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "dns.response_code", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "dns.type": {
+        "description": "The type of DNS event captured, query or answer.\nIf your source of DNS events only gives you DNS queries, you should only create dns events of type `dns.type:query`.\nIf your source of DNS events gives you answers as well, you should create one event per query (optionally as soon as the query is seen). And a second event containing all query details as well as an array of answers.", 
+        "example": "answer", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "dns.type", 
+        "required": false, 
+        "type": "keyword"
+      }
+    }, 
+    "group": 2, 
+    "name": "dns", 
+    "title": "DNS", 
+    "type": "group"
+  }, 
   "ecs": {
     "description": "Meta-information specific to ECS.\n", 
     "fields": {
