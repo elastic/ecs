@@ -40,6 +40,6 @@ type Risk struct {
 
 	// comparative risk score quantitavely scoring the level of risk of the
 	// asset or data, or risk represented by a given threat (typically provided
-	// by )
+	// by the observer or IOC provider)
 	Score int64 `ecs:"score"`
 }
