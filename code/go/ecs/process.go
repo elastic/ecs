@@ -57,6 +57,9 @@ type Process struct {
 	// Thread ID.
 	ThreadID int64 `ecs:"thread.id"`
 
+	// Thread name.
+	ThreadName string `ecs:"thread.name"`
+
 	// The time the process started.
 	Start time.Time `ecs:"start"`
 
