@@ -1,40 +1,52 @@
 ---
-- name: hash
+- name: risk
   title: Group
   group: 2
   type: group
-  short: Risk Metrics and Labels
+  short: Risk Scores and Labels
   description: >
-    The risk fields represent the criticality of assets or the potential risk of threats & vulnerabilities
+    Risk fields represent the normalized comparative sensitivity of internal resources or the potential risk of threats, vulnerabilities, and IOCs.
 
-    Field names for common hashes (e.g. MD5, SHA1) are predefined. Add fields for other hashes
-    by lowercasing the hash algorithm name and using underscore separators as appropriate
-    (snake case, e.g. sha3_512).
+    At the event level normalized risk is calculated based on any risk metrics available for lookup for the given event
+    (e.g. a user, source, destination in a firewall log, a client and file in a endpoint file/process log). The final event score
+    is calculated by summing the squares of each avaialble risk score and dividing by the total multiple of available scores.
+    As an example:  ( user.risk + source.risk + destination.risk ) / ( user.risk + source.risk + destination.risk )
+
+    Risk labels are for labeling the type of business risk represented by a given resource, typically in reference to the data
+    housed in an asset or zone, the level of access of a given user or group, or the risk represented by a given threat or IOC.
 
   reusable:
     top_level: false
     expected:
+      - event
+      - user
+      - group
+      - client
+      - source
+      - server
+      - destination
+      - cloud
+      - container
+      - network
       - file
-      - process
+      - threat
+      - vulnerbility
+
 
   fields:
 
-    - name: md5
+    - name: label
       level: extended
       type: keyword
-      description: MD5 hash.
+      description: locally relevant label to describe the risk type of asset or data identified either 
+        specific to a local data classification system or regulatory/compliance applicability
 
-    - name: sha1
-      level: extended
-      type: keyword
-      description: SHA1 hash.
+      example: public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR
 
-    - name: sha256
+    - name: score
       level: extended
-      type: keyword
-      description: SHA256 hash.
+      type: long
+      description: comparative risk score quantitavely scoring the level of risk of the asset or data, 
+        or risk represented by a given threat (typically provided by )
 
-    - name: sha512
-      level: extended
-      type: keyword
-      description: SHA512 hash.
+      example: 1-10
