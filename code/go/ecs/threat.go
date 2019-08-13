@@ -28,15 +28,16 @@ type Threat struct {
 	ID string `ecs:"id"`
 
 	// Threat name as reported by system or intel provider
-	// The field value must be normalized to lowercase for querying. See the
-	// documentation section "Implementing ECS".
 	Name string `ecs:"name"`
 
-	// The Mitre ATT&CK Matrix Tactic categorization of the identified threat
+	// The type of tactic used by this threat. You can use the Mitre ATT&CK
+	// Matrix Tactic categorization, for example. (ex.
+	// https://attack.mitre.org/tactics/TA0040/ )
 	Tactic string `ecs:"tactic"`
 
-	// The Mitre ATT&CK Matric Technique categorization of the identified
-	// threat
+	// The type of technique used by this threat. You can use the Mitre ATT&CK
+	// Matrix Tactic categorization, for example. (ex.
+	// https://attack.mitre.org/techniques/T1499/ )
 	Technique string `ecs:"technique"`
 
 	// Textual description of the observed threat or threat intel that provides
@@ -48,6 +49,6 @@ type Threat struct {
 	Severity string `ecs:"severity"`
 
 	// Typically a qualitative description of the confidence that the threat
-	// identification is correct
+	// identification is  correct provided by the observer
 	Confidence string `ecs:"confidence"`
 }

@@ -3505,8 +3505,8 @@ threat:
   fields:
     confidence:
       description: Typically a qualitative description of the confidence that the
-        threat identification is correct
-      example: medium
+        threat identification is  correct provided by the observer
+      example: low, medium, high, 1-5, 1-10, etc
       flat_name: threat.confidence
       ignore_above: 1024
       level: extended
@@ -3537,10 +3537,7 @@ threat:
       short: Threat ID
       type: keyword
     name:
-      description: 'Threat name as reported by system or intel provider
-
-        The field value must be normalized to lowercase for querying. See the documentation
-        section "Implementing ECS".'
+      description: Threat name as reported by system or intel provider
       example: ntp reserved mode denial of service
       flat_name: threat.name
       ignore_above: 1024
@@ -3552,32 +3549,40 @@ threat:
     severity:
       description: Typically a qualitative description of the risk associated with
         the observed threat or IOC
-      example: high
+      example: low, medium, high, critical, 1-5, 1-10, etc.
       flat_name: threat.severity
       ignore_above: 1024
       level: extended
       name: severity
       order: 5
-      short: Severity of the threat as identified by the observer/ threat intel feed
+      short: Severity of the threat as reported by the observer/threat intel feed
       type: keyword
     tactic:
-      description: The Mitre ATT&CK Matrix Tactic categorization of the identified
-        threat
+      description: The type of tactic used by this threat. You can use the Mitre ATT&CK
+        Matrix Tactic categorization, for example. (ex. https://attack.mitre.org/tactics/TA0040/
+        )
       example: impact
       flat_name: threat.tactic
       ignore_above: 1024
       level: extended
+      multi_field:
+        name: text
+        type: text
       name: tactic
       order: 2
       short: Mitre ATT&CK Matrix tactic
       type: keyword
     technique:
-      description: The Mitre ATT&CK Matric Technique categorization of the identified
-        threat
+      description: The type of technique used by this threat. You can use the Mitre
+        ATT&CK Matrix Tactic categorization, for example. (ex. https://attack.mitre.org/techniques/T1499/
+        )
       example: endpoint denial of service
       flat_name: threat.technique
       ignore_above: 1024
       level: extended
+      multi_field:
+        name: text
+        type: text
       name: technique
       order: 3
       short: Mitre ATT&CK Matrix technique

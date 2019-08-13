@@ -13,11 +13,12 @@
 * Added `file.name` and `file.directory`. #441
 * Added `file.created`, and `file.accessed`. #445
 * Added `domain` field to user. #486
-* added 'threat' fields for threat detections #113
+* added 'threat' fields for threat detections #505
 
 ### Improvements
 
 * Added examples and improved definitions of many `file` fields. #441
+* Updated Threat fields tactic/technique multifield, etc #505
 
 ### Deprecated
 

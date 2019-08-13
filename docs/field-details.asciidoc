@@ -2741,11 +2741,11 @@ ECS threat fields encompass detected suspicious activity (e.g. IDS alert, malwar
 // ===============================================================
 
 | threat.confidence
-| Typically a qualitative description of the confidence that the threat identification is correct
+| Typically a qualitative description of the confidence that the threat identification is  correct provided by the observer
 
 type: keyword
 
-example: `medium`
+example: `low, medium, high, 1-5, 1-10, etc`
 
 | extended
 
@@ -2776,8 +2776,6 @@ example: `33227`
 | threat.name
 | Threat name as reported by system or intel provider
 
-The field value must be normalized to lowercase for querying. See the documentation section "Implementing ECS".
-
 type: keyword
 
 example: `ntp reserved mode denial of service`
@@ -2791,14 +2789,14 @@ example: `ntp reserved mode denial of service`
 
 type: keyword
 
-example: `high`
+example: `low, medium, high, critical, 1-5, 1-10, etc.`
 
 | extended
 
 // ===============================================================
 
 | threat.tactic
-| The Mitre ATT&CK Matrix Tactic categorization of the identified threat
+| The type of tactic used by this threat. You can use the Mitre ATT&CK Matrix Tactic categorization, for example. (ex. https://attack.mitre.org/tactics/TA0040/ )
 
 type: keyword
 
@@ -2809,7 +2807,7 @@ example: `impact`
 // ===============================================================
 
 | threat.technique
-| The Mitre ATT&CK Matric Technique categorization of the identified threat
+| The type of technique used by this threat. You can use the Mitre ATT&CK Matrix Tactic categorization, for example. (ex. https://attack.mitre.org/techniques/T1499/ )
 
 type: keyword
 

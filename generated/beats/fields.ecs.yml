@@ -2155,8 +2155,8 @@
       type: keyword
       ignore_above: 1024
       description: Typically a qualitative description of the confidence that the
-        threat identification is correct
-      example: medium
+        threat identification is  correct provided by the observer
+      example: low, medium, high, 1-5, 1-10, etc
     - name: description
       level: extended
       type: keyword
@@ -2175,10 +2175,7 @@
       level: extended
       type: keyword
       ignore_above: 1024
-      description: 'Threat name as reported by system or intel provider
-
-        The field value must be normalized to lowercase for querying. See the documentation
-        section "Implementing ECS".'
+      description: Threat name as reported by system or intel provider
       example: ntp reserved mode denial of service
     - name: severity
       level: extended
@@ -2186,20 +2183,22 @@
       ignore_above: 1024
       description: Typically a qualitative description of the risk associated with
         the observed threat or IOC
-      example: high
+      example: low, medium, high, critical, 1-5, 1-10, etc.
     - name: tactic
       level: extended
       type: keyword
       ignore_above: 1024
-      description: The Mitre ATT&CK Matrix Tactic categorization of the identified
-        threat
+      description: The type of tactic used by this threat. You can use the Mitre ATT&CK
+        Matrix Tactic categorization, for example. (ex. https://attack.mitre.org/tactics/TA0040/
+        )
       example: impact
     - name: technique
       level: extended
       type: keyword
       ignore_above: 1024
-      description: The Mitre ATT&CK Matric Technique categorization of the identified
-        threat
+      description: The type of technique used by this threat. You can use the Mitre
+        ATT&CK Matrix Tactic categorization, for example. (ex. https://attack.mitre.org/techniques/T1499/
+        )
       example: endpoint denial of service
   - name: url
     title: URL
