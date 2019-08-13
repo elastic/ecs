@@ -110,6 +110,27 @@
       ignore_above: 1024
       description: Version of the agent.
       example: 6.0.0-rc2
+  - name: as
+    title: Autonomous System
+    group: 2
+    description: An autonomous system (AS) is a collection of connected Internet Protocol
+      (IP) routing prefixes under the control of one or more network operators on
+      behalf of a single administrative entity or domain that presents a common, clearly
+      defined routing policy to the internet.
+    type: group
+    fields:
+    - name: number
+      level: extended
+      type: long
+      description: Unique number allocated to the autonomous system. The autonomous
+        system number (ASN) uniquely identifies each network on the Internet.
+      example: 15169
+    - name: organization.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Organization name.
+      example: Google LLC
   - name: client
     title: Client
     group: 2
@@ -140,6 +161,18 @@
 
         Then it should be duplicated to `.ip` or `.domain`, depending on which one
         it is.'
+    - name: as.number
+      level: extended
+      type: long
+      description: Unique number allocated to the autonomous system. The autonomous
+        system number (ASN) uniquely identifies each network on the Internet.
+      example: 15169
+    - name: as.organization.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Organization name.
+      example: Google LLC
     - name: bytes
       level: core
       type: long
@@ -215,6 +248,21 @@
       type: keyword
       ignore_above: 1024
       description: MAC address of the client.
+    - name: nat.ip
+      level: extended
+      type: ip
+      description: 'Translated IP of source based NAT sessions (e.g. internal client
+        to internet).
+
+        Typically connections traversing load balancers, firewalls, or routers.'
+    - name: nat.port
+      level: extended
+      type: long
+      format: string
+      description: 'Translated port of source based NAT sessions (e.g. internal client
+        to internet).
+
+        Typically connections traversing load balancers, firewalls, or routers.'
     - name: packets
       level: core
       type: long
@@ -463,6 +511,18 @@
 
         Then it should be duplicated to `.ip` or `.domain`, depending on which one
         it is.'
+    - name: as.number
+      level: extended
+      type: long
+      description: Unique number allocated to the autonomous system. The autonomous
+        system number (ASN) uniquely identifies each network on the Internet.
+      example: 15169
+    - name: as.organization.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Organization name.
+      example: Google LLC
     - name: bytes
       level: core
       type: long
@@ -538,6 +598,20 @@
       type: keyword
       ignore_above: 1024
       description: MAC address of the destination.
+    - name: nat.ip
+      level: extended
+      type: ip
+      description: 'Translated ip of destination based NAT sessions (e.g. internet
+        to private DMZ)
+
+        Typically used with load balancers, firewalls, or routers.'
+    - name: nat.port
+      level: extended
+      type: long
+      format: string
+      description: 'Port the source session is translated to by NAT Device.
+
+        Typically used with load balancers, firewalls, or routers.'
     - name: packets
       level: core
       type: long
@@ -2031,6 +2105,18 @@
 
         Then it should be duplicated to `.ip` or `.domain`, depending on which one
         it is.'
+    - name: as.number
+      level: extended
+      type: long
+      description: Unique number allocated to the autonomous system. The autonomous
+        system number (ASN) uniquely identifies each network on the Internet.
+      example: 15169
+    - name: as.organization.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Organization name.
+      example: Google LLC
     - name: bytes
       level: core
       type: long
@@ -2106,6 +2192,21 @@
       type: keyword
       ignore_above: 1024
       description: MAC address of the server.
+    - name: nat.ip
+      level: extended
+      type: ip
+      description: 'Translated ip of destination based NAT sessions (e.g. internet
+        to private DMZ)
+
+        Typically used with load balancers, firewalls, or routers.'
+    - name: nat.port
+      level: extended
+      type: long
+      format: string
+      description: 'Translated port of destination based NAT sessions (e.g. internet
+        to private DMZ)
+
+        Typically used with load balancers, firewalls, or routers.'
     - name: packets
       level: core
       type: long
@@ -2230,13 +2331,15 @@
       level: core
       type: keyword
       ignore_above: 1024
-      description: 'Unique identifier of the running service.
+      description: 'Unique identifier of the running service. If the service is comprised
+        of many nodes, the `service.id` should be the same for all nodes.
 
-        This id should uniquely identify this service. This makes it possible to correlate
-        logs and metrics for one specific service.
+        This id should uniquely identify the service. This makes it possible to correlate
+        logs and metrics for one specific service, no matter which particular node
+        emitted the event.
 
-        Example: If you are experiencing issues with one redis instance, you can filter
-        on that id to see metrics and logs for that single instance.'
+        Note that if you need to see the events from one specific host of the service,
+        you should filter on that `host.name` or `host.id` instead.'
       example: d37e5ebfe0ae6c4972dbe9f0174a1637bb8247f6
     - name: name
       level: core
@@ -2298,6 +2401,18 @@
 
         Then it should be duplicated to `.ip` or `.domain`, depending on which one
         it is.'
+    - name: as.number
+      level: extended
+      type: long
+      description: Unique number allocated to the autonomous system. The autonomous
+        system number (ASN) uniquely identifies each network on the Internet.
+      example: 15169
+    - name: as.organization.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Organization name.
+      example: Google LLC
     - name: bytes
       level: core
       type: long
@@ -2373,6 +2488,21 @@
       type: keyword
       ignore_above: 1024
       description: MAC address of the source.
+    - name: nat.ip
+      level: extended
+      type: ip
+      description: 'Translated ip of source based NAT sessions (e.g. internal client
+        to internet)
+
+        Typically connections traversing load balancers, firewalls, or routers.'
+    - name: nat.port
+      level: extended
+      type: long
+      format: string
+      description: 'Translated port of source based NAT sessions. (e.g. internal client
+        to internet)
+
+        Typically used with load balancers, firewalls, or routers.'
     - name: packets
       level: core
       type: long

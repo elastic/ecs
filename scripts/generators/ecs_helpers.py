@@ -1,6 +1,7 @@
 import yaml
 
 from collections import OrderedDict
+from copy import deepcopy
 
 # Dictionary helpers
 
@@ -33,6 +34,17 @@ def dict_sorted_by_keys(dict, sort_keys):
         tuples.append(sort_criteria)
 
     return list(map(lambda t: t[-1], sorted(tuples)))
+
+
+def safe_merge_dicts(a, b):
+    """Merges two dictionaries into one. If duplicate keys are detected a ValueError is raised."""
+    c = deepcopy(a)
+    for key in b:
+        if key not in c:
+            c[key] = b[key]
+        else:
+            raise ValueError('Duplicate key found when merging dictionaries: {0}'.format(key))
+    return c
 
 
 def yaml_ordereddict(dumper, data):
