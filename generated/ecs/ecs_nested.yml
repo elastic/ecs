@@ -81,6 +81,46 @@ agent:
   short: Fields about the monitoring agent.
   title: Agent
   type: group
+as:
+  description: An autonomous system (AS) is a collection of connected Internet Protocol
+    (IP) routing prefixes under the control of one or more network operators on behalf
+    of a single administrative entity or domain that presents a common, clearly defined
+    routing policy to the internet.
+  fields:
+    number:
+      description: Unique number allocated to the autonomous system. The autonomous
+        system number (ASN) uniquely identifies each network on the Internet.
+      example: 15169
+      flat_name: as.number
+      level: extended
+      name: number
+      order: 0
+      short: Unique number allocated to the autonomous system. The autonomous system
+        number (ASN) uniquely identifies each network on the Internet.
+      type: long
+    organization.name:
+      description: Organization name.
+      example: Google LLC
+      flat_name: as.organization.name
+      ignore_above: 1024
+      level: extended
+      name: organization.name
+      order: 1
+      short: Organization name.
+      type: keyword
+  group: 2
+  name: as
+  prefix: as.
+  reusable:
+    expected:
+    - client
+    - destination
+    - server
+    - source
+    top_level: false
+  short: Fields describing an Autonomous System (Internet routing prefix).
+  title: Autonomous System
+  type: group
 base:
   description: The `base` field set contains all fields which are on the top level.
     These fields are common across all types of events.
@@ -183,6 +223,29 @@ client:
       name: address
       order: 0
       short: Client network address.
+      type: keyword
+    as.number:
+      description: Unique number allocated to the autonomous system. The autonomous
+        system number (ASN) uniquely identifies each network on the Internet.
+      example: 15169
+      flat_name: client.as.number
+      level: extended
+      name: number
+      order: 0
+      original_fieldset: as
+      short: Unique number allocated to the autonomous system. The autonomous system
+        number (ASN) uniquely identifies each network on the Internet.
+      type: long
+    as.organization.name:
+      description: Organization name.
+      example: Google LLC
+      flat_name: client.as.organization.name
+      ignore_above: 1024
+      level: extended
+      name: organization.name
+      order: 1
+      original_fieldset: as
+      short: Organization name.
       type: keyword
     bytes:
       description: Bytes sent from the client to the server.
@@ -315,6 +378,29 @@ client:
       order: 3
       short: MAC address of the client.
       type: keyword
+    nat.ip:
+      description: 'Translated IP of source based NAT sessions (e.g. internal client
+        to internet).
+
+        Typically connections traversing load balancers, firewalls, or routers.'
+      flat_name: client.nat.ip
+      level: extended
+      name: nat.ip
+      order: 7
+      short: Client NAT ip address
+      type: ip
+    nat.port:
+      description: 'Translated port of source based NAT sessions (e.g. internal client
+        to internet).
+
+        Typically connections traversing load balancers, firewalls, or routers.'
+      flat_name: client.nat.port
+      format: string
+      level: extended
+      name: nat.port
+      order: 8
+      short: Client NAT port
+      type: long
     packets:
       description: Packets sent from the client to the server.
       example: 12
@@ -425,6 +511,7 @@ client:
   name: client
   nestings:
   - geo
+  - as
   - user
   prefix: client.
   short: Fields about the client side of a network connection, used with server.
@@ -604,6 +691,29 @@ destination:
       order: 0
       short: Destination network address.
       type: keyword
+    as.number:
+      description: Unique number allocated to the autonomous system. The autonomous
+        system number (ASN) uniquely identifies each network on the Internet.
+      example: 15169
+      flat_name: destination.as.number
+      level: extended
+      name: number
+      order: 0
+      original_fieldset: as
+      short: Unique number allocated to the autonomous system. The autonomous system
+        number (ASN) uniquely identifies each network on the Internet.
+      type: long
+    as.organization.name:
+      description: Organization name.
+      example: Google LLC
+      flat_name: destination.as.organization.name
+      ignore_above: 1024
+      level: extended
+      name: organization.name
+      order: 1
+      original_fieldset: as
+      short: Organization name.
+      type: keyword
     bytes:
       description: Bytes sent from the destination to the source.
       example: 184
@@ -735,6 +845,28 @@ destination:
       order: 3
       short: MAC address of the destination.
       type: keyword
+    nat.ip:
+      description: 'Translated ip of destination based NAT sessions (e.g. internet
+        to private DMZ)
+
+        Typically used with load balancers, firewalls, or routers.'
+      flat_name: destination.nat.ip
+      level: extended
+      name: nat.ip
+      order: 7
+      short: Destination NAT ip
+      type: ip
+    nat.port:
+      description: 'Port the source session is translated to by NAT Device.
+
+        Typically used with load balancers, firewalls, or routers.'
+      flat_name: destination.nat.port
+      format: string
+      level: extended
+      name: nat.port
+      order: 8
+      short: Destination NAT Port
+      type: long
     packets:
       description: Packets sent from the destination to the source.
       example: 12
@@ -845,6 +977,7 @@ destination:
   name: destination
   nestings:
   - geo
+  - as
   - user
   prefix: destination.
   short: Fields about the destination side of a network connection, used with source.
@@ -2889,6 +3022,29 @@ server:
       order: 0
       short: Server network address.
       type: keyword
+    as.number:
+      description: Unique number allocated to the autonomous system. The autonomous
+        system number (ASN) uniquely identifies each network on the Internet.
+      example: 15169
+      flat_name: server.as.number
+      level: extended
+      name: number
+      order: 0
+      original_fieldset: as
+      short: Unique number allocated to the autonomous system. The autonomous system
+        number (ASN) uniquely identifies each network on the Internet.
+      type: long
+    as.organization.name:
+      description: Organization name.
+      example: Google LLC
+      flat_name: server.as.organization.name
+      ignore_above: 1024
+      level: extended
+      name: organization.name
+      order: 1
+      original_fieldset: as
+      short: Organization name.
+      type: keyword
     bytes:
       description: Bytes sent from the server to the client.
       example: 184
@@ -3020,6 +3176,29 @@ server:
       order: 3
       short: MAC address of the server.
       type: keyword
+    nat.ip:
+      description: 'Translated ip of destination based NAT sessions (e.g. internet
+        to private DMZ)
+
+        Typically used with load balancers, firewalls, or routers.'
+      flat_name: server.nat.ip
+      level: extended
+      name: nat.ip
+      order: 7
+      short: Server NAT ip
+      type: ip
+    nat.port:
+      description: 'Translated port of destination based NAT sessions (e.g. internet
+        to private DMZ)
+
+        Typically used with load balancers, firewalls, or routers.'
+      flat_name: server.nat.port
+      format: string
+      level: extended
+      name: nat.port
+      order: 8
+      short: Server NAT port
+      type: long
     packets:
       description: Packets sent from the server to the client.
       example: 12
@@ -3130,6 +3309,7 @@ server:
   name: server
   nestings:
   - geo
+  - as
   - user
   prefix: server.
   short: Fields about the server side of a network connection, used with client.
@@ -3154,13 +3334,15 @@ service:
       short: Ephemeral identifier of this service.
       type: keyword
     id:
-      description: 'Unique identifier of the running service.
+      description: 'Unique identifier of the running service. If the service is comprised
+        of many nodes, the `service.id` should be the same for all nodes.
 
-        This id should uniquely identify this service. This makes it possible to correlate
-        logs and metrics for one specific service.
+        This id should uniquely identify the service. This makes it possible to correlate
+        logs and metrics for one specific service, no matter which particular node
+        emitted the event.
 
-        Example: If you are experiencing issues with one redis instance, you can filter
-        on that id to see metrics and logs for that single instance.'
+        Note that if you need to see the events from one specific host of the service,
+        you should filter on that `host.name` or `host.id` instead.'
       example: d37e5ebfe0ae6c4972dbe9f0174a1637bb8247f6
       flat_name: service.id
       ignore_above: 1024
@@ -3251,6 +3433,29 @@ source:
       name: address
       order: 0
       short: Source network address.
+      type: keyword
+    as.number:
+      description: Unique number allocated to the autonomous system. The autonomous
+        system number (ASN) uniquely identifies each network on the Internet.
+      example: 15169
+      flat_name: source.as.number
+      level: extended
+      name: number
+      order: 0
+      original_fieldset: as
+      short: Unique number allocated to the autonomous system. The autonomous system
+        number (ASN) uniquely identifies each network on the Internet.
+      type: long
+    as.organization.name:
+      description: Organization name.
+      example: Google LLC
+      flat_name: source.as.organization.name
+      ignore_above: 1024
+      level: extended
+      name: organization.name
+      order: 1
+      original_fieldset: as
+      short: Organization name.
       type: keyword
     bytes:
       description: Bytes sent from the source to the destination.
@@ -3383,6 +3588,29 @@ source:
       order: 3
       short: MAC address of the source.
       type: keyword
+    nat.ip:
+      description: 'Translated ip of source based NAT sessions (e.g. internal client
+        to internet)
+
+        Typically connections traversing load balancers, firewalls, or routers.'
+      flat_name: source.nat.ip
+      level: extended
+      name: nat.ip
+      order: 7
+      short: Source NAT ip
+      type: ip
+    nat.port:
+      description: 'Translated port of source based NAT sessions. (e.g. internal client
+        to internet)
+
+        Typically used with load balancers, firewalls, or routers.'
+      flat_name: source.nat.port
+      format: string
+      level: extended
+      name: nat.port
+      order: 8
+      short: Source NAT port
+      type: long
     packets:
       description: Packets sent from the source to the destination.
       example: 12
@@ -3493,6 +3721,7 @@ source:
   name: source
   nestings:
   - geo
+  - as
   - user
   prefix: source.
   short: Fields about the source side of a network connection, used with destination.

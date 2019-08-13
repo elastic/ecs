@@ -13,7 +13,10 @@
 * Added `file.name` and `file.directory`. #441
 * Added `file.created`, and `file.accessed`. #445
 * Added `domain` field to user. #486
-* added 'risk' fields. #Pending PR Submittal
+* Added `.nat.ip` and `.nat.port` to `source`, `destination`, `client` and `server`. #491 
+* Added `as` fields for Autonomous System information (i.e. ASN). #341
+* added 'risk' fields. ##518
+
 
 ### Improvements
 
