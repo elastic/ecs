@@ -13,6 +13,7 @@
 * Added `file.name` and `file.directory`. #441
 * Added `file.created`, and `file.accessed`. #445
 * Added `domain` field to user. #486
+* added 'risk' fields. #Pending PR Submittal
 
 ### Improvements
 
