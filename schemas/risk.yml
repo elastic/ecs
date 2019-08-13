@@ -1,0 +1,40 @@
+---
+- name: hash
+  title: Group
+  group: 2
+  type: group
+  short: Risk Metrics and Labels
+  description: >
+    The risk fields represent the criticality of assets or the potential risk of threats & vulnerabilities
+
+    Field names for common hashes (e.g. MD5, SHA1) are predefined. Add fields for other hashes
+    by lowercasing the hash algorithm name and using underscore separators as appropriate
+    (snake case, e.g. sha3_512).
+
+  reusable:
+    top_level: false
+    expected:
+      - file
+      - process
+
+  fields:
+
+    - name: md5
+      level: extended
+      type: keyword
+      description: MD5 hash.
+
+    - name: sha1
+      level: extended
+      type: keyword
+      description: SHA1 hash.
+
+    - name: sha256
+      level: extended
+      type: keyword
+      description: SHA256 hash.
+
+    - name: sha512
+      level: extended
+      type: keyword
+      description: SHA512 hash.
