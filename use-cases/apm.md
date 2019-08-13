@@ -16,6 +16,10 @@ ECS usage for the APM data.
 | [service.id](../README.md#service.id)  | Unique identifier of the running service. | core | keyword | `d37e5ebfe0ae6c4972dbe9f0174a1637bb8247f6` |
 | [service.name](../README.md#service.name)  | Name of the service the agent is running in. This is normally a user defined name. | core | keyword | `user-service` |
 | [service.version](../README.md#service.version)  | Version of the service the agent is running in. This depends on if the service is given a version. | core | keyword | `3.2.4` |
+| <a name="trace.&ast;"></a>*trace.&ast;* | *A trace groups together multipe events like transactions that belong together. For example, a user request handled by multiple inter-connected services.<br/>* |  |  |  |
+| <a name="trace.id"></a>*trace.id* | *Unique identifier of the trace.* | (use case) | keyword | `4bf92f3577b34da6a3ce929d0e0e4736` |
+| <a name="transaction.&ast;"></a>*transaction.&ast;* | *The highest level of work you're measuring within a service, such as a request to your server.<br/>* |  |  |  |
+| <a name="transaction.id"></a>*transaction.id* | *Unique identifier of the transaction.* | (use case) | keyword | `00f067aa0ba902b7` |
 
 
 
