@@ -90,12 +90,6 @@ type Event struct {
 	// module name, followed by a dot, then the dataset name.
 	Dataset string `ecs:"dataset"`
 
-	// Name of the component.
-	// Similar to dataset but more fine-grained. It is used, for example, to
-	// store the name of the logger, which is usually the name of the class
-	// which initialized the logger.
-	Component string `ecs:"component"`
-
 	// Source of the event.
 	// Event transports such as Syslog or the Windows Event Log typically
 	// mention the source of an event. It can be the name of the software that
