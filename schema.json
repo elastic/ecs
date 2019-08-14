@@ -545,16 +545,6 @@
         "required": false, 
         "type": "keyword"
       }, 
-      "dns.answers_count": {
-        "description": "The number of resource records contained in the `dns.answers` field.", 
-        "example": "3", 
-        "footnote": "", 
-        "group": 2, 
-        "level": "extended", 
-        "name": "dns.answers_count", 
-        "required": false, 
-        "type": "long"
-      }, 
       "dns.flags": {
         "description": "Array of 2 letter DNS flags.\nExpected values are: AA, TC, RD, RA, AD, CD, DO", 
         "example": "['RD', 'RA']", 
@@ -564,26 +554,6 @@
         "name": "dns.flags", 
         "required": false, 
         "type": "keyword"
-      }, 
-      "dns.grouped.domain": {
-        "description": "Array containing all domain names seen in answers.data\nThe `answers` array can be difficult to use, because of the variety of data formats it can contain. Extracting all domain names or hostnames seen in there to `dns.grouped.domain` makes them easier to visualize and query for.\nNote that A and AAAA queries can get CNAME answers back, before the final set of A or AAAA records. These CNAMEs should be appended to `dns.grouped.domain`, even if the query was not for a CNAME specifically.", 
-        "example": "['example.com.someproviderdns.com']", 
-        "footnote": "", 
-        "group": 2, 
-        "level": "extended", 
-        "name": "dns.grouped.domain", 
-        "required": false, 
-        "type": "keyword"
-      }, 
-      "dns.grouped.ip": {
-        "description": "Array containing all IPs seen in `answers.data`.\nThe `answers` array can be difficult to use, because of the variety of data formats it can contain. Extracting all IP addresses seen in there to `dns.grouped.ip` makes it possible to index them as IP addresses, and makes them easier to visualize and query for.", 
-        "example": "['10.10.10.10', '10.10.10.11']", 
-        "footnote": "", 
-        "group": 2, 
-        "level": "extended", 
-        "name": "dns.grouped.ip", 
-        "required": false, 
-        "type": "ip"
       }, 
       "dns.id": {
         "description": "The DNS packet identifier assigned by the program that generated the query. The identifier is copied to the response.", 
@@ -615,16 +585,6 @@
         "required": false, 
         "type": "keyword"
       }, 
-      "dns.question.length": {
-        "description": "The length of the name being queried (in bytes).\nThis is useful to detect data exfiltration via DNS queries.", 
-        "example": "42", 
-        "footnote": "", 
-        "group": 2, 
-        "level": "extended", 
-        "name": "dns.question.length", 
-        "required": false, 
-        "type": "long"
-      }, 
       "dns.question.name": {
         "description": "The name being queried.\nIf the name field contains non-printable characters (below 32 or above 126), those characters should be represented as escaped base 10 integers (\\DDD). Back slashes and quotes should be escaped. Tabs, carriage returns, and line feeds should be converted to \\t, \\r, and \\n respectively.", 
         "example": "www.google.com", 
@@ -654,6 +614,16 @@
         "name": "dns.question.type", 
         "required": false, 
         "type": "keyword"
+      }, 
+      "dns.resolved_ip": {
+        "description": "Array containing all IPs seen in `answers.data`.\nThe `answers` array can be difficult to use, because of the variety of data formats it can contain. Extracting all IP addresses seen in there to `dns.resolved_ip` makes it possible to index them as IP addresses, and makes them easier to visualize and query for.", 
+        "example": "['10.10.10.10', '10.10.10.11']", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "dns.resolved_ip", 
+        "required": false, 
+        "type": "ip"
       }, 
       "dns.response_code": {
         "description": "The DNS response code.", 

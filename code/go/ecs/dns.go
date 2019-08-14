@@ -72,13 +72,6 @@ type Dns struct {
 	// "co.uk".
 	QuestionRegisteredDomain string `ecs:"question.registered_domain"`
 
-	// The length of the name being queried (in bytes).
-	// This is useful to detect data exfiltration via DNS queries.
-	QuestionLength int64 `ecs:"question.length"`
-
-	// The number of resource records contained in the `dns.answers` field.
-	AnswersCount int64 `ecs:"answers_count"`
-
 	// An array containing an object for each answer section returned by the
 	// server.
 	// The main keys that should be present in these objects are defined by
@@ -115,18 +108,7 @@ type Dns struct {
 	// Array containing all IPs seen in `answers.data`.
 	// The `answers` array can be difficult to use, because of the variety of
 	// data formats it can contain. Extracting all IP addresses seen in there
-	// to `dns.grouped.ip` makes it possible to index them as IP addresses, and
-	// makes them easier to visualize and query for.
-	GroupedIP string `ecs:"grouped.ip"`
-
-	// Array containing all domain names seen in answers.data
-	// The `answers` array can be difficult to use, because of the variety of
-	// data formats it can contain. Extracting all domain names or hostnames
-	// seen in there to `dns.grouped.domain` makes them easier to visualize and
-	// query for.
-	// Note that A and AAAA queries can get CNAME answers back, before the
-	// final set of A or AAAA records. These CNAMEs should be appended to
-	// `dns.grouped.domain`, even if the query was not for a CNAME
-	// specifically.
-	GroupedDomain string `ecs:"grouped.domain"`
+	// to `dns.resolved_ip` makes it possible to index them as IP addresses,
+	// and makes them easier to visualize and query for.
+	ResolvedIP string `ecs:"resolved_ip"`
 }

@@ -1005,7 +1005,7 @@ dns:
       level: extended
       name: answers
       object_type: keyword
-      order: 11
+      order: 9
       short: Array of DNS answers.
       type: object
     answers.class:
@@ -1015,7 +1015,7 @@ dns:
       ignore_above: 1024
       level: extended
       name: answers.class
-      order: 14
+      order: 12
       short: The class of DNS data contained in this resource record.
       type: keyword
     answers.data:
@@ -1027,7 +1027,7 @@ dns:
       ignore_above: 1024
       level: extended
       name: answers.data
-      order: 16
+      order: 14
       short: The data describing the resource.
       type: keyword
     answers.name:
@@ -1041,7 +1041,7 @@ dns:
       ignore_above: 1024
       level: extended
       name: answers.name
-      order: 12
+      order: 10
       short: The domain name to which this resource record pertains.
       type: keyword
     answers.ttl:
@@ -1052,7 +1052,7 @@ dns:
       flat_name: dns.answers.ttl
       level: extended
       name: answers.ttl
-      order: 15
+      order: 13
       short: The time interval in seconds that this resource record may be cached
         before it should be discarded. Zero values mean that the data should not be
         cached.
@@ -1064,18 +1064,9 @@ dns:
       ignore_above: 1024
       level: extended
       name: answers.type
-      order: 13
+      order: 11
       short: The type of data contained in this resource record.
       type: keyword
-    answers_count:
-      description: The number of resource records contained in the `dns.answers` field.
-      example: 3
-      flat_name: dns.answers_count
-      level: extended
-      name: answers_count
-      order: 10
-      short: The number of resource records contained in the `dns.answers` field.
-      type: long
     flags:
       description: 'Array of 2 letter DNS flags.
 
@@ -1090,41 +1081,6 @@ dns:
       order: 3
       short: Array of DNS flags.
       type: keyword
-    grouped.domain:
-      description: 'Array containing all domain names seen in answers.data
-
-        The `answers` array can be difficult to use, because of the variety of data
-        formats it can contain. Extracting all domain names or hostnames seen in there
-        to `dns.grouped.domain` makes them easier to visualize and query for.
-
-        Note that A and AAAA queries can get CNAME answers back, before the final
-        set of A or AAAA records. These CNAMEs should be appended to `dns.grouped.domain`,
-        even if the query was not for a CNAME specifically.'
-      example:
-      - example.com.someproviderdns.com
-      flat_name: dns.grouped.domain
-      ignore_above: 1024
-      level: extended
-      name: grouped.domain
-      order: 18
-      short: Array containing all domain names seen in answers.data
-      type: keyword
-    grouped.ip:
-      description: 'Array containing all IPs seen in `answers.data`.
-
-        The `answers` array can be difficult to use, because of the variety of data
-        formats it can contain. Extracting all IP addresses seen in there to `dns.grouped.ip`
-        makes it possible to index them as IP addresses, and makes them easier to
-        visualize and query for.'
-      example:
-      - 10.10.10.10
-      - 10.10.10.11
-      flat_name: dns.grouped.ip
-      level: extended
-      name: grouped.ip
-      order: 17
-      short: Array containing all IPs seen in answers.data
-      type: ip
     id:
       description: The DNS packet identifier assigned by the program that generated
         the query. The identifier is copied to the response.
@@ -1160,17 +1116,6 @@ dns:
       order: 7
       short: The class of of records being queried.
       type: keyword
-    question.length:
-      description: 'The length of the name being queried (in bytes).
-
-        This is useful to detect data exfiltration via DNS queries.'
-      example: 42
-      flat_name: dns.question.length
-      level: extended
-      name: question.length
-      order: 9
-      short: The length of the name being queried (in bytes).
-      type: long
     question.name:
       description: 'The name being queried.
 
@@ -1212,6 +1157,22 @@ dns:
       order: 6
       short: The type of record being queried.
       type: keyword
+    resolved_ip:
+      description: 'Array containing all IPs seen in `answers.data`.
+
+        The `answers` array can be difficult to use, because of the variety of data
+        formats it can contain. Extracting all IP addresses seen in there to `dns.resolved_ip`
+        makes it possible to index them as IP addresses, and makes them easier to
+        visualize and query for.'
+      example:
+      - 10.10.10.10
+      - 10.10.10.11
+      flat_name: dns.resolved_ip
+      level: extended
+      name: resolved_ip
+      order: 15
+      short: Array containing all IPs seen in answers.data
+      type: ip
     response_code:
       description: The DNS response code.
       example: NOERROR

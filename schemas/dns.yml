@@ -101,23 +101,6 @@
         simply taking the last two labels will not work well for TLDs such as "co.uk".
       example: google.com
 
-    - name: question.length
-      level: extended
-      type: long
-      short: The length of the name being queried (in bytes).
-      description: >
-        The length of the name being queried (in bytes).
-
-        This is useful to detect data exfiltration via DNS queries.
-      example: 42
-
-    - name: answers_count
-      level: extended
-      type: long
-      description: >
-        The number of resource records contained in the `dns.answers` field.
-      example: 3
-
     - name: answers
       level: extended
       type: object
@@ -179,7 +162,7 @@
         record.
       example: 10.10.10.10
 
-    - name: grouped.ip
+    - name: resolved_ip
       level: extended
       type: ip
       short: Array containing all IPs seen in answers.data
@@ -188,23 +171,6 @@
 
         The `answers` array can be difficult to use, because of the variety of
         data formats it can contain. Extracting all IP addresses seen in there to
-        `dns.grouped.ip` makes it possible to index them as IP addresses, and
+        `dns.resolved_ip` makes it possible to index them as IP addresses, and
         makes them easier to visualize and query for.
       example: [10.10.10.10, 10.10.10.11]
-
-    - name: grouped.domain
-      level: extended
-      type: keyword
-      short: Array containing all domain names seen in answers.data
-      description: >
-        Array containing all domain names seen in answers.data
-
-        The `answers` array can be difficult to use, because of the variety of
-        data formats it can contain. Extracting all domain names or hostnames
-        seen in there to `dns.grouped.domain` makes them easier to visualize
-        and query for.
-
-        Note that A and AAAA queries can get CNAME answers back, before the final
-        set of A or AAAA records. These CNAMEs should be appended to
-        `dns.grouped.domain`, even if the query was not for a CNAME specifically.
-      example: [example.com.someproviderdns.com]

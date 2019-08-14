@@ -657,11 +657,6 @@
       ignore_above: 1024
       description: The type of data contained in this resource record.
       example: CNAME
-    - name: answers_count
-      level: extended
-      type: long
-      description: The number of resource records contained in the `dns.answers` field.
-      example: 3
     - name: flags
       level: extended
       type: keyword
@@ -672,33 +667,6 @@
       example:
       - RD
       - RA
-    - name: grouped.domain
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: 'Array containing all domain names seen in answers.data
-
-        The `answers` array can be difficult to use, because of the variety of data
-        formats it can contain. Extracting all domain names or hostnames seen in there
-        to `dns.grouped.domain` makes them easier to visualize and query for.
-
-        Note that A and AAAA queries can get CNAME answers back, before the final
-        set of A or AAAA records. These CNAMEs should be appended to `dns.grouped.domain`,
-        even if the query was not for a CNAME specifically.'
-      example:
-      - example.com.someproviderdns.com
-    - name: grouped.ip
-      level: extended
-      type: ip
-      description: 'Array containing all IPs seen in `answers.data`.
-
-        The `answers` array can be difficult to use, because of the variety of data
-        formats it can contain. Extracting all IP addresses seen in there to `dns.grouped.ip`
-        makes it possible to index them as IP addresses, and makes them easier to
-        visualize and query for.'
-      example:
-      - 10.10.10.10
-      - 10.10.10.11
     - name: id
       level: extended
       type: keyword
@@ -720,13 +688,6 @@
       ignore_above: 1024
       description: The class of of records being queried.
       example: IN
-    - name: question.length
-      level: extended
-      type: long
-      description: 'The length of the name being queried (in bytes).
-
-        This is useful to detect data exfiltration via DNS queries.'
-      example: 42
     - name: question.name
       level: extended
       type: keyword
@@ -756,6 +717,18 @@
       ignore_above: 1024
       description: The type of record being queried.
       example: AAAA
+    - name: resolved_ip
+      level: extended
+      type: ip
+      description: 'Array containing all IPs seen in `answers.data`.
+
+        The `answers` array can be difficult to use, because of the variety of data
+        formats it can contain. Extracting all IP addresses seen in there to `dns.resolved_ip`
+        makes it possible to index them as IP addresses, and makes them easier to
+        visualize and query for.'
+      example:
+      - 10.10.10.10
+      - 10.10.10.11
     - name: response_code
       level: extended
       type: keyword
