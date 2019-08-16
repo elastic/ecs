@@ -43,9 +43,9 @@ type Dns struct {
 	// response.
 	OpCode string `ecs:"op_code"`
 
-	// Array of 2 letter DNS flags.
-	// Expected values are: AA, TC, RD, RA, AD, CD, DO
-	Flags string `ecs:"flags"`
+	// Array of 2 letter DNS header flags.
+	// Expected values are: AA, TC, RD, RA, AD, CD, DO.
+	HeaderFlags string `ecs:"header_flags"`
 
 	// The DNS response code.
 	ResponseCode string `ecs:"response_code"`
