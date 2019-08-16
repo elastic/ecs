@@ -31,7 +31,7 @@ type Tracing struct {
 	TraceID string `ecs:"trace.id"`
 
 	// Unique identifier of the transaction.
-	// A transaction is the highest level of work you're measuring within a
-	// service, such as a request to your server.
+	// A transaction is the highest level of work measured within a service,
+	// such as a request to a server.
 	TransactionID string `ecs:"transaction.id"`
 }
