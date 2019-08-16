@@ -2912,6 +2912,47 @@ type: long
 
 |=====
 
+[[ecs-tracing]]
+=== Tracing Fields
+
+Distributed tracing makes it possible to analyze performance throughout a microservice architecture all in one view. This is accomplished by tracing all of the requests - from the initial web request in the front-end service - to queries made through multiple back-end services.
+
+==== Tracing Field Details
+
+[options="header"]
+|=====
+| Field  | Description | Level
+
+// ===============================================================
+
+| trace.id
+| Unique identifier of the trace.
+
+A trace groups multipe events like transactions that belong together. For example, a user request handled by multiple inter-connected services.
+
+type: keyword
+
+example: `4bf92f3577b34da6a3ce929d0e0e4736`
+
+| extended
+
+// ===============================================================
+
+| transaction.id
+| Unique identifier of the transaction.
+
+A transaction is the highest level of work you're measuring within a service, such as a request to your server.
+
+type: keyword
+
+example: `00f067aa0ba902b7`
+
+| extended
+
+// ===============================================================
+
+|=====
+
 [[ecs-url]]
 === URL Fields
 
