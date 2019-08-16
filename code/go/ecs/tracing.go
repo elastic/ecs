@@ -25,7 +25,7 @@ package ecs
 // - to queries made through multiple back-end services.
 type Tracing struct {
 	// Unique identifier of the trace.
-	// A trace groups multipe events like transactions that belong together.
+	// A trace groups multiple events like transactions that belong together.
 	// For example, a user request handled by multiple inter-connected
 	// services.
 	TraceID string `ecs:"trace.id"`
