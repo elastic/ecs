@@ -3737,6 +3737,45 @@ source:
   short: Fields about the source side of a network connection, used with destination.
   title: Source
   type: group
+tracing:
+  description: Distributed tracing makes it possible to analyze performance throughout
+    a microservice architecture all in one view. This is accomplished by tracing all
+    of the requests - from the initial web request in the front-end service - to queries
+    made through multiple back-end services.
+  fields:
+    trace.id:
+      description: 'Unique identifier of the trace.
+
+        A trace groups multiple events like transactions that belong together. For
+        example, a user request handled by multiple inter-connected services.'
+      example: 4bf92f3577b34da6a3ce929d0e0e4736
+      flat_name: trace.id
+      ignore_above: 1024
+      level: extended
+      name: trace.id
+      order: 0
+      short: Unique identifier of the trace.
+      type: keyword
+    transaction.id:
+      description: 'Unique identifier of the transaction.
+
+        A transaction is the highest level of work measured within a service, such
+        as a request to a server.'
+      example: 00f067aa0ba902b7
+      flat_name: transaction.id
+      ignore_above: 1024
+      level: extended
+      name: transaction.id
+      order: 1
+      short: Unique identifier of the transaction.
+      type: keyword
+  group: 2
+  name: tracing
+  prefix: ''
+  root: true
+  short: Fields related to distributed tracing.
+  title: Tracing
+  type: group
 url:
   description: URL fields provide support for complete or partial URLs, and supports
     the breaking down into scheme, domain, path, and so on.
