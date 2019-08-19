@@ -16,6 +16,7 @@
 * Added `.nat.ip` and `.nat.port` to `source`, `destination`, `client` and `server`. #491
 * Added `as` fields for Autonomous System information (i.e. ASN). #341
 * Added `process.thread.name` field. #517
+* Added `log.logger` field. #521
 
 ### Improvements
 
