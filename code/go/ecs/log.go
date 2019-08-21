@@ -21,8 +21,9 @@ package ecs
 
 // Fields which are specific to log events.
 type Log struct {
-	// Original log level of the log event. Syslog's severity label should be
-	// stored here.
+	// Original log level of the log event.
+	// Syslog's severity label should be stored here. Syslog's numeric severity
+	// is `event.severity` in ECS.
 	// Some examples are `warn`, `error`, `i`.
 	Level string `ecs:"level"`
 
