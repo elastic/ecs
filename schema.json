@@ -883,7 +883,7 @@
         "type": "long"
       }, 
       "event.severity": {
-        "description": "Severity describes the original severity of the event. What the different severity values mean can very different between use cases. It's up to the implementer to make sure severities are consistent across events.", 
+        "description": "Severity describes the original severity of the event. What the different severity values mean can very different between sources and use cases. It's up to the implementer to make sure severities are consistent across events.\nThis field corresponds to Syslog's severity. Note that the text-based severity for Syslog events is `log.level` in ECS.", 
         "example": "7", 
         "footnote": "", 
         "group": 2, 
@@ -1485,8 +1485,28 @@
   "log": {
     "description": "Fields which are specific to log events.\n", 
     "fields": {
+      "log.facility": {
+        "description": "The Syslog text-based facility of the log event, if available. See RFCs 5324 or 3164.", 
+        "example": "local7", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "log.facility", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "log.facility_code": {
+        "description": "The Syslog numeric facility of the log event, if available.\nAccording to RFCs 5324 and 3164, this value should be an integer between 0 and 23.", 
+        "example": "23", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "log.facility_code", 
+        "required": false, 
+        "type": "long"
+      }, 
       "log.level": {
-        "description": "Original log level of the log event.\nSome examples are `warn`, `error`, `i`.", 
+        "description": "Original log level of the log event. Syslog's severity label should be stored here.\nSome examples are `warn`, `error`, `i`.", 
         "example": "err", 
         "footnote": "", 
         "group": 2, 
@@ -1514,6 +1534,16 @@
         "name": "log.original", 
         "required": false, 
         "type": "(not indexed)"
+      }, 
+      "log.priority": {
+        "description": "Syslog numeric priority of the event, if available.\nAccording to RFCs 5324 and 3164, the priority is 8 * facility + severity. Accordingly, this number should be between 0 and 191.", 
+        "example": "135", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "log.priority", 
+        "required": false, 
+        "type": "long"
       }
     }, 
     "group": 2, 

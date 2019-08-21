@@ -21,9 +21,24 @@ package ecs
 
 // Fields which are specific to log events.
 type Log struct {
-	// Original log level of the log event.
+	// Original log level of the log event. Syslog's severity label should be
+	// stored here.
 	// Some examples are `warn`, `error`, `i`.
 	Level string `ecs:"level"`
+
+	// The Syslog text-based facility of the log event, if available. See RFCs
+	// 5324 or 3164.
+	Facility string `ecs:"facility"`
+
+	// The Syslog numeric facility of the log event, if available.
+	// According to RFCs 5324 and 3164, this value should be an integer between
+	// 0 and 23.
+	FacilityCode int64 `ecs:"facility_code"`
+
+	// Syslog numeric priority of the event, if available.
+	// According to RFCs 5324 and 3164, the priority is 8 * facility +
+	// severity. Accordingly, this number should be between 0 and 191.
+	Priority int64 `ecs:"priority"`
 
 	// This is the original log message and contains the full log message
 	// before splitting it up in multiple parts.
