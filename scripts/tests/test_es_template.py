@@ -12,23 +12,37 @@ class TestGeneratorsEsTemplate(unittest.TestCase):
 
     def test_add_not_nested(self):
         dict = {}
-        es_template.dict_add_nested(dict, ['level1'], 'value')
-        self.assertEqual(dict, {'level1': 'value'})
+        es_template.dict_add_nested(dict, ['field1'], {'field': 'details'})
+        self.assertEqual(dict, {'field1': {'field': 'details'}})
 
     def test_dict_add_nested(self):
         dict = {}
-        es_template.dict_add_nested(dict, ['level1', 'level2'], 'value')
-        self.assertEqual(dict, {'level1': {'properties': {'level2': 'value'}}})
+        es_template.dict_add_nested(dict, ['parent_field', 'leaf_field'], {'field': 'details'})
+        self.assertEqual(dict, {'parent_field': {'properties': {'leaf_field': {'field': 'details'}}}})
 
     def test_add_siblings(self):
-        dict = {'key1': 'value1', 'key2': {'properties': {'nested1': 'value12'}}}
-        es_template.dict_add_nested(dict, ['key3'], 'value3')
-        es_template.dict_add_nested(dict, ['key2', 'nested2'], 'value22')
+        dict = {'field1': {'field': 'details 1'},
+                'field2': {'properties': {'leaf1': {'field': 'details 2-1'}}}}
+        es_template.dict_add_nested(dict, ['field3'], {'field': 'details 3'})
+        es_template.dict_add_nested(dict, ['field2', 'leaf2'], {'field': 'details 2-2'})
         self.assertEqual(dict, {
-            'key1': 'value1',
-            'key2': {'properties': {'nested1': 'value12', 'nested2': 'value22'}},
-            'key3': 'value3'
+            'field1': {'field': 'details 1'},
+            'field2': {'properties': {
+                'leaf1': {'field': 'details 2-1'},
+                'leaf2': {'field': 'details 2-2'}
+            }},
+            'field3': {'field': 'details 3'}
         })
+
+    def test_dict_add_nested_to_explicit_object(self):
+        dict = {'answers': {'type': 'object'}}
+        es_template.dict_add_nested(dict, ['answers', 'ttl'], {'type': 'long'})
+        self.assertEqual(dict, {'answers': {'type': 'object', 'properties': {'ttl': {'type': 'long'}}}})
+
+    def test_dict_add_nested_shouldnt_clobber_with_objects(self):
+        dict = {'answers': {'properties': {'ttl': {'type': 'long'}}}}
+        es_template.dict_add_nested(dict, ['answers'], {'type': 'object'})
+        self.assertEqual(dict, {'answers': {'properties': {'ttl': {'type': 'long'}}}})
 
 
 if __name__ == '__main__':

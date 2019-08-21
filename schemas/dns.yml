@@ -1,0 +1,176 @@
+---
+- name: dns
+  title: DNS
+  group: 2
+  short: Fields describing DNS queries and answers.
+  description: >
+    Fields describing DNS queries and answers.
+
+    DNS events should either represent a single DNS query prior to getting answers
+    (`dns.type:query`) or they should represent a full exchange and contain
+    the query details as well as all of the answers that were provided for this
+    query (`dns.type:answer`).
+  type: group
+  fields:
+
+    - name: type
+      level: extended
+      type: keyword
+      short: The type of DNS event captured, query or answer.
+      description: >
+        The type of DNS event captured, query or answer.
+
+        If your source of DNS events only gives you DNS queries, you should only
+        create dns events of type `dns.type:query`.
+
+        If your source of DNS events gives you answers as well, you should create
+        one event per query (optionally as soon as the query is seen). And a
+        second event containing all query details as well as an array of answers.
+      example: answer
+
+    - name: id
+      level: extended
+      type: keyword
+      description: >
+        The DNS packet identifier assigned by the program that generated the
+        query. The identifier is copied to the response.
+      example: 62111
+
+    - name: op_code
+      level: extended
+      type: keyword
+      description: >
+        The DNS operation code that specifies the kind of query in the message.
+        This value is set by the originator of a query and copied into the
+        response.
+      example: QUERY
+
+    - name: header_flags
+      level: extended
+      type: keyword
+      short: Array of DNS header flags.
+      description: >
+        Array of 2 letter DNS header flags.
+
+        Expected values are: AA, TC, RD, RA, AD, CD, DO.
+      example: [RD, RA]
+
+    - name: response_code
+      level: extended
+      type: keyword
+      description: The DNS response code.
+      example: NOERROR
+
+    - name: question.name
+      level: extended
+      type: keyword
+      short: The name being queried.
+      description: >
+        The name being queried.
+
+        If the name field contains non-printable
+        characters (below 32 or above 126), those characters should be represented
+        as escaped base 10 integers (\DDD). Back slashes and quotes should be escaped.
+        Tabs, carriage returns, and line feeds should be converted to \t, \r, and
+        \n respectively.
+      example: www.google.com
+
+    - name: question.type
+      level: extended
+      type: keyword
+      description: The type of record being queried.
+      example: AAAA
+
+    - name: question.class
+      level: extended
+      type: keyword
+      description: The class of of records being queried.
+      example: IN
+
+    - name: question.registered_domain
+      level: extended
+      type: keyword
+      short: The highest registered domain, stripped of the subdomain.
+      description: >
+        The highest registered domain, stripped of the subdomain.
+
+        For example, the registered domain for "foo.google.com" is "google.com".
+
+        This value can be determined precisely with a list like the public
+        suffix list (http://publicsuffix.org). Trying to approximate this by
+        simply taking the last two labels will not work well for TLDs such as "co.uk".
+      example: google.com
+
+    - name: answers
+      level: extended
+      type: object
+      short: Array of DNS answers.
+      description: >
+        An array containing an object for each answer section returned by
+        the server.
+
+        The main keys that should be present in these objects are defined by ECS.
+        Records that have more information may contain more keys than what
+        ECS defines.
+
+        Not all DNS data sources give all details about DNS answers.
+        At minimum, answer objects must contain the `data` key.
+        If more information is available, map as much of it to ECS as possible,
+        and add any additional fields to the answer objects as custom fields.
+
+    - name: answers.name
+      level: extended
+      type: keyword
+      short: The domain name to which this resource record pertains.
+      description: >
+        The domain name to which this resource record pertains.
+
+        If a chain of CNAME is being resolved, each answer's `name` should be
+        the one that corresponds with the answer's `data`. It should not simply
+        be the original `question.name` repeated.
+      example: www.google.com
+
+    - name: answers.type
+      level: extended
+      type: keyword
+      description: The type of data contained in this resource record.
+      example: CNAME
+
+    - name: answers.class
+      level: extended
+      type: keyword
+      description: The class of DNS data contained in this resource record.
+      example: IN
+
+    - name: answers.ttl
+      level: extended
+      type: long
+      description: >
+        The time interval in seconds that this resource record may be cached
+        before it should be discarded. Zero values mean that the data should
+        not be cached.
+      example: 180
+
+    - name: answers.data
+      level: extended
+      type: keyword
+      short: The data describing the resource.
+      description: >
+        The data describing the resource.
+
+        The meaning of this data depends on the type and class of the resource
+        record.
+      example: 10.10.10.10
+
+    - name: resolved_ip
+      level: extended
+      type: ip
+      short: Array containing all IPs seen in answers.data
+      description: >
+        Array containing all IPs seen in `answers.data`.
+
+        The `answers` array can be difficult to use, because of the variety of
+        data formats it can contain. Extracting all IP addresses seen in there to
+        `dns.resolved_ip` makes it possible to index them as IP addresses, and
+        makes them easier to visualize and query for.
+      example: [10.10.10.10, 10.10.10.11]
