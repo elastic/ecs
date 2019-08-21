@@ -98,9 +98,9 @@ type Event struct {
 	Provider string `ecs:"provider"`
 
 	// Severity describes the original severity of the event. What the
-	// different severity values mean can very different between sources and
-	// use cases. It's up to the implementer to make sure severities are
-	// consistent across events.
+	// different severity values mean can be different between sources and use
+	// cases. It's up to the implementer to make sure severities are consistent
+	// across events.
 	// This field corresponds to Syslog's severity. Note that the text-based
 	// severity for Syslog events is `log.level` in ECS.
 	Severity int64 `ecs:"severity"`
