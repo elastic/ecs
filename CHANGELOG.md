@@ -4,6 +4,30 @@
 All notable changes to this project will be documented in this file based on the [Keep a Changelog](http://keepachangelog.com/) Standard. This project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## [1.1.0](https://github.com/elastic/ecs/compare/v1.0.1...v1.1.0)
+
+### Added
+
+* Added `as` fields for Autonomous System information (i.e. ASN). #341
+* Added field formats to all `.bytes` fields and `event.duration`. #385, #425
+* Added `hash.*` field set. #426
+* Added `dns.*` field set, to describe DNS traffic. #438
+* Added `event.code`, `event.sequence` and `event.provider`. #439
+* Added `file.name` and `file.directory`. #441
+* Added `file.created`, and `file.accessed`. #445
+* Added `process.uptime` and `host.uptime` fields. #477
+* Added `domain` field to user. #486
+* Added `.nat.ip` and `.nat.port` to `source`, `destination`, `client` and `server`. #491
+* Added `process.thread.name` field. #517
+* Added `trace.id` and `transaction.id` fields for tracing across different services. #519
+* Added `log.logger` field. #521
+
+### Improvements
+
+* Added examples and improved definitions of many `file` fields. #441
+* Changed the `service.id` description so it works better for clustered services. #502
+
+
 ## [1.0.1](https://github.com/elastic/ecs/compare/v1.0.0...v1.0.1)
 
 ### Added
@@ -19,6 +43,7 @@ All notable changes to this project will be documented in this file based on the
 * Specify static output format for event.duration. #425
 * Format port numbers and numeric IDs as strings. #454
 * Add example for `process.pid` and `process.ppid`. #464, #470
+
 
 ## [1.0.0](https://github.com/elastic/ecs/compare/v1.0.0-beta2...v1.0.0)
 
@@ -114,6 +139,7 @@ All notable changes to this project will be documented in this file based on the
 * Clarify that source/destination should be filled, even if client/server is
   being used. #265
 
+
 ## [1.0.0-beta1](https://github.com/elastic/ecs/compare/v0.1.0...v1.0.0-beta1)
 
 ### Breaking changes
@@ -165,6 +191,7 @@ All notable changes to this project will be documented in this file based on the
 
 * Remove duplicate definitions of the reuseable `os` field set from `host.os` and
   `user_agent.os`.  #168
+
 
 ## 0.1.0
 
