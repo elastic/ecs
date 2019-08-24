@@ -588,6 +588,21 @@ type: keyword
 
 // ===============================================================
 
+| destination.domain.parent
+| Destination parent domain domain stripped of any subdomain.
+
+For example, the registered domain for "foo.google.com" is "google.com".
+
+This value can be determined precisely with a list like the public suffix list (http://publicsuffix.org). Trying to approximate this by simply taking the last two labels will not work well for TLDs such as "co.uk".
+
+type: keyword
+
+
+
+| extended
+
+// ===============================================================
+
 | destination.ip
 | IP address of the destination.
 
@@ -3029,6 +3044,21 @@ type: keyword
 
 // ===============================================================
 
+| source.domain.parent
+| Source parent domain domain stripped of any subdomain.
+
+For example, the registered domain for "foo.google.com" is "google.com".
+
+This value can be determined precisely with a list like the public suffix list (http://publicsuffix.org). Trying to approximate this by simply taking the last two labels will not work well for TLDs such as "co.uk".
+
+type: keyword
+
+
+
+| extended
+
+// ===============================================================
+
 | source.ip
 | IP address of the source.
 
@@ -3200,6 +3230,21 @@ In some cases a URL may refer to an IP and/or port directly, without a domain na
 type: keyword
 
 example: `www.elastic.co`
+
+| extended
+
+// ===============================================================
+
+| url.domain.parent
+| Parent domain of a url stripped of any subdomain.
+
+For example, the registered domain for "foo.google.com" is "google.com".
+
+This value can be determined precisely with a list like the public suffix list (http://publicsuffix.org). Trying to approximate this by simply taking the last two labels will not work well for TLDs such as "co.uk".
+
+type: keyword
+
+
 
 | extended
 

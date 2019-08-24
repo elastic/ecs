@@ -54,6 +54,19 @@
         domain name. In this case, the IP address would go to the `domain` field.
       example: www.elastic.co
 
+    - name: domain.parent
+      level: extended
+      type: keyword
+      short: Parent domain of a url stripped of any subdomain.
+      description: >
+        Parent domain of a url stripped of any subdomain.
+
+        For example, the registered domain for "foo.google.com" is "google.com".
+
+        This value can be determined precisely with a list like the public
+        suffix list (http://publicsuffix.org). Trying to approximate this by
+        simply taking the last two labels will not work well for TLDs such as "co.uk".
+
     - name: port
       format: string
       level: extended

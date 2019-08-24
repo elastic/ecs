@@ -50,6 +50,19 @@
       description: >
         Destination domain.
 
+    - name: domain.parent
+      level: extended
+      type: keyword
+      short: Destination parent domain stripped of any subdomain.
+      description: >
+        Destination parent domain domain stripped of any subdomain.
+
+        For example, the registered domain for "foo.google.com" is "google.com".
+
+        This value can be determined precisely with a list like the public
+        suffix list (http://publicsuffix.org). Trying to approximate this by
+        simply taking the last two labels will not work well for TLDs such as "co.uk".
+
     # Metrics
     - name: bytes
       format: bytes

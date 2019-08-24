@@ -570,7 +570,7 @@ destination.bytes:
   format: bytes
   level: core
   name: bytes
-  order: 5
+  order: 6
   short: Bytes sent from the destination to the source.
   type: long
 destination.domain:
@@ -581,6 +581,21 @@ destination.domain:
   name: domain
   order: 4
   short: Destination domain.
+  type: keyword
+destination.domain.parent:
+  description: 'Destination parent domain domain stripped of any subdomain.
+
+    For example, the registered domain for "foo.google.com" is "google.com".
+
+    This value can be determined precisely with a list like the public suffix list
+    (http://publicsuffix.org). Trying to approximate this by simply taking the last
+    two labels will not work well for TLDs such as "co.uk".'
+  flat_name: destination.domain.parent
+  ignore_above: 1024
+  level: extended
+  name: domain.parent
+  order: 5
+  short: Destination parent domain stripped of any subdomain.
   type: keyword
 destination.geo.city_name:
   description: City name.
@@ -702,7 +717,7 @@ destination.nat.ip:
   flat_name: destination.nat.ip
   level: extended
   name: nat.ip
-  order: 7
+  order: 8
   short: Destination NAT ip
   type: ip
 destination.nat.port:
@@ -713,7 +728,7 @@ destination.nat.port:
   format: string
   level: extended
   name: nat.port
-  order: 8
+  order: 9
   short: Destination NAT Port
   type: long
 destination.packets:
@@ -722,7 +737,7 @@ destination.packets:
   flat_name: destination.packets
   level: core
   name: packets
-  order: 6
+  order: 7
   short: Packets sent from the destination to the source.
   type: long
 destination.port:
@@ -3269,7 +3284,7 @@ source.bytes:
   format: bytes
   level: core
   name: bytes
-  order: 5
+  order: 6
   short: Bytes sent from the source to the destination.
   type: long
 source.domain:
@@ -3280,6 +3295,21 @@ source.domain:
   name: domain
   order: 4
   short: Source domain.
+  type: keyword
+source.domain.parent:
+  description: 'Source parent domain domain stripped of any subdomain.
+
+    For example, the registered domain for "foo.google.com" is "google.com".
+
+    This value can be determined precisely with a list like the public suffix list
+    (http://publicsuffix.org). Trying to approximate this by simply taking the last
+    two labels will not work well for TLDs such as "co.uk".'
+  flat_name: source.domain.parent
+  ignore_above: 1024
+  level: extended
+  name: domain.parent
+  order: 5
+  short: Source parent domain stripped of any subdomain.
   type: keyword
 source.geo.city_name:
   description: City name.
@@ -3401,7 +3431,7 @@ source.nat.ip:
   flat_name: source.nat.ip
   level: extended
   name: nat.ip
-  order: 7
+  order: 8
   short: Source NAT ip
   type: ip
 source.nat.port:
@@ -3413,7 +3443,7 @@ source.nat.port:
   format: string
   level: extended
   name: nat.port
-  order: 8
+  order: 9
   short: Source NAT port
   type: long
 source.packets:
@@ -3422,7 +3452,7 @@ source.packets:
   flat_name: source.packets
   level: core
   name: packets
-  order: 6
+  order: 7
   short: Packets sent from the source to the destination.
   type: long
 source.port:
@@ -3571,6 +3601,21 @@ url.domain:
   order: 3
   short: Domain of the url.
   type: keyword
+url.domain.parent:
+  description: 'Parent domain of a url stripped of any subdomain.
+
+    For example, the registered domain for "foo.google.com" is "google.com".
+
+    This value can be determined precisely with a list like the public suffix list
+    (http://publicsuffix.org). Trying to approximate this by simply taking the last
+    two labels will not work well for TLDs such as "co.uk".'
+  flat_name: url.domain.parent
+  ignore_above: 1024
+  level: extended
+  name: domain.parent
+  order: 4
+  short: Parent domain of a url stripped of any subdomain.
+  type: keyword
 url.fragment:
   description: 'Portion of the url after the `#`, such as "top".
 
@@ -3579,7 +3624,7 @@ url.fragment:
   ignore_above: 1024
   level: extended
   name: fragment
-  order: 7
+  order: 8
   short: Portion of the url after the `#`.
   type: keyword
 url.full:
@@ -3614,7 +3659,7 @@ url.password:
   ignore_above: 1024
   level: extended
   name: password
-  order: 9
+  order: 10
   short: Password of the request.
   type: keyword
 url.path:
@@ -3623,7 +3668,7 @@ url.path:
   ignore_above: 1024
   level: extended
   name: path
-  order: 5
+  order: 6
   short: Path of the request, such as "/search".
   type: keyword
 url.port:
@@ -3633,7 +3678,7 @@ url.port:
   format: string
   level: extended
   name: port
-  order: 4
+  order: 5
   short: Port of the request, such as 443.
   type: long
 url.query:
@@ -3648,7 +3693,7 @@ url.query:
   ignore_above: 1024
   level: extended
   name: query
-  order: 6
+  order: 7
   short: Query string of the request.
   type: keyword
 url.scheme:
@@ -3669,7 +3714,7 @@ url.username:
   ignore_above: 1024
   level: extended
   name: username
-  order: 8
+  order: 9
   short: Username of the request.
   type: keyword
 user.domain:

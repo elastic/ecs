@@ -42,6 +42,14 @@ type Source struct {
 	// Source domain.
 	Domain string `ecs:"domain"`
 
+	// Source parent domain domain stripped of any subdomain.
+	// For example, the registered domain for "foo.google.com" is "google.com".
+	// This value can be determined precisely with a list like the public
+	// suffix list (http://publicsuffix.org). Trying to approximate this by
+	// simply taking the last two labels will not work well for TLDs such as
+	// "co.uk".
+	DomainParent string `ecs:"domain.parent"`
+
 	// Bytes sent from the source to the destination.
 	Bytes int64 `ecs:"bytes"`
 
