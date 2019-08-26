@@ -11,6 +11,8 @@ Thanks, you're awesome :-) -->
 
 ### Added
 
+* Added fields in `log.*` to allow for full Syslog mapping. #525
+
 ### Improvements
 
 ### Deprecated
