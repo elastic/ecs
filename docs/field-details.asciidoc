@@ -2509,6 +2509,176 @@ Note also that the `os` fields are not expected to be used directly at the top l
 
 
 
+[[ecs-package]]
+=== Package Fields
+
+These fields contain information about an installed software package. It contains general information about a package, such as name, version or size. It also contains installation details, such as time, URL or user who installed the package.
+
+==== Package Field Details
+
+[options="header"]
+|=====
+| Field  | Description | Level
+
+// ===============================================================
+
+| package.artifact_id
+| ID uniquely identifying the package accross different hosts.
+
+type: keyword
+
+example: `9b52cc0d83f794f6fc6190f603fa2f62dd9aa2017165d19ff1d62742955a7a05`
+
+| core
+
+// ===============================================================
+
+| package.build_time
+| Time when package was built.
+
+type: date
+
+
+
+| extended
+
+// ===============================================================
+
+| package.build_version
+| Build version of the installed package, e.g. commit hash.
+
+type: keyword
+
+example: `9b52cc0d83f794f6fc6190f603fa2f62dd9aa2017165d19ff1d62742955a7a05`
+
+| extended
+
+// ===============================================================
+
+| package.checksum
+| Checksum of the installed package
+
+type: keyword
+
+example: `9b52cc0d83f794f6fc6190f603fa2f62dd9aa2017165d19ff1d62742955a7a05`
+
+| extended
+
+// ===============================================================
+
+| package.description
+| Description of the package.
+
+type: keyword
+
+example: `Open source programming language to build simple/reliable/efficient software.`
+
+| core
+
+// ===============================================================
+
+| package.install_type
+| Indicating when the package was installed, e.g. at runtime or at buildtime.
+
+type: keyword
+
+example: `runtime`
+
+| extended
+
+// ===============================================================
+
+| package.installed
+| Time when package was installed.
+
+type: date
+
+
+
+| core
+
+// ===============================================================
+
+| package.license
+| License under which the package was released.
+
+type: keyword
+
+example: `Apache License 2.0`
+
+| extended
+
+// ===============================================================
+
+| package.name
+| Package name
+
+type: keyword
+
+example: `go`
+
+| core
+
+// ===============================================================
+
+| package.remote_repository
+| Remote repository URL from where the package was installed.
+
+type: keyword
+
+example: `https://golang.org`
+
+| core
+
+// ===============================================================
+
+| package.size
+| Package size in bytes.
+
+type: long
+
+example: `62.231`
+
+| core
+
+// ===============================================================
+
+| package.version
+| Package version
+
+type: keyword
+
+example: `1.12.9`
+
+| core
+
+// ===============================================================
+
+|=====
+
+==== Field Reuse
+
+
+
+
+[[ecs-package-nestings]]
+===== Field sets that can be nested under Package
+
+[options="header"]
+|=====
+| Nested fields | Description
+
+// ===============================================================
+
+
+| <<ecs-user,package.user.*>>
+| Fields to describe the user relevant to the event.
+
+// ===============================================================
+
+
+|=====
+
 [[ecs-process]]
 === Process Fields
 
@@ -3405,7 +3575,7 @@ example: `albert`
 
 ==== Field Reuse
 
-The `user` fields are expected to be nested at: `client.user`, `destination.user`, `host.user`, `server.user`, `source.user`.
+The `user` fields are expected to be nested at: `client.user`, `destination.user`, `host.user`, `package.user`, `server.user`, `source.user`.
 
 Note also that the `user` fields may be used directly at the top level.
 

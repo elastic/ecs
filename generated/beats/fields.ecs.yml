@@ -1868,6 +1868,133 @@
       ignore_above: 1024
       description: Operating system version as a raw string.
       example: 10.14.1
+  - name: package
+    title: Package
+    group: 2
+    description: These fields contain information about an installed software package.
+      It contains general information about a package, such as name, version or size.
+      It also contains installation details, such as time, URL or user who installed
+      the package.
+    type: group
+    fields:
+    - name: artifact_id
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: ID uniquely identifying the package accross different hosts.
+      example: 9b52cc0d83f794f6fc6190f603fa2f62dd9aa2017165d19ff1d62742955a7a05
+    - name: build_time
+      level: extended
+      type: date
+      description: Time when package was built.
+    - name: build_version
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Build version of the installed package, e.g. commit hash.
+      example: 9b52cc0d83f794f6fc6190f603fa2f62dd9aa2017165d19ff1d62742955a7a05
+    - name: checksum
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Checksum of the installed package
+      example: 9b52cc0d83f794f6fc6190f603fa2f62dd9aa2017165d19ff1d62742955a7a05
+    - name: description
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: Description of the package.
+      example: Open source programming language to build simple/reliable/efficient
+        software.
+    - name: install_type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Indicating when the package was installed, e.g. at runtime or at
+        buildtime.
+      example: runtime
+    - name: installed
+      level: core
+      type: date
+      description: Time when package was installed.
+    - name: license
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: License under which the package was released.
+      example: Apache License 2.0
+    - name: name
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: Package name
+      example: go
+    - name: remote_repository
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: Remote repository URL from where the package was installed.
+      example: https://golang.org
+    - name: size
+      level: core
+      type: long
+      format: string
+      description: Package size in bytes.
+      example: 62.231
+    - name: user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the user is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+    - name: user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: User email address.
+    - name: user.full_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: User's full name, if available.
+      example: Albert Einstein
+    - name: user.group.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier for the group on the system/platform.
+    - name: user.group.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the group.
+    - name: user.hash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Unique user hash to correlate information for a user in anonymized
+        form.
+
+        Useful if `user.id` or `user.name` contain confidential information and cannot
+        be used.'
+    - name: user.id
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: One or multiple unique identifiers of the user.
+    - name: user.name
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: Short name or login of the user.
+      example: albert
+    - name: version
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: Package version
+      example: 1.12.9
   - name: process
     title: Process
     group: 2
