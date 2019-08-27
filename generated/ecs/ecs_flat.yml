@@ -2665,22 +2665,22 @@ os.version:
   order: 4
   short: Operating system version as a raw string.
   type: keyword
-package.artifact_id:
-  description: ID uniquely identifying the package accross different hosts.
-  example: 9b52cc0d83f794f6fc6190f603fa2f62dd9aa2017165d19ff1d62742955a7a05
-  flat_name: package.artifact_id
+package.architecture:
+  description: Package architecture.
+  example: runtime
+  flat_name: package.architecture
   ignore_above: 1024
-  level: core
-  name: artifact_id
-  order: 0
-  short: ID uniquely identifying the package accross different hosts.
+  level: extended
+  name: architecture
+  order: 7
+  short: Package architecture.
   type: keyword
 package.build_time:
   description: Time when package was built.
   flat_name: package.build_time
   level: extended
   name: build_time
-  order: 8
+  order: 9
   short: Time when package was built.
   type: date
 package.build_version:
@@ -2690,7 +2690,7 @@ package.build_version:
   ignore_above: 1024
   level: extended
   name: build_version
-  order: 7
+  order: 8
   short: Build version of the installed package, e.g. commit hash.
   type: keyword
 package.checksum:
@@ -2700,7 +2700,7 @@ package.checksum:
   ignore_above: 1024
   level: extended
   name: checksum
-  order: 9
+  order: 10
   short: Checksum of the installed package
   type: keyword
 package.description:
@@ -2713,6 +2713,16 @@ package.description:
   order: 3
   short: Description of the package.
   type: keyword
+package.id:
+  description: ID uniquely identifying the package accross different hosts.
+  example: 9b52cc0d83f794f6fc6190f603fa2f62dd9aa2017165d19ff1d62742955a7a05
+  flat_name: package.id
+  ignore_above: 1024
+  level: core
+  name: id
+  order: 0
+  short: ID uniquely identifying the package accross different hosts.
+  type: keyword
 package.install_type:
   description: Indicating when the package was installed, e.g. at runtime or at buildtime.
   example: runtime
@@ -2720,7 +2730,7 @@ package.install_type:
   ignore_above: 1024
   level: extended
   name: install_type
-  order: 10
+  order: 11
   short: Indicating when the package was installed, e.g. at runtime or at buildtime.
   type: keyword
 package.installed:
@@ -2738,7 +2748,7 @@ package.license:
   ignore_above: 1024
   level: extended
   name: license
-  order: 11
+  order: 12
   short: License under which the package was released.
   type: keyword
 package.name:
@@ -2763,7 +2773,7 @@ package.remote_repository:
   type: keyword
 package.size:
   description: Package size in bytes.
-  example: 62.231
+  example: 62231
   flat_name: package.size
   format: string
   level: core

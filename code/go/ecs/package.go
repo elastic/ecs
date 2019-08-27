@@ -29,7 +29,7 @@ import (
 // installed the package.
 type Package struct {
 	// ID uniquely identifying the package accross different hosts.
-	ArtifactID string `ecs:"artifact_id"`
+	ID string `ecs:"id"`
 
 	// Package name
 	Name string `ecs:"name"`
@@ -48,6 +48,9 @@ type Package struct {
 
 	// Remote repository URL from where the package was installed.
 	RemoteRepository string `ecs:"remote_repository"`
+
+	// Package architecture.
+	Architecture string `ecs:"architecture"`
 
 	// Build version of the installed package, e.g. commit hash.
 	BuildVersion string `ecs:"build_version"`

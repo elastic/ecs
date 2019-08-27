@@ -1877,12 +1877,12 @@
       the package.
     type: group
     fields:
-    - name: artifact_id
-      level: core
+    - name: architecture
+      level: extended
       type: keyword
       ignore_above: 1024
-      description: ID uniquely identifying the package accross different hosts.
-      example: 9b52cc0d83f794f6fc6190f603fa2f62dd9aa2017165d19ff1d62742955a7a05
+      description: Package architecture.
+      example: runtime
     - name: build_time
       level: extended
       type: date
@@ -1906,6 +1906,12 @@
       description: Description of the package.
       example: Open source programming language to build simple/reliable/efficient
         software.
+    - name: id
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: ID uniquely identifying the package accross different hosts.
+      example: 9b52cc0d83f794f6fc6190f603fa2f62dd9aa2017165d19ff1d62742955a7a05
     - name: install_type
       level: extended
       type: keyword
@@ -1940,7 +1946,7 @@
       type: long
       format: string
       description: Package size in bytes.
-      example: 62.231
+      example: 62231
     - name: user.domain
       level: extended
       type: keyword

@@ -10,7 +10,7 @@
   type: group
   fields:
 
-    - name: artifact_id
+    - name: id
       level: core
       type: keyword
       description: ID uniquely identifying the package accross different hosts.
@@ -39,7 +39,7 @@
       level: core
       type: long
       description: Package size in bytes.
-      example: 62.231
+      example: 62231
 
     - name: installed
       level: core
@@ -51,6 +51,12 @@
       type: keyword
       description: Remote repository URL from where the package was installed.
       example: https://golang.org
+
+    - name: architecture
+      level: extended
+      type: keyword
+      description: Package architecture.
+      example: runtime
 
     - name: build_version
       level: extended
@@ -78,6 +84,5 @@
     - name: license
       level: extended
       type: keyword
-#     TODO(simi): is keyword enough?
       description: License under which the package was released.
       example: Apache License 2.0
