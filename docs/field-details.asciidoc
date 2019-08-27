@@ -2915,7 +2915,7 @@ ECS threat fields encompass detected suspicious activity (e.g. IDS alert, malwar
 // ===============================================================
 
 | threat.confidence
-| Typically a qualitative description of the confidence that the threat identification is  correct provided by the observer
+| Typically a qualitative description of the observing systems confidence in the correct identification of a  threeat (more prevalent in AI/ ML analysis) or confidence in a particular threat intel provider. The reported  severity and confidence fields can be normalized to provide a threat.risk.score for the overall event.
 
 type: keyword
 
@@ -2959,7 +2959,7 @@ example: `ntp reserved mode denial of service`
 // ===============================================================
 
 | threat.severity
-| Typically a qualitative description of the risk associated with the observed threat or IOC
+| Typically a qualitative description of the risk associated with the observed threat or IOC. The reported  severity and confidence fields can be normalized to provide a threat.risk.score for the overall event.
 
 type: keyword
 
@@ -2969,8 +2969,19 @@ example: `low, medium, high, critical, 1-5, 1-10, etc.`
 
 // ===============================================================
 
-| threat.tactic
-| The type of tactic used by this threat. You can use the Mitre ATT&CK Matrix Tactic categorization, for example. (ex. https://attack.mitre.org/tactics/TA0040/ )
+| threat.tactic.id
+| The id of tactic used by this threat. You can use the Mitre ATT&CK Matrix Tactic categorization, for example. (ex. https://attack.mitre.org/tactics/TA0040/ )
+
+type: keyword
+
+example: `TA0040`
+
+| extended
+
+// ===============================================================
+
+| threat.tactic.name
+| Name of the type of tactic used by this threat. You can use the Mitre ATT&CK Matrix Tactic categorization, for example. (ex. https://attack.mitre.org/tactics/TA0040/ )
 
 type: keyword
 
@@ -2980,12 +2991,45 @@ example: `impact`
 
 // ===============================================================
 
-| threat.technique
-| The type of technique used by this threat. You can use the Mitre ATT&CK Matrix Tactic categorization, for example. (ex. https://attack.mitre.org/techniques/T1499/ )
+| threat.tactic.reference
+| The reference url of tactic used by this threat. You can use the Mitre ATT&CK Matrix Tactic categorization, for example. (ex. https://attack.mitre.org/tactics/TA0040/ )
+
+type: keyword
+
+example: `https://attack.mitre.org/tactics/TA0040/`
+
+| extended
+
+// ===============================================================
+
+| threat.technique.id
+| The id of technique used by this threat. You can use the Mitre ATT&CK Matrix Tactic categorization, for example. (ex. https://attack.mitre.org/techniques/T1499/ )
+
+type: keyword
+
+example: `T1499`
+
+| extended
+
+// ===============================================================
+
+| threat.technique.name
+| The name of technique used by this threat. You can use the Mitre ATT&CK Matrix Tactic categorization, for example. (ex. https://attack.mitre.org/techniques/T1499/ )
 
 type: keyword
 
 example: `endpoint denial of service`
+
+| extended
+
+// ===============================================================
+
+| threat.technique.reference
+| The reference url of technique used by this threat. You can use the Mitre ATT&CK Matrix Tactic categorization, for example. (ex. https://attack.mitre.org/techniques/T1499/ )
+
+type: keyword
+
+example: `https://attack.mitre.org/techniques/T1499/`
 
 | extended
 

@@ -22,37 +22,83 @@
     - name: name
       level: extended
       type: keyword
+      multi_field:
+        type: text
+        name: text
       short: Name or classification of the threat detected or reported
       description: >
         Threat name as reported by system or intel provider
 
       example: ntp reserved mode denial of service
 
-    - name: tactic
+    - name: tactic.name
       level: extended
       type: keyword
       multi_field:
         type: text
         name: text
-      short: Mitre ATT&CK Matrix tactic
+      short: Mitre ATT&CK Matrix tactic Name
       description: >
-          The type of tactic used by this threat. You can use the Mitre ATT&CK Matrix Tactic categorization, for example.
+          Name of the type of tactic used by this threat. You can use the Mitre ATT&CK Matrix Tactic categorization, for example.
           (ex. https://attack.mitre.org/tactics/TA0040/ )
 
       example: impact
 
-    - name: technique
+    - name: tactic.id
+      level: extended
+      type: keyword
+      short: Mitre ATT&CK Matrix tactic ID
+      description: >
+          The id of tactic used by this threat. You can use the Mitre ATT&CK Matrix Tactic categorization, for example.
+          (ex. https://attack.mitre.org/tactics/TA0040/ )
+
+      example: TA0040
+
+    - name: tactic.reference
+      level: extended
+      type: keyword
+      short: Mitre ATT&CK Matrix tactic URL reference
+      description: >
+          The reference url of tactic used by this threat. You can use the Mitre ATT&CK Matrix Tactic categorization, for example.
+          (ex. https://attack.mitre.org/tactics/TA0040/ )
+
+      example: https://attack.mitre.org/tactics/TA0040/
+
+    - name: technique.name
       level: extended
       type: keyword
       multi_field:
         type: text
         name: text
-      short: Mitre ATT&CK Matrix technique
+      short: Mitre ATT&CK Matrix technique name
       description: >
-          The type of technique used by this threat. You can use the Mitre ATT&CK Matrix Tactic categorization, for example.
+          The name of technique used by this threat. You can use the Mitre ATT&CK Matrix Tactic categorization, for example.
           (ex. https://attack.mitre.org/techniques/T1499/ )
 
       example: endpoint denial of service
+
+    - name: technique.id
+      level: extended
+      type: keyword
+      multi_field:
+        type: text
+        name: text
+      short: Mitre ATT&CK Matrix technique id
+      description: >
+          The id of technique used by this threat. You can use the Mitre ATT&CK Matrix Tactic categorization, for example.
+          (ex. https://attack.mitre.org/techniques/T1499/ )
+
+      example: T1499
+
+    - name: technique.reference
+      level: extended
+      type: keyword
+      short: Mitre ATT&CK Matrix technique
+      description: >
+          The reference url of technique used by this threat. You can use the Mitre ATT&CK Matrix Tactic categorization, for example.
+          (ex. https://attack.mitre.org/techniques/T1499/ )
+
+      example: https://attack.mitre.org/techniques/T1499/
 
     - name: description
       level: extended
@@ -68,16 +114,18 @@
       type: keyword
       short: Severity of the threat as reported by the observer/threat intel feed
       description: >
-        Typically a qualitative description of the risk associated with the observed threat or IOC
+        Typically a qualitative description of the risk associated with the observed threat or IOC. The reported 
+        severity and confidence fields can be normalized to provide a threat.risk.score for the overall event.
 
       example: low, medium, high, critical, 1-5, 1-10, etc.
 
     - name: confidence
       level: extended
       type: keyword
-      short: Predicted accuracy of the threat identification
+      short: Predicted accuracy of the threat identification provided by the observer/threat intel feed
       description: >
-        Typically a qualitative description of the confidence that the threat identification is 
-        correct provided by the observer
+        Typically a qualitative description of the observing systems confidence in the correct identification of a 
+        threeat (more prevalent in AI/ ML analysis) or confidence in a particular threat intel provider. The reported 
+        severity and confidence fields can be normalized to provide a threat.risk.score for the overall event.
 
       example: low, medium, high, 1-5, 1-10, etc

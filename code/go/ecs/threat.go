@@ -30,25 +30,49 @@ type Threat struct {
 	// Threat name as reported by system or intel provider
 	Name string `ecs:"name"`
 
-	// The type of tactic used by this threat. You can use the Mitre ATT&CK
+	// Name of the type of tactic used by this threat. You can use the Mitre
+	// ATT&CK Matrix Tactic categorization, for example. (ex.
+	// https://attack.mitre.org/tactics/TA0040/ )
+	TacticName string `ecs:"tactic.name"`
+
+	// The id of tactic used by this threat. You can use the Mitre ATT&CK
 	// Matrix Tactic categorization, for example. (ex.
 	// https://attack.mitre.org/tactics/TA0040/ )
-	Tactic string `ecs:"tactic"`
+	TacticID string `ecs:"tactic.id"`
 
-	// The type of technique used by this threat. You can use the Mitre ATT&CK
+	// The reference url of tactic used by this threat. You can use the Mitre
+	// ATT&CK Matrix Tactic categorization, for example. (ex.
+	// https://attack.mitre.org/tactics/TA0040/ )
+	TacticReference string `ecs:"tactic.reference"`
+
+	// The name of technique used by this threat. You can use the Mitre ATT&CK
 	// Matrix Tactic categorization, for example. (ex.
 	// https://attack.mitre.org/techniques/T1499/ )
-	Technique string `ecs:"technique"`
+	TechniqueName string `ecs:"technique.name"`
+
+	// The id of technique used by this threat. You can use the Mitre ATT&CK
+	// Matrix Tactic categorization, for example. (ex.
+	// https://attack.mitre.org/techniques/T1499/ )
+	TechniqueID string `ecs:"technique.id"`
+
+	// The reference url of technique used by this threat. You can use the
+	// Mitre ATT&CK Matrix Tactic categorization, for example. (ex.
+	// https://attack.mitre.org/techniques/T1499/ )
+	TechniqueReference string `ecs:"technique.reference"`
 
 	// Textual description of the observed threat or threat intel that provides
 	// more context
 	Description string `ecs:"description"`
 
 	// Typically a qualitative description of the risk associated with the
-	// observed threat or IOC
+	// observed threat or IOC. The reported  severity and confidence fields can
+	// be normalized to provide a threat.risk.score for the overall event.
 	Severity string `ecs:"severity"`
 
-	// Typically a qualitative description of the confidence that the threat
-	// identification is  correct provided by the observer
+	// Typically a qualitative description of the observing systems confidence
+	// in the correct identification of a  threeat (more prevalent in AI/ ML
+	// analysis) or confidence in a particular threat intel provider. The
+	// reported  severity and confidence fields can be normalized to provide a
+	// threat.risk.score for the overall event.
 	Confidence string `ecs:"confidence"`
 }

@@ -2284,8 +2284,11 @@
       level: extended
       type: keyword
       ignore_above: 1024
-      description: Typically a qualitative description of the confidence that the
-        threat identification is  correct provided by the observer
+      description: Typically a qualitative description of the observing systems confidence
+        in the correct identification of a  threeat (more prevalent in AI/ ML analysis)
+        or confidence in a particular threat intel provider. The reported  severity
+        and confidence fields can be normalized to provide a threat.risk.score for
+        the overall event.
       example: low, medium, high, 1-5, 1-10, etc
     - name: description
       level: extended
@@ -2312,24 +2315,57 @@
       type: keyword
       ignore_above: 1024
       description: Typically a qualitative description of the risk associated with
-        the observed threat or IOC
+        the observed threat or IOC. The reported  severity and confidence fields can
+        be normalized to provide a threat.risk.score for the overall event.
       example: low, medium, high, critical, 1-5, 1-10, etc.
-    - name: tactic
+    - name: tactic.id
       level: extended
       type: keyword
       ignore_above: 1024
-      description: The type of tactic used by this threat. You can use the Mitre ATT&CK
+      description: The id of tactic used by this threat. You can use the Mitre ATT&CK
         Matrix Tactic categorization, for example. (ex. https://attack.mitre.org/tactics/TA0040/
         )
-      example: impact
-    - name: technique
+      example: TA0040
+    - name: tactic.name
       level: extended
       type: keyword
       ignore_above: 1024
-      description: The type of technique used by this threat. You can use the Mitre
+      description: Name of the type of tactic used by this threat. You can use the
+        Mitre ATT&CK Matrix Tactic categorization, for example. (ex. https://attack.mitre.org/tactics/TA0040/
+        )
+      example: impact
+    - name: tactic.reference
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The reference url of tactic used by this threat. You can use the
+        Mitre ATT&CK Matrix Tactic categorization, for example. (ex. https://attack.mitre.org/tactics/TA0040/
+        )
+      example: https://attack.mitre.org/tactics/TA0040/
+    - name: technique.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The id of technique used by this threat. You can use the Mitre
+        ATT&CK Matrix Tactic categorization, for example. (ex. https://attack.mitre.org/techniques/T1499/
+        )
+      example: T1499
+    - name: technique.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The name of technique used by this threat. You can use the Mitre
         ATT&CK Matrix Tactic categorization, for example. (ex. https://attack.mitre.org/techniques/T1499/
         )
       example: endpoint denial of service
+    - name: technique.reference
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The reference url of technique used by this threat. You can use
+        the Mitre ATT&CK Matrix Tactic categorization, for example. (ex. https://attack.mitre.org/techniques/T1499/
+        )
+      example: https://attack.mitre.org/techniques/T1499/
   - name: url
     title: URL
     group: 2
