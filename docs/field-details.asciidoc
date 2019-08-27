@@ -354,7 +354,7 @@ type: long
 
 
 | <<ecs-risk,client.risk.*>>
-| Risk Scores and Labels
+| Risk Scores and Tags for prioritization and categorization of events and signals.
 
 // ===============================================================
 
@@ -477,7 +477,7 @@ example: `us-east-1`
 
 
 | <<ecs-risk,cloud.risk.*>>
-| Risk Scores and Labels
+| Risk Scores and Tags for prioritization and categorization of events and signals.
 
 // ===============================================================
 
@@ -583,7 +583,7 @@ example: `docker`
 
 
 | <<ecs-risk,container.risk.*>>
-| Risk Scores and Labels
+| Risk Scores and Tags for prioritization and categorization of events and signals.
 
 // ===============================================================
 
@@ -742,7 +742,7 @@ type: long
 
 
 | <<ecs-risk,destination.risk.*>>
-| Risk Scores and Labels
+| Risk Scores and Tags for prioritization and categorization of events and signals.
 
 // ===============================================================
 
@@ -1133,7 +1133,7 @@ type: keyword
 
 
 | <<ecs-risk,event.risk.*>>
-| Risk Scores and Labels
+| Risk Scores and Tags for prioritization and categorization of events and signals.
 
 // ===============================================================
 
@@ -1385,7 +1385,7 @@ example: `1001`
 
 
 | <<ecs-risk,file.risk.*>>
-| Risk Scores and Labels
+| Risk Scores and Tags for prioritization and categorization of events and signals.
 
 // ===============================================================
 
@@ -1567,7 +1567,7 @@ Note also that the `group` fields may be used directly at the top level.
 
 
 | <<ecs-risk,group.risk.*>>
-| Risk Scores and Labels
+| Risk Scores and Tags for prioritization and categorization of events and signals.
 
 // ===============================================================
 
@@ -2150,7 +2150,7 @@ example: `ipv4`
 
 
 | <<ecs-risk,network.risk.*>>
-| Risk Scores and Labels
+| Risk Scores and Tags for prioritization and categorization of events and signals.
 
 // ===============================================================
 
@@ -2613,7 +2613,7 @@ type: ip
 
 Risk fields represent the normalized comparative sensitivity of internal resources or the potential risk of threats, vulnerabilities, and IOCs.
 
-At the event level normalized risk is calculated based on any risk metrics available for lookup for the given event (e.g. a user, source, destination in a firewall log, a client and file in a endpoint file/process log). The final event score is calculated by summing the squares of each avaialble risk score and dividing by the total multiple of available scores. As an example:  ( user.risk + source.risk + destination.risk ) / ( user.risk + source.risk + destination.risk )
+At the event level, normalized risk is calculated based on any risk metrics available for lookup for the given event (e.g. a user, source, destination in a firewall log, a client and file in a endpoint file/process log). The final event score is calculated by summing the squares of each avaialble risk score and dividing by the total multiple of available scores. As an example:  ( user.risk^2 + source.risk^2 + destination.risk^2 ) / ( user.risk + source.risk + destination.risk )
 
 Risk labels are for labeling the type of business risk represented by a given resource, typically in reference to the data housed in an asset or zone, the level of access of a given user or group, or the risk represented by a given threat or IOC.
 
@@ -2625,23 +2625,23 @@ Risk labels are for labeling the type of business risk represented by a given re
 
 // ===============================================================
 
-| risk.label
-| locally relevant label to describe the risk type of asset or data identified either specific to a local data classification system or regulatory/compliance applicability
+| risk.score
+| comparative risk score on a normalized scale of 0-10, quantitavely scoring the level of risk of the asset or data, or the risk represented by a given threat (typically provided by the observer or IOC provider)
 
-type: keyword
+type: long
 
-example: `public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR`
+example: `5`
 
 | extended
 
 // ===============================================================
 
-| risk.score
-| comparative risk score quantitavely scoring the level of risk of the asset or data, or risk represented by a given threat (typically provided by the observer or IOC provider)
+| risk.tag
+| one or more locally relevant tags to describe the risk type of asset or data identified either specific to e.g. a local data classification system, network zone, or regulatory/compliance applicability
 
-type: long
+type: keyword
 
-example: `1-10`
+example: `public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR`
 
 | extended
 
@@ -2812,7 +2812,7 @@ type: long
 
 
 | <<ecs-risk,server.risk.*>>
-| Risk Scores and Labels
+| Risk Scores and Tags for prioritization and categorization of events and signals.
 
 // ===============================================================
 
@@ -3078,7 +3078,7 @@ type: long
 
 
 | <<ecs-risk,source.risk.*>>
-| Risk Scores and Labels
+| Risk Scores and Tags for prioritization and categorization of events and signals.
 
 // ===============================================================
 
@@ -3341,7 +3341,7 @@ Note also that the `user` fields may be used directly at the top level.
 
 
 | <<ecs-risk,user.risk.*>>
-| Risk Scores and Labels
+| Risk Scores and Tags for prioritization and categorization of events and signals.
 
 // ===============================================================
 

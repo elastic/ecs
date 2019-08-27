@@ -21,25 +21,25 @@ package ecs
 
 // Risk fields represent the normalized comparative sensitivity of internal
 // resources or the potential risk of threats, vulnerabilities, and IOCs.
-// At the event level normalized risk is calculated based on any risk metrics
+// At the event level, normalized risk is calculated based on any risk metrics
 // available for lookup for the given event (e.g. a user, source, destination
 // in a firewall log, a client and file in a endpoint file/process log). The
 // final event score is calculated by summing the squares of each avaialble
 // risk score and dividing by the total multiple of available scores. As an
-// example:  ( user.risk + source.risk + destination.risk ) / ( user.risk +
-// source.risk + destination.risk )
+// example:  ( user.risk^2 + source.risk^2 + destination.risk^2 ) / ( user.risk
+// + source.risk + destination.risk )
 // Risk labels are for labeling the type of business risk represented by a
 // given resource, typically in reference to the data housed in an asset or
 // zone, the level of access of a given user or group, or the risk represented
 // by a given threat or IOC.
 type Risk struct {
-	// locally relevant label to describe the risk type of asset or data
-	// identified either specific to a local data classification system or
-	// regulatory/compliance applicability
-	Label string `ecs:"label"`
+	// one or more locally relevant tags to describe the risk type of asset or
+	// data identified either specific to e.g. a local data classification
+	// system, network zone, or regulatory/compliance applicability
+	Tag string `ecs:"tag"`
 
-	// comparative risk score quantitavely scoring the level of risk of the
-	// asset or data, or risk represented by a given threat (typically provided
-	// by the observer or IOC provider)
+	// comparative risk score on a normalized scale of 0-10, quantitavely
+	// scoring the level of risk of the asset or data, or the risk represented
+	// by a given threat (typically provided by the observer or IOC provider)
 	Score int64 `ecs:"score"`
 }
