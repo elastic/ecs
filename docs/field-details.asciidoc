@@ -2533,30 +2533,8 @@ example: `runtime`
 
 // ===============================================================
 
-| package.build_time
-| Time when package was built.
-
-type: date
-
-
-
-| extended
-
-// ===============================================================
-
-| package.build_version
-| Build version of the installed package, e.g. commit hash.
-
-type: keyword
-
-example: `9b52cc0d83f794f6fc6190f603fa2f62dd9aa2017165d19ff1d62742955a7a05`
-
-| extended
-
-// ===============================================================
-
 | package.checksum
-| Checksum of the installed package
+| Checksum of the installed package for verification.
 
 type: keyword
 
@@ -2577,23 +2555,23 @@ example: `Open source programming language to build simple/reliable/efficient so
 
 // ===============================================================
 
-| package.id
-| ID uniquely identifying the package accross different hosts.
+| package.detailed_version
+| Detailed version of the installed package, for instance git commit when using an unreleased version.
 
 type: keyword
 
 example: `9b52cc0d83f794f6fc6190f603fa2f62dd9aa2017165d19ff1d62742955a7a05`
 
-| core
+| extended
 
 // ===============================================================
 
-| package.install_type
-| Indicating when the package was installed, e.g. at runtime or at buildtime.
+| package.install_scope
+| Indicating how the package was installed, e.g. user-local, global.
 
 type: keyword
 
-example: `runtime`
+example: `global`
 
 | extended
 
@@ -2632,14 +2610,25 @@ example: `go`
 
 // ===============================================================
 
-| package.remote_repository
-| Remote repository URL from where the package was installed.
+| package.path
+| Path where the package is installed.
 
 type: keyword
 
-example: `https://golang.org`
+example: `/usr/local/Cellar/go/1.12.9/`
 
 | core
+
+// ===============================================================
+
+| package.remote_repository
+| Remote repository from where the package was installed.
+
+type: keyword
+
+example: `https://artifacts.elastic.co/packages/7.x/yum`
+
+| extended
 
 // ===============================================================
 
@@ -2649,6 +2638,28 @@ example: `https://golang.org`
 type: long
 
 example: `62231`
+
+| core
+
+// ===============================================================
+
+| package.type
+| Information about package type. When installed from a package manager, this would contain the package manager name.
+
+type: keyword
+
+example: `npm`
+
+| core
+
+// ===============================================================
+
+| package.url.original
+| URL from where the package was installed.
+
+type: keyword
+
+example: `https://docs.docker.com/compose/`
 
 | core
 

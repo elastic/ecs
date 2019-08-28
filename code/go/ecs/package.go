@@ -28,9 +28,6 @@ import (
 // It also contains installation details, such as time, URL or user who
 // installed the package.
 type Package struct {
-	// ID uniquely identifying the package accross different hosts.
-	ID string `ecs:"id"`
-
 	// Package name
 	Name string `ecs:"name"`
 
@@ -46,24 +43,31 @@ type Package struct {
 	// Time when package was installed.
 	Installed time.Time `ecs:"installed"`
 
-	// Remote repository URL from where the package was installed.
+	// Information about package type. When installed from a package manager,
+	// this would contain the package manager name.
+	Type string `ecs:"type"`
+
+	// URL from where the package was installed.
+	UrlOriginal string `ecs:"url.original"`
+
+	// Path where the package is installed.
+	Path string `ecs:"path"`
+
+	// Remote repository from where the package was installed.
 	RemoteRepository string `ecs:"remote_repository"`
 
 	// Package architecture.
 	Architecture string `ecs:"architecture"`
 
-	// Build version of the installed package, e.g. commit hash.
-	BuildVersion string `ecs:"build_version"`
+	// Detailed version of the installed package, for instance git commit when
+	// using an unreleased version.
+	DetailedVersion string `ecs:"detailed_version"`
 
-	// Time when package was built.
-	BuildTime time.Time `ecs:"build_time"`
-
-	// Checksum of the installed package
+	// Checksum of the installed package for verification.
 	Checksum string `ecs:"checksum"`
 
-	// Indicating when the package was installed, e.g. at runtime or at
-	// buildtime.
-	InstallType string `ecs:"install_type"`
+	// Indicating how the package was installed, e.g. user-local, global.
+	InstallScope string `ecs:"install_scope"`
 
 	// License under which the package was released.
 	License string `ecs:"license"`

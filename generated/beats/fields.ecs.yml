@@ -1883,21 +1883,11 @@
       ignore_above: 1024
       description: Package architecture.
       example: runtime
-    - name: build_time
-      level: extended
-      type: date
-      description: Time when package was built.
-    - name: build_version
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Build version of the installed package, e.g. commit hash.
-      example: 9b52cc0d83f794f6fc6190f603fa2f62dd9aa2017165d19ff1d62742955a7a05
     - name: checksum
       level: extended
       type: keyword
       ignore_above: 1024
-      description: Checksum of the installed package
+      description: Checksum of the installed package for verification.
       example: 9b52cc0d83f794f6fc6190f603fa2f62dd9aa2017165d19ff1d62742955a7a05
     - name: description
       level: core
@@ -1906,19 +1896,19 @@
       description: Description of the package.
       example: Open source programming language to build simple/reliable/efficient
         software.
-    - name: id
-      level: core
-      type: keyword
-      ignore_above: 1024
-      description: ID uniquely identifying the package accross different hosts.
-      example: 9b52cc0d83f794f6fc6190f603fa2f62dd9aa2017165d19ff1d62742955a7a05
-    - name: install_type
+    - name: detailed_version
       level: extended
       type: keyword
       ignore_above: 1024
-      description: Indicating when the package was installed, e.g. at runtime or at
-        buildtime.
-      example: runtime
+      description: Detailed version of the installed package, for instance git commit
+        when using an unreleased version.
+      example: 9b52cc0d83f794f6fc6190f603fa2f62dd9aa2017165d19ff1d62742955a7a05
+    - name: install_scope
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Indicating how the package was installed, e.g. user-local, global.
+      example: global
     - name: installed
       level: core
       type: date
@@ -1935,18 +1925,37 @@
       ignore_above: 1024
       description: Package name
       example: go
-    - name: remote_repository
+    - name: path
       level: core
       type: keyword
       ignore_above: 1024
-      description: Remote repository URL from where the package was installed.
-      example: https://golang.org
+      description: Path where the package is installed.
+      example: /usr/local/Cellar/go/1.12.9/
+    - name: remote_repository
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Remote repository from where the package was installed.
+      example: https://artifacts.elastic.co/packages/7.x/yum
     - name: size
       level: core
       type: long
       format: string
       description: Package size in bytes.
       example: 62231
+    - name: type
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: Information about package type. When installed from a package manager,
+        this would contain the package manager name.
+      example: npm
+    - name: url.original
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: URL from where the package was installed.
+      example: https://docs.docker.com/compose/
     - name: user.domain
       level: extended
       type: keyword
