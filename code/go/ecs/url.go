@@ -44,6 +44,14 @@ type Url struct {
 	// field.
 	Domain string `ecs:"domain"`
 
+	// The highest registered url domain, stripped of the subdomain.
+	// For example, the registered domain for "foo.google.com" is "google.com".
+	// This value can be determined precisely with a list like the public
+	// suffix list (http://publicsuffix.org). Trying to approximate this by
+	// simply taking the last two labels will not work well for TLDs such as
+	// "co.uk".
+	RegisteredDomain string `ecs:"registered_domain"`
+
 	// Port of the request, such as 443.
 	Port int64 `ecs:"port"`
 

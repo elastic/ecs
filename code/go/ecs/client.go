@@ -53,6 +53,15 @@ type Client struct {
 	// Client domain.
 	Domain string `ecs:"domain"`
 
+	// The highest registered client domain, stripped of the subdomain.
+	// For example, the registered domain for "foo.contoso.com" is
+	// "contoso.com".
+	// This value can be determined precisely with a list like the public
+	// suffix list (http://publicsuffix.org). Trying to approximate this by
+	// simply taking the last two labels will not work well for TLDs such as
+	// "co.uk".
+	RegisteredDomain string `ecs:"registered_domain"`
+
 	// Bytes sent from the client to the server.
 	Bytes int64 `ecs:"bytes"`
 
