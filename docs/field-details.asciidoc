@@ -940,6 +940,436 @@ example: `1.0.0`
 
 |=====
 
+[[ecs-email]]
+=== Email Fields
+
+The email fields are used to store information extracted from email messages and headers.
+
+==== Email Field Details
+
+[options="header"]
+|=====
+| Field  | Description | Level
+
+// ===============================================================
+
+| email.action
+| The action taken when the email service provider received the email.
+
+type: keyword
+
+
+
+| extended
+
+// ===============================================================
+
+| email.attachments
+| The number of attachments delivered.
+
+type: integer
+
+
+
+| extended
+
+// ===============================================================
+
+| email.attachments_size
+| The total size of attachments delivered in bytes.
+
+type: integer
+
+
+
+| extended
+
+// ===============================================================
+
+| email.attempts
+| The count of attempts that it took the email service provider to deliver the email.
+
+type: integer
+
+
+
+| extended
+
+// ===============================================================
+
+| email.direction
+| The direction the email was sent.
+
+Outbound: The email was sent from an internal to external address. Inbound: The email was sent from an external to internal address. Internal: The email was sent between internal users.
+
+type: keyword
+
+
+
+| core
+
+// ===============================================================
+
+| email.email_id
+| The email service provider may give an email id so it's possible to identify the email message.
+
+type: keyword
+
+
+
+| extended
+
+// ===============================================================
+
+| email.errors
+| The field is used to log any errors which occured while receiving the email.
+
+type: keyword
+
+
+
+| extended
+
+// ===============================================================
+
+| email.from_address
+| The email address of the person who sent the email. The address is taken from the "From" field in the email header.
+
+type: keyword
+
+
+
+| core
+
+// ===============================================================
+
+| email.from_address_registered_domain
+| The highest registered domain taken from the "From" address, stripped of the subdomain.
+
+For example, the registered domain for "foo.google.com" is "google.com".
+
+This value can be determined precisely with a list like the public suffix list (http://publicsuffix.org). Trying to approximate this by simply taking the last two labels will not work well for TLDs such as "co.uk".
+
+type: keyword
+
+example: `google.com`
+
+| core
+
+// ===============================================================
+
+| email.latency
+| The time in milliseconds that the delivery attempt took.
+
+type: integer
+
+
+
+| extended
+
+// ===============================================================
+
+| email.mail_from_address
+| The sender address found in the MAIL_FROM field in the email header. This address can be different to the FROM address if the email is spoofed.
+
+type: keyword
+
+
+
+| core
+
+// ===============================================================
+
+| email.mail_from_address_registered_domain
+| The highest registered domain taken from the "MAIL FROM" address, stripped of the subdomain.
+
+For example, the registered domain for "foo.google.com" is "google.com".
+
+This value can be determined precisely with a list like the public suffix list (http://publicsuffix.org). Trying to approximate this by simply taking the last two labels will not work well for TLDs such as "co.uk".
+
+type: keyword
+
+example: `google.com`
+
+| core
+
+// ===============================================================
+
+| email.malware
+| Any malware the email service provider detected while scanning the email.
+
+type: keyword
+
+
+
+| extended
+
+// ===============================================================
+
+| email.paas_account
+| The field can be used to store the account used to manage the email service provider.
+
+type: keyword
+
+
+
+| extended
+
+// ===============================================================
+
+| email.received
+| The time the email was received.
+
+type: date
+
+
+
+| core
+
+// ===============================================================
+
+| email.recipient_address
+| The email address of the user who received the email.
+
+type: keyword
+
+
+
+| core
+
+// ===============================================================
+
+| email.recipient_address_registered_domain
+| The highest registered domain taken from the recipient address, stripped of the subdomain.
+
+For example, the registered domain for "foo.google.com" is "google.com".
+
+This value can be determined precisely with a list like the public suffix list (http://publicsuffix.org). Trying to approximate this by simply taking the last two labels will not work well for TLDs such as "co.uk".
+
+type: keyword
+
+example: `google.com`
+
+| core
+
+// ===============================================================
+
+| email.reject_code
+| The rejection code issued if the email was rejected at the receipt stage.
+
+type: keyword
+
+
+
+| extended
+
+// ===============================================================
+
+| email.reject_info
+| The rejection information if the email was rejected at the receipt stage.
+
+type: keyword
+
+
+
+| extended
+
+// ===============================================================
+
+| email.reject_type
+| The rejection type if the email was rejected at the receipt stage.
+
+type: keyword
+
+
+
+| extended
+
+// ===============================================================
+
+| email.reply_to
+| The email address and name in the reply_to field in the header.
+
+When the person who receives the email clicks reply, the email should be sent to the name and address in the reply_to field.
+
+type: keyword
+
+
+
+| core
+
+// ===============================================================
+
+| email.reply_to_registered_domain
+| The highest registered domain taken from the "reply_to" address, stripped of the subdomain.
+
+For example, the registered domain for "foo.google.com" is "google.com".
+
+This value can be determined precisely with a list like the public suffix list (http://publicsuffix.org). Trying to approximate this by simply taking the last two labels will not work well for TLDs such as "co.uk".
+
+type: keyword
+
+example: `google.com`
+
+| core
+
+// ===============================================================
+
+| email.return_path
+| The email address in the return path field.
+
+When an email doesn't make it to its intended destination, the return path indicates where non-delivery receipts or bounce messages are to be sent.
+
+type: keyword
+
+
+
+| core
+
+// ===============================================================
+
+| email.route
+| The email service provider delivery route used.
+
+type: keyword
+
+
+
+| extended
+
+// ===============================================================
+
+| email.sent_bytes
+| The amount of data in bytes that were delivered.
+
+type: keyword
+
+
+
+| core
+
+// ===============================================================
+
+| email.spam_info
+| Information from email service provuider for messages found to be Spam.
+
+type: keyword
+
+
+
+| extended
+
+// ===============================================================
+
+| email.spam_limit
+| The email service providers Spam limit defined for the given sender and recipient.
+
+type: keyword
+
+
+
+| extended
+
+// ===============================================================
+
+| email.spam_score
+| The email service providers Spam score the email was given.
+
+type: keyword
+
+
+
+| extended
+
+// ===============================================================
+
+| email.spf_error
+| The sender policy framework (SPF) error taken from the email header.
+
+The email service provider may check the MX domains SPF record to check it is authorised to send the email.
+
+The - infront of all in the spf record means senders not listed will be created as a hard fail. A hard fail will prevent the sender from sending the email. v=spf1 ip4:192.168.0.1 -all
+
+The ~ infront of all in the spf record means senders not listed will be created as a soft fail. A soft fail may allow the sender to send the email, but the soft fail spf error in the header will be flagged as suspicious by anti-Spam filters. v=spf1 include:spf.protection.outlook.com ~all
+
+type: keyword
+
+
+
+| extended
+
+// ===============================================================
+
+| email.spoofed
+| Set to true if email spoofing was detected.
+
+Setting the spoofed flag to true will also users to quickly find spoofed emails in Elasticsearch.
+
+type: keyword
+
+
+
+| extended
+
+// ===============================================================
+
+| email.subject
+| The subject of the email.
+
+type: keyword
+
+
+
+| core
+
+// ===============================================================
+
+| email.tls_cipher
+| The TLS cipher used if the email was received using TLS.
+
+type: keyword
+
+
+
+| extended
+
+// ===============================================================
+
+| email.tls_version
+| The TLS version used if the email was received using TLS.
+
+type: keyword
+
+
+
+| extended
+
+// ===============================================================
+
+| email.tracking_id
+| The email service providers tracking id used to track the email through different log types.
+
+type: keyword
+
+
+
+| extended
+
+// ===============================================================
+
+| email.url_category
+| The email service provider's category of the URL that was clicked.
+
+type: keyword
+
+
+
+| extended
+
+// ===============================================================
+
+|=====
+
 [[ecs-error]]
 === Error Fields
 

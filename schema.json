@@ -670,6 +670,365 @@
     "title": "ECS", 
     "type": "group"
   }, 
+  "email": {
+    "description": "The email fields are used to store information extracted from email messages and headers.\n", 
+    "fields": {
+      "email.action": {
+        "description": "The action taken when the email service provider received the email.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "email.action", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "email.attachments": {
+        "description": "The number of attachments delivered.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "email.attachments", 
+        "required": false, 
+        "type": "integer"
+      }, 
+      "email.attachments_size": {
+        "description": "The total size of attachments delivered in bytes.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "email.attachments_size", 
+        "required": false, 
+        "type": "integer"
+      }, 
+      "email.attempts": {
+        "description": "The count of attempts that it took the email service provider to deliver the email.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "email.attempts", 
+        "required": false, 
+        "type": "integer"
+      }, 
+      "email.direction": {
+        "description": "The direction the email was sent.\nOutbound: The email was sent from an internal to external address. Inbound: The email was sent from an external to internal address. Internal: The email was sent between internal users.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "core", 
+        "name": "email.direction", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "email.email_id": {
+        "description": "The email service provider may give an email id so it's possible to identify the email message.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "email.email_id", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "email.errors": {
+        "description": "The field is used to log any errors which occured while receiving the email.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "email.errors", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "email.from_address": {
+        "description": "The email address of the person who sent the email. The address is taken from the \"From\" field in the email header.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "core", 
+        "name": "email.from_address", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "email.from_address_registered_domain": {
+        "description": "The highest registered domain taken from the \"From\" address, stripped of the subdomain.\nFor example, the registered domain for \"foo.google.com\" is \"google.com\".\nThis value can be determined precisely with a list like the public suffix list (http://publicsuffix.org). Trying to approximate this by simply taking the last two labels will not work well for TLDs such as \"co.uk\".", 
+        "example": "google.com", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "core", 
+        "name": "email.from_address_registered_domain", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "email.latency": {
+        "description": "The time in milliseconds that the delivery attempt took.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "email.latency", 
+        "required": false, 
+        "type": "integer"
+      }, 
+      "email.mail_from_address": {
+        "description": "The sender address found in the MAIL_FROM field in the email header. This address can be different to the FROM address if the email is spoofed.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "core", 
+        "name": "email.mail_from_address", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "email.mail_from_address_registered_domain": {
+        "description": "The highest registered domain taken from the \"MAIL FROM\" address, stripped of the subdomain.\nFor example, the registered domain for \"foo.google.com\" is \"google.com\".\nThis value can be determined precisely with a list like the public suffix list (http://publicsuffix.org). Trying to approximate this by simply taking the last two labels will not work well for TLDs such as \"co.uk\".", 
+        "example": "google.com", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "core", 
+        "name": "email.mail_from_address_registered_domain", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "email.malware": {
+        "description": "Any malware the email service provider detected while scanning the email.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "email.malware", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "email.paas_account": {
+        "description": "The field can be used to store the account used to manage the email service provider.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "email.paas_account", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "email.received": {
+        "description": "The time the email was received.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "core", 
+        "name": "email.received", 
+        "required": false, 
+        "type": "date"
+      }, 
+      "email.recipient_address": {
+        "description": "The email address of the user who received the email.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "core", 
+        "name": "email.recipient_address", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "email.recipient_address_registered_domain": {
+        "description": "The highest registered domain taken from the recipient address, stripped of the subdomain.\nFor example, the registered domain for \"foo.google.com\" is \"google.com\".\nThis value can be determined precisely with a list like the public suffix list (http://publicsuffix.org). Trying to approximate this by simply taking the last two labels will not work well for TLDs such as \"co.uk\".", 
+        "example": "google.com", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "core", 
+        "name": "email.recipient_address_registered_domain", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "email.reject_code": {
+        "description": "The rejection code issued if the email was rejected at the receipt stage.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "email.reject_code", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "email.reject_info": {
+        "description": "The rejection information if the email was rejected at the receipt stage.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "email.reject_info", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "email.reject_type": {
+        "description": "The rejection type if the email was rejected at the receipt stage.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "email.reject_type", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "email.reply_to": {
+        "description": "The email address and name in the reply_to field in the header.\nWhen the person who receives the email clicks reply, the email should be sent to the name and address in the reply_to field.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "core", 
+        "name": "email.reply_to", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "email.reply_to_registered_domain": {
+        "description": "The highest registered domain taken from the \"reply_to\" address, stripped of the subdomain.\nFor example, the registered domain for \"foo.google.com\" is \"google.com\".\nThis value can be determined precisely with a list like the public suffix list (http://publicsuffix.org). Trying to approximate this by simply taking the last two labels will not work well for TLDs such as \"co.uk\".", 
+        "example": "google.com", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "core", 
+        "name": "email.reply_to_registered_domain", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "email.return_path": {
+        "description": "The email address in the return path field.\nWhen an email doesn't make it to its intended destination, the return path indicates where non-delivery receipts or bounce messages are to be sent.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "core", 
+        "name": "email.return_path", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "email.route": {
+        "description": "The email service provider delivery route used.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "email.route", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "email.sent_bytes": {
+        "description": "The amount of data in bytes that were delivered.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "core", 
+        "name": "email.sent_bytes", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "email.spam_info": {
+        "description": "Information from email service provuider for messages found to be Spam.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "email.spam_info", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "email.spam_limit": {
+        "description": "The email service providers Spam limit defined for the given sender and recipient.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "email.spam_limit", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "email.spam_score": {
+        "description": "The email service providers Spam score the email was given.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "email.spam_score", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "email.spf_error": {
+        "description": "The sender policy framework (SPF) error taken from the email header.\nThe email service provider may check the MX domains SPF record to check it is authorised to send the email.\nThe - infront of all in the spf record means senders not listed will be created as a hard fail. A hard fail will prevent the sender from sending the email. v=spf1 ip4:192.168.0.1 -all\nThe ~ infront of all in the spf record means senders not listed will be created as a soft fail. A soft fail may allow the sender to send the email, but the soft fail spf error in the header will be flagged as suspicious by anti-Spam filters. v=spf1 include:spf.protection.outlook.com ~all", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "email.spf_error", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "email.spoofed": {
+        "description": "Set to true if email spoofing was detected.\nSetting the spoofed flag to true will also users to quickly find spoofed emails in Elasticsearch.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "email.spoofed", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "email.subject": {
+        "description": "The subject of the email.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "core", 
+        "name": "email.subject", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "email.tls_cipher": {
+        "description": "The TLS cipher used if the email was received using TLS.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "email.tls_cipher", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "email.tls_version": {
+        "description": "The TLS version used if the email was received using TLS.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "email.tls_version", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "email.tracking_id": {
+        "description": "The email service providers tracking id used to track the email through different log types.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "email.tracking_id", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "email.url_category": {
+        "description": "The email service provider's category of the URL that was clicked.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "email.url_category", 
+        "required": false, 
+        "type": "keyword"
+      }
+    }, 
+    "group": 2, 
+    "name": "email", 
+    "title": "Email", 
+    "type": "group"
+  }, 
   "error": {
     "description": "These fields can represent errors of any kind.\nUse them for errors that happen while fetching events or in cases where the event itself contains an error.\n", 
     "fields": {

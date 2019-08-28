@@ -766,6 +766,252 @@
         ECS versions -- this field lets integrations adjust to the schema version
         of the events.'
       example: 1.0.0
+  - name: email
+    title: Email
+    group: 2
+    description: The email fields are used to store information extracted from email
+      messages and headers.
+    type: group
+    fields:
+    - name: action
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The action taken when the email service provider received the email.
+    - name: attachments
+      level: extended
+      type: integer
+      description: The number of attachments delivered.
+    - name: attachments_size
+      level: extended
+      type: integer
+      description: The total size of attachments delivered in bytes.
+    - name: attempts
+      level: extended
+      type: integer
+      description: The count of attempts that it took the email service provider to
+        deliver the email.
+    - name: direction
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: 'The direction the email was sent.
+
+        Outbound: The email was sent from an internal to external address. Inbound:
+        The email was sent from an external to internal address. Internal: The email
+        was sent between internal users.'
+    - name: email_id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The email service provider may give an email id so it's possible
+        to identify the email message.
+    - name: errors
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The field is used to log any errors which occured while receiving
+        the email.
+    - name: from_address
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: The email address of the person who sent the email. The address
+        is taken from the "From" field in the email header.
+    - name: from_address_registered_domain
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: 'The highest registered domain taken from the "From" address, stripped
+        of the subdomain.
+
+        For example, the registered domain for "foo.google.com" is "google.com".
+
+        This value can be determined precisely with a list like the public suffix
+        list (http://publicsuffix.org). Trying to approximate this by simply taking
+        the last two labels will not work well for TLDs such as "co.uk".'
+      example: google.com
+    - name: latency
+      level: extended
+      type: integer
+      description: The time in milliseconds that the delivery attempt took.
+    - name: mail_from_address
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: The sender address found in the MAIL_FROM field in the email header.
+        This address can be different to the FROM address if the email is spoofed.
+    - name: mail_from_address_registered_domain
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: 'The highest registered domain taken from the "MAIL FROM" address,
+        stripped of the subdomain.
+
+        For example, the registered domain for "foo.google.com" is "google.com".
+
+        This value can be determined precisely with a list like the public suffix
+        list (http://publicsuffix.org). Trying to approximate this by simply taking
+        the last two labels will not work well for TLDs such as "co.uk".'
+      example: google.com
+    - name: malware
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Any malware the email service provider detected while scanning
+        the email.
+    - name: paas_account
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The field can be used to store the account used to manage the email
+        service provider.
+    - name: received
+      level: core
+      type: date
+      description: The time the email was received.
+    - name: recipient_address
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: The email address of the user who received the email.
+    - name: recipient_address_registered_domain
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: 'The highest registered domain taken from the recipient address,
+        stripped of the subdomain.
+
+        For example, the registered domain for "foo.google.com" is "google.com".
+
+        This value can be determined precisely with a list like the public suffix
+        list (http://publicsuffix.org). Trying to approximate this by simply taking
+        the last two labels will not work well for TLDs such as "co.uk".'
+      example: google.com
+    - name: reject_code
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The rejection code issued if the email was rejected at the receipt
+        stage.
+    - name: reject_info
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The rejection information if the email was rejected at the receipt
+        stage.
+    - name: reject_type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The rejection type if the email was rejected at the receipt stage.
+    - name: reply_to
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: 'The email address and name in the reply_to field in the header.
+
+        When the person who receives the email clicks reply, the email should be sent
+        to the name and address in the reply_to field.'
+    - name: reply_to_registered_domain
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: 'The highest registered domain taken from the "reply_to" address,
+        stripped of the subdomain.
+
+        For example, the registered domain for "foo.google.com" is "google.com".
+
+        This value can be determined precisely with a list like the public suffix
+        list (http://publicsuffix.org). Trying to approximate this by simply taking
+        the last two labels will not work well for TLDs such as "co.uk".'
+      example: google.com
+    - name: return_path
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: 'The email address in the return path field.
+
+        When an email doesn''t make it to its intended destination, the return path
+        indicates where non-delivery receipts or bounce messages are to be sent.'
+    - name: route
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The email service provider delivery route used.
+    - name: sent_bytes
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: The amount of data in bytes that were delivered.
+    - name: spam_info
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Information from email service provuider for messages found to
+        be Spam.
+    - name: spam_limit
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The email service providers Spam limit defined for the given sender
+        and recipient.
+    - name: spam_score
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The email service providers Spam score the email was given.
+    - name: spf_error
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The sender policy framework (SPF) error taken from the email header.
+
+        The email service provider may check the MX domains SPF record to check it
+        is authorised to send the email.
+
+        The - infront of all in the spf record means senders not listed will be created
+        as a hard fail. A hard fail will prevent the sender from sending the email.
+        v=spf1 ip4:192.168.0.1 -all
+
+        The ~ infront of all in the spf record means senders not listed will be created
+        as a soft fail. A soft fail may allow the sender to send the email, but the
+        soft fail spf error in the header will be flagged as suspicious by anti-Spam
+        filters. v=spf1 include:spf.protection.outlook.com ~all'
+    - name: spoofed
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Set to true if email spoofing was detected.
+
+        Setting the spoofed flag to true will also users to quickly find spoofed emails
+        in Elasticsearch.'
+    - name: subject
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: The subject of the email.
+    - name: tls_cipher
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The TLS cipher used if the email was received using TLS.
+    - name: tls_version
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The TLS version used if the email was received using TLS.
+    - name: tracking_id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The email service providers tracking id used to track the email
+        through different log types.
+    - name: url_category
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The email service provider's category of the URL that was clicked.
   - name: error
     title: Error
     group: 2
