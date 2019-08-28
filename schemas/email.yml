@@ -1,0 +1,302 @@
+---
+- name: email
+  title: Email
+  group: 2
+  short: Fields that let you store information extracted from emails.
+  description: >
+    The email fields are used to store information extracted from email messages and headers.
+  type: group
+  fields:
+
+    - name: paas_account
+      level: extended
+      type: keyword
+      short: The account for the email platform-as-a-service provider.
+      description: >
+        The field can be used to store the account used to manage the email service provider.
+
+    - name: tracking_id
+      level: extended
+      type: keyword
+      short: The tracking id used to track the email through the email service providers logs.
+      description: >
+        The email service providers tracking id used to track the email through different log types.
+
+    - name: action
+      level: extended
+      type: keyword
+      short: The action taken at the receipt stage.
+      description: >
+        The action taken when the email service provider received the email.
+
+    - name: tls_cipher
+      level: extended
+      type: keyword
+      short: The tls cipher used to secure the email.
+      description: >
+        The TLS cipher used if the email was received using TLS.
+
+    - name: received
+      level: core
+      type: date
+      short: The time the email was received.
+      description: >
+        The time the email was received.
+
+    - name: direction
+      level: core
+      type: keyword
+      short: The direction of the email.
+      description: >
+        The direction the email was sent.
+
+        Outbound: The email was sent from an internal to external address.
+        Inbound: The email was sent from an external to internal address.
+        Internal: The email was sent between internal users.
+
+    - name: errors
+      level: extended
+      type: keyword
+      short: Information about any errors which occured during receipt.
+      description: >
+        The field is used to log any errors which occured while receiving the email.
+
+    - name: email_id
+      level: extended
+      type: keyword
+      short: The email service providers id used to identify the email.
+      description: >
+        The email service provider may give an email id so it's possible to identify the email message.
+
+    - name: recipient_address
+      level: core
+      type: keyword
+      short: The recipient email address.
+      description: >
+        The email address of the user who received the email.
+
+    - name: recipient_address_registered_domain
+      level: core
+      type: keyword
+      short: The highest registered domain taken from the recipient address, stripped of the subdomain.
+      description: >
+        The highest registered domain taken from the recipient address, stripped of the subdomain.
+
+        For example, the registered domain for "foo.google.com" is "google.com".
+
+        This value can be determined precisely with a list like the public
+        suffix list (http://publicsuffix.org). Trying to approximate this by
+        simply taking the last two labels will not work well for TLDs such as "co.uk".
+      example: google.com
+
+    - name: from_address
+      level: core
+      type: keyword
+      short: The senders email address.
+      description: >
+        The email address of the person who sent the email. The address is taken from the "From" field in the email header.
+
+    - name: from_address_registered_domain
+      level: core
+      type: keyword
+      short: The highest registered domain taken from the "From" address, stripped of the subdomain.
+      description: >
+        The highest registered domain taken from the "From" address, stripped of the subdomain.
+
+        For example, the registered domain for "foo.google.com" is "google.com".
+
+        This value can be determined precisely with a list like the public
+        suffix list (http://publicsuffix.org). Trying to approximate this by
+        simply taking the last two labels will not work well for TLDs such as "co.uk".
+      example: google.com
+
+    - name: mail_from_address
+      level: core
+      type: keyword
+      short: The sender address found in the MAIL_FROM field in the email header.
+      description: >
+        The sender address found in the MAIL_FROM field in the email header. This address can be different to the FROM address if the email is spoofed.
+
+    - name: mail_from_address_registered_domain
+      level: core
+      type: keyword
+      short: The highest registered domain taken from the "MAIL FROM" address, stripped of the subdomain.
+      description: >
+        The highest registered domain taken from the "MAIL FROM" address, stripped of the subdomain.
+
+        For example, the registered domain for "foo.google.com" is "google.com".
+
+        This value can be determined precisely with a list like the public
+        suffix list (http://publicsuffix.org). Trying to approximate this by
+        simply taking the last two labels will not work well for TLDs such as "co.uk".
+      example: google.com
+
+    - name: reject_code
+      level: extended
+      type: keyword
+      short: The rejection code issued if the email was rejected at the receipt stage.
+      description: >
+        The rejection code issued if the email was rejected at the receipt stage.
+
+    - name: reject_info
+      level: extended
+      type: keyword
+      short: The rejection information if the email was rejected at the receipt stage.
+      description: >
+        The rejection information if the email was rejected at the receipt stage.
+
+    - name: reject_type
+      level: extended
+      type: keyword
+      short: The rejection type if the email was rejected at the receipt stage.
+      description: >
+        The rejection type if the email was rejected at the receipt stage.
+
+    - name: spam_info
+      level: extended
+      type: keyword
+      short: Information from email service provuider for messages found to be Spam.
+      description: >
+        Information from email service provuider for messages found to be Spam.
+
+    - name: spam_limit
+      level: extended
+      type: keyword
+      short: The email service providers Spam limit defined for the given sender and recipient.
+      description: >
+        The email service providers Spam limit defined for the given sender and recipient.
+
+    - name: spam_score
+      level: extended
+      type: keyword
+      short: The email service providers Spam score the email was given.
+      description: >
+        The email service providers Spam score the email was given.
+
+    - name: latency
+      level: extended
+      type: integer
+      short: The time in milliseconds that the delivery attempt took.
+      description: >
+        The time in milliseconds that the delivery attempt took.
+
+    - name: attempts
+      level: extended
+      type: integer
+      short: The count of attempts that it took the email service provider to deliver the email.
+      description: >
+        The count of attempts that it took the email service provider to deliver the email.
+
+    - name: attachments
+      level: extended
+      type: integer
+      short: The number of attachments delivered.
+      description: >
+        The number of attachments delivered.
+
+    - name: attachments_size
+      level: extended
+      type: integer
+      short: The total size of attachments delivered in bytes.
+      description: >
+        The total size of attachments delivered in bytes.
+
+    - name: subject
+      level: core
+      type: keyword
+      short: The subject of the email.
+      description: >
+        The subject of the email.
+
+    - name: tls_version
+      level: extended
+      type: keyword
+      short: The tls version used to secure the email.
+      description: >
+        The TLS version used if the email was received using TLS.
+
+    - name: route
+      level: extended
+      type: keyword
+      short: The email service provider delivery route used.
+      description: >
+        The email service provider delivery route used.
+
+    - name: url_category
+      level: extended
+      type: keyword
+      short: The email service provider's category of the URL that was clicked.
+      description: >
+        The email service provider's category of the URL that was clicked.
+
+    - name: sent_bytes
+      level: core
+      type: keyword
+      short: The amount of data in bytes that were delivered.
+      description: >
+        The amount of data in bytes that were delivered.
+
+    - name: malware
+      level: extended
+      type: keyword
+      short: Any malware the email service provider detected.
+      description: >
+        Any malware the email service provider detected while scanning the email.
+
+    - name: spoofed
+      level: extended
+      type: keyword
+      short: Set to true if email spoofing was detected.
+      description: >
+        Set to true if email spoofing was detected.
+
+        Setting the spoofed flag to true will also users to quickly find spoofed emails in Elasticsearch.
+
+    - name: reply_to
+      level: core
+      type: keyword
+      short: The email address and name in the reply_to field in the header.
+      description: >
+        The email address and name in the reply_to field in the header.
+
+        When the person who receives the email clicks reply, the email should be sent to the name and address in the reply_to field.
+
+    - name: reply_to_registered_domain
+      level: core
+      type: keyword
+      short: The highest registered domain taken from the "reply_to" address, stripped of the subdomain.
+      description: >
+        The highest registered domain taken from the "reply_to" address, stripped of the subdomain.
+
+        For example, the registered domain for "foo.google.com" is "google.com".
+
+        This value can be determined precisely with a list like the public
+        suffix list (http://publicsuffix.org). Trying to approximate this by
+        simply taking the last two labels will not work well for TLDs such as "co.uk".
+      example: google.com
+
+    - name: return_path
+      level: core
+      type: keyword
+      short: The email address in the return path field.
+      description: >
+        The email address in the return path field.
+
+        When an email doesn’t make it to its intended destination, the return path indicates where non-delivery receipts—or bounce messages—are to be sent.
+
+    - name: spf_error
+      level: extended
+      type: keyword
+      short: The sender policy framework (SPF) error taken from the email header.
+      description: >
+        The sender policy framework (SPF) error taken from the email header.
+
+        The email service provider may check the MX domains SPF record to check it is authorised to send the email.
+
+        The - infront of all in the spf record means senders not listed will be created as a hard fail.
+        A hard fail will prevent the sender from sending the email.
+        v=spf1 ip4:192.168.0.1 -all
+
+        The ~ infront of all in the spf record means senders not listed will be created as a soft fail.
+        A soft fail may allow the sender to send the email, but the soft fail spf error in the header will be flagged as suspicious by anti-Spam filters.
+        v=spf1 include:spf.protection.outlook.com ~all
