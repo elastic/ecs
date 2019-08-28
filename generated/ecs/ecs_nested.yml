@@ -3166,94 +3166,6 @@ package:
       order: 6
       short: URL from where the package was installed.
       type: keyword
-    user.domain:
-      description: 'Name of the directory the user is a member of.
-
-        For example, an LDAP or Active Directory domain name.'
-      flat_name: package.user.domain
-      ignore_above: 1024
-      level: extended
-      name: domain
-      order: 5
-      original_fieldset: user
-      short: Name of the directory the user is a member of.
-      type: keyword
-    user.email:
-      description: User email address.
-      flat_name: package.user.email
-      ignore_above: 1024
-      level: extended
-      name: email
-      order: 3
-      original_fieldset: user
-      short: User email address.
-      type: keyword
-    user.full_name:
-      description: User's full name, if available.
-      example: Albert Einstein
-      flat_name: package.user.full_name
-      ignore_above: 1024
-      level: extended
-      name: full_name
-      order: 2
-      original_fieldset: user
-      short: User's full name, if available.
-      type: keyword
-    user.group.id:
-      description: Unique identifier for the group on the system/platform.
-      flat_name: package.user.group.id
-      ignore_above: 1024
-      level: extended
-      name: id
-      order: 0
-      original_fieldset: user
-      short: Unique identifier for the group on the system/platform.
-      type: keyword
-    user.group.name:
-      description: Name of the group.
-      flat_name: package.user.group.name
-      ignore_above: 1024
-      level: extended
-      name: name
-      order: 1
-      original_fieldset: user
-      short: Name of the group.
-      type: keyword
-    user.hash:
-      description: 'Unique user hash to correlate information for a user in anonymized
-        form.
-
-        Useful if `user.id` or `user.name` contain confidential information and cannot
-        be used.'
-      flat_name: package.user.hash
-      ignore_above: 1024
-      level: extended
-      name: hash
-      order: 4
-      original_fieldset: user
-      short: Unique user hash to correlate information for a user in anonymized form.
-      type: keyword
-    user.id:
-      description: One or multiple unique identifiers of the user.
-      flat_name: package.user.id
-      ignore_above: 1024
-      level: core
-      name: id
-      order: 0
-      original_fieldset: user
-      short: One or multiple unique identifiers of the user.
-      type: keyword
-    user.name:
-      description: Short name or login of the user.
-      example: albert
-      flat_name: package.user.name
-      ignore_above: 1024
-      level: core
-      name: name
-      order: 1
-      original_fieldset: user
-      short: Short name or login of the user.
-      type: keyword
     version:
       description: Package version
       example: 1.12.9
@@ -3266,8 +3178,6 @@ package:
       type: keyword
   group: 2
   name: package
-  nestings:
-  - user
   prefix: package.
   short: These fields contain information about an installed software package.
   title: Package
@@ -4481,7 +4391,6 @@ user:
     - host
     - server
     - source
-    - package
     top_level: true
   short: Fields to describe the user relevant to the event.
   title: User
