@@ -254,7 +254,7 @@ client:
       format: bytes
       level: core
       name: bytes
-      order: 5
+      order: 6
       short: Bytes sent from the client to the server.
       type: long
     domain:
@@ -386,7 +386,7 @@ client:
       flat_name: client.nat.ip
       level: extended
       name: nat.ip
-      order: 7
+      order: 8
       short: Client NAT ip address
       type: ip
     nat.port:
@@ -398,7 +398,7 @@ client:
       format: string
       level: extended
       name: nat.port
-      order: 8
+      order: 9
       short: Client NAT port
       type: long
     packets:
@@ -407,7 +407,7 @@ client:
       flat_name: client.packets
       level: core
       name: packets
-      order: 6
+      order: 7
       short: Packets sent from the client to the server.
       type: long
     port:
@@ -419,6 +419,22 @@ client:
       order: 2
       short: Port of the client.
       type: long
+    registered_domain:
+      description: 'The highest registered client domain, stripped of the subdomain.
+
+        For example, the registered domain for "foo.google.com" is "google.com".
+
+        This value can be determined precisely with a list like the public suffix
+        list (http://publicsuffix.org). Trying to approximate this by simply taking
+        the last two labels will not work well for TLDs such as "co.uk".'
+      example: google.com
+      flat_name: client.registered_domain
+      ignore_above: 1024
+      level: extended
+      name: registered_domain
+      order: 5
+      short: The highest registered client domain, stripped of the subdomain.
+      type: keyword
     user.domain:
       description: 'Name of the directory the user is a member of.
 
@@ -721,7 +737,7 @@ destination:
       format: bytes
       level: core
       name: bytes
-      order: 5
+      order: 6
       short: Bytes sent from the destination to the source.
       type: long
     domain:
@@ -853,7 +869,7 @@ destination:
       flat_name: destination.nat.ip
       level: extended
       name: nat.ip
-      order: 7
+      order: 8
       short: Destination NAT ip
       type: ip
     nat.port:
@@ -864,7 +880,7 @@ destination:
       format: string
       level: extended
       name: nat.port
-      order: 8
+      order: 9
       short: Destination NAT Port
       type: long
     packets:
@@ -873,7 +889,7 @@ destination:
       flat_name: destination.packets
       level: core
       name: packets
-      order: 6
+      order: 7
       short: Packets sent from the destination to the source.
       type: long
     port:
@@ -885,6 +901,22 @@ destination:
       order: 2
       short: Port of the destination.
       type: long
+    registered_domain:
+      description: 'The highest registered destination domain, stripped of the subdomain.
+
+        For example, the registered domain for "foo.google.com" is "google.com".
+
+        This value can be determined precisely with a list like the public suffix
+        list (http://publicsuffix.org). Trying to approximate this by simply taking
+        the last two labels will not work well for TLDs such as "co.uk".'
+      example: google.com
+      flat_name: destination.registered_domain
+      ignore_above: 1024
+      level: extended
+      name: registered_domain
+      order: 5
+      short: The highest registered destination domain, stripped of the subdomain.
+      type: keyword
     user.domain:
       description: 'Name of the directory the user is a member of.
 
@@ -3296,7 +3328,7 @@ server:
       format: bytes
       level: core
       name: bytes
-      order: 5
+      order: 6
       short: Bytes sent from the server to the client.
       type: long
     domain:
@@ -3428,7 +3460,7 @@ server:
       flat_name: server.nat.ip
       level: extended
       name: nat.ip
-      order: 7
+      order: 8
       short: Server NAT ip
       type: ip
     nat.port:
@@ -3440,7 +3472,7 @@ server:
       format: string
       level: extended
       name: nat.port
-      order: 8
+      order: 9
       short: Server NAT port
       type: long
     packets:
@@ -3449,7 +3481,7 @@ server:
       flat_name: server.packets
       level: core
       name: packets
-      order: 6
+      order: 7
       short: Packets sent from the server to the client.
       type: long
     port:
@@ -3461,6 +3493,22 @@ server:
       order: 2
       short: Port of the server.
       type: long
+    registered_domain:
+      description: 'The highest registered server domain, stripped of the subdomain.
+
+        For example, the registered domain for "foo.google.com" is "google.com".
+
+        This value can be determined precisely with a list like the public suffix
+        list (http://publicsuffix.org). Trying to approximate this by simply taking
+        the last two labels will not work well for TLDs such as "co.uk".'
+      example: google.com
+      flat_name: server.registered_domain
+      ignore_above: 1024
+      level: extended
+      name: registered_domain
+      order: 5
+      short: The highest registered server domain, stripped of the subdomain.
+      type: keyword
     user.domain:
       description: 'Name of the directory the user is a member of.
 
@@ -3708,7 +3756,7 @@ source:
       format: bytes
       level: core
       name: bytes
-      order: 5
+      order: 6
       short: Bytes sent from the source to the destination.
       type: long
     domain:
@@ -3840,7 +3888,7 @@ source:
       flat_name: source.nat.ip
       level: extended
       name: nat.ip
-      order: 7
+      order: 8
       short: Source NAT ip
       type: ip
     nat.port:
@@ -3852,7 +3900,7 @@ source:
       format: string
       level: extended
       name: nat.port
-      order: 8
+      order: 9
       short: Source NAT port
       type: long
     packets:
@@ -3861,7 +3909,7 @@ source:
       flat_name: source.packets
       level: core
       name: packets
-      order: 6
+      order: 7
       short: Packets sent from the source to the destination.
       type: long
     port:
@@ -3873,6 +3921,22 @@ source:
       order: 2
       short: Port of the source.
       type: long
+    registered_domain:
+      description: 'The highest registered source domain, stripped of the subdomain.
+
+        For example, the registered domain for "foo.google.com" is "google.com".
+
+        This value can be determined precisely with a list like the public suffix
+        list (http://publicsuffix.org). Trying to approximate this by simply taking
+        the last two labels will not work well for TLDs such as "co.uk".'
+      example: google.com
+      flat_name: source.registered_domain
+      ignore_above: 1024
+      level: extended
+      name: registered_domain
+      order: 5
+      short: The highest registered source domain, stripped of the subdomain.
+      type: keyword
     user.domain:
       description: 'Name of the directory the user is a member of.
 
@@ -4035,7 +4099,7 @@ url:
       ignore_above: 1024
       level: extended
       name: fragment
-      order: 7
+      order: 8
       short: Portion of the url after the `#`.
       type: keyword
     full:
@@ -4071,7 +4135,7 @@ url:
       ignore_above: 1024
       level: extended
       name: password
-      order: 9
+      order: 10
       short: Password of the request.
       type: keyword
     path:
@@ -4080,7 +4144,7 @@ url:
       ignore_above: 1024
       level: extended
       name: path
-      order: 5
+      order: 6
       short: Path of the request, such as "/search".
       type: keyword
     port:
@@ -4090,7 +4154,7 @@ url:
       format: string
       level: extended
       name: port
-      order: 4
+      order: 5
       short: Port of the request, such as 443.
       type: long
     query:
@@ -4105,8 +4169,24 @@ url:
       ignore_above: 1024
       level: extended
       name: query
-      order: 6
+      order: 7
       short: Query string of the request.
+      type: keyword
+    registered_domain:
+      description: 'The highest registered url domain, stripped of the subdomain.
+
+        For example, the registered domain for "foo.google.com" is "google.com".
+
+        This value can be determined precisely with a list like the public suffix
+        list (http://publicsuffix.org). Trying to approximate this by simply taking
+        the last two labels will not work well for TLDs such as "co.uk".'
+      example: google.com
+      flat_name: url.registered_domain
+      ignore_above: 1024
+      level: extended
+      name: registered_domain
+      order: 4
+      short: The highest registered url domain, stripped of the subdomain.
       type: keyword
     scheme:
       description: 'Scheme of the request, such as "https".
@@ -4126,7 +4206,7 @@ url:
       ignore_above: 1024
       level: extended
       name: username
-      order: 8
+      order: 9
       short: Username of the request.
       type: keyword
   group: 2
