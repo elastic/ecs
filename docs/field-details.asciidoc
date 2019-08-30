@@ -964,14 +964,25 @@ type: keyword
 
 // ===============================================================
 
-| email.attachments
-| The number of attachments delivered.
+| email.attachment_count
+| The total number of attachments delivered.
 
 type: integer
 
 
 
 | extended
+
+// ===============================================================
+
+| email.attachment_names
+| The filenames of all attachments on the email.
+
+type: integer
+
+
+
+| core
 
 // ===============================================================
 
@@ -987,9 +998,42 @@ type: integer
 // ===============================================================
 
 | email.attempts
-| The count of attempts that it took the email service provider to deliver the email.
+| The count of the attempts that it took the email service provider to deliver the email.
 
 type: integer
+
+
+
+| extended
+
+// ===============================================================
+
+| email.blocked
+| The reason that the click was blocked by the email service provider.
+
+type: keyword
+
+
+
+| extended
+
+// ===============================================================
+
+| email.delivered
+| If the email was delivered successfully or not.
+
+type: boolean
+
+
+
+| extended
+
+// ===============================================================
+
+| email.delivery_time
+| The date and time delivery was attempted.
+
+type: date
 
 
 
@@ -1010,8 +1054,8 @@ type: keyword
 
 // ===============================================================
 
-| email.email_id
-| The email service provider may give an email id so it's possible to identify the email message.
+| email.esp_account
+| The field can be used to store the account used to manage the email service provider.
 
 type: keyword
 
@@ -1021,18 +1065,7 @@ type: keyword
 
 // ===============================================================
 
-| email.errors
-| The field is used to log any errors which occured while receiving the email.
-
-type: keyword
-
-
-
-| extended
-
-// ===============================================================
-
-| email.from_address
+| email.from
 | The email address of the person who sent the email. The address is taken from the "From" field in the email header.
 
 type: keyword
@@ -1043,7 +1076,7 @@ type: keyword
 
 // ===============================================================
 
-| email.from_address_registered_domain
+| email.from_registered_domain
 | The highest registered domain taken from the "From" address, stripped of the subdomain.
 
 For example, the registered domain for "foo.google.com" is "google.com".
@@ -1058,6 +1091,17 @@ example: `google.com`
 
 // ===============================================================
 
+| email.id
+| The email service provider may give an email id so it's possible to identify the email message.
+
+type: keyword
+
+
+
+| extended
+
+// ===============================================================
+
 | email.latency
 | The time in milliseconds that the delivery attempt took.
 
@@ -1069,7 +1113,18 @@ type: integer
 
 // ===============================================================
 
-| email.mail_from_address
+| email.log_path
+| The path of the log on the email service providers platform.
+
+type: keyword
+
+
+
+| extended
+
+// ===============================================================
+
+| email.mail_from
 | The sender address found in the MAIL_FROM field in the email header. This address can be different to the FROM address if the email is spoofed.
 
 type: keyword
@@ -1080,7 +1135,7 @@ type: keyword
 
 // ===============================================================
 
-| email.mail_from_address_registered_domain
+| email.mail_from_registered_domain
 | The highest registered domain taken from the "MAIL FROM" address, stripped of the subdomain.
 
 For example, the registered domain for "foo.google.com" is "google.com".
@@ -1106,8 +1161,19 @@ type: keyword
 
 // ===============================================================
 
-| email.paas_account
-| The field can be used to store the account used to manage the email service provider.
+| email.quarantined
+| The reason the email was held for review (quarantined), if applicable.
+
+type: keyword
+
+
+
+| extended
+
+// ===============================================================
+
+| email.receipt_ack
+| The receipt acknowledgment message received by email service provider from the receiving mail server.
 
 type: keyword
 
@@ -1128,7 +1194,7 @@ type: date
 
 // ===============================================================
 
-| email.recipient_address
+| email.recipient
 | The email address of the user who received the email.
 
 type: keyword
@@ -1139,7 +1205,7 @@ type: keyword
 
 // ===============================================================
 
-| email.recipient_address_registered_domain
+| email.recipient_registered_domain
 | The highest registered domain taken from the recipient address, stripped of the subdomain.
 
 For example, the registered domain for "foo.google.com" is "google.com".
@@ -1242,7 +1308,18 @@ type: keyword
 | email.sent_bytes
 | The amount of data in bytes that were delivered.
 
-type: keyword
+type: long
+
+
+
+| core
+
+// ===============================================================
+
+| email.size
+| The total size of the email in bytes.
+
+type: long
 
 
 
@@ -1328,6 +1405,17 @@ type: keyword
 | The TLS cipher used if the email was received using TLS.
 
 type: keyword
+
+
+
+| extended
+
+// ===============================================================
+
+| email.tls_enabled
+| Set to true if TLS is enabled.
+
+type: boolean
 
 
 

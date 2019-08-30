@@ -8,10 +8,10 @@
   type: group
   fields:
 
-    - name: paas_account
+    - name: esp_account
       level: extended
       type: keyword
-      short: The account for the email platform-as-a-service provider.
+      short: The management account for the email service provider.
       description: >
         The field can be used to store the account used to manage the email service provider.
 
@@ -43,6 +43,20 @@
       description: >
         The time the email was received.
 
+    - name: delivery_time
+      level: extended
+      type: date
+      short: The date and time delivery was attempted.
+      description: >
+        The date and time delivery was attempted.
+
+    - name: delivered
+      level: extended
+      type: boolean
+      short: If the email was delivered successfully or not.
+      description: >
+        If the email was delivered successfully or not.
+
     - name: direction
       level: core
       type: keyword
@@ -54,28 +68,28 @@
         Inbound: The email was sent from an external to internal address.
         Internal: The email was sent between internal users.
 
-    - name: errors
-      level: extended
-      type: keyword
-      short: Information about any errors which occured during receipt.
-      description: >
-        The field is used to log any errors which occured while receiving the email.
-
-    - name: email_id
+    - name: id
       level: extended
       type: keyword
       short: The email service providers id used to identify the email.
       description: >
         The email service provider may give an email id so it's possible to identify the email message.
 
-    - name: recipient_address
+    - name: size
+      level: core
+      type: long
+      short: The total size of the email in bytes.
+      description: >
+        The total size of the email in bytes.
+
+    - name: recipient
       level: core
       type: keyword
       short: The recipient email address.
       description: >
         The email address of the user who received the email.
 
-    - name: recipient_address_registered_domain
+    - name: recipient_registered_domain
       level: core
       type: keyword
       short: The highest registered domain taken from the recipient address, stripped of the subdomain.
@@ -89,14 +103,28 @@
         simply taking the last two labels will not work well for TLDs such as "co.uk".
       example: google.com
 
-    - name: from_address
+    - name: blocked
+      level: extended
+      type: keyword
+      short: The reason that the click was blocked by the email service provider.
+      description: >
+        The reason that the click was blocked by the email service provider.
+
+    - name: receipt_ack
+      level: extended
+      type: keyword
+      short: The receipt acknowledgment message received by email service provider from the receiving mail server.
+      description: >
+        The receipt acknowledgment message received by email service provider from the receiving mail server.
+
+    - name: from
       level: core
       type: keyword
       short: The senders email address.
       description: >
         The email address of the person who sent the email. The address is taken from the "From" field in the email header.
 
-    - name: from_address_registered_domain
+    - name: from_registered_domain
       level: core
       type: keyword
       short: The highest registered domain taken from the "From" address, stripped of the subdomain.
@@ -110,14 +138,21 @@
         simply taking the last two labels will not work well for TLDs such as "co.uk".
       example: google.com
 
-    - name: mail_from_address
+    - name: quarantined
+      level: extended
+      type: keyword
+      short: The reason the email was held for review (quarantined), if applicable.
+      description: >
+        The reason the email was held for review (quarantined), if applicable.
+
+    - name: mail_from
       level: core
       type: keyword
       short: The sender address found in the MAIL_FROM field in the email header.
       description: >
         The sender address found in the MAIL_FROM field in the email header. This address can be different to the FROM address if the email is spoofed.
 
-    - name: mail_from_address_registered_domain
+    - name: mail_from_registered_domain
       level: core
       type: keyword
       short: The highest registered domain taken from the "MAIL FROM" address, stripped of the subdomain.
@@ -183,16 +218,16 @@
     - name: attempts
       level: extended
       type: integer
-      short: The count of attempts that it took the email service provider to deliver the email.
+      short: The count of the attempts that it took the email service provider to deliver the email.
       description: >
-        The count of attempts that it took the email service provider to deliver the email.
+        The count of the attempts that it took the email service provider to deliver the email.
 
-    - name: attachments
-      level: extended
+    - name: attachment_names
+      level: core
       type: integer
-      short: The number of attachments delivered.
+      short: The filenames of all attachments on the email.
       description: >
-        The number of attachments delivered.
+        The filenames of all attachments on the email.
 
     - name: attachments_size
       level: extended
@@ -200,6 +235,13 @@
       short: The total size of attachments delivered in bytes.
       description: >
         The total size of attachments delivered in bytes.
+
+    - name: attachment_count
+      level: extended
+      type: integer
+      short: The total number of attachments delivered.
+      description: >
+        The total number of attachments delivered.
 
     - name: subject
       level: core
@@ -215,12 +257,26 @@
       description: >
         The TLS version used if the email was received using TLS.
 
+    - name: tls_enabled
+      level: extended
+      type: boolean
+      short: Set to true if TLS is enabled.
+      description: >
+        Set to true if TLS is enabled.
+
     - name: route
       level: extended
       type: keyword
       short: The email service provider delivery route used.
       description: >
         The email service provider delivery route used.
+
+    - name: log_path
+      level: extended
+      type: keyword
+      short: The path of the log on the email service providers platform.
+      description: >
+        The path of the log on the email service providers platform.
 
     - name: url_category
       level: extended
@@ -231,7 +287,7 @@
 
     - name: sent_bytes
       level: core
-      type: keyword
+      type: long
       short: The amount of data in bytes that were delivered.
       description: >
         The amount of data in bytes that were delivered.

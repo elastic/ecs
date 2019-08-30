@@ -683,13 +683,23 @@
         "required": false, 
         "type": "keyword"
       }, 
-      "email.attachments": {
-        "description": "The number of attachments delivered.", 
+      "email.attachment_count": {
+        "description": "The total number of attachments delivered.", 
         "example": "", 
         "footnote": "", 
         "group": 2, 
         "level": "extended", 
-        "name": "email.attachments", 
+        "name": "email.attachment_count", 
+        "required": false, 
+        "type": "integer"
+      }, 
+      "email.attachment_names": {
+        "description": "The filenames of all attachments on the email.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "core", 
+        "name": "email.attachment_names", 
         "required": false, 
         "type": "integer"
       }, 
@@ -704,7 +714,7 @@
         "type": "integer"
       }, 
       "email.attempts": {
-        "description": "The count of attempts that it took the email service provider to deliver the email.", 
+        "description": "The count of the attempts that it took the email service provider to deliver the email.", 
         "example": "", 
         "footnote": "", 
         "group": 2, 
@@ -712,6 +722,36 @@
         "name": "email.attempts", 
         "required": false, 
         "type": "integer"
+      }, 
+      "email.blocked": {
+        "description": "The reason that the click was blocked by the email service provider.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "email.blocked", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "email.delivered": {
+        "description": "If the email was delivered successfully or not.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "email.delivered", 
+        "required": false, 
+        "type": "boolean"
+      }, 
+      "email.delivery_time": {
+        "description": "The date and time delivery was attempted.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "email.delivery_time", 
+        "required": false, 
+        "type": "date"
       }, 
       "email.direction": {
         "description": "The direction the email was sent.\nOutbound: The email was sent from an internal to external address. Inbound: The email was sent from an external to internal address. Internal: The email was sent between internal users.", 
@@ -723,43 +763,43 @@
         "required": false, 
         "type": "keyword"
       }, 
-      "email.email_id": {
-        "description": "The email service provider may give an email id so it's possible to identify the email message.", 
+      "email.esp_account": {
+        "description": "The field can be used to store the account used to manage the email service provider.", 
         "example": "", 
         "footnote": "", 
         "group": 2, 
         "level": "extended", 
-        "name": "email.email_id", 
+        "name": "email.esp_account", 
         "required": false, 
         "type": "keyword"
       }, 
-      "email.errors": {
-        "description": "The field is used to log any errors which occured while receiving the email.", 
-        "example": "", 
-        "footnote": "", 
-        "group": 2, 
-        "level": "extended", 
-        "name": "email.errors", 
-        "required": false, 
-        "type": "keyword"
-      }, 
-      "email.from_address": {
+      "email.from": {
         "description": "The email address of the person who sent the email. The address is taken from the \"From\" field in the email header.", 
         "example": "", 
         "footnote": "", 
         "group": 2, 
         "level": "core", 
-        "name": "email.from_address", 
+        "name": "email.from", 
         "required": false, 
         "type": "keyword"
       }, 
-      "email.from_address_registered_domain": {
+      "email.from_registered_domain": {
         "description": "The highest registered domain taken from the \"From\" address, stripped of the subdomain.\nFor example, the registered domain for \"foo.google.com\" is \"google.com\".\nThis value can be determined precisely with a list like the public suffix list (http://publicsuffix.org). Trying to approximate this by simply taking the last two labels will not work well for TLDs such as \"co.uk\".", 
         "example": "google.com", 
         "footnote": "", 
         "group": 2, 
         "level": "core", 
-        "name": "email.from_address_registered_domain", 
+        "name": "email.from_registered_domain", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "email.id": {
+        "description": "The email service provider may give an email id so it's possible to identify the email message.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "email.id", 
         "required": false, 
         "type": "keyword"
       }, 
@@ -773,23 +813,33 @@
         "required": false, 
         "type": "integer"
       }, 
-      "email.mail_from_address": {
+      "email.log_path": {
+        "description": "The path of the log on the email service providers platform.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "email.log_path", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "email.mail_from": {
         "description": "The sender address found in the MAIL_FROM field in the email header. This address can be different to the FROM address if the email is spoofed.", 
         "example": "", 
         "footnote": "", 
         "group": 2, 
         "level": "core", 
-        "name": "email.mail_from_address", 
+        "name": "email.mail_from", 
         "required": false, 
         "type": "keyword"
       }, 
-      "email.mail_from_address_registered_domain": {
+      "email.mail_from_registered_domain": {
         "description": "The highest registered domain taken from the \"MAIL FROM\" address, stripped of the subdomain.\nFor example, the registered domain for \"foo.google.com\" is \"google.com\".\nThis value can be determined precisely with a list like the public suffix list (http://publicsuffix.org). Trying to approximate this by simply taking the last two labels will not work well for TLDs such as \"co.uk\".", 
         "example": "google.com", 
         "footnote": "", 
         "group": 2, 
         "level": "core", 
-        "name": "email.mail_from_address_registered_domain", 
+        "name": "email.mail_from_registered_domain", 
         "required": false, 
         "type": "keyword"
       }, 
@@ -803,13 +853,23 @@
         "required": false, 
         "type": "keyword"
       }, 
-      "email.paas_account": {
-        "description": "The field can be used to store the account used to manage the email service provider.", 
+      "email.quarantined": {
+        "description": "The reason the email was held for review (quarantined), if applicable.", 
         "example": "", 
         "footnote": "", 
         "group": 2, 
         "level": "extended", 
-        "name": "email.paas_account", 
+        "name": "email.quarantined", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "email.receipt_ack": {
+        "description": "The receipt acknowledgment message received by email service provider from the receiving mail server.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "email.receipt_ack", 
         "required": false, 
         "type": "keyword"
       }, 
@@ -823,23 +883,23 @@
         "required": false, 
         "type": "date"
       }, 
-      "email.recipient_address": {
+      "email.recipient": {
         "description": "The email address of the user who received the email.", 
         "example": "", 
         "footnote": "", 
         "group": 2, 
         "level": "core", 
-        "name": "email.recipient_address", 
+        "name": "email.recipient", 
         "required": false, 
         "type": "keyword"
       }, 
-      "email.recipient_address_registered_domain": {
+      "email.recipient_registered_domain": {
         "description": "The highest registered domain taken from the recipient address, stripped of the subdomain.\nFor example, the registered domain for \"foo.google.com\" is \"google.com\".\nThis value can be determined precisely with a list like the public suffix list (http://publicsuffix.org). Trying to approximate this by simply taking the last two labels will not work well for TLDs such as \"co.uk\".", 
         "example": "google.com", 
         "footnote": "", 
         "group": 2, 
         "level": "core", 
-        "name": "email.recipient_address_registered_domain", 
+        "name": "email.recipient_registered_domain", 
         "required": false, 
         "type": "keyword"
       }, 
@@ -921,7 +981,17 @@
         "level": "core", 
         "name": "email.sent_bytes", 
         "required": false, 
-        "type": "keyword"
+        "type": "long"
+      }, 
+      "email.size": {
+        "description": "The total size of the email in bytes.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "core", 
+        "name": "email.size", 
+        "required": false, 
+        "type": "long"
       }, 
       "email.spam_info": {
         "description": "Information from email service provuider for messages found to be Spam.", 
@@ -992,6 +1062,16 @@
         "name": "email.tls_cipher", 
         "required": false, 
         "type": "keyword"
+      }, 
+      "email.tls_enabled": {
+        "description": "Set to true if TLS is enabled.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "email.tls_enabled", 
+        "required": false, 
+        "type": "boolean"
       }, 
       "email.tls_version": {
         "description": "The TLS version used if the email was received using TLS.", 

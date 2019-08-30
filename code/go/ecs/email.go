@@ -28,7 +28,7 @@ import (
 type Email struct {
 	// The field can be used to store the account used to manage the email
 	// service provider.
-	PaasAccount string `ecs:"paas_account"`
+	EspAccount string `ecs:"esp_account"`
 
 	// The email service providers tracking id used to track the email through
 	// different log types.
@@ -43,22 +43,27 @@ type Email struct {
 	// The time the email was received.
 	Received time.Time `ecs:"received"`
 
+	// The date and time delivery was attempted.
+	DeliveryTime time.Time `ecs:"delivery_time"`
+
+	// If the email was delivered successfully or not.
+	Delivered bool `ecs:"delivered"`
+
 	// The direction the email was sent.
 	// Outbound: The email was sent from an internal to external address.
 	// Inbound: The email was sent from an external to internal address.
 	// Internal: The email was sent between internal users.
 	Direction string `ecs:"direction"`
 
-	// The field is used to log any errors which occured while receiving the
-	// email.
-	Errors string `ecs:"errors"`
-
 	// The email service provider may give an email id so it's possible to
 	// identify the email message.
-	EmailID string `ecs:"email_id"`
+	ID string `ecs:"id"`
+
+	// The total size of the email in bytes.
+	Size int64 `ecs:"size"`
 
 	// The email address of the user who received the email.
-	RecipientAddress string `ecs:"recipient_address"`
+	Recipient string `ecs:"recipient"`
 
 	// The highest registered domain taken from the recipient address, stripped
 	// of the subdomain.
@@ -67,11 +72,18 @@ type Email struct {
 	// suffix list (http://publicsuffix.org). Trying to approximate this by
 	// simply taking the last two labels will not work well for TLDs such as
 	// "co.uk".
-	RecipientAddressRegisteredDomain string `ecs:"recipient_address_registered_domain"`
+	RecipientRegisteredDomain string `ecs:"recipient_registered_domain"`
+
+	// The reason that the click was blocked by the email service provider.
+	Blocked string `ecs:"blocked"`
+
+	// The receipt acknowledgment message received by email service provider
+	// from the receiving mail server.
+	ReceiptAck string `ecs:"receipt_ack"`
 
 	// The email address of the person who sent the email. The address is taken
 	// from the "From" field in the email header.
-	FromAddress string `ecs:"from_address"`
+	From string `ecs:"from"`
 
 	// The highest registered domain taken from the "From" address, stripped of
 	// the subdomain.
@@ -80,12 +92,15 @@ type Email struct {
 	// suffix list (http://publicsuffix.org). Trying to approximate this by
 	// simply taking the last two labels will not work well for TLDs such as
 	// "co.uk".
-	FromAddressRegisteredDomain string `ecs:"from_address_registered_domain"`
+	FromRegisteredDomain string `ecs:"from_registered_domain"`
+
+	// The reason the email was held for review (quarantined), if applicable.
+	Quarantined string `ecs:"quarantined"`
 
 	// The sender address found in the MAIL_FROM field in the email header.
 	// This address can be different to the FROM address if the email is
 	// spoofed.
-	MailFromAddress string `ecs:"mail_from_address"`
+	MailFrom string `ecs:"mail_from"`
 
 	// The highest registered domain taken from the "MAIL FROM" address,
 	// stripped of the subdomain.
@@ -94,7 +109,7 @@ type Email struct {
 	// suffix list (http://publicsuffix.org). Trying to approximate this by
 	// simply taking the last two labels will not work well for TLDs such as
 	// "co.uk".
-	MailFromAddressRegisteredDomain string `ecs:"mail_from_address_registered_domain"`
+	MailFromRegisteredDomain string `ecs:"mail_from_registered_domain"`
 
 	// The rejection code issued if the email was rejected at the receipt
 	// stage.
@@ -120,15 +135,18 @@ type Email struct {
 	// The time in milliseconds that the delivery attempt took.
 	Latency int32 `ecs:"latency"`
 
-	// The count of attempts that it took the email service provider to deliver
-	// the email.
+	// The count of the attempts that it took the email service provider to
+	// deliver the email.
 	Attempts int32 `ecs:"attempts"`
 
-	// The number of attachments delivered.
-	Attachments int32 `ecs:"attachments"`
+	// The filenames of all attachments on the email.
+	AttachmentNames int32 `ecs:"attachment_names"`
 
 	// The total size of attachments delivered in bytes.
 	AttachmentsSize int32 `ecs:"attachments_size"`
+
+	// The total number of attachments delivered.
+	AttachmentCount int32 `ecs:"attachment_count"`
 
 	// The subject of the email.
 	Subject string `ecs:"subject"`
@@ -136,14 +154,20 @@ type Email struct {
 	// The TLS version used if the email was received using TLS.
 	TlsVersion string `ecs:"tls_version"`
 
+	// Set to true if TLS is enabled.
+	TlsEnabled bool `ecs:"tls_enabled"`
+
 	// The email service provider delivery route used.
 	Route string `ecs:"route"`
+
+	// The path of the log on the email service providers platform.
+	LogPath string `ecs:"log_path"`
 
 	// The email service provider's category of the URL that was clicked.
 	UrlCategory string `ecs:"url_category"`
 
 	// The amount of data in bytes that were delivered.
-	SentBytes string `ecs:"sent_bytes"`
+	SentBytes int64 `ecs:"sent_bytes"`
 
 	// Any malware the email service provider detected while scanning the
 	// email.

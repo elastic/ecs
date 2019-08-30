@@ -1054,32 +1054,65 @@ email.action:
   order: 2
   short: The action taken at the receipt stage.
   type: keyword
-email.attachments:
-  description: The number of attachments delivered.
-  flat_name: email.attachments
+email.attachment_count:
+  description: The total number of attachments delivered.
+  flat_name: email.attachment_count
   level: extended
-  name: attachments
-  order: 22
-  short: The number of attachments delivered.
+  name: attachment_count
+  order: 29
+  short: The total number of attachments delivered.
+  type: integer
+email.attachment_names:
+  description: The filenames of all attachments on the email.
+  flat_name: email.attachment_names
+  level: core
+  name: attachment_names
+  order: 27
+  short: The filenames of all attachments on the email.
   type: integer
 email.attachments_size:
   description: The total size of attachments delivered in bytes.
   flat_name: email.attachments_size
   level: extended
   name: attachments_size
-  order: 23
+  order: 28
   short: The total size of attachments delivered in bytes.
   type: integer
 email.attempts:
-  description: The count of attempts that it took the email service provider to deliver
-    the email.
+  description: The count of the attempts that it took the email service provider to
+    deliver the email.
   flat_name: email.attempts
   level: extended
   name: attempts
-  order: 21
-  short: The count of attempts that it took the email service provider to deliver
+  order: 26
+  short: The count of the attempts that it took the email service provider to deliver
     the email.
   type: integer
+email.blocked:
+  description: The reason that the click was blocked by the email service provider.
+  flat_name: email.blocked
+  ignore_above: 1024
+  level: extended
+  name: blocked
+  order: 12
+  short: The reason that the click was blocked by the email service provider.
+  type: keyword
+email.delivered:
+  description: If the email was delivered successfully or not.
+  flat_name: email.delivered
+  level: extended
+  name: delivered
+  order: 6
+  short: If the email was delivered successfully or not.
+  type: boolean
+email.delivery_time:
+  description: The date and time delivery was attempted.
+  flat_name: email.delivery_time
+  level: extended
+  name: delivery_time
+  order: 5
+  short: The date and time delivery was attempted.
+  type: date
 email.direction:
   description: 'The direction the email was sent.
 
@@ -1090,40 +1123,30 @@ email.direction:
   ignore_above: 1024
   level: core
   name: direction
-  order: 5
+  order: 7
   short: The direction of the email.
   type: keyword
-email.email_id:
-  description: The email service provider may give an email id so it's possible to
-    identify the email message.
-  flat_name: email.email_id
+email.esp_account:
+  description: The field can be used to store the account used to manage the email
+    service provider.
+  flat_name: email.esp_account
   ignore_above: 1024
   level: extended
-  name: email_id
-  order: 7
-  short: The email service providers id used to identify the email.
+  name: esp_account
+  order: 0
+  short: The management account for the email service provider.
   type: keyword
-email.errors:
-  description: The field is used to log any errors which occured while receiving the
-    email.
-  flat_name: email.errors
-  ignore_above: 1024
-  level: extended
-  name: errors
-  order: 6
-  short: Information about any errors which occured during receipt.
-  type: keyword
-email.from_address:
+email.from:
   description: The email address of the person who sent the email. The address is
     taken from the "From" field in the email header.
-  flat_name: email.from_address
+  flat_name: email.from
   ignore_above: 1024
   level: core
-  name: from_address
-  order: 10
+  name: from
+  order: 14
   short: The senders email address.
   type: keyword
-email.from_address_registered_domain:
+email.from_registered_domain:
   description: 'The highest registered domain taken from the "From" address, stripped
     of the subdomain.
 
@@ -1133,33 +1156,52 @@ email.from_address_registered_domain:
     (http://publicsuffix.org). Trying to approximate this by simply taking the last
     two labels will not work well for TLDs such as "co.uk".'
   example: google.com
-  flat_name: email.from_address_registered_domain
+  flat_name: email.from_registered_domain
   ignore_above: 1024
   level: core
-  name: from_address_registered_domain
-  order: 11
+  name: from_registered_domain
+  order: 15
   short: The highest registered domain taken from the "From" address, stripped of
     the subdomain.
+  type: keyword
+email.id:
+  description: The email service provider may give an email id so it's possible to
+    identify the email message.
+  flat_name: email.id
+  ignore_above: 1024
+  level: extended
+  name: id
+  order: 8
+  short: The email service providers id used to identify the email.
   type: keyword
 email.latency:
   description: The time in milliseconds that the delivery attempt took.
   flat_name: email.latency
   level: extended
   name: latency
-  order: 20
+  order: 25
   short: The time in milliseconds that the delivery attempt took.
   type: integer
-email.mail_from_address:
+email.log_path:
+  description: The path of the log on the email service providers platform.
+  flat_name: email.log_path
+  ignore_above: 1024
+  level: extended
+  name: log_path
+  order: 34
+  short: The path of the log on the email service providers platform.
+  type: keyword
+email.mail_from:
   description: The sender address found in the MAIL_FROM field in the email header.
     This address can be different to the FROM address if the email is spoofed.
-  flat_name: email.mail_from_address
+  flat_name: email.mail_from
   ignore_above: 1024
   level: core
-  name: mail_from_address
-  order: 12
+  name: mail_from
+  order: 17
   short: The sender address found in the MAIL_FROM field in the email header.
   type: keyword
-email.mail_from_address_registered_domain:
+email.mail_from_registered_domain:
   description: 'The highest registered domain taken from the "MAIL FROM" address,
     stripped of the subdomain.
 
@@ -1169,11 +1211,11 @@ email.mail_from_address_registered_domain:
     (http://publicsuffix.org). Trying to approximate this by simply taking the last
     two labels will not work well for TLDs such as "co.uk".'
   example: google.com
-  flat_name: email.mail_from_address_registered_domain
+  flat_name: email.mail_from_registered_domain
   ignore_above: 1024
   level: core
-  name: mail_from_address_registered_domain
-  order: 13
+  name: mail_from_registered_domain
+  order: 18
   short: The highest registered domain taken from the "MAIL FROM" address, stripped
     of the subdomain.
   type: keyword
@@ -1184,18 +1226,28 @@ email.malware:
   ignore_above: 1024
   level: extended
   name: malware
-  order: 29
+  order: 37
   short: Any malware the email service provider detected.
   type: keyword
-email.paas_account:
-  description: The field can be used to store the account used to manage the email
-    service provider.
-  flat_name: email.paas_account
+email.quarantined:
+  description: The reason the email was held for review (quarantined), if applicable.
+  flat_name: email.quarantined
   ignore_above: 1024
   level: extended
-  name: paas_account
-  order: 0
-  short: The account for the email platform-as-a-service provider.
+  name: quarantined
+  order: 16
+  short: The reason the email was held for review (quarantined), if applicable.
+  type: keyword
+email.receipt_ack:
+  description: The receipt acknowledgment message received by email service provider
+    from the receiving mail server.
+  flat_name: email.receipt_ack
+  ignore_above: 1024
+  level: extended
+  name: receipt_ack
+  order: 13
+  short: The receipt acknowledgment message received by email service provider from
+    the receiving mail server.
   type: keyword
 email.received:
   description: The time the email was received.
@@ -1205,16 +1257,16 @@ email.received:
   order: 4
   short: The time the email was received.
   type: date
-email.recipient_address:
+email.recipient:
   description: The email address of the user who received the email.
-  flat_name: email.recipient_address
+  flat_name: email.recipient
   ignore_above: 1024
   level: core
-  name: recipient_address
-  order: 8
+  name: recipient
+  order: 10
   short: The recipient email address.
   type: keyword
-email.recipient_address_registered_domain:
+email.recipient_registered_domain:
   description: 'The highest registered domain taken from the recipient address, stripped
     of the subdomain.
 
@@ -1224,11 +1276,11 @@ email.recipient_address_registered_domain:
     (http://publicsuffix.org). Trying to approximate this by simply taking the last
     two labels will not work well for TLDs such as "co.uk".'
   example: google.com
-  flat_name: email.recipient_address_registered_domain
+  flat_name: email.recipient_registered_domain
   ignore_above: 1024
   level: core
-  name: recipient_address_registered_domain
-  order: 9
+  name: recipient_registered_domain
+  order: 11
   short: The highest registered domain taken from the recipient address, stripped
     of the subdomain.
   type: keyword
@@ -1239,7 +1291,7 @@ email.reject_code:
   ignore_above: 1024
   level: extended
   name: reject_code
-  order: 14
+  order: 19
   short: The rejection code issued if the email was rejected at the receipt stage.
   type: keyword
 email.reject_info:
@@ -1249,7 +1301,7 @@ email.reject_info:
   ignore_above: 1024
   level: extended
   name: reject_info
-  order: 15
+  order: 20
   short: The rejection information if the email was rejected at the receipt stage.
   type: keyword
 email.reject_type:
@@ -1258,7 +1310,7 @@ email.reject_type:
   ignore_above: 1024
   level: extended
   name: reject_type
-  order: 16
+  order: 21
   short: The rejection type if the email was rejected at the receipt stage.
   type: keyword
 email.reply_to:
@@ -1270,7 +1322,7 @@ email.reply_to:
   ignore_above: 1024
   level: core
   name: reply_to
-  order: 31
+  order: 39
   short: The email address and name in the reply_to field in the header.
   type: keyword
 email.reply_to_registered_domain:
@@ -1287,7 +1339,7 @@ email.reply_to_registered_domain:
   ignore_above: 1024
   level: core
   name: reply_to_registered_domain
-  order: 32
+  order: 40
   short: The highest registered domain taken from the "reply_to" address, stripped
     of the subdomain.
   type: keyword
@@ -1300,7 +1352,7 @@ email.return_path:
   ignore_above: 1024
   level: core
   name: return_path
-  order: 33
+  order: 41
   short: The email address in the return path field.
   type: keyword
 email.route:
@@ -1309,25 +1361,32 @@ email.route:
   ignore_above: 1024
   level: extended
   name: route
-  order: 26
+  order: 33
   short: The email service provider delivery route used.
   type: keyword
 email.sent_bytes:
   description: The amount of data in bytes that were delivered.
   flat_name: email.sent_bytes
-  ignore_above: 1024
   level: core
   name: sent_bytes
-  order: 28
+  order: 36
   short: The amount of data in bytes that were delivered.
-  type: keyword
+  type: long
+email.size:
+  description: The total size of the email in bytes.
+  flat_name: email.size
+  level: core
+  name: size
+  order: 9
+  short: The total size of the email in bytes.
+  type: long
 email.spam_info:
   description: Information from email service provuider for messages found to be Spam.
   flat_name: email.spam_info
   ignore_above: 1024
   level: extended
   name: spam_info
-  order: 17
+  order: 22
   short: Information from email service provuider for messages found to be Spam.
   type: keyword
 email.spam_limit:
@@ -1337,7 +1396,7 @@ email.spam_limit:
   ignore_above: 1024
   level: extended
   name: spam_limit
-  order: 18
+  order: 23
   short: The email service providers Spam limit defined for the given sender and recipient.
   type: keyword
 email.spam_score:
@@ -1346,7 +1405,7 @@ email.spam_score:
   ignore_above: 1024
   level: extended
   name: spam_score
-  order: 19
+  order: 24
   short: The email service providers Spam score the email was given.
   type: keyword
 email.spf_error:
@@ -1367,7 +1426,7 @@ email.spf_error:
   ignore_above: 1024
   level: extended
   name: spf_error
-  order: 34
+  order: 42
   short: The sender policy framework (SPF) error taken from the email header.
   type: keyword
 email.spoofed:
@@ -1379,7 +1438,7 @@ email.spoofed:
   ignore_above: 1024
   level: extended
   name: spoofed
-  order: 30
+  order: 38
   short: Set to true if email spoofing was detected.
   type: keyword
 email.subject:
@@ -1388,7 +1447,7 @@ email.subject:
   ignore_above: 1024
   level: core
   name: subject
-  order: 24
+  order: 30
   short: The subject of the email.
   type: keyword
 email.tls_cipher:
@@ -1400,13 +1459,21 @@ email.tls_cipher:
   order: 3
   short: The tls cipher used to secure the email.
   type: keyword
+email.tls_enabled:
+  description: Set to true if TLS is enabled.
+  flat_name: email.tls_enabled
+  level: extended
+  name: tls_enabled
+  order: 32
+  short: Set to true if TLS is enabled.
+  type: boolean
 email.tls_version:
   description: The TLS version used if the email was received using TLS.
   flat_name: email.tls_version
   ignore_above: 1024
   level: extended
   name: tls_version
-  order: 25
+  order: 31
   short: The tls version used to secure the email.
   type: keyword
 email.tracking_id:
@@ -1426,7 +1493,7 @@ email.url_category:
   ignore_above: 1024
   level: extended
   name: url_category
-  order: 27
+  order: 35
   short: The email service provider's category of the URL that was clicked.
   type: keyword
 error.code:

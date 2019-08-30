@@ -778,10 +778,14 @@
       type: keyword
       ignore_above: 1024
       description: The action taken when the email service provider received the email.
-    - name: attachments
+    - name: attachment_count
       level: extended
       type: integer
-      description: The number of attachments delivered.
+      description: The total number of attachments delivered.
+    - name: attachment_names
+      level: core
+      type: integer
+      description: The filenames of all attachments on the email.
     - name: attachments_size
       level: extended
       type: integer
@@ -789,8 +793,21 @@
     - name: attempts
       level: extended
       type: integer
-      description: The count of attempts that it took the email service provider to
-        deliver the email.
+      description: The count of the attempts that it took the email service provider
+        to deliver the email.
+    - name: blocked
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The reason that the click was blocked by the email service provider.
+    - name: delivered
+      level: extended
+      type: boolean
+      description: If the email was delivered successfully or not.
+    - name: delivery_time
+      level: extended
+      type: date
+      description: The date and time delivery was attempted.
     - name: direction
       level: core
       type: keyword
@@ -800,25 +817,19 @@
         Outbound: The email was sent from an internal to external address. Inbound:
         The email was sent from an external to internal address. Internal: The email
         was sent between internal users.'
-    - name: email_id
+    - name: esp_account
       level: extended
       type: keyword
       ignore_above: 1024
-      description: The email service provider may give an email id so it's possible
-        to identify the email message.
-    - name: errors
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: The field is used to log any errors which occured while receiving
-        the email.
-    - name: from_address
+      description: The field can be used to store the account used to manage the email
+        service provider.
+    - name: from
       level: core
       type: keyword
       ignore_above: 1024
       description: The email address of the person who sent the email. The address
         is taken from the "From" field in the email header.
-    - name: from_address_registered_domain
+    - name: from_registered_domain
       level: core
       type: keyword
       ignore_above: 1024
@@ -831,17 +842,28 @@
         list (http://publicsuffix.org). Trying to approximate this by simply taking
         the last two labels will not work well for TLDs such as "co.uk".'
       example: google.com
+    - name: id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The email service provider may give an email id so it's possible
+        to identify the email message.
     - name: latency
       level: extended
       type: integer
       description: The time in milliseconds that the delivery attempt took.
-    - name: mail_from_address
+    - name: log_path
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The path of the log on the email service providers platform.
+    - name: mail_from
       level: core
       type: keyword
       ignore_above: 1024
       description: The sender address found in the MAIL_FROM field in the email header.
         This address can be different to the FROM address if the email is spoofed.
-    - name: mail_from_address_registered_domain
+    - name: mail_from_registered_domain
       level: core
       type: keyword
       ignore_above: 1024
@@ -860,22 +882,27 @@
       ignore_above: 1024
       description: Any malware the email service provider detected while scanning
         the email.
-    - name: paas_account
+    - name: quarantined
       level: extended
       type: keyword
       ignore_above: 1024
-      description: The field can be used to store the account used to manage the email
-        service provider.
+      description: The reason the email was held for review (quarantined), if applicable.
+    - name: receipt_ack
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The receipt acknowledgment message received by email service provider
+        from the receiving mail server.
     - name: received
       level: core
       type: date
       description: The time the email was received.
-    - name: recipient_address
+    - name: recipient
       level: core
       type: keyword
       ignore_above: 1024
       description: The email address of the user who received the email.
-    - name: recipient_address_registered_domain
+    - name: recipient_registered_domain
       level: core
       type: keyword
       ignore_above: 1024
@@ -941,9 +968,12 @@
       description: The email service provider delivery route used.
     - name: sent_bytes
       level: core
-      type: keyword
-      ignore_above: 1024
+      type: long
       description: The amount of data in bytes that were delivered.
+    - name: size
+      level: core
+      type: long
+      description: The total size of the email in bytes.
     - name: spam_info
       level: extended
       type: keyword
@@ -996,6 +1026,10 @@
       type: keyword
       ignore_above: 1024
       description: The TLS cipher used if the email was received using TLS.
+    - name: tls_enabled
+      level: extended
+      type: boolean
+      description: Set to true if TLS is enabled.
     - name: tls_version
       level: extended
       type: keyword
