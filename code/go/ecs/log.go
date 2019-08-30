@@ -29,12 +29,12 @@ type Log struct {
 
 	// The Syslog text-based facility of the log event, if available. See RFCs
 	// 5424 or 3164.
-	Facility string `ecs:"facility"`
+	FacilityName string `ecs:"facility.name"`
 
 	// The Syslog numeric facility of the log event, if available.
 	// According to RFCs 5424 and 3164, this value should be an integer between
 	// 0 and 23.
-	FacilityCode int64 `ecs:"facility_code"`
+	FacilityCode int64 `ecs:"facility.code"`
 
 	// Syslog numeric priority of the event, if available.
 	// According to RFCs 5424 and 3164, the priority is 8 * facility +

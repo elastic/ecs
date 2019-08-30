@@ -1527,14 +1527,7 @@
     description: Fields which are specific to log events.
     type: group
     fields:
-    - name: facility
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: The Syslog text-based facility of the log event, if available.
-        See RFCs 5424 or 3164.
-      example: local7
-    - name: facility_code
+    - name: facility.code
       level: extended
       type: long
       format: string
@@ -1543,6 +1536,13 @@
         According to RFCs 5424 and 3164, this value should be an integer between 0
         and 23.'
       example: 23
+    - name: facility.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The Syslog text-based facility of the log event, if available.
+        See RFCs 5424 or 3164.
+      example: local7
     - name: level
       level: core
       type: keyword
