@@ -1583,7 +1583,12 @@
   - name: log
     title: Log
     group: 2
-    description: Fields which are specific to log events.
+    description: 'Low level details specific to log events.
+
+      `log.*` typically contains lower level details about the logging mechanism than
+      `event.*`. For example, The Syslog transport details belongs under `log.*`,
+      whereas the message payloads transmitted via Syslog will likely be parsed out
+      into `event.*` or elsewhere in ECS.'
     type: group
     fields:
     - name: level

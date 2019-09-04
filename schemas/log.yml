@@ -2,8 +2,14 @@
 - name: log
   title: Log
   group: 2
+  short: Low level details specific to log events.
   description: >
-    Fields which are specific to log events.
+    Low level details specific to log events.
+
+    `log.*` typically contains lower level details about the logging mechanism
+    than `event.*`. For example, The Syslog transport details belongs under `log.*`,
+    whereas the message payloads transmitted via Syslog will likely be parsed out
+    into `event.*` or elsewhere in ECS.
   type: group
   fields:
 
@@ -42,7 +48,7 @@
       example: org.elasticsearch.bootstrap.Bootstrap
       short: Name of the logger.
       description: >
-        The name of the logger inside an application. This is usually the name of the class which initialized the logger, or can be a custom name. 
+        The name of the logger inside an application. This is usually the name of the class which initialized the logger, or can be a custom name.
 
     - name: origin.file.name
       level: extended
@@ -60,7 +66,7 @@
       short: The line number of the file which originated the log event.
       description: >
         The line number of the file containing the source code which originated the log event.
- 
+
     - name: origin.function
       level: extended
       type: keyword
@@ -68,4 +74,3 @@
       short: The function which originated the log event.
       description: >
         The name of the function or method which originated the log event.
-
