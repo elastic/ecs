@@ -1306,19 +1306,20 @@ event.sequence:
   short: Sequence number of the event.
   type: long
 event.severity:
-  description: 'Severity describes the original severity of the event. What the different
-    severity values mean can be different between sources and use cases. It''s up
-    to the implementer to make sure severities are consistent across events.
+  description: 'Severity describes the severity of the event. What the different severity
+    values mean can be different between sources and use cases. It''s up to the implementer
+    to make sure severities are consistent across events from the same source.
 
-    This field corresponds to Syslog''s severity. Note that the text-based severity
-    for Syslog events is `log.level` in ECS.'
+    The Syslog severity belongs in `log.severity`. `event.severity` is meant to represent
+    the severity according to the event source (e.g. firewall, IDS). If the event
+    source does not publish its own severity, you may copy the `log.severity` to `event.severity`.'
   example: 7
   flat_name: event.severity
   format: string
   level: core
   name: severity
   order: 10
-  short: Original severity of the event.
+  short: Severity of the event.
   type: long
 event.start:
   description: event.start contains the date when the event started or when the activity
@@ -2174,7 +2175,7 @@ log.facility.code:
   format: string
   level: extended
   name: facility.code
-  order: 2
+  order: 3
   short: Syslog numeric facility of the event.
   type: long
 log.facility.name:
@@ -2185,17 +2186,16 @@ log.facility.name:
   ignore_above: 1024
   level: extended
   name: facility.name
-  order: 1
+  order: 2
   short: Syslog text-based facility of the event.
   type: keyword
 log.level:
   description: 'Original log level of the log event.
 
-    Syslog''s severity label should be stored here. Syslog''s numeric severity is
-    `event.severity` in ECS.
+    Syslog''s severity label should be stored here.
 
-    Some examples are `warn`, `error`, `i`.'
-  example: err
+    Some examples are `warn`, `err`, `i`, `informational`.'
+  example: error
   flat_name: log.level
   ignore_above: 1024
   level: core
@@ -2211,7 +2211,7 @@ log.logger:
   ignore_above: 1024
   level: core
   name: logger
-  order: 5
+  order: 6
   short: Name of the logger.
   type: keyword
 log.original:
@@ -2232,7 +2232,7 @@ log.original:
   index: false
   level: core
   name: original
-  order: 4
+  order: 5
   short: Original log message with light interpretation only (encoding, newlines).
   type: keyword
 log.priority:
@@ -2245,8 +2245,22 @@ log.priority:
   format: string
   level: extended
   name: priority
-  order: 3
+  order: 4
   short: Syslog priority of the event.
+  type: long
+log.severity:
+  description: 'The Syslog numeric severity of the log event, if available. See RFCs
+    5424 or 3164.
+
+    If the event source publishing via Syslog provides a different severity value
+    (e.g. firewall, IDS), it should go to `event.severity`. If the event source does
+    not specify a distinct severity, you may instead copy the Syslog severity to `event.severity`.'
+  example: 3
+  flat_name: log.severity
+  level: extended
+  name: severity
+  order: 1
+  short: Syslog numeric severity of the event.
   type: long
 message:
   description: 'For log events the message field contains the log message, optimized

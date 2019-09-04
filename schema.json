@@ -883,7 +883,7 @@
         "type": "long"
       }, 
       "event.severity": {
-        "description": "Severity describes the original severity of the event. What the different severity values mean can be different between sources and use cases. It's up to the implementer to make sure severities are consistent across events.\nThis field corresponds to Syslog's severity. Note that the text-based severity for Syslog events is `log.level` in ECS.", 
+        "description": "Severity describes the severity of the event. What the different severity values mean can be different between sources and use cases. It's up to the implementer to make sure severities are consistent across events from the same source.\nThe Syslog severity belongs in `log.severity`. `event.severity` is meant to represent the severity according to the event source (e.g. firewall, IDS). If the event source does not publish its own severity, you may copy the `log.severity` to `event.severity`.", 
         "example": "7", 
         "footnote": "", 
         "group": 2, 
@@ -1506,8 +1506,8 @@
         "type": "keyword"
       }, 
       "log.level": {
-        "description": "Original log level of the log event.\nSyslog's severity label should be stored here. Syslog's numeric severity is `event.severity` in ECS.\nSome examples are `warn`, `error`, `i`.", 
-        "example": "err", 
+        "description": "Original log level of the log event.\nSyslog's severity label should be stored here.\nSome examples are `warn`, `err`, `i`, `informational`.", 
+        "example": "error", 
         "footnote": "", 
         "group": 2, 
         "level": "core", 
@@ -1542,6 +1542,16 @@
         "group": 2, 
         "level": "extended", 
         "name": "log.priority", 
+        "required": false, 
+        "type": "long"
+      }, 
+      "log.severity": {
+        "description": "The Syslog numeric severity of the log event, if available. See RFCs 5424 or 3164.\nIf the event source publishing via Syslog provides a different severity value (e.g. firewall, IDS), it should go to `event.severity`. If the event source does not specify a distinct severity, you may instead copy the Syslog severity to `event.severity`.", 
+        "example": "3", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "log.severity", 
         "required": false, 
         "type": "long"
       }

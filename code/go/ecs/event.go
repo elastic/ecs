@@ -97,12 +97,14 @@ type Event struct {
 	// operating system (kernel, Microsoft-Windows-Security-Auditing).
 	Provider string `ecs:"provider"`
 
-	// Severity describes the original severity of the event. What the
-	// different severity values mean can be different between sources and use
-	// cases. It's up to the implementer to make sure severities are consistent
-	// across events.
-	// This field corresponds to Syslog's severity. Note that the text-based
-	// severity for Syslog events is `log.level` in ECS.
+	// Severity describes the severity of the event. What the different
+	// severity values mean can be different between sources and use cases.
+	// It's up to the implementer to make sure severities are consistent across
+	// events from the same source.
+	// The Syslog severity belongs in `log.severity`. `event.severity` is meant
+	// to represent the severity according to the event source (e.g. firewall,
+	// IDS). If the event source does not publish its own severity, you may
+	// copy the `log.severity` to `event.severity`.
 	Severity int64 `ecs:"severity"`
 
 	// Raw text message of entire event. Used to demonstrate log integrity.

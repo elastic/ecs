@@ -147,14 +147,19 @@
       level: core
       format: string
       example: 7
-      short: Original severity of the event.
+      short: Numeric severity of the event.
       description: >
-        Severity describes the original severity of the event. What the different
-        severity values mean can be different between sources and use cases.
-        It's up to the implementer to make sure severities are consistent across events.
+        The numeric severity of the event according to your event source.
 
-        This field corresponds to Syslog's severity. Note that the text-based
-        severity for Syslog events is `log.level` in ECS.
+        What the different severity values mean can be different between sources
+        and use cases.
+        It's up to the implementer to make sure severities are consistent across
+        events from the same source.
+
+        The Syslog severity belongs in `log.severity`. `event.severity` is meant
+        to represent the severity according to the event source (e.g. firewall,
+        IDS). If the event source does not publish its own severity, you may copy
+        the `log.severity` to `event.severity`.
 
     - name: original
       level: core
