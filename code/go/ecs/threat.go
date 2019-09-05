@@ -23,11 +23,12 @@ package ecs
 // malware activity) typically reported by IDS/IPS and NGFWs, as well as threat
 // intel/global IOC data ingested from a feed source like MISP or Anomali.
 type Threat struct {
-	// Threat ID, typically provided by reporting system or threat intel
-	// provider.
+	// Threat ID, typically provided by reporting system (e.g. NGFW or IDS) or
+	// threat intel provider (Anomali, OTX, etc.)
 	ID string `ecs:"id"`
 
-	// Threat name as reported by system or intel provider
+	// Threat name, typically provided by reporting system (e.g. NGFW or IDS)
+	// or threat intel provider (Anomali, OTX, etc.)
 	Name string `ecs:"name"`
 
 	// Name of the type of tactic used by this threat. You can use the Mitre

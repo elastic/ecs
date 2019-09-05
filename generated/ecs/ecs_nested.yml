@@ -4052,8 +4052,7 @@ threat:
       level: extended
       name: confidence
       order: 10
-      short: Predicted accuracy of the threat identification provided by the observer/threat
-        intel feed
+      short: Confidence in threat detection or ioc provider
       type: keyword
     description:
       description: Textual description of the observed threat or threat intel that
@@ -4064,11 +4063,11 @@ threat:
       level: extended
       name: description
       order: 8
-      short: Short description of the threat
+      short: Description of the threat
       type: keyword
     id:
-      description: Threat ID, typically provided by reporting system or threat intel
-        provider.
+      description: Threat ID, typically provided by reporting system (e.g. NGFW or
+        IDS) or threat intel provider (Anomali, OTX, etc.)
       example: 33227
       flat_name: threat.id
       ignore_above: 1024
@@ -4078,7 +4077,8 @@ threat:
       short: Threat ID
       type: keyword
     name:
-      description: Threat name as reported by system or intel provider
+      description: Threat name, typically provided by reporting system (e.g. NGFW
+        or IDS) or threat intel provider (Anomali, OTX, etc.)
       example: ntp reserved mode denial of service
       flat_name: threat.name
       ignore_above: 1024
@@ -4100,7 +4100,7 @@ threat:
       level: extended
       name: severity
       order: 9
-      short: Severity of the threat as reported by the observer/threat intel feed
+      short: Observed threat severity
       type: keyword
     tactic.id:
       description: The id of tactic used by this threat. You can use the Mitre ATT&CK
@@ -4112,7 +4112,7 @@ threat:
       level: extended
       name: tactic.id
       order: 3
-      short: Mitre ATT&CK Matrix tactic ID
+      short: Threat tactic id
       type: keyword
     tactic.name:
       description: Name of the type of tactic used by this threat. You can use the
@@ -4127,7 +4127,7 @@ threat:
         type: text
       name: tactic.name
       order: 2
-      short: Mitre ATT&CK Matrix tactic Name
+      short: Threat tactic
       type: keyword
     tactic.reference:
       description: The reference url of tactic used by this threat. You can use the
@@ -4139,7 +4139,7 @@ threat:
       level: extended
       name: tactic.reference
       order: 4
-      short: Mitre ATT&CK Matrix tactic URL reference
+      short: Therat tactic url reference
       type: keyword
     technique.id:
       description: The id of technique used by this threat. You can use the Mitre
@@ -4154,7 +4154,7 @@ threat:
         type: text
       name: technique.id
       order: 6
-      short: Mitre ATT&CK Matrix technique id
+      short: Threat technique id
       type: keyword
     technique.name:
       description: The name of technique used by this threat. You can use the Mitre
@@ -4169,7 +4169,7 @@ threat:
         type: text
       name: technique.name
       order: 5
-      short: Mitre ATT&CK Matrix technique name
+      short: Threat technique name
       type: keyword
     technique.reference:
       description: The reference url of technique used by this threat. You can use
@@ -4181,7 +4181,7 @@ threat:
       level: extended
       name: technique.reference
       order: 7
-      short: Mitre ATT&CK Matrix technique
+      short: Threat technique reference
       type: keyword
   group: 2
   name: threat

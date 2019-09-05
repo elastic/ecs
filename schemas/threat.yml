@@ -15,7 +15,7 @@
       type: keyword
       short: Threat ID
       description: >
-        Threat ID, typically provided by reporting system or threat intel provider.
+        Threat ID, typically provided by reporting system (e.g. NGFW or IDS) or threat intel provider (Anomali, OTX, etc.)
 
       example: 33227 
 
@@ -27,7 +27,7 @@
         name: text
       short: Name or classification of the threat detected or reported
       description: >
-        Threat name as reported by system or intel provider
+        Threat name, typically provided by reporting system (e.g. NGFW or IDS) or threat intel provider (Anomali, OTX, etc.)
 
       example: ntp reserved mode denial of service
 
@@ -37,7 +37,7 @@
       multi_field:
         type: text
         name: text
-      short: Mitre ATT&CK Matrix tactic Name
+      short: Threat tactic 
       description: >
           Name of the type of tactic used by this threat. You can use the Mitre ATT&CK Matrix Tactic categorization, for example.
           (ex. https://attack.mitre.org/tactics/TA0040/ )
@@ -47,7 +47,7 @@
     - name: tactic.id
       level: extended
       type: keyword
-      short: Mitre ATT&CK Matrix tactic ID
+      short: Threat tactic id
       description: >
           The id of tactic used by this threat. You can use the Mitre ATT&CK Matrix Tactic categorization, for example.
           (ex. https://attack.mitre.org/tactics/TA0040/ )
@@ -57,7 +57,7 @@
     - name: tactic.reference
       level: extended
       type: keyword
-      short: Mitre ATT&CK Matrix tactic URL reference
+      short: Therat tactic url reference
       description: >
           The reference url of tactic used by this threat. You can use the Mitre ATT&CK Matrix Tactic categorization, for example.
           (ex. https://attack.mitre.org/tactics/TA0040/ )
@@ -70,7 +70,7 @@
       multi_field:
         type: text
         name: text
-      short: Mitre ATT&CK Matrix technique name
+      short: Threat technique name
       description: >
           The name of technique used by this threat. You can use the Mitre ATT&CK Matrix Tactic categorization, for example.
           (ex. https://attack.mitre.org/techniques/T1499/ )
@@ -83,7 +83,7 @@
       multi_field:
         type: text
         name: text
-      short: Mitre ATT&CK Matrix technique id
+      short: Threat technique id
       description: >
           The id of technique used by this threat. You can use the Mitre ATT&CK Matrix Tactic categorization, for example.
           (ex. https://attack.mitre.org/techniques/T1499/ )
@@ -93,7 +93,7 @@
     - name: technique.reference
       level: extended
       type: keyword
-      short: Mitre ATT&CK Matrix technique
+      short: Threat technique reference
       description: >
           The reference url of technique used by this threat. You can use the Mitre ATT&CK Matrix Tactic categorization, for example.
           (ex. https://attack.mitre.org/techniques/T1499/ )
@@ -103,7 +103,7 @@
     - name: description
       level: extended
       type: keyword
-      short: Short description of the threat
+      short: Description of the threat
       description: >
         Textual description of the observed threat or threat intel that provides more context 
 
@@ -112,7 +112,7 @@
     - name: severity
       level: extended
       type: keyword
-      short: Severity of the threat as reported by the observer/threat intel feed
+      short: Observed threat severity
       description: >
         Typically a qualitative description of the risk associated with the observed threat or IOC. The reported 
         severity and confidence fields can be normalized to provide a threat.risk.score for the overall event.
@@ -122,7 +122,7 @@
     - name: confidence
       level: extended
       type: keyword
-      short: Predicted accuracy of the threat identification provided by the observer/threat intel feed
+      short: Confidence in threat detection or ioc provider
       description: >
         Typically a qualitative description of the observing systems confidence in the correct identification of a 
         threeat (more prevalent in AI/ ML analysis) or confidence in a particular threat intel provider. The reported 
