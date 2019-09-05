@@ -1,3 +1,8 @@
+<!-- When adding an entry to the Changelog:
+- Please follow the Keep a Changelog: http://keepachangelog.com/ guidelines.
+- Please insert your changelog line ordered by PR ID.
+Thanks, you're awesome :-) -->
+
 ## Unreleased
 
 ### Breaking changes
@@ -6,19 +11,9 @@
 
 ### Added
 
-* Added `process.uptime` and `host.uptime` fields. #475
-* Added field formats to all `.bytes` fields and `event.duration`. #385, #425
-* Added `hash.*` field set. #426
-* Added `event.code`, `event.sequence` and `event.provider`. #439
-* Added `file.name` and `file.directory`. #441
-* Added `file.created`, and `file.accessed`. #445
-* Added `domain` field to user. #486
 * added 'threat' fields for threat detections #505
 
 ### Improvements
-
-* Added examples and improved definitions of many `file` fields. #441
-* Updated Threat fields tactic/technique multifield, etc #505
 
 ### Deprecated
 

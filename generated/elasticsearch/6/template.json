@@ -5,7 +5,7 @@
   "mappings": {
     "_doc": {
       "_meta": {
-        "version": "1.1.0-dev"
+        "version": "1.2.0-dev"
       }, 
       "date_detection": false, 
       "dynamic_templates": [
@@ -147,6 +147,10 @@
             }, 
             "port": {
               "type": "long"
+            }, 
+            "registered_domain": {
+              "ignore_above": 1024, 
+              "type": "keyword"
             }, 
             "user": {
               "properties": {
@@ -351,6 +355,10 @@
             "port": {
               "type": "long"
             }, 
+            "registered_domain": {
+              "ignore_above": 1024, 
+              "type": "keyword"
+            }, 
             "user": {
               "properties": {
                 "domain": {
@@ -390,6 +398,76 @@
                   "type": "keyword"
                 }
               }
+            }
+          }
+        }, 
+        "dns": {
+          "properties": {
+            "answers": {
+              "properties": {
+                "class": {
+                  "ignore_above": 1024, 
+                  "type": "keyword"
+                }, 
+                "data": {
+                  "ignore_above": 1024, 
+                  "type": "keyword"
+                }, 
+                "name": {
+                  "ignore_above": 1024, 
+                  "type": "keyword"
+                }, 
+                "ttl": {
+                  "type": "long"
+                }, 
+                "type": {
+                  "ignore_above": 1024, 
+                  "type": "keyword"
+                }
+              }
+            }, 
+            "header_flags": {
+              "ignore_above": 1024, 
+              "type": "keyword"
+            }, 
+            "id": {
+              "ignore_above": 1024, 
+              "type": "keyword"
+            }, 
+            "op_code": {
+              "ignore_above": 1024, 
+              "type": "keyword"
+            }, 
+            "question": {
+              "properties": {
+                "class": {
+                  "ignore_above": 1024, 
+                  "type": "keyword"
+                }, 
+                "name": {
+                  "ignore_above": 1024, 
+                  "type": "keyword"
+                }, 
+                "registered_domain": {
+                  "ignore_above": 1024, 
+                  "type": "keyword"
+                }, 
+                "type": {
+                  "ignore_above": 1024, 
+                  "type": "keyword"
+                }
+              }
+            }, 
+            "resolved_ip": {
+              "type": "ip"
+            }, 
+            "response_code": {
+              "ignore_above": 1024, 
+              "type": "keyword"
+            }, 
+            "type": {
+              "ignore_above": 1024, 
+              "type": "keyword"
             }
           }
         }, 
@@ -858,6 +936,10 @@
               "ignore_above": 1024, 
               "type": "keyword"
             }, 
+            "logger": {
+              "ignore_above": 1024, 
+              "type": "keyword"
+            }, 
             "original": {
               "doc_values": false, 
               "ignore_above": 1024, 
@@ -1099,6 +1181,10 @@
               "properties": {
                 "id": {
                   "type": "long"
+                }, 
+                "name": {
+                  "ignore_above": 1024, 
+                  "type": "keyword"
                 }
               }
             }, 
@@ -1207,6 +1293,10 @@
             }, 
             "port": {
               "type": "long"
+            }, 
+            "registered_domain": {
+              "ignore_above": 1024, 
+              "type": "keyword"
             }, 
             "user": {
               "properties": {
@@ -1364,6 +1454,10 @@
             "port": {
               "type": "long"
             }, 
+            "registered_domain": {
+              "ignore_above": 1024, 
+              "type": "keyword"
+            }, 
             "user": {
               "properties": {
                 "domain": {
@@ -1466,6 +1560,22 @@
             }
           }
         }, 
+        "trace": {
+          "properties": {
+            "id": {
+              "ignore_above": 1024, 
+              "type": "keyword"
+            }
+          }
+        }, 
+        "transaction": {
+          "properties": {
+            "id": {
+              "ignore_above": 1024, 
+              "type": "keyword"
+            }
+          }
+        }, 
         "url": {
           "properties": {
             "domain": {
@@ -1496,6 +1606,10 @@
               "type": "long"
             }, 
             "query": {
+              "ignore_above": 1024, 
+              "type": "keyword"
+            }, 
+            "registered_domain": {
               "ignore_above": 1024, 
               "type": "keyword"
             }, 

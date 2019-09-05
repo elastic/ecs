@@ -12,6 +12,7 @@ YAML with a twist: Flattened field names equivalent to nested. E.g. `foo.bar: va
 - description (required): Description of the field set
 - fields (required): YAML array as described below
 - type (ignored): at this level, should always be `group`
+- reusable (optional): YAML object composed of top_level and expected sub properties
 
 ## Field set
 
@@ -33,7 +34,6 @@ Supported keys to describe fields
 - description (required): Description of the field
 - example (optional): A single value example of what can be expected in this field
 - multi\_fields (optional):
-- reusable (optional):
 - index (optional): If `False`, means field is not indexed (overrides type)
 
 ### Multi\_fields
