@@ -48,13 +48,13 @@ type Threat struct {
 	// be normalized to provide a threat.risk.score for the overall event.
 	Severity string `ecs:"severity"`
 
-	// Typically a qualitative description of the observing systems confidence
-	// in the correct identification of a  threeat (more prevalent in AI/ ML
-	// analysis), user provided confidence in the observing systems detection
-	// capabilities,  or confidence in a particular threat intel provider. The
-	// severity and confidence fields can be normalized to calculate a value
-	// for threat.risk.score for the overall event at ingest time or
-	// retrospectively.
+	// Typically a qualitative or quantitative value representing the observing
+	// system's confidence in the correct identification of a  threat (more
+	// prevalent in AI/ ML analysis), user provided confidence in the observing
+	// system's detection capabilities,  or confidence in the accuracy of a
+	// specific threat intel provider. The severity and confidence fields can
+	// be normalized to calculate a normalized risk score for the overall event
+	// at ingest time or retrospectively.
 	Confidence string `ecs:"confidence"`
 
 	// Name of the threat framework used to further categorize and classify the
