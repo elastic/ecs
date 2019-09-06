@@ -22,14 +22,46 @@ package ecs
 // ECS threat fields encompass detected suspicious activity (e.g. IDS alert,
 // malware activity) typically reported by IDS/IPS and NGFWs, as well as threat
 // intel/global IOC data ingested from a feed source like MISP or Anomali.
+// Tactic and technique fields can be populated from information provided by
+// the reporting system, or can be evaluated  based on internal framework
+// preferences at ingest time, or retrospectively.
 type Threat struct {
 	// Threat ID, typically provided by reporting system (e.g. NGFW or IDS) or
 	// threat intel provider (Anomali, OTX, etc.)
 	ID string `ecs:"id"`
 
-	// Threat name, typically provided by reporting system (e.g. NGFW or IDS)
-	// or threat intel provider (Anomali, OTX, etc.)
+	// Threat name, typically provided by reporting system (e.g. NGFW or IDS
+	// signature) or threat intel provider (Anomali, OTX, etc.)
 	Name string `ecs:"name"`
+
+	// Threat category, typically provided by reporting system (e.g. NGFW or
+	// IDS signature) or threat intel provider (Anomali, OTX, etc.)
+	Category string `ecs:"category"`
+
+	// Threat revision is a numerical value provided by the observer or threat
+	// intel provider identifying the specific version of the signature used
+	// for detection, or the specific revision of the threat intel record.
+	Revision int64 `ecs:"revision"`
+
+	// Typically a qualitative description of the risk associated with the
+	// observed threat or IOC. The reported  severity and confidence fields can
+	// be normalized to provide a threat.risk.score for the overall event.
+	Severity string `ecs:"severity"`
+
+	// Typically a qualitative description of the observing systems confidence
+	// in the correct identification of a  threeat (more prevalent in AI/ ML
+	// analysis), user provided confidence in the observing systems detection
+	// capabilities,  or confidence in a particular threat intel provider. The
+	// severity and confidence fields can be normalized to calculate a value
+	// for threat.risk.score for the overall event at ingest time or
+	// retrospectively.
+	Confidence string `ecs:"confidence"`
+
+	// Name of the threat framework used to further categorize and classify the
+	// tactic and technique of the reported threat.   Framework classification
+	// can be provided by detecting systems, evaluated at ingest time, or
+	// retrospectively tagged to events.
+	Framework string `ecs:"framework"`
 
 	// Name of the type of tactic used by this threat. You can use the Mitre
 	// ATT&CK Matrix Tactic categorization, for example. (ex.
@@ -46,34 +78,18 @@ type Threat struct {
 	// https://attack.mitre.org/tactics/TA0040/ )
 	TacticReference string `ecs:"tactic.reference"`
 
-	// The name of technique used by this threat. You can use the Mitre ATT&CK
+	// The name of technique used by this tactic. You can use the Mitre ATT&CK
 	// Matrix Tactic categorization, for example. (ex.
 	// https://attack.mitre.org/techniques/T1499/ )
 	TechniqueName string `ecs:"technique.name"`
 
-	// The id of technique used by this threat. You can use the Mitre ATT&CK
+	// The id of technique used by this tactic. You can use the Mitre ATT&CK
 	// Matrix Tactic categorization, for example. (ex.
 	// https://attack.mitre.org/techniques/T1499/ )
 	TechniqueID string `ecs:"technique.id"`
 
-	// The reference url of technique used by this threat. You can use the
+	// The reference url of technique used by this tactic. You can use the
 	// Mitre ATT&CK Matrix Tactic categorization, for example. (ex.
 	// https://attack.mitre.org/techniques/T1499/ )
 	TechniqueReference string `ecs:"technique.reference"`
-
-	// Textual description of the observed threat or threat intel that provides
-	// more context
-	Description string `ecs:"description"`
-
-	// Typically a qualitative description of the risk associated with the
-	// observed threat or IOC. The reported  severity and confidence fields can
-	// be normalized to provide a threat.risk.score for the overall event.
-	Severity string `ecs:"severity"`
-
-	// Typically a qualitative description of the observing systems confidence
-	// in the correct identification of a  threeat (more prevalent in AI/ ML
-	// analysis) or confidence in a particular threat intel provider. The
-	// reported  severity and confidence fields can be normalized to provide a
-	// threat.risk.score for the overall event.
-	Confidence string `ecs:"confidence"`
 }

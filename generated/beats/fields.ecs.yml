@@ -2491,26 +2491,39 @@
     group: 2
     description: ECS threat fields encompass detected suspicious activity (e.g. IDS
       alert, malware activity) typically reported by IDS/IPS and NGFWs, as well as
-      threat intel/global IOC data ingested from a feed source like MISP or Anomali.
+      threat intel/global IOC data ingested from a feed source like MISP or Anomali.  Tactic
+      and technique fields can be populated from information provided by the reporting
+      system, or can be evaluated  based on internal framework preferences at ingest
+      time, or retrospectively.
     type: group
     fields:
+    - name: category
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Threat category, typically provided by reporting system (e.g. NGFW
+        or IDS signature) or threat intel provider (Anomali, OTX, etc.)
+      example: Denial of Service
     - name: confidence
       level: extended
       type: keyword
       ignore_above: 1024
       description: Typically a qualitative description of the observing systems confidence
-        in the correct identification of a  threeat (more prevalent in AI/ ML analysis)
-        or confidence in a particular threat intel provider. The reported  severity
-        and confidence fields can be normalized to provide a threat.risk.score for
-        the overall event.
+        in the correct identification of a  threeat (more prevalent in AI/ ML analysis),
+        user provided confidence in the observing systems detection capabilities,  or
+        confidence in a particular threat intel provider. The severity and confidence
+        fields can be normalized to calculate a value for threat.risk.score for the
+        overall event at ingest time or retrospectively.
       example: low, medium, high, 1-5, 1-10, etc
-    - name: description
+    - name: framework
       level: extended
       type: keyword
       ignore_above: 1024
-      description: Textual description of the observed threat or threat intel that
-        provides more context
-      example: ntp denial of service attack
+      description: Name of the threat framework used to further categorize and classify
+        the tactic and technique of the reported threat.   Framework classification
+        can be provided by detecting systems, evaluated at ingest time, or retrospectively
+        tagged to events.
+      example: MITRE ATT&CK
     - name: id
       level: extended
       type: keyword
@@ -2523,8 +2536,16 @@
       type: keyword
       ignore_above: 1024
       description: Threat name, typically provided by reporting system (e.g. NGFW
-        or IDS) or threat intel provider (Anomali, OTX, etc.)
+        or IDS signature) or threat intel provider (Anomali, OTX, etc.)
       example: ntp reserved mode denial of service
+    - name: revision
+      level: extended
+      type: long
+      format: string
+      description: Threat revision is a numerical value provided by the observer or
+        threat intel provider identifying the specific version of the signature used
+        for detection, or the specific revision of the threat intel record.
+      example: 1.1
     - name: severity
       level: extended
       type: keyword
@@ -2561,7 +2582,7 @@
       level: extended
       type: keyword
       ignore_above: 1024
-      description: The id of technique used by this threat. You can use the Mitre
+      description: The id of technique used by this tactic. You can use the Mitre
         ATT&CK Matrix Tactic categorization, for example. (ex. https://attack.mitre.org/techniques/T1499/
         )
       example: T1499
@@ -2569,7 +2590,7 @@
       level: extended
       type: keyword
       ignore_above: 1024
-      description: The name of technique used by this threat. You can use the Mitre
+      description: The name of technique used by this tactic. You can use the Mitre
         ATT&CK Matrix Tactic categorization, for example. (ex. https://attack.mitre.org/techniques/T1499/
         )
       example: endpoint denial of service
@@ -2577,7 +2598,7 @@
       level: extended
       type: keyword
       ignore_above: 1024
-      description: The reference url of technique used by this threat. You can use
+      description: The reference url of technique used by this tactic. You can use
         the Mitre ATT&CK Matrix Tactic categorization, for example. (ex. https://attack.mitre.org/techniques/T1499/
         )
       example: https://attack.mitre.org/techniques/T1499/

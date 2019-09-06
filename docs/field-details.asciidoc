@@ -3201,7 +3201,7 @@ example: `google.com`
 [[ecs-threat]]
 === Threat Fields
 
-ECS threat fields encompass detected suspicious activity (e.g. IDS alert, malware activity) typically reported by IDS/IPS and NGFWs, as well as threat intel/global IOC data ingested from a feed source like MISP or Anomali.
+ECS threat fields encompass detected suspicious activity (e.g. IDS alert, malware activity) typically reported by IDS/IPS and NGFWs, as well as threat intel/global IOC data ingested from a feed source like MISP or Anomali.  Tactic and technique fields can be populated from information provided by the reporting system, or can be evaluated  based on internal framework preferences at ingest time, or retrospectively.
 
 ==== Threat Field Details
 
@@ -3211,8 +3211,19 @@ ECS threat fields encompass detected suspicious activity (e.g. IDS alert, malwar
 
 // ===============================================================
 
+| threat.category
+| Threat category, typically provided by reporting system (e.g. NGFW or IDS signature) or threat intel provider (Anomali, OTX, etc.)
+
+type: keyword
+
+example: `Denial of Service`
+
+| extended
+
+// ===============================================================
+
 | threat.confidence
-| Typically a qualitative description of the observing systems confidence in the correct identification of a  threeat (more prevalent in AI/ ML analysis) or confidence in a particular threat intel provider. The reported  severity and confidence fields can be normalized to provide a threat.risk.score for the overall event.
+| Typically a qualitative description of the observing systems confidence in the correct identification of a  threeat (more prevalent in AI/ ML analysis), user provided confidence in the observing systems detection capabilities,  or confidence in a particular threat intel provider. The severity and confidence fields can be normalized to calculate a value for threat.risk.score for the overall event at ingest time or retrospectively.
 
 type: keyword
 
@@ -3222,12 +3233,12 @@ example: `low, medium, high, 1-5, 1-10, etc`
 
 // ===============================================================
 
-| threat.description
-| Textual description of the observed threat or threat intel that provides more context
+| threat.framework
+| Name of the threat framework used to further categorize and classify the tactic and technique of the reported threat.   Framework classification can be provided by detecting systems, evaluated at ingest time, or retrospectively tagged to events.
 
 type: keyword
 
-example: `ntp denial of service attack`
+example: `MITRE ATT&CK`
 
 | extended
 
@@ -3245,11 +3256,22 @@ example: `33227`
 // ===============================================================
 
 | threat.name
-| Threat name, typically provided by reporting system (e.g. NGFW or IDS) or threat intel provider (Anomali, OTX, etc.)
+| Threat name, typically provided by reporting system (e.g. NGFW or IDS signature) or threat intel provider (Anomali, OTX, etc.)
 
 type: keyword
 
 example: `ntp reserved mode denial of service`
+
+| extended
+
+// ===============================================================
+
+| threat.revision
+| Threat revision is a numerical value provided by the observer or threat intel provider identifying the specific version of the signature used for detection, or the specific revision of the threat intel record.
+
+type: long
+
+example: `1.1`
 
 | extended
 
@@ -3300,7 +3322,7 @@ example: `https://attack.mitre.org/tactics/TA0040/`
 // ===============================================================
 
 | threat.technique.id
-| The id of technique used by this threat. You can use the Mitre ATT&CK Matrix Tactic categorization, for example. (ex. https://attack.mitre.org/techniques/T1499/ )
+| The id of technique used by this tactic. You can use the Mitre ATT&CK Matrix Tactic categorization, for example. (ex. https://attack.mitre.org/techniques/T1499/ )
 
 type: keyword
 
@@ -3311,7 +3333,7 @@ example: `T1499`
 // ===============================================================
 
 | threat.technique.name
-| The name of technique used by this threat. You can use the Mitre ATT&CK Matrix Tactic categorization, for example. (ex. https://attack.mitre.org/techniques/T1499/ )
+| The name of technique used by this tactic. You can use the Mitre ATT&CK Matrix Tactic categorization, for example. (ex. https://attack.mitre.org/techniques/T1499/ )
 
 type: keyword
 
@@ -3322,7 +3344,7 @@ example: `endpoint denial of service`
 // ===============================================================
 
 | threat.technique.reference
-| The reference url of technique used by this threat. You can use the Mitre ATT&CK Matrix Tactic categorization, for example. (ex. https://attack.mitre.org/techniques/T1499/ )
+| The reference url of technique used by this tactic. You can use the Mitre ATT&CK Matrix Tactic categorization, for example. (ex. https://attack.mitre.org/techniques/T1499/ )
 
 type: keyword
 
