@@ -72,6 +72,17 @@ type Dns struct {
 	// "co.uk".
 	QuestionRegisteredDomain string `ecs:"question.registered_domain"`
 
+	// The top level domain (TLD) also known as the domain suffix is the last
+	// part of the domain name. For example, the top level domain for
+	// google.com is "com".
+	// The following groups of top level domain are maintained by the Internet
+	// Assigned Numbers Authority (IANA).
+	// Infrastructure top-level domain (ARPA) Generic top-level domains (gTLD)
+	// Restricted generic top-level domains (grTLD) Sponsored top-level domains
+	// (sTLD) Country code top-level domains (ccTLD) Internationalized country
+	// code top-level domains (IDN ccTLDs) Test top-level domains (tTLD)
+	QuestionTopLevelDomain string `ecs:"question.top_level_domain"`
+
 	// An array containing an object for each answer section returned by the
 	// server.
 	// The main keys that should be present in these objects are defined by

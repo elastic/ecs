@@ -145,7 +145,7 @@ client.bytes:
   format: bytes
   level: core
   name: bytes
-  order: 5
+  order: 6
   short: Bytes sent from the client to the server.
   type: long
 client.domain:
@@ -277,7 +277,7 @@ client.nat.ip:
   flat_name: client.nat.ip
   level: extended
   name: nat.ip
-  order: 7
+  order: 8
   short: Client NAT ip address
   type: ip
 client.nat.port:
@@ -289,7 +289,7 @@ client.nat.port:
   format: string
   level: extended
   name: nat.port
-  order: 8
+  order: 9
   short: Client NAT port
   type: long
 client.packets:
@@ -298,7 +298,7 @@ client.packets:
   flat_name: client.packets
   level: core
   name: packets
-  order: 6
+  order: 7
   short: Packets sent from the client to the server.
   type: long
 client.port:
@@ -310,6 +310,25 @@ client.port:
   order: 2
   short: Port of the client.
   type: long
+client.top_level_domain:
+  description: 'The top level domain (TLD) also known as the domain suffix is the
+    last part of the domain name. For example, the top level domain for google.com
+    is "com".
+
+    The following groups of top level domain are maintained by the Internet Assigned
+    Numbers Authority (IANA).
+
+    Infrastructure top-level domain (ARPA) Generic top-level domains (gTLD) Restricted
+    generic top-level domains (grTLD) Sponsored top-level domains (sTLD) Country code
+    top-level domains (ccTLD) Internationalized country code top-level domains (IDN
+    ccTLDs) Test top-level domains (tTLD)'
+  flat_name: client.top_level_domain
+  ignore_above: 1024
+  level: extended
+  name: top_level_domain
+  order: 5
+  short: The top level domain is the last part of the domain (com, net, org).
+  type: keyword
 client.user.domain:
   description: 'Name of the directory the user is a member of.
 
@@ -570,7 +589,7 @@ destination.bytes:
   format: bytes
   level: core
   name: bytes
-  order: 5
+  order: 6
   short: Bytes sent from the destination to the source.
   type: long
 destination.domain:
@@ -702,7 +721,7 @@ destination.nat.ip:
   flat_name: destination.nat.ip
   level: extended
   name: nat.ip
-  order: 7
+  order: 8
   short: Destination NAT ip
   type: ip
 destination.nat.port:
@@ -713,7 +732,7 @@ destination.nat.port:
   format: string
   level: extended
   name: nat.port
-  order: 8
+  order: 9
   short: Destination NAT Port
   type: long
 destination.packets:
@@ -722,7 +741,7 @@ destination.packets:
   flat_name: destination.packets
   level: core
   name: packets
-  order: 6
+  order: 7
   short: Packets sent from the destination to the source.
   type: long
 destination.port:
@@ -734,6 +753,25 @@ destination.port:
   order: 2
   short: Port of the destination.
   type: long
+destination.top_level_domain:
+  description: 'The top level domain (TLD) also known as the domain suffix is the
+    last part of the domain name. For example, the top level domain for google.com
+    is "com".
+
+    The following groups of top level domain are maintained by the Internet Assigned
+    Numbers Authority (IANA).
+
+    Infrastructure top-level domain (ARPA) Generic top-level domains (gTLD) Restricted
+    generic top-level domains (grTLD) Sponsored top-level domains (sTLD) Country code
+    top-level domains (ccTLD) Internationalized country code top-level domains (IDN
+    ccTLDs) Test top-level domains (tTLD)'
+  flat_name: destination.top_level_domain
+  ignore_above: 1024
+  level: extended
+  name: top_level_domain
+  order: 5
+  short: The top level domain is the last part of the domain (com, net, org).
+  type: keyword
 destination.user.domain:
   description: 'Name of the directory the user is a member of.
 
@@ -837,7 +875,7 @@ dns.answers:
   level: extended
   name: answers
   object_type: keyword
-  order: 9
+  order: 10
   short: Array of DNS answers.
   type: object
 dns.answers.class:
@@ -847,7 +885,7 @@ dns.answers.class:
   ignore_above: 1024
   level: extended
   name: answers.class
-  order: 12
+  order: 13
   short: The class of DNS data contained in this resource record.
   type: keyword
 dns.answers.data:
@@ -859,7 +897,7 @@ dns.answers.data:
   ignore_above: 1024
   level: extended
   name: answers.data
-  order: 14
+  order: 15
   short: The data describing the resource.
   type: keyword
 dns.answers.name:
@@ -873,7 +911,7 @@ dns.answers.name:
   ignore_above: 1024
   level: extended
   name: answers.name
-  order: 10
+  order: 11
   short: The domain name to which this resource record pertains.
   type: keyword
 dns.answers.ttl:
@@ -883,7 +921,7 @@ dns.answers.ttl:
   flat_name: dns.answers.ttl
   level: extended
   name: answers.ttl
-  order: 13
+  order: 14
   short: The time interval in seconds that this resource record may be cached before
     it should be discarded. Zero values mean that the data should not be cached.
   type: long
@@ -894,7 +932,7 @@ dns.answers.type:
   ignore_above: 1024
   level: extended
   name: answers.type
-  order: 11
+  order: 12
   short: The type of data contained in this resource record.
   type: keyword
 dns.header_flags:
@@ -976,6 +1014,25 @@ dns.question.registered_domain:
   order: 8
   short: The highest registered domain, stripped of the subdomain.
   type: keyword
+dns.question.top_level_domain:
+  description: 'The top level domain (TLD) also known as the domain suffix is the
+    last part of the domain name. For example, the top level domain for google.com
+    is "com".
+
+    The following groups of top level domain are maintained by the Internet Assigned
+    Numbers Authority (IANA).
+
+    Infrastructure top-level domain (ARPA) Generic top-level domains (gTLD) Restricted
+    generic top-level domains (grTLD) Sponsored top-level domains (sTLD) Country code
+    top-level domains (ccTLD) Internationalized country code top-level domains (IDN
+    ccTLDs) Test top-level domains (tTLD)'
+  flat_name: dns.question.top_level_domain
+  ignore_above: 1024
+  level: extended
+  name: question.top_level_domain
+  order: 9
+  short: The top level domain is the last part of the domain (com, net, org).
+  type: keyword
 dns.question.type:
   description: The type of record being queried.
   example: AAAA
@@ -999,7 +1056,7 @@ dns.resolved_ip:
   flat_name: dns.resolved_ip
   level: extended
   name: resolved_ip
-  order: 15
+  order: 16
   short: Array containing all IPs seen in answers.data
   type: ip
 dns.response_code:
@@ -2884,7 +2941,7 @@ server.bytes:
   format: bytes
   level: core
   name: bytes
-  order: 5
+  order: 6
   short: Bytes sent from the server to the client.
   type: long
 server.domain:
@@ -3016,7 +3073,7 @@ server.nat.ip:
   flat_name: server.nat.ip
   level: extended
   name: nat.ip
-  order: 7
+  order: 8
   short: Server NAT ip
   type: ip
 server.nat.port:
@@ -3028,7 +3085,7 @@ server.nat.port:
   format: string
   level: extended
   name: nat.port
-  order: 8
+  order: 9
   short: Server NAT port
   type: long
 server.packets:
@@ -3037,7 +3094,7 @@ server.packets:
   flat_name: server.packets
   level: core
   name: packets
-  order: 6
+  order: 7
   short: Packets sent from the server to the client.
   type: long
 server.port:
@@ -3049,6 +3106,25 @@ server.port:
   order: 2
   short: Port of the server.
   type: long
+server.top_level_domain:
+  description: 'The top level domain (TLD) also known as the domain suffix is the
+    last part of the domain name. For example, the top level domain for google.com
+    is "com".
+
+    The following groups of top level domain are maintained by the Internet Assigned
+    Numbers Authority (IANA).
+
+    Infrastructure top-level domain (ARPA) Generic top-level domains (gTLD) Restricted
+    generic top-level domains (grTLD) Sponsored top-level domains (sTLD) Country code
+    top-level domains (ccTLD) Internationalized country code top-level domains (IDN
+    ccTLDs) Test top-level domains (tTLD)'
+  flat_name: server.top_level_domain
+  ignore_above: 1024
+  level: extended
+  name: top_level_domain
+  order: 5
+  short: The top level domain is the last part of the domain (com, net, org).
+  type: keyword
 server.user.domain:
   description: 'Name of the directory the user is a member of.
 
@@ -3269,7 +3345,7 @@ source.bytes:
   format: bytes
   level: core
   name: bytes
-  order: 5
+  order: 6
   short: Bytes sent from the source to the destination.
   type: long
 source.domain:
@@ -3401,7 +3477,7 @@ source.nat.ip:
   flat_name: source.nat.ip
   level: extended
   name: nat.ip
-  order: 7
+  order: 8
   short: Source NAT ip
   type: ip
 source.nat.port:
@@ -3413,7 +3489,7 @@ source.nat.port:
   format: string
   level: extended
   name: nat.port
-  order: 8
+  order: 9
   short: Source NAT port
   type: long
 source.packets:
@@ -3422,7 +3498,7 @@ source.packets:
   flat_name: source.packets
   level: core
   name: packets
-  order: 6
+  order: 7
   short: Packets sent from the source to the destination.
   type: long
 source.port:
@@ -3434,6 +3510,25 @@ source.port:
   order: 2
   short: Port of the source.
   type: long
+source.top_level_domain:
+  description: 'The top level domain (TLD) also known as the domain suffix is the
+    last part of the domain name. For example, the top level domain for google.com
+    is "com".
+
+    The following groups of top level domain are maintained by the Internet Assigned
+    Numbers Authority (IANA).
+
+    Infrastructure top-level domain (ARPA) Generic top-level domains (gTLD) Restricted
+    generic top-level domains (grTLD) Sponsored top-level domains (sTLD) Country code
+    top-level domains (ccTLD) Internationalized country code top-level domains (IDN
+    ccTLDs) Test top-level domains (tTLD)'
+  flat_name: source.top_level_domain
+  ignore_above: 1024
+  level: extended
+  name: top_level_domain
+  order: 5
+  short: The top level domain is the last part of the domain (com, net, org).
+  type: keyword
 source.user.domain:
   description: 'Name of the directory the user is a member of.
 
@@ -3579,7 +3674,7 @@ url.fragment:
   ignore_above: 1024
   level: extended
   name: fragment
-  order: 7
+  order: 8
   short: Portion of the url after the `#`.
   type: keyword
 url.full:
@@ -3614,7 +3709,7 @@ url.password:
   ignore_above: 1024
   level: extended
   name: password
-  order: 9
+  order: 10
   short: Password of the request.
   type: keyword
 url.path:
@@ -3623,7 +3718,7 @@ url.path:
   ignore_above: 1024
   level: extended
   name: path
-  order: 5
+  order: 6
   short: Path of the request, such as "/search".
   type: keyword
 url.port:
@@ -3633,7 +3728,7 @@ url.port:
   format: string
   level: extended
   name: port
-  order: 4
+  order: 5
   short: Port of the request, such as 443.
   type: long
 url.query:
@@ -3648,7 +3743,7 @@ url.query:
   ignore_above: 1024
   level: extended
   name: query
-  order: 6
+  order: 7
   short: Query string of the request.
   type: keyword
 url.scheme:
@@ -3663,13 +3758,32 @@ url.scheme:
   order: 2
   short: Scheme of the url.
   type: keyword
+url.top_level_domain:
+  description: 'The top level domain (TLD) also known as the domain suffix is the
+    last part of the domain name. For example, the top level domain for google.com
+    is "com".
+
+    The following groups of top level domain are maintained by the Internet Assigned
+    Numbers Authority (IANA).
+
+    Infrastructure top-level domain (ARPA) Generic top-level domains (gTLD) Restricted
+    generic top-level domains (grTLD) Sponsored top-level domains (sTLD) Country code
+    top-level domains (ccTLD) Internationalized country code top-level domains (IDN
+    ccTLDs) Test top-level domains (tTLD)'
+  flat_name: url.top_level_domain
+  ignore_above: 1024
+  level: extended
+  name: top_level_domain
+  order: 4
+  short: The top level domain is the last part of the domain (com, net, org).
+  type: keyword
 url.username:
   description: Username of the request.
   flat_name: url.username
   ignore_above: 1024
   level: extended
   name: username
-  order: 8
+  order: 9
   short: Username of the request.
   type: keyword
 user.domain:
