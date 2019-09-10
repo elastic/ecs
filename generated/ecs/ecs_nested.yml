@@ -3072,7 +3072,7 @@ package:
       ignore_above: 1024
       level: extended
       name: architecture
-      order: 9
+      order: 8
       short: Package architecture.
       type: keyword
     checksum:
@@ -3082,7 +3082,7 @@ package:
       ignore_above: 1024
       level: extended
       name: checksum
-      order: 11
+      order: 10
       short: Checksum of the installed package for verification.
       type: keyword
     description:
@@ -3091,7 +3091,7 @@ package:
         software.
       flat_name: package.description
       ignore_above: 1024
-      level: core
+      level: extended
       name: description
       order: 2
       short: Description of the package.
@@ -3104,7 +3104,7 @@ package:
       ignore_above: 1024
       level: extended
       name: detailed_version
-      order: 10
+      order: 9
       short: Detailed version of the installed package, for instance git commit when
         using an unreleased version.
       type: keyword
@@ -3115,33 +3115,37 @@ package:
       ignore_above: 1024
       level: extended
       name: install_scope
-      order: 12
+      order: 11
       short: Indicating how the package was installed, e.g. user-local, global.
       type: keyword
     installed:
       description: Time when package was installed.
       flat_name: package.installed
-      level: core
+      level: extended
       name: installed
       order: 4
       short: Time when package was installed.
       type: date
     license:
-      description: License under which the package was released.
+      description: License under which the package was released. Use a short name,
+        e.g. the license identifier from [SPDX License List](https://spdx.org/licenses/)
+        where possible.
       example: Apache License 2.0
       flat_name: package.license
       ignore_above: 1024
       level: extended
       name: license
-      order: 13
-      short: License under which the package was released.
+      order: 12
+      short: License under which the package was released. Use a short name, e.g.
+        the license identifier from [SPDX License List](https://spdx.org/licenses/)
+        where possible.
       type: keyword
     name:
       description: Package name
       example: go
       flat_name: package.name
       ignore_above: 1024
-      level: core
+      level: extended
       name: name
       order: 0
       short: Package name
@@ -3151,27 +3155,17 @@ package:
       example: /usr/local/Cellar/go/1.12.9/
       flat_name: package.path
       ignore_above: 1024
-      level: core
+      level: extended
       name: path
       order: 7
       short: Path where the package is installed.
-      type: keyword
-    remote_repository:
-      description: Remote repository from where the package was installed.
-      example: https://artifacts.elastic.co/packages/7.x/yum
-      flat_name: package.remote_repository
-      ignore_above: 1024
-      level: extended
-      name: remote_repository
-      order: 8
-      short: Remote repository from where the package was installed.
       type: keyword
     size:
       description: Package size in bytes.
       example: 62231
       flat_name: package.size
       format: string
-      level: core
+      level: extended
       name: size
       order: 3
       short: Package size in bytes.
@@ -3182,28 +3176,28 @@ package:
       example: npm
       flat_name: package.type
       ignore_above: 1024
-      level: core
+      level: extended
       name: type
       order: 5
       short: Information about package type. When installed from a package manager,
         this would contain the package manager name.
       type: keyword
-    url.original:
-      description: URL from where the package was installed.
+    url.full:
+      description: URL of this package.
       example: https://docs.docker.com/compose/
-      flat_name: package.url.original
+      flat_name: package.url.full
       ignore_above: 1024
-      level: core
-      name: url.original
+      level: extended
+      name: url.full
       order: 6
-      short: URL from where the package was installed.
+      short: URL of this package.
       type: keyword
     version:
       description: Package version
       example: 1.12.9
       flat_name: package.version
       ignore_above: 1024
-      level: core
+      level: extended
       name: version
       order: 1
       short: Package version

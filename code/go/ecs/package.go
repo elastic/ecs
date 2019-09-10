@@ -47,14 +47,11 @@ type Package struct {
 	// this would contain the package manager name.
 	Type string `ecs:"type"`
 
-	// URL from where the package was installed.
-	UrlOriginal string `ecs:"url.original"`
+	// URL of this package.
+	UrlFull string `ecs:"url.full"`
 
 	// Path where the package is installed.
 	Path string `ecs:"path"`
-
-	// Remote repository from where the package was installed.
-	RemoteRepository string `ecs:"remote_repository"`
 
 	// Package architecture.
 	Architecture string `ecs:"architecture"`
@@ -69,6 +66,8 @@ type Package struct {
 	// Indicating how the package was installed, e.g. user-local, global.
 	InstallScope string `ecs:"install_scope"`
 
-	// License under which the package was released.
+	// License under which the package was released. Use a short name, e.g. the
+	// license identifier from [SPDX License List](https://spdx.org/licenses/)
+	// where possible.
 	License string `ecs:"license"`
 }

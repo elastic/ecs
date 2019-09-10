@@ -11,59 +11,53 @@
   fields:
 
     - name: name
-      level: core
+      level: extended
       type: keyword
       description: Package name
       example: go
 
     - name: version
-      level: core
+      level: extended
       type: keyword
       description: Package version
       example: 1.12.9
 
     - name: description
-      level: core
+      level: extended
       type: keyword
       description: Description of the package.
       example: Open source programming language to build simple/reliable/efficient software.
 
     - name: size
       format: string
-      level: core
+      level: extended
       type: long
       description: Package size in bytes.
       example: 62231
 
     - name: installed
-      level: core
+      level: extended
       type: date
       description: Time when package was installed.
 
     - name: type
-      level: core
+      level: extended
       type: keyword
       description: Information about package type. When installed from a package manager, this would contain the
         package manager name.
       example: npm
 
-    - name: url.original
-      level: core
+    - name: url.full
+      level: extended
       type: keyword
-      description: URL from where the package was installed.
+      description: URL of this package.
       example: https://docs.docker.com/compose/
 
     - name: path
-      level: core
+      level: extended
       type: keyword
       description: Path where the package is installed.
       example: /usr/local/Cellar/go/1.12.9/
-
-    - name: remote_repository
-      level: extended
-      type: keyword
-      description: Remote repository from where the package was installed.
-      example: https://artifacts.elastic.co/packages/7.x/yum
 
     - name: architecture
       level: extended
@@ -92,5 +86,5 @@
     - name: license
       level: extended
       type: keyword
-      description: License under which the package was released.
+      description: License under which the package was released. Use a short name, e.g. the license identifier from [SPDX License List](https://spdx.org/licenses/) where possible.
       example: Apache License 2.0

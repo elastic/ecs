@@ -10,7 +10,7 @@ Thanks, you're awesome :-) -->
 ### Bugfixes
 
 ### Added
-* Add support for installed software packages. #TODO(simi) add PR number
+* Add support for installed software packages. #532
 
 ### Improvements
 
