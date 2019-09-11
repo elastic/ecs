@@ -76,6 +76,15 @@ type Event struct {
 	// Please avoid using this field for user data.
 	Type string `ecs:"type"`
 
+	// The detection which triggered the event or was observed during
+	// processing of the event.
+	// An example of a detection which triggered an event is an anti-virus
+	// alert caused by malware. An example of a detection observed during
+	// processing of an event, is a web-proxy identifying a suspicious file
+	// while processing http requests between an internal host and external
+	// web-server.
+	Detection string `ecs:"detection"`
+
 	// Name of the module this data is coming from.
 	// If your monitoring agent supports the concept of modules or plugins to
 	// process events of a given source (e.g. Apache logs), `event.module`
