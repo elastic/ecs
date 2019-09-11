@@ -66,6 +66,11 @@ type Url struct {
 	// differentiate between the two cases.
 	Query string `ecs:"query"`
 
+	// The field contains the file extension from the original request url. The
+	// file extension is only set if it exists, as not every url has a file
+	// extension.
+	Extension string `ecs:"extension"`
+
 	// Portion of the url after the `#`, such as "top".
 	// The `#` is not part of the fragment.
 	Fragment string `ecs:"fragment"`
