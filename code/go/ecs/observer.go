@@ -24,12 +24,13 @@ package ecs
 // events and metrics.
 // This could be a custom hardware appliance or a server that has been
 // configured to run special network, security, or application software.
-// Examples include firewalls, intrusion detection/prevention systems, network
-// monitoring sensors, web application firewalls, data loss prevention systems,
-// and APM servers. The observer.* fields shall be populated with details of
-// the system, if any, that detects, observes and/or creates a network,
-// security, or application event or metric. Message queues and ETL components
-// used in processing events or metrics are not considered observers in ECS.
+// Examples include firewalls, web proxies, intrusion detection/prevention
+// systems, network monitoring sensors, web application firewalls, data loss
+// prevention systems, and APM servers. The observer.* fields shall be
+// populated with details of the system, if any, that detects, observes and/or
+// creates a network, security, or application event or metric. Message queues
+// and ETL components used in processing events or metrics are not considered
+// observers in ECS.
 type Observer struct {
 	// MAC address of the observer
 	MAC string `ecs:"mac"`
@@ -39,6 +40,12 @@ type Observer struct {
 
 	// Hostname of the observer.
 	Hostname string `ecs:"hostname"`
+
+	// Name of the observer.
+	Name string `ecs:"name"`
+
+	// Location of the observer.
+	Location string `ecs:"location"`
 
 	// observer vendor information.
 	Vendor string `ecs:"vendor"`

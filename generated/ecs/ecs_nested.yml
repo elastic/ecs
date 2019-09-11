@@ -2712,12 +2712,12 @@ observer:
 
     This could be a custom hardware appliance or a server that has been configured
     to run special network, security, or application software. Examples include firewalls,
-    intrusion detection/prevention systems, network monitoring sensors, web application
-    firewalls, data loss prevention systems, and APM servers. The observer.* fields
-    shall be populated with details of the system, if any, that detects, observes
-    and/or creates a network, security, or application event or metric. Message queues
-    and ETL components used in processing events or metrics are not considered observers
-    in ECS.'
+    web proxies, intrusion detection/prevention systems, network monitoring sensors,
+    web application firewalls, data loss prevention systems, and APM servers. The
+    observer.* fields shall be populated with details of the system, if any, that
+    detects, observes and/or creates a network, security, or application event or
+    metric. Message queues and ETL components used in processing events or metrics
+    are not considered observers in ECS.'
   fields:
     geo.city_name:
       description: City name.
@@ -2829,6 +2829,15 @@ observer:
       order: 1
       short: IP address of the observer.
       type: ip
+    location:
+      description: Location of the observer.
+      flat_name: observer.location
+      ignore_above: 1024
+      level: core
+      name: location
+      order: 4
+      short: Location of the observer.
+      type: keyword
     mac:
       description: MAC address of the observer
       flat_name: observer.mac
@@ -2837,6 +2846,15 @@ observer:
       name: mac
       order: 0
       short: MAC address of the observer
+      type: keyword
+    name:
+      description: Name of the observer.
+      flat_name: observer.name
+      ignore_above: 1024
+      level: core
+      name: name
+      order: 3
+      short: Name of the observer.
       type: keyword
     os.family:
       description: OS family (such as redhat, debian, freebsd, windows).
@@ -2910,7 +2928,7 @@ observer:
       ignore_above: 1024
       level: extended
       name: serial_number
-      order: 5
+      order: 7
       short: Observer serial number.
       type: keyword
     type:
@@ -2923,7 +2941,7 @@ observer:
       ignore_above: 1024
       level: core
       name: type
-      order: 6
+      order: 8
       short: The type of the observer the data is coming from.
       type: keyword
     vendor:
@@ -2932,7 +2950,7 @@ observer:
       ignore_above: 1024
       level: core
       name: vendor
-      order: 3
+      order: 5
       short: observer vendor information.
       type: keyword
     version:
@@ -2941,7 +2959,7 @@ observer:
       ignore_above: 1024
       level: core
       name: version
-      order: 4
+      order: 6
       short: Observer version.
       type: keyword
   group: 2
