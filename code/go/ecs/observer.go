@@ -44,8 +44,8 @@ type Observer struct {
 	// Name of the observer.
 	Name string `ecs:"name"`
 
-	// Location of the observer.
-	Location string `ecs:"location"`
+	// The observers product name.
+	Product string `ecs:"product"`
 
 	// observer vendor information.
 	Vendor string `ecs:"vendor"`
