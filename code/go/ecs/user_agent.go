@@ -23,8 +23,11 @@ package ecs
 // They often show up in web service logs coming from the parsed user agent
 // string.
 type UserAgent struct {
-	// Unparsed version of the user_agent.
+	// Unparsed keyword version of the user_agent.
 	Original string `ecs:"original"`
+
+	// Unparsed text version of the user_agent.
+	OriginalText string `ecs:"original.text"`
 
 	// Name of the user agent.
 	Name string `ecs:"name"`

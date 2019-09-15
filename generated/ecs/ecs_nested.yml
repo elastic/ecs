@@ -4332,7 +4332,7 @@ user_agent:
       ignore_above: 1024
       level: extended
       name: device.name
-      order: 3
+      order: 4
       short: Name of the device.
       type: keyword
     name:
@@ -4342,11 +4342,11 @@ user_agent:
       ignore_above: 1024
       level: extended
       name: name
-      order: 1
+      order: 2
       short: Name of the user agent.
       type: keyword
     original:
-      description: Unparsed version of the user_agent.
+      description: Unparsed keyword version of the user_agent.
       example: Mozilla/5.0 (iPhone; CPU iPhone OS 12_1 like Mac OS X) AppleWebKit/605.1.15
         (KHTML, like Gecko) Version/12.0 Mobile/15E148 Safari/604.1
       flat_name: user_agent.original
@@ -4354,8 +4354,19 @@ user_agent:
       level: extended
       name: original
       order: 0
-      short: Unparsed version of the user_agent.
+      short: Unparsed keyword version of the user_agent.
       type: keyword
+    original.text:
+      description: Unparsed text version of the user_agent.
+      example: Mozilla/5.0 (iPhone; CPU iPhone OS 12_1 like Mac OS X) AppleWebKit/605.1.15
+        (KHTML, like Gecko) Version/12.0 Mobile/15E148 Safari/604.1
+      flat_name: user_agent.original.text
+      level: extended
+      name: original.text
+      norms: false
+      order: 1
+      short: Unparsed text version of the user_agent.
+      type: text
     os.family:
       description: OS family (such as redhat, debian, freebsd, windows).
       example: debian
@@ -4429,7 +4440,7 @@ user_agent:
       ignore_above: 1024
       level: extended
       name: version
-      order: 2
+      order: 3
       short: Version of the user agent.
       type: keyword
   group: 2
