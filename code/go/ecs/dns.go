@@ -72,6 +72,9 @@ type Dns struct {
 	// "co.uk".
 	QuestionRegisteredDomain string `ecs:"question.registered_domain"`
 
+	// A subdomain is a hostname under it's parent domain.
+	QuestionSubdomain string `ecs:"question.subdomain"`
+
 	// An array containing an object for each answer section returned by the
 	// server.
 	// The main keys that should be present in these objects are defined by

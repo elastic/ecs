@@ -869,7 +869,7 @@ dns.answers:
   level: extended
   name: answers
   object_type: keyword
-  order: 9
+  order: 10
   short: Array of DNS answers.
   type: object
 dns.answers.class:
@@ -879,7 +879,7 @@ dns.answers.class:
   ignore_above: 1024
   level: extended
   name: answers.class
-  order: 12
+  order: 13
   short: The class of DNS data contained in this resource record.
   type: keyword
 dns.answers.data:
@@ -891,7 +891,7 @@ dns.answers.data:
   ignore_above: 1024
   level: extended
   name: answers.data
-  order: 14
+  order: 15
   short: The data describing the resource.
   type: keyword
 dns.answers.name:
@@ -905,7 +905,7 @@ dns.answers.name:
   ignore_above: 1024
   level: extended
   name: answers.name
-  order: 10
+  order: 11
   short: The domain name to which this resource record pertains.
   type: keyword
 dns.answers.ttl:
@@ -915,7 +915,7 @@ dns.answers.ttl:
   flat_name: dns.answers.ttl
   level: extended
   name: answers.ttl
-  order: 13
+  order: 14
   short: The time interval in seconds that this resource record may be cached before
     it should be discarded. Zero values mean that the data should not be cached.
   type: long
@@ -926,7 +926,7 @@ dns.answers.type:
   ignore_above: 1024
   level: extended
   name: answers.type
-  order: 11
+  order: 12
   short: The type of data contained in this resource record.
   type: keyword
 dns.header_flags:
@@ -1008,6 +1008,16 @@ dns.question.registered_domain:
   order: 8
   short: The highest registered domain, stripped of the subdomain.
   type: keyword
+dns.question.subdomain:
+  description: A subdomain is a hostname under it's parent domain.
+  example: www
+  flat_name: dns.question.subdomain
+  ignore_above: 1024
+  level: extended
+  name: question.subdomain
+  order: 9
+  short: The subdomain of the domain.
+  type: keyword
 dns.question.type:
   description: The type of record being queried.
   example: AAAA
@@ -1031,7 +1041,7 @@ dns.resolved_ip:
   flat_name: dns.resolved_ip
   level: extended
   name: resolved_ip
-  order: 15
+  order: 16
   short: Array containing all IPs seen in answers.data
   type: ip
 dns.response_code:
