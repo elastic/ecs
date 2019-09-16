@@ -31,4 +31,7 @@ type Error struct {
 
 	// Error code describing the error.
 	Code string `ecs:"code"`
+
+	// The stack trace of this error in plain text.
+	StackTrace string `ecs:"stack_trace"`
 }
