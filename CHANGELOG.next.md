@@ -10,7 +10,7 @@ Thanks, you're awesome :-) -->
 ### Bugfixes
 
 ### Added
-* Added `error.stack_trace` field. #TODO
+* Added `error.stack_trace` field. #562
 
 ### Improvements
 
