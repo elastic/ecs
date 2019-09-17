@@ -1562,6 +1562,23 @@
       description: The name of the logger inside an application. This is usually the
         name of the class which initialized the logger, or can be a custom name.
       example: org.elasticsearch.bootstrap.Bootstrap
+    - name: origin.file
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: The name of the source file which originated the log event.
+      example: Bootstrap.java
+    - name: origin.function
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: The name of the function or method which originated the log event.
+      example: init
+    - name: origin.line
+      level: core
+      type: integer
+      description: The line number of the file which originated the log event.
+      example: 42
     - name: original
       level: core
       type: keyword
@@ -1577,23 +1594,6 @@
         This field is not indexed and doc_values are disabled so it can''t be queried
         but the value can be retrieved from `_source`.'
       example: Sep 19 08:26:10 localhost My log
-    - name: source.file
-      level: core
-      type: keyword
-      ignore_above: 1024
-      description: The name of the source file which originated the log event.
-      example: Bootstrap.java
-    - name: source.function
-      level: core
-      type: keyword
-      ignore_above: 1024
-      description: The name of the function or method which originated the log event.
-      example: init
-    - name: source.line
-      level: core
-      type: integer
-      description: The line number of the file which originated the log event.
-      example: 42
   - name: network
     title: Network
     group: 2

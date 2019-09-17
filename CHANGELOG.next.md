@@ -10,7 +10,7 @@ Thanks, you're awesome :-) -->
 ### Bugfixes
 
 ### Added
-* Added `log.source.file`, `log.source.function` and `log.source.line` fields. #563
+* Added `log.origin.file`, `log.origin.function` and `log.origin.line` fields. #563
 
 ### Improvements
 
