@@ -1562,7 +1562,12 @@
       description: The name of the logger inside an application. This is usually the
         name of the class which initialized the logger, or can be a custom name.
       example: org.elasticsearch.bootstrap.Bootstrap
-    - name: origin.file
+    - name: origin.file.line
+      level: core
+      type: integer
+      description: The line number of the file which originated the log event.
+      example: 42
+    - name: origin.file.name
       level: core
       type: keyword
       ignore_above: 1024
@@ -1574,11 +1579,6 @@
       ignore_above: 1024
       description: The name of the function or method which originated the log event.
       example: init
-    - name: origin.line
-      level: core
-      type: integer
-      description: The line number of the file which originated the log event.
-      example: 42
     - name: original
       level: core
       type: keyword

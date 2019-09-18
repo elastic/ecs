@@ -40,11 +40,11 @@ type Log struct {
 	Logger string `ecs:"logger"`
 
 	// The name of the source file which originated the log event.
-	OriginFile string `ecs:"origin.file"`
+	OriginFileName string `ecs:"origin.file.name"`
+
+	// The line number of the file which originated the log event.
+	OriginFileLine int32 `ecs:"origin.file.line"`
 
 	// The name of the function or method which originated the log event.
 	OriginFunction string `ecs:"origin.function"`
-
-	// The line number of the file which originated the log event.
-	OriginLine int32 `ecs:"origin.line"`
 }

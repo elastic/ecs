@@ -2521,13 +2521,22 @@ log:
       order: 2
       short: Name of the logger.
       type: keyword
-    origin.file:
+    origin.file.line:
+      description: The line number of the file which originated the log event.
+      example: 42
+      flat_name: log.origin.file.line
+      level: core
+      name: origin.file.line
+      order: 4
+      short: The line number of the file which originated the log event.
+      type: integer
+    origin.file.name:
       description: The name of the source file which originated the log event.
       example: Bootstrap.java
-      flat_name: log.origin.file
+      flat_name: log.origin.file.name
       ignore_above: 1024
       level: core
-      name: origin.file
+      name: origin.file.name
       order: 3
       short: The file which originated the log event.
       type: keyword
@@ -2538,18 +2547,9 @@ log:
       ignore_above: 1024
       level: core
       name: origin.function
-      order: 4
+      order: 5
       short: The function which originated the log event.
       type: keyword
-    origin.line:
-      description: The line number of the file which originated the log event.
-      example: 42
-      flat_name: log.origin.line
-      level: core
-      name: origin.line
-      order: 5
-      short: The line number of the file which originated the log event.
-      type: integer
     original:
       description: 'This is the original log message and contains the full log message
         before splitting it up in multiple parts.
