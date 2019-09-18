@@ -3,6 +3,10 @@
 # CHANGELOG
 All notable changes to this project will be documented in this file based on the [Keep a Changelog](http://keepachangelog.com/) Standard. This project adheres to [Semantic Versioning](http://semver.org/).
 
+## Next
+
+### Added
+* Added `service.node.name` to allow distinction between different nodes of the same service running on the same host
 
 ## [1.1.0](https://github.com/elastic/ecs/compare/v1.0.1...v1.1.0)
 

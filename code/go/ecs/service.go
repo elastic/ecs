@@ -34,15 +34,24 @@ type Service struct {
 	ID string `ecs:"id"`
 
 	// Name of the service data is collected from.
-	// The name of the service is normally user given. This allows if two
-	// instances of the same service are running on the same machine they can
-	// be differentiated by the `service.name`.
-	// Also it allows for distributed services that run on multiple hosts to
-	// correlate the related instances based on the name.
-	// In the case of Elasticsearch the service.name could contain the cluster
-	// name. For Beats the service.name is by default a copy of the
+	// The name of the service is normally user given. This allows for
+	// distributed services that run on multiple hosts to correlate the related
+	// instances based on the name.
+	// In the case of Elasticsearch the `service.name` could contain the
+	// cluster name. For Beats the `service.name` is by default a copy of the
 	// `service.type` field if no name is specified.
 	Name string `ecs:"name"`
+
+	// Name of a service node.
+	// This allows for two nodes of the same service running on the same host
+	// to be differentiated. Therefore, `service.node.name` should typically be
+	// unique across nodes of a given service.
+	// In APM, this field is populated by default with the container ID (if the
+	// node is running within a container) or the host name (automatically
+	// discovered, or manually configured). When the default is not unique for
+	// each node within a service, it can be manually configured through the
+	// APM agents.
+	NodeName string `ecs:"node.name"`
 
 	// The type of the service data is collected from.
 	// The type can be used to group and correlate logs and metrics from one
