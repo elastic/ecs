@@ -38,4 +38,13 @@ type Log struct {
 	// The name of the logger inside an application. This is usually the name
 	// of the class which initialized the logger, or can be a custom name.
 	Logger string `ecs:"logger"`
+
+	// The name of the source file which originated the log event.
+	OriginFileName string `ecs:"origin.file.name"`
+
+	// The line number of the file which originated the log event.
+	OriginFileLine int32 `ecs:"origin.file.line"`
+
+	// The name of the function or method which originated the log event.
+	OriginFunction string `ecs:"origin.function"`
 }

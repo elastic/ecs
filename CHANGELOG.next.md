@@ -11,6 +11,7 @@ Thanks, you're awesome :-) -->
 
 ### Added
 * Added `error.stack_trace` field. #562
+* Added `log.origin.file.name`, `log.origin.function` and `log.origin.file.line` fields. #563
 
 ### Improvements
 
