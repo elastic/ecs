@@ -32,6 +32,9 @@ type Error struct {
 	// Error code describing the error.
 	Code string `ecs:"code"`
 
+	// The type of the error, for example the class name of the exception.
+	Type string `ecs:"type"`
+
 	// The stack trace of this error in plain text.
 	StackTrace string `ecs:"stack_trace"`
 }
