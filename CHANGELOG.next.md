@@ -12,7 +12,7 @@ Thanks, you're awesome :-) -->
 ### Added
 * Added `error.stack_trace` field. #562
 * Added `log.origin.file.name`, `log.origin.function` and `log.origin.file.line` fields. #563
-* Added `error.type` field. #TODO
+* Added `error.type` field. #566
 
 ### Improvements
 
