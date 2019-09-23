@@ -492,6 +492,12 @@
             "message": {
               "norms": false, 
               "type": "text"
+            }, 
+            "stack_trace": {
+              "doc_values": false, 
+              "ignore_above": 1024, 
+              "index": false, 
+              "type": "keyword"
             }
           }
         }, 
@@ -939,6 +945,25 @@
             "logger": {
               "ignore_above": 1024, 
               "type": "keyword"
+            }, 
+            "origin": {
+              "properties": {
+                "file": {
+                  "properties": {
+                    "line": {
+                      "type": "integer"
+                    }, 
+                    "name": {
+                      "ignore_above": 1024, 
+                      "type": "keyword"
+                    }
+                  }
+                }, 
+                "function": {
+                  "ignore_above": 1024, 
+                  "type": "keyword"
+                }
+              }
             }, 
             "original": {
               "doc_values": false, 
