@@ -12,7 +12,7 @@ Thanks, you're awesome :-) -->
 ### Added
 * Added `error.stack_trace` field. #562
 * Added `log.origin.file.name`, `log.origin.function` and `log.origin.file.line` fields. #563
-* Added `service.node.name` to allow distinction between different nodes of the same service running on the same host.
+* Added `service.node.name` to allow distinction between different nodes of the same service running on the same host. #565
 
 ### Improvements
 
