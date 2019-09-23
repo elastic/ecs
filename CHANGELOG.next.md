@@ -10,6 +10,7 @@ Thanks, you're awesome :-) -->
 ### Bugfixes
 
 ### Added
+* Added `service.node.name` to allow distinction between different nodes of the same service running on the same host.
 
 ### Improvements
 
