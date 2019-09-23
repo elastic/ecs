@@ -24,14 +24,14 @@ package ecs
 // event itself contains an error.
 type Error struct {
 	// Unique identifier for the error.
-	ID string `ecs:"id"`
+	ID string `ecs:"id" json:"id,omitempty"`
 
 	// Error message.
-	Message string `ecs:"message"`
+	Message string `ecs:"message" json:"message,omitempty"`
 
 	// Error code describing the error.
-	Code string `ecs:"code"`
+	Code string `ecs:"code" json:"code,omitempty"`
 
 	// The stack trace of this error in plain text.
-	StackTrace string `ecs:"stack_trace"`
+	StackTrace string `ecs:"stack_trace" json:"stack_trace,omitempty"`
 }

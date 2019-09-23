@@ -25,14 +25,14 @@ package ecs
 // separators as appropriate (snake case, e.g. sha3_512).
 type Hash struct {
 	// MD5 hash.
-	Md5 string `ecs:"md5"`
+	Md5 string `ecs:"md5" json:"md5,omitempty"`
 
 	// SHA1 hash.
-	Sha1 string `ecs:"sha1"`
+	Sha1 string `ecs:"sha1" json:"sha1,omitempty"`
 
 	// SHA256 hash.
-	Sha256 string `ecs:"sha256"`
+	Sha256 string `ecs:"sha256" json:"sha256,omitempty"`
 
 	// SHA512 hash.
-	Sha512 string `ecs:"sha512"`
+	Sha512 string `ecs:"sha512" json:"sha512,omitempty"`
 }

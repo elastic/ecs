@@ -28,10 +28,10 @@ type Tracing struct {
 	// A trace groups multiple events like transactions that belong together.
 	// For example, a user request handled by multiple inter-connected
 	// services.
-	TraceID string `ecs:"trace.id"`
+	TraceID string `ecs:"trace.id" json:"trace.id,omitempty"`
 
 	// Unique identifier of the transaction.
 	// A transaction is the highest level of work measured within a service,
 	// such as a request to a server.
-	TransactionID string `ecs:"transaction.id"`
+	TransactionID string `ecs:"transaction.id" json:"transaction.id,omitempty"`
 }

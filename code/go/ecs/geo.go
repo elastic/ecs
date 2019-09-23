@@ -24,30 +24,30 @@ package ecs
 // or be user-supplied.
 type Geo struct {
 	// Longitude and latitude.
-	Location string `ecs:"location"`
+	Location string `ecs:"location" json:"location,omitempty"`
 
 	// Name of the continent.
-	ContinentName string `ecs:"continent_name"`
+	ContinentName string `ecs:"continent_name" json:"continent_name,omitempty"`
 
 	// Country name.
-	CountryName string `ecs:"country_name"`
+	CountryName string `ecs:"country_name" json:"country_name,omitempty"`
 
 	// Region name.
-	RegionName string `ecs:"region_name"`
+	RegionName string `ecs:"region_name" json:"region_name,omitempty"`
 
 	// City name.
-	CityName string `ecs:"city_name"`
+	CityName string `ecs:"city_name" json:"city_name,omitempty"`
 
 	// Country ISO code.
-	CountryIsoCode string `ecs:"country_iso_code"`
+	CountryIsoCode string `ecs:"country_iso_code" json:"country_iso_code,omitempty"`
 
 	// Region ISO code.
-	RegionIsoCode string `ecs:"region_iso_code"`
+	RegionIsoCode string `ecs:"region_iso_code" json:"region_iso_code,omitempty"`
 
 	// User-defined description of a location, at the level of granularity they
 	// care about.
 	// Could be the name of their data centers, the floor number, if this
 	// describes a local physical entity, city names.
 	// Not typically used in automated geolocation.
-	Name string `ecs:"name"`
+	Name string `ecs:"name" json:"name,omitempty"`
 }

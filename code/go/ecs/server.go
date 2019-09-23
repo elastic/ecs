@@ -38,20 +38,20 @@ type Server struct {
 	// store the raw address in the `.address` field.
 	// Then it should be duplicated to `.ip` or `.domain`, depending on which
 	// one it is.
-	Address string `ecs:"address"`
+	Address string `ecs:"address" json:"address,omitempty"`
 
 	// IP address of the server.
 	// Can be one or multiple IPv4 or IPv6 addresses.
-	IP string `ecs:"ip"`
+	IP string `ecs:"ip" json:"ip,omitempty"`
 
 	// Port of the server.
-	Port int64 `ecs:"port"`
+	Port int64 `ecs:"port" json:"port,omitempty"`
 
 	// MAC address of the server.
-	MAC string `ecs:"mac"`
+	MAC string `ecs:"mac" json:"mac,omitempty"`
 
 	// Server domain.
-	Domain string `ecs:"domain"`
+	Domain string `ecs:"domain" json:"domain,omitempty"`
 
 	// The highest registered server domain, stripped of the subdomain.
 	// For example, the registered domain for "foo.google.com" is "google.com".
@@ -59,21 +59,21 @@ type Server struct {
 	// suffix list (http://publicsuffix.org). Trying to approximate this by
 	// simply taking the last two labels will not work well for TLDs such as
 	// "co.uk".
-	RegisteredDomain string `ecs:"registered_domain"`
+	RegisteredDomain string `ecs:"registered_domain" json:"registered_domain,omitempty"`
 
 	// Bytes sent from the server to the client.
-	Bytes int64 `ecs:"bytes"`
+	Bytes int64 `ecs:"bytes" json:"bytes,omitempty"`
 
 	// Packets sent from the server to the client.
-	Packets int64 `ecs:"packets"`
+	Packets int64 `ecs:"packets" json:"packets,omitempty"`
 
 	// Translated ip of destination based NAT sessions (e.g. internet to
 	// private DMZ)
 	// Typically used with load balancers, firewalls, or routers.
-	NatIP string `ecs:"nat.ip"`
+	NatIP string `ecs:"nat.ip" json:"nat.ip,omitempty"`
 
 	// Translated port of destination based NAT sessions (e.g. internet to
 	// private DMZ)
 	// Typically used with load balancers, firewalls, or routers.
-	NatPort int64 `ecs:"nat.port"`
+	NatPort int64 `ecs:"nat.port" json:"nat.port,omitempty"`
 }

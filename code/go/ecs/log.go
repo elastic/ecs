@@ -23,7 +23,7 @@ package ecs
 type Log struct {
 	// Original log level of the log event.
 	// Some examples are `warn`, `error`, `i`.
-	Level string `ecs:"level"`
+	Level string `ecs:"level" json:"level,omitempty"`
 
 	// This is the original log message and contains the full log message
 	// before splitting it up in multiple parts.
@@ -33,18 +33,18 @@ type Log struct {
 	// lines removed to clean up the log message.
 	// This field is not indexed and doc_values are disabled so it can't be
 	// queried but the value can be retrieved from `_source`.
-	Original string `ecs:"original"`
+	Original string `ecs:"original" json:"original,omitempty"`
 
 	// The name of the logger inside an application. This is usually the name
 	// of the class which initialized the logger, or can be a custom name.
-	Logger string `ecs:"logger"`
+	Logger string `ecs:"logger" json:"logger,omitempty"`
 
 	// The name of the source file which originated the log event.
-	OriginFileName string `ecs:"origin.file.name"`
+	OriginFileName string `ecs:"origin.file.name" json:"origin.file.name,omitempty"`
 
 	// The line number of the file which originated the log event.
-	OriginFileLine int32 `ecs:"origin.file.line"`
+	OriginFileLine int32 `ecs:"origin.file.line" json:"origin.file.line,omitempty"`
 
 	// The name of the function or method which originated the log event.
-	OriginFunction string `ecs:"origin.function"`
+	OriginFunction string `ecs:"origin.function" json:"origin.function,omitempty"`
 }

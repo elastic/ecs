@@ -27,22 +27,22 @@ type Url struct {
 	// whereas in access logs, the URL is often just represented as a path.
 	// This field is meant to represent the URL as it was observed, complete or
 	// not.
-	Original string `ecs:"original"`
+	Original string `ecs:"original" json:"original,omitempty"`
 
 	// If full URLs are important to your use case, they should be stored in
 	// `url.full`, whether this field is reconstructed or present in the event
 	// source.
-	Full string `ecs:"full"`
+	Full string `ecs:"full" json:"full,omitempty"`
 
 	// Scheme of the request, such as "https".
 	// Note: The `:` is not part of the scheme.
-	Scheme string `ecs:"scheme"`
+	Scheme string `ecs:"scheme" json:"scheme,omitempty"`
 
 	// Domain of the url, such as "www.elastic.co".
 	// In some cases a URL may refer to an IP and/or port directly, without a
 	// domain name. In this case, the IP address would go to the `domain`
 	// field.
-	Domain string `ecs:"domain"`
+	Domain string `ecs:"domain" json:"domain,omitempty"`
 
 	// The highest registered url domain, stripped of the subdomain.
 	// For example, the registered domain for "foo.google.com" is "google.com".
@@ -50,13 +50,13 @@ type Url struct {
 	// suffix list (http://publicsuffix.org). Trying to approximate this by
 	// simply taking the last two labels will not work well for TLDs such as
 	// "co.uk".
-	RegisteredDomain string `ecs:"registered_domain"`
+	RegisteredDomain string `ecs:"registered_domain" json:"registered_domain,omitempty"`
 
 	// Port of the request, such as 443.
-	Port int64 `ecs:"port"`
+	Port int64 `ecs:"port" json:"port,omitempty"`
 
 	// Path of the request, such as "/search".
-	Path string `ecs:"path"`
+	Path string `ecs:"path" json:"path,omitempty"`
 
 	// The query field describes the query string of the request, such as
 	// "q=elasticsearch".
@@ -64,15 +64,15 @@ type Url struct {
 	// there is no query field. If there is a `?` but no query, the query field
 	// exists with an empty string. The `exists` query can be used to
 	// differentiate between the two cases.
-	Query string `ecs:"query"`
+	Query string `ecs:"query" json:"query,omitempty"`
 
 	// Portion of the url after the `#`, such as "top".
 	// The `#` is not part of the fragment.
-	Fragment string `ecs:"fragment"`
+	Fragment string `ecs:"fragment" json:"fragment,omitempty"`
 
 	// Username of the request.
-	Username string `ecs:"username"`
+	Username string `ecs:"username" json:"username,omitempty"`
 
 	// Password of the request.
-	Password string `ecs:"password"`
+	Password string `ecs:"password" json:"password,omitempty"`
 }

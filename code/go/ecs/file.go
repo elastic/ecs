@@ -31,62 +31,62 @@ import (
 // with the event or metric.
 type File struct {
 	// Name of the file including the extension, without the directory.
-	Name string `ecs:"name"`
+	Name string `ecs:"name" json:"name,omitempty"`
 
 	// Directory where the file is located.
-	Directory string `ecs:"directory"`
+	Directory string `ecs:"directory" json:"directory,omitempty"`
 
 	// Full path to the file.
-	Path string `ecs:"path"`
+	Path string `ecs:"path" json:"path,omitempty"`
 
 	// Target path for symlinks.
-	TargetPath string `ecs:"target_path"`
+	TargetPath string `ecs:"target_path" json:"target_path,omitempty"`
 
 	// File extension.
-	Extension string `ecs:"extension"`
+	Extension string `ecs:"extension" json:"extension,omitempty"`
 
 	// File type (file, dir, or symlink).
-	Type string `ecs:"type"`
+	Type string `ecs:"type" json:"type,omitempty"`
 
 	// Device that is the source of the file.
-	Device string `ecs:"device"`
+	Device string `ecs:"device" json:"device,omitempty"`
 
 	// Inode representing the file in the filesystem.
-	Inode string `ecs:"inode"`
+	Inode string `ecs:"inode" json:"inode,omitempty"`
 
 	// The user ID (UID) or security identifier (SID) of the file owner.
-	UID string `ecs:"uid"`
+	UID string `ecs:"uid" json:"uid,omitempty"`
 
 	// File owner's username.
-	Owner string `ecs:"owner"`
+	Owner string `ecs:"owner" json:"owner,omitempty"`
 
 	// Primary group ID (GID) of the file.
-	Gid string `ecs:"gid"`
+	Gid string `ecs:"gid" json:"gid,omitempty"`
 
 	// Primary group name of the file.
-	Group string `ecs:"group"`
+	Group string `ecs:"group" json:"group,omitempty"`
 
 	// Mode of the file in octal representation.
-	Mode string `ecs:"mode"`
+	Mode string `ecs:"mode" json:"mode,omitempty"`
 
 	// File size in bytes.
 	// Only relevant when `file.type` is "file".
-	Size int64 `ecs:"size"`
+	Size int64 `ecs:"size" json:"size,omitempty"`
 
 	// Last time the file content was modified.
-	Mtime time.Time `ecs:"mtime"`
+	Mtime time.Time `ecs:"mtime" json:"mtime,omitempty"`
 
 	// Last time the file attributes or metadata changed.
 	// Note that changes to the file content will update `mtime`. This implies
 	// `ctime` will be adjusted at the same time, since `mtime` is an attribute
 	// of the file.
-	Ctime time.Time `ecs:"ctime"`
+	Ctime time.Time `ecs:"ctime" json:"ctime,omitempty"`
 
 	// File creation time.
 	// Note that not all filesystems store the creation time.
-	Created time.Time `ecs:"created"`
+	Created time.Time `ecs:"created" json:"created,omitempty"`
 
 	// Last time the file was accessed.
 	// Note that not all filesystems keep track of access time.
-	Accessed time.Time `ecs:"accessed"`
+	Accessed time.Time `ecs:"accessed" json:"accessed,omitempty"`
 }

@@ -24,20 +24,20 @@ package ecs
 // These fields help correlate data based containers from any runtime.
 type Container struct {
 	// Runtime managing this container.
-	Runtime string `ecs:"runtime"`
+	Runtime string `ecs:"runtime" json:"runtime,omitempty"`
 
 	// Unique container id.
-	ID string `ecs:"id"`
+	ID string `ecs:"id" json:"id,omitempty"`
 
 	// Name of the image the container was built on.
-	ImageName string `ecs:"image.name"`
+	ImageName string `ecs:"image.name" json:"image.name,omitempty"`
 
 	// Container image tag.
-	ImageTag string `ecs:"image.tag"`
+	ImageTag string `ecs:"image.tag" json:"image.tag,omitempty"`
 
 	// Container name.
-	Name string `ecs:"name"`
+	Name string `ecs:"name" json:"name,omitempty"`
 
 	// Image labels.
-	Labels map[string]interface{} `ecs:"labels"`
+	Labels map[string]interface{} `ecs:"labels" json:"labels,omitempty"`
 }

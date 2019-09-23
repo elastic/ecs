@@ -25,32 +25,32 @@ type Http struct {
 	// HTTP request method.
 	// The field value must be normalized to lowercase for querying. See the
 	// documentation section "Implementing ECS".
-	RequestMethod string `ecs:"request.method"`
+	RequestMethod string `ecs:"request.method" json:"request.method,omitempty"`
 
 	// The full HTTP request body.
-	RequestBodyContent string `ecs:"request.body.content"`
+	RequestBodyContent string `ecs:"request.body.content" json:"request.body.content,omitempty"`
 
 	// Referrer for this HTTP request.
-	RequestReferrer string `ecs:"request.referrer"`
+	RequestReferrer string `ecs:"request.referrer" json:"request.referrer,omitempty"`
 
 	// HTTP response status code.
-	ResponseStatusCode int64 `ecs:"response.status_code"`
+	ResponseStatusCode int64 `ecs:"response.status_code" json:"response.status_code,omitempty"`
 
 	// The full HTTP response body.
-	ResponseBodyContent string `ecs:"response.body.content"`
+	ResponseBodyContent string `ecs:"response.body.content" json:"response.body.content,omitempty"`
 
 	// HTTP version.
-	Version string `ecs:"version"`
+	Version string `ecs:"version" json:"version,omitempty"`
 
 	// Total size in bytes of the request (body and headers).
-	RequestBytes int64 `ecs:"request.bytes"`
+	RequestBytes int64 `ecs:"request.bytes" json:"request.bytes,omitempty"`
 
 	// Size in bytes of the request body.
-	RequestBodyBytes int64 `ecs:"request.body.bytes"`
+	RequestBodyBytes int64 `ecs:"request.body.bytes" json:"request.body.bytes,omitempty"`
 
 	// Total size in bytes of the response (body and headers).
-	ResponseBytes int64 `ecs:"response.bytes"`
+	ResponseBytes int64 `ecs:"response.bytes" json:"response.bytes,omitempty"`
 
 	// Size in bytes of the response body.
-	ResponseBodyBytes int64 `ecs:"response.body.bytes"`
+	ResponseBodyBytes int64 `ecs:"response.body.bytes" json:"response.body.bytes,omitempty"`
 }

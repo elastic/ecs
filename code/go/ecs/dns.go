@@ -32,23 +32,23 @@ type Dns struct {
 	// create one event per query (optionally as soon as the query is seen).
 	// And a second event containing all query details as well as an array of
 	// answers.
-	Type string `ecs:"type"`
+	Type string `ecs:"type" json:"type,omitempty"`
 
 	// The DNS packet identifier assigned by the program that generated the
 	// query. The identifier is copied to the response.
-	ID string `ecs:"id"`
+	ID string `ecs:"id" json:"id,omitempty"`
 
 	// The DNS operation code that specifies the kind of query in the message.
 	// This value is set by the originator of a query and copied into the
 	// response.
-	OpCode string `ecs:"op_code"`
+	OpCode string `ecs:"op_code" json:"op_code,omitempty"`
 
 	// Array of 2 letter DNS header flags.
 	// Expected values are: AA, TC, RD, RA, AD, CD, DO.
-	HeaderFlags string `ecs:"header_flags"`
+	HeaderFlags string `ecs:"header_flags" json:"header_flags,omitempty"`
 
 	// The DNS response code.
-	ResponseCode string `ecs:"response_code"`
+	ResponseCode string `ecs:"response_code" json:"response_code,omitempty"`
 
 	// The name being queried.
 	// If the name field contains non-printable characters (below 32 or above
@@ -56,13 +56,13 @@ type Dns struct {
 	// (\DDD). Back slashes and quotes should be escaped. Tabs, carriage
 	// returns, and line feeds should be converted to \t, \r, and \n
 	// respectively.
-	QuestionName string `ecs:"question.name"`
+	QuestionName string `ecs:"question.name" json:"question.name,omitempty"`
 
 	// The type of record being queried.
-	QuestionType string `ecs:"question.type"`
+	QuestionType string `ecs:"question.type" json:"question.type,omitempty"`
 
 	// The class of of records being queried.
-	QuestionClass string `ecs:"question.class"`
+	QuestionClass string `ecs:"question.class" json:"question.class,omitempty"`
 
 	// The highest registered domain, stripped of the subdomain.
 	// For example, the registered domain for "foo.google.com" is "google.com".
@@ -70,7 +70,7 @@ type Dns struct {
 	// suffix list (http://publicsuffix.org). Trying to approximate this by
 	// simply taking the last two labels will not work well for TLDs such as
 	// "co.uk".
-	QuestionRegisteredDomain string `ecs:"question.registered_domain"`
+	QuestionRegisteredDomain string `ecs:"question.registered_domain" json:"question.registered_domain,omitempty"`
 
 	// An array containing an object for each answer section returned by the
 	// server.
@@ -81,34 +81,34 @@ type Dns struct {
 	// answer objects must contain the `data` key. If more information is
 	// available, map as much of it to ECS as possible, and add any additional
 	// fields to the answer objects as custom fields.
-	Answers map[string]interface{} `ecs:"answers"`
+	Answers map[string]interface{} `ecs:"answers" json:"answers,omitempty"`
 
 	// The domain name to which this resource record pertains.
 	// If a chain of CNAME is being resolved, each answer's `name` should be
 	// the one that corresponds with the answer's `data`. It should not simply
 	// be the original `question.name` repeated.
-	AnswersName string `ecs:"answers.name"`
+	AnswersName string `ecs:"answers.name" json:"answers.name,omitempty"`
 
 	// The type of data contained in this resource record.
-	AnswersType string `ecs:"answers.type"`
+	AnswersType string `ecs:"answers.type" json:"answers.type,omitempty"`
 
 	// The class of DNS data contained in this resource record.
-	AnswersClass string `ecs:"answers.class"`
+	AnswersClass string `ecs:"answers.class" json:"answers.class,omitempty"`
 
 	// The time interval in seconds that this resource record may be cached
 	// before it should be discarded. Zero values mean that the data should not
 	// be cached.
-	AnswersTtl int64 `ecs:"answers.ttl"`
+	AnswersTtl int64 `ecs:"answers.ttl" json:"answers.ttl,omitempty"`
 
 	// The data describing the resource.
 	// The meaning of this data depends on the type and class of the resource
 	// record.
-	AnswersData string `ecs:"answers.data"`
+	AnswersData string `ecs:"answers.data" json:"answers.data,omitempty"`
 
 	// Array containing all IPs seen in `answers.data`.
 	// The `answers` array can be difficult to use, because of the variety of
 	// data formats it can contain. Extracting all IP addresses seen in there
 	// to `dns.resolved_ip` makes it possible to index them as IP addresses,
 	// and makes them easier to visualize and query for.
-	ResolvedIP string `ecs:"resolved_ip"`
+	ResolvedIP string `ecs:"resolved_ip" json:"resolved_ip,omitempty"`
 }

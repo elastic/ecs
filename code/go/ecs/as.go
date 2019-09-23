@@ -26,8 +26,8 @@ package ecs
 type AS struct {
 	// Unique number allocated to the autonomous system. The autonomous system
 	// number (ASN) uniquely identifies each network on the Internet.
-	Number int64 `ecs:"number"`
+	Number int64 `ecs:"number" json:"number,omitempty"`
 
 	// Organization name.
-	OrganizationName string `ecs:"organization.name"`
+	OrganizationName string `ecs:"organization.name" json:"organization.name,omitempty"`
 }

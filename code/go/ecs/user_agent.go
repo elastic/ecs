@@ -24,14 +24,14 @@ package ecs
 // string.
 type UserAgent struct {
 	// Unparsed version of the user_agent.
-	Original string `ecs:"original"`
+	Original string `ecs:"original" json:"original,omitempty"`
 
 	// Name of the user agent.
-	Name string `ecs:"name"`
+	Name string `ecs:"name" json:"name,omitempty"`
 
 	// Version of the user agent.
-	Version string `ecs:"version"`
+	Version string `ecs:"version" json:"version,omitempty"`
 
 	// Name of the device.
-	DeviceName string `ecs:"device.name"`
+	DeviceName string `ecs:"device.name" json:"device.name,omitempty"`
 }

@@ -23,8 +23,8 @@ package ecs
 // event.
 type Group struct {
 	// Unique identifier for the group on the system/platform.
-	ID string `ecs:"id"`
+	ID string `ecs:"id" json:"id,omitempty"`
 
 	// Name of the group.
-	Name string `ecs:"name"`
+	Name string `ecs:"name" json:"name,omitempty"`
 }

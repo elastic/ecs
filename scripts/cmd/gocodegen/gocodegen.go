@@ -72,7 +72,7 @@ import (
 type {{.Name}} struct {
 {{- range $field := .Fields}}
 	// {{$field.Comment}}
-	{{$field.Name}} {{$field.Type}} \u0060ecs:"{{$field.JSONKey}}"\u0060
+	{{$field.Name}} {{$field.Type}} \u0060ecs:"{{$field.JSONKey}}" json:"{{$field.JSONKey}},omitempty"\u0060
 {{ end -}}
 }
 `

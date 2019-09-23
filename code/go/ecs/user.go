@@ -25,23 +25,23 @@ package ecs
 // id, provide an array that includes all of them.
 type User struct {
 	// One or multiple unique identifiers of the user.
-	ID string `ecs:"id"`
+	ID string `ecs:"id" json:"id,omitempty"`
 
 	// Short name or login of the user.
-	Name string `ecs:"name"`
+	Name string `ecs:"name" json:"name,omitempty"`
 
 	// User's full name, if available.
-	FullName string `ecs:"full_name"`
+	FullName string `ecs:"full_name" json:"full_name,omitempty"`
 
 	// User email address.
-	Email string `ecs:"email"`
+	Email string `ecs:"email" json:"email,omitempty"`
 
 	// Unique user hash to correlate information for a user in anonymized form.
 	// Useful if `user.id` or `user.name` contain confidential information and
 	// cannot be used.
-	Hash string `ecs:"hash"`
+	Hash string `ecs:"hash" json:"hash,omitempty"`
 
 	// Name of the directory the user is a member of.
 	// For example, an LDAP or Active Directory domain name.
-	Domain string `ecs:"domain"`
+	Domain string `ecs:"domain" json:"domain,omitempty"`
 }

@@ -35,13 +35,13 @@ import (
 // pressure measured on a host, or vulnerabilities measured on a scanned host.
 type Event struct {
 	// Unique ID to describe the event.
-	ID string `ecs:"id"`
+	ID string `ecs:"id" json:"id,omitempty"`
 
 	// Identification code for this event, if one exists.
 	// Some event sources use event codes to identify messages unambiguously,
 	// regardless of message language or wording adjustments over time. An
 	// example of this is the Windows Event ID.
-	Code string `ecs:"code"`
+	Code string `ecs:"code" json:"code,omitempty"`
 
 	// The kind of the event.
 	// This gives information about what type of information the event
@@ -49,7 +49,7 @@ type Event struct {
 	// are `event`, `state`, `alarm`. Warning: In future versions of ECS, we
 	// plan to provide a list of acceptable values for this field, please use
 	// with caution.
-	Kind string `ecs:"kind"`
+	Kind string `ecs:"kind" json:"kind,omitempty"`
 
 	// Event category.
 	// This contains high-level information about the contents of the event. It
@@ -57,30 +57,30 @@ type Event struct {
 	// category contains multiple actions. Warning: In future versions of ECS,
 	// we plan to provide a list of acceptable values for this field, please
 	// use with caution.
-	Category string `ecs:"category"`
+	Category string `ecs:"category" json:"category,omitempty"`
 
 	// The action captured by the event.
 	// This describes the information in the event. It is more specific than
 	// `event.category`. Examples are `group-add`, `process-started`,
 	// `file-created`. The value is normally defined by the implementer.
-	Action string `ecs:"action"`
+	Action string `ecs:"action" json:"action,omitempty"`
 
 	// The outcome of the event.
 	// If the event describes an action, this fields contains the outcome of
 	// that action. Examples outcomes are `success` and `failure`. Warning: In
 	// future versions of ECS, we plan to provide a list of acceptable values
 	// for this field, please use with caution.
-	Outcome string `ecs:"outcome"`
+	Outcome string `ecs:"outcome" json:"outcome,omitempty"`
 
 	// Reserved for future usage.
 	// Please avoid using this field for user data.
-	Type string `ecs:"type"`
+	Type string `ecs:"type" json:"type,omitempty"`
 
 	// Name of the module this data is coming from.
 	// If your monitoring agent supports the concept of modules or plugins to
 	// process events of a given source (e.g. Apache logs), `event.module`
 	// should contain the name of this module.
-	Module string `ecs:"module"`
+	Module string `ecs:"module" json:"module,omitempty"`
 
 	// Name of the dataset.
 	// If an event source publishes more than one type of log or events (e.g.
@@ -88,40 +88,40 @@ type Event struct {
 	// event comes from.
 	// It's recommended but not required to start the dataset name with the
 	// module name, followed by a dot, then the dataset name.
-	Dataset string `ecs:"dataset"`
+	Dataset string `ecs:"dataset" json:"dataset,omitempty"`
 
 	// Source of the event.
 	// Event transports such as Syslog or the Windows Event Log typically
 	// mention the source of an event. It can be the name of the software that
 	// generated the event (e.g. Sysmon, httpd), or of a subsystem of the
 	// operating system (kernel, Microsoft-Windows-Security-Auditing).
-	Provider string `ecs:"provider"`
+	Provider string `ecs:"provider" json:"provider,omitempty"`
 
 	// Severity describes the original severity of the event. What the
 	// different severity values mean can very different between use cases.
 	// It's up to the implementer to make sure severities are consistent across
 	// events.
-	Severity int64 `ecs:"severity"`
+	Severity int64 `ecs:"severity" json:"severity,omitempty"`
 
 	// Raw text message of entire event. Used to demonstrate log integrity.
 	// This field is not indexed and doc_values are disabled. It cannot be
 	// searched, but it can be retrieved from `_source`.
-	Original string `ecs:"original"`
+	Original string `ecs:"original" json:"original,omitempty"`
 
 	// Hash (perhaps logstash fingerprint) of raw field to be able to
 	// demonstrate log integrity.
-	Hash string `ecs:"hash"`
+	Hash string `ecs:"hash" json:"hash,omitempty"`
 
 	// Duration of the event in nanoseconds.
 	// If event.start and event.end are known this value should be the
 	// difference between the end and start time.
-	Duration time.Duration `ecs:"duration"`
+	Duration time.Duration `ecs:"duration" json:"duration,omitempty"`
 
 	// Sequence number of the event.
 	// The sequence number is a value published by some event sources, to make
 	// the exact ordering of events unambiguous, regarless of the timestamp
 	// precision.
-	Sequence int64 `ecs:"sequence"`
+	Sequence int64 `ecs:"sequence" json:"sequence,omitempty"`
 
 	// This field should be populated when the event's timestamp does not
 	// include timezone information already (e.g. default Syslog timestamps).
@@ -129,7 +129,7 @@ type Event struct {
 	// Acceptable timezone formats are: a canonical ID (e.g.
 	// "Europe/Amsterdam"), abbreviated (e.g. "EST") or an HH:mm differential
 	// (e.g. "-05:00").
-	Timezone string `ecs:"timezone"`
+	Timezone string `ecs:"timezone" json:"timezone,omitempty"`
 
 	// event.created contains the date/time when the event was first read by an
 	// agent, or by your pipeline.
@@ -141,22 +141,22 @@ type Event struct {
 	// This can be used to monitor your agent's or pipeline's ability to keep
 	// up with your event source.
 	// In case the two timestamps are identical, @timestamp should be used.
-	Created time.Time `ecs:"created"`
+	Created time.Time `ecs:"created" json:"created,omitempty"`
 
 	// event.start contains the date when the event started or when the
 	// activity was first observed.
-	Start time.Time `ecs:"start"`
+	Start time.Time `ecs:"start" json:"start,omitempty"`
 
 	// event.end contains the date when the event ended or when the activity
 	// was last observed.
-	End time.Time `ecs:"end"`
+	End time.Time `ecs:"end" json:"end,omitempty"`
 
 	// Risk score or priority of the event (e.g. security solutions). Use your
 	// system's original value here.
-	RiskScore float64 `ecs:"risk_score"`
+	RiskScore float64 `ecs:"risk_score" json:"risk_score,omitempty"`
 
 	// Normalized risk score or priority of the event, on a scale of 0 to 100.
 	// This is mainly useful if you use more than one system that assigns risk
 	// scores, and you want to see a normalized value across all systems.
-	RiskScoreNorm float64 `ecs:"risk_score_norm"`
+	RiskScoreNorm float64 `ecs:"risk_score_norm" json:"risk_score_norm,omitempty"`
 }

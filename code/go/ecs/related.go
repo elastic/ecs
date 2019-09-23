@@ -29,5 +29,5 @@ package ecs
 // matter where it appeared, by querying `related.ip:a.b.c.d`.
 type Related struct {
 	// All of the IPs seen on your event.
-	IP string `ecs:"ip"`
+	IP string `ecs:"ip" json:"ip,omitempty"`
 }

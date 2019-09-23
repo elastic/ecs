@@ -22,20 +22,20 @@ package ecs
 // The OS fields contain information about the operating system.
 type Os struct {
 	// Operating system platform (such centos, ubuntu, windows).
-	Platform string `ecs:"platform"`
+	Platform string `ecs:"platform" json:"platform,omitempty"`
 
 	// Operating system name, without the version.
-	Name string `ecs:"name"`
+	Name string `ecs:"name" json:"name,omitempty"`
 
 	// Operating system name, including the version or code name.
-	Full string `ecs:"full"`
+	Full string `ecs:"full" json:"full,omitempty"`
 
 	// OS family (such as redhat, debian, freebsd, windows).
-	Family string `ecs:"family"`
+	Family string `ecs:"family" json:"family,omitempty"`
 
 	// Operating system version as a raw string.
-	Version string `ecs:"version"`
+	Version string `ecs:"version" json:"version,omitempty"`
 
 	// Operating system kernel version as a raw string.
-	Kernel string `ecs:"kernel"`
+	Kernel string `ecs:"kernel" json:"kernel,omitempty"`
 }

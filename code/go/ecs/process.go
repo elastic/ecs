@@ -29,43 +29,43 @@ import (
 // itself and is copied to the global field for correlation.
 type Process struct {
 	// Process id.
-	PID int64 `ecs:"pid"`
+	PID int64 `ecs:"pid" json:"pid,omitempty"`
 
 	// Process name.
 	// Sometimes called program name or similar.
-	Name string `ecs:"name"`
+	Name string `ecs:"name" json:"name,omitempty"`
 
 	// Parent process' pid.
-	PPID int64 `ecs:"ppid"`
+	PPID int64 `ecs:"ppid" json:"ppid,omitempty"`
 
 	// Identifier of the group of processes the process belongs to.
-	PGID int64 `ecs:"pgid"`
+	PGID int64 `ecs:"pgid" json:"pgid,omitempty"`
 
 	// Array of process arguments.
 	// May be filtered to protect sensitive information.
-	Args []string `ecs:"args"`
+	Args []string `ecs:"args" json:"args,omitempty"`
 
 	// Absolute path to the process executable.
-	Executable string `ecs:"executable"`
+	Executable string `ecs:"executable" json:"executable,omitempty"`
 
 	// Process title.
 	// The proctitle, some times the same as process name. Can also be
 	// different: for example a browser setting its title to the web page
 	// currently opened.
-	Title string `ecs:"title"`
+	Title string `ecs:"title" json:"title,omitempty"`
 
 	// Thread ID.
-	ThreadID int64 `ecs:"thread.id"`
+	ThreadID int64 `ecs:"thread.id" json:"thread.id,omitempty"`
 
 	// Thread name.
-	ThreadName string `ecs:"thread.name"`
+	ThreadName string `ecs:"thread.name" json:"thread.name,omitempty"`
 
 	// The time the process started.
-	Start time.Time `ecs:"start"`
+	Start time.Time `ecs:"start" json:"start,omitempty"`
 
 	// Seconds the process has been up.
-	Uptime int64 `ecs:"uptime"`
+	Uptime int64 `ecs:"uptime" json:"uptime,omitempty"`
 
 	// The working directory of the process.
-	WorkingDirectory string `ecs:"working_directory"`
+	WorkingDirectory string `ecs:"working_directory" json:"working_directory,omitempty"`
 }

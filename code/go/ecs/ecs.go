@@ -26,5 +26,5 @@ type ECS struct {
 	// When querying across multiple indices -- which may conform to slightly
 	// different ECS versions -- this field lets integrations adjust to the
 	// schema version of the events.
-	Version string `ecs:"version"`
+	Version string `ecs:"version" json:"version,omitempty"`
 }

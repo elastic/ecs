@@ -23,26 +23,26 @@ package ecs
 type Cloud struct {
 	// Name of the cloud provider. Example values are aws, azure, gcp, or
 	// digitalocean.
-	Provider string `ecs:"provider"`
+	Provider string `ecs:"provider" json:"provider,omitempty"`
 
 	// Availability zone in which this host is running.
-	AvailabilityZone string `ecs:"availability_zone"`
+	AvailabilityZone string `ecs:"availability_zone" json:"availability_zone,omitempty"`
 
 	// Region in which this host is running.
-	Region string `ecs:"region"`
+	Region string `ecs:"region" json:"region,omitempty"`
 
 	// Instance ID of the host machine.
-	InstanceID string `ecs:"instance.id"`
+	InstanceID string `ecs:"instance.id" json:"instance.id,omitempty"`
 
 	// Instance name of the host machine.
-	InstanceName string `ecs:"instance.name"`
+	InstanceName string `ecs:"instance.name" json:"instance.name,omitempty"`
 
 	// Machine type of the host machine.
-	MachineType string `ecs:"machine.type"`
+	MachineType string `ecs:"machine.type" json:"machine.type,omitempty"`
 
 	// The cloud account or organization id used to identify different entities
 	// in a multi-tenant environment.
 	// Examples: AWS account id, Google Cloud ORG Id, or other unique
 	// identifier.
-	AccountID string `ecs:"account.id"`
+	AccountID string `ecs:"account.id" json:"account.id,omitempty"`
 }

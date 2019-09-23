@@ -25,8 +25,8 @@ package ecs
 // multiple organizations.
 type Organization struct {
 	// Organization name.
-	Name string `ecs:"name"`
+	Name string `ecs:"name" json:"name,omitempty"`
 
 	// Unique identifier for the organization.
-	ID string `ecs:"id"`
+	ID string `ecs:"id" json:"id,omitempty"`
 }

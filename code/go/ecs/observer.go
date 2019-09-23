@@ -32,26 +32,26 @@ package ecs
 // used in processing events or metrics are not considered observers in ECS.
 type Observer struct {
 	// MAC address of the observer
-	MAC string `ecs:"mac"`
+	MAC string `ecs:"mac" json:"mac,omitempty"`
 
 	// IP address of the observer.
-	IP string `ecs:"ip"`
+	IP string `ecs:"ip" json:"ip,omitempty"`
 
 	// Hostname of the observer.
-	Hostname string `ecs:"hostname"`
+	Hostname string `ecs:"hostname" json:"hostname,omitempty"`
 
 	// observer vendor information.
-	Vendor string `ecs:"vendor"`
+	Vendor string `ecs:"vendor" json:"vendor,omitempty"`
 
 	// Observer version.
-	Version string `ecs:"version"`
+	Version string `ecs:"version" json:"version,omitempty"`
 
 	// Observer serial number.
-	SerialNumber string `ecs:"serial_number"`
+	SerialNumber string `ecs:"serial_number" json:"serial_number,omitempty"`
 
 	// The type of the observer the data is coming from.
 	// There is no predefined list of observer types. Some examples are
 	// `forwarder`, `firewall`, `ids`, `ips`, `proxy`, `poller`, `sensor`, `APM
 	// server`.
-	Type string `ecs:"type"`
+	Type string `ecs:"type" json:"type,omitempty"`
 }

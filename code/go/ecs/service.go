@@ -31,7 +31,7 @@ type Service struct {
 	// particular node emitted the event.
 	// Note that if you need to see the events from one specific host of the
 	// service, you should filter on that `host.name` or `host.id` instead.
-	ID string `ecs:"id"`
+	ID string `ecs:"id" json:"id,omitempty"`
 
 	// Name of the service data is collected from.
 	// The name of the service is normally user given. This allows if two
@@ -42,24 +42,24 @@ type Service struct {
 	// In the case of Elasticsearch the service.name could contain the cluster
 	// name. For Beats the service.name is by default a copy of the
 	// `service.type` field if no name is specified.
-	Name string `ecs:"name"`
+	Name string `ecs:"name" json:"name,omitempty"`
 
 	// The type of the service data is collected from.
 	// The type can be used to group and correlate logs and metrics from one
 	// service type.
 	// Example: If logs or metrics are collected from Elasticsearch,
 	// `service.type` would be `elasticsearch`.
-	Type string `ecs:"type"`
+	Type string `ecs:"type" json:"type,omitempty"`
 
 	// Current state of the service.
-	State string `ecs:"state"`
+	State string `ecs:"state" json:"state,omitempty"`
 
 	// Version of the service the data was collected from.
 	// This allows to look at a data set only for a specific version of a
 	// service.
-	Version string `ecs:"version"`
+	Version string `ecs:"version" json:"version,omitempty"`
 
 	// Ephemeral identifier of this service (if one exists).
 	// This id normally changes across restarts, but `service.id` does not.
-	EphemeralID string `ecs:"ephemeral_id"`
+	EphemeralID string `ecs:"ephemeral_id" json:"ephemeral_id,omitempty"`
 }

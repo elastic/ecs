@@ -25,25 +25,25 @@ package ecs
 // activity associated with an event.
 type Network struct {
 	// Name given by operators to sections of their network.
-	Name string `ecs:"name"`
+	Name string `ecs:"name" json:"name,omitempty"`
 
 	// In the OSI Model this would be the Network Layer. ipv4, ipv6, ipsec,
 	// pim, etc
 	// The field value must be normalized to lowercase for querying. See the
 	// documentation section "Implementing ECS".
-	Type string `ecs:"type"`
+	Type string `ecs:"type" json:"type,omitempty"`
 
 	// IANA Protocol Number
 	// (https://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml).
 	// Standardized list of protocols. This aligns well with NetFlow and sFlow
 	// related logs which use the IANA Protocol Number.
-	IANANumber string `ecs:"iana_number"`
+	IANANumber string `ecs:"iana_number" json:"iana_number,omitempty"`
 
 	// Same as network.iana_number, but instead using the Keyword name of the
 	// transport layer (udp, tcp, ipv6-icmp, etc.)
 	// The field value must be normalized to lowercase for querying. See the
 	// documentation section "Implementing ECS".
-	Transport string `ecs:"transport"`
+	Transport string `ecs:"transport" json:"transport,omitempty"`
 
 	// A name given to an application level protocol. This can be arbitrarily
 	// assigned for things like microservices, but also apply to things like
@@ -52,12 +52,12 @@ type Network struct {
 	// owners, ports, or wire format.
 	// The field value must be normalized to lowercase for querying. See the
 	// documentation section "Implementing ECS".
-	Application string `ecs:"application"`
+	Application string `ecs:"application" json:"application,omitempty"`
 
 	// L7 Network protocol name. ex. http, lumberjack, transport protocol.
 	// The field value must be normalized to lowercase for querying. See the
 	// documentation section "Implementing ECS".
-	Protocol string `ecs:"protocol"`
+	Protocol string `ecs:"protocol" json:"protocol,omitempty"`
 
 	// Direction of the network traffic.
 	// Recommended values are:
@@ -72,24 +72,24 @@ type Network struct {
 	// When mapping events from a network or perimeter-based monitoring
 	// context, populate this field from the point of view of your network
 	// perimeter.
-	Direction string `ecs:"direction"`
+	Direction string `ecs:"direction" json:"direction,omitempty"`
 
 	// Host IP address when the source IP address is the proxy.
-	ForwardedIP string `ecs:"forwarded_ip"`
+	ForwardedIP string `ecs:"forwarded_ip" json:"forwarded_ip,omitempty"`
 
 	// A hash of source and destination IPs and ports, as well as the protocol
 	// used in a communication. This is a tool-agnostic standard to identify
 	// flows.
 	// Learn more at https://github.com/corelight/community-id-spec.
-	CommunityID string `ecs:"community_id"`
+	CommunityID string `ecs:"community_id" json:"community_id,omitempty"`
 
 	// Total bytes transferred in both directions.
 	// If `source.bytes` and `destination.bytes` are known, `network.bytes` is
 	// their sum.
-	Bytes int64 `ecs:"bytes"`
+	Bytes int64 `ecs:"bytes" json:"bytes,omitempty"`
 
 	// Total packets transferred in both directions.
 	// If `source.packets` and `destination.packets` are known,
 	// `network.packets` is their sum.
-	Packets int64 `ecs:"packets"`
+	Packets int64 `ecs:"packets" json:"packets,omitempty"`
 }

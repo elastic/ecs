@@ -27,35 +27,35 @@ type Host struct {
 	// Hostname of the host.
 	// It normally contains what the `hostname` command returns on the host
 	// machine.
-	Hostname string `ecs:"hostname"`
+	Hostname string `ecs:"hostname" json:"hostname,omitempty"`
 
 	// Name of the host.
 	// It can contain what `hostname` returns on Unix systems, the fully
 	// qualified domain name, or a name specified by the user. The sender
 	// decides which value to use.
-	Name string `ecs:"name"`
+	Name string `ecs:"name" json:"name,omitempty"`
 
 	// Unique host id.
 	// As hostname is not always unique, use values that are meaningful in your
 	// environment.
 	// Example: The current usage of `beat.name`.
-	ID string `ecs:"id"`
+	ID string `ecs:"id" json:"id,omitempty"`
 
 	// Host ip address.
-	IP string `ecs:"ip"`
+	IP string `ecs:"ip" json:"ip,omitempty"`
 
 	// Host mac address.
-	MAC string `ecs:"mac"`
+	MAC string `ecs:"mac" json:"mac,omitempty"`
 
 	// Type of host.
 	// For Cloud providers this can be the machine type like `t2.medium`. If
 	// vm, this could be the container, for example, or other information
 	// meaningful in your environment.
-	Type string `ecs:"type"`
+	Type string `ecs:"type" json:"type,omitempty"`
 
 	// Seconds the host has been up.
-	Uptime int64 `ecs:"uptime"`
+	Uptime int64 `ecs:"uptime" json:"uptime,omitempty"`
 
 	// Operating system architecture.
-	Architecture string `ecs:"architecture"`
+	Architecture string `ecs:"architecture" json:"architecture,omitempty"`
 }

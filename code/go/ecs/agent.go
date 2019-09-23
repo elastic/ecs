@@ -27,7 +27,7 @@ package ecs
 // where the event happened or the measurement was taken.
 type Agent struct {
 	// Version of the agent.
-	Version string `ecs:"version"`
+	Version string `ecs:"version" json:"version,omitempty"`
 
 	// Custom name of the agent.
 	// This is a name that can be given to an agent. This can be helpful if for
@@ -35,19 +35,19 @@ type Agent struct {
 	// readable separation is needed on which Filebeat instance data is coming
 	// from.
 	// If no name is given, the name is often left empty.
-	Name string `ecs:"name"`
+	Name string `ecs:"name" json:"name,omitempty"`
 
 	// Type of the agent.
 	// The agent type stays always the same and should be given by the agent
 	// used. In case of Filebeat the agent would always be Filebeat also if two
 	// Filebeat instances are run on the same machine.
-	Type string `ecs:"type"`
+	Type string `ecs:"type" json:"type,omitempty"`
 
 	// Unique identifier of this agent (if one exists).
 	// Example: For Beats this would be beat.id.
-	ID string `ecs:"id"`
+	ID string `ecs:"id" json:"id,omitempty"`
 
 	// Ephemeral identifier of this agent (if one exists).
 	// This id normally changes across restarts, but `agent.id` does not.
-	EphemeralID string `ecs:"ephemeral_id"`
+	EphemeralID string `ecs:"ephemeral_id" json:"ephemeral_id,omitempty"`
 }

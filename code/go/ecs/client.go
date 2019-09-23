@@ -38,20 +38,20 @@ type Client struct {
 	// store the raw address in the `.address` field.
 	// Then it should be duplicated to `.ip` or `.domain`, depending on which
 	// one it is.
-	Address string `ecs:"address"`
+	Address string `ecs:"address" json:"address,omitempty"`
 
 	// IP address of the client.
 	// Can be one or multiple IPv4 or IPv6 addresses.
-	IP string `ecs:"ip"`
+	IP string `ecs:"ip" json:"ip,omitempty"`
 
 	// Port of the client.
-	Port int64 `ecs:"port"`
+	Port int64 `ecs:"port" json:"port,omitempty"`
 
 	// MAC address of the client.
-	MAC string `ecs:"mac"`
+	MAC string `ecs:"mac" json:"mac,omitempty"`
 
 	// Client domain.
-	Domain string `ecs:"domain"`
+	Domain string `ecs:"domain" json:"domain,omitempty"`
 
 	// The highest registered client domain, stripped of the subdomain.
 	// For example, the registered domain for "foo.google.com" is "google.com".
@@ -59,21 +59,21 @@ type Client struct {
 	// suffix list (http://publicsuffix.org). Trying to approximate this by
 	// simply taking the last two labels will not work well for TLDs such as
 	// "co.uk".
-	RegisteredDomain string `ecs:"registered_domain"`
+	RegisteredDomain string `ecs:"registered_domain" json:"registered_domain,omitempty"`
 
 	// Bytes sent from the client to the server.
-	Bytes int64 `ecs:"bytes"`
+	Bytes int64 `ecs:"bytes" json:"bytes,omitempty"`
 
 	// Packets sent from the client to the server.
-	Packets int64 `ecs:"packets"`
+	Packets int64 `ecs:"packets" json:"packets,omitempty"`
 
 	// Translated IP of source based NAT sessions (e.g. internal client to
 	// internet).
 	// Typically connections traversing load balancers, firewalls, or routers.
-	NatIP string `ecs:"nat.ip"`
+	NatIP string `ecs:"nat.ip" json:"nat.ip,omitempty"`
 
 	// Translated port of source based NAT sessions (e.g. internal client to
 	// internet).
 	// Typically connections traversing load balancers, firewalls, or routers.
-	NatPort int64 `ecs:"nat.port"`
+	NatPort int64 `ecs:"nat.port" json:"nat.port,omitempty"`
 }

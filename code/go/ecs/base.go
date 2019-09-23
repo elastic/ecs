@@ -32,21 +32,21 @@ type Base struct {
 	// If the event source has no original timestamp, this value is typically
 	// populated by the first time the event was received by the pipeline.
 	// Required field for all events.
-	Timestamp time.Time `ecs:"@timestamp"`
+	Timestamp time.Time `ecs:"@timestamp" json:"@timestamp,omitempty"`
 
 	// List of keywords used to tag each event.
-	Tags string `ecs:"tags"`
+	Tags string `ecs:"tags" json:"tags,omitempty"`
 
 	// Custom key/value pairs.
 	// Can be used to add meta information to events. Should not contain nested
 	// objects. All values are stored as keyword.
 	// Example: `docker` and `k8s` labels.
-	Labels map[string]interface{} `ecs:"labels"`
+	Labels map[string]interface{} `ecs:"labels" json:"labels,omitempty"`
 
 	// For log events the message field contains the log message, optimized for
 	// viewing in a log viewer.
 	// For structured logs without an original message field, other fields can
 	// be concatenated to form a human-readable summary of the event.
 	// If multiple messages exist, they can be combined into one message.
-	Message string `ecs:"message"`
+	Message string `ecs:"message" json:"message,omitempty"`
 }
