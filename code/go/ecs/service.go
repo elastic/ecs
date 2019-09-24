@@ -47,9 +47,12 @@ type Service struct {
 	// to be differentiated. Therefore, `service.node.name` should typically be
 	// unique across nodes of a given service.
 	// In the case of Elasticsearch, the `service.node.name` could contain the
-	// node name, e.g. "ingest" or "master". In APM, this field is used to
-	// distinguish between nodes of the same traced service and can be manually
-	// configured through the APM agents.
+	// unique node name within the Elasticsearch cluster. In cases where the
+	// service doesn't have the concept of a node name, the host name or
+	// container name can be used to distinguish running instances that make up
+	// this service. If those do not provide uniqueness (e.g. multiple
+	// instances of the service running on the same host) - the node name can
+	// be manually set.
 	NodeName string `ecs:"node.name"`
 
 	// The type of the service data is collected from.

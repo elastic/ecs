@@ -47,7 +47,7 @@
     - name: node.name
       level: extended
       type: keyword
-      example: "master"
+      example: "instance-0000000016"
       short: Name of the service node.
       description: >
         Name of a service node.
@@ -57,9 +57,13 @@
         typically be unique across nodes of a given service.
 
         In the case of Elasticsearch, the `service.node.name` could contain
-        the node name, e.g. "ingest" or "master".
-        In APM, this field is used to distinguish between nodes of the same
-        traced service and can be manually configured through the APM agents.
+        the unique node name within the Elasticsearch cluster.
+        In cases where the service doesn't have the concept of a node name,
+        the host name or container name can be used to distinguish running
+        instances that make up this service. If those do not provide uniqueness
+        (e.g. multiple instances of the service running on the same host) - the
+        node name can be manually set.
+
 
     - name: type
       level: core
