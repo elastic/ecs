@@ -1128,6 +1128,27 @@ error.message:
   order: 1
   short: Error message.
   type: text
+error.stack_trace:
+  description: The stack trace of this error in plain text.
+  doc_values: false
+  flat_name: error.stack_trace
+  ignore_above: 1024
+  index: false
+  level: extended
+  name: stack_trace
+  order: 4
+  short: The stack trace of this error in plain text.
+  type: keyword
+error.type:
+  description: The type of the error, for example the class name of the exception.
+  example: java.lang.NullPointerException
+  flat_name: error.type
+  ignore_above: 1024
+  level: extended
+  name: type
+  order: 3
+  short: The type of the error, for example the class name of the exception.
+  type: keyword
 event.action:
   description: 'The action captured by the event.
 
@@ -2263,6 +2284,37 @@ log.logger:
   order: 2
   short: Name of the logger.
   type: keyword
+log.origin.file.line:
+  description: The line number of the file containing the source code which originated
+    the log event.
+  example: 42
+  flat_name: log.origin.file.line
+  level: extended
+  name: origin.file.line
+  order: 4
+  short: The line number of the file which originated the log event.
+  type: integer
+log.origin.file.name:
+  description: The name of the file containing the source code which originated the
+    log event. Note that this is not the name of the log file.
+  example: Bootstrap.java
+  flat_name: log.origin.file.name
+  ignore_above: 1024
+  level: extended
+  name: origin.file.name
+  order: 3
+  short: The file which originated the log event.
+  type: keyword
+log.origin.function:
+  description: The name of the function or method which originated the log event.
+  example: init
+  flat_name: log.origin.function
+  ignore_above: 1024
+  level: extended
+  name: origin.function
+  order: 5
+  short: The function which originated the log event.
+  type: keyword
 log.original:
   description: 'This is the original log message and contains the full log message
     before splitting it up in multiple parts.
@@ -3253,7 +3305,7 @@ service.ephemeral_id:
   ignore_above: 1024
   level: extended
   name: ephemeral_id
-  order: 5
+  order: 6
   short: Ephemeral identifier of this service.
   type: keyword
 service.id:
@@ -3277,16 +3329,12 @@ service.id:
 service.name:
   description: 'Name of the service data is collected from.
 
-    The name of the service is normally user given. This allows if two instances of
-    the same service are running on the same machine they can be differentiated by
-    the `service.name`.
+    The name of the service is normally user given. This allows for distributed services
+    that run on multiple hosts to correlate the related instances based on the name.
 
-    Also it allows for distributed services that run on multiple hosts to correlate
-    the related instances based on the name.
-
-    In the case of Elasticsearch the service.name could contain the cluster name.
-    For Beats the service.name is by default a copy of the `service.type` field if
-    no name is specified.'
+    In the case of Elasticsearch the `service.name` could contain the cluster name.
+    For Beats the `service.name` is by default a copy of the `service.type` field
+    if no name is specified.'
   example: elasticsearch-metrics
   flat_name: service.name
   ignore_above: 1024
@@ -3295,13 +3343,34 @@ service.name:
   order: 1
   short: Name of the service.
   type: keyword
+service.node.name:
+  description: 'Name of a service node.
+
+    This allows for two nodes of the same service running on the same host to be differentiated.
+    Therefore, `service.node.name` should typically be unique across nodes of a given
+    service.
+
+    In the case of Elasticsearch, the `service.node.name` could contain the unique
+    node name within the Elasticsearch cluster. In cases where the service doesn''t
+    have the concept of a node name, the host name or container name can be used to
+    distinguish running instances that make up this service. If those do not provide
+    uniqueness (e.g. multiple instances of the service running on the same host) -
+    the node name can be manually set.'
+  example: instance-0000000016
+  flat_name: service.node.name
+  ignore_above: 1024
+  level: extended
+  name: node.name
+  order: 2
+  short: Name of the service node.
+  type: keyword
 service.state:
   description: Current state of the service.
   flat_name: service.state
   ignore_above: 1024
   level: core
   name: state
-  order: 3
+  order: 4
   short: Current state of the service.
   type: keyword
 service.type:
@@ -3317,7 +3386,7 @@ service.type:
   ignore_above: 1024
   level: core
   name: type
-  order: 2
+  order: 3
   short: The type of the service.
   type: keyword
 service.version:
@@ -3329,7 +3398,7 @@ service.version:
   ignore_above: 1024
   level: core
   name: version
-  order: 4
+  order: 5
   short: Version of the service.
   type: keyword
 source.address:
