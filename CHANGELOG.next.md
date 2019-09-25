@@ -10,6 +10,7 @@ Thanks, you're awesome :-) -->
 ### Bugfixes
 
 ### Added
+- Add group.domain field #547 
 
 ### Improvements
 
