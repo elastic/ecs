@@ -1389,9 +1389,10 @@ event.severity:
     cases. It''s up to the implementer to make sure severities are consistent across
     events from the same source.
 
-    The Syslog severity belongs in `log.severity`. `event.severity` is meant to represent
-    the severity according to the event source (e.g. firewall, IDS). If the event
-    source does not publish its own severity, you may copy the `log.severity` to `event.severity`.'
+    The Syslog severity belongs in `log.syslog.severity.code`. `event.severity` is
+    meant to represent the severity according to the event source (e.g. firewall,
+    IDS). If the event source does not publish its own severity, you may optionally
+    copy the `log.syslog.severity.code` to `event.severity`.'
   example: 7
   flat_name: event.severity
   format: string
@@ -2267,34 +2268,12 @@ labels:
   order: 2
   short: Custom key/value pairs.
   type: object
-log.facility.code:
-  description: 'The Syslog numeric facility of the log event, if available.
-
-    According to RFCs 5424 and 3164, this value should be an integer between 0 and
-    23.'
-  example: 23
-  flat_name: log.facility.code
-  format: string
-  level: extended
-  name: facility.code
-  order: 3
-  short: Syslog numeric facility of the event.
-  type: long
-log.facility.name:
-  description: The Syslog text-based facility of the log event, if available. See
-    RFCs 5424 or 3164.
-  example: local7
-  flat_name: log.facility.name
-  ignore_above: 1024
-  level: extended
-  name: facility.name
-  order: 2
-  short: Syslog text-based facility of the event.
-  type: keyword
 log.level:
   description: 'Original log level of the log event.
 
-    Syslog''s severity label should be stored here.
+    If the source of the event provides a log level or textual severity, this is the
+    one that goes in `log.level`. If your source doesn''t specify one, you may put
+    your event transport''s severity here (e.g. Syslog severity).
 
     Some examples are `warn`, `err`, `i`, `informational`.'
   example: error
@@ -2313,7 +2292,7 @@ log.logger:
   ignore_above: 1024
   level: core
   name: logger
-  order: 6
+  order: 2
   short: Name of the logger.
   type: keyword
 log.origin.file.line:
@@ -2365,36 +2344,84 @@ log.original:
   index: false
   level: core
   name: original
-  order: 5
+  order: 1
   short: Original log message with light interpretation only (encoding, newlines).
   type: keyword
-log.priority:
+log.syslog:
+  description: The Syslog metadata of the event, if the event was transmitted via
+    Syslog. Please see RFCs 5424 or 3164.
+  flat_name: log.syslog
+  level: extended
+  name: syslog
+  object_type: keyword
+  order: 6
+  short: Syslog metadata
+  type: object
+log.syslog.facility.code:
+  description: 'The Syslog numeric facility of the log event, if available.
+
+    According to RFCs 5424 and 3164, this value should be an integer between 0 and
+    23.'
+  example: 23
+  flat_name: log.syslog.facility.code
+  format: string
+  level: extended
+  name: syslog.facility.code
+  order: 9
+  short: Syslog numeric facility of the event.
+  type: long
+log.syslog.facility.name:
+  description: The Syslog text-based facility of the log event, if available.
+  example: local7
+  flat_name: log.syslog.facility.name
+  ignore_above: 1024
+  level: extended
+  name: syslog.facility.name
+  order: 10
+  short: Syslog text-based facility of the event.
+  type: keyword
+log.syslog.priority:
   description: 'Syslog numeric priority of the event, if available.
 
     According to RFCs 5424 and 3164, the priority is 8 * facility + severity. This
     number is therefore expected to contain a value between 0 and 191.'
   example: 135
-  flat_name: log.priority
+  flat_name: log.syslog.priority
   format: string
   level: extended
-  name: priority
-  order: 4
+  name: syslog.priority
+  order: 11
   short: Syslog priority of the event.
   type: long
-log.severity:
-  description: 'The Syslog numeric severity of the log event, if available. See RFCs
-    5424 or 3164.
+log.syslog.severity.code:
+  description: 'The Syslog numeric severity of the log event, if available.
 
-    If the event source publishing via Syslog provides a different severity value
-    (e.g. firewall, IDS), it should go to `event.severity`. If the event source does
-    not specify a distinct severity, you may instead copy the Syslog severity to `event.severity`.'
+    If the event source publishing via Syslog provides a different numeric severity
+    value (e.g. firewall, IDS), your source''s numeric severity should go to `event.severity`.
+    If the event source does not specify a distinct severity, you can optionally copy
+    the Syslog severity to `event.severity`.'
   example: 3
-  flat_name: log.severity
+  flat_name: log.syslog.severity.code
   level: extended
-  name: severity
-  order: 1
+  name: syslog.severity.code
+  order: 7
   short: Syslog numeric severity of the event.
   type: long
+log.syslog.severity.name:
+  description: 'The Syslog numeric severity of the log event, if available.
+
+    If the event source publishing via Syslog provides a different severity value
+    (e.g. firewall, IDS), your source''s text severity should go to `log.level`. If
+    the event source does not specify a distinct severity, you can optionally copy
+    the Syslog severity to `log.level`.'
+  example: Error
+  flat_name: log.syslog.severity.name
+  ignore_above: 1024
+  level: extended
+  name: syslog.severity.name
+  order: 8
+  short: Syslog text-based severity of the event.
+  type: keyword
 message:
   description: 'For log events the message field contains the log message, optimized
     for viewing in a log viewer.

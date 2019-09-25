@@ -156,10 +156,11 @@
         It's up to the implementer to make sure severities are consistent across
         events from the same source.
 
-        The Syslog severity belongs in `log.severity`. `event.severity` is meant
-        to represent the severity according to the event source (e.g. firewall,
-        IDS). If the event source does not publish its own severity, you may copy
-        the `log.severity` to `event.severity`.
+        The Syslog severity belongs in `log.syslog.severity.code`.
+        `event.severity` is meant to represent the severity according to
+        the event source (e.g. firewall, IDS).
+        If the event source does not publish its own severity,
+        you may optionally copy the `log.syslog.severity.code` to `event.severity`.
 
     - name: original
       level: core

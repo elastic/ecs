@@ -958,17 +958,6 @@
         }, 
         "log": {
           "properties": {
-            "facility": {
-              "properties": {
-                "code": {
-                  "type": "long"
-                }, 
-                "name": {
-                  "ignore_above": 1024, 
-                  "type": "keyword"
-                }
-              }
-            }, 
             "level": {
               "ignore_above": 1024, 
               "type": "keyword"
@@ -1002,11 +991,34 @@
               "index": false, 
               "type": "keyword"
             }, 
-            "priority": {
-              "type": "long"
-            }, 
-            "severity": {
-              "type": "long"
+            "syslog": {
+              "properties": {
+                "facility": {
+                  "properties": {
+                    "code": {
+                      "type": "long"
+                    }, 
+                    "name": {
+                      "ignore_above": 1024, 
+                      "type": "keyword"
+                    }
+                  }
+                }, 
+                "priority": {
+                  "type": "long"
+                }, 
+                "severity": {
+                  "properties": {
+                    "code": {
+                      "type": "long"
+                    }, 
+                    "name": {
+                      "ignore_above": 1024, 
+                      "type": "keyword"
+                    }
+                  }
+                }
+              }
             }
           }
         }, 
