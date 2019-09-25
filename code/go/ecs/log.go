@@ -20,10 +20,11 @@
 package ecs
 
 // Low level details specific to log events.
-// `log.*` typically contains lower level details about the logging mechanism
-// than `event.*`. For example, The Syslog transport details belongs under
-// `log.*`, whereas the message payloads transmitted via Syslog will likely be
-// parsed out into `event.*` or elsewhere in ECS.
+// The log.* fields are typically populated with details about the logging
+// mechanism used to create and/or transport the event. For example, syslog
+// details belong under `log.syslog.*`.
+// The details specific to your event source are typically not logged under
+// `log.*`, but rather in `event.*` or in other ECS fields.
 type Log struct {
 	// Original log level of the log event.
 	// Some examples are `warn`, `error`, `i`.

@@ -2566,10 +2566,12 @@ http:
 log:
   description: 'Low level details specific to log events.
 
-    `log.*` typically contains lower level details about the logging mechanism than
-    `event.*`. For example, The Syslog transport details belongs under `log.*`, whereas
-    the message payloads transmitted via Syslog will likely be parsed out into `event.*`
-    or elsewhere in ECS.'
+    The log.* fields are typically populated with details about the logging mechanism
+    used to create and/or transport the event. For example, syslog details belong
+    under `log.syslog.*`.
+
+    The details specific to your event source are typically not logged under `log.*`,
+    but rather in `event.*` or in other ECS fields.'
   fields:
     level:
       description: 'Original log level of the log event.
@@ -2649,7 +2651,7 @@ log:
   group: 2
   name: log
   prefix: log.
-  short: Low level details specific to log events.
+  short: Details about the event's logging mechanism.
   title: Log
   type: group
 network:
