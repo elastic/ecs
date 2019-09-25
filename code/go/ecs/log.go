@@ -19,7 +19,7 @@
 
 package ecs
 
-// Low level details specific to log events.
+// Details about the event's logging mechanism or logging transport.
 // The log.* fields are typically populated with details about the logging
 // mechanism used to create and/or transport the event. For example, syslog
 // details belong under `log.syslog.*`.
