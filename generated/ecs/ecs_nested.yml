@@ -2571,7 +2571,14 @@ http:
   title: HTTP
   type: group
 log:
-  description: Fields which are specific to log events.
+  description: 'Details about the event''s logging mechanism or logging transport.
+
+    The log.* fields are typically populated with details about the logging mechanism
+    used to create and/or transport the event. For example, syslog details belong
+    under `log.syslog.*`.
+
+    The details specific to your event source are typically not logged under `log.*`,
+    but rather in `event.*` or in other ECS fields.'
   fields:
     level:
       description: 'Original log level of the log event.
@@ -2730,7 +2737,7 @@ log:
   group: 2
   name: log
   prefix: log.
-  short: Fields which are specific to log events.
+  short: Details about the event's logging mechanism.
   title: Log
   type: group
 network:

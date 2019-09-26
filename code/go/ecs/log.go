@@ -19,7 +19,12 @@
 
 package ecs
 
-// Fields which are specific to log events.
+// Details about the event's logging mechanism or logging transport.
+// The log.* fields are typically populated with details about the logging
+// mechanism used to create and/or transport the event. For example, syslog
+// details belong under `log.syslog.*`.
+// The details specific to your event source are typically not logged under
+// `log.*`, but rather in `event.*` or in other ECS fields.
 type Log struct {
 	// Original log level of the log event.
 	// If the source of the event provides a log level or textual severity,
