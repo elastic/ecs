@@ -11,7 +11,7 @@ Thanks, you're awesome :-) -->
 
 ### Added
 
-* Remnoved threat event fields #505
+* Simplified threat fields #505
 
 ### Improvements
 
