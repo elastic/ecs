@@ -4036,42 +4036,12 @@ source:
   title: Source
   type: group
 threat:
-  description: ECS threat fields encompass detected suspicious activity (e.g. IDS
-    alert, malware activity) typically reported by IDS/IPS and NGFWs, as well as threat
-    intel/global IOC data ingested from a feed source like MISP or Anomali.  Tactic
-    and technique fields can be populated from information provided by the reporting
-    system, or can be evaluated  based on internal framework preferences at ingest
-    time, or retrospectively.
+  description: ECS threat fields are used to categorize security events based on the
+    technique and tactic of a given threat observed or reported to the system. A typical
+    implementation would utilize an internal or public threat classification taxonomy
+    like the Mitre ATT&CK framework to enrich tuned IDS, NGFW, or other threat detection
+    alerts with the relevant classification data.
   fields:
-    category:
-      description: Threat category, typically provided by reporting system (e.g. NGFW
-        or IDS signature) or threat intel provider (Anomali, OTX, etc.)
-      example: Denial of Service
-      flat_name: threat.category
-      ignore_above: 1024
-      level: extended
-      multi_field:
-        name: text
-        type: text
-      name: category
-      order: 2
-      short: Reported threat category.
-      type: keyword
-    confidence:
-      description: Typically a qualitative or quantitative value representing the
-        observing system's confidence in the correct identification of a  threat (more
-        prevalent in AI/ ML analysis), user provided confidence in the observing system's
-        detection capabilities,  or confidence in the accuracy of a specific threat
-        intel provider. The severity and confidence fields can be normalized to calculate
-        a normalized risk score for the overall event at ingest time or retrospectively.
-      example: low, medium, high, 1-5, 1-10, etc
-      flat_name: threat.confidence
-      ignore_above: 1024
-      level: extended
-      name: confidence
-      order: 5
-      short: Threat confidence.
-      type: keyword
     framework:
       description: Name of the threat framework used to further categorize and classify
         the tactic and technique of the reported threat.   Framework classification
@@ -4082,57 +4052,8 @@ threat:
       ignore_above: 1024
       level: extended
       name: framework
-      order: 6
-      short: Threat classification framework.
-      type: keyword
-    id:
-      description: Threat ID, typically provided by reporting system (e.g. NGFW or
-        IDS) or threat intel provider (Anomali, OTX, etc.)
-      example: 33227
-      flat_name: threat.id
-      ignore_above: 1024
-      level: extended
-      name: id
       order: 0
-      short: Reported threat ID.
-      type: keyword
-    name:
-      description: Threat name, typically provided by reporting system (e.g. NGFW
-        or IDS signature) or threat intel provider (Anomali, OTX, etc.)
-      example: ntp reserved mode denial of service
-      flat_name: threat.name
-      ignore_above: 1024
-      level: extended
-      multi_field:
-        name: text
-        type: text
-      name: name
-      order: 1
-      short: Reported threat name.
-      type: keyword
-    revision:
-      description: Threat revision is a numerical value provided by the observer or
-        threat intel provider identifying the specific version of the signature used
-        for detection, or the specific revision of the threat intel record.
-      example: 1.1
-      flat_name: threat.revision
-      format: string
-      level: extended
-      name: revision
-      order: 3
-      short: Reported threat revision
-      type: long
-    severity:
-      description: Typically a qualitative description of the risk associated with
-        the observed threat or IOC. The reported  severity and confidence fields can
-        be normalized to provide a threat.risk.score for the overall event.
-      example: low, medium, high, critical, 1-5, 1-10, etc.
-      flat_name: threat.severity
-      ignore_above: 1024
-      level: extended
-      name: severity
-      order: 4
-      short: Reported threat severity.
+      short: Threat classification framework.
       type: keyword
     tactic.id:
       description: The id of tactic used by this threat. You can use the Mitre ATT&CK
@@ -4143,7 +4064,7 @@ threat:
       ignore_above: 1024
       level: extended
       name: tactic.id
-      order: 8
+      order: 2
       short: Threat tactic id.
       type: keyword
     tactic.name:
@@ -4158,7 +4079,7 @@ threat:
         name: text
         type: text
       name: tactic.name
-      order: 7
+      order: 1
       short: Threat tactic.
       type: keyword
     tactic.reference:
@@ -4170,7 +4091,7 @@ threat:
       ignore_above: 1024
       level: extended
       name: tactic.reference
-      order: 9
+      order: 3
       short: Therat tactic url reference.
       type: keyword
     technique.id:
@@ -4185,7 +4106,7 @@ threat:
         name: text
         type: text
       name: technique.id
-      order: 11
+      order: 5
       short: Threat technique id.
       type: keyword
     technique.name:
@@ -4200,7 +4121,7 @@ threat:
         name: text
         type: text
       name: technique.name
-      order: 10
+      order: 4
       short: Threat technique name.
       type: keyword
     technique.reference:
@@ -4212,13 +4133,13 @@ threat:
       ignore_above: 1024
       level: extended
       name: technique.reference
-      order: 12
+      order: 6
       short: Threat technique reference.
       type: keyword
   group: 2
   name: threat
   prefix: threat.
-  short: Fields describing detected threats and threat intel data
+  short: Fields describing detected or reported threats
   title: Threat
   type: group
 tracing:
