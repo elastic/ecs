@@ -79,7 +79,7 @@ type Dns struct {
 	// suffix list (http://publicsuffix.org). Trying to approximate this by
 	// simply taking the last label will not work well for effective TLDs such
 	// as "co.uk".
-	TopLevelDomain string `ecs:"top_level_domain"`
+	QuestionTopLevelDomain string `ecs:"question.top_level_domain"`
 
 	// An array containing an object for each answer section returned by the
 	// server.

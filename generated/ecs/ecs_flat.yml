@@ -1064,6 +1064,22 @@ dns.question.registered_domain:
   order: 8
   short: The highest registered domain, stripped of the subdomain.
   type: keyword
+dns.question.top_level_domain:
+  description: 'The effective top level domain (eTLD), also known as the domain suffix,
+    is the last part of the domain name. For example, the top level domain for google.com
+    is "com".
+
+    This value can be determined precisely with a list like the public suffix list
+    (http://publicsuffix.org). Trying to approximate this by simply taking the last
+    label will not work well for effective TLDs such as "co.uk".'
+  example: co.uk
+  flat_name: dns.question.top_level_domain
+  ignore_above: 1024
+  level: extended
+  name: question.top_level_domain
+  order: 9
+  short: The effective top level domain (com, org, net, co.uk).
+  type: keyword
 dns.question.type:
   description: The type of record being queried.
   example: AAAA
@@ -1099,22 +1115,6 @@ dns.response_code:
   name: response_code
   order: 4
   short: The DNS response code.
-  type: keyword
-dns.top_level_domain:
-  description: 'The effective top level domain (eTLD), also known as the domain suffix,
-    is the last part of the domain name. For example, the top level domain for google.com
-    is "com".
-
-    This value can be determined precisely with a list like the public suffix list
-    (http://publicsuffix.org). Trying to approximate this by simply taking the last
-    label will not work well for effective TLDs such as "co.uk".'
-  example: co.uk
-  flat_name: dns.top_level_domain
-  ignore_above: 1024
-  level: extended
-  name: top_level_domain
-  order: 9
-  short: The effective top level domain (com, org, net, co.uk).
   type: keyword
 dns.type:
   description: 'The type of DNS event captured, query or answer.
