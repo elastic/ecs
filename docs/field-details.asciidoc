@@ -1057,6 +1057,28 @@ type: text
 
 // ===============================================================
 
+| error.stack_trace
+| The stack trace of this error in plain text.
+
+type: keyword
+
+
+
+| extended
+
+// ===============================================================
+
+| error.type
+| The type of the error, for example the class name of the exception.
+
+type: keyword
+
+example: `java.lang.NullPointerException`
+
+| extended
+
+// ===============================================================
+
 |=====
 
 [[ecs-event]]
@@ -1294,7 +1316,11 @@ type: long
 // ===============================================================
 
 | event.severity
-| Severity describes the original severity of the event. What the different severity values mean can very different between use cases. It's up to the implementer to make sure severities are consistent across events.
+| The numeric severity of the event according to your event source.
+
+What the different severity values mean can be different between sources and use cases. It's up to the implementer to make sure severities are consistent across events from the same source.
+
+The Syslog severity belongs in `log.syslog.severity.code`. `event.severity` is meant to represent the severity according to the event source (e.g. firewall, IDS). If the event source does not publish its own severity, you may optionally copy the `log.syslog.severity.code` to `event.severity`.
 
 type: long
 
@@ -1720,6 +1746,19 @@ The group fields are meant to represent groups that are relevant to the event.
 
 // ===============================================================
 
+| group.domain
+| Name of the directory the group is a member of.
+
+For example, an LDAP or Active Directory domain name.
+
+type: keyword
+
+
+
+| extended
+
+// ===============================================================
+
 | group.id
 | Unique identifier for the group on the system/platform.
 
@@ -2103,7 +2142,11 @@ example: `1.1`
 [[ecs-log]]
 === Log Fields
 
-Fields which are specific to log events.
+Details about the event's logging mechanism or logging transport.
+
+The log.* fields are typically populated with details about the logging mechanism used to create and/or transport the event. For example, syslog details belong under `log.syslog.*`.
+
+The details specific to your event source are typically not logged under `log.*`, but rather in `event.*` or in other ECS fields.
 
 ==== Log Field Details
 
@@ -2116,11 +2159,13 @@ Fields which are specific to log events.
 | log.level
 | Original log level of the log event.
 
-Some examples are `warn`, `error`, `i`.
+If the source of the event provides a log level or textual severity, this is the one that goes in `log.level`. If your source doesn't specify one, you may put your event transport's severity here (e.g. Syslog severity).
+
+Some examples are `warn`, `err`, `i`, `informational`.
 
 type: keyword
 
-example: `err`
+example: `error`
 
 | core
 
@@ -2137,6 +2182,39 @@ example: `org.elasticsearch.bootstrap.Bootstrap`
 
 // ===============================================================
 
+| log.origin.file.line
+| The line number of the file containing the source code which originated the log event.
+
+type: integer
+
+example: `42`
+
+| extended
+
+// ===============================================================
+
+| log.origin.file.name
+| The name of the file containing the source code which originated the log event. Note that this is not the name of the log file.
+
+type: keyword
+
+example: `Bootstrap.java`
+
+| extended
+
+// ===============================================================
+
+| log.origin.function
+| The name of the function or method which originated the log event.
+
+type: keyword
+
+example: `init`
+
+| extended
+
+// ===============================================================
+
 | log.original
 | This is the original log message and contains the full log message before splitting it up in multiple parts.
 
@@ -2149,6 +2227,80 @@ type: keyword
 example: `Sep 19 08:26:10 localhost My log`
 
 | core
+
+// ===============================================================
+
+| log.syslog
+| The Syslog metadata of the event, if the event was transmitted via Syslog. Please see RFCs 5424 or 3164.
+
+type: object
+
+
+
+| extended
+
+// ===============================================================
+
+| log.syslog.facility.code
+| The Syslog numeric facility of the log event, if available.
+
+According to RFCs 5424 and 3164, this value should be an integer between 0 and 23.
+
+type: long
+
+example: `23`
+
+| extended
+
+// ===============================================================
+
+| log.syslog.facility.name
+| The Syslog text-based facility of the log event, if available.
+
+type: keyword
+
+example: `local7`
+
+| extended
+
+// ===============================================================
+
+| log.syslog.priority
+| Syslog numeric priority of the event, if available.
+
+According to RFCs 5424 and 3164, the priority is 8 * facility + severity. This number is therefore expected to contain a value between 0 and 191.
+
+type: long
+
+example: `135`
+
+| extended
+
+// ===============================================================
+
+| log.syslog.severity.code
+| The Syslog numeric severity of the log event, if available.
+
+If the event source publishing via Syslog provides a different numeric severity value (e.g. firewall, IDS), your source's numeric severity should go to `event.severity`. If the event source does not specify a distinct severity, you can optionally copy the Syslog severity to `event.severity`.
+
+type: long
+
+example: `3`
+
+| extended
+
+// ===============================================================
+
+| log.syslog.severity.name
+| The Syslog numeric severity of the log event, if available.
+
+If the event source publishing via Syslog provides a different severity value (e.g. firewall, IDS), your source's text severity should go to `log.level`. If the event source does not specify a distinct severity, you can optionally copy the Syslog severity to `log.level`.
+
+type: keyword
+
+example: `Error`
+
+| extended
 
 // ===============================================================
 
@@ -3021,17 +3173,30 @@ example: `d37e5ebfe0ae6c4972dbe9f0174a1637bb8247f6`
 | service.name
 | Name of the service data is collected from.
 
-The name of the service is normally user given. This allows if two instances of the same service are running on the same machine they can be differentiated by the `service.name`.
+The name of the service is normally user given. This allows for distributed services that run on multiple hosts to correlate the related instances based on the name.
 
-Also it allows for distributed services that run on multiple hosts to correlate the related instances based on the name.
-
-In the case of Elasticsearch the service.name could contain the cluster name. For Beats the service.name is by default a copy of the `service.type` field if no name is specified.
+In the case of Elasticsearch the `service.name` could contain the cluster name. For Beats the `service.name` is by default a copy of the `service.type` field if no name is specified.
 
 type: keyword
 
 example: `elasticsearch-metrics`
 
 | core
+
+// ===============================================================
+
+| service.node.name
+| Name of a service node.
+
+This allows for two nodes of the same service running on the same host to be differentiated. Therefore, `service.node.name` should typically be unique across nodes of a given service.
+
+In the case of Elasticsearch, the `service.node.name` could contain the unique node name within the Elasticsearch cluster. In cases where the service doesn't have the concept of a node name, the host name or container name can be used to distinguish running instances that make up this service. If those do not provide uniqueness (e.g. multiple instances of the service running on the same host) - the node name can be manually set.
+
+type: keyword
+
+example: `instance-0000000016`
+
+| extended
 
 // ===============================================================
 
