@@ -359,6 +359,18 @@ client.user.full_name:
   original_fieldset: user
   short: User's full name, if available.
   type: keyword
+client.user.group.domain:
+  description: 'Name of the directory the group is a member of.
+
+    For example, an LDAP or Active Directory domain name.'
+  flat_name: client.user.group.domain
+  ignore_above: 1024
+  level: extended
+  name: domain
+  order: 2
+  original_fieldset: user
+  short: Name of the directory the group is a member of.
+  type: keyword
 client.user.group.id:
   description: Unique identifier for the group on the system/platform.
   flat_name: client.user.group.id
@@ -799,6 +811,18 @@ destination.user.full_name:
   original_fieldset: user
   short: User's full name, if available.
   type: keyword
+destination.user.group.domain:
+  description: 'Name of the directory the group is a member of.
+
+    For example, an LDAP or Active Directory domain name.'
+  flat_name: destination.user.group.domain
+  ignore_above: 1024
+  level: extended
+  name: domain
+  order: 2
+  original_fieldset: user
+  short: Name of the directory the group is a member of.
+  type: keyword
 destination.user.group.id:
   description: Unique identifier for the group on the system/platform.
   flat_name: destination.user.group.id
@@ -1104,6 +1128,27 @@ error.message:
   order: 1
   short: Error message.
   type: text
+error.stack_trace:
+  description: The stack trace of this error in plain text.
+  doc_values: false
+  flat_name: error.stack_trace
+  ignore_above: 1024
+  index: false
+  level: extended
+  name: stack_trace
+  order: 4
+  short: The stack trace of this error in plain text.
+  type: keyword
+error.type:
+  description: The type of the error, for example the class name of the exception.
+  example: java.lang.NullPointerException
+  flat_name: error.type
+  ignore_above: 1024
+  level: extended
+  name: type
+  order: 3
+  short: The type of the error, for example the class name of the exception.
+  type: keyword
 event.action:
   description: 'The action captured by the event.
 
@@ -1338,16 +1383,23 @@ event.sequence:
   short: Sequence number of the event.
   type: long
 event.severity:
-  description: Severity describes the original severity of the event. What the different
-    severity values mean can very different between use cases. It's up to the implementer
-    to make sure severities are consistent across events.
-  example: '7'
+  description: 'The numeric severity of the event according to your event source.
+
+    What the different severity values mean can be different between sources and use
+    cases. It''s up to the implementer to make sure severities are consistent across
+    events from the same source.
+
+    The Syslog severity belongs in `log.syslog.severity.code`. `event.severity` is
+    meant to represent the severity according to the event source (e.g. firewall,
+    IDS). If the event source does not publish its own severity, you may optionally
+    copy the `log.syslog.severity.code` to `event.severity`.'
+  example: 7
   flat_name: event.severity
   format: string
   level: core
   name: severity
   order: 10
-  short: Original severity of the event.
+  short: Numeric severity of the event.
   type: long
 event.start:
   description: event.start contains the date when the event started or when the activity
@@ -1688,6 +1740,17 @@ geo.region_name:
   order: 3
   short: Region name.
   type: keyword
+group.domain:
+  description: 'Name of the directory the group is a member of.
+
+    For example, an LDAP or Active Directory domain name.'
+  flat_name: group.domain
+  ignore_above: 1024
+  level: extended
+  name: domain
+  order: 2
+  short: Name of the directory the group is a member of.
+  type: keyword
 group.id:
   description: Unique identifier for the group on the system/platform.
   flat_name: group.id
@@ -2018,6 +2081,18 @@ host.user.full_name:
   original_fieldset: user
   short: User's full name, if available.
   type: keyword
+host.user.group.domain:
+  description: 'Name of the directory the group is a member of.
+
+    For example, an LDAP or Active Directory domain name.'
+  flat_name: host.user.group.domain
+  ignore_above: 1024
+  level: extended
+  name: domain
+  order: 2
+  original_fieldset: user
+  short: Name of the directory the group is a member of.
+  type: keyword
 host.user.group.id:
   description: Unique identifier for the group on the system/platform.
   flat_name: host.user.group.id
@@ -2196,8 +2271,12 @@ labels:
 log.level:
   description: 'Original log level of the log event.
 
-    Some examples are `warn`, `error`, `i`.'
-  example: err
+    If the source of the event provides a log level or textual severity, this is the
+    one that goes in `log.level`. If your source doesn''t specify one, you may put
+    your event transport''s severity here (e.g. Syslog severity).
+
+    Some examples are `warn`, `err`, `i`, `informational`.'
+  example: error
   flat_name: log.level
   ignore_above: 1024
   level: core
@@ -2215,6 +2294,37 @@ log.logger:
   name: logger
   order: 2
   short: Name of the logger.
+  type: keyword
+log.origin.file.line:
+  description: The line number of the file containing the source code which originated
+    the log event.
+  example: 42
+  flat_name: log.origin.file.line
+  level: extended
+  name: origin.file.line
+  order: 4
+  short: The line number of the file which originated the log event.
+  type: integer
+log.origin.file.name:
+  description: The name of the file containing the source code which originated the
+    log event. Note that this is not the name of the log file.
+  example: Bootstrap.java
+  flat_name: log.origin.file.name
+  ignore_above: 1024
+  level: extended
+  name: origin.file.name
+  order: 3
+  short: The file which originated the log event.
+  type: keyword
+log.origin.function:
+  description: The name of the function or method which originated the log event.
+  example: init
+  flat_name: log.origin.function
+  ignore_above: 1024
+  level: extended
+  name: origin.function
+  order: 5
+  short: The function which originated the log event.
   type: keyword
 log.original:
   description: 'This is the original log message and contains the full log message
@@ -2236,6 +2346,81 @@ log.original:
   name: original
   order: 1
   short: Original log message with light interpretation only (encoding, newlines).
+  type: keyword
+log.syslog:
+  description: The Syslog metadata of the event, if the event was transmitted via
+    Syslog. Please see RFCs 5424 or 3164.
+  flat_name: log.syslog
+  level: extended
+  name: syslog
+  object_type: keyword
+  order: 6
+  short: Syslog metadata
+  type: object
+log.syslog.facility.code:
+  description: 'The Syslog numeric facility of the log event, if available.
+
+    According to RFCs 5424 and 3164, this value should be an integer between 0 and
+    23.'
+  example: 23
+  flat_name: log.syslog.facility.code
+  format: string
+  level: extended
+  name: syslog.facility.code
+  order: 9
+  short: Syslog numeric facility of the event.
+  type: long
+log.syslog.facility.name:
+  description: The Syslog text-based facility of the log event, if available.
+  example: local7
+  flat_name: log.syslog.facility.name
+  ignore_above: 1024
+  level: extended
+  name: syslog.facility.name
+  order: 10
+  short: Syslog text-based facility of the event.
+  type: keyword
+log.syslog.priority:
+  description: 'Syslog numeric priority of the event, if available.
+
+    According to RFCs 5424 and 3164, the priority is 8 * facility + severity. This
+    number is therefore expected to contain a value between 0 and 191.'
+  example: 135
+  flat_name: log.syslog.priority
+  format: string
+  level: extended
+  name: syslog.priority
+  order: 11
+  short: Syslog priority of the event.
+  type: long
+log.syslog.severity.code:
+  description: 'The Syslog numeric severity of the log event, if available.
+
+    If the event source publishing via Syslog provides a different numeric severity
+    value (e.g. firewall, IDS), your source''s numeric severity should go to `event.severity`.
+    If the event source does not specify a distinct severity, you can optionally copy
+    the Syslog severity to `event.severity`.'
+  example: 3
+  flat_name: log.syslog.severity.code
+  level: extended
+  name: syslog.severity.code
+  order: 7
+  short: Syslog numeric severity of the event.
+  type: long
+log.syslog.severity.name:
+  description: 'The Syslog numeric severity of the log event, if available.
+
+    If the event source publishing via Syslog provides a different severity value
+    (e.g. firewall, IDS), your source''s text severity should go to `log.level`. If
+    the event source does not specify a distinct severity, you can optionally copy
+    the Syslog severity to `log.level`.'
+  example: Error
+  flat_name: log.syslog.severity.name
+  ignore_above: 1024
+  level: extended
+  name: syslog.severity.name
+  order: 8
+  short: Syslog text-based severity of the event.
   type: keyword
 message:
   description: 'For log events the message field contains the log message, optimized
@@ -3130,6 +3315,18 @@ server.user.full_name:
   original_fieldset: user
   short: User's full name, if available.
   type: keyword
+server.user.group.domain:
+  description: 'Name of the directory the group is a member of.
+
+    For example, an LDAP or Active Directory domain name.'
+  flat_name: server.user.group.domain
+  ignore_above: 1024
+  level: extended
+  name: domain
+  order: 2
+  original_fieldset: user
+  short: Name of the directory the group is a member of.
+  type: keyword
 server.user.group.id:
   description: Unique identifier for the group on the system/platform.
   flat_name: server.user.group.id
@@ -3194,7 +3391,7 @@ service.ephemeral_id:
   ignore_above: 1024
   level: extended
   name: ephemeral_id
-  order: 5
+  order: 6
   short: Ephemeral identifier of this service.
   type: keyword
 service.id:
@@ -3218,16 +3415,12 @@ service.id:
 service.name:
   description: 'Name of the service data is collected from.
 
-    The name of the service is normally user given. This allows if two instances of
-    the same service are running on the same machine they can be differentiated by
-    the `service.name`.
+    The name of the service is normally user given. This allows for distributed services
+    that run on multiple hosts to correlate the related instances based on the name.
 
-    Also it allows for distributed services that run on multiple hosts to correlate
-    the related instances based on the name.
-
-    In the case of Elasticsearch the service.name could contain the cluster name.
-    For Beats the service.name is by default a copy of the `service.type` field if
-    no name is specified.'
+    In the case of Elasticsearch the `service.name` could contain the cluster name.
+    For Beats the `service.name` is by default a copy of the `service.type` field
+    if no name is specified.'
   example: elasticsearch-metrics
   flat_name: service.name
   ignore_above: 1024
@@ -3236,13 +3429,34 @@ service.name:
   order: 1
   short: Name of the service.
   type: keyword
+service.node.name:
+  description: 'Name of a service node.
+
+    This allows for two nodes of the same service running on the same host to be differentiated.
+    Therefore, `service.node.name` should typically be unique across nodes of a given
+    service.
+
+    In the case of Elasticsearch, the `service.node.name` could contain the unique
+    node name within the Elasticsearch cluster. In cases where the service doesn''t
+    have the concept of a node name, the host name or container name can be used to
+    distinguish running instances that make up this service. If those do not provide
+    uniqueness (e.g. multiple instances of the service running on the same host) -
+    the node name can be manually set.'
+  example: instance-0000000016
+  flat_name: service.node.name
+  ignore_above: 1024
+  level: extended
+  name: node.name
+  order: 2
+  short: Name of the service node.
+  type: keyword
 service.state:
   description: Current state of the service.
   flat_name: service.state
   ignore_above: 1024
   level: core
   name: state
-  order: 3
+  order: 4
   short: Current state of the service.
   type: keyword
 service.type:
@@ -3258,7 +3472,7 @@ service.type:
   ignore_above: 1024
   level: core
   name: type
-  order: 2
+  order: 3
   short: The type of the service.
   type: keyword
 service.version:
@@ -3270,7 +3484,7 @@ service.version:
   ignore_above: 1024
   level: core
   name: version
-  order: 4
+  order: 5
   short: Version of the service.
   type: keyword
 source.address:
@@ -3531,6 +3745,18 @@ source.user.full_name:
   original_fieldset: user
   short: User's full name, if available.
   type: keyword
+source.user.group.domain:
+  description: 'Name of the directory the group is a member of.
+
+    For example, an LDAP or Active Directory domain name.'
+  flat_name: source.user.group.domain
+  ignore_above: 1024
+  level: extended
+  name: domain
+  order: 2
+  original_fieldset: user
+  short: Name of the directory the group is a member of.
+  type: keyword
 source.user.group.id:
   description: Unique identifier for the group on the system/platform.
   flat_name: source.user.group.id
@@ -3781,6 +4007,18 @@ user.full_name:
   name: full_name
   order: 2
   short: User's full name, if available.
+  type: keyword
+user.group.domain:
+  description: 'Name of the directory the group is a member of.
+
+    For example, an LDAP or Active Directory domain name.'
+  flat_name: user.group.domain
+  ignore_above: 1024
+  level: extended
+  name: domain
+  order: 2
+  original_fieldset: group
+  short: Name of the directory the group is a member of.
   type: keyword
 user.group.id:
   description: Unique identifier for the group on the system/platform.
