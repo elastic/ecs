@@ -13,6 +13,7 @@ Thanks, you're awesome :-) -->
 
 * Added fields in `log.*` to allow for full Syslog mapping. #525
 * Add group.domain field #547
+* Added `url.extension` #551, #573
 * Added `error.stack_trace` field. #562
 * Added `log.origin.file.name`, `log.origin.function` and `log.origin.file.line` fields. #563
 * Added `service.node.name` to allow distinction between different nodes of the same service running on the same host. #565
