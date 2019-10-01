@@ -41,13 +41,17 @@ type Observer struct {
 	// Hostname of the observer.
 	Hostname string `ecs:"hostname"`
 
-	// Name of the observer.
+	// Custom name of the observer.
+	// This is a name that can be given to an observer. This can be helpful for
+	// example if multiple firewalls of the same model are used in an
+	// organization.
+	// If no custom name is needed, the field can be left empty.
 	Name string `ecs:"name"`
 
-	// The observers product name.
+	// The product name of the observer.
 	Product string `ecs:"product"`
 
-	// observer vendor information.
+	// Vendor name of the observer.
 	Vendor string `ecs:"vendor"`
 
 	// Observer version.
