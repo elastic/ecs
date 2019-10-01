@@ -2489,11 +2489,14 @@
   - name: threat
     title: Threat
     group: 2
-    description: ECS threat fields are used to categorize security events based on
-      the technique and tactic of a given threat observed or reported to the system.
-      A typical implementation would utilize an internal or public threat classification
-      taxonomy like the Mitre ATT&CK framework to enrich tuned IDS, NGFW, or other
-      threat detection alerts with the relevant classification data.
+    description: 'Fields to classify events and alerts according to a threat taxonomy
+      such as the Mitre ATT&CK framework.
+
+      These fields are for users to classify alerts from all of their sources (e.g.
+      IDS, NGFW, etc.) within a  common taxonomy. The threat.technique.* are meant
+      to capture the high level category of the threat  (e.g. "exfiltration"). The
+      threat.tactic.* fields are meant to capture which kind of approach is used by  this
+      detected threat, to accomplish the goal (e.g. "data compressed").'
     type: group
     fields:
     - name: framework
