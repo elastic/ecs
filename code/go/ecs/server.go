@@ -61,15 +61,13 @@ type Server struct {
 	// "co.uk".
 	RegisteredDomain string `ecs:"registered_domain"`
 
-	// The top level domain (TLD) also known as the domain suffix is the last
-	// part of the domain name. For example, the top level domain for
-	// google.com is "com".
-	// The following groups of top level domain are maintained by the Internet
-	// Assigned Numbers Authority (IANA).
-	// Infrastructure top-level domain (ARPA) Generic top-level domains (gTLD)
-	// Restricted generic top-level domains (grTLD) Sponsored top-level domains
-	// (sTLD) Country code top-level domains (ccTLD) Internationalized country
-	// code top-level domains (IDN ccTLDs) Test top-level domains (tTLD)
+	// The effective top level domain (eTLD), also known as the domain suffix,
+	// is the last part of the domain name. For example, the top level domain
+	// for google.com is "com".
+	// This value can be determined precisely with a list like the public
+	// suffix list (http://publicsuffix.org). Trying to approximate this by
+	// simply taking the last label will not work well for effective TLDs such
+	// as "co.uk".
 	TopLevelDomain string `ecs:"top_level_domain"`
 
 	// Bytes sent from the server to the client.
