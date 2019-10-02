@@ -33,6 +33,7 @@ client.registered_domain,keyword,extended,google.com,1.2.0-dev
 client.user.domain,keyword,extended,,1.2.0-dev
 client.user.email,keyword,extended,,1.2.0-dev
 client.user.full_name,keyword,extended,Albert Einstein,1.2.0-dev
+client.user.group.domain,keyword,extended,,1.2.0-dev
 client.user.group.id,keyword,extended,,1.2.0-dev
 client.user.group.name,keyword,extended,,1.2.0-dev
 client.user.hash,keyword,extended,,1.2.0-dev
@@ -74,6 +75,7 @@ destination.registered_domain,keyword,extended,google.com,1.2.0-dev
 destination.user.domain,keyword,extended,,1.2.0-dev
 destination.user.email,keyword,extended,,1.2.0-dev
 destination.user.full_name,keyword,extended,Albert Einstein,1.2.0-dev
+destination.user.group.domain,keyword,extended,,1.2.0-dev
 destination.user.group.id,keyword,extended,,1.2.0-dev
 destination.user.group.name,keyword,extended,,1.2.0-dev
 destination.user.hash,keyword,extended,,1.2.0-dev
@@ -99,6 +101,8 @@ ecs.version,keyword,core,1.0.0,1.2.0-dev
 error.code,keyword,core,,1.2.0-dev
 error.id,keyword,core,,1.2.0-dev
 error.message,text,core,,1.2.0-dev
+error.stack_trace,keyword,extended,,1.2.0-dev
+error.type,keyword,extended,java.lang.NullPointerException,1.2.0-dev
 event.action,keyword,core,user-password-change,1.2.0-dev
 event.category,keyword,core,user-management,1.2.0-dev
 event.code,keyword,extended,4648,1.2.0-dev
@@ -150,6 +154,7 @@ geo.location,geo_point,core,"{ ""lon"": -73.614830, ""lat"": 45.505918 }",1.2.0-
 geo.name,keyword,extended,boston-dc,1.2.0-dev
 geo.region_iso_code,keyword,core,CA-QC,1.2.0-dev
 geo.region_name,keyword,core,Quebec,1.2.0-dev
+group.domain,keyword,extended,,1.2.0-dev
 group.id,keyword,extended,,1.2.0-dev
 group.name,keyword,extended,,1.2.0-dev
 hash.md5,keyword,extended,,1.2.0-dev
@@ -181,6 +186,7 @@ host.uptime,long,extended,1325,1.2.0-dev
 host.user.domain,keyword,extended,,1.2.0-dev
 host.user.email,keyword,extended,,1.2.0-dev
 host.user.full_name,keyword,extended,Albert Einstein,1.2.0-dev
+host.user.group.domain,keyword,extended,,1.2.0-dev
 host.user.group.id,keyword,extended,,1.2.0-dev
 host.user.group.name,keyword,extended,,1.2.0-dev
 host.user.hash,keyword,extended,,1.2.0-dev
@@ -196,9 +202,18 @@ http.response.body.content,keyword,extended,Hello world,1.2.0-dev
 http.response.bytes,long,extended,1437,1.2.0-dev
 http.response.status_code,long,extended,404,1.2.0-dev
 http.version,keyword,extended,1.1,1.2.0-dev
-log.level,keyword,core,err,1.2.0-dev
+log.level,keyword,core,error,1.2.0-dev
 log.logger,keyword,core,org.elasticsearch.bootstrap.Bootstrap,1.2.0-dev
+log.origin.file.line,integer,extended,42,1.2.0-dev
+log.origin.file.name,keyword,extended,Bootstrap.java,1.2.0-dev
+log.origin.function,keyword,extended,init,1.2.0-dev
 log.original,keyword,core,Sep 19 08:26:10 localhost My log,1.2.0-dev
+log.syslog,object,extended,,1.2.0-dev
+log.syslog.facility.code,long,extended,23,1.2.0-dev
+log.syslog.facility.name,keyword,extended,local7,1.2.0-dev
+log.syslog.priority,long,extended,135,1.2.0-dev
+log.syslog.severity.code,long,extended,3,1.2.0-dev
+log.syslog.severity.name,keyword,extended,Error,1.2.0-dev
 network.application,keyword,extended,aim,1.2.0-dev
 network.bytes,long,core,368,1.2.0-dev
 network.community_id,keyword,extended,1:hO+sN4H+MG5MY/8hIrXPqc4ZQz0=,1.2.0-dev
@@ -292,6 +307,7 @@ server.registered_domain,keyword,extended,google.com,1.2.0-dev
 server.user.domain,keyword,extended,,1.2.0-dev
 server.user.email,keyword,extended,,1.2.0-dev
 server.user.full_name,keyword,extended,Albert Einstein,1.2.0-dev
+server.user.group.domain,keyword,extended,,1.2.0-dev
 server.user.group.id,keyword,extended,,1.2.0-dev
 server.user.group.name,keyword,extended,,1.2.0-dev
 server.user.hash,keyword,extended,,1.2.0-dev
@@ -300,6 +316,7 @@ server.user.name,keyword,core,albert,1.2.0-dev
 service.ephemeral_id,keyword,extended,8a4f500f,1.2.0-dev
 service.id,keyword,core,d37e5ebfe0ae6c4972dbe9f0174a1637bb8247f6,1.2.0-dev
 service.name,keyword,core,elasticsearch-metrics,1.2.0-dev
+service.node.name,keyword,extended,instance-0000000016,1.2.0-dev
 service.state,keyword,core,,1.2.0-dev
 service.type,keyword,core,elasticsearch,1.2.0-dev
 service.version,keyword,core,3.2.4,1.2.0-dev
@@ -326,6 +343,7 @@ source.registered_domain,keyword,extended,google.com,1.2.0-dev
 source.user.domain,keyword,extended,,1.2.0-dev
 source.user.email,keyword,extended,,1.2.0-dev
 source.user.full_name,keyword,extended,Albert Einstein,1.2.0-dev
+source.user.group.domain,keyword,extended,,1.2.0-dev
 source.user.group.id,keyword,extended,,1.2.0-dev
 source.user.group.name,keyword,extended,,1.2.0-dev
 source.user.hash,keyword,extended,,1.2.0-dev
@@ -347,6 +365,7 @@ url.username,keyword,extended,,1.2.0-dev
 user.domain,keyword,extended,,1.2.0-dev
 user.email,keyword,extended,,1.2.0-dev
 user.full_name,keyword,extended,Albert Einstein,1.2.0-dev
+user.group.domain,keyword,extended,,1.2.0-dev
 user.group.id,keyword,extended,,1.2.0-dev
 user.group.name,keyword,extended,,1.2.0-dev
 user.hash,keyword,extended,,1.2.0-dev
