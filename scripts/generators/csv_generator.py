@@ -38,3 +38,13 @@ def save_csv(file, sorted_fields, version):
                 field.get('example', ''),
                 version
             ])
+
+            if 'multi_fields' in field:
+                for mf in field['multi_fields']:
+                    schema_writer.writerow([
+                        mf['flat_name'],
+                        mf['type'],
+                        field['level'],
+                        field.get('example', ''),
+                        version
+                    ])
