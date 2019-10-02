@@ -26,9 +26,6 @@ type UserAgent struct {
 	// Unparsed keyword version of the user_agent.
 	Original string `ecs:"original"`
 
-	// Unparsed text version of the user_agent.
-	OriginalText string `ecs:"original.text"`
-
 	// Name of the user agent.
 	Name string `ecs:"name"`
 
