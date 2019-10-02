@@ -32,7 +32,7 @@ def fieldset_field_array(source_fields):
     allowed_keys = ['name', 'level', 'required', 'type', 'object_type',
                     'ignore_above', 'multi_fields', 'format', 'input_format',
                     'output_format', 'output_precision', 'description', 'example']
-    multi_fields_allowed_keys = ['name', 'type']
+    multi_fields_allowed_keys = ['name', 'type', 'norms']
 
     fields = []
     for nested_field_name in source_fields:
