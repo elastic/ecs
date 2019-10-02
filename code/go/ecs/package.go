@@ -42,11 +42,6 @@ type Package struct {
 	// Time when package was installed.
 	Installed time.Time `ecs:"installed"`
 
-	// Type of package.
-	// When installed from a package manager, this would contain the package
-	// manager name, e.g. RPM, DPKG, Homebrew, NPM.
-	Type string `ecs:"type"`
-
 	// Path where the package is installed.
 	Path string `ecs:"path"`
 
