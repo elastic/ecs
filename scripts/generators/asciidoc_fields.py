@@ -53,7 +53,8 @@ def render_fieldset(fieldset, ecs_nested):
     text = field_details_table_header().format(
         fieldset_title=fieldset['title'],
         fieldset_name=fieldset['name'],
-        fieldset_description=render_asciidoc_paragraphs(fieldset['description'])
+        fieldset_description=render_asciidoc_paragraphs(fieldset['description']),
+        fieldset_reuse_links=render_fieldset_reuse_link(fieldset)
     )
 
     for field in ecs_helpers.dict_sorted_by_keys(fieldset['fields'], 'flat_name'):
@@ -92,7 +93,8 @@ def render_fieldset_reuse_section(fieldset, ecs_nested):
         return ''
 
     text = field_reuse_section().format(
-        reuse_of_fieldset=render_fieldset_reuses_text(fieldset)
+        reuse_of_fieldset=render_fieldset_reuses_text(fieldset),
+        fieldset_name=fieldset['name']
     )
     if 'nestings' in fieldset:
         text += nestings_table_header().format(
@@ -108,6 +110,13 @@ def render_fieldset_reuse_section(fieldset, ecs_nested):
             })
         text += table_footer()
     return text
+    
+def render_fieldset_reuse_link(fieldset):
+    '''Render a link to field reuse section, only when appropriate'''
+    if ('nestings' in fieldset or 'reusable' in fieldset):
+        return 'NOTE: <<ecs-{}-reuse, See field set reuse information.>>'.format(fieldset['name'])
+    else:
+        return 'NOTE: This field set is not nested.'
 
 
 def render_fieldset_reuses_text(fieldset):
@@ -199,6 +208,8 @@ def field_details_table_header():
 
 {fieldset_description}
 
+{fieldset_reuse_links}
+
 ==== {fieldset_title} Field Details
 
 [options="header"]
@@ -228,6 +239,7 @@ type: {field_type}
 
 def field_reuse_section():
     return '''
+[[ecs-{fieldset_name}-reuse]]
 ==== Field Reuse
 
 {reuse_of_fieldset}
