@@ -3254,8 +3254,7 @@ os:
 package:
   description: These fields contain information about an installed software package.
     It contains general information about a package, such as name, version or size.
-    It also contains installation details, such as time, URL or user who installed
-    the package.
+    It also contains installation details, such as time or where
   fields:
     architecture:
       description: Package architecture.
@@ -3264,17 +3263,17 @@ package:
       ignore_above: 1024
       level: extended
       name: architecture
-      order: 8
+      order: 7
       short: Package architecture.
       type: keyword
     checksum:
       description: Checksum of the installed package for verification.
-      example: 9b52cc0d83f794f6fc6190f603fa2f62dd9aa2017165d19ff1d62742955a7a05
+      example: 68b329da9893e34099c7d8ad5cb9c940
       flat_name: package.checksum
       ignore_above: 1024
       level: extended
       name: checksum
-      order: 10
+      order: 8
       short: Checksum of the installed package for verification.
       type: keyword
     description:
@@ -3288,18 +3287,6 @@ package:
       order: 2
       short: Description of the package.
       type: keyword
-    detailed_version:
-      description: Detailed version of the installed package, for instance git commit
-        when using an unreleased version.
-      example: 9b52cc0d83f794f6fc6190f603fa2f62dd9aa2017165d19ff1d62742955a7a05
-      flat_name: package.detailed_version
-      ignore_above: 1024
-      level: extended
-      name: detailed_version
-      order: 9
-      short: Detailed version of the installed package, for instance git commit when
-        using an unreleased version.
-      type: keyword
     install_scope:
       description: Indicating how the package was installed, e.g. user-local, global.
       example: global
@@ -3307,7 +3294,7 @@ package:
       ignore_above: 1024
       level: extended
       name: install_scope
-      order: 11
+      order: 9
       short: Indicating how the package was installed, e.g. user-local, global.
       type: keyword
     installed:
@@ -3319,18 +3306,17 @@ package:
       short: Time when package was installed.
       type: date
     license:
-      description: License under which the package was released. Use a short name,
-        e.g. the license identifier from [SPDX License List](https://spdx.org/licenses/)
-        where possible.
+      description: 'License under which the package was released.
+
+        Use a short name, e.g. the license identifier from [SPDX License List](https://spdx.org/licenses/)
+        where possible.'
       example: Apache License 2.0
       flat_name: package.license
       ignore_above: 1024
       level: extended
       name: license
-      order: 12
-      short: License under which the package was released. Use a short name, e.g.
-        the license identifier from [SPDX License List](https://spdx.org/licenses/)
-        where possible.
+      order: 10
+      short: Package license
       type: keyword
     name:
       description: Package name
@@ -3349,7 +3335,7 @@ package:
       ignore_above: 1024
       level: extended
       name: path
-      order: 7
+      order: 6
       short: Path where the package is installed.
       type: keyword
     size:
@@ -3363,26 +3349,17 @@ package:
       short: Package size in bytes.
       type: long
     type:
-      description: Information about package type. When installed from a package manager,
-        this would contain the package manager name.
-      example: npm
+      description: 'Type of package.
+
+        When installed from a package manager, this would contain the package manager
+        name, e.g. RPM, DPKG, Homebrew, NPM.'
+      example: RPM
       flat_name: package.type
       ignore_above: 1024
       level: extended
       name: type
       order: 5
-      short: Information about package type. When installed from a package manager,
-        this would contain the package manager name.
-      type: keyword
-    url.full:
-      description: URL of this package.
-      example: https://docs.docker.com/compose/
-      flat_name: package.url.full
-      ignore_above: 1024
-      level: extended
-      name: url.full
-      order: 6
-      short: URL of this package.
+      short: Package type
       type: keyword
     version:
       description: Package version

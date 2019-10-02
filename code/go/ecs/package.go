@@ -25,8 +25,7 @@ import (
 
 // These fields contain information about an installed software package. It
 // contains general information about a package, such as name, version or size.
-// It also contains installation details, such as time, URL or user who
-// installed the package.
+// It also contains installation details, such as time or where
 type Package struct {
 	// Package name
 	Name string `ecs:"name"`
@@ -43,12 +42,10 @@ type Package struct {
 	// Time when package was installed.
 	Installed time.Time `ecs:"installed"`
 
-	// Information about package type. When installed from a package manager,
-	// this would contain the package manager name.
+	// Type of package.
+	// When installed from a package manager, this would contain the package
+	// manager name, e.g. RPM, DPKG, Homebrew, NPM.
 	Type string `ecs:"type"`
-
-	// URL of this package.
-	UrlFull string `ecs:"url.full"`
 
 	// Path where the package is installed.
 	Path string `ecs:"path"`
@@ -56,18 +53,14 @@ type Package struct {
 	// Package architecture.
 	Architecture string `ecs:"architecture"`
 
-	// Detailed version of the installed package, for instance git commit when
-	// using an unreleased version.
-	DetailedVersion string `ecs:"detailed_version"`
-
 	// Checksum of the installed package for verification.
 	Checksum string `ecs:"checksum"`
 
 	// Indicating how the package was installed, e.g. user-local, global.
 	InstallScope string `ecs:"install_scope"`
 
-	// License under which the package was released. Use a short name, e.g. the
-	// license identifier from [SPDX License List](https://spdx.org/licenses/)
-	// where possible.
+	// License under which the package was released.
+	// Use a short name, e.g. the license identifier from [SPDX License
+	// List](https://spdx.org/licenses/) where possible.
 	License string `ecs:"license"`
 }

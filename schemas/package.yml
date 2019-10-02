@@ -5,8 +5,7 @@
   short: These fields contain information about an installed software package.
   description: >
     These fields contain information about an installed software package. It contains general information about a
-    package, such as name, version or size. It also contains installation details, such as time, URL or
-    user who installed the package.
+    package, such as name, version or size. It also contains installation details, such as time or where
   type: group
   fields:
 
@@ -43,15 +42,12 @@
     - name: type
       level: extended
       type: keyword
-      description: Information about package type. When installed from a package manager, this would contain the
-        package manager name.
-      example: npm
+      short: Package type
+      description: >
+        Type of package.
 
-    - name: url.full
-      level: extended
-      type: keyword
-      description: URL of this package.
-      example: https://docs.docker.com/compose/
+        When installed from a package manager, this would contain the package manager name, e.g. RPM, DPKG, Homebrew, NPM.
+      example: RPM
 
     - name: path
       level: extended
@@ -65,17 +61,11 @@
       description: Package architecture.
       example: runtime
 
-    - name: detailed_version
-      level: extended
-      type: keyword
-      description: Detailed version of the installed package, for instance git commit when using an unreleased version.
-      example: 9b52cc0d83f794f6fc6190f603fa2f62dd9aa2017165d19ff1d62742955a7a05
-
     - name: checksum
       level: extended
       type: keyword
       description: Checksum of the installed package for verification.
-      example: 9b52cc0d83f794f6fc6190f603fa2f62dd9aa2017165d19ff1d62742955a7a05
+      example: 68b329da9893e34099c7d8ad5cb9c940
 
     - name: install_scope
       level: extended
@@ -86,5 +76,9 @@
     - name: license
       level: extended
       type: keyword
-      description: License under which the package was released. Use a short name, e.g. the license identifier from [SPDX License List](https://spdx.org/licenses/) where possible.
+      short: Package license
+      description: >
+        License under which the package was released.
+
+        Use a short name, e.g. the license identifier from [SPDX License List](https://spdx.org/licenses/) where possible.
       example: Apache License 2.0

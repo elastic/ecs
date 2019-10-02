@@ -2024,8 +2024,7 @@
     group: 2
     description: These fields contain information about an installed software package.
       It contains general information about a package, such as name, version or size.
-      It also contains installation details, such as time, URL or user who installed
-      the package.
+      It also contains installation details, such as time or where
     type: group
     fields:
     - name: architecture
@@ -2039,7 +2038,7 @@
       type: keyword
       ignore_above: 1024
       description: Checksum of the installed package for verification.
-      example: 9b52cc0d83f794f6fc6190f603fa2f62dd9aa2017165d19ff1d62742955a7a05
+      example: 68b329da9893e34099c7d8ad5cb9c940
     - name: description
       level: extended
       type: keyword
@@ -2047,13 +2046,6 @@
       description: Description of the package.
       example: Open source programming language to build simple/reliable/efficient
         software.
-    - name: detailed_version
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Detailed version of the installed package, for instance git commit
-        when using an unreleased version.
-      example: 9b52cc0d83f794f6fc6190f603fa2f62dd9aa2017165d19ff1d62742955a7a05
     - name: install_scope
       level: extended
       type: keyword
@@ -2068,9 +2060,10 @@
       level: extended
       type: keyword
       ignore_above: 1024
-      description: License under which the package was released. Use a short name,
-        e.g. the license identifier from [SPDX License List](https://spdx.org/licenses/)
-        where possible.
+      description: 'License under which the package was released.
+
+        Use a short name, e.g. the license identifier from [SPDX License List](https://spdx.org/licenses/)
+        where possible.'
       example: Apache License 2.0
     - name: name
       level: extended
@@ -2094,15 +2087,11 @@
       level: extended
       type: keyword
       ignore_above: 1024
-      description: Information about package type. When installed from a package manager,
-        this would contain the package manager name.
-      example: npm
-    - name: url.full
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: URL of this package.
-      example: https://docs.docker.com/compose/
+      description: 'Type of package.
+
+        When installed from a package manager, this would contain the package manager
+        name, e.g. RPM, DPKG, Homebrew, NPM.'
+      example: RPM
     - name: version
       level: extended
       type: keyword
