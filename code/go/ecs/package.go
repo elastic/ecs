@@ -55,7 +55,7 @@ type Package struct {
 	InstallScope string `ecs:"install_scope"`
 
 	// License under which the package was released.
-	// Use a short name, e.g. the license identifier from [SPDX License
-	// List](https://spdx.org/licenses/) where possible.
+	// Use a short name, e.g. the license identifier from SPDX License List
+	// where possible (https://spdx.org/licenses/).
 	License string `ecs:"license"`
 }
