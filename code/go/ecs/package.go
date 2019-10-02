@@ -25,7 +25,7 @@ import (
 
 // These fields contain information about an installed software package. It
 // contains general information about a package, such as name, version or size.
-// It also contains installation details, such as time or where
+// It also contains installation details, such as time or location.
 type Package struct {
 	// Package name
 	Name string `ecs:"name"`
