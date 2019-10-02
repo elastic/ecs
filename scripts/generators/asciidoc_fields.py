@@ -57,6 +57,7 @@ def render_fieldset(fieldset, ecs_nested):
     )
 
     for field in ecs_helpers.dict_sorted_by_keys(fieldset['fields'], 'flat_name'):
+        # Skip fields nested in this field set
         if 'original_fieldset' not in field:
             text += render_field_details_row(field)
 
@@ -76,8 +77,15 @@ def render_field_details_row(field):
     example = ''
     if 'example' in field:
         example = "example: `{}`".format(str(field['example']))
+
+    field_name_with_mf = field['flat_name']
+    if 'multi_fields' in field:
+        field_name_with_mf += "\n\nMulti-fields:\n\n"
+        for mf in field['multi_fields']:
+            field_name_with_mf += mf['flat_name'] + "\n\n"
+
     text = field_details_row().format(
-        field_flat_name=field['flat_name'],
+        field_flat_name=field_name_with_mf,
         field_description=render_asciidoc_paragraphs(field['description']),
         field_example=example,
         field_level=field['level'],
