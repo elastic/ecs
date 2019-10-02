@@ -32,10 +32,20 @@ def fieldset_field_array(source_fields):
     allowed_keys = ['name', 'level', 'required', 'type', 'object_type',
                     'ignore_above', 'multi_fields', 'format', 'input_format',
                     'output_format', 'output_precision', 'description', 'example']
+    multi_fields_allowed_keys = ['name', 'type']
+
     fields = []
     for nested_field_name in source_fields:
         ecs_field = source_fields[nested_field_name]
         beats_field = ecs_helpers.dict_copy_keys_ordered(ecs_field, allowed_keys)
+
+        cleaned_multi_fields = []
+        if 'multi_fields' in ecs_field:
+            for mf in ecs_field['multi_fields']:
+                cleaned_multi_fields.append(
+                    ecs_helpers.dict_copy_keys_ordered(mf, multi_fields_allowed_keys))
+            beats_field['multi_fields'] = cleaned_multi_fields
+
         beats_field['name'] = nested_field_name
         fields.append(beats_field)
     return sorted(fields, lambda x, y: cmp(x['name'], y['name']))
