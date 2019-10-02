@@ -3251,6 +3251,119 @@ os:
   short: OS fields contain information about the operating system.
   title: Operating System
   type: group
+package:
+  description: These fields contain information about an installed software package.
+    It contains general information about a package, such as name, version or size.
+    It also contains installation details, such as time or location.
+  fields:
+    architecture:
+      description: Package architecture.
+      example: x86_64
+      flat_name: package.architecture
+      ignore_above: 1024
+      level: extended
+      name: architecture
+      order: 6
+      short: Package architecture.
+      type: keyword
+    checksum:
+      description: Checksum of the installed package for verification.
+      example: 68b329da9893e34099c7d8ad5cb9c940
+      flat_name: package.checksum
+      ignore_above: 1024
+      level: extended
+      name: checksum
+      order: 7
+      short: Checksum of the installed package for verification.
+      type: keyword
+    description:
+      description: Description of the package.
+      example: Open source programming language to build simple/reliable/efficient
+        software.
+      flat_name: package.description
+      ignore_above: 1024
+      level: extended
+      name: description
+      order: 2
+      short: Description of the package.
+      type: keyword
+    install_scope:
+      description: Indicating how the package was installed, e.g. user-local, global.
+      example: global
+      flat_name: package.install_scope
+      ignore_above: 1024
+      level: extended
+      name: install_scope
+      order: 8
+      short: Indicating how the package was installed, e.g. user-local, global.
+      type: keyword
+    installed:
+      description: Time when package was installed.
+      flat_name: package.installed
+      level: extended
+      name: installed
+      order: 4
+      short: Time when package was installed.
+      type: date
+    license:
+      description: 'License under which the package was released.
+
+        Use a short name, e.g. the license identifier from SPDX License List where
+        possible (https://spdx.org/licenses/).'
+      example: Apache License 2.0
+      flat_name: package.license
+      ignore_above: 1024
+      level: extended
+      name: license
+      order: 9
+      short: Package license
+      type: keyword
+    name:
+      description: Package name
+      example: go
+      flat_name: package.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      order: 0
+      short: Package name
+      type: keyword
+    path:
+      description: Path where the package is installed.
+      example: /usr/local/Cellar/go/1.12.9/
+      flat_name: package.path
+      ignore_above: 1024
+      level: extended
+      name: path
+      order: 5
+      short: Path where the package is installed.
+      type: keyword
+    size:
+      description: Package size in bytes.
+      example: 62231
+      flat_name: package.size
+      format: string
+      level: extended
+      name: size
+      order: 3
+      short: Package size in bytes.
+      type: long
+    version:
+      description: Package version
+      example: 1.12.9
+      flat_name: package.version
+      ignore_above: 1024
+      level: extended
+      name: version
+      order: 1
+      short: Package version
+      type: keyword
+  group: 2
+  name: package
+  prefix: package.
+  short: These fields contain information about an installed software package.
+  title: Package
+  type: group
 process:
   description: 'These fields contain information about a process.
 

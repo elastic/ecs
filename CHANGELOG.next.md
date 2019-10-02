@@ -10,6 +10,7 @@ Thanks, you're awesome :-) -->
 ### Bugfixes
 
 ### Added
+* Add support for installed software packages. #532
 
 * Added fields in `log.*` to allow for full Syslog mapping. #525
 * Add group.domain field #547
