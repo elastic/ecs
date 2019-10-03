@@ -1781,7 +1781,7 @@
     "type": "group"
   }, 
   "observer": {
-    "description": "An observer is defined as a special network, security, or application device used to detect, observe, or create network, security, or application-related events and metrics.\nThis could be a custom hardware appliance or a server that has been configured to run special network, security, or application software. Examples include firewalls, intrusion detection/prevention systems, network monitoring sensors, web application firewalls, data loss prevention systems, and APM servers. The observer.* fields shall be populated with details of the system, if any, that detects, observes and/or creates a network, security, or application event or metric. Message queues and ETL components used in processing events or metrics are not considered observers in ECS.\n", 
+    "description": "An observer is defined as a special network, security, or application device used to detect, observe, or create network, security, or application-related events and metrics.\nThis could be a custom hardware appliance or a server that has been configured to run special network, security, or application software. Examples include firewalls, web proxies, intrusion detection/prevention systems, network monitoring sensors, web application firewalls, data loss prevention systems, and APM servers. The observer.* fields shall be populated with details of the system, if any, that detects, observes and/or creates a network, security, or application event or metric. Message queues and ETL components used in processing events or metrics are not considered observers in ECS.\n", 
     "fields": {
       "observer.hostname": {
         "description": "Hostname of the observer.", 
@@ -1813,6 +1813,26 @@
         "required": false, 
         "type": "keyword"
       }, 
+      "observer.name": {
+        "description": "Custom name of the observer.\nThis is a name that can be given to an observer. This can be helpful for example if multiple firewalls of the same model are used in an organization.\nIf no custom name is needed, the field can be left empty.", 
+        "example": "1_proxySG", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "observer.name", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "observer.product": {
+        "description": "The product name of the observer.", 
+        "example": "s200", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "observer.product", 
+        "required": false, 
+        "type": "keyword"
+      }, 
       "observer.serial_number": {
         "description": "Observer serial number.", 
         "example": "", 
@@ -1834,8 +1854,8 @@
         "type": "keyword"
       }, 
       "observer.vendor": {
-        "description": "observer vendor information.", 
-        "example": "", 
+        "description": "Vendor name of the observer.", 
+        "example": "Symantec", 
         "footnote": "", 
         "group": 2, 
         "level": "core", 

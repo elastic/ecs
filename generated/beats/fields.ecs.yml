@@ -1822,11 +1822,11 @@
 
       This could be a custom hardware appliance or a server that has been configured
       to run special network, security, or application software. Examples include
-      firewalls, intrusion detection/prevention systems, network monitoring sensors,
-      web application firewalls, data loss prevention systems, and APM servers. The
-      observer.* fields shall be populated with details of the system, if any, that
-      detects, observes and/or creates a network, security, or application event or
-      metric. Message queues and ETL components used in processing events or metrics
+      firewalls, web proxies, intrusion detection/prevention systems, network monitoring
+      sensors, web application firewalls, data loss prevention systems, and APM servers.
+      The observer.* fields shall be populated with details of the system, if any,
+      that detects, observes and/or creates a network, security, or application event
+      or metric. Message queues and ETL components used in processing events or metrics
       are not considered observers in ECS.'
     type: group
     fields:
@@ -1897,6 +1897,17 @@
       type: keyword
       ignore_above: 1024
       description: MAC address of the observer
+    - name: name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Custom name of the observer.
+
+        This is a name that can be given to an observer. This can be helpful for example
+        if multiple firewalls of the same model are used in an organization.
+
+        If no custom name is needed, the field can be left empty.'
+      example: 1_proxySG
     - name: os.family
       level: extended
       type: keyword
@@ -1933,6 +1944,12 @@
       ignore_above: 1024
       description: Operating system version as a raw string.
       example: 10.14.1
+    - name: product
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The product name of the observer.
+      example: s200
     - name: serial_number
       level: extended
       type: keyword
@@ -1951,7 +1968,8 @@
       level: core
       type: keyword
       ignore_above: 1024
-      description: observer vendor information.
+      description: Vendor name of the observer.
+      example: Symantec
     - name: version
       level: core
       type: keyword

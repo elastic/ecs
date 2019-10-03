@@ -2442,7 +2442,7 @@ example: `ipv4`
 
 An observer is defined as a special network, security, or application device used to detect, observe, or create network, security, or application-related events and metrics.
 
-This could be a custom hardware appliance or a server that has been configured to run special network, security, or application software. Examples include firewalls, intrusion detection/prevention systems, network monitoring sensors, web application firewalls, data loss prevention systems, and APM servers. The observer.* fields shall be populated with details of the system, if any, that detects, observes and/or creates a network, security, or application event or metric. Message queues and ETL components used in processing events or metrics are not considered observers in ECS.
+This could be a custom hardware appliance or a server that has been configured to run special network, security, or application software. Examples include firewalls, web proxies, intrusion detection/prevention systems, network monitoring sensors, web application firewalls, data loss prevention systems, and APM servers. The observer.* fields shall be populated with details of the system, if any, that detects, observes and/or creates a network, security, or application event or metric. Message queues and ETL components used in processing events or metrics are not considered observers in ECS.
 
 ==== Observer Field Details
 
@@ -2485,6 +2485,32 @@ type: keyword
 
 // ===============================================================
 
+| observer.name
+| Custom name of the observer.
+
+This is a name that can be given to an observer. This can be helpful for example if multiple firewalls of the same model are used in an organization.
+
+If no custom name is needed, the field can be left empty.
+
+type: keyword
+
+example: `1_proxySG`
+
+| extended
+
+// ===============================================================
+
+| observer.product
+| The product name of the observer.
+
+type: keyword
+
+example: `s200`
+
+| extended
+
+// ===============================================================
+
 | observer.serial_number
 | Observer serial number.
 
@@ -2510,11 +2536,11 @@ example: `firewall`
 // ===============================================================
 
 | observer.vendor
-| observer vendor information.
+| Vendor name of the observer.
 
 type: keyword
 
-
+example: `Symantec`
 
 | core
 

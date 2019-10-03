@@ -9,43 +9,73 @@
 
     This could be a custom hardware appliance or a server that has been configured
     to run special network, security, or application software.
-    Examples include firewalls, intrusion detection/prevention systems,
+    Examples include firewalls, web proxies, intrusion detection/prevention systems,
     network monitoring sensors, web application firewalls, data loss prevention systems, and APM servers.
     The observer.* fields shall be populated with details of the system, if any,
     that detects, observes and/or creates a network, security, or application event or metric.
     Message queues and ETL components used in processing events or metrics are not considered observers in ECS.
   type: group
   fields:
+
     - name: mac
       level: core
       type: keyword
       description: >
         MAC address of the observer
+
     - name: ip
       level: core
       type: ip
       description: >
         IP address of the observer.
+
     - name: hostname
       level: core
       type: keyword
       description: >
         Hostname of the observer.
+
+    - name: name
+      level: extended
+      type: keyword
+      short: Custom name of the observer.
+      description: >
+        Custom name of the observer.
+
+        This is a name that can be given to an observer. This can be helpful
+        for example if multiple firewalls of the same model are used in an
+        organization.
+
+        If no custom name is needed, the field can be left empty.
+
+      example: 1_proxySG
+
+    - name: product
+      level: extended
+      type: keyword
+      description: >
+        The product name of the observer.
+      example: s200
+
     - name: vendor
       level: core
       type: keyword
       description: >
-        observer vendor information.
+        Vendor name of the observer.
+      example: Symantec
+
     - name: version
       level: core
       type: keyword
       description: >
         Observer version.
+
     - name: serial_number
       level: extended
       type: keyword
       description: >
         Observer serial number.
+
     - name: type
       level: core
       type: keyword
