@@ -18,6 +18,7 @@ Thanks, you're awesome :-) -->
 * Add group.domain field #547
 * Added `url.extension` #551, #573
 * Added `observer.name` and `observer.product` #557, #571
+* Added `dns.question.subdomain` field. #561, #574
 * Added `error.stack_trace` field. #562
 * Added `log.origin.file.name`, `log.origin.function` and `log.origin.file.line` fields. #563
 * Added `service.node.name` to allow distinction between different nodes of the same service running on the same host. #565

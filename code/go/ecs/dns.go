@@ -81,6 +81,12 @@ type Dns struct {
 	// as "co.uk".
 	QuestionTopLevelDomain string `ecs:"question.top_level_domain"`
 
+	// The subdomain is all of the labels under the registered_domain.
+	// If the domain has multiple levels of subdomain, such as
+	// "sub2.sub1.example.com", the subdomain field should contain "sub2.sub1",
+	// with no trailing period.
+	QuestionSubdomain string `ecs:"question.subdomain"`
+
 	// An array containing an object for each answer section returned by the
 	// server.
 	// The main keys that should be present in these objects are defined by
