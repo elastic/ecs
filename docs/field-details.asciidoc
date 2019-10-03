@@ -339,6 +339,19 @@ example: `google.com`
 
 // ===============================================================
 
+| client.top_level_domain
+| The effective top level domain (eTLD), also known as the domain suffix, is the last part of the domain name. For example, the top level domain for google.com is "com".
+
+This value can be determined precisely with a list like the public suffix list (http://publicsuffix.org). Trying to approximate this by simply taking the last label will not work well for effective TLDs such as "co.uk".
+
+type: keyword
+
+example: `co.uk`
+
+| extended
+
+// ===============================================================
+
 |=====
 
 ==== Field Reuse
@@ -690,6 +703,19 @@ example: `google.com`
 
 // ===============================================================
 
+| destination.top_level_domain
+| The effective top level domain (eTLD), also known as the domain suffix, is the last part of the domain name. For example, the top level domain for google.com is "com".
+
+This value can be determined precisely with a list like the public suffix list (http://publicsuffix.org). Trying to approximate this by simply taking the last label will not work well for effective TLDs such as "co.uk".
+
+type: keyword
+
+example: `co.uk`
+
+| extended
+
+// ===============================================================
+
 |=====
 
 ==== Field Reuse
@@ -898,6 +924,19 @@ If the domain has multiple levels of subdomain, such as "sub2.sub1.example.com",
 type: keyword
 
 example: `www`
+
+| extended
+
+// ===============================================================
+
+| dns.question.top_level_domain
+| The effective top level domain (eTLD), also known as the domain suffix, is the last part of the domain name. For example, the top level domain for google.com is "com".
+
+This value can be determined precisely with a list like the public suffix list (http://publicsuffix.org). Trying to approximate this by simply taking the last label will not work well for effective TLDs such as "co.uk".
+
+type: keyword
+
+example: `co.uk`
 
 | extended
 
@@ -2455,7 +2494,7 @@ example: `ipv4`
 
 An observer is defined as a special network, security, or application device used to detect, observe, or create network, security, or application-related events and metrics.
 
-This could be a custom hardware appliance or a server that has been configured to run special network, security, or application software. Examples include firewalls, intrusion detection/prevention systems, network monitoring sensors, web application firewalls, data loss prevention systems, and APM servers. The observer.* fields shall be populated with details of the system, if any, that detects, observes and/or creates a network, security, or application event or metric. Message queues and ETL components used in processing events or metrics are not considered observers in ECS.
+This could be a custom hardware appliance or a server that has been configured to run special network, security, or application software. Examples include firewalls, web proxies, intrusion detection/prevention systems, network monitoring sensors, web application firewalls, data loss prevention systems, and APM servers. The observer.* fields shall be populated with details of the system, if any, that detects, observes and/or creates a network, security, or application event or metric. Message queues and ETL components used in processing events or metrics are not considered observers in ECS.
 
 ==== Observer Field Details
 
@@ -2498,6 +2537,32 @@ type: keyword
 
 // ===============================================================
 
+| observer.name
+| Custom name of the observer.
+
+This is a name that can be given to an observer. This can be helpful for example if multiple firewalls of the same model are used in an organization.
+
+If no custom name is needed, the field can be left empty.
+
+type: keyword
+
+example: `1_proxySG`
+
+| extended
+
+// ===============================================================
+
+| observer.product
+| The product name of the observer.
+
+type: keyword
+
+example: `s200`
+
+| extended
+
+// ===============================================================
+
 | observer.serial_number
 | Observer serial number.
 
@@ -2523,11 +2588,11 @@ example: `firewall`
 // ===============================================================
 
 | observer.vendor
-| observer vendor information.
+| Vendor name of the observer.
 
 type: keyword
 
-
+example: `Symantec`
 
 | core
 
@@ -2703,6 +2768,133 @@ Note also that the `os` fields are not expected to be used directly at the top l
 
 
 
+
+[[ecs-package]]
+=== Package Fields
+
+These fields contain information about an installed software package. It contains general information about a package, such as name, version or size. It also contains installation details, such as time or location.
+
+==== Package Field Details
+
+[options="header"]
+|=====
+| Field  | Description | Level
+
+// ===============================================================
+
+| package.architecture
+| Package architecture.
+
+type: keyword
+
+example: `x86_64`
+
+| extended
+
+// ===============================================================
+
+| package.checksum
+| Checksum of the installed package for verification.
+
+type: keyword
+
+example: `68b329da9893e34099c7d8ad5cb9c940`
+
+| extended
+
+// ===============================================================
+
+| package.description
+| Description of the package.
+
+type: keyword
+
+example: `Open source programming language to build simple/reliable/efficient software.`
+
+| extended
+
+// ===============================================================
+
+| package.install_scope
+| Indicating how the package was installed, e.g. user-local, global.
+
+type: keyword
+
+example: `global`
+
+| extended
+
+// ===============================================================
+
+| package.installed
+| Time when package was installed.
+
+type: date
+
+
+
+| extended
+
+// ===============================================================
+
+| package.license
+| License under which the package was released.
+
+Use a short name, e.g. the license identifier from SPDX License List where possible (https://spdx.org/licenses/).
+
+type: keyword
+
+example: `Apache License 2.0`
+
+| extended
+
+// ===============================================================
+
+| package.name
+| Package name
+
+type: keyword
+
+example: `go`
+
+| extended
+
+// ===============================================================
+
+| package.path
+| Path where the package is installed.
+
+type: keyword
+
+example: `/usr/local/Cellar/go/1.12.9/`
+
+| extended
+
+// ===============================================================
+
+| package.size
+| Package size in bytes.
+
+type: long
+
+example: `62231`
+
+| extended
+
+// ===============================================================
+
+| package.version
+| Package version
+
+type: keyword
+
+example: `1.12.9`
+
+| extended
+
+// ===============================================================
+
+|=====
 
 [[ecs-process]]
 === Process Fields
@@ -3051,6 +3243,19 @@ example: `google.com`
 
 // ===============================================================
 
+| server.top_level_domain
+| The effective top level domain (eTLD), also known as the domain suffix, is the last part of the domain name. For example, the top level domain for google.com is "com".
+
+This value can be determined precisely with a list like the public suffix list (http://publicsuffix.org). Trying to approximate this by simply taking the last label will not work well for effective TLDs such as "co.uk".
+
+type: keyword
+
+example: `co.uk`
+
+| extended
+
+// ===============================================================
+
 |=====
 
 ==== Field Reuse
@@ -3339,6 +3544,19 @@ example: `google.com`
 
 // ===============================================================
 
+| source.top_level_domain
+| The effective top level domain (eTLD), also known as the domain suffix, is the last part of the domain name. For example, the top level domain for google.com is "com".
+
+This value can be determined precisely with a list like the public suffix list (http://publicsuffix.org). Trying to approximate this by simply taking the last label will not work well for effective TLDs such as "co.uk".
+
+type: keyword
+
+example: `co.uk`
+
+| extended
+
+// ===============================================================
+
 |=====
 
 ==== Field Reuse
@@ -3373,6 +3591,100 @@ example: `google.com`
 
 // ===============================================================
 
+
+|=====
+
+[[ecs-threat]]
+=== Threat Fields
+
+Fields to classify events and alerts according to a threat taxonomy such as the Mitre ATT&CK framework.
+
+These fields are for users to classify alerts from all of their sources (e.g. IDS, NGFW, etc.) within a  common taxonomy. The threat.tactic.* are meant to capture the high level category of the threat  (e.g. "impact"). The threat.technique.* fields are meant to capture which kind of approach is used by  this detected threat, to accomplish the goal (e.g. "endpoint denial of service").
+
+==== Threat Field Details
+
+[options="header"]
+|=====
+| Field  | Description | Level
+
+// ===============================================================
+
+| threat.framework
+| Name of the threat framework used to further categorize and classify the tactic and technique of the reported threat.   Framework classification can be provided by detecting systems, evaluated at ingest time, or retrospectively tagged to events.
+
+type: keyword
+
+example: `MITRE ATT&CK`
+
+| extended
+
+// ===============================================================
+
+| threat.tactic.id
+| The id of tactic used by this threat. You can use the Mitre ATT&CK Matrix Tactic categorization, for example. (ex. https://attack.mitre.org/tactics/TA0040/ )
+
+type: keyword
+
+example: `TA0040`
+
+| extended
+
+// ===============================================================
+
+| threat.tactic.name
+| Name of the type of tactic used by this threat. You can use the Mitre ATT&CK Matrix Tactic categorization, for example. (ex. https://attack.mitre.org/tactics/TA0040/ )
+
+type: keyword
+
+example: `impact`
+
+| extended
+
+// ===============================================================
+
+| threat.tactic.reference
+| The reference url of tactic used by this threat. You can use the Mitre ATT&CK Matrix Tactic categorization, for example. (ex. https://attack.mitre.org/tactics/TA0040/ )
+
+type: keyword
+
+example: `https://attack.mitre.org/tactics/TA0040/`
+
+| extended
+
+// ===============================================================
+
+| threat.technique.id
+| The id of technique used by this tactic. You can use the Mitre ATT&CK Matrix Tactic categorization, for example. (ex. https://attack.mitre.org/techniques/T1499/ )
+
+type: keyword
+
+example: `T1499`
+
+| extended
+
+// ===============================================================
+
+| threat.technique.name
+| The name of technique used by this tactic. You can use the Mitre ATT&CK Matrix Tactic categorization, for example. (ex. https://attack.mitre.org/techniques/T1499/ )
+
+type: keyword
+
+example: `endpoint denial of service`
+
+| extended
+
+// ===============================================================
+
+| threat.technique.reference
+| The reference url of technique used by this tactic. You can use the Mitre ATT&CK Matrix Tactic categorization, for example. (ex. https://attack.mitre.org/techniques/T1499/ )
+
+type: keyword
+
+example: `https://attack.mitre.org/techniques/T1499/`
+
+| extended
+
+// ===============================================================
 
 |=====
 
@@ -3438,6 +3750,21 @@ In some cases a URL may refer to an IP and/or port directly, without a domain na
 type: keyword
 
 example: `www.elastic.co`
+
+| extended
+
+// ===============================================================
+
+| url.extension
+| The field contains the file extension from the original request url.
+
+The file extension is only set if it exists, as not every url has a file extension.
+
+The leading period must not be included. For example, the value must be "png", not ".png".
+
+type: keyword
+
+example: `png`
 
 | extended
 
@@ -3551,6 +3878,19 @@ Note: The `:` is not part of the scheme.
 type: keyword
 
 example: `https`
+
+| extended
+
+// ===============================================================
+
+| url.top_level_domain
+| The effective top level domain (eTLD), also known as the domain suffix, is the last part of the domain name. For example, the top level domain for google.com is "com".
+
+This value can be determined precisely with a list like the public suffix list (http://publicsuffix.org). Trying to approximate this by simply taking the last label will not work well for effective TLDs such as "co.uk".
+
+type: keyword
+
+example: `co.uk`
 
 | extended
 

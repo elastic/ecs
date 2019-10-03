@@ -52,6 +52,15 @@ type Url struct {
 	// "co.uk".
 	RegisteredDomain string `ecs:"registered_domain"`
 
+	// The effective top level domain (eTLD), also known as the domain suffix,
+	// is the last part of the domain name. For example, the top level domain
+	// for google.com is "com".
+	// This value can be determined precisely with a list like the public
+	// suffix list (http://publicsuffix.org). Trying to approximate this by
+	// simply taking the last label will not work well for effective TLDs such
+	// as "co.uk".
+	TopLevelDomain string `ecs:"top_level_domain"`
+
 	// Port of the request, such as 443.
 	Port int64 `ecs:"port"`
 
@@ -65,6 +74,13 @@ type Url struct {
 	// exists with an empty string. The `exists` query can be used to
 	// differentiate between the two cases.
 	Query string `ecs:"query"`
+
+	// The field contains the file extension from the original request url.
+	// The file extension is only set if it exists, as not every url has a file
+	// extension.
+	// The leading period must not be included. For example, the value must be
+	// "png", not ".png".
+	Extension string `ecs:"extension"`
 
 	// Portion of the url after the `#`, such as "top".
 	// The `#` is not part of the fragment.

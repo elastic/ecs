@@ -254,7 +254,7 @@ client:
       format: bytes
       level: core
       name: bytes
-      order: 6
+      order: 7
       short: Bytes sent from the client to the server.
       type: long
     domain:
@@ -386,7 +386,7 @@ client:
       flat_name: client.nat.ip
       level: extended
       name: nat.ip
-      order: 8
+      order: 9
       short: Client NAT ip address
       type: ip
     nat.port:
@@ -398,7 +398,7 @@ client:
       format: string
       level: extended
       name: nat.port
-      order: 9
+      order: 10
       short: Client NAT port
       type: long
     packets:
@@ -407,7 +407,7 @@ client:
       flat_name: client.packets
       level: core
       name: packets
-      order: 7
+      order: 8
       short: Packets sent from the client to the server.
       type: long
     port:
@@ -434,6 +434,22 @@ client:
       name: registered_domain
       order: 5
       short: The highest registered client domain, stripped of the subdomain.
+      type: keyword
+    top_level_domain:
+      description: 'The effective top level domain (eTLD), also known as the domain
+        suffix, is the last part of the domain name. For example, the top level domain
+        for google.com is "com".
+
+        This value can be determined precisely with a list like the public suffix
+        list (http://publicsuffix.org). Trying to approximate this by simply taking
+        the last label will not work well for effective TLDs such as "co.uk".'
+      example: co.uk
+      flat_name: client.top_level_domain
+      ignore_above: 1024
+      level: extended
+      name: top_level_domain
+      order: 6
+      short: The effective top level domain (com, org, net, co.uk).
       type: keyword
     user.domain:
       description: 'Name of the directory the user is a member of.
@@ -749,7 +765,7 @@ destination:
       format: bytes
       level: core
       name: bytes
-      order: 6
+      order: 7
       short: Bytes sent from the destination to the source.
       type: long
     domain:
@@ -881,7 +897,7 @@ destination:
       flat_name: destination.nat.ip
       level: extended
       name: nat.ip
-      order: 8
+      order: 9
       short: Destination NAT ip
       type: ip
     nat.port:
@@ -892,7 +908,7 @@ destination:
       format: string
       level: extended
       name: nat.port
-      order: 9
+      order: 10
       short: Destination NAT Port
       type: long
     packets:
@@ -901,7 +917,7 @@ destination:
       flat_name: destination.packets
       level: core
       name: packets
-      order: 7
+      order: 8
       short: Packets sent from the destination to the source.
       type: long
     port:
@@ -928,6 +944,22 @@ destination:
       name: registered_domain
       order: 5
       short: The highest registered destination domain, stripped of the subdomain.
+      type: keyword
+    top_level_domain:
+      description: 'The effective top level domain (eTLD), also known as the domain
+        suffix, is the last part of the domain name. For example, the top level domain
+        for google.com is "com".
+
+        This value can be determined precisely with a list like the public suffix
+        list (http://publicsuffix.org). Trying to approximate this by simply taking
+        the last label will not work well for effective TLDs such as "co.uk".'
+      example: co.uk
+      flat_name: destination.top_level_domain
+      ignore_above: 1024
+      level: extended
+      name: top_level_domain
+      order: 6
+      short: The effective top level domain (com, org, net, co.uk).
       type: keyword
     user.domain:
       description: 'Name of the directory the user is a member of.
@@ -1061,7 +1093,7 @@ dns:
       level: extended
       name: answers
       object_type: keyword
-      order: 10
+      order: 11
       short: Array of DNS answers.
       type: object
     answers.class:
@@ -1071,7 +1103,7 @@ dns:
       ignore_above: 1024
       level: extended
       name: answers.class
-      order: 13
+      order: 14
       short: The class of DNS data contained in this resource record.
       type: keyword
     answers.data:
@@ -1083,7 +1115,7 @@ dns:
       ignore_above: 1024
       level: extended
       name: answers.data
-      order: 15
+      order: 16
       short: The data describing the resource.
       type: keyword
     answers.name:
@@ -1097,7 +1129,7 @@ dns:
       ignore_above: 1024
       level: extended
       name: answers.name
-      order: 11
+      order: 12
       short: The domain name to which this resource record pertains.
       type: keyword
     answers.ttl:
@@ -1108,7 +1140,7 @@ dns:
       flat_name: dns.answers.ttl
       level: extended
       name: answers.ttl
-      order: 14
+      order: 15
       short: The time interval in seconds that this resource record may be cached
         before it should be discarded. Zero values mean that the data should not be
         cached.
@@ -1120,7 +1152,7 @@ dns:
       ignore_above: 1024
       level: extended
       name: answers.type
-      order: 12
+      order: 13
       short: The type of data contained in this resource record.
       type: keyword
     header_flags:
@@ -1213,8 +1245,24 @@ dns:
       ignore_above: 1024
       level: extended
       name: question.subdomain
-      order: 9
+      order: 10
       short: The subdomain of the domain.
+      type: keyword
+    question.top_level_domain:
+      description: 'The effective top level domain (eTLD), also known as the domain
+        suffix, is the last part of the domain name. For example, the top level domain
+        for google.com is "com".
+
+        This value can be determined precisely with a list like the public suffix
+        list (http://publicsuffix.org). Trying to approximate this by simply taking
+        the last label will not work well for effective TLDs such as "co.uk".'
+      example: co.uk
+      flat_name: dns.question.top_level_domain
+      ignore_above: 1024
+      level: extended
+      name: question.top_level_domain
+      order: 9
+      short: The effective top level domain (com, org, net, co.uk).
       type: keyword
     question.type:
       description: The type of record being queried.
@@ -1239,7 +1287,7 @@ dns:
       flat_name: dns.resolved_ip
       level: extended
       name: resolved_ip
-      order: 16
+      order: 17
       short: Array containing all IPs seen in answers.data
       type: ip
     response_code:
@@ -2917,12 +2965,12 @@ observer:
 
     This could be a custom hardware appliance or a server that has been configured
     to run special network, security, or application software. Examples include firewalls,
-    intrusion detection/prevention systems, network monitoring sensors, web application
-    firewalls, data loss prevention systems, and APM servers. The observer.* fields
-    shall be populated with details of the system, if any, that detects, observes
-    and/or creates a network, security, or application event or metric. Message queues
-    and ETL components used in processing events or metrics are not considered observers
-    in ECS.'
+    web proxies, intrusion detection/prevention systems, network monitoring sensors,
+    web application firewalls, data loss prevention systems, and APM servers. The
+    observer.* fields shall be populated with details of the system, if any, that
+    detects, observes and/or creates a network, security, or application event or
+    metric. Message queues and ETL components used in processing events or metrics
+    are not considered observers in ECS.'
   fields:
     geo.city_name:
       description: City name.
@@ -3043,6 +3091,21 @@ observer:
       order: 0
       short: MAC address of the observer
       type: keyword
+    name:
+      description: 'Custom name of the observer.
+
+        This is a name that can be given to an observer. This can be helpful for example
+        if multiple firewalls of the same model are used in an organization.
+
+        If no custom name is needed, the field can be left empty.'
+      example: 1_proxySG
+      flat_name: observer.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      order: 3
+      short: Custom name of the observer.
+      type: keyword
     os.family:
       description: OS family (such as redhat, debian, freebsd, windows).
       example: debian
@@ -3109,13 +3172,23 @@ observer:
       original_fieldset: os
       short: Operating system version as a raw string.
       type: keyword
+    product:
+      description: The product name of the observer.
+      example: s200
+      flat_name: observer.product
+      ignore_above: 1024
+      level: extended
+      name: product
+      order: 4
+      short: The product name of the observer.
+      type: keyword
     serial_number:
       description: Observer serial number.
       flat_name: observer.serial_number
       ignore_above: 1024
       level: extended
       name: serial_number
-      order: 5
+      order: 7
       short: Observer serial number.
       type: keyword
     type:
@@ -3128,17 +3201,18 @@ observer:
       ignore_above: 1024
       level: core
       name: type
-      order: 6
+      order: 8
       short: The type of the observer the data is coming from.
       type: keyword
     vendor:
-      description: observer vendor information.
+      description: Vendor name of the observer.
+      example: Symantec
       flat_name: observer.vendor
       ignore_above: 1024
       level: core
       name: vendor
-      order: 3
-      short: observer vendor information.
+      order: 5
+      short: Vendor name of the observer.
       type: keyword
     version:
       description: Observer version.
@@ -3146,7 +3220,7 @@ observer:
       ignore_above: 1024
       level: core
       name: version
-      order: 4
+      order: 6
       short: Observer version.
       type: keyword
   group: 2
@@ -3263,6 +3337,119 @@ os:
     top_level: false
   short: OS fields contain information about the operating system.
   title: Operating System
+  type: group
+package:
+  description: These fields contain information about an installed software package.
+    It contains general information about a package, such as name, version or size.
+    It also contains installation details, such as time or location.
+  fields:
+    architecture:
+      description: Package architecture.
+      example: x86_64
+      flat_name: package.architecture
+      ignore_above: 1024
+      level: extended
+      name: architecture
+      order: 6
+      short: Package architecture.
+      type: keyword
+    checksum:
+      description: Checksum of the installed package for verification.
+      example: 68b329da9893e34099c7d8ad5cb9c940
+      flat_name: package.checksum
+      ignore_above: 1024
+      level: extended
+      name: checksum
+      order: 7
+      short: Checksum of the installed package for verification.
+      type: keyword
+    description:
+      description: Description of the package.
+      example: Open source programming language to build simple/reliable/efficient
+        software.
+      flat_name: package.description
+      ignore_above: 1024
+      level: extended
+      name: description
+      order: 2
+      short: Description of the package.
+      type: keyword
+    install_scope:
+      description: Indicating how the package was installed, e.g. user-local, global.
+      example: global
+      flat_name: package.install_scope
+      ignore_above: 1024
+      level: extended
+      name: install_scope
+      order: 8
+      short: Indicating how the package was installed, e.g. user-local, global.
+      type: keyword
+    installed:
+      description: Time when package was installed.
+      flat_name: package.installed
+      level: extended
+      name: installed
+      order: 4
+      short: Time when package was installed.
+      type: date
+    license:
+      description: 'License under which the package was released.
+
+        Use a short name, e.g. the license identifier from SPDX License List where
+        possible (https://spdx.org/licenses/).'
+      example: Apache License 2.0
+      flat_name: package.license
+      ignore_above: 1024
+      level: extended
+      name: license
+      order: 9
+      short: Package license
+      type: keyword
+    name:
+      description: Package name
+      example: go
+      flat_name: package.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      order: 0
+      short: Package name
+      type: keyword
+    path:
+      description: Path where the package is installed.
+      example: /usr/local/Cellar/go/1.12.9/
+      flat_name: package.path
+      ignore_above: 1024
+      level: extended
+      name: path
+      order: 5
+      short: Path where the package is installed.
+      type: keyword
+    size:
+      description: Package size in bytes.
+      example: 62231
+      flat_name: package.size
+      format: string
+      level: extended
+      name: size
+      order: 3
+      short: Package size in bytes.
+      type: long
+    version:
+      description: Package version
+      example: 1.12.9
+      flat_name: package.version
+      ignore_above: 1024
+      level: extended
+      name: version
+      order: 1
+      short: Package version
+      type: keyword
+  group: 2
+  name: package
+  prefix: package.
+  short: These fields contain information about an installed software package.
+  title: Package
   type: group
 process:
   description: 'These fields contain information about a process.
@@ -3533,7 +3720,7 @@ server:
       format: bytes
       level: core
       name: bytes
-      order: 6
+      order: 7
       short: Bytes sent from the server to the client.
       type: long
     domain:
@@ -3665,7 +3852,7 @@ server:
       flat_name: server.nat.ip
       level: extended
       name: nat.ip
-      order: 8
+      order: 9
       short: Server NAT ip
       type: ip
     nat.port:
@@ -3677,7 +3864,7 @@ server:
       format: string
       level: extended
       name: nat.port
-      order: 9
+      order: 10
       short: Server NAT port
       type: long
     packets:
@@ -3686,7 +3873,7 @@ server:
       flat_name: server.packets
       level: core
       name: packets
-      order: 7
+      order: 8
       short: Packets sent from the server to the client.
       type: long
     port:
@@ -3713,6 +3900,22 @@ server:
       name: registered_domain
       order: 5
       short: The highest registered server domain, stripped of the subdomain.
+      type: keyword
+    top_level_domain:
+      description: 'The effective top level domain (eTLD), also known as the domain
+        suffix, is the last part of the domain name. For example, the top level domain
+        for google.com is "com".
+
+        This value can be determined precisely with a list like the public suffix
+        list (http://publicsuffix.org). Trying to approximate this by simply taking
+        the last label will not work well for effective TLDs such as "co.uk".'
+      example: co.uk
+      flat_name: server.top_level_domain
+      ignore_above: 1024
+      level: extended
+      name: top_level_domain
+      order: 6
+      short: The effective top level domain (com, org, net, co.uk).
       type: keyword
     user.domain:
       description: 'Name of the directory the user is a member of.
@@ -3991,7 +4194,7 @@ source:
       format: bytes
       level: core
       name: bytes
-      order: 6
+      order: 7
       short: Bytes sent from the source to the destination.
       type: long
     domain:
@@ -4123,7 +4326,7 @@ source:
       flat_name: source.nat.ip
       level: extended
       name: nat.ip
-      order: 8
+      order: 9
       short: Source NAT ip
       type: ip
     nat.port:
@@ -4135,7 +4338,7 @@ source:
       format: string
       level: extended
       name: nat.port
-      order: 9
+      order: 10
       short: Source NAT port
       type: long
     packets:
@@ -4144,7 +4347,7 @@ source:
       flat_name: source.packets
       level: core
       name: packets
-      order: 7
+      order: 8
       short: Packets sent from the source to the destination.
       type: long
     port:
@@ -4171,6 +4374,22 @@ source:
       name: registered_domain
       order: 5
       short: The highest registered source domain, stripped of the subdomain.
+      type: keyword
+    top_level_domain:
+      description: 'The effective top level domain (eTLD), also known as the domain
+        suffix, is the last part of the domain name. For example, the top level domain
+        for google.com is "com".
+
+        This value can be determined precisely with a list like the public suffix
+        list (http://publicsuffix.org). Trying to approximate this by simply taking
+        the last label will not work well for effective TLDs such as "co.uk".'
+      example: co.uk
+      flat_name: source.top_level_domain
+      ignore_above: 1024
+      level: extended
+      name: top_level_domain
+      order: 6
+      short: The effective top level domain (com, org, net, co.uk).
       type: keyword
     user.domain:
       description: 'Name of the directory the user is a member of.
@@ -4282,6 +4501,107 @@ source:
   short: Fields about the source side of a network connection, used with destination.
   title: Source
   type: group
+threat:
+  description: 'Fields to classify events and alerts according to a threat taxonomy
+    such as the Mitre ATT&CK framework.
+
+    These fields are for users to classify alerts from all of their sources (e.g.
+    IDS, NGFW, etc.) within a  common taxonomy. The threat.tactic.* are meant to capture
+    the high level category of the threat  (e.g. "impact"). The threat.technique.*
+    fields are meant to capture which kind of approach is used by  this detected threat,
+    to accomplish the goal (e.g. "endpoint denial of service").'
+  fields:
+    framework:
+      description: Name of the threat framework used to further categorize and classify
+        the tactic and technique of the reported threat.   Framework classification
+        can be provided by detecting systems, evaluated at ingest time, or retrospectively
+        tagged to events.
+      example: MITRE ATT&CK
+      flat_name: threat.framework
+      ignore_above: 1024
+      level: extended
+      name: framework
+      order: 0
+      short: Threat classification framework.
+      type: keyword
+    tactic.id:
+      description: The id of tactic used by this threat. You can use the Mitre ATT&CK
+        Matrix Tactic categorization, for example. (ex. https://attack.mitre.org/tactics/TA0040/
+        )
+      example: TA0040
+      flat_name: threat.tactic.id
+      ignore_above: 1024
+      level: extended
+      name: tactic.id
+      order: 2
+      short: Threat tactic id.
+      type: keyword
+    tactic.name:
+      description: Name of the type of tactic used by this threat. You can use the
+        Mitre ATT&CK Matrix Tactic categorization, for example. (ex. https://attack.mitre.org/tactics/TA0040/
+        )
+      example: impact
+      flat_name: threat.tactic.name
+      ignore_above: 1024
+      level: extended
+      name: tactic.name
+      order: 1
+      short: Threat tactic.
+      type: keyword
+    tactic.reference:
+      description: The reference url of tactic used by this threat. You can use the
+        Mitre ATT&CK Matrix Tactic categorization, for example. (ex. https://attack.mitre.org/tactics/TA0040/
+        )
+      example: https://attack.mitre.org/tactics/TA0040/
+      flat_name: threat.tactic.reference
+      ignore_above: 1024
+      level: extended
+      name: tactic.reference
+      order: 3
+      short: Threat tactic url reference.
+      type: keyword
+    technique.id:
+      description: The id of technique used by this tactic. You can use the Mitre
+        ATT&CK Matrix Tactic categorization, for example. (ex. https://attack.mitre.org/techniques/T1499/
+        )
+      example: T1499
+      flat_name: threat.technique.id
+      ignore_above: 1024
+      level: extended
+      name: technique.id
+      order: 5
+      short: Threat technique id.
+      type: keyword
+    technique.name:
+      description: The name of technique used by this tactic. You can use the Mitre
+        ATT&CK Matrix Tactic categorization, for example. (ex. https://attack.mitre.org/techniques/T1499/
+        )
+      example: endpoint denial of service
+      flat_name: threat.technique.name
+      ignore_above: 1024
+      level: extended
+      name: technique.name
+      order: 4
+      short: Threat technique name.
+      type: keyword
+    technique.reference:
+      description: The reference url of technique used by this tactic. You can use
+        the Mitre ATT&CK Matrix Tactic categorization, for example. (ex. https://attack.mitre.org/techniques/T1499/
+        )
+      example: https://attack.mitre.org/techniques/T1499/
+      flat_name: threat.technique.reference
+      ignore_above: 1024
+      level: extended
+      name: technique.reference
+      order: 6
+      short: Threat technique reference.
+      type: keyword
+  group: 2
+  name: threat
+  prefix: threat.
+  short: Fields to classify events and alerts according to a threat taxonomy.
+  title: Threat
+  type: group
 tracing:
   description: Distributed tracing makes it possible to analyze performance throughout
     a microservice architecture all in one view. This is accomplished by tracing all
@@ -4338,6 +4658,22 @@ url:
       order: 3
       short: Domain of the url.
       type: keyword
+    extension:
+      description: 'The field contains the file extension from the original request
+        url.
+
+        The file extension is only set if it exists, as not every url has a file extension.
+
+        The leading period must not be included. For example, the value must be "png",
+        not ".png".'
+      example: png
+      flat_name: url.extension
+      ignore_above: 1024
+      level: extended
+      name: extension
+      order: 9
+      short: File extension from the original request url.
+      type: keyword
     fragment:
       description: 'Portion of the url after the `#`, such as "top".
 
@@ -4346,7 +4682,7 @@ url:
       ignore_above: 1024
       level: extended
       name: fragment
-      order: 8
+      order: 10
       short: Portion of the url after the `#`.
       type: keyword
     full:
@@ -4382,7 +4718,7 @@ url:
       ignore_above: 1024
       level: extended
       name: password
-      order: 10
+      order: 12
       short: Password of the request.
       type: keyword
     path:
@@ -4391,7 +4727,7 @@ url:
       ignore_above: 1024
       level: extended
       name: path
-      order: 6
+      order: 7
       short: Path of the request, such as "/search".
       type: keyword
     port:
@@ -4401,7 +4737,7 @@ url:
       format: string
       level: extended
       name: port
-      order: 5
+      order: 6
       short: Port of the request, such as 443.
       type: long
     query:
@@ -4416,7 +4752,7 @@ url:
       ignore_above: 1024
       level: extended
       name: query
-      order: 7
+      order: 8
       short: Query string of the request.
       type: keyword
     registered_domain:
@@ -4447,13 +4783,29 @@ url:
       order: 2
       short: Scheme of the url.
       type: keyword
+    top_level_domain:
+      description: 'The effective top level domain (eTLD), also known as the domain
+        suffix, is the last part of the domain name. For example, the top level domain
+        for google.com is "com".
+
+        This value can be determined precisely with a list like the public suffix
+        list (http://publicsuffix.org). Trying to approximate this by simply taking
+        the last label will not work well for effective TLDs such as "co.uk".'
+      example: co.uk
+      flat_name: url.top_level_domain
+      ignore_above: 1024
+      level: extended
+      name: top_level_domain
+      order: 5
+      short: The effective top level domain (com, org, net, co.uk).
+      type: keyword
     username:
       description: Username of the request.
       flat_name: url.username
       ignore_above: 1024
       level: extended
       name: username
-      order: 9
+      order: 11
       short: Username of the request.
       type: keyword
   group: 2
