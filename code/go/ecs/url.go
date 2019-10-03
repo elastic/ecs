@@ -75,9 +75,11 @@ type Url struct {
 	// differentiate between the two cases.
 	Query string `ecs:"query"`
 
-	// The field contains the file extension from the original request url. The
-	// file extension is only set if it exists, as not every url has a file
+	// The field contains the file extension from the original request url.
+	// The file extension is only set if it exists, as not every url has a file
 	// extension.
+	// The leading period must not be included. For example, the value must be
+	// "png", not ".png".
 	Extension string `ecs:"extension"`
 
 	// Portion of the url after the `#`, such as "top".

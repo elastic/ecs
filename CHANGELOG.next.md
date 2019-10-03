@@ -16,6 +16,7 @@ Thanks, you're awesome :-) -->
 * Added `top_level_domain` field to `url`, `dns.question`,
     `source`, `destination`, `client`, and `server`. #562, #572
 * Add group.domain field #547
+* Added `url.extension` #551, #573
 * Added `observer.name` and `observer.product` #557, #571
 * Added `error.stack_trace` field. #562
 * Added `log.origin.file.name`, `log.origin.function` and `log.origin.file.line` fields. #563
