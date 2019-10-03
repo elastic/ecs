@@ -19,6 +19,8 @@ Thanks, you're awesome :-) -->
 * Added `service.node.name` to allow distinction between different nodes of the same service running on the same host. #565
 * Added `error.type` field. #566
 
+* Added Threat fields #505
+
 ### Improvements
 
 ### Deprecated

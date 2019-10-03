@@ -4382,6 +4382,107 @@ source:
   short: Fields about the source side of a network connection, used with destination.
   title: Source
   type: group
+threat:
+  description: 'Fields to classify events and alerts according to a threat taxonomy
+    such as the Mitre ATT&CK framework.
+
+    These fields are for users to classify alerts from all of their sources (e.g.
+    IDS, NGFW, etc.) within a  common taxonomy. The threat.tactic.* are meant to capture
+    the high level category of the threat  (e.g. "impact"). The threat.technique.*
+    fields are meant to capture which kind of approach is used by  this detected threat,
+    to accomplish the goal (e.g. "endpoint denial of service").'
+  fields:
+    framework:
+      description: Name of the threat framework used to further categorize and classify
+        the tactic and technique of the reported threat.   Framework classification
+        can be provided by detecting systems, evaluated at ingest time, or retrospectively
+        tagged to events.
+      example: MITRE ATT&CK
+      flat_name: threat.framework
+      ignore_above: 1024
+      level: extended
+      name: framework
+      order: 0
+      short: Threat classification framework.
+      type: keyword
+    tactic.id:
+      description: The id of tactic used by this threat. You can use the Mitre ATT&CK
+        Matrix Tactic categorization, for example. (ex. https://attack.mitre.org/tactics/TA0040/
+        )
+      example: TA0040
+      flat_name: threat.tactic.id
+      ignore_above: 1024
+      level: extended
+      name: tactic.id
+      order: 2
+      short: Threat tactic id.
+      type: keyword
+    tactic.name:
+      description: Name of the type of tactic used by this threat. You can use the
+        Mitre ATT&CK Matrix Tactic categorization, for example. (ex. https://attack.mitre.org/tactics/TA0040/
+        )
+      example: impact
+      flat_name: threat.tactic.name
+      ignore_above: 1024
+      level: extended
+      name: tactic.name
+      order: 1
+      short: Threat tactic.
+      type: keyword
+    tactic.reference:
+      description: The reference url of tactic used by this threat. You can use the
+        Mitre ATT&CK Matrix Tactic categorization, for example. (ex. https://attack.mitre.org/tactics/TA0040/
+        )
+      example: https://attack.mitre.org/tactics/TA0040/
+      flat_name: threat.tactic.reference
+      ignore_above: 1024
+      level: extended
+      name: tactic.reference
+      order: 3
+      short: Threat tactic url reference.
+      type: keyword
+    technique.id:
+      description: The id of technique used by this tactic. You can use the Mitre
+        ATT&CK Matrix Tactic categorization, for example. (ex. https://attack.mitre.org/techniques/T1499/
+        )
+      example: T1499
+      flat_name: threat.technique.id
+      ignore_above: 1024
+      level: extended
+      name: technique.id
+      order: 5
+      short: Threat technique id.
+      type: keyword
+    technique.name:
+      description: The name of technique used by this tactic. You can use the Mitre
+        ATT&CK Matrix Tactic categorization, for example. (ex. https://attack.mitre.org/techniques/T1499/
+        )
+      example: endpoint denial of service
+      flat_name: threat.technique.name
+      ignore_above: 1024
+      level: extended
+      name: technique.name
+      order: 4
+      short: Threat technique name.
+      type: keyword
+    technique.reference:
+      description: The reference url of technique used by this tactic. You can use
+        the Mitre ATT&CK Matrix Tactic categorization, for example. (ex. https://attack.mitre.org/techniques/T1499/
+        )
+      example: https://attack.mitre.org/techniques/T1499/
+      flat_name: threat.technique.reference
+      ignore_above: 1024
+      level: extended
+      name: technique.reference
+      order: 6
+      short: Threat technique reference.
+      type: keyword
+  group: 2
+  name: threat
+  prefix: threat.
+  short: Fields to classify events and alerts according to a threat taxonomy.
+  title: Threat
+  type: group
 tracing:
   description: Distributed tracing makes it possible to analyze performance throughout
     a microservice architecture all in one view. This is accomplished by tracing all
