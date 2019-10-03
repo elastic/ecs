@@ -285,6 +285,18 @@
         list (http://publicsuffix.org). Trying to approximate this by simply taking
         the last two labels will not work well for TLDs such as "co.uk".'
       example: google.com
+    - name: top_level_domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The effective top level domain (eTLD), also known as the domain
+        suffix, is the last part of the domain name. For example, the top level domain
+        for google.com is "com".
+
+        This value can be determined precisely with a list like the public suffix
+        list (http://publicsuffix.org). Trying to approximate this by simply taking
+        the last label will not work well for effective TLDs such as "co.uk".'
+      example: co.uk
     - name: user.domain
       level: extended
       type: keyword
@@ -578,6 +590,18 @@
         list (http://publicsuffix.org). Trying to approximate this by simply taking
         the last two labels will not work well for TLDs such as "co.uk".'
       example: google.com
+    - name: top_level_domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The effective top level domain (eTLD), also known as the domain
+        suffix, is the last part of the domain name. For example, the top level domain
+        for google.com is "com".
+
+        This value can be determined precisely with a list like the public suffix
+        list (http://publicsuffix.org). Trying to approximate this by simply taking
+        the last label will not work well for effective TLDs such as "co.uk".'
+      example: co.uk
     - name: user.domain
       level: extended
       type: keyword
@@ -749,6 +773,18 @@
         list (http://publicsuffix.org). Trying to approximate this by simply taking
         the last two labels will not work well for TLDs such as "co.uk".'
       example: google.com
+    - name: question.top_level_domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The effective top level domain (eTLD), also known as the domain
+        suffix, is the last part of the domain name. For example, the top level domain
+        for google.com is "com".
+
+        This value can be determined precisely with a list like the public suffix
+        list (http://publicsuffix.org). Trying to approximate this by simply taking
+        the last label will not work well for effective TLDs such as "co.uk".'
+      example: co.uk
     - name: question.type
       level: extended
       type: keyword
@@ -1822,11 +1858,11 @@
 
       This could be a custom hardware appliance or a server that has been configured
       to run special network, security, or application software. Examples include
-      firewalls, intrusion detection/prevention systems, network monitoring sensors,
-      web application firewalls, data loss prevention systems, and APM servers. The
-      observer.* fields shall be populated with details of the system, if any, that
-      detects, observes and/or creates a network, security, or application event or
-      metric. Message queues and ETL components used in processing events or metrics
+      firewalls, web proxies, intrusion detection/prevention systems, network monitoring
+      sensors, web application firewalls, data loss prevention systems, and APM servers.
+      The observer.* fields shall be populated with details of the system, if any,
+      that detects, observes and/or creates a network, security, or application event
+      or metric. Message queues and ETL components used in processing events or metrics
       are not considered observers in ECS.'
     type: group
     fields:
@@ -1897,6 +1933,17 @@
       type: keyword
       ignore_above: 1024
       description: MAC address of the observer
+    - name: name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Custom name of the observer.
+
+        This is a name that can be given to an observer. This can be helpful for example
+        if multiple firewalls of the same model are used in an organization.
+
+        If no custom name is needed, the field can be left empty.'
+      example: 1_proxySG
     - name: os.family
       level: extended
       type: keyword
@@ -1933,6 +1980,12 @@
       ignore_above: 1024
       description: Operating system version as a raw string.
       example: 10.14.1
+    - name: product
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The product name of the observer.
+      example: s200
     - name: serial_number
       level: extended
       type: keyword
@@ -1951,7 +2004,8 @@
       level: core
       type: keyword
       ignore_above: 1024
-      description: observer vendor information.
+      description: Vendor name of the observer.
+      example: Symantec
     - name: version
       level: core
       type: keyword
@@ -2019,6 +2073,76 @@
       ignore_above: 1024
       description: Operating system version as a raw string.
       example: 10.14.1
+  - name: package
+    title: Package
+    group: 2
+    description: These fields contain information about an installed software package.
+      It contains general information about a package, such as name, version or size.
+      It also contains installation details, such as time or location.
+    type: group
+    fields:
+    - name: architecture
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Package architecture.
+      example: x86_64
+    - name: checksum
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Checksum of the installed package for verification.
+      example: 68b329da9893e34099c7d8ad5cb9c940
+    - name: description
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Description of the package.
+      example: Open source programming language to build simple/reliable/efficient
+        software.
+    - name: install_scope
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Indicating how the package was installed, e.g. user-local, global.
+      example: global
+    - name: installed
+      level: extended
+      type: date
+      description: Time when package was installed.
+    - name: license
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'License under which the package was released.
+
+        Use a short name, e.g. the license identifier from SPDX License List where
+        possible (https://spdx.org/licenses/).'
+      example: Apache License 2.0
+    - name: name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Package name
+      example: go
+    - name: path
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Path where the package is installed.
+      example: /usr/local/Cellar/go/1.12.9/
+    - name: size
+      level: extended
+      type: long
+      format: string
+      description: Package size in bytes.
+      example: 62231
+    - name: version
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Package version
+      example: 1.12.9
   - name: process
     title: Process
     group: 2
@@ -2302,6 +2426,18 @@
         list (http://publicsuffix.org). Trying to approximate this by simply taking
         the last two labels will not work well for TLDs such as "co.uk".'
       example: google.com
+    - name: top_level_domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The effective top level domain (eTLD), also known as the domain
+        suffix, is the last part of the domain name. For example, the top level domain
+        for google.com is "com".
+
+        This value can be determined precisely with a list like the public suffix
+        list (http://publicsuffix.org). Trying to approximate this by simply taking
+        the last label will not work well for effective TLDs such as "co.uk".'
+      example: co.uk
     - name: user.domain
       level: extended
       type: keyword
@@ -2586,6 +2722,18 @@
         list (http://publicsuffix.org). Trying to approximate this by simply taking
         the last two labels will not work well for TLDs such as "co.uk".'
       example: google.com
+    - name: top_level_domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The effective top level domain (eTLD), also known as the domain
+        suffix, is the last part of the domain name. For example, the top level domain
+        for google.com is "com".
+
+        This value can be determined precisely with a list like the public suffix
+        list (http://publicsuffix.org). Trying to approximate this by simply taking
+        the last label will not work well for effective TLDs such as "co.uk".'
+      example: co.uk
     - name: user.domain
       level: extended
       type: keyword
@@ -2641,6 +2789,76 @@
       ignore_above: 1024
       description: Short name or login of the user.
       example: albert
+  - name: threat
+    title: Threat
+    group: 2
+    description: 'Fields to classify events and alerts according to a threat taxonomy
+      such as the Mitre ATT&CK framework.
+
+      These fields are for users to classify alerts from all of their sources (e.g.
+      IDS, NGFW, etc.) within a  common taxonomy. The threat.tactic.* are meant to
+      capture the high level category of the threat  (e.g. "impact"). The threat.technique.*
+      fields are meant to capture which kind of approach is used by  this detected
+      threat, to accomplish the goal (e.g. "endpoint denial of service").'
+    type: group
+    fields:
+    - name: framework
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the threat framework used to further categorize and classify
+        the tactic and technique of the reported threat.   Framework classification
+        can be provided by detecting systems, evaluated at ingest time, or retrospectively
+        tagged to events.
+      example: MITRE ATT&CK
+    - name: tactic.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The id of tactic used by this threat. You can use the Mitre ATT&CK
+        Matrix Tactic categorization, for example. (ex. https://attack.mitre.org/tactics/TA0040/
+        )
+      example: TA0040
+    - name: tactic.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the type of tactic used by this threat. You can use the
+        Mitre ATT&CK Matrix Tactic categorization, for example. (ex. https://attack.mitre.org/tactics/TA0040/
+        )
+      example: impact
+    - name: tactic.reference
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The reference url of tactic used by this threat. You can use the
+        Mitre ATT&CK Matrix Tactic categorization, for example. (ex. https://attack.mitre.org/tactics/TA0040/
+        )
+      example: https://attack.mitre.org/tactics/TA0040/
+    - name: technique.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The id of technique used by this tactic. You can use the Mitre
+        ATT&CK Matrix Tactic categorization, for example. (ex. https://attack.mitre.org/techniques/T1499/
+        )
+      example: T1499
+    - name: technique.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The name of technique used by this tactic. You can use the Mitre
+        ATT&CK Matrix Tactic categorization, for example. (ex. https://attack.mitre.org/techniques/T1499/
+        )
+      example: endpoint denial of service
+    - name: technique.reference
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The reference url of technique used by this tactic. You can use
+        the Mitre ATT&CK Matrix Tactic categorization, for example. (ex. https://attack.mitre.org/techniques/T1499/
+        )
+      example: https://attack.mitre.org/techniques/T1499/
   - name: tracing
     title: Tracing
     group: 2
@@ -2769,6 +2987,18 @@
 
         Note: The `:` is not part of the scheme.'
       example: https
+    - name: top_level_domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The effective top level domain (eTLD), also known as the domain
+        suffix, is the last part of the domain name. For example, the top level domain
+        for google.com is "com".
+
+        This value can be determined precisely with a list like the public suffix
+        list (http://publicsuffix.org). Trying to approximate this by simply taking
+        the last label will not work well for effective TLDs such as "co.uk".'
+      example: co.uk
     - name: username
       level: extended
       type: keyword

@@ -238,6 +238,16 @@
         "name": "client.registered_domain", 
         "required": false, 
         "type": "keyword"
+      }, 
+      "client.top_level_domain": {
+        "description": "The effective top level domain (eTLD), also known as the domain suffix, is the last part of the domain name. For example, the top level domain for google.com is \"com\".\nThis value can be determined precisely with a list like the public suffix list (http://publicsuffix.org). Trying to approximate this by simply taking the last label will not work well for effective TLDs such as \"co.uk\".", 
+        "example": "co.uk", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "client.top_level_domain", 
+        "required": false, 
+        "type": "keyword"
       }
     }, 
     "group": 2, 
@@ -495,6 +505,16 @@
         "name": "destination.registered_domain", 
         "required": false, 
         "type": "keyword"
+      }, 
+      "destination.top_level_domain": {
+        "description": "The effective top level domain (eTLD), also known as the domain suffix, is the last part of the domain name. For example, the top level domain for google.com is \"com\".\nThis value can be determined precisely with a list like the public suffix list (http://publicsuffix.org). Trying to approximate this by simply taking the last label will not work well for effective TLDs such as \"co.uk\".", 
+        "example": "co.uk", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "destination.top_level_domain", 
+        "required": false, 
+        "type": "keyword"
       }
     }, 
     "group": 2, 
@@ -622,6 +642,16 @@
         "group": 2, 
         "level": "extended", 
         "name": "dns.question.registered_domain", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "dns.question.top_level_domain": {
+        "description": "The effective top level domain (eTLD), also known as the domain suffix, is the last part of the domain name. For example, the top level domain for google.com is \"com\".\nThis value can be determined precisely with a list like the public suffix list (http://publicsuffix.org). Trying to approximate this by simply taking the last label will not work well for effective TLDs such as \"co.uk\".", 
+        "example": "co.uk", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "dns.question.top_level_domain", 
         "required": false, 
         "type": "keyword"
       }, 
@@ -1781,7 +1811,7 @@
     "type": "group"
   }, 
   "observer": {
-    "description": "An observer is defined as a special network, security, or application device used to detect, observe, or create network, security, or application-related events and metrics.\nThis could be a custom hardware appliance or a server that has been configured to run special network, security, or application software. Examples include firewalls, intrusion detection/prevention systems, network monitoring sensors, web application firewalls, data loss prevention systems, and APM servers. The observer.* fields shall be populated with details of the system, if any, that detects, observes and/or creates a network, security, or application event or metric. Message queues and ETL components used in processing events or metrics are not considered observers in ECS.\n", 
+    "description": "An observer is defined as a special network, security, or application device used to detect, observe, or create network, security, or application-related events and metrics.\nThis could be a custom hardware appliance or a server that has been configured to run special network, security, or application software. Examples include firewalls, web proxies, intrusion detection/prevention systems, network monitoring sensors, web application firewalls, data loss prevention systems, and APM servers. The observer.* fields shall be populated with details of the system, if any, that detects, observes and/or creates a network, security, or application event or metric. Message queues and ETL components used in processing events or metrics are not considered observers in ECS.\n", 
     "fields": {
       "observer.hostname": {
         "description": "Hostname of the observer.", 
@@ -1813,6 +1843,26 @@
         "required": false, 
         "type": "keyword"
       }, 
+      "observer.name": {
+        "description": "Custom name of the observer.\nThis is a name that can be given to an observer. This can be helpful for example if multiple firewalls of the same model are used in an organization.\nIf no custom name is needed, the field can be left empty.", 
+        "example": "1_proxySG", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "observer.name", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "observer.product": {
+        "description": "The product name of the observer.", 
+        "example": "s200", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "observer.product", 
+        "required": false, 
+        "type": "keyword"
+      }, 
       "observer.serial_number": {
         "description": "Observer serial number.", 
         "example": "", 
@@ -1834,8 +1884,8 @@
         "type": "keyword"
       }, 
       "observer.vendor": {
-        "description": "observer vendor information.", 
-        "example": "", 
+        "description": "Vendor name of the observer.", 
+        "example": "Symantec", 
         "footnote": "", 
         "group": 2, 
         "level": "core", 
@@ -1955,6 +2005,115 @@
     "group": 2, 
     "name": "os", 
     "title": "Operating System", 
+    "type": "group"
+  }, 
+  "package": {
+    "description": "These fields contain information about an installed software package. It contains general information about a package, such as name, version or size. It also contains installation details, such as time or location.\n", 
+    "fields": {
+      "package.architecture": {
+        "description": "Package architecture.", 
+        "example": "x86_64", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "package.architecture", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "package.checksum": {
+        "description": "Checksum of the installed package for verification.", 
+        "example": "68b329da9893e34099c7d8ad5cb9c940", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "package.checksum", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "package.description": {
+        "description": "Description of the package.", 
+        "example": "Open source programming language to build simple/reliable/efficient software.", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "package.description", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "package.install_scope": {
+        "description": "Indicating how the package was installed, e.g. user-local, global.", 
+        "example": "global", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "package.install_scope", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "package.installed": {
+        "description": "Time when package was installed.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "package.installed", 
+        "required": false, 
+        "type": "date"
+      }, 
+      "package.license": {
+        "description": "License under which the package was released.\nUse a short name, e.g. the license identifier from SPDX License List where possible (https://spdx.org/licenses/).", 
+        "example": "Apache License 2.0", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "package.license", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "package.name": {
+        "description": "Package name", 
+        "example": "go", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "package.name", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "package.path": {
+        "description": "Path where the package is installed.", 
+        "example": "/usr/local/Cellar/go/1.12.9/", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "package.path", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "package.size": {
+        "description": "Package size in bytes.", 
+        "example": "62231", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "package.size", 
+        "required": false, 
+        "type": "long"
+      }, 
+      "package.version": {
+        "description": "Package version", 
+        "example": "1.12.9", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "package.version", 
+        "required": false, 
+        "type": "keyword"
+      }
+    }, 
+    "group": 2, 
+    "name": "package", 
+    "title": "Package", 
     "type": "group"
   }, 
   "process": {
@@ -2207,6 +2366,16 @@
         "name": "server.registered_domain", 
         "required": false, 
         "type": "keyword"
+      }, 
+      "server.top_level_domain": {
+        "description": "The effective top level domain (eTLD), also known as the domain suffix, is the last part of the domain name. For example, the top level domain for google.com is \"com\".\nThis value can be determined precisely with a list like the public suffix list (http://publicsuffix.org). Trying to approximate this by simply taking the last label will not work well for effective TLDs such as \"co.uk\".", 
+        "example": "co.uk", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "server.top_level_domain", 
+        "required": false, 
+        "type": "keyword"
       }
     }, 
     "group": 2, 
@@ -2395,11 +2564,100 @@
         "name": "source.registered_domain", 
         "required": false, 
         "type": "keyword"
+      }, 
+      "source.top_level_domain": {
+        "description": "The effective top level domain (eTLD), also known as the domain suffix, is the last part of the domain name. For example, the top level domain for google.com is \"com\".\nThis value can be determined precisely with a list like the public suffix list (http://publicsuffix.org). Trying to approximate this by simply taking the last label will not work well for effective TLDs such as \"co.uk\".", 
+        "example": "co.uk", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "source.top_level_domain", 
+        "required": false, 
+        "type": "keyword"
       }
     }, 
     "group": 2, 
     "name": "source", 
     "title": "Source", 
+    "type": "group"
+  }, 
+  "threat": {
+    "description": "Fields to classify events and alerts according to a threat taxonomy such as the Mitre ATT&CK framework.\nThese fields are for users to classify alerts from all of their sources (e.g. IDS, NGFW, etc.) within a  common taxonomy. The threat.tactic.* are meant to capture the high level category of the threat  (e.g. \"impact\"). The threat.technique.* fields are meant to capture which kind of approach is used by  this detected threat, to accomplish the goal (e.g. \"endpoint denial of service\").\n", 
+    "fields": {
+      "threat.framework": {
+        "description": "Name of the threat framework used to further categorize and classify the tactic and technique of the reported threat.   Framework classification can be provided by detecting systems, evaluated at ingest time, or retrospectively tagged to events.", 
+        "example": "MITRE ATT&CK", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "threat.framework", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "threat.tactic.id": {
+        "description": "The id of tactic used by this threat. You can use the Mitre ATT&CK Matrix Tactic categorization, for example. (ex. https://attack.mitre.org/tactics/TA0040/ )", 
+        "example": "TA0040", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "threat.tactic.id", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "threat.tactic.name": {
+        "description": "Name of the type of tactic used by this threat. You can use the Mitre ATT&CK Matrix Tactic categorization, for example. (ex. https://attack.mitre.org/tactics/TA0040/ )", 
+        "example": "impact", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "threat.tactic.name", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "threat.tactic.reference": {
+        "description": "The reference url of tactic used by this threat. You can use the Mitre ATT&CK Matrix Tactic categorization, for example. (ex. https://attack.mitre.org/tactics/TA0040/ )", 
+        "example": "https://attack.mitre.org/tactics/TA0040/", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "threat.tactic.reference", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "threat.technique.id": {
+        "description": "The id of technique used by this tactic. You can use the Mitre ATT&CK Matrix Tactic categorization, for example. (ex. https://attack.mitre.org/techniques/T1499/ )", 
+        "example": "T1499", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "threat.technique.id", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "threat.technique.name": {
+        "description": "The name of technique used by this tactic. You can use the Mitre ATT&CK Matrix Tactic categorization, for example. (ex. https://attack.mitre.org/techniques/T1499/ )", 
+        "example": "endpoint denial of service", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "threat.technique.name", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "threat.technique.reference": {
+        "description": "The reference url of technique used by this tactic. You can use the Mitre ATT&CK Matrix Tactic categorization, for example. (ex. https://attack.mitre.org/techniques/T1499/ )", 
+        "example": "https://attack.mitre.org/techniques/T1499/", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "threat.technique.reference", 
+        "required": false, 
+        "type": "keyword"
+      }
+    }, 
+    "group": 2, 
+    "name": "threat", 
+    "title": "Threat", 
     "type": "group"
   }, 
   "tracing": {
@@ -2541,6 +2799,16 @@
         "group": 2, 
         "level": "extended", 
         "name": "url.scheme", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "url.top_level_domain": {
+        "description": "The effective top level domain (eTLD), also known as the domain suffix, is the last part of the domain name. For example, the top level domain for google.com is \"com\".\nThis value can be determined precisely with a list like the public suffix list (http://publicsuffix.org). Trying to approximate this by simply taking the last label will not work well for effective TLDs such as \"co.uk\".", 
+        "example": "co.uk", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "url.top_level_domain", 
         "required": false, 
         "type": "keyword"
       }, 

@@ -1,0 +1,74 @@
+---
+- name: package
+  title: Package
+  group: 2
+  short: These fields contain information about an installed software package.
+  description: >
+    These fields contain information about an installed software package. It contains general information about a
+    package, such as name, version or size. It also contains installation details, such as time or location.
+  type: group
+  fields:
+
+    - name: name
+      level: extended
+      type: keyword
+      description: Package name
+      example: go
+
+    - name: version
+      level: extended
+      type: keyword
+      description: Package version
+      example: 1.12.9
+
+    - name: description
+      level: extended
+      type: keyword
+      description: Description of the package.
+      example: Open source programming language to build simple/reliable/efficient software.
+
+    - name: size
+      format: string
+      level: extended
+      type: long
+      description: Package size in bytes.
+      example: 62231
+
+    - name: installed
+      level: extended
+      type: date
+      description: Time when package was installed.
+
+    - name: path
+      level: extended
+      type: keyword
+      description: Path where the package is installed.
+      example: /usr/local/Cellar/go/1.12.9/
+
+    - name: architecture
+      level: extended
+      type: keyword
+      description: Package architecture.
+      example: x86_64
+
+    - name: checksum
+      level: extended
+      type: keyword
+      description: Checksum of the installed package for verification.
+      example: 68b329da9893e34099c7d8ad5cb9c940
+
+    - name: install_scope
+      level: extended
+      type: keyword
+      description: Indicating how the package was installed, e.g. user-local, global.
+      example: global
+
+    - name: license
+      level: extended
+      type: keyword
+      short: Package license
+      description: >
+        License under which the package was released.
+
+        Use a short name, e.g. the license identifier from SPDX License List where possible (https://spdx.org/licenses/).
+      example: Apache License 2.0
