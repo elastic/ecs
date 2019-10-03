@@ -13,6 +13,8 @@ Thanks, you're awesome :-) -->
 * Add support for installed software packages. #532
 
 * Added fields in `log.*` to allow for full Syslog mapping. #525
+* Added `top_level_domain` field to `url`, `dns.question`,
+    `source`, `destination`, `client`, and `server`. #562, #572
 * Add group.domain field #547
 * Added `observer.name` and `observer.product` #557, #571
 * Added `error.stack_trace` field. #562
