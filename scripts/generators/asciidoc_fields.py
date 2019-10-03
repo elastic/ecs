@@ -110,13 +110,14 @@ def render_fieldset_reuse_section(fieldset, ecs_nested):
             })
         text += table_footer()
     return text
-    
+
+
 def render_fieldset_reuse_link(fieldset):
     '''Render a link to field reuse section, only when appropriate'''
     if ('nestings' in fieldset or 'reusable' in fieldset):
-        return 'NOTE: <<ecs-{}-reuse, See field set reuse information.>>'.format(fieldset['name'])
+        return 'NOTE: See <<ecs-{}-reuse, field set reuse>> information.'.format(fieldset['name'])
     else:
-        return 'NOTE: This field set is not nested.'
+        return 'NOTE: This field set is not reused.'
 
 
 def render_fieldset_reuses_text(fieldset):

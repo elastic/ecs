@@ -4,6 +4,8 @@
 
 The `base` field set contains all fields which are on the top level. These fields are common across all types of events.
 
+NOTE: This field set is not reused.
+
 ==== Base Field Details
 
 [options="header"]
@@ -78,6 +80,8 @@ example: `["production", "env2"]`
 The agent fields contain the data about the software entity, if any, that collects, detects, or observes events on a host, or takes measurements on a host.
 
 Examples include Beats. Agents may also run on observers. ECS agent.* fields shall be populated with details of the agent running on the host or observer where the event happened or the measurement was taken.
+
+NOTE: This field set is not reused.
 
 ==== Agent Field Details
 
@@ -159,7 +163,7 @@ example: `6.0.0-rc2`
 
 An autonomous system (AS) is a collection of connected Internet Protocol (IP) routing prefixes under the control of one or more network operators on behalf of a single administrative entity or domain that presents a common, clearly defined routing policy to the internet.
 
-NOTE: <<as-field-reuse, See field reuse information.>> 
+NOTE: See <<ecs-as-reuse, field set reuse>> information.
 
 ==== Autonomous System Field Details
 
@@ -193,7 +197,7 @@ example: `Google LLC`
 
 |=====
 
-[[as-field-reuse]]
+[[ecs-as-reuse]]
 ==== Field Reuse
 
 The `as` fields are expected to be nested at: `client.as`, `destination.as`, `server.as`, `source.as`.
@@ -211,6 +215,8 @@ A client is defined as the initiator of a network connection for events regardin
 For TCP events, the client is the initiator of the TCP connection that sends the SYN packet(s). For other protocols, the client is generally the initiator or requestor in the network transaction. Some systems use the term "originator" to refer the client in TCP connections. The client fields describe details about the system acting as the client in the network event. Client fields are usually populated in conjunction with server fields. Client fields are generally not populated for packet-level events.
 
 Client / server representations can add semantic context to an exchange, which is helpful to visualize the data in certain situations. If your context falls in that category, you should still ensure that source and destination are filled appropriately.
+
+NOTE: See <<ecs-client-reuse, field set reuse>> information.
 
 ==== Client Field Details
 
@@ -357,6 +363,7 @@ example: `co.uk`
 
 |=====
 
+[[ecs-client-reuse]]
 ==== Field Reuse
 
 
@@ -396,6 +403,8 @@ example: `co.uk`
 === Cloud Fields
 
 Fields related to the cloud or infrastructure the events are coming from.
+
+NOTE: This field set is not reused.
 
 ==== Cloud Field Details
 
@@ -493,6 +502,8 @@ Container fields are used for meta information about the specific container that
 
 These fields help correlate data based containers from any runtime.
 
+NOTE: This field set is not reused.
+
 ==== Container Field Details
 
 [options="header"]
@@ -575,6 +586,8 @@ example: `docker`
 Destination fields describe details about the destination of a packet/event.
 
 Destination fields are usually populated in conjunction with source fields.
+
+NOTE: See <<ecs-destination-reuse, field set reuse>> information.
 
 ==== Destination Field Details
 
@@ -721,6 +734,7 @@ example: `co.uk`
 
 |=====
 
+[[ecs-destination-reuse]]
 ==== Field Reuse
 
 
@@ -762,6 +776,8 @@ example: `co.uk`
 Fields describing DNS queries and answers.
 
 DNS events should either represent a single DNS query prior to getting answers (`dns.type:query`) or they should represent a full exchange and contain the query details as well as all of the answers that were provided for this query (`dns.type:answer`).
+
+NOTE: This field set is not reused.
 
 ==== DNS Field Details
 
@@ -1002,6 +1018,8 @@ example: `answer`
 
 Meta-information specific to ECS.
 
+NOTE: This field set is not reused.
+
 ==== ECS Field Details
 
 [options="header"]
@@ -1031,6 +1049,8 @@ example: `1.0.0`
 These fields can represent errors of any kind.
 
 Use them for errors that happen while fetching events or in cases where the event itself contains an error.
+
+NOTE: This field set is not reused.
 
 ==== Error Field Details
 
@@ -1103,6 +1123,8 @@ example: `java.lang.NullPointerException`
 The event fields are used for context information about the log or metric event itself.
 
 A log is defined as an event containing details of something that happened. Log events must include the time at which the thing happened. Examples of log events include a process starting on a host, a network packet being sent from a source to a destination, or a network connection between a client and a server being initiated or closed. A metric is defined as an event containing one or more numerical or categorical measurements and the time at which the measurement was taken. Examples of metric events include memory pressure measured on a host, or vulnerabilities measured on a scanned host.
+
+NOTE: This field set is not reused.
 
 ==== Event Field Details
 
@@ -1407,6 +1429,8 @@ A file is defined as a set of information that has been created on, or has exist
 
 File objects can be associated with host events, network events, and/or file events (e.g., those produced by File Integrity Monitoring [FIM] products or services). File fields provide details about the affected file associated with the event or metric.
 
+NOTE: See <<ecs-file-reuse, field set reuse>> information.
+
 ==== File Field Details
 
 [options="header"]
@@ -1623,6 +1647,7 @@ example: `1001`
 
 |=====
 
+[[ecs-file-reuse]]
 ==== Field Reuse
 
 
@@ -1652,6 +1677,8 @@ example: `1001`
 Geo fields can carry data about a specific location related to an event.
 
 This geolocation information can be derived from techniques such as Geo IP, or be user-supplied.
+
+NOTE: See <<ecs-geo-reuse, field set reuse>> information.
 
 ==== Geo Field Details
 
@@ -1755,6 +1782,7 @@ example: `Quebec`
 
 |=====
 
+[[ecs-geo-reuse]]
 ==== Field Reuse
 
 The `geo` fields are expected to be nested at: `client.geo`, `destination.geo`, `host.geo`, `observer.geo`, `server.geo`, `source.geo`.
@@ -1768,6 +1796,8 @@ Note also that the `geo` fields are not expected to be used directly at the top 
 === Group Fields
 
 The group fields are meant to represent groups that are relevant to the event.
+
+NOTE: See <<ecs-group-reuse, field set reuse>> information.
 
 ==== Group Field Details
 
@@ -1814,6 +1844,7 @@ type: keyword
 
 |=====
 
+[[ecs-group-reuse]]
 ==== Field Reuse
 
 The `group` fields are expected to be nested at: `user.group`.
@@ -1829,6 +1860,8 @@ Note also that the `group` fields may be used directly at the top level.
 The hash fields represent different hash algorithms and their values.
 
 Field names for common hashes (e.g. MD5, SHA1) are predefined. Add fields for other hashes by lowercasing the hash algorithm name and using underscore separators as appropriate (snake case, e.g. sha3_512).
+
+NOTE: See <<ecs-hash-reuse, field set reuse>> information.
 
 ==== Hash Field Details
 
@@ -1884,6 +1917,7 @@ type: keyword
 
 |=====
 
+[[ecs-hash-reuse]]
 ==== Field Reuse
 
 The `hash` fields are expected to be nested at: `file.hash`, `process.hash`.
@@ -1899,6 +1933,8 @@ Note also that the `hash` fields are not expected to be used directly at the top
 A host is defined as a general computing instance.
 
 ECS host.* fields should be populated with details about the host on which the event happened, or from which the measurement was taken. Host types include hardware, virtual machines, Docker containers, and Kubernetes nodes.
+
+NOTE: See <<ecs-host-reuse, field set reuse>> information.
 
 ==== Host Field Details
 
@@ -2021,6 +2057,7 @@ example: `1325`
 
 |=====
 
+[[ecs-host-reuse]]
 ==== Field Reuse
 
 
@@ -2060,6 +2097,8 @@ example: `1325`
 === HTTP Fields
 
 Fields related to HTTP activity. Use the `url` field set to store the url of the request.
+
+NOTE: This field set is not reused.
 
 ==== HTTP Field Details
 
@@ -2191,6 +2230,8 @@ Details about the event's logging mechanism or logging transport.
 The log.* fields are typically populated with details about the logging mechanism used to create and/or transport the event. For example, syslog details belong under `log.syslog.*`.
 
 The details specific to your event source are typically not logged under `log.*`, but rather in `event.*` or in other ECS fields.
+
+NOTE: This field set is not reused.
 
 ==== Log Field Details
 
@@ -2356,6 +2397,8 @@ example: `Error`
 The network is defined as the communication path over which a host or network event happens.
 
 The network.* fields should be populated with details about the network activity associated with an event.
+
+NOTE: This field set is not reused.
 
 ==== Network Field Details
 
@@ -2527,6 +2570,8 @@ An observer is defined as a special network, security, or application device use
 
 This could be a custom hardware appliance or a server that has been configured to run special network, security, or application software. Examples include firewalls, web proxies, intrusion detection/prevention systems, network monitoring sensors, web application firewalls, data loss prevention systems, and APM servers. The observer.* fields shall be populated with details of the system, if any, that detects, observes and/or creates a network, security, or application event or metric. Message queues and ETL components used in processing events or metrics are not considered observers in ECS.
 
+NOTE: See <<ecs-observer-reuse, field set reuse>> information.
+
 ==== Observer Field Details
 
 [options="header"]
@@ -2642,6 +2687,7 @@ type: keyword
 
 |=====
 
+[[ecs-observer-reuse]]
 ==== Field Reuse
 
 
@@ -2677,6 +2723,8 @@ type: keyword
 The organization fields enrich data with information about the company or entity the data is associated with.
 
 These fields help you arrange or filter data stored in an index by one or multiple organizations.
+
+NOTE: This field set is not reused.
 
 ==== Organization Field Details
 
@@ -2714,6 +2762,8 @@ type: keyword
 === Operating System Fields
 
 The OS fields contain information about the operating system.
+
+NOTE: See <<ecs-os-reuse, field set reuse>> information.
 
 ==== Operating System Field Details
 
@@ -2791,6 +2841,7 @@ example: `10.14.1`
 
 |=====
 
+[[ecs-os-reuse]]
 ==== Field Reuse
 
 The `os` fields are expected to be nested at: `host.os`, `observer.os`, `user_agent.os`.
@@ -2804,6 +2855,8 @@ Note also that the `os` fields are not expected to be used directly at the top l
 === Package Fields
 
 These fields contain information about an installed software package. It contains general information about a package, such as name, version or size. It also contains installation details, such as time or location.
+
+NOTE: This field set is not reused.
 
 ==== Package Field Details
 
@@ -2970,6 +3023,8 @@ example: `1.12.9`
 These fields contain information about a process.
 
 These fields can help you correlate metrics information with a process id/name from a log message.  The `process.pid` often stays in the metric itself and is copied to the global field for correlation.
+
+NOTE: See <<ecs-process-reuse, field set reuse>> information.
 
 ==== Process Field Details
 
@@ -3335,6 +3390,7 @@ example: `/home/alice`
 
 |=====
 
+[[ecs-process-reuse]]
 ==== Field Reuse
 
 
@@ -3367,6 +3423,8 @@ Some pieces of information can be seen in many places in an ECS event. To facili
 
 A concrete example is IP addresses, which can be under host, observer, source, destination, client, server, and network.forwarded_ip. If you append all IPs to `related.ip`, you can then search for a given IP trivially, no matter where it appeared, by querying `related.ip:a.b.c.d`.
 
+NOTE: This field set is not reused.
+
 ==== Related Field Details
 
 [options="header"]
@@ -3396,6 +3454,8 @@ A Server is defined as the responder in a network connection for events regardin
 For TCP events, the server is the receiver of the initial SYN packet(s) of the TCP connection. For other protocols, the server is generally the responder in the network transaction. Some systems actually use the term "responder" to refer the server in TCP connections. The server fields describe details about the system acting as the server in the network event. Server fields are usually populated in conjunction with client fields. Server fields are generally not populated for packet-level events.
 
 Client / server representations can add semantic context to an exchange, which is helpful to visualize the data in certain situations. If your context falls in that category, you should still ensure that source and destination are filled appropriately.
+
+NOTE: See <<ecs-server-reuse, field set reuse>> information.
 
 ==== Server Field Details
 
@@ -3542,6 +3602,7 @@ example: `co.uk`
 
 |=====
 
+[[ecs-server-reuse]]
 ==== Field Reuse
 
 
@@ -3583,6 +3644,8 @@ example: `co.uk`
 The service fields describe the service for or from which the data was collected.
 
 These fields help you find and correlate logs for a specific service and version.
+
+NOTE: This field set is not reused.
 
 ==== Service Field Details
 
@@ -3697,6 +3760,8 @@ example: `3.2.4`
 Source fields describe details about the source of a packet/event.
 
 Source fields are usually populated in conjunction with destination fields.
+
+NOTE: See <<ecs-source-reuse, field set reuse>> information.
 
 ==== Source Field Details
 
@@ -3843,6 +3908,7 @@ example: `co.uk`
 
 |=====
 
+[[ecs-source-reuse]]
 ==== Field Reuse
 
 
@@ -3884,6 +3950,8 @@ example: `co.uk`
 Fields to classify events and alerts according to a threat taxonomy such as the Mitre ATT&CK framework.
 
 These fields are for users to classify alerts from all of their sources (e.g. IDS, NGFW, etc.) within a  common taxonomy. The threat.tactic.* are meant to capture the high level category of the threat  (e.g. "impact"). The threat.technique.* fields are meant to capture which kind of approach is used by  this detected threat, to accomplish the goal (e.g. "endpoint denial of service").
+
+NOTE: This field set is not reused.
 
 ==== Threat Field Details
 
@@ -3976,6 +4044,8 @@ example: `https://attack.mitre.org/techniques/T1499/`
 === TLS Fields
 
 Fields related to a TLS connection. These fields focus on the TLS protocol itself and intentionally avoids in-depth analysis of the related x.509 certificate files.
+
+NOTE: This field set is not reused.
 
 ==== TLS Field Details
 
@@ -4322,6 +4392,8 @@ example: `tls`
 
 Distributed tracing makes it possible to analyze performance throughout a microservice architecture all in one view. This is accomplished by tracing all of the requests - from the initial web request in the front-end service - to queries made through multiple back-end services.
 
+NOTE: This field set is not reused.
+
 ==== Tracing Field Details
 
 [options="header"]
@@ -4362,6 +4434,8 @@ example: `00f067aa0ba902b7`
 === URL Fields
 
 URL fields provide support for complete or partial URLs, and supports the breaking down into scheme, domain, path, and so on.
+
+NOTE: This field set is not reused.
 
 ==== URL Field Details
 
@@ -4545,6 +4619,8 @@ The user fields describe information about the user that is relevant to the even
 
 Fields can have one entry or multiple entries. If a user has more than one id, provide an array that includes all of them.
 
+NOTE: See <<ecs-user-reuse, field set reuse>> information.
+
 ==== User Field Details
 
 [options="header"]
@@ -4625,6 +4701,7 @@ example: `albert`
 
 |=====
 
+[[ecs-user-reuse]]
 ==== Field Reuse
 
 The `user` fields are expected to be nested at: `client.user`, `destination.user`, `host.user`, `server.user`, `source.user`.
@@ -4658,6 +4735,8 @@ Note also that the `user` fields may be used directly at the top level.
 The user_agent fields normally come from a browser request.
 
 They often show up in web service logs coming from the parsed user agent string.
+
+NOTE: See <<ecs-user_agent-reuse, field set reuse>> information.
 
 ==== User agent Field Details
 
@@ -4713,6 +4792,7 @@ example: `12.0`
 
 |=====
 
+[[ecs-user_agent-reuse]]
 ==== Field Reuse
 
 
@@ -4740,6 +4820,8 @@ example: `12.0`
 === Vulnerability Fields
 
 The vulnerability fields describe information about a vulnerability that is relevant to an event.
+
+NOTE: This field set is not reused.
 
 ==== Vulnerability Field Details
 
