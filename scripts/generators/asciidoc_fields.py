@@ -50,11 +50,15 @@ def page_field_details(ecs_nested):
 
 
 def render_fieldset(fieldset, ecs_nested):
-    text = field_details_table_header().format(
+    text = field_set_title_description_para().format(
         fieldset_title=fieldset['title'],
         fieldset_name=fieldset['name'],
         fieldset_description=render_asciidoc_paragraphs(fieldset['description']),
         fieldset_reuse_links=render_fieldset_reuse_link(fieldset)
+    )
+
+    text += field_details_table_header().format(
+        fieldset_title=fieldset['title']
     )
 
     for field in ecs_helpers.dict_sorted_by_keys(fieldset['fields'], 'flat_name'):
@@ -90,16 +94,19 @@ def render_field_details_row(field):
 def render_fieldset_reuse_section(fieldset, ecs_nested):
     '''Render the section on where field set can be nested, and which field sets can be nested here'''
     if not ('nestings' in fieldset or 'reusable' in fieldset):
-        return ''
+        text = field_reuse_section().format(
+            reuse_of_fieldset='These fields are not reused.',
+            fieldset_name=fieldset['name']
+        )
+        return text
 
     text = field_reuse_section().format(
-        reuse_of_fieldset=render_fieldset_reuses_text(fieldset),
+        reuse_of_fieldset=render_fieldset_reuses_text(fieldset, ecs_nested),
         fieldset_name=fieldset['name']
     )
     if 'nestings' in fieldset:
         text += nestings_table_header().format(
-            fieldset_name=fieldset['name'],
-            fieldset_title=fieldset['title']
+            fieldset_name=fieldset['name']
         )
         nestings = []
         for nested_fs_name in sorted(fieldset['nestings']):
@@ -115,28 +122,39 @@ def render_fieldset_reuse_section(fieldset, ecs_nested):
 def render_fieldset_reuse_link(fieldset):
     '''Render a link to field reuse section, only when appropriate'''
     if ('nestings' in fieldset or 'reusable' in fieldset):
-        return 'NOTE: See <<ecs-{}-reuse, field set reuse>> information.'.format(fieldset['name'])
+        return 'NOTE: See information on `{field_name}` <<ecs-{field_name}-reuse, field reuse>>.'.format(field_name=fieldset['name'])
     else:
-        return 'NOTE: This field set is not reused.'
+        return ''
 
 
-def render_fieldset_reuses_text(fieldset):
+def render_fieldset_reuses_text(fieldset, ecs_nested):
     '''Render where a given field set is expected to be reused'''
     if 'reusable' not in fieldset:
         return ''
+    if 'top_level' in fieldset['reusable'] and fieldset['reusable']['top_level']:
+        text = parent_table_header().format(
+            fieldset_name=fieldset['name'],
+            nested_condition='can'
+        )
+    else:
+        text = parent_table_header().format(
+            fieldset_name=fieldset['name'],
+            nested_condition='must'
+        )
 
-    section_name = fieldset['name']
-    sorted_fields = sorted(fieldset['reusable']['expected'])
-    rendered_fields = map(lambda f: "`{}.{}`".format(f, section_name), sorted_fields)
-    text = "The `{}` fields are expected to be nested at: {}.\n\n".format(
-        section_name, ', '.join(rendered_fields))
+    for parent_fs_name in sorted(fieldset['reusable']['expected']):
+        text += render_nesting_row({
+            'flat_nesting': "{}.{}.*".format(parent_fs_name, fieldset['name']),
+            'name': parent_fs_name,
+            'short': ecs_nested[parent_fs_name]['short']
+        })
+    text += table_footer()
 
     if 'top_level' in fieldset['reusable'] and fieldset['reusable']['top_level']:
-        template = "Note also that the `{}` fields may be used directly at the top level.\n\n"
+        text += "NOTE: The `{}` fields can also be used directly as root fields.\n\n".format(fieldset['name'])
     else:
-        template = "Note also that the `{}` fields are not expected to " + \
-            "be used directly at the top level.\n\n"
-    text += template.format(section_name)
+        text += "NOTE: The `{}` fields should *not* be used directly as root fields.\n\n".format(fieldset['name'])
+
     return text
 
 
@@ -201,8 +219,7 @@ include::field-details.asciidoc[]
 
 # Main Fields Table
 
-
-def field_details_table_header():
+def field_set_title_description_para():
     return '''
 [[ecs-{fieldset_name}]]
 === {fieldset_title} Fields
@@ -210,7 +227,11 @@ def field_details_table_header():
 {fieldset_description}
 
 {fieldset_reuse_links}
+'''
 
+
+def field_details_table_header():
+    return '''
 ==== {fieldset_title} Field Details
 
 [options="header"]
@@ -253,11 +274,27 @@ def field_reuse_section():
 def nestings_table_header():
     return '''
 [[ecs-{fieldset_name}-nestings]]
-===== Field sets that can be nested under {fieldset_title}
+The `{fieldset_name}` field can be a parent of:
 
 [options="header"]
 |=====
-| Nested fields | Description
+| Child fields | Description
+
+// ===============================================================
+
+'''
+
+# Parent field table
+
+
+def parent_table_header():
+    return '''
+[[ecs-{fieldset_name}-parents]]
+The `{fieldset_name}` fields {nested_condition} be nested under:
+
+[options="header"]
+|=====
+| Parent fields | Description
 
 // ===============================================================
 
