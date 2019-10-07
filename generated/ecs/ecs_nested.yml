@@ -551,9 +551,176 @@ client:
       original_fieldset: user
       short: Short name or login of the user.
       type: keyword
+    vulnerability.category:
+      description: The type of system or architecture that the vulnerability affects.
+        These may be platform-specific (for example, Debian or SUSE) or general (for
+        example, Database or Firewall). For example (ex. https://qualysguard.qualys.com/qwebhelp/fo_portal/knowledgebase/vulnerability_categories.htm)
+      example: AIX, Firewall, Malware, Office Application, Solaris, Windows
+      flat_name: client.vulnerability.category
+      ignore_above: 1024
+      level: extended
+      name: category
+      order: 3
+      original_fieldset: vulnerability
+      short: Category of a vulnerabilty.
+      type: keyword
+    vulnerability.cve.description:
+      description: 'The Common Vulnerability and Exposures (CVE) list is an open source
+        list for publicly known cybersecurity vulnerabilities providing an identification
+        number, a description, and at least one public reference.
+
+        The description of the vulnerability that provides additional context of the
+        vulnerability. For example (ex. https://cve.mitre.org/about/faqs.html#cve_entry_descriptions_created)'
+      example: In Keybase before 2.12.6 on macOS, the move RPC to the Helper was susceptible
+        to time-to-check-time-to-use bugs and would also allow one user of the system
+        (who didn't have root access) to tamper with another's installs.
+      flat_name: client.vulnerability.cve.description
+      ignore_above: 1024
+      level: extended
+      name: cve.description
+      order: 4
+      original_fieldset: vulnerability
+      short: Description of the vulnerability.
+      type: keyword
+    vulnerability.cve.id:
+      description: 'The Common Vulnerability and Exposures (CVE) list is an open source
+        list for publicly known cybersecurity vulnerabilities providing an identification
+        number, a description, and at least one public reference.
+
+        The identification (ID) is the number portion of a CVE Entry. It includes
+        the year the vulnerability ID was requested followed by a sequence number.
+        CVE-YYYY-NNNNN. For example (ex. https://cve.mitre.org/about/faqs.html#what_is_cve_id)'
+      example: CVE-2019-00001, CVE-2019-00002
+      flat_name: client.vulnerability.cve.id
+      ignore_above: 1024
+      level: extended
+      name: cve.id
+      order: 5
+      original_fieldset: vulnerability
+      short: ID of the vulnerability.
+      type: keyword
+    vulnerability.cvss.score.base:
+      description: 'The Common Vulnerability Scoring System (CVSS) is an open framework
+        for communicating the characteristics and severity of software vulnerabilities.
+        Scores can range from 0.0 to 10.0, with 10.0 being the most severe.
+
+        Base scores cover an assessment for exploitability metrics (attack vector,
+        complexity, privileges, and user interaction), impact metrics (confidentialy,
+        integrity, and availability), and scope. For example (ex. https://www.first.org/cvss/specification-document)'
+      example: 5.5, 6.6
+      flat_name: client.vulnerability.cvss.score.base
+      level: extended
+      name: cvss.score.base
+      order: 0
+      original_fieldset: vulnerability
+      short: CVSS Base score.
+      type: long
+    vulnerability.cvss.score.evironmental:
+      description: 'The Common Vulnerability Scoring System (CVSS) is an open framework
+        for communicating the characteristics and severity of software vulnerabilities.
+        Scores can range from 0.0 to 10.0, with 10.0 being the most severe.
+
+        Environmental scores cover an assessment for any modified Base metrics, confidentiality,
+        integrity, and availability requirements. For example (ex. https://www.first.org/cvss/specification-document)'
+      example: 5.5, 6.6
+      flat_name: client.vulnerability.cvss.score.evironmental
+      level: extended
+      name: cvss.score.evironmental
+      order: 2
+      original_fieldset: vulnerability
+      short: CVSS Environmental score.
+      type: long
+    vulnerability.cvss.score.temporal:
+      description: 'The Common Vulnerability Scoring System (CVSS) is an open framework
+        for communicating the characteristics and severity of software vulnerabilities.
+        Scores can range from 0.0 to 10.0, with 10.0 being the most severe.
+
+        Temporal scores cover an assessment for code maturity, remediation level,
+        and confidence. For example (ex. https://www.first.org/cvss/specification-document)'
+      example: 5.5, 6.6
+      flat_name: client.vulnerability.cvss.score.temporal
+      level: extended
+      name: cvss.score.temporal
+      order: 1
+      original_fieldset: vulnerability
+      short: CVSS Temporal score.
+      type: long
+    vulnerability.detected.first:
+      description: The first time that the vulnerability was observed on the asset.
+      example: YYYY-MM-DD-HH-MM
+      flat_name: client.vulnerability.detected.first
+      level: extended
+      name: detected.first
+      order: 8
+      original_fieldset: vulnerability
+      short: Vulnerability first observed.
+      type: date
+    vulnerability.detected.last:
+      description: The last time that the vulnerability was observed on the asset.
+      example: YYYY-MM-DD-HH-MM
+      flat_name: client.vulnerability.detected.last
+      level: extended
+      name: detected.last
+      order: 9
+      original_fieldset: vulnerability
+      short: Vulnerability last observed.
+      type: date
+    vulnerability.scanned.first:
+      description: The first time that the asset was scanned for vulnerabilities.
+      example: YYYY-MM-DD-HH-MM
+      flat_name: client.vulnerability.scanned.first
+      level: extended
+      name: scanned.first
+      order: 10
+      original_fieldset: vulnerability
+      short: Asset first scanned.
+      type: date
+    vulnerability.scanned.last:
+      description: The last time that the asset was scanned for vulnerabilities.
+      example: YYYY-MM-DD-HH-MM
+      flat_name: client.vulnerability.scanned.last
+      level: extended
+      name: scanned.last
+      order: 11
+      original_fieldset: vulnerability
+      short: Asset last scanned.
+      type: date
+    vulnerability.severity:
+      description: The severity of the vulnerability can help with metrics and internal
+        prioritization regarding remediation. For example (ex. https://nvd.nist.gov/vuln-metrics/cvss)
+      example: Critical, High, Medium, Low, None
+      flat_name: client.vulnerability.severity
+      ignore_above: 1024
+      level: extended
+      name: severity
+      order: 6
+      original_fieldset: vulnerability
+      short: Severity of the vulnerability.
+      type: keyword
+    vulnerability.status:
+      description: 'The current status of the vulerability on the asset:
+
+        New - The first time a vulnerability is detected by a scan the status is set
+        to New. Active - A vulnerability detected by two or more scans is set to Active.
+        Fixed - A vulnerability was verified by the most recent scan as fixed, and
+        this vulnerability was detected by the previous scan. Re-Opened - A vulnerability
+        was reopened by the most recent scan, and this vulnerability was verified
+        as fixed by the previous scan.
+
+        For example (ex. https://qualysguard.qualys.com/qwebhelp/fo_portal/scans/vulnerability_status.htm)'
+      example: New, Active, Fixed, Re-Opened
+      flat_name: client.vulnerability.status
+      ignore_above: 1024
+      level: extended
+      name: status
+      order: 7
+      original_fieldset: vulnerability
+      short: Status of the vulnerability.
+      type: keyword
   group: 2
   name: client
   nestings:
+  - vulnerability
   - geo
   - as
   - user
@@ -2386,6 +2553,172 @@ host:
       original_fieldset: os
       short: Operating system version as a raw string.
       type: keyword
+    os.vulnerability.category:
+      description: The type of system or architecture that the vulnerability affects.
+        These may be platform-specific (for example, Debian or SUSE) or general (for
+        example, Database or Firewall). For example (ex. https://qualysguard.qualys.com/qwebhelp/fo_portal/knowledgebase/vulnerability_categories.htm)
+      example: AIX, Firewall, Malware, Office Application, Solaris, Windows
+      flat_name: host.os.vulnerability.category
+      ignore_above: 1024
+      level: extended
+      name: category
+      order: 3
+      original_fieldset: os
+      short: Category of a vulnerabilty.
+      type: keyword
+    os.vulnerability.cve.description:
+      description: 'The Common Vulnerability and Exposures (CVE) list is an open source
+        list for publicly known cybersecurity vulnerabilities providing an identification
+        number, a description, and at least one public reference.
+
+        The description of the vulnerability that provides additional context of the
+        vulnerability. For example (ex. https://cve.mitre.org/about/faqs.html#cve_entry_descriptions_created)'
+      example: In Keybase before 2.12.6 on macOS, the move RPC to the Helper was susceptible
+        to time-to-check-time-to-use bugs and would also allow one user of the system
+        (who didn't have root access) to tamper with another's installs.
+      flat_name: host.os.vulnerability.cve.description
+      ignore_above: 1024
+      level: extended
+      name: cve.description
+      order: 4
+      original_fieldset: os
+      short: Description of the vulnerability.
+      type: keyword
+    os.vulnerability.cve.id:
+      description: 'The Common Vulnerability and Exposures (CVE) list is an open source
+        list for publicly known cybersecurity vulnerabilities providing an identification
+        number, a description, and at least one public reference.
+
+        The identification (ID) is the number portion of a CVE Entry. It includes
+        the year the vulnerability ID was requested followed by a sequence number.
+        CVE-YYYY-NNNNN. For example (ex. https://cve.mitre.org/about/faqs.html#what_is_cve_id)'
+      example: CVE-2019-00001, CVE-2019-00002
+      flat_name: host.os.vulnerability.cve.id
+      ignore_above: 1024
+      level: extended
+      name: cve.id
+      order: 5
+      original_fieldset: os
+      short: ID of the vulnerability.
+      type: keyword
+    os.vulnerability.cvss.score.base:
+      description: 'The Common Vulnerability Scoring System (CVSS) is an open framework
+        for communicating the characteristics and severity of software vulnerabilities.
+        Scores can range from 0.0 to 10.0, with 10.0 being the most severe.
+
+        Base scores cover an assessment for exploitability metrics (attack vector,
+        complexity, privileges, and user interaction), impact metrics (confidentialy,
+        integrity, and availability), and scope. For example (ex. https://www.first.org/cvss/specification-document)'
+      example: 5.5, 6.6
+      flat_name: host.os.vulnerability.cvss.score.base
+      level: extended
+      name: cvss.score.base
+      order: 0
+      original_fieldset: os
+      short: CVSS Base score.
+      type: long
+    os.vulnerability.cvss.score.evironmental:
+      description: 'The Common Vulnerability Scoring System (CVSS) is an open framework
+        for communicating the characteristics and severity of software vulnerabilities.
+        Scores can range from 0.0 to 10.0, with 10.0 being the most severe.
+
+        Environmental scores cover an assessment for any modified Base metrics, confidentiality,
+        integrity, and availability requirements. For example (ex. https://www.first.org/cvss/specification-document)'
+      example: 5.5, 6.6
+      flat_name: host.os.vulnerability.cvss.score.evironmental
+      level: extended
+      name: cvss.score.evironmental
+      order: 2
+      original_fieldset: os
+      short: CVSS Environmental score.
+      type: long
+    os.vulnerability.cvss.score.temporal:
+      description: 'The Common Vulnerability Scoring System (CVSS) is an open framework
+        for communicating the characteristics and severity of software vulnerabilities.
+        Scores can range from 0.0 to 10.0, with 10.0 being the most severe.
+
+        Temporal scores cover an assessment for code maturity, remediation level,
+        and confidence. For example (ex. https://www.first.org/cvss/specification-document)'
+      example: 5.5, 6.6
+      flat_name: host.os.vulnerability.cvss.score.temporal
+      level: extended
+      name: cvss.score.temporal
+      order: 1
+      original_fieldset: os
+      short: CVSS Temporal score.
+      type: long
+    os.vulnerability.detected.first:
+      description: The first time that the vulnerability was observed on the asset.
+      example: YYYY-MM-DD-HH-MM
+      flat_name: host.os.vulnerability.detected.first
+      level: extended
+      name: detected.first
+      order: 8
+      original_fieldset: os
+      short: Vulnerability first observed.
+      type: date
+    os.vulnerability.detected.last:
+      description: The last time that the vulnerability was observed on the asset.
+      example: YYYY-MM-DD-HH-MM
+      flat_name: host.os.vulnerability.detected.last
+      level: extended
+      name: detected.last
+      order: 9
+      original_fieldset: os
+      short: Vulnerability last observed.
+      type: date
+    os.vulnerability.scanned.first:
+      description: The first time that the asset was scanned for vulnerabilities.
+      example: YYYY-MM-DD-HH-MM
+      flat_name: host.os.vulnerability.scanned.first
+      level: extended
+      name: scanned.first
+      order: 10
+      original_fieldset: os
+      short: Asset first scanned.
+      type: date
+    os.vulnerability.scanned.last:
+      description: The last time that the asset was scanned for vulnerabilities.
+      example: YYYY-MM-DD-HH-MM
+      flat_name: host.os.vulnerability.scanned.last
+      level: extended
+      name: scanned.last
+      order: 11
+      original_fieldset: os
+      short: Asset last scanned.
+      type: date
+    os.vulnerability.severity:
+      description: The severity of the vulnerability can help with metrics and internal
+        prioritization regarding remediation. For example (ex. https://nvd.nist.gov/vuln-metrics/cvss)
+      example: Critical, High, Medium, Low, None
+      flat_name: host.os.vulnerability.severity
+      ignore_above: 1024
+      level: extended
+      name: severity
+      order: 6
+      original_fieldset: os
+      short: Severity of the vulnerability.
+      type: keyword
+    os.vulnerability.status:
+      description: 'The current status of the vulerability on the asset:
+
+        New - The first time a vulnerability is detected by a scan the status is set
+        to New. Active - A vulnerability detected by two or more scans is set to Active.
+        Fixed - A vulnerability was verified by the most recent scan as fixed, and
+        this vulnerability was detected by the previous scan. Re-Opened - A vulnerability
+        was reopened by the most recent scan, and this vulnerability was verified
+        as fixed by the previous scan.
+
+        For example (ex. https://qualysguard.qualys.com/qwebhelp/fo_portal/scans/vulnerability_status.htm)'
+      example: New, Active, Fixed, Re-Opened
+      flat_name: host.os.vulnerability.status
+      ignore_above: 1024
+      level: extended
+      name: status
+      order: 7
+      original_fieldset: os
+      short: Status of the vulnerability.
+      type: keyword
     type:
       description: 'Type of host.
 
@@ -2508,9 +2841,176 @@ host:
       original_fieldset: user
       short: Short name or login of the user.
       type: keyword
+    vulnerability.category:
+      description: The type of system or architecture that the vulnerability affects.
+        These may be platform-specific (for example, Debian or SUSE) or general (for
+        example, Database or Firewall). For example (ex. https://qualysguard.qualys.com/qwebhelp/fo_portal/knowledgebase/vulnerability_categories.htm)
+      example: AIX, Firewall, Malware, Office Application, Solaris, Windows
+      flat_name: host.vulnerability.category
+      ignore_above: 1024
+      level: extended
+      name: category
+      order: 3
+      original_fieldset: vulnerability
+      short: Category of a vulnerabilty.
+      type: keyword
+    vulnerability.cve.description:
+      description: 'The Common Vulnerability and Exposures (CVE) list is an open source
+        list for publicly known cybersecurity vulnerabilities providing an identification
+        number, a description, and at least one public reference.
+
+        The description of the vulnerability that provides additional context of the
+        vulnerability. For example (ex. https://cve.mitre.org/about/faqs.html#cve_entry_descriptions_created)'
+      example: In Keybase before 2.12.6 on macOS, the move RPC to the Helper was susceptible
+        to time-to-check-time-to-use bugs and would also allow one user of the system
+        (who didn't have root access) to tamper with another's installs.
+      flat_name: host.vulnerability.cve.description
+      ignore_above: 1024
+      level: extended
+      name: cve.description
+      order: 4
+      original_fieldset: vulnerability
+      short: Description of the vulnerability.
+      type: keyword
+    vulnerability.cve.id:
+      description: 'The Common Vulnerability and Exposures (CVE) list is an open source
+        list for publicly known cybersecurity vulnerabilities providing an identification
+        number, a description, and at least one public reference.
+
+        The identification (ID) is the number portion of a CVE Entry. It includes
+        the year the vulnerability ID was requested followed by a sequence number.
+        CVE-YYYY-NNNNN. For example (ex. https://cve.mitre.org/about/faqs.html#what_is_cve_id)'
+      example: CVE-2019-00001, CVE-2019-00002
+      flat_name: host.vulnerability.cve.id
+      ignore_above: 1024
+      level: extended
+      name: cve.id
+      order: 5
+      original_fieldset: vulnerability
+      short: ID of the vulnerability.
+      type: keyword
+    vulnerability.cvss.score.base:
+      description: 'The Common Vulnerability Scoring System (CVSS) is an open framework
+        for communicating the characteristics and severity of software vulnerabilities.
+        Scores can range from 0.0 to 10.0, with 10.0 being the most severe.
+
+        Base scores cover an assessment for exploitability metrics (attack vector,
+        complexity, privileges, and user interaction), impact metrics (confidentialy,
+        integrity, and availability), and scope. For example (ex. https://www.first.org/cvss/specification-document)'
+      example: 5.5, 6.6
+      flat_name: host.vulnerability.cvss.score.base
+      level: extended
+      name: cvss.score.base
+      order: 0
+      original_fieldset: vulnerability
+      short: CVSS Base score.
+      type: long
+    vulnerability.cvss.score.evironmental:
+      description: 'The Common Vulnerability Scoring System (CVSS) is an open framework
+        for communicating the characteristics and severity of software vulnerabilities.
+        Scores can range from 0.0 to 10.0, with 10.0 being the most severe.
+
+        Environmental scores cover an assessment for any modified Base metrics, confidentiality,
+        integrity, and availability requirements. For example (ex. https://www.first.org/cvss/specification-document)'
+      example: 5.5, 6.6
+      flat_name: host.vulnerability.cvss.score.evironmental
+      level: extended
+      name: cvss.score.evironmental
+      order: 2
+      original_fieldset: vulnerability
+      short: CVSS Environmental score.
+      type: long
+    vulnerability.cvss.score.temporal:
+      description: 'The Common Vulnerability Scoring System (CVSS) is an open framework
+        for communicating the characteristics and severity of software vulnerabilities.
+        Scores can range from 0.0 to 10.0, with 10.0 being the most severe.
+
+        Temporal scores cover an assessment for code maturity, remediation level,
+        and confidence. For example (ex. https://www.first.org/cvss/specification-document)'
+      example: 5.5, 6.6
+      flat_name: host.vulnerability.cvss.score.temporal
+      level: extended
+      name: cvss.score.temporal
+      order: 1
+      original_fieldset: vulnerability
+      short: CVSS Temporal score.
+      type: long
+    vulnerability.detected.first:
+      description: The first time that the vulnerability was observed on the asset.
+      example: YYYY-MM-DD-HH-MM
+      flat_name: host.vulnerability.detected.first
+      level: extended
+      name: detected.first
+      order: 8
+      original_fieldset: vulnerability
+      short: Vulnerability first observed.
+      type: date
+    vulnerability.detected.last:
+      description: The last time that the vulnerability was observed on the asset.
+      example: YYYY-MM-DD-HH-MM
+      flat_name: host.vulnerability.detected.last
+      level: extended
+      name: detected.last
+      order: 9
+      original_fieldset: vulnerability
+      short: Vulnerability last observed.
+      type: date
+    vulnerability.scanned.first:
+      description: The first time that the asset was scanned for vulnerabilities.
+      example: YYYY-MM-DD-HH-MM
+      flat_name: host.vulnerability.scanned.first
+      level: extended
+      name: scanned.first
+      order: 10
+      original_fieldset: vulnerability
+      short: Asset first scanned.
+      type: date
+    vulnerability.scanned.last:
+      description: The last time that the asset was scanned for vulnerabilities.
+      example: YYYY-MM-DD-HH-MM
+      flat_name: host.vulnerability.scanned.last
+      level: extended
+      name: scanned.last
+      order: 11
+      original_fieldset: vulnerability
+      short: Asset last scanned.
+      type: date
+    vulnerability.severity:
+      description: The severity of the vulnerability can help with metrics and internal
+        prioritization regarding remediation. For example (ex. https://nvd.nist.gov/vuln-metrics/cvss)
+      example: Critical, High, Medium, Low, None
+      flat_name: host.vulnerability.severity
+      ignore_above: 1024
+      level: extended
+      name: severity
+      order: 6
+      original_fieldset: vulnerability
+      short: Severity of the vulnerability.
+      type: keyword
+    vulnerability.status:
+      description: 'The current status of the vulerability on the asset:
+
+        New - The first time a vulnerability is detected by a scan the status is set
+        to New. Active - A vulnerability detected by two or more scans is set to Active.
+        Fixed - A vulnerability was verified by the most recent scan as fixed, and
+        this vulnerability was detected by the previous scan. Re-Opened - A vulnerability
+        was reopened by the most recent scan, and this vulnerability was verified
+        as fixed by the previous scan.
+
+        For example (ex. https://qualysguard.qualys.com/qwebhelp/fo_portal/scans/vulnerability_status.htm)'
+      example: New, Active, Fixed, Re-Opened
+      flat_name: host.vulnerability.status
+      ignore_above: 1024
+      level: extended
+      name: status
+      order: 7
+      original_fieldset: vulnerability
+      short: Status of the vulnerability.
+      type: keyword
   group: 2
   name: host
   nestings:
+  - vulnerability
   - geo
   - os
   - user
@@ -3172,6 +3672,172 @@ observer:
       original_fieldset: os
       short: Operating system version as a raw string.
       type: keyword
+    os.vulnerability.category:
+      description: The type of system or architecture that the vulnerability affects.
+        These may be platform-specific (for example, Debian or SUSE) or general (for
+        example, Database or Firewall). For example (ex. https://qualysguard.qualys.com/qwebhelp/fo_portal/knowledgebase/vulnerability_categories.htm)
+      example: AIX, Firewall, Malware, Office Application, Solaris, Windows
+      flat_name: observer.os.vulnerability.category
+      ignore_above: 1024
+      level: extended
+      name: category
+      order: 3
+      original_fieldset: os
+      short: Category of a vulnerabilty.
+      type: keyword
+    os.vulnerability.cve.description:
+      description: 'The Common Vulnerability and Exposures (CVE) list is an open source
+        list for publicly known cybersecurity vulnerabilities providing an identification
+        number, a description, and at least one public reference.
+
+        The description of the vulnerability that provides additional context of the
+        vulnerability. For example (ex. https://cve.mitre.org/about/faqs.html#cve_entry_descriptions_created)'
+      example: In Keybase before 2.12.6 on macOS, the move RPC to the Helper was susceptible
+        to time-to-check-time-to-use bugs and would also allow one user of the system
+        (who didn't have root access) to tamper with another's installs.
+      flat_name: observer.os.vulnerability.cve.description
+      ignore_above: 1024
+      level: extended
+      name: cve.description
+      order: 4
+      original_fieldset: os
+      short: Description of the vulnerability.
+      type: keyword
+    os.vulnerability.cve.id:
+      description: 'The Common Vulnerability and Exposures (CVE) list is an open source
+        list for publicly known cybersecurity vulnerabilities providing an identification
+        number, a description, and at least one public reference.
+
+        The identification (ID) is the number portion of a CVE Entry. It includes
+        the year the vulnerability ID was requested followed by a sequence number.
+        CVE-YYYY-NNNNN. For example (ex. https://cve.mitre.org/about/faqs.html#what_is_cve_id)'
+      example: CVE-2019-00001, CVE-2019-00002
+      flat_name: observer.os.vulnerability.cve.id
+      ignore_above: 1024
+      level: extended
+      name: cve.id
+      order: 5
+      original_fieldset: os
+      short: ID of the vulnerability.
+      type: keyword
+    os.vulnerability.cvss.score.base:
+      description: 'The Common Vulnerability Scoring System (CVSS) is an open framework
+        for communicating the characteristics and severity of software vulnerabilities.
+        Scores can range from 0.0 to 10.0, with 10.0 being the most severe.
+
+        Base scores cover an assessment for exploitability metrics (attack vector,
+        complexity, privileges, and user interaction), impact metrics (confidentialy,
+        integrity, and availability), and scope. For example (ex. https://www.first.org/cvss/specification-document)'
+      example: 5.5, 6.6
+      flat_name: observer.os.vulnerability.cvss.score.base
+      level: extended
+      name: cvss.score.base
+      order: 0
+      original_fieldset: os
+      short: CVSS Base score.
+      type: long
+    os.vulnerability.cvss.score.evironmental:
+      description: 'The Common Vulnerability Scoring System (CVSS) is an open framework
+        for communicating the characteristics and severity of software vulnerabilities.
+        Scores can range from 0.0 to 10.0, with 10.0 being the most severe.
+
+        Environmental scores cover an assessment for any modified Base metrics, confidentiality,
+        integrity, and availability requirements. For example (ex. https://www.first.org/cvss/specification-document)'
+      example: 5.5, 6.6
+      flat_name: observer.os.vulnerability.cvss.score.evironmental
+      level: extended
+      name: cvss.score.evironmental
+      order: 2
+      original_fieldset: os
+      short: CVSS Environmental score.
+      type: long
+    os.vulnerability.cvss.score.temporal:
+      description: 'The Common Vulnerability Scoring System (CVSS) is an open framework
+        for communicating the characteristics and severity of software vulnerabilities.
+        Scores can range from 0.0 to 10.0, with 10.0 being the most severe.
+
+        Temporal scores cover an assessment for code maturity, remediation level,
+        and confidence. For example (ex. https://www.first.org/cvss/specification-document)'
+      example: 5.5, 6.6
+      flat_name: observer.os.vulnerability.cvss.score.temporal
+      level: extended
+      name: cvss.score.temporal
+      order: 1
+      original_fieldset: os
+      short: CVSS Temporal score.
+      type: long
+    os.vulnerability.detected.first:
+      description: The first time that the vulnerability was observed on the asset.
+      example: YYYY-MM-DD-HH-MM
+      flat_name: observer.os.vulnerability.detected.first
+      level: extended
+      name: detected.first
+      order: 8
+      original_fieldset: os
+      short: Vulnerability first observed.
+      type: date
+    os.vulnerability.detected.last:
+      description: The last time that the vulnerability was observed on the asset.
+      example: YYYY-MM-DD-HH-MM
+      flat_name: observer.os.vulnerability.detected.last
+      level: extended
+      name: detected.last
+      order: 9
+      original_fieldset: os
+      short: Vulnerability last observed.
+      type: date
+    os.vulnerability.scanned.first:
+      description: The first time that the asset was scanned for vulnerabilities.
+      example: YYYY-MM-DD-HH-MM
+      flat_name: observer.os.vulnerability.scanned.first
+      level: extended
+      name: scanned.first
+      order: 10
+      original_fieldset: os
+      short: Asset first scanned.
+      type: date
+    os.vulnerability.scanned.last:
+      description: The last time that the asset was scanned for vulnerabilities.
+      example: YYYY-MM-DD-HH-MM
+      flat_name: observer.os.vulnerability.scanned.last
+      level: extended
+      name: scanned.last
+      order: 11
+      original_fieldset: os
+      short: Asset last scanned.
+      type: date
+    os.vulnerability.severity:
+      description: The severity of the vulnerability can help with metrics and internal
+        prioritization regarding remediation. For example (ex. https://nvd.nist.gov/vuln-metrics/cvss)
+      example: Critical, High, Medium, Low, None
+      flat_name: observer.os.vulnerability.severity
+      ignore_above: 1024
+      level: extended
+      name: severity
+      order: 6
+      original_fieldset: os
+      short: Severity of the vulnerability.
+      type: keyword
+    os.vulnerability.status:
+      description: 'The current status of the vulerability on the asset:
+
+        New - The first time a vulnerability is detected by a scan the status is set
+        to New. Active - A vulnerability detected by two or more scans is set to Active.
+        Fixed - A vulnerability was verified by the most recent scan as fixed, and
+        this vulnerability was detected by the previous scan. Re-Opened - A vulnerability
+        was reopened by the most recent scan, and this vulnerability was verified
+        as fixed by the previous scan.
+
+        For example (ex. https://qualysguard.qualys.com/qwebhelp/fo_portal/scans/vulnerability_status.htm)'
+      example: New, Active, Fixed, Re-Opened
+      flat_name: observer.os.vulnerability.status
+      ignore_above: 1024
+      level: extended
+      name: status
+      order: 7
+      original_fieldset: os
+      short: Status of the vulnerability.
+      type: keyword
     product:
       description: The product name of the observer.
       example: s200
@@ -3223,9 +3889,176 @@ observer:
       order: 6
       short: Observer version.
       type: keyword
+    vulnerability.category:
+      description: The type of system or architecture that the vulnerability affects.
+        These may be platform-specific (for example, Debian or SUSE) or general (for
+        example, Database or Firewall). For example (ex. https://qualysguard.qualys.com/qwebhelp/fo_portal/knowledgebase/vulnerability_categories.htm)
+      example: AIX, Firewall, Malware, Office Application, Solaris, Windows
+      flat_name: observer.vulnerability.category
+      ignore_above: 1024
+      level: extended
+      name: category
+      order: 3
+      original_fieldset: vulnerability
+      short: Category of a vulnerabilty.
+      type: keyword
+    vulnerability.cve.description:
+      description: 'The Common Vulnerability and Exposures (CVE) list is an open source
+        list for publicly known cybersecurity vulnerabilities providing an identification
+        number, a description, and at least one public reference.
+
+        The description of the vulnerability that provides additional context of the
+        vulnerability. For example (ex. https://cve.mitre.org/about/faqs.html#cve_entry_descriptions_created)'
+      example: In Keybase before 2.12.6 on macOS, the move RPC to the Helper was susceptible
+        to time-to-check-time-to-use bugs and would also allow one user of the system
+        (who didn't have root access) to tamper with another's installs.
+      flat_name: observer.vulnerability.cve.description
+      ignore_above: 1024
+      level: extended
+      name: cve.description
+      order: 4
+      original_fieldset: vulnerability
+      short: Description of the vulnerability.
+      type: keyword
+    vulnerability.cve.id:
+      description: 'The Common Vulnerability and Exposures (CVE) list is an open source
+        list for publicly known cybersecurity vulnerabilities providing an identification
+        number, a description, and at least one public reference.
+
+        The identification (ID) is the number portion of a CVE Entry. It includes
+        the year the vulnerability ID was requested followed by a sequence number.
+        CVE-YYYY-NNNNN. For example (ex. https://cve.mitre.org/about/faqs.html#what_is_cve_id)'
+      example: CVE-2019-00001, CVE-2019-00002
+      flat_name: observer.vulnerability.cve.id
+      ignore_above: 1024
+      level: extended
+      name: cve.id
+      order: 5
+      original_fieldset: vulnerability
+      short: ID of the vulnerability.
+      type: keyword
+    vulnerability.cvss.score.base:
+      description: 'The Common Vulnerability Scoring System (CVSS) is an open framework
+        for communicating the characteristics and severity of software vulnerabilities.
+        Scores can range from 0.0 to 10.0, with 10.0 being the most severe.
+
+        Base scores cover an assessment for exploitability metrics (attack vector,
+        complexity, privileges, and user interaction), impact metrics (confidentialy,
+        integrity, and availability), and scope. For example (ex. https://www.first.org/cvss/specification-document)'
+      example: 5.5, 6.6
+      flat_name: observer.vulnerability.cvss.score.base
+      level: extended
+      name: cvss.score.base
+      order: 0
+      original_fieldset: vulnerability
+      short: CVSS Base score.
+      type: long
+    vulnerability.cvss.score.evironmental:
+      description: 'The Common Vulnerability Scoring System (CVSS) is an open framework
+        for communicating the characteristics and severity of software vulnerabilities.
+        Scores can range from 0.0 to 10.0, with 10.0 being the most severe.
+
+        Environmental scores cover an assessment for any modified Base metrics, confidentiality,
+        integrity, and availability requirements. For example (ex. https://www.first.org/cvss/specification-document)'
+      example: 5.5, 6.6
+      flat_name: observer.vulnerability.cvss.score.evironmental
+      level: extended
+      name: cvss.score.evironmental
+      order: 2
+      original_fieldset: vulnerability
+      short: CVSS Environmental score.
+      type: long
+    vulnerability.cvss.score.temporal:
+      description: 'The Common Vulnerability Scoring System (CVSS) is an open framework
+        for communicating the characteristics and severity of software vulnerabilities.
+        Scores can range from 0.0 to 10.0, with 10.0 being the most severe.
+
+        Temporal scores cover an assessment for code maturity, remediation level,
+        and confidence. For example (ex. https://www.first.org/cvss/specification-document)'
+      example: 5.5, 6.6
+      flat_name: observer.vulnerability.cvss.score.temporal
+      level: extended
+      name: cvss.score.temporal
+      order: 1
+      original_fieldset: vulnerability
+      short: CVSS Temporal score.
+      type: long
+    vulnerability.detected.first:
+      description: The first time that the vulnerability was observed on the asset.
+      example: YYYY-MM-DD-HH-MM
+      flat_name: observer.vulnerability.detected.first
+      level: extended
+      name: detected.first
+      order: 8
+      original_fieldset: vulnerability
+      short: Vulnerability first observed.
+      type: date
+    vulnerability.detected.last:
+      description: The last time that the vulnerability was observed on the asset.
+      example: YYYY-MM-DD-HH-MM
+      flat_name: observer.vulnerability.detected.last
+      level: extended
+      name: detected.last
+      order: 9
+      original_fieldset: vulnerability
+      short: Vulnerability last observed.
+      type: date
+    vulnerability.scanned.first:
+      description: The first time that the asset was scanned for vulnerabilities.
+      example: YYYY-MM-DD-HH-MM
+      flat_name: observer.vulnerability.scanned.first
+      level: extended
+      name: scanned.first
+      order: 10
+      original_fieldset: vulnerability
+      short: Asset first scanned.
+      type: date
+    vulnerability.scanned.last:
+      description: The last time that the asset was scanned for vulnerabilities.
+      example: YYYY-MM-DD-HH-MM
+      flat_name: observer.vulnerability.scanned.last
+      level: extended
+      name: scanned.last
+      order: 11
+      original_fieldset: vulnerability
+      short: Asset last scanned.
+      type: date
+    vulnerability.severity:
+      description: The severity of the vulnerability can help with metrics and internal
+        prioritization regarding remediation. For example (ex. https://nvd.nist.gov/vuln-metrics/cvss)
+      example: Critical, High, Medium, Low, None
+      flat_name: observer.vulnerability.severity
+      ignore_above: 1024
+      level: extended
+      name: severity
+      order: 6
+      original_fieldset: vulnerability
+      short: Severity of the vulnerability.
+      type: keyword
+    vulnerability.status:
+      description: 'The current status of the vulerability on the asset:
+
+        New - The first time a vulnerability is detected by a scan the status is set
+        to New. Active - A vulnerability detected by two or more scans is set to Active.
+        Fixed - A vulnerability was verified by the most recent scan as fixed, and
+        this vulnerability was detected by the previous scan. Re-Opened - A vulnerability
+        was reopened by the most recent scan, and this vulnerability was verified
+        as fixed by the previous scan.
+
+        For example (ex. https://qualysguard.qualys.com/qwebhelp/fo_portal/scans/vulnerability_status.htm)'
+      example: New, Active, Fixed, Re-Opened
+      flat_name: observer.vulnerability.status
+      ignore_above: 1024
+      level: extended
+      name: status
+      order: 7
+      original_fieldset: vulnerability
+      short: Status of the vulnerability.
+      type: keyword
   group: 2
   name: observer
   nestings:
+  - vulnerability
   - geo
   - os
   prefix: observer.
@@ -3326,8 +4159,176 @@ os:
       order: 4
       short: Operating system version as a raw string.
       type: keyword
+    vulnerability.category:
+      description: The type of system or architecture that the vulnerability affects.
+        These may be platform-specific (for example, Debian or SUSE) or general (for
+        example, Database or Firewall). For example (ex. https://qualysguard.qualys.com/qwebhelp/fo_portal/knowledgebase/vulnerability_categories.htm)
+      example: AIX, Firewall, Malware, Office Application, Solaris, Windows
+      flat_name: os.vulnerability.category
+      ignore_above: 1024
+      level: extended
+      name: category
+      order: 3
+      original_fieldset: vulnerability
+      short: Category of a vulnerabilty.
+      type: keyword
+    vulnerability.cve.description:
+      description: 'The Common Vulnerability and Exposures (CVE) list is an open source
+        list for publicly known cybersecurity vulnerabilities providing an identification
+        number, a description, and at least one public reference.
+
+        The description of the vulnerability that provides additional context of the
+        vulnerability. For example (ex. https://cve.mitre.org/about/faqs.html#cve_entry_descriptions_created)'
+      example: In Keybase before 2.12.6 on macOS, the move RPC to the Helper was susceptible
+        to time-to-check-time-to-use bugs and would also allow one user of the system
+        (who didn't have root access) to tamper with another's installs.
+      flat_name: os.vulnerability.cve.description
+      ignore_above: 1024
+      level: extended
+      name: cve.description
+      order: 4
+      original_fieldset: vulnerability
+      short: Description of the vulnerability.
+      type: keyword
+    vulnerability.cve.id:
+      description: 'The Common Vulnerability and Exposures (CVE) list is an open source
+        list for publicly known cybersecurity vulnerabilities providing an identification
+        number, a description, and at least one public reference.
+
+        The identification (ID) is the number portion of a CVE Entry. It includes
+        the year the vulnerability ID was requested followed by a sequence number.
+        CVE-YYYY-NNNNN. For example (ex. https://cve.mitre.org/about/faqs.html#what_is_cve_id)'
+      example: CVE-2019-00001, CVE-2019-00002
+      flat_name: os.vulnerability.cve.id
+      ignore_above: 1024
+      level: extended
+      name: cve.id
+      order: 5
+      original_fieldset: vulnerability
+      short: ID of the vulnerability.
+      type: keyword
+    vulnerability.cvss.score.base:
+      description: 'The Common Vulnerability Scoring System (CVSS) is an open framework
+        for communicating the characteristics and severity of software vulnerabilities.
+        Scores can range from 0.0 to 10.0, with 10.0 being the most severe.
+
+        Base scores cover an assessment for exploitability metrics (attack vector,
+        complexity, privileges, and user interaction), impact metrics (confidentialy,
+        integrity, and availability), and scope. For example (ex. https://www.first.org/cvss/specification-document)'
+      example: 5.5, 6.6
+      flat_name: os.vulnerability.cvss.score.base
+      level: extended
+      name: cvss.score.base
+      order: 0
+      original_fieldset: vulnerability
+      short: CVSS Base score.
+      type: long
+    vulnerability.cvss.score.evironmental:
+      description: 'The Common Vulnerability Scoring System (CVSS) is an open framework
+        for communicating the characteristics and severity of software vulnerabilities.
+        Scores can range from 0.0 to 10.0, with 10.0 being the most severe.
+
+        Environmental scores cover an assessment for any modified Base metrics, confidentiality,
+        integrity, and availability requirements. For example (ex. https://www.first.org/cvss/specification-document)'
+      example: 5.5, 6.6
+      flat_name: os.vulnerability.cvss.score.evironmental
+      level: extended
+      name: cvss.score.evironmental
+      order: 2
+      original_fieldset: vulnerability
+      short: CVSS Environmental score.
+      type: long
+    vulnerability.cvss.score.temporal:
+      description: 'The Common Vulnerability Scoring System (CVSS) is an open framework
+        for communicating the characteristics and severity of software vulnerabilities.
+        Scores can range from 0.0 to 10.0, with 10.0 being the most severe.
+
+        Temporal scores cover an assessment for code maturity, remediation level,
+        and confidence. For example (ex. https://www.first.org/cvss/specification-document)'
+      example: 5.5, 6.6
+      flat_name: os.vulnerability.cvss.score.temporal
+      level: extended
+      name: cvss.score.temporal
+      order: 1
+      original_fieldset: vulnerability
+      short: CVSS Temporal score.
+      type: long
+    vulnerability.detected.first:
+      description: The first time that the vulnerability was observed on the asset.
+      example: YYYY-MM-DD-HH-MM
+      flat_name: os.vulnerability.detected.first
+      level: extended
+      name: detected.first
+      order: 8
+      original_fieldset: vulnerability
+      short: Vulnerability first observed.
+      type: date
+    vulnerability.detected.last:
+      description: The last time that the vulnerability was observed on the asset.
+      example: YYYY-MM-DD-HH-MM
+      flat_name: os.vulnerability.detected.last
+      level: extended
+      name: detected.last
+      order: 9
+      original_fieldset: vulnerability
+      short: Vulnerability last observed.
+      type: date
+    vulnerability.scanned.first:
+      description: The first time that the asset was scanned for vulnerabilities.
+      example: YYYY-MM-DD-HH-MM
+      flat_name: os.vulnerability.scanned.first
+      level: extended
+      name: scanned.first
+      order: 10
+      original_fieldset: vulnerability
+      short: Asset first scanned.
+      type: date
+    vulnerability.scanned.last:
+      description: The last time that the asset was scanned for vulnerabilities.
+      example: YYYY-MM-DD-HH-MM
+      flat_name: os.vulnerability.scanned.last
+      level: extended
+      name: scanned.last
+      order: 11
+      original_fieldset: vulnerability
+      short: Asset last scanned.
+      type: date
+    vulnerability.severity:
+      description: The severity of the vulnerability can help with metrics and internal
+        prioritization regarding remediation. For example (ex. https://nvd.nist.gov/vuln-metrics/cvss)
+      example: Critical, High, Medium, Low, None
+      flat_name: os.vulnerability.severity
+      ignore_above: 1024
+      level: extended
+      name: severity
+      order: 6
+      original_fieldset: vulnerability
+      short: Severity of the vulnerability.
+      type: keyword
+    vulnerability.status:
+      description: 'The current status of the vulerability on the asset:
+
+        New - The first time a vulnerability is detected by a scan the status is set
+        to New. Active - A vulnerability detected by two or more scans is set to Active.
+        Fixed - A vulnerability was verified by the most recent scan as fixed, and
+        this vulnerability was detected by the previous scan. Re-Opened - A vulnerability
+        was reopened by the most recent scan, and this vulnerability was verified
+        as fixed by the previous scan.
+
+        For example (ex. https://qualysguard.qualys.com/qwebhelp/fo_portal/scans/vulnerability_status.htm)'
+      example: New, Active, Fixed, Re-Opened
+      flat_name: os.vulnerability.status
+      ignore_above: 1024
+      level: extended
+      name: status
+      order: 7
+      original_fieldset: vulnerability
+      short: Status of the vulnerability.
+      type: keyword
   group: 2
   name: os
+  nestings:
+  - vulnerability
   prefix: os.
   reusable:
     expected:
@@ -5033,6 +6034,172 @@ user_agent:
       original_fieldset: os
       short: Operating system version as a raw string.
       type: keyword
+    os.vulnerability.category:
+      description: The type of system or architecture that the vulnerability affects.
+        These may be platform-specific (for example, Debian or SUSE) or general (for
+        example, Database or Firewall). For example (ex. https://qualysguard.qualys.com/qwebhelp/fo_portal/knowledgebase/vulnerability_categories.htm)
+      example: AIX, Firewall, Malware, Office Application, Solaris, Windows
+      flat_name: user_agent.os.vulnerability.category
+      ignore_above: 1024
+      level: extended
+      name: category
+      order: 3
+      original_fieldset: os
+      short: Category of a vulnerabilty.
+      type: keyword
+    os.vulnerability.cve.description:
+      description: 'The Common Vulnerability and Exposures (CVE) list is an open source
+        list for publicly known cybersecurity vulnerabilities providing an identification
+        number, a description, and at least one public reference.
+
+        The description of the vulnerability that provides additional context of the
+        vulnerability. For example (ex. https://cve.mitre.org/about/faqs.html#cve_entry_descriptions_created)'
+      example: In Keybase before 2.12.6 on macOS, the move RPC to the Helper was susceptible
+        to time-to-check-time-to-use bugs and would also allow one user of the system
+        (who didn't have root access) to tamper with another's installs.
+      flat_name: user_agent.os.vulnerability.cve.description
+      ignore_above: 1024
+      level: extended
+      name: cve.description
+      order: 4
+      original_fieldset: os
+      short: Description of the vulnerability.
+      type: keyword
+    os.vulnerability.cve.id:
+      description: 'The Common Vulnerability and Exposures (CVE) list is an open source
+        list for publicly known cybersecurity vulnerabilities providing an identification
+        number, a description, and at least one public reference.
+
+        The identification (ID) is the number portion of a CVE Entry. It includes
+        the year the vulnerability ID was requested followed by a sequence number.
+        CVE-YYYY-NNNNN. For example (ex. https://cve.mitre.org/about/faqs.html#what_is_cve_id)'
+      example: CVE-2019-00001, CVE-2019-00002
+      flat_name: user_agent.os.vulnerability.cve.id
+      ignore_above: 1024
+      level: extended
+      name: cve.id
+      order: 5
+      original_fieldset: os
+      short: ID of the vulnerability.
+      type: keyword
+    os.vulnerability.cvss.score.base:
+      description: 'The Common Vulnerability Scoring System (CVSS) is an open framework
+        for communicating the characteristics and severity of software vulnerabilities.
+        Scores can range from 0.0 to 10.0, with 10.0 being the most severe.
+
+        Base scores cover an assessment for exploitability metrics (attack vector,
+        complexity, privileges, and user interaction), impact metrics (confidentialy,
+        integrity, and availability), and scope. For example (ex. https://www.first.org/cvss/specification-document)'
+      example: 5.5, 6.6
+      flat_name: user_agent.os.vulnerability.cvss.score.base
+      level: extended
+      name: cvss.score.base
+      order: 0
+      original_fieldset: os
+      short: CVSS Base score.
+      type: long
+    os.vulnerability.cvss.score.evironmental:
+      description: 'The Common Vulnerability Scoring System (CVSS) is an open framework
+        for communicating the characteristics and severity of software vulnerabilities.
+        Scores can range from 0.0 to 10.0, with 10.0 being the most severe.
+
+        Environmental scores cover an assessment for any modified Base metrics, confidentiality,
+        integrity, and availability requirements. For example (ex. https://www.first.org/cvss/specification-document)'
+      example: 5.5, 6.6
+      flat_name: user_agent.os.vulnerability.cvss.score.evironmental
+      level: extended
+      name: cvss.score.evironmental
+      order: 2
+      original_fieldset: os
+      short: CVSS Environmental score.
+      type: long
+    os.vulnerability.cvss.score.temporal:
+      description: 'The Common Vulnerability Scoring System (CVSS) is an open framework
+        for communicating the characteristics and severity of software vulnerabilities.
+        Scores can range from 0.0 to 10.0, with 10.0 being the most severe.
+
+        Temporal scores cover an assessment for code maturity, remediation level,
+        and confidence. For example (ex. https://www.first.org/cvss/specification-document)'
+      example: 5.5, 6.6
+      flat_name: user_agent.os.vulnerability.cvss.score.temporal
+      level: extended
+      name: cvss.score.temporal
+      order: 1
+      original_fieldset: os
+      short: CVSS Temporal score.
+      type: long
+    os.vulnerability.detected.first:
+      description: The first time that the vulnerability was observed on the asset.
+      example: YYYY-MM-DD-HH-MM
+      flat_name: user_agent.os.vulnerability.detected.first
+      level: extended
+      name: detected.first
+      order: 8
+      original_fieldset: os
+      short: Vulnerability first observed.
+      type: date
+    os.vulnerability.detected.last:
+      description: The last time that the vulnerability was observed on the asset.
+      example: YYYY-MM-DD-HH-MM
+      flat_name: user_agent.os.vulnerability.detected.last
+      level: extended
+      name: detected.last
+      order: 9
+      original_fieldset: os
+      short: Vulnerability last observed.
+      type: date
+    os.vulnerability.scanned.first:
+      description: The first time that the asset was scanned for vulnerabilities.
+      example: YYYY-MM-DD-HH-MM
+      flat_name: user_agent.os.vulnerability.scanned.first
+      level: extended
+      name: scanned.first
+      order: 10
+      original_fieldset: os
+      short: Asset first scanned.
+      type: date
+    os.vulnerability.scanned.last:
+      description: The last time that the asset was scanned for vulnerabilities.
+      example: YYYY-MM-DD-HH-MM
+      flat_name: user_agent.os.vulnerability.scanned.last
+      level: extended
+      name: scanned.last
+      order: 11
+      original_fieldset: os
+      short: Asset last scanned.
+      type: date
+    os.vulnerability.severity:
+      description: The severity of the vulnerability can help with metrics and internal
+        prioritization regarding remediation. For example (ex. https://nvd.nist.gov/vuln-metrics/cvss)
+      example: Critical, High, Medium, Low, None
+      flat_name: user_agent.os.vulnerability.severity
+      ignore_above: 1024
+      level: extended
+      name: severity
+      order: 6
+      original_fieldset: os
+      short: Severity of the vulnerability.
+      type: keyword
+    os.vulnerability.status:
+      description: 'The current status of the vulerability on the asset:
+
+        New - The first time a vulnerability is detected by a scan the status is set
+        to New. Active - A vulnerability detected by two or more scans is set to Active.
+        Fixed - A vulnerability was verified by the most recent scan as fixed, and
+        this vulnerability was detected by the previous scan. Re-Opened - A vulnerability
+        was reopened by the most recent scan, and this vulnerability was verified
+        as fixed by the previous scan.
+
+        For example (ex. https://qualysguard.qualys.com/qwebhelp/fo_portal/scans/vulnerability_status.htm)'
+      example: New, Active, Fixed, Re-Opened
+      flat_name: user_agent.os.vulnerability.status
+      ignore_above: 1024
+      level: extended
+      name: status
+      order: 7
+      original_fieldset: os
+      short: Status of the vulnerability.
+      type: keyword
     version:
       description: Version of the user agent.
       example: 12.0
@@ -5050,4 +6217,177 @@ user_agent:
   prefix: user_agent.
   short: Fields to describe a browser user_agent string.
   title: User agent
+  type: group
+vulnerability:
+  description: 'The vulnerability fields describe information about a vulnerabilty
+    that is relevant to an event.
+
+    Fields can have one entry or multiple entries.'
+  fields:
+    category:
+      description: The type of system or architecture that the vulnerability affects.
+        These may be platform-specific (for example, Debian or SUSE) or general (for
+        example, Database or Firewall). For example (ex. https://qualysguard.qualys.com/qwebhelp/fo_portal/knowledgebase/vulnerability_categories.htm)
+      example: AIX, Firewall, Malware, Office Application, Solaris, Windows
+      flat_name: vulnerability.category
+      ignore_above: 1024
+      level: extended
+      name: category
+      order: 3
+      short: Category of a vulnerabilty.
+      type: keyword
+    cve.description:
+      description: 'The Common Vulnerability and Exposures (CVE) list is an open source
+        list for publicly known cybersecurity vulnerabilities providing an identification
+        number, a description, and at least one public reference.
+
+        The description of the vulnerability that provides additional context of the
+        vulnerability. For example (ex. https://cve.mitre.org/about/faqs.html#cve_entry_descriptions_created)'
+      example: In Keybase before 2.12.6 on macOS, the move RPC to the Helper was susceptible
+        to time-to-check-time-to-use bugs and would also allow one user of the system
+        (who didn't have root access) to tamper with another's installs.
+      flat_name: vulnerability.cve.description
+      ignore_above: 1024
+      level: extended
+      name: cve.description
+      order: 4
+      short: Description of the vulnerability.
+      type: keyword
+    cve.id:
+      description: 'The Common Vulnerability and Exposures (CVE) list is an open source
+        list for publicly known cybersecurity vulnerabilities providing an identification
+        number, a description, and at least one public reference.
+
+        The identification (ID) is the number portion of a CVE Entry. It includes
+        the year the vulnerability ID was requested followed by a sequence number.
+        CVE-YYYY-NNNNN. For example (ex. https://cve.mitre.org/about/faqs.html#what_is_cve_id)'
+      example: CVE-2019-00001, CVE-2019-00002
+      flat_name: vulnerability.cve.id
+      ignore_above: 1024
+      level: extended
+      name: cve.id
+      order: 5
+      short: ID of the vulnerability.
+      type: keyword
+    cvss.score.base:
+      description: 'The Common Vulnerability Scoring System (CVSS) is an open framework
+        for communicating the characteristics and severity of software vulnerabilities.
+        Scores can range from 0.0 to 10.0, with 10.0 being the most severe.
+
+        Base scores cover an assessment for exploitability metrics (attack vector,
+        complexity, privileges, and user interaction), impact metrics (confidentialy,
+        integrity, and availability), and scope. For example (ex. https://www.first.org/cvss/specification-document)'
+      example: 5.5, 6.6
+      flat_name: vulnerability.cvss.score.base
+      level: extended
+      name: cvss.score.base
+      order: 0
+      short: CVSS Base score.
+      type: long
+    cvss.score.evironmental:
+      description: 'The Common Vulnerability Scoring System (CVSS) is an open framework
+        for communicating the characteristics and severity of software vulnerabilities.
+        Scores can range from 0.0 to 10.0, with 10.0 being the most severe.
+
+        Environmental scores cover an assessment for any modified Base metrics, confidentiality,
+        integrity, and availability requirements. For example (ex. https://www.first.org/cvss/specification-document)'
+      example: 5.5, 6.6
+      flat_name: vulnerability.cvss.score.evironmental
+      level: extended
+      name: cvss.score.evironmental
+      order: 2
+      short: CVSS Environmental score.
+      type: long
+    cvss.score.temporal:
+      description: 'The Common Vulnerability Scoring System (CVSS) is an open framework
+        for communicating the characteristics and severity of software vulnerabilities.
+        Scores can range from 0.0 to 10.0, with 10.0 being the most severe.
+
+        Temporal scores cover an assessment for code maturity, remediation level,
+        and confidence. For example (ex. https://www.first.org/cvss/specification-document)'
+      example: 5.5, 6.6
+      flat_name: vulnerability.cvss.score.temporal
+      level: extended
+      name: cvss.score.temporal
+      order: 1
+      short: CVSS Temporal score.
+      type: long
+    detected.first:
+      description: The first time that the vulnerability was observed on the asset.
+      example: YYYY-MM-DD-HH-MM
+      flat_name: vulnerability.detected.first
+      level: extended
+      name: detected.first
+      order: 8
+      short: Vulnerability first observed.
+      type: date
+    detected.last:
+      description: The last time that the vulnerability was observed on the asset.
+      example: YYYY-MM-DD-HH-MM
+      flat_name: vulnerability.detected.last
+      level: extended
+      name: detected.last
+      order: 9
+      short: Vulnerability last observed.
+      type: date
+    scanned.first:
+      description: The first time that the asset was scanned for vulnerabilities.
+      example: YYYY-MM-DD-HH-MM
+      flat_name: vulnerability.scanned.first
+      level: extended
+      name: scanned.first
+      order: 10
+      short: Asset first scanned.
+      type: date
+    scanned.last:
+      description: The last time that the asset was scanned for vulnerabilities.
+      example: YYYY-MM-DD-HH-MM
+      flat_name: vulnerability.scanned.last
+      level: extended
+      name: scanned.last
+      order: 11
+      short: Asset last scanned.
+      type: date
+    severity:
+      description: The severity of the vulnerability can help with metrics and internal
+        prioritization regarding remediation. For example (ex. https://nvd.nist.gov/vuln-metrics/cvss)
+      example: Critical, High, Medium, Low, None
+      flat_name: vulnerability.severity
+      ignore_above: 1024
+      level: extended
+      name: severity
+      order: 6
+      short: Severity of the vulnerability.
+      type: keyword
+    status:
+      description: 'The current status of the vulerability on the asset:
+
+        New - The first time a vulnerability is detected by a scan the status is set
+        to New. Active - A vulnerability detected by two or more scans is set to Active.
+        Fixed - A vulnerability was verified by the most recent scan as fixed, and
+        this vulnerability was detected by the previous scan. Re-Opened - A vulnerability
+        was reopened by the most recent scan, and this vulnerability was verified
+        as fixed by the previous scan.
+
+        For example (ex. https://qualysguard.qualys.com/qwebhelp/fo_portal/scans/vulnerability_status.htm)'
+      example: New, Active, Fixed, Re-Opened
+      flat_name: vulnerability.status
+      ignore_above: 1024
+      level: extended
+      name: status
+      order: 7
+      short: Status of the vulnerability.
+      type: keyword
+  group: 2
+  name: vulnerability
+  prefix: vulnerability.
+  reusable:
+    expected:
+    - client
+    - host
+    - os
+    - observer
+    top_level: true
+  short: Fields to describe the vulnerabilty relevant to an event.
+  title: Vulnerability
   type: group

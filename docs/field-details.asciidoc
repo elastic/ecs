@@ -387,6 +387,12 @@ example: `co.uk`
 // ===============================================================
 
 
+| <<ecs-vulnerability,client.vulnerability.*>>
+| Fields to describe the vulnerabilty relevant to an event.
+
+// ===============================================================
+
+
 |=====
 
 [[ecs-cloud]]
@@ -2023,6 +2029,12 @@ example: `1325`
 // ===============================================================
 
 
+| <<ecs-vulnerability,host.vulnerability.*>>
+| Fields to describe the vulnerabilty relevant to an event.
+
+// ===============================================================
+
+
 |=====
 
 [[ecs-http]]
@@ -2638,6 +2650,12 @@ type: keyword
 // ===============================================================
 
 
+| <<ecs-vulnerability,observer.vulnerability.*>>
+| Fields to describe the vulnerabilty relevant to an event.
+
+// ===============================================================
+
+
 |=====
 
 [[ecs-organization]]
@@ -2768,6 +2786,24 @@ Note also that the `os` fields are not expected to be used directly at the top l
 
 
 
+
+[[ecs-os-nestings]]
+===== Field sets that can be nested under Operating System
+
+[options="header"]
+|=====
+| Nested fields | Description
+
+// ===============================================================
+
+
+| <<ecs-vulnerability,os.vulnerability.*>>
+| Fields to describe the vulnerabilty relevant to an event.
+
+// ===============================================================
+
+
+|=====
 
 [[ecs-package]]
 === Package Fields
@@ -4106,3 +4142,175 @@ example: `12.0`
 
 
 |=====
+
+[[ecs-vulnerability]]
+=== Vulnerability Fields
+
+The vulnerability fields describe information about a vulnerabilty that is relevant to an event.
+
+Fields can have one entry or multiple entries.
+
+==== Vulnerability Field Details
+
+[options="header"]
+|=====
+| Field  | Description | Level
+
+// ===============================================================
+
+| vulnerability.category
+| The type of system or architecture that the vulnerability affects. These may be platform-specific (for example, Debian or SUSE) or general (for example, Database or Firewall). For example (ex. https://qualysguard.qualys.com/qwebhelp/fo_portal/knowledgebase/vulnerability_categories.htm)
+
+type: keyword
+
+example: `AIX, Firewall, Malware, Office Application, Solaris, Windows`
+
+| extended
+
+// ===============================================================
+
+| vulnerability.cve.description
+| The Common Vulnerability and Exposures (CVE) list is an open source list for publicly known cybersecurity vulnerabilities providing an identification number, a description, and at least one public reference.
+
+The description of the vulnerability that provides additional context of the vulnerability. For example (ex. https://cve.mitre.org/about/faqs.html#cve_entry_descriptions_created)
+
+type: keyword
+
+example: `In Keybase before 2.12.6 on macOS, the move RPC to the Helper was susceptible to time-to-check-time-to-use bugs and would also allow one user of the system (who didn't have root access) to tamper with another's installs.`
+
+| extended
+
+// ===============================================================
+
+| vulnerability.cve.id
+| The Common Vulnerability and Exposures (CVE) list is an open source list for publicly known cybersecurity vulnerabilities providing an identification number, a description, and at least one public reference.
+
+The identification (ID) is the number portion of a CVE Entry. It includes the year the vulnerability ID was requested followed by a sequence number. CVE-YYYY-NNNNN. For example (ex. https://cve.mitre.org/about/faqs.html#what_is_cve_id)
+
+type: keyword
+
+example: `CVE-2019-00001, CVE-2019-00002`
+
+| extended
+
+// ===============================================================
+
+| vulnerability.cvss.score.base
+| The Common Vulnerability Scoring System (CVSS) is an open framework for communicating the characteristics and severity of software vulnerabilities. Scores can range from 0.0 to 10.0, with 10.0 being the most severe.
+
+Base scores cover an assessment for exploitability metrics (attack vector, complexity, privileges, and user interaction), impact metrics (confidentialy, integrity, and availability), and scope. For example (ex. https://www.first.org/cvss/specification-document)
+
+type: long
+
+example: `5.5, 6.6`
+
+| extended
+
+// ===============================================================
+
+| vulnerability.cvss.score.evironmental
+| The Common Vulnerability Scoring System (CVSS) is an open framework for communicating the characteristics and severity of software vulnerabilities. Scores can range from 0.0 to 10.0, with 10.0 being the most severe.
+
+Environmental scores cover an assessment for any modified Base metrics, confidentiality, integrity, and availability requirements. For example (ex. https://www.first.org/cvss/specification-document)
+
+type: long
+
+example: `5.5, 6.6`
+
+| extended
+
+// ===============================================================
+
+| vulnerability.cvss.score.temporal
+| The Common Vulnerability Scoring System (CVSS) is an open framework for communicating the characteristics and severity of software vulnerabilities. Scores can range from 0.0 to 10.0, with 10.0 being the most severe.
+
+Temporal scores cover an assessment for code maturity, remediation level, and confidence. For example (ex. https://www.first.org/cvss/specification-document)
+
+type: long
+
+example: `5.5, 6.6`
+
+| extended
+
+// ===============================================================
+
+| vulnerability.detected.first
+| The first time that the vulnerability was observed on the asset.
+
+type: date
+
+example: `YYYY-MM-DD-HH-MM`
+
+| extended
+
+// ===============================================================
+
+| vulnerability.detected.last
+| The last time that the vulnerability was observed on the asset.
+
+type: date
+
+example: `YYYY-MM-DD-HH-MM`
+
+| extended
+
+// ===============================================================
+
+| vulnerability.scanned.first
+| The first time that the asset was scanned for vulnerabilities.
+
+type: date
+
+example: `YYYY-MM-DD-HH-MM`
+
+| extended
+
+// ===============================================================
+
+| vulnerability.scanned.last
+| The last time that the asset was scanned for vulnerabilities.
+
+type: date
+
+example: `YYYY-MM-DD-HH-MM`
+
+| extended
+
+// ===============================================================
+
+| vulnerability.severity
+| The severity of the vulnerability can help with metrics and internal prioritization regarding remediation. For example (ex. https://nvd.nist.gov/vuln-metrics/cvss)
+
+type: keyword
+
+example: `Critical, High, Medium, Low, None`
+
+| extended
+
+// ===============================================================
+
+| vulnerability.status
+| The current status of the vulerability on the asset:
+
+New - The first time a vulnerability is detected by a scan the status is set to New. Active - A vulnerability detected by two or more scans is set to Active. Fixed - A vulnerability was verified by the most recent scan as fixed, and this vulnerability was detected by the previous scan. Re-Opened - A vulnerability was reopened by the most recent scan, and this vulnerability was verified as fixed by the previous scan.
+
+For example (ex. https://qualysguard.qualys.com/qwebhelp/fo_portal/scans/vulnerability_status.htm)
+
+type: keyword
+
+example: `New, Active, Fixed, Re-Opened`
+
+| extended
+
+// ===============================================================
+
+|=====
+
+==== Field Reuse
+
+The `vulnerability` fields are expected to be nested at: `client.vulnerability`, `host.vulnerability`, `observer.vulnerability`, `os.vulnerability`.
+
+Note also that the `vulnerability` fields may be used directly at the top level.
+
+
+
