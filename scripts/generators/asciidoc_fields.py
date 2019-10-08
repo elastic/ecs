@@ -95,7 +95,7 @@ def render_fieldset_reuse_section(fieldset, ecs_nested):
     '''Render the section on where field set can be nested, and which field sets can be nested here'''
     if not ('nestings' in fieldset or 'reusable' in fieldset):
         text = field_reuse_section().format(
-            reuse_of_fieldset='These fields are not reused.',
+            reuse_of_fieldset='These fields are never nested under or a parent of other field sets.',
             fieldset_name=fieldset['name']
         )
         return text
@@ -116,6 +116,10 @@ def render_fieldset_reuse_section(fieldset, ecs_nested):
                 'short': ecs_nested[nested_fs_name]['short']
             })
         text += table_footer()
+    if 'reusable' not in fieldset:
+        text += "NOTE: The `{}` fields *cannot* be nested under other field sets.".format(
+            fieldset['name']
+        )
     return text
 
 
@@ -151,9 +155,9 @@ def render_fieldset_reuses_text(fieldset, ecs_nested):
     text += table_footer()
 
     if 'top_level' in fieldset['reusable'] and fieldset['reusable']['top_level']:
-        text += "NOTE: The `{}` fields can also be used directly as root fields.\n\n".format(fieldset['name'])
+        text += "NOTE: The `{}` fields can also be used directly as top-level fields.\n\n".format(fieldset['name'])
     else:
-        text += "NOTE: The `{}` fields should *not* be used directly as root fields.\n\n".format(fieldset['name'])
+        text += "NOTE: The `{}` fields should *not* be used directly as top-level fields.\n\n".format(fieldset['name'])
 
     return text
 
