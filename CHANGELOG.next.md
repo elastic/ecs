@@ -10,6 +10,7 @@ Thanks, you're awesome :-) -->
 ### Bugfixes
 
 ### Added
+* Add `event.ingested` as the ingest timestamp. #582
 
 ### Improvements
 
