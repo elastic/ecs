@@ -164,4 +164,8 @@ type Event struct {
 	// This is mainly useful if you use more than one system that assigns risk
 	// scores, and you want to see a normalized value across all systems.
 	RiskScoreNorm float64 `ecs:"risk_score_norm"`
+
+	// Time when the event was ingested. This is different from `@timestamp`
+	// which is when the event originally occurred.
+	Ingested time.Time `ecs:"ingested"`
 }
