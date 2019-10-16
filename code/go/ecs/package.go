@@ -58,4 +58,7 @@ type Package struct {
 	// Use a short name, e.g. the license identifier from SPDX License List
 	// where possible (https://spdx.org/licenses/).
 	License string `ecs:"license"`
+
+	// Main URL from where the package was installed.
+	UrlOriginal string `ecs:"url.original"`
 }
