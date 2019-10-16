@@ -58,4 +58,9 @@ type Package struct {
 	// Use a short name, e.g. the license identifier from SPDX License List
 	// where possible (https://spdx.org/licenses/).
 	License string `ecs:"license"`
+
+	// Type of package.
+	// When installed from a package manager, this would contain the package
+	// manager name, e.g. RPM, DPKG, Homebrew, NPM.
+	Type string `ecs:"type"`
 }
