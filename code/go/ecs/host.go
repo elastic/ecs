@@ -58,4 +58,8 @@ type Host struct {
 
 	// Operating system architecture.
 	Architecture string `ecs:"architecture"`
+
+	// Name of the directory the group is a member of.
+	// For example, an LDAP or Active Directory domain name.
+	Domain string `ecs:"domain"`
 }
