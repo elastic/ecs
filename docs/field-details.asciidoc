@@ -77,7 +77,7 @@ example: `["production", "env2"]`
 [[ecs-base-reuse]]
 ==== Field Reuse
 
-These fields are never nested under or a parent of other field sets.
+The `base` field set must *not* be reused as a parent or child of other fields.
 
 
 [[ecs-agent]]
@@ -167,7 +167,7 @@ example: `6.0.0-rc2`
 [[ecs-agent-reuse]]
 ==== Field Reuse
 
-These fields are never nested under or a parent of other field sets.
+The `agent` field set must *not* be reused as a parent or child of other fields.
 
 
 [[ecs-as]]
@@ -214,11 +214,11 @@ example: `Google LLC`
 
 
 [[ecs-as-parents]]
-The `as` fields must be nested under:
+The `as` fields must be a child of:
 
 [options="header"]
 |=====
-| Parent fields | Description
+| Parent field | Description
 
 // ===============================================================
 
@@ -248,7 +248,7 @@ The `as` fields must be nested under:
 
 
 |=====
-NOTE: The `as` fields should *not* be used directly as top-level fields.
+NOTE: The `as` field set must *not* be used directly as top-level fields.
 
 
 
@@ -420,7 +420,7 @@ The `client` field can be a parent of:
 
 [options="header"]
 |=====
-| Child fields | Description
+| Child field | Description
 
 // ===============================================================
 
@@ -444,7 +444,7 @@ The `client` field can be a parent of:
 
 
 |=====
-NOTE: The `client` fields *cannot* be nested under other field sets.
+NOTE: The `client` field set must *not* be reused as a child of other fields.
 [[ecs-cloud]]
 === Cloud Fields
 
@@ -544,7 +544,7 @@ example: `us-east-1`
 [[ecs-cloud-reuse]]
 ==== Field Reuse
 
-These fields are never nested under or a parent of other field sets.
+The `cloud` field set must *not* be reused as a parent or child of other fields.
 
 
 [[ecs-container]]
@@ -635,7 +635,7 @@ example: `docker`
 [[ecs-container-reuse]]
 ==== Field Reuse
 
-These fields are never nested under or a parent of other field sets.
+The `container` field set must *not* be reused as a parent or child of other fields.
 
 
 [[ecs-destination]]
@@ -803,7 +803,7 @@ The `destination` field can be a parent of:
 
 [options="header"]
 |=====
-| Child fields | Description
+| Child field | Description
 
 // ===============================================================
 
@@ -827,7 +827,7 @@ The `destination` field can be a parent of:
 
 
 |=====
-NOTE: The `destination` fields *cannot* be nested under other field sets.
+NOTE: The `destination` field set must *not* be reused as a child of other fields.
 [[ecs-dns]]
 === DNS Fields
 
@@ -1074,7 +1074,7 @@ example: `answer`
 [[ecs-dns-reuse]]
 ==== Field Reuse
 
-These fields are never nested under or a parent of other field sets.
+The `dns` field set must *not* be reused as a parent or child of other fields.
 
 
 [[ecs-ecs]]
@@ -1110,7 +1110,7 @@ example: `1.0.0`
 [[ecs-ecs-reuse]]
 ==== Field Reuse
 
-These fields are never nested under or a parent of other field sets.
+The `ecs` field set must *not* be reused as a parent or child of other fields.
 
 
 [[ecs-error]]
@@ -1190,7 +1190,7 @@ example: `java.lang.NullPointerException`
 [[ecs-error-reuse]]
 ==== Field Reuse
 
-These fields are never nested under or a parent of other field sets.
+The `error` field set must *not* be reused as a parent or child of other fields.
 
 
 [[ecs-event]]
@@ -1501,7 +1501,7 @@ type: keyword
 [[ecs-event-reuse]]
 ==== Field Reuse
 
-These fields are never nested under or a parent of other field sets.
+The `event` field set must *not* be reused as a parent or child of other fields.
 
 
 [[ecs-file]]
@@ -1740,7 +1740,7 @@ The `file` field can be a parent of:
 
 [options="header"]
 |=====
-| Child fields | Description
+| Child field | Description
 
 // ===============================================================
 
@@ -1752,7 +1752,7 @@ The `file` field can be a parent of:
 
 
 |=====
-NOTE: The `file` fields *cannot* be nested under other field sets.
+NOTE: The `file` field set must *not* be reused as a child of other fields.
 [[ecs-geo]]
 === Geo Fields
 
@@ -1869,11 +1869,11 @@ example: `Quebec`
 
 
 [[ecs-geo-parents]]
-The `geo` fields must be nested under:
+The `geo` fields must be a child of:
 
 [options="header"]
 |=====
-| Parent fields | Description
+| Parent field | Description
 
 // ===============================================================
 
@@ -1915,7 +1915,7 @@ The `geo` fields must be nested under:
 
 
 |=====
-NOTE: The `geo` fields should *not* be used directly as top-level fields.
+NOTE: The `geo` field set must *not* be used directly as top-level fields.
 
 
 
@@ -1977,11 +1977,11 @@ type: keyword
 
 
 [[ecs-group-parents]]
-The `group` fields can be nested under:
+The `group` fields can be a child of:
 
 [options="header"]
 |=====
-| Parent fields | Description
+| Parent field | Description
 
 // ===============================================================
 
@@ -1993,9 +1993,15 @@ The `group` fields can be nested under:
 
 
 |=====
-NOTE: The `group` fields can also be used directly as top-level fields.
 
+[NOTE]
+=========================
+The `group` field set:
 
+* Can also be used directly as top-level fields.
+* Must *not* be reused as a parent of other fields.
+=========================
+            
 
 
 [[ecs-hash]]
@@ -2066,11 +2072,11 @@ type: keyword
 
 
 [[ecs-hash-parents]]
-The `hash` fields must be nested under:
+The `hash` fields must be a child of:
 
 [options="header"]
 |=====
-| Parent fields | Description
+| Parent field | Description
 
 // ===============================================================
 
@@ -2088,7 +2094,7 @@ The `hash` fields must be nested under:
 
 
 |=====
-NOTE: The `hash` fields should *not* be used directly as top-level fields.
+NOTE: The `hash` field set must *not* be used directly as top-level fields.
 
 
 
@@ -2234,7 +2240,7 @@ The `host` field can be a parent of:
 
 [options="header"]
 |=====
-| Child fields | Description
+| Child field | Description
 
 // ===============================================================
 
@@ -2258,7 +2264,7 @@ The `host` field can be a parent of:
 
 
 |=====
-NOTE: The `host` fields *cannot* be nested under other field sets.
+NOTE: The `host` field set must *not* be reused as a child of other fields.
 [[ecs-http]]
 === HTTP Fields
 
@@ -2391,7 +2397,7 @@ example: `1.1`
 [[ecs-http-reuse]]
 ==== Field Reuse
 
-These fields are never nested under or a parent of other field sets.
+The `http` field set must *not* be reused as a parent or child of other fields.
 
 
 [[ecs-log]]
@@ -2566,7 +2572,7 @@ example: `Error`
 [[ecs-log-reuse]]
 ==== Field Reuse
 
-These fields are never nested under or a parent of other field sets.
+The `log` field set must *not* be reused as a parent or child of other fields.
 
 
 [[ecs-network]]
@@ -2744,7 +2750,7 @@ example: `ipv4`
 [[ecs-network-reuse]]
 ==== Field Reuse
 
-These fields are never nested under or a parent of other field sets.
+The `network` field set must *not* be reused as a parent or child of other fields.
 
 
 [[ecs-observer]]
@@ -2882,7 +2888,7 @@ The `observer` field can be a parent of:
 
 [options="header"]
 |=====
-| Child fields | Description
+| Child field | Description
 
 // ===============================================================
 
@@ -2900,7 +2906,7 @@ The `observer` field can be a parent of:
 
 
 |=====
-NOTE: The `observer` fields *cannot* be nested under other field sets.
+NOTE: The `observer` field set must *not* be reused as a child of other fields.
 [[ecs-organization]]
 === Organization Fields
 
@@ -2945,7 +2951,7 @@ type: keyword
 [[ecs-organization-reuse]]
 ==== Field Reuse
 
-These fields are never nested under or a parent of other field sets.
+The `organization` field set must *not* be reused as a parent or child of other fields.
 
 
 [[ecs-os]]
@@ -3036,11 +3042,11 @@ example: `10.14.1`
 
 
 [[ecs-os-parents]]
-The `os` fields must be nested under:
+The `os` fields must be a child of:
 
 [options="header"]
 |=====
-| Parent fields | Description
+| Parent field | Description
 
 // ===============================================================
 
@@ -3064,7 +3070,7 @@ The `os` fields must be nested under:
 
 
 |=====
-NOTE: The `os` fields should *not* be used directly as top-level fields.
+NOTE: The `os` field set must *not* be used directly as top-level fields.
 
 
 
@@ -3238,7 +3244,7 @@ example: `1.12.9`
 [[ecs-package-reuse]]
 ==== Field Reuse
 
-These fields are never nested under or a parent of other field sets.
+The `package` field set must *not* be reused as a parent or child of other fields.
 
 
 [[ecs-process]]
@@ -3625,7 +3631,7 @@ The `process` field can be a parent of:
 
 [options="header"]
 |=====
-| Child fields | Description
+| Child field | Description
 
 // ===============================================================
 
@@ -3637,7 +3643,7 @@ The `process` field can be a parent of:
 
 
 |=====
-NOTE: The `process` fields *cannot* be nested under other field sets.
+NOTE: The `process` field set must *not* be reused as a child of other fields.
 [[ecs-related]]
 === Related Fields
 
@@ -3673,7 +3679,7 @@ type: ip
 [[ecs-related-reuse]]
 ==== Field Reuse
 
-These fields are never nested under or a parent of other field sets.
+The `related` field set must *not* be reused as a parent or child of other fields.
 
 
 [[ecs-server]]
@@ -3843,7 +3849,7 @@ The `server` field can be a parent of:
 
 [options="header"]
 |=====
-| Child fields | Description
+| Child field | Description
 
 // ===============================================================
 
@@ -3867,7 +3873,7 @@ The `server` field can be a parent of:
 
 
 |=====
-NOTE: The `server` fields *cannot* be nested under other field sets.
+NOTE: The `server` field set must *not* be reused as a child of other fields.
 [[ecs-service]]
 === Service Fields
 
@@ -3987,7 +3993,7 @@ example: `3.2.4`
 [[ecs-service-reuse]]
 ==== Field Reuse
 
-These fields are never nested under or a parent of other field sets.
+The `service` field set must *not* be reused as a parent or child of other fields.
 
 
 [[ecs-source]]
@@ -4155,7 +4161,7 @@ The `source` field can be a parent of:
 
 [options="header"]
 |=====
-| Child fields | Description
+| Child field | Description
 
 // ===============================================================
 
@@ -4179,7 +4185,7 @@ The `source` field can be a parent of:
 
 
 |=====
-NOTE: The `source` fields *cannot* be nested under other field sets.
+NOTE: The `source` field set must *not* be reused as a child of other fields.
 [[ecs-threat]]
 === Threat Fields
 
@@ -4851,7 +4857,7 @@ type: keyword
 [[ecs-url-reuse]]
 ==== Field Reuse
 
-These fields are never nested under or a parent of other field sets.
+The `url` field set must *not* be reused as a parent or child of other fields.
 
 
 [[ecs-user]]
@@ -4948,11 +4954,11 @@ example: `albert`
 
 
 [[ecs-user-parents]]
-The `user` fields can be nested under:
+The `user` fields can be a child of:
 
 [options="header"]
 |=====
-| Parent fields | Description
+| Parent field | Description
 
 // ===============================================================
 
@@ -4988,7 +4994,7 @@ The `user` fields can be nested under:
 
 
 |=====
-NOTE: The `user` fields can also be used directly as top-level fields.
+NOTE: The `user` field set can also be used directly as top-level fields.
 
 
 
@@ -4998,7 +5004,7 @@ The `user` field can be a parent of:
 
 [options="header"]
 |=====
-| Child fields | Description
+| Child field | Description
 
 // ===============================================================
 
@@ -5085,7 +5091,7 @@ The `user_agent` field can be a parent of:
 
 [options="header"]
 |=====
-| Child fields | Description
+| Child field | Description
 
 // ===============================================================
 
@@ -5097,6 +5103,7 @@ The `user_agent` field can be a parent of:
 
 
 |=====
+<<<<<<< HEAD
 
 [[ecs-vulnerability]]
 === Vulnerability Fields
@@ -5267,3 +5274,6 @@ example: `Critical`
 // ===============================================================
 
 |=====
+=======
+NOTE: The `user_agent` field set must *not* be reused as a child of other fields.
+>>>>>>> Expands note whenfields can be a child but not a parent

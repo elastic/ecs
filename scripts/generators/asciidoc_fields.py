@@ -95,7 +95,8 @@ def render_fieldset_reuse_section(fieldset, ecs_nested):
     '''Render the section on where field set can be nested, and which field sets can be nested here'''
     if not ('nestings' in fieldset or 'reusable' in fieldset):
         text = field_reuse_section().format(
-            reuse_of_fieldset='These fields are never nested under or a parent of other field sets.',
+            reuse_of_fieldset='The `{}` field set must *not* be reused as a parent or child of other fields.'.format(
+                fieldset['name']),
             fieldset_name=fieldset['name']
         )
         return text
@@ -117,7 +118,7 @@ def render_fieldset_reuse_section(fieldset, ecs_nested):
             })
         text += table_footer()
     if 'reusable' not in fieldset:
-        text += "NOTE: The `{}` fields *cannot* be nested under other field sets.".format(
+        text += "NOTE: The `{}` field set must *not* be reused as a child of other fields.".format(
             fieldset['name']
         )
     return text
@@ -155,9 +156,22 @@ def render_fieldset_reuses_text(fieldset, ecs_nested):
     text += table_footer()
 
     if 'top_level' in fieldset['reusable'] and fieldset['reusable']['top_level']:
-        text += "NOTE: The `{}` fields can also be used directly as top-level fields.\n\n".format(fieldset['name'])
+        if 'nestings' not in fieldset:
+            text += '''
+[NOTE]
+=========================
+The `{}` field set:
+
+* Can also be used directly as top-level fields.
+* Must *not* be reused as a parent of other fields.
+=========================
+            '''.format(
+                fieldset['name'])
+        else:
+            text += "NOTE: The `{}` field set can also be used directly as top-level fields.\n\n".format(
+                fieldset['name'])
     else:
-        text += "NOTE: The `{}` fields should *not* be used directly as top-level fields.\n\n".format(fieldset['name'])
+        text += "NOTE: The `{}` field set must *not* be used directly as top-level fields.\n\n".format(fieldset['name'])
 
     return text
 
@@ -282,7 +296,7 @@ The `{fieldset_name}` field can be a parent of:
 
 [options="header"]
 |=====
-| Child fields | Description
+| Child field | Description
 
 // ===============================================================
 
@@ -294,11 +308,11 @@ The `{fieldset_name}` field can be a parent of:
 def parent_table_header():
     return '''
 [[ecs-{fieldset_name}-parents]]
-The `{fieldset_name}` fields {nested_condition} be nested under:
+The `{fieldset_name}` fields {nested_condition} be a child of:
 
 [options="header"]
 |=====
-| Parent fields | Description
+| Parent field | Description
 
 // ===============================================================
 
