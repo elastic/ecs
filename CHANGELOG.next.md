@@ -11,6 +11,8 @@ Thanks, you're awesome :-) -->
 
 ### Added
 
+* Added `process.exit_code`. #600
+
 ### Improvements
 
 ### Deprecated
