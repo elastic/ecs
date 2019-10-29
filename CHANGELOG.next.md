@@ -11,6 +11,8 @@ Thanks, you're awesome :-) -->
 
 ### Added
 
+* Added `process.command_line`. #599
+
 ### Improvements
 
 ### Deprecated
