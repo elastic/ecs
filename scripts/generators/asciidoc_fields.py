@@ -308,7 +308,7 @@ The `{fieldset_name}` field can be a parent of:
 def parent_table_header():
     return '''
 [[ecs-{fieldset_name}-parents]]
-The `{fieldset_name}` fields {nested_condition} be a child of:
+The `{fieldset_name}` field set {nested_condition} be a child of:
 
 [options="header"]
 |=====
