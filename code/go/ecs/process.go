@@ -41,7 +41,13 @@ type Process struct {
 	// Identifier of the group of processes the process belongs to.
 	PGID int64 `ecs:"pgid"`
 
-	// Array of process arguments.
+	// Full command line that started the process, including the absolute path
+	// to the executable, and all arguments.
+	// Some arguments may be filtered to protect sensitive information.
+	CommandLine string `ecs:"command_line"`
+
+	// Array of process arguments, starting with the absolute path to the
+	// executable.
 	// May be filtered to protect sensitive information.
 	Args []string `ecs:"args"`
 

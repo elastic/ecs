@@ -45,15 +45,26 @@
       description: >
         Identifier of the group of processes the process belongs to.
 
+    - name: command_line
+      level: extended
+      type: keyword
+      short: Full command line that started the process.
+      description: >
+        Full command line that started the process, including the absolute path
+        to the executable, and all arguments.
+
+        Some arguments may be filtered to protect sensitive information.
+      example: "/usr/bin/ssh -l user 10.0.0.16"
+
     - name: args
       level: extended
       type: keyword
       short: Array of process arguments.
       description: >
-        Array of process arguments.
+        Array of process arguments, starting with the absolute path to the executable.
 
         May be filtered to protect sensitive information.
-      example: ["ssh", "-l", "user", "10.0.0.16"]
+      example: ["/usr/bin/ssh", "-l", "user", "10.0.0.16"]
 
     - name: executable
       level: extended
@@ -82,8 +93,8 @@
 
     - name: thread.name
       level: extended
-      type: keyword 
-      example: 'thread-0' 
+      type: keyword
+      example: 'thread-0'
       description: >
         Thread name.
 
