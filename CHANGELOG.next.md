@@ -10,6 +10,7 @@ Thanks, you're awesome :-) -->
 ### Bugfixes
 
 ### Added
+* Added `package.reference` to installed software packages. #585
 
 ### Improvements
 

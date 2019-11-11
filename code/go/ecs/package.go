@@ -59,6 +59,8 @@ type Package struct {
 	// where possible (https://spdx.org/licenses/).
 	License string `ecs:"license"`
 
-	// Main URL from where the package was installed.
-	UrlOriginal string `ecs:"url.original"`
+	// Reference URL of this package.
+	// If available, use reference URL pointing to the project website that is
+	// contained in the package.
+	Reference string `ecs:"reference"`
 }
