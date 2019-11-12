@@ -1,0 +1,189 @@
+---
+- name: tls
+  title: TLS
+  group: 2
+  short: Fields describing a TLS connection.
+  description: >
+    Fields related to TLS activity.
+  type: group
+  fields:
+
+    - name: version
+      level: extended
+      type: group
+      description: Fields related to the SSL/TLS version used.
+      fields:
+        - name: original
+          level: extended
+          type: keyword
+          description: Original, unparsed version string provided by generating application.
+
+        - name: protocol
+          level: extended
+          type: keyword
+          description: Normalized protocol name parsed from original string (e.g. ssl, tls).
+
+        - name: number
+          level: extended
+          type: number
+          description: Numeric value of the version parsed from the original string (e.g. 1.2, 3).
+
+      - name: cipher
+        type: keyword
+        level: extended
+        description: String indicating the cipher used during the current connection.
+
+      - name: curve
+        type: keyword
+        level: extended
+        description: String indicating the curve used for the given cipher, when applicable.
+
+      - name: resumed
+        type: boolean
+        level: extended
+        description: Boolean flag indicating if this TLS connection was resumed from an existing TLS negotiation.
+
+      - name: next_protocol
+        type: keyword
+        level: extended
+        description: String indicating the protocol being tunneled (e.g. http/1.1, spdy/3, imap, webrtc)
+
+      - name: client
+        type: group
+        level: extended
+        description: Fields describing the client side of the TLS connection
+        fields:
+
+          - name: ja3
+            type: keyword
+            level: extended
+            description: A hash that identifies clients based on how they perform an SSL/TLS handshake.
+
+          - name: server_name
+            type: keyword
+            level: extended
+            description: >
+              Also called an SNI, this tells the server which hostname to which the client is attempting to connect.
+
+          - name: supported_ciphers
+            type: keyword
+            level: extended
+            description: List of ciphers offered by the client during the client hello.
+
+          - name: subject
+            type: keyword
+            level: extended
+            description: Subject of the x.509 certificate presented by the client.
+
+          - name: issuer
+            type: keyword
+            level: extended
+            description: Subject of the issuer of the x.509 certificate presented by the client.
+
+          - name: not_before
+            type: date
+            level: extended
+            description: Timestamp indicating when client certificate is first considered valid.
+
+          - name: not_after
+            type: date
+            level: extended
+            description: Timestamp indicating when client certificate is no longer considered valid.
+
+          - name: certificate_chain
+            type: keyword
+            level: extended
+            description: List of PEM-encoded certificates that make up the certificate chain offered by the client.
+
+          - name: certificate
+            type: keyword
+            level: extended
+            description: PEM-encoded stand-alone certificate offered by the client.
+
+          - name: certificate_fingerprint
+            type: group
+            level: extended
+            description: Digests of the DER-encoded version of the entire certificate offered by the client.
+            fields:
+
+              - name: md5
+                type: keyword
+                level: extended
+                description: MD5 digest of DER-encoded version of certifate offered by the client.
+
+              - name: sha1
+                type: keyword
+                level: extended
+                description: SHA1 digest of DER-encoded version of certifate offered by the client.
+
+              - name: sha256
+                type: keyword
+                level: extended
+                description: SHA256 digest of DER-encoded version of certifate offered by the client.
+
+      - name: server
+        type: group
+        level: extended
+        description: Fields describing the server side of the TLS connection
+        fields:
+
+          - name: ja3s
+            type: keyword
+            level: extended
+            description: A hash that identifies servers based on how they perform an SSL/TLS handshake.
+
+          - name: supported_ciphers
+            type: keyword
+            level: extended
+            description: List of ciphers offered by the server during the server hello.
+
+          - name: subject
+            type: keyword
+            level: extended
+            description: Subject of the x.509 certificate presented by the server.
+
+          - name: issuer
+            type: keyword
+            level: extended
+            description: Subject of the issuer of the x.509 certificate presented by the server.
+
+          - name: not_before
+            type: date
+            level: extended
+            description: Timestamp indicating when server certificate is first considered valid.
+
+          - name: not_after
+            type: date
+            level: extended
+            description: Timestamp indicating when server certificate is no longer considered valid.
+
+          - name: certificate_chain
+            type: keyword
+            level: extended
+            description: List of PEM-encoded certificates that make up the certificate chain offered by the server.
+
+          - name: certificate
+            type: keyword
+            level: extended
+            description: PEM-encoded stand-alone certificate offered by the server.
+
+          - name: certificate_fingerprint
+            type: group
+            level: extended
+            description: Digests of the DER-encoded version of the entire certificate offered by the server.
+            fields:
+
+              - name: md5
+                type: keyword
+                level: extended
+                description: MD5 digest of DER-encoded version of certifate offered by the server.
+
+              - name: sha1
+                type: keyword
+                level: extended
+                description: SHA1 digest of DER-encoded version of certifate offered by the server.
+
+              - name: sha256
+                type: keyword
+                level: extended
+                description: SHA256 digest of DER-encoded version of certifate offered by the server.
