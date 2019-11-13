@@ -11,6 +11,8 @@ Thanks, you're awesome :-) -->
 
 ### Added
 
+* Added fields in `tls.*` to support analysis of TLS protocol events. #606
+
 ### Improvements
 
 ### Deprecated
