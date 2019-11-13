@@ -1548,13 +1548,19 @@ event:
       short: Unique ID to describe the event.
       type: keyword
     ingested:
-      description: Time when the event was ingested. This is different from `@timestamp`
-        which is when the event originally occurred.
+      description: 'Timestamp when an event arrived in the central data store.
+
+        This is different from `@timestamp`, which is when the event originally occurred.  It''s
+        also different from `event.created`, which is meant to capture the first time
+        an agent saw the event.
+
+        In normal conditions, assuming no tampering, the timestamps should chronologically
+        look like this: `@timestamp` < `event.created` < `event.ingested`.'
       flat_name: event.ingested
       level: core
       name: ingested
       order: 21
-      short: Ingest timestamp
+      short: Timestamp when an event arrived in the central data store.
       type: date
     kind:
       description: 'The kind of the event.

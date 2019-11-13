@@ -990,8 +990,14 @@
     - name: ingested
       level: core
       type: date
-      description: Time when the event was ingested. This is different from `@timestamp`
-        which is when the event originally occurred.
+      description: 'Timestamp when an event arrived in the central data store.
+
+        This is different from `@timestamp`, which is when the event originally occurred.  It''s
+        also different from `event.created`, which is meant to capture the first time
+        an agent saw the event.
+
+        In normal conditions, assuming no tampering, the timestamps should chronologically
+        look like this: `@timestamp` < `event.created` < `event.ingested`.'
     - name: kind
       level: extended
       type: keyword

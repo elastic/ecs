@@ -165,7 +165,12 @@ type Event struct {
 	// scores, and you want to see a normalized value across all systems.
 	RiskScoreNorm float64 `ecs:"risk_score_norm"`
 
-	// Time when the event was ingested. This is different from `@timestamp`
-	// which is when the event originally occurred.
+	// Timestamp when an event arrived in the central data store.
+	// This is different from `@timestamp`, which is when the event originally
+	// occurred.  It's also different from `event.created`, which is meant to
+	// capture the first time an agent saw the event.
+	// In normal conditions, assuming no tampering, the timestamps should
+	// chronologically look like this: `@timestamp` < `event.created` <
+	// `event.ingested`.
 	Ingested time.Time `ecs:"ingested"`
 }
