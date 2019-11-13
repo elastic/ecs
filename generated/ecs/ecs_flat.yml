@@ -4138,18 +4138,23 @@ tls.cipher:
   short: String indicating the cipher used during the current connection.
   type: keyword
 tls.client.certificate:
-  description: PEM-encoded stand-alone certificate offered by the client.
+  description: PEM-encoded stand-alone certificate offered by the client. This is
+    usually mutually-exclusive of `client.certificate_chain` since this value also
+    exists in that list.
   example: MII...
   flat_name: tls.client.certificate
   ignore_above: 1024
   level: extended
   name: client.certificate
   order: 14
-  short: PEM-encoded stand-alone certificate offered by the client.
+  short: PEM-encoded stand-alone certificate offered by the client. This is usually
+    mutually-exclusive of `client.certificate_chain` since this value also exists
+    in that list.
   type: keyword
 tls.client.certificate_chain:
-  description: List of PEM-encoded certificates that make up the certificate chain
-    offered by the client.
+  description: Array of PEM-encoded certificates that make up the certificate chain
+    offered by the client. This is usually mutually-exclusive of `client.certificate`
+    since that value should be the first certificate in the chain.
   example:
   - MII...
   - MII...
@@ -4158,8 +4163,9 @@ tls.client.certificate_chain:
   level: extended
   name: client.certificate_chain
   order: 13
-  short: List of PEM-encoded certificates that make up the certificate chain offered
-    by the client.
+  short: Array of PEM-encoded certificates that make up the certificate chain offered
+    by the client. This is usually mutually-exclusive of `client.certificate` since
+    that value should be the first certificate in the chain.
   type: keyword
 tls.client.hash.md5:
   description: Certificate fingerprint using the MD5 digest of DER-encoded version
@@ -4247,7 +4253,8 @@ tls.client.not_before:
   type: date
 tls.client.server_name:
   description: Also called an SNI, this tells the server which hostname to which the
-    client is attempting to connect.
+    client is attempting to connect. When this value is available, it should get copied
+    to `destination.domain`.
   example: www.elastic.co
   flat_name: tls.client.server_name
   ignore_above: 1024
@@ -4255,7 +4262,8 @@ tls.client.server_name:
   name: client.server_name
   order: 7
   short: Also called an SNI, this tells the server which hostname to which the client
-    is attempting to connect.
+    is attempting to connect. When this value is available, it should get copied to
+    `destination.domain`.
   type: keyword
 tls.client.subject:
   description: Distinguished name of subject of the x.509 certificate presented by
@@ -4292,14 +4300,17 @@ tls.curve:
   short: String indicating the curve used for the given cipher, when applicable.
   type: keyword
 tls.next_protocol:
-  description: String indicating the protocol being tunneled.
+  description: String indicating the protocol being tunneled. Per the values in the
+    https://www.iana.org/assignments/tls-extensiontype-values/tls-extensiontype-values.xhtml#alpn-protocol-ids[IANA
+    registry], this string should be lower case.
   example: http/1.1`, `spdy/3`, `imap`, or `webrtc
   flat_name: tls.next_protocol
   ignore_above: 1024
   level: extended
   name: next_protocol
   order: 5
-  short: String indicating the protocol being tunneled.
+  short: String indicating the protocol being tunneled. Per the values in the https://www.iana.org/assignments/tls-extensiontype-values/tls-extensiontype-values.xhtml#alpn-protocol-ids[IANA
+    registry], this string should be lower case.
   type: keyword
 tls.resumed:
   description: Boolean flag indicating if this TLS connection was resumed from an
@@ -4312,18 +4323,23 @@ tls.resumed:
     TLS negotiation.
   type: boolean
 tls.server.certificate:
-  description: PEM-encoded stand-alone certificate offered by the server.
+  description: PEM-encoded stand-alone certificate offered by the server. This is
+    usually mutually-exclusive of `server.certificate_chain` since this value also
+    exists in that list.
   example: MII...
   flat_name: tls.server.certificate
   ignore_above: 1024
   level: extended
   name: server.certificate
   order: 25
-  short: PEM-encoded stand-alone certificate offered by the server.
+  short: PEM-encoded stand-alone certificate offered by the server. This is usually
+    mutually-exclusive of `server.certificate_chain` since this value also exists
+    in that list.
   type: keyword
 tls.server.certificate_chain:
-  description: List of PEM-encoded certificates that make up the certificate chain
-    offered by the server.
+  description: Array of PEM-encoded certificates that make up the certificate chain
+    offered by the server. This is usually mutually-exclusive of `server.certificate`
+    since that value should be the first certificate in the chain.
   example:
   - MII...
   - MII...
@@ -4332,8 +4348,9 @@ tls.server.certificate_chain:
   level: extended
   name: server.certificate_chain
   order: 24
-  short: List of PEM-encoded certificates that make up the certificate chain offered
-    by the server.
+  short: Array of PEM-encoded certificates that make up the certificate chain offered
+    by the server. This is usually mutually-exclusive of `server.certificate` since
+    that value should be the first certificate in the chain.
   type: keyword
 tls.server.hash.md5:
   description: Certificate fingerprint using the MD5 digest of DER-encoded version
@@ -4440,24 +4457,24 @@ tls.server.supported_ciphers:
   order: 19
   short: List of ciphers offered by the server during the server hello.
   type: keyword
-tls.version.number:
+tls.version:
   description: Numeric part of the version parsed from the original string.
   example: 1.2` or `3.0
-  flat_name: tls.version.number
+  flat_name: tls.version
   ignore_above: 1024
   level: extended
-  name: version.number
-  order: 1
+  name: version
+  order: 0
   short: Numeric part of the version parsed from the original string.
   type: keyword
-tls.version.protocol:
+tls.version_protocol:
   description: Normalized lowercase protocol name parsed from original string.
   example: tls` or `ssl
-  flat_name: tls.version.protocol
+  flat_name: tls.version_protocol
   ignore_above: 1024
   level: extended
-  name: version.protocol
-  order: 0
+  name: version_protocol
+  order: 1
   short: Normalized lowercase protocol name parsed from original string.
   type: keyword
 trace.id:

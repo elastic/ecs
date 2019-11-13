@@ -2671,7 +2671,7 @@
     "type": "group"
   }, 
   "tls": {
-    "description": "Fields related to TLS activity.\n", 
+    "description": "Fields related to a TLS connection. These fields focus on the TLS protocol itself and intentionally avoids in-depth analysis of the related x.509 certificate files.\n", 
     "fields": {
       "tls.cipher": {
         "description": "String indicating the cipher used during the current connection.", 
@@ -2684,7 +2684,7 @@
         "type": "keyword"
       }, 
       "tls.client.certificate": {
-        "description": "PEM-encoded stand-alone certificate offered by the client.", 
+        "description": "PEM-encoded stand-alone certificate offered by the client. This is usually mutually-exclusive of `client.certificate_chain` since this value also exists in that list.", 
         "example": "MII...", 
         "footnote": "", 
         "group": 2, 
@@ -2694,7 +2694,7 @@
         "type": "keyword"
       }, 
       "tls.client.certificate_chain": {
-        "description": "List of PEM-encoded certificates that make up the certificate chain offered by the client.", 
+        "description": "Array of PEM-encoded certificates that make up the certificate chain offered by the client. This is usually mutually-exclusive of `client.certificate` since that value should be the first certificate in the chain.", 
         "example": "['MII...', 'MII...']", 
         "footnote": "", 
         "group": 2, 
@@ -2774,7 +2774,7 @@
         "type": "date"
       }, 
       "tls.client.server_name": {
-        "description": "Also called an SNI, this tells the server which hostname to which the client is attempting to connect.", 
+        "description": "Also called an SNI, this tells the server which hostname to which the client is attempting to connect. When this value is available, it should get copied to `destination.domain`.", 
         "example": "www.elastic.co", 
         "footnote": "", 
         "group": 2, 
@@ -2814,7 +2814,7 @@
         "type": "keyword"
       }, 
       "tls.next_protocol": {
-        "description": "String indicating the protocol being tunneled.", 
+        "description": "String indicating the protocol being tunneled. Per the values in the https://www.iana.org/assignments/tls-extensiontype-values/tls-extensiontype-values.xhtml#alpn-protocol-ids[IANA registry], this string should be lower case.", 
         "example": "http/1.1`, `spdy/3`, `imap`, or `webrtc", 
         "footnote": "", 
         "group": 2, 
@@ -2834,7 +2834,7 @@
         "type": "boolean"
       }, 
       "tls.server.certificate": {
-        "description": "PEM-encoded stand-alone certificate offered by the server.", 
+        "description": "PEM-encoded stand-alone certificate offered by the server. This is usually mutually-exclusive of `server.certificate_chain` since this value also exists in that list.", 
         "example": "MII...", 
         "footnote": "", 
         "group": 2, 
@@ -2844,7 +2844,7 @@
         "type": "keyword"
       }, 
       "tls.server.certificate_chain": {
-        "description": "List of PEM-encoded certificates that make up the certificate chain offered by the server.", 
+        "description": "Array of PEM-encoded certificates that make up the certificate chain offered by the server. This is usually mutually-exclusive of `server.certificate` since that value should be the first certificate in the chain.", 
         "example": "['MII...', 'MII...']", 
         "footnote": "", 
         "group": 2, 
@@ -2943,23 +2943,23 @@
         "required": false, 
         "type": "keyword"
       }, 
-      "tls.version.number": {
+      "tls.version": {
         "description": "Numeric part of the version parsed from the original string.", 
         "example": "1.2` or `3.0", 
         "footnote": "", 
         "group": 2, 
         "level": "extended", 
-        "name": "tls.version.number", 
+        "name": "tls.version", 
         "required": false, 
         "type": "keyword"
       }, 
-      "tls.version.protocol": {
+      "tls.version_protocol": {
         "description": "Normalized lowercase protocol name parsed from original string.", 
         "example": "tls` or `ssl", 
         "footnote": "", 
         "group": 2, 
         "level": "extended", 
-        "name": "tls.version.protocol", 
+        "name": "tls.version_protocol", 
         "required": false, 
         "type": "keyword"
       }

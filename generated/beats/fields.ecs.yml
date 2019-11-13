@@ -2871,7 +2871,9 @@
   - name: tls
     title: TLS
     group: 2
-    description: Fields related to TLS activity.
+    description: Fields related to a TLS connection. These fields focus on the TLS
+      protocol itself and intentionally avoids in-depth analysis of the related x.509
+      certificate files.
     type: group
     fields:
     - name: cipher
@@ -2884,14 +2886,17 @@
       level: extended
       type: keyword
       ignore_above: 1024
-      description: PEM-encoded stand-alone certificate offered by the client.
+      description: PEM-encoded stand-alone certificate offered by the client. This
+        is usually mutually-exclusive of `client.certificate_chain` since this value
+        also exists in that list.
       example: MII...
     - name: client.certificate_chain
       level: extended
       type: keyword
       ignore_above: 1024
-      description: List of PEM-encoded certificates that make up the certificate chain
-        offered by the client.
+      description: Array of PEM-encoded certificates that make up the certificate
+        chain offered by the client. This is usually mutually-exclusive of `client.certificate`
+        since that value should be the first certificate in the chain.
       example:
       - MII...
       - MII...
@@ -2950,7 +2955,8 @@
       type: keyword
       ignore_above: 1024
       description: Also called an SNI, this tells the server which hostname to which
-        the client is attempting to connect.
+        the client is attempting to connect. When this value is available, it should
+        get copied to `destination.domain`.
       example: www.elastic.co
     - name: client.subject
       level: extended
@@ -2978,7 +2984,9 @@
       level: extended
       type: keyword
       ignore_above: 1024
-      description: String indicating the protocol being tunneled.
+      description: String indicating the protocol being tunneled. Per the values in
+        the https://www.iana.org/assignments/tls-extensiontype-values/tls-extensiontype-values.xhtml#alpn-protocol-ids[IANA
+        registry], this string should be lower case.
       example: http/1.1`, `spdy/3`, `imap`, or `webrtc
     - name: resumed
       level: extended
@@ -2989,14 +2997,17 @@
       level: extended
       type: keyword
       ignore_above: 1024
-      description: PEM-encoded stand-alone certificate offered by the server.
+      description: PEM-encoded stand-alone certificate offered by the server. This
+        is usually mutually-exclusive of `server.certificate_chain` since this value
+        also exists in that list.
       example: MII...
     - name: server.certificate_chain
       level: extended
       type: keyword
       ignore_above: 1024
-      description: List of PEM-encoded certificates that make up the certificate chain
-        offered by the server.
+      description: Array of PEM-encoded certificates that make up the certificate
+        chain offered by the server. This is usually mutually-exclusive of `server.certificate`
+        since that value should be the first certificate in the chain.
       example:
       - MII...
       - MII...
@@ -3065,13 +3076,13 @@
       - TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
       - TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
       - '...'
-    - name: version.number
+    - name: version
       level: extended
       type: keyword
       ignore_above: 1024
       description: Numeric part of the version parsed from the original string.
       example: 1.2` or `3.0
-    - name: version.protocol
+    - name: version_protocol
       level: extended
       type: keyword
       ignore_above: 1024
