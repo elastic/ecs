@@ -2670,6 +2670,315 @@
     "title": "Threat", 
     "type": "group"
   }, 
+  "tls": {
+    "description": "Fields related to TLS activity.\n", 
+    "fields": {
+      "tls.cipher": {
+        "description": "String indicating the cipher used during the current connection.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "tls.cipher", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "tls.client.certificate": {
+        "description": "PEM-encoded stand-alone certificate offered by the client.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "tls.client.certificate", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "tls.client.certificate_chain": {
+        "description": "List of PEM-encoded certificates that make up the certificate chain offered by the client.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "tls.client.certificate_chain", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "tls.client.certificate_fingerprint.md5": {
+        "description": "MD5 digest of DER-encoded version of certifate offered by the client.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "tls.client.certificate_fingerprint.md5", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "tls.client.certificate_fingerprint.sha1": {
+        "description": "SHA1 digest of DER-encoded version of certifate offered by the client.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "tls.client.certificate_fingerprint.sha1", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "tls.client.certificate_fingerprint.sha256": {
+        "description": "SHA256 digest of DER-encoded version of certifate offered by the client.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "tls.client.certificate_fingerprint.sha256", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "tls.client.issuer": {
+        "description": "Subject of the issuer of the x.509 certificate presented by the client.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "tls.client.issuer", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "tls.client.ja3": {
+        "description": "A hash that identifies clients based on how they perform an SSL/TLS handshake.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "tls.client.ja3", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "tls.client.not_after": {
+        "description": "Timestamp indicating when client certificate is no longer considered valid.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "tls.client.not_after", 
+        "required": false, 
+        "type": "date"
+      }, 
+      "tls.client.not_before": {
+        "description": "Timestamp indicating when client certificate is first considered valid.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "tls.client.not_before", 
+        "required": false, 
+        "type": "date"
+      }, 
+      "tls.client.server_name": {
+        "description": "Also called an SNI, this tells the server which hostname to which the client is attempting to connect.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "tls.client.server_name", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "tls.client.subject": {
+        "description": "Subject of the x.509 certificate presented by the client.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "tls.client.subject", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "tls.client.supported_ciphers": {
+        "description": "List of ciphers offered by the client during the client hello.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "tls.client.supported_ciphers", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "tls.curve": {
+        "description": "String indicating the curve used for the given cipher, when applicable.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "tls.curve", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "tls.next_protocol": {
+        "description": "String indicating the protocol being tunneled (e.g. http/1.1, spdy/3, imap, webrtc)", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "tls.next_protocol", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "tls.resumed": {
+        "description": "Boolean flag indicating if this TLS connection was resumed from an existing TLS negotiation.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "tls.resumed", 
+        "required": false, 
+        "type": "boolean"
+      }, 
+      "tls.server.certificate": {
+        "description": "PEM-encoded stand-alone certificate offered by the server.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "tls.server.certificate", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "tls.server.certificate_chain": {
+        "description": "List of PEM-encoded certificates that make up the certificate chain offered by the server.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "tls.server.certificate_chain", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "tls.server.certificate_fingerprint.md5": {
+        "description": "MD5 digest of DER-encoded version of certifate offered by the server.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "tls.server.certificate_fingerprint.md5", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "tls.server.certificate_fingerprint.sha1": {
+        "description": "SHA1 digest of DER-encoded version of certifate offered by the server.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "tls.server.certificate_fingerprint.sha1", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "tls.server.certificate_fingerprint.sha256": {
+        "description": "SHA256 digest of DER-encoded version of certifate offered by the server.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "tls.server.certificate_fingerprint.sha256", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "tls.server.issuer": {
+        "description": "Subject of the issuer of the x.509 certificate presented by the server.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "tls.server.issuer", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "tls.server.ja3s": {
+        "description": "A hash that identifies servers based on how they perform an SSL/TLS handshake.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "tls.server.ja3s", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "tls.server.not_after": {
+        "description": "Timestamp indicating when server certificate is no longer considered valid.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "tls.server.not_after", 
+        "required": false, 
+        "type": "date"
+      }, 
+      "tls.server.not_before": {
+        "description": "Timestamp indicating when server certificate is first considered valid.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "tls.server.not_before", 
+        "required": false, 
+        "type": "date"
+      }, 
+      "tls.server.subject": {
+        "description": "Subject of the x.509 certificate presented by the server.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "tls.server.subject", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "tls.server.supported_ciphers": {
+        "description": "List of ciphers offered by the server during the server hello.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "tls.server.supported_ciphers", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "tls.version.number": {
+        "description": "Numeric value of the version parsed from the original string (e.g. 1.2, 3).", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "tls.version.number", 
+        "required": false, 
+        "type": "float"
+      }, 
+      "tls.version.original": {
+        "description": "Original, unparsed version string provided by generating application.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "tls.version.original", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "tls.version.protocol": {
+        "description": "Normalized protocol name parsed from original string (e.g. ssl, tls).", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "tls.version.protocol", 
+        "required": false, 
+        "type": "keyword"
+      }
+    }, 
+    "group": 2, 
+    "name": "tls", 
+    "title": "TLS", 
+    "type": "group"
+  }, 
   "tracing": {
     "description": "Distributed tracing makes it possible to analyze performance throughout a microservice architecture all in one view. This is accomplished by tracing all of the requests - from the initial web request in the front-end service - to queries made through multiple back-end services.\n", 
     "fields": {
