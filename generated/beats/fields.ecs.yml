@@ -2879,87 +2879,107 @@
       type: keyword
       ignore_above: 1024
       description: String indicating the cipher used during the current connection.
+      example: TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256
     - name: client.certificate
       level: extended
       type: keyword
       ignore_above: 1024
       description: PEM-encoded stand-alone certificate offered by the client.
+      example: MII...
     - name: client.certificate_chain
       level: extended
       type: keyword
       ignore_above: 1024
       description: List of PEM-encoded certificates that make up the certificate chain
         offered by the client.
+      example:
+      - MII...
+      - MII...
     - name: client.hash.md5
       level: extended
       type: keyword
       ignore_above: 1024
       description: Certificate fingerprint using the MD5 digest of DER-encoded version
         of certificate offered by the client. For consistency with other hash values,
-        this value should be formatted as an uppercase hash (e.g. `0F76C7F2C55BFD7D8E8B8F4BFBF0C9EC`).
+        this value should be formatted as an uppercase hash.
+      example: 0F76C7F2C55BFD7D8E8B8F4BFBF0C9EC
     - name: client.hash.sha1
       level: extended
       type: keyword
       ignore_above: 1024
       description: Certificate fingerprint using the SHA1 digest of DER-encoded version
         of certificate offered by the client. For consistency with other hash values,
-        this value should be formatted as an uppercase hash (e.g. `9E393D93138888D288266C2D915214D1D1CCEB2A`).
+        this value should be formatted as an uppercase hash.
+      example: 9E393D93138888D288266C2D915214D1D1CCEB2A
     - name: client.hash.sha256
       level: extended
       type: keyword
       ignore_above: 1024
       description: Certificate fingerprint using the SHA256 digest of DER-encoded
         version of certificate offered by the client. For consistency with other hash
-        values, this value should be formatted as an uppercase hash (e.g. `0687F666A054EF17A08E2F2162EAB4CBC0D265E1D7875BE74BF3C712CA92DAF0`).
+        values, this value should be formatted as an uppercase hash.
+      example: 0687F666A054EF17A08E2F2162EAB4CBC0D265E1D7875BE74BF3C712CA92DAF0
     - name: client.issuer
       level: extended
       type: keyword
       ignore_above: 1024
-      description: Subject of the issuer of the x.509 certificate presented by the
-        client.
+      description: Distinguished name of subject of the issuer of the x.509 certificate
+        presented by the client.
+      example: CN=MyDomain Root CA, OU=Infrastructure Team, DC=mydomain, DC=com
     - name: client.ja3
       level: extended
       type: keyword
       ignore_above: 1024
       description: A hash that identifies clients based on how they perform an SSL/TLS
         handshake.
+      example: d4e5b18d6b55c71272893221c96ba240
     - name: client.not_after
       level: extended
       type: date
-      description: Timestamp indicating when client certificate is no longer considered
+      description: Date/Time indicating when client certificate is no longer considered
         valid.
+      example: '2021-01-01T00:00:00.000Z'
     - name: client.not_before
       level: extended
       type: date
-      description: Timestamp indicating when client certificate is first considered
+      description: Date/Time indicating when client certificate is first considered
         valid.
+      example: '1970-01-01T00:00:00.000Z'
     - name: client.server_name
       level: extended
       type: keyword
       ignore_above: 1024
       description: Also called an SNI, this tells the server which hostname to which
         the client is attempting to connect.
+      example: www.elastic.co
     - name: client.subject
       level: extended
       type: keyword
       ignore_above: 1024
-      description: Subject of the x.509 certificate presented by the client.
+      description: Distinguished name of subject of the x.509 certificate presented
+        by the client.
+      example: CN=myclient, OU=Documentation Team, DC=mydomain, DC=com
     - name: client.supported_ciphers
       level: extended
       type: keyword
       ignore_above: 1024
       description: List of ciphers offered by the client during the client hello.
+      example:
+      - TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+      - TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
+      - '...'
     - name: curve
       level: extended
       type: keyword
       ignore_above: 1024
       description: String indicating the curve used for the given cipher, when applicable.
+      example: secp256r1
     - name: next_protocol
       level: extended
       type: keyword
       ignore_above: 1024
-      description: String indicating the protocol being tunneled (e.g. http/1.1, spdy/3,
-        imap, webrtc)
+      description: String indicating the protocol being tunneled.
+      example: http/1.1`, `spdy/3`, `imap`, or `webrtc
     - name: resumed
       level: extended
       type: boolean
@@ -2970,77 +2990,93 @@
       type: keyword
       ignore_above: 1024
       description: PEM-encoded stand-alone certificate offered by the server.
+      example: MII...
     - name: server.certificate_chain
       level: extended
       type: keyword
       ignore_above: 1024
       description: List of PEM-encoded certificates that make up the certificate chain
         offered by the server.
+      example:
+      - MII...
+      - MII...
     - name: server.hash.md5
       level: extended
       type: keyword
       ignore_above: 1024
       description: Certificate fingerprint using the MD5 digest of DER-encoded version
         of certificate offered by the server. For consistency with other hash values,
-        this value should be formatted as an uppercase hash (e.g. `0F76C7F2C55BFD7D8E8B8F4BFBF0C9EC`).
+        this value should be formatted as an uppercase hash.
+      example: 0F76C7F2C55BFD7D8E8B8F4BFBF0C9EC
     - name: server.hash.sha1
       level: extended
       type: keyword
       ignore_above: 1024
       description: Certificate fingerprint using the SHA1 digest of DER-encoded version
         of certificate offered by the server. For consistency with other hash values,
-        this value should be formatted as an uppercase hash (e.g. `9E393D93138888D288266C2D915214D1D1CCEB2A`).
+        this value should be formatted as an uppercase hash.
+      example: 9E393D93138888D288266C2D915214D1D1CCEB2A
     - name: server.hash.sha256
       level: extended
       type: keyword
       ignore_above: 1024
       description: Certificate fingerprint using the SHA256 digest of DER-encoded
         version of certificate offered by the server. For consistency with other hash
-        values, this value should be formatted as an uppercase hash (e.g. `0687F666A054EF17A08E2F2162EAB4CBC0D265E1D7875BE74BF3C712CA92DAF0`).
+        values, this value should be formatted as an uppercase hash.
+      example: 0687F666A054EF17A08E2F2162EAB4CBC0D265E1D7875BE74BF3C712CA92DAF0
     - name: server.issuer
       level: extended
       type: keyword
       ignore_above: 1024
       description: Subject of the issuer of the x.509 certificate presented by the
         server.
+      example: CN=MyDomain Root CA, OU=Infrastructure Team, DC=mydomain, DC=com
     - name: server.ja3s
       level: extended
       type: keyword
       ignore_above: 1024
       description: A hash that identifies servers based on how they perform an SSL/TLS
         handshake.
+      example: 394441ab65754e2207b1e1b457b3641d
     - name: server.not_after
       level: extended
       type: date
       description: Timestamp indicating when server certificate is no longer considered
         valid.
+      example: '2021-01-01T00:00:00.000Z'
     - name: server.not_before
       level: extended
       type: date
       description: Timestamp indicating when server certificate is first considered
         valid.
+      example: '1970-01-01T00:00:00.000Z'
     - name: server.subject
       level: extended
       type: keyword
       ignore_above: 1024
       description: Subject of the x.509 certificate presented by the server.
+      example: CN=www.mydomain.com, OU=Infrastructure Team, DC=mydomain, DC=com
     - name: server.supported_ciphers
       level: extended
       type: keyword
       ignore_above: 1024
       description: List of ciphers offered by the server during the server hello.
+      example:
+      - TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+      - TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
+      - '...'
     - name: version.number
       level: extended
       type: keyword
       ignore_above: 1024
-      description: Numeric part of the version parsed from the original string (e.g.
-        1.2, 3).
+      description: Numeric part of the version parsed from the original string.
+      example: 1.2` or `3.0
     - name: version.protocol
       level: extended
       type: keyword
       ignore_above: 1024
-      description: Normalized protocol name parsed from original string (e.g. ssl,
-        tls).
+      description: Normalized lowercase protocol name parsed from original string.
+      example: tls` or `ssl
   - name: tracing
     title: Tracing
     group: 2

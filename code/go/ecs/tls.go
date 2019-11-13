@@ -25,11 +25,10 @@ import (
 
 // Fields related to TLS activity.
 type Tls struct {
-	// Normalized protocol name parsed from original string (e.g. ssl, tls).
+	// Normalized lowercase protocol name parsed from original string.
 	VersionProtocol string `ecs:"version.protocol"`
 
-	// Numeric part of the version parsed from the original string (e.g. 1.2,
-	// 3).
+	// Numeric part of the version parsed from the original string.
 	VersionNumber string `ecs:"version.number"`
 
 	// String indicating the cipher used during the current connection.
@@ -42,8 +41,7 @@ type Tls struct {
 	// existing TLS negotiation.
 	Resumed bool `ecs:"resumed"`
 
-	// String indicating the protocol being tunneled (e.g. http/1.1, spdy/3,
-	// imap, webrtc)
+	// String indicating the protocol being tunneled.
 	NextProtocol string `ecs:"next_protocol"`
 
 	// A hash that identifies clients based on how they perform an SSL/TLS
@@ -57,16 +55,18 @@ type Tls struct {
 	// List of ciphers offered by the client during the client hello.
 	ClientSupportedCiphers string `ecs:"client.supported_ciphers"`
 
-	// Subject of the x.509 certificate presented by the client.
+	// Distinguished name of subject of the x.509 certificate presented by the
+	// client.
 	ClientSubject string `ecs:"client.subject"`
 
-	// Subject of the issuer of the x.509 certificate presented by the client.
+	// Distinguished name of subject of the issuer of the x.509 certificate
+	// presented by the client.
 	ClientIssuer string `ecs:"client.issuer"`
 
-	// Timestamp indicating when client certificate is first considered valid.
+	// Date/Time indicating when client certificate is first considered valid.
 	ClientNotBefore time.Time `ecs:"client.not_before"`
 
-	// Timestamp indicating when client certificate is no longer considered
+	// Date/Time indicating when client certificate is no longer considered
 	// valid.
 	ClientNotAfter time.Time `ecs:"client.not_after"`
 
@@ -79,20 +79,17 @@ type Tls struct {
 
 	// Certificate fingerprint using the MD5 digest of DER-encoded version of
 	// certificate offered by the client. For consistency with other hash
-	// values, this value should be formatted as an uppercase hash (e.g.
-	// `0F76C7F2C55BFD7D8E8B8F4BFBF0C9EC`).
+	// values, this value should be formatted as an uppercase hash.
 	ClientHashMd5 string `ecs:"client.hash.md5"`
 
 	// Certificate fingerprint using the SHA1 digest of DER-encoded version of
 	// certificate offered by the client. For consistency with other hash
-	// values, this value should be formatted as an uppercase hash (e.g.
-	// `9E393D93138888D288266C2D915214D1D1CCEB2A`).
+	// values, this value should be formatted as an uppercase hash.
 	ClientHashSha1 string `ecs:"client.hash.sha1"`
 
 	// Certificate fingerprint using the SHA256 digest of DER-encoded version
 	// of certificate offered by the client. For consistency with other hash
-	// values, this value should be formatted as an uppercase hash (e.g.
-	// `0687F666A054EF17A08E2F2162EAB4CBC0D265E1D7875BE74BF3C712CA92DAF0`).
+	// values, this value should be formatted as an uppercase hash.
 	ClientHashSha256 string `ecs:"client.hash.sha256"`
 
 	// A hash that identifies servers based on how they perform an SSL/TLS
@@ -124,19 +121,16 @@ type Tls struct {
 
 	// Certificate fingerprint using the MD5 digest of DER-encoded version of
 	// certificate offered by the server. For consistency with other hash
-	// values, this value should be formatted as an uppercase hash (e.g.
-	// `0F76C7F2C55BFD7D8E8B8F4BFBF0C9EC`).
+	// values, this value should be formatted as an uppercase hash.
 	ServerHashMd5 string `ecs:"server.hash.md5"`
 
 	// Certificate fingerprint using the SHA1 digest of DER-encoded version of
 	// certificate offered by the server. For consistency with other hash
-	// values, this value should be formatted as an uppercase hash (e.g.
-	// `9E393D93138888D288266C2D915214D1D1CCEB2A`).
+	// values, this value should be formatted as an uppercase hash.
 	ServerHashSha1 string `ecs:"server.hash.sha1"`
 
 	// Certificate fingerprint using the SHA256 digest of DER-encoded version
 	// of certificate offered by the server. For consistency with other hash
-	// values, this value should be formatted as an uppercase hash (e.g.
-	// `0687F666A054EF17A08E2F2162EAB4CBC0D265E1D7875BE74BF3C712CA92DAF0`).
+	// values, this value should be formatted as an uppercase hash.
 	ServerHashSha256 string `ecs:"server.hash.sha256"`
 }

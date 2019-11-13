@@ -4129,6 +4129,7 @@ threat.technique.reference:
   type: keyword
 tls.cipher:
   description: String indicating the cipher used during the current connection.
+  example: TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256
   flat_name: tls.cipher
   ignore_above: 1024
   level: extended
@@ -4138,6 +4139,7 @@ tls.cipher:
   type: keyword
 tls.client.certificate:
   description: PEM-encoded stand-alone certificate offered by the client.
+  example: MII...
   flat_name: tls.client.certificate
   ignore_above: 1024
   level: extended
@@ -4148,6 +4150,9 @@ tls.client.certificate:
 tls.client.certificate_chain:
   description: List of PEM-encoded certificates that make up the certificate chain
     offered by the client.
+  example:
+  - MII...
+  - MII...
   flat_name: tls.client.certificate_chain
   ignore_above: 1024
   level: extended
@@ -4159,7 +4164,8 @@ tls.client.certificate_chain:
 tls.client.hash.md5:
   description: Certificate fingerprint using the MD5 digest of DER-encoded version
     of certificate offered by the client. For consistency with other hash values,
-    this value should be formatted as an uppercase hash (e.g. `0F76C7F2C55BFD7D8E8B8F4BFBF0C9EC`).
+    this value should be formatted as an uppercase hash.
+  example: 0F76C7F2C55BFD7D8E8B8F4BFBF0C9EC
   flat_name: tls.client.hash.md5
   ignore_above: 1024
   level: extended
@@ -4167,12 +4173,13 @@ tls.client.hash.md5:
   order: 15
   short: Certificate fingerprint using the MD5 digest of DER-encoded version of certificate
     offered by the client. For consistency with other hash values, this value should
-    be formatted as an uppercase hash (e.g. `0F76C7F2C55BFD7D8E8B8F4BFBF0C9EC`).
+    be formatted as an uppercase hash.
   type: keyword
 tls.client.hash.sha1:
   description: Certificate fingerprint using the SHA1 digest of DER-encoded version
     of certificate offered by the client. For consistency with other hash values,
-    this value should be formatted as an uppercase hash (e.g. `9E393D93138888D288266C2D915214D1D1CCEB2A`).
+    this value should be formatted as an uppercase hash.
+  example: 9E393D93138888D288266C2D915214D1D1CCEB2A
   flat_name: tls.client.hash.sha1
   ignore_above: 1024
   level: extended
@@ -4180,12 +4187,13 @@ tls.client.hash.sha1:
   order: 16
   short: Certificate fingerprint using the SHA1 digest of DER-encoded version of certificate
     offered by the client. For consistency with other hash values, this value should
-    be formatted as an uppercase hash (e.g. `9E393D93138888D288266C2D915214D1D1CCEB2A`).
+    be formatted as an uppercase hash.
   type: keyword
 tls.client.hash.sha256:
   description: Certificate fingerprint using the SHA256 digest of DER-encoded version
     of certificate offered by the client. For consistency with other hash values,
-    this value should be formatted as an uppercase hash (e.g. `0687F666A054EF17A08E2F2162EAB4CBC0D265E1D7875BE74BF3C712CA92DAF0`).
+    this value should be formatted as an uppercase hash.
+  example: 0687F666A054EF17A08E2F2162EAB4CBC0D265E1D7875BE74BF3C712CA92DAF0
   flat_name: tls.client.hash.sha256
   ignore_above: 1024
   level: extended
@@ -4193,20 +4201,24 @@ tls.client.hash.sha256:
   order: 17
   short: Certificate fingerprint using the SHA256 digest of DER-encoded version of
     certificate offered by the client. For consistency with other hash values, this
-    value should be formatted as an uppercase hash (e.g. `0687F666A054EF17A08E2F2162EAB4CBC0D265E1D7875BE74BF3C712CA92DAF0`).
+    value should be formatted as an uppercase hash.
   type: keyword
 tls.client.issuer:
-  description: Subject of the issuer of the x.509 certificate presented by the client.
+  description: Distinguished name of subject of the issuer of the x.509 certificate
+    presented by the client.
+  example: CN=MyDomain Root CA, OU=Infrastructure Team, DC=mydomain, DC=com
   flat_name: tls.client.issuer
   ignore_above: 1024
   level: extended
   name: client.issuer
   order: 10
-  short: Subject of the issuer of the x.509 certificate presented by the client.
+  short: Distinguished name of subject of the issuer of the x.509 certificate presented
+    by the client.
   type: keyword
 tls.client.ja3:
   description: A hash that identifies clients based on how they perform an SSL/TLS
     handshake.
+  example: d4e5b18d6b55c71272893221c96ba240
   flat_name: tls.client.ja3
   ignore_above: 1024
   level: extended
@@ -4215,25 +4227,28 @@ tls.client.ja3:
   short: A hash that identifies clients based on how they perform an SSL/TLS handshake.
   type: keyword
 tls.client.not_after:
-  description: Timestamp indicating when client certificate is no longer considered
+  description: Date/Time indicating when client certificate is no longer considered
     valid.
+  example: '2021-01-01T00:00:00.000Z'
   flat_name: tls.client.not_after
   level: extended
   name: client.not_after
   order: 12
-  short: Timestamp indicating when client certificate is no longer considered valid.
+  short: Date/Time indicating when client certificate is no longer considered valid.
   type: date
 tls.client.not_before:
-  description: Timestamp indicating when client certificate is first considered valid.
+  description: Date/Time indicating when client certificate is first considered valid.
+  example: '1970-01-01T00:00:00.000Z'
   flat_name: tls.client.not_before
   level: extended
   name: client.not_before
   order: 11
-  short: Timestamp indicating when client certificate is first considered valid.
+  short: Date/Time indicating when client certificate is first considered valid.
   type: date
 tls.client.server_name:
   description: Also called an SNI, this tells the server which hostname to which the
     client is attempting to connect.
+  example: www.elastic.co
   flat_name: tls.client.server_name
   ignore_above: 1024
   level: extended
@@ -4243,16 +4258,22 @@ tls.client.server_name:
     is attempting to connect.
   type: keyword
 tls.client.subject:
-  description: Subject of the x.509 certificate presented by the client.
+  description: Distinguished name of subject of the x.509 certificate presented by
+    the client.
+  example: CN=myclient, OU=Documentation Team, DC=mydomain, DC=com
   flat_name: tls.client.subject
   ignore_above: 1024
   level: extended
   name: client.subject
   order: 9
-  short: Subject of the x.509 certificate presented by the client.
+  short: Distinguished name of subject of the x.509 certificate presented by the client.
   type: keyword
 tls.client.supported_ciphers:
   description: List of ciphers offered by the client during the client hello.
+  example:
+  - TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+  - TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
+  - '...'
   flat_name: tls.client.supported_ciphers
   ignore_above: 1024
   level: extended
@@ -4262,6 +4283,7 @@ tls.client.supported_ciphers:
   type: keyword
 tls.curve:
   description: String indicating the curve used for the given cipher, when applicable.
+  example: secp256r1
   flat_name: tls.curve
   ignore_above: 1024
   level: extended
@@ -4270,15 +4292,14 @@ tls.curve:
   short: String indicating the curve used for the given cipher, when applicable.
   type: keyword
 tls.next_protocol:
-  description: String indicating the protocol being tunneled (e.g. http/1.1, spdy/3,
-    imap, webrtc)
+  description: String indicating the protocol being tunneled.
+  example: http/1.1`, `spdy/3`, `imap`, or `webrtc
   flat_name: tls.next_protocol
   ignore_above: 1024
   level: extended
   name: next_protocol
   order: 5
-  short: String indicating the protocol being tunneled (e.g. http/1.1, spdy/3, imap,
-    webrtc)
+  short: String indicating the protocol being tunneled.
   type: keyword
 tls.resumed:
   description: Boolean flag indicating if this TLS connection was resumed from an
@@ -4292,6 +4313,7 @@ tls.resumed:
   type: boolean
 tls.server.certificate:
   description: PEM-encoded stand-alone certificate offered by the server.
+  example: MII...
   flat_name: tls.server.certificate
   ignore_above: 1024
   level: extended
@@ -4302,6 +4324,9 @@ tls.server.certificate:
 tls.server.certificate_chain:
   description: List of PEM-encoded certificates that make up the certificate chain
     offered by the server.
+  example:
+  - MII...
+  - MII...
   flat_name: tls.server.certificate_chain
   ignore_above: 1024
   level: extended
@@ -4313,7 +4338,8 @@ tls.server.certificate_chain:
 tls.server.hash.md5:
   description: Certificate fingerprint using the MD5 digest of DER-encoded version
     of certificate offered by the server. For consistency with other hash values,
-    this value should be formatted as an uppercase hash (e.g. `0F76C7F2C55BFD7D8E8B8F4BFBF0C9EC`).
+    this value should be formatted as an uppercase hash.
+  example: 0F76C7F2C55BFD7D8E8B8F4BFBF0C9EC
   flat_name: tls.server.hash.md5
   ignore_above: 1024
   level: extended
@@ -4321,12 +4347,13 @@ tls.server.hash.md5:
   order: 26
   short: Certificate fingerprint using the MD5 digest of DER-encoded version of certificate
     offered by the server. For consistency with other hash values, this value should
-    be formatted as an uppercase hash (e.g. `0F76C7F2C55BFD7D8E8B8F4BFBF0C9EC`).
+    be formatted as an uppercase hash.
   type: keyword
 tls.server.hash.sha1:
   description: Certificate fingerprint using the SHA1 digest of DER-encoded version
     of certificate offered by the server. For consistency with other hash values,
-    this value should be formatted as an uppercase hash (e.g. `9E393D93138888D288266C2D915214D1D1CCEB2A`).
+    this value should be formatted as an uppercase hash.
+  example: 9E393D93138888D288266C2D915214D1D1CCEB2A
   flat_name: tls.server.hash.sha1
   ignore_above: 1024
   level: extended
@@ -4334,12 +4361,13 @@ tls.server.hash.sha1:
   order: 27
   short: Certificate fingerprint using the SHA1 digest of DER-encoded version of certificate
     offered by the server. For consistency with other hash values, this value should
-    be formatted as an uppercase hash (e.g. `9E393D93138888D288266C2D915214D1D1CCEB2A`).
+    be formatted as an uppercase hash.
   type: keyword
 tls.server.hash.sha256:
   description: Certificate fingerprint using the SHA256 digest of DER-encoded version
     of certificate offered by the server. For consistency with other hash values,
-    this value should be formatted as an uppercase hash (e.g. `0687F666A054EF17A08E2F2162EAB4CBC0D265E1D7875BE74BF3C712CA92DAF0`).
+    this value should be formatted as an uppercase hash.
+  example: 0687F666A054EF17A08E2F2162EAB4CBC0D265E1D7875BE74BF3C712CA92DAF0
   flat_name: tls.server.hash.sha256
   ignore_above: 1024
   level: extended
@@ -4347,10 +4375,11 @@ tls.server.hash.sha256:
   order: 28
   short: Certificate fingerprint using the SHA256 digest of DER-encoded version of
     certificate offered by the server. For consistency with other hash values, this
-    value should be formatted as an uppercase hash (e.g. `0687F666A054EF17A08E2F2162EAB4CBC0D265E1D7875BE74BF3C712CA92DAF0`).
+    value should be formatted as an uppercase hash.
   type: keyword
 tls.server.issuer:
   description: Subject of the issuer of the x.509 certificate presented by the server.
+  example: CN=MyDomain Root CA, OU=Infrastructure Team, DC=mydomain, DC=com
   flat_name: tls.server.issuer
   ignore_above: 1024
   level: extended
@@ -4361,6 +4390,7 @@ tls.server.issuer:
 tls.server.ja3s:
   description: A hash that identifies servers based on how they perform an SSL/TLS
     handshake.
+  example: 394441ab65754e2207b1e1b457b3641d
   flat_name: tls.server.ja3s
   ignore_above: 1024
   level: extended
@@ -4371,6 +4401,7 @@ tls.server.ja3s:
 tls.server.not_after:
   description: Timestamp indicating when server certificate is no longer considered
     valid.
+  example: '2021-01-01T00:00:00.000Z'
   flat_name: tls.server.not_after
   level: extended
   name: server.not_after
@@ -4379,6 +4410,7 @@ tls.server.not_after:
   type: date
 tls.server.not_before:
   description: Timestamp indicating when server certificate is first considered valid.
+  example: '1970-01-01T00:00:00.000Z'
   flat_name: tls.server.not_before
   level: extended
   name: server.not_before
@@ -4387,6 +4419,7 @@ tls.server.not_before:
   type: date
 tls.server.subject:
   description: Subject of the x.509 certificate presented by the server.
+  example: CN=www.mydomain.com, OU=Infrastructure Team, DC=mydomain, DC=com
   flat_name: tls.server.subject
   ignore_above: 1024
   level: extended
@@ -4396,6 +4429,10 @@ tls.server.subject:
   type: keyword
 tls.server.supported_ciphers:
   description: List of ciphers offered by the server during the server hello.
+  example:
+  - TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+  - TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
+  - '...'
   flat_name: tls.server.supported_ciphers
   ignore_above: 1024
   level: extended
@@ -4404,23 +4441,24 @@ tls.server.supported_ciphers:
   short: List of ciphers offered by the server during the server hello.
   type: keyword
 tls.version.number:
-  description: Numeric part of the version parsed from the original string (e.g. 1.2,
-    3).
+  description: Numeric part of the version parsed from the original string.
+  example: 1.2` or `3.0
   flat_name: tls.version.number
   ignore_above: 1024
   level: extended
   name: version.number
   order: 1
-  short: Numeric part of the version parsed from the original string (e.g. 1.2, 3).
+  short: Numeric part of the version parsed from the original string.
   type: keyword
 tls.version.protocol:
-  description: Normalized protocol name parsed from original string (e.g. ssl, tls).
+  description: Normalized lowercase protocol name parsed from original string.
+  example: tls` or `ssl
   flat_name: tls.version.protocol
   ignore_above: 1024
   level: extended
   name: version.protocol
   order: 0
-  short: Normalized protocol name parsed from original string (e.g. ssl, tls).
+  short: Normalized lowercase protocol name parsed from original string.
   type: keyword
 trace.id:
   description: 'Unique identifier of the trace.
