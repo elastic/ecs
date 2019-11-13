@@ -43,6 +43,10 @@ type Tls struct {
 	// existing TLS negotiation.
 	Resumed bool `ecs:"resumed"`
 
+	// Boolean flag indicating if the TLS negotiation was successful and
+	// transitioned to an encrypted tunnel.
+	Established bool `ecs:"established"`
+
 	// String indicating the protocol being tunneled. Per the values in the
 	// https://www.iana.org/assignments/tls-extensiontype-values/tls-extensiontype-values.xhtml#alpn-protocol-ids[IANA
 	// registry], this string should be lower case.

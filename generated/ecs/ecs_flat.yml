@@ -4146,7 +4146,7 @@ tls.client.certificate:
   ignore_above: 1024
   level: extended
   name: client.certificate
-  order: 14
+  order: 15
   short: PEM-encoded stand-alone certificate offered by the client. This is usually
     mutually-exclusive of `client.certificate_chain` since this value also exists
     in that list.
@@ -4162,7 +4162,7 @@ tls.client.certificate_chain:
   ignore_above: 1024
   level: extended
   name: client.certificate_chain
-  order: 13
+  order: 14
   short: Array of PEM-encoded certificates that make up the certificate chain offered
     by the client. This is usually mutually-exclusive of `client.certificate` since
     that value should be the first certificate in the chain.
@@ -4176,7 +4176,7 @@ tls.client.hash.md5:
   ignore_above: 1024
   level: extended
   name: client.hash.md5
-  order: 15
+  order: 16
   short: Certificate fingerprint using the MD5 digest of DER-encoded version of certificate
     offered by the client. For consistency with other hash values, this value should
     be formatted as an uppercase hash.
@@ -4190,7 +4190,7 @@ tls.client.hash.sha1:
   ignore_above: 1024
   level: extended
   name: client.hash.sha1
-  order: 16
+  order: 17
   short: Certificate fingerprint using the SHA1 digest of DER-encoded version of certificate
     offered by the client. For consistency with other hash values, this value should
     be formatted as an uppercase hash.
@@ -4204,7 +4204,7 @@ tls.client.hash.sha256:
   ignore_above: 1024
   level: extended
   name: client.hash.sha256
-  order: 17
+  order: 18
   short: Certificate fingerprint using the SHA256 digest of DER-encoded version of
     certificate offered by the client. For consistency with other hash values, this
     value should be formatted as an uppercase hash.
@@ -4217,7 +4217,7 @@ tls.client.issuer:
   ignore_above: 1024
   level: extended
   name: client.issuer
-  order: 10
+  order: 11
   short: Distinguished name of subject of the issuer of the x.509 certificate presented
     by the client.
   type: keyword
@@ -4229,7 +4229,7 @@ tls.client.ja3:
   ignore_above: 1024
   level: extended
   name: client.ja3
-  order: 6
+  order: 7
   short: A hash that identifies clients based on how they perform an SSL/TLS handshake.
   type: keyword
 tls.client.not_after:
@@ -4239,7 +4239,7 @@ tls.client.not_after:
   flat_name: tls.client.not_after
   level: extended
   name: client.not_after
-  order: 12
+  order: 13
   short: Date/Time indicating when client certificate is no longer considered valid.
   type: date
 tls.client.not_before:
@@ -4248,7 +4248,7 @@ tls.client.not_before:
   flat_name: tls.client.not_before
   level: extended
   name: client.not_before
-  order: 11
+  order: 12
   short: Date/Time indicating when client certificate is first considered valid.
   type: date
 tls.client.server_name:
@@ -4260,7 +4260,7 @@ tls.client.server_name:
   ignore_above: 1024
   level: extended
   name: client.server_name
-  order: 7
+  order: 8
   short: Also called an SNI, this tells the server which hostname to which the client
     is attempting to connect. When this value is available, it should get copied to
     `destination.domain`.
@@ -4273,7 +4273,7 @@ tls.client.subject:
   ignore_above: 1024
   level: extended
   name: client.subject
-  order: 9
+  order: 10
   short: Distinguished name of subject of the x.509 certificate presented by the client.
   type: keyword
 tls.client.supported_ciphers:
@@ -4286,7 +4286,7 @@ tls.client.supported_ciphers:
   ignore_above: 1024
   level: extended
   name: client.supported_ciphers
-  order: 8
+  order: 9
   short: List of ciphers offered by the client during the client hello.
   type: keyword
 tls.curve:
@@ -4299,6 +4299,16 @@ tls.curve:
   order: 3
   short: String indicating the curve used for the given cipher, when applicable.
   type: keyword
+tls.established:
+  description: Boolean flag indicating if the TLS negotiation was successful and transitioned
+    to an encrypted tunnel.
+  flat_name: tls.established
+  level: extended
+  name: established
+  order: 5
+  short: Boolean flag indicating if the TLS negotiation was successful and transitioned
+    to an encrypted tunnel.
+  type: boolean
 tls.next_protocol:
   description: String indicating the protocol being tunneled. Per the values in the
     https://www.iana.org/assignments/tls-extensiontype-values/tls-extensiontype-values.xhtml#alpn-protocol-ids[IANA
@@ -4308,7 +4318,7 @@ tls.next_protocol:
   ignore_above: 1024
   level: extended
   name: next_protocol
-  order: 5
+  order: 6
   short: String indicating the protocol being tunneled. Per the values in the https://www.iana.org/assignments/tls-extensiontype-values/tls-extensiontype-values.xhtml#alpn-protocol-ids[IANA
     registry], this string should be lower case.
   type: keyword
@@ -4331,7 +4341,7 @@ tls.server.certificate:
   ignore_above: 1024
   level: extended
   name: server.certificate
-  order: 25
+  order: 26
   short: PEM-encoded stand-alone certificate offered by the server. This is usually
     mutually-exclusive of `server.certificate_chain` since this value also exists
     in that list.
@@ -4347,7 +4357,7 @@ tls.server.certificate_chain:
   ignore_above: 1024
   level: extended
   name: server.certificate_chain
-  order: 24
+  order: 25
   short: Array of PEM-encoded certificates that make up the certificate chain offered
     by the server. This is usually mutually-exclusive of `server.certificate` since
     that value should be the first certificate in the chain.
@@ -4361,7 +4371,7 @@ tls.server.hash.md5:
   ignore_above: 1024
   level: extended
   name: server.hash.md5
-  order: 26
+  order: 27
   short: Certificate fingerprint using the MD5 digest of DER-encoded version of certificate
     offered by the server. For consistency with other hash values, this value should
     be formatted as an uppercase hash.
@@ -4375,7 +4385,7 @@ tls.server.hash.sha1:
   ignore_above: 1024
   level: extended
   name: server.hash.sha1
-  order: 27
+  order: 28
   short: Certificate fingerprint using the SHA1 digest of DER-encoded version of certificate
     offered by the server. For consistency with other hash values, this value should
     be formatted as an uppercase hash.
@@ -4389,7 +4399,7 @@ tls.server.hash.sha256:
   ignore_above: 1024
   level: extended
   name: server.hash.sha256
-  order: 28
+  order: 29
   short: Certificate fingerprint using the SHA256 digest of DER-encoded version of
     certificate offered by the server. For consistency with other hash values, this
     value should be formatted as an uppercase hash.
@@ -4401,7 +4411,7 @@ tls.server.issuer:
   ignore_above: 1024
   level: extended
   name: server.issuer
-  order: 21
+  order: 22
   short: Subject of the issuer of the x.509 certificate presented by the server.
   type: keyword
 tls.server.ja3s:
@@ -4412,7 +4422,7 @@ tls.server.ja3s:
   ignore_above: 1024
   level: extended
   name: server.ja3s
-  order: 18
+  order: 19
   short: A hash that identifies servers based on how they perform an SSL/TLS handshake.
   type: keyword
 tls.server.not_after:
@@ -4422,7 +4432,7 @@ tls.server.not_after:
   flat_name: tls.server.not_after
   level: extended
   name: server.not_after
-  order: 23
+  order: 24
   short: Timestamp indicating when server certificate is no longer considered valid.
   type: date
 tls.server.not_before:
@@ -4431,7 +4441,7 @@ tls.server.not_before:
   flat_name: tls.server.not_before
   level: extended
   name: server.not_before
-  order: 22
+  order: 23
   short: Timestamp indicating when server certificate is first considered valid.
   type: date
 tls.server.subject:
@@ -4441,7 +4451,7 @@ tls.server.subject:
   ignore_above: 1024
   level: extended
   name: server.subject
-  order: 20
+  order: 21
   short: Subject of the x.509 certificate presented by the server.
   type: keyword
 tls.server.supported_ciphers:
@@ -4454,7 +4464,7 @@ tls.server.supported_ciphers:
   ignore_above: 1024
   level: extended
   name: server.supported_ciphers
-  order: 19
+  order: 20
   short: List of ciphers offered by the server during the server hello.
   type: keyword
 tls.version:
