@@ -2890,23 +2890,27 @@
       ignore_above: 1024
       description: List of PEM-encoded certificates that make up the certificate chain
         offered by the client.
-    - name: client.certificate_fingerprint.md5
+    - name: client.hash.md5
       level: extended
       type: keyword
       ignore_above: 1024
-      description: MD5 digest of DER-encoded version of certifate offered by the client.
-    - name: client.certificate_fingerprint.sha1
+      description: Certificate fingerprint using the MD5 digest of DER-encoded version
+        of certificate offered by the client. For consistency with other hash values,
+        this value should be formatted as an uppercase hash (e.g. `0F76C7F2C55BFD7D8E8B8F4BFBF0C9EC`).
+    - name: client.hash.sha1
       level: extended
       type: keyword
       ignore_above: 1024
-      description: SHA1 digest of DER-encoded version of certifate offered by the
-        client.
-    - name: client.certificate_fingerprint.sha256
+      description: Certificate fingerprint using the SHA1 digest of DER-encoded version
+        of certificate offered by the client. For consistency with other hash values,
+        this value should be formatted as an uppercase hash (e.g. `9E393D93138888D288266C2D915214D1D1CCEB2A`).
+    - name: client.hash.sha256
       level: extended
       type: keyword
       ignore_above: 1024
-      description: SHA256 digest of DER-encoded version of certifate offered by the
-        client.
+      description: Certificate fingerprint using the SHA256 digest of DER-encoded
+        version of certificate offered by the client. For consistency with other hash
+        values, this value should be formatted as an uppercase hash (e.g. `0687F666A054EF17A08E2F2162EAB4CBC0D265E1D7875BE74BF3C712CA92DAF0`).
     - name: client.issuer
       level: extended
       type: keyword
@@ -2972,23 +2976,27 @@
       ignore_above: 1024
       description: List of PEM-encoded certificates that make up the certificate chain
         offered by the server.
-    - name: server.certificate_fingerprint.md5
+    - name: server.hash.md5
       level: extended
       type: keyword
       ignore_above: 1024
-      description: MD5 digest of DER-encoded version of certifate offered by the server.
-    - name: server.certificate_fingerprint.sha1
+      description: Certificate fingerprint using the MD5 digest of DER-encoded version
+        of certificate offered by the server. For consistency with other hash values,
+        this value should be formatted as an uppercase hash (e.g. `0F76C7F2C55BFD7D8E8B8F4BFBF0C9EC`).
+    - name: server.hash.sha1
       level: extended
       type: keyword
       ignore_above: 1024
-      description: SHA1 digest of DER-encoded version of certifate offered by the
-        server.
-    - name: server.certificate_fingerprint.sha256
+      description: Certificate fingerprint using the SHA1 digest of DER-encoded version
+        of certificate offered by the server. For consistency with other hash values,
+        this value should be formatted as an uppercase hash (e.g. `9E393D93138888D288266C2D915214D1D1CCEB2A`).
+    - name: server.hash.sha256
       level: extended
       type: keyword
       ignore_above: 1024
-      description: SHA256 digest of DER-encoded version of certifate offered by the
-        server.
+      description: Certificate fingerprint using the SHA256 digest of DER-encoded
+        version of certificate offered by the server. For consistency with other hash
+        values, this value should be formatted as an uppercase hash (e.g. `0687F666A054EF17A08E2F2162EAB4CBC0D265E1D7875BE74BF3C712CA92DAF0`).
     - name: server.issuer
       level: extended
       type: keyword
@@ -3023,14 +3031,10 @@
       description: List of ciphers offered by the server during the server hello.
     - name: version.number
       level: extended
-      type: float
-      description: Numeric value of the version parsed from the original string (e.g.
-        1.2, 3).
-    - name: version.original
-      level: extended
       type: keyword
       ignore_above: 1024
-      description: Original, unparsed version string provided by generating application.
+      description: Numeric part of the version parsed from the original string (e.g.
+        1.2, 3).
     - name: version.protocol
       level: extended
       type: keyword

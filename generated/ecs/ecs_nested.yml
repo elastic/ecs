@@ -4611,7 +4611,7 @@ tls:
       ignore_above: 1024
       level: extended
       name: cipher
-      order: 3
+      order: 2
       short: String indicating the cipher used during the current connection.
       type: keyword
     client.certificate:
@@ -4620,7 +4620,7 @@ tls:
       ignore_above: 1024
       level: extended
       name: client.certificate
-      order: 15
+      order: 14
       short: PEM-encoded stand-alone certificate offered by the client.
       type: keyword
     client.certificate_chain:
@@ -4630,38 +4630,48 @@ tls:
       ignore_above: 1024
       level: extended
       name: client.certificate_chain
-      order: 14
+      order: 13
       short: List of PEM-encoded certificates that make up the certificate chain offered
         by the client.
       type: keyword
-    client.certificate_fingerprint.md5:
-      description: MD5 digest of DER-encoded version of certifate offered by the client.
-      flat_name: tls.client.certificate_fingerprint.md5
+    client.hash.md5:
+      description: Certificate fingerprint using the MD5 digest of DER-encoded version
+        of certificate offered by the client. For consistency with other hash values,
+        this value should be formatted as an uppercase hash (e.g. `0F76C7F2C55BFD7D8E8B8F4BFBF0C9EC`).
+      flat_name: tls.client.hash.md5
       ignore_above: 1024
       level: extended
-      name: client.certificate_fingerprint.md5
+      name: client.hash.md5
+      order: 15
+      short: Certificate fingerprint using the MD5 digest of DER-encoded version of
+        certificate offered by the client. For consistency with other hash values,
+        this value should be formatted as an uppercase hash (e.g. `0F76C7F2C55BFD7D8E8B8F4BFBF0C9EC`).
+      type: keyword
+    client.hash.sha1:
+      description: Certificate fingerprint using the SHA1 digest of DER-encoded version
+        of certificate offered by the client. For consistency with other hash values,
+        this value should be formatted as an uppercase hash (e.g. `9E393D93138888D288266C2D915214D1D1CCEB2A`).
+      flat_name: tls.client.hash.sha1
+      ignore_above: 1024
+      level: extended
+      name: client.hash.sha1
       order: 16
-      short: MD5 digest of DER-encoded version of certifate offered by the client.
+      short: Certificate fingerprint using the SHA1 digest of DER-encoded version
+        of certificate offered by the client. For consistency with other hash values,
+        this value should be formatted as an uppercase hash (e.g. `9E393D93138888D288266C2D915214D1D1CCEB2A`).
       type: keyword
-    client.certificate_fingerprint.sha1:
-      description: SHA1 digest of DER-encoded version of certifate offered by the
-        client.
-      flat_name: tls.client.certificate_fingerprint.sha1
+    client.hash.sha256:
+      description: Certificate fingerprint using the SHA256 digest of DER-encoded
+        version of certificate offered by the client. For consistency with other hash
+        values, this value should be formatted as an uppercase hash (e.g. `0687F666A054EF17A08E2F2162EAB4CBC0D265E1D7875BE74BF3C712CA92DAF0`).
+      flat_name: tls.client.hash.sha256
       ignore_above: 1024
       level: extended
-      name: client.certificate_fingerprint.sha1
+      name: client.hash.sha256
       order: 17
-      short: SHA1 digest of DER-encoded version of certifate offered by the client.
-      type: keyword
-    client.certificate_fingerprint.sha256:
-      description: SHA256 digest of DER-encoded version of certifate offered by the
-        client.
-      flat_name: tls.client.certificate_fingerprint.sha256
-      ignore_above: 1024
-      level: extended
-      name: client.certificate_fingerprint.sha256
-      order: 18
-      short: SHA256 digest of DER-encoded version of certifate offered by the client.
+      short: Certificate fingerprint using the SHA256 digest of DER-encoded version
+        of certificate offered by the client. For consistency with other hash values,
+        this value should be formatted as an uppercase hash (e.g. `0687F666A054EF17A08E2F2162EAB4CBC0D265E1D7875BE74BF3C712CA92DAF0`).
       type: keyword
     client.issuer:
       description: Subject of the issuer of the x.509 certificate presented by the
@@ -4670,7 +4680,7 @@ tls:
       ignore_above: 1024
       level: extended
       name: client.issuer
-      order: 11
+      order: 10
       short: Subject of the issuer of the x.509 certificate presented by the client.
       type: keyword
     client.ja3:
@@ -4680,7 +4690,7 @@ tls:
       ignore_above: 1024
       level: extended
       name: client.ja3
-      order: 7
+      order: 6
       short: A hash that identifies clients based on how they perform an SSL/TLS handshake.
       type: keyword
     client.not_after:
@@ -4689,7 +4699,7 @@ tls:
       flat_name: tls.client.not_after
       level: extended
       name: client.not_after
-      order: 13
+      order: 12
       short: Timestamp indicating when client certificate is no longer considered
         valid.
       type: date
@@ -4699,7 +4709,7 @@ tls:
       flat_name: tls.client.not_before
       level: extended
       name: client.not_before
-      order: 12
+      order: 11
       short: Timestamp indicating when client certificate is first considered valid.
       type: date
     client.server_name:
@@ -4709,7 +4719,7 @@ tls:
       ignore_above: 1024
       level: extended
       name: client.server_name
-      order: 8
+      order: 7
       short: Also called an SNI, this tells the server which hostname to which the
         client is attempting to connect.
       type: keyword
@@ -4719,7 +4729,7 @@ tls:
       ignore_above: 1024
       level: extended
       name: client.subject
-      order: 10
+      order: 9
       short: Subject of the x.509 certificate presented by the client.
       type: keyword
     client.supported_ciphers:
@@ -4728,7 +4738,7 @@ tls:
       ignore_above: 1024
       level: extended
       name: client.supported_ciphers
-      order: 9
+      order: 8
       short: List of ciphers offered by the client during the client hello.
       type: keyword
     curve:
@@ -4737,7 +4747,7 @@ tls:
       ignore_above: 1024
       level: extended
       name: curve
-      order: 4
+      order: 3
       short: String indicating the curve used for the given cipher, when applicable.
       type: keyword
     next_protocol:
@@ -4747,7 +4757,7 @@ tls:
       ignore_above: 1024
       level: extended
       name: next_protocol
-      order: 6
+      order: 5
       short: String indicating the protocol being tunneled (e.g. http/1.1, spdy/3,
         imap, webrtc)
       type: keyword
@@ -4757,7 +4767,7 @@ tls:
       flat_name: tls.resumed
       level: extended
       name: resumed
-      order: 5
+      order: 4
       short: Boolean flag indicating if this TLS connection was resumed from an existing
         TLS negotiation.
       type: boolean
@@ -4767,7 +4777,7 @@ tls:
       ignore_above: 1024
       level: extended
       name: server.certificate
-      order: 26
+      order: 25
       short: PEM-encoded stand-alone certificate offered by the server.
       type: keyword
     server.certificate_chain:
@@ -4777,38 +4787,48 @@ tls:
       ignore_above: 1024
       level: extended
       name: server.certificate_chain
-      order: 25
+      order: 24
       short: List of PEM-encoded certificates that make up the certificate chain offered
         by the server.
       type: keyword
-    server.certificate_fingerprint.md5:
-      description: MD5 digest of DER-encoded version of certifate offered by the server.
-      flat_name: tls.server.certificate_fingerprint.md5
+    server.hash.md5:
+      description: Certificate fingerprint using the MD5 digest of DER-encoded version
+        of certificate offered by the server. For consistency with other hash values,
+        this value should be formatted as an uppercase hash (e.g. `0F76C7F2C55BFD7D8E8B8F4BFBF0C9EC`).
+      flat_name: tls.server.hash.md5
       ignore_above: 1024
       level: extended
-      name: server.certificate_fingerprint.md5
+      name: server.hash.md5
+      order: 26
+      short: Certificate fingerprint using the MD5 digest of DER-encoded version of
+        certificate offered by the server. For consistency with other hash values,
+        this value should be formatted as an uppercase hash (e.g. `0F76C7F2C55BFD7D8E8B8F4BFBF0C9EC`).
+      type: keyword
+    server.hash.sha1:
+      description: Certificate fingerprint using the SHA1 digest of DER-encoded version
+        of certificate offered by the server. For consistency with other hash values,
+        this value should be formatted as an uppercase hash (e.g. `9E393D93138888D288266C2D915214D1D1CCEB2A`).
+      flat_name: tls.server.hash.sha1
+      ignore_above: 1024
+      level: extended
+      name: server.hash.sha1
       order: 27
-      short: MD5 digest of DER-encoded version of certifate offered by the server.
+      short: Certificate fingerprint using the SHA1 digest of DER-encoded version
+        of certificate offered by the server. For consistency with other hash values,
+        this value should be formatted as an uppercase hash (e.g. `9E393D93138888D288266C2D915214D1D1CCEB2A`).
       type: keyword
-    server.certificate_fingerprint.sha1:
-      description: SHA1 digest of DER-encoded version of certifate offered by the
-        server.
-      flat_name: tls.server.certificate_fingerprint.sha1
+    server.hash.sha256:
+      description: Certificate fingerprint using the SHA256 digest of DER-encoded
+        version of certificate offered by the server. For consistency with other hash
+        values, this value should be formatted as an uppercase hash (e.g. `0687F666A054EF17A08E2F2162EAB4CBC0D265E1D7875BE74BF3C712CA92DAF0`).
+      flat_name: tls.server.hash.sha256
       ignore_above: 1024
       level: extended
-      name: server.certificate_fingerprint.sha1
+      name: server.hash.sha256
       order: 28
-      short: SHA1 digest of DER-encoded version of certifate offered by the server.
-      type: keyword
-    server.certificate_fingerprint.sha256:
-      description: SHA256 digest of DER-encoded version of certifate offered by the
-        server.
-      flat_name: tls.server.certificate_fingerprint.sha256
-      ignore_above: 1024
-      level: extended
-      name: server.certificate_fingerprint.sha256
-      order: 29
-      short: SHA256 digest of DER-encoded version of certifate offered by the server.
+      short: Certificate fingerprint using the SHA256 digest of DER-encoded version
+        of certificate offered by the server. For consistency with other hash values,
+        this value should be formatted as an uppercase hash (e.g. `0687F666A054EF17A08E2F2162EAB4CBC0D265E1D7875BE74BF3C712CA92DAF0`).
       type: keyword
     server.issuer:
       description: Subject of the issuer of the x.509 certificate presented by the
@@ -4817,7 +4837,7 @@ tls:
       ignore_above: 1024
       level: extended
       name: server.issuer
-      order: 22
+      order: 21
       short: Subject of the issuer of the x.509 certificate presented by the server.
       type: keyword
     server.ja3s:
@@ -4827,7 +4847,7 @@ tls:
       ignore_above: 1024
       level: extended
       name: server.ja3s
-      order: 19
+      order: 18
       short: A hash that identifies servers based on how they perform an SSL/TLS handshake.
       type: keyword
     server.not_after:
@@ -4836,7 +4856,7 @@ tls:
       flat_name: tls.server.not_after
       level: extended
       name: server.not_after
-      order: 24
+      order: 23
       short: Timestamp indicating when server certificate is no longer considered
         valid.
       type: date
@@ -4846,7 +4866,7 @@ tls:
       flat_name: tls.server.not_before
       level: extended
       name: server.not_before
-      order: 23
+      order: 22
       short: Timestamp indicating when server certificate is first considered valid.
       type: date
     server.subject:
@@ -4855,7 +4875,7 @@ tls:
       ignore_above: 1024
       level: extended
       name: server.subject
-      order: 21
+      order: 20
       short: Subject of the x.509 certificate presented by the server.
       type: keyword
     server.supported_ciphers:
@@ -4864,27 +4884,19 @@ tls:
       ignore_above: 1024
       level: extended
       name: server.supported_ciphers
-      order: 20
+      order: 19
       short: List of ciphers offered by the server during the server hello.
       type: keyword
     version.number:
-      description: Numeric value of the version parsed from the original string (e.g.
+      description: Numeric part of the version parsed from the original string (e.g.
         1.2, 3).
       flat_name: tls.version.number
-      level: extended
-      name: version.number
-      order: 2
-      short: Numeric value of the version parsed from the original string (e.g. 1.2,
-        3).
-      type: float
-    version.original:
-      description: Original, unparsed version string provided by generating application.
-      flat_name: tls.version.original
       ignore_above: 1024
       level: extended
-      name: version.original
-      order: 0
-      short: Original, unparsed version string provided by generating application.
+      name: version.number
+      order: 1
+      short: Numeric part of the version parsed from the original string (e.g. 1.2,
+        3).
       type: keyword
     version.protocol:
       description: Normalized protocol name parsed from original string (e.g. ssl,
@@ -4893,7 +4905,7 @@ tls:
       ignore_above: 1024
       level: extended
       name: version.protocol
-      order: 1
+      order: 0
       short: Normalized protocol name parsed from original string (e.g. ssl, tls).
       type: keyword
   group: 2

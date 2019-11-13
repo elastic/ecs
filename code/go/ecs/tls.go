@@ -25,15 +25,12 @@ import (
 
 // Fields related to TLS activity.
 type Tls struct {
-	// Original, unparsed version string provided by generating application.
-	VersionOriginal string `ecs:"version.original"`
-
 	// Normalized protocol name parsed from original string (e.g. ssl, tls).
 	VersionProtocol string `ecs:"version.protocol"`
 
-	// Numeric value of the version parsed from the original string (e.g. 1.2,
+	// Numeric part of the version parsed from the original string (e.g. 1.2,
 	// 3).
-	VersionNumber float64 `ecs:"version.number"`
+	VersionNumber string `ecs:"version.number"`
 
 	// String indicating the cipher used during the current connection.
 	Cipher string `ecs:"cipher"`
@@ -80,14 +77,23 @@ type Tls struct {
 	// PEM-encoded stand-alone certificate offered by the client.
 	ClientCertificate string `ecs:"client.certificate"`
 
-	// MD5 digest of DER-encoded version of certifate offered by the client.
-	ClientCertificateFingerprintMd5 string `ecs:"client.certificate_fingerprint.md5"`
+	// Certificate fingerprint using the MD5 digest of DER-encoded version of
+	// certificate offered by the client. For consistency with other hash
+	// values, this value should be formatted as an uppercase hash (e.g.
+	// `0F76C7F2C55BFD7D8E8B8F4BFBF0C9EC`).
+	ClientHashMd5 string `ecs:"client.hash.md5"`
 
-	// SHA1 digest of DER-encoded version of certifate offered by the client.
-	ClientCertificateFingerprintSha1 string `ecs:"client.certificate_fingerprint.sha1"`
+	// Certificate fingerprint using the SHA1 digest of DER-encoded version of
+	// certificate offered by the client. For consistency with other hash
+	// values, this value should be formatted as an uppercase hash (e.g.
+	// `9E393D93138888D288266C2D915214D1D1CCEB2A`).
+	ClientHashSha1 string `ecs:"client.hash.sha1"`
 
-	// SHA256 digest of DER-encoded version of certifate offered by the client.
-	ClientCertificateFingerprintSha256 string `ecs:"client.certificate_fingerprint.sha256"`
+	// Certificate fingerprint using the SHA256 digest of DER-encoded version
+	// of certificate offered by the client. For consistency with other hash
+	// values, this value should be formatted as an uppercase hash (e.g.
+	// `0687F666A054EF17A08E2F2162EAB4CBC0D265E1D7875BE74BF3C712CA92DAF0`).
+	ClientHashSha256 string `ecs:"client.hash.sha256"`
 
 	// A hash that identifies servers based on how they perform an SSL/TLS
 	// handshake.
@@ -116,12 +122,21 @@ type Tls struct {
 	// PEM-encoded stand-alone certificate offered by the server.
 	ServerCertificate string `ecs:"server.certificate"`
 
-	// MD5 digest of DER-encoded version of certifate offered by the server.
-	ServerCertificateFingerprintMd5 string `ecs:"server.certificate_fingerprint.md5"`
+	// Certificate fingerprint using the MD5 digest of DER-encoded version of
+	// certificate offered by the server. For consistency with other hash
+	// values, this value should be formatted as an uppercase hash (e.g.
+	// `0F76C7F2C55BFD7D8E8B8F4BFBF0C9EC`).
+	ServerHashMd5 string `ecs:"server.hash.md5"`
 
-	// SHA1 digest of DER-encoded version of certifate offered by the server.
-	ServerCertificateFingerprintSha1 string `ecs:"server.certificate_fingerprint.sha1"`
+	// Certificate fingerprint using the SHA1 digest of DER-encoded version of
+	// certificate offered by the server. For consistency with other hash
+	// values, this value should be formatted as an uppercase hash (e.g.
+	// `9E393D93138888D288266C2D915214D1D1CCEB2A`).
+	ServerHashSha1 string `ecs:"server.hash.sha1"`
 
-	// SHA256 digest of DER-encoded version of certifate offered by the server.
-	ServerCertificateFingerprintSha256 string `ecs:"server.certificate_fingerprint.sha256"`
+	// Certificate fingerprint using the SHA256 digest of DER-encoded version
+	// of certificate offered by the server. For consistency with other hash
+	// values, this value should be formatted as an uppercase hash (e.g.
+	// `0687F666A054EF17A08E2F2162EAB4CBC0D265E1D7875BE74BF3C712CA92DAF0`).
+	ServerHashSha256 string `ecs:"server.hash.sha256"`
 }
