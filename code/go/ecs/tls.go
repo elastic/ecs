@@ -61,7 +61,7 @@ type Tls struct {
 	// get copied to `destination.domain`.
 	ClientServerName string `ecs:"client.server_name"`
 
-	// List of ciphers offered by the client during the client hello.
+	// Array of ciphers offered by the client during the client hello.
 	ClientSupportedCiphers string `ecs:"client.supported_ciphers"`
 
 	// Distinguished name of subject of the x.509 certificate presented by the
@@ -109,7 +109,7 @@ type Tls struct {
 	// handshake.
 	ServerJa3s string `ecs:"server.ja3s"`
 
-	// List of ciphers offered by the server during the server hello.
+	// Array of ciphers offered by the server during the server hello.
 	ServerSupportedCiphers string `ecs:"server.supported_ciphers"`
 
 	// Subject of the x.509 certificate presented by the server.
