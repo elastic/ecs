@@ -10,6 +10,7 @@ Thanks, you're awesome :-) -->
 ### Bugfixes
 
 ### Added
+* Added `host.domain` field. #591
 
 ### Improvements
 
