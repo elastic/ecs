@@ -12,6 +12,8 @@ Thanks, you're awesome :-) -->
 ### Added
 * Added `host.domain` field. #591
 
+* Added `process.exit_code`. #600
+
 ### Improvements
 
 ### Deprecated
