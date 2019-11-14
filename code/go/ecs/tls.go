@@ -48,8 +48,9 @@ type Tls struct {
 	Established bool `ecs:"established"`
 
 	// String indicating the protocol being tunneled. Per the values in the
-	// https://www.iana.org/assignments/tls-extensiontype-values/tls-extensiontype-values.xhtml#alpn-protocol-ids[IANA
-	// registry], this string should be lower case.
+	// IANA registry
+	// (https://www.iana.org/assignments/tls-extensiontype-values/tls-extensiontype-values.xhtml#alpn-protocol-ids),
+	// this string should be lower case.
 	NextProtocol string `ecs:"next_protocol"`
 
 	// A hash that identifies clients based on how they perform an SSL/TLS
