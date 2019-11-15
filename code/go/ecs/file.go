@@ -33,6 +33,12 @@ type File struct {
 	// Name of the file including the extension, without the directory.
 	Name string `ecs:"name"`
 
+	// Array of file attributes.
+	// Attributes names will vary by platform. Here's a non-exhaustive list of
+	// values that are expected in this field: archive, compressed, directory,
+	// encrypted, execute, hidden, read, readonly, system, write.
+	Attributes string `ecs:"attributes"`
+
 	// Directory where the file is located.
 	Directory string `ecs:"directory"`
 
