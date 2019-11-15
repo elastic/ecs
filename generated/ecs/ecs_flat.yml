@@ -3095,7 +3095,7 @@ process.args:
   ignore_above: 1024
   level: extended
   name: args
-  order: 4
+  order: 8
   short: Array of process arguments.
   type: keyword
 process.executable:
@@ -3105,7 +3105,7 @@ process.executable:
   ignore_above: 1024
   level: extended
   name: executable
-  order: 5
+  order: 10
   short: Absolute path to the process executable.
   type: keyword
 process.exit_code:
@@ -3117,7 +3117,7 @@ process.exit_code:
   flat_name: process.exit_code
   level: extended
   name: exit_code
-  order: 12
+  order: 24
   short: The exit code of the process.
   type: long
 process.hash.md5:
@@ -3169,8 +3169,147 @@ process.name:
   ignore_above: 1024
   level: extended
   name: name
-  order: 1
+  order: 2
   short: Process name.
+  type: keyword
+process.parent.args:
+  description: 'Array of process arguments.
+
+    May be filtered to protect sensitive information.'
+  example:
+  - ssh
+  - -l
+  - user
+  - 10.0.0.16
+  flat_name: process.parent.args
+  ignore_above: 1024
+  level: extended
+  name: parent.args
+  order: 9
+  short: Array of process arguments.
+  type: keyword
+process.parent.executable:
+  description: Absolute path to the process executable.
+  example: /usr/bin/ssh
+  flat_name: process.parent.executable
+  ignore_above: 1024
+  level: extended
+  name: parent.executable
+  order: 11
+  short: Absolute path to the process executable.
+  type: keyword
+process.parent.exit_code:
+  description: 'The exit code of the process, if this is a termination event.
+
+    The field should be absent if there is no exit code for the event (e.g. process
+    start).'
+  example: 137
+  flat_name: process.parent.exit_code
+  level: extended
+  name: parent.exit_code
+  order: 25
+  short: The exit code of the process.
+  type: long
+process.parent.name:
+  description: 'Process name.
+
+    Sometimes called program name or similar.'
+  example: ssh
+  flat_name: process.parent.name
+  ignore_above: 1024
+  level: extended
+  name: parent.name
+  order: 3
+  short: Process name.
+  type: keyword
+process.parent.pgid:
+  description: Identifier of the group of processes the process belongs to.
+  flat_name: process.parent.pgid
+  format: string
+  level: extended
+  name: parent.pgid
+  order: 7
+  short: Identifier of the group of processes the process belongs to.
+  type: long
+process.parent.pid:
+  description: Process id.
+  example: 4242
+  flat_name: process.parent.pid
+  format: string
+  level: core
+  name: parent.pid
+  order: 1
+  short: Process id.
+  type: long
+process.parent.ppid:
+  description: Parent process' pid.
+  example: 4241
+  flat_name: process.parent.ppid
+  format: string
+  level: extended
+  name: parent.ppid
+  order: 5
+  short: Parent process' pid.
+  type: long
+process.parent.start:
+  description: The time the process started.
+  example: '2016-05-23T08:05:34.853Z'
+  flat_name: process.parent.start
+  level: extended
+  name: parent.start
+  order: 19
+  short: The time the process started.
+  type: date
+process.parent.thread.id:
+  description: Thread ID.
+  example: 4242
+  flat_name: process.parent.thread.id
+  format: string
+  level: extended
+  name: parent.thread.id
+  order: 15
+  short: Thread ID.
+  type: long
+process.parent.thread.name:
+  description: Thread name.
+  example: thread-0
+  flat_name: process.parent.thread.name
+  ignore_above: 1024
+  level: extended
+  name: parent.thread.name
+  order: 17
+  short: Thread name.
+  type: keyword
+process.parent.title:
+  description: 'Process title.
+
+    The proctitle, some times the same as process name. Can also be different: for
+    example a browser setting its title to the web page currently opened.'
+  flat_name: process.parent.title
+  ignore_above: 1024
+  level: extended
+  name: parent.title
+  order: 13
+  short: Process title.
+  type: keyword
+process.parent.uptime:
+  description: Seconds the process has been up.
+  example: 1325
+  flat_name: process.parent.uptime
+  level: extended
+  name: parent.uptime
+  order: 21
+  short: Seconds the process has been up.
+  type: long
+process.parent.working_directory:
+  description: The working directory of the process.
+  example: /home/alice
+  flat_name: process.parent.working_directory
+  ignore_above: 1024
+  level: extended
+  name: parent.working_directory
+  order: 23
+  short: The working directory of the process.
   type: keyword
 process.pgid:
   description: Identifier of the group of processes the process belongs to.
@@ -3178,7 +3317,7 @@ process.pgid:
   format: string
   level: extended
   name: pgid
-  order: 3
+  order: 6
   short: Identifier of the group of processes the process belongs to.
   type: long
 process.pid:
@@ -3198,7 +3337,7 @@ process.ppid:
   format: string
   level: extended
   name: ppid
-  order: 2
+  order: 4
   short: Parent process' pid.
   type: long
 process.start:
@@ -3207,7 +3346,7 @@ process.start:
   flat_name: process.start
   level: extended
   name: start
-  order: 9
+  order: 18
   short: The time the process started.
   type: date
 process.thread.id:
@@ -3217,7 +3356,7 @@ process.thread.id:
   format: string
   level: extended
   name: thread.id
-  order: 7
+  order: 14
   short: Thread ID.
   type: long
 process.thread.name:
@@ -3227,7 +3366,7 @@ process.thread.name:
   ignore_above: 1024
   level: extended
   name: thread.name
-  order: 8
+  order: 16
   short: Thread name.
   type: keyword
 process.title:
@@ -3239,7 +3378,7 @@ process.title:
   ignore_above: 1024
   level: extended
   name: title
-  order: 6
+  order: 12
   short: Process title.
   type: keyword
 process.uptime:
@@ -3248,7 +3387,7 @@ process.uptime:
   flat_name: process.uptime
   level: extended
   name: uptime
-  order: 10
+  order: 20
   short: Seconds the process has been up.
   type: long
 process.working_directory:
@@ -3258,7 +3397,7 @@ process.working_directory:
   ignore_above: 1024
   level: extended
   name: working_directory
-  order: 11
+  order: 22
   short: The working directory of the process.
   type: keyword
 related.ip:
