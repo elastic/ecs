@@ -33,6 +33,10 @@ type Package struct {
 	// Package version
 	Version string `ecs:"version"`
 
+	// Additional information about the build version of the installed package.
+	// For example use the commit SHA of a non-released package.
+	BuildVersion string `ecs:"build_version"`
+
 	// Description of the package.
 	Description string `ecs:"description"`
 
@@ -59,7 +63,13 @@ type Package struct {
 	// where possible (https://spdx.org/licenses/).
 	License string `ecs:"license"`
 
-	// Additional information about the build version of the installed package.
-	// For example use the commit SHA of a non-released package.
-	BuildVersion string `ecs:"build_version"`
+	// Reference URL of this package.
+	// If available, use reference URL pointing to the project website that is
+	// contained in the package.
+	Reference string `ecs:"reference"`
+
+	// Type of package.
+	// This should contain the package file type, rather than the package
+	// manager name. Examples: rpm, dpkg, brew, npm, gem, nupkg, jar.
+	Type string `ecs:"type"`
 }
