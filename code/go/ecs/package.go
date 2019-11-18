@@ -59,6 +59,11 @@ type Package struct {
 	// where possible (https://spdx.org/licenses/).
 	License string `ecs:"license"`
 
+	// Reference URL of this package.
+	// If available, use reference URL pointing to the project website that is
+	// contained in the package.
+	Reference string `ecs:"reference"`
+
 	// Type of package.
 	// This should contain the package file type, rather than the package
 	// manager name. Examples: rpm, dpkg, brew, npm, gem, nupkg, jar.

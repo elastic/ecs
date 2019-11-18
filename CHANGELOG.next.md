@@ -10,10 +10,10 @@ Thanks, you're awesome :-) -->
 ### Bugfixes
 
 ### Added
+
+* Added `package.reference`. #585
 * Added `host.domain` field. #591
-
 * Added `process.exit_code`. #600
-
 * Added fields in `tls.*` to support analysis of TLS protocol events. #606
 
 * Added `package.type` to installed software packages. #587
