@@ -5089,15 +5089,38 @@ vulnerability:
       order: 8
       short: Description of the vulnerability.
       type: keyword
-    reference:
+    enumeration:
       description: The type of identifier used for this vulnerability. For example
         (https://cve.mitre.org/about/)
       example: CVE
+      flat_name: vulnerability.enumeration
+      ignore_above: 1024
+      level: extended
+      name: enumeration
+      order: 1
+      short: Identifier of the vulnerability.
+      type: keyword
+    id:
+      description: The identification (ID) is the number portion of a vulnerability
+        entry. It includes a unique identification number for the vulnerability. For
+        example (https://cve.mitre.org/about/faqs.html#what_is_cve_id)
+      example: CVE-2019-00001
+      flat_name: vulnerability.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      order: 9
+      short: ID of the vulnerability.
+      type: keyword
+    reference:
+      description: A resource that provides additional information, context, and mitigations
+        for the identified vulnerabiltiy. For example (https://cve.mitre.org/cgi-bin/cvekey.cgi?keyword=ssh)
+      example: https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-6111
       flat_name: vulnerability.reference
       ignore_above: 1024
       level: extended
       name: reference
-      order: 1
+      order: 2
       short: Reference of the vulnerability.
       type: keyword
     report_id:
@@ -5107,20 +5130,8 @@ vulnerability:
       ignore_above: 1024
       level: extended
       name: report_id
-      order: 13
+      order: 12
       short: Scan identification number.
-      type: keyword
-    scanner.id:
-      description: The identification (ID) is the number portion of a vulnerability
-        entry. It includes a unique identification number for the vulnerability. For
-        example (https://cve.mitre.org/about/faqs.html#what_is_cve_id)
-      example: CVE-2019-00001
-      flat_name: vulnerability.scanner.id
-      ignore_above: 1024
-      level: extended
-      name: scanner.id
-      order: 9
-      short: ID of the vulnerability.
       type: keyword
     scanner.vendor:
       description: The name of the vulnerability scanner vendor.
@@ -5195,32 +5206,6 @@ vulnerability:
       name: severity
       order: 11
       short: Severity of the vulnerability.
-      type: keyword
-    status:
-      description: "The current status of the vulerability on the asset:\nRecommended\
-        \ values are:\n  * New - First time a vulnerability is detected by a scan\
-        \ the status is set to New.\n  * Active - A vulnerability detected by two\
-        \ or more scans is set to Active.\n  * Fixed - A vulnerability was verified\
-        \ by the most recent scan as Fixed.\n  * Re-Opened - A vulnerability was reopened\
-        \ by the most recent scan.\n\nFor example (https://qualysguard.qualys.com/qwebhelp/fo_portal/scans/vulnerability_status.htm)"
-      example: New
-      flat_name: vulnerability.status
-      ignore_above: 1024
-      level: extended
-      name: status
-      order: 12
-      short: Status of the vulnerability.
-      type: keyword
-    url:
-      description: A URL to a resource that provides additional information, context,
-        and mitigations for the identified vulnerabiltiy. For example (https://cve.mitre.org/cgi-bin/cvekey.cgi?keyword=ssh)
-      example: https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-6111
-      flat_name: vulnerability.url
-      ignore_above: 1024
-      level: extended
-      name: url
-      order: 2
-      short: URL describing the vulnerability.
       type: keyword
   group: 2
   name: vulnerability
