@@ -16,6 +16,8 @@ Thanks, you're awesome :-) -->
 
 * Added fields in `tls.*` to support analysis of TLS protocol events. #606
 
+* Added `package.type` to installed software packages. #587
+
 ### Improvements
 
 ### Deprecated

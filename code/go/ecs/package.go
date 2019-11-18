@@ -60,7 +60,7 @@ type Package struct {
 	License string `ecs:"license"`
 
 	// Type of package.
-	// When installed from a package manager, this would contain the package
-	// manager name, e.g. RPM, DPKG, Homebrew, NPM.
+	// This should contain the package file type, rather than the package
+	// manager name. Examples: rpm, dpkg, brew, npm, gem.
 	Type string `ecs:"type"`
 }
