@@ -61,6 +61,6 @@ type Package struct {
 
 	// Type of package.
 	// This should contain the package file type, rather than the package
-	// manager name. Examples: rpm, dpkg, brew, npm, gem.
+	// manager name. Examples: rpm, dpkg, brew, npm, gem, nupkg, jar.
 	Type string `ecs:"type"`
 }
