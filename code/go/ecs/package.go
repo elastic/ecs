@@ -59,9 +59,7 @@ type Package struct {
 	// where possible (https://spdx.org/licenses/).
 	License string `ecs:"license"`
 
-	// Additional information about the version of the installed package. The
-	// concrete format and content varies for different package types. For
-	// example it can contain a release string for RHEL packages, or the commit
-	// SHA of a non-released package.
-	ExtendedVersion string `ecs:"extended_version"`
+	// Additional information about the build version of the installed package.
+	// For example use the commit SHA of a non-released package.
+	BuildVersion string `ecs:"build_version"`
 }
