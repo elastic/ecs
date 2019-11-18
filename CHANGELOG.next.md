@@ -12,9 +12,11 @@ Thanks, you're awesome :-) -->
 ### Added
 
 * Added `package.reference`. #585
+* Added `package.type`. #587
 * Added `host.domain` field. #591
 * Added `process.exit_code`. #600
 * Added fields in `tls.*` to support analysis of TLS protocol events. #606
+
 
 ### Improvements
 
