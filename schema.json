@@ -2170,12 +2170,22 @@
     "description": "These fields contain information about a process.\nThese fields can help you correlate metrics information with a process id/name from a log message.  The `process.pid` often stays in the metric itself and is copied to the global field for correlation.\n", 
     "fields": {
       "process.args": {
-        "description": "Array of process arguments.\nMay be filtered to protect sensitive information.", 
-        "example": "['ssh', '-l', 'user', '10.0.0.16']", 
+        "description": "Array of process arguments, starting with the absolute path to the executable.\nMay be filtered to protect sensitive information.", 
+        "example": "['/usr/bin/ssh', '-l', 'user', '10.0.0.16']", 
         "footnote": "", 
         "group": 2, 
         "level": "extended", 
         "name": "process.args", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "process.command_line": {
+        "description": "Full command line that started the process, including the absolute path to the executable, and all arguments.\nSome arguments may be filtered to protect sensitive information.", 
+        "example": "/usr/bin/ssh -l user 10.0.0.16", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "process.command_line", 
         "required": false, 
         "type": "keyword"
       }, 
