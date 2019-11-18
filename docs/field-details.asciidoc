@@ -2964,13 +2964,13 @@ These fields can help you correlate metrics information with a process id/name f
 // ===============================================================
 
 | process.args
-| Array of process arguments.
+| Array of process arguments, starting with the absolute path to the executable.
 
 May be filtered to protect sensitive information.
 
 type: keyword
 
-example: `['ssh', '-l', 'user', '10.0.0.16']`
+example: `['/usr/bin/ssh', '-l', 'user', '10.0.0.16']`
 
 | extended
 
@@ -2984,6 +2984,19 @@ This field can be useful for querying or performing bucket analysis on how many 
 type: long
 
 example: `4`
+
+| extended
+
+// ===============================================================
+
+| process.command_line
+| Full command line that started the process, including the absolute path to the executable, and all arguments.
+
+Some arguments may be filtered to protect sensitive information.
+
+type: keyword
+
+example: `/usr/bin/ssh -l user 10.0.0.16`
 
 | extended
 

@@ -3121,11 +3121,12 @@ package.version:
   short: Package version
   type: keyword
 process.args:
-  description: 'Array of process arguments.
+  description: 'Array of process arguments, starting with the absolute path to the
+    executable.
 
     May be filtered to protect sensitive information.'
   example:
-  - ssh
+  - /usr/bin/ssh
   - -l
   - user
   - 10.0.0.16
@@ -3133,7 +3134,7 @@ process.args:
   ignore_above: 1024
   level: extended
   name: args
-  order: 4
+  order: 5
   short: Array of process arguments.
   type: keyword
 process.args_count:
@@ -3146,9 +3147,22 @@ process.args_count:
   flat_name: process.args_count
   level: extended
   name: args_count
-  order: 5
+  order: 6
   short: Length of the process.args array.
   type: long
+process.command_line:
+  description: 'Full command line that started the process, including the absolute
+    path to the executable, and all arguments.
+
+    Some arguments may be filtered to protect sensitive information.'
+  example: /usr/bin/ssh -l user 10.0.0.16
+  flat_name: process.command_line
+  ignore_above: 1024
+  level: extended
+  name: command_line
+  order: 4
+  short: Full command line that started the process.
+  type: keyword
 process.executable:
   description: Absolute path to the process executable.
   example: /usr/bin/ssh
@@ -3156,7 +3170,7 @@ process.executable:
   ignore_above: 1024
   level: extended
   name: executable
-  order: 6
+  order: 7
   short: Absolute path to the process executable.
   type: keyword
 process.exit_code:
@@ -3168,7 +3182,7 @@ process.exit_code:
   flat_name: process.exit_code
   level: extended
   name: exit_code
-  order: 13
+  order: 14
   short: The exit code of the process.
   type: long
 process.hash.md5:
@@ -3258,7 +3272,7 @@ process.start:
   flat_name: process.start
   level: extended
   name: start
-  order: 10
+  order: 11
   short: The time the process started.
   type: date
 process.thread.id:
@@ -3268,7 +3282,7 @@ process.thread.id:
   format: string
   level: extended
   name: thread.id
-  order: 8
+  order: 9
   short: Thread ID.
   type: long
 process.thread.name:
@@ -3278,7 +3292,7 @@ process.thread.name:
   ignore_above: 1024
   level: extended
   name: thread.name
-  order: 9
+  order: 10
   short: Thread name.
   type: keyword
 process.title:
@@ -3290,7 +3304,7 @@ process.title:
   ignore_above: 1024
   level: extended
   name: title
-  order: 7
+  order: 8
   short: Process title.
   type: keyword
 process.uptime:
@@ -3299,7 +3313,7 @@ process.uptime:
   flat_name: process.uptime
   level: extended
   name: uptime
-  order: 11
+  order: 12
   short: Seconds the process has been up.
   type: long
 process.working_directory:
@@ -3309,7 +3323,7 @@ process.working_directory:
   ignore_above: 1024
   level: extended
   name: working_directory
-  order: 12
+  order: 13
   short: The working directory of the process.
   type: keyword
 related.ip:

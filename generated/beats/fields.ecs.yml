@@ -2201,11 +2201,12 @@
       level: extended
       type: keyword
       ignore_above: 1024
-      description: 'Array of process arguments.
+      description: 'Array of process arguments, starting with the absolute path to
+        the executable.
 
         May be filtered to protect sensitive information.'
       example:
-      - ssh
+      - /usr/bin/ssh
       - -l
       - user
       - 10.0.0.16
@@ -2218,6 +2219,15 @@
         many arguments were provided to start a processes. More arguments may be an
         indication of suspicious activity.'
       example: 4
+    - name: command_line
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Full command line that started the process, including the absolute
+        path to the executable, and all arguments.
+
+        Some arguments may be filtered to protect sensitive information.'
+      example: /usr/bin/ssh -l user 10.0.0.16
     - name: executable
       level: extended
       type: keyword

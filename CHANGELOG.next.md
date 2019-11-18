@@ -15,9 +15,9 @@ Thanks, you're awesome :-) -->
 * Added `package.build_version`. #586
 * Added `package.type`. #587
 * Added `host.domain` field. #591
+* Added `process.command_line`. #599
 * Added `process.exit_code`. #600
 * Added fields in `tls.*` to support analysis of TLS protocol events. #606
-
 
 ### Improvements
 
