@@ -58,4 +58,9 @@ type Package struct {
 	// Use a short name, e.g. the license identifier from SPDX License List
 	// where possible (https://spdx.org/licenses/).
 	License string `ecs:"license"`
+
+	// Reference URL of this package.
+	// If available, use reference URL pointing to the project website that is
+	// contained in the package.
+	Reference string `ecs:"reference"`
 }
