@@ -1901,6 +1901,19 @@ example: `x86_64`
 
 // ===============================================================
 
+| host.domain
+| Name of the domain of which the host is a member. 
+
+For example, on Windows this could be the host's Active Directory domain or NetBIOS domain name.  For Linux this could be the domain of the host's LDAP provider.
+
+type: keyword
+
+example: `CONTOSO`
+
+| extended
+
+// ===============================================================
+
 | host.hostname
 | Hostname of the host.
 
@@ -2948,6 +2961,19 @@ example: `/usr/bin/ssh`
 
 // ===============================================================
 
+| process.exit_code
+| The exit code of the process, if this is a termination event.
+
+The field should be absent if there is no exit code for the event (e.g. process start).
+
+type: long
+
+example: `137`
+
+| extended
+
+// ===============================================================
+
 | process.name
 | Process name.
 
@@ -3694,6 +3720,351 @@ example: `endpoint denial of service`
 type: keyword
 
 example: `https://attack.mitre.org/techniques/T1499/`
+
+| extended
+
+// ===============================================================
+
+|=====
+
+[[ecs-tls]]
+=== TLS Fields
+
+Fields related to a TLS connection. These fields focus on the TLS protocol itself and intentionally avoids in-depth analysis of the related x.509 certificate files.
+
+==== TLS Field Details
+
+[options="header"]
+|=====
+| Field  | Description | Level
+
+// ===============================================================
+
+| tls.cipher
+| String indicating the cipher used during the current connection.
+
+type: keyword
+
+example: `TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256`
+
+| extended
+
+// ===============================================================
+
+| tls.client.certificate
+| PEM-encoded stand-alone certificate offered by the client. This is usually mutually-exclusive of `client.certificate_chain` since this value also exists in that list.
+
+type: keyword
+
+example: `MII...`
+
+| extended
+
+// ===============================================================
+
+| tls.client.certificate_chain
+| Array of PEM-encoded certificates that make up the certificate chain offered by the client. This is usually mutually-exclusive of `client.certificate` since that value should be the first certificate in the chain.
+
+type: keyword
+
+example: `['MII...', 'MII...']`
+
+| extended
+
+// ===============================================================
+
+| tls.client.hash.md5
+| Certificate fingerprint using the MD5 digest of DER-encoded version of certificate offered by the client. For consistency with other hash values, this value should be formatted as an uppercase hash.
+
+type: keyword
+
+example: `0F76C7F2C55BFD7D8E8B8F4BFBF0C9EC`
+
+| extended
+
+// ===============================================================
+
+| tls.client.hash.sha1
+| Certificate fingerprint using the SHA1 digest of DER-encoded version of certificate offered by the client. For consistency with other hash values, this value should be formatted as an uppercase hash.
+
+type: keyword
+
+example: `9E393D93138888D288266C2D915214D1D1CCEB2A`
+
+| extended
+
+// ===============================================================
+
+| tls.client.hash.sha256
+| Certificate fingerprint using the SHA256 digest of DER-encoded version of certificate offered by the client. For consistency with other hash values, this value should be formatted as an uppercase hash.
+
+type: keyword
+
+example: `0687F666A054EF17A08E2F2162EAB4CBC0D265E1D7875BE74BF3C712CA92DAF0`
+
+| extended
+
+// ===============================================================
+
+| tls.client.issuer
+| Distinguished name of subject of the issuer of the x.509 certificate presented by the client.
+
+type: keyword
+
+example: `CN=MyDomain Root CA, OU=Infrastructure Team, DC=mydomain, DC=com`
+
+| extended
+
+// ===============================================================
+
+| tls.client.ja3
+| A hash that identifies clients based on how they perform an SSL/TLS handshake.
+
+type: keyword
+
+example: `d4e5b18d6b55c71272893221c96ba240`
+
+| extended
+
+// ===============================================================
+
+| tls.client.not_after
+| Date/Time indicating when client certificate is no longer considered valid.
+
+type: date
+
+example: `2021-01-01T00:00:00.000Z`
+
+| extended
+
+// ===============================================================
+
+| tls.client.not_before
+| Date/Time indicating when client certificate is first considered valid.
+
+type: date
+
+example: `1970-01-01T00:00:00.000Z`
+
+| extended
+
+// ===============================================================
+
+| tls.client.server_name
+| Also called an SNI, this tells the server which hostname to which the client is attempting to connect. When this value is available, it should get copied to `destination.domain`.
+
+type: keyword
+
+example: `www.elastic.co`
+
+| extended
+
+// ===============================================================
+
+| tls.client.subject
+| Distinguished name of subject of the x.509 certificate presented by the client.
+
+type: keyword
+
+example: `CN=myclient, OU=Documentation Team, DC=mydomain, DC=com`
+
+| extended
+
+// ===============================================================
+
+| tls.client.supported_ciphers
+| Array of ciphers offered by the client during the client hello.
+
+type: keyword
+
+example: `['TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384', 'TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384', '...']`
+
+| extended
+
+// ===============================================================
+
+| tls.curve
+| String indicating the curve used for the given cipher, when applicable.
+
+type: keyword
+
+example: `secp256r1`
+
+| extended
+
+// ===============================================================
+
+| tls.established
+| Boolean flag indicating if the TLS negotiation was successful and transitioned to an encrypted tunnel.
+
+type: boolean
+
+
+
+| extended
+
+// ===============================================================
+
+| tls.next_protocol
+| String indicating the protocol being tunneled. Per the values in the IANA registry (https://www.iana.org/assignments/tls-extensiontype-values/tls-extensiontype-values.xhtml#alpn-protocol-ids), this string should be lower case.
+
+type: keyword
+
+example: `http/1.1`
+
+| extended
+
+// ===============================================================
+
+| tls.resumed
+| Boolean flag indicating if this TLS connection was resumed from an existing TLS negotiation.
+
+type: boolean
+
+
+
+| extended
+
+// ===============================================================
+
+| tls.server.certificate
+| PEM-encoded stand-alone certificate offered by the server. This is usually mutually-exclusive of `server.certificate_chain` since this value also exists in that list.
+
+type: keyword
+
+example: `MII...`
+
+| extended
+
+// ===============================================================
+
+| tls.server.certificate_chain
+| Array of PEM-encoded certificates that make up the certificate chain offered by the server. This is usually mutually-exclusive of `server.certificate` since that value should be the first certificate in the chain.
+
+type: keyword
+
+example: `['MII...', 'MII...']`
+
+| extended
+
+// ===============================================================
+
+| tls.server.hash.md5
+| Certificate fingerprint using the MD5 digest of DER-encoded version of certificate offered by the server. For consistency with other hash values, this value should be formatted as an uppercase hash.
+
+type: keyword
+
+example: `0F76C7F2C55BFD7D8E8B8F4BFBF0C9EC`
+
+| extended
+
+// ===============================================================
+
+| tls.server.hash.sha1
+| Certificate fingerprint using the SHA1 digest of DER-encoded version of certificate offered by the server. For consistency with other hash values, this value should be formatted as an uppercase hash.
+
+type: keyword
+
+example: `9E393D93138888D288266C2D915214D1D1CCEB2A`
+
+| extended
+
+// ===============================================================
+
+| tls.server.hash.sha256
+| Certificate fingerprint using the SHA256 digest of DER-encoded version of certificate offered by the server. For consistency with other hash values, this value should be formatted as an uppercase hash.
+
+type: keyword
+
+example: `0687F666A054EF17A08E2F2162EAB4CBC0D265E1D7875BE74BF3C712CA92DAF0`
+
+| extended
+
+// ===============================================================
+
+| tls.server.issuer
+| Subject of the issuer of the x.509 certificate presented by the server.
+
+type: keyword
+
+example: `CN=MyDomain Root CA, OU=Infrastructure Team, DC=mydomain, DC=com`
+
+| extended
+
+// ===============================================================
+
+| tls.server.ja3s
+| A hash that identifies servers based on how they perform an SSL/TLS handshake.
+
+type: keyword
+
+example: `394441ab65754e2207b1e1b457b3641d`
+
+| extended
+
+// ===============================================================
+
+| tls.server.not_after
+| Timestamp indicating when server certificate is no longer considered valid.
+
+type: date
+
+example: `2021-01-01T00:00:00.000Z`
+
+| extended
+
+// ===============================================================
+
+| tls.server.not_before
+| Timestamp indicating when server certificate is first considered valid.
+
+type: date
+
+example: `1970-01-01T00:00:00.000Z`
+
+| extended
+
+// ===============================================================
+
+| tls.server.subject
+| Subject of the x.509 certificate presented by the server.
+
+type: keyword
+
+example: `CN=www.mydomain.com, OU=Infrastructure Team, DC=mydomain, DC=com`
+
+| extended
+
+// ===============================================================
+
+| tls.server.supported_ciphers
+| Array of ciphers offered by the server during the server hello.
+
+type: keyword
+
+example: `['TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384', 'TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384', '...']`
+
+| extended
+
+// ===============================================================
+
+| tls.version
+| Numeric part of the version parsed from the original string.
+
+type: keyword
+
+example: `1.2`
+
+| extended
+
+// ===============================================================
+
+| tls.version_protocol
+| Normalized lowercase protocol name parsed from original string.
+
+type: keyword
+
+example: `tls`
 
 | extended
 
