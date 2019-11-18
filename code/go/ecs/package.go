@@ -33,6 +33,10 @@ type Package struct {
 	// Package version
 	Version string `ecs:"version"`
 
+	// Additional information about the build version of the installed package.
+	// For example use the commit SHA of a non-released package.
+	BuildVersion string `ecs:"build_version"`
+
 	// Description of the package.
 	Description string `ecs:"description"`
 

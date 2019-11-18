@@ -12,6 +12,7 @@ Thanks, you're awesome :-) -->
 ### Added
 
 * Added `package.reference`. #585
+* Added `package.build_version`. #586
 * Added `package.type`. #587
 * Added `host.domain` field. #591
 * Added `process.exit_code`. #600
