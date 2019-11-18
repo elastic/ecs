@@ -3,18 +3,9 @@
 - Please insert your changelog line ordered by PR ID.
 Thanks, you're awesome :-) -->
 
-## Unreleased
-
-### Breaking changes
-
-### Bugfixes
-
 ### Added
 
-### Improvements
-
-### Deprecated
-
+* Added `vulnerability.*` fields to represent vulnerability information. #581
 
 <!-- All empty sections:
 
@@ -23,8 +14,6 @@ Thanks, you're awesome :-) -->
 ### Breaking changes
 
 ### Bugfixes
-
-### Added
 
 ### Improvements
 
