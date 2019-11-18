@@ -1876,6 +1876,18 @@ host.architecture:
   order: 7
   short: Operating system architecture.
   type: keyword
+host.domain:
+  description: "Name of the domain of which the host is a member. \nFor example, on\
+    \ Windows this could be the host's Active Directory domain or NetBIOS domain name.\
+    \  For Linux this could be the domain of the host's LDAP provider."
+  example: CONTOSO
+  flat_name: host.domain
+  ignore_above: 1024
+  level: extended
+  name: domain
+  order: 8
+  short: Name of the directory the group is a member of.
+  type: keyword
 host.geo.city_name:
   description: City name.
   example: Montreal
@@ -2976,8 +2988,20 @@ package.architecture:
   ignore_above: 1024
   level: extended
   name: architecture
-  order: 6
+  order: 7
   short: Package architecture.
+  type: keyword
+package.build_version:
+  description: 'Additional information about the build version of the installed package.
+
+    For example use the commit SHA of a non-released package.'
+  example: 36f4f7e89dd61b0988b12ee000b98966867710cd
+  flat_name: package.build_version
+  ignore_above: 1024
+  level: extended
+  name: build_version
+  order: 2
+  short: Build version information
   type: keyword
 package.checksum:
   description: Checksum of the installed package for verification.
@@ -2986,7 +3010,7 @@ package.checksum:
   ignore_above: 1024
   level: extended
   name: checksum
-  order: 7
+  order: 8
   short: Checksum of the installed package for verification.
   type: keyword
 package.description:
@@ -2996,7 +3020,7 @@ package.description:
   ignore_above: 1024
   level: extended
   name: description
-  order: 2
+  order: 3
   short: Description of the package.
   type: keyword
 package.install_scope:
@@ -3006,7 +3030,7 @@ package.install_scope:
   ignore_above: 1024
   level: extended
   name: install_scope
-  order: 8
+  order: 9
   short: Indicating how the package was installed, e.g. user-local, global.
   type: keyword
 package.installed:
@@ -3014,7 +3038,7 @@ package.installed:
   flat_name: package.installed
   level: extended
   name: installed
-  order: 4
+  order: 5
   short: Time when package was installed.
   type: date
 package.license:
@@ -3027,7 +3051,7 @@ package.license:
   ignore_above: 1024
   level: extended
   name: license
-  order: 9
+  order: 10
   short: Package license
   type: keyword
 package.name:
@@ -3047,8 +3071,21 @@ package.path:
   ignore_above: 1024
   level: extended
   name: path
-  order: 5
+  order: 6
   short: Path where the package is installed.
+  type: keyword
+package.reference:
+  description: 'Reference URL of this package.
+
+    If available, use reference URL pointing to the project website that is contained
+    in the package.'
+  example: https://golang.org
+  flat_name: package.reference
+  ignore_above: 1024
+  level: extended
+  name: reference
+  order: 11
+  short: Package reference URL
   type: keyword
 package.size:
   description: Package size in bytes.
@@ -3057,9 +3094,22 @@ package.size:
   format: string
   level: extended
   name: size
-  order: 3
+  order: 4
   short: Package size in bytes.
   type: long
+package.type:
+  description: 'Type of package.
+
+    This should contain the package file type, rather than the package manager name.
+    Examples: rpm, dpkg, brew, npm, gem, nupkg, jar.'
+  example: rpm
+  flat_name: package.type
+  ignore_above: 1024
+  level: extended
+  name: type
+  order: 12
+  short: Package type
+  type: keyword
 package.version:
   description: Package version
   example: 1.12.9
@@ -3110,6 +3160,18 @@ process.executable:
   order: 6
   short: Absolute path to the process executable.
   type: keyword
+process.exit_code:
+  description: 'The exit code of the process, if this is a termination event.
+
+    The field should be absent if there is no exit code for the event (e.g. process
+    start).'
+  example: 137
+  flat_name: process.exit_code
+  level: extended
+  name: exit_code
+  order: 12
+  short: The exit code of the process.
+  type: long
 process.hash.md5:
   description: MD5 hash.
   flat_name: process.hash.md5
@@ -4140,6 +4202,367 @@ threat.technique.reference:
   name: technique.reference
   order: 6
   short: Threat technique reference.
+  type: keyword
+tls.cipher:
+  description: String indicating the cipher used during the current connection.
+  example: TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256
+  flat_name: tls.cipher
+  ignore_above: 1024
+  level: extended
+  name: cipher
+  order: 2
+  short: String indicating the cipher used during the current connection.
+  type: keyword
+tls.client.certificate:
+  description: PEM-encoded stand-alone certificate offered by the client. This is
+    usually mutually-exclusive of `client.certificate_chain` since this value also
+    exists in that list.
+  example: MII...
+  flat_name: tls.client.certificate
+  ignore_above: 1024
+  level: extended
+  name: client.certificate
+  order: 15
+  short: PEM-encoded stand-alone certificate offered by the client. This is usually
+    mutually-exclusive of `client.certificate_chain` since this value also exists
+    in that list.
+  type: keyword
+tls.client.certificate_chain:
+  description: Array of PEM-encoded certificates that make up the certificate chain
+    offered by the client. This is usually mutually-exclusive of `client.certificate`
+    since that value should be the first certificate in the chain.
+  example:
+  - MII...
+  - MII...
+  flat_name: tls.client.certificate_chain
+  ignore_above: 1024
+  level: extended
+  name: client.certificate_chain
+  order: 14
+  short: Array of PEM-encoded certificates that make up the certificate chain offered
+    by the client. This is usually mutually-exclusive of `client.certificate` since
+    that value should be the first certificate in the chain.
+  type: keyword
+tls.client.hash.md5:
+  description: Certificate fingerprint using the MD5 digest of DER-encoded version
+    of certificate offered by the client. For consistency with other hash values,
+    this value should be formatted as an uppercase hash.
+  example: 0F76C7F2C55BFD7D8E8B8F4BFBF0C9EC
+  flat_name: tls.client.hash.md5
+  ignore_above: 1024
+  level: extended
+  name: client.hash.md5
+  order: 16
+  short: Certificate fingerprint using the MD5 digest of DER-encoded version of certificate
+    offered by the client. For consistency with other hash values, this value should
+    be formatted as an uppercase hash.
+  type: keyword
+tls.client.hash.sha1:
+  description: Certificate fingerprint using the SHA1 digest of DER-encoded version
+    of certificate offered by the client. For consistency with other hash values,
+    this value should be formatted as an uppercase hash.
+  example: 9E393D93138888D288266C2D915214D1D1CCEB2A
+  flat_name: tls.client.hash.sha1
+  ignore_above: 1024
+  level: extended
+  name: client.hash.sha1
+  order: 17
+  short: Certificate fingerprint using the SHA1 digest of DER-encoded version of certificate
+    offered by the client. For consistency with other hash values, this value should
+    be formatted as an uppercase hash.
+  type: keyword
+tls.client.hash.sha256:
+  description: Certificate fingerprint using the SHA256 digest of DER-encoded version
+    of certificate offered by the client. For consistency with other hash values,
+    this value should be formatted as an uppercase hash.
+  example: 0687F666A054EF17A08E2F2162EAB4CBC0D265E1D7875BE74BF3C712CA92DAF0
+  flat_name: tls.client.hash.sha256
+  ignore_above: 1024
+  level: extended
+  name: client.hash.sha256
+  order: 18
+  short: Certificate fingerprint using the SHA256 digest of DER-encoded version of
+    certificate offered by the client. For consistency with other hash values, this
+    value should be formatted as an uppercase hash.
+  type: keyword
+tls.client.issuer:
+  description: Distinguished name of subject of the issuer of the x.509 certificate
+    presented by the client.
+  example: CN=MyDomain Root CA, OU=Infrastructure Team, DC=mydomain, DC=com
+  flat_name: tls.client.issuer
+  ignore_above: 1024
+  level: extended
+  name: client.issuer
+  order: 11
+  short: Distinguished name of subject of the issuer of the x.509 certificate presented
+    by the client.
+  type: keyword
+tls.client.ja3:
+  description: A hash that identifies clients based on how they perform an SSL/TLS
+    handshake.
+  example: d4e5b18d6b55c71272893221c96ba240
+  flat_name: tls.client.ja3
+  ignore_above: 1024
+  level: extended
+  name: client.ja3
+  order: 7
+  short: A hash that identifies clients based on how they perform an SSL/TLS handshake.
+  type: keyword
+tls.client.not_after:
+  description: Date/Time indicating when client certificate is no longer considered
+    valid.
+  example: '2021-01-01T00:00:00.000Z'
+  flat_name: tls.client.not_after
+  level: extended
+  name: client.not_after
+  order: 13
+  short: Date/Time indicating when client certificate is no longer considered valid.
+  type: date
+tls.client.not_before:
+  description: Date/Time indicating when client certificate is first considered valid.
+  example: '1970-01-01T00:00:00.000Z'
+  flat_name: tls.client.not_before
+  level: extended
+  name: client.not_before
+  order: 12
+  short: Date/Time indicating when client certificate is first considered valid.
+  type: date
+tls.client.server_name:
+  description: Also called an SNI, this tells the server which hostname to which the
+    client is attempting to connect. When this value is available, it should get copied
+    to `destination.domain`.
+  example: www.elastic.co
+  flat_name: tls.client.server_name
+  ignore_above: 1024
+  level: extended
+  name: client.server_name
+  order: 8
+  short: Also called an SNI, this tells the server which hostname to which the client
+    is attempting to connect. When this value is available, it should get copied to
+    `destination.domain`.
+  type: keyword
+tls.client.subject:
+  description: Distinguished name of subject of the x.509 certificate presented by
+    the client.
+  example: CN=myclient, OU=Documentation Team, DC=mydomain, DC=com
+  flat_name: tls.client.subject
+  ignore_above: 1024
+  level: extended
+  name: client.subject
+  order: 10
+  short: Distinguished name of subject of the x.509 certificate presented by the client.
+  type: keyword
+tls.client.supported_ciphers:
+  description: Array of ciphers offered by the client during the client hello.
+  example:
+  - TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+  - TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
+  - '...'
+  flat_name: tls.client.supported_ciphers
+  ignore_above: 1024
+  level: extended
+  name: client.supported_ciphers
+  order: 9
+  short: Array of ciphers offered by the client during the client hello.
+  type: keyword
+tls.curve:
+  description: String indicating the curve used for the given cipher, when applicable.
+  example: secp256r1
+  flat_name: tls.curve
+  ignore_above: 1024
+  level: extended
+  name: curve
+  order: 3
+  short: String indicating the curve used for the given cipher, when applicable.
+  type: keyword
+tls.established:
+  description: Boolean flag indicating if the TLS negotiation was successful and transitioned
+    to an encrypted tunnel.
+  flat_name: tls.established
+  level: extended
+  name: established
+  order: 5
+  short: Boolean flag indicating if the TLS negotiation was successful and transitioned
+    to an encrypted tunnel.
+  type: boolean
+tls.next_protocol:
+  description: String indicating the protocol being tunneled. Per the values in the
+    IANA registry (https://www.iana.org/assignments/tls-extensiontype-values/tls-extensiontype-values.xhtml#alpn-protocol-ids),
+    this string should be lower case.
+  example: http/1.1
+  flat_name: tls.next_protocol
+  ignore_above: 1024
+  level: extended
+  name: next_protocol
+  order: 6
+  short: String indicating the protocol being tunneled. Per the values in the IANA
+    registry (https://www.iana.org/assignments/tls-extensiontype-values/tls-extensiontype-values.xhtml#alpn-protocol-ids),
+    this string should be lower case.
+  type: keyword
+tls.resumed:
+  description: Boolean flag indicating if this TLS connection was resumed from an
+    existing TLS negotiation.
+  flat_name: tls.resumed
+  level: extended
+  name: resumed
+  order: 4
+  short: Boolean flag indicating if this TLS connection was resumed from an existing
+    TLS negotiation.
+  type: boolean
+tls.server.certificate:
+  description: PEM-encoded stand-alone certificate offered by the server. This is
+    usually mutually-exclusive of `server.certificate_chain` since this value also
+    exists in that list.
+  example: MII...
+  flat_name: tls.server.certificate
+  ignore_above: 1024
+  level: extended
+  name: server.certificate
+  order: 26
+  short: PEM-encoded stand-alone certificate offered by the server. This is usually
+    mutually-exclusive of `server.certificate_chain` since this value also exists
+    in that list.
+  type: keyword
+tls.server.certificate_chain:
+  description: Array of PEM-encoded certificates that make up the certificate chain
+    offered by the server. This is usually mutually-exclusive of `server.certificate`
+    since that value should be the first certificate in the chain.
+  example:
+  - MII...
+  - MII...
+  flat_name: tls.server.certificate_chain
+  ignore_above: 1024
+  level: extended
+  name: server.certificate_chain
+  order: 25
+  short: Array of PEM-encoded certificates that make up the certificate chain offered
+    by the server. This is usually mutually-exclusive of `server.certificate` since
+    that value should be the first certificate in the chain.
+  type: keyword
+tls.server.hash.md5:
+  description: Certificate fingerprint using the MD5 digest of DER-encoded version
+    of certificate offered by the server. For consistency with other hash values,
+    this value should be formatted as an uppercase hash.
+  example: 0F76C7F2C55BFD7D8E8B8F4BFBF0C9EC
+  flat_name: tls.server.hash.md5
+  ignore_above: 1024
+  level: extended
+  name: server.hash.md5
+  order: 27
+  short: Certificate fingerprint using the MD5 digest of DER-encoded version of certificate
+    offered by the server. For consistency with other hash values, this value should
+    be formatted as an uppercase hash.
+  type: keyword
+tls.server.hash.sha1:
+  description: Certificate fingerprint using the SHA1 digest of DER-encoded version
+    of certificate offered by the server. For consistency with other hash values,
+    this value should be formatted as an uppercase hash.
+  example: 9E393D93138888D288266C2D915214D1D1CCEB2A
+  flat_name: tls.server.hash.sha1
+  ignore_above: 1024
+  level: extended
+  name: server.hash.sha1
+  order: 28
+  short: Certificate fingerprint using the SHA1 digest of DER-encoded version of certificate
+    offered by the server. For consistency with other hash values, this value should
+    be formatted as an uppercase hash.
+  type: keyword
+tls.server.hash.sha256:
+  description: Certificate fingerprint using the SHA256 digest of DER-encoded version
+    of certificate offered by the server. For consistency with other hash values,
+    this value should be formatted as an uppercase hash.
+  example: 0687F666A054EF17A08E2F2162EAB4CBC0D265E1D7875BE74BF3C712CA92DAF0
+  flat_name: tls.server.hash.sha256
+  ignore_above: 1024
+  level: extended
+  name: server.hash.sha256
+  order: 29
+  short: Certificate fingerprint using the SHA256 digest of DER-encoded version of
+    certificate offered by the server. For consistency with other hash values, this
+    value should be formatted as an uppercase hash.
+  type: keyword
+tls.server.issuer:
+  description: Subject of the issuer of the x.509 certificate presented by the server.
+  example: CN=MyDomain Root CA, OU=Infrastructure Team, DC=mydomain, DC=com
+  flat_name: tls.server.issuer
+  ignore_above: 1024
+  level: extended
+  name: server.issuer
+  order: 22
+  short: Subject of the issuer of the x.509 certificate presented by the server.
+  type: keyword
+tls.server.ja3s:
+  description: A hash that identifies servers based on how they perform an SSL/TLS
+    handshake.
+  example: 394441ab65754e2207b1e1b457b3641d
+  flat_name: tls.server.ja3s
+  ignore_above: 1024
+  level: extended
+  name: server.ja3s
+  order: 19
+  short: A hash that identifies servers based on how they perform an SSL/TLS handshake.
+  type: keyword
+tls.server.not_after:
+  description: Timestamp indicating when server certificate is no longer considered
+    valid.
+  example: '2021-01-01T00:00:00.000Z'
+  flat_name: tls.server.not_after
+  level: extended
+  name: server.not_after
+  order: 24
+  short: Timestamp indicating when server certificate is no longer considered valid.
+  type: date
+tls.server.not_before:
+  description: Timestamp indicating when server certificate is first considered valid.
+  example: '1970-01-01T00:00:00.000Z'
+  flat_name: tls.server.not_before
+  level: extended
+  name: server.not_before
+  order: 23
+  short: Timestamp indicating when server certificate is first considered valid.
+  type: date
+tls.server.subject:
+  description: Subject of the x.509 certificate presented by the server.
+  example: CN=www.mydomain.com, OU=Infrastructure Team, DC=mydomain, DC=com
+  flat_name: tls.server.subject
+  ignore_above: 1024
+  level: extended
+  name: server.subject
+  order: 21
+  short: Subject of the x.509 certificate presented by the server.
+  type: keyword
+tls.server.supported_ciphers:
+  description: Array of ciphers offered by the server during the server hello.
+  example:
+  - TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+  - TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
+  - '...'
+  flat_name: tls.server.supported_ciphers
+  ignore_above: 1024
+  level: extended
+  name: server.supported_ciphers
+  order: 20
+  short: Array of ciphers offered by the server during the server hello.
+  type: keyword
+tls.version:
+  description: Numeric part of the version parsed from the original string.
+  example: '1.2'
+  flat_name: tls.version
+  ignore_above: 1024
+  level: extended
+  name: version
+  order: 0
+  short: Numeric part of the version parsed from the original string.
+  type: keyword
+tls.version_protocol:
+  description: Normalized lowercase protocol name parsed from original string.
+  example: tls
+  flat_name: tls.version_protocol
+  ignore_above: 1024
+  level: extended
+  name: version_protocol
+  order: 1
+  short: Normalized lowercase protocol name parsed from original string.
   type: keyword
 trace.id:
   description: 'Unique identifier of the trace.
