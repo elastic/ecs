@@ -1387,6 +1387,16 @@
         "required": false, 
         "type": "keyword"
       }, 
+      "host.domain": {
+        "description": "Name of the domain of which the host is a member. \nFor example, on Windows this could be the host's Active Directory domain or NetBIOS domain name.  For Linux this could be the domain of the host's LDAP provider.", 
+        "example": "CONTOSO", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "host.domain", 
+        "required": false, 
+        "type": "keyword"
+      }, 
       "host.hostname": {
         "description": "Hostname of the host.\nIt normally contains what the `hostname` command returns on the host machine.", 
         "example": "", 
@@ -2159,6 +2169,16 @@
         "required": false, 
         "type": "keyword"
       }, 
+      "process.exit_code": {
+        "description": "The exit code of the process, if this is a termination event.\nThe field should be absent if there is no exit code for the event (e.g. process start).", 
+        "example": "137", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "process.exit_code", 
+        "required": false, 
+        "type": "long"
+      }, 
       "process.name": {
         "description": "Process name.\nSometimes called program name or similar.", 
         "example": "ssh", 
@@ -2678,6 +2698,315 @@
     "group": 2, 
     "name": "threat", 
     "title": "Threat", 
+    "type": "group"
+  }, 
+  "tls": {
+    "description": "Fields related to a TLS connection. These fields focus on the TLS protocol itself and intentionally avoids in-depth analysis of the related x.509 certificate files.\n", 
+    "fields": {
+      "tls.cipher": {
+        "description": "String indicating the cipher used during the current connection.", 
+        "example": "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "tls.cipher", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "tls.client.certificate": {
+        "description": "PEM-encoded stand-alone certificate offered by the client. This is usually mutually-exclusive of `client.certificate_chain` since this value also exists in that list.", 
+        "example": "MII...", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "tls.client.certificate", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "tls.client.certificate_chain": {
+        "description": "Array of PEM-encoded certificates that make up the certificate chain offered by the client. This is usually mutually-exclusive of `client.certificate` since that value should be the first certificate in the chain.", 
+        "example": "['MII...', 'MII...']", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "tls.client.certificate_chain", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "tls.client.hash.md5": {
+        "description": "Certificate fingerprint using the MD5 digest of DER-encoded version of certificate offered by the client. For consistency with other hash values, this value should be formatted as an uppercase hash.", 
+        "example": "0F76C7F2C55BFD7D8E8B8F4BFBF0C9EC", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "tls.client.hash.md5", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "tls.client.hash.sha1": {
+        "description": "Certificate fingerprint using the SHA1 digest of DER-encoded version of certificate offered by the client. For consistency with other hash values, this value should be formatted as an uppercase hash.", 
+        "example": "9E393D93138888D288266C2D915214D1D1CCEB2A", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "tls.client.hash.sha1", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "tls.client.hash.sha256": {
+        "description": "Certificate fingerprint using the SHA256 digest of DER-encoded version of certificate offered by the client. For consistency with other hash values, this value should be formatted as an uppercase hash.", 
+        "example": "0687F666A054EF17A08E2F2162EAB4CBC0D265E1D7875BE74BF3C712CA92DAF0", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "tls.client.hash.sha256", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "tls.client.issuer": {
+        "description": "Distinguished name of subject of the issuer of the x.509 certificate presented by the client.", 
+        "example": "CN=MyDomain Root CA, OU=Infrastructure Team, DC=mydomain, DC=com", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "tls.client.issuer", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "tls.client.ja3": {
+        "description": "A hash that identifies clients based on how they perform an SSL/TLS handshake.", 
+        "example": "d4e5b18d6b55c71272893221c96ba240", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "tls.client.ja3", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "tls.client.not_after": {
+        "description": "Date/Time indicating when client certificate is no longer considered valid.", 
+        "example": "2021-01-01T00:00:00.000Z", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "tls.client.not_after", 
+        "required": false, 
+        "type": "date"
+      }, 
+      "tls.client.not_before": {
+        "description": "Date/Time indicating when client certificate is first considered valid.", 
+        "example": "1970-01-01T00:00:00.000Z", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "tls.client.not_before", 
+        "required": false, 
+        "type": "date"
+      }, 
+      "tls.client.server_name": {
+        "description": "Also called an SNI, this tells the server which hostname to which the client is attempting to connect. When this value is available, it should get copied to `destination.domain`.", 
+        "example": "www.elastic.co", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "tls.client.server_name", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "tls.client.subject": {
+        "description": "Distinguished name of subject of the x.509 certificate presented by the client.", 
+        "example": "CN=myclient, OU=Documentation Team, DC=mydomain, DC=com", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "tls.client.subject", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "tls.client.supported_ciphers": {
+        "description": "Array of ciphers offered by the client during the client hello.", 
+        "example": "['TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384', 'TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384', '...']", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "tls.client.supported_ciphers", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "tls.curve": {
+        "description": "String indicating the curve used for the given cipher, when applicable.", 
+        "example": "secp256r1", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "tls.curve", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "tls.established": {
+        "description": "Boolean flag indicating if the TLS negotiation was successful and transitioned to an encrypted tunnel.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "tls.established", 
+        "required": false, 
+        "type": "boolean"
+      }, 
+      "tls.next_protocol": {
+        "description": "String indicating the protocol being tunneled. Per the values in the IANA registry (https://www.iana.org/assignments/tls-extensiontype-values/tls-extensiontype-values.xhtml#alpn-protocol-ids), this string should be lower case.", 
+        "example": "http/1.1", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "tls.next_protocol", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "tls.resumed": {
+        "description": "Boolean flag indicating if this TLS connection was resumed from an existing TLS negotiation.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "tls.resumed", 
+        "required": false, 
+        "type": "boolean"
+      }, 
+      "tls.server.certificate": {
+        "description": "PEM-encoded stand-alone certificate offered by the server. This is usually mutually-exclusive of `server.certificate_chain` since this value also exists in that list.", 
+        "example": "MII...", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "tls.server.certificate", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "tls.server.certificate_chain": {
+        "description": "Array of PEM-encoded certificates that make up the certificate chain offered by the server. This is usually mutually-exclusive of `server.certificate` since that value should be the first certificate in the chain.", 
+        "example": "['MII...', 'MII...']", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "tls.server.certificate_chain", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "tls.server.hash.md5": {
+        "description": "Certificate fingerprint using the MD5 digest of DER-encoded version of certificate offered by the server. For consistency with other hash values, this value should be formatted as an uppercase hash.", 
+        "example": "0F76C7F2C55BFD7D8E8B8F4BFBF0C9EC", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "tls.server.hash.md5", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "tls.server.hash.sha1": {
+        "description": "Certificate fingerprint using the SHA1 digest of DER-encoded version of certificate offered by the server. For consistency with other hash values, this value should be formatted as an uppercase hash.", 
+        "example": "9E393D93138888D288266C2D915214D1D1CCEB2A", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "tls.server.hash.sha1", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "tls.server.hash.sha256": {
+        "description": "Certificate fingerprint using the SHA256 digest of DER-encoded version of certificate offered by the server. For consistency with other hash values, this value should be formatted as an uppercase hash.", 
+        "example": "0687F666A054EF17A08E2F2162EAB4CBC0D265E1D7875BE74BF3C712CA92DAF0", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "tls.server.hash.sha256", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "tls.server.issuer": {
+        "description": "Subject of the issuer of the x.509 certificate presented by the server.", 
+        "example": "CN=MyDomain Root CA, OU=Infrastructure Team, DC=mydomain, DC=com", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "tls.server.issuer", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "tls.server.ja3s": {
+        "description": "A hash that identifies servers based on how they perform an SSL/TLS handshake.", 
+        "example": "394441ab65754e2207b1e1b457b3641d", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "tls.server.ja3s", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "tls.server.not_after": {
+        "description": "Timestamp indicating when server certificate is no longer considered valid.", 
+        "example": "2021-01-01T00:00:00.000Z", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "tls.server.not_after", 
+        "required": false, 
+        "type": "date"
+      }, 
+      "tls.server.not_before": {
+        "description": "Timestamp indicating when server certificate is first considered valid.", 
+        "example": "1970-01-01T00:00:00.000Z", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "tls.server.not_before", 
+        "required": false, 
+        "type": "date"
+      }, 
+      "tls.server.subject": {
+        "description": "Subject of the x.509 certificate presented by the server.", 
+        "example": "CN=www.mydomain.com, OU=Infrastructure Team, DC=mydomain, DC=com", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "tls.server.subject", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "tls.server.supported_ciphers": {
+        "description": "Array of ciphers offered by the server during the server hello.", 
+        "example": "['TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384', 'TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384', '...']", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "tls.server.supported_ciphers", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "tls.version": {
+        "description": "Numeric part of the version parsed from the original string.", 
+        "example": "1.2", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "tls.version", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "tls.version_protocol": {
+        "description": "Normalized lowercase protocol name parsed from original string.", 
+        "example": "tls", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "tls.version_protocol", 
+        "required": false, 
+        "type": "keyword"
+      }
+    }, 
+    "group": 2, 
+    "name": "tls", 
+    "title": "TLS", 
     "type": "group"
   }, 
   "tracing": {
