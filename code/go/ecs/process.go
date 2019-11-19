@@ -41,7 +41,13 @@ type Process struct {
 	// Identifier of the group of processes the process belongs to.
 	PGID int64 `ecs:"pgid"`
 
-	// Array of process arguments.
+	// Full command line that started the process, including the absolute path
+	// to the executable, and all arguments.
+	// Some arguments may be filtered to protect sensitive information.
+	CommandLine string `ecs:"command_line"`
+
+	// Array of process arguments, starting with the absolute path to the
+	// executable.
 	// May be filtered to protect sensitive information.
 	Args []string `ecs:"args"`
 
@@ -68,4 +74,9 @@ type Process struct {
 
 	// The working directory of the process.
 	WorkingDirectory string `ecs:"working_directory"`
+
+	// The exit code of the process, if this is a termination event.
+	// The field should be absent if there is no exit code for the event (e.g.
+	// process start).
+	ExitCode int64 `ecs:"exit_code"`
 }
