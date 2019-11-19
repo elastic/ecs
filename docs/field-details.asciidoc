@@ -1159,7 +1159,7 @@ In case the two timestamps are identical, @timestamp should be used.
 
 type: date
 
-
+example: `2016-05-23 08:05:34.857000`
 
 | core
 
@@ -1221,6 +1221,21 @@ example: `123456789012345678901234567890ABCD`
 type: keyword
 
 example: `8a4f500d`
+
+| core
+
+// ===============================================================
+
+| event.ingested
+| Timestamp when an event arrived in the central data store.
+
+This is different from `@timestamp`, which is when the event originally occurred.  It's also different from `event.created`, which is meant to capture the first time an agent saw the event.
+
+In normal conditions, assuming no tampering, the timestamps should chronologically look like this: `@timestamp` < `event.created` < `event.ingested`.
+
+type: date
+
+example: `2016-05-23 08:05:35.101000`
 
 | core
 

@@ -824,7 +824,7 @@
       }, 
       "event.created": {
         "description": "event.created contains the date/time when the event was first read by an agent, or by your pipeline.\nThis field is distinct from @timestamp in that @timestamp typically contain the time extracted from the original event.\nIn most situations, these two timestamps will be slightly different. The difference can be used to calculate the delay between your source generating an event, and the time when your agent first processed it. This can be used to monitor your agent's or pipeline's ability to keep up with your event source.\nIn case the two timestamps are identical, @timestamp should be used.", 
-        "example": "", 
+        "example": "2016-05-23 08:05:34.857000", 
         "footnote": "", 
         "group": 2, 
         "level": "core", 
@@ -881,6 +881,16 @@
         "name": "event.id", 
         "required": false, 
         "type": "keyword"
+      }, 
+      "event.ingested": {
+        "description": "Timestamp when an event arrived in the central data store.\nThis is different from `@timestamp`, which is when the event originally occurred.  It's also different from `event.created`, which is meant to capture the first time an agent saw the event.\nIn normal conditions, assuming no tampering, the timestamps should chronologically look like this: `@timestamp` < `event.created` < `event.ingested`.", 
+        "example": "2016-05-23 08:05:35.101000", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "core", 
+        "name": "event.ingested", 
+        "required": false, 
+        "type": "date"
       }, 
       "event.kind": {
         "description": "The kind of the event.\nThis gives information about what type of information the event contains, without being specific to the contents of the event.  Examples are `event`, `state`, `alarm`. Warning: In future versions of ECS, we plan to provide a list of acceptable values for this field, please use with caution.", 

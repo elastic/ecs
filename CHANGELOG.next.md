@@ -11,6 +11,7 @@ Thanks, you're awesome :-) -->
 
 ### Added
 
+* Add `event.ingested` as the ingest timestamp. #582
 * Added `package.reference`. #585
 * Added `package.build_version`. #586
 * Added `package.type`. #587

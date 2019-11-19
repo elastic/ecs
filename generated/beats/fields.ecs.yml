@@ -945,6 +945,7 @@
         your agent''s or pipeline''s ability to keep up with your event source.
 
         In case the two timestamps are identical, @timestamp should be used.'
+      example: 2016-05-23 08:05:34.857000
     - name: dataset
       level: core
       type: keyword
@@ -987,6 +988,18 @@
       ignore_above: 1024
       description: Unique ID to describe the event.
       example: 8a4f500d
+    - name: ingested
+      level: core
+      type: date
+      description: 'Timestamp when an event arrived in the central data store.
+
+        This is different from `@timestamp`, which is when the event originally occurred.  It''s
+        also different from `event.created`, which is meant to capture the first time
+        an agent saw the event.
+
+        In normal conditions, assuming no tampering, the timestamps should chronologically
+        look like this: `@timestamp` < `event.created` < `event.ingested`.'
+      example: 2016-05-23 08:05:35.101000
     - name: kind
       level: extended
       type: keyword
