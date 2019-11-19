@@ -19,6 +19,7 @@ Thanks, you're awesome :-) -->
 * Added `process.command_line`. #599
 * Added `process.exit_code`. #600
 * Added fields in `tls.*` to support analysis of TLS protocol events. #606
+* Added `process.parent.*`. #612
 
 ### Improvements
 

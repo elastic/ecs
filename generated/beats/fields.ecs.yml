@@ -2274,6 +2274,102 @@
 
         Sometimes called program name or similar.'
       example: ssh
+    - name: parent.args
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Array of process arguments.
+
+        May be filtered to protect sensitive information.'
+      example:
+      - ssh
+      - -l
+      - user
+      - 10.0.0.16
+    - name: parent.command_line
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Full command line that started the process, including the absolute
+        path to the executable, and all arguments.
+
+        Some arguments may be filtered to protect sensitive information.'
+      example: /usr/bin/ssh -l user 10.0.0.16
+    - name: parent.executable
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Absolute path to the process executable.
+      example: /usr/bin/ssh
+    - name: parent.exit_code
+      level: extended
+      type: long
+      description: 'The exit code of the process, if this is a termination event.
+
+        The field should be absent if there is no exit code for the event (e.g. process
+        start).'
+      example: 137
+    - name: parent.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Process name.
+
+        Sometimes called program name or similar.'
+      example: ssh
+    - name: parent.pgid
+      level: extended
+      type: long
+      format: string
+      description: Identifier of the group of processes the process belongs to.
+    - name: parent.pid
+      level: core
+      type: long
+      format: string
+      description: Process id.
+      example: 4242
+    - name: parent.ppid
+      level: extended
+      type: long
+      format: string
+      description: Parent process' pid.
+      example: 4241
+    - name: parent.start
+      level: extended
+      type: date
+      description: The time the process started.
+      example: '2016-05-23T08:05:34.853Z'
+    - name: parent.thread.id
+      level: extended
+      type: long
+      format: string
+      description: Thread ID.
+      example: 4242
+    - name: parent.thread.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Thread name.
+      example: thread-0
+    - name: parent.title
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Process title.
+
+        The proctitle, some times the same as process name. Can also be different:
+        for example a browser setting its title to the web page currently opened.'
+    - name: parent.uptime
+      level: extended
+      type: long
+      description: Seconds the process has been up.
+      example: 1325
+    - name: parent.working_directory
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The working directory of the process.
+      example: /home/alice
     - name: pgid
       level: extended
       type: long
