@@ -1477,6 +1477,7 @@ event:
         your agent''s or pipeline''s ability to keep up with your event source.
 
         In case the two timestamps are identical, @timestamp should be used.'
+      example: 2016-05-23 08:05:34.857000
       flat_name: event.created
       level: core
       name: created
@@ -1547,6 +1548,22 @@ event:
       order: 0
       short: Unique ID to describe the event.
       type: keyword
+    ingested:
+      description: 'Timestamp when an event arrived in the central data store.
+
+        This is different from `@timestamp`, which is when the event originally occurred.  It''s
+        also different from `event.created`, which is meant to capture the first time
+        an agent saw the event.
+
+        In normal conditions, assuming no tampering, the timestamps should chronologically
+        look like this: `@timestamp` < `event.created` < `event.ingested`.'
+      example: 2016-05-23 08:05:35.101000
+      flat_name: event.ingested
+      level: core
+      name: ingested
+      order: 21
+      short: Timestamp when an event arrived in the central data store.
+      type: date
     kind:
       description: 'The kind of the event.
 
@@ -3362,8 +3379,21 @@ package:
       ignore_above: 1024
       level: extended
       name: architecture
-      order: 6
+      order: 7
       short: Package architecture.
+      type: keyword
+    build_version:
+      description: 'Additional information about the build version of the installed
+        package.
+
+        For example use the commit SHA of a non-released package.'
+      example: 36f4f7e89dd61b0988b12ee000b98966867710cd
+      flat_name: package.build_version
+      ignore_above: 1024
+      level: extended
+      name: build_version
+      order: 2
+      short: Build version information
       type: keyword
     checksum:
       description: Checksum of the installed package for verification.
@@ -3372,7 +3402,7 @@ package:
       ignore_above: 1024
       level: extended
       name: checksum
-      order: 7
+      order: 8
       short: Checksum of the installed package for verification.
       type: keyword
     description:
@@ -3383,7 +3413,7 @@ package:
       ignore_above: 1024
       level: extended
       name: description
-      order: 2
+      order: 3
       short: Description of the package.
       type: keyword
     install_scope:
@@ -3393,7 +3423,7 @@ package:
       ignore_above: 1024
       level: extended
       name: install_scope
-      order: 8
+      order: 9
       short: Indicating how the package was installed, e.g. user-local, global.
       type: keyword
     installed:
@@ -3401,7 +3431,7 @@ package:
       flat_name: package.installed
       level: extended
       name: installed
-      order: 4
+      order: 5
       short: Time when package was installed.
       type: date
     license:
@@ -3414,7 +3444,7 @@ package:
       ignore_above: 1024
       level: extended
       name: license
-      order: 9
+      order: 10
       short: Package license
       type: keyword
     name:
@@ -3434,8 +3464,21 @@ package:
       ignore_above: 1024
       level: extended
       name: path
-      order: 5
+      order: 6
       short: Path where the package is installed.
+      type: keyword
+    reference:
+      description: 'Reference URL of this package.
+
+        If available, use reference URL pointing to the project website that is contained
+        in the package.'
+      example: https://golang.org
+      flat_name: package.reference
+      ignore_above: 1024
+      level: extended
+      name: reference
+      order: 11
+      short: Package reference URL
       type: keyword
     size:
       description: Package size in bytes.
@@ -3444,9 +3487,22 @@ package:
       format: string
       level: extended
       name: size
-      order: 3
+      order: 4
       short: Package size in bytes.
       type: long
+    type:
+      description: 'Type of package.
+
+        This should contain the package file type, rather than the package manager
+        name. Examples: rpm, dpkg, brew, npm, gem, nupkg, jar.'
+      example: rpm
+      flat_name: package.type
+      ignore_above: 1024
+      level: extended
+      name: type
+      order: 12
+      short: Package type
+      type: keyword
     version:
       description: Package version
       example: 1.12.9
@@ -3471,11 +3527,12 @@ process:
     copied to the global field for correlation.'
   fields:
     args:
-      description: 'Array of process arguments.
+      description: 'Array of process arguments, starting with the absolute path to
+        the executable.
 
         May be filtered to protect sensitive information.'
       example:
-      - ssh
+      - /usr/bin/ssh
       - -l
       - user
       - 10.0.0.16
@@ -3483,8 +3540,21 @@ process:
       ignore_above: 1024
       level: extended
       name: args
-      order: 8
+      order: 10
       short: Array of process arguments.
+      type: keyword
+    command_line:
+      description: 'Full command line that started the process, including the absolute
+        path to the executable, and all arguments.
+
+        Some arguments may be filtered to protect sensitive information.'
+      example: /usr/bin/ssh -l user 10.0.0.16
+      flat_name: process.command_line
+      ignore_above: 1024
+      level: extended
+      name: command_line
+      order: 8
+      short: Full command line that started the process.
       type: keyword
     executable:
       description: Absolute path to the process executable.
@@ -3493,7 +3563,7 @@ process:
       ignore_above: 1024
       level: extended
       name: executable
-      order: 10
+      order: 12
       short: Absolute path to the process executable.
       type: keyword
     exit_code:
@@ -3505,7 +3575,7 @@ process:
       flat_name: process.exit_code
       level: extended
       name: exit_code
-      order: 24
+      order: 26
       short: The exit code of the process.
       type: long
     hash.md5:
@@ -3573,8 +3643,21 @@ process:
       ignore_above: 1024
       level: extended
       name: parent.args
-      order: 9
+      order: 11
       short: Array of process arguments.
+      type: keyword
+    parent.command_line:
+      description: 'Full command line that started the process, including the absolute
+        path to the executable, and all arguments.
+
+        Some arguments may be filtered to protect sensitive information.'
+      example: /usr/bin/ssh -l user 10.0.0.16
+      flat_name: process.parent.command_line
+      ignore_above: 1024
+      level: extended
+      name: parent.command_line
+      order: 9
+      short: Full command line that started the process.
       type: keyword
     parent.executable:
       description: Absolute path to the process executable.
@@ -3583,7 +3666,7 @@ process:
       ignore_above: 1024
       level: extended
       name: parent.executable
-      order: 11
+      order: 13
       short: Absolute path to the process executable.
       type: keyword
     parent.exit_code:
@@ -3595,7 +3678,7 @@ process:
       flat_name: process.parent.exit_code
       level: extended
       name: parent.exit_code
-      order: 25
+      order: 27
       short: The exit code of the process.
       type: long
     parent.name:
@@ -3645,7 +3728,7 @@ process:
       flat_name: process.parent.start
       level: extended
       name: parent.start
-      order: 19
+      order: 21
       short: The time the process started.
       type: date
     parent.thread.id:
@@ -3655,7 +3738,7 @@ process:
       format: string
       level: extended
       name: parent.thread.id
-      order: 15
+      order: 17
       short: Thread ID.
       type: long
     parent.thread.name:
@@ -3665,7 +3748,7 @@ process:
       ignore_above: 1024
       level: extended
       name: parent.thread.name
-      order: 17
+      order: 19
       short: Thread name.
       type: keyword
     parent.title:
@@ -3677,7 +3760,7 @@ process:
       ignore_above: 1024
       level: extended
       name: parent.title
-      order: 13
+      order: 15
       short: Process title.
       type: keyword
     parent.uptime:
@@ -3686,7 +3769,7 @@ process:
       flat_name: process.parent.uptime
       level: extended
       name: parent.uptime
-      order: 21
+      order: 23
       short: Seconds the process has been up.
       type: long
     parent.working_directory:
@@ -3696,7 +3779,7 @@ process:
       ignore_above: 1024
       level: extended
       name: parent.working_directory
-      order: 23
+      order: 25
       short: The working directory of the process.
       type: keyword
     pgid:
@@ -3734,7 +3817,7 @@ process:
       flat_name: process.start
       level: extended
       name: start
-      order: 18
+      order: 20
       short: The time the process started.
       type: date
     thread.id:
@@ -3744,7 +3827,7 @@ process:
       format: string
       level: extended
       name: thread.id
-      order: 14
+      order: 16
       short: Thread ID.
       type: long
     thread.name:
@@ -3754,7 +3837,7 @@ process:
       ignore_above: 1024
       level: extended
       name: thread.name
-      order: 16
+      order: 18
       short: Thread name.
       type: keyword
     title:
@@ -3766,7 +3849,7 @@ process:
       ignore_above: 1024
       level: extended
       name: title
-      order: 12
+      order: 14
       short: Process title.
       type: keyword
     uptime:
@@ -3775,7 +3858,7 @@ process:
       flat_name: process.uptime
       level: extended
       name: uptime
-      order: 20
+      order: 22
       short: Seconds the process has been up.
       type: long
     working_directory:
@@ -3785,7 +3868,7 @@ process:
       ignore_above: 1024
       level: extended
       name: working_directory
-      order: 22
+      order: 24
       short: The working directory of the process.
       type: keyword
   group: 2

@@ -824,7 +824,7 @@
       }, 
       "event.created": {
         "description": "event.created contains the date/time when the event was first read by an agent, or by your pipeline.\nThis field is distinct from @timestamp in that @timestamp typically contain the time extracted from the original event.\nIn most situations, these two timestamps will be slightly different. The difference can be used to calculate the delay between your source generating an event, and the time when your agent first processed it. This can be used to monitor your agent's or pipeline's ability to keep up with your event source.\nIn case the two timestamps are identical, @timestamp should be used.", 
-        "example": "", 
+        "example": "2016-05-23 08:05:34.857000", 
         "footnote": "", 
         "group": 2, 
         "level": "core", 
@@ -881,6 +881,16 @@
         "name": "event.id", 
         "required": false, 
         "type": "keyword"
+      }, 
+      "event.ingested": {
+        "description": "Timestamp when an event arrived in the central data store.\nThis is different from `@timestamp`, which is when the event originally occurred.  It's also different from `event.created`, which is meant to capture the first time an agent saw the event.\nIn normal conditions, assuming no tampering, the timestamps should chronologically look like this: `@timestamp` < `event.created` < `event.ingested`.", 
+        "example": "2016-05-23 08:05:35.101000", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "core", 
+        "name": "event.ingested", 
+        "required": false, 
+        "type": "date"
       }, 
       "event.kind": {
         "description": "The kind of the event.\nThis gives information about what type of information the event contains, without being specific to the contents of the event.  Examples are `event`, `state`, `alarm`. Warning: In future versions of ECS, we plan to provide a list of acceptable values for this field, please use with caution.", 
@@ -2040,6 +2050,16 @@
         "required": false, 
         "type": "keyword"
       }, 
+      "package.build_version": {
+        "description": "Additional information about the build version of the installed package.\nFor example use the commit SHA of a non-released package.", 
+        "example": "36f4f7e89dd61b0988b12ee000b98966867710cd", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "package.build_version", 
+        "required": false, 
+        "type": "keyword"
+      }, 
       "package.checksum": {
         "description": "Checksum of the installed package for verification.", 
         "example": "68b329da9893e34099c7d8ad5cb9c940", 
@@ -2110,6 +2130,16 @@
         "required": false, 
         "type": "keyword"
       }, 
+      "package.reference": {
+        "description": "Reference URL of this package.\nIf available, use reference URL pointing to the project website that is contained in the package.", 
+        "example": "https://golang.org", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "package.reference", 
+        "required": false, 
+        "type": "keyword"
+      }, 
       "package.size": {
         "description": "Package size in bytes.", 
         "example": "62231", 
@@ -2119,6 +2149,16 @@
         "name": "package.size", 
         "required": false, 
         "type": "long"
+      }, 
+      "package.type": {
+        "description": "Type of package.\nThis should contain the package file type, rather than the package manager name. Examples: rpm, dpkg, brew, npm, gem, nupkg, jar.", 
+        "example": "rpm", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "package.type", 
+        "required": false, 
+        "type": "keyword"
       }, 
       "package.version": {
         "description": "Package version", 
@@ -2140,12 +2180,22 @@
     "description": "These fields contain information about a process.\nThese fields can help you correlate metrics information with a process id/name from a log message.  The `process.pid` often stays in the metric itself and is copied to the global field for correlation.\n", 
     "fields": {
       "process.args": {
-        "description": "Array of process arguments.\nMay be filtered to protect sensitive information.", 
-        "example": "['ssh', '-l', 'user', '10.0.0.16']", 
+        "description": "Array of process arguments, starting with the absolute path to the executable.\nMay be filtered to protect sensitive information.", 
+        "example": "['/usr/bin/ssh', '-l', 'user', '10.0.0.16']", 
         "footnote": "", 
         "group": 2, 
         "level": "extended", 
         "name": "process.args", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "process.command_line": {
+        "description": "Full command line that started the process, including the absolute path to the executable, and all arguments.\nSome arguments may be filtered to protect sensitive information.", 
+        "example": "/usr/bin/ssh -l user 10.0.0.16", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "process.command_line", 
         "required": false, 
         "type": "keyword"
       }, 
@@ -2186,6 +2236,16 @@
         "group": 2, 
         "level": "extended", 
         "name": "process.parent.args", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "process.parent.command_line": {
+        "description": "Full command line that started the process, including the absolute path to the executable, and all arguments.\nSome arguments may be filtered to protect sensitive information.", 
+        "example": "/usr/bin/ssh -l user 10.0.0.16", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "process.parent.command_line", 
         "required": false, 
         "type": "keyword"
       }, 
