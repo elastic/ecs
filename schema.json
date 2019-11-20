@@ -824,7 +824,7 @@
       }, 
       "event.created": {
         "description": "event.created contains the date/time when the event was first read by an agent, or by your pipeline.\nThis field is distinct from @timestamp in that @timestamp typically contain the time extracted from the original event.\nIn most situations, these two timestamps will be slightly different. The difference can be used to calculate the delay between your source generating an event, and the time when your agent first processed it. This can be used to monitor your agent's or pipeline's ability to keep up with your event source.\nIn case the two timestamps are identical, @timestamp should be used.", 
-        "example": "", 
+        "example": "2016-05-23 08:05:34.857000", 
         "footnote": "", 
         "group": 2, 
         "level": "core", 
@@ -881,6 +881,16 @@
         "name": "event.id", 
         "required": false, 
         "type": "keyword"
+      }, 
+      "event.ingested": {
+        "description": "Timestamp when an event arrived in the central data store.\nThis is different from `@timestamp`, which is when the event originally occurred.  It's also different from `event.created`, which is meant to capture the first time an agent saw the event.\nIn normal conditions, assuming no tampering, the timestamps should chronologically look like this: `@timestamp` < `event.created` < `event.ingested`.", 
+        "example": "2016-05-23 08:05:35.101000", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "core", 
+        "name": "event.ingested", 
+        "required": false, 
+        "type": "date"
       }, 
       "event.kind": {
         "description": "The kind of the event.\nThis gives information about what type of information the event contains, without being specific to the contents of the event.  Examples are `event`, `state`, `alarm`. Warning: In future versions of ECS, we plan to provide a list of acceptable values for this field, please use with caution.", 
@@ -2229,6 +2239,156 @@
         "required": false, 
         "type": "keyword"
       }, 
+      "process.parent.args": {
+        "description": "Array of process arguments.\nMay be filtered to protect sensitive information.", 
+        "example": "['ssh', '-l', 'user', '10.0.0.16']", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "process.parent.args", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "process.parent.args_count": {
+        "description": "Length of the process.args array.\nThis field can be useful for querying or performing bucket analysis on how many arguments were provided to start a processes. More arguments may be an indication of suspicious activity.", 
+        "example": "4", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "process.parent.args_count", 
+        "required": false, 
+        "type": "long"
+      }, 
+      "process.parent.command_line": {
+        "description": "Full command line that started the process, including the absolute path to the executable, and all arguments.\nSome arguments may be filtered to protect sensitive information.", 
+        "example": "/usr/bin/ssh -l user 10.0.0.16", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "process.parent.command_line", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "process.parent.executable": {
+        "description": "Absolute path to the process executable.", 
+        "example": "/usr/bin/ssh", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "process.parent.executable", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "process.parent.exit_code": {
+        "description": "The exit code of the process, if this is a termination event.\nThe field should be absent if there is no exit code for the event (e.g. process start).", 
+        "example": "137", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "process.parent.exit_code", 
+        "required": false, 
+        "type": "long"
+      }, 
+      "process.parent.name": {
+        "description": "Process name.\nSometimes called program name or similar.", 
+        "example": "ssh", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "process.parent.name", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "process.parent.pgid": {
+        "description": "Identifier of the group of processes the process belongs to.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "process.parent.pgid", 
+        "required": false, 
+        "type": "long"
+      }, 
+      "process.parent.pid": {
+        "description": "Process id.", 
+        "example": "4242", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "core", 
+        "name": "process.parent.pid", 
+        "required": false, 
+        "type": "long"
+      }, 
+      "process.parent.ppid": {
+        "description": "Parent process' pid.", 
+        "example": "4241", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "process.parent.ppid", 
+        "required": false, 
+        "type": "long"
+      }, 
+      "process.parent.start": {
+        "description": "The time the process started.", 
+        "example": "2016-05-23T08:05:34.853Z", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "process.parent.start", 
+        "required": false, 
+        "type": "date"
+      }, 
+      "process.parent.thread.id": {
+        "description": "Thread ID.", 
+        "example": "4242", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "process.parent.thread.id", 
+        "required": false, 
+        "type": "long"
+      }, 
+      "process.parent.thread.name": {
+        "description": "Thread name.", 
+        "example": "thread-0", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "process.parent.thread.name", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "process.parent.title": {
+        "description": "Process title.\nThe proctitle, some times the same as process name. Can also be different: for example a browser setting its title to the web page currently opened.", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "process.parent.title", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "process.parent.uptime": {
+        "description": "Seconds the process has been up.", 
+        "example": "1325", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "process.parent.uptime", 
+        "required": false, 
+        "type": "long"
+      }, 
+      "process.parent.working_directory": {
+        "description": "The working directory of the process.", 
+        "example": "/home/alice", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "process.parent.working_directory", 
+        "required": false, 
+        "type": "keyword"
+      }, 
       "process.pgid": {
         "description": "Identifier of the group of processes the process belongs to.", 
         "example": "", 
@@ -3333,6 +3493,145 @@
     "group": 2, 
     "name": "user_agent", 
     "title": "User agent", 
+    "type": "group"
+  }, 
+  "vulnerability": {
+    "description": "The vulnerability fields describe information about a vulnerability that is relevant to an event.\n", 
+    "fields": {
+      "vulnerability.category": {
+        "description": "The type of system or architecture that the vulnerability affects. These may be platform-specific (for example, Debian or SUSE) or general (for example, Database or Firewall). For example (https://qualysguard.qualys.com/qwebhelp/fo_portal/knowledgebase/vulnerability_categories.htm)\nThis field must be an array.", 
+        "example": "[\"Firewall\"]", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "vulnerability.category", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "vulnerability.classification": {
+        "description": "The classification of the vulnerability scoring system. For example (https://www.first.org/cvss/)", 
+        "example": "CVSS", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "vulnerability.classification", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "vulnerability.description": {
+        "description": "The description of the vulnerability that provides additional context of the vulnerability. For example (https://cve.mitre.org/about/faqs.html#cve_entry_descriptions_created)", 
+        "example": "In macOS before 2.12.6, there is a vulnerability in the RPC...", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "vulnerability.description", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "vulnerability.enumeration": {
+        "description": "The type of identifier used for this vulnerability. For example (https://cve.mitre.org/about/)", 
+        "example": "CVE", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "vulnerability.enumeration", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "vulnerability.id": {
+        "description": "The identification (ID) is the number portion of a vulnerability entry. It includes a unique identification number for the vulnerability. For example (https://cve.mitre.org/about/faqs.html#what_is_cve_id)", 
+        "example": "CVE-2019-00001", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "vulnerability.id", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "vulnerability.reference": {
+        "description": "A resource that provides additional information, context, and mitigations for the identified vulnerability.", 
+        "example": "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-6111", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "vulnerability.reference", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "vulnerability.report_id": {
+        "description": "The report or scan identification number.", 
+        "example": "20191018.0001", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "vulnerability.report_id", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "vulnerability.scanner.vendor": {
+        "description": "The name of the vulnerability scanner vendor.", 
+        "example": "Tenable", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "vulnerability.scanner.vendor", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "vulnerability.score.base": {
+        "description": "Scores can range from 0.0 to 10.0, with 10.0 being the most severe.\nBase scores cover an assessment for exploitability metrics (attack vector, complexity, privileges, and user interaction), impact metrics (confidentialy, integrity, and availability), and scope. For example (https://www.first.org/cvss/specification-document)", 
+        "example": "5.5", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "vulnerability.score.base", 
+        "required": false, 
+        "type": "float"
+      }, 
+      "vulnerability.score.environmental": {
+        "description": "Scores can range from 0.0 to 10.0, with 10.0 being the most severe.\nEnvironmental scores cover an assessment for any modified Base metrics, confidentiality, integrity, and availability requirements. For example (https://www.first.org/cvss/specification-document)", 
+        "example": "5.5", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "vulnerability.score.environmental", 
+        "required": false, 
+        "type": "float"
+      }, 
+      "vulnerability.score.temporal": {
+        "description": "Scores can range from 0.0 to 10.0, with 10.0 being the most severe.\nTemporal scores cover an assessment for code maturity, remediation level, and confidence. For example (https://www.first.org/cvss/specification-document)", 
+        "example": "", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "vulnerability.score.temporal", 
+        "required": false, 
+        "type": "float"
+      }, 
+      "vulnerability.score.version": {
+        "description": "The National Vulnerability Database (NVD) provides qualitative severity rankings of \"Low\", \"Medium\", and \"High\" for CVSS v2.0 base score ranges in addition to the severity ratings for CVSS v3.0 as they are defined in the CVSS v3.0 specification.\nCVSS is owned and managed by FIRST.Org, Inc. (FIRST), a US-based non-profit organization, whose mission is to help computer security incident response teams across the world. For example (https://nvd.nist.gov/vuln-metrics/cvss)", 
+        "example": "2.0", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "vulnerability.score.version", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "vulnerability.severity": {
+        "description": "The severity of the vulnerability can help with metrics and internal prioritization regarding remediation. For example (https://nvd.nist.gov/vuln-metrics/cvss)", 
+        "example": "Critical", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "vulnerability.severity", 
+        "required": false, 
+        "type": "keyword"
+      }
+    }, 
+    "group": 2, 
+    "name": "vulnerability", 
+    "title": "Vulnerability", 
     "type": "group"
   }
 }

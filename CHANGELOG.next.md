@@ -11,6 +11,8 @@ Thanks, you're awesome :-) -->
 
 ### Added
 
+* Added `vulnerability.*` fields to represent vulnerability information. #581
+* Added `event.ingested` as the ingest timestamp. #582
 * Added `package.reference`. #585
 * Added `package.build_version`. #586
 * Added `package.type`. #587
@@ -18,6 +20,7 @@ Thanks, you're awesome :-) -->
 * Added `process.command_line`. #599
 * Added `process.exit_code`. #600
 * Added fields in `tls.*` to support analysis of TLS protocol events. #606
+* Added `process.parent.*`. #612
 
 ### Improvements
 

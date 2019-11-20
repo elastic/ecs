@@ -376,6 +376,9 @@
               "ignore_above": 1024,
               "type": "keyword"
             },
+            "ingested": {
+              "type": "date"
+            },
             "kind": {
               "ignore_above": 1024,
               "type": "keyword"
@@ -934,6 +937,66 @@
               "ignore_above": 1024,
               "type": "keyword"
             },
+            "parent": {
+              "properties": {
+                "args": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "args_count": {
+                  "type": "long"
+                },
+                "command_line": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "executable": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "exit_code": {
+                  "type": "long"
+                },
+                "name": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "pgid": {
+                  "type": "long"
+                },
+                "pid": {
+                  "type": "long"
+                },
+                "ppid": {
+                  "type": "long"
+                },
+                "start": {
+                  "type": "date"
+                },
+                "thread": {
+                  "properties": {
+                    "id": {
+                      "type": "long"
+                    },
+                    "name": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "title": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "uptime": {
+                  "type": "long"
+                },
+                "working_directory": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                }
+              }
+            },
             "pgid": {
               "type": "long"
             },
@@ -1405,6 +1468,67 @@
               "type": "keyword"
             },
             "version": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            }
+          }
+        },
+        "vulnerability": {
+          "properties": {
+            "category": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "classification": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "description": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "enumeration": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "id": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "reference": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "report_id": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "scanner": {
+              "properties": {
+                "vendor": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                }
+              }
+            },
+            "score": {
+              "properties": {
+                "base": {
+                  "type": "float"
+                },
+                "environmental": {
+                  "type": "float"
+                },
+                "temporal": {
+                  "type": "float"
+                },
+                "version": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                }
+              }
+            },
+            "severity": {
               "ignore_above": 1024,
               "type": "keyword"
             }
