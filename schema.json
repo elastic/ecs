@@ -1062,12 +1062,22 @@
         "type": "keyword"
       }, 
       "file.directory": {
-        "description": "Directory where the file is located.", 
+        "description": "Directory where the file is located.\nOn platforms with drive letters, the drive letter should not be part of the directory field. For example, \"C:\\\\Program Files\\\\Foo\" should be parsed as `file.directory` \"Program Files\\\\Foo\" and `drive.letter` \"C\".", 
         "example": "/home/alice", 
         "footnote": "", 
         "group": 2, 
         "level": "extended", 
         "name": "file.directory", 
+        "required": false, 
+        "type": "keyword"
+      }, 
+      "file.drive": {
+        "description": "Drive letter where the file is located.", 
+        "example": "C", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "file.drive", 
         "required": false, 
         "type": "keyword"
       }, 
@@ -1152,7 +1162,7 @@
         "type": "keyword"
       }, 
       "file.path": {
-        "description": "Full path to the file.", 
+        "description": "Full path to the file, including the file name.\nOn platforms with drive letters, the drive letter should not be part of the `file.path` field. For example, \"C:\\\\Program Files\\\\Foo\\\\Bar.exe\" should be parsed as `file.path` \"Program Files\\\\Foo\\\\Bar.exe\" and `drive.letter` \"C\".", 
         "example": "/home/alice/example.png", 
         "footnote": "", 
         "group": 2, 

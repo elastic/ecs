@@ -1152,8 +1152,18 @@
       level: extended
       type: keyword
       ignore_above: 1024
-      description: Directory where the file is located.
+      description: 'Directory where the file is located.
+
+        On platforms with drive letters, the drive letter should not be part of the
+        directory field. For example, "C:\\Program Files\\Foo" should be parsed as
+        `file.directory` "Program Files\\Foo" and `drive.letter` "C".'
       example: /home/alice
+    - name: drive
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Drive letter where the file is located.
+      example: C
     - name: extension
       level: extended
       type: keyword
@@ -1224,7 +1234,11 @@
       level: extended
       type: keyword
       ignore_above: 1024
-      description: Full path to the file.
+      description: 'Full path to the file, including the file name.
+
+        On platforms with drive letters, the drive letter should not be part of the
+        `file.path` field. For example, "C:\\Program Files\\Foo\\Bar.exe" should be
+        parsed as `file.path` "Program Files\\Foo\\Bar.exe" and `drive.letter` "C".'
       example: /home/alice/example.png
     - name: size
       level: extended

@@ -34,9 +34,19 @@ type File struct {
 	Name string `ecs:"name"`
 
 	// Directory where the file is located.
+	// On platforms with drive letters, the drive letter should not be part of
+	// the directory field. For example, "C:\\Program Files\\Foo" should be
+	// parsed as `file.directory` "Program Files\\Foo" and `drive.letter` "C".
 	Directory string `ecs:"directory"`
 
-	// Full path to the file.
+	// Drive letter where the file is located.
+	Drive string `ecs:"drive"`
+
+	// Full path to the file, including the file name.
+	// On platforms with drive letters, the drive letter should not be part of
+	// the `file.path` field. For example, "C:\\Program Files\\Foo\\Bar.exe"
+	// should be parsed as `file.path` "Program Files\\Foo\\Bar.exe" and
+	// `drive.letter` "C".
 	Path string `ecs:"path"`
 
 	// Target path for symlinks.
