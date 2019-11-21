@@ -31,10 +31,16 @@ def save_csv(file, sorted_fields, version):
 
         schema_writer.writerow(["ECS version", "Indexed", "Field Set", "Field", "Type", "Level", "Example", "Description"])
         for field in sorted_fields:
+            key_parts = field['flat_name'].split('.')
+            if len(key_parts) == 1:
+                field_set = 'base'
+            else:
+                field_set = key_parts[0]
+
             schema_writer.writerow([
                 version,
                 field.get('index', True),
-                field['flat_name'].split('.')[0],
+                field_set,
                 field['flat_name'],
                 field['type'],
                 field['level'],
