@@ -2268,6 +2268,16 @@ http.request.bytes:
   order: 6
   short: Total size in bytes of the request (body and headers).
   type: long
+http.request.content_type:
+  description: The MIME type set in the request content-type field.
+  example: application/zip text/html application/octet-stream text/javascript application/x-www-form-urlencoded
+  flat_name: http.request.content_type
+  ignore_above: 1024
+  level: extended
+  name: request.content_type
+  order: 8
+  short: The MIME type set in the request content-type field.
+  type: keyword
 http.request.method:
   description: 'HTTP request method.
 
@@ -2298,7 +2308,7 @@ http.response.body.bytes:
   format: bytes
   level: extended
   name: response.body.bytes
-  order: 9
+  order: 10
   short: Size in bytes of the response body.
   type: long
 http.response.body.content:
@@ -2318,9 +2328,19 @@ http.response.bytes:
   format: bytes
   level: extended
   name: response.bytes
-  order: 8
+  order: 9
   short: Total size in bytes of the response (body and headers).
   type: long
+http.response.content_type:
+  description: The MIME type set in the response content-type field.
+  example: application/zip text/html application/octet-stream text/javascript
+  flat_name: http.response.content_type
+  ignore_above: 1024
+  level: extended
+  name: response.content_type
+  order: 11
+  short: The MIME type set in the response content-type field.
+  type: keyword
 http.response.status_code:
   description: HTTP response status code.
   example: 404

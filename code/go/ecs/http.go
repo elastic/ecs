@@ -48,9 +48,15 @@ type Http struct {
 	// Size in bytes of the request body.
 	RequestBodyBytes int64 `ecs:"request.body.bytes"`
 
+	// The MIME type set in the request content-type field.
+	RequestContentType string `ecs:"request.content_type"`
+
 	// Total size in bytes of the response (body and headers).
 	ResponseBytes int64 `ecs:"response.bytes"`
 
 	// Size in bytes of the response body.
 	ResponseBodyBytes int64 `ecs:"response.body.bytes"`
+
+	// The MIME type set in the response content-type field.
+	ResponseContentType string `ecs:"response.content_type"`
 }
