@@ -29,12 +29,14 @@ def save_csv(file, sorted_fields, version):
                                    quoting=csv.QUOTE_MINIMAL,
                                    lineterminator='\n')
 
-        schema_writer.writerow(["Field", "Type", "Level", "Example", "ECS version"])
+        schema_writer.writerow(["ECS version", "Indexed", "Field", "Type", "Level", "Example", "Description"])
         for field in sorted_fields:
             schema_writer.writerow([
+                version,
+                field.get('index', True),
                 field['flat_name'],
                 field['type'],
                 field['level'],
                 field.get('example', ''),
-                version
+                field['short'],
             ])
