@@ -75,14 +75,14 @@ type Process struct {
 
 	// Length of the process.args array.
 	// This field can be useful for querying or performing bucket analysis on
-	// how many arguments were provided to start a processes. More arguments
-	// may be an indication of suspicious activity.
+	// how many arguments were provided to start a process. More arguments may
+	// be an indication of suspicious activity.
 	ArgsCount int64 `ecs:"args_count"`
 
 	// Length of the process.args array.
 	// This field can be useful for querying or performing bucket analysis on
-	// how many arguments were provided to start a processes. More arguments
-	// may be an indication of suspicious activity.
+	// how many arguments were provided to start a process. More arguments may
+	// be an indication of suspicious activity.
 	ParentArgsCount int64 `ecs:"parent.args_count"`
 
 	// Absolute path to the process executable.
