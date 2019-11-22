@@ -31,7 +31,6 @@ check-license-headers:
 .PHONY: clean
 clean:
 	rm -rf schema.json build
-	rm -rf generated/legacy/template.json
 	# Clean all markdown files for use-cases
 	find ./use-cases -type f -name '*.md' -not -name 'README.md' -print0 | xargs -0 rm --
 
@@ -56,7 +55,7 @@ fmt: ve
 
 # Alias to generate everything.
 .PHONY: generate
-generate: template legacy_use_cases codegen generator schema.json
+generate: legacy_use_cases codegen generator schema.json
 
 # Run the new generator
 .PHONY: generator
@@ -103,15 +102,6 @@ schema.json: ve
 .PHONY: setup
 setup: ve
 	cd scripts && $(FORCE_GO_MODULES) go mod download
-
-# Build an Elasticsearch index template.
-.PHONY: template
-template:
-	cd scripts \
-	  && $(FORCE_GO_MODULES) go run cmd/template/template.go \
-	        -version=$(VERSION) \
-	        -schema=../schemas \
-	        > ../generated/legacy/template.json
 
 # Run the ECS tests
 .PHONY: test
