@@ -35,10 +35,6 @@ clean:
 	# Clean all markdown files for use-cases
 	find ./use-cases -type f -name '*.md' -not -name 'README.md' -print0 | xargs -0 rm --
 
-# Alias to generate source code for all languages.
-.PHONY: codegen
-codegen: gocodegen
-
 # Build the asciidoc book.
 .PHONY: docs
 docs:
@@ -56,22 +52,12 @@ fmt: ve
 
 # Alias to generate everything.
 .PHONY: generate
-generate: template legacy_use_cases codegen generator schema.json
+generate: template legacy_use_cases generator schema.json
 
 # Run the new generator
 .PHONY: generator
 generator:
 	$(PYTHON) scripts/generator.py --include "${INCLUDE}"
-
-# Generate Go code from the schema.
-.PHONY: gocodegen
-gocodegen:
-	find code/go/ecs -name '*.go' -not -name 'doc.go' | xargs rm
-	cd scripts \
-	  && $(FORCE_GO_MODULES) go run cmd/gocodegen/gocodegen.go \
-	        -version=$(VERSION) \
-	        -schema=../schemas \
-	        -out=../code/go/ecs
 
 # Generate the Use Cases
 .PHONY: legacy_use_cases
