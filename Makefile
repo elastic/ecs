@@ -32,8 +32,6 @@ check-license-headers:
 clean:
 	rm -rf schema.json build
 	rm -rf generated/legacy/template.json
-	# Clean all markdown files for use-cases
-	find ./use-cases -type f -name '*.md' -not -name 'README.md' -print0 | xargs -0 rm --
 
 # Alias to generate source code for all languages.
 .PHONY: codegen
@@ -56,7 +54,7 @@ fmt: ve
 
 # Alias to generate everything.
 .PHONY: generate
-generate: template legacy_use_cases codegen generator schema.json
+generate: template codegen generator schema.json
 
 # Run the new generator
 .PHONY: generator
@@ -72,11 +70,6 @@ gocodegen:
 	        -version=$(VERSION) \
 	        -schema=../schemas \
 	        -out=../code/go/ecs
-
-# Generate the Use Cases
-.PHONY: legacy_use_cases
-legacy_use_cases: ve
-	$(PYTHON) scripts/use-cases.py --stdout=true >> /dev/null
 
 # Check Makefile format.
 .PHONY: makelint
