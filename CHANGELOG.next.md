@@ -1,15 +1,20 @@
 <!-- When adding an entry to the Changelog:
+
 - Please follow the Keep a Changelog: http://keepachangelog.com/ guidelines.
 - Please insert your changelog line ordered by PR ID.
+- Make sure you add your entry to the correct section (schema or tooling).
+
 Thanks, you're awesome :-) -->
 
 ## Unreleased
 
-### Breaking changes
+### Schema Changes
 
-### Bugfixes
+#### Breaking changes
 
-### Added
+#### Bugfixes
+
+#### Added
 
 * Added `vulnerability.*` fields to represent vulnerability information. #581
 * Added `event.ingested` as the ingest timestamp. #582
@@ -22,23 +27,39 @@ Thanks, you're awesome :-) -->
 * Added fields in `tls.*` to support analysis of TLS protocol events. #606
 * Added `process.parent.*`. #612
 
-### Improvements
+#### Improvements
 
-### Deprecated
+#### Deprecated
+
+
+### Tooling and Artifact Changes
+
+#### Breaking changes
+
+#### Bugfixes
+
+#### Added
+
+#### Improvements
+
+#### Deprecated
 
 
 <!-- All empty sections:
 
 ## Unreleased
 
-### Breaking changes
+### Schema Changes
+### Tooling and Artifact Changes
 
-### Bugfixes
+#### Breaking changes
 
-### Added
+#### Bugfixes
 
-### Improvements
+#### Added
 
-### Deprecated
+#### Improvements
+
+#### Deprecated
 
 -->
