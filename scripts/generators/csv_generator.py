@@ -29,7 +29,7 @@ def save_csv(file, sorted_fields, version):
                                    quoting=csv.QUOTE_MINIMAL,
                                    lineterminator='\n')
 
-        schema_writer.writerow(["ECS version", "Indexed", "Field Set", "Field",
+        schema_writer.writerow(["ECS_Version", "Indexed", "Field_Set", "Field",
                                 "Type", "Level", "Example", "Description"])
         for field in sorted_fields:
             key_parts = field['flat_name'].split('.')
