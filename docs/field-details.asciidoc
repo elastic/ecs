@@ -2914,9 +2914,7 @@ example: `/usr/local/Cellar/go/1.12.9/`
 // ===============================================================
 
 | package.reference
-| Reference URL of this package.
-
-If available, use reference URL pointing to the project website that is contained in the package.
+| Home page or reference URL of the software in this package, if available.
 
 type: keyword
 
@@ -2991,6 +2989,19 @@ example: `['/usr/bin/ssh', '-l', 'user', '10.0.0.16']`
 
 // ===============================================================
 
+| process.args_count
+| Length of the process.args array.
+
+This field can be useful for querying or performing bucket analysis on how many arguments were provided to start a process. More arguments may be an indication of suspicious activity.
+
+type: long
+
+example: `4`
+
+| extended
+
+// ===============================================================
+
 | process.command_line
 | Full command line that started the process, including the absolute path to the executable, and all arguments.
 
@@ -3049,6 +3060,19 @@ May be filtered to protect sensitive information.
 type: keyword
 
 example: `['ssh', '-l', 'user', '10.0.0.16']`
+
+| extended
+
+// ===============================================================
+
+| process.parent.args_count
+| Length of the process.args array.
+
+This field can be useful for querying or performing bucket analysis on how many arguments were provided to start a process. More arguments may be an indication of suspicious activity.
+
+type: long
+
+example: `4`
 
 | extended
 
