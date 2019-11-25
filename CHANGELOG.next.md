@@ -37,6 +37,8 @@ Thanks, you're awesome :-) -->
 
 #### Breaking changes
 
+* Removed the "use case" files. #632
+
 #### Bugfixes
 
 #### Added
