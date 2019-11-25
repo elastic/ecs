@@ -40,7 +40,7 @@ def save_csv(file, sorted_fields, version):
 
             schema_writer.writerow([
                 version,
-                field.get('index', True),
+                str(field.get('index', True)).lower(),
                 field_set,
                 field['flat_name'],
                 field['type'],
