@@ -7,6 +7,8 @@ Thanks, you're awesome :-) -->
 
 ### Breaking changes
 
+* Removed the file `schema.json` and the code generating it. #627
+
 ### Bugfixes
 
 ### Added
