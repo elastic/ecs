@@ -3154,6 +3154,19 @@ process.args:
   order: 10
   short: Array of process arguments.
   type: keyword
+process.args_count:
+  description: 'Length of the process.args array.
+
+    This field can be useful for querying or performing bucket analysis on how many
+    arguments were provided to start a process. More arguments may be an indication
+    of suspicious activity.'
+  example: 4
+  flat_name: process.args_count
+  level: extended
+  name: args_count
+  order: 12
+  short: Length of the process.args array.
+  type: long
 process.command_line:
   description: 'Full command line that started the process, including the absolute
     path to the executable, and all arguments.
@@ -3174,7 +3187,7 @@ process.executable:
   ignore_above: 1024
   level: extended
   name: executable
-  order: 12
+  order: 14
   short: Absolute path to the process executable.
   type: keyword
 process.exit_code:
@@ -3186,7 +3199,7 @@ process.exit_code:
   flat_name: process.exit_code
   level: extended
   name: exit_code
-  order: 26
+  order: 28
   short: The exit code of the process.
   type: long
 process.hash.md5:
@@ -3257,6 +3270,19 @@ process.parent.args:
   order: 11
   short: Array of process arguments.
   type: keyword
+process.parent.args_count:
+  description: 'Length of the process.args array.
+
+    This field can be useful for querying or performing bucket analysis on how many
+    arguments were provided to start a process. More arguments may be an indication
+    of suspicious activity.'
+  example: 4
+  flat_name: process.parent.args_count
+  level: extended
+  name: parent.args_count
+  order: 13
+  short: Length of the process.args array.
+  type: long
 process.parent.command_line:
   description: 'Full command line that started the process, including the absolute
     path to the executable, and all arguments.
@@ -3277,7 +3303,7 @@ process.parent.executable:
   ignore_above: 1024
   level: extended
   name: parent.executable
-  order: 13
+  order: 15
   short: Absolute path to the process executable.
   type: keyword
 process.parent.exit_code:
@@ -3289,7 +3315,7 @@ process.parent.exit_code:
   flat_name: process.parent.exit_code
   level: extended
   name: parent.exit_code
-  order: 27
+  order: 29
   short: The exit code of the process.
   type: long
 process.parent.name:
@@ -3339,7 +3365,7 @@ process.parent.start:
   flat_name: process.parent.start
   level: extended
   name: parent.start
-  order: 21
+  order: 23
   short: The time the process started.
   type: date
 process.parent.thread.id:
@@ -3349,7 +3375,7 @@ process.parent.thread.id:
   format: string
   level: extended
   name: parent.thread.id
-  order: 17
+  order: 19
   short: Thread ID.
   type: long
 process.parent.thread.name:
@@ -3359,7 +3385,7 @@ process.parent.thread.name:
   ignore_above: 1024
   level: extended
   name: parent.thread.name
-  order: 19
+  order: 21
   short: Thread name.
   type: keyword
 process.parent.title:
@@ -3371,7 +3397,7 @@ process.parent.title:
   ignore_above: 1024
   level: extended
   name: parent.title
-  order: 15
+  order: 17
   short: Process title.
   type: keyword
 process.parent.uptime:
@@ -3380,7 +3406,7 @@ process.parent.uptime:
   flat_name: process.parent.uptime
   level: extended
   name: parent.uptime
-  order: 23
+  order: 25
   short: Seconds the process has been up.
   type: long
 process.parent.working_directory:
@@ -3390,7 +3416,7 @@ process.parent.working_directory:
   ignore_above: 1024
   level: extended
   name: parent.working_directory
-  order: 25
+  order: 27
   short: The working directory of the process.
   type: keyword
 process.pgid:
@@ -3428,7 +3454,7 @@ process.start:
   flat_name: process.start
   level: extended
   name: start
-  order: 20
+  order: 22
   short: The time the process started.
   type: date
 process.thread.id:
@@ -3438,7 +3464,7 @@ process.thread.id:
   format: string
   level: extended
   name: thread.id
-  order: 16
+  order: 18
   short: Thread ID.
   type: long
 process.thread.name:
@@ -3448,7 +3474,7 @@ process.thread.name:
   ignore_above: 1024
   level: extended
   name: thread.name
-  order: 18
+  order: 20
   short: Thread name.
   type: keyword
 process.title:
@@ -3460,7 +3486,7 @@ process.title:
   ignore_above: 1024
   level: extended
   name: title
-  order: 14
+  order: 16
   short: Process title.
   type: keyword
 process.uptime:
@@ -3469,7 +3495,7 @@ process.uptime:
   flat_name: process.uptime
   level: extended
   name: uptime
-  order: 22
+  order: 24
   short: Seconds the process has been up.
   type: long
 process.working_directory:
@@ -3479,7 +3505,7 @@ process.working_directory:
   ignore_above: 1024
   level: extended
   name: working_directory
-  order: 24
+  order: 26
   short: The working directory of the process.
   type: keyword
 related.ip:
