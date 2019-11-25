@@ -37,6 +37,8 @@ Thanks, you're awesome :-) -->
 
 #### Breaking changes
 
+* Removed the Go library from this repository. #628
+
 #### Bugfixes
 
 #### Added
