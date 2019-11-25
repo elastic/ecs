@@ -7,6 +7,8 @@ Thanks, you're awesome :-) -->
 
 ### Breaking changes
 
+* Removed the legacy Elasticsearch template. #629
+
 ### Bugfixes
 
 ### Added
