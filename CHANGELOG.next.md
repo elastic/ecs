@@ -43,7 +43,7 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
-* Added the "Indexed" and "Description" columns to the csv. #621
+* Added the "Indexed", "Field\_Set" and "Description" columns to the csv. #621
 
 #### Improvements
 
