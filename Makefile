@@ -89,7 +89,7 @@ makelint:
 .PHONY: misspell
 misspell:
 	go get github.com/client9/misspell/cmd/misspell
-	misspell README.md CONTRIBUTING.md
+	misspell README.md CONTRIBUTING.md schemas/*
 
 .PHONY: reload_docs
 reload_docs: generator docs
