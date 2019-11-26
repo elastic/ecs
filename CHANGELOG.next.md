@@ -38,6 +38,8 @@ Thanks, you're awesome :-) -->
 #### Breaking changes
 
 * Removed the legacy Elasticsearch template. #629
+  * Note: The *good* Elasticsearch templates are available in directory
+    `generated/elasticsearch`, this PR only removes an obsolete file.
 
 #### Bugfixes
 
