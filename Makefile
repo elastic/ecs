@@ -30,7 +30,7 @@ check-license-headers:
 # Clean deletes all temporary and generated content.
 .PHONY: clean
 clean:
-	rm -rf schema.json build
+	rm -rf build
 	# Clean all markdown files for use-cases
 	find ./use-cases -type f -name '*.md' -not -name 'README.md' -print0 | xargs -0 rm --
 
@@ -55,7 +55,7 @@ fmt: ve
 
 # Alias to generate everything.
 .PHONY: generate
-generate: legacy_use_cases codegen generator schema.json
+generate: legacy_use_cases codegen generator
 
 # Run the new generator
 .PHONY: generator
@@ -88,15 +88,10 @@ makelint:
 .PHONY: misspell
 misspell:
 	go get github.com/client9/misspell/cmd/misspell
-	misspell README.md CONTRIBUTING.md
+	misspell README.md CONTRIBUTING.md schemas/*
 
 .PHONY: reload_docs
 reload_docs: generator docs
-
-# Generate schema.json.
-.PHONY: schema.json
-schema.json: ve
-	$(PYTHON) scripts/schemas.py
 
 # Download and setup tooling dependencies.
 .PHONY: setup

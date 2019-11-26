@@ -37,6 +37,8 @@ Thanks, you're awesome :-) -->
 
 #### Breaking changes
 
+* Changed the order and column names in the csv. #621
+* Removed the file `schema.json` and the code generating it. #627
 * Removed the legacy Elasticsearch template. #629
   * Note: The *good* Elasticsearch templates are available in directory
     `generated/elasticsearch`, this PR only removes an obsolete file.
@@ -44,6 +46,8 @@ Thanks, you're awesome :-) -->
 #### Bugfixes
 
 #### Added
+
+* Added the "Indexed", "Field\_Set" and "Description" columns to the csv. #621
 
 #### Improvements
 
