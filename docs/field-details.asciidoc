@@ -3080,7 +3080,7 @@ NOTE: The `os` field set must *not* be used directly as top-level fields.
 
 These fields contain information about an installed software package. It contains general information about a package, such as name, version or size. It also contains installation details, such as time or location.
 
-NOTE: This field set is not reused.
+
 
 ==== Package Field Details
 
@@ -4193,7 +4193,7 @@ Fields to classify events and alerts according to a threat taxonomy such as the 
 
 These fields are for users to classify alerts from all of their sources (e.g. IDS, NGFW, etc.) within a  common taxonomy. The threat.tactic.* are meant to capture the high level category of the threat  (e.g. "impact"). The threat.technique.* fields are meant to capture which kind of approach is used by  this detected threat, to accomplish the goal (e.g. "endpoint denial of service").
 
-NOTE: This field set is not reused.
+
 
 ==== Threat Field Details
 
@@ -4281,6 +4281,12 @@ example: `https://attack.mitre.org/techniques/T1499/`
 // ===============================================================
 
 |=====
+
+[[ecs-threat-reuse]]
+==== Field Reuse
+
+The `threat` field set must *not* be reused as a parent or child of other fields.
+
 
 [[ecs-tls]]
 === TLS Fields
@@ -4629,12 +4635,18 @@ example: `tls`
 
 |=====
 
+[[ecs-tls-reuse]]
+==== Field Reuse
+
+The `tls` field set must *not* be reused as a parent or child of other fields.
+
+
 [[ecs-tracing]]
 === Tracing Fields
 
 Distributed tracing makes it possible to analyze performance throughout a microservice architecture all in one view. This is accomplished by tracing all of the requests - from the initial web request in the front-end service - to queries made through multiple back-end services.
 
-NOTE: This field set is not reused.
+
 
 ==== Tracing Field Details
 
@@ -4672,12 +4684,18 @@ example: `00f067aa0ba902b7`
 
 |=====
 
+[[ecs-tracing-reuse]]
+==== Field Reuse
+
+The `tracing` field set must *not* be reused as a parent or child of other fields.
+
+
 [[ecs-url]]
 === URL Fields
 
 URL fields provide support for complete or partial URLs, and supports the breaking down into scheme, domain, path, and so on.
 
-NOTE: This field set is not reused.
+
 
 ==== URL Field Details
 
@@ -5103,14 +5121,13 @@ The `user_agent` field can be a parent of:
 
 
 |=====
-<<<<<<< HEAD
-
+NOTE: The `user_agent` field set must *not* be reused as a child of other fields.
 [[ecs-vulnerability]]
 === Vulnerability Fields
 
 The vulnerability fields describe information about a vulnerability that is relevant to an event.
 
-NOTE: This field set is not reused.
+
 
 ==== Vulnerability Field Details
 
@@ -5274,6 +5291,9 @@ example: `Critical`
 // ===============================================================
 
 |=====
-=======
-NOTE: The `user_agent` field set must *not* be reused as a child of other fields.
->>>>>>> Expands note whenfields can be a child but not a parent
+
+[[ecs-vulnerability-reuse]]
+==== Field Reuse
+
+The `vulnerability` field set must *not* be reused as a parent or child of other fields.
+
