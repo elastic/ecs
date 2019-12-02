@@ -14,6 +14,8 @@ Thanks, you're awesome :-) -->
 
 #### Bugfixes
 
+* Removed unnecessary field `tls.server.supported_ciphers`.
+
 #### Added
 
 #### Improvements
