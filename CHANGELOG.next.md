@@ -16,7 +16,7 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
-* Added `rule` fields. #tbd
+* Added `rule` fields. #665
 
 #### Improvements
 
