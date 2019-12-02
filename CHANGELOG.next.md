@@ -16,6 +16,8 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
+* Added `rule` fields. #tbd
+
 #### Improvements
 
 #### Deprecated
