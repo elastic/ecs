@@ -4610,7 +4610,7 @@ tls.server.certificate:
   ignore_above: 1024
   level: extended
   name: server.certificate
-  order: 26
+  order: 25
   short: PEM-encoded stand-alone certificate offered by the server. This is usually
     mutually-exclusive of `server.certificate_chain` since this value also exists
     in that list.
@@ -4626,7 +4626,7 @@ tls.server.certificate_chain:
   ignore_above: 1024
   level: extended
   name: server.certificate_chain
-  order: 25
+  order: 24
   short: Array of PEM-encoded certificates that make up the certificate chain offered
     by the server. This is usually mutually-exclusive of `server.certificate` since
     that value should be the first certificate in the chain.
@@ -4640,7 +4640,7 @@ tls.server.hash.md5:
   ignore_above: 1024
   level: extended
   name: server.hash.md5
-  order: 27
+  order: 26
   short: Certificate fingerprint using the MD5 digest of DER-encoded version of certificate
     offered by the server. For consistency with other hash values, this value should
     be formatted as an uppercase hash.
@@ -4654,7 +4654,7 @@ tls.server.hash.sha1:
   ignore_above: 1024
   level: extended
   name: server.hash.sha1
-  order: 28
+  order: 27
   short: Certificate fingerprint using the SHA1 digest of DER-encoded version of certificate
     offered by the server. For consistency with other hash values, this value should
     be formatted as an uppercase hash.
@@ -4668,7 +4668,7 @@ tls.server.hash.sha256:
   ignore_above: 1024
   level: extended
   name: server.hash.sha256
-  order: 29
+  order: 28
   short: Certificate fingerprint using the SHA256 digest of DER-encoded version of
     certificate offered by the server. For consistency with other hash values, this
     value should be formatted as an uppercase hash.
@@ -4680,7 +4680,7 @@ tls.server.issuer:
   ignore_above: 1024
   level: extended
   name: server.issuer
-  order: 22
+  order: 21
   short: Subject of the issuer of the x.509 certificate presented by the server.
   type: keyword
 tls.server.ja3s:
@@ -4701,7 +4701,7 @@ tls.server.not_after:
   flat_name: tls.server.not_after
   level: extended
   name: server.not_after
-  order: 24
+  order: 23
   short: Timestamp indicating when server certificate is no longer considered valid.
   type: date
 tls.server.not_before:
@@ -4710,7 +4710,7 @@ tls.server.not_before:
   flat_name: tls.server.not_before
   level: extended
   name: server.not_before
-  order: 23
+  order: 22
   short: Timestamp indicating when server certificate is first considered valid.
   type: date
 tls.server.subject:
@@ -4720,21 +4720,8 @@ tls.server.subject:
   ignore_above: 1024
   level: extended
   name: server.subject
-  order: 21
-  short: Subject of the x.509 certificate presented by the server.
-  type: keyword
-tls.server.supported_ciphers:
-  description: Array of ciphers offered by the server during the server hello.
-  example:
-  - TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-  - TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
-  - '...'
-  flat_name: tls.server.supported_ciphers
-  ignore_above: 1024
-  level: extended
-  name: server.supported_ciphers
   order: 20
-  short: Array of ciphers offered by the server during the server hello.
+  short: Subject of the x.509 certificate presented by the server.
   type: keyword
 tls.version:
   description: Numeric part of the version parsed from the original string.
@@ -5147,7 +5134,8 @@ user_agent.version:
 vulnerability.category:
   description: 'The type of system or architecture that the vulnerability affects.
     These may be platform-specific (for example, Debian or SUSE) or general (for example,
-    Database or Firewall). For example (https://qualysguard.qualys.com/qwebhelp/fo_portal/knowledgebase/vulnerability_categories.htm)
+    Database or Firewall). For example (https://qualysguard.qualys.com/qwebhelp/fo_portal/knowledgebase/vulnerability_categories.htm[Qualys
+    vulnerability categories])
 
     This field must be an array.'
   example: '["Firewall"]'
@@ -5171,7 +5159,8 @@ vulnerability.classification:
   type: keyword
 vulnerability.description:
   description: The description of the vulnerability that provides additional context
-    of the vulnerability. For example (https://cve.mitre.org/about/faqs.html#cve_entry_descriptions_created)
+    of the vulnerability. For example (https://cve.mitre.org/about/faqs.html#cve_entry_descriptions_created[Common
+    Vulnerabilities and Exposure CVE description])
   example: In macOS before 2.12.6, there is a vulnerability in the RPC...
   flat_name: vulnerability.description
   ignore_above: 1024
@@ -5193,7 +5182,8 @@ vulnerability.enumeration:
 vulnerability.id:
   description: The identification (ID) is the number portion of a vulnerability entry.
     It includes a unique identification number for the vulnerability. For example
-    (https://cve.mitre.org/about/faqs.html#what_is_cve_id)
+    (https://cve.mitre.org/about/faqs.html#what_is_cve_id)[Common Vulnerabilities
+    and Exposure CVE ID]
   example: CVE-2019-00001
   flat_name: vulnerability.id
   ignore_above: 1024
@@ -5237,8 +5227,8 @@ vulnerability.score.base:
   description: 'Scores can range from 0.0 to 10.0, with 10.0 being the most severe.
 
     Base scores cover an assessment for exploitability metrics (attack vector, complexity,
-    privileges, and user interaction), impact metrics (confidentialy, integrity, and
-    availability), and scope. For example (https://www.first.org/cvss/specification-document)'
+    privileges, and user interaction), impact metrics (confidentiality, integrity,
+    and availability), and scope. For example (https://www.first.org/cvss/specification-document)'
   example: 5.5
   flat_name: vulnerability.score.base
   level: extended
