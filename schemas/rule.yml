@@ -2,11 +2,11 @@
 - name: rule
   title: Rule
   group: 2
-  short: Fields to capture details about rules used by observers and agents to generate alerts or other events.
+  short: Fields to capture details about rules used to generate alerts or other events.
   description: >
-   Rule fields are used to capture the specifics of any observer or agent rules that generate alerts or other events..
-   Examples of data sources that would populate the rule fields include: platforms, network or host IDS/IPS, network 
-   firewalls, web access firewalls, url filters, endpoint detection and response (EDR) systems, etc.  
+   Rule fields are used to capture the specifics of any observer or agent rules that generate alerts or other events.
+   Examples of data sources that would populate the rule fields include: network admission control platforms, network or 
+   host IDS/IPS, network firewalls, web access firewalls, url filters, endpoint detection and response (EDR) systems, etc.  
   
   type: group
   fields:
@@ -16,7 +16,7 @@
       type: keyword
       short: Rule ID
       description: >
-        A rule ID that is unique within the scope of an agent, observer, or other entity using the rule for detection of this event
+        A rule ID that is unique within the scope of an agent, observer, or other entity using the rule for detection of this event.
 
       example: 101 
 
@@ -40,7 +40,7 @@
       level: extended
       type: keyword
       short: Rule Name
-      description: The name of the rule generating the event.
+      description: The name of the rule or signature generating the event.
       example: Filter_DOH
 
 
@@ -56,7 +56,7 @@
       type: keyword
       short: Rule Type
       description: >
-         A categorization value keyword used by the entity using the rule for detection of this event
+         A categorization value keyword used by the entity using the rule for detection of this event.
 
       example: DNS
       
@@ -72,7 +72,7 @@
     - name: reference
       level: extended
       type: keyword
-      short: Rule Reference
+      short: Rule Reference URL
       description: >
         Text URL pointing to additional information about the rule used to generate this event.  
         For example a link to the platform used to manage the observers, a link to the vendors documentation regarding the rule, 
