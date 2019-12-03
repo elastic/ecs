@@ -16,7 +16,7 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
-* Added `file.drive`. #620
+* Added `file.drive_letter`. #620
 
 #### Improvements
 
