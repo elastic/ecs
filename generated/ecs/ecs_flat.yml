@@ -427,6 +427,8 @@ client.user.id:
   ignore_above: 1024
   level: core
   name: id
+  normalize: &id001
+  - array
   order: 0
   original_fieldset: user
   short: One or multiple unique identifiers of the user.
@@ -534,13 +536,15 @@ container.image.name:
   short: Name of the image the container was built on.
   type: keyword
 container.image.tag:
-  description: Container image tag.
+  description: Container image tags.
   flat_name: container.image.tag
   ignore_above: 1024
   level: extended
   name: image.tag
+  normalize:
+  - array
   order: 3
-  short: Container image tag.
+  short: Container image tags.
   type: keyword
 container.labels:
   description: Image labels.
@@ -895,6 +899,7 @@ destination.user.id:
   ignore_above: 1024
   level: core
   name: id
+  normalize: *id001
   order: 0
   original_fieldset: user
   short: One or multiple unique identifiers of the user.
@@ -924,6 +929,8 @@ dns.answers:
   flat_name: dns.answers
   level: extended
   name: answers
+  normalize:
+  - array
   object_type: keyword
   order: 11
   short: Array of DNS answers.
@@ -996,6 +1003,8 @@ dns.header_flags:
   ignore_above: 1024
   level: extended
   name: header_flags
+  normalize:
+  - array
   order: 3
   short: Array of DNS header flags.
   type: keyword
@@ -1116,6 +1125,8 @@ dns.resolved_ip:
   flat_name: dns.resolved_ip
   level: extended
   name: resolved_ip
+  normalize:
+  - array
   order: 17
   short: Array containing all IPs seen in answers.data
   type: ip
@@ -1185,6 +1196,8 @@ error.message:
   flat_name: error.message
   level: core
   name: message
+  normalize:
+  - array
   norms: false
   order: 1
   short: Error message.
@@ -1236,6 +1249,8 @@ event.category:
   ignore_above: 1024
   level: core
   name: category
+  normalize:
+  - array
   order: 3
   short: Event category.
   type: keyword
@@ -1511,6 +1526,8 @@ event.type:
   ignore_above: 1024
   level: core
   name: type
+  normalize:
+  - array
   order: 6
   short: Reserved for future usage.
   type: keyword
@@ -1894,9 +1911,10 @@ host.architecture:
   short: Operating system architecture.
   type: keyword
 host.domain:
-  description: "Name of the domain of which the host is a member. \nFor example, on\
-    \ Windows this could be the host's Active Directory domain or NetBIOS domain name.\
-    \  For Linux this could be the domain of the host's LDAP provider."
+  description: 'Name of the domain of which the host is a member.
+
+    For example, on Windows this could be the host''s Active Directory domain or NetBIOS
+    domain name. For Linux this could be the domain of the host''s LDAP provider.'
   example: CONTOSO
   flat_name: host.domain
   ignore_above: 1024
@@ -2023,21 +2041,25 @@ host.id:
   short: Unique host id.
   type: keyword
 host.ip:
-  description: Host ip address.
+  description: Host ip addresses.
   flat_name: host.ip
   level: core
   name: ip
+  normalize:
+  - array
   order: 3
-  short: Host ip address.
+  short: Host ip addresses.
   type: ip
 host.mac:
-  description: Host mac address.
+  description: Host mac addresses.
   flat_name: host.mac
   ignore_above: 1024
   level: core
   name: mac
+  normalize:
+  - array
   order: 4
-  short: Host mac address.
+  short: Host mac addresses.
   type: keyword
 host.name:
   description: 'Name of the host.
@@ -2223,6 +2245,7 @@ host.user.id:
   ignore_above: 1024
   level: core
   name: id
+  normalize: *id001
   order: 0
   original_fieldset: user
   short: One or multiple unique identifiers of the user.
@@ -2776,6 +2799,8 @@ observer.ip:
   flat_name: observer.ip
   level: core
   name: ip
+  normalize:
+  - array
   order: 1
   short: IP address of the observer.
   type: ip
@@ -2785,6 +2810,8 @@ observer.mac:
   ignore_above: 1024
   level: core
   name: mac
+  normalize:
+  - array
   order: 0
   short: MAC address of the observer
   type: keyword
@@ -3148,6 +3175,8 @@ process.args:
   ignore_above: 1024
   level: extended
   name: args
+  normalize:
+  - array
   order: 10
   short: Array of process arguments.
   type: keyword
@@ -3264,6 +3293,8 @@ process.parent.args:
   ignore_above: 1024
   level: extended
   name: parent.args
+  normalize:
+  - array
   order: 11
   short: Array of process arguments.
   type: keyword
@@ -3510,6 +3541,8 @@ related.ip:
   flat_name: related.ip
   level: extended
   name: ip
+  normalize:
+  - array
   order: 0
   short: All of the IPs seen on your event.
   type: ip
@@ -3839,6 +3872,7 @@ server.user.id:
   ignore_above: 1024
   level: core
   name: id
+  normalize: *id001
   order: 0
   original_fieldset: user
   short: One or multiple unique identifiers of the user.
@@ -4285,6 +4319,7 @@ source.user.id:
   ignore_above: 1024
   level: core
   name: id
+  normalize: *id001
   order: 0
   original_fieldset: user
   short: One or multiple unique identifiers of the user.
@@ -4307,12 +4342,14 @@ tags:
   ignore_above: 1024
   level: core
   name: tags
+  normalize:
+  - array
   order: 1
   short: List of keywords used to tag each event.
   type: keyword
 threat.framework:
   description: Name of the threat framework used to further categorize and classify
-    the tactic and technique of the reported threat.   Framework classification can
+    the tactic and technique of the reported threat. Framework classification can
     be provided by detecting systems, evaluated at ingest time, or retrospectively
     tagged to events.
   example: MITRE ATT&CK
@@ -4332,6 +4369,8 @@ threat.tactic.id:
   ignore_above: 1024
   level: extended
   name: tactic.id
+  normalize:
+  - array
   order: 2
   short: Threat tactic id.
   type: keyword
@@ -4344,6 +4383,8 @@ threat.tactic.name:
   ignore_above: 1024
   level: extended
   name: tactic.name
+  normalize:
+  - array
   order: 1
   short: Threat tactic.
   type: keyword
@@ -4356,6 +4397,8 @@ threat.tactic.reference:
   ignore_above: 1024
   level: extended
   name: tactic.reference
+  normalize:
+  - array
   order: 3
   short: Threat tactic url reference.
   type: keyword
@@ -4368,6 +4411,8 @@ threat.technique.id:
   ignore_above: 1024
   level: extended
   name: technique.id
+  normalize:
+  - array
   order: 5
   short: Threat technique id.
   type: keyword
@@ -4380,6 +4425,8 @@ threat.technique.name:
   ignore_above: 1024
   level: extended
   name: technique.name
+  normalize:
+  - array
   order: 4
   short: Threat technique name.
   type: keyword
@@ -4392,6 +4439,8 @@ threat.technique.reference:
   ignore_above: 1024
   level: extended
   name: technique.reference
+  normalize:
+  - array
   order: 6
   short: Threat technique reference.
   type: keyword
@@ -4430,6 +4479,8 @@ tls.client.certificate_chain:
   ignore_above: 1024
   level: extended
   name: client.certificate_chain
+  normalize:
+  - array
   order: 14
   short: Array of PEM-encoded certificates that make up the certificate chain offered
     by the client. This is usually mutually-exclusive of `client.certificate` since
@@ -4554,6 +4605,8 @@ tls.client.supported_ciphers:
   ignore_above: 1024
   level: extended
   name: client.supported_ciphers
+  normalize:
+  - array
   order: 9
   short: Array of ciphers offered by the client during the client hello.
   type: keyword
@@ -4626,6 +4679,8 @@ tls.server.certificate_chain:
   ignore_above: 1024
   level: extended
   name: server.certificate_chain
+  normalize:
+  - array
   order: 24
   short: Array of PEM-encoded certificates that make up the certificate chain offered
     by the server. This is usually mutually-exclusive of `server.certificate` since
@@ -5011,6 +5066,7 @@ user.id:
   ignore_above: 1024
   level: core
   name: id
+  normalize: *id001
   order: 0
   short: One or multiple unique identifiers of the user.
   type: keyword
@@ -5143,6 +5199,8 @@ vulnerability.category:
   ignore_above: 1024
   level: extended
   name: category
+  normalize:
+  - array
   order: 7
   short: Category of a vulnerability.
   type: keyword

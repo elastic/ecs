@@ -183,6 +183,8 @@ base:
       ignore_above: 1024
       level: core
       name: tags
+      normalize:
+      - array
       order: 1
       short: List of keywords used to tag each event.
       type: keyword
@@ -536,6 +538,8 @@ client:
       ignore_above: 1024
       level: core
       name: id
+      normalize: &id001
+      - array
       order: 0
       original_fieldset: user
       short: One or multiple unique identifiers of the user.
@@ -674,13 +678,15 @@ container:
       short: Name of the image the container was built on.
       type: keyword
     image.tag:
-      description: Container image tag.
+      description: Container image tags.
       flat_name: container.image.tag
       ignore_above: 1024
       level: extended
       name: image.tag
+      normalize:
+      - array
       order: 3
-      short: Container image tag.
+      short: Container image tags.
       type: keyword
     labels:
       description: Image labels.
@@ -1046,6 +1052,7 @@ destination:
       ignore_above: 1024
       level: core
       name: id
+      normalize: *id001
       order: 0
       original_fieldset: user
       short: One or multiple unique identifiers of the user.
@@ -1092,6 +1099,8 @@ dns:
       flat_name: dns.answers
       level: extended
       name: answers
+      normalize:
+      - array
       object_type: keyword
       order: 11
       short: Array of DNS answers.
@@ -1166,6 +1175,8 @@ dns:
       ignore_above: 1024
       level: extended
       name: header_flags
+      normalize:
+      - array
       order: 3
       short: Array of DNS header flags.
       type: keyword
@@ -1287,6 +1298,8 @@ dns:
       flat_name: dns.resolved_ip
       level: extended
       name: resolved_ip
+      normalize:
+      - array
       order: 17
       short: Array containing all IPs seen in answers.data
       type: ip
@@ -1377,6 +1390,8 @@ error:
       flat_name: error.message
       level: core
       name: message
+      normalize:
+      - array
       norms: false
       order: 1
       short: Error message.
@@ -1447,6 +1462,8 @@ event:
       ignore_above: 1024
       level: core
       name: category
+      normalize:
+      - array
       order: 3
       short: Event category.
       type: keyword
@@ -1724,6 +1741,8 @@ event:
       ignore_above: 1024
       level: core
       name: type
+      normalize:
+      - array
       order: 6
       short: Reserved for future usage.
       type: keyword
@@ -2191,9 +2210,11 @@ host:
       short: Operating system architecture.
       type: keyword
     domain:
-      description: "Name of the domain of which the host is a member. \nFor example,\
-        \ on Windows this could be the host's Active Directory domain or NetBIOS domain\
-        \ name.  For Linux this could be the domain of the host's LDAP provider."
+      description: 'Name of the domain of which the host is a member.
+
+        For example, on Windows this could be the host''s Active Directory domain
+        or NetBIOS domain name. For Linux this could be the domain of the host''s
+        LDAP provider.'
       example: CONTOSO
       flat_name: host.domain
       ignore_above: 1024
@@ -2320,21 +2341,25 @@ host:
       short: Unique host id.
       type: keyword
     ip:
-      description: Host ip address.
+      description: Host ip addresses.
       flat_name: host.ip
       level: core
       name: ip
+      normalize:
+      - array
       order: 3
-      short: Host ip address.
+      short: Host ip addresses.
       type: ip
     mac:
-      description: Host mac address.
+      description: Host mac addresses.
       flat_name: host.mac
       ignore_above: 1024
       level: core
       name: mac
+      normalize:
+      - array
       order: 4
-      short: Host mac address.
+      short: Host mac addresses.
       type: keyword
     name:
       description: 'Name of the host.
@@ -2522,6 +2547,7 @@ host:
       ignore_above: 1024
       level: core
       name: id
+      normalize: *id001
       order: 0
       original_fieldset: user
       short: One or multiple unique identifiers of the user.
@@ -3108,6 +3134,8 @@ observer:
       flat_name: observer.ip
       level: core
       name: ip
+      normalize:
+      - array
       order: 1
       short: IP address of the observer.
       type: ip
@@ -3117,6 +3145,8 @@ observer:
       ignore_above: 1024
       level: core
       name: mac
+      normalize:
+      - array
       order: 0
       short: MAC address of the observer
       type: keyword
@@ -3538,6 +3568,8 @@ process:
       ignore_above: 1024
       level: extended
       name: args
+      normalize:
+      - array
       order: 10
       short: Array of process arguments.
       type: keyword
@@ -3654,6 +3686,8 @@ process:
       ignore_above: 1024
       level: extended
       name: parent.args
+      normalize:
+      - array
       order: 11
       short: Array of process arguments.
       type: keyword
@@ -3920,6 +3954,8 @@ related:
       flat_name: related.ip
       level: extended
       name: ip
+      normalize:
+      - array
       order: 0
       short: All of the IPs seen on your event.
       type: ip
@@ -4272,6 +4308,7 @@ server:
       ignore_above: 1024
       level: core
       name: id
+      normalize: *id001
       order: 0
       original_fieldset: user
       short: One or multiple unique identifiers of the user.
@@ -4746,6 +4783,7 @@ source:
       ignore_above: 1024
       level: core
       name: id
+      normalize: *id001
       order: 0
       original_fieldset: user
       short: One or multiple unique identifiers of the user.
@@ -4776,14 +4814,14 @@ threat:
     such as the Mitre ATT&CK framework.
 
     These fields are for users to classify alerts from all of their sources (e.g.
-    IDS, NGFW, etc.) within a  common taxonomy. The threat.tactic.* are meant to capture
-    the high level category of the threat  (e.g. "impact"). The threat.technique.*
-    fields are meant to capture which kind of approach is used by  this detected threat,
+    IDS, NGFW, etc.) within a common taxonomy. The threat.tactic.* are meant to capture
+    the high level category of the threat (e.g. "impact"). The threat.technique.*
+    fields are meant to capture which kind of approach is used by this detected threat,
     to accomplish the goal (e.g. "endpoint denial of service").'
   fields:
     framework:
       description: Name of the threat framework used to further categorize and classify
-        the tactic and technique of the reported threat.   Framework classification
+        the tactic and technique of the reported threat. Framework classification
         can be provided by detecting systems, evaluated at ingest time, or retrospectively
         tagged to events.
       example: MITRE ATT&CK
@@ -4803,6 +4841,8 @@ threat:
       ignore_above: 1024
       level: extended
       name: tactic.id
+      normalize:
+      - array
       order: 2
       short: Threat tactic id.
       type: keyword
@@ -4815,6 +4855,8 @@ threat:
       ignore_above: 1024
       level: extended
       name: tactic.name
+      normalize:
+      - array
       order: 1
       short: Threat tactic.
       type: keyword
@@ -4827,6 +4869,8 @@ threat:
       ignore_above: 1024
       level: extended
       name: tactic.reference
+      normalize:
+      - array
       order: 3
       short: Threat tactic url reference.
       type: keyword
@@ -4839,6 +4883,8 @@ threat:
       ignore_above: 1024
       level: extended
       name: technique.id
+      normalize:
+      - array
       order: 5
       short: Threat technique id.
       type: keyword
@@ -4851,6 +4897,8 @@ threat:
       ignore_above: 1024
       level: extended
       name: technique.name
+      normalize:
+      - array
       order: 4
       short: Threat technique name.
       type: keyword
@@ -4863,6 +4911,8 @@ threat:
       ignore_above: 1024
       level: extended
       name: technique.reference
+      normalize:
+      - array
       order: 6
       short: Threat technique reference.
       type: keyword
@@ -4912,6 +4962,8 @@ tls:
       ignore_above: 1024
       level: extended
       name: client.certificate_chain
+      normalize:
+      - array
       order: 14
       short: Array of PEM-encoded certificates that make up the certificate chain
         offered by the client. This is usually mutually-exclusive of `client.certificate`
@@ -5039,6 +5091,8 @@ tls:
       ignore_above: 1024
       level: extended
       name: client.supported_ciphers
+      normalize:
+      - array
       order: 9
       short: Array of ciphers offered by the client during the client hello.
       type: keyword
@@ -5111,6 +5165,8 @@ tls:
       ignore_above: 1024
       level: extended
       name: server.certificate_chain
+      normalize:
+      - array
       order: 24
       short: Array of PEM-encoded certificates that make up the certificate chain
         offered by the server. This is usually mutually-exclusive of `server.certificate`
@@ -5537,6 +5593,7 @@ user:
       ignore_above: 1024
       level: core
       name: id
+      normalize: *id001
       order: 0
       short: One or multiple unique identifiers of the user.
       type: keyword
@@ -5702,6 +5759,8 @@ vulnerability:
       ignore_above: 1024
       level: extended
       name: category
+      normalize:
+      - array
       order: 7
       short: Category of a vulnerability.
       type: keyword
