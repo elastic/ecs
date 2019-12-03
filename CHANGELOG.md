@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file based on the [Keep a Changelog](http://keepachangelog.com/) Standard. This project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## [1.3.1](https://github.com/elastic/ecs/compare/v1.3.0...v1.3.1)
+
+### Schema Changes
+
+#### Bugfixes
+
+* Removed unnecessary field `tls.server.supported_ciphers`. #662
+
+
 ## [1.3.0](https://github.com/elastic/ecs/compare/v1.2.0...v1.3.0)
 
 ### Schema Changes
