@@ -38,6 +38,7 @@ type File struct {
 	Directory string `ecs:"directory"`
 
 	// Drive letter where the file is located.
+	// The value should be uppercase, and not include the colon.
 	DriveLetter string `ecs:"drive_letter"`
 
 	// Full path to the file, including the file name. It should include the
