@@ -69,10 +69,11 @@
 
     - name: client.supported_ciphers
       type: keyword
-      is_array: true
       level: extended
       description: Array of ciphers offered by the client during the client hello.
       example: ["TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384", "TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384", "..."]
+      normalize:
+        - array
 
     - name: client.subject
       type: keyword
@@ -100,13 +101,14 @@
 
     - name: client.certificate_chain
       type: keyword
-      is_array: true
       level: extended
       description: >
         Array of PEM-encoded certificates that make up the certificate chain offered by the client. This is
         usually mutually-exclusive of `client.certificate` since that value should be the first certificate
         in the chain.
       example: ["MII...", "MII..."]
+      normalize:
+        - array
 
     - name: client.certificate
       type: keyword
@@ -172,13 +174,14 @@
 
     - name: server.certificate_chain
       type: keyword
-      is_array: true
       level: extended
       description: >
         Array of PEM-encoded certificates that make up the certificate chain offered by the server. This is
         usually mutually-exclusive of `server.certificate` since that value should be the first certificate
         in the chain.
       example: ["MII...", "MII..."]
+      normalize:
+        - array
 
     - name: server.certificate
       type: keyword

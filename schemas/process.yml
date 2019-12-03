@@ -122,24 +122,26 @@
     - name: args
       level: extended
       type: keyword
-      is_array: true
       short: Array of process arguments.
       description: >
         Array of process arguments, starting with the absolute path to the executable.
 
         May be filtered to protect sensitive information.
       example: ["/usr/bin/ssh", "-l", "user", "10.0.0.16"]
+      normalize:
+        - array
 
     - name: parent.args
       level: extended
       type: keyword
-      is_array: true
       short: Array of process arguments.
       description: >
         Array of process arguments.
 
         May be filtered to protect sensitive information.
       example: ["ssh", "-l", "user", "10.0.0.16"]
+      normalize:
+        - array
 
     - name: args_count
       level: extended
