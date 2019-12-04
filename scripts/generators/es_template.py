@@ -26,8 +26,10 @@ def dict_add_nested(dct, nestings, value):
     if len(rest_nestings) > 0:
         if current_nesting not in dct:
             dct[current_nesting] = {'properties': {}}
-        elif 'type' in dct[current_nesting] and 'object' == dct[current_nesting]['type']:
+        elif 'object' == dct[current_nesting].get('type'):
             dct[current_nesting].setdefault('properties', {})
+            if rest_nestings:
+                dct[current_nesting].pop('type')
 
         if 'properties' in dct[current_nesting]:
             dict_add_nested(
