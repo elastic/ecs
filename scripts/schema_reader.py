@@ -14,7 +14,7 @@ def ecs_files():
 def read_schema_file(file):
     """Read a raw schema yml into a map, removing the wrapping array in each file"""
     with open(file) as f:
-        raw = yaml.load(f.read())
+        raw = yaml.safe_load(f.read())
     fields = {}
     for field_set in raw:
         fields[field_set['name']] = field_set
@@ -35,7 +35,7 @@ def dict_clean_string_values(dict):
     """Remove superfluous spacing in all field values of a dict"""
     for key in dict:
         value = dict[key]
-        if isinstance(value, basestring):
+        if isinstance(value, str):
             dict[key] = value.strip()
 
 

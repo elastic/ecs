@@ -11,10 +11,7 @@ def generate(ecs_nested, ecs_version):
 
 
 def save_asciidoc(file, text):
-    open_mode = "wb"
-    if sys.version_info >= (3, 0):
-        open_mode = "w"
-    with open(file, open_mode) as outfile:
+    with open(file, "w") as outfile:
         outfile.write(text)
 
 

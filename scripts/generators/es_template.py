@@ -20,29 +20,30 @@ def generate(ecs_flat, ecs_version):
 # Field mappings
 
 
-def dict_add_nested(dict, nestings, value):
+def dict_add_nested(dct, nestings, value):
     current_nesting = nestings[0]
     rest_nestings = nestings[1:]
     if len(rest_nestings) > 0:
-        if current_nesting not in dict:
-            dict[current_nesting] = {'properties': {}}
-        elif 'type' in dict[current_nesting] and 'object' == dict[current_nesting]['type']:
-            dict[current_nesting] = {'type': dict[current_nesting]['type'], 'properties': {}}
+        if current_nesting not in dct:
+            dct[current_nesting] = {'properties': {}}
+        elif 'type' in dct[current_nesting] and 'object' == dct[current_nesting]['type']:
+            dct[current_nesting].setdefault('properties', {})
 
-        if 'properties' in dict[current_nesting]:
+        if 'properties' in dct[current_nesting]:
             dict_add_nested(
-                dict[current_nesting]['properties'],
+                dct[current_nesting]['properties'],
                 rest_nestings,
                 value)
 
     else:
-        if current_nesting in dict and 'type' in value and 'object' == value['type']:
+        if current_nesting in dct and 'type' in value and 'object' == value['type']:
             return
-        dict[current_nesting] = value
+        dct[current_nesting] = value
 
 
 def entry_for(field):
     dict = {'type': field['type']}
+
     try:
         if 'index' in field and not field['index']:
             ecs_helpers.dict_copy_existing_keys(field, dict, ['index', 'doc_values'])
@@ -52,7 +53,7 @@ def entry_for(field):
         elif field['type'] == 'text':
             ecs_helpers.dict_copy_existing_keys(field, dict, ['norms'])
     except KeyError as ex:
-        print ex, field
+        print("Exception {} occurred for field {}".format(ex, field))
         raise ex
     return dict
 

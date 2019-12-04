@@ -6,11 +6,11 @@ from copy import deepcopy
 # Dictionary helpers
 
 
-def dict_copy_keys_ordered(dict, copied_keys):
+def dict_copy_keys_ordered(dct, copied_keys):
     ordered_dict = OrderedDict()
     for key in copied_keys:
-        if key in dict:
-            ordered_dict[key] = dict[key]
+        if key in dct:
+            ordered_dict[key] = dct[key]
     return ordered_dict
 
 
@@ -20,12 +20,14 @@ def dict_copy_existing_keys(source, destination, keys):
             destination[key] = source[key]
 
 
-def dict_sorted_by_keys(dict, sort_keys):
+def dict_sorted_by_keys(dct, sort_keys):
     if not isinstance(sort_keys, list):
         sort_keys = [sort_keys]
+
     tuples = []
-    for key in dict:
-        nested = dict[key]
+
+    for key in dct:
+        nested = dct[key]
 
         sort_criteria = []
         for sort_key in sort_keys:

@@ -38,7 +38,7 @@ def fieldset_field_array(source_fields):
         beats_field = ecs_helpers.dict_copy_keys_ordered(ecs_field, allowed_keys)
         beats_field['name'] = nested_field_name
         fields.append(beats_field)
-    return sorted(fields, lambda x, y: cmp(x['name'], y['name']))
+    return sorted(fields, key=lambda x: x['name'])
 
 # Helpers
 
