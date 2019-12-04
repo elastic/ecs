@@ -2584,6 +2584,61 @@
         norms: false
       description: The working directory of the process.
       example: /home/alice
+  - name: registry
+    title: Windows Registry
+    group: 2
+    description: Fields related to Windows Registry operations.
+    type: group
+    fields:
+    - name: data.integer
+      level: extended
+      type: long
+      description: 'Contents for numeric values written to the registry
+
+        Contains the data when populating REG_DWORD and REG_QWORD. For REG_DWORD_BIG_ENDIAN,
+        this assumes that the bytes have already been interpreted in numeric form
+        before they were ingested into Elasticsearch.'
+      example: 0
+    - name: data.strings
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Content when writing string types
+
+        Populated as an array when writing string data to the registry, such as REG_SZ,
+        REG_EXPAND_SZ, REG_MULTI_SZ, and REG_LINK.'
+      example: '["C:\rta\red_ttp\bin\myapp.exe"]'
+    - name: data.type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Standard registry type for encoding contents
+      example: REG_SZ
+    - name: hive
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: Abbreviated name for the hive.
+      example: HKLM
+    - name: key
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: Hive-relative path of keys.
+      example: SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\winword.exe
+    - name: path
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: Full path, including hive, key and value
+      example: HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution
+        Options\winword.exe\Debugger
+    - name: value
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: Name of the value written.
+      example: Debugger
   - name: related
     title: Related
     group: 2

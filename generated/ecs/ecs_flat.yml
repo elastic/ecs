@@ -3689,6 +3689,83 @@ process.working_directory:
   order: 26
   short: The working directory of the process.
   type: keyword
+registry.data.integer:
+  description: 'Contents for numeric values written to the registry
+
+    Contains the data when populating REG_DWORD and REG_QWORD. For REG_DWORD_BIG_ENDIAN,
+    this assumes that the bytes have already been interpreted in numeric form before
+    they were ingested into Elasticsearch.'
+  example: 0
+  flat_name: registry.data.integer
+  level: extended
+  name: data.integer
+  order: 6
+  short: Contents for numeric values written to the registry
+  type: long
+registry.data.strings:
+  description: 'Content when writing string types
+
+    Populated as an array when writing string data to the registry, such as REG_SZ,
+    REG_EXPAND_SZ, REG_MULTI_SZ, and REG_LINK.'
+  example: '["C:\rta\red_ttp\bin\myapp.exe"]'
+  flat_name: registry.data.strings
+  ignore_above: 1024
+  level: extended
+  name: data.strings
+  order: 5
+  short: Content when writing string types
+  type: keyword
+registry.data.type:
+  description: Standard registry type for encoding contents
+  example: REG_SZ
+  flat_name: registry.data.type
+  ignore_above: 1024
+  level: extended
+  name: data.type
+  order: 4
+  short: Standard registry type for encoding contents
+  type: keyword
+registry.hive:
+  description: Abbreviated name for the hive.
+  example: HKLM
+  flat_name: registry.hive
+  ignore_above: 1024
+  level: core
+  name: hive
+  order: 0
+  short: Abbreviated name for the hive.
+  type: keyword
+registry.key:
+  description: Hive-relative path of keys.
+  example: SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\winword.exe
+  flat_name: registry.key
+  ignore_above: 1024
+  level: core
+  name: key
+  order: 1
+  short: Hive-relative path of keys.
+  type: keyword
+registry.path:
+  description: Full path, including hive, key and value
+  example: HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution
+    Options\winword.exe\Debugger
+  flat_name: registry.path
+  ignore_above: 1024
+  level: core
+  name: path
+  order: 3
+  short: Full path, including hive, key and value
+  type: keyword
+registry.value:
+  description: Name of the value written.
+  example: Debugger
+  flat_name: registry.value
+  ignore_above: 1024
+  level: core
+  name: value
+  order: 2
+  short: Name of the value written.
+  type: keyword
 related.ip:
   description: All of the IPs seen on your event.
   flat_name: related.ip
