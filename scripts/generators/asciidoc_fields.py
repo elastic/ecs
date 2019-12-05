@@ -78,18 +78,18 @@ def render_field_details_row(field):
     if 'example' in field:
         example = "example: `{}`".format(str(field['example']))
 
-    field_name_with_mf = field['flat_name']
+    field_type_with_mf = field['type']
     if 'multi_fields' in field:
-        field_name_with_mf += "\n\nMulti-fields:\n\n"
+        field_type_with_mf += "\n\nMulti-fields:\n\n"
         for mf in field['multi_fields']:
-            field_name_with_mf += mf['flat_name'] + "\n\n"
+            field_type_with_mf += mf['flat_name'] + "\n\n"
 
     text = field_details_row().format(
-        field_flat_name=field_name_with_mf,
+        field_flat_name=field['flat_name'],
         field_description=render_asciidoc_paragraphs(field['description']),
         field_example=example,
         field_level=field['level'],
-        field_type=field['type'],
+        field_type=field_type_with_mf,
     )
     return text
 
