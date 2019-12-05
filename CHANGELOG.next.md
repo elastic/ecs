@@ -15,6 +15,7 @@ Thanks, you're awesome :-) -->
 #### Bugfixes
 
 #### Added
+* Added `library.*` fields (#679)
 
 #### Improvements
 
