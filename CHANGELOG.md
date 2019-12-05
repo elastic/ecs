@@ -4,6 +4,69 @@
 All notable changes to this project will be documented in this file based on the [Keep a Changelog](http://keepachangelog.com/) Standard. This project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## [1.3.1](https://github.com/elastic/ecs/compare/v1.3.0...v1.3.1)
+
+### Schema Changes
+
+#### Bugfixes
+
+* Removed unnecessary field `tls.server.supported_ciphers`. #662
+
+
+## [1.3.0](https://github.com/elastic/ecs/compare/v1.2.0...v1.3.0)
+
+### Schema Changes
+
+#### Added
+
+* Added `vulnerability.*` fields to represent vulnerability information. #581
+* Added `event.ingested` as the ingest timestamp. #582
+* Added `package.reference`. #585
+* Added `package.build_version`. #586
+* Added `package.type`. #587
+* Added `host.domain` field. #591
+* Added `process.command_line`. #599
+* Added `process.exit_code`. #600
+* Added fields in `tls.*` to support analysis of TLS protocol events. #606
+* Added `process.parent.*`. #612
+* Added `process.args_count`. #615
+
+### Tooling and Artifact Changes
+
+#### Breaking changes
+
+* Changed the order and column names in the csv. #621
+* Removed the file `schema.json` and the code generating it. #627
+* Removed the legacy Elasticsearch template. #629
+  * Note: The *good* Elasticsearch templates are available in directory
+    `generated/elasticsearch`, this PR only removes an obsolete file.
+
+#### Added
+
+* Added the "Indexed", "Field\_Set" and "Description" columns to the csv. #621
+
+
+## [1.2.0](https://github.com/elastic/ecs/compare/v1.1.0...v1.2.0)
+
+### Added
+
+* Added `threat.*` fields to apply a taxonomy to events and alerts. #505
+* Added fields in `log.*` to allow for full Syslog mapping. #525
+* Added `package.*` to installed software packages. #532
+* Added `registered_domain` to `url`, `source`, `destination`, `client`, and `server`. #533
+* Added `top_level_domain` field to `url`, `dns.question`,
+  `source`, `destination`, `client`, and `server`. #542, #572
+* Added `group.domain` field. #547
+* Added `url.extension`. #551, #573
+* Added `observer.name` and `observer.product`. #557, #571
+* Added `dns.question.subdomain` field. #561, #574
+* Added `error.stack_trace` field. #562
+* Added `log.origin.file.name`, `log.origin.function` and `log.origin.file.line` fields. #563, #568
+* Added `service.node.name` to allow distinction between different nodes of the
+  same service running on the same host. #565
+* Added `error.type` field. #566
+
+
 ## [1.1.0](https://github.com/elastic/ecs/compare/v1.0.1...v1.1.0)
 
 ### Added

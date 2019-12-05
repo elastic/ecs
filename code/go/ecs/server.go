@@ -61,6 +61,15 @@ type Server struct {
 	// "co.uk".
 	RegisteredDomain string `ecs:"registered_domain"`
 
+	// The effective top level domain (eTLD), also known as the domain suffix,
+	// is the last part of the domain name. For example, the top level domain
+	// for google.com is "com".
+	// This value can be determined precisely with a list like the public
+	// suffix list (http://publicsuffix.org). Trying to approximate this by
+	// simply taking the last label will not work well for effective TLDs such
+	// as "co.uk".
+	TopLevelDomain string `ecs:"top_level_domain"`
+
 	// Bytes sent from the server to the client.
 	Bytes int64 `ecs:"bytes"`
 

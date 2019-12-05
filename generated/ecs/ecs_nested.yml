@@ -254,7 +254,7 @@ client:
       format: bytes
       level: core
       name: bytes
-      order: 6
+      order: 7
       short: Bytes sent from the client to the server.
       type: long
     domain:
@@ -386,7 +386,7 @@ client:
       flat_name: client.nat.ip
       level: extended
       name: nat.ip
-      order: 8
+      order: 9
       short: Client NAT ip address
       type: ip
     nat.port:
@@ -398,7 +398,7 @@ client:
       format: string
       level: extended
       name: nat.port
-      order: 9
+      order: 10
       short: Client NAT port
       type: long
     packets:
@@ -407,7 +407,7 @@ client:
       flat_name: client.packets
       level: core
       name: packets
-      order: 7
+      order: 8
       short: Packets sent from the client to the server.
       type: long
     port:
@@ -434,6 +434,22 @@ client:
       name: registered_domain
       order: 5
       short: The highest registered client domain, stripped of the subdomain.
+      type: keyword
+    top_level_domain:
+      description: 'The effective top level domain (eTLD), also known as the domain
+        suffix, is the last part of the domain name. For example, the top level domain
+        for google.com is "com".
+
+        This value can be determined precisely with a list like the public suffix
+        list (http://publicsuffix.org). Trying to approximate this by simply taking
+        the last label will not work well for effective TLDs such as "co.uk".'
+      example: co.uk
+      flat_name: client.top_level_domain
+      ignore_above: 1024
+      level: extended
+      name: top_level_domain
+      order: 6
+      short: The effective top level domain (com, org, net, co.uk).
       type: keyword
     user.domain:
       description: 'Name of the directory the user is a member of.
@@ -749,7 +765,7 @@ destination:
       format: bytes
       level: core
       name: bytes
-      order: 6
+      order: 7
       short: Bytes sent from the destination to the source.
       type: long
     domain:
@@ -881,7 +897,7 @@ destination:
       flat_name: destination.nat.ip
       level: extended
       name: nat.ip
-      order: 8
+      order: 9
       short: Destination NAT ip
       type: ip
     nat.port:
@@ -892,7 +908,7 @@ destination:
       format: string
       level: extended
       name: nat.port
-      order: 9
+      order: 10
       short: Destination NAT Port
       type: long
     packets:
@@ -901,7 +917,7 @@ destination:
       flat_name: destination.packets
       level: core
       name: packets
-      order: 7
+      order: 8
       short: Packets sent from the destination to the source.
       type: long
     port:
@@ -928,6 +944,22 @@ destination:
       name: registered_domain
       order: 5
       short: The highest registered destination domain, stripped of the subdomain.
+      type: keyword
+    top_level_domain:
+      description: 'The effective top level domain (eTLD), also known as the domain
+        suffix, is the last part of the domain name. For example, the top level domain
+        for google.com is "com".
+
+        This value can be determined precisely with a list like the public suffix
+        list (http://publicsuffix.org). Trying to approximate this by simply taking
+        the last label will not work well for effective TLDs such as "co.uk".'
+      example: co.uk
+      flat_name: destination.top_level_domain
+      ignore_above: 1024
+      level: extended
+      name: top_level_domain
+      order: 6
+      short: The effective top level domain (com, org, net, co.uk).
       type: keyword
     user.domain:
       description: 'Name of the directory the user is a member of.
@@ -1061,7 +1093,7 @@ dns:
       level: extended
       name: answers
       object_type: keyword
-      order: 9
+      order: 11
       short: Array of DNS answers.
       type: object
     answers.class:
@@ -1071,7 +1103,7 @@ dns:
       ignore_above: 1024
       level: extended
       name: answers.class
-      order: 12
+      order: 14
       short: The class of DNS data contained in this resource record.
       type: keyword
     answers.data:
@@ -1083,7 +1115,7 @@ dns:
       ignore_above: 1024
       level: extended
       name: answers.data
-      order: 14
+      order: 16
       short: The data describing the resource.
       type: keyword
     answers.name:
@@ -1097,7 +1129,7 @@ dns:
       ignore_above: 1024
       level: extended
       name: answers.name
-      order: 10
+      order: 12
       short: The domain name to which this resource record pertains.
       type: keyword
     answers.ttl:
@@ -1108,7 +1140,7 @@ dns:
       flat_name: dns.answers.ttl
       level: extended
       name: answers.ttl
-      order: 13
+      order: 15
       short: The time interval in seconds that this resource record may be cached
         before it should be discarded. Zero values mean that the data should not be
         cached.
@@ -1120,7 +1152,7 @@ dns:
       ignore_above: 1024
       level: extended
       name: answers.type
-      order: 11
+      order: 13
       short: The type of data contained in this resource record.
       type: keyword
     header_flags:
@@ -1163,14 +1195,14 @@ dns:
         This value is set by the originator of a query and copied into the response.
       type: keyword
     question.class:
-      description: The class of of records being queried.
+      description: The class of records being queried.
       example: IN
       flat_name: dns.question.class
       ignore_above: 1024
       level: extended
       name: question.class
       order: 7
-      short: The class of of records being queried.
+      short: The class of records being queried.
       type: keyword
     question.name:
       description: 'The name being queried.
@@ -1203,6 +1235,35 @@ dns:
       order: 8
       short: The highest registered domain, stripped of the subdomain.
       type: keyword
+    question.subdomain:
+      description: 'The subdomain is all of the labels under the registered_domain.
+
+        If the domain has multiple levels of subdomain, such as "sub2.sub1.example.com",
+        the subdomain field should contain "sub2.sub1", with no trailing period.'
+      example: www
+      flat_name: dns.question.subdomain
+      ignore_above: 1024
+      level: extended
+      name: question.subdomain
+      order: 10
+      short: The subdomain of the domain.
+      type: keyword
+    question.top_level_domain:
+      description: 'The effective top level domain (eTLD), also known as the domain
+        suffix, is the last part of the domain name. For example, the top level domain
+        for google.com is "com".
+
+        This value can be determined precisely with a list like the public suffix
+        list (http://publicsuffix.org). Trying to approximate this by simply taking
+        the last label will not work well for effective TLDs such as "co.uk".'
+      example: co.uk
+      flat_name: dns.question.top_level_domain
+      ignore_above: 1024
+      level: extended
+      name: question.top_level_domain
+      order: 9
+      short: The effective top level domain (com, org, net, co.uk).
+      type: keyword
     question.type:
       description: The type of record being queried.
       example: AAAA
@@ -1226,7 +1287,7 @@ dns:
       flat_name: dns.resolved_ip
       level: extended
       name: resolved_ip
-      order: 15
+      order: 17
       short: Array containing all IPs seen in answers.data
       type: ip
     response_code:
@@ -1416,6 +1477,7 @@ event:
         your agent''s or pipeline''s ability to keep up with your event source.
 
         In case the two timestamps are identical, @timestamp should be used.'
+      example: 2016-05-23 08:05:34.857000
       flat_name: event.created
       level: core
       name: created
@@ -1486,6 +1548,22 @@ event:
       order: 0
       short: Unique ID to describe the event.
       type: keyword
+    ingested:
+      description: 'Timestamp when an event arrived in the central data store.
+
+        This is different from `@timestamp`, which is when the event originally occurred.  It''s
+        also different from `event.created`, which is meant to capture the first time
+        an agent saw the event.
+
+        In normal conditions, assuming no tampering, the timestamps should chronologically
+        look like this: `@timestamp` < `event.created` < `event.ingested`.'
+      example: 2016-05-23 08:05:35.101000
+      flat_name: event.ingested
+      level: core
+      name: ingested
+      order: 21
+      short: Timestamp when an event arrived in the central data store.
+      type: date
     kind:
       description: 'The kind of the event.
 
@@ -2111,6 +2189,18 @@ host:
       name: architecture
       order: 7
       short: Operating system architecture.
+      type: keyword
+    domain:
+      description: "Name of the domain of which the host is a member. \nFor example,\
+        \ on Windows this could be the host's Active Directory domain or NetBIOS domain\
+        \ name.  For Linux this could be the domain of the host's LDAP provider."
+      example: CONTOSO
+      flat_name: host.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      order: 8
+      short: Name of the directory the group is a member of.
       type: keyword
     geo.city_name:
       description: City name.
@@ -2904,12 +2994,12 @@ observer:
 
     This could be a custom hardware appliance or a server that has been configured
     to run special network, security, or application software. Examples include firewalls,
-    intrusion detection/prevention systems, network monitoring sensors, web application
-    firewalls, data loss prevention systems, and APM servers. The observer.* fields
-    shall be populated with details of the system, if any, that detects, observes
-    and/or creates a network, security, or application event or metric. Message queues
-    and ETL components used in processing events or metrics are not considered observers
-    in ECS.'
+    web proxies, intrusion detection/prevention systems, network monitoring sensors,
+    web application firewalls, data loss prevention systems, and APM servers. The
+    observer.* fields shall be populated with details of the system, if any, that
+    detects, observes and/or creates a network, security, or application event or
+    metric. Message queues and ETL components used in processing events or metrics
+    are not considered observers in ECS.'
   fields:
     geo.city_name:
       description: City name.
@@ -3030,6 +3120,21 @@ observer:
       order: 0
       short: MAC address of the observer
       type: keyword
+    name:
+      description: 'Custom name of the observer.
+
+        This is a name that can be given to an observer. This can be helpful for example
+        if multiple firewalls of the same model are used in an organization.
+
+        If no custom name is needed, the field can be left empty.'
+      example: 1_proxySG
+      flat_name: observer.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      order: 3
+      short: Custom name of the observer.
+      type: keyword
     os.family:
       description: OS family (such as redhat, debian, freebsd, windows).
       example: debian
@@ -3096,13 +3201,23 @@ observer:
       original_fieldset: os
       short: Operating system version as a raw string.
       type: keyword
+    product:
+      description: The product name of the observer.
+      example: s200
+      flat_name: observer.product
+      ignore_above: 1024
+      level: extended
+      name: product
+      order: 4
+      short: The product name of the observer.
+      type: keyword
     serial_number:
       description: Observer serial number.
       flat_name: observer.serial_number
       ignore_above: 1024
       level: extended
       name: serial_number
-      order: 5
+      order: 7
       short: Observer serial number.
       type: keyword
     type:
@@ -3115,17 +3230,18 @@ observer:
       ignore_above: 1024
       level: core
       name: type
-      order: 6
+      order: 8
       short: The type of the observer the data is coming from.
       type: keyword
     vendor:
-      description: observer vendor information.
+      description: Vendor name of the observer.
+      example: Symantec
       flat_name: observer.vendor
       ignore_above: 1024
       level: core
       name: vendor
-      order: 3
-      short: observer vendor information.
+      order: 5
+      short: Vendor name of the observer.
       type: keyword
     version:
       description: Observer version.
@@ -3133,7 +3249,7 @@ observer:
       ignore_above: 1024
       level: core
       name: version
-      order: 4
+      order: 6
       short: Observer version.
       type: keyword
   group: 2
@@ -3251,6 +3367,156 @@ os:
   short: OS fields contain information about the operating system.
   title: Operating System
   type: group
+package:
+  description: These fields contain information about an installed software package.
+    It contains general information about a package, such as name, version or size.
+    It also contains installation details, such as time or location.
+  fields:
+    architecture:
+      description: Package architecture.
+      example: x86_64
+      flat_name: package.architecture
+      ignore_above: 1024
+      level: extended
+      name: architecture
+      order: 7
+      short: Package architecture.
+      type: keyword
+    build_version:
+      description: 'Additional information about the build version of the installed
+        package.
+
+        For example use the commit SHA of a non-released package.'
+      example: 36f4f7e89dd61b0988b12ee000b98966867710cd
+      flat_name: package.build_version
+      ignore_above: 1024
+      level: extended
+      name: build_version
+      order: 2
+      short: Build version information
+      type: keyword
+    checksum:
+      description: Checksum of the installed package for verification.
+      example: 68b329da9893e34099c7d8ad5cb9c940
+      flat_name: package.checksum
+      ignore_above: 1024
+      level: extended
+      name: checksum
+      order: 8
+      short: Checksum of the installed package for verification.
+      type: keyword
+    description:
+      description: Description of the package.
+      example: Open source programming language to build simple/reliable/efficient
+        software.
+      flat_name: package.description
+      ignore_above: 1024
+      level: extended
+      name: description
+      order: 3
+      short: Description of the package.
+      type: keyword
+    install_scope:
+      description: Indicating how the package was installed, e.g. user-local, global.
+      example: global
+      flat_name: package.install_scope
+      ignore_above: 1024
+      level: extended
+      name: install_scope
+      order: 9
+      short: Indicating how the package was installed, e.g. user-local, global.
+      type: keyword
+    installed:
+      description: Time when package was installed.
+      flat_name: package.installed
+      level: extended
+      name: installed
+      order: 5
+      short: Time when package was installed.
+      type: date
+    license:
+      description: 'License under which the package was released.
+
+        Use a short name, e.g. the license identifier from SPDX License List where
+        possible (https://spdx.org/licenses/).'
+      example: Apache License 2.0
+      flat_name: package.license
+      ignore_above: 1024
+      level: extended
+      name: license
+      order: 10
+      short: Package license
+      type: keyword
+    name:
+      description: Package name
+      example: go
+      flat_name: package.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      order: 0
+      short: Package name
+      type: keyword
+    path:
+      description: Path where the package is installed.
+      example: /usr/local/Cellar/go/1.12.9/
+      flat_name: package.path
+      ignore_above: 1024
+      level: extended
+      name: path
+      order: 6
+      short: Path where the package is installed.
+      type: keyword
+    reference:
+      description: Home page or reference URL of the software in this package, if
+        available.
+      example: https://golang.org
+      flat_name: package.reference
+      ignore_above: 1024
+      level: extended
+      name: reference
+      order: 11
+      short: Package home page or reference URL
+      type: keyword
+    size:
+      description: Package size in bytes.
+      example: 62231
+      flat_name: package.size
+      format: string
+      level: extended
+      name: size
+      order: 4
+      short: Package size in bytes.
+      type: long
+    type:
+      description: 'Type of package.
+
+        This should contain the package file type, rather than the package manager
+        name. Examples: rpm, dpkg, brew, npm, gem, nupkg, jar.'
+      example: rpm
+      flat_name: package.type
+      ignore_above: 1024
+      level: extended
+      name: type
+      order: 12
+      short: Package type
+      type: keyword
+    version:
+      description: Package version
+      example: 1.12.9
+      flat_name: package.version
+      ignore_above: 1024
+      level: extended
+      name: version
+      order: 1
+      short: Package version
+      type: keyword
+  group: 2
+  name: package
+  prefix: package.
+  short: These fields contain information about an installed software package.
+  title: Package
+  type: group
 process:
   description: 'These fields contain information about a process.
 
@@ -3259,11 +3525,12 @@ process:
     copied to the global field for correlation.'
   fields:
     args:
-      description: 'Array of process arguments.
+      description: 'Array of process arguments, starting with the absolute path to
+        the executable.
 
         May be filtered to protect sensitive information.'
       example:
-      - ssh
+      - /usr/bin/ssh
       - -l
       - user
       - 10.0.0.16
@@ -3271,8 +3538,34 @@ process:
       ignore_above: 1024
       level: extended
       name: args
-      order: 4
+      order: 10
       short: Array of process arguments.
+      type: keyword
+    args_count:
+      description: 'Length of the process.args array.
+
+        This field can be useful for querying or performing bucket analysis on how
+        many arguments were provided to start a process. More arguments may be an
+        indication of suspicious activity.'
+      example: 4
+      flat_name: process.args_count
+      level: extended
+      name: args_count
+      order: 12
+      short: Length of the process.args array.
+      type: long
+    command_line:
+      description: 'Full command line that started the process, including the absolute
+        path to the executable, and all arguments.
+
+        Some arguments may be filtered to protect sensitive information.'
+      example: /usr/bin/ssh -l user 10.0.0.16
+      flat_name: process.command_line
+      ignore_above: 1024
+      level: extended
+      name: command_line
+      order: 8
+      short: Full command line that started the process.
       type: keyword
     executable:
       description: Absolute path to the process executable.
@@ -3281,9 +3574,21 @@ process:
       ignore_above: 1024
       level: extended
       name: executable
-      order: 5
+      order: 14
       short: Absolute path to the process executable.
       type: keyword
+    exit_code:
+      description: 'The exit code of the process, if this is a termination event.
+
+        The field should be absent if there is no exit code for the event (e.g. process
+        start).'
+      example: 137
+      flat_name: process.exit_code
+      level: extended
+      name: exit_code
+      order: 28
+      short: The exit code of the process.
+      type: long
     hash.md5:
       description: MD5 hash.
       flat_name: process.hash.md5
@@ -3333,8 +3638,173 @@ process:
       ignore_above: 1024
       level: extended
       name: name
-      order: 1
+      order: 2
       short: Process name.
+      type: keyword
+    parent.args:
+      description: 'Array of process arguments.
+
+        May be filtered to protect sensitive information.'
+      example:
+      - ssh
+      - -l
+      - user
+      - 10.0.0.16
+      flat_name: process.parent.args
+      ignore_above: 1024
+      level: extended
+      name: parent.args
+      order: 11
+      short: Array of process arguments.
+      type: keyword
+    parent.args_count:
+      description: 'Length of the process.args array.
+
+        This field can be useful for querying or performing bucket analysis on how
+        many arguments were provided to start a process. More arguments may be an
+        indication of suspicious activity.'
+      example: 4
+      flat_name: process.parent.args_count
+      level: extended
+      name: parent.args_count
+      order: 13
+      short: Length of the process.args array.
+      type: long
+    parent.command_line:
+      description: 'Full command line that started the process, including the absolute
+        path to the executable, and all arguments.
+
+        Some arguments may be filtered to protect sensitive information.'
+      example: /usr/bin/ssh -l user 10.0.0.16
+      flat_name: process.parent.command_line
+      ignore_above: 1024
+      level: extended
+      name: parent.command_line
+      order: 9
+      short: Full command line that started the process.
+      type: keyword
+    parent.executable:
+      description: Absolute path to the process executable.
+      example: /usr/bin/ssh
+      flat_name: process.parent.executable
+      ignore_above: 1024
+      level: extended
+      name: parent.executable
+      order: 15
+      short: Absolute path to the process executable.
+      type: keyword
+    parent.exit_code:
+      description: 'The exit code of the process, if this is a termination event.
+
+        The field should be absent if there is no exit code for the event (e.g. process
+        start).'
+      example: 137
+      flat_name: process.parent.exit_code
+      level: extended
+      name: parent.exit_code
+      order: 29
+      short: The exit code of the process.
+      type: long
+    parent.name:
+      description: 'Process name.
+
+        Sometimes called program name or similar.'
+      example: ssh
+      flat_name: process.parent.name
+      ignore_above: 1024
+      level: extended
+      name: parent.name
+      order: 3
+      short: Process name.
+      type: keyword
+    parent.pgid:
+      description: Identifier of the group of processes the process belongs to.
+      flat_name: process.parent.pgid
+      format: string
+      level: extended
+      name: parent.pgid
+      order: 7
+      short: Identifier of the group of processes the process belongs to.
+      type: long
+    parent.pid:
+      description: Process id.
+      example: 4242
+      flat_name: process.parent.pid
+      format: string
+      level: core
+      name: parent.pid
+      order: 1
+      short: Process id.
+      type: long
+    parent.ppid:
+      description: Parent process' pid.
+      example: 4241
+      flat_name: process.parent.ppid
+      format: string
+      level: extended
+      name: parent.ppid
+      order: 5
+      short: Parent process' pid.
+      type: long
+    parent.start:
+      description: The time the process started.
+      example: '2016-05-23T08:05:34.853Z'
+      flat_name: process.parent.start
+      level: extended
+      name: parent.start
+      order: 23
+      short: The time the process started.
+      type: date
+    parent.thread.id:
+      description: Thread ID.
+      example: 4242
+      flat_name: process.parent.thread.id
+      format: string
+      level: extended
+      name: parent.thread.id
+      order: 19
+      short: Thread ID.
+      type: long
+    parent.thread.name:
+      description: Thread name.
+      example: thread-0
+      flat_name: process.parent.thread.name
+      ignore_above: 1024
+      level: extended
+      name: parent.thread.name
+      order: 21
+      short: Thread name.
+      type: keyword
+    parent.title:
+      description: 'Process title.
+
+        The proctitle, some times the same as process name. Can also be different:
+        for example a browser setting its title to the web page currently opened.'
+      flat_name: process.parent.title
+      ignore_above: 1024
+      level: extended
+      name: parent.title
+      order: 17
+      short: Process title.
+      type: keyword
+    parent.uptime:
+      description: Seconds the process has been up.
+      example: 1325
+      flat_name: process.parent.uptime
+      level: extended
+      name: parent.uptime
+      order: 25
+      short: Seconds the process has been up.
+      type: long
+    parent.working_directory:
+      description: The working directory of the process.
+      example: /home/alice
+      flat_name: process.parent.working_directory
+      ignore_above: 1024
+      level: extended
+      name: parent.working_directory
+      order: 27
+      short: The working directory of the process.
       type: keyword
     pgid:
       description: Identifier of the group of processes the process belongs to.
@@ -3342,7 +3812,7 @@ process:
       format: string
       level: extended
       name: pgid
-      order: 3
+      order: 6
       short: Identifier of the group of processes the process belongs to.
       type: long
     pid:
@@ -3362,7 +3832,7 @@ process:
       format: string
       level: extended
       name: ppid
-      order: 2
+      order: 4
       short: Parent process' pid.
       type: long
     start:
@@ -3371,7 +3841,7 @@ process:
       flat_name: process.start
       level: extended
       name: start
-      order: 9
+      order: 22
       short: The time the process started.
       type: date
     thread.id:
@@ -3381,7 +3851,7 @@ process:
       format: string
       level: extended
       name: thread.id
-      order: 7
+      order: 18
       short: Thread ID.
       type: long
     thread.name:
@@ -3391,7 +3861,7 @@ process:
       ignore_above: 1024
       level: extended
       name: thread.name
-      order: 8
+      order: 20
       short: Thread name.
       type: keyword
     title:
@@ -3403,7 +3873,7 @@ process:
       ignore_above: 1024
       level: extended
       name: title
-      order: 6
+      order: 16
       short: Process title.
       type: keyword
     uptime:
@@ -3412,7 +3882,7 @@ process:
       flat_name: process.uptime
       level: extended
       name: uptime
-      order: 10
+      order: 24
       short: Seconds the process has been up.
       type: long
     working_directory:
@@ -3422,7 +3892,7 @@ process:
       ignore_above: 1024
       level: extended
       name: working_directory
-      order: 11
+      order: 26
       short: The working directory of the process.
       type: keyword
   group: 2
@@ -3520,7 +3990,7 @@ server:
       format: bytes
       level: core
       name: bytes
-      order: 6
+      order: 7
       short: Bytes sent from the server to the client.
       type: long
     domain:
@@ -3652,7 +4122,7 @@ server:
       flat_name: server.nat.ip
       level: extended
       name: nat.ip
-      order: 8
+      order: 9
       short: Server NAT ip
       type: ip
     nat.port:
@@ -3664,7 +4134,7 @@ server:
       format: string
       level: extended
       name: nat.port
-      order: 9
+      order: 10
       short: Server NAT port
       type: long
     packets:
@@ -3673,7 +4143,7 @@ server:
       flat_name: server.packets
       level: core
       name: packets
-      order: 7
+      order: 8
       short: Packets sent from the server to the client.
       type: long
     port:
@@ -3700,6 +4170,22 @@ server:
       name: registered_domain
       order: 5
       short: The highest registered server domain, stripped of the subdomain.
+      type: keyword
+    top_level_domain:
+      description: 'The effective top level domain (eTLD), also known as the domain
+        suffix, is the last part of the domain name. For example, the top level domain
+        for google.com is "com".
+
+        This value can be determined precisely with a list like the public suffix
+        list (http://publicsuffix.org). Trying to approximate this by simply taking
+        the last label will not work well for effective TLDs such as "co.uk".'
+      example: co.uk
+      flat_name: server.top_level_domain
+      ignore_above: 1024
+      level: extended
+      name: top_level_domain
+      order: 6
+      short: The effective top level domain (com, org, net, co.uk).
       type: keyword
     user.domain:
       description: 'Name of the directory the user is a member of.
@@ -3978,7 +4464,7 @@ source:
       format: bytes
       level: core
       name: bytes
-      order: 6
+      order: 7
       short: Bytes sent from the source to the destination.
       type: long
     domain:
@@ -4110,7 +4596,7 @@ source:
       flat_name: source.nat.ip
       level: extended
       name: nat.ip
-      order: 8
+      order: 9
       short: Source NAT ip
       type: ip
     nat.port:
@@ -4122,7 +4608,7 @@ source:
       format: string
       level: extended
       name: nat.port
-      order: 9
+      order: 10
       short: Source NAT port
       type: long
     packets:
@@ -4131,7 +4617,7 @@ source:
       flat_name: source.packets
       level: core
       name: packets
-      order: 7
+      order: 8
       short: Packets sent from the source to the destination.
       type: long
     port:
@@ -4158,6 +4644,22 @@ source:
       name: registered_domain
       order: 5
       short: The highest registered source domain, stripped of the subdomain.
+      type: keyword
+    top_level_domain:
+      description: 'The effective top level domain (eTLD), also known as the domain
+        suffix, is the last part of the domain name. For example, the top level domain
+        for google.com is "com".
+
+        This value can be determined precisely with a list like the public suffix
+        list (http://publicsuffix.org). Trying to approximate this by simply taking
+        the last label will not work well for effective TLDs such as "co.uk".'
+      example: co.uk
+      flat_name: source.top_level_domain
+      ignore_above: 1024
+      level: extended
+      name: top_level_domain
+      order: 6
+      short: The effective top level domain (com, org, net, co.uk).
       type: keyword
     user.domain:
       description: 'Name of the directory the user is a member of.
@@ -4269,6 +4771,472 @@ source:
   short: Fields about the source side of a network connection, used with destination.
   title: Source
   type: group
+threat:
+  description: 'Fields to classify events and alerts according to a threat taxonomy
+    such as the Mitre ATT&CK framework.
+
+    These fields are for users to classify alerts from all of their sources (e.g.
+    IDS, NGFW, etc.) within a  common taxonomy. The threat.tactic.* are meant to capture
+    the high level category of the threat  (e.g. "impact"). The threat.technique.*
+    fields are meant to capture which kind of approach is used by  this detected threat,
+    to accomplish the goal (e.g. "endpoint denial of service").'
+  fields:
+    framework:
+      description: Name of the threat framework used to further categorize and classify
+        the tactic and technique of the reported threat.   Framework classification
+        can be provided by detecting systems, evaluated at ingest time, or retrospectively
+        tagged to events.
+      example: MITRE ATT&CK
+      flat_name: threat.framework
+      ignore_above: 1024
+      level: extended
+      name: framework
+      order: 0
+      short: Threat classification framework.
+      type: keyword
+    tactic.id:
+      description: The id of tactic used by this threat. You can use the Mitre ATT&CK
+        Matrix Tactic categorization, for example. (ex. https://attack.mitre.org/tactics/TA0040/
+        )
+      example: TA0040
+      flat_name: threat.tactic.id
+      ignore_above: 1024
+      level: extended
+      name: tactic.id
+      order: 2
+      short: Threat tactic id.
+      type: keyword
+    tactic.name:
+      description: Name of the type of tactic used by this threat. You can use the
+        Mitre ATT&CK Matrix Tactic categorization, for example. (ex. https://attack.mitre.org/tactics/TA0040/
+        )
+      example: impact
+      flat_name: threat.tactic.name
+      ignore_above: 1024
+      level: extended
+      name: tactic.name
+      order: 1
+      short: Threat tactic.
+      type: keyword
+    tactic.reference:
+      description: The reference url of tactic used by this threat. You can use the
+        Mitre ATT&CK Matrix Tactic categorization, for example. (ex. https://attack.mitre.org/tactics/TA0040/
+        )
+      example: https://attack.mitre.org/tactics/TA0040/
+      flat_name: threat.tactic.reference
+      ignore_above: 1024
+      level: extended
+      name: tactic.reference
+      order: 3
+      short: Threat tactic url reference.
+      type: keyword
+    technique.id:
+      description: The id of technique used by this tactic. You can use the Mitre
+        ATT&CK Matrix Tactic categorization, for example. (ex. https://attack.mitre.org/techniques/T1499/
+        )
+      example: T1499
+      flat_name: threat.technique.id
+      ignore_above: 1024
+      level: extended
+      name: technique.id
+      order: 5
+      short: Threat technique id.
+      type: keyword
+    technique.name:
+      description: The name of technique used by this tactic. You can use the Mitre
+        ATT&CK Matrix Tactic categorization, for example. (ex. https://attack.mitre.org/techniques/T1499/
+        )
+      example: endpoint denial of service
+      flat_name: threat.technique.name
+      ignore_above: 1024
+      level: extended
+      name: technique.name
+      order: 4
+      short: Threat technique name.
+      type: keyword
+    technique.reference:
+      description: The reference url of technique used by this tactic. You can use
+        the Mitre ATT&CK Matrix Tactic categorization, for example. (ex. https://attack.mitre.org/techniques/T1499/
+        )
+      example: https://attack.mitre.org/techniques/T1499/
+      flat_name: threat.technique.reference
+      ignore_above: 1024
+      level: extended
+      name: technique.reference
+      order: 6
+      short: Threat technique reference.
+      type: keyword
+  group: 2
+  name: threat
+  prefix: threat.
+  short: Fields to classify events and alerts according to a threat taxonomy.
+  title: Threat
+  type: group
+tls:
+  description: Fields related to a TLS connection. These fields focus on the TLS protocol
+    itself and intentionally avoids in-depth analysis of the related x.509 certificate
+    files.
+  fields:
+    cipher:
+      description: String indicating the cipher used during the current connection.
+      example: TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256
+      flat_name: tls.cipher
+      ignore_above: 1024
+      level: extended
+      name: cipher
+      order: 2
+      short: String indicating the cipher used during the current connection.
+      type: keyword
+    client.certificate:
+      description: PEM-encoded stand-alone certificate offered by the client. This
+        is usually mutually-exclusive of `client.certificate_chain` since this value
+        also exists in that list.
+      example: MII...
+      flat_name: tls.client.certificate
+      ignore_above: 1024
+      level: extended
+      name: client.certificate
+      order: 15
+      short: PEM-encoded stand-alone certificate offered by the client. This is usually
+        mutually-exclusive of `client.certificate_chain` since this value also exists
+        in that list.
+      type: keyword
+    client.certificate_chain:
+      description: Array of PEM-encoded certificates that make up the certificate
+        chain offered by the client. This is usually mutually-exclusive of `client.certificate`
+        since that value should be the first certificate in the chain.
+      example:
+      - MII...
+      - MII...
+      flat_name: tls.client.certificate_chain
+      ignore_above: 1024
+      level: extended
+      name: client.certificate_chain
+      order: 14
+      short: Array of PEM-encoded certificates that make up the certificate chain
+        offered by the client. This is usually mutually-exclusive of `client.certificate`
+        since that value should be the first certificate in the chain.
+      type: keyword
+    client.hash.md5:
+      description: Certificate fingerprint using the MD5 digest of DER-encoded version
+        of certificate offered by the client. For consistency with other hash values,
+        this value should be formatted as an uppercase hash.
+      example: 0F76C7F2C55BFD7D8E8B8F4BFBF0C9EC
+      flat_name: tls.client.hash.md5
+      ignore_above: 1024
+      level: extended
+      name: client.hash.md5
+      order: 16
+      short: Certificate fingerprint using the MD5 digest of DER-encoded version of
+        certificate offered by the client. For consistency with other hash values,
+        this value should be formatted as an uppercase hash.
+      type: keyword
+    client.hash.sha1:
+      description: Certificate fingerprint using the SHA1 digest of DER-encoded version
+        of certificate offered by the client. For consistency with other hash values,
+        this value should be formatted as an uppercase hash.
+      example: 9E393D93138888D288266C2D915214D1D1CCEB2A
+      flat_name: tls.client.hash.sha1
+      ignore_above: 1024
+      level: extended
+      name: client.hash.sha1
+      order: 17
+      short: Certificate fingerprint using the SHA1 digest of DER-encoded version
+        of certificate offered by the client. For consistency with other hash values,
+        this value should be formatted as an uppercase hash.
+      type: keyword
+    client.hash.sha256:
+      description: Certificate fingerprint using the SHA256 digest of DER-encoded
+        version of certificate offered by the client. For consistency with other hash
+        values, this value should be formatted as an uppercase hash.
+      example: 0687F666A054EF17A08E2F2162EAB4CBC0D265E1D7875BE74BF3C712CA92DAF0
+      flat_name: tls.client.hash.sha256
+      ignore_above: 1024
+      level: extended
+      name: client.hash.sha256
+      order: 18
+      short: Certificate fingerprint using the SHA256 digest of DER-encoded version
+        of certificate offered by the client. For consistency with other hash values,
+        this value should be formatted as an uppercase hash.
+      type: keyword
+    client.issuer:
+      description: Distinguished name of subject of the issuer of the x.509 certificate
+        presented by the client.
+      example: CN=MyDomain Root CA, OU=Infrastructure Team, DC=mydomain, DC=com
+      flat_name: tls.client.issuer
+      ignore_above: 1024
+      level: extended
+      name: client.issuer
+      order: 11
+      short: Distinguished name of subject of the issuer of the x.509 certificate
+        presented by the client.
+      type: keyword
+    client.ja3:
+      description: A hash that identifies clients based on how they perform an SSL/TLS
+        handshake.
+      example: d4e5b18d6b55c71272893221c96ba240
+      flat_name: tls.client.ja3
+      ignore_above: 1024
+      level: extended
+      name: client.ja3
+      order: 7
+      short: A hash that identifies clients based on how they perform an SSL/TLS handshake.
+      type: keyword
+    client.not_after:
+      description: Date/Time indicating when client certificate is no longer considered
+        valid.
+      example: '2021-01-01T00:00:00.000Z'
+      flat_name: tls.client.not_after
+      level: extended
+      name: client.not_after
+      order: 13
+      short: Date/Time indicating when client certificate is no longer considered
+        valid.
+      type: date
+    client.not_before:
+      description: Date/Time indicating when client certificate is first considered
+        valid.
+      example: '1970-01-01T00:00:00.000Z'
+      flat_name: tls.client.not_before
+      level: extended
+      name: client.not_before
+      order: 12
+      short: Date/Time indicating when client certificate is first considered valid.
+      type: date
+    client.server_name:
+      description: Also called an SNI, this tells the server which hostname to which
+        the client is attempting to connect. When this value is available, it should
+        get copied to `destination.domain`.
+      example: www.elastic.co
+      flat_name: tls.client.server_name
+      ignore_above: 1024
+      level: extended
+      name: client.server_name
+      order: 8
+      short: Also called an SNI, this tells the server which hostname to which the
+        client is attempting to connect. When this value is available, it should get
+        copied to `destination.domain`.
+      type: keyword
+    client.subject:
+      description: Distinguished name of subject of the x.509 certificate presented
+        by the client.
+      example: CN=myclient, OU=Documentation Team, DC=mydomain, DC=com
+      flat_name: tls.client.subject
+      ignore_above: 1024
+      level: extended
+      name: client.subject
+      order: 10
+      short: Distinguished name of subject of the x.509 certificate presented by the
+        client.
+      type: keyword
+    client.supported_ciphers:
+      description: Array of ciphers offered by the client during the client hello.
+      example:
+      - TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+      - TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
+      - '...'
+      flat_name: tls.client.supported_ciphers
+      ignore_above: 1024
+      level: extended
+      name: client.supported_ciphers
+      order: 9
+      short: Array of ciphers offered by the client during the client hello.
+      type: keyword
+    curve:
+      description: String indicating the curve used for the given cipher, when applicable.
+      example: secp256r1
+      flat_name: tls.curve
+      ignore_above: 1024
+      level: extended
+      name: curve
+      order: 3
+      short: String indicating the curve used for the given cipher, when applicable.
+      type: keyword
+    established:
+      description: Boolean flag indicating if the TLS negotiation was successful and
+        transitioned to an encrypted tunnel.
+      flat_name: tls.established
+      level: extended
+      name: established
+      order: 5
+      short: Boolean flag indicating if the TLS negotiation was successful and transitioned
+        to an encrypted tunnel.
+      type: boolean
+    next_protocol:
+      description: String indicating the protocol being tunneled. Per the values in
+        the IANA registry (https://www.iana.org/assignments/tls-extensiontype-values/tls-extensiontype-values.xhtml#alpn-protocol-ids),
+        this string should be lower case.
+      example: http/1.1
+      flat_name: tls.next_protocol
+      ignore_above: 1024
+      level: extended
+      name: next_protocol
+      order: 6
+      short: String indicating the protocol being tunneled. Per the values in the
+        IANA registry (https://www.iana.org/assignments/tls-extensiontype-values/tls-extensiontype-values.xhtml#alpn-protocol-ids),
+        this string should be lower case.
+      type: keyword
+    resumed:
+      description: Boolean flag indicating if this TLS connection was resumed from
+        an existing TLS negotiation.
+      flat_name: tls.resumed
+      level: extended
+      name: resumed
+      order: 4
+      short: Boolean flag indicating if this TLS connection was resumed from an existing
+        TLS negotiation.
+      type: boolean
+    server.certificate:
+      description: PEM-encoded stand-alone certificate offered by the server. This
+        is usually mutually-exclusive of `server.certificate_chain` since this value
+        also exists in that list.
+      example: MII...
+      flat_name: tls.server.certificate
+      ignore_above: 1024
+      level: extended
+      name: server.certificate
+      order: 25
+      short: PEM-encoded stand-alone certificate offered by the server. This is usually
+        mutually-exclusive of `server.certificate_chain` since this value also exists
+        in that list.
+      type: keyword
+    server.certificate_chain:
+      description: Array of PEM-encoded certificates that make up the certificate
+        chain offered by the server. This is usually mutually-exclusive of `server.certificate`
+        since that value should be the first certificate in the chain.
+      example:
+      - MII...
+      - MII...
+      flat_name: tls.server.certificate_chain
+      ignore_above: 1024
+      level: extended
+      name: server.certificate_chain
+      order: 24
+      short: Array of PEM-encoded certificates that make up the certificate chain
+        offered by the server. This is usually mutually-exclusive of `server.certificate`
+        since that value should be the first certificate in the chain.
+      type: keyword
+    server.hash.md5:
+      description: Certificate fingerprint using the MD5 digest of DER-encoded version
+        of certificate offered by the server. For consistency with other hash values,
+        this value should be formatted as an uppercase hash.
+      example: 0F76C7F2C55BFD7D8E8B8F4BFBF0C9EC
+      flat_name: tls.server.hash.md5
+      ignore_above: 1024
+      level: extended
+      name: server.hash.md5
+      order: 26
+      short: Certificate fingerprint using the MD5 digest of DER-encoded version of
+        certificate offered by the server. For consistency with other hash values,
+        this value should be formatted as an uppercase hash.
+      type: keyword
+    server.hash.sha1:
+      description: Certificate fingerprint using the SHA1 digest of DER-encoded version
+        of certificate offered by the server. For consistency with other hash values,
+        this value should be formatted as an uppercase hash.
+      example: 9E393D93138888D288266C2D915214D1D1CCEB2A
+      flat_name: tls.server.hash.sha1
+      ignore_above: 1024
+      level: extended
+      name: server.hash.sha1
+      order: 27
+      short: Certificate fingerprint using the SHA1 digest of DER-encoded version
+        of certificate offered by the server. For consistency with other hash values,
+        this value should be formatted as an uppercase hash.
+      type: keyword
+    server.hash.sha256:
+      description: Certificate fingerprint using the SHA256 digest of DER-encoded
+        version of certificate offered by the server. For consistency with other hash
+        values, this value should be formatted as an uppercase hash.
+      example: 0687F666A054EF17A08E2F2162EAB4CBC0D265E1D7875BE74BF3C712CA92DAF0
+      flat_name: tls.server.hash.sha256
+      ignore_above: 1024
+      level: extended
+      name: server.hash.sha256
+      order: 28
+      short: Certificate fingerprint using the SHA256 digest of DER-encoded version
+        of certificate offered by the server. For consistency with other hash values,
+        this value should be formatted as an uppercase hash.
+      type: keyword
+    server.issuer:
+      description: Subject of the issuer of the x.509 certificate presented by the
+        server.
+      example: CN=MyDomain Root CA, OU=Infrastructure Team, DC=mydomain, DC=com
+      flat_name: tls.server.issuer
+      ignore_above: 1024
+      level: extended
+      name: server.issuer
+      order: 21
+      short: Subject of the issuer of the x.509 certificate presented by the server.
+      type: keyword
+    server.ja3s:
+      description: A hash that identifies servers based on how they perform an SSL/TLS
+        handshake.
+      example: 394441ab65754e2207b1e1b457b3641d
+      flat_name: tls.server.ja3s
+      ignore_above: 1024
+      level: extended
+      name: server.ja3s
+      order: 19
+      short: A hash that identifies servers based on how they perform an SSL/TLS handshake.
+      type: keyword
+    server.not_after:
+      description: Timestamp indicating when server certificate is no longer considered
+        valid.
+      example: '2021-01-01T00:00:00.000Z'
+      flat_name: tls.server.not_after
+      level: extended
+      name: server.not_after
+      order: 23
+      short: Timestamp indicating when server certificate is no longer considered
+        valid.
+      type: date
+    server.not_before:
+      description: Timestamp indicating when server certificate is first considered
+        valid.
+      example: '1970-01-01T00:00:00.000Z'
+      flat_name: tls.server.not_before
+      level: extended
+      name: server.not_before
+      order: 22
+      short: Timestamp indicating when server certificate is first considered valid.
+      type: date
+    server.subject:
+      description: Subject of the x.509 certificate presented by the server.
+      example: CN=www.mydomain.com, OU=Infrastructure Team, DC=mydomain, DC=com
+      flat_name: tls.server.subject
+      ignore_above: 1024
+      level: extended
+      name: server.subject
+      order: 20
+      short: Subject of the x.509 certificate presented by the server.
+      type: keyword
+    version:
+      description: Numeric part of the version parsed from the original string.
+      example: '1.2'
+      flat_name: tls.version
+      ignore_above: 1024
+      level: extended
+      name: version
+      order: 0
+      short: Numeric part of the version parsed from the original string.
+      type: keyword
+    version_protocol:
+      description: Normalized lowercase protocol name parsed from original string.
+      example: tls
+      flat_name: tls.version_protocol
+      ignore_above: 1024
+      level: extended
+      name: version_protocol
+      order: 1
+      short: Normalized lowercase protocol name parsed from original string.
+      type: keyword
+  group: 2
+  name: tls
+  prefix: tls.
+  short: Fields describing a TLS connection.
+  title: TLS
+  type: group
 tracing:
   description: Distributed tracing makes it possible to analyze performance throughout
     a microservice architecture all in one view. This is accomplished by tracing all
@@ -4325,6 +5293,22 @@ url:
       order: 3
       short: Domain of the url.
       type: keyword
+    extension:
+      description: 'The field contains the file extension from the original request
+        url.
+
+        The file extension is only set if it exists, as not every url has a file extension.
+
+        The leading period must not be included. For example, the value must be "png",
+        not ".png".'
+      example: png
+      flat_name: url.extension
+      ignore_above: 1024
+      level: extended
+      name: extension
+      order: 9
+      short: File extension from the original request url.
+      type: keyword
     fragment:
       description: 'Portion of the url after the `#`, such as "top".
 
@@ -4333,7 +5317,7 @@ url:
       ignore_above: 1024
       level: extended
       name: fragment
-      order: 8
+      order: 10
       short: Portion of the url after the `#`.
       type: keyword
     full:
@@ -4369,7 +5353,7 @@ url:
       ignore_above: 1024
       level: extended
       name: password
-      order: 10
+      order: 12
       short: Password of the request.
       type: keyword
     path:
@@ -4378,7 +5362,7 @@ url:
       ignore_above: 1024
       level: extended
       name: path
-      order: 6
+      order: 7
       short: Path of the request, such as "/search".
       type: keyword
     port:
@@ -4388,7 +5372,7 @@ url:
       format: string
       level: extended
       name: port
-      order: 5
+      order: 6
       short: Port of the request, such as 443.
       type: long
     query:
@@ -4403,7 +5387,7 @@ url:
       ignore_above: 1024
       level: extended
       name: query
-      order: 7
+      order: 8
       short: Query string of the request.
       type: keyword
     registered_domain:
@@ -4434,13 +5418,29 @@ url:
       order: 2
       short: Scheme of the url.
       type: keyword
+    top_level_domain:
+      description: 'The effective top level domain (eTLD), also known as the domain
+        suffix, is the last part of the domain name. For example, the top level domain
+        for google.com is "com".
+
+        This value can be determined precisely with a list like the public suffix
+        list (http://publicsuffix.org). Trying to approximate this by simply taking
+        the last label will not work well for effective TLDs such as "co.uk".'
+      example: co.uk
+      flat_name: url.top_level_domain
+      ignore_above: 1024
+      level: extended
+      name: top_level_domain
+      order: 5
+      short: The effective top level domain (com, org, net, co.uk).
+      type: keyword
     username:
       description: Username of the request.
       flat_name: url.username
       ignore_above: 1024
       level: extended
       name: username
-      order: 9
+      order: 11
       short: Username of the request.
       type: keyword
   group: 2
@@ -4690,4 +5690,171 @@ user_agent:
   prefix: user_agent.
   short: Fields to describe a browser user_agent string.
   title: User agent
+  type: group
+vulnerability:
+  description: The vulnerability fields describe information about a vulnerability
+    that is relevant to an event.
+  fields:
+    category:
+      description: 'The type of system or architecture that the vulnerability affects.
+        These may be platform-specific (for example, Debian or SUSE) or general (for
+        example, Database or Firewall). For example (https://qualysguard.qualys.com/qwebhelp/fo_portal/knowledgebase/vulnerability_categories.htm[Qualys
+        vulnerability categories])
+
+        This field must be an array.'
+      example: '["Firewall"]'
+      flat_name: vulnerability.category
+      ignore_above: 1024
+      level: extended
+      name: category
+      order: 7
+      short: Category of a vulnerability.
+      type: keyword
+    classification:
+      description: The classification of the vulnerability scoring system. For example
+        (https://www.first.org/cvss/)
+      example: CVSS
+      flat_name: vulnerability.classification
+      ignore_above: 1024
+      level: extended
+      name: classification
+      order: 0
+      short: Classification of the vulnerability.
+      type: keyword
+    description:
+      description: The description of the vulnerability that provides additional context
+        of the vulnerability. For example (https://cve.mitre.org/about/faqs.html#cve_entry_descriptions_created[Common
+        Vulnerabilities and Exposure CVE description])
+      example: In macOS before 2.12.6, there is a vulnerability in the RPC...
+      flat_name: vulnerability.description
+      ignore_above: 1024
+      level: extended
+      name: description
+      order: 8
+      short: Description of the vulnerability.
+      type: keyword
+    enumeration:
+      description: The type of identifier used for this vulnerability. For example
+        (https://cve.mitre.org/about/)
+      example: CVE
+      flat_name: vulnerability.enumeration
+      ignore_above: 1024
+      level: extended
+      name: enumeration
+      order: 1
+      short: Identifier of the vulnerability.
+      type: keyword
+    id:
+      description: The identification (ID) is the number portion of a vulnerability
+        entry. It includes a unique identification number for the vulnerability. For
+        example (https://cve.mitre.org/about/faqs.html#what_is_cve_id)[Common Vulnerabilities
+        and Exposure CVE ID]
+      example: CVE-2019-00001
+      flat_name: vulnerability.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      order: 9
+      short: ID of the vulnerability.
+      type: keyword
+    reference:
+      description: A resource that provides additional information, context, and mitigations
+        for the identified vulnerability.
+      example: https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-6111
+      flat_name: vulnerability.reference
+      ignore_above: 1024
+      level: extended
+      name: reference
+      order: 2
+      short: Reference of the vulnerability.
+      type: keyword
+    report_id:
+      description: The report or scan identification number.
+      example: 20191018.0001
+      flat_name: vulnerability.report_id
+      ignore_above: 1024
+      level: extended
+      name: report_id
+      order: 12
+      short: Scan identification number.
+      type: keyword
+    scanner.vendor:
+      description: The name of the vulnerability scanner vendor.
+      example: Tenable
+      flat_name: vulnerability.scanner.vendor
+      ignore_above: 1024
+      level: extended
+      name: scanner.vendor
+      order: 10
+      short: Name of the scanner vendor.
+      type: keyword
+    score.base:
+      description: 'Scores can range from 0.0 to 10.0, with 10.0 being the most severe.
+
+        Base scores cover an assessment for exploitability metrics (attack vector,
+        complexity, privileges, and user interaction), impact metrics (confidentiality,
+        integrity, and availability), and scope. For example (https://www.first.org/cvss/specification-document)'
+      example: 5.5
+      flat_name: vulnerability.score.base
+      level: extended
+      name: score.base
+      order: 3
+      short: Vulnerability Base score.
+      type: float
+    score.environmental:
+      description: 'Scores can range from 0.0 to 10.0, with 10.0 being the most severe.
+
+        Environmental scores cover an assessment for any modified Base metrics, confidentiality,
+        integrity, and availability requirements. For example (https://www.first.org/cvss/specification-document)'
+      example: 5.5
+      flat_name: vulnerability.score.environmental
+      level: extended
+      name: score.environmental
+      order: 5
+      short: Vulnerability Environmental score.
+      type: float
+    score.temporal:
+      description: 'Scores can range from 0.0 to 10.0, with 10.0 being the most severe.
+
+        Temporal scores cover an assessment for code maturity, remediation level,
+        and confidence. For example (https://www.first.org/cvss/specification-document)'
+      flat_name: vulnerability.score.temporal
+      level: extended
+      name: score.temporal
+      order: 4
+      short: Vulnerability Temporal score.
+      type: float
+    score.version:
+      description: 'The National Vulnerability Database (NVD) provides qualitative
+        severity rankings of "Low", "Medium", and "High" for CVSS v2.0 base score
+        ranges in addition to the severity ratings for CVSS v3.0 as they are defined
+        in the CVSS v3.0 specification.
+
+        CVSS is owned and managed by FIRST.Org, Inc. (FIRST), a US-based non-profit
+        organization, whose mission is to help computer security incident response
+        teams across the world. For example (https://nvd.nist.gov/vuln-metrics/cvss)'
+      example: 2.0
+      flat_name: vulnerability.score.version
+      ignore_above: 1024
+      level: extended
+      name: score.version
+      order: 6
+      short: CVSS version.
+      type: keyword
+    severity:
+      description: The severity of the vulnerability can help with metrics and internal
+        prioritization regarding remediation. For example (https://nvd.nist.gov/vuln-metrics/cvss)
+      example: Critical
+      flat_name: vulnerability.severity
+      ignore_above: 1024
+      level: extended
+      name: severity
+      order: 11
+      short: Severity of the vulnerability.
+      type: keyword
+  group: 2
+  name: vulnerability
+  prefix: vulnerability.
+  short: Fields to describe the vulnerability relevant to an event.
+  title: Vulnerability
   type: group

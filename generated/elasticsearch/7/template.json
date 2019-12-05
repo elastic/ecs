@@ -4,7 +4,7 @@
   ], 
   "mappings": {
     "_meta": {
-      "version": "1.2.0-dev"
+      "version": "1.4.0-dev"
     }, 
     "date_detection": false, 
     "dynamic_templates": [
@@ -148,6 +148,10 @@
             "type": "long"
           }, 
           "registered_domain": {
+            "ignore_above": 1024, 
+            "type": "keyword"
+          }, 
+          "top_level_domain": {
             "ignore_above": 1024, 
             "type": "keyword"
           }, 
@@ -362,6 +366,10 @@
             "ignore_above": 1024, 
             "type": "keyword"
           }, 
+          "top_level_domain": {
+            "ignore_above": 1024, 
+            "type": "keyword"
+          }, 
           "user": {
             "properties": {
               "domain": {
@@ -459,6 +467,14 @@
                 "ignore_above": 1024, 
                 "type": "keyword"
               }, 
+              "subdomain": {
+                "ignore_above": 1024, 
+                "type": "keyword"
+              }, 
+              "top_level_domain": {
+                "ignore_above": 1024, 
+                "type": "keyword"
+              }, 
               "type": {
                 "ignore_above": 1024, 
                 "type": "keyword"
@@ -546,6 +562,9 @@
           "id": {
             "ignore_above": 1024, 
             "type": "keyword"
+          }, 
+          "ingested": {
+            "type": "date"
           }, 
           "kind": {
             "ignore_above": 1024, 
@@ -759,6 +778,10 @@
       "host": {
         "properties": {
           "architecture": {
+            "ignore_above": 1024, 
+            "type": "keyword"
+          }, 
+          "domain": {
             "ignore_above": 1024, 
             "type": "keyword"
           }, 
@@ -1118,6 +1141,10 @@
             "ignore_above": 1024, 
             "type": "keyword"
           }, 
+          "name": {
+            "ignore_above": 1024, 
+            "type": "keyword"
+          }, 
           "os": {
             "properties": {
               "family": {
@@ -1145,6 +1172,10 @@
                 "type": "keyword"
               }
             }
+          }, 
+          "product": {
+            "ignore_above": 1024, 
+            "type": "keyword"
           }, 
           "serial_number": {
             "ignore_above": 1024, 
@@ -1204,15 +1235,79 @@
           }
         }
       }, 
+      "package": {
+        "properties": {
+          "architecture": {
+            "ignore_above": 1024, 
+            "type": "keyword"
+          }, 
+          "build_version": {
+            "ignore_above": 1024, 
+            "type": "keyword"
+          }, 
+          "checksum": {
+            "ignore_above": 1024, 
+            "type": "keyword"
+          }, 
+          "description": {
+            "ignore_above": 1024, 
+            "type": "keyword"
+          }, 
+          "install_scope": {
+            "ignore_above": 1024, 
+            "type": "keyword"
+          }, 
+          "installed": {
+            "type": "date"
+          }, 
+          "license": {
+            "ignore_above": 1024, 
+            "type": "keyword"
+          }, 
+          "name": {
+            "ignore_above": 1024, 
+            "type": "keyword"
+          }, 
+          "path": {
+            "ignore_above": 1024, 
+            "type": "keyword"
+          }, 
+          "reference": {
+            "ignore_above": 1024, 
+            "type": "keyword"
+          }, 
+          "size": {
+            "type": "long"
+          }, 
+          "type": {
+            "ignore_above": 1024, 
+            "type": "keyword"
+          }, 
+          "version": {
+            "ignore_above": 1024, 
+            "type": "keyword"
+          }
+        }
+      }, 
       "process": {
         "properties": {
           "args": {
             "ignore_above": 1024, 
             "type": "keyword"
           }, 
+          "args_count": {
+            "type": "long"
+          }, 
+          "command_line": {
+            "ignore_above": 1024, 
+            "type": "keyword"
+          }, 
           "executable": {
             "ignore_above": 1024, 
             "type": "keyword"
+          }, 
+          "exit_code": {
+            "type": "long"
           }, 
           "hash": {
             "properties": {
@@ -1237,6 +1332,66 @@
           "name": {
             "ignore_above": 1024, 
             "type": "keyword"
+          }, 
+          "parent": {
+            "properties": {
+              "args": {
+                "ignore_above": 1024, 
+                "type": "keyword"
+              }, 
+              "args_count": {
+                "type": "long"
+              }, 
+              "command_line": {
+                "ignore_above": 1024, 
+                "type": "keyword"
+              }, 
+              "executable": {
+                "ignore_above": 1024, 
+                "type": "keyword"
+              }, 
+              "exit_code": {
+                "type": "long"
+              }, 
+              "name": {
+                "ignore_above": 1024, 
+                "type": "keyword"
+              }, 
+              "pgid": {
+                "type": "long"
+              }, 
+              "pid": {
+                "type": "long"
+              }, 
+              "ppid": {
+                "type": "long"
+              }, 
+              "start": {
+                "type": "date"
+              }, 
+              "thread": {
+                "properties": {
+                  "id": {
+                    "type": "long"
+                  }, 
+                  "name": {
+                    "ignore_above": 1024, 
+                    "type": "keyword"
+                  }
+                }
+              }, 
+              "title": {
+                "ignore_above": 1024, 
+                "type": "keyword"
+              }, 
+              "uptime": {
+                "type": "long"
+              }, 
+              "working_directory": {
+                "ignore_above": 1024, 
+                "type": "keyword"
+              }
+            }
           }, 
           "pgid": {
             "type": "long"
@@ -1368,6 +1523,10 @@
             "type": "long"
           }, 
           "registered_domain": {
+            "ignore_above": 1024, 
+            "type": "keyword"
+          }, 
+          "top_level_domain": {
             "ignore_above": 1024, 
             "type": "keyword"
           }, 
@@ -1543,6 +1702,10 @@
             "ignore_above": 1024, 
             "type": "keyword"
           }, 
+          "top_level_domain": {
+            "ignore_above": 1024, 
+            "type": "keyword"
+          }, 
           "user": {
             "properties": {
               "domain": {
@@ -1593,6 +1756,176 @@
         "ignore_above": 1024, 
         "type": "keyword"
       }, 
+      "threat": {
+        "properties": {
+          "framework": {
+            "ignore_above": 1024, 
+            "type": "keyword"
+          }, 
+          "tactic": {
+            "properties": {
+              "id": {
+                "ignore_above": 1024, 
+                "type": "keyword"
+              }, 
+              "name": {
+                "ignore_above": 1024, 
+                "type": "keyword"
+              }, 
+              "reference": {
+                "ignore_above": 1024, 
+                "type": "keyword"
+              }
+            }
+          }, 
+          "technique": {
+            "properties": {
+              "id": {
+                "ignore_above": 1024, 
+                "type": "keyword"
+              }, 
+              "name": {
+                "ignore_above": 1024, 
+                "type": "keyword"
+              }, 
+              "reference": {
+                "ignore_above": 1024, 
+                "type": "keyword"
+              }
+            }
+          }
+        }
+      }, 
+      "tls": {
+        "properties": {
+          "cipher": {
+            "ignore_above": 1024, 
+            "type": "keyword"
+          }, 
+          "client": {
+            "properties": {
+              "certificate": {
+                "ignore_above": 1024, 
+                "type": "keyword"
+              }, 
+              "certificate_chain": {
+                "ignore_above": 1024, 
+                "type": "keyword"
+              }, 
+              "hash": {
+                "properties": {
+                  "md5": {
+                    "ignore_above": 1024, 
+                    "type": "keyword"
+                  }, 
+                  "sha1": {
+                    "ignore_above": 1024, 
+                    "type": "keyword"
+                  }, 
+                  "sha256": {
+                    "ignore_above": 1024, 
+                    "type": "keyword"
+                  }
+                }
+              }, 
+              "issuer": {
+                "ignore_above": 1024, 
+                "type": "keyword"
+              }, 
+              "ja3": {
+                "ignore_above": 1024, 
+                "type": "keyword"
+              }, 
+              "not_after": {
+                "type": "date"
+              }, 
+              "not_before": {
+                "type": "date"
+              }, 
+              "server_name": {
+                "ignore_above": 1024, 
+                "type": "keyword"
+              }, 
+              "subject": {
+                "ignore_above": 1024, 
+                "type": "keyword"
+              }, 
+              "supported_ciphers": {
+                "ignore_above": 1024, 
+                "type": "keyword"
+              }
+            }
+          }, 
+          "curve": {
+            "ignore_above": 1024, 
+            "type": "keyword"
+          }, 
+          "established": {
+            "type": "boolean"
+          }, 
+          "next_protocol": {
+            "ignore_above": 1024, 
+            "type": "keyword"
+          }, 
+          "resumed": {
+            "type": "boolean"
+          }, 
+          "server": {
+            "properties": {
+              "certificate": {
+                "ignore_above": 1024, 
+                "type": "keyword"
+              }, 
+              "certificate_chain": {
+                "ignore_above": 1024, 
+                "type": "keyword"
+              }, 
+              "hash": {
+                "properties": {
+                  "md5": {
+                    "ignore_above": 1024, 
+                    "type": "keyword"
+                  }, 
+                  "sha1": {
+                    "ignore_above": 1024, 
+                    "type": "keyword"
+                  }, 
+                  "sha256": {
+                    "ignore_above": 1024, 
+                    "type": "keyword"
+                  }
+                }
+              }, 
+              "issuer": {
+                "ignore_above": 1024, 
+                "type": "keyword"
+              }, 
+              "ja3s": {
+                "ignore_above": 1024, 
+                "type": "keyword"
+              }, 
+              "not_after": {
+                "type": "date"
+              }, 
+              "not_before": {
+                "type": "date"
+              }, 
+              "subject": {
+                "ignore_above": 1024, 
+                "type": "keyword"
+              }
+            }
+          }, 
+          "version": {
+            "ignore_above": 1024, 
+            "type": "keyword"
+          }, 
+          "version_protocol": {
+            "ignore_above": 1024, 
+            "type": "keyword"
+          }
+        }
+      }, 
       "trace": {
         "properties": {
           "id": {
@@ -1612,6 +1945,10 @@
       "url": {
         "properties": {
           "domain": {
+            "ignore_above": 1024, 
+            "type": "keyword"
+          }, 
+          "extension": {
             "ignore_above": 1024, 
             "type": "keyword"
           }, 
@@ -1647,6 +1984,10 @@
             "type": "keyword"
           }, 
           "scheme": {
+            "ignore_above": 1024, 
+            "type": "keyword"
+          }, 
+          "top_level_domain": {
             "ignore_above": 1024, 
             "type": "keyword"
           }, 
@@ -1753,6 +2094,67 @@
             }
           }, 
           "version": {
+            "ignore_above": 1024, 
+            "type": "keyword"
+          }
+        }
+      }, 
+      "vulnerability": {
+        "properties": {
+          "category": {
+            "ignore_above": 1024, 
+            "type": "keyword"
+          }, 
+          "classification": {
+            "ignore_above": 1024, 
+            "type": "keyword"
+          }, 
+          "description": {
+            "ignore_above": 1024, 
+            "type": "keyword"
+          }, 
+          "enumeration": {
+            "ignore_above": 1024, 
+            "type": "keyword"
+          }, 
+          "id": {
+            "ignore_above": 1024, 
+            "type": "keyword"
+          }, 
+          "reference": {
+            "ignore_above": 1024, 
+            "type": "keyword"
+          }, 
+          "report_id": {
+            "ignore_above": 1024, 
+            "type": "keyword"
+          }, 
+          "scanner": {
+            "properties": {
+              "vendor": {
+                "ignore_above": 1024, 
+                "type": "keyword"
+              }
+            }
+          }, 
+          "score": {
+            "properties": {
+              "base": {
+                "type": "float"
+              }, 
+              "environmental": {
+                "type": "float"
+              }, 
+              "temporal": {
+                "type": "float"
+              }, 
+              "version": {
+                "ignore_above": 1024, 
+                "type": "keyword"
+              }
+            }
+          }, 
+          "severity": {
             "ignore_above": 1024, 
             "type": "keyword"
           }

@@ -1,40 +1,54 @@
 <!-- When adding an entry to the Changelog:
+
 - Please follow the Keep a Changelog: http://keepachangelog.com/ guidelines.
 - Please insert your changelog line ordered by PR ID.
+- Make sure you add your entry to the correct section (schema or tooling).
+
 Thanks, you're awesome :-) -->
 
 ## Unreleased
 
-### Breaking changes
+### Schema Changes
 
-### Bugfixes
+#### Breaking changes
 
-### Added
+#### Bugfixes
 
-* Added fields in `log.*` to allow for full Syslog mapping. #525
-* Add group.domain field #547
-* Added `error.stack_trace` field. #562
-* Added `log.origin.file.name`, `log.origin.function` and `log.origin.file.line` fields. #563
-* Added `service.node.name` to allow distinction between different nodes of the same service running on the same host. #565
-* Added `error.type` field. #566
+#### Added
 
-### Improvements
+#### Improvements
 
-### Deprecated
+#### Deprecated
+
+
+### Tooling and Artifact Changes
+
+#### Breaking changes
+
+#### Bugfixes
+
+#### Added
+
+#### Improvements
+
+#### Deprecated
 
 
 <!-- All empty sections:
 
 ## Unreleased
 
-### Breaking changes
+### Schema Changes
+### Tooling and Artifact Changes
 
-### Bugfixes
+#### Breaking changes
 
-### Added
+#### Bugfixes
 
-### Improvements
+#### Added
 
-### Deprecated
+#### Improvements
+
+#### Deprecated
 
 -->
