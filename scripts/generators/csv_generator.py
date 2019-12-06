@@ -38,9 +38,10 @@ def save_csv(file, sorted_fields, version):
             else:
                 field_set = key_parts[0]
 
+            indexed = str(field.get('index', True)).lower()
             schema_writer.writerow([
                 version,
-                str(field.get('index', True)).lower(),
+                indexed,
                 field_set,
                 field['flat_name'],
                 field['type'],
@@ -48,3 +49,16 @@ def save_csv(file, sorted_fields, version):
                 field.get('example', ''),
                 field['short'],
             ])
+
+            if 'multi_fields' in field:
+                for mf in field['multi_fields']:
+                    schema_writer.writerow([
+                        version,
+                        indexed,
+                        field_set,
+                        mf['flat_name'],
+                        mf['type'],
+                        field['level'],
+                        field.get('example', ''),
+                        field['short'],
+                    ])

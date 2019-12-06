@@ -60,18 +60,18 @@ def clean_fields(fields, prefix, group):
             # If no group set, set parent group
             field["group"] = group
 
-        if "multi_fields" in field:
-            for f in field["multi_fields"]:
-                clean_string_field(f, "description")
-                clean_string_field(f, "example")
-                clean_string_field(f, "type")
+        # if "multi_fields" in field:
+        #     for f in field["multi_fields"]:
+        #         clean_string_field(f, "description")
+        #         clean_string_field(f, "example")
+        #         clean_string_field(f, "type")
 
-                # multi fields always have a prefix
-                f["name"] = field["name"] + "." + f["name"]
+        #         # multi fields always have a prefix
+        #         f["name"] = field["name"] + "." + f["name"]
 
-                if 'group' not in f.keys():
-                    # If no group set, set parent group
-                    f["group"] = group
+        #         if 'group' not in f.keys():
+        #             # If no group set, set parent group
+        #             f["group"] = group
 
 
 def clean_string_field(field, key):

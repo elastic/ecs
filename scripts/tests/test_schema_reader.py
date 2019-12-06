@@ -96,6 +96,7 @@ class TestSchemaReader(unittest.TestCase):
             'multi_fields': [{
                     'name': 'text',
                     'type': 'text',
+                    'norms': False,
                     'flat_name': 'myfieldset.myfield.text',
             }]
         }
