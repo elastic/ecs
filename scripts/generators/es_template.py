@@ -6,7 +6,7 @@ from generators import ecs_helpers
 
 def generate(ecs_flat, ecs_version):
     field_mappings = {}
-    for flat_name in ecs_flat:
+    for flat_name in sorted(ecs_flat):
         field = ecs_flat[flat_name]
         nestings = flat_name.split('.')
         dict_add_nested(field_mappings, nestings, entry_for(field))
@@ -24,18 +24,13 @@ def dict_add_nested(dct, nestings, value):
     current_nesting = nestings[0]
     rest_nestings = nestings[1:]
     if len(rest_nestings) > 0:
-        if current_nesting not in dct:
-            dct[current_nesting] = {'properties': {}}
-        elif 'object' == dct[current_nesting].get('type'):
-            dct[current_nesting].setdefault('properties', {})
-            if rest_nestings:
-                dct[current_nesting].pop('type')
+        dct.setdefault(current_nesting, {})
+        dct[current_nesting].setdefault('properties', {})
 
-        if 'properties' in dct[current_nesting]:
-            dict_add_nested(
-                dct[current_nesting]['properties'],
-                rest_nestings,
-                value)
+        dict_add_nested(
+            dct[current_nesting]['properties'],
+            rest_nestings,
+            value)
 
     else:
         if current_nesting in dct and 'type' in value and 'object' == value['type']:
@@ -44,20 +39,20 @@ def dict_add_nested(dct, nestings, value):
 
 
 def entry_for(field):
-    dict = {'type': field['type']}
+    dct = {'type': field['type']}
 
     try:
         if 'index' in field and not field['index']:
-            ecs_helpers.dict_copy_existing_keys(field, dict, ['index', 'doc_values'])
+            ecs_helpers.dict_copy_existing_keys(field, dct, ['index', 'doc_values'])
 
         if field['type'] == 'keyword':
-            ecs_helpers.dict_copy_existing_keys(field, dict, ['ignore_above'])
+            ecs_helpers.dict_copy_existing_keys(field, dct, ['ignore_above'])
         elif field['type'] == 'text':
-            ecs_helpers.dict_copy_existing_keys(field, dict, ['norms'])
+            ecs_helpers.dict_copy_existing_keys(field, dct, ['norms'])
     except KeyError as ex:
         print("Exception {} occurred for field {}".format(ex, field))
         raise ex
-    return dict
+    return dct
 
 # Generated files
 

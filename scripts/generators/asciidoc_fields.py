@@ -96,7 +96,7 @@ def render_fieldset_reuse_section(fieldset, ecs_nested):
             fieldset_name=fieldset['name'],
             fieldset_title=fieldset['title']
         )
-        nestings = []
+
         for nested_fs_name in sorted(fieldset['nestings']):
             text += render_nesting_row({
                 'flat_nesting': "{}.{}.*".format(fieldset['name'], nested_fs_name),

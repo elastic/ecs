@@ -125,13 +125,13 @@ def duplicate_reusable_fieldsets(schema, fields_flat, fields_nested):
     # Here it simplifies the nesting of 'group' under 'user',
     # which is in turn reusable in a few places.
     if 'reusable' in schema:
-        for new_nesting in schema['reusable']['expected']:
+        for new_nesting in sorted(schema['reusable']['expected']):
 
             # List field set names expected under another field set.
             # E.g. host.nestings = [ 'geo', 'os', 'user' ]
-            if 'nestings' not in fields_nested[new_nesting]:
-                fields_nested[new_nesting]['nestings'] = []
-            fields_nested[new_nesting]['nestings'].append(schema['name'])
+            nestings = fields_nested[new_nesting].setdefault('nestings', [])
+            nestings.append(schema['name'])
+            nestings.sort()
 
             # Explicitly list all leaf fields coming from field set reuse.
             for (name, field) in schema['fields'].items():
