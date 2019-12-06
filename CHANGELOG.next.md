@@ -17,6 +17,8 @@ Thanks, you're awesome :-) -->
 #### Added
 * Added `library.*` fields (#679)
 
+* Add default `text` analyzer to `user_agent.original`. #575
+
 #### Improvements
 
 #### Deprecated
@@ -27,6 +29,8 @@ Thanks, you're awesome :-) -->
 #### Breaking changes
 
 #### Bugfixes
+
+* Fix support for multi-fields. #575
 
 #### Added
 
