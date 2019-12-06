@@ -16,7 +16,8 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
-* Added `file.drive_letter`. #620
+* Add `file.drive_letter`. #620
+* Add default `text` analyzer to `user_agent.original`. #575
 
 #### Improvements
 
@@ -28,6 +29,8 @@ Thanks, you're awesome :-) -->
 #### Breaking changes
 
 #### Bugfixes
+
+* Fix support for multi-fields. #575
 
 #### Added
 
