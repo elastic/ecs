@@ -45,18 +45,17 @@ type Event struct {
 
 	// The kind of the event.
 	// This gives information about what type of information the event
-	// contains, without being specific to the contents of the event.  Examples
-	// are `event`, `state`, `alarm`. Warning: In future versions of ECS, we
-	// plan to provide a list of acceptable values for this field, please use
-	// with caution.
+	// contains, without being specific to the contents of the event.
+	// *Important*: You must populate this field with one of the expected
+	// values for <<ecs-category-event-kind,event.kind>>.
 	Kind string `ecs:"kind"`
 
 	// Event category.
 	// This contains high-level information about the contents of the event. It
 	// is more generic than `event.action`, in the sense that typically a
-	// category contains multiple actions. Warning: In future versions of ECS,
-	// we plan to provide a list of acceptable values for this field, please
-	// use with caution.
+	// category contains multiple actions.
+	// *Important*: You must populate this field with one of the expected
+	// values for <<ecs-category-event-category,event.category>>.
 	Category string `ecs:"category"`
 
 	// The action captured by the event.
@@ -67,13 +66,15 @@ type Event struct {
 
 	// The outcome of the event.
 	// If the event describes an action, this fields contains the outcome of
-	// that action. Examples outcomes are `success` and `failure`. Warning: In
-	// future versions of ECS, we plan to provide a list of acceptable values
-	// for this field, please use with caution.
+	// that action.
+	// *Important*: You must populate this field with one of the expected
+	// values for <<ecs-category-event-outcome,event.outcome>>.
 	Outcome string `ecs:"outcome"`
 
-	// Reserved for future usage.
-	// Please avoid using this field for user data.
+	// Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+	// tempor incididunt ut labore et dolore magna aliqua.
+	// *Important*: You must populate this field with one of the expected
+	// values for <<ecs-category-event-type,event.type>>.
 	Type string `ecs:"type"`
 
 	// Name of the module this data is coming from.
