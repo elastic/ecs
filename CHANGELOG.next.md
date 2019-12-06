@@ -1,39 +1,58 @@
 <!-- When adding an entry to the Changelog:
+
 - Please follow the Keep a Changelog: http://keepachangelog.com/ guidelines.
 - Please insert your changelog line ordered by PR ID.
+- Make sure you add your entry to the correct section (schema or tooling).
+
 Thanks, you're awesome :-) -->
 
 ## Unreleased
 
-### Breaking changes
+### Schema Changes
 
-### Bugfixes
+#### Breaking changes
 
-### Added
-* Added `host.domain` field. #591
+#### Bugfixes
 
-* Added `process.exit_code`. #600
+#### Added
 
-* Added fields in `tls.*` to support analysis of TLS protocol events. #606
+* Add default `text` analyzer to `user_agent.original`. #575
 * Added `file.attributes`. #611
 
-### Improvements
+#### Improvements
 
-### Deprecated
+#### Deprecated
+
+### Tooling and Artifact Changes
+
+#### Breaking changes
+
+#### Bugfixes
+
+* Fix support for multi-fields. #575
+
+#### Added
+
+#### Improvements
+
+#### Deprecated
 
 
 <!-- All empty sections:
 
 ## Unreleased
 
-### Breaking changes
+### Schema Changes
+### Tooling and Artifact Changes
 
-### Bugfixes
+#### Breaking changes
 
-### Added
+#### Bugfixes
 
-### Improvements
+#### Added
 
-### Deprecated
+#### Improvements
+
+#### Deprecated
 
 -->

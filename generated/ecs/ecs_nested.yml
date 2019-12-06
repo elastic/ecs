@@ -1195,14 +1195,14 @@ dns:
         This value is set by the originator of a query and copied into the response.
       type: keyword
     question.class:
-      description: The class of of records being queried.
+      description: The class of records being queried.
       example: IN
       flat_name: dns.question.class
       ignore_above: 1024
       level: extended
       name: question.class
       order: 7
-      short: The class of of records being queried.
+      short: The class of records being queried.
       type: keyword
     question.name:
       description: 'The name being queried.
@@ -1477,6 +1477,7 @@ event:
         your agent''s or pipeline''s ability to keep up with your event source.
 
         In case the two timestamps are identical, @timestamp should be used.'
+      example: 2016-05-23 08:05:34.857000
       flat_name: event.created
       level: core
       name: created
@@ -1547,6 +1548,22 @@ event:
       order: 0
       short: Unique ID to describe the event.
       type: keyword
+    ingested:
+      description: 'Timestamp when an event arrived in the central data store.
+
+        This is different from `@timestamp`, which is when the event originally occurred.  It''s
+        also different from `event.created`, which is meant to capture the first time
+        an agent saw the event.
+
+        In normal conditions, assuming no tampering, the timestamps should chronologically
+        look like this: `@timestamp` < `event.created` < `event.ingested`.'
+      example: 2016-05-23 08:05:35.101000
+      flat_name: event.ingested
+      level: core
+      name: ingested
+      order: 21
+      short: Timestamp when an event arrived in the central data store.
+      type: date
     kind:
       description: 'The kind of the event.
 
@@ -3376,8 +3393,21 @@ package:
       ignore_above: 1024
       level: extended
       name: architecture
-      order: 6
+      order: 7
       short: Package architecture.
+      type: keyword
+    build_version:
+      description: 'Additional information about the build version of the installed
+        package.
+
+        For example use the commit SHA of a non-released package.'
+      example: 36f4f7e89dd61b0988b12ee000b98966867710cd
+      flat_name: package.build_version
+      ignore_above: 1024
+      level: extended
+      name: build_version
+      order: 2
+      short: Build version information
       type: keyword
     checksum:
       description: Checksum of the installed package for verification.
@@ -3386,7 +3416,7 @@ package:
       ignore_above: 1024
       level: extended
       name: checksum
-      order: 7
+      order: 8
       short: Checksum of the installed package for verification.
       type: keyword
     description:
@@ -3397,7 +3427,7 @@ package:
       ignore_above: 1024
       level: extended
       name: description
-      order: 2
+      order: 3
       short: Description of the package.
       type: keyword
     install_scope:
@@ -3407,7 +3437,7 @@ package:
       ignore_above: 1024
       level: extended
       name: install_scope
-      order: 8
+      order: 9
       short: Indicating how the package was installed, e.g. user-local, global.
       type: keyword
     installed:
@@ -3415,7 +3445,7 @@ package:
       flat_name: package.installed
       level: extended
       name: installed
-      order: 4
+      order: 5
       short: Time when package was installed.
       type: date
     license:
@@ -3428,7 +3458,7 @@ package:
       ignore_above: 1024
       level: extended
       name: license
-      order: 9
+      order: 10
       short: Package license
       type: keyword
     name:
@@ -3448,8 +3478,19 @@ package:
       ignore_above: 1024
       level: extended
       name: path
-      order: 5
+      order: 6
       short: Path where the package is installed.
+      type: keyword
+    reference:
+      description: Home page or reference URL of the software in this package, if
+        available.
+      example: https://golang.org
+      flat_name: package.reference
+      ignore_above: 1024
+      level: extended
+      name: reference
+      order: 11
+      short: Package home page or reference URL
       type: keyword
     size:
       description: Package size in bytes.
@@ -3458,9 +3499,22 @@ package:
       format: string
       level: extended
       name: size
-      order: 3
+      order: 4
       short: Package size in bytes.
       type: long
+    type:
+      description: 'Type of package.
+
+        This should contain the package file type, rather than the package manager
+        name. Examples: rpm, dpkg, brew, npm, gem, nupkg, jar.'
+      example: rpm
+      flat_name: package.type
+      ignore_above: 1024
+      level: extended
+      name: type
+      order: 12
+      short: Package type
+      type: keyword
     version:
       description: Package version
       example: 1.12.9
@@ -3485,11 +3539,12 @@ process:
     copied to the global field for correlation.'
   fields:
     args:
-      description: 'Array of process arguments.
+      description: 'Array of process arguments, starting with the absolute path to
+        the executable.
 
         May be filtered to protect sensitive information.'
       example:
-      - ssh
+      - /usr/bin/ssh
       - -l
       - user
       - 10.0.0.16
@@ -3497,8 +3552,34 @@ process:
       ignore_above: 1024
       level: extended
       name: args
-      order: 4
+      order: 10
       short: Array of process arguments.
+      type: keyword
+    args_count:
+      description: 'Length of the process.args array.
+
+        This field can be useful for querying or performing bucket analysis on how
+        many arguments were provided to start a process. More arguments may be an
+        indication of suspicious activity.'
+      example: 4
+      flat_name: process.args_count
+      level: extended
+      name: args_count
+      order: 12
+      short: Length of the process.args array.
+      type: long
+    command_line:
+      description: 'Full command line that started the process, including the absolute
+        path to the executable, and all arguments.
+
+        Some arguments may be filtered to protect sensitive information.'
+      example: /usr/bin/ssh -l user 10.0.0.16
+      flat_name: process.command_line
+      ignore_above: 1024
+      level: extended
+      name: command_line
+      order: 8
+      short: Full command line that started the process.
       type: keyword
     executable:
       description: Absolute path to the process executable.
@@ -3507,7 +3588,7 @@ process:
       ignore_above: 1024
       level: extended
       name: executable
-      order: 5
+      order: 14
       short: Absolute path to the process executable.
       type: keyword
     exit_code:
@@ -3519,7 +3600,7 @@ process:
       flat_name: process.exit_code
       level: extended
       name: exit_code
-      order: 12
+      order: 28
       short: The exit code of the process.
       type: long
     hash.md5:
@@ -3571,8 +3652,173 @@ process:
       ignore_above: 1024
       level: extended
       name: name
-      order: 1
+      order: 2
       short: Process name.
+      type: keyword
+    parent.args:
+      description: 'Array of process arguments.
+
+        May be filtered to protect sensitive information.'
+      example:
+      - ssh
+      - -l
+      - user
+      - 10.0.0.16
+      flat_name: process.parent.args
+      ignore_above: 1024
+      level: extended
+      name: parent.args
+      order: 11
+      short: Array of process arguments.
+      type: keyword
+    parent.args_count:
+      description: 'Length of the process.args array.
+
+        This field can be useful for querying or performing bucket analysis on how
+        many arguments were provided to start a process. More arguments may be an
+        indication of suspicious activity.'
+      example: 4
+      flat_name: process.parent.args_count
+      level: extended
+      name: parent.args_count
+      order: 13
+      short: Length of the process.args array.
+      type: long
+    parent.command_line:
+      description: 'Full command line that started the process, including the absolute
+        path to the executable, and all arguments.
+
+        Some arguments may be filtered to protect sensitive information.'
+      example: /usr/bin/ssh -l user 10.0.0.16
+      flat_name: process.parent.command_line
+      ignore_above: 1024
+      level: extended
+      name: parent.command_line
+      order: 9
+      short: Full command line that started the process.
+      type: keyword
+    parent.executable:
+      description: Absolute path to the process executable.
+      example: /usr/bin/ssh
+      flat_name: process.parent.executable
+      ignore_above: 1024
+      level: extended
+      name: parent.executable
+      order: 15
+      short: Absolute path to the process executable.
+      type: keyword
+    parent.exit_code:
+      description: 'The exit code of the process, if this is a termination event.
+
+        The field should be absent if there is no exit code for the event (e.g. process
+        start).'
+      example: 137
+      flat_name: process.parent.exit_code
+      level: extended
+      name: parent.exit_code
+      order: 29
+      short: The exit code of the process.
+      type: long
+    parent.name:
+      description: 'Process name.
+
+        Sometimes called program name or similar.'
+      example: ssh
+      flat_name: process.parent.name
+      ignore_above: 1024
+      level: extended
+      name: parent.name
+      order: 3
+      short: Process name.
+      type: keyword
+    parent.pgid:
+      description: Identifier of the group of processes the process belongs to.
+      flat_name: process.parent.pgid
+      format: string
+      level: extended
+      name: parent.pgid
+      order: 7
+      short: Identifier of the group of processes the process belongs to.
+      type: long
+    parent.pid:
+      description: Process id.
+      example: 4242
+      flat_name: process.parent.pid
+      format: string
+      level: core
+      name: parent.pid
+      order: 1
+      short: Process id.
+      type: long
+    parent.ppid:
+      description: Parent process' pid.
+      example: 4241
+      flat_name: process.parent.ppid
+      format: string
+      level: extended
+      name: parent.ppid
+      order: 5
+      short: Parent process' pid.
+      type: long
+    parent.start:
+      description: The time the process started.
+      example: '2016-05-23T08:05:34.853Z'
+      flat_name: process.parent.start
+      level: extended
+      name: parent.start
+      order: 23
+      short: The time the process started.
+      type: date
+    parent.thread.id:
+      description: Thread ID.
+      example: 4242
+      flat_name: process.parent.thread.id
+      format: string
+      level: extended
+      name: parent.thread.id
+      order: 19
+      short: Thread ID.
+      type: long
+    parent.thread.name:
+      description: Thread name.
+      example: thread-0
+      flat_name: process.parent.thread.name
+      ignore_above: 1024
+      level: extended
+      name: parent.thread.name
+      order: 21
+      short: Thread name.
+      type: keyword
+    parent.title:
+      description: 'Process title.
+
+        The proctitle, some times the same as process name. Can also be different:
+        for example a browser setting its title to the web page currently opened.'
+      flat_name: process.parent.title
+      ignore_above: 1024
+      level: extended
+      name: parent.title
+      order: 17
+      short: Process title.
+      type: keyword
+    parent.uptime:
+      description: Seconds the process has been up.
+      example: 1325
+      flat_name: process.parent.uptime
+      level: extended
+      name: parent.uptime
+      order: 25
+      short: Seconds the process has been up.
+      type: long
+    parent.working_directory:
+      description: The working directory of the process.
+      example: /home/alice
+      flat_name: process.parent.working_directory
+      ignore_above: 1024
+      level: extended
+      name: parent.working_directory
+      order: 27
+      short: The working directory of the process.
       type: keyword
     pgid:
       description: Identifier of the group of processes the process belongs to.
@@ -3580,7 +3826,7 @@ process:
       format: string
       level: extended
       name: pgid
-      order: 3
+      order: 6
       short: Identifier of the group of processes the process belongs to.
       type: long
     pid:
@@ -3600,7 +3846,7 @@ process:
       format: string
       level: extended
       name: ppid
-      order: 2
+      order: 4
       short: Parent process' pid.
       type: long
     start:
@@ -3609,7 +3855,7 @@ process:
       flat_name: process.start
       level: extended
       name: start
-      order: 9
+      order: 22
       short: The time the process started.
       type: date
     thread.id:
@@ -3619,7 +3865,7 @@ process:
       format: string
       level: extended
       name: thread.id
-      order: 7
+      order: 18
       short: Thread ID.
       type: long
     thread.name:
@@ -3629,7 +3875,7 @@ process:
       ignore_above: 1024
       level: extended
       name: thread.name
-      order: 8
+      order: 20
       short: Thread name.
       type: keyword
     title:
@@ -3641,7 +3887,7 @@ process:
       ignore_above: 1024
       level: extended
       name: title
-      order: 6
+      order: 16
       short: Process title.
       type: keyword
     uptime:
@@ -3650,7 +3896,7 @@ process:
       flat_name: process.uptime
       level: extended
       name: uptime
-      order: 10
+      order: 24
       short: Seconds the process has been up.
       type: long
     working_directory:
@@ -3660,7 +3906,7 @@ process:
       ignore_above: 1024
       level: extended
       name: working_directory
-      order: 11
+      order: 26
       short: The working directory of the process.
       type: keyword
   group: 2
@@ -4863,7 +5109,7 @@ tls:
       ignore_above: 1024
       level: extended
       name: server.certificate
-      order: 26
+      order: 25
       short: PEM-encoded stand-alone certificate offered by the server. This is usually
         mutually-exclusive of `server.certificate_chain` since this value also exists
         in that list.
@@ -4879,7 +5125,7 @@ tls:
       ignore_above: 1024
       level: extended
       name: server.certificate_chain
-      order: 25
+      order: 24
       short: Array of PEM-encoded certificates that make up the certificate chain
         offered by the server. This is usually mutually-exclusive of `server.certificate`
         since that value should be the first certificate in the chain.
@@ -4893,7 +5139,7 @@ tls:
       ignore_above: 1024
       level: extended
       name: server.hash.md5
-      order: 27
+      order: 26
       short: Certificate fingerprint using the MD5 digest of DER-encoded version of
         certificate offered by the server. For consistency with other hash values,
         this value should be formatted as an uppercase hash.
@@ -4907,7 +5153,7 @@ tls:
       ignore_above: 1024
       level: extended
       name: server.hash.sha1
-      order: 28
+      order: 27
       short: Certificate fingerprint using the SHA1 digest of DER-encoded version
         of certificate offered by the server. For consistency with other hash values,
         this value should be formatted as an uppercase hash.
@@ -4921,7 +5167,7 @@ tls:
       ignore_above: 1024
       level: extended
       name: server.hash.sha256
-      order: 29
+      order: 28
       short: Certificate fingerprint using the SHA256 digest of DER-encoded version
         of certificate offered by the server. For consistency with other hash values,
         this value should be formatted as an uppercase hash.
@@ -4934,7 +5180,7 @@ tls:
       ignore_above: 1024
       level: extended
       name: server.issuer
-      order: 22
+      order: 21
       short: Subject of the issuer of the x.509 certificate presented by the server.
       type: keyword
     server.ja3s:
@@ -4955,7 +5201,7 @@ tls:
       flat_name: tls.server.not_after
       level: extended
       name: server.not_after
-      order: 24
+      order: 23
       short: Timestamp indicating when server certificate is no longer considered
         valid.
       type: date
@@ -4966,7 +5212,7 @@ tls:
       flat_name: tls.server.not_before
       level: extended
       name: server.not_before
-      order: 23
+      order: 22
       short: Timestamp indicating when server certificate is first considered valid.
       type: date
     server.subject:
@@ -4976,21 +5222,8 @@ tls:
       ignore_above: 1024
       level: extended
       name: server.subject
-      order: 21
-      short: Subject of the x.509 certificate presented by the server.
-      type: keyword
-    server.supported_ciphers:
-      description: Array of ciphers offered by the server during the server hello.
-      example:
-      - TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-      - TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
-      - '...'
-      flat_name: tls.server.supported_ciphers
-      ignore_above: 1024
-      level: extended
-      name: server.supported_ciphers
       order: 20
-      short: Array of ciphers offered by the server during the server hello.
+      short: Subject of the x.509 certificate presented by the server.
       type: keyword
     version:
       description: Numeric part of the version parsed from the original string.
@@ -5373,15 +5606,20 @@ user_agent:
       short: Name of the user agent.
       type: keyword
     original:
-      description: Unparsed version of the user_agent.
+      description: Unparsed user_agent string.
       example: Mozilla/5.0 (iPhone; CPU iPhone OS 12_1 like Mac OS X) AppleWebKit/605.1.15
         (KHTML, like Gecko) Version/12.0 Mobile/15E148 Safari/604.1
       flat_name: user_agent.original
       ignore_above: 1024
       level: extended
+      multi_fields:
+      - flat_name: user_agent.original.text
+        name: text
+        norms: false
+        type: text
       name: original
       order: 0
-      short: Unparsed version of the user_agent.
+      short: Unparsed user_agent string.
       type: keyword
     os.family:
       description: OS family (such as redhat, debian, freebsd, windows).
@@ -5466,4 +5704,171 @@ user_agent:
   prefix: user_agent.
   short: Fields to describe a browser user_agent string.
   title: User agent
+  type: group
+vulnerability:
+  description: The vulnerability fields describe information about a vulnerability
+    that is relevant to an event.
+  fields:
+    category:
+      description: 'The type of system or architecture that the vulnerability affects.
+        These may be platform-specific (for example, Debian or SUSE) or general (for
+        example, Database or Firewall). For example (https://qualysguard.qualys.com/qwebhelp/fo_portal/knowledgebase/vulnerability_categories.htm[Qualys
+        vulnerability categories])
+
+        This field must be an array.'
+      example: '["Firewall"]'
+      flat_name: vulnerability.category
+      ignore_above: 1024
+      level: extended
+      name: category
+      order: 7
+      short: Category of a vulnerability.
+      type: keyword
+    classification:
+      description: The classification of the vulnerability scoring system. For example
+        (https://www.first.org/cvss/)
+      example: CVSS
+      flat_name: vulnerability.classification
+      ignore_above: 1024
+      level: extended
+      name: classification
+      order: 0
+      short: Classification of the vulnerability.
+      type: keyword
+    description:
+      description: The description of the vulnerability that provides additional context
+        of the vulnerability. For example (https://cve.mitre.org/about/faqs.html#cve_entry_descriptions_created[Common
+        Vulnerabilities and Exposure CVE description])
+      example: In macOS before 2.12.6, there is a vulnerability in the RPC...
+      flat_name: vulnerability.description
+      ignore_above: 1024
+      level: extended
+      name: description
+      order: 8
+      short: Description of the vulnerability.
+      type: keyword
+    enumeration:
+      description: The type of identifier used for this vulnerability. For example
+        (https://cve.mitre.org/about/)
+      example: CVE
+      flat_name: vulnerability.enumeration
+      ignore_above: 1024
+      level: extended
+      name: enumeration
+      order: 1
+      short: Identifier of the vulnerability.
+      type: keyword
+    id:
+      description: The identification (ID) is the number portion of a vulnerability
+        entry. It includes a unique identification number for the vulnerability. For
+        example (https://cve.mitre.org/about/faqs.html#what_is_cve_id)[Common Vulnerabilities
+        and Exposure CVE ID]
+      example: CVE-2019-00001
+      flat_name: vulnerability.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      order: 9
+      short: ID of the vulnerability.
+      type: keyword
+    reference:
+      description: A resource that provides additional information, context, and mitigations
+        for the identified vulnerability.
+      example: https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-6111
+      flat_name: vulnerability.reference
+      ignore_above: 1024
+      level: extended
+      name: reference
+      order: 2
+      short: Reference of the vulnerability.
+      type: keyword
+    report_id:
+      description: The report or scan identification number.
+      example: 20191018.0001
+      flat_name: vulnerability.report_id
+      ignore_above: 1024
+      level: extended
+      name: report_id
+      order: 12
+      short: Scan identification number.
+      type: keyword
+    scanner.vendor:
+      description: The name of the vulnerability scanner vendor.
+      example: Tenable
+      flat_name: vulnerability.scanner.vendor
+      ignore_above: 1024
+      level: extended
+      name: scanner.vendor
+      order: 10
+      short: Name of the scanner vendor.
+      type: keyword
+    score.base:
+      description: 'Scores can range from 0.0 to 10.0, with 10.0 being the most severe.
+
+        Base scores cover an assessment for exploitability metrics (attack vector,
+        complexity, privileges, and user interaction), impact metrics (confidentiality,
+        integrity, and availability), and scope. For example (https://www.first.org/cvss/specification-document)'
+      example: 5.5
+      flat_name: vulnerability.score.base
+      level: extended
+      name: score.base
+      order: 3
+      short: Vulnerability Base score.
+      type: float
+    score.environmental:
+      description: 'Scores can range from 0.0 to 10.0, with 10.0 being the most severe.
+
+        Environmental scores cover an assessment for any modified Base metrics, confidentiality,
+        integrity, and availability requirements. For example (https://www.first.org/cvss/specification-document)'
+      example: 5.5
+      flat_name: vulnerability.score.environmental
+      level: extended
+      name: score.environmental
+      order: 5
+      short: Vulnerability Environmental score.
+      type: float
+    score.temporal:
+      description: 'Scores can range from 0.0 to 10.0, with 10.0 being the most severe.
+
+        Temporal scores cover an assessment for code maturity, remediation level,
+        and confidence. For example (https://www.first.org/cvss/specification-document)'
+      flat_name: vulnerability.score.temporal
+      level: extended
+      name: score.temporal
+      order: 4
+      short: Vulnerability Temporal score.
+      type: float
+    score.version:
+      description: 'The National Vulnerability Database (NVD) provides qualitative
+        severity rankings of "Low", "Medium", and "High" for CVSS v2.0 base score
+        ranges in addition to the severity ratings for CVSS v3.0 as they are defined
+        in the CVSS v3.0 specification.
+
+        CVSS is owned and managed by FIRST.Org, Inc. (FIRST), a US-based non-profit
+        organization, whose mission is to help computer security incident response
+        teams across the world. For example (https://nvd.nist.gov/vuln-metrics/cvss)'
+      example: 2.0
+      flat_name: vulnerability.score.version
+      ignore_above: 1024
+      level: extended
+      name: score.version
+      order: 6
+      short: CVSS version.
+      type: keyword
+    severity:
+      description: The severity of the vulnerability can help with metrics and internal
+        prioritization regarding remediation. For example (https://nvd.nist.gov/vuln-metrics/cvss)
+      example: Critical
+      flat_name: vulnerability.severity
+      ignore_above: 1024
+      level: extended
+      name: severity
+      order: 11
+      short: Severity of the vulnerability.
+      type: keyword
+  group: 2
+  name: vulnerability
+  prefix: vulnerability.
+  short: Fields to describe the vulnerability relevant to an event.
+  title: Vulnerability
   type: group

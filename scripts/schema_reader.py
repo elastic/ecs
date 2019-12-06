@@ -115,6 +115,8 @@ def field_set_multi_field_defaults(parent_field):
     """Sets defaults for each nested field in the multi_fields array"""
     for mf in parent_field['multi_fields']:
         dict_set_default(mf, 'name', mf['type'])
+        if mf['type'] == 'text':
+            dict_set_default(mf, 'norms', False)
         mf['flat_name'] = parent_field['flat_name'] + '.' + mf['name']
 
 
