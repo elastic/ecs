@@ -39,20 +39,28 @@ def dict_add_nested(dct, nestings, value):
 
 
 def entry_for(field):
-    dct = {'type': field['type']}
-
+    field_entry = {'type': field['type']}
     try:
         if 'index' in field and not field['index']:
-            ecs_helpers.dict_copy_existing_keys(field, dct, ['index', 'doc_values'])
+            ecs_helpers.dict_copy_existing_keys(field, field_entry, ['index', 'doc_values'])
 
         if field['type'] == 'keyword':
-            ecs_helpers.dict_copy_existing_keys(field, dct, ['ignore_above'])
+            ecs_helpers.dict_copy_existing_keys(field, field_entry, ['ignore_above'])
         elif field['type'] == 'text':
-            ecs_helpers.dict_copy_existing_keys(field, dct, ['norms'])
+            ecs_helpers.dict_copy_existing_keys(field, field_entry, ['norms'])
+
+        if 'multi_fields' in field:
+            field_entry['fields'] = {}
+            for mf in field['multi_fields']:
+                mf_entry = {'type': mf['type']}
+                if mf['type'] == 'text':
+                    ecs_helpers.dict_copy_existing_keys(mf, mf_entry, ['norms'])
+                field_entry['fields'][mf['name']] = mf_entry
+
     except KeyError as ex:
         print("Exception {} occurred for field {}".format(ex, field))
         raise ex
-    return dct
+    return field_entry
 
 # Generated files
 

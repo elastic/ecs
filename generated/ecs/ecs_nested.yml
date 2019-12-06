@@ -5592,15 +5592,20 @@ user_agent:
       short: Name of the user agent.
       type: keyword
     original:
-      description: Unparsed version of the user_agent.
+      description: Unparsed user_agent string.
       example: Mozilla/5.0 (iPhone; CPU iPhone OS 12_1 like Mac OS X) AppleWebKit/605.1.15
         (KHTML, like Gecko) Version/12.0 Mobile/15E148 Safari/604.1
       flat_name: user_agent.original
       ignore_above: 1024
       level: extended
+      multi_fields:
+      - flat_name: user_agent.original.text
+        name: text
+        norms: false
+        type: text
       name: original
       order: 0
-      short: Unparsed version of the user_agent.
+      short: Unparsed user_agent string.
       type: keyword
     os.family:
       description: OS family (such as redhat, debian, freebsd, windows).
