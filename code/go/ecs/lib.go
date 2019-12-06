@@ -20,8 +20,7 @@
 package ecs
 
 // These fields contain information about libraries, including both kernel-mode
-// modules, and process modules
-// Particularly,
+// modules, and process modules.
 type Lib struct {
 	// Name of the library.
 	// This generally maps to the name of the file on disk.

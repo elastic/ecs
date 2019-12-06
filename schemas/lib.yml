@@ -1,26 +1,8 @@
-# HEADS UP
-# This field set supports capturing the parent process (one level).
-#
-# Doing so via normal reuse/nesting is tricky mainly because it's reused as a
-# different name: the "process" field set is nested as "parent".
-# This is the only occurrence of this in ECS, so it's not supported.
-#
-# The workaround is to simply duplicate each field to generate the "parent.*"
-# equivalent of each "process.*" field. Please maintain each duplicate exactly as
-# the main field (e.g. same wording & example), as if it was normal nesting.
-#
-# Each such duplicated field for the parent process is directly below the original
-# field, which will hopefully help maintain this until a better solution is in place.
-
 ---
 - name: lib
   title: Dynamic library
   group: 2
-  short: These fields contain information about libraries, including both kernel-mode modules, and process modules.
-  description: >
-    These fields contain information about libraries, including both kernel-mode modules, and process modules
-
-    Particularly,
+  description: These fields contain information about libraries, including both kernel-mode modules, and process modules.
   type: group
 
   fields:
