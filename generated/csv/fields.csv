@@ -10,9 +10,11 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Example,Description
 1.4.0-dev,true,agent,agent.version,keyword,core,6.0.0-rc2,Version of the agent.
 1.4.0-dev,true,as,as.number,long,extended,15169,Unique number allocated to the autonomous system. The autonomous system number (ASN) uniquely identifies each network on the Internet.
 1.4.0-dev,true,as,as.organization.name,keyword,extended,Google LLC,Organization name.
+1.4.0-dev,true,as,as.organization.name.text,text,extended,Google LLC,Organization name.
 1.4.0-dev,true,client,client.address,keyword,extended,,Client network address.
 1.4.0-dev,true,client,client.as.number,long,extended,15169,Unique number allocated to the autonomous system. The autonomous system number (ASN) uniquely identifies each network on the Internet.
 1.4.0-dev,true,client,client.as.organization.name,keyword,extended,Google LLC,Organization name.
+1.4.0-dev,true,client,as.organization.name.text,text,extended,Google LLC,Organization name.
 1.4.0-dev,true,client,client.bytes,long,core,184,Bytes sent from the client to the server.
 1.4.0-dev,true,client,client.domain,keyword,core,,Client domain.
 1.4.0-dev,true,client,client.geo.city_name,keyword,core,Montreal,City name.
@@ -34,12 +36,14 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Example,Description
 1.4.0-dev,true,client,client.user.domain,keyword,extended,,Name of the directory the user is a member of.
 1.4.0-dev,true,client,client.user.email,keyword,extended,,User email address.
 1.4.0-dev,true,client,client.user.full_name,keyword,extended,Albert Einstein,"User's full name, if available."
+1.4.0-dev,true,client,user.full_name.text,text,extended,Albert Einstein,"User's full name, if available."
 1.4.0-dev,true,client,client.user.group.domain,keyword,extended,,Name of the directory the group is a member of.
 1.4.0-dev,true,client,client.user.group.id,keyword,extended,,Unique identifier for the group on the system/platform.
 1.4.0-dev,true,client,client.user.group.name,keyword,extended,,Name of the group.
 1.4.0-dev,true,client,client.user.hash,keyword,extended,,Unique user hash to correlate information for a user in anonymized form.
 1.4.0-dev,true,client,client.user.id,keyword,core,,One or multiple unique identifiers of the user.
 1.4.0-dev,true,client,client.user.name,keyword,core,albert,Short name or login of the user.
+1.4.0-dev,true,client,user.name.text,text,core,albert,Short name or login of the user.
 1.4.0-dev,true,cloud,cloud.account.id,keyword,extended,666777888999,The cloud account or organization id.
 1.4.0-dev,true,cloud,cloud.availability_zone,keyword,extended,us-east-1c,Availability zone in which this host is running.
 1.4.0-dev,true,cloud,cloud.instance.id,keyword,extended,i-1234567890abcdef0,Instance ID of the host machine.
@@ -56,6 +60,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Example,Description
 1.4.0-dev,true,destination,destination.address,keyword,extended,,Destination network address.
 1.4.0-dev,true,destination,destination.as.number,long,extended,15169,Unique number allocated to the autonomous system. The autonomous system number (ASN) uniquely identifies each network on the Internet.
 1.4.0-dev,true,destination,destination.as.organization.name,keyword,extended,Google LLC,Organization name.
+1.4.0-dev,true,destination,as.organization.name.text,text,extended,Google LLC,Organization name.
 1.4.0-dev,true,destination,destination.bytes,long,core,184,Bytes sent from the destination to the source.
 1.4.0-dev,true,destination,destination.domain,keyword,core,,Destination domain.
 1.4.0-dev,true,destination,destination.geo.city_name,keyword,core,Montreal,City name.
@@ -77,12 +82,14 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Example,Description
 1.4.0-dev,true,destination,destination.user.domain,keyword,extended,,Name of the directory the user is a member of.
 1.4.0-dev,true,destination,destination.user.email,keyword,extended,,User email address.
 1.4.0-dev,true,destination,destination.user.full_name,keyword,extended,Albert Einstein,"User's full name, if available."
+1.4.0-dev,true,destination,user.full_name.text,text,extended,Albert Einstein,"User's full name, if available."
 1.4.0-dev,true,destination,destination.user.group.domain,keyword,extended,,Name of the directory the group is a member of.
 1.4.0-dev,true,destination,destination.user.group.id,keyword,extended,,Unique identifier for the group on the system/platform.
 1.4.0-dev,true,destination,destination.user.group.name,keyword,extended,,Name of the group.
 1.4.0-dev,true,destination,destination.user.hash,keyword,extended,,Unique user hash to correlate information for a user in anonymized form.
 1.4.0-dev,true,destination,destination.user.id,keyword,core,,One or multiple unique identifiers of the user.
 1.4.0-dev,true,destination,destination.user.name,keyword,core,albert,Short name or login of the user.
+1.4.0-dev,true,destination,user.name.text,text,core,albert,Short name or login of the user.
 1.4.0-dev,true,dns,dns.answers,object,extended,,Array of DNS answers.
 1.4.0-dev,true,dns,dns.answers.class,keyword,extended,IN,The class of DNS data contained in this resource record.
 1.4.0-dev,true,dns,dns.answers.data,keyword,extended,10.10.10.10,The data describing the resource.
@@ -106,6 +113,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Example,Description
 1.4.0-dev,true,error,error.id,keyword,core,,Unique identifier for the error.
 1.4.0-dev,true,error,error.message,text,core,,Error message.
 1.4.0-dev,false,error,error.stack_trace,keyword,extended,,The stack trace of this error in plain text.
+1.4.0-dev,false,error,error.stack_trace.text,text,extended,,The stack trace of this error in plain text.
 1.4.0-dev,true,error,error.type,keyword,extended,java.lang.NullPointerException,"The type of the error, for example the class name of the exception."
 1.4.0-dev,true,event,event.action,keyword,core,user-password-change,The action captured by the event.
 1.4.0-dev,true,event,event.category,keyword,core,user-management,Event category.
@@ -147,8 +155,10 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Example,Description
 1.4.0-dev,true,file,file.name,keyword,extended,example.png,"Name of the file including the extension, without the directory."
 1.4.0-dev,true,file,file.owner,keyword,extended,alice,File owner's username.
 1.4.0-dev,true,file,file.path,keyword,extended,/home/alice/example.png,Full path to the file.
+1.4.0-dev,true,file,file.path.text,text,extended,/home/alice/example.png,Full path to the file.
 1.4.0-dev,true,file,file.size,long,extended,16384,File size in bytes.
 1.4.0-dev,true,file,file.target_path,keyword,extended,,Target path for symlinks.
+1.4.0-dev,true,file,file.target_path.text,text,extended,,Target path for symlinks.
 1.4.0-dev,true,file,file.type,keyword,extended,file,"File type (file, dir, or symlink)."
 1.4.0-dev,true,file,file.uid,keyword,extended,1001,The user ID (UID) or security identifier (SID) of the file owner.
 1.4.0-dev,true,geo,geo.city_name,keyword,core,Montreal,City name.
@@ -183,8 +193,10 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Example,Description
 1.4.0-dev,true,host,host.name,keyword,core,,Name of the host.
 1.4.0-dev,true,host,host.os.family,keyword,extended,debian,"OS family (such as redhat, debian, freebsd, windows)."
 1.4.0-dev,true,host,host.os.full,keyword,extended,Mac OS Mojave,"Operating system name, including the version or code name."
+1.4.0-dev,true,host,os.full.text,text,extended,Mac OS Mojave,"Operating system name, including the version or code name."
 1.4.0-dev,true,host,host.os.kernel,keyword,extended,4.4.0-112-generic,Operating system kernel version as a raw string.
 1.4.0-dev,true,host,host.os.name,keyword,extended,Mac OS X,"Operating system name, without the version."
+1.4.0-dev,true,host,os.name.text,text,extended,Mac OS X,"Operating system name, without the version."
 1.4.0-dev,true,host,host.os.platform,keyword,extended,darwin,"Operating system platform (such centos, ubuntu, windows)."
 1.4.0-dev,true,host,host.os.version,keyword,extended,10.14.1,Operating system version as a raw string.
 1.4.0-dev,true,host,host.type,keyword,core,,Type of host.
@@ -192,19 +204,23 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Example,Description
 1.4.0-dev,true,host,host.user.domain,keyword,extended,,Name of the directory the user is a member of.
 1.4.0-dev,true,host,host.user.email,keyword,extended,,User email address.
 1.4.0-dev,true,host,host.user.full_name,keyword,extended,Albert Einstein,"User's full name, if available."
+1.4.0-dev,true,host,user.full_name.text,text,extended,Albert Einstein,"User's full name, if available."
 1.4.0-dev,true,host,host.user.group.domain,keyword,extended,,Name of the directory the group is a member of.
 1.4.0-dev,true,host,host.user.group.id,keyword,extended,,Unique identifier for the group on the system/platform.
 1.4.0-dev,true,host,host.user.group.name,keyword,extended,,Name of the group.
 1.4.0-dev,true,host,host.user.hash,keyword,extended,,Unique user hash to correlate information for a user in anonymized form.
 1.4.0-dev,true,host,host.user.id,keyword,core,,One or multiple unique identifiers of the user.
 1.4.0-dev,true,host,host.user.name,keyword,core,albert,Short name or login of the user.
+1.4.0-dev,true,host,user.name.text,text,core,albert,Short name or login of the user.
 1.4.0-dev,true,http,http.request.body.bytes,long,extended,887,Size in bytes of the request body.
 1.4.0-dev,true,http,http.request.body.content,keyword,extended,Hello world,The full HTTP request body.
+1.4.0-dev,true,http,http.request.body.content.text,text,extended,Hello world,The full HTTP request body.
 1.4.0-dev,true,http,http.request.bytes,long,extended,1437,Total size in bytes of the request (body and headers).
 1.4.0-dev,true,http,http.request.method,keyword,extended,"get, post, put",HTTP request method.
 1.4.0-dev,true,http,http.request.referrer,keyword,extended,https://blog.example.com/,Referrer for this HTTP request.
 1.4.0-dev,true,http,http.response.body.bytes,long,extended,887,Size in bytes of the response body.
 1.4.0-dev,true,http,http.response.body.content,keyword,extended,Hello world,The full HTTP response body.
+1.4.0-dev,true,http,http.response.body.content.text,text,extended,Hello world,The full HTTP response body.
 1.4.0-dev,true,http,http.response.bytes,long,extended,1437,Total size in bytes of the response (body and headers).
 1.4.0-dev,true,http,http.response.status_code,long,extended,404,HTTP response status code.
 1.4.0-dev,true,http,http.version,keyword,extended,1.1,HTTP version.
@@ -245,8 +261,10 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Example,Description
 1.4.0-dev,true,observer,observer.name,keyword,extended,1_proxySG,Custom name of the observer.
 1.4.0-dev,true,observer,observer.os.family,keyword,extended,debian,"OS family (such as redhat, debian, freebsd, windows)."
 1.4.0-dev,true,observer,observer.os.full,keyword,extended,Mac OS Mojave,"Operating system name, including the version or code name."
+1.4.0-dev,true,observer,os.full.text,text,extended,Mac OS Mojave,"Operating system name, including the version or code name."
 1.4.0-dev,true,observer,observer.os.kernel,keyword,extended,4.4.0-112-generic,Operating system kernel version as a raw string.
 1.4.0-dev,true,observer,observer.os.name,keyword,extended,Mac OS X,"Operating system name, without the version."
+1.4.0-dev,true,observer,os.name.text,text,extended,Mac OS X,"Operating system name, without the version."
 1.4.0-dev,true,observer,observer.os.platform,keyword,extended,darwin,"Operating system platform (such centos, ubuntu, windows)."
 1.4.0-dev,true,observer,observer.os.version,keyword,extended,10.14.1,Operating system version as a raw string.
 1.4.0-dev,true,observer,observer.product,keyword,extended,s200,The product name of the observer.
@@ -256,10 +274,13 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Example,Description
 1.4.0-dev,true,observer,observer.version,keyword,core,,Observer version.
 1.4.0-dev,true,organization,organization.id,keyword,extended,,Unique identifier for the organization.
 1.4.0-dev,true,organization,organization.name,keyword,extended,,Organization name.
+1.4.0-dev,true,organization,organization.name.text,text,extended,,Organization name.
 1.4.0-dev,true,os,os.family,keyword,extended,debian,"OS family (such as redhat, debian, freebsd, windows)."
 1.4.0-dev,true,os,os.full,keyword,extended,Mac OS Mojave,"Operating system name, including the version or code name."
+1.4.0-dev,true,os,os.full.text,text,extended,Mac OS Mojave,"Operating system name, including the version or code name."
 1.4.0-dev,true,os,os.kernel,keyword,extended,4.4.0-112-generic,Operating system kernel version as a raw string.
 1.4.0-dev,true,os,os.name,keyword,extended,Mac OS X,"Operating system name, without the version."
+1.4.0-dev,true,os,os.name.text,text,extended,Mac OS X,"Operating system name, without the version."
 1.4.0-dev,true,os,os.platform,keyword,extended,darwin,"Operating system platform (such centos, ubuntu, windows)."
 1.4.0-dev,true,os,os.version,keyword,extended,10.14.1,Operating system version as a raw string.
 1.4.0-dev,true,package,package.architecture,keyword,extended,x86_64,Package architecture.
@@ -278,19 +299,25 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Example,Description
 1.4.0-dev,true,process,process.args,keyword,extended,"['/usr/bin/ssh', '-l', 'user', '10.0.0.16']",Array of process arguments.
 1.4.0-dev,true,process,process.args_count,long,extended,4,Length of the process.args array.
 1.4.0-dev,true,process,process.command_line,keyword,extended,/usr/bin/ssh -l user 10.0.0.16,Full command line that started the process.
+1.4.0-dev,true,process,process.command_line.text,text,extended,/usr/bin/ssh -l user 10.0.0.16,Full command line that started the process.
 1.4.0-dev,true,process,process.executable,keyword,extended,/usr/bin/ssh,Absolute path to the process executable.
+1.4.0-dev,true,process,process.executable.text,text,extended,/usr/bin/ssh,Absolute path to the process executable.
 1.4.0-dev,true,process,process.exit_code,long,extended,137,The exit code of the process.
 1.4.0-dev,true,process,process.hash.md5,keyword,extended,,MD5 hash.
 1.4.0-dev,true,process,process.hash.sha1,keyword,extended,,SHA1 hash.
 1.4.0-dev,true,process,process.hash.sha256,keyword,extended,,SHA256 hash.
 1.4.0-dev,true,process,process.hash.sha512,keyword,extended,,SHA512 hash.
 1.4.0-dev,true,process,process.name,keyword,extended,ssh,Process name.
+1.4.0-dev,true,process,process.name.text,text,extended,ssh,Process name.
 1.4.0-dev,true,process,process.parent.args,keyword,extended,"['ssh', '-l', 'user', '10.0.0.16']",Array of process arguments.
 1.4.0-dev,true,process,process.parent.args_count,long,extended,4,Length of the process.args array.
 1.4.0-dev,true,process,process.parent.command_line,keyword,extended,/usr/bin/ssh -l user 10.0.0.16,Full command line that started the process.
+1.4.0-dev,true,process,process.parent.command_line.text,text,extended,/usr/bin/ssh -l user 10.0.0.16,Full command line that started the process.
 1.4.0-dev,true,process,process.parent.executable,keyword,extended,/usr/bin/ssh,Absolute path to the process executable.
+1.4.0-dev,true,process,process.parent.executable.text,text,extended,/usr/bin/ssh,Absolute path to the process executable.
 1.4.0-dev,true,process,process.parent.exit_code,long,extended,137,The exit code of the process.
 1.4.0-dev,true,process,process.parent.name,keyword,extended,ssh,Process name.
+1.4.0-dev,true,process,process.parent.name.text,text,extended,ssh,Process name.
 1.4.0-dev,true,process,process.parent.pgid,long,extended,,Identifier of the group of processes the process belongs to.
 1.4.0-dev,true,process,process.parent.pid,long,core,4242,Process id.
 1.4.0-dev,true,process,process.parent.ppid,long,extended,4241,Parent process' pid.
@@ -298,8 +325,10 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Example,Description
 1.4.0-dev,true,process,process.parent.thread.id,long,extended,4242,Thread ID.
 1.4.0-dev,true,process,process.parent.thread.name,keyword,extended,thread-0,Thread name.
 1.4.0-dev,true,process,process.parent.title,keyword,extended,,Process title.
+1.4.0-dev,true,process,process.parent.title.text,text,extended,,Process title.
 1.4.0-dev,true,process,process.parent.uptime,long,extended,1325,Seconds the process has been up.
 1.4.0-dev,true,process,process.parent.working_directory,keyword,extended,/home/alice,The working directory of the process.
+1.4.0-dev,true,process,process.parent.working_directory.text,text,extended,/home/alice,The working directory of the process.
 1.4.0-dev,true,process,process.pgid,long,extended,,Identifier of the group of processes the process belongs to.
 1.4.0-dev,true,process,process.pid,long,core,4242,Process id.
 1.4.0-dev,true,process,process.ppid,long,extended,4241,Parent process' pid.
@@ -307,12 +336,15 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Example,Description
 1.4.0-dev,true,process,process.thread.id,long,extended,4242,Thread ID.
 1.4.0-dev,true,process,process.thread.name,keyword,extended,thread-0,Thread name.
 1.4.0-dev,true,process,process.title,keyword,extended,,Process title.
+1.4.0-dev,true,process,process.title.text,text,extended,,Process title.
 1.4.0-dev,true,process,process.uptime,long,extended,1325,Seconds the process has been up.
 1.4.0-dev,true,process,process.working_directory,keyword,extended,/home/alice,The working directory of the process.
+1.4.0-dev,true,process,process.working_directory.text,text,extended,/home/alice,The working directory of the process.
 1.4.0-dev,true,related,related.ip,ip,extended,,All of the IPs seen on your event.
 1.4.0-dev,true,server,server.address,keyword,extended,,Server network address.
 1.4.0-dev,true,server,server.as.number,long,extended,15169,Unique number allocated to the autonomous system. The autonomous system number (ASN) uniquely identifies each network on the Internet.
 1.4.0-dev,true,server,server.as.organization.name,keyword,extended,Google LLC,Organization name.
+1.4.0-dev,true,server,as.organization.name.text,text,extended,Google LLC,Organization name.
 1.4.0-dev,true,server,server.bytes,long,core,184,Bytes sent from the server to the client.
 1.4.0-dev,true,server,server.domain,keyword,core,,Server domain.
 1.4.0-dev,true,server,server.geo.city_name,keyword,core,Montreal,City name.
@@ -334,12 +366,14 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Example,Description
 1.4.0-dev,true,server,server.user.domain,keyword,extended,,Name of the directory the user is a member of.
 1.4.0-dev,true,server,server.user.email,keyword,extended,,User email address.
 1.4.0-dev,true,server,server.user.full_name,keyword,extended,Albert Einstein,"User's full name, if available."
+1.4.0-dev,true,server,user.full_name.text,text,extended,Albert Einstein,"User's full name, if available."
 1.4.0-dev,true,server,server.user.group.domain,keyword,extended,,Name of the directory the group is a member of.
 1.4.0-dev,true,server,server.user.group.id,keyword,extended,,Unique identifier for the group on the system/platform.
 1.4.0-dev,true,server,server.user.group.name,keyword,extended,,Name of the group.
 1.4.0-dev,true,server,server.user.hash,keyword,extended,,Unique user hash to correlate information for a user in anonymized form.
 1.4.0-dev,true,server,server.user.id,keyword,core,,One or multiple unique identifiers of the user.
 1.4.0-dev,true,server,server.user.name,keyword,core,albert,Short name or login of the user.
+1.4.0-dev,true,server,user.name.text,text,core,albert,Short name or login of the user.
 1.4.0-dev,true,service,service.ephemeral_id,keyword,extended,8a4f500f,Ephemeral identifier of this service.
 1.4.0-dev,true,service,service.id,keyword,core,d37e5ebfe0ae6c4972dbe9f0174a1637bb8247f6,Unique identifier of the running service.
 1.4.0-dev,true,service,service.name,keyword,core,elasticsearch-metrics,Name of the service.
@@ -350,6 +384,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Example,Description
 1.4.0-dev,true,source,source.address,keyword,extended,,Source network address.
 1.4.0-dev,true,source,source.as.number,long,extended,15169,Unique number allocated to the autonomous system. The autonomous system number (ASN) uniquely identifies each network on the Internet.
 1.4.0-dev,true,source,source.as.organization.name,keyword,extended,Google LLC,Organization name.
+1.4.0-dev,true,source,as.organization.name.text,text,extended,Google LLC,Organization name.
 1.4.0-dev,true,source,source.bytes,long,core,184,Bytes sent from the source to the destination.
 1.4.0-dev,true,source,source.domain,keyword,core,,Source domain.
 1.4.0-dev,true,source,source.geo.city_name,keyword,core,Montreal,City name.
@@ -371,12 +406,14 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Example,Description
 1.4.0-dev,true,source,source.user.domain,keyword,extended,,Name of the directory the user is a member of.
 1.4.0-dev,true,source,source.user.email,keyword,extended,,User email address.
 1.4.0-dev,true,source,source.user.full_name,keyword,extended,Albert Einstein,"User's full name, if available."
+1.4.0-dev,true,source,user.full_name.text,text,extended,Albert Einstein,"User's full name, if available."
 1.4.0-dev,true,source,source.user.group.domain,keyword,extended,,Name of the directory the group is a member of.
 1.4.0-dev,true,source,source.user.group.id,keyword,extended,,Unique identifier for the group on the system/platform.
 1.4.0-dev,true,source,source.user.group.name,keyword,extended,,Name of the group.
 1.4.0-dev,true,source,source.user.hash,keyword,extended,,Unique user hash to correlate information for a user in anonymized form.
 1.4.0-dev,true,source,source.user.id,keyword,core,,One or multiple unique identifiers of the user.
 1.4.0-dev,true,source,source.user.name,keyword,core,albert,Short name or login of the user.
+1.4.0-dev,true,source,user.name.text,text,core,albert,Short name or login of the user.
 1.4.0-dev,true,threat,threat.framework,keyword,extended,MITRE ATT&CK,Threat classification framework.
 1.4.0-dev,true,threat,threat.tactic.id,keyword,extended,TA0040,Threat tactic id.
 1.4.0-dev,true,threat,threat.tactic.name,keyword,extended,impact,Threat tactic.
@@ -419,7 +456,9 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Example,Description
 1.4.0-dev,true,url,url.extension,keyword,extended,png,File extension from the original request url.
 1.4.0-dev,true,url,url.fragment,keyword,extended,,Portion of the url after the `#`.
 1.4.0-dev,true,url,url.full,keyword,extended,https://www.elastic.co:443/search?q=elasticsearch#top,Full unparsed URL.
+1.4.0-dev,true,url,url.full.text,text,extended,https://www.elastic.co:443/search?q=elasticsearch#top,Full unparsed URL.
 1.4.0-dev,true,url,url.original,keyword,extended,https://www.elastic.co:443/search?q=elasticsearch#top or /search?q=elasticsearch,Unmodified original url as seen in the event source.
+1.4.0-dev,true,url,url.original.text,text,extended,https://www.elastic.co:443/search?q=elasticsearch#top or /search?q=elasticsearch,Unmodified original url as seen in the event source.
 1.4.0-dev,true,url,url.password,keyword,extended,,Password of the request.
 1.4.0-dev,true,url,url.path,keyword,extended,,"Path of the request, such as ""/search""."
 1.4.0-dev,true,url,url.port,long,extended,443,"Port of the request, such as 443."
@@ -431,20 +470,24 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Example,Description
 1.4.0-dev,true,user,user.domain,keyword,extended,,Name of the directory the user is a member of.
 1.4.0-dev,true,user,user.email,keyword,extended,,User email address.
 1.4.0-dev,true,user,user.full_name,keyword,extended,Albert Einstein,"User's full name, if available."
+1.4.0-dev,true,user,user.full_name.text,text,extended,Albert Einstein,"User's full name, if available."
 1.4.0-dev,true,user,user.group.domain,keyword,extended,,Name of the directory the group is a member of.
 1.4.0-dev,true,user,user.group.id,keyword,extended,,Unique identifier for the group on the system/platform.
 1.4.0-dev,true,user,user.group.name,keyword,extended,,Name of the group.
 1.4.0-dev,true,user,user.hash,keyword,extended,,Unique user hash to correlate information for a user in anonymized form.
 1.4.0-dev,true,user,user.id,keyword,core,,One or multiple unique identifiers of the user.
 1.4.0-dev,true,user,user.name,keyword,core,albert,Short name or login of the user.
+1.4.0-dev,true,user,user.name.text,text,core,albert,Short name or login of the user.
 1.4.0-dev,true,user_agent,user_agent.device.name,keyword,extended,iPhone,Name of the device.
 1.4.0-dev,true,user_agent,user_agent.name,keyword,extended,Safari,Name of the user agent.
 1.4.0-dev,true,user_agent,user_agent.original,keyword,extended,"Mozilla/5.0 (iPhone; CPU iPhone OS 12_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0 Mobile/15E148 Safari/604.1",Unparsed user_agent string.
 1.4.0-dev,true,user_agent,user_agent.original.text,text,extended,"Mozilla/5.0 (iPhone; CPU iPhone OS 12_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0 Mobile/15E148 Safari/604.1",Unparsed user_agent string.
 1.4.0-dev,true,user_agent,user_agent.os.family,keyword,extended,debian,"OS family (such as redhat, debian, freebsd, windows)."
 1.4.0-dev,true,user_agent,user_agent.os.full,keyword,extended,Mac OS Mojave,"Operating system name, including the version or code name."
+1.4.0-dev,true,user_agent,os.full.text,text,extended,Mac OS Mojave,"Operating system name, including the version or code name."
 1.4.0-dev,true,user_agent,user_agent.os.kernel,keyword,extended,4.4.0-112-generic,Operating system kernel version as a raw string.
 1.4.0-dev,true,user_agent,user_agent.os.name,keyword,extended,Mac OS X,"Operating system name, without the version."
+1.4.0-dev,true,user_agent,os.name.text,text,extended,Mac OS X,"Operating system name, without the version."
 1.4.0-dev,true,user_agent,user_agent.os.platform,keyword,extended,darwin,"Operating system platform (such centos, ubuntu, windows)."
 1.4.0-dev,true,user_agent,user_agent.os.version,keyword,extended,10.14.1,Operating system version as a raw string.
 1.4.0-dev,true,user_agent,user_agent.version,keyword,extended,12.0,Version of the user agent.
