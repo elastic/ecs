@@ -3931,11 +3931,24 @@ related:
   type: group
 rule:
   description: 'Rule fields are used to capture the specifics of any observer or agent
-    rules that generate alerts or other events. Examples of data sources that would
-    populate the rule fields include: network admission control platforms, network
-    or  host IDS/IPS, network firewalls, web access firewalls, url filters, endpoint
-    detection and response (EDR) systems, etc.'
+    rules that generate alerts or other events.
+
+    Examples of data sources that would populate the rule fields include: network
+    admission control platforms, network or  host IDS/IPS, network firewalls, web
+    application firewalls, url filters, endpoint detection and response (EDR) systems,
+    etc.'
   fields:
+    category:
+      description: A categorization value keyword used by the entity using the rule
+        for detection of this event.
+      example: Attempted Information Leak
+      flat_name: rule.category
+      ignore_above: 1024
+      level: extended
+      name: category
+      order: 5
+      short: Rule category
+      type: keyword
     description:
       description: The description of the rule generating the event.
       example: Block requests to public DNS over HTTPS / TLS protocols
@@ -3944,7 +3957,7 @@ rule:
       level: extended
       name: description
       order: 4
-      short: Rule Description
+      short: Rule description
       type: keyword
     id:
       description: A rule ID that is unique within the scope of an agent, observer,
@@ -3959,26 +3972,28 @@ rule:
       type: keyword
     name:
       description: The name of the rule or signature generating the event.
-      example: Filter_DOH
+      example: BLOCK_DNS_over_TLS
       flat_name: rule.name
       ignore_above: 1024
       level: extended
       name: name
       order: 3
-      short: Rule Name
+      short: Rule name
       type: keyword
     reference:
-      description: Text URL pointing to additional information about the rule used
-        to generate this event.   For example a link to the platform used to manage
-        the observers, a link to the vendors documentation regarding the rule,  or
-        a link to more information on the specific action that triggered the rule.
+      description: 'Reference URL to additional information about the rule used to
+        generate this event.
+
+        The URL can point to the vendor''s documentation about the rule. If that''s
+        not available, it can also be a link to a more general page describing this
+        type of alert.'
       example: https://en.wikipedia.org/wiki/DNS_over_TLS
       flat_name: rule.reference
       ignore_above: 1024
       level: extended
       name: reference
       order: 7
-      short: Rule Reference URL
+      short: Rule reference URL
       type: keyword
     ruleset:
       description: Name of the ruleset, policy, group, or parent category in which
@@ -3989,18 +4004,7 @@ rule:
       level: extended
       name: ruleset
       order: 6
-      short: Rule Ruleset
-      type: keyword
-    type:
-      description: A categorization value keyword used by the entity using the rule
-        for detection of this event.
-      example: DNS
-      flat_name: rule.type
-      ignore_above: 1024
-      level: extended
-      name: type
-      order: 5
-      short: Rule Type
+      short: Rule ruleset
       type: keyword
     uuid:
       description: A rule ID that is unique within the scope of a set or group of
@@ -4022,7 +4026,7 @@ rule:
       level: extended
       name: version
       order: 2
-      short: Rule Version
+      short: Rule version
       type: keyword
   group: 2
   name: rule

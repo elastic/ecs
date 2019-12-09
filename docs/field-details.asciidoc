@@ -3388,13 +3388,26 @@ type: ip
 [[ecs-rule]]
 === Rule Fields
 
-Rule fields are used to capture the specifics of any observer or agent rules that generate alerts or other events. Examples of data sources that would populate the rule fields include: network admission control platforms, network or  host IDS/IPS, network firewalls, web access firewalls, url filters, endpoint detection and response (EDR) systems, etc.
+Rule fields are used to capture the specifics of any observer or agent rules that generate alerts or other events.
+
+Examples of data sources that would populate the rule fields include: network admission control platforms, network or  host IDS/IPS, network firewalls, web application firewalls, url filters, endpoint detection and response (EDR) systems, etc.
 
 ==== Rule Field Details
 
 [options="header"]
 |=====
 | Field  | Description | Level
+
+// ===============================================================
+
+| rule.category
+| A categorization value keyword used by the entity using the rule for detection of this event.
+
+type: keyword
+
+example: `Attempted Information Leak`
+
+| extended
 
 // ===============================================================
 
@@ -3425,14 +3438,16 @@ example: `101`
 
 type: keyword
 
-example: `Filter_DOH`
+example: `BLOCK_DNS_over_TLS`
 
 | extended
 
 // ===============================================================
 
 | rule.reference
-| Text URL pointing to additional information about the rule used to generate this event.   For example a link to the platform used to manage the observers, a link to the vendors documentation regarding the rule,  or a link to more information on the specific action that triggered the rule.
+| Reference URL to additional information about the rule used to generate this event.
+
+The URL can point to the vendor's documentation about the rule. If that's not available, it can also be a link to a more general page describing this type of alert.
 
 type: keyword
 
@@ -3448,17 +3463,6 @@ example: `https://en.wikipedia.org/wiki/DNS_over_TLS`
 type: keyword
 
 example: `Standard_Protocol_Filters`
-
-| extended
-
-// ===============================================================
-
-| rule.type
-| A categorization value keyword used by the entity using the rule for detection of this event.
-
-type: keyword
-
-example: `DNS`
 
 | extended
 

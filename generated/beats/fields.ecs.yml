@@ -2463,12 +2463,21 @@
     title: Rule
     group: 2
     description: 'Rule fields are used to capture the specifics of any observer or
-      agent rules that generate alerts or other events. Examples of data sources that
-      would populate the rule fields include: network admission control platforms,
-      network or  host IDS/IPS, network firewalls, web access firewalls, url filters,
-      endpoint detection and response (EDR) systems, etc.'
+      agent rules that generate alerts or other events.
+
+      Examples of data sources that would populate the rule fields include: network
+      admission control platforms, network or  host IDS/IPS, network firewalls, web
+      application firewalls, url filters, endpoint detection and response (EDR) systems,
+      etc.'
     type: group
     fields:
+    - name: category
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: A categorization value keyword used by the entity using the rule
+        for detection of this event.
+      example: Attempted Information Leak
     - name: description
       level: extended
       type: keyword
@@ -2487,15 +2496,17 @@
       type: keyword
       ignore_above: 1024
       description: The name of the rule or signature generating the event.
-      example: Filter_DOH
+      example: BLOCK_DNS_over_TLS
     - name: reference
       level: extended
       type: keyword
       ignore_above: 1024
-      description: Text URL pointing to additional information about the rule used
-        to generate this event.   For example a link to the platform used to manage
-        the observers, a link to the vendors documentation regarding the rule,  or
-        a link to more information on the specific action that triggered the rule.
+      description: 'Reference URL to additional information about the rule used to
+        generate this event.
+
+        The URL can point to the vendor''s documentation about the rule. If that''s
+        not available, it can also be a link to a more general page describing this
+        type of alert.'
       example: https://en.wikipedia.org/wiki/DNS_over_TLS
     - name: ruleset
       level: extended
@@ -2504,13 +2515,6 @@
       description: Name of the ruleset, policy, group, or parent category in which
         the rule used to generate this event is a member.
       example: Standard_Protocol_Filters
-    - name: type
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: A categorization value keyword used by the entity using the rule
-        for detection of this event.
-      example: DNS
     - name: uuid
       level: extended
       type: keyword
