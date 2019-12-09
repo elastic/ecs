@@ -17,11 +17,11 @@ Thanks, you're awesome :-) -->
 #### Added
 
 * Add default `text` analyzer to `user_agent.original`. #575
+* Added `file.attributes`. #611
 
 #### Improvements
 
 #### Deprecated
-
 
 ### Tooling and Artifact Changes
 
