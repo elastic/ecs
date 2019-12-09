@@ -43,7 +43,8 @@ type File struct {
 	// when appropriate.
 	Directory string `ecs:"directory"`
 
-	// Drive letter where the file is located.
+	// Drive letter where the file is located. This field is only relevant on
+	// Windows.
 	// The value should be uppercase, and not include the colon.
 	DriveLetter string `ecs:"drive_letter"`
 
