@@ -29,20 +29,20 @@ client.nat.ip,ip,extended,,1.1.0-dev
 client.nat.port,long,extended,,1.1.0-dev
 client.packets,long,core,12,1.1.0-dev
 client.port,long,core,,1.1.0-dev
-client.risk.score,long,extended,5,1.1.0-dev
-client.risk.tag,keyword,extended,"public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR",1.1.0-dev
+client.risk.scope,keyword,extended,"['confidential', 'pci', 'pii']",1.1.0-dev
+client.risk.score,long,extended,7,1.1.0-dev
 client.user.domain,keyword,extended,,1.1.0-dev
 client.user.email,keyword,extended,,1.1.0-dev
 client.user.full_name,keyword,extended,Albert Einstein,1.1.0-dev
 client.user.group.id,keyword,extended,,1.1.0-dev
 client.user.group.name,keyword,extended,,1.1.0-dev
-client.user.group.risk.score,long,extended,5,1.1.0-dev
-client.user.group.risk.tag,keyword,extended,"public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR",1.1.0-dev
+client.user.group.risk.scope,keyword,extended,"['confidential', 'pci', 'pii']",1.1.0-dev
+client.user.group.risk.score,long,extended,7,1.1.0-dev
 client.user.hash,keyword,extended,,1.1.0-dev
 client.user.id,keyword,core,,1.1.0-dev
 client.user.name,keyword,core,albert,1.1.0-dev
-client.user.risk.score,long,extended,5,1.1.0-dev
-client.user.risk.tag,keyword,extended,"public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR",1.1.0-dev
+client.user.risk.scope,keyword,extended,"['confidential', 'pci', 'pii']",1.1.0-dev
+client.user.risk.score,long,extended,7,1.1.0-dev
 cloud.account.id,keyword,extended,666777888999,1.1.0-dev
 cloud.availability_zone,keyword,extended,us-east-1c,1.1.0-dev
 cloud.instance.id,keyword,extended,i-1234567890abcdef0,1.1.0-dev
@@ -50,15 +50,15 @@ cloud.instance.name,keyword,extended,,1.1.0-dev
 cloud.machine.type,keyword,extended,t2.medium,1.1.0-dev
 cloud.provider,keyword,extended,aws,1.1.0-dev
 cloud.region,keyword,extended,us-east-1,1.1.0-dev
-cloud.risk.score,long,extended,5,1.1.0-dev
-cloud.risk.tag,keyword,extended,"public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR",1.1.0-dev
+cloud.risk.scope,keyword,extended,"['confidential', 'pci', 'pii']",1.1.0-dev
+cloud.risk.score,long,extended,7,1.1.0-dev
 container.id,keyword,core,,1.1.0-dev
 container.image.name,keyword,extended,,1.1.0-dev
 container.image.tag,keyword,extended,,1.1.0-dev
 container.labels,object,extended,,1.1.0-dev
 container.name,keyword,extended,,1.1.0-dev
-container.risk.score,long,extended,5,1.1.0-dev
-container.risk.tag,keyword,extended,"public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR",1.1.0-dev
+container.risk.scope,keyword,extended,"['confidential', 'pci', 'pii']",1.1.0-dev
+container.risk.score,long,extended,7,1.1.0-dev
 container.runtime,keyword,extended,docker,1.1.0-dev
 destination.address,keyword,extended,,1.1.0-dev
 destination.as.number,long,extended,15169,1.1.0-dev
@@ -79,20 +79,20 @@ destination.nat.ip,ip,extended,,1.1.0-dev
 destination.nat.port,long,extended,,1.1.0-dev
 destination.packets,long,core,12,1.1.0-dev
 destination.port,long,core,,1.1.0-dev
-destination.risk.score,long,extended,5,1.1.0-dev
-destination.risk.tag,keyword,extended,"public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR",1.1.0-dev
+destination.risk.scope,keyword,extended,"['confidential', 'pci', 'pii']",1.1.0-dev
+destination.risk.score,long,extended,7,1.1.0-dev
 destination.user.domain,keyword,extended,,1.1.0-dev
 destination.user.email,keyword,extended,,1.1.0-dev
 destination.user.full_name,keyword,extended,Albert Einstein,1.1.0-dev
 destination.user.group.id,keyword,extended,,1.1.0-dev
 destination.user.group.name,keyword,extended,,1.1.0-dev
-destination.user.group.risk.score,long,extended,5,1.1.0-dev
-destination.user.group.risk.tag,keyword,extended,"public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR",1.1.0-dev
+destination.user.group.risk.scope,keyword,extended,"['confidential', 'pci', 'pii']",1.1.0-dev
+destination.user.group.risk.score,long,extended,7,1.1.0-dev
 destination.user.hash,keyword,extended,,1.1.0-dev
 destination.user.id,keyword,core,,1.1.0-dev
 destination.user.name,keyword,core,albert,1.1.0-dev
-destination.user.risk.score,long,extended,5,1.1.0-dev
-destination.user.risk.tag,keyword,extended,"public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR",1.1.0-dev
+destination.user.risk.scope,keyword,extended,"['confidential', 'pci', 'pii']",1.1.0-dev
+destination.user.risk.score,long,extended,7,1.1.0-dev
 ecs.version,keyword,core,1.0.0,1.1.0-dev
 error.code,keyword,core,,1.1.0-dev
 error.id,keyword,core,,1.1.0-dev
@@ -111,8 +111,6 @@ event.module,keyword,core,apache,1.1.0-dev
 event.original,keyword,core,Sep 19 08:26:10 host CEF:0&#124;Security&#124; threatmanager&#124;1.0&#124;100&#124; worm successfully stopped&#124;10&#124;src=10.0.0.1 dst=2.1.2.2spt=1232,1.1.0-dev
 event.outcome,keyword,extended,success,1.1.0-dev
 event.provider,keyword,extended,kernel,1.1.0-dev
-event.risk.score,long,extended,5,1.1.0-dev
-event.risk.tag,keyword,extended,"public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR",1.1.0-dev
 event.risk_score,float,core,,1.1.0-dev
 event.risk_score_norm,float,extended,,1.1.0-dev
 event.sequence,long,extended,,1.1.0-dev
@@ -138,8 +136,8 @@ file.mtime,date,extended,,1.1.0-dev
 file.name,keyword,extended,example.png,1.1.0-dev
 file.owner,keyword,extended,alice,1.1.0-dev
 file.path,keyword,extended,/home/alice/example.png,1.1.0-dev
-file.risk.score,long,extended,5,1.1.0-dev
-file.risk.tag,keyword,extended,"public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR",1.1.0-dev
+file.risk.scope,keyword,extended,"['confidential', 'pci', 'pii']",1.1.0-dev
+file.risk.score,long,extended,7,1.1.0-dev
 file.size,long,extended,16384,1.1.0-dev
 file.target_path,keyword,extended,,1.1.0-dev
 file.type,keyword,extended,file,1.1.0-dev
@@ -154,8 +152,8 @@ geo.region_iso_code,keyword,core,CA-QC,1.1.0-dev
 geo.region_name,keyword,core,Quebec,1.1.0-dev
 group.id,keyword,extended,,1.1.0-dev
 group.name,keyword,extended,,1.1.0-dev
-group.risk.score,long,extended,5,1.1.0-dev
-group.risk.tag,keyword,extended,"public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR",1.1.0-dev
+group.risk.scope,keyword,extended,"['confidential', 'pci', 'pii']",1.1.0-dev
+group.risk.score,long,extended,7,1.1.0-dev
 hash.md5,keyword,extended,,1.1.0-dev
 hash.sha1,keyword,extended,,1.1.0-dev
 hash.sha256,keyword,extended,,1.1.0-dev
@@ -187,13 +185,13 @@ host.user.email,keyword,extended,,1.1.0-dev
 host.user.full_name,keyword,extended,Albert Einstein,1.1.0-dev
 host.user.group.id,keyword,extended,,1.1.0-dev
 host.user.group.name,keyword,extended,,1.1.0-dev
-host.user.group.risk.score,long,extended,5,1.1.0-dev
-host.user.group.risk.tag,keyword,extended,"public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR",1.1.0-dev
+host.user.group.risk.scope,keyword,extended,"['confidential', 'pci', 'pii']",1.1.0-dev
+host.user.group.risk.score,long,extended,7,1.1.0-dev
 host.user.hash,keyword,extended,,1.1.0-dev
 host.user.id,keyword,core,,1.1.0-dev
 host.user.name,keyword,core,albert,1.1.0-dev
-host.user.risk.score,long,extended,5,1.1.0-dev
-host.user.risk.tag,keyword,extended,"public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR",1.1.0-dev
+host.user.risk.scope,keyword,extended,"['confidential', 'pci', 'pii']",1.1.0-dev
+host.user.risk.score,long,extended,7,1.1.0-dev
 http.request.body.bytes,long,extended,887,1.1.0-dev
 http.request.body.content,keyword,extended,Hello world,1.1.0-dev
 http.request.bytes,long,extended,1437,1.1.0-dev
@@ -215,8 +213,8 @@ network.iana_number,keyword,extended,6,1.1.0-dev
 network.name,keyword,extended,Guest Wifi,1.1.0-dev
 network.packets,long,core,24,1.1.0-dev
 network.protocol,keyword,core,http,1.1.0-dev
-network.risk.score,long,extended,5,1.1.0-dev
-network.risk.tag,keyword,extended,"public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR",1.1.0-dev
+network.risk.scope,keyword,extended,"['confidential', 'pci', 'pii']",1.1.0-dev
+network.risk.score,long,extended,7,1.1.0-dev
 network.transport,keyword,core,tcp,1.1.0-dev
 network.type,keyword,core,ipv4,1.1.0-dev
 observer.geo.city_name,keyword,core,Montreal,1.1.0-dev
@@ -264,8 +262,8 @@ process.title,keyword,extended,,1.1.0-dev
 process.uptime,long,extended,1325,1.1.0-dev
 process.working_directory,keyword,extended,/home/alice,1.1.0-dev
 related.ip,ip,extended,,1.1.0-dev
-risk.score,long,extended,5,1.1.0-dev
-risk.tag,keyword,extended,"public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR",1.1.0-dev
+risk.scope,keyword,extended,"['confidential', 'pci', 'pii']",1.1.0-dev
+risk.score,long,extended,7,1.1.0-dev
 server.address,keyword,extended,,1.1.0-dev
 server.as.number,long,extended,15169,1.1.0-dev
 server.as.organization.name,keyword,extended,Google LLC,1.1.0-dev
@@ -285,20 +283,20 @@ server.nat.ip,ip,extended,,1.1.0-dev
 server.nat.port,long,extended,,1.1.0-dev
 server.packets,long,core,12,1.1.0-dev
 server.port,long,core,,1.1.0-dev
-server.risk.score,long,extended,5,1.1.0-dev
-server.risk.tag,keyword,extended,"public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR",1.1.0-dev
+server.risk.scope,keyword,extended,"['confidential', 'pci', 'pii']",1.1.0-dev
+server.risk.score,long,extended,7,1.1.0-dev
 server.user.domain,keyword,extended,,1.1.0-dev
 server.user.email,keyword,extended,,1.1.0-dev
 server.user.full_name,keyword,extended,Albert Einstein,1.1.0-dev
 server.user.group.id,keyword,extended,,1.1.0-dev
 server.user.group.name,keyword,extended,,1.1.0-dev
-server.user.group.risk.score,long,extended,5,1.1.0-dev
-server.user.group.risk.tag,keyword,extended,"public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR",1.1.0-dev
+server.user.group.risk.scope,keyword,extended,"['confidential', 'pci', 'pii']",1.1.0-dev
+server.user.group.risk.score,long,extended,7,1.1.0-dev
 server.user.hash,keyword,extended,,1.1.0-dev
 server.user.id,keyword,core,,1.1.0-dev
 server.user.name,keyword,core,albert,1.1.0-dev
-server.user.risk.score,long,extended,5,1.1.0-dev
-server.user.risk.tag,keyword,extended,"public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR",1.1.0-dev
+server.user.risk.scope,keyword,extended,"['confidential', 'pci', 'pii']",1.1.0-dev
+server.user.risk.score,long,extended,7,1.1.0-dev
 service.ephemeral_id,keyword,extended,8a4f500f,1.1.0-dev
 service.id,keyword,core,d37e5ebfe0ae6c4972dbe9f0174a1637bb8247f6,1.1.0-dev
 service.name,keyword,core,elasticsearch-metrics,1.1.0-dev
@@ -324,20 +322,20 @@ source.nat.ip,ip,extended,,1.1.0-dev
 source.nat.port,long,extended,,1.1.0-dev
 source.packets,long,core,12,1.1.0-dev
 source.port,long,core,,1.1.0-dev
-source.risk.score,long,extended,5,1.1.0-dev
-source.risk.tag,keyword,extended,"public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR",1.1.0-dev
+source.risk.scope,keyword,extended,"['confidential', 'pci', 'pii']",1.1.0-dev
+source.risk.score,long,extended,7,1.1.0-dev
 source.user.domain,keyword,extended,,1.1.0-dev
 source.user.email,keyword,extended,,1.1.0-dev
 source.user.full_name,keyword,extended,Albert Einstein,1.1.0-dev
 source.user.group.id,keyword,extended,,1.1.0-dev
 source.user.group.name,keyword,extended,,1.1.0-dev
-source.user.group.risk.score,long,extended,5,1.1.0-dev
-source.user.group.risk.tag,keyword,extended,"public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR",1.1.0-dev
+source.user.group.risk.scope,keyword,extended,"['confidential', 'pci', 'pii']",1.1.0-dev
+source.user.group.risk.score,long,extended,7,1.1.0-dev
 source.user.hash,keyword,extended,,1.1.0-dev
 source.user.id,keyword,core,,1.1.0-dev
 source.user.name,keyword,core,albert,1.1.0-dev
-source.user.risk.score,long,extended,5,1.1.0-dev
-source.user.risk.tag,keyword,extended,"public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR",1.1.0-dev
+source.user.risk.scope,keyword,extended,"['confidential', 'pci', 'pii']",1.1.0-dev
+source.user.risk.score,long,extended,7,1.1.0-dev
 url.domain,keyword,extended,www.elastic.co,1.1.0-dev
 url.fragment,keyword,extended,,1.1.0-dev
 url.full,keyword,extended,https://www.elastic.co:443/search?q=elasticsearch#top,1.1.0-dev
@@ -353,13 +351,13 @@ user.email,keyword,extended,,1.1.0-dev
 user.full_name,keyword,extended,Albert Einstein,1.1.0-dev
 user.group.id,keyword,extended,,1.1.0-dev
 user.group.name,keyword,extended,,1.1.0-dev
-user.group.risk.score,long,extended,5,1.1.0-dev
-user.group.risk.tag,keyword,extended,"public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR",1.1.0-dev
+user.group.risk.scope,keyword,extended,"['confidential', 'pci', 'pii']",1.1.0-dev
+user.group.risk.score,long,extended,7,1.1.0-dev
 user.hash,keyword,extended,,1.1.0-dev
 user.id,keyword,core,,1.1.0-dev
 user.name,keyword,core,albert,1.1.0-dev
-user.risk.score,long,extended,5,1.1.0-dev
-user.risk.tag,keyword,extended,"public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR",1.1.0-dev
+user.risk.scope,keyword,extended,"['confidential', 'pci', 'pii']",1.1.0-dev
+user.risk.score,long,extended,7,1.1.0-dev
 user_agent.device.name,keyword,extended,iPhone,1.1.0-dev
 user_agent.name,keyword,extended,Safari,1.1.0-dev
 user_agent.original,keyword,extended,"Mozilla/5.0 (iPhone; CPU iPhone OS 12_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0 Mobile/15E148 Safari/604.1",1.1.0-dev

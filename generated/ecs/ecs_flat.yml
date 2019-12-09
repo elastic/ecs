@@ -310,35 +310,37 @@ client.port:
   order: 2
   short: Port of the client.
   type: long
+client.risk.scope:
+  description: An array of one or more locally relevant terms to describe the audit
+    scope of the risk type associated with an asset. Typical values have local significance
+    relevant to e.g. a local data classification system or regulatory/compliance  requirements
+    like public, private, confidential, pci, cfr21p11, pii, sox, gdpr, etc.
+  example: &id001
+  - confidential
+  - pci
+  - pii
+  flat_name: client.risk.scope
+  ignore_above: 1024
+  level: extended
+  name: scope
+  order: 1
+  original_fieldset: risk
+  short: Qualitative categorization of asset or user risk classification types.
+  type: keyword
 client.risk.score:
-  description: comparative risk score on a normalized scale of 0-10, quantitavely
-    scoring the level of risk of the asset or data, or the risk represented by a given
-    threat (typically provided by the observer or IOC provider)
-  example: 5
+  description: 'Comparative risk score assigned to resources based on a numerical
+    scale, quantitavely scoring the level  of risk represented by a possible compriomise
+    of the asset or data in question.
+
+    Recommended scale is 1-10, but 1-5 or 1-100 are also acceptable.'
+  example: 7
   flat_name: client.risk.score
   level: extended
   name: score
-  order: 1
-  original_fieldset: risk
-  short: comparative risk score on a normalized scale of 0-10, quantitavely scoring
-    the level of risk of the asset or data, or the risk represented by a given threat
-    (typically provided by the observer or IOC provider)
-  type: long
-client.risk.tag:
-  description: one or more locally relevant tags to describe the risk type of asset
-    or data identified either specific to e.g. a local data classification system,
-    network zone, or regulatory/compliance applicability
-  example: public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR
-  flat_name: client.risk.tag
-  ignore_above: 1024
-  level: extended
-  name: tag
   order: 0
   original_fieldset: risk
-  short: one or more locally relevant tags to describe the risk type of asset or data
-    identified either specific to e.g. a local data classification system, network
-    zone, or regulatory/compliance applicability
-  type: keyword
+  short: Comparative quantitative asset risk score.
+  type: long
 client.user.domain:
   description: 'Name of the directory the user is a member of.
 
@@ -392,35 +394,34 @@ client.user.group.name:
   original_fieldset: user
   short: Name of the group.
   type: keyword
+client.user.group.risk.scope:
+  description: An array of one or more locally relevant terms to describe the audit
+    scope of the risk type associated with an asset. Typical values have local significance
+    relevant to e.g. a local data classification system or regulatory/compliance  requirements
+    like public, private, confidential, pci, cfr21p11, pii, sox, gdpr, etc.
+  example: *id001
+  flat_name: client.user.group.risk.scope
+  ignore_above: 1024
+  level: extended
+  name: scope
+  order: 1
+  original_fieldset: user
+  short: Qualitative categorization of asset or user risk classification types.
+  type: keyword
 client.user.group.risk.score:
-  description: comparative risk score on a normalized scale of 0-10, quantitavely
-    scoring the level of risk of the asset or data, or the risk represented by a given
-    threat (typically provided by the observer or IOC provider)
-  example: 5
+  description: 'Comparative risk score assigned to resources based on a numerical
+    scale, quantitavely scoring the level  of risk represented by a possible compriomise
+    of the asset or data in question.
+
+    Recommended scale is 1-10, but 1-5 or 1-100 are also acceptable.'
+  example: 7
   flat_name: client.user.group.risk.score
   level: extended
   name: score
-  order: 1
-  original_fieldset: user
-  short: comparative risk score on a normalized scale of 0-10, quantitavely scoring
-    the level of risk of the asset or data, or the risk represented by a given threat
-    (typically provided by the observer or IOC provider)
-  type: long
-client.user.group.risk.tag:
-  description: one or more locally relevant tags to describe the risk type of asset
-    or data identified either specific to e.g. a local data classification system,
-    network zone, or regulatory/compliance applicability
-  example: public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR
-  flat_name: client.user.group.risk.tag
-  ignore_above: 1024
-  level: extended
-  name: tag
   order: 0
   original_fieldset: user
-  short: one or more locally relevant tags to describe the risk type of asset or data
-    identified either specific to e.g. a local data classification system, network
-    zone, or regulatory/compliance applicability
-  type: keyword
+  short: Comparative quantitative asset risk score.
+  type: long
 client.user.hash:
   description: 'Unique user hash to correlate information for a user in anonymized
     form.
@@ -456,35 +457,34 @@ client.user.name:
   original_fieldset: user
   short: Short name or login of the user.
   type: keyword
+client.user.risk.scope:
+  description: An array of one or more locally relevant terms to describe the audit
+    scope of the risk type associated with an asset. Typical values have local significance
+    relevant to e.g. a local data classification system or regulatory/compliance  requirements
+    like public, private, confidential, pci, cfr21p11, pii, sox, gdpr, etc.
+  example: *id001
+  flat_name: client.user.risk.scope
+  ignore_above: 1024
+  level: extended
+  name: scope
+  order: 1
+  original_fieldset: user
+  short: Qualitative categorization of asset or user risk classification types.
+  type: keyword
 client.user.risk.score:
-  description: comparative risk score on a normalized scale of 0-10, quantitavely
-    scoring the level of risk of the asset or data, or the risk represented by a given
-    threat (typically provided by the observer or IOC provider)
-  example: 5
+  description: 'Comparative risk score assigned to resources based on a numerical
+    scale, quantitavely scoring the level  of risk represented by a possible compriomise
+    of the asset or data in question.
+
+    Recommended scale is 1-10, but 1-5 or 1-100 are also acceptable.'
+  example: 7
   flat_name: client.user.risk.score
   level: extended
   name: score
-  order: 1
-  original_fieldset: user
-  short: comparative risk score on a normalized scale of 0-10, quantitavely scoring
-    the level of risk of the asset or data, or the risk represented by a given threat
-    (typically provided by the observer or IOC provider)
-  type: long
-client.user.risk.tag:
-  description: one or more locally relevant tags to describe the risk type of asset
-    or data identified either specific to e.g. a local data classification system,
-    network zone, or regulatory/compliance applicability
-  example: public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR
-  flat_name: client.user.risk.tag
-  ignore_above: 1024
-  level: extended
-  name: tag
   order: 0
   original_fieldset: user
-  short: one or more locally relevant tags to describe the risk type of asset or data
-    identified either specific to e.g. a local data classification system, network
-    zone, or regulatory/compliance applicability
-  type: keyword
+  short: Comparative quantitative asset risk score.
+  type: long
 cloud.account.id:
   description: 'The cloud account or organization id used to identify different entities
     in a multi-tenant environment.
@@ -558,35 +558,34 @@ cloud.region:
   order: 2
   short: Region in which this host is running.
   type: keyword
+cloud.risk.scope:
+  description: An array of one or more locally relevant terms to describe the audit
+    scope of the risk type associated with an asset. Typical values have local significance
+    relevant to e.g. a local data classification system or regulatory/compliance  requirements
+    like public, private, confidential, pci, cfr21p11, pii, sox, gdpr, etc.
+  example: *id001
+  flat_name: cloud.risk.scope
+  ignore_above: 1024
+  level: extended
+  name: scope
+  order: 1
+  original_fieldset: risk
+  short: Qualitative categorization of asset or user risk classification types.
+  type: keyword
 cloud.risk.score:
-  description: comparative risk score on a normalized scale of 0-10, quantitavely
-    scoring the level of risk of the asset or data, or the risk represented by a given
-    threat (typically provided by the observer or IOC provider)
-  example: 5
+  description: 'Comparative risk score assigned to resources based on a numerical
+    scale, quantitavely scoring the level  of risk represented by a possible compriomise
+    of the asset or data in question.
+
+    Recommended scale is 1-10, but 1-5 or 1-100 are also acceptable.'
+  example: 7
   flat_name: cloud.risk.score
   level: extended
   name: score
-  order: 1
-  original_fieldset: risk
-  short: comparative risk score on a normalized scale of 0-10, quantitavely scoring
-    the level of risk of the asset or data, or the risk represented by a given threat
-    (typically provided by the observer or IOC provider)
-  type: long
-cloud.risk.tag:
-  description: one or more locally relevant tags to describe the risk type of asset
-    or data identified either specific to e.g. a local data classification system,
-    network zone, or regulatory/compliance applicability
-  example: public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR
-  flat_name: cloud.risk.tag
-  ignore_above: 1024
-  level: extended
-  name: tag
   order: 0
   original_fieldset: risk
-  short: one or more locally relevant tags to describe the risk type of asset or data
-    identified either specific to e.g. a local data classification system, network
-    zone, or regulatory/compliance applicability
-  type: keyword
+  short: Comparative quantitative asset risk score.
+  type: long
 container.id:
   description: Unique container id.
   flat_name: container.id
@@ -632,35 +631,34 @@ container.name:
   order: 4
   short: Container name.
   type: keyword
+container.risk.scope:
+  description: An array of one or more locally relevant terms to describe the audit
+    scope of the risk type associated with an asset. Typical values have local significance
+    relevant to e.g. a local data classification system or regulatory/compliance  requirements
+    like public, private, confidential, pci, cfr21p11, pii, sox, gdpr, etc.
+  example: *id001
+  flat_name: container.risk.scope
+  ignore_above: 1024
+  level: extended
+  name: scope
+  order: 1
+  original_fieldset: risk
+  short: Qualitative categorization of asset or user risk classification types.
+  type: keyword
 container.risk.score:
-  description: comparative risk score on a normalized scale of 0-10, quantitavely
-    scoring the level of risk of the asset or data, or the risk represented by a given
-    threat (typically provided by the observer or IOC provider)
-  example: 5
+  description: 'Comparative risk score assigned to resources based on a numerical
+    scale, quantitavely scoring the level  of risk represented by a possible compriomise
+    of the asset or data in question.
+
+    Recommended scale is 1-10, but 1-5 or 1-100 are also acceptable.'
+  example: 7
   flat_name: container.risk.score
   level: extended
   name: score
-  order: 1
-  original_fieldset: risk
-  short: comparative risk score on a normalized scale of 0-10, quantitavely scoring
-    the level of risk of the asset or data, or the risk represented by a given threat
-    (typically provided by the observer or IOC provider)
-  type: long
-container.risk.tag:
-  description: one or more locally relevant tags to describe the risk type of asset
-    or data identified either specific to e.g. a local data classification system,
-    network zone, or regulatory/compliance applicability
-  example: public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR
-  flat_name: container.risk.tag
-  ignore_above: 1024
-  level: extended
-  name: tag
   order: 0
   original_fieldset: risk
-  short: one or more locally relevant tags to describe the risk type of asset or data
-    identified either specific to e.g. a local data classification system, network
-    zone, or regulatory/compliance applicability
-  type: keyword
+  short: Comparative quantitative asset risk score.
+  type: long
 container.runtime:
   description: Runtime managing this container.
   example: docker
@@ -879,35 +877,34 @@ destination.port:
   order: 2
   short: Port of the destination.
   type: long
+destination.risk.scope:
+  description: An array of one or more locally relevant terms to describe the audit
+    scope of the risk type associated with an asset. Typical values have local significance
+    relevant to e.g. a local data classification system or regulatory/compliance  requirements
+    like public, private, confidential, pci, cfr21p11, pii, sox, gdpr, etc.
+  example: *id001
+  flat_name: destination.risk.scope
+  ignore_above: 1024
+  level: extended
+  name: scope
+  order: 1
+  original_fieldset: risk
+  short: Qualitative categorization of asset or user risk classification types.
+  type: keyword
 destination.risk.score:
-  description: comparative risk score on a normalized scale of 0-10, quantitavely
-    scoring the level of risk of the asset or data, or the risk represented by a given
-    threat (typically provided by the observer or IOC provider)
-  example: 5
+  description: 'Comparative risk score assigned to resources based on a numerical
+    scale, quantitavely scoring the level  of risk represented by a possible compriomise
+    of the asset or data in question.
+
+    Recommended scale is 1-10, but 1-5 or 1-100 are also acceptable.'
+  example: 7
   flat_name: destination.risk.score
   level: extended
   name: score
-  order: 1
-  original_fieldset: risk
-  short: comparative risk score on a normalized scale of 0-10, quantitavely scoring
-    the level of risk of the asset or data, or the risk represented by a given threat
-    (typically provided by the observer or IOC provider)
-  type: long
-destination.risk.tag:
-  description: one or more locally relevant tags to describe the risk type of asset
-    or data identified either specific to e.g. a local data classification system,
-    network zone, or regulatory/compliance applicability
-  example: public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR
-  flat_name: destination.risk.tag
-  ignore_above: 1024
-  level: extended
-  name: tag
   order: 0
   original_fieldset: risk
-  short: one or more locally relevant tags to describe the risk type of asset or data
-    identified either specific to e.g. a local data classification system, network
-    zone, or regulatory/compliance applicability
-  type: keyword
+  short: Comparative quantitative asset risk score.
+  type: long
 destination.user.domain:
   description: 'Name of the directory the user is a member of.
 
@@ -961,35 +958,34 @@ destination.user.group.name:
   original_fieldset: user
   short: Name of the group.
   type: keyword
+destination.user.group.risk.scope:
+  description: An array of one or more locally relevant terms to describe the audit
+    scope of the risk type associated with an asset. Typical values have local significance
+    relevant to e.g. a local data classification system or regulatory/compliance  requirements
+    like public, private, confidential, pci, cfr21p11, pii, sox, gdpr, etc.
+  example: *id001
+  flat_name: destination.user.group.risk.scope
+  ignore_above: 1024
+  level: extended
+  name: scope
+  order: 1
+  original_fieldset: user
+  short: Qualitative categorization of asset or user risk classification types.
+  type: keyword
 destination.user.group.risk.score:
-  description: comparative risk score on a normalized scale of 0-10, quantitavely
-    scoring the level of risk of the asset or data, or the risk represented by a given
-    threat (typically provided by the observer or IOC provider)
-  example: 5
+  description: 'Comparative risk score assigned to resources based on a numerical
+    scale, quantitavely scoring the level  of risk represented by a possible compriomise
+    of the asset or data in question.
+
+    Recommended scale is 1-10, but 1-5 or 1-100 are also acceptable.'
+  example: 7
   flat_name: destination.user.group.risk.score
   level: extended
   name: score
-  order: 1
-  original_fieldset: user
-  short: comparative risk score on a normalized scale of 0-10, quantitavely scoring
-    the level of risk of the asset or data, or the risk represented by a given threat
-    (typically provided by the observer or IOC provider)
-  type: long
-destination.user.group.risk.tag:
-  description: one or more locally relevant tags to describe the risk type of asset
-    or data identified either specific to e.g. a local data classification system,
-    network zone, or regulatory/compliance applicability
-  example: public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR
-  flat_name: destination.user.group.risk.tag
-  ignore_above: 1024
-  level: extended
-  name: tag
   order: 0
   original_fieldset: user
-  short: one or more locally relevant tags to describe the risk type of asset or data
-    identified either specific to e.g. a local data classification system, network
-    zone, or regulatory/compliance applicability
-  type: keyword
+  short: Comparative quantitative asset risk score.
+  type: long
 destination.user.hash:
   description: 'Unique user hash to correlate information for a user in anonymized
     form.
@@ -1025,35 +1021,34 @@ destination.user.name:
   original_fieldset: user
   short: Short name or login of the user.
   type: keyword
+destination.user.risk.scope:
+  description: An array of one or more locally relevant terms to describe the audit
+    scope of the risk type associated with an asset. Typical values have local significance
+    relevant to e.g. a local data classification system or regulatory/compliance  requirements
+    like public, private, confidential, pci, cfr21p11, pii, sox, gdpr, etc.
+  example: *id001
+  flat_name: destination.user.risk.scope
+  ignore_above: 1024
+  level: extended
+  name: scope
+  order: 1
+  original_fieldset: user
+  short: Qualitative categorization of asset or user risk classification types.
+  type: keyword
 destination.user.risk.score:
-  description: comparative risk score on a normalized scale of 0-10, quantitavely
-    scoring the level of risk of the asset or data, or the risk represented by a given
-    threat (typically provided by the observer or IOC provider)
-  example: 5
+  description: 'Comparative risk score assigned to resources based on a numerical
+    scale, quantitavely scoring the level  of risk represented by a possible compriomise
+    of the asset or data in question.
+
+    Recommended scale is 1-10, but 1-5 or 1-100 are also acceptable.'
+  example: 7
   flat_name: destination.user.risk.score
   level: extended
   name: score
-  order: 1
-  original_fieldset: user
-  short: comparative risk score on a normalized scale of 0-10, quantitavely scoring
-    the level of risk of the asset or data, or the risk represented by a given threat
-    (typically provided by the observer or IOC provider)
-  type: long
-destination.user.risk.tag:
-  description: one or more locally relevant tags to describe the risk type of asset
-    or data identified either specific to e.g. a local data classification system,
-    network zone, or regulatory/compliance applicability
-  example: public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR
-  flat_name: destination.user.risk.tag
-  ignore_above: 1024
-  level: extended
-  name: tag
   order: 0
   original_fieldset: user
-  short: one or more locally relevant tags to describe the risk type of asset or data
-    identified either specific to e.g. a local data classification system, network
-    zone, or regulatory/compliance applicability
-  type: keyword
+  short: Comparative quantitative asset risk score.
+  type: long
 ecs.version:
   description: 'ECS version this event conforms to. `ecs.version` is a required field
     and must exist in all events.
@@ -1295,35 +1290,6 @@ event.provider:
   name: provider
   order: 9
   short: Source of the event.
-  type: keyword
-event.risk.score:
-  description: comparative risk score on a normalized scale of 0-10, quantitavely
-    scoring the level of risk of the asset or data, or the risk represented by a given
-    threat (typically provided by the observer or IOC provider)
-  example: 5
-  flat_name: event.risk.score
-  level: extended
-  name: score
-  order: 1
-  original_fieldset: risk
-  short: comparative risk score on a normalized scale of 0-10, quantitavely scoring
-    the level of risk of the asset or data, or the risk represented by a given threat
-    (typically provided by the observer or IOC provider)
-  type: long
-event.risk.tag:
-  description: one or more locally relevant tags to describe the risk type of asset
-    or data identified either specific to e.g. a local data classification system,
-    network zone, or regulatory/compliance applicability
-  example: public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR
-  flat_name: event.risk.tag
-  ignore_above: 1024
-  level: extended
-  name: tag
-  order: 0
-  original_fieldset: risk
-  short: one or more locally relevant tags to describe the risk type of asset or data
-    identified either specific to e.g. a local data classification system, network
-    zone, or regulatory/compliance applicability
   type: keyword
 event.risk_score:
   description: Risk score or priority of the event (e.g. security solutions). Use
@@ -1585,35 +1551,34 @@ file.path:
   order: 2
   short: Full path to the file.
   type: keyword
+file.risk.scope:
+  description: An array of one or more locally relevant terms to describe the audit
+    scope of the risk type associated with an asset. Typical values have local significance
+    relevant to e.g. a local data classification system or regulatory/compliance  requirements
+    like public, private, confidential, pci, cfr21p11, pii, sox, gdpr, etc.
+  example: *id001
+  flat_name: file.risk.scope
+  ignore_above: 1024
+  level: extended
+  name: scope
+  order: 1
+  original_fieldset: risk
+  short: Qualitative categorization of asset or user risk classification types.
+  type: keyword
 file.risk.score:
-  description: comparative risk score on a normalized scale of 0-10, quantitavely
-    scoring the level of risk of the asset or data, or the risk represented by a given
-    threat (typically provided by the observer or IOC provider)
-  example: 5
+  description: 'Comparative risk score assigned to resources based on a numerical
+    scale, quantitavely scoring the level  of risk represented by a possible compriomise
+    of the asset or data in question.
+
+    Recommended scale is 1-10, but 1-5 or 1-100 are also acceptable.'
+  example: 7
   flat_name: file.risk.score
   level: extended
   name: score
-  order: 1
-  original_fieldset: risk
-  short: comparative risk score on a normalized scale of 0-10, quantitavely scoring
-    the level of risk of the asset or data, or the risk represented by a given threat
-    (typically provided by the observer or IOC provider)
-  type: long
-file.risk.tag:
-  description: one or more locally relevant tags to describe the risk type of asset
-    or data identified either specific to e.g. a local data classification system,
-    network zone, or regulatory/compliance applicability
-  example: public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR
-  flat_name: file.risk.tag
-  ignore_above: 1024
-  level: extended
-  name: tag
   order: 0
   original_fieldset: risk
-  short: one or more locally relevant tags to describe the risk type of asset or data
-    identified either specific to e.g. a local data classification system, network
-    zone, or regulatory/compliance applicability
-  type: keyword
+  short: Comparative quantitative asset risk score.
+  type: long
 file.size:
   description: 'File size in bytes.
 
@@ -1757,35 +1722,34 @@ group.name:
   order: 1
   short: Name of the group.
   type: keyword
+group.risk.scope:
+  description: An array of one or more locally relevant terms to describe the audit
+    scope of the risk type associated with an asset. Typical values have local significance
+    relevant to e.g. a local data classification system or regulatory/compliance  requirements
+    like public, private, confidential, pci, cfr21p11, pii, sox, gdpr, etc.
+  example: *id001
+  flat_name: group.risk.scope
+  ignore_above: 1024
+  level: extended
+  name: scope
+  order: 1
+  original_fieldset: risk
+  short: Qualitative categorization of asset or user risk classification types.
+  type: keyword
 group.risk.score:
-  description: comparative risk score on a normalized scale of 0-10, quantitavely
-    scoring the level of risk of the asset or data, or the risk represented by a given
-    threat (typically provided by the observer or IOC provider)
-  example: 5
+  description: 'Comparative risk score assigned to resources based on a numerical
+    scale, quantitavely scoring the level  of risk represented by a possible compriomise
+    of the asset or data in question.
+
+    Recommended scale is 1-10, but 1-5 or 1-100 are also acceptable.'
+  example: 7
   flat_name: group.risk.score
   level: extended
   name: score
-  order: 1
-  original_fieldset: risk
-  short: comparative risk score on a normalized scale of 0-10, quantitavely scoring
-    the level of risk of the asset or data, or the risk represented by a given threat
-    (typically provided by the observer or IOC provider)
-  type: long
-group.risk.tag:
-  description: one or more locally relevant tags to describe the risk type of asset
-    or data identified either specific to e.g. a local data classification system,
-    network zone, or regulatory/compliance applicability
-  example: public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR
-  flat_name: group.risk.tag
-  ignore_above: 1024
-  level: extended
-  name: tag
   order: 0
   original_fieldset: risk
-  short: one or more locally relevant tags to describe the risk type of asset or data
-    identified either specific to e.g. a local data classification system, network
-    zone, or regulatory/compliance applicability
-  type: keyword
+  short: Comparative quantitative asset risk score.
+  type: long
 hash.md5:
   description: MD5 hash.
   flat_name: hash.md5
@@ -2118,35 +2082,34 @@ host.user.group.name:
   original_fieldset: user
   short: Name of the group.
   type: keyword
+host.user.group.risk.scope:
+  description: An array of one or more locally relevant terms to describe the audit
+    scope of the risk type associated with an asset. Typical values have local significance
+    relevant to e.g. a local data classification system or regulatory/compliance  requirements
+    like public, private, confidential, pci, cfr21p11, pii, sox, gdpr, etc.
+  example: *id001
+  flat_name: host.user.group.risk.scope
+  ignore_above: 1024
+  level: extended
+  name: scope
+  order: 1
+  original_fieldset: user
+  short: Qualitative categorization of asset or user risk classification types.
+  type: keyword
 host.user.group.risk.score:
-  description: comparative risk score on a normalized scale of 0-10, quantitavely
-    scoring the level of risk of the asset or data, or the risk represented by a given
-    threat (typically provided by the observer or IOC provider)
-  example: 5
+  description: 'Comparative risk score assigned to resources based on a numerical
+    scale, quantitavely scoring the level  of risk represented by a possible compriomise
+    of the asset or data in question.
+
+    Recommended scale is 1-10, but 1-5 or 1-100 are also acceptable.'
+  example: 7
   flat_name: host.user.group.risk.score
   level: extended
   name: score
-  order: 1
-  original_fieldset: user
-  short: comparative risk score on a normalized scale of 0-10, quantitavely scoring
-    the level of risk of the asset or data, or the risk represented by a given threat
-    (typically provided by the observer or IOC provider)
-  type: long
-host.user.group.risk.tag:
-  description: one or more locally relevant tags to describe the risk type of asset
-    or data identified either specific to e.g. a local data classification system,
-    network zone, or regulatory/compliance applicability
-  example: public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR
-  flat_name: host.user.group.risk.tag
-  ignore_above: 1024
-  level: extended
-  name: tag
   order: 0
   original_fieldset: user
-  short: one or more locally relevant tags to describe the risk type of asset or data
-    identified either specific to e.g. a local data classification system, network
-    zone, or regulatory/compliance applicability
-  type: keyword
+  short: Comparative quantitative asset risk score.
+  type: long
 host.user.hash:
   description: 'Unique user hash to correlate information for a user in anonymized
     form.
@@ -2182,35 +2145,34 @@ host.user.name:
   original_fieldset: user
   short: Short name or login of the user.
   type: keyword
+host.user.risk.scope:
+  description: An array of one or more locally relevant terms to describe the audit
+    scope of the risk type associated with an asset. Typical values have local significance
+    relevant to e.g. a local data classification system or regulatory/compliance  requirements
+    like public, private, confidential, pci, cfr21p11, pii, sox, gdpr, etc.
+  example: *id001
+  flat_name: host.user.risk.scope
+  ignore_above: 1024
+  level: extended
+  name: scope
+  order: 1
+  original_fieldset: user
+  short: Qualitative categorization of asset or user risk classification types.
+  type: keyword
 host.user.risk.score:
-  description: comparative risk score on a normalized scale of 0-10, quantitavely
-    scoring the level of risk of the asset or data, or the risk represented by a given
-    threat (typically provided by the observer or IOC provider)
-  example: 5
+  description: 'Comparative risk score assigned to resources based on a numerical
+    scale, quantitavely scoring the level  of risk represented by a possible compriomise
+    of the asset or data in question.
+
+    Recommended scale is 1-10, but 1-5 or 1-100 are also acceptable.'
+  example: 7
   flat_name: host.user.risk.score
   level: extended
   name: score
-  order: 1
-  original_fieldset: user
-  short: comparative risk score on a normalized scale of 0-10, quantitavely scoring
-    the level of risk of the asset or data, or the risk represented by a given threat
-    (typically provided by the observer or IOC provider)
-  type: long
-host.user.risk.tag:
-  description: one or more locally relevant tags to describe the risk type of asset
-    or data identified either specific to e.g. a local data classification system,
-    network zone, or regulatory/compliance applicability
-  example: public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR
-  flat_name: host.user.risk.tag
-  ignore_above: 1024
-  level: extended
-  name: tag
   order: 0
   original_fieldset: user
-  short: one or more locally relevant tags to describe the risk type of asset or data
-    identified either specific to e.g. a local data classification system, network
-    zone, or regulatory/compliance applicability
-  type: keyword
+  short: Comparative quantitative asset risk score.
+  type: long
 http.request.body.bytes:
   description: Size in bytes of the request body.
   example: 887
@@ -2492,35 +2454,34 @@ network.protocol:
   order: 5
   short: L7 Network protocol name.
   type: keyword
+network.risk.scope:
+  description: An array of one or more locally relevant terms to describe the audit
+    scope of the risk type associated with an asset. Typical values have local significance
+    relevant to e.g. a local data classification system or regulatory/compliance  requirements
+    like public, private, confidential, pci, cfr21p11, pii, sox, gdpr, etc.
+  example: *id001
+  flat_name: network.risk.scope
+  ignore_above: 1024
+  level: extended
+  name: scope
+  order: 1
+  original_fieldset: risk
+  short: Qualitative categorization of asset or user risk classification types.
+  type: keyword
 network.risk.score:
-  description: comparative risk score on a normalized scale of 0-10, quantitavely
-    scoring the level of risk of the asset or data, or the risk represented by a given
-    threat (typically provided by the observer or IOC provider)
-  example: 5
+  description: 'Comparative risk score assigned to resources based on a numerical
+    scale, quantitavely scoring the level  of risk represented by a possible compriomise
+    of the asset or data in question.
+
+    Recommended scale is 1-10, but 1-5 or 1-100 are also acceptable.'
+  example: 7
   flat_name: network.risk.score
   level: extended
   name: score
-  order: 1
-  original_fieldset: risk
-  short: comparative risk score on a normalized scale of 0-10, quantitavely scoring
-    the level of risk of the asset or data, or the risk represented by a given threat
-    (typically provided by the observer or IOC provider)
-  type: long
-network.risk.tag:
-  description: one or more locally relevant tags to describe the risk type of asset
-    or data identified either specific to e.g. a local data classification system,
-    network zone, or regulatory/compliance applicability
-  example: public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR
-  flat_name: network.risk.tag
-  ignore_above: 1024
-  level: extended
-  name: tag
   order: 0
   original_fieldset: risk
-  short: one or more locally relevant tags to describe the risk type of asset or data
-    identified either specific to e.g. a local data classification system, network
-    zone, or regulatory/compliance applicability
-  type: keyword
+  short: Comparative quantitative asset risk score.
+  type: long
 network.transport:
   description: 'Same as network.iana_number, but instead using the Keyword name of
     the transport layer (udp, tcp, ipv6-icmp, etc.)
@@ -3018,33 +2979,32 @@ related.ip:
   order: 0
   short: All of the IPs seen on your event.
   type: ip
+risk.scope:
+  description: An array of one or more locally relevant terms to describe the audit
+    scope of the risk type associated with an asset. Typical values have local significance
+    relevant to e.g. a local data classification system or regulatory/compliance  requirements
+    like public, private, confidential, pci, cfr21p11, pii, sox, gdpr, etc.
+  example: *id001
+  flat_name: risk.scope
+  ignore_above: 1024
+  level: extended
+  name: scope
+  order: 1
+  short: Qualitative categorization of asset or user risk classification types.
+  type: keyword
 risk.score:
-  description: comparative risk score on a normalized scale of 0-10, quantitavely
-    scoring the level of risk of the asset or data, or the risk represented by a given
-    threat (typically provided by the observer or IOC provider)
-  example: 5
+  description: 'Comparative risk score assigned to resources based on a numerical
+    scale, quantitavely scoring the level  of risk represented by a possible compriomise
+    of the asset or data in question.
+
+    Recommended scale is 1-10, but 1-5 or 1-100 are also acceptable.'
+  example: 7
   flat_name: risk.score
   level: extended
   name: score
-  order: 1
-  short: comparative risk score on a normalized scale of 0-10, quantitavely scoring
-    the level of risk of the asset or data, or the risk represented by a given threat
-    (typically provided by the observer or IOC provider)
-  type: long
-risk.tag:
-  description: one or more locally relevant tags to describe the risk type of asset
-    or data identified either specific to e.g. a local data classification system,
-    network zone, or regulatory/compliance applicability
-  example: public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR
-  flat_name: risk.tag
-  ignore_above: 1024
-  level: extended
-  name: tag
   order: 0
-  short: one or more locally relevant tags to describe the risk type of asset or data
-    identified either specific to e.g. a local data classification system, network
-    zone, or regulatory/compliance applicability
-  type: keyword
+  short: Comparative quantitative asset risk score.
+  type: long
 server.address:
   description: 'Some event server addresses are defined ambiguously. The event will
     sometimes list an IP, a domain or a unix socket.  You should always store the
@@ -3254,35 +3214,34 @@ server.port:
   order: 2
   short: Port of the server.
   type: long
+server.risk.scope:
+  description: An array of one or more locally relevant terms to describe the audit
+    scope of the risk type associated with an asset. Typical values have local significance
+    relevant to e.g. a local data classification system or regulatory/compliance  requirements
+    like public, private, confidential, pci, cfr21p11, pii, sox, gdpr, etc.
+  example: *id001
+  flat_name: server.risk.scope
+  ignore_above: 1024
+  level: extended
+  name: scope
+  order: 1
+  original_fieldset: risk
+  short: Qualitative categorization of asset or user risk classification types.
+  type: keyword
 server.risk.score:
-  description: comparative risk score on a normalized scale of 0-10, quantitavely
-    scoring the level of risk of the asset or data, or the risk represented by a given
-    threat (typically provided by the observer or IOC provider)
-  example: 5
+  description: 'Comparative risk score assigned to resources based on a numerical
+    scale, quantitavely scoring the level  of risk represented by a possible compriomise
+    of the asset or data in question.
+
+    Recommended scale is 1-10, but 1-5 or 1-100 are also acceptable.'
+  example: 7
   flat_name: server.risk.score
   level: extended
   name: score
-  order: 1
-  original_fieldset: risk
-  short: comparative risk score on a normalized scale of 0-10, quantitavely scoring
-    the level of risk of the asset or data, or the risk represented by a given threat
-    (typically provided by the observer or IOC provider)
-  type: long
-server.risk.tag:
-  description: one or more locally relevant tags to describe the risk type of asset
-    or data identified either specific to e.g. a local data classification system,
-    network zone, or regulatory/compliance applicability
-  example: public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR
-  flat_name: server.risk.tag
-  ignore_above: 1024
-  level: extended
-  name: tag
   order: 0
   original_fieldset: risk
-  short: one or more locally relevant tags to describe the risk type of asset or data
-    identified either specific to e.g. a local data classification system, network
-    zone, or regulatory/compliance applicability
-  type: keyword
+  short: Comparative quantitative asset risk score.
+  type: long
 server.user.domain:
   description: 'Name of the directory the user is a member of.
 
@@ -3336,35 +3295,34 @@ server.user.group.name:
   original_fieldset: user
   short: Name of the group.
   type: keyword
+server.user.group.risk.scope:
+  description: An array of one or more locally relevant terms to describe the audit
+    scope of the risk type associated with an asset. Typical values have local significance
+    relevant to e.g. a local data classification system or regulatory/compliance  requirements
+    like public, private, confidential, pci, cfr21p11, pii, sox, gdpr, etc.
+  example: *id001
+  flat_name: server.user.group.risk.scope
+  ignore_above: 1024
+  level: extended
+  name: scope
+  order: 1
+  original_fieldset: user
+  short: Qualitative categorization of asset or user risk classification types.
+  type: keyword
 server.user.group.risk.score:
-  description: comparative risk score on a normalized scale of 0-10, quantitavely
-    scoring the level of risk of the asset or data, or the risk represented by a given
-    threat (typically provided by the observer or IOC provider)
-  example: 5
+  description: 'Comparative risk score assigned to resources based on a numerical
+    scale, quantitavely scoring the level  of risk represented by a possible compriomise
+    of the asset or data in question.
+
+    Recommended scale is 1-10, but 1-5 or 1-100 are also acceptable.'
+  example: 7
   flat_name: server.user.group.risk.score
   level: extended
   name: score
-  order: 1
-  original_fieldset: user
-  short: comparative risk score on a normalized scale of 0-10, quantitavely scoring
-    the level of risk of the asset or data, or the risk represented by a given threat
-    (typically provided by the observer or IOC provider)
-  type: long
-server.user.group.risk.tag:
-  description: one or more locally relevant tags to describe the risk type of asset
-    or data identified either specific to e.g. a local data classification system,
-    network zone, or regulatory/compliance applicability
-  example: public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR
-  flat_name: server.user.group.risk.tag
-  ignore_above: 1024
-  level: extended
-  name: tag
   order: 0
   original_fieldset: user
-  short: one or more locally relevant tags to describe the risk type of asset or data
-    identified either specific to e.g. a local data classification system, network
-    zone, or regulatory/compliance applicability
-  type: keyword
+  short: Comparative quantitative asset risk score.
+  type: long
 server.user.hash:
   description: 'Unique user hash to correlate information for a user in anonymized
     form.
@@ -3400,35 +3358,34 @@ server.user.name:
   original_fieldset: user
   short: Short name or login of the user.
   type: keyword
+server.user.risk.scope:
+  description: An array of one or more locally relevant terms to describe the audit
+    scope of the risk type associated with an asset. Typical values have local significance
+    relevant to e.g. a local data classification system or regulatory/compliance  requirements
+    like public, private, confidential, pci, cfr21p11, pii, sox, gdpr, etc.
+  example: *id001
+  flat_name: server.user.risk.scope
+  ignore_above: 1024
+  level: extended
+  name: scope
+  order: 1
+  original_fieldset: user
+  short: Qualitative categorization of asset or user risk classification types.
+  type: keyword
 server.user.risk.score:
-  description: comparative risk score on a normalized scale of 0-10, quantitavely
-    scoring the level of risk of the asset or data, or the risk represented by a given
-    threat (typically provided by the observer or IOC provider)
-  example: 5
+  description: 'Comparative risk score assigned to resources based on a numerical
+    scale, quantitavely scoring the level  of risk represented by a possible compriomise
+    of the asset or data in question.
+
+    Recommended scale is 1-10, but 1-5 or 1-100 are also acceptable.'
+  example: 7
   flat_name: server.user.risk.score
   level: extended
   name: score
-  order: 1
-  original_fieldset: user
-  short: comparative risk score on a normalized scale of 0-10, quantitavely scoring
-    the level of risk of the asset or data, or the risk represented by a given threat
-    (typically provided by the observer or IOC provider)
-  type: long
-server.user.risk.tag:
-  description: one or more locally relevant tags to describe the risk type of asset
-    or data identified either specific to e.g. a local data classification system,
-    network zone, or regulatory/compliance applicability
-  example: public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR
-  flat_name: server.user.risk.tag
-  ignore_above: 1024
-  level: extended
-  name: tag
   order: 0
   original_fieldset: user
-  short: one or more locally relevant tags to describe the risk type of asset or data
-    identified either specific to e.g. a local data classification system, network
-    zone, or regulatory/compliance applicability
-  type: keyword
+  short: Comparative quantitative asset risk score.
+  type: long
 service.ephemeral_id:
   description: 'Ephemeral identifier of this service (if one exists).
 
@@ -3726,35 +3683,34 @@ source.port:
   order: 2
   short: Port of the source.
   type: long
+source.risk.scope:
+  description: An array of one or more locally relevant terms to describe the audit
+    scope of the risk type associated with an asset. Typical values have local significance
+    relevant to e.g. a local data classification system or regulatory/compliance  requirements
+    like public, private, confidential, pci, cfr21p11, pii, sox, gdpr, etc.
+  example: *id001
+  flat_name: source.risk.scope
+  ignore_above: 1024
+  level: extended
+  name: scope
+  order: 1
+  original_fieldset: risk
+  short: Qualitative categorization of asset or user risk classification types.
+  type: keyword
 source.risk.score:
-  description: comparative risk score on a normalized scale of 0-10, quantitavely
-    scoring the level of risk of the asset or data, or the risk represented by a given
-    threat (typically provided by the observer or IOC provider)
-  example: 5
+  description: 'Comparative risk score assigned to resources based on a numerical
+    scale, quantitavely scoring the level  of risk represented by a possible compriomise
+    of the asset or data in question.
+
+    Recommended scale is 1-10, but 1-5 or 1-100 are also acceptable.'
+  example: 7
   flat_name: source.risk.score
   level: extended
   name: score
-  order: 1
-  original_fieldset: risk
-  short: comparative risk score on a normalized scale of 0-10, quantitavely scoring
-    the level of risk of the asset or data, or the risk represented by a given threat
-    (typically provided by the observer or IOC provider)
-  type: long
-source.risk.tag:
-  description: one or more locally relevant tags to describe the risk type of asset
-    or data identified either specific to e.g. a local data classification system,
-    network zone, or regulatory/compliance applicability
-  example: public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR
-  flat_name: source.risk.tag
-  ignore_above: 1024
-  level: extended
-  name: tag
   order: 0
   original_fieldset: risk
-  short: one or more locally relevant tags to describe the risk type of asset or data
-    identified either specific to e.g. a local data classification system, network
-    zone, or regulatory/compliance applicability
-  type: keyword
+  short: Comparative quantitative asset risk score.
+  type: long
 source.user.domain:
   description: 'Name of the directory the user is a member of.
 
@@ -3808,35 +3764,34 @@ source.user.group.name:
   original_fieldset: user
   short: Name of the group.
   type: keyword
+source.user.group.risk.scope:
+  description: An array of one or more locally relevant terms to describe the audit
+    scope of the risk type associated with an asset. Typical values have local significance
+    relevant to e.g. a local data classification system or regulatory/compliance  requirements
+    like public, private, confidential, pci, cfr21p11, pii, sox, gdpr, etc.
+  example: *id001
+  flat_name: source.user.group.risk.scope
+  ignore_above: 1024
+  level: extended
+  name: scope
+  order: 1
+  original_fieldset: user
+  short: Qualitative categorization of asset or user risk classification types.
+  type: keyword
 source.user.group.risk.score:
-  description: comparative risk score on a normalized scale of 0-10, quantitavely
-    scoring the level of risk of the asset or data, or the risk represented by a given
-    threat (typically provided by the observer or IOC provider)
-  example: 5
+  description: 'Comparative risk score assigned to resources based on a numerical
+    scale, quantitavely scoring the level  of risk represented by a possible compriomise
+    of the asset or data in question.
+
+    Recommended scale is 1-10, but 1-5 or 1-100 are also acceptable.'
+  example: 7
   flat_name: source.user.group.risk.score
   level: extended
   name: score
-  order: 1
-  original_fieldset: user
-  short: comparative risk score on a normalized scale of 0-10, quantitavely scoring
-    the level of risk of the asset or data, or the risk represented by a given threat
-    (typically provided by the observer or IOC provider)
-  type: long
-source.user.group.risk.tag:
-  description: one or more locally relevant tags to describe the risk type of asset
-    or data identified either specific to e.g. a local data classification system,
-    network zone, or regulatory/compliance applicability
-  example: public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR
-  flat_name: source.user.group.risk.tag
-  ignore_above: 1024
-  level: extended
-  name: tag
   order: 0
   original_fieldset: user
-  short: one or more locally relevant tags to describe the risk type of asset or data
-    identified either specific to e.g. a local data classification system, network
-    zone, or regulatory/compliance applicability
-  type: keyword
+  short: Comparative quantitative asset risk score.
+  type: long
 source.user.hash:
   description: 'Unique user hash to correlate information for a user in anonymized
     form.
@@ -3872,35 +3827,34 @@ source.user.name:
   original_fieldset: user
   short: Short name or login of the user.
   type: keyword
+source.user.risk.scope:
+  description: An array of one or more locally relevant terms to describe the audit
+    scope of the risk type associated with an asset. Typical values have local significance
+    relevant to e.g. a local data classification system or regulatory/compliance  requirements
+    like public, private, confidential, pci, cfr21p11, pii, sox, gdpr, etc.
+  example: *id001
+  flat_name: source.user.risk.scope
+  ignore_above: 1024
+  level: extended
+  name: scope
+  order: 1
+  original_fieldset: user
+  short: Qualitative categorization of asset or user risk classification types.
+  type: keyword
 source.user.risk.score:
-  description: comparative risk score on a normalized scale of 0-10, quantitavely
-    scoring the level of risk of the asset or data, or the risk represented by a given
-    threat (typically provided by the observer or IOC provider)
-  example: 5
+  description: 'Comparative risk score assigned to resources based on a numerical
+    scale, quantitavely scoring the level  of risk represented by a possible compriomise
+    of the asset or data in question.
+
+    Recommended scale is 1-10, but 1-5 or 1-100 are also acceptable.'
+  example: 7
   flat_name: source.user.risk.score
   level: extended
   name: score
-  order: 1
-  original_fieldset: user
-  short: comparative risk score on a normalized scale of 0-10, quantitavely scoring
-    the level of risk of the asset or data, or the risk represented by a given threat
-    (typically provided by the observer or IOC provider)
-  type: long
-source.user.risk.tag:
-  description: one or more locally relevant tags to describe the risk type of asset
-    or data identified either specific to e.g. a local data classification system,
-    network zone, or regulatory/compliance applicability
-  example: public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR
-  flat_name: source.user.risk.tag
-  ignore_above: 1024
-  level: extended
-  name: tag
   order: 0
   original_fieldset: user
-  short: one or more locally relevant tags to describe the risk type of asset or data
-    identified either specific to e.g. a local data classification system, network
-    zone, or regulatory/compliance applicability
-  type: keyword
+  short: Comparative quantitative asset risk score.
+  type: long
 tags:
   description: List of keywords used to tag each event.
   example: '["production", "env2"]'
@@ -4075,35 +4029,34 @@ user.group.name:
   original_fieldset: group
   short: Name of the group.
   type: keyword
+user.group.risk.scope:
+  description: An array of one or more locally relevant terms to describe the audit
+    scope of the risk type associated with an asset. Typical values have local significance
+    relevant to e.g. a local data classification system or regulatory/compliance  requirements
+    like public, private, confidential, pci, cfr21p11, pii, sox, gdpr, etc.
+  example: *id001
+  flat_name: user.group.risk.scope
+  ignore_above: 1024
+  level: extended
+  name: scope
+  order: 1
+  original_fieldset: group
+  short: Qualitative categorization of asset or user risk classification types.
+  type: keyword
 user.group.risk.score:
-  description: comparative risk score on a normalized scale of 0-10, quantitavely
-    scoring the level of risk of the asset or data, or the risk represented by a given
-    threat (typically provided by the observer or IOC provider)
-  example: 5
+  description: 'Comparative risk score assigned to resources based on a numerical
+    scale, quantitavely scoring the level  of risk represented by a possible compriomise
+    of the asset or data in question.
+
+    Recommended scale is 1-10, but 1-5 or 1-100 are also acceptable.'
+  example: 7
   flat_name: user.group.risk.score
   level: extended
   name: score
-  order: 1
-  original_fieldset: group
-  short: comparative risk score on a normalized scale of 0-10, quantitavely scoring
-    the level of risk of the asset or data, or the risk represented by a given threat
-    (typically provided by the observer or IOC provider)
-  type: long
-user.group.risk.tag:
-  description: one or more locally relevant tags to describe the risk type of asset
-    or data identified either specific to e.g. a local data classification system,
-    network zone, or regulatory/compliance applicability
-  example: public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR
-  flat_name: user.group.risk.tag
-  ignore_above: 1024
-  level: extended
-  name: tag
   order: 0
   original_fieldset: group
-  short: one or more locally relevant tags to describe the risk type of asset or data
-    identified either specific to e.g. a local data classification system, network
-    zone, or regulatory/compliance applicability
-  type: keyword
+  short: Comparative quantitative asset risk score.
+  type: long
 user.hash:
   description: 'Unique user hash to correlate information for a user in anonymized
     form.
@@ -4136,35 +4089,34 @@ user.name:
   order: 1
   short: Short name or login of the user.
   type: keyword
+user.risk.scope:
+  description: An array of one or more locally relevant terms to describe the audit
+    scope of the risk type associated with an asset. Typical values have local significance
+    relevant to e.g. a local data classification system or regulatory/compliance  requirements
+    like public, private, confidential, pci, cfr21p11, pii, sox, gdpr, etc.
+  example: *id001
+  flat_name: user.risk.scope
+  ignore_above: 1024
+  level: extended
+  name: scope
+  order: 1
+  original_fieldset: risk
+  short: Qualitative categorization of asset or user risk classification types.
+  type: keyword
 user.risk.score:
-  description: comparative risk score on a normalized scale of 0-10, quantitavely
-    scoring the level of risk of the asset or data, or the risk represented by a given
-    threat (typically provided by the observer or IOC provider)
-  example: 5
+  description: 'Comparative risk score assigned to resources based on a numerical
+    scale, quantitavely scoring the level  of risk represented by a possible compriomise
+    of the asset or data in question.
+
+    Recommended scale is 1-10, but 1-5 or 1-100 are also acceptable.'
+  example: 7
   flat_name: user.risk.score
   level: extended
   name: score
-  order: 1
-  original_fieldset: risk
-  short: comparative risk score on a normalized scale of 0-10, quantitavely scoring
-    the level of risk of the asset or data, or the risk represented by a given threat
-    (typically provided by the observer or IOC provider)
-  type: long
-user.risk.tag:
-  description: one or more locally relevant tags to describe the risk type of asset
-    or data identified either specific to e.g. a local data classification system,
-    network zone, or regulatory/compliance applicability
-  example: public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR
-  flat_name: user.risk.tag
-  ignore_above: 1024
-  level: extended
-  name: tag
   order: 0
   original_fieldset: risk
-  short: one or more locally relevant tags to describe the risk type of asset or data
-    identified either specific to e.g. a local data classification system, network
-    zone, or regulatory/compliance applicability
-  type: keyword
+  short: Comparative quantitative asset risk score.
+  type: long
 user_agent.device.name:
   description: Name of the device.
   example: iPhone

@@ -1777,27 +1777,27 @@
     "type": "group"
   }, 
   "risk": {
-    "description": "Risk fields represent the normalized comparative sensitivity of internal resources or the potential risk of threats, vulnerabilities, and IOCs.\nAt the event level, normalized risk is calculated based on any risk metrics available for lookup for the given event (e.g. a user, source, destination in a firewall log, a client and file in a endpoint file/process log). The final event score is calculated by summing the squares of each avaialble risk score and dividing by the total multiple of available scores. As an example:  ( user.risk^2 + source.risk^2 + destination.risk^2 ) / ( user.risk + source.risk + destination.risk )\nRisk labels are for labeling the type of business risk represented by a given resource, typically in reference to the data housed in an asset or zone, the level of access of a given user or group, or the risk represented by a given threat or IOC.\n", 
+    "description": "Risk score fields represent the normalized comparative sensitivity of an organization's resources.\nRisk scope fields used to categorize the business specific type of risk associated with a given asset, typically in reference  to the data housed in an asset or zone, or the level of access of a given user or group.\n", 
     "fields": {
+      "risk.scope": {
+        "description": "An array of one or more locally relevant terms to describe the audit scope of the risk type associated with an asset. Typical values have local significance relevant to e.g. a local data classification system or regulatory/compliance  requirements like public, private, confidential, pci, cfr21p11, pii, sox, gdpr, etc.", 
+        "example": "['confidential', 'pci', 'pii']", 
+        "footnote": "", 
+        "group": 2, 
+        "level": "extended", 
+        "name": "risk.scope", 
+        "required": false, 
+        "type": "keyword"
+      }, 
       "risk.score": {
-        "description": "comparative risk score on a normalized scale of 0-10, quantitavely scoring the level of risk of the asset or data, or the risk represented by a given threat (typically provided by the observer or IOC provider)", 
-        "example": "5", 
+        "description": "Comparative risk score assigned to resources based on a numerical scale, quantitavely scoring the level  of risk represented by a possible compriomise of the asset or data in question.\nRecommended scale is 1-10, but 1-5 or 1-100 are also acceptable.", 
+        "example": "7", 
         "footnote": "", 
         "group": 2, 
         "level": "extended", 
         "name": "risk.score", 
         "required": false, 
         "type": "long"
-      }, 
-      "risk.tag": {
-        "description": "one or more locally relevant tags to describe the risk type of asset or data identified either specific to e.g. a local data classification system, network zone, or regulatory/compliance applicability", 
-        "example": "public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR", 
-        "footnote": "", 
-        "group": 2, 
-        "level": "extended", 
-        "name": "risk.tag", 
-        "required": false, 
-        "type": "keyword"
       }
     }, 
     "group": 2, 

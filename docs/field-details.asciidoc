@@ -354,7 +354,7 @@ type: long
 
 
 | <<ecs-risk,client.risk.*>>
-| Risk Scores and Tags for prioritization and categorization of events and signals.
+| Risk fields help in prioritization and categorization of events and signals.
 
 // ===============================================================
 
@@ -477,7 +477,7 @@ example: `us-east-1`
 
 
 | <<ecs-risk,cloud.risk.*>>
-| Risk Scores and Tags for prioritization and categorization of events and signals.
+| Risk fields help in prioritization and categorization of events and signals.
 
 // ===============================================================
 
@@ -583,7 +583,7 @@ example: `docker`
 
 
 | <<ecs-risk,container.risk.*>>
-| Risk Scores and Tags for prioritization and categorization of events and signals.
+| Risk fields help in prioritization and categorization of events and signals.
 
 // ===============================================================
 
@@ -742,7 +742,7 @@ type: long
 
 
 | <<ecs-risk,destination.risk.*>>
-| Risk Scores and Tags for prioritization and categorization of events and signals.
+| Risk fields help in prioritization and categorization of events and signals.
 
 // ===============================================================
 
@@ -1117,29 +1117,6 @@ type: keyword
 
 |=====
 
-==== Field Reuse
-
-
-
-
-[[ecs-event-nestings]]
-===== Field sets that can be nested under Event
-
-[options="header"]
-|=====
-| Nested fields | Description
-
-// ===============================================================
-
-
-| <<ecs-risk,event.risk.*>>
-| Risk Scores and Tags for prioritization and categorization of events and signals.
-
-// ===============================================================
-
-
-|=====
-
 [[ecs-file]]
 === File Fields
 
@@ -1385,7 +1362,7 @@ example: `1001`
 
 
 | <<ecs-risk,file.risk.*>>
-| Risk Scores and Tags for prioritization and categorization of events and signals.
+| Risk fields help in prioritization and categorization of events and signals.
 
 // ===============================================================
 
@@ -1567,7 +1544,7 @@ Note also that the `group` fields may be used directly at the top level.
 
 
 | <<ecs-risk,group.risk.*>>
-| Risk Scores and Tags for prioritization and categorization of events and signals.
+| Risk fields help in prioritization and categorization of events and signals.
 
 // ===============================================================
 
@@ -2150,7 +2127,7 @@ example: `ipv4`
 
 
 | <<ecs-risk,network.risk.*>>
-| Risk Scores and Tags for prioritization and categorization of events and signals.
+| Risk fields help in prioritization and categorization of events and signals.
 
 // ===============================================================
 
@@ -2611,11 +2588,9 @@ type: ip
 [[ecs-risk]]
 === Group Fields
 
-Risk fields represent the normalized comparative sensitivity of internal resources or the potential risk of threats, vulnerabilities, and IOCs.
+Risk score fields represent the normalized comparative sensitivity of an organization's resources.
 
-At the event level, normalized risk is calculated based on any risk metrics available for lookup for the given event (e.g. a user, source, destination in a firewall log, a client and file in a endpoint file/process log). The final event score is calculated by summing the squares of each avaialble risk score and dividing by the total multiple of available scores. As an example:  ( user.risk^2 + source.risk^2 + destination.risk^2 ) / ( user.risk + source.risk + destination.risk )
-
-Risk labels are for labeling the type of business risk represented by a given resource, typically in reference to the data housed in an asset or zone, the level of access of a given user or group, or the risk represented by a given threat or IOC.
+Risk scope fields used to categorize the business specific type of risk associated with a given asset, typically in reference  to the data housed in an asset or zone, or the level of access of a given user or group.
 
 ==== Group Field Details
 
@@ -2625,23 +2600,25 @@ Risk labels are for labeling the type of business risk represented by a given re
 
 // ===============================================================
 
-| risk.score
-| comparative risk score on a normalized scale of 0-10, quantitavely scoring the level of risk of the asset or data, or the risk represented by a given threat (typically provided by the observer or IOC provider)
+| risk.scope
+| An array of one or more locally relevant terms to describe the audit scope of the risk type associated with an asset. Typical values have local significance relevant to e.g. a local data classification system or regulatory/compliance  requirements like public, private, confidential, pci, cfr21p11, pii, sox, gdpr, etc.
 
-type: long
+type: keyword
 
-example: `5`
+example: `['confidential', 'pci', 'pii']`
 
 | extended
 
 // ===============================================================
 
-| risk.tag
-| one or more locally relevant tags to describe the risk type of asset or data identified either specific to e.g. a local data classification system, network zone, or regulatory/compliance applicability
+| risk.score
+| Comparative risk score assigned to resources based on a numerical scale, quantitavely scoring the level  of risk represented by a possible compriomise of the asset or data in question.
 
-type: keyword
+Recommended scale is 1-10, but 1-5 or 1-100 are also acceptable.
 
-example: `public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR`
+type: long
+
+example: `7`
 
 | extended
 
@@ -2651,7 +2628,7 @@ example: `public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR`
 
 ==== Field Reuse
 
-The `risk` fields are expected to be nested at: `client.risk`, `cloud.risk`, `container.risk`, `destination.risk`, `event.risk`, `file.risk`, `group.risk`, `network.risk`, `server.risk`, `source.risk`, `user.risk`.
+The `risk` fields are expected to be nested at: `client.risk`, `cloud.risk`, `container.risk`, `destination.risk`, `file.risk`, `group.risk`, `network.risk`, `server.risk`, `source.risk`, `user.risk`.
 
 Note also that the `risk` fields are not expected to be used directly at the top level.
 
@@ -2812,7 +2789,7 @@ type: long
 
 
 | <<ecs-risk,server.risk.*>>
-| Risk Scores and Tags for prioritization and categorization of events and signals.
+| Risk fields help in prioritization and categorization of events and signals.
 
 // ===============================================================
 
@@ -3078,7 +3055,7 @@ type: long
 
 
 | <<ecs-risk,source.risk.*>>
-| Risk Scores and Tags for prioritization and categorization of events and signals.
+| Risk fields help in prioritization and categorization of events and signals.
 
 // ===============================================================
 
@@ -3341,7 +3318,7 @@ Note also that the `user` fields may be used directly at the top level.
 
 
 | <<ecs-risk,user.risk.*>>
-| Risk Scores and Tags for prioritization and categorization of events and signals.
+| Risk fields help in prioritization and categorization of events and signals.
 
 // ===============================================================
 

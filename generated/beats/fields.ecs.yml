@@ -273,21 +273,28 @@
       type: long
       format: string
       description: Port of the client.
-    - name: risk.score
-      level: extended
-      type: long
-      description: comparative risk score on a normalized scale of 0-10, quantitavely
-        scoring the level of risk of the asset or data, or the risk represented by
-        a given threat (typically provided by the observer or IOC provider)
-      example: 5
-    - name: risk.tag
+    - name: risk.scope
       level: extended
       type: keyword
       ignore_above: 1024
-      description: one or more locally relevant tags to describe the risk type of
-        asset or data identified either specific to e.g. a local data classification
-        system, network zone, or regulatory/compliance applicability
-      example: public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR
+      description: An array of one or more locally relevant terms to describe the
+        audit scope of the risk type associated with an asset. Typical values have
+        local significance relevant to e.g. a local data classification system or
+        regulatory/compliance  requirements like public, private, confidential, pci,
+        cfr21p11, pii, sox, gdpr, etc.
+      example: &id001
+      - confidential
+      - pci
+      - pii
+    - name: risk.score
+      level: extended
+      type: long
+      description: 'Comparative risk score assigned to resources based on a numerical
+        scale, quantitavely scoring the level  of risk represented by a possible compriomise
+        of the asset or data in question.
+
+        Recommended scale is 1-10, but 1-5 or 1-100 are also acceptable.'
+      example: 7
     - name: user.domain
       level: extended
       type: keyword
@@ -316,21 +323,25 @@
       type: keyword
       ignore_above: 1024
       description: Name of the group.
-    - name: user.group.risk.score
-      level: extended
-      type: long
-      description: comparative risk score on a normalized scale of 0-10, quantitavely
-        scoring the level of risk of the asset or data, or the risk represented by
-        a given threat (typically provided by the observer or IOC provider)
-      example: 5
-    - name: user.group.risk.tag
+    - name: user.group.risk.scope
       level: extended
       type: keyword
       ignore_above: 1024
-      description: one or more locally relevant tags to describe the risk type of
-        asset or data identified either specific to e.g. a local data classification
-        system, network zone, or regulatory/compliance applicability
-      example: public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR
+      description: An array of one or more locally relevant terms to describe the
+        audit scope of the risk type associated with an asset. Typical values have
+        local significance relevant to e.g. a local data classification system or
+        regulatory/compliance  requirements like public, private, confidential, pci,
+        cfr21p11, pii, sox, gdpr, etc.
+      example: *id001
+    - name: user.group.risk.score
+      level: extended
+      type: long
+      description: 'Comparative risk score assigned to resources based on a numerical
+        scale, quantitavely scoring the level  of risk represented by a possible compriomise
+        of the asset or data in question.
+
+        Recommended scale is 1-10, but 1-5 or 1-100 are also acceptable.'
+      example: 7
     - name: user.hash
       level: extended
       type: keyword
@@ -351,21 +362,25 @@
       ignore_above: 1024
       description: Short name or login of the user.
       example: albert
-    - name: user.risk.score
-      level: extended
-      type: long
-      description: comparative risk score on a normalized scale of 0-10, quantitavely
-        scoring the level of risk of the asset or data, or the risk represented by
-        a given threat (typically provided by the observer or IOC provider)
-      example: 5
-    - name: user.risk.tag
+    - name: user.risk.scope
       level: extended
       type: keyword
       ignore_above: 1024
-      description: one or more locally relevant tags to describe the risk type of
-        asset or data identified either specific to e.g. a local data classification
-        system, network zone, or regulatory/compliance applicability
-      example: public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR
+      description: An array of one or more locally relevant terms to describe the
+        audit scope of the risk type associated with an asset. Typical values have
+        local significance relevant to e.g. a local data classification system or
+        regulatory/compliance  requirements like public, private, confidential, pci,
+        cfr21p11, pii, sox, gdpr, etc.
+      example: *id001
+    - name: user.risk.score
+      level: extended
+      type: long
+      description: 'Comparative risk score assigned to resources based on a numerical
+        scale, quantitavely scoring the level  of risk represented by a possible compriomise
+        of the asset or data in question.
+
+        Recommended scale is 1-10, but 1-5 or 1-100 are also acceptable.'
+      example: 7
   - name: cloud
     title: Cloud
     group: 2
@@ -423,21 +438,25 @@
       ignore_above: 1024
       description: Region in which this host is running.
       example: us-east-1
-    - name: risk.score
-      level: extended
-      type: long
-      description: comparative risk score on a normalized scale of 0-10, quantitavely
-        scoring the level of risk of the asset or data, or the risk represented by
-        a given threat (typically provided by the observer or IOC provider)
-      example: 5
-    - name: risk.tag
+    - name: risk.scope
       level: extended
       type: keyword
       ignore_above: 1024
-      description: one or more locally relevant tags to describe the risk type of
-        asset or data identified either specific to e.g. a local data classification
-        system, network zone, or regulatory/compliance applicability
-      example: public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR
+      description: An array of one or more locally relevant terms to describe the
+        audit scope of the risk type associated with an asset. Typical values have
+        local significance relevant to e.g. a local data classification system or
+        regulatory/compliance  requirements like public, private, confidential, pci,
+        cfr21p11, pii, sox, gdpr, etc.
+      example: *id001
+    - name: risk.score
+      level: extended
+      type: long
+      description: 'Comparative risk score assigned to resources based on a numerical
+        scale, quantitavely scoring the level  of risk represented by a possible compriomise
+        of the asset or data in question.
+
+        Recommended scale is 1-10, but 1-5 or 1-100 are also acceptable.'
+      example: 7
   - name: container
     title: Container
     group: 2
@@ -472,21 +491,25 @@
       type: keyword
       ignore_above: 1024
       description: Container name.
-    - name: risk.score
-      level: extended
-      type: long
-      description: comparative risk score on a normalized scale of 0-10, quantitavely
-        scoring the level of risk of the asset or data, or the risk represented by
-        a given threat (typically provided by the observer or IOC provider)
-      example: 5
-    - name: risk.tag
+    - name: risk.scope
       level: extended
       type: keyword
       ignore_above: 1024
-      description: one or more locally relevant tags to describe the risk type of
-        asset or data identified either specific to e.g. a local data classification
-        system, network zone, or regulatory/compliance applicability
-      example: public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR
+      description: An array of one or more locally relevant terms to describe the
+        audit scope of the risk type associated with an asset. Typical values have
+        local significance relevant to e.g. a local data classification system or
+        regulatory/compliance  requirements like public, private, confidential, pci,
+        cfr21p11, pii, sox, gdpr, etc.
+      example: *id001
+    - name: risk.score
+      level: extended
+      type: long
+      description: 'Comparative risk score assigned to resources based on a numerical
+        scale, quantitavely scoring the level  of risk represented by a possible compriomise
+        of the asset or data in question.
+
+        Recommended scale is 1-10, but 1-5 or 1-100 are also acceptable.'
+      example: 7
     - name: runtime
       level: extended
       type: keyword
@@ -622,21 +645,25 @@
       type: long
       format: string
       description: Port of the destination.
-    - name: risk.score
-      level: extended
-      type: long
-      description: comparative risk score on a normalized scale of 0-10, quantitavely
-        scoring the level of risk of the asset or data, or the risk represented by
-        a given threat (typically provided by the observer or IOC provider)
-      example: 5
-    - name: risk.tag
+    - name: risk.scope
       level: extended
       type: keyword
       ignore_above: 1024
-      description: one or more locally relevant tags to describe the risk type of
-        asset or data identified either specific to e.g. a local data classification
-        system, network zone, or regulatory/compliance applicability
-      example: public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR
+      description: An array of one or more locally relevant terms to describe the
+        audit scope of the risk type associated with an asset. Typical values have
+        local significance relevant to e.g. a local data classification system or
+        regulatory/compliance  requirements like public, private, confidential, pci,
+        cfr21p11, pii, sox, gdpr, etc.
+      example: *id001
+    - name: risk.score
+      level: extended
+      type: long
+      description: 'Comparative risk score assigned to resources based on a numerical
+        scale, quantitavely scoring the level  of risk represented by a possible compriomise
+        of the asset or data in question.
+
+        Recommended scale is 1-10, but 1-5 or 1-100 are also acceptable.'
+      example: 7
     - name: user.domain
       level: extended
       type: keyword
@@ -665,21 +692,25 @@
       type: keyword
       ignore_above: 1024
       description: Name of the group.
-    - name: user.group.risk.score
-      level: extended
-      type: long
-      description: comparative risk score on a normalized scale of 0-10, quantitavely
-        scoring the level of risk of the asset or data, or the risk represented by
-        a given threat (typically provided by the observer or IOC provider)
-      example: 5
-    - name: user.group.risk.tag
+    - name: user.group.risk.scope
       level: extended
       type: keyword
       ignore_above: 1024
-      description: one or more locally relevant tags to describe the risk type of
-        asset or data identified either specific to e.g. a local data classification
-        system, network zone, or regulatory/compliance applicability
-      example: public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR
+      description: An array of one or more locally relevant terms to describe the
+        audit scope of the risk type associated with an asset. Typical values have
+        local significance relevant to e.g. a local data classification system or
+        regulatory/compliance  requirements like public, private, confidential, pci,
+        cfr21p11, pii, sox, gdpr, etc.
+      example: *id001
+    - name: user.group.risk.score
+      level: extended
+      type: long
+      description: 'Comparative risk score assigned to resources based on a numerical
+        scale, quantitavely scoring the level  of risk represented by a possible compriomise
+        of the asset or data in question.
+
+        Recommended scale is 1-10, but 1-5 or 1-100 are also acceptable.'
+      example: 7
     - name: user.hash
       level: extended
       type: keyword
@@ -700,21 +731,25 @@
       ignore_above: 1024
       description: Short name or login of the user.
       example: albert
-    - name: user.risk.score
-      level: extended
-      type: long
-      description: comparative risk score on a normalized scale of 0-10, quantitavely
-        scoring the level of risk of the asset or data, or the risk represented by
-        a given threat (typically provided by the observer or IOC provider)
-      example: 5
-    - name: user.risk.tag
+    - name: user.risk.scope
       level: extended
       type: keyword
       ignore_above: 1024
-      description: one or more locally relevant tags to describe the risk type of
-        asset or data identified either specific to e.g. a local data classification
-        system, network zone, or regulatory/compliance applicability
-      example: public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR
+      description: An array of one or more locally relevant terms to describe the
+        audit scope of the risk type associated with an asset. Typical values have
+        local significance relevant to e.g. a local data classification system or
+        regulatory/compliance  requirements like public, private, confidential, pci,
+        cfr21p11, pii, sox, gdpr, etc.
+      example: *id001
+    - name: user.risk.score
+      level: extended
+      type: long
+      description: 'Comparative risk score assigned to resources based on a numerical
+        scale, quantitavely scoring the level  of risk represented by a possible compriomise
+        of the asset or data in question.
+
+        Recommended scale is 1-10, but 1-5 or 1-100 are also acceptable.'
+      example: 7
   - name: ecs
     title: ECS
     group: 2
@@ -913,21 +948,6 @@
         the event (e.g. Sysmon, httpd), or of a subsystem of the operating system
         (kernel, Microsoft-Windows-Security-Auditing).'
       example: kernel
-    - name: risk.score
-      level: extended
-      type: long
-      description: comparative risk score on a normalized scale of 0-10, quantitavely
-        scoring the level of risk of the asset or data, or the risk represented by
-        a given threat (typically provided by the observer or IOC provider)
-      example: 5
-    - name: risk.tag
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: one or more locally relevant tags to describe the risk type of
-        asset or data identified either specific to e.g. a local data classification
-        system, network zone, or regulatory/compliance applicability
-      example: public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR
     - name: risk_score
       level: core
       type: float
@@ -1094,21 +1114,25 @@
       ignore_above: 1024
       description: Full path to the file.
       example: /home/alice/example.png
-    - name: risk.score
-      level: extended
-      type: long
-      description: comparative risk score on a normalized scale of 0-10, quantitavely
-        scoring the level of risk of the asset or data, or the risk represented by
-        a given threat (typically provided by the observer or IOC provider)
-      example: 5
-    - name: risk.tag
+    - name: risk.scope
       level: extended
       type: keyword
       ignore_above: 1024
-      description: one or more locally relevant tags to describe the risk type of
-        asset or data identified either specific to e.g. a local data classification
-        system, network zone, or regulatory/compliance applicability
-      example: public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR
+      description: An array of one or more locally relevant terms to describe the
+        audit scope of the risk type associated with an asset. Typical values have
+        local significance relevant to e.g. a local data classification system or
+        regulatory/compliance  requirements like public, private, confidential, pci,
+        cfr21p11, pii, sox, gdpr, etc.
+      example: *id001
+    - name: risk.score
+      level: extended
+      type: long
+      description: 'Comparative risk score assigned to resources based on a numerical
+        scale, quantitavely scoring the level  of risk represented by a possible compriomise
+        of the asset or data in question.
+
+        Recommended scale is 1-10, but 1-5 or 1-100 are also acceptable.'
+      example: 7
     - name: size
       level: extended
       type: long
@@ -1213,21 +1237,25 @@
       type: keyword
       ignore_above: 1024
       description: Name of the group.
-    - name: risk.score
-      level: extended
-      type: long
-      description: comparative risk score on a normalized scale of 0-10, quantitavely
-        scoring the level of risk of the asset or data, or the risk represented by
-        a given threat (typically provided by the observer or IOC provider)
-      example: 5
-    - name: risk.tag
+    - name: risk.scope
       level: extended
       type: keyword
       ignore_above: 1024
-      description: one or more locally relevant tags to describe the risk type of
-        asset or data identified either specific to e.g. a local data classification
-        system, network zone, or regulatory/compliance applicability
-      example: public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR
+      description: An array of one or more locally relevant terms to describe the
+        audit scope of the risk type associated with an asset. Typical values have
+        local significance relevant to e.g. a local data classification system or
+        regulatory/compliance  requirements like public, private, confidential, pci,
+        cfr21p11, pii, sox, gdpr, etc.
+      example: *id001
+    - name: risk.score
+      level: extended
+      type: long
+      description: 'Comparative risk score assigned to resources based on a numerical
+        scale, quantitavely scoring the level  of risk represented by a possible compriomise
+        of the asset or data in question.
+
+        Recommended scale is 1-10, but 1-5 or 1-100 are also acceptable.'
+      example: 7
   - name: hash
     title: Group
     group: 2
@@ -1439,21 +1467,25 @@
       type: keyword
       ignore_above: 1024
       description: Name of the group.
-    - name: user.group.risk.score
-      level: extended
-      type: long
-      description: comparative risk score on a normalized scale of 0-10, quantitavely
-        scoring the level of risk of the asset or data, or the risk represented by
-        a given threat (typically provided by the observer or IOC provider)
-      example: 5
-    - name: user.group.risk.tag
+    - name: user.group.risk.scope
       level: extended
       type: keyword
       ignore_above: 1024
-      description: one or more locally relevant tags to describe the risk type of
-        asset or data identified either specific to e.g. a local data classification
-        system, network zone, or regulatory/compliance applicability
-      example: public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR
+      description: An array of one or more locally relevant terms to describe the
+        audit scope of the risk type associated with an asset. Typical values have
+        local significance relevant to e.g. a local data classification system or
+        regulatory/compliance  requirements like public, private, confidential, pci,
+        cfr21p11, pii, sox, gdpr, etc.
+      example: *id001
+    - name: user.group.risk.score
+      level: extended
+      type: long
+      description: 'Comparative risk score assigned to resources based on a numerical
+        scale, quantitavely scoring the level  of risk represented by a possible compriomise
+        of the asset or data in question.
+
+        Recommended scale is 1-10, but 1-5 or 1-100 are also acceptable.'
+      example: 7
     - name: user.hash
       level: extended
       type: keyword
@@ -1474,21 +1506,25 @@
       ignore_above: 1024
       description: Short name or login of the user.
       example: albert
-    - name: user.risk.score
-      level: extended
-      type: long
-      description: comparative risk score on a normalized scale of 0-10, quantitavely
-        scoring the level of risk of the asset or data, or the risk represented by
-        a given threat (typically provided by the observer or IOC provider)
-      example: 5
-    - name: user.risk.tag
+    - name: user.risk.scope
       level: extended
       type: keyword
       ignore_above: 1024
-      description: one or more locally relevant tags to describe the risk type of
-        asset or data identified either specific to e.g. a local data classification
-        system, network zone, or regulatory/compliance applicability
-      example: public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR
+      description: An array of one or more locally relevant terms to describe the
+        audit scope of the risk type associated with an asset. Typical values have
+        local significance relevant to e.g. a local data classification system or
+        regulatory/compliance  requirements like public, private, confidential, pci,
+        cfr21p11, pii, sox, gdpr, etc.
+      example: *id001
+    - name: user.risk.score
+      level: extended
+      type: long
+      description: 'Comparative risk score assigned to resources based on a numerical
+        scale, quantitavely scoring the level  of risk represented by a possible compriomise
+        of the asset or data in question.
+
+        Recommended scale is 1-10, but 1-5 or 1-100 are also acceptable.'
+      example: 7
   - name: http
     title: HTTP
     group: 2
@@ -1677,21 +1713,25 @@
         The field value must be normalized to lowercase for querying. See the documentation
         section "Implementing ECS".'
       example: http
-    - name: risk.score
-      level: extended
-      type: long
-      description: comparative risk score on a normalized scale of 0-10, quantitavely
-        scoring the level of risk of the asset or data, or the risk represented by
-        a given threat (typically provided by the observer or IOC provider)
-      example: 5
-    - name: risk.tag
+    - name: risk.scope
       level: extended
       type: keyword
       ignore_above: 1024
-      description: one or more locally relevant tags to describe the risk type of
-        asset or data identified either specific to e.g. a local data classification
-        system, network zone, or regulatory/compliance applicability
-      example: public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR
+      description: An array of one or more locally relevant terms to describe the
+        audit scope of the risk type associated with an asset. Typical values have
+        local significance relevant to e.g. a local data classification system or
+        regulatory/compliance  requirements like public, private, confidential, pci,
+        cfr21p11, pii, sox, gdpr, etc.
+      example: *id001
+    - name: risk.score
+      level: extended
+      type: long
+      description: 'Comparative risk score assigned to resources based on a numerical
+        scale, quantitavely scoring the level  of risk represented by a possible compriomise
+        of the asset or data in question.
+
+        Recommended scale is 1-10, but 1-5 or 1-100 are also acceptable.'
+      example: 7
     - name: transport
       level: core
       type: keyword
@@ -2044,38 +2084,33 @@
   - name: risk
     title: Group
     group: 2
-    description: 'Risk fields represent the normalized comparative sensitivity of
-      internal resources or the potential risk of threats, vulnerabilities, and IOCs.
+    description: 'Risk score fields represent the normalized comparative sensitivity
+      of an organization''s resources.
 
-      At the event level, normalized risk is calculated based on any risk metrics
-      available for lookup for the given event (e.g. a user, source, destination in
-      a firewall log, a client and file in a endpoint file/process log). The final
-      event score is calculated by summing the squares of each avaialble risk score
-      and dividing by the total multiple of available scores. As an example:  ( user.risk^2
-      + source.risk^2 + destination.risk^2 ) / ( user.risk + source.risk + destination.risk
-      )
-
-      Risk labels are for labeling the type of business risk represented by a given
-      resource, typically in reference to the data housed in an asset or zone, the
-      level of access of a given user or group, or the risk represented by a given
-      threat or IOC.'
+      Risk scope fields used to categorize the business specific type of risk associated
+      with a given asset, typically in reference  to the data housed in an asset or
+      zone, or the level of access of a given user or group.'
     type: group
     fields:
-    - name: score
-      level: extended
-      type: long
-      description: comparative risk score on a normalized scale of 0-10, quantitavely
-        scoring the level of risk of the asset or data, or the risk represented by
-        a given threat (typically provided by the observer or IOC provider)
-      example: 5
-    - name: tag
+    - name: scope
       level: extended
       type: keyword
       ignore_above: 1024
-      description: one or more locally relevant tags to describe the risk type of
-        asset or data identified either specific to e.g. a local data classification
-        system, network zone, or regulatory/compliance applicability
-      example: public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR
+      description: An array of one or more locally relevant terms to describe the
+        audit scope of the risk type associated with an asset. Typical values have
+        local significance relevant to e.g. a local data classification system or
+        regulatory/compliance  requirements like public, private, confidential, pci,
+        cfr21p11, pii, sox, gdpr, etc.
+      example: *id001
+    - name: score
+      level: extended
+      type: long
+      description: 'Comparative risk score assigned to resources based on a numerical
+        scale, quantitavely scoring the level  of risk represented by a possible compriomise
+        of the asset or data in question.
+
+        Recommended scale is 1-10, but 1-5 or 1-100 are also acceptable.'
+      example: 7
   - name: server
     title: Server
     group: 2
@@ -2218,21 +2253,25 @@
       type: long
       format: string
       description: Port of the server.
-    - name: risk.score
-      level: extended
-      type: long
-      description: comparative risk score on a normalized scale of 0-10, quantitavely
-        scoring the level of risk of the asset or data, or the risk represented by
-        a given threat (typically provided by the observer or IOC provider)
-      example: 5
-    - name: risk.tag
+    - name: risk.scope
       level: extended
       type: keyword
       ignore_above: 1024
-      description: one or more locally relevant tags to describe the risk type of
-        asset or data identified either specific to e.g. a local data classification
-        system, network zone, or regulatory/compliance applicability
-      example: public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR
+      description: An array of one or more locally relevant terms to describe the
+        audit scope of the risk type associated with an asset. Typical values have
+        local significance relevant to e.g. a local data classification system or
+        regulatory/compliance  requirements like public, private, confidential, pci,
+        cfr21p11, pii, sox, gdpr, etc.
+      example: *id001
+    - name: risk.score
+      level: extended
+      type: long
+      description: 'Comparative risk score assigned to resources based on a numerical
+        scale, quantitavely scoring the level  of risk represented by a possible compriomise
+        of the asset or data in question.
+
+        Recommended scale is 1-10, but 1-5 or 1-100 are also acceptable.'
+      example: 7
     - name: user.domain
       level: extended
       type: keyword
@@ -2261,21 +2300,25 @@
       type: keyword
       ignore_above: 1024
       description: Name of the group.
-    - name: user.group.risk.score
-      level: extended
-      type: long
-      description: comparative risk score on a normalized scale of 0-10, quantitavely
-        scoring the level of risk of the asset or data, or the risk represented by
-        a given threat (typically provided by the observer or IOC provider)
-      example: 5
-    - name: user.group.risk.tag
+    - name: user.group.risk.scope
       level: extended
       type: keyword
       ignore_above: 1024
-      description: one or more locally relevant tags to describe the risk type of
-        asset or data identified either specific to e.g. a local data classification
-        system, network zone, or regulatory/compliance applicability
-      example: public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR
+      description: An array of one or more locally relevant terms to describe the
+        audit scope of the risk type associated with an asset. Typical values have
+        local significance relevant to e.g. a local data classification system or
+        regulatory/compliance  requirements like public, private, confidential, pci,
+        cfr21p11, pii, sox, gdpr, etc.
+      example: *id001
+    - name: user.group.risk.score
+      level: extended
+      type: long
+      description: 'Comparative risk score assigned to resources based on a numerical
+        scale, quantitavely scoring the level  of risk represented by a possible compriomise
+        of the asset or data in question.
+
+        Recommended scale is 1-10, but 1-5 or 1-100 are also acceptable.'
+      example: 7
     - name: user.hash
       level: extended
       type: keyword
@@ -2296,21 +2339,25 @@
       ignore_above: 1024
       description: Short name or login of the user.
       example: albert
-    - name: user.risk.score
-      level: extended
-      type: long
-      description: comparative risk score on a normalized scale of 0-10, quantitavely
-        scoring the level of risk of the asset or data, or the risk represented by
-        a given threat (typically provided by the observer or IOC provider)
-      example: 5
-    - name: user.risk.tag
+    - name: user.risk.scope
       level: extended
       type: keyword
       ignore_above: 1024
-      description: one or more locally relevant tags to describe the risk type of
-        asset or data identified either specific to e.g. a local data classification
-        system, network zone, or regulatory/compliance applicability
-      example: public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR
+      description: An array of one or more locally relevant terms to describe the
+        audit scope of the risk type associated with an asset. Typical values have
+        local significance relevant to e.g. a local data classification system or
+        regulatory/compliance  requirements like public, private, confidential, pci,
+        cfr21p11, pii, sox, gdpr, etc.
+      example: *id001
+    - name: user.risk.score
+      level: extended
+      type: long
+      description: 'Comparative risk score assigned to resources based on a numerical
+        scale, quantitavely scoring the level  of risk represented by a possible compriomise
+        of the asset or data in question.
+
+        Recommended scale is 1-10, but 1-5 or 1-100 are also acceptable.'
+      example: 7
   - name: service
     title: Service
     group: 2
@@ -2514,21 +2561,25 @@
       type: long
       format: string
       description: Port of the source.
-    - name: risk.score
-      level: extended
-      type: long
-      description: comparative risk score on a normalized scale of 0-10, quantitavely
-        scoring the level of risk of the asset or data, or the risk represented by
-        a given threat (typically provided by the observer or IOC provider)
-      example: 5
-    - name: risk.tag
+    - name: risk.scope
       level: extended
       type: keyword
       ignore_above: 1024
-      description: one or more locally relevant tags to describe the risk type of
-        asset or data identified either specific to e.g. a local data classification
-        system, network zone, or regulatory/compliance applicability
-      example: public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR
+      description: An array of one or more locally relevant terms to describe the
+        audit scope of the risk type associated with an asset. Typical values have
+        local significance relevant to e.g. a local data classification system or
+        regulatory/compliance  requirements like public, private, confidential, pci,
+        cfr21p11, pii, sox, gdpr, etc.
+      example: *id001
+    - name: risk.score
+      level: extended
+      type: long
+      description: 'Comparative risk score assigned to resources based on a numerical
+        scale, quantitavely scoring the level  of risk represented by a possible compriomise
+        of the asset or data in question.
+
+        Recommended scale is 1-10, but 1-5 or 1-100 are also acceptable.'
+      example: 7
     - name: user.domain
       level: extended
       type: keyword
@@ -2557,21 +2608,25 @@
       type: keyword
       ignore_above: 1024
       description: Name of the group.
-    - name: user.group.risk.score
-      level: extended
-      type: long
-      description: comparative risk score on a normalized scale of 0-10, quantitavely
-        scoring the level of risk of the asset or data, or the risk represented by
-        a given threat (typically provided by the observer or IOC provider)
-      example: 5
-    - name: user.group.risk.tag
+    - name: user.group.risk.scope
       level: extended
       type: keyword
       ignore_above: 1024
-      description: one or more locally relevant tags to describe the risk type of
-        asset or data identified either specific to e.g. a local data classification
-        system, network zone, or regulatory/compliance applicability
-      example: public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR
+      description: An array of one or more locally relevant terms to describe the
+        audit scope of the risk type associated with an asset. Typical values have
+        local significance relevant to e.g. a local data classification system or
+        regulatory/compliance  requirements like public, private, confidential, pci,
+        cfr21p11, pii, sox, gdpr, etc.
+      example: *id001
+    - name: user.group.risk.score
+      level: extended
+      type: long
+      description: 'Comparative risk score assigned to resources based on a numerical
+        scale, quantitavely scoring the level  of risk represented by a possible compriomise
+        of the asset or data in question.
+
+        Recommended scale is 1-10, but 1-5 or 1-100 are also acceptable.'
+      example: 7
     - name: user.hash
       level: extended
       type: keyword
@@ -2592,21 +2647,25 @@
       ignore_above: 1024
       description: Short name or login of the user.
       example: albert
-    - name: user.risk.score
-      level: extended
-      type: long
-      description: comparative risk score on a normalized scale of 0-10, quantitavely
-        scoring the level of risk of the asset or data, or the risk represented by
-        a given threat (typically provided by the observer or IOC provider)
-      example: 5
-    - name: user.risk.tag
+    - name: user.risk.scope
       level: extended
       type: keyword
       ignore_above: 1024
-      description: one or more locally relevant tags to describe the risk type of
-        asset or data identified either specific to e.g. a local data classification
-        system, network zone, or regulatory/compliance applicability
-      example: public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR
+      description: An array of one or more locally relevant terms to describe the
+        audit scope of the risk type associated with an asset. Typical values have
+        local significance relevant to e.g. a local data classification system or
+        regulatory/compliance  requirements like public, private, confidential, pci,
+        cfr21p11, pii, sox, gdpr, etc.
+      example: *id001
+    - name: user.risk.score
+      level: extended
+      type: long
+      description: 'Comparative risk score assigned to resources based on a numerical
+        scale, quantitavely scoring the level  of risk represented by a possible compriomise
+        of the asset or data in question.
+
+        Recommended scale is 1-10, but 1-5 or 1-100 are also acceptable.'
+      example: 7
   - name: url
     title: URL
     group: 2
@@ -2727,21 +2786,25 @@
       type: keyword
       ignore_above: 1024
       description: Name of the group.
-    - name: group.risk.score
-      level: extended
-      type: long
-      description: comparative risk score on a normalized scale of 0-10, quantitavely
-        scoring the level of risk of the asset or data, or the risk represented by
-        a given threat (typically provided by the observer or IOC provider)
-      example: 5
-    - name: group.risk.tag
+    - name: group.risk.scope
       level: extended
       type: keyword
       ignore_above: 1024
-      description: one or more locally relevant tags to describe the risk type of
-        asset or data identified either specific to e.g. a local data classification
-        system, network zone, or regulatory/compliance applicability
-      example: public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR
+      description: An array of one or more locally relevant terms to describe the
+        audit scope of the risk type associated with an asset. Typical values have
+        local significance relevant to e.g. a local data classification system or
+        regulatory/compliance  requirements like public, private, confidential, pci,
+        cfr21p11, pii, sox, gdpr, etc.
+      example: *id001
+    - name: group.risk.score
+      level: extended
+      type: long
+      description: 'Comparative risk score assigned to resources based on a numerical
+        scale, quantitavely scoring the level  of risk represented by a possible compriomise
+        of the asset or data in question.
+
+        Recommended scale is 1-10, but 1-5 or 1-100 are also acceptable.'
+      example: 7
     - name: hash
       level: extended
       type: keyword
@@ -2762,21 +2825,25 @@
       ignore_above: 1024
       description: Short name or login of the user.
       example: albert
-    - name: risk.score
-      level: extended
-      type: long
-      description: comparative risk score on a normalized scale of 0-10, quantitavely
-        scoring the level of risk of the asset or data, or the risk represented by
-        a given threat (typically provided by the observer or IOC provider)
-      example: 5
-    - name: risk.tag
+    - name: risk.scope
       level: extended
       type: keyword
       ignore_above: 1024
-      description: one or more locally relevant tags to describe the risk type of
-        asset or data identified either specific to e.g. a local data classification
-        system, network zone, or regulatory/compliance applicability
-      example: public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR
+      description: An array of one or more locally relevant terms to describe the
+        audit scope of the risk type associated with an asset. Typical values have
+        local significance relevant to e.g. a local data classification system or
+        regulatory/compliance  requirements like public, private, confidential, pci,
+        cfr21p11, pii, sox, gdpr, etc.
+      example: *id001
+    - name: risk.score
+      level: extended
+      type: long
+      description: 'Comparative risk score assigned to resources based on a numerical
+        scale, quantitavely scoring the level  of risk represented by a possible compriomise
+        of the asset or data in question.
+
+        Recommended scale is 1-10, but 1-5 or 1-100 are also acceptable.'
+      example: 7
   - name: user_agent
     title: User agent
     group: 2
