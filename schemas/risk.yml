@@ -3,23 +3,16 @@
   title: Group
   group: 2
   type: group
-  short: Risk Scores and Tags for prioritization and categorization of events and signals.
+  short: Risk fields help in prioritization and categorization of events and signals.
   description: >
-    Risk fields represent the normalized comparative sensitivity of internal resources or the potential risk of
-    threats, vulnerabilities, and IOCs.
+    Risk score fields represent the normalized comparative sensitivity of an organization's resources.
 
-    At the event level, normalized risk is calculated based on any risk metrics available for lookup for the
-    given event (e.g. a user, source, destination in a firewall log, a client and file in a endpoint file/process
-    log). The final event score is calculated by summing the squares of each avaialble risk score and dividing by
-    the total multiple of available scores. As an example:  ( user.risk^2 + source.risk^2 + destination.risk^2 ) / ( user.risk + source.risk + destination.risk )
-
-    Risk labels are for labeling the type of business risk represented by a given resource, typically in reference to the data
-    housed in an asset or zone, the level of access of a given user or group, or the risk represented by a given threat or IOC.
+    Risk scope fields used to categorize the business specific type of risk associated with a given asset, typically in reference 
+    to the data housed in an asset or zone, or the level of access of a given user or group.
 
   reusable:
     top_level: false
     expected:
-      - event
       - user
       - group
       - client
@@ -33,19 +26,27 @@
 
   fields:
 
-    - name: tag
-      level: extended
-      type: keyword
-      description: one or more locally relevant tags to describe the risk type of asset or data identified either 
-        specific to e.g. a local data classification system, network zone, or regulatory/compliance applicability
-
-      example: public, private, confidential, PCI, CFR21p11, PII, SOX, GDPR
-
     - name: score
       level: extended
       type: long
-      description: comparative risk score on a normalized scale of 0-10, quantitavely scoring the level 
-        of risk of the asset or data, or the risk represented by a given threat (typically provided by the 
-        observer or IOC provider)
+      short: Comparative quantitative asset risk score.
+      description: >
+        Comparative risk score assigned to resources based on a numerical scale, quantitavely scoring the level 
+        of risk represented by a possible compriomise of the asset or data in question.
 
-      example: 5
+        Recommended scale is 1-10, but 1-5 or 1-100 are also acceptable.
+        
+      example: 7
+
+    - name: scope
+      level: extended
+      type: keyword
+      short: Qualitative categorization of asset or user risk classification types.  
+      description: >
+        An array of one or more locally relevant terms to describe the audit scope of the risk type associated with an asset.
+        Typical values have local significance relevant to e.g. a local data classification system or regulatory/compliance 
+        requirements like public, private, confidential, pci, cfr21p11, pii, sox, gdpr, etc.
+
+      example: [confidential, pci, pii]
+
+
