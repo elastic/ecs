@@ -15,6 +15,7 @@ Thanks, you're awesome :-) -->
 #### Bugfixes
 
 #### Added
+* Added VLAN Fields PR #688
 
 #### Improvements
 
