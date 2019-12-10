@@ -4497,7 +4497,7 @@ tags:
   type: keyword
 threat.framework:
   description: Name of the threat framework used to further categorize and classify
-    the tactic and technique of the reported threat.   Framework classification can
+    the tactic and technique of the reported threat. Framework classification can
     be provided by detecting systems, evaluated at ingest time, or retrospectively
     tagged to events.
   example: MITRE ATT&CK
@@ -4564,6 +4564,11 @@ threat.technique.name:
   flat_name: threat.technique.name
   ignore_above: 1024
   level: extended
+  multi_fields:
+  - flat_name: threat.technique.name.text
+    name: text
+    norms: false
+    type: text
   name: technique.name
   order: 4
   short: Threat technique name.
@@ -5385,6 +5390,11 @@ vulnerability.description:
   flat_name: vulnerability.description
   ignore_above: 1024
   level: extended
+  multi_fields:
+  - flat_name: vulnerability.description.text
+    name: text
+    norms: false
+    type: text
   name: description
   order: 8
   short: Description of the vulnerability.

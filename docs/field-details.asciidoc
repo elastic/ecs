@@ -3994,7 +3994,7 @@ example: `co.uk`
 
 Fields to classify events and alerts according to a threat taxonomy such as the Mitre ATT&CK framework.
 
-These fields are for users to classify alerts from all of their sources (e.g. IDS, NGFW, etc.) within a  common taxonomy. The threat.tactic.* are meant to capture the high level category of the threat  (e.g. "impact"). The threat.technique.* fields are meant to capture which kind of approach is used by  this detected threat, to accomplish the goal (e.g. "endpoint denial of service").
+These fields are for users to classify alerts from all of their sources (e.g. IDS, NGFW, etc.) within a common taxonomy. The threat.tactic.* are meant to capture the high level category of the threat (e.g. "impact"). The threat.technique.* fields are meant to capture which kind of approach is used by this detected threat, to accomplish the goal (e.g. "endpoint denial of service").
 
 ==== Threat Field Details
 
@@ -4005,7 +4005,7 @@ These fields are for users to classify alerts from all of their sources (e.g. ID
 // ===============================================================
 
 | threat.framework
-| Name of the threat framework used to further categorize and classify the tactic and technique of the reported threat.   Framework classification can be provided by detecting systems, evaluated at ingest time, or retrospectively tagged to events.
+| Name of the threat framework used to further categorize and classify the tactic and technique of the reported threat. Framework classification can be provided by detecting systems, evaluated at ingest time, or retrospectively tagged to events.
 
 type: keyword
 
@@ -4063,6 +4063,12 @@ example: `T1499`
 | The name of technique used by this tactic. You can use the Mitre ATT&CK Matrix Tactic categorization, for example. (ex. https://attack.mitre.org/techniques/T1499/ )
 
 type: keyword
+
+Multi-fields:
+
+* threat.technique.name.text (type: text)
+
+
 
 example: `endpoint denial of service`
 
@@ -4907,6 +4913,12 @@ example: `CVSS`
 | The description of the vulnerability that provides additional context of the vulnerability. For example (https://cve.mitre.org/about/faqs.html#cve_entry_descriptions_created[Common Vulnerabilities and Exposure CVE description])
 
 type: keyword
+
+Multi-fields:
+
+* vulnerability.description.text (type: text)
+
+
 
 example: `In macOS before 2.12.6, there is a vulnerability in the RPC...`
 
