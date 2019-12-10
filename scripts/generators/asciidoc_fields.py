@@ -3,9 +3,10 @@ import sys
 from generators import ecs_helpers
 
 
-def generate(ecs_nested, ecs_version):
+def generate(ecs_nested, ecs_flat, ecs_version):
     save_asciidoc('docs/fields.asciidoc', page_field_index(ecs_nested, ecs_version))
     save_asciidoc('docs/field-details.asciidoc', page_field_details(ecs_nested))
+    save_asciidoc('docs/field-values.asciidoc', page_field_values(ecs_flat))
 
 # Helpers
 
@@ -18,7 +19,7 @@ def save_asciidoc(file, text):
         outfile.write(text)
 
 
-# Rendering
+# Rendering schemas
 
 # Field Index
 
@@ -266,4 +267,72 @@ def nestings_row():
 
 // ===============================================================
 
+'''
+
+
+## Accepted values section
+
+
+def page_field_values(ecs_flat):
+    section_text = values_header()
+    category_fields = ['event.kind', 'event.category', 'event.type', 'event.outcome']
+    for cat_field in category_fields:
+        section_text += render_field_values_page(ecs_flat[cat_field])
+    return section_text
+
+
+
+def values_header():
+    return '''
+[[ecs-category-field-values-reference]]
+== {ecs} Category Field Values
+
+In ECS, certain fields are not meant to be populated by the event source, but...
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+[float]
+[[ecs-category-fields]]
+=== Category Fields
+
+* <<ecs-category-event-kind,event.kind>>
+* <<ecs-category-event-category,event.category>>
+* <<ecs-category-event-type,event.type>>
+* <<ecs-category-event-outcome,event.outcome>>
+
+'''
+
+def render_field_values_page(field):
+    dashed_field_name = field['flat_name'].replace('.', '-')
+    # Page heading
+    text = field_values_page_template().format(
+        dashed_name=dashed_field_name,
+        flat_name=field['flat_name'],
+        # description=field[''],
+    )
+    # Each accepted value
+    for value_details in field['accepted_values']:
+        text += field_values_value_template().format(
+            dashed_name=dashed_field_name,
+            value_name=value_details['name'],
+            value_description=value_details['description'],
+        )
+    return text
+
+
+def field_values_page_template():
+    return '''
+[[ecs-category-{dashed_name}]]
+=== Expected Values for {flat_name}
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+'''
+
+def field_values_value_template():
+    return '''
+[float]
+[[ecs-{dashed_name}-{value_name}]]
+==== {value_name}
+
+{value_description}
 '''
