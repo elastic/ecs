@@ -15,9 +15,7 @@ Thanks, you're awesome :-) -->
 #### Bugfixes
 
 #### Added
-
-* Add default `text` analyzer to `user_agent.original`. #575
-* Added `file.attributes`. #611
+* Added Interface fields #
 
 #### Improvements
 
@@ -28,8 +26,6 @@ Thanks, you're awesome :-) -->
 #### Breaking changes
 
 #### Bugfixes
-
-* Fix support for multi-fields. #575
 
 #### Added
 

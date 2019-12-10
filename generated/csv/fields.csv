@@ -5,6 +5,15 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Example,Description
 1.4.0-dev,true,base,tags,keyword,core,"[""production"", ""env2""]",List of keywords used to tag each event.
 1.4.0-dev,true,agent,agent.ephemeral_id,keyword,extended,8a4f500f,Ephemeral identifier of this agent.
 1.4.0-dev,true,agent,agent.id,keyword,core,8a4f500d,Unique identifier of this agent.
+1.4.0-dev,true,agent,agent.interface.bandwidth,keyword,extended,1000,"Some interfaces, particularly in networking devices, have a bandwidth setting that is used to define the logical bandwidth available on a physical link when it differs from the physical media.  Record that value in this field."
+1.4.0-dev,true,agent,agent.interface.description,keyword,extended,Uplink to Core Router,Optional interface description as reported by the system.
+1.4.0-dev,true,agent,agent.interface.duplex,keyword,extended,full,Interface duplex setting as reported by the system.  Acceptable values are full and half
+1.4.0-dev,true,agent,agent.interface.enabled,keyword,extended,True,"Boolean value representing the logical state of the interface (true = enabled, false = disabled)"
+1.4.0-dev,true,agent,agent.interface.id,keyword,core,gi0/1,Interface ID as reported by the system.
+1.4.0-dev,true,agent,agent.interface.name,keyword,extended,GigabitEthernet0/1,Optional long interface name as reported by the systen.
+1.4.0-dev,true,agent,agent.interface.negotiation,keyword,extended,True,Set this value to true if the interface is set for autonegotiation
+1.4.0-dev,true,agent,agent.interface.speed,keyword,extended,1000,Interface speed as reported by the system in megabits per second.
+1.4.0-dev,true,agent,agent.interface.status,keyword,extended,connected,"Interface logical connection state as reported by the system. Possible values are connected, not-connected, error-disabled"
 1.4.0-dev,true,agent,agent.name,keyword,core,foo,Custom name of the agent.
 1.4.0-dev,true,agent,agent.type,keyword,core,filebeat,Type of the agent.
 1.4.0-dev,true,agent,agent.version,keyword,core,6.0.0-rc2,Version of the agent.
@@ -23,6 +32,15 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Example,Description
 1.4.0-dev,true,client,client.geo.name,keyword,extended,boston-dc,User-defined description of a location.
 1.4.0-dev,true,client,client.geo.region_iso_code,keyword,core,CA-QC,Region ISO code.
 1.4.0-dev,true,client,client.geo.region_name,keyword,core,Quebec,Region name.
+1.4.0-dev,true,client,client.interface.bandwidth,keyword,extended,1000,"Some interfaces, particularly in networking devices, have a bandwidth setting that is used to define the logical bandwidth available on a physical link when it differs from the physical media.  Record that value in this field."
+1.4.0-dev,true,client,client.interface.description,keyword,extended,Uplink to Core Router,Optional interface description as reported by the system.
+1.4.0-dev,true,client,client.interface.duplex,keyword,extended,full,Interface duplex setting as reported by the system.  Acceptable values are full and half
+1.4.0-dev,true,client,client.interface.enabled,keyword,extended,True,"Boolean value representing the logical state of the interface (true = enabled, false = disabled)"
+1.4.0-dev,true,client,client.interface.id,keyword,core,gi0/1,Interface ID as reported by the system.
+1.4.0-dev,true,client,client.interface.name,keyword,extended,GigabitEthernet0/1,Optional long interface name as reported by the systen.
+1.4.0-dev,true,client,client.interface.negotiation,keyword,extended,True,Set this value to true if the interface is set for autonegotiation
+1.4.0-dev,true,client,client.interface.speed,keyword,extended,1000,Interface speed as reported by the system in megabits per second.
+1.4.0-dev,true,client,client.interface.status,keyword,extended,connected,"Interface logical connection state as reported by the system. Possible values are connected, not-connected, error-disabled"
 1.4.0-dev,true,client,client.ip,ip,core,,IP address of the client.
 1.4.0-dev,true,client,client.mac,keyword,core,,MAC address of the client.
 1.4.0-dev,true,client,client.nat.ip,ip,extended,,Client NAT ip address
@@ -179,6 +197,15 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Example,Description
 1.4.0-dev,true,host,host.geo.region_name,keyword,core,Quebec,Region name.
 1.4.0-dev,true,host,host.hostname,keyword,core,,Hostname of the host.
 1.4.0-dev,true,host,host.id,keyword,core,,Unique host id.
+1.4.0-dev,true,host,host.interface.bandwidth,keyword,extended,1000,"Some interfaces, particularly in networking devices, have a bandwidth setting that is used to define the logical bandwidth available on a physical link when it differs from the physical media.  Record that value in this field."
+1.4.0-dev,true,host,host.interface.description,keyword,extended,Uplink to Core Router,Optional interface description as reported by the system.
+1.4.0-dev,true,host,host.interface.duplex,keyword,extended,full,Interface duplex setting as reported by the system.  Acceptable values are full and half
+1.4.0-dev,true,host,host.interface.enabled,keyword,extended,True,"Boolean value representing the logical state of the interface (true = enabled, false = disabled)"
+1.4.0-dev,true,host,host.interface.id,keyword,core,gi0/1,Interface ID as reported by the system.
+1.4.0-dev,true,host,host.interface.name,keyword,extended,GigabitEthernet0/1,Optional long interface name as reported by the systen.
+1.4.0-dev,true,host,host.interface.negotiation,keyword,extended,True,Set this value to true if the interface is set for autonegotiation
+1.4.0-dev,true,host,host.interface.speed,keyword,extended,1000,Interface speed as reported by the system in megabits per second.
+1.4.0-dev,true,host,host.interface.status,keyword,extended,connected,"Interface logical connection state as reported by the system. Possible values are connected, not-connected, error-disabled"
 1.4.0-dev,true,host,host.ip,ip,core,,Host ip address.
 1.4.0-dev,true,host,host.mac,keyword,core,,Host mac address.
 1.4.0-dev,true,host,host.name,keyword,core,,Name of the host.
@@ -209,6 +236,15 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Example,Description
 1.4.0-dev,true,http,http.response.bytes,long,extended,1437,Total size in bytes of the response (body and headers).
 1.4.0-dev,true,http,http.response.status_code,long,extended,404,HTTP response status code.
 1.4.0-dev,true,http,http.version,keyword,extended,1.1,HTTP version.
+1.4.0-dev,true,interface,interface.bandwidth,keyword,extended,1000,"Some interfaces, particularly in networking devices, have a bandwidth setting that is used to define the logical bandwidth available on a physical link when it differs from the physical media.  Record that value in this field."
+1.4.0-dev,true,interface,interface.description,keyword,extended,Uplink to Core Router,Optional interface description as reported by the system.
+1.4.0-dev,true,interface,interface.duplex,keyword,extended,full,Interface duplex setting as reported by the system.  Acceptable values are full and half
+1.4.0-dev,true,interface,interface.enabled,keyword,extended,True,"Boolean value representing the logical state of the interface (true = enabled, false = disabled)"
+1.4.0-dev,true,interface,interface.id,keyword,core,gi0/1,Interface ID as reported by the system.
+1.4.0-dev,true,interface,interface.name,keyword,extended,GigabitEthernet0/1,Optional long interface name as reported by the systen.
+1.4.0-dev,true,interface,interface.negotiation,keyword,extended,True,Set this value to true if the interface is set for autonegotiation
+1.4.0-dev,true,interface,interface.speed,keyword,extended,1000,Interface speed as reported by the system in megabits per second.
+1.4.0-dev,true,interface,interface.status,keyword,extended,connected,"Interface logical connection state as reported by the system. Possible values are connected, not-connected, error-disabled"
 1.4.0-dev,true,log,log.level,keyword,core,error,Log level of the log event.
 1.4.0-dev,true,log,log.logger,keyword,core,org.elasticsearch.bootstrap.Bootstrap,Name of the logger.
 1.4.0-dev,true,log,log.origin.file.line,integer,extended,42,The line number of the file which originated the log event.
@@ -241,6 +277,15 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Example,Description
 1.4.0-dev,true,observer,observer.geo.region_iso_code,keyword,core,CA-QC,Region ISO code.
 1.4.0-dev,true,observer,observer.geo.region_name,keyword,core,Quebec,Region name.
 1.4.0-dev,true,observer,observer.hostname,keyword,core,,Hostname of the observer.
+1.4.0-dev,true,observer,observer.interface.bandwidth,keyword,extended,1000,"Some interfaces, particularly in networking devices, have a bandwidth setting that is used to define the logical bandwidth available on a physical link when it differs from the physical media.  Record that value in this field."
+1.4.0-dev,true,observer,observer.interface.description,keyword,extended,Uplink to Core Router,Optional interface description as reported by the system.
+1.4.0-dev,true,observer,observer.interface.duplex,keyword,extended,full,Interface duplex setting as reported by the system.  Acceptable values are full and half
+1.4.0-dev,true,observer,observer.interface.enabled,keyword,extended,True,"Boolean value representing the logical state of the interface (true = enabled, false = disabled)"
+1.4.0-dev,true,observer,observer.interface.id,keyword,core,gi0/1,Interface ID as reported by the system.
+1.4.0-dev,true,observer,observer.interface.name,keyword,extended,GigabitEthernet0/1,Optional long interface name as reported by the systen.
+1.4.0-dev,true,observer,observer.interface.negotiation,keyword,extended,True,Set this value to true if the interface is set for autonegotiation
+1.4.0-dev,true,observer,observer.interface.speed,keyword,extended,1000,Interface speed as reported by the system in megabits per second.
+1.4.0-dev,true,observer,observer.interface.status,keyword,extended,connected,"Interface logical connection state as reported by the system. Possible values are connected, not-connected, error-disabled"
 1.4.0-dev,true,observer,observer.ip,ip,core,,IP address of the observer.
 1.4.0-dev,true,observer,observer.mac,keyword,core,,MAC address of the observer
 1.4.0-dev,true,observer,observer.name,keyword,extended,1_proxySG,Custom name of the observer.
@@ -324,6 +369,15 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Example,Description
 1.4.0-dev,true,server,server.geo.name,keyword,extended,boston-dc,User-defined description of a location.
 1.4.0-dev,true,server,server.geo.region_iso_code,keyword,core,CA-QC,Region ISO code.
 1.4.0-dev,true,server,server.geo.region_name,keyword,core,Quebec,Region name.
+1.4.0-dev,true,server,server.interface.bandwidth,keyword,extended,1000,"Some interfaces, particularly in networking devices, have a bandwidth setting that is used to define the logical bandwidth available on a physical link when it differs from the physical media.  Record that value in this field."
+1.4.0-dev,true,server,server.interface.description,keyword,extended,Uplink to Core Router,Optional interface description as reported by the system.
+1.4.0-dev,true,server,server.interface.duplex,keyword,extended,full,Interface duplex setting as reported by the system.  Acceptable values are full and half
+1.4.0-dev,true,server,server.interface.enabled,keyword,extended,True,"Boolean value representing the logical state of the interface (true = enabled, false = disabled)"
+1.4.0-dev,true,server,server.interface.id,keyword,core,gi0/1,Interface ID as reported by the system.
+1.4.0-dev,true,server,server.interface.name,keyword,extended,GigabitEthernet0/1,Optional long interface name as reported by the systen.
+1.4.0-dev,true,server,server.interface.negotiation,keyword,extended,True,Set this value to true if the interface is set for autonegotiation
+1.4.0-dev,true,server,server.interface.speed,keyword,extended,1000,Interface speed as reported by the system in megabits per second.
+1.4.0-dev,true,server,server.interface.status,keyword,extended,connected,"Interface logical connection state as reported by the system. Possible values are connected, not-connected, error-disabled"
 1.4.0-dev,true,server,server.ip,ip,core,,IP address of the server.
 1.4.0-dev,true,server,server.mac,keyword,core,,MAC address of the server.
 1.4.0-dev,true,server,server.nat.ip,ip,extended,,Server NAT ip

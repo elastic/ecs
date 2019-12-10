@@ -154,6 +154,29 @@ example: `6.0.0-rc2`
 
 |=====
 
+==== Field Reuse
+
+
+
+
+[[ecs-agent-nestings]]
+===== Field sets that can be nested under Agent
+
+[options="header"]
+|=====
+| Nested fields | Description
+
+// ===============================================================
+
+
+| <<ecs-interface,agent.interface.*>>
+| Fields to describe host interface information.
+
+// ===============================================================
+
+
+|=====
+
 [[ecs-as]]
 === Autonomous System Fields
 
@@ -377,6 +400,12 @@ example: `co.uk`
 
 | <<ecs-geo,client.geo.*>>
 | Fields describing a location.
+
+// ===============================================================
+
+
+| <<ecs-interface,client.interface.*>>
+| Fields to describe host interface information.
 
 // ===============================================================
 
@@ -2052,6 +2081,12 @@ example: `1325`
 // ===============================================================
 
 
+| <<ecs-interface,host.interface.*>>
+| Fields to describe host interface information.
+
+// ===============================================================
+
+
 | <<ecs-os,host.os.*>>
 | OS fields contain information about the operating system.
 
@@ -2192,6 +2227,131 @@ example: `1.1`
 // ===============================================================
 
 |=====
+
+[[ecs-interface]]
+=== Interface Fields
+
+The interface fields describe information about the configuration of an interface on any type of network connected host or observer.
+
+Interface configuration field requirements will vary significantly depending on the type of device being inventoried, or the interface specific information provided in a given event.
+
+==== Interface Field Details
+
+[options="header"]
+|=====
+| Field  | Description | Level
+
+// ===============================================================
+
+| interface.bandwidth
+| Some interfaces, particularly in networking devices, have a bandwidth setting that is used to define the logical bandwidth available on a physical link when it differs from the physical media.  Record that value in this field.
+
+type: keyword
+
+example: `1000`
+
+| extended
+
+// ===============================================================
+
+| interface.description
+| Optional interface description as reported by the system.
+
+type: keyword
+
+example: `Uplink to Core Router`
+
+| extended
+
+// ===============================================================
+
+| interface.duplex
+| Interface duplex setting as reported by the system.  Acceptable values are full and half
+
+type: keyword
+
+example: `full`
+
+| extended
+
+// ===============================================================
+
+| interface.enabled
+| Boolean value representing the logical state of the interface (true = enabled, false = disabled)
+
+type: keyword
+
+example: `True`
+
+| extended
+
+// ===============================================================
+
+| interface.id
+| Interface ID as reported by the system.
+
+type: keyword
+
+example: `gi0/1`
+
+| core
+
+// ===============================================================
+
+| interface.name
+| Optional long interface name as reported by the systen.
+
+type: keyword
+
+example: `GigabitEthernet0/1`
+
+| extended
+
+// ===============================================================
+
+| interface.negotiation
+| Set this value to true if the interface is set for autonegotiation
+
+type: keyword
+
+example: `True`
+
+| extended
+
+// ===============================================================
+
+| interface.speed
+| Interface speed as reported by the system in megabits per second.
+
+type: keyword
+
+example: `1000`
+
+| extended
+
+// ===============================================================
+
+| interface.status
+| Interface logical connection state as reported by the system. Possible values are connected, not-connected, error-disabled
+
+type: keyword
+
+example: `connected`
+
+| extended
+
+// ===============================================================
+
+|=====
+
+==== Field Reuse
+
+The `interface` fields are expected to be nested at: `agent.interface`, `client.interface`, `host.interface`, `observer.interface`, `server.interface`.
+
+Note also that the `interface` fields may be used directly at the top level.
+
+
+
 
 [[ecs-log]]
 === Log Fields
@@ -2669,6 +2829,12 @@ type: keyword
 
 | <<ecs-geo,observer.geo.*>>
 | Fields describing a location.
+
+// ===============================================================
+
+
+| <<ecs-interface,observer.interface.*>>
+| Fields to describe host interface information.
 
 // ===============================================================
 
@@ -3575,6 +3741,12 @@ example: `co.uk`
 
 | <<ecs-geo,server.geo.*>>
 | Fields describing a location.
+
+// ===============================================================
+
+
+| <<ecs-interface,server.interface.*>>
+| Fields to describe host interface information.
 
 // ===============================================================
 

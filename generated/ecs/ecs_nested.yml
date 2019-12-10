@@ -31,6 +31,115 @@ agent:
       order: 3
       short: Unique identifier of this agent.
       type: keyword
+    interface.bandwidth:
+      description: Some interfaces, particularly in networking devices, have a bandwidth
+        setting that is used to define the logical bandwidth available on a physical
+        link when it differs from the physical media.  Record that value in this field.
+      example: 1000
+      flat_name: agent.interface.bandwidth
+      ignore_above: 1024
+      level: extended
+      name: bandwidth
+      order: 8
+      original_fieldset: interface
+      short: Some interfaces, particularly in networking devices, have a bandwidth
+        setting that is used to define the logical bandwidth available on a physical
+        link when it differs from the physical media.  Record that value in this field.
+      type: keyword
+    interface.description:
+      description: Optional interface description as reported by the system.
+      example: Uplink to Core Router
+      flat_name: agent.interface.description
+      ignore_above: 1024
+      level: extended
+      name: description
+      order: 2
+      original_fieldset: interface
+      short: Optional interface description as reported by the system.
+      type: keyword
+    interface.duplex:
+      description: Interface duplex setting as reported by the system.  Acceptable
+        values are full and half
+      example: full
+      flat_name: agent.interface.duplex
+      ignore_above: 1024
+      level: extended
+      name: duplex
+      order: 6
+      original_fieldset: interface
+      short: Interface duplex setting as reported by the system.  Acceptable values
+        are full and half
+      type: keyword
+    interface.enabled:
+      description: Boolean value representing the logical state of the interface (true
+        = enabled, false = disabled)
+      example: true
+      flat_name: agent.interface.enabled
+      ignore_above: 1024
+      level: extended
+      name: enabled
+      order: 3
+      original_fieldset: interface
+      short: Boolean value representing the logical state of the interface (true =
+        enabled, false = disabled)
+      type: keyword
+    interface.id:
+      description: Interface ID as reported by the system.
+      example: gi0/1
+      flat_name: agent.interface.id
+      ignore_above: 1024
+      level: core
+      name: id
+      order: 0
+      original_fieldset: interface
+      short: Interface ID as reported by the system.
+      type: keyword
+    interface.name:
+      description: Optional long interface name as reported by the systen.
+      example: GigabitEthernet0/1
+      flat_name: agent.interface.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      order: 1
+      original_fieldset: interface
+      short: Optional long interface name as reported by the systen.
+      type: keyword
+    interface.negotiation:
+      description: Set this value to true if the interface is set for autonegotiation
+      example: true
+      flat_name: agent.interface.negotiation
+      ignore_above: 1024
+      level: extended
+      name: negotiation
+      order: 7
+      original_fieldset: interface
+      short: Set this value to true if the interface is set for autonegotiation
+      type: keyword
+    interface.speed:
+      description: Interface speed as reported by the system in megabits per second.
+      example: 1000
+      flat_name: agent.interface.speed
+      ignore_above: 1024
+      level: extended
+      name: speed
+      order: 5
+      original_fieldset: interface
+      short: Interface speed as reported by the system in megabits per second.
+      type: keyword
+    interface.status:
+      description: Interface logical connection state as reported by the system. Possible
+        values are connected, not-connected, error-disabled
+      example: connected
+      flat_name: agent.interface.status
+      ignore_above: 1024
+      level: extended
+      name: status
+      order: 4
+      original_fieldset: interface
+      short: Interface logical connection state as reported by the system. Possible
+        values are connected, not-connected, error-disabled
+      type: keyword
     name:
       description: 'Custom name of the agent.
 
@@ -77,6 +186,8 @@ agent:
     systems such as Logstash or APM Server.'
   group: 2
   name: agent
+  nestings:
+  - interface
   prefix: agent.
   short: Fields about the monitoring agent.
   title: Agent
@@ -359,6 +470,115 @@ client:
       original_fieldset: geo
       short: Region name.
       type: keyword
+    interface.bandwidth:
+      description: Some interfaces, particularly in networking devices, have a bandwidth
+        setting that is used to define the logical bandwidth available on a physical
+        link when it differs from the physical media.  Record that value in this field.
+      example: 1000
+      flat_name: client.interface.bandwidth
+      ignore_above: 1024
+      level: extended
+      name: bandwidth
+      order: 8
+      original_fieldset: interface
+      short: Some interfaces, particularly in networking devices, have a bandwidth
+        setting that is used to define the logical bandwidth available on a physical
+        link when it differs from the physical media.  Record that value in this field.
+      type: keyword
+    interface.description:
+      description: Optional interface description as reported by the system.
+      example: Uplink to Core Router
+      flat_name: client.interface.description
+      ignore_above: 1024
+      level: extended
+      name: description
+      order: 2
+      original_fieldset: interface
+      short: Optional interface description as reported by the system.
+      type: keyword
+    interface.duplex:
+      description: Interface duplex setting as reported by the system.  Acceptable
+        values are full and half
+      example: full
+      flat_name: client.interface.duplex
+      ignore_above: 1024
+      level: extended
+      name: duplex
+      order: 6
+      original_fieldset: interface
+      short: Interface duplex setting as reported by the system.  Acceptable values
+        are full and half
+      type: keyword
+    interface.enabled:
+      description: Boolean value representing the logical state of the interface (true
+        = enabled, false = disabled)
+      example: true
+      flat_name: client.interface.enabled
+      ignore_above: 1024
+      level: extended
+      name: enabled
+      order: 3
+      original_fieldset: interface
+      short: Boolean value representing the logical state of the interface (true =
+        enabled, false = disabled)
+      type: keyword
+    interface.id:
+      description: Interface ID as reported by the system.
+      example: gi0/1
+      flat_name: client.interface.id
+      ignore_above: 1024
+      level: core
+      name: id
+      order: 0
+      original_fieldset: interface
+      short: Interface ID as reported by the system.
+      type: keyword
+    interface.name:
+      description: Optional long interface name as reported by the systen.
+      example: GigabitEthernet0/1
+      flat_name: client.interface.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      order: 1
+      original_fieldset: interface
+      short: Optional long interface name as reported by the systen.
+      type: keyword
+    interface.negotiation:
+      description: Set this value to true if the interface is set for autonegotiation
+      example: true
+      flat_name: client.interface.negotiation
+      ignore_above: 1024
+      level: extended
+      name: negotiation
+      order: 7
+      original_fieldset: interface
+      short: Set this value to true if the interface is set for autonegotiation
+      type: keyword
+    interface.speed:
+      description: Interface speed as reported by the system in megabits per second.
+      example: 1000
+      flat_name: client.interface.speed
+      ignore_above: 1024
+      level: extended
+      name: speed
+      order: 5
+      original_fieldset: interface
+      short: Interface speed as reported by the system in megabits per second.
+      type: keyword
+    interface.status:
+      description: Interface logical connection state as reported by the system. Possible
+        values are connected, not-connected, error-disabled
+      example: connected
+      flat_name: client.interface.status
+      ignore_above: 1024
+      level: extended
+      name: status
+      order: 4
+      original_fieldset: interface
+      short: Interface logical connection state as reported by the system. Possible
+        values are connected, not-connected, error-disabled
+      type: keyword
     ip:
       description: 'IP address of the client.
 
@@ -554,6 +774,7 @@ client:
   group: 2
   name: client
   nestings:
+  - interface
   - geo
   - as
   - user
@@ -2333,6 +2554,115 @@ host:
       order: 2
       short: Unique host id.
       type: keyword
+    interface.bandwidth:
+      description: Some interfaces, particularly in networking devices, have a bandwidth
+        setting that is used to define the logical bandwidth available on a physical
+        link when it differs from the physical media.  Record that value in this field.
+      example: 1000
+      flat_name: host.interface.bandwidth
+      ignore_above: 1024
+      level: extended
+      name: bandwidth
+      order: 8
+      original_fieldset: interface
+      short: Some interfaces, particularly in networking devices, have a bandwidth
+        setting that is used to define the logical bandwidth available on a physical
+        link when it differs from the physical media.  Record that value in this field.
+      type: keyword
+    interface.description:
+      description: Optional interface description as reported by the system.
+      example: Uplink to Core Router
+      flat_name: host.interface.description
+      ignore_above: 1024
+      level: extended
+      name: description
+      order: 2
+      original_fieldset: interface
+      short: Optional interface description as reported by the system.
+      type: keyword
+    interface.duplex:
+      description: Interface duplex setting as reported by the system.  Acceptable
+        values are full and half
+      example: full
+      flat_name: host.interface.duplex
+      ignore_above: 1024
+      level: extended
+      name: duplex
+      order: 6
+      original_fieldset: interface
+      short: Interface duplex setting as reported by the system.  Acceptable values
+        are full and half
+      type: keyword
+    interface.enabled:
+      description: Boolean value representing the logical state of the interface (true
+        = enabled, false = disabled)
+      example: true
+      flat_name: host.interface.enabled
+      ignore_above: 1024
+      level: extended
+      name: enabled
+      order: 3
+      original_fieldset: interface
+      short: Boolean value representing the logical state of the interface (true =
+        enabled, false = disabled)
+      type: keyword
+    interface.id:
+      description: Interface ID as reported by the system.
+      example: gi0/1
+      flat_name: host.interface.id
+      ignore_above: 1024
+      level: core
+      name: id
+      order: 0
+      original_fieldset: interface
+      short: Interface ID as reported by the system.
+      type: keyword
+    interface.name:
+      description: Optional long interface name as reported by the systen.
+      example: GigabitEthernet0/1
+      flat_name: host.interface.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      order: 1
+      original_fieldset: interface
+      short: Optional long interface name as reported by the systen.
+      type: keyword
+    interface.negotiation:
+      description: Set this value to true if the interface is set for autonegotiation
+      example: true
+      flat_name: host.interface.negotiation
+      ignore_above: 1024
+      level: extended
+      name: negotiation
+      order: 7
+      original_fieldset: interface
+      short: Set this value to true if the interface is set for autonegotiation
+      type: keyword
+    interface.speed:
+      description: Interface speed as reported by the system in megabits per second.
+      example: 1000
+      flat_name: host.interface.speed
+      ignore_above: 1024
+      level: extended
+      name: speed
+      order: 5
+      original_fieldset: interface
+      short: Interface speed as reported by the system in megabits per second.
+      type: keyword
+    interface.status:
+      description: Interface logical connection state as reported by the system. Possible
+        values are connected, not-connected, error-disabled
+      example: connected
+      flat_name: host.interface.status
+      ignore_above: 1024
+      level: extended
+      name: status
+      order: 4
+      original_fieldset: interface
+      short: Interface logical connection state as reported by the system. Possible
+        values are connected, not-connected, error-disabled
+      type: keyword
     ip:
       description: Host ip address.
       flat_name: host.ip
@@ -2554,6 +2884,7 @@ host:
   group: 2
   name: host
   nestings:
+  - interface
   - geo
   - os
   - user
@@ -2673,6 +3004,128 @@ http:
   prefix: http.
   short: Fields describing an HTTP request.
   title: HTTP
+  type: group
+interface:
+  description: 'The interface fields describe information about the configuration
+    of an interface on any type of network connected host or observer.
+
+    Interface configuration field requirements will vary significantly depending on
+    the type of device being inventoried, or the interface specific information provided
+    in a given event.'
+  fields:
+    bandwidth:
+      description: Some interfaces, particularly in networking devices, have a bandwidth
+        setting that is used to define the logical bandwidth available on a physical
+        link when it differs from the physical media.  Record that value in this field.
+      example: 1000
+      flat_name: interface.bandwidth
+      ignore_above: 1024
+      level: extended
+      name: bandwidth
+      order: 8
+      short: Some interfaces, particularly in networking devices, have a bandwidth
+        setting that is used to define the logical bandwidth available on a physical
+        link when it differs from the physical media.  Record that value in this field.
+      type: keyword
+    description:
+      description: Optional interface description as reported by the system.
+      example: Uplink to Core Router
+      flat_name: interface.description
+      ignore_above: 1024
+      level: extended
+      name: description
+      order: 2
+      short: Optional interface description as reported by the system.
+      type: keyword
+    duplex:
+      description: Interface duplex setting as reported by the system.  Acceptable
+        values are full and half
+      example: full
+      flat_name: interface.duplex
+      ignore_above: 1024
+      level: extended
+      name: duplex
+      order: 6
+      short: Interface duplex setting as reported by the system.  Acceptable values
+        are full and half
+      type: keyword
+    enabled:
+      description: Boolean value representing the logical state of the interface (true
+        = enabled, false = disabled)
+      example: true
+      flat_name: interface.enabled
+      ignore_above: 1024
+      level: extended
+      name: enabled
+      order: 3
+      short: Boolean value representing the logical state of the interface (true =
+        enabled, false = disabled)
+      type: keyword
+    id:
+      description: Interface ID as reported by the system.
+      example: gi0/1
+      flat_name: interface.id
+      ignore_above: 1024
+      level: core
+      name: id
+      order: 0
+      short: Interface ID as reported by the system.
+      type: keyword
+    name:
+      description: Optional long interface name as reported by the systen.
+      example: GigabitEthernet0/1
+      flat_name: interface.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      order: 1
+      short: Optional long interface name as reported by the systen.
+      type: keyword
+    negotiation:
+      description: Set this value to true if the interface is set for autonegotiation
+      example: true
+      flat_name: interface.negotiation
+      ignore_above: 1024
+      level: extended
+      name: negotiation
+      order: 7
+      short: Set this value to true if the interface is set for autonegotiation
+      type: keyword
+    speed:
+      description: Interface speed as reported by the system in megabits per second.
+      example: 1000
+      flat_name: interface.speed
+      ignore_above: 1024
+      level: extended
+      name: speed
+      order: 5
+      short: Interface speed as reported by the system in megabits per second.
+      type: keyword
+    status:
+      description: Interface logical connection state as reported by the system. Possible
+        values are connected, not-connected, error-disabled
+      example: connected
+      flat_name: interface.status
+      ignore_above: 1024
+      level: extended
+      name: status
+      order: 4
+      short: Interface logical connection state as reported by the system. Possible
+        values are connected, not-connected, error-disabled
+      type: keyword
+  group: 2
+  name: interface
+  prefix: interface.
+  reusable:
+    expected:
+    - agent
+    - client
+    - host
+    - observer
+    - server
+    top_level: true
+  short: Fields to describe host interface information.
+  title: Interface
   type: group
 log:
   description: 'Details about the event''s logging mechanism or logging transport.
@@ -3117,6 +3570,115 @@ observer:
       order: 2
       short: Hostname of the observer.
       type: keyword
+    interface.bandwidth:
+      description: Some interfaces, particularly in networking devices, have a bandwidth
+        setting that is used to define the logical bandwidth available on a physical
+        link when it differs from the physical media.  Record that value in this field.
+      example: 1000
+      flat_name: observer.interface.bandwidth
+      ignore_above: 1024
+      level: extended
+      name: bandwidth
+      order: 8
+      original_fieldset: interface
+      short: Some interfaces, particularly in networking devices, have a bandwidth
+        setting that is used to define the logical bandwidth available on a physical
+        link when it differs from the physical media.  Record that value in this field.
+      type: keyword
+    interface.description:
+      description: Optional interface description as reported by the system.
+      example: Uplink to Core Router
+      flat_name: observer.interface.description
+      ignore_above: 1024
+      level: extended
+      name: description
+      order: 2
+      original_fieldset: interface
+      short: Optional interface description as reported by the system.
+      type: keyword
+    interface.duplex:
+      description: Interface duplex setting as reported by the system.  Acceptable
+        values are full and half
+      example: full
+      flat_name: observer.interface.duplex
+      ignore_above: 1024
+      level: extended
+      name: duplex
+      order: 6
+      original_fieldset: interface
+      short: Interface duplex setting as reported by the system.  Acceptable values
+        are full and half
+      type: keyword
+    interface.enabled:
+      description: Boolean value representing the logical state of the interface (true
+        = enabled, false = disabled)
+      example: true
+      flat_name: observer.interface.enabled
+      ignore_above: 1024
+      level: extended
+      name: enabled
+      order: 3
+      original_fieldset: interface
+      short: Boolean value representing the logical state of the interface (true =
+        enabled, false = disabled)
+      type: keyword
+    interface.id:
+      description: Interface ID as reported by the system.
+      example: gi0/1
+      flat_name: observer.interface.id
+      ignore_above: 1024
+      level: core
+      name: id
+      order: 0
+      original_fieldset: interface
+      short: Interface ID as reported by the system.
+      type: keyword
+    interface.name:
+      description: Optional long interface name as reported by the systen.
+      example: GigabitEthernet0/1
+      flat_name: observer.interface.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      order: 1
+      original_fieldset: interface
+      short: Optional long interface name as reported by the systen.
+      type: keyword
+    interface.negotiation:
+      description: Set this value to true if the interface is set for autonegotiation
+      example: true
+      flat_name: observer.interface.negotiation
+      ignore_above: 1024
+      level: extended
+      name: negotiation
+      order: 7
+      original_fieldset: interface
+      short: Set this value to true if the interface is set for autonegotiation
+      type: keyword
+    interface.speed:
+      description: Interface speed as reported by the system in megabits per second.
+      example: 1000
+      flat_name: observer.interface.speed
+      ignore_above: 1024
+      level: extended
+      name: speed
+      order: 5
+      original_fieldset: interface
+      short: Interface speed as reported by the system in megabits per second.
+      type: keyword
+    interface.status:
+      description: Interface logical connection state as reported by the system. Possible
+        values are connected, not-connected, error-disabled
+      example: connected
+      flat_name: observer.interface.status
+      ignore_above: 1024
+      level: extended
+      name: status
+      order: 4
+      original_fieldset: interface
+      short: Interface logical connection state as reported by the system. Possible
+        values are connected, not-connected, error-disabled
+      type: keyword
     ip:
       description: IP address of the observer.
       flat_name: observer.ip
@@ -3269,6 +3831,7 @@ observer:
   group: 2
   name: observer
   nestings:
+  - interface
   - geo
   - os
   prefix: observer.
@@ -4109,6 +4672,115 @@ server:
       original_fieldset: geo
       short: Region name.
       type: keyword
+    interface.bandwidth:
+      description: Some interfaces, particularly in networking devices, have a bandwidth
+        setting that is used to define the logical bandwidth available on a physical
+        link when it differs from the physical media.  Record that value in this field.
+      example: 1000
+      flat_name: server.interface.bandwidth
+      ignore_above: 1024
+      level: extended
+      name: bandwidth
+      order: 8
+      original_fieldset: interface
+      short: Some interfaces, particularly in networking devices, have a bandwidth
+        setting that is used to define the logical bandwidth available on a physical
+        link when it differs from the physical media.  Record that value in this field.
+      type: keyword
+    interface.description:
+      description: Optional interface description as reported by the system.
+      example: Uplink to Core Router
+      flat_name: server.interface.description
+      ignore_above: 1024
+      level: extended
+      name: description
+      order: 2
+      original_fieldset: interface
+      short: Optional interface description as reported by the system.
+      type: keyword
+    interface.duplex:
+      description: Interface duplex setting as reported by the system.  Acceptable
+        values are full and half
+      example: full
+      flat_name: server.interface.duplex
+      ignore_above: 1024
+      level: extended
+      name: duplex
+      order: 6
+      original_fieldset: interface
+      short: Interface duplex setting as reported by the system.  Acceptable values
+        are full and half
+      type: keyword
+    interface.enabled:
+      description: Boolean value representing the logical state of the interface (true
+        = enabled, false = disabled)
+      example: true
+      flat_name: server.interface.enabled
+      ignore_above: 1024
+      level: extended
+      name: enabled
+      order: 3
+      original_fieldset: interface
+      short: Boolean value representing the logical state of the interface (true =
+        enabled, false = disabled)
+      type: keyword
+    interface.id:
+      description: Interface ID as reported by the system.
+      example: gi0/1
+      flat_name: server.interface.id
+      ignore_above: 1024
+      level: core
+      name: id
+      order: 0
+      original_fieldset: interface
+      short: Interface ID as reported by the system.
+      type: keyword
+    interface.name:
+      description: Optional long interface name as reported by the systen.
+      example: GigabitEthernet0/1
+      flat_name: server.interface.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      order: 1
+      original_fieldset: interface
+      short: Optional long interface name as reported by the systen.
+      type: keyword
+    interface.negotiation:
+      description: Set this value to true if the interface is set for autonegotiation
+      example: true
+      flat_name: server.interface.negotiation
+      ignore_above: 1024
+      level: extended
+      name: negotiation
+      order: 7
+      original_fieldset: interface
+      short: Set this value to true if the interface is set for autonegotiation
+      type: keyword
+    interface.speed:
+      description: Interface speed as reported by the system in megabits per second.
+      example: 1000
+      flat_name: server.interface.speed
+      ignore_above: 1024
+      level: extended
+      name: speed
+      order: 5
+      original_fieldset: interface
+      short: Interface speed as reported by the system in megabits per second.
+      type: keyword
+    interface.status:
+      description: Interface logical connection state as reported by the system. Possible
+        values are connected, not-connected, error-disabled
+      example: connected
+      flat_name: server.interface.status
+      ignore_above: 1024
+      level: extended
+      name: status
+      order: 4
+      original_fieldset: interface
+      short: Interface logical connection state as reported by the system. Possible
+        values are connected, not-connected, error-disabled
+      type: keyword
     ip:
       description: 'IP address of the server.
 
@@ -4304,6 +4976,7 @@ server:
   group: 2
   name: server
   nestings:
+  - interface
   - geo
   - as
   - user

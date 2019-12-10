@@ -82,6 +82,65 @@
 
         Example: For Beats this would be beat.id.'
       example: 8a4f500d
+    - name: interface.bandwidth
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Some interfaces, particularly in networking devices, have a bandwidth
+        setting that is used to define the logical bandwidth available on a physical
+        link when it differs from the physical media.  Record that value in this field.
+      example: 1000
+    - name: interface.description
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Optional interface description as reported by the system.
+      example: Uplink to Core Router
+    - name: interface.duplex
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Interface duplex setting as reported by the system.  Acceptable
+        values are full and half
+      example: full
+    - name: interface.enabled
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Boolean value representing the logical state of the interface (true
+        = enabled, false = disabled)
+      example: true
+    - name: interface.id
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: Interface ID as reported by the system.
+      example: gi0/1
+    - name: interface.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Optional long interface name as reported by the systen.
+      example: GigabitEthernet0/1
+    - name: interface.negotiation
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Set this value to true if the interface is set for autonegotiation
+      example: true
+    - name: interface.speed
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Interface speed as reported by the system in megabits per second.
+      example: 1000
+    - name: interface.status
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Interface logical connection state as reported by the system. Possible
+        values are connected, not-connected, error-disabled
+      example: connected
     - name: name
       level: core
       type: keyword
@@ -237,6 +296,65 @@
       ignore_above: 1024
       description: Region name.
       example: Quebec
+    - name: interface.bandwidth
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Some interfaces, particularly in networking devices, have a bandwidth
+        setting that is used to define the logical bandwidth available on a physical
+        link when it differs from the physical media.  Record that value in this field.
+      example: 1000
+    - name: interface.description
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Optional interface description as reported by the system.
+      example: Uplink to Core Router
+    - name: interface.duplex
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Interface duplex setting as reported by the system.  Acceptable
+        values are full and half
+      example: full
+    - name: interface.enabled
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Boolean value representing the logical state of the interface (true
+        = enabled, false = disabled)
+      example: true
+    - name: interface.id
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: Interface ID as reported by the system.
+      example: gi0/1
+    - name: interface.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Optional long interface name as reported by the systen.
+      example: GigabitEthernet0/1
+    - name: interface.negotiation
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Set this value to true if the interface is set for autonegotiation
+      example: true
+    - name: interface.speed
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Interface speed as reported by the system in megabits per second.
+      example: 1000
+    - name: interface.status
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Interface logical connection state as reported by the system. Possible
+        values are connected, not-connected, error-disabled
+      example: connected
     - name: ip
       level: core
       type: ip
@@ -1470,6 +1588,65 @@
         As hostname is not always unique, use values that are meaningful in your environment.
 
         Example: The current usage of `beat.name`.'
+    - name: interface.bandwidth
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Some interfaces, particularly in networking devices, have a bandwidth
+        setting that is used to define the logical bandwidth available on a physical
+        link when it differs from the physical media.  Record that value in this field.
+      example: 1000
+    - name: interface.description
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Optional interface description as reported by the system.
+      example: Uplink to Core Router
+    - name: interface.duplex
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Interface duplex setting as reported by the system.  Acceptable
+        values are full and half
+      example: full
+    - name: interface.enabled
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Boolean value representing the logical state of the interface (true
+        = enabled, false = disabled)
+      example: true
+    - name: interface.id
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: Interface ID as reported by the system.
+      example: gi0/1
+    - name: interface.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Optional long interface name as reported by the systen.
+      example: GigabitEthernet0/1
+    - name: interface.negotiation
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Set this value to true if the interface is set for autonegotiation
+      example: true
+    - name: interface.speed
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Interface speed as reported by the system in megabits per second.
+      example: 1000
+    - name: interface.status
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Interface logical connection state as reported by the system. Possible
+        values are connected, not-connected, error-disabled
+      example: connected
     - name: ip
       level: core
       type: ip
@@ -1663,6 +1840,76 @@
       ignore_above: 1024
       description: HTTP version.
       example: 1.1
+  - name: interface
+    title: Interface
+    group: 2
+    description: 'The interface fields describe information about the configuration
+      of an interface on any type of network connected host or observer.
+
+      Interface configuration field requirements will vary significantly depending
+      on the type of device being inventoried, or the interface specific information
+      provided in a given event.'
+    type: group
+    fields:
+    - name: bandwidth
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Some interfaces, particularly in networking devices, have a bandwidth
+        setting that is used to define the logical bandwidth available on a physical
+        link when it differs from the physical media.  Record that value in this field.
+      example: 1000
+    - name: description
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Optional interface description as reported by the system.
+      example: Uplink to Core Router
+    - name: duplex
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Interface duplex setting as reported by the system.  Acceptable
+        values are full and half
+      example: full
+    - name: enabled
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Boolean value representing the logical state of the interface (true
+        = enabled, false = disabled)
+      example: true
+    - name: id
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: Interface ID as reported by the system.
+      example: gi0/1
+    - name: name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Optional long interface name as reported by the systen.
+      example: GigabitEthernet0/1
+    - name: negotiation
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Set this value to true if the interface is set for autonegotiation
+      example: true
+    - name: speed
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Interface speed as reported by the system in megabits per second.
+      example: 1000
+    - name: status
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Interface logical connection state as reported by the system. Possible
+        values are connected, not-connected, error-disabled
+      example: connected
   - name: log
     title: Log
     group: 2
@@ -1964,6 +2211,65 @@
       type: keyword
       ignore_above: 1024
       description: Hostname of the observer.
+    - name: interface.bandwidth
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Some interfaces, particularly in networking devices, have a bandwidth
+        setting that is used to define the logical bandwidth available on a physical
+        link when it differs from the physical media.  Record that value in this field.
+      example: 1000
+    - name: interface.description
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Optional interface description as reported by the system.
+      example: Uplink to Core Router
+    - name: interface.duplex
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Interface duplex setting as reported by the system.  Acceptable
+        values are full and half
+      example: full
+    - name: interface.enabled
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Boolean value representing the logical state of the interface (true
+        = enabled, false = disabled)
+      example: true
+    - name: interface.id
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: Interface ID as reported by the system.
+      example: gi0/1
+    - name: interface.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Optional long interface name as reported by the systen.
+      example: GigabitEthernet0/1
+    - name: interface.negotiation
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Set this value to true if the interface is set for autonegotiation
+      example: true
+    - name: interface.speed
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Interface speed as reported by the system in megabits per second.
+      example: 1000
+    - name: interface.status
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Interface logical connection state as reported by the system. Possible
+        values are connected, not-connected, error-disabled
+      example: connected
     - name: ip
       level: core
       type: ip
@@ -2575,6 +2881,65 @@
       ignore_above: 1024
       description: Region name.
       example: Quebec
+    - name: interface.bandwidth
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Some interfaces, particularly in networking devices, have a bandwidth
+        setting that is used to define the logical bandwidth available on a physical
+        link when it differs from the physical media.  Record that value in this field.
+      example: 1000
+    - name: interface.description
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Optional interface description as reported by the system.
+      example: Uplink to Core Router
+    - name: interface.duplex
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Interface duplex setting as reported by the system.  Acceptable
+        values are full and half
+      example: full
+    - name: interface.enabled
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Boolean value representing the logical state of the interface (true
+        = enabled, false = disabled)
+      example: true
+    - name: interface.id
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: Interface ID as reported by the system.
+      example: gi0/1
+    - name: interface.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Optional long interface name as reported by the systen.
+      example: GigabitEthernet0/1
+    - name: interface.negotiation
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Set this value to true if the interface is set for autonegotiation
+      example: true
+    - name: interface.speed
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Interface speed as reported by the system in megabits per second.
+      example: 1000
+    - name: interface.status
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Interface logical connection state as reported by the system. Possible
+        values are connected, not-connected, error-disabled
+      example: connected
     - name: ip
       level: core
       type: ip
