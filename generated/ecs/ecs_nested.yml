@@ -4002,6 +4002,7 @@ process:
       type: keyword
     args_count:
       dashed_name: process-args-count
+      default_field: false
       description: 'Length of the process.args array.
 
         This field can be useful for querying or performing bucket analysis on how
@@ -4016,6 +4017,7 @@ process:
       type: long
     command_line:
       dashed_name: process-command-line
+      default_field: false
       description: 'Full command line that started the process, including the absolute
         path to the executable, and all arguments.
 
@@ -4051,6 +4053,7 @@ process:
       type: keyword
     exit_code:
       dashed_name: process-exit-code
+      default_field: false
       description: 'The exit code of the process, if this is a termination event.
 
         The field should be absent if there is no exit code for the event (e.g. process
@@ -4126,6 +4129,7 @@ process:
       type: keyword
     parent.args:
       dashed_name: process-parent-args
+      default_field: false
       description: 'Array of process arguments.
 
         May be filtered to protect sensitive information.'
@@ -4143,6 +4147,7 @@ process:
       type: keyword
     parent.args_count:
       dashed_name: process-parent-args-count
+      default_field: false
       description: 'Length of the process.args array.
 
         This field can be useful for querying or performing bucket analysis on how
@@ -4157,6 +4162,7 @@ process:
       type: long
     parent.command_line:
       dashed_name: process-parent-command-line
+      default_field: false
       description: 'Full command line that started the process, including the absolute
         path to the executable, and all arguments.
 
@@ -4176,6 +4182,7 @@ process:
       type: keyword
     parent.executable:
       dashed_name: process-parent-executable
+      default_field: false
       description: Absolute path to the process executable.
       example: /usr/bin/ssh
       flat_name: process.parent.executable
@@ -4205,6 +4212,7 @@ process:
       type: long
     parent.name:
       dashed_name: process-parent-name
+      default_field: false
       description: 'Process name.
 
         Sometimes called program name or similar.'
@@ -4223,6 +4231,7 @@ process:
       type: keyword
     parent.pgid:
       dashed_name: process-parent-pgid
+      default_field: false
       description: Identifier of the group of processes the process belongs to.
       flat_name: process.parent.pgid
       format: string
@@ -4244,6 +4253,7 @@ process:
       type: long
     parent.ppid:
       dashed_name: process-parent-ppid
+      default_field: false
       description: Parent process' pid.
       example: 4241
       flat_name: process.parent.ppid
@@ -4255,6 +4265,7 @@ process:
       type: long
     parent.start:
       dashed_name: process-parent-start
+      default_field: false
       description: The time the process started.
       example: '2016-05-23T08:05:34.853Z'
       flat_name: process.parent.start
@@ -4265,6 +4276,7 @@ process:
       type: date
     parent.thread.id:
       dashed_name: process-parent-thread-id
+      default_field: false
       description: Thread ID.
       example: 4242
       flat_name: process.parent.thread.id
@@ -4276,6 +4288,7 @@ process:
       type: long
     parent.thread.name:
       dashed_name: process-parent-thread-name
+      default_field: false
       description: Thread name.
       example: thread-0
       flat_name: process.parent.thread.name
@@ -4287,6 +4300,7 @@ process:
       type: keyword
     parent.title:
       dashed_name: process-parent-title
+      default_field: false
       description: 'Process title.
 
         The proctitle, some times the same as process name. Can also be different:
@@ -4305,6 +4319,7 @@ process:
       type: keyword
     parent.uptime:
       dashed_name: process-parent-uptime
+      default_field: false
       description: Seconds the process has been up.
       example: 1325
       flat_name: process.parent.uptime
@@ -4315,6 +4330,7 @@ process:
       type: long
     parent.working_directory:
       dashed_name: process-parent-working-directory
+      default_field: false
       description: The working directory of the process.
       example: /home/alice
       flat_name: process.parent.working_directory
@@ -5736,6 +5752,7 @@ threat:
   title: Threat
   type: group
 tls:
+  default_fields: false
   description: Fields related to a TLS connection. These fields focus on the TLS protocol
     itself and intentionally avoids in-depth analysis of the related x.509 certificate
     files.
@@ -6648,6 +6665,7 @@ user_agent:
   title: User agent
   type: group
 vulnerability:
+  default_field: false
   description: The vulnerability fields describe information about a vulnerability
     that is relevant to an event.
   fields:

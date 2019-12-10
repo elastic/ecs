@@ -31,7 +31,8 @@ def generate(ecs_nested, ecs_version):
 def fieldset_field_array(source_fields):
     allowed_keys = ['name', 'level', 'required', 'type', 'object_type',
                     'ignore_above', 'multi_fields', 'format', 'input_format',
-                    'output_format', 'output_precision', 'description', 'example']
+                    'output_format', 'output_precision', 'description',
+                    'example', 'default_field']
     multi_fields_allowed_keys = ['name', 'type', 'norms']
 
     fields = []

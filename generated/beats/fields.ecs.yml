@@ -2329,6 +2329,7 @@
         many arguments were provided to start a process. More arguments may be an
         indication of suspicious activity.'
       example: 4
+      default_field: false
     - name: command_line
       level: extended
       type: keyword
@@ -2342,6 +2343,7 @@
 
         Some arguments may be filtered to protect sensitive information.'
       example: /usr/bin/ssh -l user 10.0.0.16
+      default_field: false
     - name: executable
       level: extended
       type: keyword
@@ -2360,6 +2362,7 @@
         The field should be absent if there is no exit code for the event (e.g. process
         start).'
       example: 137
+      default_field: false
     - name: hash.md5
       level: extended
       type: keyword
@@ -2404,6 +2407,7 @@
       - -l
       - user
       - 10.0.0.16
+      default_field: false
     - name: parent.args_count
       level: extended
       type: long
@@ -2413,6 +2417,7 @@
         many arguments were provided to start a process. More arguments may be an
         indication of suspicious activity.'
       example: 4
+      default_field: false
     - name: parent.command_line
       level: extended
       type: keyword
@@ -2426,6 +2431,7 @@
 
         Some arguments may be filtered to protect sensitive information.'
       example: /usr/bin/ssh -l user 10.0.0.16
+      default_field: false
     - name: parent.executable
       level: extended
       type: keyword
@@ -2436,6 +2442,7 @@
         norms: false
       description: Absolute path to the process executable.
       example: /usr/bin/ssh
+      default_field: false
     - name: parent.exit_code
       level: extended
       type: long
@@ -2456,11 +2463,13 @@
 
         Sometimes called program name or similar.'
       example: ssh
+      default_field: false
     - name: parent.pgid
       level: extended
       type: long
       format: string
       description: Identifier of the group of processes the process belongs to.
+      default_field: false
     - name: parent.pid
       level: core
       type: long
@@ -2473,23 +2482,27 @@
       format: string
       description: Parent process' pid.
       example: 4241
+      default_field: false
     - name: parent.start
       level: extended
       type: date
       description: The time the process started.
       example: '2016-05-23T08:05:34.853Z'
+      default_field: false
     - name: parent.thread.id
       level: extended
       type: long
       format: string
       description: Thread ID.
       example: 4242
+      default_field: false
     - name: parent.thread.name
       level: extended
       type: keyword
       ignore_above: 1024
       description: Thread name.
       example: thread-0
+      default_field: false
     - name: parent.title
       level: extended
       type: keyword
@@ -2502,11 +2515,13 @@
 
         The proctitle, some times the same as process name. Can also be different:
         for example a browser setting its title to the web page currently opened.'
+      default_field: false
     - name: parent.uptime
       level: extended
       type: long
       description: Seconds the process has been up.
       example: 1325
+      default_field: false
     - name: parent.working_directory
       level: extended
       type: keyword
@@ -2517,6 +2532,7 @@
         norms: false
       description: The working directory of the process.
       example: /home/alice
+      default_field: false
     - name: pgid
       level: extended
       type: long
