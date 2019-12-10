@@ -15,7 +15,7 @@ Thanks, you're awesome :-) -->
 #### Bugfixes
 
 #### Added
-* Added Interface fields #
+* Added Interface fields #689
 
 #### Improvements
 
