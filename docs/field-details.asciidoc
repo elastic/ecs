@@ -751,6 +751,12 @@ example: `co.uk`
 // ===============================================================
 
 
+| <<ecs-vlan,destination.vlan.*>>
+| Fields to describe VLAN information and configuration.
+
+// ===============================================================
+
+
 |=====
 
 [[ecs-dns]]
@@ -3873,6 +3879,12 @@ example: `co.uk`
 // ===============================================================
 
 
+| <<ecs-vlan,source.vlan.*>>
+| Fields to describe VLAN information and configuration.
+
+// ===============================================================
+
+
 |=====
 
 [[ecs-threat]]
@@ -4732,6 +4744,98 @@ example: `12.0`
 
 
 |=====
+
+[[ecs-vlan]]
+=== VLAN Fields
+
+The VLAN fields describe information about the configuration of VLANs in an enterprise network.
+
+VLAN fields contain configuration information about virtiual LANs, with base identification fields (vlan.id, vlan.name) reuseable under source, destination, and interface fields when observers or hosts are providing relevant information in events (e.g. netflow, firewall logs, host and network metrics, etc.)
+
+==== VLAN Field Details
+
+[options="header"]
+|=====
+| Field  | Description | Level
+
+// ===============================================================
+
+| vlan.id
+| VLAN ID of the congfigured VLAN. Expoected values are 0 to 4095, with 0 and 4095 typically being  reserved for system use, and not generally reported.
+
+type: integer
+
+example: `10`
+
+| core
+
+// ===============================================================
+
+| vlan.mode
+| the vlan.mode field is used to identify any non-standard or vendor specific VLAN modes as configured. For example,  Cisco VLANs can be configured to operate in "private" or "rspan" VLAN modes.  Standard VLAN modes can leave  this field blank.
+
+type: keyword
+
+example: `private`
+
+| extended
+
+// ===============================================================
+
+| vlan.mtu
+| Maximum tranmission unit is the maximum size of packets provcessed in this VLAN.   This value will typically be in the range of 68 - 9216, with 1400-1500 and 9216 being the most likely.
+
+type: keyword
+
+example: `1500`
+
+| extended
+
+// ===============================================================
+
+| vlan.name
+| VLAN name as configured on the device, or reported in the event.
+
+type: keyword
+
+example: `Routing Backbone`
+
+| core
+
+// ===============================================================
+
+| vlan.said
+| VLAN SAID is a user configurable security association that may be configured to allow various network security platforms to properly identify traffic by VLAN.
+
+type: keyword
+
+example: `100010`
+
+| extended
+
+// ===============================================================
+
+| vlan.state
+| Current state of the VLAN as reported by the source device.
+
+type: keyword
+
+example: `active`
+
+| extended
+
+// ===============================================================
+
+|=====
+
+==== Field Reuse
+
+The `vlan` fields are expected to be nested at: `destination.vlan`, `source.vlan`.
+
+Note also that the `vlan` fields may be used directly at the top level.
+
+
+
 
 [[ecs-vulnerability]]
 === Vulnerability Fields

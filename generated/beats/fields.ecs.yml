@@ -657,6 +657,50 @@
       ignore_above: 1024
       description: Short name or login of the user.
       example: albert
+    - name: vlan.id
+      level: core
+      type: integer
+      description: VLAN ID of the congfigured VLAN. Expoected values are 0 to 4095,
+        with 0 and 4095 typically being  reserved for system use, and not generally
+        reported.
+      example: 10
+    - name: vlan.mode
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: the vlan.mode field is used to identify any non-standard or vendor
+        specific VLAN modes as configured. For example,  Cisco VLANs can be configured
+        to operate in "private" or "rspan" VLAN modes.  Standard VLAN modes can leave  this
+        field blank.
+      example: private
+    - name: vlan.mtu
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Maximum tranmission unit is the maximum size of packets provcessed
+        in this VLAN.   This value will typically be in the range of 68 - 9216, with
+        1400-1500 and 9216 being the most likely.
+      example: 1500
+    - name: vlan.name
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: VLAN name as configured on the device, or reported in the event.
+      example: Routing Backbone
+    - name: vlan.said
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: VLAN SAID is a user configurable security association that may
+        be configured to allow various network security platforms to properly identify
+        traffic by VLAN.
+      example: 100010
+    - name: vlan.state
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Current state of the VLAN as reported by the source device.
+      example: active
   - name: dns
     title: DNS
     group: 2
@@ -2976,6 +3020,50 @@
       ignore_above: 1024
       description: Short name or login of the user.
       example: albert
+    - name: vlan.id
+      level: core
+      type: integer
+      description: VLAN ID of the congfigured VLAN. Expoected values are 0 to 4095,
+        with 0 and 4095 typically being  reserved for system use, and not generally
+        reported.
+      example: 10
+    - name: vlan.mode
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: the vlan.mode field is used to identify any non-standard or vendor
+        specific VLAN modes as configured. For example,  Cisco VLANs can be configured
+        to operate in "private" or "rspan" VLAN modes.  Standard VLAN modes can leave  this
+        field blank.
+      example: private
+    - name: vlan.mtu
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Maximum tranmission unit is the maximum size of packets provcessed
+        in this VLAN.   This value will typically be in the range of 68 - 9216, with
+        1400-1500 and 9216 being the most likely.
+      example: 1500
+    - name: vlan.name
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: VLAN name as configured on the device, or reported in the event.
+      example: Routing Backbone
+    - name: vlan.said
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: VLAN SAID is a user configurable security association that may
+        be configured to allow various network security platforms to properly identify
+        traffic by VLAN.
+      example: 100010
+    - name: vlan.state
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Current state of the VLAN as reported by the source device.
+      example: active
   - name: threat
     title: Threat
     group: 2
@@ -3550,6 +3638,62 @@
       ignore_above: 1024
       description: Version of the user agent.
       example: 12.0
+  - name: vlan
+    title: VLAN
+    group: 2
+    description: 'The VLAN fields describe information about the configuration of
+      VLANs in an enterprise network.
+
+      VLAN fields contain configuration information about virtiual LANs, with base
+      identification fields (vlan.id, vlan.name) reuseable under source, destination,
+      and interface fields when observers or hosts are providing relevant information
+      in events (e.g. netflow, firewall logs, host and network metrics, etc.)'
+    type: group
+    fields:
+    - name: id
+      level: core
+      type: integer
+      description: VLAN ID of the congfigured VLAN. Expoected values are 0 to 4095,
+        with 0 and 4095 typically being  reserved for system use, and not generally
+        reported.
+      example: 10
+    - name: mode
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: the vlan.mode field is used to identify any non-standard or vendor
+        specific VLAN modes as configured. For example,  Cisco VLANs can be configured
+        to operate in "private" or "rspan" VLAN modes.  Standard VLAN modes can leave  this
+        field blank.
+      example: private
+    - name: mtu
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Maximum tranmission unit is the maximum size of packets provcessed
+        in this VLAN.   This value will typically be in the range of 68 - 9216, with
+        1400-1500 and 9216 being the most likely.
+      example: 1500
+    - name: name
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: VLAN name as configured on the device, or reported in the event.
+      example: Routing Backbone
+    - name: said
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: VLAN SAID is a user configurable security association that may
+        be configured to allow various network security platforms to properly identify
+        traffic by VLAN.
+      example: 100010
+    - name: state
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Current state of the VLAN as reported by the source device.
+      example: active
   - name: vulnerability
     title: Vulnerability
     group: 2

@@ -1,0 +1,75 @@
+---
+- name: vlan
+  title: VLAN
+  group: 2
+  short: Fields to describe VLAN information and configuration.
+  description: >
+    The VLAN fields describe information about the configuration of VLANs in an enterprise network.
+
+    VLAN fields contain configuration information about virtiual LANs, with base identification
+    fields (vlan.id, vlan.name) reuseable under source, destination, and interface fields when observers
+    or hosts are providing relevant information in events (e.g. netflow, firewall logs, host and network
+    metrics, etc.)
+
+  reusable:
+    top_level: true
+    expected:
+      - source
+      - destination
+#      - interface
+ 
+  type: group
+  fields:
+
+    - name: id
+      level: core
+      type: integer
+      short: 802.1q VLAN ID
+      example: 10
+      description: >
+        VLAN ID of the congfigured VLAN. Expoected values are 0 to 4095, with 0 and 4095 typically being 
+        reserved for system use, and not generally reported.
+
+    - name: name 
+      level: core
+      type: keyword
+      example: "Routing Backbone"
+      description: >
+        VLAN name as configured on the device, or reported in the event.
+
+
+    - name: said
+      level: extended
+      type: keyword
+      short: Security Association ID
+      example: 100010
+      description: >
+        VLAN SAID is a user configurable security association that may be configured to allow
+        various network security platforms to properly identify traffic by VLAN.
+
+    - name: mtu
+      level: extended
+      type: keyword
+      example: 1500
+      description: >
+        Maximum tranmission unit is the maximum size of packets provcessed in this VLAN.  
+        This value will typically be in the range of 68 - 9216, with 1400-1500 and 9216 being
+        the most likely.
+
+    - name: state 
+      level: extended
+      type: keyword
+      short: Current VLAN state
+      example: "active"
+      description: >
+        Current state of the VLAN as reported by the source device.
+
+    - name: mode
+      level: extended
+      type: keyword
+      short: Non-standard VLAN oparting modes
+      example: "private"
+      description: >
+        the vlan.mode field is used to identify any non-standard or vendor specific VLAN modes as configured. For example, 
+        Cisco VLANs can be configured to operate in "private" or "rspan" VLAN modes.  Standard VLAN modes can leave 
+        this field blank.

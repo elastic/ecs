@@ -1061,9 +1061,86 @@ destination:
       original_fieldset: user
       short: Short name or login of the user.
       type: keyword
+    vlan.id:
+      description: VLAN ID of the congfigured VLAN. Expoected values are 0 to 4095,
+        with 0 and 4095 typically being  reserved for system use, and not generally
+        reported.
+      example: 10
+      flat_name: destination.vlan.id
+      level: core
+      name: id
+      order: 0
+      original_fieldset: vlan
+      short: 802.1q VLAN ID
+      type: integer
+    vlan.mode:
+      description: the vlan.mode field is used to identify any non-standard or vendor
+        specific VLAN modes as configured. For example,  Cisco VLANs can be configured
+        to operate in "private" or "rspan" VLAN modes.  Standard VLAN modes can leave  this
+        field blank.
+      example: private
+      flat_name: destination.vlan.mode
+      ignore_above: 1024
+      level: extended
+      name: mode
+      order: 5
+      original_fieldset: vlan
+      short: Non-standard VLAN oparting modes
+      type: keyword
+    vlan.mtu:
+      description: Maximum tranmission unit is the maximum size of packets provcessed
+        in this VLAN.   This value will typically be in the range of 68 - 9216, with
+        1400-1500 and 9216 being the most likely.
+      example: 1500
+      flat_name: destination.vlan.mtu
+      ignore_above: 1024
+      level: extended
+      name: mtu
+      order: 3
+      original_fieldset: vlan
+      short: Maximum tranmission unit is the maximum size of packets provcessed in
+        this VLAN.   This value will typically be in the range of 68 - 9216, with
+        1400-1500 and 9216 being the most likely.
+      type: keyword
+    vlan.name:
+      description: VLAN name as configured on the device, or reported in the event.
+      example: Routing Backbone
+      flat_name: destination.vlan.name
+      ignore_above: 1024
+      level: core
+      name: name
+      order: 1
+      original_fieldset: vlan
+      short: VLAN name as configured on the device, or reported in the event.
+      type: keyword
+    vlan.said:
+      description: VLAN SAID is a user configurable security association that may
+        be configured to allow various network security platforms to properly identify
+        traffic by VLAN.
+      example: 100010
+      flat_name: destination.vlan.said
+      ignore_above: 1024
+      level: extended
+      name: said
+      order: 2
+      original_fieldset: vlan
+      short: Security Association ID
+      type: keyword
+    vlan.state:
+      description: Current state of the VLAN as reported by the source device.
+      example: active
+      flat_name: destination.vlan.state
+      ignore_above: 1024
+      level: extended
+      name: state
+      order: 4
+      original_fieldset: vlan
+      short: Current VLAN state
+      type: keyword
   group: 2
   name: destination
   nestings:
+  - vlan
   - geo
   - as
   - user
@@ -4761,9 +4838,86 @@ source:
       original_fieldset: user
       short: Short name or login of the user.
       type: keyword
+    vlan.id:
+      description: VLAN ID of the congfigured VLAN. Expoected values are 0 to 4095,
+        with 0 and 4095 typically being  reserved for system use, and not generally
+        reported.
+      example: 10
+      flat_name: source.vlan.id
+      level: core
+      name: id
+      order: 0
+      original_fieldset: vlan
+      short: 802.1q VLAN ID
+      type: integer
+    vlan.mode:
+      description: the vlan.mode field is used to identify any non-standard or vendor
+        specific VLAN modes as configured. For example,  Cisco VLANs can be configured
+        to operate in "private" or "rspan" VLAN modes.  Standard VLAN modes can leave  this
+        field blank.
+      example: private
+      flat_name: source.vlan.mode
+      ignore_above: 1024
+      level: extended
+      name: mode
+      order: 5
+      original_fieldset: vlan
+      short: Non-standard VLAN oparting modes
+      type: keyword
+    vlan.mtu:
+      description: Maximum tranmission unit is the maximum size of packets provcessed
+        in this VLAN.   This value will typically be in the range of 68 - 9216, with
+        1400-1500 and 9216 being the most likely.
+      example: 1500
+      flat_name: source.vlan.mtu
+      ignore_above: 1024
+      level: extended
+      name: mtu
+      order: 3
+      original_fieldset: vlan
+      short: Maximum tranmission unit is the maximum size of packets provcessed in
+        this VLAN.   This value will typically be in the range of 68 - 9216, with
+        1400-1500 and 9216 being the most likely.
+      type: keyword
+    vlan.name:
+      description: VLAN name as configured on the device, or reported in the event.
+      example: Routing Backbone
+      flat_name: source.vlan.name
+      ignore_above: 1024
+      level: core
+      name: name
+      order: 1
+      original_fieldset: vlan
+      short: VLAN name as configured on the device, or reported in the event.
+      type: keyword
+    vlan.said:
+      description: VLAN SAID is a user configurable security association that may
+        be configured to allow various network security platforms to properly identify
+        traffic by VLAN.
+      example: 100010
+      flat_name: source.vlan.said
+      ignore_above: 1024
+      level: extended
+      name: said
+      order: 2
+      original_fieldset: vlan
+      short: Security Association ID
+      type: keyword
+    vlan.state:
+      description: Current state of the VLAN as reported by the source device.
+      example: active
+      flat_name: source.vlan.state
+      ignore_above: 1024
+      level: extended
+      name: state
+      order: 4
+      original_fieldset: vlan
+      short: Current VLAN state
+      type: keyword
   group: 2
   name: source
   nestings:
+  - vlan
   - geo
   - as
   - user
@@ -5698,6 +5852,96 @@ user_agent:
   prefix: user_agent.
   short: Fields to describe a browser user_agent string.
   title: User agent
+  type: group
+vlan:
+  description: 'The VLAN fields describe information about the configuration of VLANs
+    in an enterprise network.
+
+    VLAN fields contain configuration information about virtiual LANs, with base identification
+    fields (vlan.id, vlan.name) reuseable under source, destination, and interface
+    fields when observers or hosts are providing relevant information in events (e.g.
+    netflow, firewall logs, host and network metrics, etc.)'
+  fields:
+    id:
+      description: VLAN ID of the congfigured VLAN. Expoected values are 0 to 4095,
+        with 0 and 4095 typically being  reserved for system use, and not generally
+        reported.
+      example: 10
+      flat_name: vlan.id
+      level: core
+      name: id
+      order: 0
+      short: 802.1q VLAN ID
+      type: integer
+    mode:
+      description: the vlan.mode field is used to identify any non-standard or vendor
+        specific VLAN modes as configured. For example,  Cisco VLANs can be configured
+        to operate in "private" or "rspan" VLAN modes.  Standard VLAN modes can leave  this
+        field blank.
+      example: private
+      flat_name: vlan.mode
+      ignore_above: 1024
+      level: extended
+      name: mode
+      order: 5
+      short: Non-standard VLAN oparting modes
+      type: keyword
+    mtu:
+      description: Maximum tranmission unit is the maximum size of packets provcessed
+        in this VLAN.   This value will typically be in the range of 68 - 9216, with
+        1400-1500 and 9216 being the most likely.
+      example: 1500
+      flat_name: vlan.mtu
+      ignore_above: 1024
+      level: extended
+      name: mtu
+      order: 3
+      short: Maximum tranmission unit is the maximum size of packets provcessed in
+        this VLAN.   This value will typically be in the range of 68 - 9216, with
+        1400-1500 and 9216 being the most likely.
+      type: keyword
+    name:
+      description: VLAN name as configured on the device, or reported in the event.
+      example: Routing Backbone
+      flat_name: vlan.name
+      ignore_above: 1024
+      level: core
+      name: name
+      order: 1
+      short: VLAN name as configured on the device, or reported in the event.
+      type: keyword
+    said:
+      description: VLAN SAID is a user configurable security association that may
+        be configured to allow various network security platforms to properly identify
+        traffic by VLAN.
+      example: 100010
+      flat_name: vlan.said
+      ignore_above: 1024
+      level: extended
+      name: said
+      order: 2
+      short: Security Association ID
+      type: keyword
+    state:
+      description: Current state of the VLAN as reported by the source device.
+      example: active
+      flat_name: vlan.state
+      ignore_above: 1024
+      level: extended
+      name: state
+      order: 4
+      short: Current VLAN state
+      type: keyword
+  group: 2
+  name: vlan
+  prefix: vlan.
+  reusable:
+    expected:
+    - source
+    - destination
+    top_level: true
+  short: Fields to describe VLAN information and configuration.
+  title: VLAN
   type: group
 vulnerability:
   description: The vulnerability fields describe information about a vulnerability
