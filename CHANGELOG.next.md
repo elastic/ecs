@@ -17,6 +17,8 @@ Thanks, you're awesome :-) -->
 #### Added
 
 * Add default `text` analyzer to `user_agent.original`. #575
+* Added `file.attributes`. #611
+* Add `file.drive_letter`. #620
 
 #### Improvements
 
