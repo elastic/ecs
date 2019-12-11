@@ -1162,8 +1162,18 @@
       level: extended
       type: keyword
       ignore_above: 1024
-      description: Directory where the file is located.
+      description: Directory where the file is located. It should include the drive
+        letter, when appropriate.
       example: /home/alice
+    - name: drive_letter
+      level: extended
+      type: keyword
+      ignore_above: 1
+      description: 'Drive letter where the file is located. This field is only relevant
+        on Windows.
+
+        The value should be uppercase, and not include the colon.'
+      example: C
     - name: extension
       level: extended
       type: keyword
@@ -1234,7 +1244,8 @@
       level: extended
       type: keyword
       ignore_above: 1024
-      description: Full path to the file.
+      description: Full path to the file, including the file name. It should include
+        the drive letter, when appropriate.
       example: /home/alice/example.png
     - name: size
       level: extended

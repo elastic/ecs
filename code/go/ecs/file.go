@@ -39,10 +39,17 @@ type File struct {
 	// encrypted, execute, hidden, read, readonly, system, write.
 	Attributes string `ecs:"attributes"`
 
-	// Directory where the file is located.
+	// Directory where the file is located. It should include the drive letter,
+	// when appropriate.
 	Directory string `ecs:"directory"`
 
-	// Full path to the file.
+	// Drive letter where the file is located. This field is only relevant on
+	// Windows.
+	// The value should be uppercase, and not include the colon.
+	DriveLetter string `ecs:"drive_letter"`
+
+	// Full path to the file, including the file name. It should include the
+	// drive letter, when appropriate.
 	Path string `ecs:"path"`
 
 	// Target path for symlinks.

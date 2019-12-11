@@ -1476,11 +1476,24 @@ example: `sda`
 // ===============================================================
 
 | file.directory
-| Directory where the file is located.
+| Directory where the file is located. It should include the drive letter, when appropriate.
 
 type: keyword
 
 example: `/home/alice`
+
+| extended
+
+// ===============================================================
+
+| file.drive_letter
+| Drive letter where the file is located. This field is only relevant on Windows.
+
+The value should be uppercase, and not include the colon.
+
+type: keyword
+
+example: `C`
 
 | extended
 
@@ -1575,7 +1588,7 @@ example: `alice`
 // ===============================================================
 
 | file.path
-| Full path to the file.
+| Full path to the file, including the file name. It should include the drive letter, when appropriate.
 
 type: keyword
 
