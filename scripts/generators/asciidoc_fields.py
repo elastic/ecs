@@ -270,7 +270,7 @@ def nestings_row():
 '''
 
 
-## Accepted values section
+# Accepted values section
 
 
 def page_field_values(ecs_flat):
@@ -279,7 +279,6 @@ def page_field_values(ecs_flat):
     for cat_field in category_fields:
         section_text += render_field_values_page(ecs_flat[cat_field])
     return section_text
-
 
 
 def values_header():
@@ -301,6 +300,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 * <<ecs-category-event-outcome,event.outcome>>
 
 '''
+
 
 def render_field_values_page(field):
     dashed_field_name = field['flat_name'].replace('.', '-')
@@ -327,6 +327,7 @@ def field_values_page_template():
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 '''
+
 
 def field_values_value_template():
     return '''
