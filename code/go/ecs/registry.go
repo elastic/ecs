@@ -47,8 +47,8 @@ type Registry struct {
 
 	// Original bytes written with base64 encoding.
 	// For Windows registry operations, such as SetValueEx and RegQueryValueEx,
-	// this corresponds to the data pointed by `lp_data`. This is optional and
-	// may be redundant when `data.integer` or data.strings` are populated, but
-	// should be populated for REG_BINARY encoded values.
+	// this corresponds to the data pointed by `lp_data`. This is optional but
+	// provides better recoverability and should be populated for REG_BINARY
+	// encoded values.
 	DataBytes string `ecs:"data.bytes"`
 }
