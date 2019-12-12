@@ -16,10 +16,11 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
-* Added default `text` analyzer to `user_agent.original`. #575
+* Added default `text` analyzer as a multi-field to `user_agent.original`. #575
 * Added `file.attributes`. #611
 * Added `file.drive_letter`. #620
 * Added `rule` fields. #665
+* Added default `text` analyzer as a multi-field to around 25 more fields. #680
 
 #### Improvements
 

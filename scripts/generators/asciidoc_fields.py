@@ -82,7 +82,7 @@ def render_field_details_row(field):
     if 'multi_fields' in field:
         field_type_with_mf += "\n\nMulti-fields:\n\n"
         for mf in field['multi_fields']:
-            field_type_with_mf += "{} (type: {})\n\n".format(mf['flat_name'], mf['type'])
+            field_type_with_mf += "* {} (type: {})\n\n".format(mf['flat_name'], mf['type'])
 
     text = field_details_row().format(
         field_flat_name=field['flat_name'],
