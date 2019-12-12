@@ -1,8 +1,7 @@
 ---
 - name: registry
-  title: Windows Registry
+  title: Registry
   group: 2
-  short: None
   description: Fields related to Windows Registry operations.
   type: group
   fields:
@@ -40,10 +39,10 @@
     - name: data.strings
       level: extended
       type: keyword
-      short: Content when writing string types
+      short: Content when writing string types.
       example: '["C:\rta\red_ttp\bin\myapp.exe"]'
       description: >
-        Content when writing string types
+        Content when writing string types.
 
         Populated as an array when writing string data to the registry, such as REG_SZ, REG_EXPAND_SZ, REG_MULTI_SZ, and REG_LINK.
 
@@ -58,4 +57,18 @@
         Contains the data when populating REG_DWORD and REG_QWORD.
         For REG_DWORD_BIG_ENDIAN, this assumes that the bytes have already been interpreted in numeric form
         before they were ingested into Elasticsearch.
+
+
+    - name: data.bytes
+      level: extended
+      type: keyword
+      short: Original bytes written with base64 encoding.
+      example: 0
+      description: >
+        Original bytes written with base64 encoding.
+
+        For Windows registry operations, such as SetValueEx and RegQueryValueEx,
+        this corresponds to the data pointed by `lp_data`. This is optional and may be redundant
+        when `data.integer` or data.strings` are populated, but should be populated
+        for REG_BINARY encoded values.
 
