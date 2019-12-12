@@ -81,9 +81,9 @@ def render_accepted_values(field):
     for row in ecs_helpers.list_split_by(field['accepted_values'], 4):
         rows_text += ("{nbsp}" * 8).join(ecs_helpers.list_extract_keys(row, 'name')) + "\n"
     return field_acceptable_value_names().format(
-            rows_text=rows_text,
-            field_flat_name=field['flat_name'],
-            field_dashed_name=field['dashed_name'],
+        rows_text=rows_text,
+        field_flat_name=field['flat_name'],
+        field_dashed_name=field['dashed_name'],
     )
 
 
@@ -354,8 +354,8 @@ def render_expected_event_types(value_details):
     for row in ecs_helpers.list_split_by(value_details['expected_event_types'], 4):
         rows_of_types += ("{nbsp}" * 8).join(row) + "\n"
     return expected_event_types_template().format(
-            category_name=value_details['name'],
-            rows_of_types=rows_of_types,
+        category_name=value_details['name'],
+        rows_of_types=rows_of_types,
     )
 
 
