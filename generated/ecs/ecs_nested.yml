@@ -4001,8 +4001,8 @@ process:
       short: Array of process arguments.
       type: keyword
     args_count:
+      beats.default_field: false
       dashed_name: process-args-count
-      default_field: false
       description: 'Length of the process.args array.
 
         This field can be useful for querying or performing bucket analysis on how
@@ -4016,8 +4016,8 @@ process:
       short: Length of the process.args array.
       type: long
     command_line:
+      beats.default_field: false
       dashed_name: process-command-line
-      default_field: false
       description: 'Full command line that started the process, including the absolute
         path to the executable, and all arguments.
 
@@ -4052,8 +4052,8 @@ process:
       short: Absolute path to the process executable.
       type: keyword
     exit_code:
+      beats.default_field: false
       dashed_name: process-exit-code
-      default_field: false
       description: 'The exit code of the process, if this is a termination event.
 
         The field should be absent if there is no exit code for the event (e.g. process
@@ -4128,8 +4128,8 @@ process:
       short: Process name.
       type: keyword
     parent.args:
+      beats.default_field: false
       dashed_name: process-parent-args
-      default_field: false
       description: 'Array of process arguments.
 
         May be filtered to protect sensitive information.'
@@ -4146,8 +4146,8 @@ process:
       short: Array of process arguments.
       type: keyword
     parent.args_count:
+      beats.default_field: false
       dashed_name: process-parent-args-count
-      default_field: false
       description: 'Length of the process.args array.
 
         This field can be useful for querying or performing bucket analysis on how
@@ -4161,8 +4161,8 @@ process:
       short: Length of the process.args array.
       type: long
     parent.command_line:
+      beats.default_field: false
       dashed_name: process-parent-command-line
-      default_field: false
       description: 'Full command line that started the process, including the absolute
         path to the executable, and all arguments.
 
@@ -4181,8 +4181,8 @@ process:
       short: Full command line that started the process.
       type: keyword
     parent.executable:
+      beats.default_field: false
       dashed_name: process-parent-executable
-      default_field: false
       description: Absolute path to the process executable.
       example: /usr/bin/ssh
       flat_name: process.parent.executable
@@ -4211,8 +4211,8 @@ process:
       short: The exit code of the process.
       type: long
     parent.name:
+      beats.default_field: false
       dashed_name: process-parent-name
-      default_field: false
       description: 'Process name.
 
         Sometimes called program name or similar.'
@@ -4230,8 +4230,8 @@ process:
       short: Process name.
       type: keyword
     parent.pgid:
+      beats.default_field: false
       dashed_name: process-parent-pgid
-      default_field: false
       description: Identifier of the group of processes the process belongs to.
       flat_name: process.parent.pgid
       format: string
@@ -4252,8 +4252,8 @@ process:
       short: Process id.
       type: long
     parent.ppid:
+      beats.default_field: false
       dashed_name: process-parent-ppid
-      default_field: false
       description: Parent process' pid.
       example: 4241
       flat_name: process.parent.ppid
@@ -4264,8 +4264,8 @@ process:
       short: Parent process' pid.
       type: long
     parent.start:
+      beats.default_field: false
       dashed_name: process-parent-start
-      default_field: false
       description: The time the process started.
       example: '2016-05-23T08:05:34.853Z'
       flat_name: process.parent.start
@@ -4275,8 +4275,8 @@ process:
       short: The time the process started.
       type: date
     parent.thread.id:
+      beats.default_field: false
       dashed_name: process-parent-thread-id
-      default_field: false
       description: Thread ID.
       example: 4242
       flat_name: process.parent.thread.id
@@ -4287,8 +4287,8 @@ process:
       short: Thread ID.
       type: long
     parent.thread.name:
+      beats.default_field: false
       dashed_name: process-parent-thread-name
-      default_field: false
       description: Thread name.
       example: thread-0
       flat_name: process.parent.thread.name
@@ -4299,8 +4299,8 @@ process:
       short: Thread name.
       type: keyword
     parent.title:
+      beats.default_field: false
       dashed_name: process-parent-title
-      default_field: false
       description: 'Process title.
 
         The proctitle, some times the same as process name. Can also be different:
@@ -4318,8 +4318,8 @@ process:
       short: Process title.
       type: keyword
     parent.uptime:
+      beats.default_field: false
       dashed_name: process-parent-uptime
-      default_field: false
       description: Seconds the process has been up.
       example: 1325
       flat_name: process.parent.uptime
@@ -4329,8 +4329,8 @@ process:
       short: Seconds the process has been up.
       type: long
     parent.working_directory:
+      beats.default_field: false
       dashed_name: process-parent-working-directory
-      default_field: false
       description: The working directory of the process.
       example: /home/alice
       flat_name: process.parent.working_directory
@@ -5752,7 +5752,7 @@ threat:
   title: Threat
   type: group
 tls:
-  default_fields: false
+  beats.default_field: false
   description: Fields related to a TLS connection. These fields focus on the TLS protocol
     itself and intentionally avoids in-depth analysis of the related x.509 certificate
     files.
@@ -6665,7 +6665,7 @@ user_agent:
   title: User agent
   type: group
 vulnerability:
-  default_field: false
+  beats.default_field: false
   description: The vulnerability fields describe information about a vulnerability
     that is relevant to an event.
   fields:

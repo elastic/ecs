@@ -61,6 +61,14 @@ def yaml_ordereddict(dumper, data):
 
 yaml.add_representer(OrderedDict, yaml_ordereddict)
 
+
+def dict_rename_keys(dict, renames):
+    for key, value in dict.iteritems():
+        if key in renames:
+            del dict[key]
+            dict[renames[key]] = value
+
+
 # File helpers
 
 

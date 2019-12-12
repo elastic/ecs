@@ -22,7 +22,7 @@ Thanks, you're awesome :-) -->
 * Added `rule` fields. #665
 * Added default `text` analyzer as a multi-field to around 25 more fields. #680
 * Added `registry.*` fieldset for the Windows registry. #673
-* Added the `default_field` option for Beats. #687
+* Added the `beats.default_field` option for Beats. #687
 
 #### Improvements
 

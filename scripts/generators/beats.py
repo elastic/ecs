@@ -32,8 +32,11 @@ def fieldset_field_array(source_fields):
     allowed_keys = ['name', 'level', 'required', 'type', 'object_type',
                     'ignore_above', 'multi_fields', 'format', 'input_format',
                     'output_format', 'output_precision', 'description',
-                    'example', 'default_field']
+                    'example', 'beats.default_field']
     multi_fields_allowed_keys = ['name', 'type', 'norms']
+    rename_keys = {
+        'beats.default_field': 'default_field'
+    }
 
     fields = []
     for nested_field_name in source_fields:
@@ -48,6 +51,7 @@ def fieldset_field_array(source_fields):
             beats_field['multi_fields'] = cleaned_multi_fields
 
         beats_field['name'] = nested_field_name
+        ecs_helpers.dict_rename_keys(beats_field, rename_keys)
         fields.append(beats_field)
     return sorted(fields, lambda x, y: cmp(x['name'], y['name']))
 
