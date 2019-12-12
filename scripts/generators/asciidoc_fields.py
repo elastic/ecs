@@ -336,12 +336,35 @@ def render_field_values_page(field):
     )
     # Each accepted value
     for value_details in field['accepted_values']:
-        text += field_values_value_template().format(
+        if 'expected_event_types' in value_details:
+            additional_details = render_expected_event_types(value_details)
+        else:
+            additional_details = ''
+        text += field_values_template().format(
             dashed_name=field['dashed_name'],
             value_name=value_details['name'],
             value_description=value_details['description'],
+            additional_details=additional_details
         )
     return text
+
+
+def render_expected_event_types(value_details):
+    rows_of_types = ''
+    for row in ecs_helpers.list_split_by(value_details['expected_event_types'], 4):
+        rows_of_types += ("{nbsp}" * 8).join(row) + "\n"
+    return expected_event_types_template().format(
+            category_name=value_details['name'],
+            rows_of_types=rows_of_types,
+    )
+
+
+def expected_event_types_template():
+    return '''
+*Expected event types for category {category_name}:*
+
+{rows_of_types}
+'''
 
 
 def field_values_page_template():
@@ -353,11 +376,13 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 '''
 
 
-def field_values_value_template():
+def field_values_template():
     return '''
 [float]
 [[ecs-{dashed_name}-{value_name}]]
 ==== {value_name}
 
 {value_description}
+
+{additional_details}
 '''
