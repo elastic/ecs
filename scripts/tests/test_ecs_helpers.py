@@ -80,5 +80,11 @@ class TestECSHelpers(unittest.TestCase):
             ecs_helpers.safe_merge_dicts(a, b)
 
 
+    def test_list_slit_by(self):
+        lst = ['ecs', 'has', 'a', 'meme', 'now']
+        split_list = ecs_helpers.list_split_by(lst, 3)
+        self.assertEquals(split_list, [['ecs', 'has', 'a'], ['meme', 'now']])
+
+
 if __name__ == '__main__':
     unittest.main()
