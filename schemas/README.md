@@ -36,6 +36,24 @@ Supported keys to describe fields
 - multi\_fields (optional):
 - index (optional): If `False`, means field is not indexed (overrides type)
 
+Supported keys to describe expected values for a field
+
+```YAML
+  accepted_values:
+  - name: authentication
+    description: ...
+  - name: process
+    description: ...
+    expected_event_types:
+      - start
+      - iamgroot
+```
+
+- accepted\_values: list of dictionaries with the 'name' and 'description' of the expected values.
+  Optionally, entries in this list can specify 'expected\_event\_types'.
+- expected\_event\_types: list of expected "event.type" values to use in association
+  with that category.
+
 ### Multi\_fields
 
 - type (required): type of the multi\_fields
