@@ -74,9 +74,24 @@ def render_asciidoc_paragraphs(string):
     return string.replace("\n", "\n\n")
 
 
+def render_accepted_values(field):
+    if not 'accepted_values' in field:
+        return ''
+    rows_text = ''
+    for row in ecs_helpers.list_split_by(field['accepted_values'], 4):
+        rows_text += ("{nbsp}" * 8).join(ecs_helpers.list_extract_keys(row, 'name')) + "\n"
+    return field_acceptable_value_names().format(
+            rows_text=rows_text,
+            field_flat_name=field['flat_name'],
+            field_dashed_name=field['dashed_name'],
+    )
+
+
 def render_field_details_row(field):
     example = ''
-    if 'example' in field:
+    if 'accepted_values' in field:
+        example = render_accepted_values(field)
+    elif 'example' in field:
         example = "example: `{}`".format(str(field['example']))
 
     field_type_with_mf = field['type']
@@ -233,6 +248,16 @@ type: {field_type}
 '''
 
 
+def field_acceptable_value_names():
+    return '''
+*Important*: The field value must be one of the following:
+
+{rows_text}
+To learn more about when to use which value, visit the page
+<<ecs-category-{field_dashed_name},accepted values for {field_flat_name}>>
+'''
+
+
 # Field reuse
 
 def field_reuse_section():
@@ -303,17 +328,16 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 
 def render_field_values_page(field):
-    dashed_field_name = field['flat_name'].replace('.', '-')
     # Page heading
     text = field_values_page_template().format(
-        dashed_name=dashed_field_name,
+        dashed_name=field['dashed_name'],
         flat_name=field['flat_name'],
         # description=field[''],
     )
     # Each accepted value
     for value_details in field['accepted_values']:
         text += field_values_value_template().format(
-            dashed_name=dashed_field_name,
+            dashed_name=field['dashed_name'],
             value_name=value_details['name'],
             value_description=value_details['description'],
         )
@@ -323,7 +347,7 @@ def render_field_values_page(field):
 def field_values_page_template():
     return '''
 [[ecs-category-{dashed_name}]]
-=== Expected Values for {flat_name}
+=== Accepted Values for {flat_name}
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 '''
