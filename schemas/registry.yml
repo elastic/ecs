@@ -54,9 +54,9 @@
       description: >
         Contents for numeric values written to the registry
 
-        Contains the data when populating REG_DWORD and REG_QWORD.
-        For REG_DWORD_BIG_ENDIAN, this assumes that the bytes have already been interpreted in numeric form
-        before they were ingested into Elasticsearch.
+        Contains the data in integer form when populating REG_DWORD and REG_QWORD. This assumes that the bytes have
+        already been interpreted in numeric form accordingly. Note that `long` is signed 64 bits, so values greater
+        than 2^63^ are invalid, and may need to be cast as negative.
 
 
     - name: data.bytes
