@@ -3495,6 +3495,102 @@ example: `/home/alice`
 
 |=====
 
+[[ecs-registry]]
+=== Registry Fields
+
+Fields related to Windows Registry operations.
+
+==== Registry Field Details
+
+[options="header"]
+|=====
+| Field  | Description | Level
+
+// ===============================================================
+
+| registry.data.bytes
+| Original bytes written with base64 encoding.
+
+For Windows registry operations, such as SetValueEx and RegQueryValueEx, this corresponds to the data pointed by `lp_data`. This is optional but provides better recoverability and should be populated for REG_BINARY encoded values.
+
+type: keyword
+
+example: `ZQBuAC0AVQBTAAAAZQBuAAAAAAA=`
+
+| extended
+
+// ===============================================================
+
+| registry.data.strings
+| Content when writing string types.
+
+Populated as an array when writing string data to the registry. For single string registry types (REG_SZ, REG_EXPAND_SZ), this should be an array with one string. For sequences of string with REG_MULTI_SZ, this array will be variable length. For numeric data, such as REG_DWORD and REG_QWORD, this should be populated with the decimal representation (e.g `"1"`).
+
+type: keyword
+
+example: `["C:\rta\red_ttp\bin\myapp.exe"]`
+
+| core
+
+// ===============================================================
+
+| registry.data.type
+| Standard registry type for encoding contents
+
+type: keyword
+
+example: `REG_SZ`
+
+| core
+
+// ===============================================================
+
+| registry.hive
+| Abbreviated name for the hive.
+
+type: keyword
+
+example: `HKLM`
+
+| core
+
+// ===============================================================
+
+| registry.key
+| Hive-relative path of keys.
+
+type: keyword
+
+example: `SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\winword.exe`
+
+| core
+
+// ===============================================================
+
+| registry.path
+| Full path, including hive, key and value
+
+type: keyword
+
+example: `HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\winword.exe\Debugger`
+
+| core
+
+// ===============================================================
+
+| registry.value
+| Name of the value written.
+
+type: keyword
+
+example: `Debugger`
+
+| core
+
+// ===============================================================
+
+|=====
+
 [[ecs-related]]
 === Related Fields
 
