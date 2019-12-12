@@ -2601,24 +2601,17 @@
         redundant when `data.integer` or data.strings` are populated, but should be
         populated for REG_BINARY encoded values.'
       example: ZQBuAC0AVQBTAAAAZQBuAAAAAAA=
-    - name: data.integer
-      level: core
-      type: long
-      description: 'Contents for numeric values written to the registry
-
-        Contains the data in integer form when populating REG_DWORD and REG_QWORD.
-        This assumes that the bytes have already been interpreted in numeric form
-        accordingly. Note that `long` is signed 64 bits, so values greater than 2^63^
-        are invalid, and may need to be cast as negative.'
-      example: 0
     - name: data.strings
       level: core
       type: keyword
       ignore_above: 1024
       description: 'Content when writing string types.
 
-        Populated as an array when writing string data to the registry, such as REG_SZ,
-        REG_EXPAND_SZ, REG_MULTI_SZ, and REG_LINK.'
+        Populated as an array when writing string data to the registry. For single
+        string registry types (REG_SZ, REG_EXPAND_SZ), this should be an array with
+        one string. For sequences of string with REG_MULTI_SZ, this array will be
+        variable length. For numeric data, such as REG_DWORD and REG_QWORD, this should
+        be populated with the decimal representation (e.g `"1"`).'
       example: '["C:\rta\red_ttp\bin\myapp.exe"]'
     - name: data.type
       level: core

@@ -37,16 +37,13 @@ type Registry struct {
 	DataType string `ecs:"data.type"`
 
 	// Content when writing string types.
-	// Populated as an array when writing string data to the registry, such as
-	// REG_SZ, REG_EXPAND_SZ, REG_MULTI_SZ, and REG_LINK.
+	// Populated as an array when writing string data to the registry. For
+	// single string registry types (REG_SZ, REG_EXPAND_SZ), this should be an
+	// array with one string. For sequences of string with REG_MULTI_SZ, this
+	// array will be variable length. For numeric data, such as REG_DWORD and
+	// REG_QWORD, this should be populated with the decimal representation (e.g
+	// `"1"`).
 	DataStrings string `ecs:"data.strings"`
-
-	// Contents for numeric values written to the registry
-	// Contains the data in integer form when populating REG_DWORD and
-	// REG_QWORD. This assumes that the bytes have already been interpreted in
-	// numeric form accordingly. Note that `long` is signed 64 bits, so values
-	// greater than 2^63^ are invalid, and may need to be cast as negative.
-	DataInteger int64 `ecs:"data.integer"`
 
 	// Original bytes written with base64 encoding.
 	// For Windows registry operations, such as SetValueEx and RegQueryValueEx,
