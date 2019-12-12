@@ -329,24 +329,31 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 def render_field_values_page(field):
     # Page heading
-    text = field_values_page_template().format(
+    heading = field_values_page_template().format(
         dashed_name=field['dashed_name'],
         flat_name=field['flat_name'],
         # description=field[''],
     )
+
     # Each accepted value
+    body = ''
+    toc = ''
     for value_details in field['accepted_values']:
+        toc += "* <<ecs-{field_dashed_name}-{value_name},{value_name}>>\n".format(
+            field_dashed_name=field['dashed_name'],
+            value_name=value_details['name']
+        )
         if 'expected_event_types' in value_details:
             additional_details = render_expected_event_types(value_details)
         else:
             additional_details = ''
-        text += field_values_template().format(
-            dashed_name=field['dashed_name'],
+        body += field_value_template().format(
+            field_dashed_name=field['dashed_name'],
             value_name=value_details['name'],
             value_description=value_details['description'],
             additional_details=additional_details
         )
-    return text
+    return heading + toc + body
 
 
 def render_expected_event_types(value_details):
@@ -373,13 +380,16 @@ def field_values_page_template():
 === Accepted Values for {flat_name}
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+*Table of Contents*
+
 '''
 
 
-def field_values_template():
+def field_value_template():
     return '''
 [float]
-[[ecs-{dashed_name}-{value_name}]]
+[[ecs-{field_dashed_name}-{value_name}]]
 ==== {value_name}
 
 {value_description}
