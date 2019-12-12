@@ -36,15 +36,22 @@ type Registry struct {
 	// Standard registry type for encoding contents
 	DataType string `ecs:"data.type"`
 
-	// Content when writing string types
+	// Content when writing string types.
 	// Populated as an array when writing string data to the registry, such as
 	// REG_SZ, REG_EXPAND_SZ, REG_MULTI_SZ, and REG_LINK.
 	DataStrings string `ecs:"data.strings"`
 
 	// Contents for numeric values written to the registry
-	// Contains the data when populating REG_DWORD and REG_QWORD. For
-	// REG_DWORD_BIG_ENDIAN, this assumes that the bytes have already been
-	// interpreted in numeric form before they were ingested into
-	// Elasticsearch.
+	// Contains the data in integer form when populating REG_DWORD and
+	// REG_QWORD. This assumes that the bytes have already been interpreted in
+	// numeric form accordingly. Note that `long` is signed 64 bits, so values
+	// greater than 2^63^ are invalid, and may need to be cast as negative.
 	DataInteger int64 `ecs:"data.integer"`
+
+	// Original bytes written with base64 encoding.
+	// For Windows registry operations, such as SetValueEx and RegQueryValueEx,
+	// this corresponds to the data pointed by `lp_data`. This is optional and
+	// may be redundant when `data.integer` or data.strings` are populated, but
+	// should be populated for REG_BINARY encoded values.
+	DataBytes string `ecs:"data.bytes"`
 }
