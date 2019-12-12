@@ -1564,8 +1564,6 @@ event:
         - info
         - end
         name: process
-      asciidoc:
-        values_footer: templates/values/category_footer.asciidoc
       dashed_name: event-category
       description: 'Event category.
 
@@ -1928,9 +1926,24 @@ file:
       flat_name: file.accessed
       level: extended
       name: accessed
-      order: 17
+      order: 19
       short: Last time the file was accessed.
       type: date
+    attributes:
+      dashed_name: file-attributes
+      description: 'Array of file attributes.
+
+        Attributes names will vary by platform. Here''s a non-exhaustive list of values
+        that are expected in this field: archive, compressed, directory, encrypted,
+        execute, hidden, read, readonly, system, write.'
+      example: '["readonly", "system"]'
+      flat_name: file.attributes
+      ignore_above: 1024
+      level: extended
+      name: attributes
+      order: 1
+      short: Array of file attributes.
+      type: keyword
     created:
       dashed_name: file-created
       description: 'File creation time.
@@ -1939,7 +1952,7 @@ file:
       flat_name: file.created
       level: extended
       name: created
-      order: 16
+      order: 18
       short: File creation time.
       type: date
     ctime:
@@ -1951,7 +1964,7 @@ file:
       flat_name: file.ctime
       level: extended
       name: ctime
-      order: 15
+      order: 17
       short: Last time the file attributes or metadata changed.
       type: date
     device:
@@ -1962,19 +1975,34 @@ file:
       ignore_above: 1024
       level: extended
       name: device
-      order: 6
+      order: 8
       short: Device that is the source of the file.
       type: keyword
     directory:
       dashed_name: file-directory
-      description: Directory where the file is located.
+      description: Directory where the file is located. It should include the drive
+        letter, when appropriate.
       example: /home/alice
       flat_name: file.directory
       ignore_above: 1024
       level: extended
       name: directory
-      order: 1
+      order: 2
       short: Directory where the file is located.
+      type: keyword
+    drive_letter:
+      dashed_name: file-drive-letter
+      description: 'Drive letter where the file is located. This field is only relevant
+        on Windows.
+
+        The value should be uppercase, and not include the colon.'
+      example: C
+      flat_name: file.drive_letter
+      ignore_above: 1
+      level: extended
+      name: drive_letter
+      order: 3
+      short: Drive letter where the file is located.
       type: keyword
     extension:
       dashed_name: file-extension
@@ -1984,7 +2012,7 @@ file:
       ignore_above: 1024
       level: extended
       name: extension
-      order: 4
+      order: 6
       short: File extension.
       type: keyword
     gid:
@@ -1995,7 +2023,7 @@ file:
       ignore_above: 1024
       level: extended
       name: gid
-      order: 10
+      order: 12
       short: Primary group ID (GID) of the file.
       type: keyword
     group:
@@ -2006,7 +2034,7 @@ file:
       ignore_above: 1024
       level: extended
       name: group
-      order: 11
+      order: 13
       short: Primary group name of the file.
       type: keyword
     hash.md5:
@@ -2061,7 +2089,7 @@ file:
       ignore_above: 1024
       level: extended
       name: inode
-      order: 7
+      order: 9
       short: Inode representing the file in the filesystem.
       type: keyword
     mode:
@@ -2072,7 +2100,7 @@ file:
       ignore_above: 1024
       level: extended
       name: mode
-      order: 12
+      order: 14
       short: Mode of the file in octal representation.
       type: keyword
     mtime:
@@ -2081,7 +2109,7 @@ file:
       flat_name: file.mtime
       level: extended
       name: mtime
-      order: 14
+      order: 16
       short: Last time the file content was modified.
       type: date
     name:
@@ -2103,19 +2131,20 @@ file:
       ignore_above: 1024
       level: extended
       name: owner
-      order: 9
+      order: 11
       short: File owner's username.
       type: keyword
     path:
       dashed_name: file-path
-      description: Full path to the file.
+      description: Full path to the file, including the file name. It should include
+        the drive letter, when appropriate.
       example: /home/alice/example.png
       flat_name: file.path
       ignore_above: 1024
       level: extended
       name: path
-      order: 2
-      short: Full path to the file.
+      order: 4
+      short: Full path to the file, including the file name.
       type: keyword
     size:
       dashed_name: file-size
@@ -2126,7 +2155,7 @@ file:
       flat_name: file.size
       level: extended
       name: size
-      order: 13
+      order: 15
       short: File size in bytes.
       type: long
     target_path:
@@ -2136,7 +2165,7 @@ file:
       ignore_above: 1024
       level: extended
       name: target_path
-      order: 3
+      order: 5
       short: Target path for symlinks.
       type: keyword
     type:
@@ -2147,7 +2176,7 @@ file:
       ignore_above: 1024
       level: extended
       name: type
-      order: 5
+      order: 7
       short: File type (file, dir, or symlink).
       type: keyword
     uid:
@@ -2158,7 +2187,7 @@ file:
       ignore_above: 1024
       level: extended
       name: uid
-      order: 8
+      order: 10
       short: The user ID (UID) or security identifier (SID) of the file owner.
       type: keyword
   group: 2

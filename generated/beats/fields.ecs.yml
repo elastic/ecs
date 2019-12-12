@@ -1123,6 +1123,16 @@
       description: 'Last time the file was accessed.
 
         Note that not all filesystems keep track of access time.'
+    - name: attributes
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Array of file attributes.
+
+        Attributes names will vary by platform. Here''s a non-exhaustive list of values
+        that are expected in this field: archive, compressed, directory, encrypted,
+        execute, hidden, read, readonly, system, write.'
+      example: '["readonly", "system"]'
     - name: created
       level: extended
       type: date
@@ -1146,8 +1156,18 @@
       level: extended
       type: keyword
       ignore_above: 1024
-      description: Directory where the file is located.
+      description: Directory where the file is located. It should include the drive
+        letter, when appropriate.
       example: /home/alice
+    - name: drive_letter
+      level: extended
+      type: keyword
+      ignore_above: 1
+      description: 'Drive letter where the file is located. This field is only relevant
+        on Windows.
+
+        The value should be uppercase, and not include the colon.'
+      example: C
     - name: extension
       level: extended
       type: keyword
@@ -1218,7 +1238,8 @@
       level: extended
       type: keyword
       ignore_above: 1024
-      description: Full path to the file.
+      description: Full path to the file, including the file name. It should include
+        the drive letter, when appropriate.
       example: /home/alice/example.png
     - name: size
       level: extended
