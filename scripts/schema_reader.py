@@ -90,7 +90,7 @@ def field_cleanup_values(field, prefix):
 
 def field_name_representations(field, prefix):
     field['flat_name'] = prefix + field['name']
-    field['dashed_name'] = field['flat_name'].replace('.', '-')
+    field['dashed_name'] = field['flat_name'].replace('.', '-').replace('_', '-')
 
 
 def field_set_defaults(field):

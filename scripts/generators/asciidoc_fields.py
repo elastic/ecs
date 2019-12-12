@@ -254,7 +254,7 @@ def field_acceptable_value_names():
 
 {rows_text}
 To learn more about when to use which value, visit the page
-<<ecs-category-{field_dashed_name},accepted values for {field_flat_name}>>
+<<ecs-accepted-values-{field_dashed_name},accepted values for {field_flat_name}>>
 '''
 
 
@@ -319,10 +319,10 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 [[ecs-category-fields]]
 === Category Fields
 
-* <<ecs-category-event-kind,event.kind>>
-* <<ecs-category-event-category,event.category>>
-* <<ecs-category-event-type,event.type>>
-* <<ecs-category-event-outcome,event.outcome>>
+* <<ecs-accepted-values-event-kind,event.kind>>
+* <<ecs-accepted-values-event-category,event.category>>
+* <<ecs-accepted-values-event-type,event.type>>
+* <<ecs-accepted-values-event-outcome,event.outcome>>
 
 '''
 
@@ -346,7 +346,7 @@ def render_field_values_page(field):
 
 def field_values_page_template():
     return '''
-[[ecs-category-{dashed_name}]]
+[[ecs-accepted-values-{dashed_name}]]
 === Accepted Values for {flat_name}
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
