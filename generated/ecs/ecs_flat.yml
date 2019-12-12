@@ -1521,9 +1521,23 @@ file.accessed:
   flat_name: file.accessed
   level: extended
   name: accessed
-  order: 17
+  order: 19
   short: Last time the file was accessed.
   type: date
+file.attributes:
+  description: 'Array of file attributes.
+
+    Attributes names will vary by platform. Here''s a non-exhaustive list of values
+    that are expected in this field: archive, compressed, directory, encrypted, execute,
+    hidden, read, readonly, system, write.'
+  example: '["readonly", "system"]'
+  flat_name: file.attributes
+  ignore_above: 1024
+  level: extended
+  name: attributes
+  order: 1
+  short: Array of file attributes.
+  type: keyword
 file.created:
   description: 'File creation time.
 
@@ -1531,7 +1545,7 @@ file.created:
   flat_name: file.created
   level: extended
   name: created
-  order: 16
+  order: 18
   short: File creation time.
   type: date
 file.ctime:
@@ -1542,7 +1556,7 @@ file.ctime:
   flat_name: file.ctime
   level: extended
   name: ctime
-  order: 15
+  order: 17
   short: Last time the file attributes or metadata changed.
   type: date
 file.device:
@@ -1552,18 +1566,32 @@ file.device:
   ignore_above: 1024
   level: extended
   name: device
-  order: 6
+  order: 8
   short: Device that is the source of the file.
   type: keyword
 file.directory:
-  description: Directory where the file is located.
+  description: Directory where the file is located. It should include the drive letter,
+    when appropriate.
   example: /home/alice
   flat_name: file.directory
   ignore_above: 1024
   level: extended
   name: directory
-  order: 1
+  order: 2
   short: Directory where the file is located.
+  type: keyword
+file.drive_letter:
+  description: 'Drive letter where the file is located. This field is only relevant
+    on Windows.
+
+    The value should be uppercase, and not include the colon.'
+  example: C
+  flat_name: file.drive_letter
+  ignore_above: 1
+  level: extended
+  name: drive_letter
+  order: 3
+  short: Drive letter where the file is located.
   type: keyword
 file.extension:
   description: File extension.
@@ -1572,7 +1600,7 @@ file.extension:
   ignore_above: 1024
   level: extended
   name: extension
-  order: 4
+  order: 6
   short: File extension.
   type: keyword
 file.gid:
@@ -1582,7 +1610,7 @@ file.gid:
   ignore_above: 1024
   level: extended
   name: gid
-  order: 10
+  order: 12
   short: Primary group ID (GID) of the file.
   type: keyword
 file.group:
@@ -1592,7 +1620,7 @@ file.group:
   ignore_above: 1024
   level: extended
   name: group
-  order: 11
+  order: 13
   short: Primary group name of the file.
   type: keyword
 file.hash.md5:
@@ -1642,7 +1670,7 @@ file.inode:
   ignore_above: 1024
   level: extended
   name: inode
-  order: 7
+  order: 9
   short: Inode representing the file in the filesystem.
   type: keyword
 file.mode:
@@ -1652,7 +1680,7 @@ file.mode:
   ignore_above: 1024
   level: extended
   name: mode
-  order: 12
+  order: 14
   short: Mode of the file in octal representation.
   type: keyword
 file.mtime:
@@ -1660,7 +1688,7 @@ file.mtime:
   flat_name: file.mtime
   level: extended
   name: mtime
-  order: 14
+  order: 16
   short: Last time the file content was modified.
   type: date
 file.name:
@@ -1680,18 +1708,19 @@ file.owner:
   ignore_above: 1024
   level: extended
   name: owner
-  order: 9
+  order: 11
   short: File owner's username.
   type: keyword
 file.path:
-  description: Full path to the file.
+  description: Full path to the file, including the file name. It should include the
+    drive letter, when appropriate.
   example: /home/alice/example.png
   flat_name: file.path
   ignore_above: 1024
   level: extended
   name: path
-  order: 2
-  short: Full path to the file.
+  order: 4
+  short: Full path to the file, including the file name.
   type: keyword
 file.size:
   description: 'File size in bytes.
@@ -1701,7 +1730,7 @@ file.size:
   flat_name: file.size
   level: extended
   name: size
-  order: 13
+  order: 15
   short: File size in bytes.
   type: long
 file.target_path:
@@ -1710,7 +1739,7 @@ file.target_path:
   ignore_above: 1024
   level: extended
   name: target_path
-  order: 3
+  order: 5
   short: Target path for symlinks.
   type: keyword
 file.type:
@@ -1720,7 +1749,7 @@ file.type:
   ignore_above: 1024
   level: extended
   name: type
-  order: 5
+  order: 7
   short: File type (file, dir, or symlink).
   type: keyword
 file.uid:
@@ -1730,7 +1759,7 @@ file.uid:
   ignore_above: 1024
   level: extended
   name: uid
-  order: 8
+  order: 10
   short: The user ID (UID) or security identifier (SID) of the file owner.
   type: keyword
 geo.city_name:
@@ -4699,7 +4728,7 @@ tls.server.certificate:
   ignore_above: 1024
   level: extended
   name: server.certificate
-  order: 26
+  order: 25
   short: PEM-encoded stand-alone certificate offered by the server. This is usually
     mutually-exclusive of `server.certificate_chain` since this value also exists
     in that list.
@@ -4715,7 +4744,7 @@ tls.server.certificate_chain:
   ignore_above: 1024
   level: extended
   name: server.certificate_chain
-  order: 25
+  order: 24
   short: Array of PEM-encoded certificates that make up the certificate chain offered
     by the server. This is usually mutually-exclusive of `server.certificate` since
     that value should be the first certificate in the chain.
@@ -4729,7 +4758,7 @@ tls.server.hash.md5:
   ignore_above: 1024
   level: extended
   name: server.hash.md5
-  order: 27
+  order: 26
   short: Certificate fingerprint using the MD5 digest of DER-encoded version of certificate
     offered by the server. For consistency with other hash values, this value should
     be formatted as an uppercase hash.
@@ -4743,7 +4772,7 @@ tls.server.hash.sha1:
   ignore_above: 1024
   level: extended
   name: server.hash.sha1
-  order: 28
+  order: 27
   short: Certificate fingerprint using the SHA1 digest of DER-encoded version of certificate
     offered by the server. For consistency with other hash values, this value should
     be formatted as an uppercase hash.
@@ -4757,7 +4786,7 @@ tls.server.hash.sha256:
   ignore_above: 1024
   level: extended
   name: server.hash.sha256
-  order: 29
+  order: 28
   short: Certificate fingerprint using the SHA256 digest of DER-encoded version of
     certificate offered by the server. For consistency with other hash values, this
     value should be formatted as an uppercase hash.
@@ -4769,7 +4798,7 @@ tls.server.issuer:
   ignore_above: 1024
   level: extended
   name: server.issuer
-  order: 22
+  order: 21
   short: Subject of the issuer of the x.509 certificate presented by the server.
   type: keyword
 tls.server.ja3s:
@@ -4790,7 +4819,7 @@ tls.server.not_after:
   flat_name: tls.server.not_after
   level: extended
   name: server.not_after
-  order: 24
+  order: 23
   short: Timestamp indicating when server certificate is no longer considered valid.
   type: date
 tls.server.not_before:
@@ -4799,7 +4828,7 @@ tls.server.not_before:
   flat_name: tls.server.not_before
   level: extended
   name: server.not_before
-  order: 23
+  order: 22
   short: Timestamp indicating when server certificate is first considered valid.
   type: date
 tls.server.subject:
@@ -4809,21 +4838,8 @@ tls.server.subject:
   ignore_above: 1024
   level: extended
   name: server.subject
-  order: 21
-  short: Subject of the x.509 certificate presented by the server.
-  type: keyword
-tls.server.supported_ciphers:
-  description: Array of ciphers offered by the server during the server hello.
-  example:
-  - TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-  - TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
-  - '...'
-  flat_name: tls.server.supported_ciphers
-  ignore_above: 1024
-  level: extended
-  name: server.supported_ciphers
   order: 20
-  short: Array of ciphers offered by the server during the server hello.
+  short: Subject of the x.509 certificate presented by the server.
   type: keyword
 tls.version:
   description: Numeric part of the version parsed from the original string.
@@ -5147,15 +5163,20 @@ user_agent.name:
   short: Name of the user agent.
   type: keyword
 user_agent.original:
-  description: Unparsed version of the user_agent.
+  description: Unparsed user_agent string.
   example: Mozilla/5.0 (iPhone; CPU iPhone OS 12_1 like Mac OS X) AppleWebKit/605.1.15
     (KHTML, like Gecko) Version/12.0 Mobile/15E148 Safari/604.1
   flat_name: user_agent.original
   ignore_above: 1024
   level: extended
+  multi_fields:
+  - flat_name: user_agent.original.text
+    name: text
+    norms: false
+    type: text
   name: original
   order: 0
-  short: Unparsed version of the user_agent.
+  short: Unparsed user_agent string.
   type: keyword
 user_agent.os.family:
   description: OS family (such as redhat, debian, freebsd, windows).
@@ -5236,7 +5257,8 @@ user_agent.version:
 vulnerability.category:
   description: 'The type of system or architecture that the vulnerability affects.
     These may be platform-specific (for example, Debian or SUSE) or general (for example,
-    Database or Firewall). For example (https://qualysguard.qualys.com/qwebhelp/fo_portal/knowledgebase/vulnerability_categories.htm)
+    Database or Firewall). For example (https://qualysguard.qualys.com/qwebhelp/fo_portal/knowledgebase/vulnerability_categories.htm[Qualys
+    vulnerability categories])
 
     This field must be an array.'
   example: '["Firewall"]'
@@ -5260,7 +5282,8 @@ vulnerability.classification:
   type: keyword
 vulnerability.description:
   description: The description of the vulnerability that provides additional context
-    of the vulnerability. For example (https://cve.mitre.org/about/faqs.html#cve_entry_descriptions_created)
+    of the vulnerability. For example (https://cve.mitre.org/about/faqs.html#cve_entry_descriptions_created[Common
+    Vulnerabilities and Exposure CVE description])
   example: In macOS before 2.12.6, there is a vulnerability in the RPC...
   flat_name: vulnerability.description
   ignore_above: 1024
@@ -5282,7 +5305,8 @@ vulnerability.enumeration:
 vulnerability.id:
   description: The identification (ID) is the number portion of a vulnerability entry.
     It includes a unique identification number for the vulnerability. For example
-    (https://cve.mitre.org/about/faqs.html#what_is_cve_id)
+    (https://cve.mitre.org/about/faqs.html#what_is_cve_id)[Common Vulnerabilities
+    and Exposure CVE ID]
   example: CVE-2019-00001
   flat_name: vulnerability.id
   ignore_above: 1024
@@ -5326,8 +5350,8 @@ vulnerability.score.base:
   description: 'Scores can range from 0.0 to 10.0, with 10.0 being the most severe.
 
     Base scores cover an assessment for exploitability metrics (attack vector, complexity,
-    privileges, and user interaction), impact metrics (confidentialy, integrity, and
-    availability), and scope. For example (https://www.first.org/cvss/specification-document)'
+    privileges, and user interaction), impact metrics (confidentiality, integrity,
+    and availability), and scope. For example (https://www.first.org/cvss/specification-document)'
   example: 5.5
   flat_name: vulnerability.score.base
   level: extended

@@ -1425,6 +1425,19 @@ type: date
 
 // ===============================================================
 
+| file.attributes
+| Array of file attributes.
+
+Attributes names will vary by platform. Here's a non-exhaustive list of values that are expected in this field: archive, compressed, directory, encrypted, execute, hidden, read, readonly, system, write.
+
+type: keyword
+
+example: `["readonly", "system"]`
+
+| extended
+
+// ===============================================================
+
 | file.created
 | File creation time.
 
@@ -1463,11 +1476,24 @@ example: `sda`
 // ===============================================================
 
 | file.directory
-| Directory where the file is located.
+| Directory where the file is located. It should include the drive letter, when appropriate.
 
 type: keyword
 
 example: `/home/alice`
+
+| extended
+
+// ===============================================================
+
+| file.drive_letter
+| Drive letter where the file is located. This field is only relevant on Windows.
+
+The value should be uppercase, and not include the colon.
+
+type: keyword
+
+example: `C`
 
 | extended
 
@@ -1562,7 +1588,7 @@ example: `alice`
 // ===============================================================
 
 | file.path
-| Full path to the file.
+| Full path to the file, including the file name. It should include the drive letter, when appropriate.
 
 type: keyword
 
@@ -4386,17 +4412,6 @@ example: `CN=www.mydomain.com, OU=Infrastructure Team, DC=mydomain, DC=com`
 
 // ===============================================================
 
-| tls.server.supported_ciphers
-| Array of ciphers offered by the server during the server hello.
-
-type: keyword
-
-example: `['TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384', 'TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384', '...']`
-
-| extended
-
-// ===============================================================
-
 | tls.version
 | Numeric part of the version parsed from the original string.
 
@@ -4794,9 +4809,15 @@ example: `Safari`
 // ===============================================================
 
 | user_agent.original
-| Unparsed version of the user_agent.
+| Unparsed user_agent string.
 
 type: keyword
+
+Multi-fields:
+
+user_agent.original.text (type: text)
+
+
 
 example: `Mozilla/5.0 (iPhone; CPU iPhone OS 12_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0 Mobile/15E148 Safari/604.1`
 
@@ -4854,7 +4875,7 @@ The vulnerability fields describe information about a vulnerability that is rele
 // ===============================================================
 
 | vulnerability.category
-| The type of system or architecture that the vulnerability affects. These may be platform-specific (for example, Debian or SUSE) or general (for example, Database or Firewall). For example (https://qualysguard.qualys.com/qwebhelp/fo_portal/knowledgebase/vulnerability_categories.htm)
+| The type of system or architecture that the vulnerability affects. These may be platform-specific (for example, Debian or SUSE) or general (for example, Database or Firewall). For example (https://qualysguard.qualys.com/qwebhelp/fo_portal/knowledgebase/vulnerability_categories.htm[Qualys vulnerability categories])
 
 This field must be an array.
 
@@ -4878,7 +4899,7 @@ example: `CVSS`
 // ===============================================================
 
 | vulnerability.description
-| The description of the vulnerability that provides additional context of the vulnerability. For example (https://cve.mitre.org/about/faqs.html#cve_entry_descriptions_created)
+| The description of the vulnerability that provides additional context of the vulnerability. For example (https://cve.mitre.org/about/faqs.html#cve_entry_descriptions_created[Common Vulnerabilities and Exposure CVE description])
 
 type: keyword
 
@@ -4900,7 +4921,7 @@ example: `CVE`
 // ===============================================================
 
 | vulnerability.id
-| The identification (ID) is the number portion of a vulnerability entry. It includes a unique identification number for the vulnerability. For example (https://cve.mitre.org/about/faqs.html#what_is_cve_id)
+| The identification (ID) is the number portion of a vulnerability entry. It includes a unique identification number for the vulnerability. For example (https://cve.mitre.org/about/faqs.html#what_is_cve_id)[Common Vulnerabilities and Exposure CVE ID]
 
 type: keyword
 
@@ -4946,7 +4967,7 @@ example: `Tenable`
 | vulnerability.score.base
 | Scores can range from 0.0 to 10.0, with 10.0 being the most severe.
 
-Base scores cover an assessment for exploitability metrics (attack vector, complexity, privileges, and user interaction), impact metrics (confidentialy, integrity, and availability), and scope. For example (https://www.first.org/cvss/specification-document)
+Base scores cover an assessment for exploitability metrics (attack vector, complexity, privileges, and user interaction), impact metrics (confidentiality, integrity, and availability), and scope. For example (https://www.first.org/cvss/specification-document)
 
 type: float
 

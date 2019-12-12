@@ -1129,6 +1129,16 @@
       description: 'Last time the file was accessed.
 
         Note that not all filesystems keep track of access time.'
+    - name: attributes
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Array of file attributes.
+
+        Attributes names will vary by platform. Here''s a non-exhaustive list of values
+        that are expected in this field: archive, compressed, directory, encrypted,
+        execute, hidden, read, readonly, system, write.'
+      example: '["readonly", "system"]'
     - name: created
       level: extended
       type: date
@@ -1152,8 +1162,18 @@
       level: extended
       type: keyword
       ignore_above: 1024
-      description: Directory where the file is located.
+      description: Directory where the file is located. It should include the drive
+        letter, when appropriate.
       example: /home/alice
+    - name: drive_letter
+      level: extended
+      type: keyword
+      ignore_above: 1
+      description: 'Drive letter where the file is located. This field is only relevant
+        on Windows.
+
+        The value should be uppercase, and not include the colon.'
+      example: C
     - name: extension
       level: extended
       type: keyword
@@ -1224,7 +1244,8 @@
       level: extended
       type: keyword
       ignore_above: 1024
-      description: Full path to the file.
+      description: Full path to the file, including the file name. It should include
+        the drive letter, when appropriate.
       example: /home/alice/example.png
     - name: size
       level: extended
@@ -3320,15 +3341,6 @@
       ignore_above: 1024
       description: Subject of the x.509 certificate presented by the server.
       example: CN=www.mydomain.com, OU=Infrastructure Team, DC=mydomain, DC=com
-    - name: server.supported_ciphers
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Array of ciphers offered by the server during the server hello.
-      example:
-      - TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-      - TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
-      - '...'
     - name: version
       level: extended
       type: keyword
@@ -3575,7 +3587,11 @@
       level: extended
       type: keyword
       ignore_above: 1024
-      description: Unparsed version of the user_agent.
+      multi_fields:
+      - name: text
+        type: text
+        norms: false
+      description: Unparsed user_agent string.
       example: Mozilla/5.0 (iPhone; CPU iPhone OS 12_1 like Mac OS X) AppleWebKit/605.1.15
         (KHTML, like Gecko) Version/12.0 Mobile/15E148 Safari/604.1
     - name: os.family
@@ -3633,7 +3649,8 @@
       ignore_above: 1024
       description: 'The type of system or architecture that the vulnerability affects.
         These may be platform-specific (for example, Debian or SUSE) or general (for
-        example, Database or Firewall). For example (https://qualysguard.qualys.com/qwebhelp/fo_portal/knowledgebase/vulnerability_categories.htm)
+        example, Database or Firewall). For example (https://qualysguard.qualys.com/qwebhelp/fo_portal/knowledgebase/vulnerability_categories.htm[Qualys
+        vulnerability categories])
 
         This field must be an array.'
       example: '["Firewall"]'
@@ -3649,7 +3666,8 @@
       type: keyword
       ignore_above: 1024
       description: The description of the vulnerability that provides additional context
-        of the vulnerability. For example (https://cve.mitre.org/about/faqs.html#cve_entry_descriptions_created)
+        of the vulnerability. For example (https://cve.mitre.org/about/faqs.html#cve_entry_descriptions_created[Common
+        Vulnerabilities and Exposure CVE description])
       example: In macOS before 2.12.6, there is a vulnerability in the RPC...
     - name: enumeration
       level: extended
@@ -3664,7 +3682,8 @@
       ignore_above: 1024
       description: The identification (ID) is the number portion of a vulnerability
         entry. It includes a unique identification number for the vulnerability. For
-        example (https://cve.mitre.org/about/faqs.html#what_is_cve_id)
+        example (https://cve.mitre.org/about/faqs.html#what_is_cve_id)[Common Vulnerabilities
+        and Exposure CVE ID]
       example: CVE-2019-00001
     - name: reference
       level: extended
@@ -3691,7 +3710,7 @@
       description: 'Scores can range from 0.0 to 10.0, with 10.0 being the most severe.
 
         Base scores cover an assessment for exploitability metrics (attack vector,
-        complexity, privileges, and user interaction), impact metrics (confidentialy,
+        complexity, privileges, and user interaction), impact metrics (confidentiality,
         integrity, and availability), and scope. For example (https://www.first.org/cvss/specification-document)'
       example: 5.5
     - name: score.environmental
