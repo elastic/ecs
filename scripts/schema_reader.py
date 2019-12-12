@@ -84,12 +84,13 @@ def schema_fields_as_dictionary(schema):
 
 def field_cleanup_values(field, prefix):
     dict_clean_string_values(field)
-    field_set_flat_name(field, prefix)
+    field_name_representations(field, prefix)
     field_set_defaults(field)
 
 
-def field_set_flat_name(field, prefix):
+def field_name_representations(field, prefix):
     field['flat_name'] = prefix + field['name']
+    field['dashed_name'] = field['flat_name'].replace('.', '-').replace('_', '-')
 
 
 def field_set_defaults(field):

@@ -69,3 +69,21 @@ def yaml_dump(filename, data, preamble=None):
         if preamble:
             outfile.write(preamble)
         yaml.dump(data, outfile, default_flow_style=False)
+
+# List helpers
+
+
+def list_extract_keys(lst, key_name):
+    """Returns an array of values for 'key_name', from a list of dictionaries"""
+    acc = []
+    for d in lst:
+        acc.append(d[key_name])
+    return acc
+
+
+def list_split_by(lst, size):
+    '''Splits a list in smaller lists of a given size'''
+    acc = []
+    for i in range(0, len(lst), size):
+        acc.append(lst[i:i + size])
+    return acc

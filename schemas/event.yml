@@ -45,11 +45,17 @@
         The kind of the event.
 
         This gives information about what type of information the event
-        contains, without being specific to the contents of the event.  Examples
-        are `event`, `state`, `alarm`. Warning: In future versions of ECS, we
-        plan to provide a list of acceptable values for this field, please use
-        with caution.
-      example: state
+        contains, without being specific to the contents of the event.
+      example: event
+      accepted_values:
+      - name: alert
+        description: >
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+          incididunt ut labore et dolore magna aliqua.
+      - name: event
+        description: >
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+          incididunt ut labore et dolore magna aliqua.
 
     - name: category
       level: core
@@ -60,11 +66,25 @@
 
         This contains high-level information about the contents of the event. It
         is more generic than `event.action`, in the sense that typically a
-        category contains multiple actions. Warning: In future versions of ECS,
-        we plan to provide a list of acceptable values for this field, please
-        use with caution.
-
+        category contains multiple actions.
       example: user-management
+      accepted_values:
+      - name: authentication
+        description: >
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+          incididunt ut labore et dolore magna aliqua.
+        expected_event_types:
+          - allow
+          - deny
+          - info
+      - name: process
+        description: >
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+          incididunt ut labore et dolore magna aliqua.
+        expected_event_types:
+          - start
+          - info
+          - end
 
     - name: action
       level: core
@@ -86,20 +106,38 @@
         The outcome of the event.
 
         If the event describes an action, this fields contains the outcome of
-        that action. Examples outcomes are `success` and `failure`. Warning: In
-        future versions of ECS, we plan to provide a list of acceptable values
-        for this field, please use with caution.
-
+        that action.
       example: success
+
+      accepted_values:
+      - name: success
+        description: >
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+          incididunt ut labore et dolore magna aliqua.
+
+      - name: failure
+        description: >
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+          incididunt ut labore et dolore magna aliqua.
 
     - name: type
       level: core
       type: keyword
       short: Reserved for future usage.
       description: >
-        Reserved for future usage.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 
-        Please avoid using this field for user data.
+      accepted_values:
+      - name: start
+        description: >
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+          incididunt ut labore et dolore magna aliqua.
+
+      - name: end
+        description: >
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+          incididunt ut labore et dolore magna aliqua.
 
     - name: module
       level: core

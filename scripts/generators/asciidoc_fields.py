@@ -3,9 +3,10 @@ import sys
 from generators import ecs_helpers
 
 
-def generate(ecs_nested, ecs_version):
+def generate(ecs_nested, ecs_flat, ecs_version):
     save_asciidoc('docs/fields.asciidoc', page_field_index(ecs_nested, ecs_version))
     save_asciidoc('docs/field-details.asciidoc', page_field_details(ecs_nested))
+    save_asciidoc('docs/field-values.asciidoc', page_field_values(ecs_flat))
 
 # Helpers
 
@@ -18,7 +19,7 @@ def save_asciidoc(file, text):
         outfile.write(text)
 
 
-# Rendering
+# Rendering schemas
 
 # Field Index
 
@@ -73,9 +74,24 @@ def render_asciidoc_paragraphs(string):
     return string.replace("\n", "\n\n")
 
 
+def render_accepted_values(field):
+    if not 'accepted_values' in field:
+        return ''
+    rows_text = ''
+    for row in ecs_helpers.list_split_by(field['accepted_values'], 4):
+        rows_text += ("{nbsp}" * 8).join(ecs_helpers.list_extract_keys(row, 'name')) + "\n"
+    return field_acceptable_value_names().format(
+        rows_text=rows_text,
+        field_flat_name=field['flat_name'],
+        field_dashed_name=field['dashed_name'],
+    )
+
+
 def render_field_details_row(field):
     example = ''
-    if 'example' in field:
+    if 'accepted_values' in field:
+        example = render_accepted_values(field)
+    elif 'example' in field:
         example = "example: `{}`".format(str(field['example']))
 
     field_type_with_mf = field['type']
@@ -232,6 +248,16 @@ type: {field_type}
 '''
 
 
+def field_acceptable_value_names():
+    return '''
+*Important*: The field value must be one of the following:
+
+{rows_text}
+To learn more about when to use which value, visit the page
+<<ecs-accepted-values-{field_dashed_name},accepted values for {field_flat_name}>>
+'''
+
+
 # Field reuse
 
 def field_reuse_section():
@@ -266,4 +292,97 @@ def nestings_row():
 
 // ===============================================================
 
+'''
+
+
+# Accepted values section
+
+
+def page_field_values(ecs_flat):
+    section_text = values_header()
+    category_fields = ['event.kind', 'event.category', 'event.type', 'event.outcome']
+    for cat_field in category_fields:
+        section_text += render_field_values_page(ecs_flat[cat_field])
+    return section_text
+
+
+def values_header():
+    return '''
+[[ecs-category-field-values-reference]]
+== {ecs} Category Field Values
+
+In ECS, certain fields are not meant to be populated by the event source, but...
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+[float]
+[[ecs-category-fields]]
+=== Category Fields
+
+* <<ecs-accepted-values-event-kind,event.kind>>
+* <<ecs-accepted-values-event-category,event.category>>
+* <<ecs-accepted-values-event-type,event.type>>
+* <<ecs-accepted-values-event-outcome,event.outcome>>
+
+'''
+
+
+def render_field_values_page(field):
+    # Page heading
+    text = field_values_page_template().format(
+        dashed_name=field['dashed_name'],
+        flat_name=field['flat_name'],
+        # description=field[''],
+    )
+    # Each accepted value
+    for value_details in field['accepted_values']:
+        if 'expected_event_types' in value_details:
+            additional_details = render_expected_event_types(value_details)
+        else:
+            additional_details = ''
+        text += field_values_template().format(
+            dashed_name=field['dashed_name'],
+            value_name=value_details['name'],
+            value_description=value_details['description'],
+            additional_details=additional_details
+        )
+    return text
+
+
+def render_expected_event_types(value_details):
+    rows_of_types = ''
+    for row in ecs_helpers.list_split_by(value_details['expected_event_types'], 4):
+        rows_of_types += ("{nbsp}" * 8).join(row) + "\n"
+    return expected_event_types_template().format(
+        category_name=value_details['name'],
+        rows_of_types=rows_of_types,
+    )
+
+
+def expected_event_types_template():
+    return '''
+*Expected event types for category {category_name}:*
+
+{rows_of_types}
+'''
+
+
+def field_values_page_template():
+    return '''
+[[ecs-accepted-values-{dashed_name}]]
+=== Accepted Values for {flat_name}
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+'''
+
+
+def field_values_template():
+    return '''
+[float]
+[[ecs-{dashed_name}-{value_name}]]
+==== {value_name}
+
+{value_description}
+
+{additional_details}
 '''
