@@ -25,6 +25,7 @@ Thanks, you're awesome :-) -->
 ### Bugfixes
 
 ### Added
+* Added related.user #693
 
 ### Improvements
 
