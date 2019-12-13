@@ -385,6 +385,11 @@ def field_values_page_template():
 
 {field_description}
 
+NOTE: *Warning*: Only allowed Categorization Field values listed in the ECS repository
+and official ECS documentation should be considered official.
+Use of any other values may result in incompatible implementations
+that will require subsequent breaking changes.
+
 *Table of Contents*
 
 '''
