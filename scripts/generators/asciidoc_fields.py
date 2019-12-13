@@ -310,13 +310,15 @@ def values_section_header():
 [[ecs-category-field-values-reference]]
 == {ecs} Category Field Values
 
-In ECS, certain fields are not meant to be populated by the event source, but...
+At a high level, ECS provides fields to capture two types of event information:
+"Where it's from" (e.g., `event.module`, `event.dataset`, `agent.type`, `observer.type`, etc.),
+and "What it is." Categorization Fields hold the "What it is" information.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+ECS defines four Categorization Fields for this purpose, each of which falls under the `event.*` field set.
 
 [float]
 [[ecs-category-fields]]
-=== Category Fields
+=== Categorization Fields
 
 * <<ecs-accepted-values-event-kind,event.kind>>
 * <<ecs-accepted-values-event-category,event.category>>
