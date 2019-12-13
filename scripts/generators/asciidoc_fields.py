@@ -74,14 +74,12 @@ def render_asciidoc_paragraphs(string):
     return string.replace("\n", "\n\n")
 
 
-def render_accepted_values(field):
+def render_field_accepted_values(field):
     if not 'accepted_values' in field:
         return ''
-    rows_text = ''
-    for row in ecs_helpers.list_split_by(field['accepted_values'], 4):
-        rows_text += ("{nbsp}" * 8).join(ecs_helpers.list_extract_keys(row, 'name')) + "\n"
+    allowed_values = ', '.join(ecs_helpers.list_extract_keys(field['accepted_values'], 'name'))
     return field_acceptable_value_names().format(
-        rows_text=rows_text,
+        allowed_values=allowed_values,
         field_flat_name=field['flat_name'],
         field_dashed_name=field['dashed_name'],
     )
@@ -90,7 +88,7 @@ def render_accepted_values(field):
 def render_field_details_row(field):
     example = ''
     if 'accepted_values' in field:
-        example = render_accepted_values(field)
+        example = render_field_accepted_values(field)
     elif 'example' in field:
         example = "example: `{}`".format(str(field['example']))
 
@@ -252,7 +250,8 @@ def field_acceptable_value_names():
     return '''
 *Important*: The field value must be one of the following:
 
-{rows_text}
+{allowed_values}
+
 To learn more about when to use which value, visit the page
 <<ecs-accepted-values-{field_dashed_name},accepted values for {field_flat_name}>>
 '''
@@ -299,14 +298,14 @@ def nestings_row():
 
 
 def page_field_values(ecs_flat):
-    section_text = values_header()
+    section_text = values_section_header()
     category_fields = ['event.kind', 'event.category', 'event.type', 'event.outcome']
     for cat_field in category_fields:
         section_text += render_field_values_page(ecs_flat[cat_field])
     return section_text
 
 
-def values_header():
+def values_section_header():
     return '''
 [[ecs-category-field-values-reference]]
 == {ecs} Category Field Values
@@ -357,12 +356,9 @@ def render_field_values_page(field):
 
 
 def render_expected_event_types(value_details):
-    rows_of_types = ''
-    for row in ecs_helpers.list_split_by(value_details['expected_event_types'], 4):
-        rows_of_types += ("{nbsp}" * 8).join(row) + "\n"
     return expected_event_types_template().format(
         category_name=value_details['name'],
-        rows_of_types=rows_of_types,
+        expected_types=', '.join(value_details['expected_event_types']),
     )
 
 
@@ -370,7 +366,7 @@ def expected_event_types_template():
     return '''
 *Expected event types for category {category_name}:*
 
-{rows_of_types}
+{expected_types}
 '''
 
 
