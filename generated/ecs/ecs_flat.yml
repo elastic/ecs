@@ -1371,7 +1371,7 @@ event.action:
   short: The action captured by the event.
   type: keyword
 event.category:
-  accepted_values:
+  allowed_values:
   - description: 'Events in this category are related to the challenge and response
       process in which credentials are supplied and verified to allow the creation
       of a session. Common sources for these logs are Windows Event logs, ssh logs,
@@ -1498,7 +1498,7 @@ event.category:
     This contains high-level information about the contents of the event. It is more
     generic than `event.action`, in the sense that typically a category contains multiple
     actions.'
-  example: user-management
+  example: authentication
   flat_name: event.category
   ignore_above: 1024
   level: core
@@ -1628,7 +1628,7 @@ event.ingested:
   short: Timestamp when an event arrived in the central data store.
   type: date
 event.kind:
-  accepted_values:
+  allowed_values:
   - description: '`event.kind:alert` indicates an event that describes an alert. Alerts
       are often associated with detection rules. `event.kind:alert` is often populated
       for events coming from firewalls, intrusion detection systems, endpoint detection
@@ -1714,7 +1714,7 @@ event.original:
   short: Raw text message of entire event.
   type: keyword
 event.outcome:
-  accepted_values:
+  allowed_values:
   - description: 'Indicates that this event describes a failed result. A common example
       is `event.category:file AND event.type:access AND event.outcome:failure` to
       indicate that a file access was attempted, but was not successful.
@@ -1845,7 +1845,7 @@ event.timezone:
   short: Event time zone.
   type: keyword
 event.type:
-  accepted_values:
+  allowed_values:
   - description: 'The access event type is used for the subset of events within a
       category that indicate that something was accessed. Common examples include
       `event.category:database AND event.type:access`, or `event.category:file AND

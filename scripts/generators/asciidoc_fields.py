@@ -74,10 +74,10 @@ def render_asciidoc_paragraphs(string):
     return string.replace("\n", "\n\n")
 
 
-def render_field_accepted_values(field):
-    if not 'accepted_values' in field:
+def render_field_allowed_values(field):
+    if not 'allowed_values' in field:
         return ''
-    allowed_values = ', '.join(ecs_helpers.list_extract_keys(field['accepted_values'], 'name'))
+    allowed_values = ', '.join(ecs_helpers.list_extract_keys(field['allowed_values'], 'name'))
     return field_acceptable_value_names().format(
         allowed_values=allowed_values,
         field_flat_name=field['flat_name'],
@@ -87,8 +87,8 @@ def render_field_accepted_values(field):
 
 def render_field_details_row(field):
     example = ''
-    if 'accepted_values' in field:
-        example = render_field_accepted_values(field)
+    if 'allowed_values' in field:
+        example = render_field_allowed_values(field)
     elif 'example' in field:
         example = "example: `{}`".format(str(field['example']))
 
@@ -253,7 +253,7 @@ def field_acceptable_value_names():
 {allowed_values}
 
 To learn more about when to use which value, visit the page
-<<ecs-accepted-values-{field_dashed_name},accepted values for {field_flat_name}>>
+<<ecs-allowed-values-{field_dashed_name},allowed values for {field_flat_name}>>
 '''
 
 
@@ -294,7 +294,7 @@ def nestings_row():
 '''
 
 
-# Accepted values section
+# Allowed values section
 
 
 def page_field_values(ecs_flat):
@@ -320,10 +320,10 @@ ECS defines four Categorization Fields for this purpose, each of which falls und
 [[ecs-category-fields]]
 === Categorization Fields
 
-* <<ecs-accepted-values-event-kind,event.kind>>
-* <<ecs-accepted-values-event-category,event.category>>
-* <<ecs-accepted-values-event-type,event.type>>
-* <<ecs-accepted-values-event-outcome,event.outcome>>
+* <<ecs-allowed-values-event-kind,event.kind>>
+* <<ecs-allowed-values-event-category,event.category>>
+* <<ecs-allowed-values-event-type,event.type>>
+* <<ecs-allowed-values-event-outcome,event.outcome>>
 
 '''
 
@@ -336,11 +336,11 @@ def render_field_values_page(field):
         field_description=render_asciidoc_paragraphs(field['description']),
     )
 
-    # Each accepted value
+    # Each allowed value
     body = ''
     toc = ''
     try:
-        for value_details in field['accepted_values']:
+        for value_details in field['allowed_values']:
             toc += "* <<ecs-{field_dashed_name}-{value_name},{value_name}>>\n".format(
                 field_dashed_name=field['dashed_name'],
                 value_name=value_details['name']
@@ -380,8 +380,8 @@ def expected_event_types_template():
 
 def field_values_page_template():
     return '''
-[[ecs-accepted-values-{dashed_name}]]
-=== Accepted Values for {flat_name}
+[[ecs-allowed-values-{dashed_name}]]
+=== Allowed Values for {flat_name}
 
 {field_description}
 
