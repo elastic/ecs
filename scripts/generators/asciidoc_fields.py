@@ -339,21 +339,27 @@ def render_field_values_page(field):
     # Each accepted value
     body = ''
     toc = ''
-    for value_details in field['accepted_values']:
-        toc += "* <<ecs-{field_dashed_name}-{value_name},{value_name}>>\n".format(
-            field_dashed_name=field['dashed_name'],
-            value_name=value_details['name']
-        )
-        if 'expected_event_types' in value_details:
-            additional_details = render_expected_event_types(value_details)
-        else:
-            additional_details = ''
-        body += field_value_template().format(
-            field_dashed_name=field['dashed_name'],
-            value_name=value_details['name'],
-            value_description=value_details['description'],
-            additional_details=additional_details
-        )
+    try:
+        for value_details in field['accepted_values']:
+            toc += "* <<ecs-{field_dashed_name}-{value_name},{value_name}>>\n".format(
+                field_dashed_name=field['dashed_name'],
+                value_name=value_details['name']
+            )
+            if 'expected_event_types' in value_details:
+                additional_details = render_expected_event_types(value_details)
+            else:
+                additional_details = ''
+            body += field_value_template().format(
+                field_dashed_name=field['dashed_name'],
+                value_name=value_details['name'],
+                value_description=value_details['description'],
+                additional_details=additional_details
+            )
+    except UnicodeEncodeError:
+        print("Problem with field {}, field value:".format(field['flat_name']))
+        # print(heading + toc + body)
+        print(value_details)
+        raise
     return heading + toc + body
 
 

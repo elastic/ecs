@@ -1586,8 +1586,11 @@ event:
       type: keyword
     category:
       accepted_values:
-      - description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-          do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      - description: 'Events in this category are related to the challenge and response
+          process in which credentials are supplied and verified to allow the creation
+          of a session. Common sources for these logs are Windows Event logs, ssh
+          logs, etc. Visualize and analyze events in this category to look for unusual
+          login activity, failed logins, etc.
 
           '
         expected_event_types:
@@ -1595,54 +1598,114 @@ event:
         - deny
         - info
         name: authentication
-      - description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-          do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-
-          '
-        name: database
-      - description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-          do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-
-          '
-        name: driver
-      - description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-          do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-
-          '
-        name: file
-      - description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-          do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-
-          '
-        name: host
-      - description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-          do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-
-          '
-        name: intrusion_detection
-      - description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-          do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-
-          '
-        name: malware
-      - description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-          do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-
-          '
-        name: package
-      - description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-          do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      - description: 'The database category denotes events and metrics relating to
+          a data storage and retrieval system. Note that use of this category is not
+          limited to relational database systems. Examples include event logs from
+          MS SQL, MySQL, Elasticsearch, MongoDB, etc. Use this category to visualize
+          and analyze database activity such as accesses and changes.
 
           '
         expected_event_types:
-        - start
+        - access
+        - change
         - info
-        - end
-        name: process
-      - description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-          do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        - error
+        name: database
+      - description: 'Having to do operating system device drivers and similar software
+          entities such as Windows drivers, kernel extensions, kernel modules, etc.
+          Use events and metrics in this category to visualize and analyze driver-related
+          activity and status on hosts.
 
           '
+        expected_event_types:
+        - change
+        - end
+        - info
+        - start
+        name: driver
+      - description: 'Relating to a set of information that has been created on, or
+          has existed on a filesystem. Use this category of events to visualize and
+          analyze the creation, access, permissions, transfers, and deletions of files.
+          Events in this category can come from both host-based and network-based
+          sources. An example source of a network-based detection of a file transfer
+          would be the Zeek file.log.
+
+          '
+        expected_event_types:
+        - change
+        - creation
+        - deletion
+        - info
+        name: file
+      - description: 'Events and metrics about hosts. Usually higher-level information
+          about host activity from an external perspective. Different than operating
+          system in the sense that events are usually externally visible and independent
+          from the OS. "host" events are not meant to capture events that are simply
+          "happening on a host". Use this category to visualize and analyze inventories
+          of hosts, starting and ending of hosts, etc.
+
+          '
+        expected_event_types:
+        - access
+        - change
+        - end
+        - info
+        - start
+        name: host
+      - description: 'Relating to intrusion detections from IDS/IPS systems and functions,
+          both network and host-based. Use this category to visualize and analyze
+          intrusion detection alerts from systems such as Snort, Suricata, and Palo
+          Alto threat detections.
+
+          '
+        expected_event_types:
+        - info
+        name: intrusion_detection
+      - description: 'Malware detection events and alerts. Use this category to visualize
+          and analyze malware detections from EDR/EPP systems such as Elastic Endpoint
+          Security, Symantec Endpoint Protection, Crowdstrike, and network IDS/IPS
+          systems and functions such as Palo Alto Networks threat and Wildfire logs.
+
+          '
+        expected_event_types:
+        - info
+        name: malware
+      - description: 'Relating to software packages installed on hosts. Use this category
+          to visualize and analyze inventory of software installed on various hosts,
+          or to determine host vulnerability in the absence of vulnerability scan
+          data.
+
+          '
+        expected_event_types:
+        - access
+        - change
+        - deletion
+        - info
+        - installation
+        - start
+        name: package
+      - description: 'Relating to the operation of software processes executing within
+          operating systems on hosts. Use this category of events to visualize and
+          analyze process starts, process parents, process relationships, etc.
+
+          '
+        expected_event_types:
+        - access
+        - change
+        - end
+        - info
+        - start
+        name: process
+      - description: 'Relating to web server access. Use this category to create a
+          dashboard of web server/proxy activity from apache, IIS, nginx web servers,
+          etc. Note: events from network observers such as Zeek http log may also
+          be included in this category.
+
+          '
+        expected_event_types:
+        - access
+        - error
+        - info
         name: web
       dashed_name: event-category
       description: 'Event category.
@@ -1782,33 +1845,43 @@ event:
       type: date
     kind:
       accepted_values:
-      - description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-          do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      - description: '`event.kind:alert` indicates an event that describes an alert.
+          Alerts are often associated with detection rules. `event.kind:alert` is
+          often populated for events coming from firewalls, intrusion detection systems,
+          endpoint detection and response systems, etc. It is used to indicate that
+          an alert was triggered.
 
           '
         name: alert
-      - description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-          do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      - description: 'It may sound a bit redundant, but `event.kind:event` is the
+          most general and most common value of this field. It is used to represent
+          events that indicate that something happened.
 
           '
         name: event
-      - description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-          do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      - description: 'Used to indicate that this event is a measurement taken at given
+          point in time. Examples include CPU utilization, memory usage, or a vulnerability
+          scan result. Events with `event.kind:metric` indicate that a measurement
+          was taken.
 
           '
         name: metric
-      - description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-          do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      - description: 'Similar to metric, except that the entity being measured does
+          not provide a numeric metric value, but rather one of a fixed set of conditions
+          or states. For example a periodic event reporting a "fin_wait" state of
+          a TCP connection on a host might use `event.type:state`.
 
           '
         name: state
-      - description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-          do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      - description: 'This value indicates that an error occurred during the ingestion
+          of this event, and that event data may be missing, inconsistent, or incorrect.
+          `event.kind:pipeline_error` is often associated with parsing errors.
 
           '
         name: pipeline_error
-      - description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-          do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      - description: 'The signal value is used by Elastic Kibana apps, such as SIEM,
+          for app-specific purposes. `event.kind:signal` is thus reserved and should
+          not be used for the ingestion of events into Elasticsearch.
 
           '
         name: signal
@@ -1859,21 +1932,25 @@ event:
       type: keyword
     outcome:
       accepted_values:
-      - description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-          do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      - description: 'Indicates that this event describes a failed result. A common
+          example is `event.category:file AND event.type:access AND event.outcome:failure`
+          to indicate that a file access was attempted, but was not successful.
 
           '
         name: failure
-      - description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-          do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-
-          '
-        name: unknown
-      - description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-          do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      - description: 'Indicates that this event describes a successful result.  A
+          common example is `event.category:file AND event.type:create AND event.outcome:success`
+          to indicate that a file was successfully created.
 
           '
         name: success
+      - description: 'Indicates that this event describes only an attempt for which
+          the result is unknown. For example, if the event contains information only
+          about a request in an entity transaction that usually results in a response,
+          populating `event.outcome:unknown` is appropriate.
+
+          '
+        name: unknown
       dashed_name: event-outcome
       description: 'The outcome of the event.
 
@@ -1988,68 +2065,107 @@ event:
       type: keyword
     type:
       accepted_values:
-      - description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-          do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      - description: 'The access event type is used for the subset of events within
+          a category that indicate that something was accessed. Common examples include
+          `event.category:database AND event.type:access`, or `event.category:file
+          AND event.type:access`. Note for file access, include both directory listings
+          and file opens in this subcategory. You can further distinguish access operations
+          using the ECS `event.action` field.
 
           '
         name: access
-      - description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-          do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      - description: 'The allow event type is used for the subset of events within
+          a category that indicate that something was allowed. Common examples include
+          `event.category:network AND event.type:allow` to indicate a network firewall
+          event for which the firewall disposition was to allow the connection to
+          complete. `event.category:network_flow AND event.type:allow` to indicate
+          a network flow event that is also a network firewall event for which the
+          firewall disposition was to allow the connection to complete.
 
           '
         name: allowed
-      - description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-          do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-
-          '
-        name: audit
-      - description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-          do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      - description: 'The change event type is used for the subset of events within
+          a category that indicate that something has changed. If semantics best describe
+          an event as modified, then include them in this subcategory. Common examples
+          include `event.category:registry AND event.type:change`, and `event.category:file
+          AND event.type:change`. You can further distinguish change operations using
+          the ECS `event.action` field.
 
           '
         name: change
-      - description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-          do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      - description: 'The create event type is used for the subset of events within
+          a category that indicate that something was created. A common example is
+          `event.category:file AND event.type:create`.
 
           '
         name: creation
-      - description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-          do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      - description: 'The delete event type is used for the subset of events within
+          a category that indicate that something was deleted. Common examples include
+          `event.category:file AND event.type:delete`, and `event.category:iam_user
+          AND event.type:delete`, to indicate that a user has been deleted from an
+          Identity and Access Management system.
 
           '
         name: deletion
-      - description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-          do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      - description: 'The deny event type is used for the subset of events within
+          a category that indicate that something was disallowed, blocked or denied.
+          Common examples include `event.category:network AND event.type:deny` to
+          indicate a network firewall event for which the firewall disposition was
+          to deny the connection to complete. `event.category:network_flow AND event.type:deny`
+          to indicate a network flow event that is also a network firewall event for
+          which the firewall disposition was to deny the connection to complete. Note
+          that the `event.action` field can be used to further describe the deny action
+          with user-supplied values such as "drop", "reject", "block", "redirect",
+          etc.
 
           '
         name: denied
-      - description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-          do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      - description: 'The end event type is used for the subset of events within a
+          category that indicate something has ended. Common examples include `event.category:process
+          AND event.type:end`, and `event.category:network_flow AND event.type:end`
+          to indicate a flow record event that is sent at the completion of the network
+          flow.
 
           '
         name: end
-      - description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-          do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      - description: 'The error event type is used for the subset of events within
+          a category that indicate or describe an error. Common examples include `event.category:application
+          AND event.type:error` and `event.category:database AND event.type:error`.
+          Note that pipeline errors that occur during the event ingestion process
+          should not use this `event.type` value. Instead, they should use the `event.kind:pipeline_error`.
 
           '
         name: error
-      - description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-          do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      - description: 'The info event type is used for the subset of events within
+          a category that indicate that they are purely informational, and don''t
+          report a state change, action. For example, an initial run of a file integrity
+          monitoring system (FIM) where an agent reports all files under management
+          would fall into the "info" subcategory. Similarly, a dump of all current
+          running processes (as opposed to reporting that process start/end) would
+          fall into the "info" subcategory. Additional common examples include `event.category:registry
+          AND event.type:info`, and `event.category:intrusion_detection AND event.type:info`.
 
           '
         name: info
-      - description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-          do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      - description: 'The install event type is used for the subset of events within
+          a category that indicate that something was installed. A common example
+          is `event.category:package` AND `event.type:install`.
 
           '
         name: installation
-      - description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-          do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      - description: 'The protocol event type is used for the subset of events within
+          a category that indicate that they contain protocol details or analysis.
+          Generally, network traffic and network flows that contain protocol details
+          will fall into this subcategory. Common examples include `event.category:network
+          AND event.type:protocol`, and `event.category:network_flow AND event.type:protocol`.
+          Note for when the protocol subcategory is used, you can further distinguish
+          protocols using the ECS `network.protocol` field.
 
           '
         name: protocol
-      - description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-          do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      - description: 'The start event type is used for the subset of events within
+          a category that indicate something has started. A common example is `event.category:process
+          AND event.type:start`.
 
           '
         name: start
