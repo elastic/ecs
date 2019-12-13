@@ -333,7 +333,7 @@ def render_field_values_page(field):
     heading = field_values_page_template().format(
         dashed_name=field['dashed_name'],
         flat_name=field['flat_name'],
-        # description=field[''],
+        field_description=render_asciidoc_paragraphs(field['description']),
     )
 
     # Each accepted value
@@ -377,7 +377,7 @@ def field_values_page_template():
 [[ecs-accepted-values-{dashed_name}]]
 === Accepted Values for {flat_name}
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+{field_description}
 
 *Table of Contents*
 
