@@ -105,8 +105,8 @@
             Visualize and analyze events in this category to look for unusual login activity,
             failed logins, etc.
           expected_event_types:
-            - allow
-            - deny
+            - start
+            - end
             - info
         - name: database
           description: >
@@ -148,7 +148,7 @@
             Events and metrics about hosts. Usually higher-level information about host
             activity from an external perspective. Different than operating system
             in the sense that host events are usually externally visible and independent from the OS.
-            `event.category:host` is not meant to indicate events that are simply
+            Note that `event.category:host` is not meant to indicate events that are simply
             "happening on a host". Use this category to visualize and analyze inventories
             of hosts, starting and ending of hosts, etc.
           expected_event_types:
@@ -280,9 +280,9 @@
             You can further distinguish change operations using the ECS `event.action` field.
         - name: creation
           description: >
-            The create event type is used for the subset of events within a category
+            The "creation" event type is used for the subset of events within a category
             that indicate that something was created.
-            A common example is `event.category:file AND event.type:create`.
+            A common example is `event.category:file AND event.type:creation`.
         - name: deletion
           description: >
             The deletion event type is used for the subset of events within a category
@@ -316,7 +316,7 @@
           description: >
             The installation event type is used for the subset of events within a category
             that indicate that something was installed.
-            A common example is `event.category:package` AND `event.type:installed`.
+            A common example is `event.category:package` AND `event.type:installation`.
         - name: start
           description: >
             The start event type is used for the subset of events within a category

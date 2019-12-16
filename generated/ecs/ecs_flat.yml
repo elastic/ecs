@@ -1380,8 +1380,8 @@ event.category:
 
       '
     expected_event_types:
-    - allow
-    - deny
+    - start
+    - end
     - info
     name: authentication
   - description: 'The database category denotes events and metrics relating to a data
@@ -1425,9 +1425,9 @@ event.category:
   - description: 'Events and metrics about hosts. Usually higher-level information
       about host activity from an external perspective. Different than operating system
       in the sense that host events are usually externally visible and independent
-      from the OS. `event.category:host` is not meant to indicate events that are
-      simply "happening on a host". Use this category to visualize and analyze inventories
-      of hosts, starting and ending of hosts, etc.
+      from the OS. Note that `event.category:host` is not meant to indicate events
+      that are simply "happening on a host". Use this category to visualize and analyze
+      inventories of hosts, starting and ending of hosts, etc.
 
       '
     expected_event_types:
@@ -1868,9 +1868,9 @@ event.type:
 
       '
     name: change
-  - description: 'The create event type is used for the subset of events within a
-      category that indicate that something was created. A common example is `event.category:file
-      AND event.type:create`.
+  - description: 'The "creation" event type is used for the subset of events within
+      a category that indicate that something was created. A common example is `event.category:file
+      AND event.type:creation`.
 
       '
     name: creation
@@ -1907,7 +1907,7 @@ event.type:
     name: info
   - description: 'The installation event type is used for the subset of events within
       a category that indicate that something was installed. A common example is `event.category:package`
-      AND `event.type:installed`.
+      AND `event.type:installation`.
 
       '
     name: installation
