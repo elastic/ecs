@@ -308,7 +308,14 @@ def page_field_values(ecs_flat):
 def values_section_header():
     return '''
 [[ecs-category-field-values-reference]]
-== {ecs} Category Field Values
+== {ecs} Categorization Fields
+
+WARNING: This section of ECS is in beta and is subject to change. These allowed values
+are still under active development. Additional values will be published gradually,
+and some of the values or relationships described here may change.
+Users who want to provide feedback, or who want to have a look at
+upcoming allowed values can visit this public feedback document
+https://ela.st/ecs-categories-draft.
 
 At a high level, ECS provides fields to capture two types of event information:
 "Where it's from" (e.g., `event.module`, `event.dataset`, `agent.type`, `observer.type`, etc.),
