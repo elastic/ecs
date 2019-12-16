@@ -357,7 +357,6 @@ def render_field_values_page(field):
             )
     except UnicodeEncodeError:
         print("Problem with field {}, field value:".format(field['flat_name']))
-        # print(heading + toc + body)
         print(value_details)
         raise
     return heading + toc + body
