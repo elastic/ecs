@@ -21,9 +21,9 @@ ECS defines four Categorization Fields for this purpose, each of which falls und
 [[ecs-allowed-values-event-kind]]
 === Allowed Values for event.kind
 
-The kind of the event.
+This is one of four ECS Categorization Fields, and indicates the highest level in the ECS category hierarchy.
 
-This gives information about what type of information the event contains, without being specific to the contents of the event.
+`event.kind` gives high-level information about what type of information the event contains, without being specific to the contents of the event. For example, values of this field distinguish alert events from metric events.
 
 NOTE: *Warning*: Only allowed Categorization Field values listed in the ECS repository
 and official ECS documentation should be considered official.
@@ -52,7 +52,7 @@ that will require subsequent breaking changes.
 [[ecs-event-kind-event]]
 ==== event
 
-It may sound a bit redundant, but `event.kind:event` is the most general and most common value of this field. It is used to represent events that indicate that something happened.
+`event.kind:event` is the most general and most common value of this field. It is used to represent events that indicate that something happened.
 
 
 
@@ -70,7 +70,7 @@ Used to indicate that this event is a measurement taken at given point in time. 
 [[ecs-event-kind-state]]
 ==== state
 
-Similar to metric, except that the entity being measured does not provide a numeric metric value, but rather one of a fixed set of conditions or states. For example a periodic event reporting a "fin_wait" state of a TCP connection on a host might use `event.type:state`.
+This value is similar to metric, except that the entity being measured does not provide a numeric metric value, but rather one of a fixed set of conditions or states. For example a periodic event reporting a "fin_wait" state of a TCP connection on a host might use `event.type:state`.
 
 
 
@@ -96,9 +96,9 @@ The signal value is used by Elastic Kibana apps, such as SIEM, for app-specific 
 [[ecs-allowed-values-event-category]]
 === Allowed Values for event.category
 
-Event category.
+This is one of four ECS Categorization Fields, and indicates the second level in the ECS category hierarchy.
 
-This contains high-level information about the contents of the event. It is more generic than `event.action`, in the sense that typically a category contains multiple actions.
+`event.category` represents the "big buckets" of ECS categories. For example, filtering on `event.category:process` yields all events relating to process activity. This field is closely related to `event.type`, which is used as a subcategory.
 
 NOTE: *Warning*: Only allowed Categorization Field values listed in the ECS repository
 and official ECS documentation should be considered official.
@@ -122,7 +122,7 @@ that will require subsequent breaking changes.
 [[ecs-event-category-authentication]]
 ==== authentication
 
-Events in this category are related to the challenge and response process in which credentials are supplied and verified to allow the creation of a session. Common sources for these logs are Windows Event logs, ssh logs, etc. Visualize and analyze events in this category to look for unusual login activity, failed logins, etc.
+Events in this category are related to the challenge and response process in which credentials are supplied and verified to allow the creation of a session. Common sources for these logs are Windows event logs, ssh logs, etc. Visualize and analyze events in this category to look for unusual login activity, failed logins, etc.
 
 
 
@@ -161,7 +161,7 @@ change, end, info, start
 [[ecs-event-category-file]]
 ==== file
 
-Relating to a set of information that has been created on, or has existed on a filesystem. Use this category of events to visualize and analyze the creation, access, permissions, transfers, and deletions of files. Events in this category can come from both host-based and network-based sources. An example source of a network-based detection of a file transfer would be the Zeek file.log.
+Relating to a set of information that has been created on, or has existed on a filesystem. Use this category of events to visualize and analyze the creation, access, and deletions of files. Events in this category can come from both host-based and network-based sources. An example source of a network-based detection of a file transfer would be the Zeek file.log.
 
 
 
@@ -174,7 +174,7 @@ change, creation, deletion, info
 [[ecs-event-category-host]]
 ==== host
 
-Events and metrics about hosts. Usually higher-level information about host activity from an external perspective. Different than operating system in the sense that events are usually externally visible and independent from the OS. "host" events are not meant to capture events that are simply "happening on a host". Use this category to visualize and analyze inventories of hosts, starting and ending of hosts, etc.
+Events and metrics about hosts. Usually higher-level information about host activity from an external perspective. Different than operating system in the sense that host events are usually externally visible and independent from the OS. `event.category:host` is not meant to indicate events that are simply "happening on a host". Use this category to visualize and analyze inventories of hosts, starting and ending of hosts, etc.
 
 
 
@@ -251,7 +251,9 @@ access, error, info
 [[ecs-allowed-values-event-type]]
 === Allowed Values for event.type
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+This is one of four ECS Categorization Fields, and indicates the third level in the ECS category hierarchy.
+
+`event.type` represents a categorization "sub-bucket" that, when used along with the `event.category` field values, enables filtering events down to a level appropriate for single visualization.
 
 NOTE: *Warning*: Only allowed Categorization Field values listed in the ECS repository
 and official ECS documentation should be considered official.
@@ -261,32 +263,20 @@ that will require subsequent breaking changes.
 *Table of Contents*
 
 * <<ecs-event-type-access,access>>
-* <<ecs-event-type-allowed,allowed>>
 * <<ecs-event-type-change,change>>
 * <<ecs-event-type-creation,creation>>
 * <<ecs-event-type-deletion,deletion>>
-* <<ecs-event-type-denied,denied>>
 * <<ecs-event-type-end,end>>
 * <<ecs-event-type-error,error>>
 * <<ecs-event-type-info,info>>
 * <<ecs-event-type-installation,installation>>
-* <<ecs-event-type-protocol,protocol>>
 * <<ecs-event-type-start,start>>
 
 [float]
 [[ecs-event-type-access]]
 ==== access
 
-The access event type is used for the subset of events within a category that indicate that something was accessed. Common examples include `event.category:database AND event.type:access`, or `event.category:file AND event.type:access`. Note for file access, include both directory listings and file opens in this subcategory. You can further distinguish access operations using the ECS `event.action` field.
-
-
-
-
-[float]
-[[ecs-event-type-allowed]]
-==== allowed
-
-The allow event type is used for the subset of events within a category that indicate that something was allowed. Common examples include `event.category:network AND event.type:allow` to indicate a network firewall event for which the firewall disposition was to allow the connection to complete. `event.category:network_flow AND event.type:allow` to indicate a network flow event that is also a network firewall event for which the firewall disposition was to allow the connection to complete.
+The access event type is used for the subset of events within a category that indicate that something was accessed. Common examples include `event.category:database AND event.type:access`, or `event.category:file AND event.type:access`. Note for file access, both directory listings and file opens should be included in this subcategory. You can further distinguish access operations using the ECS `event.action` field.
 
 
 
@@ -295,7 +285,7 @@ The allow event type is used for the subset of events within a category that ind
 [[ecs-event-type-change]]
 ==== change
 
-The change event type is used for the subset of events within a category that indicate that something has changed. If semantics best describe an event as modified, then include them in this subcategory. Common examples include `event.category:registry AND event.type:change`, and `event.category:file AND event.type:change`. You can further distinguish change operations using the ECS `event.action` field.
+The change event type is used for the subset of events within a category that indicate that something has changed. If semantics best describe an event as modified, then include them in this subcategory. Common examples include `event.category:process AND event.type:change`, and `event.category:file AND event.type:change`. You can further distinguish change operations using the ECS `event.action` field.
 
 
 
@@ -313,16 +303,7 @@ The create event type is used for the subset of events within a category that in
 [[ecs-event-type-deletion]]
 ==== deletion
 
-The delete event type is used for the subset of events within a category that indicate that something was deleted. Common examples include `event.category:file AND event.type:delete`, and `event.category:iam_user AND event.type:delete`, to indicate that a user has been deleted from an Identity and Access Management system.
-
-
-
-
-[float]
-[[ecs-event-type-denied]]
-==== denied
-
-The deny event type is used for the subset of events within a category that indicate that something was disallowed, blocked or denied. Common examples include `event.category:network AND event.type:deny` to indicate a network firewall event for which the firewall disposition was to deny the connection to complete. `event.category:network_flow AND event.type:deny` to indicate a network flow event that is also a network firewall event for which the firewall disposition was to deny the connection to complete. Note that the `event.action` field can be used to further describe the deny action with user-supplied values such as "drop", "reject", "block", "redirect", etc.
+The deletion event type is used for the subset of events within a category that indicate that something was deleted. A common example is `event.category:file AND event.type:deletion` to indicate that a file has been deleted.
 
 
 
@@ -331,7 +312,7 @@ The deny event type is used for the subset of events within a category that indi
 [[ecs-event-type-end]]
 ==== end
 
-The end event type is used for the subset of events within a category that indicate something has ended. Common examples include `event.category:process AND event.type:end`, and `event.category:network_flow AND event.type:end` to indicate a flow record event that is sent at the completion of the network flow.
+The end event type is used for the subset of events within a category that indicate something has ended. A common example is `event.category:process AND event.type:end`.
 
 
 
@@ -340,7 +321,7 @@ The end event type is used for the subset of events within a category that indic
 [[ecs-event-type-error]]
 ==== error
 
-The error event type is used for the subset of events within a category that indicate or describe an error. Common examples include `event.category:application AND event.type:error` and `event.category:database AND event.type:error`. Note that pipeline errors that occur during the event ingestion process should not use this `event.type` value. Instead, they should use the `event.kind:pipeline_error`.
+The error event type is used for the subset of events within a category that indicate or describe an error. A common example is `event.category:database AND event.type:error`. Note that pipeline errors that occur during the event ingestion process should not use this `event.type` value. Instead, they should use `event.kind:pipeline_error`.
 
 
 
@@ -349,7 +330,7 @@ The error event type is used for the subset of events within a category that ind
 [[ecs-event-type-info]]
 ==== info
 
-The info event type is used for the subset of events within a category that indicate that they are purely informational, and don't report a state change, action. For example, an initial run of a file integrity monitoring system (FIM) where an agent reports all files under management would fall into the "info" subcategory. Similarly, a dump of all current running processes (as opposed to reporting that process start/end) would fall into the "info" subcategory. Additional common examples include `event.category:registry AND event.type:info`, and `event.category:intrusion_detection AND event.type:info`.
+The info event type is used for the subset of events within a category that indicate that they are purely informational, and don't report a state change, or any type of action. For example, an initial run of a file integrity monitoring system (FIM), where an agent reports all files under management, would fall into the "info" subcategory. Similarly, an event containing a dump of all currently running processes (as opposed to reporting that a process started/ended) would fall into the "info" subcategory. An additional common examples is `event.category:intrusion_detection AND event.type:info`.
 
 
 
@@ -358,16 +339,7 @@ The info event type is used for the subset of events within a category that indi
 [[ecs-event-type-installation]]
 ==== installation
 
-The install event type is used for the subset of events within a category that indicate that something was installed. A common example is `event.category:package` AND `event.type:install`.
-
-
-
-
-[float]
-[[ecs-event-type-protocol]]
-==== protocol
-
-The protocol event type is used for the subset of events within a category that indicate that they contain protocol details or analysis. Generally, network traffic and network flows that contain protocol details will fall into this subcategory. Common examples include `event.category:network AND event.type:protocol`, and `event.category:network_flow AND event.type:protocol`. Note for when the protocol subcategory is used, you can further distinguish protocols using the ECS `network.protocol` field.
+The installation event type is used for the subset of events within a category that indicate that something was installed. A common example is `event.category:package` AND `event.type:installed`.
 
 
 
@@ -384,9 +356,9 @@ The start event type is used for the subset of events within a category that ind
 [[ecs-allowed-values-event-outcome]]
 === Allowed Values for event.outcome
 
-The outcome of the event.
+This is one of four ECS Categorization Fields, and indicates the lowest level in the ECS category hierarchy.
 
-If the event describes an action, this fields contains the outcome of that action.
+`event.outcome` simply denotes whether the event represent a success or a failure. Note that not all events will have an associated outcome. For example, this field is generally not populated for metric events or events with `event.type:info`.
 
 NOTE: *Warning*: Only allowed Categorization Field values listed in the ECS repository
 and official ECS documentation should be considered official.

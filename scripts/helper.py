@@ -77,14 +77,19 @@ def clean_fields(fields, prefix, group):
 def clean_string_field(field, key):
     """Cleans a string field and creates an empty string for the field in case it does not exist
     """
-    if key in field.keys():
-        # Remove all spaces and newlines from beginning and end
-        field[key] = str(field[key]).strip()
-    else:
-        field[key] = ""
+    try:
+        if key in field.keys():
+            # Remove all spaces and newlines from beginning and end
+            field[key] = str(field[key]).strip()
+        else:
+            field[key] = ""
 
-    if "index" in field and field["index"] == False:
-        field["type"] = "(not indexed)"
+        if "index" in field and field["index"] == False:
+            field["type"] = "(not indexed)"
+    except UnicodeEncodeError:
+        # print("Problem with field {}, field details:".format(field[key]))
+        print(field)
+        raise
 
 
 def get_markdown_row(field, link, multi_field):

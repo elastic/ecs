@@ -945,11 +945,13 @@
       level: core
       type: keyword
       ignore_above: 1024
-      description: 'Event category.
+      description: 'This is one of four ECS Categorization Fields, and indicates the
+        second level in the ECS category hierarchy.
 
-        This contains high-level information about the contents of the event. It is
-        more generic than `event.action`, in the sense that typically a category contains
-        multiple actions.'
+        `event.category` represents the "big buckets" of ECS categories. For example,
+        filtering on `event.category:process` yields all events relating to process
+        activity. This field is closely related to `event.type`, which is used as
+        a subcategory.'
       example: authentication
     - name: code
       level: extended
@@ -1032,14 +1034,16 @@
         look like this: `@timestamp` < `event.created` < `event.ingested`.'
       example: 2016-05-23 08:05:35.101000
     - name: kind
-      level: extended
+      level: core
       type: keyword
       ignore_above: 1024
-      description: 'The kind of the event.
+      description: 'This is one of four ECS Categorization Fields, and indicates the
+        highest level in the ECS category hierarchy.
 
-        This gives information about what type of information the event contains,
-        without being specific to the contents of the event.'
-      example: event
+        `event.kind` gives high-level information about what type of information the
+        event contains, without being specific to the contents of the event. For example,
+        values of this field distinguish alert events from metric events.'
+      example: alert
     - name: module
       level: core
       type: keyword
@@ -1061,13 +1065,15 @@
       example: Sep 19 08:26:10 host CEF:0&#124;Security&#124; threatmanager&#124;1.0&#124;100&#124;
         worm successfully stopped&#124;10&#124;src=10.0.0.1 dst=2.1.2.2spt=1232
     - name: outcome
-      level: extended
+      level: core
       type: keyword
       ignore_above: 1024
-      description: 'The outcome of the event.
+      description: 'This is one of four ECS Categorization Fields, and indicates the
+        lowest level in the ECS category hierarchy.
 
-        If the event describes an action, this fields contains the outcome of that
-        action.'
+        `event.outcome` simply denotes whether the event represent a success or a
+        failure. Note that not all events will have an associated outcome. For example,
+        this field is generally not populated for metric events or events with `event.type:info`.'
       example: success
     - name: provider
       level: extended
@@ -1135,8 +1141,12 @@
       level: core
       type: keyword
       ignore_above: 1024
-      description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-        eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      description: 'This is one of four ECS Categorization Fields, and indicates the
+        third level in the ECS category hierarchy.
+
+        `event.type` represents a categorization "sub-bucket" that, when used along
+        with the `event.category` field values, enables filtering events down to a
+        level appropriate for single visualization.'
   - name: file
     title: File
     group: 2
