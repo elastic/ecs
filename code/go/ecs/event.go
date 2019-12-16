@@ -57,6 +57,8 @@ type Event struct {
 	// example, filtering on `event.category:process` yields all events
 	// relating to process activity. This field is closely related to
 	// `event.type`, which is used as a subcategory.
+	// This field is an array. This will allow proper categorization of some
+	// events that fall in multiple categories.
 	Category string `ecs:"category"`
 
 	// The action captured by the event.
@@ -78,6 +80,8 @@ type Event struct {
 	// `event.type` represents a categorization "sub-bucket" that, when used
 	// along with the `event.category` field values, enables filtering events
 	// down to a level appropriate for single visualization.
+	// This field is an array. This will allow proper categorization of some
+	// events that fall in multiple event types.
 	Type string `ecs:"type"`
 
 	// Name of the module this data is coming from.

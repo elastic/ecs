@@ -95,6 +95,9 @@
         `event.category` represents the "big buckets" of ECS categories. For example,
         filtering on `event.category:process` yields all events relating to process activity.
         This field is closely related to `event.type`, which is used as a subcategory.
+
+        This field is an array. This will allow proper categorization of some events
+        that fall in multiple categories.
       example: authentication
       allowed_values:
         - name: authentication
@@ -260,6 +263,9 @@
         `event.type` represents a categorization "sub-bucket" that, when used along with
         the `event.category` field values, enables filtering events down to a level
         appropriate for single visualization.
+
+        This field is an array. This will allow proper categorization of some events
+        that fall in multiple event types.
       allowed_values:
         - name: access
           description: >

@@ -951,7 +951,10 @@
         `event.category` represents the "big buckets" of ECS categories. For example,
         filtering on `event.category:process` yields all events relating to process
         activity. This field is closely related to `event.type`, which is used as
-        a subcategory.'
+        a subcategory.
+
+        This field is an array. This will allow proper categorization of some events
+        that fall in multiple categories.'
       example: authentication
     - name: code
       level: extended
@@ -1146,7 +1149,10 @@
 
         `event.type` represents a categorization "sub-bucket" that, when used along
         with the `event.category` field values, enables filtering events down to a
-        level appropriate for single visualization.'
+        level appropriate for single visualization.
+
+        This field is an array. This will allow proper categorization of some events
+        that fall in multiple event types.'
   - name: file
     title: File
     group: 2
