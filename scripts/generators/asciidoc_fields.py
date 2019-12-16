@@ -396,7 +396,7 @@ and official ECS documentation should be considered official.
 Use of any other values may result in incompatible implementations
 that will require subsequent breaking changes.
 
-*Table of Contents*
+*Allowed Values*
 
 '''
 
