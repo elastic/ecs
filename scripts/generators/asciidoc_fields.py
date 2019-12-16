@@ -359,7 +359,7 @@ def render_field_values_page(field):
             body += field_value_template().format(
                 field_dashed_name=field['dashed_name'],
                 value_name=value_details['name'],
-                value_description=value_details['description'],
+                value_description=render_asciidoc_paragraphs(value_details['description']),
                 additional_details=additional_details
             )
     except UnicodeEncodeError:
@@ -387,7 +387,7 @@ def expected_event_types_template():
 def field_values_page_template():
     return '''
 [[ecs-allowed-values-{dashed_name}]]
-=== Allowed Values for {flat_name}
+=== ECS Categorization Field: {flat_name}
 
 {field_description}
 
