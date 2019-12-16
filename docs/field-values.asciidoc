@@ -26,7 +26,7 @@ ECS defines four Categorization Fields for this purpose, each of which falls und
 
 
 [[ecs-allowed-values-event-kind]]
-=== Allowed Values for event.kind
+=== ECS Categorization Field: event.kind
 
 This is one of four ECS Categorization Fields, and indicates the highest level in the ECS category hierarchy.
 
@@ -55,11 +55,13 @@ This value indicates an event that describes an alert, triggered by a detection 
 
 
 
+
 [float]
 [[ecs-event-kind-event]]
 ==== event
 
 This value is the most general and most common value of this field. It is used to represent events that indicate that something happened.
+
 
 
 
@@ -73,11 +75,13 @@ This value is used to indicate that this event is a numeric measurement was take
 
 
 
+
 [float]
 [[ecs-event-kind-state]]
 ==== state
 
 This value is similar to metric, except that the entity being measured does not provide a numeric metric value, but rather one of a fixed set of conditions or states. For example a periodic event reporting a "fin_wait" state of a TCP connection on a host might use `event.type:state`.
+
 
 
 
@@ -91,17 +95,21 @@ This value indicates that an error occurred during the ingestion of this event, 
 
 
 
+
 [float]
 [[ecs-event-kind-signal]]
 ==== signal
 
-The signal value is used by Elastic Kibana apps, such as SIEM, for app-specific purposes. `event.kind:signal` is thus reserved and should not be used for the ingestion of events into Elasticsearch.
+This value is used by the Elastic SIEM app to denote an Elasticsearch document that was created by a SIEM detection engine rule.
+
+Usage of this value is reserved, and pipelines should not populate `event.kind` with the value "signal".
+
 
 
 
 
 [[ecs-allowed-values-event-category]]
-=== Allowed Values for event.category
+=== ECS Categorization Field: event.category
 
 This is one of four ECS Categorization Fields, and indicates the second level in the ECS category hierarchy.
 
@@ -135,6 +143,7 @@ Events in this category are related to the challenge and response process in whi
 
 
 
+
 *Expected event types for category authentication:*
 
 start, end, info
@@ -145,6 +154,7 @@ start, end, info
 ==== database
 
 The database category denotes events and metrics relating to a data storage and retrieval system. Note that use of this category is not limited to relational database systems. Examples include event logs from MS SQL, MySQL, Elasticsearch, MongoDB, etc. Use this category to visualize and analyze database activity such as accesses and changes.
+
 
 
 
@@ -161,6 +171,7 @@ Having to do operating system device drivers and similar software entities such 
 
 
 
+
 *Expected event types for category driver:*
 
 change, end, info, start
@@ -171,6 +182,7 @@ change, end, info, start
 ==== file
 
 Relating to a set of information that has been created on, or has existed on a filesystem. Use this category of events to visualize and analyze the creation, access, and deletions of files. Events in this category can come from both host-based and network-based sources. An example source of a network-based detection of a file transfer would be the Zeek file.log.
+
 
 
 
@@ -187,6 +199,7 @@ Events and metrics about hosts. Usually higher-level information about host acti
 
 
 
+
 *Expected event types for category host:*
 
 access, change, end, info, start
@@ -197,6 +210,7 @@ access, change, end, info, start
 ==== intrusion_detection
 
 Relating to intrusion detections from IDS/IPS systems and functions, both network and host-based. Use this category to visualize and analyze intrusion detection alerts from systems such as Snort, Suricata, and Palo Alto threat detections.
+
 
 
 
@@ -213,6 +227,7 @@ Malware detection events and alerts. Use this category to visualize and analyze 
 
 
 
+
 *Expected event types for category malware:*
 
 info
@@ -223,6 +238,7 @@ info
 ==== package
 
 Relating to software packages installed on hosts. Use this category to visualize and analyze inventory of software installed on various hosts, or to determine host vulnerability in the absence of vulnerability scan data.
+
 
 
 
@@ -239,6 +255,7 @@ Relating to the operation of software processes executing within operating syste
 
 
 
+
 *Expected event types for category process:*
 
 access, change, end, info, start
@@ -252,13 +269,14 @@ Relating to web server access. Use this category to create a dashboard of web se
 
 
 
+
 *Expected event types for category web:*
 
 access, error, info
 
 
 [[ecs-allowed-values-event-type]]
-=== Allowed Values for event.type
+=== ECS Categorization Field: event.type
 
 This is one of four ECS Categorization Fields, and indicates the third level in the ECS category hierarchy.
 
@@ -292,11 +310,13 @@ The access event type is used for the subset of events within a category that in
 
 
 
+
 [float]
 [[ecs-event-type-change]]
 ==== change
 
 The change event type is used for the subset of events within a category that indicate that something has changed. If semantics best describe an event as modified, then include them in this subcategory. Common examples include `event.category:process AND event.type:change`, and `event.category:file AND event.type:change`. You can further distinguish change operations using the ECS `event.action` field.
+
 
 
 
@@ -310,11 +330,13 @@ The "creation" event type is used for the subset of events within a category tha
 
 
 
+
 [float]
 [[ecs-event-type-deletion]]
 ==== deletion
 
 The deletion event type is used for the subset of events within a category that indicate that something was deleted. A common example is `event.category:file AND event.type:deletion` to indicate that a file has been deleted.
+
 
 
 
@@ -328,11 +350,13 @@ The end event type is used for the subset of events within a category that indic
 
 
 
+
 [float]
 [[ecs-event-type-error]]
 ==== error
 
 The error event type is used for the subset of events within a category that indicate or describe an error. A common example is `event.category:database AND event.type:error`. Note that pipeline errors that occur during the event ingestion process should not use this `event.type` value. Instead, they should use `event.kind:pipeline_error`.
+
 
 
 
@@ -346,11 +370,13 @@ The info event type is used for the subset of events within a category that indi
 
 
 
+
 [float]
 [[ecs-event-type-installation]]
 ==== installation
 
 The installation event type is used for the subset of events within a category that indicate that something was installed. A common example is `event.category:package` AND `event.type:installation`.
+
 
 
 
@@ -364,8 +390,9 @@ The start event type is used for the subset of events within a category that ind
 
 
 
+
 [[ecs-allowed-values-event-outcome]]
-=== Allowed Values for event.outcome
+=== ECS Categorization Field: event.outcome
 
 This is one of four ECS Categorization Fields, and indicates the lowest level in the ECS category hierarchy.
 
@@ -391,6 +418,7 @@ Indicates that this event describes a failed result. A common example is `event.
 
 
 
+
 [float]
 [[ecs-event-outcome-success]]
 ==== success
@@ -400,11 +428,13 @@ Indicates that this event describes a successful result.  A common example is `e
 
 
 
+
 [float]
 [[ecs-event-outcome-unknown]]
 ==== unknown
 
 Indicates that this event describes only an attempt for which the result is unknown. For example, if the event contains information only about a request in an entity transaction that usually results in a response, populating `event.outcome:unknown` is appropriate.
+
 
 
 

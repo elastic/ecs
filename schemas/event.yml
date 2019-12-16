@@ -78,9 +78,11 @@
             `event.kind:pipeline_error` is often associated with parsing errors.
         - name: signal
           description: >
-            The signal value is used by Elastic Kibana apps, such as SIEM, for app-specific purposes.
-            `event.kind:signal` is thus reserved and should not be used for the ingestion
-            of events into Elasticsearch.
+            This value is used by the Elastic SIEM app to denote an Elasticsearch
+            document that was created by a SIEM detection engine rule.
+
+            Usage of this value is reserved, and pipelines should not populate
+            `event.kind` with the value "signal".
 
     - name: category
       level: core
