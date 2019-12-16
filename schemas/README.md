@@ -58,3 +58,11 @@ Supported keys to describe expected values for a field
 
 - type (required): type of the multi\_fields
 - name (optional): defaults to multi\_fields type
+
+
+### Beats-specific keys
+
+The following keys are available to tune the fields generated for Beats. These are grouped under `beats.*`:
+
+- beats.default\_field (optional): Allows to control wether the field is added to the
+  `index.query.default_field` index setting. Defaults to `true`.
