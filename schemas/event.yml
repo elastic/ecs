@@ -53,18 +53,24 @@
       allowed_values:
         - name: alert
           description: >
-            This value indicates an event that describes an alert, triggered by a detection rule.
+            This value indicates an event that describes an alert or notable event,
+            triggered by a detection rule.
+
             `event.kind:alert` is often populated for events coming from firewalls,
             intrusion detection systems, endpoint detection and response systems, and so on.
         - name: event
           description: >
-            This value is the most general and most common value of this field.
+            This value is the most general and most common value for this field.
             It is used to represent events that indicate that something happened.
         - name: metric
           description: >
-            This value is used to indicate that this event is a numeric measurement
+            This value is used to indicate that this event that a numeric measurement
             was taken at given point in time.
+
             Examples include CPU utilization, memory usage, or a vulnerability scan result.
+
+            Metric events are often collected on a predictable frequency, such as once
+            every few seconds, or once a minute.
         - name: state
           description: >
             This value is similar to metric, except that the entity being measured does not
@@ -80,6 +86,9 @@
           description: >
             This value is used by the Elastic SIEM app to denote an Elasticsearch
             document that was created by a SIEM detection engine rule.
+
+            A signal will typically trigger a notification that something
+            meaningful happened and should be investigated.
 
             Usage of this value is reserved, and pipelines should not populate
             `event.kind` with the value "signal".
@@ -104,9 +113,9 @@
           description: >
             Events in this category are related to the challenge and response process
             in which credentials are supplied and verified to allow the creation of a session.
-            Common sources for these logs are Windows event logs, ssh logs, etc.
-            Visualize and analyze events in this category to look for unusual login activity,
-            failed logins, etc.
+            Common sources for these logs are Windows event logs and ssh logs.
+            Visualize and analyze events in this category to look for failed logins,
+            and other authentication-related activity.
           expected_event_types:
             - start
             - end
@@ -125,8 +134,9 @@
             - error
         - name: driver
           description: >
-            Having to do operating system device drivers and similar software entities
-            such as Windows drivers, kernel extensions, kernel modules, etc.
+            Events in the driver category have to do with operating system device drivers
+            and similar software entities such as Windows drivers, kernel extensions, kernel modules, etc.
+
             Use events and metrics in this category to visualize and analyze driver-related
             activity and status on hosts.
           expected_event_types:
@@ -148,12 +158,15 @@
             - info
         - name: host
           description: >
-            Events and metrics about hosts. Usually higher-level information about host
-            activity from an external perspective. Different than operating system
-            in the sense that host events are usually externally visible and independent from the OS.
-            Note that `event.category:host` is not meant to indicate events that are simply
-            "happening on a host". Use this category to visualize and analyze inventories
-            of hosts, starting and ending of hosts, etc.
+            Use this category to visualize and analyze information such as host inventory
+            or host lifecycle events.
+
+            Most of the events in this category can usually be observed from the outside,
+            such as from a hypervisor or a control plane's point of view. Some can also
+            be seen from within, such as "start" or "end".
+
+            Note that this category is for information about hosts themselves;
+            it is not meant to capture activity "happening on a host".
           expected_event_types:
             - access
             - change
@@ -172,8 +185,9 @@
           description: >
             Malware detection events and alerts. Use this category to visualize and analyze
             malware detections from EDR/EPP systems such as Elastic Endpoint Security,
-            Symantec Endpoint Protection, Crowdstrike, and network IDS/IPS systems and
-            functions such as Palo Alto Networks threat and Wildfire logs.
+            Symantec Endpoint Protection, Crowdstrike, and network IDS/IPS systems
+            such as Suricata, or other sources of malware-related events such as
+            Palo Alto Networks threat logs and Wildfire logs.
           expected_event_types:
             - info
         - name: package
@@ -190,9 +204,8 @@
             - start
         - name: process
           description: >
-            Relating to the operation of software processes executing within operating
-            systems on hosts. Use this category of events to visualize and analyze process
-            starts, process parents, process relationships, etc.
+            Use this category of events to visualize and analyze process-specific
+            information such as lifecycle events or process ancestry.
           expected_event_types:
             - access
             - change
