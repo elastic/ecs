@@ -319,9 +319,9 @@ https://ela.st/ecs-categories-draft.
 
 At a high level, ECS provides fields to capture two types of event information:
 "Where it's from" (e.g., `event.module`, `event.dataset`, `agent.type`, `observer.type`, etc.),
-and "What it is." Categorization Fields hold the "What it is" information.
+and "What it is." categorization fields hold the "What it is" information.
 
-ECS defines four Categorization Fields for this purpose, each of which falls under the `event.*` field set.
+ECS defines four categorization fields for this purpose, each of which falls under the `event.*` field set.
 
 [float]
 [[ecs-category-fields]]
@@ -332,6 +332,9 @@ ECS defines four Categorization Fields for this purpose, each of which falls und
 * <<ecs-allowed-values-event-type,event.type>>
 * <<ecs-allowed-values-event-outcome,event.outcome>>
 
+NOTE: If your events don't match any of these categorization values, you should
+leave the fields empty. This will ensure you can start populating the fields
+once the appropriate categorization values are published, in a later release.
 '''
 
 
@@ -391,9 +394,9 @@ def field_values_page_template():
 
 {field_description}
 
-WARNING: Only allowed Categorization Field values listed in the ECS repository
-and official ECS documentation should be considered official.
-Use of any other values may result in incompatible implementations
+WARNING: After the beta period for categorization, only the allowed categorization
+values listed in the ECS repository and official ECS documentation should be considered
+official. Use of any other values may result in incompatible implementations
 that will require subsequent breaking changes.
 
 *Allowed Values*

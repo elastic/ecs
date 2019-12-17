@@ -11,9 +11,9 @@ https://ela.st/ecs-categories-draft.
 
 At a high level, ECS provides fields to capture two types of event information:
 "Where it's from" (e.g., `event.module`, `event.dataset`, `agent.type`, `observer.type`, etc.),
-and "What it is." Categorization Fields hold the "What it is" information.
+and "What it is." categorization fields hold the "What it is" information.
 
-ECS defines four Categorization Fields for this purpose, each of which falls under the `event.*` field set.
+ECS defines four categorization fields for this purpose, each of which falls under the `event.*` field set.
 
 [float]
 [[ecs-category-fields]]
@@ -24,6 +24,9 @@ ECS defines four Categorization Fields for this purpose, each of which falls und
 * <<ecs-allowed-values-event-type,event.type>>
 * <<ecs-allowed-values-event-outcome,event.outcome>>
 
+NOTE: If your events don't match any of these categorization values, you should
+leave the fields empty. This will ensure you can start populating the fields
+once the appropriate categorization values are published, in a later release.
 
 [[ecs-allowed-values-event-kind]]
 === ECS Categorization Field: event.kind
@@ -32,9 +35,9 @@ This is one of four ECS Categorization Fields, and indicates the highest level i
 
 `event.kind` gives high-level information about what type of information the event contains, without being specific to the contents of the event. For example, values of this field distinguish alert events from metric events.
 
-WARNING: Only allowed Categorization Field values listed in the ECS repository
-and official ECS documentation should be considered official.
-Use of any other values may result in incompatible implementations
+WARNING: After the beta period for categorization, only the allowed categorization
+values listed in the ECS repository and official ECS documentation should be considered
+official. Use of any other values may result in incompatible implementations
 that will require subsequent breaking changes.
 
 *Allowed Values*
@@ -125,9 +128,9 @@ This is one of four ECS Categorization Fields, and indicates the second level in
 
 This field is an array. This will allow proper categorization of some events that fall in multiple categories.
 
-WARNING: Only allowed Categorization Field values listed in the ECS repository
-and official ECS documentation should be considered official.
-Use of any other values may result in incompatible implementations
+WARNING: After the beta period for categorization, only the allowed categorization
+values listed in the ECS repository and official ECS documentation should be considered
+official. Use of any other values may result in incompatible implementations
 that will require subsequent breaking changes.
 
 *Allowed Values*
@@ -298,9 +301,9 @@ This is one of four ECS Categorization Fields, and indicates the third level in 
 
 This field is an array. This will allow proper categorization of some events that fall in multiple event types.
 
-WARNING: Only allowed Categorization Field values listed in the ECS repository
-and official ECS documentation should be considered official.
-Use of any other values may result in incompatible implementations
+WARNING: After the beta period for categorization, only the allowed categorization
+values listed in the ECS repository and official ECS documentation should be considered
+official. Use of any other values may result in incompatible implementations
 that will require subsequent breaking changes.
 
 *Allowed Values*
@@ -412,9 +415,9 @@ This is one of four ECS Categorization Fields, and indicates the lowest level in
 
 `event.outcome` simply denotes whether the event represent a success or a failure. Note that not all events will have an associated outcome. For example, this field is generally not populated for metric events or events with `event.type:info`.
 
-WARNING: Only allowed Categorization Field values listed in the ECS repository
-and official ECS documentation should be considered official.
-Use of any other values may result in incompatible implementations
+WARNING: After the beta period for categorization, only the allowed categorization
+values listed in the ECS repository and official ECS documentation should be considered
+official. Use of any other values may result in incompatible implementations
 that will require subsequent breaking changes.
 
 *Allowed Values*
