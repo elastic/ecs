@@ -1512,7 +1512,7 @@ event.category:
   level: core
   name: category
   order: 3
-  short: Event category. (Categorization Field)
+  short: Event category. The second categorization field in the hierarchy.
   type: keyword
 event.code:
   dashed_name: event-code
@@ -1690,14 +1690,18 @@ event.kind:
 
     `event.kind` gives high-level information about what type of information the event
     contains, without being specific to the contents of the event. For example, values
-    of this field distinguish alert events from metric events.'
+    of this field distinguish alert events from metric events.
+
+    The value of this field can be used to inform how these kinds of events should
+    be handled. They may warrant different retention, different access control, it
+    may also help understand whether the data coming in at a regular interval or not.'
   example: alert
   flat_name: event.kind
   ignore_above: 1024
   level: core
   name: kind
   order: 2
-  short: The kind of the event. (Categorization Field)
+  short: The kind of the event. The highest categorization field in the hierarchy.
   type: keyword
 event.module:
   dashed_name: event-module
@@ -1765,7 +1769,7 @@ event.outcome:
   level: core
   name: outcome
   order: 5
-  short: The outcome of the event. (Categorization Field)
+  short: The outcome of the event. The lowest categorization field in the hierarchy.
   type: keyword
 event.provider:
   dashed_name: event-provider
@@ -1949,7 +1953,7 @@ event.type:
   level: core
   name: type
   order: 6
-  short: Event type (Categorization Field)
+  short: Event type. The third categorization field in the hierarchy.
   type: keyword
 file.accessed:
   dashed_name: file-accessed

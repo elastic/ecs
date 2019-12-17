@@ -49,6 +49,10 @@ type Event struct {
 	// the event contains, without being specific to the contents of the event.
 	// For example, values of this field distinguish alert events from metric
 	// events.
+	// The value of this field can be used to inform how these kinds of events
+	// should be handled. They may warrant different retention, different
+	// access control, it may also help understand whether the data coming in
+	// at a regular interval or not.
 	Kind string `ecs:"kind"`
 
 	// This is one of four ECS Categorization Fields, and indicates the second
