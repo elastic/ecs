@@ -130,11 +130,14 @@ def duplicate_reusable_fieldsets(schema, fields_flat, fields_nested):
     if 'reusable' in schema:
         for new_nesting in schema['reusable']['expected']:
 
+            split_flat_name = new_nesting.split('.', 1)
+            top_level = split_flat_name[0]
             # List field set names expected under another field set.
             # E.g. host.nestings = [ 'geo', 'os', 'user' ]
-            if 'nestings' not in fields_nested[new_nesting]:
-                fields_nested[new_nesting]['nestings'] = []
-            fields_nested[new_nesting]['nestings'].append(schema['name'])
+            if 'nestings' not in fields_nested[top_level]:
+                fields_nested[top_level]['nestings'] = []
+            if schema['name'] not in fields_nested[top_level]['nestings']:
+                fields_nested[top_level]['nestings'].append(schema['name'])
 
             # Explicitly list all leaf fields coming from field set reuse.
             for (name, field) in schema['fields'].items():
@@ -150,7 +153,13 @@ def duplicate_reusable_fieldsets(schema, fields_flat, fields_nested):
                 fields_flat[destination_name] = copied_field
 
                 # Nested: use original flat name under the destination fieldset
-                fields_nested[new_nesting]['fields'][field['flat_name']] = copied_field
+                # If the nesting is being inserted anywhere except the top level, combine the flat name
+                # of the destination location with the flat name of the field to be inserted
+                if len(split_flat_name) == 1:
+                    new_flat_name = field['flat_name']
+                else:
+                    new_flat_name = split_flat_name[1] + "." + field['flat_name']
+                fields_nested[top_level]['fields'][new_flat_name] = copied_field
 
 # Main
 
