@@ -22,8 +22,8 @@ Thanks, you're awesome :-) -->
 * Added `rule` fields. #665
 * Added default `text` analyzer as a multi-field to around 25 more fields. #680
 * Added `registry.*` fieldset for the Windows registry. #673
-* Publish initial list of allowed values for the reserved fields `event.kind`,
-  `event.category`, `event.type` and `event.outcome`. #684, #691, #692
+* Publish initial list of allowed values for the categorization fields (previously reserved)
+  `event.kind`, `event.category`, `event.type` and `event.outcome`. #684, #691, #692
 * Added `related.user` #694
 
 #### Improvements
