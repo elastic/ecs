@@ -4,6 +4,30 @@
 All notable changes to this project will be documented in this file based on the [Keep a Changelog](http://keepachangelog.com/) Standard. This project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## [1.4.0](https://github.com/elastic/ecs/compare/v1.3.1...v1.4.0)
+
+### Schema Changes
+
+#### Added
+
+* Added default `text` analyzer as a multi-field to `user_agent.original`. #575
+* Added `file.attributes`. #611
+* Added `file.drive_letter`. #620
+* Added `rule` fields. #665
+* Added default `text` analyzer as a multi-field to around 25 more fields. #680
+* Added `registry.*` fieldset for the Windows registry. #673
+* Publish initial list of allowed values for the categorization fields (previously reserved)
+  `event.kind`, `event.category`, `event.type` and `event.outcome`. #684, #691, #692
+* Added `related.user` #694
+
+
+### Tooling and Artifact Changes
+
+#### Bugfixes
+
+* Fix support for multi-fields. #575
+
+
 ## [1.3.1](https://github.com/elastic/ecs/compare/v1.3.0...v1.3.1)
 
 ### Schema Changes
