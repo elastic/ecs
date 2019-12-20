@@ -54,6 +54,26 @@ type Process struct {
 	// Identifier of the group of processes the process belongs to.
 	ParentPGID int64 `ecs:"parent.pgid"`
 
+	// The Windows or POSIX session identifier for a process.
+	// On Windows systems, this corresponds to the LUID of the session itself
+	// rather than and individual process access token. For more information
+	// see `AuthenticationId` at
+	// https://docs.microsoft.com/en-us/windows/win32/api/winnt/ns-winnt-token_control.
+	// On POSIX systems, this corresponds to the session id returned from a
+	// call to `setsid`
+	// (https://pubs.opengroup.org/onlinepubs/9699919799/functions/setsid.html).
+	SessionID string `ecs:"session_id"`
+
+	// The Windows or POSIX session identifier for a process.
+	// On Windows systems, this corresponds to the LUID of the session itself
+	// rather than and individual process access token. For more information
+	// see `AuthenticationId` at
+	// https://docs.microsoft.com/en-us/windows/win32/api/winnt/ns-winnt-token_control.
+	// On POSIX systems, this corresponds to the session id returned from a
+	// call to `setsid`
+	// (https://pubs.opengroup.org/onlinepubs/9699919799/functions/setsid.html).
+	ParentSessionID string `ecs:"parent.session_id"`
+
 	// Full command line that started the process, including the absolute path
 	// to the executable, and all arguments.
 	// Some arguments may be filtered to protect sensitive information.

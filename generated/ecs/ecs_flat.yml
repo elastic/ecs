@@ -3834,7 +3834,7 @@ process.args:
   ignore_above: 1024
   level: extended
   name: args
-  order: 10
+  order: 12
   short: Array of process arguments.
   type: keyword
 process.args_count:
@@ -3848,7 +3848,7 @@ process.args_count:
   flat_name: process.args_count
   level: extended
   name: args_count
-  order: 12
+  order: 14
   short: Length of the process.args array.
   type: long
 process.command_line:
@@ -3867,7 +3867,7 @@ process.command_line:
     norms: false
     type: text
   name: command_line
-  order: 8
+  order: 10
   short: Full command line that started the process.
   type: keyword
 process.executable:
@@ -3883,7 +3883,7 @@ process.executable:
     norms: false
     type: text
   name: executable
-  order: 14
+  order: 16
   short: Absolute path to the process executable.
   type: keyword
 process.exit_code:
@@ -3896,7 +3896,7 @@ process.exit_code:
   flat_name: process.exit_code
   level: extended
   name: exit_code
-  order: 28
+  order: 30
   short: The exit code of the process.
   type: long
 process.hash.md5:
@@ -3975,7 +3975,7 @@ process.parent.args:
   ignore_above: 1024
   level: extended
   name: parent.args
-  order: 11
+  order: 13
   short: Array of process arguments.
   type: keyword
 process.parent.args_count:
@@ -3989,7 +3989,7 @@ process.parent.args_count:
   flat_name: process.parent.args_count
   level: extended
   name: parent.args_count
-  order: 13
+  order: 15
   short: Length of the process.args array.
   type: long
 process.parent.command_line:
@@ -4008,7 +4008,7 @@ process.parent.command_line:
     norms: false
     type: text
   name: parent.command_line
-  order: 9
+  order: 11
   short: Full command line that started the process.
   type: keyword
 process.parent.executable:
@@ -4024,7 +4024,7 @@ process.parent.executable:
     norms: false
     type: text
   name: parent.executable
-  order: 15
+  order: 17
   short: Absolute path to the process executable.
   type: keyword
 process.parent.exit_code:
@@ -4037,7 +4037,7 @@ process.parent.exit_code:
   flat_name: process.parent.exit_code
   level: extended
   name: parent.exit_code
-  order: 29
+  order: 31
   short: The exit code of the process.
   type: long
 process.parent.name:
@@ -4090,6 +4090,23 @@ process.parent.ppid:
   order: 5
   short: Parent process' pid.
   type: long
+process.parent.session_id:
+  dashed_name: process-parent-session-id
+  description: 'The Windows or POSIX session identifier for a process.
+
+    On Windows systems, this corresponds to the LUID of the session itself rather
+    than and individual process access token. For more information see `AuthenticationId`
+    at https://docs.microsoft.com/en-us/windows/win32/api/winnt/ns-winnt-token_control.
+
+    On POSIX systems, this corresponds to the session id returned from a call to `setsid`
+    (https://pubs.opengroup.org/onlinepubs/9699919799/functions/setsid.html).'
+  flat_name: process.parent.session_id
+  ignore_above: 1024
+  level: extended
+  name: parent.session_id
+  order: 9
+  short: The POSIX or Windows session identifier for a process.
+  type: keyword
 process.parent.start:
   dashed_name: process-parent-start
   description: The time the process started.
@@ -4097,7 +4114,7 @@ process.parent.start:
   flat_name: process.parent.start
   level: extended
   name: parent.start
-  order: 23
+  order: 25
   short: The time the process started.
   type: date
 process.parent.thread.id:
@@ -4108,7 +4125,7 @@ process.parent.thread.id:
   format: string
   level: extended
   name: parent.thread.id
-  order: 19
+  order: 21
   short: Thread ID.
   type: long
 process.parent.thread.name:
@@ -4119,7 +4136,7 @@ process.parent.thread.name:
   ignore_above: 1024
   level: extended
   name: parent.thread.name
-  order: 21
+  order: 23
   short: Thread name.
   type: keyword
 process.parent.title:
@@ -4137,7 +4154,7 @@ process.parent.title:
     norms: false
     type: text
   name: parent.title
-  order: 17
+  order: 19
   short: Process title.
   type: keyword
 process.parent.uptime:
@@ -4147,7 +4164,7 @@ process.parent.uptime:
   flat_name: process.parent.uptime
   level: extended
   name: parent.uptime
-  order: 25
+  order: 27
   short: Seconds the process has been up.
   type: long
 process.parent.working_directory:
@@ -4163,7 +4180,7 @@ process.parent.working_directory:
     norms: false
     type: text
   name: parent.working_directory
-  order: 27
+  order: 29
   short: The working directory of the process.
   type: keyword
 process.pgid:
@@ -4198,6 +4215,23 @@ process.ppid:
   order: 4
   short: Parent process' pid.
   type: long
+process.session_id:
+  dashed_name: process-session-id
+  description: 'The Windows or POSIX session identifier for a process.
+
+    On Windows systems, this corresponds to the LUID of the session itself rather
+    than and individual process access token. For more information see `AuthenticationId`
+    at https://docs.microsoft.com/en-us/windows/win32/api/winnt/ns-winnt-token_control.
+
+    On POSIX systems, this corresponds to the session id returned from a call to `setsid`
+    (https://pubs.opengroup.org/onlinepubs/9699919799/functions/setsid.html).'
+  flat_name: process.session_id
+  ignore_above: 1024
+  level: extended
+  name: session_id
+  order: 8
+  short: The Windows or POSIX session identifier for a process.
+  type: keyword
 process.start:
   dashed_name: process-start
   description: The time the process started.
@@ -4205,7 +4239,7 @@ process.start:
   flat_name: process.start
   level: extended
   name: start
-  order: 22
+  order: 24
   short: The time the process started.
   type: date
 process.thread.id:
@@ -4216,7 +4250,7 @@ process.thread.id:
   format: string
   level: extended
   name: thread.id
-  order: 18
+  order: 20
   short: Thread ID.
   type: long
 process.thread.name:
@@ -4227,7 +4261,7 @@ process.thread.name:
   ignore_above: 1024
   level: extended
   name: thread.name
-  order: 20
+  order: 22
   short: Thread name.
   type: keyword
 process.title:
@@ -4245,7 +4279,7 @@ process.title:
     norms: false
     type: text
   name: title
-  order: 16
+  order: 18
   short: Process title.
   type: keyword
 process.uptime:
@@ -4255,7 +4289,7 @@ process.uptime:
   flat_name: process.uptime
   level: extended
   name: uptime
-  order: 24
+  order: 26
   short: Seconds the process has been up.
   type: long
 process.working_directory:
@@ -4271,7 +4305,7 @@ process.working_directory:
     norms: false
     type: text
   name: working_directory
-  order: 26
+  order: 28
   short: The working directory of the process.
   type: keyword
 registry.data.bytes:
