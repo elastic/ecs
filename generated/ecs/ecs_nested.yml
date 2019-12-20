@@ -1836,7 +1836,6 @@ event:
       short: Unique ID to describe the event.
       type: keyword
     ingested:
-      beats.default_field: false
       dashed_name: event-ingested
       description: 'Timestamp when an event arrived in the central data store.
 
@@ -2206,7 +2205,6 @@ file:
       short: Last time the file was accessed.
       type: date
     attributes:
-      beats.default_field: false
       dashed_name: file-attributes
       description: 'Array of file attributes.
 
@@ -2268,7 +2266,6 @@ file:
       short: Directory where the file is located.
       type: keyword
     drive_letter:
-      beats.default_field: false
       dashed_name: file-drive-letter
       description: 'Drive letter where the file is located. This field is only relevant
         on Windows.
@@ -2724,11 +2721,12 @@ host:
       short: Operating system architecture.
       type: keyword
     domain:
-      beats.default_field: false
       dashed_name: host-domain
-      description: "Name of the domain of which the host is a member. \nFor example,\
-        \ on Windows this could be the host's Active Directory domain or NetBIOS domain\
-        \ name.  For Linux this could be the domain of the host's LDAP provider."
+      description: 'Name of the domain of which the host is a member.
+
+        For example, on Windows this could be the host''s Active Directory domain
+        or NetBIOS domain name. For Linux this could be the domain of the host''s
+        LDAP provider.'
       example: CONTOSO
       flat_name: host.domain
       ignore_above: 1024
@@ -4068,7 +4066,6 @@ package:
       short: Package architecture.
       type: keyword
     build_version:
-      beats.default_field: false
       dashed_name: package-build-version
       description: 'Additional information about the build version of the installed
         package.
@@ -4162,7 +4159,6 @@ package:
       short: Path where the package is installed.
       type: keyword
     reference:
-      beats.default_field: false
       dashed_name: package-reference
       description: Home page or reference URL of the software in this package, if
         available.
@@ -4186,7 +4182,6 @@ package:
       short: Package size in bytes.
       type: long
     type:
-      beats.default_field: false
       dashed_name: package-type
       description: 'Type of package.
 
@@ -4243,7 +4238,6 @@ process:
       short: Array of process arguments.
       type: keyword
     args_count:
-      beats.default_field: false
       dashed_name: process-args-count
       description: 'Length of the process.args array.
 
@@ -4258,7 +4252,6 @@ process:
       short: Length of the process.args array.
       type: long
     command_line:
-      beats.default_field: false
       dashed_name: process-command-line
       description: 'Full command line that started the process, including the absolute
         path to the executable, and all arguments.
@@ -4294,7 +4287,6 @@ process:
       short: Absolute path to the process executable.
       type: keyword
     exit_code:
-      beats.default_field: false
       dashed_name: process-exit-code
       description: 'The exit code of the process, if this is a termination event.
 
@@ -4370,7 +4362,6 @@ process:
       short: Process name.
       type: keyword
     parent.args:
-      beats.default_field: false
       dashed_name: process-parent-args
       description: 'Array of process arguments.
 
@@ -4388,7 +4379,6 @@ process:
       short: Array of process arguments.
       type: keyword
     parent.args_count:
-      beats.default_field: false
       dashed_name: process-parent-args-count
       description: 'Length of the process.args array.
 
@@ -4403,7 +4393,6 @@ process:
       short: Length of the process.args array.
       type: long
     parent.command_line:
-      beats.default_field: false
       dashed_name: process-parent-command-line
       description: 'Full command line that started the process, including the absolute
         path to the executable, and all arguments.
@@ -4423,7 +4412,6 @@ process:
       short: Full command line that started the process.
       type: keyword
     parent.executable:
-      beats.default_field: false
       dashed_name: process-parent-executable
       description: Absolute path to the process executable.
       example: /usr/bin/ssh
@@ -4440,7 +4428,6 @@ process:
       short: Absolute path to the process executable.
       type: keyword
     parent.exit_code:
-      beats.default_field: false
       dashed_name: process-parent-exit-code
       description: 'The exit code of the process, if this is a termination event.
 
@@ -4454,7 +4441,6 @@ process:
       short: The exit code of the process.
       type: long
     parent.name:
-      beats.default_field: false
       dashed_name: process-parent-name
       description: 'Process name.
 
@@ -4473,7 +4459,6 @@ process:
       short: Process name.
       type: keyword
     parent.pgid:
-      beats.default_field: false
       dashed_name: process-parent-pgid
       description: Identifier of the group of processes the process belongs to.
       flat_name: process.parent.pgid
@@ -4484,7 +4469,6 @@ process:
       short: Identifier of the group of processes the process belongs to.
       type: long
     parent.pid:
-      beats.default_field: false
       dashed_name: process-parent-pid
       description: Process id.
       example: 4242
@@ -4496,7 +4480,6 @@ process:
       short: Process id.
       type: long
     parent.ppid:
-      beats.default_field: false
       dashed_name: process-parent-ppid
       description: Parent process' pid.
       example: 4241
@@ -4508,7 +4491,6 @@ process:
       short: Parent process' pid.
       type: long
     parent.start:
-      beats.default_field: false
       dashed_name: process-parent-start
       description: The time the process started.
       example: '2016-05-23T08:05:34.853Z'
@@ -4519,7 +4501,6 @@ process:
       short: The time the process started.
       type: date
     parent.thread.id:
-      beats.default_field: false
       dashed_name: process-parent-thread-id
       description: Thread ID.
       example: 4242
@@ -4531,7 +4512,6 @@ process:
       short: Thread ID.
       type: long
     parent.thread.name:
-      beats.default_field: false
       dashed_name: process-parent-thread-name
       description: Thread name.
       example: thread-0
@@ -4543,7 +4523,6 @@ process:
       short: Thread name.
       type: keyword
     parent.title:
-      beats.default_field: false
       dashed_name: process-parent-title
       description: 'Process title.
 
@@ -4562,7 +4541,6 @@ process:
       short: Process title.
       type: keyword
     parent.uptime:
-      beats.default_field: false
       dashed_name: process-parent-uptime
       description: Seconds the process has been up.
       example: 1325
@@ -4573,7 +4551,6 @@ process:
       short: Seconds the process has been up.
       type: long
     parent.working_directory:
-      beats.default_field: false
       dashed_name: process-parent-working-directory
       description: The working directory of the process.
       example: /home/alice
@@ -4706,7 +4683,6 @@ process:
   title: Process
   type: group
 registry:
-  beats.default_field: false
   description: Fields related to Windows Registry operations.
   fields:
     data.bytes:
@@ -4841,14 +4817,12 @@ related:
   title: Related
   type: group
 rule:
-  beats.default_field: false
   description: 'Rule fields are used to capture the specifics of any observer or agent
     rules that generate alerts or other notable events.
 
     Examples of data sources that would populate the rule fields include: network
-    admission control platforms, network or  host IDS/IPS, network firewalls, web
-    application firewalls, url filters, endpoint detection and response (EDR) systems,
-    etc.'
+    admission control platforms, network or host IDS/IPS, network firewalls, web application
+    firewalls, url filters, endpoint detection and response (EDR) systems, etc.'
   fields:
     category:
       dashed_name: rule-category
@@ -6008,7 +5982,6 @@ threat:
   title: Threat
   type: group
 tls:
-  beats.default_field: false
   description: Fields related to a TLS connection. These fields focus on the TLS protocol
     itself and intentionally avoids in-depth analysis of the related x.509 certificate
     files.
@@ -6921,7 +6894,6 @@ user_agent:
   title: User agent
   type: group
 vulnerability:
-  beats.default_field: false
   description: The vulnerability fields describe information about a vulnerability
     that is relevant to an event.
   fields:

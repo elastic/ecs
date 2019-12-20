@@ -78,6 +78,11 @@ def yaml_dump(filename, data, preamble=None):
             outfile.write(preamble)
         yaml.dump(data, outfile, default_flow_style=False)
 
+
+def yaml_load(filename):
+    with open(filename) as f:
+        return yaml.load(f.read())
+
 # List helpers
 
 
