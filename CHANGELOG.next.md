@@ -16,9 +16,9 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
-* Added the `beats.default_field` option for Beats. #687
-
 #### Improvements
+
+* Temporary workaround for Beats templates' `default_field` growing too big. #687
 
 #### Deprecated
 
