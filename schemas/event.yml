@@ -38,53 +38,194 @@
       example: 4648
 
     - name: kind
-      level: extended
+      level: core
       type: keyword
-      short: The kind of the event.
+      short: The kind of the event. The highest categorization field in the hierarchy.
       description: >
-        The kind of the event.
+        This is one of four ECS Categorization Fields, and indicates the
+        highest level in the ECS category hierarchy.
 
-        This gives information about what type of information the event
-        contains, without being specific to the contents of the event.
-      example: event
-      accepted_values:
-      - name: alert
-        description: >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-          incididunt ut labore et dolore magna aliqua.
-      - name: event
-        description: >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-          incididunt ut labore et dolore magna aliqua.
+        `event.kind` gives high-level information about what type of information the
+        event contains, without being specific to the contents of the event.
+        For example, values of this field distinguish alert events from
+        metric events.
+
+        The value of this field can be used to inform how these kinds of events should be handled.
+        They may warrant different retention, different access control, it may also
+        help understand whether the data coming in at a regular interval or not.
+      example: alert
+      allowed_values:
+        - name: alert
+          description: >
+            This value indicates an event that describes an alert or notable event,
+            triggered by a detection rule.
+
+            `event.kind:alert` is often populated for events coming from firewalls,
+            intrusion detection systems, endpoint detection and response systems, and so on.
+        - name: event
+          description: >
+            This value is the most general and most common value for this field.
+            It is used to represent events that indicate that something happened.
+        - name: metric
+          description: >
+            This value is used to indicate that this event that a numeric measurement
+            was taken at given point in time.
+
+            Examples include CPU utilization, memory usage, or a vulnerability scan result.
+
+            Metric events are often collected on a predictable frequency, such as once
+            every few seconds, or once a minute.
+        - name: state
+          description: >
+            This value is similar to metric, except that the entity being measured does not
+            provide a numeric metric value, but rather one of a fixed set of conditions or states.
+            For example a periodic event reporting a "fin_wait" state of a TCP connection
+            on a host might use `event.type:state`.
+        - name: pipeline_error
+          description: >
+            This value indicates that an error occurred during the ingestion of this event,
+            and that event data may be missing, inconsistent, or incorrect.
+            `event.kind:pipeline_error` is often associated with parsing errors.
+        - name: signal
+          description: >
+            This value is used by the Elastic SIEM app to denote an Elasticsearch
+            document that was created by a SIEM detection engine rule.
+
+            A signal will typically trigger a notification that something
+            meaningful happened and should be investigated.
+
+            Usage of this value is reserved, and pipelines should not populate
+            `event.kind` with the value "signal".
 
     - name: category
       level: core
       type: keyword
-      short: Event category.
+      short: Event category. The second categorization field in the hierarchy.
       description: >
-        Event category.
+        This is one of four ECS Categorization Fields, and indicates the
+        second level in the ECS category hierarchy.
 
-        This contains high-level information about the contents of the event. It
-        is more generic than `event.action`, in the sense that typically a
-        category contains multiple actions.
-      example: user-management
-      accepted_values:
-      - name: authentication
-        description: >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-          incididunt ut labore et dolore magna aliqua.
-        expected_event_types:
-          - allow
-          - deny
-          - info
-      - name: process
-        description: >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-          incididunt ut labore et dolore magna aliqua.
-        expected_event_types:
-          - start
-          - info
-          - end
+        `event.category` represents the "big buckets" of ECS categories. For example,
+        filtering on `event.category:process` yields all events relating to process activity.
+        This field is closely related to `event.type`, which is used as a subcategory.
+
+        This field is an array. This will allow proper categorization of some events
+        that fall in multiple categories.
+      example: authentication
+      allowed_values:
+        - name: authentication
+          description: >
+            Events in this category are related to the challenge and response process
+            in which credentials are supplied and verified to allow the creation of a session.
+            Common sources for these logs are Windows event logs and ssh logs.
+            Visualize and analyze events in this category to look for failed logins,
+            and other authentication-related activity.
+          expected_event_types:
+            - start
+            - end
+            - info
+        - name: database
+          description: >
+            The database category denotes events and metrics relating to a data storage
+            and retrieval system. Note that use of this category is not limited to
+            relational database systems. Examples include event logs from MS SQL, MySQL,
+            Elasticsearch, MongoDB, etc. Use this category to visualize and analyze
+            database activity such as accesses and changes.
+          expected_event_types:
+            - access
+            - change
+            - info
+            - error
+        - name: driver
+          description: >
+            Events in the driver category have to do with operating system device drivers
+            and similar software entities such as Windows drivers, kernel extensions, kernel modules, etc.
+
+            Use events and metrics in this category to visualize and analyze driver-related
+            activity and status on hosts.
+          expected_event_types:
+            - change
+            - end
+            - info
+            - start
+        - name: file
+          description: >
+            Relating to a set of information that has been created on, or has existed on a filesystem.
+            Use this category of events to visualize and analyze the creation, access,
+            and deletions of files. Events in this category can come
+            from both host-based and network-based sources. An example source of a network-based
+            detection of a file transfer would be the Zeek file.log.
+          expected_event_types:
+            - change
+            - creation
+            - deletion
+            - info
+        - name: host
+          description: >
+            Use this category to visualize and analyze information such as host inventory
+            or host lifecycle events.
+
+            Most of the events in this category can usually be observed from the outside,
+            such as from a hypervisor or a control plane's point of view. Some can also
+            be seen from within, such as "start" or "end".
+
+            Note that this category is for information about hosts themselves;
+            it is not meant to capture activity "happening on a host".
+          expected_event_types:
+            - access
+            - change
+            - end
+            - info
+            - start
+        - name: intrusion_detection
+          description: >
+            Relating to intrusion detections from IDS/IPS systems and functions,
+            both network and host-based. Use this category to visualize and analyze
+            intrusion detection alerts from systems such as Snort, Suricata,
+            and Palo Alto threat detections.
+          expected_event_types:
+            - info
+        - name: malware
+          description: >
+            Malware detection events and alerts. Use this category to visualize and analyze
+            malware detections from EDR/EPP systems such as Elastic Endpoint Security,
+            Symantec Endpoint Protection, Crowdstrike, and network IDS/IPS systems
+            such as Suricata, or other sources of malware-related events such as
+            Palo Alto Networks threat logs and Wildfire logs.
+          expected_event_types:
+            - info
+        - name: package
+          description: >
+            Relating to software packages installed on hosts. Use this category to
+            visualize and analyze inventory of software installed on various hosts,
+            or to determine host vulnerability in the absence of vulnerability scan data.
+          expected_event_types:
+            - access
+            - change
+            - deletion
+            - info
+            - installation
+            - start
+        - name: process
+          description: >
+            Use this category of events to visualize and analyze process-specific
+            information such as lifecycle events or process ancestry.
+          expected_event_types:
+            - access
+            - change
+            - end
+            - info
+            - start
+        - name: web
+          description: >
+            Relating to web server access. Use this category to create a dashboard of
+            web server/proxy activity from apache, IIS, nginx web servers, etc.
+            Note: events from network observers such as Zeek http log may also be included
+            in this category.
+          expected_event_types:
+            - access
+            - error
+            - info
 
     - name: action
       level: core
@@ -99,45 +240,111 @@
       example: user-password-change
 
     - name: outcome
-      level: extended
+      level: core
       type: keyword
-      short: The outcome of the event.
+      short: The outcome of the event. The lowest categorization field in the hierarchy.
       description: >
-        The outcome of the event.
+        This is one of four ECS Categorization Fields, and indicates the
+        lowest level in the ECS category hierarchy.
 
-        If the event describes an action, this fields contains the outcome of
-        that action.
+        `event.outcome` simply denotes whether the event represent a success or a failure.
+        Note that not all events will have an associated outcome. For example, this field is
+        generally not populated for metric events or events with `event.type:info`.
       example: success
-
-      accepted_values:
-      - name: success
-        description: >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-          incididunt ut labore et dolore magna aliqua.
-
-      - name: failure
-        description: >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-          incididunt ut labore et dolore magna aliqua.
+      allowed_values:
+        - name: failure
+          description: >
+            Indicates that this event describes a failed result. A common example is
+            `event.category:file AND event.type:access AND event.outcome:failure`
+            to indicate that a file access was attempted, but was not successful.
+        - name: success
+          description: >
+            Indicates that this event describes a successful result.  A common example is
+            `event.category:file AND event.type:create AND event.outcome:success`
+            to indicate that a file was successfully created.
+        - name: unknown
+          description: >
+            Indicates that this event describes only an attempt for which the result
+            is unknown. For example, if the event contains information only about a
+            request in an entity transaction that usually results in a response,
+            populating `event.outcome:unknown` is appropriate.
 
     - name: type
       level: core
       type: keyword
-      short: Reserved for future usage.
+      short: Event type. The third categorization field in the hierarchy.
       description: >
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        This is one of four ECS Categorization Fields, and indicates the
+        third level in the ECS category hierarchy.
 
-      accepted_values:
-      - name: start
-        description: >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-          incididunt ut labore et dolore magna aliqua.
+        `event.type` represents a categorization "sub-bucket" that, when used along with
+        the `event.category` field values, enables filtering events down to a level
+        appropriate for single visualization.
 
-      - name: end
-        description: >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-          incididunt ut labore et dolore magna aliqua.
+        This field is an array. This will allow proper categorization of some events
+        that fall in multiple event types.
+      allowed_values:
+        - name: access
+          description: >
+            The access event type is used for the subset of events within a category
+            that indicate that something was accessed.
+            Common examples include `event.category:database AND event.type:access`,
+            or `event.category:file AND event.type:access`.
+            Note for file access, both directory listings and file opens should be included
+            in this subcategory. You can further distinguish access operations using the ECS
+            `event.action` field.
+        - name: change
+          description: >
+            The change event type is used for the subset of events within a category
+            that indicate that something has changed. If semantics best describe an
+            event as modified, then include them in this subcategory.
+            Common examples include `event.category:process AND event.type:change`,
+            and `event.category:file AND event.type:change`.
+            You can further distinguish change operations using the ECS `event.action` field.
+        - name: creation
+          description: >
+            The "creation" event type is used for the subset of events within a category
+            that indicate that something was created.
+            A common example is `event.category:file AND event.type:creation`.
+        - name: deletion
+          description: >
+            The deletion event type is used for the subset of events within a category
+            that indicate that something was deleted.
+            A common example is `event.category:file AND event.type:deletion`
+            to indicate that a file has been deleted.
+        - name: end
+          description: >
+            The end event type is used for the subset of events within a category
+            that indicate something has ended.
+            A common example is `event.category:process AND event.type:end`.
+        - name: error
+          description: >
+            The error event type is used for the subset of events within a category
+            that indicate or describe an error.
+            A common example is `event.category:database AND event.type:error`.
+            Note that pipeline errors that occur during the event ingestion process
+            should not use this `event.type` value. Instead, they should use
+            `event.kind:pipeline_error`.
+        - name: info
+          description: >
+            The info event type is used for the subset of events within a category
+            that indicate that they are purely informational, and don't report a state
+            change, or any type of action. For example, an initial run of a file integrity
+            monitoring system (FIM), where an agent reports all files under management,
+            would fall into the "info" subcategory. Similarly, an event containing a
+            dump of all currently running processes (as opposed to reporting that a process
+            started/ended) would fall into the "info" subcategory.
+            An additional common examples is `event.category:intrusion_detection AND event.type:info`.
+        - name: installation
+          description: >
+            The installation event type is used for the subset of events within a category
+            that indicate that something was installed.
+            A common example is `event.category:package` AND `event.type:installation`.
+        - name: start
+          description: >
+            The start event type is used for the subset of events within a category
+            that indicate something has started. A common example is
+            `event.category:process AND event.type:start`.
 
     - name: module
       level: core

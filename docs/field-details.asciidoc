@@ -1135,19 +1135,21 @@ example: `user-password-change`
 // ===============================================================
 
 | event.category
-| Event category.
+| This is one of four ECS Categorization Fields, and indicates the second level in the ECS category hierarchy.
 
-This contains high-level information about the contents of the event. It is more generic than `event.action`, in the sense that typically a category contains multiple actions.
+`event.category` represents the "big buckets" of ECS categories. For example, filtering on `event.category:process` yields all events relating to process activity. This field is closely related to `event.type`, which is used as a subcategory.
+
+This field is an array. This will allow proper categorization of some events that fall in multiple categories.
 
 type: keyword
 
 
 *Important*: The field value must be one of the following:
 
-authentication{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}process
+authentication, database, driver, file, host, intrusion_detection, malware, package, process, web
 
 To learn more about when to use which value, visit the page
-<<ecs-accepted-values-event-category,accepted values for event.category>>
+<<ecs-allowed-values-event-category,allowed values for event.category>>
 
 
 | core
@@ -1261,22 +1263,24 @@ example: `2016-05-23 08:05:35.101000`
 // ===============================================================
 
 | event.kind
-| The kind of the event.
+| This is one of four ECS Categorization Fields, and indicates the highest level in the ECS category hierarchy.
 
-This gives information about what type of information the event contains, without being specific to the contents of the event.
+`event.kind` gives high-level information about what type of information the event contains, without being specific to the contents of the event. For example, values of this field distinguish alert events from metric events.
+
+The value of this field can be used to inform how these kinds of events should be handled. They may warrant different retention, different access control, it may also help understand whether the data coming in at a regular interval or not.
 
 type: keyword
 
 
 *Important*: The field value must be one of the following:
 
-alert{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}event
+alert, event, metric, state, pipeline_error, signal
 
 To learn more about when to use which value, visit the page
-<<ecs-accepted-values-event-kind,accepted values for event.kind>>
+<<ecs-allowed-values-event-kind,allowed values for event.kind>>
 
 
-| extended
+| core
 
 // ===============================================================
 
@@ -1307,22 +1311,22 @@ example: `Sep 19 08:26:10 host CEF:0&#124;Security&#124; threatmanager&#124;1.0&
 // ===============================================================
 
 | event.outcome
-| The outcome of the event.
+| This is one of four ECS Categorization Fields, and indicates the lowest level in the ECS category hierarchy.
 
-If the event describes an action, this fields contains the outcome of that action.
+`event.outcome` simply denotes whether the event represent a success or a failure. Note that not all events will have an associated outcome. For example, this field is generally not populated for metric events or events with `event.type:info`.
 
 type: keyword
 
 
 *Important*: The field value must be one of the following:
 
-success{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}failure
+failure, success, unknown
 
 To learn more about when to use which value, visit the page
-<<ecs-accepted-values-event-outcome,accepted values for event.outcome>>
+<<ecs-allowed-values-event-outcome,allowed values for event.outcome>>
 
 
-| extended
+| core
 
 // ===============================================================
 
@@ -1416,17 +1420,21 @@ type: keyword
 // ===============================================================
 
 | event.type
-| Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+| This is one of four ECS Categorization Fields, and indicates the third level in the ECS category hierarchy.
+
+`event.type` represents a categorization "sub-bucket" that, when used along with the `event.category` field values, enables filtering events down to a level appropriate for single visualization.
+
+This field is an array. This will allow proper categorization of some events that fall in multiple event types.
 
 type: keyword
 
 
 *Important*: The field value must be one of the following:
 
-start{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}end
+access, change, creation, deletion, end, error, info, installation, start
 
 To learn more about when to use which value, visit the page
-<<ecs-accepted-values-event-type,accepted values for event.type>>
+<<ecs-allowed-values-event-type,allowed values for event.type>>
 
 
 | core
@@ -3638,6 +3646,17 @@ A concrete example is IP addresses, which can be under host, observer, source, d
 | All of the IPs seen on your event.
 
 type: ip
+
+
+
+| extended
+
+// ===============================================================
+
+| related.user
+| All the user names seen on your event.
+
+type: keyword
 
 
 
