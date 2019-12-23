@@ -18,6 +18,8 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
+* Temporary workaround for Beats templates' `default_field` growing too big. #687
+
 #### Deprecated
 
 
