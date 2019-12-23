@@ -10,7 +10,7 @@ You need these tools to contribute to ECS:
 
 * [Git](https://git-scm.com/)
 * [Python 3.6+](https://www.python.org/)
-* [Go 1.11](https://golang.org/)
+* [Go 1.13](https://golang.org/)
 
 ## Steps to contribute
 
