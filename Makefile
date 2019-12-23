@@ -56,6 +56,7 @@ fmt: ve
 # Alias to generate everything.
 .PHONY: generate
 generate: legacy_use_cases codegen generator
+	$(PYTHON) --version
 
 # Run the new generator
 .PHONY: generator
