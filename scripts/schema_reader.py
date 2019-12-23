@@ -141,7 +141,7 @@ def duplicate_reusable_fieldsets(schema, fields_flat, fields_nested):
                 # Poor folks deepcopy, sorry -- A Rubyist
                 copied_field = field.copy()
                 if 'multi_fields' in copied_field:
-                    copied_field['multi_fields'] = map(lambda mf: mf.copy(), copied_field['multi_fields'])
+                    copied_field['multi_fields'] = list(map(lambda mf: mf.copy(), copied_field['multi_fields']))
 
                 destination_name = new_nesting + '.' + field['flat_name']
                 copied_field['flat_name'] = destination_name

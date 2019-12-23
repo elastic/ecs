@@ -105,7 +105,7 @@ as.organization.name:
   flat_name: as.organization.name
   ignore_above: 1024
   level: extended
-  multi_fields: &id001
+  multi_fields:
   - flat_name: as.organization.name.text
     name: text
     norms: false
@@ -149,12 +149,11 @@ client.as.organization.name:
   flat_name: client.as.organization.name
   ignore_above: 1024
   level: extended
-  multi_fields: !!python/object/apply:builtins.map
-  - !!python/name:schema_reader.%3Clambda%3E ''
-  - !!python/object/apply:builtins.iter
-    args:
-    - *id001
-    state: 0
+  multi_fields:
+  - flat_name: as.organization.name.text
+    name: text
+    norms: false
+    type: text
   name: organization.name
   order: 1
   original_fieldset: as
@@ -413,16 +412,11 @@ client.user.full_name:
   flat_name: client.user.full_name
   ignore_above: 1024
   level: extended
-  multi_fields: !!python/object/apply:builtins.map
-  - !!python/name:schema_reader.%3Clambda%3E ''
-  - !!python/object/apply:builtins.iter
-    args:
-    - &id002
-      - flat_name: user.full_name.text
-        name: text
-        norms: false
-        type: text
-    state: 0
+  multi_fields:
+  - flat_name: user.full_name.text
+    name: text
+    norms: false
+    type: text
   name: full_name
   order: 2
   original_fieldset: user
@@ -496,16 +490,11 @@ client.user.name:
   flat_name: client.user.name
   ignore_above: 1024
   level: core
-  multi_fields: !!python/object/apply:builtins.map
-  - !!python/name:schema_reader.%3Clambda%3E ''
-  - !!python/object/apply:builtins.iter
-    args:
-    - &id003
-      - flat_name: user.name.text
-        name: text
-        norms: false
-        type: text
-    state: 0
+  multi_fields:
+  - flat_name: user.name.text
+    name: text
+    norms: false
+    type: text
   name: name
   order: 1
   original_fieldset: user
@@ -687,12 +676,11 @@ destination.as.organization.name:
   flat_name: destination.as.organization.name
   ignore_above: 1024
   level: extended
-  multi_fields: !!python/object/apply:builtins.map
-  - !!python/name:schema_reader.%3Clambda%3E ''
-  - !!python/object/apply:builtins.iter
-    args:
-    - *id001
-    state: 0
+  multi_fields:
+  - flat_name: as.organization.name.text
+    name: text
+    norms: false
+    type: text
   name: organization.name
   order: 1
   original_fieldset: as
@@ -950,12 +938,11 @@ destination.user.full_name:
   flat_name: destination.user.full_name
   ignore_above: 1024
   level: extended
-  multi_fields: !!python/object/apply:builtins.map
-  - !!python/name:schema_reader.%3Clambda%3E ''
-  - !!python/object/apply:builtins.iter
-    args:
-    - *id002
-    state: 0
+  multi_fields:
+  - flat_name: user.full_name.text
+    name: text
+    norms: false
+    type: text
   name: full_name
   order: 2
   original_fieldset: user
@@ -1029,12 +1016,11 @@ destination.user.name:
   flat_name: destination.user.name
   ignore_above: 1024
   level: core
-  multi_fields: !!python/object/apply:builtins.map
-  - !!python/name:schema_reader.%3Clambda%3E ''
-  - !!python/object/apply:builtins.iter
-    args:
-    - *id003
-    state: 0
+  multi_fields:
+  - flat_name: user.name.text
+    name: text
+    norms: false
+    type: text
   name: name
   order: 1
   original_fieldset: user
@@ -2619,16 +2605,11 @@ host.os.full:
   flat_name: host.os.full
   ignore_above: 1024
   level: extended
-  multi_fields: !!python/object/apply:builtins.map
-  - !!python/name:schema_reader.%3Clambda%3E ''
-  - !!python/object/apply:builtins.iter
-    args:
-    - &id004
-      - flat_name: os.full.text
-        name: text
-        norms: false
-        type: text
-    state: 0
+  multi_fields:
+  - flat_name: os.full.text
+    name: text
+    norms: false
+    type: text
   name: full
   order: 2
   original_fieldset: os
@@ -2653,16 +2634,11 @@ host.os.name:
   flat_name: host.os.name
   ignore_above: 1024
   level: extended
-  multi_fields: !!python/object/apply:builtins.map
-  - !!python/name:schema_reader.%3Clambda%3E ''
-  - !!python/object/apply:builtins.iter
-    args:
-    - &id005
-      - flat_name: os.name.text
-        name: text
-        norms: false
-        type: text
-    state: 0
+  multi_fields:
+  - flat_name: os.name.text
+    name: text
+    norms: false
+    type: text
   name: name
   order: 1
   original_fieldset: os
@@ -2746,12 +2722,11 @@ host.user.full_name:
   flat_name: host.user.full_name
   ignore_above: 1024
   level: extended
-  multi_fields: !!python/object/apply:builtins.map
-  - !!python/name:schema_reader.%3Clambda%3E ''
-  - !!python/object/apply:builtins.iter
-    args:
-    - *id002
-    state: 0
+  multi_fields:
+  - flat_name: user.full_name.text
+    name: text
+    norms: false
+    type: text
   name: full_name
   order: 2
   original_fieldset: user
@@ -2825,12 +2800,11 @@ host.user.name:
   flat_name: host.user.name
   ignore_above: 1024
   level: core
-  multi_fields: !!python/object/apply:builtins.map
-  - !!python/name:schema_reader.%3Clambda%3E ''
-  - !!python/object/apply:builtins.iter
-    args:
-    - *id003
-    state: 0
+  multi_fields:
+  - flat_name: user.name.text
+    name: text
+    norms: false
+    type: text
   name: name
   order: 1
   original_fieldset: user
@@ -3477,12 +3451,11 @@ observer.os.full:
   flat_name: observer.os.full
   ignore_above: 1024
   level: extended
-  multi_fields: !!python/object/apply:builtins.map
-  - !!python/name:schema_reader.%3Clambda%3E ''
-  - !!python/object/apply:builtins.iter
-    args:
-    - *id004
-    state: 0
+  multi_fields:
+  - flat_name: os.full.text
+    name: text
+    norms: false
+    type: text
   name: full
   order: 2
   original_fieldset: os
@@ -3507,12 +3480,11 @@ observer.os.name:
   flat_name: observer.os.name
   ignore_above: 1024
   level: extended
-  multi_fields: !!python/object/apply:builtins.map
-  - !!python/name:schema_reader.%3Clambda%3E ''
-  - !!python/object/apply:builtins.iter
-    args:
-    - *id005
-    state: 0
+  multi_fields:
+  - flat_name: os.name.text
+    name: text
+    norms: false
+    type: text
   name: name
   order: 1
   original_fieldset: os
@@ -3641,7 +3613,11 @@ os.full:
   flat_name: os.full
   ignore_above: 1024
   level: extended
-  multi_fields: *id004
+  multi_fields:
+  - flat_name: os.full.text
+    name: text
+    norms: false
+    type: text
   name: full
   order: 2
   short: Operating system name, including the version or code name.
@@ -3664,7 +3640,11 @@ os.name:
   flat_name: os.name
   ignore_above: 1024
   level: extended
-  multi_fields: *id005
+  multi_fields:
+  - flat_name: os.name.text
+    name: text
+    norms: false
+    type: text
   name: name
   order: 1
   short: Operating system name, without the version.
@@ -4534,12 +4514,11 @@ server.as.organization.name:
   flat_name: server.as.organization.name
   ignore_above: 1024
   level: extended
-  multi_fields: !!python/object/apply:builtins.map
-  - !!python/name:schema_reader.%3Clambda%3E ''
-  - !!python/object/apply:builtins.iter
-    args:
-    - *id001
-    state: 0
+  multi_fields:
+  - flat_name: as.organization.name.text
+    name: text
+    norms: false
+    type: text
   name: organization.name
   order: 1
   original_fieldset: as
@@ -4798,12 +4777,11 @@ server.user.full_name:
   flat_name: server.user.full_name
   ignore_above: 1024
   level: extended
-  multi_fields: !!python/object/apply:builtins.map
-  - !!python/name:schema_reader.%3Clambda%3E ''
-  - !!python/object/apply:builtins.iter
-    args:
-    - *id002
-    state: 0
+  multi_fields:
+  - flat_name: user.full_name.text
+    name: text
+    norms: false
+    type: text
   name: full_name
   order: 2
   original_fieldset: user
@@ -4877,12 +4855,11 @@ server.user.name:
   flat_name: server.user.name
   ignore_above: 1024
   level: core
-  multi_fields: !!python/object/apply:builtins.map
-  - !!python/name:schema_reader.%3Clambda%3E ''
-  - !!python/object/apply:builtins.iter
-    args:
-    - *id003
-    state: 0
+  multi_fields:
+  - flat_name: user.name.text
+    name: text
+    norms: false
+    type: text
   name: name
   order: 1
   original_fieldset: user
@@ -5035,12 +5012,11 @@ source.as.organization.name:
   flat_name: source.as.organization.name
   ignore_above: 1024
   level: extended
-  multi_fields: !!python/object/apply:builtins.map
-  - !!python/name:schema_reader.%3Clambda%3E ''
-  - !!python/object/apply:builtins.iter
-    args:
-    - *id001
-    state: 0
+  multi_fields:
+  - flat_name: as.organization.name.text
+    name: text
+    norms: false
+    type: text
   name: organization.name
   order: 1
   original_fieldset: as
@@ -5299,12 +5275,11 @@ source.user.full_name:
   flat_name: source.user.full_name
   ignore_above: 1024
   level: extended
-  multi_fields: !!python/object/apply:builtins.map
-  - !!python/name:schema_reader.%3Clambda%3E ''
-  - !!python/object/apply:builtins.iter
-    args:
-    - *id002
-    state: 0
+  multi_fields:
+  - flat_name: user.full_name.text
+    name: text
+    norms: false
+    type: text
   name: full_name
   order: 2
   original_fieldset: user
@@ -5378,12 +5353,11 @@ source.user.name:
   flat_name: source.user.name
   ignore_above: 1024
   level: core
-  multi_fields: !!python/object/apply:builtins.map
-  - !!python/name:schema_reader.%3Clambda%3E ''
-  - !!python/object/apply:builtins.iter
-    args:
-    - *id003
-    state: 0
+  multi_fields:
+  - flat_name: user.name.text
+    name: text
+    norms: false
+    type: text
   name: name
   order: 1
   original_fieldset: user
@@ -6115,7 +6089,11 @@ user.full_name:
   flat_name: user.full_name
   ignore_above: 1024
   level: extended
-  multi_fields: *id002
+  multi_fields:
+  - flat_name: user.full_name.text
+    name: text
+    norms: false
+    type: text
   name: full_name
   order: 2
   short: User's full name, if available.
@@ -6186,7 +6164,11 @@ user.name:
   flat_name: user.name
   ignore_above: 1024
   level: core
-  multi_fields: *id003
+  multi_fields:
+  - flat_name: user.name.text
+    name: text
+    norms: false
+    type: text
   name: name
   order: 1
   short: Short name or login of the user.
@@ -6249,12 +6231,11 @@ user_agent.os.full:
   flat_name: user_agent.os.full
   ignore_above: 1024
   level: extended
-  multi_fields: !!python/object/apply:builtins.map
-  - !!python/name:schema_reader.%3Clambda%3E ''
-  - !!python/object/apply:builtins.iter
-    args:
-    - *id004
-    state: 0
+  multi_fields:
+  - flat_name: os.full.text
+    name: text
+    norms: false
+    type: text
   name: full
   order: 2
   original_fieldset: os
@@ -6279,12 +6260,11 @@ user_agent.os.name:
   flat_name: user_agent.os.name
   ignore_above: 1024
   level: extended
-  multi_fields: !!python/object/apply:builtins.map
-  - !!python/name:schema_reader.%3Clambda%3E ''
-  - !!python/object/apply:builtins.iter
-    args:
-    - *id005
-    state: 0
+  multi_fields:
+  - flat_name: os.name.text
+    name: text
+    norms: false
+    type: text
   name: name
   order: 1
   original_fieldset: os
