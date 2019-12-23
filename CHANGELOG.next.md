@@ -16,9 +16,9 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
-* Add default `text` analyzer to `user_agent.original`. #575
-
 #### Improvements
+
+* Temporary workaround for Beats templates' `default_field` growing too big. #687
 
 #### Deprecated
 
@@ -28,8 +28,6 @@ Thanks, you're awesome :-) -->
 #### Breaking changes
 
 #### Bugfixes
-
-* Fix support for multi-fields. #575
 
 #### Added
 

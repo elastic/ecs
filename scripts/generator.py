@@ -39,7 +39,7 @@ def main():
     csv_generator.generate(flat, ecs_version)
     es_template.generate(flat, ecs_version)
     beats.generate(nested, ecs_version)
-    asciidoc_fields.generate(nested, ecs_version)
+    asciidoc_fields.generate(nested, flat, ecs_version)
 
 
 def argument_parser():

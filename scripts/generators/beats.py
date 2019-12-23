@@ -5,8 +5,11 @@ from generators import ecs_helpers
 
 
 def generate(ecs_nested, ecs_version):
+    # Load temporary whitelist for default_fields workaround.
+    df_whitelist = ecs_helpers.yaml_load('scripts/generators/beats_default_fields_whitelist.yml')
+
     # base first
-    beats_fields = fieldset_field_array(ecs_nested['base']['fields'])
+    beats_fields = fieldset_field_array(ecs_nested['base']['fields'], df_whitelist)
 
     allowed_fieldset_keys = ['name', 'title', 'group', 'description', 'footnote', 'type']
     # other fieldsets
@@ -16,7 +19,7 @@ def generate(ecs_nested, ecs_version):
         fieldset = ecs_nested[fieldset_name]
 
         beats_field = ecs_helpers.dict_copy_keys_ordered(fieldset, allowed_fieldset_keys)
-        beats_field['fields'] = fieldset_field_array(fieldset['fields'])
+        beats_field['fields'] = fieldset_field_array(fieldset['fields'], df_whitelist)
         beats_fields.append(beats_field)
 
     beats_file = OrderedDict()
@@ -28,10 +31,11 @@ def generate(ecs_nested, ecs_version):
     write_beats_yaml(beats_file, ecs_version)
 
 
-def fieldset_field_array(source_fields):
+def fieldset_field_array(source_fields, df_whitelist):
     allowed_keys = ['name', 'level', 'required', 'type', 'object_type',
                     'ignore_above', 'multi_fields', 'format', 'input_format',
-                    'output_format', 'output_precision', 'description', 'example']
+                    'output_format', 'output_precision', 'description',
+                    'example']
     multi_fields_allowed_keys = ['name', 'type', 'norms']
 
     fields = []
@@ -47,6 +51,10 @@ def fieldset_field_array(source_fields):
             beats_field['multi_fields'] = cleaned_multi_fields
 
         beats_field['name'] = nested_field_name
+
+        if not ecs_field['flat_name'] in df_whitelist:
+            beats_field['default_field'] = False
+
         fields.append(beats_field)
     return sorted(fields, key=lambda x: x['name'])
 

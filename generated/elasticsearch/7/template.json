@@ -4,7 +4,7 @@
   ],
   "mappings": {
     "_meta": {
-      "version": "1.4.0-dev"
+      "version": "1.5.0-dev"
     },
     "date_detection": false,
     "dynamic_templates": [
@@ -54,6 +54,12 @@
           "organization": {
             "properties": {
               "name": {
+                "fields": {
+                  "text": {
+                    "norms": false,
+                    "type": "text"
+                  }
+                },
                 "ignore_above": 1024,
                 "type": "keyword"
               }
@@ -75,6 +81,7 @@
               "organization": {
                 "properties": {
                   "name": {
+                    "fields": {},
                     "ignore_above": 1024,
                     "type": "keyword"
                   }
@@ -166,6 +173,7 @@
                 "type": "keyword"
               },
               "full_name": {
+                "fields": {},
                 "ignore_above": 1024,
                 "type": "keyword"
               },
@@ -194,6 +202,7 @@
                 "type": "keyword"
               },
               "name": {
+                "fields": {},
                 "ignore_above": 1024,
                 "type": "keyword"
               }
@@ -290,6 +299,7 @@
               "organization": {
                 "properties": {
                   "name": {
+                    "fields": {},
                     "ignore_above": 1024,
                     "type": "keyword"
                   }
@@ -381,6 +391,7 @@
                 "type": "keyword"
               },
               "full_name": {
+                "fields": {},
                 "ignore_above": 1024,
                 "type": "keyword"
               },
@@ -409,6 +420,7 @@
                 "type": "keyword"
               },
               "name": {
+                "fields": {},
                 "ignore_above": 1024,
                 "type": "keyword"
               }
@@ -519,6 +531,12 @@
           },
           "stack_trace": {
             "doc_values": false,
+            "fields": {
+              "text": {
+                "norms": false,
+                "type": "text"
+              }
+            },
             "ignore_above": 1024,
             "index": false,
             "type": "keyword"
@@ -619,6 +637,10 @@
           "accessed": {
             "type": "date"
           },
+          "attributes": {
+            "ignore_above": 1024,
+            "type": "keyword"
+          },
           "created": {
             "type": "date"
           },
@@ -631,6 +653,10 @@
           },
           "directory": {
             "ignore_above": 1024,
+            "type": "keyword"
+          },
+          "drive_letter": {
+            "ignore_above": 1,
             "type": "keyword"
           },
           "extension": {
@@ -685,6 +711,12 @@
             "type": "keyword"
           },
           "path": {
+            "fields": {
+              "text": {
+                "norms": false,
+                "type": "text"
+              }
+            },
             "ignore_above": 1024,
             "type": "keyword"
           },
@@ -692,6 +724,12 @@
             "type": "long"
           },
           "target_path": {
+            "fields": {
+              "text": {
+                "norms": false,
+                "type": "text"
+              }
+            },
             "ignore_above": 1024,
             "type": "keyword"
           },
@@ -847,6 +885,7 @@
                 "type": "keyword"
               },
               "full": {
+                "fields": {},
                 "ignore_above": 1024,
                 "type": "keyword"
               },
@@ -855,6 +894,7 @@
                 "type": "keyword"
               },
               "name": {
+                "fields": {},
                 "ignore_above": 1024,
                 "type": "keyword"
               },
@@ -886,6 +926,7 @@
                 "type": "keyword"
               },
               "full_name": {
+                "fields": {},
                 "ignore_above": 1024,
                 "type": "keyword"
               },
@@ -914,6 +955,7 @@
                 "type": "keyword"
               },
               "name": {
+                "fields": {},
                 "ignore_above": 1024,
                 "type": "keyword"
               }
@@ -931,6 +973,12 @@
                     "type": "long"
                   },
                   "content": {
+                    "fields": {
+                      "text": {
+                        "norms": false,
+                        "type": "text"
+                      }
+                    },
                     "ignore_above": 1024,
                     "type": "keyword"
                   }
@@ -957,6 +1005,12 @@
                     "type": "long"
                   },
                   "content": {
+                    "fields": {
+                      "text": {
+                        "norms": false,
+                        "type": "text"
+                      }
+                    },
                     "ignore_above": 1024,
                     "type": "keyword"
                   }
@@ -1154,6 +1208,7 @@
                 "type": "keyword"
               },
               "full": {
+                "fields": {},
                 "ignore_above": 1024,
                 "type": "keyword"
               },
@@ -1162,6 +1217,7 @@
                 "type": "keyword"
               },
               "name": {
+                "fields": {},
                 "ignore_above": 1024,
                 "type": "keyword"
               },
@@ -1204,6 +1260,12 @@
             "type": "keyword"
           },
           "name": {
+            "fields": {
+              "text": {
+                "norms": false,
+                "type": "text"
+              }
+            },
             "ignore_above": 1024,
             "type": "keyword"
           }
@@ -1216,6 +1278,12 @@
             "type": "keyword"
           },
           "full": {
+            "fields": {
+              "text": {
+                "norms": false,
+                "type": "text"
+              }
+            },
             "ignore_above": 1024,
             "type": "keyword"
           },
@@ -1224,6 +1292,12 @@
             "type": "keyword"
           },
           "name": {
+            "fields": {
+              "text": {
+                "norms": false,
+                "type": "text"
+              }
+            },
             "ignore_above": 1024,
             "type": "keyword"
           },
@@ -1301,10 +1375,22 @@
             "type": "long"
           },
           "command_line": {
+            "fields": {
+              "text": {
+                "norms": false,
+                "type": "text"
+              }
+            },
             "ignore_above": 1024,
             "type": "keyword"
           },
           "executable": {
+            "fields": {
+              "text": {
+                "norms": false,
+                "type": "text"
+              }
+            },
             "ignore_above": 1024,
             "type": "keyword"
           },
@@ -1332,6 +1418,12 @@
             }
           },
           "name": {
+            "fields": {
+              "text": {
+                "norms": false,
+                "type": "text"
+              }
+            },
             "ignore_above": 1024,
             "type": "keyword"
           },
@@ -1345,10 +1437,22 @@
                 "type": "long"
               },
               "command_line": {
+                "fields": {
+                  "text": {
+                    "norms": false,
+                    "type": "text"
+                  }
+                },
                 "ignore_above": 1024,
                 "type": "keyword"
               },
               "executable": {
+                "fields": {
+                  "text": {
+                    "norms": false,
+                    "type": "text"
+                  }
+                },
                 "ignore_above": 1024,
                 "type": "keyword"
               },
@@ -1356,6 +1460,12 @@
                 "type": "long"
               },
               "name": {
+                "fields": {
+                  "text": {
+                    "norms": false,
+                    "type": "text"
+                  }
+                },
                 "ignore_above": 1024,
                 "type": "keyword"
               },
@@ -1383,6 +1493,12 @@
                 }
               },
               "title": {
+                "fields": {
+                  "text": {
+                    "norms": false,
+                    "type": "text"
+                  }
+                },
                 "ignore_above": 1024,
                 "type": "keyword"
               },
@@ -1390,6 +1506,12 @@
                 "type": "long"
               },
               "working_directory": {
+                "fields": {
+                  "text": {
+                    "norms": false,
+                    "type": "text"
+                  }
+                },
                 "ignore_above": 1024,
                 "type": "keyword"
               }
@@ -1419,6 +1541,12 @@
             }
           },
           "title": {
+            "fields": {
+              "text": {
+                "norms": false,
+                "type": "text"
+              }
+            },
             "ignore_above": 1024,
             "type": "keyword"
           },
@@ -1426,6 +1554,48 @@
             "type": "long"
           },
           "working_directory": {
+            "fields": {
+              "text": {
+                "norms": false,
+                "type": "text"
+              }
+            },
+            "ignore_above": 1024,
+            "type": "keyword"
+          }
+        }
+      },
+      "registry": {
+        "properties": {
+          "data": {
+            "properties": {
+              "bytes": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
+              "strings": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
+              "type": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              }
+            }
+          },
+          "hive": {
+            "ignore_above": 1024,
+            "type": "keyword"
+          },
+          "key": {
+            "ignore_above": 1024,
+            "type": "keyword"
+          },
+          "path": {
+            "ignore_above": 1024,
+            "type": "keyword"
+          },
+          "value": {
             "ignore_above": 1024,
             "type": "keyword"
           }
@@ -1435,6 +1605,46 @@
         "properties": {
           "ip": {
             "type": "ip"
+          },
+          "user": {
+            "ignore_above": 1024,
+            "type": "keyword"
+          }
+        }
+      },
+      "rule": {
+        "properties": {
+          "category": {
+            "ignore_above": 1024,
+            "type": "keyword"
+          },
+          "description": {
+            "ignore_above": 1024,
+            "type": "keyword"
+          },
+          "id": {
+            "ignore_above": 1024,
+            "type": "keyword"
+          },
+          "name": {
+            "ignore_above": 1024,
+            "type": "keyword"
+          },
+          "reference": {
+            "ignore_above": 1024,
+            "type": "keyword"
+          },
+          "ruleset": {
+            "ignore_above": 1024,
+            "type": "keyword"
+          },
+          "uuid": {
+            "ignore_above": 1024,
+            "type": "keyword"
+          },
+          "version": {
+            "ignore_above": 1024,
+            "type": "keyword"
           }
         }
       },
@@ -1452,6 +1662,7 @@
               "organization": {
                 "properties": {
                   "name": {
+                    "fields": {},
                     "ignore_above": 1024,
                     "type": "keyword"
                   }
@@ -1543,6 +1754,7 @@
                 "type": "keyword"
               },
               "full_name": {
+                "fields": {},
                 "ignore_above": 1024,
                 "type": "keyword"
               },
@@ -1571,6 +1783,7 @@
                 "type": "keyword"
               },
               "name": {
+                "fields": {},
                 "ignore_above": 1024,
                 "type": "keyword"
               }
@@ -1628,6 +1841,7 @@
               "organization": {
                 "properties": {
                   "name": {
+                    "fields": {},
                     "ignore_above": 1024,
                     "type": "keyword"
                   }
@@ -1719,6 +1933,7 @@
                 "type": "keyword"
               },
               "full_name": {
+                "fields": {},
                 "ignore_above": 1024,
                 "type": "keyword"
               },
@@ -1747,6 +1962,7 @@
                 "type": "keyword"
               },
               "name": {
+                "fields": {},
                 "ignore_above": 1024,
                 "type": "keyword"
               }
@@ -1787,6 +2003,12 @@
                 "type": "keyword"
               },
               "name": {
+                "fields": {
+                  "text": {
+                    "norms": false,
+                    "type": "text"
+                  }
+                },
                 "ignore_above": 1024,
                 "type": "keyword"
               },
@@ -1959,10 +2181,22 @@
             "type": "keyword"
           },
           "full": {
+            "fields": {
+              "text": {
+                "norms": false,
+                "type": "text"
+              }
+            },
             "ignore_above": 1024,
             "type": "keyword"
           },
           "original": {
+            "fields": {
+              "text": {
+                "norms": false,
+                "type": "text"
+              }
+            },
             "ignore_above": 1024,
             "type": "keyword"
           },
@@ -2010,6 +2244,12 @@
             "type": "keyword"
           },
           "full_name": {
+            "fields": {
+              "text": {
+                "norms": false,
+                "type": "text"
+              }
+            },
             "ignore_above": 1024,
             "type": "keyword"
           },
@@ -2038,6 +2278,12 @@
             "type": "keyword"
           },
           "name": {
+            "fields": {
+              "text": {
+                "norms": false,
+                "type": "text"
+              }
+            },
             "ignore_above": 1024,
             "type": "keyword"
           }
@@ -2074,6 +2320,7 @@
                 "type": "keyword"
               },
               "full": {
+                "fields": {},
                 "ignore_above": 1024,
                 "type": "keyword"
               },
@@ -2082,6 +2329,7 @@
                 "type": "keyword"
               },
               "name": {
+                "fields": {},
                 "ignore_above": 1024,
                 "type": "keyword"
               },
@@ -2112,6 +2360,12 @@
             "type": "keyword"
           },
           "description": {
+            "fields": {
+              "text": {
+                "norms": false,
+                "type": "text"
+              }
+            },
             "ignore_above": 1024,
             "type": "keyword"
           },

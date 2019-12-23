@@ -6,11 +6,11 @@
   description: >
    Fields to classify events and alerts according to a threat taxonomy such as the Mitre ATT&CK framework.
 
-   These fields are for users to classify alerts from all of their sources (e.g. IDS, NGFW, etc.) within a 
-   common taxonomy. The threat.tactic.* are meant to capture the high level category of the threat 
-   (e.g. "impact"). The threat.technique.* fields are meant to capture which kind of approach is used by 
+   These fields are for users to classify alerts from all of their sources (e.g. IDS, NGFW, etc.) within a
+   common taxonomy. The threat.tactic.* are meant to capture the high level category of the threat
+   (e.g. "impact"). The threat.technique.* fields are meant to capture which kind of approach is used by
    this detected threat, to accomplish the goal (e.g. "endpoint denial of service").
-  
+
   type: group
   fields:
 
@@ -19,10 +19,10 @@
       type: keyword
       short: Threat classification framework.
       description: >
-        Name of the threat framework used to further categorize and classify the tactic and technique of the reported threat.  
+        Name of the threat framework used to further categorize and classify the tactic and technique of the reported threat.
         Framework classification can be provided by detecting systems, evaluated at ingest time, or retrospectively tagged to events.
 
-      example: MITRE ATT&CK 
+      example: MITRE ATT&CK
 
     - name: tactic.name
       level: extended
@@ -57,6 +57,9 @@
     - name: technique.name
       level: extended
       type: keyword
+      multi_fields:
+      - type: text
+        name: text
       short: Threat technique name.
       description: >
           The name of technique used by this tactic. You can use the Mitre ATT&CK Matrix Tactic categorization, for example.
