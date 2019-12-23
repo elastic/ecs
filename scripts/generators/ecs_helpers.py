@@ -83,7 +83,7 @@ def yaml_dump(filename, data, preamble=None):
 
 def yaml_load(filename):
     with open(filename) as f:
-        return yaml.load(f.read())
+        return yaml.safe_load(f.read())
 
 # List helpers
 
