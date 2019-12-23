@@ -16,17 +16,9 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
-* Added default `text` analyzer as a multi-field to `user_agent.original`. #575
-* Added `file.attributes`. #611
-* Added `file.drive_letter`. #620
-* Added `rule` fields. #665
-* Added default `text` analyzer as a multi-field to around 25 more fields. #680
-* Added `registry.*` fieldset for the Windows registry. #673
-* Publish initial list of allowed values for the categorization fields (previously reserved)
-  `event.kind`, `event.category`, `event.type` and `event.outcome`. #684, #691, #692
-* Added `related.user` #694
-
 #### Improvements
+
+* Temporary workaround for Beats templates' `default_field` growing too big. #687
 
 #### Deprecated
 
@@ -36,8 +28,6 @@ Thanks, you're awesome :-) -->
 #### Breaking changes
 
 #### Bugfixes
-
-* Fix support for multi-fields. #575
 
 #### Added
 
