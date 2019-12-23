@@ -9,9 +9,11 @@ go:
 - 1.13.x
 
 before_install:
-- echo ENV $(env)
-- echo PY3 $(which python3)
-- echo PY37 $(which python3.7)
+- echo PY3
+- cat /opt/pyenv/shims/python3
+- echo PY37
+- cat /opt/pyenv/shims/python3.7
+- cp /opt/pyenv/shims/python3.7 /opt/pyenv/shims/python3
 - make setup
 
 addons:
