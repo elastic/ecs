@@ -22,7 +22,7 @@ package ecs
 // Rule fields are used to capture the specifics of any observer or agent rules
 // that generate alerts or other notable events.
 // Examples of data sources that would populate the rule fields include:
-// network admission control platforms, network or  host IDS/IPS, network
+// network admission control platforms, network or host IDS/IPS, network
 // firewalls, web application firewalls, url filters, endpoint detection and
 // response (EDR) systems, etc.
 type Rule struct {
