@@ -5,27 +5,20 @@ language: go
 os:
 - linux
 
+dist: bionic
+
 go:
 - 1.13.x
 
 before_install:
-- echo PY3
-- cat /opt/pyenv/shims/python3
-- echo PY37
-- cat /opt/pyenv/shims/python3.7
-- cp /opt/pyenv/shims/python3.7 /opt/pyenv/shims/python3
 - make setup
 
 addons:
   apt:
-    sources:
-      - deadsnakes # Python PPA
     update: true
     packages:
       - xsltproc
       - libxml2-utils
-      - python3.7
-      - python3.7-venv
 
 jobs:
   include:
