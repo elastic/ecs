@@ -6,7 +6,7 @@ from generators import ecs_helpers
 
 def generate(ecs_flat, ecs_version):
     field_mappings = {}
-    for flat_name in ecs_flat:
+    for flat_name in sorted(ecs_flat):
         field = ecs_flat[flat_name]
         nestings = flat_name.split('.')
         dict_add_nested(field_mappings, nestings, entry_for(field))
@@ -20,25 +20,22 @@ def generate(ecs_flat, ecs_version):
 # Field mappings
 
 
-def dict_add_nested(dict, nestings, value):
+def dict_add_nested(dct, nestings, value):
     current_nesting = nestings[0]
     rest_nestings = nestings[1:]
     if len(rest_nestings) > 0:
-        if current_nesting not in dict:
-            dict[current_nesting] = {'properties': {}}
-        elif 'type' in dict[current_nesting] and 'object' == dict[current_nesting]['type']:
-            dict[current_nesting] = {'type': dict[current_nesting]['type'], 'properties': {}}
+        dct.setdefault(current_nesting, {})
+        dct[current_nesting].setdefault('properties', {})
 
-        if 'properties' in dict[current_nesting]:
-            dict_add_nested(
-                dict[current_nesting]['properties'],
-                rest_nestings,
-                value)
+        dict_add_nested(
+            dct[current_nesting]['properties'],
+            rest_nestings,
+            value)
 
     else:
-        if current_nesting in dict and 'type' in value and 'object' == value['type']:
+        if current_nesting in dct and 'type' in value and 'object' == value['type']:
             return
-        dict[current_nesting] = value
+        dct[current_nesting] = value
 
 
 def entry_for(field):
@@ -61,7 +58,7 @@ def entry_for(field):
                 field_entry['fields'][mf['name']] = mf_entry
 
     except KeyError as ex:
-        print ex, field
+        print("Exception {} occurred for field {}".format(ex, field))
         raise ex
     return field_entry
 

@@ -56,7 +56,7 @@ def fieldset_field_array(source_fields, df_whitelist):
             beats_field['default_field'] = False
 
         fields.append(beats_field)
-    return sorted(fields, lambda x, y: cmp(x['name'], y['name']))
+    return sorted(fields, key=lambda x: x['name'])
 
 # Helpers
 

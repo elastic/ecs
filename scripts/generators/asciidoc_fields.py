@@ -12,10 +12,7 @@ def generate(ecs_nested, ecs_flat, ecs_version):
 
 
 def save_asciidoc(file, text):
-    open_mode = "wb"
-    if sys.version_info >= (3, 0):
-        open_mode = "w"
-    with open(file, open_mode) as outfile:
+    with open(file, "w") as outfile:
         outfile.write(text)
 
 
@@ -121,7 +118,7 @@ def render_fieldset_reuse_section(fieldset, ecs_nested):
             fieldset_name=fieldset['name'],
             fieldset_title=fieldset['title']
         )
-        nestings = []
+
         for nested_fs_name in sorted(fieldset['nestings']):
             text += render_nesting_row({
                 'flat_nesting': "{}.{}.*".format(fieldset['name'], nested_fs_name),

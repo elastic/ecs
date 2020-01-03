@@ -7,7 +7,7 @@ def read_schema_file(path):
     """
     fields = []
     with open(path) as f:
-        fields = yaml.load(f.read())
+        fields = yaml.safe_load(f.read())
 
     clean_namespace_fields(fields)
     return fields
@@ -17,7 +17,7 @@ def read_use_case_file(path):
     """Read a use-case.yml file and cleans up the fields
     """
     with open(path) as f:
-        use_case = yaml.load(f.read())
+        use_case = yaml.safe_load(f.read())
 
     fields = use_case["fields"]
     clean_namespace_fields(fields)
