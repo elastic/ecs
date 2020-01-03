@@ -136,7 +136,7 @@ type Event struct {
 
 	// Sequence number of the event.
 	// The sequence number is a value published by some event sources, to make
-	// the exact ordering of events unambiguous, regarless of the timestamp
+	// the exact ordering of events unambiguous, regardless of the timestamp
 	// precision.
 	Sequence int64 `ecs:"sequence"`
 
