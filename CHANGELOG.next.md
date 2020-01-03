@@ -33,6 +33,8 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
+* ECS scripts now use Python 3.6+. #674
+
 #### Deprecated
 
 
