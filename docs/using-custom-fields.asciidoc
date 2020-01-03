@@ -71,14 +71,14 @@ and underscores to join words. Following these guidelines for custom fields
 ensures you preserve the same consistent experience throughout your schemas.
 
 Note however, that breaking away from these guidelines for your custom fields
-can however be used to your advantage. It can be a good way to differentiate
-between ECS fields and custom fields for your users. And since ECS doesn't
+can be used to your advantage. It can be a good way to differentiate
+between ECS fields and custom fields. Since ECS doesn't
 use capitalization for field names, this approach virtually guarantees that
 custom fields will not conflict with future ECS fields.
 
 Common proxy concepts could modelled via a capitalized, but generic concept name.
 
-Haproxy example:
+HAProxy example:
 
 [source,json]
 -------------
@@ -101,8 +101,9 @@ NGINX example:
 -------------
 
 The above demonstrates that using a common concept name in custom fields
-can still be beneficial. Using capitalization ensures a future version of ECS
-that defines a `proxy` field set will not conflict.
+can still be beneficial to correlate among multiple sources that populate them.
+Using capitalization ensures a future version of ECS that defines a `proxy`
+field set will not conflict.
 
 Here's a sample event, during a migration from the custom field, to using a new
 equivalent ECS field set:
