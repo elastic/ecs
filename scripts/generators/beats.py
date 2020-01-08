@@ -36,7 +36,7 @@ def fieldset_field_array(source_fields, df_whitelist):
                     'ignore_above', 'multi_fields', 'format', 'input_format',
                     'output_format', 'output_precision', 'description',
                     'example']
-    multi_fields_allowed_keys = ['name', 'type', 'norms']
+    multi_fields_allowed_keys = ['name', 'type', 'norms', 'default_field']
 
     fields = []
     for nested_field_name in source_fields:
@@ -46,6 +46,10 @@ def fieldset_field_array(source_fields, df_whitelist):
         cleaned_multi_fields = []
         if 'multi_fields' in ecs_field:
             for mf in ecs_field['multi_fields']:
+                # Set default_field if necessary. Avoid adding the key if the parent
+                # field already is marked with default_field: false.
+                if not mf['flat_name'] in df_whitelist and ecs_field['flat_name'] in df_whitelist:
+                    mf['default_field'] = False
                 cleaned_multi_fields.append(
                     ecs_helpers.dict_copy_keys_ordered(mf, multi_fields_allowed_keys))
             beats_field['multi_fields'] = cleaned_multi_fields
