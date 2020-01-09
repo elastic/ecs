@@ -63,7 +63,7 @@ type Tls struct {
 	ClientServerName string `ecs:"client.server_name"`
 
 	// Array of ciphers offered by the client during the client hello.
-	ClientSupportedCiphers string `ecs:"client.supported_ciphers"`
+	ClientSupportedCiphers []string `ecs:"client.supported_ciphers"`
 
 	// Distinguished name of subject of the x.509 certificate presented by the
 	// client.
@@ -84,7 +84,7 @@ type Tls struct {
 	// offered by the client. This is usually mutually-exclusive of
 	// `client.certificate` since that value should be the first certificate in
 	// the chain.
-	ClientCertificateChain string `ecs:"client.certificate_chain"`
+	ClientCertificateChain []string `ecs:"client.certificate_chain"`
 
 	// PEM-encoded stand-alone certificate offered by the client. This is
 	// usually mutually-exclusive of `client.certificate_chain` since this
@@ -127,7 +127,7 @@ type Tls struct {
 	// offered by the server. This is usually mutually-exclusive of
 	// `server.certificate` since that value should be the first certificate in
 	// the chain.
-	ServerCertificateChain string `ecs:"server.certificate_chain"`
+	ServerCertificateChain []string `ecs:"server.certificate_chain"`
 
 	// PEM-encoded stand-alone certificate offered by the server. This is
 	// usually mutually-exclusive of `server.certificate_chain` since this

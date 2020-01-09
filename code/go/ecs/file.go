@@ -37,7 +37,7 @@ type File struct {
 	// Attributes names will vary by platform. Here's a non-exhaustive list of
 	// values that are expected in this field: archive, compressed, directory,
 	// encrypted, execute, hidden, read, readonly, system, write.
-	Attributes string `ecs:"attributes"`
+	Attributes []string `ecs:"attributes"`
 
 	// Directory where the file is located. It should include the drive letter,
 	// when appropriate.

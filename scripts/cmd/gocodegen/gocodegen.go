@@ -29,7 +29,7 @@ import (
 	"text/template"
 	"unicode"
 
-	wordwrap "github.com/mitchellh/go-wordwrap"
+	"github.com/mitchellh/go-wordwrap"
 
 	"github.com/elastic/beats/libbeat/common"
 	"github.com/elastic/go-ucfg/yaml"
@@ -170,7 +170,7 @@ func main() {
 			}
 
 			for _, field := range group.Fields {
-				dataType := goDataType(field.Name, field.Type)
+				dataType := goDataType(field)
 				if strings.HasPrefix(dataType, "time.") {
 					t.ImportTime = true
 				}
@@ -264,13 +264,26 @@ func trimTrailingWhitespace(text string) string {
 }
 
 // goDataType returns the Go type to use for Elasticsearch mapping data type.
-func goDataType(fieldName, elasticsearchDataType string) string {
+func goDataType(field common.Field) string {
+	dType := goBasicDataType(field.Name, field.Type)
+	// Mark as an array if the term "array" appears at the start of description
+	// with a max of 5 leading chars to allow for "An array" or "The array" and
+	// for whitespace.
+	// Ideally this would look at the example key being an array, but this is
+	// not exposed by libbeat's common.Field.
+	pos := strings.Index(strings.ToLower(field.Description), "array")
+	isArray := pos >= 0 && pos < 5
+	if isArray {
+		return "[]" + dType
+	}
+	return dType
+}
+
+func goBasicDataType(fieldName, elasticsearchDataType string) string {
 	// Special cases.
 	switch {
 	case fieldName == "duration" && elasticsearchDataType == "long":
 		return "time.Duration"
-	case fieldName == "args" && elasticsearchDataType == "keyword":
-		return "[]string"
 	}
 
 	switch elasticsearchDataType {

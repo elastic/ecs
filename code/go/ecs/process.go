@@ -71,7 +71,7 @@ type Process struct {
 
 	// Array of process arguments.
 	// May be filtered to protect sensitive information.
-	ParentArgs string `ecs:"parent.args"`
+	ParentArgs []string `ecs:"parent.args"`
 
 	// Length of the process.args array.
 	// This field can be useful for querying or performing bucket analysis on
