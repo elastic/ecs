@@ -14,17 +14,17 @@ def main():
     args = argument_parser()
 
     ecs_version = read_version()
-    print 'Running generator. ECS version ' + ecs_version
+    print('Running generator. ECS version ' + ecs_version)
 
     # Load the default schemas
-    print 'Loading default schemas'
+    print('Loading default schemas')
     (nested, flat) = schema_reader.load_schemas()
 
     # Maybe load user specified directory of schemas
     if args.include:
         include_glob = os.path.join(args.include, '*.yml')
 
-        print 'Loading user defined schemas: {0}'.format(include_glob)
+        print('Loading user defined schemas: {0}'.format(include_glob))
 
         (custom_nested, custom_flat) = schema_reader.load_schemas(sorted(glob.glob(include_glob)))
 
@@ -34,12 +34,12 @@ def main():
 
     intermediate_files.generate(nested, flat)
     if args.intermediate_only:
-        exit
+        exit()
 
     csv_generator.generate(flat, ecs_version)
     es_template.generate(flat, ecs_version)
     beats.generate(nested, ecs_version)
-    asciidoc_fields.generate(nested, ecs_version)
+    asciidoc_fields.generate(nested, flat, ecs_version)
 
 
 def argument_parser():

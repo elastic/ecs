@@ -18,6 +18,8 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
+* Temporary workaround for Beats templates' `default_field` growing too big. #687
+
 #### Deprecated
 
 
@@ -30,6 +32,8 @@ Thanks, you're awesome :-) -->
 #### Added
 
 #### Improvements
+
+* ECS scripts now use Python 3.6+. #674
 
 #### Deprecated
 

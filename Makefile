@@ -56,6 +56,7 @@ fmt: ve
 # Alias to generate everything.
 .PHONY: generate
 generate: legacy_use_cases codegen generator
+	$(PYTHON) --version
 
 # Run the new generator
 .PHONY: generator
@@ -107,7 +108,7 @@ test:
 .PHONY: ve
 ve: build/ve/bin/activate
 build/ve/bin/activate: scripts/requirements.txt
-	@test -d build/ve || virtualenv build/ve
+	@test -d build/ve || virtualenv -p python3 build/ve
 	@build/ve/bin/pip install -Ur scripts/requirements.txt
 	@touch build/ve/bin/activate
 

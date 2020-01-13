@@ -7,7 +7,7 @@ def read_schema_file(path):
     """
     fields = []
     with open(path) as f:
-        fields = yaml.load(f.read())
+        fields = yaml.safe_load(f.read())
 
     clean_namespace_fields(fields)
     return fields
@@ -17,7 +17,7 @@ def read_use_case_file(path):
     """Read a use-case.yml file and cleans up the fields
     """
     with open(path) as f:
-        use_case = yaml.load(f.read())
+        use_case = yaml.safe_load(f.read())
 
     fields = use_case["fields"]
     clean_namespace_fields(fields)
@@ -60,18 +60,18 @@ def clean_fields(fields, prefix, group):
             # If no group set, set parent group
             field["group"] = group
 
-        if "multi_fields" in field:
-            for f in field["multi_fields"]:
-                clean_string_field(f, "description")
-                clean_string_field(f, "example")
-                clean_string_field(f, "type")
+        # if "multi_fields" in field:
+        #     for f in field["multi_fields"]:
+        #         clean_string_field(f, "description")
+        #         clean_string_field(f, "example")
+        #         clean_string_field(f, "type")
 
-                # multi fields always have a prefix
-                f["name"] = field["name"] + "." + f["name"]
+        #         # multi fields always have a prefix
+        #         f["name"] = field["name"] + "." + f["name"]
 
-                if 'group' not in f.keys():
-                    # If no group set, set parent group
-                    f["group"] = group
+        #         if 'group' not in f.keys():
+        #             # If no group set, set parent group
+        #             f["group"] = group
 
 
 def clean_string_field(field, key):

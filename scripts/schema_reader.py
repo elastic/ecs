@@ -14,7 +14,7 @@ def ecs_files():
 def read_schema_file(file):
     """Read a raw schema yml into a map, removing the wrapping array in each file"""
     with open(file) as f:
-        raw = yaml.load(f.read())
+        raw = yaml.safe_load(f.read())
     fields = {}
     for field_set in raw:
         fields[field_set['name']] = field_set
@@ -35,7 +35,7 @@ def dict_clean_string_values(dict):
     """Remove superfluous spacing in all field values of a dict"""
     for key in dict:
         value = dict[key]
-        if isinstance(value, basestring):
+        if isinstance(value, str):
             dict[key] = value.strip()
 
 
@@ -84,12 +84,13 @@ def schema_fields_as_dictionary(schema):
 
 def field_cleanup_values(field, prefix):
     dict_clean_string_values(field)
-    field_set_flat_name(field, prefix)
+    field_name_representations(field, prefix)
     field_set_defaults(field)
 
 
-def field_set_flat_name(field, prefix):
+def field_name_representations(field, prefix):
     field['flat_name'] = prefix + field['name']
+    field['dashed_name'] = field['flat_name'].replace('.', '-').replace('_', '-')
 
 
 def field_set_defaults(field):
@@ -115,6 +116,8 @@ def field_set_multi_field_defaults(parent_field):
     """Sets defaults for each nested field in the multi_fields array"""
     for mf in parent_field['multi_fields']:
         dict_set_default(mf, 'name', mf['type'])
+        if mf['type'] == 'text':
+            dict_set_default(mf, 'norms', False)
         mf['flat_name'] = parent_field['flat_name'] + '.' + mf['name']
 
 
@@ -125,20 +128,20 @@ def duplicate_reusable_fieldsets(schema, fields_flat, fields_nested):
     # Here it simplifies the nesting of 'group' under 'user',
     # which is in turn reusable in a few places.
     if 'reusable' in schema:
-        for new_nesting in schema['reusable']['expected']:
+        for new_nesting in sorted(schema['reusable']['expected']):
 
             # List field set names expected under another field set.
             # E.g. host.nestings = [ 'geo', 'os', 'user' ]
-            if 'nestings' not in fields_nested[new_nesting]:
-                fields_nested[new_nesting]['nestings'] = []
-            fields_nested[new_nesting]['nestings'].append(schema['name'])
+            nestings = fields_nested[new_nesting].setdefault('nestings', [])
+            nestings.append(schema['name'])
+            nestings.sort()
 
             # Explicitly list all leaf fields coming from field set reuse.
             for (name, field) in schema['fields'].items():
                 # Poor folks deepcopy, sorry -- A Rubyist
                 copied_field = field.copy()
                 if 'multi_fields' in copied_field:
-                    copied_field['multi_fields'] = copied_field['multi_fields'].copy()
+                    copied_field['multi_fields'] = list(map(lambda mf: mf.copy(), copied_field['multi_fields']))
 
                 destination_name = new_nesting + '.' + field['flat_name']
                 copied_field['flat_name'] = destination_name

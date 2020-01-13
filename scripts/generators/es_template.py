@@ -6,7 +6,7 @@ from generators import ecs_helpers
 
 def generate(ecs_flat, ecs_version):
     field_mappings = {}
-    for flat_name in ecs_flat:
+    for flat_name in sorted(ecs_flat):
         field = ecs_flat[flat_name]
         nestings = flat_name.split('.')
         dict_add_nested(field_mappings, nestings, entry_for(field))
@@ -20,41 +20,47 @@ def generate(ecs_flat, ecs_version):
 # Field mappings
 
 
-def dict_add_nested(dict, nestings, value):
+def dict_add_nested(dct, nestings, value):
     current_nesting = nestings[0]
     rest_nestings = nestings[1:]
     if len(rest_nestings) > 0:
-        if current_nesting not in dict:
-            dict[current_nesting] = {'properties': {}}
-        elif 'type' in dict[current_nesting] and 'object' == dict[current_nesting]['type']:
-            dict[current_nesting] = {'type': dict[current_nesting]['type'], 'properties': {}}
+        dct.setdefault(current_nesting, {})
+        dct[current_nesting].setdefault('properties', {})
 
-        if 'properties' in dict[current_nesting]:
-            dict_add_nested(
-                dict[current_nesting]['properties'],
-                rest_nestings,
-                value)
+        dict_add_nested(
+            dct[current_nesting]['properties'],
+            rest_nestings,
+            value)
 
     else:
-        if current_nesting in dict and 'type' in value and 'object' == value['type']:
+        if current_nesting in dct and 'type' in value and 'object' == value['type']:
             return
-        dict[current_nesting] = value
+        dct[current_nesting] = value
 
 
 def entry_for(field):
-    dict = {'type': field['type']}
+    field_entry = {'type': field['type']}
     try:
         if 'index' in field and not field['index']:
-            ecs_helpers.dict_copy_existing_keys(field, dict, ['index', 'doc_values'])
+            ecs_helpers.dict_copy_existing_keys(field, field_entry, ['index', 'doc_values'])
 
         if field['type'] == 'keyword':
-            ecs_helpers.dict_copy_existing_keys(field, dict, ['ignore_above'])
+            ecs_helpers.dict_copy_existing_keys(field, field_entry, ['ignore_above'])
         elif field['type'] == 'text':
-            ecs_helpers.dict_copy_existing_keys(field, dict, ['norms'])
+            ecs_helpers.dict_copy_existing_keys(field, field_entry, ['norms'])
+
+        if 'multi_fields' in field:
+            field_entry['fields'] = {}
+            for mf in field['multi_fields']:
+                mf_entry = {'type': mf['type']}
+                if mf['type'] == 'text':
+                    ecs_helpers.dict_copy_existing_keys(mf, mf_entry, ['norms'])
+                field_entry['fields'][mf['name']] = mf_entry
+
     except KeyError as ex:
-        print ex, field
+        print("Exception {} occurred for field {}".format(ex, field))
         raise ex
-    return dict
+    return field_entry
 
 # Generated files
 
