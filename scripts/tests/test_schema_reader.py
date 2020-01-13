@@ -59,29 +59,6 @@ class TestSchemaReader(unittest.TestCase):
         schema_reader.field_set_defaults(field)
         self.assertEqual(field, {'description': 'a field', 'short': 'a field', 'type': 'faketype'})
 
-    def test_field_name_representations_nested(self):
-        nested = {'name': 'nested'}
-        schema_reader.field_name_representations(nested, 'parent.')
-        self.assertEqual(nested, {'name': 'nested', 'flat_name': 'parent.nested', 'dashed_name': 'parent-nested'})
-
-    def test_field_name_representations_root(self):
-        nested = {'name': 'root_field'}
-        schema_reader.field_name_representations(nested, '')
-        self.assertEqual(nested, {'name': 'root_field', 'flat_name': 'root_field', 'dashed_name': 'root-field'})
-
-    def test_field_cleanup_values(self):
-        field = {'name': 'myfield', 'type': 'faketype', 'description': 'a field   '}
-        schema_reader.field_cleanup_values(field, 'event.')
-        expected = {
-            'name': 'myfield',
-            'type': 'faketype',
-            'flat_name': 'event.myfield',
-            'dashed_name': 'event-myfield',
-            'description': 'a field',
-            'short': 'a field'
-        }
-        self.assertEqual(field, expected)
-
     def test_field_set_multi_field_defaults_missing_name(self):
         field = {
             'name': 'myfield',
