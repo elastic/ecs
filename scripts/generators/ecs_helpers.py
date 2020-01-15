@@ -40,13 +40,14 @@ def dict_sorted_by_keys(dct, sort_keys):
 
 def safe_merge_dicts(a, b):
     """Merges two dictionaries into one. If duplicate keys are detected a ValueError is raised."""
-    c = deepcopy(a)
     for key in b:
-        if key not in c:
-            c[key] = b[key]
+        if key not in a:
+            a[key] = b[key]
+        elif isinstance(a[key], dict) and isinstance(b[key], dict):
+            a[key] = safe_merge_dicts(a[key], b[key])
         else:
-            raise ValueError('Duplicate key found when merging dictionaries: {0}'.format(key))
-    return c
+            print('Duplicate key found when merging dictionaries: {0}\n Ignoring user supplied field definition'.format(key))
+    return a
 
 
 def yaml_ordereddict(dumper, data):

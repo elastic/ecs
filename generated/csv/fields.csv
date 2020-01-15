@@ -11,6 +11,17 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Example,Description
 1.5.0-dev,true,as,as.number,long,extended,15169,Unique number allocated to the autonomous system. The autonomous system number (ASN) uniquely identifies each network on the Internet.
 1.5.0-dev,true,as,as.organization.name,keyword,extended,Google LLC,Organization name.
 1.5.0-dev,true,as,as.organization.name.text,text,extended,Google LLC,Organization name.
+1.5.0-dev,true,authenticode,authenticode.cert_signer.issuer_name,keyword,custom,,TODO
+1.5.0-dev,true,authenticode,authenticode.cert_signer.serial_number,keyword,custom,,TODO
+1.5.0-dev,true,authenticode,authenticode.cert_signer.subject_name,keyword,custom,,TODO
+1.5.0-dev,true,authenticode,authenticode.cert_signer.timestamp_string,keyword,custom,,TODO
+1.5.0-dev,true,authenticode,authenticode.cert_timestamp.issuer_name,keyword,custom,,TODO
+1.5.0-dev,true,authenticode,authenticode.cert_timestamp.serial_number,keyword,custom,,TODO
+1.5.0-dev,true,authenticode,authenticode.cert_timestamp.subject_name,keyword,custom,,TODO
+1.5.0-dev,true,authenticode,authenticode.cert_timestamp.timestamp_string,keyword,custom,,TODO
+1.5.0-dev,true,authenticode,authenticode.more_info_link,keyword,custom,,TODO
+1.5.0-dev,true,authenticode,authenticode.program_name,keyword,custom,,TODO
+1.5.0-dev,true,authenticode,authenticode.publisher_link,keyword,custom,,TODO
 1.5.0-dev,true,client,client.address,keyword,extended,,Client network address.
 1.5.0-dev,true,client,client.as.number,long,extended,15169,Unique number allocated to the autonomous system. The autonomous system number (ASN) uniquely identifies each network on the Internet.
 1.5.0-dev,true,client,client.as.organization.name,keyword,extended,Google LLC,Organization name.
@@ -147,6 +158,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Example,Description
 1.5.0-dev,true,file,file.extension,keyword,extended,png,File extension.
 1.5.0-dev,true,file,file.gid,keyword,extended,1001,Primary group ID (GID) of the file.
 1.5.0-dev,true,file,file.group,keyword,extended,alice,Primary group name of the file.
+1.5.0-dev,true,file,file.hash.imphash,keyword,extended,,Imphash.
 1.5.0-dev,true,file,file.hash.md5,keyword,extended,,MD5 hash.
 1.5.0-dev,true,file,file.hash.sha1,keyword,extended,,SHA1 hash.
 1.5.0-dev,true,file,file.hash.sha256,keyword,extended,,SHA256 hash.
@@ -163,6 +175,40 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Example,Description
 1.5.0-dev,true,file,file.target_path.text,text,extended,,Target path for symlinks.
 1.5.0-dev,true,file,file.type,keyword,extended,file,"File type (file, dir, or symlink)."
 1.5.0-dev,true,file,file.uid,keyword,extended,1001,The user ID (UID) or security identifier (SID) of the file owner.
+1.5.0-dev,true,file_classification,file_classification.captured_file,boolean,custom,,TODO
+1.5.0-dev,true,file_classification,file_classification.file.entry_modified,double,custom,,TODO
+1.5.0-dev,true,file_classification,file_classification.is_signature_trusted,boolean,custom,,TODO
+1.5.0-dev,true,file_classification,file_classification.macro_details.code_page,long,custom,,TODO
+1.5.0-dev,true,file_classification,file_classification.macro_details.errors,nested,custom,,TODO
+1.5.0-dev,true,file_classification,file_classification.macro_details.errors.count,long,custom,,TODO
+1.5.0-dev,true,file_classification,file_classification.macro_details.errors.error_type,keyword,custom,,TODO
+1.5.0-dev,true,file_classification,file_classification.macro_details.file_extension,long,custom,,TODO
+1.5.0-dev,true,file_classification,file_classification.macro_details.macro_collection_hashes.imphash,keyword,custom,,TODO
+1.5.0-dev,true,file_classification,file_classification.macro_details.macro_collection_hashes.md5,keyword,custom,,TODO
+1.5.0-dev,true,file_classification,file_classification.macro_details.macro_collection_hashes.sha1,keyword,custom,,TODO
+1.5.0-dev,true,file_classification,file_classification.macro_details.macro_collection_hashes.sha256,keyword,custom,,TODO
+1.5.0-dev,true,file_classification,file_classification.macro_details.project_file_hashes.imphash,keyword,custom,,TODO
+1.5.0-dev,true,file_classification,file_classification.macro_details.project_file_hashes.md5,keyword,custom,,TODO
+1.5.0-dev,true,file_classification,file_classification.macro_details.project_file_hashes.sha1,keyword,custom,,TODO
+1.5.0-dev,true,file_classification,file_classification.macro_details.project_file_hashes.sha256,keyword,custom,,TODO
+1.5.0-dev,true,file_classification,file_classification.macro_details.stream_data,nested,custom,,TODO
+1.5.0-dev,true,file_classification,file_classification.macro_details.stream_data.imphash,keyword,custom,,TODO
+1.5.0-dev,true,file_classification,file_classification.macro_details.stream_data.md5,keyword,custom,,TODO
+1.5.0-dev,true,file_classification,file_classification.macro_details.stream_data.name,keyword,custom,,TODO
+1.5.0-dev,true,file_classification,file_classification.macro_details.stream_data.raw_code,keyword,custom,,TODO
+1.5.0-dev,true,file_classification,file_classification.macro_details.stream_data.raw_code_size,keyword,custom,,TODO
+1.5.0-dev,true,file_classification,file_classification.macro_details.stream_data.sha1,keyword,custom,,TODO
+1.5.0-dev,true,file_classification,file_classification.macro_details.stream_data.sha256,keyword,custom,,TODO
+1.5.0-dev,true,file_classification,file_classification.quarantine_result.alert_correlation_id,keyword,custom,,TODO
+1.5.0-dev,true,file_classification,file_classification.quarantine_result.quarantine_path,keyword,custom,,TODO
+1.5.0-dev,true,file_classification,file_classification.signature_signer,keyword,custom,,TODO
+1.5.0-dev,true,file_classification,file_classification.temp_file_path,keyword,custom,,TODO
+1.5.0-dev,true,file_classification,file_classification.user_blacklisted,boolean,custom,,TODO
+1.5.0-dev,true,file_classification,file_classification.yara_hits,nested,custom,,TODO
+1.5.0-dev,true,file_classification,file_classification.yara_hits.identifier,keyword,custom,,TODO
+1.5.0-dev,true,file_classification,file_classification.yara_hits.matched_data,keyword,custom,,TODO
+1.5.0-dev,true,file_classification,file_classification.yara_hits.rule_name,keyword,custom,,TODO
+1.5.0-dev,true,file_classification,file_classification.yara_hits.version,keyword,custom,,TODO
 1.5.0-dev,true,geo,geo.city_name,keyword,core,Montreal,City name.
 1.5.0-dev,true,geo,geo.continent_name,keyword,core,North America,Name of the continent.
 1.5.0-dev,true,geo,geo.country_iso_code,keyword,core,CA,Country ISO code.
@@ -174,10 +220,14 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Example,Description
 1.5.0-dev,true,group,group.domain,keyword,extended,,Name of the directory the group is a member of.
 1.5.0-dev,true,group,group.id,keyword,extended,,Unique identifier for the group on the system/platform.
 1.5.0-dev,true,group,group.name,keyword,extended,,Name of the group.
+1.5.0-dev,true,hash,hash.imphash,keyword,extended,,Imphash.
 1.5.0-dev,true,hash,hash.md5,keyword,extended,,MD5 hash.
 1.5.0-dev,true,hash,hash.sha1,keyword,extended,,SHA1 hash.
 1.5.0-dev,true,hash,hash.sha256,keyword,extended,,SHA256 hash.
 1.5.0-dev,true,hash,hash.sha512,keyword,extended,,SHA512 hash.
+1.5.0-dev,true,histogram,histogram.histogram_array,keyword,custom,,TODO
+1.5.0-dev,true,histogram,histogram.histogram_flavor,keyword,custom,,TODO
+1.5.0-dev,true,histogram,histogram.histogram_resolution,keyword,custom,,TODO
 1.5.0-dev,true,host,host.architecture,keyword,core,x86_64,Operating system architecture.
 1.5.0-dev,true,host,host.domain,keyword,extended,CONTOSO,Name of the directory the group is a member of.
 1.5.0-dev,true,host,host.geo.city_name,keyword,core,Montreal,City name.
@@ -238,6 +288,69 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Example,Description
 1.5.0-dev,true,log,log.syslog.priority,long,extended,135,Syslog priority of the event.
 1.5.0-dev,true,log,log.syslog.severity.code,long,extended,3,Syslog numeric severity of the event.
 1.5.0-dev,true,log,log.syslog.severity.name,keyword,extended,Error,Syslog text-based severity of the event.
+1.5.0-dev,true,malware_score,malware_score.compressed_malware_features.data_buffer,keyword,custom,,TODO
+1.5.0-dev,true,malware_score,malware_score.compressed_malware_features.decompressed_size,integer,custom,,TODO
+1.5.0-dev,true,malware_score,malware_score.compressed_malware_features.encoding,keyword,custom,,TODO
+1.5.0-dev,true,malware_score,malware_score.identifier,keyword,custom,,TODO
+1.5.0-dev,true,malware_score,malware_score.prevention_threshold,double,custom,,TODO
+1.5.0-dev,true,malware_score,malware_score.score,double,custom,,TODO
+1.5.0-dev,true,malware_score,malware_score.threshold,double,custom,,TODO
+1.5.0-dev,true,malware_score,malware_score.upx_packed,boolean,custom,,TODO
+1.5.0-dev,true,malware_score,malware_score.version,keyword,custom,,TODO
+1.5.0-dev,true,memory_region,memory_region.allocation_base,keyword,custom,,TODO
+1.5.0-dev,true,memory_region,memory_region.allocation_protection,keyword,custom,,TODO
+1.5.0-dev,true,memory_region,memory_region.bytes,keyword,custom,,TODO
+1.5.0-dev,true,memory_region,memory_region.histogram.histogram_array,keyword,custom,,TODO
+1.5.0-dev,true,memory_region,memory_region.histogram.histogram_flavor,keyword,custom,,TODO
+1.5.0-dev,true,memory_region,memory_region.histogram.histogram_resolution,keyword,custom,,TODO
+1.5.0-dev,true,memory_region,memory_region.length,keyword,custom,,TODO
+1.5.0-dev,true,memory_region,memory_region.memory,keyword,custom,,TODO
+1.5.0-dev,true,memory_region,memory_region.memory_address,keyword,custom,,TODO
+1.5.0-dev,true,memory_region,memory_region.module_path,keyword,custom,,TODO
+1.5.0-dev,true,memory_region,memory_region.permission,keyword,custom,,TODO
+1.5.0-dev,true,memory_region,memory_region.protection,keyword,custom,,TODO
+1.5.0-dev,true,memory_region,memory_region.region_base,keyword,custom,,TODO
+1.5.0-dev,true,memory_region,memory_region.region_size,keyword,custom,,TODO
+1.5.0-dev,true,memory_region,memory_region.region_tag,keyword,custom,,TODO
+1.5.0-dev,true,memory_region,memory_region.type,keyword,custom,,TODO
+1.5.0-dev,true,memory_region,memory_region.unbacked_on_disk,boolean,custom,,TODO
+1.5.0-dev,true,module_info,module_info.architecture,keyword,custom,,TODO
+1.5.0-dev,true,module_info,module_info.authenticode.cert_signer.issuer_name,keyword,custom,,TODO
+1.5.0-dev,true,module_info,module_info.authenticode.cert_signer.serial_number,keyword,custom,,TODO
+1.5.0-dev,true,module_info,module_info.authenticode.cert_signer.subject_name,keyword,custom,,TODO
+1.5.0-dev,true,module_info,module_info.authenticode.cert_signer.timestamp_string,keyword,custom,,TODO
+1.5.0-dev,true,module_info,module_info.authenticode.cert_timestamp.issuer_name,keyword,custom,,TODO
+1.5.0-dev,true,module_info,module_info.authenticode.cert_timestamp.serial_number,keyword,custom,,TODO
+1.5.0-dev,true,module_info,module_info.authenticode.cert_timestamp.subject_name,keyword,custom,,TODO
+1.5.0-dev,true,module_info,module_info.authenticode.cert_timestamp.timestamp_string,keyword,custom,,TODO
+1.5.0-dev,true,module_info,module_info.authenticode.more_info_link,keyword,custom,,TODO
+1.5.0-dev,true,module_info,module_info.authenticode.program_name,keyword,custom,,TODO
+1.5.0-dev,true,module_info,module_info.authenticode.publisher_link,keyword,custom,,TODO
+1.5.0-dev,true,module_info,module_info.compile_time,date,custom,,TODO
+1.5.0-dev,true,module_info,module_info.hash.imphash,keyword,custom,,TODO
+1.5.0-dev,true,module_info,module_info.hash.md5,keyword,custom,,TODO
+1.5.0-dev,true,module_info,module_info.hash.sha1,keyword,custom,,TODO
+1.5.0-dev,true,module_info,module_info.hash.sha256,keyword,custom,,TODO
+1.5.0-dev,true,module_info,module_info.malware_score.compressed_malware_features.data_buffer,keyword,custom,,TODO
+1.5.0-dev,true,module_info,module_info.malware_score.compressed_malware_features.decompressed_size,integer,custom,,TODO
+1.5.0-dev,true,module_info,module_info.malware_score.compressed_malware_features.encoding,keyword,custom,,TODO
+1.5.0-dev,true,module_info,module_info.malware_score.identifier,keyword,custom,,TODO
+1.5.0-dev,true,module_info,module_info.malware_score.prevention_threshold,double,custom,,TODO
+1.5.0-dev,true,module_info,module_info.malware_score.score,double,custom,,TODO
+1.5.0-dev,true,module_info,module_info.malware_score.threshold,double,custom,,TODO
+1.5.0-dev,true,module_info,module_info.malware_score.upx_packed,boolean,custom,,TODO
+1.5.0-dev,true,module_info,module_info.malware_score.version,keyword,custom,,TODO
+1.5.0-dev,true,module_info,module_info.mapped_address,keyword,custom,,TODO
+1.5.0-dev,true,module_info,module_info.mapped_size,long,custom,,TODO
+1.5.0-dev,true,module_info,module_info.path,keyword,custom,,TODO
+1.5.0-dev,true,module_info,module_info.pe_exports,nested,custom,,TODO
+1.5.0-dev,true,module_info,module_info.pe_exports.name,keyword,custom,,TODO
+1.5.0-dev,true,module_info,module_info.pe_exports.ordinal,long,custom,,TODO
+1.5.0-dev,true,module_info,module_info.pe_imports,nested,custom,,TODO
+1.5.0-dev,true,module_info,module_info.pe_imports.dll_name,keyword,custom,,TODO
+1.5.0-dev,true,module_info,module_info.pe_imports.import_names,keyword,custom,,TODO
+1.5.0-dev,true,module_info,module_info.signature_signer,keyword,custom,,TODO
+1.5.0-dev,true,module_info,module_info.signature_status,keyword,custom,,TODO
 1.5.0-dev,true,network,network.application,keyword,extended,aim,Application level protocol name.
 1.5.0-dev,true,network,network.bytes,long,core,368,Total bytes transferred in both directions.
 1.5.0-dev,true,network,network.community_id,keyword,extended,1:hO+sN4H+MG5MY/8hIrXPqc4ZQz0=,A hash of source and destination IPs and ports.
@@ -298,48 +411,470 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Example,Description
 1.5.0-dev,true,package,package.size,long,extended,62231,Package size in bytes.
 1.5.0-dev,true,package,package.type,keyword,extended,rpm,Package type
 1.5.0-dev,true,package,package.version,keyword,extended,1.12.9,Package version
+1.5.0-dev,true,parent,parent.process.args,keyword,extended,"['/usr/bin/ssh', '-l', 'user', '10.0.0.16']",Array of process arguments.
+1.5.0-dev,true,parent,parent.process.args_count,long,extended,4,Length of the process.args array.
+1.5.0-dev,true,parent,parent.process.argv_list,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.authenticode.cert_signer.issuer_name,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.authenticode.cert_signer.serial_number,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.authenticode.cert_signer.subject_name,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.authenticode.cert_signer.timestamp_string,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.authenticode.cert_timestamp.issuer_name,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.authenticode.cert_timestamp.serial_number,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.authenticode.cert_timestamp.subject_name,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.authenticode.cert_timestamp.timestamp_string,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.authenticode.more_info_link,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.authenticode.program_name,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.authenticode.publisher_link,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.command_line,keyword,extended,/usr/bin/ssh -l user 10.0.0.16,Full command line that started the process.
+1.5.0-dev,true,parent,parent.process.command_line.text,text,extended,/usr/bin/ssh -l user 10.0.0.16,Full command line that started the process.
+1.5.0-dev,true,parent,parent.process.cpu_percent,double,custom,,TODO
+1.5.0-dev,true,parent,parent.process.cwd,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.defense_evasions,nested,custom,,TODO
+1.5.0-dev,true,parent,parent.process.defense_evasions.call_stack,nested,custom,,TODO
+1.5.0-dev,true,parent,parent.process.defense_evasions.call_stack.stack_frame.instruction_pointer,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.defense_evasions.call_stack.stack_frame.memory_section.memory_address,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.defense_evasions.call_stack.stack_frame.memory_section.memory_size,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.defense_evasions.call_stack.stack_frame.memory_section.protection,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.defense_evasions.call_stack.stack_frame.module_path,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.defense_evasions.call_stack.stack_frame.rva,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.defense_evasions.call_stack.stack_frame.symbol_info,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.defense_evasions.delta_count,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.defense_evasions.evasion_subtype,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.defense_evasions.evasion_type,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.defense_evasions.instruction_pointer,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.defense_evasions.memory_sections,nested,custom,,TODO
+1.5.0-dev,true,parent,parent.process.defense_evasions.memory_sections.memory_address,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.defense_evasions.memory_sections.memory_size,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.defense_evasions.memory_sections.protection,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.defense_evasions.module_path,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.defense_evasions.thread.thread_id,long,custom,,TODO
+1.5.0-dev,true,parent,parent.process.defense_evasions.thread.thread_start_address,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.defense_evasions.total_memory_size,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.domain,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.env_variables,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.executable,keyword,extended,/usr/bin/ssh,Absolute path to the process executable.
+1.5.0-dev,true,parent,parent.process.executable.text,text,extended,/usr/bin/ssh,Absolute path to the process executable.
+1.5.0-dev,true,parent,parent.process.exit_code,long,extended,137,The exit code of the process.
+1.5.0-dev,true,parent,parent.process.gid,long,custom,,TODO
+1.5.0-dev,true,parent,parent.process.group,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.handle,nested,custom,,TODO
+1.5.0-dev,true,parent,parent.process.handle.handle_id,long,custom,,TODO
+1.5.0-dev,true,parent,parent.process.handle.handle_name,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.handle.handle_type,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.has_unbacked_execute_memory,boolean,custom,,TODO
+1.5.0-dev,true,parent,parent.process.hash.imphash,keyword,extended,,Imphash.
+1.5.0-dev,true,parent,parent.process.hash.md5,keyword,extended,,MD5 hash.
+1.5.0-dev,true,parent,parent.process.hash.sha1,keyword,extended,,SHA1 hash.
+1.5.0-dev,true,parent,parent.process.hash.sha256,keyword,extended,,SHA256 hash.
+1.5.0-dev,true,parent,parent.process.hash.sha512,keyword,extended,,SHA512 hash.
+1.5.0-dev,true,parent,parent.process.hash_matched_module,boolean,custom,,TODO
+1.5.0-dev,true,parent,parent.process.imphash,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.is_sensor,boolean,custom,,Is this the Elastic Endpoint process or not.
+1.5.0-dev,true,parent,parent.process.malware_score.compressed_malware_features.data_buffer,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.malware_score.compressed_malware_features.decompressed_size,integer,custom,,TODO
+1.5.0-dev,true,parent,parent.process.malware_score.compressed_malware_features.encoding,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.malware_score.identifier,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.malware_score.prevention_threshold,double,custom,,TODO
+1.5.0-dev,true,parent,parent.process.malware_score.score,double,custom,,TODO
+1.5.0-dev,true,parent,parent.process.malware_score.threshold,double,custom,,TODO
+1.5.0-dev,true,parent,parent.process.malware_score.upx_packed,boolean,custom,,TODO
+1.5.0-dev,true,parent,parent.process.malware_score.version,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.memory_percent,double,custom,,TODO
+1.5.0-dev,true,parent,parent.process.memory_region.allocation_base,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.memory_region.allocation_protection,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.memory_region.bytes,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.memory_region.histogram.histogram_array,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.memory_region.histogram.histogram_flavor,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.memory_region.histogram.histogram_resolution,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.memory_region.length,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.memory_region.memory,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.memory_region.memory_address,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.memory_region.module_path,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.memory_region.permission,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.memory_region.protection,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.memory_region.region_base,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.memory_region.region_size,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.memory_region.region_tag,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.memory_region.type,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.memory_region.unbacked_on_disk,boolean,custom,,TODO
+1.5.0-dev,true,parent,parent.process.module_info.architecture,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.module_info.authenticode.cert_signer.issuer_name,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.module_info.authenticode.cert_signer.serial_number,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.module_info.authenticode.cert_signer.subject_name,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.module_info.authenticode.cert_signer.timestamp_string,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.module_info.authenticode.cert_timestamp.issuer_name,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.module_info.authenticode.cert_timestamp.serial_number,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.module_info.authenticode.cert_timestamp.subject_name,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.module_info.authenticode.cert_timestamp.timestamp_string,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.module_info.authenticode.more_info_link,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.module_info.authenticode.program_name,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.module_info.authenticode.publisher_link,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.module_info.compile_time,date,custom,,TODO
+1.5.0-dev,true,parent,parent.process.module_info.hash.imphash,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.module_info.hash.md5,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.module_info.hash.sha1,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.module_info.hash.sha256,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.module_info.malware_score.compressed_malware_features.data_buffer,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.module_info.malware_score.compressed_malware_features.decompressed_size,integer,custom,,TODO
+1.5.0-dev,true,parent,parent.process.module_info.malware_score.compressed_malware_features.encoding,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.module_info.malware_score.identifier,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.module_info.malware_score.prevention_threshold,double,custom,,TODO
+1.5.0-dev,true,parent,parent.process.module_info.malware_score.score,double,custom,,TODO
+1.5.0-dev,true,parent,parent.process.module_info.malware_score.threshold,double,custom,,TODO
+1.5.0-dev,true,parent,parent.process.module_info.malware_score.upx_packed,boolean,custom,,TODO
+1.5.0-dev,true,parent,parent.process.module_info.malware_score.version,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.module_info.mapped_address,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.module_info.mapped_size,long,custom,,TODO
+1.5.0-dev,true,parent,parent.process.module_info.path,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.module_info.pe_exports,nested,custom,,TODO
+1.5.0-dev,true,parent,parent.process.module_info.pe_exports.name,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.module_info.pe_exports.ordinal,long,custom,,TODO
+1.5.0-dev,true,parent,parent.process.module_info.pe_imports,nested,custom,,TODO
+1.5.0-dev,true,parent,parent.process.module_info.pe_imports.dll_name,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.module_info.pe_imports.import_names,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.module_info.signature_signer,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.module_info.signature_status,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.name,keyword,extended,ssh,Process name.
+1.5.0-dev,true,parent,parent.process.name.text,text,extended,ssh,Process name.
+1.5.0-dev,true,parent,parent.process.num_threads,long,custom,,TODO
+1.5.0-dev,true,parent,parent.process.pe_info.architecture,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.pe_info.authenticode.cert_signer.issuer_name,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.pe_info.authenticode.cert_signer.serial_number,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.pe_info.authenticode.cert_signer.subject_name,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.pe_info.authenticode.cert_signer.timestamp_string,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.pe_info.authenticode.cert_timestamp.issuer_name,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.pe_info.authenticode.cert_timestamp.serial_number,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.pe_info.authenticode.cert_timestamp.subject_name,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.pe_info.authenticode.cert_timestamp.timestamp_string,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.pe_info.authenticode.more_info_link,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.pe_info.authenticode.program_name,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.pe_info.authenticode.publisher_link,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.pe_info.compile_time,long,custom,,TODO
+1.5.0-dev,true,parent,parent.process.pe_info.entry_point_address,long,custom,,TODO
+1.5.0-dev,true,parent,parent.process.pe_info.is_dll,boolean,custom,,TODO
+1.5.0-dev,true,parent,parent.process.pe_info.malware_score.compressed_malware_features.data_buffer,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.pe_info.malware_score.compressed_malware_features.decompressed_size,integer,custom,,TODO
+1.5.0-dev,true,parent,parent.process.pe_info.malware_score.compressed_malware_features.encoding,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.pe_info.malware_score.identifier,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.pe_info.malware_score.prevention_threshold,double,custom,,TODO
+1.5.0-dev,true,parent,parent.process.pe_info.malware_score.score,double,custom,,TODO
+1.5.0-dev,true,parent,parent.process.pe_info.malware_score.threshold,double,custom,,TODO
+1.5.0-dev,true,parent,parent.process.pe_info.malware_score.upx_packed,boolean,custom,,TODO
+1.5.0-dev,true,parent,parent.process.pe_info.malware_score.version,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.pe_info.pe_exports,nested,custom,,TODO
+1.5.0-dev,true,parent,parent.process.pe_info.pe_exports.name,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.pe_info.pe_exports.ordinal,long,custom,,TODO
+1.5.0-dev,true,parent,parent.process.pe_info.pe_imports,nested,custom,,TODO
+1.5.0-dev,true,parent,parent.process.pe_info.pe_imports.dll_name,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.pe_info.pe_imports.import_names,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.pe_info.resources,nested,custom,,TODO
+1.5.0-dev,true,parent,parent.process.pe_info.resources.resource_data.entropy,double,custom,,TODO
+1.5.0-dev,true,parent,parent.process.pe_info.resources.resource_data.size,long,custom,,TODO
+1.5.0-dev,true,parent,parent.process.pe_info.resources.resource_id,long,custom,,TODO
+1.5.0-dev,true,parent,parent.process.pe_info.resources.resource_name,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.pe_info.resources.resource_type,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.pe_info.sections,nested,custom,,TODO
+1.5.0-dev,true,parent,parent.process.pe_info.sections.entropy,double,custom,,TODO
+1.5.0-dev,true,parent,parent.process.pe_info.sections.name,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.pe_info.sections.raw_offset,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.pe_info.sections.raw_size,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.pe_info.sections.virtual_address,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.pe_info.sections.virtual_size,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.pe_info.signature_signer,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.pe_info.signature_status,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.pe_info.version_info,nested,custom,,TODO
+1.5.0-dev,true,parent,parent.process.pe_info.version_info.code_page,long,custom,,TODO
+1.5.0-dev,true,parent,parent.process.pe_info.version_info.key,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.pe_info.version_info.language,long,custom,,TODO
+1.5.0-dev,true,parent,parent.process.pe_info.version_info.value_string,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.pgid,long,extended,,Identifier of the group of processes the process belongs to.
+1.5.0-dev,true,parent,parent.process.phys_memory_bytes,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.pid,long,core,4242,Process id.
+1.5.0-dev,true,parent,parent.process.ppid,long,extended,4241,Parent process' pid.
+1.5.0-dev,true,parent,parent.process.service_names,keyword,extended,,Service names associated with the process.
+1.5.0-dev,true,parent,parent.process.services,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.session_id,long,custom,,TODO
+1.5.0-dev,true,parent,parent.process.short_name,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.sid,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.signature_signer,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.signature_status,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.start,date,extended,2016-05-23T08:05:34.853Z,The time the process started.
+1.5.0-dev,true,parent,parent.process.thread,nested,custom,,TODO
+1.5.0-dev,true,parent,parent.process.thread.entrypoint,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.thread.start,date,custom,,TODO
+1.5.0-dev,true,parent,parent.process.thread.thread_id,long,custom,,TODO
+1.5.0-dev,true,parent,parent.process.thread.uptime,long,custom,,TODO
+1.5.0-dev,true,parent,parent.process.title,keyword,extended,,Process title.
+1.5.0-dev,true,parent,parent.process.title.text,text,extended,,Process title.
+1.5.0-dev,true,parent,parent.process.token.domain,keyword,extended,,TODO
+1.5.0-dev,true,parent,parent.process.token.impersonation_level,keyword,extended,,Impersonation level. Only valid for impersonation tokens.
+1.5.0-dev,true,parent,parent.process.token.integrity_level,long,extended,,Numeric integrity level.
+1.5.0-dev,true,parent,parent.process.token.integrity_level_name,keyword,extended,,Human readable integrity level.
+1.5.0-dev,true,parent,parent.process.token.is_appcontainer,boolean,extended,,Whether or not this is an appcontainer token.
+1.5.0-dev,true,parent,parent.process.token.privileges,nested,extended,,Array describing the privileges associated with the token.
+1.5.0-dev,true,parent,parent.process.token.privileges.description,keyword,extended,,Description of the privilege.
+1.5.0-dev,true,parent,parent.process.token.privileges.enabled,boolean,extended,,Whether or not the privilege is enabled.
+1.5.0-dev,true,parent,parent.process.token.privileges.name,keyword,extended,,Name of the privilege.
+1.5.0-dev,true,parent,parent.process.token.sid,keyword,extended,,TODO
+1.5.0-dev,true,parent,parent.process.token.type,keyword,extended,,"Type of the token, either primary or impersonation."
+1.5.0-dev,true,parent,parent.process.token.user,keyword,extended,,Username of token owner.
+1.5.0-dev,true,parent,parent.process.tty_device_major_number,integer,custom,,TODO
+1.5.0-dev,true,parent,parent.process.tty_device_minor_number,integer,custom,,TODO
+1.5.0-dev,true,parent,parent.process.tty_device_name,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.uid,long,custom,,TODO
+1.5.0-dev,true,parent,parent.process.unbacked_execute_byte_count,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.unbacked_execute_region_count,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.unique_pid,keyword,custom,,Unique process id.
+1.5.0-dev,true,parent,parent.process.unique_ppid,keyword,custom,,Unique parent process id.
+1.5.0-dev,true,parent,parent.process.uptime,long,extended,1325,Seconds the process has been up.
+1.5.0-dev,true,parent,parent.process.user,keyword,core,,User associated with the process.
+1.5.0-dev,true,parent,parent.process.virt_memory_bytes,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.process.working_directory,keyword,extended,/home/alice,The working directory of the process.
+1.5.0-dev,true,parent,parent.process.working_directory.text,text,extended,/home/alice,The working directory of the process.
+1.5.0-dev,true,parent,parent.thread.call_stack,nested,custom,,TODO
+1.5.0-dev,true,parent,parent.thread.call_stack.stack_frame.instruction_pointer,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.thread.call_stack.stack_frame.memory_section.memory_address,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.thread.call_stack.stack_frame.memory_section.memory_size,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.thread.call_stack.stack_frame.memory_section.protection,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.thread.call_stack.stack_frame.module_path,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.thread.call_stack.stack_frame.rva,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.thread.call_stack.stack_frame.symbol_info,keyword,custom,,TODO
+1.5.0-dev,true,parent,parent.thread.id,long,core,3147,Thread id.
+1.5.0-dev,true,parent,parent.thread.name,keyword,extended,thread-0,Thread name.
+1.5.0-dev,true,parent,parent.thread.service_name,keyword,extended,VaultSvc,Service associated with the thread.
+1.5.0-dev,true,parent,parent.thread.start,date,extended,2016-05-23T08:05:34.853Z,The time the thread started.
+1.5.0-dev,true,parent,parent.thread.start_address,keyword,extended,5442508,Memory address where the thread started.
+1.5.0-dev,true,parent,parent.thread.start_address_module,keyword,extended,C:\Program Files\VMware\VMware Tools\vmtoolsd.exe,TODO
+1.5.0-dev,true,parent,parent.thread.token.domain,keyword,extended,,TODO
+1.5.0-dev,true,parent,parent.thread.token.impersonation_level,keyword,extended,,Impersonation level. Only valid for impersonation tokens.
+1.5.0-dev,true,parent,parent.thread.token.integrity_level,long,extended,,Numeric integrity level.
+1.5.0-dev,true,parent,parent.thread.token.integrity_level_name,keyword,extended,,Human readable integrity level.
+1.5.0-dev,true,parent,parent.thread.token.is_appcontainer,boolean,extended,,Whether or not this is an appcontainer token.
+1.5.0-dev,true,parent,parent.thread.token.privileges,nested,extended,,Array describing the privileges associated with the token.
+1.5.0-dev,true,parent,parent.thread.token.privileges.description,keyword,extended,,Description of the privilege.
+1.5.0-dev,true,parent,parent.thread.token.privileges.enabled,boolean,extended,,Whether or not the privilege is enabled.
+1.5.0-dev,true,parent,parent.thread.token.privileges.name,keyword,extended,,Name of the privilege.
+1.5.0-dev,true,parent,parent.thread.token.sid,keyword,extended,,TODO
+1.5.0-dev,true,parent,parent.thread.token.type,keyword,extended,,"Type of the token, either primary or impersonation."
+1.5.0-dev,true,parent,parent.thread.token.user,keyword,extended,,Username of token owner.
 1.5.0-dev,true,process,process.args,keyword,extended,"['/usr/bin/ssh', '-l', 'user', '10.0.0.16']",Array of process arguments.
 1.5.0-dev,true,process,process.args_count,long,extended,4,Length of the process.args array.
+1.5.0-dev,true,process,process.argv_list,keyword,custom,,TODO
+1.5.0-dev,true,process,process.authenticode.cert_signer.issuer_name,keyword,custom,,TODO
+1.5.0-dev,true,process,process.authenticode.cert_signer.serial_number,keyword,custom,,TODO
+1.5.0-dev,true,process,process.authenticode.cert_signer.subject_name,keyword,custom,,TODO
+1.5.0-dev,true,process,process.authenticode.cert_signer.timestamp_string,keyword,custom,,TODO
+1.5.0-dev,true,process,process.authenticode.cert_timestamp.issuer_name,keyword,custom,,TODO
+1.5.0-dev,true,process,process.authenticode.cert_timestamp.serial_number,keyword,custom,,TODO
+1.5.0-dev,true,process,process.authenticode.cert_timestamp.subject_name,keyword,custom,,TODO
+1.5.0-dev,true,process,process.authenticode.cert_timestamp.timestamp_string,keyword,custom,,TODO
+1.5.0-dev,true,process,process.authenticode.more_info_link,keyword,custom,,TODO
+1.5.0-dev,true,process,process.authenticode.program_name,keyword,custom,,TODO
+1.5.0-dev,true,process,process.authenticode.publisher_link,keyword,custom,,TODO
 1.5.0-dev,true,process,process.command_line,keyword,extended,/usr/bin/ssh -l user 10.0.0.16,Full command line that started the process.
 1.5.0-dev,true,process,process.command_line.text,text,extended,/usr/bin/ssh -l user 10.0.0.16,Full command line that started the process.
+1.5.0-dev,true,process,process.cpu_percent,double,custom,,TODO
+1.5.0-dev,true,process,process.cwd,keyword,custom,,TODO
+1.5.0-dev,true,process,process.defense_evasions,nested,custom,,TODO
+1.5.0-dev,true,process,process.defense_evasions.call_stack,nested,custom,,TODO
+1.5.0-dev,true,process,process.defense_evasions.call_stack.stack_frame.instruction_pointer,keyword,custom,,TODO
+1.5.0-dev,true,process,process.defense_evasions.call_stack.stack_frame.memory_section.memory_address,keyword,custom,,TODO
+1.5.0-dev,true,process,process.defense_evasions.call_stack.stack_frame.memory_section.memory_size,keyword,custom,,TODO
+1.5.0-dev,true,process,process.defense_evasions.call_stack.stack_frame.memory_section.protection,keyword,custom,,TODO
+1.5.0-dev,true,process,process.defense_evasions.call_stack.stack_frame.module_path,keyword,custom,,TODO
+1.5.0-dev,true,process,process.defense_evasions.call_stack.stack_frame.rva,keyword,custom,,TODO
+1.5.0-dev,true,process,process.defense_evasions.call_stack.stack_frame.symbol_info,keyword,custom,,TODO
+1.5.0-dev,true,process,process.defense_evasions.delta_count,keyword,custom,,TODO
+1.5.0-dev,true,process,process.defense_evasions.evasion_subtype,keyword,custom,,TODO
+1.5.0-dev,true,process,process.defense_evasions.evasion_type,keyword,custom,,TODO
+1.5.0-dev,true,process,process.defense_evasions.instruction_pointer,keyword,custom,,TODO
+1.5.0-dev,true,process,process.defense_evasions.memory_sections,nested,custom,,TODO
+1.5.0-dev,true,process,process.defense_evasions.memory_sections.memory_address,keyword,custom,,TODO
+1.5.0-dev,true,process,process.defense_evasions.memory_sections.memory_size,keyword,custom,,TODO
+1.5.0-dev,true,process,process.defense_evasions.memory_sections.protection,keyword,custom,,TODO
+1.5.0-dev,true,process,process.defense_evasions.module_path,keyword,custom,,TODO
+1.5.0-dev,true,process,process.defense_evasions.thread.thread_id,long,custom,,TODO
+1.5.0-dev,true,process,process.defense_evasions.thread.thread_start_address,keyword,custom,,TODO
+1.5.0-dev,true,process,process.defense_evasions.total_memory_size,keyword,custom,,TODO
+1.5.0-dev,true,process,process.domain,keyword,custom,,TODO
+1.5.0-dev,true,process,process.env_variables,keyword,custom,,TODO
 1.5.0-dev,true,process,process.executable,keyword,extended,/usr/bin/ssh,Absolute path to the process executable.
 1.5.0-dev,true,process,process.executable.text,text,extended,/usr/bin/ssh,Absolute path to the process executable.
 1.5.0-dev,true,process,process.exit_code,long,extended,137,The exit code of the process.
+1.5.0-dev,true,process,process.gid,long,custom,,TODO
+1.5.0-dev,true,process,process.group,keyword,custom,,TODO
+1.5.0-dev,true,process,process.handle,nested,custom,,TODO
+1.5.0-dev,true,process,process.handle.handle_id,long,custom,,TODO
+1.5.0-dev,true,process,process.handle.handle_name,keyword,custom,,TODO
+1.5.0-dev,true,process,process.handle.handle_type,keyword,custom,,TODO
+1.5.0-dev,true,process,process.has_unbacked_execute_memory,boolean,custom,,TODO
+1.5.0-dev,true,process,process.hash.imphash,keyword,extended,,Imphash.
 1.5.0-dev,true,process,process.hash.md5,keyword,extended,,MD5 hash.
 1.5.0-dev,true,process,process.hash.sha1,keyword,extended,,SHA1 hash.
 1.5.0-dev,true,process,process.hash.sha256,keyword,extended,,SHA256 hash.
 1.5.0-dev,true,process,process.hash.sha512,keyword,extended,,SHA512 hash.
+1.5.0-dev,true,process,process.hash_matched_module,boolean,custom,,TODO
+1.5.0-dev,true,process,process.imphash,keyword,custom,,TODO
+1.5.0-dev,true,process,process.is_sensor,boolean,custom,,Is this the Elastic Endpoint process or not.
+1.5.0-dev,true,process,process.malware_score.compressed_malware_features.data_buffer,keyword,custom,,TODO
+1.5.0-dev,true,process,process.malware_score.compressed_malware_features.decompressed_size,integer,custom,,TODO
+1.5.0-dev,true,process,process.malware_score.compressed_malware_features.encoding,keyword,custom,,TODO
+1.5.0-dev,true,process,process.malware_score.identifier,keyword,custom,,TODO
+1.5.0-dev,true,process,process.malware_score.prevention_threshold,double,custom,,TODO
+1.5.0-dev,true,process,process.malware_score.score,double,custom,,TODO
+1.5.0-dev,true,process,process.malware_score.threshold,double,custom,,TODO
+1.5.0-dev,true,process,process.malware_score.upx_packed,boolean,custom,,TODO
+1.5.0-dev,true,process,process.malware_score.version,keyword,custom,,TODO
+1.5.0-dev,true,process,process.memory_percent,double,custom,,TODO
+1.5.0-dev,true,process,process.memory_region.allocation_base,keyword,custom,,TODO
+1.5.0-dev,true,process,process.memory_region.allocation_protection,keyword,custom,,TODO
+1.5.0-dev,true,process,process.memory_region.bytes,keyword,custom,,TODO
+1.5.0-dev,true,process,process.memory_region.histogram.histogram_array,keyword,custom,,TODO
+1.5.0-dev,true,process,process.memory_region.histogram.histogram_flavor,keyword,custom,,TODO
+1.5.0-dev,true,process,process.memory_region.histogram.histogram_resolution,keyword,custom,,TODO
+1.5.0-dev,true,process,process.memory_region.length,keyword,custom,,TODO
+1.5.0-dev,true,process,process.memory_region.memory,keyword,custom,,TODO
+1.5.0-dev,true,process,process.memory_region.memory_address,keyword,custom,,TODO
+1.5.0-dev,true,process,process.memory_region.module_path,keyword,custom,,TODO
+1.5.0-dev,true,process,process.memory_region.permission,keyword,custom,,TODO
+1.5.0-dev,true,process,process.memory_region.protection,keyword,custom,,TODO
+1.5.0-dev,true,process,process.memory_region.region_base,keyword,custom,,TODO
+1.5.0-dev,true,process,process.memory_region.region_size,keyword,custom,,TODO
+1.5.0-dev,true,process,process.memory_region.region_tag,keyword,custom,,TODO
+1.5.0-dev,true,process,process.memory_region.type,keyword,custom,,TODO
+1.5.0-dev,true,process,process.memory_region.unbacked_on_disk,boolean,custom,,TODO
+1.5.0-dev,true,process,process.module_info.architecture,keyword,custom,,TODO
+1.5.0-dev,true,process,process.module_info.authenticode.cert_signer.issuer_name,keyword,custom,,TODO
+1.5.0-dev,true,process,process.module_info.authenticode.cert_signer.serial_number,keyword,custom,,TODO
+1.5.0-dev,true,process,process.module_info.authenticode.cert_signer.subject_name,keyword,custom,,TODO
+1.5.0-dev,true,process,process.module_info.authenticode.cert_signer.timestamp_string,keyword,custom,,TODO
+1.5.0-dev,true,process,process.module_info.authenticode.cert_timestamp.issuer_name,keyword,custom,,TODO
+1.5.0-dev,true,process,process.module_info.authenticode.cert_timestamp.serial_number,keyword,custom,,TODO
+1.5.0-dev,true,process,process.module_info.authenticode.cert_timestamp.subject_name,keyword,custom,,TODO
+1.5.0-dev,true,process,process.module_info.authenticode.cert_timestamp.timestamp_string,keyword,custom,,TODO
+1.5.0-dev,true,process,process.module_info.authenticode.more_info_link,keyword,custom,,TODO
+1.5.0-dev,true,process,process.module_info.authenticode.program_name,keyword,custom,,TODO
+1.5.0-dev,true,process,process.module_info.authenticode.publisher_link,keyword,custom,,TODO
+1.5.0-dev,true,process,process.module_info.compile_time,date,custom,,TODO
+1.5.0-dev,true,process,process.module_info.hash.imphash,keyword,custom,,TODO
+1.5.0-dev,true,process,process.module_info.hash.md5,keyword,custom,,TODO
+1.5.0-dev,true,process,process.module_info.hash.sha1,keyword,custom,,TODO
+1.5.0-dev,true,process,process.module_info.hash.sha256,keyword,custom,,TODO
+1.5.0-dev,true,process,process.module_info.malware_score.compressed_malware_features.data_buffer,keyword,custom,,TODO
+1.5.0-dev,true,process,process.module_info.malware_score.compressed_malware_features.decompressed_size,integer,custom,,TODO
+1.5.0-dev,true,process,process.module_info.malware_score.compressed_malware_features.encoding,keyword,custom,,TODO
+1.5.0-dev,true,process,process.module_info.malware_score.identifier,keyword,custom,,TODO
+1.5.0-dev,true,process,process.module_info.malware_score.prevention_threshold,double,custom,,TODO
+1.5.0-dev,true,process,process.module_info.malware_score.score,double,custom,,TODO
+1.5.0-dev,true,process,process.module_info.malware_score.threshold,double,custom,,TODO
+1.5.0-dev,true,process,process.module_info.malware_score.upx_packed,boolean,custom,,TODO
+1.5.0-dev,true,process,process.module_info.malware_score.version,keyword,custom,,TODO
+1.5.0-dev,true,process,process.module_info.mapped_address,keyword,custom,,TODO
+1.5.0-dev,true,process,process.module_info.mapped_size,long,custom,,TODO
+1.5.0-dev,true,process,process.module_info.path,keyword,custom,,TODO
+1.5.0-dev,true,process,process.module_info.pe_exports,nested,custom,,TODO
+1.5.0-dev,true,process,process.module_info.pe_exports.name,keyword,custom,,TODO
+1.5.0-dev,true,process,process.module_info.pe_exports.ordinal,long,custom,,TODO
+1.5.0-dev,true,process,process.module_info.pe_imports,nested,custom,,TODO
+1.5.0-dev,true,process,process.module_info.pe_imports.dll_name,keyword,custom,,TODO
+1.5.0-dev,true,process,process.module_info.pe_imports.import_names,keyword,custom,,TODO
+1.5.0-dev,true,process,process.module_info.signature_signer,keyword,custom,,TODO
+1.5.0-dev,true,process,process.module_info.signature_status,keyword,custom,,TODO
 1.5.0-dev,true,process,process.name,keyword,extended,ssh,Process name.
 1.5.0-dev,true,process,process.name.text,text,extended,ssh,Process name.
-1.5.0-dev,true,process,process.parent.args,keyword,extended,"['ssh', '-l', 'user', '10.0.0.16']",Array of process arguments.
-1.5.0-dev,true,process,process.parent.args_count,long,extended,4,Length of the process.args array.
-1.5.0-dev,true,process,process.parent.command_line,keyword,extended,/usr/bin/ssh -l user 10.0.0.16,Full command line that started the process.
-1.5.0-dev,true,process,process.parent.command_line.text,text,extended,/usr/bin/ssh -l user 10.0.0.16,Full command line that started the process.
-1.5.0-dev,true,process,process.parent.executable,keyword,extended,/usr/bin/ssh,Absolute path to the process executable.
-1.5.0-dev,true,process,process.parent.executable.text,text,extended,/usr/bin/ssh,Absolute path to the process executable.
-1.5.0-dev,true,process,process.parent.exit_code,long,extended,137,The exit code of the process.
-1.5.0-dev,true,process,process.parent.name,keyword,extended,ssh,Process name.
-1.5.0-dev,true,process,process.parent.name.text,text,extended,ssh,Process name.
-1.5.0-dev,true,process,process.parent.pgid,long,extended,,Identifier of the group of processes the process belongs to.
-1.5.0-dev,true,process,process.parent.pid,long,core,4242,Process id.
-1.5.0-dev,true,process,process.parent.ppid,long,extended,4241,Parent process' pid.
-1.5.0-dev,true,process,process.parent.start,date,extended,2016-05-23T08:05:34.853Z,The time the process started.
-1.5.0-dev,true,process,process.parent.thread.id,long,extended,4242,Thread ID.
-1.5.0-dev,true,process,process.parent.thread.name,keyword,extended,thread-0,Thread name.
-1.5.0-dev,true,process,process.parent.title,keyword,extended,,Process title.
-1.5.0-dev,true,process,process.parent.title.text,text,extended,,Process title.
-1.5.0-dev,true,process,process.parent.uptime,long,extended,1325,Seconds the process has been up.
-1.5.0-dev,true,process,process.parent.working_directory,keyword,extended,/home/alice,The working directory of the process.
-1.5.0-dev,true,process,process.parent.working_directory.text,text,extended,/home/alice,The working directory of the process.
+1.5.0-dev,true,process,process.num_threads,long,custom,,TODO
+1.5.0-dev,true,process,process.pe_info.architecture,keyword,custom,,TODO
+1.5.0-dev,true,process,process.pe_info.authenticode.cert_signer.issuer_name,keyword,custom,,TODO
+1.5.0-dev,true,process,process.pe_info.authenticode.cert_signer.serial_number,keyword,custom,,TODO
+1.5.0-dev,true,process,process.pe_info.authenticode.cert_signer.subject_name,keyword,custom,,TODO
+1.5.0-dev,true,process,process.pe_info.authenticode.cert_signer.timestamp_string,keyword,custom,,TODO
+1.5.0-dev,true,process,process.pe_info.authenticode.cert_timestamp.issuer_name,keyword,custom,,TODO
+1.5.0-dev,true,process,process.pe_info.authenticode.cert_timestamp.serial_number,keyword,custom,,TODO
+1.5.0-dev,true,process,process.pe_info.authenticode.cert_timestamp.subject_name,keyword,custom,,TODO
+1.5.0-dev,true,process,process.pe_info.authenticode.cert_timestamp.timestamp_string,keyword,custom,,TODO
+1.5.0-dev,true,process,process.pe_info.authenticode.more_info_link,keyword,custom,,TODO
+1.5.0-dev,true,process,process.pe_info.authenticode.program_name,keyword,custom,,TODO
+1.5.0-dev,true,process,process.pe_info.authenticode.publisher_link,keyword,custom,,TODO
+1.5.0-dev,true,process,process.pe_info.compile_time,long,custom,,TODO
+1.5.0-dev,true,process,process.pe_info.entry_point_address,long,custom,,TODO
+1.5.0-dev,true,process,process.pe_info.is_dll,boolean,custom,,TODO
+1.5.0-dev,true,process,process.pe_info.malware_score.compressed_malware_features.data_buffer,keyword,custom,,TODO
+1.5.0-dev,true,process,process.pe_info.malware_score.compressed_malware_features.decompressed_size,integer,custom,,TODO
+1.5.0-dev,true,process,process.pe_info.malware_score.compressed_malware_features.encoding,keyword,custom,,TODO
+1.5.0-dev,true,process,process.pe_info.malware_score.identifier,keyword,custom,,TODO
+1.5.0-dev,true,process,process.pe_info.malware_score.prevention_threshold,double,custom,,TODO
+1.5.0-dev,true,process,process.pe_info.malware_score.score,double,custom,,TODO
+1.5.0-dev,true,process,process.pe_info.malware_score.threshold,double,custom,,TODO
+1.5.0-dev,true,process,process.pe_info.malware_score.upx_packed,boolean,custom,,TODO
+1.5.0-dev,true,process,process.pe_info.malware_score.version,keyword,custom,,TODO
+1.5.0-dev,true,process,process.pe_info.pe_exports,nested,custom,,TODO
+1.5.0-dev,true,process,process.pe_info.pe_exports.name,keyword,custom,,TODO
+1.5.0-dev,true,process,process.pe_info.pe_exports.ordinal,long,custom,,TODO
+1.5.0-dev,true,process,process.pe_info.pe_imports,nested,custom,,TODO
+1.5.0-dev,true,process,process.pe_info.pe_imports.dll_name,keyword,custom,,TODO
+1.5.0-dev,true,process,process.pe_info.pe_imports.import_names,keyword,custom,,TODO
+1.5.0-dev,true,process,process.pe_info.resources,nested,custom,,TODO
+1.5.0-dev,true,process,process.pe_info.resources.resource_data.entropy,double,custom,,TODO
+1.5.0-dev,true,process,process.pe_info.resources.resource_data.size,long,custom,,TODO
+1.5.0-dev,true,process,process.pe_info.resources.resource_id,long,custom,,TODO
+1.5.0-dev,true,process,process.pe_info.resources.resource_name,keyword,custom,,TODO
+1.5.0-dev,true,process,process.pe_info.resources.resource_type,keyword,custom,,TODO
+1.5.0-dev,true,process,process.pe_info.sections,nested,custom,,TODO
+1.5.0-dev,true,process,process.pe_info.sections.entropy,double,custom,,TODO
+1.5.0-dev,true,process,process.pe_info.sections.name,keyword,custom,,TODO
+1.5.0-dev,true,process,process.pe_info.sections.raw_offset,keyword,custom,,TODO
+1.5.0-dev,true,process,process.pe_info.sections.raw_size,keyword,custom,,TODO
+1.5.0-dev,true,process,process.pe_info.sections.virtual_address,keyword,custom,,TODO
+1.5.0-dev,true,process,process.pe_info.sections.virtual_size,keyword,custom,,TODO
+1.5.0-dev,true,process,process.pe_info.signature_signer,keyword,custom,,TODO
+1.5.0-dev,true,process,process.pe_info.signature_status,keyword,custom,,TODO
+1.5.0-dev,true,process,process.pe_info.version_info,nested,custom,,TODO
+1.5.0-dev,true,process,process.pe_info.version_info.code_page,long,custom,,TODO
+1.5.0-dev,true,process,process.pe_info.version_info.key,keyword,custom,,TODO
+1.5.0-dev,true,process,process.pe_info.version_info.language,long,custom,,TODO
+1.5.0-dev,true,process,process.pe_info.version_info.value_string,keyword,custom,,TODO
 1.5.0-dev,true,process,process.pgid,long,extended,,Identifier of the group of processes the process belongs to.
+1.5.0-dev,true,process,process.phys_memory_bytes,keyword,custom,,TODO
 1.5.0-dev,true,process,process.pid,long,core,4242,Process id.
 1.5.0-dev,true,process,process.ppid,long,extended,4241,Parent process' pid.
+1.5.0-dev,true,process,process.service_names,keyword,extended,,Service names associated with the process.
+1.5.0-dev,true,process,process.services,keyword,custom,,TODO
+1.5.0-dev,true,process,process.session_id,long,custom,,TODO
+1.5.0-dev,true,process,process.short_name,keyword,custom,,TODO
+1.5.0-dev,true,process,process.sid,keyword,custom,,TODO
+1.5.0-dev,true,process,process.signature_signer,keyword,custom,,TODO
+1.5.0-dev,true,process,process.signature_status,keyword,custom,,TODO
 1.5.0-dev,true,process,process.start,date,extended,2016-05-23T08:05:34.853Z,The time the process started.
-1.5.0-dev,true,process,process.thread.id,long,extended,4242,Thread ID.
-1.5.0-dev,true,process,process.thread.name,keyword,extended,thread-0,Thread name.
+1.5.0-dev,true,process,process.thread,nested,custom,,TODO
+1.5.0-dev,true,process,process.thread.entrypoint,keyword,custom,,TODO
+1.5.0-dev,true,process,process.thread.start,date,custom,,TODO
+1.5.0-dev,true,process,process.thread.thread_id,long,custom,,TODO
+1.5.0-dev,true,process,process.thread.uptime,long,custom,,TODO
 1.5.0-dev,true,process,process.title,keyword,extended,,Process title.
 1.5.0-dev,true,process,process.title.text,text,extended,,Process title.
+1.5.0-dev,true,process,process.token.domain,keyword,extended,,TODO
+1.5.0-dev,true,process,process.token.impersonation_level,keyword,extended,,Impersonation level. Only valid for impersonation tokens.
+1.5.0-dev,true,process,process.token.integrity_level,long,extended,,Numeric integrity level.
+1.5.0-dev,true,process,process.token.integrity_level_name,keyword,extended,,Human readable integrity level.
+1.5.0-dev,true,process,process.token.is_appcontainer,boolean,extended,,Whether or not this is an appcontainer token.
+1.5.0-dev,true,process,process.token.privileges,nested,extended,,Array describing the privileges associated with the token.
+1.5.0-dev,true,process,process.token.privileges.description,keyword,extended,,Description of the privilege.
+1.5.0-dev,true,process,process.token.privileges.enabled,boolean,extended,,Whether or not the privilege is enabled.
+1.5.0-dev,true,process,process.token.privileges.name,keyword,extended,,Name of the privilege.
+1.5.0-dev,true,process,process.token.sid,keyword,extended,,TODO
+1.5.0-dev,true,process,process.token.type,keyword,extended,,"Type of the token, either primary or impersonation."
+1.5.0-dev,true,process,process.token.user,keyword,extended,,Username of token owner.
+1.5.0-dev,true,process,process.tty_device_major_number,integer,custom,,TODO
+1.5.0-dev,true,process,process.tty_device_minor_number,integer,custom,,TODO
+1.5.0-dev,true,process,process.tty_device_name,keyword,custom,,TODO
+1.5.0-dev,true,process,process.uid,long,custom,,TODO
+1.5.0-dev,true,process,process.unbacked_execute_byte_count,keyword,custom,,TODO
+1.5.0-dev,true,process,process.unbacked_execute_region_count,keyword,custom,,TODO
+1.5.0-dev,true,process,process.unique_pid,keyword,custom,,Unique process id.
+1.5.0-dev,true,process,process.unique_ppid,keyword,custom,,Unique parent process id.
 1.5.0-dev,true,process,process.uptime,long,extended,1325,Seconds the process has been up.
+1.5.0-dev,true,process,process.user,keyword,core,,User associated with the process.
+1.5.0-dev,true,process,process.virt_memory_bytes,keyword,custom,,TODO
 1.5.0-dev,true,process,process.working_directory,keyword,extended,/home/alice,The working directory of the process.
 1.5.0-dev,true,process,process.working_directory.text,text,extended,/home/alice,The working directory of the process.
 1.5.0-dev,true,registry,registry.data.bytes,keyword,extended,ZQBuAC0AVQBTAAAAZQBuAAAAAAA=,Original bytes written with base64 encoding.
@@ -433,6 +968,285 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Example,Description
 1.5.0-dev,true,source,source.user.id,keyword,core,,One or multiple unique identifiers of the user.
 1.5.0-dev,true,source,source.user.name,keyword,core,albert,Short name or login of the user.
 1.5.0-dev,true,source,source.user.name.text,text,core,albert,Short name or login of the user.
+1.5.0-dev,true,stack_frame,stack_frame.instruction_pointer,keyword,custom,,TODO
+1.5.0-dev,true,stack_frame,stack_frame.memory_section.memory_address,keyword,custom,,TODO
+1.5.0-dev,true,stack_frame,stack_frame.memory_section.memory_size,keyword,custom,,TODO
+1.5.0-dev,true,stack_frame,stack_frame.memory_section.protection,keyword,custom,,TODO
+1.5.0-dev,true,stack_frame,stack_frame.module_path,keyword,custom,,TODO
+1.5.0-dev,true,stack_frame,stack_frame.rva,keyword,custom,,TODO
+1.5.0-dev,true,stack_frame,stack_frame.symbol_info,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.args,keyword,extended,"['/usr/bin/ssh', '-l', 'user', '10.0.0.16']",Array of process arguments.
+1.5.0-dev,true,target,target.process.args_count,long,extended,4,Length of the process.args array.
+1.5.0-dev,true,target,target.process.argv_list,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.authenticode.cert_signer.issuer_name,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.authenticode.cert_signer.serial_number,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.authenticode.cert_signer.subject_name,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.authenticode.cert_signer.timestamp_string,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.authenticode.cert_timestamp.issuer_name,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.authenticode.cert_timestamp.serial_number,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.authenticode.cert_timestamp.subject_name,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.authenticode.cert_timestamp.timestamp_string,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.authenticode.more_info_link,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.authenticode.program_name,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.authenticode.publisher_link,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.command_line,keyword,extended,/usr/bin/ssh -l user 10.0.0.16,Full command line that started the process.
+1.5.0-dev,true,target,target.process.command_line.text,text,extended,/usr/bin/ssh -l user 10.0.0.16,Full command line that started the process.
+1.5.0-dev,true,target,target.process.cpu_percent,double,custom,,TODO
+1.5.0-dev,true,target,target.process.cwd,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.defense_evasions,nested,custom,,TODO
+1.5.0-dev,true,target,target.process.defense_evasions.call_stack,nested,custom,,TODO
+1.5.0-dev,true,target,target.process.defense_evasions.call_stack.stack_frame.instruction_pointer,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.defense_evasions.call_stack.stack_frame.memory_section.memory_address,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.defense_evasions.call_stack.stack_frame.memory_section.memory_size,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.defense_evasions.call_stack.stack_frame.memory_section.protection,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.defense_evasions.call_stack.stack_frame.module_path,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.defense_evasions.call_stack.stack_frame.rva,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.defense_evasions.call_stack.stack_frame.symbol_info,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.defense_evasions.delta_count,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.defense_evasions.evasion_subtype,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.defense_evasions.evasion_type,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.defense_evasions.instruction_pointer,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.defense_evasions.memory_sections,nested,custom,,TODO
+1.5.0-dev,true,target,target.process.defense_evasions.memory_sections.memory_address,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.defense_evasions.memory_sections.memory_size,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.defense_evasions.memory_sections.protection,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.defense_evasions.module_path,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.defense_evasions.thread.thread_id,long,custom,,TODO
+1.5.0-dev,true,target,target.process.defense_evasions.thread.thread_start_address,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.defense_evasions.total_memory_size,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.domain,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.env_variables,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.executable,keyword,extended,/usr/bin/ssh,Absolute path to the process executable.
+1.5.0-dev,true,target,target.process.executable.text,text,extended,/usr/bin/ssh,Absolute path to the process executable.
+1.5.0-dev,true,target,target.process.exit_code,long,extended,137,The exit code of the process.
+1.5.0-dev,true,target,target.process.gid,long,custom,,TODO
+1.5.0-dev,true,target,target.process.group,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.handle,nested,custom,,TODO
+1.5.0-dev,true,target,target.process.handle.handle_id,long,custom,,TODO
+1.5.0-dev,true,target,target.process.handle.handle_name,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.handle.handle_type,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.has_unbacked_execute_memory,boolean,custom,,TODO
+1.5.0-dev,true,target,target.process.hash.imphash,keyword,extended,,Imphash.
+1.5.0-dev,true,target,target.process.hash.md5,keyword,extended,,MD5 hash.
+1.5.0-dev,true,target,target.process.hash.sha1,keyword,extended,,SHA1 hash.
+1.5.0-dev,true,target,target.process.hash.sha256,keyword,extended,,SHA256 hash.
+1.5.0-dev,true,target,target.process.hash.sha512,keyword,extended,,SHA512 hash.
+1.5.0-dev,true,target,target.process.hash_matched_module,boolean,custom,,TODO
+1.5.0-dev,true,target,target.process.imphash,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.is_sensor,boolean,custom,,Is this the Elastic Endpoint process or not.
+1.5.0-dev,true,target,target.process.malware_score.compressed_malware_features.data_buffer,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.malware_score.compressed_malware_features.decompressed_size,integer,custom,,TODO
+1.5.0-dev,true,target,target.process.malware_score.compressed_malware_features.encoding,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.malware_score.identifier,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.malware_score.prevention_threshold,double,custom,,TODO
+1.5.0-dev,true,target,target.process.malware_score.score,double,custom,,TODO
+1.5.0-dev,true,target,target.process.malware_score.threshold,double,custom,,TODO
+1.5.0-dev,true,target,target.process.malware_score.upx_packed,boolean,custom,,TODO
+1.5.0-dev,true,target,target.process.malware_score.version,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.memory_percent,double,custom,,TODO
+1.5.0-dev,true,target,target.process.memory_region.allocation_base,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.memory_region.allocation_protection,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.memory_region.bytes,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.memory_region.histogram.histogram_array,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.memory_region.histogram.histogram_flavor,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.memory_region.histogram.histogram_resolution,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.memory_region.length,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.memory_region.memory,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.memory_region.memory_address,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.memory_region.module_path,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.memory_region.permission,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.memory_region.protection,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.memory_region.region_base,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.memory_region.region_size,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.memory_region.region_tag,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.memory_region.type,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.memory_region.unbacked_on_disk,boolean,custom,,TODO
+1.5.0-dev,true,target,target.process.module_info.architecture,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.module_info.authenticode.cert_signer.issuer_name,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.module_info.authenticode.cert_signer.serial_number,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.module_info.authenticode.cert_signer.subject_name,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.module_info.authenticode.cert_signer.timestamp_string,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.module_info.authenticode.cert_timestamp.issuer_name,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.module_info.authenticode.cert_timestamp.serial_number,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.module_info.authenticode.cert_timestamp.subject_name,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.module_info.authenticode.cert_timestamp.timestamp_string,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.module_info.authenticode.more_info_link,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.module_info.authenticode.program_name,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.module_info.authenticode.publisher_link,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.module_info.compile_time,date,custom,,TODO
+1.5.0-dev,true,target,target.process.module_info.hash.imphash,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.module_info.hash.md5,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.module_info.hash.sha1,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.module_info.hash.sha256,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.module_info.malware_score.compressed_malware_features.data_buffer,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.module_info.malware_score.compressed_malware_features.decompressed_size,integer,custom,,TODO
+1.5.0-dev,true,target,target.process.module_info.malware_score.compressed_malware_features.encoding,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.module_info.malware_score.identifier,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.module_info.malware_score.prevention_threshold,double,custom,,TODO
+1.5.0-dev,true,target,target.process.module_info.malware_score.score,double,custom,,TODO
+1.5.0-dev,true,target,target.process.module_info.malware_score.threshold,double,custom,,TODO
+1.5.0-dev,true,target,target.process.module_info.malware_score.upx_packed,boolean,custom,,TODO
+1.5.0-dev,true,target,target.process.module_info.malware_score.version,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.module_info.mapped_address,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.module_info.mapped_size,long,custom,,TODO
+1.5.0-dev,true,target,target.process.module_info.path,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.module_info.pe_exports,nested,custom,,TODO
+1.5.0-dev,true,target,target.process.module_info.pe_exports.name,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.module_info.pe_exports.ordinal,long,custom,,TODO
+1.5.0-dev,true,target,target.process.module_info.pe_imports,nested,custom,,TODO
+1.5.0-dev,true,target,target.process.module_info.pe_imports.dll_name,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.module_info.pe_imports.import_names,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.module_info.signature_signer,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.module_info.signature_status,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.name,keyword,extended,ssh,Process name.
+1.5.0-dev,true,target,target.process.name.text,text,extended,ssh,Process name.
+1.5.0-dev,true,target,target.process.num_threads,long,custom,,TODO
+1.5.0-dev,true,target,target.process.pe_info.architecture,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.pe_info.authenticode.cert_signer.issuer_name,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.pe_info.authenticode.cert_signer.serial_number,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.pe_info.authenticode.cert_signer.subject_name,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.pe_info.authenticode.cert_signer.timestamp_string,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.pe_info.authenticode.cert_timestamp.issuer_name,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.pe_info.authenticode.cert_timestamp.serial_number,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.pe_info.authenticode.cert_timestamp.subject_name,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.pe_info.authenticode.cert_timestamp.timestamp_string,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.pe_info.authenticode.more_info_link,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.pe_info.authenticode.program_name,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.pe_info.authenticode.publisher_link,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.pe_info.compile_time,long,custom,,TODO
+1.5.0-dev,true,target,target.process.pe_info.entry_point_address,long,custom,,TODO
+1.5.0-dev,true,target,target.process.pe_info.is_dll,boolean,custom,,TODO
+1.5.0-dev,true,target,target.process.pe_info.malware_score.compressed_malware_features.data_buffer,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.pe_info.malware_score.compressed_malware_features.decompressed_size,integer,custom,,TODO
+1.5.0-dev,true,target,target.process.pe_info.malware_score.compressed_malware_features.encoding,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.pe_info.malware_score.identifier,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.pe_info.malware_score.prevention_threshold,double,custom,,TODO
+1.5.0-dev,true,target,target.process.pe_info.malware_score.score,double,custom,,TODO
+1.5.0-dev,true,target,target.process.pe_info.malware_score.threshold,double,custom,,TODO
+1.5.0-dev,true,target,target.process.pe_info.malware_score.upx_packed,boolean,custom,,TODO
+1.5.0-dev,true,target,target.process.pe_info.malware_score.version,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.pe_info.pe_exports,nested,custom,,TODO
+1.5.0-dev,true,target,target.process.pe_info.pe_exports.name,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.pe_info.pe_exports.ordinal,long,custom,,TODO
+1.5.0-dev,true,target,target.process.pe_info.pe_imports,nested,custom,,TODO
+1.5.0-dev,true,target,target.process.pe_info.pe_imports.dll_name,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.pe_info.pe_imports.import_names,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.pe_info.resources,nested,custom,,TODO
+1.5.0-dev,true,target,target.process.pe_info.resources.resource_data.entropy,double,custom,,TODO
+1.5.0-dev,true,target,target.process.pe_info.resources.resource_data.size,long,custom,,TODO
+1.5.0-dev,true,target,target.process.pe_info.resources.resource_id,long,custom,,TODO
+1.5.0-dev,true,target,target.process.pe_info.resources.resource_name,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.pe_info.resources.resource_type,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.pe_info.sections,nested,custom,,TODO
+1.5.0-dev,true,target,target.process.pe_info.sections.entropy,double,custom,,TODO
+1.5.0-dev,true,target,target.process.pe_info.sections.name,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.pe_info.sections.raw_offset,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.pe_info.sections.raw_size,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.pe_info.sections.virtual_address,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.pe_info.sections.virtual_size,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.pe_info.signature_signer,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.pe_info.signature_status,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.pe_info.version_info,nested,custom,,TODO
+1.5.0-dev,true,target,target.process.pe_info.version_info.code_page,long,custom,,TODO
+1.5.0-dev,true,target,target.process.pe_info.version_info.key,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.pe_info.version_info.language,long,custom,,TODO
+1.5.0-dev,true,target,target.process.pe_info.version_info.value_string,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.pgid,long,extended,,Identifier of the group of processes the process belongs to.
+1.5.0-dev,true,target,target.process.phys_memory_bytes,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.pid,long,core,4242,Process id.
+1.5.0-dev,true,target,target.process.ppid,long,extended,4241,Parent process' pid.
+1.5.0-dev,true,target,target.process.service_names,keyword,extended,,Service names associated with the process.
+1.5.0-dev,true,target,target.process.services,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.session_id,long,custom,,TODO
+1.5.0-dev,true,target,target.process.short_name,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.sid,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.signature_signer,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.signature_status,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.start,date,extended,2016-05-23T08:05:34.853Z,The time the process started.
+1.5.0-dev,true,target,target.process.thread,nested,custom,,TODO
+1.5.0-dev,true,target,target.process.thread.entrypoint,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.thread.start,date,custom,,TODO
+1.5.0-dev,true,target,target.process.thread.thread_id,long,custom,,TODO
+1.5.0-dev,true,target,target.process.thread.uptime,long,custom,,TODO
+1.5.0-dev,true,target,target.process.title,keyword,extended,,Process title.
+1.5.0-dev,true,target,target.process.title.text,text,extended,,Process title.
+1.5.0-dev,true,target,target.process.token.domain,keyword,extended,,TODO
+1.5.0-dev,true,target,target.process.token.impersonation_level,keyword,extended,,Impersonation level. Only valid for impersonation tokens.
+1.5.0-dev,true,target,target.process.token.integrity_level,long,extended,,Numeric integrity level.
+1.5.0-dev,true,target,target.process.token.integrity_level_name,keyword,extended,,Human readable integrity level.
+1.5.0-dev,true,target,target.process.token.is_appcontainer,boolean,extended,,Whether or not this is an appcontainer token.
+1.5.0-dev,true,target,target.process.token.privileges,nested,extended,,Array describing the privileges associated with the token.
+1.5.0-dev,true,target,target.process.token.privileges.description,keyword,extended,,Description of the privilege.
+1.5.0-dev,true,target,target.process.token.privileges.enabled,boolean,extended,,Whether or not the privilege is enabled.
+1.5.0-dev,true,target,target.process.token.privileges.name,keyword,extended,,Name of the privilege.
+1.5.0-dev,true,target,target.process.token.sid,keyword,extended,,TODO
+1.5.0-dev,true,target,target.process.token.type,keyword,extended,,"Type of the token, either primary or impersonation."
+1.5.0-dev,true,target,target.process.token.user,keyword,extended,,Username of token owner.
+1.5.0-dev,true,target,target.process.tty_device_major_number,integer,custom,,TODO
+1.5.0-dev,true,target,target.process.tty_device_minor_number,integer,custom,,TODO
+1.5.0-dev,true,target,target.process.tty_device_name,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.uid,long,custom,,TODO
+1.5.0-dev,true,target,target.process.unbacked_execute_byte_count,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.unbacked_execute_region_count,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.unique_pid,keyword,custom,,Unique process id.
+1.5.0-dev,true,target,target.process.unique_ppid,keyword,custom,,Unique parent process id.
+1.5.0-dev,true,target,target.process.uptime,long,extended,1325,Seconds the process has been up.
+1.5.0-dev,true,target,target.process.user,keyword,core,,User associated with the process.
+1.5.0-dev,true,target,target.process.virt_memory_bytes,keyword,custom,,TODO
+1.5.0-dev,true,target,target.process.working_directory,keyword,extended,/home/alice,The working directory of the process.
+1.5.0-dev,true,target,target.process.working_directory.text,text,extended,/home/alice,The working directory of the process.
+1.5.0-dev,true,target,target.thread.call_stack,nested,custom,,TODO
+1.5.0-dev,true,target,target.thread.call_stack.stack_frame.instruction_pointer,keyword,custom,,TODO
+1.5.0-dev,true,target,target.thread.call_stack.stack_frame.memory_section.memory_address,keyword,custom,,TODO
+1.5.0-dev,true,target,target.thread.call_stack.stack_frame.memory_section.memory_size,keyword,custom,,TODO
+1.5.0-dev,true,target,target.thread.call_stack.stack_frame.memory_section.protection,keyword,custom,,TODO
+1.5.0-dev,true,target,target.thread.call_stack.stack_frame.module_path,keyword,custom,,TODO
+1.5.0-dev,true,target,target.thread.call_stack.stack_frame.rva,keyword,custom,,TODO
+1.5.0-dev,true,target,target.thread.call_stack.stack_frame.symbol_info,keyword,custom,,TODO
+1.5.0-dev,true,target,target.thread.id,long,core,3147,Thread id.
+1.5.0-dev,true,target,target.thread.name,keyword,extended,thread-0,Thread name.
+1.5.0-dev,true,target,target.thread.service_name,keyword,extended,VaultSvc,Service associated with the thread.
+1.5.0-dev,true,target,target.thread.start,date,extended,2016-05-23T08:05:34.853Z,The time the thread started.
+1.5.0-dev,true,target,target.thread.start_address,keyword,extended,5442508,Memory address where the thread started.
+1.5.0-dev,true,target,target.thread.start_address_module,keyword,extended,C:\Program Files\VMware\VMware Tools\vmtoolsd.exe,TODO
+1.5.0-dev,true,target,target.thread.token.domain,keyword,extended,,TODO
+1.5.0-dev,true,target,target.thread.token.impersonation_level,keyword,extended,,Impersonation level. Only valid for impersonation tokens.
+1.5.0-dev,true,target,target.thread.token.integrity_level,long,extended,,Numeric integrity level.
+1.5.0-dev,true,target,target.thread.token.integrity_level_name,keyword,extended,,Human readable integrity level.
+1.5.0-dev,true,target,target.thread.token.is_appcontainer,boolean,extended,,Whether or not this is an appcontainer token.
+1.5.0-dev,true,target,target.thread.token.privileges,nested,extended,,Array describing the privileges associated with the token.
+1.5.0-dev,true,target,target.thread.token.privileges.description,keyword,extended,,Description of the privilege.
+1.5.0-dev,true,target,target.thread.token.privileges.enabled,boolean,extended,,Whether or not the privilege is enabled.
+1.5.0-dev,true,target,target.thread.token.privileges.name,keyword,extended,,Name of the privilege.
+1.5.0-dev,true,target,target.thread.token.sid,keyword,extended,,TODO
+1.5.0-dev,true,target,target.thread.token.type,keyword,extended,,"Type of the token, either primary or impersonation."
+1.5.0-dev,true,target,target.thread.token.user,keyword,extended,,Username of token owner.
+1.5.0-dev,true,thread,thread.call_stack,nested,custom,,TODO
+1.5.0-dev,true,thread,thread.call_stack.stack_frame.instruction_pointer,keyword,custom,,TODO
+1.5.0-dev,true,thread,thread.call_stack.stack_frame.memory_section.memory_address,keyword,custom,,TODO
+1.5.0-dev,true,thread,thread.call_stack.stack_frame.memory_section.memory_size,keyword,custom,,TODO
+1.5.0-dev,true,thread,thread.call_stack.stack_frame.memory_section.protection,keyword,custom,,TODO
+1.5.0-dev,true,thread,thread.call_stack.stack_frame.module_path,keyword,custom,,TODO
+1.5.0-dev,true,thread,thread.call_stack.stack_frame.rva,keyword,custom,,TODO
+1.5.0-dev,true,thread,thread.call_stack.stack_frame.symbol_info,keyword,custom,,TODO
+1.5.0-dev,true,thread,thread.id,long,core,3147,Thread id.
+1.5.0-dev,true,thread,thread.name,keyword,extended,thread-0,Thread name.
+1.5.0-dev,true,thread,thread.service_name,keyword,extended,VaultSvc,Service associated with the thread.
+1.5.0-dev,true,thread,thread.start,date,extended,2016-05-23T08:05:34.853Z,The time the thread started.
+1.5.0-dev,true,thread,thread.start_address,keyword,extended,5442508,Memory address where the thread started.
+1.5.0-dev,true,thread,thread.start_address_module,keyword,extended,C:\Program Files\VMware\VMware Tools\vmtoolsd.exe,TODO
+1.5.0-dev,true,thread,thread.token.domain,keyword,extended,,TODO
+1.5.0-dev,true,thread,thread.token.impersonation_level,keyword,extended,,Impersonation level. Only valid for impersonation tokens.
+1.5.0-dev,true,thread,thread.token.integrity_level,long,extended,,Numeric integrity level.
+1.5.0-dev,true,thread,thread.token.integrity_level_name,keyword,extended,,Human readable integrity level.
+1.5.0-dev,true,thread,thread.token.is_appcontainer,boolean,extended,,Whether or not this is an appcontainer token.
+1.5.0-dev,true,thread,thread.token.privileges,nested,extended,,Array describing the privileges associated with the token.
+1.5.0-dev,true,thread,thread.token.privileges.description,keyword,extended,,Description of the privilege.
+1.5.0-dev,true,thread,thread.token.privileges.enabled,boolean,extended,,Whether or not the privilege is enabled.
+1.5.0-dev,true,thread,thread.token.privileges.name,keyword,extended,,Name of the privilege.
+1.5.0-dev,true,thread,thread.token.sid,keyword,extended,,TODO
+1.5.0-dev,true,thread,thread.token.type,keyword,extended,,"Type of the token, either primary or impersonation."
+1.5.0-dev,true,thread,thread.token.user,keyword,extended,,Username of token owner.
 1.5.0-dev,true,threat,threat.framework,keyword,extended,MITRE ATT&CK,Threat classification framework.
 1.5.0-dev,true,threat,threat.tactic.id,keyword,extended,TA0040,Threat tactic id.
 1.5.0-dev,true,threat,threat.tactic.name,keyword,extended,impact,Threat tactic.
@@ -470,6 +1284,18 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Example,Description
 1.5.0-dev,true,tls,tls.server.subject,keyword,extended,"CN=www.mydomain.com, OU=Infrastructure Team, DC=mydomain, DC=com",Subject of the x.509 certificate presented by the server.
 1.5.0-dev,true,tls,tls.version,keyword,extended,1.2,Numeric part of the version parsed from the original string.
 1.5.0-dev,true,tls,tls.version_protocol,keyword,extended,tls,Normalized lowercase protocol name parsed from original string.
+1.5.0-dev,true,token,token.domain,keyword,extended,,TODO
+1.5.0-dev,true,token,token.impersonation_level,keyword,extended,,Impersonation level. Only valid for impersonation tokens.
+1.5.0-dev,true,token,token.integrity_level,long,extended,,Numeric integrity level.
+1.5.0-dev,true,token,token.integrity_level_name,keyword,extended,,Human readable integrity level.
+1.5.0-dev,true,token,token.is_appcontainer,boolean,extended,,Whether or not this is an appcontainer token.
+1.5.0-dev,true,token,token.privileges,nested,extended,,Array describing the privileges associated with the token.
+1.5.0-dev,true,token,token.privileges.description,keyword,extended,,Description of the privilege.
+1.5.0-dev,true,token,token.privileges.enabled,boolean,extended,,Whether or not the privilege is enabled.
+1.5.0-dev,true,token,token.privileges.name,keyword,extended,,Name of the privilege.
+1.5.0-dev,true,token,token.sid,keyword,extended,,TODO
+1.5.0-dev,true,token,token.type,keyword,extended,,"Type of the token, either primary or impersonation."
+1.5.0-dev,true,token,token.user,keyword,extended,,Username of token owner.
 1.5.0-dev,true,trace,trace.id,keyword,extended,4bf92f3577b34da6a3ce929d0e0e4736,Unique identifier of the trace.
 1.5.0-dev,true,transaction,transaction.id,keyword,extended,00f067aa0ba902b7,Unique identifier of the transaction.
 1.5.0-dev,true,url,url.domain,keyword,extended,www.elastic.co,Domain of the url.

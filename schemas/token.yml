@@ -1,0 +1,89 @@
+---
+- name: token
+  title: Token
+  group: 2
+  short: These fields contain information about a token.
+  description: >
+    These fields contain information about a token.
+
+    These fields can help you correlate metrics information with a process id/name
+    from a log message.  The `process.pid` often stays in the metric itself and is
+    copied to the global field for correlation.
+  reusable:
+    top_level: false
+    expected:
+      - thread
+      - process
+  type: group
+  fields:
+    - name: user
+      level: extended
+      type: keyword
+      description: >
+        Username of token owner.
+      
+    - name: domain
+      level: extended
+      type: keyword
+      description: >
+        TODO
+      
+    - name: sid
+      level: extended
+      type: keyword
+      description: >
+        TODO
+
+    - name: type
+      level: extended
+      type: keyword
+      description: >
+        Type of the token, either primary or impersonation.
+
+    - name: impersonation_level
+      level: extended
+      type: keyword
+      description: >
+        Impersonation level. Only valid for impersonation tokens.
+
+    - name: integrity_level
+      level: extended
+      type: long
+      description: >
+        Numeric integrity level.
+
+    - name: integrity_level_name
+      level: extended
+      type: keyword
+      description: >
+        Human readable integrity level.
+
+    - name: is_appcontainer
+      level: extended
+      type: boolean
+      description: >
+        Whether or not this is an appcontainer token.
+
+    - name: privileges
+      level: extended
+      type: nested
+      description: >
+        Array describing the privileges associated with the token.
+    
+    - name: privileges.name
+      level: extended
+      type: keyword
+      description: >
+        Name of the privilege.
+
+    - name: privileges.enabled
+      level: extended
+      type: boolean
+      description: >
+        Whether or not the privilege is enabled.
+
+    - name: privileges.description
+      level: extended
+      type: keyword
+      description: >
+        Description of the privilege.

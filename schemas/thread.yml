@@ -1,0 +1,58 @@
+---
+- name: thread
+  title: Thread
+  group: 2
+  short: These fields contain information about a thread.
+  description: >
+    These fields contain information about a thread.
+
+    These fields provide more context about the relevant
+    thread related to the data in the document.
+  reusable:
+    top_level: true
+    expected:
+      - parent
+      - target
+  type: group
+  fields:
+    - name: id
+      level: core
+      type: long
+      description: >
+        Thread id.
+      example: 3147
+
+    - name: name
+      level: extended
+      type: keyword
+      example: 'thread-0'
+      description: >
+        Thread name.
+
+    - name: start
+      level: extended
+      type: date
+      example: "2016-05-23T08:05:34.853Z"
+      description: >
+        The time the thread started.
+
+    - name: start_address
+      level: extended
+      type: keyword
+      example: 5442508
+      description: >
+        Memory address where the thread started.
+
+    - name: start_address_module
+      level: extended
+      type: keyword
+      example: "C:\\Program Files\\VMware\\VMware Tools\\vmtoolsd.exe"
+      description: >
+        TODO
+
+    - name: service_name
+      level: extended
+      type: keyword
+      example: VaultSvc
+      description: >
+        Service associated with the thread.

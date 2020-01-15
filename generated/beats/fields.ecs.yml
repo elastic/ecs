@@ -136,6 +136,78 @@
         default_field: false
       description: Organization name.
       example: Google LLC
+  - name: authenticode
+    title: Authenticode
+    group: 2
+    description: TODO
+    type: group
+    fields:
+    - name: cert_signer.issuer_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: cert_signer.serial_number
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: cert_signer.subject_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: cert_signer.timestamp_string
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: cert_timestamp.issuer_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: cert_timestamp.serial_number
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: cert_timestamp.subject_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: cert_timestamp.timestamp_string
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: more_info_link
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: program_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: publisher_link
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
   - name: client
     title: Client
     group: 2
@@ -1250,6 +1322,12 @@
       ignore_above: 1024
       description: Primary group name of the file.
       example: alice
+    - name: hash.imphash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Imphash.
+      default_field: false
     - name: hash.md5
       level: extended
       type: keyword
@@ -1339,6 +1417,206 @@
       ignore_above: 1024
       description: The user ID (UID) or security identifier (SID) of the file owner.
       example: '1001'
+  - name: file_classification
+    title: File Classification
+    group: 2
+    description: TODO
+    type: group
+    fields:
+    - name: captured_file
+      level: custom
+      type: boolean
+      description: TODO
+      default_field: false
+    - name: file.entry_modified
+      level: custom
+      type: double
+      description: TODO
+      default_field: false
+    - name: is_signature_trusted
+      level: custom
+      type: boolean
+      description: TODO
+      default_field: false
+    - name: macro_details.code_page
+      level: custom
+      type: long
+      description: TODO
+      default_field: false
+    - name: macro_details.errors
+      level: custom
+      type: nested
+      description: TODO
+      default_field: false
+    - name: macro_details.errors.count
+      level: custom
+      type: long
+      description: TODO
+      default_field: false
+    - name: macro_details.errors.error_type
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: macro_details.file_extension
+      level: custom
+      type: long
+      description: TODO
+      default_field: false
+    - name: macro_details.macro_collection_hashes.imphash
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: macro_details.macro_collection_hashes.md5
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: macro_details.macro_collection_hashes.sha1
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: macro_details.macro_collection_hashes.sha256
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: macro_details.project_file_hashes.imphash
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: macro_details.project_file_hashes.md5
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: macro_details.project_file_hashes.sha1
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: macro_details.project_file_hashes.sha256
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: macro_details.stream_data
+      level: custom
+      type: nested
+      description: TODO
+      default_field: false
+    - name: macro_details.stream_data.imphash
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: macro_details.stream_data.md5
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: macro_details.stream_data.name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: macro_details.stream_data.raw_code
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: macro_details.stream_data.raw_code_size
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: macro_details.stream_data.sha1
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: macro_details.stream_data.sha256
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: quarantine_result.alert_correlation_id
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: quarantine_result.quarantine_path
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: signature_signer
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: temp_file_path
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: user_blacklisted
+      level: custom
+      type: boolean
+      description: TODO
+      default_field: false
+    - name: yara_hits
+      level: custom
+      type: nested
+      description: TODO
+      default_field: false
+    - name: yara_hits.identifier
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: yara_hits.matched_data
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: yara_hits.rule_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: yara_hits.version
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
   - name: geo
     title: Geo
     group: 2
@@ -1436,6 +1714,12 @@
       as appropriate (snake case, e.g. sha3_512).'
     type: group
     fields:
+    - name: imphash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Imphash.
+      default_field: false
     - name: md5
       level: extended
       type: keyword
@@ -1456,6 +1740,30 @@
       type: keyword
       ignore_above: 1024
       description: SHA512 hash.
+  - name: histogram
+    title: Histogram
+    group: 2
+    description: These fields contain information about a histogram.
+    type: group
+    fields:
+    - name: histogram_array
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: histogram_flavor
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: histogram_resolution
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
   - name: host
     title: Host
     group: 2
@@ -1892,6 +2200,386 @@
         If the event source does not specify a distinct severity, you can optionally
         copy the Syslog severity to `log.level`.'
       example: Error
+  - name: malware_score
+    title: Malware Score
+    group: 2
+    description: These fields contain the malware score.
+    type: group
+    fields:
+    - name: compressed_malware_features.data_buffer
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: compressed_malware_features.decompressed_size
+      level: custom
+      type: integer
+      description: TODO
+      default_field: false
+    - name: compressed_malware_features.encoding
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: identifier
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: prevention_threshold
+      level: custom
+      type: double
+      description: TODO
+      default_field: false
+    - name: score
+      level: custom
+      type: double
+      description: TODO
+      default_field: false
+    - name: threshold
+      level: custom
+      type: double
+      description: TODO
+      default_field: false
+    - name: upx_packed
+      level: custom
+      type: boolean
+      description: TODO
+      default_field: false
+    - name: version
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+  - name: memory_region
+    title: Memory Region
+    group: 2
+    description: These fields contain information about a memory region.
+    type: group
+    fields:
+    - name: allocation_base
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: allocation_protection
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: bytes
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: histogram.histogram_array
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: histogram.histogram_flavor
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: histogram.histogram_resolution
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: length
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: memory
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: memory_address
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: module_path
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: permission
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: protection
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: region_base
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: region_size
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: region_tag
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: type
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: unbacked_on_disk
+      level: custom
+      type: boolean
+      description: TODO
+      default_field: false
+  - name: module_info
+    title: Module Info
+    group: 2
+    description: These fields contain information about a module.
+    type: group
+    fields:
+    - name: architecture
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: authenticode.cert_signer.issuer_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: authenticode.cert_signer.serial_number
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: authenticode.cert_signer.subject_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: authenticode.cert_signer.timestamp_string
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: authenticode.cert_timestamp.issuer_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: authenticode.cert_timestamp.serial_number
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: authenticode.cert_timestamp.subject_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: authenticode.cert_timestamp.timestamp_string
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: authenticode.more_info_link
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: authenticode.program_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: authenticode.publisher_link
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: compile_time
+      level: custom
+      type: date
+      description: TODO
+      default_field: false
+    - name: hash.imphash
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: hash.md5
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: hash.sha1
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: hash.sha256
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: malware_score.compressed_malware_features.data_buffer
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: malware_score.compressed_malware_features.decompressed_size
+      level: custom
+      type: integer
+      description: TODO
+      default_field: false
+    - name: malware_score.compressed_malware_features.encoding
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: malware_score.identifier
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: malware_score.prevention_threshold
+      level: custom
+      type: double
+      description: TODO
+      default_field: false
+    - name: malware_score.score
+      level: custom
+      type: double
+      description: TODO
+      default_field: false
+    - name: malware_score.threshold
+      level: custom
+      type: double
+      description: TODO
+      default_field: false
+    - name: malware_score.upx_packed
+      level: custom
+      type: boolean
+      description: TODO
+      default_field: false
+    - name: malware_score.version
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: mapped_address
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: mapped_size
+      level: custom
+      type: long
+      description: TODO
+      default_field: false
+    - name: path
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: pe_exports
+      level: custom
+      type: nested
+      description: TODO
+      default_field: false
+    - name: pe_exports.name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: pe_exports.ordinal
+      level: custom
+      type: long
+      description: TODO
+      default_field: false
+    - name: pe_imports
+      level: custom
+      type: nested
+      description: TODO
+      default_field: false
+    - name: pe_imports.dll_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: pe_imports.import_names
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: signature_signer
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: signature_status
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
   - name: network
     title: Network
     group: 2
@@ -2348,6 +3036,1448 @@
       ignore_above: 1024
       description: Package version
       example: 1.12.9
+  - name: parent
+    title: Parent
+    group: 2
+    description: 'These fields contain information about a parent.
+
+      These fields provide more context about the parent process and thread that are
+      related to the data in the document.'
+    type: group
+    fields:
+    - name: process.args
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Array of process arguments, starting with the absolute path to
+        the executable.
+
+        May be filtered to protect sensitive information.'
+      example:
+      - /usr/bin/ssh
+      - -l
+      - user
+      - 10.0.0.16
+      default_field: false
+    - name: process.args_count
+      level: extended
+      type: long
+      description: 'Length of the process.args array.
+
+        This field can be useful for querying or performing bucket analysis on how
+        many arguments were provided to start a process. More arguments may be an
+        indication of suspicious activity.'
+      example: 4
+      default_field: false
+    - name: process.argv_list
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.authenticode.cert_signer.issuer_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.authenticode.cert_signer.serial_number
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.authenticode.cert_signer.subject_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.authenticode.cert_signer.timestamp_string
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.authenticode.cert_timestamp.issuer_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.authenticode.cert_timestamp.serial_number
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.authenticode.cert_timestamp.subject_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.authenticode.cert_timestamp.timestamp_string
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.authenticode.more_info_link
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.authenticode.program_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.authenticode.publisher_link
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.command_line
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: text
+        norms: false
+      description: 'Full command line that started the process, including the absolute
+        path to the executable, and all arguments.
+
+        Some arguments may be filtered to protect sensitive information.'
+      example: /usr/bin/ssh -l user 10.0.0.16
+      default_field: false
+    - name: process.cpu_percent
+      level: custom
+      type: double
+      description: TODO
+      default_field: false
+    - name: process.cwd
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.defense_evasions
+      level: custom
+      type: nested
+      description: TODO
+      default_field: false
+    - name: process.defense_evasions.call_stack
+      level: custom
+      type: nested
+      description: TODO
+      default_field: false
+    - name: process.defense_evasions.call_stack.stack_frame.instruction_pointer
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.defense_evasions.call_stack.stack_frame.memory_section.memory_address
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.defense_evasions.call_stack.stack_frame.memory_section.memory_size
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.defense_evasions.call_stack.stack_frame.memory_section.protection
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.defense_evasions.call_stack.stack_frame.module_path
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.defense_evasions.call_stack.stack_frame.rva
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.defense_evasions.call_stack.stack_frame.symbol_info
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.defense_evasions.delta_count
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.defense_evasions.evasion_subtype
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.defense_evasions.evasion_type
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.defense_evasions.instruction_pointer
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.defense_evasions.memory_sections
+      level: custom
+      type: nested
+      description: TODO
+      default_field: false
+    - name: process.defense_evasions.memory_sections.memory_address
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.defense_evasions.memory_sections.memory_size
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.defense_evasions.memory_sections.protection
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.defense_evasions.module_path
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.defense_evasions.thread.thread_id
+      level: custom
+      type: long
+      description: TODO
+      default_field: false
+    - name: process.defense_evasions.thread.thread_start_address
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.defense_evasions.total_memory_size
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.domain
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.env_variables
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.executable
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: text
+        norms: false
+      description: Absolute path to the process executable.
+      example: /usr/bin/ssh
+      default_field: false
+    - name: process.exit_code
+      level: extended
+      type: long
+      description: 'The exit code of the process, if this is a termination event.
+
+        The field should be absent if there is no exit code for the event (e.g. process
+        start).'
+      example: 137
+      default_field: false
+    - name: process.gid
+      level: custom
+      type: long
+      description: TODO
+      default_field: false
+    - name: process.group
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.handle
+      level: custom
+      type: nested
+      description: TODO
+      default_field: false
+    - name: process.handle.handle_id
+      level: custom
+      type: long
+      description: TODO
+      default_field: false
+    - name: process.handle.handle_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.handle.handle_type
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.has_unbacked_execute_memory
+      level: custom
+      type: boolean
+      description: TODO
+      default_field: false
+    - name: process.hash.imphash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Imphash.
+      default_field: false
+    - name: process.hash.md5
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: MD5 hash.
+      default_field: false
+    - name: process.hash.sha1
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SHA1 hash.
+      default_field: false
+    - name: process.hash.sha256
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SHA256 hash.
+      default_field: false
+    - name: process.hash.sha512
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SHA512 hash.
+      default_field: false
+    - name: process.hash_matched_module
+      level: custom
+      type: boolean
+      description: TODO
+      default_field: false
+    - name: process.imphash
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.is_sensor
+      level: custom
+      type: boolean
+      description: Is this the Elastic Endpoint process or not.
+      default_field: false
+    - name: process.malware_score.compressed_malware_features.data_buffer
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.malware_score.compressed_malware_features.decompressed_size
+      level: custom
+      type: integer
+      description: TODO
+      default_field: false
+    - name: process.malware_score.compressed_malware_features.encoding
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.malware_score.identifier
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.malware_score.prevention_threshold
+      level: custom
+      type: double
+      description: TODO
+      default_field: false
+    - name: process.malware_score.score
+      level: custom
+      type: double
+      description: TODO
+      default_field: false
+    - name: process.malware_score.threshold
+      level: custom
+      type: double
+      description: TODO
+      default_field: false
+    - name: process.malware_score.upx_packed
+      level: custom
+      type: boolean
+      description: TODO
+      default_field: false
+    - name: process.malware_score.version
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.memory_percent
+      level: custom
+      type: double
+      description: TODO
+      default_field: false
+    - name: process.memory_region.allocation_base
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.memory_region.allocation_protection
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.memory_region.bytes
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.memory_region.histogram.histogram_array
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.memory_region.histogram.histogram_flavor
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.memory_region.histogram.histogram_resolution
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.memory_region.length
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.memory_region.memory
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.memory_region.memory_address
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.memory_region.module_path
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.memory_region.permission
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.memory_region.protection
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.memory_region.region_base
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.memory_region.region_size
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.memory_region.region_tag
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.memory_region.type
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.memory_region.unbacked_on_disk
+      level: custom
+      type: boolean
+      description: TODO
+      default_field: false
+    - name: process.module_info.architecture
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.module_info.authenticode.cert_signer.issuer_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.module_info.authenticode.cert_signer.serial_number
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.module_info.authenticode.cert_signer.subject_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.module_info.authenticode.cert_signer.timestamp_string
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.module_info.authenticode.cert_timestamp.issuer_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.module_info.authenticode.cert_timestamp.serial_number
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.module_info.authenticode.cert_timestamp.subject_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.module_info.authenticode.cert_timestamp.timestamp_string
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.module_info.authenticode.more_info_link
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.module_info.authenticode.program_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.module_info.authenticode.publisher_link
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.module_info.compile_time
+      level: custom
+      type: date
+      description: TODO
+      default_field: false
+    - name: process.module_info.hash.imphash
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.module_info.hash.md5
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.module_info.hash.sha1
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.module_info.hash.sha256
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.module_info.malware_score.compressed_malware_features.data_buffer
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.module_info.malware_score.compressed_malware_features.decompressed_size
+      level: custom
+      type: integer
+      description: TODO
+      default_field: false
+    - name: process.module_info.malware_score.compressed_malware_features.encoding
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.module_info.malware_score.identifier
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.module_info.malware_score.prevention_threshold
+      level: custom
+      type: double
+      description: TODO
+      default_field: false
+    - name: process.module_info.malware_score.score
+      level: custom
+      type: double
+      description: TODO
+      default_field: false
+    - name: process.module_info.malware_score.threshold
+      level: custom
+      type: double
+      description: TODO
+      default_field: false
+    - name: process.module_info.malware_score.upx_packed
+      level: custom
+      type: boolean
+      description: TODO
+      default_field: false
+    - name: process.module_info.malware_score.version
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.module_info.mapped_address
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.module_info.mapped_size
+      level: custom
+      type: long
+      description: TODO
+      default_field: false
+    - name: process.module_info.path
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.module_info.pe_exports
+      level: custom
+      type: nested
+      description: TODO
+      default_field: false
+    - name: process.module_info.pe_exports.name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.module_info.pe_exports.ordinal
+      level: custom
+      type: long
+      description: TODO
+      default_field: false
+    - name: process.module_info.pe_imports
+      level: custom
+      type: nested
+      description: TODO
+      default_field: false
+    - name: process.module_info.pe_imports.dll_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.module_info.pe_imports.import_names
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.module_info.signature_signer
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.module_info.signature_status
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: text
+        norms: false
+      description: 'Process name.
+
+        Sometimes called program name or similar.'
+      example: ssh
+      default_field: false
+    - name: process.num_threads
+      level: custom
+      type: long
+      description: TODO
+      default_field: false
+    - name: process.pe_info.architecture
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.pe_info.authenticode.cert_signer.issuer_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.pe_info.authenticode.cert_signer.serial_number
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.pe_info.authenticode.cert_signer.subject_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.pe_info.authenticode.cert_signer.timestamp_string
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.pe_info.authenticode.cert_timestamp.issuer_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.pe_info.authenticode.cert_timestamp.serial_number
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.pe_info.authenticode.cert_timestamp.subject_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.pe_info.authenticode.cert_timestamp.timestamp_string
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.pe_info.authenticode.more_info_link
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.pe_info.authenticode.program_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.pe_info.authenticode.publisher_link
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.pe_info.compile_time
+      level: custom
+      type: long
+      description: TODO
+      default_field: false
+    - name: process.pe_info.entry_point_address
+      level: custom
+      type: long
+      description: TODO
+      default_field: false
+    - name: process.pe_info.is_dll
+      level: custom
+      type: boolean
+      description: TODO
+      default_field: false
+    - name: process.pe_info.malware_score.compressed_malware_features.data_buffer
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.pe_info.malware_score.compressed_malware_features.decompressed_size
+      level: custom
+      type: integer
+      description: TODO
+      default_field: false
+    - name: process.pe_info.malware_score.compressed_malware_features.encoding
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.pe_info.malware_score.identifier
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.pe_info.malware_score.prevention_threshold
+      level: custom
+      type: double
+      description: TODO
+      default_field: false
+    - name: process.pe_info.malware_score.score
+      level: custom
+      type: double
+      description: TODO
+      default_field: false
+    - name: process.pe_info.malware_score.threshold
+      level: custom
+      type: double
+      description: TODO
+      default_field: false
+    - name: process.pe_info.malware_score.upx_packed
+      level: custom
+      type: boolean
+      description: TODO
+      default_field: false
+    - name: process.pe_info.malware_score.version
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.pe_info.pe_exports
+      level: custom
+      type: nested
+      description: TODO
+      default_field: false
+    - name: process.pe_info.pe_exports.name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.pe_info.pe_exports.ordinal
+      level: custom
+      type: long
+      description: TODO
+      default_field: false
+    - name: process.pe_info.pe_imports
+      level: custom
+      type: nested
+      description: TODO
+      default_field: false
+    - name: process.pe_info.pe_imports.dll_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.pe_info.pe_imports.import_names
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.pe_info.resources
+      level: custom
+      type: nested
+      description: TODO
+      default_field: false
+    - name: process.pe_info.resources.resource_data.entropy
+      level: custom
+      type: double
+      description: TODO
+      default_field: false
+    - name: process.pe_info.resources.resource_data.size
+      level: custom
+      type: long
+      description: TODO
+      default_field: false
+    - name: process.pe_info.resources.resource_id
+      level: custom
+      type: long
+      description: TODO
+      default_field: false
+    - name: process.pe_info.resources.resource_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.pe_info.resources.resource_type
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.pe_info.sections
+      level: custom
+      type: nested
+      description: TODO
+      default_field: false
+    - name: process.pe_info.sections.entropy
+      level: custom
+      type: double
+      description: TODO
+      default_field: false
+    - name: process.pe_info.sections.name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.pe_info.sections.raw_offset
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.pe_info.sections.raw_size
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.pe_info.sections.virtual_address
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.pe_info.sections.virtual_size
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.pe_info.signature_signer
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.pe_info.signature_status
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.pe_info.version_info
+      level: custom
+      type: nested
+      description: TODO
+      default_field: false
+    - name: process.pe_info.version_info.code_page
+      level: custom
+      type: long
+      description: TODO
+      default_field: false
+    - name: process.pe_info.version_info.key
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.pe_info.version_info.language
+      level: custom
+      type: long
+      description: TODO
+      default_field: false
+    - name: process.pe_info.version_info.value_string
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.pgid
+      level: extended
+      type: long
+      format: string
+      description: Identifier of the group of processes the process belongs to.
+      default_field: false
+    - name: process.phys_memory_bytes
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.pid
+      level: core
+      type: long
+      format: string
+      description: Process id.
+      example: 4242
+      default_field: false
+    - name: process.ppid
+      level: extended
+      type: long
+      format: string
+      description: Parent process' pid.
+      example: 4241
+      default_field: false
+    - name: process.service_names
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Service names associated with the process.
+      default_field: false
+    - name: process.services
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.session_id
+      level: custom
+      type: long
+      description: TODO
+      default_field: false
+    - name: process.short_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.sid
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.signature_signer
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.signature_status
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.start
+      level: extended
+      type: date
+      description: The time the process started.
+      example: '2016-05-23T08:05:34.853Z'
+      default_field: false
+    - name: process.thread
+      level: custom
+      type: nested
+      description: TODO
+      default_field: false
+    - name: process.thread.entrypoint
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.thread.start
+      level: custom
+      type: date
+      description: TODO
+      default_field: false
+    - name: process.thread.thread_id
+      level: custom
+      type: long
+      description: TODO
+      default_field: false
+    - name: process.thread.uptime
+      level: custom
+      type: long
+      description: TODO
+      default_field: false
+    - name: process.title
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: text
+        norms: false
+      description: 'Process title.
+
+        The proctitle, some times the same as process name. Can also be different:
+        for example a browser setting its title to the web page currently opened.'
+      default_field: false
+    - name: process.token.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.token.impersonation_level
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Impersonation level. Only valid for impersonation tokens.
+      default_field: false
+    - name: process.token.integrity_level
+      level: extended
+      type: long
+      description: Numeric integrity level.
+      default_field: false
+    - name: process.token.integrity_level_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Human readable integrity level.
+      default_field: false
+    - name: process.token.is_appcontainer
+      level: extended
+      type: boolean
+      description: Whether or not this is an appcontainer token.
+      default_field: false
+    - name: process.token.privileges
+      level: extended
+      type: nested
+      description: Array describing the privileges associated with the token.
+      default_field: false
+    - name: process.token.privileges.description
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Description of the privilege.
+      default_field: false
+    - name: process.token.privileges.enabled
+      level: extended
+      type: boolean
+      description: Whether or not the privilege is enabled.
+      default_field: false
+    - name: process.token.privileges.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the privilege.
+      default_field: false
+    - name: process.token.sid
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.token.type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Type of the token, either primary or impersonation.
+      default_field: false
+    - name: process.token.user
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Username of token owner.
+      default_field: false
+    - name: process.tty_device_major_number
+      level: custom
+      type: integer
+      description: TODO
+      default_field: false
+    - name: process.tty_device_minor_number
+      level: custom
+      type: integer
+      description: TODO
+      default_field: false
+    - name: process.tty_device_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.uid
+      level: custom
+      type: long
+      description: TODO
+      default_field: false
+    - name: process.unbacked_execute_byte_count
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.unbacked_execute_region_count
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.unique_pid
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: Unique process id.
+      default_field: false
+    - name: process.unique_ppid
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: Unique parent process id.
+      default_field: false
+    - name: process.uptime
+      level: extended
+      type: long
+      description: Seconds the process has been up.
+      example: 1325
+      default_field: false
+    - name: process.user
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: User associated with the process.
+      default_field: false
+    - name: process.virt_memory_bytes
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.working_directory
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: text
+        norms: false
+      description: The working directory of the process.
+      example: /home/alice
+      default_field: false
+    - name: thread.call_stack
+      level: custom
+      type: nested
+      description: TODO
+      default_field: false
+    - name: thread.call_stack.stack_frame.instruction_pointer
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: thread.call_stack.stack_frame.memory_section.memory_address
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: thread.call_stack.stack_frame.memory_section.memory_size
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: thread.call_stack.stack_frame.memory_section.protection
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: thread.call_stack.stack_frame.module_path
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: thread.call_stack.stack_frame.rva
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: thread.call_stack.stack_frame.symbol_info
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: thread.id
+      level: core
+      type: long
+      description: Thread id.
+      example: 3147
+      default_field: false
+    - name: thread.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Thread name.
+      example: thread-0
+      default_field: false
+    - name: thread.service_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Service associated with the thread.
+      example: VaultSvc
+      default_field: false
+    - name: thread.start
+      level: extended
+      type: date
+      description: The time the thread started.
+      example: '2016-05-23T08:05:34.853Z'
+      default_field: false
+    - name: thread.start_address
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Memory address where the thread started.
+      example: 5442508
+      default_field: false
+    - name: thread.start_address_module
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      example: C:\Program Files\VMware\VMware Tools\vmtoolsd.exe
+      default_field: false
+    - name: thread.token.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: thread.token.impersonation_level
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Impersonation level. Only valid for impersonation tokens.
+      default_field: false
+    - name: thread.token.integrity_level
+      level: extended
+      type: long
+      description: Numeric integrity level.
+      default_field: false
+    - name: thread.token.integrity_level_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Human readable integrity level.
+      default_field: false
+    - name: thread.token.is_appcontainer
+      level: extended
+      type: boolean
+      description: Whether or not this is an appcontainer token.
+      default_field: false
+    - name: thread.token.privileges
+      level: extended
+      type: nested
+      description: Array describing the privileges associated with the token.
+      default_field: false
+    - name: thread.token.privileges.description
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Description of the privilege.
+      default_field: false
+    - name: thread.token.privileges.enabled
+      level: extended
+      type: boolean
+      description: Whether or not the privilege is enabled.
+      default_field: false
+    - name: thread.token.privileges.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the privilege.
+      default_field: false
+    - name: thread.token.sid
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: thread.token.type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Type of the token, either primary or impersonation.
+      default_field: false
+    - name: thread.token.user
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Username of token owner.
+      default_field: false
   - name: process
     title: Process
     group: 2
@@ -2381,6 +4511,78 @@
         indication of suspicious activity.'
       example: 4
       default_field: false
+    - name: argv_list
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: authenticode.cert_signer.issuer_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: authenticode.cert_signer.serial_number
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: authenticode.cert_signer.subject_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: authenticode.cert_signer.timestamp_string
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: authenticode.cert_timestamp.issuer_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: authenticode.cert_timestamp.serial_number
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: authenticode.cert_timestamp.subject_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: authenticode.cert_timestamp.timestamp_string
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: authenticode.more_info_link
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: authenticode.program_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: authenticode.publisher_link
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
     - name: command_line
       level: extended
       type: keyword
@@ -2394,6 +4596,151 @@
 
         Some arguments may be filtered to protect sensitive information.'
       example: /usr/bin/ssh -l user 10.0.0.16
+      default_field: false
+    - name: cpu_percent
+      level: custom
+      type: double
+      description: TODO
+      default_field: false
+    - name: cwd
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: defense_evasions
+      level: custom
+      type: nested
+      description: TODO
+      default_field: false
+    - name: defense_evasions.call_stack
+      level: custom
+      type: nested
+      description: TODO
+      default_field: false
+    - name: defense_evasions.call_stack.stack_frame.instruction_pointer
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: defense_evasions.call_stack.stack_frame.memory_section.memory_address
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: defense_evasions.call_stack.stack_frame.memory_section.memory_size
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: defense_evasions.call_stack.stack_frame.memory_section.protection
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: defense_evasions.call_stack.stack_frame.module_path
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: defense_evasions.call_stack.stack_frame.rva
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: defense_evasions.call_stack.stack_frame.symbol_info
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: defense_evasions.delta_count
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: defense_evasions.evasion_subtype
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: defense_evasions.evasion_type
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: defense_evasions.instruction_pointer
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: defense_evasions.memory_sections
+      level: custom
+      type: nested
+      description: TODO
+      default_field: false
+    - name: defense_evasions.memory_sections.memory_address
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: defense_evasions.memory_sections.memory_size
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: defense_evasions.memory_sections.protection
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: defense_evasions.module_path
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: defense_evasions.thread.thread_id
+      level: custom
+      type: long
+      description: TODO
+      default_field: false
+    - name: defense_evasions.thread.thread_start_address
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: defense_evasions.total_memory_size
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: domain
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: env_variables
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
       default_field: false
     - name: executable
       level: extended
@@ -2415,6 +4762,50 @@
         start).'
       example: 137
       default_field: false
+    - name: gid
+      level: custom
+      type: long
+      description: TODO
+      default_field: false
+    - name: group
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: handle
+      level: custom
+      type: nested
+      description: TODO
+      default_field: false
+    - name: handle.handle_id
+      level: custom
+      type: long
+      description: TODO
+      default_field: false
+    - name: handle.handle_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: handle.handle_type
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: has_unbacked_execute_memory
+      level: custom
+      type: boolean
+      description: TODO
+      default_field: false
+    - name: hash.imphash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Imphash.
+      default_field: false
     - name: hash.md5
       level: extended
       type: keyword
@@ -2435,6 +4826,389 @@
       type: keyword
       ignore_above: 1024
       description: SHA512 hash.
+    - name: hash_matched_module
+      level: custom
+      type: boolean
+      description: TODO
+      default_field: false
+    - name: imphash
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: is_sensor
+      level: custom
+      type: boolean
+      description: Is this the Elastic Endpoint process or not.
+      default_field: false
+    - name: malware_score.compressed_malware_features.data_buffer
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: malware_score.compressed_malware_features.decompressed_size
+      level: custom
+      type: integer
+      description: TODO
+      default_field: false
+    - name: malware_score.compressed_malware_features.encoding
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: malware_score.identifier
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: malware_score.prevention_threshold
+      level: custom
+      type: double
+      description: TODO
+      default_field: false
+    - name: malware_score.score
+      level: custom
+      type: double
+      description: TODO
+      default_field: false
+    - name: malware_score.threshold
+      level: custom
+      type: double
+      description: TODO
+      default_field: false
+    - name: malware_score.upx_packed
+      level: custom
+      type: boolean
+      description: TODO
+      default_field: false
+    - name: malware_score.version
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: memory_percent
+      level: custom
+      type: double
+      description: TODO
+      default_field: false
+    - name: memory_region.allocation_base
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: memory_region.allocation_protection
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: memory_region.bytes
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: memory_region.histogram.histogram_array
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: memory_region.histogram.histogram_flavor
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: memory_region.histogram.histogram_resolution
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: memory_region.length
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: memory_region.memory
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: memory_region.memory_address
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: memory_region.module_path
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: memory_region.permission
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: memory_region.protection
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: memory_region.region_base
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: memory_region.region_size
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: memory_region.region_tag
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: memory_region.type
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: memory_region.unbacked_on_disk
+      level: custom
+      type: boolean
+      description: TODO
+      default_field: false
+    - name: module_info.architecture
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: module_info.authenticode.cert_signer.issuer_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: module_info.authenticode.cert_signer.serial_number
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: module_info.authenticode.cert_signer.subject_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: module_info.authenticode.cert_signer.timestamp_string
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: module_info.authenticode.cert_timestamp.issuer_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: module_info.authenticode.cert_timestamp.serial_number
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: module_info.authenticode.cert_timestamp.subject_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: module_info.authenticode.cert_timestamp.timestamp_string
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: module_info.authenticode.more_info_link
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: module_info.authenticode.program_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: module_info.authenticode.publisher_link
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: module_info.compile_time
+      level: custom
+      type: date
+      description: TODO
+      default_field: false
+    - name: module_info.hash.imphash
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: module_info.hash.md5
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: module_info.hash.sha1
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: module_info.hash.sha256
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: module_info.malware_score.compressed_malware_features.data_buffer
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: module_info.malware_score.compressed_malware_features.decompressed_size
+      level: custom
+      type: integer
+      description: TODO
+      default_field: false
+    - name: module_info.malware_score.compressed_malware_features.encoding
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: module_info.malware_score.identifier
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: module_info.malware_score.prevention_threshold
+      level: custom
+      type: double
+      description: TODO
+      default_field: false
+    - name: module_info.malware_score.score
+      level: custom
+      type: double
+      description: TODO
+      default_field: false
+    - name: module_info.malware_score.threshold
+      level: custom
+      type: double
+      description: TODO
+      default_field: false
+    - name: module_info.malware_score.upx_packed
+      level: custom
+      type: boolean
+      description: TODO
+      default_field: false
+    - name: module_info.malware_score.version
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: module_info.mapped_address
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: module_info.mapped_size
+      level: custom
+      type: long
+      description: TODO
+      default_field: false
+    - name: module_info.path
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: module_info.pe_exports
+      level: custom
+      type: nested
+      description: TODO
+      default_field: false
+    - name: module_info.pe_exports.name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: module_info.pe_exports.ordinal
+      level: custom
+      type: long
+      description: TODO
+      default_field: false
+    - name: module_info.pe_imports
+      level: custom
+      type: nested
+      description: TODO
+      default_field: false
+    - name: module_info.pe_imports.dll_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: module_info.pe_imports.import_names
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: module_info.signature_signer
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: module_info.signature_status
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
     - name: name
       level: extended
       type: keyword
@@ -2448,151 +5222,302 @@
 
         Sometimes called program name or similar.'
       example: ssh
-    - name: parent.args
-      level: extended
+    - name: num_threads
+      level: custom
+      type: long
+      description: TODO
+      default_field: false
+    - name: pe_info.architecture
+      level: custom
       type: keyword
       ignore_above: 1024
-      description: 'Array of process arguments.
-
-        May be filtered to protect sensitive information.'
-      example:
-      - ssh
-      - -l
-      - user
-      - 10.0.0.16
+      description: TODO
       default_field: false
-    - name: parent.args_count
-      level: extended
-      type: long
-      description: 'Length of the process.args array.
-
-        This field can be useful for querying or performing bucket analysis on how
-        many arguments were provided to start a process. More arguments may be an
-        indication of suspicious activity.'
-      example: 4
-      default_field: false
-    - name: parent.command_line
-      level: extended
+    - name: pe_info.authenticode.cert_signer.issuer_name
+      level: custom
       type: keyword
       ignore_above: 1024
-      multi_fields:
-      - name: text
-        type: text
-        norms: false
-      description: 'Full command line that started the process, including the absolute
-        path to the executable, and all arguments.
-
-        Some arguments may be filtered to protect sensitive information.'
-      example: /usr/bin/ssh -l user 10.0.0.16
+      description: TODO
       default_field: false
-    - name: parent.executable
-      level: extended
+    - name: pe_info.authenticode.cert_signer.serial_number
+      level: custom
       type: keyword
       ignore_above: 1024
-      multi_fields:
-      - name: text
-        type: text
-        norms: false
-      description: Absolute path to the process executable.
-      example: /usr/bin/ssh
+      description: TODO
       default_field: false
-    - name: parent.exit_code
-      level: extended
-      type: long
-      description: 'The exit code of the process, if this is a termination event.
-
-        The field should be absent if there is no exit code for the event (e.g. process
-        start).'
-      example: 137
-      default_field: false
-    - name: parent.name
-      level: extended
+    - name: pe_info.authenticode.cert_signer.subject_name
+      level: custom
       type: keyword
       ignore_above: 1024
-      multi_fields:
-      - name: text
-        type: text
-        norms: false
-      description: 'Process name.
-
-        Sometimes called program name or similar.'
-      example: ssh
+      description: TODO
       default_field: false
-    - name: parent.pgid
-      level: extended
-      type: long
-      format: string
-      description: Identifier of the group of processes the process belongs to.
-      default_field: false
-    - name: parent.pid
-      level: core
-      type: long
-      format: string
-      description: Process id.
-      example: 4242
-      default_field: false
-    - name: parent.ppid
-      level: extended
-      type: long
-      format: string
-      description: Parent process' pid.
-      example: 4241
-      default_field: false
-    - name: parent.start
-      level: extended
-      type: date
-      description: The time the process started.
-      example: '2016-05-23T08:05:34.853Z'
-      default_field: false
-    - name: parent.thread.id
-      level: extended
-      type: long
-      format: string
-      description: Thread ID.
-      example: 4242
-      default_field: false
-    - name: parent.thread.name
-      level: extended
+    - name: pe_info.authenticode.cert_signer.timestamp_string
+      level: custom
       type: keyword
       ignore_above: 1024
-      description: Thread name.
-      example: thread-0
+      description: TODO
       default_field: false
-    - name: parent.title
-      level: extended
+    - name: pe_info.authenticode.cert_timestamp.issuer_name
+      level: custom
       type: keyword
       ignore_above: 1024
-      multi_fields:
-      - name: text
-        type: text
-        norms: false
-      description: 'Process title.
-
-        The proctitle, some times the same as process name. Can also be different:
-        for example a browser setting its title to the web page currently opened.'
+      description: TODO
       default_field: false
-    - name: parent.uptime
-      level: extended
+    - name: pe_info.authenticode.cert_timestamp.serial_number
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: pe_info.authenticode.cert_timestamp.subject_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: pe_info.authenticode.cert_timestamp.timestamp_string
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: pe_info.authenticode.more_info_link
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: pe_info.authenticode.program_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: pe_info.authenticode.publisher_link
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: pe_info.compile_time
+      level: custom
       type: long
-      description: Seconds the process has been up.
-      example: 1325
+      description: TODO
       default_field: false
-    - name: parent.working_directory
-      level: extended
+    - name: pe_info.entry_point_address
+      level: custom
+      type: long
+      description: TODO
+      default_field: false
+    - name: pe_info.is_dll
+      level: custom
+      type: boolean
+      description: TODO
+      default_field: false
+    - name: pe_info.malware_score.compressed_malware_features.data_buffer
+      level: custom
       type: keyword
       ignore_above: 1024
-      multi_fields:
-      - name: text
-        type: text
-        norms: false
-      description: The working directory of the process.
-      example: /home/alice
+      description: TODO
+      default_field: false
+    - name: pe_info.malware_score.compressed_malware_features.decompressed_size
+      level: custom
+      type: integer
+      description: TODO
+      default_field: false
+    - name: pe_info.malware_score.compressed_malware_features.encoding
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: pe_info.malware_score.identifier
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: pe_info.malware_score.prevention_threshold
+      level: custom
+      type: double
+      description: TODO
+      default_field: false
+    - name: pe_info.malware_score.score
+      level: custom
+      type: double
+      description: TODO
+      default_field: false
+    - name: pe_info.malware_score.threshold
+      level: custom
+      type: double
+      description: TODO
+      default_field: false
+    - name: pe_info.malware_score.upx_packed
+      level: custom
+      type: boolean
+      description: TODO
+      default_field: false
+    - name: pe_info.malware_score.version
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: pe_info.pe_exports
+      level: custom
+      type: nested
+      description: TODO
+      default_field: false
+    - name: pe_info.pe_exports.name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: pe_info.pe_exports.ordinal
+      level: custom
+      type: long
+      description: TODO
+      default_field: false
+    - name: pe_info.pe_imports
+      level: custom
+      type: nested
+      description: TODO
+      default_field: false
+    - name: pe_info.pe_imports.dll_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: pe_info.pe_imports.import_names
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: pe_info.resources
+      level: custom
+      type: nested
+      description: TODO
+      default_field: false
+    - name: pe_info.resources.resource_data.entropy
+      level: custom
+      type: double
+      description: TODO
+      default_field: false
+    - name: pe_info.resources.resource_data.size
+      level: custom
+      type: long
+      description: TODO
+      default_field: false
+    - name: pe_info.resources.resource_id
+      level: custom
+      type: long
+      description: TODO
+      default_field: false
+    - name: pe_info.resources.resource_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: pe_info.resources.resource_type
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: pe_info.sections
+      level: custom
+      type: nested
+      description: TODO
+      default_field: false
+    - name: pe_info.sections.entropy
+      level: custom
+      type: double
+      description: TODO
+      default_field: false
+    - name: pe_info.sections.name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: pe_info.sections.raw_offset
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: pe_info.sections.raw_size
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: pe_info.sections.virtual_address
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: pe_info.sections.virtual_size
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: pe_info.signature_signer
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: pe_info.signature_status
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: pe_info.version_info
+      level: custom
+      type: nested
+      description: TODO
+      default_field: false
+    - name: pe_info.version_info.code_page
+      level: custom
+      type: long
+      description: TODO
+      default_field: false
+    - name: pe_info.version_info.key
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: pe_info.version_info.language
+      level: custom
+      type: long
+      description: TODO
+      default_field: false
+    - name: pe_info.version_info.value_string
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
       default_field: false
     - name: pgid
       level: extended
       type: long
       format: string
       description: Identifier of the group of processes the process belongs to.
+    - name: phys_memory_bytes
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
     - name: pid
       level: core
       type: long
@@ -2605,23 +5530,78 @@
       format: string
       description: Parent process' pid.
       example: 4241
+    - name: service_names
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Service names associated with the process.
+      default_field: false
+    - name: services
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: session_id
+      level: custom
+      type: long
+      description: TODO
+      default_field: false
+    - name: short_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: sid
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: signature_signer
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: signature_status
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
     - name: start
       level: extended
       type: date
       description: The time the process started.
       example: '2016-05-23T08:05:34.853Z'
-    - name: thread.id
-      level: extended
-      type: long
-      format: string
-      description: Thread ID.
-      example: 4242
-    - name: thread.name
-      level: extended
+    - name: thread
+      level: custom
+      type: nested
+      description: TODO
+      default_field: false
+    - name: thread.entrypoint
+      level: custom
       type: keyword
       ignore_above: 1024
-      description: Thread name.
-      example: thread-0
+      description: TODO
+      default_field: false
+    - name: thread.start
+      level: custom
+      type: date
+      description: TODO
+      default_field: false
+    - name: thread.thread_id
+      level: custom
+      type: long
+      description: TODO
+      default_field: false
+    - name: thread.uptime
+      level: custom
+      type: long
+      description: TODO
+      default_field: false
     - name: title
       level: extended
       type: keyword
@@ -2635,11 +5615,136 @@
 
         The proctitle, some times the same as process name. Can also be different:
         for example a browser setting its title to the web page currently opened.'
+    - name: token.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: token.impersonation_level
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Impersonation level. Only valid for impersonation tokens.
+      default_field: false
+    - name: token.integrity_level
+      level: extended
+      type: long
+      description: Numeric integrity level.
+      default_field: false
+    - name: token.integrity_level_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Human readable integrity level.
+      default_field: false
+    - name: token.is_appcontainer
+      level: extended
+      type: boolean
+      description: Whether or not this is an appcontainer token.
+      default_field: false
+    - name: token.privileges
+      level: extended
+      type: nested
+      description: Array describing the privileges associated with the token.
+      default_field: false
+    - name: token.privileges.description
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Description of the privilege.
+      default_field: false
+    - name: token.privileges.enabled
+      level: extended
+      type: boolean
+      description: Whether or not the privilege is enabled.
+      default_field: false
+    - name: token.privileges.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the privilege.
+      default_field: false
+    - name: token.sid
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: token.type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Type of the token, either primary or impersonation.
+      default_field: false
+    - name: token.user
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Username of token owner.
+      default_field: false
+    - name: tty_device_major_number
+      level: custom
+      type: integer
+      description: TODO
+      default_field: false
+    - name: tty_device_minor_number
+      level: custom
+      type: integer
+      description: TODO
+      default_field: false
+    - name: tty_device_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: uid
+      level: custom
+      type: long
+      description: TODO
+      default_field: false
+    - name: unbacked_execute_byte_count
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: unbacked_execute_region_count
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: unique_pid
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: Unique process id.
+      default_field: false
+    - name: unique_ppid
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: Unique parent process id.
+      default_field: false
     - name: uptime
       level: extended
       type: long
       description: Seconds the process has been up.
       example: 1325
+    - name: user
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: User associated with the process.
+      default_field: false
+    - name: virt_memory_bytes
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
     - name: working_directory
       level: extended
       type: keyword
@@ -3376,6 +6481,1661 @@
         default_field: false
       description: Short name or login of the user.
       example: albert
+  - name: stack_frame
+    title: Stack Frame
+    group: 2
+    description: TODO
+    type: group
+    fields:
+    - name: instruction_pointer
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: memory_section.memory_address
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: memory_section.memory_size
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: memory_section.protection
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: module_path
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: rva
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: symbol_info
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+  - name: target
+    title: Target
+    group: 2
+    description: 'These fields contain information about a target.
+
+      These fields provide more context about the target process and thread that are
+      related to the data in the document. Useful in a security context where a target
+      process or thread may be acted on by another process or thread.'
+    type: group
+    fields:
+    - name: process.args
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Array of process arguments, starting with the absolute path to
+        the executable.
+
+        May be filtered to protect sensitive information.'
+      example:
+      - /usr/bin/ssh
+      - -l
+      - user
+      - 10.0.0.16
+      default_field: false
+    - name: process.args_count
+      level: extended
+      type: long
+      description: 'Length of the process.args array.
+
+        This field can be useful for querying or performing bucket analysis on how
+        many arguments were provided to start a process. More arguments may be an
+        indication of suspicious activity.'
+      example: 4
+      default_field: false
+    - name: process.argv_list
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.authenticode.cert_signer.issuer_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.authenticode.cert_signer.serial_number
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.authenticode.cert_signer.subject_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.authenticode.cert_signer.timestamp_string
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.authenticode.cert_timestamp.issuer_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.authenticode.cert_timestamp.serial_number
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.authenticode.cert_timestamp.subject_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.authenticode.cert_timestamp.timestamp_string
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.authenticode.more_info_link
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.authenticode.program_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.authenticode.publisher_link
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.command_line
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: text
+        norms: false
+      description: 'Full command line that started the process, including the absolute
+        path to the executable, and all arguments.
+
+        Some arguments may be filtered to protect sensitive information.'
+      example: /usr/bin/ssh -l user 10.0.0.16
+      default_field: false
+    - name: process.cpu_percent
+      level: custom
+      type: double
+      description: TODO
+      default_field: false
+    - name: process.cwd
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.defense_evasions
+      level: custom
+      type: nested
+      description: TODO
+      default_field: false
+    - name: process.defense_evasions.call_stack
+      level: custom
+      type: nested
+      description: TODO
+      default_field: false
+    - name: process.defense_evasions.call_stack.stack_frame.instruction_pointer
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.defense_evasions.call_stack.stack_frame.memory_section.memory_address
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.defense_evasions.call_stack.stack_frame.memory_section.memory_size
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.defense_evasions.call_stack.stack_frame.memory_section.protection
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.defense_evasions.call_stack.stack_frame.module_path
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.defense_evasions.call_stack.stack_frame.rva
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.defense_evasions.call_stack.stack_frame.symbol_info
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.defense_evasions.delta_count
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.defense_evasions.evasion_subtype
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.defense_evasions.evasion_type
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.defense_evasions.instruction_pointer
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.defense_evasions.memory_sections
+      level: custom
+      type: nested
+      description: TODO
+      default_field: false
+    - name: process.defense_evasions.memory_sections.memory_address
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.defense_evasions.memory_sections.memory_size
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.defense_evasions.memory_sections.protection
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.defense_evasions.module_path
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.defense_evasions.thread.thread_id
+      level: custom
+      type: long
+      description: TODO
+      default_field: false
+    - name: process.defense_evasions.thread.thread_start_address
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.defense_evasions.total_memory_size
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.domain
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.env_variables
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.executable
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: text
+        norms: false
+      description: Absolute path to the process executable.
+      example: /usr/bin/ssh
+      default_field: false
+    - name: process.exit_code
+      level: extended
+      type: long
+      description: 'The exit code of the process, if this is a termination event.
+
+        The field should be absent if there is no exit code for the event (e.g. process
+        start).'
+      example: 137
+      default_field: false
+    - name: process.gid
+      level: custom
+      type: long
+      description: TODO
+      default_field: false
+    - name: process.group
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.handle
+      level: custom
+      type: nested
+      description: TODO
+      default_field: false
+    - name: process.handle.handle_id
+      level: custom
+      type: long
+      description: TODO
+      default_field: false
+    - name: process.handle.handle_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.handle.handle_type
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.has_unbacked_execute_memory
+      level: custom
+      type: boolean
+      description: TODO
+      default_field: false
+    - name: process.hash.imphash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Imphash.
+      default_field: false
+    - name: process.hash.md5
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: MD5 hash.
+      default_field: false
+    - name: process.hash.sha1
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SHA1 hash.
+      default_field: false
+    - name: process.hash.sha256
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SHA256 hash.
+      default_field: false
+    - name: process.hash.sha512
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SHA512 hash.
+      default_field: false
+    - name: process.hash_matched_module
+      level: custom
+      type: boolean
+      description: TODO
+      default_field: false
+    - name: process.imphash
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.is_sensor
+      level: custom
+      type: boolean
+      description: Is this the Elastic Endpoint process or not.
+      default_field: false
+    - name: process.malware_score.compressed_malware_features.data_buffer
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.malware_score.compressed_malware_features.decompressed_size
+      level: custom
+      type: integer
+      description: TODO
+      default_field: false
+    - name: process.malware_score.compressed_malware_features.encoding
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.malware_score.identifier
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.malware_score.prevention_threshold
+      level: custom
+      type: double
+      description: TODO
+      default_field: false
+    - name: process.malware_score.score
+      level: custom
+      type: double
+      description: TODO
+      default_field: false
+    - name: process.malware_score.threshold
+      level: custom
+      type: double
+      description: TODO
+      default_field: false
+    - name: process.malware_score.upx_packed
+      level: custom
+      type: boolean
+      description: TODO
+      default_field: false
+    - name: process.malware_score.version
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.memory_percent
+      level: custom
+      type: double
+      description: TODO
+      default_field: false
+    - name: process.memory_region.allocation_base
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.memory_region.allocation_protection
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.memory_region.bytes
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.memory_region.histogram.histogram_array
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.memory_region.histogram.histogram_flavor
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.memory_region.histogram.histogram_resolution
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.memory_region.length
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.memory_region.memory
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.memory_region.memory_address
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.memory_region.module_path
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.memory_region.permission
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.memory_region.protection
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.memory_region.region_base
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.memory_region.region_size
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.memory_region.region_tag
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.memory_region.type
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.memory_region.unbacked_on_disk
+      level: custom
+      type: boolean
+      description: TODO
+      default_field: false
+    - name: process.module_info.architecture
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.module_info.authenticode.cert_signer.issuer_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.module_info.authenticode.cert_signer.serial_number
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.module_info.authenticode.cert_signer.subject_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.module_info.authenticode.cert_signer.timestamp_string
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.module_info.authenticode.cert_timestamp.issuer_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.module_info.authenticode.cert_timestamp.serial_number
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.module_info.authenticode.cert_timestamp.subject_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.module_info.authenticode.cert_timestamp.timestamp_string
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.module_info.authenticode.more_info_link
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.module_info.authenticode.program_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.module_info.authenticode.publisher_link
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.module_info.compile_time
+      level: custom
+      type: date
+      description: TODO
+      default_field: false
+    - name: process.module_info.hash.imphash
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.module_info.hash.md5
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.module_info.hash.sha1
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.module_info.hash.sha256
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.module_info.malware_score.compressed_malware_features.data_buffer
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.module_info.malware_score.compressed_malware_features.decompressed_size
+      level: custom
+      type: integer
+      description: TODO
+      default_field: false
+    - name: process.module_info.malware_score.compressed_malware_features.encoding
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.module_info.malware_score.identifier
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.module_info.malware_score.prevention_threshold
+      level: custom
+      type: double
+      description: TODO
+      default_field: false
+    - name: process.module_info.malware_score.score
+      level: custom
+      type: double
+      description: TODO
+      default_field: false
+    - name: process.module_info.malware_score.threshold
+      level: custom
+      type: double
+      description: TODO
+      default_field: false
+    - name: process.module_info.malware_score.upx_packed
+      level: custom
+      type: boolean
+      description: TODO
+      default_field: false
+    - name: process.module_info.malware_score.version
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.module_info.mapped_address
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.module_info.mapped_size
+      level: custom
+      type: long
+      description: TODO
+      default_field: false
+    - name: process.module_info.path
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.module_info.pe_exports
+      level: custom
+      type: nested
+      description: TODO
+      default_field: false
+    - name: process.module_info.pe_exports.name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.module_info.pe_exports.ordinal
+      level: custom
+      type: long
+      description: TODO
+      default_field: false
+    - name: process.module_info.pe_imports
+      level: custom
+      type: nested
+      description: TODO
+      default_field: false
+    - name: process.module_info.pe_imports.dll_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.module_info.pe_imports.import_names
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.module_info.signature_signer
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.module_info.signature_status
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: text
+        norms: false
+      description: 'Process name.
+
+        Sometimes called program name or similar.'
+      example: ssh
+      default_field: false
+    - name: process.num_threads
+      level: custom
+      type: long
+      description: TODO
+      default_field: false
+    - name: process.pe_info.architecture
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.pe_info.authenticode.cert_signer.issuer_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.pe_info.authenticode.cert_signer.serial_number
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.pe_info.authenticode.cert_signer.subject_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.pe_info.authenticode.cert_signer.timestamp_string
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.pe_info.authenticode.cert_timestamp.issuer_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.pe_info.authenticode.cert_timestamp.serial_number
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.pe_info.authenticode.cert_timestamp.subject_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.pe_info.authenticode.cert_timestamp.timestamp_string
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.pe_info.authenticode.more_info_link
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.pe_info.authenticode.program_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.pe_info.authenticode.publisher_link
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.pe_info.compile_time
+      level: custom
+      type: long
+      description: TODO
+      default_field: false
+    - name: process.pe_info.entry_point_address
+      level: custom
+      type: long
+      description: TODO
+      default_field: false
+    - name: process.pe_info.is_dll
+      level: custom
+      type: boolean
+      description: TODO
+      default_field: false
+    - name: process.pe_info.malware_score.compressed_malware_features.data_buffer
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.pe_info.malware_score.compressed_malware_features.decompressed_size
+      level: custom
+      type: integer
+      description: TODO
+      default_field: false
+    - name: process.pe_info.malware_score.compressed_malware_features.encoding
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.pe_info.malware_score.identifier
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.pe_info.malware_score.prevention_threshold
+      level: custom
+      type: double
+      description: TODO
+      default_field: false
+    - name: process.pe_info.malware_score.score
+      level: custom
+      type: double
+      description: TODO
+      default_field: false
+    - name: process.pe_info.malware_score.threshold
+      level: custom
+      type: double
+      description: TODO
+      default_field: false
+    - name: process.pe_info.malware_score.upx_packed
+      level: custom
+      type: boolean
+      description: TODO
+      default_field: false
+    - name: process.pe_info.malware_score.version
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.pe_info.pe_exports
+      level: custom
+      type: nested
+      description: TODO
+      default_field: false
+    - name: process.pe_info.pe_exports.name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.pe_info.pe_exports.ordinal
+      level: custom
+      type: long
+      description: TODO
+      default_field: false
+    - name: process.pe_info.pe_imports
+      level: custom
+      type: nested
+      description: TODO
+      default_field: false
+    - name: process.pe_info.pe_imports.dll_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.pe_info.pe_imports.import_names
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.pe_info.resources
+      level: custom
+      type: nested
+      description: TODO
+      default_field: false
+    - name: process.pe_info.resources.resource_data.entropy
+      level: custom
+      type: double
+      description: TODO
+      default_field: false
+    - name: process.pe_info.resources.resource_data.size
+      level: custom
+      type: long
+      description: TODO
+      default_field: false
+    - name: process.pe_info.resources.resource_id
+      level: custom
+      type: long
+      description: TODO
+      default_field: false
+    - name: process.pe_info.resources.resource_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.pe_info.resources.resource_type
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.pe_info.sections
+      level: custom
+      type: nested
+      description: TODO
+      default_field: false
+    - name: process.pe_info.sections.entropy
+      level: custom
+      type: double
+      description: TODO
+      default_field: false
+    - name: process.pe_info.sections.name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.pe_info.sections.raw_offset
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.pe_info.sections.raw_size
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.pe_info.sections.virtual_address
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.pe_info.sections.virtual_size
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.pe_info.signature_signer
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.pe_info.signature_status
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.pe_info.version_info
+      level: custom
+      type: nested
+      description: TODO
+      default_field: false
+    - name: process.pe_info.version_info.code_page
+      level: custom
+      type: long
+      description: TODO
+      default_field: false
+    - name: process.pe_info.version_info.key
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.pe_info.version_info.language
+      level: custom
+      type: long
+      description: TODO
+      default_field: false
+    - name: process.pe_info.version_info.value_string
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.pgid
+      level: extended
+      type: long
+      format: string
+      description: Identifier of the group of processes the process belongs to.
+      default_field: false
+    - name: process.phys_memory_bytes
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.pid
+      level: core
+      type: long
+      format: string
+      description: Process id.
+      example: 4242
+      default_field: false
+    - name: process.ppid
+      level: extended
+      type: long
+      format: string
+      description: Parent process' pid.
+      example: 4241
+      default_field: false
+    - name: process.service_names
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Service names associated with the process.
+      default_field: false
+    - name: process.services
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.session_id
+      level: custom
+      type: long
+      description: TODO
+      default_field: false
+    - name: process.short_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.sid
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.signature_signer
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.signature_status
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.start
+      level: extended
+      type: date
+      description: The time the process started.
+      example: '2016-05-23T08:05:34.853Z'
+      default_field: false
+    - name: process.thread
+      level: custom
+      type: nested
+      description: TODO
+      default_field: false
+    - name: process.thread.entrypoint
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.thread.start
+      level: custom
+      type: date
+      description: TODO
+      default_field: false
+    - name: process.thread.thread_id
+      level: custom
+      type: long
+      description: TODO
+      default_field: false
+    - name: process.thread.uptime
+      level: custom
+      type: long
+      description: TODO
+      default_field: false
+    - name: process.title
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: text
+        norms: false
+      description: 'Process title.
+
+        The proctitle, some times the same as process name. Can also be different:
+        for example a browser setting its title to the web page currently opened.'
+      default_field: false
+    - name: process.token.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.token.impersonation_level
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Impersonation level. Only valid for impersonation tokens.
+      default_field: false
+    - name: process.token.integrity_level
+      level: extended
+      type: long
+      description: Numeric integrity level.
+      default_field: false
+    - name: process.token.integrity_level_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Human readable integrity level.
+      default_field: false
+    - name: process.token.is_appcontainer
+      level: extended
+      type: boolean
+      description: Whether or not this is an appcontainer token.
+      default_field: false
+    - name: process.token.privileges
+      level: extended
+      type: nested
+      description: Array describing the privileges associated with the token.
+      default_field: false
+    - name: process.token.privileges.description
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Description of the privilege.
+      default_field: false
+    - name: process.token.privileges.enabled
+      level: extended
+      type: boolean
+      description: Whether or not the privilege is enabled.
+      default_field: false
+    - name: process.token.privileges.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the privilege.
+      default_field: false
+    - name: process.token.sid
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.token.type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Type of the token, either primary or impersonation.
+      default_field: false
+    - name: process.token.user
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Username of token owner.
+      default_field: false
+    - name: process.tty_device_major_number
+      level: custom
+      type: integer
+      description: TODO
+      default_field: false
+    - name: process.tty_device_minor_number
+      level: custom
+      type: integer
+      description: TODO
+      default_field: false
+    - name: process.tty_device_name
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.uid
+      level: custom
+      type: long
+      description: TODO
+      default_field: false
+    - name: process.unbacked_execute_byte_count
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.unbacked_execute_region_count
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.unique_pid
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: Unique process id.
+      default_field: false
+    - name: process.unique_ppid
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: Unique parent process id.
+      default_field: false
+    - name: process.uptime
+      level: extended
+      type: long
+      description: Seconds the process has been up.
+      example: 1325
+      default_field: false
+    - name: process.user
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: User associated with the process.
+      default_field: false
+    - name: process.virt_memory_bytes
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: process.working_directory
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: text
+        norms: false
+      description: The working directory of the process.
+      example: /home/alice
+      default_field: false
+    - name: thread.call_stack
+      level: custom
+      type: nested
+      description: TODO
+      default_field: false
+    - name: thread.call_stack.stack_frame.instruction_pointer
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: thread.call_stack.stack_frame.memory_section.memory_address
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: thread.call_stack.stack_frame.memory_section.memory_size
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: thread.call_stack.stack_frame.memory_section.protection
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: thread.call_stack.stack_frame.module_path
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: thread.call_stack.stack_frame.rva
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: thread.call_stack.stack_frame.symbol_info
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: thread.id
+      level: core
+      type: long
+      description: Thread id.
+      example: 3147
+      default_field: false
+    - name: thread.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Thread name.
+      example: thread-0
+      default_field: false
+    - name: thread.service_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Service associated with the thread.
+      example: VaultSvc
+      default_field: false
+    - name: thread.start
+      level: extended
+      type: date
+      description: The time the thread started.
+      example: '2016-05-23T08:05:34.853Z'
+      default_field: false
+    - name: thread.start_address
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Memory address where the thread started.
+      example: 5442508
+      default_field: false
+    - name: thread.start_address_module
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      example: C:\Program Files\VMware\VMware Tools\vmtoolsd.exe
+      default_field: false
+    - name: thread.token.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: thread.token.impersonation_level
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Impersonation level. Only valid for impersonation tokens.
+      default_field: false
+    - name: thread.token.integrity_level
+      level: extended
+      type: long
+      description: Numeric integrity level.
+      default_field: false
+    - name: thread.token.integrity_level_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Human readable integrity level.
+      default_field: false
+    - name: thread.token.is_appcontainer
+      level: extended
+      type: boolean
+      description: Whether or not this is an appcontainer token.
+      default_field: false
+    - name: thread.token.privileges
+      level: extended
+      type: nested
+      description: Array describing the privileges associated with the token.
+      default_field: false
+    - name: thread.token.privileges.description
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Description of the privilege.
+      default_field: false
+    - name: thread.token.privileges.enabled
+      level: extended
+      type: boolean
+      description: Whether or not the privilege is enabled.
+      default_field: false
+    - name: thread.token.privileges.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the privilege.
+      default_field: false
+    - name: thread.token.sid
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: thread.token.type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Type of the token, either primary or impersonation.
+      default_field: false
+    - name: thread.token.user
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Username of token owner.
+      default_field: false
+  - name: thread
+    title: Thread
+    group: 2
+    description: 'These fields contain information about a thread.
+
+      These fields provide more context about the relevant thread related to the data
+      in the document.'
+    type: group
+    fields:
+    - name: call_stack
+      level: custom
+      type: nested
+      description: TODO
+      default_field: false
+    - name: call_stack.stack_frame.instruction_pointer
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: call_stack.stack_frame.memory_section.memory_address
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: call_stack.stack_frame.memory_section.memory_size
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: call_stack.stack_frame.memory_section.protection
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: call_stack.stack_frame.module_path
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: call_stack.stack_frame.rva
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: call_stack.stack_frame.symbol_info
+      level: custom
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: id
+      level: core
+      type: long
+      description: Thread id.
+      example: 3147
+      default_field: false
+    - name: name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Thread name.
+      example: thread-0
+      default_field: false
+    - name: service_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Service associated with the thread.
+      example: VaultSvc
+      default_field: false
+    - name: start
+      level: extended
+      type: date
+      description: The time the thread started.
+      example: '2016-05-23T08:05:34.853Z'
+      default_field: false
+    - name: start_address
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Memory address where the thread started.
+      example: 5442508
+      default_field: false
+    - name: start_address_module
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      example: C:\Program Files\VMware\VMware Tools\vmtoolsd.exe
+      default_field: false
+    - name: token.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: token.impersonation_level
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Impersonation level. Only valid for impersonation tokens.
+      default_field: false
+    - name: token.integrity_level
+      level: extended
+      type: long
+      description: Numeric integrity level.
+      default_field: false
+    - name: token.integrity_level_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Human readable integrity level.
+      default_field: false
+    - name: token.is_appcontainer
+      level: extended
+      type: boolean
+      description: Whether or not this is an appcontainer token.
+      default_field: false
+    - name: token.privileges
+      level: extended
+      type: nested
+      description: Array describing the privileges associated with the token.
+      default_field: false
+    - name: token.privileges.description
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Description of the privilege.
+      default_field: false
+    - name: token.privileges.enabled
+      level: extended
+      type: boolean
+      description: Whether or not the privilege is enabled.
+      default_field: false
+    - name: token.privileges.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the privilege.
+      default_field: false
+    - name: token.sid
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: token.type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Type of the token, either primary or impersonation.
+      default_field: false
+    - name: token.user
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Username of token owner.
+      default_field: false
   - name: threat
     title: Threat
     group: 2
@@ -3695,6 +8455,84 @@
       ignore_above: 1024
       description: Normalized lowercase protocol name parsed from original string.
       example: tls
+      default_field: false
+  - name: token
+    title: Token
+    group: 2
+    description: 'These fields contain information about a token.
+
+      These fields can help you correlate metrics information with a process id/name
+      from a log message.  The `process.pid` often stays in the metric itself and
+      is copied to the global field for correlation.'
+    type: group
+    fields:
+    - name: domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: impersonation_level
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Impersonation level. Only valid for impersonation tokens.
+      default_field: false
+    - name: integrity_level
+      level: extended
+      type: long
+      description: Numeric integrity level.
+      default_field: false
+    - name: integrity_level_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Human readable integrity level.
+      default_field: false
+    - name: is_appcontainer
+      level: extended
+      type: boolean
+      description: Whether or not this is an appcontainer token.
+      default_field: false
+    - name: privileges
+      level: extended
+      type: nested
+      description: Array describing the privileges associated with the token.
+      default_field: false
+    - name: privileges.description
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Description of the privilege.
+      default_field: false
+    - name: privileges.enabled
+      level: extended
+      type: boolean
+      description: Whether or not the privilege is enabled.
+      default_field: false
+    - name: privileges.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the privilege.
+      default_field: false
+    - name: sid
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: TODO
+      default_field: false
+    - name: type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Type of the token, either primary or impersonation.
+      default_field: false
+    - name: user
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Username of token owner.
       default_field: false
   - name: tracing
     title: Tracing

@@ -1,0 +1,523 @@
+---
+- name: process
+  title: Process
+  group: 2
+  short: These fields contain information about a process.
+  description: >
+    These fields contain information about a process.
+
+    These fields can help you correlate metrics information with a process id/name
+    from a log message.  The `process.pid` often stays in the metric itself and is
+    copied to the global field for correlation.
+  reusable:
+    top_level: true
+    expected:
+      - parent
+      - target
+  type: group
+  fields:
+    - name: unique_pid
+      level: custom
+      type: keyword
+      description: >
+        Unique process id.
+
+    - name: is_sensor
+      level: custom
+      type: boolean
+      description: >
+        Is this the Elastic Endpoint process or not.
+    
+    - name: unique_ppid
+      level: custom
+      type: keyword
+      description: >
+        Unique parent process id.
+
+    - name: hash_matched_module
+      level: custom
+      type: boolean
+      description: >
+        TODO
+
+    - name: has_unbacked_execute_memory
+      level: custom
+      type: boolean
+      description: >
+        TODO
+    
+    - name: unbacked_execute_byte_count
+      level: custom
+      type: keyword
+      description: >
+        TODO
+
+    - name: unbacked_execute_region_count
+      level: custom
+      type: keyword
+      description: >
+        TODO
+
+    - name: memory_region
+      level: custom
+      type: nested
+      description: >
+        TODO
+
+    - name: thread
+      level: custom
+      type: nested
+      description: >
+        TODO
+
+    - name: thread.thread_id
+      level: custom
+      type: long
+      description: >
+        TODO
+
+    - name: thread.entrypoint
+      level: custom
+      type: keyword
+      description: >
+        TODO
+
+    - name: thread.start
+      level: custom
+      type: date
+      description: >
+        TODO
+
+    - name: thread.uptime
+      level: custom
+      type: long
+      description: >
+        TODO
+
+    - name: module_info
+      level: custom
+      type: nested
+      description: >
+        TODO
+
+    - name: handle
+      level: custom
+      type: nested
+      description: >
+        TODO
+
+    - name: handle.handle_id
+      level: custom
+      type: long
+      description: >
+        TODO
+
+    - name: handle.handle_type
+      level: custom
+      type: keyword
+      description: >
+        TODO
+
+    - name: handle.handle_name
+      level: custom
+      type: keyword
+      description: >
+        TODO
+
+    - name: cpu_percent
+      level: custom
+      type: double
+      description: >
+        TODO
+
+    - name: memory_percent
+      level: custom
+      type: double
+      description: >
+        TODO
+
+    - name: num_threads
+      level: custom
+      type: long
+      description: >
+        TODO
+
+    - name: virt_memory_bytes
+      level: custom
+      type: keyword
+      description: >
+        TODO
+
+    - name: phys_memory_bytes
+      level: custom
+      type: keyword
+      description: >
+        TODO
+
+    - name: cwd
+      level: custom
+      type: keyword
+      description: >
+        TODO
+
+    - name: group
+      level: custom
+      type: keyword
+      description: >
+        TODO
+
+    - name: short_name
+      level: custom
+      type: keyword
+      description: >
+        TODO
+
+    - name: argv_list
+      level: custom
+      type: keyword
+      description: >
+        TODO
+
+    - name: env_variables
+      level: custom
+      type: keyword
+      description: >
+        TODO
+
+    - name: uid
+      level: custom
+      type: long
+      description: >
+        TODO
+
+    - name: gid
+      level: custom
+      type: long
+      description: >
+        TODO
+
+    - name: tty_device_major_number
+      level: custom
+      type: integer
+      description: >
+        TODO
+
+    - name: tty_device_minor_number
+      level: custom
+      type: integer
+      description: >
+        TODO
+
+    - name: tty_device_name
+      level: custom
+      type: keyword
+      description: >
+        TODO
+
+    - name: session_id
+      level: custom
+      type: long
+      description: >
+        TODO
+
+    - name: imphash
+      level: custom
+      type: keyword
+      description: >
+        TODO
+
+    - name: domain
+      level: custom
+      type: keyword
+      description: >
+        TODO
+
+    - name: sid
+      level: custom
+      type: keyword
+      description: >
+        TODO
+
+    - name: pe_info.compile_time
+      level: custom
+      type: long
+      description: >
+        TODO
+
+    - name: pe_info.entry_point_address
+      level: custom
+      type: long
+      description: >
+        TODO
+
+    - name: pe_info.is_dll
+      level: custom
+      type: boolean
+      description: >
+        TODO
+
+    - name: pe_info.sections
+      level: custom
+      type: nested
+      description: >
+        TODO
+
+    - name: pe_info.sections.virtual_address
+      level: custom
+      type: keyword
+      description: >
+        TODO
+
+    - name: pe_info.sections.virtual_size
+      level: custom
+      type: keyword
+      description: >
+        TODO
+
+    - name: pe_info.sections.raw_offset
+      level: custom
+      type: keyword
+      description: >
+        TODO
+
+    - name: pe_info.sections.raw_size
+      level: custom
+      type: keyword
+      description: >
+        TODO
+
+    - name: pe_info.sections.entropy
+      level: custom
+      type: double
+      description: >
+        TODO
+
+    - name: pe_info.sections.name
+      level: custom
+      type: keyword
+      description: >
+        TODO
+
+    - name: pe_info.pe_imports
+      level: custom
+      type: nested
+      description: >
+        TODO
+
+    - name: pe_info.pe_imports.dll_name
+      level: custom
+      type: keyword
+      description: >
+        TODO
+
+    - name: pe_info.pe_imports.import_names
+      level: custom
+      type: keyword
+      description: >
+        TODO
+
+    - name: pe_info.pe_exports
+      level: custom
+      type: nested
+      description: >
+        TODO
+
+    - name: pe_info.pe_exports.ordinal
+      level: custom
+      type: long
+      description: >
+        TODO
+
+    - name: pe_info.pe_exports.name
+      level: custom
+      type: keyword
+      description: >
+        TODO
+
+    - name: pe_info.resources
+      level: custom
+      type: nested
+      description: >
+        TODO
+
+    - name: pe_info.resources.resource_id
+      level: custom
+      type: long
+      description: >
+        TODO
+
+    - name: pe_info.resources.resource_type
+      level: custom
+      type: keyword
+      description: >
+        TODO
+
+    - name: pe_info.resources.resource_data.size
+      level: custom
+      type: long
+      description: >
+        TODO
+
+    - name: pe_info.resources.resource_data.entropy
+      level: custom
+      type: double
+      description: >
+        TODO
+
+    - name: pe_info.resources.resource_name
+      level: custom
+      type: keyword
+      description: >
+        TODO
+
+    - name: pe_info.version_info
+      level: custom
+      type: nested
+      description: >
+        TODO
+
+    - name: pe_info.version_info.language
+      level: custom
+      type: long
+      description: >
+        TODO
+
+    - name: pe_info.version_info.code_page
+      level: custom
+      type: long
+      description: >
+        TODO
+
+    - name: pe_info.version_info.key
+      level: custom
+      type: keyword
+      description: >
+        TODO
+
+    - name: pe_info.version_info.value_string
+      level: custom
+      type: keyword
+      description: >
+        TODO
+
+    - name: pe_info.architecture
+      level: custom
+      type: keyword
+      description: >
+        TODO
+
+    - name: pe_info.signature_signer
+      level: custom
+      type: keyword
+      description: >
+        TODO
+
+    - name: pe_info.signature_status
+      level: custom
+      type: keyword
+      description: >
+        TODO
+
+    - name: signature_signer
+      level: custom
+      type: keyword
+      description: >
+        TODO
+
+    - name: signature_status
+      level: custom
+      type: keyword
+      description: >
+        TODO
+
+    - name: defense_evasions
+      level: custom
+      type: nested
+      description: >
+        TODO
+
+    - name: defense_evasions.evasion_type
+      level: custom
+      type: keyword
+      description: >
+        TODO
+
+    - name: defense_evasions.evasion_subtype
+      level: custom
+      type: keyword
+      description: >
+        TODO
+
+    - name: defense_evasions.module_path
+      level: custom
+      type: keyword
+      description: >
+        TODO
+
+    - name: defense_evasions.total_memory_size
+      level: custom
+      type: keyword
+      description: >
+        TODO
+
+    - name: defense_evasions.memory_sections
+      level: custom
+      type: nested
+      description: >
+        TODO
+
+    - name: defense_evasions.memory_sections.memory_address
+      level: custom
+      type: keyword
+      description: >
+        TODO
+
+    - name: defense_evasions.memory_sections.memory_size
+      level: custom
+      type: keyword
+      description: >
+        TODO
+
+    - name: defense_evasions.memory_sections.protection
+      level: custom
+      type: keyword
+      description: >
+        TODO
+
+    - name: defense_evasions.thread.thread_id
+      level: custom
+      type: long
+      description: >
+        TODO
+
+    - name: defense_evasions.thread.thread_start_address
+      level: custom
+      type: keyword
+      description: >
+        TODO
+
+    - name: defense_evasions.delta_count
+      level: custom
+      type: keyword
+      description: >
+        TODO
+
+    - name: defense_evasions.instruction_pointer
+      level: custom
+      type: keyword
+      description: >
+        TODO
+
+    - name: defense_evasions.call_stack
+      level: custom
+      type: nested
+      description: >
+        TODO
+
+    - name: services
+      level: custom
+      type: keyword
+      description: >
+        TODO
+
+    
