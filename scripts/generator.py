@@ -32,6 +32,15 @@ def main():
         nested = ecs_helpers.safe_merge_dicts(nested, custom_nested)
         flat = ecs_helpers.safe_merge_dicts(flat, custom_flat)
 
+    if args.use_case_dir:
+        print('Loading use case directory: {}'.format(args.use_case_dir))
+        use_cases_nested, use_cases_flat = schema_reader.load_use_case_files(
+            get_yaml_files(args.use_case_dir), nested['base'])
+
+        # Merge and allow user schemas to overwrite default schemas
+        nested = schema_reader.merge_dict_overwrite(nested, use_cases_nested)
+        flat = schema_reader.merge_dict_overwrite(flat, use_cases_flat)
+
     intermediate_files.generate(nested, flat)
     if args.intermediate_only:
         exit()
@@ -42,12 +51,23 @@ def main():
     asciidoc_fields.generate(nested, flat, ecs_version)
 
 
+def get_yaml_files(path):
+    file_types = ('*.yml', '*.yaml')
+    all_files = []
+    for t in file_types:
+        all_files.extend(glob.glob(os.path.join(path, t)))
+
+    return sorted(all_files)
+
+
 def argument_parser():
     parser = argparse.ArgumentParser()
     parser.add_argument('--intermediate-only', action='store_true',
                         help='generate intermediary files only')
     parser.add_argument('--include', action='store',
                         help='include user specified directory of custom field definitions')
+    parser.add_argument('--use-case-dir', action='store',
+                        help='include user specified directory of custom use-case style field definitions')
     return parser.parse_args()
 
 

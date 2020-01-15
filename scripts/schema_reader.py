@@ -29,6 +29,61 @@ def load_schema_files(files=ecs_files()):
         fields_nested.update(new_fields)
     return fields_nested
 
+
+def load_use_case_files(files, base_fields):
+    fields_intermediate = {}
+    for f in files:
+        fields_intermediate = merge_dict_overwrite(fields_intermediate, read_use_case_file(f, base_fields))
+
+    finalize_schemas(fields_intermediate)
+    cleanup_fields_recursive(fields_intermediate, "")
+    fields_nested = generate_partially_flattened_fields(fields_intermediate)
+    fields_flat = generate_fully_flattened_fields(fields_intermediate)
+    return fields_nested, fields_flat
+
+
+def read_use_case_file(path, base_fields):
+    with open(path) as f:
+        raw = yaml.safe_load(f.read())
+    ret_fields = {}
+    top_fields = raw['fields']
+    for field in top_fields:
+        name = field['name']
+        if name in base_fields['fields']:
+            if base_fields['fields'][name]['type'] != field['type']:
+                print('Found a base field with differing types use case name: {} type: {} base type: {}'.
+                      format(name, field['type'], base_fields['fields'][name]['type']))
+            ret_fields['base'] = field
+        else:
+            ret_fields[name] = field
+
+    return ret_fields
+
+
+def merge_dict_overwrite(a, b, path=None):
+    """
+    Merge dictionary b into a. This will overwrite fields in a. If the field types differ between the dictionaries
+    this will raise an error.
+    """
+    if path is None:
+        path = []
+    for key in b:
+        if key in a:
+            a_type = type(a[key])
+            b_type = type(b[key])
+            if isinstance(a[key], dict) and isinstance(b[key], dict):
+                merge_dict_overwrite(a[key], b[key], path + [str(key)])
+            elif a_type != b_type:
+                raise ValueError('Conflict in types found at {}'.format('.'.join(path +[str(key)])))
+            elif a[key] == b[key]:
+                pass  # same leaf value
+            else:
+                raise ValueError('Conflict at {}'.format('.'.join(path + [str(key)])))
+        else:
+            a[key] = b[key]
+    return a
+
+
 # Generic helpers
 
 
@@ -220,4 +275,4 @@ def load_schemas(files=ecs_files()):
     cleanup_fields_recursive(fields_intermediate, "")
     fields_nested = generate_partially_flattened_fields(fields_intermediate)
     fields_flat = generate_fully_flattened_fields(fields_intermediate)
-    return (fields_nested, fields_flat)
+    return fields_nested, fields_flat
