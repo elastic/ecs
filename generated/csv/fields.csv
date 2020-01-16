@@ -109,6 +109,51 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Example,Description
 1.5.0-dev,true,dns,dns.response_code,keyword,extended,NOERROR,The DNS response code.
 1.5.0-dev,true,dns,dns.type,keyword,extended,answer,"The type of DNS event captured, query or answer."
 1.5.0-dev,true,ecs,ecs.version,keyword,core,1.0.0,ECS version this event conforms to.
+1.5.0-dev,true,endgame,endgame.authentication_id,long,(use case),,
+1.5.0-dev,true,endgame,endgame.command_line,keyword,(use case),,
+1.5.0-dev,true,endgame,endgame.effective_gid,integer,(use case),,
+1.5.0-dev,true,endgame,endgame.effective_group_name,keyword,(use case),,
+1.5.0-dev,true,endgame,endgame.effective_uid,integer,(use case),,
+1.5.0-dev,true,endgame,endgame.effective_user_name,keyword,(use case),,
+1.5.0-dev,true,endgame,endgame.elevated,boolean,(use case),,
+1.5.0-dev,true,endgame,endgame.elevation_type,keyword,(use case),,
+1.5.0-dev,true,endgame,endgame.event_message,keyword,(use case),,
+1.5.0-dev,true,endgame,endgame.event_subtype_full,keyword,(use case),,
+1.5.0-dev,true,endgame,endgame.event_type_full,keyword,(use case),,
+1.5.0-dev,true,endgame,endgame.exit_code,integer,(use case),,
+1.5.0-dev,true,endgame,endgame.exit_code_full,integer,(use case),,
+1.5.0-dev,true,endgame,endgame.integrity_level,keyword,(use case),,
+1.5.0-dev,true,endgame,endgame.md5,keyword,(use case),,
+1.5.0-dev,true,endgame,endgame.opcode,integer,(use case),,
+1.5.0-dev,true,endgame,endgame.original_file_name,keyword,(use case),,
+1.5.0-dev,true,endgame,endgame.package_name,keyword,(use case),,
+1.5.0-dev,true,endgame,endgame.parent_process_name,keyword,(use case),,
+1.5.0-dev,true,endgame,endgame.parent_process_path,keyword,(use case),,
+1.5.0-dev,true,endgame,endgame.pid,integer,(use case),,
+1.5.0-dev,true,endgame,endgame.ppid,integer,(use case),,
+1.5.0-dev,true,endgame,endgame.process_name,keyword,(use case),,
+1.5.0-dev,true,endgame,endgame.process_path,keyword,(use case),,
+1.5.0-dev,true,endgame,endgame.real_gid,integer,(use case),,
+1.5.0-dev,true,endgame,endgame.real_group_name,keyword,(use case),,
+1.5.0-dev,true,endgame,endgame.real_uid,integer,(use case),,
+1.5.0-dev,true,endgame,endgame.real_user_name,keyword,(use case),,
+1.5.0-dev,true,endgame,endgame.serial_event_id,long,(use case),,
+1.5.0-dev,true,endgame,endgame.session_id,integer,(use case),,
+1.5.0-dev,true,endgame,endgame.sha1,keyword,(use case),,
+1.5.0-dev,true,endgame,endgame.sha256,keyword,(use case),,
+1.5.0-dev,true,endgame,endgame.signature_signer,keyword,(use case),,
+1.5.0-dev,true,endgame,endgame.signature_status,keyword,(use case),,
+1.5.0-dev,true,endgame,endgame.tid,integer,(use case),,
+1.5.0-dev,true,endgame,endgame.timestamp,date,(use case),,
+1.5.0-dev,true,endgame,endgame.timestamp_utc,keyword,(use case),,
+1.5.0-dev,true,endgame,endgame.true_ppid,integer,(use case),,
+1.5.0-dev,true,endgame,endgame.unique_pid,long,(use case),,
+1.5.0-dev,true,endgame,endgame.unique_ppid,long,(use case),,
+1.5.0-dev,true,endgame,endgame.unique_true_ppid,long,(use case),,
+1.5.0-dev,true,endgame,endgame.unknown_properties,keyword,(use case),,
+1.5.0-dev,true,endgame,endgame.user_domain,keyword,(use case),,
+1.5.0-dev,true,endgame,endgame.user_name,keyword,(use case),,
+1.5.0-dev,true,endgame,endgame.user_sid,keyword,(use case),,
 1.5.0-dev,true,error,error.code,keyword,core,,Error code describing the error.
 1.5.0-dev,true,error,error.id,keyword,core,,Unique identifier for the error.
 1.5.0-dev,true,error,error.message,text,core,,Error message.
@@ -136,7 +181,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Example,Description
 1.5.0-dev,true,event,event.severity,long,core,7,Numeric severity of the event.
 1.5.0-dev,true,event,event.start,date,extended,,event.start contains the date when the event started or when the activity was first observed.
 1.5.0-dev,true,event,event.timezone,keyword,extended,,Event time zone.
-1.5.0-dev,true,event,event.type,keyword,core,,Event type. The third categorization field in the hierarchy.
+1.5.0-dev,true,event,event.type,keyword,core,process_start,Event type. The third categorization field in the hierarchy.
 1.5.0-dev,true,file,file.accessed,date,extended,,Last time the file was accessed.
 1.5.0-dev,true,file,file.attributes,keyword,extended,"[""readonly"", ""system""]",Array of file attributes.
 1.5.0-dev,true,file,file.created,date,extended,,File creation time.
@@ -188,11 +233,12 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Example,Description
 1.5.0-dev,true,host,host.geo.name,keyword,extended,boston-dc,User-defined description of a location.
 1.5.0-dev,true,host,host.geo.region_iso_code,keyword,core,CA-QC,Region ISO code.
 1.5.0-dev,true,host,host.geo.region_name,keyword,core,Quebec,Region name.
-1.5.0-dev,true,host,host.hostname,keyword,core,,Hostname of the host.
+1.5.0-dev,true,host,host.hostname,keyword,core,laptop-mbp,Hostname of the host.
 1.5.0-dev,true,host,host.id,keyword,core,,Unique host id.
-1.5.0-dev,true,host,host.ip,ip,core,,Host ip address.
+1.5.0-dev,true,host,host.ip,keyword,core,10.0.1.5,Host ip address.
 1.5.0-dev,true,host,host.mac,keyword,core,,Host mac address.
-1.5.0-dev,true,host,host.name,keyword,core,,Name of the host.
+1.5.0-dev,true,host,host.name,keyword,core,laptop-mbp,Name of the host.
+1.5.0-dev,true,host,host.os,group,(use case),,The description of the operating system.
 1.5.0-dev,true,host,host.os.family,keyword,extended,debian,"OS family (such as redhat, debian, freebsd, windows)."
 1.5.0-dev,true,host,host.os.full,keyword,extended,Mac OS Mojave,"Operating system name, including the version or code name."
 1.5.0-dev,true,host,host.os.full.text,text,extended,Mac OS Mojave,"Operating system name, including the version or code name."
@@ -298,13 +344,14 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Example,Description
 1.5.0-dev,true,package,package.size,long,extended,62231,Package size in bytes.
 1.5.0-dev,true,package,package.type,keyword,extended,rpm,Package type
 1.5.0-dev,true,package,package.version,keyword,extended,1.12.9,Package version
-1.5.0-dev,true,process,process.args,keyword,extended,"['/usr/bin/ssh', '-l', 'user', '10.0.0.16']",Array of process arguments.
+1.5.0-dev,true,process,process.args,nested,extended,"['/usr/bin/ssh', '-l', 'user', '10.0.0.16']",Array of process arguments.
 1.5.0-dev,true,process,process.args_count,long,extended,4,Length of the process.args array.
 1.5.0-dev,true,process,process.command_line,keyword,extended,/usr/bin/ssh -l user 10.0.0.16,Full command line that started the process.
 1.5.0-dev,true,process,process.command_line.text,text,extended,/usr/bin/ssh -l user 10.0.0.16,Full command line that started the process.
 1.5.0-dev,true,process,process.executable,keyword,extended,/usr/bin/ssh,Absolute path to the process executable.
 1.5.0-dev,true,process,process.executable.text,text,extended,/usr/bin/ssh,Absolute path to the process executable.
 1.5.0-dev,true,process,process.exit_code,long,extended,137,The exit code of the process.
+1.5.0-dev,true,process,process.hash,group,(use case),,The hash fields are used to describe the hash values for a particular process.
 1.5.0-dev,true,process,process.hash.md5,keyword,extended,,MD5 hash.
 1.5.0-dev,true,process,process.hash.sha1,keyword,extended,,SHA1 hash.
 1.5.0-dev,true,process,process.hash.sha256,keyword,extended,,SHA256 hash.
@@ -335,6 +382,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Example,Description
 1.5.0-dev,true,process,process.pid,long,core,4242,Process id.
 1.5.0-dev,true,process,process.ppid,long,extended,4241,Parent process' pid.
 1.5.0-dev,true,process,process.start,date,extended,2016-05-23T08:05:34.853Z,The time the process started.
+1.5.0-dev,true,process,process.thread,group,(use case),,The thread fields are used to describe by which process thread the event belongs to.
 1.5.0-dev,true,process,process.thread.id,long,extended,4242,Thread ID.
 1.5.0-dev,true,process,process.thread.name,keyword,extended,thread-0,Thread name.
 1.5.0-dev,true,process,process.title,keyword,extended,,Process title.
@@ -491,6 +539,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Example,Description
 1.5.0-dev,true,user,user.email,keyword,extended,,User email address.
 1.5.0-dev,true,user,user.full_name,keyword,extended,Albert Einstein,"User's full name, if available."
 1.5.0-dev,true,user,user.full_name.text,text,extended,Albert Einstein,"User's full name, if available."
+1.5.0-dev,true,user,user.group,group,(use case),,The group fields are used to describe by which user group the event belongs to.
 1.5.0-dev,true,user,user.group.domain,keyword,extended,,Name of the directory the group is a member of.
 1.5.0-dev,true,user,user.group.id,keyword,extended,,Unique identifier for the group on the system/platform.
 1.5.0-dev,true,user,user.group.name,keyword,extended,,Name of the group.

@@ -81,6 +81,7 @@ agent:
     not change if data is sent through queuing systems like Kafka, Redis, or processing
     systems such as Logstash or APM Server.'
   group: 2
+  level: (use case)
   name: agent
   prefix: agent.
   short: Fields about the monitoring agent.
@@ -1481,10 +1482,452 @@ ecs:
       short: ECS version this event conforms to.
       type: keyword
   group: 2
+  level: (use case)
   name: ecs
   prefix: ecs.
   short: Meta-information specific to ECS.
   title: ECS
+  type: group
+endgame:
+  description: The current endgame fields.
+  fields:
+    authentication_id:
+      dashed_name: endgame-authentication-id
+      description: ''
+      flat_name: endgame.authentication_id
+      level: (use case)
+      name: authentication_id
+      order: 33
+      short: ''
+      type: long
+    command_line:
+      dashed_name: endgame-command-line
+      description: ''
+      flat_name: endgame.command_line
+      ignore_above: 1024
+      level: (use case)
+      name: command_line
+      order: 26
+      short: ''
+      type: keyword
+    effective_gid:
+      dashed_name: endgame-effective-gid
+      description: ''
+      flat_name: endgame.effective_gid
+      level: (use case)
+      name: effective_gid
+      order: 23
+      short: ''
+      type: integer
+    effective_group_name:
+      dashed_name: endgame-effective-group-name
+      description: ''
+      flat_name: endgame.effective_group_name
+      ignore_above: 1024
+      level: (use case)
+      name: effective_group_name
+      order: 19
+      short: ''
+      type: keyword
+    effective_uid:
+      dashed_name: endgame-effective-uid
+      description: ''
+      flat_name: endgame.effective_uid
+      level: (use case)
+      name: effective_uid
+      order: 21
+      short: ''
+      type: integer
+    effective_user_name:
+      dashed_name: endgame-effective-user-name
+      description: ''
+      flat_name: endgame.effective_user_name
+      ignore_above: 1024
+      level: (use case)
+      name: effective_user_name
+      order: 17
+      short: ''
+      type: keyword
+    elevated:
+      dashed_name: endgame-elevated
+      description: ''
+      flat_name: endgame.elevated
+      level: (use case)
+      name: elevated
+      order: 39
+      short: ''
+      type: boolean
+    elevation_type:
+      dashed_name: endgame-elevation-type
+      description: ''
+      flat_name: endgame.elevation_type
+      ignore_above: 1024
+      level: (use case)
+      name: elevation_type
+      order: 40
+      short: ''
+      type: keyword
+    event_message:
+      dashed_name: endgame-event-message
+      description: ''
+      flat_name: endgame.event_message
+      ignore_above: 1024
+      level: (use case)
+      name: event_message
+      order: 6
+      short: ''
+      type: keyword
+    event_subtype_full:
+      dashed_name: endgame-event-subtype-full
+      description: ''
+      flat_name: endgame.event_subtype_full
+      ignore_above: 1024
+      level: (use case)
+      name: event_subtype_full
+      order: 3
+      short: ''
+      type: keyword
+    event_type_full:
+      dashed_name: endgame-event-type-full
+      description: ''
+      flat_name: endgame.event_type_full
+      ignore_above: 1024
+      level: (use case)
+      name: event_type_full
+      order: 2
+      short: ''
+      type: keyword
+    exit_code:
+      dashed_name: endgame-exit-code
+      description: ''
+      flat_name: endgame.exit_code
+      level: (use case)
+      name: exit_code
+      order: 25
+      short: ''
+      type: integer
+    exit_code_full:
+      dashed_name: endgame-exit-code-full
+      description: ''
+      flat_name: endgame.exit_code_full
+      level: (use case)
+      name: exit_code_full
+      order: 44
+      short: ''
+      type: integer
+    integrity_level:
+      dashed_name: endgame-integrity-level
+      description: ''
+      flat_name: endgame.integrity_level
+      ignore_above: 1024
+      level: (use case)
+      name: integrity_level
+      order: 38
+      short: ''
+      type: keyword
+    md5:
+      dashed_name: endgame-md5
+      description: ''
+      flat_name: endgame.md5
+      ignore_above: 1024
+      level: (use case)
+      name: md5
+      order: 29
+      short: ''
+      type: keyword
+    opcode:
+      dashed_name: endgame-opcode
+      description: ''
+      flat_name: endgame.opcode
+      level: (use case)
+      name: opcode
+      order: 1
+      short: ''
+      type: integer
+    original_file_name:
+      dashed_name: endgame-original-file-name
+      description: ''
+      flat_name: endgame.original_file_name
+      ignore_above: 1024
+      level: (use case)
+      name: original_file_name
+      order: 37
+      short: ''
+      type: keyword
+    package_name:
+      dashed_name: endgame-package-name
+      description: ''
+      flat_name: endgame.package_name
+      ignore_above: 1024
+      level: (use case)
+      name: package_name
+      order: 34
+      short: ''
+      type: keyword
+    parent_process_name:
+      dashed_name: endgame-parent-process-name
+      description: ''
+      flat_name: endgame.parent_process_name
+      ignore_above: 1024
+      level: (use case)
+      name: parent_process_name
+      order: 27
+      short: ''
+      type: keyword
+    parent_process_path:
+      dashed_name: endgame-parent-process-path
+      description: ''
+      flat_name: endgame.parent_process_path
+      ignore_above: 1024
+      level: (use case)
+      name: parent_process_path
+      order: 28
+      short: ''
+      type: keyword
+    pid:
+      dashed_name: endgame-pid
+      description: ''
+      flat_name: endgame.pid
+      level: (use case)
+      name: pid
+      order: 8
+      short: ''
+      type: integer
+    ppid:
+      dashed_name: endgame-ppid
+      description: ''
+      flat_name: endgame.ppid
+      level: (use case)
+      name: ppid
+      order: 24
+      short: ''
+      type: integer
+    process_name:
+      dashed_name: endgame-process-name
+      description: ''
+      flat_name: endgame.process_name
+      ignore_above: 1024
+      level: (use case)
+      name: process_name
+      order: 10
+      short: ''
+      type: keyword
+    process_path:
+      dashed_name: endgame-process-path
+      description: ''
+      flat_name: endgame.process_path
+      ignore_above: 1024
+      level: (use case)
+      name: process_path
+      order: 9
+      short: ''
+      type: keyword
+    real_gid:
+      dashed_name: endgame-real-gid
+      description: ''
+      flat_name: endgame.real_gid
+      level: (use case)
+      name: real_gid
+      order: 22
+      short: ''
+      type: integer
+    real_group_name:
+      dashed_name: endgame-real-group-name
+      description: ''
+      flat_name: endgame.real_group_name
+      ignore_above: 1024
+      level: (use case)
+      name: real_group_name
+      order: 18
+      short: ''
+      type: keyword
+    real_uid:
+      dashed_name: endgame-real-uid
+      description: ''
+      flat_name: endgame.real_uid
+      level: (use case)
+      name: real_uid
+      order: 20
+      short: ''
+      type: integer
+    real_user_name:
+      dashed_name: endgame-real-user-name
+      description: ''
+      flat_name: endgame.real_user_name
+      ignore_above: 1024
+      level: (use case)
+      name: real_user_name
+      order: 16
+      short: ''
+      type: keyword
+    serial_event_id:
+      dashed_name: endgame-serial-event-id
+      description: ''
+      flat_name: endgame.serial_event_id
+      level: (use case)
+      name: serial_event_id
+      order: 0
+      short: ''
+      type: long
+    session_id:
+      dashed_name: endgame-session-id
+      description: ''
+      flat_name: endgame.session_id
+      level: (use case)
+      name: session_id
+      order: 43
+      short: ''
+      type: integer
+    sha1:
+      dashed_name: endgame-sha1
+      description: ''
+      flat_name: endgame.sha1
+      ignore_above: 1024
+      level: (use case)
+      name: sha1
+      order: 30
+      short: ''
+      type: keyword
+    sha256:
+      dashed_name: endgame-sha256
+      description: ''
+      flat_name: endgame.sha256
+      ignore_above: 1024
+      level: (use case)
+      name: sha256
+      order: 31
+      short: ''
+      type: keyword
+    signature_signer:
+      dashed_name: endgame-signature-signer
+      description: ''
+      flat_name: endgame.signature_signer
+      ignore_above: 1024
+      level: (use case)
+      name: signature_signer
+      order: 35
+      short: ''
+      type: keyword
+    signature_status:
+      dashed_name: endgame-signature-status
+      description: ''
+      flat_name: endgame.signature_status
+      ignore_above: 1024
+      level: (use case)
+      name: signature_status
+      order: 36
+      short: ''
+      type: keyword
+    tid:
+      dashed_name: endgame-tid
+      description: ''
+      flat_name: endgame.tid
+      level: (use case)
+      name: tid
+      order: 15
+      short: ''
+      type: integer
+    timestamp:
+      dashed_name: endgame-timestamp
+      description: ''
+      flat_name: endgame.timestamp
+      level: (use case)
+      name: timestamp
+      order: 4
+      short: ''
+      type: date
+    timestamp_utc:
+      dashed_name: endgame-timestamp-utc
+      description: ''
+      flat_name: endgame.timestamp_utc
+      ignore_above: 1024
+      level: (use case)
+      name: timestamp_utc
+      order: 5
+      short: ''
+      type: keyword
+    true_ppid:
+      dashed_name: endgame-true-ppid
+      description: ''
+      flat_name: endgame.true_ppid
+      level: (use case)
+      name: true_ppid
+      order: 41
+      short: ''
+      type: integer
+    unique_pid:
+      dashed_name: endgame-unique-pid
+      description: ''
+      flat_name: endgame.unique_pid
+      level: (use case)
+      name: unique_pid
+      order: 11
+      short: ''
+      type: long
+    unique_ppid:
+      dashed_name: endgame-unique-ppid
+      description: ''
+      flat_name: endgame.unique_ppid
+      level: (use case)
+      name: unique_ppid
+      order: 32
+      short: ''
+      type: long
+    unique_true_ppid:
+      dashed_name: endgame-unique-true-ppid
+      description: ''
+      flat_name: endgame.unique_true_ppid
+      level: (use case)
+      name: unique_true_ppid
+      order: 42
+      short: ''
+      type: long
+    unknown_properties:
+      dashed_name: endgame-unknown-properties
+      description: ''
+      flat_name: endgame.unknown_properties
+      ignore_above: 1024
+      level: (use case)
+      name: unknown_properties
+      order: 7
+      short: ''
+      type: keyword
+    user_domain:
+      dashed_name: endgame-user-domain
+      description: ''
+      flat_name: endgame.user_domain
+      ignore_above: 1024
+      level: (use case)
+      name: user_domain
+      order: 13
+      short: ''
+      type: keyword
+    user_name:
+      dashed_name: endgame-user-name
+      description: ''
+      flat_name: endgame.user_name
+      ignore_above: 1024
+      level: (use case)
+      name: user_name
+      order: 12
+      short: ''
+      type: keyword
+    user_sid:
+      dashed_name: endgame-user-sid
+      description: ''
+      flat_name: endgame.user_sid
+      ignore_above: 1024
+      level: (use case)
+      name: user_sid
+      order: 14
+      short: ''
+      type: keyword
+  group: 2
+  level: (use case)
+  name: endgame
+  prefix: endgame.
+  short: The current endgame fields.
+  title: endgame
   type: group
 error:
   description: 'These fields can represent errors of any kind.
@@ -2171,6 +2614,7 @@ event:
 
         This field is an array. This will allow proper categorization of some events
         that fall in multiple event types.'
+      example: process_start
       flat_name: event.type
       ignore_above: 1024
       level: core
@@ -2179,6 +2623,7 @@ event:
       short: Event type. The third categorization field in the hierarchy.
       type: keyword
   group: 2
+  level: (use case)
   name: event
   prefix: event.
   short: Fields breaking down the event details.
@@ -2841,6 +3286,7 @@ host:
       description: 'Hostname of the host.
 
         It normally contains what the `hostname` command returns on the host machine.'
+      example: laptop-mbp
       flat_name: host.hostname
       ignore_above: 1024
       level: core
@@ -2865,12 +3311,14 @@ host:
     ip:
       dashed_name: host-ip
       description: Host ip address.
+      example: 10.0.1.5
       flat_name: host.ip
+      ignore_above: 1024
       level: core
       name: ip
       order: 3
       short: Host ip address.
-      type: ip
+      type: keyword
     mac:
       dashed_name: host-mac
       description: Host mac address.
@@ -2888,6 +3336,7 @@ host:
         It can contain what `hostname` returns on Unix systems, the fully qualified
         domain name, or a name specified by the user. The sender decides which value
         to use.'
+      example: laptop-mbp
       flat_name: host.name
       ignore_above: 1024
       level: core
@@ -2895,6 +3344,41 @@ host:
       order: 1
       short: Name of the host.
       type: keyword
+    os:
+      dashed_name: host-os
+      description: The description of the operating system.
+      fields:
+      - description: 'Currently we just try use the non-normalized "name" (i.e. macos).
+          See https://www.elastic.co/guide/en/ecs/current/ecs-os.html for how we should
+          be mapping this
+
+          '
+        example: darwin
+        level: (use case)
+        name: platform
+        type: keyword
+      - description: 'Currently we just normalize the name (i.e. macOS, Windows, Linux).
+          See https://www.elastic.co/guide/en/ecs/current/ecs-os.html for how we should
+          be mapping this
+
+          '
+        example: Mac OS X
+        level: (use case)
+        name: name
+        type: keyword
+      - description: 'Operating system version as a raw string.
+
+          '
+        example: 10.14.1
+        level: (use case)
+        name: version
+        type: keyword
+      flat_name: host.os
+      level: (use case)
+      name: os
+      order: 0
+      short: The description of the operating system.
+      type: group
     os.family:
       dashed_name: host-os-family
       description: OS family (such as redhat, debian, freebsd, windows).
@@ -3121,6 +3605,7 @@ host:
       short: Short name or login of the user.
       type: keyword
   group: 2
+  level: (use case)
   name: host
   nestings:
   - geo
@@ -4234,9 +4719,10 @@ process:
       ignore_above: 1024
       level: extended
       name: args
+      object_type: keyword
       order: 10
       short: Array of process arguments.
-      type: keyword
+      type: nested
     args_count:
       dashed_name: process-args-count
       description: 'Length of the process.args array.
@@ -4299,6 +4785,36 @@ process:
       order: 28
       short: The exit code of the process.
       type: long
+    hash:
+      dashed_name: process-hash
+      description: The hash fields are used to describe the hash values for a particular
+        process.
+      fields:
+      - description: 'MD5 hash.
+
+          '
+        level: (use case)
+        name: md5
+        type: keyword
+      - description: 'SHA1 hash.
+
+          '
+        level: (use case)
+        name: sha1
+        type: keyword
+      - description: 'SHA256 hash.
+
+          '
+        level: (use case)
+        name: sha256
+        type: keyword
+      flat_name: process.hash
+      level: (use case)
+      name: hash
+      order: 6
+      short: The hash fields are used to describe the hash values for a particular
+        process.
+      type: group
     hash.md5:
       dashed_name: process-hash-md5
       description: MD5 hash.
@@ -4608,6 +5124,24 @@ process:
       order: 22
       short: The time the process started.
       type: date
+    thread:
+      dashed_name: process-thread
+      description: The thread fields are used to describe by which process thread
+        the event belongs to.
+      fields:
+      - description: 'Thread ID.
+
+          '
+        level: (use case)
+        name: id
+        type: long
+      flat_name: process.thread
+      level: (use case)
+      name: thread
+      order: 5
+      short: The thread fields are used to describe by which process thread the event
+        belongs to.
+      type: group
     thread.id:
       dashed_name: process-thread-id
       description: Thread ID.
@@ -4675,6 +5209,7 @@ process:
       short: The working directory of the process.
       type: keyword
   group: 2
+  level: (use case)
   name: process
   nestings:
   - hash
@@ -6669,6 +7204,30 @@ user:
       order: 2
       short: User's full name, if available.
       type: keyword
+    group:
+      dashed_name: user-group
+      description: The group fields are used to describe by which user group the event
+        belongs to.
+      fields:
+      - description: 'Unique identifier for the group on the system/platform.
+
+          '
+        level: (use case)
+        name: id
+        type: keyword
+      - description: 'Name of the group.
+
+          '
+        level: (use case)
+        name: name
+        type: keyword
+      flat_name: user.group
+      level: (use case)
+      name: group
+      order: 0
+      short: The group fields are used to describe by which user group the event belongs
+        to.
+      type: group
     group.domain:
       dashed_name: user-group-domain
       description: 'Name of the directory the group is a member of.
@@ -6745,6 +7304,7 @@ user:
       short: Short name or login of the user.
       type: keyword
   group: 2
+  level: (use case)
   name: user
   nestings:
   - group

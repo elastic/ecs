@@ -546,6 +546,171 @@
             }
           }
         },
+        "endgame": {
+          "properties": {
+            "authentication_id": {
+              "type": "long"
+            },
+            "command_line": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "effective_gid": {
+              "type": "integer"
+            },
+            "effective_group_name": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "effective_uid": {
+              "type": "integer"
+            },
+            "effective_user_name": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "elevated": {
+              "type": "boolean"
+            },
+            "elevation_type": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "event_message": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "event_subtype_full": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "event_type_full": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "exit_code": {
+              "type": "integer"
+            },
+            "exit_code_full": {
+              "type": "integer"
+            },
+            "integrity_level": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "md5": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "opcode": {
+              "type": "integer"
+            },
+            "original_file_name": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "package_name": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "parent_process_name": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "parent_process_path": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "pid": {
+              "type": "integer"
+            },
+            "ppid": {
+              "type": "integer"
+            },
+            "process_name": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "process_path": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "real_gid": {
+              "type": "integer"
+            },
+            "real_group_name": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "real_uid": {
+              "type": "integer"
+            },
+            "real_user_name": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "serial_event_id": {
+              "type": "long"
+            },
+            "session_id": {
+              "type": "integer"
+            },
+            "sha1": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "sha256": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "signature_signer": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "signature_status": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "tid": {
+              "type": "integer"
+            },
+            "timestamp": {
+              "type": "date"
+            },
+            "timestamp_utc": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "true_ppid": {
+              "type": "integer"
+            },
+            "unique_pid": {
+              "type": "long"
+            },
+            "unique_ppid": {
+              "type": "long"
+            },
+            "unique_true_ppid": {
+              "type": "long"
+            },
+            "unknown_properties": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "user_domain": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "user_name": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "user_sid": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            }
+          }
+        },
         "error": {
           "properties": {
             "code": {
@@ -899,7 +1064,8 @@
               "type": "keyword"
             },
             "ip": {
-              "type": "ip"
+              "ignore_above": 1024,
+              "type": "keyword"
             },
             "mac": {
               "ignore_above": 1024,
@@ -947,7 +1113,8 @@
                   "ignore_above": 1024,
                   "type": "keyword"
                 }
-              }
+              },
+              "type": "group"
             },
             "type": {
               "ignore_above": 1024,
@@ -1429,8 +1596,7 @@
         "process": {
           "properties": {
             "args": {
-              "ignore_above": 1024,
-              "type": "keyword"
+              "type": "nested"
             },
             "args_count": {
               "type": "long"
@@ -1476,7 +1642,8 @@
                   "ignore_above": 1024,
                   "type": "keyword"
                 }
-              }
+              },
+              "type": "group"
             },
             "name": {
               "fields": {
@@ -1599,7 +1766,8 @@
                   "ignore_above": 1024,
                   "type": "keyword"
                 }
-              }
+              },
+              "type": "group"
             },
             "title": {
               "fields": {
@@ -2362,7 +2530,8 @@
                   "ignore_above": 1024,
                   "type": "keyword"
                 }
-              }
+              },
+              "type": "group"
             },
             "hash": {
               "ignore_above": 1024,

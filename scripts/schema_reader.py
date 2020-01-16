@@ -35,6 +35,19 @@ def load_use_case_files(files, base_fields):
     for f in files:
         fields_intermediate = merge_dict_overwrite(fields_intermediate, read_use_case_file(f, base_fields))
 
+    return create_nested_and_flat(fields_intermediate)
+
+
+def read_use_case_file(path, base_fields):
+    with open(path) as f:
+        raw = yaml.safe_load(f.read())
+    return fixup_use_case(raw, base_fields)
+
+
+# Use case helpers
+
+
+def create_nested_and_flat(fields_intermediate):
     finalize_schemas(fields_intermediate)
     cleanup_fields_recursive(fields_intermediate, "")
     fields_nested = generate_partially_flattened_fields(fields_intermediate)
@@ -42,49 +55,86 @@ def load_use_case_files(files, base_fields):
     return fields_nested, fields_flat
 
 
-def read_use_case_file(path, base_fields):
-    with open(path) as f:
-        raw = yaml.safe_load(f.read())
+def add_needed_fields(fields):
+    for field in fields:
+        if 'fields' in field:
+            add_needed_fields(field['fields'])
+
+        if 'type' not in field:
+            field['type'] = 'group'
+        if 'level' not in field:
+            field['level'] = '(use case)'
+
+
+def fixup_use_case(raw, base_fields):
+    """
+    Converts a use case style yaml file into the appropriate format for so it can be used to override ecs schema.
+    The base.yml file should be parsed and passed into this function so fields like @timestamp and message can be
+    moved to within the base schema correctly.
+
+    :param raw: the fields read from the yaml file
+    :param base_fields: the base.yml file's schema
+    :return: the fixed up schema so it's ready to be parsed
+    """
     ret_fields = {}
     top_fields = raw['fields']
+    collected_base_fields = {
+        'name': 'base',
+        'title': base_fields['title'],
+        'root': base_fields['root'],
+        'short': base_fields['short'],
+        'description': base_fields['description'],
+        'type': base_fields['type'],
+        'group': base_fields['group'],
+        'fields': []
+    }
+    ret_fields['base'] = collected_base_fields
+
     for field in top_fields:
         name = field['name']
         if name in base_fields['fields']:
             if base_fields['fields'][name]['type'] != field['type']:
                 print('Found a base field with differing types use case name: {} type: {} base type: {}'.
                       format(name, field['type'], base_fields['fields'][name]['type']))
-            ret_fields['base'] = field
+            ret_fields['base']['fields'].append(field)
         else:
+            # title should only be on the top level field
+            if 'title' not in field:
+                field['title'] = name
+            add_needed_fields([field])
             ret_fields[name] = field
 
     return ret_fields
 
 
+# Generic helpers
+
+
 def merge_dict_overwrite(a, b, path=None):
     """
-    Merge dictionary b into a. This will overwrite fields in a. If the field types differ between the dictionaries
-    this will raise an error.
+    Merge dictionary b into a. This will overwrite fields in a. Dictionary b takes precedence over a, if there is
+    a conflict in values, this will use b's over a's.
     """
+    # These keys will not be merged if they exist in both dictionaries, we'll just use dictionary a's value
+    ignore_keys = ['description', 'order', 'short', 'example', 'level', 'title']
     if path is None:
         path = []
     for key in b:
         if key in a:
-            a_type = type(a[key])
-            b_type = type(b[key])
+            if key in ignore_keys:
+                continue
             if isinstance(a[key], dict) and isinstance(b[key], dict):
                 merge_dict_overwrite(a[key], b[key], path + [str(key)])
-            elif a_type != b_type:
-                raise ValueError('Conflict in types found at {}'.format('.'.join(path +[str(key)])))
             elif a[key] == b[key]:
                 pass  # same leaf value
             else:
-                raise ValueError('Conflict at {}'.format('.'.join(path + [str(key)])))
+                print('Conflict of values at {} dict1: {} dict2: {}, using dict2 value'.format('.'.join(path + [str(key)]),
+                                                                            a[key], b[key]))
+                # Use the custom dictionary (b)'s value to override the ecs schema one
+                a[key] = b[key]
         else:
             a[key] = b[key]
     return a
-
-
-# Generic helpers
 
 
 def dict_clean_string_values(dict):
@@ -112,12 +162,17 @@ def schema_cleanup_values(schema):
     schema_fields_as_dictionary(schema)
 
 
+def set_short(schema):
+    short = schema['description']
+    if '\n' in short:
+        short = short.splitlines()[0]
+    dict_set_default(schema, 'short', short)
+
+
 def schema_set_default_values(schema):
     schema['type'] = 'group'
     dict_set_default(schema, 'group', 2)
-    dict_set_default(schema, 'short', schema['description'])
-    if "\n" in schema['short']:
-        raise ValueError("Short descriptions must be single line.\nFieldset: {}\n{}".format(schema['name'], schema))
+    set_short(schema)
 
 
 def schema_set_fieldset_prefix(schema):
@@ -155,10 +210,7 @@ def field_set_defaults(field):
     if field['type'] == 'object':
         dict_set_default(field, 'object_type', 'keyword')
 
-    dict_set_default(field, 'short', field['description'])
-    if "\n" in field['short']:
-        raise ValueError("Short descriptions must be single line.\nField: {}\n{}".format(field['flat_name'], field))
-        # print("  Short descriptions must be single line. Field: {}".format(field['flat_name']))
+    set_short(field)
 
     if 'index' in field and not field['index']:
         dict_set_default(field, 'doc_values', False)
@@ -271,8 +323,4 @@ def cleanup_fields_recursive(fields, prefix):
 def load_schemas(files=ecs_files()):
     """Loads the given list of files"""
     fields_intermediate = load_schema_files(files)
-    finalize_schemas(fields_intermediate)
-    cleanup_fields_recursive(fields_intermediate, "")
-    fields_nested = generate_partially_flattened_fields(fields_intermediate)
-    fields_flat = generate_fully_flattened_fields(fields_intermediate)
-    return fields_nested, fields_flat
+    return create_nested_and_flat(fields_intermediate)
