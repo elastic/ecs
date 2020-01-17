@@ -99,8 +99,6 @@ def render_field_details_row(field):
     if 'normalize' in field and 'array' in field['normalize']:
         field_normalization = "\nNote: this field should contain an array of values.\n\n"
 
-
-
     text = field_details_row().format(
         field_flat_name=field['flat_name'],
         field_description=render_asciidoc_paragraphs(field['description']),
