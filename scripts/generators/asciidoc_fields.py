@@ -95,10 +95,17 @@ def render_field_details_row(field):
         for mf in field['multi_fields']:
             field_type_with_mf += "* {} (type: {})\n\n".format(mf['flat_name'], mf['type'])
 
+    field_normalization = ''
+    if 'normalize' in field and 'array' in field['normalize']:
+        field_normalization = "\nNote: this field should contain an array of values.\n\n"
+
+
+
     text = field_details_row().format(
         field_flat_name=field['flat_name'],
         field_description=render_asciidoc_paragraphs(field['description']),
         field_example=example,
+        field_normalization=field_normalization,
         field_level=field['level'],
         field_type=field_type_with_mf,
     )
@@ -234,6 +241,8 @@ def field_details_row():
 | {field_description}
 
 type: {field_type}
+
+{field_normalization}
 
 {field_example}
 
