@@ -57,7 +57,7 @@ class TestSchemaReader(unittest.TestCase):
     def test_field_set_defaults_no_short(self):
         field = {'description': 'a field', 'type': 'faketype'}
         schema_reader.field_set_defaults(field)
-        self.assertEqual(field, {'description': 'a field', 'short': 'a field', 'type': 'faketype'})
+        self.assertEqual(field, {'description': 'a field', 'short': 'a field', 'type': 'faketype', 'normalize': []})
 
     def test_field_name_representations_nested(self):
         nested = {'name': 'nested'}
@@ -78,7 +78,8 @@ class TestSchemaReader(unittest.TestCase):
             'flat_name': 'event.myfield',
             'dashed_name': 'event-myfield',
             'description': 'a field',
-            'short': 'a field'
+            'short': 'a field',
+            'normalize': []
         }
         self.assertEqual(field, expected)
 
