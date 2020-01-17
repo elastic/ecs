@@ -94,6 +94,7 @@ def field_name_representations(field, prefix):
 
 
 def field_set_defaults(field):
+    dict_set_default(field, 'normalize', [])
     if field['type'] == 'keyword':
         dict_set_default(field, 'ignore_above', 1024)
     if field['type'] == 'text':

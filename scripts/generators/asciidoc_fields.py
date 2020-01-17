@@ -96,7 +96,7 @@ def render_field_details_row(field):
             field_type_with_mf += "* {} (type: {})\n\n".format(mf['flat_name'], mf['type'])
 
     field_normalization = ''
-    if 'normalize' in field and 'array' in field['normalize']:
+    if 'array' in field['normalize']:
         field_normalization = "\nNote: this field should contain an array of values.\n\n"
 
     text = field_details_row().format(
