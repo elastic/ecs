@@ -61,5 +61,6 @@ def save_csv(file, sorted_fields, version):
                         mf['type'],
                         field['level'],
                         field.get('example', ''),
+                        '',
                         field['short'],
                     ])
