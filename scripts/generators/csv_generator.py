@@ -30,7 +30,7 @@ def save_csv(file, sorted_fields, version):
                                    lineterminator='\n')
 
         schema_writer.writerow(["ECS_Version", "Indexed", "Field_Set", "Field",
-                                "Type", "Level", "Example", "Normalization", "Description"])
+                                "Type", "Level", "Normalization", "Example", "Description"])
         for field in sorted_fields:
             key_parts = field['flat_name'].split('.')
             if len(key_parts) == 1:
@@ -46,8 +46,8 @@ def save_csv(file, sorted_fields, version):
                 field['flat_name'],
                 field['type'],
                 field['level'],
-                field.get('example', ''),
                 ', '.join(field['normalize']),
+                field.get('example', ''),
                 field['short'],
             ])
 
@@ -60,7 +60,7 @@ def save_csv(file, sorted_fields, version):
                         mf['flat_name'],
                         mf['type'],
                         field['level'],
-                        field.get('example', ''),
                         '',
+                        field.get('example', ''),
                         field['short'],
                     ])
