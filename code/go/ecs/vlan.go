@@ -20,27 +20,31 @@
 package ecs
 
 // The VLAN fields describe information about the configuration of VLANs in an
-// enterprise network.
+// enterprise network, as well as  the relevant 802.1q tagging information
+// observed in network traffic.
 // VLAN fields contain configuration information about virtiual LANs, with base
-// identification fields (vlan.id, vlan.name) reuseable under source,
-// destination, and interface fields when observers or hosts are providing
-// relevant information in events (e.g. netflow, firewall logs, host and
-// network metrics, etc.)
+// identification fields (id, name, inner, outer and related fields) reusable
+// under source, destination, and  interface fields when observers or hosts are
+// providing relevant information in events (e.g.  netflow, firewall logs, host
+// and network logs, etc.)  The full set of VLAN fields provides  a place for
+// detailed configuration information regarding VLANs in the environment.
+// Because VLANs configuration is locally significant,  VLAN configuration
+// fields should be used in conjunction with host or observer fields to ensure
+// configurations are attributable to the appropriate source device(s).
 type Vlan struct {
-	// VLAN ID of the congfigured VLAN. Expoected values are 0 to 4095, with 0
-	// and 4095 typically being  reserved for system use, and not generally
-	// reported.
+	// VLAN ID of the configured VLAN. Expected values are 0 to 4095, with 0
+	// and 4095 typically being  reserved for system use, and not reported.
 	ID int32 `ecs:"id"`
 
 	// VLAN name as configured on the device, or reported in the event.
 	Name string `ecs:"name"`
 
-	// VLAN SAID is a user configurable security association that may be
-	// configured to allow various network security platforms to properly
-	// identify traffic by VLAN.
+	// VLAN SAID is a user configurable security association identifier that
+	// may be configured to allow various network security platforms to
+	// properly identify traffic by VLAN.
 	Said string `ecs:"said"`
 
-	// Maximum tranmission unit is the maximum size of packets provcessed in
+	// Maximum transmission unit is the maximum size of packets processed in
 	// this VLAN.   This value will typically be in the range of 68 - 9216,
 	// with 1400-1500 and 9216 being the most likely.
 	Mtu string `ecs:"mtu"`
@@ -53,4 +57,38 @@ type Vlan struct {
 	// configured to operate in "private" or "rspan" VLAN modes.  Standard VLAN
 	// modes can leave  this field blank.
 	Mode string `ecs:"mode"`
+
+	// The vlan.inner.id field is used to record the innermost vlan (initial
+	// 802.1q encapsulation) in cases where multiple 802.1q encapsulations have
+	// been performed.  This field can be nested under source, destination, and
+	// network fields.
+	VlanInnerID string `ecs:"vlan.inner.id"`
+
+	// The vlan.inner.name field is used to record the name of the innermost
+	// vlan (initial 802.1q encapsulation)  in cases where multiple 802.1q
+	// encapsulations have been performed.  This field can be nested under
+	// source,  destination, and network fields.
+	VlanInnerName string `ecs:"vlan.inner.name"`
+
+	// The vlan.outer.id field is used to record the id of the outermost vlan
+	// (final 802.1q encapsulation) in cases where multiple 802.1q
+	// encapsulations have been performed. This field can be nested under
+	// source, destination, and  network fields.
+	VlanOuterID string `ecs:"vlan.outer.id"`
+
+	// The vlan.outer.name field is used to record the outermost VLAN name
+	// (final 802.1q encapsulation) in cases where multiple 802.1q
+	// encapsulations have been performed.  This field can be nested under
+	// source, destination, and  network fields.
+	VlanOuterName string `ecs:"vlan.outer.name"`
+
+	// The vlan.related.id field is used to record any intermediate VLAN IDs in
+	// cases where more than 2 q-in-q encapsulations are present. This field
+	// can be nested under source, destination, and network fields.
+	VlanRelatedID string `ecs:"vlan.related.id"`
+
+	// The vlan.related.id field is used to record any intermediate VLAN IDs in
+	// cases where more than 2 q-in-q encapsulations are present. This field
+	// can be nested under source, destination, and network fields.
+	VlanRelatedName string `ecs:"vlan.related.name"`
 }

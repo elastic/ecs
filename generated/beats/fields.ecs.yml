@@ -660,9 +660,8 @@
     - name: vlan.id
       level: core
       type: integer
-      description: VLAN ID of the congfigured VLAN. Expoected values are 0 to 4095,
-        with 0 and 4095 typically being  reserved for system use, and not generally
-        reported.
+      description: VLAN ID of the configured VLAN. Expected values are 0 to 4095,
+        with 0 and 4095 typically being  reserved for system use, and not reported.
       example: 10
     - name: vlan.mode
       level: extended
@@ -677,7 +676,7 @@
       level: extended
       type: keyword
       ignore_above: 1024
-      description: Maximum tranmission unit is the maximum size of packets provcessed
+      description: Maximum transmission unit is the maximum size of packets processed
         in this VLAN.   This value will typically be in the range of 68 - 9216, with
         1400-1500 and 9216 being the most likely.
       example: 1500
@@ -691,9 +690,9 @@
       level: extended
       type: keyword
       ignore_above: 1024
-      description: VLAN SAID is a user configurable security association that may
-        be configured to allow various network security platforms to properly identify
-        traffic by VLAN.
+      description: VLAN SAID is a user configurable security association identifier
+        that may be configured to allow various network security platforms to properly
+        identify traffic by VLAN.
       example: 100010
     - name: vlan.state
       level: extended
@@ -701,6 +700,64 @@
       ignore_above: 1024
       description: Current state of the VLAN as reported by the source device.
       example: active
+    - name: vlan.vlan.inner.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The vlan.inner.id field is used to record the innermost vlan (initial
+        802.1q encapsulation) in cases where multiple 802.1q encapsulations have been
+        performed.  This field can be nested under source, destination, and  network
+        fields.
+      example: 10
+    - name: vlan.vlan.inner.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The vlan.inner.name field is used to record the name of the innermost
+        vlan (initial 802.1q encapsulation)  in cases where multiple 802.1q encapsulations
+        have been performed.  This field can be nested under source,  destination,
+        and network fields.
+      example: Client_A_VLAN
+    - name: vlan.vlan.outer.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The vlan.outer.id field is used to record the id of the outermost
+        vlan (final 802.1q encapsulation) in cases where multiple 802.1q encapsulations
+        have been performed. This field can be nested under source, destination, and  network
+        fields.
+      example: 20
+    - name: vlan.vlan.outer.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The vlan.outer.name field is used to record the outermost VLAN
+        name (final 802.1q encapsulation) in cases where multiple 802.1q encapsulations
+        have been performed.  This field can be nested under source, destination,
+        and  network fields.
+      example: Core_Transit
+    - name: vlan.vlan.related.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The vlan.related.id field is used to record any intermediate VLAN
+        IDs in cases where more than 2 q-in-q encapsulations are present. This field
+        can be nested under source, destination, and network fields.
+      example: &id001
+      - 12
+      - 14
+      - 16
+    - name: vlan.vlan.related.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The vlan.related.id field is used to record any intermediate VLAN
+        IDs in cases where more than 2 q-in-q encapsulations are present. This field
+        can be nested under source, destination, and network fields.
+      example: &id002
+      - transit1
+      - transit2
+      - transit3
   - name: dns
     title: DNS
     group: 2
@@ -3023,9 +3080,8 @@
     - name: vlan.id
       level: core
       type: integer
-      description: VLAN ID of the congfigured VLAN. Expoected values are 0 to 4095,
-        with 0 and 4095 typically being  reserved for system use, and not generally
-        reported.
+      description: VLAN ID of the configured VLAN. Expected values are 0 to 4095,
+        with 0 and 4095 typically being  reserved for system use, and not reported.
       example: 10
     - name: vlan.mode
       level: extended
@@ -3040,7 +3096,7 @@
       level: extended
       type: keyword
       ignore_above: 1024
-      description: Maximum tranmission unit is the maximum size of packets provcessed
+      description: Maximum transmission unit is the maximum size of packets processed
         in this VLAN.   This value will typically be in the range of 68 - 9216, with
         1400-1500 and 9216 being the most likely.
       example: 1500
@@ -3054,9 +3110,9 @@
       level: extended
       type: keyword
       ignore_above: 1024
-      description: VLAN SAID is a user configurable security association that may
-        be configured to allow various network security platforms to properly identify
-        traffic by VLAN.
+      description: VLAN SAID is a user configurable security association identifier
+        that may be configured to allow various network security platforms to properly
+        identify traffic by VLAN.
       example: 100010
     - name: vlan.state
       level: extended
@@ -3064,6 +3120,58 @@
       ignore_above: 1024
       description: Current state of the VLAN as reported by the source device.
       example: active
+    - name: vlan.vlan.inner.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The vlan.inner.id field is used to record the innermost vlan (initial
+        802.1q encapsulation) in cases where multiple 802.1q encapsulations have been
+        performed.  This field can be nested under source, destination, and  network
+        fields.
+      example: 10
+    - name: vlan.vlan.inner.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The vlan.inner.name field is used to record the name of the innermost
+        vlan (initial 802.1q encapsulation)  in cases where multiple 802.1q encapsulations
+        have been performed.  This field can be nested under source,  destination,
+        and network fields.
+      example: Client_A_VLAN
+    - name: vlan.vlan.outer.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The vlan.outer.id field is used to record the id of the outermost
+        vlan (final 802.1q encapsulation) in cases where multiple 802.1q encapsulations
+        have been performed. This field can be nested under source, destination, and  network
+        fields.
+      example: 20
+    - name: vlan.vlan.outer.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The vlan.outer.name field is used to record the outermost VLAN
+        name (final 802.1q encapsulation) in cases where multiple 802.1q encapsulations
+        have been performed.  This field can be nested under source, destination,
+        and  network fields.
+      example: Core_Transit
+    - name: vlan.vlan.related.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The vlan.related.id field is used to record any intermediate VLAN
+        IDs in cases where more than 2 q-in-q encapsulations are present. This field
+        can be nested under source, destination, and network fields.
+      example: *id001
+    - name: vlan.vlan.related.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The vlan.related.id field is used to record any intermediate VLAN
+        IDs in cases where more than 2 q-in-q encapsulations are present. This field
+        can be nested under source, destination, and network fields.
+      example: *id002
   - name: threat
     title: Threat
     group: 2
@@ -3641,21 +3749,25 @@
   - name: vlan
     title: VLAN
     group: 2
-    description: 'The VLAN fields describe information about the configuration of
-      VLANs in an enterprise network.
-
-      VLAN fields contain configuration information about virtiual LANs, with base
-      identification fields (vlan.id, vlan.name) reuseable under source, destination,
-      and interface fields when observers or hosts are providing relevant information
-      in events (e.g. netflow, firewall logs, host and network metrics, etc.)'
+    description: "The VLAN fields describe information about the configuration of\
+      \ VLANs in an enterprise network, as well as  the relevant 802.1q tagging information\
+      \ observed in network traffic.    \nVLAN fields contain configuration information\
+      \ about virtiual LANs, with base identification fields (id, name, inner, outer\
+      \ and related fields) reusable under source, destination, and  interface fields\
+      \ when observers or hosts are providing relevant information in events (e.g.\
+      \  netflow, firewall logs, host and network logs, etc.)  The full set of VLAN\
+      \ fields provides  a place for detailed configuration information regarding\
+      \ VLANs in the environment.  \nBecause VLANs configuration is locally significant,\
+      \  VLAN configuration fields should be used in conjunction with host or observer\
+      \ fields to ensure configurations are attributable to the appropriate source\
+      \ device(s)."
     type: group
     fields:
     - name: id
       level: core
       type: integer
-      description: VLAN ID of the congfigured VLAN. Expoected values are 0 to 4095,
-        with 0 and 4095 typically being  reserved for system use, and not generally
-        reported.
+      description: VLAN ID of the configured VLAN. Expected values are 0 to 4095,
+        with 0 and 4095 typically being  reserved for system use, and not reported.
       example: 10
     - name: mode
       level: extended
@@ -3670,7 +3782,7 @@
       level: extended
       type: keyword
       ignore_above: 1024
-      description: Maximum tranmission unit is the maximum size of packets provcessed
+      description: Maximum transmission unit is the maximum size of packets processed
         in this VLAN.   This value will typically be in the range of 68 - 9216, with
         1400-1500 and 9216 being the most likely.
       example: 1500
@@ -3684,9 +3796,9 @@
       level: extended
       type: keyword
       ignore_above: 1024
-      description: VLAN SAID is a user configurable security association that may
-        be configured to allow various network security platforms to properly identify
-        traffic by VLAN.
+      description: VLAN SAID is a user configurable security association identifier
+        that may be configured to allow various network security platforms to properly
+        identify traffic by VLAN.
       example: 100010
     - name: state
       level: extended
@@ -3694,6 +3806,58 @@
       ignore_above: 1024
       description: Current state of the VLAN as reported by the source device.
       example: active
+    - name: vlan.inner.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The vlan.inner.id field is used to record the innermost vlan (initial
+        802.1q encapsulation) in cases where multiple 802.1q encapsulations have been
+        performed.  This field can be nested under source, destination, and  network
+        fields.
+      example: 10
+    - name: vlan.inner.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The vlan.inner.name field is used to record the name of the innermost
+        vlan (initial 802.1q encapsulation)  in cases where multiple 802.1q encapsulations
+        have been performed.  This field can be nested under source,  destination,
+        and network fields.
+      example: Client_A_VLAN
+    - name: vlan.outer.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The vlan.outer.id field is used to record the id of the outermost
+        vlan (final 802.1q encapsulation) in cases where multiple 802.1q encapsulations
+        have been performed. This field can be nested under source, destination, and  network
+        fields.
+      example: 20
+    - name: vlan.outer.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The vlan.outer.name field is used to record the outermost VLAN
+        name (final 802.1q encapsulation) in cases where multiple 802.1q encapsulations
+        have been performed.  This field can be nested under source, destination,
+        and  network fields.
+      example: Core_Transit
+    - name: vlan.related.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The vlan.related.id field is used to record any intermediate VLAN
+        IDs in cases where more than 2 q-in-q encapsulations are present. This field
+        can be nested under source, destination, and network fields.
+      example: *id001
+    - name: vlan.related.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The vlan.related.id field is used to record any intermediate VLAN
+        IDs in cases where more than 2 q-in-q encapsulations are present. This field
+        can be nested under source, destination, and network fields.
+      example: *id002
   - name: vulnerability
     title: Vulnerability
     group: 2

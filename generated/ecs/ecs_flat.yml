@@ -911,8 +911,8 @@ destination.user.name:
   short: Short name or login of the user.
   type: keyword
 destination.vlan.id:
-  description: VLAN ID of the congfigured VLAN. Expoected values are 0 to 4095, with
-    0 and 4095 typically being  reserved for system use, and not generally reported.
+  description: VLAN ID of the configured VLAN. Expected values are 0 to 4095, with
+    0 and 4095 typically being  reserved for system use, and not reported.
   example: 10
   flat_name: destination.vlan.id
   level: core
@@ -933,10 +933,10 @@ destination.vlan.mode:
   name: mode
   order: 5
   original_fieldset: vlan
-  short: Non-standard VLAN oparting modes
+  short: Non-standard VLAN operating modes
   type: keyword
 destination.vlan.mtu:
-  description: Maximum tranmission unit is the maximum size of packets provcessed
+  description: Maximum transmission unit is the maximum size of packets processed
     in this VLAN.   This value will typically be in the range of 68 - 9216, with 1400-1500
     and 9216 being the most likely.
   example: 1500
@@ -946,7 +946,7 @@ destination.vlan.mtu:
   name: mtu
   order: 3
   original_fieldset: vlan
-  short: Maximum tranmission unit is the maximum size of packets provcessed in this
+  short: Maximum transmission unit is the maximum size of packets processed in this
     VLAN.   This value will typically be in the range of 68 - 9216, with 1400-1500
     and 9216 being the most likely.
   type: keyword
@@ -962,8 +962,9 @@ destination.vlan.name:
   short: VLAN name as configured on the device, or reported in the event.
   type: keyword
 destination.vlan.said:
-  description: VLAN SAID is a user configurable security association that may be configured
-    to allow various network security platforms to properly identify traffic by VLAN.
+  description: VLAN SAID is a user configurable security association identifier that
+    may be configured to allow various network security platforms to properly identify
+    traffic by VLAN.
   example: 100010
   flat_name: destination.vlan.said
   ignore_above: 1024
@@ -983,6 +984,93 @@ destination.vlan.state:
   order: 4
   original_fieldset: vlan
   short: Current VLAN state
+  type: keyword
+destination.vlan.vlan.inner.id:
+  description: The vlan.inner.id field is used to record the innermost vlan (initial
+    802.1q encapsulation) in cases where multiple 802.1q encapsulations have been
+    performed.  This field can be nested under source, destination, and  network fields.
+  example: 10
+  flat_name: destination.vlan.vlan.inner.id
+  ignore_above: 1024
+  level: extended
+  name: vlan.inner.id
+  order: 6
+  original_fieldset: vlan
+  short: Inner VLAN ID for q-in-q traffic
+  type: keyword
+destination.vlan.vlan.inner.name:
+  description: The vlan.inner.name field is used to record the name of the innermost
+    vlan (initial 802.1q encapsulation)  in cases where multiple 802.1q encapsulations
+    have been performed.  This field can be nested under source,  destination, and
+    network fields.
+  example: Client_A_VLAN
+  flat_name: destination.vlan.vlan.inner.name
+  ignore_above: 1024
+  level: extended
+  name: vlan.inner.name
+  order: 7
+  original_fieldset: vlan
+  short: Inner VLAN name for q-in-q traffic
+  type: keyword
+destination.vlan.vlan.outer.id:
+  description: The vlan.outer.id field is used to record the id of the outermost vlan
+    (final 802.1q encapsulation) in cases where multiple 802.1q encapsulations have
+    been performed. This field can be nested under source, destination, and  network
+    fields.
+  example: 20
+  flat_name: destination.vlan.vlan.outer.id
+  ignore_above: 1024
+  level: extended
+  name: vlan.outer.id
+  order: 8
+  original_fieldset: vlan
+  short: Outer VLAN ID for q-in-q traffic
+  type: keyword
+destination.vlan.vlan.outer.name:
+  description: The vlan.outer.name field is used to record the outermost VLAN name
+    (final 802.1q encapsulation) in cases where multiple 802.1q encapsulations have
+    been performed.  This field can be nested under source, destination, and  network
+    fields.
+  example: Core_Transit
+  flat_name: destination.vlan.vlan.outer.name
+  ignore_above: 1024
+  level: extended
+  name: vlan.outer.name
+  order: 9
+  original_fieldset: vlan
+  short: Outer VLAN name for q-in-q traffic
+  type: keyword
+destination.vlan.vlan.related.id:
+  description: The vlan.related.id field is used to record any intermediate VLAN IDs
+    in cases where more than 2 q-in-q encapsulations are present. This field can be
+    nested under source, destination, and network fields.
+  example: &id001
+  - 12
+  - 14
+  - 16
+  flat_name: destination.vlan.vlan.related.id
+  ignore_above: 1024
+  level: extended
+  name: vlan.related.id
+  order: 10
+  original_fieldset: vlan
+  short: Array of additional VLAN IDs in q-in-q traffic
+  type: keyword
+destination.vlan.vlan.related.name:
+  description: The vlan.related.id field is used to record any intermediate VLAN IDs
+    in cases where more than 2 q-in-q encapsulations are present. This field can be
+    nested under source, destination, and network fields.
+  example: &id002
+  - transit1
+  - transit2
+  - transit3
+  flat_name: destination.vlan.vlan.related.name
+  ignore_above: 1024
+  level: extended
+  name: vlan.related.name
+  order: 11
+  original_fieldset: vlan
+  short: Array of additional VLAN names in q-in-q traffic
   type: keyword
 dns.answers:
   description: 'An array containing an object for each answer section returned by
@@ -4375,8 +4463,8 @@ source.user.name:
   short: Short name or login of the user.
   type: keyword
 source.vlan.id:
-  description: VLAN ID of the congfigured VLAN. Expoected values are 0 to 4095, with
-    0 and 4095 typically being  reserved for system use, and not generally reported.
+  description: VLAN ID of the configured VLAN. Expected values are 0 to 4095, with
+    0 and 4095 typically being  reserved for system use, and not reported.
   example: 10
   flat_name: source.vlan.id
   level: core
@@ -4397,10 +4485,10 @@ source.vlan.mode:
   name: mode
   order: 5
   original_fieldset: vlan
-  short: Non-standard VLAN oparting modes
+  short: Non-standard VLAN operating modes
   type: keyword
 source.vlan.mtu:
-  description: Maximum tranmission unit is the maximum size of packets provcessed
+  description: Maximum transmission unit is the maximum size of packets processed
     in this VLAN.   This value will typically be in the range of 68 - 9216, with 1400-1500
     and 9216 being the most likely.
   example: 1500
@@ -4410,7 +4498,7 @@ source.vlan.mtu:
   name: mtu
   order: 3
   original_fieldset: vlan
-  short: Maximum tranmission unit is the maximum size of packets provcessed in this
+  short: Maximum transmission unit is the maximum size of packets processed in this
     VLAN.   This value will typically be in the range of 68 - 9216, with 1400-1500
     and 9216 being the most likely.
   type: keyword
@@ -4426,8 +4514,9 @@ source.vlan.name:
   short: VLAN name as configured on the device, or reported in the event.
   type: keyword
 source.vlan.said:
-  description: VLAN SAID is a user configurable security association that may be configured
-    to allow various network security platforms to properly identify traffic by VLAN.
+  description: VLAN SAID is a user configurable security association identifier that
+    may be configured to allow various network security platforms to properly identify
+    traffic by VLAN.
   example: 100010
   flat_name: source.vlan.said
   ignore_above: 1024
@@ -4447,6 +4536,87 @@ source.vlan.state:
   order: 4
   original_fieldset: vlan
   short: Current VLAN state
+  type: keyword
+source.vlan.vlan.inner.id:
+  description: The vlan.inner.id field is used to record the innermost vlan (initial
+    802.1q encapsulation) in cases where multiple 802.1q encapsulations have been
+    performed.  This field can be nested under source, destination, and  network fields.
+  example: 10
+  flat_name: source.vlan.vlan.inner.id
+  ignore_above: 1024
+  level: extended
+  name: vlan.inner.id
+  order: 6
+  original_fieldset: vlan
+  short: Inner VLAN ID for q-in-q traffic
+  type: keyword
+source.vlan.vlan.inner.name:
+  description: The vlan.inner.name field is used to record the name of the innermost
+    vlan (initial 802.1q encapsulation)  in cases where multiple 802.1q encapsulations
+    have been performed.  This field can be nested under source,  destination, and
+    network fields.
+  example: Client_A_VLAN
+  flat_name: source.vlan.vlan.inner.name
+  ignore_above: 1024
+  level: extended
+  name: vlan.inner.name
+  order: 7
+  original_fieldset: vlan
+  short: Inner VLAN name for q-in-q traffic
+  type: keyword
+source.vlan.vlan.outer.id:
+  description: The vlan.outer.id field is used to record the id of the outermost vlan
+    (final 802.1q encapsulation) in cases where multiple 802.1q encapsulations have
+    been performed. This field can be nested under source, destination, and  network
+    fields.
+  example: 20
+  flat_name: source.vlan.vlan.outer.id
+  ignore_above: 1024
+  level: extended
+  name: vlan.outer.id
+  order: 8
+  original_fieldset: vlan
+  short: Outer VLAN ID for q-in-q traffic
+  type: keyword
+source.vlan.vlan.outer.name:
+  description: The vlan.outer.name field is used to record the outermost VLAN name
+    (final 802.1q encapsulation) in cases where multiple 802.1q encapsulations have
+    been performed.  This field can be nested under source, destination, and  network
+    fields.
+  example: Core_Transit
+  flat_name: source.vlan.vlan.outer.name
+  ignore_above: 1024
+  level: extended
+  name: vlan.outer.name
+  order: 9
+  original_fieldset: vlan
+  short: Outer VLAN name for q-in-q traffic
+  type: keyword
+source.vlan.vlan.related.id:
+  description: The vlan.related.id field is used to record any intermediate VLAN IDs
+    in cases where more than 2 q-in-q encapsulations are present. This field can be
+    nested under source, destination, and network fields.
+  example: *id001
+  flat_name: source.vlan.vlan.related.id
+  ignore_above: 1024
+  level: extended
+  name: vlan.related.id
+  order: 10
+  original_fieldset: vlan
+  short: Array of additional VLAN IDs in q-in-q traffic
+  type: keyword
+source.vlan.vlan.related.name:
+  description: The vlan.related.id field is used to record any intermediate VLAN IDs
+    in cases where more than 2 q-in-q encapsulations are present. This field can be
+    nested under source, destination, and network fields.
+  example: *id002
+  flat_name: source.vlan.vlan.related.name
+  ignore_above: 1024
+  level: extended
+  name: vlan.related.name
+  order: 11
+  original_fieldset: vlan
+  short: Array of additional VLAN names in q-in-q traffic
   type: keyword
 tags:
   description: List of keywords used to tag each event.
@@ -5293,8 +5463,8 @@ user_agent.version:
   short: Version of the user agent.
   type: keyword
 vlan.id:
-  description: VLAN ID of the congfigured VLAN. Expoected values are 0 to 4095, with
-    0 and 4095 typically being  reserved for system use, and not generally reported.
+  description: VLAN ID of the configured VLAN. Expected values are 0 to 4095, with
+    0 and 4095 typically being  reserved for system use, and not reported.
   example: 10
   flat_name: vlan.id
   level: core
@@ -5313,10 +5483,10 @@ vlan.mode:
   level: extended
   name: mode
   order: 5
-  short: Non-standard VLAN oparting modes
+  short: Non-standard VLAN operating modes
   type: keyword
 vlan.mtu:
-  description: Maximum tranmission unit is the maximum size of packets provcessed
+  description: Maximum transmission unit is the maximum size of packets processed
     in this VLAN.   This value will typically be in the range of 68 - 9216, with 1400-1500
     and 9216 being the most likely.
   example: 1500
@@ -5325,7 +5495,7 @@ vlan.mtu:
   level: extended
   name: mtu
   order: 3
-  short: Maximum tranmission unit is the maximum size of packets provcessed in this
+  short: Maximum transmission unit is the maximum size of packets processed in this
     VLAN.   This value will typically be in the range of 68 - 9216, with 1400-1500
     and 9216 being the most likely.
   type: keyword
@@ -5340,8 +5510,9 @@ vlan.name:
   short: VLAN name as configured on the device, or reported in the event.
   type: keyword
 vlan.said:
-  description: VLAN SAID is a user configurable security association that may be configured
-    to allow various network security platforms to properly identify traffic by VLAN.
+  description: VLAN SAID is a user configurable security association identifier that
+    may be configured to allow various network security platforms to properly identify
+    traffic by VLAN.
   example: 100010
   flat_name: vlan.said
   ignore_above: 1024
@@ -5359,6 +5530,81 @@ vlan.state:
   name: state
   order: 4
   short: Current VLAN state
+  type: keyword
+vlan.vlan.inner.id:
+  description: The vlan.inner.id field is used to record the innermost vlan (initial
+    802.1q encapsulation) in cases where multiple 802.1q encapsulations have been
+    performed.  This field can be nested under source, destination, and  network fields.
+  example: 10
+  flat_name: vlan.vlan.inner.id
+  ignore_above: 1024
+  level: extended
+  name: vlan.inner.id
+  order: 6
+  short: Inner VLAN ID for q-in-q traffic
+  type: keyword
+vlan.vlan.inner.name:
+  description: The vlan.inner.name field is used to record the name of the innermost
+    vlan (initial 802.1q encapsulation)  in cases where multiple 802.1q encapsulations
+    have been performed.  This field can be nested under source,  destination, and
+    network fields.
+  example: Client_A_VLAN
+  flat_name: vlan.vlan.inner.name
+  ignore_above: 1024
+  level: extended
+  name: vlan.inner.name
+  order: 7
+  short: Inner VLAN name for q-in-q traffic
+  type: keyword
+vlan.vlan.outer.id:
+  description: The vlan.outer.id field is used to record the id of the outermost vlan
+    (final 802.1q encapsulation) in cases where multiple 802.1q encapsulations have
+    been performed. This field can be nested under source, destination, and  network
+    fields.
+  example: 20
+  flat_name: vlan.vlan.outer.id
+  ignore_above: 1024
+  level: extended
+  name: vlan.outer.id
+  order: 8
+  short: Outer VLAN ID for q-in-q traffic
+  type: keyword
+vlan.vlan.outer.name:
+  description: The vlan.outer.name field is used to record the outermost VLAN name
+    (final 802.1q encapsulation) in cases where multiple 802.1q encapsulations have
+    been performed.  This field can be nested under source, destination, and  network
+    fields.
+  example: Core_Transit
+  flat_name: vlan.vlan.outer.name
+  ignore_above: 1024
+  level: extended
+  name: vlan.outer.name
+  order: 9
+  short: Outer VLAN name for q-in-q traffic
+  type: keyword
+vlan.vlan.related.id:
+  description: The vlan.related.id field is used to record any intermediate VLAN IDs
+    in cases where more than 2 q-in-q encapsulations are present. This field can be
+    nested under source, destination, and network fields.
+  example: *id001
+  flat_name: vlan.vlan.related.id
+  ignore_above: 1024
+  level: extended
+  name: vlan.related.id
+  order: 10
+  short: Array of additional VLAN IDs in q-in-q traffic
+  type: keyword
+vlan.vlan.related.name:
+  description: The vlan.related.id field is used to record any intermediate VLAN IDs
+    in cases where more than 2 q-in-q encapsulations are present. This field can be
+    nested under source, destination, and network fields.
+  example: *id002
+  flat_name: vlan.vlan.related.name
+  ignore_above: 1024
+  level: extended
+  name: vlan.related.name
+  order: 11
+  short: Array of additional VLAN names in q-in-q traffic
   type: keyword
 vulnerability.category:
   description: 'The type of system or architecture that the vulnerability affects.
