@@ -187,7 +187,7 @@ def generate_fully_flattened_fields(fields_nested):
 
 def cleanup_fields_recursive(fields, prefix):
     for (name, field) in fields.items():
-        # Copy field here so reusable field sets become values instead of references to the original set
+        # Copy field here so reusable field sets become unique copies instead of references to the original set
         field = field.copy()
         fields[name] = field
         if 'field_details' in field:
