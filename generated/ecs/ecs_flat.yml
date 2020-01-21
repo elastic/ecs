@@ -95,6 +95,7 @@ as.number:
   level: extended
   name: number
   order: 0
+  original_fieldset: as
   short: Unique number allocated to the autonomous system. The autonomous system number
     (ASN) uniquely identifies each network on the Internet.
   type: long
@@ -112,6 +113,7 @@ as.organization.name:
     type: text
   name: organization.name
   order: 1
+  original_fieldset: as
   short: Organization name.
   type: keyword
 client.address:
@@ -130,7 +132,7 @@ client.address:
   short: Client network address.
   type: keyword
 client.as.number:
-  dashed_name: as-number
+  dashed_name: client-as-number
   description: Unique number allocated to the autonomous system. The autonomous system
     number (ASN) uniquely identifies each network on the Internet.
   example: 15169
@@ -143,14 +145,14 @@ client.as.number:
     (ASN) uniquely identifies each network on the Internet.
   type: long
 client.as.organization.name:
-  dashed_name: as-organization-name
+  dashed_name: client-as-organization-name
   description: Organization name.
   example: Google LLC
   flat_name: client.as.organization.name
   ignore_above: 1024
   level: extended
   multi_fields:
-  - flat_name: as.organization.name.text
+  - flat_name: client.as.organization.name.text
     name: text
     norms: false
     type: text
@@ -181,7 +183,7 @@ client.domain:
   short: Client domain.
   type: keyword
 client.geo.city_name:
-  dashed_name: geo-city-name
+  dashed_name: client-geo-city-name
   description: City name.
   example: Montreal
   flat_name: client.geo.city_name
@@ -193,7 +195,7 @@ client.geo.city_name:
   short: City name.
   type: keyword
 client.geo.continent_name:
-  dashed_name: geo-continent-name
+  dashed_name: client-geo-continent-name
   description: Name of the continent.
   example: North America
   flat_name: client.geo.continent_name
@@ -205,7 +207,7 @@ client.geo.continent_name:
   short: Name of the continent.
   type: keyword
 client.geo.country_iso_code:
-  dashed_name: geo-country-iso-code
+  dashed_name: client-geo-country-iso-code
   description: Country ISO code.
   example: CA
   flat_name: client.geo.country_iso_code
@@ -217,7 +219,7 @@ client.geo.country_iso_code:
   short: Country ISO code.
   type: keyword
 client.geo.country_name:
-  dashed_name: geo-country-name
+  dashed_name: client-geo-country-name
   description: Country name.
   example: Canada
   flat_name: client.geo.country_name
@@ -229,7 +231,7 @@ client.geo.country_name:
   short: Country name.
   type: keyword
 client.geo.location:
-  dashed_name: geo-location
+  dashed_name: client-geo-location
   description: Longitude and latitude.
   example: '{ "lon": -73.614830, "lat": 45.505918 }'
   flat_name: client.geo.location
@@ -240,7 +242,7 @@ client.geo.location:
   short: Longitude and latitude.
   type: geo_point
 client.geo.name:
-  dashed_name: geo-name
+  dashed_name: client-geo-name
   description: 'User-defined description of a location, at the level of granularity
     they care about.
 
@@ -258,7 +260,7 @@ client.geo.name:
   short: User-defined description of a location.
   type: keyword
 client.geo.region_iso_code:
-  dashed_name: geo-region-iso-code
+  dashed_name: client-geo-region-iso-code
   description: Region ISO code.
   example: CA-QC
   flat_name: client.geo.region_iso_code
@@ -270,7 +272,7 @@ client.geo.region_iso_code:
   short: Region ISO code.
   type: keyword
 client.geo.region_name:
-  dashed_name: geo-region-name
+  dashed_name: client-geo-region-name
   description: Region name.
   example: Quebec
   flat_name: client.geo.region_name
@@ -382,7 +384,7 @@ client.top_level_domain:
   short: The effective top level domain (com, org, net, co.uk).
   type: keyword
 client.user.domain:
-  dashed_name: user-domain
+  dashed_name: client-user-domain
   description: 'Name of the directory the user is a member of.
 
     For example, an LDAP or Active Directory domain name.'
@@ -395,7 +397,7 @@ client.user.domain:
   short: Name of the directory the user is a member of.
   type: keyword
 client.user.email:
-  dashed_name: user-email
+  dashed_name: client-user-email
   description: User email address.
   flat_name: client.user.email
   ignore_above: 1024
@@ -406,14 +408,14 @@ client.user.email:
   short: User email address.
   type: keyword
 client.user.full_name:
-  dashed_name: user-full-name
+  dashed_name: client-user-full-name
   description: User's full name, if available.
   example: Albert Einstein
   flat_name: client.user.full_name
   ignore_above: 1024
   level: extended
   multi_fields:
-  - flat_name: user.full_name.text
+  - flat_name: client.user.full_name.text
     name: text
     norms: false
     type: text
@@ -423,7 +425,7 @@ client.user.full_name:
   short: User's full name, if available.
   type: keyword
 client.user.group.domain:
-  dashed_name: group-domain
+  dashed_name: client-user-group-domain
   description: 'Name of the directory the group is a member of.
 
     For example, an LDAP or Active Directory domain name.'
@@ -432,33 +434,33 @@ client.user.group.domain:
   level: extended
   name: domain
   order: 2
-  original_fieldset: user
+  original_fieldset: group
   short: Name of the directory the group is a member of.
   type: keyword
 client.user.group.id:
-  dashed_name: group-id
+  dashed_name: client-user-group-id
   description: Unique identifier for the group on the system/platform.
   flat_name: client.user.group.id
   ignore_above: 1024
   level: extended
   name: id
   order: 0
-  original_fieldset: user
+  original_fieldset: group
   short: Unique identifier for the group on the system/platform.
   type: keyword
 client.user.group.name:
-  dashed_name: group-name
+  dashed_name: client-user-group-name
   description: Name of the group.
   flat_name: client.user.group.name
   ignore_above: 1024
   level: extended
   name: name
   order: 1
-  original_fieldset: user
+  original_fieldset: group
   short: Name of the group.
   type: keyword
 client.user.hash:
-  dashed_name: user-hash
+  dashed_name: client-user-hash
   description: 'Unique user hash to correlate information for a user in anonymized
     form.
 
@@ -473,7 +475,7 @@ client.user.hash:
   short: Unique user hash to correlate information for a user in anonymized form.
   type: keyword
 client.user.id:
-  dashed_name: user-id
+  dashed_name: client-user-id
   description: One or multiple unique identifiers of the user.
   flat_name: client.user.id
   ignore_above: 1024
@@ -484,14 +486,14 @@ client.user.id:
   short: One or multiple unique identifiers of the user.
   type: keyword
 client.user.name:
-  dashed_name: user-name
+  dashed_name: client-user-name
   description: Short name or login of the user.
   example: albert
   flat_name: client.user.name
   ignore_above: 1024
   level: core
   multi_fields:
-  - flat_name: user.name.text
+  - flat_name: client.user.name.text
     name: text
     norms: false
     type: text
@@ -657,7 +659,7 @@ destination.address:
   short: Destination network address.
   type: keyword
 destination.as.number:
-  dashed_name: as-number
+  dashed_name: destination-as-number
   description: Unique number allocated to the autonomous system. The autonomous system
     number (ASN) uniquely identifies each network on the Internet.
   example: 15169
@@ -670,14 +672,14 @@ destination.as.number:
     (ASN) uniquely identifies each network on the Internet.
   type: long
 destination.as.organization.name:
-  dashed_name: as-organization-name
+  dashed_name: destination-as-organization-name
   description: Organization name.
   example: Google LLC
   flat_name: destination.as.organization.name
   ignore_above: 1024
   level: extended
   multi_fields:
-  - flat_name: as.organization.name.text
+  - flat_name: destination.as.organization.name.text
     name: text
     norms: false
     type: text
@@ -708,7 +710,7 @@ destination.domain:
   short: Destination domain.
   type: keyword
 destination.geo.city_name:
-  dashed_name: geo-city-name
+  dashed_name: destination-geo-city-name
   description: City name.
   example: Montreal
   flat_name: destination.geo.city_name
@@ -720,7 +722,7 @@ destination.geo.city_name:
   short: City name.
   type: keyword
 destination.geo.continent_name:
-  dashed_name: geo-continent-name
+  dashed_name: destination-geo-continent-name
   description: Name of the continent.
   example: North America
   flat_name: destination.geo.continent_name
@@ -732,7 +734,7 @@ destination.geo.continent_name:
   short: Name of the continent.
   type: keyword
 destination.geo.country_iso_code:
-  dashed_name: geo-country-iso-code
+  dashed_name: destination-geo-country-iso-code
   description: Country ISO code.
   example: CA
   flat_name: destination.geo.country_iso_code
@@ -744,7 +746,7 @@ destination.geo.country_iso_code:
   short: Country ISO code.
   type: keyword
 destination.geo.country_name:
-  dashed_name: geo-country-name
+  dashed_name: destination-geo-country-name
   description: Country name.
   example: Canada
   flat_name: destination.geo.country_name
@@ -756,7 +758,7 @@ destination.geo.country_name:
   short: Country name.
   type: keyword
 destination.geo.location:
-  dashed_name: geo-location
+  dashed_name: destination-geo-location
   description: Longitude and latitude.
   example: '{ "lon": -73.614830, "lat": 45.505918 }'
   flat_name: destination.geo.location
@@ -767,7 +769,7 @@ destination.geo.location:
   short: Longitude and latitude.
   type: geo_point
 destination.geo.name:
-  dashed_name: geo-name
+  dashed_name: destination-geo-name
   description: 'User-defined description of a location, at the level of granularity
     they care about.
 
@@ -785,7 +787,7 @@ destination.geo.name:
   short: User-defined description of a location.
   type: keyword
 destination.geo.region_iso_code:
-  dashed_name: geo-region-iso-code
+  dashed_name: destination-geo-region-iso-code
   description: Region ISO code.
   example: CA-QC
   flat_name: destination.geo.region_iso_code
@@ -797,7 +799,7 @@ destination.geo.region_iso_code:
   short: Region ISO code.
   type: keyword
 destination.geo.region_name:
-  dashed_name: geo-region-name
+  dashed_name: destination-geo-region-name
   description: Region name.
   example: Quebec
   flat_name: destination.geo.region_name
@@ -908,7 +910,7 @@ destination.top_level_domain:
   short: The effective top level domain (com, org, net, co.uk).
   type: keyword
 destination.user.domain:
-  dashed_name: user-domain
+  dashed_name: destination-user-domain
   description: 'Name of the directory the user is a member of.
 
     For example, an LDAP or Active Directory domain name.'
@@ -921,7 +923,7 @@ destination.user.domain:
   short: Name of the directory the user is a member of.
   type: keyword
 destination.user.email:
-  dashed_name: user-email
+  dashed_name: destination-user-email
   description: User email address.
   flat_name: destination.user.email
   ignore_above: 1024
@@ -932,14 +934,14 @@ destination.user.email:
   short: User email address.
   type: keyword
 destination.user.full_name:
-  dashed_name: user-full-name
+  dashed_name: destination-user-full-name
   description: User's full name, if available.
   example: Albert Einstein
   flat_name: destination.user.full_name
   ignore_above: 1024
   level: extended
   multi_fields:
-  - flat_name: user.full_name.text
+  - flat_name: destination.user.full_name.text
     name: text
     norms: false
     type: text
@@ -949,7 +951,7 @@ destination.user.full_name:
   short: User's full name, if available.
   type: keyword
 destination.user.group.domain:
-  dashed_name: group-domain
+  dashed_name: destination-user-group-domain
   description: 'Name of the directory the group is a member of.
 
     For example, an LDAP or Active Directory domain name.'
@@ -958,33 +960,33 @@ destination.user.group.domain:
   level: extended
   name: domain
   order: 2
-  original_fieldset: user
+  original_fieldset: group
   short: Name of the directory the group is a member of.
   type: keyword
 destination.user.group.id:
-  dashed_name: group-id
+  dashed_name: destination-user-group-id
   description: Unique identifier for the group on the system/platform.
   flat_name: destination.user.group.id
   ignore_above: 1024
   level: extended
   name: id
   order: 0
-  original_fieldset: user
+  original_fieldset: group
   short: Unique identifier for the group on the system/platform.
   type: keyword
 destination.user.group.name:
-  dashed_name: group-name
+  dashed_name: destination-user-group-name
   description: Name of the group.
   flat_name: destination.user.group.name
   ignore_above: 1024
   level: extended
   name: name
   order: 1
-  original_fieldset: user
+  original_fieldset: group
   short: Name of the group.
   type: keyword
 destination.user.hash:
-  dashed_name: user-hash
+  dashed_name: destination-user-hash
   description: 'Unique user hash to correlate information for a user in anonymized
     form.
 
@@ -999,7 +1001,7 @@ destination.user.hash:
   short: Unique user hash to correlate information for a user in anonymized form.
   type: keyword
 destination.user.id:
-  dashed_name: user-id
+  dashed_name: destination-user-id
   description: One or multiple unique identifiers of the user.
   flat_name: destination.user.id
   ignore_above: 1024
@@ -1010,14 +1012,14 @@ destination.user.id:
   short: One or multiple unique identifiers of the user.
   type: keyword
 destination.user.name:
-  dashed_name: user-name
+  dashed_name: destination-user-name
   description: Short name or login of the user.
   example: albert
   flat_name: destination.user.name
   ignore_above: 1024
   level: core
   multi_fields:
-  - flat_name: user.name.text
+  - flat_name: destination.user.name.text
     name: text
     norms: false
     type: text
@@ -2075,7 +2077,7 @@ file.group:
   short: Primary group name of the file.
   type: keyword
 file.hash.md5:
-  dashed_name: hash-md5
+  dashed_name: file-hash-md5
   description: MD5 hash.
   flat_name: file.hash.md5
   ignore_above: 1024
@@ -2086,7 +2088,7 @@ file.hash.md5:
   short: MD5 hash.
   type: keyword
 file.hash.sha1:
-  dashed_name: hash-sha1
+  dashed_name: file-hash-sha1
   description: SHA1 hash.
   flat_name: file.hash.sha1
   ignore_above: 1024
@@ -2097,7 +2099,7 @@ file.hash.sha1:
   short: SHA1 hash.
   type: keyword
 file.hash.sha256:
-  dashed_name: hash-sha256
+  dashed_name: file-hash-sha256
   description: SHA256 hash.
   flat_name: file.hash.sha256
   ignore_above: 1024
@@ -2108,7 +2110,7 @@ file.hash.sha256:
   short: SHA256 hash.
   type: keyword
 file.hash.sha512:
-  dashed_name: hash-sha512
+  dashed_name: file-hash-sha512
   description: SHA512 hash.
   flat_name: file.hash.sha512
   ignore_above: 1024
@@ -2246,6 +2248,7 @@ geo.city_name:
   level: core
   name: city_name
   order: 4
+  original_fieldset: geo
   short: City name.
   type: keyword
 geo.continent_name:
@@ -2257,6 +2260,7 @@ geo.continent_name:
   level: core
   name: continent_name
   order: 1
+  original_fieldset: geo
   short: Name of the continent.
   type: keyword
 geo.country_iso_code:
@@ -2268,6 +2272,7 @@ geo.country_iso_code:
   level: core
   name: country_iso_code
   order: 5
+  original_fieldset: geo
   short: Country ISO code.
   type: keyword
 geo.country_name:
@@ -2279,6 +2284,7 @@ geo.country_name:
   level: core
   name: country_name
   order: 2
+  original_fieldset: geo
   short: Country name.
   type: keyword
 geo.location:
@@ -2289,6 +2295,7 @@ geo.location:
   level: core
   name: location
   order: 0
+  original_fieldset: geo
   short: Longitude and latitude.
   type: geo_point
 geo.name:
@@ -2306,6 +2313,7 @@ geo.name:
   level: extended
   name: name
   order: 7
+  original_fieldset: geo
   short: User-defined description of a location.
   type: keyword
 geo.region_iso_code:
@@ -2317,6 +2325,7 @@ geo.region_iso_code:
   level: core
   name: region_iso_code
   order: 6
+  original_fieldset: geo
   short: Region ISO code.
   type: keyword
 geo.region_name:
@@ -2328,6 +2337,7 @@ geo.region_name:
   level: core
   name: region_name
   order: 3
+  original_fieldset: geo
   short: Region name.
   type: keyword
 group.domain:
@@ -2340,6 +2350,7 @@ group.domain:
   level: extended
   name: domain
   order: 2
+  original_fieldset: group
   short: Name of the directory the group is a member of.
   type: keyword
 group.id:
@@ -2350,6 +2361,7 @@ group.id:
   level: extended
   name: id
   order: 0
+  original_fieldset: group
   short: Unique identifier for the group on the system/platform.
   type: keyword
 group.name:
@@ -2360,6 +2372,7 @@ group.name:
   level: extended
   name: name
   order: 1
+  original_fieldset: group
   short: Name of the group.
   type: keyword
 hash.md5:
@@ -2370,6 +2383,7 @@ hash.md5:
   level: extended
   name: md5
   order: 0
+  original_fieldset: hash
   short: MD5 hash.
   type: keyword
 hash.sha1:
@@ -2380,6 +2394,7 @@ hash.sha1:
   level: extended
   name: sha1
   order: 1
+  original_fieldset: hash
   short: SHA1 hash.
   type: keyword
 hash.sha256:
@@ -2390,6 +2405,7 @@ hash.sha256:
   level: extended
   name: sha256
   order: 2
+  original_fieldset: hash
   short: SHA256 hash.
   type: keyword
 hash.sha512:
@@ -2400,6 +2416,7 @@ hash.sha512:
   level: extended
   name: sha512
   order: 3
+  original_fieldset: hash
   short: SHA512 hash.
   type: keyword
 host.architecture:
@@ -2428,7 +2445,7 @@ host.domain:
   short: Name of the directory the group is a member of.
   type: keyword
 host.geo.city_name:
-  dashed_name: geo-city-name
+  dashed_name: host-geo-city-name
   description: City name.
   example: Montreal
   flat_name: host.geo.city_name
@@ -2440,7 +2457,7 @@ host.geo.city_name:
   short: City name.
   type: keyword
 host.geo.continent_name:
-  dashed_name: geo-continent-name
+  dashed_name: host-geo-continent-name
   description: Name of the continent.
   example: North America
   flat_name: host.geo.continent_name
@@ -2452,7 +2469,7 @@ host.geo.continent_name:
   short: Name of the continent.
   type: keyword
 host.geo.country_iso_code:
-  dashed_name: geo-country-iso-code
+  dashed_name: host-geo-country-iso-code
   description: Country ISO code.
   example: CA
   flat_name: host.geo.country_iso_code
@@ -2464,7 +2481,7 @@ host.geo.country_iso_code:
   short: Country ISO code.
   type: keyword
 host.geo.country_name:
-  dashed_name: geo-country-name
+  dashed_name: host-geo-country-name
   description: Country name.
   example: Canada
   flat_name: host.geo.country_name
@@ -2476,7 +2493,7 @@ host.geo.country_name:
   short: Country name.
   type: keyword
 host.geo.location:
-  dashed_name: geo-location
+  dashed_name: host-geo-location
   description: Longitude and latitude.
   example: '{ "lon": -73.614830, "lat": 45.505918 }'
   flat_name: host.geo.location
@@ -2487,7 +2504,7 @@ host.geo.location:
   short: Longitude and latitude.
   type: geo_point
 host.geo.name:
-  dashed_name: geo-name
+  dashed_name: host-geo-name
   description: 'User-defined description of a location, at the level of granularity
     they care about.
 
@@ -2505,7 +2522,7 @@ host.geo.name:
   short: User-defined description of a location.
   type: keyword
 host.geo.region_iso_code:
-  dashed_name: geo-region-iso-code
+  dashed_name: host-geo-region-iso-code
   description: Region ISO code.
   example: CA-QC
   flat_name: host.geo.region_iso_code
@@ -2517,7 +2534,7 @@ host.geo.region_iso_code:
   short: Region ISO code.
   type: keyword
 host.geo.region_name:
-  dashed_name: geo-region-name
+  dashed_name: host-geo-region-name
   description: Region name.
   example: Quebec
   flat_name: host.geo.region_name
@@ -2587,7 +2604,7 @@ host.name:
   short: Name of the host.
   type: keyword
 host.os.family:
-  dashed_name: os-family
+  dashed_name: host-os-family
   description: OS family (such as redhat, debian, freebsd, windows).
   example: debian
   flat_name: host.os.family
@@ -2599,14 +2616,14 @@ host.os.family:
   short: OS family (such as redhat, debian, freebsd, windows).
   type: keyword
 host.os.full:
-  dashed_name: os-full
+  dashed_name: host-os-full
   description: Operating system name, including the version or code name.
   example: Mac OS Mojave
   flat_name: host.os.full
   ignore_above: 1024
   level: extended
   multi_fields:
-  - flat_name: os.full.text
+  - flat_name: host.os.full.text
     name: text
     norms: false
     type: text
@@ -2616,7 +2633,7 @@ host.os.full:
   short: Operating system name, including the version or code name.
   type: keyword
 host.os.kernel:
-  dashed_name: os-kernel
+  dashed_name: host-os-kernel
   description: Operating system kernel version as a raw string.
   example: 4.4.0-112-generic
   flat_name: host.os.kernel
@@ -2628,14 +2645,14 @@ host.os.kernel:
   short: Operating system kernel version as a raw string.
   type: keyword
 host.os.name:
-  dashed_name: os-name
+  dashed_name: host-os-name
   description: Operating system name, without the version.
   example: Mac OS X
   flat_name: host.os.name
   ignore_above: 1024
   level: extended
   multi_fields:
-  - flat_name: os.name.text
+  - flat_name: host.os.name.text
     name: text
     norms: false
     type: text
@@ -2645,7 +2662,7 @@ host.os.name:
   short: Operating system name, without the version.
   type: keyword
 host.os.platform:
-  dashed_name: os-platform
+  dashed_name: host-os-platform
   description: Operating system platform (such centos, ubuntu, windows).
   example: darwin
   flat_name: host.os.platform
@@ -2657,7 +2674,7 @@ host.os.platform:
   short: Operating system platform (such centos, ubuntu, windows).
   type: keyword
 host.os.version:
-  dashed_name: os-version
+  dashed_name: host-os-version
   description: Operating system version as a raw string.
   example: 10.14.1
   flat_name: host.os.version
@@ -2692,7 +2709,7 @@ host.uptime:
   short: Seconds the host has been up.
   type: long
 host.user.domain:
-  dashed_name: user-domain
+  dashed_name: host-user-domain
   description: 'Name of the directory the user is a member of.
 
     For example, an LDAP or Active Directory domain name.'
@@ -2705,7 +2722,7 @@ host.user.domain:
   short: Name of the directory the user is a member of.
   type: keyword
 host.user.email:
-  dashed_name: user-email
+  dashed_name: host-user-email
   description: User email address.
   flat_name: host.user.email
   ignore_above: 1024
@@ -2716,14 +2733,14 @@ host.user.email:
   short: User email address.
   type: keyword
 host.user.full_name:
-  dashed_name: user-full-name
+  dashed_name: host-user-full-name
   description: User's full name, if available.
   example: Albert Einstein
   flat_name: host.user.full_name
   ignore_above: 1024
   level: extended
   multi_fields:
-  - flat_name: user.full_name.text
+  - flat_name: host.user.full_name.text
     name: text
     norms: false
     type: text
@@ -2733,7 +2750,7 @@ host.user.full_name:
   short: User's full name, if available.
   type: keyword
 host.user.group.domain:
-  dashed_name: group-domain
+  dashed_name: host-user-group-domain
   description: 'Name of the directory the group is a member of.
 
     For example, an LDAP or Active Directory domain name.'
@@ -2742,33 +2759,33 @@ host.user.group.domain:
   level: extended
   name: domain
   order: 2
-  original_fieldset: user
+  original_fieldset: group
   short: Name of the directory the group is a member of.
   type: keyword
 host.user.group.id:
-  dashed_name: group-id
+  dashed_name: host-user-group-id
   description: Unique identifier for the group on the system/platform.
   flat_name: host.user.group.id
   ignore_above: 1024
   level: extended
   name: id
   order: 0
-  original_fieldset: user
+  original_fieldset: group
   short: Unique identifier for the group on the system/platform.
   type: keyword
 host.user.group.name:
-  dashed_name: group-name
+  dashed_name: host-user-group-name
   description: Name of the group.
   flat_name: host.user.group.name
   ignore_above: 1024
   level: extended
   name: name
   order: 1
-  original_fieldset: user
+  original_fieldset: group
   short: Name of the group.
   type: keyword
 host.user.hash:
-  dashed_name: user-hash
+  dashed_name: host-user-hash
   description: 'Unique user hash to correlate information for a user in anonymized
     form.
 
@@ -2783,7 +2800,7 @@ host.user.hash:
   short: Unique user hash to correlate information for a user in anonymized form.
   type: keyword
 host.user.id:
-  dashed_name: user-id
+  dashed_name: host-user-id
   description: One or multiple unique identifiers of the user.
   flat_name: host.user.id
   ignore_above: 1024
@@ -2794,14 +2811,14 @@ host.user.id:
   short: One or multiple unique identifiers of the user.
   type: keyword
 host.user.name:
-  dashed_name: user-name
+  dashed_name: host-user-name
   description: Short name or login of the user.
   example: albert
   flat_name: host.user.name
   ignore_above: 1024
   level: core
   multi_fields:
-  - flat_name: user.name.text
+  - flat_name: host.user.name.text
     name: text
     norms: false
     type: text
@@ -3287,7 +3304,7 @@ network.type:
     etc
   type: keyword
 observer.geo.city_name:
-  dashed_name: geo-city-name
+  dashed_name: observer-geo-city-name
   description: City name.
   example: Montreal
   flat_name: observer.geo.city_name
@@ -3299,7 +3316,7 @@ observer.geo.city_name:
   short: City name.
   type: keyword
 observer.geo.continent_name:
-  dashed_name: geo-continent-name
+  dashed_name: observer-geo-continent-name
   description: Name of the continent.
   example: North America
   flat_name: observer.geo.continent_name
@@ -3311,7 +3328,7 @@ observer.geo.continent_name:
   short: Name of the continent.
   type: keyword
 observer.geo.country_iso_code:
-  dashed_name: geo-country-iso-code
+  dashed_name: observer-geo-country-iso-code
   description: Country ISO code.
   example: CA
   flat_name: observer.geo.country_iso_code
@@ -3323,7 +3340,7 @@ observer.geo.country_iso_code:
   short: Country ISO code.
   type: keyword
 observer.geo.country_name:
-  dashed_name: geo-country-name
+  dashed_name: observer-geo-country-name
   description: Country name.
   example: Canada
   flat_name: observer.geo.country_name
@@ -3335,7 +3352,7 @@ observer.geo.country_name:
   short: Country name.
   type: keyword
 observer.geo.location:
-  dashed_name: geo-location
+  dashed_name: observer-geo-location
   description: Longitude and latitude.
   example: '{ "lon": -73.614830, "lat": 45.505918 }'
   flat_name: observer.geo.location
@@ -3346,7 +3363,7 @@ observer.geo.location:
   short: Longitude and latitude.
   type: geo_point
 observer.geo.name:
-  dashed_name: geo-name
+  dashed_name: observer-geo-name
   description: 'User-defined description of a location, at the level of granularity
     they care about.
 
@@ -3364,7 +3381,7 @@ observer.geo.name:
   short: User-defined description of a location.
   type: keyword
 observer.geo.region_iso_code:
-  dashed_name: geo-region-iso-code
+  dashed_name: observer-geo-region-iso-code
   description: Region ISO code.
   example: CA-QC
   flat_name: observer.geo.region_iso_code
@@ -3376,7 +3393,7 @@ observer.geo.region_iso_code:
   short: Region ISO code.
   type: keyword
 observer.geo.region_name:
-  dashed_name: geo-region-name
+  dashed_name: observer-geo-region-name
   description: Region name.
   example: Quebec
   flat_name: observer.geo.region_name
@@ -3433,7 +3450,7 @@ observer.name:
   short: Custom name of the observer.
   type: keyword
 observer.os.family:
-  dashed_name: os-family
+  dashed_name: observer-os-family
   description: OS family (such as redhat, debian, freebsd, windows).
   example: debian
   flat_name: observer.os.family
@@ -3445,14 +3462,14 @@ observer.os.family:
   short: OS family (such as redhat, debian, freebsd, windows).
   type: keyword
 observer.os.full:
-  dashed_name: os-full
+  dashed_name: observer-os-full
   description: Operating system name, including the version or code name.
   example: Mac OS Mojave
   flat_name: observer.os.full
   ignore_above: 1024
   level: extended
   multi_fields:
-  - flat_name: os.full.text
+  - flat_name: observer.os.full.text
     name: text
     norms: false
     type: text
@@ -3462,7 +3479,7 @@ observer.os.full:
   short: Operating system name, including the version or code name.
   type: keyword
 observer.os.kernel:
-  dashed_name: os-kernel
+  dashed_name: observer-os-kernel
   description: Operating system kernel version as a raw string.
   example: 4.4.0-112-generic
   flat_name: observer.os.kernel
@@ -3474,14 +3491,14 @@ observer.os.kernel:
   short: Operating system kernel version as a raw string.
   type: keyword
 observer.os.name:
-  dashed_name: os-name
+  dashed_name: observer-os-name
   description: Operating system name, without the version.
   example: Mac OS X
   flat_name: observer.os.name
   ignore_above: 1024
   level: extended
   multi_fields:
-  - flat_name: os.name.text
+  - flat_name: observer.os.name.text
     name: text
     norms: false
     type: text
@@ -3491,7 +3508,7 @@ observer.os.name:
   short: Operating system name, without the version.
   type: keyword
 observer.os.platform:
-  dashed_name: os-platform
+  dashed_name: observer-os-platform
   description: Operating system platform (such centos, ubuntu, windows).
   example: darwin
   flat_name: observer.os.platform
@@ -3503,7 +3520,7 @@ observer.os.platform:
   short: Operating system platform (such centos, ubuntu, windows).
   type: keyword
 observer.os.version:
-  dashed_name: os-version
+  dashed_name: observer-os-version
   description: Operating system version as a raw string.
   example: 10.14.1
   flat_name: observer.os.version
@@ -3604,6 +3621,7 @@ os.family:
   level: extended
   name: family
   order: 3
+  original_fieldset: os
   short: OS family (such as redhat, debian, freebsd, windows).
   type: keyword
 os.full:
@@ -3620,6 +3638,7 @@ os.full:
     type: text
   name: full
   order: 2
+  original_fieldset: os
   short: Operating system name, including the version or code name.
   type: keyword
 os.kernel:
@@ -3631,6 +3650,7 @@ os.kernel:
   level: extended
   name: kernel
   order: 5
+  original_fieldset: os
   short: Operating system kernel version as a raw string.
   type: keyword
 os.name:
@@ -3647,6 +3667,7 @@ os.name:
     type: text
   name: name
   order: 1
+  original_fieldset: os
   short: Operating system name, without the version.
   type: keyword
 os.platform:
@@ -3658,6 +3679,7 @@ os.platform:
   level: extended
   name: platform
   order: 0
+  original_fieldset: os
   short: Operating system platform (such centos, ubuntu, windows).
   type: keyword
 os.version:
@@ -3669,6 +3691,7 @@ os.version:
   level: extended
   name: version
   order: 4
+  original_fieldset: os
   short: Operating system version as a raw string.
   type: keyword
 package.architecture:
@@ -3901,7 +3924,7 @@ process.exit_code:
   short: The exit code of the process.
   type: long
 process.hash.md5:
-  dashed_name: hash-md5
+  dashed_name: process-hash-md5
   description: MD5 hash.
   flat_name: process.hash.md5
   ignore_above: 1024
@@ -3912,7 +3935,7 @@ process.hash.md5:
   short: MD5 hash.
   type: keyword
 process.hash.sha1:
-  dashed_name: hash-sha1
+  dashed_name: process-hash-sha1
   description: SHA1 hash.
   flat_name: process.hash.sha1
   ignore_above: 1024
@@ -3923,7 +3946,7 @@ process.hash.sha1:
   short: SHA1 hash.
   type: keyword
 process.hash.sha256:
-  dashed_name: hash-sha256
+  dashed_name: process-hash-sha256
   description: SHA256 hash.
   flat_name: process.hash.sha256
   ignore_above: 1024
@@ -3934,7 +3957,7 @@ process.hash.sha256:
   short: SHA256 hash.
   type: keyword
 process.hash.sha512:
-  dashed_name: hash-sha512
+  dashed_name: process-hash-sha512
   description: SHA512 hash.
   flat_name: process.hash.sha512
   ignore_above: 1024
@@ -4507,7 +4530,7 @@ server.address:
   short: Server network address.
   type: keyword
 server.as.number:
-  dashed_name: as-number
+  dashed_name: server-as-number
   description: Unique number allocated to the autonomous system. The autonomous system
     number (ASN) uniquely identifies each network on the Internet.
   example: 15169
@@ -4520,14 +4543,14 @@ server.as.number:
     (ASN) uniquely identifies each network on the Internet.
   type: long
 server.as.organization.name:
-  dashed_name: as-organization-name
+  dashed_name: server-as-organization-name
   description: Organization name.
   example: Google LLC
   flat_name: server.as.organization.name
   ignore_above: 1024
   level: extended
   multi_fields:
-  - flat_name: as.organization.name.text
+  - flat_name: server.as.organization.name.text
     name: text
     norms: false
     type: text
@@ -4558,7 +4581,7 @@ server.domain:
   short: Server domain.
   type: keyword
 server.geo.city_name:
-  dashed_name: geo-city-name
+  dashed_name: server-geo-city-name
   description: City name.
   example: Montreal
   flat_name: server.geo.city_name
@@ -4570,7 +4593,7 @@ server.geo.city_name:
   short: City name.
   type: keyword
 server.geo.continent_name:
-  dashed_name: geo-continent-name
+  dashed_name: server-geo-continent-name
   description: Name of the continent.
   example: North America
   flat_name: server.geo.continent_name
@@ -4582,7 +4605,7 @@ server.geo.continent_name:
   short: Name of the continent.
   type: keyword
 server.geo.country_iso_code:
-  dashed_name: geo-country-iso-code
+  dashed_name: server-geo-country-iso-code
   description: Country ISO code.
   example: CA
   flat_name: server.geo.country_iso_code
@@ -4594,7 +4617,7 @@ server.geo.country_iso_code:
   short: Country ISO code.
   type: keyword
 server.geo.country_name:
-  dashed_name: geo-country-name
+  dashed_name: server-geo-country-name
   description: Country name.
   example: Canada
   flat_name: server.geo.country_name
@@ -4606,7 +4629,7 @@ server.geo.country_name:
   short: Country name.
   type: keyword
 server.geo.location:
-  dashed_name: geo-location
+  dashed_name: server-geo-location
   description: Longitude and latitude.
   example: '{ "lon": -73.614830, "lat": 45.505918 }'
   flat_name: server.geo.location
@@ -4617,7 +4640,7 @@ server.geo.location:
   short: Longitude and latitude.
   type: geo_point
 server.geo.name:
-  dashed_name: geo-name
+  dashed_name: server-geo-name
   description: 'User-defined description of a location, at the level of granularity
     they care about.
 
@@ -4635,7 +4658,7 @@ server.geo.name:
   short: User-defined description of a location.
   type: keyword
 server.geo.region_iso_code:
-  dashed_name: geo-region-iso-code
+  dashed_name: server-geo-region-iso-code
   description: Region ISO code.
   example: CA-QC
   flat_name: server.geo.region_iso_code
@@ -4647,7 +4670,7 @@ server.geo.region_iso_code:
   short: Region ISO code.
   type: keyword
 server.geo.region_name:
-  dashed_name: geo-region-name
+  dashed_name: server-geo-region-name
   description: Region name.
   example: Quebec
   flat_name: server.geo.region_name
@@ -4759,7 +4782,7 @@ server.top_level_domain:
   short: The effective top level domain (com, org, net, co.uk).
   type: keyword
 server.user.domain:
-  dashed_name: user-domain
+  dashed_name: server-user-domain
   description: 'Name of the directory the user is a member of.
 
     For example, an LDAP or Active Directory domain name.'
@@ -4772,7 +4795,7 @@ server.user.domain:
   short: Name of the directory the user is a member of.
   type: keyword
 server.user.email:
-  dashed_name: user-email
+  dashed_name: server-user-email
   description: User email address.
   flat_name: server.user.email
   ignore_above: 1024
@@ -4783,14 +4806,14 @@ server.user.email:
   short: User email address.
   type: keyword
 server.user.full_name:
-  dashed_name: user-full-name
+  dashed_name: server-user-full-name
   description: User's full name, if available.
   example: Albert Einstein
   flat_name: server.user.full_name
   ignore_above: 1024
   level: extended
   multi_fields:
-  - flat_name: user.full_name.text
+  - flat_name: server.user.full_name.text
     name: text
     norms: false
     type: text
@@ -4800,7 +4823,7 @@ server.user.full_name:
   short: User's full name, if available.
   type: keyword
 server.user.group.domain:
-  dashed_name: group-domain
+  dashed_name: server-user-group-domain
   description: 'Name of the directory the group is a member of.
 
     For example, an LDAP or Active Directory domain name.'
@@ -4809,33 +4832,33 @@ server.user.group.domain:
   level: extended
   name: domain
   order: 2
-  original_fieldset: user
+  original_fieldset: group
   short: Name of the directory the group is a member of.
   type: keyword
 server.user.group.id:
-  dashed_name: group-id
+  dashed_name: server-user-group-id
   description: Unique identifier for the group on the system/platform.
   flat_name: server.user.group.id
   ignore_above: 1024
   level: extended
   name: id
   order: 0
-  original_fieldset: user
+  original_fieldset: group
   short: Unique identifier for the group on the system/platform.
   type: keyword
 server.user.group.name:
-  dashed_name: group-name
+  dashed_name: server-user-group-name
   description: Name of the group.
   flat_name: server.user.group.name
   ignore_above: 1024
   level: extended
   name: name
   order: 1
-  original_fieldset: user
+  original_fieldset: group
   short: Name of the group.
   type: keyword
 server.user.hash:
-  dashed_name: user-hash
+  dashed_name: server-user-hash
   description: 'Unique user hash to correlate information for a user in anonymized
     form.
 
@@ -4850,7 +4873,7 @@ server.user.hash:
   short: Unique user hash to correlate information for a user in anonymized form.
   type: keyword
 server.user.id:
-  dashed_name: user-id
+  dashed_name: server-user-id
   description: One or multiple unique identifiers of the user.
   flat_name: server.user.id
   ignore_above: 1024
@@ -4861,14 +4884,14 @@ server.user.id:
   short: One or multiple unique identifiers of the user.
   type: keyword
 server.user.name:
-  dashed_name: user-name
+  dashed_name: server-user-name
   description: Short name or login of the user.
   example: albert
   flat_name: server.user.name
   ignore_above: 1024
   level: core
   multi_fields:
-  - flat_name: user.name.text
+  - flat_name: server.user.name.text
     name: text
     norms: false
     type: text
@@ -5005,7 +5028,7 @@ source.address:
   short: Source network address.
   type: keyword
 source.as.number:
-  dashed_name: as-number
+  dashed_name: source-as-number
   description: Unique number allocated to the autonomous system. The autonomous system
     number (ASN) uniquely identifies each network on the Internet.
   example: 15169
@@ -5018,14 +5041,14 @@ source.as.number:
     (ASN) uniquely identifies each network on the Internet.
   type: long
 source.as.organization.name:
-  dashed_name: as-organization-name
+  dashed_name: source-as-organization-name
   description: Organization name.
   example: Google LLC
   flat_name: source.as.organization.name
   ignore_above: 1024
   level: extended
   multi_fields:
-  - flat_name: as.organization.name.text
+  - flat_name: source.as.organization.name.text
     name: text
     norms: false
     type: text
@@ -5056,7 +5079,7 @@ source.domain:
   short: Source domain.
   type: keyword
 source.geo.city_name:
-  dashed_name: geo-city-name
+  dashed_name: source-geo-city-name
   description: City name.
   example: Montreal
   flat_name: source.geo.city_name
@@ -5068,7 +5091,7 @@ source.geo.city_name:
   short: City name.
   type: keyword
 source.geo.continent_name:
-  dashed_name: geo-continent-name
+  dashed_name: source-geo-continent-name
   description: Name of the continent.
   example: North America
   flat_name: source.geo.continent_name
@@ -5080,7 +5103,7 @@ source.geo.continent_name:
   short: Name of the continent.
   type: keyword
 source.geo.country_iso_code:
-  dashed_name: geo-country-iso-code
+  dashed_name: source-geo-country-iso-code
   description: Country ISO code.
   example: CA
   flat_name: source.geo.country_iso_code
@@ -5092,7 +5115,7 @@ source.geo.country_iso_code:
   short: Country ISO code.
   type: keyword
 source.geo.country_name:
-  dashed_name: geo-country-name
+  dashed_name: source-geo-country-name
   description: Country name.
   example: Canada
   flat_name: source.geo.country_name
@@ -5104,7 +5127,7 @@ source.geo.country_name:
   short: Country name.
   type: keyword
 source.geo.location:
-  dashed_name: geo-location
+  dashed_name: source-geo-location
   description: Longitude and latitude.
   example: '{ "lon": -73.614830, "lat": 45.505918 }'
   flat_name: source.geo.location
@@ -5115,7 +5138,7 @@ source.geo.location:
   short: Longitude and latitude.
   type: geo_point
 source.geo.name:
-  dashed_name: geo-name
+  dashed_name: source-geo-name
   description: 'User-defined description of a location, at the level of granularity
     they care about.
 
@@ -5133,7 +5156,7 @@ source.geo.name:
   short: User-defined description of a location.
   type: keyword
 source.geo.region_iso_code:
-  dashed_name: geo-region-iso-code
+  dashed_name: source-geo-region-iso-code
   description: Region ISO code.
   example: CA-QC
   flat_name: source.geo.region_iso_code
@@ -5145,7 +5168,7 @@ source.geo.region_iso_code:
   short: Region ISO code.
   type: keyword
 source.geo.region_name:
-  dashed_name: geo-region-name
+  dashed_name: source-geo-region-name
   description: Region name.
   example: Quebec
   flat_name: source.geo.region_name
@@ -5257,7 +5280,7 @@ source.top_level_domain:
   short: The effective top level domain (com, org, net, co.uk).
   type: keyword
 source.user.domain:
-  dashed_name: user-domain
+  dashed_name: source-user-domain
   description: 'Name of the directory the user is a member of.
 
     For example, an LDAP or Active Directory domain name.'
@@ -5270,7 +5293,7 @@ source.user.domain:
   short: Name of the directory the user is a member of.
   type: keyword
 source.user.email:
-  dashed_name: user-email
+  dashed_name: source-user-email
   description: User email address.
   flat_name: source.user.email
   ignore_above: 1024
@@ -5281,14 +5304,14 @@ source.user.email:
   short: User email address.
   type: keyword
 source.user.full_name:
-  dashed_name: user-full-name
+  dashed_name: source-user-full-name
   description: User's full name, if available.
   example: Albert Einstein
   flat_name: source.user.full_name
   ignore_above: 1024
   level: extended
   multi_fields:
-  - flat_name: user.full_name.text
+  - flat_name: source.user.full_name.text
     name: text
     norms: false
     type: text
@@ -5298,7 +5321,7 @@ source.user.full_name:
   short: User's full name, if available.
   type: keyword
 source.user.group.domain:
-  dashed_name: group-domain
+  dashed_name: source-user-group-domain
   description: 'Name of the directory the group is a member of.
 
     For example, an LDAP or Active Directory domain name.'
@@ -5307,33 +5330,33 @@ source.user.group.domain:
   level: extended
   name: domain
   order: 2
-  original_fieldset: user
+  original_fieldset: group
   short: Name of the directory the group is a member of.
   type: keyword
 source.user.group.id:
-  dashed_name: group-id
+  dashed_name: source-user-group-id
   description: Unique identifier for the group on the system/platform.
   flat_name: source.user.group.id
   ignore_above: 1024
   level: extended
   name: id
   order: 0
-  original_fieldset: user
+  original_fieldset: group
   short: Unique identifier for the group on the system/platform.
   type: keyword
 source.user.group.name:
-  dashed_name: group-name
+  dashed_name: source-user-group-name
   description: Name of the group.
   flat_name: source.user.group.name
   ignore_above: 1024
   level: extended
   name: name
   order: 1
-  original_fieldset: user
+  original_fieldset: group
   short: Name of the group.
   type: keyword
 source.user.hash:
-  dashed_name: user-hash
+  dashed_name: source-user-hash
   description: 'Unique user hash to correlate information for a user in anonymized
     form.
 
@@ -5348,7 +5371,7 @@ source.user.hash:
   short: Unique user hash to correlate information for a user in anonymized form.
   type: keyword
 source.user.id:
-  dashed_name: user-id
+  dashed_name: source-user-id
   description: One or multiple unique identifiers of the user.
   flat_name: source.user.id
   ignore_above: 1024
@@ -5359,14 +5382,14 @@ source.user.id:
   short: One or multiple unique identifiers of the user.
   type: keyword
 source.user.name:
-  dashed_name: user-name
+  dashed_name: source-user-name
   description: Short name or login of the user.
   example: albert
   flat_name: source.user.name
   ignore_above: 1024
   level: core
   multi_fields:
-  - flat_name: user.name.text
+  - flat_name: source.user.name.text
     name: text
     norms: false
     type: text
@@ -6082,6 +6105,7 @@ user.domain:
   level: extended
   name: domain
   order: 5
+  original_fieldset: user
   short: Name of the directory the user is a member of.
   type: keyword
 user.email:
@@ -6092,6 +6116,7 @@ user.email:
   level: extended
   name: email
   order: 3
+  original_fieldset: user
   short: User email address.
   type: keyword
 user.full_name:
@@ -6108,10 +6133,11 @@ user.full_name:
     type: text
   name: full_name
   order: 2
+  original_fieldset: user
   short: User's full name, if available.
   type: keyword
 user.group.domain:
-  dashed_name: group-domain
+  dashed_name: user-group-domain
   description: 'Name of the directory the group is a member of.
 
     For example, an LDAP or Active Directory domain name.'
@@ -6124,7 +6150,7 @@ user.group.domain:
   short: Name of the directory the group is a member of.
   type: keyword
 user.group.id:
-  dashed_name: group-id
+  dashed_name: user-group-id
   description: Unique identifier for the group on the system/platform.
   flat_name: user.group.id
   ignore_above: 1024
@@ -6135,7 +6161,7 @@ user.group.id:
   short: Unique identifier for the group on the system/platform.
   type: keyword
 user.group.name:
-  dashed_name: group-name
+  dashed_name: user-group-name
   description: Name of the group.
   flat_name: user.group.name
   ignore_above: 1024
@@ -6157,6 +6183,7 @@ user.hash:
   level: extended
   name: hash
   order: 4
+  original_fieldset: user
   short: Unique user hash to correlate information for a user in anonymized form.
   type: keyword
 user.id:
@@ -6167,6 +6194,7 @@ user.id:
   level: core
   name: id
   order: 0
+  original_fieldset: user
   short: One or multiple unique identifiers of the user.
   type: keyword
 user.name:
@@ -6183,6 +6211,7 @@ user.name:
     type: text
   name: name
   order: 1
+  original_fieldset: user
   short: Short name or login of the user.
   type: keyword
 user_agent.device.name:
@@ -6225,7 +6254,7 @@ user_agent.original:
   short: Unparsed user_agent string.
   type: keyword
 user_agent.os.family:
-  dashed_name: os-family
+  dashed_name: user-agent-os-family
   description: OS family (such as redhat, debian, freebsd, windows).
   example: debian
   flat_name: user_agent.os.family
@@ -6237,14 +6266,14 @@ user_agent.os.family:
   short: OS family (such as redhat, debian, freebsd, windows).
   type: keyword
 user_agent.os.full:
-  dashed_name: os-full
+  dashed_name: user-agent-os-full
   description: Operating system name, including the version or code name.
   example: Mac OS Mojave
   flat_name: user_agent.os.full
   ignore_above: 1024
   level: extended
   multi_fields:
-  - flat_name: os.full.text
+  - flat_name: user_agent.os.full.text
     name: text
     norms: false
     type: text
@@ -6254,7 +6283,7 @@ user_agent.os.full:
   short: Operating system name, including the version or code name.
   type: keyword
 user_agent.os.kernel:
-  dashed_name: os-kernel
+  dashed_name: user-agent-os-kernel
   description: Operating system kernel version as a raw string.
   example: 4.4.0-112-generic
   flat_name: user_agent.os.kernel
@@ -6266,14 +6295,14 @@ user_agent.os.kernel:
   short: Operating system kernel version as a raw string.
   type: keyword
 user_agent.os.name:
-  dashed_name: os-name
+  dashed_name: user-agent-os-name
   description: Operating system name, without the version.
   example: Mac OS X
   flat_name: user_agent.os.name
   ignore_above: 1024
   level: extended
   multi_fields:
-  - flat_name: os.name.text
+  - flat_name: user_agent.os.name.text
     name: text
     norms: false
     type: text
@@ -6283,7 +6312,7 @@ user_agent.os.name:
   short: Operating system name, without the version.
   type: keyword
 user_agent.os.platform:
-  dashed_name: os-platform
+  dashed_name: user-agent-os-platform
   description: Operating system platform (such centos, ubuntu, windows).
   example: darwin
   flat_name: user_agent.os.platform
@@ -6295,7 +6324,7 @@ user_agent.os.platform:
   short: Operating system platform (such centos, ubuntu, windows).
   type: keyword
 user_agent.os.version:
-  dashed_name: os-version
+  dashed_name: user-agent-os-version
   description: Operating system version as a raw string.
   example: 10.14.1
   flat_name: user_agent.os.version

@@ -34,6 +34,7 @@ Thanks, you're awesome :-) -->
 #### Improvements
 
 * ECS scripts now use Python 3.6+. #674
+* schema_reader.py now reliably supports chaining reusable fieldsets together. #722
 
 #### Deprecated
 
