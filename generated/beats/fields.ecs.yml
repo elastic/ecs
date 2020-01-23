@@ -692,6 +692,29 @@
         default_field: false
       description: Short name or login of the user.
       example: albert
+  - name: dll
+    title: DLL (Dynamically Linked Library)
+    group: 2
+    description: These fields contain information about dynamically loaded libraries
+      and may include both kernel-mode modules and process modules.
+    type: group
+    fields:
+    - name: name
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the library.
+
+        This generally maps to the name of the file on disk.'
+      example: kernel32.dll
+      default_field: false
+    - name: path
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Full file path of the library.
+      example: C:\Windows\System32\kernel32.dll
+      default_field: false
   - name: dns
     title: DNS
     group: 2
@@ -1775,29 +1798,6 @@
       ignore_above: 1024
       description: HTTP version.
       example: 1.1
-  - name: lib
-    title: Shared Library
-    group: 2
-    description: These fields contain information about dynamic or static code libraries,
-      including both kernel-mode modules, and process modules.
-    type: group
-    fields:
-    - name: name
-      level: core
-      type: keyword
-      ignore_above: 1024
-      description: 'Name of the library.
-
-        This generally maps to the name of the file on disk.'
-      example: kernel32.dll
-      default_field: false
-    - name: path
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Full file path of the library.
-      example: C:\Windows\System32\kernel32.dll
-      default_field: false
   - name: log
     title: Log
     group: 2

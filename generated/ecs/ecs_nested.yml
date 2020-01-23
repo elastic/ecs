@@ -1190,6 +1190,41 @@ destination:
   short: Fields about the destination side of a network connection, used with source.
   title: Destination
   type: group
+dll:
+  description: These fields contain information about dynamically loaded libraries
+    and may include both kernel-mode modules and process modules.
+  fields:
+    name:
+      dashed_name: dll-name
+      description: 'Name of the library.
+
+        This generally maps to the name of the file on disk.'
+      example: kernel32.dll
+      flat_name: dll.name
+      ignore_above: 1024
+      level: core
+      name: name
+      order: 0
+      short: Name of the library.
+      type: keyword
+    path:
+      dashed_name: dll-path
+      description: Full file path of the library.
+      example: C:\Windows\System32\kernel32.dll
+      flat_name: dll.path
+      ignore_above: 1024
+      level: extended
+      name: path
+      order: 1
+      short: Full file path of the library.
+      type: keyword
+  group: 2
+  name: dll
+  prefix: dll.
+  short: These fields contain information about dynamically loaded libraries and may
+    include both kernel-mode modules and process modules.
+  title: DLL (Dynamically Linked Library)
+  type: group
 dns:
   description: 'Fields describing DNS queries and answers.
 
@@ -3262,41 +3297,6 @@ http:
   prefix: http.
   short: Fields describing an HTTP request.
   title: HTTP
-  type: group
-lib:
-  description: These fields contain information about dynamic or static code libraries,
-    including both kernel-mode modules, and process modules.
-  fields:
-    name:
-      dashed_name: lib-name
-      description: 'Name of the library.
-
-        This generally maps to the name of the file on disk.'
-      example: kernel32.dll
-      flat_name: lib.name
-      ignore_above: 1024
-      level: core
-      name: name
-      order: 0
-      short: Name of the library.
-      type: keyword
-    path:
-      dashed_name: lib-path
-      description: Full file path of the library.
-      example: C:\Windows\System32\kernel32.dll
-      flat_name: lib.path
-      ignore_above: 1024
-      level: extended
-      name: path
-      order: 1
-      short: Full file path of the library.
-      type: keyword
-  group: 2
-  name: lib
-  prefix: lib.
-  short: These fields contain information about dynamic or static code libraries,
-    including both kernel-mode modules, and process modules.
-  title: Shared Library
   type: group
 log:
   description: 'Details about the event''s logging mechanism or logging transport.
