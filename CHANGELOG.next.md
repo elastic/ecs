@@ -17,9 +17,9 @@ Thanks, you're awesome :-) -->
 #### Added
 * Added `library.*` fields (#679)
 
-* Add default `text` analyzer to `user_agent.original`. #575
-
 #### Improvements
+
+* Temporary workaround for Beats templates' `default_field` growing too big. #687
 
 #### Deprecated
 
@@ -30,11 +30,12 @@ Thanks, you're awesome :-) -->
 
 #### Bugfixes
 
-* Fix support for multi-fields. #575
-
 #### Added
 
 #### Improvements
+
+* ECS scripts now use Python 3.6+. #674
+* schema_reader.py now reliably supports chaining reusable fieldsets together. #722
 
 #### Deprecated
 

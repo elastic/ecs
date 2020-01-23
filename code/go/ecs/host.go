@@ -61,7 +61,7 @@ type Host struct {
 
 	// Name of the domain of which the host is a member.
 	// For example, on Windows this could be the host's Active Directory domain
-	// or NetBIOS domain name.  For Linux this could be the domain of the
-	// host's LDAP provider.
+	// or NetBIOS domain name. For Linux this could be the domain of the host's
+	// LDAP provider.
 	Domain string `ecs:"domain"`
 }

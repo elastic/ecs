@@ -65,12 +65,12 @@ class TestECSHelpers(unittest.TestCase):
 
         result = ecs_helpers.safe_merge_dicts(a, b)
 
-        self.assertEquals(result,
-                          {
-                              'cloud': {'group': 2, 'name': 'cloud'},
-                              'agent': {'group': 2, 'name': 'agent'},
-                              'base': {'group': 1, 'name': 'base'}
-                          })
+        self.assertEqual(result,
+                         {
+                             'cloud': {'group': 2, 'name': 'cloud'},
+                             'agent': {'group': 2, 'name': 'agent'},
+                             'base': {'group': 1, 'name': 'base'}
+                         })
 
     def test_merge_dicts_raises_if_duplicate_key_added(self):
         a = {'cloud': {'group': 2, 'name': 'cloud'}}
@@ -78,6 +78,11 @@ class TestECSHelpers(unittest.TestCase):
 
         with self.assertRaises(ValueError):
             ecs_helpers.safe_merge_dicts(a, b)
+
+    def test_list_slit_by(self):
+        lst = ['ecs', 'has', 'a', 'meme', 'now']
+        split_list = ecs_helpers.list_split_by(lst, 3)
+        self.assertEqual(split_list, [['ecs', 'has', 'a'], ['meme', 'now']])
 
 
 if __name__ == '__main__':
