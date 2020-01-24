@@ -16,6 +16,8 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
+* Fieldset for PE metadata. #731
+
 #### Improvements
 
 * Temporary workaround for Beats templates' `default_field` growing too big. #687
