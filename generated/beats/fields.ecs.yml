@@ -429,6 +429,55 @@
       ignore_above: 1024
       description: Region in which this host is running.
       example: us-east-1
+  - name: code_signature
+    title: Code Signature
+    group: 2
+    description: These fields contain information about binary code signatures.
+    type: group
+    fields:
+    - name: exists
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      format: core
+      description: 'Boolean to capture if a signature is present.
+
+        This should only populated if the signature was checked.'
+      example: true
+      default_field: false
+    - name: status
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      format: string
+      description: 'Additional information about the certificate status.
+
+        This is useful for logging cryptographic errors with the certificate validity
+        or trust status.'
+      example: ERROR_UNTRUSTED_ROOT
+      default_field: false
+    - name: subject_name
+      level: core
+      type: keyword
+      ignore_above: 1024
+      format: string
+      description: Subject name of the code signer
+      example: Microsoft Corporation
+      default_field: false
+    - name: trusted
+      level: extended
+      type: boolean
+      format: core
+      description: Stores the trust status of the certificate chain.
+      example: true
+      default_field: false
+    - name: valid
+      level: core
+      type: boolean
+      description: Boolean to capture if the digital signature is verified against
+        the binary content.
+      example: true
+      default_field: false
   - name: container
     title: Container
     group: 2
@@ -1195,6 +1244,49 @@
         that are expected in this field: archive, compressed, directory, encrypted,
         execute, hidden, read, readonly, system, write.'
       example: '["readonly", "system"]'
+      default_field: false
+    - name: code_signature.exists
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      format: core
+      description: 'Boolean to capture if a signature is present.
+
+        This should only populated if the signature was checked.'
+      example: true
+      default_field: false
+    - name: code_signature.status
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      format: string
+      description: 'Additional information about the certificate status.
+
+        This is useful for logging cryptographic errors with the certificate validity
+        or trust status.'
+      example: ERROR_UNTRUSTED_ROOT
+      default_field: false
+    - name: code_signature.subject_name
+      level: core
+      type: keyword
+      ignore_above: 1024
+      format: string
+      description: Subject name of the code signer
+      example: Microsoft Corporation
+      default_field: false
+    - name: code_signature.trusted
+      level: extended
+      type: boolean
+      format: core
+      description: Stores the trust status of the certificate chain.
+      example: true
+      default_field: false
+    - name: code_signature.valid
+      level: core
+      type: boolean
+      description: Boolean to capture if the digital signature is verified against
+        the binary content.
+      example: true
       default_field: false
     - name: created
       level: extended
@@ -2380,6 +2472,49 @@
         many arguments were provided to start a process. More arguments may be an
         indication of suspicious activity.'
       example: 4
+      default_field: false
+    - name: code_signature.exists
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      format: core
+      description: 'Boolean to capture if a signature is present.
+
+        This should only populated if the signature was checked.'
+      example: true
+      default_field: false
+    - name: code_signature.status
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      format: string
+      description: 'Additional information about the certificate status.
+
+        This is useful for logging cryptographic errors with the certificate validity
+        or trust status.'
+      example: ERROR_UNTRUSTED_ROOT
+      default_field: false
+    - name: code_signature.subject_name
+      level: core
+      type: keyword
+      ignore_above: 1024
+      format: string
+      description: Subject name of the code signer
+      example: Microsoft Corporation
+      default_field: false
+    - name: code_signature.trusted
+      level: extended
+      type: boolean
+      format: core
+      description: Stores the trust status of the certificate chain.
+      example: true
+      default_field: false
+    - name: code_signature.valid
+      level: core
+      type: boolean
+      description: Boolean to capture if the digital signature is verified against
+        the binary content.
+      example: true
       default_field: false
     - name: command_line
       level: extended

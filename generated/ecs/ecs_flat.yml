@@ -582,6 +582,75 @@ cloud.region:
   order: 2
   short: Region in which this host is running.
   type: keyword
+code_signature.exists:
+  dashed_name: code-signature-exists
+  description: 'Boolean to capture if a signature is present.
+
+    This should only populated if the signature was checked.'
+  example: true
+  flat_name: code_signature.exists
+  format: core
+  ignore_above: 1024
+  level: extended
+  name: exists
+  order: 2
+  original_fieldset: code_signature
+  short: Boolean to capture if a signature is present.
+  type: keyword
+code_signature.status:
+  dashed_name: code-signature-status
+  description: 'Additional information about the certificate status.
+
+    This is useful for logging cryptographic errors with the certificate validity
+    or trust status.'
+  example: ERROR_UNTRUSTED_ROOT
+  flat_name: code_signature.status
+  format: string
+  ignore_above: 1024
+  level: extended
+  name: status
+  order: 4
+  original_fieldset: code_signature
+  short: Additional information about the certificate status.
+  type: keyword
+code_signature.subject_name:
+  dashed_name: code-signature-subject-name
+  description: Subject name of the code signer
+  example: Microsoft Corporation
+  flat_name: code_signature.subject_name
+  format: string
+  ignore_above: 1024
+  level: core
+  name: subject_name
+  order: 0
+  original_fieldset: code_signature
+  short: Subject name of the code signer
+  type: keyword
+code_signature.trusted:
+  dashed_name: code-signature-trusted
+  description: Stores the trust status of the certificate chain.
+  example: true
+  flat_name: code_signature.trusted
+  format: core
+  level: extended
+  name: trusted
+  order: 3
+  original_fieldset: code_signature
+  short: Stores the trust status of the certificate chain.
+  type: boolean
+code_signature.valid:
+  dashed_name: code-signature-valid
+  description: Boolean to capture if the digital signature is verified against the
+    binary content.
+  example: true
+  flat_name: code_signature.valid
+  level: core
+  name: valid
+  order: 1
+  original_fieldset: code_signature
+  short: Boolean to capture if the digital signature is verified against the binary
+    content.
+  type: boolean
 container.id:
   dashed_name: container-id
   description: Unique container id.
@@ -1983,6 +2052,75 @@ file.attributes:
   order: 1
   short: Array of file attributes.
   type: keyword
+file.code_signature.exists:
+  dashed_name: file-code-signature-exists
+  description: 'Boolean to capture if a signature is present.
+
+    This should only populated if the signature was checked.'
+  example: true
+  flat_name: file.code_signature.exists
+  format: core
+  ignore_above: 1024
+  level: extended
+  name: exists
+  order: 2
+  original_fieldset: code_signature
+  short: Boolean to capture if a signature is present.
+  type: keyword
+file.code_signature.status:
+  dashed_name: file-code-signature-status
+  description: 'Additional information about the certificate status.
+
+    This is useful for logging cryptographic errors with the certificate validity
+    or trust status.'
+  example: ERROR_UNTRUSTED_ROOT
+  flat_name: file.code_signature.status
+  format: string
+  ignore_above: 1024
+  level: extended
+  name: status
+  order: 4
+  original_fieldset: code_signature
+  short: Additional information about the certificate status.
+  type: keyword
+file.code_signature.subject_name:
+  dashed_name: file-code-signature-subject-name
+  description: Subject name of the code signer
+  example: Microsoft Corporation
+  flat_name: file.code_signature.subject_name
+  format: string
+  ignore_above: 1024
+  level: core
+  name: subject_name
+  order: 0
+  original_fieldset: code_signature
+  short: Subject name of the code signer
+  type: keyword
+file.code_signature.trusted:
+  dashed_name: file-code-signature-trusted
+  description: Stores the trust status of the certificate chain.
+  example: true
+  flat_name: file.code_signature.trusted
+  format: core
+  level: extended
+  name: trusted
+  order: 3
+  original_fieldset: code_signature
+  short: Stores the trust status of the certificate chain.
+  type: boolean
+file.code_signature.valid:
+  dashed_name: file-code-signature-valid
+  description: Boolean to capture if the digital signature is verified against the
+    binary content.
+  example: true
+  flat_name: file.code_signature.valid
+  level: core
+  name: valid
+  order: 1
+  original_fieldset: code_signature
+  short: Boolean to capture if the digital signature is verified against the binary
+    content.
+  type: boolean
 file.created:
   dashed_name: file-created
   description: 'File creation time.
@@ -3875,6 +4013,75 @@ process.args_count:
   order: 12
   short: Length of the process.args array.
   type: long
+process.code_signature.exists:
+  dashed_name: process-code-signature-exists
+  description: 'Boolean to capture if a signature is present.
+
+    This should only populated if the signature was checked.'
+  example: true
+  flat_name: process.code_signature.exists
+  format: core
+  ignore_above: 1024
+  level: extended
+  name: exists
+  order: 2
+  original_fieldset: code_signature
+  short: Boolean to capture if a signature is present.
+  type: keyword
+process.code_signature.status:
+  dashed_name: process-code-signature-status
+  description: 'Additional information about the certificate status.
+
+    This is useful for logging cryptographic errors with the certificate validity
+    or trust status.'
+  example: ERROR_UNTRUSTED_ROOT
+  flat_name: process.code_signature.status
+  format: string
+  ignore_above: 1024
+  level: extended
+  name: status
+  order: 4
+  original_fieldset: code_signature
+  short: Additional information about the certificate status.
+  type: keyword
+process.code_signature.subject_name:
+  dashed_name: process-code-signature-subject-name
+  description: Subject name of the code signer
+  example: Microsoft Corporation
+  flat_name: process.code_signature.subject_name
+  format: string
+  ignore_above: 1024
+  level: core
+  name: subject_name
+  order: 0
+  original_fieldset: code_signature
+  short: Subject name of the code signer
+  type: keyword
+process.code_signature.trusted:
+  dashed_name: process-code-signature-trusted
+  description: Stores the trust status of the certificate chain.
+  example: true
+  flat_name: process.code_signature.trusted
+  format: core
+  level: extended
+  name: trusted
+  order: 3
+  original_fieldset: code_signature
+  short: Stores the trust status of the certificate chain.
+  type: boolean
+process.code_signature.valid:
+  dashed_name: process-code-signature-valid
+  description: Boolean to capture if the digital signature is verified against the
+    binary content.
+  example: true
+  flat_name: process.code_signature.valid
+  level: core
+  name: valid
+  order: 1
+  original_fieldset: code_signature
+  short: Boolean to capture if the digital signature is verified against the binary
+    content.
+  type: boolean
 process.command_line:
   dashed_name: process-command-line
   description: 'Full command line that started the process, including the absolute

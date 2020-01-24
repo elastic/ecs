@@ -489,6 +489,89 @@ example: `us-east-1`
 
 |=====
 
+[[ecs-code_signature]]
+=== Code Signature Fields
+
+These fields contain information about binary code signatures.
+
+==== Code Signature Field Details
+
+[options="header"]
+|=====
+| Field  | Description | Level
+
+// ===============================================================
+
+| code_signature.exists
+| Boolean to capture if a signature is present.
+
+This should only populated if the signature was checked.
+
+type: keyword
+
+example: `True`
+
+| extended
+
+// ===============================================================
+
+| code_signature.status
+| Additional information about the certificate status.
+
+This is useful for logging cryptographic errors with the certificate validity or trust status.
+
+type: keyword
+
+example: `ERROR_UNTRUSTED_ROOT`
+
+| extended
+
+// ===============================================================
+
+| code_signature.subject_name
+| Subject name of the code signer
+
+type: keyword
+
+example: `Microsoft Corporation`
+
+| core
+
+// ===============================================================
+
+| code_signature.trusted
+| Stores the trust status of the certificate chain.
+
+type: boolean
+
+example: `True`
+
+| extended
+
+// ===============================================================
+
+| code_signature.valid
+| Boolean to capture if the digital signature is verified against the binary content.
+
+type: boolean
+
+example: `True`
+
+| core
+
+// ===============================================================
+
+|=====
+
+==== Field Reuse
+
+The `code_signature` fields are expected to be nested at: `file.code_signature`, `process.code_signature`.
+
+Note also that the `code_signature` fields are not expected to be used directly at the top level.
+
+
+
+
 [[ecs-container]]
 === Container Fields
 
@@ -1715,6 +1798,12 @@ example: `1001`
 [options="header"]
 |=====
 | Nested fields | Description
+
+// ===============================================================
+
+
+| <<ecs-code_signature,file.code_signature.*>>
+| These fields contain information about binary code signatures.
 
 // ===============================================================
 
@@ -3517,6 +3606,12 @@ example: `/home/alice`
 [options="header"]
 |=====
 | Nested fields | Description
+
+// ===============================================================
+
+
+| <<ecs-code_signature,process.code_signature.*>>
+| These fields contain information about binary code signatures.
 
 // ===============================================================
 

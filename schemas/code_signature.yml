@@ -1,0 +1,59 @@
+---
+- name: code_signature
+  title: Code Signature
+  group: 2
+  description: These fields contain information about binary code signatures.
+  type: group
+  reusable:
+    top_level: false
+    expected:
+      - file
+      - process
+      # - dll
+      # - driver
+  fields:
+
+    - name: subject_name
+      format: string
+      level: core
+      type: keyword
+      description: Subject name of the code signer
+      example: Microsoft Corporation
+
+
+    - name: valid
+      level: core
+      type: boolean
+      description: Boolean to capture if the digital signature is verified against the binary content.
+      example: true
+
+
+    - name: exists
+      format: core
+      level: extended
+      type: keyword
+      short: Boolean to capture if a signature is present.
+      description: >
+        Boolean to capture if a signature is present.
+
+        This should only populated if the signature was checked.
+      example: true
+
+    - name: trusted
+      format: core
+      level: extended
+      type: boolean
+      description: Stores the trust status of the certificate chain.
+      example: true
+
+
+    - name: status
+      format: string
+      level: extended
+      type: keyword
+      short: Additional information about the certificate status.
+      description: >
+        Additional information about the certificate status.
+
+        This is useful for logging cryptographic errors with the certificate validity or trust status.
+      example: ERROR_UNTRUSTED_ROOT
