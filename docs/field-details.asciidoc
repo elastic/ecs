@@ -635,6 +635,17 @@ type: ip
 
 // ===============================================================
 
+| destination.ip.network_prefix
+| Count of the number of high-order bits that define an IPv4 or IPv6 network address in a destination network.
+
+type: long
+
+
+
+| core
+
+// ===============================================================
+
 | destination.mac
 | MAC address of the destination.
 
@@ -689,6 +700,19 @@ example: `12`
 type: long
 
 
+
+| core
+
+// ===============================================================
+
+| destination.port_name
+| Text description for commonly used ports, e.g. dns, http, https, smtp.
+
+The field value must be normalized to lowercase for querying. See the documentation section "Implementing ECS".
+
+type: keyword
+
+example: `http`
 
 | core
 
@@ -2471,6 +2495,17 @@ example: `aim`
 
 // ===============================================================
 
+| network.bit_rate
+| Calculated by dividing the total number of bits transferred during an arbitrary period of time by that period of time. By convention, this would likely be presented in bps (bits per second).
+
+type: float
+
+
+
+| core
+
+// ===============================================================
+
 | network.bytes
 | Total bytes transferred in both directions.
 
@@ -2479,6 +2514,17 @@ If `source.bytes` and `destination.bytes` are known, `network.bytes` is their su
 type: long
 
 example: `368`
+
+| core
+
+// ===============================================================
+
+| network.class_of_service
+| In the case of IPv4 packets this would correspond to the TOS (Type of Service) field. In the case of IPv6 packets this would correspond to the Traffic Class field.
+
+type: long
+
+
 
 | core
 
@@ -2526,12 +2572,67 @@ example: `inbound`
 
 // ===============================================================
 
+| network.dot1q_ctag
+| The customer VLAN identifier in the C-TAG (Customer VLAN Tag) TCI (Tag Control Information) field as defined in IEEE 802.1Q. This could be the VLAN's numeric identifier or text description.
+
+type: keyword
+
+
+
+| core
+
+// ===============================================================
+
+| network.dot1q_vlan
+| The VLAN identifier portion of the TCI (Tag Control Information) field of an Ethernet frame as defined in IEEE 802.1Q. This could be the VLAN's numeric identifier or text description.
+
+type: keyword
+
+
+
+| core
+
+// ===============================================================
+
+| network.egress_interface
+| From the observation point of a network event, the network interface from which frames or packets were transmitted. For example, in the case of a switch or router this might be the port name (e.g. eth0, ge-0/1,  GigabitEthernet0/0, etc.), port description, or SNMP ifIndex (e.g. 501).
+
+type: keyword
+
+
+
+| core
+
+// ===============================================================
+
+| network.egress_vlan
+| From the observation point of a network event, the VLAN in which the frame was transmitted. This could be the VLAN's numeric identifier or text description.
+
+type: keyword
+
+
+
+| core
+
+// ===============================================================
+
 | network.forwarded_ip
 | Host IP address when the source IP address is the proxy.
 
 type: ip
 
 example: `192.1.1.2`
+
+| core
+
+// ===============================================================
+
+| network.fragment_identification
+| The value of the fragment identification field from an IPv4 or IPv6 packet header.
+
+type: long
+
+
 
 | core
 
@@ -2548,6 +2649,39 @@ example: `6`
 
 // ===============================================================
 
+| network.icmp_type_code
+| This could be represented using a numeric value or a text description. For example, an ICMP echo request would have "type = 8" and "code = 0", which could be represented as "0x0800" or "ICMP Echo".
+
+type: keyword
+
+
+
+| core
+
+// ===============================================================
+
+| network.ingress_interface
+| From the observation point of a network event, the network interface into which frames or packets were received. For example, in the case of a switch or router this might be the port name (e.g. eth0, ge-0/1,  GigabitEthernet0/0, etc.), port description, or SNMP ifIndex (e.g. 501).
+
+type: keyword
+
+
+
+| core
+
+// ===============================================================
+
+| network.ingress_vlan
+| From the observation point of a network event, the VLAN in which the frame was received. This could be the VLAN's numeric identifier or text description.
+
+type: keyword
+
+
+
+| core
+
+// ===============================================================
+
 | network.name
 | Name given by operators to sections of their network.
 
@@ -2556,6 +2690,17 @@ type: keyword
 example: `Guest Wifi`
 
 | extended
+
+// ===============================================================
+
+| network.packet_rate
+| Calculated by dividing the total number of packets transferred during an arbitrary period of time by that period of time. By convention, this would likely be presented in pps (packets per second).
+
+type: float
+
+
+
+| core
 
 // ===============================================================
 
@@ -2580,6 +2725,17 @@ The field value must be normalized to lowercase for querying. See the documentat
 type: keyword
 
 example: `http`
+
+| core
+
+// ===============================================================
+
+| network.tcp_control_bits
+| This could be represented using a numeric value or text description. For example, a TCP syncrhonize flag could be represented as "0x0002" or "SYN".
+
+type: keyword
+
+
 
 | core
 
@@ -4150,6 +4306,17 @@ type: ip
 
 // ===============================================================
 
+| source.ip.network_prefix
+| Count of the number of high-order bits that define an IPv4 or IPv6 network address in a source network.
+
+type: long
+
+
+
+| core
+
+// ===============================================================
+
 | source.mac
 | MAC address of the source.
 
@@ -4204,6 +4371,19 @@ example: `12`
 type: long
 
 
+
+| core
+
+// ===============================================================
+
+| source.port_name
+| Text description for commonly used ports, e.g. dns, http, https, smtp.
+
+The field value must be normalized to lowercase for querying. See the documentation section "Implementing ECS".
+
+type: keyword
+
+example: `http`
 
 | core
 

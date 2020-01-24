@@ -33,8 +33,17 @@ type Destination struct {
 	// Can be one or multiple IPv4 or IPv6 addresses.
 	IP string `ecs:"ip"`
 
+	// Count of the number of high-order bits that define an IPv4 or IPv6
+	// network address in a destination network.
+	IPNetworkPrefix int64 `ecs:"ip.network_prefix"`
+
 	// Port of the destination.
 	Port int64 `ecs:"port"`
+
+	// Text description for commonly used ports, e.g. dns, http, https, smtp.
+	// The field value must be normalized to lowercase for querying. See the
+	// documentation section "Implementing ECS".
+	PortName string `ecs:"port_name"`
 
 	// MAC address of the destination.
 	MAC string `ecs:"mac"`

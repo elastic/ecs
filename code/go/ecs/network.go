@@ -27,11 +27,31 @@ type Network struct {
 	// Name given by operators to sections of their network.
 	Name string `ecs:"name"`
 
+	// The customer VLAN identifier in the C-TAG (Customer VLAN Tag) TCI (Tag
+	// Control Information) field as defined in IEEE 802.1Q. This could be the
+	// VLAN's numeric identifier or text description.
+	Dot1qCtag string `ecs:"dot1q_ctag"`
+
+	// The VLAN identifier portion of the TCI (Tag Control Information) field
+	// of an Ethernet frame as defined in IEEE 802.1Q. This could be the VLAN's
+	// numeric identifier or text description.
+	Dot1qVlan string `ecs:"dot1q_vlan"`
+
 	// In the OSI Model this would be the Network Layer. ipv4, ipv6, ipsec,
 	// pim, etc
 	// The field value must be normalized to lowercase for querying. See the
 	// documentation section "Implementing ECS".
 	Type string `ecs:"type"`
+
+	// In the case of IPv4 packets this would correspond to the TOS (Type of
+	// Service) field. In the case of IPv6 packets this would correspond to the
+	// Traffic Class field.
+	ClassOfService int64 `ecs:"class_of_service"`
+
+	// This could be represented using a numeric value or a text description.
+	// For example, an ICMP echo request would have "type = 8" and "code = 0",
+	// which could be represented as "0x0800" or "ICMP Echo".
+	IcmpTypeCode string `ecs:"icmp_type_code"`
 
 	// IANA Protocol Number
 	// (https://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml).
@@ -44,6 +64,15 @@ type Network struct {
 	// The field value must be normalized to lowercase for querying. See the
 	// documentation section "Implementing ECS".
 	Transport string `ecs:"transport"`
+
+	// The value of the fragment identification field from an IPv4 or IPv6
+	// packet header.
+	FragmentIdentification int64 `ecs:"fragment_identification"`
+
+	// This could be represented using a numeric value or text description. For
+	// example, a TCP syncrhonize flag could be represented as "0x0002" or
+	// "SYN".
+	TcpControlBits string `ecs:"tcp_control_bits"`
 
 	// A name given to an application level protocol. This can be arbitrarily
 	// assigned for things like microservices, but also apply to things like
@@ -74,6 +103,28 @@ type Network struct {
 	// perimeter.
 	Direction string `ecs:"direction"`
 
+	// From the observation point of a network event, the network interface
+	// from which frames or packets were transmitted. For example, in the case
+	// of a switch or router this might be the port name (e.g. eth0, ge-0/1,
+	// GigabitEthernet0/0, etc.), port description, or SNMP ifIndex (e.g. 501).
+	EgressInterface string `ecs:"egress_interface"`
+
+	// From the observation point of a network event, the VLAN in which the
+	// frame was transmitted. This could be the VLAN's numeric identifier or
+	// text description.
+	EgressVlan string `ecs:"egress_vlan"`
+
+	// From the observation point of a network event, the network interface
+	// into which frames or packets were received. For example, in the case of
+	// a switch or router this might be the port name (e.g. eth0, ge-0/1,
+	// GigabitEthernet0/0, etc.), port description, or SNMP ifIndex (e.g. 501).
+	IngressInterface string `ecs:"ingress_interface"`
+
+	// From the observation point of a network event, the VLAN in which the
+	// frame was received. This could be the VLAN's numeric identifier or text
+	// description.
+	IngressVlan string `ecs:"ingress_vlan"`
+
 	// Host IP address when the source IP address is the proxy.
 	ForwardedIP string `ecs:"forwarded_ip"`
 
@@ -88,8 +139,18 @@ type Network struct {
 	// their sum.
 	Bytes int64 `ecs:"bytes"`
 
+	// Calculated by dividing the total number of bits transferred during an
+	// arbitrary period of time by that period of time. By convention, this
+	// would likely be presented in bps (bits per second).
+	BitRate float64 `ecs:"bit_rate"`
+
 	// Total packets transferred in both directions.
 	// If `source.packets` and `destination.packets` are known,
 	// `network.packets` is their sum.
 	Packets int64 `ecs:"packets"`
+
+	// Calculated by dividing the total number of packets transferred during an
+	// arbitrary period of time by that period of time. By convention, this
+	// would likely be presented in pps (packets per second).
+	PacketRate float64 `ecs:"packet_rate"`
 }

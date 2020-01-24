@@ -574,6 +574,12 @@
       description: 'IP address of the destination.
 
         Can be one or multiple IPv4 or IPv6 addresses.'
+    - name: ip.network_prefix
+      level: core
+      type: long
+      description: Count of the number of high-order bits that define an IPv4 or IPv6
+        network address in a destination network.
+      default_field: false
     - name: mac
       level: core
       type: keyword
@@ -603,6 +609,17 @@
       type: long
       format: string
       description: Port of the destination.
+    - name: port_name
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: 'Text description for commonly used ports, e.g. dns, http, https,
+        smtp.
+
+        The field value must be normalized to lowercase for querying. See the documentation
+        section "Implementing ECS".'
+      example: http
+      default_field: false
     - name: registered_domain
       level: extended
       type: keyword
@@ -1915,6 +1932,13 @@
         The field value must be normalized to lowercase for querying. See the documentation
         section "Implementing ECS".'
       example: aim
+    - name: bit_rate
+      level: core
+      type: float
+      description: Calculated by dividing the total number of bits transferred during
+        an arbitrary period of time by that period of time. By convention, this would
+        likely be presented in bps (bits per second).
+      default_field: false
     - name: bytes
       level: core
       type: long
@@ -1924,6 +1948,13 @@
         If `source.bytes` and `destination.bytes` are known, `network.bytes` is their
         sum.'
       example: 368
+    - name: class_of_service
+      level: core
+      type: long
+      description: In the case of IPv4 packets this would correspond to the TOS (Type
+        of Service) field. In the case of IPv6 packets this would correspond to the
+        Traffic Class field.
+      default_field: false
     - name: community_id
       level: extended
       type: keyword
@@ -1945,11 +1976,50 @@
         \ monitoring context, populate this field from the point of view of your network\
         \ perimeter."
       example: inbound
+    - name: dot1q_ctag
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: The customer VLAN identifier in the C-TAG (Customer VLAN Tag) TCI
+        (Tag Control Information) field as defined in IEEE 802.1Q. This could be the
+        VLAN's numeric identifier or text description.
+      default_field: false
+    - name: dot1q_vlan
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: The VLAN identifier portion of the TCI (Tag Control Information)
+        field of an Ethernet frame as defined in IEEE 802.1Q. This could be the VLAN's
+        numeric identifier or text description.
+      default_field: false
+    - name: egress_interface
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: From the observation point of a network event, the network interface
+        from which frames or packets were transmitted. For example, in the case of
+        a switch or router this might be the port name (e.g. eth0, ge-0/1,  GigabitEthernet0/0,
+        etc.), port description, or SNMP ifIndex (e.g. 501).
+      default_field: false
+    - name: egress_vlan
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: From the observation point of a network event, the VLAN in which
+        the frame was transmitted. This could be the VLAN's numeric identifier or
+        text description.
+      default_field: false
     - name: forwarded_ip
       level: core
       type: ip
       description: Host IP address when the source IP address is the proxy.
       example: 192.1.1.2
+    - name: fragment_identification
+      level: core
+      type: long
+      description: The value of the fragment identification field from an IPv4 or
+        IPv6 packet header.
+      default_field: false
     - name: iana_number
       level: extended
       type: keyword
@@ -1958,12 +2028,44 @@
         Standardized list of protocols. This aligns well with NetFlow and sFlow related
         logs which use the IANA Protocol Number.
       example: 6
+    - name: icmp_type_code
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: This could be represented using a numeric value or a text description.
+        For example, an ICMP echo request would have "type = 8" and "code = 0", which
+        could be represented as "0x0800" or "ICMP Echo".
+      default_field: false
+    - name: ingress_interface
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: From the observation point of a network event, the network interface
+        into which frames or packets were received. For example, in the case of a
+        switch or router this might be the port name (e.g. eth0, ge-0/1,  GigabitEthernet0/0,
+        etc.), port description, or SNMP ifIndex (e.g. 501).
+      default_field: false
+    - name: ingress_vlan
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: From the observation point of a network event, the VLAN in which
+        the frame was received. This could be the VLAN's numeric identifier or text
+        description.
+      default_field: false
     - name: name
       level: extended
       type: keyword
       ignore_above: 1024
       description: Name given by operators to sections of their network.
       example: Guest Wifi
+    - name: packet_rate
+      level: core
+      type: float
+      description: Calculated by dividing the total number of packets transferred
+        during an arbitrary period of time by that period of time. By convention,
+        this would likely be presented in pps (packets per second).
+      default_field: false
     - name: packets
       level: core
       type: long
@@ -1981,6 +2083,13 @@
         The field value must be normalized to lowercase for querying. See the documentation
         section "Implementing ECS".'
       example: http
+    - name: tcp_control_bits
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: This could be represented using a numeric value or text description.
+        For example, a TCP syncrhonize flag could be represented as "0x0002" or "SYN".
+      default_field: false
     - name: transport
       level: core
       type: keyword
@@ -3257,6 +3366,12 @@
       description: 'IP address of the source.
 
         Can be one or multiple IPv4 or IPv6 addresses.'
+    - name: ip.network_prefix
+      level: core
+      type: long
+      description: Count of the number of high-order bits that define an IPv4 or IPv6
+        network address in a source network.
+      default_field: false
     - name: mac
       level: core
       type: keyword
@@ -3287,6 +3402,17 @@
       type: long
       format: string
       description: Port of the source.
+    - name: port_name
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: 'Text description for commonly used ports, e.g. dns, http, https,
+        smtp.
+
+        The field value must be normalized to lowercase for querying. See the documentation
+        section "Implementing ECS".'
+      example: http
+      default_field: false
     - name: registered_domain
       level: extended
       type: keyword

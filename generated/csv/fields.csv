@@ -72,11 +72,13 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Example,Description
 1.5.0-dev,true,destination,destination.geo.region_iso_code,keyword,core,CA-QC,Region ISO code.
 1.5.0-dev,true,destination,destination.geo.region_name,keyword,core,Quebec,Region name.
 1.5.0-dev,true,destination,destination.ip,ip,core,,IP address of the destination.
+1.5.0-dev,true,destination,destination.ip.network_prefix,long,core,,Network prefix bits of the destination IP address.
 1.5.0-dev,true,destination,destination.mac,keyword,core,,MAC address of the destination.
 1.5.0-dev,true,destination,destination.nat.ip,ip,extended,,Destination NAT ip
 1.5.0-dev,true,destination,destination.nat.port,long,extended,,Destination NAT Port
 1.5.0-dev,true,destination,destination.packets,long,core,12,Packets sent from the destination to the source.
 1.5.0-dev,true,destination,destination.port,long,core,,Port of the destination.
+1.5.0-dev,true,destination,destination.port_name,keyword,core,http,Text description for a destination port.
 1.5.0-dev,true,destination,destination.registered_domain,keyword,extended,google.com,"The highest registered destination domain, stripped of the subdomain."
 1.5.0-dev,true,destination,destination.top_level_domain,keyword,extended,co.uk,"The effective top level domain (com, org, net, co.uk)."
 1.5.0-dev,true,destination,destination.user.domain,keyword,extended,,Name of the directory the user is a member of.
@@ -239,14 +241,26 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Example,Description
 1.5.0-dev,true,log,log.syslog.severity.code,long,extended,3,Syslog numeric severity of the event.
 1.5.0-dev,true,log,log.syslog.severity.name,keyword,extended,Error,Syslog text-based severity of the event.
 1.5.0-dev,true,network,network.application,keyword,extended,aim,Application level protocol name.
+1.5.0-dev,true,network,network.bit_rate,float,core,,Calculated network throughput in bits per some time period.
 1.5.0-dev,true,network,network.bytes,long,core,368,Total bytes transferred in both directions.
+1.5.0-dev,true,network,network.class_of_service,long,core,,Classification value for IP packets.
 1.5.0-dev,true,network,network.community_id,keyword,extended,1:hO+sN4H+MG5MY/8hIrXPqc4ZQz0=,A hash of source and destination IPs and ports.
 1.5.0-dev,true,network,network.direction,keyword,core,inbound,Direction of the network traffic.
+1.5.0-dev,true,network,network.dot1q_ctag,keyword,core,,The customer VLAN identifier in the C-TAG (Customer VLAN Tag) TCI (Tag Control Information) field as defined in IEEE 802.1Q. This could be the VLAN's numeric identifier or text description.
+1.5.0-dev,true,network,network.dot1q_vlan,keyword,core,,The VLAN identifier portion of the TCI (Tag Control Information) field of an Ethernet frame as defined in IEEE 802.1Q. This could be the VLAN's numeric identifier or text description.
+1.5.0-dev,true,network,network.egress_interface,keyword,core,,Network interface from which frames or packets exited.
+1.5.0-dev,true,network,network.egress_vlan,keyword,core,,VLAN in which frames exited the observer.
 1.5.0-dev,true,network,network.forwarded_ip,ip,core,192.1.1.2,Host IP address when the source IP address is the proxy.
+1.5.0-dev,true,network,network.fragment_identification,long,core,,The value of the fragment identification field from an IPv4 or IPv6 packet header.
 1.5.0-dev,true,network,network.iana_number,keyword,extended,6,IANA Protocol Number.
+1.5.0-dev,true,network,network.icmp_type_code,keyword,core,,Type and code of an IPv4 ICMP messages.
+1.5.0-dev,true,network,network.ingress_interface,keyword,core,,Network interface into which frames or packets entered.
+1.5.0-dev,true,network,network.ingress_vlan,keyword,core,,VLAN in which frames entered the observer.
 1.5.0-dev,true,network,network.name,keyword,extended,Guest Wifi,Name given by operators to sections of their network.
+1.5.0-dev,true,network,network.packet_rate,float,core,,Calculated network throughput in packets per some time period.
 1.5.0-dev,true,network,network.packets,long,core,24,Total packets transferred in both directions.
 1.5.0-dev,true,network,network.protocol,keyword,core,http,L7 Network protocol name.
+1.5.0-dev,true,network,network.tcp_control_bits,keyword,core,,Control bits set in the TCP header.
 1.5.0-dev,true,network,network.transport,keyword,core,tcp,Protocol Name corresponding to the field `iana_number`.
 1.5.0-dev,true,network,network.type,keyword,core,ipv4,"In the OSI Model this would be the Network Layer. ipv4, ipv6, ipsec, pim, etc"
 1.5.0-dev,true,observer,observer.geo.city_name,keyword,core,Montreal,City name.
@@ -415,11 +429,13 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Example,Description
 1.5.0-dev,true,source,source.geo.region_iso_code,keyword,core,CA-QC,Region ISO code.
 1.5.0-dev,true,source,source.geo.region_name,keyword,core,Quebec,Region name.
 1.5.0-dev,true,source,source.ip,ip,core,,IP address of the source.
+1.5.0-dev,true,source,source.ip.network_prefix,long,core,,Network prefix bits of the source IP address.
 1.5.0-dev,true,source,source.mac,keyword,core,,MAC address of the source.
 1.5.0-dev,true,source,source.nat.ip,ip,extended,,Source NAT ip
 1.5.0-dev,true,source,source.nat.port,long,extended,,Source NAT port
 1.5.0-dev,true,source,source.packets,long,core,12,Packets sent from the source to the destination.
 1.5.0-dev,true,source,source.port,long,core,,Port of the source.
+1.5.0-dev,true,source,source.port_name,keyword,core,http,Text description for a source port.
 1.5.0-dev,true,source,source.registered_domain,keyword,extended,google.com,"The highest registered source domain, stripped of the subdomain."
 1.5.0-dev,true,source,source.top_level_domain,keyword,extended,co.uk,"The effective top level domain (com, org, net, co.uk)."
 1.5.0-dev,true,source,source.user.domain,keyword,extended,,Name of the directory the user is a member of.

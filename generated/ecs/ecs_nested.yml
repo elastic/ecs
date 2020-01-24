@@ -848,7 +848,7 @@ destination:
       format: bytes
       level: core
       name: bytes
-      order: 7
+      order: 9
       short: Bytes sent from the destination to the source.
       type: long
     domain:
@@ -858,7 +858,7 @@ destination:
       ignore_above: 1024
       level: core
       name: domain
-      order: 4
+      order: 6
       short: Destination domain.
       type: keyword
     geo.city_name:
@@ -973,6 +973,16 @@ destination:
       order: 1
       short: IP address of the destination.
       type: ip
+    ip.network_prefix:
+      dashed_name: destination-ip-network-prefix
+      description: Count of the number of high-order bits that define an IPv4 or IPv6
+        network address in a destination network.
+      flat_name: destination.ip.network_prefix
+      level: core
+      name: ip.network_prefix
+      order: 2
+      short: Network prefix bits of the destination IP address.
+      type: long
     mac:
       dashed_name: destination-mac
       description: MAC address of the destination.
@@ -980,7 +990,7 @@ destination:
       ignore_above: 1024
       level: core
       name: mac
-      order: 3
+      order: 5
       short: MAC address of the destination.
       type: keyword
     nat.ip:
@@ -992,7 +1002,7 @@ destination:
       flat_name: destination.nat.ip
       level: extended
       name: nat.ip
-      order: 9
+      order: 11
       short: Destination NAT ip
       type: ip
     nat.port:
@@ -1004,7 +1014,7 @@ destination:
       format: string
       level: extended
       name: nat.port
-      order: 10
+      order: 12
       short: Destination NAT Port
       type: long
     packets:
@@ -1014,7 +1024,7 @@ destination:
       flat_name: destination.packets
       level: core
       name: packets
-      order: 8
+      order: 10
       short: Packets sent from the destination to the source.
       type: long
     port:
@@ -1024,9 +1034,24 @@ destination:
       format: string
       level: core
       name: port
-      order: 2
+      order: 3
       short: Port of the destination.
       type: long
+    port_name:
+      dashed_name: destination-port-name
+      description: 'Text description for commonly used ports, e.g. dns, http, https,
+        smtp.
+
+        The field value must be normalized to lowercase for querying. See the documentation
+        section "Implementing ECS".'
+      example: http
+      flat_name: destination.port_name
+      ignore_above: 1024
+      level: core
+      name: port_name
+      order: 4
+      short: Text description for a destination port.
+      type: keyword
     registered_domain:
       dashed_name: destination-registered-domain
       description: 'The highest registered destination domain, stripped of the subdomain.
@@ -1041,7 +1066,7 @@ destination:
       ignore_above: 1024
       level: extended
       name: registered_domain
-      order: 5
+      order: 7
       short: The highest registered destination domain, stripped of the subdomain.
       type: keyword
     top_level_domain:
@@ -1058,7 +1083,7 @@ destination:
       ignore_above: 1024
       level: extended
       name: top_level_domain
-      order: 6
+      order: 8
       short: The effective top level domain (com, org, net, co.uk).
       type: keyword
     user.domain:
@@ -3467,9 +3492,20 @@ network:
       ignore_above: 1024
       level: extended
       name: application
-      order: 4
+      order: 10
       short: Application level protocol name.
       type: keyword
+    bit_rate:
+      dashed_name: network-bit-rate
+      description: Calculated by dividing the total number of bits transferred during
+        an arbitrary period of time by that period of time. By convention, this would
+        likely be presented in bps (bits per second).
+      flat_name: network.bit_rate
+      level: core
+      name: bit_rate
+      order: 20
+      short: Calculated network throughput in bits per some time period.
+      type: float
     bytes:
       dashed_name: network-bytes
       description: 'Total bytes transferred in both directions.
@@ -3481,8 +3517,19 @@ network:
       format: bytes
       level: core
       name: bytes
-      order: 9
+      order: 19
       short: Total bytes transferred in both directions.
+      type: long
+    class_of_service:
+      dashed_name: network-class-of-service
+      description: In the case of IPv4 packets this would correspond to the TOS (Type
+        of Service) field. In the case of IPv6 packets this would correspond to the
+        Traffic Class field.
+      flat_name: network.class_of_service
+      level: core
+      name: class_of_service
+      order: 4
+      short: Classification value for IP packets.
       type: long
     community_id:
       dashed_name: network-community-id
@@ -3496,7 +3543,7 @@ network:
       ignore_above: 1024
       level: extended
       name: community_id
-      order: 8
+      order: 18
       short: A hash of source and destination IPs and ports.
       type: keyword
     direction:
@@ -3512,8 +3559,61 @@ network:
       ignore_above: 1024
       level: core
       name: direction
-      order: 6
+      order: 12
       short: Direction of the network traffic.
+      type: keyword
+    dot1q_ctag:
+      dashed_name: network-dot1q-ctag
+      description: The customer VLAN identifier in the C-TAG (Customer VLAN Tag) TCI
+        (Tag Control Information) field as defined in IEEE 802.1Q. This could be the
+        VLAN's numeric identifier or text description.
+      flat_name: network.dot1q_ctag
+      ignore_above: 1024
+      level: core
+      name: dot1q_ctag
+      order: 1
+      short: The customer VLAN identifier in the C-TAG (Customer VLAN Tag) TCI (Tag
+        Control Information) field as defined in IEEE 802.1Q. This could be the VLAN's
+        numeric identifier or text description.
+      type: keyword
+    dot1q_vlan:
+      dashed_name: network-dot1q-vlan
+      description: The VLAN identifier portion of the TCI (Tag Control Information)
+        field of an Ethernet frame as defined in IEEE 802.1Q. This could be the VLAN's
+        numeric identifier or text description.
+      flat_name: network.dot1q_vlan
+      ignore_above: 1024
+      level: core
+      name: dot1q_vlan
+      order: 2
+      short: The VLAN identifier portion of the TCI (Tag Control Information) field
+        of an Ethernet frame as defined in IEEE 802.1Q. This could be the VLAN's numeric
+        identifier or text description.
+      type: keyword
+    egress_interface:
+      dashed_name: network-egress-interface
+      description: From the observation point of a network event, the network interface
+        from which frames or packets were transmitted. For example, in the case of
+        a switch or router this might be the port name (e.g. eth0, ge-0/1,  GigabitEthernet0/0,
+        etc.), port description, or SNMP ifIndex (e.g. 501).
+      flat_name: network.egress_interface
+      ignore_above: 1024
+      level: core
+      name: egress_interface
+      order: 13
+      short: Network interface from which frames or packets exited.
+      type: keyword
+    egress_vlan:
+      dashed_name: network-egress-vlan
+      description: From the observation point of a network event, the VLAN in which
+        the frame was transmitted. This could be the VLAN's numeric identifier or
+        text description.
+      flat_name: network.egress_vlan
+      ignore_above: 1024
+      level: core
+      name: egress_vlan
+      order: 14
+      short: VLAN in which frames exited the observer.
       type: keyword
     forwarded_ip:
       dashed_name: network-forwarded-ip
@@ -3522,9 +3622,20 @@ network:
       flat_name: network.forwarded_ip
       level: core
       name: forwarded_ip
-      order: 7
+      order: 17
       short: Host IP address when the source IP address is the proxy.
       type: ip
+    fragment_identification:
+      dashed_name: network-fragment-identification
+      description: The value of the fragment identification field from an IPv4 or
+        IPv6 packet header.
+      flat_name: network.fragment_identification
+      level: core
+      name: fragment_identification
+      order: 8
+      short: The value of the fragment identification field from an IPv4 or IPv6 packet
+        header.
+      type: long
     iana_number:
       dashed_name: network-iana-number
       description: IANA Protocol Number (https://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml).
@@ -3535,8 +3646,45 @@ network:
       ignore_above: 1024
       level: extended
       name: iana_number
-      order: 2
+      order: 6
       short: IANA Protocol Number.
+      type: keyword
+    icmp_type_code:
+      dashed_name: network-icmp-type-code
+      description: This could be represented using a numeric value or a text description.
+        For example, an ICMP echo request would have "type = 8" and "code = 0", which
+        could be represented as "0x0800" or "ICMP Echo".
+      flat_name: network.icmp_type_code
+      ignore_above: 1024
+      level: core
+      name: icmp_type_code
+      order: 5
+      short: Type and code of an IPv4 ICMP messages.
+      type: keyword
+    ingress_interface:
+      dashed_name: network-ingress-interface
+      description: From the observation point of a network event, the network interface
+        into which frames or packets were received. For example, in the case of a
+        switch or router this might be the port name (e.g. eth0, ge-0/1,  GigabitEthernet0/0,
+        etc.), port description, or SNMP ifIndex (e.g. 501).
+      flat_name: network.ingress_interface
+      ignore_above: 1024
+      level: core
+      name: ingress_interface
+      order: 15
+      short: Network interface into which frames or packets entered.
+      type: keyword
+    ingress_vlan:
+      dashed_name: network-ingress-vlan
+      description: From the observation point of a network event, the VLAN in which
+        the frame was received. This could be the VLAN's numeric identifier or text
+        description.
+      flat_name: network.ingress_vlan
+      ignore_above: 1024
+      level: core
+      name: ingress_vlan
+      order: 16
+      short: VLAN in which frames entered the observer.
       type: keyword
     name:
       dashed_name: network-name
@@ -3549,6 +3697,17 @@ network:
       order: 0
       short: Name given by operators to sections of their network.
       type: keyword
+    packet_rate:
+      dashed_name: network-packet-rate
+      description: Calculated by dividing the total number of packets transferred
+        during an arbitrary period of time by that period of time. By convention,
+        this would likely be presented in pps (packets per second).
+      flat_name: network.packet_rate
+      level: core
+      name: packet_rate
+      order: 22
+      short: Calculated network throughput in packets per some time period.
+      type: float
     packets:
       dashed_name: network-packets
       description: 'Total packets transferred in both directions.
@@ -3559,7 +3718,7 @@ network:
       flat_name: network.packets
       level: core
       name: packets
-      order: 10
+      order: 21
       short: Total packets transferred in both directions.
       type: long
     protocol:
@@ -3573,8 +3732,19 @@ network:
       ignore_above: 1024
       level: core
       name: protocol
-      order: 5
+      order: 11
       short: L7 Network protocol name.
+      type: keyword
+    tcp_control_bits:
+      dashed_name: network-tcp-control-bits
+      description: This could be represented using a numeric value or text description.
+        For example, a TCP syncrhonize flag could be represented as "0x0002" or "SYN".
+      flat_name: network.tcp_control_bits
+      ignore_above: 1024
+      level: core
+      name: tcp_control_bits
+      order: 9
+      short: Control bits set in the TCP header.
       type: keyword
     transport:
       dashed_name: network-transport
@@ -3588,7 +3758,7 @@ network:
       ignore_above: 1024
       level: core
       name: transport
-      order: 3
+      order: 7
       short: Protocol Name corresponding to the field `iana_number`.
       type: keyword
     type:
@@ -3603,7 +3773,7 @@ network:
       ignore_above: 1024
       level: core
       name: type
-      order: 1
+      order: 3
       short: In the OSI Model this would be the Network Layer. ipv4, ipv6, ipsec,
         pim, etc
       type: keyword
@@ -5537,7 +5707,7 @@ source:
       format: bytes
       level: core
       name: bytes
-      order: 7
+      order: 9
       short: Bytes sent from the source to the destination.
       type: long
     domain:
@@ -5547,7 +5717,7 @@ source:
       ignore_above: 1024
       level: core
       name: domain
-      order: 4
+      order: 6
       short: Source domain.
       type: keyword
     geo.city_name:
@@ -5662,6 +5832,16 @@ source:
       order: 1
       short: IP address of the source.
       type: ip
+    ip.network_prefix:
+      dashed_name: source-ip-network-prefix
+      description: Count of the number of high-order bits that define an IPv4 or IPv6
+        network address in a source network.
+      flat_name: source.ip.network_prefix
+      level: core
+      name: ip.network_prefix
+      order: 2
+      short: Network prefix bits of the source IP address.
+      type: long
     mac:
       dashed_name: source-mac
       description: MAC address of the source.
@@ -5669,7 +5849,7 @@ source:
       ignore_above: 1024
       level: core
       name: mac
-      order: 3
+      order: 5
       short: MAC address of the source.
       type: keyword
     nat.ip:
@@ -5681,7 +5861,7 @@ source:
       flat_name: source.nat.ip
       level: extended
       name: nat.ip
-      order: 9
+      order: 11
       short: Source NAT ip
       type: ip
     nat.port:
@@ -5694,7 +5874,7 @@ source:
       format: string
       level: extended
       name: nat.port
-      order: 10
+      order: 12
       short: Source NAT port
       type: long
     packets:
@@ -5704,7 +5884,7 @@ source:
       flat_name: source.packets
       level: core
       name: packets
-      order: 8
+      order: 10
       short: Packets sent from the source to the destination.
       type: long
     port:
@@ -5714,9 +5894,24 @@ source:
       format: string
       level: core
       name: port
-      order: 2
+      order: 3
       short: Port of the source.
       type: long
+    port_name:
+      dashed_name: source-port-name
+      description: 'Text description for commonly used ports, e.g. dns, http, https,
+        smtp.
+
+        The field value must be normalized to lowercase for querying. See the documentation
+        section "Implementing ECS".'
+      example: http
+      flat_name: source.port_name
+      ignore_above: 1024
+      level: core
+      name: port_name
+      order: 4
+      short: Text description for a source port.
+      type: keyword
     registered_domain:
       dashed_name: source-registered-domain
       description: 'The highest registered source domain, stripped of the subdomain.
@@ -5731,7 +5926,7 @@ source:
       ignore_above: 1024
       level: extended
       name: registered_domain
-      order: 5
+      order: 7
       short: The highest registered source domain, stripped of the subdomain.
       type: keyword
     top_level_domain:
@@ -5748,7 +5943,7 @@ source:
       ignore_above: 1024
       level: extended
       name: top_level_domain
-      order: 6
+      order: 8
       short: The effective top level domain (com, org, net, co.uk).
       type: keyword
     user.domain:

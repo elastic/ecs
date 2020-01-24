@@ -17,6 +17,22 @@
         Name given by operators to sections of their network.
       example: Guest Wifi
 
+    - name: dot1q_ctag
+      level: core
+      type: keyword
+      description: >
+        The customer VLAN identifier in the C-TAG (Customer VLAN Tag) TCI (Tag
+        Control Information) field as defined in IEEE 802.1Q. This could be the
+        VLAN's numeric identifier or text description. 
+
+    - name: dot1q_vlan
+      level: core
+      type: keyword
+      description: >
+        The VLAN identifier portion of the TCI (Tag Control Information) field
+        of an Ethernet frame as defined in IEEE 802.1Q. This could be the VLAN's
+        numeric identifier or text description. 
+
     - name: type
       level: core
       type: keyword
@@ -27,6 +43,24 @@
         The field value must be normalized to lowercase for querying. See
         the documentation section "Implementing ECS".
       example: ipv4
+
+    - name: class_of_service
+      level: core
+      type: long
+      short: Classification value for IP packets.
+      description: >
+        In the case of IPv4 packets this would correspond to the TOS (Type of
+        Service) field. In the case of IPv6 packets this would correspond to
+        the Traffic Class field.
+
+    - name: icmp_type_code
+      level: core
+      type: keyword
+      short: Type and code of an IPv4 ICMP messages.
+      description: >
+        This could be represented using a numeric value or a text description.
+        For example, an ICMP echo request would have "type = 8" and "code = 0",
+        which could be represented as "0x0800" or "ICMP Echo".
 
     - name: iana_number
       level: extended
@@ -49,6 +83,22 @@
         The field value must be normalized to lowercase for querying. See
         the documentation section "Implementing ECS".
       example: tcp
+
+    - name: fragment_identification
+      level: core
+      type: long
+      description: >
+        The value of the fragment identification field from an IPv4 or IPv6
+        packet header.
+
+    - name: tcp_control_bits
+      level: core
+      type: keyword
+      short: Control bits set in the TCP header.
+      description: >
+        This could be represented using a numeric value or text description.
+        For example, a TCP syncrhonize flag could be represented as "0x0002" or
+        "SYN".
 
     - name: application
       level: extended
@@ -98,6 +148,44 @@
         populate this field from the point of view of your network perimeter.
       example: inbound
 
+    - name: egress_interface
+      level: core
+      type: keyword
+      short: Network interface from which frames or packets exited.
+      description: >
+        From the observation point of a network event, the network interface
+        from which frames or packets were transmitted. For example, in the case
+        of a switch or router this might be the port name (e.g. eth0, ge-0/1, 
+        GigabitEthernet0/0, etc.), port description, or SNMP ifIndex (e.g. 501).
+
+    - name: egress_vlan
+      level: core
+      type: keyword
+      short: VLAN in which frames exited the observer.
+      description: >
+        From the observation point of a network event, the VLAN in which the
+        frame was transmitted. This could be the VLAN's numeric identifier or
+        text description. 
+
+    - name: ingress_interface
+      level: core
+      type: keyword
+      short: Network interface into which frames or packets entered.
+      description: >
+        From the observation point of a network event, the network interface
+        into which frames or packets were received. For example, in the case
+        of a switch or router this might be the port name (e.g. eth0, ge-0/1, 
+        GigabitEthernet0/0, etc.), port description, or SNMP ifIndex (e.g. 501).
+
+    - name: ingress_vlan
+      level: core
+      type: keyword
+      short: VLAN in which frames entered the observer.
+      description: >
+        From the observation point of a network event, the VLAN in which the
+        frame was received. This could be the VLAN's numeric identifier or
+        text description. 
+
     - name: forwarded_ip
       level: core
       type: ip
@@ -129,6 +217,15 @@
         If `source.bytes` and `destination.bytes` are known, `network.bytes` is their sum.
       example: 368
 
+    - name: bit_rate
+      level: core
+      type: float
+      short: Calculated network throughput in bits per some time period.
+      description: >
+        Calculated by dividing the total number of bits transferred during an
+        arbitrary period of time by that period of time. By convention, this
+        would likely be presented in bps (bits per second).
+
     - name: packets
       level: core
       type: long
@@ -138,3 +235,12 @@
 
         If `source.packets` and `destination.packets` are known, `network.packets` is their sum.
       example: 24
+
+    - name: packet_rate
+      level: core
+      type: float
+      short: Calculated network throughput in packets per some time period.
+      description: >
+        Calculated by dividing the total number of packets transferred during an
+        arbitrary period of time by that period of time. By convention, this
+        would likely be presented in pps (packets per second).

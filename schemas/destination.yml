@@ -31,12 +31,30 @@
 
         Can be one or multiple IPv4 or IPv6 addresses.
 
+    - name: ip.network_prefix
+      level: core
+      type: long
+      short: Network prefix bits of the destination IP address.
+      description: Count of the number of high-order bits that define an IPv4
+        or IPv6 network address in a destination network.
+
     - name: port
       format: string
       level: core
       type: long
       description: >
         Port of the destination.
+
+    - name: port_name
+      level: core
+      type: keyword
+      short: Text description for a destination port.
+      description: >
+        Text description for commonly used ports, e.g. dns, http, https, smtp.
+
+        The field value must be normalized to lowercase for querying.
+        See the documentation section "Implementing ECS".
+      example: http
 
     - name: mac
       level: core
