@@ -1310,6 +1310,45 @@
       description: Full path to the file, including the file name. It should include
         the drive letter, when appropriate.
       example: /home/alice/example.png
+    - name: pe.company
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      format: string
+      description: Internal company name of the file, provided at compile-time.
+      example: Microsoft Corporation
+      default_field: false
+    - name: pe.description
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      format: string
+      description: Internal description of the file, provided at compile-time.
+      example: Paint
+      default_field: false
+    - name: pe.file_version
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Internal version of the file, provided at compile-time.
+      example: 6.3.9600.17415
+      default_field: false
+    - name: pe.original_file_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      format: string
+      description: Internal name of the file, provided at compile-time.
+      example: MSPAINT.EXE
+      default_field: false
+    - name: pe.product
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      format: string
+      description: Internal product name of the file, provided at compile-time.
+      example: "Microsoft\xAE Windows\xAE Operating System"
+      default_field: false
     - name: size
       level: extended
       type: long
@@ -2348,6 +2387,51 @@
       ignore_above: 1024
       description: Package version
       example: 1.12.9
+  - name: pe
+    title: PE Header
+    group: 2
+    description: These fields contain Windows PE (Portable Executable) metadata.
+    type: group
+    fields:
+    - name: company
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      format: string
+      description: Internal company name of the file, provided at compile-time.
+      example: Microsoft Corporation
+      default_field: false
+    - name: description
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      format: string
+      description: Internal description of the file, provided at compile-time.
+      example: Paint
+      default_field: false
+    - name: file_version
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Internal version of the file, provided at compile-time.
+      example: 6.3.9600.17415
+      default_field: false
+    - name: original_file_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      format: string
+      description: Internal name of the file, provided at compile-time.
+      example: MSPAINT.EXE
+      default_field: false
+    - name: product
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      format: string
+      description: Internal product name of the file, provided at compile-time.
+      example: "Microsoft\xAE Windows\xAE Operating System"
+      default_field: false
   - name: process
     title: Process
     group: 2
@@ -2587,6 +2671,45 @@
         norms: false
       description: The working directory of the process.
       example: /home/alice
+      default_field: false
+    - name: pe.company
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      format: string
+      description: Internal company name of the file, provided at compile-time.
+      example: Microsoft Corporation
+      default_field: false
+    - name: pe.description
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      format: string
+      description: Internal description of the file, provided at compile-time.
+      example: Paint
+      default_field: false
+    - name: pe.file_version
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Internal version of the file, provided at compile-time.
+      example: 6.3.9600.17415
+      default_field: false
+    - name: pe.original_file_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      format: string
+      description: Internal name of the file, provided at compile-time.
+      example: MSPAINT.EXE
+      default_field: false
+    - name: pe.product
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      format: string
+      description: Internal product name of the file, provided at compile-time.
+      example: "Microsoft\xAE Windows\xAE Operating System"
       default_field: false
     - name: pgid
       level: extended

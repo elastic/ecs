@@ -2426,6 +2426,70 @@ file:
       order: 4
       short: Full path to the file, including the file name.
       type: keyword
+    pe.company:
+      dashed_name: file-pe-company
+      description: Internal company name of the file, provided at compile-time.
+      example: Microsoft Corporation
+      flat_name: file.pe.company
+      format: string
+      ignore_above: 1024
+      level: extended
+      name: company
+      order: 4
+      original_fieldset: pe
+      short: Internal company name of the file, provided at compile-time.
+      type: keyword
+    pe.description:
+      dashed_name: file-pe-description
+      description: Internal description of the file, provided at compile-time.
+      example: Paint
+      flat_name: file.pe.description
+      format: string
+      ignore_above: 1024
+      level: extended
+      name: description
+      order: 2
+      original_fieldset: pe
+      short: Internal description of the file, provided at compile-time.
+      type: keyword
+    pe.file_version:
+      dashed_name: file-pe-file-version
+      description: Internal version of the file, provided at compile-time.
+      example: 6.3.9600.17415
+      flat_name: file.pe.file_version
+      ignore_above: 1024
+      level: extended
+      name: file_version
+      order: 1
+      original_fieldset: pe
+      short: Process name.
+      type: keyword
+    pe.original_file_name:
+      dashed_name: file-pe-original-file-name
+      description: Internal name of the file, provided at compile-time.
+      example: MSPAINT.EXE
+      flat_name: file.pe.original_file_name
+      format: string
+      ignore_above: 1024
+      level: extended
+      name: original_file_name
+      order: 0
+      original_fieldset: pe
+      short: Internal name of the file, provided at compile-time.
+      type: keyword
+    pe.product:
+      dashed_name: file-pe-product
+      description: Internal product name of the file, provided at compile-time.
+      example: "Microsoft\xAE Windows\xAE Operating System"
+      flat_name: file.pe.product
+      format: string
+      ignore_above: 1024
+      level: extended
+      name: product
+      order: 3
+      original_fieldset: pe
+      short: Internal product name of the file, provided at compile-time.
+      type: keyword
     size:
       dashed_name: file-size
       description: 'File size in bytes.
@@ -2479,6 +2543,7 @@ file:
   name: file
   nestings:
   - hash
+  - pe
   prefix: file.
   short: Fields describing files.
   title: File
@@ -4212,6 +4277,79 @@ package:
   short: These fields contain information about an installed software package.
   title: Package
   type: group
+pe:
+  description: These fields contain Windows PE (Portable Executable) metadata.
+  fields:
+    company:
+      dashed_name: pe-company
+      description: Internal company name of the file, provided at compile-time.
+      example: Microsoft Corporation
+      flat_name: pe.company
+      format: string
+      ignore_above: 1024
+      level: extended
+      name: company
+      order: 4
+      short: Internal company name of the file, provided at compile-time.
+      type: keyword
+    description:
+      dashed_name: pe-description
+      description: Internal description of the file, provided at compile-time.
+      example: Paint
+      flat_name: pe.description
+      format: string
+      ignore_above: 1024
+      level: extended
+      name: description
+      order: 2
+      short: Internal description of the file, provided at compile-time.
+      type: keyword
+    file_version:
+      dashed_name: pe-file-version
+      description: Internal version of the file, provided at compile-time.
+      example: 6.3.9600.17415
+      flat_name: pe.file_version
+      ignore_above: 1024
+      level: extended
+      name: file_version
+      order: 1
+      short: Process name.
+      type: keyword
+    original_file_name:
+      dashed_name: pe-original-file-name
+      description: Internal name of the file, provided at compile-time.
+      example: MSPAINT.EXE
+      flat_name: pe.original_file_name
+      format: string
+      ignore_above: 1024
+      level: extended
+      name: original_file_name
+      order: 0
+      short: Internal name of the file, provided at compile-time.
+      type: keyword
+    product:
+      dashed_name: pe-product
+      description: Internal product name of the file, provided at compile-time.
+      example: "Microsoft\xAE Windows\xAE Operating System"
+      flat_name: pe.product
+      format: string
+      ignore_above: 1024
+      level: extended
+      name: product
+      order: 3
+      short: Internal product name of the file, provided at compile-time.
+      type: keyword
+  group: 2
+  name: pe
+  prefix: pe.
+  reusable:
+    expected:
+    - file
+    - process
+    top_level: false
+  short: These fields contain Windows PE (Portable Executable) metadata.
+  title: PE Header
+  type: group
 process:
   description: 'These fields contain information about a process.
 
@@ -4566,6 +4704,70 @@ process:
       order: 27
       short: The working directory of the process.
       type: keyword
+    pe.company:
+      dashed_name: process-pe-company
+      description: Internal company name of the file, provided at compile-time.
+      example: Microsoft Corporation
+      flat_name: process.pe.company
+      format: string
+      ignore_above: 1024
+      level: extended
+      name: company
+      order: 4
+      original_fieldset: pe
+      short: Internal company name of the file, provided at compile-time.
+      type: keyword
+    pe.description:
+      dashed_name: process-pe-description
+      description: Internal description of the file, provided at compile-time.
+      example: Paint
+      flat_name: process.pe.description
+      format: string
+      ignore_above: 1024
+      level: extended
+      name: description
+      order: 2
+      original_fieldset: pe
+      short: Internal description of the file, provided at compile-time.
+      type: keyword
+    pe.file_version:
+      dashed_name: process-pe-file-version
+      description: Internal version of the file, provided at compile-time.
+      example: 6.3.9600.17415
+      flat_name: process.pe.file_version
+      ignore_above: 1024
+      level: extended
+      name: file_version
+      order: 1
+      original_fieldset: pe
+      short: Process name.
+      type: keyword
+    pe.original_file_name:
+      dashed_name: process-pe-original-file-name
+      description: Internal name of the file, provided at compile-time.
+      example: MSPAINT.EXE
+      flat_name: process.pe.original_file_name
+      format: string
+      ignore_above: 1024
+      level: extended
+      name: original_file_name
+      order: 0
+      original_fieldset: pe
+      short: Internal name of the file, provided at compile-time.
+      type: keyword
+    pe.product:
+      dashed_name: process-pe-product
+      description: Internal product name of the file, provided at compile-time.
+      example: "Microsoft\xAE Windows\xAE Operating System"
+      flat_name: process.pe.product
+      format: string
+      ignore_above: 1024
+      level: extended
+      name: product
+      order: 3
+      original_fieldset: pe
+      short: Internal product name of the file, provided at compile-time.
+      type: keyword
     pgid:
       dashed_name: process-pgid
       description: Identifier of the group of processes the process belongs to.
@@ -4678,6 +4880,7 @@ process:
   name: process
   nestings:
   - hash
+  - pe
   prefix: process.
   short: These fields contain information about a process.
   title: Process
