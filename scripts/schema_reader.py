@@ -2,8 +2,32 @@ import glob
 import os
 import yaml
 import copy
+import functools
+from enum import Enum
 
 # File loading stuff
+
+
+class SchemaFileType(Enum):
+    CUSTOM = 1
+    FLAT = 2
+    NORMAL = 3
+
+
+class SchemaFileTypeException(Exception):
+    pass
+
+
+def get_file_type(schema):
+    """Return an enum representing the type of file being read."""
+    if '@timestamp' in schema:
+        # If @timestamp is in the global scope it's probably a flattened intermediate file
+        return SchemaFileType.FLAT
+    elif 'title' in schema:
+        # if title is in the global scope then it's probably a custom use-case style schema file
+        return SchemaFileType.CUSTOM
+    else:
+        return SchemaFileType.NORMAL
 
 
 def ecs_files():
@@ -12,36 +36,40 @@ def ecs_files():
     return sorted(glob.glob(schema_glob))
 
 
-def read_schema_file(file):
+def read_schema_file(raw):
     """Read a raw schema yml into a map, removing the wrapping array in each file"""
-    with open(file) as f:
-        raw = yaml.safe_load(f.read())
     fields = {}
     for field_set in raw:
         fields[field_set['name']] = field_set
     return fields
 
 
-def load_schema_files(files=ecs_files()):
+def load_schema_files(files, base_fields):
     fields_nested = {}
+    flattened_schema = []
     for f in files:
-        new_fields = read_schema_file(f)
-        fields_nested.update(new_fields)
-    return fields_nested
+        with open(f) as schema_file:
+            raw = yaml.safe_load(schema_file.read())
 
+        file_type = get_file_type(raw)
+        print('File: {} -> type: {}'.format(f, file_type))
+        if file_type is SchemaFileType.NORMAL:
+            new_fields = read_schema_file(raw)
+            fields_nested = merge_dict_overwrite(fields_nested, new_fields)
+        elif file_type is SchemaFileType.FLAT:
+            flattened_schema.append(raw)
+        elif file_type is SchemaFileType.CUSTOM:
+            fields_nested = merge_dict_overwrite(fields_nested, fixup_use_case(raw, base_fields))
+        else:
+            raise SchemaFileTypeException('Unknown file type: {}'.format(file_type))
+    final_nested, flattened = create_nested_and_flat(fields_nested)
+    flattened_schema.append(flattened)
 
-def load_use_case_files(files, base_fields):
-    fields_intermediate = {}
-    for f in files:
-        fields_intermediate = merge_dict_overwrite(fields_intermediate, read_use_case_file(f, base_fields))
+    final_flattened = {}
+    for flat_item in flattened_schema:
+        final_flattened = merge_dict_overwrite(final_flattened, flat_item)
 
-    return create_nested_and_flat(fields_intermediate)
-
-
-def read_use_case_file(path, base_fields):
-    with open(path) as f:
-        raw = yaml.safe_load(f.read())
-    return fixup_use_case(raw, base_fields)
+    return final_nested, final_flattened
 
 
 # Use case helpers
@@ -76,6 +104,8 @@ def fixup_use_case(raw, base_fields):
     :param base_fields: the base.yml file's schema
     :return: the fixed up schema so it's ready to be parsed
     """
+    if not base_fields:
+        raise Exception('The base fields must be supplied to parse use-case style schema')
     ret_fields = {}
     top_fields = raw['fields']
     collected_base_fields = {
@@ -314,7 +344,6 @@ def cleanup_fields_recursive(fields, prefix):
             cleanup_fields_recursive(field['fields'], new_prefix)
 
 
-def load_schemas(files=ecs_files()):
+def load_schemas(files=ecs_files(), base_fields=None):
     """Loads the given list of files"""
-    fields_intermediate = load_schema_files(files)
-    return create_nested_and_flat(fields_intermediate)
+    return load_schema_files(files, base_fields)
