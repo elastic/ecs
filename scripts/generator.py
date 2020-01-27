@@ -22,11 +22,10 @@ def main():
 
     # Maybe load user specified directory of schemas
     if args.include:
-        include_glob = os.path.join(args.include, '*.yml')
 
-        print('Loading user defined schemas: {0}'.format(include_glob))
+        print('Loading user defined schemas: {0}'.format(args.include))
 
-        (custom_nested, custom_flat) = schema_reader.load_schemas(sorted(glob.glob(include_glob)))
+        (custom_nested, custom_flat) = schema_reader.load_schemas(get_yaml_files(args.include))
 
         # Merge without allowing user schemas to overwrite default schemas
         nested = ecs_helpers.safe_merge_dicts(nested, custom_nested)
