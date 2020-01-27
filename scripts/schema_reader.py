@@ -235,18 +235,12 @@ def duplicate_reusable_fieldsets(schema, fields_nested):
     # which is in turn reusable in a few places.
     if 'reusable' in schema:
         for new_nesting in schema['reusable']['expected']:
-            split_flat_name = new_nesting.split('.', 1)
-            top_level = split_flat_name[0]
             # List field set names expected under another field set.
             # E.g. host.nestings = [ 'geo', 'os', 'user' ]
-            nestings = fields_nested[top_level].setdefault('nestings', [])
-            if schema['name'] not in nestings:
-                nestings.append(schema['name'])
+            nestings = fields_nested[new_nesting].setdefault('nestings', [])
+            nestings.append(schema['name'])
             nestings.sort()
-            nested_schema = fields_nested
-            for level in split_flat_name:
-                nested_schema = nested_schema[level]['fields']
-            nested_schema[schema['name']] = schema
+            fields_nested[new_nesting]['fields'][schema['name']] = schema
 
 # Main
 
@@ -300,7 +294,7 @@ def generate_fully_flattened_fields(fields_nested):
 
 def cleanup_fields_recursive(fields, prefix):
     for (name, field) in fields.items():
-        # Copy field here so reusable field sets become values instead of references to the original set
+        # Copy field here so reusable field sets become unique copies instead of references to the original set
         field = field.copy()
         fields[name] = field
         if 'field_details' in field:

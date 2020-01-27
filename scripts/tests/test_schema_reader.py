@@ -84,6 +84,172 @@ class TestSchemaReader(unittest.TestCase):
         result = schema_reader.load_schemas([])
         self.assertEqual(result, ({}, {}))
 
+    def test_flatten_fields(self):
+        fields = {
+            'top_level': {
+                'field_details': {
+                    'name': 'top_level'
+                },
+                'fields': {
+                    'nested_field': {
+                        'field_details': {
+                            'name': 'nested_field'
+                        },
+                        'fields': {
+                            'double_nested_field': {
+                                'field_details': {
+                                    'name': 'double_nested_field'
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        flat_fields = schema_reader.flatten_fields(fields, "")
+        expected = {
+            'top_level': {
+                'name': 'top_level'
+            },
+            'top_level.nested_field': {
+                'name': 'nested_field'
+            },
+            'top_level.nested_field.double_nested_field': {
+                'name': 'double_nested_field'
+            }
+        }
+        self.assertEqual(flat_fields, expected)
+
+    def test_flatten_fields_reusable(self):
+        fields = {
+            'top_level': {
+                'field_details': {
+                    'name': 'top_level'
+                },
+                'fields': {
+                    'nested_field': {
+                        'reusable': {
+                            'top_level': False,
+                            'expected': [
+                                'top_level'
+                            ]
+                        },
+                        'fields': {
+                            'double_nested_field': {
+                                'field_details': {
+                                    'name': 'double_nested_field'
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        flat_fields = schema_reader.flatten_fields(fields, "")
+        expected = {
+            'top_level': {
+                'name': 'top_level'
+            },
+            'top_level.nested_field.double_nested_field': {
+                'name': 'double_nested_field',
+                'original_fieldset': 'nested_field'
+            }
+        }
+        self.assertEqual(flat_fields, expected)
+
+    def test_cleanup_fields_recursive(self):
+        """Reuse a fieldset under two other fieldsets and check that the flat names are properly generated."""
+        reusable = {
+            'name': 'reusable_fieldset',
+            'reusable': {
+                'top_level': False,
+                'expected': [
+                    'test_fieldset'
+                ]
+            },
+            'fields': {
+                'reusable_field': {
+                    'field_details': {
+                        'name': 'reusable_field',
+                        'type': 'keyword',
+                        'description': 'A test field'
+                    }
+                }
+            }
+        }
+        fields = {
+            'base_set1': {
+                'name': 'base_set1',
+                'fields': {
+                    'reusable_fieldset': reusable
+                }
+            },
+            'base_set2': {
+                'name': 'base_set2',
+                'fields': {
+                    'reusable_fieldset': reusable
+                }
+            }
+        }
+        schema_reader.cleanup_fields_recursive(fields, "")
+        expected = {
+            'base_set1': {
+                'name': 'base_set1',
+                'fields': {
+                    'reusable_fieldset': {
+                        'name': 'reusable_fieldset',
+                        'reusable': {
+                            'top_level': False,
+                            'expected': [
+                                'test_fieldset'
+                            ]
+                        },
+                        'fields': {
+                            'reusable_field': {
+                                'field_details': {
+                                    'name': 'reusable_field',
+                                    'type': 'keyword',
+                                    'description': 'A test field',
+                                    'flat_name': 'base_set1.reusable_fieldset.reusable_field',
+                                    'dashed_name': 'base-set1-reusable-fieldset-reusable-field',
+                                    'ignore_above': 1024,
+                                    'short': 'A test field'
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            'base_set2': {
+                'name': 'base_set2',
+                'fields': {
+                    'reusable_fieldset': {
+                        'name': 'reusable_fieldset',
+                        'reusable': {
+                            'top_level': False,
+                            'expected': [
+                                'test_fieldset'
+                            ]
+                        },
+                        'fields': {
+                            'reusable_field': {
+                                'field_details': {
+                                    'name': 'reusable_field',
+                                    'type': 'keyword',
+                                    'description': 'A test field',
+                                    'flat_name': 'base_set2.reusable_fieldset.reusable_field',
+                                    'dashed_name': 'base-set2-reusable-fieldset-reusable-field',
+                                    'ignore_above': 1024,
+                                    'short': 'A test field'
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        self.assertEqual(fields, expected)
+
 
 if __name__ == '__main__':
     unittest.main()
