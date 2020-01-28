@@ -331,10 +331,17 @@ def flatten_fields(fields, key_prefix, original_fieldset=None):
         temp_original_fieldset = original_fieldset
         if 'reusable' in field:
             temp_original_fieldset = name
+        # TODO need to fix this, maybe recurse first?
         if 'field_details' in field:
             flat_fields[new_key] = field['field_details'].copy()
+            new_key_field_details = flat_fields[new_key]
             if temp_original_fieldset:
                 flat_fields[new_key]['original_fieldset'] = temp_original_fieldset
+            if 'fields' in new_key_field_details:
+                new_prefix = new_key + "."
+                if 'root' in new_key_field_details and new_key_field_details['root']:
+                    new_prefix = ""
+                flat_fields.update(flatten_fields(new_key_field_details['fields'], new_prefix, temp_original_fieldset))
         if 'fields' in field:
             new_prefix = new_key + "."
             if 'root' in field and field['root']:
@@ -359,7 +366,7 @@ def generate_fully_flattened_fields(fields_nested):
 
 
 def cleanup_fields_recursive(fields, prefix):
-    for (name, field) in fields.items():
+    for name, field in fields.items():
         # Copy field here so reusable field sets become unique copies instead of references to the original set
         field = field.copy()
         fields[name] = field
