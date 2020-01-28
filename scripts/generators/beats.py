@@ -1,10 +1,10 @@
-import yaml
+import os
 
 from collections import OrderedDict
 from generators import ecs_helpers
 
 
-def generate(ecs_nested, ecs_version):
+def generate(ecs_nested, ecs_version, out_dir):
     # Load temporary whitelist for default_fields workaround.
     df_whitelist = ecs_helpers.yaml_load('scripts/generators/beats_default_fields_whitelist.yml')
 
@@ -19,7 +19,8 @@ def generate(ecs_nested, ecs_version):
         fieldset = ecs_nested[fieldset_name]
 
         beats_field = ecs_helpers.dict_copy_keys_ordered(fieldset, allowed_fieldset_keys)
-        beats_field['fields'] = fieldset_field_array(fieldset['fields'], df_whitelist)
+        if 'fields' in fieldset:
+            beats_field['fields'] = fieldset_field_array(fieldset['fields'], df_whitelist)
         beats_fields.append(beats_field)
 
     beats_file = OrderedDict()
@@ -28,7 +29,7 @@ def generate(ecs_nested, ecs_version):
     beats_file['description'] = 'ECS Fields.'
     beats_file['fields'] = beats_fields
 
-    write_beats_yaml(beats_file, ecs_version)
+    write_beats_yaml(beats_file, ecs_version, out_dir)
 
 
 def fieldset_field_array(source_fields, df_whitelist):
@@ -65,9 +66,10 @@ def fieldset_field_array(source_fields, df_whitelist):
 # Helpers
 
 
-def write_beats_yaml(beats_file, ecs_version):
+def write_beats_yaml(beats_file, ecs_version, out_dir):
+    ecs_helpers.make_dirs(os.path.join(out_dir, 'beats'))
     warning = file_header().format(version=ecs_version)
-    ecs_helpers.yaml_dump('generated/beats/fields.ecs.yml', [beats_file], preamble=warning)
+    ecs_helpers.yaml_dump(os.path.join(out_dir, 'beats/fields.ecs.yml'), [beats_file], preamble=warning)
 
 
 # Templates

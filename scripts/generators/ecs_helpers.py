@@ -1,7 +1,17 @@
 import yaml
+import os
 
 from collections import OrderedDict
 from copy import deepcopy
+
+
+def make_dirs(path):
+    try:
+        os.makedirs(path, exist_ok=True)
+    except OSError as e:
+        print('Unable to create output directory: {}'.format(e))
+        raise e
+
 
 # Dictionary helpers
 

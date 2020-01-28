@@ -16,54 +16,73 @@ def main():
     ecs_version = read_version()
     print('Running generator. ECS version ' + ecs_version)
 
-    # Load the default schemas
-    print('Loading default schemas')
-    (nested, flat) = schema_reader.load_schemas()
+    if args.schema:
+        print('Schemas parameter: {}'.format(args.schema))
+        schemas_dir = args.schema
+    else:
+        schemas_dir = [schema_reader.ECS_CORE_DIR]
+        print('Using default schemas directory: {}'.format(schemas_dir[0]))
 
-    # Maybe load user specified directory of schemas
-    if args.include:
+    schema_files = get_glob_files(schemas_dir, ('*.yml', '*.yaml'))
+    if args.exclude:
+        print('Exclude parameter: {}'.format(args.exclude))
+        schema_files = set(schema_files) - set(get_glob_files(schemas_dir, [args.exclude]))
 
-        print('Include parameter: {}'.format(args.include))
-        custom_files = get_yaml_files(args.include)
-        if args.exclude:
-            print('Exclude parameter: {}'.format(args.exclude))
-            custom_files = set(custom_files) - set(glob.glob(os.path.join(args.include, args.exclude)))
+    print('Loading schema files: [{}]'.format(', '.join(schema_files)))
+    if args.validate:
+        print('Validating against ecs core')
+        ecs_core_files = get_glob_files([schema_reader.ECS_CORE_DIR], ('*.yml', '*.yaml'))
+        # put the ecs core files first so conflicts can be presented correctly
+        ecs_core_files.extend(schema_files)
+        schema_files = ecs_core_files
+    nested, flat = schema_reader.load_schemas(schema_files, args.validate)
 
-        print('Loading user defined schema files: [{}]'.format(', '.join(custom_files)))
+    if args.validate:
+        print('Validation finished, no errors')
+        exit()
+    # default location to save files
+    out_dir = 'generated'
+    docs_dir = 'docs'
+    if args.out:
+        out_dir = os.path.join(args.out, out_dir)
+        docs_dir = os.path.join(args.out, docs_dir)
 
-        (custom_nested, custom_flat) = schema_reader.load_schemas(custom_files, nested['base'])
+    ecs_helpers.make_dirs(out_dir)
+    ecs_helpers.make_dirs(docs_dir)
 
-        nested = schema_reader.merge_dict_overwrite(nested, custom_nested)
-        flat = schema_reader.merge_dict_overwrite(flat, custom_flat)
-
-    intermediate_files.generate(nested, flat)
+    intermediate_files.generate(nested, flat, out_dir)
     if args.intermediate_only:
         exit()
 
-    csv_generator.generate(flat, ecs_version)
-    es_template.generate(flat, ecs_version)
-    beats.generate(nested, ecs_version)
-    asciidoc_fields.generate(nested, flat, ecs_version)
+    csv_generator.generate(flat, ecs_version, out_dir)
+    es_template.generate(flat, ecs_version, out_dir)
+    beats.generate(nested, ecs_version, out_dir)
+    asciidoc_fields.generate(nested, flat, ecs_version, docs_dir)
 
 
-def get_yaml_files(path):
-    file_types = ('*.yml', '*.yaml')
+def get_glob_files(paths, file_types):
     all_files = []
-    for t in file_types:
-        all_files.extend(glob.glob(os.path.join(path, t)))
+    for path in paths:
+        schema_files_with_glob = []
+        for t in file_types:
+            schema_files_with_glob.extend(glob.glob(os.path.join(path, t)))
+        # this preserves the ordering of how the schema flags are included, the last schema directory on the commandline
+        # will have the ability to override the previous schema definitions
+        all_files.extend(sorted(schema_files_with_glob))
 
-    return sorted(all_files)
+    return all_files
 
 
 def argument_parser():
     parser = argparse.ArgumentParser()
     parser.add_argument('--intermediate-only', action='store_true',
                         help='generate intermediary files only')
-    parser.add_argument('--include', action='store',
-                        help='include user specified directory of custom field definitions')
+    parser.add_argument('--schema', action='append', help='directory to use for schemas')
     parser.add_argument('--exclude', action='store',
-                        help='a glob pattern to exclude certain custom files from '
-                             'being parsed (only used with --include)')
+                        help='a glob pattern to exclude certain schema files')
+    parser.add_argument('--out', action='store', help='directory to store the generated files')
+    parser.add_argument('--validate', action='store_true',
+                        help='validate schemas against ecs core, no files will be generated')
     return parser.parse_args()
 
 

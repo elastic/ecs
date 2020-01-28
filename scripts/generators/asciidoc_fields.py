@@ -1,12 +1,12 @@
-import sys
+import os
 
 from generators import ecs_helpers
 
 
-def generate(ecs_nested, ecs_flat, ecs_version):
-    save_asciidoc('docs/fields.asciidoc', page_field_index(ecs_nested, ecs_version))
-    save_asciidoc('docs/field-details.asciidoc', page_field_details(ecs_nested))
-    save_asciidoc('docs/field-values.asciidoc', page_field_values(ecs_flat))
+def generate(ecs_nested, ecs_flat, ecs_version, out_dir):
+    save_asciidoc(os.path.join(out_dir, 'fields.asciidoc'), page_field_index(ecs_nested, ecs_version))
+    save_asciidoc(os.path.join(out_dir, 'field-details.asciidoc'), page_field_details(ecs_nested))
+    save_asciidoc(os.path.join(out_dir, 'field-values.asciidoc'), page_field_values(ecs_flat))
 
 # Helpers
 
@@ -54,7 +54,7 @@ def render_fieldset(fieldset, ecs_nested):
         fieldset_description=render_asciidoc_paragraphs(fieldset['description'])
     )
 
-    for field in ecs_helpers.dict_sorted_by_keys(fieldset['fields'], 'flat_name'):
+    for field in ecs_helpers.dict_sorted_by_keys(fieldset.get('fields', {}), 'flat_name'):
         # Skip fields nested in this field set
         if 'original_fieldset' not in field:
             text += render_field_details_row(field)
@@ -298,7 +298,8 @@ def page_field_values(ecs_flat):
     section_text = values_section_header()
     category_fields = ['event.kind', 'event.category', 'event.type', 'event.outcome']
     for cat_field in category_fields:
-        section_text += render_field_values_page(ecs_flat[cat_field])
+        if cat_field in ecs_flat:
+            section_text += render_field_values_page(ecs_flat[cat_field])
     return section_text
 
 
@@ -348,7 +349,7 @@ def render_field_values_page(field):
     body = ''
     toc = ''
     try:
-        for value_details in field['allowed_values']:
+        for value_details in field.get('allowed_values', {}):
             toc += "* <<ecs-{field_dashed_name}-{value_name},{value_name}>>\n".format(
                 field_dashed_name=field['dashed_name'],
                 value_name=value_details['name']
