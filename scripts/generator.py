@@ -23,9 +23,15 @@ def main():
     # Maybe load user specified directory of schemas
     if args.include:
 
-        print('Loading user defined schemas: {0}'.format(args.include))
+        print('Include parameter: {}'.format(args.include))
+        custom_files = get_yaml_files(args.include)
+        if args.exclude:
+            print('Exclude parameter: {}'.format(args.exclude))
+            custom_files = set(custom_files) - set(glob.glob(os.path.join(args.include, args.exclude)))
 
-        (custom_nested, custom_flat) = schema_reader.load_schemas(get_yaml_files(args.include), nested['base'])
+        print('Loading user defined schema files: [{}]'.format(', '.join(custom_files)))
+
+        (custom_nested, custom_flat) = schema_reader.load_schemas(custom_files, nested['base'])
 
         nested = schema_reader.merge_dict_overwrite(nested, custom_nested)
         flat = schema_reader.merge_dict_overwrite(flat, custom_flat)
@@ -55,6 +61,9 @@ def argument_parser():
                         help='generate intermediary files only')
     parser.add_argument('--include', action='store',
                         help='include user specified directory of custom field definitions')
+    parser.add_argument('--exclude', action='store',
+                        help='a glob pattern to exclude certain custom files from '
+                             'being parsed (only used with --include)')
     return parser.parse_args()
 
 

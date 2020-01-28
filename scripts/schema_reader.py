@@ -47,6 +47,9 @@ def read_schema_file(raw):
 def load_schema_files(files, base_fields):
     fields_nested = {}
     flattened_schema = []
+
+    custom_nested = {}
+    custom_flattened = {}
     for f in files:
         with open(f) as schema_file:
             raw = yaml.safe_load(schema_file.read())
@@ -59,11 +62,16 @@ def load_schema_files(files, base_fields):
         elif file_type is SchemaFileType.FLAT:
             flattened_schema.append(raw)
         elif file_type is SchemaFileType.CUSTOM:
-            fields_nested = merge_dict_overwrite(fields_nested, fixup_use_case(raw, base_fields))
+            #fields_nested = merge_dict_overwrite(fields_nested, fixup_use_case(raw, base_fields))
+            single_file_nested, single_file_flat = create_nested_and_flat(fixup_use_case(raw, base_fields))
+            custom_nested = merge_dict_overwrite(custom_nested, single_file_nested)
+            custom_flattened = merge_dict_overwrite(custom_flattened, single_file_flat)
         else:
             raise SchemaFileTypeException('Unknown file type: {}'.format(file_type))
     final_nested, flattened = create_nested_and_flat(fields_nested)
-    flattened_schema.append(flattened)
+    final_nested = merge_dict_overwrite(final_nested, custom_nested)
+
+    flattened_schema.extend([flattened, custom_flattened])
 
     final_flattened = {}
     for flat_item in flattened_schema:
@@ -140,6 +148,16 @@ def fixup_use_case(raw, base_fields):
 # Generic helpers
 
 
+def merge_fields_list(a, b, path=None):
+    seen = set()
+    new_l = []
+    for field in a:
+        tup_field = tuple(field.items())
+        if tup_field not in seen:
+            seen.add(tup_field)
+            new_l.append(field)
+
+
 def merge_dict_overwrite(a, b, path=None):
     """
     Merge dictionary b into a. This will overwrite fields in a. Dictionary b takes precedence over a, if there is
@@ -193,7 +211,14 @@ def schema_cleanup_values(schema):
 
 
 def set_short(schema):
-    short = schema['description']
+    if 'description' in schema:
+        short = schema['description']
+    elif 'title' in schema:
+        short = schema['title']
+    else:
+        print('No description or title found, leaving it blank for schema: {}'.format(schema))
+        short = ''
+
     if '\n' in short:
         short = short.splitlines()[0]
     dict_set_default(schema, 'short', short)
