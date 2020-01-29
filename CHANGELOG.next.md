@@ -18,10 +18,9 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
-* Temporary workaround for Beats templates' `default_field` growing too big. #687
+- Temporary workaround for Beats templates' `default_field` growing too big. #687
 
 #### Deprecated
-
 
 ### Tooling and Artifact Changes
 
@@ -33,11 +32,11 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
-* ECS scripts now use Python 3.6+. #674
-* schema_reader.py now reliably supports chaining reusable fieldsets together. #722
+- ECS scripts now use Python 3.6+. #674
+- schema_reader.py now reliably supports chaining reusable fieldsets together. #722
+- generator.py now more fully supports custom nested style schemas. #736
 
 #### Deprecated
-
 
 <!-- All empty sections:
 

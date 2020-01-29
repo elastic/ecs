@@ -42,6 +42,7 @@ def save_csv(file, sorted_fields, version):
                 field_set = key_parts[0]
 
             indexed = str(field.get('index', True)).lower()
+            example = ecs_helpers.sort_field_if_dict_as_str(field.get('example', ''))
             schema_writer.writerow([
                 version,
                 indexed,
@@ -49,7 +50,7 @@ def save_csv(file, sorted_fields, version):
                 field['flat_name'],
                 field['type'],
                 field['level'],
-                field.get('example', ''),
+                example,
                 field['short'],
             ])
 
@@ -62,6 +63,6 @@ def save_csv(file, sorted_fields, version):
                         mf['flat_name'],
                         mf['type'],
                         field['level'],
-                        field.get('example', ''),
+                        example,
                         field['short'],
                     ])

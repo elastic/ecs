@@ -34,7 +34,7 @@ def main():
         # put the ecs core files first so conflicts can be presented correctly
         ecs_core_files.extend(schema_files)
         schema_files = ecs_core_files
-    nested, flat = schema_reader.load_schemas(schema_files, args.validate)
+    nested, flat = schema_reader.load_schemas(schema_files)
 
     if args.validate:
         print('Validation finished, no errors')

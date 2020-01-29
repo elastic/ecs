@@ -22,7 +22,7 @@ class SchemaFileTypeException(Exception):
     pass
 
 
-class SchemaValidationException(Exception):
+class SchemaConflictException(Exception):
     pass
 
 
@@ -74,7 +74,7 @@ def load_base_file():
     return create_nested_and_flat(base_fields)[0]['base']
 
 
-def load_schema_files(files, validate):
+def load_schema_files(files):
     fields_nested = {}
     flattened_schema = []
 
@@ -89,24 +89,24 @@ def load_schema_files(files, validate):
         file_type = get_file_type(raw)
         if file_type is SchemaFileType.NORMAL:
             new_fields = read_schema_file(raw)
-            fields_nested = merge_dict_overwrite(fields_nested, new_fields, validate)
+            fields_nested = merge_dict_overwrite(fields_nested, new_fields)
         elif file_type is SchemaFileType.FLAT:
             flattened_schema.append(raw)
         elif file_type is SchemaFileType.CUSTOM:
             single_file_nested, single_file_flat = create_nested_and_flat(fixup_custom(raw, base_fields))
-            custom_nested = merge_dict_overwrite(custom_nested, single_file_nested, validate)
-            custom_flattened = merge_dict_overwrite(custom_flattened, single_file_flat, validate)
+            custom_nested = merge_dict_overwrite(custom_nested, single_file_nested)
+            custom_flattened = merge_dict_overwrite(custom_flattened, single_file_flat)
         else:
             raise SchemaFileTypeException('Unknown file type: {}'.format(file_type))
 
     final_nested, flattened = create_nested_and_flat(fields_nested)
-    final_nested = merge_dict_overwrite(final_nested, custom_nested, validate)
+    final_nested = merge_dict_overwrite(final_nested, custom_nested)
 
     flattened_schema.extend([flattened, custom_flattened])
 
     final_flattened = {}
     for flat_item in flattened_schema:
-        final_flattened = merge_dict_overwrite(final_flattened, flat_item, validate)
+        final_flattened = merge_dict_overwrite(final_flattened, flat_item)
 
     return final_nested, final_flattened
 
@@ -179,10 +179,11 @@ def fixup_custom(raw, base_fields):
 # Generic helpers
 
 
-def merge_dict_overwrite(a, b, validate, path=None):
+def merge_dict_overwrite(a, b, path=None):
     """
-    Merge dictionary b into a. This will overwrite fields in a. Dictionary b takes precedence over a, if there is
-    a conflict in values, this will use b's over a's.
+    Merge dictionary b into a.
+    This will raise an error if a conflict is encountered by default. Otherwise it will overwrite fields in a.
+    Dictionary b takes precedence over a, if there is a conflict in values, this will use b's over a's.
     """
     # These keys will not be merged if they exist in both dictionaries, we'll just use dictionary a's value
     ignore_keys = ['description', 'order', 'short', 'example', 'level', 'title']
@@ -207,11 +208,11 @@ def merge_dict_overwrite(a, b, validate, path=None):
             if key in ignore_keys:
                 continue
             if isinstance(a[key], dict) and isinstance(b[key], dict):
-                merge_dict_overwrite(a[key], b[key], validate, path + [str(key)])
+                merge_dict_overwrite(a[key], b[key], path + [str(key)])
             elif a[key] == b[key]:
                 pass  # same leaf value
             else:
-                if validate and key not in ignore_validation:
+                if key not in ignore_validation:
                     pp = pprint.PrettyPrinter(indent=2)
                     print('Conflict of values at path: {} using dict B\'s value'.format(
                         '.'.join(path + [str(key)])))
@@ -219,7 +220,7 @@ def merge_dict_overwrite(a, b, validate, path=None):
                     pp.pprint(a[key])
                     print('Dict B:')
                     pp.pprint(b[key])
-                    raise SchemaValidationException('Validation failed')
+                    raise SchemaConflictException('Encountered a schema conflict')
                 # Use the custom dictionary (b)'s value to override the ecs schema one
                 a[key] = b[key]
         else:
@@ -317,7 +318,7 @@ def schema_fields_as_dictionary(schema):
             moved_temp = {'fields': moved_inner_fields}
             schema_fields_as_dictionary(moved_temp)
             # the fields dictionaries need to be merged because they could mix and match dot and nested notation
-            merge_dict_overwrite(cur_node, moved_temp, False)
+            merge_dict_overwrite(cur_node, moved_temp)
 
 
 def field_set_defaults(field):
@@ -433,6 +434,6 @@ def cleanup_fields_recursive(fields, prefix):
             cleanup_fields_recursive(field['fields'], new_prefix)
 
 
-def load_schemas(files, validate):
+def load_schemas(files):
     """Loads the given list of files"""
-    return load_schema_files(files, validate)
+    return load_schema_files(files)

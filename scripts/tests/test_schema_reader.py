@@ -1,7 +1,6 @@
 import os
 import sys
 import unittest
-import collections
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
@@ -86,7 +85,7 @@ class TestSchemaReader(unittest.TestCase):
         self.assertEqual(field, expected)
 
     def test_load_schemas_with_empty_list_loads_nothing(self):
-        result = schema_reader.load_schemas([], False)
+        result = schema_reader.load_schemas([])
         self.assertEqual(result, ({}, {}))
 
     def test_flatten_fields(self):
@@ -389,7 +388,7 @@ class TestSchemaReader(unittest.TestCase):
             'b': 5
         }
 
-        schema_reader.merge_dict_overwrite(first, sec, False)
+        schema_reader.merge_dict_overwrite(first, sec)
         exp = {
             'a': {
                 'some_field': 1,
@@ -411,8 +410,8 @@ class TestSchemaReader(unittest.TestCase):
             'b': 5
         }
 
-        with self.assertRaises(schema_reader.SchemaValidationException):
-            schema_reader.merge_dict_overwrite(first, sec, True)
+        with self.assertRaises(schema_reader.SchemaConflictException):
+            schema_reader.merge_dict_overwrite(first, sec)
 
     def test_fix_up(self):
         base = {

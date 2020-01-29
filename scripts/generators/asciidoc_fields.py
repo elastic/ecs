@@ -1,5 +1,4 @@
 import os
-
 from generators import ecs_helpers
 
 
@@ -87,7 +86,8 @@ def render_field_details_row(field):
     if 'allowed_values' in field:
         example = render_field_allowed_values(field)
     elif 'example' in field:
-        example = "example: `{}`".format(str(field['example']))
+        sorted_example = ecs_helpers.sort_field_if_dict_as_str(field['example'])
+        example = "example: `{}`".format(str(sorted_example))
 
     field_type_with_mf = field['type']
     if 'multi_fields' in field:

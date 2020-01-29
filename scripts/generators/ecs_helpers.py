@@ -1,6 +1,6 @@
 import yaml
 import os
-
+import json
 from collections import OrderedDict
 from copy import deepcopy
 
@@ -28,6 +28,13 @@ def dict_copy_existing_keys(source, destination, keys):
     for key in keys:
         if key in source:
             destination[key] = source[key]
+
+
+def sort_field_if_dict_as_str(field):
+    if isinstance(field, dict):
+        return json.dumps(OrderedDict(sorted(field.items())))
+
+    return field
 
 
 def dict_sorted_by_keys(dct, sort_keys):
