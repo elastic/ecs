@@ -7,7 +7,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from scripts import schema_reader
 
 
-(nested, flat) = schema_reader.load_schemas()
+(nested, flat) = schema_reader.load_schemas(schema_reader.get_core_files(), False)
 
 
 class TestEcsSpec(unittest.TestCase):

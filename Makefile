@@ -61,7 +61,7 @@ generate: legacy_use_cases codegen generator
 # Run the new generator
 .PHONY: generator
 generator:
-	$(PYTHON) scripts/generator.py --include "${INCLUDE}"
+	$(PYTHON) scripts/generator.py
 
 # Generate Go code from the schema.
 .PHONY: gocodegen
@@ -101,7 +101,7 @@ setup: ve
 
 # Run the ECS tests
 .PHONY: test
-test:
+test: ve
 	$(PYTHON) -m unittest discover --start-directory scripts/tests
 
 # Create a virtualenv to run Python.

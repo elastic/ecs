@@ -2,12 +2,14 @@ import yaml
 import copy
 import pprint
 import os
+import glob
 from enum import Enum
 
 # File loading stuff
 
 ECS_CORE_DIR = os.path.join(os.path.dirname(__file__), '../schemas')
 BASE_FILE = os.path.join(ECS_CORE_DIR, 'base.yml')
+YAML_EXT = ('*.yml', '*.yaml')
 
 
 class SchemaFileType(Enum):
@@ -22,6 +24,27 @@ class SchemaFileTypeException(Exception):
 
 class SchemaValidationException(Exception):
     pass
+
+
+class BaseSchemaException(Exception):
+    pass
+
+
+def get_glob_files(paths, file_types):
+    all_files = []
+    for path in paths:
+        schema_files_with_glob = []
+        for t in file_types:
+            schema_files_with_glob.extend(glob.glob(os.path.join(path, t)))
+        # this preserves the ordering of how the schema flags are included, the last schema directory on the commandline
+        # will have the ability to override the previous schema definitions
+        all_files.extend(sorted(schema_files_with_glob))
+
+    return all_files
+
+
+def get_core_files():
+    return get_glob_files([ECS_CORE_DIR], YAML_EXT)
 
 
 def get_file_type(schema):
@@ -70,7 +93,7 @@ def load_schema_files(files, validate):
         elif file_type is SchemaFileType.FLAT:
             flattened_schema.append(raw)
         elif file_type is SchemaFileType.CUSTOM:
-            single_file_nested, single_file_flat = create_nested_and_flat(fixup_use_case(raw, base_fields))
+            single_file_nested, single_file_flat = create_nested_and_flat(fixup_custom(raw, base_fields))
             custom_nested = merge_dict_overwrite(custom_nested, single_file_nested, validate)
             custom_flattened = merge_dict_overwrite(custom_flattened, single_file_flat, validate)
         else:
@@ -107,12 +130,12 @@ def add_needed_fields(fields):
         if 'type' not in field:
             field['type'] = 'group'
         if 'level' not in field:
-            field['level'] = '(use case)'
+            field['level'] = '(custom)'
 
 
-def fixup_use_case(raw, base_fields):
+def fixup_custom(raw, base_fields):
     """
-    Converts a use case style yaml file into the appropriate format for so it can be used to override ecs schema.
+    Converts a custom nested style yaml file into the appropriate format for so it can be used to override ecs schema.
     The base.yml file should be parsed and passed into this function so fields like @timestamp and message can be
     moved to within the base schema correctly.
     :param raw: the fields read from the yaml file
@@ -139,8 +162,9 @@ def fixup_use_case(raw, base_fields):
         name = field['name']
         if name in base_fields['fields']:
             if base_fields['fields'][name]['type'] != field['type']:
-                print('Found a base field with differing types use case name: {} type: {} base type: {}'.
-                      format(name, field['type'], base_fields['fields'][name]['type']))
+                raise BaseSchemaException('Found a base field with differing types custom name: {} '
+                                          'type: {} base type: {}'.format(name, field['type'],
+                                                                          base_fields['fields'][name]['type']))
             ret_fields['base']['fields'].append(base_fields['fields'][name])
         else:
             # title should only be on the top level field
@@ -275,15 +299,25 @@ def schema_fields_as_dictionary(schema):
 
         if nested_levels[-1] not in nested_schema:
             nested_schema[nested_levels[-1]] = {}
-        # Only leaf fields will have field details so we can identify them later
         # the `fields` key should not be nested under field_details, to remove it and place it on the outer object
         # if it exists
         moved_inner_fields = field.pop('fields', None)
-        leaf_dict = nested_schema[nested_levels[-1]]
-        leaf_dict['field_details'] = field
+        cur_node = nested_schema[nested_levels[-1]]
+        cur_node['field_details'] = field
         if moved_inner_fields:
-            leaf_dict['fields'] = moved_inner_fields
-            schema_fields_as_dictionary(leaf_dict)
+            # we need to create a temporary dictionary for the recursion because moved_inner_fields is an array
+            # and it's possible that cur_node could already have a `fields` key based on a previous loop
+            # this would happen if there was a dot notation field and regular nested field like this:
+            # host:
+            #   fields:
+            #       os.something:
+            #           ...
+            #       os:
+            #           fields:
+            moved_temp = {'fields': moved_inner_fields}
+            schema_fields_as_dictionary(moved_temp)
+            # the fields dictionaries need to be merged because they could mix and match dot and nested notation
+            merge_dict_overwrite(cur_node, moved_temp, False)
 
 
 def field_set_defaults(field):

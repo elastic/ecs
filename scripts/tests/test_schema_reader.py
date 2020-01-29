@@ -1,6 +1,7 @@
 import os
 import sys
 import unittest
+import collections
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
@@ -14,6 +15,10 @@ class TestSchemaReader(unittest.TestCase):
     # Validation
 
     # Generic helpers
+    @classmethod
+    def setUpClass(cls):
+        # this helps with debugging test failures
+        cls.maxDiff = None
 
     def test_clean_string_values(self):
         dict = {'dirty': ' space, the final frontier  ', 'clean': 'val', 'int': 1}
@@ -81,7 +86,7 @@ class TestSchemaReader(unittest.TestCase):
         self.assertEqual(field, expected)
 
     def test_load_schemas_with_empty_list_loads_nothing(self):
-        result = schema_reader.load_schemas([])
+        result = schema_reader.load_schemas([], False)
         self.assertEqual(result, ({}, {}))
 
     def test_flatten_fields(self):
@@ -249,6 +254,213 @@ class TestSchemaReader(unittest.TestCase):
             }
         }
         self.assertEqual(fields, expected)
+
+    def test_schema_fields_as_dict(self):
+        """Test that the schema_fields_as_dictionary function correctly converts the schema."""
+        host = {
+            'fields': [
+                {
+                    'name': 'os',
+                    'fields': [
+                        {
+                            'name': 'platform'
+                        }
+                    ],
+                },
+                {
+                    'name': 'ip'
+                }
+            ]
+        }
+
+        exp = {
+            'fields': {
+                'os': {
+                    'field_details': {
+                        'name': 'os',
+                        'order': 0
+                    },
+                    'fields': {
+                        'platform': {
+                            'field_details': {
+                                'name': 'platform',
+                                'order': 0
+                            }
+                        }
+                    }
+                },
+                'ip': {
+                    'field_details': {
+                        'name': 'ip',
+                        'order': 1,
+                    }
+                }
+            }
+        }
+        schema_reader.schema_fields_as_dictionary(host)
+        self.assertEqual(host, exp)
+
+    def test_schema_fields_as_dict_no_fields(self):
+        """Test that the function does not modify a dictionary without a fields key."""
+        no_fields = {
+            'name': 'no_fields'
+        }
+        schema_reader.schema_fields_as_dictionary(no_fields)
+        self.assertEqual(no_fields, {'name': 'no_fields'})
+
+    def test_schema_fields_as_dict_dotted_notation(self):
+        """Test that the function handles dotted name notation correctly."""
+        host = {
+            'fields': [
+                {
+                    'name': 'os.test',
+                    'fields': [
+                        {
+                            'name': 'platform'
+                        }
+                    ],
+                },
+                {
+                    'name': 'os',
+                    'fields': [
+                        {
+                            'name': 'other_os'
+                        }
+                    ]
+                },
+                {
+                    'name': 'ip'
+                }
+            ]
+        }
+
+        exp = {
+            "fields": {
+                "os": {
+                    "fields": {
+                        "other_os": {
+                            "field_details": {
+                                "name": "other_os",
+                                "order": 0
+                            }
+                        },
+                        "test": {
+                            "fields": {
+                                "platform": {
+                                    "field_details": {
+                                        "name": "platform",
+                                        "order": 0
+                                    }
+                                }
+                            },
+                            "field_details": {
+                                "name": "os.test",
+                                "order": 0
+                            }
+                        }
+                    },
+                    "field_details": {
+                        "name": "os",
+                        "order": 1
+                    }
+                },
+                "ip": {
+                    "field_details": {
+                        "name": "ip",
+                        "order": 2
+                    }
+                }
+            }
+        }
+        schema_reader.schema_fields_as_dictionary(host)
+        self.assertDictEqual(host, exp)
+
+    def test_merge_dict(self):
+        first = {
+            'a': {
+                'some_field': 1
+            }
+        }
+
+        sec = {
+            'a': {
+                'other': 'a'
+            },
+            'b': 5
+        }
+
+        schema_reader.merge_dict_overwrite(first, sec, False)
+        exp = {
+            'a': {
+                'some_field': 1,
+                'other': 'a'
+            },
+            'b': 5
+        }
+        self.assertDictEqual(first, exp)
+
+    def test_merge_dict_validate(self):
+        first = {
+            'a': 5
+        }
+
+        sec = {
+            'a': {
+                'some': 'field'
+            },
+            'b': 5
+        }
+
+        with self.assertRaises(schema_reader.SchemaValidationException):
+            schema_reader.merge_dict_overwrite(first, sec, True)
+
+    def test_fix_up(self):
+        base = {
+            'name': 'base',
+            'title': 'some title',
+            'root': True,
+            'short': 'short',
+            'description': 'long',
+            'type': 'group',
+            'group': 2,
+            'fields': {
+                '@timestamp': {
+                    'name': '@timestamp',
+                    'type': 'date',
+                    'level': 1,
+                },
+                'message': {
+                    'name': 'message',
+                    'type': 'text',
+                },
+            }
+        }
+
+        custom = {
+            'fields': [
+                {
+                    'name': '@timestamp',
+                    'type': 'date'
+                },
+                {
+                    'name': 'other_field',
+                    'fields': [
+                        {
+                            'name': 'other',
+                            'type': 'keyword',
+                        }
+                    ]
+                }
+            ]
+        }
+        fixed = schema_reader.fixup_custom(custom, base)
+        self.assertEqual(fixed['other_field']['title'], 'other_field')
+        self.assertNotIn('title', fixed['base']['fields'][0])
+        # other_field should have a type now
+        self.assertEqual(fixed['other_field']['type'], 'group')
+        self.assertEqual(fixed['base']['fields'][0]['level'], 1)
+        self.assertIn('level', fixed['other_field'])
+        self.assertIn('level', fixed['other_field']['fields'][0])
 
 
 if __name__ == '__main__':

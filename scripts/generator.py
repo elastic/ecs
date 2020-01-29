@@ -1,5 +1,4 @@
 import argparse
-import glob
 import os
 import schema_reader
 from generators import intermediate_files
@@ -23,15 +22,15 @@ def main():
         schemas_dir = [schema_reader.ECS_CORE_DIR]
         print('Using default schemas directory: {}'.format(schemas_dir[0]))
 
-    schema_files = get_glob_files(schemas_dir, ('*.yml', '*.yaml'))
+    schema_files = schema_reader.get_glob_files(schemas_dir, schema_reader.YAML_EXT)
     if args.exclude:
         print('Exclude parameter: {}'.format(args.exclude))
-        schema_files = set(schema_files) - set(get_glob_files(schemas_dir, [args.exclude]))
+        schema_files = set(schema_files) - set(schema_reader.get_glob_files(schemas_dir, [args.exclude]))
 
     print('Loading schema files: [{}]'.format(', '.join(schema_files)))
     if args.validate:
         print('Validating against ecs core')
-        ecs_core_files = get_glob_files([schema_reader.ECS_CORE_DIR], ('*.yml', '*.yaml'))
+        ecs_core_files = schema_reader.get_core_files()
         # put the ecs core files first so conflicts can be presented correctly
         ecs_core_files.extend(schema_files)
         schema_files = ecs_core_files
@@ -58,19 +57,6 @@ def main():
     es_template.generate(flat, ecs_version, out_dir)
     beats.generate(nested, ecs_version, out_dir)
     asciidoc_fields.generate(nested, flat, ecs_version, docs_dir)
-
-
-def get_glob_files(paths, file_types):
-    all_files = []
-    for path in paths:
-        schema_files_with_glob = []
-        for t in file_types:
-            schema_files_with_glob.extend(glob.glob(os.path.join(path, t)))
-        # this preserves the ordering of how the schema flags are included, the last schema directory on the commandline
-        # will have the ability to override the previous schema definitions
-        all_files.extend(sorted(schema_files_with_glob))
-
-    return all_files
 
 
 def argument_parser():
