@@ -162,6 +162,20 @@ def merge_dict_overwrite(a, b, validate, path=None):
     """
     # These keys will not be merged if they exist in both dictionaries, we'll just use dictionary a's value
     ignore_keys = ['description', 'order', 'short', 'example', 'level', 'title']
+    # These keys will be ignored for validation errors
+    # Name can cause issues because the same field can have a name in the nested style or partially flattened
+    # for example in ecs core
+    # http.response.status_code, name is response.status_code
+    # http:
+    #   fields:
+    #       response.status_code
+    # but it can also be written:
+    # http:
+    #   fields:
+    #       response:
+    #           fields:
+    #               status_code
+    ignore_validation = ['name']
     if path is None:
         path = []
     for key in b:
@@ -173,7 +187,7 @@ def merge_dict_overwrite(a, b, validate, path=None):
             elif a[key] == b[key]:
                 pass  # same leaf value
             else:
-                if validate:
+                if validate and key not in ignore_validation:
                     pp = pprint.PrettyPrinter(indent=2)
                     print('Conflict of values at path: {} using dict B\'s value'.format(
                         '.'.join(path + [str(key)])))
@@ -258,13 +272,18 @@ def schema_fields_as_dictionary(schema):
             if 'fields' not in nested_schema[level]:
                 nested_schema[level]['fields'] = {}
             nested_schema = nested_schema[level]['fields']
+
         if nested_levels[-1] not in nested_schema:
             nested_schema[nested_levels[-1]] = {}
         # Only leaf fields will have field details so we can identify them later
-        nested_schema[nested_levels[-1]]['field_details'] = field
-        schema_fields_as_dictionary(field)
-        # if 'fields' in field:
-        #    schema_fields_as_dictionary(field)
+        # the `fields` key should not be nested under field_details, to remove it and place it on the outer object
+        # if it exists
+        moved_inner_fields = field.pop('fields', None)
+        leaf_dict = nested_schema[nested_levels[-1]]
+        leaf_dict['field_details'] = field
+        if moved_inner_fields:
+            leaf_dict['fields'] = moved_inner_fields
+            schema_fields_as_dictionary(leaf_dict)
 
 
 def field_set_defaults(field):
@@ -331,17 +350,10 @@ def flatten_fields(fields, key_prefix, original_fieldset=None):
         temp_original_fieldset = original_fieldset
         if 'reusable' in field:
             temp_original_fieldset = name
-        # TODO need to fix this, maybe recurse first?
         if 'field_details' in field:
             flat_fields[new_key] = field['field_details'].copy()
-            new_key_field_details = flat_fields[new_key]
             if temp_original_fieldset:
                 flat_fields[new_key]['original_fieldset'] = temp_original_fieldset
-            if 'fields' in new_key_field_details:
-                new_prefix = new_key + "."
-                if 'root' in new_key_field_details and new_key_field_details['root']:
-                    new_prefix = ""
-                flat_fields.update(flatten_fields(new_key_field_details['fields'], new_prefix, temp_original_fieldset))
         if 'fields' in field:
             new_prefix = new_key + "."
             if 'root' in field and field['root']:
@@ -379,13 +391,6 @@ def cleanup_fields_recursive(fields, prefix):
             dict_clean_string_values(field_details)
             field_set_defaults(field_details)
             field['field_details'] = field_details
-            # TODO fix this
-            if 'fields' in field_details:
-                new_prefix = prefix + name + "."
-                if 'root' in field_details:
-                    new_prefix = ""
-                cleanup_fields_recursive(field_details['fields'], new_prefix)
-
         if 'fields' in field:
             field['fields'] = field['fields'].copy()
             new_prefix = prefix + name + "."
