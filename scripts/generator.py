@@ -2,6 +2,7 @@ import argparse
 import glob
 import os
 import schema_reader
+import yaml
 from generators import intermediate_files
 from generators import csv_generator
 from generators import es_template
@@ -9,6 +10,15 @@ from generators import beats
 from generators import asciidoc_fields
 from generators import ecs_helpers
 
+def fields_subset(subset, fields):
+    retained_fields = {}
+    for key, val in subset.items():
+        if isinstance(val, dict):
+            retained_fields[key] = fields[key]
+            retained_fields[key]['fields'] = fields_subset(val, fields[key]['fields'])
+        elif val == '*':
+            retained_fields[key] = fields[key]
+    return retained_fields
 
 def main():
     args = argument_parser()
@@ -27,7 +37,12 @@ def main():
         print('Loading user defined schemas: {0}'.format(include_glob))
 
         intermediate_custom = schema_reader.load_schemas(sorted(glob.glob(include_glob)))
-        schema_reader.merge_schema_fields(intermediate_fields, intermediate_custom, True)
+        schema_reader.merge_schema_fields(intermediate_fields, intermediate_custom)
+
+    if args.subset:
+        with open(args.subset) as f:
+            raw = yaml.safe_load(f.read())
+            intermediate_fields = fields_subset(raw, intermediate_fields)
 
     (nested, flat) = schema_reader.generate_nested_flat(intermediate_fields)
     intermediate_files.generate(nested, flat)

@@ -92,7 +92,7 @@ def schema_fields_as_dictionary(schema):
         nested_schema[nested_levels[-1]]['field_details'] = field
 
 
-def merge_schema_fields(a, b, is_top_level):
+def merge_schema_fields(a, b):
     for key in b:
         if key not in a:
             a[key] = b[key]
