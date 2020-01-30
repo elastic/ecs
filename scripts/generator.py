@@ -46,6 +46,8 @@ def argument_parser():
                         help='generate intermediary files only')
     parser.add_argument('--include', action='store',
                         help='include user specified directory of custom field definitions')
+    parser.add_argument('--subset', action='store',
+                        help='render a subset of the schema')
     return parser.parse_args()
 
 

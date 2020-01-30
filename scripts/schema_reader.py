@@ -105,9 +105,6 @@ def merge_schema_fields(a, b, is_top_level):
             elif a_type not in ['object', 'nested']:
                 print('Warning: dropping field {}, already defined'.format(key))
             else:
-                if 'reusable' in a[key] and not is_top_level:
-                    print('Error: can not add fields to reusable fieldset when already nested')
-                    exit()
                 if 'fields' in b[key]:
                     a[key].setdefault('fields', {})
                     merge_schema_fields(a[key]['fields'], b[key]['fields'], False)
