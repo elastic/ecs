@@ -18,7 +18,7 @@ def main():
 
     # Load the default schemas
     print('Loading default schemas')
-    (nested, flat) = schema_reader.load_schemas()
+    intermediate_fields = schema_reader.load_schemas()
 
     # Maybe load user specified directory of schemas
     if args.include:
@@ -26,12 +26,10 @@ def main():
 
         print('Loading user defined schemas: {0}'.format(include_glob))
 
-        (custom_nested, custom_flat) = schema_reader.load_schemas(sorted(glob.glob(include_glob)))
+        intermediate_custom = schema_reader.load_schemas(sorted(glob.glob(include_glob)))
+        schema_reader.merge_schema_fields(intermediate_fields, intermediate_custom, True)
 
-        # Merge without allowing user schemas to overwrite default schemas
-        nested = ecs_helpers.safe_merge_dicts(nested, custom_nested)
-        flat = ecs_helpers.safe_merge_dicts(flat, custom_flat)
-
+    (nested, flat) = schema_reader.generate_nested_flat(intermediate_fields)
     intermediate_files.generate(nested, flat)
     if args.intermediate_only:
         exit()
