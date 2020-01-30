@@ -40,9 +40,13 @@ def main():
         schema_reader.merge_schema_fields(intermediate_fields, intermediate_custom)
 
     if args.subset:
-        with open(args.subset) as f:
-            raw = yaml.safe_load(f.read())
-            intermediate_fields = fields_subset(raw, intermediate_fields)
+        subset = {}
+        files = args.subset.split(' ')
+        for file in files:
+            with open(file) as f:
+                raw = yaml.safe_load(f.read())
+                ecs_helpers.recursive_merge_subset_dicts(subset, raw)
+        intermediate_fields = fields_subset(subset, intermediate_fields)
 
     (nested, flat) = schema_reader.generate_nested_flat(intermediate_fields)
     intermediate_files.generate(nested, flat)
