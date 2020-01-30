@@ -97,7 +97,7 @@ def merge_schema_fields(a, b):
         if key not in a:
             a[key] = b[key]
         else:
-            a_type = a[key].get('field_details', {}).get('type', 'object') 
+            a_type = a[key].get('field_details', {}).get('type', 'object')
             b_type = b[key].get('field_details', {}).get('type', 'object')
             if a_type != b_type:
                 print('Schemas unmergeable: type {} does not match type {}'.format(a_type, b_type))
@@ -161,6 +161,7 @@ def finalize_schemas(fields_nested):
         schema = fields_nested[schema_name]
 
         schema_cleanup_values(schema)
+
 
 def assemble_reusables(fields_nested):
     # This happens as a second pass, so that all fieldsets have their
@@ -231,6 +232,7 @@ def load_schemas(files=ecs_files()):
     fields_intermediate = load_schema_files(files)
     finalize_schemas(fields_intermediate)
     return fields_intermediate
+
 
 def generate_nested_flat(fields_intermediate):
     assemble_reusables(fields_intermediate)

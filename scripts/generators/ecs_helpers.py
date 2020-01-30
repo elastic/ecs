@@ -58,6 +58,7 @@ def recursive_merge_subset_dicts(a, b):
         elif b[key] == "*":
             a[key] = b[key]
 
+
 def yaml_ordereddict(dumper, data):
     # YAML representation of an OrderedDict will be like a dictionary, but
     # respecting the order of the dictionary.

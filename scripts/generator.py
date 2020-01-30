@@ -10,6 +10,7 @@ from generators import beats
 from generators import asciidoc_fields
 from generators import ecs_helpers
 
+
 def fields_subset(subset, fields):
     retained_fields = {}
     for key, val in subset.items():
@@ -19,6 +20,7 @@ def fields_subset(subset, fields):
         elif val == '*':
             retained_fields[key] = fields[key]
     return retained_fields
+
 
 def main():
     args = argument_parser()
