@@ -138,7 +138,9 @@ def duplicate_reusable_fieldsets(schema, fields_nested):
             nestings.sort()
             nested_schema = fields_nested[top_level]['fields']
             for level in split_flat_name[1:]:
-                nested_schema = nested_schema[level]
+                nested_schema = nested_schema.get(level, None)
+                if not nested_schema:
+                    raise ValueError('Field {} in path {} not found in schema'.format(level, new_nesting))
                 if nested_schema.get('reusable', None):
                     raise ValueError(
                         'Reusable fields cannot be put inside other reusable fields except when the destination reusable is at the top level')
