@@ -213,7 +213,8 @@ class TestSchemaReader(unittest.TestCase):
                                     'flat_name': 'base_set1.reusable_fieldset.reusable_field',
                                     'dashed_name': 'base-set1-reusable-fieldset-reusable-field',
                                     'ignore_above': 1024,
-                                    'short': 'A test field'
+                                    'short': 'A test field',
+                                    'normalize': [],
                                 }
                             }
                         }
@@ -240,7 +241,9 @@ class TestSchemaReader(unittest.TestCase):
                                     'flat_name': 'base_set2.reusable_fieldset.reusable_field',
                                     'dashed_name': 'base-set2-reusable-fieldset-reusable-field',
                                     'ignore_above': 1024,
-                                    'short': 'A test field'
+                                    'short': 'A test field',
+                                    'normalize': [],
+
                                 }
                             }
                         }
