@@ -32,8 +32,7 @@ def main():
 
     if args.subset:
         subset = {}
-        files = args.subset.split(' ')
-        for file in files:
+        for file in glob.glob(args.subset):
             with open(file) as f:
                 raw = yaml.safe_load(f.read())
                 ecs_helpers.recursive_merge_subset_dicts(subset, raw)
