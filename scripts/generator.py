@@ -25,7 +25,7 @@ def main():
     schema_files = schema_reader.get_glob_files(schemas_dir, schema_reader.YAML_EXT)
     if args.exclude:
         print('Exclude parameter: {}'.format(args.exclude))
-        schema_files = set(schema_files) - set(schema_reader.get_glob_files(schemas_dir, [args.exclude]))
+        schema_files = set(schema_files) - set(schema_reader.get_glob_files(schemas_dir, args.exclude))
 
     print('Loading schema files: [{}]'.format(', '.join(schema_files)))
     if args.validate:
@@ -64,7 +64,7 @@ def argument_parser():
     parser.add_argument('--intermediate-only', action='store_true',
                         help='generate intermediary files only')
     parser.add_argument('--schema', action='append', help='directory to use for schemas')
-    parser.add_argument('--exclude', action='store',
+    parser.add_argument('--exclude', action='append',
                         help='a glob pattern to exclude certain schema files')
     parser.add_argument('--out', action='store', help='directory to store the generated files')
     parser.add_argument('--validate', action='store_true',
