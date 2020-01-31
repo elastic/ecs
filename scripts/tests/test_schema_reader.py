@@ -250,6 +250,112 @@ class TestSchemaReader(unittest.TestCase):
         }
         self.assertEqual(fields, expected)
 
+    def test_merge_schema_fields(self):
+        fieldset1 = {
+            'test_fieldset': {
+                'name': 'test_fieldset',
+                'fields': {
+                    'test_field1': {
+                        'field_details': {
+                            'name': 'test_field1',
+                            'type': 'keyword',
+                            'description': 'A test field'
+                        }
+                    },
+                    'test_field2': {
+                        'field_details': {
+                            'name': 'test_field2',
+                            'type': 'keyword',
+                            'description': 'Another test field'
+                        }
+                    }
+                }
+            }
+        }
+        fieldset2 = {
+            'test_fieldset': {
+                'name': 'test_fieldset',
+                'fields': {
+                    'test_field1': {
+                        'field_details': {
+                            'name': 'test_field1',
+                            'type': 'keyword',
+                            'description': 'A test field with matching type but custom description'
+                        }
+                    },
+                    'test_field3': {
+                        'field_details': {
+                            'name': 'test_field3',
+                            'type': 'keyword',
+                            'description': 'A third test field'
+                        }
+                    }
+                }
+            }
+        }
+        expected = {
+            'test_fieldset': {
+                'name': 'test_fieldset',
+                'fields': {
+                    'test_field1': {
+                        'field_details': {
+                            'name': 'test_field1',
+                            'type': 'keyword',
+                            'description': 'A test field'
+                        }
+                    },
+                    'test_field2': {
+                        'field_details': {
+                            'name': 'test_field2',
+                            'type': 'keyword',
+                            'description': 'Another test field'
+                        }
+                    },
+                    'test_field3': {
+                        'field_details': {
+                            'name': 'test_field3',
+                            'type': 'keyword',
+                            'description': 'A third test field'
+                        }
+                    }
+                }
+            }
+        }
+        schema_reader.merge_schema_fields(fieldset1, fieldset2)
+        self.assertEqual(fieldset1, expected)
+
+    def test_merge_schema_fields_fail(self):
+        fieldset1 = {
+            'test_fieldset': {
+                'name': 'test_fieldset',
+                'fields': {
+                    'test_field1': {
+                        'field_details': {
+                            'name': 'test_field1',
+                            'type': 'keyword',
+                            'description': 'A test field'
+                        }
+                    }
+                }
+            }
+        }
+        fieldset2 = {
+            'test_fieldset': {
+                'name': 'test_fieldset',
+                'fields': {
+                    'test_field1': {
+                        'field_details': {
+                            'name': 'test_field1',
+                            'type': 'long',
+                            'description': 'A conflicting field'
+                        }
+                    }
+                }
+            }
+        }
+        with self.assertRaises(ValueError):
+            schema_reader.merge_schema_fields(fieldset1, fieldset2)
+
 
 if __name__ == '__main__':
     unittest.main()

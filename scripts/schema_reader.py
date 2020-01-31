@@ -100,14 +100,12 @@ def merge_schema_fields(a, b):
             a_type = a[key].get('field_details', {}).get('type', 'object')
             b_type = b[key].get('field_details', {}).get('type', 'object')
             if a_type != b_type:
-                print('Schemas unmergeable: type {} does not match type {}'.format(a_type, b_type))
-                exit()
+                raise ValueError('Schemas unmergeable: type {} does not match type {}'.format(a_type, b_type))
             elif a_type not in ['object', 'nested']:
                 print('Warning: dropping field {}, already defined'.format(key))
-            else:
-                if 'fields' in b[key]:
-                    a[key].setdefault('fields', {})
-                    merge_schema_fields(a[key]['fields'], b[key]['fields'], False)
+            elif 'fields' in b[key]:
+                a[key].setdefault('fields', {})
+                merge_schema_fields(a[key]['fields'], b[key]['fields'])
 
 
 def field_set_defaults(field):

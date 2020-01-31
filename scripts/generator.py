@@ -11,17 +11,6 @@ from generators import asciidoc_fields
 from generators import ecs_helpers
 
 
-def fields_subset(subset, fields):
-    retained_fields = {}
-    for key, val in subset.items():
-        if isinstance(val, dict):
-            retained_fields[key] = fields[key]
-            retained_fields[key]['fields'] = fields_subset(val, fields[key]['fields'])
-        elif val == '*':
-            retained_fields[key] = fields[key]
-    return retained_fields
-
-
 def main():
     args = argument_parser()
 
@@ -48,7 +37,7 @@ def main():
             with open(file) as f:
                 raw = yaml.safe_load(f.read())
                 ecs_helpers.recursive_merge_subset_dicts(subset, raw)
-        intermediate_fields = fields_subset(subset, intermediate_fields)
+        intermediate_fields = ecs_helpers.fields_subset(subset, intermediate_fields)
 
     (nested, flat) = schema_reader.generate_nested_flat(intermediate_fields)
     intermediate_files.generate(nested, flat)

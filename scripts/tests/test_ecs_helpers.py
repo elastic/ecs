@@ -84,6 +84,68 @@ class TestECSHelpers(unittest.TestCase):
         split_list = ecs_helpers.list_split_by(lst, 3)
         self.assertEqual(split_list, [['ecs', 'has', 'a'], ['meme', 'now']])
 
+    def test_recursive_subset_merge(self):
+        subset_a = {
+            'field1': {'subfield1': {'subsubfield1': '*'}, 'subfield2': '*'},
+            'field2': '*'
+        }
+        subset_b = {
+            'field1': {'subfield1': '*', 'subfield3': '*'},
+            'field2': {'subfield2': '*'},
+            'field3': '*'
+        }
+        expected = {
+            'field1': {'subfield1': '*', 'subfield2': '*', 'subfield3': '*'},
+            'field2': '*',
+            'field3': '*'
+        }
+        ecs_helpers.recursive_merge_subset_dicts(subset_a, subset_b)
+        self.assertEqual(subset_a, expected)
+
+    def test_fields_subset(self):
+        fields = {
+            'test_fieldset': {
+                'name': 'test_fieldset',
+                'fields': {
+                    'test_field1': {
+                        'field_details': {
+                            'name': 'test_field1',
+                            'type': 'keyword',
+                            'description': 'A test field'
+                        }
+                    },
+                    'test_field2': {
+                        'field_details': {
+                            'name': 'test_field2',
+                            'type': 'keyword',
+                            'description': 'Another test field'
+                        }
+                    }
+                }
+            }
+        }
+        subset = {
+            'test_fieldset': {
+                'test_field1': '*'
+            }
+        }
+        expected = {
+            'test_fieldset': {
+                'name': 'test_fieldset',
+                'fields': {
+                    'test_field1': {
+                        'field_details': {
+                            'name': 'test_field1',
+                            'type': 'keyword',
+                            'description': 'A test field'
+                        }
+                    }
+                }
+            }
+        }
+        actual = ecs_helpers.fields_subset(subset, fields)
+        self.assertEqual(actual, expected)
+
 
 if __name__ == '__main__':
     unittest.main()
