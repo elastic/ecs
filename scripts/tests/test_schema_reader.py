@@ -306,7 +306,6 @@ class TestSchemaReader(unittest.TestCase):
         schema_reader.duplicate_reusable_fieldsets(fieldset['reusable_fieldset1'], fieldset)
         self.assertEqual(fieldset['test_fieldset']['fields'], expected)
 
-
     def test_improper_reusable_fails(self):
         fieldset = {
             'reusable_fieldset1': {
