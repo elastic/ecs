@@ -19,7 +19,7 @@
 
 package ecs
 
-// These fields contain Windows PE (Portable Executable) metadata.
+// These fields contain Windows Portable Executable (PE) metadata.
 type Pe struct {
 	// Internal name of the file, provided at compile-time.
 	OriginalFileName string `ecs:"original_file_name"`
