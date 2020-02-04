@@ -128,12 +128,24 @@ def duplicate_reusable_fieldsets(schema, fields_nested):
     # which is in turn reusable in a few places.
     if 'reusable' in schema:
         for new_nesting in schema['reusable']['expected']:
+            split_flat_name = new_nesting.split('.')
+            top_level = split_flat_name[0]
             # List field set names expected under another field set.
             # E.g. host.nestings = [ 'geo', 'os', 'user' ]
-            nestings = fields_nested[new_nesting].setdefault('nestings', [])
-            nestings.append(schema['name'])
+            nestings = fields_nested[top_level].setdefault('nestings', [])
+            if schema['name'] not in nestings:
+                nestings.append(schema['name'])
             nestings.sort()
-            fields_nested[new_nesting]['fields'][schema['name']] = schema
+            nested_schema = fields_nested[top_level]['fields']
+            for level in split_flat_name[1:]:
+                nested_schema = nested_schema.get(level, None)
+                if not nested_schema:
+                    raise ValueError('Field {} in path {} not found in schema'.format(level, new_nesting))
+                if nested_schema.get('reusable', None):
+                    raise ValueError(
+                        'Reusable fields cannot be put inside other reusable fields except when the destination reusable is at the top level')
+                nested_schema = nested_schema.setdefault('fields', {})
+            nested_schema[schema['name']] = schema
 
 # Main
 
