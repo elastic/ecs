@@ -35,6 +35,12 @@ type Observer struct {
 	// MAC address of the observer
 	MAC string `ecs:"mac"`
 
+	// Ingress interface of the observer.
+	InterfaceIn string `ecs:"interface.in"`
+
+	// Egress interface of the observer.
+	InterfaceOut string `ecs:"interface.out"`
+
 	// IP address of the observer.
 	IP string `ecs:"ip"`
 
@@ -65,4 +71,10 @@ type Observer struct {
 	// `forwarder`, `firewall`, `ids`, `ips`, `proxy`, `poller`, `sensor`, `APM
 	// server`.
 	Type string `ecs:"type"`
+
+	// Ingress zone of the observer.
+	ZoneIn string `ecs:"zone.in"`
+
+	// Egress zone of the observer.
+	ZoneOut string `ecs:"zone.out"`
 }
