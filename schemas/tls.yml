@@ -72,6 +72,8 @@
       level: extended
       description: Array of ciphers offered by the client during the client hello.
       example: ["TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384", "TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384", "..."]
+      normalize:
+        - array
 
     - name: client.subject
       type: keyword
@@ -105,6 +107,8 @@
         usually mutually-exclusive of `client.certificate` since that value should be the first certificate
         in the chain.
       example: ["MII...", "MII..."]
+      normalize:
+        - array
 
     - name: client.certificate
       type: keyword
@@ -176,6 +180,8 @@
         usually mutually-exclusive of `server.certificate` since that value should be the first certificate
         in the chain.
       example: ["MII...", "MII..."]
+      normalize:
+        - array
 
     - name: server.certificate
       type: keyword

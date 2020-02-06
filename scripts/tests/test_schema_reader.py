@@ -57,7 +57,7 @@ class TestSchemaReader(unittest.TestCase):
     def test_field_set_defaults_no_short(self):
         field = {'description': 'a field', 'type': 'faketype'}
         schema_reader.field_set_defaults(field)
-        self.assertEqual(field, {'description': 'a field', 'short': 'a field', 'type': 'faketype'})
+        self.assertEqual(field, {'description': 'a field', 'short': 'a field', 'type': 'faketype', 'normalize': []})
 
     def test_field_set_multi_field_defaults_missing_name(self):
         field = {
@@ -213,7 +213,8 @@ class TestSchemaReader(unittest.TestCase):
                                     'flat_name': 'base_set1.reusable_fieldset.reusable_field',
                                     'dashed_name': 'base-set1-reusable-fieldset-reusable-field',
                                     'ignore_above': 1024,
-                                    'short': 'A test field'
+                                    'short': 'A test field',
+                                    'normalize': [],
                                 }
                             }
                         }
@@ -240,7 +241,9 @@ class TestSchemaReader(unittest.TestCase):
                                     'flat_name': 'base_set2.reusable_fieldset.reusable_field',
                                     'dashed_name': 'base-set2-reusable-fieldset-reusable-field',
                                     'ignore_above': 1024,
-                                    'short': 'A test field'
+                                    'short': 'A test field',
+                                    'normalize': [],
+
                                 }
                             }
                         }
