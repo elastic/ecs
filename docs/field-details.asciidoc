@@ -23,6 +23,8 @@ Required field for all events.
 
 type: date
 
+
+
 example: `2016-05-23T08:05:34.853Z`
 
 | core
@@ -37,6 +39,8 @@ Can be used to add meta information to events. Should not contain nested objects
 Example: `docker` and `k8s` labels.
 
 type: object
+
+
 
 example: `{'application': 'foo-bar', 'env': 'production'}`
 
@@ -53,6 +57,8 @@ If multiple messages exist, they can be combined into one message.
 
 type: text
 
+
+
 example: `Hello World`
 
 | core
@@ -63,6 +69,11 @@ example: `Hello World`
 | List of keywords used to tag each event.
 
 type: keyword
+
+
+Note: this field should contain an array of values.
+
+
 
 example: `["production", "env2"]`
 
@@ -94,6 +105,8 @@ This id normally changes across restarts, but `agent.id` does not.
 
 type: keyword
 
+
+
 example: `8a4f500f`
 
 | extended
@@ -106,6 +119,8 @@ example: `8a4f500f`
 Example: For Beats this would be beat.id.
 
 type: keyword
+
+
 
 example: `8a4f500d`
 
@@ -122,6 +137,8 @@ If no name is given, the name is often left empty.
 
 type: keyword
 
+
+
 example: `foo`
 
 | core
@@ -135,6 +152,8 @@ The agent type stays always the same and should be given by the agent used. In c
 
 type: keyword
 
+
+
 example: `filebeat`
 
 | core
@@ -145,6 +164,8 @@ example: `filebeat`
 | Version of the agent.
 
 type: keyword
+
+
 
 example: `6.0.0-rc2`
 
@@ -172,6 +193,8 @@ An autonomous system (AS) is a collection of connected Internet Protocol (IP) ro
 
 type: long
 
+
+
 example: `15169`
 
 | extended
@@ -186,6 +209,8 @@ type: keyword
 Multi-fields:
 
 * as.organization.name.text (type: text)
+
+
 
 
 
@@ -232,6 +257,8 @@ type: keyword
 
 
 
+
+
 | extended
 
 // ===============================================================
@@ -240,6 +267,8 @@ type: keyword
 | Bytes sent from the client to the server.
 
 type: long
+
+
 
 example: `184`
 
@@ -251,6 +280,8 @@ example: `184`
 | Client domain.
 
 type: keyword
+
+
 
 
 
@@ -267,6 +298,8 @@ type: ip
 
 
 
+
+
 | core
 
 // ===============================================================
@@ -275,6 +308,8 @@ type: ip
 | MAC address of the client.
 
 type: keyword
+
+
 
 
 
@@ -291,6 +326,8 @@ type: ip
 
 
 
+
+
 | extended
 
 // ===============================================================
@@ -304,6 +341,8 @@ type: long
 
 
 
+
+
 | extended
 
 // ===============================================================
@@ -312,6 +351,8 @@ type: long
 | Packets sent from the client to the server.
 
 type: long
+
+
 
 example: `12`
 
@@ -323,6 +364,8 @@ example: `12`
 | Port of the client.
 
 type: long
+
+
 
 
 
@@ -339,6 +382,8 @@ This value can be determined precisely with a list like the public suffix list (
 
 type: keyword
 
+
+
 example: `google.com`
 
 | extended
@@ -351,6 +396,8 @@ example: `google.com`
 This value can be determined precisely with a list like the public suffix list (http://publicsuffix.org). Trying to approximate this by simply taking the last label will not work well for effective TLDs such as "co.uk".
 
 type: keyword
+
+
 
 example: `co.uk`
 
@@ -415,6 +462,8 @@ Examples: AWS account id, Google Cloud ORG Id, or other unique identifier.
 
 type: keyword
 
+
+
 example: `666777888999`
 
 | extended
@@ -426,6 +475,8 @@ example: `666777888999`
 
 type: keyword
 
+
+
 example: `us-east-1c`
 
 | extended
@@ -436,6 +487,8 @@ example: `us-east-1c`
 | Instance ID of the host machine.
 
 type: keyword
+
+
 
 example: `i-1234567890abcdef0`
 
@@ -450,6 +503,8 @@ type: keyword
 
 
 
+
+
 | extended
 
 // ===============================================================
@@ -458,6 +513,8 @@ type: keyword
 | Machine type of the host machine.
 
 type: keyword
+
+
 
 example: `t2.medium`
 
@@ -470,6 +527,8 @@ example: `t2.medium`
 
 type: keyword
 
+
+
 example: `aws`
 
 | extended
@@ -480,6 +539,8 @@ example: `aws`
 | Region in which this host is running.
 
 type: keyword
+
+
 
 example: `us-east-1`
 
@@ -509,6 +570,8 @@ This should only populated if the signature was checked.
 
 type: keyword
 
+
+
 example: `true`
 
 | extended
@@ -522,6 +585,8 @@ This is useful for logging cryptographic errors with the certificate validity or
 
 type: keyword
 
+
+
 example: `ERROR_UNTRUSTED_ROOT`
 
 | extended
@@ -532,6 +597,8 @@ example: `ERROR_UNTRUSTED_ROOT`
 | Subject name of the code signer
 
 type: keyword
+
+
 
 example: `Microsoft Corporation`
 
@@ -544,6 +611,8 @@ example: `Microsoft Corporation`
 
 type: boolean
 
+
+
 example: `true`
 
 | extended
@@ -554,6 +623,8 @@ example: `true`
 | Boolean to capture if the digital signature is verified against the binary content.
 
 type: boolean
+
+
 
 example: `true`
 
@@ -594,6 +665,8 @@ type: keyword
 
 
 
+
+
 | core
 
 // ===============================================================
@@ -605,14 +678,21 @@ type: keyword
 
 
 
+
+
 | extended
 
 // ===============================================================
 
 | container.image.tag
-| Container image tag.
+| Container image tags.
 
 type: keyword
+
+
+Note: this field should contain an array of values.
+
+
 
 
 
@@ -627,6 +707,8 @@ type: object
 
 
 
+
+
 | extended
 
 // ===============================================================
@@ -638,6 +720,8 @@ type: keyword
 
 
 
+
+
 | extended
 
 // ===============================================================
@@ -646,6 +730,8 @@ type: keyword
 | Runtime managing this container.
 
 type: keyword
+
+
 
 example: `docker`
 
@@ -679,6 +765,8 @@ type: keyword
 
 
 
+
+
 | extended
 
 // ===============================================================
@@ -687,6 +775,8 @@ type: keyword
 | Bytes sent from the destination to the source.
 
 type: long
+
+
 
 example: `184`
 
@@ -698,6 +788,8 @@ example: `184`
 | Destination domain.
 
 type: keyword
+
+
 
 
 
@@ -714,6 +806,8 @@ type: ip
 
 
 
+
+
 | core
 
 // ===============================================================
@@ -722,6 +816,8 @@ type: ip
 | MAC address of the destination.
 
 type: keyword
+
+
 
 
 
@@ -738,6 +834,8 @@ type: ip
 
 
 
+
+
 | extended
 
 // ===============================================================
@@ -751,6 +849,8 @@ type: long
 
 
 
+
+
 | extended
 
 // ===============================================================
@@ -759,6 +859,8 @@ type: long
 | Packets sent from the destination to the source.
 
 type: long
+
+
 
 example: `12`
 
@@ -770,6 +872,8 @@ example: `12`
 | Port of the destination.
 
 type: long
+
+
 
 
 
@@ -786,6 +890,8 @@ This value can be determined precisely with a list like the public suffix list (
 
 type: keyword
 
+
+
 example: `google.com`
 
 | extended
@@ -798,6 +904,8 @@ example: `google.com`
 This value can be determined precisely with a list like the public suffix list (http://publicsuffix.org). Trying to approximate this by simply taking the last label will not work well for effective TLDs such as "co.uk".
 
 type: keyword
+
+
 
 example: `co.uk`
 
@@ -867,6 +975,11 @@ Not all DNS data sources give all details about DNS answers. At minimum, answer 
 type: object
 
 
+Note: this field should contain an array of values.
+
+
+
+
 
 | extended
 
@@ -876,6 +989,8 @@ type: object
 | The class of DNS data contained in this resource record.
 
 type: keyword
+
+
 
 example: `IN`
 
@@ -890,6 +1005,8 @@ The meaning of this data depends on the type and class of the resource record.
 
 type: keyword
 
+
+
 example: `10.10.10.10`
 
 | extended
@@ -903,6 +1020,8 @@ If a chain of CNAME is being resolved, each answer's `name` should be the one th
 
 type: keyword
 
+
+
 example: `www.google.com`
 
 | extended
@@ -914,6 +1033,8 @@ example: `www.google.com`
 
 type: long
 
+
+
 example: `180`
 
 | extended
@@ -924,6 +1045,8 @@ example: `180`
 | The type of data contained in this resource record.
 
 type: keyword
+
+
 
 example: `CNAME`
 
@@ -938,6 +1061,11 @@ Expected values are: AA, TC, RD, RA, AD, CD, DO.
 
 type: keyword
 
+
+Note: this field should contain an array of values.
+
+
+
 example: `['RD', 'RA']`
 
 | extended
@@ -948,6 +1076,8 @@ example: `['RD', 'RA']`
 | The DNS packet identifier assigned by the program that generated the query. The identifier is copied to the response.
 
 type: keyword
+
+
 
 example: `62111`
 
@@ -960,6 +1090,8 @@ example: `62111`
 
 type: keyword
 
+
+
 example: `QUERY`
 
 | extended
@@ -970,6 +1102,8 @@ example: `QUERY`
 | The class of records being queried.
 
 type: keyword
+
+
 
 example: `IN`
 
@@ -983,6 +1117,8 @@ example: `IN`
 If the name field contains non-printable characters (below 32 or above 126), those characters should be represented as escaped base 10 integers (\DDD). Back slashes and quotes should be escaped. Tabs, carriage returns, and line feeds should be converted to \t, \r, and \n respectively.
 
 type: keyword
+
+
 
 example: `www.google.com`
 
@@ -999,6 +1135,8 @@ This value can be determined precisely with a list like the public suffix list (
 
 type: keyword
 
+
+
 example: `google.com`
 
 | extended
@@ -1011,6 +1149,8 @@ example: `google.com`
 If the domain has multiple levels of subdomain, such as "sub2.sub1.example.com", the subdomain field should contain "sub2.sub1", with no trailing period.
 
 type: keyword
+
+
 
 example: `www`
 
@@ -1025,6 +1165,8 @@ This value can be determined precisely with a list like the public suffix list (
 
 type: keyword
 
+
+
 example: `co.uk`
 
 | extended
@@ -1035,6 +1177,8 @@ example: `co.uk`
 | The type of record being queried.
 
 type: keyword
+
+
 
 example: `AAAA`
 
@@ -1049,6 +1193,11 @@ The `answers` array can be difficult to use, because of the variety of data form
 
 type: ip
 
+
+Note: this field should contain an array of values.
+
+
+
 example: `['10.10.10.10', '10.10.10.11']`
 
 | extended
@@ -1059,6 +1208,8 @@ example: `['10.10.10.10', '10.10.10.11']`
 | The DNS response code.
 
 type: keyword
+
+
 
 example: `NOERROR`
 
@@ -1074,6 +1225,8 @@ If your source of DNS events only gives you DNS queries, you should only create 
 If your source of DNS events gives you answers as well, you should create one event per query (optionally as soon as the query is seen). And a second event containing all query details as well as an array of answers.
 
 type: keyword
+
+
 
 example: `answer`
 
@@ -1102,6 +1255,8 @@ Meta-information specific to ECS.
 When querying across multiple indices -- which may conform to slightly different ECS versions -- this field lets integrations adjust to the schema version of the events.
 
 type: keyword
+
+
 
 example: `1.0.0`
 
@@ -1133,6 +1288,8 @@ type: keyword
 
 
 
+
+
 | core
 
 // ===============================================================
@@ -1144,6 +1301,8 @@ type: keyword
 
 
 
+
+
 | core
 
 // ===============================================================
@@ -1152,6 +1311,8 @@ type: keyword
 | Error message.
 
 type: text
+
+
 
 
 
@@ -1172,6 +1333,8 @@ Multi-fields:
 
 
 
+
+
 | extended
 
 // ===============================================================
@@ -1180,6 +1343,8 @@ Multi-fields:
 | The type of the error, for example the class name of the exception.
 
 type: keyword
+
+
 
 example: `java.lang.NullPointerException`
 
@@ -1211,6 +1376,8 @@ This describes the information in the event. It is more specific than `event.cat
 
 type: keyword
 
+
+
 example: `user-password-change`
 
 | core
@@ -1225,6 +1392,11 @@ example: `user-password-change`
 This field is an array. This will allow proper categorization of some events that fall in multiple categories.
 
 type: keyword
+
+
+Note: this field should contain an array of values.
+
+
 
 
 *Important*: The field value must be one of the following:
@@ -1246,6 +1418,8 @@ Some event sources use event codes to identify messages unambiguously, regardles
 
 type: keyword
 
+
+
 example: `4648`
 
 | extended
@@ -1263,6 +1437,8 @@ In case the two timestamps are identical, @timestamp should be used.
 
 type: date
 
+
+
 example: `2016-05-23T08:05:34.857Z`
 
 | core
@@ -1277,6 +1453,8 @@ If an event source publishes more than one type of log or events (e.g. access lo
 It's recommended but not required to start the dataset name with the module name, followed by a dot, then the dataset name.
 
 type: keyword
+
+
 
 example: `apache.access`
 
@@ -1293,6 +1471,8 @@ type: long
 
 
 
+
+
 | core
 
 // ===============================================================
@@ -1301,6 +1481,8 @@ type: long
 | event.end contains the date when the event ended or when the activity was last observed.
 
 type: date
+
+
 
 
 
@@ -1313,6 +1495,8 @@ type: date
 
 type: keyword
 
+
+
 example: `123456789012345678901234567890ABCD`
 
 | extended
@@ -1323,6 +1507,8 @@ example: `123456789012345678901234567890ABCD`
 | Unique ID to describe the event.
 
 type: keyword
+
+
 
 example: `8a4f500d`
 
@@ -1339,6 +1525,8 @@ In normal conditions, assuming no tampering, the timestamps should chronological
 
 type: date
 
+
+
 example: `2016-05-23T08:05:35.101Z`
 
 | core
@@ -1353,6 +1541,8 @@ example: `2016-05-23T08:05:35.101Z`
 The value of this field can be used to inform how these kinds of events should be handled. They may warrant different retention, different access control, it may also help understand whether the data coming in at a regular interval or not.
 
 type: keyword
+
+
 
 
 *Important*: The field value must be one of the following:
@@ -1374,6 +1564,8 @@ If your monitoring agent supports the concept of modules or plugins to process e
 
 type: keyword
 
+
+
 example: `apache`
 
 | core
@@ -1387,6 +1579,8 @@ This field is not indexed and doc_values are disabled. It cannot be searched, bu
 
 type: keyword
 
+
+
 example: `Sep 19 08:26:10 host CEF:0&#124;Security&#124; threatmanager&#124;1.0&#124;100&#124; worm successfully stopped&#124;10&#124;src=10.0.0.1 dst=2.1.2.2spt=1232`
 
 | core
@@ -1399,6 +1593,8 @@ example: `Sep 19 08:26:10 host CEF:0&#124;Security&#124; threatmanager&#124;1.0&
 `event.outcome` simply denotes whether the event represent a success or a failure. Note that not all events will have an associated outcome. For example, this field is generally not populated for metric events or events with `event.type:info`.
 
 type: keyword
+
+
 
 
 *Important*: The field value must be one of the following:
@@ -1420,6 +1616,8 @@ Event transports such as Syslog or the Windows Event Log typically mention the s
 
 type: keyword
 
+
+
 example: `kernel`
 
 | extended
@@ -1430,6 +1628,8 @@ example: `kernel`
 | Risk score or priority of the event (e.g. security solutions). Use your system's original value here.
 
 type: float
+
+
 
 
 
@@ -1446,6 +1646,8 @@ type: float
 
 
 
+
+
 | extended
 
 // ===============================================================
@@ -1456,6 +1658,8 @@ type: float
 The sequence number is a value published by some event sources, to make the exact ordering of events unambiguous, regardless of the timestamp precision.
 
 type: long
+
+
 
 
 
@@ -1472,6 +1676,8 @@ The Syslog severity belongs in `log.syslog.severity.code`. `event.severity` is m
 
 type: long
 
+
+
 example: `7`
 
 | core
@@ -1482,6 +1688,8 @@ example: `7`
 | event.start contains the date when the event started or when the activity was first observed.
 
 type: date
+
+
 
 
 
@@ -1498,6 +1706,8 @@ type: keyword
 
 
 
+
+
 | extended
 
 // ===============================================================
@@ -1510,6 +1720,11 @@ type: keyword
 This field is an array. This will allow proper categorization of some events that fall in multiple event types.
 
 type: keyword
+
+
+Note: this field should contain an array of values.
+
+
 
 
 *Important*: The field value must be one of the following:
@@ -1550,6 +1765,8 @@ type: date
 
 
 
+
+
 | extended
 
 // ===============================================================
@@ -1560,6 +1777,11 @@ type: date
 Attributes names will vary by platform. Here's a non-exhaustive list of values that are expected in this field: archive, compressed, directory, encrypted, execute, hidden, read, readonly, system, write.
 
 type: keyword
+
+
+Note: this field should contain an array of values.
+
+
 
 example: `["readonly", "system"]`
 
@@ -1576,6 +1798,8 @@ type: date
 
 
 
+
+
 | extended
 
 // ===============================================================
@@ -1589,6 +1813,8 @@ type: date
 
 
 
+
+
 | extended
 
 // ===============================================================
@@ -1597,6 +1823,8 @@ type: date
 | Device that is the source of the file.
 
 type: keyword
+
+
 
 example: `sda`
 
@@ -1608,6 +1836,8 @@ example: `sda`
 | Directory where the file is located. It should include the drive letter, when appropriate.
 
 type: keyword
+
+
 
 example: `/home/alice`
 
@@ -1622,6 +1852,8 @@ The value should be uppercase, and not include the colon.
 
 type: keyword
 
+
+
 example: `C`
 
 | extended
@@ -1632,6 +1864,8 @@ example: `C`
 | File extension.
 
 type: keyword
+
+
 
 example: `png`
 
@@ -1644,6 +1878,8 @@ example: `png`
 
 type: keyword
 
+
+
 example: `1001`
 
 | extended
@@ -1654,6 +1890,8 @@ example: `1001`
 | Primary group name of the file.
 
 type: keyword
+
+
 
 example: `alice`
 
@@ -1666,6 +1904,8 @@ example: `alice`
 
 type: keyword
 
+
+
 example: `256383`
 
 | extended
@@ -1676,6 +1916,8 @@ example: `256383`
 | Mode of the file in octal representation.
 
 type: keyword
+
+
 
 example: `0640`
 
@@ -1690,6 +1932,8 @@ type: date
 
 
 
+
+
 | extended
 
 // ===============================================================
@@ -1698,6 +1942,8 @@ type: date
 | Name of the file including the extension, without the directory.
 
 type: keyword
+
+
 
 example: `example.png`
 
@@ -1709,6 +1955,8 @@ example: `example.png`
 | File owner's username.
 
 type: keyword
+
+
 
 example: `alice`
 
@@ -1727,6 +1975,8 @@ Multi-fields:
 
 
 
+
+
 example: `/home/alice/example.png`
 
 | extended
@@ -1739,6 +1989,8 @@ example: `/home/alice/example.png`
 Only relevant when `file.type` is "file".
 
 type: long
+
+
 
 example: `16384`
 
@@ -1759,6 +2011,8 @@ Multi-fields:
 
 
 
+
+
 | extended
 
 // ===============================================================
@@ -1767,6 +2021,8 @@ Multi-fields:
 | File type (file, dir, or symlink).
 
 type: keyword
+
+
 
 example: `file`
 
@@ -1778,6 +2034,8 @@ example: `file`
 | The user ID (UID) or security identifier (SID) of the file owner.
 
 type: keyword
+
+
 
 example: `1001`
 
@@ -1836,6 +2094,8 @@ This geolocation information can be derived from techniques such as Geo IP, or b
 
 type: keyword
 
+
+
 example: `Montreal`
 
 | core
@@ -1846,6 +2106,8 @@ example: `Montreal`
 | Name of the continent.
 
 type: keyword
+
+
 
 example: `North America`
 
@@ -1858,6 +2120,8 @@ example: `North America`
 
 type: keyword
 
+
+
 example: `CA`
 
 | core
@@ -1869,6 +2133,8 @@ example: `CA`
 
 type: keyword
 
+
+
 example: `Canada`
 
 | core
@@ -1879,6 +2145,8 @@ example: `Canada`
 | Longitude and latitude.
 
 type: geo_point
+
+
 
 example: `{ "lon": -73.614830, "lat": 45.505918 }`
 
@@ -1895,6 +2163,8 @@ Not typically used in automated geolocation.
 
 type: keyword
 
+
+
 example: `boston-dc`
 
 | extended
@@ -1906,6 +2176,8 @@ example: `boston-dc`
 
 type: keyword
 
+
+
 example: `CA-QC`
 
 | core
@@ -1916,6 +2188,8 @@ example: `CA-QC`
 | Region name.
 
 type: keyword
+
+
 
 example: `Quebec`
 
@@ -1956,6 +2230,8 @@ type: keyword
 
 
 
+
+
 | extended
 
 // ===============================================================
@@ -1967,6 +2243,8 @@ type: keyword
 
 
 
+
+
 | extended
 
 // ===============================================================
@@ -1975,6 +2253,8 @@ type: keyword
 | Name of the group.
 
 type: keyword
+
+
 
 
 
@@ -2015,6 +2295,8 @@ type: keyword
 
 
 
+
+
 | extended
 
 // ===============================================================
@@ -2023,6 +2305,8 @@ type: keyword
 | SHA1 hash.
 
 type: keyword
+
+
 
 
 
@@ -2037,6 +2321,8 @@ type: keyword
 
 
 
+
+
 | extended
 
 // ===============================================================
@@ -2048,6 +2334,8 @@ type: keyword
 
 
 
+
+
 | extended
 
 // ===============================================================
@@ -2056,7 +2344,7 @@ type: keyword
 
 ==== Field Reuse
 
-The `hash` fields are expected to be nested at: `file.hash`, `process.hash`.
+The `hash` fields are expected to be nested at: `file.hash`, `process.hash`, `process.parent.hash`.
 
 Note also that the `hash` fields are not expected to be used directly at the top level.
 
@@ -2083,6 +2371,8 @@ ECS host.* fields should be populated with details about the host on which the e
 
 type: keyword
 
+
+
 example: `x86_64`
 
 | core
@@ -2096,6 +2386,8 @@ For example, on Windows this could be the host's Active Directory domain or NetB
 
 type: keyword
 
+
+
 example: `CONTOSO`
 
 | extended
@@ -2108,6 +2400,8 @@ example: `CONTOSO`
 It normally contains what the `hostname` command returns on the host machine.
 
 type: keyword
+
+
 
 
 
@@ -2126,14 +2420,21 @@ type: keyword
 
 
 
+
+
 | core
 
 // ===============================================================
 
 | host.ip
-| Host ip address.
+| Host ip addresses.
 
 type: ip
+
+
+Note: this field should contain an array of values.
+
+
 
 
 
@@ -2142,9 +2443,14 @@ type: ip
 // ===============================================================
 
 | host.mac
-| Host mac address.
+| Host mac addresses.
 
 type: keyword
+
+
+Note: this field should contain an array of values.
+
+
 
 
 
@@ -2161,6 +2467,8 @@ type: keyword
 
 
 
+
+
 | core
 
 // ===============================================================
@@ -2174,6 +2482,8 @@ type: keyword
 
 
 
+
+
 | core
 
 // ===============================================================
@@ -2182,6 +2492,8 @@ type: keyword
 | Seconds the host has been up.
 
 type: long
+
+
 
 example: `1325`
 
@@ -2244,6 +2556,8 @@ Fields related to HTTP activity. Use the `url` field set to store the url of the
 
 type: long
 
+
+
 example: `887`
 
 | extended
@@ -2261,6 +2575,8 @@ Multi-fields:
 
 
 
+
+
 example: `Hello world`
 
 | extended
@@ -2271,6 +2587,8 @@ example: `Hello world`
 | Total size in bytes of the request (body and headers).
 
 type: long
+
+
 
 example: `1437`
 
@@ -2285,6 +2603,8 @@ The field value must be normalized to lowercase for querying. See the documentat
 
 type: keyword
 
+
+
 example: `get, post, put`
 
 | extended
@@ -2296,6 +2616,8 @@ example: `get, post, put`
 
 type: keyword
 
+
+
 example: `https://blog.example.com/`
 
 | extended
@@ -2306,6 +2628,8 @@ example: `https://blog.example.com/`
 | Size in bytes of the response body.
 
 type: long
+
+
 
 example: `887`
 
@@ -2324,6 +2648,8 @@ Multi-fields:
 
 
 
+
+
 example: `Hello world`
 
 | extended
@@ -2334,6 +2660,8 @@ example: `Hello world`
 | Total size in bytes of the response (body and headers).
 
 type: long
+
+
 
 example: `1437`
 
@@ -2346,6 +2674,8 @@ example: `1437`
 
 type: long
 
+
+
 example: `404`
 
 | extended
@@ -2356,6 +2686,8 @@ example: `404`
 | HTTP version.
 
 type: keyword
+
+
 
 example: `1.1`
 
@@ -2391,6 +2723,8 @@ Some examples are `warn`, `err`, `i`, `informational`.
 
 type: keyword
 
+
+
 example: `error`
 
 | core
@@ -2401,6 +2735,8 @@ example: `error`
 | The name of the logger inside an application. This is usually the name of the class which initialized the logger, or can be a custom name.
 
 type: keyword
+
+
 
 example: `org.elasticsearch.bootstrap.Bootstrap`
 
@@ -2413,6 +2749,8 @@ example: `org.elasticsearch.bootstrap.Bootstrap`
 
 type: integer
 
+
+
 example: `42`
 
 | extended
@@ -2424,6 +2762,8 @@ example: `42`
 
 type: keyword
 
+
+
 example: `Bootstrap.java`
 
 | extended
@@ -2434,6 +2774,8 @@ example: `Bootstrap.java`
 | The name of the function or method which originated the log event.
 
 type: keyword
+
+
 
 example: `init`
 
@@ -2450,6 +2792,8 @@ This field is not indexed and doc_values are disabled so it can't be queried but
 
 type: keyword
 
+
+
 example: `Sep 19 08:26:10 localhost My log`
 
 | core
@@ -2460,6 +2804,8 @@ example: `Sep 19 08:26:10 localhost My log`
 | The Syslog metadata of the event, if the event was transmitted via Syslog. Please see RFCs 5424 or 3164.
 
 type: object
+
+
 
 
 
@@ -2474,6 +2820,8 @@ According to RFCs 5424 and 3164, this value should be an integer between 0 and 2
 
 type: long
 
+
+
 example: `23`
 
 | extended
@@ -2484,6 +2832,8 @@ example: `23`
 | The Syslog text-based facility of the log event, if available.
 
 type: keyword
+
+
 
 example: `local7`
 
@@ -2498,6 +2848,8 @@ According to RFCs 5424 and 3164, the priority is 8 * facility + severity. This n
 
 type: long
 
+
+
 example: `135`
 
 | extended
@@ -2511,6 +2863,8 @@ If the event source publishing via Syslog provides a different numeric severity 
 
 type: long
 
+
+
 example: `3`
 
 | extended
@@ -2523,6 +2877,8 @@ example: `3`
 If the event source publishing via Syslog provides a different severity value (e.g. firewall, IDS), your source's text severity should go to `log.level`. If the event source does not specify a distinct severity, you can optionally copy the Syslog severity to `log.level`.
 
 type: keyword
+
+
 
 example: `Error`
 
@@ -2554,6 +2910,8 @@ The field value must be normalized to lowercase for querying. See the documentat
 
 type: keyword
 
+
+
 example: `aim`
 
 | extended
@@ -2567,6 +2925,8 @@ If `source.bytes` and `destination.bytes` are known, `network.bytes` is their su
 
 type: long
 
+
+
 example: `368`
 
 | core
@@ -2579,6 +2939,8 @@ example: `368`
 Learn more at https://github.com/corelight/community-id-spec.
 
 type: keyword
+
+
 
 example: `1:hO+sN4H+MG5MY/8hIrXPqc4ZQz0=`
 
@@ -2609,6 +2971,8 @@ When mapping events from a network or perimeter-based monitoring context, popula
 
 type: keyword
 
+
+
 example: `inbound`
 
 | core
@@ -2619,6 +2983,8 @@ example: `inbound`
 | Host IP address when the source IP address is the proxy.
 
 type: ip
+
+
 
 example: `192.1.1.2`
 
@@ -2631,6 +2997,8 @@ example: `192.1.1.2`
 
 type: keyword
 
+
+
 example: `6`
 
 | extended
@@ -2641,6 +3009,8 @@ example: `6`
 | Name given by operators to sections of their network.
 
 type: keyword
+
+
 
 example: `Guest Wifi`
 
@@ -2655,6 +3025,8 @@ If `source.packets` and `destination.packets` are known, `network.packets` is th
 
 type: long
 
+
+
 example: `24`
 
 | core
@@ -2667,6 +3039,8 @@ example: `24`
 The field value must be normalized to lowercase for querying. See the documentation section "Implementing ECS".
 
 type: keyword
+
+
 
 example: `http`
 
@@ -2681,6 +3055,8 @@ The field value must be normalized to lowercase for querying. See the documentat
 
 type: keyword
 
+
+
 example: `tcp`
 
 | core
@@ -2693,6 +3069,8 @@ example: `tcp`
 The field value must be normalized to lowercase for querying. See the documentation section "Implementing ECS".
 
 type: keyword
+
+
 
 example: `ipv4`
 
@@ -2724,14 +3102,21 @@ type: keyword
 
 
 
+
+
 | core
 
 // ===============================================================
 
 | observer.ip
-| IP address of the observer.
+| IP addresses of the observer.
 
 type: ip
+
+
+Note: this field should contain an array of values.
+
+
 
 
 
@@ -2740,9 +3125,14 @@ type: ip
 // ===============================================================
 
 | observer.mac
-| MAC address of the observer
+| MAC addresses of the observer
 
 type: keyword
+
+
+Note: this field should contain an array of values.
+
+
 
 
 
@@ -2759,6 +3149,8 @@ If no custom name is needed, the field can be left empty.
 
 type: keyword
 
+
+
 example: `1_proxySG`
 
 | extended
@@ -2769,6 +3161,8 @@ example: `1_proxySG`
 | The product name of the observer.
 
 type: keyword
+
+
 
 example: `s200`
 
@@ -2783,6 +3177,8 @@ type: keyword
 
 
 
+
+
 | extended
 
 // ===============================================================
@@ -2793,6 +3189,8 @@ type: keyword
 There is no predefined list of observer types. Some examples are `forwarder`, `firewall`, `ids`, `ips`, `proxy`, `poller`, `sensor`, `APM server`.
 
 type: keyword
+
+
 
 example: `firewall`
 
@@ -2805,6 +3203,8 @@ example: `firewall`
 
 type: keyword
 
+
+
 example: `Symantec`
 
 | core
@@ -2815,6 +3215,8 @@ example: `Symantec`
 | Observer version.
 
 type: keyword
+
+
 
 
 
@@ -2875,6 +3277,8 @@ type: keyword
 
 
 
+
+
 | extended
 
 // ===============================================================
@@ -2887,6 +3291,8 @@ type: keyword
 Multi-fields:
 
 * organization.name.text (type: text)
+
+
 
 
 
@@ -2916,6 +3322,8 @@ The OS fields contain information about the operating system.
 
 type: keyword
 
+
+
 example: `debian`
 
 | extended
@@ -2933,6 +3341,8 @@ Multi-fields:
 
 
 
+
+
 example: `Mac OS Mojave`
 
 | extended
@@ -2943,6 +3353,8 @@ example: `Mac OS Mojave`
 | Operating system kernel version as a raw string.
 
 type: keyword
+
+
 
 example: `4.4.0-112-generic`
 
@@ -2961,6 +3373,8 @@ Multi-fields:
 
 
 
+
+
 example: `Mac OS X`
 
 | extended
@@ -2972,6 +3386,8 @@ example: `Mac OS X`
 
 type: keyword
 
+
+
 example: `darwin`
 
 | extended
@@ -2982,6 +3398,8 @@ example: `darwin`
 | Operating system version as a raw string.
 
 type: keyword
+
+
 
 example: `10.14.1`
 
@@ -3018,6 +3436,8 @@ These fields contain information about an installed software package. It contain
 
 type: keyword
 
+
+
 example: `x86_64`
 
 | extended
@@ -3031,6 +3451,8 @@ For example use the commit SHA of a non-released package.
 
 type: keyword
 
+
+
 example: `36f4f7e89dd61b0988b12ee000b98966867710cd`
 
 | extended
@@ -3041,6 +3463,8 @@ example: `36f4f7e89dd61b0988b12ee000b98966867710cd`
 | Checksum of the installed package for verification.
 
 type: keyword
+
+
 
 example: `68b329da9893e34099c7d8ad5cb9c940`
 
@@ -3053,6 +3477,8 @@ example: `68b329da9893e34099c7d8ad5cb9c940`
 
 type: keyword
 
+
+
 example: `Open source programming language to build simple/reliable/efficient software.`
 
 | extended
@@ -3063,6 +3489,8 @@ example: `Open source programming language to build simple/reliable/efficient so
 | Indicating how the package was installed, e.g. user-local, global.
 
 type: keyword
+
+
 
 example: `global`
 
@@ -3077,6 +3505,8 @@ type: date
 
 
 
+
+
 | extended
 
 // ===============================================================
@@ -3087,6 +3517,8 @@ type: date
 Use a short name, e.g. the license identifier from SPDX License List where possible (https://spdx.org/licenses/).
 
 type: keyword
+
+
 
 example: `Apache License 2.0`
 
@@ -3099,6 +3531,8 @@ example: `Apache License 2.0`
 
 type: keyword
 
+
+
 example: `go`
 
 | extended
@@ -3109,6 +3543,8 @@ example: `go`
 | Path where the package is installed.
 
 type: keyword
+
+
 
 example: `/usr/local/Cellar/go/1.12.9/`
 
@@ -3121,6 +3557,8 @@ example: `/usr/local/Cellar/go/1.12.9/`
 
 type: keyword
 
+
+
 example: `https://golang.org`
 
 | extended
@@ -3131,6 +3569,8 @@ example: `https://golang.org`
 | Package size in bytes.
 
 type: long
+
+
 
 example: `62231`
 
@@ -3145,6 +3585,8 @@ This should contain the package file type, rather than the package manager name.
 
 type: keyword
 
+
+
 example: `rpm`
 
 | extended
@@ -3155,6 +3597,8 @@ example: `rpm`
 | Package version
 
 type: keyword
+
+
 
 example: `1.12.9`
 
@@ -3186,6 +3630,11 @@ May be filtered to protect sensitive information.
 
 type: keyword
 
+
+Note: this field should contain an array of values.
+
+
+
 example: `['/usr/bin/ssh', '-l', 'user', '10.0.0.16']`
 
 | extended
@@ -3198,6 +3647,8 @@ example: `['/usr/bin/ssh', '-l', 'user', '10.0.0.16']`
 This field can be useful for querying or performing bucket analysis on how many arguments were provided to start a process. More arguments may be an indication of suspicious activity.
 
 type: long
+
+
 
 example: `4`
 
@@ -3218,6 +3669,8 @@ Multi-fields:
 
 
 
+
+
 example: `/usr/bin/ssh -l user 10.0.0.16`
 
 | extended
@@ -3235,6 +3688,8 @@ Multi-fields:
 
 
 
+
+
 example: `/usr/bin/ssh`
 
 | extended
@@ -3247,6 +3702,8 @@ example: `/usr/bin/ssh`
 The field should be absent if there is no exit code for the event (e.g. process start).
 
 type: long
+
+
 
 example: `137`
 
@@ -3267,6 +3724,8 @@ Multi-fields:
 
 
 
+
+
 example: `ssh`
 
 | extended
@@ -3280,6 +3739,11 @@ May be filtered to protect sensitive information.
 
 type: keyword
 
+
+Note: this field should contain an array of values.
+
+
+
 example: `['ssh', '-l', 'user', '10.0.0.16']`
 
 | extended
@@ -3292,6 +3756,8 @@ example: `['ssh', '-l', 'user', '10.0.0.16']`
 This field can be useful for querying or performing bucket analysis on how many arguments were provided to start a process. More arguments may be an indication of suspicious activity.
 
 type: long
+
+
 
 example: `4`
 
@@ -3312,6 +3778,8 @@ Multi-fields:
 
 
 
+
+
 example: `/usr/bin/ssh -l user 10.0.0.16`
 
 | extended
@@ -3329,6 +3797,8 @@ Multi-fields:
 
 
 
+
+
 example: `/usr/bin/ssh`
 
 | extended
@@ -3341,6 +3811,8 @@ example: `/usr/bin/ssh`
 The field should be absent if there is no exit code for the event (e.g. process start).
 
 type: long
+
+
 
 example: `137`
 
@@ -3361,6 +3833,8 @@ Multi-fields:
 
 
 
+
+
 example: `ssh`
 
 | extended
@@ -3374,6 +3848,8 @@ type: long
 
 
 
+
+
 | extended
 
 // ===============================================================
@@ -3382,6 +3858,8 @@ type: long
 | Process id.
 
 type: long
+
+
 
 example: `4242`
 
@@ -3394,6 +3872,8 @@ example: `4242`
 
 type: long
 
+
+
 example: `4241`
 
 | extended
@@ -3404,6 +3884,8 @@ example: `4241`
 | The time the process started.
 
 type: date
+
+
 
 example: `2016-05-23T08:05:34.853Z`
 
@@ -3416,6 +3898,8 @@ example: `2016-05-23T08:05:34.853Z`
 
 type: long
 
+
+
 example: `4242`
 
 | extended
@@ -3426,6 +3910,8 @@ example: `4242`
 | Thread name.
 
 type: keyword
+
+
 
 example: `thread-0`
 
@@ -3448,6 +3934,8 @@ Multi-fields:
 
 
 
+
+
 | extended
 
 // ===============================================================
@@ -3456,6 +3944,8 @@ Multi-fields:
 | Seconds the process has been up.
 
 type: long
+
+
 
 example: `1325`
 
@@ -3474,6 +3964,8 @@ Multi-fields:
 
 
 
+
+
 example: `/home/alice`
 
 | extended
@@ -3487,6 +3979,8 @@ type: long
 
 
 
+
+
 | extended
 
 // ===============================================================
@@ -3495,6 +3989,8 @@ type: long
 | Process id.
 
 type: long
+
+
 
 example: `4242`
 
@@ -3507,6 +4003,8 @@ example: `4242`
 
 type: long
 
+
+
 example: `4241`
 
 | extended
@@ -3517,6 +4015,8 @@ example: `4241`
 | The time the process started.
 
 type: date
+
+
 
 example: `2016-05-23T08:05:34.853Z`
 
@@ -3529,6 +4029,8 @@ example: `2016-05-23T08:05:34.853Z`
 
 type: long
 
+
+
 example: `4242`
 
 | extended
@@ -3539,6 +4041,8 @@ example: `4242`
 | Thread name.
 
 type: keyword
+
+
 
 example: `thread-0`
 
@@ -3561,6 +4065,8 @@ Multi-fields:
 
 
 
+
+
 | extended
 
 // ===============================================================
@@ -3569,6 +4075,8 @@ Multi-fields:
 | Seconds the process has been up.
 
 type: long
+
+
 
 example: `1325`
 
@@ -3584,6 +4092,8 @@ type: keyword
 Multi-fields:
 
 * process.working_directory.text (type: text)
+
+
 
 
 
@@ -3644,6 +4154,8 @@ For Windows registry operations, such as SetValueEx and RegQueryValueEx, this co
 
 type: keyword
 
+
+
 example: `ZQBuAC0AVQBTAAAAZQBuAAAAAAA=`
 
 | extended
@@ -3657,6 +4169,8 @@ Populated as an array when writing string data to the registry. For single strin
 
 type: keyword
 
+
+
 example: `["C:\rta\red_ttp\bin\myapp.exe"]`
 
 | core
@@ -3667,6 +4181,8 @@ example: `["C:\rta\red_ttp\bin\myapp.exe"]`
 | Standard registry type for encoding contents
 
 type: keyword
+
+
 
 example: `REG_SZ`
 
@@ -3679,6 +4195,8 @@ example: `REG_SZ`
 
 type: keyword
 
+
+
 example: `HKLM`
 
 | core
@@ -3689,6 +4207,8 @@ example: `HKLM`
 | Hive-relative path of keys.
 
 type: keyword
+
+
 
 example: `SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\winword.exe`
 
@@ -3701,6 +4221,8 @@ example: `SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Opti
 
 type: keyword
 
+
+
 example: `HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\winword.exe\Debugger`
 
 | core
@@ -3711,6 +4233,8 @@ example: `HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution
 | Name of the value written.
 
 type: keyword
+
+
 
 example: `Debugger`
 
@@ -3743,6 +4267,11 @@ A concrete example is IP addresses, which can be under host, observer, source, d
 type: keyword
 
 
+Note: this field should contain an array of values.
+
+
+
+
 
 | extended
 
@@ -3754,6 +4283,11 @@ type: keyword
 type: ip
 
 
+Note: this field should contain an array of values.
+
+
+
+
 
 | extended
 
@@ -3763,6 +4297,11 @@ type: ip
 | All the user names seen on your event.
 
 type: keyword
+
+
+Note: this field should contain an array of values.
+
+
 
 
 
@@ -3792,6 +4331,8 @@ Examples of data sources that would populate the rule fields include: network ad
 
 type: keyword
 
+
+
 example: `Attempted Information Leak`
 
 | extended
@@ -3802,6 +4343,8 @@ example: `Attempted Information Leak`
 | The description of the rule generating the event.
 
 type: keyword
+
+
 
 example: `Block requests to public DNS over HTTPS / TLS protocols`
 
@@ -3814,6 +4357,8 @@ example: `Block requests to public DNS over HTTPS / TLS protocols`
 
 type: keyword
 
+
+
 example: `101`
 
 | extended
@@ -3824,6 +4369,8 @@ example: `101`
 | The name of the rule or signature generating the event.
 
 type: keyword
+
+
 
 example: `BLOCK_DNS_over_TLS`
 
@@ -3838,6 +4385,8 @@ The URL can point to the vendor's documentation about the rule. If that's not av
 
 type: keyword
 
+
+
 example: `https://en.wikipedia.org/wiki/DNS_over_TLS`
 
 | extended
@@ -3848,6 +4397,8 @@ example: `https://en.wikipedia.org/wiki/DNS_over_TLS`
 | Name of the ruleset, policy, group, or parent category in which the rule used to generate this event is a member.
 
 type: keyword
+
+
 
 example: `Standard_Protocol_Filters`
 
@@ -3860,6 +4411,8 @@ example: `Standard_Protocol_Filters`
 
 type: keyword
 
+
+
 example: `1100110011`
 
 | extended
@@ -3870,6 +4423,8 @@ example: `1100110011`
 | The version / revision of the rule being used for analysis.
 
 type: keyword
+
+
 
 example: `1.1`
 
@@ -3905,6 +4460,8 @@ type: keyword
 
 
 
+
+
 | extended
 
 // ===============================================================
@@ -3913,6 +4470,8 @@ type: keyword
 | Bytes sent from the server to the client.
 
 type: long
+
+
 
 example: `184`
 
@@ -3924,6 +4483,8 @@ example: `184`
 | Server domain.
 
 type: keyword
+
+
 
 
 
@@ -3940,6 +4501,8 @@ type: ip
 
 
 
+
+
 | core
 
 // ===============================================================
@@ -3948,6 +4511,8 @@ type: ip
 | MAC address of the server.
 
 type: keyword
+
+
 
 
 
@@ -3964,6 +4529,8 @@ type: ip
 
 
 
+
+
 | extended
 
 // ===============================================================
@@ -3977,6 +4544,8 @@ type: long
 
 
 
+
+
 | extended
 
 // ===============================================================
@@ -3985,6 +4554,8 @@ type: long
 | Packets sent from the server to the client.
 
 type: long
+
+
 
 example: `12`
 
@@ -3996,6 +4567,8 @@ example: `12`
 | Port of the server.
 
 type: long
+
+
 
 
 
@@ -4012,6 +4585,8 @@ This value can be determined precisely with a list like the public suffix list (
 
 type: keyword
 
+
+
 example: `google.com`
 
 | extended
@@ -4024,6 +4599,8 @@ example: `google.com`
 This value can be determined precisely with a list like the public suffix list (http://publicsuffix.org). Trying to approximate this by simply taking the last label will not work well for effective TLDs such as "co.uk".
 
 type: keyword
+
+
 
 example: `co.uk`
 
@@ -4090,6 +4667,8 @@ This id normally changes across restarts, but `service.id` does not.
 
 type: keyword
 
+
+
 example: `8a4f500f`
 
 | extended
@@ -4104,6 +4683,8 @@ This id should uniquely identify the service. This makes it possible to correlat
 Note that if you need to see the events from one specific host of the service, you should filter on that `host.name` or `host.id` instead.
 
 type: keyword
+
+
 
 example: `d37e5ebfe0ae6c4972dbe9f0174a1637bb8247f6`
 
@@ -4120,6 +4701,8 @@ In the case of Elasticsearch the `service.name` could contain the cluster name. 
 
 type: keyword
 
+
+
 example: `elasticsearch-metrics`
 
 | core
@@ -4135,6 +4718,8 @@ In the case of Elasticsearch, the `service.node.name` could contain the unique n
 
 type: keyword
 
+
+
 example: `instance-0000000016`
 
 | extended
@@ -4145,6 +4730,8 @@ example: `instance-0000000016`
 | Current state of the service.
 
 type: keyword
+
+
 
 
 
@@ -4161,6 +4748,8 @@ Example: If logs or metrics are collected from Elasticsearch, `service.type` wou
 
 type: keyword
 
+
+
 example: `elasticsearch`
 
 | core
@@ -4173,6 +4762,8 @@ example: `elasticsearch`
 This allows to look at a data set only for a specific version of a service.
 
 type: keyword
+
+
 
 example: `3.2.4`
 
@@ -4206,6 +4797,8 @@ type: keyword
 
 
 
+
+
 | extended
 
 // ===============================================================
@@ -4214,6 +4807,8 @@ type: keyword
 | Bytes sent from the source to the destination.
 
 type: long
+
+
 
 example: `184`
 
@@ -4225,6 +4820,8 @@ example: `184`
 | Source domain.
 
 type: keyword
+
+
 
 
 
@@ -4241,6 +4838,8 @@ type: ip
 
 
 
+
+
 | core
 
 // ===============================================================
@@ -4249,6 +4848,8 @@ type: ip
 | MAC address of the source.
 
 type: keyword
+
+
 
 
 
@@ -4265,6 +4866,8 @@ type: ip
 
 
 
+
+
 | extended
 
 // ===============================================================
@@ -4278,6 +4881,8 @@ type: long
 
 
 
+
+
 | extended
 
 // ===============================================================
@@ -4286,6 +4891,8 @@ type: long
 | Packets sent from the source to the destination.
 
 type: long
+
+
 
 example: `12`
 
@@ -4297,6 +4904,8 @@ example: `12`
 | Port of the source.
 
 type: long
+
+
 
 
 
@@ -4313,6 +4922,8 @@ This value can be determined precisely with a list like the public suffix list (
 
 type: keyword
 
+
+
 example: `google.com`
 
 | extended
@@ -4325,6 +4936,8 @@ example: `google.com`
 This value can be determined precisely with a list like the public suffix list (http://publicsuffix.org). Trying to approximate this by simply taking the last label will not work well for effective TLDs such as "co.uk".
 
 type: keyword
+
+
 
 example: `co.uk`
 
@@ -4389,6 +5002,8 @@ These fields are for users to classify alerts from all of their sources (e.g. ID
 
 type: keyword
 
+
+
 example: `MITRE ATT&CK`
 
 | extended
@@ -4399,6 +5014,11 @@ example: `MITRE ATT&CK`
 | The id of tactic used by this threat. You can use the Mitre ATT&CK Matrix Tactic categorization, for example. (ex. https://attack.mitre.org/tactics/TA0040/ )
 
 type: keyword
+
+
+Note: this field should contain an array of values.
+
+
 
 example: `TA0040`
 
@@ -4411,6 +5031,11 @@ example: `TA0040`
 
 type: keyword
 
+
+Note: this field should contain an array of values.
+
+
+
 example: `impact`
 
 | extended
@@ -4422,6 +5047,11 @@ example: `impact`
 
 type: keyword
 
+
+Note: this field should contain an array of values.
+
+
+
 example: `https://attack.mitre.org/tactics/TA0040/`
 
 | extended
@@ -4432,6 +5062,11 @@ example: `https://attack.mitre.org/tactics/TA0040/`
 | The id of technique used by this tactic. You can use the Mitre ATT&CK Matrix Tactic categorization, for example. (ex. https://attack.mitre.org/techniques/T1499/ )
 
 type: keyword
+
+
+Note: this field should contain an array of values.
+
+
 
 example: `T1499`
 
@@ -4450,6 +5085,11 @@ Multi-fields:
 
 
 
+
+Note: this field should contain an array of values.
+
+
+
 example: `endpoint denial of service`
 
 | extended
@@ -4460,6 +5100,11 @@ example: `endpoint denial of service`
 | The reference url of technique used by this tactic. You can use the Mitre ATT&CK Matrix Tactic categorization, for example. (ex. https://attack.mitre.org/techniques/T1499/ )
 
 type: keyword
+
+
+Note: this field should contain an array of values.
+
+
 
 example: `https://attack.mitre.org/techniques/T1499/`
 
@@ -4487,6 +5132,8 @@ Fields related to a TLS connection. These fields focus on the TLS protocol itsel
 
 type: keyword
 
+
+
 example: `TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256`
 
 | extended
@@ -4497,6 +5144,8 @@ example: `TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256`
 | PEM-encoded stand-alone certificate offered by the client. This is usually mutually-exclusive of `client.certificate_chain` since this value also exists in that list.
 
 type: keyword
+
+
 
 example: `MII...`
 
@@ -4509,6 +5158,11 @@ example: `MII...`
 
 type: keyword
 
+
+Note: this field should contain an array of values.
+
+
+
 example: `['MII...', 'MII...']`
 
 | extended
@@ -4519,6 +5173,8 @@ example: `['MII...', 'MII...']`
 | Certificate fingerprint using the MD5 digest of DER-encoded version of certificate offered by the client. For consistency with other hash values, this value should be formatted as an uppercase hash.
 
 type: keyword
+
+
 
 example: `0F76C7F2C55BFD7D8E8B8F4BFBF0C9EC`
 
@@ -4531,6 +5187,8 @@ example: `0F76C7F2C55BFD7D8E8B8F4BFBF0C9EC`
 
 type: keyword
 
+
+
 example: `9E393D93138888D288266C2D915214D1D1CCEB2A`
 
 | extended
@@ -4541,6 +5199,8 @@ example: `9E393D93138888D288266C2D915214D1D1CCEB2A`
 | Certificate fingerprint using the SHA256 digest of DER-encoded version of certificate offered by the client. For consistency with other hash values, this value should be formatted as an uppercase hash.
 
 type: keyword
+
+
 
 example: `0687F666A054EF17A08E2F2162EAB4CBC0D265E1D7875BE74BF3C712CA92DAF0`
 
@@ -4553,6 +5213,8 @@ example: `0687F666A054EF17A08E2F2162EAB4CBC0D265E1D7875BE74BF3C712CA92DAF0`
 
 type: keyword
 
+
+
 example: `CN=MyDomain Root CA, OU=Infrastructure Team, DC=mydomain, DC=com`
 
 | extended
@@ -4563,6 +5225,8 @@ example: `CN=MyDomain Root CA, OU=Infrastructure Team, DC=mydomain, DC=com`
 | A hash that identifies clients based on how they perform an SSL/TLS handshake.
 
 type: keyword
+
+
 
 example: `d4e5b18d6b55c71272893221c96ba240`
 
@@ -4575,6 +5239,8 @@ example: `d4e5b18d6b55c71272893221c96ba240`
 
 type: date
 
+
+
 example: `2021-01-01T00:00:00.000Z`
 
 | extended
@@ -4585,6 +5251,8 @@ example: `2021-01-01T00:00:00.000Z`
 | Date/Time indicating when client certificate is first considered valid.
 
 type: date
+
+
 
 example: `1970-01-01T00:00:00.000Z`
 
@@ -4597,6 +5265,8 @@ example: `1970-01-01T00:00:00.000Z`
 
 type: keyword
 
+
+
 example: `www.elastic.co`
 
 | extended
@@ -4607,6 +5277,8 @@ example: `www.elastic.co`
 | Distinguished name of subject of the x.509 certificate presented by the client.
 
 type: keyword
+
+
 
 example: `CN=myclient, OU=Documentation Team, DC=mydomain, DC=com`
 
@@ -4619,6 +5291,11 @@ example: `CN=myclient, OU=Documentation Team, DC=mydomain, DC=com`
 
 type: keyword
 
+
+Note: this field should contain an array of values.
+
+
+
 example: `['TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384', 'TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384', '...']`
 
 | extended
@@ -4629,6 +5306,8 @@ example: `['TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384', 'TLS_ECDHE_ECDSA_WITH_AES_25
 | String indicating the curve used for the given cipher, when applicable.
 
 type: keyword
+
+
 
 example: `secp256r1`
 
@@ -4643,6 +5322,8 @@ type: boolean
 
 
 
+
+
 | extended
 
 // ===============================================================
@@ -4651,6 +5332,8 @@ type: boolean
 | String indicating the protocol being tunneled. Per the values in the IANA registry (https://www.iana.org/assignments/tls-extensiontype-values/tls-extensiontype-values.xhtml#alpn-protocol-ids), this string should be lower case.
 
 type: keyword
+
+
 
 example: `http/1.1`
 
@@ -4665,6 +5348,8 @@ type: boolean
 
 
 
+
+
 | extended
 
 // ===============================================================
@@ -4673,6 +5358,8 @@ type: boolean
 | PEM-encoded stand-alone certificate offered by the server. This is usually mutually-exclusive of `server.certificate_chain` since this value also exists in that list.
 
 type: keyword
+
+
 
 example: `MII...`
 
@@ -4685,6 +5372,11 @@ example: `MII...`
 
 type: keyword
 
+
+Note: this field should contain an array of values.
+
+
+
 example: `['MII...', 'MII...']`
 
 | extended
@@ -4695,6 +5387,8 @@ example: `['MII...', 'MII...']`
 | Certificate fingerprint using the MD5 digest of DER-encoded version of certificate offered by the server. For consistency with other hash values, this value should be formatted as an uppercase hash.
 
 type: keyword
+
+
 
 example: `0F76C7F2C55BFD7D8E8B8F4BFBF0C9EC`
 
@@ -4707,6 +5401,8 @@ example: `0F76C7F2C55BFD7D8E8B8F4BFBF0C9EC`
 
 type: keyword
 
+
+
 example: `9E393D93138888D288266C2D915214D1D1CCEB2A`
 
 | extended
@@ -4717,6 +5413,8 @@ example: `9E393D93138888D288266C2D915214D1D1CCEB2A`
 | Certificate fingerprint using the SHA256 digest of DER-encoded version of certificate offered by the server. For consistency with other hash values, this value should be formatted as an uppercase hash.
 
 type: keyword
+
+
 
 example: `0687F666A054EF17A08E2F2162EAB4CBC0D265E1D7875BE74BF3C712CA92DAF0`
 
@@ -4729,6 +5427,8 @@ example: `0687F666A054EF17A08E2F2162EAB4CBC0D265E1D7875BE74BF3C712CA92DAF0`
 
 type: keyword
 
+
+
 example: `CN=MyDomain Root CA, OU=Infrastructure Team, DC=mydomain, DC=com`
 
 | extended
@@ -4739,6 +5439,8 @@ example: `CN=MyDomain Root CA, OU=Infrastructure Team, DC=mydomain, DC=com`
 | A hash that identifies servers based on how they perform an SSL/TLS handshake.
 
 type: keyword
+
+
 
 example: `394441ab65754e2207b1e1b457b3641d`
 
@@ -4751,6 +5453,8 @@ example: `394441ab65754e2207b1e1b457b3641d`
 
 type: date
 
+
+
 example: `2021-01-01T00:00:00.000Z`
 
 | extended
@@ -4761,6 +5465,8 @@ example: `2021-01-01T00:00:00.000Z`
 | Timestamp indicating when server certificate is first considered valid.
 
 type: date
+
+
 
 example: `1970-01-01T00:00:00.000Z`
 
@@ -4773,6 +5479,8 @@ example: `1970-01-01T00:00:00.000Z`
 
 type: keyword
 
+
+
 example: `CN=www.mydomain.com, OU=Infrastructure Team, DC=mydomain, DC=com`
 
 | extended
@@ -4784,6 +5492,8 @@ example: `CN=www.mydomain.com, OU=Infrastructure Team, DC=mydomain, DC=com`
 
 type: keyword
 
+
+
 example: `1.2`
 
 | extended
@@ -4794,6 +5504,8 @@ example: `1.2`
 | Normalized lowercase protocol name parsed from original string.
 
 type: keyword
+
+
 
 example: `tls`
 
@@ -4823,6 +5535,8 @@ A trace groups multiple events like transactions that belong together. For examp
 
 type: keyword
 
+
+
 example: `4bf92f3577b34da6a3ce929d0e0e4736`
 
 | extended
@@ -4835,6 +5549,8 @@ example: `4bf92f3577b34da6a3ce929d0e0e4736`
 A transaction is the highest level of work measured within a service, such as a request to a server.
 
 type: keyword
+
+
 
 example: `00f067aa0ba902b7`
 
@@ -4864,6 +5580,8 @@ In some cases a URL may refer to an IP and/or port directly, without a domain na
 
 type: keyword
 
+
+
 example: `www.elastic.co`
 
 | extended
@@ -4878,6 +5596,8 @@ The file extension is only set if it exists, as not every url has a file extensi
 The leading period must not be included. For example, the value must be "png", not ".png".
 
 type: keyword
+
+
 
 example: `png`
 
@@ -4894,6 +5614,8 @@ type: keyword
 
 
 
+
+
 | extended
 
 // ===============================================================
@@ -4906,6 +5628,8 @@ type: keyword
 Multi-fields:
 
 * url.full.text (type: text)
+
+
 
 
 
@@ -4930,6 +5654,8 @@ Multi-fields:
 
 
 
+
+
 example: `https://www.elastic.co:443/search?q=elasticsearch#top or /search?q=elasticsearch`
 
 | extended
@@ -4940,6 +5666,8 @@ example: `https://www.elastic.co:443/search?q=elasticsearch#top or /search?q=ela
 | Password of the request.
 
 type: keyword
+
+
 
 
 
@@ -4954,6 +5682,8 @@ type: keyword
 
 
 
+
+
 | extended
 
 // ===============================================================
@@ -4962,6 +5692,8 @@ type: keyword
 | Port of the request, such as 443.
 
 type: long
+
+
 
 example: `443`
 
@@ -4978,6 +5710,8 @@ type: keyword
 
 
 
+
+
 | extended
 
 // ===============================================================
@@ -4990,6 +5724,8 @@ For example, the registered domain for "foo.google.com" is "google.com".
 This value can be determined precisely with a list like the public suffix list (http://publicsuffix.org). Trying to approximate this by simply taking the last two labels will not work well for TLDs such as "co.uk".
 
 type: keyword
+
+
 
 example: `google.com`
 
@@ -5004,6 +5740,8 @@ Note: The `:` is not part of the scheme.
 
 type: keyword
 
+
+
 example: `https`
 
 | extended
@@ -5017,6 +5755,8 @@ This value can be determined precisely with a list like the public suffix list (
 
 type: keyword
 
+
+
 example: `co.uk`
 
 | extended
@@ -5027,6 +5767,8 @@ example: `co.uk`
 | Username of the request.
 
 type: keyword
+
+
 
 
 
@@ -5060,6 +5802,8 @@ type: keyword
 
 
 
+
+
 | extended
 
 // ===============================================================
@@ -5068,6 +5812,8 @@ type: keyword
 | User email address.
 
 type: keyword
+
+
 
 
 
@@ -5086,6 +5832,8 @@ Multi-fields:
 
 
 
+
+
 example: `Albert Einstein`
 
 | extended
@@ -5101,14 +5849,18 @@ type: keyword
 
 
 
+
+
 | extended
 
 // ===============================================================
 
 | user.id
-| One or multiple unique identifiers of the user.
+| Unique identifiers of the user.
 
 type: keyword
+
+
 
 
 
@@ -5124,6 +5876,8 @@ type: keyword
 Multi-fields:
 
 * user.name.text (type: text)
+
+
 
 
 
@@ -5182,6 +5936,8 @@ They often show up in web service logs coming from the parsed user agent string.
 
 type: keyword
 
+
+
 example: `iPhone`
 
 | extended
@@ -5192,6 +5948,8 @@ example: `iPhone`
 | Name of the user agent.
 
 type: keyword
+
+
 
 example: `Safari`
 
@@ -5210,6 +5968,8 @@ Multi-fields:
 
 
 
+
+
 example: `Mozilla/5.0 (iPhone; CPU iPhone OS 12_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0 Mobile/15E148 Safari/604.1`
 
 | extended
@@ -5220,6 +5980,8 @@ example: `Mozilla/5.0 (iPhone; CPU iPhone OS 12_1 like Mac OS X) AppleWebKit/605
 | Version of the user agent.
 
 type: keyword
+
+
 
 example: `12.0`
 
@@ -5272,6 +6034,11 @@ This field must be an array.
 
 type: keyword
 
+
+Note: this field should contain an array of values.
+
+
+
 example: `["Firewall"]`
 
 | extended
@@ -5282,6 +6049,8 @@ example: `["Firewall"]`
 | The classification of the vulnerability scoring system. For example (https://www.first.org/cvss/)
 
 type: keyword
+
+
 
 example: `CVSS`
 
@@ -5300,6 +6069,8 @@ Multi-fields:
 
 
 
+
+
 example: `In macOS before 2.12.6, there is a vulnerability in the RPC...`
 
 | extended
@@ -5310,6 +6081,8 @@ example: `In macOS before 2.12.6, there is a vulnerability in the RPC...`
 | The type of identifier used for this vulnerability. For example (https://cve.mitre.org/about/)
 
 type: keyword
+
+
 
 example: `CVE`
 
@@ -5322,6 +6095,8 @@ example: `CVE`
 
 type: keyword
 
+
+
 example: `CVE-2019-00001`
 
 | extended
@@ -5332,6 +6107,8 @@ example: `CVE-2019-00001`
 | A resource that provides additional information, context, and mitigations for the identified vulnerability.
 
 type: keyword
+
+
 
 example: `https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-6111`
 
@@ -5344,6 +6121,8 @@ example: `https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-6111`
 
 type: keyword
 
+
+
 example: `20191018.0001`
 
 | extended
@@ -5354,6 +6133,8 @@ example: `20191018.0001`
 | The name of the vulnerability scanner vendor.
 
 type: keyword
+
+
 
 example: `Tenable`
 
@@ -5368,6 +6149,8 @@ Base scores cover an assessment for exploitability metrics (attack vector, compl
 
 type: float
 
+
+
 example: `5.5`
 
 | extended
@@ -5380,6 +6163,8 @@ example: `5.5`
 Environmental scores cover an assessment for any modified Base metrics, confidentiality, integrity, and availability requirements. For example (https://www.first.org/cvss/specification-document)
 
 type: float
+
+
 
 example: `5.5`
 
@@ -5396,6 +6181,8 @@ type: float
 
 
 
+
+
 | extended
 
 // ===============================================================
@@ -5407,6 +6194,8 @@ CVSS is owned and managed by FIRST.Org, Inc. (FIRST), a US-based non-profit orga
 
 type: keyword
 
+
+
 example: `2.0`
 
 | extended
@@ -5417,6 +6206,8 @@ example: `2.0`
 | The severity of the vulnerability can help with metrics and internal prioritization regarding remediation. For example (https://nvd.nist.gov/vuln-metrics/cvss)
 
 type: keyword
+
+
 
 example: `Critical`
 
