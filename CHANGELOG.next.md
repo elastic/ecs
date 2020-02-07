@@ -20,6 +20,7 @@ Thanks, you're awesome :-) -->
 #### Improvements
 
 * Temporary workaround for Beats templates' `default_field` growing too big. #687
+* Identify which fields should contain arrays of values, rather than scalar values. #727, #661
 
 #### Deprecated
 
@@ -36,6 +37,7 @@ Thanks, you're awesome :-) -->
 
 * ECS scripts now use Python 3.6+. #674
 * schema_reader.py now reliably supports chaining reusable fieldsets together. #722
+* Add support for reusing fields in places other than the top level of the destination fieldset. #739
 
 #### Deprecated
 

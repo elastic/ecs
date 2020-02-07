@@ -19,8 +19,8 @@
 
 package ecs
 
-// These fields contain information about dynamically loaded libraries and may
-// include both kernel-mode modules and process modules.
+// These fields contain information about dynamically loaded libraries/process
+// modules.
 type Dll struct {
 	// Name of the library.
 	// This generally maps to the name of the file on disk.
