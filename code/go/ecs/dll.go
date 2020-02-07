@@ -19,8 +19,11 @@
 
 package ecs
 
-// These fields contain information about dynamically loaded libraries/process
-// modules.
+// These fields contain information about loaded process modules.
+// Many operating systems call process modules different names, but this field
+// set refers all of the following: * Dynamic-link library (`.dll) commonly
+// used in Windows * Shared Object (`.so`) commonly used in Unix-like operating
+// systems * Dynamic library (`.dylib`) commonly used in macOS
 type Dll struct {
 	// Name of the library.
 	// This generally maps to the name of the file on disk.
