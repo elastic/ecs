@@ -32,10 +32,10 @@ package ecs
 // and ETL components used in processing events or metrics are not considered
 // observers in ECS.
 type Observer struct {
-	// MAC address of the observer
+	// MAC addresses of the observer
 	MAC string `ecs:"mac"`
 
-	// IP address of the observer.
+	// IP addresses of the observer.
 	IP string `ecs:"ip"`
 
 	// Hostname of the observer.
