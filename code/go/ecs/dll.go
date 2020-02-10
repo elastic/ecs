@@ -23,9 +23,9 @@ package ecs
 //
 // Many operating systems call process modules different names, but this field
 // set refers all of the following:
-// * Dynamic-link library (`.dll`) commonly used in Windows
-// * Shared Object (`.so`) commonly used in Unix-like operating systems
-// * Dynamic library (`.dylib`) commonly used in macOS
+// * Dynamic-link library (`.dll`) commonly used on Windows
+// * Shared Object (`.so`) commonly used on Unix-like operating systems
+// * Dynamic library (`.dylib`) commonly used on macOS
 type Dll struct {
 	// Name of the library.
 	// This generally maps to the name of the file on disk.
