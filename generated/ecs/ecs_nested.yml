@@ -1364,10 +1364,77 @@ dll:
       order: 1
       short: Full file path of the library.
       type: keyword
+    pe.company:
+      dashed_name: dll-pe-company
+      description: Internal company name of the file, provided at compile-time.
+      example: Microsoft Corporation
+      flat_name: dll.pe.company
+      ignore_above: 1024
+      level: extended
+      name: company
+      normalize: []
+      order: 4
+      original_fieldset: pe
+      short: Internal company name of the file, provided at compile-time.
+      type: keyword
+    pe.description:
+      dashed_name: dll-pe-description
+      description: Internal description of the file, provided at compile-time.
+      example: Paint
+      flat_name: dll.pe.description
+      ignore_above: 1024
+      level: extended
+      name: description
+      normalize: []
+      order: 2
+      original_fieldset: pe
+      short: Internal description of the file, provided at compile-time.
+      type: keyword
+    pe.file_version:
+      dashed_name: dll-pe-file-version
+      description: Internal version of the file, provided at compile-time.
+      example: 6.3.9600.17415
+      flat_name: dll.pe.file_version
+      ignore_above: 1024
+      level: extended
+      name: file_version
+      normalize: []
+      order: 1
+      original_fieldset: pe
+      short: Process name.
+      type: keyword
+    pe.original_file_name:
+      dashed_name: dll-pe-original-file-name
+      description: Internal name of the file, provided at compile-time.
+      example: MSPAINT.EXE
+      flat_name: dll.pe.original_file_name
+      ignore_above: 1024
+      level: extended
+      name: original_file_name
+      normalize: []
+      order: 0
+      original_fieldset: pe
+      short: Internal name of the file, provided at compile-time.
+      type: keyword
+    pe.product:
+      dashed_name: dll-pe-product
+      description: Internal product name of the file, provided at compile-time.
+      example: "Microsoft\xAE Windows\xAE Operating System"
+      flat_name: dll.pe.product
+      format: string
+      ignore_above: 1024
+      level: extended
+      name: product
+      normalize: []
+      order: 3
+      original_fieldset: pe
+      short: Internal product name of the file, provided at compile-time.
+      type: keyword
   group: 2
   name: dll
   nestings:
   - hash
+  - pe
   prefix: dll.
   short: These fields contain information about code libraries dynamically loaded
     into processes.
@@ -4738,6 +4805,7 @@ pe:
   reusable:
     expected:
     - file
+    - dll
     - process
     top_level: false
   short: These fields contain Windows Portable Executable (PE) metadata.
