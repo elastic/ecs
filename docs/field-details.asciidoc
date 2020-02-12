@@ -931,6 +931,12 @@ example: `C:\Windows\System32\kernel32.dll`
 // ===============================================================
 
 
+| <<ecs-pe,dll.pe.*>>
+| These fields contain Windows Portable Executable (PE) metadata.
+
+// ===============================================================
+
+
 |=====
 
 [[ecs-dns]]
@@ -2045,6 +2051,12 @@ example: `1001`
 
 | <<ecs-hash,file.hash.*>>
 | Hashes, usually file hashes.
+
+// ===============================================================
+
+
+| <<ecs-pe,file.pe.*>>
+| These fields contain Windows Portable Executable (PE) metadata.
 
 // ===============================================================
 
@@ -3585,6 +3597,95 @@ example: `1.12.9`
 
 |=====
 
+[[ecs-pe]]
+=== PE Header Fields
+
+These fields contain Windows Portable Executable (PE) metadata.
+
+==== PE Header Field Details
+
+[options="header"]
+|=====
+| Field  | Description | Level
+
+// ===============================================================
+
+| pe.company
+| Internal company name of the file, provided at compile-time.
+
+type: keyword
+
+
+
+example: `Microsoft Corporation`
+
+| extended
+
+// ===============================================================
+
+| pe.description
+| Internal description of the file, provided at compile-time.
+
+type: keyword
+
+
+
+example: `Paint`
+
+| extended
+
+// ===============================================================
+
+| pe.file_version
+| Internal version of the file, provided at compile-time.
+
+type: keyword
+
+
+
+example: `6.3.9600.17415`
+
+| extended
+
+// ===============================================================
+
+| pe.original_file_name
+| Internal name of the file, provided at compile-time.
+
+type: keyword
+
+
+
+example: `MSPAINT.EXE`
+
+| extended
+
+// ===============================================================
+
+| pe.product
+| Internal product name of the file, provided at compile-time.
+
+type: keyword
+
+
+
+example: `Microsoft® Windows® Operating System`
+
+| extended
+
+// ===============================================================
+
+|=====
+
+==== Field Reuse
+
+The `pe` fields are expected to be nested at: `dll.pe`, `file.pe`, `process.pe`.
+
+Note also that the `pe` fields are not expected to be used directly at the top level.
+
+
+
+
 [[ecs-process]]
 === Process Fields
 
@@ -4099,6 +4200,12 @@ example: `/home/alice`
 
 | <<ecs-hash,process.hash.*>>
 | Hashes, usually file hashes.
+
+// ===============================================================
+
+
+| <<ecs-pe,process.pe.*>>
+| These fields contain Windows Portable Executable (PE) metadata.
 
 // ===============================================================
 
