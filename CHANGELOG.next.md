@@ -15,6 +15,7 @@ Thanks, you're awesome :-) -->
 #### Bugfixes
 
 #### Added
+* Added `dll.*` fields (#679)
 
 #### Improvements
 

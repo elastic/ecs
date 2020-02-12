@@ -857,6 +857,82 @@ example: `co.uk`
 
 |=====
 
+[[ecs-dll]]
+=== DLL Fields
+
+These fields contain information about code libraries dynamically loaded into processes.
+
+
+
+Many operating systems refer to "shared code libraries" with different names, but this field set refers to all of the following:
+
+* Dynamic-link library (`.dll`) commonly used on Windows
+
+* Shared Object (`.so`) commonly used on Unix-like operating systems
+
+* Dynamic library (`.dylib`) commonly used on macOS
+
+==== DLL Field Details
+
+[options="header"]
+|=====
+| Field  | Description | Level
+
+// ===============================================================
+
+| dll.name
+| Name of the library.
+
+This generally maps to the name of the file on disk.
+
+type: keyword
+
+
+
+example: `kernel32.dll`
+
+| core
+
+// ===============================================================
+
+| dll.path
+| Full file path of the library.
+
+type: keyword
+
+
+
+example: `C:\Windows\System32\kernel32.dll`
+
+| extended
+
+// ===============================================================
+
+|=====
+
+==== Field Reuse
+
+
+
+
+[[ecs-dll-nestings]]
+===== Field sets that can be nested under DLL
+
+[options="header"]
+|=====
+| Nested fields | Description
+
+// ===============================================================
+
+
+| <<ecs-hash,dll.hash.*>>
+| Hashes, usually file hashes.
+
+// ===============================================================
+
+
+|=====
+
 [[ecs-dns]]
 === DNS Fields
 
@@ -2245,7 +2321,7 @@ type: keyword
 
 ==== Field Reuse
 
-The `hash` fields are expected to be nested at: `file.hash`, `process.hash`, `process.parent.hash`.
+The `hash` fields are expected to be nested at: `dll.hash`, `file.hash`, `process.hash`, `process.parent.hash`.
 
 Note also that the `hash` fields are not expected to be used directly at the top level.
 
