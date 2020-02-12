@@ -1276,6 +1276,103 @@ destination:
   short: Fields about the destination side of a network connection, used with source.
   title: Destination
   type: group
+dll:
+  description: 'These fields contain information about code libraries dynamically
+    loaded into processes.
+
+
+    Many operating systems refer to "shared code libraries" with different names,
+    but this field set refers to all of the following:
+
+    * Dynamic-link library (`.dll`) commonly used on Windows
+
+    * Shared Object (`.so`) commonly used on Unix-like operating systems
+
+    * Dynamic library (`.dylib`) commonly used on macOS'
+  fields:
+    hash.md5:
+      dashed_name: dll-hash-md5
+      description: MD5 hash.
+      flat_name: dll.hash.md5
+      ignore_above: 1024
+      level: extended
+      name: md5
+      normalize: []
+      order: 0
+      original_fieldset: hash
+      short: MD5 hash.
+      type: keyword
+    hash.sha1:
+      dashed_name: dll-hash-sha1
+      description: SHA1 hash.
+      flat_name: dll.hash.sha1
+      ignore_above: 1024
+      level: extended
+      name: sha1
+      normalize: []
+      order: 1
+      original_fieldset: hash
+      short: SHA1 hash.
+      type: keyword
+    hash.sha256:
+      dashed_name: dll-hash-sha256
+      description: SHA256 hash.
+      flat_name: dll.hash.sha256
+      ignore_above: 1024
+      level: extended
+      name: sha256
+      normalize: []
+      order: 2
+      original_fieldset: hash
+      short: SHA256 hash.
+      type: keyword
+    hash.sha512:
+      dashed_name: dll-hash-sha512
+      description: SHA512 hash.
+      flat_name: dll.hash.sha512
+      ignore_above: 1024
+      level: extended
+      name: sha512
+      normalize: []
+      order: 3
+      original_fieldset: hash
+      short: SHA512 hash.
+      type: keyword
+    name:
+      dashed_name: dll-name
+      description: 'Name of the library.
+
+        This generally maps to the name of the file on disk.'
+      example: kernel32.dll
+      flat_name: dll.name
+      ignore_above: 1024
+      level: core
+      name: name
+      normalize: []
+      order: 0
+      short: Name of the library.
+      type: keyword
+    path:
+      dashed_name: dll-path
+      description: Full file path of the library.
+      example: C:\Windows\System32\kernel32.dll
+      flat_name: dll.path
+      ignore_above: 1024
+      level: extended
+      name: path
+      normalize: []
+      order: 1
+      short: Full file path of the library.
+      type: keyword
+  group: 2
+  name: dll
+  nestings:
+  - hash
+  prefix: dll.
+  short: These fields contain information about code libraries dynamically loaded
+    into processes.
+  title: DLL
+  type: group
 dns:
   description: 'Fields describing DNS queries and answers.
 
@@ -2943,6 +3040,7 @@ hash:
     - file
     - process
     - process.parent
+    - dll
     top_level: false
   short: Hashes, usually file hashes.
   title: Hash

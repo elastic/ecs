@@ -692,6 +692,63 @@
         default_field: false
       description: Short name or login of the user.
       example: albert
+  - name: dll
+    title: DLL
+    group: 2
+    description: 'These fields contain information about code libraries dynamically
+      loaded into processes.
+
+
+      Many operating systems refer to "shared code libraries" with different names,
+      but this field set refers to all of the following:
+
+      * Dynamic-link library (`.dll`) commonly used on Windows
+
+      * Shared Object (`.so`) commonly used on Unix-like operating systems
+
+      * Dynamic library (`.dylib`) commonly used on macOS'
+    type: group
+    fields:
+    - name: hash.md5
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: MD5 hash.
+      default_field: false
+    - name: hash.sha1
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SHA1 hash.
+      default_field: false
+    - name: hash.sha256
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SHA256 hash.
+      default_field: false
+    - name: hash.sha512
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SHA512 hash.
+      default_field: false
+    - name: name
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the library.
+
+        This generally maps to the name of the file on disk.'
+      example: kernel32.dll
+      default_field: false
+    - name: path
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Full file path of the library.
+      example: C:\Windows\System32\kernel32.dll
+      default_field: false
   - name: dns
     title: DNS
     group: 2
