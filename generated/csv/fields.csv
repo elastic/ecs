@@ -95,6 +95,11 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.5.0-dev,true,destination,destination.user.id,keyword,core,,,Unique identifiers of the user.
 1.5.0-dev,true,destination,destination.user.name,keyword,core,,albert,Short name or login of the user.
 1.5.0-dev,true,destination,destination.user.name.text,text,core,,albert,Short name or login of the user.
+1.5.0-dev,true,dll,dll.code_signature.exists,keyword,core,,true,Boolean to capture if a signature is present.
+1.5.0-dev,true,dll,dll.code_signature.status,keyword,extended,,ERROR_UNTRUSTED_ROOT,Additional information about the certificate status.
+1.5.0-dev,true,dll,dll.code_signature.subject_name,keyword,core,,Microsoft Corporation,Subject name of the code signer
+1.5.0-dev,true,dll,dll.code_signature.trusted,boolean,extended,,true,Stores the trust status of the certificate chain.
+1.5.0-dev,true,dll,dll.code_signature.valid,boolean,extended,,true,Boolean to capture if the digital signature is verified against the binary content.
 1.5.0-dev,true,dll,dll.hash.md5,keyword,extended,,,MD5 hash.
 1.5.0-dev,true,dll,dll.hash.sha1,keyword,extended,,,SHA1 hash.
 1.5.0-dev,true,dll,dll.hash.sha256,keyword,extended,,,SHA256 hash.
@@ -349,6 +354,11 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.5.0-dev,true,process,process.name.text,text,extended,,ssh,Process name.
 1.5.0-dev,true,process,process.parent.args,keyword,extended,array,"['ssh', '-l', 'user', '10.0.0.16']",Array of process arguments.
 1.5.0-dev,true,process,process.parent.args_count,long,extended,,4,Length of the process.args array.
+1.5.0-dev,true,process,process.parent.code_signature.exists,keyword,core,,true,Boolean to capture if a signature is present.
+1.5.0-dev,true,process,process.parent.code_signature.status,keyword,extended,,ERROR_UNTRUSTED_ROOT,Additional information about the certificate status.
+1.5.0-dev,true,process,process.parent.code_signature.subject_name,keyword,core,,Microsoft Corporation,Subject name of the code signer
+1.5.0-dev,true,process,process.parent.code_signature.trusted,boolean,extended,,true,Stores the trust status of the certificate chain.
+1.5.0-dev,true,process,process.parent.code_signature.valid,boolean,extended,,true,Boolean to capture if the digital signature is verified against the binary content.
 1.5.0-dev,true,process,process.parent.command_line,keyword,extended,,/usr/bin/ssh -l user 10.0.0.16,Full command line that started the process.
 1.5.0-dev,true,process,process.parent.command_line.text,text,extended,,/usr/bin/ssh -l user 10.0.0.16,Full command line that started the process.
 1.5.0-dev,true,process,process.parent.executable,keyword,extended,,/usr/bin/ssh,Absolute path to the process executable.

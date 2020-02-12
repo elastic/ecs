@@ -754,6 +754,45 @@
       * Dynamic library (`.dylib`) commonly used on macOS'
     type: group
     fields:
+    - name: code_signature.exists
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: 'Boolean to capture if a signature is present.
+
+        This should only populated if the signature was checked.'
+      example: 'true'
+      default_field: false
+    - name: code_signature.status
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Additional information about the certificate status.
+
+        This is useful for logging cryptographic errors with the certificate validity
+        or trust status.'
+      example: ERROR_UNTRUSTED_ROOT
+      default_field: false
+    - name: code_signature.subject_name
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: Subject name of the code signer
+      example: Microsoft Corporation
+      default_field: false
+    - name: code_signature.trusted
+      level: extended
+      type: boolean
+      description: Stores the trust status of the certificate chain.
+      example: 'true'
+      default_field: false
+    - name: code_signature.valid
+      level: extended
+      type: boolean
+      description: Boolean to capture if the digital signature is verified against
+        the binary content.
+      example: 'true'
+      default_field: false
     - name: hash.md5
       level: extended
       type: keyword
@@ -2761,6 +2800,45 @@
         many arguments were provided to start a process. More arguments may be an
         indication of suspicious activity.'
       example: 4
+      default_field: false
+    - name: parent.code_signature.exists
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: 'Boolean to capture if a signature is present.
+
+        This should only populated if the signature was checked.'
+      example: 'true'
+      default_field: false
+    - name: parent.code_signature.status
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Additional information about the certificate status.
+
+        This is useful for logging cryptographic errors with the certificate validity
+        or trust status.'
+      example: ERROR_UNTRUSTED_ROOT
+      default_field: false
+    - name: parent.code_signature.subject_name
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: Subject name of the code signer
+      example: Microsoft Corporation
+      default_field: false
+    - name: parent.code_signature.trusted
+      level: extended
+      type: boolean
+      description: Stores the trust status of the certificate chain.
+      example: 'true'
+      default_field: false
+    - name: parent.code_signature.valid
+      level: extended
+      type: boolean
+      description: Boolean to capture if the digital signature is verified against
+        the binary content.
+      example: 'true'
       default_field: false
     - name: parent.command_line
       level: extended
