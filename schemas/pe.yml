@@ -1,0 +1,47 @@
+---
+- name: pe
+  title: PE Header
+  group: 2
+  description: These fields contain Windows Portable Executable (PE) metadata.
+  type: group
+  reusable:
+    top_level: false
+    expected:
+      - file
+      - dll
+      - process
+  fields:
+
+    - name: original_file_name
+      level: extended
+      type: keyword
+      description: Internal name of the file, provided at compile-time.
+      example: MSPAINT.EXE
+
+
+    - name: file_version
+      level: extended
+      type: keyword
+      short: Process name.
+      description: Internal version of the file, provided at compile-time.
+      example: 6.3.9600.17415
+
+
+    - name: description
+      level: extended
+      type: keyword
+      description: Internal description of the file, provided at compile-time.
+      example: Paint
+
+    - name: product
+      level: extended
+      type: keyword
+      description: Internal product name of the file, provided at compile-time.
+      example: Microsoft® Windows® Operating System
+
+
+    - name: company
+      level: extended
+      type: keyword
+      description: Internal company name of the file, provided at compile-time.
+      example: Microsoft Corporation

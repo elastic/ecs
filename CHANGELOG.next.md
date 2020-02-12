@@ -15,6 +15,8 @@ Thanks, you're awesome :-) -->
 #### Bugfixes
 
 #### Added
+* Added `dll.*` fields (#679)
+* Fieldset for PE metadata. #731
 
 #### Improvements
 
