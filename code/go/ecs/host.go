@@ -41,10 +41,10 @@ type Host struct {
 	// Example: The current usage of `beat.name`.
 	ID string `ecs:"id"`
 
-	// Host ip address.
+	// Host ip addresses.
 	IP string `ecs:"ip"`
 
-	// Host mac address.
+	// Host mac addresses.
 	MAC string `ecs:"mac"`
 
 	// Type of host.

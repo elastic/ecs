@@ -1,0 +1,31 @@
+---
+- name: dll
+  title: DLL
+  group: 2
+  short: These fields contain information about code libraries dynamically loaded into processes.
+  description: |-
+    These fields contain information about code libraries dynamically loaded into processes.
+
+    Many operating systems refer to "shared code libraries" with different names, but this field set refers to all of the following:
+    * Dynamic-link library (`.dll`) commonly used on Windows
+    * Shared Object (`.so`) commonly used on Unix-like operating systems
+    * Dynamic library (`.dylib`) commonly used on macOS
+  type: group
+
+  fields:
+
+    - name: name
+      level: core
+      type: keyword
+      short: Name of the library.
+      description: >
+        Name of the library.
+
+        This generally maps to the name of the file on disk.
+      example: kernel32.dll
+
+    - name: path
+      level: extended
+      type: keyword
+      description: Full file path of the library.
+      example: C:\Windows\System32\kernel32.dll

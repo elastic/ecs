@@ -57,7 +57,7 @@ class TestSchemaReader(unittest.TestCase):
     def test_field_set_defaults_no_short(self):
         field = {'description': 'a field', 'type': 'faketype'}
         schema_reader.field_set_defaults(field)
-        self.assertEqual(field, {'description': 'a field', 'short': 'a field', 'type': 'faketype'})
+        self.assertEqual(field, {'description': 'a field', 'short': 'a field', 'type': 'faketype', 'normalize': []})
 
     def test_field_set_multi_field_defaults_missing_name(self):
         field = {
@@ -213,7 +213,8 @@ class TestSchemaReader(unittest.TestCase):
                                     'flat_name': 'base_set1.reusable_fieldset.reusable_field',
                                     'dashed_name': 'base-set1-reusable-fieldset-reusable-field',
                                     'ignore_above': 1024,
-                                    'short': 'A test field'
+                                    'short': 'A test field',
+                                    'normalize': [],
                                 }
                             }
                         }
@@ -240,7 +241,9 @@ class TestSchemaReader(unittest.TestCase):
                                     'flat_name': 'base_set2.reusable_fieldset.reusable_field',
                                     'dashed_name': 'base-set2-reusable-fieldset-reusable-field',
                                     'ignore_above': 1024,
-                                    'short': 'A test field'
+                                    'short': 'A test field',
+                                    'normalize': [],
+
                                 }
                             }
                         }
@@ -249,6 +252,7 @@ class TestSchemaReader(unittest.TestCase):
             }
         }
         self.assertEqual(fields, expected)
+
 
     def test_merge_schema_fields(self):
         fieldset1 = {
@@ -355,6 +359,114 @@ class TestSchemaReader(unittest.TestCase):
         }
         with self.assertRaises(ValueError):
             schema_reader.merge_schema_fields(fieldset1, fieldset2)
+
+    def test_reusable_dot_notation(self):
+        fieldset = {
+            'reusable_fieldset1': {
+                'name': 'reusable_fieldset1',
+                'reusable': {
+                    'top_level': False,
+                    'expected': [
+                        'test_fieldset.sub_field'
+                    ]
+                },
+                'fields': {
+                    'reusable_field': {
+                        'field_details': {
+                            'name': 'reusable_field',
+                            'type': 'keyword',
+                            'description': 'A test field'
+                        }
+                    }
+                }
+            },
+            'test_fieldset': {
+                'name': 'test_fieldset',
+                'fields': {
+                    'sub_field': {
+                        'fields': {}
+                    }
+                }
+            }
+        }
+        expected = {
+            'sub_field': {
+                'fields': {
+                    'reusable_fieldset1': {
+                        'name': 'reusable_fieldset1',
+                        'reusable': {
+                            'top_level': False,
+                            'expected': [
+                                'test_fieldset.sub_field'
+                            ]
+                        },
+                        'fields': {
+                            'reusable_field': {
+                                'field_details': {
+                                    'name': 'reusable_field',
+                                    'type': 'keyword',
+                                    'description': 'A test field'
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        schema_reader.duplicate_reusable_fieldsets(fieldset['reusable_fieldset1'], fieldset)
+        self.assertEqual(fieldset['test_fieldset']['fields'], expected)
+
+    def test_improper_reusable_fails(self):
+        fieldset = {
+            'reusable_fieldset1': {
+                'name': 'reusable_fieldset1',
+                'reusable': {
+                    'top_level': False,
+                    'expected': [
+                        'test_fieldset'
+                    ]
+                },
+                'fields': {
+                    'reusable_field': {
+                        'field_details': {
+                            'name': 'reusable_field',
+                            'type': 'keyword',
+                            'description': 'A test field'
+                        }
+                    }
+                }
+            },
+            'reusable_fieldset2': {
+                'name': 'reusable_fieldset2',
+                'reusable': {
+                    'top_level': False,
+                    'expected': [
+                        'test_fieldset.reusable_fieldset1'
+                    ]
+                },
+                'fields': {
+                    'reusable_field': {
+                        'field_details': {
+                            'name': 'reusable_field',
+                            'type': 'keyword',
+                            'description': 'A test field'
+                        }
+                    }
+                }
+            },
+            'test_fieldset': {
+                'name': 'test_fieldset',
+                'fields': {}
+            }
+        }
+        # This should fail because test_fieldset.reusable_fieldset1 doesn't exist yet
+        with self.assertRaises(ValueError):
+            schema_reader.duplicate_reusable_fieldsets(fieldset['reusable_fieldset2'], fieldset)
+        schema_reader.duplicate_reusable_fieldsets(fieldset['reusable_fieldset1'], fieldset)
+        # Then this should fail because even though test_fieldset.reusable_fieldset1 now exists, test_fieldset.reusable_fieldset1 is not
+        # an allowed reusable location (it's the destination of another reusable)
+        with self.assertRaises(ValueError):
+            schema_reader.duplicate_reusable_fieldsets(fieldset['reusable_fieldset2'], fieldset)
 
 
 if __name__ == '__main__':
