@@ -92,6 +92,22 @@ def schema_fields_as_dictionary(schema):
         nested_schema[nested_levels[-1]]['field_details'] = field
 
 
+def merge_schema_fields(a, b):
+    for key in b:
+        if key not in a:
+            a[key] = b[key]
+        else:
+            a_type = a[key].get('field_details', {}).get('type', 'object')
+            b_type = b[key].get('field_details', {}).get('type', 'object')
+            if a_type != b_type:
+                raise ValueError('Schemas unmergeable: type {} does not match type {}'.format(a_type, b_type))
+            elif a_type not in ['object', 'nested']:
+                print('Warning: dropping field {}, already defined'.format(key))
+            elif 'fields' in b[key]:
+                a[key].setdefault('fields', {})
+                merge_schema_fields(a[key]['fields'], b[key]['fields'])
+
+
 def field_set_defaults(field):
     dict_set_default(field, 'normalize', [])
     if field['type'] == 'keyword':
@@ -157,6 +173,8 @@ def finalize_schemas(fields_nested):
 
         schema_cleanup_values(schema)
 
+
+def assemble_reusables(fields_nested):
     # This happens as a second pass, so that all fieldsets have their
     # fields array replaced with a fields dictionary.
     for schema_name in fields_nested:
@@ -224,6 +242,11 @@ def load_schemas(files=ecs_files()):
     """Loads the given list of files"""
     fields_intermediate = load_schema_files(files)
     finalize_schemas(fields_intermediate)
+    return fields_intermediate
+
+
+def generate_nested_flat(fields_intermediate):
+    assemble_reusables(fields_intermediate)
     cleanup_fields_recursive(fields_intermediate, "")
     fields_nested = generate_partially_flattened_fields(fields_intermediate)
     fields_flat = generate_fully_flattened_fields(fields_intermediate)

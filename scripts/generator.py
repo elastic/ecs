@@ -2,6 +2,7 @@ import argparse
 import glob
 import os
 import schema_reader
+import yaml
 from generators import intermediate_files
 from generators import csv_generator
 from generators import es_template
@@ -18,7 +19,7 @@ def main():
 
     # Load the default schemas
     print('Loading default schemas')
-    (nested, flat) = schema_reader.load_schemas()
+    intermediate_fields = schema_reader.load_schemas()
 
     # Maybe load user specified directory of schemas
     if args.include:
@@ -26,12 +27,19 @@ def main():
 
         print('Loading user defined schemas: {0}'.format(include_glob))
 
-        (custom_nested, custom_flat) = schema_reader.load_schemas(sorted(glob.glob(include_glob)))
+        intermediate_custom = schema_reader.load_schemas(sorted(glob.glob(include_glob)))
+        schema_reader.merge_schema_fields(intermediate_fields, intermediate_custom)
 
-        # Merge without allowing user schemas to overwrite default schemas
-        nested = ecs_helpers.safe_merge_dicts(nested, custom_nested)
-        flat = ecs_helpers.safe_merge_dicts(flat, custom_flat)
+    if args.subset:
+        subset = {}
+        for arg in args.subset:
+            for file in glob.glob(arg):
+                with open(file) as f:
+                    raw = yaml.safe_load(f.read())
+                    ecs_helpers.recursive_merge_subset_dicts(subset, raw)
+        intermediate_fields = ecs_helpers.fields_subset(subset, intermediate_fields)
 
+    (nested, flat) = schema_reader.generate_nested_flat(intermediate_fields)
     intermediate_files.generate(nested, flat)
     if args.intermediate_only:
         exit()
@@ -48,6 +56,8 @@ def argument_parser():
                         help='generate intermediary files only')
     parser.add_argument('--include', action='store',
                         help='include user specified directory of custom field definitions')
+    parser.add_argument('--subset', nargs='+',
+                        help='render a subset of the schema')
     return parser.parse_args()
 
 
