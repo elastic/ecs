@@ -4832,7 +4832,7 @@ process:
       name: args
       normalize:
       - array
-      order: 10
+      order: 12
       short: Array of process arguments.
       type: keyword
     args_count:
@@ -4847,7 +4847,7 @@ process:
       level: extended
       name: args_count
       normalize: []
-      order: 12
+      order: 14
       short: Length of the process.args array.
       type: long
     command_line:
@@ -4867,8 +4867,24 @@ process:
         type: text
       name: command_line
       normalize: []
-      order: 8
+      order: 10
       short: Full command line that started the process.
+      type: keyword
+    entity_id:
+      dashed_name: process-entity-id
+      description: 'Unique identifier for the process.
+
+        The implementation of this is specified by the data source, but some examples
+        of what could be used here are a process-generated UUID, Sysmon Process GUIDs,
+        or a hash of some uniquely identifying components of a process.'
+      example: c2c455d9f99375d
+      flat_name: process.entity_id
+      ignore_above: 1024
+      level: extended
+      name: entity_id
+      normalize: []
+      order: 2
+      short: Unique identifier for the process.
       type: keyword
     executable:
       dashed_name: process-executable
@@ -4884,7 +4900,7 @@ process:
         type: text
       name: executable
       normalize: []
-      order: 14
+      order: 16
       short: Absolute path to the process executable.
       type: keyword
     exit_code:
@@ -4898,7 +4914,7 @@ process:
       level: extended
       name: exit_code
       normalize: []
-      order: 28
+      order: 30
       short: The exit code of the process.
       type: long
     hash.md5:
@@ -4965,7 +4981,7 @@ process:
         type: text
       name: name
       normalize: []
-      order: 2
+      order: 4
       short: Process name.
       type: keyword
     parent.args:
@@ -4984,7 +5000,7 @@ process:
       name: parent.args
       normalize:
       - array
-      order: 11
+      order: 13
       short: Array of process arguments.
       type: keyword
     parent.args_count:
@@ -4999,7 +5015,7 @@ process:
       level: extended
       name: parent.args_count
       normalize: []
-      order: 13
+      order: 15
       short: Length of the process.args array.
       type: long
     parent.command_line:
@@ -5019,8 +5035,24 @@ process:
         type: text
       name: parent.command_line
       normalize: []
-      order: 9
+      order: 11
       short: Full command line that started the process.
+      type: keyword
+    parent.entity_id:
+      dashed_name: process-parent-entity-id
+      description: 'Unique identifier for the process.
+
+        The implementation of this is specified by the data source, but some examples
+        of what could be used here are a process-generated UUID, Sysmon Process GUIDs,
+        or a hash of some uniquely identifying components of a process.'
+      example: c2c455d9f99375d
+      flat_name: process.parent.entity_id
+      ignore_above: 1024
+      level: extended
+      name: parent.entity_id
+      normalize: []
+      order: 3
+      short: Unique identifier for the process.
       type: keyword
     parent.executable:
       dashed_name: process-parent-executable
@@ -5036,7 +5068,7 @@ process:
         type: text
       name: parent.executable
       normalize: []
-      order: 15
+      order: 17
       short: Absolute path to the process executable.
       type: keyword
     parent.exit_code:
@@ -5050,7 +5082,7 @@ process:
       level: extended
       name: parent.exit_code
       normalize: []
-      order: 29
+      order: 31
       short: The exit code of the process.
       type: long
     parent.hash.md5:
@@ -5117,7 +5149,7 @@ process:
         type: text
       name: parent.name
       normalize: []
-      order: 3
+      order: 5
       short: Process name.
       type: keyword
     parent.pgid:
@@ -5128,7 +5160,7 @@ process:
       level: extended
       name: parent.pgid
       normalize: []
-      order: 7
+      order: 9
       short: Identifier of the group of processes the process belongs to.
       type: long
     parent.pid:
@@ -5152,7 +5184,7 @@ process:
       level: extended
       name: parent.ppid
       normalize: []
-      order: 5
+      order: 7
       short: Parent process' pid.
       type: long
     parent.start:
@@ -5163,7 +5195,7 @@ process:
       level: extended
       name: parent.start
       normalize: []
-      order: 23
+      order: 25
       short: The time the process started.
       type: date
     parent.thread.id:
@@ -5175,7 +5207,7 @@ process:
       level: extended
       name: parent.thread.id
       normalize: []
-      order: 19
+      order: 21
       short: Thread ID.
       type: long
     parent.thread.name:
@@ -5187,7 +5219,7 @@ process:
       level: extended
       name: parent.thread.name
       normalize: []
-      order: 21
+      order: 23
       short: Thread name.
       type: keyword
     parent.title:
@@ -5206,7 +5238,7 @@ process:
         type: text
       name: parent.title
       normalize: []
-      order: 17
+      order: 19
       short: Process title.
       type: keyword
     parent.uptime:
@@ -5217,7 +5249,7 @@ process:
       level: extended
       name: parent.uptime
       normalize: []
-      order: 25
+      order: 27
       short: Seconds the process has been up.
       type: long
     parent.working_directory:
@@ -5234,7 +5266,7 @@ process:
         type: text
       name: parent.working_directory
       normalize: []
-      order: 27
+      order: 29
       short: The working directory of the process.
       type: keyword
     pe.company:
@@ -5310,7 +5342,7 @@ process:
       level: extended
       name: pgid
       normalize: []
-      order: 6
+      order: 8
       short: Identifier of the group of processes the process belongs to.
       type: long
     pid:
@@ -5334,7 +5366,7 @@ process:
       level: extended
       name: ppid
       normalize: []
-      order: 4
+      order: 6
       short: Parent process' pid.
       type: long
     start:
@@ -5345,7 +5377,7 @@ process:
       level: extended
       name: start
       normalize: []
-      order: 22
+      order: 24
       short: The time the process started.
       type: date
     thread.id:
@@ -5357,7 +5389,7 @@ process:
       level: extended
       name: thread.id
       normalize: []
-      order: 18
+      order: 20
       short: Thread ID.
       type: long
     thread.name:
@@ -5369,7 +5401,7 @@ process:
       level: extended
       name: thread.name
       normalize: []
-      order: 20
+      order: 22
       short: Thread name.
       type: keyword
     title:
@@ -5388,7 +5420,7 @@ process:
         type: text
       name: title
       normalize: []
-      order: 16
+      order: 18
       short: Process title.
       type: keyword
     uptime:
@@ -5399,7 +5431,7 @@ process:
       level: extended
       name: uptime
       normalize: []
-      order: 24
+      order: 26
       short: Seconds the process has been up.
       type: long
     working_directory:
@@ -5416,7 +5448,7 @@ process:
         type: text
       name: working_directory
       normalize: []
-      order: 26
+      order: 28
       short: The working directory of the process.
       type: keyword
   group: 2

@@ -2563,6 +2563,17 @@
         Some arguments may be filtered to protect sensitive information.'
       example: /usr/bin/ssh -l user 10.0.0.16
       default_field: false
+    - name: entity_id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Unique identifier for the process.
+
+        The implementation of this is specified by the data source, but some examples
+        of what could be used here are a process-generated UUID, Sysmon Process GUIDs,
+        or a hash of some uniquely identifying components of a process.'
+      example: c2c455d9f99375d
+      default_field: false
     - name: executable
       level: extended
       type: keyword
@@ -2652,6 +2663,17 @@
 
         Some arguments may be filtered to protect sensitive information.'
       example: /usr/bin/ssh -l user 10.0.0.16
+      default_field: false
+    - name: parent.entity_id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Unique identifier for the process.
+
+        The implementation of this is specified by the data source, but some examples
+        of what could be used here are a process-generated UUID, Sysmon Process GUIDs,
+        or a hash of some uniquely identifying components of a process.'
+      example: c2c455d9f99375d
       default_field: false
     - name: parent.executable
       level: extended

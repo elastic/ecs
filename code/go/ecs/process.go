@@ -34,6 +34,20 @@ type Process struct {
 	// Process id.
 	ParentPID int64 `ecs:"parent.pid"`
 
+	// Unique identifier for the process.
+	// The implementation of this is specified by the data source, but some
+	// examples of what could be used here are a process-generated UUID, Sysmon
+	// Process GUIDs, or a hash of some uniquely identifying components of a
+	// process.
+	EntityID string `ecs:"entity_id"`
+
+	// Unique identifier for the process.
+	// The implementation of this is specified by the data source, but some
+	// examples of what could be used here are a process-generated UUID, Sysmon
+	// Process GUIDs, or a hash of some uniquely identifying components of a
+	// process.
+	ParentEntityID string `ecs:"parent.entity_id"`
+
 	// Process name.
 	// Sometimes called program name or similar.
 	Name string `ecs:"name"`
