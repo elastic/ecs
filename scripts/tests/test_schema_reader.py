@@ -253,7 +253,6 @@ class TestSchemaReader(unittest.TestCase):
         }
         self.assertEqual(fields, expected)
 
-
     def test_merge_schema_fields(self):
         fieldset1 = {
             'test_fieldset': {
