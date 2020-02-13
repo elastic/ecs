@@ -32,10 +32,11 @@ def main():
 
     if args.subset:
         subset = {}
-        for file in glob.glob(args.subset):
-            with open(file) as f:
-                raw = yaml.safe_load(f.read())
-                ecs_helpers.recursive_merge_subset_dicts(subset, raw)
+        for arg in args.subset:
+            for file in glob.glob(arg):
+                with open(file) as f:
+                    raw = yaml.safe_load(f.read())
+                    ecs_helpers.recursive_merge_subset_dicts(subset, raw)
         intermediate_fields = ecs_helpers.fields_subset(subset, intermediate_fields)
 
     (nested, flat) = schema_reader.generate_nested_flat(intermediate_fields)
@@ -55,7 +56,7 @@ def argument_parser():
                         help='generate intermediary files only')
     parser.add_argument('--include', action='store',
                         help='include user specified directory of custom field definitions')
-    parser.add_argument('--subset', action='store',
+    parser.add_argument('--subset', nargs='+',
                         help='render a subset of the schema')
     return parser.parse_args()
 
