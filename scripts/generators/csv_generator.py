@@ -1,10 +1,14 @@
 import csv
 import sys
 
+from os.path import join
+from generator import ecs_helpers
 
-def generate(ecs_flat, version):
+
+def generate(ecs_flat, version, out_dir):
+    ecs_helpers.make_dirs(join(out_dir, 'csv'))
     sorted_fields = base_first(ecs_flat)
-    save_csv('generated/csv/fields.csv', sorted_fields, version)
+    save_csv(join(out_dir, 'csv/fields.csv'), sorted_fields, version)
 
 
 def base_first(ecs_flat):

@@ -1,12 +1,11 @@
-import sys
-
+from os.path import join
 from generators import ecs_helpers
 
 
-def generate(ecs_nested, ecs_flat, ecs_version):
-    save_asciidoc('docs/fields.asciidoc', page_field_index(ecs_nested, ecs_version))
-    save_asciidoc('docs/field-details.asciidoc', page_field_details(ecs_nested))
-    save_asciidoc('docs/field-values.asciidoc', page_field_values(ecs_flat))
+def generate(ecs_nested, ecs_flat, ecs_version, out_dir):
+    save_asciidoc(join(out_dir, 'fields.asciidoc'), page_field_index(ecs_nested, ecs_version))
+    save_asciidoc(join(out_dir, 'field-details.asciidoc'), page_field_details(ecs_nested))
+    save_asciidoc(join(out_dir, 'field-values.asciidoc'), page_field_values(ecs_flat))
 
 # Helpers
 

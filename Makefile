@@ -101,7 +101,7 @@ setup: ve
 
 # Run the ECS tests
 .PHONY: test
-test:
+test: ve
 	$(PYTHON) -m unittest discover --start-directory scripts/tests
 
 # Create a virtualenv to run Python.
