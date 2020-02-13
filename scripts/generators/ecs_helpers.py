@@ -52,10 +52,12 @@ def safe_merge_dicts(a, b):
 def fields_subset(subset, fields):
     retained_fields = {}
     for key, val in subset.items():
-        if isinstance(val, dict):
+        # Every field must have a 'fields' key or the schema is invalid
+        if isinstance(val['fields'], dict):
+            # Copy the full field over so we get all the options, then replace the 'fields' with the right subset
             retained_fields[key] = fields[key]
-            retained_fields[key]['fields'] = fields_subset(val, fields[key]['fields'])
-        elif val == '*':
+            retained_fields[key]['fields'] = fields_subset(val['fields'], fields[key]['fields'])
+        elif val['fields'] == '*':
             retained_fields[key] = fields[key]
     return retained_fields
 
@@ -64,10 +66,10 @@ def recursive_merge_subset_dicts(a, b):
     for key in b:
         if key not in a:
             a[key] = b[key]
-        elif isinstance(a[key], dict) and isinstance(b[key], dict):
-            recursive_merge_subset_dicts(a[key], b[key])
-        elif b[key] == "*":
-            a[key] = b[key]
+        elif isinstance(a[key]['fields'], dict) and isinstance(b[key]['fields'], dict):
+            recursive_merge_subset_dicts(a[key]['fields'], b[key]['fields'])
+        elif b[key]['fields'] == "*":
+            a[key]['fields'] = b[key]['fields']
 
 
 def yaml_ordereddict(dumper, data):

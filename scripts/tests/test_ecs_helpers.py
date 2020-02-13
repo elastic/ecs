@@ -86,18 +86,66 @@ class TestECSHelpers(unittest.TestCase):
 
     def test_recursive_subset_merge(self):
         subset_a = {
-            'field1': {'subfield1': {'subsubfield1': '*'}, 'subfield2': '*'},
-            'field2': '*'
+            'field1': {
+                'fields': {
+                    'subfield1': {
+                        'fields': {
+                            'subsubfield1': {
+                                'fields': '*'
+                            }
+                        }
+                    },
+                    'subfield2': {
+                        'fields': '*'
+                    }
+                }
+            },
+            'field2': {
+                'fields': '*'
+            }
         }
         subset_b = {
-            'field1': {'subfield1': '*', 'subfield3': '*'},
-            'field2': {'subfield2': '*'},
-            'field3': '*'
+            'field1': {
+                'fields': {
+                    'subfield1': {
+                        'fields': '*'
+                    },
+                    'subfield3': {
+                        'fields': '*'
+                    }
+                }
+            },
+            'field2': {
+                'fields': {
+                    'subfield2': {
+                        'fields': '*'
+                    }
+                }
+            },
+            'field3': {
+                'fields': '*'
+            }
         }
         expected = {
-            'field1': {'subfield1': '*', 'subfield2': '*', 'subfield3': '*'},
-            'field2': '*',
-            'field3': '*'
+            'field1': {
+                'fields': {
+                    'subfield1': {
+                        'fields': '*'
+                    },
+                    'subfield2': {
+                        'fields': '*'
+                    },
+                    'subfield3': {
+                        'fields': '*'
+                    }
+                }
+            },
+            'field2': {
+                'fields': '*'
+            },
+            'field3': {
+                'fields': '*'
+            }
         }
         ecs_helpers.recursive_merge_subset_dicts(subset_a, subset_b)
         self.assertEqual(subset_a, expected)
@@ -126,7 +174,11 @@ class TestECSHelpers(unittest.TestCase):
         }
         subset = {
             'test_fieldset': {
-                'test_field1': '*'
+                'fields': {
+                    'test_field1': {
+                        'fields': '*'
+                    }
+                }
             }
         }
         expected = {
