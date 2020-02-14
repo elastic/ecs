@@ -21,6 +21,9 @@ package ecs
 
 // These fields contain information about binary code signatures.
 type CodeSignature struct {
+	// Boolean to capture if a signature is present.
+	Exists bool `ecs:"exists"`
+
 	// Subject name of the code signer
 	SubjectName string `ecs:"subject_name"`
 
@@ -28,9 +31,6 @@ type CodeSignature struct {
 	// binary content.
 	// Leave unpopulated if a certificate was unchecked.
 	Valid bool `ecs:"valid"`
-
-	// Boolean to capture if a signature is present.
-	Exists bool `ecs:"exists"`
 
 	// Stores the trust status of the certificate chain.
 	// Validating the trust of the certificate chain may be complicated, and
