@@ -1,10 +1,11 @@
 import json
 import sys
 
+from os.path import join
 from generators import ecs_helpers
 
 
-def generate(ecs_flat, ecs_version):
+def generate(ecs_flat, ecs_version, out_dir):
     field_mappings = {}
     for flat_name in sorted(ecs_flat):
         field = ecs_flat[flat_name]
@@ -14,8 +15,8 @@ def generate(ecs_flat, ecs_version):
     mappings_section = mapping_settings(ecs_version)
     mappings_section['properties'] = field_mappings
 
-    generate_template_version(6, mappings_section)
-    generate_template_version(7, mappings_section)
+    generate_template_version(6, mappings_section, out_dir)
+    generate_template_version(7, mappings_section, out_dir)
 
 # Field mappings
 
@@ -65,14 +66,15 @@ def entry_for(field):
 # Generated files
 
 
-def generate_template_version(elasticsearch_version, mappings_section):
+def generate_template_version(elasticsearch_version, mappings_section, out_dir):
+    ecs_helpers.make_dirs(join(out_dir, 'elasticsearch', str(elasticsearch_version)))
     template = template_settings()
     if elasticsearch_version == 6:
         template['mappings'] = {'_doc': mappings_section}
     else:
         template['mappings'] = mappings_section
 
-    filename = "generated/elasticsearch/{}/template.json".format(elasticsearch_version)
+    filename = join(out_dir, "elasticsearch/{}/template.json".format(elasticsearch_version))
     save_json(filename, template)
 
 

@@ -40,6 +40,7 @@ Thanks, you're awesome :-) -->
 * schema_reader.py now reliably supports chaining reusable fieldsets together. #722
 * Allow the artifact generator to consider and output only a subset of fields. #737
 * Add support for reusing fields in places other than the top level of the destination fieldset. #739
+* Add support for specifying the directory to write the generated files. #748
 
 #### Deprecated
 

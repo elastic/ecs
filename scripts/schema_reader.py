@@ -5,6 +5,17 @@ import copy
 
 # File loading stuff
 
+YAML_EXT = ('*.yml', '*.yaml')
+
+
+def get_glob_files(paths, file_types):
+    all_files = []
+    for path in paths:
+        for t in file_types:
+            all_files.extend(glob.glob(os.path.join(path, t)))
+
+    return sorted(all_files)
+
 
 def ecs_files():
     """Return the schema file list to load"""
