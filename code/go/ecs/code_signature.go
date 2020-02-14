@@ -30,7 +30,7 @@ type CodeSignature struct {
 
 	// Boolean to capture if a signature is present.
 	// This should only populated if the signature was checked.
-	Exists string `ecs:"exists"`
+	Exists bool `ecs:"exists"`
 
 	// Stores the trust status of the certificate chain.
 	Trusted bool `ecs:"trusted"`
