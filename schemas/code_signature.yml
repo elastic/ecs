@@ -20,29 +20,32 @@
       description: Subject name of the code signer
       example: Microsoft Corporation
 
-
     - name: valid
       level: extended
       type: boolean
-      description: Boolean to capture if the digital signature is verified against the binary content.
+      short: Boolean to capture if the digital signature is verified against the binary content.
       example: "true"
+      description: >
+        Boolean to capture if the digital signature is verified against the binary content.
 
+        Leave unpopulated if a certificate was unchecked.
 
     - name: exists
       level: core
       type: boolean
-      short: Boolean to capture if a signature is present.
-      description: >
-        Boolean to capture if a signature is present.
-
-        This should only populated if the signature was checked.
+      description: Boolean to capture if a signature is present.
       example: "true"
 
     - name: trusted
       level: extended
       type: boolean
-      description: Stores the trust status of the certificate chain.
+      short: Stores the trust status of the certificate chain.
       example: "true"
+      description: >
+        Stores the trust status of the certificate chain.
+
+        Validating the trust of the certificate chain may be complicated, and this field should only be populated
+        by tools that actively check the status.
 
 
     - name: status
@@ -53,4 +56,5 @@
         Additional information about the certificate status.
 
         This is useful for logging cryptographic errors with the certificate validity or trust status.
+        Leave unpopulated if the validity or trust of the certificate was unchecked.
       example: ERROR_UNTRUSTED_ROOT

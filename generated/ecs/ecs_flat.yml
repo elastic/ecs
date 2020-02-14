@@ -629,9 +629,7 @@ cloud.region:
   type: keyword
 code_signature.exists:
   dashed_name: code-signature-exists
-  description: 'Boolean to capture if a signature is present.
-
-    This should only populated if the signature was checked.'
+  description: Boolean to capture if a signature is present.
   example: 'true'
   flat_name: code_signature.exists
   level: core
@@ -646,7 +644,8 @@ code_signature.status:
   description: 'Additional information about the certificate status.
 
     This is useful for logging cryptographic errors with the certificate validity
-    or trust status.'
+    or trust status. Leave unpopulated if the validity or trust of the certificate
+    was unchecked.'
   example: ERROR_UNTRUSTED_ROOT
   flat_name: code_signature.status
   ignore_above: 1024
@@ -672,7 +671,10 @@ code_signature.subject_name:
   type: keyword
 code_signature.trusted:
   dashed_name: code-signature-trusted
-  description: Stores the trust status of the certificate chain.
+  description: 'Stores the trust status of the certificate chain.
+
+    Validating the trust of the certificate chain may be complicated, and this field
+    should only be populated by tools that actively check the status.'
   example: 'true'
   flat_name: code_signature.trusted
   level: extended
@@ -684,8 +686,10 @@ code_signature.trusted:
   type: boolean
 code_signature.valid:
   dashed_name: code-signature-valid
-  description: Boolean to capture if the digital signature is verified against the
+  description: 'Boolean to capture if the digital signature is verified against the
     binary content.
+
+    Leave unpopulated if a certificate was unchecked.'
   example: 'true'
   flat_name: code_signature.valid
   level: extended
@@ -1181,9 +1185,7 @@ destination.user.name:
   type: keyword
 dll.code_signature.exists:
   dashed_name: dll-code-signature-exists
-  description: 'Boolean to capture if a signature is present.
-
-    This should only populated if the signature was checked.'
+  description: Boolean to capture if a signature is present.
   example: 'true'
   flat_name: dll.code_signature.exists
   level: core
@@ -1198,7 +1200,8 @@ dll.code_signature.status:
   description: 'Additional information about the certificate status.
 
     This is useful for logging cryptographic errors with the certificate validity
-    or trust status.'
+    or trust status. Leave unpopulated if the validity or trust of the certificate
+    was unchecked.'
   example: ERROR_UNTRUSTED_ROOT
   flat_name: dll.code_signature.status
   ignore_above: 1024
@@ -1224,7 +1227,10 @@ dll.code_signature.subject_name:
   type: keyword
 dll.code_signature.trusted:
   dashed_name: dll-code-signature-trusted
-  description: Stores the trust status of the certificate chain.
+  description: 'Stores the trust status of the certificate chain.
+
+    Validating the trust of the certificate chain may be complicated, and this field
+    should only be populated by tools that actively check the status.'
   example: 'true'
   flat_name: dll.code_signature.trusted
   level: extended
@@ -1236,8 +1242,10 @@ dll.code_signature.trusted:
   type: boolean
 dll.code_signature.valid:
   dashed_name: dll-code-signature-valid
-  description: Boolean to capture if the digital signature is verified against the
+  description: 'Boolean to capture if the digital signature is verified against the
     binary content.
+
+    Leave unpopulated if a certificate was unchecked.'
   example: 'true'
   flat_name: dll.code_signature.valid
   level: extended
@@ -2398,9 +2406,7 @@ file.attributes:
   type: keyword
 file.code_signature.exists:
   dashed_name: file-code-signature-exists
-  description: 'Boolean to capture if a signature is present.
-
-    This should only populated if the signature was checked.'
+  description: Boolean to capture if a signature is present.
   example: 'true'
   flat_name: file.code_signature.exists
   level: core
@@ -2415,7 +2421,8 @@ file.code_signature.status:
   description: 'Additional information about the certificate status.
 
     This is useful for logging cryptographic errors with the certificate validity
-    or trust status.'
+    or trust status. Leave unpopulated if the validity or trust of the certificate
+    was unchecked.'
   example: ERROR_UNTRUSTED_ROOT
   flat_name: file.code_signature.status
   ignore_above: 1024
@@ -2441,7 +2448,10 @@ file.code_signature.subject_name:
   type: keyword
 file.code_signature.trusted:
   dashed_name: file-code-signature-trusted
-  description: Stores the trust status of the certificate chain.
+  description: 'Stores the trust status of the certificate chain.
+
+    Validating the trust of the certificate chain may be complicated, and this field
+    should only be populated by tools that actively check the status.'
   example: 'true'
   flat_name: file.code_signature.trusted
   level: extended
@@ -2453,8 +2463,10 @@ file.code_signature.trusted:
   type: boolean
 file.code_signature.valid:
   dashed_name: file-code-signature-valid
-  description: Boolean to capture if the digital signature is verified against the
+  description: 'Boolean to capture if the digital signature is verified against the
     binary content.
+
+    Leave unpopulated if a certificate was unchecked.'
   example: 'true'
   flat_name: file.code_signature.valid
   level: extended
@@ -4644,9 +4656,7 @@ process.args_count:
   type: long
 process.code_signature.exists:
   dashed_name: process-code-signature-exists
-  description: 'Boolean to capture if a signature is present.
-
-    This should only populated if the signature was checked.'
+  description: Boolean to capture if a signature is present.
   example: 'true'
   flat_name: process.code_signature.exists
   level: core
@@ -4661,7 +4671,8 @@ process.code_signature.status:
   description: 'Additional information about the certificate status.
 
     This is useful for logging cryptographic errors with the certificate validity
-    or trust status.'
+    or trust status. Leave unpopulated if the validity or trust of the certificate
+    was unchecked.'
   example: ERROR_UNTRUSTED_ROOT
   flat_name: process.code_signature.status
   ignore_above: 1024
@@ -4687,7 +4698,10 @@ process.code_signature.subject_name:
   type: keyword
 process.code_signature.trusted:
   dashed_name: process-code-signature-trusted
-  description: Stores the trust status of the certificate chain.
+  description: 'Stores the trust status of the certificate chain.
+
+    Validating the trust of the certificate chain may be complicated, and this field
+    should only be populated by tools that actively check the status.'
   example: 'true'
   flat_name: process.code_signature.trusted
   level: extended
@@ -4699,8 +4713,10 @@ process.code_signature.trusted:
   type: boolean
 process.code_signature.valid:
   dashed_name: process-code-signature-valid
-  description: Boolean to capture if the digital signature is verified against the
+  description: 'Boolean to capture if the digital signature is verified against the
     binary content.
+
+    Leave unpopulated if a certificate was unchecked.'
   example: 'true'
   flat_name: process.code_signature.valid
   level: extended
@@ -4865,9 +4881,7 @@ process.parent.args_count:
   type: long
 process.parent.code_signature.exists:
   dashed_name: process-parent-code-signature-exists
-  description: 'Boolean to capture if a signature is present.
-
-    This should only populated if the signature was checked.'
+  description: Boolean to capture if a signature is present.
   example: 'true'
   flat_name: process.parent.code_signature.exists
   level: core
@@ -4882,7 +4896,8 @@ process.parent.code_signature.status:
   description: 'Additional information about the certificate status.
 
     This is useful for logging cryptographic errors with the certificate validity
-    or trust status.'
+    or trust status. Leave unpopulated if the validity or trust of the certificate
+    was unchecked.'
   example: ERROR_UNTRUSTED_ROOT
   flat_name: process.parent.code_signature.status
   ignore_above: 1024
@@ -4908,7 +4923,10 @@ process.parent.code_signature.subject_name:
   type: keyword
 process.parent.code_signature.trusted:
   dashed_name: process-parent-code-signature-trusted
-  description: Stores the trust status of the certificate chain.
+  description: 'Stores the trust status of the certificate chain.
+
+    Validating the trust of the certificate chain may be complicated, and this field
+    should only be populated by tools that actively check the status.'
   example: 'true'
   flat_name: process.parent.code_signature.trusted
   level: extended
@@ -4920,8 +4938,10 @@ process.parent.code_signature.trusted:
   type: boolean
 process.parent.code_signature.valid:
   dashed_name: process-parent-code-signature-valid
-  description: Boolean to capture if the digital signature is verified against the
+  description: 'Boolean to capture if the digital signature is verified against the
     binary content.
+
+    Leave unpopulated if a certificate was unchecked.'
   example: 'true'
   flat_name: process.parent.code_signature.valid
   level: extended

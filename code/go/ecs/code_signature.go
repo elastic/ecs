@@ -26,17 +26,21 @@ type CodeSignature struct {
 
 	// Boolean to capture if the digital signature is verified against the
 	// binary content.
+	// Leave unpopulated if a certificate was unchecked.
 	Valid bool `ecs:"valid"`
 
 	// Boolean to capture if a signature is present.
-	// This should only populated if the signature was checked.
 	Exists bool `ecs:"exists"`
 
 	// Stores the trust status of the certificate chain.
+	// Validating the trust of the certificate chain may be complicated, and
+	// this field should only be populated by tools that actively check the
+	// status.
 	Trusted bool `ecs:"trusted"`
 
 	// Additional information about the certificate status.
 	// This is useful for logging cryptographic errors with the certificate
-	// validity or trust status.
+	// validity or trust status. Leave unpopulated if the validity or trust of
+	// the certificate was unchecked.
 	Status string `ecs:"status"`
 }
