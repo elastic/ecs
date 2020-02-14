@@ -17,6 +17,7 @@ Thanks, you're awesome :-) -->
 #### Added
 * Added `dll.*` fields (#679)
 * Fieldset for PE metadata. #731
+* Globally unique identifier `entity_id` for `process` and `process.parent`. (#747)
 
 #### Improvements
 

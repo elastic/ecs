@@ -39,6 +39,9 @@ type Process struct {
 	// examples of what could be used here are a process-generated UUID, Sysmon
 	// Process GUIDs, or a hash of some uniquely identifying components of a
 	// process.
+	// Constructing a globally unique identifier is a common practice to
+	// mitigate PID reuse as well as to identify a specific process over time,
+	// across multiple monitored hosts.
 	EntityID string `ecs:"entity_id"`
 
 	// Unique identifier for the process.
@@ -46,6 +49,9 @@ type Process struct {
 	// examples of what could be used here are a process-generated UUID, Sysmon
 	// Process GUIDs, or a hash of some uniquely identifying components of a
 	// process.
+	// Constructing a globally unique identifier is a common practice to
+	// mitigate PID reuse as well as to identify a specific process over time,
+	// across multiple monitored hosts.
 	ParentEntityID string `ecs:"parent.entity_id"`
 
 	// Process name.
