@@ -85,4 +85,7 @@ type Server struct {
 	// private DMZ)
 	// Typically used with load balancers, firewalls, or routers.
 	NatPort int64 `ecs:"nat.port"`
+
+	// Security zone facing the server.
+	Zone string `ecs:"zone"`
 }

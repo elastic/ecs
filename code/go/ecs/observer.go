@@ -71,10 +71,4 @@ type Observer struct {
 	// `forwarder`, `firewall`, `ids`, `ips`, `proxy`, `poller`, `sensor`, `APM
 	// server`.
 	Type string `ecs:"type"`
-
-	// Ingress zone of the observer.
-	ZoneIn string `ecs:"zone.in"`
-
-	// Egress zone of the observer.
-	ZoneOut string `ecs:"zone.out"`
 }

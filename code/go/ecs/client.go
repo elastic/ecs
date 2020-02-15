@@ -85,4 +85,7 @@ type Client struct {
 	// internet).
 	// Typically connections traversing load balancers, firewalls, or routers.
 	NatPort int64 `ecs:"nat.port"`
+
+	// Security zone facing the client.
+	Zone string `ecs:"zone"`
 }

@@ -73,4 +73,7 @@ type Destination struct {
 	// Port the source session is translated to by NAT Device.
 	// Typically used with load balancers, firewalls, or routers.
 	NatPort int64 `ecs:"nat.port"`
+
+	// Security zone facing the destination.
+	Zone string `ecs:"zone"`
 }

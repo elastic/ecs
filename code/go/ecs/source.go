@@ -74,4 +74,7 @@ type Source struct {
 	// internet)
 	// Typically used with load balancers, firewalls, or routers.
 	NatPort int64 `ecs:"nat.port"`
+
+	// Security zone facing the source.
+	Zone string `ecs:"zone"`
 }
