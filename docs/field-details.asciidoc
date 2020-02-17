@@ -550,6 +550,101 @@ example: `us-east-1`
 
 |=====
 
+[[ecs-code_signature]]
+=== Code Signature Fields
+
+These fields contain information about binary code signatures.
+
+==== Code Signature Field Details
+
+[options="header"]
+|=====
+| Field  | Description | Level
+
+// ===============================================================
+
+| code_signature.exists
+| Boolean to capture if a signature is present.
+
+type: boolean
+
+
+
+example: `true`
+
+| core
+
+// ===============================================================
+
+| code_signature.status
+| Additional information about the certificate status.
+
+This is useful for logging cryptographic errors with the certificate validity or trust status. Leave unpopulated if the validity or trust of the certificate was unchecked.
+
+type: keyword
+
+
+
+example: `ERROR_UNTRUSTED_ROOT`
+
+| extended
+
+// ===============================================================
+
+| code_signature.subject_name
+| Subject name of the code signer
+
+type: keyword
+
+
+
+example: `Microsoft Corporation`
+
+| core
+
+// ===============================================================
+
+| code_signature.trusted
+| Stores the trust status of the certificate chain.
+
+Validating the trust of the certificate chain may be complicated, and this field should only be populated by tools that actively check the status.
+
+type: boolean
+
+
+
+example: `true`
+
+| extended
+
+// ===============================================================
+
+| code_signature.valid
+| Boolean to capture if the digital signature is verified against the binary content.
+
+Leave unpopulated if a certificate was unchecked.
+
+type: boolean
+
+
+
+example: `true`
+
+| extended
+
+// ===============================================================
+
+|=====
+
+==== Field Reuse
+
+The `code_signature` fields are expected to be nested at: `dll.code_signature`, `file.code_signature`, `process.code_signature`, `process.parent.code_signature`.
+
+Note also that the `code_signature` fields are not expected to be used directly at the top level.
+
+
+
+
 [[ecs-container]]
 === Container Fields
 
@@ -921,6 +1016,12 @@ example: `C:\Windows\System32\kernel32.dll`
 [options="header"]
 |=====
 | Nested fields | Description
+
+// ===============================================================
+
+
+| <<ecs-code_signature,dll.code_signature.*>>
+| These fields contain information about binary code signatures.
 
 // ===============================================================
 
@@ -2045,6 +2146,12 @@ example: `1001`
 [options="header"]
 |=====
 | Nested fields | Description
+
+// ===============================================================
+
+
+| <<ecs-code_signature,file.code_signature.*>>
+| These fields contain information about binary code signatures.
 
 // ===============================================================
 
@@ -4194,6 +4301,12 @@ example: `/home/alice`
 [options="header"]
 |=====
 | Nested fields | Description
+
+// ===============================================================
+
+
+| <<ecs-code_signature,process.code_signature.*>>
+| These fields contain information about binary code signatures.
 
 // ===============================================================
 
