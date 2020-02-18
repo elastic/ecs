@@ -3947,6 +3947,49 @@ http:
   short: Fields describing an HTTP request.
   title: HTTP
   type: group
+interface:
+  description: The interface fields describe information about ingress and egress
+    interfaces reported  by an observer.
+  fields:
+    id:
+      dashed_name: interface-id
+      description: Interface ID as reported by the system (typically SNMP interface
+        ID).
+      example: 1
+      flat_name: interface.id
+      ignore_above: 1024
+      level: core
+      name: id
+      normalize: []
+      order: 0
+      short: Interface ID as reported by the system (typically SNMP interface ID).
+      type: keyword
+    name:
+      dashed_name: interface-name
+      description: Optional interface name as reported by the system.  Could be short
+        (eth0), long (gigabitethernet0/2),  or configured logical name (e.g. outside,
+        dmz).
+      example: GigabitEthernet0/1, eth0, outside
+      flat_name: interface.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      normalize: []
+      order: 1
+      short: Optional interface name as reported by the system.  Could be short (eth0),
+        long (gigabitethernet0/2),  or configured logical name (e.g. outside, dmz).
+      type: keyword
+  group: 2
+  name: interface
+  prefix: interface.
+  reusable:
+    expected:
+    - observer.ingress
+    - observer.egress
+    top_level: false
+  short: Fields to describe observer interface information.
+  title: Interface
+  type: group
 log:
   description: 'Details about the event''s logging mechanism or logging transport.
 
@@ -4334,6 +4377,89 @@ observer:
     metric. Message queues and ETL components used in processing events or metrics
     are not considered observers in ECS.'
   fields:
+    egress:
+      dashed_name: observer-egress
+      description: Observer.egress holds information like interface number and name,
+        vlan, and zone information to  classify egress traffic.  Single armed monitoring
+        such as a network sensor on a span port should  ohly use observer.ingress
+        to categorize traffic.
+      flat_name: observer.egress
+      level: extended
+      name: egress
+      normalize: []
+      object_type: keyword
+      order: 11
+      short: Object field for egress information
+      type: object
+    egress.interface.id:
+      dashed_name: observer-egress-interface-id
+      description: Interface ID as reported by the system (typically SNMP interface
+        ID).
+      example: 1
+      flat_name: observer.egress.interface.id
+      ignore_above: 1024
+      level: core
+      name: id
+      normalize: []
+      order: 0
+      original_fieldset: interface
+      short: Interface ID as reported by the system (typically SNMP interface ID).
+      type: keyword
+    egress.interface.name:
+      dashed_name: observer-egress-interface-name
+      description: Optional interface name as reported by the system.  Could be short
+        (eth0), long (gigabitethernet0/2),  or configured logical name (e.g. outside,
+        dmz).
+      example: GigabitEthernet0/1, eth0, outside
+      flat_name: observer.egress.interface.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      normalize: []
+      order: 1
+      original_fieldset: interface
+      short: Optional interface name as reported by the system.  Could be short (eth0),
+        long (gigabitethernet0/2),  or configured logical name (e.g. outside, dmz).
+      type: keyword
+    egress.vlan.id:
+      dashed_name: observer-egress-vlan-id
+      description: VLAN ID as reported by the observer.
+      example: 10
+      flat_name: observer.egress.vlan.id
+      ignore_above: 1024
+      level: core
+      name: id
+      normalize: []
+      order: 0
+      original_fieldset: vlan
+      short: VLAN ID as reported by the observer.
+      type: keyword
+    egress.vlan.name:
+      dashed_name: observer-egress-vlan-name
+      description: Optional VLAN name as reported by the observer.
+      example: outside, inside, dmz
+      flat_name: observer.egress.vlan.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      normalize: []
+      order: 1
+      original_fieldset: vlan
+      short: Optional VLAN name as reported by the observer.
+      type: keyword
+    egress.zone:
+      dashed_name: observer-egress-zone
+      description: Network zone of incoming traffic as reported by the observer to
+        categorize the destination area of egress  traffic.
+      example: Internal, External, DMZ, HR, Legal, etc.
+      flat_name: observer.egress.zone
+      ignore_above: 1024
+      level: extended
+      name: egress.zone
+      normalize: []
+      order: 12
+      short: Observer Egress Zone
+      type: keyword
     geo.city_name:
       dashed_name: observer-geo-city-name
       description: City name.
@@ -4453,6 +4579,89 @@ observer:
       normalize: []
       order: 2
       short: Hostname of the observer.
+      type: keyword
+    ingress:
+      dashed_name: observer-ingress
+      description: Observer.ingress holds information like interface number and name,
+        vlan, and zone information to  classify ingress traffic.  Single armed monitoring
+        such as a network sensor on a span port should  only use observer.ingress
+        to categorize traffic.
+      flat_name: observer.ingress
+      level: extended
+      name: ingress
+      normalize: []
+      object_type: keyword
+      order: 9
+      short: Object field for ingress information
+      type: object
+    ingress.interface.id:
+      dashed_name: observer-ingress-interface-id
+      description: Interface ID as reported by the system (typically SNMP interface
+        ID).
+      example: 1
+      flat_name: observer.ingress.interface.id
+      ignore_above: 1024
+      level: core
+      name: id
+      normalize: []
+      order: 0
+      original_fieldset: interface
+      short: Interface ID as reported by the system (typically SNMP interface ID).
+      type: keyword
+    ingress.interface.name:
+      dashed_name: observer-ingress-interface-name
+      description: Optional interface name as reported by the system.  Could be short
+        (eth0), long (gigabitethernet0/2),  or configured logical name (e.g. outside,
+        dmz).
+      example: GigabitEthernet0/1, eth0, outside
+      flat_name: observer.ingress.interface.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      normalize: []
+      order: 1
+      original_fieldset: interface
+      short: Optional interface name as reported by the system.  Could be short (eth0),
+        long (gigabitethernet0/2),  or configured logical name (e.g. outside, dmz).
+      type: keyword
+    ingress.vlan.id:
+      dashed_name: observer-ingress-vlan-id
+      description: VLAN ID as reported by the observer.
+      example: 10
+      flat_name: observer.ingress.vlan.id
+      ignore_above: 1024
+      level: core
+      name: id
+      normalize: []
+      order: 0
+      original_fieldset: vlan
+      short: VLAN ID as reported by the observer.
+      type: keyword
+    ingress.vlan.name:
+      dashed_name: observer-ingress-vlan-name
+      description: Optional VLAN name as reported by the observer.
+      example: outside, inside, dmz
+      flat_name: observer.ingress.vlan.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      normalize: []
+      order: 1
+      original_fieldset: vlan
+      short: Optional VLAN name as reported by the observer.
+      type: keyword
+    ingress.zone:
+      dashed_name: observer-ingress-zone
+      description: Network zone of incoming traffic as reported by the observer to
+        categorize the source area of ingress  traffic.
+      example: Internal, External, DMZ, HR, Legal, etc.
+      flat_name: observer.ingress.zone
+      ignore_above: 1024
+      level: extended
+      name: ingress.zone
+      normalize: []
+      order: 10
+      short: Observer ingress Zone
       type: keyword
     ip:
       dashed_name: observer-ip
@@ -4647,7 +4856,9 @@ observer:
   name: observer
   nestings:
   - geo
+  - interface
   - os
+  - vlan
   prefix: observer.
   short: Fields describing an entity observing the event from outside the host.
   title: Observer
@@ -8196,6 +8407,45 @@ user_agent:
   prefix: user_agent.
   short: Fields to describe a browser user_agent string.
   title: User agent
+  type: group
+vlan:
+  description: The VLAN fields describe information about ingress and egress vlans
+    reported  by an observer.
+  fields:
+    id:
+      dashed_name: vlan-id
+      description: VLAN ID as reported by the observer.
+      example: 10
+      flat_name: vlan.id
+      ignore_above: 1024
+      level: core
+      name: id
+      normalize: []
+      order: 0
+      short: VLAN ID as reported by the observer.
+      type: keyword
+    name:
+      dashed_name: vlan-name
+      description: Optional VLAN name as reported by the observer.
+      example: outside, inside, dmz
+      flat_name: vlan.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      normalize: []
+      order: 1
+      short: Optional VLAN name as reported by the observer.
+      type: keyword
+  group: 2
+  name: vlan
+  prefix: vlan.
+  reusable:
+    expected:
+    - observer.ingress
+    - observer.egress
+    top_level: false
+  short: Fields to describe observer vlan information.
+  title: VLAN
   type: group
 vulnerability:
   description: The vulnerability fields describe information about a vulnerability

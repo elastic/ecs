@@ -2034,6 +2034,30 @@
       ignore_above: 1024
       description: HTTP version.
       example: 1.1
+  - name: interface
+    title: Interface
+    group: 2
+    description: The interface fields describe information about ingress and egress
+      interfaces reported  by an observer.
+    type: group
+    fields:
+    - name: id
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: Interface ID as reported by the system (typically SNMP interface
+        ID).
+      example: 1
+      default_field: false
+    - name: name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Optional interface name as reported by the system.  Could be short
+        (eth0), long (gigabitethernet0/2),  or configured logical name (e.g. outside,
+        dmz).
+      example: GigabitEthernet0/1, eth0, outside
+      default_field: false
   - name: log
     title: Log
     group: 2
@@ -2277,6 +2301,54 @@
       are not considered observers in ECS.'
     type: group
     fields:
+    - name: egress
+      level: extended
+      type: object
+      object_type: keyword
+      description: Observer.egress holds information like interface number and name,
+        vlan, and zone information to  classify egress traffic.  Single armed monitoring
+        such as a network sensor on a span port should  ohly use observer.ingress
+        to categorize traffic.
+      default_field: false
+    - name: egress.interface.id
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: Interface ID as reported by the system (typically SNMP interface
+        ID).
+      example: 1
+      default_field: false
+    - name: egress.interface.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Optional interface name as reported by the system.  Could be short
+        (eth0), long (gigabitethernet0/2),  or configured logical name (e.g. outside,
+        dmz).
+      example: GigabitEthernet0/1, eth0, outside
+      default_field: false
+    - name: egress.vlan.id
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: VLAN ID as reported by the observer.
+      example: 10
+      default_field: false
+    - name: egress.vlan.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Optional VLAN name as reported by the observer.
+      example: outside, inside, dmz
+      default_field: false
+    - name: egress.zone
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Network zone of incoming traffic as reported by the observer to
+        categorize the destination area of egress  traffic.
+      example: Internal, External, DMZ, HR, Legal, etc.
+      default_field: false
     - name: geo.city_name
       level: core
       type: keyword
@@ -2335,6 +2407,54 @@
       type: keyword
       ignore_above: 1024
       description: Hostname of the observer.
+    - name: ingress
+      level: extended
+      type: object
+      object_type: keyword
+      description: Observer.ingress holds information like interface number and name,
+        vlan, and zone information to  classify ingress traffic.  Single armed monitoring
+        such as a network sensor on a span port should  only use observer.ingress
+        to categorize traffic.
+      default_field: false
+    - name: ingress.interface.id
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: Interface ID as reported by the system (typically SNMP interface
+        ID).
+      example: 1
+      default_field: false
+    - name: ingress.interface.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Optional interface name as reported by the system.  Could be short
+        (eth0), long (gigabitethernet0/2),  or configured logical name (e.g. outside,
+        dmz).
+      example: GigabitEthernet0/1, eth0, outside
+      default_field: false
+    - name: ingress.vlan.id
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: VLAN ID as reported by the observer.
+      example: 10
+      default_field: false
+    - name: ingress.vlan.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Optional VLAN name as reported by the observer.
+      example: outside, inside, dmz
+      default_field: false
+    - name: ingress.zone
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Network zone of incoming traffic as reported by the observer to
+        categorize the source area of ingress  traffic.
+      example: Internal, External, DMZ, HR, Legal, etc.
+      default_field: false
     - name: ip
       level: core
       type: ip
@@ -4452,6 +4572,27 @@
       ignore_above: 1024
       description: Version of the user agent.
       example: 12.0
+  - name: vlan
+    title: VLAN
+    group: 2
+    description: The VLAN fields describe information about ingress and egress vlans
+      reported  by an observer.
+    type: group
+    fields:
+    - name: id
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: VLAN ID as reported by the observer.
+      example: 10
+      default_field: false
+    - name: name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Optional VLAN name as reported by the observer.
+      example: outside, inside, dmz
+      default_field: false
   - name: vulnerability
     title: Vulnerability
     group: 2

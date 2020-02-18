@@ -2793,6 +2793,56 @@ example: `1.1`
 
 |=====
 
+[[ecs-interface]]
+=== Interface Fields
+
+The interface fields describe information about ingress and egress interfaces reported  by an observer.
+
+==== Interface Field Details
+
+[options="header"]
+|=====
+| Field  | Description | Level
+
+// ===============================================================
+
+| interface.id
+| Interface ID as reported by the system (typically SNMP interface ID).
+
+type: keyword
+
+
+
+example: `1`
+
+| core
+
+// ===============================================================
+
+| interface.name
+| Optional interface name as reported by the system.  Could be short (eth0), long (gigabitethernet0/2),  or configured logical name (e.g. outside, dmz).
+
+type: keyword
+
+
+
+example: `GigabitEthernet0/1, eth0, outside`
+
+| extended
+
+// ===============================================================
+
+|=====
+
+==== Field Reuse
+
+The `interface` fields are expected to be nested at: `observer.egress.interface`, `observer.ingress.interface`.
+
+Note also that the `interface` fields are not expected to be used directly at the top level.
+
+
+
+
 [[ecs-log]]
 === Log Fields
 
@@ -3191,6 +3241,32 @@ This could be a custom hardware appliance or a server that has been configured t
 
 // ===============================================================
 
+| observer.egress
+| Observer.egress holds information like interface number and name, vlan, and zone information to  classify egress traffic.  Single armed monitoring such as a network sensor on a span port should  ohly use observer.ingress to categorize traffic.
+
+type: object
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+| observer.egress.zone
+| Network zone of incoming traffic as reported by the observer to categorize the destination area of egress  traffic.
+
+type: keyword
+
+
+
+example: `Internal, External, DMZ, HR, Legal, etc.`
+
+| extended
+
+// ===============================================================
+
 | observer.hostname
 | Hostname of the observer.
 
@@ -3201,6 +3277,32 @@ type: keyword
 
 
 | core
+
+// ===============================================================
+
+| observer.ingress
+| Observer.ingress holds information like interface number and name, vlan, and zone information to  classify ingress traffic.  Single armed monitoring such as a network sensor on a span port should  only use observer.ingress to categorize traffic.
+
+type: object
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+| observer.ingress.zone
+| Network zone of incoming traffic as reported by the observer to categorize the source area of ingress  traffic.
+
+type: keyword
+
+
+
+example: `Internal, External, DMZ, HR, Legal, etc.`
+
+| extended
 
 // ===============================================================
 
@@ -3343,8 +3445,20 @@ type: keyword
 // ===============================================================
 
 
+| <<ecs-interface,observer.interface.*>>
+| Fields to describe observer interface information.
+
+// ===============================================================
+
+
 | <<ecs-os,observer.os.*>>
 | OS fields contain information about the operating system.
+
+// ===============================================================
+
+
+| <<ecs-vlan,observer.vlan.*>>
+| Fields to describe observer vlan information.
 
 // ===============================================================
 
@@ -6204,6 +6318,56 @@ example: `12.0`
 
 
 |=====
+
+[[ecs-vlan]]
+=== VLAN Fields
+
+The VLAN fields describe information about ingress and egress vlans reported  by an observer.
+
+==== VLAN Field Details
+
+[options="header"]
+|=====
+| Field  | Description | Level
+
+// ===============================================================
+
+| vlan.id
+| VLAN ID as reported by the observer.
+
+type: keyword
+
+
+
+example: `10`
+
+| core
+
+// ===============================================================
+
+| vlan.name
+| Optional VLAN name as reported by the observer.
+
+type: keyword
+
+
+
+example: `outside, inside, dmz`
+
+| extended
+
+// ===============================================================
+
+|=====
+
+==== Field Reuse
+
+The `vlan` fields are expected to be nested at: `observer.egress.vlan`, `observer.ingress.vlan`.
+
+Note also that the `vlan` fields are not expected to be used directly at the top level.
+
+
+
 
 [[ecs-vulnerability]]
 === Vulnerability Fields

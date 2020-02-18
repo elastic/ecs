@@ -65,4 +65,24 @@ type Observer struct {
 	// `forwarder`, `firewall`, `ids`, `ips`, `proxy`, `poller`, `sensor`, `APM
 	// server`.
 	Type string `ecs:"type"`
+
+	// Observer.ingress holds information like interface number and name, vlan,
+	// and zone information to  classify ingress traffic.  Single armed
+	// monitoring such as a network sensor on a span port should  only use
+	// observer.ingress to categorize traffic.
+	Ingress map[string]interface{} `ecs:"ingress"`
+
+	// Network zone of incoming traffic as reported by the observer to
+	// categorize the source area of ingress  traffic.
+	IngressZone string `ecs:"ingress.zone"`
+
+	// Observer.egress holds information like interface number and name, vlan,
+	// and zone information to  classify egress traffic.  Single armed
+	// monitoring such as a network sensor on a span port should  ohly use
+	// observer.ingress to categorize traffic.
+	Egress map[string]interface{} `ecs:"egress"`
+
+	// Network zone of incoming traffic as reported by the observer to
+	// categorize the destination area of egress  traffic.
+	EgressZone string `ecs:"egress.zone"`
 }

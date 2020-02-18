@@ -1,0 +1,31 @@
+- name: interface
+  title: Interface
+  group: 2
+  short: Fields to describe observer interface information.
+  description: >
+    The interface fields describe information about ingress and egress interfaces reported 
+    by an observer.
+
+  reusable:
+    top_level: false
+    expected:
+      - observer.ingress
+      - observer.egress
+
+  type: group
+  fields:
+
+    - name: id
+      level: core
+      type: keyword
+      example: 1
+      description: >
+        Interface ID as reported by the system (typically SNMP interface ID).
+
+    - name: name
+      level: extended
+      type: keyword
+      example: GigabitEthernet0/1, eth0, outside
+      description: >
+        Optional interface name as reported by the system.  Could be short (eth0), long (gigabitethernet0/2), 
+        or configured logical name (e.g. outside, dmz).
