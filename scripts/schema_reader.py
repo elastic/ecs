@@ -177,6 +177,15 @@ def duplicate_reusable_fieldsets(schema, fields_nested):
                 nested_schema = nested_schema.setdefault('fields', {})
             nested_schema[schema['name']] = schema
 
+# Main
+
+
+def finalize_schemas(fields_nested):
+    for schema_name in fields_nested:
+        schema = fields_nested[schema_name]
+
+        schema_cleanup_values(schema)
+
 
 def assemble_reusables(fields_nested):
     # This happens as a second pass, so that all fieldsets have their
@@ -245,8 +254,7 @@ def cleanup_fields_recursive(fields, prefix):
 def load_schemas(files=ecs_files()):
     """Loads the given list of files"""
     fields_intermediate = load_schema_files(files)
-    for schema_name in fields_intermediate:
-        schema_cleanup_values(fields_intermediate[schema_name])
+    finalize_schemas(fields_intermediate)
     return fields_intermediate
 
 
