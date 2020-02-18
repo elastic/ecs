@@ -69,7 +69,7 @@ def schema_cleanup_values(schema):
 
 
 def schema_set_default_values(schema):
-    schema['type'] = 'group'
+    dict_set_default(schema, 'type', 'group')
     dict_set_default(schema, 'group', 2)
     dict_set_default(schema, 'short', schema['description'])
     if "\n" in schema['short']:
@@ -86,6 +86,8 @@ def schema_set_fieldset_prefix(schema):
 def schema_fields_as_dictionary(schema):
     """Re-nest the array of field names as a dictionary of 'fieldname' => { field definition }"""
     field_array = schema.pop('fields')
+    if schema['type'] != 'group':
+        schema['field_details'] = schema.copy()
     schema['fields'] = {}
     for order, field in enumerate(field_array):
         field['order'] = order
@@ -175,15 +177,6 @@ def duplicate_reusable_fieldsets(schema, fields_nested):
                 nested_schema = nested_schema.setdefault('fields', {})
             nested_schema[schema['name']] = schema
 
-# Main
-
-
-def finalize_schemas(fields_nested):
-    for schema_name in fields_nested:
-        schema = fields_nested[schema_name]
-
-        schema_cleanup_values(schema)
-
 
 def assemble_reusables(fields_nested):
     # This happens as a second pass, so that all fieldsets have their
@@ -252,7 +245,8 @@ def cleanup_fields_recursive(fields, prefix):
 def load_schemas(files=ecs_files()):
     """Loads the given list of files"""
     fields_intermediate = load_schema_files(files)
-    finalize_schemas(fields_intermediate)
+    for schema_name in fields_intermediate:
+        schema_cleanup_values(fields_intermediate[schema_name])
     return fields_intermediate
 
 
