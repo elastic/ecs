@@ -3862,6 +3862,23 @@ example: `/usr/bin/ssh -l user 10.0.0.16`
 
 // ===============================================================
 
+| process.entity_id
+| Unique identifier for the process.
+
+The implementation of this is specified by the data source, but some examples of what could be used here are a process-generated UUID, Sysmon Process GUIDs, or a hash of some uniquely identifying components of a process.
+
+Constructing a globally unique identifier is a common practice to mitigate PID reuse as well as to identify a specific process over time, across multiple monitored hosts.
+
+type: keyword
+
+
+
+example: `c2c455d9f99375d`
+
+| extended
+
+// ===============================================================
+
 | process.executable
 | Absolute path to the process executable.
 
@@ -3966,6 +3983,23 @@ Multi-fields:
 
 
 example: `/usr/bin/ssh -l user 10.0.0.16`
+
+| extended
+
+// ===============================================================
+
+| process.parent.entity_id
+| Unique identifier for the process.
+
+The implementation of this is specified by the data source, but some examples of what could be used here are a process-generated UUID, Sysmon Process GUIDs, or a hash of some uniquely identifying components of a process.
+
+Constructing a globally unique identifier is a common practice to mitigate PID reuse as well as to identify a specific process over time, across multiple monitored hosts.
+
+type: keyword
+
+
+
+example: `c2c455d9f99375d`
 
 | extended
 
