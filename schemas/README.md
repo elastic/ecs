@@ -11,7 +11,7 @@ YAML with a twist: Flattened field names equivalent to nested. E.g. `foo.bar: va
 - group (required for now): TBD. Just set it to 2, for now ;-)
 - description (required): Description of the field set
 - fields (required): YAML array as described below
-- type (ignored): at this level, should always be `group`
+- type (optional): at this level, type can be `group`, `object`, or `nested`
 - reusable (optional): YAML object composed of top_level and expected sub properties
 
 ## Field set

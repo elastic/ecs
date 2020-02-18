@@ -70,7 +70,8 @@ def schema_cleanup_values(schema):
 
 def schema_set_default_values(schema):
     dict_set_default(schema, 'type', 'group')
-    dict_set_default(schema, 'group', 2)
+    if schema['type'] == 'group':
+        dict_set_default(schema, 'group', 2)
     dict_set_default(schema, 'short', schema['description'])
     if "\n" in schema['short']:
         raise ValueError("Short descriptions must be single line.\nFieldset: {}\n{}".format(schema['name'], schema))
