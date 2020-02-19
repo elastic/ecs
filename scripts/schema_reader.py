@@ -257,7 +257,6 @@ def load_schemas(files=ecs_files()):
 
 
 def generate_nested_flat(fields_intermediate):
-    assemble_reusables(fields_intermediate)
     cleanup_fields_recursive(fields_intermediate, "")
     fields_nested = generate_partially_flattened_fields(fields_intermediate)
     fields_flat = generate_fully_flattened_fields(fields_intermediate)
