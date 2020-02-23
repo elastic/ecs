@@ -57,4 +57,16 @@ type Rule struct {
 	// that's not available, it can also be a link to a more general page
 	// describing this type of alert.
 	Reference string `ecs:"reference"`
+
+	// Name, organization, or pseudonym of the author or authors who created
+	// the rule used to generate this event.
+	Author string `ecs:"author"`
+
+	// Name of the license under which the rule used to generate this event is
+	// made available.
+	LicenseType string `ecs:"license_type"`
+
+	// Reference URL to the license under which the rule used to generate this
+	// event is made available.
+	LicenseReference string `ecs:"license_reference"`
 }
