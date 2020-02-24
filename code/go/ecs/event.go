@@ -185,4 +185,11 @@ type Event struct {
 	// chronologically look like this: `@timestamp` < `event.created` <
 	// `event.ingested`.
 	Ingested time.Time `ecs:"ingested"`
+
+	// Reference URL linking to additional information about this event.
+	// This URL can link to another system where additional or in-depth
+	// investigation the specific occurance of this event can take place. Alert
+	// events, indicated by `event.kind:alert`, are a common use case for this
+	// field.
+	Reference string `ecs:"reference"`
 }
