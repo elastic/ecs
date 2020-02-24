@@ -143,6 +143,7 @@ that will require subsequent breaking changes.
 * <<ecs-event-category-driver,driver>>
 * <<ecs-event-category-file,file>>
 * <<ecs-event-category-host,host>>
+* <<ecs-event-category-iam,iam>>
 * <<ecs-event-category-intrusion_detection,intrusion_detection>>
 * <<ecs-event-category-malware,malware>>
 * <<ecs-event-category-package,package>>
@@ -223,6 +224,20 @@ Note that this category is for information about hosts themselves; it is not mea
 *Expected event types for category host:*
 
 access, change, end, info, start
+
+
+[float]
+[[ecs-event-category-iam]]
+==== iam
+
+Identity and access management events relating to users, groups, and admin. Use this category to visualize and analyze iam-related logs and data from active directory, LDAP, Okta, Duo, and other IAM systems.
+
+
+
+
+*Expected event types for category iam:*
+
+admin, change, creation, deletion, group, info, user
 
 
 [float]
@@ -312,20 +327,33 @@ that will require subsequent breaking changes.
 *Allowed Values*
 
 * <<ecs-event-type-access,access>>
+* <<ecs-event-type-admin,admin>>
 * <<ecs-event-type-change,change>>
 * <<ecs-event-type-creation,creation>>
 * <<ecs-event-type-deletion,deletion>>
 * <<ecs-event-type-end,end>>
 * <<ecs-event-type-error,error>>
+* <<ecs-event-type-group,group>>
 * <<ecs-event-type-info,info>>
 * <<ecs-event-type-installation,installation>>
 * <<ecs-event-type-start,start>>
+* <<ecs-event-type-user,user>>
 
 [float]
 [[ecs-event-type-access]]
 ==== access
 
 The access event type is used for the subset of events within a category that indicate that something was accessed. Common examples include `event.category:database AND event.type:access`, or `event.category:file AND event.type:access`. Note for file access, both directory listings and file opens should be included in this subcategory. You can further distinguish access operations using the ECS `event.action` field.
+
+
+
+
+
+[float]
+[[ecs-event-type-admin]]
+==== admin
+
+The admin event type is used for the subset of events within a category that are related to admin objects. Common example: `event.category:iam AND event.type:admin`. You can further distinguish admin operations using the ECS `event.action` field.
 
 
 
@@ -382,6 +410,16 @@ The error event type is used for the subset of events within a category that ind
 
 
 [float]
+[[ecs-event-type-group]]
+==== group
+
+The group event type is used for the subset of events within a category that are related to group objects. Common example: `event.category:iam AND event.type:group`. You can further distinguish group operations using the ECS `event.action` field.
+
+
+
+
+
+[float]
 [[ecs-event-type-info]]
 ==== info
 
@@ -406,6 +444,16 @@ The installation event type is used for the subset of events within a category t
 ==== start
 
 The start event type is used for the subset of events within a category that indicate something has started. A common example is `event.category:process AND event.type:start`.
+
+
+
+
+
+[float]
+[[ecs-event-type-user]]
+==== user
+
+The user event type is used for the subset of events within a category that are related to user objects. Common example: `event.category:iam AND event.type:user`. You can further distinguish user operations using the ECS `event.action` field.
 
 
 
