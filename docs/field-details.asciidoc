@@ -2796,13 +2796,26 @@ example: `1.1`
 [[ecs-interface]]
 === Interface Fields
 
-The interface fields describe information about ingress and egress interfaces reported  by an observer.
+The interface fields describe information about ingress and egress interfaces as reported  by an observer.
 
 ==== Interface Field Details
 
 [options="header"]
 |=====
 | Field  | Description | Level
+
+// ===============================================================
+
+| interface.alias
+| Interface alias as reported by the system, typically used in firewall implementations for e.g.  inside, outside, or dmz logical interface naming.
+
+type: keyword
+
+
+
+example: `outside`
+
+| extended
 
 // ===============================================================
 
@@ -2813,20 +2826,20 @@ type: keyword
 
 
 
-example: `1`
+example: `10`
 
-| core
+| extended
 
 // ===============================================================
 
 | interface.name
-| Optional interface name as reported by the system.  Could be short (eth0), long (gigabitethernet0/2),  or configured logical name (e.g. outside, dmz).
+| Interface name as reported by the system.
 
 type: keyword
 
 
 
-example: `GigabitEthernet0/1, eth0, outside`
+example: `eth0`
 
 | extended
 
@@ -3151,6 +3164,19 @@ example: `6`
 
 // ===============================================================
 
+| network.inner
+| Network.inner fields are used to describe the innermost VLAN when q-in-q multiple VLAN tagging is present.
+
+type: object
+
+
+
+
+
+| extended
+
+// ===============================================================
+
 | network.name
 | Name given by operators to sections of their network.
 
@@ -3159,6 +3185,19 @@ type: keyword
 
 
 example: `Guest Wifi`
+
+| extended
+
+// ===============================================================
+
+| network.outer
+| Network.outer fields are used to describe the outermost VLAN when q-in-q multiple VLAN tagging is present.
+
+type: object
+
+
+
+
 
 | extended
 
@@ -3226,6 +3265,29 @@ example: `ipv4`
 
 |=====
 
+==== Field Reuse
+
+
+
+
+[[ecs-network-nestings]]
+===== Field sets that can be nested under Network
+
+[options="header"]
+|=====
+| Nested fields | Description
+
+// ===============================================================
+
+
+| <<ecs-vlan,network.vlan.*>>
+| Fields to describe observer vlan information.
+
+// ===============================================================
+
+
+|=====
+
 [[ecs-observer]]
 === Observer Fields
 
@@ -3242,7 +3304,7 @@ This could be a custom hardware appliance or a server that has been configured t
 // ===============================================================
 
 | observer.egress
-| Observer.egress holds information like interface number and name, vlan, and zone information to  classify egress traffic.  Single armed monitoring such as a network sensor on a span port should  ohly use observer.ingress to categorize traffic.
+| Observer.egress holds information like interface number and name, vlan, and zone information to  classify egress traffic.  Single armed monitoring such as a network sensor on a span port should  only use observer.ingress to categorize traffic.
 
 type: object
 
@@ -3255,13 +3317,13 @@ type: object
 // ===============================================================
 
 | observer.egress.zone
-| Network zone of incoming traffic as reported by the observer to categorize the destination area of egress  traffic.
+| Network zone of outbound traffic as reported by the observer to categorize the destination area of egress  traffic, e.g. Internal, External, DMZ, HR, Legal, etc.
 
 type: keyword
 
 
 
-example: `Internal, External, DMZ, HR, Legal, etc.`
+example: `Public_Internet`
 
 | extended
 
@@ -3294,13 +3356,13 @@ type: object
 // ===============================================================
 
 | observer.ingress.zone
-| Network zone of incoming traffic as reported by the observer to categorize the source area of ingress  traffic.
+| Network zone of incoming traffic as reported by the observer to categorize the source area of ingress  traffic e.g.,  internal, External, DMZ, HR, Legal, etc.
 
 type: keyword
 
 
 
-example: `Internal, External, DMZ, HR, Legal, etc.`
+example: `DMZ`
 
 | extended
 
@@ -6341,7 +6403,7 @@ type: keyword
 
 example: `10`
 
-| core
+| extended
 
 // ===============================================================
 
@@ -6352,7 +6414,7 @@ type: keyword
 
 
 
-example: `outside, inside, dmz`
+example: `outside`
 
 | extended
 
@@ -6362,7 +6424,7 @@ example: `outside, inside, dmz`
 
 ==== Field Reuse
 
-The `vlan` fields are expected to be nested at: `observer.egress.vlan`, `observer.ingress.vlan`.
+The `vlan` fields are expected to be nested at: `network.vlan`, `network.inner.vlan`, `network.outer.vlan`, `observer.egress.vlan`, `observer.ingress.vlan`.
 
 Note also that the `vlan` fields are not expected to be used directly at the top level.
 

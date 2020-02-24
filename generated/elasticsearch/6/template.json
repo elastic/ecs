@@ -1226,6 +1226,10 @@
         },
         "interface": {
           "properties": {
+            "alias": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
             "id": {
               "ignore_above": 1024,
               "type": "keyword"
@@ -1334,9 +1338,43 @@
               "ignore_above": 1024,
               "type": "keyword"
             },
+            "inner": {
+              "properties": {
+                "vlan": {
+                  "properties": {
+                    "id": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    },
+                    "name": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    }
+                  }
+                }
+              },
+              "type": "object"
+            },
             "name": {
               "ignore_above": 1024,
               "type": "keyword"
+            },
+            "outer": {
+              "properties": {
+                "vlan": {
+                  "properties": {
+                    "id": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    },
+                    "name": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    }
+                  }
+                }
+              },
+              "type": "object"
             },
             "packets": {
               "type": "long"
@@ -1352,6 +1390,18 @@
             "type": {
               "ignore_above": 1024,
               "type": "keyword"
+            },
+            "vlan": {
+              "properties": {
+                "id": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "name": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                }
+              }
             }
           }
         },
@@ -1361,6 +1411,10 @@
               "properties": {
                 "interface": {
                   "properties": {
+                    "alias": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    },
                     "id": {
                       "ignore_above": 1024,
                       "type": "keyword"
@@ -1433,6 +1487,10 @@
               "properties": {
                 "interface": {
                   "properties": {
+                    "alias": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    },
                     "id": {
                       "ignore_above": 1024,
                       "type": "keyword"

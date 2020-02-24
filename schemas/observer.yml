@@ -104,12 +104,11 @@
       level: extended
       type: keyword
       short: Observer ingress Zone
+      example: DMZ
       description: >
         Network zone of incoming traffic as reported by the observer to categorize the source area of ingress 
-        traffic.
+        traffic e.g.,  internal, External, DMZ, HR, Legal, etc.
       
-      example: Internal, External, DMZ, HR, Legal, etc.
-
     - name: egress
       level: extended
       type: object
@@ -117,14 +116,13 @@
       description: >
         Observer.egress holds information like interface number and name, vlan, and zone information to 
         classify egress traffic.  Single armed monitoring such as a network sensor on a span port should 
-        ohly use observer.ingress to categorize traffic.
+        only use observer.ingress to categorize traffic.
 
     - name: egress.zone
       level: extended
       type: keyword
       short: Observer Egress Zone
+      example: Public_Internet
       description: >
-        Network zone of incoming traffic as reported by the observer to categorize the destination area of egress 
-        traffic.
-      
-      example: Internal, External, DMZ, HR, Legal, etc.
+        Network zone of outbound traffic as reported by the observer to categorize the destination area of egress 
+        traffic, e.g. Internal, External, DMZ, HR, Legal, etc.

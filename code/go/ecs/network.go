@@ -92,4 +92,12 @@ type Network struct {
 	// If `source.packets` and `destination.packets` are known,
 	// `network.packets` is their sum.
 	Packets int64 `ecs:"packets"`
+
+	// Network.inner fields are used to describe the innermost VLAN when q-in-q
+	// multiple VLAN tagging is present.
+	Inner map[string]interface{} `ecs:"inner"`
+
+	// Network.outer fields are used to describe the outermost VLAN when q-in-q
+	// multiple VLAN tagging is present.
+	Outer map[string]interface{} `ecs:"outer"`
 }

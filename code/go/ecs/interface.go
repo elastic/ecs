@@ -20,13 +20,16 @@
 package ecs
 
 // The interface fields describe information about ingress and egress
-// interfaces reported  by an observer.
+// interfaces as reported  by an observer.
 type Interface struct {
 	// Interface ID as reported by the system (typically SNMP interface ID).
 	ID string `ecs:"id"`
 
-	// Optional interface name as reported by the system.  Could be short
-	// (eth0), long (gigabitethernet0/2),  or configured logical name (e.g.
-	// outside, dmz).
+	// Interface name as reported by the system.
 	Name string `ecs:"name"`
+
+	// Interface alias as reported by the system, typically used in firewall
+	// implementations for e.g.  inside, outside, or dmz logical interface
+	// naming.
+	Alias string `ecs:"alias"`
 }

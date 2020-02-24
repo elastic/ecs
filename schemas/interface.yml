@@ -3,7 +3,7 @@
   group: 2
   short: Fields to describe observer interface information.
   description: >
-    The interface fields describe information about ingress and egress interfaces reported 
+    The interface fields describe information about ingress and egress interfaces as reported 
     by an observer.
 
   reusable:
@@ -16,16 +16,23 @@
   fields:
 
     - name: id
-      level: core
+      level: extended
       type: keyword
-      example: 1
+      example: 10
       description: >
         Interface ID as reported by the system (typically SNMP interface ID).
 
     - name: name
       level: extended
       type: keyword
-      example: GigabitEthernet0/1, eth0, outside
+      example: eth0
       description: >
-        Optional interface name as reported by the system.  Could be short (eth0), long (gigabitethernet0/2), 
-        or configured logical name (e.g. outside, dmz).
+        Interface name as reported by the system. 
+
+    - name: alias
+      level: extended
+      type: keyword
+      example: outside
+      description: >
+        Interface alias as reported by the system, typically used in firewall implementations for e.g. 
+        inside, outside, or dmz logical interface naming.
