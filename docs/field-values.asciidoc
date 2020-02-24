@@ -145,6 +145,7 @@ that will require subsequent breaking changes.
 * <<ecs-event-category-host,host>>
 * <<ecs-event-category-intrusion_detection,intrusion_detection>>
 * <<ecs-event-category-malware,malware>>
+* <<ecs-event-category-network,network>>
 * <<ecs-event-category-package,package>>
 * <<ecs-event-category-process,process>>
 * <<ecs-event-category-web,web>>
@@ -236,7 +237,7 @@ Relating to intrusion detections from IDS/IPS systems and functions, both networ
 
 *Expected event types for category intrusion_detection:*
 
-info
+allowed, denied, info
 
 
 [float]
@@ -251,6 +252,20 @@ Malware detection events and alerts. Use this category to visualize and analyze 
 *Expected event types for category malware:*
 
 info
+
+
+[float]
+[[ecs-event-category-network]]
+==== network
+
+Relating to all network activity, including network connection lifecycle, network traffic, and essentially any event that includes an IP address. Many events containing decoded network protocol transactions fit into this category. Use events in this category to visualize or analyze counts of network ports, protocols, addresses, geolocation information, etc.
+
+
+
+
+*Expected event types for category network:*
+
+access, allowed, connection, denied, end, info, protocol, start
 
 
 [float]
@@ -312,13 +327,17 @@ that will require subsequent breaking changes.
 *Allowed Values*
 
 * <<ecs-event-type-access,access>>
+* <<ecs-event-type-allowed,allowed>>
 * <<ecs-event-type-change,change>>
+* <<ecs-event-type-connection,connection>>
 * <<ecs-event-type-creation,creation>>
 * <<ecs-event-type-deletion,deletion>>
+* <<ecs-event-type-denied,denied>>
 * <<ecs-event-type-end,end>>
 * <<ecs-event-type-error,error>>
 * <<ecs-event-type-info,info>>
 * <<ecs-event-type-installation,installation>>
+* <<ecs-event-type-protocol,protocol>>
 * <<ecs-event-type-start,start>>
 
 [float]
@@ -332,10 +351,30 @@ The access event type is used for the subset of events within a category that in
 
 
 [float]
+[[ecs-event-type-allowed]]
+==== allowed
+
+The allowed event type is used for the subset of events within a category that indicate that something was allowed. Common examples include `event.category:network AND event.type:allowed` (to indicate a network firewall event for which the firewall disposition was to allow the connection to complete) and `event.category:intrusion_detection AND event.type:allowed` (to indicate a network intrusion prevention system event for which the IPS disposition was to allow the connection to complete). You can further distinguish allowed operations using the ECS `event.action` field, populating with values of your choosing, such as "allow", "detect", or "pass".
+
+
+
+
+
+[float]
 [[ecs-event-type-change]]
 ==== change
 
 The change event type is used for the subset of events within a category that indicate that something has changed. If semantics best describe an event as modified, then include them in this subcategory. Common examples include `event.category:process AND event.type:change`, and `event.category:file AND event.type:change`. You can further distinguish change operations using the ECS `event.action` field.
+
+
+
+
+
+[float]
+[[ecs-event-type-connection]]
+==== connection
+
+Used primary with `event.category:network` this value is used for the subset of network traffic that includes sufficient information for the event to be included in flow or connection analysis. Events in this subcategory will contain at least source and destination IP addresses, source and destination TCP/UDP ports, and will usually contain counts of bytes and/or packets transferred. Events in this subcategory may contain unidirectional or bidirectional information, including summary information. Use this subcategory to visualize and analyze network connections. Flow analysis, including Netflow, IPFIX, and other flow-related events fit in this subcategory. Note that firewall events from many NGFW devices will also fit into this subcategory.  A common filter for flow/connection information would be `event.category:network AND event.type:connection AND event.type:end` (to view or analyze all completed network connections, ignoring mid-flow reports). You can further distinguish connection events using the ECS `event.action` field, populating with values of your choosing, such as "timeout", or "reset".
 
 
 
@@ -356,6 +395,16 @@ The "creation" event type is used for the subset of events within a category tha
 ==== deletion
 
 The deletion event type is used for the subset of events within a category that indicate that something was deleted. A common example is `event.category:file AND event.type:deletion` to indicate that a file has been deleted.
+
+
+
+
+
+[float]
+[[ecs-event-type-denied]]
+==== denied
+
+The denied event type is used for the subset of events within a category that indicate that something was denied. Common examples include `event.category:”network” AND event.type:denied` (to indicate a network firewall event for which the firewall disposition was to deny the connection to complete) and `event.category:intrusion_detection AND event.type:denied` (to indicate a network intrusion prevention system event for which the IPS disposition was to deny the connection to complete). You can further distinguish denied operations using the ECS `event.action` field, populating with values of your choosing, such as "blocked", "dropped", or "quarantined".
 
 
 
@@ -399,6 +448,20 @@ The installation event type is used for the subset of events within a category t
 
 
 
+
+
+[float]
+[[ecs-event-type-protocol]]
+==== protocol
+
+The protocol event type is used for the subset of events within a category that indicate that they contain protocol details or analysis. Generally, network events that contain protocol details will fall into this subcategory. A common example is `event.category:network AND event.type:protocol AND event.type:connection` AND event.type:end' (to indicate that the event is a network connection event sent at the end of a connection that also includes protocol details). Note for when the protocol subcategory is used, you can further distinguish protocols using the ECS `network.protocol` field.
+
+
+
+
+*Expected event types for category protocol:*
+
+access, change, end, info, start
 
 
 [float]

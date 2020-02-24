@@ -1846,6 +1846,8 @@ event.category:
 
       '
     expected_event_types:
+    - allowed
+    - denied
     - info
     name: intrusion_detection
   - description: 'Malware detection events and alerts. Use this category to visualize
@@ -1858,6 +1860,23 @@ event.category:
     expected_event_types:
     - info
     name: malware
+  - description: 'Relating to all network activity, including network connection lifecycle,
+      network traffic, and essentially any event that includes an IP address. Many
+      events containing decoded network protocol transactions fit into this category.
+      Use events in this category to visualize or analyze counts of network ports,
+      protocols, addresses, geolocation information, etc.
+
+      '
+    expected_event_types:
+    - access
+    - allowed
+    - connection
+    - denied
+    - end
+    - info
+    - protocol
+    - start
+    name: network
   - description: 'Relating to software packages installed on hosts. Use this category
       to visualize and analyze inventory of software installed on various hosts, or
       to determine host vulnerability in the absence of vulnerability scan data.
@@ -2298,6 +2317,17 @@ event.type:
 
       '
     name: access
+  - description: 'The allowed event type is used for the subset of events within a
+      category that indicate that something was allowed. Common examples include `event.category:network
+      AND event.type:allowed` (to indicate a network firewall event for which the
+      firewall disposition was to allow the connection to complete) and `event.category:intrusion_detection
+      AND event.type:allowed` (to indicate a network intrusion prevention system event
+      for which the IPS disposition was to allow the connection to complete). You
+      can further distinguish allowed operations using the ECS `event.action` field,
+      populating with values of your choosing, such as "allow", "detect", or "pass".
+
+      '
+    name: allowed
   - description: 'The change event type is used for the subset of events within a
       category that indicate that something has changed. If semantics best describe
       an event as modified, then include them in this subcategory. Common examples
@@ -2307,6 +2337,23 @@ event.type:
 
       '
     name: change
+  - description: 'Used primary with `event.category:network` this value is used for
+      the subset of network traffic that includes sufficient information for the event
+      to be included in flow or connection analysis. Events in this subcategory will
+      contain at least source and destination IP addresses, source and destination
+      TCP/UDP ports, and will usually contain counts of bytes and/or packets transferred.
+      Events in this subcategory may contain unidirectional or bidirectional information,
+      including summary information. Use this subcategory to visualize and analyze
+      network connections. Flow analysis, including Netflow, IPFIX, and other flow-related
+      events fit in this subcategory. Note that firewall events from many NGFW devices
+      will also fit into this subcategory.  A common filter for flow/connection information
+      would be `event.category:network AND event.type:connection AND event.type:end`
+      (to view or analyze all completed network connections, ignoring mid-flow reports).
+      You can further distinguish connection events using the ECS `event.action` field,
+      populating with values of your choosing, such as "timeout", or "reset".
+
+      '
+    name: connection
   - description: 'The "creation" event type is used for the subset of events within
       a category that indicate that something was created. A common example is `event.category:file
       AND event.type:creation`.
@@ -2319,6 +2366,16 @@ event.type:
 
       '
     name: deletion
+  - description: "The denied event type is used for the subset of events within a\
+      \ category that indicate that something was denied. Common examples include\
+      \ `event.category:\u201Dnetwork\u201D AND event.type:denied` (to indicate a\
+      \ network firewall event for which the firewall disposition was to deny the\
+      \ connection to complete) and `event.category:intrusion_detection AND event.type:denied`\
+      \ (to indicate a network intrusion prevention system event for which the IPS\
+      \ disposition was to deny the connection to complete). You can further distinguish\
+      \ denied operations using the ECS `event.action` field, populating with values\
+      \ of your choosing, such as \"blocked\", \"dropped\", or \"quarantined\".\n"
+    name: denied
   - description: 'The end event type is used for the subset of events within a category
       that indicate something has ended. A common example is `event.category:process
       AND event.type:end`.
@@ -2350,6 +2407,23 @@ event.type:
 
       '
     name: installation
+  - description: 'The protocol event type is used for the subset of events within
+      a category that indicate that they contain protocol details or analysis. Generally,
+      network events that contain protocol details will fall into this subcategory.
+      A common example is `event.category:network AND event.type:protocol AND event.type:connection`
+      AND event.type:end'' (to indicate that the event is a network connection event
+      sent at the end of a connection that also includes protocol details). Note for
+      when the protocol subcategory is used, you can further distinguish protocols
+      using the ECS `network.protocol` field.
+
+      '
+    expected_event_types:
+    - access
+    - change
+    - end
+    - info
+    - start
+    name: protocol
   - description: 'The start event type is used for the subset of events within a category
       that indicate something has started. A common example is `event.category:process
       AND event.type:start`.
