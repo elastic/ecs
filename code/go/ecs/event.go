@@ -33,6 +33,7 @@ import (
 // containing one or more numerical or categorical measurements and the time at
 // which the measurement was taken. Examples of metric events include memory
 // pressure measured on a host, or vulnerabilities measured on a scanned host.
+// See `event.kind` for additional details.
 type Event struct {
 	// Unique ID to describe the event.
 	ID string `ecs:"id"`
