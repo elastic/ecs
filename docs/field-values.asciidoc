@@ -416,7 +416,13 @@ The start event type is used for the subset of events within a category that ind
 
 This is one of four ECS Categorization Fields, and indicates the lowest level in the ECS category hierarchy.
 
-`event.outcome` simply denotes whether the event represent a success or a failure. Note that not all events will have an associated outcome. For example, this field is generally not populated for metric events or events with `event.type:info`.
+`event.outcome` simply denotes whether the event represents a success or a failure from the perspective of the entity that produced the event.
+
+Note that when a single transaction is described in multiple events, each event may populate different values of `event.outcome`, according to their perspective.
+
+Also note that in the case of a compount event (a single event that contains multiple logical events), this field should be populated with the value that best captures the overall success or failure from the perspective of the event producer.
+
+Further note that not all events will have an associated outcome. For example, this field is generally not populated for metric events, events with `event.type:info`, or any events for  which an outcome does not make logical sense.
 
 WARNING: After the beta period for categorization, only the allowed categorization
 values listed in the ECS repository and official ECS documentation should be considered
@@ -443,7 +449,7 @@ Indicates that this event describes a failed result. A common example is `event.
 [[ecs-event-outcome-success]]
 ==== success
 
-Indicates that this event describes a successful result.  A common example is `event.category:file AND event.type:create AND event.outcome:success` to indicate that a file was successfully created.
+Indicates that this event describes a successful result. A common example is `event.category:file AND event.type:create AND event.outcome:success` to indicate that a file was successfully created.
 
 
 
@@ -453,7 +459,7 @@ Indicates that this event describes a successful result.  A common example is `e
 [[ecs-event-outcome-unknown]]
 ==== unknown
 
-Indicates that this event describes only an attempt for which the result is unknown. For example, if the event contains information only about a request in an entity transaction that usually results in a response, populating `event.outcome:unknown` is appropriate.
+Indicates that this event describes only an attempt for which the result is unknown from the perspective of the event producer. For example, if the event contains information only about a request in an entity transaction that usually results in a response, populating `event.outcome:unknown` in the request event is appropriate.
 
 
 
