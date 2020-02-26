@@ -7,7 +7,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from scripts import schema_reader
 
 
-(nested, flat) = schema_reader.load_schemas()
+(nested, flat) = schema_reader.generate_nested_flat(schema_reader.load_schemas())
 
 
 class TestEcsSpec(unittest.TestCase):
@@ -89,6 +89,12 @@ class TestEcsSpec(unittest.TestCase):
         self.assertIn('os.name', host_keys)
         self.assertIn('os.name', observer_keys)
         self.assertIn('os.name', user_agent_keys)
+
+    def test_related_fields_always_arrays(self):
+        for (field_name, field) in self.ecs_nested['related']['fields'].items():
+            self.assertIn('normalize', field.keys())
+            self.assertIn('array', field['normalize'],
+                          "All fields under `related.*` should be arrays")
 
 
 if __name__ == '__main__':

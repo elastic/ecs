@@ -30,11 +30,15 @@ Supported keys to describe fields
 - level (required, one of: core, extended): ECS Level of maturity of the field
 - type (required): Type of the field. Must be set explicitly, no default.
 - required (TBD): TBD if still relevant.
-- short (optional): Optional shorter definition, for display in tight spaces
+- short (optional): Optional shorter definition, for display in tight spaces.
+  Derived automatically if description is short enough.
 - description (required): Description of the field
 - example (optional): A single value example of what can be expected in this field
-- multi\_fields (optional):
+- multi\_fields (optional): Specify additional ways to index the field.
 - index (optional): If `False`, means field is not indexed (overrides type)
+- format: Field format that can be used in a Kibana index template.
+- normalize: Normalization steps that should be applied at ingestion time. Supported values:
+  - array: the content of the field should be an array (even when there's only one value).
 
 Supported keys to describe expected values for a field
 

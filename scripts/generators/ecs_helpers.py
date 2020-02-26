@@ -1,4 +1,5 @@
 import yaml
+import os
 
 from collections import OrderedDict
 from copy import deepcopy
@@ -49,6 +50,29 @@ def safe_merge_dicts(a, b):
     return c
 
 
+def fields_subset(subset, fields):
+    retained_fields = {}
+    for key, val in subset.items():
+        # Every field must have a 'fields' key or the schema is invalid
+        if isinstance(val['fields'], dict):
+            # Copy the full field over so we get all the options, then replace the 'fields' with the right subset
+            retained_fields[key] = fields[key]
+            retained_fields[key]['fields'] = fields_subset(val['fields'], fields[key]['fields'])
+        elif val['fields'] == '*':
+            retained_fields[key] = fields[key]
+    return retained_fields
+
+
+def recursive_merge_subset_dicts(a, b):
+    for key in b:
+        if key not in a:
+            a[key] = b[key]
+        elif isinstance(a[key]['fields'], dict) and isinstance(b[key]['fields'], dict):
+            recursive_merge_subset_dicts(a[key]['fields'], b[key]['fields'])
+        elif b[key]['fields'] == "*":
+            a[key]['fields'] = b[key]['fields']
+
+
 def yaml_ordereddict(dumper, data):
     # YAML representation of an OrderedDict will be like a dictionary, but
     # respecting the order of the dictionary.
@@ -72,6 +96,13 @@ def dict_rename_keys(dict, renames):
 
 
 # File helpers
+
+def make_dirs(path):
+    try:
+        os.makedirs(path, exist_ok=True)
+    except OSError as e:
+        print('Unable to create output directory: {}'.format(e))
+        raise e
 
 
 def yaml_dump(filename, data, preamble=None):

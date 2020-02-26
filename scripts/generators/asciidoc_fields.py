@@ -1,12 +1,11 @@
-import sys
-
+from os.path import join
 from generators import ecs_helpers
 
 
-def generate(ecs_nested, ecs_flat, ecs_version):
-    save_asciidoc('docs/fields.asciidoc', page_field_index(ecs_nested, ecs_version))
-    save_asciidoc('docs/field-details.asciidoc', page_field_details(ecs_nested))
-    save_asciidoc('docs/field-values.asciidoc', page_field_values(ecs_flat))
+def generate(ecs_nested, ecs_flat, ecs_version, out_dir):
+    save_asciidoc(join(out_dir, 'fields.asciidoc'), page_field_index(ecs_nested, ecs_version))
+    save_asciidoc(join(out_dir, 'field-details.asciidoc'), page_field_details(ecs_nested))
+    save_asciidoc(join(out_dir, 'field-values.asciidoc'), page_field_values(ecs_flat))
 
 # Helpers
 
@@ -95,10 +94,15 @@ def render_field_details_row(field):
         for mf in field['multi_fields']:
             field_type_with_mf += "* {} (type: {})\n\n".format(mf['flat_name'], mf['type'])
 
+    field_normalization = ''
+    if 'array' in field['normalize']:
+        field_normalization = "\nNote: this field should contain an array of values.\n\n"
+
     text = field_details_row().format(
         field_flat_name=field['flat_name'],
         field_description=render_asciidoc_paragraphs(field['description']),
         field_example=example,
+        field_normalization=field_normalization,
         field_level=field['level'],
         field_type=field_type_with_mf,
     )
@@ -234,6 +238,8 @@ def field_details_row():
 | {field_description}
 
 type: {field_type}
+
+{field_normalization}
 
 {field_example}
 

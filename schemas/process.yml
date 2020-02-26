@@ -42,6 +42,39 @@
         Process id.
       example: 4242
 
+    - name: entity_id
+      level: extended
+      type: keyword
+      short: Unique identifier for the process.
+      description: >
+        Unique identifier for the process.
+
+        The implementation of this is specified by the data source, but some
+        examples of what could be used here are a process-generated UUID,
+        Sysmon Process GUIDs, or a hash of some uniquely identifying components
+        of a process.
+
+        Constructing a globally unique identifier is a common practice to mitigate
+        PID reuse as well as to identify a specific process over time, across multiple
+        monitored hosts.
+      example: c2c455d9f99375d
+
+    - name: parent.entity_id
+      level: extended
+      type: keyword
+      short: Unique identifier for the process.
+      description: >
+        Unique identifier for the process.
+
+        The implementation of this is specified by the data source, but some
+        examples of what could be used here are a process-generated UUID,
+        Sysmon Process GUIDs, or a hash of some uniquely identifying components
+        of a process.
+
+        Constructing a globally unique identifier is a common practice to mitigate
+        PID reuse as well as to identify a specific process over time, across multiple
+        monitored hosts.
+      example: c2c455d9f99375d
 
     - name: name
       level: extended
@@ -140,6 +173,8 @@
 
         May be filtered to protect sensitive information.
       example: ["/usr/bin/ssh", "-l", "user", "10.0.0.16"]
+      normalize:
+        - array
 
     - name: parent.args
       level: extended
@@ -150,6 +185,8 @@
 
         May be filtered to protect sensitive information.
       example: ["ssh", "-l", "user", "10.0.0.16"]
+      normalize:
+        - array
 
     - name: args_count
       level: extended

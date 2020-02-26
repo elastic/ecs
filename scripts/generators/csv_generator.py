@@ -1,10 +1,14 @@
 import csv
 import sys
 
+from os.path import join
+from generator import ecs_helpers
 
-def generate(ecs_flat, version):
+
+def generate(ecs_flat, version, out_dir):
+    ecs_helpers.make_dirs(join(out_dir, 'csv'))
     sorted_fields = base_first(ecs_flat)
-    save_csv('generated/csv/fields.csv', sorted_fields, version)
+    save_csv(join(out_dir, 'csv/fields.csv'), sorted_fields, version)
 
 
 def base_first(ecs_flat):
@@ -30,7 +34,7 @@ def save_csv(file, sorted_fields, version):
                                    lineterminator='\n')
 
         schema_writer.writerow(["ECS_Version", "Indexed", "Field_Set", "Field",
-                                "Type", "Level", "Example", "Description"])
+                                "Type", "Level", "Normalization", "Example", "Description"])
         for field in sorted_fields:
             key_parts = field['flat_name'].split('.')
             if len(key_parts) == 1:
@@ -46,6 +50,7 @@ def save_csv(file, sorted_fields, version):
                 field['flat_name'],
                 field['type'],
                 field['level'],
+                ', '.join(field['normalize']),
                 field.get('example', ''),
                 field['short'],
             ])
@@ -59,6 +64,7 @@ def save_csv(file, sorted_fields, version):
                         mf['flat_name'],
                         mf['type'],
                         field['level'],
+                        '',
                         field.get('example', ''),
                         field['short'],
                     ])
