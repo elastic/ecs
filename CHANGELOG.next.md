@@ -18,6 +18,7 @@ Thanks, you're awesome :-) -->
 * Added `dll.*` fields (#679)
 * Fieldset for PE metadata. #731
 * Globally unique identifier `entity_id` for `process` and `process.parent`. (#747)
+* Added `agent.build` for extended agent version information. (#764)
 
 #### Improvements
 
