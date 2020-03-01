@@ -23,6 +23,7 @@ Thanks, you're awesome :-) -->
 
 * Temporary workaround for Beats templates' `default_field` growing too big. #687
 * Identify which fields should contain arrays of values, rather than scalar values. #727, #661
+* Clarified examples and definitions regarding vulnerabilities #758
 
 #### Deprecated
 

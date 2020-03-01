@@ -30,10 +30,10 @@ import (
 // log events include a process starting on a host, a network packet being sent
 // from a source to a destination, or a network connection between a client and
 // a server being initiated or closed. A metric is defined as an event
-// containing one or more numerical or categorical measurements and the time at
-// which the measurement was taken. Examples of metric events include memory
-// pressure measured on a host, or vulnerabilities measured on a scanned host.
-// See `event.kind` for additional details.
+// containing one or more numerical measurements and the time at which the
+// measurement was taken. Examples of metric events include memory pressure
+// measured on a host and device temperature. See the `event.kind` definition
+// in this section for additional details about metric and state events.
 type Event struct {
 	// Unique ID to describe the event.
 	ID string `ecs:"id"`

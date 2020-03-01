@@ -78,7 +78,7 @@ This value is the most general and most common value for this field. It is used 
 [[ecs-event-kind-metric]]
 ==== metric
 
-This value is used to indicate that this event that a numeric measurement was taken at given point in time.
+This value is used to indicate that this event describes a numeric measurement taken at given point in time.
 
 Examples include CPU utilization, memory usage, or device temperature.
 
@@ -92,9 +92,13 @@ Metric events are often collected on a predictable frequency, such as once every
 [[ecs-event-kind-state]]
 ==== state
 
-This value is similar to metric, except that the entity being measured does not provide a numeric metric value, but rather one of a fixed set of categorical values that represent conditions or states.
+The state value is similar to metric, indicating that this event describes a measurement taken at given point in time, except that the measurement does not result in a numeric value, but rather one of a fixed set of categorical values that represent conditions or states.
 
-For example a periodic event reporting a "fin_wait" state of a TCP connection on a host, or the result of a vulnerability scan on a host, could use `event.type:state`.
+Examples include periodic events reporting Elasticsearch cluster state (green/yellow/red), the state of a TCP connection (open, closed, fin_wait, etc.), the state of a host with respect to a software vulnerability (vulnerable, not vulnerable), and the state of a system regarding compliance with a regulatory standard (compliant, not compliant).
+
+Note that an event that describes a change of state would not use `event.kind:state`, but instead would use 'event.kind:event' since a state change fits the more general event definition of something that happened.
+
+State events are often collected on a predictable frequency, such as once every few seconds, once a minute, once an hour, or once a day.
 
 
 
