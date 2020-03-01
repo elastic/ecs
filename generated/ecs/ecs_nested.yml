@@ -2579,13 +2579,14 @@ event:
         name: access
       - description: 'The allowed event type is used for the subset of events within
           a category that indicate that something was allowed. Common examples include
-          `event.category:network AND event.type:allowed` (to indicate a network firewall
-          event for which the firewall disposition was to allow the connection to
-          complete) and `event.category:intrusion_detection AND event.type:allowed`
-          (to indicate a network intrusion prevention system event for which the IPS
-          disposition was to allow the connection to complete). You can further distinguish
-          allowed operations using the ECS `event.action` field, populating with values
-          of your choosing, such as "allow", "detect", or "pass".
+          `event.category:network AND event.type:connection AND event.type:allowed`
+          (to indicate a network firewall event for which the firewall disposition
+          was to allow the connection to complete) and `event.category:intrusion_detection
+          AND event.type:allowed` (to indicate a network intrusion prevention system
+          event for which the IPS disposition was to allow the connection to complete).
+          You can further distinguish allowed operations using the ECS `event.action`
+          field, populating with values of your choosing, such as "allow", "detect",
+          or "pass".
 
           '
         name: allowed

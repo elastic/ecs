@@ -19,6 +19,9 @@ Thanks, you're awesome :-) -->
 * Fieldset for PE metadata. #731
 * Globally unique identifier `entity_id` for `process` and `process.parent`. (#747)
 
+
+* Added `event.category` value of network and associated `event.type` values. (#761)
+
 #### Improvements
 
 * Temporary workaround for Beats templates' `default_field` growing too big. #687
