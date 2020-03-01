@@ -18,6 +18,7 @@ Thanks, you're awesome :-) -->
 * Added `dll.*` fields (#679)
 * Fieldset for PE metadata. #731
 * Globally unique identifier `entity_id` for `process` and `process.parent`. (#747)
+* Added iam value for `event.category` and three related values for `event.type`. (#756)
 
 #### Improvements
 
