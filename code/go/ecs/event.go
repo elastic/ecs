@@ -187,9 +187,9 @@ type Event struct {
 	Ingested time.Time `ecs:"ingested"`
 
 	// Reference URL linking to additional information about this event.
-	// This URL can link to another system where additional or in-depth
-	// investigation the specific occurance of this event can take place. Alert
-	// events, indicated by `event.kind:alert`, are a common use case for this
-	// field.
+	// This URL can link to either a static definition of the general event, or
+	// to another system where in-depth investigation of the specific occurence
+	// of this event can take place. Alert events, indicated by
+	// `event.kind:alert`, are a common use case for this field.
 	Reference string `ecs:"reference"`
 }
