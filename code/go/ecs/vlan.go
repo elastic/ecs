@@ -19,8 +19,19 @@
 
 package ecs
 
-// The VLAN fields describe information about ingress and egress vlans reported
-// by an observer.
+// The VLAN fields are used to identify 802.1q tag(s) of a packet, as well as
+// ingress and egress VLAN associations of an observer in relation to a
+// specific packet or connection.
+// Network.vlan fields are used to record a single VLAN tag for a packet or
+// connection as observed, typically provided by a network sensor (e.g. Zeek,
+// Wireshark) passively reporting on traffic.
+// Network.inner and network.outer VLAN fields are used to report q-in-q 802.1q
+// tags (multiple 802.1q encapsulations) as observed, typically provided by a
+// network sensor  (e.g. Zeek,  Wireshark) passively reporting on traffic.
+// Observer.ingress and observer.egress VLAN values are used to record observer
+// specific  information when observer events contain discrete ingress and
+// egress VLAN information,  typically provided by firewalla, routera, or load
+// balancers.
 type Vlan struct {
 	// VLAN ID as reported by the observer.
 	ID string `ecs:"id"`

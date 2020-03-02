@@ -3602,12 +3602,11 @@ interface.alias:
   normalize: []
   order: 2
   original_fieldset: interface
-  short: Interface alias as reported by the system, typically used in firewall implementations
-    for e.g.  inside, outside, or dmz logical interface naming.
+  short: Interface alias
   type: keyword
 interface.id:
   dashed_name: interface-id
-  description: Interface ID as reported by the system (typically SNMP interface ID).
+  description: Interface ID as reported by an observer (typically SNMP interface ID).
   example: 10
   flat_name: interface.id
   ignore_above: 1024
@@ -3616,7 +3615,7 @@ interface.id:
   normalize: []
   order: 0
   original_fieldset: interface
-  short: Interface ID as reported by the system (typically SNMP interface ID).
+  short: Interface ID
   type: keyword
 interface.name:
   dashed_name: interface-name
@@ -3629,7 +3628,7 @@ interface.name:
   normalize: []
   order: 1
   original_fieldset: interface
-  short: Interface name as reported by the system.
+  short: Interface name
   type: keyword
 labels:
   dashed_name: labels
@@ -3938,14 +3937,16 @@ network.iana_number:
 network.inner:
   dashed_name: network-inner
   description: Network.inner fields are used to describe the innermost VLAN when q-in-q
-    multiple VLAN tagging is present.
+    multiple VLAN tagging is present. Allowed fields include vlan.id and vlan.name.
+    Inner and outer vlan fields are typically be used when sending 802.1q tagged traffic  to
+    a network sensor (e.g. Zeek, Wireshark.)
   flat_name: network.inner
   level: extended
   name: inner
   normalize: []
   object_type: keyword
   order: 11
-  short: Inner VLAN information
+  short: Inner VLAN tag information
   type: object
 network.inner.vlan.id:
   dashed_name: network-inner-vlan-id
@@ -3988,14 +3989,16 @@ network.name:
 network.outer:
   dashed_name: network-outer
   description: Network.outer fields are used to describe the outermost VLAN when q-in-q
-    multiple VLAN tagging is present.
+    multiple VLAN tagging is present. Allowed fields include vlan.id and vlan.name.
+    Inner and outer vlan fields are typically be used when sending 802.1q tagged traffic  to
+    a network sensor (e.g. Zeek, Wireshark.)
   flat_name: network.outer
   level: extended
   name: outer
   normalize: []
   object_type: keyword
   order: 12
-  short: Outer VLAN information
+  short: Outer VLAN tag information
   type: object
 network.outer.vlan.id:
   dashed_name: network-outer-vlan-id
@@ -4137,12 +4140,11 @@ observer.egress.interface.alias:
   normalize: []
   order: 2
   original_fieldset: interface
-  short: Interface alias as reported by the system, typically used in firewall implementations
-    for e.g.  inside, outside, or dmz logical interface naming.
+  short: Interface alias
   type: keyword
 observer.egress.interface.id:
   dashed_name: observer-egress-interface-id
-  description: Interface ID as reported by the system (typically SNMP interface ID).
+  description: Interface ID as reported by an observer (typically SNMP interface ID).
   example: 10
   flat_name: observer.egress.interface.id
   ignore_above: 1024
@@ -4151,7 +4153,7 @@ observer.egress.interface.id:
   normalize: []
   order: 0
   original_fieldset: interface
-  short: Interface ID as reported by the system (typically SNMP interface ID).
+  short: Interface ID
   type: keyword
 observer.egress.interface.name:
   dashed_name: observer-egress-interface-name
@@ -4164,7 +4166,7 @@ observer.egress.interface.name:
   normalize: []
   order: 1
   original_fieldset: interface
-  short: Interface name as reported by the system.
+  short: Interface name
   type: keyword
 observer.egress.vlan.id:
   dashed_name: observer-egress-vlan-id
@@ -4204,7 +4206,7 @@ observer.egress.zone:
   name: egress.zone
   normalize: []
   order: 12
-  short: Observer Egress Zone
+  short: Observer Egress zone
   type: keyword
 observer.geo.city_name:
   dashed_name: observer-geo-city-name
@@ -4352,12 +4354,11 @@ observer.ingress.interface.alias:
   normalize: []
   order: 2
   original_fieldset: interface
-  short: Interface alias as reported by the system, typically used in firewall implementations
-    for e.g.  inside, outside, or dmz logical interface naming.
+  short: Interface alias
   type: keyword
 observer.ingress.interface.id:
   dashed_name: observer-ingress-interface-id
-  description: Interface ID as reported by the system (typically SNMP interface ID).
+  description: Interface ID as reported by an observer (typically SNMP interface ID).
   example: 10
   flat_name: observer.ingress.interface.id
   ignore_above: 1024
@@ -4366,7 +4367,7 @@ observer.ingress.interface.id:
   normalize: []
   order: 0
   original_fieldset: interface
-  short: Interface ID as reported by the system (typically SNMP interface ID).
+  short: Interface ID
   type: keyword
 observer.ingress.interface.name:
   dashed_name: observer-ingress-interface-name
@@ -4379,7 +4380,7 @@ observer.ingress.interface.name:
   normalize: []
   order: 1
   original_fieldset: interface
-  short: Interface name as reported by the system.
+  short: Interface name
   type: keyword
 observer.ingress.vlan.id:
   dashed_name: observer-ingress-vlan-id
@@ -4410,7 +4411,7 @@ observer.ingress.vlan.name:
 observer.ingress.zone:
   dashed_name: observer-ingress-zone
   description: Network zone of incoming traffic as reported by the observer to categorize
-    the source area of ingress  traffic e.g.,  internal, External, DMZ, HR, Legal,
+    the source area of ingress  traffic. e.g. internal, External, DMZ, HR, Legal,
     etc.
   example: DMZ
   flat_name: observer.ingress.zone
@@ -4419,7 +4420,7 @@ observer.ingress.zone:
   name: ingress.zone
   normalize: []
   order: 10
-  short: Observer ingress Zone
+  short: Observer ingress zone
   type: keyword
 observer.ip:
   dashed_name: observer-ip

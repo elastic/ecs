@@ -73,8 +73,8 @@ type Observer struct {
 	Ingress map[string]interface{} `ecs:"ingress"`
 
 	// Network zone of incoming traffic as reported by the observer to
-	// categorize the source area of ingress  traffic e.g.,  internal,
-	// External, DMZ, HR, Legal, etc.
+	// categorize the source area of ingress  traffic. e.g. internal, External,
+	// DMZ, HR, Legal, etc.
 	IngressZone string `ecs:"ingress.zone"`
 
 	// Observer.egress holds information like interface number and name, vlan,

@@ -94,10 +94,16 @@ type Network struct {
 	Packets int64 `ecs:"packets"`
 
 	// Network.inner fields are used to describe the innermost VLAN when q-in-q
-	// multiple VLAN tagging is present.
+	// multiple VLAN tagging is present. Allowed fields include vlan.id and
+	// vlan.name. Inner and outer vlan fields are typically be used when
+	// sending 802.1q tagged traffic  to a network sensor (e.g. Zeek,
+	// Wireshark.)
 	Inner map[string]interface{} `ecs:"inner"`
 
 	// Network.outer fields are used to describe the outermost VLAN when q-in-q
-	// multiple VLAN tagging is present.
+	// multiple VLAN tagging is present. Allowed fields include vlan.id and
+	// vlan.name. Inner and outer vlan fields are typically be used when
+	// sending 802.1q tagged traffic  to a network sensor (e.g. Zeek,
+	// Wireshark.)
 	Outer map[string]interface{} `ecs:"outer"`
 }
