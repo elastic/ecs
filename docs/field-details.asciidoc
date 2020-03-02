@@ -3165,7 +3165,7 @@ example: `6`
 // ===============================================================
 
 | network.inner
-| Network.inner fields are used to describe the innermost VLAN when q-in-q multiple VLAN tagging is present. Allowed fields include vlan.id and vlan.name. Inner and outer vlan fields are typically be used when sending 802.1q tagged traffic  to a network sensor (e.g. Zeek, Wireshark.)
+| Network.inner fields are added in addition to network.vlan fields to describe  the innermost VLAN when q-in-q VLAN tagging is present. Allowed fields include  vlan.id and vlan.name. Inner vlan fields are typically used when sending traffic with multiple 802.1q encapsulations to a network sensor (e.g. Zeek, Wireshark.)
 
 type: object
 
@@ -3185,19 +3185,6 @@ type: keyword
 
 
 example: `Guest Wifi`
-
-| extended
-
-// ===============================================================
-
-| network.outer
-| Network.outer fields are used to describe the outermost VLAN when q-in-q multiple VLAN tagging is present. Allowed fields include vlan.id and vlan.name. Inner and outer vlan fields are typically be used when sending 802.1q tagged traffic  to a network sensor (e.g. Zeek, Wireshark.)
-
-type: object
-
-
-
-
 
 | extended
 
@@ -6386,11 +6373,11 @@ example: `12.0`
 
 The VLAN fields are used to identify 802.1q tag(s) of a packet, as well as ingress and egress VLAN associations of an observer in relation to a specific packet or connection.
 
-Network.vlan fields are used to record a single VLAN tag for a packet or connection as observed, typically provided by a network sensor (e.g. Zeek, Wireshark) passively reporting on traffic.
+Network.vlan fields are used to record a single VLAN tag, or the outer tag in the case  of q-in-q encapsulations, for a packet or connection as observed, typically provided by a  network sensor (e.g. Zeek, Wireshark) passively reporting on traffic.
 
-Network.inner and network.outer VLAN fields are used to report q-in-q 802.1q tags (multiple 802.1q encapsulations) as observed, typically provided by a network sensor  (e.g. Zeek,  Wireshark) passively reporting on traffic.
+Network.inner VLAN fields are used to report inner q-in-q 802.1q tags (multiple 802.1q encapsulations) as observed, typically provided by a network sensor  (e.g. Zeek,  Wireshark) passively reporting on traffic. Network.inner VLAN fields should only be used  in addition to network.vlan fields to indicate q-in-q tagging.
 
-Observer.ingress and observer.egress VLAN values are used to record observer specific  information when observer events contain discrete ingress and egress VLAN information,  typically provided by firewalla, routera, or load balancers.
+Observer.ingress and observer.egress VLAN values are used to record observer specific  information when observer events contain discrete ingress and egress VLAN information,  typically provided by firewalls, routera, or load balancers.
 
 ==== VLAN Field Details
 
@@ -6430,7 +6417,7 @@ example: `outside`
 
 ==== Field Reuse
 
-The `vlan` fields are expected to be nested at: `network.vlan`, `network.inner.vlan`, `network.outer.vlan`, `observer.egress.vlan`, `observer.ingress.vlan`.
+The `vlan` fields are expected to be nested at: `network.vlan`, `network.inner.vlan`, `observer.egress.vlan`, `observer.ingress.vlan`.
 
 Note also that the `vlan` fields are not expected to be used directly at the top level.
 
