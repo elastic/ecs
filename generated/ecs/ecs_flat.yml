@@ -2153,16 +2153,19 @@ event.outcome:
 
       '
     name: failure
-  - description: 'Indicates that this event describes a successful result.  A common
+  - description: 'Indicates that this event describes a successful result. A common
       example is `event.category:file AND event.type:create AND event.outcome:success`
       to indicate that a file was successfully created.
 
       '
     name: success
   - description: 'Indicates that this event describes only an attempt for which the
-      result is unknown. For example, if the event contains information only about
-      a request in an entity transaction that usually results in a response, populating
-      `event.outcome:unknown` is appropriate.
+      result is unknown from the perspective of the event producer. For example, if
+      the event contains information only about the request side of a transaction
+      that results in a response, populating `event.outcome:unknown` in the request
+      event is appropriate. The unknown value should not be used when an outcome doesn''t
+      make logical sense for the event. In such cases `event.outcome` should not be
+      populated.
 
       '
     name: unknown
@@ -2170,9 +2173,19 @@ event.outcome:
   description: 'This is one of four ECS Categorization Fields, and indicates the lowest
     level in the ECS category hierarchy.
 
-    `event.outcome` simply denotes whether the event represent a success or a failure.
-    Note that not all events will have an associated outcome. For example, this field
-    is generally not populated for metric events or events with `event.type:info`.'
+    `event.outcome` simply denotes whether the event represents a success or a failure
+    from the perspective of the entity that produced the event.
+
+    Note that when a single transaction is described in multiple events, each event
+    may populate different values of `event.outcome`, according to their perspective.
+
+    Also note that in the case of a compound event (a single event that contains multiple
+    logical events), this field should be populated with the value that best captures
+    the overall success or failure from the perspective of the event producer.
+
+    Further note that not all events will have an associated outcome. For example,
+    this field is generally not populated for metric events, events with `event.type:info`,
+    or any events for which an outcome does not make logical sense.'
   example: success
   flat_name: event.outcome
   ignore_above: 1024
@@ -2180,7 +2193,7 @@ event.outcome:
   name: outcome
   normalize: []
   order: 5
-  short: The outcome of the event. The lowest categorization field in the hierarchy.
+  short: The outcome of the event. The lowest level categorization field in the hierarchy.
   type: keyword
 event.provider:
   dashed_name: event-provider
