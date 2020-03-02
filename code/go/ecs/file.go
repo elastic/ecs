@@ -104,9 +104,9 @@ type File struct {
 	Accessed time.Time `ecs:"accessed"`
 
 	// MIME type should identify the format of the file or stream of bytes
-	// using [IANA official
-	// types](https://www.iana.org/assignments/media-types/media-types.xhtml),
-	// where possible. When more than one type is applicable, the most specific
-	// type should be used.
+	// using
+	// https://www.iana.org/assignments/media-types/media-types.xhtml[IANA
+	// official types], where possible. When more than one type is applicable,
+	// the most specific type should be used.
 	MimeType string `ecs:"mime_type"`
 }
