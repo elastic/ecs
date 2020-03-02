@@ -19,6 +19,10 @@ Thanks, you're awesome :-) -->
 * Fieldset for PE metadata. #731
 * Globally unique identifier `entity_id` for `process` and `process.parent`. (#747)
 
+
+
+* Added `rule.author`, `rule.license_type` fields (#754)
+
 #### Improvements
 
 * Temporary workaround for Beats templates' `default_field` growing too big. #687

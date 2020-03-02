@@ -65,8 +65,4 @@ type Rule struct {
 	// Name of the license under which the rule used to generate this event is
 	// made available.
 	LicenseType string `ecs:"license_type"`
-
-	// Reference URL to the license under which the rule used to generate this
-	// event is made available.
-	LicenseReference string `ecs:"license_reference"`
 }
