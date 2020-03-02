@@ -19,7 +19,7 @@ Thanks, you're awesome :-) -->
 * Fieldset for PE metadata. #731
 * Globally unique identifier `entity_id` for `process` and `process.parent`. (#747)
 
-* Added field event.reference to hold link to additional event info/actions. (#757)
+* Added fields `event.reference` and `event.url` to hold link to additional event info/actions. (#757)
 
 #### Improvements
 
