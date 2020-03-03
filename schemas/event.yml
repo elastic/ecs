@@ -336,7 +336,7 @@
             You can further distinguish change operations using the ECS `event.action` field.
         - name: connection
           description: >
-            Used primary with `event.category:network` this value is used for the subset of
+            Used primarily with `event.category:network` this value is used for the subset of
             network traffic that includes sufficient information for the event to be included
             in flow or connection analysis. Events in this subcategory will contain at least
             source and destination IP addresses, source and destination TCP/UDP ports, and will usually
@@ -344,7 +344,7 @@
             unidirectional or bidirectional information, including summary information.
             Use this subcategory to visualize and analyze network connections. Flow analysis, including
             Netflow, IPFIX, and other flow-related events fit in this subcategory. Note that firewall
-            events from many NGFW devices will also fit into this subcategory.  A common filter for
+            events from many Next-Generation Firewall (NGFW) devices will also fit into this subcategory.  A common filter for
             flow/connection information would be
             `event.category:network AND event.type:connection AND event.type:end` (to view or analyze all
             completed network connections, ignoring mid-flow reports). You can further distinguish connection
@@ -365,8 +365,8 @@
           description: >
             The denied event type is used for the subset of events within a category that
             indicate that something was denied. Common examples include
-            `event.category:”network” AND event.type:denied` (to indicate a network
-            firewall event for which the firewall disposition was to deny the connection to complete)
+            `event.category:network AND event.type:denied` (to indicate a network
+            firewall event for which the firewall disposition was to deny the connection)
             and `event.category:intrusion_detection AND event.type:denied` (to indicate a network
             intrusion prevention system event for which the IPS disposition was to deny the connection
             to complete). You can further distinguish denied operations using the ECS
@@ -405,7 +405,7 @@
             The protocol event type is used for the subset of events within a category that
             indicate that they contain protocol details or analysis. Generally, network events
             that contain protocol details will fall into this subcategory. A common example is
-            `event.category:network AND event.type:protocol AND event.type:connection` AND event.type:end'
+            `event.category:network AND event.type:protocol AND event.type:connection AND event.type:end`
             (to indicate that the event is a network connection event sent at the end of a connection
             that also includes protocol details).
             Note for when the protocol subcategory is used, you can further distinguish protocols
