@@ -3439,6 +3439,15 @@
       etc.'
     type: group
     fields:
+    - name: author
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name, organization, or pseudonym of the author or authors who created
+        the rule used to generate this event.
+      example:
+      - Star-Lord
+      default_field: false
     - name: category
       level: extended
       type: keyword
@@ -3461,6 +3470,14 @@
       description: A rule ID that is unique within the scope of an agent, observer,
         or other entity using the rule for detection of this event.
       example: 101
+      default_field: false
+    - name: license
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the license under which the rule used to generate this
+        event is made available.
+      example: Apache 2.0
       default_field: false
     - name: name
       level: extended
