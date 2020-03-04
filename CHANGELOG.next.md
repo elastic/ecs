@@ -22,11 +22,13 @@ Thanks, you're awesome :-) -->
 * Added interface, vlan, observer zone fields #752
 * Added `rule.author`, `rule.license` fields #754
 * Added iam value for `event.category` and three related values for `event.type`. #756
+* Added `file.mime_type` to include MIME type information on file structures #760
 
 #### Improvements
 
 * Temporary workaround for Beats templates' `default_field` growing too big. #687
 * Identify which fields should contain arrays of values, rather than scalar values. #727, #661
+* Clarified examples and definitions regarding vulnerabilities #758
 * Updated definition of `event.outcome` based on community feedback #759
 
 #### Deprecated

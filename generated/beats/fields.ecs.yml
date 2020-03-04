@@ -1116,9 +1116,10 @@
       events include a process starting on a host, a network packet being sent from
       a source to a destination, or a network connection between a client and a server
       being initiated or closed. A metric is defined as an event containing one or
-      more numerical or categorical measurements and the time at which the measurement
-      was taken. Examples of metric events include memory pressure measured on a host,
-      or vulnerabilities measured on a scanned host.'
+      more numerical measurements and the time at which the measurement was taken.
+      Examples of metric events include memory pressure measured on a host and device
+      temperature. See the `event.kind` definition in this section for additional
+      details about metric and state events.'
     type: group
     fields:
     - name: action
@@ -1512,6 +1513,15 @@
       ignore_above: 1024
       description: Inode representing the file in the filesystem.
       example: '256383'
+    - name: mime_type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: MIME type should identify the format of the file or stream of bytes
+        using https://www.iana.org/assignments/media-types/media-types.xhtml[IANA
+        official types], where possible. When more than one type is applicable, the
+        most specific type should be used.
+      default_field: false
     - name: mode
       level: extended
       type: keyword
