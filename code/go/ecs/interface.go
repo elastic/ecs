@@ -21,9 +21,9 @@ package ecs
 
 // The interface fields are used to record ingress and egress interface
 // information when reported by an observer (e.g. firewall, router, load
-// balancer) in the context of the  observer handling a network connection.  In
-// the case of a single observer interface  (e.g. network sensor on a span
-// port) only the observer.ingress information should be completed.
+// balancer) in the context of the observer handling a network connection.  In
+// the case of a single observer interface (e.g. network sensor on a span port)
+// only the observer.ingress information should be populated.
 type Interface struct {
 	// Interface ID as reported by an observer (typically SNMP interface ID).
 	ID string `ecs:"id"`
@@ -32,7 +32,7 @@ type Interface struct {
 	Name string `ecs:"name"`
 
 	// Interface alias as reported by the system, typically used in firewall
-	// implementations for e.g.  inside, outside, or dmz logical interface
+	// implementations for e.g. inside, outside, or dmz logical interface
 	// naming.
 	Alias string `ecs:"alias"`
 }

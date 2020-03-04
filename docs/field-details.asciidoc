@@ -2796,7 +2796,7 @@ example: `1.1`
 [[ecs-interface]]
 === Interface Fields
 
-The interface fields are used to record ingress and egress interface information when reported by an observer (e.g. firewall, router, load balancer) in the context of the  observer handling a network connection.  In the case of a single observer interface  (e.g. network sensor on a span port) only the observer.ingress information should be completed.
+The interface fields are used to record ingress and egress interface information when reported by an observer (e.g. firewall, router, load balancer) in the context of the observer handling a network connection.  In the case of a single observer interface (e.g. network sensor on a span port) only the observer.ingress information should be populated.
 
 ==== Interface Field Details
 
@@ -2807,7 +2807,7 @@ The interface fields are used to record ingress and egress interface information
 // ===============================================================
 
 | interface.alias
-| Interface alias as reported by the system, typically used in firewall implementations for e.g.  inside, outside, or dmz logical interface naming.
+| Interface alias as reported by the system, typically used in firewall implementations for e.g. inside, outside, or dmz logical interface naming.
 
 type: keyword
 
@@ -6373,11 +6373,11 @@ example: `12.0`
 
 The VLAN fields are used to identify 802.1q tag(s) of a packet, as well as ingress and egress VLAN associations of an observer in relation to a specific packet or connection.
 
-Network.vlan fields are used to record a single VLAN tag, or the outer tag in the case  of q-in-q encapsulations, for a packet or connection as observed, typically provided by a  network sensor (e.g. Zeek, Wireshark) passively reporting on traffic.
+Network.vlan fields are used to record a single VLAN tag, or the outer tag in the case of q-in-q encapsulations, for a packet or connection as observed, typically provided by a network sensor (e.g. Zeek, Wireshark) passively reporting on traffic.
 
-Network.inner VLAN fields are used to report inner q-in-q 802.1q tags (multiple 802.1q encapsulations) as observed, typically provided by a network sensor  (e.g. Zeek,  Wireshark) passively reporting on traffic. Network.inner VLAN fields should only be used  in addition to network.vlan fields to indicate q-in-q tagging.
+Network.inner VLAN fields are used to report inner q-in-q 802.1q tags (multiple 802.1q encapsulations) as observed, typically provided by a network sensor  (e.g. Zeek, Wireshark) passively reporting on traffic. Network.inner VLAN fields should only be used in addition to network.vlan fields to indicate q-in-q tagging.
 
-Observer.ingress and observer.egress VLAN values are used to record observer specific  information when observer events contain discrete ingress and egress VLAN information,  typically provided by firewalls, routera, or load balancers.
+Observer.ingress and observer.egress VLAN values are used to record observer specific information when observer events contain discrete ingress and egress VLAN information, typically provided by firewalls, routers, or load balancers.
 
 ==== VLAN Field Details
 

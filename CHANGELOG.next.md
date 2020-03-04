@@ -16,9 +16,9 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
-* Added `dll.*` fields (#679)
+* Added `dll.*` fields #679
 * Fieldset for PE metadata. #731
-* Added interface, vlan, observer zone fields (#752)
+* Added interface, vlan, observer zone fields #752
 
 #### Improvements
 
@@ -26,6 +26,7 @@ Thanks, you're awesome :-) -->
 * Identify which fields should contain arrays of values, rather than scalar values. #727, #661
 
 #### Deprecated
+
 
 ### Tooling and Artifact Changes
 
