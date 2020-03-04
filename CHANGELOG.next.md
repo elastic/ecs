@@ -21,7 +21,7 @@ Thanks, you're awesome :-) -->
 
 
 
-* Added `rule.author`, `rule.license_type` fields (#754)
+* Added `rule.author`, `rule.license_type` fields #754
 
 #### Improvements
 

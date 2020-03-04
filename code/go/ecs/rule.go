@@ -64,5 +64,5 @@ type Rule struct {
 
 	// Name of the license under which the rule used to generate this event is
 	// made available.
-	LicenseType string `ecs:"license_type"`
+	License string `ecs:"license"`
 }
