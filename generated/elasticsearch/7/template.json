@@ -1223,6 +1223,22 @@
           }
         }
       },
+      "interface": {
+        "properties": {
+          "alias": {
+            "ignore_above": 1024,
+            "type": "keyword"
+          },
+          "id": {
+            "ignore_above": 1024,
+            "type": "keyword"
+          },
+          "name": {
+            "ignore_above": 1024,
+            "type": "keyword"
+          }
+        }
+      },
       "labels": {
         "type": "object"
       },
@@ -1321,6 +1337,23 @@
             "ignore_above": 1024,
             "type": "keyword"
           },
+          "inner": {
+            "properties": {
+              "vlan": {
+                "properties": {
+                  "id": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  },
+                  "name": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  }
+                }
+              }
+            },
+            "type": "object"
+          },
           "name": {
             "ignore_above": 1024,
             "type": "keyword"
@@ -1339,11 +1372,60 @@
           "type": {
             "ignore_above": 1024,
             "type": "keyword"
+          },
+          "vlan": {
+            "properties": {
+              "id": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
+              "name": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              }
+            }
           }
         }
       },
       "observer": {
         "properties": {
+          "egress": {
+            "properties": {
+              "interface": {
+                "properties": {
+                  "alias": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  },
+                  "id": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  },
+                  "name": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  }
+                }
+              },
+              "vlan": {
+                "properties": {
+                  "id": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  },
+                  "name": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  }
+                }
+              },
+              "zone": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              }
+            },
+            "type": "object"
+          },
           "geo": {
             "properties": {
               "city_name": {
@@ -1382,6 +1464,43 @@
           "hostname": {
             "ignore_above": 1024,
             "type": "keyword"
+          },
+          "ingress": {
+            "properties": {
+              "interface": {
+                "properties": {
+                  "alias": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  },
+                  "id": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  },
+                  "name": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  }
+                }
+              },
+              "vlan": {
+                "properties": {
+                  "id": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  },
+                  "name": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  }
+                }
+              },
+              "zone": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              }
+            },
+            "type": "object"
           },
           "ip": {
             "type": "ip"
@@ -2709,6 +2828,18 @@
             }
           },
           "version": {
+            "ignore_above": 1024,
+            "type": "keyword"
+          }
+        }
+      },
+      "vlan": {
+        "properties": {
+          "id": {
+            "ignore_above": 1024,
+            "type": "keyword"
+          },
+          "name": {
             "ignore_above": 1024,
             "type": "keyword"
           }
