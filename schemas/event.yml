@@ -11,10 +11,11 @@
     Examples of log events include a process starting on a host,
     a network packet being sent from a source to a destination,
     or a network connection between a client and a server being initiated or closed.
-    A metric is defined as an event containing one or more numerical or
-    categorical measurements and the time at which the measurement was taken.
-    Examples of metric events include memory pressure measured on a host,
-    or vulnerabilities measured on a scanned host.
+    A metric is defined as an event containing one or more numerical measurements
+    and the time at which the measurement was taken. Examples of metric events include
+    memory pressure measured on a host and device temperature.
+    See the `event.kind` definition in this section for additional details about
+    metric and state events.
   type: group
   fields:
 
@@ -68,19 +69,33 @@
             It is used to represent events that indicate that something happened.
         - name: metric
           description: >
-            This value is used to indicate that this event that a numeric measurement
-            was taken at given point in time.
+            This value is used to indicate that this event describes a numeric measurement
+            taken at given point in time.
 
-            Examples include CPU utilization, memory usage, or a vulnerability scan result.
+            Examples include CPU utilization, memory usage, or device temperature.
 
             Metric events are often collected on a predictable frequency, such as once
-            every few seconds, or once a minute.
+            every few seconds, or once a minute, but can also be used to
+            describe ad-hoc numeric metric queries.
         - name: state
           description: >
-            This value is similar to metric, except that the entity being measured does not
-            provide a numeric metric value, but rather one of a fixed set of conditions or states.
-            For example a periodic event reporting a "fin_wait" state of a TCP connection
-            on a host might use `event.type:state`.
+            The state value is similar to metric, indicating that this event describes a
+            measurement taken at given point in time, except that the measurement does not
+            result in a numeric value, but rather one of a fixed set of categorical values
+            that represent conditions or states.
+
+            Examples include periodic events reporting Elasticsearch cluster state (green/yellow/red),
+            the state of a TCP connection (open, closed, fin_wait, etc.), the state of a host with respect
+            to a software vulnerability (vulnerable, not vulnerable), and the state of a system
+            regarding compliance with a regulatory standard (compliant, not compliant).
+
+            Note that an event that describes a change of state would not use `event.kind:state`,
+            but instead would use 'event.kind:event' since a state change fits the more general
+            event definition of something that happened.
+
+            State events are often collected on a predictable frequency, such as once
+            every few seconds, once a minute, once an hour, or once a day, but can also be used to
+            describe ad-hoc state queries.
         - name: pipeline_error
           description: >
             This value indicates that an error occurred during the ingestion of this event,
@@ -179,6 +194,19 @@
             - end
             - info
             - start
+        - name: iam
+          description: >
+            Identity and access management (IAM) events relating to users, groups, and administration.
+            Use this category to visualize and analyze IAM-related logs and data from active directory,
+            LDAP, Okta, Duo, and other IAM systems.
+          expected_event_types:
+            - admin
+            - change
+            - creation
+            - deletion
+            - group
+            - info
+            - user
         - name: intrusion_detection
           description: >
             Relating to intrusion detections from IDS/IPS systems and functions,
@@ -310,6 +338,16 @@
             Note for file access, both directory listings and file opens should be included
             in this subcategory. You can further distinguish access operations using the ECS
             `event.action` field.
+        - name: admin
+          description: >
+            The admin event type is used for the subset of events within a category
+            that are related to admin objects. For example, administrative changes within
+            an IAM framework that do not specifically affect a user or group (e.g., adding new
+            applications to a federation solution or connecting discrete forests in Active Directory)
+            would fall into this subcategory.
+            Common example: `event.category:iam AND event.type:change AND event.type:admin`.
+            You can further distinguish admin operations using the ECS
+            `event.action` field.
         - name: change
           description: >
             The change event type is used for the subset of events within a category
@@ -342,6 +380,13 @@
             Note that pipeline errors that occur during the event ingestion process
             should not use this `event.type` value. Instead, they should use
             `event.kind:pipeline_error`.
+        - name: group
+          description: >
+            The group event type is used for the subset of events within a category
+            that are related to group objects.
+            Common example: `event.category:iam AND event.type:creation AND event.type:group`.
+            You can further distinguish group operations using the ECS
+            `event.action` field.
         - name: info
           description: >
             The info event type is used for the subset of events within a category
@@ -362,6 +407,13 @@
             The start event type is used for the subset of events within a category
             that indicate something has started. A common example is
             `event.category:process AND event.type:start`.
+        - name: user
+          description: >
+            The user event type is used for the subset of events within a category
+            that are related to user objects.
+            Common example: `event.category:iam AND event.type:deletion AND event.type:user`.
+            You can further distinguish user operations using the ECS
+            `event.action` field.
 
     - name: module
       level: core

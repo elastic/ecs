@@ -1116,9 +1116,10 @@
       events include a process starting on a host, a network packet being sent from
       a source to a destination, or a network connection between a client and a server
       being initiated or closed. A metric is defined as an event containing one or
-      more numerical or categorical measurements and the time at which the measurement
-      was taken. Examples of metric events include memory pressure measured on a host,
-      or vulnerabilities measured on a scanned host.'
+      more numerical measurements and the time at which the measurement was taken.
+      Examples of metric events include memory pressure measured on a host and device
+      temperature. See the `event.kind` definition in this section for additional
+      details about metric and state events.'
     type: group
     fields:
     - name: action
@@ -2055,6 +2056,39 @@
       ignore_above: 1024
       description: HTTP version.
       example: 1.1
+  - name: interface
+    title: Interface
+    group: 2
+    description: The interface fields are used to record ingress and egress interface
+      information when reported by an observer (e.g. firewall, router, load balancer)
+      in the context of the observer handling a network connection.  In the case of
+      a single observer interface (e.g. network sensor on a span port) only the observer.ingress
+      information should be populated.
+    type: group
+    fields:
+    - name: alias
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Interface alias as reported by the system, typically used in firewall
+        implementations for e.g. inside, outside, or dmz logical interface naming.
+      example: outside
+      default_field: false
+    - name: id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Interface ID as reported by an observer (typically SNMP interface
+        ID).
+      example: 10
+      default_field: false
+    - name: name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Interface name as reported by the system.
+      example: eth0
+      default_field: false
   - name: log
     title: Log
     group: 2
@@ -2238,6 +2272,30 @@
         Standardized list of protocols. This aligns well with NetFlow and sFlow related
         logs which use the IANA Protocol Number.
       example: 6
+    - name: inner
+      level: extended
+      type: object
+      object_type: keyword
+      description: Network.inner fields are added in addition to network.vlan fields
+        to describe  the innermost VLAN when q-in-q VLAN tagging is present. Allowed
+        fields include  vlan.id and vlan.name. Inner vlan fields are typically used
+        when sending traffic with multiple 802.1q encapsulations to a network sensor
+        (e.g. Zeek, Wireshark.)
+      default_field: false
+    - name: inner.vlan.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: VLAN ID as reported by the observer.
+      example: 10
+      default_field: false
+    - name: inner.vlan.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Optional VLAN name as reported by the observer.
+      example: outside
+      default_field: false
     - name: name
       level: extended
       type: keyword
@@ -2281,6 +2339,20 @@
         The field value must be normalized to lowercase for querying. See the documentation
         section "Implementing ECS".'
       example: ipv4
+    - name: vlan.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: VLAN ID as reported by the observer.
+      example: 10
+      default_field: false
+    - name: vlan.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Optional VLAN name as reported by the observer.
+      example: outside
+      default_field: false
   - name: observer
     title: Observer
     group: 2
@@ -2298,6 +2370,61 @@
       are not considered observers in ECS.'
     type: group
     fields:
+    - name: egress
+      level: extended
+      type: object
+      object_type: keyword
+      description: Observer.egress holds information like interface number and name,
+        vlan, and zone information to  classify egress traffic.  Single armed monitoring
+        such as a network sensor on a span port should  only use observer.ingress
+        to categorize traffic.
+      default_field: false
+    - name: egress.interface.alias
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Interface alias as reported by the system, typically used in firewall
+        implementations for e.g. inside, outside, or dmz logical interface naming.
+      example: outside
+      default_field: false
+    - name: egress.interface.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Interface ID as reported by an observer (typically SNMP interface
+        ID).
+      example: 10
+      default_field: false
+    - name: egress.interface.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Interface name as reported by the system.
+      example: eth0
+      default_field: false
+    - name: egress.vlan.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: VLAN ID as reported by the observer.
+      example: 10
+      default_field: false
+    - name: egress.vlan.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Optional VLAN name as reported by the observer.
+      example: outside
+      default_field: false
+    - name: egress.zone
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Network zone of outbound traffic as reported by the observer to
+        categorize the destination area of egress  traffic, e.g. Internal, External,
+        DMZ, HR, Legal, etc.
+      example: Public_Internet
+      default_field: false
     - name: geo.city_name
       level: core
       type: keyword
@@ -2356,6 +2483,61 @@
       type: keyword
       ignore_above: 1024
       description: Hostname of the observer.
+    - name: ingress
+      level: extended
+      type: object
+      object_type: keyword
+      description: Observer.ingress holds information like interface number and name,
+        vlan, and zone information to  classify ingress traffic.  Single armed monitoring
+        such as a network sensor on a span port should  only use observer.ingress
+        to categorize traffic.
+      default_field: false
+    - name: ingress.interface.alias
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Interface alias as reported by the system, typically used in firewall
+        implementations for e.g. inside, outside, or dmz logical interface naming.
+      example: outside
+      default_field: false
+    - name: ingress.interface.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Interface ID as reported by an observer (typically SNMP interface
+        ID).
+      example: 10
+      default_field: false
+    - name: ingress.interface.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Interface name as reported by the system.
+      example: eth0
+      default_field: false
+    - name: ingress.vlan.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: VLAN ID as reported by the observer.
+      example: 10
+      default_field: false
+    - name: ingress.vlan.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Optional VLAN name as reported by the observer.
+      example: outside
+      default_field: false
+    - name: ingress.zone
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Network zone of incoming traffic as reported by the observer to
+        categorize the source area of ingress  traffic. e.g. internal, External, DMZ,
+        HR, Legal, etc.
+      example: DMZ
+      default_field: false
     - name: ip
       level: core
       type: ip
@@ -4503,6 +4685,41 @@
       ignore_above: 1024
       description: Version of the user agent.
       example: 12.0
+  - name: vlan
+    title: VLAN
+    group: 2
+    description: 'The VLAN fields are used to identify 802.1q tag(s) of a packet,
+      as well as ingress and egress VLAN associations of an observer in relation to
+      a specific packet or connection.
+
+      Network.vlan fields are used to record a single VLAN tag, or the outer tag in
+      the case of q-in-q encapsulations, for a packet or connection as observed, typically
+      provided by a network sensor (e.g. Zeek, Wireshark) passively reporting on traffic.
+
+      Network.inner VLAN fields are used to report inner q-in-q 802.1q tags (multiple
+      802.1q encapsulations) as observed, typically provided by a network sensor  (e.g.
+      Zeek, Wireshark) passively reporting on traffic. Network.inner VLAN fields should
+      only be used in addition to network.vlan fields to indicate q-in-q tagging.
+
+      Observer.ingress and observer.egress VLAN values are used to record observer
+      specific information when observer events contain discrete ingress and egress
+      VLAN information, typically provided by firewalls, routers, or load balancers.'
+    type: group
+    fields:
+    - name: id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: VLAN ID as reported by the observer.
+      example: 10
+      default_field: false
+    - name: name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Optional VLAN name as reported by the observer.
+      example: outside
+      default_field: false
   - name: vulnerability
     title: Vulnerability
     group: 2
