@@ -26,6 +26,9 @@ Thanks, you're awesome :-) -->
 
 * Added fields `event.reference` and `event.url` to hold link to additional event info/actions. (#757)
 
+
+* Added `event.category` value of network and associated `event.type` values. (#761)
+
 #### Improvements
 
 * Temporary workaround for Beats templates' `default_field` growing too big. #687
