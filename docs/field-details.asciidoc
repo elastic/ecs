@@ -1491,7 +1491,7 @@ Note: this field should contain an array of values.
 
 *Important*: The field value must be one of the following:
 
-authentication, database, driver, file, host, intrusion_detection, malware, package, process, web
+authentication, database, driver, file, host, iam, intrusion_detection, malware, package, process, web
 
 To learn more about when to use which value, visit the page
 <<ecs-allowed-values-event-category,allowed values for event.category>>
@@ -1680,7 +1680,13 @@ example: `Sep 19 08:26:10 host CEF:0&#124;Security&#124; threatmanager&#124;1.0&
 | event.outcome
 | This is one of four ECS Categorization Fields, and indicates the lowest level in the ECS category hierarchy.
 
-`event.outcome` simply denotes whether the event represent a success or a failure. Note that not all events will have an associated outcome. For example, this field is generally not populated for metric events or events with `event.type:info`.
+`event.outcome` simply denotes whether the event represents a success or a failure from the perspective of the entity that produced the event.
+
+Note that when a single transaction is described in multiple events, each event may populate different values of `event.outcome`, according to their perspective.
+
+Also note that in the case of a compound event (a single event that contains multiple logical events), this field should be populated with the value that best captures the overall success or failure from the perspective of the event producer.
+
+Further note that not all events will have an associated outcome. For example, this field is generally not populated for metric events, events with `event.type:info`, or any events for which an outcome does not make logical sense.
 
 type: keyword
 
@@ -1819,7 +1825,7 @@ Note: this field should contain an array of values.
 
 *Important*: The field value must be one of the following:
 
-access, change, creation, deletion, end, error, info, installation, start
+access, admin, change, creation, deletion, end, error, group, info, installation, start, user
 
 To learn more about when to use which value, visit the page
 <<ecs-allowed-values-event-type,allowed values for event.type>>
@@ -2793,6 +2799,69 @@ example: `1.1`
 
 |=====
 
+[[ecs-interface]]
+=== Interface Fields
+
+The interface fields are used to record ingress and egress interface information when reported by an observer (e.g. firewall, router, load balancer) in the context of the observer handling a network connection.  In the case of a single observer interface (e.g. network sensor on a span port) only the observer.ingress information should be populated.
+
+==== Interface Field Details
+
+[options="header"]
+|=====
+| Field  | Description | Level
+
+// ===============================================================
+
+| interface.alias
+| Interface alias as reported by the system, typically used in firewall implementations for e.g. inside, outside, or dmz logical interface naming.
+
+type: keyword
+
+
+
+example: `outside`
+
+| extended
+
+// ===============================================================
+
+| interface.id
+| Interface ID as reported by an observer (typically SNMP interface ID).
+
+type: keyword
+
+
+
+example: `10`
+
+| extended
+
+// ===============================================================
+
+| interface.name
+| Interface name as reported by the system.
+
+type: keyword
+
+
+
+example: `eth0`
+
+| extended
+
+// ===============================================================
+
+|=====
+
+==== Field Reuse
+
+The `interface` fields are expected to be nested at: `observer.egress.interface`, `observer.ingress.interface`.
+
+Note also that the `interface` fields are not expected to be used directly at the top level.
+
+
+
+
 [[ecs-log]]
 === Log Fields
 
@@ -3101,6 +3170,19 @@ example: `6`
 
 // ===============================================================
 
+| network.inner
+| Network.inner fields are added in addition to network.vlan fields to describe  the innermost VLAN when q-in-q VLAN tagging is present. Allowed fields include  vlan.id and vlan.name. Inner vlan fields are typically used when sending traffic with multiple 802.1q encapsulations to a network sensor (e.g. Zeek, Wireshark.)
+
+type: object
+
+
+
+
+
+| extended
+
+// ===============================================================
+
 | network.name
 | Name given by operators to sections of their network.
 
@@ -3176,6 +3258,29 @@ example: `ipv4`
 
 |=====
 
+==== Field Reuse
+
+
+
+
+[[ecs-network-nestings]]
+===== Field sets that can be nested under Network
+
+[options="header"]
+|=====
+| Nested fields | Description
+
+// ===============================================================
+
+
+| <<ecs-vlan,network.vlan.*>>
+| Fields to describe observed VLAN information.
+
+// ===============================================================
+
+
+|=====
+
 [[ecs-observer]]
 === Observer Fields
 
@@ -3191,6 +3296,32 @@ This could be a custom hardware appliance or a server that has been configured t
 
 // ===============================================================
 
+| observer.egress
+| Observer.egress holds information like interface number and name, vlan, and zone information to  classify egress traffic.  Single armed monitoring such as a network sensor on a span port should  only use observer.ingress to categorize traffic.
+
+type: object
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+| observer.egress.zone
+| Network zone of outbound traffic as reported by the observer to categorize the destination area of egress  traffic, e.g. Internal, External, DMZ, HR, Legal, etc.
+
+type: keyword
+
+
+
+example: `Public_Internet`
+
+| extended
+
+// ===============================================================
+
 | observer.hostname
 | Hostname of the observer.
 
@@ -3201,6 +3332,32 @@ type: keyword
 
 
 | core
+
+// ===============================================================
+
+| observer.ingress
+| Observer.ingress holds information like interface number and name, vlan, and zone information to  classify ingress traffic.  Single armed monitoring such as a network sensor on a span port should  only use observer.ingress to categorize traffic.
+
+type: object
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+| observer.ingress.zone
+| Network zone of incoming traffic as reported by the observer to categorize the source area of ingress  traffic. e.g. internal, External, DMZ, HR, Legal, etc.
+
+type: keyword
+
+
+
+example: `DMZ`
+
+| extended
 
 // ===============================================================
 
@@ -3343,8 +3500,20 @@ type: keyword
 // ===============================================================
 
 
+| <<ecs-interface,observer.interface.*>>
+| Fields to describe observer interface information.
+
+// ===============================================================
+
+
 | <<ecs-os,observer.os.*>>
 | OS fields contain information about the operating system.
+
+// ===============================================================
+
+
+| <<ecs-vlan,observer.vlan.*>>
+| Fields to describe observed VLAN information.
 
 // ===============================================================
 
@@ -6267,6 +6436,62 @@ example: `12.0`
 
 
 |=====
+
+[[ecs-vlan]]
+=== VLAN Fields
+
+The VLAN fields are used to identify 802.1q tag(s) of a packet, as well as ingress and egress VLAN associations of an observer in relation to a specific packet or connection.
+
+Network.vlan fields are used to record a single VLAN tag, or the outer tag in the case of q-in-q encapsulations, for a packet or connection as observed, typically provided by a network sensor (e.g. Zeek, Wireshark) passively reporting on traffic.
+
+Network.inner VLAN fields are used to report inner q-in-q 802.1q tags (multiple 802.1q encapsulations) as observed, typically provided by a network sensor  (e.g. Zeek, Wireshark) passively reporting on traffic. Network.inner VLAN fields should only be used in addition to network.vlan fields to indicate q-in-q tagging.
+
+Observer.ingress and observer.egress VLAN values are used to record observer specific information when observer events contain discrete ingress and egress VLAN information, typically provided by firewalls, routers, or load balancers.
+
+==== VLAN Field Details
+
+[options="header"]
+|=====
+| Field  | Description | Level
+
+// ===============================================================
+
+| vlan.id
+| VLAN ID as reported by the observer.
+
+type: keyword
+
+
+
+example: `10`
+
+| extended
+
+// ===============================================================
+
+| vlan.name
+| Optional VLAN name as reported by the observer.
+
+type: keyword
+
+
+
+example: `outside`
+
+| extended
+
+// ===============================================================
+
+|=====
+
+==== Field Reuse
+
+The `vlan` fields are expected to be nested at: `network.vlan`, `network.inner.vlan`, `observer.egress.vlan`, `observer.ingress.vlan`.
+
+Note also that the `vlan` fields are not expected to be used directly at the top level.
+
+
+
 
 [[ecs-vulnerability]]
 === Vulnerability Fields

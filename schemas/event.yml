@@ -179,6 +179,19 @@
             - end
             - info
             - start
+        - name: iam
+          description: >
+            Identity and access management (IAM) events relating to users, groups, and administration.
+            Use this category to visualize and analyze IAM-related logs and data from active directory,
+            LDAP, Okta, Duo, and other IAM systems.
+          expected_event_types:
+            - admin
+            - change
+            - creation
+            - deletion
+            - group
+            - info
+            - user
         - name: intrusion_detection
           description: >
             Relating to intrusion detections from IDS/IPS systems and functions,
@@ -244,14 +257,24 @@
     - name: outcome
       level: core
       type: keyword
-      short: The outcome of the event. The lowest categorization field in the hierarchy.
+      short: The outcome of the event. The lowest level categorization field in the hierarchy.
       description: >
         This is one of four ECS Categorization Fields, and indicates the
         lowest level in the ECS category hierarchy.
 
-        `event.outcome` simply denotes whether the event represent a success or a failure.
-        Note that not all events will have an associated outcome. For example, this field is
-        generally not populated for metric events or events with `event.type:info`.
+        `event.outcome` simply denotes whether the event represents a success or a failure from
+        the perspective of the entity that produced the event.
+
+        Note that when a single transaction is described in multiple events, each event may
+        populate different values of `event.outcome`, according to their perspective.
+
+        Also note that in the case of a compound event (a single event that contains multiple logical events),
+        this field should be populated with the value that best captures the overall success or failure from
+        the perspective of the event producer.
+
+        Further note that not all events will have an associated outcome. For example, this field is
+        generally not populated for metric events, events with `event.type:info`, or any events for
+        which an outcome does not make logical sense.
       example: success
       allowed_values:
         - name: failure
@@ -261,15 +284,18 @@
             to indicate that a file access was attempted, but was not successful.
         - name: success
           description: >
-            Indicates that this event describes a successful result.  A common example is
+            Indicates that this event describes a successful result. A common example is
             `event.category:file AND event.type:create AND event.outcome:success`
             to indicate that a file was successfully created.
         - name: unknown
           description: >
             Indicates that this event describes only an attempt for which the result
-            is unknown. For example, if the event contains information only about a
-            request in an entity transaction that usually results in a response,
-            populating `event.outcome:unknown` is appropriate.
+            is unknown from the perspective of the event producer.
+            For example, if the event contains information only about the request side
+            of a transaction that results in a response, populating `event.outcome:unknown`
+            in the request event is appropriate.
+            The unknown value should not be used when an outcome doesn't make logical sense for
+            the event. In such cases `event.outcome` should not be populated.
 
     - name: type
       level: core
@@ -296,6 +322,16 @@
             or `event.category:file AND event.type:access`.
             Note for file access, both directory listings and file opens should be included
             in this subcategory. You can further distinguish access operations using the ECS
+            `event.action` field.
+        - name: admin
+          description: >
+            The admin event type is used for the subset of events within a category
+            that are related to admin objects. For example, administrative changes within
+            an IAM framework that do not specifically affect a user or group (e.g., adding new
+            applications to a federation solution or connecting discrete forests in Active Directory)
+            would fall into this subcategory.
+            Common example: `event.category:iam AND event.type:change AND event.type:admin`.
+            You can further distinguish admin operations using the ECS
             `event.action` field.
         - name: change
           description: >
@@ -329,6 +365,13 @@
             Note that pipeline errors that occur during the event ingestion process
             should not use this `event.type` value. Instead, they should use
             `event.kind:pipeline_error`.
+        - name: group
+          description: >
+            The group event type is used for the subset of events within a category
+            that are related to group objects.
+            Common example: `event.category:iam AND event.type:creation AND event.type:group`.
+            You can further distinguish group operations using the ECS
+            `event.action` field.
         - name: info
           description: >
             The info event type is used for the subset of events within a category
@@ -349,6 +392,13 @@
             The start event type is used for the subset of events within a category
             that indicate something has started. A common example is
             `event.category:process AND event.type:start`.
+        - name: user
+          description: >
+            The user event type is used for the subset of events within a category
+            that are related to user objects.
+            Common example: `event.category:iam AND event.type:deletion AND event.type:user`.
+            You can further distinguish user operations using the ECS
+            `event.action` field.
 
     - name: module
       level: core
