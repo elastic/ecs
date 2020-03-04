@@ -2091,6 +2091,20 @@ event:
         - info
         - start
         name: host
+      - description: 'Identity and access management (IAM) events relating to users,
+          groups, and administration. Use this category to visualize and analyze IAM-related
+          logs and data from active directory, LDAP, Okta, Duo, and other IAM systems.
+
+          '
+        expected_event_types:
+        - admin
+        - change
+        - creation
+        - deletion
+        - group
+        - info
+        - user
+        name: iam
       - description: 'Relating to intrusion detections from IDS/IPS systems and functions,
           both network and host-based. Use this category to visualize and analyze
           intrusion detection alerts from systems such as Snort, Suricata, and Palo
@@ -2573,6 +2587,17 @@ event:
 
           '
         name: access
+      - description: 'The admin event type is used for the subset of events within
+          a category that are related to admin objects. For example, administrative
+          changes within an IAM framework that do not specifically affect a user or
+          group (e.g., adding new applications to a federation solution or connecting
+          discrete forests in Active Directory) would fall into this subcategory.
+          Common example: `event.category:iam AND event.type:change AND event.type:admin`.
+          You can further distinguish admin operations using the ECS `event.action`
+          field.
+
+          '
+        name: admin
       - description: 'The change event type is used for the subset of events within
           a category that indicate that something has changed. If semantics best describe
           an event as modified, then include them in this subcategory. Common examples
@@ -2609,6 +2634,13 @@ event:
 
           '
         name: error
+      - description: 'The group event type is used for the subset of events within
+          a category that are related to group objects. Common example: `event.category:iam
+          AND event.type:creation AND event.type:group`. You can further distinguish
+          group operations using the ECS `event.action` field.
+
+          '
+        name: group
       - description: 'The info event type is used for the subset of events within
           a category that indicate that they are purely informational, and don''t
           report a state change, or any type of action. For example, an initial run
@@ -2633,6 +2665,13 @@ event:
 
           '
         name: start
+      - description: 'The user event type is used for the subset of events within
+          a category that are related to user objects. Common example: `event.category:iam
+          AND event.type:deletion AND event.type:user`. You can further distinguish
+          user operations using the ECS `event.action` field.
+
+          '
+        name: user
       dashed_name: event-type
       description: 'This is one of four ECS Categorization Fields, and indicates the
         third level in the ECS category hierarchy.

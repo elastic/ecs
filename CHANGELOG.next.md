@@ -20,6 +20,7 @@ Thanks, you're awesome :-) -->
 * Fieldset for PE metadata. #731
 * Globally unique identifier `entity_id` for `process` and `process.parent`. #747
 * Added interface, vlan, observer zone fields #752
+* Added iam value for `event.category` and three related values for `event.type`. (#756)
 
 #### Improvements
 
