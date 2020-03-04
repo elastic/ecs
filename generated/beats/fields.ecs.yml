@@ -1298,6 +1298,16 @@
         the event (e.g. Sysmon, httpd), or of a subsystem of the operating system
         (kernel, Microsoft-Windows-Security-Auditing).'
       example: kernel
+    - name: reference
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Reference URL linking to additional information about this event.
+
+        This URL links to a static definition of the this event. Alert events, indicated
+        by `event.kind:alert`, are a common use case for this field.'
+      example: https://system.vendor.com/event/#0001234
+      default_field: false
     - name: risk_score
       level: core
       type: float
@@ -1362,6 +1372,18 @@
 
         This field is an array. This will allow proper categorization of some events
         that fall in multiple event types.'
+    - name: url
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'URL linking to an external system to continue investigation of
+        this event.
+
+        This URL links to another system where in-depth investigation of the specific
+        occurence of this event can take place. Alert events, indicated by `event.kind:alert`,
+        are a common use case for this field.'
+      example: https://mysystem.mydomain.com/alert/5271dedb-f5b0-4218-87f0-4ac4870a38fe
+      default_field: false
   - name: file
     title: File
     group: 2

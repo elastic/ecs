@@ -24,6 +24,8 @@ Thanks, you're awesome :-) -->
 * Added iam value for `event.category` and three related values for `event.type`. #756
 * Added `file.mime_type` to include MIME type information on file structures #760
 
+* Added fields `event.reference` and `event.url` to hold link to additional event info/actions. (#757)
+
 #### Improvements
 
 * Temporary workaround for Beats templates' `default_field` growing too big. #687
