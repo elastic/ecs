@@ -11,6 +11,7 @@ All notable changes to this project will be documented in this file based on the
 #### Added
 
 * Added `dll.*` fields #679
+* Added `related.hash` to keep track of all hashes seen on an event. #711
 * Added fieldset for PE metadata. #731
 * Added `code_signature` fieldset. #733
 * Added missing `hash` fields at `process.parent.hash.*`. #739
