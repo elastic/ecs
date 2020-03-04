@@ -11,8 +11,10 @@ All notable changes to this project will be documented in this file based on the
 #### Added
 
 * Added `dll.*` fields #679
-* Fieldset for PE metadata. #731
-* Globally unique identifier `entity_id` for `process` and `process.parent`. #747
+* Added fieldset for PE metadata. #731
+* Added `code_signature` fieldset. #733
+* Added missing `hash` fields at `process.parent.hash.*`. #739
+* Added globally unique identifier `entity_id` to `process` and `process.parent`. #747
 * Added interface, vlan, observer zone fields #752
 * Added `rule.author`, `rule.license` fields #754
 * Added iam value for `event.category` and three related values for `event.type`. #756
