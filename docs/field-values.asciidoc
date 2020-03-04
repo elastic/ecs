@@ -149,6 +149,7 @@ that will require subsequent breaking changes.
 * <<ecs-event-category-driver,driver>>
 * <<ecs-event-category-file,file>>
 * <<ecs-event-category-host,host>>
+* <<ecs-event-category-iam,iam>>
 * <<ecs-event-category-intrusion_detection,intrusion_detection>>
 * <<ecs-event-category-malware,malware>>
 * <<ecs-event-category-package,package>>
@@ -229,6 +230,20 @@ Note that this category is for information about hosts themselves; it is not mea
 *Expected event types for category host:*
 
 access, change, end, info, start
+
+
+[float]
+[[ecs-event-category-iam]]
+==== iam
+
+Identity and access management (IAM) events relating to users, groups, and administration. Use this category to visualize and analyze IAM-related logs and data from active directory, LDAP, Okta, Duo, and other IAM systems.
+
+
+
+
+*Expected event types for category iam:*
+
+admin, change, creation, deletion, group, info, user
 
 
 [float]
@@ -318,20 +333,33 @@ that will require subsequent breaking changes.
 *Allowed Values*
 
 * <<ecs-event-type-access,access>>
+* <<ecs-event-type-admin,admin>>
 * <<ecs-event-type-change,change>>
 * <<ecs-event-type-creation,creation>>
 * <<ecs-event-type-deletion,deletion>>
 * <<ecs-event-type-end,end>>
 * <<ecs-event-type-error,error>>
+* <<ecs-event-type-group,group>>
 * <<ecs-event-type-info,info>>
 * <<ecs-event-type-installation,installation>>
 * <<ecs-event-type-start,start>>
+* <<ecs-event-type-user,user>>
 
 [float]
 [[ecs-event-type-access]]
 ==== access
 
 The access event type is used for the subset of events within a category that indicate that something was accessed. Common examples include `event.category:database AND event.type:access`, or `event.category:file AND event.type:access`. Note for file access, both directory listings and file opens should be included in this subcategory. You can further distinguish access operations using the ECS `event.action` field.
+
+
+
+
+
+[float]
+[[ecs-event-type-admin]]
+==== admin
+
+The admin event type is used for the subset of events within a category that are related to admin objects. For example, administrative changes within an IAM framework that do not specifically affect a user or group (e.g., adding new applications to a federation solution or connecting discrete forests in Active Directory) would fall into this subcategory. Common example: `event.category:iam AND event.type:change AND event.type:admin`. You can further distinguish admin operations using the ECS `event.action` field.
 
 
 
@@ -388,6 +416,16 @@ The error event type is used for the subset of events within a category that ind
 
 
 [float]
+[[ecs-event-type-group]]
+==== group
+
+The group event type is used for the subset of events within a category that are related to group objects. Common example: `event.category:iam AND event.type:creation AND event.type:group`. You can further distinguish group operations using the ECS `event.action` field.
+
+
+
+
+
+[float]
 [[ecs-event-type-info]]
 ==== info
 
@@ -417,12 +455,28 @@ The start event type is used for the subset of events within a category that ind
 
 
 
+[float]
+[[ecs-event-type-user]]
+==== user
+
+The user event type is used for the subset of events within a category that are related to user objects. Common example: `event.category:iam AND event.type:deletion AND event.type:user`. You can further distinguish user operations using the ECS `event.action` field.
+
+
+
+
+
 [[ecs-allowed-values-event-outcome]]
 === ECS Categorization Field: event.outcome
 
 This is one of four ECS Categorization Fields, and indicates the lowest level in the ECS category hierarchy.
 
-`event.outcome` simply denotes whether the event represent a success or a failure. Note that not all events will have an associated outcome. For example, this field is generally not populated for metric events or events with `event.type:info`.
+`event.outcome` simply denotes whether the event represents a success or a failure from the perspective of the entity that produced the event.
+
+Note that when a single transaction is described in multiple events, each event may populate different values of `event.outcome`, according to their perspective.
+
+Also note that in the case of a compound event (a single event that contains multiple logical events), this field should be populated with the value that best captures the overall success or failure from the perspective of the event producer.
+
+Further note that not all events will have an associated outcome. For example, this field is generally not populated for metric events, events with `event.type:info`, or any events for which an outcome does not make logical sense.
 
 WARNING: After the beta period for categorization, only the allowed categorization
 values listed in the ECS repository and official ECS documentation should be considered
@@ -449,7 +503,7 @@ Indicates that this event describes a failed result. A common example is `event.
 [[ecs-event-outcome-success]]
 ==== success
 
-Indicates that this event describes a successful result.  A common example is `event.category:file AND event.type:create AND event.outcome:success` to indicate that a file was successfully created.
+Indicates that this event describes a successful result. A common example is `event.category:file AND event.type:create AND event.outcome:success` to indicate that a file was successfully created.
 
 
 
@@ -459,7 +513,7 @@ Indicates that this event describes a successful result.  A common example is `e
 [[ecs-event-outcome-unknown]]
 ==== unknown
 
-Indicates that this event describes only an attempt for which the result is unknown. For example, if the event contains information only about a request in an entity transaction that usually results in a response, populating `event.outcome:unknown` is appropriate.
+Indicates that this event describes only an attempt for which the result is unknown from the perspective of the event producer. For example, if the event contains information only about the request side of a transaction that results in a response, populating `event.outcome:unknown` in the request event is appropriate. The unknown value should not be used when an outcome doesn't make logical sense for the event. In such cases `event.outcome` should not be populated.
 
 
 
