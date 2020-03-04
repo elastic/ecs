@@ -1999,9 +1999,10 @@ event:
     include a process starting on a host, a network packet being sent from a source
     to a destination, or a network connection between a client and a server being
     initiated or closed. A metric is defined as an event containing one or more numerical
-    or categorical measurements and the time at which the measurement was taken. Examples
-    of metric events include memory pressure measured on a host, or vulnerabilities
-    measured on a scanned host.'
+    measurements and the time at which the measurement was taken. Examples of metric
+    events include memory pressure measured on a host and device temperature. See
+    the `event.kind` definition in this section for additional details about metric
+    and state events.'
   fields:
     action:
       dashed_name: event-action
@@ -2091,6 +2092,20 @@ event:
         - info
         - start
         name: host
+      - description: 'Identity and access management (IAM) events relating to users,
+          groups, and administration. Use this category to visualize and analyze IAM-related
+          logs and data from active directory, LDAP, Okta, Duo, and other IAM systems.
+
+          '
+        expected_event_types:
+        - admin
+        - change
+        - creation
+        - deletion
+        - group
+        - info
+        - user
+        name: iam
       - description: 'Relating to intrusion detections from IDS/IPS systems and functions,
           both network and host-based. Use this category to visualize and analyze
           intrusion detection alerts from systems such as Snort, Suricata, and Palo
@@ -2333,21 +2348,35 @@ event:
 
           '
         name: event
-      - description: 'This value is used to indicate that this event that a numeric
-          measurement was taken at given point in time.
+      - description: 'This value is used to indicate that this event describes a numeric
+          measurement taken at given point in time.
 
-          Examples include CPU utilization, memory usage, or a vulnerability scan
-          result.
+          Examples include CPU utilization, memory usage, or device temperature.
 
           Metric events are often collected on a predictable frequency, such as once
-          every few seconds, or once a minute.
+          every few seconds, or once a minute, but can also be used to describe ad-hoc
+          numeric metric queries.
 
           '
         name: metric
-      - description: 'This value is similar to metric, except that the entity being
-          measured does not provide a numeric metric value, but rather one of a fixed
-          set of conditions or states. For example a periodic event reporting a "fin_wait"
-          state of a TCP connection on a host might use `event.type:state`.
+      - description: 'The state value is similar to metric, indicating that this event
+          describes a measurement taken at given point in time, except that the measurement
+          does not result in a numeric value, but rather one of a fixed set of categorical
+          values that represent conditions or states.
+
+          Examples include periodic events reporting Elasticsearch cluster state (green/yellow/red),
+          the state of a TCP connection (open, closed, fin_wait, etc.), the state
+          of a host with respect to a software vulnerability (vulnerable, not vulnerable),
+          and the state of a system regarding compliance with a regulatory standard
+          (compliant, not compliant).
+
+          Note that an event that describes a change of state would not use `event.kind:state`,
+          but instead would use ''event.kind:event'' since a state change fits the
+          more general event definition of something that happened.
+
+          State events are often collected on a predictable frequency, such as once
+          every few seconds, once a minute, once an hour, or once a day, but can also
+          be used to describe ad-hoc state queries.
 
           '
         name: state
@@ -2431,16 +2460,19 @@ event:
 
           '
         name: failure
-      - description: 'Indicates that this event describes a successful result.  A
-          common example is `event.category:file AND event.type:create AND event.outcome:success`
+      - description: 'Indicates that this event describes a successful result. A common
+          example is `event.category:file AND event.type:create AND event.outcome:success`
           to indicate that a file was successfully created.
 
           '
         name: success
       - description: 'Indicates that this event describes only an attempt for which
-          the result is unknown. For example, if the event contains information only
-          about a request in an entity transaction that usually results in a response,
-          populating `event.outcome:unknown` is appropriate.
+          the result is unknown from the perspective of the event producer. For example,
+          if the event contains information only about the request side of a transaction
+          that results in a response, populating `event.outcome:unknown` in the request
+          event is appropriate. The unknown value should not be used when an outcome
+          doesn''t make logical sense for the event. In such cases `event.outcome`
+          should not be populated.
 
           '
         name: unknown
@@ -2448,9 +2480,21 @@ event:
       description: 'This is one of four ECS Categorization Fields, and indicates the
         lowest level in the ECS category hierarchy.
 
-        `event.outcome` simply denotes whether the event represent a success or a
-        failure. Note that not all events will have an associated outcome. For example,
-        this field is generally not populated for metric events or events with `event.type:info`.'
+        `event.outcome` simply denotes whether the event represents a success or a
+        failure from the perspective of the entity that produced the event.
+
+        Note that when a single transaction is described in multiple events, each
+        event may populate different values of `event.outcome`, according to their
+        perspective.
+
+        Also note that in the case of a compound event (a single event that contains
+        multiple logical events), this field should be populated with the value that
+        best captures the overall success or failure from the perspective of the event
+        producer.
+
+        Further note that not all events will have an associated outcome. For example,
+        this field is generally not populated for metric events, events with `event.type:info`,
+        or any events for which an outcome does not make logical sense.'
       example: success
       flat_name: event.outcome
       ignore_above: 1024
@@ -2458,7 +2502,8 @@ event:
       name: outcome
       normalize: []
       order: 5
-      short: The outcome of the event. The lowest categorization field in the hierarchy.
+      short: The outcome of the event. The lowest level categorization field in the
+        hierarchy.
       type: keyword
     provider:
       dashed_name: event-provider
@@ -2476,6 +2521,21 @@ event:
       normalize: []
       order: 9
       short: Source of the event.
+      type: keyword
+    reference:
+      dashed_name: event-reference
+      description: 'Reference URL linking to additional information about this event.
+
+        This URL links to a static definition of the this event. Alert events, indicated
+        by `event.kind:alert`, are a common use case for this field.'
+      example: https://system.vendor.com/event/#0001234
+      flat_name: event.reference
+      ignore_above: 1024
+      level: extended
+      name: reference
+      normalize: []
+      order: 22
+      short: Event reference URL
       type: keyword
     risk_score:
       dashed_name: event-risk-score
@@ -2577,6 +2637,17 @@ event:
 
           '
         name: access
+      - description: 'The admin event type is used for the subset of events within
+          a category that are related to admin objects. For example, administrative
+          changes within an IAM framework that do not specifically affect a user or
+          group (e.g., adding new applications to a federation solution or connecting
+          discrete forests in Active Directory) would fall into this subcategory.
+          Common example: `event.category:iam AND event.type:change AND event.type:admin`.
+          You can further distinguish admin operations using the ECS `event.action`
+          field.
+
+          '
+        name: admin
       - description: 'The allowed event type is used for the subset of events within
           a category that indicate that something was allowed. Common examples include
           `event.category:network AND event.type:connection AND event.type:allowed`
@@ -2656,6 +2727,13 @@ event:
 
           '
         name: error
+      - description: 'The group event type is used for the subset of events within
+          a category that are related to group objects. Common example: `event.category:iam
+          AND event.type:creation AND event.type:group`. You can further distinguish
+          group operations using the ECS `event.action` field.
+
+          '
+        name: group
       - description: 'The info event type is used for the subset of events within
           a category that indicate that they are purely informational, and don''t
           report a state change, or any type of action. For example, an initial run
@@ -2700,6 +2778,13 @@ event:
 
           '
         name: start
+      - description: 'The user event type is used for the subset of events within
+          a category that are related to user objects. Common example: `event.category:iam
+          AND event.type:deletion AND event.type:user`. You can further distinguish
+          user operations using the ECS `event.action` field.
+
+          '
+        name: user
       dashed_name: event-type
       description: 'This is one of four ECS Categorization Fields, and indicates the
         third level in the ECS category hierarchy.
@@ -2718,6 +2803,23 @@ event:
       - array
       order: 6
       short: Event type. The third categorization field in the hierarchy.
+      type: keyword
+    url:
+      dashed_name: event-url
+      description: 'URL linking to an external system to continue investigation of
+        this event.
+
+        This URL links to another system where in-depth investigation of the specific
+        occurence of this event can take place. Alert events, indicated by `event.kind:alert`,
+        are a common use case for this field.'
+      example: https://mysystem.mydomain.com/alert/5271dedb-f5b0-4218-87f0-4ac4870a38fe
+      flat_name: event.url
+      ignore_above: 1024
+      level: extended
+      name: url
+      normalize: []
+      order: 23
+      short: Event investigation URL
       type: keyword
   group: 2
   name: event
@@ -2996,6 +3098,20 @@ file:
       normalize: []
       order: 9
       short: Inode representing the file in the filesystem.
+      type: keyword
+    mime_type:
+      dashed_name: file-mime-type
+      description: MIME type should identify the format of the file or stream of bytes
+        using https://www.iana.org/assignments/media-types/media-types.xhtml[IANA
+        official types], where possible. When more than one type is applicable, the
+        most specific type should be used.
+      flat_name: file.mime_type
+      ignore_above: 1024
+      level: extended
+      name: mime_type
+      normalize: []
+      order: 20
+      short: Media type of file, document, or arrangement of bytes.
       type: keyword
     mode:
       dashed_name: file-mode
@@ -4030,6 +4146,62 @@ http:
   short: Fields describing an HTTP request.
   title: HTTP
   type: group
+interface:
+  description: The interface fields are used to record ingress and egress interface
+    information when reported by an observer (e.g. firewall, router, load balancer)
+    in the context of the observer handling a network connection.  In the case of
+    a single observer interface (e.g. network sensor on a span port) only the observer.ingress
+    information should be populated.
+  fields:
+    alias:
+      dashed_name: interface-alias
+      description: Interface alias as reported by the system, typically used in firewall
+        implementations for e.g. inside, outside, or dmz logical interface naming.
+      example: outside
+      flat_name: interface.alias
+      ignore_above: 1024
+      level: extended
+      name: alias
+      normalize: []
+      order: 2
+      short: Interface alias
+      type: keyword
+    id:
+      dashed_name: interface-id
+      description: Interface ID as reported by an observer (typically SNMP interface
+        ID).
+      example: 10
+      flat_name: interface.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      normalize: []
+      order: 0
+      short: Interface ID
+      type: keyword
+    name:
+      dashed_name: interface-name
+      description: Interface name as reported by the system.
+      example: eth0
+      flat_name: interface.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      normalize: []
+      order: 1
+      short: Interface name
+      type: keyword
+  group: 2
+  name: interface
+  prefix: interface.
+  reusable:
+    expected:
+    - observer.ingress
+    - observer.egress
+    top_level: false
+  short: Fields to describe observer interface information.
+  title: Interface
+  type: group
 log:
   description: 'Details about the event''s logging mechanism or logging transport.
 
@@ -4323,6 +4495,47 @@ network:
       order: 2
       short: IANA Protocol Number.
       type: keyword
+    inner:
+      dashed_name: network-inner
+      description: Network.inner fields are added in addition to network.vlan fields
+        to describe  the innermost VLAN when q-in-q VLAN tagging is present. Allowed
+        fields include  vlan.id and vlan.name. Inner vlan fields are typically used
+        when sending traffic with multiple 802.1q encapsulations to a network sensor
+        (e.g. Zeek, Wireshark.)
+      flat_name: network.inner
+      level: extended
+      name: inner
+      normalize: []
+      object_type: keyword
+      order: 11
+      short: Inner VLAN tag information
+      type: object
+    inner.vlan.id:
+      dashed_name: network-inner-vlan-id
+      description: VLAN ID as reported by the observer.
+      example: 10
+      flat_name: network.inner.vlan.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      normalize: []
+      order: 0
+      original_fieldset: vlan
+      short: VLAN ID as reported by the observer.
+      type: keyword
+    inner.vlan.name:
+      dashed_name: network-inner-vlan-name
+      description: Optional VLAN name as reported by the observer.
+      example: outside
+      flat_name: network.inner.vlan.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      normalize: []
+      order: 1
+      original_fieldset: vlan
+      short: Optional VLAN name as reported by the observer.
+      type: keyword
     name:
       dashed_name: network-name
       description: Name given by operators to sections of their network.
@@ -4397,8 +4610,36 @@ network:
       short: In the OSI Model this would be the Network Layer. ipv4, ipv6, ipsec,
         pim, etc
       type: keyword
+    vlan.id:
+      dashed_name: network-vlan-id
+      description: VLAN ID as reported by the observer.
+      example: 10
+      flat_name: network.vlan.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      normalize: []
+      order: 0
+      original_fieldset: vlan
+      short: VLAN ID as reported by the observer.
+      type: keyword
+    vlan.name:
+      dashed_name: network-vlan-name
+      description: Optional VLAN name as reported by the observer.
+      example: outside
+      flat_name: network.vlan.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      normalize: []
+      order: 1
+      original_fieldset: vlan
+      short: Optional VLAN name as reported by the observer.
+      type: keyword
   group: 2
   name: network
+  nestings:
+  - vlan
   prefix: network.
   short: Fields describing the communication path over which the event happened.
   title: Network
@@ -4417,6 +4658,101 @@ observer:
     metric. Message queues and ETL components used in processing events or metrics
     are not considered observers in ECS.'
   fields:
+    egress:
+      dashed_name: observer-egress
+      description: Observer.egress holds information like interface number and name,
+        vlan, and zone information to  classify egress traffic.  Single armed monitoring
+        such as a network sensor on a span port should  only use observer.ingress
+        to categorize traffic.
+      flat_name: observer.egress
+      level: extended
+      name: egress
+      normalize: []
+      object_type: keyword
+      order: 11
+      short: Object field for egress information
+      type: object
+    egress.interface.alias:
+      dashed_name: observer-egress-interface-alias
+      description: Interface alias as reported by the system, typically used in firewall
+        implementations for e.g. inside, outside, or dmz logical interface naming.
+      example: outside
+      flat_name: observer.egress.interface.alias
+      ignore_above: 1024
+      level: extended
+      name: alias
+      normalize: []
+      order: 2
+      original_fieldset: interface
+      short: Interface alias
+      type: keyword
+    egress.interface.id:
+      dashed_name: observer-egress-interface-id
+      description: Interface ID as reported by an observer (typically SNMP interface
+        ID).
+      example: 10
+      flat_name: observer.egress.interface.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      normalize: []
+      order: 0
+      original_fieldset: interface
+      short: Interface ID
+      type: keyword
+    egress.interface.name:
+      dashed_name: observer-egress-interface-name
+      description: Interface name as reported by the system.
+      example: eth0
+      flat_name: observer.egress.interface.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      normalize: []
+      order: 1
+      original_fieldset: interface
+      short: Interface name
+      type: keyword
+    egress.vlan.id:
+      dashed_name: observer-egress-vlan-id
+      description: VLAN ID as reported by the observer.
+      example: 10
+      flat_name: observer.egress.vlan.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      normalize: []
+      order: 0
+      original_fieldset: vlan
+      short: VLAN ID as reported by the observer.
+      type: keyword
+    egress.vlan.name:
+      dashed_name: observer-egress-vlan-name
+      description: Optional VLAN name as reported by the observer.
+      example: outside
+      flat_name: observer.egress.vlan.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      normalize: []
+      order: 1
+      original_fieldset: vlan
+      short: Optional VLAN name as reported by the observer.
+      type: keyword
+    egress.zone:
+      dashed_name: observer-egress-zone
+      description: Network zone of outbound traffic as reported by the observer to
+        categorize the destination area of egress  traffic, e.g. Internal, External,
+        DMZ, HR, Legal, etc.
+      example: Public_Internet
+      flat_name: observer.egress.zone
+      ignore_above: 1024
+      level: extended
+      name: egress.zone
+      normalize: []
+      order: 12
+      short: Observer Egress zone
+      type: keyword
     geo.city_name:
       dashed_name: observer-geo-city-name
       description: City name.
@@ -4536,6 +4872,101 @@ observer:
       normalize: []
       order: 2
       short: Hostname of the observer.
+      type: keyword
+    ingress:
+      dashed_name: observer-ingress
+      description: Observer.ingress holds information like interface number and name,
+        vlan, and zone information to  classify ingress traffic.  Single armed monitoring
+        such as a network sensor on a span port should  only use observer.ingress
+        to categorize traffic.
+      flat_name: observer.ingress
+      level: extended
+      name: ingress
+      normalize: []
+      object_type: keyword
+      order: 9
+      short: Object field for ingress information
+      type: object
+    ingress.interface.alias:
+      dashed_name: observer-ingress-interface-alias
+      description: Interface alias as reported by the system, typically used in firewall
+        implementations for e.g. inside, outside, or dmz logical interface naming.
+      example: outside
+      flat_name: observer.ingress.interface.alias
+      ignore_above: 1024
+      level: extended
+      name: alias
+      normalize: []
+      order: 2
+      original_fieldset: interface
+      short: Interface alias
+      type: keyword
+    ingress.interface.id:
+      dashed_name: observer-ingress-interface-id
+      description: Interface ID as reported by an observer (typically SNMP interface
+        ID).
+      example: 10
+      flat_name: observer.ingress.interface.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      normalize: []
+      order: 0
+      original_fieldset: interface
+      short: Interface ID
+      type: keyword
+    ingress.interface.name:
+      dashed_name: observer-ingress-interface-name
+      description: Interface name as reported by the system.
+      example: eth0
+      flat_name: observer.ingress.interface.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      normalize: []
+      order: 1
+      original_fieldset: interface
+      short: Interface name
+      type: keyword
+    ingress.vlan.id:
+      dashed_name: observer-ingress-vlan-id
+      description: VLAN ID as reported by the observer.
+      example: 10
+      flat_name: observer.ingress.vlan.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      normalize: []
+      order: 0
+      original_fieldset: vlan
+      short: VLAN ID as reported by the observer.
+      type: keyword
+    ingress.vlan.name:
+      dashed_name: observer-ingress-vlan-name
+      description: Optional VLAN name as reported by the observer.
+      example: outside
+      flat_name: observer.ingress.vlan.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      normalize: []
+      order: 1
+      original_fieldset: vlan
+      short: Optional VLAN name as reported by the observer.
+      type: keyword
+    ingress.zone:
+      dashed_name: observer-ingress-zone
+      description: Network zone of incoming traffic as reported by the observer to
+        categorize the source area of ingress  traffic. e.g. internal, External, DMZ,
+        HR, Legal, etc.
+      example: DMZ
+      flat_name: observer.ingress.zone
+      ignore_above: 1024
+      level: extended
+      name: ingress.zone
+      normalize: []
+      order: 10
+      short: Observer ingress zone
       type: keyword
     ip:
       dashed_name: observer-ip
@@ -4730,7 +5161,9 @@ observer:
   name: observer
   nestings:
   - geo
+  - interface
   - os
+  - vlan
   prefix: observer.
   short: Fields describing an entity observing the event from outside the host.
   title: Observer
@@ -6097,6 +6530,21 @@ rule:
     admission control platforms, network or host IDS/IPS, network firewalls, web application
     firewalls, url filters, endpoint detection and response (EDR) systems, etc.'
   fields:
+    author:
+      dashed_name: rule-author
+      description: Name, organization, or pseudonym of the author or authors who created
+        the rule used to generate this event.
+      example:
+      - Star-Lord
+      flat_name: rule.author
+      ignore_above: 1024
+      level: extended
+      name: author
+      normalize:
+      - array
+      order: 8
+      short: Rule author
+      type: keyword
     category:
       dashed_name: rule-category
       description: A categorization value keyword used by the entity using the rule
@@ -6134,6 +6582,19 @@ rule:
       normalize: []
       order: 0
       short: Rule ID
+      type: keyword
+    license:
+      dashed_name: rule-license
+      description: Name of the license under which the rule used to generate this
+        event is made available.
+      example: Apache 2.0
+      flat_name: rule.license
+      ignore_above: 1024
+      level: extended
+      name: license
+      normalize: []
+      order: 9
+      short: Rule license
       type: keyword
     name:
       dashed_name: rule-name
@@ -8319,6 +8780,61 @@ user_agent:
   prefix: user_agent.
   short: Fields to describe a browser user_agent string.
   title: User agent
+  type: group
+vlan:
+  description: 'The VLAN fields are used to identify 802.1q tag(s) of a packet, as
+    well as ingress and egress VLAN associations of an observer in relation to a specific
+    packet or connection.
+
+    Network.vlan fields are used to record a single VLAN tag, or the outer tag in
+    the case of q-in-q encapsulations, for a packet or connection as observed, typically
+    provided by a network sensor (e.g. Zeek, Wireshark) passively reporting on traffic.
+
+    Network.inner VLAN fields are used to report inner q-in-q 802.1q tags (multiple
+    802.1q encapsulations) as observed, typically provided by a network sensor  (e.g.
+    Zeek, Wireshark) passively reporting on traffic. Network.inner VLAN fields should
+    only be used in addition to network.vlan fields to indicate q-in-q tagging.
+
+    Observer.ingress and observer.egress VLAN values are used to record observer specific
+    information when observer events contain discrete ingress and egress VLAN information,
+    typically provided by firewalls, routers, or load balancers.'
+  fields:
+    id:
+      dashed_name: vlan-id
+      description: VLAN ID as reported by the observer.
+      example: 10
+      flat_name: vlan.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      normalize: []
+      order: 0
+      short: VLAN ID as reported by the observer.
+      type: keyword
+    name:
+      dashed_name: vlan-name
+      description: Optional VLAN name as reported by the observer.
+      example: outside
+      flat_name: vlan.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      normalize: []
+      order: 1
+      short: Optional VLAN name as reported by the observer.
+      type: keyword
+  group: 2
+  name: vlan
+  prefix: vlan.
+  reusable:
+    expected:
+    - observer.ingress
+    - observer.egress
+    - network
+    - network.inner
+    top_level: false
+  short: Fields to describe observed VLAN information.
+  title: VLAN
   type: group
 vulnerability:
   description: The vulnerability fields describe information about a vulnerability

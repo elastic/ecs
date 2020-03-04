@@ -149,8 +149,9 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.5.0-dev,true,event,event.kind,keyword,core,,alert,The kind of the event. The highest categorization field in the hierarchy.
 1.5.0-dev,true,event,event.module,keyword,core,,apache,Name of the module this data is coming from.
 1.5.0-dev,false,event,event.original,keyword,core,,Sep 19 08:26:10 host CEF:0&#124;Security&#124; threatmanager&#124;1.0&#124;100&#124; worm successfully stopped&#124;10&#124;src=10.0.0.1 dst=2.1.2.2spt=1232,Raw text message of entire event.
-1.5.0-dev,true,event,event.outcome,keyword,core,,success,The outcome of the event. The lowest categorization field in the hierarchy.
+1.5.0-dev,true,event,event.outcome,keyword,core,,success,The outcome of the event. The lowest level categorization field in the hierarchy.
 1.5.0-dev,true,event,event.provider,keyword,extended,,kernel,Source of the event.
+1.5.0-dev,true,event,event.reference,keyword,extended,,https://system.vendor.com/event/#0001234,Event reference URL
 1.5.0-dev,true,event,event.risk_score,float,core,,,Risk score or priority of the event (e.g. security solutions). Use your system's original value here.
 1.5.0-dev,true,event,event.risk_score_norm,float,extended,,,Normalized risk score or priority of the event (0-100).
 1.5.0-dev,true,event,event.sequence,long,extended,,,Sequence number of the event.
@@ -158,6 +159,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.5.0-dev,true,event,event.start,date,extended,,,event.start contains the date when the event started or when the activity was first observed.
 1.5.0-dev,true,event,event.timezone,keyword,extended,,,Event time zone.
 1.5.0-dev,true,event,event.type,keyword,core,array,,Event type. The third categorization field in the hierarchy.
+1.5.0-dev,true,event,event.url,keyword,extended,,https://mysystem.mydomain.com/alert/5271dedb-f5b0-4218-87f0-4ac4870a38fe,Event investigation URL
 1.5.0-dev,true,file,file.accessed,date,extended,,,Last time the file was accessed.
 1.5.0-dev,true,file,file.attributes,keyword,extended,array,"[""readonly"", ""system""]",Array of file attributes.
 1.5.0-dev,true,file,file.code_signature.exists,boolean,core,,true,Boolean to capture if a signature is present.
@@ -178,6 +180,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.5.0-dev,true,file,file.hash.sha256,keyword,extended,,,SHA256 hash.
 1.5.0-dev,true,file,file.hash.sha512,keyword,extended,,,SHA512 hash.
 1.5.0-dev,true,file,file.inode,keyword,extended,,256383,Inode representing the file in the filesystem.
+1.5.0-dev,true,file,file.mime_type,keyword,extended,,,"Media type of file, document, or arrangement of bytes."
 1.5.0-dev,true,file,file.mode,keyword,extended,,0640,Mode of the file in octal representation.
 1.5.0-dev,true,file,file.mtime,date,extended,,,Last time the file content was modified.
 1.5.0-dev,true,file,file.name,keyword,extended,,example.png,"Name of the file including the extension, without the directory."
@@ -257,6 +260,9 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.5.0-dev,true,http,http.response.bytes,long,extended,,1437,Total size in bytes of the response (body and headers).
 1.5.0-dev,true,http,http.response.status_code,long,extended,,404,HTTP response status code.
 1.5.0-dev,true,http,http.version,keyword,extended,,1.1,HTTP version.
+1.5.0-dev,true,interface,interface.alias,keyword,extended,,outside,Interface alias
+1.5.0-dev,true,interface,interface.id,keyword,extended,,10,Interface ID
+1.5.0-dev,true,interface,interface.name,keyword,extended,,eth0,Interface name
 1.5.0-dev,true,log,log.level,keyword,core,,error,Log level of the log event.
 1.5.0-dev,true,log,log.logger,keyword,core,,org.elasticsearch.bootstrap.Bootstrap,Name of the logger.
 1.5.0-dev,true,log,log.origin.file.line,integer,extended,,42,The line number of the file which originated the log event.
@@ -275,11 +281,23 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.5.0-dev,true,network,network.direction,keyword,core,,inbound,Direction of the network traffic.
 1.5.0-dev,true,network,network.forwarded_ip,ip,core,,192.1.1.2,Host IP address when the source IP address is the proxy.
 1.5.0-dev,true,network,network.iana_number,keyword,extended,,6,IANA Protocol Number.
+1.5.0-dev,true,network,network.inner,object,extended,,,Inner VLAN tag information
+1.5.0-dev,true,network,network.inner.vlan.id,keyword,extended,,10,VLAN ID as reported by the observer.
+1.5.0-dev,true,network,network.inner.vlan.name,keyword,extended,,outside,Optional VLAN name as reported by the observer.
 1.5.0-dev,true,network,network.name,keyword,extended,,Guest Wifi,Name given by operators to sections of their network.
 1.5.0-dev,true,network,network.packets,long,core,,24,Total packets transferred in both directions.
 1.5.0-dev,true,network,network.protocol,keyword,core,,http,L7 Network protocol name.
 1.5.0-dev,true,network,network.transport,keyword,core,,tcp,Protocol Name corresponding to the field `iana_number`.
 1.5.0-dev,true,network,network.type,keyword,core,,ipv4,"In the OSI Model this would be the Network Layer. ipv4, ipv6, ipsec, pim, etc"
+1.5.0-dev,true,network,network.vlan.id,keyword,extended,,10,VLAN ID as reported by the observer.
+1.5.0-dev,true,network,network.vlan.name,keyword,extended,,outside,Optional VLAN name as reported by the observer.
+1.5.0-dev,true,observer,observer.egress,object,extended,,,Object field for egress information
+1.5.0-dev,true,observer,observer.egress.interface.alias,keyword,extended,,outside,Interface alias
+1.5.0-dev,true,observer,observer.egress.interface.id,keyword,extended,,10,Interface ID
+1.5.0-dev,true,observer,observer.egress.interface.name,keyword,extended,,eth0,Interface name
+1.5.0-dev,true,observer,observer.egress.vlan.id,keyword,extended,,10,VLAN ID as reported by the observer.
+1.5.0-dev,true,observer,observer.egress.vlan.name,keyword,extended,,outside,Optional VLAN name as reported by the observer.
+1.5.0-dev,true,observer,observer.egress.zone,keyword,extended,,Public_Internet,Observer Egress zone
 1.5.0-dev,true,observer,observer.geo.city_name,keyword,core,,Montreal,City name.
 1.5.0-dev,true,observer,observer.geo.continent_name,keyword,core,,North America,Name of the continent.
 1.5.0-dev,true,observer,observer.geo.country_iso_code,keyword,core,,CA,Country ISO code.
@@ -289,6 +307,13 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.5.0-dev,true,observer,observer.geo.region_iso_code,keyword,core,,CA-QC,Region ISO code.
 1.5.0-dev,true,observer,observer.geo.region_name,keyword,core,,Quebec,Region name.
 1.5.0-dev,true,observer,observer.hostname,keyword,core,,,Hostname of the observer.
+1.5.0-dev,true,observer,observer.ingress,object,extended,,,Object field for ingress information
+1.5.0-dev,true,observer,observer.ingress.interface.alias,keyword,extended,,outside,Interface alias
+1.5.0-dev,true,observer,observer.ingress.interface.id,keyword,extended,,10,Interface ID
+1.5.0-dev,true,observer,observer.ingress.interface.name,keyword,extended,,eth0,Interface name
+1.5.0-dev,true,observer,observer.ingress.vlan.id,keyword,extended,,10,VLAN ID as reported by the observer.
+1.5.0-dev,true,observer,observer.ingress.vlan.name,keyword,extended,,outside,Optional VLAN name as reported by the observer.
+1.5.0-dev,true,observer,observer.ingress.zone,keyword,extended,,DMZ,Observer ingress zone
 1.5.0-dev,true,observer,observer.ip,ip,core,array,,IP addresses of the observer.
 1.5.0-dev,true,observer,observer.mac,keyword,core,array,,MAC addresses of the observer
 1.5.0-dev,true,observer,observer.name,keyword,extended,,1_proxySG,Custom name of the observer.
@@ -409,9 +434,11 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.5.0-dev,true,related,related.hash,keyword,extended,array,,All the hashes seen on your event.
 1.5.0-dev,true,related,related.ip,ip,extended,array,,All of the IPs seen on your event.
 1.5.0-dev,true,related,related.user,keyword,extended,array,,All the user names seen on your event.
+1.5.0-dev,true,rule,rule.author,keyword,extended,array,['Star-Lord'],Rule author
 1.5.0-dev,true,rule,rule.category,keyword,extended,,Attempted Information Leak,Rule category
 1.5.0-dev,true,rule,rule.description,keyword,extended,,Block requests to public DNS over HTTPS / TLS protocols,Rule description
 1.5.0-dev,true,rule,rule.id,keyword,extended,,101,Rule ID
+1.5.0-dev,true,rule,rule.license,keyword,extended,,Apache 2.0,Rule license
 1.5.0-dev,true,rule,rule.name,keyword,extended,,BLOCK_DNS_over_TLS,Rule name
 1.5.0-dev,true,rule,rule.reference,keyword,extended,,https://en.wikipedia.org/wiki/DNS_over_TLS,Rule reference URL
 1.5.0-dev,true,rule,rule.ruleset,keyword,extended,,Standard_Protocol_Filters,Rule ruleset
@@ -568,6 +595,8 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.5.0-dev,true,user_agent,user_agent.os.platform,keyword,extended,,darwin,"Operating system platform (such centos, ubuntu, windows)."
 1.5.0-dev,true,user_agent,user_agent.os.version,keyword,extended,,10.14.1,Operating system version as a raw string.
 1.5.0-dev,true,user_agent,user_agent.version,keyword,extended,,12.0,Version of the user agent.
+1.5.0-dev,true,vlan,vlan.id,keyword,extended,,10,VLAN ID as reported by the observer.
+1.5.0-dev,true,vlan,vlan.name,keyword,extended,,outside,Optional VLAN name as reported by the observer.
 1.5.0-dev,true,vulnerability,vulnerability.category,keyword,extended,array,"[""Firewall""]",Category of a vulnerability.
 1.5.0-dev,true,vulnerability,vulnerability.classification,keyword,extended,,CVSS,Classification of the vulnerability.
 1.5.0-dev,true,vulnerability,vulnerability.description,keyword,extended,,"In macOS before 2.12.6, there is a vulnerability in the RPC...",Description of the vulnerability.
