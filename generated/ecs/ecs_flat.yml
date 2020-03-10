@@ -6173,11 +6173,24 @@ search.query.id:
   order: 0
   short: An opaque query identifier.
   type: keyword
+search.query.page:
+  dashed_name: search-query-page
+  description: For search results that support pagination, this represents the current
+    page being requested. Initial search requests are `1` while subesequent page requests
+    are incremental.
+  example: 1
+  flat_name: search.query.page
+  level: extended
+  name: query.page
+  normalize: []
+  order: 2
+  short: The page of search results being requested.
+  type: long
 search.query.value:
   dashed_name: search-query-value
-  description: The query string being search on. This field is not analyzed and should
-    not be pre-processed in any way in the event (e.g. normalization list lowercasing).
-    This is useful for search use-cases that use a one-box style search interface.
+  description: The query string being searched on. This field is not analyzed and
+    should not be pre-processed in any way in the event (e.g. normalization list lowercasing).
+    This is useful for search use-cases that use a one- box style search interface.
     Other interfaces will have to rely on additional custom fields or labels to represent
     things like filters applied, extra parameters, user context, etc.
   example: where does the rain in Spain mainly fall
@@ -6203,7 +6216,7 @@ search.results.ids:
   name: results.ids
   normalize:
   - array
-  order: 4
+  order: 5
   short: A list of document IDs in the result set.
   type: keyword
 search.results.size:
@@ -6216,7 +6229,7 @@ search.results.size:
   level: extended
   name: results.size
   normalize: []
-  order: 2
+  order: 3
   short: The size of the result set displayed to the user.
   type: long
 search.results.total:
@@ -6228,7 +6241,7 @@ search.results.total:
   level: extended
   name: results.total
   normalize: []
-  order: 3
+  order: 4
   short: The total number of matches for this query.
   type: long
 server.address:

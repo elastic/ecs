@@ -20,10 +20,9 @@
 package ecs
 
 // The Search fields describe information about a search request event: query
-// or pagination. These fields should be used with the corresponding
-// `event.action` set with the corresponding event action: `['search.query',
-// 'search.page']`. Other fields that should be used with this field set
-// include: `event.duration` to describe the duration of a search request,
+// or pagination. The fields that should be used with this field set include:
+// `event.action` to describe the search action (`query`, `page`, etc.),
+// `event.duration` to describe the duration of a search request,
 // `event.created` to record the event's timestamp and optionally `source`
 // fields to record context information such as `user.id` or `geo`.
 type Search struct {
@@ -32,13 +31,18 @@ type Search struct {
 	// same query identifier.
 	QueryID string `ecs:"query.id"`
 
-	// The query string being search on. This field is not analyzed and should
-	// not be pre-processed in any way in the event (e.g. normalization list
-	// lowercasing). This is useful for search use-cases that use a one-box
-	// style search interface. Other interfaces will have to rely on additional
-	// custom fields or labels to represent things like filters applied, extra
-	// parameters, user context, etc.
+	// The query string being searched on. This field is not analyzed and
+	// should not be pre-processed in any way in the event (e.g. normalization
+	// list lowercasing). This is useful for search use-cases that use a one-
+	// box style search interface. Other interfaces will have to rely on
+	// additional custom fields or labels to represent things like filters
+	// applied, extra parameters, user context, etc.
 	QueryValue string `ecs:"query.value"`
+
+	// For search results that support pagination, this represents the current
+	// page being requested. Initial search requests are `1` while subesequent
+	// page requests are incremental.
+	QueryPage int64 `ecs:"query.page"`
 
 	// The size of the result set displayed to the user. This should be
 	// equivalent to the length of the results in `results.ids`. This is also

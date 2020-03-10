@@ -6673,9 +6673,8 @@ rule:
   type: group
 search:
   description: 'The Search fields describe information about a search request event:
-    query or pagination. These fields should be used with the corresponding `event.action`
-    set with the corresponding event action: `[''search.query'', ''search.page'']`.
-    Other fields that should be used with this field set include: `event.duration`
+    query or pagination. The fields that should be used with this field set include:
+    `event.action` to describe the search action (`query`, `page`, etc.), `event.duration`
     to describe the duration of a search request, `event.created` to record the event''s
     timestamp and optionally `source` fields to record context information such as
     `user.id` or `geo`.'
@@ -6694,12 +6693,25 @@ search:
       order: 0
       short: An opaque query identifier.
       type: keyword
+    query.page:
+      dashed_name: search-query-page
+      description: For search results that support pagination, this represents the
+        current page being requested. Initial search requests are `1` while subesequent
+        page requests are incremental.
+      example: 1
+      flat_name: search.query.page
+      level: extended
+      name: query.page
+      normalize: []
+      order: 2
+      short: The page of search results being requested.
+      type: long
     query.value:
       dashed_name: search-query-value
-      description: The query string being search on. This field is not analyzed and
-        should not be pre-processed in any way in the event (e.g. normalization list
-        lowercasing). This is useful for search use-cases that use a one-box style
-        search interface. Other interfaces will have to rely on additional custom
+      description: The query string being searched on. This field is not analyzed
+        and should not be pre-processed in any way in the event (e.g. normalization
+        list lowercasing). This is useful for search use-cases that use a one- box
+        style search interface. Other interfaces will have to rely on additional custom
         fields or labels to represent things like filters applied, extra parameters,
         user context, etc.
       example: where does the rain in Spain mainly fall
@@ -6726,7 +6738,7 @@ search:
       name: results.ids
       normalize:
       - array
-      order: 4
+      order: 5
       short: A list of document IDs in the result set.
       type: keyword
     results.size:
@@ -6739,7 +6751,7 @@ search:
       level: extended
       name: results.size
       normalize: []
-      order: 2
+      order: 3
       short: The size of the result set displayed to the user.
       type: long
     results.total:
@@ -6752,7 +6764,7 @@ search:
       level: extended
       name: results.total
       normalize: []
-      order: 3
+      order: 4
       short: The total number of matches for this query.
       type: long
   group: 2

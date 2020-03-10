@@ -4903,7 +4903,7 @@ example: `1.1`
 [[ecs-search]]
 === Search Fields
 
-The Search fields describe information about a search request event: query or pagination. These fields should be used with the corresponding `event.action` set with the corresponding event action: `['search.query', 'search.page']`. Other fields that should be used with this field set include: `event.duration` to describe the duration of a search request, `event.created` to record the event's timestamp and optionally `source` fields to record context information such as `user.id` or `geo`.
+The Search fields describe information about a search request event: query or pagination. The fields that should be used with this field set include: `event.action` to describe the search action (`query`, `page`, etc.), `event.duration` to describe the duration of a search request, `event.created` to record the event's timestamp and optionally `source` fields to record context information such as `user.id` or `geo`.
 
 ==== Search Field Details
 
@@ -4926,8 +4926,21 @@ example: `2dc15175-de0d-44db-86d8-8a99f41b7a11`
 
 // ===============================================================
 
+| search.query.page
+| For search results that support pagination, this represents the current page being requested. Initial search requests are `1` while subesequent page requests are incremental.
+
+type: long
+
+
+
+example: `1`
+
+| extended
+
+// ===============================================================
+
 | search.query.value
-| The query string being search on. This field is not analyzed and should not be pre-processed in any way in the event (e.g. normalization list lowercasing). This is useful for search use-cases that use a one-box style search interface. Other interfaces will have to rely on additional custom fields or labels to represent things like filters applied, extra parameters, user context, etc.
+| The query string being searched on. This field is not analyzed and should not be pre-processed in any way in the event (e.g. normalization list lowercasing). This is useful for search use-cases that use a one- box style search interface. Other interfaces will have to rely on additional custom fields or labels to represent things like filters applied, extra parameters, user context, etc.
 
 type: keyword
 
