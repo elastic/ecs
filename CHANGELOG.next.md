@@ -16,6 +16,8 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
+* Added `search.*` fields #729
+
 #### Improvements
 
 #### Deprecated
