@@ -21,10 +21,11 @@ package ecs
 
 // The Search fields describe information about a search request event: query
 // or pagination. The fields that should be used with this field set include:
-// `event.action` to describe the search action (`search.query`, `search.page`,
-// etc.), `event.duration` to describe the duration of a search request,
-// `event.created` to record the event's timestamp and optionally `source`
-// fields to record context information such as `user.id` or `geo`.
+// `event.action` to describe the search action (e.g. `search.query`,
+// `search.page`, etc.), `event.duration` to describe the duration of a search
+// request, `@timestamp` to record the event's original timestamp and
+// optionally the `source` fields to record context information such as
+// `user.id` or `geo`.
 type Search struct {
 	// An opaque query identifier. This identifier needs to be unique to a user
 	// query, and all subsequent events (pagination, clicks) need to have the
@@ -40,7 +41,7 @@ type Search struct {
 	QueryValue string `ecs:"query.value"`
 
 	// For search results that support pagination, this represents the current
-	// page being requested. Initial search requests are `1` while subesequent
+	// page being requested. Initial search requests are `1` while subsequent
 	// page requests are incremental.
 	QueryPage int64 `ecs:"query.page"`
 
