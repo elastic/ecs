@@ -27,6 +27,9 @@ Thanks, you're awesome :-) -->
 
 #### Bugfixes
 
+* Quoted the example for `labels` to avoid YAML interpreting it, and having
+  slightly different results in different situations. #782
+
 #### Added
 
 #### Improvements
