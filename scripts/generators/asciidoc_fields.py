@@ -122,13 +122,21 @@ def render_fieldset_reuse_section(fieldset, ecs_nested):
             fieldset_name=fieldset['name'],
             fieldset_title=fieldset['title']
         )
-
+        rows = []
         for nested_fs_name in sorted(fieldset['nestings']):
-            text += render_nesting_row({
-                'flat_nesting': "{}.{}.*".format(fieldset['name'], nested_fs_name),
-                'name': nested_fs_name,
-                'short': ecs_nested[nested_fs_name]['short']
-            })
+            ecs = ecs_nested[nested_fs_name]
+            if 'reusable' in ecs:
+                target_fields = filter(lambda x: x == fieldset['name'] or x.startswith(fieldset['name']+'.'), ecs['reusable']['expected'])
+            else:
+                target_fields = [fieldset['name']]
+            for field in sorted(target_fields):
+                rows.append({
+                    'flat_nesting': "{}.{}.*".format(field, nested_fs_name),
+                    'name': nested_fs_name,
+                    'short': ecs['short']
+                })
+        for row in sorted(rows, key=lambda x: x['flat_nesting']):
+            text += render_nesting_row(row)
         text += table_footer()
     return text
 
