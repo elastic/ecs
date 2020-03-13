@@ -123,13 +123,13 @@ def render_fieldset_reuse_section(fieldset, ecs_nested):
             fieldset_title=fieldset['title']
         )
         rows = []
-        for nested_fs_name in sorted(fieldset['nestings']):
+        for nested_fs_name in fieldset['nestings']:
             ecs = ecs_nested[nested_fs_name]
             if 'reusable' in ecs:
                 target_fields = filter(lambda x: x == fieldset['name'] or x.startswith(fieldset['name']+'.'), ecs['reusable']['expected'])
             else:
                 target_fields = [fieldset['name']]
-            for field in sorted(target_fields):
+            for field in target_fields:
                 rows.append({
                     'flat_nesting': "{}.{}.*".format(field, nested_fs_name),
                     'name': nested_fs_name,
