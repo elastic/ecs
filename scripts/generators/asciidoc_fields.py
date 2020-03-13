@@ -126,7 +126,8 @@ def render_fieldset_reuse_section(fieldset, ecs_nested):
         for nested_fs_name in fieldset['nestings']:
             ecs = ecs_nested[nested_fs_name]
             if 'reusable' in ecs:
-                target_fields = filter(lambda x: x == fieldset['name'] or x.startswith(fieldset['name']+'.'), ecs['reusable']['expected'])
+                target_fields = filter(lambda x: x == fieldset['name'] or x.startswith(
+                    fieldset['name'] + '.'), ecs['reusable']['expected'])
             else:
                 target_fields = [fieldset['name']]
             for field in target_fields:
