@@ -4,6 +4,44 @@
 All notable changes to this project will be documented in this file based on the [Keep a Changelog](http://keepachangelog.com/) Standard. This project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## [1.5.0](https://github.com/elastic/ecs/compare/v1.4.0...v1.5.0)
+
+### Schema Changes
+
+#### Added
+
+* Added `dll.*` fields #679
+* Added `related.hash` to keep track of all hashes seen on an event. #711
+* Added fieldset for PE metadata. #731
+* Added `code_signature` fieldset. #733
+* Added missing `hash` fields at `process.parent.hash.*`. #739
+* Added globally unique identifier `entity_id` to `process` and `process.parent`. #747
+* Added interface, vlan, observer zone fields #752
+* Added `rule.author`, `rule.license` fields #754
+* Added iam value for `event.category` and three related values for `event.type`. #756
+* Added fields `event.reference` and `event.url` to hold link to additional event info/actions. #757
+* Added `file.mime_type` to include MIME type information on file structures #760
+* Added `event.category` value of network and associated `event.type` values. #761
+
+#### Improvements
+
+* Temporary workaround for Beats templates' `default_field` growing too big. #687
+* Identify which fields should contain arrays of values, rather than scalar values. #727, #661
+* Clarified examples and definitions regarding vulnerabilities. #758
+* Updated definition of `event.outcome` based on community feedback. #759
+
+
+### Tooling and Artifact Changes
+
+#### Improvements
+
+* ECS scripts now use Python 3.6+. #674
+* schema\_reader.py now reliably supports chaining reusable fieldsets together. #722
+* Allow the artifact generator to consider and output only a subset of fields. #737
+* Add support for reusing fields in places other than the top level of the destination fieldset. #739
+* Add support for specifying the directory to write the generated files. #748
+
+
 ## [1.4.0](https://github.com/elastic/ecs/compare/v1.3.1...v1.4.0)
 
 ### Schema Changes
