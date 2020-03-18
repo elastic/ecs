@@ -3,10 +3,10 @@
 
 A common schema helps you correlate and use data from various sources.
 
-Fields for most Elastic modules and solutions (version 7.0 and later) are mapped
-to the Elastic Common Schema. You may want to map data from other
-implementations to ECS to help you correlate data across all of your products
-and solutions.
+Fields for most Elastic Beats modules and solutions (version 7.0 and later) are mapped
+to the Elastic Common Schema. If you use other methods to ingest your data into the
+Elastic Stack, you will need convert your events to ECS to help you correlate data
+across all of your products and solutions.
 
 Before you start a conversion, be sure that you understand the basics below.
 
@@ -19,28 +19,44 @@ as explained in the <<ecs-guidelines>>.
 
 [float]
 [[ecs-conv]]
-==== An approach to mapping an existing implementation
+==== Converting your data to ECS
 
 Here's the recommended approach for converting an existing implementation to {ecs}.
 
-. Review each field in your original event and map it to the relevant ECS field.
+ . Review each field in your original event and map it to the relevant ECS field.
 
-  - Start by mapping your field to the relevant ECS Core field.
+  - Start by mapping your fields to the relevant ECS Core fields.
   - If a relevant ECS Core field does not exist, map your field to the relevant ECS Extended field.
-  - If no relevant ECS Extended field exists, consider keeping your field with its original details,
-    or possibly renaming it using ECS naming guidelines and attempt to map one
-    or more of your original event fields to it.
+  - If no relevant ECS Extended field exists, consider keeping your field as a custom field.
 
-. Review each ECS Core field, and attempt to populate it.
+ . Review each ECS Core field, and attempt to populate it.
 
   - Review your original event data again
-  - Consider populating the field based on additional meta-data such as static
-    information (e.g. add `event.type:syslog` even if syslog events don't mention this fact),
-    or information gathered from the environment (e.g. host information).
+  - Consider populating fields based on additional meta-data such as static
+    information in the `event.module`, `event.dataset`, `observer.*` and/or `agent.*` fields.
 
-. Review other extended fields from any field set you are already using, and
-  attempt to populate it as well.
+ . Review other extended fields from any field set you are already using, and
+  attempt to populate them as well.
 
-. Set `ecs.version` to the version of the schema you are conforming to. This will
-  allow you to upgrade your sources, pipelines and content (like dashboards)
+ . Set `ecs.version` to the version of the schema you're using for this mapping.
+  This will allow you to upgrade your sources, pipelines and content (like dashboards)
   smoothly in the future.
+  
+==== Note for Elastic SIEM users
+
+The Elastic SIEM app queries, filters, aggregates, and/or displays a growing list of ECS fields.
+For an optimal experience with Elastic SIEM, and to reduce time spent on updating your
+ingestion pipelines in the future, please follow the <<ecs-conv>> instructions above, populating as many
+ECS fields as practical, paying particular attention to:
+
+  - Ensure that your network events populate ECS `source.*` and `destination.*` fields.  Network events
+    may not be displayed in the SIEM app network views if `source.ip` and `destination.ip` fields are not populated.
+  - If you have network protocol events, be sure to populate the `http.*`, `dns.*`, and `tls.*` field sets.
+  - Ensure that your host events populate ECS `host.*` fields. Host events will not be displayed
+    in the SIEM app host views if the `host.name` field is not populated. Recall that `host.name` should
+    be populated with the name of the host where the event happened, not the name of a collector or observer.
+  - If your host events contain details about process activity, ensure that your fields are mapped to
+    the corresponding ECS `process.*` fields.
+  - Be sure that for all your events, you populate the ECS categorization fields: `event.kind`, `event.category`,
+    `event.type`, and `event.outcome`. SIEM authentication and process widgets depend on these fields being populated.
+     Also, try to populate the ECS `event.action` field with relevant details for your event.
