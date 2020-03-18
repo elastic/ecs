@@ -33,7 +33,7 @@ Here's the recommended approach for converting an existing implementation to {ec
 
   - Review your original event data again
   - Consider populating fields based on additional meta-data such as static
-    information in the `event.module`, `event.dataset`, `observer.*`, and/or `event.*` fields.
+    information in the `event.module`, `event.dataset`, `observer`, and/or `event` fields.
 
  . Review other extended fields from any field set you are already using, and
   attempt to populate them as well.
@@ -49,14 +49,14 @@ For an optimal experience with Elastic SIEM, and to reduce time spent on updatin
 ingestion pipelines in the future, please follow the <<ecs-conv>> instructions above, populating as many
 ECS fields as practical, paying particular attention to:
 
-  - Ensure that your network events populate ECS `source.*`` and `destination.*`` fields.  Network events
+  - Ensure that your network events populate ECS `source` and `destination` fields.  Network events
     may not be displayed in the SIEM app network views if `source.ip` and `destination.ip` fields are not populated.
-  - If you have network protocol events, be sure to populate the `http.*``, `dns.*``, and `tls.*`` field sets.
-  - Ensure that your host events populate ECS `host.*`` fields. Host events will not be displayed
+  - If you have network protocol events, be sure to populate the `http`, `dns`, and `tls` field sets.
+  - Ensure that your host events populate ECS `host` fields. Host events will not be displayed
     in the SIEM app host views if the `host.name` field is not populated. Recall that `host.name` should
     be populated with the name of the host where the event happened, not the name of a collector or observer.
   - If your host events contain details about process activity, ensure that your fields are mapped to
-    the corresponding ECS `process.*`` fields.
+    the corresponding ECS `process` fields.
   - Be sure that for all your events, you populate the ECS categorization fields: `event.kind`, `event.category`,
     `event.type`, and `event.outcome`. SIEM authentication and process widgets depend on these fields being populated.
      Also, try to populate the ECS `event.action` field with relevant details for your event.
