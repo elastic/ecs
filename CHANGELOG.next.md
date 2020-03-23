@@ -16,7 +16,7 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
-* Added `search.*` fields #729
+* normalized dns fields across dns, client, destination, host, server, source #
 
 #### Improvements
 
@@ -28,9 +28,6 @@ Thanks, you're awesome :-) -->
 #### Breaking changes
 
 #### Bugfixes
-
-* Quoted the example for `labels` to avoid YAML interpreting it, and having
-  slightly different results in different situations. #782
 
 #### Added
 

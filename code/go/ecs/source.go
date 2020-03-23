@@ -42,7 +42,16 @@ type Source struct {
 	// Source domain.
 	Domain string `ecs:"domain"`
 
-	// The highest registered source domain, stripped of the subdomain.
+	// Name of the source system.
+	// It can contain what `hostname` returns on Unix systems, the fully
+	// qualified domain name, or a name specified by the user. The sender
+	// decides which value to use.
+	// In the case of fully or partially qualified domain names it is
+	// recommended to parse out  the additional fields of top_level_domain,
+	// registered_domain, subdomain, and hostname as they are available.
+	Name string `ecs:"name"`
+
+	// The highest registered domain, stripped of the subdomain.
 	// For example, the registered domain for "foo.google.com" is "google.com".
 	// This value can be determined precisely with a list like the public
 	// suffix list (http://publicsuffix.org). Trying to approximate this by
@@ -58,6 +67,19 @@ type Source struct {
 	// simply taking the last label will not work well for effective TLDs such
 	// as "co.uk".
 	TopLevelDomain string `ecs:"top_level_domain"`
+
+	// The subdomain is all of the labels under the registered_domain in a
+	// partially qualified domain name, and all of the labels except the
+	// hostname in a fully qualified domain name.
+	// If the domain has multiple levels of subdomain, such as
+	// "sub2.sub1.example.com", the subdomain field should contain "sub2.sub1",
+	// with no trailing period.
+	Subdomain string `ecs:"subdomain"`
+
+	// Hostname of the source system.
+	// It normally contains what the `hostname` command returns on the host
+	// machine, or the host portion of a fully qualified domain name.
+	Hostname string `ecs:"hostname"`
 
 	// Bytes sent from the source to the destination.
 	Bytes int64 `ecs:"bytes"`
