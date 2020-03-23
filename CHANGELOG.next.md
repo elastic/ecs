@@ -31,6 +31,8 @@ Thanks, you're awesome :-) -->
 
 * Quoted the example for `labels` to avoid YAML interpreting it, and having
   slightly different results in different situations. #782
+* Fix incorrect listing of where field sets are nested, when they are nested
+  deep. #784
 
 #### Added
 
