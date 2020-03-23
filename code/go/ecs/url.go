@@ -80,10 +80,13 @@ type Url struct {
 	// with no trailing period.
 	Subdomain string `ecs:"subdomain"`
 
-	// Hostname portion of the domain.
+	// Host portion of the domain.
 	// It normally contains what the `hostname` command returns on the host
 	// machine, or the host portion of a fully qualified domain name.
 	Hostname string `ecs:"hostname"`
+
+	// The country code portion of the domain.
+	CountryCode string `ecs:"country_code"`
 
 	// Port of the request, such as 443.
 	Port int64 `ecs:"port"`

@@ -75,7 +75,7 @@
         as escaped base 10 integers (\DDD). Back slashes and quotes should be escaped.
         Tabs, carriage returns, and line feeds should be converted to \t, \r, and
         \n respectively.
-      example: www.google.com
+      example: www.east.mydomain.co.uk
 
     - name: question.type
       level: extended
@@ -101,7 +101,7 @@
         This value can be determined precisely with a list like the public
         suffix list (http://publicsuffix.org). Trying to approximate this by
         simply taking the last two labels will not work well for TLDs such as "co.uk".
-      example: google.com
+      example: mydomain.co.uk
 
     - name: question.top_level_domain
       level: extended
@@ -122,11 +122,32 @@
       type: keyword
       short: The subdomain of the domain.
       description: >
-        The subdomain is all of the labels under the registered_domain.
-
+        The subdomain is all of the labels under the registered_domain in a partially qualified
+        domain name or the qualification level of the full name cannot be determined, and all 
+        of the labels except the hostname in a fully qualified domain name.
+        
         If the domain has multiple levels of subdomain, such as "sub2.sub1.example.com",
         the subdomain field should contain "sub2.sub1", with no trailing period.
+      example: east
+
+    - name: question.hostname
+      level: extended
+      type: keyword
+      short: The hostname portion of the domain.
+      description: >
+        The hostname is the host portion of a fully qualified domain name.
+
+        If the qualification level cannot be determined hostname need not be filled out.
       example: www
+
+    - name: question.country_code
+      level: extended
+      type: keyword
+      short: The country code portion of the domain.
+      description: >
+        The country code portion of the domain.
+
+      example: uk
 
     - name: answers
       level: extended

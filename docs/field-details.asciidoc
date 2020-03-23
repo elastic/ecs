@@ -276,6 +276,19 @@ example: `184`
 
 // ===============================================================
 
+| client.country_code
+| The country code portion of the domain.
+
+type: keyword
+
+
+
+example: `uk`
+
+| extended
+
+// ===============================================================
+
 | client.domain
 | Client domain.
 
@@ -833,6 +846,19 @@ example: `184`
 
 // ===============================================================
 
+| destination.country_code
+| The country code portion of the domain.
+
+type: keyword
+
+
+
+example: `uk`
+
+| extended
+
+// ===============================================================
+
 | destination.domain
 | Destination domain.
 
@@ -1295,6 +1321,34 @@ example: `IN`
 
 // ===============================================================
 
+| dns.question.country_code
+| The country code portion of the domain.
+
+type: keyword
+
+
+
+example: `uk`
+
+| extended
+
+// ===============================================================
+
+| dns.question.hostname
+| The hostname is the host portion of a fully qualified domain name.
+
+If the qualification level cannot be determined hostname need not be filled out.
+
+type: keyword
+
+
+
+example: `www`
+
+| extended
+
+// ===============================================================
+
 | dns.question.name
 | The name being queried.
 
@@ -1304,7 +1358,7 @@ type: keyword
 
 
 
-example: `www.google.com`
+example: `www.east.mydomain.co.uk`
 
 | extended
 
@@ -1321,14 +1375,14 @@ type: keyword
 
 
 
-example: `google.com`
+example: `mydomain.co.uk`
 
 | extended
 
 // ===============================================================
 
 | dns.question.subdomain
-| The subdomain is all of the labels under the registered_domain.
+| The subdomain is all of the labels under the registered_domain in a partially qualified domain name or the qualification level of the full name cannot be determined, and all  of the labels except the hostname in a fully qualified domain name.
 
 If the domain has multiple levels of subdomain, such as "sub2.sub1.example.com", the subdomain field should contain "sub2.sub1", with no trailing period.
 
@@ -1336,7 +1390,7 @@ type: keyword
 
 
 
-example: `www`
+example: `east`
 
 | extended
 
@@ -2615,6 +2669,19 @@ type: keyword
 example: `x86_64`
 
 | core
+
+// ===============================================================
+
+| host.country_code
+| The country code portion of the domain.
+
+type: keyword
+
+
+
+example: `uk`
+
+| extended
 
 // ===============================================================
 
@@ -5182,6 +5249,19 @@ example: `184`
 
 // ===============================================================
 
+| server.country_code
+| The country code portion of the domain.
+
+type: keyword
+
+
+
+example: `uk`
+
+| extended
+
+// ===============================================================
+
 | server.domain
 | Server domain.
 
@@ -5563,6 +5643,19 @@ type: long
 example: `184`
 
 | core
+
+// ===============================================================
+
+| source.country_code
+| The country code portion of the domain.
+
+type: keyword
+
+
+
+example: `uk`
+
+| extended
 
 // ===============================================================
 
@@ -6370,6 +6463,19 @@ URL fields provide support for complete or partial URLs, and supports the breaki
 
 // ===============================================================
 
+| url.country_code
+| The country code portion of the domain.
+
+type: keyword
+
+
+
+example: `uk`
+
+| extended
+
+// ===============================================================
+
 | url.domain
 | Domain of the url, such as "www.elastic.co".
 
@@ -6439,7 +6545,7 @@ example: `https://www.elastic.co:443/search?q=elasticsearch#top`
 // ===============================================================
 
 | url.hostname
-| Hostname portion of the domain.
+| Host portion of the domain.
 
 It normally contains what the `hostname` command returns on the host machine, or the host portion of a fully qualified domain name.
 

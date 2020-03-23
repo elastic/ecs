@@ -92,6 +92,9 @@ type Server struct {
 	// machine, or the host portion of a fully qualified domain name.
 	Hostname string `ecs:"hostname"`
 
+	// The country code portion of the domain.
+	CountryCode string `ecs:"country_code"`
+
 	// Bytes sent from the server to the client.
 	Bytes int64 `ecs:"bytes"`
 

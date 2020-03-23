@@ -16,6 +16,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.6.0-dev,true,client,client.as.organization.name,keyword,extended,,Google LLC,Organization name.
 1.6.0-dev,true,client,client.as.organization.name.text,text,extended,,Google LLC,Organization name.
 1.6.0-dev,true,client,client.bytes,long,core,,184,Bytes sent from the client to the server.
+1.6.0-dev,true,client,client.country_code,keyword,extended,,uk,The country code portion of the domain.
 1.6.0-dev,true,client,client.domain,keyword,core,,,Client domain.
 1.6.0-dev,true,client,client.geo.city_name,keyword,core,,Montreal,City name.
 1.6.0-dev,true,client,client.geo.continent_name,keyword,core,,North America,Name of the continent.
@@ -70,6 +71,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.6.0-dev,true,destination,destination.as.organization.name,keyword,extended,,Google LLC,Organization name.
 1.6.0-dev,true,destination,destination.as.organization.name.text,text,extended,,Google LLC,Organization name.
 1.6.0-dev,true,destination,destination.bytes,long,core,,184,Bytes sent from the destination to the source.
+1.6.0-dev,true,destination,destination.country_code,keyword,extended,,uk,The country code portion of the domain.
 1.6.0-dev,true,destination,destination.domain,keyword,core,,,Destination domain.
 1.6.0-dev,true,destination,destination.geo.city_name,keyword,core,,Montreal,City name.
 1.6.0-dev,true,destination,destination.geo.continent_name,keyword,core,,North America,Name of the continent.
@@ -127,9 +129,11 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.6.0-dev,true,dns,dns.id,keyword,extended,,62111,The DNS packet identifier assigned by the program that generated the query. The identifier is copied to the response.
 1.6.0-dev,true,dns,dns.op_code,keyword,extended,,QUERY,The DNS operation code that specifies the kind of query in the message. This value is set by the originator of a query and copied into the response.
 1.6.0-dev,true,dns,dns.question.class,keyword,extended,,IN,The class of records being queried.
-1.6.0-dev,true,dns,dns.question.name,keyword,extended,,www.google.com,The name being queried.
-1.6.0-dev,true,dns,dns.question.registered_domain,keyword,extended,,google.com,"The highest registered domain, stripped of the subdomain."
-1.6.0-dev,true,dns,dns.question.subdomain,keyword,extended,,www,The subdomain of the domain.
+1.6.0-dev,true,dns,dns.question.country_code,keyword,extended,,uk,The country code portion of the domain.
+1.6.0-dev,true,dns,dns.question.hostname,keyword,extended,,www,The hostname portion of the domain.
+1.6.0-dev,true,dns,dns.question.name,keyword,extended,,www.east.mydomain.co.uk,The name being queried.
+1.6.0-dev,true,dns,dns.question.registered_domain,keyword,extended,,mydomain.co.uk,"The highest registered domain, stripped of the subdomain."
+1.6.0-dev,true,dns,dns.question.subdomain,keyword,extended,,east,The subdomain of the domain.
 1.6.0-dev,true,dns,dns.question.top_level_domain,keyword,extended,,co.uk,"The effective top level domain (com, org, net, co.uk)."
 1.6.0-dev,true,dns,dns.question.type,keyword,extended,,AAAA,The type of record being queried.
 1.6.0-dev,true,dns,dns.resolved_ip,ip,extended,array,"['10.10.10.10', '10.10.10.11']",Array containing all IPs seen in answers.data
@@ -219,6 +223,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.6.0-dev,true,hash,hash.sha256,keyword,extended,,,SHA256 hash.
 1.6.0-dev,true,hash,hash.sha512,keyword,extended,,,SHA512 hash.
 1.6.0-dev,true,host,host.architecture,keyword,core,,x86_64,Operating system architecture.
+1.6.0-dev,true,host,host.country_code,keyword,extended,,uk,The country code portion of the domain.
 1.6.0-dev,true,host,host.domain,keyword,extended,,CONTOSO,Name of the directory the group is a member of.
 1.6.0-dev,true,host,host.geo.city_name,keyword,core,,Montreal,City name.
 1.6.0-dev,true,host,host.geo.continent_name,keyword,core,,North America,Name of the continent.
@@ -464,6 +469,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.6.0-dev,true,server,server.as.organization.name,keyword,extended,,Google LLC,Organization name.
 1.6.0-dev,true,server,server.as.organization.name.text,text,extended,,Google LLC,Organization name.
 1.6.0-dev,true,server,server.bytes,long,core,,184,Bytes sent from the server to the client.
+1.6.0-dev,true,server,server.country_code,keyword,extended,,uk,The country code portion of the domain.
 1.6.0-dev,true,server,server.domain,keyword,core,,,Server domain.
 1.6.0-dev,true,server,server.geo.city_name,keyword,core,,Montreal,City name.
 1.6.0-dev,true,server,server.geo.continent_name,keyword,core,,North America,Name of the continent.
@@ -507,6 +513,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.6.0-dev,true,source,source.as.organization.name,keyword,extended,,Google LLC,Organization name.
 1.6.0-dev,true,source,source.as.organization.name.text,text,extended,,Google LLC,Organization name.
 1.6.0-dev,true,source,source.bytes,long,core,,184,Bytes sent from the source to the destination.
+1.6.0-dev,true,source,source.country_code,keyword,extended,,uk,The country code portion of the domain.
 1.6.0-dev,true,source,source.domain,keyword,core,,,Source domain.
 1.6.0-dev,true,source,source.geo.city_name,keyword,core,,Montreal,City name.
 1.6.0-dev,true,source,source.geo.continent_name,keyword,core,,North America,Name of the continent.
@@ -577,6 +584,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.6.0-dev,true,tls,tls.version_protocol,keyword,extended,,tls,Normalized lowercase protocol name parsed from original string.
 1.6.0-dev,true,trace,trace.id,keyword,extended,,4bf92f3577b34da6a3ce929d0e0e4736,Unique identifier of the trace.
 1.6.0-dev,true,transaction,transaction.id,keyword,extended,,00f067aa0ba902b7,Unique identifier of the transaction.
+1.6.0-dev,true,url,url.country_code,keyword,extended,,uk,The country code portion of the domain.
 1.6.0-dev,true,url,url.domain,keyword,extended,,www.east.mydomain.co.uk,Domain of the url.
 1.6.0-dev,true,url,url.extension,keyword,extended,,png,File extension from the original request url.
 1.6.0-dev,true,url,url.fragment,keyword,extended,,,Portion of the url after the `#`.

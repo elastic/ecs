@@ -89,4 +89,7 @@ type Host struct {
 	// "sub2.sub1.example.com", the subdomain field should contain "sub2.sub1",
 	// with no trailing period.
 	Subdomain string `ecs:"subdomain"`
+
+	// The country code portion of the domain.
+	CountryCode string `ecs:"country_code"`
 }

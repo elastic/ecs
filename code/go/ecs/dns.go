@@ -81,11 +81,22 @@ type Dns struct {
 	// as "co.uk".
 	QuestionTopLevelDomain string `ecs:"question.top_level_domain"`
 
-	// The subdomain is all of the labels under the registered_domain.
+	// The subdomain is all of the labels under the registered_domain in a
+	// partially qualified domain name or the qualification level of the full
+	// name cannot be determined, and all  of the labels except the hostname in
+	// a fully qualified domain name.
 	// If the domain has multiple levels of subdomain, such as
 	// "sub2.sub1.example.com", the subdomain field should contain "sub2.sub1",
 	// with no trailing period.
 	QuestionSubdomain string `ecs:"question.subdomain"`
+
+	// The hostname is the host portion of a fully qualified domain name.
+	// If the qualification level cannot be determined hostname need not be
+	// filled out.
+	QuestionHostname string `ecs:"question.hostname"`
+
+	// The country code portion of the domain.
+	QuestionCountryCode string `ecs:"question.country_code"`
 
 	// An array containing an object for each answer section returned by the
 	// server.

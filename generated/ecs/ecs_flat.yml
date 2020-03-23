@@ -181,9 +181,21 @@ client.bytes:
   level: core
   name: bytes
   normalize: []
-  order: 10
+  order: 11
   short: Bytes sent from the client to the server.
   type: long
+client.country_code:
+  dashed_name: client-country-code
+  description: The country code portion of the domain.
+  example: uk
+  flat_name: client.country_code
+  ignore_above: 1024
+  level: extended
+  name: country_code
+  normalize: []
+  order: 10
+  short: The country code portion of the domain.
+  type: keyword
 client.domain:
   dashed_name: client-domain
   description: Client domain.
@@ -371,7 +383,7 @@ client.nat.ip:
   level: extended
   name: nat.ip
   normalize: []
-  order: 12
+  order: 13
   short: Client NAT ip address
   type: ip
 client.nat.port:
@@ -385,7 +397,7 @@ client.nat.port:
   level: extended
   name: nat.port
   normalize: []
-  order: 13
+  order: 14
   short: Client NAT port
   type: long
 client.packets:
@@ -396,7 +408,7 @@ client.packets:
   level: core
   name: packets
   normalize: []
-  order: 11
+  order: 12
   short: Packets sent from the client to the server.
   type: long
 client.port:
@@ -876,9 +888,21 @@ destination.bytes:
   level: core
   name: bytes
   normalize: []
-  order: 10
+  order: 11
   short: Bytes sent from the destination to the source.
   type: long
+destination.country_code:
+  dashed_name: destination-country-code
+  description: The country code portion of the domain.
+  example: uk
+  flat_name: destination.country_code
+  ignore_above: 1024
+  level: extended
+  name: country_code
+  normalize: []
+  order: 10
+  short: The country code portion of the domain.
+  type: keyword
 destination.domain:
   dashed_name: destination-domain
   description: Destination domain.
@@ -1066,7 +1090,7 @@ destination.nat.ip:
   level: extended
   name: nat.ip
   normalize: []
-  order: 12
+  order: 13
   short: Destination NAT ip
   type: ip
 destination.nat.port:
@@ -1079,7 +1103,7 @@ destination.nat.port:
   level: extended
   name: nat.port
   normalize: []
-  order: 13
+  order: 14
   short: Destination NAT Port
   type: long
 destination.packets:
@@ -1090,7 +1114,7 @@ destination.packets:
   level: core
   name: packets
   normalize: []
-  order: 11
+  order: 12
   short: Packets sent from the destination to the source.
   type: long
 destination.port:
@@ -1513,7 +1537,7 @@ dns.answers:
   normalize:
   - array
   object_type: keyword
-  order: 11
+  order: 13
   short: Array of DNS answers.
   type: object
 dns.answers.class:
@@ -1525,7 +1549,7 @@ dns.answers.class:
   level: extended
   name: answers.class
   normalize: []
-  order: 14
+  order: 16
   short: The class of DNS data contained in this resource record.
   type: keyword
 dns.answers.data:
@@ -1539,7 +1563,7 @@ dns.answers.data:
   level: extended
   name: answers.data
   normalize: []
-  order: 16
+  order: 18
   short: The data describing the resource.
   type: keyword
 dns.answers.name:
@@ -1555,7 +1579,7 @@ dns.answers.name:
   level: extended
   name: answers.name
   normalize: []
-  order: 12
+  order: 14
   short: The domain name to which this resource record pertains.
   type: keyword
 dns.answers.ttl:
@@ -1567,7 +1591,7 @@ dns.answers.ttl:
   level: extended
   name: answers.ttl
   normalize: []
-  order: 15
+  order: 17
   short: The time interval in seconds that this resource record may be cached before
     it should be discarded. Zero values mean that the data should not be cached.
   type: long
@@ -1580,7 +1604,7 @@ dns.answers.type:
   level: extended
   name: answers.type
   normalize: []
-  order: 13
+  order: 15
   short: The type of data contained in this resource record.
   type: keyword
 dns.header_flags:
@@ -1640,6 +1664,32 @@ dns.question.class:
   order: 7
   short: The class of records being queried.
   type: keyword
+dns.question.country_code:
+  dashed_name: dns-question-country-code
+  description: The country code portion of the domain.
+  example: uk
+  flat_name: dns.question.country_code
+  ignore_above: 1024
+  level: extended
+  name: question.country_code
+  normalize: []
+  order: 12
+  short: The country code portion of the domain.
+  type: keyword
+dns.question.hostname:
+  dashed_name: dns-question-hostname
+  description: 'The hostname is the host portion of a fully qualified domain name.
+
+    If the qualification level cannot be determined hostname need not be filled out.'
+  example: www
+  flat_name: dns.question.hostname
+  ignore_above: 1024
+  level: extended
+  name: question.hostname
+  normalize: []
+  order: 11
+  short: The hostname portion of the domain.
+  type: keyword
 dns.question.name:
   dashed_name: dns-question-name
   description: 'The name being queried.
@@ -1648,7 +1698,7 @@ dns.question.name:
     characters should be represented as escaped base 10 integers (\DDD). Back slashes
     and quotes should be escaped. Tabs, carriage returns, and line feeds should be
     converted to \t, \r, and \n respectively.'
-  example: www.google.com
+  example: www.east.mydomain.co.uk
   flat_name: dns.question.name
   ignore_above: 1024
   level: extended
@@ -1666,7 +1716,7 @@ dns.question.registered_domain:
     This value can be determined precisely with a list like the public suffix list
     (http://publicsuffix.org). Trying to approximate this by simply taking the last
     two labels will not work well for TLDs such as "co.uk".'
-  example: google.com
+  example: mydomain.co.uk
   flat_name: dns.question.registered_domain
   ignore_above: 1024
   level: extended
@@ -1677,11 +1727,14 @@ dns.question.registered_domain:
   type: keyword
 dns.question.subdomain:
   dashed_name: dns-question-subdomain
-  description: 'The subdomain is all of the labels under the registered_domain.
+  description: 'The subdomain is all of the labels under the registered_domain in
+    a partially qualified domain name or the qualification level of the full name
+    cannot be determined, and all  of the labels except the hostname in a fully qualified
+    domain name.
 
     If the domain has multiple levels of subdomain, such as "sub2.sub1.example.com",
     the subdomain field should contain "sub2.sub1", with no trailing period.'
-  example: www
+  example: east
   flat_name: dns.question.subdomain
   ignore_above: 1024
   level: extended
@@ -1736,7 +1789,7 @@ dns.resolved_ip:
   name: resolved_ip
   normalize:
   - array
-  order: 17
+  order: 19
   short: Array containing all IPs seen in answers.data
   type: ip
 dns.response_code:
@@ -3317,6 +3370,18 @@ host.architecture:
   normalize: []
   order: 7
   short: Operating system architecture.
+  type: keyword
+host.country_code:
+  dashed_name: host-country-code
+  description: The country code portion of the domain.
+  example: uk
+  flat_name: host.country_code
+  ignore_above: 1024
+  level: extended
+  name: country_code
+  normalize: []
+  order: 12
+  short: The country code portion of the domain.
   type: keyword
 host.domain:
   dashed_name: host-domain
@@ -6452,9 +6517,21 @@ server.bytes:
   level: core
   name: bytes
   normalize: []
-  order: 10
+  order: 11
   short: Bytes sent from the server to the client.
   type: long
+server.country_code:
+  dashed_name: server-country-code
+  description: The country code portion of the domain.
+  example: uk
+  flat_name: server.country_code
+  ignore_above: 1024
+  level: extended
+  name: country_code
+  normalize: []
+  order: 10
+  short: The country code portion of the domain.
+  type: keyword
 server.domain:
   dashed_name: server-domain
   description: Server domain.
@@ -6642,7 +6719,7 @@ server.nat.ip:
   level: extended
   name: nat.ip
   normalize: []
-  order: 12
+  order: 13
   short: Server NAT ip
   type: ip
 server.nat.port:
@@ -6656,7 +6733,7 @@ server.nat.port:
   level: extended
   name: nat.port
   normalize: []
-  order: 13
+  order: 14
   short: Server NAT port
   type: long
 server.packets:
@@ -6667,7 +6744,7 @@ server.packets:
   level: core
   name: packets
   normalize: []
-  order: 11
+  order: 12
   short: Packets sent from the server to the client.
   type: long
 server.port:
@@ -7038,9 +7115,21 @@ source.bytes:
   level: core
   name: bytes
   normalize: []
-  order: 10
+  order: 11
   short: Bytes sent from the source to the destination.
   type: long
+source.country_code:
+  dashed_name: source-country-code
+  description: The country code portion of the domain.
+  example: uk
+  flat_name: source.country_code
+  ignore_above: 1024
+  level: extended
+  name: country_code
+  normalize: []
+  order: 10
+  short: The country code portion of the domain.
+  type: keyword
 source.domain:
   dashed_name: source-domain
   description: Source domain.
@@ -7228,7 +7317,7 @@ source.nat.ip:
   level: extended
   name: nat.ip
   normalize: []
-  order: 12
+  order: 13
   short: Source NAT ip
   type: ip
 source.nat.port:
@@ -7242,7 +7331,7 @@ source.nat.port:
   level: extended
   name: nat.port
   normalize: []
-  order: 13
+  order: 14
   short: Source NAT port
   type: long
 source.packets:
@@ -7253,7 +7342,7 @@ source.packets:
   level: core
   name: packets
   normalize: []
-  order: 11
+  order: 12
   short: Packets sent from the source to the destination.
   type: long
 source.port:
@@ -8010,6 +8099,18 @@ transaction.id:
   order: 1
   short: Unique identifier of the transaction.
   type: keyword
+url.country_code:
+  dashed_name: url-country-code
+  description: The country code portion of the domain.
+  example: uk
+  flat_name: url.country_code
+  ignore_above: 1024
+  level: extended
+  name: country_code
+  normalize: []
+  order: 9
+  short: The country code portion of the domain.
+  type: keyword
 url.domain:
   dashed_name: url-domain
   description: "Domain of the url, such as \"www.elastic.co\".\nIn some cases a URL\
@@ -8039,7 +8140,7 @@ url.extension:
   level: extended
   name: extension
   normalize: []
-  order: 12
+  order: 13
   short: File extension from the original request url.
   type: keyword
 url.fragment:
@@ -8052,7 +8153,7 @@ url.fragment:
   level: extended
   name: fragment
   normalize: []
-  order: 13
+  order: 14
   short: Portion of the url after the `#`.
   type: keyword
 url.full:
@@ -8075,7 +8176,7 @@ url.full:
   type: keyword
 url.hostname:
   dashed_name: url-hostname
-  description: 'Hostname portion of the domain.
+  description: 'Host portion of the domain.
 
     It normally contains what the `hostname` command returns on the host machine,
     or the host portion of a fully qualified domain name.'
@@ -8137,7 +8238,7 @@ url.password:
   level: extended
   name: password
   normalize: []
-  order: 15
+  order: 16
   short: Password of the request.
   type: keyword
 url.path:
@@ -8148,7 +8249,7 @@ url.path:
   level: extended
   name: path
   normalize: []
-  order: 10
+  order: 11
   short: Path of the request, such as "/search".
   type: keyword
 url.port:
@@ -8160,7 +8261,7 @@ url.port:
   level: extended
   name: port
   normalize: []
-  order: 9
+  order: 10
   short: Port of the request, such as 443.
   type: long
 url.query:
@@ -8177,7 +8278,7 @@ url.query:
   level: extended
   name: query
   normalize: []
-  order: 11
+  order: 12
   short: Query string of the request.
   type: keyword
 url.registered_domain:
@@ -8255,7 +8356,7 @@ url.username:
   level: extended
   name: username
   normalize: []
-  order: 14
+  order: 15
   short: Username of the request.
   type: keyword
 user.domain:
