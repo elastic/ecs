@@ -42,7 +42,7 @@ type: object
 
 
 
-example: `{'application': 'foo-bar', 'env': 'production'}`
+example: `{"application": "foo-bar", "env": "production"}`
 
 | core
 
@@ -550,6 +550,101 @@ example: `us-east-1`
 
 |=====
 
+[[ecs-code_signature]]
+=== Code Signature Fields
+
+These fields contain information about binary code signatures.
+
+==== Code Signature Field Details
+
+[options="header"]
+|=====
+| Field  | Description | Level
+
+// ===============================================================
+
+| code_signature.exists
+| Boolean to capture if a signature is present.
+
+type: boolean
+
+
+
+example: `true`
+
+| core
+
+// ===============================================================
+
+| code_signature.status
+| Additional information about the certificate status.
+
+This is useful for logging cryptographic errors with the certificate validity or trust status. Leave unpopulated if the validity or trust of the certificate was unchecked.
+
+type: keyword
+
+
+
+example: `ERROR_UNTRUSTED_ROOT`
+
+| extended
+
+// ===============================================================
+
+| code_signature.subject_name
+| Subject name of the code signer
+
+type: keyword
+
+
+
+example: `Microsoft Corporation`
+
+| core
+
+// ===============================================================
+
+| code_signature.trusted
+| Stores the trust status of the certificate chain.
+
+Validating the trust of the certificate chain may be complicated, and this field should only be populated by tools that actively check the status.
+
+type: boolean
+
+
+
+example: `true`
+
+| extended
+
+// ===============================================================
+
+| code_signature.valid
+| Boolean to capture if the digital signature is verified against the binary content.
+
+Leave unpopulated if a certificate was unchecked.
+
+type: boolean
+
+
+
+example: `true`
+
+| extended
+
+// ===============================================================
+
+|=====
+
+==== Field Reuse
+
+The `code_signature` fields are expected to be nested at: `dll.code_signature`, `file.code_signature`, `process.code_signature`, `process.parent.code_signature`.
+
+Note also that the `code_signature` fields are not expected to be used directly at the top level.
+
+
+
+
 [[ecs-container]]
 === Container Fields
 
@@ -921,6 +1016,12 @@ example: `C:\Windows\System32\kernel32.dll`
 [options="header"]
 |=====
 | Nested fields | Description
+
+// ===============================================================
+
+
+| <<ecs-code_signature,dll.code_signature.*>>
+| These fields contain information about binary code signatures.
 
 // ===============================================================
 
@@ -1348,7 +1449,7 @@ example: `java.lang.NullPointerException`
 
 The event fields are used for context information about the log or metric event itself.
 
-A log is defined as an event containing details of something that happened. Log events must include the time at which the thing happened. Examples of log events include a process starting on a host, a network packet being sent from a source to a destination, or a network connection between a client and a server being initiated or closed. A metric is defined as an event containing one or more numerical or categorical measurements and the time at which the measurement was taken. Examples of metric events include memory pressure measured on a host, or vulnerabilities measured on a scanned host.
+A log is defined as an event containing details of something that happened. Log events must include the time at which the thing happened. Examples of log events include a process starting on a host, a network packet being sent from a source to a destination, or a network connection between a client and a server being initiated or closed. A metric is defined as an event containing one or more numerical measurements and the time at which the measurement was taken. Examples of metric events include memory pressure measured on a host and device temperature. See the `event.kind` definition in this section for additional details about metric and state events.
 
 ==== Event Field Details
 
@@ -1390,7 +1491,7 @@ Note: this field should contain an array of values.
 
 *Important*: The field value must be one of the following:
 
-authentication, database, driver, file, host, intrusion_detection, malware, package, process, web
+authentication, database, driver, file, host, iam, intrusion_detection, malware, network, package, process, web
 
 To learn more about when to use which value, visit the page
 <<ecs-allowed-values-event-category,allowed values for event.category>>
@@ -1579,7 +1680,13 @@ example: `Sep 19 08:26:10 host CEF:0&#124;Security&#124; threatmanager&#124;1.0&
 | event.outcome
 | This is one of four ECS Categorization Fields, and indicates the lowest level in the ECS category hierarchy.
 
-`event.outcome` simply denotes whether the event represent a success or a failure. Note that not all events will have an associated outcome. For example, this field is generally not populated for metric events or events with `event.type:info`.
+`event.outcome` simply denotes whether the event represents a success or a failure from the perspective of the entity that produced the event.
+
+Note that when a single transaction is described in multiple events, each event may populate different values of `event.outcome`, according to their perspective.
+
+Also note that in the case of a compound event (a single event that contains multiple logical events), this field should be populated with the value that best captures the overall success or failure from the perspective of the event producer.
+
+Further note that not all events will have an associated outcome. For example, this field is generally not populated for metric events, events with `event.type:info`, or any events for which an outcome does not make logical sense.
 
 type: keyword
 
@@ -1608,6 +1715,21 @@ type: keyword
 
 
 example: `kernel`
+
+| extended
+
+// ===============================================================
+
+| event.reference
+| Reference URL linking to additional information about this event.
+
+This URL links to a static definition of the this event. Alert events, indicated by `event.kind:alert`, are a common use case for this field.
+
+type: keyword
+
+
+
+example: `https://system.vendor.com/event/#0001234`
 
 | extended
 
@@ -1718,13 +1840,28 @@ Note: this field should contain an array of values.
 
 *Important*: The field value must be one of the following:
 
-access, change, creation, deletion, end, error, info, installation, start
+access, admin, allowed, change, connection, creation, deletion, denied, end, error, group, info, installation, protocol, start, user
 
 To learn more about when to use which value, visit the page
 <<ecs-allowed-values-event-type,allowed values for event.type>>
 
 
 | core
+
+// ===============================================================
+
+| event.url
+| URL linking to an external system to continue investigation of this event.
+
+This URL links to another system where in-depth investigation of the specific occurence of this event can take place. Alert events, indicated by `event.kind:alert`, are a common use case for this field.
+
+type: keyword
+
+
+
+example: `https://mysystem.mydomain.com/alert/5271dedb-f5b0-4218-87f0-4ac4870a38fe`
+
+| extended
 
 // ===============================================================
 
@@ -1901,6 +2038,19 @@ example: `256383`
 
 // ===============================================================
 
+| file.mime_type
+| MIME type should identify the format of the file or stream of bytes using https://www.iana.org/assignments/media-types/media-types.xhtml[IANA official types], where possible. When more than one type is applicable, the most specific type should be used.
+
+type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
 | file.mode
 | Mode of the file in octal representation.
 
@@ -2045,6 +2195,12 @@ example: `1001`
 [options="header"]
 |=====
 | Nested fields | Description
+
+// ===============================================================
+
+
+| <<ecs-code_signature,file.code_signature.*>>
+| These fields contain information about binary code signatures.
 
 // ===============================================================
 
@@ -2686,6 +2842,69 @@ example: `1.1`
 
 |=====
 
+[[ecs-interface]]
+=== Interface Fields
+
+The interface fields are used to record ingress and egress interface information when reported by an observer (e.g. firewall, router, load balancer) in the context of the observer handling a network connection.  In the case of a single observer interface (e.g. network sensor on a span port) only the observer.ingress information should be populated.
+
+==== Interface Field Details
+
+[options="header"]
+|=====
+| Field  | Description | Level
+
+// ===============================================================
+
+| interface.alias
+| Interface alias as reported by the system, typically used in firewall implementations for e.g. inside, outside, or dmz logical interface naming.
+
+type: keyword
+
+
+
+example: `outside`
+
+| extended
+
+// ===============================================================
+
+| interface.id
+| Interface ID as reported by an observer (typically SNMP interface ID).
+
+type: keyword
+
+
+
+example: `10`
+
+| extended
+
+// ===============================================================
+
+| interface.name
+| Interface name as reported by the system.
+
+type: keyword
+
+
+
+example: `eth0`
+
+| extended
+
+// ===============================================================
+
+|=====
+
+==== Field Reuse
+
+The `interface` fields are expected to be nested at: `observer.egress.interface`, `observer.ingress.interface`.
+
+Note also that the `interface` fields are not expected to be used directly at the top level.
+
+
+
+
 [[ecs-log]]
 === Log Fields
 
@@ -2994,6 +3213,19 @@ example: `6`
 
 // ===============================================================
 
+| network.inner
+| Network.inner fields are added in addition to network.vlan fields to describe  the innermost VLAN when q-in-q VLAN tagging is present. Allowed fields include  vlan.id and vlan.name. Inner vlan fields are typically used when sending traffic with multiple 802.1q encapsulations to a network sensor (e.g. Zeek, Wireshark.)
+
+type: object
+
+
+
+
+
+| extended
+
+// ===============================================================
+
 | network.name
 | Name given by operators to sections of their network.
 
@@ -3069,6 +3301,35 @@ example: `ipv4`
 
 |=====
 
+==== Field Reuse
+
+
+
+
+[[ecs-network-nestings]]
+===== Field sets that can be nested under Network
+
+[options="header"]
+|=====
+| Nested fields | Description
+
+// ===============================================================
+
+
+| <<ecs-vlan,network.inner.vlan.*>>
+| Fields to describe observed VLAN information.
+
+// ===============================================================
+
+
+| <<ecs-vlan,network.vlan.*>>
+| Fields to describe observed VLAN information.
+
+// ===============================================================
+
+
+|=====
+
 [[ecs-observer]]
 === Observer Fields
 
@@ -3084,6 +3345,32 @@ This could be a custom hardware appliance or a server that has been configured t
 
 // ===============================================================
 
+| observer.egress
+| Observer.egress holds information like interface number and name, vlan, and zone information to  classify egress traffic.  Single armed monitoring such as a network sensor on a span port should  only use observer.ingress to categorize traffic.
+
+type: object
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+| observer.egress.zone
+| Network zone of outbound traffic as reported by the observer to categorize the destination area of egress  traffic, e.g. Internal, External, DMZ, HR, Legal, etc.
+
+type: keyword
+
+
+
+example: `Public_Internet`
+
+| extended
+
+// ===============================================================
+
 | observer.hostname
 | Hostname of the observer.
 
@@ -3094,6 +3381,32 @@ type: keyword
 
 
 | core
+
+// ===============================================================
+
+| observer.ingress
+| Observer.ingress holds information like interface number and name, vlan, and zone information to  classify ingress traffic.  Single armed monitoring such as a network sensor on a span port should  only use observer.ingress to categorize traffic.
+
+type: object
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+| observer.ingress.zone
+| Network zone of incoming traffic as reported by the observer to categorize the source area of ingress  traffic. e.g. internal, External, DMZ, HR, Legal, etc.
+
+type: keyword
+
+
+
+example: `DMZ`
+
+| extended
 
 // ===============================================================
 
@@ -3230,8 +3543,32 @@ type: keyword
 // ===============================================================
 
 
+| <<ecs-interface,observer.egress.interface.*>>
+| Fields to describe observer interface information.
+
+// ===============================================================
+
+
+| <<ecs-vlan,observer.egress.vlan.*>>
+| Fields to describe observed VLAN information.
+
+// ===============================================================
+
+
 | <<ecs-geo,observer.geo.*>>
 | Fields describing a location.
+
+// ===============================================================
+
+
+| <<ecs-interface,observer.ingress.interface.*>>
+| Fields to describe observer interface information.
+
+// ===============================================================
+
+
+| <<ecs-vlan,observer.ingress.vlan.*>>
+| Fields to describe observed VLAN information.
 
 // ===============================================================
 
@@ -3755,6 +4092,23 @@ example: `/usr/bin/ssh -l user 10.0.0.16`
 
 // ===============================================================
 
+| process.entity_id
+| Unique identifier for the process.
+
+The implementation of this is specified by the data source, but some examples of what could be used here are a process-generated UUID, Sysmon Process GUIDs, or a hash of some uniquely identifying components of a process.
+
+Constructing a globally unique identifier is a common practice to mitigate PID reuse as well as to identify a specific process over time, across multiple monitored hosts.
+
+type: keyword
+
+
+
+example: `c2c455d9f99375d`
+
+| extended
+
+// ===============================================================
+
 | process.executable
 | Absolute path to the process executable.
 
@@ -3859,6 +4213,23 @@ Multi-fields:
 
 
 example: `/usr/bin/ssh -l user 10.0.0.16`
+
+| extended
+
+// ===============================================================
+
+| process.parent.entity_id
+| Unique identifier for the process.
+
+The implementation of this is specified by the data source, but some examples of what could be used here are a process-generated UUID, Sysmon Process GUIDs, or a hash of some uniquely identifying components of a process.
+
+Constructing a globally unique identifier is a common practice to mitigate PID reuse as well as to identify a specific process over time, across multiple monitored hosts.
+
+type: keyword
+
+
+
+example: `c2c455d9f99375d`
 
 | extended
 
@@ -4198,7 +4569,25 @@ example: `/home/alice`
 // ===============================================================
 
 
+| <<ecs-code_signature,process.code_signature.*>>
+| These fields contain information about binary code signatures.
+
+// ===============================================================
+
+
 | <<ecs-hash,process.hash.*>>
+| Hashes, usually file hashes.
+
+// ===============================================================
+
+
+| <<ecs-code_signature,process.parent.code_signature.*>>
+| These fields contain information about binary code signatures.
+
+// ===============================================================
+
+
+| <<ecs-hash,process.parent.hash.*>>
 | Hashes, usually file hashes.
 
 // ===============================================================
@@ -4404,6 +4793,22 @@ Examples of data sources that would populate the rule fields include: network ad
 
 // ===============================================================
 
+| rule.author
+| Name, organization, or pseudonym of the author or authors who created the rule used to generate this event.
+
+type: keyword
+
+
+Note: this field should contain an array of values.
+
+
+
+example: `['Star-Lord']`
+
+| extended
+
+// ===============================================================
+
 | rule.category
 | A categorization value keyword used by the entity using the rule for detection of this event.
 
@@ -4438,6 +4843,19 @@ type: keyword
 
 
 example: `101`
+
+| extended
+
+// ===============================================================
+
+| rule.license
+| Name of the license under which the rule used to generate this event is made available.
+
+type: keyword
+
+
+
+example: `Apache 2.0`
 
 | extended
 
@@ -4505,6 +4923,102 @@ type: keyword
 
 
 example: `1.1`
+
+| extended
+
+// ===============================================================
+
+|=====
+
+[[ecs-search]]
+=== Search Fields
+
+The Search fields describe information about a search request event: query or pagination. The fields that should be used with this field set include: `event.action` to describe the search action (e.g. `search.query`, `search.page`, etc.), `event.duration` to describe the duration of a search request, `@timestamp` to record the event's original timestamp and optionally the `source` fields to record context information such as `user.id` or `geo`.
+
+==== Search Field Details
+
+[options="header"]
+|=====
+| Field  | Description | Level
+
+// ===============================================================
+
+| search.query.id
+| An opaque query identifier. This identifier needs to be unique to a user query, and all subsequent events (pagination, clicks) need to have the same query identifier.
+
+type: keyword
+
+
+
+example: `2dc15175-de0d-44db-86d8-8a99f41b7a11`
+
+| extended
+
+// ===============================================================
+
+| search.query.page
+| For search results that support pagination, this represents the current page being requested. Initial search requests are `1` while subsequent page requests are incremental.
+
+type: long
+
+
+
+example: `1`
+
+| extended
+
+// ===============================================================
+
+| search.query.value
+| The query string being searched on. This field is not analyzed and should not be pre-processed in any way in the event (e.g. normalization list lowercasing). This is useful for search use-cases that use a one- box style search interface. Other interfaces will have to rely on additional custom fields or labels to represent things like filters applied, extra parameters, user context, etc.
+
+type: keyword
+
+
+
+example: `where does the rain in Spain mainly fall`
+
+| extended
+
+// ===============================================================
+
+| search.results.ids
+| A list of opaque document IDs representing the results that were shown to the user. This is effectively the impression list and it's size should be equal to `results.size`. This field can be empty when there are no results to return.
+
+type: keyword
+
+
+Note: this field should contain an array of values.
+
+
+
+example: `['user:82375akja9f', 'issue:2782630']`
+
+| extended
+
+// ===============================================================
+
+| search.results.size
+| The size of the result set displayed to the user. This should be equivalent to the length of the results in `results.ids`. This is also known as the page size or limit.
+
+type: long
+
+
+
+example: `10`
+
+| extended
+
+// ===============================================================
+
+| search.results.total
+| The total number of matches for this query. This number is always greater than or equal to `results.size`. This is the `hits.total` field in the query response.
+
+type: long
+
+
+
+example: `134509`
 
 | extended
 
@@ -6091,6 +6605,62 @@ example: `12.0`
 
 
 |=====
+
+[[ecs-vlan]]
+=== VLAN Fields
+
+The VLAN fields are used to identify 802.1q tag(s) of a packet, as well as ingress and egress VLAN associations of an observer in relation to a specific packet or connection.
+
+Network.vlan fields are used to record a single VLAN tag, or the outer tag in the case of q-in-q encapsulations, for a packet or connection as observed, typically provided by a network sensor (e.g. Zeek, Wireshark) passively reporting on traffic.
+
+Network.inner VLAN fields are used to report inner q-in-q 802.1q tags (multiple 802.1q encapsulations) as observed, typically provided by a network sensor  (e.g. Zeek, Wireshark) passively reporting on traffic. Network.inner VLAN fields should only be used in addition to network.vlan fields to indicate q-in-q tagging.
+
+Observer.ingress and observer.egress VLAN values are used to record observer specific information when observer events contain discrete ingress and egress VLAN information, typically provided by firewalls, routers, or load balancers.
+
+==== VLAN Field Details
+
+[options="header"]
+|=====
+| Field  | Description | Level
+
+// ===============================================================
+
+| vlan.id
+| VLAN ID as reported by the observer.
+
+type: keyword
+
+
+
+example: `10`
+
+| extended
+
+// ===============================================================
+
+| vlan.name
+| Optional VLAN name as reported by the observer.
+
+type: keyword
+
+
+
+example: `outside`
+
+| extended
+
+// ===============================================================
+
+|=====
+
+==== Field Reuse
+
+The `vlan` fields are expected to be nested at: `network.vlan`, `network.inner.vlan`, `observer.egress.vlan`, `observer.ingress.vlan`.
+
+Note also that the `vlan` fields are not expected to be used directly at the top level.
+
+
+
 
 [[ecs-vulnerability]]
 === Vulnerability Fields
