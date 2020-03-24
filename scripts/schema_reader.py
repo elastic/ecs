@@ -85,7 +85,7 @@ def schema_set_fieldset_prefix(schema):
 
 def schema_fields_as_dictionary(schema):
     """Re-nest the array of field names as a dictionary of 'fieldname' => { field definition }"""
-    field_array = schema.pop('fields')
+    field_array = schema.pop('fields', [])
     schema['fields'] = {}
     for order, field in enumerate(field_array):
         field['order'] = order
