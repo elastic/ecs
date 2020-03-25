@@ -22,6 +22,8 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
+* Clarified misleading wording about multiple IPs in src/dst or cli/srv. #804
+
 #### Deprecated
 
 
