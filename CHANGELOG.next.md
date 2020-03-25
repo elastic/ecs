@@ -14,6 +14,8 @@ Thanks, you're awesome :-) -->
 
 #### Bugfixes
 
+* Field `registry.data.strings` should have been marked as an array field. #790
+
 #### Added
 
 * Added `search.*` fields #729
