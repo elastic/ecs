@@ -6200,22 +6200,51 @@ search.query.value:
   order: 1
   short: The query string being searched on.
   type: keyword
-search.results.ids:
-  dashed_name: search-results-ids
-  description: A list of opaque document IDs representing the results that were shown
-    to the user. This is effectively the impression list and it's size should be equal
-    to `results.size`. This field can be empty when there are no results to return.
+search.results.document:
+  dashed_name: search-results-document
+  description: A list of documents representing the results that were shown to the
+    user. This is effectively the impression list and it's size should be equal to
+    `results.size`. This field can be empty when there are no results to return.
+  flat_name: search.results.document
+  level: extended
+  name: results.document
+  normalize:
+  - array
+  object_type: keyword
+  order: 5
+  short: A list of documents in the result set.
+  type: object
+search.results.document.id:
+  dashed_name: search-results-document-id
+  description: An opaque document ID representing the result that was shown to the
+    user. This ID should be unique within the index it was retrieved from. The combination
+    of document ID and index should be globally unique.
   example:
   - user:82375akja9f
   - issue:2782630
-  flat_name: search.results.ids
+  flat_name: search.results.document.id
   ignore_above: 1024
   level: extended
-  name: results.ids
-  normalize:
-  - array
-  order: 5
-  short: A list of document IDs in the result set.
+  name: results.document.id
+  normalize: []
+  order: 6
+  short: The ID of the retrieved document.
+  type: keyword
+search.results.document.index:
+  dashed_name: search-results-document-index
+  description: The name of the index that the result document was retrieved from.
+    This can be considered as optional if all search results are always retrieved
+    from same index. The combination of document ID and index should be globally unique.
+  example:
+  - users
+  - issues-032020
+  flat_name: search.results.document.index
+  ignore_above: 1024
+  level: extended
+  name: results.document.index
+  normalize: []
+  order: 7
+  short: The index the document was retrieved from.
   type: keyword
 search.results.size:
   dashed_name: search-results-size

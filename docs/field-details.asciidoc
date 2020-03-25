@@ -4982,17 +4982,43 @@ example: `where does the rain in Spain mainly fall`
 
 // ===============================================================
 
-| search.results.ids
-| A list of opaque document IDs representing the results that were shown to the user. This is effectively the impression list and it's size should be equal to `results.size`. This field can be empty when there are no results to return.
+| search.results.document
+| A list of documents representing the results that were shown to the user. This is effectively the impression list and it's size should be equal to `results.size`. This field can be empty when there are no results to return.
 
-type: keyword
+type: object
 
 
 Note: this field should contain an array of values.
 
 
 
+
+
+| extended
+
+// ===============================================================
+
+| search.results.document.id
+| An opaque document ID representing the result that was shown to the user. This ID should be unique within the index it was retrieved from. The combination of document ID and index should be globally unique.
+
+type: keyword
+
+
+
 example: `['user:82375akja9f', 'issue:2782630']`
+
+| extended
+
+// ===============================================================
+
+| search.results.document.index
+| The name of the index that the result document was retrieved from. This can be considered as optional if all search results are always retrieved from same index. The combination of document ID and index should be globally unique.
+
+type: keyword
+
+
+
+example: `['users', 'issues-032020']`
 
 | extended
 

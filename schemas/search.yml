@@ -68,15 +68,35 @@
         in the query response.
       example: 134509
 
-    - name: results.ids
+    - name: results.document
       level: extended
-      type: keyword
+      type: object
       normalize:
         - array
-      short: A list of document IDs in the result set.
+      short: A list of documents in the result set.
       description: >
-        A list of opaque document IDs representing the results that were shown
-        to the user. This is effectively the impression list and it's size
-        should be equal to `results.size`. This field can be empty when there
-        are no results to return.
+        A list of documents representing the results that were shown to the
+        user. This is effectively the impression list and it's size should be
+        equal to `results.size`. This field can be empty when there are no
+        results to return.
+
+    - name: results.document.id
+      level: extended
+      type: keyword
+      short: The ID of the retrieved document.
+      description: >
+        An opaque document ID representing the result that was shown to the
+        user. This ID should be unique within the index it was retrieved from.
+        The combination of document ID and index should be globally unique.
       example: ["user:82375akja9f", "issue:2782630"]
+
+    - name: results.document.index
+      level: extended
+      type: keyword
+      short: The index the document was retrieved from.
+      description: >
+        The name of the index that the result document was retrieved from. This
+        can be considered as optional if all search results are always
+        retrieved from same index. The combination of document ID and index
+        should be globally unique.
+      example: ["users", "issues-032020"]

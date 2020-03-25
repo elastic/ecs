@@ -55,9 +55,20 @@ type Search struct {
 	// in the query response.
 	ResultsTotal int64 `ecs:"results.total"`
 
-	// A list of opaque document IDs representing the results that were shown
-	// to the user. This is effectively the impression list and it's size
-	// should be equal to `results.size`. This field can be empty when there
-	// are no results to return.
-	ResultsIds string `ecs:"results.ids"`
+	// A list of documents representing the results that were shown to the
+	// user. This is effectively the impression list and it's size should be
+	// equal to `results.size`. This field can be empty when there are no
+	// results to return.
+	ResultsDocument map[string]interface{} `ecs:"results.document"`
+
+	// An opaque document ID representing the result that was shown to the
+	// user. This ID should be unique within the index it was retrieved from.
+	// The combination of document ID and index should be globally unique.
+	ResultsDocumentID string `ecs:"results.document.id"`
+
+	// The name of the index that the result document was retrieved from. This
+	// can be considered as optional if all search results are always retrieved
+	// from same index. The combination of document ID and index should be
+	// globally unique.
+	ResultsDocumentIndex string `ecs:"results.document.index"`
 }
