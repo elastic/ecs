@@ -231,5 +231,6 @@ class TestECSHelpers(unittest.TestCase):
         actual = ecs_helpers.get_nested_field(nested_field_name, fields)
         self.assertEqual(actual, expected)
 
+
 if __name__ == '__main__':
     unittest.main()

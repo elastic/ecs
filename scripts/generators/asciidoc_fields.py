@@ -73,7 +73,6 @@ def render_fields(fields):
     return text
 
 
-
 def render_asciidoc_paragraphs(string):
     '''Simply double the \n'''
     return string.replace("\n", "\n\n")
@@ -316,7 +315,8 @@ def page_field_values(intermediate_nested):
     section_text = values_section_header()
     category_fields = ['event.kind', 'event.category', 'event.type', 'event.outcome']
     for cat_field in category_fields:
-        section_text += render_field_values_page(ecs_helpers.get_nested_field(cat_field, intermediate_nested)['field_details'])
+        section_text += render_field_values_page(ecs_helpers.get_nested_field(cat_field,
+                                                                              intermediate_nested)['field_details'])
     return section_text
 
 
