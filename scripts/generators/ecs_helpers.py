@@ -133,3 +133,11 @@ def list_split_by(lst, size):
     for i in range(0, len(lst), size):
         acc.append(lst[i:i + size])
     return acc
+
+
+def get_nested_field(fieldname, field_dict):
+    fields = fieldname.split('.')
+    nested_field = field_dict[fields[0]]
+    for field in fields[1:]:
+        nested_field = nested_field['fields'][field]
+    return nested_field

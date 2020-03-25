@@ -120,43 +120,6 @@ class TestSchemaReader(unittest.TestCase):
         }
         self.assertEqual(flat_fields, expected)
 
-    def test_flatten_fields_reusable(self):
-        fields = {
-            'top_level': {
-                'field_details': {
-                    'name': 'top_level'
-                },
-                'fields': {
-                    'nested_field': {
-                        'reusable': {
-                            'top_level': False,
-                            'expected': [
-                                'top_level'
-                            ]
-                        },
-                        'fields': {
-                            'double_nested_field': {
-                                'field_details': {
-                                    'name': 'double_nested_field'
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        flat_fields = schema_reader.flatten_fields(fields, "")
-        expected = {
-            'top_level': {
-                'name': 'top_level'
-            },
-            'top_level.nested_field.double_nested_field': {
-                'name': 'double_nested_field',
-                'original_fieldset': 'nested_field'
-            }
-        }
-        self.assertEqual(flat_fields, expected)
-
     def test_cleanup_fields_recursive(self):
         """Reuse a fieldset under two other fieldsets and check that the flat names are properly generated."""
         reusable = {
@@ -215,6 +178,7 @@ class TestSchemaReader(unittest.TestCase):
                                     'ignore_above': 1024,
                                     'short': 'A test field',
                                     'normalize': [],
+                                    'original_fieldset': 'reusable_fieldset'
                                 }
                             }
                         }
@@ -243,7 +207,7 @@ class TestSchemaReader(unittest.TestCase):
                                     'ignore_above': 1024,
                                     'short': 'A test field',
                                     'normalize': [],
-
+                                    'original_fieldset': 'reusable_fieldset'
                                 }
                             }
                         }
