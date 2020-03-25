@@ -36,6 +36,8 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
+* Add full path names to reused fieldsets in `nestings` array in ecs_nested.yml. #803
+
 #### Deprecated
 
 
