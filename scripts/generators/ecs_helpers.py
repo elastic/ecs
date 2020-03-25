@@ -67,7 +67,7 @@ def recursive_merge_subset_dicts(a, b):
     for key in b:
         if key not in a:
             a[key] = b[key]
-        elif 'fields' not in b[key] or b[key]['fields'] == '*':
+        elif 'fields' not in a[key] or 'fields' not in b[key] or b[key]['fields'] == '*':
             a[key]['fields'] = '*'
         elif isinstance(a[key]['fields'], dict) and isinstance(b[key]['fields'], dict):
             recursive_merge_subset_dicts(a[key]['fields'], b[key]['fields'])
