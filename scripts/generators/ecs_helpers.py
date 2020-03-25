@@ -63,15 +63,6 @@ def fields_subset(subset, fields):
     return retained_fields
 
 
-def get_reusable_fields(fields):
-    reusable_fields = {}
-    for key in fields:
-        if 'reusable' in fields[key]:
-            reusable_fields[key] = True
-        if 'fields' in fields[key]:
-            reusable_fields.update(get_reusable_fields(fields[key]['fields']))
-    return reusable_fields
-
 def recursive_merge_subset_dicts(a, b):
     for key in b:
         if key not in a:
@@ -80,7 +71,6 @@ def recursive_merge_subset_dicts(a, b):
             a[key]['fields'] = '*'
         elif isinstance(a[key]['fields'], dict) and isinstance(b[key]['fields'], dict):
             recursive_merge_subset_dicts(a[key]['fields'], b[key]['fields'])
-
 
 
 def yaml_ordereddict(dumper, data):
