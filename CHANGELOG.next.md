@@ -20,6 +20,9 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
+* Remove misleading pluralization in the description of `user.id`, it should
+  contain one ID, not many. #801
+
 #### Deprecated
 
 
