@@ -36,6 +36,8 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
+* Allow shorthand notation for including all subfields in subsets. #805
+
 #### Deprecated
 
 
