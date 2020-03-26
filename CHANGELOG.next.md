@@ -27,6 +27,9 @@ Thanks, you're awesome :-) -->
 
 #### Bugfixes
 
+* Fix incorrect listing of where field sets are nested in asciidoc,
+  when they are nested deep. #784
+
 #### Added
 
 #### Improvements
