@@ -2918,6 +2918,21 @@ The details specific to your event source are typically not logged under `log.*`
 
 // ===============================================================
 
+| log.file.path
+| Full path to the log file this event came from, including the file name. It should include the drive letter, when appropriate.
+
+If the event wasn't read from a log file, do not populate this field.
+
+type: keyword
+
+
+
+example: `/var/log/fun-times.log`
+
+| extended
+
+// ===============================================================
+
 | log.level
 | Original log level of the log event.
 
@@ -2962,7 +2977,9 @@ example: `42`
 // ===============================================================
 
 | log.origin.file.name
-| The name of the file containing the source code which originated the log event. Note that this is not the name of the log file.
+| The name of the file containing the source code which originated the log event.
+
+Note that this field is not meant to capture the log file. The correct field to capture the log file is `log.file.path`.
 
 type: keyword
 
@@ -6443,7 +6460,7 @@ type: keyword
 // ===============================================================
 
 | user.id
-| Unique identifiers of the user.
+| Unique identifier of the user.
 
 type: keyword
 

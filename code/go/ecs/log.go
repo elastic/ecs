@@ -34,6 +34,11 @@ type Log struct {
 	// Some examples are `warn`, `err`, `i`, `informational`.
 	Level string `ecs:"level"`
 
+	// Full path to the log file this event came from, including the file name.
+	// It should include the drive letter, when appropriate.
+	// If the event wasn't read from a log file, do not populate this field.
+	FilePath string `ecs:"file.path"`
+
 	// This is the original log message and contains the full log message
 	// before splitting it up in multiple parts.
 	// In contrast to the `message` field which can contain an extracted part
@@ -49,7 +54,9 @@ type Log struct {
 	Logger string `ecs:"logger"`
 
 	// The name of the file containing the source code which originated the log
-	// event. Note that this is not the name of the log file.
+	// event.
+	// Note that this field is not meant to capture the log file. The correct
+	// field to capture the log file is `log.file.path`.
 	OriginFileName string `ecs:"origin.file.name"`
 
 	// The line number of the file containing the source code which originated
