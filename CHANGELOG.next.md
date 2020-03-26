@@ -10,6 +10,8 @@ Thanks, you're awesome :-) -->
 
 ### Schema Changes
 
+* Added `log.file.path` to capture the log file an event came from. #802
+
 #### Breaking changes
 
 #### Bugfixes
