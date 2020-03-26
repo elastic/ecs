@@ -29,8 +29,7 @@ type Destination struct {
 	// one it is.
 	Address string `ecs:"address"`
 
-	// IP address of the destination.
-	// Can be one or multiple IPv4 or IPv6 addresses.
+	// IP address of the destination (IPv4 or IPv6).
 	IP string `ecs:"ip"`
 
 	// Port of the destination.
