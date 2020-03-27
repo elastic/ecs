@@ -431,6 +431,44 @@ class TestSchemaReader(unittest.TestCase):
         with self.assertRaises(ValueError):
             schema_reader.duplicate_reusable_fieldsets(fieldset['reusable_fieldset2'], fieldset)
 
+    def test_find_nestings(self):
+        field = {
+            'sub_field': {
+                'reusable': {
+                    'top_level': True,
+                    'expected': [
+                        'some_other_field'
+                    ]
+                },
+                'fields': {
+                    'reusable_fieldset1': {
+                        'name': 'reusable_fieldset1',
+                        'reusable': {
+                            'top_level': False,
+                            'expected': [
+                                'sub_field'
+                            ]
+                        },
+                        'fields': {
+                            'nested_reusable_field': {
+                                'reusable': {
+                                    'top_level': False,
+                                    'expected': 'sub_field.nested_reusable_field'
+                                },
+                                'field_details': {
+                                    'name': 'reusable_field',
+                                    'type': 'keyword',
+                                    'description': 'A test field'
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        expected = ['sub_field.reusable_fieldset1', 'sub_field.reusable_fieldset1.nested_reusable_field']
+        self.assertEqual(schema_reader.find_nestings(field['sub_field']['fields'], 'sub_field.'), expected)
+
 
 if __name__ == '__main__':
     unittest.main()

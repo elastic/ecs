@@ -160,9 +160,6 @@ def duplicate_reusable_fieldsets(schema, fields_nested):
             top_level = split_flat_name[0]
             # List field set names expected under another field set.
             # E.g. host.nestings = [ 'geo', 'os', 'user' ]
-            nestings = fields_nested[top_level].setdefault('nestings', [])
-            nestings.append(new_nesting + "." + schema['name'])
-            nestings.sort()
             nested_schema = fields_nested[top_level]['fields']
             for level in split_flat_name[1:]:
                 nested_schema = nested_schema.get(level, None)
@@ -173,6 +170,16 @@ def duplicate_reusable_fieldsets(schema, fields_nested):
                         'Reusable fields cannot be put inside other reusable fields except when the destination reusable is at the top level')
                 nested_schema = nested_schema.setdefault('fields', {})
             nested_schema[schema['name']] = schema
+
+
+def find_nestings(fields_nested, prefix):
+    nestings = []
+    for field_name, field in fields_nested.items():
+        if 'reusable' in field:
+            nestings.append(prefix + field_name)
+        if 'fields' in field:
+            nestings.extend(find_nestings(field['fields'], prefix + field_name + '.'))
+    return nestings
 
 # Main
 
@@ -256,6 +263,11 @@ def load_schemas(files=ecs_files()):
 def generate_nested_flat(fields_intermediate):
     assemble_reusables(fields_intermediate)
     cleanup_fields_recursive(fields_intermediate, "")
+    for field_name, field in fields_intermediate.items():
+        nestings = find_nestings(field['fields'], field_name + ".")
+        nestings.sort()
+        if len(nestings) > 0:
+            field['nestings'] = nestings
     fields_nested = generate_partially_flattened_fields(fields_intermediate)
     fields_flat = generate_fully_flattened_fields(fields_intermediate)
     return (fields_nested, fields_flat)
