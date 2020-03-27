@@ -418,9 +418,7 @@ client:
       type: keyword
     ip:
       dashed_name: client-ip
-      description: 'IP address of the client.
-
-        Can be one or multiple IPv4 or IPv6 addresses.'
+      description: IP address of the client (IPv4 or IPv6).
       flat_name: client.ip
       level: core
       name: ip
@@ -624,7 +622,7 @@ client:
       type: keyword
     user.id:
       dashed_name: client-user-id
-      description: Unique identifiers of the user.
+      description: Unique identifier of the user.
       flat_name: client.user.id
       ignore_above: 1024
       level: core
@@ -632,7 +630,7 @@ client:
       normalize: []
       order: 0
       original_fieldset: user
-      short: Unique identifiers of the user.
+      short: Unique identifier of the user.
       type: keyword
     user.name:
       dashed_name: client-user-name
@@ -1116,9 +1114,7 @@ destination:
       type: keyword
     ip:
       dashed_name: destination-ip
-      description: 'IP address of the destination.
-
-        Can be one or multiple IPv4 or IPv6 addresses.'
+      description: IP address of the destination (IPv4 or IPv6).
       flat_name: destination.ip
       level: core
       name: ip
@@ -1321,7 +1317,7 @@ destination:
       type: keyword
     user.id:
       dashed_name: destination-user-id
-      description: Unique identifiers of the user.
+      description: Unique identifier of the user.
       flat_name: destination.user.id
       ignore_above: 1024
       level: core
@@ -1329,7 +1325,7 @@ destination:
       normalize: []
       order: 0
       original_fieldset: user
-      short: Unique identifiers of the user.
+      short: Unique identifier of the user.
       type: keyword
     user.name:
       dashed_name: destination-user-name
@@ -3965,7 +3961,7 @@ host:
       type: keyword
     user.id:
       dashed_name: host-user-id
-      description: Unique identifiers of the user.
+      description: Unique identifier of the user.
       flat_name: host.user.id
       ignore_above: 1024
       level: core
@@ -3973,7 +3969,7 @@ host:
       normalize: []
       order: 0
       original_fieldset: user
-      short: Unique identifiers of the user.
+      short: Unique identifier of the user.
       type: keyword
     user.name:
       dashed_name: host-user-name
@@ -4213,6 +4209,21 @@ log:
     The details specific to your event source are typically not logged under `log.*`,
     but rather in `event.*` or in other ECS fields.'
   fields:
+    file.path:
+      dashed_name: log-file-path
+      description: 'Full path to the log file this event came from, including the
+        file name. It should include the drive letter, when appropriate.
+
+        If the event wasn''t read from a log file, do not populate this field.'
+      example: /var/log/fun-times.log
+      flat_name: log.file.path
+      ignore_above: 1024
+      level: extended
+      name: file.path
+      normalize: []
+      order: 1
+      short: Full path to the log file this event came from.
+      type: keyword
     level:
       dashed_name: log-level
       description: 'Original log level of the log event.
@@ -4241,7 +4252,7 @@ log:
       level: core
       name: logger
       normalize: []
-      order: 2
+      order: 3
       short: Name of the logger.
       type: keyword
     origin.file.line:
@@ -4253,21 +4264,24 @@ log:
       level: extended
       name: origin.file.line
       normalize: []
-      order: 4
+      order: 5
       short: The line number of the file which originated the log event.
       type: integer
     origin.file.name:
       dashed_name: log-origin-file-name
-      description: The name of the file containing the source code which originated
-        the log event. Note that this is not the name of the log file.
+      description: 'The name of the file containing the source code which originated
+        the log event.
+
+        Note that this field is not meant to capture the log file. The correct field
+        to capture the log file is `log.file.path`.'
       example: Bootstrap.java
       flat_name: log.origin.file.name
       ignore_above: 1024
       level: extended
       name: origin.file.name
       normalize: []
-      order: 3
-      short: The file which originated the log event.
+      order: 4
+      short: The code file which originated the log event.
       type: keyword
     origin.function:
       dashed_name: log-origin-function
@@ -4278,7 +4292,7 @@ log:
       level: extended
       name: origin.function
       normalize: []
-      order: 5
+      order: 6
       short: The function which originated the log event.
       type: keyword
     original:
@@ -4301,7 +4315,7 @@ log:
       level: core
       name: original
       normalize: []
-      order: 1
+      order: 2
       short: Original log message with light interpretation only (encoding, newlines).
       type: keyword
     syslog:
@@ -4313,7 +4327,7 @@ log:
       name: syslog
       normalize: []
       object_type: keyword
-      order: 6
+      order: 7
       short: Syslog metadata
       type: object
     syslog.facility.code:
@@ -4328,7 +4342,7 @@ log:
       level: extended
       name: syslog.facility.code
       normalize: []
-      order: 9
+      order: 10
       short: Syslog numeric facility of the event.
       type: long
     syslog.facility.name:
@@ -4340,7 +4354,7 @@ log:
       level: extended
       name: syslog.facility.name
       normalize: []
-      order: 10
+      order: 11
       short: Syslog text-based facility of the event.
       type: keyword
     syslog.priority:
@@ -4355,7 +4369,7 @@ log:
       level: extended
       name: syslog.priority
       normalize: []
-      order: 11
+      order: 12
       short: Syslog priority of the event.
       type: long
     syslog.severity.code:
@@ -4371,7 +4385,7 @@ log:
       level: extended
       name: syslog.severity.code
       normalize: []
-      order: 7
+      order: 8
       short: Syslog numeric severity of the event.
       type: long
     syslog.severity.name:
@@ -4388,7 +4402,7 @@ log:
       level: extended
       name: syslog.severity.name
       normalize: []
-      order: 8
+      order: 9
       short: Syslog text-based severity of the event.
       type: keyword
   group: 2
@@ -6402,7 +6416,8 @@ registry:
       ignore_above: 1024
       level: core
       name: data.strings
-      normalize: []
+      normalize:
+      - array
       order: 5
       short: List of strings representing what was written to the registry.
       type: keyword
@@ -6978,9 +6993,7 @@ server:
       type: keyword
     ip:
       dashed_name: server-ip
-      description: 'IP address of the server.
-
-        Can be one or multiple IPv4 or IPv6 addresses.'
+      description: IP address of the server (IPv4 or IPv6).
       flat_name: server.ip
       level: core
       name: ip
@@ -7184,7 +7197,7 @@ server:
       type: keyword
     user.id:
       dashed_name: server-user-id
-      description: Unique identifiers of the user.
+      description: Unique identifier of the user.
       flat_name: server.user.id
       ignore_above: 1024
       level: core
@@ -7192,7 +7205,7 @@ server:
       normalize: []
       order: 0
       original_fieldset: user
-      short: Unique identifiers of the user.
+      short: Unique identifier of the user.
       type: keyword
     user.name:
       dashed_name: server-user-name
@@ -7542,9 +7555,7 @@ source:
       type: keyword
     ip:
       dashed_name: source-ip
-      description: 'IP address of the source.
-
-        Can be one or multiple IPv4 or IPv6 addresses.'
+      description: IP address of the source (IPv4 or IPv6).
       flat_name: source.ip
       level: core
       name: ip
@@ -7748,7 +7759,7 @@ source:
       type: keyword
     user.id:
       dashed_name: source-user-id
-      description: Unique identifiers of the user.
+      description: Unique identifier of the user.
       flat_name: source.user.id
       ignore_above: 1024
       level: core
@@ -7756,7 +7767,7 @@ source:
       normalize: []
       order: 0
       original_fieldset: user
-      short: Unique identifiers of the user.
+      short: Unique identifier of the user.
       type: keyword
     user.name:
       dashed_name: source-user-name
@@ -8694,14 +8705,14 @@ user:
       type: keyword
     id:
       dashed_name: user-id
-      description: Unique identifiers of the user.
+      description: Unique identifier of the user.
       flat_name: user.id
       ignore_above: 1024
       level: core
       name: id
       normalize: []
       order: 0
-      short: Unique identifiers of the user.
+      short: Unique identifier of the user.
       type: keyword
     name:
       dashed_name: user-name

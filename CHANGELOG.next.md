@@ -10,15 +10,23 @@ Thanks, you're awesome :-) -->
 
 ### Schema Changes
 
+* Added `log.file.path` to capture the log file an event came from. #802
+
 #### Breaking changes
 
 #### Bugfixes
+
+* Field `registry.data.strings` should have been marked as an array field. #790
 
 #### Added
 
 * Added `search.*` fields #729
 
 #### Improvements
+
+* Remove misleading pluralization in the description of `user.id`, it should
+  contain one ID, not many. #801
+* Clarified misleading wording about multiple IPs in src/dst or cli/srv. #804
 
 #### Deprecated
 
@@ -31,6 +39,8 @@ Thanks, you're awesome :-) -->
 
 * Quoted the example for `labels` to avoid YAML interpreting it, and having
   slightly different results in different situations. #782
+* Fix incorrect listing of where field sets are nested in asciidoc,
+  when they are nested deep. #784
 
 #### Added
 

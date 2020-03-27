@@ -290,9 +290,7 @@ type: keyword
 // ===============================================================
 
 | client.ip
-| IP address of the client.
-
-Can be one or multiple IPv4 or IPv6 addresses.
+| IP address of the client (IPv4 or IPv6).
 
 type: ip
 
@@ -806,9 +804,7 @@ type: keyword
 // ===============================================================
 
 | destination.ip
-| IP address of the destination.
-
-Can be one or multiple IPv4 or IPv6 addresses.
+| IP address of the destination (IPv4 or IPv6).
 
 type: ip
 
@@ -2940,6 +2936,21 @@ The details specific to your event source are typically not logged under `log.*`
 
 // ===============================================================
 
+| log.file.path
+| Full path to the log file this event came from, including the file name. It should include the drive letter, when appropriate.
+
+If the event wasn't read from a log file, do not populate this field.
+
+type: keyword
+
+
+
+example: `/var/log/fun-times.log`
+
+| extended
+
+// ===============================================================
+
 | log.level
 | Original log level of the log event.
 
@@ -2984,7 +2995,9 @@ example: `42`
 // ===============================================================
 
 | log.origin.file.name
-| The name of the file containing the source code which originated the log event. Note that this is not the name of the log file.
+| The name of the file containing the source code which originated the log event.
+
+Note that this field is not meant to capture the log file. The correct field to capture the log file is `log.file.path`.
 
 type: keyword
 
@@ -4655,6 +4668,9 @@ Populated as an array when writing string data to the registry. For single strin
 type: keyword
 
 
+Note: this field should contain an array of values.
+
+
 
 example: `["C:\rta\red_ttp\bin\myapp.exe"]`
 
@@ -5103,9 +5119,7 @@ type: keyword
 // ===============================================================
 
 | server.ip
-| IP address of the server.
-
-Can be one or multiple IPv4 or IPv6 addresses.
+| IP address of the server (IPv4 or IPv6).
 
 type: ip
 
@@ -5446,9 +5460,7 @@ type: keyword
 // ===============================================================
 
 | source.ip
-| IP address of the source.
-
-Can be one or multiple IPv4 or IPv6 addresses.
+| IP address of the source (IPv4 or IPv6).
 
 type: ip
 
@@ -6478,7 +6490,7 @@ type: keyword
 // ===============================================================
 
 | user.id
-| Unique identifiers of the user.
+| Unique identifier of the user.
 
 type: keyword
 
