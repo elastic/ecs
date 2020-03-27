@@ -172,9 +172,9 @@ def duplicate_reusable_fieldsets(schema, fields_nested):
             nested_schema[schema['name']] = schema
 
 
-def find_nestings(fields_nested, prefix):
+def find_nestings(fields, prefix):
     nestings = []
-    for field_name, field in fields_nested.items():
+    for field_name, field in fields.items():
         if 'reusable' in field:
             nestings.append(prefix + field_name)
         if 'fields' in field:
