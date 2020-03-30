@@ -1549,8 +1549,20 @@ dns.answers.class:
   level: extended
   name: answers.class
   normalize: []
-  order: 16
+  order: 21
   short: The class of DNS data contained in this resource record.
+  type: keyword
+dns.answers.country_code:
+  dashed_name: dns-answers-country-code
+  description: The country code portion of the domain.
+  example: uk
+  flat_name: dns.answers.country_code
+  ignore_above: 1024
+  level: extended
+  name: answers.country_code
+  normalize: []
+  order: 19
+  short: The country code portion of the domain.
   type: keyword
 dns.answers.data:
   dashed_name: dns-answers-data
@@ -1563,8 +1575,22 @@ dns.answers.data:
   level: extended
   name: answers.data
   normalize: []
-  order: 18
+  order: 23
   short: The data describing the resource.
+  type: keyword
+dns.answers.hostname:
+  dashed_name: dns-answers-hostname
+  description: 'The hostname is the host portion of a fully qualified domain name.
+
+    If the qualification level cannot be determined hostname need not be filled out.'
+  example: www
+  flat_name: dns.answers.hostname
+  ignore_above: 1024
+  level: extended
+  name: answers.hostname
+  normalize: []
+  order: 18
+  short: The hostname portion of the domain.
   type: keyword
 dns.answers.name:
   dashed_name: dns-answers-name
@@ -1582,6 +1608,60 @@ dns.answers.name:
   order: 14
   short: The domain name to which this resource record pertains.
   type: keyword
+dns.answers.registered_domain:
+  dashed_name: dns-answers-registered-domain
+  description: 'The highest registered domain, stripped of the subdomain.
+
+    For example, the registered domain for "foo.google.com" is "google.com".
+
+    This value can be determined precisely with a list like the public suffix list
+    (http://publicsuffix.org). Trying to approximate this by simply taking the last
+    two labels will not work well for TLDs such as "co.uk".'
+  example: mydomain.co.uk
+  flat_name: dns.answers.registered_domain
+  ignore_above: 1024
+  level: extended
+  name: answers.registered_domain
+  normalize: []
+  order: 15
+  short: The highest registered domain, stripped of the subdomain.
+  type: keyword
+dns.answers.subdomain:
+  dashed_name: dns-answers-subdomain
+  description: 'The subdomain is all of the labels under the registered_domain in
+    a partially qualified domain name or the qualification level of the full name
+    cannot be determined, and all  of the labels except the hostname in a fully qualified
+    domain name.
+
+    If the domain has multiple levels of subdomain, such as "sub2.sub1.example.com",
+    the subdomain field should contain "sub2.sub1", with no trailing period.'
+  example: east
+  flat_name: dns.answers.subdomain
+  ignore_above: 1024
+  level: extended
+  name: answers.subdomain
+  normalize: []
+  order: 17
+  short: The subdomain of the domain.
+  type: keyword
+dns.answers.top_level_domain:
+  dashed_name: dns-answers-top-level-domain
+  description: 'The effective top level domain (eTLD), also known as the domain suffix,
+    is the last part of the domain name. For example, the top level domain for google.com
+    is "com".
+
+    This value can be determined precisely with a list like the public suffix list
+    (http://publicsuffix.org). Trying to approximate this by simply taking the last
+    label will not work well for effective TLDs such as "co.uk".'
+  example: co.uk
+  flat_name: dns.answers.top_level_domain
+  ignore_above: 1024
+  level: extended
+  name: answers.top_level_domain
+  normalize: []
+  order: 16
+  short: The effective top level domain (com, org, net, co.uk).
+  type: keyword
 dns.answers.ttl:
   dashed_name: dns-answers-ttl
   description: The time interval in seconds that this resource record may be cached
@@ -1591,7 +1671,7 @@ dns.answers.ttl:
   level: extended
   name: answers.ttl
   normalize: []
-  order: 17
+  order: 22
   short: The time interval in seconds that this resource record may be cached before
     it should be discarded. Zero values mean that the data should not be cached.
   type: long
@@ -1604,7 +1684,7 @@ dns.answers.type:
   level: extended
   name: answers.type
   normalize: []
-  order: 15
+  order: 20
   short: The type of data contained in this resource record.
   type: keyword
 dns.header_flags:
@@ -1661,7 +1741,7 @@ dns.question.class:
   level: extended
   name: question.class
   normalize: []
-  order: 7
+  order: 12
   short: The class of records being queried.
   type: keyword
 dns.question.country_code:
@@ -1673,7 +1753,7 @@ dns.question.country_code:
   level: extended
   name: question.country_code
   normalize: []
-  order: 12
+  order: 10
   short: The country code portion of the domain.
   type: keyword
 dns.question.hostname:
@@ -1687,7 +1767,7 @@ dns.question.hostname:
   level: extended
   name: question.hostname
   normalize: []
-  order: 11
+  order: 9
   short: The hostname portion of the domain.
   type: keyword
 dns.question.name:
@@ -1722,7 +1802,7 @@ dns.question.registered_domain:
   level: extended
   name: question.registered_domain
   normalize: []
-  order: 8
+  order: 6
   short: The highest registered domain, stripped of the subdomain.
   type: keyword
 dns.question.subdomain:
@@ -1740,7 +1820,7 @@ dns.question.subdomain:
   level: extended
   name: question.subdomain
   normalize: []
-  order: 10
+  order: 8
   short: The subdomain of the domain.
   type: keyword
 dns.question.top_level_domain:
@@ -1758,7 +1838,7 @@ dns.question.top_level_domain:
   level: extended
   name: question.top_level_domain
   normalize: []
-  order: 9
+  order: 7
   short: The effective top level domain (com, org, net, co.uk).
   type: keyword
 dns.question.type:
@@ -1770,7 +1850,7 @@ dns.question.type:
   level: extended
   name: question.type
   normalize: []
-  order: 6
+  order: 11
   short: The type of record being queried.
   type: keyword
 dns.resolved_ip:
@@ -1789,7 +1869,7 @@ dns.resolved_ip:
   name: resolved_ip
   normalize:
   - array
-  order: 19
+  order: 24
   short: Array containing all IPs seen in answers.data
   type: ip
 dns.response_code:

@@ -16,7 +16,7 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
-* normalized dns fields across dns, client, destination, host, server, source #797
+* normalized dns fields across dns (question and answers), client, destination, host, server, source #797
 
 #### Improvements
 
