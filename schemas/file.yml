@@ -4,169 +4,178 @@
   title: File
   short: Fields describing files.
   description: >
-     A file is defined as a set of information that has been created on, or has existed on a filesystem.
+    A file is defined as a set of information that has been created on, or has existed on a filesystem.
 
-     File objects can be associated with host events, network events,
-     and/or file events (e.g., those produced by File Integrity Monitoring [FIM] products or services).
-     File fields provide details about the affected file associated with the event or metric.
+    File objects can be associated with host events, network events,
+    and/or file events (e.g., those produced by File Integrity Monitoring [FIM] products or services).
+    File fields provide details about the affected file associated with the event or metric.
   type: group
   fields:
+    - name: name
+      level: extended
+      type: keyword
+      description: Name of the file including the extension, without the directory.
+      example: example.png
 
-  - name: name
-    level: extended
-    type: keyword
-    description: Name of the file including the extension, without the directory.
-    example: example.png
+    - name: attributes
+      level: extended
+      type: keyword
+      short: Array of file attributes.
+      description: >
+        Array of file attributes.
 
-  - name: attributes
-    level: extended
-    type: keyword
-    short: Array of file attributes.
-    description: >
-      Array of file attributes.
+        Attributes names will vary by platform. Here's a non-exhaustive list of values
+        that are expected in this field: archive, compressed, directory, encrypted,
+        execute, hidden, read, readonly, system, write.
+      example: '["readonly", "system"]'
+      normalize:
+        - array
 
-      Attributes names will vary by platform. Here's a non-exhaustive list of values
-      that are expected in this field: archive, compressed, directory, encrypted,
-      execute, hidden, read, readonly, system, write.
-    example: '["readonly", "system"]'
-    normalize:
-    - array
+    - name: directory
+      level: extended
+      type: keyword
+      short: Directory where the file is located.
+      description: >
+        Directory where the file is located. It should include the drive letter,
+        when appropriate.
+      example: "/home/alice"
 
-  - name: directory
-    level: extended
-    type: keyword
-    short: Directory where the file is located.
-    description: >
-      Directory where the file is located. It should include the drive letter,
-      when appropriate.
-    example: '/home/alice'
+    - name: drive_letter
+      level: extended
+      type: keyword
+      ignore_above: 1
+      short: Drive letter where the file is located.
+      description: >
+        Drive letter where the file is located. This field is only relevant on Windows.
 
-  - name: drive_letter
-    level: extended
-    type: keyword
-    ignore_above: 1
-    short: Drive letter where the file is located.
-    description: >
-      Drive letter where the file is located. This field is only relevant on Windows.
+        The value should be uppercase, and not include the colon.
+      example: C
 
-      The value should be uppercase, and not include the colon.
-    example: C
+    - name: path
+      level: extended
+      type: keyword
+      short: Full path to the file, including the file name.
+      description: >
+        Full path to the file, including the file name. It should include the
+        drive letter, when appropriate.
+      example: "/home/alice/example.png"
+      multi_fields:
+        - type: text
+          name: text
 
-  - name: path
-    level: extended
-    type: keyword
-    short: Full path to the file, including the file name.
-    description: >
-      Full path to the file, including the file name. It should include the
-      drive letter, when appropriate.
-    example: '/home/alice/example.png'
-    multi_fields:
-    - type: text
-      name: text
+    - name: target_path
+      level: extended
+      type: keyword
+      description: Target path for symlinks.
+      multi_fields:
+        - type: text
+          name: text
 
-  - name: target_path
-    level: extended
-    type: keyword
-    description: Target path for symlinks.
-    multi_fields:
-    - type: text
-      name: text
+    - name: extension
+      level: extended
+      type: keyword
+      description: File extension.
+      example: png
 
-  - name: extension
-    level: extended
-    type: keyword
-    description: File extension.
-    example: png
+    - name: type
+      level: extended
+      type: keyword
+      description: File type (file, dir, or symlink).
+      example: file
 
-  - name: type
-    level: extended
-    type: keyword
-    description: File type (file, dir, or symlink).
-    example: file
+    - name: device
+      level: extended
+      type: keyword
+      description: Device that is the source of the file.
+      example: sda
 
-  - name: device
-    level: extended
-    type: keyword
-    description: Device that is the source of the file.
-    example: sda
+    - name: inode
+      level: extended
+      type: keyword
+      description: Inode representing the file in the filesystem.
+      example: "256383"
 
-  - name: inode
-    level: extended
-    type: keyword
-    description: Inode representing the file in the filesystem.
-    example: '256383'
+    - name: uid
+      level: extended
+      type: keyword
+      description: >
+        The user ID (UID) or security identifier (SID) of the file owner.
+      example: "1001"
 
-  - name: uid
-    level: extended
-    type: keyword
-    description: >
-      The user ID (UID) or security identifier (SID) of the file owner.
-    example: '1001'
+    - name: owner
+      level: extended
+      type: keyword
+      description: File owner's username.
+      example: alice
 
-  - name: owner
-    level: extended
-    type: keyword
-    description: File owner's username.
-    example: alice
+    - name: gid
+      level: extended
+      type: keyword
+      description: Primary group ID (GID) of the file.
+      example: "1001"
 
-  - name: gid
-    level: extended
-    type: keyword
-    description: Primary group ID (GID) of the file.
-    example: '1001'
+    - name: group
+      level: extended
+      type: keyword
+      description: Primary group name of the file.
+      example: alice
 
-  - name: group
-    level: extended
-    type: keyword
-    description: Primary group name of the file.
-    example: alice
+    - name: mode
+      level: extended
+      type: keyword
+      description: Mode of the file in octal representation.
+      example: "0640"
 
-  - name: mode
-    level: extended
-    type: keyword
-    description: Mode of the file in octal representation.
-    example: '0640'
+    - name: size
+      level: extended
+      type: long
+      short: File size in bytes.
+      description: >
+        File size in bytes.
 
-  - name: size
-    level: extended
-    type: long
-    short: File size in bytes.
-    description: >
-      File size in bytes.
+        Only relevant when `file.type` is "file".
+      example: 16384
 
-      Only relevant when `file.type` is "file".
-    example: 16384
+    - name: mtime
+      level: extended
+      type: date
+      description: Last time the file content was modified.
 
-  - name: mtime
-    level: extended
-    type: date
-    description: Last time the file content was modified.
+    - name: ctime
+      level: extended
+      type: date
+      short: Last time the file attributes or metadata changed.
+      description: >
+        Last time the file attributes or metadata changed.
 
-  - name: ctime
-    level: extended
-    type: date
-    short: Last time the file attributes or metadata changed.
-    description: >
-      Last time the file attributes or metadata changed.
+        Note that changes to the file content will update `mtime`. This implies
+        `ctime` will be adjusted at the same time, since `mtime` is an attribute
+        of the file.
 
-      Note that changes to the file content will update `mtime`. This implies
-      `ctime` will be adjusted at the same time, since `mtime` is an attribute
-      of the file.
+    - name: created
+      level: extended
+      type: date
+      short: File creation time.
+      description: >
+        File creation time.
 
-  - name: created
-    level: extended
-    type: date
-    short: File creation time.
-    description: >
-      File creation time.
+        Note that not all filesystems store the creation time.
 
-      Note that not all filesystems store the creation time.
+    - name: accessed
+      level: extended
+      type: date
+      short: Last time the file was accessed.
+      description: >
+        Last time the file was accessed.
 
-  - name: accessed
-    level: extended
-    type: date
-    short: Last time the file was accessed.
-    description: >
-      Last time the file was accessed.
+        Note that not all filesystems keep track of access time.
 
-      Note that not all filesystems keep track of access time.
+    - name: mime_type
+      level: extended
+      type: keyword
+      short: Media type of file, document, or arrangement of bytes.
+      description: >
+        MIME type should identify the format of the file or stream of bytes using
+        https://www.iana.org/assignments/media-types/media-types.xhtml[IANA official types],
+        where possible. When more than one type is applicable, the most specific
+        type should be used.
