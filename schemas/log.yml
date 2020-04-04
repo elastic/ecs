@@ -29,6 +29,18 @@
         Some examples are `warn`, `err`, `i`, `informational`.
       example: error
 
+    - name: file.path
+      level: extended
+      type: keyword
+      short: Full path to the log file this event came from.
+      description: >
+        Full path to the log file this event came from, including the file name.
+        It should include the drive letter, when appropriate.
+
+        If the event wasn't read from a log file, do not populate this field.
+      example: "/var/log/fun-times.log"
+
+
     - name: original
       level: core
       type: keyword
@@ -61,10 +73,12 @@
       level: extended
       type: keyword
       example: Bootstrap.java
-      short: The file which originated the log event.
+      short: The code file which originated the log event.
       description: >
         The name of the file containing the source code which originated the log event.
-        Note that this is not the name of the log file.
+
+        Note that this field is not meant to capture the log file.
+        The correct field to capture the log file is `log.file.path`.
 
     - name: origin.file.line
       level: extended

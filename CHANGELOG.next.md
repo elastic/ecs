@@ -10,19 +10,24 @@ Thanks, you're awesome :-) -->
 
 ### Schema Changes
 
+* Added `log.file.path` to capture the log file an event came from. #802
+
 #### Breaking changes
 
 #### Bugfixes
 
+* Field `registry.data.strings` should have been marked as an array field. #790
+
 #### Added
-* Added `dll.*` fields (#679)
-* Fieldset for PE metadata. (#731, #763)
-* Globally unique identifier `entity_id` for `process` and `process.parent`. (#747)
+
+* Added `search.*` fields #729
+* Add architecture and imphash for PE field set. (#763)
 
 #### Improvements
 
-* Temporary workaround for Beats templates' `default_field` growing too big. #687
-* Identify which fields should contain arrays of values, rather than scalar values. #727, #661
+* Remove misleading pluralization in the description of `user.id`, it should
+  contain one ID, not many. #801
+* Clarified misleading wording about multiple IPs in src/dst or cli/srv. #804
 
 #### Deprecated
 
@@ -33,15 +38,14 @@ Thanks, you're awesome :-) -->
 
 #### Bugfixes
 
+* Quoted the example for `labels` to avoid YAML interpreting it, and having
+  slightly different results in different situations. #782
+* Fix incorrect listing of where field sets are nested in asciidoc,
+  when they are nested deep. #784
+
 #### Added
 
 #### Improvements
-
-* ECS scripts now use Python 3.6+. #674
-* schema_reader.py now reliably supports chaining reusable fieldsets together. #722
-* Allow the artifact generator to consider and output only a subset of fields. #737
-* Add support for reusing fields in places other than the top level of the destination fieldset. #739
-* Add support for specifying the directory to write the generated files. #748
 
 #### Deprecated
 

@@ -29,8 +29,7 @@ type Source struct {
 	// one it is.
 	Address string `ecs:"address"`
 
-	// IP address of the source.
-	// Can be one or multiple IPv4 or IPv6 addresses.
+	// IP address of the source (IPv4 or IPv6).
 	IP string `ecs:"ip"`
 
 	// Port of the source.
