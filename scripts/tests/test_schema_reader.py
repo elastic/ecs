@@ -257,6 +257,10 @@ class TestSchemaReader(unittest.TestCase):
         fieldset1 = {
             'test_fieldset': {
                 'name': 'test_fieldset',
+                'reusable': {
+                    'top_level': False,
+                    'expected': ['location1, location2']
+                },
                 'fields': {
                     'test_field1': {
                         'field_details': {
@@ -278,6 +282,10 @@ class TestSchemaReader(unittest.TestCase):
         fieldset2 = {
             'test_fieldset': {
                 'name': 'test_fieldset',
+                'reusable': {
+                    'top_level': True,
+                    'expected': ['location3, location4']
+                },
                 'fields': {
                     'test_field1': {
                         'field_details': {
@@ -299,6 +307,10 @@ class TestSchemaReader(unittest.TestCase):
         expected = {
             'test_fieldset': {
                 'name': 'test_fieldset',
+                'reusable': {
+                    'top_level': True,
+                    'expected': ['location1, location2', 'location3, location4']
+                },
                 'fields': {
                     'test_field1': {
                         'field_details': {
