@@ -190,8 +190,9 @@ def assemble_reusables(fields_nested):
     # fields array replaced with a fields dictionary.
     for schema_name in fields_nested:
         schema = fields_nested[schema_name]
-
         duplicate_reusable_fieldsets(schema, fields_nested)
+
+    cleanup_fields_recursive(fields_nested, "")
 
 
 def flatten_fields(fields, key_prefix, original_fieldset=None):
@@ -257,7 +258,6 @@ def load_schemas(files=ecs_files()):
 
 
 def generate_nested_flat(fields_intermediate):
-    cleanup_fields_recursive(fields_intermediate, "")
     fields_nested = generate_partially_flattened_fields(fields_intermediate)
     fields_flat = generate_fully_flattened_fields(fields_intermediate)
     return (fields_nested, fields_flat)
