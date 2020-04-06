@@ -11,13 +11,11 @@
       - dll
       - process
   fields:
-
     - name: original_file_name
       level: extended
       type: keyword
       description: Internal name of the file, provided at compile-time.
       example: MSPAINT.EXE
-
 
     - name: file_version
       level: extended
@@ -25,7 +23,6 @@
       short: Process name.
       description: Internal version of the file, provided at compile-time.
       example: 6.3.9600.17415
-
 
     - name: description
       level: extended
@@ -39,9 +36,26 @@
       description: Internal product name of the file, provided at compile-time.
       example: Microsoft® Windows® Operating System
 
-
     - name: company
       level: extended
       type: keyword
       description: Internal company name of the file, provided at compile-time.
       example: Microsoft Corporation
+
+    - name: imphash
+      level: extended
+      type: keyword
+      short: A hash of the imports in a PE file.
+      description: >
+        A hash of the imports in a PE file. An imphash -- or import hash -- can
+        be used to fingerprint binaries even after recompilation or other code-level
+        transformations have occurred, which would change more traditional hash values.
+
+        Learn more at https://www.fireeye.com/blog/threat-research/2014/01/tracking-malware-import-hashing.html.
+      example: 0c6803c4e922103c4dca5963aad36ddf
+
+    - name: architecture
+      level: extended
+      type: keyword
+      description: CPU architecture target for the file.
+      example: x64

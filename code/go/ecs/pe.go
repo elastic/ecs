@@ -35,4 +35,15 @@ type Pe struct {
 
 	// Internal company name of the file, provided at compile-time.
 	Company string `ecs:"company"`
+
+	// A hash of the imports in a PE file. An imphash -- or import hash -- can
+	// be used to fingerprint binaries even after recompilation or other
+	// code-level transformations have occurred, which would change more
+	// traditional hash values.
+	// Learn more at
+	// https://www.fireeye.com/blog/threat-research/2014/01/tracking-malware-import-hashing.html.
+	Imphash string `ecs:"imphash"`
+
+	// CPU architecture target for the file.
+	Architecture string `ecs:"architecture"`
 }
