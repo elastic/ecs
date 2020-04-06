@@ -48,6 +48,8 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
+* Add support for reusing offical fieldsets in custom schemas. #751
+
 #### Deprecated
 
 
