@@ -7,6 +7,22 @@ agent:
     be populated with details of the agent running on the host or observer where the
     event happened or the measurement was taken.'
   fields:
+    build.original:
+      dashed_name: agent-build-original
+      description: 'Extended build information for the agent.
+
+        This field is intended to contain any build information that a data source
+        may provide, no specific formatting is required.'
+      example: metricbeat version 7.6.0 (amd64), libbeat 7.6.0 [6a23e8f8f30f5001ba344e4e54d8d9cb82cb107c
+        built 2020-02-05 23:10:10 +0000 UTC]
+      flat_name: agent.build.original
+      ignore_above: 1024
+      level: core
+      name: build.original
+      normalize: []
+      order: 1
+      short: Extended build information for the agent.
+      type: keyword
     ephemeral_id:
       dashed_name: agent-ephemeral-id
       description: 'Ephemeral identifier of this agent (if one exists).
@@ -18,7 +34,7 @@ agent:
       level: extended
       name: ephemeral_id
       normalize: []
-      order: 4
+      order: 5
       short: Ephemeral identifier of this agent.
       type: keyword
     id:
@@ -32,7 +48,7 @@ agent:
       level: core
       name: id
       normalize: []
-      order: 3
+      order: 4
       short: Unique identifier of this agent.
       type: keyword
     name:
@@ -50,7 +66,7 @@ agent:
       level: core
       name: name
       normalize: []
-      order: 1
+      order: 2
       short: Custom name of the agent.
       type: keyword
     type:
@@ -66,7 +82,7 @@ agent:
       level: core
       name: type
       normalize: []
-      order: 2
+      order: 3
       short: Type of the agent.
       type: keyword
     version:
