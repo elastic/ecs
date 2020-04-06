@@ -30,6 +30,8 @@ type Agent struct {
 	Version string `ecs:"version"`
 
 	// Extended build information for the agent.
+	// This field is intended to contain any build information that a data
+	// source may provide, no specific formatting is required.
 	BuildOriginal string `ecs:"build.original"`
 
 	// Custom name of the agent.
