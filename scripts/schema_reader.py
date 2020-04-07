@@ -121,8 +121,6 @@ def merge_schema_fields(a, b):
 
 
 def generate_nested_flat(fields_intermediate):
-    assemble_reusables(fields_intermediate)
-    cleanup_fields_recursive(fields_intermediate, "")
     for field_name, field in fields_intermediate.items():
         nestings = find_nestings(field['fields'], field_name + ".")
         nestings.sort()
@@ -139,7 +137,7 @@ def assemble_reusables(fields_nested):
     for schema_name in fields_nested:
         schema = fields_nested[schema_name]
         duplicate_reusable_fieldsets(schema, fields_nested)
-
+    cleanup_fields_recursive(fields_nested, "")
 
 def duplicate_reusable_fieldsets(schema, fields_nested):
     """Copies reusable field definitions to their expected places"""
