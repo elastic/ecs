@@ -30,6 +30,8 @@ def main():
         intermediate_custom = schema_reader.load_schemas(include_glob)
         schema_reader.merge_schema_fields(intermediate_fields, intermediate_custom)
 
+    schema_reader.assemble_reusables(intermediate_fields)
+
     if args.subset:
         subset = {}
         for arg in args.subset:
