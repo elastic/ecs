@@ -1,26 +1,35 @@
-import glob
 import os
 import yaml
 import copy
+from generators import ecs_helpers
 
-# File loading stuff
+# This script has a few entrypoints. The code related to each entrypoint is grouped
+# together between comments.
+#
+# load_schemas()
+#   yml file load (ECS or custom) + cleanup of field set attributes.
+# merge_schema_fields()
+#   Merge ECS field sets with custom field sets
+# generate_nested_flat()
+#   Finalize the intermediate representation of all fields. Fills field defaults,
+#   performs field nestings, and precalculates many values used by various generators.
 
-YAML_EXT = ('*.yml', '*.yaml')
+# Loads schemas and perform cleanup of schema attributes
 
 
-def get_glob_files(paths, file_types):
-    all_files = []
-    for path in paths:
-        for t in file_types:
-            all_files.extend(glob.glob(os.path.join(path, t)))
-
-    return sorted(all_files)
+def load_schemas(files=ecs_helpers.ecs_files()):
+    """Loads the list of files and performs schema level cleanup"""
+    fields_intermediate = load_schema_files(files)
+    finalize_schemas(fields_intermediate)
+    return fields_intermediate
 
 
-def ecs_files():
-    """Return the schema file list to load"""
-    schema_glob = os.path.join(os.path.dirname(__file__), '../schemas/*.yml')
-    return sorted(glob.glob(schema_glob))
+def load_schema_files(files):
+    fields_nested = {}
+    for f in files:
+        new_fields = read_schema_file(f)
+        fields_nested.update(new_fields)
+    return fields_nested
 
 
 def read_schema_file(file):
@@ -33,36 +42,16 @@ def read_schema_file(file):
     return fields
 
 
-def load_schema_files(files=ecs_files()):
-    fields_nested = {}
-    for f in files:
-        new_fields = read_schema_file(f)
-        fields_nested.update(new_fields)
-    return fields_nested
-
-# Generic helpers
-
-
-def dict_clean_string_values(dict):
-    """Remove superfluous spacing in all field values of a dict"""
-    for key in dict:
-        value = dict[key]
-        if isinstance(value, str):
-            dict[key] = value.strip()
-
-
-def dict_set_default(dict, key, default):
-    if key not in dict:
-        dict[key] = default
-
-
-# Finalize in memory representation of ECS field definitions (e.g. defaults, cleanup)
-
-# Schema level (data about the field sets)
+def finalize_schemas(fields_nested):
+    """Clean up all schema level attributes"""
+    for schema_name in fields_nested:
+        schema = fields_nested[schema_name]
+        schema_cleanup_values(schema)
 
 
 def schema_cleanup_values(schema):
-    dict_clean_string_values(schema)
+    """Clean up one schema"""
+    ecs_helpers.dict_clean_string_values(schema)
     schema_set_default_values(schema)
     schema_set_fieldset_prefix(schema)
     schema_fields_as_dictionary(schema)
@@ -70,8 +59,8 @@ def schema_cleanup_values(schema):
 
 def schema_set_default_values(schema):
     schema['type'] = 'group'
-    dict_set_default(schema, 'group', 2)
-    dict_set_default(schema, 'short', schema['description'])
+    ecs_helpers.dict_set_default(schema, 'group', 2)
+    ecs_helpers.dict_set_default(schema, 'short', schema['description'])
     if "\n" in schema['short']:
         raise ValueError("Short descriptions must be single line.\nFieldset: {}\n{}".format(schema['name'], schema))
 
@@ -102,8 +91,11 @@ def schema_fields_as_dictionary(schema):
         # Only leaf fields will have field details so we can identify them later
         nested_schema[nested_levels[-1]]['field_details'] = field
 
+# Merge ECS field sets with custom field sets
+
 
 def merge_schema_fields(a, b):
+    """Merge ECS field sets with custom field sets"""
     for key in b:
         if key not in a:
             a[key] = b[key]
@@ -126,23 +118,38 @@ def merge_schema_fields(a, b):
                 a[key].setdefault('fields', {})
                 merge_schema_fields(a[key]['fields'], b[key]['fields'])
 
+# Finalize the intermediate representation of all fields.
+
+
+def generate_nested_flat(fields_intermediate):
+    assemble_reusables(fields_intermediate)
+    cleanup_fields_recursive(fields_intermediate, "")
+    for field_name, field in fields_intermediate.items():
+        nestings = find_nestings(field['fields'], field_name + ".")
+        nestings.sort()
+        if len(nestings) > 0:
+            field['nestings'] = nestings
+    fields_nested = generate_partially_flattened_fields(fields_intermediate)
+    fields_flat = generate_fully_flattened_fields(fields_intermediate)
+    return (fields_nested, fields_flat)
+
 
 def field_set_defaults(field):
-    dict_set_default(field, 'normalize', [])
+    ecs_helpers.dict_set_default(field, 'normalize', [])
     if field['type'] == 'keyword':
-        dict_set_default(field, 'ignore_above', 1024)
+        ecs_helpers.dict_set_default(field, 'ignore_above', 1024)
     if field['type'] == 'text':
-        dict_set_default(field, 'norms', False)
+        ecs_helpers.dict_set_default(field, 'norms', False)
     if field['type'] == 'object':
-        dict_set_default(field, 'object_type', 'keyword')
+        ecs_helpers.dict_set_default(field, 'object_type', 'keyword')
 
-    dict_set_default(field, 'short', field['description'])
+    ecs_helpers.dict_set_default(field, 'short', field['description'])
     if "\n" in field['short']:
         raise ValueError("Short descriptions must be single line.\nField: {}\n{}".format(field['flat_name'], field))
         # print("  Short descriptions must be single line. Field: {}".format(field['flat_name']))
 
     if 'index' in field and not field['index']:
-        dict_set_default(field, 'doc_values', False)
+        ecs_helpers.dict_set_default(field, 'doc_values', False)
     if 'multi_fields' in field:
         field_set_multi_field_defaults(field)
 
@@ -150,9 +157,9 @@ def field_set_defaults(field):
 def field_set_multi_field_defaults(parent_field):
     """Sets defaults for each nested field in the multi_fields array"""
     for mf in parent_field['multi_fields']:
-        dict_set_default(mf, 'name', mf['type'])
+        ecs_helpers.dict_set_default(mf, 'name', mf['type'])
         if mf['type'] == 'text':
-            dict_set_default(mf, 'norms', False)
+            ecs_helpers.dict_set_default(mf, 'norms', False)
         mf['flat_name'] = parent_field['flat_name'] + '.' + mf['name']
 
 
@@ -189,15 +196,6 @@ def find_nestings(fields, prefix):
         if 'fields' in field:
             nestings.extend(find_nestings(field['fields'], prefix + field_name + '.'))
     return nestings
-
-# Main
-
-
-def finalize_schemas(fields_nested):
-    for schema_name in fields_nested:
-        schema = fields_nested[schema_name]
-
-        schema_cleanup_values(schema)
 
 
 def assemble_reusables(fields_nested):
@@ -251,7 +249,7 @@ def cleanup_fields_recursive(fields, prefix, original_fieldset=None):
             field_details['dashed_name'] = new_flat_name.replace('.', '-').replace('_', '-')
             if temp_original_fieldset:
                 field_details['original_fieldset'] = temp_original_fieldset
-            dict_clean_string_values(field_details)
+            ecs_helpers.dict_clean_string_values(field_details)
             field_set_defaults(field_details)
             field['field_details'] = field_details
         if 'fields' in field:
@@ -260,23 +258,3 @@ def cleanup_fields_recursive(fields, prefix, original_fieldset=None):
             if 'root' in field and field['root']:
                 new_prefix = ""
             cleanup_fields_recursive(field['fields'], new_prefix, temp_original_fieldset)
-
-
-def load_schemas(files=ecs_files()):
-    """Loads the given list of files"""
-    fields_intermediate = load_schema_files(files)
-    finalize_schemas(fields_intermediate)
-    return fields_intermediate
-
-
-def generate_nested_flat(fields_intermediate):
-    assemble_reusables(fields_intermediate)
-    cleanup_fields_recursive(fields_intermediate, "")
-    for field_name, field in fields_intermediate.items():
-        nestings = find_nestings(field['fields'], field_name + ".")
-        nestings.sort()
-        if len(nestings) > 0:
-            field['nestings'] = nestings
-    fields_nested = generate_partially_flattened_fields(fields_intermediate)
-    fields_flat = generate_fully_flattened_fields(fields_intermediate)
-    return (fields_nested, fields_flat)
