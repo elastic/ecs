@@ -26,20 +26,20 @@ class TestECSHelpers(unittest.TestCase):
 
     def test_sorted_by_one_key(self):
         dict = {
-            '@timestamp': {'order': 0, 'name': '@timestamp'},
-            'message': {'order': 3, 'name': 'message'},
-            'labels': {'order': 1, 'name': 'labels'},
-            'tags': {'order': 2, 'name': 'tags'}
+            'message': {'name': 'message'},
+            'labels': {'name': 'labels'},
+            '@timestamp': {'name': '@timestamp'},
+            'tags': {'name': 'tags'}
         }
         expected = [
-            {'order': 0, 'name': '@timestamp'},
-            {'order': 1, 'name': 'labels'},
-            {'order': 2, 'name': 'tags'},
-            {'order': 3, 'name': 'message'}
+            {'name': '@timestamp'},
+            {'name': 'labels'},
+            {'name': 'message'},
+            {'name': 'tags'}
         ]
-        result = ecs_helpers.dict_sorted_by_keys(dict, 'order')
+        result = ecs_helpers.dict_sorted_by_keys(dict, 'name')
         self.assertEqual(result, expected)
-        result = ecs_helpers.dict_sorted_by_keys(dict, ['order'])
+        result = ecs_helpers.dict_sorted_by_keys(dict, ['name'])
         self.assertEqual(result, expected)
 
     def test_sorted_by_multiple_keys(self):

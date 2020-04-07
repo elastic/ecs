@@ -76,8 +76,7 @@ def schema_fields_as_dictionary(schema):
     """Re-nest the array of field names as a dictionary of 'fieldname' => { field definition }"""
     field_array = schema.pop('fields', [])
     schema['fields'] = {}
-    for order, field in enumerate(field_array):
-        field['order'] = order
+    for field in field_array:
         nested_levels = field['name'].split('.')
         nested_schema = schema['fields']
         for level in nested_levels[:-1]:
