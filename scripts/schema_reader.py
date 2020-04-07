@@ -134,6 +134,63 @@ def generate_nested_flat(fields_intermediate):
     return (fields_nested, fields_flat)
 
 
+def assemble_reusables(fields_nested):
+    # This happens as a second pass, so that all fieldsets have their
+    # fields array replaced with a fields dictionary.
+    for schema_name in fields_nested:
+        schema = fields_nested[schema_name]
+        duplicate_reusable_fieldsets(schema, fields_nested)
+
+
+def duplicate_reusable_fieldsets(schema, fields_nested):
+    """Copies reusable field definitions to their expected places"""
+    # Note: across this schema reader, functions are modifying dictionaries passed
+    # as arguments, which is usually a risk of unintended side effects.
+    # Here it simplifies the nesting of 'group' under 'user',
+    # which is in turn reusable in a few places.
+    if 'reusable' in schema:
+        for new_nesting in schema['reusable']['expected']:
+            split_flat_name = new_nesting.split('.')
+            top_level = split_flat_name[0]
+            # List field set names expected under another field set.
+            # E.g. host.nestings = [ 'geo', 'os', 'user' ]
+            nested_schema = fields_nested[top_level]['fields']
+            for level in split_flat_name[1:]:
+                nested_schema = nested_schema.get(level, None)
+                if not nested_schema:
+                    raise ValueError('Field {} in path {} not found in schema'.format(level, new_nesting))
+                if nested_schema.get('reusable', None):
+                    raise ValueError(
+                        'Reusable fields cannot be put inside other reusable fields except when the destination reusable is at the top level')
+                nested_schema = nested_schema.setdefault('fields', {})
+            nested_schema[schema['name']] = schema
+
+
+def cleanup_fields_recursive(fields, prefix, original_fieldset=None):
+    for (name, field) in fields.items():
+        # Copy field here so reusable field sets become unique copies instead of references to the original set
+        field = field.copy()
+        fields[name] = field
+        temp_original_fieldset = name if ('reusable' in field and prefix != "") else original_fieldset
+        if 'field_details' in field:
+            # Deep copy the field details so we can insert different flat names for each reusable fieldset
+            field_details = copy.deepcopy(field['field_details'])
+            new_flat_name = prefix + name
+            field_details['flat_name'] = new_flat_name
+            field_details['dashed_name'] = new_flat_name.replace('.', '-').replace('_', '-')
+            if temp_original_fieldset:
+                field_details['original_fieldset'] = temp_original_fieldset
+            ecs_helpers.dict_clean_string_values(field_details)
+            field_set_defaults(field_details)
+            field['field_details'] = field_details
+        if 'fields' in field:
+            field['fields'] = field['fields'].copy()
+            new_prefix = prefix + name + "."
+            if 'root' in field and field['root']:
+                new_prefix = ""
+            cleanup_fields_recursive(field['fields'], new_prefix, temp_original_fieldset)
+
+
 def field_set_defaults(field):
     ecs_helpers.dict_set_default(field, 'normalize', [])
     if field['type'] == 'keyword':
@@ -163,30 +220,6 @@ def field_set_multi_field_defaults(parent_field):
         mf['flat_name'] = parent_field['flat_name'] + '.' + mf['name']
 
 
-def duplicate_reusable_fieldsets(schema, fields_nested):
-    """Copies reusable field definitions to their expected places"""
-    # Note: across this schema reader, functions are modifying dictionaries passed
-    # as arguments, which is usually a risk of unintended side effects.
-    # Here it simplifies the nesting of 'group' under 'user',
-    # which is in turn reusable in a few places.
-    if 'reusable' in schema:
-        for new_nesting in schema['reusable']['expected']:
-            split_flat_name = new_nesting.split('.')
-            top_level = split_flat_name[0]
-            # List field set names expected under another field set.
-            # E.g. host.nestings = [ 'geo', 'os', 'user' ]
-            nested_schema = fields_nested[top_level]['fields']
-            for level in split_flat_name[1:]:
-                nested_schema = nested_schema.get(level, None)
-                if not nested_schema:
-                    raise ValueError('Field {} in path {} not found in schema'.format(level, new_nesting))
-                if nested_schema.get('reusable', None):
-                    raise ValueError(
-                        'Reusable fields cannot be put inside other reusable fields except when the destination reusable is at the top level')
-                nested_schema = nested_schema.setdefault('fields', {})
-            nested_schema[schema['name']] = schema
-
-
 def find_nestings(fields, prefix):
     """Recursively finds all reusable fields in the fields dictionary."""
     nestings = []
@@ -196,29 +229,6 @@ def find_nestings(fields, prefix):
         if 'fields' in field:
             nestings.extend(find_nestings(field['fields'], prefix + field_name + '.'))
     return nestings
-
-
-def assemble_reusables(fields_nested):
-    # This happens as a second pass, so that all fieldsets have their
-    # fields array replaced with a fields dictionary.
-    for schema_name in fields_nested:
-        schema = fields_nested[schema_name]
-
-        duplicate_reusable_fieldsets(schema, fields_nested)
-
-
-def flatten_fields(fields, key_prefix):
-    flat_fields = {}
-    for (name, field) in fields.items():
-        new_key = key_prefix + name
-        if 'field_details' in field:
-            flat_fields[new_key] = field['field_details'].copy()
-        if 'fields' in field:
-            new_prefix = new_key + "."
-            if 'root' in field and field['root']:
-                new_prefix = ""
-            flat_fields.update(flatten_fields(field['fields'], new_prefix))
-    return flat_fields
 
 
 def generate_partially_flattened_fields(fields_nested):
@@ -235,26 +245,15 @@ def generate_fully_flattened_fields(fields_nested):
     return flatten_fields(fields_nested, "")
 
 
-def cleanup_fields_recursive(fields, prefix, original_fieldset=None):
+def flatten_fields(fields, key_prefix):
+    flat_fields = {}
     for (name, field) in fields.items():
-        # Copy field here so reusable field sets become unique copies instead of references to the original set
-        field = field.copy()
-        fields[name] = field
-        temp_original_fieldset = name if ('reusable' in field and prefix != "") else original_fieldset
+        new_key = key_prefix + name
         if 'field_details' in field:
-            # Deep copy the field details so we can insert different flat names for each reusable fieldset
-            field_details = copy.deepcopy(field['field_details'])
-            new_flat_name = prefix + name
-            field_details['flat_name'] = new_flat_name
-            field_details['dashed_name'] = new_flat_name.replace('.', '-').replace('_', '-')
-            if temp_original_fieldset:
-                field_details['original_fieldset'] = temp_original_fieldset
-            ecs_helpers.dict_clean_string_values(field_details)
-            field_set_defaults(field_details)
-            field['field_details'] = field_details
+            flat_fields[new_key] = field['field_details'].copy()
         if 'fields' in field:
-            field['fields'] = field['fields'].copy()
-            new_prefix = prefix + name + "."
+            new_prefix = new_key + "."
             if 'root' in field and field['root']:
                 new_prefix = ""
-            cleanup_fields_recursive(field['fields'], new_prefix, temp_original_fieldset)
+            flat_fields.update(flatten_fields(field['fields'], new_prefix))
+    return flat_fields
