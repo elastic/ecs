@@ -120,43 +120,6 @@ class TestSchemaReader(unittest.TestCase):
         }
         self.assertEqual(flat_fields, expected)
 
-    def test_flatten_fields_reusable(self):
-        fields = {
-            'top_level': {
-                'field_details': {
-                    'name': 'top_level'
-                },
-                'fields': {
-                    'nested_field': {
-                        'reusable': {
-                            'top_level': False,
-                            'expected': [
-                                'top_level'
-                            ]
-                        },
-                        'fields': {
-                            'double_nested_field': {
-                                'field_details': {
-                                    'name': 'double_nested_field'
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        flat_fields = schema_reader.flatten_fields(fields, "")
-        expected = {
-            'top_level': {
-                'name': 'top_level'
-            },
-            'top_level.nested_field.double_nested_field': {
-                'name': 'double_nested_field',
-                'original_fieldset': 'nested_field'
-            }
-        }
-        self.assertEqual(flat_fields, expected)
-
     def test_cleanup_fields_recursive(self):
         """Reuse a fieldset under two other fieldsets and check that the flat names are properly generated."""
         reusable = {
@@ -215,6 +178,7 @@ class TestSchemaReader(unittest.TestCase):
                                     'ignore_above': 1024,
                                     'short': 'A test field',
                                     'normalize': [],
+                                    'original_fieldset': 'reusable_fieldset'
                                 }
                             }
                         }
@@ -243,7 +207,7 @@ class TestSchemaReader(unittest.TestCase):
                                     'ignore_above': 1024,
                                     'short': 'A test field',
                                     'normalize': [],
-
+                                    'original_fieldset': 'reusable_fieldset'
                                 }
                             }
                         }
@@ -257,6 +221,10 @@ class TestSchemaReader(unittest.TestCase):
         fieldset1 = {
             'test_fieldset': {
                 'name': 'test_fieldset',
+                'reusable': {
+                    'top_level': False,
+                    'expected': ['location1, location2']
+                },
                 'fields': {
                     'test_field1': {
                         'field_details': {
@@ -278,6 +246,10 @@ class TestSchemaReader(unittest.TestCase):
         fieldset2 = {
             'test_fieldset': {
                 'name': 'test_fieldset',
+                'reusable': {
+                    'top_level': True,
+                    'expected': ['location3, location4']
+                },
                 'fields': {
                     'test_field1': {
                         'field_details': {
@@ -299,6 +271,10 @@ class TestSchemaReader(unittest.TestCase):
         expected = {
             'test_fieldset': {
                 'name': 'test_fieldset',
+                'reusable': {
+                    'top_level': True,
+                    'expected': ['location1, location2', 'location3, location4']
+                },
                 'fields': {
                     'test_field1': {
                         'field_details': {
@@ -466,6 +442,44 @@ class TestSchemaReader(unittest.TestCase):
         # an allowed reusable location (it's the destination of another reusable)
         with self.assertRaises(ValueError):
             schema_reader.duplicate_reusable_fieldsets(fieldset['reusable_fieldset2'], fieldset)
+
+    def test_find_nestings(self):
+        field = {
+            'sub_field': {
+                'reusable': {
+                    'top_level': True,
+                    'expected': [
+                        'some_other_field'
+                    ]
+                },
+                'fields': {
+                    'reusable_fieldset1': {
+                        'name': 'reusable_fieldset1',
+                        'reusable': {
+                            'top_level': False,
+                            'expected': [
+                                'sub_field'
+                            ]
+                        },
+                        'fields': {
+                            'nested_reusable_field': {
+                                'reusable': {
+                                    'top_level': False,
+                                    'expected': 'sub_field.nested_reusable_field'
+                                },
+                                'field_details': {
+                                    'name': 'reusable_field',
+                                    'type': 'keyword',
+                                    'description': 'A test field'
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        expected = ['sub_field.reusable_fieldset1', 'sub_field.reusable_fieldset1.nested_reusable_field']
+        self.assertEqual(schema_reader.find_nestings(field['sub_field']['fields'], 'sub_field.'), expected)
 
 
 if __name__ == '__main__':
