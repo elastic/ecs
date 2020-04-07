@@ -39,6 +39,8 @@ Thanks, you're awesome :-) -->
 
 #### Bugfixes
 
+* Subsets are created after duplicating reusable fields now so subsets can
+  be applied to each reused instance independently. #753
 * Quoted the example for `labels` to avoid YAML interpreting it, and having
   slightly different results in different situations. #782
 * Fix incorrect listing of where field sets are nested in asciidoc,
