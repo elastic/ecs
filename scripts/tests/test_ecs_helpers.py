@@ -198,6 +198,39 @@ class TestECSHelpers(unittest.TestCase):
         actual = ecs_helpers.fields_subset(subset, fields)
         self.assertEqual(actual, expected)
 
+    def test_get_nested_field(self):
+        fields = {
+            'test_fieldset': {
+                'name': 'test_fieldset',
+                'fields': {
+                    'test_field1': {
+                        'field_details': {
+                            'name': 'test_field1',
+                            'type': 'keyword',
+                            'description': 'A test field'
+                        }
+                    },
+                    'test_field2': {
+                        'field_details': {
+                            'name': 'test_field2',
+                            'type': 'keyword',
+                            'description': 'Another test field'
+                        }
+                    }
+                }
+            }
+        }
+        nested_field_name = 'test_fieldset.test_field1'
+        expected = {
+            'field_details': {
+                'name': 'test_field1',
+                'type': 'keyword',
+                'description': 'A test field'
+            }
+        }
+        actual = ecs_helpers.get_nested_field(nested_field_name, fields)
+        self.assertEqual(actual, expected)
+
 
 if __name__ == '__main__':
     unittest.main()

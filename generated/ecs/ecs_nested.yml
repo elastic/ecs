@@ -669,9 +669,10 @@ client:
   group: 2
   name: client
   nestings:
-  - as
-  - geo
-  - user
+  - client.as
+  - client.geo
+  - client.user
+  - client.user.group
   prefix: client.
   short: Fields about the client side of a network connection, used with server.
   title: Client
@@ -1363,9 +1364,10 @@ destination:
   group: 2
   name: destination
   nestings:
-  - as
-  - geo
-  - user
+  - destination.as
+  - destination.geo
+  - destination.user
+  - destination.user.group
   prefix: destination.
   short: Fields about the destination side of a network connection, used with source.
   title: Destination
@@ -1629,9 +1631,9 @@ dll:
   group: 2
   name: dll
   nestings:
-  - code_signature
-  - hash
-  - pe
+  - dll.code_signature
+  - dll.hash
+  - dll.pe
   prefix: dll.
   short: These fields contain information about code libraries dynamically loaded
     into processes.
@@ -3368,9 +3370,9 @@ file:
   group: 2
   name: file
   nestings:
-  - code_signature
-  - hash
-  - pe
+  - file.code_signature
+  - file.hash
+  - file.pe
   prefix: file.
   short: Fields describing files.
   title: File
@@ -4066,9 +4068,10 @@ host:
   group: 2
   name: host
   nestings:
-  - geo
-  - os
-  - user
+  - host.geo
+  - host.os
+  - host.user
+  - host.user.group
   prefix: host.
   short: Fields describing the relevant computing instance.
   title: Host
@@ -4727,7 +4730,8 @@ network:
   group: 2
   name: network
   nestings:
-  - vlan
+  - network.inner.vlan
+  - network.vlan
   prefix: network.
   short: Fields describing the communication path over which the event happened.
   title: Network
@@ -5248,10 +5252,12 @@ observer:
   group: 2
   name: observer
   nestings:
-  - geo
-  - interface
-  - os
-  - vlan
+  - observer.egress.interface
+  - observer.egress.vlan
+  - observer.geo
+  - observer.ingress.interface
+  - observer.ingress.vlan
+  - observer.os
   prefix: observer.
   short: Fields describing an entity observing the event from outside the host.
   title: Observer
@@ -6502,9 +6508,11 @@ process:
   group: 2
   name: process
   nestings:
-  - code_signature
-  - hash
-  - pe
+  - process.code_signature
+  - process.hash
+  - process.parent.code_signature
+  - process.parent.hash
+  - process.pe
   prefix: process.
   short: These fields contain information about a process.
   title: Process
@@ -7354,9 +7362,10 @@ server:
   group: 2
   name: server
   nestings:
-  - as
-  - geo
-  - user
+  - server.as
+  - server.geo
+  - server.user
+  - server.user.group
   prefix: server.
   short: Fields about the server side of a network connection, used with client.
   title: Server
@@ -7915,9 +7924,10 @@ source:
   group: 2
   name: source
   nestings:
-  - as
-  - geo
-  - user
+  - source.as
+  - source.geo
+  - source.user
+  - source.user.group
   prefix: source.
   short: Fields about the source side of a network connection, used with destination.
   title: Source
@@ -8858,7 +8868,7 @@ user:
   group: 2
   name: user
   nestings:
-  - group
+  - user.group
   prefix: user.
   reusable:
     expected:
@@ -9021,7 +9031,7 @@ user_agent:
   group: 2
   name: user_agent
   nestings:
-  - os
+  - user_agent.os
   prefix: user_agent.
   short: Fields to describe a browser user_agent string.
   title: User agent

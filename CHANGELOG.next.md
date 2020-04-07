@@ -49,6 +49,7 @@ Thanks, you're awesome :-) -->
 #### Improvements
 
 * Add support for reusing offical fieldsets in custom schemas. #751
+* Add full path names to reused fieldsets in `nestings` array in ecs_nested.yml. #803
 
 #### Deprecated
 
