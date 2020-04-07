@@ -85,7 +85,7 @@ def schema_set_fieldset_prefix(schema):
 
 def schema_fields_as_dictionary(schema):
     """Re-nest the array of field names as a dictionary of 'fieldname' => { field definition }"""
-    field_array = schema.pop('fields')
+    field_array = schema.pop('fields', [])
     schema['fields'] = {}
     for order, field in enumerate(field_array):
         field['order'] = order
@@ -114,7 +114,15 @@ def merge_schema_fields(a, b):
                 raise ValueError('Schemas unmergeable: type {} does not match type {}'.format(a_type, b_type))
             elif a_type not in ['object', 'nested']:
                 print('Warning: dropping field {}, already defined'.format(key))
-            elif 'fields' in b[key]:
+                continue
+            # reusable should only be found at the top level of a fieldset
+            if 'reusable' in b[key]:
+                a[key].setdefault('reusable', {})
+                a[key]['reusable']['top_level'] = a[key]['reusable'].get(
+                    'top_level', False) or b[key]['reusable']['top_level']
+                a[key]['reusable'].setdefault('expected', [])
+                a[key]['reusable']['expected'].extend(b[key]['reusable']['expected'])
+            if 'fields' in b[key]:
                 a[key].setdefault('fields', {})
                 merge_schema_fields(a[key]['fields'], b[key]['fields'])
 

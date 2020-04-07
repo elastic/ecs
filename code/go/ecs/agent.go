@@ -29,6 +29,11 @@ type Agent struct {
 	// Version of the agent.
 	Version string `ecs:"version"`
 
+	// Extended build information for the agent.
+	// This field is intended to contain any build information that a data
+	// source may provide, no specific formatting is required.
+	BuildOriginal string `ecs:"build.original"`
+
 	// Custom name of the agent.
 	// This is a name that can be given to an agent. This can be helpful if for
 	// example two Filebeat instances are running on the same host but a human

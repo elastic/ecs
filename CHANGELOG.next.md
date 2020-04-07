@@ -21,6 +21,8 @@ Thanks, you're awesome :-) -->
 #### Added
 
 * Added `search.*` fields #729
+* Add architecture and imphash for PE field set. (#763)
+* Added `agent.build.*` for extended agent version information. (#764)
 
 #### Improvements
 
@@ -46,6 +48,7 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
+* Add support for reusing offical fieldsets in custom schemas. #751
 * Add full path names to reused fieldsets in `nestings` array in ecs_nested.yml. #803
 
 #### Deprecated
