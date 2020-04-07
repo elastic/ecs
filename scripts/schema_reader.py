@@ -59,8 +59,8 @@ def schema_cleanup_values(schema):
 
 def schema_set_default_values(schema):
     schema['type'] = 'group'
-    ecs_helpers.dict_set_default(schema, 'group', 2)
-    ecs_helpers.dict_set_default(schema, 'short', schema['description'])
+    schema.setdefault('group', 2)
+    schema.setdefault('short', schema['description'])
     if "\n" in schema['short']:
         raise ValueError("Short descriptions must be single line.\nFieldset: {}\n{}".format(schema['name'], schema))
 
@@ -191,21 +191,21 @@ def cleanup_fields_recursive(fields, prefix, original_fieldset=None):
 
 
 def field_set_defaults(field):
-    ecs_helpers.dict_set_default(field, 'normalize', [])
+    field.setdefault('normalize', [])
     if field['type'] == 'keyword':
-        ecs_helpers.dict_set_default(field, 'ignore_above', 1024)
+        field.setdefault('ignore_above', 1024)
     if field['type'] == 'text':
-        ecs_helpers.dict_set_default(field, 'norms', False)
+        field.setdefault('norms', False)
     if field['type'] == 'object':
-        ecs_helpers.dict_set_default(field, 'object_type', 'keyword')
+        field.setdefault('object_type', 'keyword')
 
-    ecs_helpers.dict_set_default(field, 'short', field['description'])
+    field.setdefault('short', field['description'])
     if "\n" in field['short']:
         raise ValueError("Short descriptions must be single line.\nField: {}\n{}".format(field['flat_name'], field))
         # print("  Short descriptions must be single line. Field: {}".format(field['flat_name']))
 
     if 'index' in field and not field['index']:
-        ecs_helpers.dict_set_default(field, 'doc_values', False)
+        field.setdefault('doc_values', False)
     if 'multi_fields' in field:
         field_set_multi_field_defaults(field)
 
@@ -213,9 +213,9 @@ def field_set_defaults(field):
 def field_set_multi_field_defaults(parent_field):
     """Sets defaults for each nested field in the multi_fields array"""
     for mf in parent_field['multi_fields']:
-        ecs_helpers.dict_set_default(mf, 'name', mf['type'])
+        mf.setdefault('name', mf['type'])
         if mf['type'] == 'text':
-            ecs_helpers.dict_set_default(mf, 'norms', False)
+            mf.setdefault('norms', False)
         mf['flat_name'] = parent_field['flat_name'] + '.' + mf['name']
 
 

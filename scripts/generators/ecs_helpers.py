@@ -97,11 +97,6 @@ def dict_clean_string_values(dict):
             dict[key] = value.strip()
 
 
-def dict_set_default(dict, key, default):
-    if key not in dict:
-        dict[key] = default
-
-
 # File helpers
 
 
