@@ -79,6 +79,11 @@ class TestECSHelpers(unittest.TestCase):
         with self.assertRaises(ValueError):
             ecs_helpers.safe_merge_dicts(a, b)
 
+    def test_clean_string_values(self):
+        dict = {'dirty': ' space, the final frontier  ', 'clean': 'val', 'int': 1}
+        ecs_helpers.dict_clean_string_values(dict)
+        self.assertEqual(dict, {'dirty': 'space, the final frontier', 'clean': 'val', 'int': 1})
+
     def test_list_slit_by(self):
         lst = ['ecs', 'has', 'a', 'meme', 'now']
         split_list = ecs_helpers.list_split_by(lst, 3)
