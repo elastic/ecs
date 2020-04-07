@@ -173,6 +173,7 @@ def duplicate_reusable_fieldsets(schema, fields_nested):
 
 
 def find_nestings(fields, prefix):
+    """Recursively finds all reusable fields in the fields dictionary."""
     nestings = []
     for field_name, field in fields.items():
         if 'reusable' in field:
