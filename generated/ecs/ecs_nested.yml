@@ -7,6 +7,22 @@ agent:
     be populated with details of the agent running on the host or observer where the
     event happened or the measurement was taken.'
   fields:
+    build.original:
+      dashed_name: agent-build-original
+      description: 'Extended build information for the agent.
+
+        This field is intended to contain any build information that a data source
+        may provide, no specific formatting is required.'
+      example: metricbeat version 7.6.0 (amd64), libbeat 7.6.0 [6a23e8f8f30f5001ba344e4e54d8d9cb82cb107c
+        built 2020-02-05 23:10:10 +0000 UTC]
+      flat_name: agent.build.original
+      ignore_above: 1024
+      level: core
+      name: build.original
+      normalize: []
+      order: 1
+      short: Extended build information for the agent.
+      type: keyword
     ephemeral_id:
       dashed_name: agent-ephemeral-id
       description: 'Ephemeral identifier of this agent (if one exists).
@@ -18,7 +34,7 @@ agent:
       level: extended
       name: ephemeral_id
       normalize: []
-      order: 4
+      order: 5
       short: Ephemeral identifier of this agent.
       type: keyword
     id:
@@ -32,7 +48,7 @@ agent:
       level: core
       name: id
       normalize: []
-      order: 3
+      order: 4
       short: Unique identifier of this agent.
       type: keyword
     name:
@@ -50,7 +66,7 @@ agent:
       level: core
       name: name
       normalize: []
-      order: 1
+      order: 2
       short: Custom name of the agent.
       type: keyword
     type:
@@ -66,7 +82,7 @@ agent:
       level: core
       name: type
       normalize: []
-      order: 2
+      order: 3
       short: Type of the agent.
       type: keyword
     version:
@@ -418,9 +434,7 @@ client:
       type: keyword
     ip:
       dashed_name: client-ip
-      description: 'IP address of the client.
-
-        Can be one or multiple IPv4 or IPv6 addresses.'
+      description: IP address of the client (IPv4 or IPv6).
       flat_name: client.ip
       level: core
       name: ip
@@ -624,7 +638,7 @@ client:
       type: keyword
     user.id:
       dashed_name: client-user-id
-      description: Unique identifiers of the user.
+      description: Unique identifier of the user.
       flat_name: client.user.id
       ignore_above: 1024
       level: core
@@ -632,7 +646,7 @@ client:
       normalize: []
       order: 0
       original_fieldset: user
-      short: Unique identifiers of the user.
+      short: Unique identifier of the user.
       type: keyword
     user.name:
       dashed_name: client-user-name
@@ -655,9 +669,10 @@ client:
   group: 2
   name: client
   nestings:
-  - as
-  - geo
-  - user
+  - client.as
+  - client.geo
+  - client.user
+  - client.user.group
   prefix: client.
   short: Fields about the client side of a network connection, used with server.
   title: Client
@@ -1115,9 +1130,7 @@ destination:
       type: keyword
     ip:
       dashed_name: destination-ip
-      description: 'IP address of the destination.
-
-        Can be one or multiple IPv4 or IPv6 addresses.'
+      description: IP address of the destination (IPv4 or IPv6).
       flat_name: destination.ip
       level: core
       name: ip
@@ -1320,7 +1333,7 @@ destination:
       type: keyword
     user.id:
       dashed_name: destination-user-id
-      description: Unique identifiers of the user.
+      description: Unique identifier of the user.
       flat_name: destination.user.id
       ignore_above: 1024
       level: core
@@ -1328,7 +1341,7 @@ destination:
       normalize: []
       order: 0
       original_fieldset: user
-      short: Unique identifiers of the user.
+      short: Unique identifier of the user.
       type: keyword
     user.name:
       dashed_name: destination-user-name
@@ -1351,9 +1364,10 @@ destination:
   group: 2
   name: destination
   nestings:
-  - as
-  - geo
-  - user
+  - destination.as
+  - destination.geo
+  - destination.user
+  - destination.user.group
   prefix: destination.
   short: Fields about the destination side of a network connection, used with source.
   title: Destination
@@ -1519,6 +1533,19 @@ dll:
       order: 1
       short: Full file path of the library.
       type: keyword
+    pe.architecture:
+      dashed_name: dll-pe-architecture
+      description: CPU architecture target for the file.
+      example: x64
+      flat_name: dll.pe.architecture
+      ignore_above: 1024
+      level: extended
+      name: architecture
+      normalize: []
+      order: 6
+      original_fieldset: pe
+      short: CPU architecture target for the file.
+      type: keyword
     pe.company:
       dashed_name: dll-pe-company
       description: Internal company name of the file, provided at compile-time.
@@ -1558,6 +1585,23 @@ dll:
       original_fieldset: pe
       short: Process name.
       type: keyword
+    pe.imphash:
+      dashed_name: dll-pe-imphash
+      description: 'A hash of the imports in a PE file. An imphash -- or import hash
+        -- can be used to fingerprint binaries even after recompilation or other code-level
+        transformations have occurred, which would change more traditional hash values.
+
+        Learn more at https://www.fireeye.com/blog/threat-research/2014/01/tracking-malware-import-hashing.html.'
+      example: 0c6803c4e922103c4dca5963aad36ddf
+      flat_name: dll.pe.imphash
+      ignore_above: 1024
+      level: extended
+      name: imphash
+      normalize: []
+      order: 5
+      original_fieldset: pe
+      short: A hash of the imports in a PE file.
+      type: keyword
     pe.original_file_name:
       dashed_name: dll-pe-original-file-name
       description: Internal name of the file, provided at compile-time.
@@ -1587,9 +1631,9 @@ dll:
   group: 2
   name: dll
   nestings:
-  - code_signature
-  - hash
-  - pe
+  - dll.code_signature
+  - dll.hash
+  - dll.pe
   prefix: dll.
   short: These fields contain information about code libraries dynamically loaded
     into processes.
@@ -3175,6 +3219,19 @@ file:
       order: 4
       short: Full path to the file, including the file name.
       type: keyword
+    pe.architecture:
+      dashed_name: file-pe-architecture
+      description: CPU architecture target for the file.
+      example: x64
+      flat_name: file.pe.architecture
+      ignore_above: 1024
+      level: extended
+      name: architecture
+      normalize: []
+      order: 6
+      original_fieldset: pe
+      short: CPU architecture target for the file.
+      type: keyword
     pe.company:
       dashed_name: file-pe-company
       description: Internal company name of the file, provided at compile-time.
@@ -3213,6 +3270,23 @@ file:
       order: 1
       original_fieldset: pe
       short: Process name.
+      type: keyword
+    pe.imphash:
+      dashed_name: file-pe-imphash
+      description: 'A hash of the imports in a PE file. An imphash -- or import hash
+        -- can be used to fingerprint binaries even after recompilation or other code-level
+        transformations have occurred, which would change more traditional hash values.
+
+        Learn more at https://www.fireeye.com/blog/threat-research/2014/01/tracking-malware-import-hashing.html.'
+      example: 0c6803c4e922103c4dca5963aad36ddf
+      flat_name: file.pe.imphash
+      ignore_above: 1024
+      level: extended
+      name: imphash
+      normalize: []
+      order: 5
+      original_fieldset: pe
+      short: A hash of the imports in a PE file.
       type: keyword
     pe.original_file_name:
       dashed_name: file-pe-original-file-name
@@ -3296,9 +3370,9 @@ file:
   group: 2
   name: file
   nestings:
-  - code_signature
-  - hash
-  - pe
+  - file.code_signature
+  - file.hash
+  - file.pe
   prefix: file.
   short: Fields describing files.
   title: File
@@ -3963,7 +4037,7 @@ host:
       type: keyword
     user.id:
       dashed_name: host-user-id
-      description: Unique identifiers of the user.
+      description: Unique identifier of the user.
       flat_name: host.user.id
       ignore_above: 1024
       level: core
@@ -3971,7 +4045,7 @@ host:
       normalize: []
       order: 0
       original_fieldset: user
-      short: Unique identifiers of the user.
+      short: Unique identifier of the user.
       type: keyword
     user.name:
       dashed_name: host-user-name
@@ -3994,9 +4068,10 @@ host:
   group: 2
   name: host
   nestings:
-  - geo
-  - os
-  - user
+  - host.geo
+  - host.os
+  - host.user
+  - host.user.group
   prefix: host.
   short: Fields describing the relevant computing instance.
   title: Host
@@ -4210,6 +4285,21 @@ log:
     The details specific to your event source are typically not logged under `log.*`,
     but rather in `event.*` or in other ECS fields.'
   fields:
+    file.path:
+      dashed_name: log-file-path
+      description: 'Full path to the log file this event came from, including the
+        file name. It should include the drive letter, when appropriate.
+
+        If the event wasn''t read from a log file, do not populate this field.'
+      example: /var/log/fun-times.log
+      flat_name: log.file.path
+      ignore_above: 1024
+      level: extended
+      name: file.path
+      normalize: []
+      order: 1
+      short: Full path to the log file this event came from.
+      type: keyword
     level:
       dashed_name: log-level
       description: 'Original log level of the log event.
@@ -4238,7 +4328,7 @@ log:
       level: core
       name: logger
       normalize: []
-      order: 2
+      order: 3
       short: Name of the logger.
       type: keyword
     origin.file.line:
@@ -4250,21 +4340,24 @@ log:
       level: extended
       name: origin.file.line
       normalize: []
-      order: 4
+      order: 5
       short: The line number of the file which originated the log event.
       type: integer
     origin.file.name:
       dashed_name: log-origin-file-name
-      description: The name of the file containing the source code which originated
-        the log event. Note that this is not the name of the log file.
+      description: 'The name of the file containing the source code which originated
+        the log event.
+
+        Note that this field is not meant to capture the log file. The correct field
+        to capture the log file is `log.file.path`.'
       example: Bootstrap.java
       flat_name: log.origin.file.name
       ignore_above: 1024
       level: extended
       name: origin.file.name
       normalize: []
-      order: 3
-      short: The file which originated the log event.
+      order: 4
+      short: The code file which originated the log event.
       type: keyword
     origin.function:
       dashed_name: log-origin-function
@@ -4275,7 +4368,7 @@ log:
       level: extended
       name: origin.function
       normalize: []
-      order: 5
+      order: 6
       short: The function which originated the log event.
       type: keyword
     original:
@@ -4298,7 +4391,7 @@ log:
       level: core
       name: original
       normalize: []
-      order: 1
+      order: 2
       short: Original log message with light interpretation only (encoding, newlines).
       type: keyword
     syslog:
@@ -4310,7 +4403,7 @@ log:
       name: syslog
       normalize: []
       object_type: keyword
-      order: 6
+      order: 7
       short: Syslog metadata
       type: object
     syslog.facility.code:
@@ -4325,7 +4418,7 @@ log:
       level: extended
       name: syslog.facility.code
       normalize: []
-      order: 9
+      order: 10
       short: Syslog numeric facility of the event.
       type: long
     syslog.facility.name:
@@ -4337,7 +4430,7 @@ log:
       level: extended
       name: syslog.facility.name
       normalize: []
-      order: 10
+      order: 11
       short: Syslog text-based facility of the event.
       type: keyword
     syslog.priority:
@@ -4352,7 +4445,7 @@ log:
       level: extended
       name: syslog.priority
       normalize: []
-      order: 11
+      order: 12
       short: Syslog priority of the event.
       type: long
     syslog.severity.code:
@@ -4368,7 +4461,7 @@ log:
       level: extended
       name: syslog.severity.code
       normalize: []
-      order: 7
+      order: 8
       short: Syslog numeric severity of the event.
       type: long
     syslog.severity.name:
@@ -4385,7 +4478,7 @@ log:
       level: extended
       name: syslog.severity.name
       normalize: []
-      order: 8
+      order: 9
       short: Syslog text-based severity of the event.
       type: keyword
   group: 2
@@ -4637,7 +4730,8 @@ network:
   group: 2
   name: network
   nestings:
-  - vlan
+  - network.inner.vlan
+  - network.vlan
   prefix: network.
   short: Fields describing the communication path over which the event happened.
   title: Network
@@ -5158,10 +5252,12 @@ observer:
   group: 2
   name: observer
   nestings:
-  - geo
-  - interface
-  - os
-  - vlan
+  - observer.egress.interface
+  - observer.egress.vlan
+  - observer.geo
+  - observer.ingress.interface
+  - observer.ingress.vlan
+  - observer.os
   prefix: observer.
   short: Fields describing an entity observing the event from outside the host.
   title: Observer
@@ -5482,6 +5578,18 @@ package:
 pe:
   description: These fields contain Windows Portable Executable (PE) metadata.
   fields:
+    architecture:
+      dashed_name: pe-architecture
+      description: CPU architecture target for the file.
+      example: x64
+      flat_name: pe.architecture
+      ignore_above: 1024
+      level: extended
+      name: architecture
+      normalize: []
+      order: 6
+      short: CPU architecture target for the file.
+      type: keyword
     company:
       dashed_name: pe-company
       description: Internal company name of the file, provided at compile-time.
@@ -5517,6 +5625,22 @@ pe:
       normalize: []
       order: 1
       short: Process name.
+      type: keyword
+    imphash:
+      dashed_name: pe-imphash
+      description: 'A hash of the imports in a PE file. An imphash -- or import hash
+        -- can be used to fingerprint binaries even after recompilation or other code-level
+        transformations have occurred, which would change more traditional hash values.
+
+        Learn more at https://www.fireeye.com/blog/threat-research/2014/01/tracking-malware-import-hashing.html.'
+      example: 0c6803c4e922103c4dca5963aad36ddf
+      flat_name: pe.imphash
+      ignore_above: 1024
+      level: extended
+      name: imphash
+      normalize: []
+      order: 5
+      short: A hash of the imports in a PE file.
       type: keyword
     original_file_name:
       dashed_name: pe-original-file-name
@@ -6169,6 +6293,19 @@ process:
       order: 29
       short: The working directory of the process.
       type: keyword
+    pe.architecture:
+      dashed_name: process-pe-architecture
+      description: CPU architecture target for the file.
+      example: x64
+      flat_name: process.pe.architecture
+      ignore_above: 1024
+      level: extended
+      name: architecture
+      normalize: []
+      order: 6
+      original_fieldset: pe
+      short: CPU architecture target for the file.
+      type: keyword
     pe.company:
       dashed_name: process-pe-company
       description: Internal company name of the file, provided at compile-time.
@@ -6207,6 +6344,23 @@ process:
       order: 1
       original_fieldset: pe
       short: Process name.
+      type: keyword
+    pe.imphash:
+      dashed_name: process-pe-imphash
+      description: 'A hash of the imports in a PE file. An imphash -- or import hash
+        -- can be used to fingerprint binaries even after recompilation or other code-level
+        transformations have occurred, which would change more traditional hash values.
+
+        Learn more at https://www.fireeye.com/blog/threat-research/2014/01/tracking-malware-import-hashing.html.'
+      example: 0c6803c4e922103c4dca5963aad36ddf
+      flat_name: process.pe.imphash
+      ignore_above: 1024
+      level: extended
+      name: imphash
+      normalize: []
+      order: 5
+      original_fieldset: pe
+      short: A hash of the imports in a PE file.
       type: keyword
     pe.original_file_name:
       dashed_name: process-pe-original-file-name
@@ -6354,9 +6508,11 @@ process:
   group: 2
   name: process
   nestings:
-  - code_signature
-  - hash
-  - pe
+  - process.code_signature
+  - process.hash
+  - process.parent.code_signature
+  - process.parent.hash
+  - process.pe
   prefix: process.
   short: These fields contain information about a process.
   title: Process
@@ -6394,7 +6550,8 @@ registry:
       ignore_above: 1024
       level: core
       name: data.strings
-      normalize: []
+      normalize:
+      - array
       order: 5
       short: List of strings representing what was written to the registry.
       type: keyword
@@ -6970,9 +7127,7 @@ server:
       type: keyword
     ip:
       dashed_name: server-ip
-      description: 'IP address of the server.
-
-        Can be one or multiple IPv4 or IPv6 addresses.'
+      description: IP address of the server (IPv4 or IPv6).
       flat_name: server.ip
       level: core
       name: ip
@@ -7176,7 +7331,7 @@ server:
       type: keyword
     user.id:
       dashed_name: server-user-id
-      description: Unique identifiers of the user.
+      description: Unique identifier of the user.
       flat_name: server.user.id
       ignore_above: 1024
       level: core
@@ -7184,7 +7339,7 @@ server:
       normalize: []
       order: 0
       original_fieldset: user
-      short: Unique identifiers of the user.
+      short: Unique identifier of the user.
       type: keyword
     user.name:
       dashed_name: server-user-name
@@ -7207,9 +7362,10 @@ server:
   group: 2
   name: server
   nestings:
-  - as
-  - geo
-  - user
+  - server.as
+  - server.geo
+  - server.user
+  - server.user.group
   prefix: server.
   short: Fields about the server side of a network connection, used with client.
   title: Server
@@ -7533,9 +7689,7 @@ source:
       type: keyword
     ip:
       dashed_name: source-ip
-      description: 'IP address of the source.
-
-        Can be one or multiple IPv4 or IPv6 addresses.'
+      description: IP address of the source (IPv4 or IPv6).
       flat_name: source.ip
       level: core
       name: ip
@@ -7739,7 +7893,7 @@ source:
       type: keyword
     user.id:
       dashed_name: source-user-id
-      description: Unique identifiers of the user.
+      description: Unique identifier of the user.
       flat_name: source.user.id
       ignore_above: 1024
       level: core
@@ -7747,7 +7901,7 @@ source:
       normalize: []
       order: 0
       original_fieldset: user
-      short: Unique identifiers of the user.
+      short: Unique identifier of the user.
       type: keyword
     user.name:
       dashed_name: source-user-name
@@ -7770,9 +7924,10 @@ source:
   group: 2
   name: source
   nestings:
-  - as
-  - geo
-  - user
+  - source.as
+  - source.geo
+  - source.user
+  - source.user.group
   prefix: source.
   short: Fields about the source side of a network connection, used with destination.
   title: Source
@@ -8684,14 +8839,14 @@ user:
       type: keyword
     id:
       dashed_name: user-id
-      description: Unique identifiers of the user.
+      description: Unique identifier of the user.
       flat_name: user.id
       ignore_above: 1024
       level: core
       name: id
       normalize: []
       order: 0
-      short: Unique identifiers of the user.
+      short: Unique identifier of the user.
       type: keyword
     name:
       dashed_name: user-name
@@ -8713,7 +8868,7 @@ user:
   group: 2
   name: user
   nestings:
-  - group
+  - user.group
   prefix: user.
   reusable:
     expected:
@@ -8876,7 +9031,7 @@ user_agent:
   group: 2
   name: user_agent
   nestings:
-  - os
+  - user_agent.os
   prefix: user_agent.
   short: Fields to describe a browser user_agent string.
   title: User agent

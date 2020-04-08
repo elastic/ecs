@@ -30,6 +30,8 @@ def main():
         intermediate_custom = schema_reader.load_schemas(include_glob)
         schema_reader.merge_schema_fields(intermediate_fields, intermediate_custom)
 
+    schema_reader.assemble_reusables(intermediate_fields)
+
     if args.subset:
         subset = {}
         for arg in args.subset:
@@ -59,8 +61,10 @@ def main():
 
     csv_generator.generate(flat, ecs_version, out_dir)
     es_template.generate(flat, ecs_version, out_dir)
+    if args.include or args.subset:
+        exit()
     beats.generate(nested, ecs_version, out_dir)
-    asciidoc_fields.generate(nested, flat, ecs_version, docs_dir)
+    asciidoc_fields.generate(intermediate_fields, ecs_version, docs_dir)
 
 
 def argument_parser():

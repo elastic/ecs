@@ -18,6 +18,22 @@
   required: true
   short: Date/time when the event originated.
   type: date
+agent.build.original:
+  dashed_name: agent-build-original
+  description: 'Extended build information for the agent.
+
+    This field is intended to contain any build information that a data source may
+    provide, no specific formatting is required.'
+  example: metricbeat version 7.6.0 (amd64), libbeat 7.6.0 [6a23e8f8f30f5001ba344e4e54d8d9cb82cb107c
+    built 2020-02-05 23:10:10 +0000 UTC]
+  flat_name: agent.build.original
+  ignore_above: 1024
+  level: core
+  name: build.original
+  normalize: []
+  order: 1
+  short: Extended build information for the agent.
+  type: keyword
 agent.ephemeral_id:
   dashed_name: agent-ephemeral-id
   description: 'Ephemeral identifier of this agent (if one exists).
@@ -29,7 +45,7 @@ agent.ephemeral_id:
   level: extended
   name: ephemeral_id
   normalize: []
-  order: 4
+  order: 5
   short: Ephemeral identifier of this agent.
   type: keyword
 agent.id:
@@ -43,7 +59,7 @@ agent.id:
   level: core
   name: id
   normalize: []
-  order: 3
+  order: 4
   short: Unique identifier of this agent.
   type: keyword
 agent.name:
@@ -61,7 +77,7 @@ agent.name:
   level: core
   name: name
   normalize: []
-  order: 1
+  order: 2
   short: Custom name of the agent.
   type: keyword
 agent.type:
@@ -77,7 +93,7 @@ agent.type:
   level: core
   name: type
   normalize: []
-  order: 2
+  order: 3
   short: Type of the agent.
   type: keyword
 agent.version:
@@ -102,7 +118,6 @@ as.number:
   name: number
   normalize: []
   order: 0
-  original_fieldset: as
   short: Unique number allocated to the autonomous system. The autonomous system number
     (ASN) uniquely identifies each network on the Internet.
   type: long
@@ -121,7 +136,6 @@ as.organization.name:
   name: organization.name
   normalize: []
   order: 1
-  original_fieldset: as
   short: Organization name.
   type: keyword
 client.address:
@@ -306,9 +320,7 @@ client.geo.region_name:
   type: keyword
 client.ip:
   dashed_name: client-ip
-  description: 'IP address of the client.
-
-    Can be one or multiple IPv4 or IPv6 addresses.'
+  description: IP address of the client (IPv4 or IPv6).
   flat_name: client.ip
   level: core
   name: ip
@@ -512,7 +524,7 @@ client.user.hash:
   type: keyword
 client.user.id:
   dashed_name: client-user-id
-  description: Unique identifiers of the user.
+  description: Unique identifier of the user.
   flat_name: client.user.id
   ignore_above: 1024
   level: core
@@ -520,7 +532,7 @@ client.user.id:
   normalize: []
   order: 0
   original_fieldset: user
-  short: Unique identifiers of the user.
+  short: Unique identifier of the user.
   type: keyword
 client.user.name:
   dashed_name: client-user-name
@@ -636,7 +648,6 @@ code_signature.exists:
   name: exists
   normalize: []
   order: 0
-  original_fieldset: code_signature
   short: Boolean to capture if a signature is present.
   type: boolean
 code_signature.status:
@@ -653,7 +664,6 @@ code_signature.status:
   name: status
   normalize: []
   order: 4
-  original_fieldset: code_signature
   short: Additional information about the certificate status.
   type: keyword
 code_signature.subject_name:
@@ -666,7 +676,6 @@ code_signature.subject_name:
   name: subject_name
   normalize: []
   order: 1
-  original_fieldset: code_signature
   short: Subject name of the code signer
   type: keyword
 code_signature.trusted:
@@ -681,7 +690,6 @@ code_signature.trusted:
   name: trusted
   normalize: []
   order: 3
-  original_fieldset: code_signature
   short: Stores the trust status of the certificate chain.
   type: boolean
 code_signature.valid:
@@ -696,7 +704,6 @@ code_signature.valid:
   name: valid
   normalize: []
   order: 2
-  original_fieldset: code_signature
   short: Boolean to capture if the digital signature is verified against the binary
     content.
   type: boolean
@@ -950,9 +957,7 @@ destination.geo.region_name:
   type: keyword
 destination.ip:
   dashed_name: destination-ip
-  description: 'IP address of the destination.
-
-    Can be one or multiple IPv4 or IPv6 addresses.'
+  description: IP address of the destination (IPv4 or IPv6).
   flat_name: destination.ip
   level: core
   name: ip
@@ -1155,7 +1160,7 @@ destination.user.hash:
   type: keyword
 destination.user.id:
   dashed_name: destination-user-id
-  description: Unique identifiers of the user.
+  description: Unique identifier of the user.
   flat_name: destination.user.id
   ignore_above: 1024
   level: core
@@ -1163,7 +1168,7 @@ destination.user.id:
   normalize: []
   order: 0
   original_fieldset: user
-  short: Unique identifiers of the user.
+  short: Unique identifier of the user.
   type: keyword
 destination.user.name:
   dashed_name: destination-user-name
@@ -1330,6 +1335,19 @@ dll.path:
   order: 1
   short: Full file path of the library.
   type: keyword
+dll.pe.architecture:
+  dashed_name: dll-pe-architecture
+  description: CPU architecture target for the file.
+  example: x64
+  flat_name: dll.pe.architecture
+  ignore_above: 1024
+  level: extended
+  name: architecture
+  normalize: []
+  order: 6
+  original_fieldset: pe
+  short: CPU architecture target for the file.
+  type: keyword
 dll.pe.company:
   dashed_name: dll-pe-company
   description: Internal company name of the file, provided at compile-time.
@@ -1368,6 +1386,23 @@ dll.pe.file_version:
   order: 1
   original_fieldset: pe
   short: Process name.
+  type: keyword
+dll.pe.imphash:
+  dashed_name: dll-pe-imphash
+  description: 'A hash of the imports in a PE file. An imphash -- or import hash --
+    can be used to fingerprint binaries even after recompilation or other code-level
+    transformations have occurred, which would change more traditional hash values.
+
+    Learn more at https://www.fireeye.com/blog/threat-research/2014/01/tracking-malware-import-hashing.html.'
+  example: 0c6803c4e922103c4dca5963aad36ddf
+  flat_name: dll.pe.imphash
+  ignore_above: 1024
+  level: extended
+  name: imphash
+  normalize: []
+  order: 5
+  original_fieldset: pe
+  short: A hash of the imports in a PE file.
   type: keyword
 dll.pe.original_file_name:
   dashed_name: dll-pe-original-file-name
@@ -2893,6 +2928,19 @@ file.path:
   order: 4
   short: Full path to the file, including the file name.
   type: keyword
+file.pe.architecture:
+  dashed_name: file-pe-architecture
+  description: CPU architecture target for the file.
+  example: x64
+  flat_name: file.pe.architecture
+  ignore_above: 1024
+  level: extended
+  name: architecture
+  normalize: []
+  order: 6
+  original_fieldset: pe
+  short: CPU architecture target for the file.
+  type: keyword
 file.pe.company:
   dashed_name: file-pe-company
   description: Internal company name of the file, provided at compile-time.
@@ -2931,6 +2979,23 @@ file.pe.file_version:
   order: 1
   original_fieldset: pe
   short: Process name.
+  type: keyword
+file.pe.imphash:
+  dashed_name: file-pe-imphash
+  description: 'A hash of the imports in a PE file. An imphash -- or import hash --
+    can be used to fingerprint binaries even after recompilation or other code-level
+    transformations have occurred, which would change more traditional hash values.
+
+    Learn more at https://www.fireeye.com/blog/threat-research/2014/01/tracking-malware-import-hashing.html.'
+  example: 0c6803c4e922103c4dca5963aad36ddf
+  flat_name: file.pe.imphash
+  ignore_above: 1024
+  level: extended
+  name: imphash
+  normalize: []
+  order: 5
+  original_fieldset: pe
+  short: A hash of the imports in a PE file.
   type: keyword
 file.pe.original_file_name:
   dashed_name: file-pe-original-file-name
@@ -3021,7 +3086,6 @@ geo.city_name:
   name: city_name
   normalize: []
   order: 4
-  original_fieldset: geo
   short: City name.
   type: keyword
 geo.continent_name:
@@ -3034,7 +3098,6 @@ geo.continent_name:
   name: continent_name
   normalize: []
   order: 1
-  original_fieldset: geo
   short: Name of the continent.
   type: keyword
 geo.country_iso_code:
@@ -3047,7 +3110,6 @@ geo.country_iso_code:
   name: country_iso_code
   normalize: []
   order: 5
-  original_fieldset: geo
   short: Country ISO code.
   type: keyword
 geo.country_name:
@@ -3060,7 +3122,6 @@ geo.country_name:
   name: country_name
   normalize: []
   order: 2
-  original_fieldset: geo
   short: Country name.
   type: keyword
 geo.location:
@@ -3072,7 +3133,6 @@ geo.location:
   name: location
   normalize: []
   order: 0
-  original_fieldset: geo
   short: Longitude and latitude.
   type: geo_point
 geo.name:
@@ -3091,7 +3151,6 @@ geo.name:
   name: name
   normalize: []
   order: 7
-  original_fieldset: geo
   short: User-defined description of a location.
   type: keyword
 geo.region_iso_code:
@@ -3104,7 +3163,6 @@ geo.region_iso_code:
   name: region_iso_code
   normalize: []
   order: 6
-  original_fieldset: geo
   short: Region ISO code.
   type: keyword
 geo.region_name:
@@ -3117,7 +3175,6 @@ geo.region_name:
   name: region_name
   normalize: []
   order: 3
-  original_fieldset: geo
   short: Region name.
   type: keyword
 group.domain:
@@ -3131,7 +3188,6 @@ group.domain:
   name: domain
   normalize: []
   order: 2
-  original_fieldset: group
   short: Name of the directory the group is a member of.
   type: keyword
 group.id:
@@ -3143,7 +3199,6 @@ group.id:
   name: id
   normalize: []
   order: 0
-  original_fieldset: group
   short: Unique identifier for the group on the system/platform.
   type: keyword
 group.name:
@@ -3155,7 +3210,6 @@ group.name:
   name: name
   normalize: []
   order: 1
-  original_fieldset: group
   short: Name of the group.
   type: keyword
 hash.md5:
@@ -3167,7 +3221,6 @@ hash.md5:
   name: md5
   normalize: []
   order: 0
-  original_fieldset: hash
   short: MD5 hash.
   type: keyword
 hash.sha1:
@@ -3179,7 +3232,6 @@ hash.sha1:
   name: sha1
   normalize: []
   order: 1
-  original_fieldset: hash
   short: SHA1 hash.
   type: keyword
 hash.sha256:
@@ -3191,7 +3243,6 @@ hash.sha256:
   name: sha256
   normalize: []
   order: 2
-  original_fieldset: hash
   short: SHA256 hash.
   type: keyword
 hash.sha512:
@@ -3203,7 +3254,6 @@ hash.sha512:
   name: sha512
   normalize: []
   order: 3
-  original_fieldset: hash
   short: SHA512 hash.
   type: keyword
 host.architecture:
@@ -3620,7 +3670,7 @@ host.user.hash:
   type: keyword
 host.user.id:
   dashed_name: host-user-id
-  description: Unique identifiers of the user.
+  description: Unique identifier of the user.
   flat_name: host.user.id
   ignore_above: 1024
   level: core
@@ -3628,7 +3678,7 @@ host.user.id:
   normalize: []
   order: 0
   original_fieldset: user
-  short: Unique identifiers of the user.
+  short: Unique identifier of the user.
   type: keyword
 host.user.name:
   dashed_name: host-user-name
@@ -3792,7 +3842,6 @@ interface.alias:
   name: alias
   normalize: []
   order: 2
-  original_fieldset: interface
   short: Interface alias
   type: keyword
 interface.id:
@@ -3805,7 +3854,6 @@ interface.id:
   name: id
   normalize: []
   order: 0
-  original_fieldset: interface
   short: Interface ID
   type: keyword
 interface.name:
@@ -3818,7 +3866,6 @@ interface.name:
   name: name
   normalize: []
   order: 1
-  original_fieldset: interface
   short: Interface name
   type: keyword
 labels:
@@ -3838,6 +3885,21 @@ labels:
   order: 2
   short: Custom key/value pairs.
   type: object
+log.file.path:
+  dashed_name: log-file-path
+  description: 'Full path to the log file this event came from, including the file
+    name. It should include the drive letter, when appropriate.
+
+    If the event wasn''t read from a log file, do not populate this field.'
+  example: /var/log/fun-times.log
+  flat_name: log.file.path
+  ignore_above: 1024
+  level: extended
+  name: file.path
+  normalize: []
+  order: 1
+  short: Full path to the log file this event came from.
+  type: keyword
 log.level:
   dashed_name: log-level
   description: 'Original log level of the log event.
@@ -3866,7 +3928,7 @@ log.logger:
   level: core
   name: logger
   normalize: []
-  order: 2
+  order: 3
   short: Name of the logger.
   type: keyword
 log.origin.file.line:
@@ -3878,21 +3940,24 @@ log.origin.file.line:
   level: extended
   name: origin.file.line
   normalize: []
-  order: 4
+  order: 5
   short: The line number of the file which originated the log event.
   type: integer
 log.origin.file.name:
   dashed_name: log-origin-file-name
-  description: The name of the file containing the source code which originated the
-    log event. Note that this is not the name of the log file.
+  description: 'The name of the file containing the source code which originated the
+    log event.
+
+    Note that this field is not meant to capture the log file. The correct field to
+    capture the log file is `log.file.path`.'
   example: Bootstrap.java
   flat_name: log.origin.file.name
   ignore_above: 1024
   level: extended
   name: origin.file.name
   normalize: []
-  order: 3
-  short: The file which originated the log event.
+  order: 4
+  short: The code file which originated the log event.
   type: keyword
 log.origin.function:
   dashed_name: log-origin-function
@@ -3903,7 +3968,7 @@ log.origin.function:
   level: extended
   name: origin.function
   normalize: []
-  order: 5
+  order: 6
   short: The function which originated the log event.
   type: keyword
 log.original:
@@ -3926,7 +3991,7 @@ log.original:
   level: core
   name: original
   normalize: []
-  order: 1
+  order: 2
   short: Original log message with light interpretation only (encoding, newlines).
   type: keyword
 log.syslog:
@@ -3938,7 +4003,7 @@ log.syslog:
   name: syslog
   normalize: []
   object_type: keyword
-  order: 6
+  order: 7
   short: Syslog metadata
   type: object
 log.syslog.facility.code:
@@ -3953,7 +4018,7 @@ log.syslog.facility.code:
   level: extended
   name: syslog.facility.code
   normalize: []
-  order: 9
+  order: 10
   short: Syslog numeric facility of the event.
   type: long
 log.syslog.facility.name:
@@ -3965,7 +4030,7 @@ log.syslog.facility.name:
   level: extended
   name: syslog.facility.name
   normalize: []
-  order: 10
+  order: 11
   short: Syslog text-based facility of the event.
   type: keyword
 log.syslog.priority:
@@ -3980,7 +4045,7 @@ log.syslog.priority:
   level: extended
   name: syslog.priority
   normalize: []
-  order: 11
+  order: 12
   short: Syslog priority of the event.
   type: long
 log.syslog.severity.code:
@@ -3996,7 +4061,7 @@ log.syslog.severity.code:
   level: extended
   name: syslog.severity.code
   normalize: []
-  order: 7
+  order: 8
   short: Syslog numeric severity of the event.
   type: long
 log.syslog.severity.name:
@@ -4013,7 +4078,7 @@ log.syslog.severity.name:
   level: extended
   name: syslog.severity.name
   normalize: []
-  order: 8
+  order: 9
   short: Syslog text-based severity of the event.
   type: keyword
 message:
@@ -4797,7 +4862,6 @@ os.family:
   name: family
   normalize: []
   order: 3
-  original_fieldset: os
   short: OS family (such as redhat, debian, freebsd, windows).
   type: keyword
 os.full:
@@ -4815,7 +4879,6 @@ os.full:
   name: full
   normalize: []
   order: 2
-  original_fieldset: os
   short: Operating system name, including the version or code name.
   type: keyword
 os.kernel:
@@ -4828,7 +4891,6 @@ os.kernel:
   name: kernel
   normalize: []
   order: 5
-  original_fieldset: os
   short: Operating system kernel version as a raw string.
   type: keyword
 os.name:
@@ -4846,7 +4908,6 @@ os.name:
   name: name
   normalize: []
   order: 1
-  original_fieldset: os
   short: Operating system name, without the version.
   type: keyword
 os.platform:
@@ -4859,7 +4920,6 @@ os.platform:
   name: platform
   normalize: []
   order: 0
-  original_fieldset: os
   short: Operating system platform (such centos, ubuntu, windows).
   type: keyword
 os.version:
@@ -4872,7 +4932,6 @@ os.version:
   name: version
   normalize: []
   order: 4
-  original_fieldset: os
   short: Operating system version as a raw string.
   type: keyword
 package.architecture:
@@ -5037,6 +5096,18 @@ package.version:
   order: 1
   short: Package version
   type: keyword
+pe.architecture:
+  dashed_name: pe-architecture
+  description: CPU architecture target for the file.
+  example: x64
+  flat_name: pe.architecture
+  ignore_above: 1024
+  level: extended
+  name: architecture
+  normalize: []
+  order: 6
+  short: CPU architecture target for the file.
+  type: keyword
 pe.company:
   dashed_name: pe-company
   description: Internal company name of the file, provided at compile-time.
@@ -5047,7 +5118,6 @@ pe.company:
   name: company
   normalize: []
   order: 4
-  original_fieldset: pe
   short: Internal company name of the file, provided at compile-time.
   type: keyword
 pe.description:
@@ -5060,7 +5130,6 @@ pe.description:
   name: description
   normalize: []
   order: 2
-  original_fieldset: pe
   short: Internal description of the file, provided at compile-time.
   type: keyword
 pe.file_version:
@@ -5073,8 +5142,23 @@ pe.file_version:
   name: file_version
   normalize: []
   order: 1
-  original_fieldset: pe
   short: Process name.
+  type: keyword
+pe.imphash:
+  dashed_name: pe-imphash
+  description: 'A hash of the imports in a PE file. An imphash -- or import hash --
+    can be used to fingerprint binaries even after recompilation or other code-level
+    transformations have occurred, which would change more traditional hash values.
+
+    Learn more at https://www.fireeye.com/blog/threat-research/2014/01/tracking-malware-import-hashing.html.'
+  example: 0c6803c4e922103c4dca5963aad36ddf
+  flat_name: pe.imphash
+  ignore_above: 1024
+  level: extended
+  name: imphash
+  normalize: []
+  order: 5
+  short: A hash of the imports in a PE file.
   type: keyword
 pe.original_file_name:
   dashed_name: pe-original-file-name
@@ -5086,7 +5170,6 @@ pe.original_file_name:
   name: original_file_name
   normalize: []
   order: 0
-  original_fieldset: pe
   short: Internal name of the file, provided at compile-time.
   type: keyword
 pe.product:
@@ -5099,7 +5182,6 @@ pe.product:
   name: product
   normalize: []
   order: 3
-  original_fieldset: pe
   short: Internal product name of the file, provided at compile-time.
   type: keyword
 process.args:
@@ -5710,6 +5792,19 @@ process.parent.working_directory:
   order: 29
   short: The working directory of the process.
   type: keyword
+process.pe.architecture:
+  dashed_name: process-pe-architecture
+  description: CPU architecture target for the file.
+  example: x64
+  flat_name: process.pe.architecture
+  ignore_above: 1024
+  level: extended
+  name: architecture
+  normalize: []
+  order: 6
+  original_fieldset: pe
+  short: CPU architecture target for the file.
+  type: keyword
 process.pe.company:
   dashed_name: process-pe-company
   description: Internal company name of the file, provided at compile-time.
@@ -5748,6 +5843,23 @@ process.pe.file_version:
   order: 1
   original_fieldset: pe
   short: Process name.
+  type: keyword
+process.pe.imphash:
+  dashed_name: process-pe-imphash
+  description: 'A hash of the imports in a PE file. An imphash -- or import hash --
+    can be used to fingerprint binaries even after recompilation or other code-level
+    transformations have occurred, which would change more traditional hash values.
+
+    Learn more at https://www.fireeye.com/blog/threat-research/2014/01/tracking-malware-import-hashing.html.'
+  example: 0c6803c4e922103c4dca5963aad36ddf
+  flat_name: process.pe.imphash
+  ignore_above: 1024
+  level: extended
+  name: imphash
+  normalize: []
+  order: 5
+  original_fieldset: pe
+  short: A hash of the imports in a PE file.
   type: keyword
 process.pe.original_file_name:
   dashed_name: process-pe-original-file-name
@@ -5922,7 +6034,8 @@ registry.data.strings:
   ignore_above: 1024
   level: core
   name: data.strings
-  normalize: []
+  normalize:
+  - array
   order: 5
   short: List of strings representing what was written to the registry.
   type: keyword
@@ -6424,9 +6537,7 @@ server.geo.region_name:
   type: keyword
 server.ip:
   dashed_name: server-ip
-  description: 'IP address of the server.
-
-    Can be one or multiple IPv4 or IPv6 addresses.'
+  description: IP address of the server (IPv4 or IPv6).
   flat_name: server.ip
   level: core
   name: ip
@@ -6630,7 +6741,7 @@ server.user.hash:
   type: keyword
 server.user.id:
   dashed_name: server-user-id
-  description: Unique identifiers of the user.
+  description: Unique identifier of the user.
   flat_name: server.user.id
   ignore_above: 1024
   level: core
@@ -6638,7 +6749,7 @@ server.user.id:
   normalize: []
   order: 0
   original_fieldset: user
-  short: Unique identifiers of the user.
+  short: Unique identifier of the user.
   type: keyword
 server.user.name:
   dashed_name: server-user-name
@@ -6959,9 +7070,7 @@ source.geo.region_name:
   type: keyword
 source.ip:
   dashed_name: source-ip
-  description: 'IP address of the source.
-
-    Can be one or multiple IPv4 or IPv6 addresses.'
+  description: IP address of the source (IPv4 or IPv6).
   flat_name: source.ip
   level: core
   name: ip
@@ -7165,7 +7274,7 @@ source.user.hash:
   type: keyword
 source.user.id:
   dashed_name: source-user-id
-  description: Unique identifiers of the user.
+  description: Unique identifier of the user.
   flat_name: source.user.id
   ignore_above: 1024
   level: core
@@ -7173,7 +7282,7 @@ source.user.id:
   normalize: []
   order: 0
   original_fieldset: user
-  short: Unique identifiers of the user.
+  short: Unique identifier of the user.
   type: keyword
 source.user.name:
   dashed_name: source-user-name
@@ -7963,7 +8072,6 @@ user.domain:
   name: domain
   normalize: []
   order: 5
-  original_fieldset: user
   short: Name of the directory the user is a member of.
   type: keyword
 user.email:
@@ -7975,7 +8083,6 @@ user.email:
   name: email
   normalize: []
   order: 3
-  original_fieldset: user
   short: User email address.
   type: keyword
 user.full_name:
@@ -7993,7 +8100,6 @@ user.full_name:
   name: full_name
   normalize: []
   order: 2
-  original_fieldset: user
   short: User's full name, if available.
   type: keyword
 user.group.domain:
@@ -8047,20 +8153,18 @@ user.hash:
   name: hash
   normalize: []
   order: 4
-  original_fieldset: user
   short: Unique user hash to correlate information for a user in anonymized form.
   type: keyword
 user.id:
   dashed_name: user-id
-  description: Unique identifiers of the user.
+  description: Unique identifier of the user.
   flat_name: user.id
   ignore_above: 1024
   level: core
   name: id
   normalize: []
   order: 0
-  original_fieldset: user
-  short: Unique identifiers of the user.
+  short: Unique identifier of the user.
   type: keyword
 user.name:
   dashed_name: user-name
@@ -8077,7 +8181,6 @@ user.name:
   name: name
   normalize: []
   order: 1
-  original_fieldset: user
   short: Short name or login of the user.
   type: keyword
 user_agent.device.name:
@@ -8232,7 +8335,6 @@ vlan.id:
   name: id
   normalize: []
   order: 0
-  original_fieldset: vlan
   short: VLAN ID as reported by the observer.
   type: keyword
 vlan.name:
@@ -8245,7 +8347,6 @@ vlan.name:
   name: name
   normalize: []
   order: 1
-  original_fieldset: vlan
   short: Optional VLAN name as reported by the observer.
   type: keyword
 vulnerability.category:

@@ -85,7 +85,7 @@ def schema_set_fieldset_prefix(schema):
 
 def schema_fields_as_dictionary(schema):
     """Re-nest the array of field names as a dictionary of 'fieldname' => { field definition }"""
-    field_array = schema.pop('fields')
+    field_array = schema.pop('fields', [])
     schema['fields'] = {}
     for order, field in enumerate(field_array):
         field['order'] = order
@@ -114,7 +114,15 @@ def merge_schema_fields(a, b):
                 raise ValueError('Schemas unmergeable: type {} does not match type {}'.format(a_type, b_type))
             elif a_type not in ['object', 'nested']:
                 print('Warning: dropping field {}, already defined'.format(key))
-            elif 'fields' in b[key]:
+                continue
+            # reusable should only be found at the top level of a fieldset
+            if 'reusable' in b[key]:
+                a[key].setdefault('reusable', {})
+                a[key]['reusable']['top_level'] = a[key]['reusable'].get(
+                    'top_level', False) or b[key]['reusable']['top_level']
+                a[key]['reusable'].setdefault('expected', [])
+                a[key]['reusable']['expected'].extend(b[key]['reusable']['expected'])
+            if 'fields' in b[key]:
                 a[key].setdefault('fields', {})
                 merge_schema_fields(a[key]['fields'], b[key]['fields'])
 
@@ -160,10 +168,6 @@ def duplicate_reusable_fieldsets(schema, fields_nested):
             top_level = split_flat_name[0]
             # List field set names expected under another field set.
             # E.g. host.nestings = [ 'geo', 'os', 'user' ]
-            nestings = fields_nested[top_level].setdefault('nestings', [])
-            if schema['name'] not in nestings:
-                nestings.append(schema['name'])
-            nestings.sort()
             nested_schema = fields_nested[top_level]['fields']
             for level in split_flat_name[1:]:
                 nested_schema = nested_schema.get(level, None)
@@ -174,6 +178,17 @@ def duplicate_reusable_fieldsets(schema, fields_nested):
                         'Reusable fields cannot be put inside other reusable fields except when the destination reusable is at the top level')
                 nested_schema = nested_schema.setdefault('fields', {})
             nested_schema[schema['name']] = schema
+
+
+def find_nestings(fields, prefix):
+    """Recursively finds all reusable fields in the fields dictionary."""
+    nestings = []
+    for field_name, field in fields.items():
+        if 'reusable' in field:
+            nestings.append(prefix + field_name)
+        if 'fields' in field:
+            nestings.extend(find_nestings(field['fields'], prefix + field_name + '.'))
+    return nestings
 
 # Main
 
@@ -190,26 +205,22 @@ def assemble_reusables(fields_nested):
     # fields array replaced with a fields dictionary.
     for schema_name in fields_nested:
         schema = fields_nested[schema_name]
-
         duplicate_reusable_fieldsets(schema, fields_nested)
 
+    cleanup_fields_recursive(fields_nested, "")
 
-def flatten_fields(fields, key_prefix, original_fieldset=None):
+
+def flatten_fields(fields, key_prefix):
     flat_fields = {}
     for (name, field) in fields.items():
         new_key = key_prefix + name
-        temp_original_fieldset = original_fieldset
-        if 'reusable' in field:
-            temp_original_fieldset = name
         if 'field_details' in field:
             flat_fields[new_key] = field['field_details'].copy()
-            if temp_original_fieldset:
-                flat_fields[new_key]['original_fieldset'] = temp_original_fieldset
         if 'fields' in field:
             new_prefix = new_key + "."
             if 'root' in field and field['root']:
                 new_prefix = ""
-            flat_fields.update(flatten_fields(field['fields'], new_prefix, temp_original_fieldset))
+            flat_fields.update(flatten_fields(field['fields'], new_prefix))
     return flat_fields
 
 
@@ -227,17 +238,20 @@ def generate_fully_flattened_fields(fields_nested):
     return flatten_fields(fields_nested, "")
 
 
-def cleanup_fields_recursive(fields, prefix):
+def cleanup_fields_recursive(fields, prefix, original_fieldset=None):
     for (name, field) in fields.items():
         # Copy field here so reusable field sets become unique copies instead of references to the original set
         field = field.copy()
         fields[name] = field
+        temp_original_fieldset = name if ('reusable' in field and prefix != "") else original_fieldset
         if 'field_details' in field:
             # Deep copy the field details so we can insert different flat names for each reusable fieldset
             field_details = copy.deepcopy(field['field_details'])
             new_flat_name = prefix + name
             field_details['flat_name'] = new_flat_name
             field_details['dashed_name'] = new_flat_name.replace('.', '-').replace('_', '-')
+            if temp_original_fieldset:
+                field_details['original_fieldset'] = temp_original_fieldset
             dict_clean_string_values(field_details)
             field_set_defaults(field_details)
             field['field_details'] = field_details
@@ -246,7 +260,7 @@ def cleanup_fields_recursive(fields, prefix):
             new_prefix = prefix + name + "."
             if 'root' in field and field['root']:
                 new_prefix = ""
-            cleanup_fields_recursive(field['fields'], new_prefix)
+            cleanup_fields_recursive(field['fields'], new_prefix, temp_original_fieldset)
 
 
 def load_schemas(files=ecs_files()):
@@ -257,8 +271,11 @@ def load_schemas(files=ecs_files()):
 
 
 def generate_nested_flat(fields_intermediate):
-    assemble_reusables(fields_intermediate)
-    cleanup_fields_recursive(fields_intermediate, "")
+    for field_name, field in fields_intermediate.items():
+        nestings = find_nestings(field['fields'], field_name + ".")
+        nestings.sort()
+        if len(nestings) > 0:
+            field['nestings'] = nestings
     fields_nested = generate_partially_flattened_fields(fields_intermediate)
     fields_flat = generate_fully_flattened_fields(fields_intermediate)
     return (fields_nested, fields_flat)
