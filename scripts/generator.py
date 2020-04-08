@@ -39,6 +39,8 @@ def main():
                 with open(file) as f:
                     raw = yaml.safe_load(f.read())
                     ecs_helpers.recursive_merge_subset_dicts(subset, raw)
+        if not subset:
+            raise ValueError('Subset option specified but no subsets found')
         intermediate_fields = ecs_helpers.fields_subset(subset, intermediate_fields)
 
     (nested, flat) = schema_reader.generate_nested_flat(intermediate_fields)
