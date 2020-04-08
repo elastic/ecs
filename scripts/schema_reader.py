@@ -139,6 +139,7 @@ def assemble_reusables(fields_nested):
         duplicate_reusable_fieldsets(schema, fields_nested)
     cleanup_fields_recursive(fields_nested, "")
 
+
 def duplicate_reusable_fieldsets(schema, fields_nested):
     """Copies reusable field definitions to their expected places"""
     # Note: across this schema reader, functions are modifying dictionaries passed
