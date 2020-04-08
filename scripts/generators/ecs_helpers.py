@@ -52,7 +52,11 @@ def safe_merge_dicts(a, b):
 
 def fields_subset(subset, fields):
     retained_fields = {}
+    allowed_options = ['fields']
     for key, val in subset.items():
+        for option in val:
+            if option not in allowed_options:
+                raise ValueError('Unsupported option found in subset: {}'.format(option))
         # A missing fields key is shorthand for including all subfields
         if 'fields' not in val or val['fields'] == '*':
             retained_fields[key] = fields[key]
