@@ -20,7 +20,6 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
-* Added `search.*` fields #729
 * Add architecture and imphash for PE field set. (#763)
 * Added `agent.build.*` for extended agent version information. (#764)
 
