@@ -9,9 +9,6 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.6.0-dev,true,agent,agent.name,keyword,core,,foo,Custom name of the agent.
 1.6.0-dev,true,agent,agent.type,keyword,core,,filebeat,Type of the agent.
 1.6.0-dev,true,agent,agent.version,keyword,core,,6.0.0-rc2,Version of the agent.
-1.6.0-dev,true,as,as.number,long,extended,,15169,Unique number allocated to the autonomous system. The autonomous system number (ASN) uniquely identifies each network on the Internet.
-1.6.0-dev,true,as,as.organization.name,keyword,extended,,Google LLC,Organization name.
-1.6.0-dev,true,as,as.organization.name.text,text,extended,,Google LLC,Organization name.
 1.6.0-dev,true,client,client.address,keyword,extended,,,Client network address.
 1.6.0-dev,true,client,client.as.number,long,extended,,15169,Unique number allocated to the autonomous system. The autonomous system number (ASN) uniquely identifies each network on the Internet.
 1.6.0-dev,true,client,client.as.organization.name,keyword,extended,,Google LLC,Organization name.
@@ -52,11 +49,6 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.6.0-dev,true,cloud,cloud.machine.type,keyword,extended,,t2.medium,Machine type of the host machine.
 1.6.0-dev,true,cloud,cloud.provider,keyword,extended,,aws,Name of the cloud provider.
 1.6.0-dev,true,cloud,cloud.region,keyword,extended,,us-east-1,Region in which this host is running.
-1.6.0-dev,true,code_signature,code_signature.exists,boolean,core,,true,Boolean to capture if a signature is present.
-1.6.0-dev,true,code_signature,code_signature.status,keyword,extended,,ERROR_UNTRUSTED_ROOT,Additional information about the certificate status.
-1.6.0-dev,true,code_signature,code_signature.subject_name,keyword,core,,Microsoft Corporation,Subject name of the code signer
-1.6.0-dev,true,code_signature,code_signature.trusted,boolean,extended,,true,Stores the trust status of the certificate chain.
-1.6.0-dev,true,code_signature,code_signature.valid,boolean,extended,,true,Boolean to capture if the digital signature is verified against the binary content.
 1.6.0-dev,true,container,container.id,keyword,core,,,Unique container id.
 1.6.0-dev,true,container,container.image.name,keyword,extended,,,Name of the image the container was built on.
 1.6.0-dev,true,container,container.image.tag,keyword,extended,array,,Container image tags.
@@ -202,21 +194,9 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.6.0-dev,true,file,file.target_path.text,text,extended,,,Target path for symlinks.
 1.6.0-dev,true,file,file.type,keyword,extended,,file,"File type (file, dir, or symlink)."
 1.6.0-dev,true,file,file.uid,keyword,extended,,1001,The user ID (UID) or security identifier (SID) of the file owner.
-1.6.0-dev,true,geo,geo.city_name,keyword,core,,Montreal,City name.
-1.6.0-dev,true,geo,geo.continent_name,keyword,core,,North America,Name of the continent.
-1.6.0-dev,true,geo,geo.country_iso_code,keyword,core,,CA,Country ISO code.
-1.6.0-dev,true,geo,geo.country_name,keyword,core,,Canada,Country name.
-1.6.0-dev,true,geo,geo.location,geo_point,core,,"{ ""lon"": -73.614830, ""lat"": 45.505918 }",Longitude and latitude.
-1.6.0-dev,true,geo,geo.name,keyword,extended,,boston-dc,User-defined description of a location.
-1.6.0-dev,true,geo,geo.region_iso_code,keyword,core,,CA-QC,Region ISO code.
-1.6.0-dev,true,geo,geo.region_name,keyword,core,,Quebec,Region name.
 1.6.0-dev,true,group,group.domain,keyword,extended,,,Name of the directory the group is a member of.
 1.6.0-dev,true,group,group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
 1.6.0-dev,true,group,group.name,keyword,extended,,,Name of the group.
-1.6.0-dev,true,hash,hash.md5,keyword,extended,,,MD5 hash.
-1.6.0-dev,true,hash,hash.sha1,keyword,extended,,,SHA1 hash.
-1.6.0-dev,true,hash,hash.sha256,keyword,extended,,,SHA256 hash.
-1.6.0-dev,true,hash,hash.sha512,keyword,extended,,,SHA512 hash.
 1.6.0-dev,true,host,host.architecture,keyword,core,,x86_64,Operating system architecture.
 1.6.0-dev,true,host,host.domain,keyword,extended,,CONTOSO,Name of the directory the group is a member of.
 1.6.0-dev,true,host,host.geo.city_name,keyword,core,,Montreal,City name.
@@ -265,9 +245,6 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.6.0-dev,true,http,http.response.bytes,long,extended,,1437,Total size in bytes of the response (body and headers).
 1.6.0-dev,true,http,http.response.status_code,long,extended,,404,HTTP response status code.
 1.6.0-dev,true,http,http.version,keyword,extended,,1.1,HTTP version.
-1.6.0-dev,true,interface,interface.alias,keyword,extended,,outside,Interface alias
-1.6.0-dev,true,interface,interface.id,keyword,extended,,10,Interface ID
-1.6.0-dev,true,interface,interface.name,keyword,extended,,eth0,Interface name
 1.6.0-dev,true,log,log.file.path,keyword,extended,,/var/log/fun-times.log,Full path to the log file this event came from.
 1.6.0-dev,true,log,log.level,keyword,core,,error,Log level of the log event.
 1.6.0-dev,true,log,log.logger,keyword,core,,org.elasticsearch.bootstrap.Bootstrap,Name of the logger.
@@ -339,14 +316,6 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.6.0-dev,true,organization,organization.id,keyword,extended,,,Unique identifier for the organization.
 1.6.0-dev,true,organization,organization.name,keyword,extended,,,Organization name.
 1.6.0-dev,true,organization,organization.name.text,text,extended,,,Organization name.
-1.6.0-dev,true,os,os.family,keyword,extended,,debian,"OS family (such as redhat, debian, freebsd, windows)."
-1.6.0-dev,true,os,os.full,keyword,extended,,Mac OS Mojave,"Operating system name, including the version or code name."
-1.6.0-dev,true,os,os.full.text,text,extended,,Mac OS Mojave,"Operating system name, including the version or code name."
-1.6.0-dev,true,os,os.kernel,keyword,extended,,4.4.0-112-generic,Operating system kernel version as a raw string.
-1.6.0-dev,true,os,os.name,keyword,extended,,Mac OS X,"Operating system name, without the version."
-1.6.0-dev,true,os,os.name.text,text,extended,,Mac OS X,"Operating system name, without the version."
-1.6.0-dev,true,os,os.platform,keyword,extended,,darwin,"Operating system platform (such centos, ubuntu, windows)."
-1.6.0-dev,true,os,os.version,keyword,extended,,10.14.1,Operating system version as a raw string.
 1.6.0-dev,true,package,package.architecture,keyword,extended,,x86_64,Package architecture.
 1.6.0-dev,true,package,package.build_version,keyword,extended,,36f4f7e89dd61b0988b12ee000b98966867710cd,Build version information
 1.6.0-dev,true,package,package.checksum,keyword,extended,,68b329da9893e34099c7d8ad5cb9c940,Checksum of the installed package for verification.
@@ -360,13 +329,6 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.6.0-dev,true,package,package.size,long,extended,,62231,Package size in bytes.
 1.6.0-dev,true,package,package.type,keyword,extended,,rpm,Package type
 1.6.0-dev,true,package,package.version,keyword,extended,,1.12.9,Package version
-1.6.0-dev,true,pe,pe.architecture,keyword,extended,,x64,CPU architecture target for the file.
-1.6.0-dev,true,pe,pe.company,keyword,extended,,Microsoft Corporation,"Internal company name of the file, provided at compile-time."
-1.6.0-dev,true,pe,pe.description,keyword,extended,,Paint,"Internal description of the file, provided at compile-time."
-1.6.0-dev,true,pe,pe.file_version,keyword,extended,,6.3.9600.17415,Process name.
-1.6.0-dev,true,pe,pe.imphash,keyword,extended,,0c6803c4e922103c4dca5963aad36ddf,A hash of the imports in a PE file.
-1.6.0-dev,true,pe,pe.original_file_name,keyword,extended,,MSPAINT.EXE,"Internal name of the file, provided at compile-time."
-1.6.0-dev,true,pe,pe.product,keyword,extended,,Microsoft® Windows® Operating System,"Internal product name of the file, provided at compile-time."
 1.6.0-dev,true,process,process.args,keyword,extended,array,"['/usr/bin/ssh', '-l', 'user', '10.0.0.16']",Array of process arguments.
 1.6.0-dev,true,process,process.args_count,long,extended,,4,Length of the process.args array.
 1.6.0-dev,true,process,process.code_signature.exists,boolean,core,,true,Boolean to capture if a signature is present.
@@ -605,8 +567,6 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.6.0-dev,true,user_agent,user_agent.os.platform,keyword,extended,,darwin,"Operating system platform (such centos, ubuntu, windows)."
 1.6.0-dev,true,user_agent,user_agent.os.version,keyword,extended,,10.14.1,Operating system version as a raw string.
 1.6.0-dev,true,user_agent,user_agent.version,keyword,extended,,12.0,Version of the user agent.
-1.6.0-dev,true,vlan,vlan.id,keyword,extended,,10,VLAN ID as reported by the observer.
-1.6.0-dev,true,vlan,vlan.name,keyword,extended,,outside,Optional VLAN name as reported by the observer.
 1.6.0-dev,true,vulnerability,vulnerability.category,keyword,extended,array,"[""Firewall""]",Category of a vulnerability.
 1.6.0-dev,true,vulnerability,vulnerability.classification,keyword,extended,,CVSS,Classification of the vulnerability.
 1.6.0-dev,true,vulnerability,vulnerability.description,keyword,extended,,"In macOS before 2.12.6, there is a vulnerability in the RPC...",Description of the vulnerability.
