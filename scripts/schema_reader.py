@@ -248,10 +248,8 @@ def remove_non_root_reusables(fields_nested):
     fields = {}
     for (name, field) in fields_nested.items():
         if 'reusable' not in field or ('reusable' in field and field['reusable']['top_level']):
-                fields[name] = field
+            fields[name] = field
     return fields
-
-
 
 
 def flatten_fields(fields, key_prefix):
