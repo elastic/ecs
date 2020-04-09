@@ -9,19 +9,6 @@ from scripts import schema_reader
 
 class TestSchemaReader(unittest.TestCase):
 
-    # File loading stuff
-
-    # Validation
-
-    # Generic helpers
-
-    def test_clean_string_values(self):
-        dict = {'dirty': ' space, the final frontier  ', 'clean': 'val', 'int': 1}
-        schema_reader.dict_clean_string_values(dict)
-        self.assertEqual(dict, {'dirty': 'space, the final frontier', 'clean': 'val', 'int': 1})
-
-    # In memory representation
-
     # schemas
 
     def test_schema_set_fieldset_prefix_at_root(self):

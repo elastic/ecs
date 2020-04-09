@@ -1,5 +1,6 @@
-import yaml
+import glob
 import os
+import yaml
 
 from collections import OrderedDict
 from copy import deepcopy
@@ -92,14 +93,33 @@ def yaml_ordereddict(dumper, data):
 yaml.add_representer(OrderedDict, yaml_ordereddict)
 
 
-def dict_rename_keys(dict, renames):
-    for key, value in dict.iteritems():
-        if key in renames:
-            del dict[key]
-            dict[renames[key]] = value
+def dict_clean_string_values(dict):
+    """Remove superfluous spacing in all field values of a dict"""
+    for key in dict:
+        value = dict[key]
+        if isinstance(value, str):
+            dict[key] = value.strip()
 
 
 # File helpers
+
+
+YAML_EXT = ('*.yml', '*.yaml')
+
+
+def get_glob_files(paths, file_types):
+    all_files = []
+    for path in paths:
+        for t in file_types:
+            all_files.extend(glob.glob(os.path.join(path, t)))
+    return sorted(all_files)
+
+
+def ecs_files():
+    """Return the schema file list to load"""
+    schema_glob = os.path.join(os.path.dirname(__file__), '../../schemas/*.yml')
+    return sorted(glob.glob(schema_glob))
+
 
 def make_dirs(path):
     try:

@@ -36,6 +36,8 @@ Thanks, you're awesome :-) -->
 
 #### Breaking changes
 
+* Removed the `order` attribute from the `ecs_nested.yml` and `ecs_flat.yml` files. #811
+
 #### Bugfixes
 
 * Subsets are created after duplicating reusable fields now so subsets can
@@ -50,7 +52,7 @@ Thanks, you're awesome :-) -->
 #### Improvements
 
 * Add support for reusing offical fieldsets in custom schemas. #751
-* Add full path names to reused fieldsets in `nestings` array in ecs_nested.yml. #803
+* Add full path names to reused fieldsets in `nestings` array in `ecs_nested.yml`. #803
 * Allow shorthand notation for including all subfields in subsets. #805
 
 #### Deprecated

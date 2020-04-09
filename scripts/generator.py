@@ -23,7 +23,7 @@ def main():
 
     # Maybe load user specified directory of schemas
     if args.include:
-        include_glob = schema_reader.get_glob_files(args.include, schema_reader.YAML_EXT)
+        include_glob = ecs_helpers.get_glob_files(args.include, ecs_helpers.YAML_EXT)
 
         print('Loading user defined schemas: {0}'.format(include_glob))
 
