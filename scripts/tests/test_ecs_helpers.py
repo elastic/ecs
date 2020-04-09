@@ -105,9 +105,7 @@ class TestECSHelpers(unittest.TestCase):
                     }
                 }
             },
-            'field2': {
-                'fields': '*'
-            }
+            'field2': {}
         }
         subset_b = {
             'field1': {
