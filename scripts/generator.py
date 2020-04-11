@@ -9,6 +9,7 @@ from generators import es_template
 from generators import beats
 from generators import asciidoc_fields
 from generators import ecs_helpers
+from generators import protobuf
 
 
 def main():
@@ -61,6 +62,7 @@ def main():
 
     csv_generator.generate(flat, ecs_version, out_dir)
     es_template.generate(flat, ecs_version, out_dir)
+    protobuf.generate(flat, ecs_version, out_dir)
     if args.include or args.subset:
         exit()
     beats.generate(nested, ecs_version, out_dir)

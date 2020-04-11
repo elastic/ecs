@@ -1,0 +1,1082 @@
+syntax = "proto3";
+
+package ecs;
+
+message Document {
+  message Agent {
+    message Build {
+      string original = 1;
+    }
+
+    Build build = 1;
+    string ephemeral_id = 2;
+    string id = 3;
+    string name = 4;
+    string type = 5;
+    string version = 6;
+  }
+
+  message As {
+    message Organization {
+      string name = 1;
+    }
+
+    int64 number = 1;
+    Organization organization = 2;
+  }
+
+  message Client {
+    message As {
+      message Organization {
+        string name = 1;
+      }
+
+      int64 number = 1;
+      Organization organization = 2;
+    }
+
+    message Geo {
+      string city_name = 1;
+      string continent_name = 2;
+      string country_iso_code = 3;
+      string country_name = 4;
+      string location = 5;
+      string name = 6;
+      string region_iso_code = 7;
+      string region_name = 8;
+    }
+
+    message Nat {
+      string ip = 1;
+      int64 port = 2;
+    }
+
+    message User {
+      message Group {
+        string domain = 1;
+        string id = 2;
+        string name = 3;
+      }
+
+      string domain = 1;
+      string email = 2;
+      string full_name = 3;
+      Group group = 4;
+      string hash = 5;
+      string id = 6;
+      string name = 7;
+    }
+
+    string address = 1;
+    As as = 2;
+    int64 bytes = 3;
+    string domain = 4;
+    Geo geo = 5;
+    string ip = 6;
+    string mac = 7;
+    Nat nat = 8;
+    int64 packets = 9;
+    int64 port = 10;
+    string registered_domain = 11;
+    string top_level_domain = 12;
+    User user = 13;
+  }
+
+  message Cloud {
+    message Account {
+      string id = 1;
+    }
+
+    message Instance {
+      string id = 1;
+      string name = 2;
+    }
+
+    message Machine {
+      string type = 1;
+    }
+
+    Account account = 1;
+    string availability_zone = 2;
+    Instance instance = 3;
+    Machine machine = 4;
+    string provider = 5;
+    string region = 6;
+  }
+
+  message CodeSignature {
+    bool exists = 1;
+    string status = 2;
+    string subject_name = 3;
+    bool trusted = 4;
+    bool valid = 5;
+  }
+
+  message Container {
+    message Image {
+      string name = 1;
+      string tag = 2;
+    }
+
+    string id = 1;
+    Image image = 2;
+    map <string, string> labels = 3;
+    string name = 4;
+    string runtime = 5;
+  }
+
+  message Destination {
+    message As {
+      message Organization {
+        string name = 1;
+      }
+
+      int64 number = 1;
+      Organization organization = 2;
+    }
+
+    message Geo {
+      string city_name = 1;
+      string continent_name = 2;
+      string country_iso_code = 3;
+      string country_name = 4;
+      string location = 5;
+      string name = 6;
+      string region_iso_code = 7;
+      string region_name = 8;
+    }
+
+    message Nat {
+      string ip = 1;
+      int64 port = 2;
+    }
+
+    message User {
+      message Group {
+        string domain = 1;
+        string id = 2;
+        string name = 3;
+      }
+
+      string domain = 1;
+      string email = 2;
+      string full_name = 3;
+      Group group = 4;
+      string hash = 5;
+      string id = 6;
+      string name = 7;
+    }
+
+    string address = 1;
+    As as = 2;
+    int64 bytes = 3;
+    string domain = 4;
+    Geo geo = 5;
+    string ip = 6;
+    string mac = 7;
+    Nat nat = 8;
+    int64 packets = 9;
+    int64 port = 10;
+    string registered_domain = 11;
+    string top_level_domain = 12;
+    User user = 13;
+  }
+
+  message Dll {
+    message CodeSignature {
+      bool exists = 1;
+      string status = 2;
+      string subject_name = 3;
+      bool trusted = 4;
+      bool valid = 5;
+    }
+
+    message Hash {
+      string md5 = 1;
+      string sha1 = 2;
+      string sha256 = 3;
+      string sha512 = 4;
+    }
+
+    message Pe {
+      string architecture = 1;
+      string company = 2;
+      string description = 3;
+      string file_version = 4;
+      string imphash = 5;
+      string original_file_name = 6;
+      string product = 7;
+    }
+
+    CodeSignature code_signature = 1;
+    Hash hash = 2;
+    string name = 3;
+    string path = 4;
+    Pe pe = 5;
+  }
+
+  message Dns {
+    message Answers {
+      string class = 1;
+      string data = 2;
+      string name = 3;
+      int64 ttl = 4;
+      string type = 5;
+    }
+
+    message Question {
+      string class = 1;
+      string name = 2;
+      string registered_domain = 3;
+      string subdomain = 4;
+      string top_level_domain = 5;
+      string type = 6;
+    }
+
+    map <string, string> answers = 1;
+    string header_flags = 2;
+    string id = 3;
+    string op_code = 4;
+    Question question = 5;
+    string resolved_ip = 6;
+    string response_code = 7;
+    string type = 8;
+  }
+
+  message Ecs {
+    string version = 1;
+  }
+
+  message Error {
+    string code = 1;
+    string id = 2;
+    string message = 3;
+    string stack_trace = 4;
+    string type = 5;
+  }
+
+  message Event {
+    string action = 1;
+    string category = 2;
+    string code = 3;
+    string created = 4;
+    string dataset = 5;
+    int64 duration = 6;
+    string end = 7;
+    string hash = 8;
+    string id = 9;
+    string ingested = 10;
+    string kind = 11;
+    string module = 12;
+    string original = 13;
+    string outcome = 14;
+    string provider = 15;
+    string reference = 16;
+    float risk_score = 17;
+    float risk_score_norm = 18;
+    int64 sequence = 19;
+    int64 severity = 20;
+    string start = 21;
+    string timezone = 22;
+    string type = 23;
+    string url = 24;
+  }
+
+  message File {
+    message CodeSignature {
+      bool exists = 1;
+      string status = 2;
+      string subject_name = 3;
+      bool trusted = 4;
+      bool valid = 5;
+    }
+
+    message Hash {
+      string md5 = 1;
+      string sha1 = 2;
+      string sha256 = 3;
+      string sha512 = 4;
+    }
+
+    message Pe {
+      string architecture = 1;
+      string company = 2;
+      string description = 3;
+      string file_version = 4;
+      string imphash = 5;
+      string original_file_name = 6;
+      string product = 7;
+    }
+
+    string accessed = 1;
+    string attributes = 2;
+    CodeSignature code_signature = 3;
+    string created = 4;
+    string ctime = 5;
+    string device = 6;
+    string directory = 7;
+    string drive_letter = 8;
+    string extension = 9;
+    string gid = 10;
+    string group = 11;
+    Hash hash = 12;
+    string inode = 13;
+    string mime_type = 14;
+    string mode = 15;
+    string mtime = 16;
+    string name = 17;
+    string owner = 18;
+    string path = 19;
+    Pe pe = 20;
+    int64 size = 21;
+    string target_path = 22;
+    string type = 23;
+    string uid = 24;
+  }
+
+  message Geo {
+    string city_name = 1;
+    string continent_name = 2;
+    string country_iso_code = 3;
+    string country_name = 4;
+    string location = 5;
+    string name = 6;
+    string region_iso_code = 7;
+    string region_name = 8;
+  }
+
+  message Group {
+    string domain = 1;
+    string id = 2;
+    string name = 3;
+  }
+
+  message Hash {
+    string md5 = 1;
+    string sha1 = 2;
+    string sha256 = 3;
+    string sha512 = 4;
+  }
+
+  message Host {
+    message Geo {
+      string city_name = 1;
+      string continent_name = 2;
+      string country_iso_code = 3;
+      string country_name = 4;
+      string location = 5;
+      string name = 6;
+      string region_iso_code = 7;
+      string region_name = 8;
+    }
+
+    message Os {
+      string family = 1;
+      string full = 2;
+      string kernel = 3;
+      string name = 4;
+      string platform = 5;
+      string version = 6;
+    }
+
+    message User {
+      message Group {
+        string domain = 1;
+        string id = 2;
+        string name = 3;
+      }
+
+      string domain = 1;
+      string email = 2;
+      string full_name = 3;
+      Group group = 4;
+      string hash = 5;
+      string id = 6;
+      string name = 7;
+    }
+
+    string architecture = 1;
+    string domain = 2;
+    Geo geo = 3;
+    string hostname = 4;
+    string id = 5;
+    string ip = 6;
+    string mac = 7;
+    string name = 8;
+    Os os = 9;
+    string type = 10;
+    int64 uptime = 11;
+    User user = 12;
+  }
+
+  message Http {
+    message Request {
+      message Body {
+        int64 bytes = 1;
+        string content = 2;
+      }
+
+      Body body = 1;
+      int64 bytes = 2;
+      string method = 3;
+      string referrer = 4;
+    }
+
+    message Response {
+      message Body {
+        int64 bytes = 1;
+        string content = 2;
+      }
+
+      Body body = 1;
+      int64 bytes = 2;
+      int64 status_code = 3;
+    }
+
+    Request request = 1;
+    Response response = 2;
+    string version = 3;
+  }
+
+  message Interface {
+    string alias = 1;
+    string id = 2;
+    string name = 3;
+  }
+
+  message Log {
+    message File {
+      string path = 1;
+    }
+
+    message Origin {
+      message File {
+        int32 line = 1;
+        string name = 2;
+      }
+
+      File file = 1;
+      string function = 2;
+    }
+
+    message Syslog {
+      message Facility {
+        int64 code = 1;
+        string name = 2;
+      }
+
+      message Severity {
+        int64 code = 1;
+        string name = 2;
+      }
+
+      Facility facility = 1;
+      int64 priority = 2;
+      Severity severity = 3;
+    }
+
+    File file = 1;
+    string level = 2;
+    string logger = 3;
+    Origin origin = 4;
+    string original = 5;
+    map <string, string> syslog = 6;
+  }
+
+  message Network {
+    message Inner {
+      message Vlan {
+        string id = 1;
+        string name = 2;
+      }
+
+      Vlan vlan = 1;
+    }
+
+    message Vlan {
+      string id = 1;
+      string name = 2;
+    }
+
+    string application = 1;
+    int64 bytes = 2;
+    string community_id = 3;
+    string direction = 4;
+    string forwarded_ip = 5;
+    string iana_number = 6;
+    map <string, string> inner = 7;
+    string name = 8;
+    int64 packets = 9;
+    string protocol = 10;
+    string transport = 11;
+    string type = 12;
+    Vlan vlan = 13;
+  }
+
+  message Observer {
+    message Egress {
+      message Interface {
+        string alias = 1;
+        string id = 2;
+        string name = 3;
+      }
+
+      message Vlan {
+        string id = 1;
+        string name = 2;
+      }
+
+      Interface interface = 1;
+      Vlan vlan = 2;
+      string zone = 3;
+    }
+
+    message Geo {
+      string city_name = 1;
+      string continent_name = 2;
+      string country_iso_code = 3;
+      string country_name = 4;
+      string location = 5;
+      string name = 6;
+      string region_iso_code = 7;
+      string region_name = 8;
+    }
+
+    message Ingress {
+      message Interface {
+        string alias = 1;
+        string id = 2;
+        string name = 3;
+      }
+
+      message Vlan {
+        string id = 1;
+        string name = 2;
+      }
+
+      Interface interface = 1;
+      Vlan vlan = 2;
+      string zone = 3;
+    }
+
+    message Os {
+      string family = 1;
+      string full = 2;
+      string kernel = 3;
+      string name = 4;
+      string platform = 5;
+      string version = 6;
+    }
+
+    map <string, string> egress = 1;
+    Geo geo = 2;
+    string hostname = 3;
+    map <string, string> ingress = 4;
+    string ip = 5;
+    string mac = 6;
+    string name = 7;
+    Os os = 8;
+    string product = 9;
+    string serial_number = 10;
+    string type = 11;
+    string vendor = 12;
+    string version = 13;
+  }
+
+  message Organization {
+    string id = 1;
+    string name = 2;
+  }
+
+  message Os {
+    string family = 1;
+    string full = 2;
+    string kernel = 3;
+    string name = 4;
+    string platform = 5;
+    string version = 6;
+  }
+
+  message Package {
+    string architecture = 1;
+    string build_version = 2;
+    string checksum = 3;
+    string description = 4;
+    string install_scope = 5;
+    string installed = 6;
+    string license = 7;
+    string name = 8;
+    string path = 9;
+    string reference = 10;
+    int64 size = 11;
+    string type = 12;
+    string version = 13;
+  }
+
+  message Pe {
+    string architecture = 1;
+    string company = 2;
+    string description = 3;
+    string file_version = 4;
+    string imphash = 5;
+    string original_file_name = 6;
+    string product = 7;
+  }
+
+  message Process {
+    message CodeSignature {
+      bool exists = 1;
+      string status = 2;
+      string subject_name = 3;
+      bool trusted = 4;
+      bool valid = 5;
+    }
+
+    message Hash {
+      string md5 = 1;
+      string sha1 = 2;
+      string sha256 = 3;
+      string sha512 = 4;
+    }
+
+    message Parent {
+      message CodeSignature {
+        bool exists = 1;
+        string status = 2;
+        string subject_name = 3;
+        bool trusted = 4;
+        bool valid = 5;
+      }
+
+      message Hash {
+        string md5 = 1;
+        string sha1 = 2;
+        string sha256 = 3;
+        string sha512 = 4;
+      }
+
+      message Thread {
+        int64 id = 1;
+        string name = 2;
+      }
+
+      string args = 1;
+      int64 args_count = 2;
+      CodeSignature code_signature = 3;
+      string command_line = 4;
+      string entity_id = 5;
+      string executable = 6;
+      int64 exit_code = 7;
+      Hash hash = 8;
+      string name = 9;
+      int64 pgid = 10;
+      int64 pid = 11;
+      int64 ppid = 12;
+      string start = 13;
+      Thread thread = 14;
+      string title = 15;
+      int64 uptime = 16;
+      string working_directory = 17;
+    }
+
+    message Pe {
+      string architecture = 1;
+      string company = 2;
+      string description = 3;
+      string file_version = 4;
+      string imphash = 5;
+      string original_file_name = 6;
+      string product = 7;
+    }
+
+    message Thread {
+      int64 id = 1;
+      string name = 2;
+    }
+
+    string args = 1;
+    int64 args_count = 2;
+    CodeSignature code_signature = 3;
+    string command_line = 4;
+    string entity_id = 5;
+    string executable = 6;
+    int64 exit_code = 7;
+    Hash hash = 8;
+    string name = 9;
+    Parent parent = 10;
+    Pe pe = 11;
+    int64 pgid = 12;
+    int64 pid = 13;
+    int64 ppid = 14;
+    string start = 15;
+    Thread thread = 16;
+    string title = 17;
+    int64 uptime = 18;
+    string working_directory = 19;
+  }
+
+  message Registry {
+    message Data {
+      string bytes = 1;
+      string strings = 2;
+      string type = 3;
+    }
+
+    Data data = 1;
+    string hive = 2;
+    string key = 3;
+    string path = 4;
+    string value = 5;
+  }
+
+  message Related {
+    string hash = 1;
+    string ip = 2;
+    string user = 3;
+  }
+
+  message Rule {
+    string author = 1;
+    string category = 2;
+    string description = 3;
+    string id = 4;
+    string license = 5;
+    string name = 6;
+    string reference = 7;
+    string ruleset = 8;
+    string uuid = 9;
+    string version = 10;
+  }
+
+  message Server {
+    message As {
+      message Organization {
+        string name = 1;
+      }
+
+      int64 number = 1;
+      Organization organization = 2;
+    }
+
+    message Geo {
+      string city_name = 1;
+      string continent_name = 2;
+      string country_iso_code = 3;
+      string country_name = 4;
+      string location = 5;
+      string name = 6;
+      string region_iso_code = 7;
+      string region_name = 8;
+    }
+
+    message Nat {
+      string ip = 1;
+      int64 port = 2;
+    }
+
+    message User {
+      message Group {
+        string domain = 1;
+        string id = 2;
+        string name = 3;
+      }
+
+      string domain = 1;
+      string email = 2;
+      string full_name = 3;
+      Group group = 4;
+      string hash = 5;
+      string id = 6;
+      string name = 7;
+    }
+
+    string address = 1;
+    As as = 2;
+    int64 bytes = 3;
+    string domain = 4;
+    Geo geo = 5;
+    string ip = 6;
+    string mac = 7;
+    Nat nat = 8;
+    int64 packets = 9;
+    int64 port = 10;
+    string registered_domain = 11;
+    string top_level_domain = 12;
+    User user = 13;
+  }
+
+  message Service {
+    message Node {
+      string name = 1;
+    }
+
+    string ephemeral_id = 1;
+    string id = 2;
+    string name = 3;
+    Node node = 4;
+    string state = 5;
+    string type = 6;
+    string version = 7;
+  }
+
+  message Source {
+    message As {
+      message Organization {
+        string name = 1;
+      }
+
+      int64 number = 1;
+      Organization organization = 2;
+    }
+
+    message Geo {
+      string city_name = 1;
+      string continent_name = 2;
+      string country_iso_code = 3;
+      string country_name = 4;
+      string location = 5;
+      string name = 6;
+      string region_iso_code = 7;
+      string region_name = 8;
+    }
+
+    message Nat {
+      string ip = 1;
+      int64 port = 2;
+    }
+
+    message User {
+      message Group {
+        string domain = 1;
+        string id = 2;
+        string name = 3;
+      }
+
+      string domain = 1;
+      string email = 2;
+      string full_name = 3;
+      Group group = 4;
+      string hash = 5;
+      string id = 6;
+      string name = 7;
+    }
+
+    string address = 1;
+    As as = 2;
+    int64 bytes = 3;
+    string domain = 4;
+    Geo geo = 5;
+    string ip = 6;
+    string mac = 7;
+    Nat nat = 8;
+    int64 packets = 9;
+    int64 port = 10;
+    string registered_domain = 11;
+    string top_level_domain = 12;
+    User user = 13;
+  }
+
+  message Threat {
+    message Tactic {
+      string id = 1;
+      string name = 2;
+      string reference = 3;
+    }
+
+    message Technique {
+      string id = 1;
+      string name = 2;
+      string reference = 3;
+    }
+
+    string framework = 1;
+    Tactic tactic = 2;
+    Technique technique = 3;
+  }
+
+  message Tls {
+    message Client {
+      message Hash {
+        string md5 = 1;
+        string sha1 = 2;
+        string sha256 = 3;
+      }
+
+      string certificate = 1;
+      string certificate_chain = 2;
+      Hash hash = 3;
+      string issuer = 4;
+      string ja3 = 5;
+      string not_after = 6;
+      string not_before = 7;
+      string server_name = 8;
+      string subject = 9;
+      string supported_ciphers = 10;
+    }
+
+    message Server {
+      message Hash {
+        string md5 = 1;
+        string sha1 = 2;
+        string sha256 = 3;
+      }
+
+      string certificate = 1;
+      string certificate_chain = 2;
+      Hash hash = 3;
+      string issuer = 4;
+      string ja3s = 5;
+      string not_after = 6;
+      string not_before = 7;
+      string subject = 8;
+    }
+
+    string cipher = 1;
+    Client client = 2;
+    string curve = 3;
+    bool established = 4;
+    string next_protocol = 5;
+    bool resumed = 6;
+    Server server = 7;
+    string version = 8;
+    string version_protocol = 9;
+  }
+
+  message Trace {
+    string id = 1;
+  }
+
+  message Transaction {
+    string id = 1;
+  }
+
+  message Url {
+    string domain = 1;
+    string extension = 2;
+    string fragment = 3;
+    string full = 4;
+    string original = 5;
+    string password = 6;
+    string path = 7;
+    int64 port = 8;
+    string query = 9;
+    string registered_domain = 10;
+    string scheme = 11;
+    string top_level_domain = 12;
+    string username = 13;
+  }
+
+  message User {
+    message Group {
+      string domain = 1;
+      string id = 2;
+      string name = 3;
+    }
+
+    string domain = 1;
+    string email = 2;
+    string full_name = 3;
+    Group group = 4;
+    string hash = 5;
+    string id = 6;
+    string name = 7;
+  }
+
+  message UserAgent {
+    message Device {
+      string name = 1;
+    }
+
+    message Os {
+      string family = 1;
+      string full = 2;
+      string kernel = 3;
+      string name = 4;
+      string platform = 5;
+      string version = 6;
+    }
+
+    Device device = 1;
+    string name = 2;
+    string original = 3;
+    Os os = 4;
+    string version = 5;
+  }
+
+  message Vlan {
+    string id = 1;
+    string name = 2;
+  }
+
+  message Vulnerability {
+    message Scanner {
+      string vendor = 1;
+    }
+
+    message Score {
+      float base = 1;
+      float environmental = 2;
+      float temporal = 3;
+      string version = 4;
+    }
+
+    string category = 1;
+    string classification = 2;
+    string description = 3;
+    string enumeration = 4;
+    string id = 5;
+    string reference = 6;
+    string report_id = 7;
+    Scanner scanner = 8;
+    Score score = 9;
+    string severity = 10;
+  }
+
+  Agent agent = 1;
+  As as = 2;
+  Client client = 3;
+  Cloud cloud = 4;
+  CodeSignature code_signature = 5;
+  Container container = 6;
+  Destination destination = 7;
+  Dll dll = 8;
+  Dns dns = 9;
+  Ecs ecs = 10;
+  Error error = 11;
+  Event event = 12;
+  File file = 13;
+  Geo geo = 14;
+  Group group = 15;
+  Hash hash = 16;
+  Host host = 17;
+  Http http = 18;
+  Interface interface = 19;
+  map <string, string> labels = 20;
+  Log log = 21;
+  string message = 22;
+  Network network = 23;
+  Observer observer = 24;
+  Organization organization = 25;
+  Os os = 26;
+  Package package = 27;
+  Pe pe = 28;
+  Process process = 29;
+  Registry registry = 30;
+  Related related = 31;
+  Rule rule = 32;
+  Server server = 33;
+  Service service = 34;
+  Source source = 35;
+  string tags = 36;
+  Threat threat = 37;
+  string timestamp = 38;
+  Tls tls = 39;
+  Trace trace = 40;
+  Transaction transaction = 41;
+  Url url = 42;
+  User user = 43;
+  UserAgent user_agent = 44;
+  Vlan vlan = 45;
+  Vulnerability vulnerability = 46;
+}
+
