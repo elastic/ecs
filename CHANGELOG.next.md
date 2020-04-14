@@ -49,6 +49,7 @@ Thanks, you're awesome :-) -->
   slightly different results in different situations. #782
 * Fix incorrect listing of where field sets are nested in asciidoc,
   when they are nested deep. #784
+* Allow beats output to be generated when using `--include` or `--subset` flags. #814
 
 #### Added
 
