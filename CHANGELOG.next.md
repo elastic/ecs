@@ -36,6 +36,9 @@ Thanks, you're awesome :-) -->
 
 #### Breaking changes
 
+* Removed field definitions at the root of documents for fieldsets that
+  had `reusable.top_level:false`. This PR affects `ecs_flat.yml`, the csv file
+  and the sample Elasticsearch templates. #495, #813
 * Removed the `order` attribute from the `ecs_nested.yml` and `ecs_flat.yml` files. #811
 
 #### Bugfixes

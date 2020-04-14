@@ -240,7 +240,16 @@ def generate_partially_flattened_fields(fields_nested):
 
 
 def generate_fully_flattened_fields(fields_nested):
-    return flatten_fields(fields_nested, "")
+    flattened = flatten_fields(remove_non_root_reusables(fields_nested), "")
+    return flattened
+
+
+def remove_non_root_reusables(fields_nested):
+    fields = {}
+    for (name, field) in fields_nested.items():
+        if 'reusable' not in field or ('reusable' in field and field['reusable']['top_level']):
+            fields[name] = field
+    return fields
 
 
 def flatten_fields(fields, key_prefix):
