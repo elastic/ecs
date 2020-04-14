@@ -14,6 +14,9 @@ from generators import protobuf
 
 def main():
     args = argument_parser()
+    # Get rid of empty include
+    if args.include and [''] == args.include:
+        args.include.clear()
 
     ecs_version = read_version()
     print('Running generator. ECS version ' + ecs_version)
