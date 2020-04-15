@@ -22,6 +22,7 @@ Thanks, you're awesome :-) -->
 
 * Add architecture and imphash for PE field set. (#763)
 * Added `agent.build.*` for extended agent version information. (#764)
+* Added `x509.*` field set. (#762)
 
 #### Improvements
 
