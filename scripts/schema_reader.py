@@ -10,6 +10,8 @@ from generators import ecs_helpers
 #   yml file load (ECS or custom) + cleanup of field set attributes.
 # merge_schema_fields()
 #   Merge ECS field sets with custom field sets
+# assemble_reusables()
+#   TODO
 # generate_nested_flat()
 #   Finalize the intermediate representation of all fields. Fills field defaults,
 #   performs field nestings, and precalculates many values used by various generators.
@@ -162,6 +164,32 @@ def duplicate_reusable_fieldsets(schema, fields_nested):
                         'Reusable fields cannot be put inside other reusable fields except when the destination reusable is at the top level')
                 nested_schema = nested_schema.setdefault('fields', {})
             nested_schema[schema['name']] = schema
+
+
+def resolve_reusable_shorthands(schema):
+    """
+    Replace single word reuse shorthands with the explicit {at: , as:} notation.
+
+    When marking "user" as reusable under "destination" with the shorthand entry
+    `- destination`, this is expanded to the complete entry
+    `- { "at": "destination", "as": "user" }`.
+    The field set is thus nested at `destination.user.*`, with fields such as `destination.user.name`.
+
+    The dictionary notation enables nesting a field set as a different name.
+    An example is nesting "process" fields to capture parent process details
+    at `process.parent.*`.
+    The dictionary notation `- { "at": "process", "as": "parent" }` will yield
+    fields such as `process.parent.pid`.
+    """
+    if 'reusable' in schema:
+        reuse_entries = []
+        for reuse_entry in schema['reusable']['expected']:
+            if type(reuse_entry) is dict:
+                reuse_entries.append(reuse_entry)
+            else:
+                explicit_entry = {'at': reuse_entry, 'as': schema['name']}
+                reuse_entries.append(explicit_entry)
+        schema['reusable']['expected'] = reuse_entries
 
 
 def cleanup_fields_recursive(fields, prefix, original_fieldset=None):

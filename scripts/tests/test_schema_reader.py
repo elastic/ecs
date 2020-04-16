@@ -39,6 +39,22 @@ class TestSchemaReader(unittest.TestCase):
         schema_reader.schema_set_default_values(schema)
         self.assertEqual(schema, {'group': 1, 'type': 'group', 'description': '...', 'short': '...'})
 
+    def test_resolve_reusable_shorthands(self):
+        reusable_with_shorthand = [
+            'destination',
+            {'at': 'user', 'as': 'effective'}
+        ]
+        schema = {
+            'name': 'user',
+            'reusable': { 'top_level': False, 'expected': reusable_with_shorthand }
+        }
+        schema_reader.resolve_reusable_shorthands(schema)
+        expected_reusable = [
+            {'at': 'destination', 'as': 'user'},
+            {'at': 'user', 'as': 'effective'}
+        ]
+        self.assertEqual(expected_reusable, schema['reusable']['expected'])
+
     # field definitions
 
     def test_field_set_defaults_no_short(self):
