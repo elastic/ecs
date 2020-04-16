@@ -55,6 +55,17 @@ class TestSchemaReader(unittest.TestCase):
         ]
         self.assertEqual(expected_reusable, schema['reusable']['expected'])
 
+    def test_resolve_reusable_shorthands_raises_when_missing_keys_as_at(self):
+        reusable_with_key_errors = [
+            {'hat': 'user', 'has': 'effective'}
+        ]
+        schema = {
+            'name': 'user',
+            'reusable': { 'top_level': False, 'expected': reusable_with_key_errors }
+        }
+        with self.assertRaises(ValueError):
+            schema_reader.resolve_reusable_shorthands(schema)
+
     # field definitions
 
     def test_field_set_defaults_no_short(self):

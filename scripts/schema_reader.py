@@ -185,10 +185,14 @@ def resolve_reusable_shorthands(schema):
         reuse_entries = []
         for reuse_entry in schema['reusable']['expected']:
             if type(reuse_entry) is dict:
-                reuse_entries.append(reuse_entry)
+                if 'at' in reuse_entry and 'as' in reuse_entry:
+                    reuse_entries.append(reuse_entry)
+                else:
+                    raise ValueError("When specifying reusable expected locations " +
+                    "with the dictionary notation, keys 'as' and 'at' are required. "+
+                    "Got {}.".format(reuse_entry))
             else:
-                explicit_entry = {'at': reuse_entry, 'as': schema['name']}
-                reuse_entries.append(explicit_entry)
+                reuse_entries.append({'at': reuse_entry, 'as': schema['name']})
         schema['reusable']['expected'] = reuse_entries
 
 
