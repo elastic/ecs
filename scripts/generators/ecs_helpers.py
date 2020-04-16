@@ -151,14 +151,6 @@ def list_extract_keys(lst, key_name):
     return acc
 
 
-def list_split_by(lst, size):
-    '''Splits a list in smaller lists of a given size'''
-    acc = []
-    for i in range(0, len(lst), size):
-        acc.append(lst[i:i + size])
-    return acc
-
-
 def get_nested_field(fieldname, field_dict):
     """Takes a field name in dot notation and a dictionary of fields and finds the field in the dictionary"""
     fields = fieldname.split('.')

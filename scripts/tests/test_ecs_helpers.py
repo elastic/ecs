@@ -84,11 +84,6 @@ class TestECSHelpers(unittest.TestCase):
         ecs_helpers.dict_clean_string_values(dict)
         self.assertEqual(dict, {'dirty': 'space, the final frontier', 'clean': 'val', 'int': 1})
 
-    def test_list_slit_by(self):
-        lst = ['ecs', 'has', 'a', 'meme', 'now']
-        split_list = ecs_helpers.list_split_by(lst, 3)
-        self.assertEqual(split_list, [['ecs', 'has', 'a'], ['meme', 'now']])
-
     def test_recursive_subset_merge(self):
         subset_a = {
             'field1': {
