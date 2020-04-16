@@ -386,7 +386,10 @@ class TestSchemaReader(unittest.TestCase):
                         'reusable': {
                             'top_level': False,
                             'expected': [
-                                'test_fieldset.sub_field'
+                                {
+                                    'at': 'test_fieldset.sub_field',
+                                    'as': 'reusable_fieldset1'
+                                }
                             ]
                         },
                         'fields': {
