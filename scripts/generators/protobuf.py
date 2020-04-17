@@ -61,23 +61,26 @@ def parse_flat_fields(flat_fields):
         name = segments.pop()
         scope = '.'.join(segments)
 
-        if len(segments) > 0:
+        while len(segments) > 0:
+            parent_key = '.'.join(segments)
             parent_name = segments.pop()
-            fields.setdefault(scope, {
-                'key': scope,
+            parent_scope = '.'.join(segments)
+
+            fields[parent_key] = {
+                'key': parent_key,
                 'name': parent_name,
-                'scope': '.'.join(segments),
+                'scope': parent_scope,
                 'type': camelize(parent_name),
                 'deprecated': False,
-            })
+            }
 
-        fields[key] = {
+        fields.setdefault(key, {
             'key': key,
             'name': name,
             'scope': scope,
             'type': field_type_to_protobuf_type[flat_field['type']],
             'deprecated': False,
-        }
+        })
 
     return fields
 
