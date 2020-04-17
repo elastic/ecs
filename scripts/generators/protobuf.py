@@ -4,17 +4,39 @@ import yaml
 from os.path import join, exists
 from generators import ecs_helpers
 
+
 field_type_to_protobuf_type = {
-    'boolean':    'bool',
-    'date':       'string',
-    'float':      'float',
-    'geo_point':  'string',
-    'integer':    'int32',
-    'ip':         'string',
-    'keyword':    'string',
-    'long':       'int64',
-    'object':     'map <string, string>',
-    'text':       'string',
+    'binary':        'string',
+    'boolean':       'bool',
+    'byte':          'int32',
+    'data_nanos':    'long',
+    'date':          'string',
+    'double':        'double',
+    'float':         'float',
+    'geo_point':     'string',
+    'half_float':    'float',
+    'integer':       'int32',
+    'ip':            'string',
+    'keyword':       'string',
+    'long':          'int64',
+    'object':        'map <string, string>',
+    'scaled_float':  'double',
+    'short':         'int32',
+    'text':          'string',
+}
+
+
+protobuf_legal_type_changes_for = {
+    'int32':   ['int32', 'uint32', 'int64', 'uint64', 'bool'],
+    'uint32':  ['int32', 'uint32', 'int64', 'uint64', 'bool'],
+    'int64':   ['int32', 'uint32', 'int64', 'uint64', 'bool'],
+    'uint64':  ['int32', 'uint32', 'int64', 'uint64', 'bool'],
+    'bool':    ['int32', 'uint32', 'int64', 'uint64', 'bool'],
+    'sint32':  ['sint32', 'sint64'],
+    'sint64':  ['sint32', 'sint64'],
+    'fixed32': ['fixed32', 'sfixed32'],
+    'fixed64': ['fixed64', 'sfixed64'],
+    'enum':    ['enum', 'int32', 'uint32', 'int64', 'uint64'],
 }
 
 
@@ -97,7 +119,20 @@ def sync_current_fields_with_cached_fields(current_fields, cached_fields):
                 tag = next_tag
                 next_tag = next_tag + 1
             else:
-                tag = cached_field['tag']
+                current_type = current_field['type']
+                cached_type  = cached_field['type']
+
+                if current_type != cached_type and current_type not in protobuf_legal_type_changes_for.get(cached_type, []):
+                    old_key = cached_field["key"]
+                    new_name = "deprecated_" + cached_field["name"]
+                    new_key = scope + "." + new_name
+                    cached_field.update({'key': new_key, 'name': new_name, 'deprecated': True})
+                    current_fields[new_key] = cached_field
+                    tag = next_tag
+                    next_tag = next_tag + 1
+                    print('Cannot change {} from {} to {}. The {} version will be renamed to {}'.format(old_key, cached_type, current_type, cached_type, new_key))
+                else:
+                    tag = cached_field['tag']
 
             current_field['tag'] = tag
 
@@ -110,9 +145,6 @@ def sync_current_fields_with_cached_fields(current_fields, cached_fields):
                     print('marking protobuf field as deprecated: ' + key)
                     cached_field.update({'deprecated': True})
                 current_fields[key] = cached_field
-            elif current_field['type'] != cached_field['type']:
-                print('ERROR: cannot change ' + key + ' from ' + cached_field['type'] + ' to ' + current_field['type'])
-                sys.exit(1)
 
 
 def write_cached_fields(cached_file, fields):
@@ -149,7 +181,7 @@ def write_proto_message(f, message_name, message, indent=0):
 def write_proto(proto_file, fields):
     root_message = {}
 
-    for key in sorted(fields):
+    for key in sorted(fields, key=lambda k: (fields[k]["scope"], fields[k]["tag"])):
         field   = fields[key]
         scope   = field['scope']
         message = root_message
