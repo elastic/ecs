@@ -9,7 +9,7 @@ field_type_to_protobuf_type = {
     'binary': 'string',
     'boolean': 'bool',
     'byte': 'int32',
-    'data_nanos': 'long',
+    'date_nanos': 'long',
     'date': 'string',
     'double': 'double',
     'float': 'float',
