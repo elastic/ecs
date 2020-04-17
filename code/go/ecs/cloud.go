@@ -45,4 +45,17 @@ type Cloud struct {
 	// Examples: AWS account id, Google Cloud ORG Id, or other unique
 	// identifier.
 	AccountID string `ecs:"account.id"`
+
+	// The cloud account name or alias used to identify different entities in a
+	// multi-tenant environment.
+	// Examples: AWS account name, Google Cloud ORG display name.
+	AccountName string `ecs:"account.name"`
+
+	// The cloud project identifier.
+	// Examples: Google Cloud Project id, Azure Project id.
+	ProjectID string `ecs:"project.id"`
+
+	// The cloud project name.
+	// Examples: Google Cloud Project name, Azure Project name.
+	ProjectName string `ecs:"project.name"`
 }

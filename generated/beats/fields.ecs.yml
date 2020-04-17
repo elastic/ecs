@@ -400,6 +400,16 @@
 
         Examples: AWS account id, Google Cloud ORG Id, or other unique identifier.'
       example: 666777888999
+    - name: account.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The cloud account name or alias used to identify different entities
+        in a multi-tenant environment.
+
+        Examples: AWS account name, Google Cloud ORG display name.'
+      example: elastic-dev
+      default_field: false
     - name: availability_zone
       level: extended
       type: keyword
@@ -423,6 +433,24 @@
       ignore_above: 1024
       description: Machine type of the host machine.
       example: t2.medium
+    - name: project.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The cloud project identifier.
+
+        Examples: Google Cloud Project id, Azure Project id.'
+      example: my-project
+      default_field: false
+    - name: project.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The cloud project name.
+
+        Examples: Google Cloud Project name, Azure Project name.'
+      example: my project
+      default_field: false
     - name: provider
       level: extended
       type: keyword
