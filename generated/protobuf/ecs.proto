@@ -98,7 +98,7 @@ message Document {
   message Container {
     message Image {
       string name = 1;
-      string tag = 2;
+      repeated string tag = 2;
     }
 
     string id = 1;
@@ -217,11 +217,11 @@ message Document {
     }
 
     Answers answers = 1;
-    string header_flags = 2;
+    repeated string header_flags = 2;
     string id = 3;
     string op_code = 4;
     Question question = 5;
-    string resolved_ip = 6;
+    repeated string resolved_ip = 6;
     string response_code = 7;
     string type = 8;
   }
@@ -240,7 +240,7 @@ message Document {
 
   message Event {
     string action = 1;
-    string category = 2;
+    repeated string category = 2;
     string code = 3;
     string created = 4;
     string dataset = 5;
@@ -261,7 +261,7 @@ message Document {
     int64 severity = 20;
     string start = 21;
     string timezone = 22;
-    string type = 23;
+    repeated string type = 23;
     string url = 24;
   }
 
@@ -292,7 +292,7 @@ message Document {
     }
 
     string accessed = 1;
-    string attributes = 2;
+    repeated string attributes = 2;
     CodeSignature code_signature = 3;
     string created = 4;
     string ctime = 5;
@@ -365,8 +365,8 @@ message Document {
     Geo geo = 3;
     string hostname = 4;
     string id = 5;
-    string ip = 6;
-    string mac = 7;
+    repeated string ip = 6;
+    repeated string mac = 7;
     string name = 8;
     Os os = 9;
     string type = 10;
@@ -531,8 +531,8 @@ message Document {
     Geo geo = 2;
     string hostname = 3;
     Ingress ingress = 4;
-    string ip = 5;
-    string mac = 6;
+    repeated string ip = 5;
+    repeated string mac = 6;
     string name = 7;
     Os os = 8;
     string product = 9;
@@ -600,7 +600,7 @@ message Document {
         string name = 2;
       }
 
-      string args = 1;
+      repeated string args = 1;
       int64 args_count = 2;
       CodeSignature code_signature = 3;
       string command_line = 4;
@@ -634,7 +634,7 @@ message Document {
       string name = 2;
     }
 
-    string args = 1;
+    repeated string args = 1;
     int64 args_count = 2;
     CodeSignature code_signature = 3;
     string command_line = 4;
@@ -658,7 +658,7 @@ message Document {
   message Registry {
     message Data {
       string bytes = 1;
-      string strings = 2;
+      repeated string strings = 2;
       string type = 3;
     }
 
@@ -670,13 +670,13 @@ message Document {
   }
 
   message Related {
-    string hash = 1;
-    string ip = 2;
-    string user = 3;
+    repeated string hash = 1;
+    repeated string ip = 2;
+    repeated string user = 3;
   }
 
   message Rule {
-    string author = 1;
+    repeated string author = 1;
     string category = 2;
     string description = 3;
     string id = 4;
@@ -818,15 +818,15 @@ message Document {
 
   message Threat {
     message Tactic {
-      string id = 1;
-      string name = 2;
-      string reference = 3;
+      repeated string id = 1;
+      repeated string name = 2;
+      repeated string reference = 3;
     }
 
     message Technique {
-      string id = 1;
-      string name = 2;
-      string reference = 3;
+      repeated string id = 1;
+      repeated string name = 2;
+      repeated string reference = 3;
     }
 
     string framework = 1;
@@ -843,7 +843,7 @@ message Document {
       }
 
       string certificate = 1;
-      string certificate_chain = 2;
+      repeated string certificate_chain = 2;
       Hash hash = 3;
       string issuer = 4;
       string ja3 = 5;
@@ -851,7 +851,7 @@ message Document {
       string not_before = 7;
       string server_name = 8;
       string subject = 9;
-      string supported_ciphers = 10;
+      repeated string supported_ciphers = 10;
     }
 
     message Server {
@@ -862,7 +862,7 @@ message Document {
       }
 
       string certificate = 1;
-      string certificate_chain = 2;
+      repeated string certificate_chain = 2;
       Hash hash = 3;
       string issuer = 4;
       string ja3s = 5;
@@ -955,7 +955,7 @@ message Document {
       string version = 4;
     }
 
-    string category = 1;
+    repeated string category = 1;
     string classification = 2;
     string description = 3;
     string enumeration = 4;
@@ -995,7 +995,7 @@ message Document {
   Server server = 26;
   Service service = 27;
   Source source = 28;
-  string tags = 29;
+  repeated string tags = 29;
   Threat threat = 30;
   string timestamp = 31;
   Tls tls = 32;

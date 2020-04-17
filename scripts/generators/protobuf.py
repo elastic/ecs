@@ -40,6 +40,12 @@ protobuf_legal_type_changes_for = {
 }
 
 
+valid_normalize_settings = [
+ [],
+ ['array'],
+]
+
+
 def generate(ecs_flat, ecs_version, out_dir):
     current_fields = parse_flat_fields(ecs_flat)
     cached_file = join(out_dir, 'protobuf', 'cached-fields.yaml')
@@ -60,6 +66,12 @@ def parse_flat_fields(flat_fields):
         segments = key.split('.')
         name = segments.pop()
         scope = '.'.join(segments)
+        type = field_type_to_protobuf_type[flat_field['type']]
+        normalize = flat_field['normalize']
+
+        if normalize not in valid_normalize_settings:
+            print('Don\'t know how to handle {}\'s normalize setting: {}'.format(name, normalize))
+            sys.exit(1)
 
         while len(segments) > 0:
             parent_key = '.'.join(segments)
@@ -74,13 +86,21 @@ def parse_flat_fields(flat_fields):
                 'deprecated': False,
             }
 
+        if normalize == ['array']:
+            type = 'repeated ' + type
+
         fields.setdefault(key, {
             'key': key,
             'name': name,
             'scope': scope,
-            'type': field_type_to_protobuf_type[flat_field['type']],
+            'type': type,
             'deprecated': False,
         })
+
+    for key in fields:
+        if fields[key]['type'].startswith('repeated map'):
+            print('repeated map is not a valid protobuf type for ' + key)
+            sys.exit(1)
 
     return fields
 
@@ -124,11 +144,13 @@ def sync_current_fields_with_cached_fields(current_fields, cached_fields):
             else:
                 current_type = current_field['type']
                 cached_type = cached_field['type']
+                type_mismatch = current_type != cached_type
+                valid_type_change = current_type in protobuf_legal_type_changes_for.get(cached_type, [])
 
-                if current_type != cached_type and current_type not in protobuf_legal_type_changes_for.get(cached_type, []):
-                    old_key = cached_field["key"]
-                    new_name = "deprecated_" + cached_field["name"]
-                    new_key = scope + "." + new_name
+                if type_mismatch and not valid_type_change:
+                    old_key = cached_field['key']
+                    new_name = 'deprecated_' + cached_field['name'] + '_' + str(cached_field['tag'])
+                    new_key = scope + '.' + new_name
                     cached_field.update({'key': new_key, 'name': new_name, 'deprecated': True})
                     current_fields[new_key] = cached_field
                     tag = next_tag
@@ -185,7 +207,7 @@ def write_proto_message(f, message_name, message, indent=0):
 def write_proto(proto_file, fields):
     root_message = {}
 
-    for key in sorted(fields, key=lambda k: (fields[k]["scope"], fields[k]["tag"])):
+    for key in sorted(fields, key=lambda k: (fields[k]['scope'], fields[k]['tag'])):
         field = fields[key]
         scope = field['scope']
         message = root_message
