@@ -1,0 +1,58 @@
+---
+- name: email
+  group: 2
+  title: Email
+  short: Fields describing emails.
+  description: >
+     A file is defined as a set of information that has been created on, or has existed on a filesystem.
+
+     File objects can be associated with host events, network events,
+     and/or file events (e.g., those produced by File Integrity Monitoring [FIM] products or services).
+     File fields provide details about the affected file associated with the event or metric.
+  type: group
+  fields:
+
+  - name: id
+    level: core
+    type: keyword
+    description: ID of the email
+
+  - name: subject
+    level: core
+    type: keyword
+    description: Subject of the email
+
+  - name: from
+    level: core
+    type: keyword
+    description: should be an array with email and fullname
+
+  - name: to
+    level: core
+    type: keyword
+    description: should be an array of dicts with email and fullname
+
+  - name: cc
+    level: core
+    type: keyword
+    description: should be an array of dicts with email and fullname
+
+  - name: reply-to
+    level: core
+    type: keyword
+    description: should be an array of dicts with email and fullname
+
+  - name: attachments
+    level: extended
+    type: file
+    description: should be an array of attached files
+    normalize:
+      - array
+
+# Additional notes/fields:
+# message-id: event.id could be used
+# delivered to: destination.host could be used
+# received by: should be an array of hosts
+# spam grade:
+# spf check
+# authentication
