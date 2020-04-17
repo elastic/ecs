@@ -24,6 +24,11 @@
     from a log message.  The `process.pid` often stays in the metric itself and is
     copied to the global field for correlation.
   type: group
+  reusable:
+    top_level: true
+    expected:
+      - at: process
+        as: parent
   fields:
 
     - name: pid
@@ -34,32 +39,7 @@
         Process id.
       example: 4242
 
-    - name: parent.pid
-      format: string
-      level: core
-      type: long
-      description: >
-        Process id.
-      example: 4242
-
     - name: entity_id
-      level: extended
-      type: keyword
-      short: Unique identifier for the process.
-      description: >
-        Unique identifier for the process.
-
-        The implementation of this is specified by the data source, but some
-        examples of what could be used here are a process-generated UUID,
-        Sysmon Process GUIDs, or a hash of some uniquely identifying components
-        of a process.
-
-        Constructing a globally unique identifier is a common practice to mitigate
-        PID reuse as well as to identify a specific process over time, across multiple
-        monitored hosts.
-      example: c2c455d9f99375d
-
-    - name: parent.entity_id
       level: extended
       type: keyword
       short: Unique identifier for the process.
@@ -89,20 +69,6 @@
       - type: text
         name: text
 
-    - name: parent.name
-      level: extended
-      type: keyword
-      short: Process name.
-      description: >
-        Process name.
-
-        Sometimes called program name or similar.
-      example: ssh
-      multi_fields:
-      - type: text
-        name: text
-
-
     - name: ppid
       format: string
       level: extended
@@ -111,29 +77,12 @@
         Parent process' pid.
       example: 4241
 
-    - name: parent.ppid
-      format: string
-      level: extended
-      type: long
-      description: >
-        Parent process' pid.
-      example: 4241
-
-
     - name: pgid
       format: string
       level: extended
       type: long
       description: >
         Identifier of the group of processes the process belongs to.
-
-    - name: parent.pgid
-      format: string
-      level: extended
-      type: long
-      description: >
-        Identifier of the group of processes the process belongs to.
-
 
     - name: command_line
       level: extended
@@ -149,21 +98,6 @@
       - type: text
         name: text
 
-    - name: parent.command_line
-      level: extended
-      type: keyword
-      short: Full command line that started the process.
-      description: >
-        Full command line that started the process, including the absolute path
-        to the executable, and all arguments.
-
-        Some arguments may be filtered to protect sensitive information.
-      example: "/usr/bin/ssh -l user 10.0.0.16"
-      multi_fields:
-      - type: text
-        name: text
-
-
     - name: args
       level: extended
       type: keyword
@@ -173,18 +107,6 @@
 
         May be filtered to protect sensitive information.
       example: ["/usr/bin/ssh", "-l", "user", "10.0.0.16"]
-      normalize:
-        - array
-
-    - name: parent.args
-      level: extended
-      type: keyword
-      short: Array of process arguments.
-      description: >
-        Array of process arguments.
-
-        May be filtered to protect sensitive information.
-      example: ["ssh", "-l", "user", "10.0.0.16"]
       normalize:
         - array
 
@@ -200,19 +122,6 @@
         More arguments may be an indication of suspicious activity.
       example: 4
 
-    - name: parent.args_count
-      level: extended
-      type: long
-      short: Length of the process.args array.
-      description: >
-        Length of the process.args array.
-
-        This field can be useful for querying or performing bucket analysis on
-        how many arguments were provided to start a process.
-        More arguments may be an indication of suspicious activity.
-      example: 4
-
-
     - name: executable
       level: extended
       type: keyword
@@ -222,17 +131,6 @@
       multi_fields:
       - type: text
         name: text
-
-    - name: parent.executable
-      level: extended
-      type: keyword
-      description: >
-        Absolute path to the process executable.
-      example: /usr/bin/ssh
-      multi_fields:
-      - type: text
-        name: text
-
 
     - name: title
       level: extended
@@ -247,20 +145,6 @@
       - type: text
         name: text
 
-    - name: parent.title
-      level: extended
-      type: keyword
-      short: Process title.
-      description: >
-        Process title.
-
-        The proctitle, some times the same as process name. Can also be different:
-        for example a browser setting its title to the web page currently opened.
-      multi_fields:
-      - type: text
-        name: text
-
-
     - name: thread.id
       format: string
       level: extended
@@ -269,29 +153,12 @@
       description: >
         Thread ID.
 
-    - name: parent.thread.id
-      format: string
-      level: extended
-      type: long
-      example: 4242
-      description: >
-        Thread ID.
-
-
     - name: thread.name
       level: extended
       type: keyword
       example: 'thread-0'
       description: >
         Thread name.
-
-    - name: parent.thread.name
-      level: extended
-      type: keyword
-      example: 'thread-0'
-      description: >
-        Thread name.
-
 
     - name: start
       level: extended
@@ -300,28 +167,12 @@
       description: >
         The time the process started.
 
-    - name: parent.start
-      level: extended
-      type: date
-      example: "2016-05-23T08:05:34.853Z"
-      description: >
-        The time the process started.
-
-
     - name: uptime
       level: extended
       type: long
       example: 1325
       description: >
         Seconds the process has been up.
-
-    - name: parent.uptime
-      level: extended
-      type: long
-      example: 1325
-      description: >
-        Seconds the process has been up.
-
 
     - name: working_directory
       level: extended
@@ -333,29 +184,7 @@
       - type: text
         name: text
 
-    - name: parent.working_directory
-      level: extended
-      type: keyword
-      example: /home/alice
-      description: >
-        The working directory of the process.
-      multi_fields:
-      - type: text
-        name: text
-
-
     - name: exit_code
-      level: extended
-      type: long
-      example: 137
-      short: The exit code of the process.
-      description: >
-        The exit code of the process, if this is a termination event.
-
-        The field should be absent if there is no exit code for the event (e.g.
-        process start).
-
-    - name: parent.exit_code
       level: extended
       type: long
       example: 137

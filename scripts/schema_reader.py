@@ -149,24 +149,35 @@ def duplicate_reusable_fieldsets(schema, fields_nested):
     # Here it simplifies the nesting of 'group' under 'user',
     # which is in turn reusable in a few places.
     if 'reusable' in schema:
+        self_nestings = []
         resolve_reusable_shorthands(schema)
         for new_nesting in schema['reusable']['expected']:
             nest_at = new_nesting['at']
             nest_as = new_nesting['as']
             split_flat_name = nest_at.split('.')
             top_level = split_flat_name[0]
-            # List field set names expected under another field set.
-            # E.g. host.nestings = [ 'geo', 'os', 'user' ]
-            nested_schema = fields_nested[top_level]['fields']
-            for level in split_flat_name[1:]:
-                nested_schema = nested_schema.get(level, None)
-                if not nested_schema:
-                    raise ValueError('Field {} in path {} not found in schema'.format(level, nest_at))
-                if nested_schema.get('reusable', None):
-                    raise ValueError(
-                        'Reusable fields cannot be put inside other reusable fields except when the destination reusable is at the top level')
-                nested_schema = nested_schema.setdefault('fields', {})
-            nested_schema[nest_as] = schema
+            if nest_at == schema['name']:
+                # If nesting schema within itself, we do so as a second step.
+                # We don't want self-nestings to be copied to all other destinations.
+                self_nestings.append(new_nesting)
+            else:
+                # List field set names expected under another field set.
+                # E.g. host.nestings = [ 'geo', 'os', 'user' ]
+                nesting_destination = fields_nested[top_level]['fields']
+                for level in split_flat_name[1:]:
+                    nesting_destination = nesting_destination.get(level, None)
+                    if not nesting_destination:
+                        raise ValueError('Field {} in path {} not found in schema'.format(level, nest_at))
+                    if nesting_destination.get('reusable', None):
+                        raise ValueError(
+                            'Reusable fields cannot be put inside other reusable fields except when the destination reusable is at the top level')
+                    nesting_destination = nesting_destination.setdefault('fields', {})
+                nesting_destination[nest_as] = copy.deepcopy(schema)
+        for self_nesting in self_nestings:
+            fields_nested[self_nesting['at']]['fields'][self_nesting['as']] = copy.deepcopy(schema)
+            # schema[self_nesting['as']] = copy.deepcopy(schema)
+            # print(self_nesting)
+        # print('self nestings for', schema['name'], self_nestings)
 
 
 def resolve_reusable_shorthands(schema):
