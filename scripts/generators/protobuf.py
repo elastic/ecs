@@ -41,8 +41,8 @@ protobuf_legal_type_changes_for = {
 
 
 valid_normalize_settings = [
- [],
- ['array'],
+    [],
+    ['array'],
 ]
 
 
