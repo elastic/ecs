@@ -50,8 +50,8 @@ class TestSchemaReader(unittest.TestCase):
         }
         schema_reader.resolve_reusable_shorthands(schema)
         expected_reusable = [
-            {'at': 'destination', 'as': 'user'},
-            {'at': 'user', 'as': 'effective'}
+            {'at': 'destination', 'as': 'user', 'full': 'destination.user'},
+            {'at': 'user', 'as': 'effective', 'full': 'user.effective'}
         ]
         self.assertEqual(expected_reusable, schema['reusable']['expected'])
 
@@ -388,7 +388,8 @@ class TestSchemaReader(unittest.TestCase):
                             'expected': [
                                 {
                                     'at': 'test_fieldset.sub_field',
-                                    'as': 'reusable_fieldset1'
+                                    'as': 'reusable_fieldset1',
+                                    'full': 'test_fieldset.sub_field.reusable_fieldset1'
                                 }
                             ]
                         },

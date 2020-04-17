@@ -150,8 +150,8 @@ def render_fieldset_reuses_text(fieldset):
         return ''
 
     section_name = fieldset['name']
-    sorted_fields = sorted(fieldset['reusable']['expected'])
-    rendered_fields = map(lambda f: "`{}.{}`".format(f, section_name), sorted_fields)
+    sorted_fields = sorted(fieldset['reusable']['expected'], key=lambda k: k['full'])
+    rendered_fields = map(lambda f: "`{}`".format(f['full']), sorted_fields)
     text = "The `{}` fields are expected to be nested at: {}.\n\n".format(
         section_name, ', '.join(rendered_fields))
 
