@@ -60,7 +60,7 @@ def schema_cleanup_values(schema):
 def schema_set_default_values(schema):
     schema['type'] = 'group'
     schema.setdefault('group', 2)
-    schema.setdefault('short', schema['description'])
+    schema.setdefault('short', schema['description'] if 'description' in schema else '')
     if "\n" in schema['short']:
         raise ValueError("Short descriptions must be single line.\nFieldset: {}\n{}".format(schema['name'], schema))
 
@@ -116,6 +116,8 @@ def merge_schema_fields(a, b):
             if 'fields' in b[key]:
                 a[key].setdefault('fields', {})
                 merge_schema_fields(a[key]['fields'], b[key]['fields'])
+            if 'reusable' in b[key] and 'reusable' in a[key]:
+                a[key]['reusable']['expected'].extend(b[key]['reusable']['expected'])
 
 # Finalize the intermediate representation of all fields.
 
