@@ -28,7 +28,7 @@ def load_schema_files(files):
     fields_nested = {}
     for f in files:
         new_fields = read_schema_file(f)
-        fields_nested.update(new_fields)
+        fields_nested = ecs_helpers.safe_merge_dicts(fields_nested, new_fields)
     return fields_nested
 
 
