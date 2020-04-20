@@ -132,11 +132,11 @@ def render_fieldset_reuse_section(fieldset, intermediate_nested):
         )
         rows = []
         for nested_fs_name in fieldset['nestings']:
-            ecs = ecs_helpers.get_nested_field(nested_fs_name, intermediate_nested)
+            nested_fs = ecs_helpers.get_nested_field(nested_fs_name, intermediate_nested)
             rows.append({
                 'flat_nesting': "{}.*".format(nested_fs_name),
-                'name': nested_fs_name.split('.')[-1],
-                'short': ecs['short']
+                'name': nested_fs['name'],
+                'short': nested_fs['short']
             })
         for row in sorted(rows, key=lambda x: x['flat_nesting']):
             text += render_nesting_row(row)
