@@ -40,6 +40,8 @@ Thanks, you're awesome :-) -->
   had `reusable.top_level:false`. This PR affects `ecs_flat.yml`, the csv file
   and the sample Elasticsearch templates. #495, #813
 * Removed the `order` attribute from the `ecs_nested.yml` and `ecs_flat.yml` files. #811
+* In `ecs_nested.yml`, the array of strings that used to be in `reusable.expected`
+  has been replaced by an array of objects with 3 keys: 'as', 'at' and 'full'. #820
 
 #### Bugfixes
 
@@ -58,6 +60,8 @@ Thanks, you're awesome :-) -->
 * Add support for reusing offical fieldsets in custom schemas. #751
 * Add full path names to reused fieldsets in `nestings` array in `ecs_nested.yml`. #803
 * Allow shorthand notation for including all subfields in subsets. #805
+* Add ability to nest field sets as another name. #820
+* Add ability to nest field sets within themselves (e.g. `process.parent.*`). #820
 
 #### Deprecated
 
