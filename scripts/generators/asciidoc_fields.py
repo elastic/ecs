@@ -156,10 +156,10 @@ def render_fieldset_reuses_text(fieldset):
         section_name, ', '.join(rendered_fields))
 
     if 'top_level' in fieldset['reusable'] and fieldset['reusable']['top_level']:
-        template = "Note also that the `{}` fields may be used directly at the top level.\n\n"
+        template = "Note also that the `{}` fields may be used directly at the root of the events.\n\n"
     else:
         template = "Note also that the `{}` fields are not expected to " + \
-            "be used directly at the top level.\n\n"
+            "be used directly at the root of the events.\n\n"
     text += template.format(section_name)
     return text
 
