@@ -203,8 +203,8 @@ def resolve_reusable_shorthands(schema):
                     explicit_entry = reuse_entry
                 else:
                     raise ValueError("When specifying reusable expected locations " +
-                    "with the dictionary notation, keys 'as' and 'at' are required. "+
-                    "Got {}.".format(reuse_entry))
+                                     "with the dictionary notation, keys 'as' and 'at' are required. " +
+                                     "Got {}.".format(reuse_entry))
             else:
                 explicit_entry = {'at': reuse_entry, 'as': schema['name']}
             explicit_entry['full'] = explicit_entry['at'] + '.' + explicit_entry['as']

@@ -46,7 +46,7 @@ class TestSchemaReader(unittest.TestCase):
         ]
         schema = {
             'name': 'user',
-            'reusable': { 'top_level': False, 'expected': reusable_with_shorthand }
+            'reusable': {'top_level': False, 'expected': reusable_with_shorthand}
         }
         schema_reader.resolve_reusable_shorthands(schema)
         expected_reusable = [
@@ -61,7 +61,7 @@ class TestSchemaReader(unittest.TestCase):
         ]
         schema = {
             'name': 'user',
-            'reusable': { 'top_level': False, 'expected': reusable_with_key_errors }
+            'reusable': {'top_level': False, 'expected': reusable_with_key_errors}
         }
         with self.assertRaises(ValueError):
             schema_reader.resolve_reusable_shorthands(schema)
