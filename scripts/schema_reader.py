@@ -175,9 +175,6 @@ def duplicate_reusable_fieldsets(schema, fields_nested):
                 nesting_destination[nest_as] = copy.deepcopy(schema)
         for self_nesting in self_nestings:
             fields_nested[self_nesting['at']]['fields'][self_nesting['as']] = copy.deepcopy(schema)
-            # schema[self_nesting['as']] = copy.deepcopy(schema)
-            # print(self_nesting)
-        # print('self nestings for', schema['name'], self_nestings)
 
 
 def resolve_reusable_shorthands(schema):
