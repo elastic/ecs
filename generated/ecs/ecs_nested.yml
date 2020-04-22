@@ -5633,7 +5633,7 @@ process:
       name: args
       normalize:
       - array
-      original_fieldset: parent
+      original_fieldset: process
       short: Array of process arguments.
       type: keyword
     parent.args_count:
@@ -5648,7 +5648,7 @@ process:
       level: extended
       name: args_count
       normalize: []
-      original_fieldset: parent
+      original_fieldset: process
       short: Length of the process.args array.
       type: long
     parent.code_signature.exists:
@@ -5736,7 +5736,7 @@ process:
         type: text
       name: command_line
       normalize: []
-      original_fieldset: parent
+      original_fieldset: process
       short: Full command line that started the process.
       type: keyword
     parent.entity_id:
@@ -5756,7 +5756,7 @@ process:
       level: extended
       name: entity_id
       normalize: []
-      original_fieldset: parent
+      original_fieldset: process
       short: Unique identifier for the process.
       type: keyword
     parent.executable:
@@ -5773,7 +5773,7 @@ process:
         type: text
       name: executable
       normalize: []
-      original_fieldset: parent
+      original_fieldset: process
       short: Absolute path to the process executable.
       type: keyword
     parent.exit_code:
@@ -5787,7 +5787,7 @@ process:
       level: extended
       name: exit_code
       normalize: []
-      original_fieldset: parent
+      original_fieldset: process
       short: The exit code of the process.
       type: long
     parent.hash.md5:
@@ -5850,7 +5850,7 @@ process:
         type: text
       name: name
       normalize: []
-      original_fieldset: parent
+      original_fieldset: process
       short: Process name.
       type: keyword
     parent.pe.architecture:
@@ -5949,7 +5949,7 @@ process:
       level: extended
       name: pgid
       normalize: []
-      original_fieldset: parent
+      original_fieldset: process
       short: Identifier of the group of processes the process belongs to.
       type: long
     parent.pid:
@@ -5961,7 +5961,7 @@ process:
       level: core
       name: pid
       normalize: []
-      original_fieldset: parent
+      original_fieldset: process
       short: Process id.
       type: long
     parent.ppid:
@@ -5973,7 +5973,7 @@ process:
       level: extended
       name: ppid
       normalize: []
-      original_fieldset: parent
+      original_fieldset: process
       short: Parent process' pid.
       type: long
     parent.start:
@@ -5984,7 +5984,7 @@ process:
       level: extended
       name: start
       normalize: []
-      original_fieldset: parent
+      original_fieldset: process
       short: The time the process started.
       type: date
     parent.thread.id:
@@ -5996,7 +5996,6 @@ process:
       level: extended
       name: thread.id
       normalize: []
-      original_fieldset: parent
       short: Thread ID.
       type: long
     parent.thread.name:
@@ -6008,7 +6007,6 @@ process:
       level: extended
       name: thread.name
       normalize: []
-      original_fieldset: parent
       short: Thread name.
       type: keyword
     parent.title:
@@ -6027,7 +6025,7 @@ process:
         type: text
       name: title
       normalize: []
-      original_fieldset: parent
+      original_fieldset: process
       short: Process title.
       type: keyword
     parent.uptime:
@@ -6038,7 +6036,7 @@ process:
       level: extended
       name: uptime
       normalize: []
-      original_fieldset: parent
+      original_fieldset: process
       short: Seconds the process has been up.
       type: long
     parent.working_directory:
@@ -6055,7 +6053,7 @@ process:
         type: text
       name: working_directory
       normalize: []
-      original_fieldset: parent
+      original_fieldset: process
       short: The working directory of the process.
       type: keyword
     pe.architecture:
@@ -6259,7 +6257,6 @@ process:
   nestings:
   - process.code_signature
   - process.hash
-  - process.parent
   - process.parent.code_signature
   - process.parent.hash
   - process.parent.pe

@@ -140,6 +140,7 @@ def assemble_reusables(fields_nested):
         schema = fields_nested[schema_name]
         duplicate_reusable_fieldsets(schema, fields_nested)
     cleanup_fields_recursive(fields_nested, "")
+    resolve_self_nestings(fields_nested)
 
 
 def duplicate_reusable_fieldsets(schema, fields_nested):
@@ -149,7 +150,6 @@ def duplicate_reusable_fieldsets(schema, fields_nested):
     # Here it simplifies the nesting of 'group' under 'user',
     # which is in turn reusable in a few places.
     if 'reusable' in schema:
-        self_nestings = []
         resolve_reusable_shorthands(schema)
         for new_nesting in schema['reusable']['expected']:
             nest_at = new_nesting['at']
@@ -157,9 +157,8 @@ def duplicate_reusable_fieldsets(schema, fields_nested):
             split_flat_name = nest_at.split('.')
             top_level = split_flat_name[0]
             if nest_at == schema['name']:
-                # If nesting schema within itself, we do so as a second step.
-                # We don't want self-nestings to be copied to all other destinations.
-                self_nestings.append(new_nesting)
+                schema.setdefault('self_nestings', [])
+                schema['self_nestings'].append(nest_as)
             else:
                 # List field set names expected under another field set.
                 # E.g. host.nestings = [ 'geo', 'os', 'user' ]
@@ -172,14 +171,12 @@ def duplicate_reusable_fieldsets(schema, fields_nested):
                         raise ValueError(
                             'Reusable fields cannot be put inside other reusable fields except when the destination reusable is at the top level')
                     nesting_destination = nesting_destination.setdefault('fields', {})
-                nesting_destination[nest_as] = copy.deepcopy(schema)
-        for self_nesting in self_nestings:
-            fields_nested[self_nesting['at']]['fields'][self_nesting['as']] = copy.deepcopy(schema)
+                nesting_destination[nest_as] = schema
 
 
 def resolve_reusable_shorthands(schema):
     """
-    Replace single word reuse shorthands with the explicit {at: , as:} notation.
+    Replace single word reuse shorthands from the schema YAMLs with the explicit {at: , as:} notation.
 
     When marking "user" as reusable under "destination" with the shorthand entry
     `- destination`, this is expanded to the complete entry
@@ -207,6 +204,23 @@ def resolve_reusable_shorthands(schema):
             explicit_entry['full'] = explicit_entry['at'] + '.' + explicit_entry['as']
             reuse_entries.append(explicit_entry)
         schema['reusable']['expected'] = reuse_entries
+
+
+def resolve_self_nestings(fields):
+    '''Replace self-nestings with independent copies of the field definitions in the intermediate structure.'''
+    for (name, fieldset) in fields.items():
+        if 'self_nestings' not in fieldset:
+            continue
+        fieldset_copy = copy.deepcopy(fieldset)
+        fieldset_copy.pop('self_nestings')
+        for (fieldname, field) in fieldset_copy['fields'].items():
+            # Only applicable for leaf fields, not nested field sets.
+            if 'field_details' in field:
+                field['field_details']['original_fieldset'] = name
+        for nest_as in fieldset['self_nestings']:
+            fieldset['fields'][nest_as] = {'fields': fieldset_copy['fields']}
+        fieldset.pop('self_nestings')
+    cleanup_fields_recursive(fields, '')
 
 
 def cleanup_fields_recursive(fields, prefix, original_fieldset=None):
@@ -246,8 +260,6 @@ def field_set_defaults(field):
     field.setdefault('short', field['description'])
     if "\n" in field['short']:
         raise ValueError("Short descriptions must be single line.\nField: {}\n{}".format(field['flat_name'], field))
-        # print("  Short descriptions must be single line. Field: {}".format(field['flat_name']))
-
     if 'index' in field and not field['index']:
         field.setdefault('doc_values', False)
     if 'multi_fields' in field:

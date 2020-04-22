@@ -58,6 +58,10 @@ def main():
     ecs_helpers.make_dirs(out_dir)
     ecs_helpers.make_dirs(docs_dir)
 
+    # To debug the intermediate representation
+    # ecs_helpers.yaml_dump(os.path.join(out_dir, 'ecs/ecs_intermediate.yml'),
+    #         intermediate_fields)
+
     intermediate_files.generate(nested, flat, out_dir)
     if args.intermediate_only:
         exit()
