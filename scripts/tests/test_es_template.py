@@ -109,5 +109,6 @@ class TestGeneratorsEsTemplate(unittest.TestCase):
         }
         self.assertEqual(es_template.entry_for(test_map), exp)
 
+
 if __name__ == '__main__':
     unittest.main()
