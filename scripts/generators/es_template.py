@@ -42,7 +42,11 @@ def dict_add_nested(dct, nestings, value):
 def entry_for(field):
     field_entry = {'type': field['type']}
     try:
-        if 'index' in field and not field['index']:
+        if field['type'] == 'object' or field['type'] == 'nested':
+            if 'enabled' in field and not field['enabled']:
+                ecs_helpers.dict_copy_existing_keys(field, field_entry, ['enabled'])
+        # the index field is only valid for field types that are not object and nested
+        elif 'index' in field and not field['index']:
             ecs_helpers.dict_copy_existing_keys(field, field_entry, ['index', 'doc_values'])
 
         if field['type'] == 'keyword':
