@@ -58,6 +58,7 @@ Thanks, you're awesome :-) -->
 * Add support for reusing offical fieldsets in custom schemas. #751
 * Add full path names to reused fieldsets in `nestings` array in `ecs_nested.yml`. #803
 * Allow shorthand notation for including all subfields in subsets. #805
+* Adding support for `enabled` and `index` fields. #824
 
 #### Deprecated
 
