@@ -1,6 +1,7 @@
 import os
 import sys
 import unittest
+import mock
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
@@ -70,6 +71,47 @@ class TestSchemaReader(unittest.TestCase):
     def test_load_schemas_with_empty_list_loads_nothing(self):
         result = schema_reader.load_schemas([])
         self.assertEqual(result, ({}))
+
+    @mock.patch('scripts.schema_reader.read_schema_file')
+    def test_load_schemas_fail_on_redefinition(self, mock_read_schema):
+        mock_read_schema.side_effect = [
+            {
+                'file': {
+                    'name': 'file',
+                    'type': 'keyword'
+                }
+            },
+            {
+                'file': {
+                    'name': 'file',
+                    'type': 'text'
+                }
+            }
+        ]
+        with self.assertRaises(ValueError):
+            schema_reader.load_schema_files(['a', 'b'])
+
+    @mock.patch('scripts.schema_reader.read_schema_file')
+    def test_load_schemas_allows_unique_fields(self, mock_read_schema):
+        file_map = {
+            'file': {
+                'name': 'file',
+                'type': 'keyword'
+            }
+        }
+        host_map = {
+            'host': {
+                'name': 'host',
+                'type': 'text'
+            }
+        }
+        mock_read_schema.side_effect = [file_map, host_map]
+        exp = {
+            'file': file_map['file'],
+            'host': host_map['host']
+        }
+        res = schema_reader.load_schema_files(['a', 'b'])
+        self.assertEqual(res, exp)
 
     def test_flatten_fields(self):
         fields = {
