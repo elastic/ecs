@@ -51,6 +51,9 @@ def schema_explicit_defaults(schema):
         schema['prefix'] = ''
     else:
         schema['prefix'] = schema['name'] + '.'
+    schema.setdefault('reusable', {})
+    schema['reusable'].setdefault('top_level', True)
+    schema['reusable'].setdefault('expected', [])
 
 
 def field_list_explicit_defaults(schema):

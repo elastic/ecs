@@ -35,7 +35,11 @@ class TestSchemaReader(unittest.TestCase):
             'group': 2,
             'type': 'group',
             'root': False,
-            'prefix': 'myschema.'
+            'prefix': 'myschema.',
+            'reusable': {
+                'top_level': True,
+                'expected': []
+            }
         }
         schema_reader.schema_explicit_defaults(schema)
         self.assertEqual(schema, expected)
@@ -51,11 +55,17 @@ class TestSchemaReader(unittest.TestCase):
         schema = self.schema_with({
             'group': 1,
             'short': 'something shorter',
-            'description': 'something longer'
+            'description': 'something longer',
+            'reusable': {
+                'top_level': False,
+                'expected': ['destination']
+            }
         })
         schema_reader.schema_explicit_defaults(schema)
         self.assertEqual(schema['group'], 1)
         self.assertEqual(schema['short'], 'something shorter')
+        self.assertFalse(schema['reusable']['top_level'])
+        self.assertEqual(schema['reusable']['expected'], ['destination'])
 
     # field definitions
 
