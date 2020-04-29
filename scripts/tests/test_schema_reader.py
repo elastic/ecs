@@ -1,4 +1,5 @@
 import os
+# import pprint
 import sys
 import unittest
 
@@ -9,71 +10,81 @@ from scripts import schema_reader
 
 class TestSchemaReader(unittest.TestCase):
 
+    def schema_with(self, additionals = {}):
+        minimal_schema = {
+            'name': 'myschema',
+            'description': 'my schema description',
+        }
+        return {**minimal_schema, **additionals}
+
+    def test_load_schemas_with_empty_list_loads_nothing(self):
+        result = schema_reader.load_schemas([])
+        self.assertEqual(result, ({}))
+
     # schemas
 
-    def test_schema_set_fieldset_prefix_at_root(self):
-        schema = {'root': True, 'name': 'myfieldset'}
-        schema_reader.schema_set_fieldset_prefix(schema)
-        self.assertEqual(schema,
-                         {'prefix': '', 'root': True, 'name': 'myfieldset'})
-
-    def test_schema_set_fieldset_prefix_root_unspecified(self):
-        schema = {'name': 'myfieldset'}
-        schema_reader.schema_set_fieldset_prefix(schema)
-        self.assertEqual(schema,
-                         {'prefix': 'myfieldset.', 'name': 'myfieldset'})
-
-    def test_schema_set_fieldset_prefix_not_at_root(self):
-        schema = {'root': False, 'name': 'myfieldset'}
-        schema_reader.schema_set_fieldset_prefix(schema)
-        self.assertEqual(schema,
-                         {'prefix': 'myfieldset.', 'root': False, 'name': 'myfieldset'})
-
-    def test_set_default_values_defaults(self):
-        schema = {'description': '...'}
-        schema_reader.schema_set_default_values(schema)
-        self.assertEqual(schema, {'group': 2, 'type': 'group', 'description': '...', 'short': '...'})
-
-    def test_set_default_values_no_overwrite(self):
-        schema = {'group': 1, 'description': '...'}
-        schema_reader.schema_set_default_values(schema)
-        self.assertEqual(schema, {'group': 1, 'type': 'group', 'description': '...', 'short': '...'})
-
-    def test_resolve_reusable_shorthands(self):
-        reusable_with_shorthand = [
-            'destination',
-            {'at': 'user', 'as': 'effective'}
-        ]
+    def test_schema_all_the_defaults(self):
         schema = {
-            'name': 'user',
-            'reusable': {'top_level': False, 'expected': reusable_with_shorthand}
+            'name': 'myschema',
+            'description': 'my schema description',
         }
-        schema_reader.resolve_reusable_shorthands(schema)
-        expected_reusable = [
-            {'at': 'destination', 'as': 'user', 'full': 'destination.user'},
-            {'at': 'user', 'as': 'effective', 'full': 'user.effective'}
-        ]
-        self.assertEqual(expected_reusable, schema['reusable']['expected'])
+        expected = {
+            'name': 'myschema',
+            'description': 'my schema description',
+            'short': 'my schema description',
+            'group': 2,
+            'type': 'group',
+            'root': False,
+            'prefix': 'myschema.'
+        }
+        schema_reader.schema_explicit_defaults(schema)
+        self.assertEqual(schema, expected)
 
-    def test_resolve_reusable_shorthands_raises_when_missing_keys_as_at(self):
-        reusable_with_key_errors = [
-            {'hat': 'user', 'has': 'effective'}
-        ]
-        schema = {
-            'name': 'user',
-            'reusable': {'top_level': False, 'expected': reusable_with_key_errors}
-        }
-        with self.assertRaises(ValueError):
-            schema_reader.resolve_reusable_shorthands(schema)
+
+    def test_schema_defaults_prefix_for_root_schema(self):
+        schema = self.schema_with({'root': True})
+        schema_reader.schema_explicit_defaults(schema)
+        self.assertEqual(schema['prefix'], '')
+
+
+    def test_schema_defaults_no_overwrite(self):
+        schema = self.schema_with({
+            'group': 1,
+            'short': 'something shorter',
+            'description': 'something longer'
+        })
+        schema_reader.schema_explicit_defaults(schema)
+        self.assertEqual(schema['group'], 1)
+        self.assertEqual(schema['short'], 'something shorter')
 
     # field definitions
 
-    def test_field_set_defaults_no_short(self):
-        field = {'description': 'a field', 'type': 'faketype'}
-        schema_reader.field_set_defaults(field)
-        self.assertEqual(field, {'description': 'a field', 'short': 'a field', 'type': 'faketype', 'normalize': []})
 
-    def test_field_set_multi_field_defaults_missing_name(self):
+    def test_field_all_the_defaults(self):
+        field = { 'name': 'a_field', 'description': 'a field', 'type': 'faketype' }
+        schema_reader.field_explicit_defaults(field, 'fieldset.')
+        self.assertEqual(field['flat_name'], 'fieldset.a_field')
+        self.assertEqual(field['dashed_name'], 'fieldset-a-field')
+        self.assertEqual(field['short'], 'a field')
+        self.assertEqual(field['normalize'], [])
+        self.assertEqual(field['type'], 'faketype')
+        # Special treatment for some types, but we don't touch the type specified
+
+
+    def test_multi_field_explicit_defaults_with_name(self):
+        field = {
+            'name': 'myfield',
+            'flat_name': 'myfieldset.myfield',
+            'multi_fields': [
+                    {'type': 'text', 'name': 'special_mf_name'}
+            ]
+        }
+        schema_reader.multi_field_explicit_defaults(field)
+        multi_field = field['multi_fields'][0]
+        self.assertEqual(multi_field['flat_name'], 'myfieldset.myfield.special_mf_name')
+
+
+    def test_multi_field_explicit_defaults_missing_name(self):
         field = {
             'name': 'myfield',
             'flat_name': 'myfieldset.myfield',
@@ -81,7 +92,7 @@ class TestSchemaReader(unittest.TestCase):
                     {'type': 'text'}
             ]
         }
-        schema_reader.field_set_multi_field_defaults(field)
+        schema_reader.multi_field_explicit_defaults(field)
         expected = {
             'name': 'myfield',
             'flat_name': 'myfieldset.myfield',
@@ -94,411 +105,77 @@ class TestSchemaReader(unittest.TestCase):
         }
         self.assertEqual(field, expected)
 
-    def test_load_schemas_with_empty_list_loads_nothing(self):
-        result = schema_reader.load_schemas([])
-        self.assertEqual(result, ({}))
+    # nesting stuff
 
-    def test_flatten_fields(self):
-        fields = {
-            'top_level': {
-                'field_details': {
-                    'name': 'top_level'
-                },
-                'fields': {
-                    'nested_field': {
-                        'field_details': {
-                            'name': 'nested_field'
-                        },
-                        'fields': {
-                            'double_nested_field': {
-                                'field_details': {
-                                    'name': 'double_nested_field'
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        flat_fields = schema_reader.flatten_fields(fields, "")
-        expected = {
-            'top_level': {
-                'name': 'top_level'
-            },
-            'top_level.nested_field': {
-                'name': 'nested_field'
-            },
-            'top_level.nested_field.double_nested_field': {
-                'name': 'double_nested_field'
-            }
-        }
-        self.assertEqual(flat_fields, expected)
 
-    def test_cleanup_fields_recursive(self):
-        """Reuse a fieldset under two other fieldsets and check that the flat names are properly generated."""
-        reusable = {
-            'name': 'reusable_fieldset',
-            'reusable': {
-                'top_level': False,
-                'expected': [
-                    'test_fieldset'
-                ]
-            },
+    def test_nest_fields(self):
+        process_fields = [
+            { 'name': 'pid' },
+            { 'name': 'parent.pid' },
+        ]
+        expected_nested_fields = {
             'fields': {
-                'reusable_field': {
-                    'field_details': {
-                        'name': 'reusable_field',
-                        'type': 'keyword',
-                        'description': 'A test field'
-                    }
-                }
-            }
-        }
-        fields = {
-            'base_set1': {
-                'name': 'base_set1',
-                'fields': {
-                    'reusable_fieldset': reusable
-                }
-            },
-            'base_set2': {
-                'name': 'base_set2',
-                'fields': {
-                    'reusable_fieldset': reusable
-                }
-            }
-        }
-        schema_reader.cleanup_fields_recursive(fields, "")
-        expected = {
-            'base_set1': {
-                'name': 'base_set1',
-                'fields': {
-                    'reusable_fieldset': {
-                        'name': 'reusable_fieldset',
-                        'reusable': {
-                            'top_level': False,
-                            'expected': [
-                                'test_fieldset'
-                            ]
-                        },
-                        'fields': {
-                            'reusable_field': {
-                                'field_details': {
-                                    'name': 'reusable_field',
-                                    'type': 'keyword',
-                                    'description': 'A test field',
-                                    'flat_name': 'base_set1.reusable_fieldset.reusable_field',
-                                    'dashed_name': 'base-set1-reusable-fieldset-reusable-field',
-                                    'ignore_above': 1024,
-                                    'short': 'A test field',
-                                    'normalize': [],
-                                    'original_fieldset': 'reusable_fieldset'
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            'base_set2': {
-                'name': 'base_set2',
-                'fields': {
-                    'reusable_fieldset': {
-                        'name': 'reusable_fieldset',
-                        'reusable': {
-                            'top_level': False,
-                            'expected': [
-                                'test_fieldset'
-                            ]
-                        },
-                        'fields': {
-                            'reusable_field': {
-                                'field_details': {
-                                    'name': 'reusable_field',
-                                    'type': 'keyword',
-                                    'description': 'A test field',
-                                    'flat_name': 'base_set2.reusable_fieldset.reusable_field',
-                                    'dashed_name': 'base-set2-reusable-fieldset-reusable-field',
-                                    'ignore_above': 1024,
-                                    'short': 'A test field',
-                                    'normalize': [],
-                                    'original_fieldset': 'reusable_fieldset'
-                                }
-                            }
+                'pid': {
+                    'field_details': { 'name': 'pid' }
+                },
+                'parent': {
+                    'fields': {
+                        'pid': {
+                            'field_details': { 'name': 'parent.pid' }
                         }
                     }
                 }
             }
         }
-        self.assertEqual(fields, expected)
+        nested_process_fields = schema_reader.nest_fields(process_fields)
+        self.assertEqual(nested_process_fields, expected_nested_fields)
 
-    def test_merge_schema_fields(self):
-        fieldset1 = {
-            'test_fieldset': {
-                'name': 'test_fieldset',
-                'reusable': {
-                    'top_level': False,
-                    'expected': ['location1, location2']
-                },
-                'fields': {
-                    'test_field1': {
-                        'field_details': {
-                            'name': 'test_field1',
-                            'type': 'keyword',
-                            'description': 'A test field'
-                        }
-                    },
-                    'test_field2': {
-                        'field_details': {
-                            'name': 'test_field2',
-                            'type': 'keyword',
-                            'description': 'Another test field'
-                        }
-                    }
-                }
-            }
-        }
-        fieldset2 = {
-            'test_fieldset': {
-                'name': 'test_fieldset',
-                'reusable': {
-                    'top_level': True,
-                    'expected': ['location3, location4']
-                },
-                'fields': {
-                    'test_field1': {
-                        'field_details': {
-                            'name': 'test_field1',
-                            'type': 'keyword',
-                            'description': 'A test field with matching type but custom description'
-                        }
-                    },
-                    'test_field3': {
-                        'field_details': {
-                            'name': 'test_field3',
-                            'type': 'keyword',
-                            'description': 'A third test field'
-                        }
-                    }
-                }
-            }
-        }
-        expected = {
-            'test_fieldset': {
-                'name': 'test_fieldset',
-                'reusable': {
-                    'top_level': True,
-                    'expected': ['location1, location2', 'location3, location4']
-                },
-                'fields': {
-                    'test_field1': {
-                        'field_details': {
-                            'name': 'test_field1',
-                            'type': 'keyword',
-                            'description': 'A test field'
-                        }
-                    },
-                    'test_field2': {
-                        'field_details': {
-                            'name': 'test_field2',
-                            'type': 'keyword',
-                            'description': 'Another test field'
-                        }
-                    },
-                    'test_field3': {
-                        'field_details': {
-                            'name': 'test_field3',
-                            'type': 'keyword',
-                            'description': 'A third test field'
-                        }
-                    }
-                }
-            }
-        }
-        schema_reader.merge_schema_fields(fieldset1, fieldset2)
-        self.assertEqual(fieldset1, expected)
 
-    def test_merge_schema_fields_fail(self):
-        fieldset1 = {
-            'test_fieldset': {
-                'name': 'test_fieldset',
-                'fields': {
-                    'test_field1': {
-                        'field_details': {
-                            'name': 'test_field1',
-                            'type': 'keyword',
-                            'description': 'A test field'
-                        }
-                    }
-                }
-            }
-        }
-        fieldset2 = {
-            'test_fieldset': {
-                'name': 'test_fieldset',
-                'fields': {
-                    'test_field1': {
-                        'field_details': {
-                            'name': 'test_field1',
-                            'type': 'long',
-                            'description': 'A conflicting field'
-                        }
-                    }
-                }
-            }
-        }
-        with self.assertRaises(ValueError):
-            schema_reader.merge_schema_fields(fieldset1, fieldset2)
+    def test_deep_nesting_representation(self):
+        base_schema = self.schema_with({
+            'name': 'base',
+            'root': True,
+            'fields': [
+                { 'name': 'message', 'type': 'keyword', 'description': '...' }
+            ]
+        })
+        process_schema = self.schema_with({
+            'name': 'process',
+            'fields': [
+                { 'name': 'pid', 'type': 'keyword', 'description': '...' },
+                { 'name': 'parent.pid', 'type': 'keyword', 'description': '...' }
+            ]
+        })
+        schemas = { 'base': base_schema, 'process': process_schema }
+        schema_reader.make_defaults_explicit(schemas)
+        deeply_nested = schema_reader.deep_nesting_representation(schemas)
 
-    def test_reusable_dot_notation(self):
-        fieldset = {
-            'reusable_fieldset1': {
-                'name': 'reusable_fieldset1',
-                'reusable': {
-                    'top_level': False,
-                    'expected': [
-                        'test_fieldset.sub_field'
-                    ]
-                },
-                'fields': {
-                    'reusable_field': {
-                        'field_details': {
-                            'name': 'reusable_field',
-                            'type': 'keyword',
-                            'description': 'A test field'
-                        }
-                    }
-                }
-            },
-            'test_fieldset': {
-                'name': 'test_fieldset',
-                'fields': {
-                    'sub_field': {
-                        'fields': {}
-                    }
-                }
-            }
-        }
-        expected = {
-            'sub_field': {
-                'fields': {
-                    'reusable_fieldset1': {
-                        'name': 'reusable_fieldset1',
-                        'reusable': {
-                            'top_level': False,
-                            'expected': [
-                                {
-                                    'at': 'test_fieldset.sub_field',
-                                    'as': 'reusable_fieldset1',
-                                    'full': 'test_fieldset.sub_field.reusable_fieldset1'
-                                }
-                            ]
-                        },
-                        'fields': {
-                            'reusable_field': {
-                                'field_details': {
-                                    'name': 'reusable_field',
-                                    'type': 'keyword',
-                                    'description': 'A test field'
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        schema_reader.duplicate_reusable_fieldsets(fieldset['reusable_fieldset1'], fieldset)
-        self.assertEqual(fieldset['test_fieldset']['fields'], expected)
+        # print('Flat explicit')
+        # pprint.pprint(schemas)
+        # print('Nested')
+        # pprint.pprint(deeply_nested)
 
-    def test_improper_reusable_fails(self):
-        fieldset = {
-            'reusable_fieldset1': {
-                'name': 'reusable_fieldset1',
-                'reusable': {
-                    'top_level': False,
-                    'expected': [
-                        'test_fieldset'
-                    ]
-                },
-                'fields': {
-                    'reusable_field': {
-                        'field_details': {
-                            'name': 'reusable_field',
-                            'type': 'keyword',
-                            'description': 'A test field'
-                        }
-                    }
-                }
-            },
-            'reusable_fieldset2': {
-                'name': 'reusable_fieldset2',
-                'reusable': {
-                    'top_level': False,
-                    'expected': [
-                        'test_fieldset.reusable_fieldset1'
-                    ]
-                },
-                'fields': {
-                    'reusable_field': {
-                        'field_details': {
-                            'name': 'reusable_field',
-                            'type': 'keyword',
-                            'description': 'A test field'
-                        }
-                    }
-                }
-            },
-            'test_fieldset': {
-                'name': 'test_fieldset',
-                'fields': {}
-            }
-        }
-        # This should fail because test_fieldset.reusable_fieldset1 doesn't exist yet
-        with self.assertRaises(ValueError):
-            schema_reader.duplicate_reusable_fieldsets(fieldset['reusable_fieldset2'], fieldset)
-        schema_reader.duplicate_reusable_fieldsets(fieldset['reusable_fieldset1'], fieldset)
-        # Then this should fail because even though test_fieldset.reusable_fieldset1 now exists, test_fieldset.reusable_fieldset1 is not
-        # an allowed reusable location (it's the destination of another reusable)
-        with self.assertRaises(ValueError):
-            schema_reader.duplicate_reusable_fieldsets(fieldset['reusable_fieldset2'], fieldset)
+        base = deeply_nested['base']
+        self.assertEqual(sorted(base.keys()),
+                         ['field_details', 'fields', 'schema_details'])
+        self.assertTrue(base['schema_details']['root'])
+        self.assertEqual(base['schema_details']['prefix'], '')
 
-    def test_find_nestings(self):
-        field = {
-            'sub_field': {
-                'reusable': {
-                    'top_level': True,
-                    'expected': [
-                        'some_other_field'
-                    ]
-                },
-                'fields': {
-                    'reusable_fieldset1': {
-                        'name': 'reusable_fieldset1',
-                        'reusable': {
-                            'top_level': False,
-                            'expected': [
-                                'sub_field'
-                            ]
-                        },
-                        'fields': {
-                            'nested_reusable_field': {
-                                'reusable': {
-                                    'top_level': False,
-                                    'expected': 'sub_field.nested_reusable_field'
-                                },
-                                'field_details': {
-                                    'name': 'reusable_field',
-                                    'type': 'keyword',
-                                    'description': 'A test field'
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        expected = ['sub_field.reusable_fieldset1', 'sub_field.reusable_fieldset1.nested_reusable_field']
-        self.assertEqual(schema_reader.find_nestings(field['sub_field']['fields'], 'sub_field.'), expected)
+        process = deeply_nested['process']
+        self.assertEqual(sorted(process.keys()),
+                         ['field_details', 'fields', 'schema_details'])
+        self.assertFalse(process['schema_details']['root'])
+        self.assertEqual(process['schema_details']['prefix'], 'process.')
 
+        message = deeply_nested['base']['fields']['message']
+        self.assertEqual(sorted(message.keys()), ['field_details'])
+        self.assertEqual(message['field_details']['flat_name'], 'message')
+
+        pid = deeply_nested['process']['fields']['pid']
+        self.assertEqual(sorted(pid.keys()), ['field_details'])
+        self.assertEqual(pid['field_details']['name'], 'pid')
+        self.assertEqual(pid['field_details']['flat_name'], 'process.pid')
+        self.assertEqual(pid['field_details']['dashed_name'], 'process-pid')
 
 if __name__ == '__main__':
     unittest.main()
