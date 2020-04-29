@@ -2,6 +2,7 @@ import argparse
 import glob
 import os
 import schema_reader
+import schema_processor
 import yaml
 from generators import intermediate_files
 from generators import csv_generator
@@ -31,9 +32,9 @@ def main():
         print('Loading user defined schemas: {0}'.format(include_glob))
 
         intermediate_custom = schema_reader.load_schemas(include_glob)
-        schema_reader.merge_schema_fields(intermediate_fields, intermediate_custom)
+        schema_processor.merge_schema_fields(intermediate_fields, intermediate_custom)
 
-    schema_reader.assemble_reusables(intermediate_fields)
+    schema_processor.assemble_reusables(intermediate_fields)
 
     if args.subset:
         subset = {}
@@ -46,7 +47,7 @@ def main():
             raise ValueError('Subset option specified but no subsets found')
         intermediate_fields = ecs_helpers.fields_subset(subset, intermediate_fields)
 
-    (nested, flat) = schema_reader.generate_nested_flat(intermediate_fields)
+    (nested, flat) = schema_processor.generate_nested_flat(intermediate_fields)
 
     # default location to save files
     out_dir = 'generated'

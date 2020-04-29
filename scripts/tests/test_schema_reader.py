@@ -67,6 +67,7 @@ class TestSchemaReader(unittest.TestCase):
         self.assertFalse(schema['reusable']['top_level'])
         self.assertEqual(schema['reusable']['expected'], ['destination'])
 
+
     # field definitions
 
 
@@ -186,6 +187,7 @@ class TestSchemaReader(unittest.TestCase):
         self.assertEqual(pid['field_details']['name'], 'pid')
         self.assertEqual(pid['field_details']['flat_name'], 'process.pid')
         self.assertEqual(pid['field_details']['dashed_name'], 'process-pid')
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -135,15 +135,15 @@ def deep_nesting_representation(fields):
             'root': flat_schema.pop('root'),
             'group': flat_schema.pop('group'),
             'prefix': flat_schema.pop('prefix'),
+            'reusable': flat_schema.pop('reusable'),
         }
-        if 'reusable' in flat_schema:
-            schema_details['reusable'] = flat_schema.pop('reusable')
 
         nested_schema = nest_fields(flat_schema.pop('fields', []))
         # Re-assemble new structure
         deeply_nested[name] = {
             'schema_details': schema_details,
-            'field_details': flat_schema, # What's still in flat_schema is the field_details
+            # What's still in flat_schema is the field_details for the field set itself
+            'field_details': flat_schema,
             'fields': nested_schema['fields']
         }
     return deeply_nested
