@@ -197,6 +197,30 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.6.0-dev,true,file,file.target_path.text,text,extended,,,Target path for symlinks.
 1.6.0-dev,true,file,file.type,keyword,extended,,file,"File type (file, dir, or symlink)."
 1.6.0-dev,true,file,file.uid,keyword,extended,,1001,The user ID (UID) or security identifier (SID) of the file owner.
+1.6.0-dev,true,file,file.x509.alternative_names,keyword,extended,array,*.elastic.co,"List of subject alternative names (SAN). Name types vary by certificate authority and certificate type but commonly contain IP addresses, DNS names (and wildcards), and email addresses."
+1.6.0-dev,true,file,file.x509.issuer.common_name,keyword,extended,array,DigiCert SHA2 High Assurance Server CA,List of common name (CN) of issuing certificate authority.
+1.6.0-dev,true,file,file.x509.issuer.country,keyword,extended,array,US,List of country (C) codes
+1.6.0-dev,true,file,file.x509.issuer.distinguished_name,keyword,extended,,"C=US, O=DigiCert Inc, OU=www.digicert.com, CN=DigiCert SHA2 High Assurance Server CA",Distinguished name (DN) of issuing certificate authority.
+1.6.0-dev,true,file,file.x509.issuer.locality,keyword,extended,array,Mountain View,List of locality names (L)
+1.6.0-dev,true,file,file.x509.issuer.organization,keyword,extended,array,DigiCert Inc,List of organizations (O) of issuing certificate authority.
+1.6.0-dev,true,file,file.x509.issuer.organizational_unit,keyword,extended,array,www.digicert.com,List of organizational units (OU) of issuing certificate authority.
+1.6.0-dev,true,file,file.x509.issuer.state_or_province,keyword,extended,array,California,"List of state or province names (ST, S, or P)"
+1.6.0-dev,true,file,file.x509.not_after,date,extended,,2020-07-16 03:15:39+00:00,Time at which the certificate is no longer considered valid.
+1.6.0-dev,true,file,file.x509.not_before,date,extended,,2019-08-16 01:40:25+00:00,Time at which the certificate is first considered valid.
+1.6.0-dev,true,file,file.x509.public_key_algorithm,keyword,extended,,RSA,Algorithm used to generate the public key.
+1.6.0-dev,true,file,file.x509.public_key_curve,keyword,extended,,nistp521,The curve used by the elliptic curve public key algorithm. This is algorithm specific.
+1.6.0-dev,false,file,file.x509.public_key_exponent,long,extended,,65537,Exponent used to derive the public key. This is algorithm specific.
+1.6.0-dev,true,file,file.x509.public_key_size,long,extended,,2048,The size of the public key space in bits.
+1.6.0-dev,true,file,file.x509.serial_number,keyword,extended,,55FBB9C7DEBF09809D12CCAA,"Unique serial number issued by the certificate authority. For consistency, if this value is alphanumeric, it should be formatted without colons and uppercase characters."
+1.6.0-dev,true,file,file.x509.signature_algorithm,keyword,extended,,SHA256-RSA,Identifier for certificate signature algorithm. Recommend using names found in Go Lang Crypto library (See https://github.com/golang/go/blob/go1.14/src/crypto/x509/x509.go#L337-L353).
+1.6.0-dev,true,file,file.x509.subject.common_name,keyword,extended,array,r2.shared.global.fastly.net,List of common names (CN) of subject.
+1.6.0-dev,true,file,file.x509.subject.country,keyword,extended,array,US,List of country (C) code
+1.6.0-dev,true,file,file.x509.subject.distinguished_name,keyword,extended,,"C=US, ST=California, L=San Francisco, O=Fastly, Inc., CN=r2.shared.global.fastly.net",Distinguished name (DN) of the certificate subject entity.
+1.6.0-dev,true,file,file.x509.subject.locality,keyword,extended,array,San Francisco,List of locality names (L)
+1.6.0-dev,true,file,file.x509.subject.organization,keyword,extended,array,"Fastly, Inc.",List of organizations (O) of subject.
+1.6.0-dev,true,file,file.x509.subject.organizational_unit,keyword,extended,array,,List of organizational units (OU) of subject.
+1.6.0-dev,true,file,file.x509.subject.state_or_province,keyword,extended,array,California,"List of state or province names (ST, S, or P)"
+1.6.0-dev,true,file,file.x509.version_number,keyword,extended,,3,Version of x509 format.
 1.6.0-dev,true,group,group.domain,keyword,extended,,,Name of the directory the group is a member of.
 1.6.0-dev,true,group,group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
 1.6.0-dev,true,group,group.name,keyword,extended,,,Name of the group.
@@ -513,6 +537,30 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.6.0-dev,true,tls,tls.client.server_name,keyword,extended,,www.elastic.co,"Also called an SNI, this tells the server which hostname to which the client is attempting to connect. When this value is available, it should get copied to `destination.domain`."
 1.6.0-dev,true,tls,tls.client.subject,keyword,extended,,"CN=myclient, OU=Documentation Team, DC=mydomain, DC=com",Distinguished name of subject of the x.509 certificate presented by the client.
 1.6.0-dev,true,tls,tls.client.supported_ciphers,keyword,extended,array,"['TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384', 'TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384', '...']",Array of ciphers offered by the client during the client hello.
+1.6.0-dev,true,tls,tls.client.x509.alternative_names,keyword,extended,array,*.elastic.co,"List of subject alternative names (SAN). Name types vary by certificate authority and certificate type but commonly contain IP addresses, DNS names (and wildcards), and email addresses."
+1.6.0-dev,true,tls,tls.client.x509.issuer.common_name,keyword,extended,array,DigiCert SHA2 High Assurance Server CA,List of common name (CN) of issuing certificate authority.
+1.6.0-dev,true,tls,tls.client.x509.issuer.country,keyword,extended,array,US,List of country (C) codes
+1.6.0-dev,true,tls,tls.client.x509.issuer.distinguished_name,keyword,extended,,"C=US, O=DigiCert Inc, OU=www.digicert.com, CN=DigiCert SHA2 High Assurance Server CA",Distinguished name (DN) of issuing certificate authority.
+1.6.0-dev,true,tls,tls.client.x509.issuer.locality,keyword,extended,array,Mountain View,List of locality names (L)
+1.6.0-dev,true,tls,tls.client.x509.issuer.organization,keyword,extended,array,DigiCert Inc,List of organizations (O) of issuing certificate authority.
+1.6.0-dev,true,tls,tls.client.x509.issuer.organizational_unit,keyword,extended,array,www.digicert.com,List of organizational units (OU) of issuing certificate authority.
+1.6.0-dev,true,tls,tls.client.x509.issuer.state_or_province,keyword,extended,array,California,"List of state or province names (ST, S, or P)"
+1.6.0-dev,true,tls,tls.client.x509.not_after,date,extended,,2020-07-16 03:15:39+00:00,Time at which the certificate is no longer considered valid.
+1.6.0-dev,true,tls,tls.client.x509.not_before,date,extended,,2019-08-16 01:40:25+00:00,Time at which the certificate is first considered valid.
+1.6.0-dev,true,tls,tls.client.x509.public_key_algorithm,keyword,extended,,RSA,Algorithm used to generate the public key.
+1.6.0-dev,true,tls,tls.client.x509.public_key_curve,keyword,extended,,nistp521,The curve used by the elliptic curve public key algorithm. This is algorithm specific.
+1.6.0-dev,false,tls,tls.client.x509.public_key_exponent,long,extended,,65537,Exponent used to derive the public key. This is algorithm specific.
+1.6.0-dev,true,tls,tls.client.x509.public_key_size,long,extended,,2048,The size of the public key space in bits.
+1.6.0-dev,true,tls,tls.client.x509.serial_number,keyword,extended,,55FBB9C7DEBF09809D12CCAA,"Unique serial number issued by the certificate authority. For consistency, if this value is alphanumeric, it should be formatted without colons and uppercase characters."
+1.6.0-dev,true,tls,tls.client.x509.signature_algorithm,keyword,extended,,SHA256-RSA,Identifier for certificate signature algorithm. Recommend using names found in Go Lang Crypto library (See https://github.com/golang/go/blob/go1.14/src/crypto/x509/x509.go#L337-L353).
+1.6.0-dev,true,tls,tls.client.x509.subject.common_name,keyword,extended,array,r2.shared.global.fastly.net,List of common names (CN) of subject.
+1.6.0-dev,true,tls,tls.client.x509.subject.country,keyword,extended,array,US,List of country (C) code
+1.6.0-dev,true,tls,tls.client.x509.subject.distinguished_name,keyword,extended,,"C=US, ST=California, L=San Francisco, O=Fastly, Inc., CN=r2.shared.global.fastly.net",Distinguished name (DN) of the certificate subject entity.
+1.6.0-dev,true,tls,tls.client.x509.subject.locality,keyword,extended,array,San Francisco,List of locality names (L)
+1.6.0-dev,true,tls,tls.client.x509.subject.organization,keyword,extended,array,"Fastly, Inc.",List of organizations (O) of subject.
+1.6.0-dev,true,tls,tls.client.x509.subject.organizational_unit,keyword,extended,array,,List of organizational units (OU) of subject.
+1.6.0-dev,true,tls,tls.client.x509.subject.state_or_province,keyword,extended,array,California,"List of state or province names (ST, S, or P)"
+1.6.0-dev,true,tls,tls.client.x509.version_number,keyword,extended,,3,Version of x509 format.
 1.6.0-dev,true,tls,tls.curve,keyword,extended,,secp256r1,"String indicating the curve used for the given cipher, when applicable."
 1.6.0-dev,true,tls,tls.established,boolean,extended,,,Boolean flag indicating if the TLS negotiation was successful and transitioned to an encrypted tunnel.
 1.6.0-dev,true,tls,tls.next_protocol,keyword,extended,,http/1.1,"String indicating the protocol being tunneled. Per the values in the IANA registry (https://www.iana.org/assignments/tls-extensiontype-values/tls-extensiontype-values.xhtml#alpn-protocol-ids), this string should be lower case."
@@ -527,6 +575,30 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.6.0-dev,true,tls,tls.server.not_after,date,extended,,2021-01-01T00:00:00.000Z,Timestamp indicating when server certificate is no longer considered valid.
 1.6.0-dev,true,tls,tls.server.not_before,date,extended,,1970-01-01T00:00:00.000Z,Timestamp indicating when server certificate is first considered valid.
 1.6.0-dev,true,tls,tls.server.subject,keyword,extended,,"CN=www.mydomain.com, OU=Infrastructure Team, DC=mydomain, DC=com",Subject of the x.509 certificate presented by the server.
+1.6.0-dev,true,tls,tls.server.x509.alternative_names,keyword,extended,array,*.elastic.co,"List of subject alternative names (SAN). Name types vary by certificate authority and certificate type but commonly contain IP addresses, DNS names (and wildcards), and email addresses."
+1.6.0-dev,true,tls,tls.server.x509.issuer.common_name,keyword,extended,array,DigiCert SHA2 High Assurance Server CA,List of common name (CN) of issuing certificate authority.
+1.6.0-dev,true,tls,tls.server.x509.issuer.country,keyword,extended,array,US,List of country (C) codes
+1.6.0-dev,true,tls,tls.server.x509.issuer.distinguished_name,keyword,extended,,"C=US, O=DigiCert Inc, OU=www.digicert.com, CN=DigiCert SHA2 High Assurance Server CA",Distinguished name (DN) of issuing certificate authority.
+1.6.0-dev,true,tls,tls.server.x509.issuer.locality,keyword,extended,array,Mountain View,List of locality names (L)
+1.6.0-dev,true,tls,tls.server.x509.issuer.organization,keyword,extended,array,DigiCert Inc,List of organizations (O) of issuing certificate authority.
+1.6.0-dev,true,tls,tls.server.x509.issuer.organizational_unit,keyword,extended,array,www.digicert.com,List of organizational units (OU) of issuing certificate authority.
+1.6.0-dev,true,tls,tls.server.x509.issuer.state_or_province,keyword,extended,array,California,"List of state or province names (ST, S, or P)"
+1.6.0-dev,true,tls,tls.server.x509.not_after,date,extended,,2020-07-16 03:15:39+00:00,Time at which the certificate is no longer considered valid.
+1.6.0-dev,true,tls,tls.server.x509.not_before,date,extended,,2019-08-16 01:40:25+00:00,Time at which the certificate is first considered valid.
+1.6.0-dev,true,tls,tls.server.x509.public_key_algorithm,keyword,extended,,RSA,Algorithm used to generate the public key.
+1.6.0-dev,true,tls,tls.server.x509.public_key_curve,keyword,extended,,nistp521,The curve used by the elliptic curve public key algorithm. This is algorithm specific.
+1.6.0-dev,false,tls,tls.server.x509.public_key_exponent,long,extended,,65537,Exponent used to derive the public key. This is algorithm specific.
+1.6.0-dev,true,tls,tls.server.x509.public_key_size,long,extended,,2048,The size of the public key space in bits.
+1.6.0-dev,true,tls,tls.server.x509.serial_number,keyword,extended,,55FBB9C7DEBF09809D12CCAA,"Unique serial number issued by the certificate authority. For consistency, if this value is alphanumeric, it should be formatted without colons and uppercase characters."
+1.6.0-dev,true,tls,tls.server.x509.signature_algorithm,keyword,extended,,SHA256-RSA,Identifier for certificate signature algorithm. Recommend using names found in Go Lang Crypto library (See https://github.com/golang/go/blob/go1.14/src/crypto/x509/x509.go#L337-L353).
+1.6.0-dev,true,tls,tls.server.x509.subject.common_name,keyword,extended,array,r2.shared.global.fastly.net,List of common names (CN) of subject.
+1.6.0-dev,true,tls,tls.server.x509.subject.country,keyword,extended,array,US,List of country (C) code
+1.6.0-dev,true,tls,tls.server.x509.subject.distinguished_name,keyword,extended,,"C=US, ST=California, L=San Francisco, O=Fastly, Inc., CN=r2.shared.global.fastly.net",Distinguished name (DN) of the certificate subject entity.
+1.6.0-dev,true,tls,tls.server.x509.subject.locality,keyword,extended,array,San Francisco,List of locality names (L)
+1.6.0-dev,true,tls,tls.server.x509.subject.organization,keyword,extended,array,"Fastly, Inc.",List of organizations (O) of subject.
+1.6.0-dev,true,tls,tls.server.x509.subject.organizational_unit,keyword,extended,array,,List of organizational units (OU) of subject.
+1.6.0-dev,true,tls,tls.server.x509.subject.state_or_province,keyword,extended,array,California,"List of state or province names (ST, S, or P)"
+1.6.0-dev,true,tls,tls.server.x509.version_number,keyword,extended,,3,Version of x509 format.
 1.6.0-dev,true,tls,tls.version,keyword,extended,,1.2,Numeric part of the version parsed from the original string.
 1.6.0-dev,true,tls,tls.version_protocol,keyword,extended,,tls,Normalized lowercase protocol name parsed from original string.
 1.6.0-dev,true,trace,trace.id,keyword,extended,,4bf92f3577b34da6a3ce929d0e0e4736,Unique identifier of the trace.
