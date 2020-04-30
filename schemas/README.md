@@ -2,19 +2,96 @@
 
 YAML with a twist: Flattened field names equivalent to nested. E.g. `foo.bar: value` and `foo:\n  bar: value`.
 
-## Schema heading
+## Field set heading
 
-- name (required): Name of the field set
-- root (optional, default false): Whether or not the fields of this field set should be nested under the field set name.
-- title (required): Rendered name of the field set (e.g. for documentation)
-  Must be correctly capitalized
-- group (required for now): TBD. Just set it to 2, for now ;-)
+- name (required): Name of the field set, lowercased and with underscores to separate words.
+  For programmatic use.
+- title (required): Capitalized name of the field set, with spaces to separate words.
+  For use in documentation.
 - description (required): Description of the field set
-- fields (required): YAML array as described below
+- fields (required): YAML array as described in the "List of fields" section below.
+- root (optional, default false): Whether or not the fields of this field set should be namespaced under the field set name.
+  Most field sets are expected to have their fields namespaced under the field set name.
+  Only the "base" field set is expected to set this to true (to define a few root fields like `@timestamp`).
+- group (optional, default 2): To sort field sets against one another.
+  For example the "base" field set has group=1 and is the first listed in the documentation.
+  All others have group=2 and are therefore after "base" (sorted alphabetically).
 - type (ignored): at this level, should always be `group`
-- reusable (optional): YAML object composed of `top_level` and `expected` sub properties
+- reusable (optional): Used to identify which field sets are expected to be reused in multiple places.
+  See "Field set reuse" for details.
 
-## Field set
+### Field set reuse
+
+Unless otherwise noted via the `reusable` attribute, a field set is a group of
+fields that will be defined at the root of the events.
+As an example, the fields of the `event` field set are nested like: `{"event": {"id": "foo"}}`.
+
+Field set reuse lets us define a group of fields that's expected to be used in
+multiple places, like for example `geo`, which can appear under `source`, `destination` and other places:
+
+```JSON
+{
+  "source": { "ip": "10.10.10.10", "geo": { "country_name": "..." } },
+  "destination": { "ip": "10.42.42.42", "geo": { "country_name": "..." } }
+}
+```
+
+The `reusable` attribute is composed of `top_level` and `expected` sub-attributes:
+
+- top\_level (optional, default true): Is this field set expected at the root of
+  events or is it only expected in the nested locations?
+- expected (default []): list of places the field set's fields are expected.
+  There are two valid notations to list expected locations.
+
+The "flat" (or dotted) notation to represent where the fields are nested:
+
+```YAML
+  reusable:
+    top_level: false
+    expected:
+      - network
+      - network.inner
+```
+
+The above would nest field set `vlan` at `network.vlan.*` and `network.inner.vlan.*`:
+
+```JSON
+{
+  "network": {
+    "vlan": { },
+    "inner": {
+      "vlan": {}
+    }
+  }
+}
+```
+
+In some cases we need to nest a field set within itself, as a different name,
+which can be thought of loosely as a "role".
+A good example is nesting `process` at `process.parent`, to capture the parent of a process.
+In these cases, we replace the "flat" key name with a small object with keys `at` and `as`:
+
+```
+  reusable:
+    top_level: true
+    expected:
+      - { at: process, as: parent }
+```
+
+The above defines all process fields in both places:
+
+```JSON
+{
+  "process": {
+    "pid": 4242,
+    "parent": {
+      "pid": 1
+    }
+  }
+}
+```
+
+### List of fields
 
 Array of YAML objects:
 
@@ -29,7 +106,6 @@ Supported keys to describe fields
 - name (required): Name of the field
 - level (required, one of: core, extended): ECS Level of maturity of the field
 - type (required): Type of the field. Must be set explicitly, no default.
-- required (TBD): TBD if still relevant.
 - short (optional): Optional shorter definition, for display in tight spaces.
   Derived automatically if description is short enough.
 - description (required): Description of the field
@@ -58,7 +134,34 @@ Supported keys to describe expected values for a field
 - expected\_event\_types: list of expected "event.type" values to use in association
   with that category.
 
-### Multi\_fields
+#### Multi\_fields
 
 - type (required): type of the multi\_fields
 - name (optional): defaults to multi\_fields type
+
+## Minimal example
+
+```YAML
+- name: my_fields
+  title: My fields
+  description: My awesome fields.
+  fields:
+
+    - name: a_field
+      level: extended
+      type: keyword
+      example: 42
+      description: >
+        An awesome
+
+        multiline description.
+
+    - name: another_field
+      level: extended
+      type: keyword
+      multi_fields:
+      - type: text
+        name: text
+      example: I am Groot
+      description: A shorter awesome description.
+```
