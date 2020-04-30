@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<style>
+  html {
+    font-family: sans-serif;
+  }
+
+  table {
+    border-collapse: collapse;
+  }
+
+  th, td {
+    vertical-align: top;
+    border: 1px solid black;
+    padding: 0.3em;
+  }
+
+  ul {
+    padding: 0 0 0 1.2em;
+    margin: 0;
+  }
+</style>
+
+<title>ECS Proposal Stages</title>
+
+<h1>ECS Proposal Stages</h1>
+
+<p>These are the stages that an individual RFC advances through before being released for general availability in the Elastic Common Schema (ECS). See the <a href="https://github.com/elastic/ecs/blob/master/PROPOSING_CHANGES.md">Contributing Guide</a> for broader details about contributing changes to ECS through the RFC process.
+
+<table>
+  <thead>
+    <tr>
+      <th>
+      <th>Stage
+      <th>Goals during this stage
+      <th>Criteria for consideration for this stage
+      <th>Acceptance into this stage signifies
+      <th>Acceptable changes to schema in this stage
+      <th>Breaking changes expected after acceptance into this stage
+      <th>Recommended types of usage implementation
+    </tr>
+  </thead>
+  <tr>
+    <td>0
+    <td>Strawperson
+    <td>
+      <ul>
+        <li>Discuss with domain or subject matter experts the utility of these changes
+        <li>Discuss with ECS team whether these changes seem appropriate for ECS
+      </ul>
+    </td>
+    <td>Opened RFC pull request for this strawperson at <a href="https://github.com/elastic/ecs">elastic/ecs
+    <td>The premise of these changes is not obviously useless or inappropriate for ECS
+    <td>None
+    <td>Major
+    <td>N/A
+  </tr>
+  <tr>
+    <td>1
+    <td>Proposal
+    <td>
+      <ul>
+        <li>Make the case for these changes
+        <li>Describe the field definitions at a high level
+        <li>Identify potential challenges and areas that need more clarity
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li>Opened pull request for this proposal revising the existing strawperson
+        <li>Identified "sponsor" at Elastic who will participate in RFC process and take ownership of the change after the process completes
+        <li>Types of fields or changes outlined
+        <li>High-level description of examples of usage
+        <li>High-level description of example sources of data
+        <li>Identified potential concerns and implementation challenges/complexity
+        <li>Subject matter experts identified and weighed in on the high level utility of these changes in the pull request
+        <li>ECS team weighed in on appropriateness of these changes in the pull request
+      </ul>
+    </td>
+    <td>ECS team accepts the premise of the addition and commits to considering this proposal as it advances.
+    <td>None
+    <td>Major
+    <td>Proof of concepts, demos
+  </tr>
+  <tr>
+    <td>2
+    <td>Draft
+    <td>Identify a comprehensive set of field definitions that could be appropriate for real-world usage
+    <td>
+      <ul>
+        <li>Opened pull request for this draft revising the existing proposal
+        <li>Outlined initial field definitions
+        <li>Included a real world example source document
+        <li>Identifies scope of impact of changes to ingestion mechanisms (e.g. beats/logstash), usage mechanisms (e.g. Kibana applications, detections), and the ECS project (e.g. docs, tooling)
+        <li>Subject matter experts weighed in on technical utility of field definitions in the pull request
+      </ul>
+    </td>
+    <td>The initial field definitions are a comprehensive, though not necessarily complete, model of the addition to the schema. Fundamental questions and concerns are resolved, though some less significant questions remain open.
+    <td>Draft field definitions can be committed to the ECS schema as "experimental" fields
+    <td>Iterative
+    <td>Experimental and beta features
+  </tr>
+  <tr>
+    <td>3
+    <td>Candidate
+    <td>Indicate that direct experience from implementations and users is necessary to validate the additions
+    <td>
+      <ul>
+        <li>Opened pull request for this candidate revising the existing draft
+        <li>Completed field definitions
+        <li>Included multiple real world example source documents
+        <li>Existing or newly raised questions and concerns are addressed
+      </ul>
+    </td>
+    <td>There are no further open questions or unaddressed concerns, and the field definitions are complete based on the information and usage experience we have.
+    <td>Candidate field definitions can be committed to the ECS schema as "beta" fields
+    <td>Minimal: only those determined to be critical based on usage experience
+    <td>GA features
+  </tr>
+  <tr>
+    <td>4
+    <td>Finished
+    <td>Indicate that the addition is ready for GA release in ECS
+    <td>
+      <ul>
+        <li>Opened pull request for this candidate revising the existing candidate
+        <li>At least one real-world, production-ready usage implementation exists for the field definitions
+        <li>Existing or newly raised questions and concerns are addressed
+        <li>No objections from sponsor, ECS team, or subject matter experts
+      </ul>
+    </td>
+    <td>The field definitions are in use as defined in real-world, production-ready software without raising additional questions or concerns that need to be resolved. The changes are ready to be released as GA in ECS.
+    <td>Field definitions can be committed to the ECS schema as "GA" fields
+    <td>None outside major versions
+    <td>Any
+  </tr>
+</table>
