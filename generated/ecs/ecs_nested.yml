@@ -69,7 +69,7 @@ agent:
       dashed_name: agent-type
       description: 'Type of the agent.
 
-        The agent type stays always the same and should be given by the agent used.
+        The agent type always stays the same and should be given by the agent used.
         In case of Filebeat the agent would always be Filebeat also if two Filebeat
         instances are run on the same machine.'
       example: filebeat
@@ -653,6 +653,20 @@ cloud:
       normalize: []
       short: The cloud account or organization id.
       type: keyword
+    account.name:
+      dashed_name: cloud-account-name
+      description: 'The cloud account name or alias used to identify different entities
+        in a multi-tenant environment.
+
+        Examples: AWS account name, Google Cloud ORG display name.'
+      example: elastic-dev
+      flat_name: cloud.account.name
+      ignore_above: 1024
+      level: extended
+      name: account.name
+      normalize: []
+      short: The cloud account name.
+      type: keyword
     availability_zone:
       dashed_name: cloud-availability-zone
       description: Availability zone in which this host is running.
@@ -695,6 +709,32 @@ cloud:
       name: machine.type
       normalize: []
       short: Machine type of the host machine.
+      type: keyword
+    project.id:
+      dashed_name: cloud-project-id
+      description: 'The cloud project identifier.
+
+        Examples: Google Cloud Project id, Azure Project id.'
+      example: my-project
+      flat_name: cloud.project.id
+      ignore_above: 1024
+      level: extended
+      name: project.id
+      normalize: []
+      short: The cloud project id.
+      type: keyword
+    project.name:
+      dashed_name: cloud-project-name
+      description: 'The cloud project name.
+
+        Examples: Google Cloud Project name, Azure Project name.'
+      example: my project
+      flat_name: cloud.project.name
+      ignore_above: 1024
+      level: extended
+      name: project.name
+      normalize: []
+      short: The cloud project name.
       type: keyword
     provider:
       dashed_name: cloud-provider

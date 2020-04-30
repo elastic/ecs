@@ -163,7 +163,7 @@ example: `foo`
 | agent.type
 | Type of the agent.
 
-The agent type stays always the same and should be given by the agent used. In case of Filebeat the agent would always be Filebeat also if two Filebeat instances are run on the same machine.
+The agent type always stays the same and should be given by the agent used. In case of Filebeat the agent would always be Filebeat also if two Filebeat instances are run on the same machine.
 
 type: keyword
 
@@ -489,6 +489,21 @@ example: `666777888999`
 
 // ===============================================================
 
+| cloud.account.name
+| The cloud account name or alias used to identify different entities in a multi-tenant environment.
+
+Examples: AWS account name, Google Cloud ORG display name.
+
+type: keyword
+
+
+
+example: `elastic-dev`
+
+| extended
+
+// ===============================================================
+
 | cloud.availability_zone
 | Availability zone in which this host is running.
 
@@ -536,6 +551,36 @@ type: keyword
 
 
 example: `t2.medium`
+
+| extended
+
+// ===============================================================
+
+| cloud.project.id
+| The cloud project identifier.
+
+Examples: Google Cloud Project id, Azure Project id.
+
+type: keyword
+
+
+
+example: `my-project`
+
+| extended
+
+// ===============================================================
+
+| cloud.project.name
+| The cloud project name.
+
+Examples: Google Cloud Project name, Azure Project name.
+
+type: keyword
+
+
+
+example: `my project`
 
 | extended
 
