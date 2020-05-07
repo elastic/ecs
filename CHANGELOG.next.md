@@ -33,7 +33,7 @@ Thanks, you're awesome :-) -->
 
 #### Deprecated
 
-* Remove guidance to lowercase `http.request.method` #840
+* Deprecate guidance to lowercase `http.request.method` #840
 
 ### Tooling and Artifact Changes
 
