@@ -1,3 +1,4 @@
+import mock
 import os
 import pprint
 import sys
@@ -63,6 +64,8 @@ class TestSchemaLoader(unittest.TestCase):
             }
         }
 
+    # Schema loading
+
     def test_load_schemas_no_custom(self):
         fields = loader.load_schemas([])
         self.assertEqual(
@@ -77,6 +80,48 @@ class TestSchemaLoader(unittest.TestCase):
                 'fields',
                 fields['process']['fields']['thread'].keys(),
                 "Fields containing nested fields should at least have the 'fields' subkey")
+
+
+    @mock.patch('scripts.schema_reader.read_schema_file')
+    def test_load_schemas_fail_on_accidental_fieldset_redefinition(self, mock_read_schema):
+        mock_read_schema.side_effect = [
+            {
+                'file': {
+                    'name': 'file',
+                    'type': 'keyword'
+                }
+            },
+            {
+                'file': {
+                    'name': 'file',
+                    'type': 'text'
+                }
+            }
+        ]
+        with self.assertRaises(ValueError):
+            schema_reader.load_schema_files(['a.yml', 'b.yml'])
+
+    @mock.patch('scripts.schema_reader.read_schema_file')
+    def test_load_schemas_allows_unique_fieldsets(self, mock_read_schema):
+        file_map = {
+            'file': {
+                'name': 'file',
+                'type': 'keyword'
+            }
+        }
+        host_map = {
+            'host': {
+                'name': 'host',
+                'type': 'text'
+            }
+        }
+        mock_read_schema.side_effect = [file_map, host_map]
+        exp = {
+            'file': file_map['file'],
+            'host': host_map['host']
+        }
+        res = schema_reader.load_schema_files(['a.yml', 'b.yml'])
+        self.assertEqual(res, exp)
 
     # nesting stuff
 
