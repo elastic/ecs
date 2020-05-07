@@ -5,39 +5,9 @@ import yaml
 from generators import ecs_helpers
 
 # Loads ECS and optional custom schemas. They are deeply nested, then merged.
-
-def load_schemas(included_files):
-    """Loads ECS and custom schemas. They are returned deeply nested and merged."""
-    fields = deep_nesting_representation(load_schema_files(ecs_helpers.ecs_files()))
-    ecs_helpers.yaml_dump('_notes/nest-as/loader-ecs.yml', fields)
-    if included_files and len(included_files) > 0:
-        custom_files = ecs_helpers.get_glob_files(included_files, ecs_helpers.YAML_EXT)
-        custom_fields = deep_nesting_representation(load_schema_files(custom_files))
-        ecs_helpers.yaml_dump('_notes/nest-as/loader-custom.yml', custom_fields)
-        fields = merge_custom_fields(fields, custom_fields)
-        ecs_helpers.yaml_dump('_notes/nest-as/loader-merged.yml', fields)
-    # TODO mandatory_attributes(fields)
-
-    return fields
-
-
-def load_schema_files(files):
-    fields_nested = {}
-    for f in files:
-        new_fields = read_schema_file(f)
-        fields_nested = ecs_helpers.safe_merge_dicts(fields_nested, new_fields)
-    return fields_nested
-
-
-def read_schema_file(file):
-    """Read a raw schema yml into a map, removing the wrapping array in each file"""
-    with open(file) as f:
-        raw = yaml.safe_load(f.read())
-    fields = {}
-    for field_set in raw:
-        fields[field_set['name']] = field_set
-    return fields
-
+# This script doesn't fill in defaults other than the bare minimum for a predictable
+# deeply nested structure. It doesn't concern itself with what "should be allowed"
+# in being a good ECS citizen. It just loads things and merges them together.
 
 # The deeply nested structured returned by this script looks like this.
 #
@@ -68,6 +38,34 @@ def read_schema_file(file):
 # Any intermediary field with other fields nested within them have 'fields' populated.
 # Note that intermediary fields rarely have 'field_details' populated, but it's supported.
 #   Examples of this are 'dns.answers', 'observer.egress' or others.
+
+
+def load_schemas(included_files):
+    """Loads ECS and custom schemas. They are returned deeply nested and merged."""
+    fields = deep_nesting_representation(load_schema_files(ecs_helpers.ecs_files()))
+    if included_files and len(included_files) > 0:
+        custom_files = ecs_helpers.get_glob_files(included_files, ecs_helpers.YAML_EXT)
+        custom_fields = deep_nesting_representation(load_schema_files(custom_files))
+        fields = merge_custom_fields(fields, custom_fields)
+    return fields
+
+
+def load_schema_files(files):
+    fields_nested = {}
+    for f in files:
+        new_fields = read_schema_file(f)
+        fields_nested = ecs_helpers.safe_merge_dicts(fields_nested, new_fields)
+    return fields_nested
+
+
+def read_schema_file(file):
+    """Read a raw schema yml into a map, removing the wrapping array in each file"""
+    with open(file) as f:
+        raw = yaml.safe_load(f.read())
+    fields = {}
+    for field_set in raw:
+        fields[field_set['name']] = field_set
+    return fields
 
 
 def deep_nesting_representation(fields):
