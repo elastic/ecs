@@ -82,7 +82,7 @@ class TestSchemaLoader(unittest.TestCase):
                 "Fields containing nested fields should at least have the 'fields' subkey")
 
 
-    @mock.patch('scripts.schema_reader.read_schema_file')
+    @mock.patch('schema.loader.read_schema_file')
     def test_load_schemas_fail_on_accidental_fieldset_redefinition(self, mock_read_schema):
         mock_read_schema.side_effect = [
             {
@@ -99,9 +99,9 @@ class TestSchemaLoader(unittest.TestCase):
             }
         ]
         with self.assertRaises(ValueError):
-            schema_reader.load_schema_files(['a.yml', 'b.yml'])
+            loader.load_schema_files(['a.yml', 'b.yml'])
 
-    @mock.patch('scripts.schema_reader.read_schema_file')
+    @mock.patch('schema.loader.read_schema_file')
     def test_load_schemas_allows_unique_fieldsets(self, mock_read_schema):
         file_map = {
             'file': {
@@ -120,7 +120,7 @@ class TestSchemaLoader(unittest.TestCase):
             'file': file_map['file'],
             'host': host_map['host']
         }
-        res = schema_reader.load_schema_files(['a.yml', 'b.yml'])
+        res = loader.load_schema_files(['a.yml', 'b.yml'])
         self.assertEqual(res, exp)
 
     # nesting stuff
