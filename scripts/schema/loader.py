@@ -108,6 +108,8 @@ def nest_fields(field_array):
         for level in parent_fields:
             nested_schema.setdefault(level, {})
             nested_schema[level].setdefault('fields', {})
+            nested_schema[level].setdefault('field_details', {})
+            nested_schema[level]['field_details'].setdefault('type', 'object')
             # moving the nested_schema cursor deeper
             nested_schema = nested_schema[level]['fields']
         nested_schema.setdefault(leaf_field, {})
@@ -117,10 +119,11 @@ def nest_fields(field_array):
 
 # Merge
 
-def merge_custom_fields(a, b):
-    """Merge ECS field sets with custom field sets"""
+def merge_fields(a, b):
+    """Merge ECS field sets with custom field sets."""
     object_like_types = ['group', 'object', 'nested']
     a = copy.deepcopy(a)
+    b = copy.deepcopy(b)
     for key in b:
         if key not in a:
             a[key] = b[key]
@@ -132,9 +135,13 @@ def merge_custom_fields(a, b):
                 b[key]['field_details']['type'] in object_like_types)
         if a_object_like != b_object_like:
             raise ValueError('Field {} unmergeable: one side is a leaf field and not the other'.format(key))
-        if not a_object_like:
-            raise ValueError('ECS field details cannot be overridden fow now. Field: {}'.format(key))
-        # TODO merge field details?
+        # merge field details
+        # if 'normalize' in b[key]['field_details']:
+        #     a[key]['field_details'].setdefault('field_details', {})
+        #     if 'field_details' in a[key]:
+        #         a[key]['field_details'].update(b[key]['field_details'])
+        #     else:
+        #         a[key]['field_details'] =
         if 'schema_details' in a[key] and 'schema_details' in b[key]:
             asd = a[key]['schema_details']
             bsd = b[key]['schema_details']
@@ -149,7 +156,7 @@ def merge_custom_fields(a, b):
                 asd['reusable']['expected'] = sorted(asd['reusable']['expected'])
         if 'fields' in b[key]:
             a[key].setdefault('fields', {})
-            a[key]['fields'] = merge_custom_fields(a[key]['fields'], b[key]['fields'])
+            a[key]['fields'] = merge_fields(a[key]['fields'], b[key]['fields'])
     return a
 
 

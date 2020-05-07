@@ -8,57 +8,62 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '../..'))
 from schema import loader
 
 
-BASE_SCHEMA = {
-    'base': {
-        'schema_details': { 'root': True },
-        'field_details': {
-            'name': 'base',
-            'type': 'group'
-        },
-        'fields': {
-            'message': {
-                'field_details': {
-                    'name': 'message',
-                    'type': 'keyword'
-                }
-            }
-        }
-    }
-}
+class TestSchemaLoader(unittest.TestCase):
 
-PROCESS_SCHEMA = {
-    'process': {
-        'schema_details': {},
-        'field_details': {
-            'name': 'process',
-            'type': 'group'
-        },
-        'fields': {
-            'pid': {
+    def setUp(self):
+        self.maxDiff = None
+
+
+    # Pseudo-fixtures
+
+    def schema_base(self):
+        return {
+            'base': {
+                'schema_details': { 'root': True },
                 'field_details': {
-                    'name': 'pid',
-                    'type': 'keyword'
-                }
-            },
-            'parent': {
+                    'name': 'base',
+                    'type': 'group'
+                },
                 'fields': {
-                    'pid': {
+                    'message': {
                         'field_details': {
-                            'name': 'parent.pid',
+                            'name': 'message',
                             'type': 'keyword'
                         }
                     }
                 }
             }
         }
-    }
-}
 
-class TestSchemaLoader(unittest.TestCase):
 
-    def setUp(self):
-        self.maxDiff = None
-
+    def schema_process(self):
+        return {
+            'process': {
+                'schema_details': {},
+                'field_details': {
+                    'name': 'process',
+                    'type': 'group'
+                },
+                'fields': {
+                    'pid': {
+                        'field_details': {
+                            'name': 'pid',
+                            'type': 'keyword'
+                        }
+                    },
+                    'parent': {
+                        'fields': {
+                            'pid': {
+                                'field_details': {
+                                    'name': 'parent.pid',
+                                    'type': 'keyword'
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
     def test_load_schemas_no_custom(self):
         fields = loader.load_schemas([])
@@ -89,6 +94,7 @@ class TestSchemaLoader(unittest.TestCase):
                     'field_details': { 'name': 'pid' }
                 },
                 'parent': {
+                    'field_details': { 'type': 'object' },
                     'fields': {
                         'pid': {
                             'field_details': { 'name': 'parent.pid' }
@@ -151,6 +157,9 @@ class TestSchemaLoader(unittest.TestCase):
                         }
                     },
                     'parent': {
+                        'field_details': {
+                            'type': 'object'
+                        },
                         'fields': {
                             'pid': {
                                 'field_details': {
@@ -164,6 +173,8 @@ class TestSchemaLoader(unittest.TestCase):
             }
         }
         self.assertEqual(deeply_nested, expected_deeply_nested)
+
+    # Merging
 
 
     def test_merge_new_schema(self):
@@ -184,8 +195,8 @@ class TestSchemaLoader(unittest.TestCase):
                 }
             }
         }
-        expected_fields = {**BASE_SCHEMA, **custom}
-        merged_fields = loader.merge_custom_fields(BASE_SCHEMA, custom)
+        expected_fields = {**self.schema_base(), **custom}
+        merged_fields = loader.merge_fields(self.schema_base(), custom)
         self.assertEqual(expected_fields, merged_fields,
                 "New schemas should just be a dictionary merge")
 
@@ -230,86 +241,14 @@ class TestSchemaLoader(unittest.TestCase):
                 }
             }
         }
-        merged_fields = loader.merge_custom_fields(BASE_SCHEMA, custom)
+        merged_fields = loader.merge_fields(self.schema_base(), custom)
         self.assertEqual(['message', 'my_field'],
                 sorted(expected_fields['base']['fields'].keys()))
         self.assertEqual(expected_fields, merged_fields,
                 "New fields being merged in existing schemas are merged in the 'fields' dict.")
 
 
-    def test_merge_leaf_field_and_nested_field(self):
-        custom = {
-            'base': {
-                'schema_details': { },
-                'field_details': {
-                    'name': 'base'
-                },
-                'fields': {
-                    'message': {
-                        'fields': {
-                            'subfield': {
-                                'name': 'subfield',
-                                'type': 'keyword'
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        with self.assertRaises(ValueError, msg="Merging leaf field with nested field should fail"):
-            loader.merge_custom_fields(BASE_SCHEMA, custom)
-
-
-    def test_make_schema_reusable(self):
-        custom = {
-            'base': {
-                'schema_details': {
-                    'reusable': {
-                        'top_level': True,
-                        'expected': [ 'foo.bar' ]
-                    }
-                },
-                'field_details': {
-                    'name': 'base'
-                }
-            }
-        }
-        merged_fields = loader.merge_custom_fields(BASE_SCHEMA, custom)
-        expected_fields = {
-            'base': {
-                'schema_details': {
-                    'root': True,
-                    'reusable': {
-                        'top_level': True,
-                        'expected': [ 'foo.bar' ]
-                    }
-                },
-                'field_details': {
-                    'name': 'base',
-                    'type': 'group'
-                },
-                'fields': {
-                    'message': {
-                        'field_details': {
-                            'name': 'message',
-                            'type': 'keyword'
-                        }
-                    }
-                }
-            }
-        }
-        self.assertEqual(merged_fields, expected_fields)
-
-    # def test_override_schema_reuse_details(self):
-
-    # def test_override_other_schema_attributes_works(self):
-
-    # Not supported yet
-    # def test_acceptable_leaf_field_attribute_overrides(self):
-
-    # def test_unacceptable_field_attribute_overrides_raise(self):
-
-    def test_field_with_subfield_mergeable(self):
+    def test_fields_with_subfields_mergeable(self):
         custom = {
             'process': {
                 'schema_details': { },
@@ -330,7 +269,7 @@ class TestSchemaLoader(unittest.TestCase):
                 }
             }
         }
-        merged_fields = loader.merge_custom_fields(PROCESS_SCHEMA, custom)
+        merged_fields = loader.merge_fields(self.schema_process(), custom)
         expected_fields = {
             'process': {
                 'schema_details': { },
@@ -366,6 +305,75 @@ class TestSchemaLoader(unittest.TestCase):
         }
         self.assertEqual(merged_fields, expected_fields)
 
+
+    def test_merge_leaf_field_and_nested_field_raises(self):
+        custom = {
+            'base': {
+                'schema_details': { },
+                'field_details': {
+                    'name': 'base'
+                },
+                'fields': {
+                    'message': {
+                        'fields': {
+                            'subfield': {
+                                'name': 'subfield',
+                                'type': 'keyword'
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        with self.assertRaises(ValueError, msg="Merging leaf field with nested field should fail"):
+            loader.merge_fields(self.schema_base(), custom)
+
+
+    # def test_merge_array_attributes(self):
+
+
+    # def test_merge_non_array_attributes(self):
+
+
+    # def test_make_schema_reusable(self):
+    #     custom = {
+    #         'base': {
+    #             'schema_details': {
+    #                 'reusable': {
+    #                     'top_level': True,
+    #                     'expected': [ 'foo.bar' ]
+    #                 }
+    #             },
+    #             'field_details': {
+    #                 'name': 'base'
+    #             }
+    #         }
+    #     }
+    #     merged_fields = loader.merge_fields(self.schema_base(), custom)
+    #     expected_fields = {
+    #         'base': {
+    #             'schema_details': {
+    #                 'root': True,
+    #                 'reusable': {
+    #                     'top_level': True,
+    #                     'expected': [ 'foo.bar' ]
+    #                 }
+    #             },
+    #             'field_details': {
+    #                 'name': 'base',
+    #                 'type': 'group'
+    #             },
+    #             'fields': {
+    #                 'message': {
+    #                     'field_details': {
+    #                         'name': 'message',
+    #                         'type': 'keyword'
+    #                     }
+    #                 }
+    #             }
+    #         }
+    #     }
+    #     self.assertEqual(merged_fields, expected_fields)
 
 
 if __name__ == '__main__':
