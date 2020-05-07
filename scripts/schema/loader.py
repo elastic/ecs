@@ -107,7 +107,9 @@ def nest_fields(field_array):
 
         for level in parent_fields:
             nested_schema.setdefault(level, {})
+            # Where nested fields will live
             nested_schema[level].setdefault('fields', {})
+            # Make type:object explicit for intermediary parent fields
             nested_schema[level].setdefault('field_details', {})
             nested_schema[level]['field_details'].setdefault('type', 'object')
             # moving the nested_schema cursor deeper
@@ -121,28 +123,20 @@ def nest_fields(field_array):
 
 def merge_fields(a, b):
     """Merge ECS field sets with custom field sets."""
-    object_like_types = ['group', 'object', 'nested']
     a = copy.deepcopy(a)
     b = copy.deepcopy(b)
     for key in b:
         if key not in a:
             a[key] = b[key]
             continue
-        a_object_like = ('fields' in a[key] or
-                a[key]['field_details']['type'] in object_like_types)
-        b_object_like = ('fields' in b[key] or
-                'schema_details' in b[key] or
-                b[key]['field_details']['type'] in object_like_types)
-        if a_object_like != b_object_like:
-            raise ValueError('Field {} unmergeable: one side is a leaf field and not the other'.format(key))
         # merge field details
-        # if 'normalize' in b[key]['field_details']:
-        #     a[key]['field_details'].setdefault('field_details', {})
-        #     if 'field_details' in a[key]:
-        #         a[key]['field_details'].update(b[key]['field_details'])
-        #     else:
-        #         a[key]['field_details'] =
-        if 'schema_details' in a[key] and 'schema_details' in b[key]:
+        if 'normalize' in b[key]['field_details']:
+            a[key].setdefault('field_details', {})
+            a[key]['field_details'].setdefault('normalize', [])
+            a[key]['field_details']['normalize'].extend(b[key]['field_details'].pop('normalize'))
+        a[key]['field_details'].update(b[key]['field_details'])
+        # merge schema details
+        if 'schema_details' in b[key]:
             asd = a[key]['schema_details']
             bsd = b[key]['schema_details']
             if 'reusable' in b[key]['schema_details']:
@@ -153,36 +147,10 @@ def merge_fields(a, b):
                     asd['reusable'].setdefault('top_level', True)
                 asd['reusable'].setdefault('expected', [])
                 asd['reusable']['expected'].extend(bsd['reusable']['expected'])
-                asd['reusable']['expected'] = sorted(asd['reusable']['expected'])
+                bsd.pop('reusable')
+            asd.update(bsd)
+        # merge nested fields
         if 'fields' in b[key]:
             a[key].setdefault('fields', {})
             a[key]['fields'] = merge_fields(a[key]['fields'], b[key]['fields'])
     return a
-
-
-def old_merge(a, b):
-    """Merge ECS field sets with custom field sets"""
-    for key in b:
-        if key not in a:
-            a[key] = b[key]
-        else:
-            a_type = a[key].get('field_details', {}).get('type', 'object')
-            b_type = b[key].get('field_details', {}).get('type', 'object')
-            if a_type != b_type:
-                raise ValueError('Schemas unmergeable for {}: type {} does not match type {}'.format(key, a_type, b_type))
-            elif a_type not in ['object', 'nested']:
-                print('Warning: dropping field {}, already defined'.format(key))
-                continue
-            if b[key]['schema_details'] and 'reusable' in b[key]:
-                a[key].setdefault('reusable', {})
-                a[key]['reusable']['top_level'] = a[key]['reusable'].get(
-                    'top_level', False) or b[key]['reusable']['top_level']
-                a[key]['reusable'].setdefault('expected', [])
-                a[key]['reusable']['expected'].extend(b[key]['reusable']['expected'])
-                a[key]['reusable']['expected'] = sorted(a[key]['reusable']['expected'])
-            if 'fields' in b[key]:
-                a[key].setdefault('fields', {})
-                merge_schema_fields(a[key]['fields'], b[key]['fields'])
-
-
-

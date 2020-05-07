@@ -1,5 +1,5 @@
 import os
-# import pprint
+import pprint
 import sys
 import unittest
 
@@ -20,10 +20,7 @@ class TestSchemaLoader(unittest.TestCase):
         return {
             'base': {
                 'schema_details': { 'root': True },
-                'field_details': {
-                    'name': 'base',
-                    'type': 'group'
-                },
+                'field_details': { 'name': 'base', 'type': 'group' },
                 'fields': {
                     'message': {
                         'field_details': {
@@ -52,6 +49,7 @@ class TestSchemaLoader(unittest.TestCase):
                         }
                     },
                     'parent': {
+                        'field_details': { 'type': 'object' },
                         'fields': {
                             'pid': {
                                 'field_details': {
@@ -158,7 +156,7 @@ class TestSchemaLoader(unittest.TestCase):
                     },
                     'parent': {
                         'field_details': {
-                            'type': 'object'
+                            'type': 'object' # This is made explicit for intermediary fields
                         },
                         'fields': {
                             'pid': {
@@ -257,6 +255,7 @@ class TestSchemaLoader(unittest.TestCase):
                 },
                 'fields': {
                     'parent': {
+                        'field_details': { 'type': 'object' },
                         'fields': {
                             'name': {
                                 'field_details': {
@@ -285,6 +284,7 @@ class TestSchemaLoader(unittest.TestCase):
                         }
                     },
                     'parent': {
+                        'field_details': { 'type': 'object' },
                         'fields': {
                             'pid': {
                                 'field_details': {
@@ -306,74 +306,145 @@ class TestSchemaLoader(unittest.TestCase):
         self.assertEqual(merged_fields, expected_fields)
 
 
-    def test_merge_leaf_field_and_nested_field_raises(self):
-        custom = {
-            'base': {
-                'schema_details': { },
-                'field_details': {
-                    'name': 'base'
+    def test_merge_array_attributes(self):
+        # array attributes:
+        # - schema/reusable.expected
+        # - field/normalize
+        ecs = {
+            'foo': {
+                'schema_details': {
+                    'reusable': {
+                        'top_level': True,
+                        'expected': ['normal.location']
+                    }
                 },
+                'field_details': { 'name': 'foo', 'type': 'group' },
                 'fields': {
-                    'message': {
-                        'fields': {
-                            'subfield': {
-                                'name': 'subfield',
-                                'type': 'keyword'
-                            }
+                    'normalized_field': {
+                        'field_details': {
+                            'name': 'normalized_field',
+                            'type': 'keyword',
+                            'normalize': ['lowercase']
+                        }
+                    },
+                    'not_initially_normalized': {
+                        'field_details': {
+                            'name': 'not_initially_normalized',
+                            'type': 'keyword'
                         }
                     }
                 }
             }
         }
-        with self.assertRaises(ValueError, msg="Merging leaf field with nested field should fail"):
-            loader.merge_fields(self.schema_base(), custom)
+        custom = {
+            'foo': {
+                'schema_details': {
+                    'reusable': {
+                        'expected': ['a_new.location']
+                    }
+                },
+                'field_details': { 'name': 'foo', 'type': 'group' },
+                'fields': {
+                    'normalized_field': {
+                        'field_details': {
+                            'name': 'normalized_field',
+                            'normalize': ['array']
+                        }
+                    },
+                    'not_initially_normalized': {
+                        'field_details': {
+                            'name': 'not_initially_normalized',
+                            'normalize': ['array']
+                        }
+                    }
+                }
+            }
+        }
+        merged_fields = loader.merge_fields(ecs, custom)
+        expected_fields = {
+            'foo': {
+                'schema_details': {
+                    'reusable': {
+                        'top_level': True,
+                        'expected': ['normal.location', 'a_new.location']
+                    }
+                },
+                'field_details': { 'name': 'foo', 'type': 'group' },
+                'fields': {
+                    'normalized_field': {
+                        'field_details': {
+                            'name': 'normalized_field',
+                            'type': 'keyword',
+                            'normalize': ['lowercase', 'array']
+                        }
+                    },
+                    'not_initially_normalized': {
+                        'field_details': {
+                            'name': 'not_initially_normalized',
+                            'type': 'keyword',
+                            'normalize': ['array']
+                        }
+                    }
+                }
+            }
+        }
+        self.assertEqual(
+                merged_fields['foo']['schema_details']['reusable']['expected'],
+                ['normal.location', 'a_new.location'])
+        self.assertEqual(
+                merged_fields['foo']['fields']['normalized_field']['field_details']['normalize'],
+                ['lowercase', 'array'])
+        self.assertEqual(
+                merged_fields['foo']['fields']['not_initially_normalized']['field_details']['normalize'],
+                ['array'])
+        self.assertEqual(merged_fields, expected_fields)
 
 
-    # def test_merge_array_attributes(self):
-
-
-    # def test_merge_non_array_attributes(self):
-
-
-    # def test_make_schema_reusable(self):
-    #     custom = {
-    #         'base': {
-    #             'schema_details': {
-    #                 'reusable': {
-    #                     'top_level': True,
-    #                     'expected': [ 'foo.bar' ]
-    #                 }
-    #             },
-    #             'field_details': {
-    #                 'name': 'base'
-    #             }
-    #         }
-    #     }
-    #     merged_fields = loader.merge_fields(self.schema_base(), custom)
-    #     expected_fields = {
-    #         'base': {
-    #             'schema_details': {
-    #                 'root': True,
-    #                 'reusable': {
-    #                     'top_level': True,
-    #                     'expected': [ 'foo.bar' ]
-    #                 }
-    #             },
-    #             'field_details': {
-    #                 'name': 'base',
-    #                 'type': 'group'
-    #             },
-    #             'fields': {
-    #                 'message': {
-    #                     'field_details': {
-    #                         'name': 'message',
-    #                         'type': 'keyword'
-    #                     }
-    #                 }
-    #             }
-    #         }
-    #     }
-    #     self.assertEqual(merged_fields, expected_fields)
+    def test_merge_non_array_attributes(self):
+        custom = {
+            'base': {
+                'schema_details': {
+                    'root': False, # Override (not that I'd recommend overriding that)
+                    'group': 3 # New
+                },
+                'field_details': {
+                    'type': 'object', # Override
+                    'example': 'foo' # New
+                },
+                'fields': {
+                    'message': {
+                        'field_details': {
+                            'type': 'wildcard', # Override
+                            'example': 'wild value' # New
+                        }
+                    }
+                }
+            }
+        }
+        merged_fields = loader.merge_fields(self.schema_base(), custom)
+        expected_fields = {
+            'base': {
+                'schema_details': {
+                    'root': False,
+                    'group': 3
+                },
+                'field_details': {
+                    'name': 'base',
+                    'type': 'object',
+                    'example': 'foo'
+                },
+                'fields': {
+                    'message': {
+                        'field_details': {
+                            'name': 'message',
+                            'type': 'wildcard',
+                            'example': 'wild value'
+                        }
+                    }
+                }
+            }
+        }
+        self.assertEqual(merged_fields, expected_fields)
 
 
 if __name__ == '__main__':
