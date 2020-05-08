@@ -59,12 +59,24 @@ def load_schema_files(files):
 
 
 def read_schema_file(file):
-    """Read a raw schema yml into a map, removing the wrapping array in each file"""
+    """Read a raw schema yml into a dict."""
     with open(file) as f:
         raw = yaml.safe_load(f.read())
+    return nest_schema(raw, file)
+
+
+def nest_schema(raw, file):
+    '''
+    Raw schema files are an of schema details: [{'name': 'base', ...]
+
+    This function loops over the array (usually 1 schema per file) and turns it into
+    a dict with the schema name as the key: { 'base': { 'name': 'base', ...}}
+    '''
     fields = {}
-    for field_set in raw:
-        fields[field_set['name']] = field_set
+    for schema in raw:
+        if 'name' not in schema:
+            raise ValueError("Schema file {} is missing mandatory attribute 'name'".format(file))
+        fields[schema['name']] = schema
     return fields
 
 

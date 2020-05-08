@@ -50,7 +50,7 @@ class TestSchemaLoader(unittest.TestCase):
                         }
                     },
                     'parent': {
-                        'field_details': { 'type': 'object' },
+                        'field_details': {'type': 'object'},
                         'fields': {
                             'pid': {
                                 'field_details': {
@@ -122,6 +122,10 @@ class TestSchemaLoader(unittest.TestCase):
         }
         res = loader.load_schema_files(['a.yml', 'b.yml'])
         self.assertEqual(res, exp)
+
+    def test_nest_schema_raises_on_missing_schema_name(self):
+        with self.assertRaisesRegex(ValueError, 'incomplete.yml'):
+            loader.nest_schema([{'description':'just a description'}], 'incomplete.yml')
 
     # nesting stuff
 
