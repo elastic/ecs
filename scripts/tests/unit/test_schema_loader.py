@@ -158,6 +158,7 @@ class TestSchemaLoader(unittest.TestCase):
         all_schemas = {
             'base': {
                 'name': 'base',
+                'title': 'Base',
                 'root': True,
                 'type': 'group',
                 'fields': [
@@ -176,7 +177,10 @@ class TestSchemaLoader(unittest.TestCase):
         deeply_nested = loader.deep_nesting_representation(all_schemas)
         expected_deeply_nested = {
             'base': {
-                'schema_details': { 'root': True },
+                'schema_details': {
+                    'root': True,
+                    'title': 'Base'
+                },
                 'field_details': {
                     'name': 'base',
                     'type': 'group'
