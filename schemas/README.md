@@ -2,18 +2,28 @@
 
 YAML with a twist: Flattened field names equivalent to nested. E.g. `foo.bar: value` and `foo:\n  bar: value`.
 
+Note that we use the wording "schema" and "field set" alternatively to mean the same concept:
+a group of related fields.
+
 ## Field set heading
 
-- name (required): Name of the field set, lowercased and with underscores to separate words.
+Required field set attributes:
+
+- name: Name of the field set, lowercased and with underscores to separate words.
   For programmatic use.
-- title (required): Capitalized name of the field set, with spaces to separate words.
-  For use in documentation.
-- description (required): Description of the field set
-- fields (required): YAML array as described in the "List of fields" section below.
-- root (optional, default false): Whether or not the fields of this field set should be namespaced under the field set name.
+- title: Capitalized name of the field set, with spaces to separate words.
+  For use in documentation section titles.
+- description: Description of the field set. Two subsequent newlines create a new paragraph.
+- fields: YAML array as described in the "List of fields" section below.
+
+Optional field set attributes:
+
+- short: Short version of the description to display in small spaces, such as the list of field sets.
+  It defaults to the full description, but an error will be raised if the 'short' description contains newlines.
+- root (default false): Whether or not the fields of this field set should be namespaced under the field set name.
   Most field sets are expected to have their fields namespaced under the field set name.
   Only the "base" field set is expected to set this to true (to define a few root fields like `@timestamp`).
-- group (optional, default 2): To sort field sets against one another.
+- group (default 2): To sort field sets against one another.
   For example the "base" field set has group=1 and is the first listed in the documentation.
   All others have group=2 and are therefore after "base" (sorted alphabetically).
 - type (ignored): at this level, should always be `group`
