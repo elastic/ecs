@@ -230,5 +230,11 @@ class TestECSHelpers(unittest.TestCase):
         self.assertEqual(actual, expected)
 
 
+    # List helper tests
+
+    def test_list_subtract(self):
+        self.assertEqual(ecs_helpers.list_subtract(['a', 'b'], ['a']), ['b'])
+        self.assertEqual(ecs_helpers.list_subtract(['a', 'b'], ['a', 'c']), ['b'])
+
 if __name__ == '__main__':
     unittest.main()

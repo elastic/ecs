@@ -143,6 +143,11 @@ def yaml_load(filename):
 # List helpers
 
 
+def list_subtract(original, subtracted):
+    '''Subtract two lists. original = subtracted'''
+    return [item for item in original if item not in subtracted]
+
+
 def list_extract_keys(lst, key_name):
     """Returns an array of values for 'key_name', from a list of dictionaries"""
     acc = []
