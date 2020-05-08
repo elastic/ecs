@@ -2,20 +2,53 @@ import copy
 
 from generators import ecs_helpers
 
+# This script performs a few cleanup functions:
+# - check that mandatory attributes are present, without which we can't do much.
+# - cleans things up, like stripping spaces, sorting arrays
+# - makes all defaults explicit
+# - pre-calculate additional helpful fields
+# - converts shorthands into full representation (e.g. reuse locations)
+
 def clean(fields):
-    fields = schema_cleanup(fields)
     return fields
 
-def schema_cleanup(fields):
-    return fields
 
+# Upon reading the YAML. Once
+MANDATORY_SCHEMA_ATTRIBUTES = ['name', 'title', 'description']
+
+
+def schema_cleanup(schema):
+    # Sanity check first
+    current_schema_attributes = sorted(list(schema['field_details'].keys()) +
+            list(schema['schema_details'].keys()))
+    missing_attributes = ecs_helpers.list_subtract(MANDATORY_SCHEMA_ATTRIBUTES, current_schema_attributes)
+    if len(missing_attributes) > 0:
+        msg = "Schema {} is missing the following mandatory attributes: {}.\nFound these: {}".format(
+                schema['field_details']['name'], ', '.join(missing_attributes), current_schema_attributes)
+        raise ValueError(msg)
+    # trailing space cleanup
+    ecs_helpers.dict_clean_string_values(schema['schema_details'])
+    ecs_helpers.dict_clean_string_values(schema['field_details'])
+    # Some defaults
+    schema['schema_details'].setdefault('group', 2)
+    schema['schema_details'].setdefault('root', False)
+    schema['field_details'].setdefault('type', 'group')
+    schema['field_details'].setdefault('short', schema['field_details']['description'])
+    # Precalculate stuff. Those can't be set in the YAML.
+    if schema['schema_details']['root']:
+        schema['schema_details']['prefix'] = ''
+    else:
+        schema['schema_details']['prefix'] = schema['field_details']['name'] + '.'
+
+
+# def field_cleanup(field, path):
 
 
 def visit_fields(fields, fieldset_func=None, field_func=None, path=[]):
     for (name, details) in fields.items():
         current_path = path + [name]
         if fieldset_func and 'schema_details' in details:
-            fieldset_func(details, current_path)
+            fieldset_func(details)
         # Note that all schemas have field_details as well, so this gets called on them too.
         if field_func and 'field_details' in details:
             field_func(details, current_path)
