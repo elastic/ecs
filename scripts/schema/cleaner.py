@@ -13,19 +13,9 @@ def clean(fields):
     return fields
 
 
-# Upon reading the YAML. Once
-MANDATORY_SCHEMA_ATTRIBUTES = ['name', 'title', 'description']
-
-
 def schema_cleanup(schema):
     # Sanity check first
-    current_schema_attributes = sorted(list(schema['field_details'].keys()) +
-            list(schema['schema_details'].keys()))
-    missing_attributes = ecs_helpers.list_subtract(MANDATORY_SCHEMA_ATTRIBUTES, current_schema_attributes)
-    if len(missing_attributes) > 0:
-        msg = "Schema {} is missing the following mandatory attributes: {}.\nFound these: {}".format(
-                schema['field_details']['name'], ', '.join(missing_attributes), current_schema_attributes)
-        raise ValueError(msg)
+    schema_mandatory_attributes(schema)
     # trailing space cleanup
     ecs_helpers.dict_clean_string_values(schema['schema_details'])
     ecs_helpers.dict_clean_string_values(schema['field_details'])
@@ -40,6 +30,19 @@ def schema_cleanup(schema):
     else:
         schema['schema_details']['prefix'] = schema['field_details']['name'] + '.'
 
+
+MANDATORY_SCHEMA_ATTRIBUTES = ['name', 'title', 'description']
+
+
+def schema_mandatory_attributes(schema):
+    '''Checks for the presence of the mandatory attributes and raises if any are missing'''
+    current_schema_attributes = sorted(list(schema['field_details'].keys()) +
+            list(schema['schema_details'].keys()))
+    missing_attributes = ecs_helpers.list_subtract(MANDATORY_SCHEMA_ATTRIBUTES, current_schema_attributes)
+    if len(missing_attributes) > 0:
+        msg = "Schema {} is missing the following mandatory attributes: {}.\nFound these: {}".format(
+                schema['field_details']['name'], ', '.join(missing_attributes), current_schema_attributes)
+        raise ValueError(msg)
 
 # def field_cleanup(field, path):
 
