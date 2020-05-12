@@ -19,7 +19,10 @@ Required field set attributes:
 Optional field set attributes:
 
 - short: Short version of the description to display in small spaces, such as the list of field sets.
-  It defaults to the full description, but an error will be raised if the 'short' description contains newlines.
+  Short descriptions must not have newlines.
+  Defaults to the main description when absent.
+  If the main description has multiple paragraphs, then a 'short' description
+  with no newlines is required.
 - root (default false): Whether or not the fields of this field set should be namespaced under the field set name.
   Most field sets are expected to have their fields namespaced under the field set name.
   Only the "base" field set is expected to set this to true (to define a few root fields like `@timestamp`).
@@ -116,9 +119,12 @@ Supported keys to describe fields
 - name (required): Name of the field
 - level (required, one of: core, extended): ECS Level of maturity of the field
 - type (required): Type of the field. Must be set explicitly, no default.
-- short (optional): Optional shorter definition, for display in tight spaces.
-  Derived automatically if description is short enough.
 - description (required): Description of the field
+- short (optional): Short version of the description to display in small spaces.
+  Short descriptions must not have newlines.
+  Defaults to the main description when absent.
+  If the main description has multiple paragraphs, then a 'short' description
+  with no newlines is required.
 - example (optional): A single value example of what can be expected in this field
 - multi\_fields (optional): Specify additional ways to index the field.
 - index (optional): If `False`, means field is not indexed (overrides type)
@@ -162,9 +168,12 @@ Supported keys to describe expected values for a field
       type: keyword
       example: 42
       description: >
-        An awesome
+        A description
 
-        multiline description.
+        with multiple paragraphs
+
+        requires you to provide a 'short' description as well.
+      short: A short version of the description.
 
     - name: another_field
       level: extended
@@ -173,5 +182,5 @@ Supported keys to describe expected values for a field
       - type: text
         name: text
       example: I am Groot
-      description: A shorter awesome description.
+      description: A short description that doesn't require an explicit 'short'.
 ```
