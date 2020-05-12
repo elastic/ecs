@@ -138,13 +138,16 @@ class TestSchemaLoader(unittest.TestCase):
         expected_nested_fields = {
             'fields': {
                 'pid': {
-                    'field_details': { 'name': 'pid' }
+                    'field_details': {'name': 'pid'}
                 },
                 'parent': {
-                    'field_details': { 'type': 'object' },
+                    'field_details': {
+                        'name': 'parent',
+                        'type': 'object'
+                    },
                     'fields': {
                         'pid': {
-                            'field_details': { 'name': 'parent.pid' }
+                            'field_details': {'name': 'parent.pid'}
                         }
                     }
                 }
@@ -152,6 +155,35 @@ class TestSchemaLoader(unittest.TestCase):
         }
         nested_process_fields = loader.nest_fields(process_fields)
         self.assertEqual(nested_process_fields, expected_nested_fields)
+
+
+    def test_nest_fields_multiple_intermediary_fields(self):
+        log_fields = [{ 'name': 'origin.file.name' }]
+        expected_nested_fields = {
+            'fields': {
+                'origin': {
+                    'field_details': {
+                        'name': 'origin',
+                        'type': 'object'
+                    },
+                    'fields': {
+                        'file': {
+                            'field_details': {
+                                'name': 'origin.file',
+                                'type': 'object'
+                            },
+                            'fields': {
+                                'name': {
+                                    'field_details': {'name': 'origin.file.name'}
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        nested_log_fields = loader.nest_fields(log_fields)
+        self.assertEqual(nested_log_fields, expected_nested_fields)
 
 
     def test_deep_nesting_representation(self):
@@ -209,7 +241,9 @@ class TestSchemaLoader(unittest.TestCase):
                     },
                     'parent': {
                         'field_details': {
-                            'type': 'object' # This is made explicit for intermediary fields
+                            # These are made explicit for intermediary fields
+                            'name': 'parent',
+                            'type': 'object'
                         },
                         'fields': {
                             'pid': {

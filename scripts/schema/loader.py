@@ -115,13 +115,15 @@ def nest_fields(field_array):
         # Here we reset the cursor for this new field.
         nested_schema = schema_root['fields']
 
-        for level in parent_fields:
+        for idx, level in enumerate(parent_fields):
             nested_schema.setdefault(level, {})
             # Where nested fields will live
             nested_schema[level].setdefault('fields', {})
             # Make type:object explicit for intermediary parent fields
             nested_schema[level].setdefault('field_details', {})
             nested_schema[level]['field_details'].setdefault('type', 'object')
+            intermediary_name = '.'.join(parent_fields[:idx+1])
+            nested_schema[level]['field_details'].setdefault('name', intermediary_name)
             # moving the nested_schema cursor deeper
             nested_schema = nested_schema[level]['fields']
         nested_schema.setdefault(leaf_field, {})

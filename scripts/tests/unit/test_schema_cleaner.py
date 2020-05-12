@@ -31,7 +31,10 @@ class TestSchemaCleaner(unittest.TestCase):
                         }
                     },
                     'parent': {
-                        'field_details': {'type': 'object'},
+                        'field_details': {
+                            'name': 'parent',
+                            'type': 'object'
+                        },
                         'fields': {
                             'pid': {
                                 'field_details': {
