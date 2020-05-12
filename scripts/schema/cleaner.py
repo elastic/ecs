@@ -62,12 +62,21 @@ def field_cleanup(field, path):
     field_mandatory_attributes(field)
     # trailing space cleanup
     ecs_helpers.dict_clean_string_values(field['field_details'])
-    # Fill in defaults
-    field['field_details'].setdefault('short', field['field_details']['description'])
+    field_defaults(field)
     # Precalculate stuff. Those can't be set in the YAML.
     # Final validity check
     field_assertions_and_warnings(field)
 
+
+def field_defaults(field):
+    field['field_details'].setdefault('short', field['field_details']['description'])
+    field['field_details'].setdefault('normalize', [])
+    if field['field_details']['type'] == 'keyword':
+        field['field_details'].setdefault('ignore_above', 1024)
+    if field['field_details']['type'] == 'text':
+        field['field_details'].setdefault('norms', False)
+    if 'index' in field['field_details'] and not field['field_details']['index']:
+        field['field_details'].setdefault('doc_values', False)
 
 FIELD_MANDATORY_ATTRIBUTES = ['name', 'description', 'type', 'level']
 

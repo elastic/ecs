@@ -132,6 +132,47 @@ class TestSchemaCleaner(unittest.TestCase):
         self.assertEqual(my_field['field_details']['short'], 'a really short description')
         self.assertEqual(my_field['field_details']['description'], "a long\n\nmultiline description")
 
+    def test_field_defaults(self):
+        field_min_details = {
+            'description': 'description',
+            'level': 'extended',
+            'name': 'my_field',
+            'type': 'unknown',
+        }
+        # Note: unknown datatypes simply don't have defaults (for future proofing)
+        field_details = field_min_details.copy()
+        cleaner.field_defaults({'field_details': field_details})
+        self.assertEqual(field_details['short'], field_details['description'])
+        self.assertEqual(field_details['normalize'], [])
+
+        field_details = {**field_min_details, **{'type': 'keyword'}}
+        cleaner.field_defaults({'field_details': field_details})
+        self.assertEqual(field_details['ignore_above'], 1024)
+
+        field_details = {**field_min_details, **{'type': 'text'}}
+        cleaner.field_defaults({'field_details': field_details})
+        self.assertEqual(field_details['norms'], False)
+
+        field_details = {**field_min_details, **{'index': True}}
+        cleaner.field_defaults({'field_details': field_details})
+        self.assertNotIn('doc_values', field_details)
+
+        field_details = {**field_min_details, **{'index': False}}
+        cleaner.field_defaults({'field_details': field_details})
+        self.assertEqual(field_details['doc_values'], False)
+
+
+    def test_field_defaults_dont_override(self):
+        field_details = {
+            'description': 'description',
+            'level': 'extended',
+            'name': 'my_long_field',
+            'type': 'keyword',
+            'ignore_above': 8000,
+        }
+        cleaner.field_defaults({'field_details': field_details})
+        self.assertEqual(field_details['ignore_above'], 8000)
+
 
     def test_field_cleanup(self):
         schema = self.schema_process()
