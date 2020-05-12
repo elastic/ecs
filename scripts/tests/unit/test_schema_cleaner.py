@@ -51,24 +51,6 @@ class TestSchemaCleaner(unittest.TestCase):
         }
 
 
-    # common to schemas and fields
-
-
-    def test_clean(self):
-        '''A high level sanity test'''
-        fields = self.schema_process()
-        cleaner.clean(fields)
-        self.assertEqual(fields['process']['schema_details']['prefix'], 'process.')
-
-
-    def test_multiline_short_description_raises(self):
-        schema = {'field_details': {
-            'name': 'fake_schema',
-            'short': "multiple\nlines"}}
-        with self.assertRaisesRegex(ValueError, 'single line'):
-            cleaner.single_line_short_description(schema)
-
-
     # schemas
 
 
@@ -135,5 +117,41 @@ class TestSchemaCleaner(unittest.TestCase):
                 cleaner.field_mandatory_attributes(field)
 
 
+    def test_field_simple_cleanup(self):
+        my_field = {
+            'field_details': {
+                'name': "my_field\t",
+                'type': 'keyword',
+                'level': 'core',
+                'short': " a really short description\n\n",
+                'description': "\ta long\n\nmultiline description   ",
+            }
+        }
+        cleaner.field_cleanup(my_field, [])
+        self.assertEqual(my_field['field_details']['name'], 'my_field')
+        self.assertEqual(my_field['field_details']['short'], 'a really short description')
+        self.assertEqual(my_field['field_details']['description'], "a long\n\nmultiline description")
+
+
     def test_field_cleanup(self):
         schema = self.schema_process()
+
+
+    # common to schemas and fields
+
+
+    def test_clean(self):
+        '''A high level sanity test'''
+        fields = self.schema_process()
+        cleaner.clean(fields)
+        self.assertEqual(fields['process']['schema_details']['prefix'], 'process.')
+
+
+    def test_multiline_short_description_raises(self):
+        schema = {'field_details': {
+            'name': 'fake_schema',
+            'short': "multiple\nlines"}}
+        with self.assertRaisesRegex(ValueError, 'single line'):
+            cleaner.single_line_short_description(schema)
+
+
