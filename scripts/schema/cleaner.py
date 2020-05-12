@@ -71,12 +71,23 @@ def field_cleanup(field, path):
 def field_defaults(field):
     field['field_details'].setdefault('short', field['field_details']['description'])
     field['field_details'].setdefault('normalize', [])
-    if field['field_details']['type'] == 'keyword':
-        field['field_details'].setdefault('ignore_above', 1024)
-    if field['field_details']['type'] == 'text':
-        field['field_details'].setdefault('norms', False)
-    if 'index' in field['field_details'] and not field['field_details']['index']:
-        field['field_details'].setdefault('doc_values', False)
+    field_or_multi_field_datatype_defaults(field['field_details'])
+    if 'multi_fields' in field['field_details']:
+        for mf in field['field_details']['multi_fields']:
+            field_or_multi_field_datatype_defaults(mf)
+            if 'name' not in mf:
+                mf['name'] = mf['type']
+            # TODO flat_name
+
+
+def field_or_multi_field_datatype_defaults(field_details):
+    '''Sets datatype-related defaults on a canonical field or multi-field entries.'''
+    if field_details['type'] == 'keyword':
+        field_details.setdefault('ignore_above', 1024)
+    if field_details['type'] == 'text':
+        field_details.setdefault('norms', False)
+    if 'index' in field_details and not field_details['index']:
+        field_details.setdefault('doc_values', False)
 
 FIELD_MANDATORY_ATTRIBUTES = ['name', 'description', 'type', 'level']
 

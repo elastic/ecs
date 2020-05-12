@@ -174,6 +174,33 @@ class TestSchemaCleaner(unittest.TestCase):
         self.assertEqual(field_details['ignore_above'], 8000)
 
 
+    def test_multi_field_defaults(self):
+        field_details = {
+            'description': 'description',
+            'level': 'extended',
+            'name': 'my_field',
+            'type': 'unimportant',
+            'multi_fields': [
+                {
+                    'type': 'text'
+                },
+                {
+                    'type': 'keyword',
+                    'name': 'special_name'
+                },
+            ]
+        }
+        cleaner.field_defaults({'field_details': field_details})
+
+        mf = field_details['multi_fields'][0]
+        self.assertEqual(mf['name'], mf['type'])
+        self.assertEqual(mf['norms'], False)
+
+        mf = field_details['multi_fields'][1]
+        self.assertEqual(mf['name'], 'special_name')
+        self.assertEqual(mf['ignore_above'], 1024)
+
+
     def test_field_cleanup(self):
         schema = self.schema_process()
 
