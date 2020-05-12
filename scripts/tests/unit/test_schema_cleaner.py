@@ -46,6 +46,16 @@ class TestSchemaCleaner(unittest.TestCase):
         }
 
 
+    # visitor pattern
+
+
+    def test_clean(self):
+        '''A high level sanity test'''
+        fields = self.schema_process()
+        cleaner.clean(fields)
+        self.assertEqual(fields['process']['schema_details']['prefix'], 'process.')
+
+
     # schema_cleanup
 
 
@@ -100,10 +110,12 @@ class TestSchemaCleaner(unittest.TestCase):
         self.assertEqual(my_schema['field_details']['short'], 'a nice description')
 
 
-    # def test_field_visitor(self):
-    #     def print_field_details(field, path):
-    #         if 'name' in field['field_details']:
-    #             print("{} (from {})".format(field['field_details']['name'], path))
-    #     print('')
-    #     schemas = self.schema_process()
-    #     cleaner.visit_fields(schemas, field_func=print_field_details)
+    def test_multiline_short_raises(self):
+        schema = {'field_details': {
+            'name': 'fake_schema',
+            'short': "multiple\nlines"}}
+        with self.assertRaisesRegex(ValueError, 'single line'):
+            cleaner.schema_assertions_and_warnings(schema)
+
+
+    # field cleanup

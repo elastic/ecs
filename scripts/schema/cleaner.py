@@ -10,7 +10,20 @@ from generators import ecs_helpers
 # - converts shorthands into full representation (e.g. reuse locations)
 
 def clean(fields):
+    visit_fields(fields, fieldset_func=schema_cleanup)
     return fields
+
+
+def visit_fields(fields, fieldset_func=None, field_func=None, path=[]):
+    for (name, details) in fields.items():
+        current_path = path + [name]
+        if fieldset_func and 'schema_details' in details:
+            fieldset_func(details)
+        # Note that all schemas have field_details as well, so this gets called on them too.
+        if field_func and 'field_details' in details:
+            field_func(details, current_path)
+        if 'fields' in details:
+            visit_fields(details['fields'], fieldset_func=fieldset_func, field_func=field_func, path=current_path)
 
 
 def schema_cleanup(schema):
@@ -29,6 +42,7 @@ def schema_cleanup(schema):
         schema['schema_details']['prefix'] = ''
     else:
         schema['schema_details']['prefix'] = schema['field_details']['name'] + '.'
+    schema_assertions_and_warnings(schema)
 
 
 MANDATORY_SCHEMA_ATTRIBUTES = ['name', 'title', 'description']
@@ -44,19 +58,16 @@ def schema_mandatory_attributes(schema):
                 schema['field_details']['name'], ', '.join(missing_attributes), current_schema_attributes)
         raise ValueError(msg)
 
+
+def schema_assertions_and_warnings(schema):
+    '''Additional checks on a fleshed out schema'''
+    if "\n" in schema['field_details']['short']:
+        msg = ("Short descriptions must be single line.\n" +
+            "Fieldset: {}\n{}".format(schema['field_details']['name'], schema))
+        raise ValueError(msg)
+
+
 # def field_cleanup(field, path):
-
-
-def visit_fields(fields, fieldset_func=None, field_func=None, path=[]):
-    for (name, details) in fields.items():
-        current_path = path + [name]
-        if fieldset_func and 'schema_details' in details:
-            fieldset_func(details)
-        # Note that all schemas have field_details as well, so this gets called on them too.
-        if field_func and 'field_details' in details:
-            field_func(details, current_path)
-        if 'fields' in details:
-            visit_fields(details['fields'], fieldset_func=fieldset_func, field_func=field_func, path=current_path)
 
 
 
