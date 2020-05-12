@@ -42,17 +42,18 @@ def schema_cleanup(schema):
         schema['schema_details']['prefix'] = ''
     else:
         schema['schema_details']['prefix'] = schema['field_details']['name'] + '.'
+    # Final validity check
     schema_assertions_and_warnings(schema)
 
 
-MANDATORY_SCHEMA_ATTRIBUTES = ['name', 'title', 'description']
+SCHEMA_MANDATORY_ATTRIBUTES = ['name', 'title', 'description']
 
 
 def schema_mandatory_attributes(schema):
-    '''Checks for the presence of the mandatory attributes and raises if any are missing'''
+    '''Ensures for the presence of the mandatory schema attributes and raises if any are missing'''
     current_schema_attributes = sorted(list(schema['field_details'].keys()) +
             list(schema['schema_details'].keys()))
-    missing_attributes = ecs_helpers.list_subtract(MANDATORY_SCHEMA_ATTRIBUTES, current_schema_attributes)
+    missing_attributes = ecs_helpers.list_subtract(SCHEMA_MANDATORY_ATTRIBUTES, current_schema_attributes)
     if len(missing_attributes) > 0:
         msg = "Schema {} is missing the following mandatory attributes: {}.\nFound these: {}".format(
                 schema['field_details']['name'], ', '.join(missing_attributes), current_schema_attributes)
@@ -61,14 +62,41 @@ def schema_mandatory_attributes(schema):
 
 def schema_assertions_and_warnings(schema):
     '''Additional checks on a fleshed out schema'''
-    if "\n" in schema['field_details']['short']:
-        msg = ("Short descriptions must be single line.\n" +
-            "Fieldset: {}\n{}".format(schema['field_details']['name'], schema))
+    single_line_short_description(schema)
+
+
+def field_cleanup(field, path):
+    field_mandatory_attributes(field)
+    # Fill in defaults
+    # Precalculate stuff. Those can't be set in the YAML.
+    # Final validity check
+    field_assertions_and_warnings(field)
+
+
+FIELD_MANDATORY_ATTRIBUTES = ['name', 'description', 'type', 'level']
+
+
+def field_mandatory_attributes(field):
+    '''Ensures for the presence of the mandatory field attributes and raises if any are missing'''
+    current_field_attributes = sorted(field['field_details'].keys())
+    missing_attributes = ecs_helpers.list_subtract(FIELD_MANDATORY_ATTRIBUTES, current_field_attributes)
+    if len(missing_attributes) > 0:
+        msg = "Field is missing the following mandatory attributes: {}.\nFound these: {}.\nField details: {}".format(', '.join(missing_attributes),
+                current_field_attributes,
+                field)
         raise ValueError(msg)
 
 
-# def field_cleanup(field, path):
+def field_assertions_and_warnings(field):
+    '''Additional checks on a fleshed out field'''
+    single_line_short_description(field)
 
+
+def single_line_short_description(schema_or_field):
+    if "\n" in schema_or_field['field_details']['short']:
+        msg = ("Short descriptions must be single line.\n" +
+            "Fieldset: {}\n{}".format(schema_or_field['field_details']['name'], schema_or_field))
+        raise ValueError(msg)
 
 
         # # Both 'fields' and 'field_details' can be present (e.g. when type=object like dns.answers)

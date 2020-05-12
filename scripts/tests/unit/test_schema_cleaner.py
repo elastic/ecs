@@ -27,7 +27,9 @@ class TestSchemaCleaner(unittest.TestCase):
                     'pid': {
                         'field_details': {
                             'name': 'pid',
-                            'type': 'keyword'
+                            'type': 'keyword',
+                            'description': 'The process ID',
+                            'level': 'core'
                         }
                     },
                     'parent': {
@@ -49,7 +51,7 @@ class TestSchemaCleaner(unittest.TestCase):
         }
 
 
-    # visitor pattern
+    # common to schemas and fields
 
 
     def test_clean(self):
@@ -59,7 +61,15 @@ class TestSchemaCleaner(unittest.TestCase):
         self.assertEqual(fields['process']['schema_details']['prefix'], 'process.')
 
 
-    # schema_cleanup
+    def test_multiline_short_description_raises(self):
+        schema = {'field_details': {
+            'name': 'fake_schema',
+            'short': "multiple\nlines"}}
+        with self.assertRaisesRegex(ValueError, 'single line'):
+            cleaner.single_line_short_description(schema)
+
+
+    # schemas
 
 
     def test_schema_raises_on_missing_required_attributes(self):
@@ -113,12 +123,17 @@ class TestSchemaCleaner(unittest.TestCase):
         self.assertEqual(my_schema['field_details']['short'], 'a nice description')
 
 
-    def test_multiline_short_raises(self):
-        schema = {'field_details': {
-            'name': 'fake_schema',
-            'short': "multiple\nlines"}}
-        with self.assertRaisesRegex(ValueError, 'single line'):
-            cleaner.schema_assertions_and_warnings(schema)
+    # fields
 
 
-    # field cleanup
+    def test_field_raises_on_missing_required_attributes(self):
+        for missing_attribute in ['name', 'description', 'type', 'level']:
+            field = self.schema_process()['process']['fields']['pid']
+            field['field_details'].pop(missing_attribute)
+            with self.assertRaisesRegex(ValueError,
+                    "mandatory attributes: {}".format(missing_attribute)):
+                cleaner.field_mandatory_attributes(field)
+
+
+    def test_field_cleanup(self):
+        schema = self.schema_process()
