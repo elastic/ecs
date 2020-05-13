@@ -58,17 +58,21 @@ def schema_assertions_and_warnings(schema):
 # Field level cleanup
 
 
-def field_cleanup(field, path):
+def field_cleanup(field, schema):
     field_mandatory_attributes(field)
-    # trailing space cleanup
     ecs_helpers.dict_clean_string_values(field['field_details'])
-    field_defaults(field)
-    # Precalculate stuff. Those can't be set in the YAML.
-    # Final validity check
+    field_defaults(field, schema)
     field_assertions_and_warnings(field)
 
 
-def field_defaults(field):
+def field_defaults(field, schema):
+    # Precalculated values more than defaults
+    name_parts = field['field_details']['path'] + [field['field_details']['name']]
+    if schema['schema_details']['root']:
+        name_parts.shift() # E.g. remove 'base' namespace from the full field name
+    field['field_details']['flat_name'] = '.'.join(name_parts)
+    field['field_details']['dashed_name'] = field['field_details']['flat_name'].replace('.', '-').replace('_', '-')
+    # Actual defaults
     field['field_details'].setdefault('short', field['field_details']['description'])
     field['field_details'].setdefault('normalize', [])
     field_or_multi_field_datatype_defaults(field['field_details'])
@@ -77,7 +81,8 @@ def field_defaults(field):
             field_or_multi_field_datatype_defaults(mf)
             if 'name' not in mf:
                 mf['name'] = mf['type']
-            # TODO flat_name
+            # Precalculated values for multi-fields
+            mf['flat_name'] = field['field_details']['flat_name'] + '.' + mf['name']
 
 
 def field_or_multi_field_datatype_defaults(field_details):
@@ -124,13 +129,33 @@ def single_line_short_description(schema_or_field):
         raise ValueError(msg)
 
 
-def visit_fields(fields, fieldset_func=None, field_func=None, path=[]):
+def visit_fields(fields, fieldset_func=None, field_func=None, fieldset=None):
+    '''
+    This function navigates the deeply nested tree structure and runs provided
+    functions on each fieldset or field encountered (both optional).
+
+    The function caller should not provide a value for the 'fieldset' argument,
+    as this is populated automatically as visit_fields recursively descends into
+    the tree.
+
+    The 'fieldset_func' provided will be called with one argument, the dictionary containing
+    all fieldset details ({'schema_details': {}, 'field_details': {}, 'fields': {}).
+
+    The 'field_func' provided will be called with two arguments:
+    - first is the field details ({'field_details': {}, 'fields': {})
+    - second is the fieldset inside which this field is defined ({'schema_details': {}, 'field_details': {}, 'fields': {}).
+    '''
     for (name, details) in fields.items():
-        current_path = path + [name]
-        if fieldset_func and 'schema_details' in details:
-            fieldset_func(details)
+        current_fieldset = fieldset
+        if 'schema_details' in details:
+            current_fieldset = details
+            if fieldset_func:
+                fieldset_func(details)
         # Note that all schemas have field_details as well, so this gets called on them too.
         if field_func and 'field_details' in details:
-            field_func(details, current_path)
+            field_func(details, current_fieldset)
         if 'fields' in details:
-            visit_fields(details['fields'], fieldset_func=fieldset_func, field_func=field_func, path=current_path)
+            visit_fields(details['fields'],
+                    fieldset_func=fieldset_func,
+                    field_func=field_func,
+                    fieldset=current_fieldset)

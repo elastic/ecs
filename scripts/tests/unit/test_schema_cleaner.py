@@ -14,6 +14,10 @@ class TestSchemaCleaner(unittest.TestCase):
         self.maxDiff = None
 
 
+    def bogus_fieldset(self):
+        return {'schema_details': {'root': False}}
+
+
     def schema_process(self):
         return {
             'process': {
@@ -125,12 +129,16 @@ class TestSchemaCleaner(unittest.TestCase):
                 'level': 'core',
                 'short': " a really short description\n\n",
                 'description': "\ta long\n\nmultiline description   ",
+                'path': ['a_fieldset'],
             }
         }
-        cleaner.field_cleanup(my_field, [])
+        cleaner.field_cleanup(my_field, self.bogus_fieldset())
         self.assertEqual(my_field['field_details']['name'], 'my_field')
         self.assertEqual(my_field['field_details']['short'], 'a really short description')
         self.assertEqual(my_field['field_details']['description'], "a long\n\nmultiline description")
+        self.assertEqual(my_field['field_details']['flat_name'], 'a_fieldset.my_field')
+        self.assertEqual(my_field['field_details']['dashed_name'], 'a-fieldset-my-field')
+
 
     def test_field_defaults(self):
         field_min_details = {
@@ -138,27 +146,28 @@ class TestSchemaCleaner(unittest.TestCase):
             'level': 'extended',
             'name': 'my_field',
             'type': 'unknown',
+            'path': ['a_fieldset'],
         }
         # Note: unknown datatypes simply don't have defaults (for future proofing)
         field_details = field_min_details.copy()
-        cleaner.field_defaults({'field_details': field_details})
+        cleaner.field_defaults({'field_details': field_details}, self.bogus_fieldset())
         self.assertEqual(field_details['short'], field_details['description'])
         self.assertEqual(field_details['normalize'], [])
 
         field_details = {**field_min_details, **{'type': 'keyword'}}
-        cleaner.field_defaults({'field_details': field_details})
+        cleaner.field_defaults({'field_details': field_details}, self.bogus_fieldset())
         self.assertEqual(field_details['ignore_above'], 1024)
 
         field_details = {**field_min_details, **{'type': 'text'}}
-        cleaner.field_defaults({'field_details': field_details})
+        cleaner.field_defaults({'field_details': field_details}, self.bogus_fieldset())
         self.assertEqual(field_details['norms'], False)
 
         field_details = {**field_min_details, **{'index': True}}
-        cleaner.field_defaults({'field_details': field_details})
+        cleaner.field_defaults({'field_details': field_details}, self.bogus_fieldset())
         self.assertNotIn('doc_values', field_details)
 
         field_details = {**field_min_details, **{'index': False}}
-        cleaner.field_defaults({'field_details': field_details})
+        cleaner.field_defaults({'field_details': field_details}, self.bogus_fieldset())
         self.assertEqual(field_details['doc_values'], False)
 
 
@@ -169,8 +178,9 @@ class TestSchemaCleaner(unittest.TestCase):
             'name': 'my_long_field',
             'type': 'keyword',
             'ignore_above': 8000,
+            'path': ['a_fieldset'],
         }
-        cleaner.field_defaults({'field_details': field_details})
+        cleaner.field_defaults({'field_details': field_details}, self.bogus_fieldset())
         self.assertEqual(field_details['ignore_above'], 8000)
 
 
@@ -180,6 +190,7 @@ class TestSchemaCleaner(unittest.TestCase):
             'level': 'extended',
             'name': 'my_field',
             'type': 'unimportant',
+            'path': ['a_fieldset'],
             'multi_fields': [
                 {
                     'type': 'text'
@@ -190,19 +201,18 @@ class TestSchemaCleaner(unittest.TestCase):
                 },
             ]
         }
-        cleaner.field_defaults({'field_details': field_details})
+        cleaner.field_defaults({'field_details': field_details}, self.bogus_fieldset())
 
         mf = field_details['multi_fields'][0]
-        self.assertEqual(mf['name'], mf['type'])
+        self.assertEqual(mf['name'], 'text')
         self.assertEqual(mf['norms'], False)
+        self.assertEqual(mf['flat_name'], 'a_fieldset.my_field.text')
 
         mf = field_details['multi_fields'][1]
         self.assertEqual(mf['name'], 'special_name')
         self.assertEqual(mf['ignore_above'], 1024)
+        self.assertEqual(mf['flat_name'], 'a_fieldset.my_field.special_name')
 
-
-    def test_field_cleanup(self):
-        schema = self.schema_process()
 
 
     # common to schemas and fields
@@ -223,3 +233,4 @@ class TestSchemaCleaner(unittest.TestCase):
             cleaner.single_line_short_description(schema)
 
 
+    # def test_visit_fields_passes_path
