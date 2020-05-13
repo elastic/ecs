@@ -50,6 +50,9 @@ def entry_for(field):
         elif field['type'] == 'text':
             ecs_helpers.dict_copy_existing_keys(field, field_entry, ['norms'])
 
+        if field['type'] == 'constant_keyword':
+            ecs_helpers.dict_copy_existing_keys(field, field_entry)
+
         if 'multi_fields' in field:
             field_entry['fields'] = {}
             for mf in field['multi_fields']:
