@@ -1,0 +1,63 @@
+---
+- name: stream
+  title: Stream
+  group: 2
+  short: Fields about the monitoring agent.
+  description: >
+    The stream fields are part of the new [indexing strategy](https://github.com/elastic/kibana/blob/master/docs/ingest_manager/index.asciidoc#indexing-strategy-1).
+
+    These fields are used to determine into which index the data is shipped in Elasticsearch and
+    allow efficient querying of data. Initially these fields are mainly used by data shipped by
+    the Elastic Agent but any time series data shipper should switch to using data streams and
+    the new indexing strategy with these fields.
+
+    All three fields are `constant_keyword` fields.
+  footnote: >
+    Examples: The new indexing strategy is {stream.type}-{stream.dataset}-{stream.namespace}`.`
+    As an example, nginx access logs are shipped into `logs-nginx.access-default`.
+  type: group
+  fields:
+    - name: type
+      level: extended
+      type: constant_keyword
+      short: Type of the stream.
+      description: >
+        Type of the stream.
+
+        The type of the stream can be `logs` or `metrics`. More types can be added in the future but no
+        other types then the one describe here should be used.
+
+      example: logs
+
+    - name: dataset
+      level: extended
+      type: keyword
+      short: Dataset describes the structure of the data.
+      description: >
+        Dataset describes the structure of the data.
+
+        The dataset describes the structure of the data. All data shipped into a single dataset
+        should have the same or very similar data structure. For example `system.cpu` and `system.disk`
+        are two different datasets as they have very different fields.
+
+        The name of the dataset should be descriptive of the data and it is encourage to use `.` to
+        combine multiple words. All characters which are allowed in index names can be used for the dataset
+        except `-`.
+
+        The default for dataset is `generic`.
+      example: nginx.access
+
+    - name: namespace
+      level: extended
+      type: constant_keyword
+      short: Namespace of your stream.
+      description: >
+        Namespace of your stream.
+
+        This is the namespace used in your index. The namespace is used to separate
+        the same structure into different Data Streams. For example if nginx logs
+        are shipped for testing and production into the same cluster, two different
+        namespaces can be used. This allows to assign different ILM policies as an example.
+
+        The default value for a namespace is `default`.
+      example: production

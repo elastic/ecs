@@ -7698,6 +7698,76 @@ source:
   short: Fields about the source side of a network connection, used with destination.
   title: Source
   type: group
+stream:
+  description: 'The stream fields are part of the new [indexing strategy](https://github.com/elastic/kibana/blob/master/docs/ingest_manager/index.asciidoc#indexing-strategy-1).
+
+    These fields are used to determine into which index the data is shipped in Elasticsearch
+    and allow efficient querying of data. Initially these fields are mainly used by
+    data shipped by the Elastic Agent but any time series data shipper should switch
+    to using data streams and the new indexing strategy with these fields.
+
+    All three fields are `constant_keyword` fields.'
+  fields:
+    dataset:
+      dashed_name: stream-dataset
+      description: 'Dataset describes the structure of the data.
+
+        The dataset describes the structure of the data. All data shipped into a single
+        dataset should have the same or very similar data structure. For example `system.cpu`
+        and `system.disk` are two different datasets as they have very different fields.
+
+        The name of the dataset should be descriptive of the data and it is encourage
+        to use `.` to combine multiple words. All characters which are allowed in
+        index names can be used for the dataset except `-`.
+
+        The default for dataset is `generic`.'
+      example: nginx.access
+      flat_name: stream.dataset
+      ignore_above: 1024
+      level: extended
+      name: dataset
+      normalize: []
+      short: Dataset describes the structure of the data.
+      type: keyword
+    namespace:
+      dashed_name: stream-namespace
+      description: 'Namespace of your stream.
+
+        This is the namespace used in your index. The namespace is used to separate
+        the same structure into different Data Streams. For example if nginx logs
+        are shipped for testing and production into the same cluster, two different
+        namespaces can be used. This allows to assign different ILM policies as an
+        example.
+
+        The default value for a namespace is `default`.'
+      example: production
+      flat_name: stream.namespace
+      level: extended
+      name: namespace
+      normalize: []
+      short: Namespace of your stream.
+      type: constant_keyword
+    type:
+      dashed_name: stream-type
+      description: 'Type of the stream.
+
+        The type of the stream can be `logs` or `metrics`. More types can be added
+        in the future but no other types then the one describe here should be used.'
+      example: logs
+      flat_name: stream.type
+      level: extended
+      name: type
+      normalize: []
+      short: Type of the stream.
+      type: constant_keyword
+  footnote: 'Examples: The new indexing strategy is {stream.type}-{stream.dataset}-{stream.namespace}`.`
+    As an example, nginx access logs are shipped into `logs-nginx.access-default`.'
+  group: 2
+  name: stream
+  prefix: stream.
+  short: Fields about the monitoring agent.
+  title: Stream
+  type: group
 threat:
   description: 'Fields to classify events and alerts according to a threat taxonomy
     such as the Mitre ATT&CK framework.
