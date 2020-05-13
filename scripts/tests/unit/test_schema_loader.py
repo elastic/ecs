@@ -138,22 +138,29 @@ class TestSchemaLoader(unittest.TestCase):
         expected_nested_fields = {
             'fields': {
                 'pid': {
-                    'field_details': {'name': 'pid'}
+                    'field_details': {
+                        'name': 'pid',
+                        'path': ['process']
+                    }
                 },
                 'parent': {
                     'field_details': {
                         'name': 'parent',
-                        'type': 'object'
+                        'type': 'object',
+                        'path': ['process']
                     },
                     'fields': {
                         'pid': {
-                            'field_details': {'name': 'parent.pid'}
+                            'field_details': {
+                                'name': 'parent.pid',
+                                'path': ['process', 'parent']
+                            }
                         }
                     }
                 }
             }
         }
-        nested_process_fields = loader.nest_fields(process_fields)
+        nested_process_fields = loader.nest_fields(process_fields, 'process')
         self.assertEqual(nested_process_fields, expected_nested_fields)
 
 
@@ -164,17 +171,22 @@ class TestSchemaLoader(unittest.TestCase):
                 'origin': {
                     'field_details': {
                         'name': 'origin',
-                        'type': 'object'
+                        'type': 'object',
+                        'path': ['log'],
                     },
                     'fields': {
                         'file': {
                             'field_details': {
                                 'name': 'origin.file',
-                                'type': 'object'
+                                'type': 'object',
+                                'path': ['log', 'origin'],
                             },
                             'fields': {
                                 'name': {
-                                    'field_details': {'name': 'origin.file.name'}
+                                    'field_details': {
+                                        'name': 'origin.file.name',
+                                        'path': ['log', 'origin', 'file'],
+                                    }
                                 }
                             }
                         }
@@ -182,7 +194,7 @@ class TestSchemaLoader(unittest.TestCase):
                 }
             }
         }
-        nested_log_fields = loader.nest_fields(log_fields)
+        nested_log_fields = loader.nest_fields(log_fields, 'log')
         self.assertEqual(nested_log_fields, expected_nested_fields)
 
 
@@ -221,7 +233,8 @@ class TestSchemaLoader(unittest.TestCase):
                     'message': {
                         'field_details': {
                             'name': 'message',
-                            'type': 'keyword'
+                            'type': 'keyword',
+                            'path': ['base'],
                         }
                     }
                 }
@@ -236,20 +249,23 @@ class TestSchemaLoader(unittest.TestCase):
                     'pid': {
                         'field_details': {
                             'name': 'pid',
-                            'type': 'keyword'
+                            'type': 'keyword',
+                            'path': ['process'],
                         }
                     },
                     'parent': {
                         'field_details': {
                             # These are made explicit for intermediary fields
                             'name': 'parent',
-                            'type': 'object'
+                            'type': 'object',
+                            'path': ['process'],
                         },
                         'fields': {
                             'pid': {
                                 'field_details': {
                                     'name': 'parent.pid',
-                                    'type': 'keyword'
+                                    'type': 'keyword',
+                                    'path': ['process', 'parent'],
                                 }
                             }
                         }
@@ -257,6 +273,10 @@ class TestSchemaLoader(unittest.TestCase):
                 }
             }
         }
+        process_fields = deeply_nested['process']['fields']
+        self.assertEqual(process_fields['pid']['field_details']['path'], ['process'])
+        self.assertEqual(process_fields['parent']['field_details']['path'], ['process'])
+        self.assertEqual(process_fields['parent']['fields']['pid']['field_details']['path'], ['process', 'parent'])
         self.assertEqual(deeply_nested, expected_deeply_nested)
 
     # Merging

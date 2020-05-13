@@ -94,7 +94,7 @@ def deep_nesting_representation(fields):
                 schema_details[schema_key] = flat_schema.pop(schema_key)
 
 
-        nested_schema = nest_fields(flat_schema.pop('fields', []))
+        nested_schema = nest_fields(flat_schema.pop('fields', []), name)
         # Re-assemble new structure
         deeply_nested[name] = {
             'schema_details': schema_details,
@@ -105,7 +105,7 @@ def deep_nesting_representation(fields):
     return deeply_nested
 
 
-def nest_fields(field_array):
+def nest_fields(field_array, schema_name):
     schema_root = { 'fields': {} }
     for field in field_array:
         nested_levels = field['name'].split('.')
@@ -115,19 +115,26 @@ def nest_fields(field_array):
         # Here we reset the cursor for this new field.
         nested_schema = schema_root['fields']
 
+        current_path = [schema_name]
+        # print("\n", leaf_field, parent_fields, current_path)
+        # breakpoint()
         for idx, level in enumerate(parent_fields):
+            # print("\n", idx, level, current_path)
+            # breakpoint()
             nested_schema.setdefault(level, {})
             # Where nested fields will live
             nested_schema[level].setdefault('fields', {})
             # Make type:object explicit for intermediary parent fields
             nested_schema[level].setdefault('field_details', {})
             nested_schema[level]['field_details'].setdefault('type', 'object')
-            intermediary_name = '.'.join(parent_fields[:idx+1])
-            nested_schema[level]['field_details'].setdefault('name', intermediary_name)
+            nested_schema[level]['field_details'].setdefault('name', '.'.join(parent_fields[:idx+1]))
+            nested_schema[level]['field_details'].setdefault('path', current_path.copy())
             # moving the nested_schema cursor deeper
+            current_path.extend([level])
             nested_schema = nested_schema[level]['fields']
         nested_schema.setdefault(leaf_field, {})
         # Overwrite 'name' with the leaf field's name. The flat_name is already computed.
+        field['path'] = current_path
         nested_schema[leaf_field]['field_details'] = field
     return schema_root
 
