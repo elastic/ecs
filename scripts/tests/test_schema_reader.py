@@ -68,8 +68,8 @@ class TestSchemaReader(unittest.TestCase):
         self.assertEqual(field, expected)
 
     def test_load_schemas_with_empty_list_loads_nothing(self):
-        result = schema_reader.load_schemas([])
-        self.assertEqual(result, ({}))
+        result = schema_reader.load_schemas_from_files([])
+        self.assertEqual(result, ([]))
 
     def test_flatten_fields(self):
         fields = {

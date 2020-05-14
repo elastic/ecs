@@ -7,6 +7,7 @@ FORCE_GO_MODULES := GO111MODULE=on
 OPEN_DOCS        ?= "--open"
 PYTHON           := build/ve/bin/python
 VERSION          := $(shell cat version)
+BUILD_VERSION      := "master"
 
 #
 # Targets (sorted alphabetically)
@@ -61,7 +62,7 @@ generate: legacy_use_cases codegen generator
 # Run the new generator
 .PHONY: generator
 generator:
-	$(PYTHON) scripts/generator.py --include "${INCLUDE}"
+	$(PYTHON) scripts/generator.py --include "${INCLUDE}" --build-version ${BUILD_VERSION}
 
 # Generate Go code from the schema.
 .PHONY: gocodegen

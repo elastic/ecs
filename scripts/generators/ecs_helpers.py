@@ -1,6 +1,7 @@
 import glob
 import os
 import yaml
+import git
 
 from collections import OrderedDict
 from copy import deepcopy
@@ -113,6 +114,12 @@ def get_glob_files(paths, file_types):
         for t in file_types:
             all_files.extend(glob.glob(os.path.join(path, t)))
     return sorted(all_files)
+
+
+def get_git_tree(version):
+    repo = git.Repo(os.getcwd())
+    commit = repo.commit(version)
+    return commit.tree
 
 
 def ecs_files():

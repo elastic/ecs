@@ -17,29 +17,38 @@ from generators import ecs_helpers
 # Loads schemas and perform cleanup of schema attributes
 
 
-def load_schemas(files=ecs_helpers.ecs_files()):
-    """Loads the list of files and performs schema level cleanup"""
-    fields_intermediate = load_schema_files(files)
-    finalize_schemas(fields_intermediate)
-    return fields_intermediate
-
-
-def load_schema_files(files):
+def create_schema_dicts(schemas):
     fields_nested = {}
-    for f in files:
-        new_fields = read_schema_file(f)
-        fields_nested.update(new_fields)
+    for schema in schemas:
+        raw = yaml.safe_load(schema)
+        fields_nested.update(create_fields_dict(raw))
+    finalize_schemas(fields_nested)
     return fields_nested
 
 
-def read_schema_file(file):
-    """Read a raw schema yml into a map, removing the wrapping array in each file"""
-    with open(file) as f:
-        raw = yaml.safe_load(f.read())
+def create_fields_dict(raw):
     fields = {}
     for field_set in raw:
         fields[field_set['name']] = field_set
     return fields
+
+
+def load_schemas_from_files(files):
+    schemas = []
+    for file in files:
+        with open(file) as f:
+            content = f.read()
+            schemas.append(content)
+    return schemas
+
+
+def load_schemas_from_git(tree):
+    schemas = []
+    for blob in tree['schemas'].blobs:
+        if blob.name.endswith('.yml'):
+            content = blob.data_stream.read().decode('utf-8')
+            schemas.append(content)
+    return schemas
 
 
 def finalize_schemas(fields_nested):
