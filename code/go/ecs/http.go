@@ -23,8 +23,11 @@ package ecs
 // the request.
 type Http struct {
 	// HTTP request method.
-	// The field value must be normalized to lowercase for querying. See the
-	// documentation section "Implementing ECS".
+	// Prior to ECS 1.6.0 the following guidance was provided:
+	// "The field value must be normalized to lowercase for querying."
+	// As of ECS 1.6.0, the guidance is deprecated because the original case of
+	// the method may be useful in anomaly detection.  Original case will be
+	// mandated in ECS 2.0.0
 	RequestMethod string `ecs:"request.method"`
 
 	// The full HTTP request body.
