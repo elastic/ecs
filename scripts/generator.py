@@ -3,6 +3,7 @@ import glob
 import os
 import schema_reader
 import yaml
+
 from generators import intermediate_files
 from generators import csv_generator
 from generators import es_template
@@ -17,12 +18,20 @@ def main():
     if args.include and [''] == args.include:
         args.include.clear()
 
-    ecs_version = read_version()
-    print('Running generator. ECS version ' + ecs_version)
+    if args.ref:
+        # Load ECS schemas from a specific git ref
+        print('Loading schemas from git ref ' + args.ref)
+        tree = ecs_helpers.get_tree_by_ref(args.ref)
+        ecs_version = read_version_from_tree(tree)
+        ecs_schemas = schema_reader.load_schemas_from_git(tree)
+    else:
+        # Load the default schemas
+        print('Loading default schemas')
+        ecs_version = read_version()
+        ecs_schemas = schema_reader.load_schemas_from_files()
 
-    # Load the default schemas
-    print('Loading default schemas')
-    intermediate_fields = schema_reader.load_schemas()
+    print('Running generator. ECS version ' + ecs_version)
+    intermediate_fields = schema_reader.create_schema_dicts(ecs_schemas)
 
     # Maybe load user specified directory of schemas
     if args.include:
@@ -30,7 +39,8 @@ def main():
 
         print('Loading user defined schemas: {0}'.format(include_glob))
 
-        intermediate_custom = schema_reader.load_schemas(include_glob)
+        custom_schemas = schema_reader.load_schemas_from_files(include_glob)
+        intermediate_custom = schema_reader.create_schema_dicts(custom_schemas)
         schema_reader.merge_schema_fields(intermediate_fields, intermediate_custom)
 
     schema_reader.assemble_reusables(intermediate_fields)
@@ -79,12 +89,17 @@ def argument_parser():
     parser.add_argument('--subset', nargs='+',
                         help='render a subset of the schema')
     parser.add_argument('--out', action='store', help='directory to store the generated files')
+    parser.add_argument('--ref', action='store', help='git reference to use when building schemas')
     return parser.parse_args()
 
 
 def read_version(file='version'):
     with open(file, 'r') as infile:
         return infile.read().rstrip()
+
+
+def read_version_from_tree(tree):
+    return tree['version'].data_stream.read().decode('utf-8').rstrip()
 
 
 if __name__ == '__main__':

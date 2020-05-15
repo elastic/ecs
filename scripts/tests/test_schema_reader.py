@@ -5,6 +5,7 @@ import unittest
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 from scripts import schema_reader
+from generators import ecs_helpers
 
 
 class TestSchemaReader(unittest.TestCase):
@@ -68,8 +69,14 @@ class TestSchemaReader(unittest.TestCase):
         self.assertEqual(field, expected)
 
     def test_load_schemas_with_empty_list_loads_nothing(self):
-        result = schema_reader.load_schemas([])
-        self.assertEqual(result, ({}))
+        result = schema_reader.load_schemas_from_files([])
+        self.assertEqual(result, ([]))
+
+    def test_load_schemas_by_git_ref(self):
+        ref = 'v1.5.0'
+        tree = ecs_helpers.get_tree_by_ref(ref)
+        schemas = schema_reader.load_schemas_from_git(tree)
+        self.assertEqual(len(schemas), 42)
 
     def test_flatten_fields(self):
         fields = {
