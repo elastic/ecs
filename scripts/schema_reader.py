@@ -33,7 +33,7 @@ def create_fields_dict(raw):
     return fields
 
 
-def load_schemas_from_files(files):
+def load_schemas_from_files(files=ecs_helpers.ecs_files()):
     schemas = []
     for file in files:
         with open(file) as f:

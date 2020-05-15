@@ -18,17 +18,20 @@ def main():
     if args.include and [''] == args.include:
         args.include.clear()
 
-    # Default to building schemas from master
-    version = 'master'
-    if args.build_version:
-        version = args.build_version
-    tree = ecs_helpers.get_git_tree(version)
-    ecs_version = read_version(tree)
+    
+    if args.ref:
+        # Load ECS schemas from a specific git ref
+        print('Loading schemas from git ref ' + args.ref)
+        tree = ecs_helpers.get_tree_by_ref(args.ref)
+        ecs_version = read_version_from_tree(tree)
+        ecs_schemas = schema_reader.load_schemas_from_git(tree)
+    else:
+        # Load the default schemas
+        print('Loading default schemas')
+        ecs_version = read_version()
+        ecs_schemas = schema_reader.load_schemas_from_files()
+    
     print('Running generator. ECS version ' + ecs_version)
-
-    # Load the default schemas
-    print('Loading default schemas')
-    ecs_schemas = schema_reader.load_schemas_from_git(tree)
     intermediate_fields = schema_reader.create_schema_dicts(ecs_schemas)
 
     # Maybe load user specified directory of schemas
@@ -87,11 +90,16 @@ def argument_parser():
     parser.add_argument('--subset', nargs='+',
                         help='render a subset of the schema')
     parser.add_argument('--out', action='store', help='directory to store the generated files')
-    parser.add_argument('--build-version', action='store', help='version of official ECS schemas to use')
+    parser.add_argument('--ref', action='store', help='git reference to use when building schemas')
     return parser.parse_args()
 
 
-def read_version(tree):
+def read_version(file='version'):
+    with open(file, 'r') as infile:
+        return infile.read().rstrip()
+
+
+def read_version_from_tree(tree):
     return tree['version'].data_stream.read().decode('utf-8').rstrip()
 
 

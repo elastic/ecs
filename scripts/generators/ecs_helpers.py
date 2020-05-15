@@ -116,9 +116,9 @@ def get_glob_files(paths, file_types):
     return sorted(all_files)
 
 
-def get_git_tree(version):
+def get_tree_by_ref(ref):
     repo = git.Repo(os.getcwd())
-    commit = repo.commit(version)
+    commit = repo.commit(ref)
     return commit.tree
 
 
