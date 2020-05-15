@@ -22,7 +22,7 @@ Thanks, you're awesome :-) -->
 
 * Add architecture and imphash for PE field set. (#763)
 * Added `agent.build.*` for extended agent version information. (#764)
-* Added `x509.*` field set. (#762)
+* Added `x509.*` field set. (#762, #852)
 * Added more account and project cloud metadata. (#816)
 
 #### Improvements
