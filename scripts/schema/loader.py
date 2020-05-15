@@ -94,7 +94,7 @@ def deep_nesting_representation(fields):
                 schema_details[schema_key] = flat_schema.pop(schema_key)
 
 
-        nested_schema = nest_fields(flat_schema.pop('fields', []), name)
+        nested_schema = nest_fields(flat_schema.pop('fields', []))
         # Re-assemble new structure
         deeply_nested[name] = {
             'schema_details': schema_details,
@@ -105,7 +105,7 @@ def deep_nesting_representation(fields):
     return deeply_nested
 
 
-def nest_fields(field_array, schema_name):
+def nest_fields(field_array):
     schema_root = { 'fields': {} }
     for field in field_array:
         nested_levels = field['name'].split('.')
@@ -115,7 +115,7 @@ def nest_fields(field_array, schema_name):
         # Here we reset the cursor for this new field.
         nested_schema = schema_root['fields']
 
-        current_path = [schema_name]
+        current_path = []
         for idx, level in enumerate(parent_fields):
             nested_schema.setdefault(level, {})
             # Where nested fields will live
