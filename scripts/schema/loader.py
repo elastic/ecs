@@ -4,7 +4,8 @@ import os
 import yaml
 from generators import ecs_helpers
 
-# Loads ECS and optional custom schemas. They are deeply nested, then merged.
+# Loads main ECS schemas and optional additional schemas.
+# They are deeply nested, then merged together.
 # This script doesn't fill in defaults other than the bare minimum for a predictable
 # deeply nested structure. It doesn't concern itself with what "should be allowed"
 # in being a good ECS citizen. It just loads things and merges them together.
@@ -37,7 +38,7 @@ from generators import ecs_helpers
 # Leaf fields only have 'field_details' populated.
 # Any intermediate field with other fields nested within them have 'fields' populated.
 # Note that intermediate fields rarely have 'field_details' populated, but it's supported.
-#   Examples of this are 'dns.answers', 'observer.egress' or others.
+#   Examples of this are 'dns.answers', 'observer.egress'.
 
 
 def load_schemas(included_files):

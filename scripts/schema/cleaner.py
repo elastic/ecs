@@ -2,12 +2,20 @@ import copy
 
 from generators import ecs_helpers
 
-# This script performs a few cleanup functions:
+# This script performs a few cleanup functions in place, within the deeply nested
+# 'fields' structure passed to clean(fields).
+#
+# What happens here:
+#
 # - check that mandatory attributes are present, without which we can't do much.
 # - cleans things up, like stripping spaces, sorting arrays
-# - makes all defaults explicit
-# - pre-calculate additional helpful fields
+# - makes lots of defaults explicit
+# - pre-calculate a few additional helpful fields
 # - converts shorthands into full representation (e.g. reuse locations)
+#
+# This script only deals with field sets themselves and the fields defined
+# inside them. It doesn't perform field reuse, and therefore doesn't
+# deal with final field names either.
 
 def clean(fields):
     visit_fields(fields, fieldset_func=schema_cleanup, field_func=field_cleanup)
