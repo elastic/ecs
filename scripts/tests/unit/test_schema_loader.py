@@ -148,7 +148,7 @@ class TestSchemaLoader(unittest.TestCase):
                         'name': 'parent',
                         'type': 'object',
                         'path': ['process'],
-                        'intermediary': True,
+                        'intermediate': True,
                     },
                     'fields': {
                         'pid': {
@@ -165,7 +165,7 @@ class TestSchemaLoader(unittest.TestCase):
         self.assertEqual(nested_process_fields, expected_nested_fields)
 
 
-    def test_nest_fields_multiple_intermediary_fields(self):
+    def test_nest_fields_multiple_intermediate_fields(self):
         log_fields = [{ 'name': 'origin.file.name' }]
         expected_nested_fields = {
             'fields': {
@@ -174,7 +174,7 @@ class TestSchemaLoader(unittest.TestCase):
                         'name': 'origin',
                         'type': 'object',
                         'path': ['log'],
-                        'intermediary': True,
+                        'intermediate': True,
                     },
                     'fields': {
                         'file': {
@@ -182,7 +182,7 @@ class TestSchemaLoader(unittest.TestCase):
                                 'name': 'origin.file',
                                 'type': 'object',
                                 'path': ['log', 'origin'],
-                                'intermediary': True,
+                                'intermediate': True,
                             },
                             'fields': {
                                 'name': {
@@ -258,11 +258,11 @@ class TestSchemaLoader(unittest.TestCase):
                     },
                     'parent': {
                         'field_details': {
-                            # These are made explicit for intermediary fields
+                            # These are made explicit for intermediate fields
                             'name': 'parent',
                             'type': 'object',
                             'path': ['process'],
-                            'intermediary': True,
+                            'intermediate': True,
                         },
                         'fields': {
                             'pid': {
@@ -280,7 +280,7 @@ class TestSchemaLoader(unittest.TestCase):
         process_fields = deeply_nested['process']['fields']
         self.assertEqual(process_fields['pid']['field_details']['path'], ['process'])
         self.assertEqual(process_fields['parent']['field_details']['path'], ['process'])
-        self.assertEqual(process_fields['parent']['field_details']['intermediary'], True)
+        self.assertEqual(process_fields['parent']['field_details']['intermediate'], True)
         self.assertEqual(process_fields['parent']['fields']['pid']['field_details']['path'], ['process', 'parent'])
         self.assertEqual(deeply_nested, expected_deeply_nested)
 

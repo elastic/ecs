@@ -35,8 +35,8 @@ from generators import ecs_helpers
 
 # Schemas at the top level always have all 3 keys populated.
 # Leaf fields only have 'field_details' populated.
-# Any intermediary field with other fields nested within them have 'fields' populated.
-# Note that intermediary fields rarely have 'field_details' populated, but it's supported.
+# Any intermediate field with other fields nested within them have 'fields' populated.
+# Note that intermediate fields rarely have 'field_details' populated, but it's supported.
 #   Examples of this are 'dns.answers', 'observer.egress' or others.
 
 
@@ -120,12 +120,12 @@ def nest_fields(field_array, schema_name):
             nested_schema.setdefault(level, {})
             # Where nested fields will live
             nested_schema[level].setdefault('fields', {})
-            # Make type:object explicit for intermediary parent fields
+            # Make type:object explicit for intermediate parent fields
             nested_schema[level].setdefault('field_details', {})
             nested_schema[level]['field_details'].setdefault('type', 'object')
             nested_schema[level]['field_details'].setdefault('name', '.'.join(parent_fields[:idx+1]))
             nested_schema[level]['field_details'].setdefault('path', current_path.copy())
-            nested_schema[level]['field_details'].setdefault('intermediary', True)
+            nested_schema[level]['field_details'].setdefault('intermediate', True)
             # moving the nested_schema cursor deeper
             current_path.extend([level])
             nested_schema = nested_schema[level]['fields']
