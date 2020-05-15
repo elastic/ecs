@@ -18,7 +18,6 @@ def main():
     if args.include and [''] == args.include:
         args.include.clear()
 
-    
     if args.ref:
         # Load ECS schemas from a specific git ref
         print('Loading schemas from git ref ' + args.ref)
@@ -30,7 +29,7 @@ def main():
         print('Loading default schemas')
         ecs_version = read_version()
         ecs_schemas = schema_reader.load_schemas_from_files()
-    
+
     print('Running generator. ECS version ' + ecs_version)
     intermediate_fields = schema_reader.create_schema_dicts(ecs_schemas)
 

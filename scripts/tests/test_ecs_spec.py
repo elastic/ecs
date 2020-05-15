@@ -92,7 +92,7 @@ class TestEcsSpec(unittest.TestCase):
         for (field_name, field) in self.ecs_nested['related']['fields'].items():
             self.assertIn('normalize', field.keys())
             self.assertIn('array', field['normalize'],
-                            "All fields under `related.*` should be arrays")
+                          "All fields under `related.*` should be arrays")
 
 
 if __name__ == '__main__':
