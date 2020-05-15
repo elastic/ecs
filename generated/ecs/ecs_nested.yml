@@ -836,8 +836,323 @@ code_signature:
       short: Boolean to capture if the digital signature is verified against the binary
         content.
       type: boolean
+    x509.alternative_names:
+      dashed_name: code-signature-x509-alternative-names
+      description: List of subject alternative names (SAN). Name types vary by certificate
+        authority and certificate type but commonly contain IP addresses, DNS names
+        (and wildcards), and email addresses.
+      example: '*.elastic.co'
+      flat_name: code_signature.x509.alternative_names
+      ignore_above: 1024
+      level: extended
+      name: alternative_names
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of subject alternative names (SAN). Name types vary by certificate
+        authority and certificate type but commonly contain IP addresses, DNS names
+        (and wildcards), and email addresses.
+      short_description: List of subject alternative names (SAN)
+      type: keyword
+    x509.issuer.common_name:
+      dashed_name: code-signature-x509-issuer-common-name
+      description: List of common name (CN) of issuing certificate authority.
+      example: DigiCert SHA2 High Assurance Server CA
+      flat_name: code_signature.x509.issuer.common_name
+      ignore_above: 1024
+      level: extended
+      name: issuer.common_name
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of common name (CN) of issuing certificate authority.
+      type: keyword
+    x509.issuer.country:
+      dashed_name: code-signature-x509-issuer-country
+      description: List of country (C) codes
+      example: US
+      flat_name: code_signature.x509.issuer.country
+      ignore_above: 1024
+      level: extended
+      name: issuer.country
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of country (C) codes
+      type: keyword
+    x509.issuer.distinguished_name:
+      dashed_name: code-signature-x509-issuer-distinguished-name
+      description: Distinguished name (DN) of issuing certificate authority.
+      example: C=US, O=DigiCert Inc, OU=www.digicert.com, CN=DigiCert SHA2 High Assurance
+        Server CA
+      flat_name: code_signature.x509.issuer.distinguished_name
+      ignore_above: 1024
+      level: extended
+      name: issuer.distinguished_name
+      normalize: []
+      original_fieldset: x509
+      short: Distinguished name (DN) of issuing certificate authority.
+      type: keyword
+    x509.issuer.locality:
+      dashed_name: code-signature-x509-issuer-locality
+      description: List of locality names (L)
+      example: Mountain View
+      flat_name: code_signature.x509.issuer.locality
+      ignore_above: 1024
+      level: extended
+      name: issuer.locality
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of locality names (L)
+      type: keyword
+    x509.issuer.organization:
+      dashed_name: code-signature-x509-issuer-organization
+      description: List of organizations (O) of issuing certificate authority.
+      example: DigiCert Inc
+      flat_name: code_signature.x509.issuer.organization
+      ignore_above: 1024
+      level: extended
+      name: issuer.organization
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of organizations (O) of issuing certificate authority.
+      type: keyword
+    x509.issuer.organizational_unit:
+      dashed_name: code-signature-x509-issuer-organizational-unit
+      description: List of organizational units (OU) of issuing certificate authority.
+      example: www.digicert.com
+      flat_name: code_signature.x509.issuer.organizational_unit
+      ignore_above: 1024
+      level: extended
+      name: issuer.organizational_unit
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of organizational units (OU) of issuing certificate authority.
+      type: keyword
+    x509.issuer.state_or_province:
+      dashed_name: code-signature-x509-issuer-state-or-province
+      description: List of state or province names (ST, S, or P)
+      example: California
+      flat_name: code_signature.x509.issuer.state_or_province
+      ignore_above: 1024
+      level: extended
+      name: issuer.state_or_province
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of state or province names (ST, S, or P)
+      type: keyword
+    x509.not_after:
+      dashed_name: code-signature-x509-not-after
+      description: Time at which the certificate is no longer considered valid.
+      example: 2020-07-16 03:15:39+00:00
+      flat_name: code_signature.x509.not_after
+      level: extended
+      name: not_after
+      normalize: []
+      original_fieldset: x509
+      short: Time at which the certificate is no longer considered valid.
+      type: date
+    x509.not_before:
+      dashed_name: code-signature-x509-not-before
+      description: Time at which the certificate is first considered valid.
+      example: 2019-08-16 01:40:25+00:00
+      flat_name: code_signature.x509.not_before
+      level: extended
+      name: not_before
+      normalize: []
+      original_fieldset: x509
+      short: Time at which the certificate is first considered valid.
+      type: date
+    x509.public_key_algorithm:
+      dashed_name: code-signature-x509-public-key-algorithm
+      description: Algorithm used to generate the public key.
+      example: RSA
+      flat_name: code_signature.x509.public_key_algorithm
+      ignore_above: 1024
+      level: extended
+      name: public_key_algorithm
+      normalize: []
+      original_fieldset: x509
+      short: Algorithm used to generate the public key.
+      type: keyword
+    x509.public_key_curve:
+      dashed_name: code-signature-x509-public-key-curve
+      description: The curve used by the elliptic curve public key algorithm. This
+        is algorithm specific.
+      example: nistp521
+      flat_name: code_signature.x509.public_key_curve
+      ignore_above: 1024
+      level: extended
+      name: public_key_curve
+      normalize: []
+      original_fieldset: x509
+      short: The curve used by the elliptic curve public key algorithm. This is algorithm
+        specific.
+      type: keyword
+    x509.public_key_exponent:
+      dashed_name: code-signature-x509-public-key-exponent
+      description: Exponent used to derive the public key. This is algorithm specific.
+      doc_values: false
+      example: 65537
+      flat_name: code_signature.x509.public_key_exponent
+      index: false
+      level: extended
+      name: public_key_exponent
+      normalize: []
+      original_fieldset: x509
+      short: Exponent used to derive the public key. This is algorithm specific.
+      type: long
+    x509.public_key_size:
+      dashed_name: code-signature-x509-public-key-size
+      description: The size of the public key space in bits.
+      example: 2048
+      flat_name: code_signature.x509.public_key_size
+      level: extended
+      name: public_key_size
+      normalize: []
+      original_fieldset: x509
+      short: The size of the public key space in bits.
+      type: long
+    x509.serial_number:
+      dashed_name: code-signature-x509-serial-number
+      description: Unique serial number issued by the certificate authority. For consistency,
+        if this value is alphanumeric, it should be formatted without colons and uppercase
+        characters.
+      example: 55FBB9C7DEBF09809D12CCAA
+      flat_name: code_signature.x509.serial_number
+      ignore_above: 1024
+      level: extended
+      name: serial_number
+      normalize: []
+      original_fieldset: x509
+      short: Unique serial number issued by the certificate authority. For consistency,
+        if this value is alphanumeric, it should be formatted without colons and uppercase
+        characters.
+      short_description: Unique serial number issued by the certificate authority.
+      type: keyword
+    x509.signature_algorithm:
+      dashed_name: code-signature-x509-signature-algorithm
+      description: Identifier for certificate signature algorithm. Recommend using
+        names found in Go Lang Crypto library (See https://github.com/golang/go/blob/go1.14/src/crypto/x509/x509.go#L337-L353).
+      example: SHA256-RSA
+      flat_name: code_signature.x509.signature_algorithm
+      ignore_above: 1024
+      level: extended
+      name: signature_algorithm
+      normalize: []
+      original_fieldset: x509
+      short: Identifier for certificate signature algorithm. Recommend using names
+        found in Go Lang Crypto library (See https://github.com/golang/go/blob/go1.14/src/crypto/x509/x509.go#L337-L353).
+      type: keyword
+    x509.subject.common_name:
+      dashed_name: code-signature-x509-subject-common-name
+      description: List of common names (CN) of subject.
+      example: r2.shared.global.fastly.net
+      flat_name: code_signature.x509.subject.common_name
+      ignore_above: 1024
+      level: extended
+      name: subject.common_name
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of common names (CN) of subject.
+      type: keyword
+    x509.subject.country:
+      dashed_name: code-signature-x509-subject-country
+      description: List of country (C) code
+      example: US
+      flat_name: code_signature.x509.subject.country
+      ignore_above: 1024
+      level: extended
+      name: subject.country
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of country (C) code
+      type: keyword
+    x509.subject.distinguished_name:
+      dashed_name: code-signature-x509-subject-distinguished-name
+      description: Distinguished name (DN) of the certificate subject entity.
+      example: C=US, ST=California, L=San Francisco, O=Fastly, Inc., CN=r2.shared.global.fastly.net
+      flat_name: code_signature.x509.subject.distinguished_name
+      ignore_above: 1024
+      level: extended
+      name: subject.distinguished_name
+      normalize: []
+      original_fieldset: x509
+      short: Distinguished name (DN) of the certificate subject entity.
+      type: keyword
+    x509.subject.locality:
+      dashed_name: code-signature-x509-subject-locality
+      description: List of locality names (L)
+      example: San Francisco
+      flat_name: code_signature.x509.subject.locality
+      ignore_above: 1024
+      level: extended
+      name: subject.locality
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of locality names (L)
+      type: keyword
+    x509.subject.organization:
+      dashed_name: code-signature-x509-subject-organization
+      description: List of organizations (O) of subject.
+      example: Fastly, Inc.
+      flat_name: code_signature.x509.subject.organization
+      ignore_above: 1024
+      level: extended
+      name: subject.organization
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of organizations (O) of subject.
+      type: keyword
+    x509.subject.organizational_unit:
+      dashed_name: code-signature-x509-subject-organizational-unit
+      description: List of organizational units (OU) of subject.
+      flat_name: code_signature.x509.subject.organizational_unit
+      ignore_above: 1024
+      level: extended
+      name: subject.organizational_unit
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of organizational units (OU) of subject.
+      type: keyword
+    x509.subject.state_or_province:
+      dashed_name: code-signature-x509-subject-state-or-province
+      description: List of state or province names (ST, S, or P)
+      example: California
+      flat_name: code_signature.x509.subject.state_or_province
+      ignore_above: 1024
+      level: extended
+      name: subject.state_or_province
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of state or province names (ST, S, or P)
+      type: keyword
+    x509.version_number:
+      dashed_name: code-signature-x509-version-number
+      description: Version of x509 format.
+      example: 3
+      flat_name: code_signature.x509.version_number
+      ignore_above: 1024
+      level: extended
+      name: version_number
+      normalize: []
+      original_fieldset: x509
+      short: Version of x509 format.
+      type: keyword
   group: 2
   name: code_signature
+  nestings:
+  - code_signature.x509
   prefix: code_signature.
   reusable:
     expected:
@@ -1404,6 +1719,319 @@ dll:
       short: Boolean to capture if the digital signature is verified against the binary
         content.
       type: boolean
+    code_signature.x509.alternative_names:
+      dashed_name: dll-code-signature-x509-alternative-names
+      description: List of subject alternative names (SAN). Name types vary by certificate
+        authority and certificate type but commonly contain IP addresses, DNS names
+        (and wildcards), and email addresses.
+      example: '*.elastic.co'
+      flat_name: dll.code_signature.x509.alternative_names
+      ignore_above: 1024
+      level: extended
+      name: alternative_names
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of subject alternative names (SAN). Name types vary by certificate
+        authority and certificate type but commonly contain IP addresses, DNS names
+        (and wildcards), and email addresses.
+      short_description: List of subject alternative names (SAN)
+      type: keyword
+    code_signature.x509.issuer.common_name:
+      dashed_name: dll-code-signature-x509-issuer-common-name
+      description: List of common name (CN) of issuing certificate authority.
+      example: DigiCert SHA2 High Assurance Server CA
+      flat_name: dll.code_signature.x509.issuer.common_name
+      ignore_above: 1024
+      level: extended
+      name: issuer.common_name
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of common name (CN) of issuing certificate authority.
+      type: keyword
+    code_signature.x509.issuer.country:
+      dashed_name: dll-code-signature-x509-issuer-country
+      description: List of country (C) codes
+      example: US
+      flat_name: dll.code_signature.x509.issuer.country
+      ignore_above: 1024
+      level: extended
+      name: issuer.country
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of country (C) codes
+      type: keyword
+    code_signature.x509.issuer.distinguished_name:
+      dashed_name: dll-code-signature-x509-issuer-distinguished-name
+      description: Distinguished name (DN) of issuing certificate authority.
+      example: C=US, O=DigiCert Inc, OU=www.digicert.com, CN=DigiCert SHA2 High Assurance
+        Server CA
+      flat_name: dll.code_signature.x509.issuer.distinguished_name
+      ignore_above: 1024
+      level: extended
+      name: issuer.distinguished_name
+      normalize: []
+      original_fieldset: x509
+      short: Distinguished name (DN) of issuing certificate authority.
+      type: keyword
+    code_signature.x509.issuer.locality:
+      dashed_name: dll-code-signature-x509-issuer-locality
+      description: List of locality names (L)
+      example: Mountain View
+      flat_name: dll.code_signature.x509.issuer.locality
+      ignore_above: 1024
+      level: extended
+      name: issuer.locality
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of locality names (L)
+      type: keyword
+    code_signature.x509.issuer.organization:
+      dashed_name: dll-code-signature-x509-issuer-organization
+      description: List of organizations (O) of issuing certificate authority.
+      example: DigiCert Inc
+      flat_name: dll.code_signature.x509.issuer.organization
+      ignore_above: 1024
+      level: extended
+      name: issuer.organization
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of organizations (O) of issuing certificate authority.
+      type: keyword
+    code_signature.x509.issuer.organizational_unit:
+      dashed_name: dll-code-signature-x509-issuer-organizational-unit
+      description: List of organizational units (OU) of issuing certificate authority.
+      example: www.digicert.com
+      flat_name: dll.code_signature.x509.issuer.organizational_unit
+      ignore_above: 1024
+      level: extended
+      name: issuer.organizational_unit
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of organizational units (OU) of issuing certificate authority.
+      type: keyword
+    code_signature.x509.issuer.state_or_province:
+      dashed_name: dll-code-signature-x509-issuer-state-or-province
+      description: List of state or province names (ST, S, or P)
+      example: California
+      flat_name: dll.code_signature.x509.issuer.state_or_province
+      ignore_above: 1024
+      level: extended
+      name: issuer.state_or_province
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of state or province names (ST, S, or P)
+      type: keyword
+    code_signature.x509.not_after:
+      dashed_name: dll-code-signature-x509-not-after
+      description: Time at which the certificate is no longer considered valid.
+      example: 2020-07-16 03:15:39+00:00
+      flat_name: dll.code_signature.x509.not_after
+      level: extended
+      name: not_after
+      normalize: []
+      original_fieldset: x509
+      short: Time at which the certificate is no longer considered valid.
+      type: date
+    code_signature.x509.not_before:
+      dashed_name: dll-code-signature-x509-not-before
+      description: Time at which the certificate is first considered valid.
+      example: 2019-08-16 01:40:25+00:00
+      flat_name: dll.code_signature.x509.not_before
+      level: extended
+      name: not_before
+      normalize: []
+      original_fieldset: x509
+      short: Time at which the certificate is first considered valid.
+      type: date
+    code_signature.x509.public_key_algorithm:
+      dashed_name: dll-code-signature-x509-public-key-algorithm
+      description: Algorithm used to generate the public key.
+      example: RSA
+      flat_name: dll.code_signature.x509.public_key_algorithm
+      ignore_above: 1024
+      level: extended
+      name: public_key_algorithm
+      normalize: []
+      original_fieldset: x509
+      short: Algorithm used to generate the public key.
+      type: keyword
+    code_signature.x509.public_key_curve:
+      dashed_name: dll-code-signature-x509-public-key-curve
+      description: The curve used by the elliptic curve public key algorithm. This
+        is algorithm specific.
+      example: nistp521
+      flat_name: dll.code_signature.x509.public_key_curve
+      ignore_above: 1024
+      level: extended
+      name: public_key_curve
+      normalize: []
+      original_fieldset: x509
+      short: The curve used by the elliptic curve public key algorithm. This is algorithm
+        specific.
+      type: keyword
+    code_signature.x509.public_key_exponent:
+      dashed_name: dll-code-signature-x509-public-key-exponent
+      description: Exponent used to derive the public key. This is algorithm specific.
+      doc_values: false
+      example: 65537
+      flat_name: dll.code_signature.x509.public_key_exponent
+      index: false
+      level: extended
+      name: public_key_exponent
+      normalize: []
+      original_fieldset: x509
+      short: Exponent used to derive the public key. This is algorithm specific.
+      type: long
+    code_signature.x509.public_key_size:
+      dashed_name: dll-code-signature-x509-public-key-size
+      description: The size of the public key space in bits.
+      example: 2048
+      flat_name: dll.code_signature.x509.public_key_size
+      level: extended
+      name: public_key_size
+      normalize: []
+      original_fieldset: x509
+      short: The size of the public key space in bits.
+      type: long
+    code_signature.x509.serial_number:
+      dashed_name: dll-code-signature-x509-serial-number
+      description: Unique serial number issued by the certificate authority. For consistency,
+        if this value is alphanumeric, it should be formatted without colons and uppercase
+        characters.
+      example: 55FBB9C7DEBF09809D12CCAA
+      flat_name: dll.code_signature.x509.serial_number
+      ignore_above: 1024
+      level: extended
+      name: serial_number
+      normalize: []
+      original_fieldset: x509
+      short: Unique serial number issued by the certificate authority. For consistency,
+        if this value is alphanumeric, it should be formatted without colons and uppercase
+        characters.
+      short_description: Unique serial number issued by the certificate authority.
+      type: keyword
+    code_signature.x509.signature_algorithm:
+      dashed_name: dll-code-signature-x509-signature-algorithm
+      description: Identifier for certificate signature algorithm. Recommend using
+        names found in Go Lang Crypto library (See https://github.com/golang/go/blob/go1.14/src/crypto/x509/x509.go#L337-L353).
+      example: SHA256-RSA
+      flat_name: dll.code_signature.x509.signature_algorithm
+      ignore_above: 1024
+      level: extended
+      name: signature_algorithm
+      normalize: []
+      original_fieldset: x509
+      short: Identifier for certificate signature algorithm. Recommend using names
+        found in Go Lang Crypto library (See https://github.com/golang/go/blob/go1.14/src/crypto/x509/x509.go#L337-L353).
+      type: keyword
+    code_signature.x509.subject.common_name:
+      dashed_name: dll-code-signature-x509-subject-common-name
+      description: List of common names (CN) of subject.
+      example: r2.shared.global.fastly.net
+      flat_name: dll.code_signature.x509.subject.common_name
+      ignore_above: 1024
+      level: extended
+      name: subject.common_name
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of common names (CN) of subject.
+      type: keyword
+    code_signature.x509.subject.country:
+      dashed_name: dll-code-signature-x509-subject-country
+      description: List of country (C) code
+      example: US
+      flat_name: dll.code_signature.x509.subject.country
+      ignore_above: 1024
+      level: extended
+      name: subject.country
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of country (C) code
+      type: keyword
+    code_signature.x509.subject.distinguished_name:
+      dashed_name: dll-code-signature-x509-subject-distinguished-name
+      description: Distinguished name (DN) of the certificate subject entity.
+      example: C=US, ST=California, L=San Francisco, O=Fastly, Inc., CN=r2.shared.global.fastly.net
+      flat_name: dll.code_signature.x509.subject.distinguished_name
+      ignore_above: 1024
+      level: extended
+      name: subject.distinguished_name
+      normalize: []
+      original_fieldset: x509
+      short: Distinguished name (DN) of the certificate subject entity.
+      type: keyword
+    code_signature.x509.subject.locality:
+      dashed_name: dll-code-signature-x509-subject-locality
+      description: List of locality names (L)
+      example: San Francisco
+      flat_name: dll.code_signature.x509.subject.locality
+      ignore_above: 1024
+      level: extended
+      name: subject.locality
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of locality names (L)
+      type: keyword
+    code_signature.x509.subject.organization:
+      dashed_name: dll-code-signature-x509-subject-organization
+      description: List of organizations (O) of subject.
+      example: Fastly, Inc.
+      flat_name: dll.code_signature.x509.subject.organization
+      ignore_above: 1024
+      level: extended
+      name: subject.organization
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of organizations (O) of subject.
+      type: keyword
+    code_signature.x509.subject.organizational_unit:
+      dashed_name: dll-code-signature-x509-subject-organizational-unit
+      description: List of organizational units (OU) of subject.
+      flat_name: dll.code_signature.x509.subject.organizational_unit
+      ignore_above: 1024
+      level: extended
+      name: subject.organizational_unit
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of organizational units (OU) of subject.
+      type: keyword
+    code_signature.x509.subject.state_or_province:
+      dashed_name: dll-code-signature-x509-subject-state-or-province
+      description: List of state or province names (ST, S, or P)
+      example: California
+      flat_name: dll.code_signature.x509.subject.state_or_province
+      ignore_above: 1024
+      level: extended
+      name: subject.state_or_province
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of state or province names (ST, S, or P)
+      type: keyword
+    code_signature.x509.version_number:
+      dashed_name: dll-code-signature-x509-version-number
+      description: Version of x509 format.
+      example: 3
+      flat_name: dll.code_signature.x509.version_number
+      ignore_above: 1024
+      level: extended
+      name: version_number
+      normalize: []
+      original_fieldset: x509
+      short: Version of x509 format.
+      type: keyword
     hash.md5:
       dashed_name: dll-hash-md5
       description: MD5 hash.
@@ -1564,6 +2192,7 @@ dll:
   name: dll
   nestings:
   - dll.code_signature
+  - dll.code_signature.x509
   - dll.hash
   - dll.pe
   prefix: dll.
@@ -2857,6 +3486,319 @@ file:
       short: Boolean to capture if the digital signature is verified against the binary
         content.
       type: boolean
+    code_signature.x509.alternative_names:
+      dashed_name: file-code-signature-x509-alternative-names
+      description: List of subject alternative names (SAN). Name types vary by certificate
+        authority and certificate type but commonly contain IP addresses, DNS names
+        (and wildcards), and email addresses.
+      example: '*.elastic.co'
+      flat_name: file.code_signature.x509.alternative_names
+      ignore_above: 1024
+      level: extended
+      name: alternative_names
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of subject alternative names (SAN). Name types vary by certificate
+        authority and certificate type but commonly contain IP addresses, DNS names
+        (and wildcards), and email addresses.
+      short_description: List of subject alternative names (SAN)
+      type: keyword
+    code_signature.x509.issuer.common_name:
+      dashed_name: file-code-signature-x509-issuer-common-name
+      description: List of common name (CN) of issuing certificate authority.
+      example: DigiCert SHA2 High Assurance Server CA
+      flat_name: file.code_signature.x509.issuer.common_name
+      ignore_above: 1024
+      level: extended
+      name: issuer.common_name
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of common name (CN) of issuing certificate authority.
+      type: keyword
+    code_signature.x509.issuer.country:
+      dashed_name: file-code-signature-x509-issuer-country
+      description: List of country (C) codes
+      example: US
+      flat_name: file.code_signature.x509.issuer.country
+      ignore_above: 1024
+      level: extended
+      name: issuer.country
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of country (C) codes
+      type: keyword
+    code_signature.x509.issuer.distinguished_name:
+      dashed_name: file-code-signature-x509-issuer-distinguished-name
+      description: Distinguished name (DN) of issuing certificate authority.
+      example: C=US, O=DigiCert Inc, OU=www.digicert.com, CN=DigiCert SHA2 High Assurance
+        Server CA
+      flat_name: file.code_signature.x509.issuer.distinguished_name
+      ignore_above: 1024
+      level: extended
+      name: issuer.distinguished_name
+      normalize: []
+      original_fieldset: x509
+      short: Distinguished name (DN) of issuing certificate authority.
+      type: keyword
+    code_signature.x509.issuer.locality:
+      dashed_name: file-code-signature-x509-issuer-locality
+      description: List of locality names (L)
+      example: Mountain View
+      flat_name: file.code_signature.x509.issuer.locality
+      ignore_above: 1024
+      level: extended
+      name: issuer.locality
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of locality names (L)
+      type: keyword
+    code_signature.x509.issuer.organization:
+      dashed_name: file-code-signature-x509-issuer-organization
+      description: List of organizations (O) of issuing certificate authority.
+      example: DigiCert Inc
+      flat_name: file.code_signature.x509.issuer.organization
+      ignore_above: 1024
+      level: extended
+      name: issuer.organization
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of organizations (O) of issuing certificate authority.
+      type: keyword
+    code_signature.x509.issuer.organizational_unit:
+      dashed_name: file-code-signature-x509-issuer-organizational-unit
+      description: List of organizational units (OU) of issuing certificate authority.
+      example: www.digicert.com
+      flat_name: file.code_signature.x509.issuer.organizational_unit
+      ignore_above: 1024
+      level: extended
+      name: issuer.organizational_unit
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of organizational units (OU) of issuing certificate authority.
+      type: keyword
+    code_signature.x509.issuer.state_or_province:
+      dashed_name: file-code-signature-x509-issuer-state-or-province
+      description: List of state or province names (ST, S, or P)
+      example: California
+      flat_name: file.code_signature.x509.issuer.state_or_province
+      ignore_above: 1024
+      level: extended
+      name: issuer.state_or_province
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of state or province names (ST, S, or P)
+      type: keyword
+    code_signature.x509.not_after:
+      dashed_name: file-code-signature-x509-not-after
+      description: Time at which the certificate is no longer considered valid.
+      example: 2020-07-16 03:15:39+00:00
+      flat_name: file.code_signature.x509.not_after
+      level: extended
+      name: not_after
+      normalize: []
+      original_fieldset: x509
+      short: Time at which the certificate is no longer considered valid.
+      type: date
+    code_signature.x509.not_before:
+      dashed_name: file-code-signature-x509-not-before
+      description: Time at which the certificate is first considered valid.
+      example: 2019-08-16 01:40:25+00:00
+      flat_name: file.code_signature.x509.not_before
+      level: extended
+      name: not_before
+      normalize: []
+      original_fieldset: x509
+      short: Time at which the certificate is first considered valid.
+      type: date
+    code_signature.x509.public_key_algorithm:
+      dashed_name: file-code-signature-x509-public-key-algorithm
+      description: Algorithm used to generate the public key.
+      example: RSA
+      flat_name: file.code_signature.x509.public_key_algorithm
+      ignore_above: 1024
+      level: extended
+      name: public_key_algorithm
+      normalize: []
+      original_fieldset: x509
+      short: Algorithm used to generate the public key.
+      type: keyword
+    code_signature.x509.public_key_curve:
+      dashed_name: file-code-signature-x509-public-key-curve
+      description: The curve used by the elliptic curve public key algorithm. This
+        is algorithm specific.
+      example: nistp521
+      flat_name: file.code_signature.x509.public_key_curve
+      ignore_above: 1024
+      level: extended
+      name: public_key_curve
+      normalize: []
+      original_fieldset: x509
+      short: The curve used by the elliptic curve public key algorithm. This is algorithm
+        specific.
+      type: keyword
+    code_signature.x509.public_key_exponent:
+      dashed_name: file-code-signature-x509-public-key-exponent
+      description: Exponent used to derive the public key. This is algorithm specific.
+      doc_values: false
+      example: 65537
+      flat_name: file.code_signature.x509.public_key_exponent
+      index: false
+      level: extended
+      name: public_key_exponent
+      normalize: []
+      original_fieldset: x509
+      short: Exponent used to derive the public key. This is algorithm specific.
+      type: long
+    code_signature.x509.public_key_size:
+      dashed_name: file-code-signature-x509-public-key-size
+      description: The size of the public key space in bits.
+      example: 2048
+      flat_name: file.code_signature.x509.public_key_size
+      level: extended
+      name: public_key_size
+      normalize: []
+      original_fieldset: x509
+      short: The size of the public key space in bits.
+      type: long
+    code_signature.x509.serial_number:
+      dashed_name: file-code-signature-x509-serial-number
+      description: Unique serial number issued by the certificate authority. For consistency,
+        if this value is alphanumeric, it should be formatted without colons and uppercase
+        characters.
+      example: 55FBB9C7DEBF09809D12CCAA
+      flat_name: file.code_signature.x509.serial_number
+      ignore_above: 1024
+      level: extended
+      name: serial_number
+      normalize: []
+      original_fieldset: x509
+      short: Unique serial number issued by the certificate authority. For consistency,
+        if this value is alphanumeric, it should be formatted without colons and uppercase
+        characters.
+      short_description: Unique serial number issued by the certificate authority.
+      type: keyword
+    code_signature.x509.signature_algorithm:
+      dashed_name: file-code-signature-x509-signature-algorithm
+      description: Identifier for certificate signature algorithm. Recommend using
+        names found in Go Lang Crypto library (See https://github.com/golang/go/blob/go1.14/src/crypto/x509/x509.go#L337-L353).
+      example: SHA256-RSA
+      flat_name: file.code_signature.x509.signature_algorithm
+      ignore_above: 1024
+      level: extended
+      name: signature_algorithm
+      normalize: []
+      original_fieldset: x509
+      short: Identifier for certificate signature algorithm. Recommend using names
+        found in Go Lang Crypto library (See https://github.com/golang/go/blob/go1.14/src/crypto/x509/x509.go#L337-L353).
+      type: keyword
+    code_signature.x509.subject.common_name:
+      dashed_name: file-code-signature-x509-subject-common-name
+      description: List of common names (CN) of subject.
+      example: r2.shared.global.fastly.net
+      flat_name: file.code_signature.x509.subject.common_name
+      ignore_above: 1024
+      level: extended
+      name: subject.common_name
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of common names (CN) of subject.
+      type: keyword
+    code_signature.x509.subject.country:
+      dashed_name: file-code-signature-x509-subject-country
+      description: List of country (C) code
+      example: US
+      flat_name: file.code_signature.x509.subject.country
+      ignore_above: 1024
+      level: extended
+      name: subject.country
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of country (C) code
+      type: keyword
+    code_signature.x509.subject.distinguished_name:
+      dashed_name: file-code-signature-x509-subject-distinguished-name
+      description: Distinguished name (DN) of the certificate subject entity.
+      example: C=US, ST=California, L=San Francisco, O=Fastly, Inc., CN=r2.shared.global.fastly.net
+      flat_name: file.code_signature.x509.subject.distinguished_name
+      ignore_above: 1024
+      level: extended
+      name: subject.distinguished_name
+      normalize: []
+      original_fieldset: x509
+      short: Distinguished name (DN) of the certificate subject entity.
+      type: keyword
+    code_signature.x509.subject.locality:
+      dashed_name: file-code-signature-x509-subject-locality
+      description: List of locality names (L)
+      example: San Francisco
+      flat_name: file.code_signature.x509.subject.locality
+      ignore_above: 1024
+      level: extended
+      name: subject.locality
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of locality names (L)
+      type: keyword
+    code_signature.x509.subject.organization:
+      dashed_name: file-code-signature-x509-subject-organization
+      description: List of organizations (O) of subject.
+      example: Fastly, Inc.
+      flat_name: file.code_signature.x509.subject.organization
+      ignore_above: 1024
+      level: extended
+      name: subject.organization
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of organizations (O) of subject.
+      type: keyword
+    code_signature.x509.subject.organizational_unit:
+      dashed_name: file-code-signature-x509-subject-organizational-unit
+      description: List of organizational units (OU) of subject.
+      flat_name: file.code_signature.x509.subject.organizational_unit
+      ignore_above: 1024
+      level: extended
+      name: subject.organizational_unit
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of organizational units (OU) of subject.
+      type: keyword
+    code_signature.x509.subject.state_or_province:
+      dashed_name: file-code-signature-x509-subject-state-or-province
+      description: List of state or province names (ST, S, or P)
+      example: California
+      flat_name: file.code_signature.x509.subject.state_or_province
+      ignore_above: 1024
+      level: extended
+      name: subject.state_or_province
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of state or province names (ST, S, or P)
+      type: keyword
+    code_signature.x509.version_number:
+      dashed_name: file-code-signature-x509-version-number
+      description: Version of x509 format.
+      example: 3
+      flat_name: file.code_signature.x509.version_number
+      ignore_above: 1024
+      level: extended
+      name: version_number
+      normalize: []
+      original_fieldset: x509
+      short: Version of x509 format.
+      type: keyword
     created:
       dashed_name: file-created
       description: 'File creation time.
@@ -3531,6 +4473,7 @@ file:
   name: file
   nestings:
   - file.code_signature
+  - file.code_signature.x509
   - file.hash
   - file.pe
   - file.x509
@@ -5798,6 +6741,319 @@ process:
       short: Boolean to capture if the digital signature is verified against the binary
         content.
       type: boolean
+    code_signature.x509.alternative_names:
+      dashed_name: process-code-signature-x509-alternative-names
+      description: List of subject alternative names (SAN). Name types vary by certificate
+        authority and certificate type but commonly contain IP addresses, DNS names
+        (and wildcards), and email addresses.
+      example: '*.elastic.co'
+      flat_name: process.code_signature.x509.alternative_names
+      ignore_above: 1024
+      level: extended
+      name: alternative_names
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of subject alternative names (SAN). Name types vary by certificate
+        authority and certificate type but commonly contain IP addresses, DNS names
+        (and wildcards), and email addresses.
+      short_description: List of subject alternative names (SAN)
+      type: keyword
+    code_signature.x509.issuer.common_name:
+      dashed_name: process-code-signature-x509-issuer-common-name
+      description: List of common name (CN) of issuing certificate authority.
+      example: DigiCert SHA2 High Assurance Server CA
+      flat_name: process.code_signature.x509.issuer.common_name
+      ignore_above: 1024
+      level: extended
+      name: issuer.common_name
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of common name (CN) of issuing certificate authority.
+      type: keyword
+    code_signature.x509.issuer.country:
+      dashed_name: process-code-signature-x509-issuer-country
+      description: List of country (C) codes
+      example: US
+      flat_name: process.code_signature.x509.issuer.country
+      ignore_above: 1024
+      level: extended
+      name: issuer.country
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of country (C) codes
+      type: keyword
+    code_signature.x509.issuer.distinguished_name:
+      dashed_name: process-code-signature-x509-issuer-distinguished-name
+      description: Distinguished name (DN) of issuing certificate authority.
+      example: C=US, O=DigiCert Inc, OU=www.digicert.com, CN=DigiCert SHA2 High Assurance
+        Server CA
+      flat_name: process.code_signature.x509.issuer.distinguished_name
+      ignore_above: 1024
+      level: extended
+      name: issuer.distinguished_name
+      normalize: []
+      original_fieldset: x509
+      short: Distinguished name (DN) of issuing certificate authority.
+      type: keyword
+    code_signature.x509.issuer.locality:
+      dashed_name: process-code-signature-x509-issuer-locality
+      description: List of locality names (L)
+      example: Mountain View
+      flat_name: process.code_signature.x509.issuer.locality
+      ignore_above: 1024
+      level: extended
+      name: issuer.locality
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of locality names (L)
+      type: keyword
+    code_signature.x509.issuer.organization:
+      dashed_name: process-code-signature-x509-issuer-organization
+      description: List of organizations (O) of issuing certificate authority.
+      example: DigiCert Inc
+      flat_name: process.code_signature.x509.issuer.organization
+      ignore_above: 1024
+      level: extended
+      name: issuer.organization
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of organizations (O) of issuing certificate authority.
+      type: keyword
+    code_signature.x509.issuer.organizational_unit:
+      dashed_name: process-code-signature-x509-issuer-organizational-unit
+      description: List of organizational units (OU) of issuing certificate authority.
+      example: www.digicert.com
+      flat_name: process.code_signature.x509.issuer.organizational_unit
+      ignore_above: 1024
+      level: extended
+      name: issuer.organizational_unit
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of organizational units (OU) of issuing certificate authority.
+      type: keyword
+    code_signature.x509.issuer.state_or_province:
+      dashed_name: process-code-signature-x509-issuer-state-or-province
+      description: List of state or province names (ST, S, or P)
+      example: California
+      flat_name: process.code_signature.x509.issuer.state_or_province
+      ignore_above: 1024
+      level: extended
+      name: issuer.state_or_province
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of state or province names (ST, S, or P)
+      type: keyword
+    code_signature.x509.not_after:
+      dashed_name: process-code-signature-x509-not-after
+      description: Time at which the certificate is no longer considered valid.
+      example: 2020-07-16 03:15:39+00:00
+      flat_name: process.code_signature.x509.not_after
+      level: extended
+      name: not_after
+      normalize: []
+      original_fieldset: x509
+      short: Time at which the certificate is no longer considered valid.
+      type: date
+    code_signature.x509.not_before:
+      dashed_name: process-code-signature-x509-not-before
+      description: Time at which the certificate is first considered valid.
+      example: 2019-08-16 01:40:25+00:00
+      flat_name: process.code_signature.x509.not_before
+      level: extended
+      name: not_before
+      normalize: []
+      original_fieldset: x509
+      short: Time at which the certificate is first considered valid.
+      type: date
+    code_signature.x509.public_key_algorithm:
+      dashed_name: process-code-signature-x509-public-key-algorithm
+      description: Algorithm used to generate the public key.
+      example: RSA
+      flat_name: process.code_signature.x509.public_key_algorithm
+      ignore_above: 1024
+      level: extended
+      name: public_key_algorithm
+      normalize: []
+      original_fieldset: x509
+      short: Algorithm used to generate the public key.
+      type: keyword
+    code_signature.x509.public_key_curve:
+      dashed_name: process-code-signature-x509-public-key-curve
+      description: The curve used by the elliptic curve public key algorithm. This
+        is algorithm specific.
+      example: nistp521
+      flat_name: process.code_signature.x509.public_key_curve
+      ignore_above: 1024
+      level: extended
+      name: public_key_curve
+      normalize: []
+      original_fieldset: x509
+      short: The curve used by the elliptic curve public key algorithm. This is algorithm
+        specific.
+      type: keyword
+    code_signature.x509.public_key_exponent:
+      dashed_name: process-code-signature-x509-public-key-exponent
+      description: Exponent used to derive the public key. This is algorithm specific.
+      doc_values: false
+      example: 65537
+      flat_name: process.code_signature.x509.public_key_exponent
+      index: false
+      level: extended
+      name: public_key_exponent
+      normalize: []
+      original_fieldset: x509
+      short: Exponent used to derive the public key. This is algorithm specific.
+      type: long
+    code_signature.x509.public_key_size:
+      dashed_name: process-code-signature-x509-public-key-size
+      description: The size of the public key space in bits.
+      example: 2048
+      flat_name: process.code_signature.x509.public_key_size
+      level: extended
+      name: public_key_size
+      normalize: []
+      original_fieldset: x509
+      short: The size of the public key space in bits.
+      type: long
+    code_signature.x509.serial_number:
+      dashed_name: process-code-signature-x509-serial-number
+      description: Unique serial number issued by the certificate authority. For consistency,
+        if this value is alphanumeric, it should be formatted without colons and uppercase
+        characters.
+      example: 55FBB9C7DEBF09809D12CCAA
+      flat_name: process.code_signature.x509.serial_number
+      ignore_above: 1024
+      level: extended
+      name: serial_number
+      normalize: []
+      original_fieldset: x509
+      short: Unique serial number issued by the certificate authority. For consistency,
+        if this value is alphanumeric, it should be formatted without colons and uppercase
+        characters.
+      short_description: Unique serial number issued by the certificate authority.
+      type: keyword
+    code_signature.x509.signature_algorithm:
+      dashed_name: process-code-signature-x509-signature-algorithm
+      description: Identifier for certificate signature algorithm. Recommend using
+        names found in Go Lang Crypto library (See https://github.com/golang/go/blob/go1.14/src/crypto/x509/x509.go#L337-L353).
+      example: SHA256-RSA
+      flat_name: process.code_signature.x509.signature_algorithm
+      ignore_above: 1024
+      level: extended
+      name: signature_algorithm
+      normalize: []
+      original_fieldset: x509
+      short: Identifier for certificate signature algorithm. Recommend using names
+        found in Go Lang Crypto library (See https://github.com/golang/go/blob/go1.14/src/crypto/x509/x509.go#L337-L353).
+      type: keyword
+    code_signature.x509.subject.common_name:
+      dashed_name: process-code-signature-x509-subject-common-name
+      description: List of common names (CN) of subject.
+      example: r2.shared.global.fastly.net
+      flat_name: process.code_signature.x509.subject.common_name
+      ignore_above: 1024
+      level: extended
+      name: subject.common_name
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of common names (CN) of subject.
+      type: keyword
+    code_signature.x509.subject.country:
+      dashed_name: process-code-signature-x509-subject-country
+      description: List of country (C) code
+      example: US
+      flat_name: process.code_signature.x509.subject.country
+      ignore_above: 1024
+      level: extended
+      name: subject.country
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of country (C) code
+      type: keyword
+    code_signature.x509.subject.distinguished_name:
+      dashed_name: process-code-signature-x509-subject-distinguished-name
+      description: Distinguished name (DN) of the certificate subject entity.
+      example: C=US, ST=California, L=San Francisco, O=Fastly, Inc., CN=r2.shared.global.fastly.net
+      flat_name: process.code_signature.x509.subject.distinguished_name
+      ignore_above: 1024
+      level: extended
+      name: subject.distinguished_name
+      normalize: []
+      original_fieldset: x509
+      short: Distinguished name (DN) of the certificate subject entity.
+      type: keyword
+    code_signature.x509.subject.locality:
+      dashed_name: process-code-signature-x509-subject-locality
+      description: List of locality names (L)
+      example: San Francisco
+      flat_name: process.code_signature.x509.subject.locality
+      ignore_above: 1024
+      level: extended
+      name: subject.locality
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of locality names (L)
+      type: keyword
+    code_signature.x509.subject.organization:
+      dashed_name: process-code-signature-x509-subject-organization
+      description: List of organizations (O) of subject.
+      example: Fastly, Inc.
+      flat_name: process.code_signature.x509.subject.organization
+      ignore_above: 1024
+      level: extended
+      name: subject.organization
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of organizations (O) of subject.
+      type: keyword
+    code_signature.x509.subject.organizational_unit:
+      dashed_name: process-code-signature-x509-subject-organizational-unit
+      description: List of organizational units (OU) of subject.
+      flat_name: process.code_signature.x509.subject.organizational_unit
+      ignore_above: 1024
+      level: extended
+      name: subject.organizational_unit
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of organizational units (OU) of subject.
+      type: keyword
+    code_signature.x509.subject.state_or_province:
+      dashed_name: process-code-signature-x509-subject-state-or-province
+      description: List of state or province names (ST, S, or P)
+      example: California
+      flat_name: process.code_signature.x509.subject.state_or_province
+      ignore_above: 1024
+      level: extended
+      name: subject.state_or_province
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of state or province names (ST, S, or P)
+      type: keyword
+    code_signature.x509.version_number:
+      dashed_name: process-code-signature-x509-version-number
+      description: Version of x509 format.
+      example: 3
+      flat_name: process.code_signature.x509.version_number
+      ignore_above: 1024
+      level: extended
+      name: version_number
+      normalize: []
+      original_fieldset: x509
+      short: Version of x509 format.
+      type: keyword
     command_line:
       dashed_name: process-command-line
       description: 'Full command line that started the process, including the absolute
@@ -6027,6 +7283,319 @@ process:
       short: Boolean to capture if the digital signature is verified against the binary
         content.
       type: boolean
+    parent.code_signature.x509.alternative_names:
+      dashed_name: process-parent-code-signature-x509-alternative-names
+      description: List of subject alternative names (SAN). Name types vary by certificate
+        authority and certificate type but commonly contain IP addresses, DNS names
+        (and wildcards), and email addresses.
+      example: '*.elastic.co'
+      flat_name: process.parent.code_signature.x509.alternative_names
+      ignore_above: 1024
+      level: extended
+      name: alternative_names
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of subject alternative names (SAN). Name types vary by certificate
+        authority and certificate type but commonly contain IP addresses, DNS names
+        (and wildcards), and email addresses.
+      short_description: List of subject alternative names (SAN)
+      type: keyword
+    parent.code_signature.x509.issuer.common_name:
+      dashed_name: process-parent-code-signature-x509-issuer-common-name
+      description: List of common name (CN) of issuing certificate authority.
+      example: DigiCert SHA2 High Assurance Server CA
+      flat_name: process.parent.code_signature.x509.issuer.common_name
+      ignore_above: 1024
+      level: extended
+      name: issuer.common_name
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of common name (CN) of issuing certificate authority.
+      type: keyword
+    parent.code_signature.x509.issuer.country:
+      dashed_name: process-parent-code-signature-x509-issuer-country
+      description: List of country (C) codes
+      example: US
+      flat_name: process.parent.code_signature.x509.issuer.country
+      ignore_above: 1024
+      level: extended
+      name: issuer.country
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of country (C) codes
+      type: keyword
+    parent.code_signature.x509.issuer.distinguished_name:
+      dashed_name: process-parent-code-signature-x509-issuer-distinguished-name
+      description: Distinguished name (DN) of issuing certificate authority.
+      example: C=US, O=DigiCert Inc, OU=www.digicert.com, CN=DigiCert SHA2 High Assurance
+        Server CA
+      flat_name: process.parent.code_signature.x509.issuer.distinguished_name
+      ignore_above: 1024
+      level: extended
+      name: issuer.distinguished_name
+      normalize: []
+      original_fieldset: x509
+      short: Distinguished name (DN) of issuing certificate authority.
+      type: keyword
+    parent.code_signature.x509.issuer.locality:
+      dashed_name: process-parent-code-signature-x509-issuer-locality
+      description: List of locality names (L)
+      example: Mountain View
+      flat_name: process.parent.code_signature.x509.issuer.locality
+      ignore_above: 1024
+      level: extended
+      name: issuer.locality
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of locality names (L)
+      type: keyword
+    parent.code_signature.x509.issuer.organization:
+      dashed_name: process-parent-code-signature-x509-issuer-organization
+      description: List of organizations (O) of issuing certificate authority.
+      example: DigiCert Inc
+      flat_name: process.parent.code_signature.x509.issuer.organization
+      ignore_above: 1024
+      level: extended
+      name: issuer.organization
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of organizations (O) of issuing certificate authority.
+      type: keyword
+    parent.code_signature.x509.issuer.organizational_unit:
+      dashed_name: process-parent-code-signature-x509-issuer-organizational-unit
+      description: List of organizational units (OU) of issuing certificate authority.
+      example: www.digicert.com
+      flat_name: process.parent.code_signature.x509.issuer.organizational_unit
+      ignore_above: 1024
+      level: extended
+      name: issuer.organizational_unit
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of organizational units (OU) of issuing certificate authority.
+      type: keyword
+    parent.code_signature.x509.issuer.state_or_province:
+      dashed_name: process-parent-code-signature-x509-issuer-state-or-province
+      description: List of state or province names (ST, S, or P)
+      example: California
+      flat_name: process.parent.code_signature.x509.issuer.state_or_province
+      ignore_above: 1024
+      level: extended
+      name: issuer.state_or_province
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of state or province names (ST, S, or P)
+      type: keyword
+    parent.code_signature.x509.not_after:
+      dashed_name: process-parent-code-signature-x509-not-after
+      description: Time at which the certificate is no longer considered valid.
+      example: 2020-07-16 03:15:39+00:00
+      flat_name: process.parent.code_signature.x509.not_after
+      level: extended
+      name: not_after
+      normalize: []
+      original_fieldset: x509
+      short: Time at which the certificate is no longer considered valid.
+      type: date
+    parent.code_signature.x509.not_before:
+      dashed_name: process-parent-code-signature-x509-not-before
+      description: Time at which the certificate is first considered valid.
+      example: 2019-08-16 01:40:25+00:00
+      flat_name: process.parent.code_signature.x509.not_before
+      level: extended
+      name: not_before
+      normalize: []
+      original_fieldset: x509
+      short: Time at which the certificate is first considered valid.
+      type: date
+    parent.code_signature.x509.public_key_algorithm:
+      dashed_name: process-parent-code-signature-x509-public-key-algorithm
+      description: Algorithm used to generate the public key.
+      example: RSA
+      flat_name: process.parent.code_signature.x509.public_key_algorithm
+      ignore_above: 1024
+      level: extended
+      name: public_key_algorithm
+      normalize: []
+      original_fieldset: x509
+      short: Algorithm used to generate the public key.
+      type: keyword
+    parent.code_signature.x509.public_key_curve:
+      dashed_name: process-parent-code-signature-x509-public-key-curve
+      description: The curve used by the elliptic curve public key algorithm. This
+        is algorithm specific.
+      example: nistp521
+      flat_name: process.parent.code_signature.x509.public_key_curve
+      ignore_above: 1024
+      level: extended
+      name: public_key_curve
+      normalize: []
+      original_fieldset: x509
+      short: The curve used by the elliptic curve public key algorithm. This is algorithm
+        specific.
+      type: keyword
+    parent.code_signature.x509.public_key_exponent:
+      dashed_name: process-parent-code-signature-x509-public-key-exponent
+      description: Exponent used to derive the public key. This is algorithm specific.
+      doc_values: false
+      example: 65537
+      flat_name: process.parent.code_signature.x509.public_key_exponent
+      index: false
+      level: extended
+      name: public_key_exponent
+      normalize: []
+      original_fieldset: x509
+      short: Exponent used to derive the public key. This is algorithm specific.
+      type: long
+    parent.code_signature.x509.public_key_size:
+      dashed_name: process-parent-code-signature-x509-public-key-size
+      description: The size of the public key space in bits.
+      example: 2048
+      flat_name: process.parent.code_signature.x509.public_key_size
+      level: extended
+      name: public_key_size
+      normalize: []
+      original_fieldset: x509
+      short: The size of the public key space in bits.
+      type: long
+    parent.code_signature.x509.serial_number:
+      dashed_name: process-parent-code-signature-x509-serial-number
+      description: Unique serial number issued by the certificate authority. For consistency,
+        if this value is alphanumeric, it should be formatted without colons and uppercase
+        characters.
+      example: 55FBB9C7DEBF09809D12CCAA
+      flat_name: process.parent.code_signature.x509.serial_number
+      ignore_above: 1024
+      level: extended
+      name: serial_number
+      normalize: []
+      original_fieldset: x509
+      short: Unique serial number issued by the certificate authority. For consistency,
+        if this value is alphanumeric, it should be formatted without colons and uppercase
+        characters.
+      short_description: Unique serial number issued by the certificate authority.
+      type: keyword
+    parent.code_signature.x509.signature_algorithm:
+      dashed_name: process-parent-code-signature-x509-signature-algorithm
+      description: Identifier for certificate signature algorithm. Recommend using
+        names found in Go Lang Crypto library (See https://github.com/golang/go/blob/go1.14/src/crypto/x509/x509.go#L337-L353).
+      example: SHA256-RSA
+      flat_name: process.parent.code_signature.x509.signature_algorithm
+      ignore_above: 1024
+      level: extended
+      name: signature_algorithm
+      normalize: []
+      original_fieldset: x509
+      short: Identifier for certificate signature algorithm. Recommend using names
+        found in Go Lang Crypto library (See https://github.com/golang/go/blob/go1.14/src/crypto/x509/x509.go#L337-L353).
+      type: keyword
+    parent.code_signature.x509.subject.common_name:
+      dashed_name: process-parent-code-signature-x509-subject-common-name
+      description: List of common names (CN) of subject.
+      example: r2.shared.global.fastly.net
+      flat_name: process.parent.code_signature.x509.subject.common_name
+      ignore_above: 1024
+      level: extended
+      name: subject.common_name
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of common names (CN) of subject.
+      type: keyword
+    parent.code_signature.x509.subject.country:
+      dashed_name: process-parent-code-signature-x509-subject-country
+      description: List of country (C) code
+      example: US
+      flat_name: process.parent.code_signature.x509.subject.country
+      ignore_above: 1024
+      level: extended
+      name: subject.country
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of country (C) code
+      type: keyword
+    parent.code_signature.x509.subject.distinguished_name:
+      dashed_name: process-parent-code-signature-x509-subject-distinguished-name
+      description: Distinguished name (DN) of the certificate subject entity.
+      example: C=US, ST=California, L=San Francisco, O=Fastly, Inc., CN=r2.shared.global.fastly.net
+      flat_name: process.parent.code_signature.x509.subject.distinguished_name
+      ignore_above: 1024
+      level: extended
+      name: subject.distinguished_name
+      normalize: []
+      original_fieldset: x509
+      short: Distinguished name (DN) of the certificate subject entity.
+      type: keyword
+    parent.code_signature.x509.subject.locality:
+      dashed_name: process-parent-code-signature-x509-subject-locality
+      description: List of locality names (L)
+      example: San Francisco
+      flat_name: process.parent.code_signature.x509.subject.locality
+      ignore_above: 1024
+      level: extended
+      name: subject.locality
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of locality names (L)
+      type: keyword
+    parent.code_signature.x509.subject.organization:
+      dashed_name: process-parent-code-signature-x509-subject-organization
+      description: List of organizations (O) of subject.
+      example: Fastly, Inc.
+      flat_name: process.parent.code_signature.x509.subject.organization
+      ignore_above: 1024
+      level: extended
+      name: subject.organization
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of organizations (O) of subject.
+      type: keyword
+    parent.code_signature.x509.subject.organizational_unit:
+      dashed_name: process-parent-code-signature-x509-subject-organizational-unit
+      description: List of organizational units (OU) of subject.
+      flat_name: process.parent.code_signature.x509.subject.organizational_unit
+      ignore_above: 1024
+      level: extended
+      name: subject.organizational_unit
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of organizational units (OU) of subject.
+      type: keyword
+    parent.code_signature.x509.subject.state_or_province:
+      dashed_name: process-parent-code-signature-x509-subject-state-or-province
+      description: List of state or province names (ST, S, or P)
+      example: California
+      flat_name: process.parent.code_signature.x509.subject.state_or_province
+      ignore_above: 1024
+      level: extended
+      name: subject.state_or_province
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of state or province names (ST, S, or P)
+      type: keyword
+    parent.code_signature.x509.version_number:
+      dashed_name: process-parent-code-signature-x509-version-number
+      description: Version of x509 format.
+      example: 3
+      flat_name: process.parent.code_signature.x509.version_number
+      ignore_above: 1024
+      level: extended
+      name: version_number
+      normalize: []
+      original_fieldset: x509
+      short: Version of x509 format.
+      type: keyword
     parent.command_line:
       dashed_name: process-parent-command-line
       description: 'Full command line that started the process, including the absolute
@@ -6464,8 +8033,10 @@ process:
   name: process
   nestings:
   - process.code_signature
+  - process.code_signature.x509
   - process.hash
   - process.parent.code_signature
+  - process.parent.code_signature.x509
   - process.parent.hash
   - process.pe
   prefix: process.
@@ -9904,6 +11475,7 @@ x509:
   prefix: x509.
   reusable:
     expected:
+    - code_signature
     - file
     - tls.client
     - tls.server

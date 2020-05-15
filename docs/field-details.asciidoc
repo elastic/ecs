@@ -709,6 +709,24 @@ Note also that the `code_signature` fields are not expected to be used directly 
 
 
 
+[[ecs-code_signature-nestings]]
+===== Field sets that can be nested under Code Signature
+
+[options="header"]
+|=====
+| Nested fields | Description
+
+// ===============================================================
+
+
+| <<ecs-x509,code_signature.x509.*>>
+| This implements the common core fields for x509 certificates. This information is likely logged with TLS sessions, digital signatures found in executable binaries, S/MIME information in email bodies, or analysis of files on disk. When only a single certificate is logged in an event, it should be nested under `file`. When hashes of the DER-encoded certificate are available, the `hash` data set should be populated as well (e.g. `file.hash.sha256`). For events that contain certificate information for both sides of the connection, the x509 object could be nested under the respective side of the connection information (e.g. `tls.server.x509`).
+
+// ===============================================================
+
+
+|=====
+
 [[ecs-container]]
 === Container Fields
 
@@ -1090,6 +1108,12 @@ example: `C:\Windows\System32\kernel32.dll`
 
 | <<ecs-code_signature,dll.code_signature.*>>
 | These fields contain information about binary code signatures.
+
+// ===============================================================
+
+
+| <<ecs-x509,dll.code_signature.x509.*>>
+| This implements the common core fields for x509 certificates. This information is likely logged with TLS sessions, digital signatures found in executable binaries, S/MIME information in email bodies, or analysis of files on disk. When only a single certificate is logged in an event, it should be nested under `file`. When hashes of the DER-encoded certificate are available, the `hash` data set should be populated as well (e.g. `file.hash.sha256`). For events that contain certificate information for both sides of the connection, the x509 object could be nested under the respective side of the connection information (e.g. `tls.server.x509`).
 
 // ===============================================================
 
@@ -2269,6 +2293,12 @@ example: `1001`
 
 | <<ecs-code_signature,file.code_signature.*>>
 | These fields contain information about binary code signatures.
+
+// ===============================================================
+
+
+| <<ecs-x509,file.code_signature.x509.*>>
+| This implements the common core fields for x509 certificates. This information is likely logged with TLS sessions, digital signatures found in executable binaries, S/MIME information in email bodies, or analysis of files on disk. When only a single certificate is logged in an event, it should be nested under `file`. When hashes of the DER-encoded certificate are available, the `hash` data set should be populated as well (e.g. `file.hash.sha256`). For events that contain certificate information for both sides of the connection, the x509 object could be nested under the respective side of the connection information (e.g. `tls.server.x509`).
 
 // ===============================================================
 
@@ -4704,6 +4734,12 @@ example: `/home/alice`
 // ===============================================================
 
 
+| <<ecs-x509,process.code_signature.x509.*>>
+| This implements the common core fields for x509 certificates. This information is likely logged with TLS sessions, digital signatures found in executable binaries, S/MIME information in email bodies, or analysis of files on disk. When only a single certificate is logged in an event, it should be nested under `file`. When hashes of the DER-encoded certificate are available, the `hash` data set should be populated as well (e.g. `file.hash.sha256`). For events that contain certificate information for both sides of the connection, the x509 object could be nested under the respective side of the connection information (e.g. `tls.server.x509`).
+
+// ===============================================================
+
+
 | <<ecs-hash,process.hash.*>>
 | Hashes, usually file hashes.
 
@@ -4712,6 +4748,12 @@ example: `/home/alice`
 
 | <<ecs-code_signature,process.parent.code_signature.*>>
 | These fields contain information about binary code signatures.
+
+// ===============================================================
+
+
+| <<ecs-x509,process.parent.code_signature.x509.*>>
+| This implements the common core fields for x509 certificates. This information is likely logged with TLS sessions, digital signatures found in executable binaries, S/MIME information in email bodies, or analysis of files on disk. When only a single certificate is logged in an event, it should be nested under `file`. When hashes of the DER-encoded certificate are available, the `hash` data set should be populated as well (e.g. `file.hash.sha256`). For events that contain certificate information for both sides of the connection, the x509 object could be nested under the respective side of the connection information (e.g. `tls.server.x509`).
 
 // ===============================================================
 
@@ -7306,7 +7348,7 @@ example: `3`
 
 ==== Field Reuse
 
-The `x509` fields are expected to be nested at: `file.x509`, `tls.client.x509`, `tls.server.x509`.
+The `x509` fields are expected to be nested at: `code_signature.x509`, `file.x509`, `tls.client.x509`, `tls.server.x509`.
 
 Note also that the `x509` fields are not expected to be used directly at the top level.
 
