@@ -20,8 +20,8 @@ class TestSchemaLoader(unittest.TestCase):
     def schema_base(self):
         return {
             'base': {
-                'schema_details': { 'root': True },
-                'field_details': { 'name': 'base', 'type': 'group' },
+                'schema_details': {'root': True},
+                'field_details': {'name': 'base', 'type': 'group'},
                 'fields': {
                     'message': {
                         'field_details': {
@@ -141,14 +141,14 @@ class TestSchemaLoader(unittest.TestCase):
                     'field_details': {
                         'name': 'pid',
                         'leaf_name': 'pid',
-                        'path': []
+                        # 'path': []
                     }
                 },
                 'parent': {
                     'field_details': {
                         'name': 'parent',
                         'type': 'object',
-                        'path': [],
+                        # 'path': [],
                         'intermediate': True,
                     },
                     'fields': {
@@ -156,7 +156,7 @@ class TestSchemaLoader(unittest.TestCase):
                             'field_details': {
                                 'name': 'parent.pid',
                                 'leaf_name': 'pid',
-                                'path': ['parent']
+                                # 'path': ['parent']
                             }
                         }
                     }
@@ -175,7 +175,7 @@ class TestSchemaLoader(unittest.TestCase):
                     'field_details': {
                         'name': 'origin',
                         'type': 'object',
-                        'path': [],
+                        # 'path': [],
                         'intermediate': True,
                     },
                     'fields': {
@@ -183,7 +183,7 @@ class TestSchemaLoader(unittest.TestCase):
                             'field_details': {
                                 'name': 'origin.file',
                                 'type': 'object',
-                                'path': ['origin'],
+                                # 'path': ['origin'],
                                 'intermediate': True,
                             },
                             'fields': {
@@ -191,7 +191,7 @@ class TestSchemaLoader(unittest.TestCase):
                                     'field_details': {
                                         'name': 'origin.file.name',
                                         'leaf_name': 'name',
-                                        'path': ['origin', 'file'],
+                                        # 'path': ['origin', 'file'],
                                     }
                                 }
                             }
@@ -229,11 +229,12 @@ class TestSchemaLoader(unittest.TestCase):
             'base': {
                 'schema_details': {
                     'root': True,
-                    'title': 'Base'
+                    'title': 'Base',
                 },
                 'field_details': {
                     'name': 'base',
-                    'type': 'group'
+                    'type': 'group',
+                    # 'path': [],
                 },
                 'fields': {
                     'message': {
@@ -241,7 +242,7 @@ class TestSchemaLoader(unittest.TestCase):
                             'name': 'message',
                             'leaf_name': 'message',
                             'type': 'keyword',
-                            'path': [],
+                            # 'path': [],
                         }
                     }
                 }
@@ -258,7 +259,7 @@ class TestSchemaLoader(unittest.TestCase):
                             'name': 'pid',
                             'leaf_name': 'pid',
                             'type': 'keyword',
-                            'path': [],
+                            # 'path': [],
                         }
                     },
                     'parent': {
@@ -266,7 +267,7 @@ class TestSchemaLoader(unittest.TestCase):
                             # These are made explicit for intermediate fields
                             'name': 'parent',
                             'type': 'object',
-                            'path': [],
+                            # 'path': [],
                             'intermediate': True,
                         },
                         'fields': {
@@ -275,7 +276,7 @@ class TestSchemaLoader(unittest.TestCase):
                                     'name': 'parent.pid',
                                     'leaf_name': 'pid',
                                     'type': 'keyword',
-                                    'path': ['parent'],
+                                    # 'path': ['parent'],
                                 }
                             }
                         }
@@ -283,11 +284,15 @@ class TestSchemaLoader(unittest.TestCase):
                 }
             }
         }
+        # # The effects of root=True/False
+        # self.assertEqual(deeply_nested['base']['field_details']['path'], [])
+        # self.assertEqual(deeply_nested['process']['field_details']['path'], ['process'])
+
         process_fields = deeply_nested['process']['fields']
-        self.assertEqual(process_fields['pid']['field_details']['path'], [])
-        self.assertEqual(process_fields['parent']['field_details']['path'], [])
+        # self.assertEqual(process_fields['pid']['field_details']['path'], [])
+        # self.assertEqual(process_fields['parent']['field_details']['path'], [])
         self.assertEqual(process_fields['parent']['field_details']['intermediate'], True)
-        self.assertEqual(process_fields['parent']['fields']['pid']['field_details']['path'], ['parent'])
+        # self.assertEqual(process_fields['parent']['fields']['pid']['field_details']['path'], ['parent'])
         self.assertEqual(deeply_nested, expected_deeply_nested)
 
     # Merging
