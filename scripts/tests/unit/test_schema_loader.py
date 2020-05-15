@@ -147,7 +147,8 @@ class TestSchemaLoader(unittest.TestCase):
                     'field_details': {
                         'name': 'parent',
                         'type': 'object',
-                        'path': ['process']
+                        'path': ['process'],
+                        'intermediary': True,
                     },
                     'fields': {
                         'pid': {
@@ -173,6 +174,7 @@ class TestSchemaLoader(unittest.TestCase):
                         'name': 'origin',
                         'type': 'object',
                         'path': ['log'],
+                        'intermediary': True,
                     },
                     'fields': {
                         'file': {
@@ -180,6 +182,7 @@ class TestSchemaLoader(unittest.TestCase):
                                 'name': 'origin.file',
                                 'type': 'object',
                                 'path': ['log', 'origin'],
+                                'intermediary': True,
                             },
                             'fields': {
                                 'name': {
@@ -259,6 +262,7 @@ class TestSchemaLoader(unittest.TestCase):
                             'name': 'parent',
                             'type': 'object',
                             'path': ['process'],
+                            'intermediary': True,
                         },
                         'fields': {
                             'pid': {
@@ -276,6 +280,7 @@ class TestSchemaLoader(unittest.TestCase):
         process_fields = deeply_nested['process']['fields']
         self.assertEqual(process_fields['pid']['field_details']['path'], ['process'])
         self.assertEqual(process_fields['parent']['field_details']['path'], ['process'])
+        self.assertEqual(process_fields['parent']['field_details']['intermediary'], True)
         self.assertEqual(process_fields['parent']['fields']['pid']['field_details']['path'], ['process', 'parent'])
         self.assertEqual(deeply_nested, expected_deeply_nested)
 
