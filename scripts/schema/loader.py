@@ -124,14 +124,12 @@ def nest_fields(field_array):
             nested_schema[level].setdefault('field_details', {})
             nested_schema[level]['field_details'].setdefault('type', 'object')
             nested_schema[level]['field_details'].setdefault('name', '.'.join(parent_fields[:idx+1]))
-            # nested_schema[level]['field_details'].setdefault('path', current_path.copy())
             nested_schema[level]['field_details'].setdefault('intermediate', True)
             # moving the nested_schema cursor deeper
             current_path.extend([level])
             nested_schema = nested_schema[level]['fields']
         nested_schema.setdefault(leaf_field, {})
         # Overwrite 'name' with the leaf field's name. The flat_name is already computed.
-        # field['path'] = current_path
         field['leaf_name'] = leaf_field
         nested_schema[leaf_field]['field_details'] = field
     return schema_root

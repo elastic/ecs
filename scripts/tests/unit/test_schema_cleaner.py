@@ -251,14 +251,16 @@ class TestSchemaCleaner(unittest.TestCase):
             cleaner.single_line_short_description(schema)
 
 
-    # def test_clean(self):
-    #     '''A high level sanity test'''
-    #     fields = self.schema_process()
-    #     cleaner.clean(fields)
-    #     self.assertEqual(fields['process']['schema_details']['prefix'], 'process.')
-    #     parent_pid = fields['process']['fields']['parent']['fields']['pid']
-    #     self.assertEqual(parent_pid['field_details']['name'], 'parent.pid')
-    #     # self.assertEqual(parent_pid['field_details']['path'], ['process', 'parent'])
-    #     pprint.pprint(parent_pid)
-    #     self.assertEqual(parent_pid['field_details']['flat_name'], 'process.parent.pid')
-    #     self.assertEqual(parent_pid['field_details']['dashed_name'], 'process-parent-pid')
+    def test_clean(self):
+        '''A high level sanity test'''
+        fields = self.schema_process()
+        cleaner.clean(fields)
+        # schemas are processed
+        self.assertEqual(fields['process']['schema_details']['prefix'], 'process.')
+        self.assertEqual(fields['process']['schema_details']['group'], 2)
+        # fields are processed
+        parent_pid = fields['process']['fields']['parent']['fields']['pid']
+        self.assertEqual(parent_pid['field_details']['name'], 'parent.pid')
+        self.assertEqual(parent_pid['field_details']['ignore_above'], 1024)
+        self.assertEqual(parent_pid['field_details']['short'],
+                parent_pid['field_details']['description'])

@@ -10,7 +10,7 @@ from generators import ecs_helpers
 # - converts shorthands into full representation (e.g. reuse locations)
 
 def clean(fields):
-    visit_fields(fields, fieldset_func=schema_cleanup) #, field_func=field_cleanup)
+    visit_fields(fields, fieldset_func=schema_cleanup, field_func=field_cleanup)
     return fields
 
 
@@ -30,10 +30,8 @@ def schema_cleanup(schema):
     schema['field_details'].setdefault('short', schema['field_details']['description'])
     # Precalculate stuff. Those can't be set in the YAML.
     if schema['schema_details']['root']:
-        # schema['field_details']['path'] = []
         schema['schema_details']['prefix'] = ''
     else:
-        # schema['field_details']['path'] = [schema['field_details']['name']]
         schema['schema_details']['prefix'] = schema['field_details']['name'] + '.'
     # Final validity check
     schema_assertions_and_warnings(schema)
@@ -62,22 +60,10 @@ def schema_assertions_and_warnings(schema):
 
 def field_cleanup(field):
     field_mandatory_attributes(field)
-    # field_precalculated(field)
     if not is_intermediate(field):
         ecs_helpers.dict_clean_string_values(field['field_details'])
         field_defaults(field)
         field_assertions_and_warnings(field)
-
-
-# def field_precalculated(field):
-#     if schema['schema_details']['root']:
-#         namespace = ''
-#     else:
-#         namespace = schema['field_details']['name'] + '.'
-#         field['field_details']['path'] + [field['field_details']['name']]
-#         name_parts = field['field_details']['path'] + [field['field_details']['name']]
-#     field['field_details']['flat_name'] = '.'.join(name_parts)
-#     field['field_details']['dashed_name'] = field['field_details']['flat_name'].replace('.', '-').replace('_', '-')
 
 
 def field_defaults(field):
@@ -89,8 +75,6 @@ def field_defaults(field):
             field_or_multi_field_datatype_defaults(mf)
             if 'name' not in mf:
                 mf['name'] = mf['type']
-            # # Precalculated values for multi-fields
-            # mf['flat_name'] = field['field_details']['flat_name'] + '.' + mf['name']
 
 
 def field_or_multi_field_datatype_defaults(field_details):
@@ -144,35 +128,23 @@ def single_line_short_description(schema_or_field):
         raise ValueError(msg)
 
 
-def visit_fields(fields, fieldset_func=None, field_func=None, fieldset_prefix=None):
+def visit_fields(fields, fieldset_func=None, field_func=None):
     '''
     This function navigates the deeply nested tree structure and runs provided
     functions on each fieldset or field encountered (both optional).
 
-    The function caller should not provide a value for the 'fieldset_prefix' argument,
-    as this is populated automatically as visit_fields recursively descends into
-    the tree.
+    The 'fieldset_func' provided will be called for each field set,
+    with the dictionary containing their details ({'schema_details': {}, 'field_details': {}, 'fields': {}).
 
-    The 'fieldset_func' provided will be called with one argument, the dictionary containing
-    all fieldset details ({'schema_details': {}, 'field_details': {}, 'fields': {}).
-
-    The 'field_func' provided will be called with two arguments:
-    - first is the field details ({'field_details': {}, 'fields': {})
-    - second is the fieldset_namespace, an array used to calculate the full path to the field.
+    The 'field_func' provided will be called for each field, with the dictionary
+    containing the field's details ({'field_details': {}, 'fields': {}).
     '''
     for (name, details) in fields.items():
-        current_fieldset = fieldset
-        if 'schema_details' in details:
-            current_fieldset = details
-            if fieldset_func:
-                fieldset_func(details)
-        else:
-            # We don't apply the same standard on a schema's "field_details" as we do
-            # on actual fields, so this only calls the function on real fields.
-            if field_func and 'field_details' in details:
-                field_func(details, current_fieldset)
+        if fieldset_func and 'schema_details' in details:
+            fieldset_func(details)
+        elif field_func and 'field_details' in details:
+            field_func(details)
         if 'fields' in details:
             visit_fields(details['fields'],
                     fieldset_func=fieldset_func,
-                    field_func=field_func,
-                    fieldset_prefix=fieldset_prefix)
+                    field_func=field_func)
