@@ -132,6 +132,7 @@ def nest_fields(field_array, schema_name):
         nested_schema.setdefault(leaf_field, {})
         # Overwrite 'name' with the leaf field's name. The flat_name is already computed.
         field['path'] = current_path
+        field['leaf_name'] = leaf_field
         nested_schema[leaf_field]['field_details'] = field
     return schema_root
 

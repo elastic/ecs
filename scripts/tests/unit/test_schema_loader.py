@@ -140,6 +140,7 @@ class TestSchemaLoader(unittest.TestCase):
                 'pid': {
                     'field_details': {
                         'name': 'pid',
+                        'leaf_name': 'pid',
                         'path': ['process']
                     }
                 },
@@ -154,6 +155,7 @@ class TestSchemaLoader(unittest.TestCase):
                         'pid': {
                             'field_details': {
                                 'name': 'parent.pid',
+                                'leaf_name': 'pid',
                                 'path': ['process', 'parent']
                             }
                         }
@@ -188,6 +190,7 @@ class TestSchemaLoader(unittest.TestCase):
                                 'name': {
                                     'field_details': {
                                         'name': 'origin.file.name',
+                                        'leaf_name': 'name',
                                         'path': ['log', 'origin', 'file'],
                                     }
                                 }
@@ -236,6 +239,7 @@ class TestSchemaLoader(unittest.TestCase):
                     'message': {
                         'field_details': {
                             'name': 'message',
+                            'leaf_name': 'message',
                             'type': 'keyword',
                             'path': ['base'],
                         }
@@ -252,6 +256,7 @@ class TestSchemaLoader(unittest.TestCase):
                     'pid': {
                         'field_details': {
                             'name': 'pid',
+                            'leaf_name': 'pid',
                             'type': 'keyword',
                             'path': ['process'],
                         }
@@ -268,6 +273,7 @@ class TestSchemaLoader(unittest.TestCase):
                             'pid': {
                                 'field_details': {
                                     'name': 'parent.pid',
+                                    'leaf_name': 'pid',
                                     'type': 'keyword',
                                     'path': ['process', 'parent'],
                                 }
