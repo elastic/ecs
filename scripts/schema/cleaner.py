@@ -3,7 +3,7 @@ import copy
 from generators import ecs_helpers
 
 # This script performs a few cleanup functions in place, within the deeply nested
-# 'fields' structure passed to clean(fields).
+# 'fields' structure passed to `clean(fields)`.
 #
 # What happens here:
 #
@@ -41,6 +41,7 @@ def schema_cleanup(schema):
         schema['schema_details']['prefix'] = ''
     else:
         schema['schema_details']['prefix'] = schema['field_details']['name'] + '.'
+    normalize_reuse_notation(schema)
     # Final validity check
     schema_assertions_and_warnings(schema)
 
@@ -57,11 +58,53 @@ def schema_mandatory_attributes(schema):
         msg = "Schema {} is missing the following mandatory attributes: {}.\nFound these: {}".format(
                 schema['field_details']['name'], ', '.join(missing_attributes), current_schema_attributes)
         raise ValueError(msg)
+    if 'reusable' in schema['schema_details']:
+        reuse_attributes = sorted(schema['schema_details']['reusable'].keys())
+        missing_reuse_attributes = ecs_helpers.list_subtract(['expected', 'top_level'], reuse_attributes)
+        if len(missing_reuse_attributes) > 0:
+            msg = "Reusable schema {} is missing the following reuse attributes: {}.\nFound these: {}".format(
+                    schema['field_details']['name'], ', '.join(missing_reuse_attributes), reuse_attributes)
+            raise ValueError(msg)
 
 
 def schema_assertions_and_warnings(schema):
     '''Additional checks on a fleshed out schema'''
     single_line_short_description(schema)
+
+
+def normalize_reuse_notation(schema):
+    """
+    Replace single word reuse shorthands from the schema YAMLs with the explicit {at: , as:} notation.
+
+    When marking "user" as reusable under "destination" with the shorthand entry
+    `- destination`, this is expanded to the complete entry
+    `- { "at": "destination", "as": "user" }`.
+    The field set is thus nested at `destination.user.*`, with fields such as `destination.user.name`.
+
+    The dictionary notation enables nesting a field set as a different name.
+    An example is nesting "process" fields to capture parent process details
+    at `process.parent.*`.
+    The dictionary notation `- { "at": "process", "as": "parent" }` will yield
+    fields such as `process.parent.pid`.
+    """
+    if 'reusable' not in schema['schema_details']:
+        return
+    schema_name = schema['field_details']['name']
+    reuse_entries = []
+    for reuse_entry in schema['schema_details']['reusable']['expected']:
+        if type(reuse_entry) is dict: # Already explicit
+            if 'at' in reuse_entry and 'as' in reuse_entry:
+                explicit_entry = reuse_entry
+            else:
+                raise ValueError("When specifying reusable expected locations for {} " +
+                                 "with the dictionary notation, keys 'as' and 'at' are required. " +
+                                 "Got {}.".format(schema_name, reuse_entry))
+        else: # Make it explicit
+            explicit_entry = {'at': reuse_entry, 'as': schema_name}
+        explicit_entry['full'] = explicit_entry['at'] + '.' + explicit_entry['as']
+        reuse_entries.append(explicit_entry)
+    schema['schema_details']['reusable']['expected'] = reuse_entries
+
 
 # Field level cleanup
 

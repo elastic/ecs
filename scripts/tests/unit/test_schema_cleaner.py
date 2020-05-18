@@ -73,6 +73,36 @@ class TestSchemaCleaner(unittest.TestCase):
             cleaner.schema_cleanup(schema)
 
 
+    def test_reusable_schema_raises_on_missing_reuse_attributes(self):
+        schema = self.schema_process()['process']
+        schema['schema_details']['reusable'] = {}
+        with self.assertRaisesRegex(ValueError, 'reuse attributes: expected, top_level'):
+            cleaner.schema_mandatory_attributes(schema)
+
+        schema['schema_details']['reusable']['expected'] = ['somewhere']
+        with self.assertRaisesRegex(ValueError, 'reuse attributes: top_level'):
+            cleaner.schema_mandatory_attributes(schema)
+
+        schema['schema_details']['reusable'].pop('expected')
+        schema['schema_details']['reusable']['top_level'] = True
+        with self.assertRaisesRegex(ValueError, 'reuse attributes: expected'):
+            cleaner.schema_mandatory_attributes(schema)
+
+
+    def test_normalize_reuse_notation(self):
+        reuse_locations = ['source', 'destination']
+        pseudo_schema = {
+                'field_details': {'name': 'user'},
+                'schema_details': {'reusable': {'expected': reuse_locations, 'top_level': True }},
+        }
+        expected_reuse = [
+            {'at': 'source', 'as': 'user', 'full': 'source.user'},
+            {'at': 'destination', 'as': 'user', 'full': 'destination.user'},
+        ]
+        cleaner.normalize_reuse_notation(pseudo_schema)
+        self.assertEqual(pseudo_schema['schema_details']['reusable']['expected'], expected_reuse)
+
+
     def test_schema_simple_cleanup(self):
         my_schema = {
             'schema_details': {
