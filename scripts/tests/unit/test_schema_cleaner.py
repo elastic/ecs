@@ -17,12 +17,11 @@ class TestSchemaCleaner(unittest.TestCase):
     def schema_process(self):
         return {
             'process': {
-                'schema_details': { 'title': 'Process' },
+                'schema_details': {'title': 'Process'},
                 'field_details': {
                     'name': 'process',
                     'description': 'Process details',
                     'type': 'group',
-                    # 'path': ['process'],
                 },
                 'fields': {
                     'pid': {
@@ -31,14 +30,12 @@ class TestSchemaCleaner(unittest.TestCase):
                             'type': 'keyword',
                             'description': 'The process ID',
                             'level': 'core',
-                            # 'path': [],
                         }
                     },
                     'parent': {
                         'field_details': {
                             'name': 'parent',
                             'type': 'object',
-                            # 'path': [],
                             'intermediate': True,
                         },
                         'fields': {
@@ -48,7 +45,6 @@ class TestSchemaCleaner(unittest.TestCase):
                                     'level': 'core',
                                     'description': 'The process ID',
                                     'type': 'keyword',
-                                    # 'path': ['parent'],
                                 }
                             }
                         }
@@ -138,7 +134,6 @@ class TestSchemaCleaner(unittest.TestCase):
         self.assertEqual(my_schema['schema_details']['root'], False)
         self.assertEqual(my_schema['schema_details']['group'], 2)
         self.assertEqual(my_schema['schema_details']['prefix'], 'my_schema.')
-        # self.assertEqual(my_schema['field_details']['path'], ['my_schema'])
         self.assertEqual(my_schema['field_details']['type'], 'group')
         self.assertEqual(my_schema['field_details']['short'], 'a nice description')
 
@@ -172,31 +167,12 @@ class TestSchemaCleaner(unittest.TestCase):
                 'level': 'core',
                 'short': " a really short description\n\n",
                 'description': "\ta long\n\nmultiline description   ",
-                # 'path': ['a_fieldset'],
             }
         }
         cleaner.field_cleanup(my_field)
         self.assertEqual(my_field['field_details']['name'], 'my_field')
         self.assertEqual(my_field['field_details']['short'], 'a really short description')
         self.assertEqual(my_field['field_details']['description'], "a long\n\nmultiline description")
-        # self.assertEqual(my_field['field_details']['flat_name'], 'a_fieldset.my_field')
-        # self.assertEqual(my_field['field_details']['dashed_name'], 'a-fieldset-my-field')
-
-
-    # def test_field_precalculated_values(self):
-    #     field_details = {
-    #         'name': 'my_field',
-    #         'path': ['a_fieldset'],
-    #     }
-    #     normal_fieldset = {'schema_details': {'root': False}}
-    #     cleaner.field_precalculated({'field_details': field_details}, normal_fieldset)
-    #     self.assertEqual(field_details['flat_name'], 'a_fieldset.my_field')
-    #     self.assertEqual(field_details['dashed_name'], 'a-fieldset-my-field')
-
-    #     root_fieldset = {'schema_details': {'root': True}}
-    #     cleaner.field_precalculated({'field_details': field_details}, root_fieldset)
-    #     self.assertEqual(field_details['flat_name'], 'my_field')
-    #     self.assertEqual(field_details['dashed_name'], 'my-field')
 
 
     def test_field_defaults(self):
@@ -205,7 +181,6 @@ class TestSchemaCleaner(unittest.TestCase):
             'level': 'extended',
             'name': 'my_field',
             'type': 'unknown',
-            # 'path': ['a_fieldset'],
         }
         # Note: unknown datatypes simply don't have defaults (for future proofing)
         field_details = field_min_details.copy()
