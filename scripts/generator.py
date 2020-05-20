@@ -3,6 +3,7 @@ import glob
 import os
 import schema_reader
 import yaml
+import json
 
 from generators import intermediate_files
 from generators import csv_generator
@@ -73,7 +74,13 @@ def main():
         exit()
 
     csv_generator.generate(flat, ecs_version, out_dir)
-    es_template.generate(flat, ecs_version, out_dir)
+    custom_template_settings = None
+    if args.template_settings:
+        custom_template_settings = json.load(open(args.template_settings))
+    custom_mapping_settings = None
+    if args.mapping_settings:
+        custom_mapping_settings = json.load(open(args.mapping_settings))
+    es_template.generate(flat, ecs_version, out_dir, custom_template_settings, custom_mapping_settings)
     beats.generate(nested, ecs_version, out_dir)
     if args.include or args.subset:
         exit()
@@ -90,6 +97,10 @@ def argument_parser():
                         help='render a subset of the schema')
     parser.add_argument('--out', action='store', help='directory to store the generated files')
     parser.add_argument('--ref', action='store', help='git reference to use when building schemas')
+    parser.add_argument('--template-settings', action='store',
+                        help='index template settings to use when generating elasticsearch template')
+    parser.add_argument('--mapping-settings', action='store',
+                        help='mapping settings to use when generating elasticsearch template')
     return parser.parse_args()
 
 
