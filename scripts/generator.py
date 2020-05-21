@@ -74,13 +74,7 @@ def main():
         exit()
 
     csv_generator.generate(flat, ecs_version, out_dir)
-    custom_template_settings = None
-    if args.template_settings:
-        custom_template_settings = json.load(open(args.template_settings))
-    custom_mapping_settings = None
-    if args.mapping_settings:
-        custom_mapping_settings = json.load(open(args.mapping_settings))
-    es_template.generate(flat, ecs_version, out_dir, custom_template_settings, custom_mapping_settings)
+    es_template.generate(flat, ecs_version, out_dir, args.template_settings, args.mapping_settings)
     beats.generate(nested, ecs_version, out_dir)
     if args.include or args.subset:
         exit()

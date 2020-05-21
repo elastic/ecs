@@ -6,20 +6,23 @@ from os.path import join
 from generators import ecs_helpers
 
 
-def generate(ecs_flat, ecs_version, out_dir, custom_template_settings, custom_mapping_settings):
+def generate(ecs_flat, ecs_version, out_dir, template_settings_file, mapping_settings_file):
     field_mappings = {}
     for flat_name in sorted(ecs_flat):
         field = ecs_flat[flat_name]
         nestings = flat_name.split('.')
         dict_add_nested(field_mappings, nestings, entry_for(field))
 
-    mappings_section = default_mapping_settings(
-        ecs_version) if custom_mapping_settings is None else custom_mapping_settings
+    if mapping_settings_file:
+        with open(mapping_settings_file) as f:
+            mappings_section = json.load(f)
+    else:
+        mappings_section = default_mapping_settings(ecs_version)
 
     mappings_section['properties'] = field_mappings
 
-    generate_template_version(6, mappings_section, out_dir, custom_template_settings)
-    generate_template_version(7, mappings_section, out_dir, custom_template_settings)
+    generate_template_version(6, mappings_section, out_dir, template_settings_file)
+    generate_template_version(7, mappings_section, out_dir, template_settings_file)
 
 # Field mappings
 
@@ -69,9 +72,13 @@ def entry_for(field):
 # Generated files
 
 
-def generate_template_version(elasticsearch_version, mappings_section, out_dir, custom_template_settings):
+def generate_template_version(elasticsearch_version, mappings_section, out_dir, template_settings_file):
     ecs_helpers.make_dirs(join(out_dir, 'elasticsearch', str(elasticsearch_version)))
-    template = default_template_settings() if custom_template_settings is None else copy.deepcopy(custom_template_settings)
+    if template_settings_file:
+        with open(template_settings_file) as f:
+            template = json.load(f)
+    else:
+        template = default_template_settings()
     if elasticsearch_version == 6:
         template['mappings'] = {'_doc': mappings_section}
     else:
