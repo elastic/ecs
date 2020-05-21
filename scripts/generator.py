@@ -3,7 +3,6 @@ import glob
 import os
 import schema_reader
 import yaml
-import json
 
 from generators import intermediate_files
 from generators import csv_generator
