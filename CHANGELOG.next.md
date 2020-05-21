@@ -62,6 +62,7 @@ Thanks, you're awesome :-) -->
 * Add full path names to reused fieldsets in `nestings` array in `ecs_nested.yml`. #803
 * Allow shorthand notation for including all subfields in subsets. #805
 * Add `ref` option to generator allowing schemas to be built for a specific ECS version. #851
+* Add `template-settings` and `mapping-settings` options to allow override of defaults in generated ES templates. #856
 
 #### Deprecated
 

@@ -73,7 +73,7 @@ def main():
         exit()
 
     csv_generator.generate(flat, ecs_version, out_dir)
-    es_template.generate(flat, ecs_version, out_dir)
+    es_template.generate(flat, ecs_version, out_dir, args.template_settings, args.mapping_settings)
     beats.generate(nested, ecs_version, out_dir)
     if args.include or args.subset:
         exit()
@@ -90,6 +90,10 @@ def argument_parser():
                         help='render a subset of the schema')
     parser.add_argument('--out', action='store', help='directory to store the generated files')
     parser.add_argument('--ref', action='store', help='git reference to use when building schemas')
+    parser.add_argument('--template-settings', action='store',
+                        help='index template settings to use when generating elasticsearch template')
+    parser.add_argument('--mapping-settings', action='store',
+                        help='mapping settings to use when generating elasticsearch template')
     return parser.parse_args()
 
 
