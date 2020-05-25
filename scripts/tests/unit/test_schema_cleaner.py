@@ -89,11 +89,24 @@ class TestSchemaCleaner(unittest.TestCase):
         reuse_locations = ['source', 'destination']
         pseudo_schema = {
                 'field_details': {'name': 'user'},
-                'schema_details': {'reusable': {'expected': reuse_locations, 'top_level': True }},
+                'schema_details': {'reusable': {'expected': reuse_locations}},
         }
         expected_reuse = [
             {'at': 'source', 'as': 'user', 'full': 'source.user'},
             {'at': 'destination', 'as': 'user', 'full': 'destination.user'},
+        ]
+        cleaner.normalize_reuse_notation(pseudo_schema)
+        self.assertEqual(pseudo_schema['schema_details']['reusable']['expected'], expected_reuse)
+
+
+    def test_already_normalized_reuse_notation(self):
+        reuse_locations = [{'at': 'process', 'as': 'parent'}]
+        pseudo_schema = {
+                'field_details': {'name': 'process'},
+                'schema_details': {'reusable': {'expected': reuse_locations}},
+        }
+        expected_reuse = [
+            {'at': 'process', 'as': 'parent', 'full': 'process.parent'},
         ]
         cleaner.normalize_reuse_notation(pseudo_schema)
         self.assertEqual(pseudo_schema['schema_details']['reusable']['expected'], expected_reuse)
