@@ -4,12 +4,12 @@ import pprint
 # This script takes the fleshed out deeply nested fields dictionary as emitted by
 # cleaner.py, and performs field reuse in two phases.
 #
-# The first phase performs field reuse across field sets. E.g. `group` fields should also be under `user`.
+# Phase 1 performs field reuse across field sets. E.g. `group` fields should also be under `user`.
 # This type of reuse is then carried around if the receiving field set is also reused.
 # In other words, user.group.* will be in other places where user is nested:
 # source.user.* will contain source.user.group.*
 
-# The second phase performs field reuse where field sets are reused within themselves, with a different name.
+# Phase 2 performs field reuse where field sets are reused within themselves, with a different name.
 # Examples are nesting `process` within itself, as `process.parent.*`,
 # or nesting `user` within itself at `user.target.*`.
 # This second kind of nesting is not carried around everywhere else the receiving field set is reused.
@@ -19,49 +19,55 @@ import pprint
 # constructs a completely new copy.
 
 def finalize(fields):
-    self_nestings = []
-    # reuse_per_destination = {}
-    # self_nestings = {}
-    # foreign_nestings = {}
-    for schema_name, details in fields.items():
-        if not 'reusable' in details['schema_details']:
+    perform_reuse(fields)
+    calculate_final_values(fields)
+
+
+def perform_reuse(fields):
+    self_nestings = {}
+    for schema_name, schema in fields.items():
+        if not 'reusable' in schema['schema_details']:
             continue
-        expected = details['schema_details']['reusable']['expected']
-        for reuse_entry in expected:
+        # Phase 1: foreign nesting
+        for reuse_entry in schema['schema_details']['reusable']['expected']:
             destination_fs = reuse_entry['full'].split('.')[0]
             if destination_fs == schema_name:
-                self_nestings.extend(reuse_entry)
-                # self_nestings.setdefault(schema_name, {})
-                # self_nestings[schema_name][reuse_entry['as']] = reuse_entry
+                # Simply accumulate self-nestings for phase 2.
+                self_nestings.setdefault(destination_fs, [])
+                self_nestings[destination_fs].extend([reuse_entry])
             else:
-                nest_at(reuse_entry, details, fields)
-                # foreign_nestings.setdefault(destination_fs, {})
-                # foreign_nestings[destination_fs][schema_name] = reuse_entry
+                destination_fields = field_group_at_path(reuse_entry['at'], fields)
+                schema_name = schema['field_details']['name']
+                # Copying everything except the original schema_details.
+                # Note that we don't deepcopy those, in order for multiple nestings
+                # to all work out, no matter the order we perform them
+                # (group => user, then user along with user.group => other places)
+                destination_fields[schema_name] = {
+                    'field_details': schema['field_details'],
+                    'fields': schema['fields'],
+                    # 'reused_fields': True
+                }
+            fields[destination_fs]['schema_details'].setdefault('nestings', [])
+            fields[destination_fs]['schema_details']['nestings'].extend([reuse_entry['full']])
+    # Phase 2: self-nesting
+    for schema_name, reuse_entries in self_nestings.items():
+        schema = fields[schema_name]
+        # The fields that end up inside a field set with self-reuse (e.g. user.target.*)
+        # must be a different copy than the fields that are
+        # potentially nested elsewhere (e.g. what's at server.user.*).
+        # So we self-nest inside a detached copy, then put this detached copy
+        # back as the original field set's fields.
+        detached_fields = copy.deepcopy(schema['fields'])
+        for reuse_entry in reuse_entries:
+            detached_fields[reuse_entry['as']] = {
+                    'field_details': schema['field_details'],
+                    'fields': schema['fields'],
+                    # 'reused_fields': True
+                }
+        fields[destination_fs]['fields'] = detached_fields
 
-            # reuse_per_destination.setdefault(destination_fs, [])
-            # reuse_per_destination[destination_fs].extend([schema_name])
 
-    # print("\n", "Per destination")
-    # pprint.pprint(reuse_per_destination)
-    # print("\n", "Self nestings")
-    # pprint.pprint(self_nestings)
-    # print("\n", "Foreign nestings")
-    # pprint.pprint(foreign_nestings)
-    return fields
-
-
-def nest_at(reuse_entry, details, fields):
-    nest_at = reuse_entry['at']
-    nest_as = reuse_entry['as']
-    # parent_fields = nest_at.split('.')
-    destination = field_group_at_path(nest_at, fields)
-
-    # receiving_fieldset = parent_fields[0]
-    # # Copying everything except the original schema_details
-    # fields = {
-    #     'field_details': details['field_details'],
-    #     'fields': details['fields'],
-    # }
+# def calculate_final_values(fields):
 
 
 def field_group_at_path(dotted_path, fields):
@@ -73,6 +79,10 @@ def field_group_at_path(dotted_path, fields):
             raise ValueError("Field {} not found, failed to find {}".format(dotted_path, next_field))
         nesting = field.get('fields', None)
         if not nesting:
-            raise ValueError("Field {} is not a field group and doesn't have sub-fields".format(
-                dotted_path, next_field))
+            field_type = field['field_details']['type']
+            if field_type in ['object', 'group', 'nested']:
+                nesting = field['fields'] = {}
+            else:
+                raise ValueError("Field {} (type {}) already exists and cannot have nested fields".format(
+                    dotted_path, field_type))
     return nesting
