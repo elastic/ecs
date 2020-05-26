@@ -105,38 +105,6 @@ The [schemas](schemas) directory contains the files which define the Elastic Com
 
 Users consuming ECS to generate something for other use cases should use the `generated/ecs/*.yml` files. More detail can be found [here](generated/README.md).
 
-An excerpt from the [agent](schemas/agent.yml) schema file:
-
-```yaml
-- name: agent
-  title: Agent
-  group: 2
-  description: >
-    The agent fields contain the data about the software entity, if any, that collects, detects, or observes events on a host, or takes measurements on a host. Examples include Beats. Agents may also run on observers. ECS agent.* fields shall be populated with details of the agent running on the host or observer where the event happened or the measurement was taken.
-  footnote: >
-    Examples: In the case of Beats for logs, the agent.name is filebeat. For APM, it is the
-    agent running in the app/service. The agent information does not change if
-    data is sent through queuing systems like Kafka, Redis, or processing systems
-    such as Logstash or APM Server.
-  type: group
-  fields:
-
-    - name: version
-      level: core
-      type: keyword
-      description: >
-        Version of the agent.
-
-      example: 6.0.0-rc2
-```
-
-Each prefix has its own file. The fields for each prefix are stored in the file. `title` and `description` describe the prefix. `footnote` adds more information following the field table. `level` is for sorting in the documentation output.
-
-In the `fields` section, the `name` of the field is the first entry.
-The `type` is the [Elasticsearch field type](https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-types.html).
-`description` adds details about the field.
-`example` adds an sample value.
-
 ## Additional Resources
 
 * [ECS Guidelines and Best Practices](https://www.elastic.co/guide/en/ecs/current/ecs-guidelines.html)
