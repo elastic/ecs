@@ -92,24 +92,40 @@ class TestSchemaFinalizer(unittest.TestCase):
             }
         }
 
+    # calculate_final_values
+
+
+    def test_calculate_final_values_makes_nested_fields_fully_independent(self):
+        fields = {**self.schema_user(), **self.schema_server()}
+        finalizer.perform_reuse(fields)
+        finalizer.calculate_final_values(fields)
+
+    # perform_reuse
+
 
     def test_perform_reuse_with_foreign_reuse_and_self_reuse(self):
         fields = {**self.schema_user(), **self.schema_server(), **self.schema_process()}
+        # If the test had multiple foreign destinations for user fields, we could compare them instead
+        user_fields_identity = id(fields['user']['fields'])
         finalizer.perform_reuse(fields)
         # Expected reuse
-        self.assertIn('target', fields['user']['fields'].keys())
-        self.assertIn('effective', fields['user']['fields'].keys())
-        self.assertIn('user', fields['server']['fields'].keys())
-        self.assertIn('parent', fields['process']['fields'].keys())
+        self.assertIn('target', fields['user']['fields'])
+        self.assertIn('effective', fields['user']['fields'])
+        self.assertIn('user', fields['server']['fields'])
+        self.assertIn('parent', fields['process']['fields'])
+        # Only foreign reuse copies fields by reference
+        self.assertTrue(fields['server']['fields']['user']['referenced_fields'])
+        self.assertEqual(id(fields['server']['fields']['user']['fields']), user_fields_identity)
+        self.assertNotIn('referenced_fields', fields['user']['fields']['target'])
         # Leaf field sanity checks for reuse
-        self.assertIn('name', fields['user']['fields']['target']['fields'].keys())
-        self.assertIn('name', fields['user']['fields']['effective']['fields'].keys())
-        self.assertIn('name', fields['server']['fields']['user']['fields'].keys())
-        self.assertIn('pid', fields['process']['fields']['parent']['fields'].keys())
+        self.assertIn('name', fields['user']['fields']['target']['fields'])
+        self.assertIn('name', fields['user']['fields']['effective']['fields'])
+        self.assertIn('name', fields['server']['fields']['user']['fields'])
+        self.assertIn('pid', fields['process']['fields']['parent']['fields'])
         # No unexpected cross-nesting
-        self.assertNotIn('target', fields['user']['fields']['target']['fields'].keys())
-        self.assertNotIn('target', fields['user']['fields']['effective']['fields'].keys())
-        self.assertNotIn('target', fields['server']['fields']['user']['fields'].keys())
+        self.assertNotIn('target', fields['user']['fields']['target']['fields'])
+        self.assertNotIn('target', fields['user']['fields']['effective']['fields'])
+        self.assertNotIn('target', fields['server']['fields']['user']['fields'])
 
 
     # field_group_at_path
