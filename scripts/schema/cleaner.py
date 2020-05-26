@@ -1,6 +1,7 @@
 import copy
 
 from generators import ecs_helpers
+from schema import visitor
 
 # This script performs a few cleanup functions in place, within the deeply nested
 # 'fields' structure passed to `clean(fields)`.
@@ -18,8 +19,7 @@ from generators import ecs_helpers
 # deal with final field names either.
 
 def clean(fields):
-    visit_fields(fields, fieldset_func=schema_cleanup, field_func=field_cleanup)
-    return fields
+    visitor.visit_fields(fields, fieldset_func=schema_cleanup, field_func=field_cleanup)
 
 
 # Schema level cleanup
@@ -169,7 +169,7 @@ def field_assertions_and_warnings(field):
                     ACCEPTABLE_FIELD_LEVELS)
             raise ValueError(msg)
 
-# Common stuff
+# Common
 
 
 def single_line_short_description(schema_or_field):
@@ -177,25 +177,3 @@ def single_line_short_description(schema_or_field):
         msg = ("Short descriptions must be single line.\n" +
             "Fieldset: '{}'\n{}".format(schema_or_field['field_details']['name'], schema_or_field))
         raise ValueError(msg)
-
-
-def visit_fields(fields, fieldset_func=None, field_func=None):
-    '''
-    This function navigates the deeply nested tree structure and runs provided
-    functions on each fieldset or field encountered (both optional).
-
-    The 'fieldset_func' provided will be called for each field set,
-    with the dictionary containing their details ({'schema_details': {}, 'field_details': {}, 'fields': {}).
-
-    The 'field_func' provided will be called for each field, with the dictionary
-    containing the field's details ({'field_details': {}, 'fields': {}).
-    '''
-    for (name, details) in fields.items():
-        if fieldset_func and 'schema_details' in details:
-            fieldset_func(details)
-        elif field_func and 'field_details' in details:
-            field_func(details)
-        if 'fields' in details:
-            visit_fields(details['fields'],
-                    fieldset_func=fieldset_func,
-                    field_func=field_func)
