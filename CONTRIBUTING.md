@@ -37,22 +37,22 @@ You need these tools to contribute to ECS:
 * Create a local branch to hold your changes.
   - Run `git checkout -b branch-name`, where `branch-name` is the name you want to give your local branch
 * Do your work.
-  - Schema changes will be done in the `.yml` files under the `schemas` directory.
-  - Generator scripts and other tooling resides in the `scripts` directory.
+  - Schema changes will be done in the `.yml` files under the `schemas` directory. Review the [Schema Files](#schema-files) section below.
+  - Generator scripts and other tooling reside in the `scripts` directory.
   - Generated artifacts fall under the `generated` directory.
+  - Documentation files are located in the `docs` directory.
 * Run `make` to update generated files.
-  - Note that the README.md file is generated, and should not be edited directly. Source files are in the /docs directory.
 * If necessary, make sure tests pass.
-  - `make check`
+  - Run `make test`
   - Add tests for your changes, if necessary
 * Commit your changes locally.
   - Run `git commit -a -m "your message"`
 * Push your changes to your own github.com fork.
   - Run `git push --set-upstream origin branch-name`
   - In this command, `origin` is an alias that references your fork.
-* Request feedback and permission to merge your changes.
+* Request feedback about your changes.
   - Create a [Pull Request](https://help.github.com/articles/creating-a-pull-request/) against the ECS repo.
-  - (Look for the `Compare & pull request` button on your branch in github.com.)
+    - (Look for the `Compare & pull request` button on your branch in github.com.)
   - Wait for reviews on your PR.
   - Incorporate review comments and push updates if needed.
 * Thank you for your contribution!
@@ -81,7 +81,7 @@ Please follow these guidelines when submitting PRs:
 
 ### Issues
 
-Please follow these guidlines when submitting Issues:
+Please follow these guidelines when submitting Issues:
 
 * Go to the ECS repo: https://github.com/elastic/ecs
 * Click `Issues` in the nav bar under the repo name.
@@ -101,13 +101,13 @@ make docs
 
 ## Schema Files
 
-The `fields.yml` files describe the Elastic Common Schema in a structured way. We can use these files to generate an Elasticsearch index template, a Kibana index pattern, or documentation output.
+The [schemas](schemas) directory contains the files which define the Elastic Common Schema data model. The file structure is documented in [schemas/README.md](schemas). Field additions and modifications will be made to the `schemas/*.yml` files.
 
-The file structure is documented in [schemas/README.md](schemas).
+Users consuming ECS to generate something for other use cases should use the `generated/ecs/*.yml` files. More detail can be found [here](generated/README.md).
 
-It looks similar to this:
+An excerpt from the [agent](schemas/agent.yml) schema file:
 
-```
+```yaml
 - name: agent
   title: Agent
   group: 2
