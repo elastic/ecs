@@ -40,11 +40,14 @@ def perform_reuse(fields):
             else:
                 destination_fields = field_group_at_path(reuse_entry['at'], fields)
                 # Copying everything except the original schema_details.
-                # Note that we don't deepcopy those, in order for multiple nestings
-                # to all work out, no matter the order we perform them
-                # (group => user, then user along with user.group => other places)
+                # Note that we don't deepcopy the fields yet,
+                # in order for chained nestings to all work out,
+                # no matter the order we perform them
+                # (group => user, then user comes along with user.group => other places)
+                new_field_details = copy.deepcopy(schema['field_details'])
+                new_field_details['original_fieldset'] = schema_name
                 destination_fields[schema_name] = {
-                    'field_details': copy.deepcopy(schema['field_details']),
+                    'field_details': new_field_details,
                     'fields': schema['fields'],
                     'referenced_fields': True
                 }
@@ -62,6 +65,7 @@ def perform_reuse(fields):
             nest_as = reuse_entry['as']
             new_field_details = copy.deepcopy(schema['field_details'])
             new_field_details['name'] = nest_as
+            new_field_details['original_fieldset'] = schema_name
             detached_fields[nest_as] = {
                     'field_details': new_field_details,
                     'fields': copy.deepcopy(schema['fields']),

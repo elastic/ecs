@@ -110,27 +110,30 @@ class TestSchemaFinalizer(unittest.TestCase):
 
     def test_perform_reuse_with_foreign_reuse_and_self_reuse(self):
         fields = {**self.schema_user(), **self.schema_server(), **self.schema_process()}
-        # If the test had multiple foreign destinations for user fields, we could compare them instead
-        user_fields_identity = id(fields['user']['fields'])
+        # If the test had multiple foreign destinations for user fields, we could compare them together instead
+        original_user_fields_identity = id(fields['user']['fields'])
         finalizer.perform_reuse(fields)
+        process_fields = fields['process']['fields']
+        server_fields = fields['server']['fields']
+        user_fields = fields['user']['fields']
         # Expected reuse
-        self.assertIn('target', fields['user']['fields'])
-        self.assertIn('effective', fields['user']['fields'])
-        self.assertIn('user', fields['server']['fields'])
-        self.assertIn('parent', fields['process']['fields'])
+        self.assertIn('parent', process_fields)
+        self.assertIn('user', server_fields)
+        self.assertIn('target', user_fields)
+        self.assertIn('effective', user_fields)
         # Only foreign reuse copies fields by reference
-        self.assertTrue(fields['server']['fields']['user']['referenced_fields'])
-        self.assertEqual(id(fields['server']['fields']['user']['fields']), user_fields_identity)
-        self.assertNotIn('referenced_fields', fields['user']['fields']['target'])
+        self.assertTrue(server_fields['user']['referenced_fields'])
+        self.assertEqual(id(server_fields['user']['fields']), original_user_fields_identity)
+        self.assertNotIn('referenced_fields', user_fields['target'])
         # Leaf field sanity checks for reuse
-        self.assertIn('name', fields['user']['fields']['target']['fields'])
-        self.assertIn('name', fields['user']['fields']['effective']['fields'])
-        self.assertIn('name', fields['server']['fields']['user']['fields'])
-        self.assertIn('pid', fields['process']['fields']['parent']['fields'])
+        self.assertIn('name', user_fields['target']['fields'])
+        self.assertIn('name', user_fields['effective']['fields'])
+        self.assertIn('name', server_fields['user']['fields'])
+        self.assertIn('pid', process_fields['parent']['fields'])
         # No unexpected cross-nesting
-        self.assertNotIn('target', fields['user']['fields']['target']['fields'])
-        self.assertNotIn('target', fields['user']['fields']['effective']['fields'])
-        self.assertNotIn('target', fields['server']['fields']['user']['fields'])
+        self.assertNotIn('target', user_fields['target']['fields'])
+        self.assertNotIn('target', user_fields['effective']['fields'])
+        self.assertNotIn('target', server_fields['user']['fields'])
         # Legacy nestings at host schema level
         self.assertIn('process.parent', fields['process']['schema_details']['nestings'])
         self.assertIn('user.effective', fields['user']['schema_details']['nestings'])
@@ -145,6 +148,12 @@ class TestSchemaFinalizer(unittest.TestCase):
                 fields['user']['schema_details']['reused_here'])
         self.assertIn({'full':'server.user','schema_name':'user'},
                 fields['server']['schema_details']['reused_here'])
+        # Reused fields have an indication they're reused
+        self.assertEqual(process_fields['parent']['field_details']['original_fieldset'], 'process')
+        self.assertEqual(server_fields['user']['field_details']['original_fieldset'], 'user')
+        # Not yet doing leaf fields
+        # self.assertEqual(process_fields['parent']['fields']['pid']['field_details']['original_fieldset'], 'process')
+        # self.assertEqual(server_fields['user']['fields']['name']['field_details']['original_fieldset'], 'user')
 
 
     # field_group_at_path
