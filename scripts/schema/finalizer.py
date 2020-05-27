@@ -32,14 +32,13 @@ def perform_reuse(fields):
             continue
         # Phase 1: foreign nesting
         for reuse_entry in schema['schema_details']['reusable']['expected']:
-            destination_fs = reuse_entry['full'].split('.')[0]
-            if destination_fs == schema_name:
+            destination_schema_name = reuse_entry['full'].split('.')[0]
+            if destination_schema_name == schema_name:
                 # Simply accumulate self-nestings for phase 2.
-                self_nestings.setdefault(destination_fs, [])
-                self_nestings[destination_fs].extend([reuse_entry])
+                self_nestings.setdefault(destination_schema_name, [])
+                self_nestings[destination_schema_name].extend([reuse_entry])
             else:
                 destination_fields = field_group_at_path(reuse_entry['at'], fields)
-                schema_name = schema['field_details']['name']
                 # Copying everything except the original schema_details.
                 # Note that we don't deepcopy those, in order for multiple nestings
                 # to all work out, no matter the order we perform them
@@ -49,8 +48,7 @@ def perform_reuse(fields):
                     'fields': schema['fields'],
                     'referenced_fields': True
                 }
-            fields[destination_fs]['schema_details'].setdefault('nestings', [])
-            fields[destination_fs]['schema_details']['nestings'].extend([reuse_entry['full']])
+            append_reused_here(schema_name, reuse_entry, fields[destination_schema_name])
     # Phase 2: self-nesting
     for schema_name, reuse_entries in self_nestings.items():
         schema = fields[schema_name]
@@ -69,6 +67,16 @@ def perform_reuse(fields):
                     'fields': copy.deepcopy(schema['fields']),
                 }
         fields[schema_name]['fields'] = detached_fields
+
+
+def append_reused_here(reused_schema_name, reuse_entry, destination_schema):
+    # Legacy, too limited
+    destination_schema['schema_details'].setdefault('nestings', [])
+    destination_schema['schema_details']['nestings'].extend([reuse_entry['full']])
+    # New roomier way: we could eventually include contextual description here
+    destination_schema['schema_details'].setdefault('reused_here', [])
+    reused_here_entry = {'schema_name': reused_schema_name, 'full':reuse_entry['full']}
+    destination_schema['schema_details']['reused_here'].extend([reused_here_entry])
 
 
 def field_group_at_path(dotted_path, fields):
@@ -97,7 +105,6 @@ def calculate_final_values(fields):
 def field_finalizer(details, path):
     # leaf_name not always populated
     leaf_name = details['field_details']['name'].split('.')[-1]
-    print(path + [leaf_name])
     # Copy referenced fields before we start modifying them
     if 'referenced_fields' in details:
         details['fields'] = copy.deepcopy(details['fields'])

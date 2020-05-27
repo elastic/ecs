@@ -17,7 +17,16 @@ class TestSchemaFinalizer(unittest.TestCase):
     def schema_process(self):
         return {
             'process': {
-                'schema_details': {'title': 'Process'},
+                'schema_details': {
+                    'title': 'Process',
+                    'root': False,
+                    'reusable':{
+                        'top_level': True,
+                        'expected': [
+                            {'full': 'process.parent', 'at': 'process', 'as': 'parent'},
+                        ]
+                    }
+                },
                 'field_details': {
                     'name': 'process',
                 },
@@ -27,16 +36,11 @@ class TestSchemaFinalizer(unittest.TestCase):
                             'name': 'pid',
                         }
                     },
-                    'parent': {
-                        'field_details': {
-                            'name': 'parent',
-                            'intermediate': True,
-                        },
+                    'thread': {
+                        'field_details': {'name': 'thread'},
                         'fields': {
-                            'pid': {
-                                'field_details': {
-                                    'name': 'parent.pid',
-                                }
+                            'id': {
+                                'field_details': {'name': 'thread.id'}
                             }
                         }
                     }
@@ -49,6 +53,7 @@ class TestSchemaFinalizer(unittest.TestCase):
         return {
             'user': {
                 'schema_details': {
+                    'root': False,
                     'reusable':{
                         'top_level': True,
                         'expected': [
@@ -76,7 +81,7 @@ class TestSchemaFinalizer(unittest.TestCase):
     def schema_server(self):
         return {
             'server': {
-                'schema_details': {},
+                'schema_details': {'root': False},
                 'field_details': {
                     'name': 'server',
                     'type': 'group'
@@ -126,6 +131,20 @@ class TestSchemaFinalizer(unittest.TestCase):
         self.assertNotIn('target', fields['user']['fields']['target']['fields'])
         self.assertNotIn('target', fields['user']['fields']['effective']['fields'])
         self.assertNotIn('target', fields['server']['fields']['user']['fields'])
+        # Legacy nestings at host schema level
+        self.assertIn('process.parent', fields['process']['schema_details']['nestings'])
+        self.assertIn('user.effective', fields['user']['schema_details']['nestings'])
+        self.assertIn('user.target', fields['user']['schema_details']['nestings'])
+        self.assertIn('server.user', fields['server']['schema_details']['nestings'])
+        # New nested_here at host schema level
+        self.assertIn({'full':'process.parent','schema_name':'process'},
+                fields['process']['schema_details']['reused_here'])
+        self.assertIn({'full':'user.effective','schema_name':'user'},
+                fields['user']['schema_details']['reused_here'])
+        self.assertIn({'full':'user.target','schema_name':'user'},
+                fields['user']['schema_details']['reused_here'])
+        self.assertIn({'full':'server.user','schema_name':'user'},
+                fields['server']['schema_details']['reused_here'])
 
 
     # field_group_at_path
@@ -140,10 +159,10 @@ class TestSchemaFinalizer(unittest.TestCase):
 
     def test_field_group_at_path_find_nested_destination(self):
         all_fields = self.schema_process()
-        fields = finalizer.field_group_at_path('process.parent', all_fields)
-        self.assertIn('pid', fields.keys(),
-                "should return the dictionary of process.parent fields")
-        self.assertEqual('parent.pid', fields['pid']['field_details']['name'])
+        fields = finalizer.field_group_at_path('process.thread', all_fields)
+        self.assertIn('id', fields.keys(),
+                "should return the dictionary of process.thread fields")
+        self.assertEqual('thread.id', fields['id']['field_details']['name'])
 
 
     def test_field_group_at_path_missing_nested_path(self):
