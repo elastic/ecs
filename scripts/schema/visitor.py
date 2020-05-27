@@ -3,10 +3,13 @@ def visit_fields(fields, fieldset_func=None, field_func=None):
     This function navigates the deeply nested tree structure and runs provided
     functions on each fieldset or field encountered (both optional).
 
-    The 'fieldset_func' provided will be called for each field set,
+    The argument 'fields' should be at the named field grouping level:
+    {'name': {'schema_details': {}, 'field_details': {}, 'fields': {}}
+
+    The 'fieldset_func(details)' provided will be called for each field set,
     with the dictionary containing their details ({'schema_details': {}, 'field_details': {}, 'fields': {}).
 
-    The 'field_func' provided will be called for each field, with the dictionary
+    The 'field_func(details)' provided will be called for each field, with the dictionary
     containing the field's details ({'field_details': {}, 'fields': {}).
     '''
     for (name, details) in fields.items():

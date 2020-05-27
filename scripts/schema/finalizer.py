@@ -45,6 +45,7 @@ def perform_reuse(fields):
                 # no matter the order we perform them
                 # (group => user, then user comes along with user.group => other places)
                 new_field_details = copy.deepcopy(schema['field_details'])
+                # Since nested fields are by reference, 'original_fieldset' is populated later for them
                 new_field_details['original_fieldset'] = schema_name
                 destination_fields[schema_name] = {
                     'field_details': new_field_details,
@@ -65,11 +66,12 @@ def perform_reuse(fields):
             nest_as = reuse_entry['as']
             new_field_details = copy.deepcopy(schema['field_details'])
             new_field_details['name'] = nest_as
-            new_field_details['original_fieldset'] = schema_name
             detached_fields[nest_as] = {
                     'field_details': new_field_details,
                     'fields': copy.deepcopy(schema['fields']),
                 }
+            # Detached fields can all have original_fieldset populated immediately
+            set_original_fieldset(detached_fields, schema_name)
         fields[schema_name]['fields'] = detached_fields
 
 
@@ -81,6 +83,13 @@ def append_reused_here(reused_schema_name, reuse_entry, destination_schema):
     destination_schema['schema_details'].setdefault('reused_here', [])
     reused_here_entry = {'schema_name': reused_schema_name, 'full':reuse_entry['full']}
     destination_schema['schema_details']['reused_here'].extend([reused_here_entry])
+
+
+def set_original_fieldset(fields, original_fieldset):
+    def func(details):
+        # Don't override if already set (e.g. 'group' for user.group.* fields)
+        details['field_details'].setdefault('original_fieldset', original_fieldset)
+    visitor.visit_fields(fields, field_func=func)
 
 
 def field_group_at_path(dotted_path, fields):
@@ -103,7 +112,6 @@ def field_group_at_path(dotted_path, fields):
 
 def calculate_final_values(fields):
     visitor.visit_fields_with_path(fields, field_finalizer)
-    return
 
 
 def field_finalizer(details, path):
@@ -112,11 +120,8 @@ def field_finalizer(details, path):
     # Copy referenced fields before we start modifying them
     if 'referenced_fields' in details:
         details['fields'] = copy.deepcopy(details['fields'])
+        set_original_fieldset(details['fields'], details['field_details']['original_fieldset'])
         details.pop('referenced_fields')
     flat_name = '.'.join(path + [leaf_name])
     details['field_details']['flat_name'] = flat_name
     details['field_details']['dashed_name'] = flat_name.replace('.', '-').replace('_', '-')
-
-
-# def field_print(details, path):
-#     print(details['field_details']['name'], path, details)

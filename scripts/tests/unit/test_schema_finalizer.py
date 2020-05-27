@@ -14,6 +14,27 @@ class TestSchemaFinalizer(unittest.TestCase):
         self.maxDiff = None
 
 
+    def schema_base(self):
+        return {
+            'base': {
+                'schema_details': {
+                    'title': 'Base',
+                    'root': True,
+                },
+                'field_details': {
+                    'name': 'base',
+                },
+                'fields': {
+                    '@timestamp': {
+                        'field_details': {
+                            'name': '@timestamp',
+                        }
+                    },
+                }
+            }
+        }
+
+
     def schema_process(self):
         return {
             'process': {
@@ -97,14 +118,6 @@ class TestSchemaFinalizer(unittest.TestCase):
             }
         }
 
-    # calculate_final_values
-
-
-    def test_calculate_final_values_makes_nested_fields_fully_independent(self):
-        fields = {**self.schema_user(), **self.schema_server()}
-        finalizer.perform_reuse(fields)
-        finalizer.calculate_final_values(fields)
-
     # perform_reuse
 
 
@@ -149,11 +162,52 @@ class TestSchemaFinalizer(unittest.TestCase):
         self.assertIn({'full':'server.user','schema_name':'user'},
                 fields['server']['schema_details']['reused_here'])
         # Reused fields have an indication they're reused
-        self.assertEqual(process_fields['parent']['field_details']['original_fieldset'], 'process')
-        self.assertEqual(server_fields['user']['field_details']['original_fieldset'], 'user')
-        # Not yet doing leaf fields
-        # self.assertEqual(process_fields['parent']['fields']['pid']['field_details']['original_fieldset'], 'process')
+        self.assertEqual(process_fields['parent']['field_details']['original_fieldset'], 'process',
+                "The parent field of reused fields should have 'original_fieldset' populated")
+        self.assertEqual(process_fields['parent']['fields']['pid']['field_details']['original_fieldset'], 'process',
+                "Leaf fields of reused fields for self-nested fields should have 'original_fieldset' populated already")
+        self.assertEqual(server_fields['user']['field_details']['original_fieldset'], 'user',
+                "The parent field of reused fields should have 'original_fieldset' populated")
+        # Not calculated yet because foreign nestings are by reference
         # self.assertEqual(server_fields['user']['fields']['name']['field_details']['original_fieldset'], 'user')
+
+    # calculate_final_values
+
+
+    def test_calculate_final_values_makes_nested_fields_fully_independent(self):
+        fields = {**self.schema_base(), **self.schema_user(), **self.schema_server()}
+        original_user_fields_identity = id(fields['user']['fields'])
+        finalizer.perform_reuse(fields)
+        finalizer.calculate_final_values(fields)
+        base_fields = fields['base']['fields']
+        server_fields = fields['server']['fields']
+        user_fields = fields['user']['fields']
+        # References are all resolved, original_fieldset is set everywhere
+        self.assertNotEqual(id(server_fields['user']['fields']), original_user_fields_identity,
+                "Foreign reused fields should no longer be by reference")
+        self.assertNotIn('referenced_fields', server_fields['user'],
+                "The 'referenced_fields' attribute should have been removed")
+        self.assertEqual(server_fields['user']['fields']['name']['field_details']['original_fieldset'], 'user',
+                "original_fieldset should be populated in the independent copy of the reused fields")
+        # Pre-calculated path-based values
+        # root=true
+        timestamp_details = base_fields['@timestamp']['field_details']
+        self.assertEqual(timestamp_details['flat_name'], '@timestamp',
+            "Field sets with root=true must not namespace field names with the field set's name")
+        self.assertEqual(timestamp_details['dashed_name'], '@timestamp')
+        # root=false
+        self.assertEqual(server_fields['ip']['field_details']['flat_name'], 'server.ip',
+            "Field sets with root=false must namespace field names with the field set's name")
+        self.assertEqual(server_fields['ip']['field_details']['dashed_name'], 'server-ip')
+        # reused
+        server_user_name_details = server_fields['user']['fields']['name']['field_details']
+        self.assertEqual(server_user_name_details['flat_name'], 'server.user.name')
+        self.assertEqual(server_user_name_details['dashed_name'], 'server-user-name')
+        # self-nestings
+        user_target_name_details = user_fields['target']['fields']['name']['field_details']
+        self.assertEqual(user_target_name_details['flat_name'], 'user.target.name')
+        self.assertEqual(user_target_name_details['dashed_name'], 'user-target-name')
+
 
 
     # field_group_at_path
