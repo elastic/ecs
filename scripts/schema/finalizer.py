@@ -21,11 +21,13 @@ from schema import visitor
 
 
 def finalize(fields):
+    '''Intended entrypoint of the finalizer.'''
     perform_reuse(fields)
     calculate_final_values(fields)
 
 
 def perform_reuse(fields):
+    '''Performs field reuse in two phases'''
     self_nestings = {}
     for schema_name, schema in fields.items():
         if not 'reusable' in schema['schema_details']:
@@ -76,6 +78,7 @@ def perform_reuse(fields):
 
 
 def append_reused_here(reused_schema_name, reuse_entry, destination_schema):
+    '''Captures two ways of denoting what field sets are reused under a given field set'''
     # Legacy, too limited
     destination_schema['schema_details'].setdefault('nestings', [])
     destination_schema['schema_details']['nestings'].extend([reuse_entry['full']])
@@ -86,6 +89,7 @@ def append_reused_here(reused_schema_name, reuse_entry, destination_schema):
 
 
 def set_original_fieldset(fields, original_fieldset):
+    '''Recursively set the 'original_fieldset' attribute for all fields in a group of fields'''
     def func(details):
         # Don't override if already set (e.g. 'group' for user.group.* fields)
         details['field_details'].setdefault('original_fieldset', original_fieldset)
@@ -93,6 +97,7 @@ def set_original_fieldset(fields, original_fieldset):
 
 
 def field_group_at_path(dotted_path, fields):
+    '''Returns the ['fields'] hash at the dotted_path.'''
     path = dotted_path.split('.')
     nesting = fields
     for next_field in path:
@@ -111,10 +116,16 @@ def field_group_at_path(dotted_path, fields):
 
 
 def calculate_final_values(fields):
+    '''
+    This function navigates all fields recursively. It makes all reference copies
+    of reused fields into independent copies. Then some final values are calculated
+    for the fields: path-based values like flat_name, and the 'original_fieldset' attribute.
+    '''
     visitor.visit_fields_with_path(fields, field_finalizer)
 
 
 def field_finalizer(details, path):
+    '''This is the function called by the visitor to perform the work of calculate_final_values'''
     # leaf_name not always populated
     leaf_name = details['field_details']['name'].split('.')[-1]
     # Copy referenced fields before we start modifying them
