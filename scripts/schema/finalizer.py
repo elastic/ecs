@@ -16,9 +16,6 @@ from schema import visitor
 # This second kind of nesting is not carried around everywhere else the receiving field set is reused.
 # So `user.target.*` is *not* carried over to `source.user.target*` when we reuse `user` under `source`.
 
-# This script does not modify the deeply nested fields dictionary in place, but
-# constructs a completely new copy.
-
 
 def finalize(fields):
     '''Intended entrypoint of the finalizer.'''
