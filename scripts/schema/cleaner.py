@@ -111,10 +111,14 @@ def normalize_reuse_notation(schema):
 
 def field_cleanup(field):
     field_mandatory_attributes(field)
-    if not is_intermediate(field):
-        ecs_helpers.dict_clean_string_values(field['field_details'])
-        field_defaults(field)
-        field_assertions_and_warnings(field)
+    if is_intermediate(field):
+        return
+    ecs_helpers.dict_clean_string_values(field['field_details'])
+    if 'allowed_values' in field['field_details']:
+        for allowed_value in field['field_details']['allowed_values']:
+            ecs_helpers.dict_clean_string_values(allowed_value)
+    field_defaults(field)
+    field_assertions_and_warnings(field)
 
 
 def field_defaults(field):
