@@ -1,6 +1,6 @@
 ---
 name: "Schema Changes and Additions"
-about: "Changes or additions to the ECS schema"
+about: "Changes or additions to ECS."
 labels: "enhancement"
 
 --

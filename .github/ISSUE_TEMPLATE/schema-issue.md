@@ -1,6 +1,6 @@
 ---
 name: Schema Issue
-about: "Report an issue with the ECS schema."
+about: "Report an issue with ECS."
 labels: "bug"
 
 ---
