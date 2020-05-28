@@ -10,4 +10,4 @@ our submission, but they are here to help bring them to your attention.
 - If submitting code/script changes, have you verified all tests pass locally using `make test`?
 - If submitting schema/fields updates, have you generated new artifacts by running `make` and committed those changes?
 - Is your pull request against master? Unless there is a good reason otherwise, we prefer pull requests against master and will backport as needed.
-- Have you added an entry to the [CHANGELOG](https://github.com/elastic/ecs/blob/master/CHANGELOG.next.md)?
+- Have you added an entry to the [CHANGELOG.next.md](https://github.com/elastic/ecs/blob/master/CHANGELOG.next.md)?
