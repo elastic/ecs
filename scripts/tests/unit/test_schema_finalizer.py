@@ -93,7 +93,15 @@ class TestSchemaFinalizer(unittest.TestCase):
                         'field_details': {
                             'name': 'name',
                         }
-                    }
+                    },
+                    'full_name': {
+                        'field_details': {
+                            'name': 'full_name',
+                            'multi_fields': [
+                                {'name':'text', 'type':'text'}
+                            ]
+                        }
+                    },
                 }
             }
         }
@@ -207,7 +215,9 @@ class TestSchemaFinalizer(unittest.TestCase):
         user_target_name_details = user_fields['target']['fields']['name']['field_details']
         self.assertEqual(user_target_name_details['flat_name'], 'user.target.name')
         self.assertEqual(user_target_name_details['dashed_name'], 'user-target-name')
-
+        # multi-fields flat_name
+        user_full_name_details = user_fields['full_name']['field_details']
+        self.assertEqual(user_full_name_details['multi_fields'][0]['flat_name'], 'user.full_name.text')
 
 
     # field_group_at_path

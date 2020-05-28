@@ -133,3 +133,6 @@ def field_finalizer(details, path):
     flat_name = '.'.join(path + [leaf_name])
     details['field_details']['flat_name'] = flat_name
     details['field_details']['dashed_name'] = flat_name.replace('.', '-').replace('_', '-')
+    if 'multi_fields' in details['field_details']:
+        for mf in details['field_details']['multi_fields']:
+            mf['flat_name'] = flat_name + '.' + mf['name']
