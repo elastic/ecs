@@ -3,7 +3,7 @@ name: "Schema Changes and Additions"
 about: "Changes or additions to ECS."
 labels: "enhancement"
 
---
+---
 <!--
 Please first search existing issues for the changes you are requesting; it may already exist as an open issue.
 
