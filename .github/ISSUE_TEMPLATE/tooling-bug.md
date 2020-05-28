@@ -1,6 +1,6 @@
 ---
-name: Bug
-about: "Report a bug."
+name: ECS Tooling Bug Report
+about: "Report a bug in the ECS tooling."
 labels: "bug"
 
 ---
@@ -23,3 +23,6 @@ Please include a *minimal* but *complete* recreation of the problem.
 3.
 
 **Provide logs (if relevant)**:
+
+
+**Any additional context:**
