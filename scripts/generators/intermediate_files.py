@@ -28,8 +28,9 @@ def get_flat_fields(details, memo):
     if 'schema_details' in details or ecs_helpers.is_intermediate(details):
         return
     field_details = copy.deepcopy(details['field_details'])
-    if 'leaf_name' in field_details:
-        field_details.pop('leaf_name')
+    # Remove attributes only relevant to the deeply nested structure
+    field_details.pop('leaf_name', None)
+    field_details.pop('intermediate', None)
     flat_name = field_details['flat_name']
     memo[flat_name] = field_details
 

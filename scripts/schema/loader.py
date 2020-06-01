@@ -126,7 +126,7 @@ def nest_fields(field_array):
             field_details = nested_schema[level]['field_details']
             # Respect explicitly defined object fields
             if 'type' in field_details and field_details['type'] in ['object', 'nested']:
-                field_details['intermediate'] = False
+                field_details.setdefault('intermediate', False)
             else:
                 field_details.setdefault('type', 'object')
                 field_details.setdefault('name', '.'.join(parent_fields[:idx+1]))
