@@ -1,53 +1,39 @@
 import argparse
 import glob
 import os
-import schema_reader
-import schema_processor
+# import pdb
 import yaml
-from generators import intermediate_files
+
+from generators import asciidoc_fields
+from generators import beats
 from generators import csv_generator
 from generators import es_template
-from generators import beats
-from generators import asciidoc_fields
 from generators import ecs_helpers
+from generators import intermediate_files
+
+from schema import loader
+from schema import cleaner
+from schema import finalizer
+from schema import subset_filter
 
 
 def main():
     args = argument_parser()
-    # Get rid of empty include
-    if args.include and [''] == args.include:
-        args.include.clear()
 
     ecs_version = read_version()
     print('Running generator. ECS version ' + ecs_version)
 
-    # Load the default schemas
-    print('Loading default schemas')
-    intermediate_fields = schema_reader.load_schemas()
+    fields = loader.load_schemas(args.include)
+    # ecs_helpers.yaml_dump('_notes/nest-as/ecs_intermediate-loaded.yml', fields)
 
-    # Maybe load user specified directory of schemas
-    if args.include:
-        include_glob = ecs_helpers.get_glob_files(args.include, ecs_helpers.YAML_EXT)
+    cleaner.clean(fields)
+    # ecs_helpers.yaml_dump('_notes/nest-as/ecs_intermediate-cleaned.yml', fields)
 
-        print('Loading user defined schemas: {0}'.format(include_glob))
+    finalizer.finalize(fields)
+    # ecs_helpers.yaml_dump('_notes/nest-as/ecs_intermediate-final.yml', fields)
 
-        intermediate_custom = schema_reader.load_schemas(include_glob)
-        schema_processor.merge_schema_fields(intermediate_fields, intermediate_custom)
-
-    schema_processor.assemble_reusables(intermediate_fields)
-
-    if args.subset:
-        subset = {}
-        for arg in args.subset:
-            for file in glob.glob(arg):
-                with open(file) as f:
-                    raw = yaml.safe_load(f.read())
-                    ecs_helpers.recursive_merge_subset_dicts(subset, raw)
-        if not subset:
-            raise ValueError('Subset option specified but no subsets found')
-        intermediate_fields = ecs_helpers.fields_subset(subset, intermediate_fields)
-
-    (nested, flat) = schema_processor.generate_nested_flat(intermediate_fields)
+    fields = subset_filter.filter(fields, args.subset)
+    # ecs_helpers.yaml_dump('_notes/nest-as/ecs_intermediate-filtered.yml', fields)
 
     # default location to save files
     out_dir = 'generated'
@@ -59,20 +45,19 @@ def main():
     ecs_helpers.make_dirs(out_dir)
     ecs_helpers.make_dirs(docs_dir)
 
-    # To debug the intermediate representation
-    # ecs_helpers.yaml_dump(os.path.join(out_dir, 'ecs/ecs_intermediate.yml'),
-    #         intermediate_fields)
-
-    intermediate_files.generate(nested, flat, out_dir)
+    nested, flat = intermediate_files.generate(fields, out_dir)
     if args.intermediate_only:
         exit()
+
+    print('up to here for now')
+    exit()
 
     csv_generator.generate(flat, ecs_version, out_dir)
     es_template.generate(flat, ecs_version, out_dir)
     beats.generate(nested, ecs_version, out_dir)
     if args.include or args.subset:
         exit()
-    asciidoc_fields.generate(intermediate_fields, ecs_version, docs_dir)
+    asciidoc_fields.generate(fields, ecs_version, docs_dir)
 
 
 def argument_parser():
@@ -84,7 +69,11 @@ def argument_parser():
     parser.add_argument('--subset', nargs='+',
                         help='render a subset of the schema')
     parser.add_argument('--out', action='store', help='directory to store the generated files')
-    return parser.parse_args()
+    args = parser.parse_args()
+    # Clean up empty include of the Makefile
+    if args.include and [''] == args.include:
+        args.include.clear()
+    return args
 
 
 def read_version(file='version'):
