@@ -1,11 +1,17 @@
-from os.path import join
+import os.path as path
 from generators import ecs_helpers
 
+import jinja2
+
+# jinja2 setup
+TEMPLATE_DIR = path.join(path.dirname(path.abspath(__file__)), 'templates')
+template_loader = jinja2.FileSystemLoader(searchpath=TEMPLATE_DIR)
+template_env = jinja2.Environment(loader=template_loader)
 
 def generate(nested, ecs_version, out_dir):
-    save_asciidoc(join(out_dir, 'fields.asciidoc'), page_field_index(nested, ecs_version))
-    save_asciidoc(join(out_dir, 'field-details.asciidoc'), page_field_details(nested))
-    save_asciidoc(join(out_dir, 'field-values.asciidoc'), page_field_values(nested))
+    save_asciidoc(path.join(out_dir, 'fields.asciidoc'), page_field_index(nested, ecs_version))
+    save_asciidoc(path.join(out_dir, 'field-details.asciidoc'), page_field_details(nested))
+    save_asciidoc(path.join(out_dir, 'field-values.asciidoc'), page_field_values(nested))
 
 # Helpers
 
@@ -19,13 +25,9 @@ def save_asciidoc(file, text):
 
 # Field Index
 
-
 def page_field_index(nested, ecs_version):
-    page_text = index_header(ecs_version)
-    for fieldset in ecs_helpers.dict_sorted_by_keys(nested, ['group', 'name']):
-        page_text += render_field_index_row(fieldset)
-    page_text += table_footer()
-    page_text += index_footer()
+    fieldsets = ecs_helpers.dict_sorted_by_keys(nested, ['group', 'name'])
+    page_text = generate_field_index(ecs_version, fieldsets)
     return page_text
 
 
@@ -178,36 +180,22 @@ def render_nesting_row(nesting):
 
 
 def table_footer():
-    return '''
-|=====
-'''
+    template = template_env.get_template('table_footer.j2')
+    return template.render()
 
 
 # Field Index
 
+def generate_field_index(ecs_version, fieldsets, template_name='fields.j2'):
+    template = template_env.get_template(template_name)
+    return template.render(ecs_version=ecs_version, fieldsets=fieldsets)
+
 
 def index_header(ecs_version):
-    # Not using format() because then asciidoc {ecs}, {es}, etc are resolved.
-    return '''
-[[ecs-field-reference]]
-== {ecs} Field Reference
+    template = template_env.get_template('index_header.j2')
+    return template.render(ecs_version=ecs_version)
 
-This is the documentation of ECS version ''' + ecs_version + '''.
 
-ECS defines multiple groups of related fields. They are called "field sets".
-The <<ecs-base,Base>> field set is the only one whose fields are defined
-at the root of the event.
-
-All other field sets are defined as objects in {es}, under which
-all fields are defined.
-
-[float]
-[[ecs-fieldsets]]
-=== Field Sets
-[cols="<,<",options="header",]
-|=====
-| Field Set  | Description
-'''
 
 
 def index_row():
@@ -217,9 +205,9 @@ def index_row():
 
 
 def index_footer():
-    return '''
-include::field-details.asciidoc[]
-'''
+    template = template_env.get_template('index_footer.j2')
+    return template.render()
+
 
 
 # Field Details Page
