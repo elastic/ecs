@@ -44,8 +44,11 @@ def perform_reuse(fields):
                 # no matter the order we perform them
                 # (group => user, then user comes along with user.group => other places)
                 new_field_details = copy.deepcopy(schema['field_details'])
-                # Since nested fields are by reference, 'original_fieldset' is populated later for them
+                # Since nested fields are by reference, 'original_fieldset'
+                # is populated later, on the fields themselves. Here we set it in
+                # the field details of their parent object field.
                 new_field_details['original_fieldset'] = schema_name
+                new_field_details['intermediate'] = True
                 destination_fields[schema_name] = {
                     'field_details': new_field_details,
                     'fields': schema['fields'],

@@ -132,8 +132,8 @@ class TestSchemaLoader(unittest.TestCase):
 
     def test_nest_fields(self):
         process_fields = [
-            { 'name': 'pid' },
-            { 'name': 'parent.pid' },
+            {'name': 'pid' },
+            {'name': 'parent.pid'},
         ]
         expected_nested_fields = {
             'fields': {
@@ -160,8 +160,55 @@ class TestSchemaLoader(unittest.TestCase):
                 }
             }
         }
-        nested_process_fields = loader.nest_fields(process_fields)
-        self.assertEqual(nested_process_fields, expected_nested_fields)
+        nested_fields = loader.nest_fields(process_fields)
+        self.assertEqual(nested_fields, expected_nested_fields)
+
+
+    def test_nest_fields_recognizes_explicitly_defined_object_fields(self):
+        dns_fields = [
+            {'name': 'question.name', 'type': 'keyword'},
+            {'name': 'answers', 'type': 'object' },
+            {'name': 'answers.data', 'type': 'keyword'},
+        ]
+        expected_nested_fields = {
+            'fields': {
+                'answers': {
+                    'field_details': {
+                        'name': 'answers',
+                        'leaf_name': 'answers',
+                        'type': 'object',
+                        'intermediate': False,
+                    },
+                    'fields': {
+                        'data': {
+                            'field_details': {
+                                'name': 'answers.data',
+                                'leaf_name': 'data',
+                                'type': 'keyword',
+                            }
+                        }
+                    }
+                },
+                'question': {
+                    'field_details': {
+                        'name': 'question',
+                        'type': 'object',
+                        'intermediate': True,
+                    },
+                    'fields': {
+                        'name': {
+                            'field_details': {
+                                'name': 'question.name',
+                                'leaf_name': 'name',
+                                'type': 'keyword',
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        nested_fields = loader.nest_fields(dns_fields)
+        self.assertEqual(nested_fields, expected_nested_fields)
 
 
     def test_nest_fields_multiple_intermediate_fields(self):

@@ -120,11 +120,18 @@ def nest_fields(field_array):
             nested_schema.setdefault(level, {})
             # Where nested fields will live
             nested_schema[level].setdefault('fields', {})
+
             # Make type:object explicit for intermediate parent fields
             nested_schema[level].setdefault('field_details', {})
-            nested_schema[level]['field_details'].setdefault('type', 'object')
-            nested_schema[level]['field_details'].setdefault('name', '.'.join(parent_fields[:idx+1]))
-            nested_schema[level]['field_details'].setdefault('intermediate', True)
+            field_details = nested_schema[level]['field_details']
+            # Respect explicitly defined object fields
+            if 'type' in field_details and field_details['type'] in ['object', 'nested']:
+                field_details['intermediate'] = False
+            else:
+                field_details.setdefault('type', 'object')
+                field_details.setdefault('name', '.'.join(parent_fields[:idx+1]))
+                field_details.setdefault('intermediate', True)
+
             # moving the nested_schema cursor deeper
             current_path.extend([level])
             nested_schema = nested_schema[level]['fields']
