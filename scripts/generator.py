@@ -23,17 +23,14 @@ def main():
     ecs_version = read_version()
     print('Running generator. ECS version ' + ecs_version)
 
+    # To debug issues in the gradual building up of the nested structure, insert
+    # statements like this after any step of interest.
+    # ecs_helpers.yaml_dump('ecs.yml', fields)
+
     fields = loader.load_schemas(args.include)
-    # ecs_helpers.yaml_dump('_notes/nest-as/ecs_intermediate-loaded.yml', fields)
-
     cleaner.clean(fields)
-    # ecs_helpers.yaml_dump('_notes/nest-as/ecs_intermediate-cleaned.yml', fields)
-
     finalizer.finalize(fields)
-    # ecs_helpers.yaml_dump('_notes/nest-as/ecs_intermediate-final.yml', fields)
-
     fields = subset_filter.filter(fields, args.subset)
-    # ecs_helpers.yaml_dump('_notes/nest-as/ecs_intermediate-filtered.yml', fields)
 
     # default location to save files
     out_dir = 'generated'
