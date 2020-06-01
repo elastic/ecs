@@ -8,6 +8,17 @@ from scripts.generators import ecs_helpers
 
 
 class TestECSHelpers(unittest.TestCase):
+
+
+    def test_is_intermediate_field(self):
+        pseudo_field = {'field_details': {}}
+        self.assertEqual(ecs_helpers.is_intermediate(pseudo_field), False)
+        pseudo_field['field_details']['intermediate'] = False
+        self.assertEqual(ecs_helpers.is_intermediate(pseudo_field), False)
+        pseudo_field['field_details']['intermediate'] = True
+        self.assertEqual(ecs_helpers.is_intermediate(pseudo_field), True)
+
+
     # dict_copy_existing_keys
 
     def test_dict_copy_existing_keys(self):

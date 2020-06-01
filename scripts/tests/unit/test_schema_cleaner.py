@@ -154,15 +154,6 @@ class TestSchemaCleaner(unittest.TestCase):
     # fields
 
 
-    def test_is_intermediate_field(self):
-        pseudo_field = {'field_details': {}}
-        self.assertEqual(cleaner.is_intermediate(pseudo_field), False)
-        pseudo_field['field_details']['intermediate'] = False
-        self.assertEqual(cleaner.is_intermediate(pseudo_field), False)
-        pseudo_field['field_details']['intermediate'] = True
-        self.assertEqual(cleaner.is_intermediate(pseudo_field), True)
-
-
     def test_field_raises_on_missing_required_attributes(self):
         for missing_attribute in ['name', 'description', 'type', 'level']:
             field = self.schema_process()['process']['fields']['pid']

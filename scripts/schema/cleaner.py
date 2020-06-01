@@ -111,7 +111,7 @@ def normalize_reuse_notation(schema):
 
 def field_cleanup(field):
     field_mandatory_attributes(field)
-    if is_intermediate(field):
+    if ecs_helpers.is_intermediate(field):
         return
     ecs_helpers.dict_clean_string_values(field['field_details'])
     if 'allowed_values' in field['field_details']:
@@ -142,18 +142,13 @@ def field_or_multi_field_datatype_defaults(field_details):
         field_details.setdefault('doc_values', False)
 
 
-def is_intermediate(field):
-    '''Encapsulates the check to see if a field is an intermediate field or a "real" field.'''
-    return ('intermediate' in field['field_details'] and field['field_details']['intermediate'])
-
-
 FIELD_MANDATORY_ATTRIBUTES = ['name', 'description', 'type', 'level']
 ACCEPTABLE_FIELD_LEVELS = ['core', 'extended', 'custom']
 
 
 def field_mandatory_attributes(field):
     '''Ensures for the presence of the mandatory field attributes and raises if any are missing'''
-    if is_intermediate(field):
+    if ecs_helpers.is_intermediate(field):
         return
     current_field_attributes = sorted(field['field_details'].keys())
     missing_attributes = ecs_helpers.list_subtract(FIELD_MANDATORY_ATTRIBUTES, current_field_attributes)
@@ -165,7 +160,7 @@ def field_mandatory_attributes(field):
 
 def field_assertions_and_warnings(field):
     '''Additional checks on a fleshed out field'''
-    if not is_intermediate(field):
+    if not ecs_helpers.is_intermediate(field):
         single_line_short_description(field)
         if field['field_details']['level'] not in ACCEPTABLE_FIELD_LEVELS:
             msg = "Invalid level for field '{}'.\nValue: {}\nAcceptable values: {}".format(

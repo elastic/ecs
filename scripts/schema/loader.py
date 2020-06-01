@@ -94,7 +94,6 @@ def deep_nesting_representation(fields):
             if schema_key in flat_schema:
                 schema_details[schema_key] = flat_schema.pop(schema_key)
 
-
         nested_schema = nest_fields(flat_schema.pop('fields', []))
         # Re-assemble new structure
         deeply_nested[name] = {
@@ -135,7 +134,6 @@ def nest_fields(field_array):
         nested_schema[leaf_field]['field_details'] = field
     return schema_root
 
-# Merge
 
 def merge_fields(a, b):
     """Merge ECS field sets with custom field sets."""
