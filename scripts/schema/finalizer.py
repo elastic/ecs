@@ -23,46 +23,58 @@ def finalize(fields):
     calculate_final_values(fields)
 
 
-def perform_reuse(fields):
-    '''Performs field reuse in two phases'''
+def order_reuses(fields):
+    foreign_reuses = {}
     self_nestings = {}
     for schema_name, schema in fields.items():
         if not 'reusable' in schema['schema_details']:
             continue
-        # Phase 1: foreign nesting
+        reuse_order = schema['schema_details']['reusable']['order']
         for reuse_entry in schema['schema_details']['reusable']['expected']:
             destination_schema_name = reuse_entry['full'].split('.')[0]
             if destination_schema_name == schema_name:
-                # Simply accumulate self-nestings for phase 2.
+                # Accumulate self-nestings for phase 2.
                 self_nestings.setdefault(destination_schema_name, [])
                 self_nestings[destination_schema_name].extend([reuse_entry])
             else:
+                # Group foreign reuses by 'order' attribute.
+                foreign_reuses.setdefault(reuse_order, {})
+                foreign_reuses[reuse_order].setdefault(schema_name, [])
+                foreign_reuses[reuse_order][schema_name].extend([reuse_entry])
+    # print("\nforeign reuses")
+    # pprint.pprint(foreign_reuses)
+    # print("\nself nestings", self_nestings)
+    return foreign_reuses, self_nestings
+
+
+def perform_reuse(fields):
+    '''Performs field reuse in two phases'''
+    foreign_reuses, self_nestings = order_reuses(fields)
+
+    # Phase 1: foreign reuse
+    # These are done respecting the reusable.order attribute.
+    # This lets us force the order for chained reuses (e.g. group => user, then user => many places)
+    for order in sorted(foreign_reuses.keys()):
+        for schema_name, reuse_entries in foreign_reuses[order].items():
+            schema = fields[schema_name]
+            for reuse_entry in reuse_entries:
+                print(order, "{} => {}".format(schema_name, reuse_entry['full']))
+                destination_schema_name = reuse_entry['full'].split('.')[0]
                 destination_fields = field_group_at_path(reuse_entry['at'], fields)
-                # Copying everything except the original schema_details.
-                # Note that we don't deepcopy the fields yet,
-                # in order for chained nestings to all work out,
-                # no matter the order we perform them
-                # (group => user, then user comes along with user.group => other places)
                 new_field_details = copy.deepcopy(schema['field_details'])
-                # Since nested fields are by reference, 'original_fieldset'
-                # is populated later, on the fields themselves. Here we set it in
-                # the field details of their parent object field.
                 new_field_details['original_fieldset'] = schema_name
                 new_field_details['intermediate'] = True
+                reused_fields = copy.deepcopy(schema['fields'])
+                set_original_fieldset(reused_fields, schema_name)
                 destination_fields[schema_name] = {
                     'field_details': new_field_details,
-                    'fields': schema['fields'],
-                    'referenced_fields': True
+                    'fields': reused_fields,
                 }
-            append_reused_here(schema_name, reuse_entry, fields[destination_schema_name])
+                append_reused_here(schema_name, reuse_entry, fields[destination_schema_name])
+
     # Phase 2: self-nesting
     for schema_name, reuse_entries in self_nestings.items():
         schema = fields[schema_name]
-        # The fields that end up inside a field set with self-reuse (e.g. user.target.*)
-        # must be a different copy than the fields that are
-        # potentially nested elsewhere (e.g. what's at server.user.*).
-        # So we self-nest inside a detached copy, then put this detached copy
-        # back as the original field set's fields.
         detached_fields = copy.deepcopy(schema['fields'])
         for reuse_entry in reuse_entries:
             nest_as = reuse_entry['as']
@@ -72,8 +84,8 @@ def perform_reuse(fields):
                     'field_details': new_field_details,
                     'fields': copy.deepcopy(schema['fields']),
                 }
-            # Detached fields can all have original_fieldset populated immediately
             set_original_fieldset(detached_fields, schema_name)
+            append_reused_here(schema_name, reuse_entry, fields[schema_name])
         fields[schema_name]['fields'] = detached_fields
 
 
@@ -128,11 +140,6 @@ def field_finalizer(details, path):
     '''This is the function called by the visitor to perform the work of calculate_final_values'''
     # leaf_name not always populated
     leaf_name = details['field_details']['name'].split('.')[-1]
-    # Copy referenced fields before we start modifying them
-    if 'referenced_fields' in details:
-        details['fields'] = copy.deepcopy(details['fields'])
-        set_original_fieldset(details['fields'], details['field_details']['original_fieldset'])
-        details.pop('referenced_fields')
     flat_name = '.'.join(path + [leaf_name])
     details['field_details']['flat_name'] = flat_name
     details['field_details']['dashed_name'] = flat_name.replace('.', '-').replace('_', '-')

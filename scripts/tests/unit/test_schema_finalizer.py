@@ -43,6 +43,7 @@ class TestSchemaFinalizer(unittest.TestCase):
                     'root': False,
                     'reusable':{
                         'top_level': True,
+                        'order': 2,
                         'expected': [
                             {'full': 'process.parent', 'at': 'process', 'as': 'parent'},
                         ]
@@ -77,6 +78,7 @@ class TestSchemaFinalizer(unittest.TestCase):
                     'root': False,
                     'reusable':{
                         'top_level': True,
+                        'order': 2,
                         'expected': [
                             {'full': 'server.user', 'at': 'server', 'as': 'user'},
                             {'full': 'user.target', 'at': 'user', 'as': 'target'},
@@ -132,7 +134,6 @@ class TestSchemaFinalizer(unittest.TestCase):
     def test_perform_reuse_with_foreign_reuse_and_self_reuse(self):
         fields = {**self.schema_user(), **self.schema_server(), **self.schema_process()}
         # If the test had multiple foreign destinations for user fields, we could compare them together instead
-        original_user_fields_identity = id(fields['user']['fields'])
         finalizer.perform_reuse(fields)
         process_fields = fields['process']['fields']
         server_fields = fields['server']['fields']
@@ -142,11 +143,7 @@ class TestSchemaFinalizer(unittest.TestCase):
         self.assertIn('user', server_fields)
         self.assertIn('target', user_fields)
         self.assertIn('effective', user_fields)
-        # Only foreign reuse copies fields by reference
-        self.assertTrue(server_fields['user']['referenced_fields'])
-        self.assertEqual(id(server_fields['user']['fields']), original_user_fields_identity)
-        self.assertNotIn('referenced_fields', user_fields['target'])
-        # Leaf field sanity checks for reuse
+        # Sanity check for presence of leaf fields, after performing reuse
         self.assertIn('name', user_fields['target']['fields'])
         self.assertIn('name', user_fields['effective']['fields'])
         self.assertIn('name', server_fields['user']['fields'])
@@ -176,27 +173,18 @@ class TestSchemaFinalizer(unittest.TestCase):
                 "Leaf fields of reused fields for self-nested fields should have 'original_fieldset' populated already")
         self.assertEqual(server_fields['user']['field_details']['original_fieldset'], 'user',
                 "The parent field of reused fields should have 'original_fieldset' populated")
-        # Not calculated yet because foreign nestings are by reference
-        # self.assertEqual(server_fields['user']['fields']['name']['field_details']['original_fieldset'], 'user')
+        self.assertEqual(server_fields['user']['fields']['name']['field_details']['original_fieldset'], 'user')
 
     # calculate_final_values
 
 
-    def test_calculate_final_values_makes_nested_fields_fully_independent(self):
+    def test_calculate_final_values(self):
         fields = {**self.schema_base(), **self.schema_user(), **self.schema_server()}
-        original_user_fields_identity = id(fields['user']['fields'])
         finalizer.perform_reuse(fields)
         finalizer.calculate_final_values(fields)
         base_fields = fields['base']['fields']
         server_fields = fields['server']['fields']
         user_fields = fields['user']['fields']
-        # References are all resolved, original_fieldset is set everywhere
-        self.assertNotEqual(id(server_fields['user']['fields']), original_user_fields_identity,
-                "Foreign reused fields should no longer be by reference")
-        self.assertNotIn('referenced_fields', server_fields['user'],
-                "The 'referenced_fields' attribute should have been removed")
-        self.assertEqual(server_fields['user']['fields']['name']['field_details']['original_fieldset'], 'user',
-                "original_fieldset should be populated in the independent copy of the reused fields")
         # Pre-calculated path-based values
         # root=true
         timestamp_details = base_fields['@timestamp']['field_details']
