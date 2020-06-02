@@ -36,6 +36,9 @@ def schema_cleanup(schema):
     schema['schema_details'].setdefault('root', False)
     schema['field_details'].setdefault('type', 'group')
     schema['field_details'].setdefault('short', schema['field_details']['description'])
+    if 'reusable' in schema['schema_details']:
+        # order to perform chained reuses. Set to 1 if it needs to happen earlier.
+        schema['schema_details']['reusable'].setdefault('order', 2)
     # Precalculate stuff. Those can't be set in the YAML.
     if schema['schema_details']['root']:
         schema['schema_details']['prefix'] = ''

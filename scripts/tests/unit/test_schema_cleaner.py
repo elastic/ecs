@@ -136,7 +136,11 @@ class TestSchemaCleaner(unittest.TestCase):
     def test_schema_cleanup_setting_defaults(self):
         my_schema = {
             'schema_details': {
-                'title': 'My Schema'
+                'title': 'My Schema',
+                'reusable': {
+                    'top_level': True,
+                    'expected': ['foo']
+                }
             },
             'field_details': {
                 'name': 'my_schema',
@@ -147,6 +151,7 @@ class TestSchemaCleaner(unittest.TestCase):
         self.assertEqual(my_schema['schema_details']['root'], False)
         self.assertEqual(my_schema['schema_details']['group'], 2)
         self.assertEqual(my_schema['schema_details']['prefix'], 'my_schema.')
+        self.assertEqual(my_schema['schema_details']['reusable']['order'], 2)
         self.assertEqual(my_schema['field_details']['type'], 'group')
         self.assertEqual(my_schema['field_details']['short'], 'a nice description')
 
