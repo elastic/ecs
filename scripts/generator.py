@@ -36,13 +36,16 @@ def main():
     out_dir = 'generated'
     docs_dir = 'docs'
     if args.out:
+        default_dirs = False
         out_dir = os.path.join(args.out, out_dir)
         docs_dir = os.path.join(args.out, docs_dir)
+    else:
+        default_dirs = True
 
     ecs_helpers.make_dirs(out_dir)
     ecs_helpers.make_dirs(docs_dir)
 
-    nested, flat = intermediate_files.generate(fields, out_dir)
+    nested, flat = intermediate_files.generate(fields, out_dir, default_dirs)
     if args.intermediate_only:
         exit()
 

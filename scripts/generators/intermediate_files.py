@@ -5,63 +5,109 @@ from generators import ecs_helpers
 from os.path import join
 
 
-def generate(fields, out_dir):
-    flat = generate_fully_flattened_fields(fields)
-    nested = {} #generate_partially_flattened_fields(fields)
-
+def generate(fields, out_dir, default_dirs):
     ecs_helpers.make_dirs(join(out_dir, 'ecs'))
+
+    # Should only be used for debugging ECS development
+    if default_dirs:
+        ecs_helpers.yaml_dump(join(out_dir, 'ecs/ecs.yml'), fields)
+
+    flat = generate_flat_fields(fields)
+    nested = generate_nested_fields(fields)
+
     ecs_helpers.yaml_dump(join(out_dir, 'ecs/ecs_flat.yml'), flat)
     ecs_helpers.yaml_dump(join(out_dir, 'ecs/ecs_nested.yml'), nested)
-    ecs_helpers.yaml_dump(join(out_dir, 'ecs/ecs.yml'), fields)
     return nested, flat
 
 
-def generate_fully_flattened_fields(fields):
+def generate_flat_fields(fields):
+    '''Generate ecs_flat.yml'''
     filtered = remove_non_root_reusables(fields)
     flattened = {}
-    visitor.visit_fields_with_memo(filtered, get_flat_fields, flattened)
+    visitor.visit_fields_with_memo(filtered, accumulate_flat_field, flattened)
     return flattened
 
 
-def get_flat_fields(details, memo):
+def accumulate_flat_field(details, memo):
     '''Visitor function that accumulates all flat field details in the memo dict'''
     if 'schema_details' in details or ecs_helpers.is_intermediate(details):
         return
     field_details = copy.deepcopy(details['field_details'])
-    # Remove attributes only relevant to the deeply nested structure
-    field_details.pop('leaf_name', None)
-    field_details.pop('intermediate', None)
+    remove_internal_attributes(field_details)
+
+    # TODO Remove workaround field until it's removed as a later PR
+    field_details.pop('ctx_name')
+
     flat_name = field_details['flat_name']
     memo[flat_name] = field_details
 
 
+def generate_nested_fields(fields):
+    '''Generate ecs_nested.yml'''
+    nested = {}
+    # Flatten each field set, but keep all resulting fields nested under their
+    # parent/host field set.
+    for (name, details) in fields.items():
+        fieldset_details = {
+                **copy.deepcopy(details['field_details']),
+                **copy.deepcopy(details['schema_details'])
+            }
+
+        # TODO Temporarily removed to simplify initial rewrite review
+        fieldset_details.pop('dashed_name')
+        fieldset_details.pop('flat_name')
+        if 'reusable' in fieldset_details:
+            fieldset_details['reusable'].pop('order')
+        if False == fieldset_details['root']:
+            fieldset_details.pop('root')
+
+        # TODO Remove temporary workaround field
+        fieldset_details.pop('ctx_name')
+
+        fieldset_fields = {}
+        visitor.visit_fields_with_memo(details['fields'], accumulate_nested_field, fieldset_fields)
+        fieldset_details['fields'] = fieldset_fields
+
+        nested[name] = fieldset_details
+    return nested
+
+
+def accumulate_nested_field(details, memo):
+    '''Visitor function that accumulates all nested field details in the memo dict'''
+    if 'schema_details' in details or ecs_helpers.is_intermediate(details):
+        return
+    field_details = copy.deepcopy(details['field_details'])
+    remove_internal_attributes(field_details)
+
+    # TODO Temporary workaround for initial rewrite review.
+    # We'll fix attribute 'name' as a subsequent PR and get rid of attribute ctx_name.
+    name = field_details.pop('ctx_name')
+
+    memo[name] = field_details
+
+# Helper functions
+
+
+def remove_internal_attributes(field_details):
+    '''Remove attributes only relevant to the deeply nested structure, but not to ecs_flat/nested.yml.'''
+    field_details.pop('leaf_name', None)
+    field_details.pop('intermediate', None)
+
+
 def remove_non_root_reusables(fields_nested):
+    '''
+    Remove field sets that have top_level=false from the root of the field definitions.
+
+    This attribute means they're only meant to be in the "reusable/expected" locations
+    and not at the root of user's events.
+
+    This is only relevant for the 'flat' field representation. The nested one
+    still needs to keep all field sets at the root of the YAML file, as it
+    the official information about each field set. It's the responsibility of
+    users consuming ecs_nested.yml to skip the field sets with top_level=false.
+    '''
     fields = {}
     for (name, field) in fields_nested.items():
         if 'reusable' not in field['schema_details'] or field['schema_details']['reusable']['top_level']:
             fields[name] = field
     return fields
-
-
-def generate_partially_flattened_fields(fields):
-    flat_fields = {}
-    for (name, field) in fields.items():
-        # assigning field.copy() adds all the top level schema fields, has to be a copy since we're about
-        # to reassign the 'fields' key and we don't want to modify fields_nested
-        flat_fields[name] = field.copy()
-        flat_fields[name]['fields'] = flatten_fields(field['fields'], "")
-    return flat_fields
-
-
-def flatten_fields(fields, key_prefix):
-    flat_fields = {}
-    for (name, field) in fields.items():
-        new_key = key_prefix + name
-        if 'field_details' in field:
-            flat_fields[new_key] = field['field_details'].copy()
-        if 'fields' in field:
-            new_prefix = new_key + "."
-            if 'root' in field['schema_details'] and field['schema_details']['root']:
-                new_prefix = ""
-            flat_fields.update(flatten_fields(field['fields'], new_prefix))
-    return flat_fields
