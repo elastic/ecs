@@ -300,121 +300,15 @@ def nestings_row():
 # Allowed values section
 
 
-def page_field_values(nested):
-    section_text = values_section_header()
+def page_field_values(nested, template_name='field_values_template.j2'):
     category_fields = ['event.kind', 'event.category', 'event.type', 'event.outcome']
+    nested_fields = []
     for cat_field in category_fields:
-        section_text += render_field_values_page(nested['event']['fields'][cat_field])
-    return section_text
+        nested_fields.append(nested['event']['fields'][cat_field])
 
+    template = template_env.get_template(template_name)
+    return template.render(fields=nested_fields)
 
-def values_section_header():
-    return '''
-[[ecs-category-field-values-reference]]
-== {ecs} Categorization Fields
-
-WARNING: This section of ECS is in beta and is subject to change. These allowed values
-are still under active development. Additional values will be published gradually,
-and some of the values or relationships described here may change.
-Users who want to provide feedback, or who want to have a look at
-upcoming allowed values can visit this public feedback document
-https://ela.st/ecs-categories-draft.
-
-At a high level, ECS provides fields to classify events in two different ways:
-"Where it's from" (e.g., `event.module`, `event.dataset`, `agent.type`, `observer.type`, etc.),
-and "What it is." The categorization fields hold the "What it is" information,
-independent of the source of the events.
-
-ECS defines four categorization fields for this purpose, each of which falls under the `event.*` field set.
-
-[float]
-[[ecs-category-fields]]
-=== Categorization Fields
-
-* <<ecs-allowed-values-event-kind,event.kind>>
-* <<ecs-allowed-values-event-category,event.category>>
-* <<ecs-allowed-values-event-type,event.type>>
-* <<ecs-allowed-values-event-outcome,event.outcome>>
-
-NOTE: If your events don't match any of these categorization values, you should
-leave the fields empty. This will ensure you can start populating the fields
-once the appropriate categorization values are published, in a later release.
-'''
-
-
-def render_field_values_page(field):
-    # Page heading
-    heading = field_values_page_template().format(
-        dashed_name=field['dashed_name'],
-        flat_name=field['flat_name'],
-        field_description=render_asciidoc_paragraphs(field['description']),
-    )
-
-    # Each allowed value
-    body = ''
-    toc = ''
-    try:
-        for value_details in field['allowed_values']:
-            toc += "* <<ecs-{field_dashed_name}-{value_name},{value_name}>>\n".format(
-                field_dashed_name=field['dashed_name'],
-                value_name=value_details['name']
-            )
-            if 'expected_event_types' in value_details:
-                additional_details = render_expected_event_types(value_details)
-            else:
-                additional_details = ''
-            body += field_value_template().format(
-                field_dashed_name=field['dashed_name'],
-                value_name=value_details['name'],
-                value_description=render_asciidoc_paragraphs(value_details['description']),
-                additional_details=additional_details
-            )
-    except UnicodeEncodeError:
-        print("Problem with field {}, field value:".format(field['flat_name']))
-        print(value_details)
-        raise
-    return heading + toc + body
-
-
-def render_expected_event_types(value_details):
-    return expected_event_types_template().format(
-        category_name=value_details['name'],
-        expected_types=', '.join(value_details['expected_event_types']),
-    )
-
-
-def expected_event_types_template():
-    return '''
-*Expected event types for category {category_name}:*
-
-{expected_types}
-'''
-
-
-def field_values_page_template():
-    return '''
-[[ecs-allowed-values-{dashed_name}]]
-=== ECS Categorization Field: {flat_name}
-
-{field_description}
-
-WARNING: After the beta period for categorization, only the allowed categorization
-values listed in the ECS repository and official ECS documentation should be considered
-official. Use of any other values may result in incompatible implementations
-that will require subsequent breaking changes.
-
-*Allowed Values*
-
-'''
-
-
-def field_value_template():
-    return '''
-[float]
-[[ecs-{field_dashed_name}-{value_name}]]
-==== {value_name}
-
-{value_description}
-
-{additional_details}
-'''
+def field_values_template(fields, template_name='field_values_template.j2'):
+    template = template_env.get_template(template_name)
+    return template.render(fields=fields)
