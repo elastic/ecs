@@ -639,6 +639,13 @@ client:
   - client.geo
   - client.user
   prefix: client.
+  reused_here:
+  - full: client.as
+    schema_name: as
+  - full: client.geo
+    schema_name: geo
+  - full: client.user
+    schema_name: user
   short: Fields about the client side of a network connection, used with server.
   title: Client
   type: group
@@ -1290,6 +1297,13 @@ destination:
   - destination.geo
   - destination.user
   prefix: destination.
+  reused_here:
+  - full: destination.as
+    schema_name: as
+  - full: destination.geo
+    schema_name: geo
+  - full: destination.user
+    schema_name: user
   short: Fields about the destination side of a network connection, used with source.
   title: Destination
   type: group
@@ -1538,6 +1552,13 @@ dll:
   - dll.hash
   - dll.pe
   prefix: dll.
+  reused_here:
+  - full: dll.code_signature
+    schema_name: code_signature
+  - full: dll.hash
+    schema_name: hash
+  - full: dll.pe
+    schema_name: pe
   short: These fields contain information about code libraries dynamically loaded
     into processes.
   title: DLL
@@ -3191,6 +3212,13 @@ file:
   - file.hash
   - file.pe
   prefix: file.
+  reused_here:
+  - full: file.code_signature
+    schema_name: code_signature
+  - full: file.hash
+    schema_name: hash
+  - full: file.pe
+    schema_name: pe
   short: Fields describing files.
   title: File
   type: group
@@ -3861,6 +3889,13 @@ host:
   - host.os
   - host.user
   prefix: host.
+  reused_here:
+  - full: host.geo
+    schema_name: geo
+  - full: host.os
+    schema_name: os
+  - full: host.user
+    schema_name: user
   short: Fields describing the relevant computing instance.
   title: Host
   type: group
@@ -4481,6 +4516,11 @@ network:
   - network.inner.vlan
   - network.vlan
   prefix: network.
+  reused_here:
+  - full: network.vlan
+    schema_name: vlan
+  - full: network.inner.vlan
+    schema_name: vlan
   short: Fields describing the communication path over which the event happened.
   title: Network
   type: group
@@ -4968,6 +5008,19 @@ observer:
   - observer.ingress.vlan
   - observer.os
   prefix: observer.
+  reused_here:
+  - full: observer.geo
+    schema_name: geo
+  - full: observer.ingress.interface
+    schema_name: interface
+  - full: observer.egress.interface
+    schema_name: interface
+  - full: observer.os
+    schema_name: os
+  - full: observer.ingress.vlan
+    schema_name: vlan
+  - full: observer.egress.vlan
+    schema_name: vlan
   short: Fields describing an entity observing the event from outside the host.
   title: Observer
   type: group
@@ -6276,6 +6329,15 @@ process:
       at: process
       full: process.parent
     top_level: true
+  reused_here:
+  - full: process.code_signature
+    schema_name: code_signature
+  - full: process.hash
+    schema_name: hash
+  - full: process.pe
+    schema_name: pe
+  - full: process.parent
+    schema_name: process
   short: These fields contain information about a process.
   title: Process
   type: group
@@ -6976,6 +7038,13 @@ server:
   - server.geo
   - server.user
   prefix: server.
+  reused_here:
+  - full: server.as
+    schema_name: as
+  - full: server.geo
+    schema_name: geo
+  - full: server.user
+    schema_name: user
   short: Fields about the server side of a network connection, used with client.
   title: Server
   type: group
@@ -7500,6 +7569,13 @@ source:
   - source.geo
   - source.user
   prefix: source.
+  reused_here:
+  - full: source.as
+    schema_name: as
+  - full: source.geo
+    schema_name: geo
+  - full: source.user
+    schema_name: user
   short: Fields about the source side of a network connection, used with destination.
   title: Source
   type: group
@@ -8385,6 +8461,9 @@ user:
       at: source
       full: source.user
     top_level: true
+  reused_here:
+  - full: user.group
+    schema_name: group
   short: Fields to describe the user relevant to the event.
   title: User
   type: group
@@ -8530,6 +8609,9 @@ user_agent:
   nestings:
   - user_agent.os
   prefix: user_agent.
+  reused_here:
+  - full: user_agent.os
+    schema_name: os
   short: Fields to describe a browser user_agent string.
   title: User agent
   type: group
