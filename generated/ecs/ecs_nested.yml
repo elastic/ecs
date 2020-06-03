@@ -638,7 +638,6 @@ client:
   - client.as
   - client.geo
   - client.user
-  - client.user.group
   prefix: client.
   short: Fields about the client side of a network connection, used with server.
   title: Client
@@ -1290,7 +1289,6 @@ destination:
   - destination.as
   - destination.geo
   - destination.user
-  - destination.user.group
   prefix: destination.
   short: Fields about the destination side of a network connection, used with source.
   title: Destination
@@ -1568,7 +1566,6 @@ dns:
       name: answers
       normalize:
       - array
-      object_type: keyword
       short: Array of DNS answers.
       type: object
     answers.class:
@@ -3863,7 +3860,6 @@ host:
   - host.geo
   - host.os
   - host.user
-  - host.user.group
   prefix: host.
   short: Fields describing the relevant computing instance.
   title: Host
@@ -4178,7 +4174,6 @@ log:
       level: extended
       name: syslog
       normalize: []
-      object_type: keyword
       short: Syslog metadata
       type: object
     syslog.facility.code:
@@ -4361,7 +4356,6 @@ network:
       level: extended
       name: inner
       normalize: []
-      object_type: keyword
       short: Inner VLAN tag information
       type: object
     inner.vlan.id:
@@ -4514,7 +4508,6 @@ observer:
       level: extended
       name: egress
       normalize: []
-      object_type: keyword
       short: Object field for egress information
       type: object
     egress.interface.alias:
@@ -4713,7 +4706,6 @@ observer:
       level: extended
       name: ingress
       normalize: []
-      object_type: keyword
       short: Object field for ingress information
       type: object
     ingress.interface.alias:
@@ -5403,6 +5395,7 @@ process:
       name: args
       normalize:
       - array
+      original_fieldset: process
       short: Array of process arguments.
       type: keyword
     args_count:
@@ -5417,6 +5410,7 @@ process:
       level: extended
       name: args_count
       normalize: []
+      original_fieldset: process
       short: Length of the process.args array.
       type: long
     code_signature.exists:
@@ -5504,6 +5498,7 @@ process:
         type: text
       name: command_line
       normalize: []
+      original_fieldset: process
       short: Full command line that started the process.
       type: keyword
     entity_id:
@@ -5523,6 +5518,7 @@ process:
       level: extended
       name: entity_id
       normalize: []
+      original_fieldset: process
       short: Unique identifier for the process.
       type: keyword
     executable:
@@ -5539,6 +5535,7 @@ process:
         type: text
       name: executable
       normalize: []
+      original_fieldset: process
       short: Absolute path to the process executable.
       type: keyword
     exit_code:
@@ -5552,6 +5549,7 @@ process:
       level: extended
       name: exit_code
       normalize: []
+      original_fieldset: process
       short: The exit code of the process.
       type: long
     hash.md5:
@@ -5614,8 +5612,21 @@ process:
         type: text
       name: name
       normalize: []
+      original_fieldset: process
       short: Process name.
       type: keyword
+    parent:
+      dashed_name: process-parent
+      description: 'These fields contain information about a process.
+
+        These fields can help you correlate metrics information with a process id/name
+        from a log message.  The `process.pid` often stays in the metric itself and
+        is copied to the global field for correlation.'
+      flat_name: process.parent
+      name: parent
+      original_fieldset: process
+      short: These fields contain information about a process.
+      type: group
     parent.args:
       dashed_name: process-parent-args
       description: 'Array of process arguments, starting with the absolute path to
@@ -5996,6 +6007,7 @@ process:
       level: extended
       name: thread.id
       normalize: []
+      original_fieldset: process
       short: Thread ID.
       type: long
     parent.thread.name:
@@ -6007,6 +6019,7 @@ process:
       level: extended
       name: thread.name
       normalize: []
+      original_fieldset: process
       short: Thread name.
       type: keyword
     parent.title:
@@ -6152,6 +6165,7 @@ process:
       level: extended
       name: pgid
       normalize: []
+      original_fieldset: process
       short: Identifier of the group of processes the process belongs to.
       type: long
     pid:
@@ -6163,6 +6177,7 @@ process:
       level: core
       name: pid
       normalize: []
+      original_fieldset: process
       short: Process id.
       type: long
     ppid:
@@ -6174,6 +6189,7 @@ process:
       level: extended
       name: ppid
       normalize: []
+      original_fieldset: process
       short: Parent process' pid.
       type: long
     start:
@@ -6184,6 +6200,7 @@ process:
       level: extended
       name: start
       normalize: []
+      original_fieldset: process
       short: The time the process started.
       type: date
     thread.id:
@@ -6195,6 +6212,7 @@ process:
       level: extended
       name: thread.id
       normalize: []
+      original_fieldset: process
       short: Thread ID.
       type: long
     thread.name:
@@ -6206,6 +6224,7 @@ process:
       level: extended
       name: thread.name
       normalize: []
+      original_fieldset: process
       short: Thread name.
       type: keyword
     title:
@@ -6224,6 +6243,7 @@ process:
         type: text
       name: title
       normalize: []
+      original_fieldset: process
       short: Process title.
       type: keyword
     uptime:
@@ -6234,6 +6254,7 @@ process:
       level: extended
       name: uptime
       normalize: []
+      original_fieldset: process
       short: Seconds the process has been up.
       type: long
     working_directory:
@@ -6250,6 +6271,7 @@ process:
         type: text
       name: working_directory
       normalize: []
+      original_fieldset: process
       short: The working directory of the process.
       type: keyword
   group: 2
@@ -6257,9 +6279,7 @@ process:
   nestings:
   - process.code_signature
   - process.hash
-  - process.parent.code_signature
-  - process.parent.hash
-  - process.parent.pe
+  - process.parent
   - process.pe
   prefix: process.
   reusable:
@@ -6967,7 +6987,6 @@ server:
   - server.as
   - server.geo
   - server.user
-  - server.user.group
   prefix: server.
   short: Fields about the server side of a network connection, used with client.
   title: Server
@@ -7492,7 +7511,6 @@ source:
   - source.as
   - source.geo
   - source.user
-  - source.user.group
   prefix: source.
   short: Fields about the source side of a network connection, used with destination.
   title: Source
@@ -8019,21 +8037,7 @@ tracing:
     of the requests - from the initial web request in the front-end service - to queries
     made through multiple back-end services.
   fields:
-    trace.id:
-      dashed_name: trace-id
-      description: 'Unique identifier of the trace.
-
-        A trace groups multiple events like transactions that belong together. For
-        example, a user request handled by multiple inter-connected services.'
-      example: 4bf92f3577b34da6a3ce929d0e0e4736
-      flat_name: trace.id
-      ignore_above: 1024
-      level: extended
-      name: trace.id
-      normalize: []
-      short: Unique identifier of the trace.
-      type: keyword
-    transaction.id:
+    id:
       dashed_name: transaction-id
       description: 'Unique identifier of the transaction.
 

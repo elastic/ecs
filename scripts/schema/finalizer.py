@@ -58,7 +58,7 @@ def perform_reuse(fields):
         for schema_name, reuse_entries in foreign_reuses[order].items():
             schema = fields[schema_name]
             for reuse_entry in reuse_entries:
-                print(order, "{} => {}".format(schema_name, reuse_entry['full']))
+                # print(order, "{} => {}".format(schema_name, reuse_entry['full']))
                 destination_schema_name = reuse_entry['full'].split('.')[0]
                 destination_fields = field_group_at_path(reuse_entry['at'], fields)
                 new_field_details = copy.deepcopy(schema['field_details'])
@@ -77,6 +77,7 @@ def perform_reuse(fields):
         schema = fields[schema_name]
         detached_fields = copy.deepcopy(schema['fields'])
         for reuse_entry in reuse_entries:
+            # print("x {} => {}".format(schema_name, reuse_entry['full']))
             nest_as = reuse_entry['as']
             new_field_details = copy.deepcopy(schema['field_details'])
             new_field_details['name'] = nest_as
@@ -93,11 +94,14 @@ def append_reused_here(reused_schema_name, reuse_entry, destination_schema):
     '''Captures two ways of denoting what field sets are reused under a given field set'''
     # Legacy, too limited
     destination_schema['schema_details'].setdefault('nestings', [])
-    destination_schema['schema_details']['nestings'].extend([reuse_entry['full']])
-    # New roomier way: we could eventually include contextual description here
-    destination_schema['schema_details'].setdefault('reused_here', [])
-    reused_here_entry = {'schema_name': reused_schema_name, 'full':reuse_entry['full']}
-    destination_schema['schema_details']['reused_here'].extend([reused_here_entry])
+    destination_schema['schema_details']['nestings'] = sorted(
+            destination_schema['schema_details']['nestings'] + [reuse_entry['full']]
+        )
+    # TODO Temporarily commented out to simplify initial rewrite review
+    # # New roomier way: we could eventually include contextual description here
+    # destination_schema['schema_details'].setdefault('reused_here', [])
+    # reused_here_entry = {'schema_name': reused_schema_name, 'full':reuse_entry['full']}
+    # destination_schema['schema_details']['reused_here'].extend([reused_here_entry])
 
 
 def set_original_fieldset(fields, original_fieldset):
@@ -140,7 +144,19 @@ def field_finalizer(details, path):
     '''This is the function called by the visitor to perform the work of calculate_final_values'''
     # leaf_name not always populated
     leaf_name = details['field_details']['name'].split('.')[-1]
-    flat_name = '.'.join(path + [leaf_name])
+    name_array = path + [leaf_name]
+    # TODO Temporarily commented out to simplify initial rewrite review
+    # Overwrite attribute 'name' as the contextual name under its host field set.
+    # Original fields are already fine, but this "fixes" field names for reused fields.
+    # if len(name_array) > 1: # skip root fields
+    #     details['field_details']['name'] = '.'.join(name_array[1:])
+    # TODO Temporary attribute until we fix attribute 'name' above
+    if len(name_array) == 1:
+        details['field_details']['ctx_name'] = name_array[0]
+    else:
+        details['field_details']['ctx_name'] = '.'.join(name_array[1:])
+    # End of temporary shenanigans
+    flat_name = '.'.join(name_array)
     details['field_details']['flat_name'] = flat_name
     details['field_details']['dashed_name'] = flat_name.replace('.', '-').replace('_', '-')
     if 'multi_fields' in details['field_details']:
