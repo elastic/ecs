@@ -179,10 +179,13 @@ class TestSchemaFinalizer(unittest.TestCase):
         self.assertEqual(process_fields['parent']['field_details']['original_fieldset'], 'process',
                 "The parent field of reused fields should have 'original_fieldset' populated")
         self.assertEqual(process_fields['parent']['fields']['pid']['field_details']['original_fieldset'], 'process',
-                "Leaf fields of reused fields for self-nested fields should have 'original_fieldset' populated already")
+                "Leaf fields of reused fields for self-nested fields should have 'original_fieldset'")
         self.assertEqual(server_fields['user']['field_details']['original_fieldset'], 'user',
-                "The parent field of reused fields should have 'original_fieldset' populated")
+                "The parent field of foreign reused fields should have 'original_fieldset' populated")
         self.assertEqual(server_fields['user']['fields']['name']['field_details']['original_fieldset'], 'user')
+        # Original fieldset's fields must not be marked with 'original_fieldset='
+        self.assertNotIn('original_fieldset', user_fields['name']['field_details'])
+        self.assertNotIn('original_fieldset', process_fields['pid']['field_details'])
 
     # calculate_final_values
 

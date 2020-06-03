@@ -60,12 +60,12 @@ def perform_reuse(fields):
             for reuse_entry in reuse_entries:
                 # print(order, "{} => {}".format(schema_name, reuse_entry['full']))
                 destination_schema_name = reuse_entry['full'].split('.')[0]
-                destination_fields = field_group_at_path(reuse_entry['at'], fields)
                 new_field_details = copy.deepcopy(schema['field_details'])
                 new_field_details['original_fieldset'] = schema_name
                 new_field_details['intermediate'] = True
                 reused_fields = copy.deepcopy(schema['fields'])
                 set_original_fieldset(reused_fields, schema_name)
+                destination_fields = field_group_at_path(reuse_entry['at'], fields)
                 destination_fields[schema_name] = {
                     'field_details': new_field_details,
                     'fields': reused_fields,
@@ -75,20 +75,23 @@ def perform_reuse(fields):
     # Phase 2: self-nesting
     for schema_name, reuse_entries in self_nestings.items():
         schema = fields[schema_name]
-        detached_fields = copy.deepcopy(schema['fields'])
+        # Since we're about self-nest more fields within these, make a pristine copy first
+        reused_fields = copy.deepcopy(schema['fields'])
+        set_original_fieldset(reused_fields, schema_name)
         for reuse_entry in reuse_entries:
             # print("x {} => {}".format(schema_name, reuse_entry['full']))
             nest_as = reuse_entry['as']
             new_field_details = copy.deepcopy(schema['field_details'])
             new_field_details['name'] = nest_as
+            new_field_details['original_fieldset'] = schema_name
             new_field_details['intermediate'] = True
-            detached_fields[nest_as] = {
-                    'field_details': new_field_details,
-                    'fields': copy.deepcopy(schema['fields']),
-                }
-            set_original_fieldset(detached_fields, schema_name)
+            destination_fields = schema['fields']
+            destination_fields[nest_as] = {
+                'field_details': new_field_details,
+                # Make a new copy of the pristine copy
+                'fields': copy.deepcopy(reused_fields),
+            }
             append_reused_here(schema, reuse_entry, fields[schema_name])
-        fields[schema_name]['fields'] = detached_fields
 
 
 def append_reused_here(reused_schema, reuse_entry, destination_schema):
@@ -139,7 +142,7 @@ def calculate_final_values(fields):
     '''
     This function navigates all fields recursively. It makes all reference copies
     of reused fields into independent copies. Then some final values are calculated
-    for the fields: path-based values like flat_name, and the 'original_fieldset' attribute.
+    for the fields: path-based values like flat_name.
     '''
     visitor.visit_fields_with_path(fields, field_finalizer)
 
