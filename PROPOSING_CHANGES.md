@@ -27,7 +27,7 @@ Generally speaking, the ECS team will help steward the process, but the work of 
 
 Member(s) of the **ECS committee**:
 * evaluates whether the changes are appropriate in terms of the goals of the ECS project
-* provides recommendations on the which common fields would be best suited for reuse versus adding new fields
+* provides recommendations on which common fields would be best suited for reuse versus adding new fields
 * determines whether each RFC is accepted into the next target stage by merging the RFC PR
 
 The **ECS team**:
