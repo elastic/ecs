@@ -23,6 +23,7 @@ class TestSchemaFinalizer(unittest.TestCase):
                 },
                 'field_details': {
                     'name': 'base',
+                    'short': 'short desc',
                 },
                 'fields': {
                     '@timestamp': {
@@ -51,6 +52,7 @@ class TestSchemaFinalizer(unittest.TestCase):
                 },
                 'field_details': {
                     'name': 'process',
+                    'short': 'short desc',
                 },
                 'fields': {
                     'pid': {
@@ -89,6 +91,7 @@ class TestSchemaFinalizer(unittest.TestCase):
                 'field_details': {
                     'name': 'user',
                     'type': 'group',
+                    'short': 'short desc',
                 },
                 'fields': {
                     'name': {
@@ -115,7 +118,8 @@ class TestSchemaFinalizer(unittest.TestCase):
                 'schema_details': {'root': False},
                 'field_details': {
                     'name': 'server',
-                    'type': 'group'
+                    'type': 'group',
+                    'short': 'short desc',
                 },
                 'fields': {
                     'ip': {
@@ -163,13 +167,13 @@ class TestSchemaFinalizer(unittest.TestCase):
         self.assertIn('user.target', fields['user']['schema_details']['nestings'])
         self.assertIn('server.user', fields['server']['schema_details']['nestings'])
         # Attribute 'reused_here' lists nestings inside a destination schema
-        self.assertIn({'full':'process.parent','schema_name':'process'},
+        self.assertIn({'full':'process.parent','schema_name':'process','short':'short desc'},
                 fields['process']['schema_details']['reused_here'])
-        self.assertIn({'full':'user.effective','schema_name':'user'},
+        self.assertIn({'full':'user.effective','schema_name':'user','short':'short desc'},
                 fields['user']['schema_details']['reused_here'])
-        self.assertIn({'full':'user.target','schema_name':'user'},
+        self.assertIn({'full':'user.target','schema_name':'user','short':'short desc'},
                 fields['user']['schema_details']['reused_here'])
-        self.assertIn({'full':'server.user','schema_name':'user'},
+        self.assertIn({'full':'server.user','schema_name':'user','short':'short desc'},
                 fields['server']['schema_details']['reused_here'])
         # Reused fields have an indication they're reused
         self.assertEqual(process_fields['parent']['field_details']['original_fieldset'], 'process',

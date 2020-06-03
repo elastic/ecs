@@ -70,7 +70,7 @@ def perform_reuse(fields):
                     'field_details': new_field_details,
                     'fields': reused_fields,
                 }
-                append_reused_here(schema_name, reuse_entry, fields[destination_schema_name])
+                append_reused_here(schema, reuse_entry, fields[destination_schema_name])
 
     # Phase 2: self-nesting
     for schema_name, reuse_entries in self_nestings.items():
@@ -87,11 +87,11 @@ def perform_reuse(fields):
                     'fields': copy.deepcopy(schema['fields']),
                 }
             set_original_fieldset(detached_fields, schema_name)
-            append_reused_here(schema_name, reuse_entry, fields[schema_name])
+            append_reused_here(schema, reuse_entry, fields[schema_name])
         fields[schema_name]['fields'] = detached_fields
 
 
-def append_reused_here(reused_schema_name, reuse_entry, destination_schema):
+def append_reused_here(reused_schema, reuse_entry, destination_schema):
     '''Captures two ways of denoting what field sets are reused under a given field set'''
     # Legacy, too limited
     destination_schema['schema_details'].setdefault('nestings', [])
@@ -100,7 +100,11 @@ def append_reused_here(reused_schema_name, reuse_entry, destination_schema):
         )
     # New roomier way: we could eventually include contextual description here
     destination_schema['schema_details'].setdefault('reused_here', [])
-    reused_here_entry = {'schema_name': reused_schema_name, 'full':reuse_entry['full']}
+    reused_here_entry = {
+            'schema_name': reused_schema['field_details']['name'],
+            'full':reuse_entry['full'],
+            'short': reused_schema['field_details']['short'],
+        }
     destination_schema['schema_details']['reused_here'].extend([reused_here_entry])
 
 
