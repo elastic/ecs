@@ -66,10 +66,8 @@ def render_fields(fields):
     text = ''
     for field_name, field in sorted(fields.items()):
         # Skip fields nested in this field set
-        if 'field_details' in field and 'original_fieldset' not in field['field_details']:
-            text += render_field_details_row(field['field_details'])
-        if 'fields' in field:
-            text += render_fields(field['fields'])
+        if 'original_fieldset' not in field:
+            text += render_field_details_row(field)
     return text
 
 
