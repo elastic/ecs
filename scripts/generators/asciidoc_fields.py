@@ -312,10 +312,9 @@ def nestings_row():
 
 def page_field_values(nested):
     section_text = values_section_header()
-    category_fields = ['event.kind', 'event.category', 'event.type', 'event.outcome']
+    category_fields = ['kind', 'category', 'type', 'outcome']
     for cat_field in category_fields:
-        section_text += render_field_values_page(ecs_helpers.get_nested_field(cat_field,
-                                                                              nested)['field_details'])
+        section_text += render_field_values_page(nested['event']['fields'][cat_field])
     return section_text
 
 

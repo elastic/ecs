@@ -152,12 +152,3 @@ def list_extract_keys(lst, key_name):
 def is_intermediate(field):
     '''Encapsulates the check to see if a field is an intermediate field or a "real" field.'''
     return ('intermediate' in field['field_details'] and field['field_details']['intermediate'])
-
-
-def get_nested_field(fieldname, field_dict):
-    """Takes a field name in dot notation and a dictionary of fields and finds the field in the dictionary"""
-    fields = fieldname.split('.')
-    nested_field = field_dict[fields[0]]
-    for field in fields[1:]:
-        nested_field = nested_field['fields'][field]
-    return nested_field
