@@ -1,22 +1,28 @@
 import json
 import sys
+import copy
 
 from os.path import join
 from generators import ecs_helpers
 
 
-def generate(ecs_flat, ecs_version, out_dir):
+def generate(ecs_flat, ecs_version, out_dir, template_settings_file, mapping_settings_file):
     field_mappings = {}
     for flat_name in sorted(ecs_flat):
         field = ecs_flat[flat_name]
         nestings = flat_name.split('.')
         dict_add_nested(field_mappings, nestings, entry_for(field))
 
-    mappings_section = mapping_settings(ecs_version)
+    if mapping_settings_file:
+        with open(mapping_settings_file) as f:
+            mappings_section = json.load(f)
+    else:
+        mappings_section = default_mapping_settings(ecs_version)
+
     mappings_section['properties'] = field_mappings
 
-    generate_template_version(6, mappings_section, out_dir)
-    generate_template_version(7, mappings_section, out_dir)
+    generate_template_version(6, mappings_section, out_dir, template_settings_file)
+    generate_template_version(7, mappings_section, out_dir, template_settings_file)
 
 # Field mappings
 
@@ -70,9 +76,13 @@ def entry_for(field):
 # Generated files
 
 
-def generate_template_version(elasticsearch_version, mappings_section, out_dir):
+def generate_template_version(elasticsearch_version, mappings_section, out_dir, template_settings_file):
     ecs_helpers.make_dirs(join(out_dir, 'elasticsearch', str(elasticsearch_version)))
-    template = template_settings()
+    if template_settings_file:
+        with open(template_settings_file) as f:
+            template = json.load(f)
+    else:
+        template = default_template_settings()
     if elasticsearch_version == 6:
         template['mappings'] = {'_doc': mappings_section}
     else:
@@ -90,7 +100,7 @@ def save_json(file, data):
         jsonfile.write(json.dumps(data, indent=2, sort_keys=True))
 
 
-def template_settings():
+def default_template_settings():
     return {
         "index_patterns": ["ecs-*"],
         "order": 1,
@@ -108,7 +118,7 @@ def template_settings():
     }
 
 
-def mapping_settings(ecs_version):
+def default_mapping_settings(ecs_version):
     return {
         "_meta": {"version": ecs_version},
         "date_detection": False,

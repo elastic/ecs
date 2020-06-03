@@ -5,20 +5,17 @@ import unittest
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 from scripts import schema_reader
-
-schemas = schema_reader.load_schemas()
-schema_reader.assemble_reusables(schemas)
-(nested, flat) = schema_reader.generate_nested_flat(schemas)
+from generators import ecs_helpers
 
 
 class TestEcsSpec(unittest.TestCase):
     """Sanity check for things that should be true in the ECS spec."""
 
     def setUp(self):
-        global nested
-        global flat
-        self.ecs_nested = nested
-        self.ecs_fields = flat
+        schemas = schema_reader.load_schemas_from_files()
+        intermediate_schemas = schema_reader.create_schema_dicts(schemas)
+        schema_reader.assemble_reusables(intermediate_schemas)
+        (self.ecs_nested, self.ecs_fields) = schema_reader.generate_nested_flat(intermediate_schemas)
 
     def test_base_flat_name(self):
         self.assertIsInstance(self.ecs_fields['@timestamp'], dict)

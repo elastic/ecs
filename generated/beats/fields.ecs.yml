@@ -109,7 +109,7 @@
       ignore_above: 1024
       description: 'Type of the agent.
 
-        The agent type stays always the same and should be given by the agent used.
+        The agent type always stays the same and should be given by the agent used.
         In case of Filebeat the agent would always be Filebeat also if two Filebeat
         instances are run on the same machine.'
       example: filebeat
@@ -400,6 +400,16 @@
 
         Examples: AWS account id, Google Cloud ORG Id, or other unique identifier.'
       example: 666777888999
+    - name: account.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The cloud account name or alias used to identify different entities
+        in a multi-tenant environment.
+
+        Examples: AWS account name, Google Cloud ORG display name.'
+      example: elastic-dev
+      default_field: false
     - name: availability_zone
       level: extended
       type: keyword
@@ -423,6 +433,24 @@
       ignore_above: 1024
       description: Machine type of the host machine.
       example: t2.medium
+    - name: project.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The cloud project identifier.
+
+        Examples: Google Cloud Project id, Azure Project id.'
+      example: my-project
+      default_field: false
+    - name: project.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The cloud project name.
+
+        Examples: Google Cloud Project name, Azure Project name.'
+      example: my project
+      default_field: false
     - name: provider
       level: extended
       type: keyword
@@ -1685,6 +1713,176 @@
       ignore_above: 1024
       description: The user ID (UID) or security identifier (SID) of the file owner.
       example: '1001'
+    - name: x509.alternative_names
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of subject alternative names (SAN). Name types vary by certificate
+        authority and certificate type but commonly contain IP addresses, DNS names
+        (and wildcards), and email addresses.
+      example: '*.elastic.co'
+      default_field: false
+    - name: x509.issuer.common_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of common name (CN) of issuing certificate authority.
+      example: DigiCert SHA2 High Assurance Server CA
+      default_field: false
+    - name: x509.issuer.country
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of country (C) codes
+      example: US
+      default_field: false
+    - name: x509.issuer.distinguished_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Distinguished name (DN) of issuing certificate authority.
+      example: C=US, O=DigiCert Inc, OU=www.digicert.com, CN=DigiCert SHA2 High Assurance
+        Server CA
+      default_field: false
+    - name: x509.issuer.locality
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of locality names (L)
+      example: Mountain View
+      default_field: false
+    - name: x509.issuer.organization
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of organizations (O) of issuing certificate authority.
+      example: DigiCert Inc
+      default_field: false
+    - name: x509.issuer.organizational_unit
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of organizational units (OU) of issuing certificate authority.
+      example: www.digicert.com
+      default_field: false
+    - name: x509.issuer.state_or_province
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of state or province names (ST, S, or P)
+      example: California
+      default_field: false
+    - name: x509.not_after
+      level: extended
+      type: date
+      description: Time at which the certificate is no longer considered valid.
+      example: 2020-07-16 03:15:39+00:00
+      default_field: false
+    - name: x509.not_before
+      level: extended
+      type: date
+      description: Time at which the certificate is first considered valid.
+      example: 2019-08-16 01:40:25+00:00
+      default_field: false
+    - name: x509.public_key_algorithm
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Algorithm used to generate the public key.
+      example: RSA
+      default_field: false
+    - name: x509.public_key_curve
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The curve used by the elliptic curve public key algorithm. This
+        is algorithm specific.
+      example: nistp521
+      default_field: false
+    - name: x509.public_key_exponent
+      level: extended
+      type: long
+      description: Exponent used to derive the public key. This is algorithm specific.
+      example: 65537
+      default_field: false
+    - name: x509.public_key_size
+      level: extended
+      type: long
+      description: The size of the public key space in bits.
+      example: 2048
+      default_field: false
+    - name: x509.serial_number
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Unique serial number issued by the certificate authority. For consistency,
+        if this value is alphanumeric, it should be formatted without colons and uppercase
+        characters.
+      example: 55FBB9C7DEBF09809D12CCAA
+      default_field: false
+    - name: x509.signature_algorithm
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifier for certificate signature algorithm. Recommend using
+        names found in Go Lang Crypto library (See https://github.com/golang/go/blob/go1.14/src/crypto/x509/x509.go#L337-L353).
+      example: SHA256-RSA
+      default_field: false
+    - name: x509.subject.common_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of common names (CN) of subject.
+      example: r2.shared.global.fastly.net
+      default_field: false
+    - name: x509.subject.country
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of country (C) code
+      example: US
+      default_field: false
+    - name: x509.subject.distinguished_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Distinguished name (DN) of the certificate subject entity.
+      example: C=US, ST=California, L=San Francisco, O=Fastly, Inc., CN=r2.shared.global.fastly.net
+      default_field: false
+    - name: x509.subject.locality
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of locality names (L)
+      example: San Francisco
+      default_field: false
+    - name: x509.subject.organization
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of organizations (O) of subject.
+      example: Fastly, Inc.
+      default_field: false
+    - name: x509.subject.organizational_unit
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of organizational units (OU) of subject.
+      default_field: false
+    - name: x509.subject.state_or_province
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of state or province names (ST, S, or P)
+      example: California
+      default_field: false
+    - name: x509.version_number
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Version of x509 format.
+      example: 3
+      default_field: false
   - name: geo
     title: Geo
     group: 2
@@ -2077,9 +2275,14 @@
       ignore_above: 1024
       description: 'HTTP request method.
 
-        The field value must be normalized to lowercase for querying. See the documentation
-        section "Implementing ECS".'
-      example: get, post, put
+        Prior to ECS 1.6.0 the following guidance was provided:
+
+        "The field value must be normalized to lowercase for querying."
+
+        As of ECS 1.6.0, the guidance is deprecated because the original case of the
+        method may be useful in anomaly detection.  Original case will be mandated
+        in ECS 2.0.0'
+      example: GET, POST, PUT, PoST
     - name: request.referrer
       level: extended
       type: keyword
@@ -4374,6 +4577,176 @@
       - TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
       - '...'
       default_field: false
+    - name: client.x509.alternative_names
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of subject alternative names (SAN). Name types vary by certificate
+        authority and certificate type but commonly contain IP addresses, DNS names
+        (and wildcards), and email addresses.
+      example: '*.elastic.co'
+      default_field: false
+    - name: client.x509.issuer.common_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of common name (CN) of issuing certificate authority.
+      example: DigiCert SHA2 High Assurance Server CA
+      default_field: false
+    - name: client.x509.issuer.country
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of country (C) codes
+      example: US
+      default_field: false
+    - name: client.x509.issuer.distinguished_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Distinguished name (DN) of issuing certificate authority.
+      example: C=US, O=DigiCert Inc, OU=www.digicert.com, CN=DigiCert SHA2 High Assurance
+        Server CA
+      default_field: false
+    - name: client.x509.issuer.locality
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of locality names (L)
+      example: Mountain View
+      default_field: false
+    - name: client.x509.issuer.organization
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of organizations (O) of issuing certificate authority.
+      example: DigiCert Inc
+      default_field: false
+    - name: client.x509.issuer.organizational_unit
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of organizational units (OU) of issuing certificate authority.
+      example: www.digicert.com
+      default_field: false
+    - name: client.x509.issuer.state_or_province
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of state or province names (ST, S, or P)
+      example: California
+      default_field: false
+    - name: client.x509.not_after
+      level: extended
+      type: date
+      description: Time at which the certificate is no longer considered valid.
+      example: 2020-07-16 03:15:39+00:00
+      default_field: false
+    - name: client.x509.not_before
+      level: extended
+      type: date
+      description: Time at which the certificate is first considered valid.
+      example: 2019-08-16 01:40:25+00:00
+      default_field: false
+    - name: client.x509.public_key_algorithm
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Algorithm used to generate the public key.
+      example: RSA
+      default_field: false
+    - name: client.x509.public_key_curve
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The curve used by the elliptic curve public key algorithm. This
+        is algorithm specific.
+      example: nistp521
+      default_field: false
+    - name: client.x509.public_key_exponent
+      level: extended
+      type: long
+      description: Exponent used to derive the public key. This is algorithm specific.
+      example: 65537
+      default_field: false
+    - name: client.x509.public_key_size
+      level: extended
+      type: long
+      description: The size of the public key space in bits.
+      example: 2048
+      default_field: false
+    - name: client.x509.serial_number
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Unique serial number issued by the certificate authority. For consistency,
+        if this value is alphanumeric, it should be formatted without colons and uppercase
+        characters.
+      example: 55FBB9C7DEBF09809D12CCAA
+      default_field: false
+    - name: client.x509.signature_algorithm
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifier for certificate signature algorithm. Recommend using
+        names found in Go Lang Crypto library (See https://github.com/golang/go/blob/go1.14/src/crypto/x509/x509.go#L337-L353).
+      example: SHA256-RSA
+      default_field: false
+    - name: client.x509.subject.common_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of common names (CN) of subject.
+      example: r2.shared.global.fastly.net
+      default_field: false
+    - name: client.x509.subject.country
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of country (C) code
+      example: US
+      default_field: false
+    - name: client.x509.subject.distinguished_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Distinguished name (DN) of the certificate subject entity.
+      example: C=US, ST=California, L=San Francisco, O=Fastly, Inc., CN=r2.shared.global.fastly.net
+      default_field: false
+    - name: client.x509.subject.locality
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of locality names (L)
+      example: San Francisco
+      default_field: false
+    - name: client.x509.subject.organization
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of organizations (O) of subject.
+      example: Fastly, Inc.
+      default_field: false
+    - name: client.x509.subject.organizational_unit
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of organizational units (OU) of subject.
+      default_field: false
+    - name: client.x509.subject.state_or_province
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of state or province names (ST, S, or P)
+      example: California
+      default_field: false
+    - name: client.x509.version_number
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Version of x509 format.
+      example: 3
+      default_field: false
     - name: curve
       level: extended
       type: keyword
@@ -4485,6 +4858,176 @@
       ignore_above: 1024
       description: Subject of the x.509 certificate presented by the server.
       example: CN=www.mydomain.com, OU=Infrastructure Team, DC=mydomain, DC=com
+      default_field: false
+    - name: server.x509.alternative_names
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of subject alternative names (SAN). Name types vary by certificate
+        authority and certificate type but commonly contain IP addresses, DNS names
+        (and wildcards), and email addresses.
+      example: '*.elastic.co'
+      default_field: false
+    - name: server.x509.issuer.common_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of common name (CN) of issuing certificate authority.
+      example: DigiCert SHA2 High Assurance Server CA
+      default_field: false
+    - name: server.x509.issuer.country
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of country (C) codes
+      example: US
+      default_field: false
+    - name: server.x509.issuer.distinguished_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Distinguished name (DN) of issuing certificate authority.
+      example: C=US, O=DigiCert Inc, OU=www.digicert.com, CN=DigiCert SHA2 High Assurance
+        Server CA
+      default_field: false
+    - name: server.x509.issuer.locality
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of locality names (L)
+      example: Mountain View
+      default_field: false
+    - name: server.x509.issuer.organization
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of organizations (O) of issuing certificate authority.
+      example: DigiCert Inc
+      default_field: false
+    - name: server.x509.issuer.organizational_unit
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of organizational units (OU) of issuing certificate authority.
+      example: www.digicert.com
+      default_field: false
+    - name: server.x509.issuer.state_or_province
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of state or province names (ST, S, or P)
+      example: California
+      default_field: false
+    - name: server.x509.not_after
+      level: extended
+      type: date
+      description: Time at which the certificate is no longer considered valid.
+      example: 2020-07-16 03:15:39+00:00
+      default_field: false
+    - name: server.x509.not_before
+      level: extended
+      type: date
+      description: Time at which the certificate is first considered valid.
+      example: 2019-08-16 01:40:25+00:00
+      default_field: false
+    - name: server.x509.public_key_algorithm
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Algorithm used to generate the public key.
+      example: RSA
+      default_field: false
+    - name: server.x509.public_key_curve
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The curve used by the elliptic curve public key algorithm. This
+        is algorithm specific.
+      example: nistp521
+      default_field: false
+    - name: server.x509.public_key_exponent
+      level: extended
+      type: long
+      description: Exponent used to derive the public key. This is algorithm specific.
+      example: 65537
+      default_field: false
+    - name: server.x509.public_key_size
+      level: extended
+      type: long
+      description: The size of the public key space in bits.
+      example: 2048
+      default_field: false
+    - name: server.x509.serial_number
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Unique serial number issued by the certificate authority. For consistency,
+        if this value is alphanumeric, it should be formatted without colons and uppercase
+        characters.
+      example: 55FBB9C7DEBF09809D12CCAA
+      default_field: false
+    - name: server.x509.signature_algorithm
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifier for certificate signature algorithm. Recommend using
+        names found in Go Lang Crypto library (See https://github.com/golang/go/blob/go1.14/src/crypto/x509/x509.go#L337-L353).
+      example: SHA256-RSA
+      default_field: false
+    - name: server.x509.subject.common_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of common names (CN) of subject.
+      example: r2.shared.global.fastly.net
+      default_field: false
+    - name: server.x509.subject.country
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of country (C) code
+      example: US
+      default_field: false
+    - name: server.x509.subject.distinguished_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Distinguished name (DN) of the certificate subject entity.
+      example: C=US, ST=California, L=San Francisco, O=Fastly, Inc., CN=r2.shared.global.fastly.net
+      default_field: false
+    - name: server.x509.subject.locality
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of locality names (L)
+      example: San Francisco
+      default_field: false
+    - name: server.x509.subject.organization
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of organizations (O) of subject.
+      example: Fastly, Inc.
+      default_field: false
+    - name: server.x509.subject.organizational_unit
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of organizational units (OU) of subject.
+      default_field: false
+    - name: server.x509.subject.state_or_province
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of state or province names (ST, S, or P)
+      example: California
+      default_field: false
+    - name: server.x509.version_number
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Version of x509 format.
+      example: 3
       default_field: false
     - name: version
       level: extended
@@ -4976,4 +5519,188 @@
       description: The severity of the vulnerability can help with metrics and internal
         prioritization regarding remediation. For example (https://nvd.nist.gov/vuln-metrics/cvss)
       example: Critical
+      default_field: false
+  - name: x509
+    title: x509 Certificate
+    group: 2
+    description: This implements the common core fields for x509 certificates. This
+      information is likely logged with TLS sessions, digital signatures found in
+      executable binaries, S/MIME information in email bodies, or analysis of files
+      on disk. When only a single certificate is logged in an event, it should be
+      nested under `file`. When hashes of the DER-encoded certificate are available,
+      the `hash` data set should be populated as well (e.g. `file.hash.sha256`). For
+      events that contain certificate information for both sides of the connection,
+      the x509 object could be nested under the respective side of the connection
+      information (e.g. `tls.server.x509`).
+    type: group
+    fields:
+    - name: alternative_names
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of subject alternative names (SAN). Name types vary by certificate
+        authority and certificate type but commonly contain IP addresses, DNS names
+        (and wildcards), and email addresses.
+      example: '*.elastic.co'
+      default_field: false
+    - name: issuer.common_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of common name (CN) of issuing certificate authority.
+      example: DigiCert SHA2 High Assurance Server CA
+      default_field: false
+    - name: issuer.country
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of country (C) codes
+      example: US
+      default_field: false
+    - name: issuer.distinguished_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Distinguished name (DN) of issuing certificate authority.
+      example: C=US, O=DigiCert Inc, OU=www.digicert.com, CN=DigiCert SHA2 High Assurance
+        Server CA
+      default_field: false
+    - name: issuer.locality
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of locality names (L)
+      example: Mountain View
+      default_field: false
+    - name: issuer.organization
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of organizations (O) of issuing certificate authority.
+      example: DigiCert Inc
+      default_field: false
+    - name: issuer.organizational_unit
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of organizational units (OU) of issuing certificate authority.
+      example: www.digicert.com
+      default_field: false
+    - name: issuer.state_or_province
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of state or province names (ST, S, or P)
+      example: California
+      default_field: false
+    - name: not_after
+      level: extended
+      type: date
+      description: Time at which the certificate is no longer considered valid.
+      example: 2020-07-16 03:15:39+00:00
+      default_field: false
+    - name: not_before
+      level: extended
+      type: date
+      description: Time at which the certificate is first considered valid.
+      example: 2019-08-16 01:40:25+00:00
+      default_field: false
+    - name: public_key_algorithm
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Algorithm used to generate the public key.
+      example: RSA
+      default_field: false
+    - name: public_key_curve
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The curve used by the elliptic curve public key algorithm. This
+        is algorithm specific.
+      example: nistp521
+      default_field: false
+    - name: public_key_exponent
+      level: extended
+      type: long
+      description: Exponent used to derive the public key. This is algorithm specific.
+      example: 65537
+      default_field: false
+    - name: public_key_size
+      level: extended
+      type: long
+      description: The size of the public key space in bits.
+      example: 2048
+      default_field: false
+    - name: serial_number
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Unique serial number issued by the certificate authority. For consistency,
+        if this value is alphanumeric, it should be formatted without colons and uppercase
+        characters.
+      example: 55FBB9C7DEBF09809D12CCAA
+      default_field: false
+    - name: signature_algorithm
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifier for certificate signature algorithm. Recommend using
+        names found in Go Lang Crypto library (See https://github.com/golang/go/blob/go1.14/src/crypto/x509/x509.go#L337-L353).
+      example: SHA256-RSA
+      default_field: false
+    - name: subject.common_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of common names (CN) of subject.
+      example: r2.shared.global.fastly.net
+      default_field: false
+    - name: subject.country
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of country (C) code
+      example: US
+      default_field: false
+    - name: subject.distinguished_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Distinguished name (DN) of the certificate subject entity.
+      example: C=US, ST=California, L=San Francisco, O=Fastly, Inc., CN=r2.shared.global.fastly.net
+      default_field: false
+    - name: subject.locality
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of locality names (L)
+      example: San Francisco
+      default_field: false
+    - name: subject.organization
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of organizations (O) of subject.
+      example: Fastly, Inc.
+      default_field: false
+    - name: subject.organizational_unit
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of organizational units (OU) of subject.
+      default_field: false
+    - name: subject.state_or_province
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of state or province names (ST, S, or P)
+      example: California
+      default_field: false
+    - name: version_number
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Version of x509 format.
+      example: 3
       default_field: false
