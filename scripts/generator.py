@@ -49,14 +49,12 @@ def main():
     if args.intermediate_only:
         exit()
 
-    print('up to here for now')
-    exit()
-
     csv_generator.generate(flat, ecs_version, out_dir)
     es_template.generate(flat, ecs_version, out_dir)
     beats.generate(nested, ecs_version, out_dir)
     if args.include or args.subset:
         exit()
+
     asciidoc_fields.generate(fields, ecs_version, docs_dir)
 
 

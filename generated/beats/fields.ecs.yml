@@ -911,7 +911,6 @@
     - name: answers
       level: extended
       type: object
-      object_type: keyword
       description: 'An array containing an object for each answer section returned
         by the server.
 
@@ -2234,7 +2233,6 @@
     - name: syslog
       level: extended
       type: object
-      object_type: keyword
       description: The Syslog metadata of the event, if the event was transmitted
         via Syslog. Please see RFCs 5424 or 3164.
     - name: syslog.facility.code
@@ -2351,7 +2349,6 @@
     - name: inner
       level: extended
       type: object
-      object_type: keyword
       description: Network.inner fields are added in addition to network.vlan fields
         to describe  the innermost VLAN when q-in-q VLAN tagging is present. Allowed
         fields include  vlan.id and vlan.name. Inner vlan fields are typically used
@@ -2449,7 +2446,6 @@
     - name: egress
       level: extended
       type: object
-      object_type: keyword
       description: Observer.egress holds information like interface number and name,
         vlan, and zone information to  classify egress traffic.  Single armed monitoring
         such as a network sensor on a span port should  only use observer.ingress
@@ -2562,7 +2558,6 @@
     - name: ingress
       level: extended
       type: object
-      object_type: keyword
       description: Observer.ingress holds information like interface number and name,
         vlan, and zone information to  classify ingress traffic.  Single armed monitoring
         such as a network sensor on a span port should  only use observer.ingress
@@ -4560,16 +4555,7 @@
       - to queries made through multiple back-end services.
     type: group
     fields:
-    - name: trace.id
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: 'Unique identifier of the trace.
-
-        A trace groups multiple events like transactions that belong together. For
-        example, a user request handled by multiple inter-connected services.'
-      example: 4bf92f3577b34da6a3ce929d0e0e4736
-    - name: transaction.id
+    - name: id
       level: extended
       type: keyword
       ignore_above: 1024
