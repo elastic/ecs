@@ -1,7 +1,7 @@
 # 0000: Name of RFC
 <!--^ Increment the RFC number in the file and in the filename. Take care not to conflict with other RFCs.--> 
 
-- Stage: **1 (strawperson)** <!-- Update to reflect target stage -->
+- Stage: **0 (strawperson)** <!-- Update to reflect target stage -->
 - Date: **TBD** <!-- Update to reflect date of stage advancement -->
 
 <!--
