@@ -308,7 +308,3 @@ def page_field_values(nested, template_name='field_values_template.j2'):
 
     template = template_env.get_template(template_name)
     return template.render(fields=nested_fields)
-
-def field_values_template(fields, template_name='field_values_template.j2'):
-    template = template_env.get_template(template_name)
-    return template.render(fields=fields)
