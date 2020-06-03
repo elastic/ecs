@@ -148,11 +148,16 @@ class TestSchemaFinalizer(unittest.TestCase):
         self.assertIn('name', user_fields['effective']['fields'])
         self.assertIn('name', server_fields['user']['fields'])
         self.assertIn('pid', process_fields['parent']['fields'])
+        # Ensure the parent field of reused fields is marked as intermediate
+        self.assertTrue(server_fields['user']['field_details']['intermediate'])
+        self.assertTrue(process_fields['parent']['field_details']['intermediate'])
+        self.assertTrue(user_fields['target']['field_details']['intermediate'])
+        self.assertTrue(user_fields['effective']['field_details']['intermediate'])
         # No unexpected cross-nesting
         self.assertNotIn('target', user_fields['target']['fields'])
         self.assertNotIn('target', user_fields['effective']['fields'])
         self.assertNotIn('target', server_fields['user']['fields'])
-        # Legacy nestings at host schema level
+        # Legacy list of nestings, added to destination schema
         self.assertIn('process.parent', fields['process']['schema_details']['nestings'])
         self.assertIn('user.effective', fields['user']['schema_details']['nestings'])
         self.assertIn('user.target', fields['user']['schema_details']['nestings'])

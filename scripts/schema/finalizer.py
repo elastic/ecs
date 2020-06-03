@@ -81,6 +81,7 @@ def perform_reuse(fields):
             nest_as = reuse_entry['as']
             new_field_details = copy.deepcopy(schema['field_details'])
             new_field_details['name'] = nest_as
+            new_field_details['intermediate'] = True
             detached_fields[nest_as] = {
                     'field_details': new_field_details,
                     'fields': copy.deepcopy(schema['fields']),
