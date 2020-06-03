@@ -55,7 +55,7 @@ def main():
     if args.include or args.subset:
         exit()
 
-    asciidoc_fields.generate(fields, ecs_version, docs_dir)
+    asciidoc_fields.generate(nested, ecs_version, docs_dir)
 
 
 def argument_parser():
