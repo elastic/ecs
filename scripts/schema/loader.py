@@ -41,7 +41,7 @@ from generators import ecs_helpers
 #   Examples of this are 'dns.answers', 'observer.egress'.
 
 
-def load_schemas(included_files):
+def load_schemas(included_files=[]):
     """Loads ECS and custom schemas. They are returned deeply nested and merged."""
     fields = deep_nesting_representation(load_schema_files(ecs_helpers.ecs_files()))
     if included_files and len(included_files) > 0:
