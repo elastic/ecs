@@ -22,6 +22,8 @@ Thanks, you're awesome :-) -->
 
 * Add architecture and imphash for PE field set. (#763)
 * Added `agent.build.*` for extended agent version information. (#764)
+* Added `x509.*` field set. (#762)
+* Added more account and project cloud metadata. (#816)
 
 #### Improvements
 
@@ -31,6 +33,7 @@ Thanks, you're awesome :-) -->
 
 #### Deprecated
 
+* Deprecate guidance to lowercase `http.request.method` #840
 
 ### Tooling and Artifact Changes
 
@@ -62,6 +65,8 @@ Thanks, you're awesome :-) -->
 * Allow shorthand notation for including all subfields in subsets. #805
 * Add ability to nest field sets as another name. #820
 * Add ability to nest field sets within themselves (e.g. `process.parent.*`). #820
+* Add `ref` option to generator allowing schemas to be built for a specific ECS version. #851
+* Add `template-settings` and `mapping-settings` options to allow override of defaults in generated ES templates. #856
 
 #### Deprecated
 

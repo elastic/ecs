@@ -19,14 +19,14 @@ from schema import subset_filter
 def main():
     args = argument_parser()
 
-    ecs_version = read_version()
+    ecs_version = read_version(args.ref)
     print('Running generator. ECS version ' + ecs_version)
 
     # To debug issues in the gradual building up of the nested structure, insert
     # statements like this after any step of interest.
     # ecs_helpers.yaml_dump('ecs.yml', fields)
 
-    fields = loader.load_schemas(args.include)
+    fields = loader.load_schemas(ref=args.ref, included_files=args.include)
     cleaner.clean(fields)
     finalizer.finalize(fields)
     fields = subset_filter.filter(fields, args.subset)
@@ -49,7 +49,7 @@ def main():
         exit()
 
     csv_generator.generate(flat, ecs_version, out_dir)
-    es_template.generate(flat, ecs_version, out_dir)
+    es_template.generate(flat, ecs_version, out_dir, args.template_settings, args.mapping_settings)
     beats.generate(nested, ecs_version, out_dir)
     if args.include or args.subset:
         exit()
@@ -66,6 +66,11 @@ def argument_parser():
     parser.add_argument('--subset', nargs='+',
                         help='render a subset of the schema')
     parser.add_argument('--out', action='store', help='directory to store the generated files')
+    parser.add_argument('--ref', action='store', help='git reference to use when building schemas')
+    parser.add_argument('--template-settings', action='store',
+                        help='index template settings to use when generating elasticsearch template')
+    parser.add_argument('--mapping-settings', action='store',
+                        help='mapping settings to use when generating elasticsearch template')
     args = parser.parse_args()
     # Clean up empty include of the Makefile
     if args.include and [''] == args.include:
@@ -73,9 +78,15 @@ def argument_parser():
     return args
 
 
-def read_version(file='version'):
-    with open(file, 'r') as infile:
-        return infile.read().rstrip()
+def read_version(ref=None):
+    if ref:
+        print('Loading schemas from git ref ' + ref)
+        tree = ecs_helpers.get_tree_by_ref(ref)
+        return tree['version'].data_stream.read().decode('utf-8').rstrip()
+    else:
+        print('Loading schemas from local files')
+        with open('version', 'r') as infile:
+            return infile.read().rstrip()
 
 
 if __name__ == '__main__':

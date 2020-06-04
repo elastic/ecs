@@ -99,6 +99,11 @@ class TestECSHelpers(unittest.TestCase):
         self.assertEqual(ecs_helpers.list_subtract(['a', 'b'], ['a']), ['b'])
         self.assertEqual(ecs_helpers.list_subtract(['a', 'b'], ['a', 'c']), ['b'])
 
+    def test_get_tree_by_ref(self):
+        ref = 'v1.5.0'
+        tree = ecs_helpers.get_tree_by_ref(ref)
+        self.assertEqual(tree.hexsha, '4449df245f6930d59bcd537a5958891261a9476b')
+
 
 if __name__ == '__main__':
     unittest.main()

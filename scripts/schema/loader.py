@@ -2,6 +2,7 @@ import copy
 import glob
 import os
 import yaml
+
 from generators import ecs_helpers
 
 # Loads main ECS schemas and optional additional schemas.
@@ -41,10 +42,18 @@ from generators import ecs_helpers
 #   Examples of this are 'dns.answers', 'observer.egress'.
 
 
-def load_schemas(included_files=[]):
+def load_schemas(ref=None, included_files=[]):
     """Loads ECS and custom schemas. They are returned deeply nested and merged."""
-    fields = deep_nesting_representation(load_schema_files(ecs_helpers.ecs_files()))
+    # ECS fields (from git ref or not)
+    if ref:
+        schema_files_raw = load_schemas_from_git(ref)
+    else:
+        schema_files_raw = load_schema_files(ecs_helpers.ecs_files())
+    fields = deep_nesting_representation(schema_files_raw)
+
+    # Custom additional files (never from git ref)
     if included_files and len(included_files) > 0:
+        print('Loading user defined schemas: {0}'.format(included_files))
         custom_files = ecs_helpers.get_glob_files(included_files, ecs_helpers.YAML_EXT)
         custom_fields = deep_nesting_representation(load_schema_files(custom_files))
         fields = merge_custom_fields(fields, custom_fields)
@@ -59,16 +68,34 @@ def load_schema_files(files):
     return fields_nested
 
 
-def read_schema_file(file):
-    """Read a raw schema yml into a dict."""
-    with open(file) as f:
+def load_schemas_from_git(ref):
+    tree = ecs_helpers.get_tree_by_ref(ref)
+    fields_nested = {}
+    for blob in tree['schemas'].blobs:
+        if blob.name.endswith('.yml'):
+            new_fields = read_schema_blob(blob, ref)
+            fields_nested = ecs_helpers.safe_merge_dicts(fields_nested, new_fields)
+    return fields_nested
+
+
+def read_schema_file(file_name):
+    """Read a raw schema yml file into a dict."""
+    with open(file_name) as f:
         raw = yaml.safe_load(f.read())
-    return nest_schema(raw, file)
+    return nest_schema(raw, file_name)
 
 
-def nest_schema(raw, file):
+def read_schema_blob(blob, ref):
+    """Read a raw schema yml git blob into a dict."""
+    content = blob.data_stream.read().decode('utf-8')
+    raw = yaml.safe_load(content)
+    file_name = "{} (git ref {})".format(blob.name, ref)
+    return nest_schema(raw, file_name)
+
+
+def nest_schema(raw, file_name):
     '''
-    Raw schema files are an of schema details: [{'name': 'base', ...]
+    Raw schema files are an array of schema details: [{'name': 'base', ...}]
 
     This function loops over the array (usually 1 schema per file) and turns it into
     a dict with the schema name as the key: { 'base': { 'name': 'base', ...}}
@@ -76,7 +103,7 @@ def nest_schema(raw, file):
     fields = {}
     for schema in raw:
         if 'name' not in schema:
-            raise ValueError("Schema file {} is missing mandatory attribute 'name'".format(file))
+            raise ValueError("Schema file {} is missing mandatory attribute 'name'".format(file_name))
         fields[schema['name']] = schema
     return fields
 

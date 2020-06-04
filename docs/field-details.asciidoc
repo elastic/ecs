@@ -163,7 +163,7 @@ example: `foo`
 | agent.type
 | Type of the agent.
 
-The agent type stays always the same and should be given by the agent used. In case of Filebeat the agent would always be Filebeat also if two Filebeat instances are run on the same machine.
+The agent type always stays the same and should be given by the agent used. In case of Filebeat the agent would always be Filebeat also if two Filebeat instances are run on the same machine.
 
 type: keyword
 
@@ -483,6 +483,21 @@ example: `666777888999`
 
 // ===============================================================
 
+| cloud.account.name
+| The cloud account name or alias used to identify different entities in a multi-tenant environment.
+
+Examples: AWS account name, Google Cloud ORG display name.
+
+type: keyword
+
+
+
+example: `elastic-dev`
+
+| extended
+
+// ===============================================================
+
 | cloud.availability_zone
 | Availability zone in which this host is running.
 
@@ -530,6 +545,36 @@ type: keyword
 
 
 example: `t2.medium`
+
+| extended
+
+// ===============================================================
+
+| cloud.project.id
+| The cloud project identifier.
+
+Examples: Google Cloud Project id, Azure Project id.
+
+type: keyword
+
+
+
+example: `my-project`
+
+| extended
+
+// ===============================================================
+
+| cloud.project.name
+| The cloud project name.
+
+Examples: Google Cloud Project name, Azure Project name.
+
+type: keyword
+
+
+
+example: `my project`
 
 | extended
 
@@ -2228,6 +2273,12 @@ example: `1001`
 // ===============================================================
 
 
+| <<ecs-x509,file.x509.*>>
+| This implements the common core fields for x509 certificates. This information is likely logged with TLS sessions, digital signatures found in executable binaries, S/MIME information in email bodies, or analysis of files on disk. When only a single certificate is logged in an event, it should be nested under `file`. When hashes of the DER-encoded certificate are available, the `hash` data set should be populated as well (e.g. `file.hash.sha256`). For events that contain certificate information for both sides of the connection, the x509 object could be nested under the respective side of the connection information (e.g. `tls.server.x509`).
+
+// ===============================================================
+
+
 |=====
 
 [[ecs-geo]]
@@ -2755,13 +2806,17 @@ example: `1437`
 | http.request.method
 | HTTP request method.
 
-The field value must be normalized to lowercase for querying. See the documentation section "Implementing ECS".
+Prior to ECS 1.6.0 the following guidance was provided:
+
+"The field value must be normalized to lowercase for querying."
+
+As of ECS 1.6.0, the guidance is deprecated because the original case of the method may be useful in anomaly detection.  Original case will be mandated in ECS 2.0.0
 
 type: keyword
 
 
 
-example: `get, post, put`
+example: `GET, POST, PUT, PoST`
 
 | extended
 
@@ -6066,6 +6121,35 @@ example: `tls`
 
 |=====
 
+==== Field Reuse
+
+
+
+
+[[ecs-tls-nestings]]
+===== Field sets that can be nested under TLS
+
+[options="header"]
+|=====
+| Nested fields | Description
+
+// ===============================================================
+
+
+| <<ecs-x509,tls.client.x509.*>>
+| This implements the common core fields for x509 certificates. This information is likely logged with TLS sessions, digital signatures found in executable binaries, S/MIME information in email bodies, or analysis of files on disk. When only a single certificate is logged in an event, it should be nested under `file`. When hashes of the DER-encoded certificate are available, the `hash` data set should be populated as well (e.g. `file.hash.sha256`). For events that contain certificate information for both sides of the connection, the x509 object could be nested under the respective side of the connection information (e.g. `tls.server.x509`).
+
+// ===============================================================
+
+
+| <<ecs-x509,tls.server.x509.*>>
+| This implements the common core fields for x509 certificates. This information is likely logged with TLS sessions, digital signatures found in executable binaries, S/MIME information in email bodies, or analysis of files on disk. When only a single certificate is logged in an event, it should be nested under `file`. When hashes of the DER-encoded certificate are available, the `hash` data set should be populated as well (e.g. `file.hash.sha256`). For events that contain certificate information for both sides of the connection, the x509 object could be nested under the respective side of the connection information (e.g. `tls.server.x509`).
+
+// ===============================================================
+
+
+|=====
+
 [[ecs-tracing]]
 === Tracing Fields
 
@@ -6808,3 +6892,378 @@ example: `Critical`
 // ===============================================================
 
 |=====
+
+[[ecs-x509]]
+=== x509 Certificate Fields
+
+This implements the common core fields for x509 certificates. This information is likely logged with TLS sessions, digital signatures found in executable binaries, S/MIME information in email bodies, or analysis of files on disk. When only a single certificate is logged in an event, it should be nested under `file`. When hashes of the DER-encoded certificate are available, the `hash` data set should be populated as well (e.g. `file.hash.sha256`). For events that contain certificate information for both sides of the connection, the x509 object could be nested under the respective side of the connection information (e.g. `tls.server.x509`).
+
+==== x509 Certificate Field Details
+
+[options="header"]
+|=====
+| Field  | Description | Level
+
+// ===============================================================
+
+| x509.alternative_names
+| List of subject alternative names (SAN). Name types vary by certificate authority and certificate type but commonly contain IP addresses, DNS names (and wildcards), and email addresses.
+
+type: keyword
+
+
+Note: this field should contain an array of values.
+
+
+
+example: `*.elastic.co`
+
+| extended
+
+// ===============================================================
+
+| x509.issuer.common_name
+| List of common name (CN) of issuing certificate authority.
+
+type: keyword
+
+
+Note: this field should contain an array of values.
+
+
+
+example: `DigiCert SHA2 High Assurance Server CA`
+
+| extended
+
+// ===============================================================
+
+| x509.issuer.country
+| List of country (C) codes
+
+type: keyword
+
+
+Note: this field should contain an array of values.
+
+
+
+example: `US`
+
+| extended
+
+// ===============================================================
+
+| x509.issuer.distinguished_name
+| Distinguished name (DN) of issuing certificate authority.
+
+type: keyword
+
+
+
+example: `C=US, O=DigiCert Inc, OU=www.digicert.com, CN=DigiCert SHA2 High Assurance Server CA`
+
+| extended
+
+// ===============================================================
+
+| x509.issuer.locality
+| List of locality names (L)
+
+type: keyword
+
+
+Note: this field should contain an array of values.
+
+
+
+example: `Mountain View`
+
+| extended
+
+// ===============================================================
+
+| x509.issuer.organization
+| List of organizations (O) of issuing certificate authority.
+
+type: keyword
+
+
+Note: this field should contain an array of values.
+
+
+
+example: `DigiCert Inc`
+
+| extended
+
+// ===============================================================
+
+| x509.issuer.organizational_unit
+| List of organizational units (OU) of issuing certificate authority.
+
+type: keyword
+
+
+Note: this field should contain an array of values.
+
+
+
+example: `www.digicert.com`
+
+| extended
+
+// ===============================================================
+
+| x509.issuer.state_or_province
+| List of state or province names (ST, S, or P)
+
+type: keyword
+
+
+Note: this field should contain an array of values.
+
+
+
+example: `California`
+
+| extended
+
+// ===============================================================
+
+| x509.not_after
+| Time at which the certificate is no longer considered valid.
+
+type: date
+
+
+
+example: `2020-07-16 03:15:39+00:00`
+
+| extended
+
+// ===============================================================
+
+| x509.not_before
+| Time at which the certificate is first considered valid.
+
+type: date
+
+
+
+example: `2019-08-16 01:40:25+00:00`
+
+| extended
+
+// ===============================================================
+
+| x509.public_key_algorithm
+| Algorithm used to generate the public key.
+
+type: keyword
+
+
+
+example: `RSA`
+
+| extended
+
+// ===============================================================
+
+| x509.public_key_curve
+| The curve used by the elliptic curve public key algorithm. This is algorithm specific.
+
+type: keyword
+
+
+
+example: `nistp521`
+
+| extended
+
+// ===============================================================
+
+| x509.public_key_exponent
+| Exponent used to derive the public key. This is algorithm specific.
+
+type: long
+
+
+
+example: `65537`
+
+| extended
+
+// ===============================================================
+
+| x509.public_key_size
+| The size of the public key space in bits.
+
+type: long
+
+
+
+example: `2048`
+
+| extended
+
+// ===============================================================
+
+| x509.serial_number
+| Unique serial number issued by the certificate authority. For consistency, if this value is alphanumeric, it should be formatted without colons and uppercase characters.
+
+type: keyword
+
+
+
+example: `55FBB9C7DEBF09809D12CCAA`
+
+| extended
+
+// ===============================================================
+
+| x509.signature_algorithm
+| Identifier for certificate signature algorithm. Recommend using names found in Go Lang Crypto library (See https://github.com/golang/go/blob/go1.14/src/crypto/x509/x509.go#L337-L353).
+
+type: keyword
+
+
+
+example: `SHA256-RSA`
+
+| extended
+
+// ===============================================================
+
+| x509.subject.common_name
+| List of common names (CN) of subject.
+
+type: keyword
+
+
+Note: this field should contain an array of values.
+
+
+
+example: `r2.shared.global.fastly.net`
+
+| extended
+
+// ===============================================================
+
+| x509.subject.country
+| List of country (C) code
+
+type: keyword
+
+
+Note: this field should contain an array of values.
+
+
+
+example: `US`
+
+| extended
+
+// ===============================================================
+
+| x509.subject.distinguished_name
+| Distinguished name (DN) of the certificate subject entity.
+
+type: keyword
+
+
+
+example: `C=US, ST=California, L=San Francisco, O=Fastly, Inc., CN=r2.shared.global.fastly.net`
+
+| extended
+
+// ===============================================================
+
+| x509.subject.locality
+| List of locality names (L)
+
+type: keyword
+
+
+Note: this field should contain an array of values.
+
+
+
+example: `San Francisco`
+
+| extended
+
+// ===============================================================
+
+| x509.subject.organization
+| List of organizations (O) of subject.
+
+type: keyword
+
+
+Note: this field should contain an array of values.
+
+
+
+example: `Fastly, Inc.`
+
+| extended
+
+// ===============================================================
+
+| x509.subject.organizational_unit
+| List of organizational units (OU) of subject.
+
+type: keyword
+
+
+Note: this field should contain an array of values.
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+| x509.subject.state_or_province
+| List of state or province names (ST, S, or P)
+
+type: keyword
+
+
+Note: this field should contain an array of values.
+
+
+
+example: `California`
+
+| extended
+
+// ===============================================================
+
+| x509.version_number
+| Version of x509 format.
+
+type: keyword
+
+
+
+example: `3`
+
+| extended
+
+// ===============================================================
+
+|=====
+
+==== Field Reuse
+
+The `x509` fields are expected to be nested at: `file.x509`, `tls.client.x509`, `tls.server.x509`.
+
+Note also that the `x509` fields are not expected to be used directly at the top level.
+
+
+
