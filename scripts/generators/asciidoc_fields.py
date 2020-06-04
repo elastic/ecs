@@ -1,3 +1,4 @@
+from functools import wraps
 import os.path as path
 from generators import ecs_helpers
 
@@ -15,6 +16,20 @@ def generate(nested, ecs_version, out_dir):
 
 # Helpers
 
+def templated(template_name):
+    def decorator(func):
+        @wraps(func)
+        def decorated_function(*args, **kwargs):
+            ctx = func(*args, **kwargs)
+            return render_template(template_name, **ctx)
+        return decorated_function
+    return decorator
+
+
+def render_template(template_name, **context):
+    template = template_env.get_template(template_name)
+    return template.render(**context)
+
 
 def save_asciidoc(file, text):
     with open(file, "w") as outfile:
@@ -25,10 +40,17 @@ def save_asciidoc(file, text):
 
 # Field Index
 
+<<<<<<< HEAD
 def page_field_index(nested, ecs_version):
     fieldsets = ecs_helpers.dict_sorted_by_keys(nested, ['group', 'name'])
     page_text = generate_field_index(ecs_version, fieldsets)
     return page_text
+=======
+@templated('fields_template.j2')
+def page_field_index(intermediate_nested, ecs_version):
+    fieldsets = ecs_helpers.dict_sorted_by_keys(intermediate_nested, ['group', 'name'])
+    return dict(ecs_version=ecs_version, fieldsets=fieldsets)
+>>>>>>> refactor to use template decorator
 
 
 # Field Details Page
@@ -175,25 +197,18 @@ def table_footer():
 |=====
 '''
 
-# Field Index
-
-def generate_field_index(ecs_version, fieldsets, template_name='fields_template.j2'):
-    template = template_env.get_template(template_name)
-    return template.render(ecs_version=ecs_version, fieldsets=fieldsets)
-
-
 # Field Details Page
 
 # Main Fields Table
 
-def field_details_table_header(title, name, description, template_name='field_details/table_header.j2'):
-    template = template_env.get_template(template_name)
-    return template.render(name=name, title=title, description=description)
+@templated('field_details/table_header.j2')
+def field_details_table_header(title, name, description):
+    return dict(name=name, title=title, description=description)
 
 
-def field_details_row(flat_name, description, field_type, normalization, example, level, template_name='field_details/row.j2'):
-    template = template_env.get_template(template_name)
-    return template.render(
+@templated('field_details/row.j2')
+def field_details_row(flat_name, description, field_type, normalization, example, level):
+    return dict(
         flat_name=flat_name,
         description=description,
         field_type=field_type,
@@ -203,9 +218,9 @@ def field_details_row(flat_name, description, field_type, normalization, example
     )
 
 
-def field_acceptable_value_names(allowed_values, dashed_name, flat_name, template_name='field_details/acceptable_value_names.j2'):
-    template = template_env.get_template(template_name)
-    return template.render(
+@templated('field_details/acceptable_value_names.j2')
+def field_acceptable_value_names(allowed_values, dashed_name, flat_name):
+    return dict(
         allowed_values=allowed_values,
         dashed_name=dashed_name,
         flat_name=flat_name
@@ -214,21 +229,21 @@ def field_acceptable_value_names(allowed_values, dashed_name, flat_name, templat
 
 # Field reuse
 
-def field_reuse_section(reuse_of_fieldset, template_name='field_details/field_reuse_section.j2'):
-    template = template_env.get_template(template_name)
-    return template.render(reuse_of_fieldset=reuse_of_fieldset)
+@templated('field_details/field_reuse_section.j2')
+def field_reuse_section(reuse_of_fieldset):
+    return dict(reuse_of_fieldset=reuse_of_fieldset)
 
 
 # Nestings table
 
-def nestings_table_header(name, title, template_name='field_details/nestings_table_header.j2'):
-    template = template_env.get_template(template_name)
-    return template.render(name=name, title=title)
+@templated('field_details/nestings_table_header.j2')
+def nestings_table_header(name, title):
+    return dict(name=name, title=title)
 
 
-def nestings_row(nesting_name, flat_nesting, nesting_short, template_name='field_details/nestings_row.j2'):
-    template = template_env.get_template(template_name)
-    return template.render(
+@templated('field_details/nestings_row.j2')
+def nestings_row(nesting_name, flat_nesting, nesting_short):
+    return dict(
         nesting_name=nesting_name,
         flat_nesting=flat_nesting,
         nesting_short=nesting_short
@@ -237,11 +252,11 @@ def nestings_row(nesting_name, flat_nesting, nesting_short, template_name='field
 
 # Allowed values section
 
+@templated('field_values_template.j2')
 def page_field_values(nested, template_name='field_values_template.j2'):
     category_fields = ['event.kind', 'event.category', 'event.type', 'event.outcome']
     nested_fields = []
     for cat_field in category_fields:
         nested_fields.append(nested['event']['fields'][cat_field])
 
-    template = template_env.get_template(template_name)
-    return template.render(fields=nested_fields)
+    return dict(fields=nested_fields)
