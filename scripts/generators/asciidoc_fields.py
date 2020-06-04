@@ -41,10 +41,10 @@ def page_field_details(nested):
 
 
 def render_fieldset(fieldset, nested):
-    text = field_details_table_header().format(
-        fieldset_title=fieldset['title'],
-        fieldset_name=fieldset['name'],
-        fieldset_description=render_asciidoc_paragraphs(fieldset['description'])
+    text = field_details_table_header(
+        title=fieldset['title'],
+        name=fieldset['name'],
+        description=fieldset['description']
     )
 
     text += render_fields(fieldset['fields'])
@@ -74,10 +74,11 @@ def render_field_allowed_values(field):
     if not 'allowed_values' in field:
         return ''
     allowed_values = ', '.join(ecs_helpers.list_extract_keys(field['allowed_values'], 'name'))
-    return field_acceptable_value_names().format(
+
+    return field_acceptable_value_names(
         allowed_values=allowed_values,
-        field_flat_name=field['flat_name'],
-        field_dashed_name=field['dashed_name'],
+        flat_name=field['flat_name'],
+        dashed_name=field['dashed_name']
     )
 
 
@@ -98,14 +99,15 @@ def render_field_details_row(field):
     if 'array' in field['normalize']:
         field_normalization = "\nNote: this field should contain an array of values.\n\n"
 
-    text = field_details_row().format(
-        field_flat_name=field['flat_name'],
-        field_description=render_asciidoc_paragraphs(field['description']),
-        field_example=example,
-        field_normalization=field_normalization,
-        field_level=field['level'],
+    text = field_details_row(
+        flat_name=field['flat_name'],
+        description=field['description'],
         field_type=field_type_with_mf,
+        example=example,
+        normalization=field_normalization,
+        level=field['level']
     )
+
     return text
 
 
@@ -114,13 +116,14 @@ def render_fieldset_reuse_section(fieldset, nested):
     if not ('nestings' in fieldset or 'reusable' in fieldset):
         return ''
 
-    text = field_reuse_section().format(
+    text = field_reuse_section(
         reuse_of_fieldset=render_fieldset_reuses_text(fieldset)
     )
+
     if 'nestings' in fieldset:
-        text += nestings_table_header().format(
-            fieldset_name=fieldset['name'],
-            fieldset_title=fieldset['title']
+        text += nestings_table_header(
+            name=fieldset['name'],
+            title=fieldset['title']
         )
         rows = []
         for reused_here_entry in fieldset['reused_here']:
@@ -129,8 +132,14 @@ def render_fieldset_reuse_section(fieldset, nested):
                 'name': reused_here_entry['schema_name'],
                 'short': reused_here_entry['short']
             })
+
         for row in sorted(rows, key=lambda x: x['flat_nesting']):
-            text += render_nesting_row(row)
+            text += nestings_row(
+                nesting_name=row['name'],
+                flat_nesting=row['flat_nesting'],
+                nesting_short=row['short']
+            )
+
         text += table_footer()
     return text
 
@@ -159,17 +168,7 @@ def render_fieldset_reuses_text(fieldset):
     return text
 
 
-def render_nesting_row(nesting):
-    text = nestings_row().format(
-        nesting_name=nesting['name'],
-        flat_nesting=nesting['flat_nesting'],
-        nesting_short=nesting['short'],
-    )
-    return text
-
-
 # Templates
-
 
 def table_footer():
     return '''
@@ -187,91 +186,56 @@ def generate_field_index(ecs_version, fieldsets, template_name='fields_template.
 
 # Main Fields Table
 
-
-def field_details_table_header():
-    return '''
-[[ecs-{fieldset_name}]]
-=== {fieldset_title} Fields
-
-{fieldset_description}
-
-==== {fieldset_title} Field Details
-
-[options="header"]
-|=====
-| Field  | Description | Level
-
-// ===============================================================
-'''
+def field_details_table_header(title, name, description, template_name='field_details/table_header.j2'):
+    template = template_env.get_template(template_name)
+    return template.render(name=name, title=title, description=description)
 
 
-def field_details_row():
-    return '''
-| {field_flat_name}
-| {field_description}
-
-type: {field_type}
-
-{field_normalization}
-
-{field_example}
-
-| {field_level}
-
-// ===============================================================
-'''
+def field_details_row(flat_name, description, field_type, normalization, example, level, template_name='field_details/row.j2'):
+    template = template_env.get_template(template_name)
+    return template.render(
+        flat_name=flat_name,
+        description=description,
+        field_type=field_type,
+        normalization=normalization,
+        example=example,
+        level=level
+    )
 
 
-def field_acceptable_value_names():
-    return '''
-*Important*: The field value must be one of the following:
-
-{allowed_values}
-
-To learn more about when to use which value, visit the page
-<<ecs-allowed-values-{field_dashed_name},allowed values for {field_flat_name}>>
-'''
+def field_acceptable_value_names(allowed_values, dashed_name, flat_name, template_name='field_details/acceptable_value_names.j2'):
+    template = template_env.get_template(template_name)
+    return template.render(
+        allowed_values=allowed_values,
+        dashed_name=dashed_name,
+        flat_name=flat_name
+    )
 
 
 # Field reuse
 
-def field_reuse_section():
-    return '''
-==== Field Reuse
-
-{reuse_of_fieldset}
-
-'''
+def field_reuse_section(reuse_of_fieldset, template_name='field_details/field_reuse_section.j2'):
+    template = template_env.get_template(template_name)
+    return template.render(reuse_of_fieldset=reuse_of_fieldset)
 
 
 # Nestings table
 
-def nestings_table_header():
-    return '''
-[[ecs-{fieldset_name}-nestings]]
-===== Field sets that can be nested under {fieldset_title}
-
-[options="header"]
-|=====
-| Nested fields | Description
-
-// ===============================================================
-
-'''
+def nestings_table_header(name, title, template_name='field_details/nestings_table_header.j2'):
+    template = template_env.get_template(template_name)
+    return template.render(name=name, title=title)
 
 
-def nestings_row():
-    return '''
-| <<ecs-{nesting_name},{flat_nesting}>>
-| {nesting_short}
-
-// ===============================================================
-
-'''
+def nestings_row(nesting_name, flat_nesting, nesting_short, template_name='field_details/nestings_row.j2'):
+    template = template_env.get_template(template_name)
+    return template.render(
+        nesting_name=nesting_name,
+        flat_nesting=flat_nesting,
+        nesting_short=nesting_short
+    )
 
 
 # Allowed values section
-
 
 def page_field_values(nested, template_name='field_values_template.j2'):
     category_fields = ['event.kind', 'event.category', 'event.type', 'event.outcome']
