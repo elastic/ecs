@@ -159,8 +159,8 @@ def render_fieldset_reuses_text(fieldset):
     else:
         template = "Note also that the `{}` fields are not expected to " + \
             "be used directly at the top level.\n\n"
-            # TODO rewording kept for follow-up PR to simplify initial rewrite PR
-            # "be used directly at the root of the events.\n\n"
+        # TODO rewording kept for follow-up PR to simplify initial rewrite PR
+        # "be used directly at the root of the events.\n\n"
     text += template.format(section_name)
     return text
 
