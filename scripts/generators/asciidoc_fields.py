@@ -31,14 +31,6 @@ def page_field_index(nested, ecs_version):
     return page_text
 
 
-def render_field_index_row(fieldset):
-    return index_row().format(
-        fieldset_id='ecs-' + fieldset['name'],
-        fieldset_title=fieldset['title'],
-        fieldset_short=fieldset.get('short', fieldset['description'])
-    )
-
-
 # Field Details Page
 
 def page_field_details(nested):
@@ -180,34 +172,15 @@ def render_nesting_row(nesting):
 
 
 def table_footer():
-    template = template_env.get_template('table_footer.j2')
-    return template.render()
-
+    return '''
+|=====
+'''
 
 # Field Index
 
-def generate_field_index(ecs_version, fieldsets, template_name='fields.j2'):
+def generate_field_index(ecs_version, fieldsets, template_name='fields_template.j2'):
     template = template_env.get_template(template_name)
     return template.render(ecs_version=ecs_version, fieldsets=fieldsets)
-
-
-def index_header(ecs_version):
-    template = template_env.get_template('index_header.j2')
-    return template.render(ecs_version=ecs_version)
-
-
-
-
-def index_row():
-    return '''
-| <<{fieldset_id},{fieldset_title}>> | {fieldset_short}
-'''
-
-
-def index_footer():
-    template = template_env.get_template('index_footer.j2')
-    return template.render()
-
 
 
 # Field Details Page
