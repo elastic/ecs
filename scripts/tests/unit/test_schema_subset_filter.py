@@ -41,17 +41,22 @@ class TestSchemaSubsetFilter(unittest.TestCase):
 
 
     def test_merging_superset(self):
-        all_log = {'log': {'fields': '*'}}
-        log_syslog = {'log': {'fields': {'syslog': {'fields': '*'}}}}
+        # 'log' is used to test superset with the explicit '{'fields': '*'}' notation
+        # 'process' is used to test superset with the shorhand '{}' notation
+        supersets = {'log': {'fields': '*'}, 'process': {}}
+        supserseded = {
+                'log': {'fields': {'syslog': {'fields': '*'}}},
+                'process': {'fields': {'parent': {'fields': '*'}}},
+            }
         subsets = {}
-        subset_filter.merge_subsets(subsets, all_log)
-        subset_filter.merge_subsets(subsets, log_syslog)
-        self.assertEqual(subsets, all_log)
+        subset_filter.merge_subsets(subsets, supersets)
+        subset_filter.merge_subsets(subsets, supserseded)
+        self.assertEqual(subsets, supersets)
         # reverse order
         subsets = {}
-        subset_filter.merge_subsets(subsets, log_syslog)
-        subset_filter.merge_subsets(subsets, all_log)
-        self.assertEqual(subsets, all_log)
+        subset_filter.merge_subsets(subsets, supserseded)
+        subset_filter.merge_subsets(subsets, supersets)
+        self.assertEqual(subsets, supersets)
 
 
     def schema_log(self):
