@@ -1,8 +1,9 @@
 from functools import wraps
 import os.path as path
-from generators import ecs_helpers
 
 import jinja2
+
+from generators import ecs_helpers
 
 # jinja2 setup
 TEMPLATE_DIR = path.join(path.dirname(path.abspath(__file__)), 'templates')
@@ -17,6 +18,10 @@ def generate(nested, ecs_version, out_dir):
 # Helpers
 
 def templated(template_name):
+    """Decorator function to simplify rendering a template.
+
+    ::param template_name: the name of the template to be rendered
+    """
     def decorator(func):
         @wraps(func)
         def decorated_function(*args, **kwargs):
@@ -27,6 +32,13 @@ def templated(template_name):
 
 
 def render_template(template_name, **context):
+    """Renders a template from the template folder with the given
+    context.
+
+    :param template_name: the name of the template to be rendered
+    :param context: the variables that should be available in the
+                    context of the template.
+    """
     template = template_env.get_template(template_name)
     return template.render(**context)
 
@@ -80,16 +92,11 @@ def render_fieldset(fieldset, nested):
 
 def render_fields(fields):
     text = ''
-    for field_name, field in sorted(fields.items()):
+    for _, field in sorted(fields.items()):
         # Skip fields nested in this field set
         if 'original_fieldset' not in field:
             text += render_field_details_row(field)
     return text
-
-
-def render_asciidoc_paragraphs(string):
-    '''Simply double the \n'''
-    return string.replace("\n", "\n\n")
 
 
 def render_field_allowed_values(field):
