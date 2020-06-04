@@ -44,7 +44,7 @@ Thanks, you're awesome :-) -->
   and the sample Elasticsearch templates. #495, #813
 * Removed the `order` attribute from the `ecs_nested.yml` and `ecs_flat.yml` files. #811
 * In `ecs_nested.yml`, the array of strings that used to be in `reusable.expected`
-  has been replaced by an array of objects with 3 keys: 'as', 'at' and 'full'. #820
+  has been replaced by an array of objects with 3 keys: 'as', 'at' and 'full'. <!-- TODO -->
 
 #### Bugfixes
 
@@ -63,10 +63,10 @@ Thanks, you're awesome :-) -->
 * Add support for reusing offical fieldsets in custom schemas. #751
 * Add full path names to reused fieldsets in `nestings` array in `ecs_nested.yml`. #803
 * Allow shorthand notation for including all subfields in subsets. #805
-* Add ability to nest field sets as another name. #820
-* Add ability to nest field sets within themselves (e.g. `process.parent.*`). #820
 * Add `ref` option to generator allowing schemas to be built for a specific ECS version. #851
 * Add `template-settings` and `mapping-settings` options to allow override of defaults in generated ES templates. #856
+* Add ability to nest field sets as another name.  <!-- TODO -->
+* Add ability to nest field sets within themselves (e.g. `process.parent.*`).  <!-- TODO -->
 
 #### Deprecated
 
