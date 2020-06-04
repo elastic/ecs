@@ -7,12 +7,11 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '../..'))
 
 from schema import cleaner
 
-class TestSchemaCleaner(unittest.TestCase):
 
+class TestSchemaCleaner(unittest.TestCase):
 
     def setUp(self):
         self.maxDiff = None
-
 
     def schema_process(self):
         return {
@@ -53,9 +52,7 @@ class TestSchemaCleaner(unittest.TestCase):
             }
         }
 
-
     # schemas
-
 
     def test_schema_raises_on_missing_required_attributes(self):
         schema = self.schema_process()['process']
@@ -67,7 +64,6 @@ class TestSchemaCleaner(unittest.TestCase):
         schema['field_details'].pop('description')
         with self.assertRaisesRegex(ValueError, 'mandatory attributes: description'):
             cleaner.schema_cleanup(schema)
-
 
     def test_reusable_schema_raises_on_missing_reuse_attributes(self):
         schema = self.schema_process()['process']
@@ -84,12 +80,11 @@ class TestSchemaCleaner(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'reuse attributes: expected'):
             cleaner.schema_mandatory_attributes(schema)
 
-
     def test_normalize_reuse_notation(self):
         reuse_locations = ['source', 'destination']
         pseudo_schema = {
-                'field_details': {'name': 'user'},
-                'schema_details': {'reusable': {'expected': reuse_locations}},
+            'field_details': {'name': 'user'},
+            'schema_details': {'reusable': {'expected': reuse_locations}},
         }
         expected_reuse = [
             {'at': 'source', 'as': 'user', 'full': 'source.user'},
@@ -98,19 +93,17 @@ class TestSchemaCleaner(unittest.TestCase):
         cleaner.normalize_reuse_notation(pseudo_schema)
         self.assertEqual(pseudo_schema['schema_details']['reusable']['expected'], expected_reuse)
 
-
     def test_already_normalized_reuse_notation(self):
         reuse_locations = [{'at': 'process', 'as': 'parent'}]
         pseudo_schema = {
-                'field_details': {'name': 'process'},
-                'schema_details': {'reusable': {'expected': reuse_locations}},
+            'field_details': {'name': 'process'},
+            'schema_details': {'reusable': {'expected': reuse_locations}},
         }
         expected_reuse = [
             {'at': 'process', 'as': 'parent', 'full': 'process.parent'},
         ]
         cleaner.normalize_reuse_notation(pseudo_schema)
         self.assertEqual(pseudo_schema['schema_details']['reusable']['expected'], expected_reuse)
-
 
     def test_schema_simple_cleanup(self):
         my_schema = {
@@ -131,7 +124,6 @@ class TestSchemaCleaner(unittest.TestCase):
         self.assertEqual(my_schema['field_details']['type'], 'group')
         self.assertEqual(my_schema['field_details']['short'], 'a really short description')
         self.assertEqual(my_schema['field_details']['description'], "a long\n\nmultiline description")
-
 
     def test_schema_cleanup_setting_defaults(self):
         my_schema = {
@@ -155,18 +147,15 @@ class TestSchemaCleaner(unittest.TestCase):
         self.assertEqual(my_schema['field_details']['type'], 'group')
         self.assertEqual(my_schema['field_details']['short'], 'a nice description')
 
-
     # fields
-
 
     def test_field_raises_on_missing_required_attributes(self):
         for missing_attribute in ['name', 'description', 'type', 'level']:
             field = self.schema_process()['process']['fields']['pid']
             field['field_details'].pop(missing_attribute)
             with self.assertRaisesRegex(ValueError,
-                    "mandatory attributes: {}".format(missing_attribute)):
+                                        "mandatory attributes: {}".format(missing_attribute)):
                 cleaner.field_mandatory_attributes(field)
-
 
     def test_field_simple_cleanup(self):
         my_field = {
@@ -191,7 +180,6 @@ class TestSchemaCleaner(unittest.TestCase):
         # TODO Temporarily commented out to simplify initial rewrite review
         # self.assertEqual(my_field['field_details']['allowed_values'][0]['name'], 'authentication')
         # self.assertEqual(my_field['field_details']['allowed_values'][0]['description'], 'when can auth be used?')
-
 
     def test_field_defaults(self):
         field_min_details = {
@@ -222,7 +210,6 @@ class TestSchemaCleaner(unittest.TestCase):
         cleaner.field_defaults({'field_details': field_details})
         self.assertEqual(field_details['doc_values'], False)
 
-
     def test_field_defaults_dont_override(self):
         field_details = {
             'description': 'description',
@@ -233,7 +220,6 @@ class TestSchemaCleaner(unittest.TestCase):
         }
         cleaner.field_defaults({'field_details': field_details})
         self.assertEqual(field_details['ignore_above'], 8000)
-
 
     def test_multi_field_defaults_and_precalc(self):
         field_details = {
@@ -261,10 +247,7 @@ class TestSchemaCleaner(unittest.TestCase):
         self.assertEqual(mf['name'], 'special_name')
         self.assertEqual(mf['ignore_above'], 1024)
 
-
-
     # common to schemas and fields
-
 
     def test_multiline_short_description_raises(self):
         schema = {'field_details': {
@@ -272,7 +255,6 @@ class TestSchemaCleaner(unittest.TestCase):
             'short': "multiple\nlines"}}
         with self.assertRaisesRegex(ValueError, 'single line'):
             cleaner.single_line_short_description(schema)
-
 
     def test_clean(self):
         '''A high level sanity test'''
@@ -286,4 +268,4 @@ class TestSchemaCleaner(unittest.TestCase):
         self.assertEqual(parent_pid['field_details']['name'], 'parent.pid')
         self.assertEqual(parent_pid['field_details']['ignore_above'], 1024)
         self.assertEqual(parent_pid['field_details']['short'],
-                parent_pid['field_details']['description'])
+                         parent_pid['field_details']['description'])

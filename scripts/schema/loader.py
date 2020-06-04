@@ -106,7 +106,7 @@ def deep_nesting_representation(fields):
 
 
 def nest_fields(field_array):
-    schema_root = { 'fields': {} }
+    schema_root = {'fields': {}}
     for field in field_array:
         nested_levels = field['name'].split('.')
         parent_fields = nested_levels[:-1]
@@ -129,7 +129,7 @@ def nest_fields(field_array):
                 field_details.setdefault('intermediate', False)
             else:
                 field_details.setdefault('type', 'object')
-                field_details.setdefault('name', '.'.join(parent_fields[:idx+1]))
+                field_details.setdefault('name', '.'.join(parent_fields[:idx + 1]))
                 field_details.setdefault('intermediate', True)
 
             # moving the nested_schema cursor deeper

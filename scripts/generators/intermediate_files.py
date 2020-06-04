@@ -49,9 +49,9 @@ def generate_nested_fields(fields):
     # parent/host field set.
     for (name, details) in fields.items():
         fieldset_details = {
-                **copy.deepcopy(details['field_details']),
-                **copy.deepcopy(details['schema_details'])
-            }
+            **copy.deepcopy(details['field_details']),
+            **copy.deepcopy(details['schema_details'])
+        }
 
         # TODO Temporarily removed to simplify initial rewrite review
         fieldset_details.pop('dashed_name')

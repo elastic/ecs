@@ -99,15 +99,15 @@ def append_reused_here(reused_schema, reuse_entry, destination_schema):
     # Legacy, too limited
     destination_schema['schema_details'].setdefault('nestings', [])
     destination_schema['schema_details']['nestings'] = sorted(
-            destination_schema['schema_details']['nestings'] + [reuse_entry['full']]
-        )
+        destination_schema['schema_details']['nestings'] + [reuse_entry['full']]
+    )
     # New roomier way: we could eventually include contextual description here
     destination_schema['schema_details'].setdefault('reused_here', [])
     reused_here_entry = {
-            'schema_name': reused_schema['field_details']['name'],
-            'full':reuse_entry['full'],
-            'short': reused_schema['field_details']['short'],
-        }
+        'schema_name': reused_schema['field_details']['name'],
+        'full': reuse_entry['full'],
+        'short': reused_schema['field_details']['short'],
+    }
     destination_schema['schema_details']['reused_here'].extend([reused_here_entry])
 
 

@@ -9,7 +9,6 @@ from scripts.generators import ecs_helpers
 
 class TestECSHelpers(unittest.TestCase):
 
-
     def test_is_intermediate_field(self):
         pseudo_field = {'field_details': {}}
         self.assertEqual(ecs_helpers.is_intermediate(pseudo_field), False)
@@ -17,7 +16,6 @@ class TestECSHelpers(unittest.TestCase):
         self.assertEqual(ecs_helpers.is_intermediate(pseudo_field), False)
         pseudo_field['field_details']['intermediate'] = True
         self.assertEqual(ecs_helpers.is_intermediate(pseudo_field), True)
-
 
     # dict_copy_existing_keys
 
@@ -100,6 +98,7 @@ class TestECSHelpers(unittest.TestCase):
     def test_list_subtract(self):
         self.assertEqual(ecs_helpers.list_subtract(['a', 'b'], ['a']), ['b'])
         self.assertEqual(ecs_helpers.list_subtract(['a', 'b'], ['a', 'c']), ['b'])
+
 
 if __name__ == '__main__':
     unittest.main()

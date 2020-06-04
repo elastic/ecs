@@ -7,12 +7,11 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '../..'))
 
 from schema import finalizer
 
-class TestSchemaFinalizer(unittest.TestCase):
 
+class TestSchemaFinalizer(unittest.TestCase):
 
     def setUp(self):
         self.maxDiff = None
-
 
     def schema_base(self):
         return {
@@ -35,14 +34,13 @@ class TestSchemaFinalizer(unittest.TestCase):
             }
         }
 
-
     def schema_process(self):
         return {
             'process': {
                 'schema_details': {
                     'title': 'Process',
                     'root': False,
-                    'reusable':{
+                    'reusable': {
                         'top_level': True,
                         'order': 2,
                         'expected': [
@@ -72,13 +70,12 @@ class TestSchemaFinalizer(unittest.TestCase):
             }
         }
 
-
     def schema_user(self):
         return {
             'user': {
                 'schema_details': {
                     'root': False,
-                    'reusable':{
+                    'reusable': {
                         'top_level': True,
                         'order': 2,
                         'expected': [
@@ -103,14 +100,13 @@ class TestSchemaFinalizer(unittest.TestCase):
                         'field_details': {
                             'name': 'full_name',
                             'multi_fields': [
-                                {'name':'text', 'type':'text'}
+                                {'name': 'text', 'type': 'text'}
                             ]
                         }
                     },
                 }
             }
         }
-
 
     def schema_server(self):
         return {
@@ -133,7 +129,6 @@ class TestSchemaFinalizer(unittest.TestCase):
         }
 
     # perform_reuse
-
 
     def test_perform_reuse_with_foreign_reuse_and_self_reuse(self):
         fields = {**self.schema_user(), **self.schema_server(), **self.schema_process()}
@@ -167,28 +162,27 @@ class TestSchemaFinalizer(unittest.TestCase):
         self.assertIn('user.target', fields['user']['schema_details']['nestings'])
         self.assertIn('server.user', fields['server']['schema_details']['nestings'])
         # Attribute 'reused_here' lists nestings inside a destination schema
-        self.assertIn({'full':'process.parent','schema_name':'process','short':'short desc'},
-                fields['process']['schema_details']['reused_here'])
-        self.assertIn({'full':'user.effective','schema_name':'user','short':'short desc'},
-                fields['user']['schema_details']['reused_here'])
-        self.assertIn({'full':'user.target','schema_name':'user','short':'short desc'},
-                fields['user']['schema_details']['reused_here'])
-        self.assertIn({'full':'server.user','schema_name':'user','short':'short desc'},
-                fields['server']['schema_details']['reused_here'])
+        self.assertIn({'full': 'process.parent', 'schema_name': 'process', 'short': 'short desc'},
+                      fields['process']['schema_details']['reused_here'])
+        self.assertIn({'full': 'user.effective', 'schema_name': 'user', 'short': 'short desc'},
+                      fields['user']['schema_details']['reused_here'])
+        self.assertIn({'full': 'user.target', 'schema_name': 'user', 'short': 'short desc'},
+                      fields['user']['schema_details']['reused_here'])
+        self.assertIn({'full': 'server.user', 'schema_name': 'user', 'short': 'short desc'},
+                      fields['server']['schema_details']['reused_here'])
         # Reused fields have an indication they're reused
         self.assertEqual(process_fields['parent']['field_details']['original_fieldset'], 'process',
-                "The parent field of reused fields should have 'original_fieldset' populated")
+                         "The parent field of reused fields should have 'original_fieldset' populated")
         self.assertEqual(process_fields['parent']['fields']['pid']['field_details']['original_fieldset'], 'process',
-                "Leaf fields of reused fields for self-nested fields should have 'original_fieldset'")
+                         "Leaf fields of reused fields for self-nested fields should have 'original_fieldset'")
         self.assertEqual(server_fields['user']['field_details']['original_fieldset'], 'user',
-                "The parent field of foreign reused fields should have 'original_fieldset' populated")
+                         "The parent field of foreign reused fields should have 'original_fieldset' populated")
         self.assertEqual(server_fields['user']['fields']['name']['field_details']['original_fieldset'], 'user')
         # Original fieldset's fields must not be marked with 'original_fieldset='
         self.assertNotIn('original_fieldset', user_fields['name']['field_details'])
         self.assertNotIn('original_fieldset', process_fields['pid']['field_details'])
 
     # calculate_final_values
-
 
     def test_calculate_final_values(self):
         fields = {**self.schema_base(), **self.schema_user(), **self.schema_server()}
@@ -201,11 +195,11 @@ class TestSchemaFinalizer(unittest.TestCase):
         # root=true
         timestamp_details = base_fields['@timestamp']['field_details']
         self.assertEqual(timestamp_details['flat_name'], '@timestamp',
-            "Field sets with root=true must not namespace field names with the field set's name")
+                         "Field sets with root=true must not namespace field names with the field set's name")
         self.assertEqual(timestamp_details['dashed_name'], '@timestamp')
         # root=false
         self.assertEqual(server_fields['ip']['field_details']['flat_name'], 'server.ip',
-            "Field sets with root=false must namespace field names with the field set's name")
+                         "Field sets with root=false must namespace field names with the field set's name")
         self.assertEqual(server_fields['ip']['field_details']['dashed_name'], 'server-ip')
         # reused
         server_user_name_details = server_fields['user']['fields']['name']['field_details']
@@ -219,36 +213,30 @@ class TestSchemaFinalizer(unittest.TestCase):
         user_full_name_details = user_fields['full_name']['field_details']
         self.assertEqual(user_full_name_details['multi_fields'][0]['flat_name'], 'user.full_name.text')
 
-
     # field_group_at_path
-
 
     def test_field_group_at_path_root_destination(self):
         all_fields = self.schema_server()
         fields = finalizer.field_group_at_path('server', all_fields)
         self.assertIn('ip', fields.keys(),
-                "should return the dictionary of server fields")
-
+                      "should return the dictionary of server fields")
 
     def test_field_group_at_path_find_nested_destination(self):
         all_fields = self.schema_process()
         fields = finalizer.field_group_at_path('process.thread', all_fields)
         self.assertIn('id', fields.keys(),
-                "should return the dictionary of process.thread fields")
+                      "should return the dictionary of process.thread fields")
         self.assertEqual('thread.id', fields['id']['field_details']['name'])
-
 
     def test_field_group_at_path_missing_nested_path(self):
         all_fields = self.schema_server()
         with self.assertRaisesRegex(ValueError, "Field server.nonexistent not found"):
             finalizer.field_group_at_path('server.nonexistent', all_fields)
 
-
     def test_field_group_at_path_leaf_field_not_field_group(self):
         all_fields = self.schema_server()
         with self.assertRaisesRegex(ValueError, "Field server\.ip \(type ip\) already exists"):
             finalizer.field_group_at_path('server.ip', all_fields)
-
 
     def test_field_group_at_path_for_leaf_object_field_creates_the_section(self):
         all_fields = {

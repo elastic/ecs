@@ -4,6 +4,7 @@ import yaml
 # This script takes all ECS and custom fields already loaded, and lets users
 # filter ou
 
+
 def filter(fields, subset_file_globs):
     '''
     Takes the deeply nested field structure and the subset file names.

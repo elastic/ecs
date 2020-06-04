@@ -19,8 +19,8 @@ def visit_fields(fields, fieldset_func=None, field_func=None):
             field_func(details)
         if 'fields' in details:
             visit_fields(details['fields'],
-                    fieldset_func=fieldset_func,
-                    field_func=field_func)
+                         fieldset_func=fieldset_func,
+                         field_func=field_func)
 
 
 def visit_fields_with_path(fields, func, path=[]):

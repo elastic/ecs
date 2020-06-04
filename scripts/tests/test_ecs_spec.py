@@ -21,11 +21,9 @@ class TestEcsSpec(unittest.TestCase):
         cls.ecs_nested = intermediate_files.generate_nested_fields(fields)
         cls.ecs_fields = intermediate_files.generate_flat_fields(fields)
 
-
     def setUp(self):
         self.ecs_nested = TestEcsSpec.ecs_nested
         self.ecs_fields = TestEcsSpec.ecs_fields
-
 
     def test_base_flat_name(self):
         self.assertIsInstance(self.ecs_fields['@timestamp'], dict)
