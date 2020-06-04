@@ -3101,12 +3101,11 @@
       level: extended
       type: keyword
       ignore_above: 1024
-      description: 'Array of process arguments, starting with the absolute path to
-        the executable.
+      description: 'Array of process arguments.
 
         May be filtered to protect sensitive information.'
       example:
-      - /usr/bin/ssh
+      - ssh
       - -l
       - user
       - 10.0.0.16
@@ -3120,48 +3119,6 @@
         many arguments were provided to start a process. More arguments may be an
         indication of suspicious activity.'
       example: 4
-      default_field: false
-    - name: parent.code_signature.exists
-      level: core
-      type: boolean
-      description: Boolean to capture if a signature is present.
-      example: 'true'
-      default_field: false
-    - name: parent.code_signature.status
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: 'Additional information about the certificate status.
-
-        This is useful for logging cryptographic errors with the certificate validity
-        or trust status. Leave unpopulated if the validity or trust of the certificate
-        was unchecked.'
-      example: ERROR_UNTRUSTED_ROOT
-      default_field: false
-    - name: parent.code_signature.subject_name
-      level: core
-      type: keyword
-      ignore_above: 1024
-      description: Subject name of the code signer
-      example: Microsoft Corporation
-      default_field: false
-    - name: parent.code_signature.trusted
-      level: extended
-      type: boolean
-      description: 'Stores the trust status of the certificate chain.
-
-        Validating the trust of the certificate chain may be complicated, and this
-        field should only be populated by tools that actively check the status.'
-      example: 'true'
-      default_field: false
-    - name: parent.code_signature.valid
-      level: extended
-      type: boolean
-      description: 'Boolean to capture if the digital signature is verified against
-        the binary content.
-
-        Leave unpopulated if a certificate was unchecked.'
-      example: 'true'
       default_field: false
     - name: parent.command_line
       level: extended
@@ -3212,30 +3169,6 @@
         start).'
       example: 137
       default_field: false
-    - name: parent.hash.md5
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: MD5 hash.
-      default_field: false
-    - name: parent.hash.sha1
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: SHA1 hash.
-      default_field: false
-    - name: parent.hash.sha256
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: SHA256 hash.
-      default_field: false
-    - name: parent.hash.sha512
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: SHA512 hash.
-      default_field: false
     - name: parent.name
       level: extended
       type: keyword
@@ -3248,59 +3181,6 @@
 
         Sometimes called program name or similar.'
       example: ssh
-      default_field: false
-    - name: parent.pe.architecture
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: CPU architecture target for the file.
-      example: x64
-      default_field: false
-    - name: parent.pe.company
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Internal company name of the file, provided at compile-time.
-      example: Microsoft Corporation
-      default_field: false
-    - name: parent.pe.description
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Internal description of the file, provided at compile-time.
-      example: Paint
-      default_field: false
-    - name: parent.pe.file_version
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Internal version of the file, provided at compile-time.
-      example: 6.3.9600.17415
-      default_field: false
-    - name: parent.pe.imphash
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: 'A hash of the imports in a PE file. An imphash -- or import hash
-        -- can be used to fingerprint binaries even after recompilation or other code-level
-        transformations have occurred, which would change more traditional hash values.
-
-        Learn more at https://www.fireeye.com/blog/threat-research/2014/01/tracking-malware-import-hashing.html.'
-      example: 0c6803c4e922103c4dca5963aad36ddf
-      default_field: false
-    - name: parent.pe.original_file_name
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Internal name of the file, provided at compile-time.
-      example: MSPAINT.EXE
-      default_field: false
-    - name: parent.pe.product
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Internal product name of the file, provided at compile-time.
-      example: "Microsoft\xAE Windows\xAE Operating System"
       default_field: false
     - name: parent.pgid
       level: extended

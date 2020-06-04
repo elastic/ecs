@@ -1,7 +1,6 @@
 import argparse
 import glob
 import os
-# import pdb
 import yaml
 
 from generators import asciidoc_fields
