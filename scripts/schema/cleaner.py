@@ -129,6 +129,9 @@ def field_cleanup(field):
 def field_defaults(field):
     field['field_details'].setdefault('short', field['field_details']['description'])
     field['field_details'].setdefault('normalize', [])
+    # TODO Temporarily re-adding object_type for initial rewrite review. I think this should go away.
+    if 'object' == field['field_details']['type']:
+        field['field_details'].setdefault('object_type', 'keyword')
     field_or_multi_field_datatype_defaults(field['field_details'])
     if 'multi_fields' in field['field_details']:
         for mf in field['field_details']['multi_fields']:
