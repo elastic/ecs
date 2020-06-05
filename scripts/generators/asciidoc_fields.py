@@ -27,6 +27,10 @@ def templated(template_name):
         @wraps(func)
         def decorated_function(*args, **kwargs):
             ctx = func(*args, **kwargs)
+            if ctx is None:
+                ctx = {}
+            elif not isinstance(ctx, dict):
+                return ctx
             return render_template(template_name, **ctx)
         return decorated_function
     return decorator
