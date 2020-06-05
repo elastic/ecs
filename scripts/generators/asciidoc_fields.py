@@ -17,6 +17,7 @@ def generate(nested, ecs_version, out_dir):
 
 # Helpers
 
+
 def templated(template_name):
     """Decorator function to simplify rendering a template.
 
@@ -207,6 +208,7 @@ def table_footer():
 # Field Details Page
 
 # Main Fields Table
+
 
 @templated('field_details/table_header.j2')
 def field_details_table_header(title, name, description):
