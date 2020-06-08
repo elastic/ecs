@@ -30,6 +30,7 @@ Thanks, you're awesome :-) -->
 * Remove misleading pluralization in the description of `user.id`, it should
   contain one ID, not many. #801
 * Clarified misleading wording about multiple IPs in src/dst or cli/srv. #804
+ Verbiage about the MITRE ATT&CK® framework. #866
 
 #### Deprecated
 
