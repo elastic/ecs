@@ -31,6 +31,12 @@ class TestEcsSpec(unittest.TestCase):
             self.ecs_nested['base']['fields']['@timestamp']['flat_name'],
             '@timestamp')
 
+    def test_root_fieldsets_can_have_nested_keys(self):
+        self.assertIn('trace.id', self.ecs_fields)
+        self.assertIn('transaction.id', self.ecs_fields)
+        self.assertIn('trace.id', self.ecs_nested['tracing']['fields'])
+        self.assertIn('transaction.id', self.ecs_nested['tracing']['fields'])
+
     def test_flat_includes_reusable_fields(self):
         all_keys = sorted(self.ecs_fields.keys())
 
