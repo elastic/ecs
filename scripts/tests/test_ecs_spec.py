@@ -26,7 +26,7 @@ class TestEcsSpec(unittest.TestCase):
         self.ecs_fields = TestEcsSpec.ecs_fields
 
     def test_base_flat_name(self):
-        self.assertIsInstance(self.ecs_fields['@timestamp'], dict)
+        self.assertIn('@timestamp', self.ecs_fields)
         self.assertEqual(
             self.ecs_nested['base']['fields']['@timestamp']['flat_name'],
             '@timestamp')
