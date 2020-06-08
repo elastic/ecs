@@ -140,9 +140,10 @@ def field_group_at_path(dotted_path, fields):
 
 def calculate_final_values(fields):
     '''
-    This function navigates all fields recursively. It makes all reference copies
-    of reused fields into independent copies. Then some final values are calculated
-    for the fields: path-based values like flat_name.
+    This function navigates all fields recursively.
+
+    It populates a few more values for the fields, especially path-based values
+    like flat_name.
     '''
     visitor.visit_fields_with_path(fields, field_finalizer)
 
