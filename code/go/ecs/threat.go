@@ -34,8 +34,8 @@ type Threat struct {
 	// retrospectively tagged to events.
 	Framework string `ecs:"framework"`
 
-	// Name of the type of tactic used by this threat. You can use the MITRE
-	// ATT&CK® Matrix tactic categorization, for example. (ex.
+	// Name of the type of tactic used by this threat. You can use a MITRE
+	// ATT&CK® Matrix tactic, for example. (ex.
 	// https://attack.mitre.org/tactics/TA0040/)
 	TacticName string `ecs:"tactic.name"`
 
