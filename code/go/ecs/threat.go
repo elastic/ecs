@@ -20,7 +20,7 @@
 package ecs
 
 // Fields to classify events and alerts according to a threat taxonomy such as
-// the Mitre ATT&CK framework.
+// the MITRE ATT&CK® framework.
 // These fields are for users to classify alerts from all of their sources
 // (e.g. IDS, NGFW, etc.) within a common taxonomy. The threat.tactic.* are
 // meant to capture the high level category of the threat (e.g. "impact"). The
@@ -34,33 +34,30 @@ type Threat struct {
 	// retrospectively tagged to events.
 	Framework string `ecs:"framework"`
 
-	// Name of the type of tactic used by this threat. You can use the Mitre
-	// ATT&CK Matrix Tactic categorization, for example. (ex.
-	// https://attack.mitre.org/tactics/TA0040/ )
+	// Name of the type of tactic used by this threat. You can use a MITRE
+	// ATT&CK® tactic, for example. (ex.
+	// https://attack.mitre.org/tactics/TA0040/)
 	TacticName string `ecs:"tactic.name"`
 
-	// The id of tactic used by this threat. You can use the Mitre ATT&CK
-	// Matrix Tactic categorization, for example. (ex.
-	// https://attack.mitre.org/tactics/TA0040/ )
+	// The id of tactic used by this threat. You can use a MITRE ATT&CK®
+	// tactic, for example. (ex. https://attack.mitre.org/tactics/TA0040/ )
 	TacticID string `ecs:"tactic.id"`
 
-	// The reference url of tactic used by this threat. You can use the Mitre
-	// ATT&CK Matrix Tactic categorization, for example. (ex.
+	// The reference url of tactic used by this threat. You can use a MITRE
+	// ATT&CK® tactic, for example. (ex.
 	// https://attack.mitre.org/tactics/TA0040/ )
 	TacticReference string `ecs:"tactic.reference"`
 
-	// The name of technique used by this tactic. You can use the Mitre ATT&CK
-	// Matrix Tactic categorization, for example. (ex.
-	// https://attack.mitre.org/techniques/T1499/ )
+	// The name of technique used by this threat. You can use a MITRE ATT&CK®
+	// technique, for example. (ex. https://attack.mitre.org/techniques/T1499/)
 	TechniqueName string `ecs:"technique.name"`
 
-	// The id of technique used by this tactic. You can use the Mitre ATT&CK
-	// Matrix Tactic categorization, for example. (ex.
-	// https://attack.mitre.org/techniques/T1499/ )
+	// The id of technique used by this threat. You can use a MITRE ATT&CK®
+	// technique, for example. (ex. https://attack.mitre.org/techniques/T1499/)
 	TechniqueID string `ecs:"technique.id"`
 
-	// The reference url of technique used by this tactic. You can use the
-	// Mitre ATT&CK Matrix Tactic categorization, for example. (ex.
+	// The reference url of technique used by this threat. You can use a MITRE
+	// ATT&CK® technique, for example. (ex.
 	// https://attack.mitre.org/techniques/T1499/ )
 	TechniqueReference string `ecs:"technique.reference"`
 }
