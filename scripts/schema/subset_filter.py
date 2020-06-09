@@ -28,8 +28,9 @@ def load_subset_definitions(file_globs):
     return subsets
 
 
-def load_yaml_file(f):
-    return yaml.safe_load(f.read())
+def load_yaml_file(file_name):
+    with open(file_name) as f:
+        return yaml.safe_load(f.read())
 
 
 def eval_globs(globs):
