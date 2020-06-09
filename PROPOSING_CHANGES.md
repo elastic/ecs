@@ -21,7 +21,7 @@ Generally speaking, the ECS team will help steward the process, but the work of 
 
 * Allow contributors to quickly iterate and receive feedback on their fields in a transparent way without the high bar set for general availability in the schema
 * Clarify the level of stability to expect from a change in ECS while still allowing early adopters to try it out and provide feedback
-* Offer assurance that once an RFC reaches stage 4, we're able to guarantee backwards compatibility
+* Offer assurance that once an RFC reaches stage 4, we're able to guarantee backward compatibility
 
 ## Responsibilities in this process
 
