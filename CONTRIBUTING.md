@@ -20,9 +20,14 @@ ECS is an open source project and we love to receive contributions from our comm
 
 ## How to Contribute
 
+There are two primary ways in which you can contribute to ECS.
+
+1. The [RFC process](./rfcs/README.md) is used for significant additions or breaking changes to the schema itself.
+2. For bug fixes or incremental, non-controversial additions to ECS, changes can be made directly to the ECS project and submitted as pull request.
+
 ### Dev Tools
 
-You need these tools to contribute to ECS:
+You need these tools to contribute to the ECS repo:
 
 * [Git](https://git-scm.com/)
 * [Python 3.6+](https://www.python.org/)

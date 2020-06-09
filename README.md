@@ -15,7 +15,8 @@ Visit [the official ECS Reference Documentation](https://www.elastic.co/guide/en
 ## Contributing
 
 If you're looking to contribute to ECS, you're invited to look at our
-[contribution guide](CONTRIBUTING.md)
+[contribution guide](CONTRIBUTING.md). Substantial changes to ECS are completed
+through our [RFC process](./rfcs/README.md).
 
 ## Generated artifacts
 
