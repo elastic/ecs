@@ -10,10 +10,8 @@ from schema import finalizer
 
 class TestSchemaFinalizer(unittest.TestCase):
 
-
     def setUp(self):
         self.maxDiff = None
-
 
     def schema_base(self):
         return {
@@ -37,7 +35,6 @@ class TestSchemaFinalizer(unittest.TestCase):
                 }
             }
         }
-
 
     def schema_process(self):
         return {
@@ -83,7 +80,6 @@ class TestSchemaFinalizer(unittest.TestCase):
             }
         }
 
-
     def schema_user(self):
         return {
             'user': {
@@ -125,7 +121,6 @@ class TestSchemaFinalizer(unittest.TestCase):
             }
         }
 
-
     def schema_server(self):
         return {
             'server': {
@@ -149,7 +144,6 @@ class TestSchemaFinalizer(unittest.TestCase):
         }
 
     # perform_reuse
-
 
     def test_perform_reuse_with_foreign_reuse_and_self_reuse(self):
         fields = {**self.schema_user(), **self.schema_server(), **self.schema_process()}
@@ -203,7 +197,6 @@ class TestSchemaFinalizer(unittest.TestCase):
         self.assertNotIn('original_fieldset', user_fields['name']['field_details'])
         self.assertNotIn('original_fieldset', process_fields['pid']['field_details'])
 
-
     def test_root_schema_cannot_be_reused_nor_have_field_set_reused_in_it(self):
         reused_schema = {
             'schema_details': {'reusable': {'expected': ['foo']}},
@@ -228,7 +221,6 @@ class TestSchemaFinalizer(unittest.TestCase):
             finalizer.ensure_valid_reuse(reused_schema, destination_schema)
 
     # calculate_final_values
-
 
     def test_calculate_final_values(self):
         fields = {**self.schema_base(), **self.schema_user(), **self.schema_server()}
@@ -261,13 +253,11 @@ class TestSchemaFinalizer(unittest.TestCase):
 
     # field_group_at_path
 
-
     def test_field_group_at_path_root_destination(self):
         all_fields = self.schema_server()
         fields = finalizer.field_group_at_path('server', all_fields)
         self.assertIn('ip', fields.keys(),
                       "should return the dictionary of server fields")
-
 
     def test_field_group_at_path_find_nested_destination(self):
         all_fields = self.schema_process()
@@ -276,18 +266,15 @@ class TestSchemaFinalizer(unittest.TestCase):
                       "should return the dictionary of process.thread fields")
         self.assertEqual('thread.id', fields['id']['field_details']['name'])
 
-
     def test_field_group_at_path_missing_nested_path(self):
         all_fields = self.schema_server()
         with self.assertRaisesRegex(ValueError, "Field server.nonexistent not found"):
             finalizer.field_group_at_path('server.nonexistent', all_fields)
 
-
     def test_field_group_at_path_leaf_field_not_field_group(self):
         all_fields = self.schema_server()
         with self.assertRaisesRegex(ValueError, "Field server\.ip \(type ip\) already exists"):
             finalizer.field_group_at_path('server.ip', all_fields)
-
 
     def test_field_group_at_path_for_leaf_object_field_creates_the_section(self):
         all_fields = {

@@ -103,11 +103,11 @@ def ensure_valid_reuse(reused_schema, destination_schema=None):
     '''
     if reused_schema['schema_details']['root']:
         msg = "Schema {} has attribute root=true and therefore cannot be reused.".format(
-                reused_schema['field_details']['name'])
+            reused_schema['field_details']['name'])
         raise ValueError(msg)
     elif destination_schema and destination_schema['schema_details']['root']:
         msg = "Schema {} has attribute root=true and therefore cannot have other field sets reused inside it.".format(
-                destination_schema['field_details']['name'])
+            destination_schema['field_details']['name'])
         raise ValueError(msg)
 
 
