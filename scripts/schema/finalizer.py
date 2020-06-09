@@ -41,9 +41,6 @@ def order_reuses(fields):
                 foreign_reuses.setdefault(reuse_order, {})
                 foreign_reuses[reuse_order].setdefault(schema_name, [])
                 foreign_reuses[reuse_order][schema_name].extend([reuse_entry])
-    # print("\nforeign reuses")
-    # pprint.pprint(foreign_reuses)
-    # print("\nself nestings", self_nestings)
     return foreign_reuses, self_nestings
 
 
