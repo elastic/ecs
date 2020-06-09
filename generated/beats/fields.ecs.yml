@@ -5200,6 +5200,78 @@
       provide an array that includes all of them.'
     type: group
     fields:
+    - name: changes.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the user is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: changes.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: User email address.
+      default_field: false
+    - name: changes.full_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: text
+        norms: false
+      description: User's full name, if available.
+      example: Albert Einstein
+      default_field: false
+    - name: changes.group.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: changes.group.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier for the group on the system/platform.
+      default_field: false
+    - name: changes.group.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the group.
+      default_field: false
+    - name: changes.hash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Unique user hash to correlate information for a user in anonymized
+        form.
+
+        Useful if `user.id` or `user.name` contain confidential information and cannot
+        be used.'
+      default_field: false
+    - name: changes.id
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier of the user.
+      default_field: false
+    - name: changes.name
+      level: core
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: text
+        norms: false
+      description: Short name or login of the user.
+      example: albert
+      default_field: false
     - name: domain
       level: extended
       type: keyword
@@ -5207,6 +5279,78 @@
       description: 'Name of the directory the user is a member of.
 
         For example, an LDAP or Active Directory domain name.'
+    - name: effective.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the user is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: effective.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: User email address.
+      default_field: false
+    - name: effective.full_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: text
+        norms: false
+      description: User's full name, if available.
+      example: Albert Einstein
+      default_field: false
+    - name: effective.group.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: effective.group.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier for the group on the system/platform.
+      default_field: false
+    - name: effective.group.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the group.
+      default_field: false
+    - name: effective.hash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Unique user hash to correlate information for a user in anonymized
+        form.
+
+        Useful if `user.id` or `user.name` contain confidential information and cannot
+        be used.'
+      default_field: false
+    - name: effective.id
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier of the user.
+      default_field: false
+    - name: effective.name
+      level: core
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: text
+        norms: false
+      description: Short name or login of the user.
+      example: albert
+      default_field: false
     - name: email
       level: extended
       type: keyword
@@ -5265,6 +5409,78 @@
         default_field: false
       description: Short name or login of the user.
       example: albert
+    - name: target.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the user is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: target.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: User email address.
+      default_field: false
+    - name: target.full_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: text
+        norms: false
+      description: User's full name, if available.
+      example: Albert Einstein
+      default_field: false
+    - name: target.group.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: target.group.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier for the group on the system/platform.
+      default_field: false
+    - name: target.group.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the group.
+      default_field: false
+    - name: target.hash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Unique user hash to correlate information for a user in anonymized
+        form.
+
+        Useful if `user.id` or `user.name` contain confidential information and cannot
+        be used.'
+      default_field: false
+    - name: target.id
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier of the user.
+      default_field: false
+    - name: target.name
+      level: core
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: text
+        norms: false
+      description: Short name or login of the user.
+      example: albert
+      default_field: false
   - name: user_agent
     title: User agent
     group: 2
