@@ -44,7 +44,7 @@ Thanks, you're awesome :-) -->
   and the sample Elasticsearch templates. #495, #813
 * Removed the `order` attribute from the `ecs_nested.yml` and `ecs_flat.yml` files. #811
 * In `ecs_nested.yml`, the array of strings that used to be in `reusable.expected`
-  has been replaced by an array of objects with 3 keys: 'as', 'at' and 'full'. <!-- TODO -->
+  has been replaced by an array of objects with 3 keys: 'as', 'at' and 'full'. #864
 
 #### Bugfixes
 
@@ -65,8 +65,20 @@ Thanks, you're awesome :-) -->
 * Allow shorthand notation for including all subfields in subsets. #805
 * Add `ref` option to generator allowing schemas to be built for a specific ECS version. #851
 * Add `template-settings` and `mapping-settings` options to allow override of defaults in generated ES templates. #856
-* Add ability to nest field sets as another name.  <!-- TODO -->
-* Add ability to nest field sets within themselves (e.g. `process.parent.*`).  <!-- TODO -->
+* When overriding ECS field sets via the `--include` flag, it's no longer necessary
+  to duplicate the field set's mandatory attributes. The customizations are merged
+  before validation. #864
+* Add ability to nest field sets as another name. #864
+* Add ability to nest field sets within themselves (e.g. `process` => `process.parent`). #864
+* New attribute `reused_here` is added in `ecs_nested.yml`. It obsoletes the
+  previous attribute `nestings`, and is able to fully capture details of other
+  field sets reused under this one. #864
+* When chained reuses are needed (e.g. `group` => `user`, then `user` => many places),
+  it's now necessary to force the order with new attribute `reusable.order`. This
+  attribute is otherwise optional. It's currently only needed for `group`. #864
+* There's a new representation of ECS at `generated/ecs/ecs.yml`, which is a deeply nested
+  representation of the fields. This file is not in git, as it's only meant for
+  developers working on the ECS tools. #864
 
 #### Deprecated
 
