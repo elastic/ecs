@@ -28,7 +28,7 @@ It's important to understand the overall goals and intentions of the RFC process
 
 ## Using the RFC template
 
-All new RFCs should be started by copying [0000-rfc-template.md](./0000-rfc-template.md) with a name format of `<RFC number><dash-separated-name>.md`. Take care to select an RFC number that is not already being used, and especially one that has not already been committed.
+All new RFCs should be started by copying [0000-rfc-template.md](./0000-rfc-template.md) with a name format of `0000-<dash-separated-name>.md`. When the first RFC stage is accepted, the ECS team will assign a unique RFC number, which will identify this RFC throughout all stages of the process.
 
 Throughout the RFC template are comments that provide guidance on what type of content to include in each stage. It's ideal if you remove comments from your RFC as you fill out the content and they become obsolete. A pristine, finished RFC will have no explanatory comments remaining.
 
