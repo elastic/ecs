@@ -9,7 +9,7 @@ The types of changes that warrant this RFC process include but are not limited t
 * New fields to accommodate an unaddressed use case
 * Changes that would alter the scope of ECS as a whole
 
-Check out [Proposing Changes](../PROPOSING_CHANGES.md) for high level information about the RFC process.
+Check out [Proposing Changes](./PROCESS.md) for high level information about the RFC process.
 
 ## How this works
 
