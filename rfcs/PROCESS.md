@@ -44,7 +44,7 @@ The **contributor**:
 * implements all necessary changes to their RFC PRs
 
 The **sponsor** at Elastic:
-* can be the same person as the contributor if they're an appropriate engineer at Elastic
+* can be the same person as the contributor if they're someone at Elastic that can take ownership of this change through membership on the ECS committee
 * is involved at least from stage 1 onward if a different person than the contributor
 * signs off on each stage if a different person than the contributor
 * takes or coordinates ownership of the addition in terms of support and maintenance after the RFC process is completed
