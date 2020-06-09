@@ -4,7 +4,7 @@ Changes to ECS are proposed as Requests for Comments (RFC) in [rfcs/](./rfcs/) a
 
 Each RFC is represented as a markdown document following a prescribed template that gets committed to the repo. Each stage of the RFC is represented as a pull request against that document.
 
-Generally speaking, the ECS team will help steward the process, but the work of researching and iterating on aspects of an RFC will be owned by that RFC's contributor. If an RFC is being contributed by a community member, then someone at Elastic will need to act as a sponsor of the change to act as a long term owner after completion of the process.
+Generally speaking, the ECS team will help steward the process, but the work of researching and iterating on aspects of an RFC will be owned by that RFC's contributor. If an RFC is being contributed by a community member, then someone at Elastic will need to act as a sponsor of the change to act as a long term owner after completion of the process. If it's not obvious who such a sponsor might be, then the ECS committee will assign a sponsor.
 
 ## Key questions we seek to answer through RFC process
 
