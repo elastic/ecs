@@ -10,7 +10,7 @@ Generally speaking, the ECS team will help steward the process, but the work of 
 
 * Is this change appropriate for ECS?
 * Does this change provide enough utility for its intended use cases?
-* Does this change strike sufficient balance between introducing new fields and reusing existing common fields?
+* Does this change strike a sufficient balance between introducing new fields and reusing existing common fields?
 * Is ownership for the ongoing maintenance of this change clearly defined and accepted?
 * Is the scope of impact of this change to ingestion, existing applications, and the ECS project itself understood?
 * Are the technical details of the change defined clearly enough to implement in the schema?
