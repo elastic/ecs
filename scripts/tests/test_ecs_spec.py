@@ -27,6 +27,7 @@ class TestEcsSpec(unittest.TestCase):
 
     def test_base_flat_name(self):
         self.assertIn('@timestamp', self.ecs_fields)
+        self.assertIn('@timestamp', self.ecs_nested['base']['fields'])
         self.assertEqual(
             self.ecs_nested['base']['fields']['@timestamp']['flat_name'],
             '@timestamp')
@@ -77,30 +78,30 @@ class TestEcsSpec(unittest.TestCase):
         user_keys = sorted(self.ecs_nested['user']['fields'].keys())
 
         # geo
-        self.assertIn('geo.name', client_keys)
-        self.assertIn('geo.name', destination_keys)
-        self.assertIn('geo.name', host_keys)
-        self.assertIn('geo.name', observer_keys)
-        self.assertIn('geo.name', server_keys)
-        self.assertIn('geo.name', source_keys)
+        self.assertIn('client.geo.name', client_keys)
+        self.assertIn('destination.geo.name', destination_keys)
+        self.assertIn('host.geo.name', host_keys)
+        self.assertIn('observer.geo.name', observer_keys)
+        self.assertIn('server.geo.name', server_keys)
+        self.assertIn('source.geo.name', source_keys)
 
-        # group
-        self.assertIn('group.name', user_keys)
-        self.assertIn('user.group.id', client_keys)
-        self.assertIn('user.group.id', destination_keys)
-        self.assertIn('user.group.id', server_keys)
-        self.assertIn('user.group.id', source_keys)
+        # group (chained reuses)
+        self.assertIn('user.group.name', user_keys)
+        self.assertIn('client.user.group.id', client_keys)
+        self.assertIn('destination.user.group.id', destination_keys)
+        self.assertIn('server.user.group.id', server_keys)
+        self.assertIn('source.user.group.id', source_keys)
 
         # user
-        self.assertIn('user.id', client_keys)
-        self.assertIn('user.id', destination_keys)
-        self.assertIn('user.id', server_keys)
-        self.assertIn('user.id', source_keys)
+        self.assertIn('client.user.id', client_keys)
+        self.assertIn('destination.user.id', destination_keys)
+        self.assertIn('server.user.id', server_keys)
+        self.assertIn('source.user.id', source_keys)
 
         # os
-        self.assertIn('os.name', host_keys)
-        self.assertIn('os.name', observer_keys)
-        self.assertIn('os.name', user_agent_keys)
+        self.assertIn('host.os.name', host_keys)
+        self.assertIn('observer.os.name', observer_keys)
+        self.assertIn('user_agent.os.name', user_agent_keys)
 
     def test_related_fields_always_arrays(self):
         for (field_name, field) in self.ecs_nested['related']['fields'].items():
