@@ -57,6 +57,9 @@ def perform_reuse(fields):
             for reuse_entry in reuse_entries:
                 # print(order, "{} => {}".format(schema_name, reuse_entry['full']))
                 destination_schema_name = reuse_entry['full'].split('.')[0]
+                destination_schema = fields[destination_schema_name]
+                ensure_valid_reuse(schema, destination_schema)
+
                 new_field_details = copy.deepcopy(schema['field_details'])
                 new_field_details['original_fieldset'] = schema_name
                 new_field_details['intermediate'] = True
@@ -67,11 +70,12 @@ def perform_reuse(fields):
                     'field_details': new_field_details,
                     'fields': reused_fields,
                 }
-                append_reused_here(schema, reuse_entry, fields[destination_schema_name])
+                append_reused_here(schema, reuse_entry, destination_schema)
 
     # Phase 2: self-nesting
     for schema_name, reuse_entries in self_nestings.items():
         schema = fields[schema_name]
+        ensure_valid_reuse(schema)
         # Since we're about self-nest more fields within these, make a pristine copy first
         reused_fields = copy.deepcopy(schema['fields'])
         set_original_fieldset(reused_fields, schema_name)
@@ -89,6 +93,22 @@ def perform_reuse(fields):
                 'fields': copy.deepcopy(reused_fields),
             }
             append_reused_here(schema, reuse_entry, fields[schema_name])
+
+
+def ensure_valid_reuse(reused_schema, destination_schema=None):
+    '''
+    Raise if either the reused schema or destination schema have root=true.
+
+    Second param is optional, if testing for a self-nesting (where source=destination).
+    '''
+    if reused_schema['schema_details']['root']:
+        msg = "Schema {} has attribute root=true and therefore cannot be reused.".format(
+                reused_schema['field_details']['name'])
+        raise ValueError(msg)
+    elif destination_schema and destination_schema['schema_details']['root']:
+        msg = "Schema {} has attribute root=true and therefore cannot have other field sets reused inside it.".format(
+                destination_schema['field_details']['name'])
+        raise ValueError(msg)
 
 
 def append_reused_here(reused_schema, reuse_entry, destination_schema):

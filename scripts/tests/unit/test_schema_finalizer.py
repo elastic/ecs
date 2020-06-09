@@ -203,6 +203,30 @@ class TestSchemaFinalizer(unittest.TestCase):
         self.assertNotIn('original_fieldset', user_fields['name']['field_details'])
         self.assertNotIn('original_fieldset', process_fields['pid']['field_details'])
 
+
+    def test_root_schema_cannot_be_reused_nor_have_field_set_reused_in_it(self):
+        reused_schema = {
+            'schema_details': {'reusable': {'expected': ['foo']}},
+            'field_details': {'name': 'reused_schema'}
+        }
+        destination_schema = {
+            'schema_details': {'reusable': {'expected': ['foo']}},
+            'field_details': {'name': 'destination_schema'}
+        }
+        # test root=true on reused
+        reused_schema['schema_details']['root'] = True
+        # foreign reuse
+        with self.assertRaisesRegex(ValueError, 'reused_schema.*root.*cannot be reused'):
+            finalizer.ensure_valid_reuse(reused_schema, destination_schema)
+        # self-nesting
+        with self.assertRaisesRegex(ValueError, 'reused_schema.*root.*cannot be reused'):
+            finalizer.ensure_valid_reuse(reused_schema)
+        # test root=true on destination
+        reused_schema['schema_details']['root'] = False
+        destination_schema['schema_details']['root'] = True
+        with self.assertRaisesRegex(ValueError, 'destination_schema.*root.*cannot'):
+            finalizer.ensure_valid_reuse(reused_schema, destination_schema)
+
     # calculate_final_values
 
 
