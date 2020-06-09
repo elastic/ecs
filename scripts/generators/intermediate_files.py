@@ -24,12 +24,12 @@ def generate_flat_fields(fields):
     '''Generate ecs_flat.yml'''
     filtered = remove_non_root_reusables(fields)
     flattened = {}
-    visitor.visit_fields_with_memo(filtered, accumulate_flat_field, flattened)
+    visitor.visit_fields_with_memo(filtered, accumulate_field, flattened)
     return flattened
 
 
-def accumulate_flat_field(details, memo):
-    '''Visitor function that accumulates all flat field details in the memo dict'''
+def accumulate_field(details, memo):
+    '''Visitor function that accumulates all field details in the memo dict'''
     if 'schema_details' in details or ecs_helpers.is_intermediate(details):
         return
     field_details = copy.deepcopy(details['field_details'])
@@ -61,21 +61,12 @@ def generate_nested_fields(fields):
             fieldset_details.pop('root')
 
         fieldset_fields = {}
-        visitor.visit_fields_with_memo(details['fields'], accumulate_nested_field, fieldset_fields)
+        visitor.visit_fields_with_memo(details['fields'], accumulate_field, fieldset_fields)
         fieldset_details['fields'] = fieldset_fields
 
         nested[name] = fieldset_details
     return nested
 
-
-def accumulate_nested_field(details, memo):
-    '''Visitor function that accumulates all nested field details in the memo dict'''
-    if 'schema_details' in details or ecs_helpers.is_intermediate(details):
-        return
-    field_details = copy.deepcopy(details['field_details'])
-    remove_internal_attributes(field_details)
-
-    memo[field_details['flat_name']] = field_details
 
 # Helper functions
 
