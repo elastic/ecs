@@ -147,20 +147,7 @@ def calculate_final_values(fields):
 
 def field_finalizer(details, path):
     '''This is the function called by the visitor to perform the work of calculate_final_values'''
-    # leaf_name not always populated
-    leaf_name = details['field_details']['name'].split('.')[-1]
-    name_array = path + [leaf_name]
-    # TODO Temporarily commented out to simplify initial rewrite review
-    # Overwrite attribute 'name' as the contextual name under its host field set.
-    # Original fields are already fine, but this "fixes" field names for reused fields.
-    # if len(name_array) > 1: # skip root fields
-    #     details['field_details']['name'] = '.'.join(name_array[1:])
-    # TODO Temporary attribute until we fix attribute 'name' above
-    if len(name_array) == 1:
-        details['field_details']['ctx_name'] = name_array[0]
-    else:
-        details['field_details']['ctx_name'] = '.'.join(name_array[1:])
-    # End of temporary shenanigans
+    name_array = path + [details['field_details']['node_name']]
     flat_name = '.'.join(name_array)
     details['field_details']['flat_name'] = flat_name
     details['field_details']['dashed_name'] = flat_name.replace('.', '-').replace('_', '-')

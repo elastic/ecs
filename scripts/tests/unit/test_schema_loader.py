@@ -136,12 +136,13 @@ class TestSchemaLoader(unittest.TestCase):
                 'pid': {
                     'field_details': {
                         'name': 'pid',
-                        'leaf_name': 'pid',
+                        'node_name': 'pid',
                     }
                 },
                 'parent': {
                     'field_details': {
                         'name': 'parent',
+                        'node_name': 'parent',
                         'type': 'object',
                         'intermediate': True,
                     },
@@ -149,7 +150,7 @@ class TestSchemaLoader(unittest.TestCase):
                         'pid': {
                             'field_details': {
                                 'name': 'parent.pid',
-                                'leaf_name': 'pid',
+                                'node_name': 'pid',
                             }
                         }
                     }
@@ -170,7 +171,7 @@ class TestSchemaLoader(unittest.TestCase):
                 'answers': {
                     'field_details': {
                         'name': 'answers',
-                        'leaf_name': 'answers',
+                        'node_name': 'answers',
                         'type': 'object',
                         'intermediate': False,
                     },
@@ -178,7 +179,7 @@ class TestSchemaLoader(unittest.TestCase):
                         'data': {
                             'field_details': {
                                 'name': 'answers.data',
-                                'leaf_name': 'data',
+                                'node_name': 'data',
                                 'type': 'keyword',
                             }
                         }
@@ -187,6 +188,7 @@ class TestSchemaLoader(unittest.TestCase):
                 'question': {
                     'field_details': {
                         'name': 'question',
+                        'node_name': 'question',
                         'type': 'object',
                         'intermediate': True,
                     },
@@ -194,7 +196,7 @@ class TestSchemaLoader(unittest.TestCase):
                         'name': {
                             'field_details': {
                                 'name': 'question.name',
-                                'leaf_name': 'name',
+                                'node_name': 'name',
                                 'type': 'keyword',
                             }
                         }
@@ -212,6 +214,7 @@ class TestSchemaLoader(unittest.TestCase):
                 'origin': {
                     'field_details': {
                         'name': 'origin',
+                        'node_name': 'origin',
                         'type': 'object',
                         'intermediate': True,
                     },
@@ -219,6 +222,7 @@ class TestSchemaLoader(unittest.TestCase):
                         'file': {
                             'field_details': {
                                 'name': 'origin.file',
+                                'node_name': 'file',
                                 'type': 'object',
                                 'intermediate': True,
                             },
@@ -226,7 +230,7 @@ class TestSchemaLoader(unittest.TestCase):
                                 'name': {
                                     'field_details': {
                                         'name': 'origin.file.name',
-                                        'leaf_name': 'name',
+                                        'node_name': 'name',
                                     }
                                 }
                             }
@@ -267,13 +271,14 @@ class TestSchemaLoader(unittest.TestCase):
                 },
                 'field_details': {
                     'name': 'base',
+                    'node_name': 'base',
                     'type': 'group',
                 },
                 'fields': {
                     'message': {
                         'field_details': {
                             'name': 'message',
-                            'leaf_name': 'message',
+                            'node_name': 'message',
                             'type': 'keyword',
                         }
                     }
@@ -283,13 +288,14 @@ class TestSchemaLoader(unittest.TestCase):
                 'schema_details': {},
                 'field_details': {
                     'name': 'process',
+                    'node_name': 'process',
                     'type': 'group'
                 },
                 'fields': {
                     'pid': {
                         'field_details': {
                             'name': 'pid',
-                            'leaf_name': 'pid',
+                            'node_name': 'pid',
                             'type': 'keyword',
                         }
                     },
@@ -297,6 +303,7 @@ class TestSchemaLoader(unittest.TestCase):
                         'field_details': {
                             # These are made explicit for intermediate fields
                             'name': 'parent',
+                            'node_name': 'parent',
                             'type': 'object',
                             'intermediate': True,
                         },
@@ -304,7 +311,7 @@ class TestSchemaLoader(unittest.TestCase):
                             'pid': {
                                 'field_details': {
                                     'name': 'parent.pid',
-                                    'leaf_name': 'pid',
+                                    'node_name': 'pid',
                                     'type': 'keyword',
                                 }
                             }

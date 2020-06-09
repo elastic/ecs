@@ -22,12 +22,14 @@ class TestSchemaFinalizer(unittest.TestCase):
                 },
                 'field_details': {
                     'name': 'base',
+                    'node_name': 'base',
                     'short': 'short desc',
                 },
                 'fields': {
                     '@timestamp': {
                         'field_details': {
                             'name': '@timestamp',
+                            'node_name': '@timestamp',
                         }
                     },
                 }
@@ -50,19 +52,27 @@ class TestSchemaFinalizer(unittest.TestCase):
                 },
                 'field_details': {
                     'name': 'process',
+                    'node_name': 'process',
                     'short': 'short desc',
                 },
                 'fields': {
                     'pid': {
                         'field_details': {
                             'name': 'pid',
+                            'node_name': 'pid',
                         }
                     },
                     'thread': {
-                        'field_details': {'name': 'thread'},
+                        'field_details': {
+                            'name': 'thread',
+                            'node_name': 'thread',
+                        },
                         'fields': {
                             'id': {
-                                'field_details': {'name': 'thread.id'}
+                                'field_details': {
+                                    'name': 'thread.id',
+                                    'node_name': 'id',
+                                }
                             }
                         }
                     }
@@ -87,6 +97,7 @@ class TestSchemaFinalizer(unittest.TestCase):
                 },
                 'field_details': {
                     'name': 'user',
+                    'node_name': 'user',
                     'type': 'group',
                     'short': 'short desc',
                 },
@@ -94,11 +105,13 @@ class TestSchemaFinalizer(unittest.TestCase):
                     'name': {
                         'field_details': {
                             'name': 'name',
+                            'node_name': 'name',
                         }
                     },
                     'full_name': {
                         'field_details': {
                             'name': 'full_name',
+                            'node_name': 'full_name',
                             'multi_fields': [
                                 {'name': 'text', 'type': 'text'}
                             ]
@@ -114,6 +127,7 @@ class TestSchemaFinalizer(unittest.TestCase):
                 'schema_details': {'root': False},
                 'field_details': {
                     'name': 'server',
+                    'node_name': 'server',
                     'type': 'group',
                     'short': 'short desc',
                 },
@@ -121,6 +135,7 @@ class TestSchemaFinalizer(unittest.TestCase):
                     'ip': {
                         'field_details': {
                             'name': 'ip',
+                            'node_name': 'ip',
                             'type': 'ip'
                         }
                     }

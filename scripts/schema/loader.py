@@ -114,6 +114,7 @@ def deep_nesting_representation(fields):
         # We destructively select what goes into schema_details and child fields.
         # The rest is 'field_details'.
         flat_schema = flat_schema.copy()
+        flat_schema['node_name'] = flat_schema['name']
 
         # Schema-only details. Not present on other nested field groups.
         schema_details = {}
@@ -151,6 +152,7 @@ def nest_fields(field_array):
             # Make type:object explicit for intermediate parent fields
             nested_schema[level].setdefault('field_details', {})
             field_details = nested_schema[level]['field_details']
+            field_details['node_name'] = level
             # Respect explicitly defined object fields
             if 'type' in field_details and field_details['type'] in ['object', 'nested']:
                 field_details.setdefault('intermediate', False)
@@ -164,7 +166,7 @@ def nest_fields(field_array):
             nested_schema = nested_schema[level]['fields']
         nested_schema.setdefault(leaf_field, {})
         # Overwrite 'name' with the leaf field's name. The flat_name is already computed.
-        field['leaf_name'] = leaf_field
+        field['node_name'] = leaf_field
         nested_schema[leaf_field]['field_details'] = field
     return schema_root
 

@@ -5049,7 +5049,16 @@
       - to queries made through multiple back-end services.
     type: group
     fields:
-    - name: id
+    - name: trace.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Unique identifier of the trace.
+
+        A trace groups multiple events like transactions that belong together. For
+        example, a user request handled by multiple inter-connected services.'
+      example: 4bf92f3577b34da6a3ce929d0e0e4736
+    - name: transaction.id
       level: extended
       type: keyword
       ignore_above: 1024

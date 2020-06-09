@@ -314,7 +314,7 @@ def nestings_row():
 
 def page_field_values(nested):
     section_text = values_section_header()
-    category_fields = ['kind', 'category', 'type', 'outcome']
+    category_fields = ['event.kind', 'event.category', 'event.type', 'event.outcome']
     for cat_field in category_fields:
         section_text += render_field_values_page(nested['event']['fields'][cat_field])
     return section_text

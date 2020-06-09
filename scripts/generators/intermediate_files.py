@@ -35,9 +35,6 @@ def accumulate_flat_field(details, memo):
     field_details = copy.deepcopy(details['field_details'])
     remove_internal_attributes(field_details)
 
-    # TODO Remove workaround field until it's removed as a later PR
-    field_details.pop('ctx_name')
-
     flat_name = field_details['flat_name']
     memo[flat_name] = field_details
 
@@ -53,16 +50,15 @@ def generate_nested_fields(fields):
             **copy.deepcopy(details['schema_details'])
         }
 
+        fieldset_details.pop('node_name')
+        if 'reusable' in fieldset_details:
+            fieldset_details['reusable'].pop('order')
+
         # TODO Temporarily removed to simplify initial rewrite review
         fieldset_details.pop('dashed_name')
         fieldset_details.pop('flat_name')
-        if 'reusable' in fieldset_details:
-            fieldset_details['reusable'].pop('order')
         if False == fieldset_details['root']:
             fieldset_details.pop('root')
-
-        # TODO Remove temporary workaround field
-        fieldset_details.pop('ctx_name')
 
         fieldset_fields = {}
         visitor.visit_fields_with_memo(details['fields'], accumulate_nested_field, fieldset_fields)
@@ -79,18 +75,14 @@ def accumulate_nested_field(details, memo):
     field_details = copy.deepcopy(details['field_details'])
     remove_internal_attributes(field_details)
 
-    # TODO Temporary workaround for initial rewrite review.
-    # We'll fix attribute 'name' as a subsequent PR and get rid of attribute ctx_name.
-    name = field_details.pop('ctx_name')
-
-    memo[name] = field_details
+    memo[field_details['flat_name']] = field_details
 
 # Helper functions
 
 
 def remove_internal_attributes(field_details):
     '''Remove attributes only relevant to the deeply nested structure, but not to ecs_flat/nested.yml.'''
-    field_details.pop('leaf_name', None)
+    field_details.pop('node_name', None)
     field_details.pop('intermediate', None)
 
 
