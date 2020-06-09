@@ -2,7 +2,7 @@ import glob
 import yaml
 
 # This script takes all ECS and custom fields already loaded, and lets users
-# filter ou
+# filter out the ones they don't need.
 
 
 def filter(fields, subset_file_globs):
