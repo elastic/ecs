@@ -37,7 +37,7 @@ The **ECS team**:
 * acts on behalf of the committee for some but not all PRs
 
 The **contributor**:
-* takes responsibility for doing all necessary legwork to move their RFC forward including but not limited to responding to feedback, identifying and bringing in subject matter experts, and researching scope of impact
+* takes responsibility for doing all necessary legwork to move their RFC forward including but not limited to responding to feedback, identifying and bringing in subject matter experts, and researching the scope of impact
 * demonstrates how the fields in the RFC are expected to be used: from the data source, all the way to its consumption
 * commits to iterating on the RFCs through to stage 4 if necessary
 * creates and iterate on RFC PRs
