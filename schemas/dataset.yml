@@ -1,10 +1,10 @@
 ---
-- name: stream
-  title: Stream
+- name: dataset
+  title: Dataset
   group: 2
-  short: Fields about the monitoring agent.
+  short: Fields about the dataset of this document.
   description: >
-    The stream fields are part of the new [indexing strategy](https://github.com/elastic/kibana/blob/master/docs/ingest_manager/index.asciidoc#indexing-strategy-1).
+    The dataset fields are part of the new [indexing strategy](https://github.com/elastic/kibana/blob/master/docs/ingest_manager/index.asciidoc#indexing-strategy-1).
 
     These fields are used to determine into which index the data is shipped in Elasticsearch and
     allow efficient querying of data. Initially these fields are mainly used by data shipped by
@@ -13,30 +13,30 @@
 
     All three fields are `constant_keyword` fields.
   footnote: >
-    Examples: The new indexing strategy is {stream.type}-{stream.dataset}-{stream.namespace}`.`
+    Examples: The new indexing strategy is {dataset.type}-{dataset.name}-{dataset.namespace}`.`
     As an example, nginx access logs are shipped into `logs-nginx.access-default`.
   type: group
   fields:
     - name: type
       level: extended
       type: constant_keyword
-      short: Type of the stream.
+      short: Type of the dataset.
       description: >
-        Type of the stream.
+        Type of the dataset.
 
-        The type of the stream can be `logs` or `metrics`. More types can be added in the future but no
+        The type of the dataset can be `logs` or `metrics`. More types can be added in the future but no
         other types then the one describe here should be used.
 
       example: logs
 
-    - name: dataset
+    - name: name
       level: extended
       type: constant_keyword
-      short: Dataset describes the structure of the data.
+      short: Dataset name describing the structure of the data.
       description: >
-        Dataset describes the structure of the data.
+        Dataset name describes the structure of the data.
 
-        The dataset describes the structure of the data. All data shipped into a single dataset
+        The dataset name describes the structure of the data. All data shipped into a single dataset
         should have the same or very similar data structure. For example `system.cpu` and `system.disk`
         are two different datasets as they have very different fields.
 
@@ -50,9 +50,9 @@
     - name: namespace
       level: extended
       type: constant_keyword
-      short: Namespace of your stream.
+      short: Namespace of the dataset.
       description: >
-        Namespace of your stream.
+        Namespace of the dataset.
 
         This is the namespace used in your index. The namespace is used to separate
         the same structure into different Data Streams. For example if nginx logs

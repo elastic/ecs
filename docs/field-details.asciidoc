@@ -807,6 +807,76 @@ example: `docker`
 
 |=====
 
+[[ecs-dataset]]
+=== Dataset Fields
+
+The dataset fields are part of the new [indexing strategy](https://github.com/elastic/kibana/blob/master/docs/ingest_manager/index.asciidoc#indexing-strategy-1).
+
+These fields are used to determine into which index the data is shipped in Elasticsearch and allow efficient querying of data. Initially these fields are mainly used by data shipped by the Elastic Agent but any time series data shipper should switch to using data streams and the new indexing strategy with these fields.
+
+All three fields are `constant_keyword` fields.
+
+==== Dataset Field Details
+
+[options="header"]
+|=====
+| Field  | Description | Level
+
+// ===============================================================
+
+| dataset.name
+| Dataset name describes the structure of the data.
+
+The dataset name describes the structure of the data. All data shipped into a single dataset should have the same or very similar data structure. For example `system.cpu` and `system.disk` are two different datasets as they have very different fields.
+
+The name of the dataset should be descriptive of the data and it is encourage to use `.` to combine multiple words. All characters which are allowed in index names can be used for the dataset except `-`.
+
+The default for dataset is `generic`.
+
+type: constant_keyword
+
+
+
+example: `nginx.access`
+
+| extended
+
+// ===============================================================
+
+| dataset.namespace
+| Namespace of the dataset.
+
+This is the namespace used in your index. The namespace is used to separate the same structure into different Data Streams. For example if nginx logs are shipped for testing and production into the same cluster, two different namespaces can be used. This allows to assign different ILM policies as an example.
+
+The default value for a namespace is `default`.
+
+type: constant_keyword
+
+
+
+example: `production`
+
+| extended
+
+// ===============================================================
+
+| dataset.type
+| Type of the dataset.
+
+The type of the dataset can be `logs` or `metrics`. More types can be added in the future but no other types then the one describe here should be used.
+
+type: constant_keyword
+
+
+
+example: `logs`
+
+| extended
+
+// ===============================================================
+
+|=====
+
 [[ecs-destination]]
 === Destination Fields
 
@@ -5615,76 +5685,6 @@ example: `co.uk`
 
 // ===============================================================
 
-
-|=====
-
-[[ecs-stream]]
-=== Stream Fields
-
-The stream fields are part of the new [indexing strategy](https://github.com/elastic/kibana/blob/master/docs/ingest_manager/index.asciidoc#indexing-strategy-1).
-
-These fields are used to determine into which index the data is shipped in Elasticsearch and allow efficient querying of data. Initially these fields are mainly used by data shipped by the Elastic Agent but any time series data shipper should switch to using data streams and the new indexing strategy with these fields.
-
-All three fields are `constant_keyword` fields.
-
-==== Stream Field Details
-
-[options="header"]
-|=====
-| Field  | Description | Level
-
-// ===============================================================
-
-| stream.dataset
-| Dataset describes the structure of the data.
-
-The dataset describes the structure of the data. All data shipped into a single dataset should have the same or very similar data structure. For example `system.cpu` and `system.disk` are two different datasets as they have very different fields.
-
-The name of the dataset should be descriptive of the data and it is encourage to use `.` to combine multiple words. All characters which are allowed in index names can be used for the dataset except `-`.
-
-The default for dataset is `generic`.
-
-type: constant_keyword
-
-
-
-example: `nginx.access`
-
-| extended
-
-// ===============================================================
-
-| stream.namespace
-| Namespace of your stream.
-
-This is the namespace used in your index. The namespace is used to separate the same structure into different Data Streams. For example if nginx logs are shipped for testing and production into the same cluster, two different namespaces can be used. This allows to assign different ILM policies as an example.
-
-The default value for a namespace is `default`.
-
-type: constant_keyword
-
-
-
-example: `production`
-
-| extended
-
-// ===============================================================
-
-| stream.type
-| Type of the stream.
-
-The type of the stream can be `logs` or `metrics`. More types can be added in the future but no other types then the one describe here should be used.
-
-type: constant_keyword
-
-
-
-example: `logs`
-
-| extended
-
-// ===============================================================
 
 |=====
 

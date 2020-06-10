@@ -667,6 +667,57 @@ container.runtime:
   normalize: []
   short: Runtime managing this container.
   type: keyword
+dataset.name:
+  dashed_name: dataset-name
+  description: 'Dataset name describes the structure of the data.
+
+    The dataset name describes the structure of the data. All data shipped into a
+    single dataset should have the same or very similar data structure. For example
+    `system.cpu` and `system.disk` are two different datasets as they have very different
+    fields.
+
+    The name of the dataset should be descriptive of the data and it is encourage
+    to use `.` to combine multiple words. All characters which are allowed in index
+    names can be used for the dataset except `-`.
+
+    The default for dataset is `generic`.'
+  example: nginx.access
+  flat_name: dataset.name
+  level: extended
+  name: name
+  normalize: []
+  short: Dataset name describing the structure of the data.
+  type: constant_keyword
+dataset.namespace:
+  dashed_name: dataset-namespace
+  description: 'Namespace of the dataset.
+
+    This is the namespace used in your index. The namespace is used to separate the
+    same structure into different Data Streams. For example if nginx logs are shipped
+    for testing and production into the same cluster, two different namespaces can
+    be used. This allows to assign different ILM policies as an example.
+
+    The default value for a namespace is `default`.'
+  example: production
+  flat_name: dataset.namespace
+  level: extended
+  name: namespace
+  normalize: []
+  short: Namespace of the dataset.
+  type: constant_keyword
+dataset.type:
+  dashed_name: dataset-type
+  description: 'Type of the dataset.
+
+    The type of the dataset can be `logs` or `metrics`. More types can be added in
+    the future but no other types then the one describe here should be used.'
+  example: logs
+  flat_name: dataset.type
+  level: extended
+  name: type
+  normalize: []
+  short: Type of the dataset.
+  type: constant_keyword
 destination.address:
   dashed_name: destination-address
   description: 'Some event destination addresses are defined ambiguously. The event
@@ -6669,56 +6720,6 @@ source.user.name:
   original_fieldset: user
   short: Short name or login of the user.
   type: keyword
-stream.dataset:
-  dashed_name: stream-dataset
-  description: 'Dataset describes the structure of the data.
-
-    The dataset describes the structure of the data. All data shipped into a single
-    dataset should have the same or very similar data structure. For example `system.cpu`
-    and `system.disk` are two different datasets as they have very different fields.
-
-    The name of the dataset should be descriptive of the data and it is encourage
-    to use `.` to combine multiple words. All characters which are allowed in index
-    names can be used for the dataset except `-`.
-
-    The default for dataset is `generic`.'
-  example: nginx.access
-  flat_name: stream.dataset
-  level: extended
-  name: dataset
-  normalize: []
-  short: Dataset describes the structure of the data.
-  type: constant_keyword
-stream.namespace:
-  dashed_name: stream-namespace
-  description: 'Namespace of your stream.
-
-    This is the namespace used in your index. The namespace is used to separate the
-    same structure into different Data Streams. For example if nginx logs are shipped
-    for testing and production into the same cluster, two different namespaces can
-    be used. This allows to assign different ILM policies as an example.
-
-    The default value for a namespace is `default`.'
-  example: production
-  flat_name: stream.namespace
-  level: extended
-  name: namespace
-  normalize: []
-  short: Namespace of your stream.
-  type: constant_keyword
-stream.type:
-  dashed_name: stream-type
-  description: 'Type of the stream.
-
-    The type of the stream can be `logs` or `metrics`. More types can be added in
-    the future but no other types then the one describe here should be used.'
-  example: logs
-  flat_name: stream.type
-  level: extended
-  name: type
-  normalize: []
-  short: Type of the stream.
-  type: constant_keyword
 tags:
   dashed_name: tags
   description: List of keywords used to tag each event.

@@ -19,7 +19,7 @@
 
 package ecs
 
-// The stream fields are part of the new [indexing
+// The dataset fields are part of the new [indexing
 // strategy](https://github.com/elastic/kibana/blob/master/docs/ingest_manager/index.asciidoc#indexing-strategy-1).
 // These fields are used to determine into which index the data is shipped in
 // Elasticsearch and allow efficient querying of data. Initially these fields
@@ -27,25 +27,25 @@ package ecs
 // data shipper should switch to using data streams and the new indexing
 // strategy with these fields.
 // All three fields are `constant_keyword` fields.
-type Stream struct {
-	// Type of the stream.
-	// The type of the stream can be `logs` or `metrics`. More types can be
+type Dataset struct {
+	// Type of the dataset.
+	// The type of the dataset can be `logs` or `metrics`. More types can be
 	// added in the future but no other types then the one describe here should
 	// be used.
 	Type string `ecs:"type"`
 
-	// Dataset describes the structure of the data.
-	// The dataset describes the structure of the data. All data shipped into a
-	// single dataset should have the same or very similar data structure. For
-	// example `system.cpu` and `system.disk` are two different datasets as
-	// they have very different fields.
+	// Dataset name describes the structure of the data.
+	// The dataset name describes the structure of the data. All data shipped
+	// into a single dataset should have the same or very similar data
+	// structure. For example `system.cpu` and `system.disk` are two different
+	// datasets as they have very different fields.
 	// The name of the dataset should be descriptive of the data and it is
 	// encourage to use `.` to combine multiple words. All characters which are
 	// allowed in index names can be used for the dataset except `-`.
 	// The default for dataset is `generic`.
-	Dataset string `ecs:"dataset"`
+	Name string `ecs:"name"`
 
-	// Namespace of your stream.
+	// Namespace of the dataset.
 	// This is the namespace used in your index. The namespace is used to
 	// separate the same structure into different Data Streams. For example if
 	// nginx logs are shipped for testing and production into the same cluster,
