@@ -8,6 +8,15 @@ from scripts.generators import ecs_helpers
 
 
 class TestECSHelpers(unittest.TestCase):
+
+    def test_is_intermediate_field(self):
+        pseudo_field = {'field_details': {}}
+        self.assertEqual(ecs_helpers.is_intermediate(pseudo_field), False)
+        pseudo_field['field_details']['intermediate'] = False
+        self.assertEqual(ecs_helpers.is_intermediate(pseudo_field), False)
+        pseudo_field['field_details']['intermediate'] = True
+        self.assertEqual(ecs_helpers.is_intermediate(pseudo_field), True)
+
     # dict_copy_existing_keys
 
     def test_dict_copy_existing_keys(self):
@@ -84,155 +93,11 @@ class TestECSHelpers(unittest.TestCase):
         ecs_helpers.dict_clean_string_values(dict)
         self.assertEqual(dict, {'dirty': 'space, the final frontier', 'clean': 'val', 'int': 1})
 
-    def test_list_slit_by(self):
-        lst = ['ecs', 'has', 'a', 'meme', 'now']
-        split_list = ecs_helpers.list_split_by(lst, 3)
-        self.assertEqual(split_list, [['ecs', 'has', 'a'], ['meme', 'now']])
+    # List helper tests
 
-    def test_recursive_subset_merge(self):
-        subset_a = {
-            'field1': {
-                'fields': {
-                    'subfield1': {
-                        'fields': {
-                            'subsubfield1': {
-                                'fields': '*'
-                            }
-                        }
-                    },
-                    'subfield2': {
-                        'fields': '*'
-                    }
-                }
-            },
-            'field2': {}
-        }
-        subset_b = {
-            'field1': {
-                'fields': {
-                    'subfield1': {
-                        'fields': '*'
-                    },
-                    'subfield3': {
-                        'fields': '*'
-                    }
-                }
-            },
-            'field2': {
-                'fields': {
-                    'subfield2': {
-                        'fields': '*'
-                    }
-                }
-            },
-            'field3': {
-                'fields': '*'
-            }
-        }
-        expected = {
-            'field1': {
-                'fields': {
-                    'subfield1': {
-                        'fields': '*'
-                    },
-                    'subfield2': {
-                        'fields': '*'
-                    },
-                    'subfield3': {
-                        'fields': '*'
-                    }
-                }
-            },
-            'field2': {
-                'fields': '*'
-            },
-            'field3': {
-                'fields': '*'
-            }
-        }
-        ecs_helpers.recursive_merge_subset_dicts(subset_a, subset_b)
-        self.assertEqual(subset_a, expected)
-
-    def test_fields_subset(self):
-        fields = {
-            'test_fieldset': {
-                'name': 'test_fieldset',
-                'fields': {
-                    'test_field1': {
-                        'field_details': {
-                            'name': 'test_field1',
-                            'type': 'keyword',
-                            'description': 'A test field'
-                        }
-                    },
-                    'test_field2': {
-                        'field_details': {
-                            'name': 'test_field2',
-                            'type': 'keyword',
-                            'description': 'Another test field'
-                        }
-                    }
-                }
-            }
-        }
-        subset = {
-            'test_fieldset': {
-                'fields': {
-                    'test_field1': {
-                        'fields': '*'
-                    }
-                }
-            }
-        }
-        expected = {
-            'test_fieldset': {
-                'name': 'test_fieldset',
-                'fields': {
-                    'test_field1': {
-                        'field_details': {
-                            'name': 'test_field1',
-                            'type': 'keyword',
-                            'description': 'A test field'
-                        }
-                    }
-                }
-            }
-        }
-        actual = ecs_helpers.fields_subset(subset, fields)
-        self.assertEqual(actual, expected)
-
-    def test_get_nested_field(self):
-        fields = {
-            'test_fieldset': {
-                'name': 'test_fieldset',
-                'fields': {
-                    'test_field1': {
-                        'field_details': {
-                            'name': 'test_field1',
-                            'type': 'keyword',
-                            'description': 'A test field'
-                        }
-                    },
-                    'test_field2': {
-                        'field_details': {
-                            'name': 'test_field2',
-                            'type': 'keyword',
-                            'description': 'Another test field'
-                        }
-                    }
-                }
-            }
-        }
-        nested_field_name = 'test_fieldset.test_field1'
-        expected = {
-            'field_details': {
-                'name': 'test_field1',
-                'type': 'keyword',
-                'description': 'A test field'
-            }
-        }
-        actual = ecs_helpers.get_nested_field(nested_field_name, fields)
-        self.assertEqual(actual, expected)
+    def test_list_subtract(self):
+        self.assertEqual(ecs_helpers.list_subtract(['a', 'b'], ['a']), ['b'])
+        self.assertEqual(ecs_helpers.list_subtract(['a', 'b'], ['a', 'c']), ['b'])
 
     def test_get_tree_by_ref(self):
         ref = 'v1.5.0'

@@ -69,16 +69,6 @@ def fields_subset(subset, fields):
     return retained_fields
 
 
-def recursive_merge_subset_dicts(a, b):
-    for key in b:
-        if key not in a:
-            a[key] = b[key]
-        elif 'fields' not in a[key] or 'fields' not in b[key] or b[key]['fields'] == '*':
-            a[key]['fields'] = '*'
-        elif isinstance(a[key]['fields'], dict) and isinstance(b[key]['fields'], dict):
-            recursive_merge_subset_dicts(a[key]['fields'], b[key]['fields'])
-
-
 def yaml_ordereddict(dumper, data):
     # YAML representation of an OrderedDict will be like a dictionary, but
     # respecting the order of the dictionary.
@@ -150,6 +140,11 @@ def yaml_load(filename):
 # List helpers
 
 
+def list_subtract(original, subtracted):
+    '''Subtract two lists. original = subtracted'''
+    return [item for item in original if item not in subtracted]
+
+
 def list_extract_keys(lst, key_name):
     """Returns an array of values for 'key_name', from a list of dictionaries"""
     acc = []
@@ -158,18 +153,9 @@ def list_extract_keys(lst, key_name):
     return acc
 
 
-def list_split_by(lst, size):
-    '''Splits a list in smaller lists of a given size'''
-    acc = []
-    for i in range(0, len(lst), size):
-        acc.append(lst[i:i + size])
-    return acc
+# Helpers for the deeply nested fields structure
 
 
-def get_nested_field(fieldname, field_dict):
-    """Takes a field name in dot notation and a dictionary of fields and finds the field in the dictionary"""
-    fields = fieldname.split('.')
-    nested_field = field_dict[fields[0]]
-    for field in fields[1:]:
-        nested_field = nested_field['fields'][field]
-    return nested_field
+def is_intermediate(field):
+    '''Encapsulates the check to see if a field is an intermediate field or a "real" field.'''
+    return ('intermediate' in field['field_details'] and field['field_details']['intermediate'])

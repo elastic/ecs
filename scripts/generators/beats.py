@@ -8,7 +8,7 @@ def generate(ecs_nested, ecs_version, out_dir):
     df_whitelist = ecs_helpers.yaml_load('scripts/generators/beats_default_fields_whitelist.yml')
 
     # base first
-    beats_fields = fieldset_field_array(ecs_nested['base']['fields'], df_whitelist)
+    beats_fields = fieldset_field_array(ecs_nested['base']['fields'], df_whitelist, ecs_nested['base']['prefix'])
 
     allowed_fieldset_keys = ['name', 'title', 'group', 'description', 'footnote', 'type']
     # other fieldsets
@@ -18,7 +18,7 @@ def generate(ecs_nested, ecs_version, out_dir):
         fieldset = ecs_nested[fieldset_name]
 
         beats_field = ecs_helpers.dict_copy_keys_ordered(fieldset, allowed_fieldset_keys)
-        beats_field['fields'] = fieldset_field_array(fieldset['fields'], df_whitelist)
+        beats_field['fields'] = fieldset_field_array(fieldset['fields'], df_whitelist, fieldset['prefix'])
         beats_fields.append(beats_field)
 
     beats_file = OrderedDict()
@@ -30,7 +30,7 @@ def generate(ecs_nested, ecs_version, out_dir):
     write_beats_yaml(beats_file, ecs_version, out_dir)
 
 
-def fieldset_field_array(source_fields, df_whitelist):
+def fieldset_field_array(source_fields, df_whitelist, fieldset_prefix):
     allowed_keys = ['name', 'level', 'required', 'type', 'object_type',
                     'ignore_above', 'multi_fields', 'format', 'input_format',
                     'output_format', 'output_precision', 'description',
@@ -41,6 +41,10 @@ def fieldset_field_array(source_fields, df_whitelist):
     for nested_field_name in source_fields:
         ecs_field = source_fields[nested_field_name]
         beats_field = ecs_helpers.dict_copy_keys_ordered(ecs_field, allowed_keys)
+        if '' == fieldset_prefix:
+            contextual_name = nested_field_name
+        else:
+            contextual_name = '.'.join(nested_field_name.split('.')[1:])
 
         cleaned_multi_fields = []
         if 'multi_fields' in ecs_field:
@@ -53,7 +57,7 @@ def fieldset_field_array(source_fields, df_whitelist):
                     ecs_helpers.dict_copy_keys_ordered(mf, multi_fields_allowed_keys))
             beats_field['multi_fields'] = cleaned_multi_fields
 
-        beats_field['name'] = nested_field_name
+        beats_field['name'] = contextual_name
 
         if not ecs_field['flat_name'] in df_whitelist:
             beats_field['default_field'] = False

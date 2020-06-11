@@ -1,74 +1,50 @@
 import argparse
 import glob
 import os
-import schema_reader
 import yaml
 
-from generators import intermediate_files
+from generators import asciidoc_fields
+from generators import beats
 from generators import csv_generator
 from generators import es_template
-from generators import beats
-from generators import asciidoc_fields
 from generators import ecs_helpers
+from generators import intermediate_files
+
+from schema import loader
+from schema import cleaner
+from schema import finalizer
+from schema import subset_filter
 
 
 def main():
     args = argument_parser()
-    # Get rid of empty include
-    if args.include and [''] == args.include:
-        args.include.clear()
 
-    if args.ref:
-        # Load ECS schemas from a specific git ref
-        print('Loading schemas from git ref ' + args.ref)
-        tree = ecs_helpers.get_tree_by_ref(args.ref)
-        ecs_version = read_version_from_tree(tree)
-        ecs_schemas = schema_reader.load_schemas_from_git(tree)
-    else:
-        # Load the default schemas
-        print('Loading default schemas')
-        ecs_version = read_version()
-        ecs_schemas = schema_reader.load_schemas_from_files()
-
+    ecs_version = read_version(args.ref)
     print('Running generator. ECS version ' + ecs_version)
-    intermediate_fields = schema_reader.create_schema_dicts(ecs_schemas)
 
-    # Maybe load user specified directory of schemas
-    if args.include:
-        include_glob = ecs_helpers.get_glob_files(args.include, ecs_helpers.YAML_EXT)
+    # To debug issues in the gradual building up of the nested structure, insert
+    # statements like this after any step of interest.
+    # ecs_helpers.yaml_dump('ecs.yml', fields)
 
-        print('Loading user defined schemas: {0}'.format(include_glob))
-
-        custom_schemas = schema_reader.load_schemas_from_files(include_glob)
-        intermediate_custom = schema_reader.create_schema_dicts(custom_schemas)
-        schema_reader.merge_schema_fields(intermediate_fields, intermediate_custom)
-
-    schema_reader.assemble_reusables(intermediate_fields)
-
-    if args.subset:
-        subset = {}
-        for arg in args.subset:
-            for file in glob.glob(arg):
-                with open(file) as f:
-                    raw = yaml.safe_load(f.read())
-                    ecs_helpers.recursive_merge_subset_dicts(subset, raw)
-        if not subset:
-            raise ValueError('Subset option specified but no subsets found')
-        intermediate_fields = ecs_helpers.fields_subset(subset, intermediate_fields)
-
-    (nested, flat) = schema_reader.generate_nested_flat(intermediate_fields)
+    fields = loader.load_schemas(ref=args.ref, included_files=args.include)
+    cleaner.clean(fields)
+    finalizer.finalize(fields)
+    fields = subset_filter.filter(fields, args.subset)
 
     # default location to save files
     out_dir = 'generated'
     docs_dir = 'docs'
     if args.out:
+        default_dirs = False
         out_dir = os.path.join(args.out, out_dir)
         docs_dir = os.path.join(args.out, docs_dir)
+    else:
+        default_dirs = True
 
     ecs_helpers.make_dirs(out_dir)
     ecs_helpers.make_dirs(docs_dir)
 
-    intermediate_files.generate(nested, flat, out_dir)
+    nested, flat = intermediate_files.generate(fields, out_dir, default_dirs)
     if args.intermediate_only:
         exit()
 
@@ -77,7 +53,8 @@ def main():
     beats.generate(nested, ecs_version, out_dir)
     if args.include or args.subset:
         exit()
-    asciidoc_fields.generate(intermediate_fields, ecs_version, docs_dir)
+
+    asciidoc_fields.generate(nested, ecs_version, docs_dir)
 
 
 def argument_parser():
@@ -94,16 +71,22 @@ def argument_parser():
                         help='index template settings to use when generating elasticsearch template')
     parser.add_argument('--mapping-settings', action='store',
                         help='mapping settings to use when generating elasticsearch template')
-    return parser.parse_args()
+    args = parser.parse_args()
+    # Clean up empty include of the Makefile
+    if args.include and [''] == args.include:
+        args.include.clear()
+    return args
 
 
-def read_version(file='version'):
-    with open(file, 'r') as infile:
-        return infile.read().rstrip()
-
-
-def read_version_from_tree(tree):
-    return tree['version'].data_stream.read().decode('utf-8').rstrip()
+def read_version(ref=None):
+    if ref:
+        print('Loading schemas from git ref ' + ref)
+        tree = ecs_helpers.get_tree_by_ref(ref)
+        return tree['version'].data_stream.read().decode('utf-8').rstrip()
+    else:
+        print('Loading schemas from local files')
+        with open('version', 'r') as infile:
+            return infile.read().rstrip()
 
 
 if __name__ == '__main__':

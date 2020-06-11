@@ -2,10 +2,10 @@ from os.path import join
 from generators import ecs_helpers
 
 
-def generate(intermediate_nested, ecs_version, out_dir):
-    save_asciidoc(join(out_dir, 'fields.asciidoc'), page_field_index(intermediate_nested, ecs_version))
-    save_asciidoc(join(out_dir, 'field-details.asciidoc'), page_field_details(intermediate_nested))
-    save_asciidoc(join(out_dir, 'field-values.asciidoc'), page_field_values(intermediate_nested))
+def generate(nested, ecs_version, out_dir):
+    save_asciidoc(join(out_dir, 'fields.asciidoc'), page_field_index(nested, ecs_version))
+    save_asciidoc(join(out_dir, 'field-details.asciidoc'), page_field_details(nested))
+    save_asciidoc(join(out_dir, 'field-values.asciidoc'), page_field_values(nested))
 
 # Helpers
 
@@ -20,9 +20,9 @@ def save_asciidoc(file, text):
 # Field Index
 
 
-def page_field_index(intermediate_nested, ecs_version):
+def page_field_index(nested, ecs_version):
     page_text = index_header(ecs_version)
-    for fieldset in ecs_helpers.dict_sorted_by_keys(intermediate_nested, ['group', 'name']):
+    for fieldset in ecs_helpers.dict_sorted_by_keys(nested, ['group', 'name']):
         page_text += render_field_index_row(fieldset)
     page_text += table_footer()
     page_text += index_footer()
@@ -39,14 +39,14 @@ def render_field_index_row(fieldset):
 
 # Field Details Page
 
-def page_field_details(intermediate_nested):
+def page_field_details(nested):
     page_text = ''
-    for fieldset in ecs_helpers.dict_sorted_by_keys(intermediate_nested, ['group', 'name']):
-        page_text += render_fieldset(fieldset, intermediate_nested)
+    for fieldset in ecs_helpers.dict_sorted_by_keys(nested, ['group', 'name']):
+        page_text += render_fieldset(fieldset, nested)
     return page_text
 
 
-def render_fieldset(fieldset, intermediate_nested):
+def render_fieldset(fieldset, nested):
     text = field_details_table_header().format(
         fieldset_title=fieldset['title'],
         fieldset_name=fieldset['name'],
@@ -57,7 +57,7 @@ def render_fieldset(fieldset, intermediate_nested):
 
     text += table_footer()
 
-    text += render_fieldset_reuse_section(fieldset, intermediate_nested)
+    text += render_fieldset_reuse_section(fieldset, nested)
 
     return text
 
@@ -66,10 +66,8 @@ def render_fields(fields):
     text = ''
     for field_name, field in sorted(fields.items()):
         # Skip fields nested in this field set
-        if 'field_details' in field and 'original_fieldset' not in field['field_details']:
-            text += render_field_details_row(field['field_details'])
-        if 'fields' in field:
-            text += render_fields(field['fields'])
+        if 'original_fieldset' not in field:
+            text += render_field_details_row(field)
     return text
 
 
@@ -117,7 +115,7 @@ def render_field_details_row(field):
     return text
 
 
-def render_fieldset_reuse_section(fieldset, intermediate_nested):
+def render_fieldset_reuse_section(fieldset, nested):
     '''Render the section on where field set can be nested, and which field sets can be nested here'''
     if not ('nestings' in fieldset or 'reusable' in fieldset):
         return ''
@@ -131,12 +129,11 @@ def render_fieldset_reuse_section(fieldset, intermediate_nested):
             fieldset_title=fieldset['title']
         )
         rows = []
-        for nested_fs_name in fieldset['nestings']:
-            ecs = ecs_helpers.get_nested_field(nested_fs_name, intermediate_nested)
+        for reused_here_entry in fieldset['reused_here']:
             rows.append({
-                'flat_nesting': "{}.*".format(nested_fs_name),
-                'name': nested_fs_name.split('.')[-1],
-                'short': ecs['short']
+                'flat_nesting': "{}.*".format(reused_here_entry['full']),
+                'name': reused_here_entry['schema_name'],
+                'short': reused_here_entry['short']
             })
         for row in sorted(rows, key=lambda x: x['flat_nesting']):
             text += render_nesting_row(row)
@@ -150,16 +147,20 @@ def render_fieldset_reuses_text(fieldset):
         return ''
 
     section_name = fieldset['name']
-    sorted_fields = sorted(fieldset['reusable']['expected'])
-    rendered_fields = map(lambda f: "`{}.{}`".format(f, section_name), sorted_fields)
+    sorted_fields = sorted(fieldset['reusable']['expected'], key=lambda k: k['full'])
+    rendered_fields = map(lambda f: "`{}`".format(f['full']), sorted_fields)
     text = "The `{}` fields are expected to be nested at: {}.\n\n".format(
         section_name, ', '.join(rendered_fields))
 
     if 'top_level' in fieldset['reusable'] and fieldset['reusable']['top_level']:
+        # TODO rewording kept for follow-up PR to simplify initial rewrite PR
+        # template = "Note also that the `{}` fields may be used directly at the root of the events.\n\n"
         template = "Note also that the `{}` fields may be used directly at the top level.\n\n"
     else:
         template = "Note also that the `{}` fields are not expected to " + \
             "be used directly at the top level.\n\n"
+        # TODO rewording kept for follow-up PR to simplify initial rewrite PR
+        # "be used directly at the root of the events.\n\n"
     text += template.format(section_name)
     return text
 
@@ -311,12 +312,11 @@ def nestings_row():
 # Allowed values section
 
 
-def page_field_values(intermediate_nested):
+def page_field_values(nested):
     section_text = values_section_header()
     category_fields = ['event.kind', 'event.category', 'event.type', 'event.outcome']
     for cat_field in category_fields:
-        section_text += render_field_values_page(ecs_helpers.get_nested_field(cat_field,
-                                                                              intermediate_nested)['field_details'])
+        section_text += render_field_values_page(nested['event']['fields'][cat_field])
     return section_text
 
 
