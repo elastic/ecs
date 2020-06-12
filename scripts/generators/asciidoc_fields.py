@@ -57,17 +57,10 @@ def save_asciidoc(file, text):
 
 # Field Index
 
-<<<<<<< HEAD
+@templated('fields_template.j2')
 def page_field_index(nested, ecs_version):
     fieldsets = ecs_helpers.dict_sorted_by_keys(nested, ['group', 'name'])
-    page_text = generate_field_index(ecs_version, fieldsets)
-    return page_text
-=======
-@templated('fields_template.j2')
-def page_field_index(intermediate_nested, ecs_version):
-    fieldsets = ecs_helpers.dict_sorted_by_keys(intermediate_nested, ['group', 'name'])
     return dict(ecs_version=ecs_version, fieldsets=fieldsets)
->>>>>>> refactor to use template decorator
 
 
 # Field Details Page
