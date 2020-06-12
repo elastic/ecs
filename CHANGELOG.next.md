@@ -63,7 +63,7 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
-* Add support for reusing offical fieldsets in custom schemas. #751
+* Add support for reusing official fieldsets in custom schemas. #751
 * Add full path names to reused fieldsets in `nestings` array in `ecs_nested.yml`. #803
 * Allow shorthand notation for including all subfields in subsets. #805
 * Add support for Elasticsearch `enabled` field parameter. #824
