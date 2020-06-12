@@ -83,6 +83,7 @@ Thanks, you're awesome :-) -->
 * There's a new representation of ECS at `generated/ecs/ecs.yml`, which is a deeply nested
   representation of the fields. This file is not in git, as it's only meant for
   developers working on the ECS tools. #864
+* Jinja2 templates now define the doc structure for the AsciiDoc generator.
 
 #### Deprecated
 
