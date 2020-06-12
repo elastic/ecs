@@ -10,6 +10,7 @@ TEMPLATE_DIR = path.join(path.dirname(path.abspath(__file__)), 'templates')
 template_loader = jinja2.FileSystemLoader(searchpath=TEMPLATE_DIR)
 template_env = jinja2.Environment(loader=template_loader)
 
+
 def generate(nested, ecs_version, out_dir):
     save_asciidoc(path.join(out_dir, 'fields.asciidoc'), page_field_index(nested, ecs_version))
     save_asciidoc(path.join(out_dir, 'field-details.asciidoc'), page_field_details(nested))
