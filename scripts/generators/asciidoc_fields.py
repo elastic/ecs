@@ -10,8 +10,8 @@ def generate(nested, ecs_version, out_dir):
 # Helpers
 
 
-def save_asciidoc(file, text):
-    with open(file, "w") as outfile:
+def save_asciidoc(f, text):
+    with open(f, "w") as outfile:
         outfile.write(text)
 
 
@@ -38,6 +38,7 @@ def render_field_index_row(fieldset):
 
 
 # Field Details Page
+
 
 def page_field_details(nested):
     page_text = ''
@@ -168,6 +169,7 @@ def render_nesting_row(nesting):
         nesting_short=nesting['short'],
     )
     return text
+
 
 # Templates
 
