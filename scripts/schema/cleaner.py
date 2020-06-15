@@ -118,10 +118,9 @@ def field_cleanup(field):
     if ecs_helpers.is_intermediate(field):
         return
     ecs_helpers.dict_clean_string_values(field['field_details'])
-    # TODO Temporarily commented out to simplify initial rewrite review
-    # if 'allowed_values' in field['field_details']:
-    #     for allowed_value in field['field_details']['allowed_values']:
-    #         ecs_helpers.dict_clean_string_values(allowed_value)
+    if 'allowed_values' in field['field_details']:
+        for allowed_value in field['field_details']['allowed_values']:
+            ecs_helpers.dict_clean_string_values(allowed_value)
     field_defaults(field)
     field_assertions_and_warnings(field)
 

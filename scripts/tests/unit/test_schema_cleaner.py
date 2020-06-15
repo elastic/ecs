@@ -177,9 +177,8 @@ class TestSchemaCleaner(unittest.TestCase):
         self.assertEqual(my_field['field_details']['name'], 'my_field')
         self.assertEqual(my_field['field_details']['short'], 'a really short description')
         self.assertEqual(my_field['field_details']['description'], "a long\n\nmultiline description")
-        # TODO Temporarily commented out to simplify initial rewrite review
-        # self.assertEqual(my_field['field_details']['allowed_values'][0]['name'], 'authentication')
-        # self.assertEqual(my_field['field_details']['allowed_values'][0]['description'], 'when can auth be used?')
+        self.assertEqual(my_field['field_details']['allowed_values'][0]['name'], 'authentication')
+        self.assertEqual(my_field['field_details']['allowed_values'][0]['description'], 'when can auth be used?')
 
     def test_field_defaults(self):
         field_min_details = {
