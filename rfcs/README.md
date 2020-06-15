@@ -11,6 +11,8 @@ The types of changes that warrant this RFC process include but are not limited t
 
 Check out [Proposing Changes](./PROCESS.md) for high level information about the RFC process.
 
+Check out the [series of stages](https://elastic.github.io/ecs/stages.html) an RFC will go through to be fully vetted.
+
 ## How this works
 
 It's important to understand the overall goals and intentions of the RFC process, so it is recommended that you read this and the document listed above. When you're ready to dive in,
