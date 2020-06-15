@@ -865,9 +865,6 @@ code_signature:
       at: process
       full: process.code_signature
     - as: code_signature
-      at: process.parent
-      full: process.parent.code_signature
-    - as: code_signature
       at: dll
       full: dll.code_signature
     top_level: false
@@ -3836,9 +3833,6 @@ hash:
       at: process
       full: process.hash
     - as: hash
-      at: process.parent
-      full: process.parent.hash
-    - as: hash
       at: dll
       full: dll.hash
     top_level: false
@@ -6066,20 +6060,22 @@ process:
       type: keyword
     process.parent.args:
       dashed_name: process-parent-args
-      description: 'Array of process arguments.
+      description: 'Array of process arguments, starting with the absolute path to
+        the executable.
 
         May be filtered to protect sensitive information.'
       example:
-      - ssh
+      - /usr/bin/ssh
       - -l
       - user
       - 10.0.0.16
       flat_name: process.parent.args
       ignore_above: 1024
       level: extended
-      name: parent.args
+      name: args
       normalize:
       - array
+      original_fieldset: process
       short: Array of process arguments.
       type: keyword
     process.parent.args_count:
@@ -6092,8 +6088,9 @@ process:
       example: 4
       flat_name: process.parent.args_count
       level: extended
-      name: parent.args_count
+      name: args_count
       normalize: []
+      original_fieldset: process
       short: Length of the process.args array.
       type: long
     process.parent.code_signature.exists:
@@ -6179,8 +6176,9 @@ process:
         name: text
         norms: false
         type: text
-      name: parent.command_line
+      name: command_line
       normalize: []
+      original_fieldset: process
       short: Full command line that started the process.
       type: keyword
     process.parent.entity_id:
@@ -6198,8 +6196,9 @@ process:
       flat_name: process.parent.entity_id
       ignore_above: 1024
       level: extended
-      name: parent.entity_id
+      name: entity_id
       normalize: []
+      original_fieldset: process
       short: Unique identifier for the process.
       type: keyword
     process.parent.executable:
@@ -6214,8 +6213,9 @@ process:
         name: text
         norms: false
         type: text
-      name: parent.executable
+      name: executable
       normalize: []
+      original_fieldset: process
       short: Absolute path to the process executable.
       type: keyword
     process.parent.exit_code:
@@ -6227,8 +6227,9 @@ process:
       example: 137
       flat_name: process.parent.exit_code
       level: extended
-      name: parent.exit_code
+      name: exit_code
       normalize: []
+      original_fieldset: process
       short: The exit code of the process.
       type: long
     process.parent.hash.md5:
@@ -6289,9 +6290,98 @@ process:
         name: text
         norms: false
         type: text
-      name: parent.name
+      name: name
       normalize: []
+      original_fieldset: process
       short: Process name.
+      type: keyword
+    process.parent.pe.architecture:
+      dashed_name: process-parent-pe-architecture
+      description: CPU architecture target for the file.
+      example: x64
+      flat_name: process.parent.pe.architecture
+      ignore_above: 1024
+      level: extended
+      name: architecture
+      normalize: []
+      original_fieldset: pe
+      short: CPU architecture target for the file.
+      type: keyword
+    process.parent.pe.company:
+      dashed_name: process-parent-pe-company
+      description: Internal company name of the file, provided at compile-time.
+      example: Microsoft Corporation
+      flat_name: process.parent.pe.company
+      ignore_above: 1024
+      level: extended
+      name: company
+      normalize: []
+      original_fieldset: pe
+      short: Internal company name of the file, provided at compile-time.
+      type: keyword
+    process.parent.pe.description:
+      dashed_name: process-parent-pe-description
+      description: Internal description of the file, provided at compile-time.
+      example: Paint
+      flat_name: process.parent.pe.description
+      ignore_above: 1024
+      level: extended
+      name: description
+      normalize: []
+      original_fieldset: pe
+      short: Internal description of the file, provided at compile-time.
+      type: keyword
+    process.parent.pe.file_version:
+      dashed_name: process-parent-pe-file-version
+      description: Internal version of the file, provided at compile-time.
+      example: 6.3.9600.17415
+      flat_name: process.parent.pe.file_version
+      ignore_above: 1024
+      level: extended
+      name: file_version
+      normalize: []
+      original_fieldset: pe
+      short: Process name.
+      type: keyword
+    process.parent.pe.imphash:
+      dashed_name: process-parent-pe-imphash
+      description: 'A hash of the imports in a PE file. An imphash -- or import hash
+        -- can be used to fingerprint binaries even after recompilation or other code-level
+        transformations have occurred, which would change more traditional hash values.
+
+        Learn more at https://www.fireeye.com/blog/threat-research/2014/01/tracking-malware-import-hashing.html.'
+      example: 0c6803c4e922103c4dca5963aad36ddf
+      flat_name: process.parent.pe.imphash
+      ignore_above: 1024
+      level: extended
+      name: imphash
+      normalize: []
+      original_fieldset: pe
+      short: A hash of the imports in a PE file.
+      type: keyword
+    process.parent.pe.original_file_name:
+      dashed_name: process-parent-pe-original-file-name
+      description: Internal name of the file, provided at compile-time.
+      example: MSPAINT.EXE
+      flat_name: process.parent.pe.original_file_name
+      ignore_above: 1024
+      level: extended
+      name: original_file_name
+      normalize: []
+      original_fieldset: pe
+      short: Internal name of the file, provided at compile-time.
+      type: keyword
+    process.parent.pe.product:
+      dashed_name: process-parent-pe-product
+      description: Internal product name of the file, provided at compile-time.
+      example: "Microsoft\xAE Windows\xAE Operating System"
+      flat_name: process.parent.pe.product
+      ignore_above: 1024
+      level: extended
+      name: product
+      normalize: []
+      original_fieldset: pe
+      short: Internal product name of the file, provided at compile-time.
       type: keyword
     process.parent.pgid:
       dashed_name: process-parent-pgid
@@ -6299,8 +6389,9 @@ process:
       flat_name: process.parent.pgid
       format: string
       level: extended
-      name: parent.pgid
+      name: pgid
       normalize: []
+      original_fieldset: process
       short: Identifier of the group of processes the process belongs to.
       type: long
     process.parent.pid:
@@ -6310,8 +6401,9 @@ process:
       flat_name: process.parent.pid
       format: string
       level: core
-      name: parent.pid
+      name: pid
       normalize: []
+      original_fieldset: process
       short: Process id.
       type: long
     process.parent.ppid:
@@ -6321,8 +6413,9 @@ process:
       flat_name: process.parent.ppid
       format: string
       level: extended
-      name: parent.ppid
+      name: ppid
       normalize: []
+      original_fieldset: process
       short: Parent process' pid.
       type: long
     process.parent.start:
@@ -6331,8 +6424,9 @@ process:
       example: '2016-05-23T08:05:34.853Z'
       flat_name: process.parent.start
       level: extended
-      name: parent.start
+      name: start
       normalize: []
+      original_fieldset: process
       short: The time the process started.
       type: date
     process.parent.thread.id:
@@ -6342,8 +6436,9 @@ process:
       flat_name: process.parent.thread.id
       format: string
       level: extended
-      name: parent.thread.id
+      name: thread.id
       normalize: []
+      original_fieldset: process
       short: Thread ID.
       type: long
     process.parent.thread.name:
@@ -6353,8 +6448,9 @@ process:
       flat_name: process.parent.thread.name
       ignore_above: 1024
       level: extended
-      name: parent.thread.name
+      name: thread.name
       normalize: []
+      original_fieldset: process
       short: Thread name.
       type: keyword
     process.parent.title:
@@ -6371,8 +6467,9 @@ process:
         name: text
         norms: false
         type: text
-      name: parent.title
+      name: title
       normalize: []
+      original_fieldset: process
       short: Process title.
       type: keyword
     process.parent.uptime:
@@ -6381,8 +6478,9 @@ process:
       example: 1325
       flat_name: process.parent.uptime
       level: extended
-      name: parent.uptime
+      name: uptime
       normalize: []
+      original_fieldset: process
       short: Seconds the process has been up.
       type: long
     process.parent.working_directory:
@@ -6397,8 +6495,9 @@ process:
         name: text
         norms: false
         type: text
-      name: parent.working_directory
+      name: working_directory
       normalize: []
+      original_fieldset: process
       short: The working directory of the process.
       type: keyword
     process.pe.architecture:
@@ -6602,26 +6701,28 @@ process:
   nestings:
   - process.code_signature
   - process.hash
-  - process.parent.code_signature
-  - process.parent.hash
+  - process.parent
   - process.pe
   prefix: process.
+  reusable:
+    expected:
+    - as: parent
+      at: process
+      full: process.parent
+    top_level: true
   reused_here:
   - full: process.code_signature
-    schema_name: code_signature
-    short: These fields contain information about binary code signatures.
-  - full: process.parent.code_signature
     schema_name: code_signature
     short: These fields contain information about binary code signatures.
   - full: process.hash
     schema_name: hash
     short: Hashes, usually file hashes.
-  - full: process.parent.hash
-    schema_name: hash
-    short: Hashes, usually file hashes.
   - full: process.pe
     schema_name: pe
     short: These fields contain Windows Portable Executable (PE) metadata.
+  - full: process.parent
+    schema_name: process
+    short: These fields contain information about a process.
   short: These fields contain information about a process.
   title: Process
   type: group

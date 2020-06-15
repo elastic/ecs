@@ -696,7 +696,7 @@ example: `true`
 
 ==== Field Reuse
 
-The `code_signature` fields are expected to be nested at: `dll.code_signature`, `file.code_signature`, `process.code_signature`, `process.parent.code_signature`.
+The `code_signature` fields are expected to be nested at: `dll.code_signature`, `file.code_signature`, `process.code_signature`.
 
 Note also that the `code_signature` fields are not expected to be used directly at the top level.
 
@@ -2551,7 +2551,7 @@ type: keyword
 
 ==== Field Reuse
 
-The `hash` fields are expected to be nested at: `dll.hash`, `file.hash`, `process.hash`, `process.parent.hash`.
+The `hash` fields are expected to be nested at: `dll.hash`, `file.hash`, `process.hash`.
 
 Note also that the `hash` fields are not expected to be used directly at the top level.
 
@@ -4275,263 +4275,6 @@ example: `ssh`
 
 // ===============================================================
 
-| process.parent.args
-| Array of process arguments.
-
-May be filtered to protect sensitive information.
-
-type: keyword
-
-
-Note: this field should contain an array of values.
-
-
-
-example: `['ssh', '-l', 'user', '10.0.0.16']`
-
-| extended
-
-// ===============================================================
-
-| process.parent.args_count
-| Length of the process.args array.
-
-This field can be useful for querying or performing bucket analysis on how many arguments were provided to start a process. More arguments may be an indication of suspicious activity.
-
-type: long
-
-
-
-example: `4`
-
-| extended
-
-// ===============================================================
-
-| process.parent.command_line
-| Full command line that started the process, including the absolute path to the executable, and all arguments.
-
-Some arguments may be filtered to protect sensitive information.
-
-type: keyword
-
-Multi-fields:
-
-* process.parent.command_line.text (type: text)
-
-
-
-
-
-example: `/usr/bin/ssh -l user 10.0.0.16`
-
-| extended
-
-// ===============================================================
-
-| process.parent.entity_id
-| Unique identifier for the process.
-
-The implementation of this is specified by the data source, but some examples of what could be used here are a process-generated UUID, Sysmon Process GUIDs, or a hash of some uniquely identifying components of a process.
-
-Constructing a globally unique identifier is a common practice to mitigate PID reuse as well as to identify a specific process over time, across multiple monitored hosts.
-
-type: keyword
-
-
-
-example: `c2c455d9f99375d`
-
-| extended
-
-// ===============================================================
-
-| process.parent.executable
-| Absolute path to the process executable.
-
-type: keyword
-
-Multi-fields:
-
-* process.parent.executable.text (type: text)
-
-
-
-
-
-example: `/usr/bin/ssh`
-
-| extended
-
-// ===============================================================
-
-| process.parent.exit_code
-| The exit code of the process, if this is a termination event.
-
-The field should be absent if there is no exit code for the event (e.g. process start).
-
-type: long
-
-
-
-example: `137`
-
-| extended
-
-// ===============================================================
-
-| process.parent.name
-| Process name.
-
-Sometimes called program name or similar.
-
-type: keyword
-
-Multi-fields:
-
-* process.parent.name.text (type: text)
-
-
-
-
-
-example: `ssh`
-
-| extended
-
-// ===============================================================
-
-| process.parent.pgid
-| Identifier of the group of processes the process belongs to.
-
-type: long
-
-
-
-
-
-| extended
-
-// ===============================================================
-
-| process.parent.pid
-| Process id.
-
-type: long
-
-
-
-example: `4242`
-
-| core
-
-// ===============================================================
-
-| process.parent.ppid
-| Parent process' pid.
-
-type: long
-
-
-
-example: `4241`
-
-| extended
-
-// ===============================================================
-
-| process.parent.start
-| The time the process started.
-
-type: date
-
-
-
-example: `2016-05-23T08:05:34.853Z`
-
-| extended
-
-// ===============================================================
-
-| process.parent.thread.id
-| Thread ID.
-
-type: long
-
-
-
-example: `4242`
-
-| extended
-
-// ===============================================================
-
-| process.parent.thread.name
-| Thread name.
-
-type: keyword
-
-
-
-example: `thread-0`
-
-| extended
-
-// ===============================================================
-
-| process.parent.title
-| Process title.
-
-The proctitle, some times the same as process name. Can also be different: for example a browser setting its title to the web page currently opened.
-
-type: keyword
-
-Multi-fields:
-
-* process.parent.title.text (type: text)
-
-
-
-
-
-
-
-| extended
-
-// ===============================================================
-
-| process.parent.uptime
-| Seconds the process has been up.
-
-type: long
-
-
-
-example: `1325`
-
-| extended
-
-// ===============================================================
-
-| process.parent.working_directory
-| The working directory of the process.
-
-type: keyword
-
-Multi-fields:
-
-* process.parent.working_directory.text (type: text)
-
-
-
-
-
-example: `/home/alice`
-
-| extended
-
-// ===============================================================
-
 | process.pgid
 | Identifier of the group of processes the process belongs to.
 
@@ -4667,6 +4410,10 @@ example: `/home/alice`
 
 ==== Field Reuse
 
+The `process` fields are expected to be nested at: `process.parent`.
+
+Note also that the `process` fields may be used directly at the top level.
+
 
 
 
@@ -4692,14 +4439,8 @@ example: `/home/alice`
 // ===============================================================
 
 
-| <<ecs-code_signature,process.parent.code_signature.*>>
-| These fields contain information about binary code signatures.
-
-// ===============================================================
-
-
-| <<ecs-hash,process.parent.hash.*>>
-| Hashes, usually file hashes.
+| <<ecs-process,process.parent.*>>
+| These fields contain information about a process.
 
 // ===============================================================
 
