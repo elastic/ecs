@@ -153,14 +153,10 @@ def render_fieldset_reuses_text(fieldset):
         section_name, ', '.join(rendered_fields))
 
     if 'top_level' in fieldset['reusable'] and fieldset['reusable']['top_level']:
-        # TODO rewording kept for follow-up PR to simplify initial rewrite PR
-        # template = "Note also that the `{}` fields may be used directly at the root of the events.\n\n"
-        template = "Note also that the `{}` fields may be used directly at the top level.\n\n"
+        template = "Note also that the `{}` fields may be used directly at the root of the events.\n\n"
     else:
         template = "Note also that the `{}` fields are not expected to " + \
-            "be used directly at the top level.\n\n"
-        # TODO rewording kept for follow-up PR to simplify initial rewrite PR
-        # "be used directly at the root of the events.\n\n"
+            "be used directly at the root of the events.\n\n"
     text += template.format(section_name)
     return text
 
@@ -172,7 +168,6 @@ def render_nesting_row(nesting):
         nesting_short=nesting['short'],
     )
     return text
-
 
 # Templates
 
