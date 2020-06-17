@@ -1,4 +1,5 @@
 import copy
+import re
 
 from schema import visitor
 
@@ -170,7 +171,7 @@ def field_finalizer(details, path):
     name_array = path + [details['field_details']['node_name']]
     flat_name = '.'.join(name_array)
     details['field_details']['flat_name'] = flat_name
-    details['field_details']['dashed_name'] = flat_name.replace('.', '-').replace('_', '-')
+    details['field_details']['dashed_name'] = re.sub('[@_\.]', '-', flat_name)
     if 'multi_fields' in details['field_details']:
         for mf in details['field_details']['multi_fields']:
             mf['flat_name'] = flat_name + '.' + mf['name']

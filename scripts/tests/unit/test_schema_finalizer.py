@@ -234,7 +234,7 @@ class TestSchemaFinalizer(unittest.TestCase):
         timestamp_details = base_fields['@timestamp']['field_details']
         self.assertEqual(timestamp_details['flat_name'], '@timestamp',
                          "Field sets with root=true must not namespace field names with the field set's name")
-        self.assertEqual(timestamp_details['dashed_name'], '@timestamp')
+        self.assertEqual(timestamp_details['dashed_name'], '-timestamp')
         # root=false
         self.assertEqual(server_fields['ip']['field_details']['flat_name'], 'server.ip',
                          "Field sets with root=false must namespace field names with the field set's name")
@@ -250,6 +250,11 @@ class TestSchemaFinalizer(unittest.TestCase):
         # multi-fields flat_name
         user_full_name_details = user_fields['full_name']['field_details']
         self.assertEqual(user_full_name_details['multi_fields'][0]['flat_name'], 'user.full_name.text')
+
+    def test_dashed_name_cleanup(self):
+        details = {'field_details': {'node_name':'@time.stamp_'}}
+        finalizer.field_finalizer(details, [])
+        self.assertEqual(details['field_details']['dashed_name'], '-time-stamp-')
 
     # field_group_at_path
 
