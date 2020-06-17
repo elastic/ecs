@@ -2274,7 +2274,7 @@ example: `1001`
 
 
 | <<ecs-x509,file.x509.*>>
-| This implements the common core fields for x509 certificates. This information is likely logged with TLS sessions, digital signatures found in executable binaries, S/MIME information in email bodies, or analysis of files on disk. When only a single certificate is logged in an event, it should be nested under `file`. When hashes of the DER-encoded certificate are available, the `hash` data set should be populated as well (e.g. `file.hash.sha256`). For events that contain certificate information for both sides of the connection, the x509 object could be nested under the respective side of the connection information (e.g. `tls.server.x509`).
+| These fields contain x509 certificate metadata.
 
 // ===============================================================
 
@@ -5608,7 +5608,7 @@ example: `1970-01-01T00:00:00.000Z`
 // ===============================================================
 
 | tls.client.server_name
-| Also called an SNI, this tells the server which hostname to which the client is attempting to connect. When this value is available, it should get copied to `destination.domain`.
+| Also called an SNI, this tells the server which hostname to which the client is attempting to connect to. When this value is available, it should get copied to `destination.domain`.
 
 type: keyword
 
@@ -5878,13 +5878,13 @@ example: `tls`
 
 
 | <<ecs-x509,tls.client.x509.*>>
-| This implements the common core fields for x509 certificates. This information is likely logged with TLS sessions, digital signatures found in executable binaries, S/MIME information in email bodies, or analysis of files on disk. When only a single certificate is logged in an event, it should be nested under `file`. When hashes of the DER-encoded certificate are available, the `hash` data set should be populated as well (e.g. `file.hash.sha256`). For events that contain certificate information for both sides of the connection, the x509 object could be nested under the respective side of the connection information (e.g. `tls.server.x509`).
+| These fields contain x509 certificate metadata.
 
 // ===============================================================
 
 
 | <<ecs-x509,tls.server.x509.*>>
-| This implements the common core fields for x509 certificates. This information is likely logged with TLS sessions, digital signatures found in executable binaries, S/MIME information in email bodies, or analysis of files on disk. When only a single certificate is logged in an event, it should be nested under `file`. When hashes of the DER-encoded certificate are available, the `hash` data set should be populated as well (e.g. `file.hash.sha256`). For events that contain certificate information for both sides of the connection, the x509 object could be nested under the respective side of the connection information (e.g. `tls.server.x509`).
+| These fields contain x509 certificate metadata.
 
 // ===============================================================
 
@@ -6879,7 +6879,7 @@ example: `55FBB9C7DEBF09809D12CCAA`
 // ===============================================================
 
 | x509.signature_algorithm
-| Identifier for certificate signature algorithm. Recommend using names found in Go Lang Crypto library (See https://github.com/golang/go/blob/go1.14/src/crypto/x509/x509.go#L337-L353).
+| Identifier for certificate signature algorithm. We recommend using names found in Go Lang Crypto library. See https://github.com/golang/go/blob/go1.14/src/crypto/x509/x509.go#L337-L353.
 
 type: keyword
 

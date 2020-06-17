@@ -1,5 +1,5 @@
 '@timestamp':
-  dashed_name: '@timestamp'
+  dashed_name: -timestamp
   description: 'Date/time when the event originated.
 
     This is the date/time extracted from the event, typically representing when the
@@ -126,8 +126,7 @@ client.as.number:
   name: number
   normalize: []
   original_fieldset: as
-  short: Unique number allocated to the autonomous system. The autonomous system number
-    (ASN) uniquely identifies each network on the Internet.
+  short: Unique number allocated to the autonomous system.
   type: long
 client.as.organization.name:
   dashed_name: client-as-organization-name
@@ -692,8 +691,7 @@ destination.as.number:
   name: number
   normalize: []
   original_fieldset: as
-  short: Unique number allocated to the autonomous system. The autonomous system number
-    (ASN) uniquely identifies each network on the Internet.
+  short: Unique number allocated to the autonomous system.
   type: long
 destination.as.organization.name:
   dashed_name: destination-as-organization-name
@@ -1342,7 +1340,7 @@ dns.answers.ttl:
   name: answers.ttl
   normalize: []
   short: The time interval in seconds that this resource record may be cached before
-    it should be discarded. Zero values mean that the data should not be cached.
+    it should be discarded.
   type: long
 dns.answers.type:
   dashed_name: dns-answers-type
@@ -1394,8 +1392,7 @@ dns.op_code:
   level: extended
   name: op_code
   normalize: []
-  short: The DNS operation code that specifies the kind of query in the message. This
-    value is set by the originator of a query and copied into the response.
+  short: The DNS operation code that specifies the kind of query in the message.
   type: keyword
 dns.question.class:
   dashed_name: dns-question-class
@@ -2773,10 +2770,7 @@ file.x509.alternative_names:
   normalize:
   - array
   original_fieldset: x509
-  short: List of subject alternative names (SAN). Name types vary by certificate authority
-    and certificate type but commonly contain IP addresses, DNS names (and wildcards),
-    and email addresses.
-  short_description: List of subject alternative names (SAN)
+  short: List of subject alternative names (SAN).
   type: keyword
 file.x509.issuer.common_name:
   dashed_name: file-x509-issuer-common-name
@@ -2953,15 +2947,12 @@ file.x509.serial_number:
   name: serial_number
   normalize: []
   original_fieldset: x509
-  short: Unique serial number issued by the certificate authority. For consistency,
-    if this value is alphanumeric, it should be formatted without colons and uppercase
-    characters.
-  short_description: Unique serial number issued by the certificate authority.
+  short: Unique serial number issued by the certificate authority.
   type: keyword
 file.x509.signature_algorithm:
   dashed_name: file-x509-signature-algorithm
-  description: Identifier for certificate signature algorithm. Recommend using names
-    found in Go Lang Crypto library (See https://github.com/golang/go/blob/go1.14/src/crypto/x509/x509.go#L337-L353).
+  description: Identifier for certificate signature algorithm. We recommend using
+    names found in Go Lang Crypto library. See https://github.com/golang/go/blob/go1.14/src/crypto/x509/x509.go#L337-L353.
   example: SHA256-RSA
   flat_name: file.x509.signature_algorithm
   ignore_above: 1024
@@ -2969,8 +2960,7 @@ file.x509.signature_algorithm:
   name: signature_algorithm
   normalize: []
   original_fieldset: x509
-  short: Identifier for certificate signature algorithm. Recommend using names found
-    in Go Lang Crypto library (See https://github.com/golang/go/blob/go1.14/src/crypto/x509/x509.go#L337-L353).
+  short: Identifier for certificate signature algorithm.
   type: keyword
 file.x509.subject.common_name:
   dashed_name: file-x509-subject-common-name
@@ -5840,8 +5830,7 @@ server.as.number:
   name: number
   normalize: []
   original_fieldset: as
-  short: Unique number allocated to the autonomous system. The autonomous system number
-    (ASN) uniquely identifies each network on the Internet.
+  short: Unique number allocated to the autonomous system.
   type: long
 server.as.organization.name:
   dashed_name: server-as-organization-name
@@ -6336,8 +6325,7 @@ source.as.number:
   name: number
   normalize: []
   original_fieldset: as
-  short: Unique number allocated to the autonomous system. The autonomous system number
-    (ASN) uniquely identifies each network on the Internet.
+  short: Unique number allocated to the autonomous system.
   type: long
 source.as.organization.name:
   dashed_name: source-as-organization-name
@@ -6828,9 +6816,7 @@ tls.client.certificate:
   level: extended
   name: client.certificate
   normalize: []
-  short: PEM-encoded stand-alone certificate offered by the client. This is usually
-    mutually-exclusive of `client.certificate_chain` since this value also exists
-    in that list.
+  short: PEM-encoded stand-alone certificate offered by the client.
   type: keyword
 tls.client.certificate_chain:
   dashed_name: tls-client-certificate-chain
@@ -6847,8 +6833,7 @@ tls.client.certificate_chain:
   normalize:
   - array
   short: Array of PEM-encoded certificates that make up the certificate chain offered
-    by the client. This is usually mutually-exclusive of `client.certificate` since
-    that value should be the first certificate in the chain.
+    by the client.
   type: keyword
 tls.client.hash.md5:
   dashed_name: tls-client-hash-md5
@@ -6862,8 +6847,7 @@ tls.client.hash.md5:
   name: client.hash.md5
   normalize: []
   short: Certificate fingerprint using the MD5 digest of DER-encoded version of certificate
-    offered by the client. For consistency with other hash values, this value should
-    be formatted as an uppercase hash.
+    offered by the client.
   type: keyword
 tls.client.hash.sha1:
   dashed_name: tls-client-hash-sha1
@@ -6877,8 +6861,7 @@ tls.client.hash.sha1:
   name: client.hash.sha1
   normalize: []
   short: Certificate fingerprint using the SHA1 digest of DER-encoded version of certificate
-    offered by the client. For consistency with other hash values, this value should
-    be formatted as an uppercase hash.
+    offered by the client.
   type: keyword
 tls.client.hash.sha256:
   dashed_name: tls-client-hash-sha256
@@ -6892,8 +6875,7 @@ tls.client.hash.sha256:
   name: client.hash.sha256
   normalize: []
   short: Certificate fingerprint using the SHA256 digest of DER-encoded version of
-    certificate offered by the client. For consistency with other hash values, this
-    value should be formatted as an uppercase hash.
+    certificate offered by the client.
   type: keyword
 tls.client.issuer:
   dashed_name: tls-client-issuer
@@ -6944,17 +6926,15 @@ tls.client.not_before:
 tls.client.server_name:
   dashed_name: tls-client-server-name
   description: Also called an SNI, this tells the server which hostname to which the
-    client is attempting to connect. When this value is available, it should get copied
-    to `destination.domain`.
+    client is attempting to connect to. When this value is available, it should get
+    copied to `destination.domain`.
   example: www.elastic.co
   flat_name: tls.client.server_name
   ignore_above: 1024
   level: extended
   name: client.server_name
   normalize: []
-  short: Also called an SNI, this tells the server which hostname to which the client
-    is attempting to connect. When this value is available, it should get copied to
-    `destination.domain`.
+  short: Hostname the client is trying to connect to. Also called the SNI.
   type: keyword
 tls.client.subject:
   dashed_name: tls-client-subject
@@ -6996,10 +6976,7 @@ tls.client.x509.alternative_names:
   normalize:
   - array
   original_fieldset: x509
-  short: List of subject alternative names (SAN). Name types vary by certificate authority
-    and certificate type but commonly contain IP addresses, DNS names (and wildcards),
-    and email addresses.
-  short_description: List of subject alternative names (SAN)
+  short: List of subject alternative names (SAN).
   type: keyword
 tls.client.x509.issuer.common_name:
   dashed_name: tls-client-x509-issuer-common-name
@@ -7176,15 +7153,12 @@ tls.client.x509.serial_number:
   name: serial_number
   normalize: []
   original_fieldset: x509
-  short: Unique serial number issued by the certificate authority. For consistency,
-    if this value is alphanumeric, it should be formatted without colons and uppercase
-    characters.
-  short_description: Unique serial number issued by the certificate authority.
+  short: Unique serial number issued by the certificate authority.
   type: keyword
 tls.client.x509.signature_algorithm:
   dashed_name: tls-client-x509-signature-algorithm
-  description: Identifier for certificate signature algorithm. Recommend using names
-    found in Go Lang Crypto library (See https://github.com/golang/go/blob/go1.14/src/crypto/x509/x509.go#L337-L353).
+  description: Identifier for certificate signature algorithm. We recommend using
+    names found in Go Lang Crypto library. See https://github.com/golang/go/blob/go1.14/src/crypto/x509/x509.go#L337-L353.
   example: SHA256-RSA
   flat_name: tls.client.x509.signature_algorithm
   ignore_above: 1024
@@ -7192,8 +7166,7 @@ tls.client.x509.signature_algorithm:
   name: signature_algorithm
   normalize: []
   original_fieldset: x509
-  short: Identifier for certificate signature algorithm. Recommend using names found
-    in Go Lang Crypto library (See https://github.com/golang/go/blob/go1.14/src/crypto/x509/x509.go#L337-L353).
+  short: Identifier for certificate signature algorithm.
   type: keyword
 tls.client.x509.subject.common_name:
   dashed_name: tls-client-x509-subject-common-name
@@ -7329,9 +7302,7 @@ tls.next_protocol:
   level: extended
   name: next_protocol
   normalize: []
-  short: String indicating the protocol being tunneled. Per the values in the IANA
-    registry (https://www.iana.org/assignments/tls-extensiontype-values/tls-extensiontype-values.xhtml#alpn-protocol-ids),
-    this string should be lower case.
+  short: String indicating the protocol being tunneled.
   type: keyword
 tls.resumed:
   dashed_name: tls-resumed
@@ -7355,9 +7326,7 @@ tls.server.certificate:
   level: extended
   name: server.certificate
   normalize: []
-  short: PEM-encoded stand-alone certificate offered by the server. This is usually
-    mutually-exclusive of `server.certificate_chain` since this value also exists
-    in that list.
+  short: PEM-encoded stand-alone certificate offered by the server.
   type: keyword
 tls.server.certificate_chain:
   dashed_name: tls-server-certificate-chain
@@ -7374,8 +7343,7 @@ tls.server.certificate_chain:
   normalize:
   - array
   short: Array of PEM-encoded certificates that make up the certificate chain offered
-    by the server. This is usually mutually-exclusive of `server.certificate` since
-    that value should be the first certificate in the chain.
+    by the server.
   type: keyword
 tls.server.hash.md5:
   dashed_name: tls-server-hash-md5
@@ -7389,8 +7357,7 @@ tls.server.hash.md5:
   name: server.hash.md5
   normalize: []
   short: Certificate fingerprint using the MD5 digest of DER-encoded version of certificate
-    offered by the server. For consistency with other hash values, this value should
-    be formatted as an uppercase hash.
+    offered by the server.
   type: keyword
 tls.server.hash.sha1:
   dashed_name: tls-server-hash-sha1
@@ -7404,8 +7371,7 @@ tls.server.hash.sha1:
   name: server.hash.sha1
   normalize: []
   short: Certificate fingerprint using the SHA1 digest of DER-encoded version of certificate
-    offered by the server. For consistency with other hash values, this value should
-    be formatted as an uppercase hash.
+    offered by the server.
   type: keyword
 tls.server.hash.sha256:
   dashed_name: tls-server-hash-sha256
@@ -7419,8 +7385,7 @@ tls.server.hash.sha256:
   name: server.hash.sha256
   normalize: []
   short: Certificate fingerprint using the SHA256 digest of DER-encoded version of
-    certificate offered by the server. For consistency with other hash values, this
-    value should be formatted as an uppercase hash.
+    certificate offered by the server.
   type: keyword
 tls.server.issuer:
   dashed_name: tls-server-issuer
@@ -7490,10 +7455,7 @@ tls.server.x509.alternative_names:
   normalize:
   - array
   original_fieldset: x509
-  short: List of subject alternative names (SAN). Name types vary by certificate authority
-    and certificate type but commonly contain IP addresses, DNS names (and wildcards),
-    and email addresses.
-  short_description: List of subject alternative names (SAN)
+  short: List of subject alternative names (SAN).
   type: keyword
 tls.server.x509.issuer.common_name:
   dashed_name: tls-server-x509-issuer-common-name
@@ -7670,15 +7632,12 @@ tls.server.x509.serial_number:
   name: serial_number
   normalize: []
   original_fieldset: x509
-  short: Unique serial number issued by the certificate authority. For consistency,
-    if this value is alphanumeric, it should be formatted without colons and uppercase
-    characters.
-  short_description: Unique serial number issued by the certificate authority.
+  short: Unique serial number issued by the certificate authority.
   type: keyword
 tls.server.x509.signature_algorithm:
   dashed_name: tls-server-x509-signature-algorithm
-  description: Identifier for certificate signature algorithm. Recommend using names
-    found in Go Lang Crypto library (See https://github.com/golang/go/blob/go1.14/src/crypto/x509/x509.go#L337-L353).
+  description: Identifier for certificate signature algorithm. We recommend using
+    names found in Go Lang Crypto library. See https://github.com/golang/go/blob/go1.14/src/crypto/x509/x509.go#L337-L353.
   example: SHA256-RSA
   flat_name: tls.server.x509.signature_algorithm
   ignore_above: 1024
@@ -7686,8 +7645,7 @@ tls.server.x509.signature_algorithm:
   name: signature_algorithm
   normalize: []
   original_fieldset: x509
-  short: Identifier for certificate signature algorithm. Recommend using names found
-    in Go Lang Crypto library (See https://github.com/golang/go/blob/go1.14/src/crypto/x509/x509.go#L337-L353).
+  short: Identifier for certificate signature algorithm.
   type: keyword
 tls.server.x509.subject.common_name:
   dashed_name: tls-server-x509-subject-common-name
