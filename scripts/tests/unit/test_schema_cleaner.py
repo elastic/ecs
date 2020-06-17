@@ -248,6 +248,13 @@ class TestSchemaCleaner(unittest.TestCase):
 
     # common to schemas and fields
 
+    def test_very_long_short_description_raises(self):
+        schema = {'field_details': {
+            'name': 'fake_schema',
+            'short': "Single line but really long. " * 10}}
+        with self.assertRaisesRegex(ValueError, 'under 120 characters \(current length: 290\)'):
+            cleaner.single_line_short_description(schema)
+
     def test_multiline_short_description_raises(self):
         schema = {'field_details': {
             'name': 'fake_schema',
