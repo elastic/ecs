@@ -36,6 +36,13 @@ Thanks, you're awesome :-) -->
 #### Deprecated
 
 * Deprecate guidance to lowercase `http.request.method` #840
+* In `ecs_nested.yml`, we're deprecating the attribute `nestings`. It will be
+  removed in a future release. The deprecated `nestings` attribute was an array of
+  flat field names describing where fields are nested within the field set.
+  This is replaced with the attribute `reused_here`, which is an array of objects.
+  The new format still lists where the fields are nested via the same flat field name,
+  but also specifies additional information about each field reuse.
+
 
 ### Tooling and Artifact Changes
 

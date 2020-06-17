@@ -10,11 +10,13 @@ In this directory, you'll find the following:
 * `csv/fields.csv`: A csv file you can use to import ECS field definitions
 in a spreadsheet.
 
-* `ecs/*.yml`: Two files that are the fully fleshed out representation of ECS.
-  All the default values are filled in, basic checks have been made to ensure
-  correctness or consistency, etc.
-  Generators literally operate on one of these two representations, depending on
-  whether they depend on the variables `ecs_flat` or `ecs_nested`.
+* `ecs/*.yml`: These are the files you should use, if you need to consume ECS
+  programmatically. This repo's artifact generators all operate based off of one
+  of these two representations (documentation, csv, Elasticsearch
+  template, etc).
+  The two files are the fully fleshed out representation of ECS:
+  default values are filled in, all fields being reused elsewhere are made explicit,
+  additional attributes are computed.
 
 * `elasticsearch/{6,7}/template.json`: Sample Elasticsearch templates to get
   started using ECS. Check out how to use them in
