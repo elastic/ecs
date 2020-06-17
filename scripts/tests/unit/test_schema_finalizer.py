@@ -252,7 +252,7 @@ class TestSchemaFinalizer(unittest.TestCase):
         self.assertEqual(user_full_name_details['multi_fields'][0]['flat_name'], 'user.full_name.text')
 
     def test_dashed_name_cleanup(self):
-        details = {'field_details': {'node_name':'@time.stamp_'}}
+        details = {'field_details': {'node_name': '@time.stamp_'}}
         finalizer.field_finalizer(details, [])
         self.assertEqual(details['field_details']['dashed_name'], '-time-stamp-')
 
