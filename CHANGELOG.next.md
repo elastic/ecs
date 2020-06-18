@@ -32,6 +32,10 @@ Thanks, you're awesome :-) -->
   contain one ID, not many. #801
 * Clarified misleading wording about multiple IPs in src/dst or cli/srv. #804
 * Improved verbiage about the MITRE ATT&CK® framework. #866
+* Remove the default `object_type=keyword` that was being applied to `object` fields.
+  This attribute is Beats-specific. It's still supported, but needs to be set explicitly
+  on a case by case basis now. This default being removed affects `dns.answers`,
+  `log.syslog`, `network.inner`, `observer.egress`, and `observer.ingress`. #871
 
 #### Deprecated
 
