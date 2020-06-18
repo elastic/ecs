@@ -1,28 +1,26 @@
 import glob
 import yaml
+import copy
 
 # This script takes all ECS and custom fields already loaded, and lets users
 # filter out the ones they don't need.
 
 
-def filter(fields, subset_file_globs):
-    '''
-    Takes the deeply nested field structure and the subset file names.
-
-    It returns a copy of the fields that matches the whitelist defined in the subset.
-    '''
-    if not subset_file_globs or subset_file_globs == []:
-        return fields
-    subset_definitions = load_subset_definitions(subset_file_globs)
-    filtered_fields = extract_matching_fields(fields, subset_definitions)
-    return filtered_fields
-
+def combine_all_subsets(subsets):
+    '''Merges N subsets into one. Strips top level 'name' and 'fields' keys as well as non-ECS field options since we can't know how to merge those.'''
+    merged_subset = {}
+    for subset in subsets:
+        strip_non_ecs_options(subset['fields'])
+        merge_subsets(merged_subset, subset['fields'])
+    return merged_subset
 
 def load_subset_definitions(file_globs):
-    subsets = {}
+    if not file_globs:
+      return []
+    subsets = []
     for f in eval_globs(file_globs):
         raw = load_yaml_file(f)
-        merge_subsets(subsets, raw)
+        subsets.append(raw)
     if not subsets:
         raise ValueError('--subset specified, but no subsets found in {}'.format(file_globs))
     return subsets
@@ -49,30 +47,45 @@ def eval_globs(globs):
 def warn(message):
     print(message)
 
+ecs_options = ['fields']
+
+def strip_non_ecs_options(subset):
+    for key in subset:
+        subset[key] = {x: subset[key][x] for x in subset[key] if x in ecs_options}
+        if 'fields' in subset[key] and isinstance(subset[key]['fields'], dict):
+            strip_non_ecs_options(subset[key]['fields'])
 
 def merge_subsets(a, b):
-    '''Merges field subset definitions together. The b subset is merged into the a subset.'''
+    '''Merges field subset definitions together. The b subset is merged into the a subset. Assumes that subsets have been stripped of non-ecs options.'''
     for key in b:
         if key not in a:
             a[key] = b[key]
-        elif 'fields' not in a[key] or 'fields' not in b[key] or b[key]['fields'] == '*':
-            a[key]['fields'] = '*'
-        elif isinstance(a[key]['fields'], dict) and isinstance(b[key]['fields'], dict):
-            merge_subsets(a[key]['fields'], b[key]['fields'])
-
+        elif 'fields' in a[key] and 'fields' in b[key]:
+            if b[key]['fields'] == '*':
+                a[key]['fields'] = '*'
+            elif isinstance(a[key]['fields'], dict) and isinstance(b[key]['fields'], dict):
+                merge_subsets(a[key]['fields'], b[key]['fields'])
+        elif 'fields' in a[key] or 'fields' in b[key]:
+            raise ValueError("Subsets unmergeable: 'fields' found in key '{}' in only one subset".format(key))
 
 def extract_matching_fields(fields, subset_definitions):
-    retained_fields = {}
-    allowed_options = ['fields']
+    '''Removes fields that are not in the subset definition. Returns a copy without modifying the input fields dict.'''
+    retained_fields = {x: fields[x].copy() for x in subset_definitions}
     for key, val in subset_definitions.items():
         for option in val:
-            if option not in allowed_options:
-                raise ValueError('Unsupported option found in subset: {}'.format(option))
-        # A missing fields key is shorthand for including all subfields
-        if 'fields' not in val or val['fields'] == '*':
-            retained_fields[key] = fields[key]
-        elif isinstance(val['fields'], dict):
-            # Copy the full field over so we get all the options, then replace the 'fields' with the right subset
-            retained_fields[key] = fields[key]
-            retained_fields[key]['fields'] = extract_matching_fields(fields[key]['fields'], val['fields'])
+            if option not in ecs_options:
+                new_field_details = fields[key].get('field_details', {}).copy()
+                new_field_details[option] = val[option]
+                retained_fields[key]['field_details'] = new_field_details
+        # If the field in the schema has a 'fields' key, we expect a 'fields' key in the subset
+        if 'fields' in fields[key]:
+            if 'fields' not in val:
+                raise ValueError("'fields' key expected, not found in subset for {}".format(key))
+            elif isinstance(val['fields'], dict):
+                retained_fields[key]['fields'] = extract_matching_fields(fields[key]['fields'], val['fields'])
+            elif val['fields'] != "*":
+                raise ValueError("Unexpected value '{}' found in 'fields' key".format(val['fields']))
+        # If the field in the schema does not have a 'fields' key, there should not be a 'fields' key in the subset
+        elif 'fields' in val:
+            raise ValueError("'fields' key not expected, found in subset for {}".format(key))
     return retained_fields

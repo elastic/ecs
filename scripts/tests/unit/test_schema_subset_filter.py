@@ -39,8 +39,7 @@ class TestSchemaSubsetFilter(unittest.TestCase):
 
     def test_merging_superset(self):
         # 'log' is used to test superset with the explicit '{'fields': '*'}' notation
-        # 'process' is used to test superset with the shorhand '{}' notation
-        supersets = {'log': {'fields': '*'}, 'process': {}}
+        supersets = {'log': {'fields': '*'}, 'process': {'fields': '*'}}
         supserseded = {
             'log': {'fields': {'syslog': {'fields': '*'}}},
             'process': {'fields': {'parent': {'fields': '*'}}},
@@ -91,18 +90,13 @@ class TestSchemaSubsetFilter(unittest.TestCase):
             }
         }
 
-    def test_extract_matching_fields_shorthand_notation(self):
-        subset = {'log': {}}
-        filtered_fields = subset_filter.extract_matching_fields(self.schema_log(), subset)
-        self.assertEqual(filtered_fields, self.schema_log())
-
     def test_extract_matching_fields_explicit_all_fields_notation(self):
         subset = {'log': {'fields': '*'}}
         filtered_fields = subset_filter.extract_matching_fields(self.schema_log(), subset)
         self.assertEqual(filtered_fields, self.schema_log())
 
     def test_extract_matching_fields_subfields_only_notation(self):
-        subset = {'log': {'fields': {'origin': {}}}}
+        subset = {'log': {'fields': {'origin': {'fields': '*'}}}}
         filtered_fields = subset_filter.extract_matching_fields(self.schema_log(), subset)
         expected_fields = {
             'log': {
