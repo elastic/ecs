@@ -42,10 +42,10 @@ type Host struct {
 	ID string `ecs:"id"`
 
 	// Host ip addresses.
-	IP string `ecs:"ip"`
+	IP []string `ecs:"ip"`
 
 	// Host mac addresses.
-	MAC string `ecs:"mac"`
+	MAC []string `ecs:"mac"`
 
 	// Type of host.
 	// For Cloud providers this can be the machine type like `t2.medium`. If

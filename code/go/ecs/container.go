@@ -33,7 +33,7 @@ type Container struct {
 	ImageName string `ecs:"image.name"`
 
 	// Container image tags.
-	ImageTag string `ecs:"image.tag"`
+	ImageTag []string `ecs:"image.tag"`
 
 	// Container name.
 	Name string `ecs:"name"`

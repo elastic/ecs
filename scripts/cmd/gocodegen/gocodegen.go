@@ -31,7 +31,6 @@ import (
 
 	wordwrap "github.com/mitchellh/go-wordwrap"
 
-	"github.com/elastic/beats/libbeat/common"
 	"github.com/elastic/go-ucfg/yaml"
 )
 
@@ -111,6 +110,16 @@ type Field struct {
 	JSONKey string
 }
 
+type YamlField struct {
+	Name        string      `config:"name"`
+	Type        string      `config:"type"`
+	Description string      `config:"description"`
+	Format      string      `config:"format"`
+	Fields      []YamlField `config:"fields"`
+	MultiFields []YamlField `config:"multi_fields"`
+	Normalize   []string    `config:"normalize"`
+}
+
 // Flags
 var (
 	schemaDir string
@@ -138,9 +147,9 @@ func main() {
 	}
 
 	// Load schema files.
-	fields := common.Fields{}
+	fields := []YamlField{}
 	for _, path := range paths {
-		f := common.Fields{}
+		f := []YamlField{}
 
 		cfg, err := yaml.NewConfigWithFile(path)
 		if err != nil {
@@ -170,7 +179,7 @@ func main() {
 			}
 
 			for _, field := range group.Fields {
-				dataType := goDataType(field.Name, field.Type)
+				dataType := goDataType(field)
 				if strings.HasPrefix(dataType, "time.") {
 					t.ImportTime = true
 				}
@@ -213,6 +222,15 @@ func main() {
 			log.Fatalf("Error: %v", err)
 		}
 	}
+}
+
+func isArrayField(field YamlField) bool {
+	for _, normalizations := range field.Normalize {
+		if normalizations == "array" {
+			return true
+		}
+	}
+	return false
 }
 
 // isSeparate returns true if the character is a field name separator. This is
@@ -264,33 +282,46 @@ func trimTrailingWhitespace(text string) string {
 }
 
 // goDataType returns the Go type to use for Elasticsearch mapping data type.
-func goDataType(fieldName, elasticsearchDataType string) string {
+func goDataType(field YamlField) string {
+	dataType, special := nonNormalizedGoDataType(field)
+	if !special && isArrayField(field) {
+		return "[]" + dataType
+	}
+	return dataType
+}
+
+// nonNormalizedGoDataType returns the Go type without consideration of normalizations
+// it also returns whether or not this was a "special" case that avoids additional normalizations
+func nonNormalizedGoDataType(field YamlField) (string, bool) {
+	fieldName := field.Name
+	elasticsearchDataType := field.Type
+
 	// Special cases.
 	switch {
 	case fieldName == "duration" && elasticsearchDataType == "long":
-		return "time.Duration"
+		return "time.Duration", true
 	case fieldName == "args" && elasticsearchDataType == "keyword":
-		return "[]string"
+		return "[]string", true
 	}
 
 	switch elasticsearchDataType {
 	case "keyword", "text", "ip", "geo_point":
-		return "string"
+		return "string", false
 	case "long":
-		return "int64"
+		return "int64", false
 	case "integer":
-		return "int32"
+		return "int32", false
 	case "float":
-		return "float64"
+		return "float64", false
 	case "date":
-		return "time.Time"
+		return "time.Time", false
 	case "boolean":
-		return "bool"
+		return "bool", false
 	case "object":
-		return "map[string]interface{}"
+		return "map[string]interface{}", false
 	default:
 		log.Fatalf("no translation for %v (field %s)", elasticsearchDataType, fieldName)
-		return ""
+		return "", false
 	}
 }
 

@@ -29,13 +29,13 @@ package ecs
 // matter where it appeared, by querying `related.ip:192.0.2.15`.
 type Related struct {
 	// All of the IPs seen on your event.
-	IP string `ecs:"ip"`
+	IP []string `ecs:"ip"`
 
 	// All the user names seen on your event.
-	User string `ecs:"user"`
+	User []string `ecs:"user"`
 
 	// All the hashes seen on your event. Populating this field, then using it
 	// to search for hashes can help in situations where you're unsure what the
 	// hash algorithm is (and therefore which key name to search).
-	Hash string `ecs:"hash"`
+	Hash []string `ecs:"hash"`
 }

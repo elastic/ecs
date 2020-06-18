@@ -60,7 +60,7 @@ type Rule struct {
 
 	// Name, organization, or pseudonym of the author or authors who created
 	// the rule used to generate this event.
-	Author string `ecs:"author"`
+	Author []string `ecs:"author"`
 
 	// Name of the license under which the rule used to generate this event is
 	// made available.

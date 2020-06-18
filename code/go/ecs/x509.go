@@ -45,22 +45,22 @@ type X509 struct {
 	IssuerDistinguishedName string `ecs:"issuer.distinguished_name"`
 
 	// List of common name (CN) of issuing certificate authority.
-	IssuerCommonName string `ecs:"issuer.common_name"`
+	IssuerCommonName []string `ecs:"issuer.common_name"`
 
 	// List of organizational units (OU) of issuing certificate authority.
-	IssuerOrganizationalUnit string `ecs:"issuer.organizational_unit"`
+	IssuerOrganizationalUnit []string `ecs:"issuer.organizational_unit"`
 
 	// List of organizations (O) of issuing certificate authority.
-	IssuerOrganization string `ecs:"issuer.organization"`
+	IssuerOrganization []string `ecs:"issuer.organization"`
 
 	// List of locality names (L)
-	IssuerLocality string `ecs:"issuer.locality"`
+	IssuerLocality []string `ecs:"issuer.locality"`
 
 	// List of state or province names (ST, S, or P)
-	IssuerStateOrProvince string `ecs:"issuer.state_or_province"`
+	IssuerStateOrProvince []string `ecs:"issuer.state_or_province"`
 
 	// List of country (C) codes
-	IssuerCountry string `ecs:"issuer.country"`
+	IssuerCountry []string `ecs:"issuer.country"`
 
 	// Identifier for certificate signature algorithm. Recommend using names
 	// found in Go Lang Crypto library (See
@@ -77,22 +77,22 @@ type X509 struct {
 	SubjectDistinguishedName string `ecs:"subject.distinguished_name"`
 
 	// List of common names (CN) of subject.
-	SubjectCommonName string `ecs:"subject.common_name"`
+	SubjectCommonName []string `ecs:"subject.common_name"`
 
 	// List of organizational units (OU) of subject.
-	SubjectOrganizationalUnit string `ecs:"subject.organizational_unit"`
+	SubjectOrganizationalUnit []string `ecs:"subject.organizational_unit"`
 
 	// List of organizations (O) of subject.
-	SubjectOrganization string `ecs:"subject.organization"`
+	SubjectOrganization []string `ecs:"subject.organization"`
 
 	// List of locality names (L)
-	SubjectLocality string `ecs:"subject.locality"`
+	SubjectLocality []string `ecs:"subject.locality"`
 
 	// List of state or province names (ST, S, or P)
-	SubjectStateOrProvince string `ecs:"subject.state_or_province"`
+	SubjectStateOrProvince []string `ecs:"subject.state_or_province"`
 
 	// List of country (C) code
-	SubjectCountry string `ecs:"subject.country"`
+	SubjectCountry []string `ecs:"subject.country"`
 
 	// Algorithm used to generate the public key.
 	PublicKeyAlgorithm string `ecs:"public_key_algorithm"`
@@ -110,5 +110,5 @@ type X509 struct {
 	// List of subject alternative names (SAN). Name types vary by certificate
 	// authority and certificate type but commonly contain IP addresses, DNS
 	// names (and wildcards), and email addresses.
-	AlternativeNames string `ecs:"alternative_names"`
+	AlternativeNames []string `ecs:"alternative_names"`
 }

@@ -43,7 +43,7 @@ type Registry struct {
 	// array will be variable length. For numeric data, such as REG_DWORD and
 	// REG_QWORD, this should be populated with the decimal representation (e.g
 	// `"1"`).
-	DataStrings string `ecs:"data.strings"`
+	DataStrings []string `ecs:"data.strings"`
 
 	// Original bytes written with base64 encoding.
 	// For Windows registry operations, such as SetValueEx and RegQueryValueEx,

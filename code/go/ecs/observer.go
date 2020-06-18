@@ -33,10 +33,10 @@ package ecs
 // observers in ECS.
 type Observer struct {
 	// MAC addresses of the observer
-	MAC string `ecs:"mac"`
+	MAC []string `ecs:"mac"`
 
 	// IP addresses of the observer.
-	IP string `ecs:"ip"`
+	IP []string `ecs:"ip"`
 
 	// Hostname of the observer.
 	Hostname string `ecs:"hostname"`

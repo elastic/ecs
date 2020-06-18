@@ -35,7 +35,7 @@ type Base struct {
 	Timestamp time.Time `ecs:"@timestamp"`
 
 	// List of keywords used to tag each event.
-	Tags string `ecs:"tags"`
+	Tags []string `ecs:"tags"`
 
 	// Custom key/value pairs.
 	// Can be used to add meta information to events. Should not contain nested

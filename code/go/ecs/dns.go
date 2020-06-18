@@ -45,7 +45,7 @@ type Dns struct {
 
 	// Array of 2 letter DNS header flags.
 	// Expected values are: AA, TC, RD, RA, AD, CD, DO.
-	HeaderFlags string `ecs:"header_flags"`
+	HeaderFlags []string `ecs:"header_flags"`
 
 	// The DNS response code.
 	ResponseCode string `ecs:"response_code"`
@@ -96,7 +96,7 @@ type Dns struct {
 	// answer objects must contain the `data` key. If more information is
 	// available, map as much of it to ECS as possible, and add any additional
 	// fields to the answer objects as custom fields.
-	Answers map[string]interface{} `ecs:"answers"`
+	Answers []map[string]interface{} `ecs:"answers"`
 
 	// The domain name to which this resource record pertains.
 	// If a chain of CNAME is being resolved, each answer's `name` should be
@@ -125,5 +125,5 @@ type Dns struct {
 	// data formats it can contain. Extracting all IP addresses seen in there
 	// to `dns.resolved_ip` makes it possible to index them as IP addresses,
 	// and makes them easier to visualize and query for.
-	ResolvedIP string `ecs:"resolved_ip"`
+	ResolvedIP []string `ecs:"resolved_ip"`
 }

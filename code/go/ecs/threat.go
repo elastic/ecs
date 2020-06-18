@@ -37,27 +37,27 @@ type Threat struct {
 	// Name of the type of tactic used by this threat. You can use a MITRE
 	// ATT&CK® tactic, for example. (ex.
 	// https://attack.mitre.org/tactics/TA0040/)
-	TacticName string `ecs:"tactic.name"`
+	TacticName []string `ecs:"tactic.name"`
 
 	// The id of tactic used by this threat. You can use a MITRE ATT&CK®
 	// tactic, for example. (ex. https://attack.mitre.org/tactics/TA0040/ )
-	TacticID string `ecs:"tactic.id"`
+	TacticID []string `ecs:"tactic.id"`
 
 	// The reference url of tactic used by this threat. You can use a MITRE
 	// ATT&CK® tactic, for example. (ex.
 	// https://attack.mitre.org/tactics/TA0040/ )
-	TacticReference string `ecs:"tactic.reference"`
+	TacticReference []string `ecs:"tactic.reference"`
 
 	// The name of technique used by this threat. You can use a MITRE ATT&CK®
 	// technique, for example. (ex. https://attack.mitre.org/techniques/T1499/)
-	TechniqueName string `ecs:"technique.name"`
+	TechniqueName []string `ecs:"technique.name"`
 
 	// The id of technique used by this threat. You can use a MITRE ATT&CK®
 	// technique, for example. (ex. https://attack.mitre.org/techniques/T1499/)
-	TechniqueID string `ecs:"technique.id"`
+	TechniqueID []string `ecs:"technique.id"`
 
 	// The reference url of technique used by this threat. You can use a MITRE
 	// ATT&CK® technique, for example. (ex.
 	// https://attack.mitre.org/techniques/T1499/ )
-	TechniqueReference string `ecs:"technique.reference"`
+	TechniqueReference []string `ecs:"technique.reference"`
 }

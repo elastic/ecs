@@ -64,7 +64,7 @@ type Event struct {
 	// `event.type`, which is used as a subcategory.
 	// This field is an array. This will allow proper categorization of some
 	// events that fall in multiple categories.
-	Category string `ecs:"category"`
+	Category []string `ecs:"category"`
 
 	// The action captured by the event.
 	// This describes the information in the event. It is more specific than
@@ -96,7 +96,7 @@ type Event struct {
 	// down to a level appropriate for single visualization.
 	// This field is an array. This will allow proper categorization of some
 	// events that fall in multiple event types.
-	Type string `ecs:"type"`
+	Type []string `ecs:"type"`
 
 	// Name of the module this data is coming from.
 	// If your monitoring agent supports the concept of modules or plugins to
