@@ -48,7 +48,7 @@ def main():
     for subset in subsets:
         subfields = subset_filter.extract_matching_fields(fields, subset['fields'])
         intermediate_files.generate(subfields, out_dir, subset['name'], default_dirs)
-    
+
     merged_subset = subset_filter.combine_all_subsets(subsets)
     if merged_subset:
         fields = subset_filter.extract_matching_fields(fields, merged_subset)

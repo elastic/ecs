@@ -14,9 +14,10 @@ def combine_all_subsets(subsets):
         merge_subsets(merged_subset, subset['fields'])
     return merged_subset
 
+
 def load_subset_definitions(file_globs):
     if not file_globs:
-      return []
+        return []
     subsets = []
     for f in eval_globs(file_globs):
         raw = load_yaml_file(f)
@@ -47,13 +48,16 @@ def eval_globs(globs):
 def warn(message):
     print(message)
 
+
 ecs_options = ['fields']
+
 
 def strip_non_ecs_options(subset):
     for key in subset:
         subset[key] = {x: subset[key][x] for x in subset[key] if x in ecs_options}
         if 'fields' in subset[key] and isinstance(subset[key]['fields'], dict):
             strip_non_ecs_options(subset[key]['fields'])
+
 
 def merge_subsets(a, b):
     '''Merges field subset definitions together. The b subset is merged into the a subset. Assumes that subsets have been stripped of non-ecs options.'''
@@ -67,6 +71,7 @@ def merge_subsets(a, b):
                 merge_subsets(a[key]['fields'], b[key]['fields'])
         elif 'fields' in a[key] or 'fields' in b[key]:
             raise ValueError("Subsets unmergeable: 'fields' found in key '{}' in only one subset".format(key))
+
 
 def extract_matching_fields(fields, subset_definitions):
     '''Removes fields that are not in the subset definition. Returns a copy without modifying the input fields dict.'''
