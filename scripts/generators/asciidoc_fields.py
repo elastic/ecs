@@ -22,7 +22,7 @@ def generate(nested, ecs_version, out_dir):
 def templated(template_name):
     """Decorator function to simplify rendering a template.
 
-    ::param template_name: the name of the template to be rendered
+    :param template_name: the name of the template to be rendered
     """
     def decorator(func):
         @wraps(func)
