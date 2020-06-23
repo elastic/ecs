@@ -104,6 +104,51 @@ To build the docs and open them in your browser:
 make docs
 ```
 
+### Generated Documentation Files
+
+The following files are generated based on the current schema using [Jinja](https://jinja.palletsprojects.com/) templates:
+
+| File | Template |
+| ------------------ | -------- |
+| [fields.asciidoc](docs/fields.asciidoc) | [fields_template.j2](scripts/templates/fields_template.j2) |
+| [fields-values.asciidoc](docs/field-values.asciidoc) | [field_values_template.j2](scripts/templates/field_values_template.j2) |
+| [field-details.asciidoc](docs/field-details.asciidoc) | [field_details directory](scripts/templates/field_details) |
+
+Running `make` will update these files using the [scripts/generators/asciidoc_fields.py](scripts/generators/asciidoc_fields.py) generator. These doc files should *not* be modified directly. Any changes as a result of a schema update and subsequent run of `make` *should* be committed.
+
+### Jinja Templates
+
+Jinja templates allow for formatting or styling changes to templates without needing to modify the generator script directly. Some details about the Jinja template engine and our implementation are covered below as a primer; the full syntax and semantics of Jinja is covered in the [project's documentation](https://jinja.palletsprojects.com/en/2.11.x/templates/).
+
+#### Delimiters
+
+* Statements: `{% ... %}`
+* Expressions: `{{ ... }}`
+* Comments: `{{# ... #}}`
+
+#### Variables
+
+Templates variables are passed to the template by the application. Typically these will either be used in an expression or within a control structure statement (e.g. a `for` loop). In the below example, `users` is passed into the template and is iterated over with a `for` loop.
+
+```python
+<ul>
+{% for user in users %}
+<li>{{ user }}</li>
+{% endfor %}
+</ul>
+```
+
+#### Implementation
+
+The `@templated('template_file_name')` decorator is used to inject the additional functionality that renders and returns the template's content to the generator. Decorated functions should return a dict used to generate the template. When the decorated function returns, the dictionary is passed to the template renderer.
+
+```python
+@templated('fields_template.j2')
+def page_field_index(intermediate_nested, ecs_version):
+    fieldsets = ecs_helpers.dict_sorted_by_keys(intermediate_nested, ['group', 'name'])
+    return dict(ecs_version=ecs_version, fieldsets=fieldsets)
+```
+
 ## Schema Files
 
 The [schemas](schemas) directory contains the files which define the Elastic Common Schema data model. The file structure is documented in [schemas/README.md](schemas). Field additions and modifications will be made to the `schemas/*.yml` files.
