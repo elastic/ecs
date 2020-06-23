@@ -78,7 +78,7 @@ def merge_subsets(a, b):
         # Same logic from 'enabled' applies to 'index'
         if a[key].get('index', True) or b[key].get('index', True):
             a[key].pop('index', None)
-        
+
 
 def extract_matching_fields(fields, subset_definitions):
     '''Removes fields that are not in the subset definition. Returns a copy without modifying the input fields dict.'''
