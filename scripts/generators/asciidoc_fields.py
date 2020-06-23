@@ -6,7 +6,7 @@ import jinja2
 from generators import ecs_helpers
 
 # jinja2 setup
-TEMPLATE_DIR = path.join(path.dirname(path.abspath(__file__)), 'templates')
+TEMPLATE_DIR = path.join(path.dirname(path.abspath(__file__)), '../templates')
 template_loader = jinja2.FileSystemLoader(searchpath=TEMPLATE_DIR)
 template_env = jinja2.Environment(loader=template_loader)
 
