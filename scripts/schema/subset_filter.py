@@ -49,7 +49,7 @@ def warn(message):
     print(message)
 
 
-ecs_options = ['fields']
+ecs_options = ['fields', 'enabled', 'index']
 
 
 def strip_non_ecs_options(subset):
@@ -71,17 +71,25 @@ def merge_subsets(a, b):
                 merge_subsets(a[key]['fields'], b[key]['fields'])
         elif 'fields' in a[key] or 'fields' in b[key]:
             raise ValueError("Subsets unmergeable: 'fields' found in key '{}' in only one subset".format(key))
-
+        # If both subsets have enabled set to False, this will leave enabled: False in the merged subset
+        # Otherwise, enabled is removed and is implicitly true
+        if a[key].get('enabled', True) or b[key].get('enabled', True):
+            a[key].pop('enabled', None)
+        # Same logic from 'enabled' applies to 'index'
+        if a[key].get('index', True) or b[key].get('index', True):
+            a[key].pop('index', None)
+        
 
 def extract_matching_fields(fields, subset_definitions):
     '''Removes fields that are not in the subset definition. Returns a copy without modifying the input fields dict.'''
     retained_fields = {x: fields[x].copy() for x in subset_definitions}
     for key, val in subset_definitions.items():
+        if 'field_details' in fields[key]:
+            retained_fields[key]['field_details'] = fields[key]['field_details'].copy()
         for option in val:
-            if option not in ecs_options:
-                new_field_details = fields[key].get('field_details', {}).copy()
-                new_field_details[option] = val[option]
-                retained_fields[key]['field_details'] = new_field_details
+            if option != 'fields':
+                retained_fields[key].setdefault('field_details', {})
+                retained_fields[key]['field_details'][option] = val[option]
         # If the field in the schema has a 'fields' key, we expect a 'fields' key in the subset
         if 'fields' in fields[key]:
             if 'fields' not in val:
