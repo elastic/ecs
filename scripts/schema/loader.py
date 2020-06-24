@@ -195,6 +195,8 @@ def merge_fields(a, b):
                     asd['reusable']['top_level'] = bsd['reusable']['top_level']
                 else:
                     asd['reusable'].setdefault('top_level', True)
+                if 'order' in bsd['reusable']:
+                    asd['reusable']['order'] = bsd['reusable']['order']
                 asd['reusable'].setdefault('expected', [])
                 asd['reusable']['expected'].extend(bsd['reusable']['expected'])
                 bsd.pop('reusable')
