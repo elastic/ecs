@@ -5,17 +5,17 @@ from generators import ecs_helpers
 from os.path import join
 
 
-def generate(fields, out_dir, sub_dir, default_dirs):
-    ecs_helpers.make_dirs(join(out_dir, sub_dir))
+def generate(fields, out_dir, default_dirs):
+    ecs_helpers.make_dirs(join(out_dir))
 
     # Should only be used for debugging ECS development
     if default_dirs:
-        ecs_helpers.yaml_dump(join(out_dir, sub_dir, 'ecs.yml'), fields)
+        ecs_helpers.yaml_dump(join(out_dir, 'ecs.yml'), fields)
     flat = generate_flat_fields(fields)
     nested = generate_nested_fields(fields)
 
-    ecs_helpers.yaml_dump(join(out_dir, sub_dir, 'ecs_flat.yml'), flat)
-    ecs_helpers.yaml_dump(join(out_dir, sub_dir, 'ecs_nested.yml'), nested)
+    ecs_helpers.yaml_dump(join(out_dir, 'ecs_flat.yml'), flat)
+    ecs_helpers.yaml_dump(join(out_dir, 'ecs_nested.yml'), nested)
     return nested, flat
 
 

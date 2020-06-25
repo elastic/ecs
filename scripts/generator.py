@@ -2,7 +2,6 @@ import argparse
 import glob
 import os
 import yaml
-import copy
 import time
 
 from generators import asciidoc_fields
@@ -47,13 +46,13 @@ def main():
     subsets = subset_filter.load_subset_definitions(args.subset)
     for subset in subsets:
         subfields = subset_filter.extract_matching_fields(fields, subset['fields'])
-        intermediate_files.generate(subfields, out_dir, subset['name'], default_dirs)
+        intermediate_files.generate(subfields, os.path.join(out_dir, 'ecs', 'subset', subset['name']), default_dirs)
 
     merged_subset = subset_filter.combine_all_subsets(subsets)
     if merged_subset:
         fields = subset_filter.extract_matching_fields(fields, merged_subset)
 
-    nested, flat = intermediate_files.generate(fields, out_dir, 'ecs', default_dirs)
+    nested, flat = intermediate_files.generate(fields, os.path.join(out_dir, 'ecs'), default_dirs)
     if args.intermediate_only:
         exit()
 
