@@ -44,6 +44,71 @@ class TestGeneratorsEsTemplate(unittest.TestCase):
         es_template.dict_add_nested(dict, ['answers'], {'type': 'object'})
         self.assertEqual(dict, {'answers': {'properties': {'ttl': {'type': 'long'}}}})
 
+    def test_entry_for_adds_enabled_field(self):
+        test_map = {
+            'other': 'some data',
+            'type': 'object',
+            'enabled': False,
+        }
+
+        exp = {
+            'type': 'object',
+            'enabled': False,
+        }
+        self.assertEqual(es_template.entry_for(test_map), exp)
+
+    def test_entry_for_enabled_true_ignored(self):
+        test_map = {
+            'other': 'some data',
+            'type': 'object',
+            'enabled': True,
+        }
+
+        exp = {
+            'type': 'object',
+        }
+        self.assertEqual(es_template.entry_for(test_map), exp)
+
+    def test_entry_for_enabled_with_index(self):
+        test_map = {
+            'other': 'some data',
+            'type': 'object',
+            'enabled': False,
+            'index': False
+        }
+
+        exp = {
+            'type': 'object',
+            'enabled': False,
+        }
+        self.assertEqual(es_template.entry_for(test_map), exp)
+
+    def test_entry_for_enabled_nested(self):
+        test_map = {
+            'other': 'some data',
+            'type': 'nested',
+            'enabled': False,
+        }
+
+        exp = {
+            'type': 'nested',
+            'enabled': False,
+        }
+        self.assertEqual(es_template.entry_for(test_map), exp)
+
+    def test_entry_for_index(self):
+        test_map = {
+            'other': 'some data',
+            'type': 'keyword',
+            'index': False,
+        }
+
+        exp = {
+            'type': 'keyword',
+            'index': False,
+        }
+        self.assertEqual(es_template.entry_for(test_map), exp)
+
 
 if __name__ == '__main__':
     unittest.main()

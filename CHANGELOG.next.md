@@ -70,14 +70,16 @@ Thanks, you're awesome :-) -->
 * Fix incorrect listing of where field sets are nested in asciidoc,
   when they are nested deep. #784
 * Allow beats output to be generated when using `--include` or `--subset` flags. #814
+* Field parameter `index` is now correctly populated in the Beats field definition file. #824
 
 #### Added
 
 #### Improvements
 
-* Add support for reusing offical fieldsets in custom schemas. #751
+* Add support for reusing official fieldsets in custom schemas. #751
 * Add full path names to reused fieldsets in `nestings` array in `ecs_nested.yml`. #803
 * Allow shorthand notation for including all subfields in subsets. #805
+* Add support for Elasticsearch `enabled` field parameter. #824
 * Add `ref` option to generator allowing schemas to be built for a specific ECS version. #851
 * Add `template-settings` and `mapping-settings` options to allow override of defaults in generated ES templates. #856
 * When overriding ECS field sets via the `--include` flag, it's no longer necessary
@@ -94,6 +96,7 @@ Thanks, you're awesome :-) -->
 * There's a new representation of ECS at `generated/ecs/ecs.yml`, which is a deeply nested
   representation of the fields. This file is not in git, as it's only meant for
   developers working on the ECS tools. #864
+* Jinja2 templates now define the doc structure for the AsciiDoc generator. #865
 
 #### Deprecated
 
