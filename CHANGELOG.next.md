@@ -28,14 +28,27 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
-* Remove misleading pluralization in the description of `user.id`, it should
+* Removed misleading pluralization in the description of `user.id`, it should
   contain one ID, not many. #801
 * Clarified misleading wording about multiple IPs in src/dst or cli/srv. #804
 * Improved verbiage about the MITRE ATT&CK® framework. #866
+* Removed the default `object_type=keyword` that was being applied to `object` fields.
+  This attribute is Beats-specific. It's still supported, but needs to be set explicitly
+  on a case by case basis now. This default being removed affects `dns.answers`,
+  `log.syslog`, `network.inner`, `observer.egress`, and `observer.ingress`. #871
+* Improved attribute `dashed_name` in `generated/ecs/*.yml` to also
+  replace `@` with `-`. #871
 
 #### Deprecated
 
 * Deprecate guidance to lowercase `http.request.method` #840
+* In `ecs_nested.yml`, we're deprecating the attribute `nestings`. It will be
+  removed in a future release. The deprecated `nestings` attribute was an array of
+  flat field names describing where fields are nested within the field set.
+  This is replaced with the attribute `reused_here`, which is an array of objects.
+  The new format still lists where the fields are nested via the same flat field name,
+  but also specifies additional information about each field reuse.
+
 
 ### Tooling and Artifact Changes
 

@@ -10,7 +10,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.6.0-dev,true,agent,agent.type,keyword,core,,filebeat,Type of the agent.
 1.6.0-dev,true,agent,agent.version,keyword,core,,6.0.0-rc2,Version of the agent.
 1.6.0-dev,true,client,client.address,keyword,extended,,,Client network address.
-1.6.0-dev,true,client,client.as.number,long,extended,,15169,Unique number allocated to the autonomous system. The autonomous system number (ASN) uniquely identifies each network on the Internet.
+1.6.0-dev,true,client,client.as.number,long,extended,,15169,Unique number allocated to the autonomous system.
 1.6.0-dev,true,client,client.as.organization.name,keyword,extended,,Google LLC,Organization name.
 1.6.0-dev,true,client,client.as.organization.name.text,text,extended,,Google LLC,Organization name.
 1.6.0-dev,true,client,client.bytes,long,core,,184,Bytes sent from the client to the server.
@@ -59,7 +59,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.6.0-dev,true,container,container.name,keyword,extended,,,Container name.
 1.6.0-dev,true,container,container.runtime,keyword,extended,,docker,Runtime managing this container.
 1.6.0-dev,true,destination,destination.address,keyword,extended,,,Destination network address.
-1.6.0-dev,true,destination,destination.as.number,long,extended,,15169,Unique number allocated to the autonomous system. The autonomous system number (ASN) uniquely identifies each network on the Internet.
+1.6.0-dev,true,destination,destination.as.number,long,extended,,15169,Unique number allocated to the autonomous system.
 1.6.0-dev,true,destination,destination.as.organization.name,keyword,extended,,Google LLC,Organization name.
 1.6.0-dev,true,destination,destination.as.organization.name.text,text,extended,,Google LLC,Organization name.
 1.6.0-dev,true,destination,destination.bytes,long,core,,184,Bytes sent from the destination to the source.
@@ -113,11 +113,11 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.6.0-dev,true,dns,dns.answers.class,keyword,extended,,IN,The class of DNS data contained in this resource record.
 1.6.0-dev,true,dns,dns.answers.data,keyword,extended,,10.10.10.10,The data describing the resource.
 1.6.0-dev,true,dns,dns.answers.name,keyword,extended,,www.google.com,The domain name to which this resource record pertains.
-1.6.0-dev,true,dns,dns.answers.ttl,long,extended,,180,The time interval in seconds that this resource record may be cached before it should be discarded. Zero values mean that the data should not be cached.
+1.6.0-dev,true,dns,dns.answers.ttl,long,extended,,180,The time interval in seconds that this resource record may be cached before it should be discarded.
 1.6.0-dev,true,dns,dns.answers.type,keyword,extended,,CNAME,The type of data contained in this resource record.
 1.6.0-dev,true,dns,dns.header_flags,keyword,extended,array,"['RD', 'RA']",Array of DNS header flags.
 1.6.0-dev,true,dns,dns.id,keyword,extended,,62111,The DNS packet identifier assigned by the program that generated the query. The identifier is copied to the response.
-1.6.0-dev,true,dns,dns.op_code,keyword,extended,,QUERY,The DNS operation code that specifies the kind of query in the message. This value is set by the originator of a query and copied into the response.
+1.6.0-dev,true,dns,dns.op_code,keyword,extended,,QUERY,The DNS operation code that specifies the kind of query in the message.
 1.6.0-dev,true,dns,dns.question.class,keyword,extended,,IN,The class of records being queried.
 1.6.0-dev,true,dns,dns.question.name,keyword,extended,,www.google.com,The name being queried.
 1.6.0-dev,true,dns,dns.question.registered_domain,keyword,extended,,google.com,"The highest registered domain, stripped of the subdomain."
@@ -197,7 +197,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.6.0-dev,true,file,file.target_path.text,text,extended,,,Target path for symlinks.
 1.6.0-dev,true,file,file.type,keyword,extended,,file,"File type (file, dir, or symlink)."
 1.6.0-dev,true,file,file.uid,keyword,extended,,1001,The user ID (UID) or security identifier (SID) of the file owner.
-1.6.0-dev,true,file,file.x509.alternative_names,keyword,extended,array,*.elastic.co,"List of subject alternative names (SAN). Name types vary by certificate authority and certificate type but commonly contain IP addresses, DNS names (and wildcards), and email addresses."
+1.6.0-dev,true,file,file.x509.alternative_names,keyword,extended,array,*.elastic.co,List of subject alternative names (SAN).
 1.6.0-dev,true,file,file.x509.issuer.common_name,keyword,extended,array,DigiCert SHA2 High Assurance Server CA,List of common name (CN) of issuing certificate authority.
 1.6.0-dev,true,file,file.x509.issuer.country,keyword,extended,array,US,List of country (C) codes
 1.6.0-dev,true,file,file.x509.issuer.distinguished_name,keyword,extended,,"C=US, O=DigiCert Inc, OU=www.digicert.com, CN=DigiCert SHA2 High Assurance Server CA",Distinguished name (DN) of issuing certificate authority.
@@ -211,8 +211,8 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.6.0-dev,true,file,file.x509.public_key_curve,keyword,extended,,nistp521,The curve used by the elliptic curve public key algorithm. This is algorithm specific.
 1.6.0-dev,false,file,file.x509.public_key_exponent,long,extended,,65537,Exponent used to derive the public key. This is algorithm specific.
 1.6.0-dev,true,file,file.x509.public_key_size,long,extended,,2048,The size of the public key space in bits.
-1.6.0-dev,true,file,file.x509.serial_number,keyword,extended,,55FBB9C7DEBF09809D12CCAA,"Unique serial number issued by the certificate authority. For consistency, if this value is alphanumeric, it should be formatted without colons and uppercase characters."
-1.6.0-dev,true,file,file.x509.signature_algorithm,keyword,extended,,SHA256-RSA,Identifier for certificate signature algorithm. Recommend using names found in Go Lang Crypto library (See https://github.com/golang/go/blob/go1.14/src/crypto/x509/x509.go#L337-L353).
+1.6.0-dev,true,file,file.x509.serial_number,keyword,extended,,55FBB9C7DEBF09809D12CCAA,Unique serial number issued by the certificate authority.
+1.6.0-dev,true,file,file.x509.signature_algorithm,keyword,extended,,SHA256-RSA,Identifier for certificate signature algorithm.
 1.6.0-dev,true,file,file.x509.subject.common_name,keyword,extended,array,r2.shared.global.fastly.net,List of common names (CN) of subject.
 1.6.0-dev,true,file,file.x509.subject.country,keyword,extended,array,US,List of country (C) code
 1.6.0-dev,true,file,file.x509.subject.distinguished_name,keyword,extended,,"C=US, ST=California, L=San Francisco, O=Fastly, Inc., CN=r2.shared.global.fastly.net",Distinguished name (DN) of the certificate subject entity.
@@ -451,7 +451,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.6.0-dev,true,rule,rule.uuid,keyword,extended,,1100110011,Rule UUID
 1.6.0-dev,true,rule,rule.version,keyword,extended,,1.1,Rule version
 1.6.0-dev,true,server,server.address,keyword,extended,,,Server network address.
-1.6.0-dev,true,server,server.as.number,long,extended,,15169,Unique number allocated to the autonomous system. The autonomous system number (ASN) uniquely identifies each network on the Internet.
+1.6.0-dev,true,server,server.as.number,long,extended,,15169,Unique number allocated to the autonomous system.
 1.6.0-dev,true,server,server.as.organization.name,keyword,extended,,Google LLC,Organization name.
 1.6.0-dev,true,server,server.as.organization.name.text,text,extended,,Google LLC,Organization name.
 1.6.0-dev,true,server,server.bytes,long,core,,184,Bytes sent from the server to the client.
@@ -491,7 +491,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.6.0-dev,true,service,service.type,keyword,core,,elasticsearch,The type of the service.
 1.6.0-dev,true,service,service.version,keyword,core,,3.2.4,Version of the service.
 1.6.0-dev,true,source,source.address,keyword,extended,,,Source network address.
-1.6.0-dev,true,source,source.as.number,long,extended,,15169,Unique number allocated to the autonomous system. The autonomous system number (ASN) uniquely identifies each network on the Internet.
+1.6.0-dev,true,source,source.as.number,long,extended,,15169,Unique number allocated to the autonomous system.
 1.6.0-dev,true,source,source.as.organization.name,keyword,extended,,Google LLC,Organization name.
 1.6.0-dev,true,source,source.as.organization.name.text,text,extended,,Google LLC,Organization name.
 1.6.0-dev,true,source,source.bytes,long,core,,184,Bytes sent from the source to the destination.
@@ -532,19 +532,19 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.6.0-dev,true,threat,threat.technique.name.text,text,extended,,Endpoint Denial of Service,Threat technique name.
 1.6.0-dev,true,threat,threat.technique.reference,keyword,extended,array,https://attack.mitre.org/techniques/T1499/,Threat technique URL reference.
 1.6.0-dev,true,tls,tls.cipher,keyword,extended,,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256,String indicating the cipher used during the current connection.
-1.6.0-dev,true,tls,tls.client.certificate,keyword,extended,,MII...,PEM-encoded stand-alone certificate offered by the client. This is usually mutually-exclusive of `client.certificate_chain` since this value also exists in that list.
-1.6.0-dev,true,tls,tls.client.certificate_chain,keyword,extended,array,"['MII...', 'MII...']",Array of PEM-encoded certificates that make up the certificate chain offered by the client. This is usually mutually-exclusive of `client.certificate` since that value should be the first certificate in the chain.
-1.6.0-dev,true,tls,tls.client.hash.md5,keyword,extended,,0F76C7F2C55BFD7D8E8B8F4BFBF0C9EC,"Certificate fingerprint using the MD5 digest of DER-encoded version of certificate offered by the client. For consistency with other hash values, this value should be formatted as an uppercase hash."
-1.6.0-dev,true,tls,tls.client.hash.sha1,keyword,extended,,9E393D93138888D288266C2D915214D1D1CCEB2A,"Certificate fingerprint using the SHA1 digest of DER-encoded version of certificate offered by the client. For consistency with other hash values, this value should be formatted as an uppercase hash."
-1.6.0-dev,true,tls,tls.client.hash.sha256,keyword,extended,,0687F666A054EF17A08E2F2162EAB4CBC0D265E1D7875BE74BF3C712CA92DAF0,"Certificate fingerprint using the SHA256 digest of DER-encoded version of certificate offered by the client. For consistency with other hash values, this value should be formatted as an uppercase hash."
+1.6.0-dev,true,tls,tls.client.certificate,keyword,extended,,MII...,PEM-encoded stand-alone certificate offered by the client.
+1.6.0-dev,true,tls,tls.client.certificate_chain,keyword,extended,array,"['MII...', 'MII...']",Array of PEM-encoded certificates that make up the certificate chain offered by the client.
+1.6.0-dev,true,tls,tls.client.hash.md5,keyword,extended,,0F76C7F2C55BFD7D8E8B8F4BFBF0C9EC,Certificate fingerprint using the MD5 digest of DER-encoded version of certificate offered by the client.
+1.6.0-dev,true,tls,tls.client.hash.sha1,keyword,extended,,9E393D93138888D288266C2D915214D1D1CCEB2A,Certificate fingerprint using the SHA1 digest of DER-encoded version of certificate offered by the client.
+1.6.0-dev,true,tls,tls.client.hash.sha256,keyword,extended,,0687F666A054EF17A08E2F2162EAB4CBC0D265E1D7875BE74BF3C712CA92DAF0,Certificate fingerprint using the SHA256 digest of DER-encoded version of certificate offered by the client.
 1.6.0-dev,true,tls,tls.client.issuer,keyword,extended,,"CN=MyDomain Root CA, OU=Infrastructure Team, DC=mydomain, DC=com",Distinguished name of subject of the issuer of the x.509 certificate presented by the client.
 1.6.0-dev,true,tls,tls.client.ja3,keyword,extended,,d4e5b18d6b55c71272893221c96ba240,A hash that identifies clients based on how they perform an SSL/TLS handshake.
 1.6.0-dev,true,tls,tls.client.not_after,date,extended,,2021-01-01T00:00:00.000Z,Date/Time indicating when client certificate is no longer considered valid.
 1.6.0-dev,true,tls,tls.client.not_before,date,extended,,1970-01-01T00:00:00.000Z,Date/Time indicating when client certificate is first considered valid.
-1.6.0-dev,true,tls,tls.client.server_name,keyword,extended,,www.elastic.co,"Also called an SNI, this tells the server which hostname to which the client is attempting to connect. When this value is available, it should get copied to `destination.domain`."
+1.6.0-dev,true,tls,tls.client.server_name,keyword,extended,,www.elastic.co,Hostname the client is trying to connect to. Also called the SNI.
 1.6.0-dev,true,tls,tls.client.subject,keyword,extended,,"CN=myclient, OU=Documentation Team, DC=mydomain, DC=com",Distinguished name of subject of the x.509 certificate presented by the client.
 1.6.0-dev,true,tls,tls.client.supported_ciphers,keyword,extended,array,"['TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384', 'TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384', '...']",Array of ciphers offered by the client during the client hello.
-1.6.0-dev,true,tls,tls.client.x509.alternative_names,keyword,extended,array,*.elastic.co,"List of subject alternative names (SAN). Name types vary by certificate authority and certificate type but commonly contain IP addresses, DNS names (and wildcards), and email addresses."
+1.6.0-dev,true,tls,tls.client.x509.alternative_names,keyword,extended,array,*.elastic.co,List of subject alternative names (SAN).
 1.6.0-dev,true,tls,tls.client.x509.issuer.common_name,keyword,extended,array,DigiCert SHA2 High Assurance Server CA,List of common name (CN) of issuing certificate authority.
 1.6.0-dev,true,tls,tls.client.x509.issuer.country,keyword,extended,array,US,List of country (C) codes
 1.6.0-dev,true,tls,tls.client.x509.issuer.distinguished_name,keyword,extended,,"C=US, O=DigiCert Inc, OU=www.digicert.com, CN=DigiCert SHA2 High Assurance Server CA",Distinguished name (DN) of issuing certificate authority.
@@ -558,8 +558,8 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.6.0-dev,true,tls,tls.client.x509.public_key_curve,keyword,extended,,nistp521,The curve used by the elliptic curve public key algorithm. This is algorithm specific.
 1.6.0-dev,false,tls,tls.client.x509.public_key_exponent,long,extended,,65537,Exponent used to derive the public key. This is algorithm specific.
 1.6.0-dev,true,tls,tls.client.x509.public_key_size,long,extended,,2048,The size of the public key space in bits.
-1.6.0-dev,true,tls,tls.client.x509.serial_number,keyword,extended,,55FBB9C7DEBF09809D12CCAA,"Unique serial number issued by the certificate authority. For consistency, if this value is alphanumeric, it should be formatted without colons and uppercase characters."
-1.6.0-dev,true,tls,tls.client.x509.signature_algorithm,keyword,extended,,SHA256-RSA,Identifier for certificate signature algorithm. Recommend using names found in Go Lang Crypto library (See https://github.com/golang/go/blob/go1.14/src/crypto/x509/x509.go#L337-L353).
+1.6.0-dev,true,tls,tls.client.x509.serial_number,keyword,extended,,55FBB9C7DEBF09809D12CCAA,Unique serial number issued by the certificate authority.
+1.6.0-dev,true,tls,tls.client.x509.signature_algorithm,keyword,extended,,SHA256-RSA,Identifier for certificate signature algorithm.
 1.6.0-dev,true,tls,tls.client.x509.subject.common_name,keyword,extended,array,r2.shared.global.fastly.net,List of common names (CN) of subject.
 1.6.0-dev,true,tls,tls.client.x509.subject.country,keyword,extended,array,US,List of country (C) code
 1.6.0-dev,true,tls,tls.client.x509.subject.distinguished_name,keyword,extended,,"C=US, ST=California, L=San Francisco, O=Fastly, Inc., CN=r2.shared.global.fastly.net",Distinguished name (DN) of the certificate subject entity.
@@ -570,19 +570,19 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.6.0-dev,true,tls,tls.client.x509.version_number,keyword,extended,,3,Version of x509 format.
 1.6.0-dev,true,tls,tls.curve,keyword,extended,,secp256r1,"String indicating the curve used for the given cipher, when applicable."
 1.6.0-dev,true,tls,tls.established,boolean,extended,,,Boolean flag indicating if the TLS negotiation was successful and transitioned to an encrypted tunnel.
-1.6.0-dev,true,tls,tls.next_protocol,keyword,extended,,http/1.1,"String indicating the protocol being tunneled. Per the values in the IANA registry (https://www.iana.org/assignments/tls-extensiontype-values/tls-extensiontype-values.xhtml#alpn-protocol-ids), this string should be lower case."
+1.6.0-dev,true,tls,tls.next_protocol,keyword,extended,,http/1.1,String indicating the protocol being tunneled.
 1.6.0-dev,true,tls,tls.resumed,boolean,extended,,,Boolean flag indicating if this TLS connection was resumed from an existing TLS negotiation.
-1.6.0-dev,true,tls,tls.server.certificate,keyword,extended,,MII...,PEM-encoded stand-alone certificate offered by the server. This is usually mutually-exclusive of `server.certificate_chain` since this value also exists in that list.
-1.6.0-dev,true,tls,tls.server.certificate_chain,keyword,extended,array,"['MII...', 'MII...']",Array of PEM-encoded certificates that make up the certificate chain offered by the server. This is usually mutually-exclusive of `server.certificate` since that value should be the first certificate in the chain.
-1.6.0-dev,true,tls,tls.server.hash.md5,keyword,extended,,0F76C7F2C55BFD7D8E8B8F4BFBF0C9EC,"Certificate fingerprint using the MD5 digest of DER-encoded version of certificate offered by the server. For consistency with other hash values, this value should be formatted as an uppercase hash."
-1.6.0-dev,true,tls,tls.server.hash.sha1,keyword,extended,,9E393D93138888D288266C2D915214D1D1CCEB2A,"Certificate fingerprint using the SHA1 digest of DER-encoded version of certificate offered by the server. For consistency with other hash values, this value should be formatted as an uppercase hash."
-1.6.0-dev,true,tls,tls.server.hash.sha256,keyword,extended,,0687F666A054EF17A08E2F2162EAB4CBC0D265E1D7875BE74BF3C712CA92DAF0,"Certificate fingerprint using the SHA256 digest of DER-encoded version of certificate offered by the server. For consistency with other hash values, this value should be formatted as an uppercase hash."
+1.6.0-dev,true,tls,tls.server.certificate,keyword,extended,,MII...,PEM-encoded stand-alone certificate offered by the server.
+1.6.0-dev,true,tls,tls.server.certificate_chain,keyword,extended,array,"['MII...', 'MII...']",Array of PEM-encoded certificates that make up the certificate chain offered by the server.
+1.6.0-dev,true,tls,tls.server.hash.md5,keyword,extended,,0F76C7F2C55BFD7D8E8B8F4BFBF0C9EC,Certificate fingerprint using the MD5 digest of DER-encoded version of certificate offered by the server.
+1.6.0-dev,true,tls,tls.server.hash.sha1,keyword,extended,,9E393D93138888D288266C2D915214D1D1CCEB2A,Certificate fingerprint using the SHA1 digest of DER-encoded version of certificate offered by the server.
+1.6.0-dev,true,tls,tls.server.hash.sha256,keyword,extended,,0687F666A054EF17A08E2F2162EAB4CBC0D265E1D7875BE74BF3C712CA92DAF0,Certificate fingerprint using the SHA256 digest of DER-encoded version of certificate offered by the server.
 1.6.0-dev,true,tls,tls.server.issuer,keyword,extended,,"CN=MyDomain Root CA, OU=Infrastructure Team, DC=mydomain, DC=com",Subject of the issuer of the x.509 certificate presented by the server.
 1.6.0-dev,true,tls,tls.server.ja3s,keyword,extended,,394441ab65754e2207b1e1b457b3641d,A hash that identifies servers based on how they perform an SSL/TLS handshake.
 1.6.0-dev,true,tls,tls.server.not_after,date,extended,,2021-01-01T00:00:00.000Z,Timestamp indicating when server certificate is no longer considered valid.
 1.6.0-dev,true,tls,tls.server.not_before,date,extended,,1970-01-01T00:00:00.000Z,Timestamp indicating when server certificate is first considered valid.
 1.6.0-dev,true,tls,tls.server.subject,keyword,extended,,"CN=www.mydomain.com, OU=Infrastructure Team, DC=mydomain, DC=com",Subject of the x.509 certificate presented by the server.
-1.6.0-dev,true,tls,tls.server.x509.alternative_names,keyword,extended,array,*.elastic.co,"List of subject alternative names (SAN). Name types vary by certificate authority and certificate type but commonly contain IP addresses, DNS names (and wildcards), and email addresses."
+1.6.0-dev,true,tls,tls.server.x509.alternative_names,keyword,extended,array,*.elastic.co,List of subject alternative names (SAN).
 1.6.0-dev,true,tls,tls.server.x509.issuer.common_name,keyword,extended,array,DigiCert SHA2 High Assurance Server CA,List of common name (CN) of issuing certificate authority.
 1.6.0-dev,true,tls,tls.server.x509.issuer.country,keyword,extended,array,US,List of country (C) codes
 1.6.0-dev,true,tls,tls.server.x509.issuer.distinguished_name,keyword,extended,,"C=US, O=DigiCert Inc, OU=www.digicert.com, CN=DigiCert SHA2 High Assurance Server CA",Distinguished name (DN) of issuing certificate authority.
@@ -596,8 +596,8 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.6.0-dev,true,tls,tls.server.x509.public_key_curve,keyword,extended,,nistp521,The curve used by the elliptic curve public key algorithm. This is algorithm specific.
 1.6.0-dev,false,tls,tls.server.x509.public_key_exponent,long,extended,,65537,Exponent used to derive the public key. This is algorithm specific.
 1.6.0-dev,true,tls,tls.server.x509.public_key_size,long,extended,,2048,The size of the public key space in bits.
-1.6.0-dev,true,tls,tls.server.x509.serial_number,keyword,extended,,55FBB9C7DEBF09809D12CCAA,"Unique serial number issued by the certificate authority. For consistency, if this value is alphanumeric, it should be formatted without colons and uppercase characters."
-1.6.0-dev,true,tls,tls.server.x509.signature_algorithm,keyword,extended,,SHA256-RSA,Identifier for certificate signature algorithm. Recommend using names found in Go Lang Crypto library (See https://github.com/golang/go/blob/go1.14/src/crypto/x509/x509.go#L337-L353).
+1.6.0-dev,true,tls,tls.server.x509.serial_number,keyword,extended,,55FBB9C7DEBF09809D12CCAA,Unique serial number issued by the certificate authority.
+1.6.0-dev,true,tls,tls.server.x509.signature_algorithm,keyword,extended,,SHA256-RSA,Identifier for certificate signature algorithm.
 1.6.0-dev,true,tls,tls.server.x509.subject.common_name,keyword,extended,array,r2.shared.global.fastly.net,List of common names (CN) of subject.
 1.6.0-dev,true,tls,tls.server.x509.subject.country,keyword,extended,array,US,List of country (C) code
 1.6.0-dev,true,tls,tls.server.x509.subject.distinguished_name,keyword,extended,,"C=US, ST=California, L=San Francisco, O=Fastly, Inc., CN=r2.shared.global.fastly.net",Distinguished name (DN) of the certificate subject entity.

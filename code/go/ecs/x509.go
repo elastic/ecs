@@ -62,9 +62,9 @@ type X509 struct {
 	// List of country (C) codes
 	IssuerCountry string `ecs:"issuer.country"`
 
-	// Identifier for certificate signature algorithm. Recommend using names
-	// found in Go Lang Crypto library (See
-	// https://github.com/golang/go/blob/go1.14/src/crypto/x509/x509.go#L337-L353).
+	// Identifier for certificate signature algorithm. We recommend using names
+	// found in Go Lang Crypto library. See
+	// https://github.com/golang/go/blob/go1.14/src/crypto/x509/x509.go#L337-L353.
 	SignatureAlgorithm string `ecs:"signature_algorithm"`
 
 	// Time at which the certificate is first considered valid.
