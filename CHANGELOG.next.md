@@ -61,6 +61,8 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
+ * Added RFC for session fields
+
 #### Improvements
 
 * Add support for reusing offical fieldsets in custom schemas. #751
