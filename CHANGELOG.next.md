@@ -61,7 +61,7 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
- * Added RFC for session fields
+ * Added RFC for session fields #879
 
 #### Improvements
 
