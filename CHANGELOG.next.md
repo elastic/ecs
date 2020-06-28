@@ -16,6 +16,8 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
+* Added `http.forwarded_for`. #874
+
 #### Improvements
 
 * Temporary workaround for Beats templates' `default_field` growing too big. #687

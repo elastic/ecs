@@ -8,6 +8,17 @@
   type: group
   fields:
 
+    - name: forwarded_for
+      level: extended
+      type: ip
+      short: Array containing all IPs seen in HTTP X-Forwarded-For header.
+      description: >
+        HTTP X-Forwarded-For (XFF) header.
+
+        The field is an array of mulitple IP addresses as reported in HTTP
+        request (client to server, forwarded by the proxy).
+      example: [192.168.0.1, 192.168.100.3, 192.168.254.5]
+        
     - name: request.method
       level: extended
       type: keyword

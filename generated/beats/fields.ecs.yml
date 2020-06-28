@@ -1702,6 +1702,18 @@
       the url of the request.
     type: group
     fields:
+    - name: forwarded_for
+      level: extended
+      type: ip
+      description: 'HTTP X-Forwarded-For (XFF) header.
+
+        The field is an array of mulitple IP addresses as reported in HTTP request
+        (client to server, forwarded by the proxy).'
+      example:
+      - 192.168.0.1
+      - 192.168.100.3
+      - 192.168.254.5
+      default_field: false
     - name: request.body.bytes
       level: extended
       type: long

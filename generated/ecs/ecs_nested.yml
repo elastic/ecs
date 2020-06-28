@@ -3134,6 +3134,22 @@ http:
   description: Fields related to HTTP activity. Use the `url` field set to store the
     url of the request.
   fields:
+    forwarded_for:
+      dashed_name: http-forwarded-for
+      description: 'HTTP X-Forwarded-For (XFF) header.
+
+        The field is an array of mulitple IP addresses as reported in HTTP request
+        (client to server, forwarded by the proxy).'
+      example:
+      - 192.168.0.1
+      - 192.168.100.3
+      - 192.168.254.5
+      flat_name: http.forwarded_for
+      level: extended
+      name: forwarded_for
+      order: 0
+      short: Array containing all IPs seen in HTTP X-Forwarded-For header.
+      type: ip
     request.body.bytes:
       dashed_name: http-request-body-bytes
       description: Size in bytes of the request body.
@@ -3142,7 +3158,7 @@ http:
       format: bytes
       level: extended
       name: request.body.bytes
-      order: 7
+      order: 8
       short: Size in bytes of the request body.
       type: long
     request.body.content:
@@ -3158,7 +3174,7 @@ http:
         norms: false
         type: text
       name: request.body.content
-      order: 1
+      order: 2
       short: The full HTTP request body.
       type: keyword
     request.bytes:
@@ -3169,7 +3185,7 @@ http:
       format: bytes
       level: extended
       name: request.bytes
-      order: 6
+      order: 7
       short: Total size in bytes of the request (body and headers).
       type: long
     request.method:
@@ -3183,7 +3199,7 @@ http:
       ignore_above: 1024
       level: extended
       name: request.method
-      order: 0
+      order: 1
       short: HTTP request method.
       type: keyword
     request.referrer:
@@ -3194,7 +3210,7 @@ http:
       ignore_above: 1024
       level: extended
       name: request.referrer
-      order: 2
+      order: 3
       short: Referrer for this HTTP request.
       type: keyword
     response.body.bytes:
@@ -3205,7 +3221,7 @@ http:
       format: bytes
       level: extended
       name: response.body.bytes
-      order: 9
+      order: 10
       short: Size in bytes of the response body.
       type: long
     response.body.content:
@@ -3221,7 +3237,7 @@ http:
         norms: false
         type: text
       name: response.body.content
-      order: 4
+      order: 5
       short: The full HTTP response body.
       type: keyword
     response.bytes:
@@ -3232,7 +3248,7 @@ http:
       format: bytes
       level: extended
       name: response.bytes
-      order: 8
+      order: 9
       short: Total size in bytes of the response (body and headers).
       type: long
     response.status_code:
@@ -3243,7 +3259,7 @@ http:
       format: string
       level: extended
       name: response.status_code
-      order: 3
+      order: 4
       short: HTTP response status code.
       type: long
     version:
@@ -3254,7 +3270,7 @@ http:
       ignore_above: 1024
       level: extended
       name: version
-      order: 5
+      order: 6
       short: HTTP version.
       type: keyword
   group: 2

@@ -22,6 +22,11 @@ package ecs
 // Fields related to HTTP activity. Use the `url` field set to store the url of
 // the request.
 type Http struct {
+	// HTTP X-Forwarded-For (XFF) header.
+	// The field is an array of mulitple IP addresses as reported in HTTP
+	// request (client to server, forwarded by the proxy).
+	ForwardedFor string `ecs:"forwarded_for"`
+
 	// HTTP request method.
 	// The field value must be normalized to lowercase for querying. See the
 	// documentation section "Implementing ECS".
