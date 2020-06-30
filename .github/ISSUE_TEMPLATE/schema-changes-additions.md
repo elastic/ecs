@@ -1,11 +1,13 @@
 ---
-name: "Schema Changes and Additions"
-about: "Changes or additions to ECS."
+name: "Minor Schema Changes and Additions"
+about: "Minor changes or additions to ECS."
 labels: "enhancement"
 
 ---
 <!--
 Please first search existing issues for the changes you are requesting; it may already exist as an open issue.
+
+Substantial schema changes or additions should follow the RFC process: https://github.com/elastic/ecs/blob/master/rfcs/README.md
 
 Please fill in the following sections describing your proposed changes: -->
 
