@@ -34,4 +34,9 @@ type Tracing struct {
 	// A transaction is the highest level of work measured within a service,
 	// such as a request to a server.
 	TransactionID string `ecs:"transaction.id"`
+
+	// Unique identifier of the span.
+	// A span represents an operation within a transaction, such as a request
+	// to another service, or a database query.
+	SpanID string `ecs:"span.id"`
 }
