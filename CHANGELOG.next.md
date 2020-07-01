@@ -25,6 +25,7 @@ Thanks, you're awesome :-) -->
 * Added `x509.*` field set. (#762)
 * Added more account and project cloud metadata. (#816)
 * Added missing field reuse of `pe` at `process.parent.pe` #868
+* Added `span.id` to the tracing fieldset, for additional log correlation (#882)
 
 #### Improvements
 
