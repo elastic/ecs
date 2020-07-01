@@ -56,12 +56,12 @@ def main():
     if args.intermediate_only:
         exit()
 
-    csv_generator.generate(flat, ecs_version, out_dir)
     es_template.generate(flat, ecs_version, out_dir, args.template_settings, args.mapping_settings)
     beats.generate(nested, ecs_version, out_dir)
     if args.include or args.subset:
         exit()
 
+    csv_generator.generate(flat, ecs_version, out_dir)
     asciidoc_fields.generate(nested, ecs_version, docs_dir)
 
 

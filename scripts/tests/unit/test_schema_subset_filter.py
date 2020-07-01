@@ -113,8 +113,11 @@ class TestSchemaSubsetFilter(unittest.TestCase):
                             'type': 'keyword'
                         }
                     },
-
                     'origin': {
+                        'field_details': {
+                            'name': 'origin',
+                            'intermediate': True
+                        },
                         'fields': {
                             'function': {
                                 'field_details': {
@@ -151,6 +154,10 @@ class TestSchemaSubsetFilter(unittest.TestCase):
                 },
                 'fields': {
                     'origin': {
+                        'field_details': {
+                            'name': 'origin',
+                            'intermediate': True
+                        },
                         'fields': {
                             'function': {
                                 'field_details': {
@@ -183,6 +190,10 @@ class TestSchemaSubsetFilter(unittest.TestCase):
                 },
                 'fields': {
                     'origin': {
+                        'field_details': {
+                            'name': 'origin',
+                            'intermediate': True
+                        },
                         'fields': {
                             'function': {
                                 'field_details': {
@@ -198,7 +209,22 @@ class TestSchemaSubsetFilter(unittest.TestCase):
         self.assertEqual(filtered_fields, expected_fields)
 
     def test_extract_field_with_options(self):
-        subset = {'log': {'enabled': False, 'fields': {'level': {'custom_option': True}}}}
+        subset = {
+            'log': {
+                'enabled': False,
+                'fields': {
+                    'level': {
+                        'custom_option': True
+                    },
+                    'origin': {
+                        'custom_option': False,
+                        'fields': {
+                            'function': {}
+                        }
+                    }
+                }
+            }
+        }
         filtered_fields = subset_filter.extract_matching_fields(self.schema_log(), subset)
         expected_fields = {
             'log': {
@@ -214,6 +240,21 @@ class TestSchemaSubsetFilter(unittest.TestCase):
                             'name': 'level',
                             'type': 'keyword',
                             'custom_option': True
+                        }
+                    },
+                    'origin': {
+                        'field_details': {
+                            'name': 'origin',
+                            'intermediate': False,
+                            'custom_option': False
+                        },
+                        'fields': {
+                            'function': {
+                                'field_details': {
+                                    'name': 'function',
+                                    'type': 'keyword'
+                                }
+                            },
                         }
                     }
                 }

@@ -84,11 +84,11 @@ def extract_matching_fields(fields, subset_definitions):
     '''Removes fields that are not in the subset definition. Returns a copy without modifying the input fields dict.'''
     retained_fields = {x: fields[x].copy() for x in subset_definitions}
     for key, val in subset_definitions.items():
-        if 'field_details' in fields[key]:
-            retained_fields[key]['field_details'] = fields[key]['field_details'].copy()
+        retained_fields[key]['field_details'] = fields[key]['field_details'].copy()
         for option in val:
             if option != 'fields':
-                retained_fields[key].setdefault('field_details', {})
+                if 'intermediate' in retained_fields[key]['field_details']:
+                    retained_fields[key]['field_details']['intermediate'] = False
                 retained_fields[key]['field_details'][option] = val[option]
         # If the field in the schema has a 'fields' key, we expect a 'fields' key in the subset
         if 'fields' in fields[key]:
