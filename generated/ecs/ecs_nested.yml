@@ -3150,6 +3150,34 @@ http:
       order: 0
       short: Array containing all IPs seen in HTTP X-Forwarded-For header.
       type: ip
+    forwarded_host:
+      dashed_name: http-forwarded-host
+      description: 'HTTP X-Forwarded-Host (XFH) header.
+
+        The field contains the original host requsted by the client. It should be
+        a FQDN not an IP address.'
+      example: www.google.com
+      flat_name: http.forwarded_host
+      ignore_above: 1024
+      level: extended
+      name: forwarded_host
+      order: 1
+      short: The original host requested by the client
+      type: keyword
+    forwarded_proto:
+      dashed_name: http-forwarded-proto
+      description: 'HTTP X-Forwarded-Proto (XFP) header.
+
+        The field contains the original protocol used by the client to request the
+        resource.'
+      example: http, https
+      flat_name: http.forwarded_proto
+      ignore_above: 1024
+      level: extended
+      name: forwarded_proto
+      order: 2
+      short: The original protocol used by the client
+      type: keyword
     request.body.bytes:
       dashed_name: http-request-body-bytes
       description: Size in bytes of the request body.
@@ -3158,7 +3186,7 @@ http:
       format: bytes
       level: extended
       name: request.body.bytes
-      order: 8
+      order: 10
       short: Size in bytes of the request body.
       type: long
     request.body.content:
@@ -3174,7 +3202,7 @@ http:
         norms: false
         type: text
       name: request.body.content
-      order: 2
+      order: 4
       short: The full HTTP request body.
       type: keyword
     request.bytes:
@@ -3185,7 +3213,7 @@ http:
       format: bytes
       level: extended
       name: request.bytes
-      order: 7
+      order: 9
       short: Total size in bytes of the request (body and headers).
       type: long
     request.method:
@@ -3199,7 +3227,7 @@ http:
       ignore_above: 1024
       level: extended
       name: request.method
-      order: 1
+      order: 3
       short: HTTP request method.
       type: keyword
     request.referrer:
@@ -3210,7 +3238,7 @@ http:
       ignore_above: 1024
       level: extended
       name: request.referrer
-      order: 3
+      order: 5
       short: Referrer for this HTTP request.
       type: keyword
     response.body.bytes:
@@ -3221,7 +3249,7 @@ http:
       format: bytes
       level: extended
       name: response.body.bytes
-      order: 10
+      order: 12
       short: Size in bytes of the response body.
       type: long
     response.body.content:
@@ -3237,7 +3265,7 @@ http:
         norms: false
         type: text
       name: response.body.content
-      order: 5
+      order: 7
       short: The full HTTP response body.
       type: keyword
     response.bytes:
@@ -3248,7 +3276,7 @@ http:
       format: bytes
       level: extended
       name: response.bytes
-      order: 9
+      order: 11
       short: Total size in bytes of the response (body and headers).
       type: long
     response.status_code:
@@ -3259,7 +3287,7 @@ http:
       format: string
       level: extended
       name: response.status_code
-      order: 4
+      order: 6
       short: HTTP response status code.
       type: long
     version:
@@ -3270,7 +3298,7 @@ http:
       ignore_above: 1024
       level: extended
       name: version
-      order: 6
+      order: 8
       short: HTTP version.
       type: keyword
   group: 2

@@ -1714,6 +1714,26 @@
       - 192.168.100.3
       - 192.168.254.5
       default_field: false
+    - name: forwarded_host
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'HTTP X-Forwarded-Host (XFH) header.
+
+        The field contains the original host requsted by the client. It should be
+        a FQDN not an IP address.'
+      example: www.google.com
+      default_field: false
+    - name: forwarded_proto
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'HTTP X-Forwarded-Proto (XFP) header.
+
+        The field contains the original protocol used by the client to request the
+        resource.'
+      example: http, https
+      default_field: false
     - name: request.body.bytes
       level: extended
       type: long

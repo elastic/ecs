@@ -19,6 +19,28 @@
         request (client to server, forwarded by the proxy).
       example: [192.168.0.1, 192.168.100.3, 192.168.254.5]
         
+    - name: forwarded_host
+      level: extended
+      type: keyword
+      short: The original host requested by the client
+      description: >
+        HTTP X-Forwarded-Host (XFH) header.
+
+        The field contains the original host requsted by the client.
+        It should be a FQDN not an IP address.
+      example: www.google.com
+        
+    - name: forwarded_proto
+      level: extended
+      type: keyword
+      short: The original protocol used by the client
+      description: >
+        HTTP X-Forwarded-Proto (XFP) header.
+
+        The field contains the original protocol used by the client
+        to request the resource.
+      example: http, https
+        
     - name: request.method
       level: extended
       type: keyword

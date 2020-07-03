@@ -16,7 +16,7 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
-* Added `http.forwarded_for`. #874
+* Added `http.forwarded_for`, `http.forwarded_host`, `http.forwarded_proto`. #874
 
 #### Improvements
 

@@ -27,6 +27,16 @@ type Http struct {
 	// request (client to server, forwarded by the proxy).
 	ForwardedFor string `ecs:"forwarded_for"`
 
+	// HTTP X-Forwarded-Host (XFH) header.
+	// The field contains the original host requsted by the client. It should
+	// be a FQDN not an IP address.
+	ForwardedHost string `ecs:"forwarded_host"`
+
+	// HTTP X-Forwarded-Proto (XFP) header.
+	// The field contains the original protocol used by the client to request
+	// the resource.
+	ForwardedProto string `ecs:"forwarded_proto"`
+
 	// HTTP request method.
 	// The field value must be normalized to lowercase for querying. See the
 	// documentation section "Implementing ECS".
