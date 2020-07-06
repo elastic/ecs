@@ -12,6 +12,10 @@ analytics and security analytics.
 The ECS reference is published on the main Elastic documentation website.
 Visit [the official ECS Reference Documentation](https://www.elastic.co/guide/en/ecs/current/index.html).
 
+## Quick Start
+
+Please refer to the [quick start guide](QUICKSTART.md) for an overview of the tooling provided in this repo.
+
 ## Contributing
 
 If you're looking to contribute to ECS, you're invited to look at our
