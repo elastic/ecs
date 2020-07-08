@@ -1,26 +1,54 @@
 # ECS Tooling Usage
 
-In addition to the published schema and generated artifacts, the ECS repo also contains tools to generate the artifacts based on the current schema. These tools aid in the development of the schema as well as validation in the ECS CI pipeline.
+In addition to the published schema and generated artifacts, the ECS repo also contains tools to generate artifacts based on the current published and custom schemas.
 
-These tools are experimental and should be used for custom indices only.
+**NOTE** - These tools and their functionality are considered experimental.
+
+## Table of Contents
+
+- [Terminology](#terminology)
+- [Setup and Install](#setup-and-install)
+  * [Prerequisites](#prerequisites)
+    + [Clone from GitHub](#clone-from-github)
+    + [Option 1: Install dependencies via make (recommended)](#option-1-install-dependencies-via-make-recommended)
+    + [Option 2: Install dependencies via pip](#option-2-install-dependencies-via-pip)
+- [Usage](#usage)
+  * [Getting Started - Generating Artifacts](#getting-started---generating-artifacts)
+  * [Generator Options](#generator-options)
+    + [Out](#out)
+    + [Include](#include)
+    + [Subset](#subset)
+    + [Ref](#ref)
+    + [Mapping & Template Settings](#mapping--template-settings)
+    + [Intermediate-Only](#intermediate-only)
+
+## Terminology
+
+| Term | Definition |
+| ---- | ---------- |
+| ECS | Elastic Common Schema. For the purposes of this guide, ECS may refer to either the schema itself or the repo/tooling used to maintain the schema |
+| artifacts | Various kinds of files or programs that can be generated based on ECS |
+| field set | Groups of related fields in ECS |
+| schema | Another term for a group of related fields in ECS. Used interchangeably with field set |
+| schema definition | The markup used to define a schema in ECS |
+| attributes | The properties of a field or field set that are used to define that field or field set in a schema definition |
 
 ## Setup and Install
 
 ### Prerequisites
 
-ECS requires the following tools:
-
 * [Python 3.6+](https://www.python.org/)
 * [make](https://www.gnu.org/software/make/)
-* [pip](https://pypi.org/project/pip/) package installer
+* [pip](https://pypi.org/project/pip/)
 * [git](https://git-scm.com/)
 
 #### Clone from GitHub
 
-The recommended way to download the ECS tools is by cloning the ECS repo using `git`:
+The recommended way to download the ECS repo is `git clone`:
 
 ```
-git clone https://github.com/elastic/ecs
+$ git clone https://github.com/elastic/ecs
+$ cd ecs
 ```
 
 Prior to installing dependencies or running the tools, it's recommended to check out the `git` branch for the ECS version being targeted.
@@ -28,61 +56,54 @@ Prior to installing dependencies or running the tools, it's recommended to check
 **Example**: For ECS `1.5.0`:
 
 ```
-$ git checkout 1.5
+$ git checkout v1.5.0
 ```
 
-#### Option 1: Install dependencies via make
+#### Option 1: Install dependencies via make (recommended)
 
-Setting up a `virtualenv` (`venv`) can be accomplished by running from the top-level of the ECS repo:
+Setting up a `virtualenv` (`venv`) can be accomplished by running `make ve` the top-level of the ECS repo:
 
 ```
 $ make ve
 ```
 
-`make ve` will also install all necessary Python dependencies using `pip`.
+All necessary Python dependencies will also be installed with `pip`.
 
 #### Option 2: Install dependencies via pip
 
-It is recommended to create a `virtualenv` to separate ECS' project dependencies from your Python system dependencies. Activating the `venv` can be done using the activation script:
-
-```
-$ source ./venv/bin/activate
-```
-
-
-Install dependencies using `pip` from within the activated `venv`:
+Install dependencies using `pip` (An active `virutalenv` is recommended):
 
 ```
 $ pip install -r scripts/requirements.txt
 ```
 
-## Getting Started
+## Usage
 
-### Generate Artifacts
+### Getting Started - Generating Artifacts
 
-The [generator](scripts/generator.py) script generates the various artifacts based on the [current](schemas) ECS schema.
+Using the defaults, the [generator](scripts/generator.py) script generates the artifacts based on the [current](schemas) ECS schema.
 
 ```
 $ python scripts/generator.py
 Loading schemas from local files
-Running generator. ECS version 1.6.0-dev
+Running generator. ECS version 1.5.0
 ```
 
-**Points to note**:
+**Points to note on the defaults**:
 
-* By default, artifacts are created in the [`generated`](generated) directory and the entire schema is included
-* Also by default, documentation updates will be written to the appropriate file under the `docs` directory. More specifics on generated doc files is covered in the [contributor's file](https://github.com/elastic/ecs/blob/master/CONTRIBUTING.md#generated-documentation-files)
+* Artifacts are created in the [`generated`](generated) directory and the entire schema is included
+* Documentation updates will be written to the appropriate file under the `docs` directory. More specifics on generated doc files is covered in the [contributor's file](https://github.com/elastic/ecs/blob/master/CONTRIBUTING.md#generated-documentation-files)
 * Each run of the script will rewrite the entirety of the `generated` directory
 * The script will need to be executed from the top-level of the ECS repo
 * The `version` displayed when running `generator.py` is based on the current value of the [version](version) file in the top-level of the repo
 
-Many of these defaults options can be overridden using command-line arguments.
+The following options add functionality beyond the defaults.
 
 ### Generator Options
 
 #### Out
 
-Generate the ECS artifacts in a different directory:
+Generate the ECS artifacts in a different output directory. The argument expects to be passed an existing directory:
 
 ```
 $ python scripts/generator.py --out ../myproject/ecs/out/
