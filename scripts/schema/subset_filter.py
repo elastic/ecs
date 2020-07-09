@@ -103,7 +103,7 @@ def extract_matching_fields(fields, subset_definitions):
             if option != 'fields':
                 if 'intermediate' in retained_fields[key]['field_details']:
                     retained_fields[key]['field_details']['intermediate'] = False
-                    retained_fields[key]['field_details']['description'] = 'Intermediate field included by adding option with subset'
+                    retained_fields[key]['field_details'].setdefault('description', 'Intermediate field included by adding option with subset')
                     retained_fields[key]['field_details']['level'] = 'custom'
                     cleaner.field_cleanup(retained_fields[key])
                 retained_fields[key]['field_details'][option] = val[option]
