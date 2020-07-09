@@ -58,8 +58,8 @@ type Tls struct {
 	ClientJa3 string `ecs:"client.ja3"`
 
 	// Also called an SNI, this tells the server which hostname to which the
-	// client is attempting to connect. When this value is available, it should
-	// get copied to `destination.domain`.
+	// client is attempting to connect to. When this value is available, it
+	// should get copied to `destination.domain`.
 	ClientServerName string `ecs:"client.server_name"`
 
 	// Array of ciphers offered by the client during the client hello.

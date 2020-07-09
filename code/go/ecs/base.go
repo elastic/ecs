@@ -23,8 +23,8 @@ import (
 	"time"
 )
 
-// The `base` field set contains all fields which are on the top level. These
-// fields are common across all types of events.
+// The `base` field set contains all fields which are at the root of the
+// events. These fields are common across all types of events.
 type Base struct {
 	// Date/time when the event originated.
 	// This is the date/time extracted from the event, typically representing

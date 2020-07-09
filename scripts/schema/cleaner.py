@@ -118,10 +118,9 @@ def field_cleanup(field):
     if ecs_helpers.is_intermediate(field):
         return
     ecs_helpers.dict_clean_string_values(field['field_details'])
-    # TODO Temporarily commented out to simplify initial rewrite review
-    # if 'allowed_values' in field['field_details']:
-    #     for allowed_value in field['field_details']['allowed_values']:
-    #         ecs_helpers.dict_clean_string_values(allowed_value)
+    if 'allowed_values' in field['field_details']:
+        for allowed_value in field['field_details']['allowed_values']:
+            ecs_helpers.dict_clean_string_values(allowed_value)
     field_defaults(field)
     field_assertions_and_warnings(field)
 
@@ -129,9 +128,6 @@ def field_cleanup(field):
 def field_defaults(field):
     field['field_details'].setdefault('short', field['field_details']['description'])
     field['field_details'].setdefault('normalize', [])
-    # TODO Temporarily re-adding object_type for initial rewrite review. I think this should go away.
-    if 'object' == field['field_details']['type']:
-        field['field_details'].setdefault('object_type', 'keyword')
     field_or_multi_field_datatype_defaults(field['field_details'])
     if 'multi_fields' in field['field_details']:
         for mf in field['field_details']['multi_fields']:
@@ -179,8 +175,15 @@ def field_assertions_and_warnings(field):
 # Common
 
 
+SHORT_LIMIT = 120
+
+
 def single_line_short_description(schema_or_field):
-    if "\n" in schema_or_field['field_details']['short']:
-        msg = ("Short descriptions must be single line.\n" +
-               "Fieldset: '{}'\n{}".format(schema_or_field['field_details']['name'], schema_or_field))
+    short_length = len(schema_or_field['field_details']['short'])
+    if "\n" in schema_or_field['field_details']['short'] or short_length > SHORT_LIMIT:
+        msg = "Short descriptions must be single line, and under {} characters (current length: {}).\n".format(
+            SHORT_LIMIT, short_length)
+        msg += "Offending field or field set: {}\nShort description:\n  {}".format(
+            schema_or_field['field_details']['name'],
+            schema_or_field['field_details']['short'])
         raise ValueError(msg)

@@ -2,7 +2,7 @@
 - name: x509
   title: x509 Certificate
   group: 2
-  short_description: These fields contain x509 certificate metadata.
+  short: These fields contain x509 certificate metadata.
   description: >
     This implements the common core fields for x509 certificates. This information is likely logged with TLS sessions,
     digital signatures found in executable binaries, S/MIME information in email bodies, or analysis of files on disk.
@@ -27,7 +27,7 @@
     - name: serial_number
       level: extended
       type: keyword
-      short_description: Unique serial number issued by the certificate authority.
+      short: Unique serial number issued by the certificate authority.
       description: >
         Unique serial number issued by the certificate authority. For consistency, if this value is alphanumeric, it should be
         formatted without colons and uppercase characters.
@@ -90,7 +90,11 @@
     - name: signature_algorithm
       level: extended
       type: keyword
-      description: Identifier for certificate signature algorithm. Recommend using names found in Go Lang Crypto library (See https://github.com/golang/go/blob/go1.14/src/crypto/x509/x509.go#L337-L353).
+      short: Identifier for certificate signature algorithm.
+      description: >
+        Identifier for certificate signature algorithm.
+        We recommend using names found in Go Lang Crypto library.
+        See https://github.com/golang/go/blob/go1.14/src/crypto/x509/x509.go#L337-L353.
       example: SHA256-RSA
 
     - name: not_before
@@ -188,6 +192,6 @@
       type: keyword
       normalize:
         - array
-      short_description: List of subject alternative names (SAN)
+      short: List of subject alternative names (SAN).
       description: List of subject alternative names (SAN). Name types vary by certificate authority and certificate type but commonly contain IP addresses, DNS names (and wildcards), and email addresses.
       example: "*.elastic.co"

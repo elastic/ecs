@@ -256,8 +256,7 @@ class TestSchemaSubsetFilter(unittest.TestCase):
                             'level': 'custom',
                             'type': 'object',
                             'short': 'Intermediate field included by adding option with subset',
-                            'normalize': [],
-                            'object_type': 'keyword'
+                            'normalize': []
                         },
                         'fields': {
                             'function': {

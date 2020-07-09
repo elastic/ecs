@@ -2,7 +2,7 @@
 [[ecs-base]]
 === Base Fields
 
-The `base` field set contains all fields which are on the top level. These fields are common across all types of events.
+The `base` field set contains all fields which are at the root of the events. These fields are common across all types of events.
 
 ==== Base Field Details
 
@@ -241,7 +241,7 @@ example: `Google LLC`
 
 The `as` fields are expected to be nested at: `client.as`, `destination.as`, `server.as`, `source.as`.
 
-Note also that the `as` fields are not expected to be used directly at the top level.
+Note also that the `as` fields are not expected to be used directly at the root of the events.
 
 
 
@@ -698,7 +698,7 @@ example: `true`
 
 The `code_signature` fields are expected to be nested at: `dll.code_signature`, `file.code_signature`, `process.code_signature`.
 
-Note also that the `code_signature` fields are not expected to be used directly at the top level.
+Note also that the `code_signature` fields are not expected to be used directly at the root of the events.
 
 
 
@@ -2274,7 +2274,7 @@ example: `1001`
 
 
 | <<ecs-x509,file.x509.*>>
-| This implements the common core fields for x509 certificates. This information is likely logged with TLS sessions, digital signatures found in executable binaries, S/MIME information in email bodies, or analysis of files on disk. When only a single certificate is logged in an event, it should be nested under `file`. When hashes of the DER-encoded certificate are available, the `hash` data set should be populated as well (e.g. `file.hash.sha256`). For events that contain certificate information for both sides of the connection, the x509 object could be nested under the respective side of the connection information (e.g. `tls.server.x509`).
+| These fields contain x509 certificate metadata.
 
 // ===============================================================
 
@@ -2410,7 +2410,7 @@ example: `Quebec`
 
 The `geo` fields are expected to be nested at: `client.geo`, `destination.geo`, `host.geo`, `observer.geo`, `server.geo`, `source.geo`.
 
-Note also that the `geo` fields are not expected to be used directly at the top level.
+Note also that the `geo` fields are not expected to be used directly at the root of the events.
 
 
 
@@ -2475,7 +2475,7 @@ type: keyword
 
 The `group` fields are expected to be nested at: `user.group`.
 
-Note also that the `group` fields may be used directly at the top level.
+Note also that the `group` fields may be used directly at the root of the events.
 
 
 
@@ -2553,7 +2553,7 @@ type: keyword
 
 The `hash` fields are expected to be nested at: `dll.hash`, `file.hash`, `process.hash`.
 
-Note also that the `hash` fields are not expected to be used directly at the top level.
+Note also that the `hash` fields are not expected to be used directly at the root of the events.
 
 
 
@@ -2966,7 +2966,7 @@ example: `eth0`
 
 The `interface` fields are expected to be nested at: `observer.egress.interface`, `observer.ingress.interface`.
 
-Note also that the `interface` fields are not expected to be used directly at the top level.
+Note also that the `interface` fields are not expected to be used directly at the root of the events.
 
 
 
@@ -3822,7 +3822,7 @@ example: `10.14.1`
 
 The `os` fields are expected to be nested at: `host.os`, `observer.os`, `user_agent.os`.
 
-Note also that the `os` fields are not expected to be used directly at the top level.
+Note also that the `os` fields are not expected to be used directly at the root of the events.
 
 
 
@@ -4129,7 +4129,7 @@ example: `Microsoft® Windows® Operating System`
 
 The `pe` fields are expected to be nested at: `dll.pe`, `file.pe`, `process.pe`.
 
-Note also that the `pe` fields are not expected to be used directly at the top level.
+Note also that the `pe` fields are not expected to be used directly at the root of the events.
 
 
 
@@ -4412,7 +4412,7 @@ example: `/home/alice`
 
 The `process` fields are expected to be nested at: `process.parent`.
 
-Note also that the `process` fields may be used directly at the top level.
+Note also that the `process` fields may be used directly at the root of the events.
 
 
 
@@ -5608,7 +5608,7 @@ example: `1970-01-01T00:00:00.000Z`
 // ===============================================================
 
 | tls.client.server_name
-| Also called an SNI, this tells the server which hostname to which the client is attempting to connect. When this value is available, it should get copied to `destination.domain`.
+| Also called an SNI, this tells the server which hostname to which the client is attempting to connect to. When this value is available, it should get copied to `destination.domain`.
 
 type: keyword
 
@@ -5878,13 +5878,13 @@ example: `tls`
 
 
 | <<ecs-x509,tls.client.x509.*>>
-| This implements the common core fields for x509 certificates. This information is likely logged with TLS sessions, digital signatures found in executable binaries, S/MIME information in email bodies, or analysis of files on disk. When only a single certificate is logged in an event, it should be nested under `file`. When hashes of the DER-encoded certificate are available, the `hash` data set should be populated as well (e.g. `file.hash.sha256`). For events that contain certificate information for both sides of the connection, the x509 object could be nested under the respective side of the connection information (e.g. `tls.server.x509`).
+| These fields contain x509 certificate metadata.
 
 // ===============================================================
 
 
 | <<ecs-x509,tls.server.x509.*>>
-| This implements the common core fields for x509 certificates. This information is likely logged with TLS sessions, digital signatures found in executable binaries, S/MIME information in email bodies, or analysis of files on disk. When only a single certificate is logged in an event, it should be nested under `file`. When hashes of the DER-encoded certificate are available, the `hash` data set should be populated as well (e.g. `file.hash.sha256`). For events that contain certificate information for both sides of the connection, the x509 object could be nested under the respective side of the connection information (e.g. `tls.server.x509`).
+| These fields contain x509 certificate metadata.
 
 // ===============================================================
 
@@ -5904,6 +5904,21 @@ Distributed tracing makes it possible to analyze performance throughout a micros
 
 // ===============================================================
 
+| span.id
+| Unique identifier of the span within the scope of its trace.
+
+A span represents an operation within a transaction, such as a request to another service, or a database query.
+
+type: keyword
+
+
+
+example: `3ff9a8981b7ccd5a`
+
+| extended
+
+// ===============================================================
+
 | trace.id
 | Unique identifier of the trace.
 
@@ -5920,7 +5935,7 @@ example: `4bf92f3577b34da6a3ce929d0e0e4736`
 // ===============================================================
 
 | transaction.id
-| Unique identifier of the transaction.
+| Unique identifier of the transaction within the scope of its trace.
 
 A transaction is the highest level of work measured within a service, such as a request to a server.
 
@@ -6269,7 +6284,7 @@ example: `albert`
 
 The `user` fields are expected to be nested at: `client.user`, `destination.user`, `host.user`, `server.user`, `source.user`.
 
-Note also that the `user` fields may be used directly at the top level.
+Note also that the `user` fields may be used directly at the root of the events.
 
 
 
@@ -6441,7 +6456,7 @@ example: `outside`
 
 The `vlan` fields are expected to be nested at: `network.inner.vlan`, `network.vlan`, `observer.egress.vlan`, `observer.ingress.vlan`.
 
-Note also that the `vlan` fields are not expected to be used directly at the top level.
+Note also that the `vlan` fields are not expected to be used directly at the root of the events.
 
 
 
@@ -6879,7 +6894,7 @@ example: `55FBB9C7DEBF09809D12CCAA`
 // ===============================================================
 
 | x509.signature_algorithm
-| Identifier for certificate signature algorithm. Recommend using names found in Go Lang Crypto library (See https://github.com/golang/go/blob/go1.14/src/crypto/x509/x509.go#L337-L353).
+| Identifier for certificate signature algorithm. We recommend using names found in Go Lang Crypto library. See https://github.com/golang/go/blob/go1.14/src/crypto/x509/x509.go#L337-L353.
 
 type: keyword
 
@@ -7019,7 +7034,7 @@ example: `3`
 
 The `x509` fields are expected to be nested at: `file.x509`, `tls.client.x509`, `tls.server.x509`.
 
-Note also that the `x509` fields are not expected to be used directly at the top level.
+Note also that the `x509` fields are not expected to be used directly at the root of the events.
 
 
 

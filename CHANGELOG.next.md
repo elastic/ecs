@@ -25,17 +25,31 @@ Thanks, you're awesome :-) -->
 * Added `x509.*` field set. (#762)
 * Added more account and project cloud metadata. (#816)
 * Added missing field reuse of `pe` at `process.parent.pe` #868
+* Added `span.id` to the tracing fieldset, for additional log correlation (#882)
 
 #### Improvements
 
-* Remove misleading pluralization in the description of `user.id`, it should
+* Removed misleading pluralization in the description of `user.id`, it should
   contain one ID, not many. #801
 * Clarified misleading wording about multiple IPs in src/dst or cli/srv. #804
 * Improved verbiage about the MITRE ATT&CK® framework. #866
+* Removed the default `object_type=keyword` that was being applied to `object` fields.
+  This attribute is Beats-specific. It's still supported, but needs to be set explicitly
+  on a case by case basis now. This default being removed affects `dns.answers`,
+  `log.syslog`, `network.inner`, `observer.egress`, and `observer.ingress`. #871
+* Improved attribute `dashed_name` in `generated/ecs/*.yml` to also
+  replace `@` with `-`. #871
 
 #### Deprecated
 
 * Deprecate guidance to lowercase `http.request.method` #840
+* In `ecs_nested.yml`, we're deprecating the attribute `nestings`. It will be
+  removed in a future release. The deprecated `nestings` attribute was an array of
+  flat field names describing where fields are nested within the field set.
+  This is replaced with the attribute `reused_here`, which is an array of objects.
+  The new format still lists where the fields are nested via the same flat field name,
+  but also specifies additional information about each field reuse.
+
 
 ### Tooling and Artifact Changes
 
@@ -63,7 +77,7 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
-* Add support for reusing offical fieldsets in custom schemas. #751
+* Add support for reusing official fieldsets in custom schemas. #751
 * Add full path names to reused fieldsets in `nestings` array in `ecs_nested.yml`. #803
 * Allow shorthand notation for including all subfields in subsets. #805
 * Add support for Elasticsearch `enabled` field parameter. #824
@@ -83,6 +97,7 @@ Thanks, you're awesome :-) -->
 * There's a new representation of ECS at `generated/ecs/ecs.yml`, which is a deeply nested
   representation of the fields. This file is not in git, as it's only meant for
   developers working on the ECS tools. #864
+* Jinja2 templates now define the doc structure for the AsciiDoc generator. #865
 
 #### Deprecated
 

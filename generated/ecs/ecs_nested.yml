@@ -116,8 +116,7 @@ as:
       level: extended
       name: number
       normalize: []
-      short: Unique number allocated to the autonomous system. The autonomous system
-        number (ASN) uniquely identifies each network on the Internet.
+      short: Unique number allocated to the autonomous system.
       type: long
     as.organization.name:
       dashed_name: as-organization-name
@@ -157,11 +156,11 @@ as:
   title: Autonomous System
   type: group
 base:
-  description: The `base` field set contains all fields which are on the top level.
-    These fields are common across all types of events.
+  description: The `base` field set contains all fields which are at the root of the
+    events. These fields are common across all types of events.
   fields:
     '@timestamp':
-      dashed_name: '@timestamp'
+      dashed_name: -timestamp
       description: 'Date/time when the event originated.
 
         This is the date/time extracted from the event, typically representing when
@@ -228,7 +227,7 @@ base:
   name: base
   prefix: ''
   root: true
-  short: All fields defined directly at the top level
+  short: All fields defined directly at the root of the events.
   title: Base
   type: group
 client:
@@ -273,8 +272,7 @@ client:
       name: number
       normalize: []
       original_fieldset: as
-      short: Unique number allocated to the autonomous system. The autonomous system
-        number (ASN) uniquely identifies each network on the Internet.
+      short: Unique number allocated to the autonomous system.
       type: long
     client.as.organization.name:
       dashed_name: client-as-organization-name
@@ -975,8 +973,7 @@ destination:
       name: number
       normalize: []
       original_fieldset: as
-      short: Unique number allocated to the autonomous system. The autonomous system
-        number (ASN) uniquely identifies each network on the Internet.
+      short: Unique number allocated to the autonomous system.
       type: long
     destination.as.organization.name:
       dashed_name: destination-as-organization-name
@@ -1636,7 +1633,6 @@ dns:
       name: answers
       normalize:
       - array
-      object_type: keyword
       short: Array of DNS answers.
       type: object
     dns.answers.class:
@@ -1689,8 +1685,7 @@ dns:
       name: answers.ttl
       normalize: []
       short: The time interval in seconds that this resource record may be cached
-        before it should be discarded. Zero values mean that the data should not be
-        cached.
+        before it should be discarded.
       type: long
     dns.answers.type:
       dashed_name: dns-answers-type
@@ -1744,7 +1739,6 @@ dns:
       name: op_code
       normalize: []
       short: The DNS operation code that specifies the kind of query in the message.
-        This value is set by the originator of a query and copied into the response.
       type: keyword
     dns.question.class:
       dashed_name: dns-question-class
@@ -2012,25 +2006,21 @@ event:
       type: keyword
     event.category:
       allowed_values:
-      - description: 'Events in this category are related to the challenge and response
+      - description: Events in this category are related to the challenge and response
           process in which credentials are supplied and verified to allow the creation
           of a session. Common sources for these logs are Windows event logs and ssh
           logs. Visualize and analyze events in this category to look for failed logins,
           and other authentication-related activity.
-
-          '
         expected_event_types:
         - start
         - end
         - info
         name: authentication
-      - description: 'The database category denotes events and metrics relating to
+      - description: The database category denotes events and metrics relating to
           a data storage and retrieval system. Note that use of this category is not
           limited to relational database systems. Examples include event logs from
           MS SQL, MySQL, Elasticsearch, MongoDB, etc. Use this category to visualize
           and analyze database activity such as accesses and changes.
-
-          '
         expected_event_types:
         - access
         - change
@@ -2042,22 +2032,18 @@ event:
           extensions, kernel modules, etc.
 
           Use events and metrics in this category to visualize and analyze driver-related
-          activity and status on hosts.
-
-          '
+          activity and status on hosts.'
         expected_event_types:
         - change
         - end
         - info
         - start
         name: driver
-      - description: 'Relating to a set of information that has been created on, or
+      - description: Relating to a set of information that has been created on, or
           has existed on a filesystem. Use this category of events to visualize and
           analyze the creation, access, and deletions of files. Events in this category
           can come from both host-based and network-based sources. An example source
           of a network-based detection of a file transfer would be the Zeek file.log.
-
-          '
         expected_event_types:
         - change
         - creation
@@ -2072,9 +2058,7 @@ event:
           also be seen from within, such as "start" or "end".
 
           Note that this category is for information about hosts themselves; it is
-          not meant to capture activity "happening on a host".
-
-          '
+          not meant to capture activity "happening on a host".'
         expected_event_types:
         - access
         - change
@@ -2082,11 +2066,9 @@ event:
         - info
         - start
         name: host
-      - description: 'Identity and access management (IAM) events relating to users,
+      - description: Identity and access management (IAM) events relating to users,
           groups, and administration. Use this category to visualize and analyze IAM-related
           logs and data from active directory, LDAP, Okta, Duo, and other IAM systems.
-
-          '
         expected_event_types:
         - admin
         - change
@@ -2096,35 +2078,29 @@ event:
         - info
         - user
         name: iam
-      - description: 'Relating to intrusion detections from IDS/IPS systems and functions,
+      - description: Relating to intrusion detections from IDS/IPS systems and functions,
           both network and host-based. Use this category to visualize and analyze
           intrusion detection alerts from systems such as Snort, Suricata, and Palo
           Alto threat detections.
-
-          '
         expected_event_types:
         - allowed
         - denied
         - info
         name: intrusion_detection
-      - description: 'Malware detection events and alerts. Use this category to visualize
+      - description: Malware detection events and alerts. Use this category to visualize
           and analyze malware detections from EDR/EPP systems such as Elastic Endpoint
           Security, Symantec Endpoint Protection, Crowdstrike, and network IDS/IPS
           systems such as Suricata, or other sources of malware-related events such
           as Palo Alto Networks threat logs and Wildfire logs.
-
-          '
         expected_event_types:
         - info
         name: malware
-      - description: 'Relating to all network activity, including network connection
+      - description: Relating to all network activity, including network connection
           lifecycle, network traffic, and essentially any event that includes an IP
           address. Many events containing decoded network protocol transactions fit
           into this category. Use events in this category to visualize or analyze
           counts of network ports, protocols, addresses, geolocation information,
           etc.
-
-          '
         expected_event_types:
         - access
         - allowed
@@ -2135,12 +2111,10 @@ event:
         - protocol
         - start
         name: network
-      - description: 'Relating to software packages installed on hosts. Use this category
+      - description: Relating to software packages installed on hosts. Use this category
           to visualize and analyze inventory of software installed on various hosts,
           or to determine host vulnerability in the absence of vulnerability scan
           data.
-
-          '
         expected_event_types:
         - access
         - change
@@ -2149,10 +2123,8 @@ event:
         - installation
         - start
         name: package
-      - description: 'Use this category of events to visualize and analyze process-specific
+      - description: Use this category of events to visualize and analyze process-specific
           information such as lifecycle events or process ancestry.
-
-          '
         expected_event_types:
         - access
         - change
@@ -2163,9 +2135,7 @@ event:
       - description: 'Relating to web server access. Use this category to create a
           dashboard of web server/proxy activity from apache, IIS, nginx web servers,
           etc. Note: events from network observers such as Zeek http log may also
-          be included in this category.
-
-          '
+          be included in this category.'
         expected_event_types:
         - access
         - error
@@ -2320,14 +2290,10 @@ event:
 
           `event.kind:alert` is often populated for events coming from firewalls,
           intrusion detection systems, endpoint detection and response systems, and
-          so on.
-
-          '
+          so on.'
         name: alert
-      - description: 'This value is the most general and most common value for this
+      - description: This value is the most general and most common value for this
           field. It is used to represent events that indicate that something happened.
-
-          '
         name: event
       - description: 'This value is used to indicate that this event describes a numeric
           measurement taken at given point in time.
@@ -2336,9 +2302,7 @@ event:
 
           Metric events are often collected on a predictable frequency, such as once
           every few seconds, or once a minute, but can also be used to describe ad-hoc
-          numeric metric queries.
-
-          '
+          numeric metric queries.'
         name: metric
       - description: 'The state value is similar to metric, indicating that this event
           describes a measurement taken at given point in time, except that the measurement
@@ -2357,15 +2321,11 @@ event:
 
           State events are often collected on a predictable frequency, such as once
           every few seconds, once a minute, once an hour, or once a day, but can also
-          be used to describe ad-hoc state queries.
-
-          '
+          be used to describe ad-hoc state queries.'
         name: state
-      - description: 'This value indicates that an error occurred during the ingestion
+      - description: This value indicates that an error occurred during the ingestion
           of this event, and that event data may be missing, inconsistent, or incorrect.
           `event.kind:pipeline_error` is often associated with parsing errors.
-
-          '
         name: pipeline_error
       - description: 'This value is used by the Elastic SIEM app to denote an Elasticsearch
           document that was created by a SIEM detection engine rule.
@@ -2374,9 +2334,7 @@ event:
           happened and should be investigated.
 
           Usage of this value is reserved, and pipelines should not populate `event.kind`
-          with the value "signal".
-
-          '
+          with the value "signal".'
         name: signal
       dashed_name: event-kind
       description: 'This is one of four ECS Categorization Fields, and indicates the
@@ -2432,27 +2390,21 @@ event:
       type: keyword
     event.outcome:
       allowed_values:
-      - description: 'Indicates that this event describes a failed result. A common
+      - description: Indicates that this event describes a failed result. A common
           example is `event.category:file AND event.type:access AND event.outcome:failure`
           to indicate that a file access was attempted, but was not successful.
-
-          '
         name: failure
-      - description: 'Indicates that this event describes a successful result. A common
+      - description: Indicates that this event describes a successful result. A common
           example is `event.category:file AND event.type:create AND event.outcome:success`
           to indicate that a file was successfully created.
-
-          '
         name: success
-      - description: 'Indicates that this event describes only an attempt for which
+      - description: Indicates that this event describes only an attempt for which
           the result is unknown from the perspective of the event producer. For example,
           if the event contains information only about the request side of a transaction
           that results in a response, populating `event.outcome:unknown` in the request
           event is appropriate. The unknown value should not be used when an outcome
-          doesn''t make logical sense for the event. In such cases `event.outcome`
+          doesn't make logical sense for the event. In such cases `event.outcome`
           should not be populated.
-
-          '
         name: unknown
       dashed_name: event-outcome
       description: 'This is one of four ECS Categorization Fields, and indicates the
@@ -2597,14 +2549,12 @@ event:
       type: keyword
     event.type:
       allowed_values:
-      - description: 'The access event type is used for the subset of events within
+      - description: The access event type is used for the subset of events within
           a category that indicate that something was accessed. Common examples include
           `event.category:database AND event.type:access`, or `event.category:file
           AND event.type:access`. Note for file access, both directory listings and
           file opens should be included in this subcategory. You can further distinguish
           access operations using the ECS `event.action` field.
-
-          '
         name: access
       - description: 'The admin event type is used for the subset of events within
           a category that are related to admin objects. For example, administrative
@@ -2613,11 +2563,9 @@ event:
           discrete forests in Active Directory) would fall into this subcategory.
           Common example: `event.category:iam AND event.type:change AND event.type:admin`.
           You can further distinguish admin operations using the ECS `event.action`
-          field.
-
-          '
+          field.'
         name: admin
-      - description: 'The allowed event type is used for the subset of events within
+      - description: The allowed event type is used for the subset of events within
           a category that indicate that something was allowed. Common examples include
           `event.category:network AND event.type:connection AND event.type:allowed`
           (to indicate a network firewall event for which the firewall disposition
@@ -2627,19 +2575,15 @@ event:
           You can further distinguish allowed operations using the ECS `event.action`
           field, populating with values of your choosing, such as "allow", "detect",
           or "pass".
-
-          '
         name: allowed
-      - description: 'The change event type is used for the subset of events within
+      - description: The change event type is used for the subset of events within
           a category that indicate that something has changed. If semantics best describe
           an event as modified, then include them in this subcategory. Common examples
           include `event.category:process AND event.type:change`, and `event.category:file
           AND event.type:change`. You can further distinguish change operations using
           the ECS `event.action` field.
-
-          '
         name: change
-      - description: 'Used primarily with `event.category:network` this value is used
+      - description: Used primarily with `event.category:network` this value is used
           for the subset of network traffic that includes sufficient information for
           the event to be included in flow or connection analysis. Events in this
           subcategory will contain at least source and destination IP addresses, source
@@ -2654,23 +2598,17 @@ event:
           (to view or analyze all completed network connections, ignoring mid-flow
           reports). You can further distinguish connection events using the ECS `event.action`
           field, populating with values of your choosing, such as "timeout", or "reset".
-
-          '
         name: connection
-      - description: 'The "creation" event type is used for the subset of events within
+      - description: The "creation" event type is used for the subset of events within
           a category that indicate that something was created. A common example is
           `event.category:file AND event.type:creation`.
-
-          '
         name: creation
-      - description: 'The deletion event type is used for the subset of events within
+      - description: The deletion event type is used for the subset of events within
           a category that indicate that something was deleted. A common example is
           `event.category:file AND event.type:deletion` to indicate that a file has
           been deleted.
-
-          '
         name: deletion
-      - description: 'The denied event type is used for the subset of events within
+      - description: The denied event type is used for the subset of events within
           a category that indicate that something was denied. Common examples include
           `event.category:network AND event.type:denied` (to indicate a network firewall
           event for which the firewall disposition was to deny the connection) and
@@ -2679,49 +2617,37 @@ event:
           was to deny the connection to complete). You can further distinguish denied
           operations using the ECS `event.action` field, populating with values of
           your choosing, such as "blocked", "dropped", or "quarantined".
-
-          '
         name: denied
-      - description: 'The end event type is used for the subset of events within a
+      - description: The end event type is used for the subset of events within a
           category that indicate something has ended. A common example is `event.category:process
           AND event.type:end`.
-
-          '
         name: end
-      - description: 'The error event type is used for the subset of events within
+      - description: The error event type is used for the subset of events within
           a category that indicate or describe an error. A common example is `event.category:database
           AND event.type:error`. Note that pipeline errors that occur during the event
           ingestion process should not use this `event.type` value. Instead, they
           should use `event.kind:pipeline_error`.
-
-          '
         name: error
       - description: 'The group event type is used for the subset of events within
           a category that are related to group objects. Common example: `event.category:iam
           AND event.type:creation AND event.type:group`. You can further distinguish
-          group operations using the ECS `event.action` field.
-
-          '
+          group operations using the ECS `event.action` field.'
         name: group
-      - description: 'The info event type is used for the subset of events within
-          a category that indicate that they are purely informational, and don''t
-          report a state change, or any type of action. For example, an initial run
-          of a file integrity monitoring system (FIM), where an agent reports all
-          files under management, would fall into the "info" subcategory. Similarly,
-          an event containing a dump of all currently running processes (as opposed
-          to reporting that a process started/ended) would fall into the "info" subcategory.
+      - description: The info event type is used for the subset of events within a
+          category that indicate that they are purely informational, and don't report
+          a state change, or any type of action. For example, an initial run of a
+          file integrity monitoring system (FIM), where an agent reports all files
+          under management, would fall into the "info" subcategory. Similarly, an
+          event containing a dump of all currently running processes (as opposed to
+          reporting that a process started/ended) would fall into the "info" subcategory.
           An additional common examples is `event.category:intrusion_detection AND
           event.type:info`.
-
-          '
         name: info
-      - description: 'The installation event type is used for the subset of events
+      - description: The installation event type is used for the subset of events
           within a category that indicate that something was installed. A common example
           is `event.category:package` AND `event.type:installation`.
-
-          '
         name: installation
-      - description: 'The protocol event type is used for the subset of events within
+      - description: The protocol event type is used for the subset of events within
           a category that indicate that they contain protocol details or analysis,
           beyond simply identifying the protocol. Generally, network events that contain
           specific protocol details will fall into this subcategory. A common example
@@ -2732,8 +2658,6 @@ event:
           should not use the protocol value. Further note that when the protocol subcategory
           is used, the identified protocol is populated in the ECS `network.protocol`
           field.
-
-          '
         expected_event_types:
         - access
         - change
@@ -2741,18 +2665,14 @@ event:
         - info
         - start
         name: protocol
-      - description: 'The start event type is used for the subset of events within
+      - description: The start event type is used for the subset of events within
           a category that indicate something has started. A common example is `event.category:process
           AND event.type:start`.
-
-          '
         name: start
       - description: 'The user event type is used for the subset of events within
           a category that are related to user objects. Common example: `event.category:iam
           AND event.type:deletion AND event.type:user`. You can further distinguish
-          user operations using the ECS `event.action` field.
-
-          '
+          user operations using the ECS `event.action` field.'
         name: user
       dashed_name: event-type
       description: 'This is one of four ECS Categorization Fields, and indicates the
@@ -3268,10 +3188,7 @@ file:
       normalize:
       - array
       original_fieldset: x509
-      short: List of subject alternative names (SAN). Name types vary by certificate
-        authority and certificate type but commonly contain IP addresses, DNS names
-        (and wildcards), and email addresses.
-      short_description: List of subject alternative names (SAN)
+      short: List of subject alternative names (SAN).
       type: keyword
     file.x509.issuer.common_name:
       dashed_name: file-x509-issuer-common-name
@@ -3448,15 +3365,12 @@ file:
       name: serial_number
       normalize: []
       original_fieldset: x509
-      short: Unique serial number issued by the certificate authority. For consistency,
-        if this value is alphanumeric, it should be formatted without colons and uppercase
-        characters.
-      short_description: Unique serial number issued by the certificate authority.
+      short: Unique serial number issued by the certificate authority.
       type: keyword
     file.x509.signature_algorithm:
       dashed_name: file-x509-signature-algorithm
-      description: Identifier for certificate signature algorithm. Recommend using
-        names found in Go Lang Crypto library (See https://github.com/golang/go/blob/go1.14/src/crypto/x509/x509.go#L337-L353).
+      description: Identifier for certificate signature algorithm. We recommend using
+        names found in Go Lang Crypto library. See https://github.com/golang/go/blob/go1.14/src/crypto/x509/x509.go#L337-L353.
       example: SHA256-RSA
       flat_name: file.x509.signature_algorithm
       ignore_above: 1024
@@ -3464,8 +3378,7 @@ file:
       name: signature_algorithm
       normalize: []
       original_fieldset: x509
-      short: Identifier for certificate signature algorithm. Recommend using names
-        found in Go Lang Crypto library (See https://github.com/golang/go/blob/go1.14/src/crypto/x509/x509.go#L337-L353).
+      short: Identifier for certificate signature algorithm.
       type: keyword
     file.x509.subject.common_name:
       dashed_name: file-x509-subject-common-name
@@ -3588,14 +3501,7 @@ file:
     short: These fields contain Windows Portable Executable (PE) metadata.
   - full: file.x509
     schema_name: x509
-    short: This implements the common core fields for x509 certificates. This information
-      is likely logged with TLS sessions, digital signatures found in executable binaries,
-      S/MIME information in email bodies, or analysis of files on disk. When only
-      a single certificate is logged in an event, it should be nested under `file`.
-      When hashes of the DER-encoded certificate are available, the `hash` data set
-      should be populated as well (e.g. `file.hash.sha256`). For events that contain
-      certificate information for both sides of the connection, the x509 object could
-      be nested under the respective side of the connection information (e.g. `tls.server.x509`).
+    short: These fields contain x509 certificate metadata.
   short: Fields describing files.
   title: File
   type: group
@@ -4594,7 +4500,6 @@ log:
       level: extended
       name: syslog
       normalize: []
-      object_type: keyword
       short: Syslog metadata
       type: object
     log.syslog.facility.code:
@@ -4777,7 +4682,6 @@ network:
       level: extended
       name: inner
       normalize: []
-      object_type: keyword
       short: Inner VLAN tag information
       type: object
     network.inner.vlan.id:
@@ -4937,7 +4841,6 @@ observer:
       level: extended
       name: egress
       normalize: []
-      object_type: keyword
       short: Object field for egress information
       type: object
     observer.egress.interface.alias:
@@ -5136,7 +5039,6 @@ observer:
       level: extended
       name: ingress
       normalize: []
-      object_type: keyword
       short: Object field for ingress information
       type: object
     observer.ingress.interface.alias:
@@ -7057,8 +6959,7 @@ server:
       name: number
       normalize: []
       original_fieldset: as
-      short: Unique number allocated to the autonomous system. The autonomous system
-        number (ASN) uniquely identifies each network on the Internet.
+      short: Unique number allocated to the autonomous system.
       type: long
     server.as.organization.name:
       dashed_name: server-as-organization-name
@@ -7591,8 +7492,7 @@ source:
       name: number
       normalize: []
       original_fieldset: as
-      short: Unique number allocated to the autonomous system. The autonomous system
-        number (ASN) uniquely identifies each network on the Internet.
+      short: Unique number allocated to the autonomous system.
       type: long
     source.as.organization.name:
       dashed_name: source-as-organization-name
@@ -8111,9 +8011,7 @@ tls:
       level: extended
       name: client.certificate
       normalize: []
-      short: PEM-encoded stand-alone certificate offered by the client. This is usually
-        mutually-exclusive of `client.certificate_chain` since this value also exists
-        in that list.
+      short: PEM-encoded stand-alone certificate offered by the client.
       type: keyword
     tls.client.certificate_chain:
       dashed_name: tls-client-certificate-chain
@@ -8130,8 +8028,7 @@ tls:
       normalize:
       - array
       short: Array of PEM-encoded certificates that make up the certificate chain
-        offered by the client. This is usually mutually-exclusive of `client.certificate`
-        since that value should be the first certificate in the chain.
+        offered by the client.
       type: keyword
     tls.client.hash.md5:
       dashed_name: tls-client-hash-md5
@@ -8145,8 +8042,7 @@ tls:
       name: client.hash.md5
       normalize: []
       short: Certificate fingerprint using the MD5 digest of DER-encoded version of
-        certificate offered by the client. For consistency with other hash values,
-        this value should be formatted as an uppercase hash.
+        certificate offered by the client.
       type: keyword
     tls.client.hash.sha1:
       dashed_name: tls-client-hash-sha1
@@ -8160,8 +8056,7 @@ tls:
       name: client.hash.sha1
       normalize: []
       short: Certificate fingerprint using the SHA1 digest of DER-encoded version
-        of certificate offered by the client. For consistency with other hash values,
-        this value should be formatted as an uppercase hash.
+        of certificate offered by the client.
       type: keyword
     tls.client.hash.sha256:
       dashed_name: tls-client-hash-sha256
@@ -8175,8 +8070,7 @@ tls:
       name: client.hash.sha256
       normalize: []
       short: Certificate fingerprint using the SHA256 digest of DER-encoded version
-        of certificate offered by the client. For consistency with other hash values,
-        this value should be formatted as an uppercase hash.
+        of certificate offered by the client.
       type: keyword
     tls.client.issuer:
       dashed_name: tls-client-issuer
@@ -8229,7 +8123,7 @@ tls:
     tls.client.server_name:
       dashed_name: tls-client-server-name
       description: Also called an SNI, this tells the server which hostname to which
-        the client is attempting to connect. When this value is available, it should
+        the client is attempting to connect to. When this value is available, it should
         get copied to `destination.domain`.
       example: www.elastic.co
       flat_name: tls.client.server_name
@@ -8237,9 +8131,7 @@ tls:
       level: extended
       name: client.server_name
       normalize: []
-      short: Also called an SNI, this tells the server which hostname to which the
-        client is attempting to connect. When this value is available, it should get
-        copied to `destination.domain`.
+      short: Hostname the client is trying to connect to. Also called the SNI.
       type: keyword
     tls.client.subject:
       dashed_name: tls-client-subject
@@ -8282,10 +8174,7 @@ tls:
       normalize:
       - array
       original_fieldset: x509
-      short: List of subject alternative names (SAN). Name types vary by certificate
-        authority and certificate type but commonly contain IP addresses, DNS names
-        (and wildcards), and email addresses.
-      short_description: List of subject alternative names (SAN)
+      short: List of subject alternative names (SAN).
       type: keyword
     tls.client.x509.issuer.common_name:
       dashed_name: tls-client-x509-issuer-common-name
@@ -8462,15 +8351,12 @@ tls:
       name: serial_number
       normalize: []
       original_fieldset: x509
-      short: Unique serial number issued by the certificate authority. For consistency,
-        if this value is alphanumeric, it should be formatted without colons and uppercase
-        characters.
-      short_description: Unique serial number issued by the certificate authority.
+      short: Unique serial number issued by the certificate authority.
       type: keyword
     tls.client.x509.signature_algorithm:
       dashed_name: tls-client-x509-signature-algorithm
-      description: Identifier for certificate signature algorithm. Recommend using
-        names found in Go Lang Crypto library (See https://github.com/golang/go/blob/go1.14/src/crypto/x509/x509.go#L337-L353).
+      description: Identifier for certificate signature algorithm. We recommend using
+        names found in Go Lang Crypto library. See https://github.com/golang/go/blob/go1.14/src/crypto/x509/x509.go#L337-L353.
       example: SHA256-RSA
       flat_name: tls.client.x509.signature_algorithm
       ignore_above: 1024
@@ -8478,8 +8364,7 @@ tls:
       name: signature_algorithm
       normalize: []
       original_fieldset: x509
-      short: Identifier for certificate signature algorithm. Recommend using names
-        found in Go Lang Crypto library (See https://github.com/golang/go/blob/go1.14/src/crypto/x509/x509.go#L337-L353).
+      short: Identifier for certificate signature algorithm.
       type: keyword
     tls.client.x509.subject.common_name:
       dashed_name: tls-client-x509-subject-common-name
@@ -8615,9 +8500,7 @@ tls:
       level: extended
       name: next_protocol
       normalize: []
-      short: String indicating the protocol being tunneled. Per the values in the
-        IANA registry (https://www.iana.org/assignments/tls-extensiontype-values/tls-extensiontype-values.xhtml#alpn-protocol-ids),
-        this string should be lower case.
+      short: String indicating the protocol being tunneled.
       type: keyword
     tls.resumed:
       dashed_name: tls-resumed
@@ -8641,9 +8524,7 @@ tls:
       level: extended
       name: server.certificate
       normalize: []
-      short: PEM-encoded stand-alone certificate offered by the server. This is usually
-        mutually-exclusive of `server.certificate_chain` since this value also exists
-        in that list.
+      short: PEM-encoded stand-alone certificate offered by the server.
       type: keyword
     tls.server.certificate_chain:
       dashed_name: tls-server-certificate-chain
@@ -8660,8 +8541,7 @@ tls:
       normalize:
       - array
       short: Array of PEM-encoded certificates that make up the certificate chain
-        offered by the server. This is usually mutually-exclusive of `server.certificate`
-        since that value should be the first certificate in the chain.
+        offered by the server.
       type: keyword
     tls.server.hash.md5:
       dashed_name: tls-server-hash-md5
@@ -8675,8 +8555,7 @@ tls:
       name: server.hash.md5
       normalize: []
       short: Certificate fingerprint using the MD5 digest of DER-encoded version of
-        certificate offered by the server. For consistency with other hash values,
-        this value should be formatted as an uppercase hash.
+        certificate offered by the server.
       type: keyword
     tls.server.hash.sha1:
       dashed_name: tls-server-hash-sha1
@@ -8690,8 +8569,7 @@ tls:
       name: server.hash.sha1
       normalize: []
       short: Certificate fingerprint using the SHA1 digest of DER-encoded version
-        of certificate offered by the server. For consistency with other hash values,
-        this value should be formatted as an uppercase hash.
+        of certificate offered by the server.
       type: keyword
     tls.server.hash.sha256:
       dashed_name: tls-server-hash-sha256
@@ -8705,8 +8583,7 @@ tls:
       name: server.hash.sha256
       normalize: []
       short: Certificate fingerprint using the SHA256 digest of DER-encoded version
-        of certificate offered by the server. For consistency with other hash values,
-        this value should be formatted as an uppercase hash.
+        of certificate offered by the server.
       type: keyword
     tls.server.issuer:
       dashed_name: tls-server-issuer
@@ -8779,10 +8656,7 @@ tls:
       normalize:
       - array
       original_fieldset: x509
-      short: List of subject alternative names (SAN). Name types vary by certificate
-        authority and certificate type but commonly contain IP addresses, DNS names
-        (and wildcards), and email addresses.
-      short_description: List of subject alternative names (SAN)
+      short: List of subject alternative names (SAN).
       type: keyword
     tls.server.x509.issuer.common_name:
       dashed_name: tls-server-x509-issuer-common-name
@@ -8959,15 +8833,12 @@ tls:
       name: serial_number
       normalize: []
       original_fieldset: x509
-      short: Unique serial number issued by the certificate authority. For consistency,
-        if this value is alphanumeric, it should be formatted without colons and uppercase
-        characters.
-      short_description: Unique serial number issued by the certificate authority.
+      short: Unique serial number issued by the certificate authority.
       type: keyword
     tls.server.x509.signature_algorithm:
       dashed_name: tls-server-x509-signature-algorithm
-      description: Identifier for certificate signature algorithm. Recommend using
-        names found in Go Lang Crypto library (See https://github.com/golang/go/blob/go1.14/src/crypto/x509/x509.go#L337-L353).
+      description: Identifier for certificate signature algorithm. We recommend using
+        names found in Go Lang Crypto library. See https://github.com/golang/go/blob/go1.14/src/crypto/x509/x509.go#L337-L353.
       example: SHA256-RSA
       flat_name: tls.server.x509.signature_algorithm
       ignore_above: 1024
@@ -8975,8 +8846,7 @@ tls:
       name: signature_algorithm
       normalize: []
       original_fieldset: x509
-      short: Identifier for certificate signature algorithm. Recommend using names
-        found in Go Lang Crypto library (See https://github.com/golang/go/blob/go1.14/src/crypto/x509/x509.go#L337-L353).
+      short: Identifier for certificate signature algorithm.
       type: keyword
     tls.server.x509.subject.common_name:
       dashed_name: tls-server-x509-subject-common-name
@@ -9110,24 +8980,10 @@ tls:
   reused_here:
   - full: tls.client.x509
     schema_name: x509
-    short: This implements the common core fields for x509 certificates. This information
-      is likely logged with TLS sessions, digital signatures found in executable binaries,
-      S/MIME information in email bodies, or analysis of files on disk. When only
-      a single certificate is logged in an event, it should be nested under `file`.
-      When hashes of the DER-encoded certificate are available, the `hash` data set
-      should be populated as well (e.g. `file.hash.sha256`). For events that contain
-      certificate information for both sides of the connection, the x509 object could
-      be nested under the respective side of the connection information (e.g. `tls.server.x509`).
+    short: These fields contain x509 certificate metadata.
   - full: tls.server.x509
     schema_name: x509
-    short: This implements the common core fields for x509 certificates. This information
-      is likely logged with TLS sessions, digital signatures found in executable binaries,
-      S/MIME information in email bodies, or analysis of files on disk. When only
-      a single certificate is logged in an event, it should be nested under `file`.
-      When hashes of the DER-encoded certificate are available, the `hash` data set
-      should be populated as well (e.g. `file.hash.sha256`). For events that contain
-      certificate information for both sides of the connection, the x509 object could
-      be nested under the respective side of the connection information (e.g. `tls.server.x509`).
+    short: These fields contain x509 certificate metadata.
   short: Fields describing a TLS connection.
   title: TLS
   type: group
@@ -9137,6 +8993,20 @@ tracing:
     of the requests - from the initial web request in the front-end service - to queries
     made through multiple back-end services.
   fields:
+    span.id:
+      dashed_name: span-id
+      description: 'Unique identifier of the span within the scope of its trace.
+
+        A span represents an operation within a transaction, such as a request to
+        another service, or a database query.'
+      example: 3ff9a8981b7ccd5a
+      flat_name: span.id
+      ignore_above: 1024
+      level: extended
+      name: span.id
+      normalize: []
+      short: Unique identifier of the span within the scope of its trace.
+      type: keyword
     trace.id:
       dashed_name: trace-id
       description: 'Unique identifier of the trace.
@@ -9153,7 +9023,7 @@ tracing:
       type: keyword
     transaction.id:
       dashed_name: transaction-id
-      description: 'Unique identifier of the transaction.
+      description: 'Unique identifier of the transaction within the scope of its trace.
 
         A transaction is the highest level of work measured within a service, such
         as a request to a server.'
@@ -9163,7 +9033,7 @@ tracing:
       level: extended
       name: transaction.id
       normalize: []
-      short: Unique identifier of the transaction.
+      short: Unique identifier of the transaction within the scope of its trace.
       type: keyword
   group: 2
   name: tracing
@@ -9936,10 +9806,7 @@ x509:
       name: alternative_names
       normalize:
       - array
-      short: List of subject alternative names (SAN). Name types vary by certificate
-        authority and certificate type but commonly contain IP addresses, DNS names
-        (and wildcards), and email addresses.
-      short_description: List of subject alternative names (SAN)
+      short: List of subject alternative names (SAN).
       type: keyword
     x509.issuer.common_name:
       dashed_name: x509-issuer-common-name
@@ -10102,23 +9969,19 @@ x509:
       level: extended
       name: serial_number
       normalize: []
-      short: Unique serial number issued by the certificate authority. For consistency,
-        if this value is alphanumeric, it should be formatted without colons and uppercase
-        characters.
-      short_description: Unique serial number issued by the certificate authority.
+      short: Unique serial number issued by the certificate authority.
       type: keyword
     x509.signature_algorithm:
       dashed_name: x509-signature-algorithm
-      description: Identifier for certificate signature algorithm. Recommend using
-        names found in Go Lang Crypto library (See https://github.com/golang/go/blob/go1.14/src/crypto/x509/x509.go#L337-L353).
+      description: Identifier for certificate signature algorithm. We recommend using
+        names found in Go Lang Crypto library. See https://github.com/golang/go/blob/go1.14/src/crypto/x509/x509.go#L337-L353.
       example: SHA256-RSA
       flat_name: x509.signature_algorithm
       ignore_above: 1024
       level: extended
       name: signature_algorithm
       normalize: []
-      short: Identifier for certificate signature algorithm. Recommend using names
-        found in Go Lang Crypto library (See https://github.com/golang/go/blob/go1.14/src/crypto/x509/x509.go#L337-L353).
+      short: Identifier for certificate signature algorithm.
       type: keyword
     x509.subject.common_name:
       dashed_name: x509-subject-common-name
@@ -10228,14 +10091,6 @@ x509:
       at: tls.server
       full: tls.server.x509
     top_level: false
-  short: This implements the common core fields for x509 certificates. This information
-    is likely logged with TLS sessions, digital signatures found in executable binaries,
-    S/MIME information in email bodies, or analysis of files on disk. When only a
-    single certificate is logged in an event, it should be nested under `file`. When
-    hashes of the DER-encoded certificate are available, the `hash` data set should
-    be populated as well (e.g. `file.hash.sha256`). For events that contain certificate
-    information for both sides of the connection, the x509 object could be nested
-    under the respective side of the connection information (e.g. `tls.server.x509`).
-  short_description: These fields contain x509 certificate metadata.
+  short: These fields contain x509 certificate metadata.
   title: x509 Certificate
   type: group
