@@ -116,7 +116,8 @@ class TestSchemaSubsetFilter(unittest.TestCase):
                     'origin': {
                         'field_details': {
                             'name': 'origin',
-                            'intermediate': True
+                            'intermediate': True,
+                            'type': 'object'
                         },
                         'fields': {
                             'function': {
@@ -156,7 +157,8 @@ class TestSchemaSubsetFilter(unittest.TestCase):
                     'origin': {
                         'field_details': {
                             'name': 'origin',
-                            'intermediate': True
+                            'intermediate': True,
+                            'type': 'object'
                         },
                         'fields': {
                             'function': {
@@ -192,7 +194,8 @@ class TestSchemaSubsetFilter(unittest.TestCase):
                     'origin': {
                         'field_details': {
                             'name': 'origin',
-                            'intermediate': True
+                            'intermediate': True,
+                            'type': 'object'
                         },
                         'fields': {
                             'function': {
@@ -244,9 +247,17 @@ class TestSchemaSubsetFilter(unittest.TestCase):
                     },
                     'origin': {
                         'field_details': {
+                            # This field is changed by the subset_filter from an intermediate field to non-intermediate by adding
+                            # a custom option, so the subset_filter is responsible for filling in more field_detail attributes
                             'name': 'origin',
                             'intermediate': False,
-                            'custom_option': False
+                            'custom_option': False,
+                            'description': 'Intermediate field included by adding option with subset',
+                            'level': 'custom',
+                            'type': 'object',
+                            'short': 'Intermediate field included by adding option with subset',
+                            'normalize': [],
+                            'object_type': 'keyword'
                         },
                         'fields': {
                             'function': {

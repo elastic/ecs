@@ -20,6 +20,7 @@ def filter(fields, subset_file_globs, out_dir):
 
     return fields
 
+
 def combine_all_subsets(subsets):
     '''Merges N subsets into one. Strips top level 'name' and 'fields' keys as well as non-ECS field options since we can't know how to merge those.'''
     merged_subset = {}
@@ -103,7 +104,8 @@ def extract_matching_fields(fields, subset_definitions):
             if option != 'fields':
                 if 'intermediate' in retained_fields[key]['field_details']:
                     retained_fields[key]['field_details']['intermediate'] = False
-                    retained_fields[key]['field_details'].setdefault('description', 'Intermediate field included by adding option with subset')
+                    retained_fields[key]['field_details'].setdefault(
+                        'description', 'Intermediate field included by adding option with subset')
                     retained_fields[key]['field_details']['level'] = 'custom'
                     cleaner.field_cleanup(retained_fields[key])
                 retained_fields[key]['field_details'][option] = val[option]

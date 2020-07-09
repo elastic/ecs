@@ -55,7 +55,6 @@ def main():
     if args.include or args.subset:
         exit()
 
-    
     asciidoc_fields.generate(nested, ecs_version, docs_dir)
 
 
