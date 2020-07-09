@@ -43,25 +43,19 @@ def main():
     fields = loader.load_schemas(ref=args.ref, included_files=args.include)
     cleaner.clean(fields)
     finalizer.finalize(fields)
-    subsets = subset_filter.load_subset_definitions(args.subset)
-    for subset in subsets:
-        subfields = subset_filter.extract_matching_fields(fields, subset['fields'])
-        intermediate_files.generate(subfields, os.path.join(out_dir, 'ecs', 'subset', subset['name']), default_dirs)
-
-    merged_subset = subset_filter.combine_all_subsets(subsets)
-    if merged_subset:
-        fields = subset_filter.extract_matching_fields(fields, merged_subset)
-
+    fields = subset_filter.filter(fields, args.subset, out_dir)
     nested, flat = intermediate_files.generate(fields, os.path.join(out_dir, 'ecs'), default_dirs)
+
     if args.intermediate_only:
         exit()
 
+    csv_generator.generate(flat, ecs_version, out_dir)
     es_template.generate(flat, ecs_version, out_dir, args.template_settings, args.mapping_settings)
     beats.generate(nested, ecs_version, out_dir)
     if args.include or args.subset:
         exit()
 
-    csv_generator.generate(flat, ecs_version, out_dir)
+    
     asciidoc_fields.generate(nested, ecs_version, docs_dir)
 
 

@@ -1,10 +1,24 @@
 import glob
 import yaml
-import copy
+import os
+from generators import intermediate_files
+from schema import cleaner
 
 # This script takes all ECS and custom fields already loaded, and lets users
 # filter out the ones they don't need.
 
+
+def filter(fields, subset_file_globs, out_dir):
+    subsets = load_subset_definitions(subset_file_globs)
+    for subset in subsets:
+        subfields = extract_matching_fields(fields, subset['fields'])
+        intermediate_files.generate(subfields, os.path.join(out_dir, 'ecs', 'subset', subset['name']), False)
+
+    merged_subset = combine_all_subsets(subsets)
+    if merged_subset:
+        fields = extract_matching_fields(fields, merged_subset)
+
+    return fields
 
 def combine_all_subsets(subsets):
     '''Merges N subsets into one. Strips top level 'name' and 'fields' keys as well as non-ECS field options since we can't know how to merge those.'''
@@ -89,6 +103,9 @@ def extract_matching_fields(fields, subset_definitions):
             if option != 'fields':
                 if 'intermediate' in retained_fields[key]['field_details']:
                     retained_fields[key]['field_details']['intermediate'] = False
+                    retained_fields[key]['field_details']['description'] = 'Intermediate field included by adding option with subset'
+                    retained_fields[key]['field_details']['level'] = 'custom'
+                    cleaner.field_cleanup(retained_fields[key])
                 retained_fields[key]['field_details'][option] = val[option]
         # If the field in the schema has a 'fields' key, we expect a 'fields' key in the subset
         if 'fields' in fields[key]:
