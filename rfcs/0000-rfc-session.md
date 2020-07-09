@@ -22,6 +22,7 @@ This RFC calls for the addition of session fields to describe events related to 
 
 
 ## Fields (yaml)
+```yaml
 ---
 - name: session
   title: Session
@@ -31,7 +32,7 @@ This RFC calls for the addition of session fields to describe events related to 
     These fields contain information about various types of user sessions typically reported & logged in an enterprise.
     When available, session start/end or duration fields should be populated, as well as iam, user, network, host, observer,
     process, source, destination, client, and server fields as appropriate.
-    
+
   type: group
 
   fields:
@@ -56,22 +57,23 @@ This RFC calls for the addition of session fields to describe events related to 
       level: extended
       type: Logical session type
       description: Session type describes the interaction/access provided.  Initial values include system (shell or desktop), virtual (VDI), application (web, ftp, etc.), wired (nac, 802.1x), wireless (wpa/.1x), or vpn (ipsec, ssl, etc). Note that actual aaa mechanism (system, domain, wpa, 802.1x) does not indicate a specific session type.
-      
+
       example: wireless
 
     - name: name
       level: extended
       type: Session Name
-      description: The name field is meant to contain a locally significant identifier for the session as configured. This could represent a VPN group name, a wireless network name (ssid), a wired network segment, VDI service name, or application identifier. 
-      
+      description: The name field is meant to contain a locally significant identifier for the session as configured. This could represent a VPN group name, a wireless network name (ssid), a wired network segment, VDI service name, or application identifier.
+
       example: HQ-Wireless
 
     - name: id
       level: extended
       type: Session id
       description: The id field is meant to contain a locall significant identifier for the session as provided by the observer or host reporting the session.  If no id is provided this field can remain blank, or a hash function similar to network.community_id can be used to discretely identify sessions from unique values.
-      
+
       example: 7635344
+```
 <!--
 Stage: 1: Describe at a high level how this change affects fields. Which fieldsets will be impacted? How many fields overall? Are we primarily adding fields, removing fields, or changing existing fields? The goal here is to understand the fundamental technical implications and likely extent of these changes. ~2-5 sentences.
 -->
@@ -94,7 +96,7 @@ Session fields are used to describe the sesison attributes of:
  - administrative sessions on infrastructure devices
  - administrative sessions on cloud or application management portals
  - applications sessions (e.g. sql server odbc session, application access session)
- 
+
 
 ## Source data
 Source data expectations include:
