@@ -103,7 +103,7 @@ The following options add functionality beyond the defaults.
 
 #### Out
 
-Generate the ECS artifacts in a different output directory. The argument expects to be passed an existing directory:
+Generate the ECS artifacts in a different output directory. If the specified directory doesn't exist, it will be created:
 
 ```
 $ python scripts/generator.py --out ../myproject/ecs/out/
