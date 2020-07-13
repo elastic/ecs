@@ -2,6 +2,7 @@ import argparse
 import glob
 import os
 import yaml
+import time
 
 from generators import asciidoc_fields
 from generators import beats
@@ -22,15 +23,6 @@ def main():
     ecs_version = read_version(args.ref)
     print('Running generator. ECS version ' + ecs_version)
 
-    # To debug issues in the gradual building up of the nested structure, insert
-    # statements like this after any step of interest.
-    # ecs_helpers.yaml_dump('ecs.yml', fields)
-
-    fields = loader.load_schemas(ref=args.ref, included_files=args.include)
-    cleaner.clean(fields)
-    finalizer.finalize(fields)
-    fields = subset_filter.filter(fields, args.subset)
-
     # default location to save files
     out_dir = 'generated'
     docs_dir = 'docs'
@@ -44,7 +36,16 @@ def main():
     ecs_helpers.make_dirs(out_dir)
     ecs_helpers.make_dirs(docs_dir)
 
-    nested, flat = intermediate_files.generate(fields, out_dir, default_dirs)
+    # To debug issues in the gradual building up of the nested structure, insert
+    # statements like this after any step of interest.
+    # ecs_helpers.yaml_dump('ecs.yml', fields)
+
+    fields = loader.load_schemas(ref=args.ref, included_files=args.include)
+    cleaner.clean(fields)
+    finalizer.finalize(fields)
+    fields = subset_filter.filter(fields, args.subset, out_dir)
+    nested, flat = intermediate_files.generate(fields, os.path.join(out_dir, 'ecs'), default_dirs)
+
     if args.intermediate_only:
         exit()
 

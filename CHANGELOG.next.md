@@ -61,6 +61,7 @@ Thanks, you're awesome :-) -->
 * Removed the `order` attribute from the `ecs_nested.yml` and `ecs_flat.yml` files. #811
 * In `ecs_nested.yml`, the array of strings that used to be in `reusable.expected`
   has been replaced by an array of objects with 3 keys: 'as', 'at' and 'full'. #864
+* The subset format now requires `name` and `fields` keys at the top level. #873
 
 #### Bugfixes
 
@@ -98,6 +99,8 @@ Thanks, you're awesome :-) -->
   representation of the fields. This file is not in git, as it's only meant for
   developers working on the ECS tools. #864
 * Jinja2 templates now define the doc structure for the AsciiDoc generator. #865
+* Intermediate `ecs_flat.yml` and `ecs_nested.yml` files are now generated for each individual subset,
+  in addition to the intermediate files generated for the combined subset. #873
 
 #### Deprecated
 
