@@ -116,7 +116,7 @@ Inside the directory passed in as the target dir to the `--out` flag, two direct
 Use the `--include` flag to generate ECS artifacts based on the current ECS schema field definitions plus provided custom fields:
 
 ```
-$ python scripts/generator.py --out ../myproject/ecs/custom-fields/
+$ python scripts/generator.py --include ../myproject/ecs/custom-fields/
 ```
 
 The `--include` flag expects a directory of schema YAML files using the same [file format](https://github.com/elastic/ecs/tree/master/schemas#fields-supported-in-schemasyml) as the ECS schema files. This is useful for maintaining custom field definitions that are _outside_ of the ECS schema, but allows for merging the custom fields with the official ECS fields for your deployment.
