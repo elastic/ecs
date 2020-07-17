@@ -1,0 +1,191 @@
+[[ecs-getting-started]]
+=== Getting Started
+
+Getting started adopting ECS requires two steps. First, normalizing your data sources to align
+with the ECS field sets, and then familiarizing yourself with those fields for querying
+and aggregating your data. Let's take a look at how an event's contents maps to the ECS field
+sets and how using a common schema for your data can simplify the search experience.
+
+
+[float]
+==== Translating Data Sources
+
+In order for events to align to ECS, some sort of parsing will usually be necessary
+to translate the contents of an event into the proper fields. Depending on how you've
+designed your Elastic Stack data ingestion pipelines, the amount of work to parse your
+events will vary.
+
+For example, an Apache web server log event:
+
+[source,sh]
+-----------
+10.42.42.42 - - [15/Jul/2020:20:48:32 +0000] "GET /content HTTP/1.1" 200 2571 "-"
+"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko)
+Chrome/83.0.4103.106 Safari/537.36"
+-----------
+
+In order to map this event to ECS, the contents of the event is associated with the
+appropriate field within the schema.
+
+[options="header"]
+|=====
+| Field Name | Value
+
+// ===============================================================
+
+| @timestamp
+|  `2020-07-15T20:20:48.000Z`
+
+// ===============================================================
+
+| ecs.version
+| 1.5.0
+
+// ===============================================================
+
+| event.category
+| web
+
+// ===============================================================
+
+| event.category
+| access
+
+// ===============================================================
+
+| event.dataset
+| apache.access
+
+// ==============================================================
+
+| event.kind
+| event
+
+// ==============================================================
+
+| event.module
+| apache
+
+// ==============================================================
+
+| event.outcome
+| success
+
+// ==============================================================
+
+| http.request.method
+| GET
+
+// ==============================================================
+
+| http.response.body.bytes
+| 2571
+
+// ==============================================================
+
+| http.response.status_code
+| 200
+
+// ==============================================================
+
+| http.version
+| 1.1
+
+// ==============================================================
+
+| source.address
+| 10.42.42.42
+
+// ==============================================================
+
+| source.ip
+| 10.42.42.42
+
+// ==============================================================
+
+| url.original
+| `/content`
+
+// ==============================================================
+
+| user_agent.device.name
+| Other
+
+// ==============================================================
+
+| user_agent.name
+| Chrome
+
+// ==============================================================
+
+| user_agent.original
+| `Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.106 Safari/537.36`
+
+// ==============================================================
+
+| user_agent.os.full
+| Mac OS X 10.15.4
+
+// ==============================================================
+
+| user_agent.os_name
+| Mac OS X
+
+// ==============================================================
+
+| user_agent.os.version
+| 10.15.4
+
+// ==============================================================
+
+| user_agent.os.version
+| 83.0.4103.106
+
+|=====
+
+Some items to note on the mapping example:
+
+* As many ECS fields as possible are mapped from the original event
+* Several `event` fields are populated based on ECS categorization
+* The raw log is preserved in the `event.original` field
+* For the simplicity of this example some field sets such as `agent.*`
+  and `host.*` have been omitted.
+
+
+[float]
+==== Simplified Search
+
+With ECS defining a normalized schema across all of your data sources, querying
+against those sources is simplified. Consider searching for a particular source IP
+address prior to adopting ECS. All the various data sources and their field mappings
+would need to be considered in your query:
+
+[source,sh]
+-----------
+src:10.42.42.42 OR client_ip:10.42.42.42 OR apache.access.remote_ip:10.42.42.42 OR
+context.user.ip:10.42.42.42 OR src_ip:10.42.42.42
+-----------
+
+With all sources mapped to ECS, the query becomes much simpler:
+
+[source,sh]
+-----------
+source.ip:10.42.42.42
+-----------
+
+Not only does this simplify writing queries, but any saved or shared queries between
+users become much more obvious. Any unfamiliar fields that align with ECS can also
+be reviewed in the <<ecs-field-reference>> to gain better understanding.
+
+[float]
+==== Unified Visualizations
+
+With normalized data from different data sources, building insightful visualizations
+across sources is also greatly simplified. From a single, centralized dashboard, events
+from web servers, IDS/IPS devices, and firewalls can be aggregated, visualized, provides
+drill-down, and then pivoted from into deeper investigations. Centralized monitoring of
+diverse data sources has been greatly simplified normalizing to ECS.
+
+[role="screenshot"]
+image:images/ecs-getting-started-dashboard.png[Simplify visualization using ECS]
+
