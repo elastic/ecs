@@ -8,10 +8,11 @@
 Stage 0: Provide a high level summary of the premise of these changes. Briefly describe the nature, purpose, and impact of the changes. ~2-5 sentences.
 -->
 
-Wildcard is a data type for Elasticsearch string fields being introduced in Elastic 7.9.0. Wildcard is optimized for improved performance on wildcard `grep`-like queries on string data without the limitations of the text[0] and keyword[1] types.
+Wildcard is a data type for Elasticsearch string fields being introduced in Elastic 7.9.0. Wildcard optimizes performance for queries using the wildcard (`*`) character to perform `grep`-like searches but without the limitations of the existing
+text[0] and keyword[1] types.
 
-Candidate fields will be identified based on the fields which will benefit most from the performance gains with additional input from ECS committee members and other Elastic subject matter experts. The impact on ECS will be updating identified data
-types from `keyword` to `wildcard` in the schema definitions for the candidate fields.
+Candidate fields for wildcard will be selected based on input from ECS committee members, other Elastic subject matter experts, and which fields will benefit most from the performance improvements. When adopted data sources populating those fields will need
+to update their mappings to support wildcard to remain ECS compliant.
 
 ## Fields
 
@@ -19,13 +20,35 @@ types from `keyword` to `wildcard` in the schema definitions for the candidate f
 Stage: 1: Describe at a high level how this change affects fields. Which fieldsets will be impacted? How many fields overall? Are we primarily adding fields, removing fields, or changing existing fields? The goal here is to understand the fundamental technical implications and likely extent of these changes. ~2-5 sentences.
 -->
 
-<!--
-Stage 2: Include new or updated yml field definitions for all of the essential fields in this draft. While not exhaustive, the fields documented here should be comprehensive enough to deeply evaluate the technical considerations of this change. The goal here is to validate the technical details for all essential fields and to provide a basis for adding experimental field definitions to the schema. Use GitHub code blocks with yml syntax formatting.
--->
+Adopting wildcard in a field will require changing the defined `type` in the schema from `keyword` to `wildcard`. One example is provided for this initial proposal as an example; a later stage proposal will include the entire list of proposed fields.
 
-<!--
-Stage 3: Add or update all remaining field definitions. The list should now be exhaustive. The goal here is to validate the technical details of all remaining fields and to provide a basis for releasing these field definitions as beta in the schema. Use GitHub code blocks with yml syntax formatting.
--->
+Current definition as of ECS 1.5.0:
+
+```yaml
+    - name: command_line
+      level: extended
+      type: keyword
+      short: Full command line that started the process.
+...
+      multi_fields:
+      - type: text
+        name: text
+```
+
+Proposed type change:
+
+```yaml
+    - name: command_line
+      level: extended
+      type: wildcard
+      short: Full command line that started the process.
+...
+      multi_fields:
+      - type: text
+        name: text
+```
+
+Note the existing `text` data type multi-field will remain to support tokenized searches.
 
 ## Usage
 
@@ -33,19 +56,50 @@ Stage 3: Add or update all remaining field definitions. The list should now be e
 Stage 1: Describe at a high-level how these field changes will be used in practice. Real world examples are encouraged. The goal here is to understand how people would leverage these fields to gain insights or solve problems. ~1-3 paragraphs.
 -->
 
+Many use cases benefit from wildcard search performance across long unstructured or semi-structured fields. Particularly in the security threat hunting and detection disciplines, reliable and efficient wildcard usage is a requirement from users. The following
+sections list common use cases which would benefit from improved wildcard searching.
+
+#### Paths and names
+
+Searching across various permutations of various file system and URL structures to find a particular file, path, or other resource. Leading wildcard searches on these fields may be necessary to users, but (as keywords) are known to produce very poor search performance
+(e.g. let's search for all instances of a known file without an unknown path: `file.path:*syslog.log`).
+
+Example data categories:
+
+* File paths
+* URLs
+* Usernames
+* User agent
+* Process names
+* Email addresses
+* OS names
+* Domain names
+* Host names
+* Registry data
+
+#### Stack traces
+
+Program stack traces tend to be well-structured but with long text and varied contents. There are too many subtleties and application-specific patterns to map all of them accurately with ECS' field definitions. Better performing wildcard searches can help the user formulate their own queries easier and with a smaller performance hit.
+
+### Command-line execution
+
+Full command-line events often have a series of options or flags which may appear in any arbitrary order. Wildcard searches are often required to successfully identify events regardless of the ordering.
+
 ## Source data
 
 <!--
 Stage 1: Provide a high-level description of example sources of data. This does not yet need to be a concrete example of a source document, but instead can simply describe a potential source (e.g. nginx access log). This will ultimately be fleshed out to include literal source examples in a future stage. The goal here is to identify practical sources for these fields in the real world. ~1-3 sentences or unordered list.
 -->
 
-<!--
-Stage 2: Included a real world example source document. Ideally this example comes from the source(s) identified in stage 1. If not, it should replace them. The goal here is to validate the utility of these field changes in the context of a real world example. Format with the source name as a ### header and the example document in a GitHub code block with json formatting.
--->
+* Windows events
+* Sysmon events
+* Powershell events
+* Web proxies
+* Firewalls
+* DNS servers
+* Endpoint agents
+* Application stack traces
 
-<!--
-Stage 3: Add more real world example source documents so we have at least 2 total, but ideally 3. Format as described in stage 2.
--->
 
 ## Scope of impact
 
@@ -57,29 +111,31 @@ Stage 2: Identifies scope of impact of changes. Are breaking changes required? S
 The goal here is to research and understand the impact of these changes on users in the community and development teams across Elastic. 2-5 sentences each.
 -->
 
+ECS-compliant data consumers should not be impacted due to the `keyword` field family[2], however ECS-compliant producers will be required for their field mappings to use `wildcard` where defined by the spec. The ECS project will need to evaluate how best to
+evolve its tooling to support `wildcard`; wildcard will be the first time a Elastic licensed feature is specified in ECS.
+
+### Ingestion
+
+Any component producing data (Beats, Logstash, third-party developed, etc.) will need to comply with the new mappings.
+
+### Usage
+
+Part of the 7.9 release is the introduction of the first field family[2], `keyword`. Grouping field types by family is intended to eliminate backwards compatibility issues when replacing an old field with a new specialized type on time-based indices (e.g. `keyword` replaced
+with `wildcard`). The `wildcard` data type will return `keyword` in the output of the field capabilities API call, and this change will enable both types to behave identically at query time. This feature eliminates concerns arising from Kibana's field compatibility checks
+in index patterns.
+
+### ECS project
+
+ECS is and will remain an open source licensed project. However, there will be features available under the Elastic license that will benefit the user experience with the Elastic stack and solutions that have a place in the ECS specification. The ECS project's tooling will
+create an option in the tooling to generate OSS compatible mappings that continue supporting the OSS licensed features of Elastic.
+
 ## Concerns
 
 <!--
 Stage 1: Identify potential concerns, implementation challenges, or complexity. Spend some time on this. Play devil's advocate. Try to identify the sort of non-obvious challenges that tend to surface later. The goal here is to surface risks early, allow everyone the time to work through them, and ultimately document resolution for posterity's sake.
 -->
 
-<!--
-Stage 2: Document new concerns or resolutions to previously listed concerns. It's not critical that all concerns have resolutions at this point, but it would be helpful if resolutions were taking shape for the most significant concerns.
--->
-
-<!--
-Stage 3: Document resolutions for all existing concerns. Any new concerns should be documented along with their resolution. The goal here is to eliminate the risk of churn and instability by resolving outstanding concerns.
--->
-
-<!--
-Stage 4: Document any new concerns and their resolution. The goal here is to eliminate risk of churn and instability by ensuring all concerns have been addressed.
--->
-
-## Real-world implementations
-
-<!--
-Stage 4: Identify at least one real-world, production-ready implementation that uses these updated field definitions. An example of this might be a GA feature in an Elastic application in Kibana.
--->
+As mentioned previously in the proposal, integrating the wildcard data type into ECS will be the first instance of a Elastic licensed feature being adopted by the schema. Until now ECS has relied only on OSS license features, but we do not want to limit ECS from support Elastic licensed features moving forward. ECS will remained OSS license even if the schema implements certain Elastic licensed features. When ECS adopts a feature available only under a license, it will be noted in the documentation.
 
 ## People
 
@@ -87,19 +143,8 @@ The following are the people that consulted on the contents of this RFC.
 
 * @ebeahan | author
 
-<!--
-Who will be or has consulted on the contents of this RFC? Identify authorship and sponsorship, and optionally identify the nature of involvement of others. Link to GitHub aliases where possible. This list will likely change or grow stage after stage.
-
-e.g.:
-
-* @Yasmina | author
-* @Monique | sponsor
-* @EunJung | subject matter expert
-* @JaneDoe | grammar, spelling, prose
-* @Mariana
--->
-
 ## Footnotes
 
 * [0] Wildcard queries on `text` fields are limited to matching individual tokens rather than the original value of the field.
 * [1] Keyword fields do not suffer from the tokening problems of `text` fields, but can suffer from slow performance with wildcard searching (especially with leading wildcards).
+* [2] https://github.com/elastic/elasticsearch/pull/58483
