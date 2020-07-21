@@ -1,19 +1,19 @@
 [[ecs-getting-started]]
 === Getting Started
 
-Getting started adopting ECS requires two steps. First, normalizing your data sources to align
+Adopting ECS is a two-step process. First, normalizing your data sources to align
 with the ECS field sets, and then familiarizing yourself with those fields for querying
-and aggregating your data. Let's take a look at how an event's contents maps to the ECS field
-sets and how using a common schema for your data can simplify the search experience.
+and aggregating your data. Let's take a look at how an event's contents can be mapped to
+ECS field sets, and how using a common schema for your data can simplify the search experience.
 
 
 [float]
 ==== Translating Data Sources
 
-In order for events to align to ECS, some sort of parsing will usually be necessary
-to translate the contents of an event into the proper fields. Depending on how you've
-designed your Elastic Stack data ingestion pipelines, the amount of work to parse your
-events will vary.
+To align events to ECS, some sort of parsing will usually be necessary
+to transform the contents of the original event into the relevant ECS fields. Depending on
+how you've designed your Elastic Stack data ingestion pipelines, the amount of work to parse
+your events will vary.
 
 For example, an Apache web server log event:
 
@@ -25,7 +25,7 @@ Chrome/83.0.4103.106 Safari/537.36"
 -----------
 
 In order to map this event to ECS, the contents of the event is associated with the
-appropriate field within the schema.
+appropriate ECS fields.
 
 [options="header"]
 |=====
@@ -143,13 +143,13 @@ appropriate field within the schema.
 
 |=====
 
-Some items to note on the mapping example:
+Some items to note about this mapping example:
 
 * As many ECS fields as possible are mapped from the original event
 * Several `event` fields are populated based on ECS categorization
 * The raw log is preserved in the `event.original` field
-* For the simplicity of this example some field sets such as `agent.*`
-  and `host.*` have been omitted.
+* For the simplicity of this example some field sets, such as `agent.*`
+  and `host.*`, have been omitted.
 
 
 [float]
@@ -173,18 +173,18 @@ With all sources mapped to ECS, the query becomes much simpler:
 source.ip:10.42.42.42
 -----------
 
-Not only does this simplify writing queries, but any saved or shared queries between
-users become much more obvious. Any unfamiliar fields that align with ECS can also
-be reviewed in the <<ecs-field-reference>> to gain better understanding.
+Not only does this simplify writing queries, but saved queries shared with other
+users become much more obvious. To gain familiarity with ECS fields, you can also
+take a look at the <<ecs-field-reference>> section.
 
 [float]
 ==== Unified Visualizations
 
 With normalized data from different data sources, building insightful visualizations
-across sources is also greatly simplified. From a single, centralized dashboard, events
-from web servers, IDS/IPS devices, and firewalls can be aggregated, visualized, provides
-drill-down, and then pivoted from into deeper investigations. Centralized monitoring of
-diverse data sources has been greatly simplified normalizing to ECS.
+across sources is simple. From a single, centralized dashboard, events from web servers,
+IDS/IPS devices, and firewalls can be aggregated and visualized, and enhanced with drill-downs,
+and pivoting for delving into deeper investigations. Centralized monitoring of diverse data
+sources is straightforward with normalized ECS data.
 
 [role="screenshot"]
 image:images/ecs-getting-started-dashboard.png[Simplify visualization using ECS]
