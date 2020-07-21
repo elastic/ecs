@@ -140,7 +140,7 @@ The goal here is to research and understand the impact of these changes on users
 
  * Beats (Filebeat, Metricbeat, Heartbeat...) document in their configuration files (filebeat.yml...) an alternate non standardizable field `fields.env` illustrated with the demo value `staging`.
 
- Example with filebeat.yml
+   Example with filebeat.yml
 
  ```yaml
 # Optional fields that you can specify to add additional information to the
@@ -153,6 +153,11 @@ The goal here is to research and understand the impact of these changes on users
     * Reuse the naming `service.environment` already used by APM
     * Most events can eventually be attached to a `service`
 
+ * This topic has already been discussed multiple times
+    * https://github.com/elastic/ecs/issues/268 Add new top level field "environment" #268
+    * https://github.com/elastic/ecs/issues/704 New field: organization.environment #704
+    * https://github.com/elastic/ecs/issues/143 agent.environment and service.environment #143
+ 
 <!--
 Stage 1: Identify potential concerns, implementation challenges, or complexity. Spend some time on this. Play devil's advocate. Try to identify the sort of non-obvious challenges that tend to surface later. The goal here is to surface risks early, allow everyone the time to work through them, and ultimately document resolution for posterity's sake.
 -->
