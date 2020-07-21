@@ -48,7 +48,7 @@ Proposed type change:
         name: text
 ```
 
-Note the existing `text` data type multi-field will remain to support tokenized searches.
+Note the existing `text` data type multi-field will remain only if there is a need to support tokenized searches.
 
 ## Usage
 
@@ -135,7 +135,7 @@ create an option in the tooling to generate OSS compatible mappings that continu
 Stage 1: Identify potential concerns, implementation challenges, or complexity. Spend some time on this. Play devil's advocate. Try to identify the sort of non-obvious challenges that tend to surface later. The goal here is to surface risks early, allow everyone the time to work through them, and ultimately document resolution for posterity's sake.
 -->
 
-As mentioned previously in the proposal, integrating the wildcard data type into ECS will be the first instance of a Elastic licensed feature being adopted by the schema. Until now ECS has relied only on OSS license features, but we do not want to limit ECS from support Elastic licensed features moving forward. ECS will remained OSS license even if the schema implements certain Elastic licensed features. When ECS adopts a feature available only under a license, it will be noted in the documentation.
+As mentioned previously in the proposal, integrating the wildcard data type into ECS will be the first instance of an Elastic licensed feature being adopted by the schema. Until now ECS has relied only on OSS licensed features, but we do not want to limit ECS from supporting Elastic licensed features moving forward. ECS will remain OSS licensed even if the schema implements certain Elastic licensed features. When ECS adopts a feature available only under a license, it will be noted in the documentation.
 
 ## People
 
@@ -146,5 +146,5 @@ The following are the people that consulted on the contents of this RFC.
 ## Footnotes
 
 * [0] Wildcard queries on `text` fields are limited to matching individual tokens rather than the original value of the field.
-* [1] Keyword fields do not suffer from the tokening problems of `text` fields, but can suffer from slow performance with wildcard searching (especially with leading wildcards).
+* [1] Keyword fields are not tokenized like `text` fields, so patterns can match multiple words. However they suffer from slow performance with wildcard searching (especially with leading wildcards).
 * [2] https://github.com/elastic/elasticsearch/pull/58483
