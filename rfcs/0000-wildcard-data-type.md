@@ -141,7 +141,7 @@ As mentioned previously in the proposal, integrating the wildcard data type into
 
 The following are the people that consulted on the contents of this RFC.
 
-* @ebeahan | author
+* @ebeahan | author, sponsor
 
 ## Footnotes
 
