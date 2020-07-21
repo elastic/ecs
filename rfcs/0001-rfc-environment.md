@@ -63,7 +63,7 @@ Stage 3: Add or update all remaining field definitions. The list should now be e
 Stage 1: Describe at a high-level how these field changes will be used in practice. Real world examples are encouraged. The goal here is to understand how people would leverage these fields to gain insights or solve problems. ~1-3 paragraphs.
 -->
 
-`service.environment` will typically be used as a "static attribute" defined in the configuration of the collector (Filebeat, Metricbeat, APM, Auditbeat...).
+`service.environment` will typically be used as a "static field" defined in the configuration of the collector (Filebeat, Metricbeat, APM, Auditbeat...).
 
 Note that all the Beats come with an alternative non standard field example `fields.env` (see filebeat.yml, metricbeat.yml or auditbeat.yml) and APM use the variable `-Delastic.apm.environment`
 
@@ -87,7 +87,7 @@ java -javaagent:/path/to/elastic-apm-agent-<version>.jar \
 ### Filebeat.yml
 
 
-Note: we may want to improve the configuration of Beats to not require to define a processor to specify `service.environment`, similarly to the existing solution to define `fields.*` attributes.
+Note: we may want to improve the configuration of Beats to not require to define a processor to specify `service.environment`, similarly to the existing solution to define `fields.*` fields.
 
 ```yaml
 ---
@@ -138,7 +138,7 @@ The goal here is to research and understand the impact of these changes on users
 
 ## Concerns
 
- * Beats (Filebeat, Metricbeat, Heartbeat...) document in their configuration files (filebeat.yml...) an alternate non standardizable attribute `fields.env` illustrated with the demo value `staging`.
+ * Beats (Filebeat, Metricbeat, Heartbeat...) document in their configuration files (filebeat.yml...) an alternate non standardizable field `fields.env` illustrated with the demo value `staging`.
 
  Example with filebeat.yml
 
