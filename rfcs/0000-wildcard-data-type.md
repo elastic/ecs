@@ -83,7 +83,11 @@ Program stack traces tend to be well-structured but with long text and varied co
 
 ### Command-line execution
 
-Full command-line events often have a series of options or flags which may appear in any arbitrary order. Wildcard searches are often required to successfully identify events regardless of the ordering.
+Building accurate queries again a full command line string field like the `process.command_line` field, also benefit from wildcard improvements:
+
+* Multiple spaces
+* Isolating specific substrings
+*
 
 ## Source data
 
