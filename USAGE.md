@@ -196,24 +196,38 @@ If your indices will never populate particular ECS fields, there's no need to in
 $ python scripts/generator.py --subset ../myproject/subsets/subset.yml
 ```
 
-The structure of a subset YAML file is as follows:
+Example subset file:
 
 ```yaml
-base:
-  fields: "*"
-event:
-  fields: "*"
-host:
-  fields:
-    name:
-      fields: "*"
+---
+name: malware_event
+fields:
+  base:
+    fields:
+      "@timestamp": {}
+  agent:
+    fields: "*"
+  dll:
+    fields: "*"
+  ecs:
+    fields: "*"
 ```
 
-The above example will generate artifacts that contain only the following:
+The subset file has a defined format, starting with the two top-level required fields:
 
-* All `base` fields
-* All `event.*` fields
-* Only `host.name` out of the `host.*` field set
+* `name`: The name of the subset. Also used to name the directory holding the generated subset intermediate files (e.g. `<outputTarget>/generated/ecs/subset/<name>`)
+* `fields` Contains the subset field filters
+
+The `fields` object declares which fields to include:
+
+* The targeted field sets are declared underneath `fields` by their top-level name (e.g. `base`, `agent`, etc.)
+* Underneath each field set, all sub-fields can be captured using a wildcard syntax: `fields: "*"`
+* Individual leafs fields can also be targeted: `@timestamp: {}`
+
+Reviewing the above example, the generator using subset will output artifacts containing:
+
+* The `@timestamp` field from the `base` field set
+* All `agent.*` fields, `dll.*`, and `ecs.*` fields
 
 It's also possible to combine `--include` and `--subset` together! Do note that your subset YAML filter file will need to list any custom fields being passed with `--include`. Otherwise, `--subset` will filter those fields out.
 
