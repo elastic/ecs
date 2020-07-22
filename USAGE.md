@@ -1,6 +1,15 @@
 # ECS Tooling Usage
 
-In addition to the published schema and generated artifacts, the ECS repo also contains tools to generate artifacts based on the current published and custom schemas.
+In addition to the published schema and artifacts, the ECS repo also contains tools to generate artifacts based on the current published and custom schemas.
+
+You may be asking if ECS is a specification for storing event data, where does the ECS tooling fit into the picture?  As users implement ECS into their Elastic stack, common questions arise:
+
+* ECS has too many fields. Users don't want to generate mappings for fields they don't plan on using soon.
+* Users want to adopt ECS but also want to painlessly maintain their own custom field mappings alongside ECS.
+
+Users can use the ECS tools to tackle both problems. What artifacts are relevant will also vary based on need. Many users will find the Elasticsearch templates most useful, but Beats
+contributors will instead find the Beats-formatted YAML field definition files valuable. By maintaining only their customizations and use the tools provided by ECS, they can generate
+relevant artifacts for their unique set of data sources.
 
 **NOTE** - These tools and their functionality are considered experimental.
 
@@ -97,7 +106,7 @@ Running generator. ECS version 1.5.0
 * The script will need to be executed from the top-level of the ECS repo
 * The `version` displayed when running `generator.py` is based on the current value of the [version](version) file in the top-level of the repo
 
-The following options add functionality beyond the defaults.
+The generator's defaults are how the ECS team maintains the official artifacts published in the repo. For your own use cases, you may wish to add your own fields or remove others that are unused. The following section details the available options for controlling the output of those artifacts.
 
 ### Generator Options
 
@@ -110,6 +119,8 @@ $ python scripts/generator.py --out ../myproject/ecs/out/
 ```
 
 Inside the directory passed in as the target dir to the `--out` flag, two directories, `generated` and `docs`, will be created. `docs` will contain three asciidoc files based on the contents of the provided schema. `generated` will contain the various artifacts laid out as in the published repo (`beats`, `csv`, `ecs`, `elasticsearch`).
+
+> Note: When running using either the `--subset` or `--include` options, the asciidoc files will _not_ be generated.
 
 #### Include
 
@@ -271,4 +282,5 @@ For `template.json`, the `mappings` object is left empty: `{}`. Likewise the `pr
 
 #### Intermediate-Only
 
-The `--intermediate-only` argument is used for debugging purposes. It only generates the "intermediate files" of ECS without generating the rest of the artifacts.
+The `--intermediate-only` argument is used for debugging purposes. It only generates the ["intermediate files"](generated/ecs), `ecs_flat.yml` and `ecs_nested.yml`, without generating the rest of the artifacts.
+More information on the different intermediate files can be found in the generated directory's [README](generated/README.md).
