@@ -1,4 +1,4 @@
-# 0001: Environment Field
+# 0002: Environment Field
 <!--^ The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC, taking care not to conflict with other RFCs.-->
 
 - Stage: **0 (strawperson)** <!-- Update to reflect target stage -->
