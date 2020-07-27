@@ -93,3 +93,19 @@ e.g.:
 * @JaneDoe | grammar, spelling, prose
 * @Mariana
 -->
+
+
+## References
+
+<!-- Insert any links appropriate to this RFC in this section. -->
+
+### RFC Pull Requests
+
+<!-- An RFC should link to the PRs for each of it stage advancements. -->
+
+* Stage 0: https://github.com/elastic/ecs/pull/NNN
+
+<!--
+* Stage 1: https://github.com/elastic/ecs/pull/NNN
+...
+-->
