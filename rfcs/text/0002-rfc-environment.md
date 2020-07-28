@@ -113,7 +113,7 @@ Observability: data produced by the infrastruture and application layers. Data t
 Security: security data should also benefit of specifying the `environment` from which they are emitted to offer filtering (SIEM...) on Elastic cluster spreading across multiple environments (e.g. "production" and "staging").
 
 
-Logs are typically being collected by Filebeat, metrics are collected by Metricbeat, 
+Logs are typically being collected by Filebeat, metrics are collected by Metricbeat,
 <!--
 Stage 1: Provide a high-level description of example sources of data. This does not yet need to be a concrete example of a source document, but instead can simply describe a potential source (e.g. nginx access log). This will ultimately be fleshed out to include literal source examples in a future stage. The goal here is to identify practical sources for these fields in the real world. ~1-3 sentences or unordered list.
 -->
@@ -157,7 +157,7 @@ The goal here is to research and understand the impact of these changes on users
     * https://github.com/elastic/ecs/issues/268 Add new top level field "environment" #268
     * https://github.com/elastic/ecs/issues/704 New field: organization.environment #704
     * https://github.com/elastic/ecs/issues/143 agent.environment and service.environment #143
- 
+
 <!--
 Stage 1: Identify potential concerns, implementation challenges, or complexity. Spend some time on this. Play devil's advocate. Try to identify the sort of non-obvious challenges that tend to surface later. The goal here is to surface risks early, allow everyone the time to work through them, and ultimately document resolution for posterity's sake.
 -->
@@ -233,3 +233,19 @@ logging.level: info
 * ? | sponsor
 * @roncohen | subject matter expert
 * ? | grammar, spelling, prose
+
+
+## References
+
+<!-- Insert any links appropriate to this RFC in this section. -->
+
+### RFC Pull Requests
+
+<!-- An RFC should link to the PRs for each of it stage advancements. -->
+
+* Stage 0: https://github.com/elastic/ecs/pull/891
+
+<!--
+* Stage 1: https://github.com/elastic/ecs/pull/NNN
+...
+-->

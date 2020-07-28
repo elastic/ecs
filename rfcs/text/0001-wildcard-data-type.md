@@ -152,3 +152,19 @@ The following are the people that consulted on the contents of this RFC.
 * [0] Wildcard queries on `text` fields are limited to matching individual tokens rather than the original value of the field.
 * [1] Keyword fields are not tokenized like `text` fields, so patterns can match multiple words. However they suffer from slow performance with wildcard searching (especially with leading wildcards).
 * [2] https://github.com/elastic/elasticsearch/pull/58483
+
+
+## References
+
+<!-- Insert any links appropriate to this RFC in this section. -->
+
+### RFC Pull Requests
+
+<!-- An RFC should link to the PRs for each of it stage advancements. -->
+
+* Stage 0: https://github.com/elastic/ecs/pull/890
+
+<!--
+* Stage 1: https://github.com/elastic/ecs/pull/NNN
+...
+-->
