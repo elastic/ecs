@@ -1,14 +1,63 @@
 [[ecs-getting-started]]
 === Getting Started
 
-Adopting ECS is a two-step process. First, normalizing your data sources to align
-with the ECS field sets, and then familiarizing yourself with those fields for querying
-and aggregating your data. Let's take a look at how an event's contents can be mapped to
-ECS field sets, and how using a common schema for your data can simplify the search experience.
+ECS enables and encourages users to normalize event data in order
+to better analyze, visualize, and correlate their events. Collected events
+can be normalized at ingest time, consistently searched across indices,
+and visualized predictably.
+
+When adopting an Elastic solution, such as https://www.elastic.co/observability[Observability]
+or https://www.elastic.co/security[Security], all of this work is already done! Elastic provides
+an extensive set of https://www.elastic.co/integrations[integrations] to simplify ingesting your
+data sources. If you rely on custom data pipelines and/or building content around specific needs,
+ECS can still alleviate help address the challenges of searching, analyzing, and visualizing
+across your data.
+
+[float]
+==== Simplified Search
+
+With ECS defining a normalized schema across all of your data sources, querying
+against those sources is simplified. Consider searching for a particular source IP
+address prior to adopting ECS. All the various data sources and their field mappings
+would need to be considered in your query:
+
+[source,sh]
+-----------
+src:10.42.42.42 OR client_ip:10.42.42.42 OR apache.access.remote_ip:10.42.42.42 OR
+context.user.ip:10.42.42.42 OR src_ip:10.42.42.42
+-----------
+
+With all sources mapped to ECS, the query becomes much simpler:
+
+[source,sh]
+-----------
+source.ip:10.42.42.42
+-----------
+
+Not only does this simplify writing queries, but saved queries shared with other
+users become much more obvious. To gain familiarity with ECS fields, you can also
+take a look at the <<ecs-field-reference>> section.
+
+[float]
+==== Unified Visualizations
+
+With normalized data from different data sources, building insightful visualizations
+across sources is simple. From a single, centralized dashboard, events from web servers,
+IDS/IPS devices, and firewalls can be aggregated and visualized, and enhanced with drill-downs,
+and pivoting for delving into deeper investigations. Centralized monitoring of diverse data
+sources is straightforward with normalized ECS data.
+
+[role="screenshot"]
+image:images/ecs-getting-started-dashboard.png[Simplify visualization using ECS]
 
 
 [float]
 ==== Translating Data Sources
+
+Adopting ECS is a two-step process. First, normalizing your data sources to align
+with the ECS field sets, and then familiarizing yourself with those fields for querying
+and aggregating your data. Let's take a look at how an event's contents can be mapped to
+ECS field sets, and how using a common schema for your data can simplify the search experience.
 
 To align events to ECS, some sort of parsing will usually be necessary
 to transform the contents of the original event into the relevant ECS fields. Depending on
@@ -254,42 +303,3 @@ Some items to note about this mapping example:
 * As many ECS fields as possible are mapped from the original event
 * The raw log is preserved in the `event.original` field
   and `host.*`, have been omitted.
-
-
-[float]
-==== Simplified Search
-
-With ECS defining a normalized schema across all of your data sources, querying
-against those sources is simplified. Consider searching for a particular source IP
-address prior to adopting ECS. All the various data sources and their field mappings
-would need to be considered in your query:
-
-[source,sh]
------------
-src:10.42.42.42 OR client_ip:10.42.42.42 OR apache.access.remote_ip:10.42.42.42 OR
-context.user.ip:10.42.42.42 OR src_ip:10.42.42.42
------------
-
-With all sources mapped to ECS, the query becomes much simpler:
-
-[source,sh]
------------
-source.ip:10.42.42.42
------------
-
-Not only does this simplify writing queries, but saved queries shared with other
-users become much more obvious. To gain familiarity with ECS fields, you can also
-take a look at the <<ecs-field-reference>> section.
-
-[float]
-==== Unified Visualizations
-
-With normalized data from different data sources, building insightful visualizations
-across sources is simple. From a single, centralized dashboard, events from web servers,
-IDS/IPS devices, and firewalls can be aggregated and visualized, and enhanced with drill-downs,
-and pivoting for delving into deeper investigations. Centralized monitoring of diverse data
-sources is straightforward with normalized ECS data.
-
-[role="screenshot"]
-image:images/ecs-getting-started-dashboard.png[Simplify visualization using ECS]
-
