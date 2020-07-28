@@ -36,40 +36,12 @@ appropriate ECS fields.
 | @timestamp
 |  `2020-07-15T20:20:48.000Z`
 
-// ===============================================================
-
-| ecs.version
-| 1.5.0
-
-// ===============================================================
-
-| event.category
-| web
-
-// ===============================================================
-
-| event.category
-| access
-
-// ===============================================================
-
-| event.dataset
-| apache.access
-
 // ==============================================================
 
-| event.kind
-| event
-
-// ==============================================================
-
-| event.module
-| apache
-
-// ==============================================================
-
-| event.outcome
-| success
+| event.original
+| 10.42.42.42 - - [15/Jul/2020:20:48:32 +0000] "GET /content HTTP/1.1" 200 2571 "-"
+"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko)
+Chrome/83.0.4103.106 Safari/537.36
 
 // ==============================================================
 
@@ -93,6 +65,11 @@ appropriate ECS fields.
 
 // ==============================================================
 
+| message
+| GET /content HTTP/1.1" 200 2571 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.106 Safari/537.36
+
+// ==============================================================
+
 | source.address
 | 10.42.42.42
 
@@ -108,47 +85,174 @@ appropriate ECS fields.
 
 // ==============================================================
 
+| user_agent.original
+| `Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.106 Safari/537.36`
+
+|=====
+
+Beyond extracting values that are present in the original event, we also populate
+other fields to provide additional context about the event itself.
+
+* `ecs.version`: States which version of ECS the ingest pipeline was developed against.
+* `event.dataset` and `event.module`: Answers "where is this event from" and are expected to have a
+  hardcoded value per pipeline, per source.
+* `event.kind`, `event.category`, `event.type`, and `event.outcome`: The https://www.elastic.co/guide/en/ecs/current/ecs-category-field-values-reference.html[categorization fields]
+  should also be hardcoded using knowledge of each type of event the source emits. The contents of
+  these fields are limited to the specifically allowed values detailed in the ECS documentation.
+
+[options="header"]
+|=====
+| Field Name | Value
+
+// ===============================================================
+
+| ecs.version
+| 1.5.0
+
+// ==============================================================
+
+| event.module
+| apache
+
+// ===============================================================
+
+| event.dataset
+| apache.access
+
+// ==============================================================
+
+| event.kind
+| event
+
+// ===============================================================
+
+| event.category
+| [ "web", "access" ]
+
+// ==============================================================
+
+| event.outcome
+| success
+
+|=====
+
+Even more fields can be populated using processors. Existing field values can be interpreted or enriched
+using a processor, with the results populating additional fields in the final event.
+
+* The `user_agent` processor extracts details from the original user agent string, `user_agent.original`.
+* IP fields like `source.ip` can provide enrichment using the `geopip` processor to add information about the
+  location and autonomous system number (ASN) associated with an IP address.
+* The `registered domain` processor reads a field containing a hostname and writes the registered domain to
+  another field
+* Event collectors, such as https://www.elastic.co/guide/en/beats/libbeat/current/beats-reference.html[Beats], can enrich
+  each event with metadata from the machine's hosting provider (cloud) and/or from the host machine (host).
+
+[options="header"]
+|=====
+| Field Name | Value | Processor
+
+// ==============================================================
+
+| host.architecture
+| x86_64
+| `add_host_metadata`
+
+// ==============================================================
+
+| host.hostname
+| mbp.example.com
+| `add_host_metadata`
+
+// ==============================================================
+
+| host.ip
+| [ "192.168.1.100" ]
+| `add_host_metadata`
+
+// ==============================================================
+
+| host.mac
+| [ "00:00:5E:00:53:23" ]
+| `add_host_metadata`
+
+// ==============================================================
+
+| host.os.build
+| 19E287
+| `add_host_metadata`
+
+// ==============================================================
+
+| host.os.family
+| darwin
+| `add_host_metadata`
+
+// ==============================================================
+
+| host.os.kernel
+| 19.4.0
+| `add_host_metadata`
+
+// ==============================================================
+
+| host.os.name
+| Mac OS X
+| `add_host_metadata`
+
+// ==============================================================
+
+| host.os.platform
+| darwin
+| `add_host_metadata`
+
+// ==============================================================
+
+| host.os.version
+| 10.15.4
+| `add_host_metadata`
+
+// ==============================================================
+
 | user_agent.device.name
 | Other
+| `user_agent`
 
 // ==============================================================
 
 | user_agent.name
 | Chrome
-
-// ==============================================================
-
-| user_agent.original
-| `Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.106 Safari/537.36`
+| `user_agent`
 
 // ==============================================================
 
 | user_agent.os.full
 | Mac OS X 10.15.4
+| `user_agent`
 
 // ==============================================================
 
 | user_agent.os_name
 | Mac OS X
+| `user_agent`
 
 // ==============================================================
 
 | user_agent.os.version
 | 10.15.4
+| `user_agent`
 
 // ==============================================================
 
 | user_agent.os.version
 | 83.0.4103.106
+| `user_agent`
 
 |=====
 
 Some items to note about this mapping example:
 
 * As many ECS fields as possible are mapped from the original event
-* Several `event` fields are populated based on ECS categorization
 * The raw log is preserved in the `event.original` field
-* For the simplicity of this example some field sets, such as `agent.*`
   and `host.*`, have been omitted.
 
 
