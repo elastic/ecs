@@ -29,9 +29,9 @@ This RFC calls for the addition of session fields to describe events related to 
   group: 2
   short: User, admin, application, network, or service sessions
   description: |-
-    These fields contain information about various types of user sessions typically reported & logged in an enterprise.
-    When available, session start/end or duration fields should be populated, as well as iam, user, network, host, observer,
-    process, source, destination, client, and server fields as appropriate.
+    These fields are used to track an entity's interaction with various assets, services, and applications in an enterprise.  Sessions will typically include a start event, often a login / authorization event performed locally or via network based mechanisms, and an end event indicating a logoff or session termination.  
+
+    When available, event start/end or duration fields should be populated, as well as iam, user, network, host, observer, process, source, destination, client, and server fields as appropriate to describe the specifics of the interaction.
 
   type: group
 
@@ -70,7 +70,7 @@ This RFC calls for the addition of session fields to describe events related to 
     - name: id
       level: extended
       type: Session id
-      description: The id field is meant to contain a locall significant identifier for the session as provided by the observer or host reporting the session.  If no id is provided this field can remain blank, or a hash function similar to network.community_id can be used to discretely identify sessions from unique values.
+      description: The id field is meant to contain a locally significant identifier for the session as provided by the observer or host reporting the session.  If no id is provided this field can remain blank, or a hash function similar to network.community_id can be used to discretely identify sessions from unique values.
 
       example: 7635344
 ```
@@ -93,9 +93,9 @@ Session fields are used to describe the sesison attributes of:
  - Network to Network VPN Sessions
  - Network Access Sessions (NAC, WPA, EAP, etc.)
  - Local or remote device login sessions (RDP, ICA, xWindows)
- - administrative sessions on infrastructure devices
- - administrative sessions on cloud or application management portals
- - applications sessions (e.g. sql server odbc session, application access session)
+ - Administrative sessions on infrastructure devices
+ - Administrative sessions on cloud or application management portals
+ - Applications sessions (e.g. sql server odbc session, application access session)
 
 
 ## Source data
@@ -106,14 +106,15 @@ Source data expectations include:
  - Radius / tacacs servers
  - Application server logs
 
-Example 1: Meraki 802.1x Logs (WLC)  (EAP session start)
-<134>1 1580551704.928047208 my_AP events type=8021x_eap_success radio='1' vap='2' client_mac='12:34:56:78:9A:BC' client_ip='192.168.1.100' identity='JohnDoe' aid='1687088497’
+Example 1: Meraki 802.1x Logs (WLC)
+* EAP session start)
+    * <134>1 1580551704.928047208 my_AP events type=8021x_eap_success radio='1' vap='2' client_mac='12:34:56:78:9A:BC' client_ip='192.168.1.100' identity='JohnDoe' aid='1687088497’
 
-802.1x EAP De-association Message  (EAP session end)
-<134>1 1580551705.928047208 my_AP events type=8021x_deauth radio='1' vap='2' identity='JohnDoe' aid='1687088497’'
+802.1x EAP De-association Message
+* EAP session end
+    * <134>1 1580551705.928047208 my_AP events type=8021x_deauth radio='1' vap='2' identity='JohnDoe' aid='1687088497’'
 
-* Note, while there is an association id (session.id) created prior to wpa/802.1x authentication, building the session event from the eap success message allows for easier integration
- of fields like username, client.ip, etc. in an 802.1x or WPA environment
+* Note, while there is an association id (session.id) created prior to wpa/802.1x authentication, building the session event from the eap success message allows for easier integration of fields like username, client.ip, etc. in an 802.1x or WPA environment
 
     * Base 802.11 Association:  (802.11 session start)
         * <134>1 1380653443.857790533 MR18 events type=association radio='1' vap='1' channel='2' rssi='23' aid='1687088497’
@@ -135,6 +136,14 @@ Example 3: ASA Web VPN
 * Session End:
     * <166>Feb 03 2020 11:27:05 5508x-1_9.12(3):%ASA-6-721018: WebVPN session for client user JohnDoe , IP 192.168.1.100 has been deleted.
 
+Example 4: (DB Connection?)
+* TBD
+
+Example 5: (Web Session?)
+* TBD
+
+Example 6: (Cloud Admin Session?)
+* TBD
 <!--
 Stage 1: Provide a high-level description of example sources of data. This does not yet need to be a concrete example of a source document, but instead can simply describe a potential source (e.g. nginx access log). This will ultimately be fleshed out to include literal source examples in a future stage. The goal here is to identify practical sources for these fields in the real world. ~1-3 sentences or unordered list.
 -->
@@ -162,7 +171,7 @@ The goal here is to research and understand the impact of these changes on users
 ## Concerns
 - inclusion of APM / programming considerations of session to ensure compatibility, and extend if necessary
 - consideration of authentication mechanisms, providers, etc (e.g. user logs into Cisco ASA and authenticates
-  against ldap, radius, tacacs, or specific network proteocls like eap, wpa, etc.)
+  against ldap, radius, tacacs, specific network proteocls like eap, wpa, SAML/OAUTH, etc.)
 <!--
 Stage 1: Identify potential concerns, implementation challenges, or complexity. Spend some time on this. Play devil's advocate. Try to identify the sort of non-obvious challenges that tend to surface later. The goal here is to surface risks early, allow everyone the time to work through them, and ultimately document resolution for posterity's sake.
 -->
@@ -180,7 +189,7 @@ Stage 4: Document any new concerns and their resolution. The goal here is to eli
 -->
 
 ## Real-world implementations
-Session fields would allow for the further normalization of VPN logs, application logs(e.g. ftp logs from firewalls, SQL Server sessions) administrative sessions (search for admin sessions on non encrypted ports), analyze and track user session behaviors across numerous infrastructure and application log sources.
+Session fields would allow for the further normalization of VPN logs, application logs (e.g. ftp logs from firewalls, SQL Server sessions), administrative sessions (search for admin sessions on non encrypted ports), analyze and track user session behaviors across numerous infrastructure and application log sources.
 
 <!--
 Stage 4: Identify at least one real-world, production-ready implementation that uses these updated field definitions. An example of this might be a GA feature in an Elastic application in Kibana.
