@@ -1,10 +1,13 @@
 
 {% for fieldset in fieldsets -%}
+
+{# Title & Description -#}
 [[ecs-{{ fieldset['name'] }}]]
 === {{ fieldset['title'] }} Fields
 
 {{ fieldset['description']|replace("\n", "\n\n") }}
 
+{# Field Details Table Header -#}
 ==== {{ fieldset['title'] }} Field Details
 
 [options="header"]
@@ -13,29 +16,37 @@
 
 // ===============================================================
 
+{# Iterate through each field in the set -#}
 {% for _, field in fieldset['fields'].items()|sort -%}
 {% if 'original_fieldset' not in field -%}
+
+{# `Field` column -#}
 | {{ field['flat_name'] }}
+{# `Description` column -#}
 | {{ field['description']|replace("\n", "\n\n") }}
 
 type: {{ field['type'] }}
 
 {% if 'multi_fields' in field -%}
+
 Multi-fields:
 
 {% for mf in field['multi_fields'] -%}
+
 * {{ mf['flat_name'] }} (type: {{ mf ['type'] }})
 
 
 {% endfor %}
 {% endif %}
 {% if 'array' in field['normalize'] -%}
+
 Note: this field should contain an array of values.
 
 
 {% endif %}
-{% if 'allowed_values' in field -%}
-{% set allowed_values = field['allowed_values']|list_extract_keys('name')|join(', ') %}
+{% if 'allowed_values' in field %}
+{% set allowed_values = field['allowed_values']|list_extract_keys('name')|join(', ') -%}
+
 *Important*: The field value must be one of the following:
 
 {{ allowed_values }}
@@ -43,28 +54,37 @@ Note: this field should contain an array of values.
 To learn more about when to use which value, visit the page
 <<ecs-allowed-values-{{ field['dashed_name'] }},allowed values for {{ field['flat_name'] }}>>
 {% elif 'example' in field -%}
+
 example: `{{ field['example'] }}`
+
 {%- endif %}
 
+{# `Level` column -#}
 | {{ field['level'] }}
 
 // ===============================================================
 
 {% endif -%}
 {% endfor -%}
+
 |=====
 
+{# do we have `nestings` or `reusable` sections to worry about? -#}
 {% if 'nestings' in fieldset or 'reusable' in fieldset -%}
+
 ==== Field Reuse
 
 {% if 'reusable' in fieldset -%}
 {% set sorted_reuse_fields = fieldset['reusable']['expected']|render_fieldset_reuse_text -%}
+
 The `{{ fieldset['name'] }}` fields are expected to be nested at: `{{ sorted_reuse_fields|join("`, `") }}`.
 
 {% if 'top_level' in fieldset['reusable'] and fieldset['reusable']['top_level'] -%}
+
 Note also that the `{{ fieldset['name'] }}` fields may be used directly at the root of the events.
 
 {% else -%}
+
 Note also that the `{{ fieldset['name'] }}` fields are not expected to be used directly at the root of the events.
 
 {% endif %}
@@ -72,6 +92,7 @@ Note also that the `{{ fieldset['name'] }}` fields are not expected to be used d
 {% endif %}
 
 {% if 'nestings' in fieldset -%}
+
 [[ecs-{{ fieldset['name'] }}-nestings]]
 ===== Field sets that can be nested under {{ fieldset['title'] }}
 
@@ -83,6 +104,7 @@ Note also that the `{{ fieldset['name'] }}` fields are not expected to be used d
 
 
 {% for entry in fieldset|render_nestings_reuse_section -%}
+
 | <<ecs-{{ entry['name'] }},{{ entry['flat_nesting'] }}>>
 | {{ entry['short'] }}
 
@@ -90,6 +112,7 @@ Note also that the `{{ fieldset['name'] }}` fields are not expected to be used d
 
 
 {% endfor -%}
+
 |=====
 
 {% endif %}
