@@ -704,3 +704,19 @@
         Alert events, indicated by `event.kind:alert`, are a common use case for this field.
 
       example: https://mysystem.mydomain.com/alert/5271dedb-f5b0-4218-87f0-4ac4870a38fe
+
+    - name: reason
+      level: extended
+      type: keyword
+      short: The reason captured by the event
+      description: >
+        The reason captured by the event.
+
+        This describes the why of a particular action or outcome captured in the event. Where
+        `event.action` captures the action from the event, `event.reason` describes why that action
+        was taken. For example, a web proxy with an `event.action` which denied the request may also
+        populate `event.reason` with the reason why (e.g. `blocked site`).
+      example: "Terminated an unexpected process"
+      multi_fields:
+      - type: text
+        name: text
