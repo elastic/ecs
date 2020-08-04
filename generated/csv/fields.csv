@@ -16,7 +16,6 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.6.0-dev,true,client,client.as.organization.name,keyword,extended,,Google LLC,Organization name.
 1.6.0-dev,true,client,client.as.organization.name.text,text,extended,,Google LLC,Organization name.
 1.6.0-dev,true,client,client.bytes,long,core,,184,Bytes sent from the client to the server.
-1.6.0-dev,true,client,client.country_code,keyword,extended,,uk,The country code portion of the domain.
 1.6.0-dev,true,client,client.domain,keyword,core,,,Client domain.
 1.6.0-dev,true,client,client.geo.city_name,keyword,core,,Montreal,City name.
 1.6.0-dev,true,client,client.geo.continent_name,keyword,core,,North America,Name of the continent.
@@ -26,8 +25,9 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.6.0-dev,true,client,client.geo.name,keyword,extended,,boston-dc,User-defined description of a location.
 1.6.0-dev,true,client,client.geo.region_iso_code,keyword,core,,CA-QC,Region ISO code.
 1.6.0-dev,true,client,client.geo.region_name,keyword,core,,Quebec,Region name.
-1.6.0-dev,true,client,client.hostname,keyword,core,,www,Hostname of the client system.
+1.6.0-dev,true,client,client.hostname,keyword,core,,www,Hostname of the system.
 1.6.0-dev,true,client,client.ip,ip,core,,,IP address of the client.
+1.6.0-dev,true,client,client.is_internationalized,boolean,extended,,False,Does the domain contain punycode characters.
 1.6.0-dev,true,client,client.mac,keyword,core,,,MAC address of the client.
 1.6.0-dev,true,client,client.name,keyword,core,,www.east.mydomain.co.uk,Name of the client system.
 1.6.0-dev,true,client,client.nat.ip,ip,extended,,,Client NAT ip address
@@ -71,7 +71,6 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.6.0-dev,true,destination,destination.as.organization.name,keyword,extended,,Google LLC,Organization name.
 1.6.0-dev,true,destination,destination.as.organization.name.text,text,extended,,Google LLC,Organization name.
 1.6.0-dev,true,destination,destination.bytes,long,core,,184,Bytes sent from the destination to the source.
-1.6.0-dev,true,destination,destination.country_code,keyword,extended,,uk,The country code portion of the domain.
 1.6.0-dev,true,destination,destination.domain,keyword,core,,,Destination domain.
 1.6.0-dev,true,destination,destination.geo.city_name,keyword,core,,Montreal,City name.
 1.6.0-dev,true,destination,destination.geo.continent_name,keyword,core,,North America,Name of the continent.
@@ -81,8 +80,9 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.6.0-dev,true,destination,destination.geo.name,keyword,extended,,boston-dc,User-defined description of a location.
 1.6.0-dev,true,destination,destination.geo.region_iso_code,keyword,core,,CA-QC,Region ISO code.
 1.6.0-dev,true,destination,destination.geo.region_name,keyword,core,,Quebec,Region name.
-1.6.0-dev,true,destination,destination.hostname,keyword,core,,www,Hostname of the destination system.
+1.6.0-dev,true,destination,destination.hostname,keyword,core,,www,Hostname of the system.
 1.6.0-dev,true,destination,destination.ip,ip,core,,,IP address of the destination.
+1.6.0-dev,true,destination,destination.is_internationalized,boolean,extended,,False,Does the domain contain punycode characters.
 1.6.0-dev,true,destination,destination.mac,keyword,core,,,MAC address of the destination.
 1.6.0-dev,true,destination,destination.name,keyword,extended,,www.east.mydomain.co.uk,Name of the destination system.
 1.6.0-dev,true,destination,destination.nat.ip,ip,extended,,,Destination NAT ip
@@ -132,9 +132,9 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.6.0-dev,true,dns,dns.answers.type,keyword,extended,,CNAME,The type of data contained in this resource record.
 1.6.0-dev,true,dns,dns.header_flags,keyword,extended,array,"['RD', 'RA']",Array of DNS header flags.
 1.6.0-dev,true,dns,dns.id,keyword,extended,,62111,The DNS packet identifier assigned by the program that generated the query. The identifier is copied to the response.
+1.6.0-dev,true,dns,dns.is_internationalized,boolean,extended,,False,Does the domain contain punycode characters.
 1.6.0-dev,true,dns,dns.op_code,keyword,extended,,QUERY,The DNS operation code that specifies the kind of query in the message. This value is set by the originator of a query and copied into the response.
 1.6.0-dev,true,dns,dns.question.class,keyword,extended,,IN,The class of records being queried.
-1.6.0-dev,true,dns,dns.question.country_code,keyword,extended,,uk,The country code portion of the domain.
 1.6.0-dev,true,dns,dns.question.hostname,keyword,extended,,www,The hostname portion of the domain.
 1.6.0-dev,true,dns,dns.question.name,keyword,extended,,www.east.mydomain.co.uk,The name being queried.
 1.6.0-dev,true,dns,dns.question.registered_domain,keyword,extended,,mydomain.co.uk,"The highest registered domain, stripped of the subdomain."
@@ -228,7 +228,6 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.6.0-dev,true,hash,hash.sha256,keyword,extended,,,SHA256 hash.
 1.6.0-dev,true,hash,hash.sha512,keyword,extended,,,SHA512 hash.
 1.6.0-dev,true,host,host.architecture,keyword,core,,x86_64,Operating system architecture.
-1.6.0-dev,true,host,host.country_code,keyword,extended,,uk,The country code portion of the domain.
 1.6.0-dev,true,host,host.domain,keyword,extended,,CONTOSO,Name of the directory the group is a member of.
 1.6.0-dev,true,host,host.geo.city_name,keyword,core,,Montreal,City name.
 1.6.0-dev,true,host,host.geo.continent_name,keyword,core,,North America,Name of the continent.
@@ -238,9 +237,10 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.6.0-dev,true,host,host.geo.name,keyword,extended,,boston-dc,User-defined description of a location.
 1.6.0-dev,true,host,host.geo.region_iso_code,keyword,core,,CA-QC,Region ISO code.
 1.6.0-dev,true,host,host.geo.region_name,keyword,core,,Quebec,Region name.
-1.6.0-dev,true,host,host.hostname,keyword,core,,,Hostname of the host.
+1.6.0-dev,true,host,host.hostname,keyword,core,,www,Hostname of the system.
 1.6.0-dev,true,host,host.id,keyword,core,,,Unique host id.
 1.6.0-dev,true,host,host.ip,ip,core,array,,Host ip addresses.
+1.6.0-dev,true,host,host.is_internationalized,boolean,extended,,False,Does the domain contain punycode characters.
 1.6.0-dev,true,host,host.mac,keyword,core,array,,Host mac addresses.
 1.6.0-dev,true,host,host.name,keyword,core,,,Name of the host.
 1.6.0-dev,true,host,host.os.family,keyword,extended,,debian,"OS family (such as redhat, debian, freebsd, windows)."
@@ -474,7 +474,6 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.6.0-dev,true,server,server.as.organization.name,keyword,extended,,Google LLC,Organization name.
 1.6.0-dev,true,server,server.as.organization.name.text,text,extended,,Google LLC,Organization name.
 1.6.0-dev,true,server,server.bytes,long,core,,184,Bytes sent from the server to the client.
-1.6.0-dev,true,server,server.country_code,keyword,extended,,uk,The country code portion of the domain.
 1.6.0-dev,true,server,server.domain,keyword,core,,,Server domain.
 1.6.0-dev,true,server,server.geo.city_name,keyword,core,,Montreal,City name.
 1.6.0-dev,true,server,server.geo.continent_name,keyword,core,,North America,Name of the continent.
@@ -484,8 +483,9 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.6.0-dev,true,server,server.geo.name,keyword,extended,,boston-dc,User-defined description of a location.
 1.6.0-dev,true,server,server.geo.region_iso_code,keyword,core,,CA-QC,Region ISO code.
 1.6.0-dev,true,server,server.geo.region_name,keyword,core,,Quebec,Region name.
-1.6.0-dev,true,server,server.hostname,keyword,core,,www,Hostname of the server.
+1.6.0-dev,true,server,server.hostname,keyword,core,,www,Hostname of the system.
 1.6.0-dev,true,server,server.ip,ip,core,,,IP address of the server.
+1.6.0-dev,true,server,server.is_internationalized,boolean,extended,,False,Does the domain contain punycode characters.
 1.6.0-dev,true,server,server.mac,keyword,core,,,MAC address of the server.
 1.6.0-dev,true,server,server.name,keyword,core,,www.east.mydomain.co.uk,Name of the host.
 1.6.0-dev,true,server,server.nat.ip,ip,extended,,,Server NAT ip
@@ -518,7 +518,6 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.6.0-dev,true,source,source.as.organization.name,keyword,extended,,Google LLC,Organization name.
 1.6.0-dev,true,source,source.as.organization.name.text,text,extended,,Google LLC,Organization name.
 1.6.0-dev,true,source,source.bytes,long,core,,184,Bytes sent from the source to the destination.
-1.6.0-dev,true,source,source.country_code,keyword,extended,,uk,The country code portion of the domain.
 1.6.0-dev,true,source,source.domain,keyword,core,,,Source domain.
 1.6.0-dev,true,source,source.geo.city_name,keyword,core,,Montreal,City name.
 1.6.0-dev,true,source,source.geo.continent_name,keyword,core,,North America,Name of the continent.
@@ -528,8 +527,9 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.6.0-dev,true,source,source.geo.name,keyword,extended,,boston-dc,User-defined description of a location.
 1.6.0-dev,true,source,source.geo.region_iso_code,keyword,core,,CA-QC,Region ISO code.
 1.6.0-dev,true,source,source.geo.region_name,keyword,core,,Quebec,Region name.
-1.6.0-dev,true,source,source.hostname,keyword,core,,www,Hostname of the source system.
+1.6.0-dev,true,source,source.hostname,keyword,core,,www,Hostname of the system.
 1.6.0-dev,true,source,source.ip,ip,core,,,IP address of the source.
+1.6.0-dev,true,source,source.is_internationalized,boolean,extended,,False,Does the domain contain punycode characters.
 1.6.0-dev,true,source,source.mac,keyword,core,,,MAC address of the source.
 1.6.0-dev,true,source,source.name,keyword,extended,,www.east.mydomain.co.uk,Name of the source system.
 1.6.0-dev,true,source,source.nat.ip,ip,extended,,,Source NAT ip
@@ -589,13 +589,12 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.6.0-dev,true,tls,tls.version_protocol,keyword,extended,,tls,Normalized lowercase protocol name parsed from original string.
 1.6.0-dev,true,trace,trace.id,keyword,extended,,4bf92f3577b34da6a3ce929d0e0e4736,Unique identifier of the trace.
 1.6.0-dev,true,transaction,transaction.id,keyword,extended,,00f067aa0ba902b7,Unique identifier of the transaction.
-1.6.0-dev,true,url,url.country_code,keyword,extended,,uk,The country code portion of the domain.
 1.6.0-dev,true,url,url.domain,keyword,extended,,www.east.mydomain.co.uk,Domain of the url.
 1.6.0-dev,true,url,url.extension,keyword,extended,,png,File extension from the original request url.
 1.6.0-dev,true,url,url.fragment,keyword,extended,,,Portion of the url after the `#`.
 1.6.0-dev,true,url,url.full,keyword,extended,,https://www.elastic.co:443/search?q=elasticsearch#top,Full unparsed URL.
 1.6.0-dev,true,url,url.full.text,text,extended,,https://www.elastic.co:443/search?q=elasticsearch#top,Full unparsed URL.
-1.6.0-dev,true,url,url.hostname,keyword,core,,www,Hostname portion of the domain.
+1.6.0-dev,true,url,url.is_internationalized,boolean,extended,,False,Does the domain contain punycode characters.
 1.6.0-dev,true,url,url.name,keyword,core,,www.east.mydomain.co.uk,Host portion of the URL
 1.6.0-dev,true,url,url.original,keyword,extended,,https://www.elastic.co:443/search?q=elasticsearch#top or /search?q=elasticsearch,Unmodified original url as seen in the event source.
 1.6.0-dev,true,url,url.original.text,text,extended,,https://www.elastic.co:443/search?q=elasticsearch#top or /search?q=elasticsearch,Unmodified original url as seen in the event source.
