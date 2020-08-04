@@ -124,40 +124,6 @@ type Dns struct {
 	// be the original `question.name` repeated.
 	AnswersName string `ecs:"answers.name"`
 
-	// The highest registered domain, stripped of the subdomain.
-	// For example, the registered domain for "foo.google.com" is "google.com".
-	// This value can be determined precisely with a list like the public
-	// suffix list (http://publicsuffix.org). Trying to approximate this by
-	// simply taking the last two labels will not work well for TLDs such as
-	// "co.uk".
-	AnswersRegisteredDomain string `ecs:"answers.registered_domain"`
-
-	// The effective top level domain (eTLD), also known as the domain suffix,
-	// is the last part of the domain name. For example, the top level domain
-	// for google.com is "com".
-	// This value can be determined precisely with a list like the public
-	// suffix list (http://publicsuffix.org). Trying to approximate this by
-	// simply taking the last label will not work well for effective TLDs such
-	// as "co.uk".
-	AnswersTopLevelDomain string `ecs:"answers.top_level_domain"`
-
-	// The subdomain is all of the labels under the registered_domain in a
-	// partially qualified domain name or the qualification level of the full
-	// name cannot be determined, and all  of the labels except the hostname in
-	// a fully qualified domain name.
-	// If the domain has multiple levels of subdomain, such as
-	// "sub2.sub1.example.com", the subdomain field should contain "sub2.sub1",
-	// with no trailing period.
-	AnswersSubdomain string `ecs:"answers.subdomain"`
-
-	// The hostname is the host portion of a fully qualified domain name.
-	// If the qualification level cannot be determined hostname need not be
-	// filled out.
-	AnswersHostname string `ecs:"answers.hostname"`
-
-	// The country code portion of the domain.
-	AnswersCountryCode string `ecs:"answers.country_code"`
-
 	// The type of data contained in this resource record.
 	AnswersType string `ecs:"answers.type"`
 
