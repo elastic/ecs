@@ -380,7 +380,7 @@ e.g.:
 
 <!-- An RFC should link to the PRs for each of it stage advancements. -->
 
-* Stage 2: https://github.com/elastic/ecs/pull/NNN
+* Stage 2: https://github.com/elastic/ecs/pull/914
 
 Note: This RFC was initially proposed via a PR that targeted stage 2,
 given the amount of discussion that has already has happened on this subject.
