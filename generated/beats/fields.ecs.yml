@@ -1350,6 +1350,19 @@
         the event (e.g. Sysmon, httpd), or of a subsystem of the operating system
         (kernel, Microsoft-Windows-Security-Auditing).'
       example: kernel
+    - name: reason
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Reason why this event happened, according to the source.
+
+        This describes the why of a particular action or outcome captured in the event.
+        Where `event.action` captures the action from the event, `event.reason` describes
+        why that action was taken. For example, a web proxy with an `event.action`
+        which denied the request may also populate `event.reason` with the reason
+        why (e.g. `blocked site`).'
+      example: Terminated an unexpected process
+      default_field: false
     - name: reference
       level: extended
       type: keyword
