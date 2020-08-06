@@ -24,13 +24,13 @@ As of ECS 1.5, user fields can be present in an event in all of the following pl
 * `client.user.*`
 * `server.user.*`
 
-The new fields proposed in this RFC are the following:
+The new fields discussed in this RFC are the following:
 
 * `user.effective.*`
 * `user.target.*`
 * `user.changes.*`
 
-Notice also that the user fields are now being nested as another name.
+Notice that in these new additions, the user fields are now being nested as a different name.
 The purpose is to hint at their role, when used in these locations.
 
 It's also important to point out that the reuses of `user` inside other field sets
@@ -59,7 +59,7 @@ as demonstrated below.
 ```
 
 The `user` field set contains 9 leaf fields, 2 of which have a `.text` multi-field,
-for a total of 11. These new nestings will therefore add a total of 33 fields.
+for a total of 11 fields. These new nestings will therefore add a total of 33 fields.
 This can also be seen on the pre-existing PR [ecs#869](https://github.com/elastic/ecs/pull/869).
 
 ## Usage
@@ -68,7 +68,7 @@ The examples below will mostly populate `user.name` inside the various `user` ne
 for readability. Unless otherwise noted, all `user` fields that can reasonably be
 populated in each location should be populated.
 
-### `user` at the root of an event
+### User fields at the Root of an Event
 
 Any event that only has one user should populate the user fields at the root of an
 event. Any time more than one user is present in an event, the `user` fields
@@ -79,7 +79,7 @@ As many of the user fields as possible should be populated.
 In cases where a purpose-specific user field such as `url.username` is populated,
 `user.name` should also be populated with the same user name.
 
-### Remote logons
+### Remote Logons
 
 When users are crossing host boundaries, the users are captured at
 `source.user` and `destination.user`.
@@ -240,7 +240,7 @@ Here's the same "rename" example, where "alice" is renaming "bob" by escalating 
 }
 ```
 
-### Pivoting via `related.user`
+### Pivoting via related.user
 
 Any event that has user(s) in it should always populate the array field `related.user`
 with all usernames seen on the event. Note that this field is not a nesting of
