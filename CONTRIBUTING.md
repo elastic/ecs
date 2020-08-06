@@ -159,5 +159,5 @@ Users consuming ECS to generate something for other use cases should use the `ge
 
 * [ECS Guidelines and Best Practices](https://www.elastic.co/guide/en/ecs/current/ecs-guidelines.html)
 * [ECS Documentation](https://www.elastic.co/guide/en/ecs/current/index.html)
-* [ECS on Elastic Discuss Forums](https://discuss.elastic.co/tag/elastic-common-schema)
-* [#ecs on the Elasticstack Community Slack](https://elasticstack.slack.com)
+* [ECS on Elastic Discuss Forums](https://discuss.elastic.co/tag/ecs-elastic-common-schema)
+* [#stack-ecs on the Elasticstack Community Slack](https://elasticstack.slack.com)
