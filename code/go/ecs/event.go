@@ -208,7 +208,7 @@ type Event struct {
 	// by `event.kind:alert`, are a common use case for this field.
 	Url string `ecs:"url"`
 
-	// The reason captured by the event.
+	// Reason why this event happened, according to the source.
 	// This describes the why of a particular action or outcome captured in the
 	// event. Where `event.action` captures the action from the event,
 	// `event.reason` describes why that action was taken. For example, a web
