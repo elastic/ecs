@@ -1,6 +1,3 @@
-
-{% for fieldset in fieldsets -%}
-
 {# Title & Description -#}
 [[ecs-{{ fieldset['name'] }}]]
 === {{ fieldset['title'] }} Fields
@@ -17,7 +14,7 @@
 // ===============================================================
 
 {# Iterate through each field in the set -#}
-{% for _, field in fieldset['fields'].items()|sort -%}
+{% for field in sorted_fields -%}
 {% if 'original_fieldset' not in field -%}
 
 {# `Field` column -#}
@@ -45,11 +42,9 @@ Note: this field should contain an array of values.
 
 {% endif %}
 {% if 'allowed_values' in field %}
-{% set allowed_values = field['allowed_values']|list_extract_keys('name')|join(', ') -%}
-
 *Important*: The field value must be one of the following:
 
-{{ allowed_values }}
+{{ field['allowed_value_names']|join(', ') }}
 
 To learn more about when to use which value, visit the page
 <<ecs-allowed-values-{{ field['dashed_name'] }},allowed values for {{ field['flat_name'] }}>>
@@ -75,7 +70,6 @@ example: `{{ field['example'] }}`
 ==== Field Reuse
 
 {% if 'reusable' in fieldset -%}
-{% set sorted_reuse_fields = fieldset['reusable']['expected']|render_fieldset_reuse_text -%}
 
 The `{{ fieldset['name'] }}` fields are expected to be nested at: `{{ sorted_reuse_fields|join("`, `") }}`.
 
@@ -103,7 +97,7 @@ Note also that the `{{ fieldset['name'] }}` fields are not expected to be used d
 // ===============================================================
 
 
-{% for entry in fieldset|render_nestings_reuse_section -%}
+{% for entry in render_nestings_reuse_section -%}
 
 | <<ecs-{{ entry['name'] }},{{ entry['flat_nesting'] }}>>
 | {{ entry['short'] }}
@@ -117,4 +111,3 @@ Note also that the `{{ fieldset['name'] }}` fields are not expected to be used d
 
 {% endif %}
 {%- endif %}
-{%- endfor %}

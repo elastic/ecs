@@ -14,16 +14,26 @@ def generate(nested, ecs_version, out_dir):
 # Helpers
 
 
-def render_fieldset_reuse_text(fields):
-    """Renders the expected nesting locations.
+def render_fieldset_reuse_text(fieldset):
+    """Renders the expected nesting locations
+       if the the `reusable` object is present.
 
-    :param fields: The reusable, expected fields
+    :param fieldset: The fieldset to evaluate
     """
-    sorted_fields = sorted(fields, key=lambda k: k['full'])
+    if not fieldset.get('reusable'):
+        return None
+    reusable_fields = fieldset['reusable']['expected']
+    sorted_fields = sorted(reusable_fields, key=lambda k: k['full'])
     return map(lambda f: f['full'], sorted_fields)
 
 
 def render_nestings_reuse_section(fieldset):
+    """Renders the reuse section entries.
+
+    :param fieldset: The target fieldset
+    """
+    if not fieldset.get('reused_here'):
+        return None
     rows = []
     for reused_here_entry in fieldset['reused_here']:
         rows.append({
@@ -33,6 +43,33 @@ def render_nestings_reuse_section(fieldset):
         })
 
     return sorted(rows, key=lambda x: x['flat_nesting'])
+
+
+def extract_allowed_values_key_names(field):
+    """Extracts the `name` keys from the field's
+       allowed_values if present in the field
+       object.
+
+    :param field: The target field
+    """
+    if not field.get('allowed_values'):
+        return []
+    return ecs_helpers.list_extract_keys(field['allowed_values'], 'name')
+
+
+def sort_fields(fieldset):
+    """Prepares a fieldset's fields for being
+    passed into the j2 template for rendering. This
+    includes sorting them into a list of objects and
+    adding a field for the names of any allowed values
+    for the field, if present.
+
+    :param fieldset: The target fieldset
+    """
+    fields_list = list(fieldset['fields'].values())
+    for field in fields_list:
+        field['allowed_value_names'] = extract_allowed_values_key_names(field)
+    return sorted(fields_list, key=lambda field: field['name'])
 
 
 def templated(template_name):
@@ -75,10 +112,6 @@ def save_asciidoc(f, text):
 TEMPLATE_DIR = path.join(path.dirname(path.abspath(__file__)), '../templates')
 template_loader = jinja2.FileSystemLoader(searchpath=TEMPLATE_DIR)
 template_env = jinja2.Environment(loader=template_loader)
-template_env.filters.update({
-    'list_extract_keys': ecs_helpers.list_extract_keys,
-    'render_fieldset_reuse_text': render_fieldset_reuse_text,
-    'render_nestings_reuse_section': render_nestings_reuse_section})
 
 # Rendering schemas
 
@@ -93,10 +126,22 @@ def page_field_index(nested, ecs_version):
 
 # Field Details Page
 
-@templated('field_details.j2')
 def page_field_details(nested):
     fieldsets = ecs_helpers.dict_sorted_by_keys(nested, ['group', 'name'])
-    return dict(fieldsets=fieldsets)
+    results = (generate_field_details_page(fieldset) for fieldset in fieldsets)
+    return ''.join(results)
+
+
+@templated('field_details.j2')
+def generate_field_details_page(fieldset):
+    # render field reuse text section
+    sorted_reuse_fields = render_fieldset_reuse_text(fieldset)
+    render_nestings_reuse_fields = render_nestings_reuse_section(fieldset)
+    sorted_fields = sort_fields(fieldset)
+    return dict(fieldset=fieldset,
+                sorted_reuse_fields=sorted_reuse_fields,
+                render_nestings_reuse_section=render_nestings_reuse_fields,
+                sorted_fields=sorted_fields)
 
 
 # Allowed values section
