@@ -1,4 +1,4 @@
-# 0000: Multiple users in an event
+# 0000: Multiple Users in an Event
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
 - Stage: **2 (proposal)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
@@ -41,6 +41,7 @@ The current reusable locations `user` will be amended to include a few more entr
 as demonstrated below.
 
 ```YAML
+# schemas/user.yml excerpt
   reusable:
     top_level: true
     expected:
@@ -58,23 +59,26 @@ as demonstrated below.
         as: changes
 ```
 
-The `user` field set contains 9 leaf fields, 2 of which have a `.text` multi-field,
-for a total of 11 fields. These new nestings will therefore add a total of 33 fields.
-This can also be seen on the pre-existing PR [ecs#869](https://github.com/elastic/ecs/pull/869).
+The `user` field set contains 6 leaf fields, 2 of which have a `.text` multi-field,
+for a total of 8 fields. These new nestings will therefore add a total of 24 fields.
+This can be seen in more detail on PR [ecs#869](https://github.com/elastic/ecs/pull/869).
 
 ## Usage
 
-The examples below will mostly populate `user.name` inside the various `user` nestings,
-for readability. Unless otherwise noted, all `user` fields that can reasonably be
-populated in each location should be populated.
+The examples below will only populate `user.name` and sometimes `user.id` inside
+the various `user` nestings, for readability.
+However in implementations, otherwise noted all `user` fields that can reasonably
+be populated in each location should be populated.
 
 ### User fields at the Root of an Event
 
-Any event that only has one user should populate the user fields at the root of an
-event. Any time more than one user is present in an event, the `user` fields
-at the root of an event should be interpreted as the user performing the action.
+The user fields at the root of an event must be used to capture the user
+performing the main action described by the event. This is especially important
+when there's more than one user present on the event. `user.*` fields at the root
+of the event represent the user performing the action.
 
-As many of the user fields as possible should be populated.
+In many cases, events that only mention one user are fine populating the user fields
+at the root of the event.
 
 In cases where a purpose-specific user field such as `url.username` is populated,
 `user.name` should also be populated with the same user name.
@@ -114,9 +118,8 @@ Here's an example where user "alice" logs on to another host as user "deus":
 }
 ```
 
-<!-- TODO Adjust based on feedback on source.user concern -->
-
-(also applies to `client.user` and `server.user`)
+Whenever an event source populates the `client` and `server` fields in addition
+to `source` and `destination`, the user fields should be copied accordingly as well.
 
 ### Privilege Changes
 
@@ -209,7 +212,7 @@ Example where "root" renames user "bob" to "bob.barker":
 }
 ```
 
-You'll note in the example above that the user ID is not repeated under changes,
+You'll note in the example above that the user ID is not repeated under `user.changes.*`,
 since the ID didn't change.
 
 ### Combining IAM and Privilege Escalation
@@ -218,7 +221,8 @@ We've covered above how `user.target` and `user.changes` can be used at the same
 If privilege escalation is captured in the same IAM event, `user.effective`
 should of course be used as well.
 
-Here's the same "rename" example, where "alice" is renaming "bob" by escalating to "root":
+Here's the "rename" example from the IAM section above. In the following example,
+we know "alice" is escalating privileges as "root", in order to modify user "bob":
 
 ```JSON
 {
@@ -286,34 +290,57 @@ Stage 3: Add more real world example source documents so we have at least 2 tota
 
 ## Scope of impact
 
-<!--
-Stage 2: Identifies scope of impact of changes. Are breaking changes required? Should deprecation strategies be adopted? Will significant refactoring be involved? Break the impact down into:
- * Ingestion mechanisms (e.g. beats/logstash)
- * Usage mechanisms (e.g. Kibana applications, detections)
- * ECS project (e.g. docs, tooling)
-The goal here is to research and understand the impact of these changes on users in the community and development teams across Elastic. 2-5 sentences each.
+### New fields for IAM
+
+The fields `user.[changes|effective|target].*` are net new fields,
+so they don't represent a breaking change. They are especially important
+for security-related data sources around IAM and audit logs.
+These event sources should be adjusted to populate these new fields, as they are
+very important in getting a complete picture of user management activity.
+
+Some event sources for user management activity may have used `user.*` fields at the
+root to describe the user being modified, rather than the user performing the action.
+These sources will have to be modified to be consistent with the fact that user
+fields at the root are meant to represent who's performing the action.
+
+### New user field duplication guidance
+
+In order to firmly establish the user fields at the root of the event as the user
+performing the action, this RFC introduces new guidance:
+
+* Remote logons `source.user.*` should be copied to `user.*`
+* Purpose-specific fields such as `url.username` should be copied at `user.name`
+
+These came up while working on this RFC; this is not guidance that was given
+in the past. Data sources that populate these fields will need to be revisited
+and adjusted accordingly.
+
+<!-- TODO
+
+Depending on the outcome of the discussion on `host.user.*`, mention it here
+
 -->
 
 ## Concerns
 
+### Deprecating host.user fields
+
+In past discussions and recent research, we have not identified a clear purpose
+for the user fields nested at `host.user.*`.
+
+We are considering deprecating these fields with the intent to remove them completely.
+Please let us know if you disagree with this, and share how you're using them.
+
+### Documenting the purpose of each usage of the user fields
+
 As of ECS 1.5, the ECS documentation doesn't have a good place to explain at length
 how to use the multiple nesting locations for `user`. This is already a problem
-for the usage of `user` at the root vs its 5 reuse locations. The addition of these
+for the usage of `user` at the root vs its 5 reuse locations. The addition of
 3 new reuse locations adds to the situation. Adding a way to document field sets via
 free form text is being worked on independently of this proposal. For now
 the guidance on the meaning of each location where `user` can be used is in the
 [Usage](#usage) section of this RFC. This guidance will be moved to the main ECS
 documentation when the appropriate mechanism is available.
-
-<!-- TODO
-
-Flesh out the following issues / concerns:
-
-* Should `source.user` be deprecated in favour of `user` at the root?
-* Do we need `client.user`, `server.user` at all?
-* Mention current thinking of deprecating and removing `host.user`
-
--->
 
 <!--
 Stage 1: Identify potential concerns, implementation challenges, or complexity. Spend some time on this. Play devil's advocate. Try to identify the sort of non-obvious challenges that tend to surface later. The goal here is to surface risks early, allow everyone the time to work through them, and ultimately document resolution for posterity's sake.
@@ -364,7 +391,7 @@ e.g.:
 
 <!-- Insert any links appropriate to this RFC in this section. -->
 
-* PR to add the fields described in this RFC: [ecs#869](https://github.com/elastic/ecs/pull/869)
+* PR to add the new fields described in this RFC: [ecs#869](https://github.com/elastic/ecs/pull/869)
 * Past issues discussing this addition in ECS, starting with the most recent:
   * https://github.com/elastic/ecs/issues/809
   * https://github.com/elastic/ecs/issues/678
