@@ -60,7 +60,7 @@ as demonstrated below.
 ```
 
 The `user` field set contains 6 leaf fields, 2 of which have a `.text` multi-field,
-for a total of 8 fields. These new nestings will therefore add a total of 24 fields.
+for a total of 8 fields. These 3 new nestings will therefore add a total of 24 fields.
 This can be seen in more detail on PR [ecs#869](https://github.com/elastic/ecs/pull/869).
 
 ## Usage
