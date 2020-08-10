@@ -118,7 +118,7 @@ template_env = jinja2.Environment(loader=template_loader)
 # Field Index
 
 
-@templated('fields_template.j2')
+@templated('fields.j2')
 def page_field_index(nested, ecs_version):
     fieldsets = ecs_helpers.dict_sorted_by_keys(nested, ['group', 'name'])
     return dict(ecs_version=ecs_version, fieldsets=fieldsets)
@@ -146,7 +146,7 @@ def generate_field_details_page(fieldset):
 
 # Allowed values section
 
-@templated('field_values_template.j2')
+@templated('field_values.j2')
 def page_field_values(nested, template_name='field_values_template.j2'):
     category_fields = ['event.kind', 'event.category', 'event.type', 'event.outcome']
     nested_fields = []
