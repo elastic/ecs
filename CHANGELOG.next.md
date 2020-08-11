@@ -40,6 +40,7 @@ Thanks, you're awesome :-) -->
   `log.syslog`, `network.inner`, `observer.egress`, and `observer.ingress`. #871
 * Improved attribute `dashed_name` in `generated/ecs/*.yml` to also
   replace `@` with `-`. #871
+* Updated several URLs in the documentation with appropriate special-use domain. #910
 
 #### Deprecated
 
