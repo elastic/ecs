@@ -44,4 +44,12 @@ type User struct {
 	// Name of the directory the user is a member of.
 	// For example, an LDAP or Active Directory domain name.
 	Domain string `ecs:"domain"`
+
+	// Array of user roles or groups, at the time of the event.
+	// `user.group.*` fields are meant to capture one group's full details,
+	// rather than capturing an array of groups associated with a user.
+	// When it's necessary to capture a list of roles or groups assigned to the
+	// user at the time an event or audit log is recorded, use the array field
+	// `user.roles`.
+	Roles string `ecs:"roles"`
 }
