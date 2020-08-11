@@ -481,12 +481,12 @@ client:
       dashed_name: client-registered-domain
       description: 'The highest registered client domain, stripped of the subdomain.
 
-        For example, the registered domain for "foo.google.com" is "google.com".
+        For example, the registered domain for "foo.example.com" is "example.com".
 
         This value can be determined precisely with a list like the public suffix
         list (http://publicsuffix.org). Trying to approximate this by simply taking
         the last two labels will not work well for TLDs such as "co.uk".'
-      example: google.com
+      example: example.com
       flat_name: client.registered_domain
       ignore_above: 1024
       level: extended
@@ -498,7 +498,7 @@ client:
       dashed_name: client-top-level-domain
       description: 'The effective top level domain (eTLD), also known as the domain
         suffix, is the last part of the domain name. For example, the top level domain
-        for google.com is "com".
+        for example.com is "com".
 
         This value can be determined precisely with a list like the public suffix
         list (http://publicsuffix.org). Trying to approximate this by simply taking
@@ -1181,12 +1181,12 @@ destination:
       dashed_name: destination-registered-domain
       description: 'The highest registered destination domain, stripped of the subdomain.
 
-        For example, the registered domain for "foo.google.com" is "google.com".
+        For example, the registered domain for "foo.example.com" is "example.com".
 
         This value can be determined precisely with a list like the public suffix
         list (http://publicsuffix.org). Trying to approximate this by simply taking
         the last two labels will not work well for TLDs such as "co.uk".'
-      example: google.com
+      example: example.com
       flat_name: destination.registered_domain
       ignore_above: 1024
       level: extended
@@ -1198,7 +1198,7 @@ destination:
       dashed_name: destination-top-level-domain
       description: 'The effective top level domain (eTLD), also known as the domain
         suffix, is the last part of the domain name. For example, the top level domain
-        for google.com is "com".
+        for example.com is "com".
 
         This value can be determined precisely with a list like the public suffix
         list (http://publicsuffix.org). Trying to approximate this by simply taking
@@ -1666,7 +1666,7 @@ dns:
         If a chain of CNAME is being resolved, each answer''s `name` should be the
         one that corresponds with the answer''s `data`. It should not simply be the
         original `question.name` repeated.'
-      example: www.google.com
+      example: www.example.com
       flat_name: dns.answers.name
       ignore_above: 1024
       level: extended
@@ -1759,7 +1759,7 @@ dns:
         those characters should be represented as escaped base 10 integers (\DDD).
         Back slashes and quotes should be escaped. Tabs, carriage returns, and line
         feeds should be converted to \t, \r, and \n respectively.'
-      example: www.google.com
+      example: www.example.com
       flat_name: dns.question.name
       ignore_above: 1024
       level: extended
@@ -1771,12 +1771,12 @@ dns:
       dashed_name: dns-question-registered-domain
       description: 'The highest registered domain, stripped of the subdomain.
 
-        For example, the registered domain for "foo.google.com" is "google.com".
+        For example, the registered domain for "foo.example.com" is "example.com".
 
         This value can be determined precisely with a list like the public suffix
         list (http://publicsuffix.org). Trying to approximate this by simply taking
         the last two labels will not work well for TLDs such as "co.uk".'
-      example: google.com
+      example: example.com
       flat_name: dns.question.registered_domain
       ignore_above: 1024
       level: extended
@@ -1802,7 +1802,7 @@ dns:
       dashed_name: dns-question-top-level-domain
       description: 'The effective top level domain (eTLD), also known as the domain
         suffix, is the last part of the domain name. For example, the top level domain
-        for google.com is "com".
+        for example.com is "com".
 
         This value can be determined precisely with a list like the public suffix
         list (http://publicsuffix.org). Trying to approximate this by simply taking
@@ -3210,7 +3210,7 @@ file:
     file.x509.issuer.common_name:
       dashed_name: file-x509-issuer-common-name
       description: List of common name (CN) of issuing certificate authority.
-      example: DigiCert SHA2 High Assurance Server CA
+      example: Example SHA2 High Assurance Server CA
       flat_name: file.x509.issuer.common_name
       ignore_above: 1024
       level: extended
@@ -3236,7 +3236,7 @@ file:
     file.x509.issuer.distinguished_name:
       dashed_name: file-x509-issuer-distinguished-name
       description: Distinguished name (DN) of issuing certificate authority.
-      example: C=US, O=DigiCert Inc, OU=www.digicert.com, CN=DigiCert SHA2 High Assurance
+      example: C=US, O=Example Inc, OU=www.example.com, CN=Example SHA2 High Assurance
         Server CA
       flat_name: file.x509.issuer.distinguished_name
       ignore_above: 1024
@@ -3262,7 +3262,7 @@ file:
     file.x509.issuer.organization:
       dashed_name: file-x509-issuer-organization
       description: List of organizations (O) of issuing certificate authority.
-      example: DigiCert Inc
+      example: Example Inc
       flat_name: file.x509.issuer.organization
       ignore_above: 1024
       level: extended
@@ -3275,7 +3275,7 @@ file:
     file.x509.issuer.organizational_unit:
       dashed_name: file-x509-issuer-organizational-unit
       description: List of organizational units (OU) of issuing certificate authority.
-      example: www.digicert.com
+      example: www.example.com
       flat_name: file.x509.issuer.organizational_unit
       ignore_above: 1024
       level: extended
@@ -3400,7 +3400,7 @@ file:
     file.x509.subject.common_name:
       dashed_name: file-x509-subject-common-name
       description: List of common names (CN) of subject.
-      example: r2.shared.global.fastly.net
+      example: shared.global.example.net
       flat_name: file.x509.subject.common_name
       ignore_above: 1024
       level: extended
@@ -3426,7 +3426,7 @@ file:
     file.x509.subject.distinguished_name:
       dashed_name: file-x509-subject-distinguished-name
       description: Distinguished name (DN) of the certificate subject entity.
-      example: C=US, ST=California, L=San Francisco, O=Fastly, Inc., CN=r2.shared.global.fastly.net
+      example: C=US, ST=California, L=San Francisco, O=Example, Inc., CN=shared.global.example.net
       flat_name: file.x509.subject.distinguished_name
       ignore_above: 1024
       level: extended
@@ -3451,7 +3451,7 @@ file:
     file.x509.subject.organization:
       dashed_name: file-x509-subject-organization
       description: List of organizations (O) of subject.
-      example: Fastly, Inc.
+      example: Example, Inc.
       flat_name: file.x509.subject.organization
       ignore_above: 1024
       level: extended
@@ -7185,12 +7185,12 @@ server:
       dashed_name: server-registered-domain
       description: 'The highest registered server domain, stripped of the subdomain.
 
-        For example, the registered domain for "foo.google.com" is "google.com".
+        For example, the registered domain for "foo.example.com" is "example.com".
 
         This value can be determined precisely with a list like the public suffix
         list (http://publicsuffix.org). Trying to approximate this by simply taking
         the last two labels will not work well for TLDs such as "co.uk".'
-      example: google.com
+      example: example.com
       flat_name: server.registered_domain
       ignore_above: 1024
       level: extended
@@ -7202,7 +7202,7 @@ server:
       dashed_name: server-top-level-domain
       description: 'The effective top level domain (eTLD), also known as the domain
         suffix, is the last part of the domain name. For example, the top level domain
-        for google.com is "com".
+        for example.com is "com".
 
         This value can be determined precisely with a list like the public suffix
         list (http://publicsuffix.org). Trying to approximate this by simply taking
@@ -7718,12 +7718,12 @@ source:
       dashed_name: source-registered-domain
       description: 'The highest registered source domain, stripped of the subdomain.
 
-        For example, the registered domain for "foo.google.com" is "google.com".
+        For example, the registered domain for "foo.example.com" is "example.com".
 
         This value can be determined precisely with a list like the public suffix
         list (http://publicsuffix.org). Trying to approximate this by simply taking
         the last two labels will not work well for TLDs such as "co.uk".'
-      example: google.com
+      example: example.com
       flat_name: source.registered_domain
       ignore_above: 1024
       level: extended
@@ -7735,7 +7735,7 @@ source:
       dashed_name: source-top-level-domain
       description: 'The effective top level domain (eTLD), also known as the domain
         suffix, is the last part of the domain name. For example, the top level domain
-        for google.com is "com".
+        for example.com is "com".
 
         This value can be determined precisely with a list like the public suffix
         list (http://publicsuffix.org). Trying to approximate this by simply taking
@@ -8196,7 +8196,7 @@ tls:
     tls.client.x509.issuer.common_name:
       dashed_name: tls-client-x509-issuer-common-name
       description: List of common name (CN) of issuing certificate authority.
-      example: DigiCert SHA2 High Assurance Server CA
+      example: Example SHA2 High Assurance Server CA
       flat_name: tls.client.x509.issuer.common_name
       ignore_above: 1024
       level: extended
@@ -8222,7 +8222,7 @@ tls:
     tls.client.x509.issuer.distinguished_name:
       dashed_name: tls-client-x509-issuer-distinguished-name
       description: Distinguished name (DN) of issuing certificate authority.
-      example: C=US, O=DigiCert Inc, OU=www.digicert.com, CN=DigiCert SHA2 High Assurance
+      example: C=US, O=Example Inc, OU=www.example.com, CN=Example SHA2 High Assurance
         Server CA
       flat_name: tls.client.x509.issuer.distinguished_name
       ignore_above: 1024
@@ -8248,7 +8248,7 @@ tls:
     tls.client.x509.issuer.organization:
       dashed_name: tls-client-x509-issuer-organization
       description: List of organizations (O) of issuing certificate authority.
-      example: DigiCert Inc
+      example: Example Inc
       flat_name: tls.client.x509.issuer.organization
       ignore_above: 1024
       level: extended
@@ -8261,7 +8261,7 @@ tls:
     tls.client.x509.issuer.organizational_unit:
       dashed_name: tls-client-x509-issuer-organizational-unit
       description: List of organizational units (OU) of issuing certificate authority.
-      example: www.digicert.com
+      example: www.example.com
       flat_name: tls.client.x509.issuer.organizational_unit
       ignore_above: 1024
       level: extended
@@ -8386,7 +8386,7 @@ tls:
     tls.client.x509.subject.common_name:
       dashed_name: tls-client-x509-subject-common-name
       description: List of common names (CN) of subject.
-      example: r2.shared.global.fastly.net
+      example: shared.global.example.net
       flat_name: tls.client.x509.subject.common_name
       ignore_above: 1024
       level: extended
@@ -8412,7 +8412,7 @@ tls:
     tls.client.x509.subject.distinguished_name:
       dashed_name: tls-client-x509-subject-distinguished-name
       description: Distinguished name (DN) of the certificate subject entity.
-      example: C=US, ST=California, L=San Francisco, O=Fastly, Inc., CN=r2.shared.global.fastly.net
+      example: C=US, ST=California, L=San Francisco, O=Example, Inc., CN=shared.global.example.net
       flat_name: tls.client.x509.subject.distinguished_name
       ignore_above: 1024
       level: extended
@@ -8437,7 +8437,7 @@ tls:
     tls.client.x509.subject.organization:
       dashed_name: tls-client-x509-subject-organization
       description: List of organizations (O) of subject.
-      example: Fastly, Inc.
+      example: Example, Inc.
       flat_name: tls.client.x509.subject.organization
       ignore_above: 1024
       level: extended
@@ -8678,7 +8678,7 @@ tls:
     tls.server.x509.issuer.common_name:
       dashed_name: tls-server-x509-issuer-common-name
       description: List of common name (CN) of issuing certificate authority.
-      example: DigiCert SHA2 High Assurance Server CA
+      example: Example SHA2 High Assurance Server CA
       flat_name: tls.server.x509.issuer.common_name
       ignore_above: 1024
       level: extended
@@ -8704,7 +8704,7 @@ tls:
     tls.server.x509.issuer.distinguished_name:
       dashed_name: tls-server-x509-issuer-distinguished-name
       description: Distinguished name (DN) of issuing certificate authority.
-      example: C=US, O=DigiCert Inc, OU=www.digicert.com, CN=DigiCert SHA2 High Assurance
+      example: C=US, O=Example Inc, OU=www.example.com, CN=Example SHA2 High Assurance
         Server CA
       flat_name: tls.server.x509.issuer.distinguished_name
       ignore_above: 1024
@@ -8730,7 +8730,7 @@ tls:
     tls.server.x509.issuer.organization:
       dashed_name: tls-server-x509-issuer-organization
       description: List of organizations (O) of issuing certificate authority.
-      example: DigiCert Inc
+      example: Example Inc
       flat_name: tls.server.x509.issuer.organization
       ignore_above: 1024
       level: extended
@@ -8743,7 +8743,7 @@ tls:
     tls.server.x509.issuer.organizational_unit:
       dashed_name: tls-server-x509-issuer-organizational-unit
       description: List of organizational units (OU) of issuing certificate authority.
-      example: www.digicert.com
+      example: www.example.com
       flat_name: tls.server.x509.issuer.organizational_unit
       ignore_above: 1024
       level: extended
@@ -8868,7 +8868,7 @@ tls:
     tls.server.x509.subject.common_name:
       dashed_name: tls-server-x509-subject-common-name
       description: List of common names (CN) of subject.
-      example: r2.shared.global.fastly.net
+      example: shared.global.example.net
       flat_name: tls.server.x509.subject.common_name
       ignore_above: 1024
       level: extended
@@ -8894,7 +8894,7 @@ tls:
     tls.server.x509.subject.distinguished_name:
       dashed_name: tls-server-x509-subject-distinguished-name
       description: Distinguished name (DN) of the certificate subject entity.
-      example: C=US, ST=California, L=San Francisco, O=Fastly, Inc., CN=r2.shared.global.fastly.net
+      example: C=US, ST=California, L=San Francisco, O=Example, Inc., CN=shared.global.example.net
       flat_name: tls.server.x509.subject.distinguished_name
       ignore_above: 1024
       level: extended
@@ -8919,7 +8919,7 @@ tls:
     tls.server.x509.subject.organization:
       dashed_name: tls-server-x509-subject-organization
       description: List of organizations (O) of subject.
-      example: Fastly, Inc.
+      example: Example, Inc.
       flat_name: tls.server.x509.subject.organization
       ignore_above: 1024
       level: extended
@@ -9196,12 +9196,12 @@ url:
       dashed_name: url-registered-domain
       description: 'The highest registered url domain, stripped of the subdomain.
 
-        For example, the registered domain for "foo.google.com" is "google.com".
+        For example, the registered domain for "foo.example.com" is "example.com".
 
         This value can be determined precisely with a list like the public suffix
         list (http://publicsuffix.org). Trying to approximate this by simply taking
         the last two labels will not work well for TLDs such as "co.uk".'
-      example: google.com
+      example: example.com
       flat_name: url.registered_domain
       ignore_above: 1024
       level: extended
@@ -9226,7 +9226,7 @@ url:
       dashed_name: url-top-level-domain
       description: 'The effective top level domain (eTLD), also known as the domain
         suffix, is the last part of the domain name. For example, the top level domain
-        for google.com is "com".
+        for example.com is "com".
 
         This value can be determined precisely with a list like the public suffix
         list (http://publicsuffix.org). Trying to approximate this by simply taking
@@ -9828,7 +9828,7 @@ x509:
     x509.issuer.common_name:
       dashed_name: x509-issuer-common-name
       description: List of common name (CN) of issuing certificate authority.
-      example: DigiCert SHA2 High Assurance Server CA
+      example: Example SHA2 High Assurance Server CA
       flat_name: x509.issuer.common_name
       ignore_above: 1024
       level: extended
@@ -9852,7 +9852,7 @@ x509:
     x509.issuer.distinguished_name:
       dashed_name: x509-issuer-distinguished-name
       description: Distinguished name (DN) of issuing certificate authority.
-      example: C=US, O=DigiCert Inc, OU=www.digicert.com, CN=DigiCert SHA2 High Assurance
+      example: C=US, O=Example Inc, OU=www.example.com, CN=Example SHA2 High Assurance
         Server CA
       flat_name: x509.issuer.distinguished_name
       ignore_above: 1024
@@ -9876,7 +9876,7 @@ x509:
     x509.issuer.organization:
       dashed_name: x509-issuer-organization
       description: List of organizations (O) of issuing certificate authority.
-      example: DigiCert Inc
+      example: Example Inc
       flat_name: x509.issuer.organization
       ignore_above: 1024
       level: extended
@@ -9888,7 +9888,7 @@ x509:
     x509.issuer.organizational_unit:
       dashed_name: x509-issuer-organizational-unit
       description: List of organizational units (OU) of issuing certificate authority.
-      example: www.digicert.com
+      example: www.example.com
       flat_name: x509.issuer.organizational_unit
       ignore_above: 1024
       level: extended
@@ -10003,7 +10003,7 @@ x509:
     x509.subject.common_name:
       dashed_name: x509-subject-common-name
       description: List of common names (CN) of subject.
-      example: r2.shared.global.fastly.net
+      example: shared.global.example.net
       flat_name: x509.subject.common_name
       ignore_above: 1024
       level: extended
@@ -10027,7 +10027,7 @@ x509:
     x509.subject.distinguished_name:
       dashed_name: x509-subject-distinguished-name
       description: Distinguished name (DN) of the certificate subject entity.
-      example: C=US, ST=California, L=San Francisco, O=Fastly, Inc., CN=r2.shared.global.fastly.net
+      example: C=US, ST=California, L=San Francisco, O=Example, Inc., CN=shared.global.example.net
       flat_name: x509.subject.distinguished_name
       ignore_above: 1024
       level: extended
@@ -10050,7 +10050,7 @@ x509:
     x509.subject.organization:
       dashed_name: x509-subject-organization
       description: List of organizations (O) of subject.
-      example: Fastly, Inc.
+      example: Example, Inc.
       flat_name: x509.subject.organization
       ignore_above: 1024
       level: extended
