@@ -42,7 +42,8 @@ type Destination struct {
 	Domain string `ecs:"domain"`
 
 	// The highest registered destination domain, stripped of the subdomain.
-	// For example, the registered domain for "foo.google.com" is "google.com".
+	// For example, the registered domain for "foo.example.com" is
+	// "example.com".
 	// This value can be determined precisely with a list like the public
 	// suffix list (http://publicsuffix.org). Trying to approximate this by
 	// simply taking the last two labels will not work well for TLDs such as
@@ -51,7 +52,7 @@ type Destination struct {
 
 	// The effective top level domain (eTLD), also known as the domain suffix,
 	// is the last part of the domain name. For example, the top level domain
-	// for google.com is "com".
+	// for example.com is "com".
 	// This value can be determined precisely with a list like the public
 	// suffix list (http://publicsuffix.org). Trying to approximate this by
 	// simply taking the last label will not work well for effective TLDs such

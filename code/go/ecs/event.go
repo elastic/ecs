@@ -204,8 +204,8 @@ type Event struct {
 	// URL linking to an external system to continue investigation of this
 	// event.
 	// This URL links to another system where in-depth investigation of the
-	// specific occurence of this event can take place. Alert events, indicated
-	// by `event.kind:alert`, are a common use case for this field.
+	// specific occurrence of this event can take place. Alert events,
+	// indicated by `event.kind:alert`, are a common use case for this field.
 	Url string `ecs:"url"`
 
 	// Reason why this event happened, according to the source.
