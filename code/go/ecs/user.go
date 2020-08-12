@@ -44,4 +44,7 @@ type User struct {
 	// Name of the directory the user is a member of.
 	// For example, an LDAP or Active Directory domain name.
 	Domain string `ecs:"domain"`
+
+	// Array of user roles at the time of the event.
+	Roles string `ecs:"roles"`
 }
