@@ -18,6 +18,8 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
+* Updated several URLs in the documentation with "example.com" domain. #910
+
 #### Deprecated
 
 
