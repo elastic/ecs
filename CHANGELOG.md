@@ -22,6 +22,7 @@ All notable changes to this project will be documented in this file based on the
 * Added missing field reuse of `pe` at `process.parent.pe` #868
 * Added `span.id` to the tracing fieldset, for additional log correlation #882
 * Added `event.reason` for the reason why an event's outcome or action was taken. #907
+* Added `related.hosts` to capture all hostnames and host identifiers on an event. #913
 * Added `user.roles` to capture a list of role names that apply to the user. #917
 
 #### Improvements
