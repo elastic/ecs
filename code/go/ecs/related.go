@@ -41,5 +41,5 @@ type Related struct {
 
 	// All hostnames or other host identifiers seen on your event. Example
 	// identifiers include FQDNs, domain names, workstation names, or aliases.
-	Host string `ecs:"host"`
+	Hosts string `ecs:"hosts"`
 }
