@@ -27,6 +27,7 @@ Thanks, you're awesome :-) -->
 * Added missing field reuse of `pe` at `process.parent.pe` #868
 * Added `span.id` to the tracing fieldset, for additional log correlation (#882)
 * Added `event.reason` for the reason why an event's outcome or action was taken. #907
+* Added `related.hosts` to capture all hostnames and host identifiers on an event. #913
 
 #### Improvements
 
