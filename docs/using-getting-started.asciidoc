@@ -143,7 +143,7 @@ other fields to provide additional context about the event itself.
 * `ecs.version`: States which version of ECS the ingest pipeline was developed against.
 * `event.dataset` and `event.module`: Answers "where is this event from" and are expected to have a
   hardcoded value per pipeline, per source.
-* `event.kind`, `event.category`, `event.type`, and `event.outcome`: The https://www.elastic.co/guide/en/ecs/current/ecs-category-field-values-reference.html[categorization fields]
+* `event.kind`, `event.category`, `event.type`, and `event.outcome`: The <<ecs-category-field-values-reference>>
   should also be hardcoded using knowledge of each type of event the source emits. The contents of
   these fields are limited to the specifically allowed values detailed in the ECS documentation.
 
@@ -192,11 +192,11 @@ Lastly, existing field values can be interpreted or enriched using a processor, 
 populating additional fields in the final event.
 
 * The `user_agent` processor extracts details from the original user agent string, `user_agent.original`.
-* IP fields like `source.ip` can provide enrichment using the `geopip` processor to add information about the
+* IP fields like `source.ip` can provide enrichment using the `geoip` processor to add information about the
   location and autonomous system number (ASN) associated with an IP address.
 * The `registered domain` processor reads a field containing a hostname and writes the registered domain to
   another field
-* Event collectors, such as https://www.elastic.co/guide/en/beats/libbeat/current/beats-reference.html[Beats], can enrich
+* Event collectors, such as {beats-ref}/beats-reference.html[Beats], can enrich
   each event with metadata from the machine's hosting provider (cloud) and/or from the host machine (host).
 
 Here are some examples of additional fields processed by metadata or parser processors.
