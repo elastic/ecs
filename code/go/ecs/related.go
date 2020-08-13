@@ -38,4 +38,8 @@ type Related struct {
 	// to search for hashes can help in situations where you're unsure what the
 	// hash algorithm is (and therefore which key name to search).
 	Hash string `ecs:"hash"`
+
+	// All hostnames or other host identifiers seen on your event. Example
+	// identifiers include FQDNs, domain names, workstation names, or aliases.
+	Hosts string `ecs:"hosts"`
 }
