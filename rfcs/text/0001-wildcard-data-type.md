@@ -234,9 +234,15 @@ ECS is and will remain an open source licensed project. However, there will be f
 Stage 1: Identify potential concerns, implementation challenges, or complexity. Spend some time on this. Play devil's advocate. Try to identify the sort of non-obvious challenges that tend to surface later. The goal here is to surface risks early, allow everyone the time to work through them, and ultimately document resolution for posterity's sake.
 -->
 
+### Licensing
+
 Until now ECS has relied only on OSS licensed features, but ECS will also support Elastic licensed features. The ECS project will remain OSS licensed with the schema implementing Elastic licensed features as part of the specification. When ECS adopts a feature available only under a license, it will be noted in the documentation. ECS plans to provide tooling options which continue to support OSS consumers of ECS and the Elastic Stack.
 
+### Performance differences
+
 Performance and storage characteristics between wildcard and keyword will be different[3], and this difference may have an impact depending on deployment size and/or the level of duplication in the field data. As part of the transition, fields which were previously indexed keyword will be switched to wildcard. Queries across indices with field names will be necessary. Understanding the differences at both index and query time will be pursued.
+
+### Wildcard field value character limits
 
 ECS applies the `ignore_above` setting to keyword fields to prevent strings longer than 1024 characters from being indexed or stored. While `ignore_above` can be raised, Lucene implements a term byte-length limit of 32766 which cannot be adjusted. Wildcard supports an unlimited max character size for a field value. The `wildcard` field type will still have the `ignore_above` option available, and a reasonable limit may be need applied to mitigate unexpected side-effects.
 
