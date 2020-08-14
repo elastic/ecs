@@ -7,8 +7,6 @@ All notable changes to this project will be documented in this file based on the
 
 ### Schema Changes
 
-* Added `log.file.path` to capture the log file an event came from. #802
-
 #### Bugfixes
 
 * Field `registry.data.strings` should have been marked as an array field. #790
@@ -18,6 +16,7 @@ All notable changes to this project will be documented in this file based on the
 * Added `x509.*` field set. #762
 * Add architecture and imphash for PE field set. #763
 * Added `agent.build.*` for extended agent version information. #764
+* Added `log.file.path` to capture the log file an event came from. #802
 * Added more account and project cloud metadata. #816
 * Added missing field reuse of `pe` at `process.parent.pe` #868
 * Added `span.id` to the tracing fieldset, for additional log correlation #882
@@ -42,12 +41,6 @@ All notable changes to this project will be documented in this file based on the
 #### Deprecated
 
 * Deprecate guidance to lowercase `http.request.method` #840
-* In `ecs_nested.yml`, we're deprecating the attribute `nestings`. It will be
-  removed in a future release. The deprecated `nestings` attribute was an array of
-  flat field names describing where fields are nested within the field set.
-  This is replaced with the attribute `reused_here`, which is an array of objects.
-  The new format still lists where the fields are nested via the same flat field name,
-  but also specifies additional information about each field reuse. #864
 
 
 ### Tooling and Artifact Changes
@@ -98,6 +91,15 @@ All notable changes to this project will be documented in this file based on the
 * Jinja2 templates now define the doc structure for the AsciiDoc generator. #865
 * Intermediate `ecs_flat.yml` and `ecs_nested.yml` files are now generated for each individual subset,
   in addition to the intermediate files generated for the combined subset. #873
+
+#### Deprecated
+
+* In `ecs_nested.yml`, we're deprecating the attribute `nestings`. It will be
+  removed in a future release. The deprecated `nestings` attribute was an array of
+  flat field names describing where fields are nested within the field set.
+  This is replaced with the attribute `reused_here`, which is an array of objects.
+  The new format still lists where the fields are nested via the same flat field name,
+  but also specifies additional information about each field reuse. #864
 
 
 ## [1.5.0](https://github.com/elastic/ecs/compare/v1.4.0...v1.5.0)
