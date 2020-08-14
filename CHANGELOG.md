@@ -7,8 +7,6 @@ All notable changes to this project will be documented in this file based on the
 
 ### Schema Changes
 
-* Added `log.file.path` to capture the log file an event came from. #802
-
 #### Bugfixes
 
 * Field `registry.data.strings` should have been marked as an array field. #790
@@ -18,6 +16,7 @@ All notable changes to this project will be documented in this file based on the
 * Added `x509.*` field set. #762
 * Add architecture and imphash for PE field set. #763
 * Added `agent.build.*` for extended agent version information. #764
+* Added `log.file.path` to capture the log file an event came from. #802
 * Added more account and project cloud metadata. #816
 * Added missing field reuse of `pe` at `process.parent.pe` #868
 * Added `span.id` to the tracing fieldset, for additional log correlation #882
