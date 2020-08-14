@@ -14,6 +14,9 @@ ECS is an open source project and we love to receive contributions from our comm
   - [Forking](#forking)
   - [Commits and Merging](#commits-and-merging)
   - [Issues](#issues)
+  - [Backports](#backports)
+    - [Branching](#branching)
+    - [Tooling](#tooling)
 - [Documentation](#documentation)
 - [Schema Files](#schema-files)
 - [Additional Resources](#additional-resources)
@@ -93,6 +96,42 @@ Please follow these guidelines when submitting Issues:
 * Click `New issue`. Provide as many details as possible to help reviewers and other contributors understand your proposal.
 * Add your text, and click `Submit new issue`.
 
+### Backports
+
+ECS maintains multiple release branches in the repo. The `master` branch is where all new contributions should be submitted, and features and bug fixes will be backported into other branches when appropriate. Any backporting needs will be handled by the ECS team.
+
+#### Branching
+
+* The `master` branch is where all new contributions are merged. This includes new features and bug fixes, and it may also include breaking changes.
+* The `1.x` branch gets backports of most non-breaking features and fixes. This branch represents the next `major.minor` release.
+* The `major.minor` branches (e.g. `1.6`, `1.5`, `1.4`, etc.) contain the latest released version of those releases.
+
+#### Tooling
+
+Refer to the backport tool's [repo](https://github.com/sqren/backport#requirements) for requirements and install guide. A [project config](.backportrc.json) is maintained in the root of this repo.
+
+Run:
+
+```bash
+$ npx backport --pr 1234
+```
+
+Select target branch(es) to backport to:
+
+```bash
+? Select commit #1234 (cb79e8f5)
+? Select branch (Press <space> to select, <a> to toggle all, <i> to invert selection)
+❯◉ 1.x
+ ◯ 1.6
+ ◯ 1.5
+ ◯ 1.4
+ ◯ 1.3
+ ◯ 1.2
+ ◯ 1.1
+ ◯ 1.0
+```
+
+New PR(s) will be opened against the targeted branch(es).
 
 ## Documentation
 
