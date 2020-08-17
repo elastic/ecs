@@ -61,7 +61,7 @@ generate: legacy_use_cases codegen generator
 # Run the new generator
 .PHONY: generator
 generator:
-	$(PYTHON) scripts/generator.py --include "${INCLUDE}"
+	$(PYTHON) scripts/generator.py --strict --include "${INCLUDE}"
 
 # Generate Go code from the schema.
 .PHONY: gocodegen
