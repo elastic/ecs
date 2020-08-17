@@ -1,4 +1,5 @@
 import copy
+import warnings
 
 from generators import ecs_helpers
 from schema import visitor
@@ -181,7 +182,7 @@ def field_assertions_and_warnings(field):
 SHORT_LIMIT = 120
 
 
-def single_line_short_description(schema_or_field, strict_mode_enabled=False):
+def single_line_short_description(schema_or_field, strict_mode_enabled=True):
     short_length = len(schema_or_field['field_details']['short'])
     if "\n" in schema_or_field['field_details']['short'] or short_length > SHORT_LIMIT:
         msg = "Short descriptions must be single line, and under {} characters (current length: {}).\n".format(
@@ -192,4 +193,5 @@ def single_line_short_description(schema_or_field, strict_mode_enabled=False):
         if strict_mode_enabled:
             raise ValueError(msg)
         else:
-            print(f"\nWarning: {msg}\nThis will cause an exception when running in strict mode.\n")
+            message = f"{msg}\n\nThis will cause an exception when running in strict mode."
+            warnings.warn(message)
