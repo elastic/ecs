@@ -1,8 +1,8 @@
 # 0004: Session
 <!--^ The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC, taking care not to conflict with other RFCs.-->
 
-- Stage: **0 (strawperson)** <!-- Update to reflect target stage -->
-- Date: 7/30/2020 <!-- Update to reflect date of most recent stage advancement -->
+- Stage: **2 (draft)** <!-- Update to reflect target stage -->
+- Date: 8/17/2020 <!-- Update to reflect date of most recent stage advancement -->
 
 <!--
 Stage 0: Provide a high level summary of the premise of these changes. Briefly describe the nature, purpose, and impact of the changes. ~2-5 sentences.
@@ -88,23 +88,29 @@ Stage 3: Add or update all remaining field definitions. The list should now be e
 
 ## Usage
 
-Session fields are used to describe the sesison attributes of:
- - Client VPN Sessions
- - Network to Network VPN Sessions
- - Network Access Sessions (NAC, WPA, EAP, etc.)
- - Local or remote device login sessions (RDP, ICA, xWindows)
+Session fields are used to describe and track a discrete grouping of interactions, typically bounded by
+authentication or authorization events and tied to a specific user, application, or system component. 
+
+For example:
+ - Network Access Sessions (NAC or Wireless LAN)
+ - Local or remote device login sessions (tty, console, ssh, RDP, ICA, xWindows, etc.)
+ - VPN Sessions (network to network, or client to network)
+ - Local or remote device login sessions (console, tty, RDP, ICA, xWindows, ssh, etc.)
  - Administrative sessions on infrastructure devices
  - Administrative sessions on cloud or application management portals
- - Applications sessions (e.g. sql server odbc session, application access session)
+ - Applications sessions (e.g. sql server odbc session, web cookie based session, application access session)
+ - Cloud API access sessions
 
 
 ## Source data
 Source data expectations include:
  - Wireless Lan Controllers
- - Security appliances
+ - Security appliances (e.g. fw, waf)
  - Network admission control devices
- - Radius / tacacs servers
- - Application server logs
+ - Radius / tacacs servers (802.1x EAP/PEAP aaa)
+ - Application server logs (FTP, MySQL)
+ - Web Server, WAF, or ADC logs (USer or cookie based web ession control)
+ - APM telemetry
 
 Example 1: Meraki 802.1x Logs (WLC)
 * EAP session start)
