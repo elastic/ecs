@@ -268,6 +268,7 @@ The following are the people that consulted on the contents of this RFC.
 
 * https://github.com/elastic/ecs/issues/570
 * https://github.com/elastic/mechagodzilla/issues/2
+* https://github.com/elastic/ecs/issues/105
 
 ### RFC Pull Requests
 
