@@ -1,8 +1,21 @@
 {
   "upstream": "elastic/ecs",
-  "branches": [{ "name": "1.0", "checked": true }],
-  "all": true,
-  "multipleCommits": false,
-  "multipleBranches": true,
-  "labels": ["backport"]
+  "branches": [
+    { "name": "master", "checked": true },
+    { "name": "1.x", "checked": true },
+    "1.6",
+    "1.5",
+    "1.4",
+    "1.3",
+    "1.2",
+    "1.1",
+    "1.0"
+  ],
+  "targetPRLabels": ["backport"],
+  "prFilter": "label:needs_backport",
+  "branchLabelMapping": {
+      "^2.0.0$": "master",
+      "^1.7.0$": "1.x",
+      "^(\\d+).(\\d+).\\d+$": "$1.$2"
+  }
 }
