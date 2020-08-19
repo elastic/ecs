@@ -33,8 +33,8 @@ Multi-fields:
 * {{ mf['flat_name'] }} (type: {{ mf ['type'] }})
 
 
-{% endfor %}
-{% endif %}
+{% endfor %}{# for mf #}
+{% endif %}{# if 'multi_fields' #}
 {% if 'array' in field['normalize'] -%}
 
 Note: this field should contain an array of values.
@@ -52,15 +52,15 @@ To learn more about when to use which value, visit the page
 
 example: `{{ field['example'] }}`
 
-{%- endif %}
+{%- endif %}{# if 'allowed_values' elif 'example' #}
 
 {# `Level` column -#}
 | {{ field['level'] }}
 
 // ===============================================================
 
-{% endif -%}
-{% endfor -%}
+{% endif %}{# if 'original_fieldset' -#}
+{% endfor %}{# for 'field' -#}
 
 |=====
 
@@ -81,8 +81,8 @@ Note also that the `{{ fieldset['name'] }}` fields may be used directly at the r
 
 Note also that the `{{ fieldset['name'] }}` fields are not expected to be used directly at the root of the events.
 
-{% endif -%}
-{% endif %}
+{% endif %}{# if 'top_level' -#}
+{% endif %}{# if 'reusable' #}
 
 
 {% if 'nestings' in fieldset -%}
@@ -109,5 +109,5 @@ Note also that the `{{ fieldset['name'] }}` fields are not expected to be used d
 
 |=====
 
-{% endif %}
-{%- endif %}
+{% endif %}{# if 'nestings' #}
+{%- endif %}{# if 'nestings' or 'reusable' in fieldset #}
