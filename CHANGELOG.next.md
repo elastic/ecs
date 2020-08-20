@@ -104,6 +104,7 @@ Thanks, you're awesome :-) -->
 * Jinja2 templates now define the doc structure for the AsciiDoc generator. #865
 * Intermediate `ecs_flat.yml` and `ecs_nested.yml` files are now generated for each individual subset,
   in addition to the intermediate files generated for the combined subset. #873
+* Field details Jinja2 template components have been consolidated into one template #897
 
 #### Deprecated
 
