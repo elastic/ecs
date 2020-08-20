@@ -2594,11 +2594,12 @@
       type: keyword
       ignore_above: 1024
       description: "Direction of the network traffic.\nRecommended values are:\n \
-        \ * inbound\n  * outbound\n  * internal\n  * external\n  * unknown\n\nWhen\
-        \ mapping events from a host-based monitoring context, populate this field\
-        \ from the host's point of view.\nWhen mapping events from a network or perimeter-based\
-        \ monitoring context, populate this field from the point of view of your network\
-        \ perimeter."
+        \ * ingress\n  * egress\n  * inbound\n  * outbound\n  * internal\n  * external\n\
+        \  * unknown\n\nWhen mapping events from a host-based monitoring context,\
+        \ populate this field from the host's point of view, using the values ingress\
+        \ or egress.\nWhen mapping events from a network or perimeter-based monitoring\
+        \ context, populate this field from the point of view of your network perimeter,\
+        \ using the values inbound, outbound, internal or external."
       example: inbound
     - name: forwarded_ip
       level: core
@@ -2617,8 +2618,8 @@
       level: extended
       type: object
       description: Network.inner fields are added in addition to network.vlan fields
-        to describe  the innermost VLAN when q-in-q VLAN tagging is present. Allowed
-        fields include  vlan.id and vlan.name. Inner vlan fields are typically used
+        to describe the innermost VLAN when q-in-q VLAN tagging is present. Allowed
+        fields include vlan.id and vlan.name. Inner vlan fields are typically used
         when sending traffic with multiple 802.1q encapsulations to a network sensor
         (e.g. Zeek, Wireshark.)
       default_field: false

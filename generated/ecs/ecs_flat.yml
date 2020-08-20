@@ -3983,11 +3983,13 @@ network.community_id:
   type: keyword
 network.direction:
   dashed_name: network-direction
-  description: "Direction of the network traffic.\nRecommended values are:\n  * inbound\n\
-    \  * outbound\n  * internal\n  * external\n  * unknown\n\nWhen mapping events\
-    \ from a host-based monitoring context, populate this field from the host's point\
-    \ of view.\nWhen mapping events from a network or perimeter-based monitoring context,\
-    \ populate this field from the point of view of your network perimeter."
+  description: "Direction of the network traffic.\nRecommended values are:\n  * ingress\n\
+    \  * egress\n  * inbound\n  * outbound\n  * internal\n  * external\n  * unknown\n\
+    \nWhen mapping events from a host-based monitoring context, populate this field\
+    \ from the host's point of view, using the values ingress or egress.\nWhen mapping\
+    \ events from a network or perimeter-based monitoring context, populate this field\
+    \ from the point of view of your network perimeter, using the values inbound,\
+    \ outbound, internal or external."
   example: inbound
   flat_name: network.direction
   ignore_above: 1024
@@ -4022,8 +4024,8 @@ network.iana_number:
 network.inner:
   dashed_name: network-inner
   description: Network.inner fields are added in addition to network.vlan fields to
-    describe  the innermost VLAN when q-in-q VLAN tagging is present. Allowed fields
-    include  vlan.id and vlan.name. Inner vlan fields are typically used when sending
+    describe the innermost VLAN when q-in-q VLAN tagging is present. Allowed fields
+    include vlan.id and vlan.name. Inner vlan fields are typically used when sending
     traffic with multiple 802.1q encapsulations to a network sensor (e.g. Zeek, Wireshark.)
   flat_name: network.inner
   level: extended
