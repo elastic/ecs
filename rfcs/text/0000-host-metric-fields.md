@@ -9,7 +9,7 @@ As you work on your RFC, use the "Stage N" comments to guide you in what you sho
 Feel free to remove these comments as you go along.
 -->
 
-Stage 0: We are proposing to add 7 new host fields into ECS for monitoring CPU, disk and network performance using Metricbeat.
+We are proposing to add 7 new host fields into ECS for monitoring CPU, disk and network performance using Metricbeat.
 With existing `host.id` and `host.name`, these totaly 9 fields will become the common field schema for host metrics.
 
 Proposed 7 new fields are:
@@ -100,7 +100,7 @@ Who will be or has consulted on the contents of this RFC? Identify authorship an
 
 e.g.:
 
-* @Yasmina | author
+* @kaiyan-sheng | author
 * @Monique | sponsor
 * @EunJung | subject matter expert
 * @JaneDoe | grammar, spelling, prose
@@ -116,7 +116,7 @@ e.g.:
 
 <!-- An RFC should link to the PRs for each of it stage advancements. -->
 
-* Stage 0: https://github.com/elastic/ecs/pull/NNN
+* Stage 0: https://github.com/elastic/ecs/pull/947
 
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN
