@@ -101,7 +101,7 @@ Mapping definition:
 }
 ```
 
-> Note: the existing `text` data type multi-field will remain only if there is a need to support tokenized searches.
+**Note**: the existing `text` data type multi-field will remain only if there is a need to support tokenized searches.
 
 ## Usage
 
@@ -121,9 +121,9 @@ The next sections details use cases which could benefit wildcard.
 
 ### Paths
 
-Flexible nesting of a file path: `file.path:*\\Users\\*\\Temp\\*`
-Match under registry path: `registry.path:\\HKLM\\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\*\Debugger`
-A unique URL path: `url.full:https://api.example.com/account/*/foobar`
+* Flexible nesting of a file path: `file.path:*\\Users\\*\\Temp\\*`
+* Match under registry path: `registry.path:\\HKLM\\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\*\Debugger`
+* A unique URL path: `url.full:https://api.example.com/account/*/foobar`
 
 The following are common categories
 
@@ -135,8 +135,8 @@ The following are common categories
 
 Similar to paths, different names components many need to be searched using one or more wildcard.
 
-Flexible host name searching: `host.name:prod-*-db*`
-Likewise, flexible searching of user names or accounts: `user.email:foo*@example.com`
+* Flexible host name searching: `host.name:prod-*-db*`
+* Likewise, flexible searching of user names or accounts: `user.email:foo*@example.com`
 
 Common categories:
 
