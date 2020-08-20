@@ -109,7 +109,7 @@ Mapping definition:
 Stage 1: Describe at a high-level how these field changes will be used in practice. Real world examples are encouraged. The goal here is to understand how people would leverage these fields to gain insights or solve problems. ~1-3 paragraphs.
 -->
 
-Wildcard is well-suited for cases requiring partial matching of string values across long unstructured or semi-structured fields. Often machine generated events, such as logs, metrics, and traces, aren't well suited for the analysis applied on `text` fields. Using keyword allows for exact value searching and introduces filtering, sorting, and aggregations. Keyword fields do also support regex and wildcard queries, however the field's search performance can become vary largely for certain queries (e.g. leading wildcard) and the cardinality of the data.
+Wildcard is well-suited for cases requiring partial matching of string values across long unstructured or semi-structured fields. Often machine generated events, such as logs, metrics, and traces, aren't well suited for the analysis applied on `text` fields. Using `keyword` allows for exact value searching and introduces filtering, sorting, and aggregations. Keyword fields do also support regex and wildcard queries, however the field's search performance can vary a lot, depending on the query (e.g. leading wildcard) and the cardinality of the data.
 
 Often ECS approaches semi-structured fields by breaking their values down into structured ones. These structured fields then enable better use of keyword fields' characteristics. For example, a URL can break down into its constituent parts: scheme, domain,  port, path, etc., and those parts can in turn be mapped to unique fields. However, not all fields are structured enough for this approach.
 
@@ -220,9 +220,9 @@ The goal here is to research and understand the impact of these changes on users
 
 Any component producing data (Beats, Logstash, third-party developed, etc.) will need to adopt the mappings in their index templates. The discussion around the handling of OSS vs. Basic field types between OSS and Basic modules/plugins will be handled outside of this proposal.
 
-### Usage
+### Usage mechanisms
 
-Part of the 7.9 release is the introduction of the first field family[2], `keyword`. Grouping field types by family is intended to eliminate backwards compatibility issues when replacing an old field with a new specialized type on time-based indices (e.g. `keyword` replaced with `wildcard`). The `wildcard` data type will return `keyword` in the output of the field capabilities API call, and this change will enable both types to behave identically at query time. This feature eliminates concerns arising from Kibana's field compatibility checks in index patterns.
+Part of the 7.9 release is the introduction of the keyword family[2]. Grouping field types by family is intended to eliminate backwards compatibility issues when replacing an older field type with a new, more specialized type on time-based indices (e.g. `keyword` replaced with `wildcard`). The `wildcard` data type will return `keyword` in the output of the field capabilities API call, and this change will enable both types to behave identically at query time. This feature eliminates concerns arising from Kibana's field compatibility checks in index patterns..
 
 ### ECS project
 
@@ -234,10 +234,6 @@ ECS is and will remain an open source licensed project. However, there will be f
 Stage 1: Identify potential concerns, implementation challenges, or complexity. Spend some time on this. Play devil's advocate. Try to identify the sort of non-obvious challenges that tend to surface later. The goal here is to surface risks early, allow everyone the time to work through them, and ultimately document resolution for posterity's sake.
 -->
 
-### Licensing
-
-Until now ECS has relied only on OSS licensed features, but ECS will also support Elastic licensed features. The ECS project will remain OSS licensed with the schema implementing Elastic licensed features as part of the specification. When ECS adopts a feature available only under a license, it will be noted in the documentation. ECS plans to provide tooling options which continue to support OSS consumers of ECS and the Elastic Stack.
-
 ### Performance differences
 
 Performance and storage characteristics between wildcard and keyword will be different[3], and this difference may have an impact depending on deployment size and/or the level of duplication in the field data. As part of the transition, fields which were previously indexed keyword will be switched to wildcard. Queries across indices with field names will be necessary. Understanding the differences at both index and query time will be pursued.
@@ -245,6 +241,10 @@ Performance and storage characteristics between wildcard and keyword will be dif
 ### Wildcard field value character limits
 
 ECS applies the `ignore_above` setting to keyword fields to prevent strings longer than 1024 characters from being indexed or stored. While `ignore_above` can be raised, Lucene implements a term byte-length limit of 32766 which cannot be adjusted. Wildcard supports an unlimited max character size for a field value. The `wildcard` field type will still have the `ignore_above` option available, and a reasonable limit may be need applied to mitigate unexpected side-effects.
+
+### Licensing
+
+Until now ECS has relied only on OSS licensed features, but ECS will also support Elastic licensed features. The ECS project will remain OSS licensed with the schema implementing Elastic licensed features as part of the specification. When ECS adopts a feature available only under a license, it will be noted in the documentation. ECS plans to provide tooling options which continue to support OSS consumers of ECS and the Elastic Stack.
 
 ## People
 
