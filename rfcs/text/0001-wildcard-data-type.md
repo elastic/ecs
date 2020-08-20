@@ -266,6 +266,7 @@ The following are the people that consulted on the contents of this RFC.
 
 <!-- Insert any links appropriate to this RFC in this section. -->
 
+* [Introductory blog post for the wildcard type](https://www.elastic.co/blog/find-strings-within-strings-faster-with-the-new-elasticsearch-wildcard-field)
 * https://github.com/elastic/ecs/issues/570
 * https://github.com/elastic/mechagodzilla/issues/2
 * https://github.com/elastic/ecs/issues/105
