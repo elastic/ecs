@@ -30,7 +30,7 @@ For a field to use wildcard, it will require changing the the field's defined sc
 
 Here's an example of applying this change to the `process.command_line` field:
 
-**Current definition as of ECS 1.5.0**
+**Definition as of ECS 1.5.0**
 
 Schema definition:
 
