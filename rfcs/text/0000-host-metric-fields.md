@@ -1,4 +1,4 @@
-# 0000: Name of RFC
+# 0000: Host Metric Fields
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
 - Stage: **0 (strawperson)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
@@ -7,10 +7,6 @@
 <!--
 As you work on your RFC, use the "Stage N" comments to guide you in what you should focus on, for the stage you're targeting.
 Feel free to remove these comments as you go along.
--->
-
-<!--
-Stage 0: Provide a high level summary of the premise of these changes. Briefly describe the nature, purpose, and impact of the changes. ~2-5 sentences.
 -->
 
 Stage 0: We are proposing to add 7 new host fields into ECS for monitoring CPU, disk and network performance using Metricbeat.
