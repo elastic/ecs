@@ -1,0 +1,113 @@
+{# Title & Description -#}
+[[ecs-{{ fieldset['name'] }}]]
+=== {{ fieldset['title'] }} Fields
+
+{{ fieldset['description']|replace("\n", "\n\n") }}
+
+{# Field Details Table Header -#}
+==== {{ fieldset['title'] }} Field Details
+
+[options="header"]
+|=====
+| Field  | Description | Level
+
+// ===============================================================
+
+{# Iterate through each field in the set -#}
+{% for field in sorted_fields -%}
+{% if 'original_fieldset' not in field -%}
+
+{# `Field` column -#}
+| {{ field['flat_name'] }}
+{# `Description` column -#}
+| {{ field['description']|replace("\n", "\n\n") }}
+
+type: {{ field['type'] }}
+
+{% if 'multi_fields' in field -%}
+
+Multi-fields:
+
+{% for mf in field['multi_fields'] -%}
+
+* {{ mf['flat_name'] }} (type: {{ mf ['type'] }})
+
+
+{% endfor %}{# for mf #}
+{% endif %}{# if 'multi_fields' #}
+{% if 'array' in field['normalize'] -%}
+
+Note: this field should contain an array of values.
+
+
+{% endif %}
+{% if 'allowed_values' in field %}
+*Important*: The field value must be one of the following:
+
+{{ field['allowed_value_names']|join(', ') }}
+
+To learn more about when to use which value, visit the page
+<<ecs-allowed-values-{{ field['dashed_name'] }},allowed values for {{ field['flat_name'] }}>>
+{% elif 'example' in field -%}
+
+example: `{{ field['example'] }}`
+
+{%- endif %}{# if 'allowed_values' elif 'example' #}
+
+{# `Level` column -#}
+| {{ field['level'] }}
+
+// ===============================================================
+
+{% endif %}{# if 'original_fieldset' -#}
+{% endfor %}{# for 'field' -#}
+
+|=====
+
+{# do we have `nestings` or `reusable` sections to worry about? -#}
+{% if 'nestings' in fieldset or 'reusable' in fieldset -%}
+
+==== Field Reuse
+
+{% if 'reusable' in fieldset -%}
+
+The `{{ fieldset['name'] }}` fields are expected to be nested at: `{{ sorted_reuse_fields|join("`, `") }}`.
+
+{% if 'top_level' in fieldset['reusable'] and fieldset['reusable']['top_level'] -%}
+
+Note also that the `{{ fieldset['name'] }}` fields may be used directly at the root of the events.
+
+{% else -%}
+
+Note also that the `{{ fieldset['name'] }}` fields are not expected to be used directly at the root of the events.
+
+{% endif %}{# if 'top_level' -#}
+{% endif %}{# if 'reusable' #}
+
+
+{% if 'nestings' in fieldset -%}
+
+[[ecs-{{ fieldset['name'] }}-nestings]]
+===== Field sets that can be nested under {{ fieldset['title'] }}
+
+[options="header"]
+|=====
+| Nested fields | Description
+
+// ===============================================================
+
+
+{% for entry in render_nestings_reuse_section -%}
+
+| <<ecs-{{ entry['name'] }},{{ entry['flat_nesting'] }}>>
+| {{ entry['short'] }}
+
+// ===============================================================
+
+
+{% endfor -%}
+
+|=====
+
+{% endif %}{# if 'nestings' #}
+{%- endif %}{# if 'nestings' or 'reusable' in fieldset #}
