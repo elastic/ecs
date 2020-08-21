@@ -272,11 +272,13 @@ ECS is and will remain an open source licensed project. However, there will be f
 Stage 1: Identify potential concerns, implementation challenges, or complexity. Spend some time on this. Play devil's advocate. Try to identify the sort of non-obvious challenges that tend to surface later. The goal here is to surface risks early, allow everyone the time to work through them, and ultimately document resolution for posterity's sake.
 -->
 
-###
+### Wildcard and case-insensitivity
+
+Some fields require flexibility in how users search. Their content is messy (e.g. user-agent) or popular for threat hunters (e.g. file paths and names, command line processes), and a single character in the opposite casing can bypass a detection today for `keyword` fields. The `wildcard` field provides improved performance of leading `wildcard` and `regex` term-level queries, but is also a step towards case-insensitive search support in Elasticsearch. As Elasticsearch moves forward towards introducing a case-insensitive query option [3], ECS considers the fields adopting `wildcard` to be popular candidates for case-insensitive searching once the feature is available.
 
 ### Performance differences
 
-Performance and storage characteristics between wildcard and keyword will be different[3], and this difference may have an impact depending on deployment size and/or the level of duplication in the field data. As part of the transition, fields which were previously indexed keyword will be switched to wildcard. Queries across indices with field names will be necessary. Understanding the differences at both index and query time will be pursued.
+Performance and storage characteristics between wildcard and keyword will be different[4], and this difference may have an impact depending on deployment size and/or the level of duplication in the field data. As part of the transition, fields which were previously indexed keyword will be switched to wildcard. Queries across indices with field names will be necessary. Understanding the differences at both index and query time will be pursued.
 
 ### Wildcard field value character limits
 
@@ -299,7 +301,8 @@ The following are the people that consulted on the contents of this RFC.
 * [0] Wildcard queries on `text` fields are limited to matching individual tokens rather than the original value of the field.
 * [1] Keyword fields are not tokenized like `text` fields, so patterns can match multiple words. However they suffer from slow performance with wildcard searching (especially with leading wildcards).
 * [2] https://www.elastic.co/blog/find-strings-within-strings-faster-with-the-new-elasticsearch-wildcard-field
-* [3] https://github.com/elastic/elasticsearch/pull/58483
+* [3] https://github.com/elastic/elasticsearch/issues/61162
+* [4] https://github.com/elastic/elasticsearch/pull/58483
 
 ## References
 
