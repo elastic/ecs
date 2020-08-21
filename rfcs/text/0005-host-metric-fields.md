@@ -1,8 +1,8 @@
-# 0000: Host Metric Fields
+# 0005: Host Metric Fields
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
 - Stage: **0 (strawperson)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
-- Date: **TBD** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
+- Date: **2020-08-21** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 <!--
 As you work on your RFC, use the "Stage N" comments to guide you in what you should focus on, for the stage you're targeting.
@@ -10,7 +10,7 @@ Feel free to remove these comments as you go along.
 -->
 
 We are proposing to add 7 new host fields into ECS for monitoring CPU, disk and network performance using Metricbeat.
-With existing `host.id` and `host.name`, these totaly 9 fields will become the common field schema for host metrics.
+With existing `host.id` and `host.name`, these total 9 fields will become the common field schema for host metrics.
 
 Proposed 7 new fields are:
 * host.cpu.pct
