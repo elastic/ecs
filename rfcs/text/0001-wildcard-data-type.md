@@ -126,7 +126,7 @@ The following table is a comparison of `wildcard` vs. `keyword` [2]:
 | Sorting speeds | Fast | Not quite as fast (see *1) |
 | Aggregation speeds | Fast | Not quite as fast (see *1) |
 | Prefix query speeds (foo*) | Fast | Not quite as fast (see *2) |
-| Leading wildcard queries on low-cardinality fields (foo*) | Fast | Slower (see #3) |
+| Leading wildcard queries on low-cardinality fields (foo*) | Fast | Slower (see *3) |
 | Leading wildcard queries on high-cardinality fields (foo* ) | Terrible | Much faster |
 | Term query. Full value match (foo) | Fast | Not quite as fast (see *2) |
 | Fuzzy query | Y (see *4) | Y |
@@ -136,7 +136,7 @@ The following table is a comparison of `wildcard` vs. `keyword` [2]:
 | Searched by "all fields" queries | Y | Y |
 | Disk costs for mostly unique values | high (see *5) | lower (see *5) |
 | Dist costs for mostly identical values | low (see *5) | medium (see *5) |
-| Max character size for a field value | 256 for default JSON string mapping, 32766 Luence max | unlimited |
+| Max character size for a field value | 256 for default JSON string mapping (1024 for ECS), 32766 Luence max | unlimited |
 | Supports normalizers in mappings | Y | N |
 | Indexing speeds | Fast | Slower (see *6) |
 
@@ -210,7 +210,7 @@ at java.base/java.lang.invoke.LambdaMetafactory.metafactory(LambdaMetafactory.ja
 at java.base/java.lang.invoke.BootstrapMethodInvoker.invoke(BootstrapMethodInvoker.java:127)
 ```
 
-If I wanted to look for similar events that also contain the phrase `lambda$performRequestAndParseEntity$9(RestHighLevelClient.java`, I'd need a field that supports searching in the middle of a string. Keyword would perform poorly and text would require rethinking the query to match the analyzer and tokenization applied at index time.
+When looking for similar events that also contain the phrase `lambda$performRequestAndParseEntity$9(RestHighLevelClient.java`, I'd need a field that supports searching in the middle of a string. Keyword would perform poorly and text would require rethinking the query to match the analyzer and tokenization applied at index time.
 
 #### Command-line execution
 
