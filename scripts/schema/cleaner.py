@@ -1,5 +1,4 @@
 import copy
-import warnings
 
 from generators import ecs_helpers
 from schema import visitor
@@ -193,5 +192,4 @@ def single_line_short_description(schema_or_field, strict=True):
         if strict:
             raise ValueError(msg)
         else:
-            message = f"{msg}\n\nThis will cause an exception when running in strict mode."
-            warnings.warn(message)
+            ecs_helpers.strict_warning(msg)
