@@ -158,6 +158,12 @@ Here's an example of user "alice" running a command as root via sudo:
 }
 ```
 
+When it's not possible (or it's prohibitive) to determine which user is requesting
+different privilege levels, it's acceptable to capture the effective user at the
+root of the event. Typically a privilege change event will already have happened,
+for example: bob "su" as root; and subsequent events will show the root user
+performing the actions.
+
 ### Identity and Access Management
 
 Whenever a user is performing an action that affects another user -- typically
