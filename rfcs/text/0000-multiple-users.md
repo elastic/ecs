@@ -338,14 +338,22 @@ for the user fields nested at `host.user.*`.
 We are considering deprecating these fields with the intent to remove them completely.
 Please let us know if you disagree with this, and share how you're using them.
 
+#### Resolution
+
+No resolution yet.
+
 ### Documenting the purpose of each usage of the user fields
 
 As of ECS 1.6, the ECS documentation doesn't have a good place to explain at length
-how to use the multiple nesting locations for `user`. This is already a problem
-for the usage of `user` at the root vs its 5 reuse locations. The addition of
-3 new reuse locations adds to the situation. Adding a way to document field sets via
-free form text is being worked on independently of this proposal
-([ecs#943](https://github.com/elastic/ecs/issues/943)).
+how to properly use the multiple nesting locations for `user`.
+This is already a problem for the usage of `user` at the root vs its 5 reuse locations.
+The addition of 3 new reuse locations adds to this situation.
+
+#### Resolution
+
+Adding a way to document field sets via free form text is being worked on independently
+of this proposal ([ecs#943](https://github.com/elastic/ecs/issues/943)).
+
 For now the guidance on the meaning of each location where `user` can be used is in the
 [Usage](#usage) section of this RFC. This guidance will be moved to the main ECS
 documentation when the appropriate mechanism is available.
