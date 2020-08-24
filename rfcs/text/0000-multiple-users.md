@@ -337,8 +337,9 @@ As of ECS 1.6, the ECS documentation doesn't have a good place to explain at len
 how to use the multiple nesting locations for `user`. This is already a problem
 for the usage of `user` at the root vs its 5 reuse locations. The addition of
 3 new reuse locations adds to the situation. Adding a way to document field sets via
-free form text is being worked on independently of this proposal. For now
-the guidance on the meaning of each location where `user` can be used is in the
+free form text is being worked on independently of this proposal
+([ecs#943](https://github.com/elastic/ecs/issues/943)).
+For now the guidance on the meaning of each location where `user` can be used is in the
 [Usage](#usage) section of this RFC. This guidance will be moved to the main ECS
 documentation when the appropriate mechanism is available.
 
@@ -402,6 +403,8 @@ e.g.:
   * https://github.com/elastic/beats/pull/10192
   * https://github.com/elastic/beats/issues/10111
   * https://github.com/elastic/beats/pull/9963
+* Adding a free form documentation section per field set, to allow documenting
+  them in a more holistic manner https://github.com/elastic/ecs/issues/943
 
 ### RFC Pull Requests
 
