@@ -41,7 +41,7 @@ def main():
     # ecs_helpers.yaml_dump('ecs.yml', fields)
 
     fields = loader.load_schemas(ref=args.ref, included_files=args.include)
-    cleaner.clean(fields, strict_mode_enabled=args.strict)
+    cleaner.clean(fields, strict=args.strict)
     finalizer.finalize(fields)
     fields = subset_filter.filter(fields, args.subset, out_dir)
     nested, flat = intermediate_files.generate(fields, os.path.join(out_dir, 'ecs'), default_dirs)

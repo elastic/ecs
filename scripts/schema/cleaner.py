@@ -20,9 +20,9 @@ from schema import visitor
 # deal with final field names either.
 
 
-def clean(fields, strict_mode_enabled=False):
+def clean(fields, strict=False):
     global strict_mode
-    strict_mode = strict_mode_enabled
+    strict_mode = strict
     visitor.visit_fields(fields, fieldset_func=schema_cleanup, field_func=field_cleanup)
 
 
@@ -76,7 +76,7 @@ def schema_mandatory_attributes(schema):
 
 def schema_assertions_and_warnings(schema):
     '''Additional checks on a fleshed out schema'''
-    single_line_short_description(schema, strict_mode_enabled=strict_mode)
+    single_line_short_description(schema, strict=strict_mode)
 
 
 def normalize_reuse_notation(schema):
@@ -169,7 +169,7 @@ def field_assertions_and_warnings(field):
     '''Additional checks on a fleshed out field'''
     if not ecs_helpers.is_intermediate(field):
         # check short description length if in strict mode
-        single_line_short_description(field, strict_mode_enabled=strict_mode)
+        single_line_short_description(field, strict=strict_mode)
         if field['field_details']['level'] not in ACCEPTABLE_FIELD_LEVELS:
             msg = "Invalid level for field '{}'.\nValue: {}\nAcceptable values: {}".format(
                 field['field_details']['name'], field['field_details']['level'],
@@ -182,7 +182,7 @@ def field_assertions_and_warnings(field):
 SHORT_LIMIT = 120
 
 
-def single_line_short_description(schema_or_field, strict_mode_enabled=True):
+def single_line_short_description(schema_or_field, strict=True):
     short_length = len(schema_or_field['field_details']['short'])
     if "\n" in schema_or_field['field_details']['short'] or short_length > SHORT_LIMIT:
         msg = "Short descriptions must be single line, and under {} characters (current length: {}).\n".format(
@@ -190,7 +190,7 @@ def single_line_short_description(schema_or_field, strict_mode_enabled=True):
         msg += "Offending field or field set: {}\nShort description:\n  {}".format(
             schema_or_field['field_details']['name'],
             schema_or_field['field_details']['short'])
-        if strict_mode_enabled:
+        if strict:
             raise ValueError(msg)
         else:
             message = f"{msg}\n\nThis will cause an exception when running in strict mode."
