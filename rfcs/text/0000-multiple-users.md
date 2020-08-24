@@ -15,7 +15,7 @@ The purpose of this proposal is two-fold:
 
 ## Fields
 
-As of ECS 1.5, user fields can be present in an event in all of the following places:
+As of ECS 1.6, user fields can be present in an event in all of the following places:
 
 * `user.*`
 * `host.user.*`
