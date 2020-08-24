@@ -31,7 +31,7 @@ The new fields discussed in this RFC are the following:
 * `user.changes.*`
 
 Notice that in these new additions, the user fields are now being nested as a different name.
-The purpose is to hint at their role, when used in these locations.
+The purpose is to hint at their role when used in these locations.
 
 It's also important to point out that the reuses of `user` inside other field sets
 are not meant to inherit these new subsections inside the user field set.
