@@ -2317,6 +2317,18 @@
         method may be useful in anomaly detection.  Original case will be mandated
         in ECS 2.0.0'
       example: GET, POST, PUT, PoST
+    - name: request.mime_type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Mime type of the body of the request.
+
+        This value must only be populated based on the content of the request body,
+        not on the `Content-Type` header. Comparing the mime type of a request with
+        the request''s Content-Type header can be helpful in detecting threats or
+        misconfigured clients.'
+      example: image/gif
+      default_field: false
     - name: request.referrer
       level: extended
       type: keyword
@@ -2346,6 +2358,18 @@
       format: bytes
       description: Total size in bytes of the response (body and headers).
       example: 1437
+    - name: response.mime_type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Mime type of the body of the response.
+
+        This value must only be populated based on the content of the response body,
+        not on the `Content-Type` header. Comparing the mime type of a response with
+        the response''s Content-Type header can be helpful in detecting misconfigured
+        servers.'
+      example: image/gif
+      default_field: false
     - name: response.status_code
       level: extended
       type: long
