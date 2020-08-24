@@ -323,7 +323,8 @@ and adjusted accordingly.
 
 <!-- TODO
 
-Depending on the outcome of the discussion on `host.user.*`, mention it here
+Depending on the outcome of the discussion on `host.user.*`, mention it here.
+It's currently listed in the concerns below.
 
 -->
 
@@ -348,14 +349,6 @@ free form text is being worked on independently of this proposal
 For now the guidance on the meaning of each location where `user` can be used is in the
 [Usage](#usage) section of this RFC. This guidance will be moved to the main ECS
 documentation when the appropriate mechanism is available.
-
-<!--
-Stage 1: Identify potential concerns, implementation challenges, or complexity. Spend some time on this. Play devil's advocate. Try to identify the sort of non-obvious challenges that tend to surface later. The goal here is to surface risks early, allow everyone the time to work through them, and ultimately document resolution for posterity's sake.
--->
-
-<!--
-Stage 2: Document new concerns or resolutions to previously listed concerns. It's not critical that all concerns have resolutions at this point, but it would be helpful if resolutions were taking shape for the most significant concerns.
--->
 
 <!--
 Stage 3: Document resolutions for all existing concerns. Any new concerns should be documented along with their resolution. The goal here is to eliminate the risk of churn and instability by resolving outstanding concerns.
@@ -396,8 +389,6 @@ e.g.:
 
 ## References
 
-<!-- Insert any links appropriate to this RFC in this section. -->
-
 * PR to add the new fields described in this RFC: [ecs#869](https://github.com/elastic/ecs/pull/869)
 * Past issues discussing this addition in ECS, starting with the most recent:
   * https://github.com/elastic/ecs/issues/809
@@ -413,8 +404,6 @@ e.g.:
   them in a more holistic manner https://github.com/elastic/ecs/issues/943
 
 ### RFC Pull Requests
-
-<!-- An RFC should link to the PRs for each of it stage advancements. -->
 
 * Stage 2: https://github.com/elastic/ecs/pull/914
 
