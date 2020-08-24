@@ -333,7 +333,7 @@ Please let us know if you disagree with this, and share how you're using them.
 
 ### Documenting the purpose of each usage of the user fields
 
-As of ECS 1.5, the ECS documentation doesn't have a good place to explain at length
+As of ECS 1.6, the ECS documentation doesn't have a good place to explain at length
 how to use the multiple nesting locations for `user`. This is already a problem
 for the usage of `user` at the root vs its 5 reuse locations. The addition of
 3 new reuse locations adds to the situation. Adding a way to document field sets via
