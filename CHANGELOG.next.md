@@ -16,6 +16,8 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
+* Added Mime Type fields to HTTP request and response. #944
+
 #### Improvements
 
 #### Deprecated
@@ -29,6 +31,8 @@ Thanks, you're awesome :-) -->
 #### Added
 
 #### Improvements
+
+* Field details Jinja2 template components have been consolidated into one template #897
 
 #### Deprecated
 
