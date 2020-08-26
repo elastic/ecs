@@ -24,29 +24,30 @@
 
       example: MITRE ATT&CK
 
-    - name: tactic.name
-      level: extended
-      type: keyword
-      short: Threat tactic.
-      description: >
-          Name of the type of tactic used by this threat. You can use a MITRE ATT&CK® tactic, for example.
-          (ex. https://attack.mitre.org/tactics/TA0040/)
-
-      example: impact
-      normalize:
-        - array
-
     - name: tactic.id
       level: extended
       type: keyword
       short: Threat tactic id.
       description: >
           The id of tactic used by this threat. You can use a MITRE ATT&CK® tactic, for example.
-          (ex. https://attack.mitre.org/tactics/TA0040/ )
+          (ex. https://attack.mitre.org/tactics/TA0002/ )
 
-      example: TA0040
+      example: TA0002
       normalize:
         - array
+
+    - name: tactic.name
+      level: extended
+      type: keyword
+      short: Threat tactic.
+      description: >
+          Name of the type of tactic used by this threat. You can use a MITRE ATT&CK® tactic, for example.
+          (ex. https://attack.mitre.org/tactics/TA0002/)
+
+      example: Execution
+      normalize:
+        - array
+
 
     - name: tactic.reference
       level: extended
@@ -54,9 +55,22 @@
       short: Threat tactic URL reference.
       description: >
           The reference url of tactic used by this threat. You can use a MITRE ATT&CK® tactic, for example.
-          (ex. https://attack.mitre.org/tactics/TA0040/ )
+          (ex. https://attack.mitre.org/tactics/TA0002/ )
 
-      example: https://attack.mitre.org/tactics/TA0040/
+      example: https://attack.mitre.org/tactics/TA0002/
+      normalize:
+        - array
+
+
+    - name: technique.id
+      level: extended
+      type: keyword
+      short: Threat technique id.
+      description: >
+          The id of technique used by this threat. You can use a MITRE ATT&CK® technique, for example.
+          (ex. https://attack.mitre.org/techniques/T1059/)
+
+      example: T1059
       normalize:
         - array
 
@@ -69,21 +83,9 @@
       short: Threat technique name.
       description: >
           The name of technique used by this threat. You can use a MITRE ATT&CK® technique, for example.
-          (ex. https://attack.mitre.org/techniques/T1499/)
+          (ex. https://attack.mitre.org/techniques/T1059/)
 
-      example: Endpoint Denial of Service
-      normalize:
-        - array
-
-    - name: technique.id
-      level: extended
-      type: keyword
-      short: Threat technique id.
-      description: >
-          The id of technique used by this threat. You can use a MITRE ATT&CK® technique, for example.
-          (ex. https://attack.mitre.org/techniques/T1499/)
-
-      example: T1499
+      example: Command and Scripting Interpreter
       normalize:
         - array
 
@@ -93,8 +95,47 @@
       short: Threat technique URL reference.
       description: >
           The reference url of technique used by this threat. You can use a MITRE ATT&CK® technique, for example.
-          (ex. https://attack.mitre.org/techniques/T1499/ )
+          (ex. https://attack.mitre.org/techniques/T1059/)
 
-      example: https://attack.mitre.org/techniques/T1499/
+      example: https://attack.mitre.org/techniques/T1059/
+      normalize:
+        - array
+
+    - name: technique.subtechnique.id
+      level: extended
+      type: keyword
+      short: Threat subtechnique id.
+      description: >
+          The full id of subtechnique used by this threat. You can use a MITRE ATT&CK® subtechnique, for example.
+          (ex. https://attack.mitre.org/techniques/T1059/001/)
+
+      example: T1059.001
+      normalize:
+        - array
+
+    - name: technique.subtechnique.name
+      level: extended
+      type: keyword
+      multi_fields:
+      - type: text
+        name: text
+      short: Threat subtechnique name.
+      description: >
+          The name of subtechnique used by this threat. You can use a MITRE ATT&CK® subtechnique, for example.
+          (ex. https://attack.mitre.org/techniques/T1059/001/)
+
+      example: PowerShell
+      normalize:
+        - array
+
+    - name: technique.subtechnique.reference
+      level: extended
+      type: keyword
+      short: Threat subtechnique URL reference.
+      description: >
+          The reference url of subtechnique used by this threat. You can use a MITRE ATT&CK® subtechnique, for example.
+          (ex. https://attack.mitre.org/techniques/T1059/001/)
+
+      example: https://attack.mitre.org/techniques/T1059/001/
       normalize:
         - array

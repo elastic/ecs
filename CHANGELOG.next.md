@@ -10,6 +10,8 @@ Thanks, you're awesome :-) -->
 
 ### Schema Changes
 
+* Added `threat.technique.subtechnique` to capture MITRE ATT&CK® subtecqhniques. #951
+
 #### Breaking changes
 
 #### Bugfixes
