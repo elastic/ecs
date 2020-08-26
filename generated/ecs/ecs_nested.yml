@@ -8022,8 +8022,8 @@ threat:
     threat.tactic.id:
       dashed_name: threat-tactic-id
       description: "The id of tactic used by this threat. You can use a MITRE ATT&CK\xAE\
-        \ tactic, for example. (ex. https://attack.mitre.org/tactics/TA0040/ )"
-      example: TA0040
+        \ tactic, for example. (ex. https://attack.mitre.org/tactics/TA0002/ )"
+      example: TA0002
       flat_name: threat.tactic.id
       ignore_above: 1024
       level: extended
@@ -8035,8 +8035,8 @@ threat:
     threat.tactic.name:
       dashed_name: threat-tactic-name
       description: "Name of the type of tactic used by this threat. You can use a\
-        \ MITRE ATT&CK\xAE tactic, for example. (ex. https://attack.mitre.org/tactics/TA0040/)"
-      example: impact
+        \ MITRE ATT&CK\xAE tactic, for example. (ex. https://attack.mitre.org/tactics/TA0002/)"
+      example: Execution
       flat_name: threat.tactic.name
       ignore_above: 1024
       level: extended
@@ -8048,9 +8048,9 @@ threat:
     threat.tactic.reference:
       dashed_name: threat-tactic-reference
       description: "The reference url of tactic used by this threat. You can use a\
-        \ MITRE ATT&CK\xAE tactic, for example. (ex. https://attack.mitre.org/tactics/TA0040/\
+        \ MITRE ATT&CK\xAE tactic, for example. (ex. https://attack.mitre.org/tactics/TA0002/\
         \ )"
-      example: https://attack.mitre.org/tactics/TA0040/
+      example: https://attack.mitre.org/tactics/TA0002/
       flat_name: threat.tactic.reference
       ignore_above: 1024
       level: extended
@@ -8062,8 +8062,8 @@ threat:
     threat.technique.id:
       dashed_name: threat-technique-id
       description: "The id of technique used by this threat. You can use a MITRE ATT&CK\xAE\
-        \ technique, for example. (ex. https://attack.mitre.org/techniques/T1499/)"
-      example: T1499
+        \ technique, for example. (ex. https://attack.mitre.org/techniques/T1059/)"
+      example: T1059
       flat_name: threat.technique.id
       ignore_above: 1024
       level: extended
@@ -8075,8 +8075,8 @@ threat:
     threat.technique.name:
       dashed_name: threat-technique-name
       description: "The name of technique used by this threat. You can use a MITRE\
-        \ ATT&CK\xAE technique, for example. (ex. https://attack.mitre.org/techniques/T1499/)"
-      example: Endpoint Denial of Service
+        \ ATT&CK\xAE technique, for example. (ex. https://attack.mitre.org/techniques/T1059/)"
+      example: Command and Scripting Interpreter
       flat_name: threat.technique.name
       ignore_above: 1024
       level: extended
@@ -8093,9 +8093,8 @@ threat:
     threat.technique.reference:
       dashed_name: threat-technique-reference
       description: "The reference url of technique used by this threat. You can use\
-        \ a MITRE ATT&CK\xAE technique, for example. (ex. https://attack.mitre.org/techniques/T1499/\
-        \ )"
-      example: https://attack.mitre.org/techniques/T1499/
+        \ a MITRE ATT&CK\xAE technique, for example. (ex. https://attack.mitre.org/techniques/T1059/)"
+      example: https://attack.mitre.org/techniques/T1059/
       flat_name: threat.technique.reference
       ignore_above: 1024
       level: extended
@@ -8103,6 +8102,50 @@ threat:
       normalize:
       - array
       short: Threat technique URL reference.
+      type: keyword
+    threat.technique.subtechnique.id:
+      dashed_name: threat-technique-subtechnique-id
+      description: "The full id of subtechnique used by this threat. You can use a\
+        \ MITRE ATT&CK\xAE subtechnique, for example. (ex. https://attack.mitre.org/techniques/T1059/001/)"
+      example: T1059.001
+      flat_name: threat.technique.subtechnique.id
+      ignore_above: 1024
+      level: extended
+      name: technique.subtechnique.id
+      normalize:
+      - array
+      short: Threat subtechnique id.
+      type: keyword
+    threat.technique.subtechnique.name:
+      dashed_name: threat-technique-subtechnique-name
+      description: "The name of subtechnique used by this threat. You can use a MITRE\
+        \ ATT&CK\xAE subtechnique, for example. (ex. https://attack.mitre.org/techniques/T1059/001/)"
+      example: PowerShell
+      flat_name: threat.technique.subtechnique.name
+      ignore_above: 1024
+      level: extended
+      multi_fields:
+      - flat_name: threat.technique.subtechnique.name.text
+        name: text
+        norms: false
+        type: text
+      name: technique.subtechnique.name
+      normalize:
+      - array
+      short: Threat subtechnique name.
+      type: keyword
+    threat.technique.subtechnique.reference:
+      dashed_name: threat-technique-subtechnique-reference
+      description: "The reference url of subtechnique used by this threat. You can\
+        \ use a MITRE ATT&CK\xAE subtechnique, for example. (ex. https://attack.mitre.org/techniques/T1059/001/)"
+      example: https://attack.mitre.org/techniques/T1059/001/
+      flat_name: threat.technique.subtechnique.reference
+      ignore_above: 1024
+      level: extended
+      name: technique.subtechnique.reference
+      normalize:
+      - array
+      short: Threat subtechnique URL reference.
       type: keyword
   group: 2
   name: threat
