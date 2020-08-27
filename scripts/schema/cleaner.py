@@ -19,7 +19,9 @@ from schema import visitor
 # deal with final field names either.
 
 
-def clean(fields):
+def clean(fields, strict=False):
+    global strict_mode
+    strict_mode = strict
     visitor.visit_fields(fields, fieldset_func=schema_cleanup, field_func=field_cleanup)
 
 
@@ -46,7 +48,7 @@ def schema_cleanup(schema):
     else:
         schema['schema_details']['prefix'] = schema['field_details']['name'] + '.'
     normalize_reuse_notation(schema)
-    # Final validity check
+    # Final validity check if in strict mode
     schema_assertions_and_warnings(schema)
 
 
@@ -73,7 +75,7 @@ def schema_mandatory_attributes(schema):
 
 def schema_assertions_and_warnings(schema):
     '''Additional checks on a fleshed out schema'''
-    single_line_short_description(schema)
+    single_line_short_description(schema, strict=strict_mode)
 
 
 def normalize_reuse_notation(schema):
@@ -165,7 +167,8 @@ def field_mandatory_attributes(field):
 def field_assertions_and_warnings(field):
     '''Additional checks on a fleshed out field'''
     if not ecs_helpers.is_intermediate(field):
-        single_line_short_description(field)
+        # check short description length if in strict mode
+        single_line_short_description(field, strict=strict_mode)
         if field['field_details']['level'] not in ACCEPTABLE_FIELD_LEVELS:
             msg = "Invalid level for field '{}'.\nValue: {}\nAcceptable values: {}".format(
                 field['field_details']['name'], field['field_details']['level'],
@@ -178,7 +181,7 @@ def field_assertions_and_warnings(field):
 SHORT_LIMIT = 120
 
 
-def single_line_short_description(schema_or_field):
+def single_line_short_description(schema_or_field, strict=True):
     short_length = len(schema_or_field['field_details']['short'])
     if "\n" in schema_or_field['field_details']['short'] or short_length > SHORT_LIMIT:
         msg = "Short descriptions must be single line, and under {} characters (current length: {}).\n".format(
@@ -186,4 +189,7 @@ def single_line_short_description(schema_or_field):
         msg += "Offending field or field set: {}\nShort description:\n  {}".format(
             schema_or_field['field_details']['name'],
             schema_or_field['field_details']['short'])
-        raise ValueError(msg)
+        if strict:
+            raise ValueError(msg)
+        else:
+            ecs_helpers.strict_warning(msg)

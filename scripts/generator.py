@@ -41,7 +41,7 @@ def main():
     # ecs_helpers.yaml_dump('ecs.yml', fields)
 
     fields = loader.load_schemas(ref=args.ref, included_files=args.include)
-    cleaner.clean(fields)
+    cleaner.clean(fields, strict=args.strict)
     finalizer.finalize(fields)
     fields = subset_filter.filter(fields, args.subset, out_dir)
     nested, flat = intermediate_files.generate(fields, os.path.join(out_dir, 'ecs'), default_dirs)
@@ -72,6 +72,8 @@ def argument_parser():
                         help='index template settings to use when generating elasticsearch template')
     parser.add_argument('--mapping-settings', action='store',
                         help='mapping settings to use when generating elasticsearch template')
+    parser.add_argument('--strict', action='store_true',
+                        help='enforce stricter checking at schema cleanup')
     args = parser.parse_args()
     # Clean up empty include of the Makefile
     if args.include and [''] == args.include:
