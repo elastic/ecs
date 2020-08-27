@@ -13,7 +13,7 @@ Feel free to remove these comments as you go along.
 Stage 0: Provide a high level summary of the premise of these changes. Briefly describe the nature, purpose, and impact of the changes. ~2-5 sentences.
 -->
 
-Elastic currently supports ingestion of data from 180+ sources, and growing. However, we do not have a coherent way to categorise these sources. This has resulted in a disconnect in how we categorize these sources from the Elastic website, in-product experiences and ECS. 
+Elastic currently supports ingestion of data from 180+ sources, and growing. However, we do not have a coherent way to categorise these sources. This has resulted in a disconnect in how we categorize these sources from the Elastic website, in-product experiences and ECS.
 
 The fieldset we use to describe the data source is up for discussion, data_stream.category is a possibility. Here are proposed allowed values:
 
@@ -58,14 +58,14 @@ The following are the people that consulted on the contents of this RFC.
 
 ## References
 
-https://github.com/elastic/ecs/issues/901
-https://github.com/elastic/ecs/pull/845
+* https://github.com/elastic/ecs/issues/901
+* https://github.com/elastic/ecs/pull/845
 
 ### RFC Pull Requests
 
 <!-- An RFC should link to the PRs for each of it stage advancements. -->
 
-* Stage 0: https://github.com/elastic/ecs/pull/954
+* Stage 0: https://github.com/elastic/ecs/pull/958
 
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN
