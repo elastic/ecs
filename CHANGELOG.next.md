@@ -10,8 +10,6 @@ Thanks, you're awesome :-) -->
 
 ### Schema Changes
 
-* Added `threat.technique.subtechnique` to capture MITRE ATT&CK® subtecqhniques. #951
-
 #### Breaking changes
 
 #### Bugfixes
@@ -19,6 +17,7 @@ Thanks, you're awesome :-) -->
 #### Added
 
 * Added Mime Type fields to HTTP request and response. #944
+* Added `threat.technique.subtechnique` to capture MITRE ATT&CK® subtecqhniques. #951
 
 #### Improvements
 
