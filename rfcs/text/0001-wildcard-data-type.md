@@ -171,7 +171,7 @@ The following are common categories
 
 #### Names
 
-Similar to paths, different names components many need to be searched using one or more wildcard.
+Similar to paths, different names components may need to be searched using one or more wildcard.
 
 * Flexible host name searching: `host.name:prod-*-db*`
 * Likewise, flexible searching of user names or accounts: `user.email:foo*@example.com`
