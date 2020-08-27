@@ -7,7 +7,7 @@
 <!--
 Stage 0: Provide a high level summary of the premise of these changes. Briefly describe the nature, purpose, and impact of the changes. ~2-5 sentences.
 -->
-Numerous SaaS Cloud Providers provide event data where the event reflects an action (Typically a CRUD action) on what can broadly be considered an "object." For some providers that Object may be a "file" wherein the existing ECS `file` fields are adequate; however other providers (Workday, Salesforce, Service Now, Zoom, etc.) an object can represent some other concept like a "record" or "setting" or "meeting." There presently isn't any location within ECS to document these as there is with "file," forcing any representation to be pushed into a custom field. This RFC proposes a new top-level field called `object` that will represent these instances.
+Numerous SaaS Cloud providers provide event data where the event reflects an action (typically a CRUD action) on what can broadly be considered an item/document/resource/record (originally dubbed "object). For some of these services, parts of (or in some cases, the entirety of) the corpus consists of _files_ (in the filesystem sense of the term) wherein the existing ECS `file` fields are adequate. However, most enterprise collaboration, storage, and communication systems (Workday, Salesforce, Service Now, Zoom, GitHub, G Suite, Zendesk, Jira, Confluence, etc.) present data units as "records", "documents", "tickets", "meetings" and more. ECS doesn't currently account for these entities, and relies on `file` as an option, albeit semantically incorrect and incomplete for the purpose of event tracking.
 
 ## Fields
 
