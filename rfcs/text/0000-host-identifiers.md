@@ -18,9 +18,9 @@ Many sources populating event `host.*` fields have different behaviors in how th
 At the time of writing, the following are several known challenges caused by these inconsistencies:
 
 * Confusion between the `host.name` and `host.hostname` fields
-* Unicity problems in raw hostnames
+* Unicity problems in raw hostnames. This can be common with workstations on certain OSes, for example a fleet of "MacBook-Pro.local"
 * Unicity problems in host.ids (e.g. misconfigured config management tools, machine images, disk snapshots, etc.)
-* Usage of unqualified vs. fully-qualified hostnames
+* Usage of unqualified vs. fully-qualified hostnames in the same fields (by different data sources) leads to host duplication
 
 ## People
 
