@@ -29,6 +29,7 @@ relevant artifacts for their unique set of data sources.
     + [Subset](#subset)
     + [Ref](#ref)
     + [Mapping & Template Settings](#mapping--template-settings)
+    + [Strict Mode](#strict-mode)
     + [Intermediate-Only](#intermediate-only)
 
 ## Terminology
@@ -293,6 +294,50 @@ The `--template-settings` argument defines [index level settings](https://www.el
 ```
 
 For `template.json`, the `mappings` object is left empty: `{}`. Likewise the `properties` object remains empty in the `mapping.json` example. This will be filled in automatically by the script.
+
+#### Strict Mode
+
+The `--strict` argument enables "strict mode". Strict mode performs a stricter validation step against the schema's contents.
+
+Basic usage:
+
+```
+$ python/generator.py --strict
+```
+
+Strict mode requires the following conditions, else the script exits on an exception:
+
+* Short descriptions must be less than or equal to 120 characters.
+
+The current artifacts generated and published in the ECS repo will always be created using strict mode. However, older ECS versions (pre `v1.5.0`) will cause
+an exception if attempting to generate them using `--strict`. This is due to schema validation checks introduced after that version was released.
+
+Example:
+
+```
+$ python scripts/generator.py --ref v1.4.0 --strict
+Loading schemas from git ref v1.4.0
+Running generator. ECS version 1.4.0
+...
+ValueError: Short descriptions must be single line, and under 120 characters (current length: 134).
+Offending field or field set: number
+Short description:
+  Unique number allocated to the autonomous system. The autonomous system number (ASN) uniquely identifies each network on the Internet.
+```
+
+Removing `--strict` will display a warning message, but the script will finish its run successfully:
+
+```
+$ python scripts/generator.py --ref v1.4.0
+Loading schemas from git ref v1.4.0
+Running generator. ECS version 1.4.0
+/Users/ericbeahan/dev/ecs/scripts/generators/ecs_helpers.py:176: UserWarning: Short descriptions must be single line, and under 120 characters (current length: 134).
+Offending field or field set: number
+Short description:
+  Unique number allocated to the autonomous system. The autonomous system number (ASN) uniquely identifies each network on the Internet.
+
+This will cause an exception when running in strict mode.
+```
 
 #### Intermediate-Only
 

@@ -10,8 +10,6 @@ Thanks, you're awesome :-) -->
 
 ### Schema Changes
 
-* Added `threat.technique.subtechnique` to capture MITRE ATT&CK® subtecqhniques. #951
-
 #### Breaking changes
 
 #### Bugfixes
@@ -21,6 +19,7 @@ Thanks, you're awesome :-) -->
 #### Added
 
 * Added Mime Type fields to HTTP request and response. #944
+* Added `threat.technique.subtechnique` to capture MITRE ATT&CK® subtechniques. #951
 
 #### Improvements
 
@@ -37,6 +36,8 @@ Thanks, you're awesome :-) -->
 * Addressed issue where foreign reuses weren't using the user-supplied `as` value for their destination. #960
 
 #### Added
+
+* Introduced `--strict` flag to perform stricter schema validation when running the generator script. #937
 
 #### Improvements
 
