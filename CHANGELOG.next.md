@@ -17,7 +17,7 @@ Thanks, you're awesome :-) -->
 #### Added
 
 * Added Mime Type fields to HTTP request and response. #944
-* Added `threat.technique.subtechnique` to capture MITRE ATT&CK® subtecqhniques. #951
+* Added `threat.technique.subtechnique` to capture MITRE ATT&CK® subtechniques. #951
 
 #### Improvements
 
