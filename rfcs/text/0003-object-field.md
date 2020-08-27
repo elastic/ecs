@@ -1,8 +1,8 @@
 # 0003: Object Fields
 <!--^ The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC, taking care not to conflict with other RFCs.-->
 
-- Stage: **0 (strawperson)** <!-- Update to reflect target stage -->
-- Date: **2020-07-27** <!-- Update to reflect date of most recent stage advancement -->
+- Stage: **1 Proposal** <!-- Update to reflect target stage -->
+- Date: **2020-08-27** <!-- Update to reflect date of most recent stage advancement -->
 
 <!--
 Stage 0: Provide a high level summary of the premise of these changes. Briefly describe the nature, purpose, and impact of the changes. ~2-5 sentences.
@@ -103,7 +103,8 @@ Stage 4: Identify at least one real-world, production-ready implementation that 
 
 The following are the people that consulted on the contents of this RFC.
 
-* @drewgatchell | author
+* @drewgatchell | original author
+* @jonasll | Elastic sponsor, subject matter expert
 
 <!--
 Who will be or has consulted on the contents of this RFC? Identify authorship and sponsorship, and optionally identify the nature of involvement of others. Link to GitHub aliases where possible. This list will likely change or grow stage after stage.
