@@ -13,11 +13,11 @@ This RFC calls for the addition of session fields to describe events related to 
 
 | Field | Description |
 | ----- | ----------- |
-|session.kind:            | local, remote, network
-|session.authorization:   | user, admin, service
-|session.type:            | system, virtual, application, wired, wireless, vpn
+|session.kind:            | system, application, network
+|session.type:            | [ local, remote, virtual, wired, wireless, vpn ]
+|session.authorization:   | user, admin, service, access
 |session.name             | locally relevant name if available (e.g. HQ Client VPN, Win19-VDI, FIN-EXCEL-vApp)
-|session.id               | session id provided by server or custom fingerprint
+|session.id               | session id provided by server or custom fingerprint of discrete identifiers
 
 
 
@@ -41,24 +41,30 @@ This RFC calls for the addition of session fields to describe events related to 
       level: extended
       type: keyword
       short: Kind of session
-      description: > Session kind can be local (console, on the keyboard), remote (ssh, vdi, web, ftp), or network (802.1x, wpa, NAC)
-      Additional fields will be dependent on the specifics of the session reported.
+      description: > 
+        Session kind can be local (console, on the keyboard), remote (ssh, vdi, web, ftp), or network (802.1x, wpa, NAC)
+        Additional fields will be dependent on the specifics of the session reported.
 
       example: network
-
-    - name: authorization
-      level: extended
-      type: keyword
-      description: Authorization scope of the session. Initial values will include general user level access (e.g. user vdi/vda, vpn, or web sessions, network access, etc), administrative sessions (root, VMWare Host access, router cli, etc.) or service (network to network VPN, non-user verified services sessions e.g. micro-service backend architectures).
-
-      example: user
 
     - name: type
       level: extended
       type: Logical session type
-      description: Session type describes the interaction/access provided.  Initial values include system (shell or desktop), virtual (VDI), application (web, ftp, etc.), wired (nac, 802.1x), wireless (wpa/.1x), or vpn (ipsec, ssl, etc). Note that actual aaa mechanism (system, domain, wpa, 802.1x) does not indicate a specific session type.
+      short: Type of session (array)
+      description: > 
+        Session type describes the interaction/access provided.  Initial values include system (shell or desktop), virtual (VDI), application (web, ftp, etc.), wired (nac, 802.1x), wireless (wpa/.1x), or vpn (ipsec, ssl, etc). Note that actual aaa mechanism (system, domain, wpa, 802.1x) does not indicate a specific session type.  
 
       example: wireless
+      normalize:
+        - array
+
+    - name: authorization
+      level: extended
+      type: keyword
+      description: > 
+        Authorization scope of the session. Initial values will include general user level access (e.g. user vdi/vda, vpn, or web sessions, network access, etc), administrative sessions (root, VMWare Host access, router "enable" level cli, etc.) or service (network to network VPN, non-user verified services sessions e.g. micro-service backend architectures).
+
+      example: user
 
     - name: name
       level: extended
@@ -70,7 +76,8 @@ This RFC calls for the addition of session fields to describe events related to 
     - name: id
       level: extended
       type: Session id
-      description: The id field is meant to contain a locally significant identifier for the session as provided by the observer or host reporting the session.  If no id is provided this field can remain blank, or a hash function similar to network.community_id can be used to discretely identify sessions from unique values.
+      description: > 
+        The id field is meant to contain a locally significant identifier for the session as provided by the observer or host reporting the session.  If no id is provided this field can remain blank, or a hash function similar to network.community_id can be used to discretely identify sessions from unique values.
 
       example: 7635344
 ```
