@@ -34,30 +34,45 @@ type Threat struct {
 	// retrospectively tagged to events.
 	Framework string `ecs:"framework"`
 
+	// The id of tactic used by this threat. You can use a MITRE ATT&CK®
+	// tactic, for example. (ex. https://attack.mitre.org/tactics/TA0002/ )
+	TacticID string `ecs:"tactic.id"`
+
 	// Name of the type of tactic used by this threat. You can use a MITRE
 	// ATT&CK® tactic, for example. (ex.
-	// https://attack.mitre.org/tactics/TA0040/)
+	// https://attack.mitre.org/tactics/TA0002/)
 	TacticName string `ecs:"tactic.name"`
-
-	// The id of tactic used by this threat. You can use a MITRE ATT&CK®
-	// tactic, for example. (ex. https://attack.mitre.org/tactics/TA0040/ )
-	TacticID string `ecs:"tactic.id"`
 
 	// The reference url of tactic used by this threat. You can use a MITRE
 	// ATT&CK® tactic, for example. (ex.
-	// https://attack.mitre.org/tactics/TA0040/ )
+	// https://attack.mitre.org/tactics/TA0002/ )
 	TacticReference string `ecs:"tactic.reference"`
 
-	// The name of technique used by this threat. You can use a MITRE ATT&CK®
-	// technique, for example. (ex. https://attack.mitre.org/techniques/T1499/)
-	TechniqueName string `ecs:"technique.name"`
-
 	// The id of technique used by this threat. You can use a MITRE ATT&CK®
-	// technique, for example. (ex. https://attack.mitre.org/techniques/T1499/)
+	// technique, for example. (ex. https://attack.mitre.org/techniques/T1059/)
 	TechniqueID string `ecs:"technique.id"`
+
+	// The name of technique used by this threat. You can use a MITRE ATT&CK®
+	// technique, for example. (ex. https://attack.mitre.org/techniques/T1059/)
+	TechniqueName string `ecs:"technique.name"`
 
 	// The reference url of technique used by this threat. You can use a MITRE
 	// ATT&CK® technique, for example. (ex.
-	// https://attack.mitre.org/techniques/T1499/ )
+	// https://attack.mitre.org/techniques/T1059/)
 	TechniqueReference string `ecs:"technique.reference"`
+
+	// The full id of subtechnique used by this threat. You can use a MITRE
+	// ATT&CK® subtechnique, for example. (ex.
+	// https://attack.mitre.org/techniques/T1059/001/)
+	TechniqueSubtechniqueID string `ecs:"technique.subtechnique.id"`
+
+	// The name of subtechnique used by this threat. You can use a MITRE
+	// ATT&CK® subtechnique, for example. (ex.
+	// https://attack.mitre.org/techniques/T1059/001/)
+	TechniqueSubtechniqueName string `ecs:"technique.subtechnique.name"`
+
+	// The reference url of subtechnique used by this threat. You can use a
+	// MITRE ATT&CK® subtechnique, for example. (ex.
+	// https://attack.mitre.org/techniques/T1059/001/)
+	TechniqueSubtechniqueReference string `ecs:"technique.subtechnique.reference"`
 }

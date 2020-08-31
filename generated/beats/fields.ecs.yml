@@ -4538,30 +4538,30 @@
       type: keyword
       ignore_above: 1024
       description: "The id of tactic used by this threat. You can use a MITRE ATT&CK\xAE\
-        \ tactic, for example. (ex. https://attack.mitre.org/tactics/TA0040/ )"
-      example: TA0040
+        \ tactic, for example. (ex. https://attack.mitre.org/tactics/TA0002/ )"
+      example: TA0002
     - name: tactic.name
       level: extended
       type: keyword
       ignore_above: 1024
       description: "Name of the type of tactic used by this threat. You can use a\
-        \ MITRE ATT&CK\xAE tactic, for example. (ex. https://attack.mitre.org/tactics/TA0040/)"
-      example: impact
+        \ MITRE ATT&CK\xAE tactic, for example. (ex. https://attack.mitre.org/tactics/TA0002/)"
+      example: Execution
     - name: tactic.reference
       level: extended
       type: keyword
       ignore_above: 1024
       description: "The reference url of tactic used by this threat. You can use a\
-        \ MITRE ATT&CK\xAE tactic, for example. (ex. https://attack.mitre.org/tactics/TA0040/\
+        \ MITRE ATT&CK\xAE tactic, for example. (ex. https://attack.mitre.org/tactics/TA0002/\
         \ )"
-      example: https://attack.mitre.org/tactics/TA0040/
+      example: https://attack.mitre.org/tactics/TA0002/
     - name: technique.id
       level: extended
       type: keyword
       ignore_above: 1024
       description: "The id of technique used by this threat. You can use a MITRE ATT&CK\xAE\
-        \ technique, for example. (ex. https://attack.mitre.org/techniques/T1499/)"
-      example: T1499
+        \ technique, for example. (ex. https://attack.mitre.org/techniques/T1059/)"
+      example: T1059
     - name: technique.name
       level: extended
       type: keyword
@@ -4572,16 +4572,43 @@
         norms: false
         default_field: false
       description: "The name of technique used by this threat. You can use a MITRE\
-        \ ATT&CK\xAE technique, for example. (ex. https://attack.mitre.org/techniques/T1499/)"
-      example: Endpoint Denial of Service
+        \ ATT&CK\xAE technique, for example. (ex. https://attack.mitre.org/techniques/T1059/)"
+      example: Command and Scripting Interpreter
     - name: technique.reference
       level: extended
       type: keyword
       ignore_above: 1024
       description: "The reference url of technique used by this threat. You can use\
-        \ a MITRE ATT&CK\xAE technique, for example. (ex. https://attack.mitre.org/techniques/T1499/\
-        \ )"
-      example: https://attack.mitre.org/techniques/T1499/
+        \ a MITRE ATT&CK\xAE technique, for example. (ex. https://attack.mitre.org/techniques/T1059/)"
+      example: https://attack.mitre.org/techniques/T1059/
+    - name: technique.subtechnique.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: "The full id of subtechnique used by this threat. You can use a\
+        \ MITRE ATT&CK\xAE subtechnique, for example. (ex. https://attack.mitre.org/techniques/T1059/001/)"
+      example: T1059.001
+      default_field: false
+    - name: technique.subtechnique.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: text
+        norms: false
+      description: "The name of subtechnique used by this threat. You can use a MITRE\
+        \ ATT&CK\xAE subtechnique, for example. (ex. https://attack.mitre.org/techniques/T1059/001/)"
+      example: PowerShell
+      default_field: false
+    - name: technique.subtechnique.reference
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: "The reference url of subtechnique used by this threat. You can\
+        \ use a MITRE ATT&CK\xAE subtechnique, for example. (ex. https://attack.mitre.org/techniques/T1059/001/)"
+      example: https://attack.mitre.org/techniques/T1059/001/
+      default_field: false
   - name: tls
     title: TLS
     group: 2
