@@ -47,7 +47,7 @@ class TestSchemaFinalizer(unittest.TestCase):
                         'order': 2,
                         'expected': [
                             {'full': 'process.parent', 'at': 'process', 'as': 'parent'},
-                            {'full': 'reuse.process', 'at': 'reuse', 'as': 'process' },
+                            {'full': 'reuse.process', 'at': 'reuse', 'as': 'process'},
                             {'full': 'reuse.process.parent', 'at': 'reuse.process', 'as': 'parent'},
                         ]
                     }
