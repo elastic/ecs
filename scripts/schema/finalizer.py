@@ -57,17 +57,19 @@ def perform_reuse(fields):
             schema = fields[schema_name]
             for reuse_entry in reuse_entries:
                 # print(order, "{} => {}".format(schema_name, reuse_entry['full']))
+                nest_as = reuse_entry['as']
                 destination_schema_name = reuse_entry['full'].split('.')[0]
                 destination_schema = fields[destination_schema_name]
                 ensure_valid_reuse(schema, destination_schema)
 
                 new_field_details = copy.deepcopy(schema['field_details'])
+                new_field_details['name'] = nest_as
                 new_field_details['original_fieldset'] = schema_name
                 new_field_details['intermediate'] = True
                 reused_fields = copy.deepcopy(schema['fields'])
                 set_original_fieldset(reused_fields, schema_name)
                 destination_fields = field_group_at_path(reuse_entry['at'], fields)
-                destination_fields[schema_name] = {
+                destination_fields[nest_as] = {
                     'field_details': new_field_details,
                     'fields': reused_fields,
                 }
