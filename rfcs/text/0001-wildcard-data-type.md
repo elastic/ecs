@@ -276,6 +276,8 @@ Stage 1: Identify potential concerns, implementation challenges, or complexity. 
 
 Some fields require flexibility in how users search. Their content is messy (e.g. user-agent) or popular for threat hunters (e.g. file paths and names, command line processes), and a single character in the opposite casing can bypass a detection today for `keyword` fields. The `wildcard` field provides improved performance of leading `wildcard` and `regex` term-level queries, but is also a step towards case-insensitive search support in Elasticsearch. As Elasticsearch moves forward towards introducing a case-insensitive query option [3], ECS considers the fields adopting `wildcard` to be popular candidates for case-insensitive searching once the feature is available.
 
+One remaining question is if `wildcard` performs better vs. `keyword` for the upcoming case-insensitive query option.
+
 ### Performance differences
 
 Performance and storage characteristics between wildcard and keyword will be different[4], and this difference may have an impact depending on deployment size and/or the level of duplication in the field data. As part of the transition, fields which were previously indexed keyword will be switched to wildcard. Queries across indices with field names will be necessary. Understanding the differences at both index and query time will be pursued.
