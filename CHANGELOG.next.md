@@ -29,6 +29,8 @@ Thanks, you're awesome :-) -->
 
 #### Bugfixes
 
+* Addressed issue where foreign reuses weren't using the user-supplied `as` value for their destination. #960
+
 #### Added
 
 * Introduced `--strict` flag to perform stricter schema validation when running the generator script. #937
