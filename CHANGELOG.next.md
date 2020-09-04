@@ -30,6 +30,8 @@ Thanks, you're awesome :-) -->
 
 #### Bugfixes
 
+* Addressed issue where foreign reuses weren't using the user-supplied `as` value for their destination. #960
+
 #### Added
 
 #### Improvements
