@@ -27,6 +27,7 @@ At the time of writing, the following are several known challenges caused by the
 The following are the people that consulted on the contents of this RFC.
 
 * @ebeahan | author
+* @webmat | co-author
 
 <!--
 Who will be or has consulted on the contents of this RFC? Identify authorship and sponsorship, and optionally identify the nature of involvement of others. Link to GitHub aliases where possible. This list will likely change or grow stage after stage.
