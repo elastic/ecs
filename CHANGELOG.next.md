@@ -14,6 +14,8 @@ Thanks, you're awesome :-) -->
 
 #### Bugfixes
 
+* The `protocol` allowed value under `event.type` should not have the `expected_event_types` defined. #964
+
 #### Added
 
 #### Improvements
