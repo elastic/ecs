@@ -19,8 +19,15 @@
 
 package ecs
 
-// Source fields describe details about the source of a packet/event.
+// Source fields capture details about the sender of a network exchange/packet.
+// These fields are populated from a network event, packet, or other event
+// containing details of a network transaction.
 // Source fields are usually populated in conjunction with destination fields.
+// The source and destination fields are considered the baseline and should
+// always be filled if an event contains source and destination details from a
+// network transaction. If the event also contains identification of the client
+// and server roles, then the client and server fields should also be
+// populated.
 type Source struct {
 	// Some event source addresses are defined ambiguously. The event will
 	// sometimes list an IP, a domain or a unix socket.  You should always
