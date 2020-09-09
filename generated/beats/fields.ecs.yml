@@ -1007,9 +1007,7 @@
       description: 'Array of 2 letter DNS header flags.
 
         Expected values are: AA, TC, RD, RA, AD, CD, DO.'
-      example:
-      - RD
-      - RA
+      example: '["RD", "RA"]'
     - name: id
       level: extended
       type: keyword
@@ -1090,9 +1088,7 @@
         formats it can contain. Extracting all IP addresses seen in there to `dns.resolved_ip`
         makes it possible to index them as IP addresses, and makes them easier to
         visualize and query for.'
-      example:
-      - 10.10.10.10
-      - 10.10.10.11
+      example: '[10.10.10.10, 10.10.10.11]'
     - name: response_code
       level: extended
       type: keyword
@@ -3223,11 +3219,7 @@
         the executable.
 
         May be filtered to protect sensitive information.'
-      example:
-      - /usr/bin/ssh
-      - -l
-      - user
-      - 10.0.0.16
+      example: '["/usr/bin/ssh", "-l", "user", "10.0.0.16"]'
     - name: args_count
       level: extended
       type: long
@@ -3370,11 +3362,7 @@
         the executable.
 
         May be filtered to protect sensitive information.'
-      example:
-      - /usr/bin/ssh
-      - -l
-      - user
-      - 10.0.0.16
+      example: '["/usr/bin/ssh", "-l", "user", "10.0.0.16"]'
       default_field: false
     - name: parent.args_count
       level: extended
@@ -3878,8 +3866,7 @@
       ignore_above: 1024
       description: Name, organization, or pseudonym of the author or authors who created
         the rule used to generate this event.
-      example:
-      - Star-Lord
+      example: '["Star-Lord"]'
       default_field: false
     - name: category
       level: extended
@@ -4640,9 +4627,7 @@
       description: Array of PEM-encoded certificates that make up the certificate
         chain offered by the client. This is usually mutually-exclusive of `client.certificate`
         since that value should be the first certificate in the chain.
-      example:
-      - MII...
-      - MII...
+      example: '["MII...", "MII..."]'
       default_field: false
     - name: client.hash.md5
       level: extended
@@ -4723,10 +4708,8 @@
       type: keyword
       ignore_above: 1024
       description: Array of ciphers offered by the client during the client hello.
-      example:
-      - TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-      - TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
-      - '...'
+      example: '["TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384", "TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384",
+        "..."]'
       default_field: false
     - name: client.x509.alternative_names
       level: extended
@@ -4943,9 +4926,7 @@
       description: Array of PEM-encoded certificates that make up the certificate
         chain offered by the server. This is usually mutually-exclusive of `server.certificate`
         since that value should be the first certificate in the chain.
-      example:
-      - MII...
-      - MII...
+      example: '["MII...", "MII..."]'
       default_field: false
     - name: server.hash.md5
       level: extended
