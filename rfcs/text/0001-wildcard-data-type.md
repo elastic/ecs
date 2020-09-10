@@ -27,6 +27,7 @@ For a field to use wildcard, it will require changing the the field's defined sc
 * `source.*`
 * `url.*`
 * `user.*`
+* `user_agent.*`
 
 Here's an example of applying this change to the `process.command_line` field:
 
