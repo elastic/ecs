@@ -291,6 +291,10 @@ ECS applies the `ignore_above` setting to keyword fields to prevent strings long
 
 Until now ECS has relied only on OSS licensed features, but ECS will also support Elastic licensed features. The ECS project will remain OSS licensed with the schema implementing Elastic licensed features as part of the specification. When ECS adopts a feature available only under a license, it will be noted in the documentation. ECS plans to provide tooling options which continue to support OSS consumers of ECS and the Elastic Stack.
 
+### Version Compatibility
+
+A data shipper which uses the `wildcard` field type may need to verify that the configured output Elasticsearch destination can support it (>= 7.9.0). For example, if a future version of Beats adopts `wildcard` in index mappings, Beats would may need to gracefully handle a scenario where the targeted Elasticsearch instance doesn't support the data type.
+
 ## People
 
 The following are the people that consulted on the contents of this RFC.
