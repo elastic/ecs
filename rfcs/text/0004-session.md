@@ -35,41 +35,40 @@ This RFC calls for the addition of session fields to describe events related to 
 
   type: group
 
-  fields:
+ fields:
 
-    - name: kind
-      level: extended
-      type: keyword
-      short: Kind of session
-      description: > 
-        Session kind can be local (console, on the keyboard), remote (ssh, vdi, web, ftp), or network (802.1x, wpa, NAC)
-        Additional fields will be dependent on the specifics of the session reported.
+   - name: kind
+     level: extended
+     type: keyword
+     short: Session kind
+     description: >
+       Session kind describes the type of access represented - system (e.g. local/remote/virtual system logins to workstations, servers, appliances, etc.), application (e.g. web, ftp, database interactions), or network (VPN connections, 802.1x or NAC access to network, wireless WPA sessions).
 
-      example: network
+     example: network
 
-    - name: type
-      level: extended
-      type: Logical session type
-      short: Type of session (array)
-      description: > 
-        Session type describes the interaction/access provided.  Initial values include system (shell or desktop), virtual (VDI), application (web, ftp, etc.), wired (nac, 802.1x), wireless (wpa/.1x), or vpn (ipsec, ssl, etc). Note that actual aaa mechanism (system, domain, wpa, 802.1x) does not indicate a specific session type.  
+   - name: type
+     level: extended
+     type: Logical session type
+     short: Session type
+     description: >
+       Session type fields provide additional detail on the scope of the interactions being tracked.  Initial values include local (e.g. hands on keyboard, serial connections, etc.), remote (e.g. direct system access via remote desktop, ssh, etc), virtual (e.g. VDI, VDA, etc.), and wired, wireless and vpn network connections.  Session type allows arrays to provide, if necessary, multiple values for a given interaction.
 
-      example: wireless
-      normalize:
-        - array
+     example: wireless
+     normalize:
+       - array
 
     - name: authorization
       level: extended
       type: keyword
       description: > 
-        Authorization scope of the session. Initial values will include general user level access (e.g. user vdi/vda, vpn, or web sessions, network access, etc), administrative sessions (root, VMWare Host access, router "enable" level cli, etc.) or service (network to network VPN, non-user verified services sessions e.g. micro-service backend architectures).
+        Authorization scope of the session. Initial values will include user (e.g. user vdi/vda, vpn, or web sessions, wired/wireless/vpn network access, etc), administrative sessions (root, VMWare Host access, router "enable" level cli, etc.) or service (e.g. network to network VPN, non-user verified application service sessions).
 
       example: user
 
     - name: name
       level: extended
       type: Session Name
-      description: The name field is meant to contain a locally significant identifier for the session as configured. This could represent a VPN group name, a wireless network name (ssid), a wired network segment, VDI service name, or application identifier.
+      description: The name field is meant to contain a locally significant identifier for the session as configured. This could represent a VPN group name, a wireless network name (ssid), a wired network segment, VDI service name, service or application identifier.
 
       example: HQ-Wireless
 
