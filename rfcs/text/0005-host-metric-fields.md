@@ -1,7 +1,7 @@
 # 0005: Host Metric Fields
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
-- Stage: **0 (strawperson)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
+- Stage: **1 (proposal)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
 - Date: **2020-08-21** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 <!--
@@ -13,7 +13,7 @@ We are proposing to add 7 new host fields into ECS for monitoring CPU, disk and 
 With existing `host.id` and `host.name`, these total 9 fields will become the common field schema for host metrics.
 
 Proposed 7 new fields are:
-* host.cpu.pct
+* host.cpu.usage
 * host.network.in.bytes
 * host.network.in.packets
 * host.network.out.bytes
@@ -30,7 +30,7 @@ This RFC calls for the addition of host fields to collect basic monitoring metri
 
 | field | type | description |
 | --- | --- | --- |
-| `host.cpu.pct` | scaled_float | Percent CPU used. This value is normalized by the number of CPU cores and it ranges from 0 to 1. |
+| `host.cpu.usage` | scaled_float | Percent CPU used with scaling_factor of 1000. This value is normalized by the number of CPU cores and it ranges from 0 to 1. For example: For a two core host, this value should be the average of the 2 cores, between 0 and 1. |
 | `host.network.in.bytes` | long | The number of bytes received on all network interfaces by the host in a given period of time. |
 | `host.network.in.packets` | long | The number of packets received on all network interfaces by the host in a given period of time. |
 | `host.network.out.bytes` | long | The number of bytes sent out on all network interfaces by the host in a given period of time. |
@@ -133,6 +133,8 @@ Stage 4: Identify at least one real-world, production-ready implementation that 
 The following are the people that consulted on the contents of this RFC.
 
 * @kaiyan-sheng | author
+* @cyrille-leclerc | sponsor
+* @exekias | subject matter expert
 
 <!--
 Who will be or has consulted on the contents of this RFC? Identify authorship and sponsorship, and optionally identify the nature of involvement of others. Link to GitHub aliases where possible. This list will likely change or grow stage after stage.
