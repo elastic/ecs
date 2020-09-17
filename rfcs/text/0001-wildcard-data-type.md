@@ -470,3 +470,4 @@ The following are the people that consulted on the contents of this RFC.
 
 * Stage 0: https://github.com/elastic/ecs/pull/890
 * Stage 1: https://github.com/elastic/ecs/pull/904
+* Stage 2: https://github.com/elastic/ecs/pull/970
