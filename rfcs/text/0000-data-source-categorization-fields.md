@@ -26,15 +26,17 @@ The fieldset we use to describe the data source is up for discussion, data_strea
 - Config Management
 - containers
 - CRM
+- datastore
 - EDR
 - email
 - firewall
 - Identity and access management
 - IDS/IPS
 - Operating System
+- orchestration
 - productivity
 - proxy
-- queue/message queue
+- message queue
 - security
 - storage
 - threat intelligence
