@@ -19,21 +19,21 @@ For a field to use wildcard, it will require changing the the field's defined sc
 
 | Field Set | Field(s) |
 | --------- | -------- |
-| [`agent`](text/0001/agent.yml) | `name` |
-| [`destination`](text/0001/destination.yml) | `domain`<br> `registered_domain` |
-| [`error`](text/0001/error.yml) | `stack_trace` |
-| [`file`](text/0001/file.yml) | `directory`<br> `path`<br> `target_path` |
-| [`host`](text/0001/host.yml) | `hostname`<br> `name`<br> `domain` |
-| [`http`](text/0001/http.yml) | `request.body.content`<br> `response.body.content` |
-| [`os`](text/0001/os.yml) | `name`<br> `full` |
-| [`process`](text/0001/process.yml) | `command_line`<br> `executable`<br> `name`<br> `title`<br> `working_directory`<br> |
-| [`registry`](text/0001/registry.yml) | `key`<br> `path` |
-| [`source`](text/0001/source.yml) | `domain`<br> `registered_domain` |
-| [`url`](text/0001/url.yml) | `original`<br> `full`<br> `domain`<br> `registered_domain` |
-| [`user`](text/0001/user.yml) | `name`<br> `full_name`<br> `email`<br> `domain` |
-| [`user_agent`](text/0001/user_agent.yml) | `original` |
+| [`agent`](0001/agent.yml) | `name` |
+| [`destination`](0001/destination.yml) | `domain`<br> `registered_domain` |
+| [`error`](0001/error.yml) | `stack_trace` |
+| [`file`](0001/file.yml) | `directory`<br> `path`<br> `target_path` |
+| [`host`](0001/host.yml) | `hostname`<br> `name`<br> `domain` |
+| [`http`](0001/http.yml) | `request.body.content`<br> `response.body.content` |
+| [`os`](0001/os.yml) | `name`<br> `full` |
+| [`process`](0001/process.yml) | `command_line`<br> `executable`<br> `name`<br> `title`<br> `working_directory`<br> |
+| [`registry`](0001/registry.yml) | `key`<br> `path` |
+| [`source`](0001/source.yml) | `domain`<br> `registered_domain` |
+| [`url`](0001/url.yml) | `original`<br> `full`<br> `domain`<br> `registered_domain` |
+| [`user`](0001/user.yml) | `name`<br> `full_name`<br> `email`<br> `domain` |
+| [`user_agent`](0001/user_agent.yml) | `original` |
 
-The full set of schema files which will be transitioning to `wildcard` are located [here](text/0001/).
+The full set of schema files which will be transitioning to `wildcard` are located [here](0001/).
 
 ### Example definition
 
