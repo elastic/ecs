@@ -15,7 +15,7 @@ Stage 2: Include new or updated yml field definitions for all of the essential f
 
 ### Identified Wildcard Fields
 
-For a field to use wildcard, it will require changing the the field's defined schema `type` from `keyword` to `wildcard`. These are the following fields identified to transition:
+For a field to use wildcard, it will require changing the the field's defined schema `type` from `keyword` to `wildcard`. The following fields are candidates for `wildcard`:
 
 | Field Set | Field(s) |
 | --------- | -------- |
