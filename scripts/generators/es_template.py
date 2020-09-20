@@ -64,6 +64,9 @@ def entry_for(field):
             field_entry['fields'] = {}
             for mf in field['multi_fields']:
                 mf_entry = {'type': mf['type']}
+                mf_normalizer = mf.get('normalizer')
+                if mf_normalizer:
+                    mf_entry['normalizer'] = mf_normalizer
                 if mf['type'] == 'text':
                     ecs_helpers.dict_copy_existing_keys(mf, mf_entry, ['norms'])
                 field_entry['fields'][mf['name']] = mf_entry
