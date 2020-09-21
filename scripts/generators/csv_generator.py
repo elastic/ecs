@@ -30,6 +30,8 @@ def save_csv(file, sorted_fields, version):
     with open(file, open_mode) as csvfile:
         schema_writer = csv.writer(csvfile,
                                    delimiter=',',
+                                   doublequote=False,
+                                   escapechar='\\',
                                    quoting=csv.QUOTE_MINIMAL,
                                    lineterminator='\n')
 
