@@ -40,6 +40,7 @@ Thanks, you're awesome :-) -->
 #### Improvements
 
 * Field details Jinja2 template components have been consolidated into one template #897
+* Use backslashes as the escape characters over double double-quotes in CSV artifact. #972
 
 #### Deprecated
 
