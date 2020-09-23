@@ -19,8 +19,15 @@
 
 package ecs
 
-// Destination fields describe details about the destination of a packet/event.
+// Destination fields capture details about the receiver of a network
+// exchange/packet. These fields are populated from a network event, packet, or
+// other event containing details of a network transaction.
 // Destination fields are usually populated in conjunction with source fields.
+// The source and destination fields are considered the baseline and should
+// always be filled if an event contains source and destination details from a
+// network transaction. If the event also contains identification of the client
+// and server roles, then the client and server fields should also be
+// populated.
 type Destination struct {
 	// Some event destination addresses are defined ambiguously. The event will
 	// sometimes list an IP, a domain or a unix socket.  You should always

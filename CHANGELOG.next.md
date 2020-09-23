@@ -24,6 +24,8 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
+* Expanded field set definitions for `source.*` and `destination.*`. #967
+
 #### Deprecated
 
 ### Tooling and Artifact Changes
