@@ -20,6 +20,7 @@ Thanks, you're awesome :-) -->
 
 * Added Mime Type fields to HTTP request and response. #944
 * Added `threat.technique.subtechnique` to capture MITRE ATT&CK® subtechniques. #951
+* Added `related.event` to link related events. #968
 
 #### Improvements
 
