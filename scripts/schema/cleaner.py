@@ -169,6 +169,7 @@ def field_assertions_and_warnings(field):
     if not ecs_helpers.is_intermediate(field):
         # check short description length if in strict mode
         single_line_short_description(field, strict=strict_mode)
+        check_example_value(field, strict=strict_mode)
         if field['field_details']['level'] not in ACCEPTABLE_FIELD_LEVELS:
             msg = "Invalid level for field '{}'.\nValue: {}\nAcceptable values: {}".format(
                 field['field_details']['name'], field['field_details']['level'],
@@ -189,6 +190,21 @@ def single_line_short_description(schema_or_field, strict=True):
         msg += "Offending field or field set: {}\nShort description:\n  {}".format(
             schema_or_field['field_details']['name'],
             schema_or_field['field_details']['short'])
+        if strict:
+            raise ValueError(msg)
+        else:
+            ecs_helpers.strict_warning(msg)
+
+
+def check_example_value(field, strict=True):
+    """
+    Checks if value of the example field is of type list or dict.
+    Fails or warns (depending on strict mode) if so.
+    """
+    example_value = field['field_details'].get('example', None)
+    if isinstance(example_value, (list, dict)):
+        name = field['field_details']['name']
+        msg = f"Example value for field `{name}` contains an object or array which must be quoted to avoid YAML interpretation."
         if strict:
             raise ValueError(msg)
         else:

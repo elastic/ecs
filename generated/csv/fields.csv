@@ -117,7 +117,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 2.0.0-dev,true,dns,dns.answers.name,keyword,extended,,www.example.com,The domain name to which this resource record pertains.
 2.0.0-dev,true,dns,dns.answers.ttl,long,extended,,180,The time interval in seconds that this resource record may be cached before it should be discarded.
 2.0.0-dev,true,dns,dns.answers.type,keyword,extended,,CNAME,The type of data contained in this resource record.
-2.0.0-dev,true,dns,dns.header_flags,keyword,extended,array,"['RD', 'RA']",Array of DNS header flags.
+2.0.0-dev,true,dns,dns.header_flags,keyword,extended,array,"[""RD"", ""RA""]",Array of DNS header flags.
 2.0.0-dev,true,dns,dns.id,keyword,extended,,62111,The DNS packet identifier assigned by the program that generated the query. The identifier is copied to the response.
 2.0.0-dev,true,dns,dns.op_code,keyword,extended,,QUERY,The DNS operation code that specifies the kind of query in the message.
 2.0.0-dev,true,dns,dns.question.class,keyword,extended,,IN,The class of records being queried.
@@ -126,7 +126,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 2.0.0-dev,true,dns,dns.question.subdomain,keyword,extended,,www,The subdomain of the domain.
 2.0.0-dev,true,dns,dns.question.top_level_domain,keyword,extended,,co.uk,"The effective top level domain (com, org, net, co.uk)."
 2.0.0-dev,true,dns,dns.question.type,keyword,extended,,AAAA,The type of record being queried.
-2.0.0-dev,true,dns,dns.resolved_ip,ip,extended,array,"['10.10.10.10', '10.10.10.11']",Array containing all IPs seen in answers.data
+2.0.0-dev,true,dns,dns.resolved_ip,ip,extended,array,"[""10.10.10.10"", ""10.10.10.11""]",Array containing all IPs seen in answers.data
 2.0.0-dev,true,dns,dns.response_code,keyword,extended,,NOERROR,The DNS response code.
 2.0.0-dev,true,dns,dns.type,keyword,extended,,answer,"The type of DNS event captured, query or answer."
 2.0.0-dev,true,ecs,ecs.version,keyword,core,,1.0.0,ECS version this event conforms to.
@@ -362,7 +362,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 2.0.0-dev,true,package,package.size,long,extended,,62231,Package size in bytes.
 2.0.0-dev,true,package,package.type,keyword,extended,,rpm,Package type
 2.0.0-dev,true,package,package.version,keyword,extended,,1.12.9,Package version
-2.0.0-dev,true,process,process.args,keyword,extended,array,"['/usr/bin/ssh', '-l', 'user', '10.0.0.16']",Array of process arguments.
+2.0.0-dev,true,process,process.args,keyword,extended,array,"[""/usr/bin/ssh"", ""-l"", ""user"", ""10.0.0.16""]",Array of process arguments.
 2.0.0-dev,true,process,process.args_count,long,extended,,4,Length of the process.args array.
 2.0.0-dev,true,process,process.code_signature.exists,boolean,core,,true,Boolean to capture if a signature is present.
 2.0.0-dev,true,process,process.code_signature.status,keyword,extended,,ERROR_UNTRUSTED_ROOT,Additional information about the certificate status.
@@ -381,7 +381,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 2.0.0-dev,true,process,process.hash.sha512,keyword,extended,,,SHA512 hash.
 2.0.0-dev,true,process,process.name,keyword,extended,,ssh,Process name.
 2.0.0-dev,true,process,process.name.text,text,extended,,ssh,Process name.
-2.0.0-dev,true,process,process.parent.args,keyword,extended,array,"['/usr/bin/ssh', '-l', 'user', '10.0.0.16']",Array of process arguments.
+2.0.0-dev,true,process,process.parent.args,keyword,extended,array,"[""/usr/bin/ssh"", ""-l"", ""user"", ""10.0.0.16""]",Array of process arguments.
 2.0.0-dev,true,process,process.parent.args_count,long,extended,,4,Length of the process.args array.
 2.0.0-dev,true,process,process.parent.code_signature.exists,boolean,core,,true,Boolean to capture if a signature is present.
 2.0.0-dev,true,process,process.parent.code_signature.status,keyword,extended,,ERROR_UNTRUSTED_ROOT,Additional information about the certificate status.
@@ -447,7 +447,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 2.0.0-dev,true,related,related.hosts,keyword,extended,array,,All the host identifiers seen on your event.
 2.0.0-dev,true,related,related.ip,ip,extended,array,,All of the IPs seen on your event.
 2.0.0-dev,true,related,related.user,keyword,extended,array,,All the user names seen on your event.
-2.0.0-dev,true,rule,rule.author,keyword,extended,array,['Star-Lord'],Rule author
+2.0.0-dev,true,rule,rule.author,keyword,extended,array,"[""Star-Lord""]",Rule author
 2.0.0-dev,true,rule,rule.category,keyword,extended,,Attempted Information Leak,Rule category
 2.0.0-dev,true,rule,rule.description,keyword,extended,,Block requests to public DNS over HTTPS / TLS protocols,Rule description
 2.0.0-dev,true,rule,rule.id,keyword,extended,,101,Rule ID
@@ -547,7 +547,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 2.0.0-dev,true,threat,threat.technique.subtechnique.reference,keyword,extended,array,https://attack.mitre.org/techniques/T1059/001/,Threat subtechnique URL reference.
 2.0.0-dev,true,tls,tls.cipher,keyword,extended,,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256,String indicating the cipher used during the current connection.
 2.0.0-dev,true,tls,tls.client.certificate,keyword,extended,,MII...,PEM-encoded stand-alone certificate offered by the client.
-2.0.0-dev,true,tls,tls.client.certificate_chain,keyword,extended,array,"['MII...', 'MII...']",Array of PEM-encoded certificates that make up the certificate chain offered by the client.
+2.0.0-dev,true,tls,tls.client.certificate_chain,keyword,extended,array,"[""MII..."", ""MII...""]",Array of PEM-encoded certificates that make up the certificate chain offered by the client.
 2.0.0-dev,true,tls,tls.client.hash.md5,keyword,extended,,0F76C7F2C55BFD7D8E8B8F4BFBF0C9EC,Certificate fingerprint using the MD5 digest of DER-encoded version of certificate offered by the client.
 2.0.0-dev,true,tls,tls.client.hash.sha1,keyword,extended,,9E393D93138888D288266C2D915214D1D1CCEB2A,Certificate fingerprint using the SHA1 digest of DER-encoded version of certificate offered by the client.
 2.0.0-dev,true,tls,tls.client.hash.sha256,keyword,extended,,0687F666A054EF17A08E2F2162EAB4CBC0D265E1D7875BE74BF3C712CA92DAF0,Certificate fingerprint using the SHA256 digest of DER-encoded version of certificate offered by the client.
@@ -557,7 +557,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 2.0.0-dev,true,tls,tls.client.not_before,date,extended,,1970-01-01T00:00:00.000Z,Date/Time indicating when client certificate is first considered valid.
 2.0.0-dev,true,tls,tls.client.server_name,keyword,extended,,www.elastic.co,Hostname the client is trying to connect to. Also called the SNI.
 2.0.0-dev,true,tls,tls.client.subject,keyword,extended,,"CN=myclient, OU=Documentation Team, DC=example, DC=com",Distinguished name of subject of the x.509 certificate presented by the client.
-2.0.0-dev,true,tls,tls.client.supported_ciphers,keyword,extended,array,"['TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384', 'TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384', '...']",Array of ciphers offered by the client during the client hello.
+2.0.0-dev,true,tls,tls.client.supported_ciphers,keyword,extended,array,"[""TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384"", ""TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384"", ""...""]",Array of ciphers offered by the client during the client hello.
 2.0.0-dev,true,tls,tls.client.x509.alternative_names,keyword,extended,array,*.elastic.co,List of subject alternative names (SAN).
 2.0.0-dev,true,tls,tls.client.x509.issuer.common_name,keyword,extended,array,Example SHA2 High Assurance Server CA,List of common name (CN) of issuing certificate authority.
 2.0.0-dev,true,tls,tls.client.x509.issuer.country,keyword,extended,array,US,List of country (C) codes
@@ -587,7 +587,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 2.0.0-dev,true,tls,tls.next_protocol,keyword,extended,,http/1.1,String indicating the protocol being tunneled.
 2.0.0-dev,true,tls,tls.resumed,boolean,extended,,,Boolean flag indicating if this TLS connection was resumed from an existing TLS negotiation.
 2.0.0-dev,true,tls,tls.server.certificate,keyword,extended,,MII...,PEM-encoded stand-alone certificate offered by the server.
-2.0.0-dev,true,tls,tls.server.certificate_chain,keyword,extended,array,"['MII...', 'MII...']",Array of PEM-encoded certificates that make up the certificate chain offered by the server.
+2.0.0-dev,true,tls,tls.server.certificate_chain,keyword,extended,array,"[""MII..."", ""MII...""]",Array of PEM-encoded certificates that make up the certificate chain offered by the server.
 2.0.0-dev,true,tls,tls.server.hash.md5,keyword,extended,,0F76C7F2C55BFD7D8E8B8F4BFBF0C9EC,Certificate fingerprint using the MD5 digest of DER-encoded version of certificate offered by the server.
 2.0.0-dev,true,tls,tls.server.hash.sha1,keyword,extended,,9E393D93138888D288266C2D915214D1D1CCEB2A,Certificate fingerprint using the SHA1 digest of DER-encoded version of certificate offered by the server.
 2.0.0-dev,true,tls,tls.server.hash.sha256,keyword,extended,,0687F666A054EF17A08E2F2162EAB4CBC0D265E1D7875BE74BF3C712CA92DAF0,Certificate fingerprint using the SHA256 digest of DER-encoded version of certificate offered by the server.
