@@ -125,7 +125,9 @@ Supported keys to describe fields
   Defaults to the main description when absent.
   If the main description has multiple paragraphs, then a 'short' description
   with no newlines is required.
-- example (optional): A single value example of what can be expected in this field
+- example (optional): A single value example of what can be expected in this field.
+  Example values that are composite types (array, object) should be quoted to avoid YAML interpretation
+  in ECS-generated artifacts and other downstream projects depending on the schema.
 - multi\_fields (optional): Specify additional ways to index the field.
 - index (optional): If `False`, means field is not indexed (overrides type)
 - format: Field format that can be used in a Kibana index template.
