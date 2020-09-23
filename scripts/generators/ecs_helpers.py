@@ -2,6 +2,7 @@ import glob
 import os
 import yaml
 import git
+import warnings
 
 from collections import OrderedDict
 from copy import deepcopy
@@ -159,3 +160,17 @@ def list_extract_keys(lst, key_name):
 def is_intermediate(field):
     '''Encapsulates the check to see if a field is an intermediate field or a "real" field.'''
     return ('intermediate' in field['field_details'] and field['field_details']['intermediate'])
+
+
+# Warning helper
+
+
+def strict_warning(msg):
+    """Call warnings.warn(msg) for operations that would throw an Exception
+       if operating in `--strict` mode. Allows a custom message to be passed.
+
+    :param msg: custom text which will be displayed with wrapped boilerplate
+                for strict warning messages.
+    """
+    warn_message = f"{msg}\n\nThis will cause an exception when running in strict mode."
+    warnings.warn(warn_message)

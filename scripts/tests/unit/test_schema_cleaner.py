@@ -262,6 +262,26 @@ class TestSchemaCleaner(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'single line'):
             cleaner.single_line_short_description(schema)
 
+    def test_very_long_short_description_warns_strict_disabled(self):
+        schema = {'field_details': {
+            'name': 'fake_schema',
+            'short': "Single line but really long. " * 10}}
+        try:
+            with self.assertWarnsRegex(UserWarning, 'under 120 characters \(current length: 290\)'):
+                cleaner.single_line_short_description(schema, strict=False)
+        except Exception:
+            self.fail("cleaner.single_line_short_description() raised Exception unexpectedly.")
+
+    def test_multiline_short_description_warns_strict_disabled(self):
+        schema = {'field_details': {
+            'name': 'fake_schema',
+            'short': "multiple\nlines"}}
+        try:
+            with self.assertWarnsRegex(UserWarning, 'single line'):
+                cleaner.single_line_short_description(schema, strict=False)
+        except Exception:
+            self.fail("cleaner.single_line_short_description() raised Exception unexpectedly.")
+
     def test_clean(self):
         '''A high level sanity test'''
         fields = self.schema_process()
