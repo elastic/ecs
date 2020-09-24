@@ -91,10 +91,79 @@ Looking back at the original event, it shows the source device is the DNS client
   }
 ----
 
-Mapping both pairs of field sets gives query visibility of the same network transaction in two ways:
+Mapping both pairs of field sets gives query visibility of the same network transaction in two ways.
 
-* `source.ip:192.168.86.222` returns all events sourced from `192.168.86.222`, regardless its role in a session
-* `client.ip:192.168.86.222` returns all events with host `192.168.86.222` acting as a client.
+* `source.ip:192.168.86.222` returns all events sourced from `192.168.86.222`, regardless its role in a transaction
+* `client.ip:192.168.86.222` returns all events with host `192.168.86.222` acting as a client
+
+The same applies for the `destination` and `server` fields:
+
+* `destination.ip:192.168.86.1` returns all events destined to `192.168.86.1`
+* `server.ip:192.168.86.1` returns all events with `192.168.86.1` acting as the server
+
+It's important to note that while the values for the `source` and `destination` fields may reverse between events in a single network transaction, the values for `client` and `server` typically will not. The following two tables demonstrate how two DNS transactions involving two clients and one server would map to `source.ip`/`destination.ip` vs. `client.ip`/`server.ip`:
+
+[options="header"]
+.Source/Destination
+|=====
+| source.ip | destination.ip | event
+
+// ===============================================================
+
+| 192.168.86.222
+| 192.168.86.1
+| DNS query request 1
+
+// ===============================================================
+
+| 192.168.86.1
+| 192.168.86.222
+| DNS answer response 1
+
+// ===============================================================
+
+| 192.168.86.42
+| 192.168.86.1
+| DNS answer request 2
+
+// ===============================================================
+
+| 192.168.86.1
+| 192.168.86.42
+| DNS answer request 2
+
+|=====
+
+[options="header"]
+.Client/Server
+|=====
+| client.ip | server.ip | event
+
+// ===============================================================
+
+| 192.168.86.222
+| 192.168.86.1
+| DNS query request 1
+
+// ===============================================================
+
+| 192.168.86.222
+| 192.168.86.1
+| DNS answer response 1
+
+// ===============================================================
+
+| 192.168.86.42
+| 192.168.86.1
+| DNS query request 2
+
+// ===============================================================
+
+| 192.168.86.42
+| 192.168.86.1
+| DNS answer response 2
+
+|=====
 
 [float]
 ==== Related fields
