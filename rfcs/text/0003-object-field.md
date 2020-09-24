@@ -1,30 +1,33 @@
-# 0003: Object Fields
+# 0003: Enterprise Content Fields (Previously known as Object Fields)
 <!--^ The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC, taking care not to conflict with other RFCs.-->
 
 - Stage: **1 Proposal** <!-- Update to reflect target stage -->
-- Date: **2020-08-27** <!-- Update to reflect date of most recent stage advancement -->
+- Date: **2020-09-23** <!-- Update to reflect date of most recent stage advancement -->
 
 <!--
 Stage 0: Provide a high level summary of the premise of these changes. Briefly describe the nature, purpose, and impact of the changes. ~2-5 sentences.
 -->
-Numerous SaaS Cloud providers provide event data where the event reflects an action (typically a CRUD action) on what can broadly be considered an item/document/resource/record (originally dubbed "object). For some of these services, parts of (or in some cases, the entirety of) the corpus consists of _files_ (in the filesystem sense of the term) wherein the existing ECS `file` fields are adequate. However, most enterprise collaboration, storage, and communication systems (Workday, Salesforce, Service Now, Zoom, GitHub, G Suite, Zendesk, Jira, Confluence, etc.) present data units as "records", "documents", "tickets", "meetings" and more. ECS doesn't currently account for these entities, and relies on `file` as an option, albeit semantically incorrect and incomplete for the purpose of event tracking.
+Numerous SaaS and enterprise content/productivity services provide event data where the event reflects an action (typically `create`, `read`, `update`, `delete`) on what can broadly be considered items/documents/resources/records (originally dubbed "objects"). The are generally considered audit logs, or business analytics events. For some of these services, parts of (or in some cases, the entirety of) the corpus consists of _files_ (in the filesystem sense of the term) wherein the existing ECS `file` fields are adequate. However, most enterprise collaboration, storage, and communication systems (Workday, Salesforce, ServiceNow, Zoom, GitHub, G Suite, Zendesk, Jira, Confluence - Cloud - Server, etc.) present data units as "records", "documents", "tickets", "meetings" and more. ECS doesn't currently account for these entities, and relies on `file` as an option, albeit semantically incorrect and incomplete for the purpose of event tracking.
 
 ## Fields
 
 <!--
 Stage: 1: Describe at a high level how this change affects fields. Which fieldsets will be impacted? How many fields overall? Are we primarily adding fields, removing fields, or changing existing fields? The goal here is to understand the fundamental technical implications and likely extent of these changes. ~2-5 sentences.
 -->
-This RFC calls for the introduction of a top-level `object` field with an initial fieldset of the following child fields:
+This RFC calls for the introduction of a top-level `enterprise_content` field with an initial fieldset of the following child fields:
 
 | field | type | description |
 | --- | --- | --- |
-| `object.name` | keyword | Name of the Object |
-| `object.id` | keyword | ID of the Object |
-| `object.type` | keyword | Type of Object Represented (e.g. `record`, `meeting`, `repository`, `organization`, etc.) |
-| `object.additional_details` | object | Custom Key/Value pairs representing data relevant to the object |
-| `object.owner.id` | keyword | ID of the Object Owner |
-| `object.owner.name` | keyword | Name of the Object Owner |
-| `object.owner.email` | keyword | Email of the Object Owner |
+| `enterprise_content.document.name` | keyword | Name of the Enterprise Content Object |
+| `enterprise_content.document.id` | keyword | ID of the Enterprise Content Object |
+| `enterprise_content.document.type` | keyword | Type of Enterprise Content Object represented (e.g. `record`, `meeting`, `repository`, `organization`, etc.) |
+| `enterprise_content.uri` | keyword | Absolute location of Enterprise Content Object  |
+| `enterprise_content.source.id` | keyword | ID for the Enterprise Content Object source |
+| `enterprise_content.source.name` | keyword | Name for the Enterprise Content Object source |
+| `enterprise_content.owner.id` | keyword | ID of the Enterprise Content Object Owner |
+| `enterprise_content.owner.name` | keyword | Name of the Enterprise Content Object Owner |
+| ~`enterprise_content.owner.email`~ | ~keyword~ | ~Email of the Enterprise Content Object Owner~ | 
+| ~`enterprise_content.additional_details`~ | ~Enterprise Content Object~ | ~Custom Key/Value pairs representing data relevant to the Enterprise Content Object~ |
 
 
 <!--
@@ -40,9 +43,9 @@ Stage 3: Add or update all remaining field definitions. The list should now be e
 <!--
 Stage 1: Describe at a high-level how these field changes will be used in practice. Real world examples are encouraged. The goal here is to understand how people would leverage these fields to gain insights or solve problems. ~1-3 paragraphs.
 -->
-Object fields would allow for normalization of event/audit data provided by SaaS providers and facilitate the usage of ECS normalized event data to track, detect, and investigate activity across a broad spectrum of SaaS provider logs.
+Enterprise Content fields would allow for normalization of event/audit data provided by SaaS providers and facilitate the usage of ECS normalized event data to track, detect, and investigate activity across a broad spectrum of SaaS/enterprise content source provider logs.
 
-For example; an analyst could leverage the fields here to identify access into specific records on Salesforce; cases on Service Now; or meetings on Zoom without needing to know service specific field names and/or custom field names; They would simply be able to pivot their query on the respective `object` field and `cloud.provider` field.
+For example; an analyst could leverage the fields here to identify access into specific records on Salesforce; cases on Service Now; or meetings on Zoom without needing to know service specific field names and/or custom field names; They would simply be able to pivot their query on the respective `enterprise_content` field and `cloud.provider` field.
 
 ## Source data
 
@@ -53,8 +56,14 @@ Stage 1: Provide a high-level description of example sources of data. This does 
  * Salesforce
  * Zoom
  * Box
- * Microsoft/Office365
+ * Microsoft Office 365
  * Github
+
+* On-Premise Enterprise Content Management and Collaboration Software
+ * SharePoint
+ * GitHub Enterprise Server
+ * Jira Server
+ * Confluence Server
 
 <!--
 Stage 2: Included a real world example source document. Ideally this example comes from the source(s) identified in stage 1. If not, it should replace them. The goal here is to validate the utility of these field changes in the context of a real world example. Format with the source name as a ### header and the example document in a GitHub code block with json formatting.
@@ -79,7 +88,7 @@ The goal here is to research and understand the impact of these changes on users
 <!--
 Stage 1: Identify potential concerns, implementation challenges, or complexity. Spend some time on this. Play devil's advocate. Try to identify the sort of non-obvious challenges that tend to surface later. The goal here is to surface risks early, allow everyone the time to work through them, and ultimately document resolution for posterity's sake.
 -->
-An object is a very broad categorization, in some situations it may be hard to determine when something should be normalized into this field or another field like `file` or `package`. Additionally given the genericness of this field, a lot of finer details about the object may not be represented by this field, but rather addressed in custom key/value pairs nested under this field. Also due to the genericness of the field, the `object.type` field becomes rather critical to designate what exactly is represented within this field (e.g. is it a `record` or a `meeting`); some context might be derived from other fields in the event, but that would require some foreknowledge in order to properly search or sort. Designating specific acceptable values for `object.type` could minimize any confusion around the object being represented; however that would require specific updates to ECS to support new object "types".
+An `object` - as initially proposed - is a very broad categorization, in some situations it may be hard to determine when something should be normalized into this field or another field like `file` or `package`. the **Enterprise Content** terminology seeks to address this by focusing on the non-time series nature of the target documents. Additionally given the genericness of this field, a lot of finer details about the object may not be represented by this field, but rather addressed in custom key/value pairs nested under this field. `object.type` conventions will be critical to designate what exactly is represented within this field (e.g. is it a `record` or a `meeting`); some context might be derived from other fields in the event, but that would require some foreknowledge in order to properly search, sort or infer. Designating specific acceptable values for `object.type` could minimize any confusion around the object being represented; however that would require specific updates to ECS to support new object "types".
 
 <!--
 Stage 2: Document new concerns or resolutions to previously listed concerns. It's not critical that all concerns have resolutions at this point, but it would be helpful if resolutions were taking shape for the most significant concerns.
@@ -129,7 +138,5 @@ e.g.:
 
 * Stage 0: https://github.com/elastic/ecs/pull/883
 
-<!--
-* Stage 1: https://github.com/elastic/ecs/pull/NNN
-...
--->
+* Stage 1: https://github.com/elastic/ecs/pull/957
+
