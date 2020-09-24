@@ -52,18 +52,18 @@ For example; an analyst could leverage the fields here to identify access into s
 <!--
 Stage 1: Provide a high-level description of example sources of data. This does not yet need to be a concrete example of a source document, but instead can simply describe a potential source (e.g. nginx access log). This will ultimately be fleshed out to include literal source examples in a future stage. The goal here is to identify practical sources for these fields in the real world. ~1-3 sentences or unordered list.
 -->
-* Cloud SaaS Providers
- * Salesforce
- * Zoom
- * Box
- * Microsoft Office 365
- * Github
+**Cloud SaaS Providers**
+ 1. Salesforce
+ 2. Zoom
+ 3. Box
+ 4. Microsoft Office 365
+ 5. Github
 
-* On-Premise Enterprise Content Management and Collaboration Software
- * SharePoint
- * GitHub Enterprise Server
- * Jira Server
- * Confluence Server
+**On-Premise Enterprise Content Management and Collaboration Software**
+ 1. SharePoint
+ 2. GitHub Enterprise Server
+ 3. Jira Server
+ 4. Confluence Server
 
 <!--
 Stage 2: Included a real world example source document. Ideally this example comes from the source(s) identified in stage 1. If not, it should replace them. The goal here is to validate the utility of these field changes in the context of a real world example. Format with the source name as a ### header and the example document in a GitHub code block with json formatting.
