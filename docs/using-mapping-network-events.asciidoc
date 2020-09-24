@@ -97,20 +97,6 @@ Mapping both pairs of field sets gives query visibility of the same network tran
 * `client.ip:192.168.86.222` returns all events with host `192.168.86.222` acting as a client.
 
 [float]
-==== Network fields
-
-Next, the <<ecs-network,network fields>> can be populated with details about the communication between both hosts:
-
-[source,json]
-----
-  "network": {
-    "protocol": "dns",
-    "type": "ipv4",
-    "transport": "udp"
-  }
-----
-
-[float]
 ==== Related fields
 
 The `related.ip` field captures all the IPs present in the event in a single array:
@@ -131,9 +117,9 @@ The <<ecs-related,related fields>> are meant to facilitate pivoting. Since these
 Network events are not only limited to using `related.ip`. If hostnames or other host identifiers were present in the event, `related.hosts` should be populated too.
 
 [float]
-==== Event fields
+==== Categorization using event fields
 
-Lastly, the <<ecs-event,event fields>> should be populated with `category` and `type` values:
+When considering the <<ecs-category-field-values-reference, event categorization fields>>, the `category` and `type` fields are populated using their respective allowed values which best classify the source network event.
 
 [source,json]
 ----
@@ -149,4 +135,13 @@ Lastly, the <<ecs-event,event fields>> should be populated with `category` and `
   }
 ----
 
-Most <<ecs-allowed-values-event-category,event.category>>/<<ecs-allowed-values-event-type,event.type>> ECS pairings are complete on their own. However, the pairing of `event.category:network` and `event.type:protocol` is an exception. When these two fields/value pairs both used to categorize an event, the `network.protocol` field should also be populated.
+Most <<ecs-allowed-values-event-category,event.category>>/<<ecs-allowed-values-event-type,event.type>> ECS pairings are complete on their own. However, the pairing of `event.category:network` and `event.type:protocol` is an exception. When these two fields/value pairs both used to categorize an event, the `network.protocol` field should also be populated:
+
+[source,json]
+----
+  "network": {
+    "protocol": "dns",
+    "type": "ipv4",
+    "transport": "udp"
+  }
+----
