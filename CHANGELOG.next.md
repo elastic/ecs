@@ -20,8 +20,11 @@ Thanks, you're awesome :-) -->
 
 * Added Mime Type fields to HTTP request and response. #944
 * Added `threat.technique.subtechnique` to capture MITRE ATT&CK® subtechniques. #951
+* Added `configuration` as an allowed `event.category`. #963
 
 #### Improvements
+
+* Expanded field set definitions for `source.*` and `destination.*`. #967
 
 #### Deprecated
 
@@ -36,6 +39,7 @@ Thanks, you're awesome :-) -->
 #### Added
 
 * Introduced `--strict` flag to perform stricter schema validation when running the generator script. #937
+* Added check under `--strict` that ensures composite types in example fields are quoted. #966
 
 #### Improvements
 

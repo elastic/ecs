@@ -1384,9 +1384,7 @@ dns.header_flags:
   description: 'Array of 2 letter DNS header flags.
 
     Expected values are: AA, TC, RD, RA, AD, CD, DO.'
-  example:
-  - RD
-  - RA
+  example: '["RD", "RA"]'
   flat_name: dns.header_flags
   ignore_above: 1024
   level: extended
@@ -1514,9 +1512,7 @@ dns.resolved_ip:
     it can contain. Extracting all IP addresses seen in there to `dns.resolved_ip`
     makes it possible to index them as IP addresses, and makes them easier to visualize
     and query for.'
-  example:
-  - 10.10.10.10
-  - 10.10.10.11
+  example: '["10.10.10.10", "10.10.10.11"]'
   flat_name: dns.resolved_ip
   level: extended
   name: resolved_ip
@@ -1655,6 +1651,19 @@ event.category:
     - end
     - info
     name: authentication
+  - description: 'Events in the configuration category have to deal with creating,
+      modifying, or deleting the settings or parameters of an application, process,
+      or system.
+
+      Example sources include security policy change logs, configuration auditing
+      logging, and system integrity monitoring.'
+    expected_event_types:
+    - access
+    - change
+    - creation
+    - deletion
+    - info
+    name: configuration
   - description: The database category denotes events and metrics relating to a data
       storage and retrieval system. Note that use of this category is not limited
       to relational database systems. Examples include event logs from MS SQL, MySQL,
@@ -4777,11 +4786,7 @@ process.args:
     executable.
 
     May be filtered to protect sensitive information.'
-  example:
-  - /usr/bin/ssh
-  - -l
-  - user
-  - 10.0.0.16
+  example: '["/usr/bin/ssh", "-l", "user", "10.0.0.16"]'
   flat_name: process.args
   ignore_above: 1024
   level: extended
@@ -5007,11 +5012,7 @@ process.parent.args:
     executable.
 
     May be filtered to protect sensitive information.'
-  example:
-  - /usr/bin/ssh
-  - -l
-  - user
-  - 10.0.0.16
+  example: '["/usr/bin/ssh", "-l", "user", "10.0.0.16"]'
   flat_name: process.parent.args
   ignore_above: 1024
   level: extended
@@ -5778,8 +5779,7 @@ rule.author:
   dashed_name: rule-author
   description: Name, organization, or pseudonym of the author or authors who created
     the rule used to generate this event.
-  example:
-  - Star-Lord
+  example: '["Star-Lord"]'
   flat_name: rule.author
   ignore_above: 1024
   level: extended
@@ -6998,9 +6998,7 @@ tls.client.certificate_chain:
   description: Array of PEM-encoded certificates that make up the certificate chain
     offered by the client. This is usually mutually-exclusive of `client.certificate`
     since that value should be the first certificate in the chain.
-  example:
-  - MII...
-  - MII...
+  example: '["MII...", "MII..."]'
   flat_name: tls.client.certificate_chain
   ignore_above: 1024
   level: extended
@@ -7126,10 +7124,8 @@ tls.client.subject:
 tls.client.supported_ciphers:
   dashed_name: tls-client-supported-ciphers
   description: Array of ciphers offered by the client during the client hello.
-  example:
-  - TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-  - TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
-  - '...'
+  example: '["TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384", "TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384",
+    "..."]'
   flat_name: tls.client.supported_ciphers
   ignore_above: 1024
   level: extended
@@ -7508,9 +7504,7 @@ tls.server.certificate_chain:
   description: Array of PEM-encoded certificates that make up the certificate chain
     offered by the server. This is usually mutually-exclusive of `server.certificate`
     since that value should be the first certificate in the chain.
-  example:
-  - MII...
-  - MII...
+  example: '["MII...", "MII..."]'
   flat_name: tls.server.certificate_chain
   ignore_above: 1024
   level: extended

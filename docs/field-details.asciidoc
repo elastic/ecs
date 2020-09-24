@@ -803,9 +803,9 @@ example: `docker`
 [[ecs-destination]]
 === Destination Fields
 
-Destination fields describe details about the destination of a packet/event.
+Destination fields capture details about the receiver of a network exchange/packet. These fields are populated from a network event, packet, or other event containing details of a network transaction.
 
-Destination fields are usually populated in conjunction with source fields.
+Destination fields are usually populated in conjunction with source fields. The source and destination fields are considered the baseline and should always be filled if an event contains source and destination details from a network transaction. If the event also contains identification of the client and server roles, then the client and server fields should also be populated.
 
 ==== Destination Field Details
 
@@ -1211,7 +1211,7 @@ Note: this field should contain an array of values.
 
 
 
-example: `['RD', 'RA']`
+example: `["RD", "RA"]`
 
 | extended
 
@@ -1343,7 +1343,7 @@ Note: this field should contain an array of values.
 
 
 
-example: `['10.10.10.10', '10.10.10.11']`
+example: `["10.10.10.10", "10.10.10.11"]`
 
 | extended
 
@@ -1546,7 +1546,7 @@ Note: this field should contain an array of values.
 
 *Important*: The field value must be one of the following:
 
-authentication, database, driver, file, host, iam, intrusion_detection, malware, network, package, process, web
+authentication, configuration, database, driver, file, host, iam, intrusion_detection, malware, network, package, process, web
 
 To learn more about when to use which value, visit the page
 <<ecs-allowed-values-event-category,allowed values for event.category>>
@@ -4205,7 +4205,7 @@ Note: this field should contain an array of values.
 
 
 
-example: `['/usr/bin/ssh', '-l', 'user', '10.0.0.16']`
+example: `["/usr/bin/ssh", "-l", "user", "10.0.0.16"]`
 
 | extended
 
@@ -4718,7 +4718,7 @@ Note: this field should contain an array of values.
 
 
 
-example: `['Star-Lord']`
+example: `["Star-Lord"]`
 
 | extended
 
@@ -5185,9 +5185,9 @@ example: `3.2.4`
 [[ecs-source]]
 === Source Fields
 
-Source fields describe details about the source of a packet/event.
+Source fields capture details about the sender of a network exchange/packet. These fields are populated from a network event, packet, or other event containing details of a network transaction.
 
-Source fields are usually populated in conjunction with destination fields.
+Source fields are usually populated in conjunction with destination fields. The source and destination fields are considered the baseline and should always be filled if an event contains source and destination details from a network transaction. If the event also contains identification of the client and server roles, then the client and server fields should also be populated.
 
 ==== Source Field Details
 
@@ -5624,7 +5624,7 @@ Note: this field should contain an array of values.
 
 
 
-example: `['MII...', 'MII...']`
+example: `["MII...", "MII..."]`
 
 | extended
 
@@ -5757,7 +5757,7 @@ Note: this field should contain an array of values.
 
 
 
-example: `['TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384', 'TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384', '...']`
+example: `["TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384", "TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384", "..."]`
 
 | extended
 
@@ -5838,7 +5838,7 @@ Note: this field should contain an array of values.
 
 
 
-example: `['MII...', 'MII...']`
+example: `["MII...", "MII..."]`
 
 | extended
 

@@ -957,9 +957,15 @@ container:
   title: Container
   type: group
 destination:
-  description: 'Destination fields describe details about the destination of a packet/event.
+  description: 'Destination fields capture details about the receiver of a network
+    exchange/packet. These fields are populated from a network event, packet, or other
+    event containing details of a network transaction.
 
-    Destination fields are usually populated in conjunction with source fields.'
+    Destination fields are usually populated in conjunction with source fields. The
+    source and destination fields are considered the baseline and should always be
+    filled if an event contains source and destination details from a network transaction.
+    If the event also contains identification of the client and server roles, then
+    the client and server fields should also be populated.'
   fields:
     destination.address:
       dashed_name: destination-address
@@ -1729,9 +1735,7 @@ dns:
       description: 'Array of 2 letter DNS header flags.
 
         Expected values are: AA, TC, RD, RA, AD, CD, DO.'
-      example:
-      - RD
-      - RA
+      example: '["RD", "RA"]'
       flat_name: dns.header_flags
       ignore_above: 1024
       level: extended
@@ -1860,9 +1864,7 @@ dns:
         formats it can contain. Extracting all IP addresses seen in there to `dns.resolved_ip`
         makes it possible to index them as IP addresses, and makes them easier to
         visualize and query for.'
-      example:
-      - 10.10.10.10
-      - 10.10.10.11
+      example: '["10.10.10.10", "10.10.10.11"]'
       flat_name: dns.resolved_ip
       level: extended
       name: resolved_ip
@@ -2042,6 +2044,19 @@ event:
         - end
         - info
         name: authentication
+      - description: 'Events in the configuration category have to deal with creating,
+          modifying, or deleting the settings or parameters of an application, process,
+          or system.
+
+          Example sources include security policy change logs, configuration auditing
+          logging, and system integrity monitoring.'
+        expected_event_types:
+        - access
+        - change
+        - creation
+        - deletion
+        - info
+        name: configuration
       - description: The database category denotes events and metrics relating to
           a data storage and retrieval system. Note that use of this category is not
           limited to relational database systems. Examples include event logs from
@@ -5818,11 +5833,7 @@ process:
         the executable.
 
         May be filtered to protect sensitive information.'
-      example:
-      - /usr/bin/ssh
-      - -l
-      - user
-      - 10.0.0.16
+      example: '["/usr/bin/ssh", "-l", "user", "10.0.0.16"]'
       flat_name: process.args
       ignore_above: 1024
       level: extended
@@ -6048,11 +6059,7 @@ process:
         the executable.
 
         May be filtered to protect sensitive information.'
-      example:
-      - /usr/bin/ssh
-      - -l
-      - user
-      - 10.0.0.16
+      example: '["/usr/bin/ssh", "-l", "user", "10.0.0.16"]'
       flat_name: process.parent.args
       ignore_above: 1024
       level: extended
@@ -6884,8 +6891,7 @@ rule:
       dashed_name: rule-author
       description: Name, organization, or pseudonym of the author or authors who created
         the rule used to generate this event.
-      example:
-      - Star-Lord
+      example: '["Star-Lord"]'
       flat_name: rule.author
       ignore_above: 1024
       level: extended
@@ -7570,9 +7576,15 @@ service:
   title: Service
   type: group
 source:
-  description: 'Source fields describe details about the source of a packet/event.
+  description: 'Source fields capture details about the sender of a network exchange/packet.
+    These fields are populated from a network event, packet, or other event containing
+    details of a network transaction.
 
-    Source fields are usually populated in conjunction with destination fields.'
+    Source fields are usually populated in conjunction with destination fields. The
+    source and destination fields are considered the baseline and should always be
+    filled if an event contains source and destination details from a network transaction.
+    If the event also contains identification of the client and server roles, then
+    the client and server fields should also be populated.'
   fields:
     source.address:
       dashed_name: source-address
@@ -8181,9 +8193,7 @@ tls:
       description: Array of PEM-encoded certificates that make up the certificate
         chain offered by the client. This is usually mutually-exclusive of `client.certificate`
         since that value should be the first certificate in the chain.
-      example:
-      - MII...
-      - MII...
+      example: '["MII...", "MII..."]'
       flat_name: tls.client.certificate_chain
       ignore_above: 1024
       level: extended
@@ -8312,10 +8322,8 @@ tls:
     tls.client.supported_ciphers:
       dashed_name: tls-client-supported-ciphers
       description: Array of ciphers offered by the client during the client hello.
-      example:
-      - TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-      - TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
-      - '...'
+      example: '["TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384", "TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384",
+        "..."]'
       flat_name: tls.client.supported_ciphers
       ignore_above: 1024
       level: extended
@@ -8694,9 +8702,7 @@ tls:
       description: Array of PEM-encoded certificates that make up the certificate
         chain offered by the server. This is usually mutually-exclusive of `server.certificate`
         since that value should be the first certificate in the chain.
-      example:
-      - MII...
-      - MII...
+      example: '["MII...", "MII..."]'
       flat_name: tls.server.certificate_chain
       ignore_above: 1024
       level: extended
