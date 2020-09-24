@@ -35,7 +35,7 @@ def fieldset_field_array(source_fields, df_whitelist, fieldset_prefix):
                     'ignore_above', 'multi_fields', 'format', 'input_format',
                     'output_format', 'output_precision', 'description',
                     'example', 'enabled', 'index']
-    multi_fields_allowed_keys = ['name', 'type', 'norms', 'default_field']
+    multi_fields_allowed_keys = ['name', 'type', 'norms', 'default_field', 'normalizer', 'ignore_above']
 
     fields = []
     for nested_field_name in source_fields:
