@@ -40,6 +40,7 @@ Thanks, you're awesome :-) -->
 
 * Introduced `--strict` flag to perform stricter schema validation when running the generator script. #937
 * Added check under `--strict` that ensures composite types in example fields are quoted. #966
+* Added `ignore_above` and `normalizer` support for keyword multi-fields. #971
 
 #### Improvements
 
