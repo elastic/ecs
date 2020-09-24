@@ -1,7 +1,7 @@
 [[ecs-mapping-network-events]]
 === Mapping Network Events
 
-Network events capture the details of one device communicating with another. The initiator is referred to as the source and the recipient as the destination. Depending on the data source, a network event can contain details of addresses, protocols, headers, and device roles.
+Network events capture the details of one device communicating with another. The initiator is referred to as the source, and the recipient as the destination. Depending on the data source, a network event can contain details of addresses, protocols, headers, and device roles.
 
 This guide describes the different field sets available for network-related events in ECS and provides direction on the ECS best practices for mapping to them.
 
@@ -144,4 +144,55 @@ Most <<ecs-allowed-values-event-category,event.category>>/<<ecs-allowed-values-e
     "type": "ipv4",
     "transport": "udp"
   }
+----
+
+[float]
+==== Result
+
+Putting everything together covered so far, we have a final ECS-mapped event:
+
+[source,json]
+----
+{
+  "event": {
+    "category": [
+      "network"
+    ],
+    "type": [
+      "connection",
+      "protocol"
+    ],
+    "kind": "event"
+  },
+  "network": {
+    "protocol": "dns",
+    "type": "ipv4",
+    "transport": "udp"
+  },
+  "source": {
+    "ip": "192.168.86.222",
+    "port": 54162
+  },
+  "destination": {
+    "ip": "192.168.86.1",
+    "port": 53
+  },
+  "client": {
+    "ip": "192.168.86.222",
+    "port": 64734
+  },
+  "server": {
+    "ip": "192.168.86.1",
+    "port": 53
+  },
+  "related": {
+    "ip": [
+      "192.168.86.222",
+      "192.168.86.1",
+      "93.184.216.34"
+    ]
+  },
+  "dns": { ... }, <= Again, not diving into the DNS fields here but included for completeness.
+  "zeek": { "ts":1599775747.53056, ... } <= Original fields can optionally be kept around as custom fields.
+}
 ----
