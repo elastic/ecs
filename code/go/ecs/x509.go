@@ -73,6 +73,10 @@ type X509 struct {
 	// Time at which the certificate is no longer considered valid.
 	NotAfter time.Time `ecs:"not_after"`
 
+	// Number of milliseconds remaining for the server's certificate to get
+	// expired.
+	TimeToExpiry int64 `ecs:"time_to_expiry"`
+
 	// Distinguished name (DN) of the certificate subject entity.
 	SubjectDistinguishedName string `ecs:"subject.distinguished_name"`
 
