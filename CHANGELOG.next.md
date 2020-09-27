@@ -21,6 +21,7 @@ Thanks, you're awesome :-) -->
 * Added Mime Type fields to HTTP request and response. #944
 * Added `threat.technique.subtechnique` to capture MITRE ATT&CK® subtechniques. #951
 * Added `configuration` as an allowed `event.category`. #963
+* Added `time_to_expiry` to be able to know servers' certificates expiry before they occur. #979
 
 #### Improvements
 
