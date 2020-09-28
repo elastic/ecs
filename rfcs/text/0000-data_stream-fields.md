@@ -1,7 +1,7 @@
 # 0000: Data stream fields
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
-- Stage: **1 (strawperson)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
+- Stage: **1 (proposal)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
 - Date: **TBD** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 When introducing the new indexing strategy for Elastic Agent which uses data streams, we found that adding a few "constant_keyword" fields corresponding to the central components in the new indexing strategy would be advantagous. 
