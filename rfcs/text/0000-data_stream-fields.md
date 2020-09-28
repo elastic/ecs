@@ -104,8 +104,8 @@ Elastic Agent already uses the data_stream fields.
 
 The following are the people that consulted on the contents of this RFC.
 
-* @roncohen | author
-* @ruflin | sponsor, subject matter expert
+* @roncohen | author, sponsor
+* @ruflin | subject matter expert
 
 
 <!--
