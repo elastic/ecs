@@ -170,6 +170,22 @@ def nest_fields(field_array):
         nested_schema[leaf_field]['field_details'] = field
     return schema_root
 
+def array_of_dicts_to_set(array_vals):
+    ret_set = set()
+    for dict_val in array_vals:
+        ret_set.add(frozenset(dict_val.items()))
+    return ret_set
+
+def set_of_sets_to_array(set_vals):
+    ret_list = []
+    for set_info in set_vals:
+        ret_list.append(dict(set_info))
+    return ret_list
+
+def dedup_and_merge_lists(list_a, list_b):
+    list_a_set = array_of_dicts_to_set(list_a)
+    list_b_set = array_of_dicts_to_set(list_b)
+    return set_of_sets_to_array(list_a_set | list_b_set)
 
 def merge_fields(a, b):
     """Merge ECS field sets with custom field sets."""
@@ -184,6 +200,14 @@ def merge_fields(a, b):
             a[key].setdefault('field_details', {})
             a[key]['field_details'].setdefault('normalize', [])
             a[key]['field_details']['normalize'].extend(b[key]['field_details'].pop('normalize'))
+        if 'multi_fields' in b[key]['field_details']:
+            a[key].setdefault('field_details', {})
+            a[key]['field_details'].setdefault('multi_fields', set())
+            a[key]['field_details']['multi_fields'] = dedup_and_merge_lists(
+                a[key]['field_details']['multi_fields'], b[key]['field_details']['multi_fields'])
+            # if we don't do this then the update call below will overwrite a's field_details, will the original
+            # contents of b, which undoes our merging the multi_fields
+            del b[key]['field_details']['multi_fields']
         a[key]['field_details'].update(b[key]['field_details'])
         # merge schema details
         if 'schema_details' in b[key]:
