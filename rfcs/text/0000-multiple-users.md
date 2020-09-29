@@ -77,8 +77,8 @@ performing the main action described by the event. This is especially important
 when there's more than one user present on the event. `user.*` fields at the root
 of the event represent the user performing the action.
 
-In many cases, events that only mention one user are fine populating the user fields
-at the root of the event.
+In many cases, events that only mention one user should populate the user fields
+at the root of the event, even if the user is not the one performing the action.
 
 In cases where a purpose-specific user field such as `url.username` is populated,
 `user.name` should also be populated with the same user name.
@@ -281,6 +281,185 @@ the event now looks like:
 ```
 
 ## Source data
+
+Here are some concrete examples of events with multiple user and user roles.
+
+### Linux user creation
+
+Here's a typical set of log about a user creation on Linux.
+
+```
+Sep 29 19:55:09 localhost sudo: vagrant : TTY=pts/0 ; PWD=/home/vagrant ; USER=root ; COMMAND=/sbin/useradd test-user -p test-password
+Sep 29 19:55:09 localhost sudo: pam_unix(sudo:session): session opened for user root by vagrant(uid=0)
+Sep 29 19:55:09 localhost useradd[2097]: new group: name=test-user, GID=1001
+Sep 29 19:55:09 localhost useradd[2097]: new user: name=test-user, UID=1001, GID=1001, home=/home/test-user, shell=/bin/bash
+Sep 29 19:55:09 localhost sudo: pam_unix(sudo:session): session closed for user root
+```
+
+#### Logical events
+
+A solution that coalesces log events to produce higher level logical events could
+capture them all in the following way.
+
+Group creation:
+
+```JSON
+{
+  "event": {
+    "category": ["iam"],
+    "type": ["group", "creation"]
+  },
+  "group": {
+    "name": "test-user",
+    "id": "1001"
+  },
+  "user": {
+    "name": "vagrant",
+    "id": "1000",
+    "effective": {
+      "name": "root",
+      "id": "0"
+    },
+  },
+  "related": { "user": ["vagrant", "root"] }
+}
+```
+
+User creation:
+
+```JSON
+{
+  "event": {
+    "category": ["iam"],
+    "type": ["user", "creation"]
+  },
+  "user": {
+    "name": "vagrant",
+    "id": "1000",
+    "effective": {
+      "name": "root",
+      "id": "0"
+    },
+    "target": {
+      "name": "test-user",
+      "id": "1001",
+      "group": {
+        "name": "test-user",
+        "id": "1001"
+      }
+    }
+  },
+  "related": { "user": ["vagrant", "root", "test-user"] }
+}
+```
+
+#### Raw events
+
+A solution that produces one event per log without coalescing would instead only
+represent users with the information available in the given log event.
+
+event 1:
+
+```JSON
+{
+  "event": {
+    "category": ["process"],
+    "event": "creation"
+  },
+  "user": {
+    "name": "vagrant",
+    "effective": {
+      "name": "root"
+    }
+  },
+  "process": {
+    "name": "sudo",
+    "command_line": "/sbin/useradd test-user -p test-password"
+  }
+}
+```
+
+event 2:
+
+```JSON
+{
+  "event": {
+    "category": ["session"],
+    "event": ["creation"],
+    "outcome": "success"
+  },
+  "user": {
+    "name": "vagrant",
+    "effective": {
+      "name": "root"
+    }
+  },
+  "process": {
+    "name": "sudo"
+  }
+}
+```
+
+event 3:
+
+```JSON
+{
+  "event": {
+    "category": ["iam"],
+    "type": ["group", "creation"],
+    "outcome": "success"
+  },
+  "group": {
+    "name": "test-user",
+    "id": "1001"
+  },
+  "process": {
+    "name": "useradd",
+    "pid": 2097
+  }
+}
+```
+
+event 4:
+
+```JSON
+{
+  "event": {
+    "category": ["iam"],
+    "type": ["user", "creation"]
+  },
+  "user": {
+    "name": "test-user",
+    "id": "1001"
+  },
+  "process": {
+    "name": "useradd",
+    "pid": 2097
+  }
+}
+```
+
+Notice: in the event above, since the log mentions only the user being created,
+we capture the user at the root of the event. We do this despite the fact that
+they are not the one performing the action.
+
+event 5:
+
+```JSON
+{
+  "event": {
+    "category": ["session"],
+    "event": ["end"]
+  },
+  "user": {
+    "name": "root"
+  },
+  "process": {
+    "name": "sudo"
+  }
+}
+```
+
 
 <!--
 Stage 1: Provide a high-level description of example sources of data. This does not yet need to be a concrete example of a source document, but instead can simply describe a potential source (e.g. nginx access log). This will ultimately be fleshed out to include literal source examples in a future stage. The goal here is to identify practical sources for these fields in the real world. ~1-3 sentences or unordered list.
