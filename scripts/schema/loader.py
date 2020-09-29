@@ -209,7 +209,7 @@ def merge_fields(a, b):
             a[key]['field_details'].setdefault('multi_fields', set())
             a[key]['field_details']['multi_fields'] = dedup_and_merge_lists(
                 a[key]['field_details']['multi_fields'], b[key]['field_details']['multi_fields'])
-            # if we don't do this then the update call below will overwrite a's field_details, will the original
+            # if we don't do this then the update call below will overwrite a's field_details, with the original
             # contents of b, which undoes our merging the multi_fields
             del b[key]['field_details']['multi_fields']
         a[key]['field_details'].update(b[key]['field_details'])
