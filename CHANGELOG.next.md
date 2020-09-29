@@ -25,6 +25,7 @@ Thanks, you're awesome :-) -->
 #### Improvements
 
 * Expanded field set definitions for `source.*` and `destination.*`. #967
+* Provided better guidance for mapping network events. #969
 
 #### Deprecated
 
