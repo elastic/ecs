@@ -170,22 +170,26 @@ def nest_fields(field_array):
         nested_schema[leaf_field]['field_details'] = field
     return schema_root
 
+
 def array_of_dicts_to_set(array_vals):
     ret_set = set()
     for dict_val in array_vals:
         ret_set.add(frozenset(dict_val.items()))
     return ret_set
 
+
 def set_of_sets_to_array(set_vals):
     ret_list = []
     for set_info in set_vals:
         ret_list.append(dict(set_info))
-    return ret_list
+    return sorted(ret_list, key=lambda k: k['name'])
+
 
 def dedup_and_merge_lists(list_a, list_b):
     list_a_set = array_of_dicts_to_set(list_a)
     list_b_set = array_of_dicts_to_set(list_b)
     return set_of_sets_to_array(list_a_set | list_b_set)
+
 
 def merge_fields(a, b):
     """Merge ECS field sets with custom field sets."""

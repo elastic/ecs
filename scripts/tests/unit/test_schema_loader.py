@@ -594,6 +594,96 @@ class TestSchemaLoader(unittest.TestCase):
         }
         self.assertEqual(merged_fields, expected_fields)
 
+    def test_merge_multi_fields(self):
+        schema1 = {
+            'base': {
+                'field_details': {
+                    'multi_fields': [
+                        {
+                            'type': 'text',
+                            'name': 'text'
+                        },
+                        {
+                            'type': 'keyword',
+                            'name': 'caseless',
+                            'normalizer': 'lowercase'
+                        }
+                    ]
+                },
+                'fields': {
+                    'message': {
+                        'field_details': {
+                            'multi_fields': [
+                                {
+                                    'type': 'text',
+                                    'name': 'text'
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        }
+
+        schema2 = {
+            'base': {
+                'field_details': {
+                    'multi_fields': [
+                        {
+                            'type': 'text',
+                            'name': 'text'
+                        },
+                        {
+                            'type': 'text',
+                            'name': 'almost_text',
+                        }
+                    ]
+                },
+                'fields': {
+                    'message': {
+                        'field_details': {
+                            'multi_fields': [
+                                {
+                                    'type': 'keyword',
+                                    'name': 'a_field'
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        }
+        merged_fields = loader.merge_fields(schema1, schema2)
+        expected_multi_fields = [
+            {
+                'type': 'text',
+                'name': 'almost_text'
+            },
+            {
+                'type': 'keyword',
+                'name': 'caseless',
+                'normalizer': 'lowercase'
+            },
+            {
+                'type': 'text',
+                'name': 'text'
+            }
+        ]
+
+        expected_message_multi_fields = [
+            {
+                'type': 'keyword',
+                'name': 'a_field'
+            },
+            {
+                'type': 'text',
+                'name': 'text'
+            }
+        ]
+        self.assertEqual(merged_fields['base']['field_details']['multi_fields'], expected_multi_fields)
+        self.assertEqual(merged_fields['base']['fields']['message']['field_details']
+                         ['multi_fields'], expected_message_multi_fields)
+
 
 if __name__ == '__main__':
     unittest.main()
