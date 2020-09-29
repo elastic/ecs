@@ -71,6 +71,13 @@ def sort_fields(fieldset):
         field['allowed_value_names'] = extract_allowed_values_key_names(field)
     return sorted(fields_list, key=lambda field: field['name'])
 
+def check_for_usage_doc(fieldset_name, usage_file_list=ecs_helpers.usage_doc_files()):
+    """Checks if a usage doc exists for the specified
+       fieldset.
+
+    :param fieldset_name: The name of the target fieldset
+    """
+    return f"{fieldset_name}.asciidoc" in usage_file_list
 
 def templated(template_name):
     """Decorator function to simplify rendering a template.
@@ -138,10 +145,12 @@ def generate_field_details_page(fieldset):
     sorted_reuse_fields = render_fieldset_reuse_text(fieldset)
     render_nestings_reuse_fields = render_nestings_reuse_section(fieldset)
     sorted_fields = sort_fields(fieldset)
+    usage_doc = check_for_usage_doc(fieldset.get('name'))
     return dict(fieldset=fieldset,
                 sorted_reuse_fields=sorted_reuse_fields,
                 render_nestings_reuse_section=render_nestings_reuse_fields,
-                sorted_fields=sorted_fields)
+                sorted_fields=sorted_fields,
+                usage_doc=usage_doc)
 
 
 # Allowed values section
