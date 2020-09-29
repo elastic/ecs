@@ -4,7 +4,7 @@
 - Stage: **1 (proposal)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
 - Date: **TBD** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
-When introducing the new indexing strategy for Elastic Agent which uses data streams, we found that adding a few "constant_keyword" fields corresponding to the central components in the new indexing strategy would be advantagous. 
+When introducing the new indexing strategy for Elastic Agent which uses data streams, we found that adding a few "constant_keyword" fields corresponding to the central components in the new indexing strategy would be advantageous. 
 
 
 <!--
@@ -26,7 +26,7 @@ This RFC proposes to introduce a new fieldset called "data_stream". The fieldset
 Field     | Mapping type | Description
 ----------|--------------|--------------
 data_stream.type | constant_keyword | An overarching type for the data stream. Currently allowed values include "logs", "metrics". We expect to also add "traces" and "synthetics" in the near future
-data_stream.dataset | constant_keyword | A copy of event.dataset
+data_stream.dataset | constant_keyword | A copy of event.dataset. For data streams that otherwise fit, but that do not have dataset set we use the value "generic" for the dataset value.
 data_stream.namespace | constant_keyword | A user defined namespace. Namespaces are useful to allow grouping of data. Many people will use "default"
 
 
@@ -44,7 +44,9 @@ Stage 3: Add or update all remaining field definitions. The list should now be e
 Stage 1: Describe at a high-level how these field changes will be used in practice. Real world examples are encouraged. The goal here is to understand how people would leverage these fields to gain insights or solve problems. ~1-3 paragraphs.
 -->
 
-Data stream fields are already in use in Elastic Agent. Leveraging  fields allow users to filter by a specific data type (logs, metrics etc.), dataset (nginx.access, prometheus) or namespace. When querying for documents using one of the fields, Elasticsearch can use constant_keyword fields to quickly determine which indices are relevent to search. 
+Data stream fields are already in use in Elastic Agent. Leveraging  fields allow users to filter by a specific data type (logs, metrics etc.), dataset (nginx.access, prometheus) or namespace. When querying for documents using one of the fields, Elasticsearch can use constant_keyword fields to quickly determine which indices are relevant to search. 
+
+The fields are also part of the basic index template mapping that come built into Elasticsearch for data streams that match `logs-*-*` and `metrics-*-*`. 
 
 ## Source data
 
@@ -52,7 +54,7 @@ Data stream fields are already in use in Elastic Agent. Leveraging  fields allow
 Stage 1: Provide a high-level description of example sources of data. This does not yet need to be a concrete example of a source document, but instead can simply describe a potential source (e.g. nginx access log). This will ultimately be fleshed out to include literal source examples in a future stage. The goal here is to identify practical sources for these fields in the real world. ~1-3 sentences or unordered list.
 -->
 
-Elastic Agent adds the the data_stream fields in all documents ingested.
+Elastic Agent adds the the data_stream fields in all documents ingested and as mentioned above, the data_stream fields are included in Elasticsearch in the index template mapping that come configured out of the box for data streams that match `logs-*-*` and `metrics-*-*`. 
 
 <!--
 Stage 2: Included a real world example source document. Ideally this example comes from the source(s) identified in stage 1. If not, it should replace them. The goal here is to validate the utility of these field changes in the context of a real world example. Format with the source name as a ### header and the example document in a GitHub code block with json formatting.
