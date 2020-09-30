@@ -1,4 +1,4 @@
-# 0000: Multiple Users in an Event
+# 0007: Multiple users in an event
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
 - Stage: **2 (proposal)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
