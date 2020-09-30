@@ -19,19 +19,19 @@ For a field to use wildcard, it will require changing the the field's defined sc
 
 | Field Set | Field(s) |
 | --------- | -------- |
-| [`agent`](0001/agent.yml) | `name` |
-| [`destination`](0001/destination.yml) | `domain`<br> `registered_domain` |
-| [`error`](0001/error.yml) | `stack_trace` |
-| [`file`](0001/file.yml) | `directory`<br> `path`<br> `target_path` |
-| [`host`](0001/host.yml) | `hostname`<br> `name`<br> `domain` |
-| [`http`](0001/http.yml) | `request.body.content`<br> `response.body.content` |
-| [`os`](0001/os.yml) | `name`<br> `full` |
-| [`process`](0001/process.yml) | `command_line`<br> `executable`<br> `name`<br> `title`<br> `working_directory`<br> |
-| [`registry`](0001/registry.yml) | `key`<br> `path` |
-| [`source`](0001/source.yml) | `domain`<br> `registered_domain` |
-| [`url`](0001/url.yml) | `original`<br> `full`<br> `domain`<br> `registered_domain` |
-| [`user`](0001/user.yml) | `name`<br> `full_name`<br> `email`<br> `domain` |
-| [`user_agent`](0001/user_agent.yml) | `original` |
+| [`agent`](0001/agent.yml) | `agent.name` |
+| [`destination`](0001/destination.yml) | `destination.domain`<br> `destination.registered_domain` |
+| [`error`](0001/error.yml) | `error.stack_trace` |
+| [`file`](0001/file.yml) | `file.directory`<br> `file.path`<br> `file.target_path` |
+| [`host`](0001/host.yml) | `host.hostname`<br> `host.name`<br> `host.domain` |
+| [`http`](0001/http.yml) | `http.request.body.content`<br> `http.response.body.content` |
+| [`os`](0001/os.yml) | `os.name`<br> `os.full` |
+| [`process`](0001/process.yml) | `process.command_line`<br> `process.executable`<br> `process.name`<br> `process.title`<br> `process.working_directory`<br> |
+| [`registry`](0001/registry.yml) | `registry.key`<br> `registry.path` |
+| [`source`](0001/source.yml) | `source.domain`<br> `source.registered_domain` |
+| [`url`](0001/url.yml) | `url.original`<br> `url.full`<br> `url.domain`<br> `url.registered_domain` |
+| [`user`](0001/user.yml) | `user.name`<br> `user.full_name`<br> `user.email`<br> `user.domain` |
+| [`user_agent`](0001/user_agent.yml) | `user_agent.original` |
 
 The full set of schema files which will be transitioning to `wildcard` are located [here](0001/).
 
