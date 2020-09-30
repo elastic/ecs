@@ -127,6 +127,7 @@ def ecs_files():
     schema_glob = os.path.join(os.path.dirname(__file__), '../../schemas/*.yml')
     return sorted(glob.glob(schema_glob))
 
+
 def make_dirs(path):
     try:
         os.makedirs(path, exist_ok=True)

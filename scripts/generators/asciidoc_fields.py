@@ -71,6 +71,7 @@ def sort_fields(fieldset):
         field['allowed_value_names'] = extract_allowed_values_key_names(field)
     return sorted(fields_list, key=lambda field: field['name'])
 
+
 def check_for_usage_doc(fieldset_name, usage_file_list=ecs_helpers.usage_doc_files()):
     """Checks if a usage doc exists for the specified
        fieldset.
@@ -78,6 +79,7 @@ def check_for_usage_doc(fieldset_name, usage_file_list=ecs_helpers.usage_doc_fil
     :param fieldset_name: The name of the target fieldset
     """
     return f"{fieldset_name}.asciidoc" in usage_file_list
+
 
 def templated(template_name):
     """Decorator function to simplify rendering a template.

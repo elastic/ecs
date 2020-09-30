@@ -137,5 +137,6 @@ class TestGeneratorsAsciiFields(unittest.TestCase):
         foo_name = self.foo_fieldset.get('name')
         self.assertFalse(asciidoc_fields.check_for_usage_doc(foo_name, usage_file_list=usage_files))
 
+
 if __name__ == '__main__':
     unittest.main()
