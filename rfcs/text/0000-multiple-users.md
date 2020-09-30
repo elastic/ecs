@@ -309,6 +309,7 @@ Group creation:
 ```JSON
 {
   "event": {
+    "kind": "event",
     "category": ["iam"],
     "type": ["group", "creation"]
   },
@@ -333,6 +334,7 @@ User creation:
 ```JSON
 {
   "event": {
+    "kind": "event",
     "category": ["iam"],
     "type": ["user", "creation"]
   },
@@ -366,6 +368,7 @@ event 1:
 ```JSON
 {
   "event": {
+    "kind": "event",
     "category": ["process"],
     "event": "creation"
   },
@@ -387,6 +390,7 @@ event 2 (privilege escalation):
 ```JSON
 {
   "event": {
+    "kind": "event",
     "category": ["session"],
     "event": ["creation"],
     "outcome": "success"
@@ -408,6 +412,7 @@ event 3 (IAM):
 ```JSON
 {
   "event": {
+    "kind": "event",
     "category": ["iam"],
     "type": ["group", "creation"],
     "outcome": "success"
@@ -428,6 +433,7 @@ event 4 (IAM):
 ```JSON
 {
   "event": {
+    "kind": "event",
     "category": ["iam"],
     "type": ["user", "creation"]
   },
@@ -451,6 +457,7 @@ event 5:
 ```JSON
 {
   "event": {
+    "kind": "event",
     "category": ["session"],
     "event": ["end"]
   },
@@ -493,6 +500,7 @@ Would translate to
   "event": {
     "code": "4624",
     "provider": "Microsoft-Windows-Security-Auditing",
+    "kind": "event",
     "category": ["authentication"],
     "event": ["start"],
     "outcome": "success"
@@ -541,6 +549,7 @@ Would translate to
   "event": {
     "code": "4781",
     "provider": "Microsoft-Windows-Security-Auditing",
+    "kind": "event",
     "category": ["iam"],
     "event": ["user", "change"],
     "outcome": "success"
