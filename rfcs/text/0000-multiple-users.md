@@ -282,9 +282,9 @@ the event now looks like:
 
 ## Source data
 
-Here are some concrete examples of events with multiple user and user roles.
+Here are some concrete examples of events with multiple users and user roles.
 
-### Linux user creation
+### Linux IAM and privilege escalation
 
 Here's a typical set of log about a user creation on Linux.
 
@@ -379,7 +379,7 @@ event 1:
 }
 ```
 
-event 2:
+event 2 (privilege escalation):
 
 ```JSON
 {
@@ -400,7 +400,7 @@ event 2:
 }
 ```
 
-event 3:
+event 3 (IAM):
 
 ```JSON
 {
@@ -420,7 +420,7 @@ event 3:
 }
 ```
 
-event 4:
+event 4 (IAM):
 
 ```JSON
 {
