@@ -5,6 +5,7 @@
 {{ fieldset['description']|replace("\n", "\n\n") }}
 
 {# Field Details Table Header -#}
+[discrete]
 ==== {{ fieldset['title'] }} Field Details
 
 [options="header"]
@@ -67,6 +68,7 @@ example: `{{ field['example'] }}`
 {# do we have `nestings` or `reusable` sections to worry about? -#}
 {% if 'nestings' in fieldset or 'reusable' in fieldset -%}
 
+[discrete]
 ==== Field Reuse
 
 {% if 'reusable' in fieldset -%}
@@ -88,6 +90,7 @@ Note also that the `{{ fieldset['name'] }}` fields are not expected to be used d
 {% if 'nestings' in fieldset -%}
 
 [[ecs-{{ fieldset['name'] }}-nestings]]
+[discrete]
 ===== Field sets that can be nested under {{ fieldset['title'] }}
 
 [options="header"]
