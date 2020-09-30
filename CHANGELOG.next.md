@@ -46,6 +46,7 @@ Thanks, you're awesome :-) -->
 #### Improvements
 
 * Field details Jinja2 template components have been consolidated into one template #897
+* Add `[discrete]` marker before each section header in field details. #989
 
 #### Deprecated
 
