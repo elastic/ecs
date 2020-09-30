@@ -571,7 +571,69 @@ Would translate to
 }
 ```
 
+### Cloud privilege escalation
 
+Cloud systems also have privilege change concepts.
+
+Here's an example using AWS' assume role, in the event where AWS user "JohnRole1"
+assumes the role of "DBARole". A simplified version of the Cloudtrail event could look like:
+
+```JSON
+{
+  "eventName": "AssumeRole",
+  "requestParameters": {
+    "roleArn": "arn:aws:iam::111111111111:role/JohnRole2",
+  },
+  "resources": [
+    {
+      "ARN": "arn:aws:iam::111122223333:role/JohnRole2",
+      "accountId": "111111111111",
+      "type": "AWS::IAM::Role"
+    }
+  ],
+  "responseElements": {
+    "assumedRoleUser": {
+      "arn": "arn:aws:sts::111111111111:assumed-role/test-role/DBARole",
+      "assumedRoleId": "AROAIFR7WHDTSOBEEFSTU:DBARole"
+    },
+    "userIdentity": {
+      "accessKeyId": "AKIAI44QH8DHBEXAMPLE",
+      "accountId": "111111111111",
+      "arn": "arn:aws:sts::111111111111:assumed-role/JohnDoe/JohnRole1",
+      "principalId": "AROAIN5ATK5U7KEXAMPLE:JohnRole1",
+      "type": "AssumedRole"
+    }
+  }
+}
+```
+
+And would translate to:
+
+```JSON
+{
+  "event": {
+    "action": "AssumeRole",
+    "kind": "event",
+    "category": ["authentication"],
+    "event": ["start"],
+    "outcome": "success"
+  },
+  "user": {
+    "id": "AROAIN5ATK5U7KEXAMPLE:JohnRole1",
+    "effective": {
+      "id": "AROAIFR7WHDTSOBEEFSTU:DBARole",
+    }
+  },
+  "cloud": {
+    "account": { "id": "111111111111" } ...
+  },
+  "related": { "user": ["AROAIN5ATK5U7KEXAMPLE:JohnRole1", "AROAIFR7WHDTSOBEEFSTU:DBARole"] }
+}
+```
+
+Subsequent actions taken under this assumed role will have both the principal user
+and the assumed role in the `userIdentity`, making it easy to keep track of both
+the at `user.*` (real identity) and `user.effective.*` (escalated privilege).
 
 <!--
 Stage 2: Included a real world example source document. Ideally this example comes from the source(s) identified in stage 1. If not, it should replace them. The goal here is to validate the utility of these field changes in the context of a real world example. Format with the source name as a ### header and the example document in a GitHub code block with json formatting.
