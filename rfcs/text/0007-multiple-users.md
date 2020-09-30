@@ -370,7 +370,7 @@ event 1:
   "event": {
     "kind": "event",
     "category": ["process"],
-    "event": "creation"
+    "type": "creation"
   },
   "user": {
     "name": "vagrant",
@@ -392,7 +392,7 @@ event 2 (privilege escalation):
   "event": {
     "kind": "event",
     "category": ["session"],
-    "event": ["creation"],
+    "type": ["creation"],
     "outcome": "success"
   },
   "user": {
@@ -459,7 +459,7 @@ event 5:
   "event": {
     "kind": "event",
     "category": ["session"],
-    "event": ["end"]
+    "type": ["end"]
   },
   "user": {
     "name": "root"
@@ -502,7 +502,7 @@ Would translate to
     "provider": "Microsoft-Windows-Security-Auditing",
     "kind": "event",
     "category": ["authentication"],
-    "event": ["start"],
+    "type": ["start"],
     "outcome": "success"
   },
   "user": {
@@ -551,7 +551,7 @@ Would translate to
     "provider": "Microsoft-Windows-Security-Auditing",
     "kind": "event",
     "category": ["iam"],
-    "event": ["user", "change"],
+    "type": ["user", "change"],
     "outcome": "success"
   },
   "user": {
@@ -615,7 +615,7 @@ And would translate to:
     "action": "AssumeRole",
     "kind": "event",
     "category": ["authentication"],
-    "event": ["start"],
+    "type": ["start"],
     "outcome": "success"
   },
   "user": {
