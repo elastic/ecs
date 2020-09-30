@@ -289,7 +289,7 @@ they're spread out across events, only the fields relevant to each event should 
 
 ### Linux IAM and privilege escalation
 
-Here's a typical set of log about a user creation on Linux.
+Here's a typical set of logs about a user creation on Linux.
 
 ```
 Sep 29 19:55:09 localhost sudo: vagrant : TTY=pts/0 ; PWD=/home/vagrant ; USER=root ; COMMAND=/sbin/useradd test-user -p test-password
