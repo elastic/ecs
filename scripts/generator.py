@@ -70,6 +70,7 @@ def argument_parser():
                         help='index template settings to use when generating elasticsearch template')
     parser.add_argument('--mapping-settings', action='store',
                         help='mapping settings to use when generating elasticsearch template')
+    parser.add_argument('--oss', action='store_true', help='replace basic data types with oss ones where possible')
     parser.add_argument('--strict', action='store_true',
                         help='enforce strict checking at schema cleanup')
     parser.add_argument('--intermediate-only', action='store_true',
