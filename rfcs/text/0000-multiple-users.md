@@ -632,8 +632,9 @@ And would translate to:
 ```
 
 Subsequent actions taken under this assumed role will have both the principal user
-and the assumed role in the `userIdentity`, making it easy to keep track of both
-the at `user.*` (real identity) and `user.effective.*` (escalated privilege).
+and the assumed role in the `userIdentity`. This makes it easy to keep track of both
+the real user at `user.*` and the escalated privileges at `user.effective.*` in
+all subsequent activity after privilege escalation.
 
 <!--
 Stage 2: Included a real world example source document. Ideally this example comes from the source(s) identified in stage 1. If not, it should replace them. The goal here is to validate the utility of these field changes in the context of a real world example. Format with the source name as a ### header and the example document in a GitHub code block with json formatting.
