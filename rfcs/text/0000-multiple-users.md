@@ -283,6 +283,9 @@ the event now looks like:
 ## Source data
 
 Here are some concrete examples of events with multiple users and user roles.
+Note that the design of these fields is meant to allow all of their use at the
+same time, *when needed*. However if events don't contain all user roles because
+they're spread out across events, only the fields relevant to each event should be used.
 
 ### Linux IAM and privilege escalation
 
@@ -460,10 +463,106 @@ event 5:
 }
 ```
 
+### Windows privilege escalation
 
-<!--
-Stage 1: Provide a high-level description of example sources of data. This does not yet need to be a concrete example of a source document, but instead can simply describe a potential source (e.g. nginx access log). This will ultimately be fleshed out to include literal source examples in a future stage. The goal here is to identify practical sources for these fields in the real world. ~1-3 sentences or unordered list.
--->
+A successful local Windows Admin logon where user "testuser" escalates to Administrator:
+
+```XML
+<System>
+  <Provider Name="Microsoft-Windows-Security-Auditing"...>
+  <EventID>4624</EventID>
+  ...
+</System>
+<EventData>
+  <Data Name="SubjectUserSid">5-1-5-21-202424912787-2692429404-2351956786-1000</Data>
+  <Data Name="SubjectUserName">testuser</Data>
+  <Data Name="SubjectDomainName">TEST</Data>
+  <Data Name="SubjectLogonId">0xb976c</Data>
+  <Data Name="TargetUserSid">S-1-5-21-2024912787-2692429404-2351956786-500</Data>
+  <Data Name="TargetUserName">Administrator</Data>
+  <Data Name="TargetDomainName">TEST</Data>
+  <Data Name="TargetLogonId">0x11b621</Data>
+  ...
+</EventData>
+```
+
+Would translate to
+
+```JSON
+{
+  "event": {
+    "code": "4624",
+    "provider": "Microsoft-Windows-Security-Auditing",
+    "category": ["authentication"],
+    "event": ["start"],
+    "outcome": "success"
+  },
+  "user": {
+    "name": "testuser",
+    "domain": "TEST",
+    "id": "S-1-5-21-202424912787-2692429404-2351956786-1000",
+    "effective": {
+      "name": "Administrator",
+      "domain": "TEST",
+      "id": "S-1-5-21-2024912787-2692429404-2351956786-500"
+    }
+  },
+  "related": { "user": ["testuser", "Administrator"] }
+}
+```
+
+### Windows IAM
+
+Modifying an existing user account, where the administrator renames user John to John2:
+
+```XML
+<System>
+  <Provider Name="Microsoft-Windows-Security-Auditing"...>
+  <EventID>4781</EventID>
+  ...
+</System>
+<EventData>
+  <Data Name="SubjectUserSid">S-1-5-21-2024912787-2692429404-2351956786-500</Data>
+  <Data Name="SubjectUserName">Administrator</Data>
+  <Data Name="SubjectDomainName">TEST</Data>
+  <Data Name="SubjectLogonId">0x11b621</Data>
+  <Data Name="TargetUserSid">S-1-5-21-2024912787-2692429404-2351956786-1000</Data>
+  <Data Name="OldTargetUserName">John</Data>
+  <Data Name="NewTargetUserName">John2</Data>
+  <Data Name="TargetDomainName">TEST</Data>
+  ...
+</EventData>
+```
+
+Would translate to
+
+```JSON
+{
+  "event": {
+    "code": "4781",
+    "provider": "Microsoft-Windows-Security-Auditing",
+    "category": ["iam"],
+    "event": ["user", "change"],
+    "outcome": "success"
+  },
+  "user": {
+    "name": "Administrator",
+    "domain": "TEST",
+    "id": "S-1-5-21-2024912787-2692429404-2351956786-500",
+    "target": {
+      "name": "John",
+      "id": "S-1-5-21-2024912787-2692429404-2351956786-1000",
+      "domain": "TEST",
+    },
+    "changes": {
+      "name": "John2"
+    }
+  },
+  "related": { "user": ["John", "John2", "Administrator"] }
+}
+```
+
+
 
 <!--
 Stage 2: Included a real world example source document. Ideally this example comes from the source(s) identified in stage 1. If not, it should replace them. The goal here is to validate the utility of these field changes in the context of a real world example. Format with the source name as a ### header and the example document in a GitHub code block with json formatting.
