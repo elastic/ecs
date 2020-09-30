@@ -1,0 +1,39 @@
+# Usage Docs
+
+ECS fields can benefit from additional context and examples which describe their real-world usage. This directory provides a place in the documentation to capture these usage details. AsciiDoc markdown files can be added for any fieldset defined in ECS.
+
+## Adding a Usage Doc
+
+1. Create an AsciiDoc formatted file with the `.asciidoc` file extension.
+2. Save the file in this directory (`docs/usage`), naming it after the its associated fieldset (e.g. a usage document for the `base.*` fields would be named `base.asciidoc`).
+3. Run `make`. The asciidoc generator will generate the ECS field reference, including the present usage docs.
+
+If the filename doesn't match a currently defined fieldset, the usage document will not appear on the ECS docs site. This logic is handled in the AsciiDoc generator scripts, `scripts/generators/asciidoc_fields.py`.
+
+## Template
+
+The following is a simple AsciiDoc template as a starting point:
+
+```asciidoc
+
+[ecs-usage-template]
+==== Fieldset Usage
+
+Add relevant text here.
+
+[discrete]
+===== New Section header
+
+Text for the new section.
+
+[discrete]
+===== Examples
+
+[source,sh]
+-----------
+{
+    "key": "value"
+}
+-----------
+
+```
