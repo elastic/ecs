@@ -448,6 +448,23 @@ Until now ECS has relied only on OSS licensed features, but ECS will also suppor
 
 A data shipper which uses the `wildcard` field type may need to verify that the configured output Elasticsearch destination can support it (>= 7.9.0). For example, if a future version of Beats adopts `wildcard` in index mappings, Beats would may need to gracefully handle a scenario where the targeted Elasticsearch instance doesn't support the data type.
 
+### Text fields migrating to wildcard
+
+ECS currently has two `text` fields that would likely benefit from migrating to `wildcard`.
+Doing so on the canonical field (as opposed to adding a multi-field) would be a breaking change.
+However adding a `.wildcard` multi-field may cause confusion, as they would be the only
+places where `wildcard` appears as a multi-field.
+
+The fields are:
+
+- `message`
+- `error.message`
+
+Paradoxically, in some cases they also benefit from the `text` data type.
+A prime example is Windows Event Logs' main messages, which is stored in the `message` field.
+
+The situation is captured here for addressing at a later stage.
+
 ## People
 
 The following are the people that consulted on the contents of this RFC.
