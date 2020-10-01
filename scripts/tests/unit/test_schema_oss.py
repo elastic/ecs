@@ -15,21 +15,21 @@ class TestSchemaOss(unittest.TestCase):
         self.maxDiff = None
 
     def test_wildcard_fallback(self):
-        field = { 'field_details': { 'name': 'myfield', 'type': 'wildcard' } }
+        field = {'field_details': {'name': 'myfield', 'type': 'wildcard'}}
         oss.perform_fallback(field)
         self.assertEqual('keyword', field['field_details']['type'])
 
     def test_version_fallback(self):
-        field = { 'field_details': { 'name': 'myfield', 'type': 'version' } }
+        field = {'field_details': {'name': 'myfield', 'type': 'version'}}
         oss.perform_fallback(field)
         self.assertEqual('keyword', field['field_details']['type'])
 
     def test_basic_without_fallback(self):
-        field = { 'field_details': { 'name': 'myfield', 'type': 'histogram' } }
+        field = {'field_details': {'name': 'myfield', 'type': 'histogram'}}
         oss.perform_fallback(field)
         self.assertEqual('histogram', field['field_details']['type'])
 
     def test_oss_no_fallback(self):
-        field = { 'field_details': { 'name': 'myfield', 'type': 'keyword' } }
+        field = {'field_details': {'name': 'myfield', 'type': 'keyword'}}
         oss.perform_fallback(field)
         self.assertEqual('keyword', field['field_details']['type'])

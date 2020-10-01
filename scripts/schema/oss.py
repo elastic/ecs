@@ -17,6 +17,7 @@ TYPE_FALLBACKS = {
     'version': 'keyword'
 }
 
+
 def fallback(fields):
     """Verify all fields for basic data type usage, and fallback to an OSS equivalent if appropriate."""
     visitor.visit_fields(fields, field_func=perform_fallback)
