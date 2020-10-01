@@ -8,7 +8,7 @@
 # in the chain, provided we add support for defaults as well.
 #
 # For now, no warning is output on basic fields that don't have a fallback.
-# This could be improved when ECS starts using such types.
+# This could be improved if ECS starts using such types.
 
 from schema import visitor
 
