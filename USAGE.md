@@ -322,7 +322,7 @@ The `--strict` argument enables "strict mode". Strict mode performs a stricter v
 Basic usage:
 
 ```
-$ python/generator.py --strict
+$ python scripts/generator.py --strict
 ```
 
 Strict mode requires the following conditions, else the script exits on an exception:
