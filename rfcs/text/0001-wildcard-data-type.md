@@ -19,21 +19,30 @@ For a field to use wildcard, it will require changing the the field's defined sc
 
 | Field Set | Field(s) |
 | --------- | -------- |
-| [`agent`](0001/agent.yml) | `agent.name` |
+| [`agent`](0001/agent.yml) | `agent.build.original` |
+| [`as`](0001/as.yml) | `as.organization.name` |
+| [`client`](0001/client.yml) | `client.domain`<br> `client.registered_domain` |
 | [`destination`](0001/destination.yml) | `destination.domain`<br> `destination.registered_domain` |
-| [`error`](0001/error.yml) | `error.stack_trace` |
+| [`dns`](0001/dns.yml) | `dns.question.name`<br> `dns.answers.data` |
+| [`error`](0001/error.yml) | `error.stack_trace`<br> `error.type` |
+| [`error`](0001/event.yml) | `event.original` |
 | [`file`](0001/file.yml) | `file.directory`<br> `file.path`<br> `file.target_path` |
-| [`host`](0001/host.yml) | `host.hostname`<br> `host.name`<br> `host.domain` |
-| [`http`](0001/http.yml) | `http.request.body.content`<br> `http.response.body.content` |
+| [`geo`](0001/geo.yml) | `geo.name` |
+| [`host`](0001/host.yml) | `host.hostname`<br> |
+| [`http`](0001/http.yml) | `http.request.referrer`<br> `http.request.body.content`<br> `http.response.body.content` |
+| [`log`](0001/log.yml) | `log.file.path`<br> `log.logger` |
 | [`os`](0001/os.yml) | `os.name`<br> `os.full` |
 | [`process`](0001/process.yml) | `process.command_line`<br> `process.executable`<br> `process.name`<br> `process.title`<br> `process.working_directory`<br> |
-| [`registry`](0001/registry.yml) | `registry.key`<br> `registry.path` |
+| [`registry`](0001/registry.yml) | `registry.key`<br> `registry.path`<br> `registry.data.strings` |
+| [`server`](0001/server.yml) | `server.domain`<br> `server.registered_domain` |
 | [`source`](0001/source.yml) | `source.domain`<br> `source.registered_domain` |
-| [`url`](0001/url.yml) | `url.original`<br> `url.full`<br> `url.domain`<br> `url.registered_domain` |
+| [`tls`](0001/tls.yml) | `tls.client.issuer`<br> `tls.client.subject`<br> `tls.server.issuer`<br> `tls.server.subject` |
+| [`url`](0001/url.yml) | `url.full`<br> `url.original`<br> `url.path`<br> `url.domain`<br> `url.registered_domain` |
 | [`user`](0001/user.yml) | `user.name`<br> `user.full_name`<br> `user.email`<br> `user.domain` |
 | [`user_agent`](0001/user_agent.yml) | `user_agent.original` |
+| [`x509`](0001/x509.yml) | `x509.issuer.distinguished_name`<br> `x509.subject.distinguished_name` |
 
-The full set of schema files which will be transitioning to `wildcard` are located [here](0001/).
+The full set of schema files which will be transitioning to `wildcard` are located in directory [rfcs/text/0001/](0001/).
 
 ### Example definition
 
