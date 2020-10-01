@@ -5,7 +5,7 @@ ECS fields can benefit from additional context and examples which describe their
 ## Adding a Usage Doc
 
 1. Create an AsciiDoc formatted file with the `.asciidoc` file extension.
-2. Save the file in this directory (`docs/usage`), naming it after the its associated fieldset (e.g. a usage document for the `base.*` fields would be named `base.asciidoc`).
+2. Save the file in this directory (`docs/usage`), naming it after its associated field set (e.g. a usage document for the fields defined in `schemas/base.yml` fields would be named `docs/usage/base.asciidoc`).
 3. Run `make`. The asciidoc generator will generate the ECS field reference, including the present usage docs.
 
 If the filename doesn't match a currently defined fieldset, the usage document will not appear on the ECS docs site. This logic is handled in the AsciiDoc generator scripts, `scripts/generators/asciidoc_fields.py`.
