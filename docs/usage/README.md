@@ -16,7 +16,7 @@ The following is a simple AsciiDoc template as a starting point:
 
 ```asciidoc
 
-[ecs-usage-template]
+[[ecs-usage-template]]
 ==== Fieldset Usage
 
 Add relevant text here.
