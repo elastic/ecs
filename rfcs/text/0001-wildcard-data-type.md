@@ -289,7 +289,7 @@ Each example in this section contains a partial index mapping, a partial event, 
 
 ### Query
 
-GET ecs-*/_search
+GET winlogbeat-*/_search
 {
   "query": {
     "wildcard": {
@@ -332,7 +332,7 @@ GET ecs-*/_search
 
 ### Query
 
-GET ecs-winlogbeat-7.9.1-2020.09.16-000001/_search
+GET winlogbeat-*/_search
 {
   "_source": false,
   "query": {
@@ -374,7 +374,7 @@ GET ecs-winlogbeat-7.9.1-2020.09.16-000001/_search
 
 ### Query
 
-GET filebeat-7.9.1-2020.09.17-000001/_search
+GET filebeat-*/_search
 {
   "_source": false,
   "query": {
