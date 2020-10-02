@@ -3986,10 +3986,14 @@ network.direction:
   description: "Direction of the network traffic.\nRecommended values are:\n  * ingress\n\
     \  * egress\n  * inbound\n  * outbound\n  * internal\n  * external\n  * unknown\n\
     \nWhen mapping events from a host-based monitoring context, populate this field\
-    \ from the host's point of view, using the values ingress or egress.\nWhen mapping\
-    \ events from a network or perimeter-based monitoring context, populate this field\
-    \ from the point of view of your network perimeter, using the values inbound,\
-    \ outbound, internal or external."
+    \ from the host's point of view, using the values \"ingress\" or \"egress\".\n\
+    When mapping events from a network or perimeter-based monitoring context, populate\
+    \ this field from the point of view of your network perimeter, using the values\
+    \ \"inbound\", \"outbound\", \"internal\" or \"external\".\nNote that \"internal\"\
+    \ is not crossing perimeter boundaries, and is meant to describe communication\
+    \ between two hosts within the perimeter. Note also that \"external\" is meant\
+    \ to describe traffic between two hosts that are external to their perimeter.\
+    \ This could for example be useful for ISPs or VPN service providers."
   example: inbound
   flat_name: network.direction
   ignore_above: 1024
