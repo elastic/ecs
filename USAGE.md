@@ -298,11 +298,16 @@ For `template.json`, the `mappings` object is left empty: `{}`. Likewise the `pr
 
 #### OSS
 
-ECS now uses basic licensed types that are not available on OSS Elasticsearch clusters. Some of these types have an OSS replacement that can be used instead, without too much loss of functionality.
+**IMPORTANT**: This feature is unnecessary for most users. Our default free distribution
+comes with the Elastic Basic license, and supports all data types used by ECS.
+Learn more about our licenses [here](https://www.elastic.co/subscriptions).
+
+Users that want to use the open source version of Elasticsearch do not have access to the basic data types.
+However some of these types have an OSS replacement that can be used instead, without too much loss of functionality.
 
 This flag performs a best effort fallback, replacing basic data types with their OSS replacement.
 
-Indices using purely OSS types will benefit from the normalization of ECS, but may be missing on some of the added functionality of basic types.
+Indices using purely OSS types will benefit from the normalization of ECS, but may be missing on some of the added functionality of these basic types.
 
 Current fallbacks applied by this flag are:
 
