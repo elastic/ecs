@@ -2,7 +2,7 @@
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
 - Stage: **2 (proposal)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
-- Date: **2020-09-02** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
+- Date: **2020-10-02** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 Many log events refer to more than one user at the same time.
 Examples of this are remote logons as someone else, user management and privilege escalation.
@@ -764,6 +764,7 @@ e.g.:
 ### RFC Pull Requests
 
 * Stage 2: https://github.com/elastic/ecs/pull/914
+  * Stage 2 correction: https://github.com/elastic/ecs/pull/996
 
 Note: This RFC was initially proposed via a PR that targeted stage 2,
 given the amount of discussion that has already has happened on this subject.
