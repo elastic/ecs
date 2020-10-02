@@ -49,7 +49,7 @@ docs:
 # Alias to generate experimental artifacts
 .PHONY: experimental
 experimental: ve
-	$(PYTHON) scripts/generator.py --include experimental/schemas --out experimental/generated
+	$(PYTHON) scripts/generator.py --include experimental/schemas --out experimental
 
 # Format code and files in the repo.
 .PHONY: fmt
