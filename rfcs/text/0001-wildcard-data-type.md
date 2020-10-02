@@ -155,7 +155,7 @@ The following table is a comparison of `wildcard` vs. `keyword` [2]:
 | Searched by "all fields" queries | Y | Y |
 | Disk costs for mostly unique values | high (see *5) | lower (see *5) |
 | Dist costs for mostly identical values | low (see *5) | medium (see *5) |
-| Max character size for a field value | 256 for default JSON string mapping (1024 for ECS), 32766 Luence max | unlimited |
+| Max character size for a field value | 256 for default JSON string mapping (1024 for ECS), 32766 Lucene max | unlimited |
 | Supports normalizers in mappings | Y | N |
 | Indexing speeds | Fast | Slower (see *6) |
 
