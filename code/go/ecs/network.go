@@ -73,14 +73,14 @@ type Network struct {
 	// field from the host's point of view, using the values "ingress" or
 	// "egress".
 	// When mapping events from a network or perimeter-based monitoring
-	// context, populate this field from the point of view of your network
+	// context, populate this field from the point of view of the network
 	// perimeter, using the values "inbound", "outbound", "internal" or
 	// "external".
 	// Note that "internal" is not crossing perimeter boundaries, and is meant
 	// to describe communication between two hosts within the perimeter. Note
 	// also that "external" is meant to describe traffic between two hosts that
-	// are external to their perimeter. This could for example be useful for
-	// ISPs or VPN service providers.
+	// are external to the perimeter. This could for example be useful for ISPs
+	// or VPN service providers.
 	Direction string `ecs:"direction"`
 
 	// Host IP address when the source IP address is the proxy.
