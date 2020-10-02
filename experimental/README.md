@@ -9,7 +9,7 @@ These experimental changes to ECS are comprehensive but not necessarily final. T
 
 ## Schema Files
 
-The [schemas](./schemas) directory contains the YAML files for the experimental field definitions. These are not complete schemas themselves, but are settings meant to merge with the official schema spec using the `--include` generator flag.
+The [schemas](./schemas) directory contains the YAML files for the experimental field definitions. These are not always complete schemas. They can also be supplemental changes to be merged with the official schema spec, using the `--include` generator flag.
 
 Example usage:
 
