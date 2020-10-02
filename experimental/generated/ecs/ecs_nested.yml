@@ -488,6 +488,24 @@ client:
       normalize: []
       short: The highest registered client domain, stripped of the subdomain.
       type: wildcard
+    client.subdomain:
+      dashed_name: client-subdomain
+      description: 'The subdomain portion of a fully qualified domain name includes
+        all of the names except the host name under the registered_domain.  In a partially
+        qualified domain, or if the the qualification level of the full name cannot
+        be determined, subdomain contains all of the names below the registered domain.
+
+        For example the subdomain portion of "www.east.mydomain.co.uk" is "east".
+        If the domain has multiple levels of subdomain, such as "sub2.sub1.example.com",
+        the subdomain field should contain "sub2.sub1", with no trailing period.'
+      example: east
+      flat_name: client.subdomain
+      ignore_above: 1024
+      level: extended
+      name: subdomain
+      normalize: []
+      short: The subdomain of the domain.
+      type: keyword
     client.top_level_domain:
       dashed_name: client-top-level-domain
       description: 'The effective top level domain (eTLD), also known as the domain
@@ -1200,6 +1218,24 @@ destination:
       normalize: []
       short: The highest registered destination domain, stripped of the subdomain.
       type: wildcard
+    destination.subdomain:
+      dashed_name: destination-subdomain
+      description: 'The subdomain portion of a fully qualified domain name includes
+        all of the names except the host name under the registered_domain.  In a partially
+        qualified domain, or if the the qualification level of the full name cannot
+        be determined, subdomain contains all of the names below the registered domain.
+
+        For example the subdomain portion of "www.east.mydomain.co.uk" is "east".
+        If the domain has multiple levels of subdomain, such as "sub2.sub1.example.com",
+        the subdomain field should contain "sub2.sub1", with no trailing period.'
+      example: east
+      flat_name: destination.subdomain
+      ignore_above: 1024
+      level: extended
+      name: subdomain
+      normalize: []
+      short: The subdomain of the domain.
+      type: keyword
     destination.top_level_domain:
       dashed_name: destination-top-level-domain
       description: 'The effective top level domain (eTLD), also known as the domain
@@ -1585,13 +1621,12 @@ dll:
       description: Internal name of the file, provided at compile-time.
       example: MSPAINT.EXE
       flat_name: dll.pe.original_file_name
-      ignore_above: 1024
       level: extended
       name: original_file_name
       normalize: []
       original_fieldset: pe
       short: Internal name of the file, provided at compile-time.
-      type: keyword
+      type: wildcard
     dll.pe.product:
       dashed_name: dll-pe-product
       description: Internal product name of the file, provided at compile-time.
@@ -2382,7 +2417,7 @@ event:
       example: Sep 19 08:26:10 host CEF:0&#124;Security&#124; threatmanager&#124;1.0&#124;100&#124;
         worm successfully stopped&#124;10&#124;src=10.0.0.1 dst=2.1.2.2spt=1232
       flat_name: event.original
-      index: true
+      index: false
       level: core
       name: original
       normalize: []
@@ -3116,13 +3151,12 @@ file:
       description: Internal name of the file, provided at compile-time.
       example: MSPAINT.EXE
       flat_name: file.pe.original_file_name
-      ignore_above: 1024
       level: extended
       name: original_file_name
       normalize: []
       original_fieldset: pe
       short: Internal name of the file, provided at compile-time.
-      type: keyword
+      type: wildcard
     file.pe.product:
       dashed_name: file-pe-product
       description: Internal product name of the file, provided at compile-time.
@@ -4277,12 +4311,11 @@ http:
       description: Referrer for this HTTP request.
       example: https://blog.example.com/
       flat_name: http.request.referrer
-      ignore_above: 1024
       level: extended
       name: request.referrer
       normalize: []
       short: Referrer for this HTTP request.
-      type: keyword
+      type: wildcard
     http.response.body.bytes:
       dashed_name: http-response-body-bytes
       description: Size in bytes of the response body.
@@ -4674,11 +4707,17 @@ network:
     network.direction:
       dashed_name: network-direction
       description: "Direction of the network traffic.\nRecommended values are:\n \
-        \ * inbound\n  * outbound\n  * internal\n  * external\n  * unknown\n\nWhen\
-        \ mapping events from a host-based monitoring context, populate this field\
-        \ from the host's point of view.\nWhen mapping events from a network or perimeter-based\
-        \ monitoring context, populate this field from the point of view of your network\
-        \ perimeter."
+        \ * ingress\n  * egress\n  * inbound\n  * outbound\n  * internal\n  * external\n\
+        \  * unknown\n\nWhen mapping events from a host-based monitoring context,\
+        \ populate this field from the host's point of view, using the values \"ingress\"\
+        \ or \"egress\".\nWhen mapping events from a network or perimeter-based monitoring\
+        \ context, populate this field from the point of view of the network perimeter,\
+        \ using the values \"inbound\", \"outbound\", \"internal\" or \"external\"\
+        .\nNote that \"internal\" is not crossing perimeter boundaries, and is meant\
+        \ to describe communication between two hosts within the perimeter. Note also\
+        \ that \"external\" is meant to describe traffic between two hosts that are\
+        \ external to the perimeter. This could for example be useful for ISPs or\
+        \ VPN service providers."
       example: inbound
       flat_name: network.direction
       ignore_above: 1024
@@ -4713,8 +4752,8 @@ network:
     network.inner:
       dashed_name: network-inner
       description: Network.inner fields are added in addition to network.vlan fields
-        to describe  the innermost VLAN when q-in-q VLAN tagging is present. Allowed
-        fields include  vlan.id and vlan.name. Inner vlan fields are typically used
+        to describe the innermost VLAN when q-in-q VLAN tagging is present. Allowed
+        fields include vlan.id and vlan.name. Inner vlan fields are typically used
         when sending traffic with multiple 802.1q encapsulations to a network sensor
         (e.g. Zeek, Wireshark.)
       flat_name: network.inner
@@ -5721,12 +5760,11 @@ pe:
       description: Internal name of the file, provided at compile-time.
       example: MSPAINT.EXE
       flat_name: pe.original_file_name
-      ignore_above: 1024
       level: extended
       name: original_file_name
       normalize: []
       short: Internal name of the file, provided at compile-time.
-      type: keyword
+      type: wildcard
     pe.product:
       dashed_name: pe-product
       description: Internal product name of the file, provided at compile-time.
@@ -5976,7 +6014,6 @@ process:
         Sometimes called program name or similar.'
       example: ssh
       flat_name: process.name
-      ignore_above: 1024
       level: extended
       multi_fields:
       - flat_name: process.name.text
@@ -5986,7 +6023,7 @@ process:
       name: name
       normalize: []
       short: Process name.
-      type: keyword
+      type: wildcard
     process.parent.args:
       dashed_name: process-parent-args
       description: 'Array of process arguments, starting with the absolute path to
@@ -6206,7 +6243,6 @@ process:
         Sometimes called program name or similar.'
       example: ssh
       flat_name: process.parent.name
-      ignore_above: 1024
       level: extended
       multi_fields:
       - flat_name: process.parent.name.text
@@ -6217,7 +6253,7 @@ process:
       normalize: []
       original_fieldset: process
       short: Process name.
-      type: keyword
+      type: wildcard
     process.parent.pe.architecture:
       dashed_name: process-parent-pe-architecture
       description: CPU architecture target for the file.
@@ -6287,13 +6323,12 @@ process:
       description: Internal name of the file, provided at compile-time.
       example: MSPAINT.EXE
       flat_name: process.parent.pe.original_file_name
-      ignore_above: 1024
       level: extended
       name: original_file_name
       normalize: []
       original_fieldset: pe
       short: Internal name of the file, provided at compile-time.
-      type: keyword
+      type: wildcard
     process.parent.pe.product:
       dashed_name: process-parent-pe-product
       description: Internal product name of the file, provided at compile-time.
@@ -6490,13 +6525,12 @@ process:
       description: Internal name of the file, provided at compile-time.
       example: MSPAINT.EXE
       flat_name: process.pe.original_file_name
-      ignore_above: 1024
       level: extended
       name: original_file_name
       normalize: []
       original_fieldset: pe
       short: Internal name of the file, provided at compile-time.
-      type: keyword
+      type: wildcard
     process.pe.product:
       dashed_name: process-pe-product
       description: Internal product name of the file, provided at compile-time.
@@ -7202,6 +7236,24 @@ server:
       normalize: []
       short: The highest registered server domain, stripped of the subdomain.
       type: wildcard
+    server.subdomain:
+      dashed_name: server-subdomain
+      description: 'The subdomain portion of a fully qualified domain name includes
+        all of the names except the host name under the registered_domain.  In a partially
+        qualified domain, or if the the qualification level of the full name cannot
+        be determined, subdomain contains all of the names below the registered domain.
+
+        For example the subdomain portion of "www.east.mydomain.co.uk" is "east".
+        If the domain has multiple levels of subdomain, such as "sub2.sub1.example.com",
+        the subdomain field should contain "sub2.sub1", with no trailing period.'
+      example: east
+      flat_name: server.subdomain
+      ignore_above: 1024
+      level: extended
+      name: subdomain
+      normalize: []
+      short: The subdomain of the domain.
+      type: keyword
     server.top_level_domain:
       dashed_name: server-top-level-domain
       description: 'The effective top level domain (eTLD), also known as the domain
@@ -7747,6 +7799,24 @@ source:
       normalize: []
       short: The highest registered source domain, stripped of the subdomain.
       type: wildcard
+    source.subdomain:
+      dashed_name: source-subdomain
+      description: 'The subdomain portion of a fully qualified domain name includes
+        all of the names except the host name under the registered_domain.  In a partially
+        qualified domain, or if the the qualification level of the full name cannot
+        be determined, subdomain contains all of the names below the registered domain.
+
+        For example the subdomain portion of "www.east.mydomain.co.uk" is "east".
+        If the domain has multiple levels of subdomain, such as "sub2.sub1.example.com",
+        the subdomain field should contain "sub2.sub1", with no trailing period.'
+      example: east
+      flat_name: source.subdomain
+      ignore_above: 1024
+      level: extended
+      name: subdomain
+      normalize: []
+      short: The subdomain of the domain.
+      type: keyword
     source.top_level_domain:
       dashed_name: source-top-level-domain
       description: 'The effective top level domain (eTLD), also known as the domain
@@ -9271,6 +9341,24 @@ url:
       name: scheme
       normalize: []
       short: Scheme of the url.
+      type: keyword
+    url.subdomain:
+      dashed_name: url-subdomain
+      description: 'The subdomain portion of a fully qualified domain name includes
+        all of the names except the host name under the registered_domain.  In a partially
+        qualified domain, or if the the qualification level of the full name cannot
+        be determined, subdomain contains all of the names below the registered domain.
+
+        For example the subdomain portion of "www.east.mydomain.co.uk" is "east".
+        If the domain has multiple levels of subdomain, such as "sub2.sub1.example.com",
+        the subdomain field should contain "sub2.sub1", with no trailing period.'
+      example: east
+      flat_name: url.subdomain
+      ignore_above: 1024
+      level: extended
+      name: subdomain
+      normalize: []
+      short: The subdomain of the domain.
       type: keyword
     url.top_level_domain:
       dashed_name: url-top-level-domain
