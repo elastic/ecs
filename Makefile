@@ -15,7 +15,7 @@ VERSION          := $(shell cat version)
 # Check verifies that all of the committed files that are generated are
 # up-to-date.
 .PHONY: check
-check: generate test fmt misspell makelint check-license-headers
+check: generate experimental test fmt misspell makelint check-license-headers
 	# Check if diff is empty.
 	git diff | cat
 	git update-index --refresh
