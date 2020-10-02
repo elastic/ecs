@@ -1,8 +1,8 @@
 # 0001: Wildcard Field Adoption into ECS
 <!--^ The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC, taking care not to conflict with other RFCs.-->
 
-- Stage: **1 (proposal)** <!-- Update to reflect target stage -->
-- Date: **TBD** <!-- Update to reflect date of most recent stage advancement -->
+- Stage: **2 (draft)** <!-- Update to reflect target stage -->
+- Date: **2020-10-02** <!-- Update to reflect date of most recent stage advancement -->
 
 Wildcard is a data type for Elasticsearch string fields being introduced in Elasticsearch 7.9. Wildcard optimizes performance for queries using wildcards (`*`) and regex, allowing users to perform `grep`-like searches without the limitations of the existing
 text[0] and keyword[1] types.
@@ -10,28 +10,46 @@ text[0] and keyword[1] types.
 ## Fields
 
 <!--
-Stage: 1: Describe at a high level how this change affects fields. Which fieldsets will be impacted? How many fields overall? Are we primarily adding fields, removing fields, or changing existing fields? The goal here is to understand the fundamental technical implications and likely extent of these changes. ~2-5 sentences.
+Stage 2: Include new or updated yml field definitions for all of the essential fields in this draft. While not exhaustive, the fields documented here should be comprehensive enough to deeply evaluate the technical considerations of this change. The goal here is to validate the technical details for all essential fields and to provide a basis for adding experimental field definitions to the schema. Use GitHub code blocks with yml syntax formatting.
 -->
 
-For a field to use wildcard, it will require changing the the field's defined schema `type` from `keyword` to `wildcard`. The following fieldsets are expected to adopt `wildcard` in at least one of their fields:
+### Identified Wildcard Fields
 
-* `agent.*`
-* `destination.*`
-* `error.*`
-* `file.*`
-* `host.*`
-* `http.*`
-* `os.*`
-* `process.*`
-* `registry.*`
-* `source.*`
-* `url.*`
-* `user.*`
-* `user_agent.*`
+For a field to use wildcard, it will require changing the the field's defined schema `type` from `keyword` to `wildcard`. The following fields are candidates for `wildcard`:
+
+| Field Set | Field(s) |
+| --------- | -------- |
+| [`agent`](0001/agent.yml) | `agent.build.original` |
+| [`as`](0001/as.yml) | `as.organization.name` |
+| [`client`](0001/client.yml) | `client.domain`<br> `client.registered_domain` |
+| [`destination`](0001/destination.yml) | `destination.domain`<br> `destination.registered_domain` |
+| [`dns`](0001/dns.yml) | `dns.question.name`<br> `dns.answers.data` |
+| [`error`](0001/error.yml) | `error.stack_trace`<br> `error.type` |
+| [`event`](0001/event.yml) | `event.original` |
+| [`file`](0001/file.yml) | `file.directory`<br> `file.path`<br> `file.target_path` |
+| [`geo`](0001/geo.yml) | `geo.name` |
+| [`host`](0001/host.yml) | `host.hostname`<br> |
+| [`http`](0001/http.yml) | `http.request.referrer`<br> `http.request.body.content`<br> `http.response.body.content` |
+| [`log`](0001/log.yml) | `log.file.path`<br> `log.logger` |
+| [`os`](0001/os.yml) | `os.name`<br> `os.full` |
+| [`pe`](0001/pe.yml) | `pe.original_file_name` |
+| [`process`](0001/process.yml) | `process.command_line`<br> `process.executable`<br> `process.name`<br> `process.title`<br> `process.working_directory`<br> |
+| [`registry`](0001/registry.yml) | `registry.key`<br> `registry.path`<br> `registry.data.strings` |
+| [`server`](0001/server.yml) | `server.domain`<br> `server.registered_domain` |
+| [`source`](0001/source.yml) | `source.domain`<br> `source.registered_domain` |
+| [`tls`](0001/tls.yml) | `tls.client.issuer`<br> `tls.client.subject`<br> `tls.server.issuer`<br> `tls.server.subject` |
+| [`url`](0001/url.yml) | `url.full`<br> `url.original`<br> `url.path`<br> `url.domain`<br> `url.registered_domain` |
+| [`user`](0001/user.yml) | `user.name`<br> `user.full_name`<br> `user.email`<br> `user.domain` |
+| [`user_agent`](0001/user_agent.yml) | `user_agent.original` |
+| [`x509`](0001/x509.yml) | `x509.issuer.distinguished_name`<br> `x509.subject.distinguished_name` |
+
+The full set of schema files which will be transitioning to `wildcard` are located in directory [rfcs/text/0001/](0001/).
+
+### Example definition
 
 Here's an example of applying this change to the `process.command_line` field:
 
-**Definition as of ECS 1.5.0**
+**Definition as of ECS 1.6.0**
 
 Schema definition:
 
@@ -137,7 +155,7 @@ The following table is a comparison of `wildcard` vs. `keyword` [2]:
 | Searched by "all fields" queries | Y | Y |
 | Disk costs for mostly unique values | high (see *5) | lower (see *5) |
 | Dist costs for mostly identical values | low (see *5) | medium (see *5) |
-| Max character size for a field value | 256 for default JSON string mapping (1024 for ECS), 32766 Luence max | unlimited |
+| Max character size for a field value | 256 for default JSON string mapping (1024 for ECS), 32766 Lucene max | unlimited |
 | Supports normalizers in mappings | Y | N |
 | Indexing speeds | Fast | Slower (see *6) |
 
@@ -232,8 +250,10 @@ Additional cases for wildcard searching against command line executions:
 ## Source data
 
 <!--
-Stage 1: Provide a high-level description of example sources of data. This does not yet need to be a concrete example of a source document, but instead can simply describe a potential source (e.g. nginx access log). This will ultimately be fleshed out to include literal source examples in a future stage. The goal here is to identify practical sources for these fields in the real world. ~1-3 sentences or unordered list.
+Stage 2: Included a real world example source document. Ideally this example comes from the source(s) identified in stage 1. If not, it should replace them. The goal here is to validate the utility of these field changes in the context of a real world example. Format with the source name as a ### header and the example document in a GitHub code block with json formatting.
 -->
+
+### Categories
 
 * Windows events
 * Sysmon events
@@ -244,6 +264,138 @@ Stage 1: Provide a high-level description of example sources of data. This does 
 * Endpoint agents
 * Application stack traces
 
+### Real world examples
+
+Each example in this section contains a partial index mapping, a partial event, and one wildcard search query. Each query example uses a leading wildcard on expected high-cardinality fields where `wildcard` is performs far better than `keyword`.
+
+**Windows registry event from sysmon:**
+
+```
+### Mapping (partial)
+...
+        "registry" : {
+          "properties" : {
+            "key" : {
+              "type" : "wildcard"
+            }
+          }
+        }
+...
+
+### Event (partial)
+...
+    "registry": {
+      "path": "HKU\\S-1-5-21-1957236100-58272097-297103362-500\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\\HideFileExt",
+      "hive": "HKU",
+      "key": "S-1-5-21-1957236100-58272097-297103362-500\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\\HideFileExt",
+      "value": "HideFileExt",
+      "data": {
+        "strings": [
+          "1"
+        ],
+        "type": "SZ_DWORD"
+      }
+...
+
+### Query
+
+GET winlogbeat-*/_search
+{
+  "query": {
+    "wildcard": {
+      "registry.key": {
+        "value": "*CurrentVersion*"
+      }
+    }
+  }
+}
+
+```
+
+**Windows Powershell logging event:**
+
+```
+### Mapping (partial)
+...
+        "process" : {
+          "properties" : {
+            "command_line" : {
+              "type" : "wildcard",
+              "fields" : {
+                "text" : {
+                  "type" : "text",
+                  "norms" : false
+                }
+              }
+            }
+          }
+        }
+...
+
+### Event (partial)
+
+    "process": {
+      "pid": 3540,
+      ...
+      "command_line": "C:\\Windows\\System32\\svchost.exe -k netsvcs -p -s NetSetupSvc"
+    }
+
+### Query
+
+GET winlogbeat-*/_search
+{
+  "_source": false,
+  "query": {
+    "wildcard": {
+      "process.command_line": {
+        "value": "*-k netsvcs -p*"
+      }
+    }
+  }
+}
+```
+
+**Wildcard query against original URL from a squid web proxy event:**
+
+```
+### Mapping (partial)
+
+...
+        "url" : {
+            "original" : {
+              "type" : "wildcard",
+              "fields" : {
+                "text" : {
+                  "type" : "text",
+                  "norms" : false
+                }
+              }
+            }
+...
+
+### Event (partial)
+
+...
+    "url": {
+      "original": "http://example.com/cart.do?action=view&itemId=HolyGouda",
+      "domain": "example.com"
+    }
+...
+
+### Query
+
+GET filebeat-*/_search
+{
+  "_source": false,
+  "query": {
+    "wildcard": {
+      "url.original": {
+        "value": "*action=view*Gouda"
+      }
+    }
+  }
+}
+```
 
 ## Scope of impact
 
@@ -270,7 +422,7 @@ ECS is and will remain an open source licensed project. However, there will be f
 ## Concerns
 
 <!--
-Stage 1: Identify potential concerns, implementation challenges, or complexity. Spend some time on this. Play devil's advocate. Try to identify the sort of non-obvious challenges that tend to surface later. The goal here is to surface risks early, allow everyone the time to work through them, and ultimately document resolution for posterity's sake.
+Stage 2: Document new concerns or resolutions to previously listed concerns. It's not critical that all concerns have resolutions at this point, but it would be helpful if resolutions were taking shape for the most significant concerns.
 -->
 
 ### Wildcard and case-insensitivity
@@ -287,6 +439,8 @@ Performance and storage characteristics between wildcard and keyword will be dif
 
 ECS applies the `ignore_above` setting to keyword fields to prevent strings longer than 1024 characters from being indexed or stored. While `ignore_above` can be raised, Lucene implements a term byte-length limit of 32766 which cannot be adjusted. Wildcard supports an unlimited max character size for a field value. The `wildcard` field type will still have the `ignore_above` option available, and a reasonable limit may be need applied to mitigate unexpected side-effects.
 
+For the initial adoption into ECS, `wildcard` fields will not have an `ignore_above` option defined.
+
 ### Licensing
 
 Until now ECS has relied only on OSS licensed features, but ECS will also support Elastic licensed features. The ECS project will remain OSS licensed with the schema implementing Elastic licensed features as part of the specification. When ECS adopts a feature available only under a license, it will be noted in the documentation. ECS plans to provide tooling options which continue to support OSS consumers of ECS and the Elastic Stack.
@@ -294,6 +448,23 @@ Until now ECS has relied only on OSS licensed features, but ECS will also suppor
 ### Version Compatibility
 
 A data shipper which uses the `wildcard` field type may need to verify that the configured output Elasticsearch destination can support it (>= 7.9.0). For example, if a future version of Beats adopts `wildcard` in index mappings, Beats would may need to gracefully handle a scenario where the targeted Elasticsearch instance doesn't support the data type.
+
+### Text fields migrating to wildcard
+
+ECS currently has two `text` fields that would likely benefit from migrating to `wildcard`.
+Doing so on the canonical field (as opposed to adding a multi-field) would be a breaking change.
+However adding a `.wildcard` multi-field may cause confusion, as they would be the only
+places where `wildcard` appears as a multi-field.
+
+The fields are:
+
+- `message`
+- `error.message`
+
+Paradoxically, in some cases they also benefit from the `text` data type.
+A prime example is Windows Event Logs' main messages, which is stored in the `message` field.
+
+The situation is captured here for addressing at a later stage.
 
 ## People
 
@@ -326,3 +497,4 @@ The following are the people that consulted on the contents of this RFC.
 
 * Stage 0: https://github.com/elastic/ecs/pull/890
 * Stage 1: https://github.com/elastic/ecs/pull/904
+* Stage 2: https://github.com/elastic/ecs/pull/970
