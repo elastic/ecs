@@ -11,12 +11,15 @@ These experimental changes to ECS are comprehensive but not necessarily final. T
 
 The [schemas](./schemas) directory contains the YAML files for the experimental field definitions. These are not always complete schemas. They can also be supplemental changes to be merged with the official schema spec, using the `--include` generator flag.
 
-Example usage:
+If you use the ECS generator script as describe in [USAGE.md](../USAGE.md) to maintain your custom index templates, here's how you can try these experimental changes in your project:
 
 ```sh
-$ python scripts/generator.py --include experimental/schemas --out experimental
+$ python scripts/generator.py --include experimental/schemas \
+    --include ../myproject/fields/custom/ \
+    --out ../myproject/fields/generated
 ```
 
+The above would include all experimental changes to ECS along with your custom fields, and output the artifacts in `myproject/fields/generated`.
 ## Generated Artifacts
 
 Various files generated based on the experimental ECS spec. The artifacts are generated using `make experimental` and published [here](./generated).
