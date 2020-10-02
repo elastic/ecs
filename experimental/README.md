@@ -20,6 +20,7 @@ $ python scripts/generator.py --include experimental/schemas \
 ```
 
 The above would include all experimental changes to ECS along with your custom fields, and output the artifacts in `myproject/fields/generated`.
+
 ## Generated Artifacts
 
 Various files generated based on the experimental ECS spec. The artifacts are generated using `make experimental` and published [here](./generated).
