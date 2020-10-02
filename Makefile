@@ -46,6 +46,11 @@ docs:
 	fi
 	./build/docs/build_docs --asciidoctor --doc ./docs/index.asciidoc --chunk=1 $(OPEN_DOCS) --out ./build/html_docs
 
+# Alias to generate experimental artifacts
+.PHONY: experimental
+experimental: ve
+	$(PYTHON) scripts/generator.py --include experimental/schemas --out experimental/generated
+
 # Format code and files in the repo.
 .PHONY: fmt
 fmt: ve
