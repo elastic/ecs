@@ -1,8 +1,11 @@
 # ECS Experimental Definitions
 
-ECS experimental definitions are changes and features which have been merged as [stage two](https://elastic.github.io/ecs/stages.html) in the ECS [RFC process](../rfcs), but they have not yet advanced stage three. These initial field definitions are comprehensive but not necessarily complete. They are also still subject to breaking changes or being removed in any future version.
+ECS experimental definitions are changes and features which have reached [stage two](https://elastic.github.io/ecs/stages.html) in the ECS [RFC process](../rfcs)
 
-This directory provides a location for these experimental field definitions and generated artifacts.
+Stage two changes only appear in the experimental artifacts in this directory, but aren't yet reflected in the official ECS documentation.
+Note that stage three and four proposals do appear in the official ECS documentation.
+
+These experimental changes to ECS are comprehensive but not necessarily final. They are also still subject to breaking changes.
 
 ## Schema Files
 
