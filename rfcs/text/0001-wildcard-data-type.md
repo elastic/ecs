@@ -25,7 +25,7 @@ For a field to use wildcard, it will require changing the the field's defined sc
 | [`destination`](0001/destination.yml) | `destination.domain`<br> `destination.registered_domain` |
 | [`dns`](0001/dns.yml) | `dns.question.name`<br> `dns.answers.data` |
 | [`error`](0001/error.yml) | `error.stack_trace`<br> `error.type` |
-| [`error`](0001/event.yml) | `event.original` |
+| [`event`](0001/event.yml) | `event.original` |
 | [`file`](0001/file.yml) | `file.directory`<br> `file.path`<br> `file.target_path` |
 | [`geo`](0001/geo.yml) | `geo.name` |
 | [`host`](0001/host.yml) | `host.hostname`<br> |
