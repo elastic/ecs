@@ -26,6 +26,7 @@ Thanks, you're awesome :-) -->
 
 * Expanded field set definitions for `source.*` and `destination.*`. #967
 * Provided better guidance for mapping network events. #969
+* Added the field `.subdomain` under `client`, `destination`, `server`, `source` and `url`, to match its presence at `dns.question.subdomain`. #981
 
 #### Deprecated
 
