@@ -160,7 +160,7 @@ def field_mandatory_attributes(field):
     missing_attributes = ecs_helpers.list_subtract(FIELD_MANDATORY_ATTRIBUTES, current_field_attributes)
     
     # The `alias` type requires a target path.
-    # https://www.elastic.co/guide/en/elasticsearch/reference/current/alias.html
+    # https://github.com/elastic/ecs/issues/876
     if field['field_details']['type'] == 'alias' and 'path' not in current_field_attributes:
         missing_attributes.append('path')
 

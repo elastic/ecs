@@ -62,6 +62,14 @@ def fieldset_field_array(source_fields, df_whitelist, fieldset_prefix):
         if not ecs_field['flat_name'] in df_whitelist:
             beats_field['default_field'] = False
 
+        # Include the `path` attribute for `alias` types.
+        # https://github.com/elastic/ecs/issues/876
+        if ecs_field['type'] == 'alias':
+            if 'path' in ecs_field:
+                beats_field['path'] = ecs_field['path']
+            else:
+                raise ValueError(f'The [path] property must be specified for field [{contextual_name}]')
+
         fields.append(beats_field)
     return sorted(fields, key=lambda x: x['name'])
 
