@@ -109,7 +109,6 @@ class TestGeneratorsEsTemplate(unittest.TestCase):
         }
         self.assertEqual(es_template.entry_for(test_map), exp)
 
-
     def test_entry_for_alias(self):
         test_map = {
             'name': 'test.alias',
@@ -132,6 +131,7 @@ class TestGeneratorsEsTemplate(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,
                                     "The \[path\] property must be specified for field \[{}\]".format(test_map['name'])):
             es_template.entry_for(test_map)
+
 
 if __name__ == '__main__':
     unittest.main()

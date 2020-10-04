@@ -156,7 +156,7 @@ class TestSchemaCleaner(unittest.TestCase):
             with self.assertRaisesRegex(ValueError,
                                         "mandatory attributes: {}".format(missing_attribute)):
                 cleaner.field_mandatory_attributes(field)
-    
+
     def test_field_raises_on_alias_missing_path_attribute(self):
         field = self.schema_process()['process']['fields']['pid']
         field['field_details']['type'] = "alias"
