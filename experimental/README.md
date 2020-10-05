@@ -9,9 +9,9 @@ These experimental changes to ECS are comprehensive but not necessarily final. T
 
 ## Schema Files
 
-The [schemas](./schemas) directory contains the YAML files for the experimental field definitions. These are not always complete schemas. They can also be supplemental changes to be merged with the official schema spec, using the `--include` generator flag.
+The [experimental/schemas](./schemas) directory contains the YAML files for the experimental field definitions. These are not always complete schemas. They can also be supplemental changes to be merged with the official schema spec, using the `--include` generator flag.
 
-If you use the ECS generator script as describe in [USAGE.md](../USAGE.md) to maintain your custom index templates, here's how you can try these experimental changes in your project:
+If you use the ECS generator script as described in [USAGE.md](../USAGE.md) to maintain your custom index templates, here's how you can try these experimental changes in your project:
 
 ```sh
 $ python scripts/generator.py --include experimental/schemas \
