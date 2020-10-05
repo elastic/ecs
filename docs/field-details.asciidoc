@@ -4,6 +4,7 @@
 
 The `base` field set contains all fields which are on the top level. These fields are common across all types of events.
 
+[discrete]
 ==== Base Field Details
 
 [options="header"]
@@ -79,6 +80,7 @@ The agent fields contain the data about the software entity, if any, that collec
 
 Examples include Beats. Agents may also run on observers. ECS agent.* fields shall be populated with details of the agent running on the host or observer where the event happened or the measurement was taken.
 
+[discrete]
 ==== Agent Field Details
 
 [options="header"]
@@ -163,6 +165,7 @@ For TCP events, the client is the initiator of the TCP connection that sends the
 
 Client / server representations can add semantic context to an exchange, which is helpful to visualize the data in certain situations. If your context falls in that category, you should still ensure that source and destination are filled appropriately.
 
+[discrete]
 ==== Client Field Details
 
 [options="header"]
@@ -254,12 +257,14 @@ type: long
 
 |=====
 
+[discrete]
 ==== Field Reuse
 
 
 
 
 [[ecs-client-nestings]]
+[discrete]
 ===== Field sets that can be nested under Client
 
 [options="header"]
@@ -288,6 +293,7 @@ type: long
 
 Fields related to the cloud or infrastructure the events are coming from.
 
+[discrete]
 ==== Cloud Field Details
 
 [options="header"]
@@ -384,6 +390,7 @@ Container fields are used for meta information about the specific container that
 
 These fields help correlate data based containers from any runtime.
 
+[discrete]
 ==== Container Field Details
 
 [options="header"]
@@ -467,6 +474,7 @@ Destination fields describe details about the destination of a packet/event.
 
 Destination fields are usually populated in conjunction with source fields.
 
+[discrete]
 ==== Destination Field Details
 
 [options="header"]
@@ -558,12 +566,14 @@ type: long
 
 |=====
 
+[discrete]
 ==== Field Reuse
 
 
 
 
 [[ecs-destination-nestings]]
+[discrete]
 ===== Field sets that can be nested under Destination
 
 [options="header"]
@@ -592,6 +602,7 @@ type: long
 
 Meta-information specific to ECS.
 
+[discrete]
 ==== ECS Field Details
 
 [options="header"]
@@ -622,6 +633,7 @@ These fields can represent errors of any kind.
 
 Use them for errors that happen while fetching events or in cases where the event itself contains an error.
 
+[discrete]
 ==== Error Field Details
 
 [options="header"]
@@ -672,6 +684,7 @@ The event fields are used for context information about the log or metric event 
 
 A log is defined as an event containing details of something that happened. Log events must include the time at which the thing happened. Examples of log events include a process starting on a host, a network packet being sent from a source to a destination, or a network connection between a client and a server being initiated or closed. A metric is defined as an event containing one or more numerical or categorical measurements and the time at which the measurement was taken. Examples of metric events include memory pressure measured on a host, or vulnerabilities measured on a scanned host.
 
+[discrete]
 ==== Event Field Details
 
 [options="header"]
@@ -915,6 +928,7 @@ A file is defined as a set of information that has been created on, or has exist
 
 File objects can be associated with host events, network events, and/or file events (e.g., those produced by File Integrity Monitoring [FIM] products or services). File fields provide details about the affected file associated with the event or metric.
 
+[discrete]
 ==== File Field Details
 
 [options="header"]
@@ -1088,6 +1102,7 @@ Geo fields can carry data about a specific location related to an event.
 
 This geolocation information can be derived from techniques such as Geo IP, or be user-supplied.
 
+[discrete]
 ==== Geo Field Details
 
 [options="header"]
@@ -1190,6 +1205,7 @@ example: `Quebec`
 
 |=====
 
+[discrete]
 ==== Field Reuse
 
 The `geo` fields are expected to be nested at: `client.geo`, `destination.geo`, `host.geo`, `observer.geo`, `server.geo`, `source.geo`.
@@ -1204,6 +1220,7 @@ Note also that the `geo` fields are not expected to be used directly at the top 
 
 The group fields are meant to represent groups that are relevant to the event.
 
+[discrete]
 ==== Group Field Details
 
 [options="header"]
@@ -1236,6 +1253,7 @@ type: keyword
 
 |=====
 
+[discrete]
 ==== Field Reuse
 
 The `group` fields are expected to be nested at: `user.group`.
@@ -1252,6 +1270,7 @@ A host is defined as a general computing instance.
 
 ECS host.* fields should be populated with details about the host on which the event happened, or from which the measurement was taken. Host types include hardware, virtual machines, Docker containers, and Kubernetes nodes.
 
+[discrete]
 ==== Host Field Details
 
 [options="header"]
@@ -1349,12 +1368,14 @@ type: keyword
 
 |=====
 
+[discrete]
 ==== Field Reuse
 
 
 
 
 [[ecs-host-nestings]]
+[discrete]
 ===== Field sets that can be nested under Host
 
 [options="header"]
@@ -1389,6 +1410,7 @@ type: keyword
 
 Fields related to HTTP activity. Use the `url` field set to store the url of the request.
 
+[discrete]
 ==== HTTP Field Details
 
 [options="header"]
@@ -1516,6 +1538,7 @@ example: `1.1`
 
 Fields which are specific to log events.
 
+[discrete]
 ==== Log Field Details
 
 [options="header"]
@@ -1561,6 +1584,7 @@ The network is defined as the communication path over which a host or network ev
 
 The network.* fields should be populated with details about the network activity associated with an event.
 
+[discrete]
 ==== Network Field Details
 
 [options="header"]
@@ -1731,6 +1755,7 @@ An observer is defined as a special network, security, or application device use
 
 This could be a custom hardware appliance or a server that has been configured to run special network, security, or application software. Examples include firewalls, intrusion detection/prevention systems, network monitoring sensors, web application firewalls, data loss prevention systems, and APM servers. The observer.* fields shall be populated with details of the system, if any, that detects, observes and/or creates a network, security, or application event or metric. Message queues and ETL components used in processing events or metrics are not considered observers in ECS.
 
+[discrete]
 ==== Observer Field Details
 
 [options="header"]
@@ -1820,12 +1845,14 @@ type: keyword
 
 |=====
 
+[discrete]
 ==== Field Reuse
 
 
 
 
 [[ecs-observer-nestings]]
+[discrete]
 ===== Field sets that can be nested under Observer
 
 [options="header"]
@@ -1856,6 +1883,7 @@ The organization fields enrich data with information about the company or entity
 
 These fields help you arrange or filter data stored in an index by one or multiple organizations.
 
+[discrete]
 ==== Organization Field Details
 
 [options="header"]
@@ -1893,6 +1921,7 @@ type: keyword
 
 The OS fields contain information about the operating system.
 
+[discrete]
 ==== Operating System Field Details
 
 [options="header"]
@@ -1969,6 +1998,7 @@ example: `10.14.1`
 
 |=====
 
+[discrete]
 ==== Field Reuse
 
 The `os` fields are expected to be nested at: `host.os`, `observer.os`, `user_agent.os`.
@@ -1985,6 +2015,7 @@ These fields contain information about a process.
 
 These fields can help you correlate metrics information with a process id/name from a log message.  The `process.pid` often stays in the metric itself and is copied to the global field for correlation.
 
+[discrete]
 ==== Process Field Details
 
 [options="header"]
@@ -2109,6 +2140,7 @@ Some pieces of information can be seen in many places in an ECS event. To facili
 
 A concrete example is IP addresses, which can be under host, observer, source, destination, client, server, and network.forwarded_ip. If you append all IPs to `related.ip`, you can then search for a given IP trivially, no matter where it appeared, by querying `related.ip:a.b.c.d`.
 
+[discrete]
 ==== Related Field Details
 
 [options="header"]
@@ -2139,6 +2171,7 @@ For TCP events, the server is the receiver of the initial SYN packet(s) of the T
 
 Client / server representations can add semantic context to an exchange, which is helpful to visualize the data in certain situations. If your context falls in that category, you should still ensure that source and destination are filled appropriately.
 
+[discrete]
 ==== Server Field Details
 
 [options="header"]
@@ -2230,12 +2263,14 @@ type: long
 
 |=====
 
+[discrete]
 ==== Field Reuse
 
 
 
 
 [[ecs-server-nestings]]
+[discrete]
 ===== Field sets that can be nested under Server
 
 [options="header"]
@@ -2266,6 +2301,7 @@ The service fields describe the service for or from which the data was collected
 
 These fields help you find and correlate logs for a specific service and version.
 
+[discrete]
 ==== Service Field Details
 
 [options="header"]
@@ -2367,6 +2403,7 @@ Source fields describe details about the source of a packet/event.
 
 Source fields are usually populated in conjunction with destination fields.
 
+[discrete]
 ==== Source Field Details
 
 [options="header"]
@@ -2458,12 +2495,14 @@ type: long
 
 |=====
 
+[discrete]
 ==== Field Reuse
 
 
 
 
 [[ecs-source-nestings]]
+[discrete]
 ===== Field sets that can be nested under Source
 
 [options="header"]
@@ -2492,6 +2531,7 @@ type: long
 
 URL fields provide support for complete or partial URLs, and supports the breaking down into scheme, domain, path, and so on.
 
+[discrete]
 ==== URL Field Details
 
 [options="header"]
@@ -2631,6 +2671,7 @@ The user fields describe information about the user that is relevant to the even
 
 Fields can have one entry or multiple entries. If a user has more than one id, provide an array that includes all of them.
 
+[discrete]
 ==== User Field Details
 
 [options="header"]
@@ -2698,6 +2739,7 @@ example: `albert`
 
 |=====
 
+[discrete]
 ==== Field Reuse
 
 The `user` fields are expected to be nested at: `client.user`, `destination.user`, `host.user`, `server.user`, `source.user`.
@@ -2708,6 +2750,7 @@ Note also that the `user` fields may be used directly at the top level.
 
 
 [[ecs-user-nestings]]
+[discrete]
 ===== Field sets that can be nested under User
 
 [options="header"]
@@ -2732,6 +2775,7 @@ The user_agent fields normally come from a browser request.
 
 They often show up in web service logs coming from the parsed user agent string.
 
+[discrete]
 ==== User agent Field Details
 
 [options="header"]
@@ -2786,12 +2830,14 @@ example: `12.0`
 
 |=====
 
+[discrete]
 ==== Field Reuse
 
 
 
 
 [[ecs-user_agent-nestings]]
+[discrete]
 ===== Field sets that can be nested under User agent
 
 [options="header"]
