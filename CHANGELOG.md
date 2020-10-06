@@ -37,6 +37,8 @@ All notable changes to this project will be documented in this file based on the
 * Added check under `--strict` that ensures composite types in example fields are quoted. #966
 * Added `ignore_above` and `normalizer` support for keyword multi-fields. #971
 * Added `--oss` flag for users who want to generate ECS templates for use on OSS clusters. #991
+* Added a new directory with experimental artifacts, which includes all changes
+  from RFCs that have reached stage 2. #993
 
 #### Improvements
 
