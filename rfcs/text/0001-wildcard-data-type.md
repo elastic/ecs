@@ -1,7 +1,7 @@
 # 0001: Wildcard Field Adoption into ECS
 <!--^ The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC, taking care not to conflict with other RFCs.-->
 
-- Stage: **2 (draft)** <!-- Update to reflect target stage -->
+- Stage: **3 (draft)** <!-- Update to reflect target stage -->
 - Date: **2020-10-02** <!-- Update to reflect date of most recent stage advancement -->
 
 Wildcard is a data type for Elasticsearch string fields being introduced in Elasticsearch 7.9. Wildcard optimizes performance for queries using wildcards (`*`) and regex, allowing users to perform `grep`-like searches without the limitations of the existing
