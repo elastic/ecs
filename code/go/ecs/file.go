@@ -55,7 +55,9 @@ type File struct {
 	// Target path for symlinks.
 	TargetPath string `ecs:"target_path"`
 
-	// File extension, excluding the dot.
+	// File extension, excluding the leading dot.
+	// If the file name has multime extensions (example.tar.gz), this field
+	// should contain all extensions without the leading dot (tar.gz).
 	Extension string `ecs:"extension"`
 
 	// File type (file, dir, or symlink).
