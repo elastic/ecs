@@ -146,7 +146,7 @@ The following table is a comparison of `wildcard` vs. `keyword` [2]:
 | Aggregation speeds | Fast | Not quite as fast (see *1) |
 | Prefix query speeds (foo*) | Fast | Not quite as fast (see *2) |
 | Leading wildcard queries on low-cardinality fields (*foo) | Fast | Slower (see *3) |
-| Leading wildcard queries on high-cardinality fields (foo* ) | Terrible | Much faster |
+| Leading wildcard queries on high-cardinality fields (*foo) | Terrible | Much faster |
 | Term query. Full value match (foo) | Fast | Not quite as fast (see *2) |
 | Fuzzy query | Y (see *4) | Y |
 | Regexp query | Y (see *4) | Y |
@@ -179,7 +179,7 @@ The following sections detail use cases which could benefit using the `wildcard`
 #### Paths
 
 * Flexible nesting of a file path: `file.path:*\\Users\\*\\Temp\\*`
-* Match under registry path: `registry.path:\\HKLM\\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\*\Debugger`
+* Match under registry path: `registry.path:\\HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Image File Execution Options\\*\\Debugger`
 * A unique URL path: `url.full:https://api.example.com/account/*/foobar`
 
 The following are common categories
