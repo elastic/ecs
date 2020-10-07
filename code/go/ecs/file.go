@@ -55,7 +55,7 @@ type File struct {
 	// Target path for symlinks.
 	TargetPath string `ecs:"target_path"`
 
-	// File extension.
+	// File extension, excluding the dot.
 	Extension string `ecs:"extension"`
 
 	// File type (file, dir, or symlink).
