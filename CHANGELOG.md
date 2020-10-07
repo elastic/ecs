@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file based on the
 #### Bugfixes
 
 * The `protocol` allowed value under `event.type` should not have the `expected_event_types` defined. #964
+* Clarify the definition of `file.extension` (no dots). #1016
 
 #### Added
 
