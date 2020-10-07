@@ -56,8 +56,8 @@ type File struct {
 	TargetPath string `ecs:"target_path"`
 
 	// File extension, excluding the leading dot.
-	// If the file name has multime extensions (example.tar.gz), this field
-	// should contain all extensions without the leading dot (tar.gz).
+	// Note that when the file name has multiple extensions (example.tar.gz),
+	// only the last one should be captured ("gz", not "tar.gz").
 	Extension string `ecs:"extension"`
 
 	// File type (file, dir, or symlink).
