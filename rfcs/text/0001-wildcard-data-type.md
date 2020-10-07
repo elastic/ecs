@@ -238,7 +238,7 @@ The arguments, order of those arguments, and values passed can be arbitrary in a
 Example:
 
 ```
-process.command_line:*f/ foo* and process.command_line:*/b bar*
+process.command_line:*\/f foo* AND process.command_line:*\/b bar*
 ```
 
 Additional cases for wildcard searching against command line executions:
