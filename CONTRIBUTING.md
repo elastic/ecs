@@ -151,7 +151,7 @@ The following files are generated based on the current schema using [Jinja](http
 | ------------------ | -------- |
 | [fields.asciidoc](docs/fields.asciidoc) | [fields_template.j2](scripts/templates/fields_template.j2) |
 | [fields-values.asciidoc](docs/field-values.asciidoc) | [field_values_template.j2](scripts/templates/field_values_template.j2) |
-| [field-details.asciidoc](docs/field-details.asciidoc) | [field_details directory](scripts/templates/field_details) |
+| [field-details.asciidoc](docs/field-details.asciidoc) | [field_details.j2](scripts/templates/field_details.j2) |
 
 Running `make` will update these files using the [scripts/generators/asciidoc_fields.py](scripts/generators/asciidoc_fields.py) generator. These doc files should *not* be modified directly. Any changes as a result of a schema update and subsequent run of `make` *should* be committed.
 
