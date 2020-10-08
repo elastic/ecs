@@ -2,6 +2,7 @@ import glob
 import os
 import yaml
 import git
+import pathlib
 import warnings
 
 from collections import OrderedDict
@@ -111,6 +112,14 @@ def get_tree_by_ref(ref):
     repo = git.Repo(os.getcwd())
     commit = repo.commit(ref)
     return commit.tree
+
+
+def usage_doc_files():
+    usage_docs_dir = os.path.join(os.path.dirname(__file__), '../../docs/usage')
+    usage_docs_path = pathlib.Path(usage_docs_dir)
+    if usage_docs_path.is_dir():
+        return [x.name for x in usage_docs_path.glob('*.asciidoc') if x.is_file()]
+    return []
 
 
 def ecs_files():
