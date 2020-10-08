@@ -765,7 +765,7 @@ e.g.:
 
 * Stage 2: https://github.com/elastic/ecs/pull/914
   * Stage 2 correction: https://github.com/elastic/ecs/pull/996
-* Stage 3: https://github.com/elastic/ecs/pull/NNNN
+* Stage 3: https://github.com/elastic/ecs/pull/1017
 
 Note: This RFC was initially proposed via a PR that targeted stage 2,
 given the amount of discussion that has already has happened on this subject.
