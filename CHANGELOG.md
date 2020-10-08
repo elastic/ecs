@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file based on the
 #### Bugfixes
 
 * Field `registry.data.strings` should have been marked as an array field. #790
+* Clarify the definition of `file.extension` (no dots). #1016
 
 #### Added
 
