@@ -44,7 +44,7 @@ docs:
 	if [ ! -d $(PWD)/build/docs ]; then \
 		git clone --depth=1 https://github.com/elastic/docs.git ./build/docs ; \
 	fi
-	./build/docs/build_docs --asciidoctor --doc ./docs/index.asciidoc --chunk=1 $(OPEN_DOCS) --out ./build/html_docs
+	./build/docs/build_docs --asciidoctor --doc ./docs/index.asciidoc --chunk=2 $(OPEN_DOCS) --out ./build/html_docs
 
 # Alias to generate experimental artifacts
 .PHONY: experimental
