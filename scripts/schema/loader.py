@@ -206,7 +206,7 @@ def merge_fields(a, b):
             a[key]['field_details']['normalize'].extend(b[key]['field_details'].pop('normalize'))
         if 'multi_fields' in b[key]['field_details']:
             a[key].setdefault('field_details', {})
-            a[key]['field_details'].setdefault('multi_fields', set())
+            a[key]['field_details'].setdefault('multi_fields', [])
             a[key]['field_details']['multi_fields'] = dedup_and_merge_lists(
                 a[key]['field_details']['multi_fields'], b[key]['field_details']['multi_fields'])
             # if we don't do this then the update call below will overwrite a's field_details, with the original
