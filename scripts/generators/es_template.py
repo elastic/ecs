@@ -60,10 +60,7 @@ def entry_for(field):
         elif field['type'] == 'text':
             ecs_helpers.dict_copy_existing_keys(field, field_entry, ['norms'])
         elif field['type'] == 'alias':
-            if 'path' in field:
-                field_entry['path'] = field['path']
-            else:
-                raise ValueError(f'The [path] property must be specified for field [{field["name"]}]')
+            ecs_helpers.dict_copy_existing_keys(field, field_entry, ['path'])
 
         if 'multi_fields' in field:
             field_entry['fields'] = {}
