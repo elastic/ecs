@@ -15,7 +15,7 @@ VERSION          := $(shell cat version)
 # Check verifies that all of the committed files that are generated are
 # up-to-date.
 .PHONY: check
-check: generate test fmt misspell makelint check-license-headers
+check: generate experimental test fmt misspell makelint check-license-headers
 	# Check if diff is empty.
 	git diff | cat
 	git update-index --refresh
@@ -44,7 +44,12 @@ docs:
 	if [ ! -d $(PWD)/build/docs ]; then \
 		git clone --depth=1 https://github.com/elastic/docs.git ./build/docs ; \
 	fi
-	./build/docs/build_docs --asciidoctor --doc ./docs/index.asciidoc --chunk=1 $(OPEN_DOCS) --out ./build/html_docs
+	./build/docs/build_docs --asciidoctor --doc ./docs/index.asciidoc --chunk=2 $(OPEN_DOCS) --out ./build/html_docs
+
+# Alias to generate experimental artifacts
+.PHONY: experimental
+experimental: ve
+	$(PYTHON) scripts/generator.py --include experimental/schemas --out experimental
 
 # Format code and files in the repo.
 .PHONY: fmt
