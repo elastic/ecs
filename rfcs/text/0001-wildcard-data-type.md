@@ -39,7 +39,7 @@ For a field to use wildcard, it will require changing the the field's defined sc
 | [`source`](0001/source.yml) | `source.domain`<br> `source.registered_domain` |
 | [`tls`](0001/tls.yml) | `tls.client.issuer`<br> `tls.client.subject`<br> `tls.server.issuer`<br> `tls.server.subject` |
 | [`url`](0001/url.yml) | `url.full`<br> `url.original`<br> `url.path`<br> `url.domain`<br> `url.registered_domain` |
-| [`user`](0001/user.yml) | `user.name`<br> `user.full_name`<br> `user.email`<br> `user.domain` |
+| [`user`](0001/user.yml) | `user.name`<br> `user.full_name`<br> `user.email` |
 | [`user_agent`](0001/user_agent.yml) | `user_agent.original` |
 | [`x509`](0001/x509.yml) | `x509.issuer.distinguished_name`<br> `x509.subject.distinguished_name` |
 
