@@ -14,10 +14,10 @@ With existing `host.id` and `host.name`, these total 9 fields will become the co
 
 Proposed 7 new fields are:
 * host.cpu.usage
-* host.network.in.bytes
-* host.network.in.packets
-* host.network.out.bytes
-* host.network.out.packets
+* host.network.ingress.bytes
+* host.network.ingress.packets
+* host.network.egress.bytes
+* host.network.egress.packets
 * host.disk.read.bytes
 * host.disk.write.bytes
 
@@ -30,13 +30,13 @@ This RFC calls for the addition of host fields to collect basic monitoring metri
 
 | field | type | description |
 | --- | --- | --- |
-| `host.cpu.usage` | scaled_float | Percent CPU used with scaling_factor of 1000. This value is normalized by the number of CPU cores and it ranges from 0 to 1. For example: For a two core host, this value should be the average of the 2 cores, between 0 and 1. |
-| `host.network.in.bytes` | long | The number of bytes received on all network interfaces by the host in a given period of time. |
-| `host.network.in.packets` | long | The number of packets received on all network interfaces by the host in a given period of time. |
-| `host.network.out.bytes` | long | The number of bytes sent out on all network interfaces by the host in a given period of time. |
-| `host.network.out.packets` | long | The number of packets sent out on all network interfaces by the host in a given period of time. |
-| `host.disk.read.bytes` | long | The total number of bytes read successfully in a given period of time. |
-| `host.disk.write.bytes` | long | The total number of bytes write successfully in a given period of time. |
+| `host.cpu.usage` | scaled_float (scaling_factor 1000) | Percent CPU used with scaling_factor of 1000. This value is normalized by the number of CPU cores and it ranges from 0 to 1. For example: For a two core host, this value should be the average of the 2 cores, between 0 and 1. |
+| `host.network.ingress.bytes` | long | The number of bytes received (gauge) on all network interfaces by the host in a given period of time. |
+| `host.network.ingress.packets` | long | The number of packets (gauge) received on all network interfaces by the host in a given period of time. |
+| `host.network.egress.bytes` | long | The number of bytes (gauge) sent out on all network interfaces by the host in a given period of time. |
+| `host.network.egress.packets` | long | The number of packets (gauge) sent out on all network interfaces by the host in a given period of time. |
+| `host.disk.read.bytes` | long | The total number of bytes (gauge) read successfully in a given period of time. |
+| `host.disk.write.bytes` | long | The total number of bytes (gauge) write successfully in a given period of time. |
 
 <!--
 Stage 2: Include new or updated yml field definitions for all of the essential fields in this draft. While not exhaustive, the fields documented here should be comprehensive enough to deeply evaluate the technical considerations of this change. The goal here is to validate the technical details for all essential fields and to provide a basis for adding experimental field definitions to the schema. Use GitHub code blocks with yml syntax formatting.
