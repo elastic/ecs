@@ -26,8 +26,14 @@ This RFC proposes to introduce a new fieldset called "data_stream". The fieldset
 Field     | Mapping type | Description
 ----------|--------------|--------------
 data_stream.type | constant_keyword | An overarching type for the data stream. Currently allowed values include "logs", "metrics". We expect to also add "traces" and "synthetics" in the near future
-data_stream.dataset | constant_keyword | A copy of event.dataset. For data streams that otherwise fit, but that do not have dataset set we use the value "generic" for the dataset value.
-data_stream.namespace | constant_keyword | A user defined namespace. Namespaces are useful to allow grouping of data. Many people will use "default"
+data_stream.dataset | constant_keyword | The field can contain anything that makes sense to signify the source of the data. Examples include `nginx.access`, `prometheus`, `endpoint` etc. For data streams that otherwise fit, but that do not have dataset set we use the value "generic" for the dataset value. `event.dataset` should have the same value as `data_stream.dataset`. 
+data_stream.namespace | constant_keyword | A user defined namespace. Namespaces are useful to allow grouping of data. Many of our customers already organize their indices this way, and now we are providing this best practice as a default. Many people will use `default` as the value.
+
+In the new indexing strategy, the value of the data stream fields combine to the name of the actual data stream in the following manner `{data_stream.type}-{data_stream.dataset}-{datastream.namespace}`. This means the fields can only contain characters that are valid as part of names of data streams.
+
+data_stream.type is restricted to `logs` or `metrics` for now. 
+
+`data_stream.namespace` and `data_stream.dataset` cannot be longer than 100 bytes and `data_stream.dataset` cannot contain dashes (`-`).
 
 
 <!--
@@ -44,9 +50,15 @@ Stage 3: Add or update all remaining field definitions. The list should now be e
 Stage 1: Describe at a high-level how these field changes will be used in practice. Real world examples are encouraged. The goal here is to understand how people would leverage these fields to gain insights or solve problems. ~1-3 paragraphs.
 -->
 
-Data stream fields are already in use in Elastic Agent. Leveraging  fields allow users to filter by a specific data type (logs, metrics etc.), dataset (nginx.access, prometheus) or namespace. When querying for documents using one of the fields, Elasticsearch can use constant_keyword fields to quickly determine which indices are relevant to search. 
+Data stream fields are already in use in Elastic Agent. Leveraging the data stream fields described here allow users to filter by a specific data type (logs, metrics etc.), dataset (nginx.access, prometheus) or namespace. The following are examples of common queries pertaining to specific datatypes, datasets or namespaces:
 
-The fields are also part of the basic index template mapping that come built into Elasticsearch for data streams that match `logs-*-*` and `metrics-*-*`. 
+* `data_stream.type: logs`
+* `data_stream.dataset: nginx.access`
+* `data_stream.type: logs AND data_stream.namespace: web-frontend`
+
+Because the fields are mapped as `constant_keyword`, Elasticsearch can quickly exclude indices which are irrelevant for the query. See the [Elasticsearch documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/faster-filtering-with-constant-keyword.html) on `contant_keyword` for more information.
+
+
 
 ## Source data
 
@@ -54,7 +66,11 @@ The fields are also part of the basic index template mapping that come built int
 Stage 1: Provide a high-level description of example sources of data. This does not yet need to be a concrete example of a source document, but instead can simply describe a potential source (e.g. nginx access log). This will ultimately be fleshed out to include literal source examples in a future stage. The goal here is to identify practical sources for these fields in the real world. ~1-3 sentences or unordered list.
 -->
 
-Elastic Agent adds the the data_stream fields in all documents ingested and as mentioned above, the data_stream fields are included in Elasticsearch in the index template mapping that come configured out of the box for data streams that match `logs-*-*` and `metrics-*-*`. 
+Today, Elastic Agent adds the the data_stream fields in all documents ingested. It's also possible to use the fields in data from other data sources. Elasticsearch 7.9+ ships with built-in index template mappings which will ensure that documents indexed into data streams that match `logs-*-*` and `metrics-*-*` will get the fields mapped correclty to `constant_keyword` types. 
+
+### Using data_stream fields with regular indices
+`data_stream` fields only make sense when indexing into data streams. They should not to be used for regular indices.
+
 
 <!--
 Stage 2: Included a real world example source document. Ideally this example comes from the source(s) identified in stage 1. If not, it should replace them. The goal here is to validate the utility of these field changes in the context of a real world example. Format with the source name as a ### header and the example document in a GitHub code block with json formatting.
@@ -100,7 +116,10 @@ Stage 4: Document any new concerns and their resolution. The goal here is to eli
 Stage 4: Identify at least one real-world, production-ready implementation that uses these updated field definitions. An example of this might be a GA feature in an Elastic application in Kibana.
 -->
 
-Elastic Agent already uses the data_stream fields.
+Elastic Agent already uses the data_stream fields. 
+
+Additionally, as previously described, beginning in version 7.9, Elasticsearch ships with built-in index templates for data streams which will automatically ensure that data_stream fields get correclty mapped when the data stream name match `logs-*-*` and `metrics-*-*`.
+
 
 ## People
 
