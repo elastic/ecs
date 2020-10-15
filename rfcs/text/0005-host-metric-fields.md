@@ -1,8 +1,8 @@
 # 0005: Host Metric Fields
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
-- Stage: **1 (proposal)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
-- Date: **2020-08-21** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
+- Stage: **2 (draft)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
+- Date: **2020-10-14** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 <!--
 As you work on your RFC, use the "Stage N" comments to guide you in what you should focus on, for the stage you're targeting.
@@ -73,6 +73,160 @@ Stage 1: Provide a high-level description of example sources of data. This does 
 <!--
 Stage 2: Included a real world example source document. Ideally this example comes from the source(s) identified in stage 1. If not, it should replace them. The goal here is to validate the utility of these field changes in the context of a real world example. Format with the source name as a ### header and the example document in a GitHub code block with json formatting.
 -->
+
+Example source document from AWS EC2 instance:
+```JSON
+{
+  "_index": "metricbeat-8.0.0-2020.10.13-000001",
+  "_type": "_doc",
+  "_id": "7P6XKnUBnE_5JbVxdPGQ",
+  "_version": 1,
+  "_score": null,
+  "_source": {
+    "@timestamp": "2020-10-15T04:39:00.000Z",
+    "host": {
+      "id": "i-04c1a32c2aace6b40",
+      "name": "i-04c1a32c2aace6b40",
+      "cpu": {
+        "usage": 0.0020056497175091896
+      },
+      "disk": {
+        "write": {
+          "bytes": 0
+        },
+        "read": {
+          "bytes": 0
+        }
+      },
+      "network": {
+        "ingress": {
+          "bytes": 157612,
+          "packets": 2272
+        },
+        "egress": {
+          "bytes": 79944,
+          "packets": 1199
+        }
+      }
+    },
+    "event": {
+      "dataset": "aws.ec2",
+      "module": "aws",
+      "duration": 23277249413
+    },
+    "metricset": {
+      "name": "ec2",
+      "period": 300000
+    },
+    "service": {
+      "type": "aws"
+    },
+    "agent": {
+      "type": "metricbeat",
+      "version": "8.0.0",
+      "ephemeral_id": "f0733710-5558-4346-966d-28b4231e0765",
+      "id": "a8a83d26-7399-4bc3-bde6-a385aa3c14e4",
+      "name": "KaiyanMacBookPro"
+    },
+    "ecs": {
+      "version": "1.6.0"
+    },
+    "aws": {
+      "ec2": {
+        "instance": {
+          "image": {
+            "id": "ami-0b418580298265d5c"
+          },
+          "state": {
+            "code": 16,
+            "name": "running"
+          },
+          "monitoring": {
+            "state": "disabled"
+          },
+          "core": {
+            "count": 1
+          },
+          "threads_per_core": 1,
+          "public": {
+            "ip": "3.122.204.80",
+            "dns_name": ""
+          },
+          "private": {
+            "ip": "10.0.0.122",
+            "dns_name": "ip-10-0-0-122.eu-central-1.compute.internal"
+          }
+        },
+        "cpu": {
+          "credit_usage": 0.009044,
+          "credit_balance": 144,
+          "surplus_credit_balance": 0,
+          "surplus_credits_charged": 0,
+          "total": {
+            "pct": 0.20056497175091897
+          }
+        },
+        "status": {
+          "check_failed_system": 0,
+          "check_failed": 0,
+          "check_failed_instance": 0
+        },
+        "network": {
+          "in": {
+            "bytes": 157612,
+            "packets": 2272,
+            "bytes_per_sec": 525.3733333333333,
+            "packets_per_sec": 7.573333333333333
+          },
+          "out": {
+            "packets": 1199,
+            "bytes": 79944,
+            "bytes_per_sec": 266.48,
+            "packets_per_sec": 3.9966666666666666
+          }
+        },
+        "diskio": {
+          "write": {
+            "bytes": 0,
+            "count": 0,
+            "bytes_per_sec": 0,
+            "count_per_sec": 0
+          },
+          "read": {
+            "bytes": 0,
+            "count": 0,
+            "bytes_per_sec": 0,
+            "count_per_sec": 0
+          }
+        }
+      }
+    },
+    "cloud": {
+      "machine": {
+        "type": "t2.micro"
+      },
+      "availability_zone": "eu-central-1a",
+      "provider": "aws",
+      "region": "eu-central-1",
+      "account": {
+        "name": "elastic-beats",
+        "id": "428152502467"
+      },
+      "instance": {
+        "id": "i-04c1a32c2aace6b40"
+      }
+    }
+  },
+  "fields": {
+    "@timestamp": [
+      "2020-10-15T04:39:00.000Z"
+    ]
+  },
+  "sort": [
+    1602736740000
+  ]
+}
+```
 
 <!--
 Stage 3: Add more real world example source documents so we have at least 2 total, but ideally 3. Format as described in stage 2.
