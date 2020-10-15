@@ -7,7 +7,7 @@
 <!--
 Stage 0: Provide a high level summary of the premise of these changes. Briefly describe the nature, purpose, and impact of the changes. ~2-5 sentences.
 -->
-Numerous SaaS and enterprise content/productivity services provide event data where the event reflects an action (typically `create`, `read`, `update`, `delete`) on what can broadly be considered items/documents/resources/records (originally dubbed "objects"). The are generally considered audit logs, or business analytics events. For some of these services, parts of (or in some cases, the entirety of) the corpus consists of _files_ (in the filesystem sense of the term) wherein the existing ECS `file` fields are adequate. However, most enterprise collaboration, storage, and communication systems (Workday, Salesforce, ServiceNow, Zoom, GitHub, G Suite, Zendesk, Jira, Confluence - Cloud - Server, etc.) present data units as "records", "documents", "tickets", "meetings" and more. ECS doesn't currently account for these entities, and relies on `file` as an option, albeit semantically incorrect and incomplete for the purpose of event tracking.
+Numerous SaaS and enterprise content/productivity services provide event data where the event reflects an action (typically `create`, `read`, `update`, `delete`) on what can broadly be considered items/documents/resources/records (originally dubbed "objects"). They are generally considered audit logs, or business analytics events. For some of these services, parts of (or in some cases, the entirety of) the corpus consists of _files_ (in the filesystem sense of the term) wherein the existing ECS `file` fields are adequate. However, most enterprise collaboration, storage, and communication systems (Workday, Salesforce, ServiceNow, Zoom, GitHub, G Suite, Zendesk, Jira, Confluence - Cloud - Server, etc.) present data units as "records", "documents", "tickets", "meetings" and more. ECS doesn't currently account for these entities, and relies on `file` as an option, albeit semantically incorrect and incomplete for the purpose of event tracking.
 
 ## Fields
 
@@ -139,4 +139,3 @@ e.g.:
 * Stage 0: https://github.com/elastic/ecs/pull/883
 
 * Stage 1: https://github.com/elastic/ecs/pull/957
-
