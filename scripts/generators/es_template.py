@@ -59,6 +59,8 @@ def entry_for(field):
             ecs_helpers.dict_copy_existing_keys(field, field_entry, ['ignore_above'])
         elif field['type'] == 'text':
             ecs_helpers.dict_copy_existing_keys(field, field_entry, ['norms'])
+        elif field['type'] == 'alias':
+            ecs_helpers.dict_copy_existing_keys(field, field_entry, ['path'])
 
         if 'multi_fields' in field:
             field_entry['fields'] = {}
