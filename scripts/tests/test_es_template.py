@@ -109,6 +109,19 @@ class TestGeneratorsEsTemplate(unittest.TestCase):
         }
         self.assertEqual(es_template.entry_for(test_map), exp)
 
+    def test_entry_for_alias(self):
+        test_map = {
+            'name': 'test.alias',
+            'type': 'alias',
+            'path': 'alias.target'
+        }
+
+        exp = {
+            'type': 'alias',
+            'path': 'alias.target'
+        }
+        self.assertEqual(es_template.entry_for(test_map), exp)
+
 
 if __name__ == '__main__':
     unittest.main()
