@@ -28,7 +28,7 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
-* Added ability to supply free-form usage documentation per fieldset. #988
+* Added container.is_vulnerable
 
 #### Improvements
 
