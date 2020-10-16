@@ -151,6 +151,18 @@ Supported keys to describe expected values for a field
   Optionally, entries in this list can specify 'expected\_event\_types'.
 - expected\_event\_types: list of expected "event.type" values to use in association
   with that category.
+  
+Supported keys when using the [alias field type](https://www.elastic.co/guide/en/elasticsearch/reference/current/alias.html)
+
+```YAML
+    - name: a_field
+      level: extended
+      type: alias
+      path: another_field
+      description: >
+        An alias of another field.
+```
+- path (optional): The full path to the [aliases' target field](https://www.elastic.co/guide/en/elasticsearch/reference/current/alias.html#alias-targets).
 
 #### Multi\_fields
 

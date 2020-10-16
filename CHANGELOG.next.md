@@ -28,6 +28,8 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
+* Added the `path` key when type is `alias`, to support the [alias field type](https://www.elastic.co/guide/en/elasticsearch/reference/current/alias.html). #877
+
 #### Improvements
 
 #### Deprecated
