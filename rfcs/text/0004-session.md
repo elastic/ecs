@@ -60,7 +60,7 @@ This RFC calls for the addition of session fields to describe events related to 
     - name: authorization
       level: extended
       type: keyword
-      description: > 
+      description: >
         Authorization scope of the session. Initial values will include user (e.g. user vdi/vda, vpn, or web sessions, wired/wireless/vpn network access, etc), administrative sessions (root, VMWare Host access, router "enable" level cli, etc.) or service (e.g. network to network VPN, non-user verified application service sessions).
 
       example: user
@@ -75,7 +75,7 @@ This RFC calls for the addition of session fields to describe events related to 
     - name: id
       level: extended
       type: Session id
-      description: > 
+      description: >
         The id field is meant to contain a locally significant identifier for the session as provided by the observer or host reporting the session.  If no id is provided this field can remain blank, or a hash function similar to network.community_id can be used to discretely identify sessions from unique values.
 
       example: 7635344
@@ -95,7 +95,7 @@ Stage 3: Add or update all remaining field definitions. The list should now be e
 ## Usage
 
 Session fields are used to describe and track a discrete grouping of interactions, typically bounded by
-authentication or authorization events and tied to a specific user, application, or system component. 
+authentication or authorization events and tied to a specific user, application, or system component.
 
 For example:
  - Network Access Sessions (NAC or Wireless LAN)
