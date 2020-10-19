@@ -16,4 +16,4 @@ python scripts/generator.py --ref v1.6.0 \
   --mapping-settings  usage-example/fields/mapping-settings.json
 ```
 
-
+Refer back to [USAGE.md](../USAGE.md) for the documentation on each of these flags.
