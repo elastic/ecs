@@ -173,6 +173,10 @@ Stage 4: Identify at least one real-world, production-ready implementation that 
 The following are the people that consulted on the contents of this RFC.
 
 * @DainPerkins | Author
+* @rw-access | Subject matter expert
+* @jonathan-buttner | Sponsor (Security)
+* @cyrille-leclerc | Stakeholder (Observability)
+* @webmat | Editor
 
 <!--
 Who will be or has consulted on the contents of this RFC? Identify authorship and sponsorship, and optionally identify the nature of involvement of others. Link to GitHub aliases where possible. This list will likely change or grow stage after stage.
