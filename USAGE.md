@@ -60,8 +60,7 @@ The generated Elasticsearch template would be output at
 
 If this sounds interesting, read on to learn all about each of these settings.
 
-You're also welcome to look at a complete example of doing this (including source files),
-in the [usage-example](usage-example/) directory.
+See [usage-example/](usage-example/) for a complete example with source files.
 
 ## Terminology
 
