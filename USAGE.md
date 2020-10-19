@@ -15,6 +15,7 @@ relevant artifacts for their unique set of data sources.
 
 ## Table of Contents
 
+- [TLDR Example](#tldr-example)
 - [Terminology](#terminology)
 - [Setup and Install](#setup-and-install)
   * [Prerequisites](#prerequisites)
@@ -32,6 +33,35 @@ relevant artifacts for their unique set of data sources.
     + [OSS](#oss)
     + [Strict Mode](#strict-mode)
     + [Intermediate-Only](#intermediate-only)
+
+## TLDR Example
+
+Before diving into the details, here's a complete example that:
+
+* takes ECS 1.6 fields
+* selects only the subset of fields relevant to the project's use case
+* includes custom fields relevant to the project
+* outputs the resulting artifacts to a project directory
+* replace the ECS project's sample template settings and
+  mapping settings with ones appropriate to the project
+
+```bash
+python scripts/generator.py --ref v1.6.0 \
+  --subset            ../my-project/fields/subset.yml \
+  --include           ../my-project/fields/custom/ \
+  --out               ../my-project/ \
+  --template-settings ../my-project/fields/template-settings.json \
+  --mapping-settings  ../my-project/fields/mapping-settings.json
+```
+
+The generated Elasticsearch template would be output at
+
+`my-project/generated/elasticsearch/7/template.json`
+
+If this sounds interesting, read on to learn all about each of these settings.
+
+You're also welcome to look at a complete example of doing this (including source files),
+in the [usage-example](usage-example/) directory.
 
 ## Terminology
 
@@ -79,6 +109,9 @@ $ make ve
 ```
 
 All necessary Python dependencies will also be installed with `pip`.
+
+You can use the Python and dependencies from this isolated virtual environment
+by using `build/ve/bin/python` instead of `python` in the examples shown here.
 
 #### Option 2: Install dependencies via pip
 
@@ -255,19 +288,19 @@ The `--template-settings` argument defines [index level settings](https://www.el
 
 ```json
 {
-    "index_patterns": ["ecs-*"],
-    "order": 1,
-    "settings": {
-        "index": {
-            "mapping": {
-                "total_fields": {
-                    "limit": 10000
-                }
-            },
-            "refresh_interval": "10s"
+  "index_patterns": ["mylog-*"],
+  "order": 1,
+  "settings": {
+    "index": {
+      "mapping": {
+        "total_fields": {
+          "limit": 10000
         }
-    },
-    "mappings": {}
+      },
+      "refresh_interval": "1s"
+    }
+  },
+  "mappings": {}
 }
 ```
 
@@ -275,20 +308,20 @@ The `--template-settings` argument defines [index level settings](https://www.el
 
 ```json
 {
-    "_meta": {
-        "version": "1.5.0"
-    },
+  "_meta": {
+    "version": "1.5.0"
+  },
     "date_detection": false,
     "dynamic_templates": [
-        {
-            "strings_as_keyword": {
-                "mapping": {
-                    "ignore_above": 1024,
-                    "type": "keyword"
-                },
-                "match_mapping_type": "string"
-            }
+      {
+        "strings_as_keyword": {
+          "mapping": {
+            "ignore_above": 1024,
+            "type": "keyword"
+          },
+          "match_mapping_type": "string"
         }
+      }
     ],
     "properties": {}
 }
