@@ -19,67 +19,8 @@ This RFC calls for the addition of session fields to describe events related to 
 |session.name             | locally relevant name if available (e.g. HQ Client VPN, Win19-VDI, FIN-EXCEL-vApp)
 |session.id               | session id provided by server or custom fingerprint of discrete identifiers
 
+See detailed field descriptions in [rfcs/text/0004/session.yml](0004/session.yml).
 
-
-## Fields (yaml)
-```yaml
----
-- name: session
-  title: Session
-  group: 2
-  short: User, admin, application, network, or service sessions
-  description: |-
-    These fields are used to track an entity's interaction with various assets, services, and applications in an enterprise.  Sessions will typically include a start event, often a login / authorization event performed locally or via network based mechanisms, and an end event indicating a logoff or session termination.  Related events during the scope of the session will typically be associated via tuples of user, source and or destination ip/port, or cookies.
-
-    When available, event start/end or duration fields should be populated, as well as iam, user, network, host, observer, process, source, destination, client, and server fields as appropriate to describe the specifics of the interaction.
-
-  type: group
-
- fields:
-
-   - name: kind
-     level: extended
-     type: keyword
-     short: Session kind
-     description: >
-       Session kind describes the type of access represented - system (e.g. local/remote/virtual system logins to workstations, servers, appliances, etc.), application (e.g. web, ftp, database interactions), or network (VPN connections, 802.1x or NAC access to network, wireless WPA sessions).
-
-     example: network
-
-   - name: type
-     level: extended
-     type: Logical session type
-     short: Session type
-     description: >
-       Session type fields provide additional detail on the scope of the interactions being tracked.  Initial values include local (e.g. hands on keyboard, serial connections, etc.), remote (e.g. direct system access via remote desktop, ssh, etc), virtual (e.g. VDI, VDA, etc.), and wired, wireless and vpn network connections.  Session type allows arrays to provide, if necessary, multiple values for a given interaction.
-
-     example: wireless
-     normalize:
-       - array
-
-    - name: authorization
-      level: extended
-      type: keyword
-      description: >
-        Authorization scope of the session. Initial values will include user (e.g. user vdi/vda, vpn, or web sessions, wired/wireless/vpn network access, etc), administrative sessions (root, VMWare Host access, router "enable" level cli, etc.) or service (e.g. network to network VPN, non-user verified application service sessions).
-
-      example: user
-
-    - name: name
-      level: extended
-      type: Session Name
-      description: The name field is meant to contain a locally significant identifier for the session as configured. This could represent a VPN group name, a wireless network name (ssid), a wired network segment, VDI service name, service or application identifier.
-
-      example: HQ-Wireless
-
-    - name: id
-      level: extended
-      type: Session id
-      description: >
-        The id field is meant to contain a locally significant identifier for the session as provided by the observer or host reporting the session.  If no id is provided this field can remain blank, or a hash function similar to network.community_id can be used to discretely identify sessions from unique values.
-
-      example: 7635344
-```
 <!--
 Stage: 1: Describe at a high level how this change affects fields. Which fieldsets will be impacted? How many fields overall? Are we primarily adding fields, removing fields, or changing existing fields? The goal here is to understand the fundamental technical implications and likely extent of these changes. ~2-5 sentences.
 -->
