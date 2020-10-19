@@ -8,6 +8,10 @@ This RFC calls for the addition of session fields to describe events related to
 various types of "sessions" reported by appliances, security devices, systems,
 management portals, applications, etc.
 
+In addition to these fields, a new `event.category` value of "session" should be added.
+Any event that captures information about a session should include "session" in
+the array field `event.category`.
+
 ## Fields
 
 | Field | Description |
