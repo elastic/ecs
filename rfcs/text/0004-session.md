@@ -2,7 +2,7 @@
 <!--^ The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC, taking care not to conflict with other RFCs.-->
 
 - Stage: **2 (draft)** <!-- Update to reflect target stage -->
-- Date: 8/17/2020 <!-- Update to reflect date of most recent stage advancement -->
+- Date: TBD <!-- Update to reflect date of most recent stage advancement -->
 
 <!--
 Stage 0: Provide a high level summary of the premise of these changes. Briefly describe the nature, purpose, and impact of the changes. ~2-5 sentences.
