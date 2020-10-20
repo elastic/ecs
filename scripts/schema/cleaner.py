@@ -163,8 +163,8 @@ def field_mandatory_attributes(field):
     if field['field_details'].get('type') == 'alias' and 'path' not in current_field_attributes:
         missing_attributes.append('path')
     # `scaled_float` fields require a `scaling_factor` attribute.
-    if field['field_details'].get('type') == 'scaled_float' and 'scaled_float' not in current_field_attributes:
-        missing_attributes.append('scaled_float')
+    if field['field_details'].get('type') == 'scaled_float' and 'scaling_factor' not in current_field_attributes:
+        missing_attributes.append('scaling_factor')
 
     if len(missing_attributes) > 0:
         msg = "Field is missing the following mandatory attributes: {}.\nFound these: {}.\nField details: {}"
