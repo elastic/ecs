@@ -16,6 +16,8 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
+* Added `event.category` allowed value "registry". #1040
+
 #### Improvements
 
 #### Deprecated
