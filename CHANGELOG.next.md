@@ -29,6 +29,7 @@ Thanks, you're awesome :-) -->
 #### Added
 
 * Added ability to supply free-form usage documentation per fieldset. #988
+* Added the `path` key when type is `alias`, to support the [alias field type](https://www.elastic.co/guide/en/elasticsearch/reference/current/alias.html). #877
 
 #### Improvements
 

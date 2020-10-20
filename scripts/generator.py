@@ -35,7 +35,6 @@ def main():
         default_dirs = True
 
     ecs_helpers.make_dirs(out_dir)
-    ecs_helpers.make_dirs(docs_dir)
 
     # To debug issues in the gradual building up of the nested structure, insert
     # statements like this after any step of interest.
@@ -58,6 +57,7 @@ def main():
     if args.include or args.subset:
         exit()
 
+    ecs_helpers.make_dirs(docs_dir)
     asciidoc_fields.generate(nested, ecs_version, docs_dir)
 
 
