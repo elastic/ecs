@@ -159,10 +159,12 @@ def field_mandatory_attributes(field):
     current_field_attributes = sorted(field['field_details'].keys())
     missing_attributes = ecs_helpers.list_subtract(FIELD_MANDATORY_ATTRIBUTES, current_field_attributes)
 
-    # The `alias` type requires a target path.
-    # https://github.com/elastic/ecs/issues/876
+    # `alias` fields require a target `path` attribute.
     if field['field_details'].get('type') == 'alias' and 'path' not in current_field_attributes:
         missing_attributes.append('path')
+    # `scaled_float` fields require a `scaling_factor` attribute.
+    if field['field_details'].get('type') == 'scaled_float' and 'scaling_factor' not in current_field_attributes:
+        missing_attributes.append('scaling_factor')
 
     if len(missing_attributes) > 0:
         msg = "Field is missing the following mandatory attributes: {}.\nFound these: {}.\nField details: {}"
