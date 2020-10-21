@@ -168,7 +168,7 @@ The goal here is to research and understand the impact of these changes on users
 
 Normalization, and the degree of normalization, of SIP URI fields may be an issue for discussion based on the potential implementation of ingesting SIP call records for the purposes of review for e.g. various types of communications fraud (e.g. should PSTN numbers be normalized with international dial codes, should implementaiton include capabilities to define internal call plans for more effective analysis, etc.)
 
-Normalization of SIP/SDP and real time communication protocol connections may require the definition of a field similar to network.community_id to allow for the trackign of the full scope of a connection. Additionally the ininital SDP setup phase often includes
+Normalization of SIP/SDP and real time communication protocol connections may require the definition of a field similar to network.community_id to allow for the tracking of the full scope of a connection. Additionally the initial SDP setup phase often includes
 multiple audio/video codec definitions which may be difficult to normalize in such a way as to make analysis of the call setup phase effective.
 
 Utilizing SIP fields in combination with network performance indicators (IP SLA, QOS settings, jitter, mos, etc.) would also be of interest to many users looking at SIP logging.
