@@ -234,7 +234,7 @@ https://github.com/elastic/ecs/issues/420
 
 <!-- An RFC should link to the PRs for each of it stage advancements. -->
 
-* Stage 0: https://github.com/elastic/ecs/pull/NNN
+* Stage 0: https://github.com/elastic/ecs/pull/1014
 
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN
