@@ -61,6 +61,8 @@ def entry_for(field):
             ecs_helpers.dict_copy_existing_keys(field, field_entry, ['norms'])
         elif field['type'] == 'alias':
             ecs_helpers.dict_copy_existing_keys(field, field_entry, ['path'])
+        elif field['type'] == 'scaled_float':
+            ecs_helpers.dict_copy_existing_keys(field, field_entry, ['scaling_factor'])
 
         if 'multi_fields' in field:
             field_entry['fields'] = {}

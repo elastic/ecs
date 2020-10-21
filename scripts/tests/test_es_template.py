@@ -122,6 +122,19 @@ class TestGeneratorsEsTemplate(unittest.TestCase):
         }
         self.assertEqual(es_template.entry_for(test_map), exp)
 
+    def test_entry_for_scaled_float(self):
+        test_map = {
+            'name': 'test.scaled_float',
+            'type': 'scaled_float',
+            'scaling_factor': 1000
+        }
+
+        exp = {
+            'type': 'scaled_float',
+            'scaling_factor': 1000
+        }
+        self.assertEqual(es_template.entry_for(test_map), exp)
+
 
 if __name__ == '__main__':
     unittest.main()
