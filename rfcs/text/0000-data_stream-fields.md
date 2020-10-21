@@ -4,7 +4,7 @@
 - Stage: **1 (proposal)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
 - Date: **TBD** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
-When introducing the new indexing strategy for Elastic Agent which uses data streams, we found that adding a few "constant_keyword" fields corresponding to the central components in the new indexing strategy would be advantageous. 
+When introducing the new indexing strategy for Elastic Agent which uses data streams, we found that adding a few [constant_keyword](https://www.elastic.co/guide/en/elasticsearch/reference/master/keyword.html#constant-keyword-field-type) fields corresponding to the central components in the new indexing strategy would be advantageous. 
 
 
 <!--
@@ -29,13 +29,30 @@ data_stream.type | constant_keyword | An overarching type for the data stream. C
 data_stream.dataset | constant_keyword | The field can contain anything that makes sense to signify the source of the data. Examples include `nginx.access`, `prometheus`, `endpoint` etc. For data streams that otherwise fit, but that do not have dataset set we use the value "generic" for the dataset value. `event.dataset` should have the same value as `data_stream.dataset`. 
 data_stream.namespace | constant_keyword | A user defined namespace. Namespaces are useful to allow grouping of data. Many of our customers already organize their indices this way, and now we are providing this best practice as a default. Many people will use `default` as the value.
 
-In the new indexing strategy, the value of the data stream fields combine to the name of the actual data stream in the following manner `{data_stream.type}-{data_stream.dataset}-{datastream.namespace}`. This means the fields can only contain characters that are valid as part of names of data streams.
+In the new indexing strategy, the value of the data stream fields combine to the name of the actual data stream in the following manner `{data_stream.type}-{data_stream.dataset}-{datastream.namespace}`. This means the fields can only contain characters that are valid as part of names of data streams. Please see the Elasticsearch reference for [restrictions on index/data stream names](https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-create-index.html#indices-create-api-path-params).
 
-data_stream.type is restricted to `logs` or `metrics` for now. 
+### Restrictions on values
+**data_stream.type**
 
-`data_stream.namespace` and `data_stream.dataset` cannot be longer than 100 bytes and `data_stream.dataset` cannot contain dashes (`-`).
+`data_stream.type` is restricted to `logs` or `metrics` for now. 
+
+Any future values for `data_stream.type` should also adhere to the following restrictions (these are derived from the Elasticsearch index restrictions):
+* Must not contain `-`
+* Must not start with `+` or `_`
+
+**data_stream.dataset**
+
+* Must not contain `-`
+* No longer than 100 chars
+
+**data_stream.namespace**
+
+* No longer than 100 chars
 
 
+### On the use of Constant Keyword fields
+
+The new indexing strategy results in users having many more indices than they used to. Elasticsearch is very good at searching for specific documents across indices, but for some common queries we can make it even better by using `constant_keyword` fields. For example, it's often the case that you'd want to find only documents that contain logs from a certain service or logs from a given namespace. For a query such as `data_stream.type: logs AND data_stream.namespace: billing-app` Elasticsearch can quickly determine that only a small subset of the indices are relevant to search through.
 <!--
 Stage 2: Include new or updated yml field definitions for all of the essential fields in this draft. While not exhaustive, the fields documented here should be comprehensive enough to deeply evaluate the technical considerations of this change. The goal here is to validate the technical details for all essential fields and to provide a basis for adding experimental field definitions to the schema. Use GitHub code blocks with yml syntax formatting.
 -->
@@ -56,8 +73,7 @@ Data stream fields are already in use in Elastic Agent. Leveraging the data stre
 * `data_stream.dataset: nginx.access`
 * `data_stream.type: logs AND data_stream.namespace: web-frontend`
 
-Because the fields are mapped as `constant_keyword`, Elasticsearch can quickly exclude indices which are irrelevant for the query. See the [Elasticsearch documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/faster-filtering-with-constant-keyword.html) on `contant_keyword` for more information.
-
+As previously described, fields mapped as `constant_keyword` allows Elasticsearch to drastically optimize queries involving those fields. See the [Elasticsearch documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current/faster-filtering-with-constant-keyword.html) on `constant_keyword` for more information.
 
 
 ## Source data
@@ -66,7 +82,7 @@ Because the fields are mapped as `constant_keyword`, Elasticsearch can quickly e
 Stage 1: Provide a high-level description of example sources of data. This does not yet need to be a concrete example of a source document, but instead can simply describe a potential source (e.g. nginx access log). This will ultimately be fleshed out to include literal source examples in a future stage. The goal here is to identify practical sources for these fields in the real world. ~1-3 sentences or unordered list.
 -->
 
-Today, Elastic Agent adds the the data_stream fields in all documents ingested. It's also possible to use the fields in data from other data sources. Elasticsearch 7.9+ ships with built-in index template mappings which will ensure that documents indexed into data streams that match `logs-*-*` and `metrics-*-*` will get the fields mapped correclty to `constant_keyword` types. 
+Today, Elastic Agent adds the data_stream fields in all documents ingested. It's also possible to use the fields in data from other data sources. Elasticsearch 7.9+ ships with built-in index template mappings which will ensure that documents indexed into data streams that match `logs-*-*` and `metrics-*-*` will get the fields mapped correctly to `constant_keyword` types. 
 
 ### Using data_stream fields with regular indices
 `data_stream` fields only make sense when indexing into data streams. They should not to be used for regular indices.
@@ -81,6 +97,8 @@ Stage 3: Add more real world example source documents so we have at least 2 tota
 -->
 
 ## Scope of impact
+
+* We've described that `generic` is a valid value for `data_stream.dataset` in some cases. Since `event.dataset` should always have the same value, this will also apply to `event.dataset`. We should update the documentation on `event.dataset` to reflect this.
 
 <!--
 Stage 2: Identifies scope of impact of changes. Are breaking changes required? Should deprecation strategies be adopted? Will significant refactoring be involved? Break the impact down into:
@@ -118,7 +136,7 @@ Stage 4: Identify at least one real-world, production-ready implementation that 
 
 Elastic Agent already uses the data_stream fields. 
 
-Additionally, as previously described, beginning in version 7.9, Elasticsearch ships with built-in index templates for data streams which will automatically ensure that data_stream fields get correclty mapped when the data stream name match `logs-*-*` and `metrics-*-*`.
+Additionally, as previously described, beginning in version 7.9, Elasticsearch ships with built-in index templates for data streams which will automatically ensure that data_stream fields get correctly mapped when the data stream name match `logs-*-*` and `metrics-*-*`.
 
 
 ## People
@@ -145,6 +163,10 @@ e.g.:
 ## References
 
 <!-- Insert any links appropriate to this RFC in this section. -->
+
+* Elasticsearch documentation on the [constant_keyword mapping type](https://www.elastic.co/guide/en/elasticsearch/reference/master/keyword.html#constant-keyword-field-type)
+* Previous discussion on [dataset fields](https://github.com/elastic/ecs/pull/845)
+* Restrictions on [index names](https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-create-index.html)
 
 ### RFC Pull Requests
 
