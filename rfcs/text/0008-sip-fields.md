@@ -193,7 +193,7 @@ Stage 4: Document any new concerns and their resolution. The goal here is to eli
 Packetbeat Implementation (packet/protocol analysis)
 Zeek Implementation (packet/protocol/connection analysis)
 Cisco Call Manager (Log ingestion)
-Mictosoft Lync (Log Analysis)
+Microsoft Lync (Log Analysis)
 <!--
 Stage 4: Identify at least one real-world, production-ready implementation that uses these updated field definitions. An example of this might be a GA feature in an Elastic application in Kibana.
 -->
