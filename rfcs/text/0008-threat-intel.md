@@ -1,18 +1,14 @@
 # 0008: Cyber Threat Intelligence Fields
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
-- Stage: **0 (strawperson)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
-- Date: **2020-10-15** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
+- Stage: **1 (proposal)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
+- Date: **2020-10-15**  <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 Elastic Security Solution will be adding the capability to ingest, process and utilize threat intelligence information for increasing detection coverage and helping analysts making quicker investigation decisions. Threat intelligence can be collected from a number of sources with a variety of structured and semi-structured data representations. This makes threat intelligence an ideal candidate for ECS mappings. Threat intelligence data will require ECS mappings to normalize it and make it usable in our security solution. This RFC is focused on identifying new field sets and values that need to be created for threat intelligence data. Existing ECS field reuse will be prioritized where possible. If new fields are required we will utilize [STIX Cyber Observable data model](https://docs.oasis-open.org/cti/stix/v2.1/cs01/stix-v2.1-cs01.html#_mlbmudhl16lr) as guidance.
 
 <!--
 As you work on your RFC, use the "Stage N" comments to guide you in what you should focus on, for the stage you're targeting.
 Feel free to remove these comments as you go along.
--->
-
-<!--
-Stage 0: Provide a high level summary of the premise of these changes. Briefly describe the nature, purpose, and impact of the changes. ~2-5 sentences.
 -->
 
 ## Fields
@@ -87,7 +83,7 @@ Stage 4: Identify at least one real-world, production-ready implementation that 
 
 The following are the people that consulted on the contents of this RFC.
 
-@Shimon | author
+@shimonmodi | author
 
 <!--
 Who will be or has consulted on the contents of this RFC? Identify authorship and sponsorship, and optionally identify the nature of involvement of others. Link to GitHub aliases where possible. This list will likely change or grow stage after stage.
@@ -112,8 +108,4 @@ e.g.:
 <!-- An RFC should link to the PRs for each of it stage advancements. -->
 
 * Stage 0: https://github.com/elastic/ecs/pull/986
-
-<!--
-* Stage 1: https://github.com/elastic/ecs/pull/NNN
-...
--->
+* Stage 1: https://github.com/elastic/ecs/pull/1037
