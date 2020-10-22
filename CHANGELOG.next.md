@@ -31,6 +31,7 @@ Thanks, you're awesome :-) -->
 * Added ability to supply free-form usage documentation per fieldset. #988
 * Added the `path` key when type is `alias`, to support the [alias field type](https://www.elastic.co/guide/en/elasticsearch/reference/current/alias.html). #877
 * Added support for `scaled_float`'s mandatory parameter `scaling_factor`. #1042
+* Added ability for --oss flag to fall back `constant_keyword` to `keyword`. #1046
 
 #### Improvements
 
