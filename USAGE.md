@@ -190,7 +190,9 @@ For example, if we defined the following schema definition in a file named `mypr
 Multiple directory targets can also be provided:
 
 ```
-$ python scripts/generator.py --include ../myproject/custom-fields-A/  ../myproject/custom-fields-B --out ../myproject/out/
+$ python scripts/generator.py \
+    --include ../myproject/custom-fields-A/  ../myproject/custom-fields-B \
+    --out ../myproject/out/
 ```
 
 Generate artifacts using `--include` to load our custom definitions in addition to `--out` to place them in the desired output directory:
