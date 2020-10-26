@@ -274,7 +274,7 @@ func goDataType(fieldName, elasticsearchDataType string) string {
 	}
 
 	switch elasticsearchDataType {
-	case "keyword", "text", "ip", "geo_point":
+	case "keyword", "wildcard", "text", "ip", "geo_point":
 		return "string"
 	case "long":
 		return "int64"
