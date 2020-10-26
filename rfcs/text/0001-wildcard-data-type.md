@@ -467,7 +467,7 @@ A data shipper which uses the `wildcard` field type may need to verify that the 
 
 #### Resolution
 
-Ongoing discussions are talking place to determine how to best address for Beats and Logstash.
+Ongoing discussions are taking place to determine how to best address for Beats and Logstash.
 
 ### Text fields migrating to wildcard
 
