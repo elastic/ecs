@@ -109,7 +109,7 @@ def save_json(file, data):
 
 def default_template_settings():
     return {
-        "index_patterns": ["ecs-*"],
+        "index_patterns": ["try-ecs-*"],
         "order": 1,
         "settings": {
             "index": {
