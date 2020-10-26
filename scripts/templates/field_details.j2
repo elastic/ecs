@@ -25,7 +25,12 @@ Find additional usage and examples in the {{ fieldset['name'] }} fields <<ecs-{{
 {% if 'original_fieldset' not in field -%}
 
 {# `Field` column -#}
+{#- Beta fields will add the `beta` label -#}
+{%- if field['beta'] -%}
+| {{ field['flat_name'] }} beta:[]
+{%- else -%}
 | {{ field['flat_name'] }}
+{%- endif %}
 {# `Description` column -#}
 | {{ field['description']|replace("\n", "\n\n") }}
 
