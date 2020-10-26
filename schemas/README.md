@@ -134,6 +134,7 @@ Supported keys to describe fields
 - format: Field format that can be used in a Kibana index template.
 - normalize: Normalization steps that should be applied at ingestion time. Supported values:
   - array: the content of the field should be an array (even when there's only one value).
+- beta (optional): If `True`, the field will be marked in the documentation with a `beta` label.
 
 Supported keys to describe expected values for a field
 
