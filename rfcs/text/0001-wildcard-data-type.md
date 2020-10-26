@@ -437,7 +437,7 @@ The `case_insensitivity` query parameter is an expected feature in Elasticsearch
 
 ### Performance differences
 
-Performance and storage characteristics between wildcard and keyword will be different[5], and this difference may have an impact depending on deployment size and/or the level of duplication in the field data. As part of the transition, fields which were previously indexed keyword will be switched to wildcard. Queries across indices with field names will be necessary.
+Performance and storage characteristics between wildcard and keyword will be different[5], and this difference may have an impact depending on deployment size and/or the level of duplication in the field data. Fields which were previously indexed as keyword will be switched to wildcard. With these fields now indexed as wildcard, users will be querying fields which are indexed as keyword in some indices and as wildcard in others. Any potential indexing or querying differences needs to be understood and captured.
 
 #### Resolution
 
