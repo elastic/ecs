@@ -87,19 +87,9 @@ Stage 4: Identify at least one real-world, production-ready implementation that 
 
 The following are the people that consulted on the contents of this RFC.
 
-@Shimon | author
-
-<!--
-Who will be or has consulted on the contents of this RFC? Identify authorship and sponsorship, and optionally identify the nature of involvement of others. Link to GitHub aliases where possible. This list will likely change or grow stage after stage.
-
-e.g.:
-
-* @Yasmina | author
-* @Monique | sponsor
-* @EunJung | subject matter expert
-* @JaneDoe | grammar, spelling, prose
-* @Mariana
--->
+@shimonmodi | author
+@peasead | subject matter expert
+@MikePaquette | subject matter expert
 
 
 ## References
