@@ -1,7 +1,7 @@
 #
 # Variables
 #
-.DEFAULT_GOAL    := generate
+.DEFAULT_GOAL    := all
 FIND             := find . -type f -not -path './build/*' -not -path './.git/*'
 FORCE_GO_MODULES := GO111MODULE=on
 OPEN_DOCS        ?= "--open"
@@ -11,6 +11,10 @@ VERSION          := $(shell cat version)
 #
 # Targets (sorted alphabetically)
 #
+
+# Default build generates main and experimental artifacts
+.PHONY: all
+all: generate experimental
 
 # Check verifies that all of the committed files that are generated are
 # up-to-date.
@@ -60,7 +64,7 @@ fmt: ve
 
 # Alias to generate everything.
 .PHONY: generate
-generate: legacy_use_cases codegen generator
+generate: generator legacy_use_cases codegen
 	$(PYTHON) --version
 
 # Run the new generator

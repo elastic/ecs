@@ -13,6 +13,7 @@
 from schema import visitor
 
 TYPE_FALLBACKS = {
+    'constant_keyword': 'keyword',
     'wildcard': 'keyword',
     'version': 'keyword'
 }
@@ -25,5 +26,6 @@ def fallback(fields):
 
 def perform_fallback(field):
     """Performs a best effort fallback of basic data types to equivalent OSS data types."""
-    if field['field_details']['type'] in TYPE_FALLBACKS.keys():
-        field['field_details']['type'] = TYPE_FALLBACKS[field['field_details']['type']]
+    fallback_type = TYPE_FALLBACKS.get(field['field_details']['type'])
+    if fallback_type:
+        field['field_details']['type'] = fallback_type
