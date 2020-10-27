@@ -10,13 +10,14 @@ Thanks, you're awesome :-) -->
 
 ### Schema Changes
 
-* Added `event.category` "session". #1049
-
 #### Breaking changes
 
 #### Bugfixes
 
 #### Added
+
+* Added `event.category` "registry". #1040
+* Added `event.category` "session". #1049
 
 #### Improvements
 
