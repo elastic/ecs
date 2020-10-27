@@ -35,6 +35,7 @@ Thanks, you're awesome :-) -->
 * Added the `path` key when type is `alias`, to support the [alias field type](https://www.elastic.co/guide/en/elasticsearch/reference/current/alias.html). #877
 * Added support for `scaled_float`'s mandatory parameter `scaling_factor`. #1042
 * Added ability for --oss flag to fall back `constant_keyword` to `keyword`. #1046
+* Added support in the generated Go source go for `wildcard`, `version`, and `constant_keyword` data types. #1050
 
 #### Improvements
 
