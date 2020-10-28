@@ -351,6 +351,7 @@ Indices using purely OSS types will benefit from the normalization of ECS, but m
 
 Current fallbacks applied by this flag are:
 
+- `constant_keyword` => `keyword`
 - `wildcard` => `keyword`
 - `version` => `keyword`
 
