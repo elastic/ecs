@@ -164,6 +164,13 @@ class TestSchemaCleaner(unittest.TestCase):
                                     "mandatory attributes: {}".format("path")):
             cleaner.field_mandatory_attributes(field)
 
+    def test_raises_on_missing_scaling_factor(self):
+        field = self.schema_process()['process']['fields']['pid']
+        field['field_details']['type'] = "scaled_float"
+        with self.assertRaisesRegex(ValueError,
+                                    "mandatory attributes: {}".format("scaling_factor")):
+            cleaner.field_mandatory_attributes(field)
+
     def test_field_simple_cleanup(self):
         my_field = {
             'field_details': {

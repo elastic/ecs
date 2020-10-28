@@ -29,6 +29,7 @@ Thanks, you're awesome :-) -->
 #### Added
 
 * Added the `path` key when type is `alias`, to support the [alias field type](https://www.elastic.co/guide/en/elasticsearch/reference/current/alias.html). #877
+* Added support for `scaled_float`'s mandatory parameter `scaling_factor`. #1042
 
 #### Improvements
 
