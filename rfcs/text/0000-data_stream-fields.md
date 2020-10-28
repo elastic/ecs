@@ -114,7 +114,7 @@ The goal here is to research and understand the impact of these changes on users
 Stage 1: Identify potential concerns, implementation challenges, or complexity. Spend some time on this. Play devil's advocate. Try to identify the sort of non-obvious challenges that tend to surface later. The goal here is to surface risks early, allow everyone the time to work through them, and ultimately document resolution for posterity's sake.
 -->
 ### Relation to event.* fields
-Concerns have been raised about how these fields relate to the event fields. Specifically, event.type, event.kind, event.category etc. We didn't find a way to square this concern at the time and it was decided to move forward with the data_stream fields for now and consider them to be unrelated to the event fields. event.dataset and data_stream.dataset, however, should contain the same value.
+Concerns have been raised about how these fields relate to the event fields. Specifically, `event.type`, `event.kind`, `event.category` etc. Specifically, `data_stream.type` seems closer to `event.kind` than `event.type`. There are other inconsistencies here and we didn't find a way to square this concern at the time. It was decided to move forward with the `data_stream` fields for now and consider them to be unrelated to the event fields. `event.dataset` and `data_stream.dataset`, however, should contain the same value.
 
 <!--
 Stage 2: Document new concerns or resolutions to previously listed concerns. It's not critical that all concerns have resolutions at this point, but it would be helpful if resolutions were taking shape for the most significant concerns.
