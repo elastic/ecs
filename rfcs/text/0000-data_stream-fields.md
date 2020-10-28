@@ -166,7 +166,9 @@ e.g.:
 
 * Elasticsearch documentation on the [constant_keyword mapping type](https://www.elastic.co/guide/en/elasticsearch/reference/master/keyword.html#constant-keyword-field-type)
 * Previous discussion on [dataset fields](https://github.com/elastic/ecs/pull/845)
+* Discussion on [field value restrictions](https://github.com/elastic/kibana/issues/75846)
 * Restrictions on [index names](https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-create-index.html)
+
 
 ### RFC Pull Requests
 
