@@ -113,6 +113,13 @@ def get_tree_by_ref(ref):
     commit = repo.commit(ref)
     return commit.tree
 
+def path_exists_in_git_tree(tree, file_path):
+    try:
+        _ = tree[file_path]
+    except KeyError:
+        return False
+    return True
+
 
 def usage_doc_files():
     usage_docs_dir = os.path.join(os.path.dirname(__file__), '../../docs/usage')
