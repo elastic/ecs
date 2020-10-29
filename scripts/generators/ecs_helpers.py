@@ -113,6 +113,7 @@ def get_tree_by_ref(ref):
     commit = repo.commit(ref)
     return commit.tree
 
+
 def path_exists_in_git_tree(tree, file_path):
     try:
         _ = tree[file_path]

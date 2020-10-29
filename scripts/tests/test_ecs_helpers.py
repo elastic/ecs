@@ -112,5 +112,6 @@ class TestECSHelpers(unittest.TestCase):
         self.assertFalse(ecs_helpers.path_exists_in_git_tree(tree, 'nonexistant'))
         self.assertTrue(ecs_helpers.path_exists_in_git_tree(tree, 'schemas'))
 
+
 if __name__ == '__main__':
     unittest.main()
