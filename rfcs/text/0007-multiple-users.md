@@ -636,14 +636,6 @@ and the assumed role in the `userIdentity`. This makes it easy to keep track of 
 the real user at `user.*` and the escalated privileges at `user.effective.*` in
 all subsequent activity after privilege escalation.
 
-<!--
-Stage 2: Included a real world example source document. Ideally this example comes from the source(s) identified in stage 1. If not, it should replace them. The goal here is to validate the utility of these field changes in the context of a real world example. Format with the source name as a ### header and the example document in a GitHub code block with json formatting.
--->
-
-<!--
-Stage 3: Add more real world example source documents so we have at least 2 total, but ideally 3. Format as described in stage 2.
--->
-
 ## Scope of impact
 
 ### New fields for IAM
