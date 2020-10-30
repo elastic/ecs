@@ -663,12 +663,12 @@ These came up while working on this RFC; this is not guidance that was given
 in the past. Data sources that populate these fields will need to be revisited
 and adjusted accordingly.
 
-<!-- TODO
+### host.user fields are deprecated for removal
 
-Depending on the outcome of the discussion on `host.user.*`, mention it here.
-It's currently listed in the concerns below.
+Seeing no use in the wild, it was decided to remove the reuse of the user fields at `host.user.*`.
+We will start by deprecating them in ECS 1.8, and will remove them at the next major version.
 
--->
+Please let us know before the next major ECS release if you disagree with this, and share how you're using them.
 
 ## Concerns
 
@@ -678,11 +678,11 @@ In past discussions and recent research, we have not identified a clear purpose
 for the user fields nested at `host.user.*`.
 
 We are considering deprecating these fields with the intent to remove them completely.
-Please let us know if you disagree with this, and share how you're using them.
 
 #### Resolution
 
-No resolution yet.
+They will be marked as deprecated starting with ECS 1.8, and will be removed in
+the next ECS major release.
 
 ### Documenting the purpose of each usage of the user fields
 
