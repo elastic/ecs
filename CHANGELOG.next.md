@@ -18,10 +18,14 @@ Thanks, you're awesome :-) -->
 
 * Added `event.category` "registry". #1040
 * Added `event.category` "session". #1049
+* Added usage documentation for `user` fields. #1066
+* Added `user` fields at `user.effective.*`, `user.target.*` and `user.changes.*`. #1066
 
 #### Improvements
 
 #### Deprecated
+
+* Deprecated `host.user.*` fields for removal at the next major. #1066
 
 ### Tooling and Artifact Changes
 
