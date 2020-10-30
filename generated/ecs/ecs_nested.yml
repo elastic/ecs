@@ -9532,6 +9532,138 @@ user:
     Fields can have one entry or multiple entries. If a user has more than one id,
     provide an array that includes all of them.'
   fields:
+    user.changes.domain:
+      dashed_name: user-changes-domain
+      description: 'Name of the directory the user is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: user.changes.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: user
+      short: Name of the directory the user is a member of.
+      type: keyword
+    user.changes.email:
+      dashed_name: user-changes-email
+      description: User email address.
+      flat_name: user.changes.email
+      ignore_above: 1024
+      level: extended
+      name: email
+      normalize: []
+      original_fieldset: user
+      short: User email address.
+      type: keyword
+    user.changes.full_name:
+      dashed_name: user-changes-full-name
+      description: User's full name, if available.
+      example: Albert Einstein
+      flat_name: user.changes.full_name
+      ignore_above: 1024
+      level: extended
+      multi_fields:
+      - flat_name: user.changes.full_name.text
+        name: text
+        norms: false
+        type: text
+      name: full_name
+      normalize: []
+      original_fieldset: user
+      short: User's full name, if available.
+      type: keyword
+    user.changes.group.domain:
+      dashed_name: user-changes-group-domain
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: user.changes.group.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: group
+      short: Name of the directory the group is a member of.
+      type: keyword
+    user.changes.group.id:
+      dashed_name: user-changes-group-id
+      description: Unique identifier for the group on the system/platform.
+      flat_name: user.changes.group.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      normalize: []
+      original_fieldset: group
+      short: Unique identifier for the group on the system/platform.
+      type: keyword
+    user.changes.group.name:
+      dashed_name: user-changes-group-name
+      description: Name of the group.
+      flat_name: user.changes.group.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      normalize: []
+      original_fieldset: group
+      short: Name of the group.
+      type: keyword
+    user.changes.hash:
+      dashed_name: user-changes-hash
+      description: 'Unique user hash to correlate information for a user in anonymized
+        form.
+
+        Useful if `user.id` or `user.name` contain confidential information and cannot
+        be used.'
+      flat_name: user.changes.hash
+      ignore_above: 1024
+      level: extended
+      name: hash
+      normalize: []
+      original_fieldset: user
+      short: Unique user hash to correlate information for a user in anonymized form.
+      type: keyword
+    user.changes.id:
+      dashed_name: user-changes-id
+      description: Unique identifier of the user.
+      flat_name: user.changes.id
+      ignore_above: 1024
+      level: core
+      name: id
+      normalize: []
+      original_fieldset: user
+      short: Unique identifier of the user.
+      type: keyword
+    user.changes.name:
+      dashed_name: user-changes-name
+      description: Short name or login of the user.
+      example: albert
+      flat_name: user.changes.name
+      ignore_above: 1024
+      level: core
+      multi_fields:
+      - flat_name: user.changes.name.text
+        name: text
+        norms: false
+        type: text
+      name: name
+      normalize: []
+      original_fieldset: user
+      short: Short name or login of the user.
+      type: keyword
+    user.changes.roles:
+      dashed_name: user-changes-roles
+      description: Array of user roles at the time of the event.
+      example: '["kibana_admin", "reporting_user"]'
+      flat_name: user.changes.roles
+      ignore_above: 1024
+      level: extended
+      name: roles
+      normalize:
+      - array
+      original_fieldset: user
+      short: Array of user roles at the time of the event.
+      type: keyword
     user.domain:
       dashed_name: user-domain
       description: 'Name of the directory the user is a member of.
@@ -9543,6 +9675,138 @@ user:
       name: domain
       normalize: []
       short: Name of the directory the user is a member of.
+      type: keyword
+    user.effective.domain:
+      dashed_name: user-effective-domain
+      description: 'Name of the directory the user is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: user.effective.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: user
+      short: Name of the directory the user is a member of.
+      type: keyword
+    user.effective.email:
+      dashed_name: user-effective-email
+      description: User email address.
+      flat_name: user.effective.email
+      ignore_above: 1024
+      level: extended
+      name: email
+      normalize: []
+      original_fieldset: user
+      short: User email address.
+      type: keyword
+    user.effective.full_name:
+      dashed_name: user-effective-full-name
+      description: User's full name, if available.
+      example: Albert Einstein
+      flat_name: user.effective.full_name
+      ignore_above: 1024
+      level: extended
+      multi_fields:
+      - flat_name: user.effective.full_name.text
+        name: text
+        norms: false
+        type: text
+      name: full_name
+      normalize: []
+      original_fieldset: user
+      short: User's full name, if available.
+      type: keyword
+    user.effective.group.domain:
+      dashed_name: user-effective-group-domain
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: user.effective.group.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: group
+      short: Name of the directory the group is a member of.
+      type: keyword
+    user.effective.group.id:
+      dashed_name: user-effective-group-id
+      description: Unique identifier for the group on the system/platform.
+      flat_name: user.effective.group.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      normalize: []
+      original_fieldset: group
+      short: Unique identifier for the group on the system/platform.
+      type: keyword
+    user.effective.group.name:
+      dashed_name: user-effective-group-name
+      description: Name of the group.
+      flat_name: user.effective.group.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      normalize: []
+      original_fieldset: group
+      short: Name of the group.
+      type: keyword
+    user.effective.hash:
+      dashed_name: user-effective-hash
+      description: 'Unique user hash to correlate information for a user in anonymized
+        form.
+
+        Useful if `user.id` or `user.name` contain confidential information and cannot
+        be used.'
+      flat_name: user.effective.hash
+      ignore_above: 1024
+      level: extended
+      name: hash
+      normalize: []
+      original_fieldset: user
+      short: Unique user hash to correlate information for a user in anonymized form.
+      type: keyword
+    user.effective.id:
+      dashed_name: user-effective-id
+      description: Unique identifier of the user.
+      flat_name: user.effective.id
+      ignore_above: 1024
+      level: core
+      name: id
+      normalize: []
+      original_fieldset: user
+      short: Unique identifier of the user.
+      type: keyword
+    user.effective.name:
+      dashed_name: user-effective-name
+      description: Short name or login of the user.
+      example: albert
+      flat_name: user.effective.name
+      ignore_above: 1024
+      level: core
+      multi_fields:
+      - flat_name: user.effective.name.text
+        name: text
+        norms: false
+        type: text
+      name: name
+      normalize: []
+      original_fieldset: user
+      short: Short name or login of the user.
+      type: keyword
+    user.effective.roles:
+      dashed_name: user-effective-roles
+      description: Array of user roles at the time of the event.
+      example: '["kibana_admin", "reporting_user"]'
+      flat_name: user.effective.roles
+      ignore_above: 1024
+      level: extended
+      name: roles
+      normalize:
+      - array
+      original_fieldset: user
+      short: Array of user roles at the time of the event.
       type: keyword
     user.email:
       dashed_name: user-email
@@ -9657,10 +9921,145 @@ user:
       - array
       short: Array of user roles at the time of the event.
       type: keyword
+    user.target.domain:
+      dashed_name: user-target-domain
+      description: 'Name of the directory the user is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: user.target.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: user
+      short: Name of the directory the user is a member of.
+      type: keyword
+    user.target.email:
+      dashed_name: user-target-email
+      description: User email address.
+      flat_name: user.target.email
+      ignore_above: 1024
+      level: extended
+      name: email
+      normalize: []
+      original_fieldset: user
+      short: User email address.
+      type: keyword
+    user.target.full_name:
+      dashed_name: user-target-full-name
+      description: User's full name, if available.
+      example: Albert Einstein
+      flat_name: user.target.full_name
+      ignore_above: 1024
+      level: extended
+      multi_fields:
+      - flat_name: user.target.full_name.text
+        name: text
+        norms: false
+        type: text
+      name: full_name
+      normalize: []
+      original_fieldset: user
+      short: User's full name, if available.
+      type: keyword
+    user.target.group.domain:
+      dashed_name: user-target-group-domain
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: user.target.group.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: group
+      short: Name of the directory the group is a member of.
+      type: keyword
+    user.target.group.id:
+      dashed_name: user-target-group-id
+      description: Unique identifier for the group on the system/platform.
+      flat_name: user.target.group.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      normalize: []
+      original_fieldset: group
+      short: Unique identifier for the group on the system/platform.
+      type: keyword
+    user.target.group.name:
+      dashed_name: user-target-group-name
+      description: Name of the group.
+      flat_name: user.target.group.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      normalize: []
+      original_fieldset: group
+      short: Name of the group.
+      type: keyword
+    user.target.hash:
+      dashed_name: user-target-hash
+      description: 'Unique user hash to correlate information for a user in anonymized
+        form.
+
+        Useful if `user.id` or `user.name` contain confidential information and cannot
+        be used.'
+      flat_name: user.target.hash
+      ignore_above: 1024
+      level: extended
+      name: hash
+      normalize: []
+      original_fieldset: user
+      short: Unique user hash to correlate information for a user in anonymized form.
+      type: keyword
+    user.target.id:
+      dashed_name: user-target-id
+      description: Unique identifier of the user.
+      flat_name: user.target.id
+      ignore_above: 1024
+      level: core
+      name: id
+      normalize: []
+      original_fieldset: user
+      short: Unique identifier of the user.
+      type: keyword
+    user.target.name:
+      dashed_name: user-target-name
+      description: Short name or login of the user.
+      example: albert
+      flat_name: user.target.name
+      ignore_above: 1024
+      level: core
+      multi_fields:
+      - flat_name: user.target.name.text
+        name: text
+        norms: false
+        type: text
+      name: name
+      normalize: []
+      original_fieldset: user
+      short: Short name or login of the user.
+      type: keyword
+    user.target.roles:
+      dashed_name: user-target-roles
+      description: Array of user roles at the time of the event.
+      example: '["kibana_admin", "reporting_user"]'
+      flat_name: user.target.roles
+      ignore_above: 1024
+      level: extended
+      name: roles
+      normalize:
+      - array
+      original_fieldset: user
+      short: Array of user roles at the time of the event.
+      type: keyword
   group: 2
   name: user
   nestings:
+  - user.changes
+  - user.effective
   - user.group
+  - user.target
   prefix: user.
   reusable:
     expected:
@@ -9679,11 +10078,29 @@ user:
     - as: user
       at: source
       full: source.user
+    - as: target
+      at: user
+      full: user.target
+    - as: effective
+      at: user
+      full: user.effective
+    - as: changes
+      at: user
+      full: user.changes
     top_level: true
   reused_here:
   - full: user.group
     schema_name: group
     short: User's group relevant to the event.
+  - full: user.target
+    schema_name: user
+    short: Fields to describe the user relevant to the event.
+  - full: user.effective
+    schema_name: user
+    short: Fields to describe the user relevant to the event.
+  - full: user.changes
+    schema_name: user
+    short: Fields to describe the user relevant to the event.
   short: Fields to describe the user relevant to the event.
   title: User
   type: group
