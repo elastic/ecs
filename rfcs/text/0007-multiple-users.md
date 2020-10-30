@@ -727,7 +727,7 @@ Stage 4: Identify at least one real-world, production-ready implementation that 
 The following are the people that consulted on the contents of this RFC.
 
 * @webmat | author
-* TBD | sponsor
+* @jonathan-buttner | sponsor
 * @leehinman | subject matter expert
 * @janniten | subject matter expert
 * @willemdh | subject matter expert
