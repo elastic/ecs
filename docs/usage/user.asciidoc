@@ -1,0 +1,287 @@
+[[ecs-user-usage]]
+==== Usage
+
+[discrete]
+===== Categorization
+
+TODO - Discuss IAM categories, and I think that's it
+
+[discrete]
+===== Field reuse
+
+The user fields can be reused in many places across ECS. This makes
+it possible to capture many users relevant to a single event.
+
+Here's the full list of places where the user fields can appear:
+
+* `user.*`
+* `user.effective.*`
+* `user.target.*`
+* `user.changes.*`
+* `source.user.*`
+* `destination.user.*`
+* `client.user.*`
+* `server.user.*`
+* `host.user.*` (deprecated)
+
+Let's go over the meaning of each.
+
+The examples below will only populate `user.name` and sometimes `user.id` inside
+the various `user` nestings, for readability.
+However in implementations, unless otherwise noted, all `user` fields that can
+reasonably be populated in each location should be populated.
+
+[discrete]
+====== User fields at the Root of an Event
+
+The user fields at the root of an event must be used to capture the user
+performing the main action described by the event. This is especially important
+when there's more than one user present on the event. `user.*` fields at the root
+of the event represent the user performing the action.
+
+In many cases, events that only mention one user should populate the user fields
+at the root of the event, even if the user is not the one performing the action.
+
+In cases where a purpose-specific user field such as `url.username` is populated,
+`user.name` should also be populated with the same user name.
+
+[source,json]
+-----------
+{
+  "url": { "username": "alice" },
+  "user": { "name": "alice" },
+  "related": { "user": ["alice"] }
+}
+-----------
+
+[discrete]
+====== Remote Logons
+
+When users are crossing host boundaries, the users are captured at
+`source.user` and `destination.user`.
+
+Examples of data sources where this is applicable:
+
+* Remote logons via ssh, kerberos
+* Firewalls observing network traffic
+
+In order to align with ECS' design of having `user` at the root of the event as the
+user performing the action, all `source.user` fields should be copied to `user` at the root.
+
+Here's an example where user "alice" logs on to another host as user "deus":
+
+[source,json]
+-----------
+{
+  "user": {
+    "name": "alice"
+  },
+  "source": {
+    "user": {
+      "name": "alice"
+    },
+    "ip": "10.42.42.42"
+  },
+  "destination": {
+    "user": {
+      "name": "deus"
+    },
+    "ip": "10.42.42.43"
+  },
+  "related": { "user": ["alice", "deus"] }
+}
+-----------
+
+Whenever an event source populates the `client` and `server` fields in addition
+to `source` and `destination`, the user fields should be copied accordingly as well.
+
+[discrete]
+====== Privilege Changes
+
+The `user.effective` fields are relevant when there's a privilege escalation or demotion
+and it's possible to determine the user requesting/performing the escalation.
+
+Use the `user` fields at the root to capture who is requesting the privilege change,
+and `user.effective` to capture the requested privilege level, whether or not the
+privilege change was successful.
+
+Here are examples where this is applicable:
+
+* A user changing identity on a host.
+  * Examples: sudo, su, Run as.
+* Running a program as a different user. Examples:
+  * A trusted user runs a specific admin command as root via a mechanism such as the Posix setuid/setgid.
+  * A service manager with administrator privileges starts child processes as limited
+    users, for security purposes (e.g. root runs Apache HTTPD as user "apache")
+
+In cases where the event source only gives information about the effective user
+and not who requested different privileges, the `user` fields at the root of the
+event should be used instead.
+
+Here's an example of user "alice" running a command as root via sudo:
+
+[source,json]
+-----------
+{
+  "user": {
+    "name": "alice",
+    "id": "1001",
+    "effective": {
+      "name": "root",
+      "id": "1"
+    }
+  },
+  "related": { "user": ["alice", "root"] }
+}
+-----------
+
+When it's not possible (or it's prohibitive) to determine which user is requesting
+different privilege levels, it's acceptable to capture the effective user at the
+root of the event. Typically a privilege change event will already have happened,
+for example: bob "su" as root; and subsequent events will show the root user
+performing the actions.
+
+[discrete]
+====== Identity and Access Management
+
+Whenever a user is performing an action that affects another user -- typically
+in IAM scenarios -- the user affected by the action is captured at
+`user.target`. The user performing the IAM activity is captured at the root
+of the event.
+
+Examples of IAM activity include:
+
+* user-a creates or deletes user-b
+* user-a modifies user-b
+
+In the create/delete scenarios, there's either no prior state (user creation)
+or no post state (user deletion). In these cases, only `user` at the root and
+`user.target` must be populated.
+
+Example where "root" creates user "bob":
+
+[source,json]
+-----------
+{
+  "user": {
+    "name": "root",
+    "id": "1",
+    "target": {
+      "name": "bob",
+      "id": "1002",
+      ...
+    }
+  }
+  "related": { "user": ["bob", "root"] }
+}
+-----------
+
+When there's a change of state to an existing user, `user.target` must be used
+to capture the prior state of the user, and `user.changes` should list only
+the changes that were performed.
+
+Example where "root" renames user "bob" to "bob.barker":
+
+[source,json]
+-----------
+{
+  "user": {
+    "name": "root",
+    "id": "1",
+    "target": {
+      "name": "bob",
+      "id": "1002"
+    },
+    "changes": {
+      "name": "bob.barker"
+    }
+  },
+  "related": { "user": ["bob", "bob.barker", "root"] }
+}
+-----------
+
+You'll note in the example above that unmodified attributes like the user ID are
+not repeated under `user.changes.*`, since they didn't change.
+
+[discrete]
+====== Combining IAM and Privilege Change
+
+We've covered above how `user.target` and `user.changes` can be used at the same time.
+If privilege escalation is captured in the same IAM event, `user.effective`
+should of course be used as well.
+
+Here's the "rename" example from the IAM section above. In the following example,
+we know "alice" is escalating privileges as "root", in order to modify user "bob":
+
+[source,json]
+-----------
+{
+  "user": {
+    "name": "alice",
+    "id": "1001",
+    "effective": {
+      "name": "root",
+      "id": "1"
+    },
+    "target": {
+      "name": "bob",
+      "id": "1002"
+    },
+    "changes": {
+      "name": "bob.barker"
+    }
+  },
+  "related": { "user": ["alice", "bob", "bob.barker", "root"] }
+}
+-----------
+
+[discrete]
+====== Notes about reuse within the "user" field set
+
+TODO
+
+[discrete]
+===== Pivoting via related.user
+
+In all events in this page, we've populated the `related.user` fields.
+
+Any event that has users in it should always populate the array field `related.user`
+with all usernames seen in the event, even if these user names were in custom fields.
+Note that this field is not a nesting of all user fields,
+it's a flat array meant to contain user identifiers.
+
+Taking the example from `user.changes` again, we can see that no matter the role
+of the each user (before/after privilege escalation, affected user, username after rename), they are all present in `related.user`:
+
+[source,json]
+-----------
+{
+  "user": {
+    "name": "alice",
+    "id": "1001",
+    "effective": {
+      "name": "root",
+      "id": "1"
+    },
+    "target": {
+      "name": "bob",
+      "id": "1002"
+    },
+    "changes": {
+      "name": "bob.barker"
+    }
+  },
+  "related": { "user": ["alice", "root", "bob", "bob.barker"] }
+}
+-----------
+
+Like the other fields in the <<ecs-related,related>> field set, `related.user` is meant to facilitate
+pivoting. For example, if you have a suspicion about user "bob.barker", searching
+for this name in `related.user` will give you all events related to this user, whether
+it's the creation / rename of the user, or events where this user was active in a system.
+
+[discrete]
+===== Mapping Examples
+
+For examples of mapping events from various sources, you can look at
+https://github.com/elastic/ecs/blob/master/rfcs/text/0007-multiple-users.md#source-data[RFC 0007 in section Source Data].
