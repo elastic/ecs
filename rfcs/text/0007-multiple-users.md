@@ -67,7 +67,7 @@ This can be seen in more detail on PR [ecs#869](https://github.com/elastic/ecs/p
 
 The examples below will only populate `user.name` and sometimes `user.id` inside
 the various `user` nestings, for readability.
-However in implementations, otherwise noted all `user` fields that can reasonably
+However in implementations, unless otherwise noted, all `user` fields that can reasonably
 be populated in each location should be populated.
 
 ### User fields at the Root of an Event
