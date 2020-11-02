@@ -4,12 +4,70 @@
 [discrete]
 ===== Categorization
 
-TODO - Discuss IAM categories, and I think that's it
+User fields can be present in any kind of event, without affecting the event's
+categorization.
+
+However when the event is about IAM (Identity and Account Management),
+make sure you categorize it as follows. In this section we'll cover specifically
+`event.category` and `event.type` with regards to IAM activity. Make sure to read
+the <<ecs-category-field-values-reference, Categorization section>> to see all allowed
+values, and read more about `event.kind` and `event.outcome`.
+
+NOTE: IAM activity is a bit particular in that events are expected to be assigned 2 event types.
+One of them indicates the type of activity (creation, deletion, change, etc.),
+and the other indicates whether a user or a group is the target of the management activity.
+
+Many sections of the documents are elided, in order to focus on the categorization
+of the events.
+
+Creation of group "test-group":
+
+```JSON
+{
+  "event": {
+    "kind": "event",
+    "category": ["iam"], <1>
+    "type": ["group", "creation"], <2>
+    "outcome": "success"
+  },
+  "group": { "name": "test-group", ... },
+  "user": { ... },
+  "related": { "user": [ ... ] }
+}
+```
+<1> Category "iam"
+<2> Both relevant event types to a group creation
+
+Adding "test-user" to "test-group":
+
+```JSON
+{
+  "event": {
+    "kind": "event",
+    "category": ["iam"], <1>
+    "type": ["user", "change"], <2>
+    "action": "user added to group", <3>
+    "outcome": "success"
+  },
+  "user": {
+    ...
+    "target": { <4>
+      "name": "test-user",
+      "group": { "name": "test-group" }
+    }
+  },
+  "related": { "user": [ ... ] }
+}
+```
+<1> Category "iam"
+<2> Both relevant event types to a user modification
+<3> `event.action` is not a categorization field, and has no mandated value. It can be populated based on source event details or by a pipeline, to ensure the event captures all subtleties of what's happening.
+<4> How to use all possible user fields is detailed below.
 
 [discrete]
 ===== Field reuse
 
-The user fields can be reused in many places across ECS. This makes
+The user fields can be reused (or appear) in many places across ECS. This makes
 it possible to capture many users relevant to a single event.
 
 Here's the full list of places where the user fields can appear:
