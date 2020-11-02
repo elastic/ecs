@@ -88,7 +88,7 @@ def load_schemas_from_git(ref, target_dir='schemas'):
                 new_fields = read_schema_blob(blob, ref)
                 fields_nested = ecs_helpers.safe_merge_dicts(fields_nested, new_fields)
     else:
-        raise KeyError(f"Target directory './{target_dir}' not present in current git ref!")
+        raise KeyError(f"Target directory './{target_dir}' not present in git ref '{ref}'!")
     return fields_nested
 
 
