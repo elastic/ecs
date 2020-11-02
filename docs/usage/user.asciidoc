@@ -11,7 +11,7 @@ Here are the subjects covered in this page.
 ** <<ecs-user-usage-privilege-changes>>
 ** <<ecs-user-usage-iam>>
 ** <<ecs-user-usage-combining>>
-** <<ecs-user-usage-reuse-within>>
+** <<ecs-user-usage-reuse-subtleties>>
 
 * <<ecs-user-usage-pivoting>>
 
@@ -317,10 +317,24 @@ we know "alice" is escalating privileges as "root", in order to modify user "bob
 -----------
 
 [discrete]
-[[ecs-user-usage-reuse-within]]
-====== Notes about reuse within the "user" field set
+[[ecs-user-usage-reuse-subtleties]]
+====== Subtleties around field reuse
 
-TODO
+Most cases of field reuse in ECS are reusing a field set inside another field set.
+Two examples of this are:
+
+* reusing `group` in `user`, resulting in the `user.group.*` fields, or
+* reusing `user` in `destination`, resulting in the `destination.user.*` fields,
+  which include `destination.user.group.*`.
+
+The `user` fields can also be reused within `user` as different names,
+representing the role of each relevant user. Examples are the `user.target.*` or `user.effective.*` fields.
+
+It's important to note, that contrary to the `group` fields,
+the user fields reused within `user` are **not** carried around when reusing `user`
+in other places. To continue with the `destination` example, while `group` fields
+are carried to `destination.user.group.*`, there are no `destination.user.effective.*`,
+`destination.user.target.*` nor `destination.user.changes.*` fields.
 
 [discrete]
 [[ecs-user-usage-pivoting]]
