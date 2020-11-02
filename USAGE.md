@@ -29,6 +29,7 @@ relevant artifacts for their unique set of data sources.
     + [Include](#include)
     + [Subset](#subset)
     + [Ref](#ref)
+      - [Using ref with include](#using-ref-with-include)
     + [Mapping & Template Settings](#mapping--template-settings)
     + [OSS](#oss)
     + [Strict Mode](#strict-mode)
@@ -228,6 +229,8 @@ And looking at a specific artifact, `../myprojects/out/generated/elasticsearch/7
 ...
 ```
 
+Include can be used with together with the `--ref` flag to merge custom and/or experimental fields into a targeted ECS version. See [Using ref with include](#using-ref-with-include).
+
 > NOTE: The `--include` mechanism will not validate custom YAML files prior to merging. This allows for modifying existing ECS fields in a custom schema without having to redefine all the mandatory field attributes.
 
 #### Subset
@@ -279,6 +282,30 @@ The `--ref` argument allows for passing a specific `git` tag (e.g. `v.1.5.0`) or
 
 ```
 $ python scripts/generator.py --ref v1.5.0
+```
+
+##### Using ref with include
+
+Be aware that `--ref` only loads field definitions from the [`./schemas`](./schemas) subdirectory in the target `git` ref. Any custom fieldsets from other locations can be merged using `--include`.
+
+For example, merging ECS v1.6.0 fields with custom fields maintained in a separate `myproject` directory:
+
+```
+$ python scripts/generator.py --ref v1.6.0 --include ../myproject/fields/custom`  --out ../myproject/out
+```
+
+There one is one exception that supports the [experimental](experimental/README.md) fields. If using `--ref` alongside with including the `experimental/schemas` directory, the fields in `experimental/schemas` will also be loaded from the target git ref.
+
+Here's another example, which merges ECS v1.7.0 with the experimental fields as of v1.7.0:
+
+```
+$ python scripts/generator.py --ref v1.7.0 --include experimental/schemas
+```
+
+One final example here merges ECS v1.7.0 fields, ECS v1.7.0 experimental fields, and custom fields:
+
+```
+$ python scripts/generator.py --ref v1.7.0 --include experimental/schemas ../myproject/fields/custom --out ../myproject/out
 ```
 
 > Note: `--ref` does have a dependency on `git` being installed and all expected commits/tags fetched from the ECS upstream repo. This will unlikely be an issue unless you downloaded the ECS as a zip archive from GitHub vs. cloning it.
