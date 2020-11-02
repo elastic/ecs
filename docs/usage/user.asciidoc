@@ -27,7 +27,7 @@ User fields can be present in any kind of event, without affecting the event's
 categorization.
 
 However when the event is about IAM (Identity and Account Management),
-make sure you categorize it as follows. In this section we'll cover specifically
+it should be categorized as follows. In this section we'll cover specifically
 `event.category` and `event.type` with regards to IAM activity. Make sure to read
 the <<ecs-category-field-values-reference, Categorization section>> to see all allowed
 values, and read more about `event.kind` and `event.outcome`.
@@ -36,7 +36,7 @@ NOTE: IAM activity is a bit particular in that events are expected to be assigne
 One of them indicates the type of activity (creation, deletion, change, etc.),
 and the other indicates whether a user or a group is the target of the management activity.
 
-Many sections of the documents are elided, in order to focus on the categorization
+Many sections of the examples below are elided, in order to focus on the categorization
 of the events.
 
 Creation of group "test-group":
@@ -100,7 +100,7 @@ Here's the full list of places where the user fields can appear:
 * `destination.user.*`
 * `client.user.*`
 * `server.user.*`
-* `host.user.*` (deprecated)
+* `host.user.*` (<<ecs-user-usage-deprecations,deprecated>>)
 
 Let's go over the meaning of each.
 
@@ -113,7 +113,7 @@ reasonably be populated in each location should be populated.
 [[ecs-user-usage-user-at-root]]
 ====== User fields at the Root of an Event
 
-The user fields at the root of an event must be used to capture the user
+The user fields at the root of an event are used to capture the user
 performing the main action described by the event. This is especially important
 when there's more than one user present on the event. `user.*` fields at the root
 of the event represent the user performing the action.
@@ -191,10 +191,10 @@ privilege change was successful.
 Here are examples where this is applicable:
 
 * A user changing identity on a host.
-  * Examples: sudo, su, Run as.
+** Examples: sudo, su, Run as.
 * Running a program as a different user. Examples:
-  * A trusted user runs a specific admin command as root via a mechanism such as the Posix setuid/setgid.
-  * A service manager with administrator privileges starts child processes as limited
+** A trusted user runs a specific admin command as root via a mechanism such as the Posix setuid/setgid.
+** A service manager with administrator privileges starts child processes as limited
     users, for security purposes (e.g. root runs Apache HTTPD as user "apache")
 
 In cases where the event source only gives information about the effective user
@@ -292,7 +292,7 @@ not repeated under `user.changes.*`, since they didn't change.
 ====== Combining IAM and Privilege Change
 
 We've covered above how `user.target` and `user.changes` can be used at the same time.
-If privilege escalation is captured in the same IAM event, `user.effective`
+If privilege escalation is also present in the same IAM event, `user.effective`
 should of course be used as well.
 
 Here's the "rename" example from the IAM section above. In the following example,
@@ -329,7 +329,7 @@ Two examples of this are:
 
 * reusing `group` in `user`, resulting in the `user.group.*` fields, or
 * reusing `user` in `destination`, resulting in the `destination.user.*` fields,
-  which include `destination.user.group.*`.
+  which also include `destination.user.group.*`.
 
 The `user` fields can also be reused within `user` as different names,
 representing the role of each relevant user. Examples are the `user.target.*` or `user.effective.*` fields.
