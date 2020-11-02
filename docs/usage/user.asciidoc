@@ -1,7 +1,24 @@
 [[ecs-user-usage]]
 ==== Usage
 
+Here are the subjects covered in this page.
+
+* <<ecs-user-usage-categorization>>
+
+* <<ecs-user-usage-field-reuse>>, or all places user fields can appear
+** <<ecs-user-usage-user-at-root>>
+** <<ecs-user-usage-remote-logons>>
+** <<ecs-user-usage-privilege-changes>>
+** <<ecs-user-usage-iam>>
+** <<ecs-user-usage-combining>>
+** <<ecs-user-usage-reuse-within>>
+
+* <<ecs-user-usage-pivoting>>
+
+* <<ecs-user-usage-mappings>>
+
 [discrete]
+[[ecs-user-usage-categorization]]
 ===== Categorization
 
 User fields can be present in any kind of event, without affecting the event's
@@ -65,6 +82,7 @@ Adding "test-user" to "test-group":
 <4> How to use all possible user fields is detailed below.
 
 [discrete]
+[[ecs-user-usage-field-reuse]]
 ===== Field reuse
 
 The user fields can be reused (or appear) in many places across ECS. This makes
@@ -90,6 +108,7 @@ However in implementations, unless otherwise noted, all `user` fields that can
 reasonably be populated in each location should be populated.
 
 [discrete]
+[[ecs-user-usage-user-at-root]]
 ====== User fields at the Root of an Event
 
 The user fields at the root of an event must be used to capture the user
@@ -113,6 +132,7 @@ In cases where a purpose-specific user field such as `url.username` is populated
 -----------
 
 [discrete]
+[[ecs-user-usage-remote-logons]]
 ====== Remote Logons
 
 When users are crossing host boundaries, the users are captured at
@@ -154,6 +174,7 @@ Whenever an event source populates the `client` and `server` fields in addition
 to `source` and `destination`, the user fields should be copied accordingly as well.
 
 [discrete]
+[[ecs-user-usage-privilege-changes]]
 ====== Privilege Changes
 
 The `user.effective` fields are relevant when there's a privilege escalation or demotion
@@ -200,6 +221,7 @@ for example: bob "su" as root; and subsequent events will show the root user
 performing the actions.
 
 [discrete]
+[[ecs-user-usage-iam]]
 ====== Identity and Access Management
 
 Whenever a user is performing an action that affects another user -- typically
@@ -262,6 +284,7 @@ You'll note in the example above that unmodified attributes like the user ID are
 not repeated under `user.changes.*`, since they didn't change.
 
 [discrete]
+[[ecs-user-usage-combining]]
 ====== Combining IAM and Privilege Change
 
 We've covered above how `user.target` and `user.changes` can be used at the same time.
@@ -294,17 +317,19 @@ we know "alice" is escalating privileges as "root", in order to modify user "bob
 -----------
 
 [discrete]
+[[ecs-user-usage-reuse-within]]
 ====== Notes about reuse within the "user" field set
 
 TODO
 
 [discrete]
+[[ecs-user-usage-pivoting]]
 ===== Pivoting via related.user
 
 In all events in this page, we've populated the `related.user` fields.
 
 Any event that has users in it should always populate the array field `related.user`
-with all usernames seen in the event, even if these user names were in custom fields.
+with all usernames seen in the event; including event names that appear in custom fields.
 Note that this field is not a nesting of all user fields,
 it's a flat array meant to contain user identifiers.
 
@@ -339,6 +364,7 @@ for this name in `related.user` will give you all events related to this user, w
 it's the creation / rename of the user, or events where this user was active in a system.
 
 [discrete]
+[[ecs-user-usage-mappings]]
 ===== Mapping Examples
 
 For examples of mapping events from various sources, you can look at
