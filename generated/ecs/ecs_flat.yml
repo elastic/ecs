@@ -1258,6 +1258,17 @@ dll.pe.architecture:
   original_fieldset: pe
   short: CPU architecture target for the file.
   type: keyword
+dll.pe.authentihash:
+  dashed_name: dll-pe-authentihash
+  description: Authentihash of the PE file.
+  flat_name: dll.pe.authentihash
+  ignore_above: 1024
+  level: extended
+  name: authentihash
+  normalize: []
+  original_fieldset: pe
+  short: Authentihash of the PE file.
+  type: keyword
 dll.pe.company:
   dashed_name: dll-pe-company
   description: Internal company name of the file, provided at compile-time.
@@ -1270,6 +1281,49 @@ dll.pe.company:
   original_fieldset: pe
   short: Internal company name of the file, provided at compile-time.
   type: keyword
+dll.pe.compile_timestamp:
+  dashed_name: dll-pe-compile-timestamp
+  description: Compile timestamp of the PE file.
+  flat_name: dll.pe.compile_timestamp
+  level: extended
+  name: compile_timestamp
+  normalize: []
+  original_fieldset: pe
+  short: Compile timestamp of the PE file.
+  type: date
+dll.pe.compiler_product_versions:
+  dashed_name: dll-pe-compiler-product-versions
+  description: Version of the compiler.
+  flat_name: dll.pe.compiler_product_versions
+  ignore_above: 1024
+  level: extended
+  name: compiler_product_versions
+  normalize: []
+  original_fieldset: pe
+  short: Version of the compiler.
+  type: keyword
+dll.pe.creation_date:
+  dashed_name: dll-pe-creation-date
+  description: Extracted when possible from the file's metadata. Indicates when it
+    was built or compiled. It can also be faked by malware creators.
+  flat_name: dll.pe.creation_date
+  level: extended
+  name: creation_date
+  normalize: []
+  original_fieldset: pe
+  short: Build or compile date.
+  type: date
+dll.pe.debug:
+  dashed_name: dll-pe-debug
+  description: Debug information, if present
+  flat_name: dll.pe.debug
+  ignore_above: 1024
+  level: extended
+  name: debug
+  normalize: []
+  original_fieldset: pe
+  short: Debug information, if present
+  type: keyword
 dll.pe.description:
   dashed_name: dll-pe-description
   description: Internal description of the file, provided at compile-time.
@@ -1281,6 +1335,28 @@ dll.pe.description:
   normalize: []
   original_fieldset: pe
   short: Internal description of the file, provided at compile-time.
+  type: keyword
+dll.pe.entry_point:
+  dashed_name: dll-pe-entry-point
+  description: Entry point of the PE file.
+  flat_name: dll.pe.entry_point
+  format: string
+  level: extended
+  name: entry_point
+  normalize: []
+  original_fieldset: pe
+  short: Entry point of the PE file.
+  type: long
+dll.pe.exports:
+  dashed_name: dll-pe-exports
+  description: List of symbols exported by PE
+  flat_name: dll.pe.exports
+  ignore_above: 1024
+  level: extended
+  name: exports
+  normalize: []
+  original_fieldset: pe
+  short: List of symbols exported by PE
   type: keyword
 dll.pe.file_version:
   dashed_name: dll-pe-file-version
@@ -1310,6 +1386,51 @@ dll.pe.imphash:
   original_fieldset: pe
   short: A hash of the imports in a PE file.
   type: keyword
+dll.pe.import_list:
+  dashed_name: dll-pe-import-list
+  description: List of all imported functions
+  flat_name: dll.pe.import_list
+  ignore_above: 1024
+  level: extended
+  name: import_list
+  normalize: []
+  original_fieldset: pe
+  short: List of all imported functions
+  type: keyword
+dll.pe.machine_type:
+  dashed_name: dll-pe-machine-type
+  description: Machine type of the PE file.
+  flat_name: dll.pe.machine_type
+  ignore_above: 1024
+  level: extended
+  name: machine_type
+  normalize: []
+  original_fieldset: pe
+  short: Machine type of the PE file.
+  type: keyword
+dll.pe.main_icon:
+  dashed_name: dll-pe-main-icon
+  description: Hashes of embedded program icon.
+  fields:
+  - description: 'Difference Hash (dhash) for a given PE file.
+
+      '
+    level: extended
+    name: dhash
+    type: keyword
+  - description: 'MD5 hash of raw icon data.
+
+      '
+    level: extended
+    name: md5
+    type: keyword
+  flat_name: dll.pe.main_icon
+  level: extended
+  name: main_icon
+  normalize: []
+  original_fieldset: pe
+  short: Hashes of embedded program icon.
+  type: object
 dll.pe.original_file_name:
   dashed_name: dll-pe-original-file-name
   description: Internal name of the file, provided at compile-time.
@@ -1322,6 +1443,73 @@ dll.pe.original_file_name:
   original_fieldset: pe
   short: Internal name of the file, provided at compile-time.
   type: keyword
+dll.pe.overlay:
+  dashed_name: dll-pe-overlay
+  description: Overlay information of the PE file.
+  fields:
+  - description: 'Chi2 information of the PE file.
+
+      '
+    level: extended
+    name: chi2
+    type: float
+  - description: 'Entropy information of the PE file.
+
+      '
+    level: extended
+    name: entropy
+    type: float
+  - description: 'Filetype of the PE file.
+
+      '
+    level: extended
+    name: filetype
+    type: keyword
+  - description: 'Overlay MD5 hash of the PE file.
+
+      '
+    level: extended
+    name: md5
+    type: keyword
+  - description: 'Offset of the overlay information of the PE file.
+
+      '
+    level: extended
+    name: offset
+    type: long
+  - description: 'Size of the PE file.
+
+      '
+    format: bytes
+    level: extended
+    name: size
+    type: long
+  - description: 'Hash of the header for the PE file.
+
+      '
+    level: extended
+    name: rich_pe_header_hash
+    type: keyword
+  flat_name: dll.pe.overlay
+  level: extended
+  name: overlay
+  normalize: []
+  original_fieldset: pe
+  short: Overlay information of the PE file.
+  type: object
+dll.pe.packers:
+  dashed_name: dll-pe-packers
+  description: Identifies packers used on Windows PE files by several tools and AVs.
+    Keys are tool names and values are identified packers, both strings. see `file.pe.packers`
+    for merged list of packers from all tools.
+  flat_name: dll.pe.packers
+  ignore_above: 1024
+  level: extended
+  name: packers
+  normalize: []
+  original_fieldset: pe
+  short: Identifies packers used.
+  type: keyword
 dll.pe.product:
   dashed_name: dll-pe-product
   description: Internal product name of the file, provided at compile-time.
@@ -1333,6 +1521,63 @@ dll.pe.product:
   normalize: []
   original_fieldset: pe
   short: Internal product name of the file, provided at compile-time.
+  type: keyword
+dll.pe.resource_details:
+  dashed_name: dll-pe-resource-details
+  description: If the PE contains resources, some info about them
+  flat_name: dll.pe.resource_details
+  ignore_above: 1024
+  level: extended
+  name: resource_details
+  normalize: []
+  original_fieldset: pe
+  short: If the PE contains resources, some info about them
+  type: keyword
+dll.pe.resource_languages:
+  dashed_name: dll-pe-resource-languages
+  description: Digest of languages found in resources. Key is language (as string)
+    and value is how many resources there are having that language (as integer)
+  flat_name: dll.pe.resource_languages
+  ignore_above: 1024
+  level: extended
+  name: resource_languages
+  normalize: []
+  original_fieldset: pe
+  short: List of resource languages.
+  type: keyword
+dll.pe.resource_types:
+  dashed_name: dll-pe-resource-types
+  description: Digest of resource types. Key is resource type (as string) and value
+    is how many resources there are of that specific type (as integer)
+  flat_name: dll.pe.resource_types
+  ignore_above: 1024
+  level: extended
+  name: resource_types
+  normalize: []
+  original_fieldset: pe
+  short: List of resource types.
+  type: keyword
+dll.pe.rich_pe_header_hash:
+  dashed_name: dll-pe-rich-pe-header-hash
+  description: Hash of the PE header.
+  flat_name: dll.pe.rich_pe_header_hash
+  ignore_above: 1024
+  level: extended
+  name: rich_pe_header_hash
+  normalize: []
+  original_fieldset: pe
+  short: Hash of the PE header.
+  type: keyword
+dll.pe.sections:
+  dashed_name: dll-pe-sections
+  description: Data about sections of compiled binary PE
+  flat_name: dll.pe.sections
+  ignore_above: 1024
+  level: extended
+  name: sections
+  normalize: []
+  original_fieldset: pe
+  short: Data about sections of compiled binary PE
   type: keyword
 dns.answers:
   dashed_name: dns-answers
@@ -2736,6 +2981,17 @@ file.pe.architecture:
   original_fieldset: pe
   short: CPU architecture target for the file.
   type: keyword
+file.pe.authentihash:
+  dashed_name: file-pe-authentihash
+  description: Authentihash of the PE file.
+  flat_name: file.pe.authentihash
+  ignore_above: 1024
+  level: extended
+  name: authentihash
+  normalize: []
+  original_fieldset: pe
+  short: Authentihash of the PE file.
+  type: keyword
 file.pe.company:
   dashed_name: file-pe-company
   description: Internal company name of the file, provided at compile-time.
@@ -2748,6 +3004,49 @@ file.pe.company:
   original_fieldset: pe
   short: Internal company name of the file, provided at compile-time.
   type: keyword
+file.pe.compile_timestamp:
+  dashed_name: file-pe-compile-timestamp
+  description: Compile timestamp of the PE file.
+  flat_name: file.pe.compile_timestamp
+  level: extended
+  name: compile_timestamp
+  normalize: []
+  original_fieldset: pe
+  short: Compile timestamp of the PE file.
+  type: date
+file.pe.compiler_product_versions:
+  dashed_name: file-pe-compiler-product-versions
+  description: Version of the compiler.
+  flat_name: file.pe.compiler_product_versions
+  ignore_above: 1024
+  level: extended
+  name: compiler_product_versions
+  normalize: []
+  original_fieldset: pe
+  short: Version of the compiler.
+  type: keyword
+file.pe.creation_date:
+  dashed_name: file-pe-creation-date
+  description: Extracted when possible from the file's metadata. Indicates when it
+    was built or compiled. It can also be faked by malware creators.
+  flat_name: file.pe.creation_date
+  level: extended
+  name: creation_date
+  normalize: []
+  original_fieldset: pe
+  short: Build or compile date.
+  type: date
+file.pe.debug:
+  dashed_name: file-pe-debug
+  description: Debug information, if present
+  flat_name: file.pe.debug
+  ignore_above: 1024
+  level: extended
+  name: debug
+  normalize: []
+  original_fieldset: pe
+  short: Debug information, if present
+  type: keyword
 file.pe.description:
   dashed_name: file-pe-description
   description: Internal description of the file, provided at compile-time.
@@ -2759,6 +3058,28 @@ file.pe.description:
   normalize: []
   original_fieldset: pe
   short: Internal description of the file, provided at compile-time.
+  type: keyword
+file.pe.entry_point:
+  dashed_name: file-pe-entry-point
+  description: Entry point of the PE file.
+  flat_name: file.pe.entry_point
+  format: string
+  level: extended
+  name: entry_point
+  normalize: []
+  original_fieldset: pe
+  short: Entry point of the PE file.
+  type: long
+file.pe.exports:
+  dashed_name: file-pe-exports
+  description: List of symbols exported by PE
+  flat_name: file.pe.exports
+  ignore_above: 1024
+  level: extended
+  name: exports
+  normalize: []
+  original_fieldset: pe
+  short: List of symbols exported by PE
   type: keyword
 file.pe.file_version:
   dashed_name: file-pe-file-version
@@ -2788,6 +3109,51 @@ file.pe.imphash:
   original_fieldset: pe
   short: A hash of the imports in a PE file.
   type: keyword
+file.pe.import_list:
+  dashed_name: file-pe-import-list
+  description: List of all imported functions
+  flat_name: file.pe.import_list
+  ignore_above: 1024
+  level: extended
+  name: import_list
+  normalize: []
+  original_fieldset: pe
+  short: List of all imported functions
+  type: keyword
+file.pe.machine_type:
+  dashed_name: file-pe-machine-type
+  description: Machine type of the PE file.
+  flat_name: file.pe.machine_type
+  ignore_above: 1024
+  level: extended
+  name: machine_type
+  normalize: []
+  original_fieldset: pe
+  short: Machine type of the PE file.
+  type: keyword
+file.pe.main_icon:
+  dashed_name: file-pe-main-icon
+  description: Hashes of embedded program icon.
+  fields:
+  - description: 'Difference Hash (dhash) for a given PE file.
+
+      '
+    level: extended
+    name: dhash
+    type: keyword
+  - description: 'MD5 hash of raw icon data.
+
+      '
+    level: extended
+    name: md5
+    type: keyword
+  flat_name: file.pe.main_icon
+  level: extended
+  name: main_icon
+  normalize: []
+  original_fieldset: pe
+  short: Hashes of embedded program icon.
+  type: object
 file.pe.original_file_name:
   dashed_name: file-pe-original-file-name
   description: Internal name of the file, provided at compile-time.
@@ -2800,6 +3166,73 @@ file.pe.original_file_name:
   original_fieldset: pe
   short: Internal name of the file, provided at compile-time.
   type: keyword
+file.pe.overlay:
+  dashed_name: file-pe-overlay
+  description: Overlay information of the PE file.
+  fields:
+  - description: 'Chi2 information of the PE file.
+
+      '
+    level: extended
+    name: chi2
+    type: float
+  - description: 'Entropy information of the PE file.
+
+      '
+    level: extended
+    name: entropy
+    type: float
+  - description: 'Filetype of the PE file.
+
+      '
+    level: extended
+    name: filetype
+    type: keyword
+  - description: 'Overlay MD5 hash of the PE file.
+
+      '
+    level: extended
+    name: md5
+    type: keyword
+  - description: 'Offset of the overlay information of the PE file.
+
+      '
+    level: extended
+    name: offset
+    type: long
+  - description: 'Size of the PE file.
+
+      '
+    format: bytes
+    level: extended
+    name: size
+    type: long
+  - description: 'Hash of the header for the PE file.
+
+      '
+    level: extended
+    name: rich_pe_header_hash
+    type: keyword
+  flat_name: file.pe.overlay
+  level: extended
+  name: overlay
+  normalize: []
+  original_fieldset: pe
+  short: Overlay information of the PE file.
+  type: object
+file.pe.packers:
+  dashed_name: file-pe-packers
+  description: Identifies packers used on Windows PE files by several tools and AVs.
+    Keys are tool names and values are identified packers, both strings. see `file.pe.packers`
+    for merged list of packers from all tools.
+  flat_name: file.pe.packers
+  ignore_above: 1024
+  level: extended
+  name: packers
+  normalize: []
+  original_fieldset: pe
+  short: Identifies packers used.
+  type: keyword
 file.pe.product:
   dashed_name: file-pe-product
   description: Internal product name of the file, provided at compile-time.
@@ -2811,6 +3244,63 @@ file.pe.product:
   normalize: []
   original_fieldset: pe
   short: Internal product name of the file, provided at compile-time.
+  type: keyword
+file.pe.resource_details:
+  dashed_name: file-pe-resource-details
+  description: If the PE contains resources, some info about them
+  flat_name: file.pe.resource_details
+  ignore_above: 1024
+  level: extended
+  name: resource_details
+  normalize: []
+  original_fieldset: pe
+  short: If the PE contains resources, some info about them
+  type: keyword
+file.pe.resource_languages:
+  dashed_name: file-pe-resource-languages
+  description: Digest of languages found in resources. Key is language (as string)
+    and value is how many resources there are having that language (as integer)
+  flat_name: file.pe.resource_languages
+  ignore_above: 1024
+  level: extended
+  name: resource_languages
+  normalize: []
+  original_fieldset: pe
+  short: List of resource languages.
+  type: keyword
+file.pe.resource_types:
+  dashed_name: file-pe-resource-types
+  description: Digest of resource types. Key is resource type (as string) and value
+    is how many resources there are of that specific type (as integer)
+  flat_name: file.pe.resource_types
+  ignore_above: 1024
+  level: extended
+  name: resource_types
+  normalize: []
+  original_fieldset: pe
+  short: List of resource types.
+  type: keyword
+file.pe.rich_pe_header_hash:
+  dashed_name: file-pe-rich-pe-header-hash
+  description: Hash of the PE header.
+  flat_name: file.pe.rich_pe_header_hash
+  ignore_above: 1024
+  level: extended
+  name: rich_pe_header_hash
+  normalize: []
+  original_fieldset: pe
+  short: Hash of the PE header.
+  type: keyword
+file.pe.sections:
+  dashed_name: file-pe-sections
+  description: Data about sections of compiled binary PE
+  flat_name: file.pe.sections
+  ignore_above: 1024
+  level: extended
+  name: sections
+  normalize: []
+  original_fieldset: pe
+  short: Data about sections of compiled binary PE
   type: keyword
 file.size:
   dashed_name: file-size
@@ -5315,6 +5805,17 @@ process.parent.pe.architecture:
   original_fieldset: pe
   short: CPU architecture target for the file.
   type: keyword
+process.parent.pe.authentihash:
+  dashed_name: process-parent-pe-authentihash
+  description: Authentihash of the PE file.
+  flat_name: process.parent.pe.authentihash
+  ignore_above: 1024
+  level: extended
+  name: authentihash
+  normalize: []
+  original_fieldset: pe
+  short: Authentihash of the PE file.
+  type: keyword
 process.parent.pe.company:
   dashed_name: process-parent-pe-company
   description: Internal company name of the file, provided at compile-time.
@@ -5327,6 +5828,49 @@ process.parent.pe.company:
   original_fieldset: pe
   short: Internal company name of the file, provided at compile-time.
   type: keyword
+process.parent.pe.compile_timestamp:
+  dashed_name: process-parent-pe-compile-timestamp
+  description: Compile timestamp of the PE file.
+  flat_name: process.parent.pe.compile_timestamp
+  level: extended
+  name: compile_timestamp
+  normalize: []
+  original_fieldset: pe
+  short: Compile timestamp of the PE file.
+  type: date
+process.parent.pe.compiler_product_versions:
+  dashed_name: process-parent-pe-compiler-product-versions
+  description: Version of the compiler.
+  flat_name: process.parent.pe.compiler_product_versions
+  ignore_above: 1024
+  level: extended
+  name: compiler_product_versions
+  normalize: []
+  original_fieldset: pe
+  short: Version of the compiler.
+  type: keyword
+process.parent.pe.creation_date:
+  dashed_name: process-parent-pe-creation-date
+  description: Extracted when possible from the file's metadata. Indicates when it
+    was built or compiled. It can also be faked by malware creators.
+  flat_name: process.parent.pe.creation_date
+  level: extended
+  name: creation_date
+  normalize: []
+  original_fieldset: pe
+  short: Build or compile date.
+  type: date
+process.parent.pe.debug:
+  dashed_name: process-parent-pe-debug
+  description: Debug information, if present
+  flat_name: process.parent.pe.debug
+  ignore_above: 1024
+  level: extended
+  name: debug
+  normalize: []
+  original_fieldset: pe
+  short: Debug information, if present
+  type: keyword
 process.parent.pe.description:
   dashed_name: process-parent-pe-description
   description: Internal description of the file, provided at compile-time.
@@ -5338,6 +5882,28 @@ process.parent.pe.description:
   normalize: []
   original_fieldset: pe
   short: Internal description of the file, provided at compile-time.
+  type: keyword
+process.parent.pe.entry_point:
+  dashed_name: process-parent-pe-entry-point
+  description: Entry point of the PE file.
+  flat_name: process.parent.pe.entry_point
+  format: string
+  level: extended
+  name: entry_point
+  normalize: []
+  original_fieldset: pe
+  short: Entry point of the PE file.
+  type: long
+process.parent.pe.exports:
+  dashed_name: process-parent-pe-exports
+  description: List of symbols exported by PE
+  flat_name: process.parent.pe.exports
+  ignore_above: 1024
+  level: extended
+  name: exports
+  normalize: []
+  original_fieldset: pe
+  short: List of symbols exported by PE
   type: keyword
 process.parent.pe.file_version:
   dashed_name: process-parent-pe-file-version
@@ -5367,6 +5933,51 @@ process.parent.pe.imphash:
   original_fieldset: pe
   short: A hash of the imports in a PE file.
   type: keyword
+process.parent.pe.import_list:
+  dashed_name: process-parent-pe-import-list
+  description: List of all imported functions
+  flat_name: process.parent.pe.import_list
+  ignore_above: 1024
+  level: extended
+  name: import_list
+  normalize: []
+  original_fieldset: pe
+  short: List of all imported functions
+  type: keyword
+process.parent.pe.machine_type:
+  dashed_name: process-parent-pe-machine-type
+  description: Machine type of the PE file.
+  flat_name: process.parent.pe.machine_type
+  ignore_above: 1024
+  level: extended
+  name: machine_type
+  normalize: []
+  original_fieldset: pe
+  short: Machine type of the PE file.
+  type: keyword
+process.parent.pe.main_icon:
+  dashed_name: process-parent-pe-main-icon
+  description: Hashes of embedded program icon.
+  fields:
+  - description: 'Difference Hash (dhash) for a given PE file.
+
+      '
+    level: extended
+    name: dhash
+    type: keyword
+  - description: 'MD5 hash of raw icon data.
+
+      '
+    level: extended
+    name: md5
+    type: keyword
+  flat_name: process.parent.pe.main_icon
+  level: extended
+  name: main_icon
+  normalize: []
+  original_fieldset: pe
+  short: Hashes of embedded program icon.
+  type: object
 process.parent.pe.original_file_name:
   dashed_name: process-parent-pe-original-file-name
   description: Internal name of the file, provided at compile-time.
@@ -5379,6 +5990,73 @@ process.parent.pe.original_file_name:
   original_fieldset: pe
   short: Internal name of the file, provided at compile-time.
   type: keyword
+process.parent.pe.overlay:
+  dashed_name: process-parent-pe-overlay
+  description: Overlay information of the PE file.
+  fields:
+  - description: 'Chi2 information of the PE file.
+
+      '
+    level: extended
+    name: chi2
+    type: float
+  - description: 'Entropy information of the PE file.
+
+      '
+    level: extended
+    name: entropy
+    type: float
+  - description: 'Filetype of the PE file.
+
+      '
+    level: extended
+    name: filetype
+    type: keyword
+  - description: 'Overlay MD5 hash of the PE file.
+
+      '
+    level: extended
+    name: md5
+    type: keyword
+  - description: 'Offset of the overlay information of the PE file.
+
+      '
+    level: extended
+    name: offset
+    type: long
+  - description: 'Size of the PE file.
+
+      '
+    format: bytes
+    level: extended
+    name: size
+    type: long
+  - description: 'Hash of the header for the PE file.
+
+      '
+    level: extended
+    name: rich_pe_header_hash
+    type: keyword
+  flat_name: process.parent.pe.overlay
+  level: extended
+  name: overlay
+  normalize: []
+  original_fieldset: pe
+  short: Overlay information of the PE file.
+  type: object
+process.parent.pe.packers:
+  dashed_name: process-parent-pe-packers
+  description: Identifies packers used on Windows PE files by several tools and AVs.
+    Keys are tool names and values are identified packers, both strings. see `file.pe.packers`
+    for merged list of packers from all tools.
+  flat_name: process.parent.pe.packers
+  ignore_above: 1024
+  level: extended
+  name: packers
+  normalize: []
+  original_fieldset: pe
+  short: Identifies packers used.
+  type: keyword
 process.parent.pe.product:
   dashed_name: process-parent-pe-product
   description: Internal product name of the file, provided at compile-time.
@@ -5390,6 +6068,63 @@ process.parent.pe.product:
   normalize: []
   original_fieldset: pe
   short: Internal product name of the file, provided at compile-time.
+  type: keyword
+process.parent.pe.resource_details:
+  dashed_name: process-parent-pe-resource-details
+  description: If the PE contains resources, some info about them
+  flat_name: process.parent.pe.resource_details
+  ignore_above: 1024
+  level: extended
+  name: resource_details
+  normalize: []
+  original_fieldset: pe
+  short: If the PE contains resources, some info about them
+  type: keyword
+process.parent.pe.resource_languages:
+  dashed_name: process-parent-pe-resource-languages
+  description: Digest of languages found in resources. Key is language (as string)
+    and value is how many resources there are having that language (as integer)
+  flat_name: process.parent.pe.resource_languages
+  ignore_above: 1024
+  level: extended
+  name: resource_languages
+  normalize: []
+  original_fieldset: pe
+  short: List of resource languages.
+  type: keyword
+process.parent.pe.resource_types:
+  dashed_name: process-parent-pe-resource-types
+  description: Digest of resource types. Key is resource type (as string) and value
+    is how many resources there are of that specific type (as integer)
+  flat_name: process.parent.pe.resource_types
+  ignore_above: 1024
+  level: extended
+  name: resource_types
+  normalize: []
+  original_fieldset: pe
+  short: List of resource types.
+  type: keyword
+process.parent.pe.rich_pe_header_hash:
+  dashed_name: process-parent-pe-rich-pe-header-hash
+  description: Hash of the PE header.
+  flat_name: process.parent.pe.rich_pe_header_hash
+  ignore_above: 1024
+  level: extended
+  name: rich_pe_header_hash
+  normalize: []
+  original_fieldset: pe
+  short: Hash of the PE header.
+  type: keyword
+process.parent.pe.sections:
+  dashed_name: process-parent-pe-sections
+  description: Data about sections of compiled binary PE
+  flat_name: process.parent.pe.sections
+  ignore_above: 1024
+  level: extended
+  name: sections
+  normalize: []
+  original_fieldset: pe
+  short: Data about sections of compiled binary PE
   type: keyword
 process.parent.pgid:
   dashed_name: process-parent-pgid
@@ -5520,6 +6255,17 @@ process.pe.architecture:
   original_fieldset: pe
   short: CPU architecture target for the file.
   type: keyword
+process.pe.authentihash:
+  dashed_name: process-pe-authentihash
+  description: Authentihash of the PE file.
+  flat_name: process.pe.authentihash
+  ignore_above: 1024
+  level: extended
+  name: authentihash
+  normalize: []
+  original_fieldset: pe
+  short: Authentihash of the PE file.
+  type: keyword
 process.pe.company:
   dashed_name: process-pe-company
   description: Internal company name of the file, provided at compile-time.
@@ -5532,6 +6278,49 @@ process.pe.company:
   original_fieldset: pe
   short: Internal company name of the file, provided at compile-time.
   type: keyword
+process.pe.compile_timestamp:
+  dashed_name: process-pe-compile-timestamp
+  description: Compile timestamp of the PE file.
+  flat_name: process.pe.compile_timestamp
+  level: extended
+  name: compile_timestamp
+  normalize: []
+  original_fieldset: pe
+  short: Compile timestamp of the PE file.
+  type: date
+process.pe.compiler_product_versions:
+  dashed_name: process-pe-compiler-product-versions
+  description: Version of the compiler.
+  flat_name: process.pe.compiler_product_versions
+  ignore_above: 1024
+  level: extended
+  name: compiler_product_versions
+  normalize: []
+  original_fieldset: pe
+  short: Version of the compiler.
+  type: keyword
+process.pe.creation_date:
+  dashed_name: process-pe-creation-date
+  description: Extracted when possible from the file's metadata. Indicates when it
+    was built or compiled. It can also be faked by malware creators.
+  flat_name: process.pe.creation_date
+  level: extended
+  name: creation_date
+  normalize: []
+  original_fieldset: pe
+  short: Build or compile date.
+  type: date
+process.pe.debug:
+  dashed_name: process-pe-debug
+  description: Debug information, if present
+  flat_name: process.pe.debug
+  ignore_above: 1024
+  level: extended
+  name: debug
+  normalize: []
+  original_fieldset: pe
+  short: Debug information, if present
+  type: keyword
 process.pe.description:
   dashed_name: process-pe-description
   description: Internal description of the file, provided at compile-time.
@@ -5543,6 +6332,28 @@ process.pe.description:
   normalize: []
   original_fieldset: pe
   short: Internal description of the file, provided at compile-time.
+  type: keyword
+process.pe.entry_point:
+  dashed_name: process-pe-entry-point
+  description: Entry point of the PE file.
+  flat_name: process.pe.entry_point
+  format: string
+  level: extended
+  name: entry_point
+  normalize: []
+  original_fieldset: pe
+  short: Entry point of the PE file.
+  type: long
+process.pe.exports:
+  dashed_name: process-pe-exports
+  description: List of symbols exported by PE
+  flat_name: process.pe.exports
+  ignore_above: 1024
+  level: extended
+  name: exports
+  normalize: []
+  original_fieldset: pe
+  short: List of symbols exported by PE
   type: keyword
 process.pe.file_version:
   dashed_name: process-pe-file-version
@@ -5572,6 +6383,51 @@ process.pe.imphash:
   original_fieldset: pe
   short: A hash of the imports in a PE file.
   type: keyword
+process.pe.import_list:
+  dashed_name: process-pe-import-list
+  description: List of all imported functions
+  flat_name: process.pe.import_list
+  ignore_above: 1024
+  level: extended
+  name: import_list
+  normalize: []
+  original_fieldset: pe
+  short: List of all imported functions
+  type: keyword
+process.pe.machine_type:
+  dashed_name: process-pe-machine-type
+  description: Machine type of the PE file.
+  flat_name: process.pe.machine_type
+  ignore_above: 1024
+  level: extended
+  name: machine_type
+  normalize: []
+  original_fieldset: pe
+  short: Machine type of the PE file.
+  type: keyword
+process.pe.main_icon:
+  dashed_name: process-pe-main-icon
+  description: Hashes of embedded program icon.
+  fields:
+  - description: 'Difference Hash (dhash) for a given PE file.
+
+      '
+    level: extended
+    name: dhash
+    type: keyword
+  - description: 'MD5 hash of raw icon data.
+
+      '
+    level: extended
+    name: md5
+    type: keyword
+  flat_name: process.pe.main_icon
+  level: extended
+  name: main_icon
+  normalize: []
+  original_fieldset: pe
+  short: Hashes of embedded program icon.
+  type: object
 process.pe.original_file_name:
   dashed_name: process-pe-original-file-name
   description: Internal name of the file, provided at compile-time.
@@ -5584,6 +6440,73 @@ process.pe.original_file_name:
   original_fieldset: pe
   short: Internal name of the file, provided at compile-time.
   type: keyword
+process.pe.overlay:
+  dashed_name: process-pe-overlay
+  description: Overlay information of the PE file.
+  fields:
+  - description: 'Chi2 information of the PE file.
+
+      '
+    level: extended
+    name: chi2
+    type: float
+  - description: 'Entropy information of the PE file.
+
+      '
+    level: extended
+    name: entropy
+    type: float
+  - description: 'Filetype of the PE file.
+
+      '
+    level: extended
+    name: filetype
+    type: keyword
+  - description: 'Overlay MD5 hash of the PE file.
+
+      '
+    level: extended
+    name: md5
+    type: keyword
+  - description: 'Offset of the overlay information of the PE file.
+
+      '
+    level: extended
+    name: offset
+    type: long
+  - description: 'Size of the PE file.
+
+      '
+    format: bytes
+    level: extended
+    name: size
+    type: long
+  - description: 'Hash of the header for the PE file.
+
+      '
+    level: extended
+    name: rich_pe_header_hash
+    type: keyword
+  flat_name: process.pe.overlay
+  level: extended
+  name: overlay
+  normalize: []
+  original_fieldset: pe
+  short: Overlay information of the PE file.
+  type: object
+process.pe.packers:
+  dashed_name: process-pe-packers
+  description: Identifies packers used on Windows PE files by several tools and AVs.
+    Keys are tool names and values are identified packers, both strings. see `file.pe.packers`
+    for merged list of packers from all tools.
+  flat_name: process.pe.packers
+  ignore_above: 1024
+  level: extended
+  name: packers
+  normalize: []
+  original_fieldset: pe
+  short: Identifies packers used.
+  type: keyword
 process.pe.product:
   dashed_name: process-pe-product
   description: Internal product name of the file, provided at compile-time.
@@ -5595,6 +6518,63 @@ process.pe.product:
   normalize: []
   original_fieldset: pe
   short: Internal product name of the file, provided at compile-time.
+  type: keyword
+process.pe.resource_details:
+  dashed_name: process-pe-resource-details
+  description: If the PE contains resources, some info about them
+  flat_name: process.pe.resource_details
+  ignore_above: 1024
+  level: extended
+  name: resource_details
+  normalize: []
+  original_fieldset: pe
+  short: If the PE contains resources, some info about them
+  type: keyword
+process.pe.resource_languages:
+  dashed_name: process-pe-resource-languages
+  description: Digest of languages found in resources. Key is language (as string)
+    and value is how many resources there are having that language (as integer)
+  flat_name: process.pe.resource_languages
+  ignore_above: 1024
+  level: extended
+  name: resource_languages
+  normalize: []
+  original_fieldset: pe
+  short: List of resource languages.
+  type: keyword
+process.pe.resource_types:
+  dashed_name: process-pe-resource-types
+  description: Digest of resource types. Key is resource type (as string) and value
+    is how many resources there are of that specific type (as integer)
+  flat_name: process.pe.resource_types
+  ignore_above: 1024
+  level: extended
+  name: resource_types
+  normalize: []
+  original_fieldset: pe
+  short: List of resource types.
+  type: keyword
+process.pe.rich_pe_header_hash:
+  dashed_name: process-pe-rich-pe-header-hash
+  description: Hash of the PE header.
+  flat_name: process.pe.rich_pe_header_hash
+  ignore_above: 1024
+  level: extended
+  name: rich_pe_header_hash
+  normalize: []
+  original_fieldset: pe
+  short: Hash of the PE header.
+  type: keyword
+process.pe.sections:
+  dashed_name: process-pe-sections
+  description: Data about sections of compiled binary PE
+  flat_name: process.pe.sections
+  ignore_above: 1024
+  level: extended
+  name: sections
+  normalize: []
+  original_fieldset: pe
+  short: Data about sections of compiled binary PE
   type: keyword
 process.pgid:
   dashed_name: process-pgid

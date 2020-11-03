@@ -60,9 +60,9 @@
       description: CPU architecture target for the file.
       example: x64
 
-    - name: main_icon.hash
+    - name: main_icon
       level: extended
-      type: group
+      type: object
       description: >
         Hashes of embedded program icon.
       fields:
@@ -70,7 +70,7 @@
           level: extended
           type: keyword
           description: >
-            Difference Hash for a given PE file.
+            Difference Hash (dhash) for a given PE file.
 
         - name: md5
           level: extended
@@ -103,6 +103,7 @@
     - name: resource_languages
       level: extended
       type: keyword
+      short: List of resource languages.
       description: >
         Digest of languages found in resources. Key is language (as string) and
         value is how many resources there are having that language (as integer)
@@ -110,6 +111,7 @@
     - name: resource_types
       level: extended
       type: keyword
+      short: List of resource types.
       description: >
         Digest of resource types. Key is resource type (as string) and value
         is how many resources there are of that specific type (as integer)
@@ -117,6 +119,7 @@
     - name: packers
       level: extended
       type: keyword
+      short: Identifies packers used.
       description: >
         Identifies packers used on Windows PE files by several tools and AVs.
         Keys are tool names and values are identified packers, both strings.
@@ -130,8 +133,9 @@
 
     - name: creation_date
       level: extended
+      short: Build or compile date.
       description: >
-        extracted when possible from the file's metadata. Indicates when it was
+        Extracted when possible from the file's metadata. Indicates when it was
         built or compiled. It can also be faked by malware creators.
       type: date
 
@@ -176,7 +180,7 @@
       level: extended
       description: >
         Overlay information of the PE file.
-      type: group
+      type: object
       fields:
         - name: chi2
           level: extended

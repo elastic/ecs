@@ -4173,6 +4173,19 @@ example: `x64`
 
 // ===============================================================
 
+| pe.authentihash
+| Authentihash of the PE file.
+
+type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
 | pe.company
 | Internal company name of the file, provided at compile-time.
 
@@ -4186,6 +4199,58 @@ example: `Microsoft Corporation`
 
 // ===============================================================
 
+| pe.compile_timestamp
+| Compile timestamp of the PE file.
+
+type: date
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+| pe.compiler_product_versions
+| Version of the compiler.
+
+type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+| pe.creation_date
+| Extracted when possible from the file's metadata. Indicates when it was built or compiled. It can also be faked by malware creators.
+
+type: date
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+| pe.debug
+| Debug information, if present
+
+type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
 | pe.description
 | Internal description of the file, provided at compile-time.
 
@@ -4194,6 +4259,32 @@ type: keyword
 
 
 example: `Paint`
+
+| extended
+
+// ===============================================================
+
+| pe.entry_point
+| Entry point of the PE file.
+
+type: long
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+| pe.exports
+| List of symbols exported by PE
+
+type: keyword
+
+
+
+
 
 | extended
 
@@ -4227,6 +4318,45 @@ example: `0c6803c4e922103c4dca5963aad36ddf`
 
 // ===============================================================
 
+| pe.import_list
+| List of all imported functions
+
+type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+| pe.machine_type
+| Machine type of the PE file.
+
+type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+| pe.main_icon
+| Hashes of embedded program icon.
+
+type: object
+
+
+
+
+
+| extended
+
+// ===============================================================
+
 | pe.original_file_name
 | Internal name of the file, provided at compile-time.
 
@@ -4240,6 +4370,32 @@ example: `MSPAINT.EXE`
 
 // ===============================================================
 
+| pe.overlay
+| Overlay information of the PE file.
+
+type: object
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+| pe.packers
+| Identifies packers used on Windows PE files by several tools and AVs. Keys are tool names and values are identified packers, both strings. see `file.pe.packers` for merged list of packers from all tools.
+
+type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
 | pe.product
 | Internal product name of the file, provided at compile-time.
 
@@ -4248,6 +4404,71 @@ type: keyword
 
 
 example: `Microsoft® Windows® Operating System`
+
+| extended
+
+// ===============================================================
+
+| pe.resource_details
+| If the PE contains resources, some info about them
+
+type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+| pe.resource_languages
+| Digest of languages found in resources. Key is language (as string) and value is how many resources there are having that language (as integer)
+
+type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+| pe.resource_types
+| Digest of resource types. Key is resource type (as string) and value is how many resources there are of that specific type (as integer)
+
+type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+| pe.rich_pe_header_hash
+| Hash of the PE header.
+
+type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+| pe.sections
+| Data about sections of compiled binary PE
+
+type: keyword
+
+
+
+
 
 | extended
 

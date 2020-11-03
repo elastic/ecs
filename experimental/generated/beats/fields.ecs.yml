@@ -911,6 +911,12 @@
       description: CPU architecture target for the file.
       example: x64
       default_field: false
+    - name: pe.authentihash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Authentihash of the PE file.
+      default_field: false
     - name: pe.company
       level: extended
       type: keyword
@@ -918,12 +924,47 @@
       description: Internal company name of the file, provided at compile-time.
       example: Microsoft Corporation
       default_field: false
+    - name: pe.compile_timestamp
+      level: extended
+      type: date
+      description: Compile timestamp of the PE file.
+      default_field: false
+    - name: pe.compiler_product_versions
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Version of the compiler.
+      default_field: false
+    - name: pe.creation_date
+      level: extended
+      type: date
+      description: Extracted when possible from the file's metadata. Indicates when
+        it was built or compiled. It can also be faked by malware creators.
+      default_field: false
+    - name: pe.debug
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Debug information, if present
+      default_field: false
     - name: pe.description
       level: extended
       type: keyword
       ignore_above: 1024
       description: Internal description of the file, provided at compile-time.
       example: Paint
+      default_field: false
+    - name: pe.entry_point
+      level: extended
+      type: long
+      format: string
+      description: Entry point of the PE file.
+      default_field: false
+    - name: pe.exports
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of symbols exported by PE
       default_field: false
     - name: pe.file_version
       level: extended
@@ -943,11 +984,41 @@
         Learn more at https://www.fireeye.com/blog/threat-research/2014/01/tracking-malware-import-hashing.html.'
       example: 0c6803c4e922103c4dca5963aad36ddf
       default_field: false
+    - name: pe.import_list
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of all imported functions
+      default_field: false
+    - name: pe.machine_type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Machine type of the PE file.
+      default_field: false
+    - name: pe.main_icon
+      level: extended
+      type: object
+      description: Hashes of embedded program icon.
+      default_field: false
     - name: pe.original_file_name
       level: extended
       type: wildcard
       description: Internal name of the file, provided at compile-time.
       example: MSPAINT.EXE
+      default_field: false
+    - name: pe.overlay
+      level: extended
+      type: object
+      description: Overlay information of the PE file.
+      default_field: false
+    - name: pe.packers
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifies packers used on Windows PE files by several tools and
+        AVs. Keys are tool names and values are identified packers, both strings.
+        see `file.pe.packers` for merged list of packers from all tools.
       default_field: false
     - name: pe.product
       level: extended
@@ -955,6 +1026,38 @@
       ignore_above: 1024
       description: Internal product name of the file, provided at compile-time.
       example: "Microsoft\xAE Windows\xAE Operating System"
+      default_field: false
+    - name: pe.resource_details
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: If the PE contains resources, some info about them
+      default_field: false
+    - name: pe.resource_languages
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Digest of languages found in resources. Key is language (as string)
+        and value is how many resources there are having that language (as integer)
+      default_field: false
+    - name: pe.resource_types
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Digest of resource types. Key is resource type (as string) and
+        value is how many resources there are of that specific type (as integer)
+      default_field: false
+    - name: pe.rich_pe_header_hash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Hash of the PE header.
+      default_field: false
+    - name: pe.sections
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Data about sections of compiled binary PE
       default_field: false
   - name: dns
     title: DNS
@@ -1660,6 +1763,12 @@
       description: CPU architecture target for the file.
       example: x64
       default_field: false
+    - name: pe.authentihash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Authentihash of the PE file.
+      default_field: false
     - name: pe.company
       level: extended
       type: keyword
@@ -1667,12 +1776,47 @@
       description: Internal company name of the file, provided at compile-time.
       example: Microsoft Corporation
       default_field: false
+    - name: pe.compile_timestamp
+      level: extended
+      type: date
+      description: Compile timestamp of the PE file.
+      default_field: false
+    - name: pe.compiler_product_versions
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Version of the compiler.
+      default_field: false
+    - name: pe.creation_date
+      level: extended
+      type: date
+      description: Extracted when possible from the file's metadata. Indicates when
+        it was built or compiled. It can also be faked by malware creators.
+      default_field: false
+    - name: pe.debug
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Debug information, if present
+      default_field: false
     - name: pe.description
       level: extended
       type: keyword
       ignore_above: 1024
       description: Internal description of the file, provided at compile-time.
       example: Paint
+      default_field: false
+    - name: pe.entry_point
+      level: extended
+      type: long
+      format: string
+      description: Entry point of the PE file.
+      default_field: false
+    - name: pe.exports
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of symbols exported by PE
       default_field: false
     - name: pe.file_version
       level: extended
@@ -1692,11 +1836,41 @@
         Learn more at https://www.fireeye.com/blog/threat-research/2014/01/tracking-malware-import-hashing.html.'
       example: 0c6803c4e922103c4dca5963aad36ddf
       default_field: false
+    - name: pe.import_list
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of all imported functions
+      default_field: false
+    - name: pe.machine_type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Machine type of the PE file.
+      default_field: false
+    - name: pe.main_icon
+      level: extended
+      type: object
+      description: Hashes of embedded program icon.
+      default_field: false
     - name: pe.original_file_name
       level: extended
       type: wildcard
       description: Internal name of the file, provided at compile-time.
       example: MSPAINT.EXE
+      default_field: false
+    - name: pe.overlay
+      level: extended
+      type: object
+      description: Overlay information of the PE file.
+      default_field: false
+    - name: pe.packers
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifies packers used on Windows PE files by several tools and
+        AVs. Keys are tool names and values are identified packers, both strings.
+        see `file.pe.packers` for merged list of packers from all tools.
       default_field: false
     - name: pe.product
       level: extended
@@ -1704,6 +1878,38 @@
       ignore_above: 1024
       description: Internal product name of the file, provided at compile-time.
       example: "Microsoft\xAE Windows\xAE Operating System"
+      default_field: false
+    - name: pe.resource_details
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: If the PE contains resources, some info about them
+      default_field: false
+    - name: pe.resource_languages
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Digest of languages found in resources. Key is language (as string)
+        and value is how many resources there are having that language (as integer)
+      default_field: false
+    - name: pe.resource_types
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Digest of resource types. Key is resource type (as string) and
+        value is how many resources there are of that specific type (as integer)
+      default_field: false
+    - name: pe.rich_pe_header_hash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Hash of the PE header.
+      default_field: false
+    - name: pe.sections
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Data about sections of compiled binary PE
       default_field: false
     - name: size
       level: extended
@@ -3138,6 +3344,12 @@
       description: CPU architecture target for the file.
       example: x64
       default_field: false
+    - name: authentihash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Authentihash of the PE file.
+      default_field: false
     - name: company
       level: extended
       type: keyword
@@ -3145,12 +3357,47 @@
       description: Internal company name of the file, provided at compile-time.
       example: Microsoft Corporation
       default_field: false
+    - name: compile_timestamp
+      level: extended
+      type: date
+      description: Compile timestamp of the PE file.
+      default_field: false
+    - name: compiler_product_versions
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Version of the compiler.
+      default_field: false
+    - name: creation_date
+      level: extended
+      type: date
+      description: Extracted when possible from the file's metadata. Indicates when
+        it was built or compiled. It can also be faked by malware creators.
+      default_field: false
+    - name: debug
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Debug information, if present
+      default_field: false
     - name: description
       level: extended
       type: keyword
       ignore_above: 1024
       description: Internal description of the file, provided at compile-time.
       example: Paint
+      default_field: false
+    - name: entry_point
+      level: extended
+      type: long
+      format: string
+      description: Entry point of the PE file.
+      default_field: false
+    - name: exports
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of symbols exported by PE
       default_field: false
     - name: file_version
       level: extended
@@ -3170,11 +3417,41 @@
         Learn more at https://www.fireeye.com/blog/threat-research/2014/01/tracking-malware-import-hashing.html.'
       example: 0c6803c4e922103c4dca5963aad36ddf
       default_field: false
+    - name: import_list
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of all imported functions
+      default_field: false
+    - name: machine_type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Machine type of the PE file.
+      default_field: false
+    - name: main_icon
+      level: extended
+      type: object
+      description: Hashes of embedded program icon.
+      default_field: false
     - name: original_file_name
       level: extended
       type: wildcard
       description: Internal name of the file, provided at compile-time.
       example: MSPAINT.EXE
+      default_field: false
+    - name: overlay
+      level: extended
+      type: object
+      description: Overlay information of the PE file.
+      default_field: false
+    - name: packers
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifies packers used on Windows PE files by several tools and
+        AVs. Keys are tool names and values are identified packers, both strings.
+        see `file.pe.packers` for merged list of packers from all tools.
       default_field: false
     - name: product
       level: extended
@@ -3182,6 +3459,38 @@
       ignore_above: 1024
       description: Internal product name of the file, provided at compile-time.
       example: "Microsoft\xAE Windows\xAE Operating System"
+      default_field: false
+    - name: resource_details
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: If the PE contains resources, some info about them
+      default_field: false
+    - name: resource_languages
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Digest of languages found in resources. Key is language (as string)
+        and value is how many resources there are having that language (as integer)
+      default_field: false
+    - name: resource_types
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Digest of resource types. Key is resource type (as string) and
+        value is how many resources there are of that specific type (as integer)
+      default_field: false
+    - name: rich_pe_header_hash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Hash of the PE header.
+      default_field: false
+    - name: sections
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Data about sections of compiled binary PE
       default_field: false
   - name: process
     title: Process
@@ -3485,6 +3794,12 @@
       description: CPU architecture target for the file.
       example: x64
       default_field: false
+    - name: parent.pe.authentihash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Authentihash of the PE file.
+      default_field: false
     - name: parent.pe.company
       level: extended
       type: keyword
@@ -3492,12 +3807,47 @@
       description: Internal company name of the file, provided at compile-time.
       example: Microsoft Corporation
       default_field: false
+    - name: parent.pe.compile_timestamp
+      level: extended
+      type: date
+      description: Compile timestamp of the PE file.
+      default_field: false
+    - name: parent.pe.compiler_product_versions
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Version of the compiler.
+      default_field: false
+    - name: parent.pe.creation_date
+      level: extended
+      type: date
+      description: Extracted when possible from the file's metadata. Indicates when
+        it was built or compiled. It can also be faked by malware creators.
+      default_field: false
+    - name: parent.pe.debug
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Debug information, if present
+      default_field: false
     - name: parent.pe.description
       level: extended
       type: keyword
       ignore_above: 1024
       description: Internal description of the file, provided at compile-time.
       example: Paint
+      default_field: false
+    - name: parent.pe.entry_point
+      level: extended
+      type: long
+      format: string
+      description: Entry point of the PE file.
+      default_field: false
+    - name: parent.pe.exports
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of symbols exported by PE
       default_field: false
     - name: parent.pe.file_version
       level: extended
@@ -3517,11 +3867,41 @@
         Learn more at https://www.fireeye.com/blog/threat-research/2014/01/tracking-malware-import-hashing.html.'
       example: 0c6803c4e922103c4dca5963aad36ddf
       default_field: false
+    - name: parent.pe.import_list
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of all imported functions
+      default_field: false
+    - name: parent.pe.machine_type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Machine type of the PE file.
+      default_field: false
+    - name: parent.pe.main_icon
+      level: extended
+      type: object
+      description: Hashes of embedded program icon.
+      default_field: false
     - name: parent.pe.original_file_name
       level: extended
       type: wildcard
       description: Internal name of the file, provided at compile-time.
       example: MSPAINT.EXE
+      default_field: false
+    - name: parent.pe.overlay
+      level: extended
+      type: object
+      description: Overlay information of the PE file.
+      default_field: false
+    - name: parent.pe.packers
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifies packers used on Windows PE files by several tools and
+        AVs. Keys are tool names and values are identified packers, both strings.
+        see `file.pe.packers` for merged list of packers from all tools.
       default_field: false
     - name: parent.pe.product
       level: extended
@@ -3529,6 +3909,38 @@
       ignore_above: 1024
       description: Internal product name of the file, provided at compile-time.
       example: "Microsoft\xAE Windows\xAE Operating System"
+      default_field: false
+    - name: parent.pe.resource_details
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: If the PE contains resources, some info about them
+      default_field: false
+    - name: parent.pe.resource_languages
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Digest of languages found in resources. Key is language (as string)
+        and value is how many resources there are having that language (as integer)
+      default_field: false
+    - name: parent.pe.resource_types
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Digest of resource types. Key is resource type (as string) and
+        value is how many resources there are of that specific type (as integer)
+      default_field: false
+    - name: parent.pe.rich_pe_header_hash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Hash of the PE header.
+      default_field: false
+    - name: parent.pe.sections
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Data about sections of compiled binary PE
       default_field: false
     - name: parent.pgid
       level: extended
@@ -3605,6 +4017,12 @@
       description: CPU architecture target for the file.
       example: x64
       default_field: false
+    - name: pe.authentihash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Authentihash of the PE file.
+      default_field: false
     - name: pe.company
       level: extended
       type: keyword
@@ -3612,12 +4030,47 @@
       description: Internal company name of the file, provided at compile-time.
       example: Microsoft Corporation
       default_field: false
+    - name: pe.compile_timestamp
+      level: extended
+      type: date
+      description: Compile timestamp of the PE file.
+      default_field: false
+    - name: pe.compiler_product_versions
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Version of the compiler.
+      default_field: false
+    - name: pe.creation_date
+      level: extended
+      type: date
+      description: Extracted when possible from the file's metadata. Indicates when
+        it was built or compiled. It can also be faked by malware creators.
+      default_field: false
+    - name: pe.debug
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Debug information, if present
+      default_field: false
     - name: pe.description
       level: extended
       type: keyword
       ignore_above: 1024
       description: Internal description of the file, provided at compile-time.
       example: Paint
+      default_field: false
+    - name: pe.entry_point
+      level: extended
+      type: long
+      format: string
+      description: Entry point of the PE file.
+      default_field: false
+    - name: pe.exports
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of symbols exported by PE
       default_field: false
     - name: pe.file_version
       level: extended
@@ -3637,11 +4090,41 @@
         Learn more at https://www.fireeye.com/blog/threat-research/2014/01/tracking-malware-import-hashing.html.'
       example: 0c6803c4e922103c4dca5963aad36ddf
       default_field: false
+    - name: pe.import_list
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of all imported functions
+      default_field: false
+    - name: pe.machine_type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Machine type of the PE file.
+      default_field: false
+    - name: pe.main_icon
+      level: extended
+      type: object
+      description: Hashes of embedded program icon.
+      default_field: false
     - name: pe.original_file_name
       level: extended
       type: wildcard
       description: Internal name of the file, provided at compile-time.
       example: MSPAINT.EXE
+      default_field: false
+    - name: pe.overlay
+      level: extended
+      type: object
+      description: Overlay information of the PE file.
+      default_field: false
+    - name: pe.packers
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifies packers used on Windows PE files by several tools and
+        AVs. Keys are tool names and values are identified packers, both strings.
+        see `file.pe.packers` for merged list of packers from all tools.
       default_field: false
     - name: pe.product
       level: extended
@@ -3649,6 +4132,38 @@
       ignore_above: 1024
       description: Internal product name of the file, provided at compile-time.
       example: "Microsoft\xAE Windows\xAE Operating System"
+      default_field: false
+    - name: pe.resource_details
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: If the PE contains resources, some info about them
+      default_field: false
+    - name: pe.resource_languages
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Digest of languages found in resources. Key is language (as string)
+        and value is how many resources there are having that language (as integer)
+      default_field: false
+    - name: pe.resource_types
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Digest of resource types. Key is resource type (as string) and
+        value is how many resources there are of that specific type (as integer)
+      default_field: false
+    - name: pe.rich_pe_header_hash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Hash of the PE header.
+      default_field: false
+    - name: pe.sections
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Data about sections of compiled binary PE
       default_field: false
     - name: pgid
       level: extended
