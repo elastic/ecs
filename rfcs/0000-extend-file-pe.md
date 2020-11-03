@@ -1016,7 +1016,9 @@ Stage 3: Add more real world example source documents so we have at least 2 tota
 
 **Stage 2**
 
-There should be no breaking changes or significant refactoring as this is simply extending the existing fieldset.
+There should be no breaking changes, depreciation strategies, or significant refactoring as this is extending the existing fieldset.
+
+While likely not a large-scale ECS project, there would be documentation updates needed to explain the new fields.
 
 <!--
 Stage 2: Identifies scope of impact of changes. Are breaking changes required? Should deprecation strategies be adopted? Will significant refactoring be involved? Break the impact down into:
