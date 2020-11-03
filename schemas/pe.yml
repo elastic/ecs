@@ -60,139 +60,163 @@
       description: CPU architecture target for the file.
       example: x64
 
-    - name: flattened
-      release: beta
+    - name: main_icon.hash
+      level: extended
       type: group
+      description: >
+        Hashes of embedded program icon.
       fields:
-        - name: debug
-          default_field: false
+        - name: dhash
+          level: extended
+          type: keyword
           description: >
-            Debug information, if present
-          type: flattened
-        - name: import_list
-          default_field: false
+            Difference Hash for a given PE file.
+
+        - name: md5
+          level: extended
+          type: keyword
           description: >
-            List of all imported functions
-          type: flattened
-        - name: sections
-          default_field: false
-          description: >
-            Data about sections of compiled binary PE
-          type: flattened
-        - name: resource_details
-          default_field: false
-          type: flattened
-          description: >
-            If the PE contains resources, some info about them
-        - name: resource_languages
-          default_field: false
-          type: flattened
-          description: >
-            Digest of languages found in resources. Key is language (as string) and
-            value is how many resources there are having that language (as integer)
-        - name: resource_types
-          default_field: false
-          type: flattened
-          description: >
-            Digest of resource types. Key is resource type (as string) and value
-            is how many resources there are of that specific type (as integer)
-        - name: packers
-          default_field: false
-          type: flattened
-          description: >
-            Identifies packers used on Windows PE files by several tools and AVs.
-            Keys are tool names and values are identified packers, both strings.
-            see `file.pe.packers` for merged list of packers from all tools.
-      
+            MD5 hash of raw icon data.
+
+    - name: debug
+      level: extended
+      type: keyword
+      description: Debug information, if present
+
+    - name: import_list
+      level: extended
+      type: keyword
+      description: List of all imported functions
+
+    - name: sections
+      level: extended
+      description: >
+        Data about sections of compiled binary PE
+      type: keyword
+
+    - name: resource_details
+      level: extended
+      type: keyword
+      description: >
+        If the PE contains resources, some info about them
+
+    - name: resource_languages
+      level: extended
+      type: keyword
+      description: >
+        Digest of languages found in resources. Key is language (as string) and
+        value is how many resources there are having that language (as integer)
+
+    - name: resource_types
+      level: extended
+      type: keyword
+      description: >
+        Digest of resource types. Key is resource type (as string) and value
+        is how many resources there are of that specific type (as integer)
+
+    - name: packers
+      level: extended
+      type: keyword
+      description: >
+        Identifies packers used on Windows PE files by several tools and AVs.
+        Keys are tool names and values are identified packers, both strings.
+        see `file.pe.packers` for merged list of packers from all tools.
+
     - name: exports
+      level: extended
       type: keyword
       description: >
         List of symbols exported by PE
 
     - name: creation_date
-      default_field: false
+      level: extended
       description: >
         extracted when possible from the file's metadata. Indicates when it was
         built or compiled. It can also be faked by malware creators.
       type: date
+
     - name: authentihash
+      level: extended
       description: >
         Authentihash of the PE file.
       type: keyword
+
     - name: compile_timestamp
+      level: extended
       description: >
         Compile timestamp of the PE file.
       type: date
 
-    - name: packers
-      type: keyword
-      description: >
-        Merged list of all detected packers by all tools used. See `file.pe.flattened.packers`.
-
-    - name: main_icon.hash
-      type: group
-      description: >
-        Hashes of embedded program icon
-      fields:
-        - name: dhash
-          description: >
-            Difference Hash for a given PE file.
-          type: keyword
-          release: beta
-        - name: md5
-          type: keyword
-          description: >
-            MD5 hash of raw icon data
-          release: beta
     - name: compiler_product_versions
+      level: extended
       type: keyword
       description: >
         Version of the compiler.
+
     - name: rich_pe_header_hash
+      level: extended
       type: keyword
       description: >
         Hash of the PE header.
+
     - name: entry_point
+      level: extended
       description: >
         Entry point of the PE file.
       format: string
       type: long
+
     - name: machine_type
+      level: extended
       description: >
         Machine type of the PE file.
       type: keyword
+
     - name: overlay
+      level: extended
       description: >
         Overlay information of the PE file.
-      release: beta
       type: group
       fields:
         - name: chi2
+          level: extended
           description: >
             Chi2 information of the PE file.
           type: float
+
         - name: entropy
+          level: extended
           description: >
             Entropy information of the PE file.
           type: float
+
         - name: filetype
+          level: extended
           description: >
             Filetype of the PE file.
           type: keyword
+
         - name: md5
+          level: extended
           description: >
             Overlay MD5 hash of the PE file.
           type: keyword
+
         - name: offset
+          level: extended
           description: >
             Offset of the overlay information of the PE file.
           type: long
+
         - name: size
+          level: extended
           description: >
             Size of the PE file.
           format: bytes
           type: long
+
         - name: rich_pe_header_hash
+          level: extended
           description: >
             Hash of the header for the PE file.
           type: keyword

@@ -19,13 +19,13 @@ This RFC is to create 25 additional sub-fields within the `file.pe` fieldset.
 | file.pe.creation_date | date | Extracted when possible from the file's metadata. Indicates when it was built or compiled. It can also be faked by malware creators. |
 | file.pe.entry_point | long | Entry point of the PE file. |
 | file.pe.exports | keyword | List of symbols exported by PE |
-| file.pe.flattened.debug | flattened | Debug information, if present |
-| file.pe.flattened.import_list | flattened | List of all imported functions |
-| file.pe.flattened.sections | flattened | Data about sections of compiled binary PE |
-| file.pe.flattened.resource_details | flattened | If the PE contains resources, some info about them |
-| file.pe.flattened.resource_languages | flattened | Digest of languages found in resources. Key is language (as string) and value is how many resources there are having that language (as integer) |
-| file.pe.flattened.resource_types | flattened | Digest of resource types. Key is resource type (as string) and value is how many resources there are of that specific type (as integer) |
-| file.pe.flattened.packers | flattened | Identifies packers used on Windows PE files by several tools and AVs. Keys are tool names and values are identified packers, both strings. See `file.pe.packers` for merged list of packers from all tools. |
+| file.pe.debug | flattened | Debug information, if present |
+| file.pe.import_list | flattened | List of all imported functions |
+| file.pe.sections | flattened | Data about sections of compiled binary PE |
+| file.pe.resource_details | flattened | If the PE contains resources, some info about them |
+| file.pe.resource_languages | flattened | Digest of languages found in resources. Key is language (as string) and value is how many resources there are having that language (as integer) |
+| file.pe.resource_types | flattened | Digest of resource types. Key is resource type (as string) and value is how many resources there are of that specific type (as integer) |
+| file.pe.packers | flattened | Identifies packers used on Windows PE files by several tools and AVs. Keys are tool names and values are identified packers, both strings. See `file.pe.packers` for merged list of packers from all tools. |
 | file.pe.machine_type | keyword | Machine type of the PE file. |
 | file.pe.main_icon.hash.dhash | keyword | Difference Hash for a given PE file. |
 | file.pe.main_icon.hash.md5 | keyword | MD5 hash of raw icon data |
@@ -36,7 +36,7 @@ This RFC is to create 25 additional sub-fields within the `file.pe` fieldset.
 | file.pe.overlay.offset | long | Offset of the overlay information of the PE file. |
 | file.pe.overlay.size | long | Size of the PE file. |
 | file.pe.overlay.rich_pe_header_hash | keyword | Hash of the header for the PE file. |
-| file.pe.packers | keyword | Merged list of all detected packers by all tools used. See `file.pe.flattened.packers`. |
+| file.pe.packers | keyword | Merged list of all detected packers by all tools used. |
 | file.pe.rich_pe_header_hash | keyword | Hash of the PE header. |
 
 **Stage 1**  
