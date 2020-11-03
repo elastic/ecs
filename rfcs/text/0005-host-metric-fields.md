@@ -35,12 +35,13 @@ This RFC calls for the addition of host fields to collect basic monitoring metri
 | `host.network.ingress.packets` | long | The number of packets (gauge) received on all network interfaces by the host in a given period of time. |
 | `host.network.egress.bytes` | long | The number of bytes (gauge) sent out on all network interfaces by the host in a given period of time. |
 | `host.network.egress.packets` | long | The number of packets (gauge) sent out on all network interfaces by the host in a given period of time. |
-| `host.disk.read.bytes` | long | The total number of bytes (gauge) read successfully in a given period of time. |
-| `host.disk.write.bytes` | long | The total number of bytes (gauge) write successfully in a given period of time. |
+| `host.disk.read.bytes` | long | The total number of bytes (gauge) read successfully (aggregated from all disks) in a given period of time. |
+| `host.disk.write.bytes` | long | The total number of bytes (gauge) write successfully (aggregated from all disks) in a given period of time. |
 
 <!--
 Stage 2: Include new or updated yml field definitions for all of the essential fields in this draft. While not exhaustive, the fields documented here should be comprehensive enough to deeply evaluate the technical considerations of this change. The goal here is to validate the technical details for all essential fields and to provide a basis for adding experimental field definitions to the schema. Use GitHub code blocks with yml syntax formatting.
 -->
+Please see [`host`](0005/host.yml) for definitions of all fields.
 
 <!--
 Stage 3: Add or update all remaining field definitions. The list should now be exhaustive. The goal here is to validate the technical details of all remaining fields and to provide a basis for releasing these field definitions as beta in the schema. Use GitHub code blocks with yml syntax formatting.
@@ -75,7 +76,7 @@ Stage 2: Included a real world example source document. Ideally this example com
 -->
 
 Please see example source document from AWS EC2 instance in
-[rfcs/text/0005/ec2.yml](0005/ec2.yml).
+[rfcs/text/0005/ec2.json](0005/ec2.json).
 
 <!--
 Stage 3: Add more real world example source documents so we have at least 2 total, but ideally 3. Format as described in stage 2.
