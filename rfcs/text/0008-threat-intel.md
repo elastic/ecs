@@ -33,6 +33,8 @@ Stage 1: Describe at a high level how this change affects fields. Which fieldset
     _Type of indicator as reprsented by Cyber Observable in STIX 2.0_
   * threat.description
     _Describes the type of action conducted by the threat._
+  * threat.tlp
+    _Traffic Light Protocol, which dictates sharing policies_
   * threat.classification
     _Describes type of threat delivery (Hacktool etc.) and family name.
   * threat.scanner_stats
