@@ -14,8 +14,7 @@ The [experimental/schemas](./schemas) directory contains the YAML files for the 
 If you use the ECS generator script as described in [USAGE.md](../USAGE.md) to maintain your custom index templates, here's how you can try these experimental changes in your project:
 
 ```sh
-$ python scripts/generator.py --include experimental/schemas \
-    --include ../myproject/fields/custom/ \
+$ python scripts/generator.py --include experimental/schemas ../myproject/fields/custom/ \
     --out ../myproject/fields/generated
 ```
 

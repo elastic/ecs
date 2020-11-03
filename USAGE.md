@@ -187,6 +187,14 @@ For example, if we defined the following schema definition in a file named `mypr
         Unique identifier of the widget.
 ```
 
+Multiple directory targets can also be provided:
+
+```
+$ python scripts/generator.py \
+    --include ../myproject/custom-fields-A/  ../myproject/custom-fields-B \
+    --out ../myproject/out/
+```
+
 Generate artifacts using `--include` to load our custom definitions in addition to `--out` to place them in the desired output directory:
 
 ```
@@ -343,6 +351,7 @@ Indices using purely OSS types will benefit from the normalization of ECS, but m
 
 Current fallbacks applied by this flag are:
 
+- `constant_keyword` => `keyword`
 - `wildcard` => `keyword`
 - `version` => `keyword`
 

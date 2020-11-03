@@ -28,6 +28,11 @@ All notable changes to this project will be documented in this file based on the
 
 ### Tooling and Artifact Changes
 
+#### Breaking changes
+
+* Changed the index pattern of the sample Elasticsearch template from `ecs-*` to
+  `try-ecs-*` to avoid conflicting with Logstash' `ecs-logstash-*`. #1048
+
 #### Bugfixes
 
 * Addressed issue where foreign reuses weren't using the user-supplied `as` value for their destination. #960
