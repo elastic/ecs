@@ -33,8 +33,6 @@ relevant artifacts for their unique set of data sources.
     + [OSS](#oss)
     + [Strict Mode](#strict-mode)
     + [Intermediate-Only](#intermediate-only)
-  * [Advanced Usage](#advanced-usage)
-    + [Using ref and include with experimental fields](#using-ref-and-include-with-experimental-fields)
 
 ## TLDR Example
 
@@ -285,9 +283,26 @@ The `--ref` argument allows for passing a specific `git` tag (e.g. `v.1.5.0`) or
 $ python scripts/generator.py --ref v1.5.0
 ```
 
-The `-ref` argument will only loads field definitions from the [`./schemas`](./schemas) subdirectory. This allows for `--ref` to be paired with the `--include` flag to merge custom fields with a specific ECS version.
+The `--ref` argument only loads field definitions from the [`./schemas`](./schemas) subdirectory in the target `git` reference. This allows for merging custom fieldsets (outside the git ref tree) using `--include`.
 
-For details of using `--ref` and `--include` with experimental fields, see [Using ref and include with experimental fields](#using-ref-and-include-with-experimental-fields).
+Here's an example merging ECS `v1.6.0` fields with custom fields maintained in a separate `myproject` directory:
+
+```
+$ python scripts/generator.py --ref v1.6.0 --include ../myproject/fields/custom`  --out ../myproject/out
+```
+
+There one is one exception supporting the [experimental](experimental/README.md) fields. If using `--ref` and including the `experimental/schemas` directory, the experimental fields will also load from the specified git ref. This
+example would merge ECS v1.7.0 fields with the v1.7.0 experimental fields:
+
+```
+$ python scripts/generator.py --ref v1.7.0 --include experimental/schemas --out ../myproject/out
+```
+
+Custom fields can also be passed using `--include` with the experimental ones. This command merges v1.7.0 fields, v1.7.0 experimental fields, and custom fields from `../myproject/fields/custom`:
+
+```
+$ python scripts/generator.py --ref v1.7.0 --include experimental/schemas ../myproject/fields/custom --out ../myproject/out
+```
 
 > Note: `--ref` does have a dependency on `git` being installed and all expected commits/tags fetched from the ECS upstream repo. This will unlikely be an issue unless you downloaded the ECS as a zip archive from GitHub vs. cloning it.
 
@@ -418,30 +433,3 @@ This will cause an exception when running in strict mode.
 
 The `--intermediate-only` argument is used for debugging purposes. It only generates the ["intermediate files"](generated/ecs), `ecs_flat.yml` and `ecs_nested.yml`, without generating the rest of the artifacts.
 More information on the different intermediate files can be found in the generated directory's [README](generated/README.md).
-
-### Advanced Usage
-
-Use cases and examples in this section detail more advanced usage of the ECS tooling.
-
-#### Using ref and include with experimental fields
-
-The `--ref` argument only loads field definitions from the [`./schemas`](./schemas) subdirectory in the target `git` reference. This allows for merging custom fieldsets (outside the git ref tree) using `--include`.
-
-Here's an example merging ECS `v1.6.0` fields with custom fields maintained in a separate `myproject` directory:
-
-```
-$ python scripts/generator.py --ref v1.6.0 --include ../myproject/fields/custom`  --out ../myproject/out
-```
-
-There one is one exception supporting the [experimental](experimental/README.md) fields. If using `--ref` and including the `experimental/schemas` directory, the experimental fields will also load from the specified git ref. This
-example merges ECS v1.7.0 fields with the v1.7.0 experimental fields:
-
-```
-$ python scripts/generator.py --ref v1.7.0 --include experimental/schemas --out ../myproject/out
-```
-
-Custom fields can also be passed using `--include` with the experimental ones. This command merges v1.7.0 fields, v1.7.0 experimental fields, and custom fields from `../myproject/fields/custom`:
-
-```
-$ python scripts/generator.py --ref v1.7.0 --include experimental/schemas ../myproject/fields/custom --out ../myproject/out
-```
