@@ -18,7 +18,7 @@ Thanks, you're awesome :-) -->
 
 * Added `event.category` "registry". #1040
 * Added `event.category` "session". #1049
-* Added `file.elf`. #
+* Added `file.elf`. #1077
 
 #### Improvements
 
