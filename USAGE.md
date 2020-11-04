@@ -29,11 +29,12 @@ relevant artifacts for their unique set of data sources.
     + [Include](#include)
     + [Subset](#subset)
     + [Ref](#ref)
-      - [Using ref with include](#using-ref-with-include)
     + [Mapping & Template Settings](#mapping--template-settings)
     + [OSS](#oss)
     + [Strict Mode](#strict-mode)
     + [Intermediate-Only](#intermediate-only)
+  * [Advanced Usage](#advanced-usage)
+    + [Using ref with include](#using-ref-and-include-for-experimental-fields)
 
 ## TLDR Example
 
@@ -229,7 +230,7 @@ And looking at a specific artifact, `../myprojects/out/generated/elasticsearch/7
 ...
 ```
 
-Include can be used with together with the `--ref` flag to merge custom and/or experimental fields into a targeted ECS version. See [Using ref with include](#using-ref-with-include).
+Include can be used together with the `--ref` flag to merge custom fields into a targeted ECS version. See [`Ref`](#ref).
 
 > NOTE: The `--include` mechanism will not validate custom YAML files prior to merging. This allows for modifying existing ECS fields in a custom schema without having to redefine all the mandatory field attributes.
 
@@ -284,29 +285,9 @@ The `--ref` argument allows for passing a specific `git` tag (e.g. `v.1.5.0`) or
 $ python scripts/generator.py --ref v1.5.0
 ```
 
-##### Using ref with include
+The `-ref` argument will only loads field definitions from the [`./schemas`](./schemas) subdirectory. This allows for `--ref` to be paired with the `--include` flag to merge custom fields with a specific ECS version.
 
-Be aware that `--ref` only loads field definitions from the [`./schemas`](./schemas) subdirectory in the target `git` ref. Any custom fieldsets from other locations can be merged using `--include`.
-
-For example, merging ECS v1.6.0 fields with custom fields maintained in a separate `myproject` directory:
-
-```
-$ python scripts/generator.py --ref v1.6.0 --include ../myproject/fields/custom`  --out ../myproject/out
-```
-
-There one is one exception that supports the [experimental](experimental/README.md) fields. If using `--ref` alongside with including the `experimental/schemas` directory, the fields in `experimental/schemas` will also be loaded from the target git ref.
-
-Here's another example, which merges ECS v1.7.0 with the experimental fields as of v1.7.0:
-
-```
-$ python scripts/generator.py --ref v1.7.0 --include experimental/schemas
-```
-
-One final example here merges ECS v1.7.0 fields, ECS v1.7.0 experimental fields, and custom fields:
-
-```
-$ python scripts/generator.py --ref v1.7.0 --include experimental/schemas ../myproject/fields/custom --out ../myproject/out
-```
+For details of using `--ref` and `--include` with experimental fields, see [Using ref and include with experimental fields](#using-ref-and-include-with-experimental-fields).
 
 > Note: `--ref` does have a dependency on `git` being installed and all expected commits/tags fetched from the ECS upstream repo. This will unlikely be an issue unless you downloaded the ECS as a zip archive from GitHub vs. cloning it.
 
@@ -437,3 +418,31 @@ This will cause an exception when running in strict mode.
 
 The `--intermediate-only` argument is used for debugging purposes. It only generates the ["intermediate files"](generated/ecs), `ecs_flat.yml` and `ecs_nested.yml`, without generating the rest of the artifacts.
 More information on the different intermediate files can be found in the generated directory's [README](generated/README.md).
+
+### Advanced Use Cases
+
+Use cases and examples in this section detail more advanced usage of the ECS tooling.
+
+#### Using ref and include with experimental fields
+
+The `-ref` argument only loads field definitions from the [`./schemas`](./schemas) subdirectory in the target `git` ref. This allows for any custom fieldsets to be merged using `--include`.
+
+Here's an example merging ECS `v1.6.0` fields with custom fields maintained in a separate `myproject` directory:
+
+```
+$ python scripts/generator.py --ref v1.6.0 --include ../myproject/fields/custom`  --out ../myproject/out
+```
+
+There one is one exception supporting the [experimental](experimental/README.md) fields. If using `--ref` and including the `experimental/schemas` directory, the `experimental/schemas` fields will be loaded from the specified git ref.
+
+This example merges ECS v1.7.0 fields with the v1.7.0 experimental fields:
+
+```
+$ python scripts/generator.py --ref v1.7.0 --include experimental/schemas --out ../myproject/out
+```
+
+Additionally, custom fields can also be passed using `--include` with the experimental ones. This command merges v1.7.0 fields, v1.7.0 experimental fields, and custom fields from `../myproject/fields/custom`:
+
+```
+$ python scripts/generator.py --ref v1.7.0 --include experimental/schemas ../myproject/fields/custom --out ../myproject/out
+```
