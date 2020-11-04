@@ -10,6 +10,8 @@ Thanks, you're awesome :-) -->
 
 ### Schema Changes
 
+* Added `event.category` "session". #1049
+
 #### Breaking changes
 
 #### Bugfixes
