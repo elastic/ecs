@@ -425,7 +425,7 @@ Use cases and examples in this section detail more advanced usage of the ECS too
 
 #### Using ref and include with experimental fields
 
-The `-ref` argument only loads field definitions from the [`./schemas`](./schemas) subdirectory in the target `git` ref. This allows for any custom fieldsets to be merged using `--include`.
+The `--ref` argument only loads field definitions from the [`./schemas`](./schemas) subdirectory in the target `git` reference. This allows for merging custom fieldsets (outside the git ref tree) using `--include`.
 
 Here's an example merging ECS `v1.6.0` fields with custom fields maintained in a separate `myproject` directory:
 
@@ -433,15 +433,14 @@ Here's an example merging ECS `v1.6.0` fields with custom fields maintained in a
 $ python scripts/generator.py --ref v1.6.0 --include ../myproject/fields/custom`  --out ../myproject/out
 ```
 
-There one is one exception supporting the [experimental](experimental/README.md) fields. If using `--ref` and including the `experimental/schemas` directory, the `experimental/schemas` fields will be loaded from the specified git ref.
-
-This example merges ECS v1.7.0 fields with the v1.7.0 experimental fields:
+There one is one exception supporting the [experimental](experimental/README.md) fields. If using `--ref` and including the `experimental/schemas` directory, the experimental fields will also load from the specified git ref. This
+example merges ECS v1.7.0 fields with the v1.7.0 experimental fields:
 
 ```
 $ python scripts/generator.py --ref v1.7.0 --include experimental/schemas --out ../myproject/out
 ```
 
-Additionally, custom fields can also be passed using `--include` with the experimental ones. This command merges v1.7.0 fields, v1.7.0 experimental fields, and custom fields from `../myproject/fields/custom`:
+Custom fields can also be passed using `--include` with the experimental ones. This command merges v1.7.0 fields, v1.7.0 experimental fields, and custom fields from `../myproject/fields/custom`:
 
 ```
 $ python scripts/generator.py --ref v1.7.0 --include experimental/schemas ../myproject/fields/custom --out ../myproject/out
