@@ -10,6 +10,13 @@ Find additional usage and examples in the {{ fieldset['name'] }} fields <<ecs-{{
 
 {% endif %}
 
+{# Fieldset label beta header -#}
+{% if fieldset['beta'] -%}
+
+beta::[ {{ fieldset['beta'] }}]
+
+{% endif -%}
+
 {# Field Details Table Header -#}
 [discrete]
 ==== {{ fieldset['title'] }} Field Details
@@ -27,7 +34,7 @@ Find additional usage and examples in the {{ fieldset['name'] }} fields <<ecs-{{
 {# `Field` column -#}
 {#- Beta fields will add the `beta` label -#}
 {%- if field['beta'] -%}
-| {{ field['flat_name'] }} beta:[]
+| {{ field['flat_name'] }} beta:[ {{ field['beta'] }} ]
 {%- else -%}
 | {{ field['flat_name'] }}
 {%- endif %}
@@ -113,7 +120,12 @@ Note also that the `{{ fieldset['name'] }}` fields are not expected to be used d
 
 {% for entry in render_nestings_reuse_section -%}
 
+{#- Beta marker on nested fields -#}
+{%- if entry['beta'] -%}
+| <<ecs-{{ entry['name'] }},{{ entry['flat_nesting'] }}>>  beta:[ {{ entry['beta'] }}]
+{%- else -%}
 | <<ecs-{{ entry['name'] }},{{ entry['flat_nesting'] }}>>
+{%- endif %}
 | {{ entry['short'] }}
 
 // ===============================================================
