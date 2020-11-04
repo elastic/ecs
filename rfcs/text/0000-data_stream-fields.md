@@ -29,9 +29,12 @@ data_stream.type | constant_keyword | An overarching type for the data stream. C
 data_stream.dataset | constant_keyword | The field can contain anything that makes sense to signify the source of the data. Examples include `nginx.access`, `prometheus`, `endpoint` etc. For data streams that otherwise fit, but that do not have dataset set we use the value "generic" for the dataset value. `event.dataset` should have the same value as `data_stream.dataset`. 
 data_stream.namespace | constant_keyword | A user defined namespace. Namespaces are useful to allow grouping of data. Many of our customers already organize their indices this way, and now we are providing this best practice as a default. Many people will use `default` as the value.
 
-In the new indexing strategy, the value of the data stream fields combine to the name of the actual data stream in the following manner `{data_stream.type}-{data_stream.dataset}-{datastream.namespace}`. This means the fields can only contain characters that are valid as part of names of data streams. Please see the Elasticsearch reference for [restrictions on index/data stream names](https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-create-index.html#indices-create-api-path-params).
+In the new indexing strategy, the value of the data stream fields combine to the name of the actual data stream in the following manner `{data_stream.type}-{data_stream.dataset}-{data_stream.namespace}`. This means the fields can only contain characters that are valid as part of names of data streams.
 
 ### Restrictions on values
+
+Due to the fact that the values of the `data_stream` fields make up the data stream name, the restrictions on data stream names also apply to values for the `data_stream` fields. As an example, they cannot include \, /, *, ?, ", <, >, |, ` `. Please see the Elasticsearch reference for [restrictions on index/data stream names](https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-create-index.html#indices-create-api-path-params). Here follows the _additional_ restrictions imposed on the data stream fields:
+
 **data_stream.type**
 
 `data_stream.type` is restricted to `logs` or `metrics` for now. 
@@ -99,6 +102,9 @@ Stage 3: Add more real world example source documents so we have at least 2 tota
 ## Scope of impact
 
 * We've described that `generic` is a valid value for `data_stream.dataset` in some cases. Since `event.dataset` should always have the same value, this will also apply to `event.dataset`. We should update the documentation on `event.dataset` to reflect this.
+* Since `data_stream.dataset` and `event.dataset` should contain the same value, the restrictions imposed on `data_stream.dataset` might affect the `event.dataset` value. This means users may need to translate their custom dataset values (e.g. `event.dataset: firewall/config`) to an equivalent legal dataset, according to the character restrictions imposed by the use of the value in `data_stream.dataset`, for example `data_stream.dataset: firewall.config`.
+
+
 
 <!--
 Stage 2: Identifies scope of impact of changes. Are breaking changes required? Should deprecation strategies be adopted? Will significant refactoring be involved? Break the impact down into:
