@@ -2533,6 +2533,231 @@ file.extension:
   normalize: []
   short: File extension, excluding the leading dot.
   type: keyword
+file.file.elf.creation_date:
+  dashed_name: file-file-elf-creation-date
+  description: Extracted when possible from the file's metadata. Indicates when it
+    was built or compiled. It can also be faked by malware creators.
+  flat_name: file.file.elf.creation_date
+  level: extended
+  name: creation_date
+  normalize: []
+  original_fieldset: file.elf
+  short: Build or compile date.
+  type: date
+file.file.elf.exports:
+  dashed_name: file-file-elf-exports
+  description: List of exported element names and types
+  fields:
+  - description: 'Name of exported symbol
+
+      '
+    level: extended
+    name: name
+    type: keyword
+  - description: 'Type of exported symbol
+
+      '
+    level: extended
+    name: type
+    type: keyword
+  flat_name: file.file.elf.exports
+  level: extended
+  name: exports
+  normalize: []
+  original_fieldset: file.elf
+  short: List of exported element names and types
+  type: object
+file.file.elf.header:
+  dashed_name: file-file-elf-header
+  description: Header information of the ELF file.
+  fields:
+  - description: 'Header class of the ELF file.
+
+      '
+    level: extended
+    name: class
+    type: keyword
+  - description: 'Data table of the ELF header.
+
+      '
+    level: extended
+    name: data
+    type: keyword
+  - description: 'Machine architecture of the ELF header.
+
+      '
+    level: extended
+    name: machine
+    type: keyword
+  - description: 'Application Binary Interface (ABI) of the Linux OS.
+
+      '
+    level: extended
+    name: os_abi
+    type: keyword
+  - description: 'Header type of the ELF file.
+
+      '
+    level: extended
+    name: type
+    type: keyword
+  - description: 'Version of the ELF header.
+
+      '
+    level: extended
+    name: version
+    type: keyword
+  - description: 'Version of the ELF Application Binary Interface (ABI).
+
+      '
+    level: extended
+    name: abi_version
+    type: keyword
+  - description: 'Header entrypoint of the ELF file.
+
+      '
+    format: string
+    level: extended
+    name: entrypoint
+    type: long
+  - description: '"0x1" for original ELF files.
+
+      '
+    level: extended
+    name: object_version
+    type: keyword
+  flat_name: file.file.elf.header
+  level: extended
+  name: header
+  normalize: []
+  original_fieldset: file.elf
+  short: Header information of the ELF file.
+  type: object
+file.file.elf.imports:
+  dashed_name: file-file-elf-imports
+  description: List of imported element names and types
+  fields:
+  - description: 'Name of imported symbol
+
+      '
+    level: extended
+    name: name
+    type: keyword
+  - description: 'Type of imported symbol
+
+      '
+    level: extended
+    name: type
+    type: keyword
+  flat_name: file.file.elf.imports
+  level: extended
+  name: imports
+  normalize: []
+  original_fieldset: file.elf
+  short: List of imported element names and types
+  type: object
+file.file.elf.number_program_headers:
+  dashed_name: file-file-elf-number-program-headers
+  description: Number of ELF Program Headers.
+  flat_name: file.file.elf.number_program_headers
+  level: extended
+  name: number_program_headers
+  normalize: []
+  original_fieldset: file.elf
+  short: Number of ELF Program Headers.
+  type: long
+file.file.elf.number_section_headers:
+  dashed_name: file-file-elf-number-section-headers
+  description: Number of ELF Section Headers.
+  flat_name: file.file.elf.number_section_headers
+  level: extended
+  name: number_section_headers
+  normalize: []
+  original_fieldset: file.elf
+  short: Number of ELF Section Headers.
+  type: long
+file.file.elf.sections:
+  dashed_name: file-file-elf-sections
+  description: Section information of the ELF file.
+  fields:
+  - description: 'ELF Section List flags.
+
+      '
+    level: extended
+    name: flags
+    type: keyword
+  - description: 'ELF Section List name.
+
+      '
+    level: extended
+    name: name
+    type: keyword
+  - description: 'ELF Section List offset.
+
+      '
+    level: extended
+    name: physical_offset
+    type: keyword
+  - description: 'ELF Section List type.
+
+      '
+    level: extended
+    name: section_type
+    type: keyword
+  - description: 'ELF Section List size.
+
+      '
+    format: bytes
+    level: extended
+    name: size
+    type: long
+  - description: 'ELF Section List virtual address.
+
+      '
+    format: string
+    level: extended
+    name: virtual_address
+    type: long
+  flat_name: file.file.elf.sections
+  level: extended
+  name: sections
+  normalize: []
+  original_fieldset: file.elf
+  short: Section information of the ELF file.
+  type: object
+file.file.elf.segment_list:
+  dashed_name: file-file-elf-segment-list
+  description: ELF object segment list.
+  flat_name: file.file.elf.segment_list
+  ignore_above: 1024
+  level: extended
+  name: segment_list
+  normalize: []
+  original_fieldset: file.elf
+  short: ELF object segment list.
+  type: keyword
+file.file.elf.shared_libraries:
+  dashed_name: file-file-elf-shared-libraries
+  description: List of shared libraries used by this ELF object
+  flat_name: file.file.elf.shared_libraries
+  ignore_above: 1024
+  level: extended
+  name: shared_libraries
+  normalize: []
+  original_fieldset: file.elf
+  short: List of shared libraries used by this ELF object
+  type: keyword
+file.file.elf.telfhash:
+  dashed_name: file-file-elf-telfhash
+  description: telfhash hash for ELF files.
+  flat_name: file.file.elf.telfhash
+  ignore_above: 1024
+  level: extended
+  name: telfhash
+  normalize: []
+  original_fieldset: file.elf
+  short: telfhash hash for ELF files.
+  type: keyword
 file.gid:
   dashed_name: file-gid
   description: Primary group ID (GID) of the file.
@@ -4943,6 +5168,231 @@ process.exit_code:
   normalize: []
   short: The exit code of the process.
   type: long
+process.file.elf.creation_date:
+  dashed_name: process-file-elf-creation-date
+  description: Extracted when possible from the file's metadata. Indicates when it
+    was built or compiled. It can also be faked by malware creators.
+  flat_name: process.file.elf.creation_date
+  level: extended
+  name: creation_date
+  normalize: []
+  original_fieldset: file.elf
+  short: Build or compile date.
+  type: date
+process.file.elf.exports:
+  dashed_name: process-file-elf-exports
+  description: List of exported element names and types
+  fields:
+  - description: 'Name of exported symbol
+
+      '
+    level: extended
+    name: name
+    type: keyword
+  - description: 'Type of exported symbol
+
+      '
+    level: extended
+    name: type
+    type: keyword
+  flat_name: process.file.elf.exports
+  level: extended
+  name: exports
+  normalize: []
+  original_fieldset: file.elf
+  short: List of exported element names and types
+  type: object
+process.file.elf.header:
+  dashed_name: process-file-elf-header
+  description: Header information of the ELF file.
+  fields:
+  - description: 'Header class of the ELF file.
+
+      '
+    level: extended
+    name: class
+    type: keyword
+  - description: 'Data table of the ELF header.
+
+      '
+    level: extended
+    name: data
+    type: keyword
+  - description: 'Machine architecture of the ELF header.
+
+      '
+    level: extended
+    name: machine
+    type: keyword
+  - description: 'Application Binary Interface (ABI) of the Linux OS.
+
+      '
+    level: extended
+    name: os_abi
+    type: keyword
+  - description: 'Header type of the ELF file.
+
+      '
+    level: extended
+    name: type
+    type: keyword
+  - description: 'Version of the ELF header.
+
+      '
+    level: extended
+    name: version
+    type: keyword
+  - description: 'Version of the ELF Application Binary Interface (ABI).
+
+      '
+    level: extended
+    name: abi_version
+    type: keyword
+  - description: 'Header entrypoint of the ELF file.
+
+      '
+    format: string
+    level: extended
+    name: entrypoint
+    type: long
+  - description: '"0x1" for original ELF files.
+
+      '
+    level: extended
+    name: object_version
+    type: keyword
+  flat_name: process.file.elf.header
+  level: extended
+  name: header
+  normalize: []
+  original_fieldset: file.elf
+  short: Header information of the ELF file.
+  type: object
+process.file.elf.imports:
+  dashed_name: process-file-elf-imports
+  description: List of imported element names and types
+  fields:
+  - description: 'Name of imported symbol
+
+      '
+    level: extended
+    name: name
+    type: keyword
+  - description: 'Type of imported symbol
+
+      '
+    level: extended
+    name: type
+    type: keyword
+  flat_name: process.file.elf.imports
+  level: extended
+  name: imports
+  normalize: []
+  original_fieldset: file.elf
+  short: List of imported element names and types
+  type: object
+process.file.elf.number_program_headers:
+  dashed_name: process-file-elf-number-program-headers
+  description: Number of ELF Program Headers.
+  flat_name: process.file.elf.number_program_headers
+  level: extended
+  name: number_program_headers
+  normalize: []
+  original_fieldset: file.elf
+  short: Number of ELF Program Headers.
+  type: long
+process.file.elf.number_section_headers:
+  dashed_name: process-file-elf-number-section-headers
+  description: Number of ELF Section Headers.
+  flat_name: process.file.elf.number_section_headers
+  level: extended
+  name: number_section_headers
+  normalize: []
+  original_fieldset: file.elf
+  short: Number of ELF Section Headers.
+  type: long
+process.file.elf.sections:
+  dashed_name: process-file-elf-sections
+  description: Section information of the ELF file.
+  fields:
+  - description: 'ELF Section List flags.
+
+      '
+    level: extended
+    name: flags
+    type: keyword
+  - description: 'ELF Section List name.
+
+      '
+    level: extended
+    name: name
+    type: keyword
+  - description: 'ELF Section List offset.
+
+      '
+    level: extended
+    name: physical_offset
+    type: keyword
+  - description: 'ELF Section List type.
+
+      '
+    level: extended
+    name: section_type
+    type: keyword
+  - description: 'ELF Section List size.
+
+      '
+    format: bytes
+    level: extended
+    name: size
+    type: long
+  - description: 'ELF Section List virtual address.
+
+      '
+    format: string
+    level: extended
+    name: virtual_address
+    type: long
+  flat_name: process.file.elf.sections
+  level: extended
+  name: sections
+  normalize: []
+  original_fieldset: file.elf
+  short: Section information of the ELF file.
+  type: object
+process.file.elf.segment_list:
+  dashed_name: process-file-elf-segment-list
+  description: ELF object segment list.
+  flat_name: process.file.elf.segment_list
+  ignore_above: 1024
+  level: extended
+  name: segment_list
+  normalize: []
+  original_fieldset: file.elf
+  short: ELF object segment list.
+  type: keyword
+process.file.elf.shared_libraries:
+  dashed_name: process-file-elf-shared-libraries
+  description: List of shared libraries used by this ELF object
+  flat_name: process.file.elf.shared_libraries
+  ignore_above: 1024
+  level: extended
+  name: shared_libraries
+  normalize: []
+  original_fieldset: file.elf
+  short: List of shared libraries used by this ELF object
+  type: keyword
+process.file.elf.telfhash:
+  dashed_name: process-file-elf-telfhash
+  description: telfhash hash for ELF files.
+  flat_name: process.file.elf.telfhash
+  ignore_above: 1024
+  level: extended
+  name: telfhash
+  normalize: []
+  original_fieldset: file.elf
+  short: telfhash hash for ELF files.
+  type: keyword
 process.hash.md5:
   dashed_name: process-hash-md5
   description: MD5 hash.
@@ -5172,6 +5622,231 @@ process.parent.exit_code:
   original_fieldset: process
   short: The exit code of the process.
   type: long
+process.parent.file.elf.creation_date:
+  dashed_name: process-parent-file-elf-creation-date
+  description: Extracted when possible from the file's metadata. Indicates when it
+    was built or compiled. It can also be faked by malware creators.
+  flat_name: process.parent.file.elf.creation_date
+  level: extended
+  name: creation_date
+  normalize: []
+  original_fieldset: file.elf
+  short: Build or compile date.
+  type: date
+process.parent.file.elf.exports:
+  dashed_name: process-parent-file-elf-exports
+  description: List of exported element names and types
+  fields:
+  - description: 'Name of exported symbol
+
+      '
+    level: extended
+    name: name
+    type: keyword
+  - description: 'Type of exported symbol
+
+      '
+    level: extended
+    name: type
+    type: keyword
+  flat_name: process.parent.file.elf.exports
+  level: extended
+  name: exports
+  normalize: []
+  original_fieldset: file.elf
+  short: List of exported element names and types
+  type: object
+process.parent.file.elf.header:
+  dashed_name: process-parent-file-elf-header
+  description: Header information of the ELF file.
+  fields:
+  - description: 'Header class of the ELF file.
+
+      '
+    level: extended
+    name: class
+    type: keyword
+  - description: 'Data table of the ELF header.
+
+      '
+    level: extended
+    name: data
+    type: keyword
+  - description: 'Machine architecture of the ELF header.
+
+      '
+    level: extended
+    name: machine
+    type: keyword
+  - description: 'Application Binary Interface (ABI) of the Linux OS.
+
+      '
+    level: extended
+    name: os_abi
+    type: keyword
+  - description: 'Header type of the ELF file.
+
+      '
+    level: extended
+    name: type
+    type: keyword
+  - description: 'Version of the ELF header.
+
+      '
+    level: extended
+    name: version
+    type: keyword
+  - description: 'Version of the ELF Application Binary Interface (ABI).
+
+      '
+    level: extended
+    name: abi_version
+    type: keyword
+  - description: 'Header entrypoint of the ELF file.
+
+      '
+    format: string
+    level: extended
+    name: entrypoint
+    type: long
+  - description: '"0x1" for original ELF files.
+
+      '
+    level: extended
+    name: object_version
+    type: keyword
+  flat_name: process.parent.file.elf.header
+  level: extended
+  name: header
+  normalize: []
+  original_fieldset: file.elf
+  short: Header information of the ELF file.
+  type: object
+process.parent.file.elf.imports:
+  dashed_name: process-parent-file-elf-imports
+  description: List of imported element names and types
+  fields:
+  - description: 'Name of imported symbol
+
+      '
+    level: extended
+    name: name
+    type: keyword
+  - description: 'Type of imported symbol
+
+      '
+    level: extended
+    name: type
+    type: keyword
+  flat_name: process.parent.file.elf.imports
+  level: extended
+  name: imports
+  normalize: []
+  original_fieldset: file.elf
+  short: List of imported element names and types
+  type: object
+process.parent.file.elf.number_program_headers:
+  dashed_name: process-parent-file-elf-number-program-headers
+  description: Number of ELF Program Headers.
+  flat_name: process.parent.file.elf.number_program_headers
+  level: extended
+  name: number_program_headers
+  normalize: []
+  original_fieldset: file.elf
+  short: Number of ELF Program Headers.
+  type: long
+process.parent.file.elf.number_section_headers:
+  dashed_name: process-parent-file-elf-number-section-headers
+  description: Number of ELF Section Headers.
+  flat_name: process.parent.file.elf.number_section_headers
+  level: extended
+  name: number_section_headers
+  normalize: []
+  original_fieldset: file.elf
+  short: Number of ELF Section Headers.
+  type: long
+process.parent.file.elf.sections:
+  dashed_name: process-parent-file-elf-sections
+  description: Section information of the ELF file.
+  fields:
+  - description: 'ELF Section List flags.
+
+      '
+    level: extended
+    name: flags
+    type: keyword
+  - description: 'ELF Section List name.
+
+      '
+    level: extended
+    name: name
+    type: keyword
+  - description: 'ELF Section List offset.
+
+      '
+    level: extended
+    name: physical_offset
+    type: keyword
+  - description: 'ELF Section List type.
+
+      '
+    level: extended
+    name: section_type
+    type: keyword
+  - description: 'ELF Section List size.
+
+      '
+    format: bytes
+    level: extended
+    name: size
+    type: long
+  - description: 'ELF Section List virtual address.
+
+      '
+    format: string
+    level: extended
+    name: virtual_address
+    type: long
+  flat_name: process.parent.file.elf.sections
+  level: extended
+  name: sections
+  normalize: []
+  original_fieldset: file.elf
+  short: Section information of the ELF file.
+  type: object
+process.parent.file.elf.segment_list:
+  dashed_name: process-parent-file-elf-segment-list
+  description: ELF object segment list.
+  flat_name: process.parent.file.elf.segment_list
+  ignore_above: 1024
+  level: extended
+  name: segment_list
+  normalize: []
+  original_fieldset: file.elf
+  short: ELF object segment list.
+  type: keyword
+process.parent.file.elf.shared_libraries:
+  dashed_name: process-parent-file-elf-shared-libraries
+  description: List of shared libraries used by this ELF object
+  flat_name: process.parent.file.elf.shared_libraries
+  ignore_above: 1024
+  level: extended
+  name: shared_libraries
+  normalize: []
+  original_fieldset: file.elf
+  short: List of shared libraries used by this ELF object
+  type: keyword
+process.parent.file.elf.telfhash:
+  dashed_name: process-parent-file-elf-telfhash
+  description: telfhash hash for ELF files.
+  flat_name: process.parent.file.elf.telfhash
+  ignore_above: 1024
+  level: extended
+  name: telfhash
+  normalize: []
+  original_fieldset: file.elf
+  short: telfhash hash for ELF files.
+  type: keyword
 process.parent.hash.md5:
   dashed_name: process-parent-hash-md5
   description: MD5 hash.

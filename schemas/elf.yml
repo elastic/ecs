@@ -1,0 +1,191 @@
+---
+- name: file.elf
+  title: ELF Header
+  group: 2
+  description: >
+    ELF events from VirusTotal Intelligence Live Hunt results.
+  type: group
+  reusable:
+    top_level: false
+    expected:
+      - file
+      - process
+  fields:
+    - name: creation_date
+      short: Build or compile date.
+      description: >
+        Extracted when possible from the file's metadata. Indicates when it was
+        built or compiled. It can also be faked by malware creators.
+      type: date
+      level: extended
+
+    - name: header
+      level: extended
+      description: >
+        Header information of the ELF file.
+      type: object
+      fields:
+        - name: class
+          description: >
+            Header class of the ELF file.
+          type: keyword
+          level: extended
+
+        - name: data
+          description: >
+            Data table of the ELF header.
+          type: keyword
+          level: extended
+
+        - name: machine
+          description: >
+            Machine architecture of the ELF header.
+          type: keyword
+          level: extended
+
+        - name: os_abi
+          description: >
+            Application Binary Interface (ABI) of the Linux OS.
+          type: keyword
+          level: extended
+
+        - name: type
+          description: >
+            Header type of the ELF file.
+          type: keyword
+          level: extended
+
+        - name: version
+          description: >
+            Version of the ELF header.
+          type: keyword
+          level: extended
+
+        - name: abi_version
+          type: keyword
+          level: extended
+          description: >
+            Version of the ELF Application Binary Interface (ABI).
+
+        - name: entrypoint
+          format: string
+          level: extended
+          type: long
+          description: >
+            Header entrypoint of the ELF file.
+
+        - name: object_version
+          type: keyword
+          level: extended
+          description: >
+            "0x1" for original ELF files.
+
+    - name: number_program_headers
+      description: >
+        Number of ELF Program Headers.
+      type: long
+      level: extended
+
+    - name: number_section_headers
+      description: >
+        Number of ELF Section Headers.
+      type: long
+      level: extended
+
+    - name: sections
+      description: >
+        Section information of the ELF file.
+      type: object
+      level: extended
+      fields:
+        - name: flags
+          description: >
+            ELF Section List flags.
+          type: keyword
+          level: extended
+
+        - name: name
+          description: >
+            ELF Section List name.
+          type: keyword
+          level: extended
+
+        - name: physical_offset
+          description: >
+            ELF Section List offset.
+          type: keyword
+          level: extended
+
+        - name: section_type
+          description: >
+            ELF Section List type.
+          type: keyword
+          level: extended
+
+        - name: size
+          description: >
+            ELF Section List size.
+          format: bytes
+          type: long
+          level: extended
+
+        - name: virtual_address
+          description: >
+            ELF Section List virtual address.
+          format: string
+          type: long
+          level: extended
+
+    - name: exports
+      description: >
+        List of exported element names and types
+      level: extended
+      type: object
+      fields:
+        - name: name
+          description: >
+            Name of exported symbol
+          type: keyword
+          level: extended
+
+        - name: type
+          description: >
+            Type of exported symbol
+          type: keyword
+          level: extended
+
+    - name: imports
+      description: >
+        List of imported element names and types
+      type: object
+      level: extended
+      fields:
+        - name: name
+          description: >
+            Name of imported symbol
+          type: keyword
+          level: extended
+
+        - name: type
+          description: >
+            Type of imported symbol
+          type: keyword
+          level: extended
+
+    - name: shared_libraries
+      description: >
+        List of shared libraries used by this ELF object
+      type: keyword
+      level: extended
+
+    - name: telfhash
+      description: >
+        telfhash hash for ELF files.
+      type: keyword
+      level: extended
+
+    - name: segment_list
+      description: >
+        ELF object segment list.
+      type: keyword
+      level: extended

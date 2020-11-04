@@ -2331,6 +2331,12 @@ example: `1001`
 // ===============================================================
 
 
+| <<ecs-file.elf,file.file.elf.*>>
+| ELF events from VirusTotal Intelligence Live Hunt results.
+
+// ===============================================================
+
+
 | <<ecs-hash,file.hash.*>>
 | Hashes, usually file hashes.
 
@@ -2350,6 +2356,162 @@ example: `1001`
 
 
 |=====
+
+[[ecs-file.elf]]
+=== ELF Header Fields
+
+ELF events from VirusTotal Intelligence Live Hunt results.
+
+[discrete]
+==== ELF Header Field Details
+
+[options="header"]
+|=====
+| Field  | Description | Level
+
+// ===============================================================
+
+| file.elf.creation_date
+| Extracted when possible from the file's metadata. Indicates when it was built or compiled. It can also be faked by malware creators.
+
+type: date
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+| file.elf.exports
+| List of exported element names and types
+
+type: object
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+| file.elf.header
+| Header information of the ELF file.
+
+type: object
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+| file.elf.imports
+| List of imported element names and types
+
+type: object
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+| file.elf.number_program_headers
+| Number of ELF Program Headers.
+
+type: long
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+| file.elf.number_section_headers
+| Number of ELF Section Headers.
+
+type: long
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+| file.elf.sections
+| Section information of the ELF file.
+
+type: object
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+| file.elf.segment_list
+| ELF object segment list.
+
+type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+| file.elf.shared_libraries
+| List of shared libraries used by this ELF object
+
+type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+| file.elf.telfhash
+| telfhash hash for ELF files.
+
+type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|=====
+
+[discrete]
+==== Field Reuse
+
+The `file.elf` fields are expected to be nested at: `file.file.elf`, `process.file.elf`.
+
+Note also that the `file.elf` fields are not expected to be used directly at the root of the events.
+
+
+
 
 [[ecs-geo]]
 === Geo Fields
@@ -4563,6 +4725,12 @@ Note also that the `process` fields may be used directly at the root of the even
 
 | <<ecs-code_signature,process.code_signature.*>>
 | These fields contain information about binary code signatures.
+
+// ===============================================================
+
+
+| <<ecs-file.elf,process.file.elf.*>>
+| ELF events from VirusTotal Intelligence Live Hunt results.
 
 // ===============================================================
 
