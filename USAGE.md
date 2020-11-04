@@ -34,7 +34,7 @@ relevant artifacts for their unique set of data sources.
     + [Strict Mode](#strict-mode)
     + [Intermediate-Only](#intermediate-only)
   * [Advanced Usage](#advanced-usage)
-    + [Using ref with include](#using-ref-and-include-for-experimental-fields)
+    + [Using ref and include with experimental fields](#using-ref-and-include-with-experimental-fields)
 
 ## TLDR Example
 
@@ -419,7 +419,7 @@ This will cause an exception when running in strict mode.
 The `--intermediate-only` argument is used for debugging purposes. It only generates the ["intermediate files"](generated/ecs), `ecs_flat.yml` and `ecs_nested.yml`, without generating the rest of the artifacts.
 More information on the different intermediate files can be found in the generated directory's [README](generated/README.md).
 
-### Advanced Use Cases
+### Advanced Usage
 
 Use cases and examples in this section detail more advanced usage of the ECS tooling.
 
