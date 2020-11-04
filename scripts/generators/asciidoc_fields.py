@@ -199,6 +199,7 @@ def field_details_table_header():
 
 {fieldset_description}
 
+[discrete]
 ==== {fieldset_title} Field Details
 
 [options="header"]
@@ -228,6 +229,7 @@ type: {field_type}
 
 def field_reuse_section():
     return '''
+[discrete]
 ==== Field Reuse
 
 {reuse_of_fieldset}
@@ -240,6 +242,7 @@ def field_reuse_section():
 def nestings_table_header():
     return '''
 [[ecs-{fieldset_name}-nestings]]
+[discrete]
 ===== Field sets that can be nested under {fieldset_title}
 
 [options="header"]
