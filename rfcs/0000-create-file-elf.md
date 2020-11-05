@@ -42,7 +42,7 @@ This RFC is to create the ELF sub-field within the `file.` fieldset. This will i
 
 **Stage 1**  
 
-[New `elf.yml` candidate](../schemas/pe.yml)]
+[New `elf.yml` candidate](../schemas/elf.yml)]
 
 <!--
 Stage 3: Add or update all remaining field definitions. The list should now be exhaustive. The goal here is to validate the technical details of all remaining fields and to provide a basis for releasing these field definitions as beta in the schema. Use GitHub code blocks with yml syntax formatting.
