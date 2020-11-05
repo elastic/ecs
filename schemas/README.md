@@ -105,7 +105,17 @@ The above defines all process fields in both places:
 }
 ```
 
-The `beta` marker can also be used along with `at` and `as` to include a beta marker in the documentation containing the provided description.
+The `beta` marker can optionally be used along with `at` and `as` to include a beta marker in the documentation containing the provided description.
+
+```
+  reusable:
+    top_level: true
+    expected:
+    - at: user
+      as: target
+      beta: >
+        Beta description text here.
+```
 
 ### List of fields
 
@@ -137,7 +147,7 @@ Supported keys to describe fields
 - format: Field format that can be used in a Kibana index template.
 - normalize: Normalization steps that should be applied at ingestion time. Supported values:
   - array: the content of the field should be an array (even when there's only one value).
-- beta: Adds a beta marker for the field to the description. The text provided in this attribute is used as content of the beta marker in the documentation.
+- beta (optional): Adds a beta marker for the field to the description. The text provided in this attribute is used as content of the beta marker in the documentation.
 
 Supported keys to describe expected values for a field
 
