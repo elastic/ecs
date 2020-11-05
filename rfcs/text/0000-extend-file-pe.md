@@ -1058,7 +1058,7 @@ The following are the people that consulted on the contents of this RFC.
 
 * @peasead | author
 * @devonakerr | sponsor
-* @dcode | subject matter expert
+* @dcode, @peasead | subject matter expert
 
 ## References
 
