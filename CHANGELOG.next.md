@@ -21,8 +21,6 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
-* Extended `file.pe`. #1071
-
 #### Deprecated
 
 ### Tooling and Artifact Changes
