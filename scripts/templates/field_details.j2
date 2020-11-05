@@ -32,14 +32,16 @@ beta::[ {{ fieldset['beta'] }}]
 {% if 'original_fieldset' not in field -%}
 
 {# `Field` column -#}
-{#- Beta fields will add the `beta` label -#}
-{%- if field['beta'] -%}
-| {{ field['flat_name'] }} beta:[ {{ field['beta'] }} ]
-{%- else -%}
 | {{ field['flat_name'] }}
-{%- endif %}
 {# `Description` column -#}
+{#- Beta fields will add the `beta` label -#}
+{% if field['beta'] -%}
+| beta:[ {{ field['beta'] }} ]
+
+{{ field['description']|replace("\n", "\n\n") }}
+{%- else -%}
 | {{ field['description']|replace("\n", "\n\n") }}
+{%- endif %}
 
 type: {{ field['type'] }}
 
@@ -121,12 +123,15 @@ Note also that the `{{ fieldset['name'] }}` fields are not expected to be used d
 {% for entry in render_nestings_reuse_section -%}
 
 {#- Beta marker on nested fields -#}
-{%- if entry['beta'] -%}
-| <<ecs-{{ entry['name'] }},{{ entry['flat_nesting'] }}>>  beta:[ {{ entry['beta'] }}]
-{%- else -%}
 | <<ecs-{{ entry['name'] }},{{ entry['flat_nesting'] }}>>
-{%- endif %}
+{#- Beta marker on nested fields -#}
+{%- if entry['beta'] -%}
+| beta:[ {{ entry['beta'] }}]
+
+{{ entry['short'] }}
+{%- else %}
 | {{ entry['short'] }}
+{%- endif %}
 
 // ===============================================================
 
