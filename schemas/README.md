@@ -32,6 +32,7 @@ Optional field set attributes:
 - type (ignored): at this level, should always be `group`
 - reusable (optional): Used to identify which field sets are expected to be reused in multiple places.
   See "Field set reuse" for details.
+- beta: Adds a beta marker for the entire fieldset. The text provided in this attribute is used as content of the beta marker in the documentation.
 
 ### Field set reuse
 
@@ -104,6 +105,8 @@ The above defines all process fields in both places:
 }
 ```
 
+The `beta` marker can also be used along with `at` and `as` to include a beta marker in the documentation containing the provided description.
+
 ### List of fields
 
 Array of YAML objects:
@@ -134,7 +137,7 @@ Supported keys to describe fields
 - format: Field format that can be used in a Kibana index template.
 - normalize: Normalization steps that should be applied at ingestion time. Supported values:
   - array: the content of the field should be an array (even when there's only one value).
-- beta (optional): If `True`, the field will be marked in the documentation with a `beta` label.
+- beta: Adds a beta marker for the field to the description. The text provided in this attribute is used as content of the beta marker in the documentation.
 
 Supported keys to describe expected values for a field
 
