@@ -92,7 +92,7 @@ class TestSchemaFinalizer(unittest.TestCase):
                         'order': 2,
                         'expected': [
                             {'full': 'server.user', 'at': 'server', 'as': 'user'},
-                            {'full': 'user.target', 'at': 'user', 'as': 'target'},
+                            {'full': 'user.target', 'at': 'user', 'as': 'target', 'beta': 'beta'},
                             {'full': 'user.effective', 'at': 'user', 'as': 'effective'},
                         ]
                     }
@@ -211,7 +211,7 @@ class TestSchemaFinalizer(unittest.TestCase):
                       fields['process']['schema_details']['reused_here'])
         self.assertIn({'full': 'user.effective', 'schema_name': 'user', 'short': 'short desc'},
                       fields['user']['schema_details']['reused_here'])
-        self.assertIn({'full': 'user.target', 'schema_name': 'user', 'short': 'short desc'},
+        self.assertIn({'full': 'user.target', 'schema_name': 'user', 'short': 'short desc', 'beta': 'beta'},
                       fields['user']['schema_details']['reused_here'])
         self.assertIn({'full': 'server.user', 'schema_name': 'user', 'short': 'short desc'},
                       fields['server']['schema_details']['reused_here'])
