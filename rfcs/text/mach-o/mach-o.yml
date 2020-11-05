@@ -1,0 +1,219 @@
+---
+- name: file.mach-o
+  title: Mach-O file information.
+  group: 2
+  description: >
+    These fields contain macOS Mach Object (Mach-O) metadata.
+  type: group
+  reusable:
+    top_level: false
+    expected:
+      - file
+      - process
+  fields:
+    - name: cpu
+      level: extended
+      description: CPU information for the file.
+      type: object
+      fields:
+        - name: architecture
+          description: CPU architecture target for the file.
+          type: keyword
+          level: extended
+          example: 64-bit
+
+        - name: byte_order
+          description: CPU byte order for the file.
+          type: keyword
+          level: extended
+          example: Little endian
+
+        - name: subtype
+          description: CPU subtype for the file.
+          type: keyword
+          level: extended
+          example: ARM (all) 64-bit
+
+        - name: type
+          description: CPU type for the file.
+          type: keyword
+          level: extended
+          example: ARM 64-bit
+
+    - name: headers
+      level: extended
+      description: Header information for the file.
+      type: object
+      fields:
+        - name: commands
+          level: extended
+          description: Header load commands information for the file.
+          type: object
+          fields:
+            - name: number
+              description: Number of load commands for the Mach-O header.
+              type: long
+              level: extended
+              example: 23
+
+            - name: size
+              description: Size of load commands of the Mach-O header.
+              type: long
+              level: extended
+              format: bytes
+              example: 3888
+
+            - name: type
+              description: Type of the load commands for the Mach-O header.
+              type: keyword
+              level: extended
+              example: LC_SYMTAB, 0x2c
+
+        - name: magic
+          description: Magic field of the Mach-O header.
+          type: keyword
+          level: extended
+          example: 0xfeedfacf
+
+        - name: flags
+          description: Flags set in the Mach-O header.
+          type: keyword
+          level: extended
+          example: TWOLEVEL, 0x4000000
+
+    - name: segments
+      level: extended
+        description: Segment information for the file.
+      type: object
+      fields:
+        - name: vmaddr
+          description: Memory address of this segment.
+          type: keyword
+          level: extended
+          example: 0x0
+
+        - name: name
+          description: Name of this segment.
+          type: keyword
+          level: extended
+          example: __TEXT, __DATA
+
+        - name: vmsize
+          description: Memory size of this segment.
+          type: keyword
+          level: extended
+          example: 0x4c000
+
+        - name: fileoff
+          description: File offset of this segment.
+          type: keyword
+          level: extended
+          example: 0x0
+
+        - name: filesize
+          description: Amount of memory to map from the file.
+          type: keyword
+          level: extended
+          example: 0x4c000
+
+        - name: sections
+          level: extended
+          description: Section information for the segment of the file.
+          type: object
+          fields:
+            - name: flags
+              description: Section flags for the segment of the file.
+              type: keyword
+              level: extended
+              example: SECTION_ATTRIBUTES_USR, S_8BYTE_LITERALS
+
+            - name: name
+              description: Section name for the segment of the file.
+              type: keyword
+              level: extended
+              example: __objc_classname, __stub_helper
+
+            - name: type
+              description: Section type for the segment of the file.
+              type: keyword
+              level: extended
+              example: S_REGULAR, S_CSTRING_LITERALS
+
+    - name: signature
+      level: extended
+      description: Signature information for the file.
+      type: object
+      fields:
+        - name: candidate_cd_hash
+          description: Code Digest (CD) SHA256 hash of the first 20-bytes of the file.
+          type: keyword
+          level: extended
+          example: 2035094a7065b29421e7a51f51db9bd61807c3628f210b1f8e667235777dc592
+
+        - name: team_identifier
+          description: Team identifier of the code signing certificate.
+          type: keyword
+          level: extended
+          example: 11A1A1AAAA
+
+        - name: sealed_resources
+          description: Version of the resource envelope for the code signing certificate.
+          type: long
+          level: extended
+          example: 2
+
+        - name: cms_digest
+          description: Cryptographic Message Syntax (CMS) hash of the code signing certificate.
+          type: keyword
+          level: extended
+          example: 3ae1b10f231bee84ca17ab4295c0faaf6cbd535f3cc8010474ec6a67909e1980
+
+        - name: cms_digest_type
+          description: Cryptographic Message Syntax (CMS) type of the code signing certificate.
+          type: keyword
+          level: extended
+          example: 2
+
+        - name: status
+          description: Verification information for the code signing certificate.
+          type: keyword
+          level: extended
+          example: Valid
+
+        - name: fingerprint
+          description: MD5 digest of the der-encoded certificate information.
+          type: keyword
+          level: extended
+          example: 611E5B662C593A08FF58D14AE22452D198DF6C60
+
+    - name: executable
+      level: extended
+      description: Information about the executable segment for the file.
+      type: object
+      fields:
+        - name: segment_base
+          description: Executable segment base size.
+          type: long
+          format: bytes
+          level: extended
+          example: 0
+
+        - name: segment_limit
+          description: Executable segment limit size.
+          type: long
+          format: bytes
+          level: extended
+          example: 123456
+
+        - name: segment_flags
+          description: Executable segment flags.
+          type: keyword
+          level: extended
+          example: 0x0
+
+    - name: page_size
+      description: Page size of the file.
+      type: long
+      format: bytes
+      level: extended
+      example: 4096
