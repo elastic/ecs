@@ -7,8 +7,6 @@ The Portable Executable (PE) sub-field, of the `file` top-level fieldset, can be
 
 ## Fields
 
-**Stage 0**
-
 This RFC is to create 25 additional sub-fields within the `file.pe` fieldset.
 
 | Name | Type | Description |
@@ -39,8 +37,6 @@ This RFC is to create 25 additional sub-fields within the `file.pe` fieldset.
 | file.pe.packers | keyword | Merged list of all detected packers by all tools used. |
 | file.pe.rich_pe_header_hash | keyword | Hash of the PE header. |
 
-**Stage 1**  
-
 [New `pe.yml` fields](pe/pe.yml)
 
 <!--
@@ -49,8 +45,6 @@ Stage 3: Add or update all remaining field definitions. The list should now be e
 
 ## Usage
 
-**Stage 1**  
-
 In performing file analysis, specifically for malware research, understanding file similarities can be used to chain together malware samples and families to identify campaigns and possibly attribution. Additionally, understanding how malware components are re-used is useful in understanding malware telemetry, especially in understanding the impact being made through the introduction of defensive countermeasures.
 
 As an example, if XDR vendors deploys a new malware model to defeat a specific type of ransomware and we start observing a change and/or relationship to the headers, import tables, packers, etc of that malware family, we can make assumptions that the changes to the malware model are making an impact against the malware family.
@@ -58,8 +52,6 @@ As an example, if XDR vendors deploys a new malware model to defeat a specific t
 As another example, tracking file metadata for specific families is useful in predicting new campaigns if we see similar file metadata being used for new samples. [Example](https://www.bleepingcomputer.com/news/security/maze-ransomware-is-shutting-down-its-cybercrime-operation/), the Maze ransomware family shutting down and re-purposing as Egregor.
 
 ## Source data
-
-**Stage 1**
 
 This type of data can be provided by logs from VirusTotal, Reversing Labs, Lockheed Martin's LAIKABOSS, Emerson's File Scanning Framework, Target's Strelka, or other file/malware analysis platforms.
 
@@ -72,8 +64,6 @@ This type of data can be provided by logs from VirusTotal, Reversing Labs, Lockh
 <!--
 Stage 1: Provide a high-level description of example sources of data. This does not yet need to be a concrete example of a source document, but instead can simply describe a potential source (e.g. nginx access log). This will ultimately be fleshed out to include literal source examples in a future stage. The goal here is to identify practical sources for these fields in the real world. ~1-3 sentences or unordered list.
 -->
-
-**Stage 2**
 
 ### VirusTotal Filebeat Module
 
@@ -1013,8 +1003,6 @@ Stage 3: Add more real world example source documents so we have at least 2 tota
 -->
 
 ## Scope of impact
-
-**Stage 2**
 
 There should be no breaking changes, depreciation strategies, or significant refactoring as this is extending the existing fieldset.
 
