@@ -13,34 +13,40 @@
           type: keyword
           description: >
             Difference Hash (dhash) for a given PE file.
+          example: b806e17c8e330d82
 
         - name: md5
           level: extended
           type: keyword
           description: >
             MD5 hash of raw icon data.
+          example: 6d1cae6272afbb88876ed6476b990d8c
 
     - name: debug
       level: extended
       type: keyword
       description: Debug information, if present
+      example: { "offset" : 1296336, "size" : 816, "type_str" : "IMAGE_DEBUG_TYPE_POGO", "type" : 13, "timestamp" : "Wed Oct 21 09:01:33 2020" }
 
     - name: import_list
       level: extended
       type: keyword
       description: List of all imported functions
+      example: { "library_name" : "mscoree.dll", "imported_functions" : "GetFileVersionInfoSizeA" }
 
     - name: sections
       level: extended
       description: >
         Data about sections of compiled binary PE
       type: keyword
+      example: { "chi2" : 3027194, "virtual_address": 8192, "entropy": 6.24, "flags": "rx", "name": ".text", "raw_size": 198144 }
 
     - name: resource_details
       level: extended
       type: keyword
       description: >
         If the PE contains resources, some info about them
+      example: { "chi2": -1, "filetype": "English text", "entropy": 0, "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "lang": "CHINESE SIMPLIFIED" }
 
     - name: resource_languages
       level: extended
@@ -49,6 +55,7 @@
       description: >
         Digest of languages found in resources. Key is language (as string) and
         value is how many resources there are having that language (as integer)
+      example: { "ENGLISH US": 1, "CHINESE SIMPLIFIED": 760 }
 
     - name: resource_types
       level: extended
@@ -57,6 +64,7 @@
       description: >
         Digest of resource types. Key is resource type (as string) and value
         is how many resources there are of that specific type (as integer)
+      example: { "RT_VERSION": 1, "RT_MANIFEST": 1 }
 
     - name: packers
       level: extended
@@ -66,12 +74,14 @@
         Identifies packers used on Windows PE files by several tools and AVs.
         Keys are tool names and values are identified packers, both strings.
         see `file.pe.packers` for merged list of packers from all tools.
+      example: { "tool_name": "PEiD", "name": ".NET executable" }
 
     - name: exports
       level: extended
       type: keyword
       description: >
         List of symbols exported by PE
+      example: DllInstall, DllRegisterServer, DllUnregisterServer
 
     - name: creation_date
       level: extended
@@ -87,24 +97,28 @@
       description: >
         Authentihash of the PE file.
       type: keyword
+      example: ac9555d914bbb112ecc5f15bb9887ca8371f493ab0941344e976bb8410c8aa78
 
     - name: compile_timestamp
       level: extended
       description: >
         Compile timestamp of the PE file.
       type: date
+      example: "2020-11-05T17:25:47.000Z"
 
     - name: compiler_product_versions
       level: extended
       type: keyword
       description: >
         Version of the compiler.
+      example: VS98 (6.0) build 8168
 
     - name: rich_pe_header_hash
       level: extended
       type: keyword
       description: >
         Hash of the PE header.
+      example: 5aa1aa0f2b4be70397a1e9e2b87627cd
 
     - name: entry_point
       level: extended
@@ -112,12 +126,14 @@
         Entry point of the PE file.
       format: string
       type: long
+      example: 25856
 
     - name: machine_type
       level: extended
       description: >
         Machine type of the PE file.
       type: keyword
+      example: "Intel 386 or later, and compatibles", "AMD AMD64", 332, 34404
 
     - name: overlay
       level: extended
@@ -130,30 +146,36 @@
           description: >
             Chi2 information of the PE file.
           type: float
+          format: bytes
+          example: 6047
 
         - name: entropy
           level: extended
           description: >
             Entropy information of the PE file.
           type: float
+          example: 5.221
 
         - name: filetype
           level: extended
           description: >
             Filetype of the PE file.
           type: keyword
+          example: Data, "ASCII text"
 
         - name: md5
           level: extended
           description: >
             Overlay MD5 hash of the PE file.
           type: keyword
+          example: 9ac2c4965776e2483ffd11718d653a77
 
         - name: offset
           level: extended
           description: >
             Offset of the overlay information of the PE file.
           type: long
+          example: 32256
 
         - name: size
           level: extended
@@ -161,9 +183,11 @@
             Size of the PE file.
           format: bytes
           type: long
+          example: 512, 7168
 
         - name: rich_pe_header_hash
           level: extended
           description: >
             Hash of the header for the PE file.
           type: keyword
+          example: 5aa1aa0f2b4be70397a1e9e2b87627cd

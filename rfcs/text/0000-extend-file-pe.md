@@ -1050,7 +1050,11 @@ The following are the people that consulted on the contents of this RFC.
 
 ## References
 
-<!-- Insert any links appropriate to this RFC in this section. -->
+* [VirusTotal Filebeat module PR](https://github.com/elastic/beats/pull/21815)
+* [VirusTotal API](https://developers.virustotal.com/v3.0/reference)
+* [Emerson FSF](https://github.com/EmersonElectricCo/fsf)
+* [Target Strelka](https://github.com/target/strelka)
+* [Lockheed Martin LAIKABOSS](https://github.com/lmco/laikaboss)
 
 ### RFC Pull Requests
 
