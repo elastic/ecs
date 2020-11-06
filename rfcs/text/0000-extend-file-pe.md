@@ -1,4 +1,4 @@
-# 0000: Extend the PE subfield of the File fieldset
+# 0000: Extend the PE field set
 
 - Stage: **1 (proposal)**
 - Date: **TBD**
