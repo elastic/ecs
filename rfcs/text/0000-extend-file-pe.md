@@ -41,7 +41,7 @@ This RFC is to create 25 additional sub-fields within the `file.pe` fieldset.
 
 **Stage 1**  
 
-[New `pe.yml` candidate](../schemas/pe.yml)]
+[New `pe.yml` fields](pe/pe.yml)
 
 <!--
 Stage 3: Add or update all remaining field definitions. The list should now be exhaustive. The goal here is to validate the technical details of all remaining fields and to provide a basis for releasing these field definitions as beta in the schema. Use GitHub code blocks with yml syntax formatting.
