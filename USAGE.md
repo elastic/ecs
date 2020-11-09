@@ -291,7 +291,7 @@ Here's an example of building artifacts based on ECS `v1.6.0` and adding custom 
 $ python scripts/generator.py --ref v1.6.0 --include ../myproject/fields/custom`  --out ../myproject/out
 ```
 
-There one is one exception supporting the [experimental](experimental/README.md) fields. If using `--ref` and including the `experimental/schemas` directory, the experimental fields will also load from the specified git ref. This example would merge ECS v1.7.0 fields with the v1.7.0 experimental fields:
+Here's another example loading both ECS fields and [experimental](experimental/README.md) changes *from branch "1.7"*, then adds custom fields on top.
 
 ```
 $ python scripts/generator.py --ref v1.7.0 --include experimental/schemas --out ../myproject/out
