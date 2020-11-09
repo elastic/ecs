@@ -1,10 +1,10 @@
 # 0008: Email
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
-- Stage: **1** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
+- Stage: **1 (proposal)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
 - Date: **Oct 5th 2020** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
-This RFC proposes a new top-level field to facilitate email use cases. 
+This RFC proposes a new top-level field to facilitate email use cases.
 
 <!--
 As you work on your RFC, use the "Stage N" comments to guide you in what you should focus on, for the stage you're targeting.
@@ -21,32 +21,35 @@ Stage 0: Provide a high level summary of the premise of these changes. Briefly d
 Stage 1: Describe at a high level how this change affects fields. Which fieldsets will be impacted? How many fields overall? Are we primarily adding fields, removing fields, or changing existing fields? The goal here is to understand the fundamental technical implications and likely extent of these changes. ~2-5 sentences.
 -->
 
+Email specific fields:
+
 | field | type | description |
 | --- | --- | --- |
-| `email.action` | keyword | Action take by the source device, e.g. delivered, blocked, quarantined, deleted |
-| `email.bcc.address` | keyword | Addresses of Bcc's |
-| `email.bcc.domain` | keyword | Domains of the Bcc's |
-| `email.cc.address` | keyword | Addresses of Cc's |
-| `email.cc.domain` | keyword | Domains of Cc addresses |
-| `email.cipher` | keyword | Cipher used e.g. TLS |
-| `email.file.count` | value | Number of attachments included in the message |
-| `email.file.extension` | keyword | Extensions of attachment, e.g. .zip, .docx |
-| `email.file.hash` | keyword | Hash of attachments |
-| `email.file.name` | keyword | File name of attachements |
-| `email.file.size` | keyword | Total size of all attachements in bytes |
+| `email.bcc.addresses` | wildcard | Addresses of Bcc's |
+| `email.cc.addresses` | wildcard | Addresses of Cc's |
+| `email.attachments_count` | long | A field outside the flattened structure to control how many attachments are included in the email |
+| `email.attachments` | flattened | A flattened field for anything related to attachments. This allows objects being stored with all information for each file when you have multiple attachments |
 | `email.direction` | keyword | Direction of the message based on the sending and receving domains |
-| `email.from.address` | keyword | Senders email address |
-| `email.from.domain` | keyword | Senders domain |
-| `email.latency` | keyword | The time, in milliseconds, the delivery attempt took |
+| `email.sender.address` | wildcard | Senders email address |
+| `email.sender.top_level_domain` | keyword | Senders email address |
 | `email.message_id` | keyword | Internet message ID of the message |
-| `email.process` | keyword | Name of the executable that carried out the transaction, e.g. outlook, sendmail |
-| `email.protocol` | keyword | The email protocol used, e.g. SMTP, IMAP |
-| `email.reply_to.address` | keyword | Reply-to address |
-| `object.return.address` | keyword | The return address for the message |
+| `email.reply_to.address` | wildcard | Reply-to address |
+| `email.return.address` | wildcard | The return address for the message |
 | `email.size` | keyword | Total size of the message, in bytes, including attachments |
-| `email.subject` | keyword | Subject of the message |
-| `email.to` | keyword | Recipieint address |
-| `email.to.domain` | keyword | Recipient domain |
+| `email.subject` | wildcard | Subject of the message |
+| `email.recipients.addresses` | keyword | Recipient addresses |
+| `email.domains` | keyword | domains related to the email |
+
+
+Other ECS fields used together with email usecases:
+| field | description |
+| --- | --- |
+| `event.duration` | The duration related to the email event. Could be the total duration in Quarantine, how long the email tok to send from source to destination etc |
+| `process.name` | When the event is related to a server or client. Does not take MTA into account which is part of a ongoing discussion |
+| `network.protocol` | Type of email protocol used |
+| `tls.*` | Used for TLS related information for the connection to for example a SMTP server over TLS |
+
+
 
 ## Usage
 
@@ -112,8 +115,8 @@ People
 
 The following are the people that consulted on the contents of this RFC.
 
-Jamie Hynds | author
-TBD | Sponsor
+Marius Iversen | Author
+Jamie Hynds | Sponsor
 
 <!--
 Who will be or has been consulted on the contents of this RFC? Identify authorship and sponsorship, and optionally identify the nature of involvement of others. Link to GitHub aliases where possible. This list will likely change or grow stage after stage.
@@ -136,7 +139,7 @@ e.g.:
 
 <!-- An RFC should link to the PRs for each of it stage advancements. -->
 
-* Stage 0: https://github.com/elastic/ecs/pull/NNN
+* Stage 0: https://github.com/elastic/ecs/pull/999
 
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN
