@@ -300,7 +300,7 @@ $ python scripts/generator.py --ref v1.7.0 --include experimental/schemas --out 
 Custom fields can also be passed using `--include` with the experimental ones. This command merges v1.7.0 fields, v1.7.0 experimental fields, and custom fields from `../myproject/fields/custom`:
 
 ```
-$ python scripts/generator.py --ref v1.7.0 --include experimental/schemas ../myproject/fields/custom --out ../myproject/out
+$ python scripts/generator.py --ref 1.7 --include experimental/schemas ../myproject/fields/custom --out ../myproject/out
 ```
 
 > Note: `--ref` does have a dependency on `git` being installed and all expected commits/tags fetched from the ECS upstream repo. This will unlikely be an issue unless you downloaded the ECS as a zip archive from GitHub vs. cloning it.
