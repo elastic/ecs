@@ -277,7 +277,7 @@ It's also possible to combine `--include` and `--subset` together! Do note that 
 
 #### Ref
 
-The `--ref` argument allows for passing a specific `git` tag (e.g. `v.1.5.0`) or commit hash (`1454f8b`) that will be used to build ECS artifacts.
+The `--ref` argument allows for passing a specific `git` tag (e.g. `v1.5.0`) or commit hash (`1454f8b`) that will be used to build ECS artifacts.
 
 ```
 $ python scripts/generator.py --ref v1.5.0
@@ -285,16 +285,10 @@ $ python scripts/generator.py --ref v1.5.0
 
 The `--ref` argument loads field definitions from the specified git reference (branch, tag, etc.) from directories [`./schemas`](./schemas) and [`./experimental/schemas`](./experimental/schemas) (when specified via `--include`).
 
-Here's an example of building artifacts based on ECS `v1.6.0` and adding custom fields from the `myproject` directory:
-
-```
-$ python scripts/generator.py --ref v1.6.0 --include ../myproject/fields/custom`  --out ../myproject/out
-```
-
 Here's another example loading both ECS fields and [experimental](experimental/README.md) changes *from branch "1.7"*, then adds custom fields on top.
 
 ```
-$ python scripts/generator.py --ref v1.7.0 --include experimental/schemas --out ../myproject/out
+$ python scripts/generator.py --ref 1.7 --include experimental/schemas ../myproject/fields/custom --out ../myproject/out
 ```
 
 The command above will produce artifacts based on:
@@ -302,10 +296,6 @@ The command above will produce artifacts based on:
 * main ECS field definitions as of branch 1.7
 * experimental ECS changes as of branch 1.7
 * custom fields in `../myproject/fields/custom` as they are on the filesystem
-
-```
-$ python scripts/generator.py --ref 1.7 --include experimental/schemas ../myproject/fields/custom --out ../myproject/out
-```
 
 > Note: `--ref` does have a dependency on `git` being installed and all expected commits/tags fetched from the ECS upstream repo. This will unlikely be an issue unless you downloaded the ECS as a zip archive from GitHub vs. cloning it.
 
