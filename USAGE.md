@@ -285,7 +285,7 @@ $ python scripts/generator.py --ref v1.5.0
 
 The `--ref` argument loads field definitions from the specified git reference (branch, tag, etc.) from directories [`./schemas`](./schemas) and [`./experimental/schemas`](./experimental/schemas) (when specified via `--include`).
 
-Here's an example merging ECS `v1.6.0` fields with custom fields maintained in a separate `myproject` directory:
+Here's an example of building artifacts based on ECS `v1.6.0` and adding custom fields from the `myproject` directory:
 
 ```
 $ python scripts/generator.py --ref v1.6.0 --include ../myproject/fields/custom`  --out ../myproject/out
