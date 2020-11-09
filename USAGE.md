@@ -297,7 +297,11 @@ Here's another example loading both ECS fields and [experimental](experimental/R
 $ python scripts/generator.py --ref v1.7.0 --include experimental/schemas --out ../myproject/out
 ```
 
-Custom fields can also be passed using `--include` with the experimental ones. This command merges v1.7.0 fields, v1.7.0 experimental fields, and custom fields from `../myproject/fields/custom`:
+The command above will produce artifacts based on:
+
+* main ECS field definitions as of branch 1.7
+* experimental ECS changes as of branch 1.7
+* custom fields in `../myproject/fields/custom` as they are on the filesystem
 
 ```
 $ python scripts/generator.py --ref 1.7 --include experimental/schemas ../myproject/fields/custom --out ../myproject/out
