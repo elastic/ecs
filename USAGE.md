@@ -283,7 +283,7 @@ The `--ref` argument allows for passing a specific `git` tag (e.g. `v.1.5.0`) or
 $ python scripts/generator.py --ref v1.5.0
 ```
 
-The `--ref` argument only loads field definitions from the [`./schemas`](./schemas) subdirectory in the target `git` reference. This allows for merging custom fieldsets (outside the git ref tree) using `--include`.
+The `--ref` argument loads field definitions from the specified git reference (branch, tag, etc.) from directories [`./schemas`](./schemas) and [`./experimental/schemas`](./experimental/schemas) (when specified via `--include`).
 
 Here's an example merging ECS `v1.6.0` fields with custom fields maintained in a separate `myproject` directory:
 
