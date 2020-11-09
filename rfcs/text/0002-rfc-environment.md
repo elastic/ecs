@@ -204,6 +204,9 @@ Stage 1: Identify potential concerns, implementation challenges, or complexity. 
  * The `environment` field is a good candidate to be reused in other namespace than the `service.*` to cover the Infrastructure use cases.
 
 
+ * OpenTelemtry has standardised `deployment.environment`, refering to [Wikipedia: Deployment Environment](https://en.wikipedia.org/wiki/Deployment_environment). The benefit of `deployment.environment` is that it works better for the characterization of the infrastructure (e.g. physical server, vm): https://github.com/open-telemetry/opentelemetry-specification/blob/master/specification/resource/semantic_conventions/deployment_environment.md
+
+
 <!--
 Stage 2: Document new concerns or resolutions to previously listed concerns. It's not critical that all concerns have resolutions at this point, but it would be helpful if resolutions were taking shape for the most significant concerns.
 -->
