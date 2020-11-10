@@ -27,7 +27,7 @@ This RFC is to create 25 additional sub-fields within the `file.pe` fieldset.
 | file.pe.resource_types | flattened | Digest of resource types. Key is resource type (as string) and value is how many resources there are of that specific type (as integer) |
 | file.pe.packers | flattened | Identifies packers used on Windows PE files by several tools and AVs. Keys are tool names and values are identified packers, both strings. See `file.pe.packers` for merged list of packers from all tools. |
 | file.pe.machine_type | keyword | Machine type of the PE file. |
-| file.pe.main_icon.hash.dhash | keyword | Difference Hash for a given PE file. |
+| file.pe.main_icon.hash.dhash | keyword | Difference Hash (dhash) to find files with a visually similar icon or thumbnail. |
 | file.pe.main_icon.hash.md5 | keyword | MD5 hash of raw icon data |
 | file.pe.overlay.chi2 | float | Chi2 information of the PE file. |
 | file.pe.overlay.entropy | float | Entropy information of the PE file. |
