@@ -34,7 +34,7 @@ Email specific fields:
 | `email.sender.top_level_domain` | keyword | Senders email address |
 | `email.message_id` | keyword | Internet message ID of the message |
 | `email.reply_to.address` | wildcard | Reply-to address |
-| `email.return.address` | wildcard | The return address for the message |
+| `email.return_path.address` | wildcard | The return address for the message |
 | `email.size` | keyword | Total size of the message, in bytes, including attachments |
 | `email.subject` | wildcard | Subject of the message |
 | `email.recipients.addresses` | keyword | Recipient addresses |
@@ -44,7 +44,7 @@ Email specific fields:
 Other ECS fields used together with email usecases:
 | field | description |
 | --- | --- |
-| `event.duration` | The duration related to the email event. Could be the total duration in Quarantine, how long the email tok to send from source to destination etc |
+| `event.duration` | The duration related to the email event. Could be the total duration in Quarantine, how long the email took to send from source to destination etc |
 | `process.name` | When the event is related to a server or client. Does not take MTA into account which is part of a ongoing discussion |
 | `network.protocol` | Type of email protocol used |
 | `tls.*` | Used for TLS related information for the connection to for example a SMTP server over TLS |
@@ -92,6 +92,12 @@ The goal here is to research and understand the impact of these changes on users
 <!--
 Stage 1: Identify potential concerns, implementation challenges, or complexity. Spend some time on this. Play devil's advocate. Try to identify the sort of non-obvious challenges that tend to surface later. The goal here is to surface risks early, allow everyone the time to work through them, and ultimately document resolution for posterity's sake.
 -->
+Current concerns or topics still being discussed from stage 1:
+
+- Whether we want to add specific fields for email protocols, either as a root field or nested under email.* (SMTP, IMAP, POP etc).
+- Need to make sure that the ECS fieldset for email catches all common usecases, for example spam, metrics and deliverables and logging.
+- Whether we want to create a new event.category field (email) and which event.type it should be combined with.
+- The email RFC will be the first ECS fieldset that uses the flattened datatype (for attachments), need to ensure that there will be major issues related to this.
 
 <!--
 Stage 2: Document new concerns or resolutions to previously listed concerns. It's not critical that all concerns have resolutions at this point, but it would be helpful if resolutions were taking shape for the most significant concerns.
@@ -115,8 +121,8 @@ People
 
 The following are the people that consulted on the contents of this RFC.
 
-Marius Iversen | Author
-Jamie Hynds | Sponsor
+@p1llus | Author
+@jamiehynds | Sponsor
 
 <!--
 Who will be or has been consulted on the contents of this RFC? Identify authorship and sponsorship, and optionally identify the nature of involvement of others. Link to GitHub aliases where possible. This list will likely change or grow stage after stage.
