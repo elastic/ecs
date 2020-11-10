@@ -33,6 +33,7 @@ For a field to use wildcard, it will require changing the the field's defined sc
 | [`host`](0001/host.yml) | `host.hostname`<br> |
 | [`http`](0001/http.yml) | `http.request.referrer`<br> `http.request.body.content`<br> `http.response.body.content` |
 | [`log`](0001/log.yml) | `log.file.path`<br> `log.logger` |
+| [`organization`](0001/organization.yml) | `organization.name` |
 | [`os`](0001/os.yml) | `os.name`<br> `os.full` |
 | [`pe`](0001/pe.yml) | `pe.original_file_name` |
 | [`process`](0001/process.yml) | `process.command_line`<br> `process.executable`<br> `process.name`<br> `process.thread.name`<br> `process.title`<br> `process.working_directory`<br> |
