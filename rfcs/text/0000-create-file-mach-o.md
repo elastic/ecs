@@ -41,7 +41,6 @@ This RFC is to create the Mach-O sub-field within the `file.` fieldset. This wil
 |   file.mach-o.signature.sealed_resources   |   long     |   Version of the resource envelope for the code signing certificate.        |
 |   file.mach-o.signature.cms_digest         |   keyword  |   Cryptographic Message Syntax (CMS) hash of the code signing certificate.  |
 |   file.mach-o.signature.cms_digest_type    |   keyword  |   Cryptographic Message Syntax (CMS) type of the code signing certificate.  |
-|   file.mach-o.signature.status             |   keyword  |   Verification information for the code signing certificate.                |
 |   file.mach-o.signature.fingerprint        |   keyword  |   MD5 digest of the der-encoded certificate information.                    |
 |   file.mach-o.executable                   |   object   |   Information about the executable segment for the file.                    |
 |   file.mach-o.executable.segment_base      |   keyword  |   Executable segment base size.                                             |
