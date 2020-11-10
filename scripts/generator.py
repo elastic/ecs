@@ -63,7 +63,8 @@ def main():
 
 def argument_parser():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--ref', action='store', help='git reference to use when building schemas')
+    parser.add_argument('--ref', action='store', help='Loads fields definitions from `./schemas` subdirectory from specified git reference. \
+                                                       Note that "--include experimental/schemas" will also respect this git ref.')
     parser.add_argument('--include', nargs='+',
                         help='include user specified directory of custom field definitions')
     parser.add_argument('--subset', nargs='+',
