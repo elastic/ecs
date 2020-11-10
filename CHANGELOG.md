@@ -51,6 +51,7 @@ All notable changes to this project will be documented in this file based on the
 
 * Field details Jinja2 template components have been consolidated into one template #897
 * Add `[discrete]` marker before each section header in field details. #989
+* `--ref` now loads `experimental/schemas` based on git ref in addition to `schemas`. #1063
 
 
 ## [1.6.0](https://github.com/elastic/ecs/compare/v1.5.0...v1.6.0)
