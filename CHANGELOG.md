@@ -11,7 +11,6 @@ All notable changes to this project will be documented in this file based on the
 
 * The `protocol` allowed value under `event.type` should not have the `expected_event_types` defined. #964
 * Clarify the definition of `file.extension` (no dots). #1016
-* Include `process.thread.name` in the experimental definitions. #1053
 
 #### Added
 
@@ -19,6 +18,8 @@ All notable changes to this project will be documented in this file based on the
 * Added network directions ingress and egress. #945
 * Added `threat.technique.subtechnique` to capture MITRE ATT&CK® subtechniques. #951
 * Added `configuration` as an allowed `event.category`. #963
+* Added a new directory with experimental artifacts, which includes all changes
+  from RFCs that have reached stage 2. #993, #1053
 
 #### Improvements
 
@@ -44,8 +45,6 @@ All notable changes to this project will be documented in this file based on the
 * Added check under `--strict` that ensures composite types in example fields are quoted. #966
 * Added `ignore_above` and `normalizer` support for keyword multi-fields. #971
 * Added `--oss` flag for users who want to generate ECS templates for use on OSS clusters. #991
-* Added a new directory with experimental artifacts, which includes all changes
-  from RFCs that have reached stage 2. #993
 
 #### Improvements
 
