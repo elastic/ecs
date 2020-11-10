@@ -51,9 +51,18 @@ def load_schemas(ref=None, included_files=[]):
         schema_files_raw = load_schema_files(ecs_helpers.ecs_files())
     fields = deep_nesting_representation(schema_files_raw)
 
-    # Custom additional files (never from git ref)
+    EXPERIMENTAL_SCHEMA_DIR = 'experimental/schemas'
+
+    # Custom additional files
     if included_files and len(included_files) > 0:
         print('Loading user defined schemas: {0}'.format(included_files))
+        # If --ref provided and --include loading experimental schemas
+        if ref and EXPERIMENTAL_SCHEMA_DIR in included_files:
+            exp_schema_files_raw = load_schemas_from_git(ref, target_dir=EXPERIMENTAL_SCHEMA_DIR)
+            exp_fields = deep_nesting_representation(exp_schema_files_raw)
+            fields = merge_fields(fields, exp_fields)
+            included_files.remove(EXPERIMENTAL_SCHEMA_DIR)
+        # Remaining additional custom files (never from git ref)
         custom_files = ecs_helpers.get_glob_files(included_files, ecs_helpers.YAML_EXT)
         custom_fields = deep_nesting_representation(load_schema_files(custom_files))
         fields = merge_fields(fields, custom_fields)
@@ -68,13 +77,18 @@ def load_schema_files(files):
     return fields_nested
 
 
-def load_schemas_from_git(ref):
+def load_schemas_from_git(ref, target_dir='schemas'):
     tree = ecs_helpers.get_tree_by_ref(ref)
     fields_nested = {}
-    for blob in tree['schemas'].blobs:
-        if blob.name.endswith('.yml'):
-            new_fields = read_schema_blob(blob, ref)
-            fields_nested = ecs_helpers.safe_merge_dicts(fields_nested, new_fields)
+
+    # Handles case if target dir doesn't exists in git ref
+    if ecs_helpers.path_exists_in_git_tree(tree, target_dir):
+        for blob in tree[target_dir].blobs:
+            if blob.name.endswith('.yml'):
+                new_fields = read_schema_blob(blob, ref)
+                fields_nested = ecs_helpers.safe_merge_dicts(fields_nested, new_fields)
+    else:
+        raise KeyError(f"Target directory './{target_dir}' not present in git ref '{ref}'!")
     return fields_nested
 
 
