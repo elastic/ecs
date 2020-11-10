@@ -99,10 +99,18 @@ class TestECSHelpers(unittest.TestCase):
         self.assertEqual(ecs_helpers.list_subtract(['a', 'b'], ['a']), ['b'])
         self.assertEqual(ecs_helpers.list_subtract(['a', 'b'], ['a', 'c']), ['b'])
 
+    # git helper tests
+
     def test_get_tree_by_ref(self):
         ref = 'v1.5.0'
         tree = ecs_helpers.get_tree_by_ref(ref)
         self.assertEqual(tree.hexsha, '4449df245f6930d59bcd537a5958891261a9476b')
+
+    def test_path_exists_in_git_tree(self):
+        ref = 'v1.6.0'
+        tree = ecs_helpers.get_tree_by_ref(ref)
+        self.assertFalse(ecs_helpers.path_exists_in_git_tree(tree, 'nonexistant'))
+        self.assertTrue(ecs_helpers.path_exists_in_git_tree(tree, 'schemas'))
 
 
 if __name__ == '__main__':
