@@ -45,6 +45,8 @@ Other ECS fields used together with email usecases:
 | field | description |
 | --- | --- |
 | `event.duration` | The duration related to the email event. Could be the total duration in Quarantine, how long the email took to send from source to destination etc |
+| `event.start` | When the email event started
+| `event.end` | When the email event ended
 | `process.name` | When the event is related to a server or client. Does not take MTA into account which is part of a ongoing discussion |
 | `network.protocol` | Type of email protocol used |
 | `tls.*` | Used for TLS related information for the connection to for example a SMTP server over TLS |
