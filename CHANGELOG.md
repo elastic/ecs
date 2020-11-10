@@ -36,6 +36,7 @@ All notable changes to this project will be documented in this file based on the
 #### Bugfixes
 
 * Addressed issue where foreign reuses weren't using the user-supplied `as` value for their destination. #960
+* Experimental artifacts failed to install due to `event.original` index setting. #1053
 
 #### Added
 
