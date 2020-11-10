@@ -106,12 +106,25 @@
       type: date
       example: "2020-11-05T17:25:47.000Z"
 
-    - name: compiler_product_versions
+    - name: compiler
       level: extended
-      type: keyword
       description: >
-        Version of the compiler.
-      example: VS98 (6.0) build 8168
+        Compiler information for the PE file.
+      type: object
+      fields:
+        - name: name
+          level: extended
+          type: keyword
+          description: >
+            Name of the compiler
+          example: Clang
+          
+        - name: version
+          level: extended
+          type: keyword
+          description: >
+            Version of the compiler.
+          example: 11.0.0
 
     - name: rich_header
       level: extended

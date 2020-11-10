@@ -13,7 +13,9 @@ This RFC is to create 25 additional sub-fields within the `file.pe` fieldset.
 | ---- | ---- | ----------- |
 | file.pe.authentihash | keyword | Authentihash of the PE file. |
 | file.pe.compile_timestamp | date | Compile timestamp of the PE file. |
-| file.pe.compiler | wildcard | Name and version of the compiler. |
+| file.pe.compiler | keyword | Compiler information. |
+| file.pe.compiler.version | keyword | Version of the compiler. |
+| file.pe.compiler.name | keyword | Name of the compiler. |
 | file.pe.creation_date | date | Extracted when possible from the file's metadata. Indicates when it was built or compiled. It can also be faked by malware creators. |
 | file.pe.entry_point | keyword | Entry point of the PE file. |
 | file.pe.exports | keyword | List of symbols exported by PE |
