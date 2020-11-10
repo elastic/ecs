@@ -18,6 +18,8 @@ All notable changes to this project will be documented in this file based on the
 * Added network directions ingress and egress. #945
 * Added `threat.technique.subtechnique` to capture MITRE ATT&CK® subtechniques. #951
 * Added `configuration` as an allowed `event.category`. #963
+* Added a new directory with experimental artifacts, which includes all changes
+  from RFCs that have reached stage 2. #993, #1053
 
 #### Improvements
 
@@ -45,8 +47,6 @@ All notable changes to this project will be documented in this file based on the
 * Added `ignore_above` and `normalizer` support for keyword multi-fields. #971
 * Added ability to supply free-form usage documentation per fieldset. #988
 * Added `--oss` flag for users who want to generate ECS templates for use on OSS clusters. #991
-* Added a new directory with experimental artifacts, which includes all changes
-  from RFCs that have reached stage 2. #993
 
 #### Improvements
 
