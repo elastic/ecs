@@ -448,7 +448,7 @@ The performance characteristics for both indexing and querying for the two types
 
 ECS applies the `ignore_above` setting to keyword fields to prevent strings longer than 1024 characters from being indexed or stored. While `ignore_above` can be raised, Lucene implements a term byte-length limit of 32766 which cannot be adjusted. Wildcard supports an unlimited max character size for a field value. The `wildcard` field type will still have the `ignore_above` option available, and a reasonable limit may be need applied to mitigate unexpected side-effects.
 
-### Resolution
+#### Resolution
 
 This ability to ingest extremely long values is considered an advantage of `wildcard` compared to `keyword`. Therefore, the `wildcard` fields will not have an `ignore_above` option defined initially.
 
