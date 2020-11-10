@@ -464,7 +464,7 @@ The ECS team will not maintain a second OSS-compatible set of ECS field definiti
 
 ### Version Compatibility
 
-A data shipper which uses the `wildcard` field type may need to verify that the configured output Elasticsearch destination can support it (>= 7.9.0). For example, if a future version of Beats adopts `wildcard` in index mappings, Beats would may need to gracefully handle a scenario where the targeted Elasticsearch instance doesn't support the data type.
+A data shipper which uses the `wildcard` field type may need to verify that the configured output Elasticsearch destination can support it (>= 7.9.0). For example, if a future version of Beats adopts `wildcard` in index mappings, Beats may need to gracefully handle a scenario where the targeted Elasticsearch instance doesn't support the data type.
 
 #### Resolution
 
