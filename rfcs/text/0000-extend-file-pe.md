@@ -35,7 +35,7 @@ This RFC is to create 25 additional sub-fields within the `file.pe` fieldset.
 | file.pe.overlay.size | long | Size of the PE file. |
 | file.pe.overlay.rich_pe_header_hash | keyword | Hash of the header for the PE file. |
 | file.pe.packers | keyword | Merged list of all detected packers by all tools used. |
-| file.pe.rich_pe_header_hash | keyword | Hash of the PE header. |
+| file.pe.rich_header.hash.{md5,sha1,sha256} | keyword | Hash of the PE header. |
 
 [New `pe.yml` fields](pe/pe.yml)
 

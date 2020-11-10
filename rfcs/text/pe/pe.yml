@@ -113,12 +113,36 @@
         Version of the compiler.
       example: VS98 (6.0) build 8168
 
-    - name: rich_pe_header_hash
+    - name: rich_header
       level: extended
-      type: keyword
       description: >
-        Hash of the PE header.
-      example: 5aa1aa0f2b4be70397a1e9e2b87627cd
+        Rich Header information for the PE file.
+      type: object
+      fields:
+        - name: hash
+          level: extended
+          description: >
+            Hash of the header for the PE file
+          type: object
+          fields:
+            - name: md5
+              level: extended
+              type: keyword
+              description: >
+                MD5 hash of the header for the PE file.
+              example: 5aa1aa0f2b4be70397a1e9e2b87627cd
+            - name: sha1
+              level: extended
+              type: keyword
+              description: >
+                SHA1 hash of the header for the PE file.
+              example: e8ff6bf77c652168f958ab4194af48b75ef1e4dd
+            - name: sha256
+              level: extended
+              type: keyword
+              description: >
+                SHA256 hash of the header for the PE file.
+              example: d81d0dbc5e691ea1082db0a8f82f978f3768d46d23049935dff2d935f932d1a2
 
     - name: entry_point
       level: extended
