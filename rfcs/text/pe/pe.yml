@@ -88,8 +88,45 @@
       level: extended
       description: >
         Data about sections of compiled binary PE
-      type: keyword
-      example: { "chi2" : 3027194, "virtual_address": 8192, "entropy": 6.24, "flags": "rx", "name": ".text", "raw_size": 198144 }
+      type: nested
+      fields:
+        - name: chi2
+          level: extended
+          description: Chi-square probability distribution.
+          type: long
+          example: 3027194
+
+        - name: virtual_address
+          level: extended
+          description: Virtual address available to the file.
+          type: long
+          format: bytes
+          example: 8192
+
+        - name: entropy
+          level: extended
+          description: Measurement of entropy randomness in the file.
+          type: float
+          example: 6.24
+
+        - name: flags
+          level: extended
+          description: Section flags of the file.
+          type: keyword
+          example: rx
+
+        - name: name
+          level: extended
+          description: Section names of the file.
+          type: keyword
+          example: .text, .data
+
+        - name: raw_size
+          level: extended
+          description: Size of the section or the dize of the initialized data on disk.
+          type: long
+          format: bytes
+          example: 198144
 
     - name: resource_details
       level: extended
