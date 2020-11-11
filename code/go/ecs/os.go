@@ -21,6 +21,11 @@ package ecs
 
 // The OS fields contain information about the operating system.
 type Os struct {
+	// Categorize the operating system in one of the broad commercial families.
+	// One of these following values should be used (lowercase): linux, macos,
+	// unix, windows.
+	CommercialFamily string `ecs:"commercial_family"`
+
 	// Operating system platform (such centos, ubuntu, windows).
 	Platform string `ecs:"platform"`
 
