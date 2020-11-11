@@ -1,10 +1,10 @@
-# 0000: Data stream fields
+# 0009: Data stream fields
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
 - Stage: **1 (proposal)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
-- Date: **TBD** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
+- Date: **2020-11-11** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
-When introducing the new indexing strategy for Elastic Agent which uses data streams, we found that adding a few [constant_keyword](https://www.elastic.co/guide/en/elasticsearch/reference/master/keyword.html#constant-keyword-field-type) fields corresponding to the central components in the new indexing strategy would be advantageous. 
+When introducing the new indexing strategy for Elastic Agent which uses data streams, we found that adding a few [constant_keyword](https://www.elastic.co/guide/en/elasticsearch/reference/master/keyword.html#constant-keyword-field-type) fields corresponding to the central components in the new indexing strategy would be advantageous.
 
 
 <!--
@@ -26,7 +26,7 @@ This RFC proposes to introduce a new fieldset called "data_stream". The fieldset
 Field     | Mapping type | Description
 ----------|--------------|--------------
 data_stream.type | constant_keyword | An overarching type for the data stream. Currently allowed values include "logs", "metrics". We expect to also add "traces" and "synthetics" in the near future
-data_stream.dataset | constant_keyword | The field can contain anything that makes sense to signify the source of the data. Examples include `nginx.access`, `prometheus`, `endpoint` etc. For data streams that otherwise fit, but that do not have dataset set we use the value "generic" for the dataset value. `event.dataset` should have the same value as `data_stream.dataset`. 
+data_stream.dataset | constant_keyword | The field can contain anything that makes sense to signify the source of the data. Examples include `nginx.access`, `prometheus`, `endpoint` etc. For data streams that otherwise fit, but that do not have dataset set we use the value "generic" for the dataset value. `event.dataset` should have the same value as `data_stream.dataset`.
 data_stream.namespace | constant_keyword | A user defined namespace. Namespaces are useful to allow grouping of data. Many of our customers already organize their indices this way, and now we are providing this best practice as a default. Many people will use `default` as the value.
 
 In the new indexing strategy, the value of the data stream fields combine to the name of the actual data stream in the following manner `{data_stream.type}-{data_stream.dataset}-{data_stream.namespace}`. This means the fields can only contain characters that are valid as part of names of data streams.
@@ -37,7 +37,7 @@ Due to the fact that the values of the `data_stream` fields make up the data str
 
 **data_stream.type**
 
-`data_stream.type` is restricted to `logs` or `metrics` for now. 
+`data_stream.type` is restricted to `logs` or `metrics` for now.
 
 Any future values for `data_stream.type` should also adhere to the following restrictions (these are derived from the Elasticsearch index restrictions):
 * Must not contain `-`
@@ -85,7 +85,7 @@ As previously described, fields mapped as `constant_keyword` allows Elasticsearc
 Stage 1: Provide a high-level description of example sources of data. This does not yet need to be a concrete example of a source document, but instead can simply describe a potential source (e.g. nginx access log). This will ultimately be fleshed out to include literal source examples in a future stage. The goal here is to identify practical sources for these fields in the real world. ~1-3 sentences or unordered list.
 -->
 
-Today, Elastic Agent adds the data_stream fields in all documents ingested. It's also possible to use the fields in data from other data sources. Elasticsearch 7.9+ ships with built-in index template mappings which will ensure that documents indexed into data streams that match `logs-*-*` and `metrics-*-*` will get the fields mapped correctly to `constant_keyword` types. 
+Today, Elastic Agent adds the data_stream fields in all documents ingested. It's also possible to use the fields in data from other data sources. Elasticsearch 7.9+ ships with built-in index template mappings which will ensure that documents indexed into data streams that match `logs-*-*` and `metrics-*-*` will get the fields mapped correctly to `constant_keyword` types.
 
 ### Using data_stream fields with regular indices
 `data_stream` fields only make sense when indexing into data streams. They should not to be used for regular indices.
@@ -140,7 +140,7 @@ Stage 4: Document any new concerns and their resolution. The goal here is to eli
 Stage 4: Identify at least one real-world, production-ready implementation that uses these updated field definitions. An example of this might be a GA feature in an Elastic application in Kibana.
 -->
 
-Elastic Agent already uses the data_stream fields. 
+Elastic Agent already uses the data_stream fields.
 
 Additionally, as previously described, beginning in version 7.9, Elasticsearch ships with built-in index templates for data streams which will automatically ensure that data_stream fields get correctly mapped when the data stream name match `logs-*-*` and `metrics-*-*`.
 
