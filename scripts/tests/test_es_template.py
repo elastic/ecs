@@ -135,7 +135,6 @@ class TestGeneratorsEsTemplate(unittest.TestCase):
         }
         self.assertEqual(es_template.entry_for(test_map), exp)
 
-
     def test_constant_keyword_with_value(self):
         test_map = {
             'name': 'field_with_value',
@@ -149,14 +148,13 @@ class TestGeneratorsEsTemplate(unittest.TestCase):
         }
         self.assertEqual(es_template.entry_for(test_map), exp)
 
-
     def test_constant_keyword_no_value(self):
         test_map = {
             'name': 'field_without_value',
             'type': 'constant_keyword'
         }
 
-        exp = { 'type': 'constant_keyword' }
+        exp = {'type': 'constant_keyword'}
         self.assertEqual(es_template.entry_for(test_map), exp)
 
 
