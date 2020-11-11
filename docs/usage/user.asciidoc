@@ -4,6 +4,7 @@
 Here are the subjects covered in this page.
 
 * <<ecs-user-usage-categorization>>
+* <<ecs-user-identifiers>>
 
 * <<ecs-user-usage-field-reuse>>, or all places user fields can appear
 ** <<ecs-user-usage-user-at-root>>
@@ -82,6 +83,18 @@ Adding "test-user" to "test-group":
 <2> Both relevant event types to a user modification
 <3> `event.action` is not a categorization field, and has no mandated value. It can be populated based on source event details or by a pipeline, to ensure the event captures all subtleties of what's happening.
 <4> How to use all possible user fields is detailed below.
+
+[discrete]
+[[ecs-user-identifiers]]
+===== User identifiers
+
+Different systems use different values for user identifiers. Here are a few pointers
+to help normalize some simple cases.
+
+* When a system provides a composite value for the user name (e.g. DOMAINNAME\username),
+  capture the domain name in `user.domain` and the user name (without the domain) in `user.name`.
+* When a system uses an email address as the main identifier, populate both
+  `user.id` and `user.email` with it.
 
 [discrete]
 [[ecs-user-usage-field-reuse]]
