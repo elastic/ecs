@@ -2,7 +2,7 @@
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
 - Stage: **3 (candidate)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
-- Date: **TBD** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
+- Date: **2020-11-11** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 Many log events refer to more than one user at the same time.
 Examples of this are remote logons as someone else, user management and privilege escalation.
