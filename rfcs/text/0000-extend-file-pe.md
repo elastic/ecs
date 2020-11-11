@@ -23,7 +23,6 @@ This RFC is to create 25 additional sub-fields within the `file.pe` fieldset.
 | file.pe.import_list | flattened | List of all imported functions |
 | file.pe.sections | flattened | Data about sections of compiled binary PE |
 | file.pe.resource_details | flattened | If the PE contains resources, some info about them |
-| file.pe.resource_languages | flattened | Digest of languages found in resources. Key is language (as string) and value is how many resources there are having that language (as integer) |
 | file.pe.resource_types | flattened | Digest of resource types. Key is resource type (as string) and value is how many resources there are of that specific type (as integer) |
 | file.pe.packers | flattened | Identifies packers used on Windows PE files by several tools and AVs. Keys are tool names and values are identified packers, both strings. See `file.pe.packers` for merged list of packers from all tools. |
 | file.pe.machine_type | keyword | Machine type of the PE file. |
