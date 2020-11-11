@@ -31,11 +31,14 @@ Email specific fields:
 | `email.attachments` | flattened | A flattened field for anything related to attachments. This allows objects being stored with all information for each file when you have multiple attachments |
 | `email.direction` | keyword | Direction of the message based on the sending and receving domains |
 | `email.sender.address` | wildcard | Senders email address |
-| `email.sender.top_level_domain` | keyword | Senders email address |
+| `email.sender.domain` | wildcard | Domain of the sender |
+| `email.sender.top_level_domain` | keyword | Top level domain of the sender |
+| `email.sender.registered_domain` | wildcard | Registered domain of the sender |
+| `email.sender.subdomain` | keyword | Subdomain of the sender |
 | `email.message_id` | keyword | Internet message ID of the message |
 | `email.reply_to.address` | wildcard | Reply-to address |
 | `email.return_path.address` | wildcard | The return address for the message |
-| `email.size` | keyword | Total size of the message, in bytes, including attachments |
+| `email.size` | long | Total size of the message, in bytes, including attachments |
 | `email.subject` | wildcard | Subject of the message |
 | `email.recipients.addresses` | keyword | Recipient addresses |
 | `email.domains` | keyword | domains related to the email |
