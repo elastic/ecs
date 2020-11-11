@@ -1,11 +1,13 @@
-# 0001: Wildcard Field Adoption into ECS
+# 0001: Wildcard Field Migration
 <!--^ The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC, taking care not to conflict with other RFCs.-->
 
-- Stage: **2 (draft)** <!-- Update to reflect target stage -->
-- Date: **2020-10-02** <!-- Update to reflect date of most recent stage advancement -->
+- Stage: **3 (candidate)** <!-- Update to reflect target stage -->
+- Date: **2020-11-10** <!-- Update to reflect date of most recent stage advancement -->
 
 Wildcard is a data type for Elasticsearch string fields being introduced in Elasticsearch 7.9. Wildcard optimizes performance for queries using wildcards (`*`) and regex, allowing users to perform `grep`-like searches without the limitations of the existing
 text[0] and keyword[1] types.
+
+This RFC focuses on migrating a subset of existing ECS fields, all of which are currently using the `keyword` type, to `wildcard`. Any net new fields introduced into ECS and are well-suited are encouraged to use `wildcard` independently of this RFC.
 
 ## Fields
 
@@ -25,21 +27,21 @@ For a field to use wildcard, it will require changing the the field's defined sc
 | [`destination`](0001/destination.yml) | `destination.domain`<br> `destination.registered_domain` |
 | [`dns`](0001/dns.yml) | `dns.question.name`<br> `dns.answers.data` |
 | [`error`](0001/error.yml) | `error.stack_trace`<br> `error.type` |
-| [`event`](0001/event.yml) | `event.original` |
 | [`file`](0001/file.yml) | `file.directory`<br> `file.path`<br> `file.target_path` |
 | [`geo`](0001/geo.yml) | `geo.name` |
 | [`host`](0001/host.yml) | `host.hostname`<br> |
 | [`http`](0001/http.yml) | `http.request.referrer`<br> `http.request.body.content`<br> `http.response.body.content` |
 | [`log`](0001/log.yml) | `log.file.path`<br> `log.logger` |
+| [`organization`](0001/organization.yml) | `organization.name` |
 | [`os`](0001/os.yml) | `os.name`<br> `os.full` |
 | [`pe`](0001/pe.yml) | `pe.original_file_name` |
-| [`process`](0001/process.yml) | `process.command_line`<br> `process.executable`<br> `process.name`<br> `process.title`<br> `process.working_directory`<br> |
+| [`process`](0001/process.yml) | `process.command_line`<br> `process.executable`<br> `process.name`<br> `process.thread.name`<br> `process.title`<br> `process.working_directory`<br> |
 | [`registry`](0001/registry.yml) | `registry.key`<br> `registry.path`<br> `registry.data.strings` |
 | [`server`](0001/server.yml) | `server.domain`<br> `server.registered_domain` |
 | [`source`](0001/source.yml) | `source.domain`<br> `source.registered_domain` |
 | [`tls`](0001/tls.yml) | `tls.client.issuer`<br> `tls.client.subject`<br> `tls.server.issuer`<br> `tls.server.subject` |
 | [`url`](0001/url.yml) | `url.full`<br> `url.original`<br> `url.path`<br> `url.domain`<br> `url.registered_domain` |
-| [`user`](0001/user.yml) | `user.name`<br> `user.full_name`<br> `user.email`<br> `user.domain` |
+| [`user`](0001/user.yml) | `user.name`<br> `user.full_name`<br> `user.email` |
 | [`user_agent`](0001/user_agent.yml) | `user_agent.original` |
 | [`x509`](0001/x509.yml) | `x509.issuer.distinguished_name`<br> `x509.subject.distinguished_name` |
 
@@ -145,8 +147,8 @@ The following table is a comparison of `wildcard` vs. `keyword` [2]:
 | Sorting speeds | Fast | Not quite as fast (see *1) |
 | Aggregation speeds | Fast | Not quite as fast (see *1) |
 | Prefix query speeds (foo*) | Fast | Not quite as fast (see *2) |
-| Leading wildcard queries on low-cardinality fields (foo*) | Fast | Slower (see *3) |
-| Leading wildcard queries on high-cardinality fields (foo* ) | Terrible | Much faster |
+| Leading wildcard queries on low-cardinality fields (*foo) | Fast | Slower (see *3) |
+| Leading wildcard queries on high-cardinality fields (*foo) | Terrible | Much faster |
 | Term query. Full value match (foo) | Fast | Not quite as fast (see *2) |
 | Fuzzy query | Y (see *4) | Y |
 | Regexp query | Y (see *4) | Y |
@@ -179,7 +181,7 @@ The following sections detail use cases which could benefit using the `wildcard`
 #### Paths
 
 * Flexible nesting of a file path: `file.path:*\\Users\\*\\Temp\\*`
-* Match under registry path: `registry.path:\\HKLM\\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\*\Debugger`
+* Match under registry path: `registry.path:\\HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Image File Execution Options\\*\\Debugger`
 * A unique URL path: `url.full:https://api.example.com/account/*/foobar`
 
 The following are common categories
@@ -238,7 +240,7 @@ The arguments, order of those arguments, and values passed can be arbitrary in a
 Example:
 
 ```
-process.command_line:*f/ foo* and process.command_line:*/b bar*
+process.command_line:*\/f foo* AND process.command_line:*\/b bar*
 ```
 
 Additional cases for wildcard searching against command line executions:
@@ -429,25 +431,43 @@ Stage 2: Document new concerns or resolutions to previously listed concerns. It'
 
 Some fields require flexibility in how users search. Their content is messy (e.g. user-agent) or popular for threat hunters (e.g. file paths and names, command line processes), and a single character in the opposite casing can bypass a detection today for `keyword` fields. The `wildcard` field provides improved performance of leading `wildcard` and `regex` term-level queries, but is also a step towards case-insensitive search support in Elasticsearch. As Elasticsearch moves forward towards introducing a case-insensitive query option [3], ECS considers the fields adopting `wildcard` to be popular candidates for case-insensitive searching once the feature is available.
 
-One remaining question is if `wildcard` performs better vs. `keyword` for the upcoming case-insensitive query option.
+#### Resolution
+
+The `case_insensitivity` query parameter is an expected feature in Elasticsearch 7.10 with support for the `regexp`, `term`, `prefix`, and `wildcard` query types[4]. Since this is a query parameter, both `keyword` and `wildcard` types will be supported, and each type's noted [performance characteristics](#comparison-with-keyword) will be consistent.
 
 ### Performance differences
 
-Performance and storage characteristics between wildcard and keyword will be different[4], and this difference may have an impact depending on deployment size and/or the level of duplication in the field data. As part of the transition, fields which were previously indexed keyword will be switched to wildcard. Queries across indices with field names will be necessary. Understanding the differences at both index and query time will be pursued.
+Performance and storage characteristics between wildcard and keyword will be different[5], and this difference may have an impact depending on deployment size and/or the level of duplication in the field data. Fields which were previously indexed as keyword will be switched to wildcard. With these fields now indexed as wildcard, users will be querying fields which are indexed as keyword in some indices and as wildcard in others. Any potential indexing or querying differences needs to be understood and captured.
+
+#### Resolution
+
+The performance characteristics for both indexing and querying for the two types has been explored and observations [noted](#comparison-with-keyword).
 
 ### Wildcard field value character limits
 
 ECS applies the `ignore_above` setting to keyword fields to prevent strings longer than 1024 characters from being indexed or stored. While `ignore_above` can be raised, Lucene implements a term byte-length limit of 32766 which cannot be adjusted. Wildcard supports an unlimited max character size for a field value. The `wildcard` field type will still have the `ignore_above` option available, and a reasonable limit may be need applied to mitigate unexpected side-effects.
 
-For the initial adoption into ECS, `wildcard` fields will not have an `ignore_above` option defined.
+#### Resolution
+
+This ability to ingest extremely long values is considered an advantage of `wildcard` compared to `keyword`. Therefore, the `wildcard` fields will not have an `ignore_above` option defined initially.
 
 ### Licensing
 
-Until now ECS has relied only on OSS licensed features, but ECS will also support Elastic licensed features. The ECS project will remain OSS licensed with the schema implementing Elastic licensed features as part of the specification. When ECS adopts a feature available only under a license, it will be noted in the documentation. ECS plans to provide tooling options which continue to support OSS consumers of ECS and the Elastic Stack.
+Until now ECS has relied only on OSS licensed features, but ECS will also support Elastic licensed features. The ECS project will remain OSS licensed with the schema implementing Elastic licensed features as part of the specification.
+
+#### Resolution
+
+When ECS adopts a feature available only under a license, it will be noted in the documentation.
+
+The ECS team will not maintain a second OSS-compatible set of ECS field definitions. However a feature has been added to the ECS generator script allowing for OSS-compatibility versions of the ECS-maintained artifacts to be generated by users. When the generator is called with `--oss`, ECS fields using Basic data types will fallback to their compatible OSS types (if an OSS fallback type is available).
 
 ### Version Compatibility
 
-A data shipper which uses the `wildcard` field type may need to verify that the configured output Elasticsearch destination can support it (>= 7.9.0). For example, if a future version of Beats adopts `wildcard` in index mappings, Beats would may need to gracefully handle a scenario where the targeted Elasticsearch instance doesn't support the data type.
+A data shipper which uses the `wildcard` field type may need to verify that the configured output Elasticsearch destination can support it (>= 7.9.0). For example, if a future version of Beats adopts `wildcard` in index mappings, Beats may need to gracefully handle a scenario where the targeted Elasticsearch instance doesn't support the data type.
+
+#### Resolution
+
+Ongoing discussions are taking place to determine how to best address for Beats and Logstash.
 
 ### Text fields migrating to wildcard
 
@@ -466,6 +486,10 @@ A prime example is Windows Event Logs' main messages, which is stored in the `me
 
 The situation is captured here for addressing at a later stage.
 
+#### Resolution
+
+No resolution yet.
+
 ## People
 
 The following are the people that consulted on the contents of this RFC.
@@ -473,6 +497,7 @@ The following are the people that consulted on the contents of this RFC.
 * @ebeahan | author, sponsor
 * @webmat | editorial feedback
 * @markharwood | subject matter expert
+* @rw-access | editorial feedback
 
 ## Footnotes
 
@@ -480,13 +505,15 @@ The following are the people that consulted on the contents of this RFC.
 * [1] Keyword fields are not tokenized like `text` fields, so patterns can match multiple words. However they suffer from slow performance with wildcard searching (especially with leading wildcards).
 * [2] https://www.elastic.co/blog/find-strings-within-strings-faster-with-the-new-elasticsearch-wildcard-field
 * [3] https://github.com/elastic/elasticsearch/issues/61162
-* [4] https://github.com/elastic/elasticsearch/pull/58483
+* [4] https://github.com/elastic/elasticsearch/issues/61162
+* [5] https://github.com/elastic/elasticsearch/pull/58483
 
 ## References
 
 <!-- Insert any links appropriate to this RFC in this section. -->
 
 * [Introductory blog post for the wildcard type](https://www.elastic.co/blog/find-strings-within-strings-faster-with-the-new-elasticsearch-wildcard-field)
+* [Wildcard field type in the Elasticsearch docs](elastic.co/guide/en/elasticsearch/reference/current/keyword.html#wildcard-field-type)
 * https://github.com/elastic/ecs/issues/570
 * https://github.com/elastic/mechagodzilla/issues/2
 * https://github.com/elastic/ecs/issues/105
@@ -498,3 +525,4 @@ The following are the people that consulted on the contents of this RFC.
 * Stage 0: https://github.com/elastic/ecs/pull/890
 * Stage 1: https://github.com/elastic/ecs/pull/904
 * Stage 2: https://github.com/elastic/ecs/pull/970
+* Stage 3: https://github.com/elastic/ecs/pull/1015
