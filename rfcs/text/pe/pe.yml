@@ -21,6 +21,20 @@
                 MD5 hash of raw icon data.
               example: 5aa1aa0f2b4be70397a1e9e2b87627cd
 
+            - name: sha1
+              level: extended
+              type: keyword
+              description: >
+                SHA1 hash of raw icon data.
+              example: e8ff6bf77c652168f958ab4194af48b75ef1e4dd
+
+            - name: sha256
+              level: extended
+              type: keyword
+              description: >
+                SHA256 hash of raw icon data.
+              example: d81d0dbc5e691ea1082db0a8f82f978f3768d46d23049935dff2d935f932d1a2
+
             - name: dhash
               level: extended
               type: keyword
@@ -164,53 +178,3 @@
         Machine type of the PE file.
       type: keyword
       example: "Intel 386 or later, and compatibles", "AMD AMD64", 332, 34404
-
-    - name: overlay
-      level: extended
-      description: >
-        Overlay information of the PE file.
-      type: object
-      fields:
-        - name: chi2
-          level: extended
-          description: >
-            Chi2 information of the PE file.
-          type: float
-          format: bytes
-          example: 6047
-
-        - name: entropy
-          level: extended
-          description: >
-            Entropy information of the PE file.
-          type: float
-          example: 5.221
-
-        - name: filetype
-          level: extended
-          description: >
-            Filetype of the PE file.
-          type: keyword
-          example: Data, "ASCII text"
-
-        - name: md5
-          level: extended
-          description: >
-            Overlay MD5 hash of the PE file.
-          type: keyword
-          example: 9ac2c4965776e2483ffd11718d653a77
-
-        - name: offset
-          level: extended
-          description: >
-            Offset of the overlay information of the PE file.
-          type: long
-          example: 32256
-
-        - name: size
-          level: extended
-          description: >
-            Size of the PE file.
-          format: bytes
-          type: long
-          example: 512, 7168

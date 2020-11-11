@@ -29,13 +29,6 @@ This RFC is to create 25 additional sub-fields within the `file.pe` fieldset.
 | file.pe.machine_type | keyword | Machine type of the PE file. |
 | file.pe.hash.dhash | keyword | Difference Hash (dhash) to find files with a visually similar icon or thumbnail. |
 | file.pe.hash.md5 | keyword | MD5 hash of raw icon data |
-| file.pe.overlay.chi2 | float | Chi2 information of the PE file. |
-| file.pe.overlay.entropy | float | Entropy information of the PE file. |
-| file.pe.overlay.filetype | keyword | Filetype of the PE file. |
-| file.pe.overlay.md5 | keyword | Overlay MD5 hash of the PE file. |
-| file.pe.overlay.offset | long | Offset of the overlay information of the PE file. |
-| file.pe.overlay.size | long | Size of the PE file. |
-| file.pe.overlay.rich_pe_header_hash | keyword | Hash of the header for the PE file. |
 | file.pe.packers | keyword | Merged list of all detected packers by all tools used. |
 | file.pe.rich_header.hash.md5 | keyword | Hash of the PE header. |
 
