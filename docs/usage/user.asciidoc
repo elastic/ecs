@@ -337,7 +337,7 @@ we know "alice" is escalating privileges to "root", in order to modify user "bob
 [[ecs-user-usage-reuse-subtleties]]
 ====== Subtleties around field reuse
 
-Most cases of field reuse in ECS are reusing a field set inside another field set.
+Most cases of field reuse in ECS are reusing a field set inside a different field set.
 Two examples of this are:
 
 * reusing `group` in `user`, resulting in the `user.group.*` fields, or
@@ -345,13 +345,30 @@ Two examples of this are:
   which also include `destination.user.group.*`.
 
 The `user` fields can also be reused within `user` as different names,
-representing the role of each relevant user. Examples are the `user.target.*` or `user.effective.*` fields.
+representing the role of each relevant user. Examples are the `user.target.*` or `user.effective.*` fields. However it's important to note that `user` fields reused within
+`user` are _not carried around anywhere else_.
+Let's illustrate the various permutations of what's valid and what is not.
 
-It's important to note, that contrary to the `group` fields,
-the user fields reused within `user` are **not** carried around when reusing `user`
-in other places. To continue with the `destination` example, while `group` fields
-are carried to `destination.user.group.*`, there are no `destination.user.effective.*`,
-`destination.user.target.*` nor `destination.user.changes.*` fields.
+[options="header"]
+|=====
+| Field  | Validity | Notes
+
+| `user.group.*` | Valid | Normal reuse.
+| `destination.user.group.*` | Valid | The `group` reuse gets carried around when `user` is reused elsewhere.
+Populate only if relevant to the event.
+
+| `user.target.group.*`, `user.effective.group.*`, `user.changes.group.*`
+| Valid
+| The `group` reuse gets carried around even when `user` is reused within itself.
+Populate only if relevant to the event.
+
+| `destination.user.target.*`, `destination.user.effective.*`, `destination.user.changes.*`
+| *Invalid*
+| The `user` fields reused within `user` are not carried around anywhere else.
+The same rule applies when `user` is reused under `source`, `client` and `server`.
+
+|=====
+
 
 [discrete]
 [[ecs-user-usage-pivoting]]
