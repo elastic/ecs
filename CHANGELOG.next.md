@@ -18,6 +18,7 @@ Thanks, you're awesome :-) -->
 
 * Added `event.category` "registry". #1040
 * Added `event.category` "session". #1049
+* Added `os.commercial_family`. #1111
 
 #### Improvements
 
