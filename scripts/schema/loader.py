@@ -44,6 +44,7 @@ from generators import ecs_helpers
 
 EXPERIMENTAL_SCHEMA_DIR = 'experimental/schemas'
 
+
 def load_schemas(ref=None, included_files=[]):
     """Loads ECS and custom schemas. They are returned deeply nested and merged."""
     # ECS fields (from git ref or not)
