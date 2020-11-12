@@ -40,7 +40,7 @@ def main():
     # statements like this after any step of interest.
     # ecs_helpers.yaml_dump('ecs.yml', fields)
 
-    # Detect usage of experimental changes to tweak artifact headers
+    # Detect usage of experimental changes to tweak artifact version label
     if loader.EXPERIMENTAL_SCHEMA_DIR in args.include:
         ecs_version += "+exp"
 
