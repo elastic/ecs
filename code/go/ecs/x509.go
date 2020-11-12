@@ -26,12 +26,13 @@ import (
 // This implements the common core fields for x509 certificates. This
 // information is likely logged with TLS sessions, digital signatures found in
 // executable binaries, S/MIME information in email bodies, or analysis of
-// files on disk. When only a single certificate is logged in an event, it
-// should be nested under `file`. When hashes of the DER-encoded certificate
-// are available, the `hash` data set should be populated as well (e.g.
-// `file.hash.sha256`). For events that contain certificate information for
-// both sides of the connection, the x509 object could be nested under the
-// respective side of the connection information (e.g. `tls.server.x509`).
+// files on disk.
+// When the certificate relates to a file, use the fields at `file.x509`. When
+// hashes of the DER-encoded certificate are available, the `hash` data set
+// should be populated as well (e.g. `file.hash.sha256`).
+// Events that contain certificate information about network connections,
+// should use the x509 fields under the relevant TLS fields: `tls.server.x509`
+// and/or `tls.client.x509`.
 type X509 struct {
 	// Version of x509 format.
 	VersionNumber string `ecs:"version_number"`
