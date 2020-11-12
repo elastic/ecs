@@ -144,6 +144,9 @@ def field_or_multi_field_datatype_defaults(field_details):
         field_details.setdefault('ignore_above', 1024)
     if field_details['type'] == 'text':
         field_details.setdefault('norms', False)
+    # wildcard needs the index param stripped
+    if field_details['type'] == 'wildcard':
+        field_details.pop('index', None)
     if 'index' in field_details and not field_details['index']:
         field_details.setdefault('doc_values', False)
 
