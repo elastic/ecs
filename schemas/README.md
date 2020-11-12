@@ -129,7 +129,8 @@ Supported keys to describe fields
   Example values that are composite types (array, object) should be quoted to avoid YAML interpretation
   in ECS-generated artifacts and other downstream projects depending on the schema.
 - multi\_fields (optional): Specify additional ways to index the field.
-- index (optional): If `False`, means field is not indexed (overrides type)
+- index (optional): If `False`, means field is not indexed (overrides type). This parameter has no effect
+  on a `wildcard` field.
 - format: Field format that can be used in a Kibana index template.
 - normalize: Normalization steps that should be applied at ingestion time. Supported values:
   - array: the content of the field should be an array (even when there's only one value).
