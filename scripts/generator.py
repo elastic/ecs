@@ -41,6 +41,10 @@ def main():
     # statements like this after any step of interest.
     # ecs_helpers.yaml_dump('ecs.yml', fields)
 
+    # Detect usage of experimental changes to tweak artifact version label
+    if loader.EXPERIMENTAL_SCHEMA_DIR in args.include:
+        ecs_version += "+exp"
+
     fields = loader.load_schemas(ref=args.ref, included_files=args.include)
     if args.oss:
         oss.fallback(fields)
@@ -63,7 +67,8 @@ def main():
 
 def argument_parser():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--ref', action='store', help='git reference to use when building schemas')
+    parser.add_argument('--ref', action='store', help='Loads fields definitions from `./schemas` subdirectory from specified git reference. \
+                                                       Note that "--include experimental/schemas" will also respect this git ref.')
     parser.add_argument('--include', nargs='+',
                         help='include user specified directory of custom field definitions')
     parser.add_argument('--subset', nargs='+',

@@ -1,10 +1,10 @@
 {
   "index_patterns": [
-    "ecs-*"
+    "try-ecs-*"
   ],
   "mappings": {
     "_meta": {
-      "version": "1.7.0"
+      "version": "1.7.0+exp"
     },
     "date_detection": false,
     "dynamic_templates": [
@@ -568,7 +568,8 @@
                 "ignore_above": 1024,
                 "type": "keyword"
               }
-            }
+            },
+            "type": "object"
           },
           "header_flags": {
             "ignore_above": 1024,
@@ -706,8 +707,9 @@
           },
           "original": {
             "doc_values": false,
+            "ignore_above": 1024,
             "index": false,
-            "type": "wildcard"
+            "type": "keyword"
           },
           "outcome": {
             "ignore_above": 1024,
@@ -1903,8 +1905,7 @@
                     "type": "long"
                   },
                   "name": {
-                    "ignore_above": 1024,
-                    "type": "keyword"
+                    "type": "wildcard"
                   }
                 }
               },
@@ -1980,8 +1981,7 @@
                 "type": "long"
               },
               "name": {
-                "ignore_above": 1024,
-                "type": "keyword"
+                "type": "wildcard"
               }
             }
           },
