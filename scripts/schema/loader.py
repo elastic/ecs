@@ -42,6 +42,8 @@ from generators import ecs_helpers
 #   Examples of this are 'dns.answers', 'observer.egress'.
 
 
+EXPERIMENTAL_SCHEMA_DIR = 'experimental/schemas'
+
 def load_schemas(ref=None, included_files=[]):
     """Loads ECS and custom schemas. They are returned deeply nested and merged."""
     # ECS fields (from git ref or not)
@@ -50,8 +52,6 @@ def load_schemas(ref=None, included_files=[]):
     else:
         schema_files_raw = load_schema_files(ecs_helpers.ecs_files())
     fields = deep_nesting_representation(schema_files_raw)
-
-    EXPERIMENTAL_SCHEMA_DIR = 'experimental/schemas'
 
     # Custom additional files
     if included_files and len(included_files) > 0:
