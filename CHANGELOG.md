@@ -25,6 +25,8 @@ All notable changes to this project will be documented in this file based on the
 * Provided better guidance for mapping network events. #969
 * Added the field `.subdomain` under `client`, `destination`, `server`, `source`
   and `url`, to match its presence at `dns.question.subdomain`. #981
+* Clarified ambiguity in guidance on how to use x509 fields for connections with
+  only one certificate. #1114
 
 ### Tooling and Artifact Changes
 
