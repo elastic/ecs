@@ -24,6 +24,9 @@ type Os struct {
 	// Categorize the operating system in one of the broad commercial families.
 	// One of these following values should be used (lowercase): linux, macos,
 	// unix, windows.
+	// If the OS is not part of any of these families, the field should not be
+	// populated. Please let us know by opening an issue with ECS, to have it
+	// added to the list.
 	CommercialFamily string `ecs:"commercial_family"`
 
 	// Operating system platform (such centos, ubuntu, windows).
