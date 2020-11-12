@@ -19,7 +19,7 @@ All notable changes to this project will be documented in this file based on the
 * Added `threat.technique.subtechnique` to capture MITRE ATT&CK® subtechniques. #951
 * Added `configuration` as an allowed `event.category`. #963
 * Added a new directory with experimental artifacts, which includes all changes
-  from RFCs that have reached stage 2. #993, #1053, #1115, #1117
+  from RFCs that have reached stage 2. #993, #1053, #1115, #1117, #1118
 
 #### Improvements
 
