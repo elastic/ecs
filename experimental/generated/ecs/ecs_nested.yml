@@ -1667,6 +1667,25 @@ dns:
     (`dns.type:query`) or they should represent a full exchange and contain the query
     details as well as all of the answers that were provided for this query (`dns.type:answer`).'
   fields:
+    dns.answers:
+      dashed_name: dns-answers
+      description: 'An array containing an object for each answer section returned
+        by the server.
+
+        The main keys that should be present in these objects are defined by ECS.
+        Records that have more information may contain more keys than what ECS defines.
+
+        Not all DNS data sources give all details about DNS answers. At minimum, answer
+        objects must contain the `data` key. If more information is available, map
+        as much of it to ECS as possible, and add any additional fields to the answer
+        objects as custom fields.'
+      flat_name: dns.answers
+      level: extended
+      name: answers
+      normalize:
+      - array
+      short: Array of DNS answers.
+      type: object
     dns.answers.class:
       dashed_name: dns-answers-class
       description: The class of DNS data contained in this resource record.
