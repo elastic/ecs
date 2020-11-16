@@ -114,7 +114,7 @@ The `beta` marker can optionally be used along with `at` and `as` to include a b
     - at: user
       as: target
       beta: >
-        Beta description text here.
+        Reusing these fields in this location is currently considered beta.
 ```
 
 ### List of fields
