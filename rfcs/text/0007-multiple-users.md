@@ -1,8 +1,8 @@
 # 0007: Multiple users in an event
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
-- Stage: **2 (proposal)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
-- Date: **2020-10-02** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
+- Stage: **3 (candidate)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
+- Date: **2020-11-11** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 Many log events refer to more than one user at the same time.
 Examples of this are remote logons as someone else, user management and privilege escalation.
@@ -67,7 +67,7 @@ This can be seen in more detail on PR [ecs#869](https://github.com/elastic/ecs/p
 
 The examples below will only populate `user.name` and sometimes `user.id` inside
 the various `user` nestings, for readability.
-However in implementations, otherwise noted all `user` fields that can reasonably
+However in implementations, unless otherwise noted, all `user` fields that can reasonably
 be populated in each location should be populated.
 
 ### User fields at the Root of an Event
@@ -636,14 +636,6 @@ and the assumed role in the `userIdentity`. This makes it easy to keep track of 
 the real user at `user.*` and the escalated privileges at `user.effective.*` in
 all subsequent activity after privilege escalation.
 
-<!--
-Stage 2: Included a real world example source document. Ideally this example comes from the source(s) identified in stage 1. If not, it should replace them. The goal here is to validate the utility of these field changes in the context of a real world example. Format with the source name as a ### header and the example document in a GitHub code block with json formatting.
--->
-
-<!--
-Stage 3: Add more real world example source documents so we have at least 2 total, but ideally 3. Format as described in stage 2.
--->
-
 ## Scope of impact
 
 ### New fields for IAM
@@ -671,12 +663,12 @@ These came up while working on this RFC; this is not guidance that was given
 in the past. Data sources that populate these fields will need to be revisited
 and adjusted accordingly.
 
-<!-- TODO
+### host.user fields are deprecated for removal
 
-Depending on the outcome of the discussion on `host.user.*`, mention it here.
-It's currently listed in the concerns below.
+Seeing no use in the wild, it was decided to remove the reuse of the user fields at `host.user.*`.
+We will start by deprecating them in ECS 1.8, and will remove them at the next major version.
 
--->
+Please let us know before the next major ECS release if you disagree with this, and share how you're using them.
 
 ## Concerns
 
@@ -686,11 +678,11 @@ In past discussions and recent research, we have not identified a clear purpose
 for the user fields nested at `host.user.*`.
 
 We are considering deprecating these fields with the intent to remove them completely.
-Please let us know if you disagree with this, and share how you're using them.
 
 #### Resolution
 
-No resolution yet.
+They will be marked as deprecated starting with ECS 1.8, and will be removed in
+the next ECS major release.
 
 ### Documenting the purpose of each usage of the user fields
 
@@ -727,7 +719,7 @@ Stage 4: Identify at least one real-world, production-ready implementation that 
 The following are the people that consulted on the contents of this RFC.
 
 * @webmat | author
-* TBD | sponsor
+* @jonathan-buttner | sponsor
 * @leehinman | subject matter expert
 * @janniten | subject matter expert
 * @willemdh | subject matter expert
@@ -765,6 +757,7 @@ e.g.:
 
 * Stage 2: https://github.com/elastic/ecs/pull/914
   * Stage 2 correction: https://github.com/elastic/ecs/pull/996
+* Stage 3: https://github.com/elastic/ecs/pull/1017
 
 Note: This RFC was initially proposed via a PR that targeted stage 2,
 given the amount of discussion that has already has happened on this subject.
