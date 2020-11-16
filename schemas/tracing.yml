@@ -7,6 +7,49 @@
   description: >
     Distributed tracing makes it possible to analyze performance throughout a microservice architecture all in one view.
     This is accomplished by tracing all of the requests - from the initial web request in the front-end service - to queries made through multiple back-end services.
+
+    A distributed trace may be initiated when someone presses a button to start an action on a website - in this example, 
+    the trace will represent calls made between the downstream services that handled the chain of requests initiated by this 
+    button being pressed..
+
+    A trace is made up of spans, where each span is one part of the processing. Usually a span corresponds to one request to a
+    component, but not always. Sometimes a component may break up processing into multiple spans if needed. The spans form a
+    tree (or directed acylic grapph), with each span, except the root span, having a parent span.
+
+    For example, the following is an example **Trace** made up of 6 **Spans**:
+
+    ```
+    Causal relationships between Spans in a single Trace
+
+            [Span A]  ←←←(the root span)
+                |
+        +------+------+
+        |             |
+    [Span B]      [Span C] ←←←(Span C is a `child` of Span A)
+        |             |
+    [Span D]      +---+-------+
+                  |           |
+              [Span E]    [Span F]
+    ```
+
+    Sometimes it's easier to visualize **Traces** with a time axis as in the diagram
+    below:
+
+    ```
+    Temporal relationships between Spans in a single Trace
+
+    ––|–––––––|–––––––|–––––––|–––––––|–––––––|–––––––|–––––––|–> time
+
+    [Span A···················································]
+      [Span B··············································]
+          [Span D··········································]
+        [Span C········································]
+            [Span E·······]        [Span F··]
+    ```
+
+    If following the (W3C Trace Context Recommendation)[https://www.w3.org/TR/trace-context/] then
+    the values should correspond to those specified in the recommendation and passed in the `traceparent` header.
+
   type: group
   fields:
     - name: trace.id
@@ -19,6 +62,9 @@
 
         A trace groups multiple events like transactions that belong together.
         For example, a user request handled by multiple inter-connected services.
+
+        The trace ID allows the messages to be correlated across an entire distributed
+        trace logical operation.
 
     - name: transaction.id
       level: extended
@@ -38,4 +84,7 @@
       description: >
         Unique identifier of the span within the scope of its trace.
 
-        A span represents an operation within a transaction, such as a request to another service, or a database query.
+        A span represents an operation within a trace, such as a request to another service, or a database query.
+
+        The span ID allows messages from a single section of processing within the overall trace, 
+        e.g. a request to a component, to be correlated together.
