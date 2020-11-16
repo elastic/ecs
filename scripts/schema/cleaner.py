@@ -144,6 +144,9 @@ def field_or_multi_field_datatype_defaults(field_details):
         field_details.setdefault('ignore_above', 1024)
     if field_details['type'] == 'text':
         field_details.setdefault('norms', False)
+    # wildcard needs the index param stripped
+    if field_details['type'] == 'wildcard':
+        field_details.pop('index', None)
     if 'index' in field_details and not field_details['index']:
         field_details.setdefault('doc_values', False)
 
@@ -158,6 +161,14 @@ def field_mandatory_attributes(field):
         return
     current_field_attributes = sorted(field['field_details'].keys())
     missing_attributes = ecs_helpers.list_subtract(FIELD_MANDATORY_ATTRIBUTES, current_field_attributes)
+
+    # `alias` fields require a target `path` attribute.
+    if field['field_details'].get('type') == 'alias' and 'path' not in current_field_attributes:
+        missing_attributes.append('path')
+    # `scaled_float` fields require a `scaling_factor` attribute.
+    if field['field_details'].get('type') == 'scaled_float' and 'scaling_factor' not in current_field_attributes:
+        missing_attributes.append('scaling_factor')
+
     if len(missing_attributes) > 0:
         msg = "Field is missing the following mandatory attributes: {}.\nFound these: {}.\nField details: {}"
         raise ValueError(msg.format(', '.join(missing_attributes),

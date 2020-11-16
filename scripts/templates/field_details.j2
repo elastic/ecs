@@ -4,7 +4,14 @@
 
 {{ fieldset['description']|replace("\n", "\n\n") }}
 
+{%- if usage_doc %}
+
+Find additional usage and examples in the {{ fieldset['name'] }} fields <<ecs-{{ fieldset['name']|replace("_", "-") }}-usage,usage>> section.
+
+{% endif %}
+
 {# Field Details Table Header -#}
+[discrete]
 ==== {{ fieldset['title'] }} Field Details
 
 [options="header"]
@@ -67,6 +74,7 @@ example: `{{ field['example'] }}`
 {# do we have `nestings` or `reusable` sections to worry about? -#}
 {% if 'nestings' in fieldset or 'reusable' in fieldset -%}
 
+[discrete]
 ==== Field Reuse
 
 {% if 'reusable' in fieldset -%}
@@ -88,6 +96,7 @@ Note also that the `{{ fieldset['name'] }}` fields are not expected to be used d
 {% if 'nestings' in fieldset -%}
 
 [[ecs-{{ fieldset['name'] }}-nestings]]
+[discrete]
 ===== Field sets that can be nested under {{ fieldset['title'] }}
 
 [options="header"]
@@ -110,4 +119,9 @@ Note also that the `{{ fieldset['name'] }}` fields are not expected to be used d
 |=====
 
 {% endif %}{# if 'nestings' #}
-{%- endif %}{# if 'nestings' or 'reusable' in fieldset #}
+{%- endif -%}{# if 'nestings' or 'reusable' in fieldset #}
+{%- if usage_doc %}
+
+include::usage/{{ fieldset['name'] }}.asciidoc[]
+
+{% endif %}

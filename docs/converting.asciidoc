@@ -44,3 +44,18 @@ Here's the recommended approach for converting an existing implementation to {ec
 . Set `ecs.version` to the version of the schema you are conforming to. This will
   allow you to upgrade your sources, pipelines and content (like dashboards)
   smoothly in the future.
+
+[float]
+[[ecs-conv-spreasheet]]
+==== Using a spreadsheet to plan your migration
+
+Using a spreadsheet to plan the migration from pre-existing source fields to ECS
+is a common practice. It's a good way to address each of your fields methodically among colleagues.
+
+If the data source is either a structured log, or if you already have a pipeline
+producing events with these non-ECS field names, the tool
+https://github.com/elastic/ecs-mapper[ECS Mapper] may help you get started in performing all of these field renames.
+
+After exporting your mapping spreadsheet to CSV, ECS Mapper will convert your field mapping
+to equivalent pipelines for Beats, Elasticsearch, and Logstash. Learn more at
+https://github.com/elastic/ecs-mapper[ECS Mapper].

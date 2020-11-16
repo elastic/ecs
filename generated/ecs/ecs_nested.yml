@@ -494,6 +494,24 @@ client:
       normalize: []
       short: The highest registered client domain, stripped of the subdomain.
       type: keyword
+    client.subdomain:
+      dashed_name: client-subdomain
+      description: 'The subdomain portion of a fully qualified domain name includes
+        all of the names except the host name under the registered_domain.  In a partially
+        qualified domain, or if the the qualification level of the full name cannot
+        be determined, subdomain contains all of the names below the registered domain.
+
+        For example the subdomain portion of "www.east.mydomain.co.uk" is "east".
+        If the domain has multiple levels of subdomain, such as "sub2.sub1.example.com",
+        the subdomain field should contain "sub2.sub1", with no trailing period.'
+      example: east
+      flat_name: client.subdomain
+      ignore_above: 1024
+      level: extended
+      name: subdomain
+      normalize: []
+      short: The subdomain of the domain.
+      type: keyword
     client.top_level_domain:
       dashed_name: client-top-level-domain
       description: 'The effective top level domain (eTLD), also known as the domain
@@ -1212,6 +1230,24 @@ destination:
       name: registered_domain
       normalize: []
       short: The highest registered destination domain, stripped of the subdomain.
+      type: keyword
+    destination.subdomain:
+      dashed_name: destination-subdomain
+      description: 'The subdomain portion of a fully qualified domain name includes
+        all of the names except the host name under the registered_domain.  In a partially
+        qualified domain, or if the the qualification level of the full name cannot
+        be determined, subdomain contains all of the names below the registered domain.
+
+        For example the subdomain portion of "www.east.mydomain.co.uk" is "east".
+        If the domain has multiple levels of subdomain, such as "sub2.sub1.example.com",
+        the subdomain field should contain "sub2.sub1", with no trailing period.'
+      example: east
+      flat_name: destination.subdomain
+      ignore_above: 1024
+      level: extended
+      name: subdomain
+      normalize: []
+      short: The subdomain of the domain.
       type: keyword
     destination.top_level_domain:
       dashed_name: destination-top-level-domain
@@ -2173,6 +2209,25 @@ event:
         - info
         - start
         name: process
+      - description: Having to do with settings and assets stored in the Windows registry.
+          Use this category to visualize and analyze activity such as registry access
+          and modifications.
+        expected_event_types:
+        - access
+        - change
+        - creation
+        - deletion
+        name: registry
+      - description: The session category is applied to events and metrics regarding
+          logical persistent connections to hosts and services. Use this category
+          to visualize and analyze interactive or automated persistent connections
+          between assets. Data for this category may come from Windows Event logs,
+          SSH logs, or stateless sessions such as HTTP cookie-based sessions, etc.
+        expected_event_types:
+        - start
+        - end
+        - info
+        name: session
       - description: 'Relating to web server access. Use this category to create a
           dashboard of web server/proxy activity from apache, IIS, nginx web servers,
           etc. Note: events from network observers such as Zeek http log may also
@@ -2932,14 +2987,17 @@ file:
       type: keyword
     file.extension:
       dashed_name: file-extension
-      description: File extension.
+      description: 'File extension, excluding the leading dot.
+
+        Note that when the file name has multiple extensions (example.tar.gz), only
+        the last one should be captured ("gz", not "tar.gz").'
       example: png
       flat_name: file.extension
       ignore_above: 1024
       level: extended
       name: extension
       normalize: []
-      short: File extension.
+      short: File extension, excluding the leading dot.
       type: keyword
     file.gid:
       dashed_name: file-gid
@@ -4732,11 +4790,17 @@ network:
     network.direction:
       dashed_name: network-direction
       description: "Direction of the network traffic.\nRecommended values are:\n \
-        \ * inbound\n  * outbound\n  * internal\n  * external\n  * unknown\n\nWhen\
-        \ mapping events from a host-based monitoring context, populate this field\
-        \ from the host's point of view.\nWhen mapping events from a network or perimeter-based\
-        \ monitoring context, populate this field from the point of view of your network\
-        \ perimeter."
+        \ * ingress\n  * egress\n  * inbound\n  * outbound\n  * internal\n  * external\n\
+        \  * unknown\n\nWhen mapping events from a host-based monitoring context,\
+        \ populate this field from the host's point of view, using the values \"ingress\"\
+        \ or \"egress\".\nWhen mapping events from a network or perimeter-based monitoring\
+        \ context, populate this field from the point of view of the network perimeter,\
+        \ using the values \"inbound\", \"outbound\", \"internal\" or \"external\"\
+        .\nNote that \"internal\" is not crossing perimeter boundaries, and is meant\
+        \ to describe communication between two hosts within the perimeter. Note also\
+        \ that \"external\" is meant to describe traffic between two hosts that are\
+        \ external to the perimeter. This could for example be useful for ISPs or\
+        \ VPN service providers."
       example: inbound
       flat_name: network.direction
       ignore_above: 1024
@@ -4771,8 +4835,8 @@ network:
     network.inner:
       dashed_name: network-inner
       description: Network.inner fields are added in addition to network.vlan fields
-        to describe  the innermost VLAN when q-in-q VLAN tagging is present. Allowed
-        fields include  vlan.id and vlan.name. Inner vlan fields are typically used
+        to describe the innermost VLAN when q-in-q VLAN tagging is present. Allowed
+        fields include vlan.id and vlan.name. Inner vlan fields are typically used
         when sending traffic with multiple 802.1q encapsulations to a network sensor
         (e.g. Zeek, Wireshark.)
       flat_name: network.inner
@@ -7281,6 +7345,24 @@ server:
       normalize: []
       short: The highest registered server domain, stripped of the subdomain.
       type: keyword
+    server.subdomain:
+      dashed_name: server-subdomain
+      description: 'The subdomain portion of a fully qualified domain name includes
+        all of the names except the host name under the registered_domain.  In a partially
+        qualified domain, or if the the qualification level of the full name cannot
+        be determined, subdomain contains all of the names below the registered domain.
+
+        For example the subdomain portion of "www.east.mydomain.co.uk" is "east".
+        If the domain has multiple levels of subdomain, such as "sub2.sub1.example.com",
+        the subdomain field should contain "sub2.sub1", with no trailing period.'
+      example: east
+      flat_name: server.subdomain
+      ignore_above: 1024
+      level: extended
+      name: subdomain
+      normalize: []
+      short: The subdomain of the domain.
+      type: keyword
     server.top_level_domain:
       dashed_name: server-top-level-domain
       description: 'The effective top level domain (eTLD), also known as the domain
@@ -7832,6 +7914,24 @@ source:
       name: registered_domain
       normalize: []
       short: The highest registered source domain, stripped of the subdomain.
+      type: keyword
+    source.subdomain:
+      dashed_name: source-subdomain
+      description: 'The subdomain portion of a fully qualified domain name includes
+        all of the names except the host name under the registered_domain.  In a partially
+        qualified domain, or if the the qualification level of the full name cannot
+        be determined, subdomain contains all of the names below the registered domain.
+
+        For example the subdomain portion of "www.east.mydomain.co.uk" is "east".
+        If the domain has multiple levels of subdomain, such as "sub2.sub1.example.com",
+        the subdomain field should contain "sub2.sub1", with no trailing period.'
+      example: east
+      flat_name: source.subdomain
+      ignore_above: 1024
+      level: extended
+      name: subdomain
+      normalize: []
+      short: The subdomain of the domain.
       type: keyword
     source.top_level_domain:
       dashed_name: source-top-level-domain
@@ -9374,6 +9474,24 @@ url:
       normalize: []
       short: Scheme of the url.
       type: keyword
+    url.subdomain:
+      dashed_name: url-subdomain
+      description: 'The subdomain portion of a fully qualified domain name includes
+        all of the names except the host name under the registered_domain.  In a partially
+        qualified domain, or if the the qualification level of the full name cannot
+        be determined, subdomain contains all of the names below the registered domain.
+
+        For example the subdomain portion of "www.east.mydomain.co.uk" is "east".
+        If the domain has multiple levels of subdomain, such as "sub2.sub1.example.com",
+        the subdomain field should contain "sub2.sub1", with no trailing period.'
+      example: east
+      flat_name: url.subdomain
+      ignore_above: 1024
+      level: extended
+      name: subdomain
+      normalize: []
+      short: The subdomain of the domain.
+      type: keyword
     url.top_level_domain:
       dashed_name: url-top-level-domain
       description: 'The effective top level domain (eTLD), also known as the domain
@@ -9966,14 +10084,16 @@ vulnerability:
   title: Vulnerability
   type: group
 x509:
-  description: This implements the common core fields for x509 certificates. This
+  description: 'This implements the common core fields for x509 certificates. This
     information is likely logged with TLS sessions, digital signatures found in executable
-    binaries, S/MIME information in email bodies, or analysis of files on disk. When
-    only a single certificate is logged in an event, it should be nested under `file`.
-    When hashes of the DER-encoded certificate are available, the `hash` data set
-    should be populated as well (e.g. `file.hash.sha256`). For events that contain
-    certificate information for both sides of the connection, the x509 object could
-    be nested under the respective side of the connection information (e.g. `tls.server.x509`).
+    binaries, S/MIME information in email bodies, or analysis of files on disk.
+
+    When the certificate relates to a file, use the fields at `file.x509`. When hashes
+    of the DER-encoded certificate are available, the `hash` data set should be populated
+    as well (e.g. `file.hash.sha256`).
+
+    Events that contain certificate information about network connections, should
+    use the x509 fields under the relevant TLS fields: `tls.server.x509` and/or `tls.client.x509`.'
   fields:
     x509.alternative_names:
       dashed_name: x509-alternative-names

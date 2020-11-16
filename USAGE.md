@@ -15,6 +15,7 @@ relevant artifacts for their unique set of data sources.
 
 ## Table of Contents
 
+- [TLDR Example](#tldr-example)
 - [Terminology](#terminology)
 - [Setup and Install](#setup-and-install)
   * [Prerequisites](#prerequisites)
@@ -29,8 +30,37 @@ relevant artifacts for their unique set of data sources.
     + [Subset](#subset)
     + [Ref](#ref)
     + [Mapping & Template Settings](#mapping--template-settings)
+    + [OSS](#oss)
     + [Strict Mode](#strict-mode)
     + [Intermediate-Only](#intermediate-only)
+
+## TLDR Example
+
+Before diving into the details, here's a complete example that:
+
+* takes ECS 1.6 fields
+* selects only the subset of fields relevant to the project's use case
+* includes custom fields relevant to the project
+* outputs the resulting artifacts to a project directory
+* replace the ECS project's sample template settings and
+  mapping settings with ones appropriate to the project
+
+```bash
+python scripts/generator.py --ref v1.6.0 \
+  --subset            ../my-project/fields/subset.yml \
+  --include           ../my-project/fields/custom/ \
+  --out               ../my-project/ \
+  --template-settings ../my-project/fields/template-settings.json \
+  --mapping-settings  ../my-project/fields/mapping-settings.json
+```
+
+The generated Elasticsearch template would be output at
+
+`my-project/generated/elasticsearch/7/template.json`
+
+If this sounds interesting, read on to learn all about each of these settings.
+
+See [usage-example/](usage-example/) for a complete example with source files.
 
 ## Terminology
 
@@ -78,6 +108,9 @@ $ make ve
 ```
 
 All necessary Python dependencies will also be installed with `pip`.
+
+You can use the Python and dependencies from this isolated virtual environment
+by using `build/ve/bin/python` instead of `python` in the examples shown here.
 
 #### Option 2: Install dependencies via pip
 
@@ -154,6 +187,14 @@ For example, if we defined the following schema definition in a file named `mypr
         Unique identifier of the widget.
 ```
 
+Multiple directory targets can also be provided:
+
+```
+$ python scripts/generator.py \
+    --include ../myproject/custom-fields-A/  ../myproject/custom-fields-B \
+    --out ../myproject/out/
+```
+
 Generate artifacts using `--include` to load our custom definitions in addition to `--out` to place them in the desired output directory:
 
 ```
@@ -186,6 +227,8 @@ And looking at a specific artifact, `../myprojects/out/generated/elasticsearch/7
       }
 ...
 ```
+
+Include can be used together with the `--ref` flag to merge custom fields into a targeted ECS version. See [`Ref`](#ref).
 
 > NOTE: The `--include` mechanism will not validate custom YAML files prior to merging. This allows for modifying existing ECS fields in a custom schema without having to redefine all the mandatory field attributes.
 
@@ -234,11 +277,25 @@ It's also possible to combine `--include` and `--subset` together! Do note that 
 
 #### Ref
 
-The `--ref` argument allows for passing a specific `git` tag (e.g. `v.1.5.0`) or commit hash (`1454f8b`) that will be used to build ECS artifacts.
+The `--ref` argument allows for passing a specific `git` tag (e.g. `v1.5.0`) or commit hash (`1454f8b`) that will be used to build ECS artifacts.
 
 ```
 $ python scripts/generator.py --ref v1.5.0
 ```
+
+The `--ref` argument loads field definitions from the specified git reference (branch, tag, etc.) from directories [`./schemas`](./schemas) and [`./experimental/schemas`](./experimental/schemas) (when specified via `--include`).
+
+Here's another example loading both ECS fields and [experimental](experimental/README.md) changes *from branch "1.7"*, then adds custom fields on top.
+
+```
+$ python scripts/generator.py --ref 1.7 --include experimental/schemas ../myproject/fields/custom --out ../myproject/out
+```
+
+The command above will produce artifacts based on:
+
+* main ECS field definitions as of branch 1.7
+* experimental ECS changes as of branch 1.7
+* custom fields in `../myproject/fields/custom` as they are on the filesystem
 
 > Note: `--ref` does have a dependency on `git` being installed and all expected commits/tags fetched from the ECS upstream repo. This will unlikely be an issue unless you downloaded the ECS as a zip archive from GitHub vs. cloning it.
 
@@ -254,19 +311,19 @@ The `--template-settings` argument defines [index level settings](https://www.el
 
 ```json
 {
-    "index_patterns": ["ecs-*"],
-    "order": 1,
-    "settings": {
-        "index": {
-            "mapping": {
-                "total_fields": {
-                    "limit": 10000
-                }
-            },
-            "refresh_interval": "10s"
+  "index_patterns": ["mylog-*"],
+  "order": 1,
+  "settings": {
+    "index": {
+      "mapping": {
+        "total_fields": {
+          "limit": 10000
         }
-    },
-    "mappings": {}
+      },
+      "refresh_interval": "1s"
+    }
+  },
+  "mappings": {}
 }
 ```
 
@@ -274,26 +331,51 @@ The `--template-settings` argument defines [index level settings](https://www.el
 
 ```json
 {
-    "_meta": {
-        "version": "1.5.0"
-    },
+  "_meta": {
+    "version": "1.5.0"
+  },
     "date_detection": false,
     "dynamic_templates": [
-        {
-            "strings_as_keyword": {
-                "mapping": {
-                    "ignore_above": 1024,
-                    "type": "keyword"
-                },
-                "match_mapping_type": "string"
-            }
+      {
+        "strings_as_keyword": {
+          "mapping": {
+            "ignore_above": 1024,
+            "type": "keyword"
+          },
+          "match_mapping_type": "string"
         }
+      }
     ],
     "properties": {}
 }
 ```
 
 For `template.json`, the `mappings` object is left empty: `{}`. Likewise the `properties` object remains empty in the `mapping.json` example. This will be filled in automatically by the script.
+
+#### OSS
+
+**IMPORTANT**: This feature is unnecessary for most users. Our default free distribution
+comes with the Elastic Basic license, and supports all data types used by ECS.
+Learn more about our licenses [here](https://www.elastic.co/subscriptions).
+
+Users that want to use the open source version of Elasticsearch do not have access to the basic data types.
+However some of these types have an OSS replacement that can be used instead, without too much loss of functionality.
+
+This flag performs a best effort fallback, replacing basic data types with their OSS replacement.
+
+Indices using purely OSS types will benefit from the normalization of ECS, but may be missing on some of the added functionality of these basic types.
+
+Current fallbacks applied by this flag are:
+
+- `constant_keyword` => `keyword`
+- `wildcard` => `keyword`
+- `version` => `keyword`
+
+Usage:
+
+```
+$ python scripts/generator.py --oss
+```
 
 #### Strict Mode
 
@@ -302,7 +384,7 @@ The `--strict` argument enables "strict mode". Strict mode performs a stricter v
 Basic usage:
 
 ```
-$ python/generator.py --strict
+$ python scripts/generator.py --strict
 ```
 
 Strict mode requires the following conditions, else the script exits on an exception:
