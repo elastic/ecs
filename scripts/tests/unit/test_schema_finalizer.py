@@ -92,7 +92,7 @@ class TestSchemaFinalizer(unittest.TestCase):
                         'order': 2,
                         'expected': [
                             {'full': 'server.user', 'at': 'server', 'as': 'user'},
-                            {'full': 'user.target', 'at': 'user', 'as': 'target', 'beta': 'beta'},
+                            {'full': 'user.target', 'at': 'user', 'as': 'target', 'beta': 'Some beta notice'},
                             {'full': 'user.effective', 'at': 'user', 'as': 'effective'},
                         ]
                     }
