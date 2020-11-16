@@ -211,7 +211,7 @@ class TestSchemaFinalizer(unittest.TestCase):
                       fields['process']['schema_details']['reused_here'])
         self.assertIn({'full': 'user.effective', 'schema_name': 'user', 'short': 'short desc'},
                       fields['user']['schema_details']['reused_here'])
-        self.assertIn({'full': 'user.target', 'schema_name': 'user', 'short': 'short desc', 'beta': 'beta'},
+        self.assertIn({'full': 'user.target', 'schema_name': 'user', 'short': 'short desc', 'beta': 'Some beta notice'},
                       fields['user']['schema_details']['reused_here'])
         self.assertIn({'full': 'server.user', 'schema_name': 'user', 'short': 'short desc'},
                       fields['server']['schema_details']['reused_here'])
