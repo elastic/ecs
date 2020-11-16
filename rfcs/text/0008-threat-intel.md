@@ -275,6 +275,7 @@ The following are the people that consulted on the contents of this RFC.
 * Stage 0: https://github.com/elastic/ecs/pull/986
 * Stage 1: https://github.com/elastic/ecs/pull/1037
   * Stage 1 correction: https://github.com/elastic/ecs/pull/1100
+* Stage 2: https://github.com/elastic/ecs/pull/1127
 
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN
