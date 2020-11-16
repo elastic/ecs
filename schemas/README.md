@@ -105,7 +105,7 @@ The above defines all process fields in both places:
 }
 ```
 
-The `beta` marker can optionally be used along with `at` and `as` to include a beta marker in the documentation containing the provided description.
+The `beta` marker can optionally be used along with `at` and `as` to include a beta marker in the field reuses section, marking specific reuse locations as beta.
 
 ```
   reusable:
