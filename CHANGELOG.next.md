@@ -21,7 +21,7 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
-* Expanded usage documentation for tracing fields.
+* Expanded usage documentation for tracing fields. #1128
 
 #### Deprecated
 
