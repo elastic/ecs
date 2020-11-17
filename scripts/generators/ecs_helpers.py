@@ -189,5 +189,5 @@ def strict_warning(msg):
     :param msg: custom text which will be displayed with wrapped boilerplate
                 for strict warning messages.
     """
-    warn_message = f"{msg}\n\nThis will cause an exception when running in strict mode."
-    warnings.warn(warn_message)
+    warn_message = f"{msg}\n\nThis will cause an exception when running in strict mode.\nWarning check:"
+    warnings.warn(warn_message, stacklevel=3)
