@@ -21,6 +21,8 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
+* Expanded usage documentation for tracing fields.
+
 #### Deprecated
 
 ### Tooling and Artifact Changes
