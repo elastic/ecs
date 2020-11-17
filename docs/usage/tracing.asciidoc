@@ -1,0 +1,56 @@
+[[ecs-tracing-usage]]
+==== Tracing Usage
+
+A distributed trace is a set of events, triggered as a result of a single logical operation, consolidated across 
+various components of an application. A distributed trace contains events that cross process, network and security 
+boundaries.
+
+For example, a distributed trace may be initiated when someone presses a button to start an action on a website - in this example, 
+the trace will represent calls made between the downstream services that handled the chain of requests initiated by this 
+button being pressed.
+
+A trace is made up of spans, where each span is one part of the processing. Usually a span corresponds to one request to a
+component, but not always. Sometimes a component may break up processing into multiple spans if needed. 
+
+The spans form a tree (or directed acylic grapph), with each span, except the root span, having a parent span.
+
+The `trace.id` allows the distributed trace messages to be correlated across an entire logical operation.
+
+The `span.id` allows messages from a single section of processing within the overall trace, e.g. a request to a component, to be correlated together.
+
+
+===== Example
+
+The following is an example **Trace** made up of 6 **Spans**:
+
+------------------------------------------------------------------
+Causal relationships between Spans in a single Trace
+
+       [Span A]  ←←←(the root span)
+           |
+    +------+------+
+    |             |
+[Span B]      [Span C] ←←←(Span C is a `child` of Span A)
+    |             |
+[Span D]      +---+-------+
+              |           |
+          [Span E]    [Span F]
+------------------------------------------------------------------
+
+Sometimes it's easier to visualize **Traces** with a time axis as in the diagram
+below:
+
+------------------------------------------------------------------
+Temporal relationships between Spans in a single Trace
+
+––|–––––––|–––––––|–––––––|–––––––|–––––––|–––––––|–––––––|–> time
+
+[Span A···················································]
+[Span B··············································]
+    [Span D··········································]
+    [Span C········································]
+        [Span E·······]        [Span F··]
+------------------------------------------------------------------
+
+If following the https://www.w3.org/TR/trace-context/[W3C Trace Context Recommendation] then
+the values should correspond to those specified in the recommendation and passed in the `traceparent` header.
