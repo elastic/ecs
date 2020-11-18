@@ -128,6 +128,9 @@ def append_reused_here(reused_schema, reuse_entry, destination_schema):
         'full': reuse_entry['full'],
         'short': reused_schema['field_details']['short'],
     }
+    # Check for beta attribute
+    if 'beta' in reuse_entry:
+        reused_here_entry['beta'] = reuse_entry['beta']
     destination_schema['schema_details']['reused_here'].extend([reused_here_entry])
 
 
