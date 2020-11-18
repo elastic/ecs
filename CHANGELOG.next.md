@@ -36,6 +36,7 @@ Thanks, you're awesome :-) -->
 * Added support for `scaled_float`'s mandatory parameter `scaling_factor`. #1042
 * Added ability for --oss flag to fall back `constant_keyword` to `keyword`. #1046
 * Added support in the generated Go source go for `wildcard`, `version`, and `constant_keyword` data types. #1050
+* Added support for marking fields, field sets, or field reuse as beta in the documentation. #1051
 * Added support for `constant_keyword`'s optional parameter `value`. #1112
 
 #### Improvements
