@@ -42,6 +42,9 @@ type Url struct {
 	// In some cases a URL may refer to an IP and/or port directly, without a
 	// domain name. In this case, the IP address would go to the `domain`
 	// field.
+	// If the URL contains a literal IPv6 address, `domain` may include the `[`
+	// and `]` characters enclosing the address
+	// (https://www.ietf.org/rfc/rfc2732.txt[RFC 2732]).
 	Domain string `ecs:"domain"`
 
 	// The highest registered url domain, stripped of the subdomain.
