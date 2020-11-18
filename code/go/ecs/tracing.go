@@ -28,6 +28,8 @@ type Tracing struct {
 	// A trace groups multiple events like transactions that belong together.
 	// For example, a user request handled by multiple inter-connected
 	// services.
+	// The `trace.id` allows the distributed trace messages to be correlated
+	// across an entire logical operation.
 	TraceID string `ecs:"trace.id"`
 
 	// Unique identifier of the transaction within the scope of its trace.
@@ -36,7 +38,10 @@ type Tracing struct {
 	TransactionID string `ecs:"transaction.id"`
 
 	// Unique identifier of the span within the scope of its trace.
-	// A span represents an operation within a transaction, such as a request
-	// to another service, or a database query.
+	// A span represents an operation within a trace, such as a request to
+	// another service, or a database query.
+	// The `span.id` allows messages from a single section of processing within
+	// the overall trace,  e.g. a request to a component, to be correlated
+	// together.
 	SpanID string `ecs:"span.id"`
 }

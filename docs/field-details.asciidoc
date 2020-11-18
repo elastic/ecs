@@ -6144,6 +6144,10 @@ example: `tls`
 
 Distributed tracing makes it possible to analyze performance throughout a microservice architecture all in one view. This is accomplished by tracing all of the requests - from the initial web request in the front-end service - to queries made through multiple back-end services.
 
+Find additional usage and examples in the tracing fields <<ecs-tracing-usage,usage>> section.
+
+
+
 [discrete]
 ==== Tracing Field Details
 
@@ -6156,7 +6160,9 @@ Distributed tracing makes it possible to analyze performance throughout a micros
 | span.id
 | Unique identifier of the span within the scope of its trace.
 
-A span represents an operation within a transaction, such as a request to another service, or a database query.
+A span represents an operation within a trace, such as a request to another service, or a database query.
+
+The `span.id` allows messages from a single section of processing within the overall trace,  e.g. a request to a component, to be correlated together.
 
 type: keyword
 
@@ -6172,6 +6178,8 @@ example: `3ff9a8981b7ccd5a`
 | Unique identifier of the trace.
 
 A trace groups multiple events like transactions that belong together. For example, a user request handled by multiple inter-connected services.
+
+The `trace.id` allows the distributed trace messages to be correlated across an entire logical operation.
 
 type: keyword
 
@@ -6199,6 +6207,10 @@ example: `00f067aa0ba902b7`
 // ===============================================================
 
 |=====
+
+
+
+include::usage/tracing.asciidoc[]
 
 [[ecs-url]]
 === URL Fields
