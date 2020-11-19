@@ -29,7 +29,6 @@ This RFC is to create the ELF sub-field within the `file.` fieldset. This will i
 | file.elf.imports.name | keyword | Name of imported symbol |
 | file.elf.imports.type | keyword | Type of imported symbol |
 | file.elf.number_program_headers | long | Number of ELF Program Headers. |
-| file.elf.number_section_headers | long | Number of ELF Section Headers. |
 | file.elf.sections.flags | keyword | ELF Section List flags. |
 | file.elf.sections.name | keyword | ELF Section List name. |
 | file.elf.sections.physical_offset | keyword | ELF Section List offset. |
