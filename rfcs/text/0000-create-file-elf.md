@@ -16,7 +16,7 @@ This RFC is to create the ELF sub-field within the `file.` fieldset. This will i
 | file.elf.creation_date | date | Extracted when possible from the file's metadata. Indicates when it was built or compiled. It can also be faked by malware creators. |
 | file.elf.exports.name | keyword | Name of exported symbol |
 | file.elf.exports.type | keyword | Type of exported symbol |
-| file.elf.segment_list | keyword | ELF object segment list. |
+| file.elf.segments | keyword | ELF object segment list. |
 | file.elf.header.class | keyword | Header class of the ELF file. |
 | file.elf.header.data | keyword | Data table of the ELF header. |
 | file.elf.header.machine | keyword | Machine architecture of the ELF header. |
