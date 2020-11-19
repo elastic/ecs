@@ -33,8 +33,7 @@ This RFC is to create 25 additional sub-fields within the `file.pe` fieldset.
 | file.pe.sections.flags | keyword | Section flags of the file. |
 | file.pe.sections.name | keyword | Section names of the file. |
 | file.pe.sections.raw_size | long | Size of the section or the dize of the initialized data on disk. |
-| file.pe.resource_details | flattened | If the PE contains resources, some info about them |
-| file.pe.resource_types | flattened | Digest of resource types. Key is resource type (as string) and value is how many resources there are of that specific type (as integer) |
+| file.pe.resources | nested | If the PE contains resources, some info about them |
 | file.pe.machine_type | keyword | Machine type of the PE file. |
 | file.pe.hash.dhash | keyword | Difference Hash (dhash) to find files with a visually similar icon or thumbnail. |
 | file.pe.hash.md5 | keyword | MD5 hash of raw icon data |

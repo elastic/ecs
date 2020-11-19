@@ -128,21 +128,50 @@
           format: bytes
           example: 198144
 
-    - name: resource_details
+    - name: resources
       level: extended
-      type: keyword
+      type: nested
       description: >
         If the PE contains resources, some info about them
-      example: { "chi2": -1, "filetype": "English text", "entropy": 0, "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "lang": "CHINESE SIMPLIFIED" }
+      fields:
+        - name: chi2
+          level: extended
+          description: Chi-square probability distribution.
+          type: long
+          example: -1
 
-    - name: resource_types
-      level: extended
-      type: keyword
-      short: List of resource types.
-      description: >
-        Digest of resource types. Key is resource type (as string) and value
-        is how many resources there are of that specific type (as integer)
-      example: { "RT_VERSION": 1, "RT_MANIFEST": 1 }
+        - name: filetype
+          level: extended
+          description: File type of the resources section.
+          type: keyword
+          example: Data
+
+        - name: entropy
+          level: extended
+          description: Measurement of entropy randomness in the resources section.
+          type: long
+          example: 0, 1
+
+        - name: sha256
+          level: extended
+          description: SHA256 hash of resources section.
+          type: keyword
+          example: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+
+        - name: language
+          level: extended
+          description: Language identification.
+          type: keyword
+          example: "CHINESE SIMPLIFIED"
+
+        - name: type
+          level: extended
+          type: keyword
+          short: List of resource types.
+          description: >
+            Digest of resource types. Key is resource type (as string) and value
+            is how many resources there are of that specific type (as integer)
+          example: { "RT_VERSION": 1, "RT_MANIFEST": 1 }
 
     - name: exports
       level: extended
