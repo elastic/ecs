@@ -19,7 +19,7 @@ Thanks, you're awesome :-) -->
 * Added `event.category` "registry". #1040
 * Added `event.category` "session". #1049
 * Added `os.type`. #1111
-* Added `parent.id`.
+* Added `parent.id`. #1142
 
 #### Improvements
 
