@@ -1,8 +1,8 @@
-# 0000: Service Environment Field
+# 0002: Service Environment Field
 <!--^ The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC, taking care not to conflict with other RFCs.-->
 
 - Stage: **1 (Proposal)** <!-- Update to reflect target stage -->
-- Date: **2020-11-17** <!-- Update to reflect date of most recent stage advancement -->
+- Date: **TBD** <!-- Update to reflect date of most recent stage advancement -->
 
 <!--
 Stage 0: Provide a high level summary of the premise of these changes. Briefly describe the nature, purpose, and impact of the changes. ~2-5 sentences.
@@ -14,13 +14,13 @@ Stage 0: Provide a high level summary of the premise of these changes. Briefly d
 Stage: 1: Describe at a high level how this change affects fields. Which fieldsets will be impacted? How many fields overall? Are we primarily adding fields, removing fields, or changing existing fields? The goal here is to understand the fundamental technical implications and likely extent of these changes. ~2-5 sentences.
 -->
 
-This RFC calls for the addition in ECS of one field to describe the environment ("production", "staging", "qa"...) from which an event of a a component of the application layer (service, application or function) is emitted.
+This RFC calls for the addition in ECS of one field to describe the environment ("production", "staging", "qa"...) from which an event of a component of the application layer (service, application or function) is emitted.
 
 We propose to standardise the environment field to qualify a service using the field already used by Elastic APM: `service.environment`.
 
 No existing ECS field is impacted as no ECS field relates to this concept of "environment".
 
-The `service.environment` field will supplement the existing fields of the [`service.*` namespace}(https://www.elastic.co/guide/en/ecs/master/ecs-service.html) such as `service.name` and `service.version`.
+The `service.environment` field will supplement the existing fields of the [`service.*` namespace](https://www.elastic.co/guide/en/ecs/master/ecs-service.html) such as `service.name` and `service.version`.
 
 <!--
 Stage 2: Include new or updated yml field definitions for all of the essential fields in this draft. While not exhaustive, the fields documented here should be comprehensive enough to deeply evaluate the technical considerations of this change. The goal here is to validate the technical details for all essential fields and to provide a basis for adding experimental field definitions to the schema. Use GitHub code blocks with yml syntax formatting.
@@ -204,7 +204,7 @@ Stage 1: Identify potential concerns, implementation challenges, or complexity. 
  * The `environment` field is a good candidate to be reused in other namespace than the `service.*` to cover the Infrastructure use cases.
 
 
- * OpenTelemtry has standardised `deployment.environment`, refering to [Wikipedia: Deployment Environment](https://en.wikipedia.org/wiki/Deployment_environment). The benefit of `deployment.environment` is that it works better for the characterization of the infrastructure (e.g. physical server, vm): https://github.com/open-telemetry/opentelemetry-specification/blob/master/specification/resource/semantic_conventions/deployment_environment.md
+ * OpenTelemetry has standardized `deployment.environment`, referring to [Wikipedia: Deployment Environment](https://en.wikipedia.org/wiki/Deployment_environment). The benefit of `deployment.environment` is that it works better for the characterization of the infrastructure (e.g. physical server, vm): https://github.com/open-telemetry/opentelemetry-specification/blob/master/specification/resource/semantic_conventions/deployment_environment.md
 
 
 <!--
