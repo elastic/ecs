@@ -5308,6 +5308,17 @@
       - to queries made through multiple back-end services.
     type: group
     fields:
+    - name: parent.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Identifier of the parent span (or transaction) of the current
+        span (or transaction).
+
+        The `parent.id` field can be used to determine the parent-child relationships
+        between spans (and transactions), within a trace.'
+      example: 106b80d11adc44f8
+      default_field: false
     - name: span.id
       level: extended
       type: keyword

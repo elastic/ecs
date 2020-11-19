@@ -39,4 +39,10 @@ type Tracing struct {
 	// A span represents an operation within a transaction, such as a request
 	// to another service, or a database query.
 	SpanID string `ecs:"span.id"`
+
+	// Identifier of the parent span (or transaction) of the current span (or
+	// transaction).
+	// The `parent.id` field can be used to determine the parent-child
+	// relationships between spans (and transactions), within a trace.
+	ParentID string `ecs:"parent.id"`
 }
