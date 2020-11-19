@@ -37,6 +37,9 @@ This RFC is to create the ELF sub-field within the `file.` fieldset. This will i
 | file.elf.sections.virtual_address | long | ELF Section List virtual address. |
 | file.elf.shared_libraries | keyword | List of shared libraries used by this ELF object |
 | file.elf.telfhash | keyword | telfhash hash for ELF files. |
+| file.elf.architecture | keyword | Machine architecture of the ELF file. |
+| file.elf.byte_order | keyword | Byte sequence of ELF file. |
+| file.elf.cpu_type | keyword | CPU type of the ELF file. |
 
 
 **Stage 1**  
