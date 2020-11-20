@@ -36,12 +36,9 @@ This RFC is to create the Mach-O sub-field within the `file.` fieldset. This wil
 |   file.mach-o.segments.sections.name       |   keyword  |   Section name for the segment of the file.                                 |
 |   file.mach-o.segments.sections.type       |   keyword  |   Section type for the segment of the file.                                 |
 |   file.mach-o.signature                    |   object   |   Signature information for the file.                                       |
-|   file.mach-o.signature.candidate_cd_hash  |   keyword  |   Code Digest (CD) SHA256 hash of the first 20-bytes of the file.           |
-|   file.mach-o.signature.team_identifier    |   keyword  |   Team identifier of the code signing certificate.                          |
+|   file.mach-o.cdhash  |   keyword  |   Code Digest (CD) SHA256 hash of the first 20-bytes of the file.           |
+|   file.mach-o.signature.team_id    |   keyword  |   Team identifier of the code signing certificate.                          |
 |   file.mach-o.signature.sealed_resources   |   long     |   Version of the resource envelope for the code signing certificate.        |
-|   file.mach-o.signature.cms_digest         |   keyword  |   Cryptographic Message Syntax (CMS) hash of the code signing certificate.  |
-|   file.mach-o.signature.cms_digest_type    |   keyword  |   Cryptographic Message Syntax (CMS) type of the code signing certificate.  |
-|   file.mach-o.signature.fingerprint        |   keyword  |   MD5 digest of the der-encoded certificate information.                    |
 |   file.mach-o.executable                   |   object   |   Information about the executable segment for the file.                    |
 |   file.mach-o.executable.segment_base      |   keyword  |   Executable segment base size.                                             |
 |   file.mach-o.executable.segment_limit     |   keyword  |   Executable segment limit size.                                            |

@@ -144,13 +144,7 @@
       description: Signature information for the file.
       type: object
       fields:
-        - name: candidate_cd_hash
-          description: Code Digest (CD) SHA256 hash of the first 20-bytes of the file.
-          type: keyword
-          level: extended
-          example: 2035094a7065b29421e7a51f51db9bd61807c3628f210b1f8e667235777dc592
-
-        - name: team_identifier
+        - name: team_id
           description: Team identifier of the code signing certificate.
           type: keyword
           level: extended
@@ -162,23 +156,11 @@
           level: extended
           example: 2
 
-        - name: cms_digest
-          description: Cryptographic Message Syntax (CMS) hash of the code signing certificate.
+    - name: cdhash
+          description: Code Digest (CD) SHA256 hash of the first 20-bytes of the file.
           type: keyword
           level: extended
-          example: 3ae1b10f231bee84ca17ab4295c0faaf6cbd535f3cc8010474ec6a67909e1980
-
-        - name: cms_digest_type
-          description: Cryptographic Message Syntax (CMS) type of the code signing certificate.
-          type: keyword
-          level: extended
-          example: 2
-
-        - name: fingerprint
-          description: MD5 digest of the der-encoded certificate information.
-          type: keyword
-          level: extended
-          example: 611E5B662C593A08FF58D14AE22452D198DF6C60
+          example: 2035094a7065b29421e7a51f51db9bd61807c3628f210b1f8e667235777dc592
 
     - name: executable
       level: extended
