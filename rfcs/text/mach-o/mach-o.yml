@@ -96,7 +96,7 @@
           description: Name of this segment.
           type: keyword
           level: extended
-          example: __TEXT, __DATA
+          example: __TEXT, __DATA, __IMPORT
 
         - name: vmsize
           description: Memory size of this segment.
@@ -139,6 +139,26 @@
               level: extended
               example: S_REGULAR, S_CSTRING_LITERALS
 
+        - name: offset
+          description: Offset of the segment.
+          type: long
+          format: bytes
+          level: extended
+          example: 0
+
+        - name: size
+          description: Segment limit size.
+          type: long
+          format: bytes
+          level: extended
+          example: 123456
+
+        - name: flags
+          description: Segment flags.
+          type: keyword
+          level: extended
+          example: 0x0
+
     - name: signature
       level: extended
       description: Signature information for the file.
@@ -161,31 +181,6 @@
           type: keyword
           level: extended
           example: 2035094a7065b29421e7a51f51db9bd61807c3628f210b1f8e667235777dc592
-
-    - name: executable
-      level: extended
-      description: Information about the executable segment for the file.
-      type: object
-      fields:
-        - name: segment_base
-          description: Executable segment base size.
-          type: long
-          format: bytes
-          level: extended
-          example: 0
-
-        - name: segment_limit
-          description: Executable segment limit size.
-          type: long
-          format: bytes
-          level: extended
-          example: 123456
-
-        - name: segment_flags
-          description: Executable segment flags.
-          type: keyword
-          level: extended
-          example: 0x0
 
     - name: page_size
       description: Page size of the file.
