@@ -34,7 +34,7 @@ Stage 1: Describe at a high level how this change affects fields. Which fieldset
   * threat.ioc.description
     _Describes the type of action conducted by the threat._
 threat.marking.tlp
-    _Traffic Light Protocol, which dictates sharing policies_
+_Data markings represent restrictions, permissions, and other guidance for how data can be used and shared. Examples could be TLP (White, Green, Amber, Red)._
   * threat.ioc.classification
     _Describes type of threat delivery (Hacktool etc.) and family name.
   * threat.ioc.scanner_stats
