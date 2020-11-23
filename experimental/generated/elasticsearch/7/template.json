@@ -1,10 +1,10 @@
 {
   "index_patterns": [
-    "ecs-*"
+    "try-ecs-*"
   ],
   "mappings": {
     "_meta": {
-      "version": "2.0.0-dev"
+      "version": "2.0.0-dev+exp"
     },
     "date_detection": false,
     "dynamic_templates": [
@@ -568,7 +568,8 @@
                 "ignore_above": 1024,
                 "type": "keyword"
               }
-            }
+            },
+            "type": "object"
           },
           "header_flags": {
             "ignore_above": 1024,
@@ -706,8 +707,9 @@
           },
           "original": {
             "doc_values": false,
+            "ignore_above": 1024,
             "index": false,
-            "type": "wildcard"
+            "type": "keyword"
           },
           "outcome": {
             "ignore_above": 1024,
@@ -1129,6 +1131,10 @@
                 "type": "wildcard"
               },
               "platform": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
+              "type": {
                 "ignore_above": 1024,
                 "type": "keyword"
               },
@@ -1587,6 +1593,10 @@
                 "ignore_above": 1024,
                 "type": "keyword"
               },
+              "type": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
               "version": {
                 "ignore_above": 1024,
                 "type": "keyword"
@@ -1903,8 +1913,7 @@
                     "type": "long"
                   },
                   "name": {
-                    "ignore_above": 1024,
-                    "type": "keyword"
+                    "type": "wildcard"
                   }
                 }
               },
@@ -1980,8 +1989,7 @@
                 "type": "long"
               },
               "name": {
-                "ignore_above": 1024,
-                "type": "keyword"
+                "type": "wildcard"
               }
             }
           },
@@ -3234,6 +3242,10 @@
                 "type": "wildcard"
               },
               "platform": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
+              "type": {
                 "ignore_above": 1024,
                 "type": "keyword"
               },

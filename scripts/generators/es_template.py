@@ -57,6 +57,8 @@ def entry_for(field):
 
         if field['type'] == 'keyword':
             ecs_helpers.dict_copy_existing_keys(field, field_entry, ['ignore_above'])
+        elif field['type'] == 'constant_keyword':
+            ecs_helpers.dict_copy_existing_keys(field, field_entry, ['value'])
         elif field['type'] == 'text':
             ecs_helpers.dict_copy_existing_keys(field, field_entry, ['norms'])
         elif field['type'] == 'alias':
@@ -109,7 +111,7 @@ def save_json(file, data):
 
 def default_template_settings():
     return {
-        "index_patterns": ["ecs-*"],
+        "index_patterns": ["try-ecs-*"],
         "order": 1,
         "settings": {
             "index": {

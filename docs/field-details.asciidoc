@@ -3930,6 +3930,23 @@ example: `darwin`
 
 // ===============================================================
 
+| os.type
+| Use the `os.type` field to categorize the operating system into one of the broad commercial families.
+
+One of these following values should be used (lowercase): linux, macos, unix, windows.
+
+If the OS you're dealing with is not in the list, the field should not be populated. Please let us know by opening an issue with ECS, to propose its addition.
+
+type: keyword
+
+
+
+example: `macos`
+
+| extended
+
+// ===============================================================
+
 | os.version
 | Operating system version as a raw string.
 
@@ -6983,7 +7000,11 @@ example: `Critical`
 [[ecs-x509]]
 === x509 Certificate Fields
 
-This implements the common core fields for x509 certificates. This information is likely logged with TLS sessions, digital signatures found in executable binaries, S/MIME information in email bodies, or analysis of files on disk. When only a single certificate is logged in an event, it should be nested under `file`. When hashes of the DER-encoded certificate are available, the `hash` data set should be populated as well (e.g. `file.hash.sha256`). For events that contain certificate information for both sides of the connection, the x509 object could be nested under the respective side of the connection information (e.g. `tls.server.x509`).
+This implements the common core fields for x509 certificates. This information is likely logged with TLS sessions, digital signatures found in executable binaries, S/MIME information in email bodies, or analysis of files on disk.
+
+When the certificate relates to a file, use the fields at `file.x509`. When hashes of the DER-encoded certificate are available, the `hash` data set should be populated as well (e.g. `file.hash.sha256`).
+
+Events that contain certificate information about network connections, should use the x509 fields under the relevant TLS fields: `tls.server.x509` and/or `tls.client.x509`.
 
 [discrete]
 ==== x509 Certificate Field Details

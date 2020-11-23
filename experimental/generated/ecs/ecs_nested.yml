@@ -1667,6 +1667,25 @@ dns:
     (`dns.type:query`) or they should represent a full exchange and contain the query
     details as well as all of the answers that were provided for this query (`dns.type:answer`).'
   fields:
+    dns.answers:
+      dashed_name: dns-answers
+      description: 'An array containing an object for each answer section returned
+        by the server.
+
+        The main keys that should be present in these objects are defined by ECS.
+        Records that have more information may contain more keys than what ECS defines.
+
+        Not all DNS data sources give all details about DNS answers. At minimum, answer
+        objects must contain the `data` key. If more information is available, map
+        as much of it to ECS as possible, and add any additional fields to the answer
+        objects as custom fields.'
+      flat_name: dns.answers
+      level: extended
+      name: answers
+      normalize:
+      - array
+      short: Array of DNS answers.
+      type: object
     dns.answers.class:
       dashed_name: dns-answers-class
       description: The class of DNS data contained in this resource record.
@@ -1971,7 +1990,6 @@ error:
       dashed_name: error-stack-trace
       description: The stack trace of this error in plain text.
       flat_name: error.stack_trace
-      index: true
       level: extended
       multi_fields:
       - flat_name: error.stack_trace.text
@@ -2436,12 +2454,13 @@ event:
       example: Sep 19 08:26:10 host CEF:0&#124;Security&#124; threatmanager&#124;1.0&#124;100&#124;
         worm successfully stopped&#124;10&#124;src=10.0.0.1 dst=2.1.2.2spt=1232
       flat_name: event.original
+      ignore_above: 1024
       index: false
       level: core
       name: original
       normalize: []
       short: Raw text message of entire event.
-      type: wildcard
+      type: keyword
     event.outcome:
       allowed_values:
       - description: Indicates that this event describes a failed result. A common
@@ -4067,6 +4086,26 @@ host:
       original_fieldset: os
       short: Operating system platform (such centos, ubuntu, windows).
       type: keyword
+    host.os.type:
+      dashed_name: host-os-type
+      description: 'Use the `os.type` field to categorize the operating system into
+        one of the broad commercial families.
+
+        One of these following values should be used (lowercase): linux, macos, unix,
+        windows.
+
+        If the OS you''re dealing with is not in the list, the field should not be
+        populated. Please let us know by opening an issue with ECS, to propose its
+        addition.'
+      example: macos
+      flat_name: host.os.type
+      ignore_above: 1024
+      level: extended
+      name: type
+      normalize: []
+      original_fieldset: os
+      short: 'Which commercial OS family (one of: linux, macos, unix or windows).'
+      type: keyword
     host.os.version:
       dashed_name: host-os-version
       description: Operating system version as a raw string.
@@ -5320,6 +5359,26 @@ observer:
       original_fieldset: os
       short: Operating system platform (such centos, ubuntu, windows).
       type: keyword
+    observer.os.type:
+      dashed_name: observer-os-type
+      description: 'Use the `os.type` field to categorize the operating system into
+        one of the broad commercial families.
+
+        One of these following values should be used (lowercase): linux, macos, unix,
+        windows.
+
+        If the OS you''re dealing with is not in the list, the field should not be
+        populated. Please let us know by opening an issue with ECS, to propose its
+        addition.'
+      example: macos
+      flat_name: observer.os.type
+      ignore_above: 1024
+      level: extended
+      name: type
+      normalize: []
+      original_fieldset: os
+      short: 'Which commercial OS family (one of: linux, macos, unix or windows).'
+      type: keyword
     observer.os.version:
       dashed_name: observer-os-version
       description: Operating system version as a raw string.
@@ -5522,6 +5581,25 @@ os:
       name: platform
       normalize: []
       short: Operating system platform (such centos, ubuntu, windows).
+      type: keyword
+    os.type:
+      dashed_name: os-type
+      description: 'Use the `os.type` field to categorize the operating system into
+        one of the broad commercial families.
+
+        One of these following values should be used (lowercase): linux, macos, unix,
+        windows.
+
+        If the OS you''re dealing with is not in the list, the field should not be
+        populated. Please let us know by opening an issue with ECS, to propose its
+        addition.'
+      example: macos
+      flat_name: os.type
+      ignore_above: 1024
+      level: extended
+      name: type
+      normalize: []
+      short: 'Which commercial OS family (one of: linux, macos, unix or windows).'
       type: keyword
     os.version:
       dashed_name: os-version
@@ -6426,13 +6504,12 @@ process:
       description: Thread name.
       example: thread-0
       flat_name: process.parent.thread.name
-      ignore_above: 1024
       level: extended
       name: thread.name
       normalize: []
       original_fieldset: process
       short: Thread name.
-      type: keyword
+      type: wildcard
     process.parent.title:
       dashed_name: process-parent-title
       description: 'Process title.
@@ -6623,12 +6700,11 @@ process:
       description: Thread name.
       example: thread-0
       flat_name: process.thread.name
-      ignore_above: 1024
       level: extended
       name: thread.name
       normalize: []
       short: Thread name.
-      type: keyword
+      type: wildcard
     process.title:
       dashed_name: process-title
       description: 'Process title.
@@ -10093,6 +10169,26 @@ user_agent:
       original_fieldset: os
       short: Operating system platform (such centos, ubuntu, windows).
       type: keyword
+    user_agent.os.type:
+      dashed_name: user-agent-os-type
+      description: 'Use the `os.type` field to categorize the operating system into
+        one of the broad commercial families.
+
+        One of these following values should be used (lowercase): linux, macos, unix,
+        windows.
+
+        If the OS you''re dealing with is not in the list, the field should not be
+        populated. Please let us know by opening an issue with ECS, to propose its
+        addition.'
+      example: macos
+      flat_name: user_agent.os.type
+      ignore_above: 1024
+      level: extended
+      name: type
+      normalize: []
+      original_fieldset: os
+      short: 'Which commercial OS family (one of: linux, macos, unix or windows).'
+      type: keyword
     user_agent.os.version:
       dashed_name: user-agent-os-version
       description: Operating system version as a raw string.
@@ -10376,14 +10472,16 @@ vulnerability:
   title: Vulnerability
   type: group
 x509:
-  description: This implements the common core fields for x509 certificates. This
+  description: 'This implements the common core fields for x509 certificates. This
     information is likely logged with TLS sessions, digital signatures found in executable
-    binaries, S/MIME information in email bodies, or analysis of files on disk. When
-    only a single certificate is logged in an event, it should be nested under `file`.
-    When hashes of the DER-encoded certificate are available, the `hash` data set
-    should be populated as well (e.g. `file.hash.sha256`). For events that contain
-    certificate information for both sides of the connection, the x509 object could
-    be nested under the respective side of the connection information (e.g. `tls.server.x509`).
+    binaries, S/MIME information in email bodies, or analysis of files on disk.
+
+    When the certificate relates to a file, use the fields at `file.x509`. When hashes
+    of the DER-encoded certificate are available, the `hash` data set should be populated
+    as well (e.g. `file.hash.sha256`).
+
+    Events that contain certificate information about network connections, should
+    use the x509 fields under the relevant TLS fields: `tls.server.x509` and/or `tls.client.x509`.'
   fields:
     x509.alternative_names:
       dashed_name: x509-alternative-names

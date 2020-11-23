@@ -228,6 +228,8 @@ And looking at a specific artifact, `../myprojects/out/generated/elasticsearch/7
 ...
 ```
 
+Include can be used together with the `--ref` flag to merge custom fields into a targeted ECS version. See [`Ref`](#ref).
+
 > NOTE: The `--include` mechanism will not validate custom YAML files prior to merging. This allows for modifying existing ECS fields in a custom schema without having to redefine all the mandatory field attributes.
 
 #### Subset
@@ -275,11 +277,25 @@ It's also possible to combine `--include` and `--subset` together! Do note that 
 
 #### Ref
 
-The `--ref` argument allows for passing a specific `git` tag (e.g. `v.1.5.0`) or commit hash (`1454f8b`) that will be used to build ECS artifacts.
+The `--ref` argument allows for passing a specific `git` tag (e.g. `v1.5.0`) or commit hash (`1454f8b`) that will be used to build ECS artifacts.
 
 ```
 $ python scripts/generator.py --ref v1.5.0
 ```
+
+The `--ref` argument loads field definitions from the specified git reference (branch, tag, etc.) from directories [`./schemas`](./schemas) and [`./experimental/schemas`](./experimental/schemas) (when specified via `--include`).
+
+Here's another example loading both ECS fields and [experimental](experimental/README.md) changes *from branch "1.7"*, then adds custom fields on top.
+
+```
+$ python scripts/generator.py --ref 1.7 --include experimental/schemas ../myproject/fields/custom --out ../myproject/out
+```
+
+The command above will produce artifacts based on:
+
+* main ECS field definitions as of branch 1.7
+* experimental ECS changes as of branch 1.7
+* custom fields in `../myproject/fields/custom` as they are on the filesystem
 
 > Note: `--ref` does have a dependency on `git` being installed and all expected commits/tags fetched from the ECS upstream repo. This will unlikely be an issue unless you downloaded the ECS as a zip archive from GitHub vs. cloning it.
 
