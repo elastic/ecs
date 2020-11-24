@@ -31,6 +31,20 @@ data_stream.namespace | constant_keyword | A user defined namespace. Namespaces 
 
 In the new indexing strategy, the value of the data stream fields combine to the name of the actual data stream in the following manner `{data_stream.type}-{data_stream.dataset}-{data_stream.namespace}`. This means the fields can only contain characters that are valid as part of names of data streams.
 
+The following is the field definitions as a `fields.yml`:
+
+```yml
+- name: data_stream.type
+  type: constant_keyword
+  description: Data stream type.
+- name: data_stream.dataset
+  type: constant_keyword
+  description: Data stream dataset.
+- name: data_stream.namespace
+  type: constant_keyword
+  description: Data stream namespace.
+```
+
 ### Restrictions on values
 
 Due to the fact that the values of the `data_stream` fields make up the data stream name, the restrictions on data stream names also apply to values for the `data_stream` fields. As an example, they cannot include \, /, *, ?, ", <, >, |, ` `. Please see the Elasticsearch reference for [restrictions on index/data stream names](https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-create-index.html#indices-create-api-path-params). Here follows the _additional_ restrictions imposed on the data stream fields:
