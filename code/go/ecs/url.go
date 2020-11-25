@@ -87,11 +87,14 @@ type Url struct {
 	// differentiate between the two cases.
 	Query string `ecs:"query"`
 
-	// The field contains the file extension from the original request url.
+	// The field contains the file extension from the original request url,
+	// excluding the leading dot.
 	// The file extension is only set if it exists, as not every url has a file
 	// extension.
 	// The leading period must not be included. For example, the value must be
 	// "png", not ".png".
+	// Note that when the file name has multiple extensions (example.tar.gz),
+	// only the last one should be captured ("gz", not "tar.gz").
 	Extension string `ecs:"extension"`
 
 	// Portion of the url after the `#`, such as "top".
