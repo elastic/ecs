@@ -41,7 +41,7 @@ def main():
     # ecs_helpers.yaml_dump('ecs.yml', fields)
 
     # Detect usage of experimental changes to tweak artifact version label
-    if loader.EXPERIMENTAL_SCHEMA_DIR in args.include:
+    if args.include and loader.EXPERIMENTAL_SCHEMA_DIR in args.include:
         ecs_version += "+exp"
 
     fields = loader.load_schemas(ref=args.ref, included_files=args.include)
