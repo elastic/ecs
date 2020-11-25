@@ -22,26 +22,20 @@ Proposed 7 new fields are:
 * host.disk.write.bytes
 
 ## Fields
+This RFC calls for the addition of host fields to collect basic monitoring metrics from a host or VM such as CPU, network and disk.
+Please see [`host`](0005/host.yml) for definitions of all fields.
+
+Note: the `host.network.*` and `host.disk.*` fields are gauges which represent
+IO since the last metric collection. In order to interpret these metrics, the
+collection period is needed. Collection period will be added into ECS separately.
 
 <!--
 Stage 1: Describe at a high level how this change affects fields. Which fieldsets will be impacted? How many fields overall? Are we primarily adding fields, removing fields, or changing existing fields? The goal here is to understand the fundamental technical implications and likely extent of these changes. ~2-5 sentences.
 -->
-This RFC calls for the addition of host fields to collect basic monitoring metrics from a host or VM such as CPU, network and disk.
-
-| field | type | description |
-| --- | --- | --- |
-| `host.cpu.usage` | scaled_float (scaling_factor 1000) | Percent CPU used with scaling_factor of 1000. This value is normalized by the number of CPU cores and it ranges from 0 to 1. For example: For a two core host, this value should be the average of the 2 cores, between 0 and 1. |
-| `host.network.ingress.bytes` | long | The number of bytes received (gauge) on all network interfaces by the host in a given period of time. |
-| `host.network.ingress.packets` | long | The number of packets (gauge) received on all network interfaces by the host in a given period of time. |
-| `host.network.egress.bytes` | long | The number of bytes (gauge) sent out on all network interfaces by the host in a given period of time. |
-| `host.network.egress.packets` | long | The number of packets (gauge) sent out on all network interfaces by the host in a given period of time. |
-| `host.disk.read.bytes` | long | The total number of bytes (gauge) read successfully (aggregated from all disks) in a given period of time. |
-| `host.disk.write.bytes` | long | The total number of bytes (gauge) write successfully (aggregated from all disks) in a given period of time. |
 
 <!--
 Stage 2: Include new or updated yml field definitions for all of the essential fields in this draft. While not exhaustive, the fields documented here should be comprehensive enough to deeply evaluate the technical considerations of this change. The goal here is to validate the technical details for all essential fields and to provide a basis for adding experimental field definitions to the schema. Use GitHub code blocks with yml syntax formatting.
 -->
-Please see [`host`](0005/host.yml) for definitions of all fields.
 
 <!--
 Stage 3: Add or update all remaining field definitions. The list should now be exhaustive. The goal here is to validate the technical details of all remaining fields and to provide a basis for releasing these field definitions as beta in the schema. Use GitHub code blocks with yml syntax formatting.
