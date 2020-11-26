@@ -50,16 +50,16 @@ def generate_legacy(ecs_flat, ecs_version, out_dir, template_settings_file, mapp
         name_parts = flat_name.split('.')
         dict_add_nested(field_mappings, name_parts, entry_for(field))
 
-    mappings_section = mapping_settings(ecs_version, mapping_settings_file)
+    mappings_section = mapping_settings(mapping_settings_file)
     mappings_section['properties'] = field_mappings
 
-    generate_legacy_template_version(6, mappings_section, out_dir, template_settings_file)
-    generate_legacy_template_version(7, mappings_section, out_dir, template_settings_file)
+    generate_legacy_template_version(6, ecs_version, mappings_section, out_dir, template_settings_file)
+    generate_legacy_template_version(7, ecs_version, mappings_section, out_dir, template_settings_file)
 
 
-def generate_legacy_template_version(es_version, mappings_section, out_dir, template_settings_file):
+def generate_legacy_template_version(es_version, ecs_version, mappings_section, out_dir, template_settings_file):
     ecs_helpers.make_dirs(join(out_dir, 'elasticsearch', str(es_version)))
-    template = template_settings(es_version, mappings_section, template_settings_file)
+    template = template_settings(es_version, ecs_version, mappings_section, template_settings_file)
 
     filename = join(out_dir, "elasticsearch/{}/template.json".format(es_version))
     save_json(filename, template)
@@ -124,21 +124,21 @@ def entry_for(field):
     return field_entry
 
 
-def mapping_settings(ecs_version, mapping_settings_file):
+def mapping_settings(mapping_settings_file):
     if mapping_settings_file:
         with open(mapping_settings_file) as f:
             mappings = json.load(f)
     else:
-        mappings = default_mapping_settings(ecs_version)
+        mappings = default_mapping_settings()
     return mappings
 
 
-def template_settings(es_version, mappings_section, template_settings_file):
+def template_settings(es_version, ecs_version, mappings_section, template_settings_file):
     if template_settings_file:
         with open(template_settings_file) as f:
             template = json.load(f)
     else:
-        template = default_template_settings()
+        template = default_template_settings(ecs_version)
     if es_version == 6:
         template['mappings'] = {'_doc': mappings_section}
     else:
@@ -154,9 +154,10 @@ def save_json(file, data):
         jsonfile.write(json.dumps(data, indent=2, sort_keys=True))
 
 
-def default_template_settings():
+def default_template_settings(ecs_version):
     return {
         "index_patterns": ["try-ecs-*"],
+        "_meta": {"version": ecs_version},
         "order": 1,
         "settings": {
             "index": {
@@ -171,9 +172,8 @@ def default_template_settings():
     }
 
 
-def default_mapping_settings(ecs_version):
+def default_mapping_settings():
     return {
-        "_meta": {"version": ecs_version},
         "date_detection": False,
         "dynamic_templates": [
             {
