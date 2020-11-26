@@ -24,7 +24,8 @@ The following instructions let you use either approach.
 
 ### Composable index templates
 
-Beta | These artifacts are newly introduced in the ECS repository. Please try them out and give us feedback if you encounter any issues.
+**Warning**: The artifacts based on coposable templates are newly introduced in the ECS repository.
+Please try them out and give us feedback if you encounter any issues.
 
 If you want to play with a specific version of ECS, check out the proper branch first.
 
