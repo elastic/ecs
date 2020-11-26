@@ -28,6 +28,7 @@ The following instructions let you use either approach.
 Please try them out and give us feedback if you encounter any issues.
 
 If you want to play with a specific version of ECS, check out the proper branch first.
+Note that the composable index templates are available in the ECS 1.7 branch or newer.
 
 ```
 git checkout 1.7
