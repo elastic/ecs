@@ -25,8 +25,8 @@ Email specific fields:
 
 | field | type | description |
 | --- | --- | --- |
-| `email.bcc.addresses` | wildcard | Addresses of Bcc's |
-| `email.cc.addresses` | wildcard | Addresses of Cc's |
+| `email.bcc.addresses` | `wildcard[]` | Addresses of Bcc's |
+| `email.cc.addresses` | `wildcard[]` | Addresses of Cc's |
 | `email.attachments_count` | long | A field outside the flattened structure to control how many attachments are included in the email |
 | `email.attachments` | flattened | A flattened field for anything related to attachments. This allows objects being stored with all information for each file when you have multiple attachments |
 | `email.direction` | keyword | Direction of the message based on the sending and receving domains |
@@ -40,8 +40,8 @@ Email specific fields:
 | `email.return_path.address` | wildcard | The return address for the message |
 | `email.size` | long | Total size of the message, in bytes, including attachments |
 | `email.subject` | wildcard | Subject of the message |
-| `email.recipients.addresses` | keyword | Recipient addresses |
-| `email.domains` | keyword | domains related to the email |
+| `email.recipients.addresses` | `keyword[]` | Recipient addresses |
+| `email.domains` | `keyword[]` | domains related to the email |
 
 
 Other ECS fields used together with email usecases:
@@ -122,12 +122,12 @@ Stage 4: Document any new concerns and their resolution. The goal here is to eli
 Stage 4: Identify at least one real-world, production-ready implementation that uses these updated field definitions. An example of this might be a GA feature in an Elastic application in Kibana.
 -->
 
-People
+## People
 
 The following are the people that consulted on the contents of this RFC.
 
-@p1llus | Author
-@jamiehynds | Sponsor
+* @p1llus | Author
+* @jamiehynds | Sponsor
 
 <!--
 Who will be or has been consulted on the contents of this RFC? Identify authorship and sponsorship, and optionally identify the nature of involvement of others. Link to GitHub aliases where possible. This list will likely change or grow stage after stage.
@@ -146,11 +146,19 @@ e.g.:
 
 <!-- Insert any links appropriate to this RFC in this section. -->
 
+- [Hubspot](https://legacydocs.hubspot.com/docs/methods/email/email_events_overview)
+- [O365 Message Tracing](https://docs.microsoft.com/en-us/exchange/monitoring/trace-an-email-message/run-a-message-trace-and-view-results)
+- [Postfix](https://nxlog.co/documentation/nxlog-user-guide/postfix.html)
+- [Barracuda](https://campus.barracuda.com/product/emailsecuritygateway/doc/12193950/syslog-and-the-barracuda-email-security-gateway/)
+- [Forcepoint](https://www.websense.com/content/support/library/email/v85/email_siem/siem_log_map.pdf)
+- [Mimecast](https://www.mimecast.com/tech-connect/documentation/tutorials/understanding-siem-logs/)
+- [Proofpoint](https://help.proofpoint.com/Threat_Insight_Dashboard/API_Documentation/SIEM_API)
+
 ### RFC Pull Requests
 
 <!-- An RFC should link to the PRs for each of it stage advancements. -->
 
-* Stage 0: https://github.com/elastic/ecs/pull/999
+* Stage 1: https://github.com/elastic/ecs/pull/999
 
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN
