@@ -30,7 +30,7 @@ def composable_template(ecs_version, component_names, out_dir, mapping_settings_
             "index": {
                 "mapping": {
                     "total_fields": {
-                        "limit": 10000
+                        "limit": 2000
                     }
                 }
             }
