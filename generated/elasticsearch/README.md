@@ -8,7 +8,7 @@ please check out [USAGE.md](../../USAGE.md).
 
 ## Notes on index naming
 
-This sample Elasticsearch template will apply to any index named `try-ecs-*`.
+These sample Elasticsearch templates will apply to any index named `try-ecs-*`.
 This is good for experimentation.
 
 Note that an index following ECS can be named however you need. There's no requirement
@@ -16,27 +16,106 @@ to have "ecs" in the index name.
 
 ## Instructions
 
+Elasticsearch 7.8 introduced
+[composable index templates](https://www.elastic.co/guide/en/elasticsearch/reference/current/index-templates.html)
+as the new default way to craft index templates.
+
+The following instructions let you use either approach.
+
+### Composable index templates
+
+Beta | These artifacts are newly introduced in the ECS repository. Please try them out and give us feedback if you encounter any issues.
+
+If you want to play with a specific version of ECS, check out the proper branch first.
+
+```
+git checkout 1.7
+```
+
+First load all component templates in Elasticsearch. The following script creates
+one reusable component template per ECS field set (one for "event" fields, one for "base" fields, etc.)
+
+They will be named according to the following naming convention: `_component_template/ecs_{ecs version}_{field set name}`.
+
+Authenticate your API calls appropriately by adjusting the username:password in this variable.
+
+```bash
+auth="elastic:elastic"
+```
+
+```bash
+version="$(cat version)"
+for file in `ls generated/elasticsearch/component/*.json`
+do
+  fieldset=`echo $file | cut -d/ -f4 | cut -d. -f1`
+  component_name="ecs_${version}_${fieldset}"
+  api="_component_template/${component_name}"
+
+  # echo "$file => $api"
+  curl --user "$auth" -XPUT "localhost:9200/$api" --header "Content-Type: application/json" -d @"$file"
+done
+```
+
+A component template for each ECS field set is now loaded. You could stop here and
+craft a composable template with the settings you need, that loads only the ECS
+fields your index needs via `composed_of`. You can look at [template.json](template.json) for an example.
+
+If you'd like to load this sample composable template for experimentation:
+
+```bash
+api="_index_template/try-ecs"
+file="generated/elasticsearch/template.json"
+curl --user "$auth" -XPUT "localhost:9200/$api" --header "Content-Type: application/json" -d @"$file"
+```
+
+#### Play from Kibana Dev Tools
+
+```
+# Look at the ECS component templates 👀
+GET _component_template/ecs_*
+# And if you created the sample index template
+GET _index_template/try-ecs
+
+# index a document
+PUT try-ecs-test
+GET try-ecs-test
+POST try-ecs-test/_doc
+{ "@timestamp": "2020-10-26T22:38:39.000Z", "message": "Hello ECS World", "host": { "ip": "10.42.42.42"} }
+
+# enjoy
+GET try-ecs-test/_search
+{ "query": { "term": { "host.ip": "10.0.0.0/8" } } }
+```
+
+### Legacy index templates
+
 If you want to play with a specific version of ECS, check out the proper branch first.
 
 ```
 git checkout 1.6
 ```
 
+Authenticate your API calls appropriately by adjusting the username:password in this variable.
+
+```bash
+auth="elastic:elastic"
+```
+
 Load the template in Elasticsearch from your shell.
 
 ```bash
 # Elasticsearch 7
-curl -XPOST 'localhost:9200/_template/try-ecs' \
+curl --user $"$auth" -XPOST 'localhost:9200/_template/try-ecs' \
   --header "Content-Type: application/json" \
   -d @'generated/elasticsearch/7/template.json'
 
 # or Elasticsearch 6
-curl -XPOST 'localhost:9200/_template/try-ecs' \
+curl --user $"$auth" -XPOST 'localhost:9200/_template/try-ecs' \
   --header "Content-Type: application/json" \
   -d @'generated/elasticsearch/6/template.json'
 ```
 
-Play from Kibana Dev Tools
+#### Play from Kibana Dev Tools
 
 ```
 # Look at the template you just uploaded 👀
