@@ -87,6 +87,52 @@ GET try-ecs-test/_search
 { "query": { "term": { "host.ip": "10.0.0.0/8" } } }
 ```
 
+#### How to compose templates
+
+Most event sources should include the ECS basics:
+
+- base
+- ecs
+- event
+- log
+
+Most event sources should also include fields that capture "where it's happening",
+but depending on whether you use containers or the cloud, you may want to omit some in this list:
+
+- host (actually don't omit this one)
+- container
+- cloud
+
+Depending on whether the index contains events captured by an agent or an observer, include one or both of:
+
+- agent
+- observer
+
+Most of the other field sets will depend on which kind of documents will be in your index.
+
+If the documents refer to network-related events, you'll likely want to pick among:
+
+- client & server
+- source & destination
+- network
+- dns, http, tls
+
+If users are involved in the events:
+
+- user
+- group
+
+And so on.
+
+For a concrete example, an index containing your web server logs, should contain at least:
+
+- base, ecs, event, log
+- host, cloud and/or container as needed
+- agent
+- source, destination, client, server, network, http, tls
+- user
+- url, user\_agent
+
 ### Legacy index templates
 
 If you want to play with a specific version of ECS, check out the proper branch first.
