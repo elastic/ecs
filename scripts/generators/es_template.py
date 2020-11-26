@@ -13,10 +13,10 @@ def generate(ecs_nested, ecs_version, out_dir, mapping_settings_file):
     """This generates all artifacts for the composable template approach"""
     all_component_templates(ecs_nested, ecs_version, out_dir)
     component_names = component_name_convention(ecs_version, ecs_nested)
-    composable_template(ecs_version, component_names, out_dir, mapping_settings_file)
+    save_composable_template(ecs_version, component_names, out_dir, mapping_settings_file)
 
 
-def composable_template(ecs_version, component_names, out_dir, mapping_settings_file):
+def save_composable_template(ecs_version, component_names, out_dir, mapping_settings_file):
     """Generate the master sample composable template"""
     template = {
         "index_patterns": ["try-ecs-*"],
@@ -48,16 +48,16 @@ def all_component_templates(ecs_nested, ecs_version, out_dir):
     component_dir = join(out_dir, 'elasticsearch/component')
     ecs_helpers.make_dirs(component_dir)
 
-    for (fieldset_name, fieldset) in ecs_nested.items():
+    for (fieldset_name, fieldset) in candidate_components(ecs_nested).items():
         field_mappings = {}
         for (flat_name, field) in fieldset['fields'].items():
             name_parts = flat_name.split('.')
             dict_add_nested(field_mappings, name_parts, entry_for(field))
 
-        component_template(fieldset_name, ecs_version, component_dir, field_mappings)
+        save_component_template(fieldset_name, ecs_version, component_dir, field_mappings)
 
 
-def component_template(template_name, ecs_version, out_dir, field_mappings):
+def save_component_template(template_name, ecs_version, out_dir, field_mappings):
     filename = join(out_dir, template_name) + ".json"
 
     template = {'template': {'mappings': {'properties': field_mappings}}}
@@ -67,9 +67,20 @@ def component_template(template_name, ecs_version, out_dir, field_mappings):
 def component_name_convention(ecs_version, ecs_nested):
     version = ecs_version.replace('+', '-')
     names = []
-    for (fieldset_name, fieldset) in ecs_nested.items():
+    for (fieldset_name, fieldset) in candidate_components(ecs_nested).items():
         names.append("ecs_{}_{}".format(version, fieldset_name))
     return names
+
+
+def candidate_components(ecs_nested):
+    """Returns same structure as ecs_nested, but skips all field sets with reusable.top_level: False"""
+    components = {}
+    for (fieldset_name, fieldset) in ecs_nested.items():
+        if fieldset.get('reusable', None):
+            if not fieldset['reusable']['top_level']:
+                continue
+        components[fieldset_name] = fieldset
+    return components
 
 
 # Legacy template
