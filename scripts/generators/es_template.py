@@ -9,14 +9,35 @@ from generators import ecs_helpers
 
 # Composable Template
 
-def generate(ecs_nested, ecs_version, out_dir, template_settings_file, mapping_settings_file):
+def generate(ecs_nested, ecs_version, out_dir, mapping_settings_file):
     """This generates all artifacts for the composable template approach"""
     all_component_templates(ecs_nested, ecs_version, out_dir)
+    composable_template(ecs_version, out_dir, mapping_settings_file)
 
 
-def composable_template(ecs_version, out_dir, template_settings_file, mapping_settings_file):
+def composable_template(ecs_version, out_dir, mapping_settings_file):
     """Generate the master sample composable template"""
-
+    template = {
+        "index_patterns": ["try-ecs-*"],
+        "composed_of": [],
+        "priority": 1, # Very low, as this is a sample template
+        "_meta": {
+            "ecs_version": ecs_version,
+            "description": "Sample composable template that includes all ECS fields"
+        },
+        "settings": {
+            "index": {
+                "mapping": {
+                    "total_fields": {
+                        "limit": 10000
+                    }
+                }
+            }
+        },
+        "mappings": mapping_settings(mapping_settings_file)
+    }
+    filename = join(out_dir, "elasticsearch/template.json")
+    save_json(filename, template)
 
 
 def all_component_templates(ecs_nested, ecs_version, out_dir):
