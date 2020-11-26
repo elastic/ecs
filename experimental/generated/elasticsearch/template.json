@@ -51,26 +51,28 @@
   "index_patterns": [
     "try-ecs-*"
   ],
-  "mappings": {
-    "date_detection": false,
-    "dynamic_templates": [
-      {
-        "strings_as_keyword": {
-          "mapping": {
-            "ignore_above": 1024,
-            "type": "keyword"
-          },
-          "match_mapping_type": "string"
-        }
-      }
-    ]
-  },
   "priority": 1,
-  "settings": {
-    "index": {
-      "mapping": {
-        "total_fields": {
-          "limit": 10000
+  "template": {
+    "mappings": {
+      "date_detection": false,
+      "dynamic_templates": [
+        {
+          "strings_as_keyword": {
+            "mapping": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "match_mapping_type": "string"
+          }
+        }
+      ]
+    },
+    "settings": {
+      "index": {
+        "mapping": {
+          "total_fields": {
+            "limit": 2000
+          }
         }
       }
     }

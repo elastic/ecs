@@ -26,16 +26,18 @@ def composable_template(ecs_version, component_names, out_dir, mapping_settings_
             "ecs_version": ecs_version,
             "description": "Sample composable template that includes all ECS fields"
         },
-        "settings": {
-            "index": {
-                "mapping": {
-                    "total_fields": {
-                        "limit": 2000
+        "template": {
+            "settings": {
+                "index": {
+                    "mapping": {
+                        "total_fields": {
+                            "limit": 2000
+                        }
                     }
                 }
-            }
-        },
-        "mappings": mapping_settings(mapping_settings_file)
+            },
+            "mappings": mapping_settings(mapping_settings_file)
+        }
     }
     filename = join(out_dir, "elasticsearch/template.json")
     save_json(filename, template)
