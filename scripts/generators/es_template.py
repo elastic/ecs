@@ -7,12 +7,43 @@ from os.path import join
 from generators import ecs_helpers
 
 
-def generate(ecs_flat, ecs_version, out_dir, template_settings_file, mapping_settings_file):
+### Composable Template
+
+def generate(ecs_nested, ecs_version, out_dir, template_settings_file, mapping_settings_file):
+    all_component_templates(ecs_nested, ecs_version, out_dir)
+
+# Main template
+
+# Component templates
+
+def all_component_templates(ecs_nested, ecs_version, out_dir):
+    component_dir = join(out_dir, 'elasticsearch/component')
+    ecs_helpers.make_dirs(component_dir)
+
+    for (fieldset_name, fieldset) in ecs_nested.items():
+        field_mappings = {}
+        for (flat_name, field) in fieldset['fields'].items():
+            name_parts = flat_name.split('.')
+            dict_add_nested(field_mappings, name_parts, entry_for(field))
+
+        component_template(fieldset_name, ecs_version, component_dir, field_mappings)
+
+
+def component_template(template_name, ecs_version, out_dir, field_mappings):
+    filename = join(out_dir, template_name) + ".json"
+
+    template = { 'template': { 'mappings': { 'properties': field_mappings }}}
+    save_json(filename, template)
+
+### Legacy template
+
+
+def generate_legacy(ecs_flat, ecs_version, out_dir, template_settings_file, mapping_settings_file):
     field_mappings = {}
     for flat_name in sorted(ecs_flat):
         field = ecs_flat[flat_name]
-        nestings = flat_name.split('.')
-        dict_add_nested(field_mappings, nestings, entry_for(field))
+        name_parts = flat_name.split('.')
+        dict_add_nested(field_mappings, name_parts, entry_for(field))
 
     if mapping_settings_file:
         with open(mapping_settings_file) as f:
@@ -25,19 +56,19 @@ def generate(ecs_flat, ecs_version, out_dir, template_settings_file, mapping_set
     generate_template_version(6, mappings_section, out_dir, template_settings_file)
     generate_template_version(7, mappings_section, out_dir, template_settings_file)
 
-# Field mappings
+### Field mappings
 
 
-def dict_add_nested(dct, nestings, value):
-    current_nesting = nestings[0]
-    rest_nestings = nestings[1:]
-    if len(rest_nestings) > 0:
+def dict_add_nested(dct, name_parts, value):
+    current_nesting = name_parts[0]
+    rest_name_parts = name_parts[1:]
+    if len(rest_name_parts) > 0:
         dct.setdefault(current_nesting, {})
         dct[current_nesting].setdefault('properties', {})
 
         dict_add_nested(
             dct[current_nesting]['properties'],
-            rest_nestings,
+            rest_name_parts,
             value)
 
     else:
