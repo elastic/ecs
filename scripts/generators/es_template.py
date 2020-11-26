@@ -18,6 +18,7 @@ def composable_template(ecs_version, out_dir, template_settings_file, mapping_se
     """Generate the master sample composable template"""
 
 
+
 def all_component_templates(ecs_nested, ecs_version, out_dir):
     """Generate one component template per field set"""
     component_dir = join(out_dir, 'elasticsearch/component')
@@ -49,31 +50,18 @@ def generate_legacy(ecs_flat, ecs_version, out_dir, template_settings_file, mapp
         name_parts = flat_name.split('.')
         dict_add_nested(field_mappings, name_parts, entry_for(field))
 
-    if mapping_settings_file:
-        with open(mapping_settings_file) as f:
-            mappings_section = json.load(f)
-    else:
-        mappings_section = default_mapping_settings(ecs_version)
-
+    mappings_section = mapping_settings(ecs_version, mapping_settings_file)
     mappings_section['properties'] = field_mappings
 
     generate_legacy_template_version(6, mappings_section, out_dir, template_settings_file)
     generate_legacy_template_version(7, mappings_section, out_dir, template_settings_file)
 
 
-def generate_legacy_template_version(elasticsearch_version, mappings_section, out_dir, template_settings_file):
-    ecs_helpers.make_dirs(join(out_dir, 'elasticsearch', str(elasticsearch_version)))
-    if template_settings_file:
-        with open(template_settings_file) as f:
-            template = json.load(f)
-    else:
-        template = default_template_settings()
-    if elasticsearch_version == 6:
-        template['mappings'] = {'_doc': mappings_section}
-    else:
-        template['mappings'] = mappings_section
+def generate_legacy_template_version(es_version, mappings_section, out_dir, template_settings_file):
+    ecs_helpers.make_dirs(join(out_dir, 'elasticsearch', str(es_version)))
+    template = template_settings(es_version, mappings_section, template_settings_file)
 
-    filename = join(out_dir, "elasticsearch/{}/template.json".format(elasticsearch_version))
+    filename = join(out_dir, "elasticsearch/{}/template.json".format(es_version))
     save_json(filename, template)
 
 
@@ -135,7 +123,27 @@ def entry_for(field):
         raise ex
     return field_entry
 
-# Generated files
+
+def mapping_settings(ecs_version, mapping_settings_file):
+    if mapping_settings_file:
+        with open(mapping_settings_file) as f:
+            mappings = json.load(f)
+    else:
+        mappings = default_mapping_settings(ecs_version)
+    return mappings
+
+
+def template_settings(es_version, mappings_section, template_settings_file):
+    if template_settings_file:
+        with open(template_settings_file) as f:
+            template = json.load(f)
+    else:
+        template = default_template_settings()
+    if es_version == 6:
+        template['mappings'] = {'_doc': mappings_section}
+    else:
+        template['mappings'] = mappings_section
+    return template
 
 
 def save_json(file, data):
@@ -159,8 +167,7 @@ def default_template_settings():
                 },
                 "refresh_interval": "5s"
             }
-        },
-        "mappings": {}
+        }
     }
 
 
@@ -178,6 +185,5 @@ def default_mapping_settings(ecs_version):
                     "match_mapping_type": "string"
                 }
             }
-        ],
-        "properties": {}
+        ]
     }
