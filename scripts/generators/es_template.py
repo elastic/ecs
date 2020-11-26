@@ -1,8 +1,9 @@
+import copy
 import json
 import sys
-import copy
 
 from os.path import join
+
 from generators import ecs_helpers
 
 
