@@ -21,7 +21,7 @@ def composable_template(ecs_version, component_names, out_dir, mapping_settings_
     template = {
         "index_patterns": ["try-ecs-*"],
         "composed_of": component_names,
-        "priority": 1, # Very low, as this is a sample template
+        "priority": 1,  # Very low, as this is a sample template
         "_meta": {
             "ecs_version": ecs_version,
             "description": "Sample composable template that includes all ECS fields"
