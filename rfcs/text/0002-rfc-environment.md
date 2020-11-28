@@ -379,5 +379,5 @@ Stage 4: Identify at least one real-world, production-ready implementation that 
 
 * @cyrille-leclerc | author
 * ? | sponsor
-* @carlos | subject matter expert
+* @exekias | subject matter expert
 * ? | grammar, spelling, prose
