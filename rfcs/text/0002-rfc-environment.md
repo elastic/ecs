@@ -331,7 +331,9 @@ The goal here is to research and understand the impact of these changes on users
 Stage 1: Identify potential concerns, implementation challenges, or complexity. Spend some time on this. Play devil's advocate. Try to identify the sort of non-obvious challenges that tend to surface later. The goal here is to surface risks early, allow everyone the time to work through them, and ultimately document resolution for posterity's sake.
 -->
 
- * Beats (Filebeat, Metricbeat, Heartbeat...) document in their configuration files (filebeat.yml, metricbeat.yml...).
+### Alternative field name proposed in Beats (Filebeat, Metricbeat, Heartbeat...)
+
+Beats (Filebeat, Metricbeat, Heartbeat...) document in their configuration files (filebeat.yml, metricbeat.yml...) with an alternative field to characterize environments: `fields.env`.
 
  Example with filebeat.yml
 
@@ -342,11 +344,15 @@ Stage 1: Identify potential concerns, implementation challenges, or complexity. 
 #  env: staging
 ```
 
- * Using the namespace `service` for `service.environment` could sound awkward to some low level messages (e.g. system events). The rationale is that `service.environment` will only be used to qualify components of the application layer (ie services, application, function) but will not be used to qualify the environment of an infrastructure component (server, virtual machine...).
- * The `environment` field is a good candidate to be reused in other namespace than the `service.*` to cover the Infrastructure use cases.
+### "Service" namespace not suited to characterise infrastructure component
 
+Using the namespace `service` for `service.environment` could sound awkward to some low level messages (e.g. system events). The rationale is that `service.environment` will only be used to qualify components of the application layer (ie services, application, function) but will not be used to qualify the environment of an infrastructure component (server, virtual machine...).
 
- * OpenTelemetry has standardized `deployment.environment`, referring to [Wikipedia: Deployment Environment](https://en.wikipedia.org/wiki/Deployment_environment). The benefit of `deployment.environment` is that it works better for the characterization of the infrastructure (e.g. physical server, vm): https://github.com/open-telemetry/opentelemetry-specification/blob/master/specification/resource/semantic_conventions/deployment_environment.md
+Note that the `environment` field is a good candidate to be reused in other namespace than the `service.*` to cover the Infrastructure use cases.
+
+### Different standardisation chosen by OpenTelemetry 
+
+OpenTelemetry has standardized `deployment.environment`, referring to [Wikipedia: Deployment Environment](https://en.wikipedia.org/wiki/Deployment_environment). The benefit of `deployment.environment` is that it works better for the characterization of the infrastructure (e.g. physical server, vm): https://github.com/open-telemetry/opentelemetry-specification/blob/master/specification/resource/semantic_conventions/deployment_environment.md
 
 
 <!--
