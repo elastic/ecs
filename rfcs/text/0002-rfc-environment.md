@@ -381,3 +381,13 @@ Stage 4: Identify at least one real-world, production-ready implementation that 
 * ? | sponsor
 * @exekias | subject matter expert
 * ? | grammar, spelling, prose
+
+## References	
+
+<!-- Insert any links appropriate to this RFC in this section. -->	
+
+### RFC Pull Requests	
+
+<!-- An RFC should link to the PRs for each of it stage advancements. -->	
+
+* Stage 0: https://github.com/elastic/ecs/pull/891
