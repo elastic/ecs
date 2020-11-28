@@ -123,36 +123,16 @@ Note the support in Heartbeat of `service.name` is waiting for https://github.co
 Note that all the Beats come with a different example field to define the environment: `fields.env` (see filebeat.yml, metricbeat.yml, auditbeat.yml or heartbeat.yml).
 This `fields.env` field is misaligned with this desire of standardisation because it cannot be standardised in ECS due to the following ECS rules:
 * The namespace `fields.*` is not accepted in ECS, this namespace is dedicated to non standardised fields.
-* ECs don't use abbreviations and `env` is the abbreviation of `environment`.
+* ECS don't use abbreviations and `env` is the abbreviation of `environment`.
 
 Note that the `fields.env` field is just an example and it not likely to be used very broadly because for infrastructure elements such as servers, the delineation between environments is often difficult to establish as servers are frequently simulatenaously running production and non production workloads.
 
-We propose to tackle the question of standardisation environment for infrastructure later.
-
-
-We don't need to evolve Filebeat and Metricbeat configurations initially.
-
-Note: we may want to improve the configuration of Filebeat and Metricbeat later down the road to ease the specification `service.environment` for specific files or metrics that can be associated with a specific service/application.
-Today, such configuration is cumbersome requiring to specify a "processor". 
-
-Example of verbose Filebeat configuration today to define `service.name=www-frontend` and `service.environment=production`:
-
-```
----
-filebeat.inputs:
-  - type: log
-    enabled: true
-    paths:
-      - /var/log/www-frontent/www-frontend.log
-processors:
-  - add_fields:
-      when:
-        ... todo find the syntax to filter on file path
-      target: 'service'
-      fields:
-        name: www-frontend
-        environment: production
-```
+We propose to tackle later the questions of
+* Standardisating the characterization of the environment for infrastructure later.
+* Specifying the `service.environment` and service.name for service/application related 
+   * Log files collected by filebeat: application log file collected on disk...
+   * Metrics collected by metricbeat: application metrics collected via Prometheus, Jolokia, JMX...
+For the metricbeat and filebeat problems described above, the solution used by Heartbeat HTTP monitors (see above) is an interesting path forward.
 
 ## Source data
 
@@ -161,6 +141,167 @@ Security: security data should also benefit of specifying the `environment` from
 
 
 Logs are typically being collected by Filebeat, metrics are collected by Metricbeat, 
+
+## Sample APM Transaction JSON document
+
+Sample of APM Transaction using `service.name` and `service.environment`
+
+```
+{
+  "_index": "apm-7.10.0-transaction-000001",
+  "_type": "_doc",
+  "_id": "8tlyD3YBKOouY3Ui1sED",
+  "_version": 1,
+  "_score": null,
+  "_source": {
+    ...
+    "service": {
+      "node": {
+        "name": "cyrillerclaptop.localdomain"
+      },
+      "environment": "staging",
+      "framework": {
+        "name": "Spring Web MVC",
+        "version": "5.3.1"
+      },
+      "name": "frontend",
+      "runtime": {
+        "name": "Java",
+        "version": "15"
+      },
+      "language": {
+        "name": "Java",
+        "version": "15"
+      },
+      "version": "1.0-SNAPSHOT"
+    },
+    ...
+  }
+  ```
+  
+## Sample Heartbeat HTTP Monitor Check JSON document
+`service.environment` would be added next to `service.name`.
+
+```
+{
+  "_index": "heartbeat-7.10.0-2020.11.24-000001",
+  "_type": "_doc",
+  "_id": "J9uAD3YBKOouY3UiDwhY",
+  "_version": 1,
+  "_score": null,
+  "_source": {
+    "@timestamp": "2020-11-28T15:36:58.475Z",
+    "monitor": {
+      "check_group": "8a44a150-318f-11eb-a924-acde48001122",
+      "ip": "127.0.0.1",
+      "status": "up",
+      "duration": {
+        "us": 2156
+      },
+      "id": "frontend-check",
+      "name": "Frontend",
+      "type": "http",
+      ...
+    },
+    "url": {
+      "domain": "localhost",
+      "port": 8080,
+      "path": "/actuator/health",
+      "full": "http://localhost:8080/actuator/health",
+      "scheme": "http"
+    },
+    "service": {
+      "name": "frontend"
+      // `service.environment` would be added here
+    },
+    ...
+  }
+}
+```
+*** Sample Filebeat JSON document generated via the logback-ecs-endocer library
+
+`service.environment` would be added next to `service.name`
+
+```
+{
+  "_index": "filebeat-7.10.0-2020.11.24-000001",
+  "_type": "_doc",
+  "_id": "2duDD3YBKOouY3UiPCLK",
+  "_version": 1,
+  "_score": null,
+  "_source": {
+    "@timestamp": "2020-11-28T15:40:26.178Z",
+    "event.dataset": "frontend.log",
+    "service.name": "frontend", // `service.environment` would be added here
+    "trace.id": "080e218993ca8b2916d8cc9bc9b38bc3",
+    "message": "SUCCESS createOrder([OrderController.OrderForm@55b8d300list[[OrderProductDto@39448661 product = [Product@29587cf7 id = 4, name = 'Icecream', price = 5.0], quantity = 1]]]): price: 5.0, id:2509373",
+    "input": {
+      "type": "log"
+    },
+    "log.logger": "com.mycompany.ecommerce.controller.OrderController",
+    "log.level": "INFO",
+    "process.thread.name": "http-nio-8080-exec-3",
+    ...
+}
+```
+
+*** Sample MEtricbeat JSON Document collected for a Prometheus metric
+
+`service.environment` would be added next to `service.type` and `service.address`, we would also add `service.name`
+
+
+```
+{
+  "_index": "metricbeat-7.10.0-2020.11.24-000001",
+  "_type": "_doc",
+  "_id": "vNuID3YBKOouY3UivU-d",
+  "_version": 1,
+  "_score": null,
+  "_source": {
+    "@timestamp": "2020-11-28T15:46:24.391Z",
+    "metricset": {
+      "name": "collector",
+      "period": 10000
+    },
+    "service": {
+      "address": "http://localhost:8080/actuator/prometheus",
+      "type": "prometheus"
+    },
+    "fields": {
+      "env": "staging"
+    },
+    "agent": {
+      "type": "metricbeat",
+      "version": "7.10.0",
+      "hostname": "cyrillerclaptop.localdomain",
+      "ephemeral_id": "d4d682a8-6944-42cb-9273-87e07b620643",
+      "id": "4acf759f-74b0-4198-80e2-94f705511512",
+      "name": "cyrillerclaptop.localdomain"
+    },
+    "ecs": {
+      "version": "1.6.0"
+    },
+    
+    "prometheus": {
+      "order_per_country": {
+        "histogram": {
+          "values": [],
+          "counts": []
+        }
+      },
+      "labels": {
+        "quantile": "0.75",
+        "instance": "localhost:8080",
+        "job": "prometheus",
+        "shipping_country": "US"
+      }
+    },
+    ...
+  },
+  ...
+}
+````
+
 <!--
 Stage 1: Provide a high-level description of example sources of data. This does not yet need to be a concrete example of a source document, but instead can simply describe a potential source (e.g. nginx access log). This will ultimately be fleshed out to include literal source examples in a future stage. The goal here is to identify practical sources for these fields in the real world. ~1-3 sentences or unordered list.
 -->
