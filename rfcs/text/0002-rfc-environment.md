@@ -139,10 +139,9 @@ For the metricbeat and filebeat problems described above, the solution used by H
 Observability: data produced by the infrastruture and application layers. Data types being logs, metrics, distributed traces and uptime monitors.
 Security: security data should also benefit of specifying the `environment` from which they are emitted to offer filtering (SIEM...) on Elastic cluster spreading across multiple environments (e.g. "production" and "staging").
 
+Note: sample json documents are stored on https://gist.github.com/cyrille-leclerc/81deca4852df7754246b70d4a01bb9b0
 
-Logs are typically being collected by Filebeat, metrics are collected by Metricbeat, 
-
-## Sample APM Transaction JSON document
+### Sample APM Transaction JSON document
 
 Sample of APM Transaction using `service.name` and `service.environment`
 
@@ -179,7 +178,8 @@ Sample of APM Transaction using `service.name` and `service.environment`
   }
   ```
   
-## Sample Heartbeat HTTP Monitor Check JSON document
+### Sample Heartbeat HTTP Monitor Check JSON document
+
 `service.environment` would be added next to `service.name`.
 
 ```
@@ -218,7 +218,7 @@ Sample of APM Transaction using `service.name` and `service.environment`
   }
 }
 ```
-*** Sample Filebeat JSON document generated via the logback-ecs-endocer library
+### Sample Filebeat JSON document generated via the logback-ecs-endocer library
 
 `service.environment` would be added next to `service.name`
 
@@ -245,7 +245,7 @@ Sample of APM Transaction using `service.name` and `service.environment`
 }
 ```
 
-*** Sample MEtricbeat JSON Document collected for a Prometheus metric
+### Sample Metricbeat JSON Document collected for a Prometheus metric
 
 `service.environment` would be added next to `service.type` and `service.address`, we would also add `service.name`
 
@@ -264,6 +264,7 @@ Sample of APM Transaction using `service.name` and `service.environment`
       "period": 10000
     },
     "service": {
+      // `service.environment` would be added here. We would also add `service.name`
       "address": "http://localhost:8080/actuator/prometheus",
       "type": "prometheus"
     },
