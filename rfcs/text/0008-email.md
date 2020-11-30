@@ -2,7 +2,7 @@
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
 - Stage: **1 (proposal)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
-- Date: **Oct 5th 2020** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
+- Date: **2020-11-30** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 This RFC proposes a new top-level field to facilitate email use cases.
 
