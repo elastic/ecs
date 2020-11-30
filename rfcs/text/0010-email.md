@@ -159,8 +159,4 @@ e.g.:
 <!-- An RFC should link to the PRs for each of it stage advancements. -->
 
 * Stage 1: https://github.com/elastic/ecs/pull/999
-
-<!--
-* Stage 1: https://github.com/elastic/ecs/pull/NNN
-...
--->
+  * RFC ID correction: https://github.com/elastic/ecs/pull/1157
