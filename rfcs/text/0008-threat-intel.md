@@ -33,12 +33,15 @@ Stage 1: Describe at a high level how this change affects fields. Which fieldset
     _Type of indicator as reprsented by Cyber Observable in STIX 2.0_
   * threat.ioc.description
     _Describes the type of action conducted by the threat._
-threat.marking.tlp
+  * threat.marking.tlp
 _Data markings represent restrictions, permissions, and other guidance for how data can be used and shared. Examples could be TLP (White, Green, Amber, Red)._
   * threat.ioc.classification
     _Describes type of threat delivery (Hacktool etc.) and family name.
   * threat.ioc.scanner_stats
     _Count of Anti virus/EDR that successfully detected malicious file or URL. Sources like VirusTotal, Reversing Labs often provide these statistics._
+  * threat.ioc.provider 
+   _name of intelligence provider_
+
 
 ### Proposed New Values for Event Fieldset
 
@@ -48,7 +51,6 @@ _Data markings represent restrictions, permissions, and other guidance for how d
 
 ### Using existing Event Fieldset
  * event.reference _URL to the intelligence source_
- * event.provider _name of intelligence provider_
  * event.dataset _name of specific dataset from the intelligence source. Intelligence sources often provide multiple datasets - IP blocklist, File hash blocklist etc.
  * event.severity _severity provided by threat intelligence source_
  * event.risk_score _risk score provided by threat intelligence source_
@@ -265,7 +267,10 @@ The following are the people that consulted on the contents of this RFC.
 
 ## References
 
-[Threat Intel Field Set Draft](https://docs.google.com/spreadsheets/d/1hS3tF-sGmwnKb7uUGLo3Rng_q6EFgwo6UCae8Sp4E-g/edit?usp=sharing)
+* [Threat Intel Field Set Draft](https://docs.google.com/spreadsheets/d/1hS3tF-sGmwnKb7uUGLo3Rng_q6EFgwo6UCae8Sp4E-g/edit?usp=sharing)
+* [Abuse.ch Feodo Tracker](https://feodotracker.abuse.ch/downloads/ipblocklist.csv)
+* [https://botvrij.eu/data/](https://botvrij.eu/data/)
+* [STIX Cyber Observable data model](https://docs.oasis-open.org/cti/stix/v2.1/cs01/stix-v2.1-cs01.html#_mlbmudhl16lr)
 <!-- Insert any links appropriate to this RFC in this section. -->
 
 ### RFC Pull Requests
