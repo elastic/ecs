@@ -39,6 +39,8 @@ Stage 1: Describe at a high level how this change affects fields. Which fieldset
     _Describes type of threat delivery (Hacktool etc.) and family name.
   * threat.scanner_stats
     _Count of Anti virus/EDR that successfully detected malicious file or URL. Sources like VirusTotal, Reversing Labs often provide these statistics._
+  * threat.confidence
+    _The confidence rating of the threat, ranging from 0 - 100, following STIX 2.0 confidence rating _ 
 
 ### Proposed New Values
 
