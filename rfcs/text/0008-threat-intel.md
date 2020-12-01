@@ -146,7 +146,7 @@ f21c21c2fceac5118ebf088653275b4f # md5 - AZORult spreads as a fake ProtonVPN ins
 ```
 #### AlienVault OTX
 
-Rest Endpoint: [/api/v1/indicators/export](/api/v1/indicators/export)
+Rest Endpoint: `/api/v1/indicators/export`
 
 Schema
 ```
