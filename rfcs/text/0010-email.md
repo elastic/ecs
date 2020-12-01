@@ -1,4 +1,4 @@
-# 0008: Email
+# 0010: Email
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
 - Stage: **1 (proposal)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
@@ -159,8 +159,4 @@ e.g.:
 <!-- An RFC should link to the PRs for each of it stage advancements. -->
 
 * Stage 1: https://github.com/elastic/ecs/pull/999
-
-<!--
-* Stage 1: https://github.com/elastic/ecs/pull/NNN
-...
--->
+  * RFC ID correction: https://github.com/elastic/ecs/pull/1157
