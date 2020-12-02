@@ -26,6 +26,8 @@ Thanks, you're awesome :-) -->
 
 #### Bugfixes
 
+* `tracing` fields should be at root of Beats `fields.ecs.yml` artifacts. #1164
+
 #### Added
 
 #### Improvements
