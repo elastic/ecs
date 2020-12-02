@@ -30,6 +30,8 @@ Thanks, you're awesome :-) -->
 
 #### Bugfixes
 
+* `tracing` fields should be at top level of Beats `fields.ecs.yml` artifacts. #1164
+
 #### Added
 
 * Added ability to supply free-form usage documentation per fieldset. #988
