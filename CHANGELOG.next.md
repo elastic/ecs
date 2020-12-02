@@ -30,6 +30,9 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
+* Added a notice highlighting that the `tracing` fields are not nested under the
+  namespace `tracing.` #1162
+
 #### Deprecated
 
 
