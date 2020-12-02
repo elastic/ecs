@@ -13,8 +13,7 @@ def generate(ecs_nested, ecs_version, out_dir):
     allowed_fieldset_keys = ['name', 'title', 'group', 'description', 'footnote', 'type']
     # other fieldsets
     for fieldset_name in sorted(ecs_nested):
-        # skip fieldsets already added
-        if 'base' in fieldset_name:
+        if 'base' == fieldset_name:
             continue
         fieldset = ecs_nested[fieldset_name]
 
