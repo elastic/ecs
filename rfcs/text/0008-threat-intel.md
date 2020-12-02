@@ -23,25 +23,15 @@ Stage 1: Describe at a high level how this change affects fields. Which fieldset
 
 ### Proposed New Fields for Threat fieldset
 
-  * threat.ioc.time_first_seen
-    _The date and time when intelligence souce first reported sighting this indicator._
-  * threat.ioc.time_last_seen
-    _The date and time when intelligence source last reported sighting this indicator._
-  * threat.ioc.sightings
-    _Number of times this indicator was observed conducting threat activity._
-  * threat.type
-    _Type of indicator as reprsented by Cyber Observable in STIX 2.0_
-  * threat.ioc.description
-    _Describes the type of action conducted by the threat._
-  * threat.marking.tlp
-_Data markings represent restrictions, permissions, and other guidance for how data can be used and shared. Examples could be TLP (White, Green, Amber, Red)._
-  * threat.ioc.classification
-    _Describes type of threat delivery (Hacktool etc.) and family name.
-  * threat.ioc.scanner_stats
-    _Count of Anti virus/EDR that successfully detected malicious file or URL. Sources like VirusTotal, Reversing Labs often provide these statistics._
-  * threat.ioc.provider 
-   _name of intelligence provider_
-
+Field | Type | Example | Description
+--- | --- | --- | ---
+threat.ioc.time_first_seen | date | 2020-12-01 | The date and time when intelligence souce first reported sighting this indicator
+threat.ioc.time_last_seen | date | 2020-12-02| The date and time when intelligence source last reported sighting this indicator.
+threat.ioc.sightings | long | 20 | Number of times this indicator was observed conducting threat activity
+threat.ioc.type | keyword | IPV4 | Type of indicator as reprsented by Cyber Observable in STIX 2.0
+threat.ioc.description | text | 201.10.10.90 was seen delivering Angler EK | Describes the type of action conducted by the threat
+threat.marking.tlp | keyword | RED | Data markings represent restrictions, permissions, and other guidance for how data can be used and shared. Examples could be TLP (White, Green, Amber, Red).
+threat.ioc.scanner_stats | long | 4 | Count of Anti virus/EDR that successfully detected malicious file or URL. Sources like VirusTotal, Reversing Labs often provide these statistics.
 
 ### Proposed New Values for Event Fieldset
 
@@ -52,11 +42,12 @@ _Data markings represent restrictions, permissions, and other guidance for how d
 ### Using existing Event Fieldset
  * event.reference _URL to the intelligence source_
  * event.dataset _name of specific dataset from the intelligence source. Intelligence sources often provide multiple datasets - IP blocklist, File hash blocklist etc.
+ * event.provider _name of intelligence provider_
  * event.severity _severity provided by threat intelligence source_
  * event.risk_score _risk score provided by threat intelligence source_
  * event.original _raw intelligence event_
 
-### Using existing ECS Fields nested under Threat.ioc.*
+### Using existing ECS Fields to store IOC information
 
   * file.*
   * file.hash.*
@@ -85,7 +76,13 @@ Stage 3: Add or update all remaining field definitions. The list should now be e
 Stage 1: Describe at a high-level how these field changes will be used in practice. Real world examples are encouraged. The goal here is to understand how people would leverage these fields to gain insights or solve problems. ~1-3 paragraphs.
 -->
 
-The additions described above will be used to represent data collected threat intelligence sources in ECS format. A new rule type Indicator match will be introduced in 7.10 and the propoosed ECS updates will enable a new category of detection alerts that match incoming log and event data against threat intelligence sources. Additionally in the future we will also develop enrichment flows that add context from threat intelligence to alerts and events to assist analysts in their investigative workflows.
+The additions described above will be used to enable cyber threat intelligence capabilities in Elastic Security solution. A new rule type Indicator match will be introduced in 7.10 and the propoosed ECS updates will enable a new category of detection alerts that match incoming log and event data against threat intelligence sources. Additionally in the future we will also develop enrichment flows that add context from threat intelligence to alerts and events to assist analysts in their investigative workflows.
+
+There are two primary uses for these fields.
+
+1. *Storing threat intelligence documents in index(s).* Threat intelligence data will collected from multiple sources stored in threat indices. The ECS fields proposed here will be used to structure the documents collected from various sources. 
+
+2. *Storing threat intelligence match/enrichment in another document (like signal document).* The Indicator Match Rule will be used to generate signals when a match occurs between a source event and threat intelligence document. The ECS fields proposed here will be used to add the enrichment and threat intel context in the signal document. 
 
 ## Source data
 
@@ -237,6 +234,7 @@ Stage 1: Identify potential concerns, implementation challenges, or complexity. 
  * Proposed resolution: Nest all IoC fields under `threat.ioc.*`
 2. How to use `event.module`
  * Proposed resolution: pending
+3. How to best represent malware{name,family,type}. Current proposal is to use `threat.ioc.classification` to describe threat delivery (Hacktool etc.) and family name.
 
 <!--
 Stage 2: Document new concerns or resolutions to previously listed concerns. It's not critical that all concerns have resolutions at this point, but it would be helpful if resolutions were taking shape for the most significant concerns.
