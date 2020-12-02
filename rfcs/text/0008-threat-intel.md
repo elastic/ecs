@@ -35,17 +35,22 @@ threat.ioc.scanner_stats | long | 4 | Count of Anti virus/EDR that successfully 
 
 ### Proposed New Values for Event Fieldset
 
-  * event.kind:enrichment _Propose adding this value to capture outcome of this event. It could also appy to other types of contextual data such as directory services, IPAM data, asset lists._
-  * event.category:threat _Proposed threat.type field would be a subcategory for this value of event.category_
-  * event.type:indicator _Proposed value represents type of threat information. In future this could be extended to other STIX 2.0 Standard Data Objects like Actor, Infrastucture etc._
-
+Field | New Value | Description
+--- | --- | ---
+event.kind | enrichment | Propose adding this value to capture the type of information this event contains and how it should be used. Threat intelligence will be used to enrich source events and signals. Enrichment could also appy to other types of contextual data sources (not just threat intelligence) such as directory services, IPAM data, asset lists.
+event.category | threat | Propose adding this value to represent a new category of event data
+event.type | indicator | Propose adding this value to be used as a sub-bucket of `event.category` to represent type of threat information. In future this could be extended to other STIX 2.0 Standard Data Objects like Actor, Infrastucture etc.
+  
 ### Using existing Event Fieldset
- * event.reference _URL to the intelligence source_
- * event.dataset _name of specific dataset from the intelligence source. Intelligence sources often provide multiple datasets - IP blocklist, File hash blocklist etc.
- * event.provider _name of intelligence provider_
- * event.severity _severity provided by threat intelligence source_
- * event.risk_score _risk score provided by threat intelligence source_
- * event.original _raw intelligence event_
+Field | Type | Example | Description
+--- | ---| --- | ---
+event.reference | keyword | https://feodotracker.abuse.ch/ | URL to the intelligence source
+event.dataset | keyword | Feodo tracker | name of specific dataset from the intelligence source. Intelligence sources often provide multiple datasets - IP blocklist, File hash blocklist etc.
+event.provider | keyword | Abuse.ch | name of intelligence provider
+event.severity | long | 7 | severity provided by threat intelligence source
+event.risk_score | float | 10 | risk score provided by threat intelligence source
+event.original | keyword | 2020-10-29 19:16:38,181.120.29.49,80,2020-11-02,Heodo | raw intelligence event
+ 
 
 ### Using existing ECS Fields to store IOC information
 
