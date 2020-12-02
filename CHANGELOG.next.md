@@ -30,6 +30,8 @@ Thanks, you're awesome :-) -->
 
 #### Bugfixes
 
+* `tracing` fields should be at root of Beats `fields.ecs.yml` artifacts. #1164
+
 #### Added
 
 * Added the `path` key when type is `alias`, to support the [alias field type](https://www.elastic.co/guide/en/elasticsearch/reference/current/alias.html). #877
@@ -40,6 +42,9 @@ Thanks, you're awesome :-) -->
 * Added support for `constant_keyword`'s optional parameter `value`. #1112
 
 #### Improvements
+
+* Added a notice highlighting that the `tracing` fields are not nested under the
+  namespace `tracing.` #1162
 
 #### Deprecated
 
