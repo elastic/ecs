@@ -10,19 +10,18 @@ def generate(ecs_nested, ecs_version, out_dir):
     # base first
     beats_fields = fieldset_field_array(ecs_nested['base']['fields'], df_whitelist, ecs_nested['base']['prefix'])
 
-    # tracing fields also need top-level handling
-    tracing_fields = fieldset_field_array(
-        ecs_nested['tracing']['fields'], df_whitelist, ecs_nested['tracing']['prefix'])
-    beats_fields.extend(tracing_fields)
-
     allowed_fieldset_keys = ['name', 'title', 'group', 'description', 'footnote', 'type']
-    fieldsets_to_skip = ['base', 'tracing']
     # other fieldsets
     for fieldset_name in sorted(ecs_nested):
         # skip fieldsets already added
-        if fieldset_name in fieldsets_to_skip:
+        if 'base' in fieldset_name:
             continue
         fieldset = ecs_nested[fieldset_name]
+
+        # Handle when `root:true`
+        if fieldset.get('root', False):
+            beats_fields.extend(fieldset_field_array(fieldset['fields'], df_whitelist, fieldset['prefix']))
+            continue
 
         beats_field = ecs_helpers.dict_copy_keys_ordered(fieldset, allowed_fieldset_keys)
         beats_field['fields'] = fieldset_field_array(fieldset['fields'], df_whitelist, fieldset['prefix'])
