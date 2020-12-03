@@ -22,6 +22,8 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
+* Note `[` and `]` bracket characters may enclose a literal IPv6 address when populating `url.domain`. #1131
+
 #### Deprecated
 
 ### Tooling and Artifact Changes
