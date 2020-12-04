@@ -235,6 +235,7 @@ e.g.:
 <!-- An RFC should link to the PRs for each of it stage advancements. -->
 
 * Stage 1: https://github.com/elastic/ecs/pull/1014
+  * Stage 1 correction: https://github.com/elastic/ecs/pull/1170
 
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN
