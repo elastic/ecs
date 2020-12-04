@@ -236,8 +236,3 @@ e.g.:
 
 * Stage 1: https://github.com/elastic/ecs/pull/1014
   * Stage 1 correction: https://github.com/elastic/ecs/pull/1170
-
-<!--
-* Stage 1: https://github.com/elastic/ecs/pull/NNN
-...
--->
