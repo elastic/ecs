@@ -48,6 +48,7 @@ Thanks, you're awesome :-) -->
 
 * Added a notice highlighting that the `tracing` fields are not nested under the
   namespace `tracing.` #1162
+* ES 6.x template data types will fallback to supported types. #1171
 
 #### Deprecated
 
