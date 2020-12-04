@@ -17,6 +17,11 @@ def generate(ecs_nested, ecs_version, out_dir):
             continue
         fieldset = ecs_nested[fieldset_name]
 
+        # Handle when `root:true`
+        if fieldset.get('root', False):
+            beats_fields.extend(fieldset_field_array(fieldset['fields'], df_whitelist, fieldset['prefix']))
+            continue
+
         beats_field = ecs_helpers.dict_copy_keys_ordered(fieldset, allowed_fieldset_keys)
         beats_field['fields'] = fieldset_field_array(fieldset['fields'], df_whitelist, fieldset['prefix'])
         beats_fields.append(beats_field)

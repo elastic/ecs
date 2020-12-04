@@ -2243,6 +2243,21 @@
       ignore_above: 1024
       description: Operating system platform (such centos, ubuntu, windows).
       example: darwin
+    - name: os.type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Use the `os.type` field to categorize the operating system into
+        one of the broad commercial families.
+
+        One of these following values should be used (lowercase): linux, macos, unix,
+        windows.
+
+        If the OS you''re dealing with is not in the list, the field should not be
+        populated. Please let us know by opening an issue with ECS, to propose its
+        addition.'
+      example: macos
+      default_field: false
     - name: os.version
       level: extended
       type: keyword
@@ -3002,6 +3017,21 @@
       ignore_above: 1024
       description: Operating system platform (such centos, ubuntu, windows).
       example: darwin
+    - name: os.type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Use the `os.type` field to categorize the operating system into
+        one of the broad commercial families.
+
+        One of these following values should be used (lowercase): linux, macos, unix,
+        windows.
+
+        If the OS you''re dealing with is not in the list, the field should not be
+        populated. Please let us know by opening an issue with ECS, to propose its
+        addition.'
+      example: macos
+      default_field: false
     - name: os.version
       level: extended
       type: keyword
@@ -3110,6 +3140,21 @@
       ignore_above: 1024
       description: Operating system platform (such centos, ubuntu, windows).
       example: darwin
+    - name: type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Use the `os.type` field to categorize the operating system into
+        one of the broad commercial families.
+
+        One of these following values should be used (lowercase): linux, macos, unix,
+        windows.
+
+        If the OS you''re dealing with is not in the list, the field should not be
+        populated. Please let us know by opening an issue with ECS, to propose its
+        addition.'
+      example: macos
+      default_field: false
     - name: version
       level: extended
       type: keyword
@@ -5299,43 +5344,34 @@
       description: Normalized lowercase protocol name parsed from original string.
       example: tls
       default_field: false
-  - name: tracing
-    title: Tracing
-    group: 2
-    description: Distributed tracing makes it possible to analyze performance throughout
-      a microservice architecture all in one view. This is accomplished by tracing
-      all of the requests - from the initial web request in the front-end service
-      - to queries made through multiple back-end services.
-    type: group
-    fields:
-    - name: span.id
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: 'Unique identifier of the span within the scope of its trace.
+  - name: span.id
+    level: extended
+    type: keyword
+    ignore_above: 1024
+    description: 'Unique identifier of the span within the scope of its trace.
 
-        A span represents an operation within a transaction, such as a request to
-        another service, or a database query.'
-      example: 3ff9a8981b7ccd5a
-      default_field: false
-    - name: trace.id
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: 'Unique identifier of the trace.
+      A span represents an operation within a transaction, such as a request to another
+      service, or a database query.'
+    example: 3ff9a8981b7ccd5a
+    default_field: false
+  - name: trace.id
+    level: extended
+    type: keyword
+    ignore_above: 1024
+    description: 'Unique identifier of the trace.
 
-        A trace groups multiple events like transactions that belong together. For
-        example, a user request handled by multiple inter-connected services.'
-      example: 4bf92f3577b34da6a3ce929d0e0e4736
-    - name: transaction.id
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: 'Unique identifier of the transaction within the scope of its trace.
+      A trace groups multiple events like transactions that belong together. For example,
+      a user request handled by multiple inter-connected services.'
+    example: 4bf92f3577b34da6a3ce929d0e0e4736
+  - name: transaction.id
+    level: extended
+    type: keyword
+    ignore_above: 1024
+    description: 'Unique identifier of the transaction within the scope of its trace.
 
-        A transaction is the highest level of work measured within a service, such
-        as a request to a server.'
-      example: 00f067aa0ba902b7
+      A transaction is the highest level of work measured within a service, such as
+      a request to a server.'
+    example: 00f067aa0ba902b7
   - name: url
     title: URL
     group: 2
@@ -5350,19 +5386,26 @@
       description: 'Domain of the url, such as "www.elastic.co".
 
         In some cases a URL may refer to an IP and/or port directly, without a domain
-        name. In this case, the IP address would go to the `domain` field.'
+        name. In this case, the IP address would go to the `domain` field.
+
+        If the URL contains a literal IPv6 address enclosed by `[` and `]` (IETF RFC
+        2732), the `[` and `]` characters should also be captured in the `domain`
+        field.'
       example: www.elastic.co
     - name: extension
       level: extended
       type: keyword
       ignore_above: 1024
       description: 'The field contains the file extension from the original request
-        url.
+        url, excluding the leading dot.
 
         The file extension is only set if it exists, as not every url has a file extension.
 
         The leading period must not be included. For example, the value must be "png",
-        not ".png".'
+        not ".png".
+
+        Note that when the file name has multiple extensions (example.tar.gz), only
+        the last one should be captured ("gz", not "tar.gz").'
       example: png
     - name: fragment
       level: extended
@@ -5631,6 +5674,21 @@
       ignore_above: 1024
       description: Operating system platform (such centos, ubuntu, windows).
       example: darwin
+    - name: os.type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Use the `os.type` field to categorize the operating system into
+        one of the broad commercial families.
+
+        One of these following values should be used (lowercase): linux, macos, unix,
+        windows.
+
+        If the OS you''re dealing with is not in the list, the field should not be
+        populated. Please let us know by opening an issue with ECS, to propose its
+        addition.'
+      example: macos
+      default_field: false
     - name: os.version
       level: extended
       type: keyword
@@ -5810,15 +5868,18 @@
   - name: x509
     title: x509 Certificate
     group: 2
-    description: This implements the common core fields for x509 certificates. This
+    description: 'This implements the common core fields for x509 certificates. This
       information is likely logged with TLS sessions, digital signatures found in
       executable binaries, S/MIME information in email bodies, or analysis of files
-      on disk. When only a single certificate is logged in an event, it should be
-      nested under `file`. When hashes of the DER-encoded certificate are available,
-      the `hash` data set should be populated as well (e.g. `file.hash.sha256`). For
-      events that contain certificate information for both sides of the connection,
-      the x509 object could be nested under the respective side of the connection
-      information (e.g. `tls.server.x509`).
+      on disk.
+
+      When the certificate relates to a file, use the fields at `file.x509`. When
+      hashes of the DER-encoded certificate are available, the `hash` data set should
+      be populated as well (e.g. `file.hash.sha256`).
+
+      Events that contain certificate information about network connections, should
+      use the x509 fields under the relevant TLS fields: `tls.server.x509` and/or
+      `tls.client.x509`.'
     type: group
     fields:
     - name: alternative_names

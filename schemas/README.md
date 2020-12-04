@@ -32,6 +32,8 @@ Optional field set attributes:
 - type (ignored): at this level, should always be `group`
 - reusable (optional): Used to identify which field sets are expected to be reused in multiple places.
   See "Field set reuse" for details.
+- beta: Adds a beta marker for the entire fieldset. The text provided in this attribute is used as content of the beta marker in the documentation.
+  Beta notices should not have newlines.
 
 ### Field set reuse
 
@@ -104,6 +106,18 @@ The above defines all process fields in both places:
 }
 ```
 
+The `beta` marker can optionally be used along with `at` and `as` to include a beta marker in the field reuses section, marking specific reuse locations as beta.
+Beta notices should not have newlines.
+
+```
+  reusable:
+    top_level: true
+    expected:
+    - at: user
+      as: target
+      beta: Reusing these fields in this location is currently considered beta.
+```
+
 ### List of fields
 
 Array of YAML objects:
@@ -129,10 +143,12 @@ Supported keys to describe fields
   Example values that are composite types (array, object) should be quoted to avoid YAML interpretation
   in ECS-generated artifacts and other downstream projects depending on the schema.
 - multi\_fields (optional): Specify additional ways to index the field.
-- index (optional): If `False`, means field is not indexed (overrides type)
+- index (optional): If `False`, means field is not indexed (overrides type). This parameter has no effect
+  on a `wildcard` field.
 - format: Field format that can be used in a Kibana index template.
 - normalize: Normalization steps that should be applied at ingestion time. Supported values:
   - array: the content of the field should be an array (even when there's only one value).
+- beta (optional): Adds a beta marker for the field to the description. The text provided in this attribute is used as content of the beta marker in the documentation. Note that when a whole field set is marked as beta, it is not necessary nor recommended to mark all fields in the field set as beta. Beta notices should not have newlines.
 
 Supported keys to describe expected values for a field
 
@@ -151,7 +167,7 @@ Supported keys to describe expected values for a field
   Optionally, entries in this list can specify 'expected\_event\_types'.
 - expected\_event\_types: list of expected "event.type" values to use in association
   with that category.
-  
+
 Supported keys when using the [alias field type](https://www.elastic.co/guide/en/elasticsearch/reference/current/alias.html)
 
 ```YAML

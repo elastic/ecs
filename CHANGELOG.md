@@ -19,7 +19,7 @@ All notable changes to this project will be documented in this file based on the
 * Added `threat.technique.subtechnique` to capture MITRE ATT&CK® subtechniques. #951
 * Added `configuration` as an allowed `event.category`. #963
 * Added a new directory with experimental artifacts, which includes all changes
-  from RFCs that have reached stage 2. #993, #1053
+  from RFCs that have reached stage 2. #993, #1053, #1115, #1117, #1118
 
 #### Improvements
 
@@ -27,6 +27,8 @@ All notable changes to this project will be documented in this file based on the
 * Provided better guidance for mapping network events. #969
 * Added the field `.subdomain` under `client`, `destination`, `server`, `source`
   and `url`, to match its presence at `dns.question.subdomain`. #981
+* Clarified ambiguity in guidance on how to use x509 fields for connections with
+  only one certificate. #1114
 
 ### Tooling and Artifact Changes
 

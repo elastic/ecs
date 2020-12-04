@@ -158,7 +158,7 @@ base:
     events. These fields are common across all types of events.
   fields:
     '@timestamp':
-      dashed_name: -timestamp
+      dashed_name: timestamp
       description: 'Date/time when the event originated.
 
         This is the date/time extracted from the event, typically representing when
@@ -1667,6 +1667,25 @@ dns:
     (`dns.type:query`) or they should represent a full exchange and contain the query
     details as well as all of the answers that were provided for this query (`dns.type:answer`).'
   fields:
+    dns.answers:
+      dashed_name: dns-answers
+      description: 'An array containing an object for each answer section returned
+        by the server.
+
+        The main keys that should be present in these objects are defined by ECS.
+        Records that have more information may contain more keys than what ECS defines.
+
+        Not all DNS data sources give all details about DNS answers. At minimum, answer
+        objects must contain the `data` key. If more information is available, map
+        as much of it to ECS as possible, and add any additional fields to the answer
+        objects as custom fields.'
+      flat_name: dns.answers
+      level: extended
+      name: answers
+      normalize:
+      - array
+      short: Array of DNS answers.
+      type: object
     dns.answers.class:
       dashed_name: dns-answers-class
       description: The class of DNS data contained in this resource record.
@@ -1971,7 +1990,6 @@ error:
       dashed_name: error-stack-trace
       description: The stack trace of this error in plain text.
       flat_name: error.stack_trace
-      index: true
       level: extended
       multi_fields:
       - flat_name: error.stack_trace.text
@@ -4068,6 +4086,26 @@ host:
       original_fieldset: os
       short: Operating system platform (such centos, ubuntu, windows).
       type: keyword
+    host.os.type:
+      dashed_name: host-os-type
+      description: 'Use the `os.type` field to categorize the operating system into
+        one of the broad commercial families.
+
+        One of these following values should be used (lowercase): linux, macos, unix,
+        windows.
+
+        If the OS you''re dealing with is not in the list, the field should not be
+        populated. Please let us know by opening an issue with ECS, to propose its
+        addition.'
+      example: macos
+      flat_name: host.os.type
+      ignore_above: 1024
+      level: extended
+      name: type
+      normalize: []
+      original_fieldset: os
+      short: 'Which commercial OS family (one of: linux, macos, unix or windows).'
+      type: keyword
     host.os.version:
       dashed_name: host-os-version
       description: Operating system version as a raw string.
@@ -5321,6 +5359,26 @@ observer:
       original_fieldset: os
       short: Operating system platform (such centos, ubuntu, windows).
       type: keyword
+    observer.os.type:
+      dashed_name: observer-os-type
+      description: 'Use the `os.type` field to categorize the operating system into
+        one of the broad commercial families.
+
+        One of these following values should be used (lowercase): linux, macos, unix,
+        windows.
+
+        If the OS you''re dealing with is not in the list, the field should not be
+        populated. Please let us know by opening an issue with ECS, to propose its
+        addition.'
+      example: macos
+      flat_name: observer.os.type
+      ignore_above: 1024
+      level: extended
+      name: type
+      normalize: []
+      original_fieldset: os
+      short: 'Which commercial OS family (one of: linux, macos, unix or windows).'
+      type: keyword
     observer.os.version:
       dashed_name: observer-os-version
       description: Operating system version as a raw string.
@@ -5523,6 +5581,25 @@ os:
       name: platform
       normalize: []
       short: Operating system platform (such centos, ubuntu, windows).
+      type: keyword
+    os.type:
+      dashed_name: os-type
+      description: 'Use the `os.type` field to categorize the operating system into
+        one of the broad commercial families.
+
+        One of these following values should be used (lowercase): linux, macos, unix,
+        windows.
+
+        If the OS you''re dealing with is not in the list, the field should not be
+        populated. Please let us know by opening an issue with ECS, to propose its
+        addition.'
+      example: macos
+      flat_name: os.type
+      ignore_above: 1024
+      level: extended
+      name: type
+      normalize: []
+      short: 'Which commercial OS family (one of: linux, macos, unix or windows).'
       type: keyword
     os.version:
       dashed_name: os-version
@@ -9151,10 +9228,14 @@ tls:
   title: TLS
   type: group
 tracing:
-  description: Distributed tracing makes it possible to analyze performance throughout
+  description: 'Distributed tracing makes it possible to analyze performance throughout
     a microservice architecture all in one view. This is accomplished by tracing all
     of the requests - from the initial web request in the front-end service - to queries
     made through multiple back-end services.
+
+    Unlike most field sets in ECS, the tracing fields are *not* nested under the field
+    set name. In other words, the correct field name is `trace.id`, not `tracing.trace.id`,
+    and so on.'
   fields:
     span.id:
       dashed_name: span-id
@@ -9214,7 +9295,11 @@ url:
       description: 'Domain of the url, such as "www.elastic.co".
 
         In some cases a URL may refer to an IP and/or port directly, without a domain
-        name. In this case, the IP address would go to the `domain` field.'
+        name. In this case, the IP address would go to the `domain` field.
+
+        If the URL contains a literal IPv6 address enclosed by `[` and `]` (IETF RFC
+        2732), the `[` and `]` characters should also be captured in the `domain`
+        field.'
       example: www.elastic.co
       flat_name: url.domain
       level: extended
@@ -9225,19 +9310,22 @@ url:
     url.extension:
       dashed_name: url-extension
       description: 'The field contains the file extension from the original request
-        url.
+        url, excluding the leading dot.
 
         The file extension is only set if it exists, as not every url has a file extension.
 
         The leading period must not be included. For example, the value must be "png",
-        not ".png".'
+        not ".png".
+
+        Note that when the file name has multiple extensions (example.tar.gz), only
+        the last one should be captured ("gz", not "tar.gz").'
       example: png
       flat_name: url.extension
       ignore_above: 1024
       level: extended
       name: extension
       normalize: []
-      short: File extension from the original request url.
+      short: File extension from the request url, excluding the leading dot.
       type: keyword
     url.fragment:
       dashed_name: url-fragment
@@ -10092,6 +10180,26 @@ user_agent:
       original_fieldset: os
       short: Operating system platform (such centos, ubuntu, windows).
       type: keyword
+    user_agent.os.type:
+      dashed_name: user-agent-os-type
+      description: 'Use the `os.type` field to categorize the operating system into
+        one of the broad commercial families.
+
+        One of these following values should be used (lowercase): linux, macos, unix,
+        windows.
+
+        If the OS you''re dealing with is not in the list, the field should not be
+        populated. Please let us know by opening an issue with ECS, to propose its
+        addition.'
+      example: macos
+      flat_name: user_agent.os.type
+      ignore_above: 1024
+      level: extended
+      name: type
+      normalize: []
+      original_fieldset: os
+      short: 'Which commercial OS family (one of: linux, macos, unix or windows).'
+      type: keyword
     user_agent.os.version:
       dashed_name: user-agent-os-version
       description: Operating system version as a raw string.
@@ -10375,14 +10483,16 @@ vulnerability:
   title: Vulnerability
   type: group
 x509:
-  description: This implements the common core fields for x509 certificates. This
+  description: 'This implements the common core fields for x509 certificates. This
     information is likely logged with TLS sessions, digital signatures found in executable
-    binaries, S/MIME information in email bodies, or analysis of files on disk. When
-    only a single certificate is logged in an event, it should be nested under `file`.
-    When hashes of the DER-encoded certificate are available, the `hash` data set
-    should be populated as well (e.g. `file.hash.sha256`). For events that contain
-    certificate information for both sides of the connection, the x509 object could
-    be nested under the respective side of the connection information (e.g. `tls.server.x509`).
+    binaries, S/MIME information in email bodies, or analysis of files on disk.
+
+    When the certificate relates to a file, use the fields at `file.x509`. When hashes
+    of the DER-encoded certificate are available, the `hash` data set should be populated
+    as well (e.g. `file.hash.sha256`).
+
+    Events that contain certificate information about network connections, should
+    use the x509 fields under the relevant TLS fields: `tls.server.x509` and/or `tls.client.x509`.'
   fields:
     x509.alternative_names:
       dashed_name: x509-alternative-names

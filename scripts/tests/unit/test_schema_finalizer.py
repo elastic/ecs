@@ -92,7 +92,7 @@ class TestSchemaFinalizer(unittest.TestCase):
                         'order': 2,
                         'expected': [
                             {'full': 'server.user', 'at': 'server', 'as': 'user'},
-                            {'full': 'user.target', 'at': 'user', 'as': 'target'},
+                            {'full': 'user.target', 'at': 'user', 'as': 'target', 'beta': 'Some beta notice'},
                             {'full': 'user.effective', 'at': 'user', 'as': 'effective'},
                         ]
                     }
@@ -211,7 +211,7 @@ class TestSchemaFinalizer(unittest.TestCase):
                       fields['process']['schema_details']['reused_here'])
         self.assertIn({'full': 'user.effective', 'schema_name': 'user', 'short': 'short desc'},
                       fields['user']['schema_details']['reused_here'])
-        self.assertIn({'full': 'user.target', 'schema_name': 'user', 'short': 'short desc'},
+        self.assertIn({'full': 'user.target', 'schema_name': 'user', 'short': 'short desc', 'beta': 'Some beta notice'},
                       fields['user']['schema_details']['reused_here'])
         self.assertIn({'full': 'server.user', 'schema_name': 'user', 'short': 'short desc'},
                       fields['server']['schema_details']['reused_here'])
@@ -268,7 +268,7 @@ class TestSchemaFinalizer(unittest.TestCase):
         timestamp_details = base_fields['@timestamp']['field_details']
         self.assertEqual(timestamp_details['flat_name'], '@timestamp',
                          "Field sets with root=true must not namespace field names with the field set's name")
-        self.assertEqual(timestamp_details['dashed_name'], '-timestamp')
+        self.assertEqual(timestamp_details['dashed_name'], 'timestamp')
         # root=false
         self.assertEqual(server_fields['ip']['field_details']['flat_name'], 'server.ip',
                          "Field sets with root=false must namespace field names with the field set's name")
@@ -288,7 +288,7 @@ class TestSchemaFinalizer(unittest.TestCase):
     def test_dashed_name_cleanup(self):
         details = {'field_details': {'node_name': '@time.stamp_'}}
         finalizer.field_finalizer(details, [])
-        self.assertEqual(details['field_details']['dashed_name'], '-time-stamp-')
+        self.assertEqual(details['field_details']['dashed_name'], 'time-stamp-')
 
     # field_group_at_path
 
