@@ -296,6 +296,5 @@ class TestGeneratorsEsTemplate(unittest.TestCase):
         self.assertEqual(test_map, exp)
 
 
-
 if __name__ == '__main__':
     unittest.main()
