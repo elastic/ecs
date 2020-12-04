@@ -4,6 +4,8 @@ import copy
 
 from os.path import join
 from generators import ecs_helpers
+from schema.cleaner import field_or_multi_field_datatype_defaults
+from schema.oss import TYPE_FALLBACKS
 
 
 def generate(ecs_flat, ecs_version, out_dir, template_settings_file, mapping_settings_file):
@@ -93,7 +95,9 @@ def generate_template_version(elasticsearch_version, mappings_section, out_dir, 
     else:
         template = default_template_settings()
     if elasticsearch_version == 6:
-        template['mappings'] = {'_doc': mappings_section}
+        es6_mappings_section = copy.deepcopy(mappings_section)
+        es6_type_fallback(es6_mappings_section['properties'])
+        template['mappings'] = {'_doc': es6_mappings_section}
     else:
         template['mappings'] = mappings_section
 
@@ -144,3 +148,22 @@ def default_mapping_settings(ecs_version):
         ],
         "properties": {}
     }
+
+
+def es6_type_fallback(mappings):
+    '''
+    Visits each leaf in mappings object and fallback to an
+    Elasticsearch 6.x supported type.
+
+    Since a field like `wildcard` won't have the same defaults as
+    a `keyword` field, we must add any missing defaults.
+    '''
+
+    for (name, details) in mappings.items():
+        if 'type' in details:
+            fallback_type = TYPE_FALLBACKS.get(details['type'])
+            if fallback_type:
+                mappings[name]['type'] = fallback_type
+                field_or_multi_field_datatype_defaults(mappings[name])
+        if 'properties' in details:
+            es6_type_fallback(details['properties'])
