@@ -22,7 +22,6 @@ Thanks, you're awesome :-) -->
 * Added `threat.technique.subtechnique` to capture MITRE ATT&CK® subtechniques. #951
 * Added `configuration` as an allowed `event.category`. #963
 * Added network directions ingress and egress. #945
-* Added SIP RFC #tbd
 
 #### Improvements
 

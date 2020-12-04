@@ -18,117 +18,108 @@ ECS SIP Fields provide normalization for fields related to Session Initiation an
 
 ## Fields
 
-| Sip Fields                	| Example                                      	| type      	|
-|---------------------------	|----------------------------------------------	|-----------	|
-|                           	|                                              	|           	|
-| **SIP Request**               | INVITE sip:test@10.0.2.15:5060 SIP/2.0       	|           	|
-| sip.type                  	| request / response                           	| keyword   	|
-| sip.method                	| invite                                       	| keyword   	|
-| sip.uri.original          	| test@10.0.2.15:5060                          	| keyword   	|
-| sip.uri.original.text     	| test@10.0.2.15:5060                          	| text      	|
-| sip.uri.scheme            	| sip                                          	| keyword   	|
-| sip.uri.username          	| test                                         	| keyword   	|
-| sip.uri.host              	| sip.cybercity.dk                             	| keyword   	|
-| sip.uri.port              	| 5060                                         	| long      	|
-| sip.version               	| 2                                            	| keyword   	|
-|                           	|                                              	|           	|
-| **SIP Response**              | SIP/2.0 200 OK                               	|           	|
-| sip.code                  	| 200                                          	| keyword   	|
-| sip.status                	| ok                                           	| keyword   	|
-| sip.version               	| 2                                            	| keyword   	|
-|                           	|                                              	|           	|
-| **SIP Headers**               |                                              	|           	|
-| sip.accept                	| application/sdp                              	| keyword   	|
-| sip.allow[]               	| REGISTER, INVITE, ACK, BYE                   	| keyword[] 	|
-| sip.call_id               	| 1-1966@10.0.2.20                             	| keyword   	|
-| sip.content_length        	| 0                                            	| integer   	|
-| sip.content_type          	| application/sdp                              	| keyword   	|
-| sip.max_forwards          	| 70                                           	| integer   	|
-| sip.private.uri.original  	| sip:35104723@sip.cybercity.dk                	| keyword   	|
-| sip.private.original.text 	| sip.cybercity.dk                             	| text      	|
-| sip.private.uri.scheme    	| sip                                          	| keyword   	|
-| sip.private.username      	| 35104723                                     	| keyword   	|
-| sip.supported[]           	| timer, path, replaces                        	| keyword[] 	|
-| user_agent.original       	| FreeSWITCH-mod_sofia/1.6.12-20-b91a0a6~64bit 	| keyword   	|
-| user_agent.original.text  	| FreeSWITCH-mod_sofia/1.6.12-20-b91a0a6~64bit 	| text      	|
-|                           	|                                              	|           	|
-| **SIP Headers CSEQ**        	| 68 invite                                    	|           	|
-| sip.cseq.code             	| 68                                           	| integer   	|
-| sip.cseq.method           	| invite                                       	| keyword   	|
-|                               |                                               |               |
-| **SIP Headers Via**              | Ex 1: SIP/2.0/UDP 192.168.1.2;received=80.230.219.70;rport=5060;branch=z9hG4bKnp112903503-43a64480192.168.1.2 EX2: SIP/2.0/UDP 10.0.2.20:5060;branch=z9hG4bK-1966-1-0                                               	|             	|
-| sip.via.transport             	| udp                                                                                                                                                                                                                 	| keyword     	|
-| sip.via.sent_by.address       	| 192.168.1.2                                                                                                                                                                                                         	| keyword     	|
-| sip.via.sent_by.port          	|                                                                                                                                                                                                                     	| long        	|
-| sip.via.received.address      	| 80.230.219.70                                                                                                                                                                                                       	| keyword     	|
-| sip.via.rport                	| 5060                                                                                                                                                                                                                	|             	|
-| sip.via.branch                	| z9hG4bKnp112903503-43a64480192.168.1.2                                                                                                                                                                              	| keyword     	|
-|                               	|                                                                                                                                                                                                                     	|             	|
-| **SIP Headers To**              	| test <sip:test@10.0.2.15:5060>;tag=QvN92t713vSZK                                                                                                                                                                  |             	|
-| sip.to.display_info           	| test                                                                                                                                                                                                                	| keyword     	|
-| sip.to.uri.original           	| sip:test@10.0.2.15:5060                                                                                                                                                                                             	| keyword     	|
-| sip.to.uri.original.text      	| sip:test@10.0.2.15:5060                                                                                                                                                                                             	| keyword     	|
-| sip.to.uri.scheme             	| sip                                                                                                                                                                                                                 	| keyword     	|
-| sip.to.uri.username           	| test                                                                                                                                                                                                                	| keyword     	|
-| sip.to.uri.host               	| 10.0.2.15                                                                                                                                                                                                           	| keyword     	|
-| sip.to.uri.port               	| 5060                                                                                                                                                                                                                	| long        	|
-| sip.to.tag                    	| QvN92t713vSZK                                                                                                                                                                                                       	| keyword     	|
-|                               	|                                                                                                                                                                                                                     	|             	|
-|                               	|                                                                                                                                                                                                                     	|             	|
-| **SIP Headers From**            	| EX1: "PCMU/8000" <sip:sipp@10.0.2.20:5060>;tag=1. EX2: "Matthew Hodgson" <sip:matthew@mxtelecom.com>;tag=5c7cdb68                                                                                                   	|             	|
-| sip.from.display_info         	| PCMU/8000                                                                                                                                                                                                           	| keyword     	|
-| sip.from.uri.original         	| sip:sipp@10.0.2.20:5060                                                                                                                                                                                             	| keyword     	|
-| sip.from.uri.original.text    	| sip:sipp@10.0.2.20:5060                                                                                                                                                                                             	| text        	|
-| sip.from.uri.scheme           	| sip                                                                                                                                                                                                                 	| keyword     	|
-| sip.from.uri.username         	| sipp                                                                                                                                                                                                                	| keyword     	|
-| sip.from.uri.host             	| 10.0.2.20                                                                                                                                                                                                           	| keyword     	|
-| sip.from.uri.port             	| 5060                                                                                                                                                                                                                	| long        	|
-| sip.from.tag                  	| 1                                                                                                                                                                                                                   	| integer     	|
-|                               	|                                                                                                                                                                                                                     	|             	|
-| **SIP Headers Contact**         	| <sip:test@10.0.2.15:5060;transport=udp> \| <sip:voi18062@192.168.1.2:5060;line=aca6b97ca3f5e51a>;expires=1200;q=0.500                                                                                               	|             	|
-| sip.contact.display_info      	|                                                                                                                                                                                                                     	| keyword     	|
-| sip.contact.uri.original      	| sip:test@10.0.2.15:5060                                                                                                                                                                                             	| keyword     	|
-| sip.contact.uri.original.text 	| sip:test@10.0.2.15:5060                                                                                                                                                                                             	| text        	|
-| sip.contact.uri.scheme        	| sip                                                                                                                                                                                                                 	| keyword     	|
-| sip.contact.uri.username      	| test                                                                                                                                                                                                                	| keyword     	|
-| sip.contact.uri.host          	| 10.0.2.15                                                                                                                                                                                                           	| keyword     	|
-| sip.contact.uri.port          	| 5060                                                                                                                                                                                                                	| long        	|
-| sip.contact.transport         	| udp                                                                                                                                                                                                                 	| keyword     	|
-| sip.contact.line              	| aca6b97ca3f5e51a                                                                                                                                                                                                    	| keyword     	|
-| sip.contact.expires           	| 1200                                                                                                                                                                                                                	| integer     	|
-| sip.contact.q                 	| 0.5                                                                                                                                                                                                                 	| float       	|
-|                               	|                                                                                                                                                                                                                     	|             	|
-| **SIP Headers Auth**           	| Authorization: Digest username="voi18062",realm="sip.cybercity.dk",uri="sip:192.168.1.2",nonce="1701b22972b90f440c3e4eb250842bb",opaque="1701a1351f70795",nc="00000001",response="79a0543188495d288c9ebbe0c881abdc" 	|             	|
-| sip.auth.scheme               	| Digest                                                                                                                                                                                                              	| keyword     	|
-| sip.auth.realm                	| sip.cybercity.dk                                                                                                                                                                                                    	| keyword     	|
-| sip.auth.uri.original         	| sip:192.168.1.2                                                                                                                                                                                                     	| keyword     	|
-| sip.auth.uri.original.text    	| sip:192.168.1.2                                                                                                                                                                                                     	| text        	|
-| sip.auth.uri.scheme           	| sip                                                                                                                                                                                                                 	| keyword     	|
-| sip.auth.uri.host             	| 192.168.1.2                                                                                                                                                                                                         	| keyword     	|
-| sip.auth.uri.port             	| n/a                                                                                                                                                                                                                 	| long        	|
-| user.name                     	| voi18062                                                                                                                                                                                                            	|             	|
-|                               	|                                                                                                                                                                                                                     	|             	|
-| **SIP Body / SDP**              	| 1.20826E+12                                                                                                                                                                                                         	|             	|
-| sip.sdp.version               	| 0                                                                                                                                                                                                                   	| integer     	|
-| sip.sdp.owner.username        	| Matthew                                                                                                                                                                                                             	| keyword     	|
-| sip.sdp.owner.session_id      	| 1.20826E+12                                                                                                                                                                                                         	| long?       	|
-| sip.sdp.owner.version         	| 1.20826E+12                                                                                                                                                                                                         	| long?       	|
-| sip.sdp.owner.ip              	| 127.0.0.1                                                                                                                                                                                                           	| ip          	|
-| sip.sdp.session.name          	| CounterPath eyeBeam 1.5                                                                                                                                                                                             	| keyword     	|
-| event.start                   	|                                                                                                                                                                                                                     	| long?       	|
-| event.stop                    	|                                                                                                                                                                                                                     	|             	|
-| sdp.connection.address        	| 127.0.0.1                                                                                                                                                                                                           	|             	|
-|                               	|                                                                                                                                                                                                                     	|             	|
-| **SIP Body / SDP Media**         	| audio 27942 RTP/AVP 0 101                                                                                                                                                                                           	|             	|
-| sip.sdp.audio.description[]   	| audio 57126 RTP/AVP 8 101                                                                                                                                                                                           	| wildcard?   	|
-| sip.sdp.audio.port            	| 57126                                                                                                                                                                                                               	| long        	|
-| sip.sdp.media.format[]        	| 8, 101 (ITU-T G.711 PCMA, DynamicRTP-Type-101)                                                                                                                                                                      	| wildcard?[] 	|
-| sip.sdp.media.attributes[]    	| 0 PCMU/8000, 101 telephone-event/8000, fmtp:101 0-16                                                                                                                                                                	| wildcard?[] 	|
-|                               	|                                                                                                                                                                                                                     	|             	|
-| sip.sdp.video.description[]   	| video 57126 RTP/AVP 8 101                                                                                                                                                                                           	|             	|
-| sip.sdp.video.port            	| 57126                                                                                                                                                                                                               	|             	|
-| sip.sdp.video.format[]        	| 8, 101 (ITU-T G.711 PCMA, DynamicRTP-Type-101)                                                                                                                                                                      	| wildcard?[] 	|
-| sip.sdp.video.attributes[]    	| 0 PCMU/8000, 101 telephone-event/8000, fmtp:101 0-16                                                                                                                                                                	| wildcard?[] 	|
+| Sip Fields                    | type          | Example                                          |
+|---------------------------    |-----------    |----------------------------------------------    |
+| | | |
+| **SIP Request** | | INVITE sip:test@10.0.2.15:5060 SIP/2.0 |
+| sip.type                      | keyword       | request / response |
+| sip.method                    | keyword       | invite |
+| sip.uri.original              | wildcard      | test@10.0.2.15:5060 |
+| sip.uri.original.text         | text          | test@10.0.2.15:5060 |
+| sip.uri.scheme                | keyword       | sip |
+| sip.uri.username              | keyword       | test |
+| sip.uri.host                  | keyword       | sip.cybercity.dk |
+| sip.uri.port                  | long          | 5060 |
+| sip.version                   | keyword       | 2 |
+| | | |
+| **SIP Response** | | SIP/2.0 200 OK |
+| sip.status_code               | keyword       | 200 |
+| sip.status                    | keyword       | ok |
+| sip.version                   | keyword       | 2 |
+| | | |
+| **SIP Headers** | | |
+| sip.accept                    | keyword       | application/sdp |
+| sip.allow[]                   | keyword[]     | REGISTER, INVITE, ACK, BYE |
+| sip.call_id                   | keyword       | 1-1966@10.0.2.20 |
+| sip.content_length            | integer       | 0 |
+| sip.content_type              | keyword       | application/sdp |
+| sip.max_forwards              | integer       | 70 |
+| sip.private.uri.original      | wildcard      | sip:35104723@sip.cybercity.dk |
+| sip.private.uri.scheme        | keyword       | sip |
+| sip.private.username          | keyword       | 35104723 |
+| sip.supported[]               | keyword[]     | timer, path, replaces |
+| user_agent.original           | keyword       | FreeSWITCH-mod_sofia/1.6.12-20-b91a0a6~64bit |
+| user_agent.original.text      | text          | FreeSWITCH-mod_sofia/1.6.12-20-b91a0a6~64bit |
+| | | |
+| **SIP Headers CSEQ** | | 68 invite |
+| sip.cseq.code                 | integer       | 68 |
+| sip.cseq.method               | keyword       | invite |
+| | | |
+| **SIP Headers Via** | | SIP/2.0/UDP 192.168.1.2;received=80.230.219.70;rport=5061 branch=z9hG4bKnp112903503-43a64480192.168.1.2 |
+| sip.via.transport             | keyword       | udp |
+| sip.via.sent_by.address       | keyword       | 192.168.1.2 |
+| sip.via.sent_by.port          | long          | 5060 |
+| sip.via.received.address      | keyword       | 80.230.219.70 |
+| sip.via.rport                 | long          | 5060|
+| sip.via.branch                | keyword       | z9hG4bKnp112903503-43a64480192.168.1.2 |
+| | | |
+| **SIP Headers To** | | test <sip:test@10.0.2.15:5060>;tag=QvN92t713vSZK  |
+| sip.to.display_info           | keyword       | test |
+| sip.to.uri.original           | wildcard      | sip:test@10.0.2.15:5060 |
+| sip.to.uri.scheme             | keyword       | sip |
+| sip.to.uri.username           | keyword       | test |
+| sip.to.uri.host               | keyword       | 10.0.2.15 |
+| sip.to.uri.port               | long          | 5060 |
+| sip.to.tag                    | keyword       | QvN92t713vSZK |
+| | | |
+| **SIP Headers From** | |  "PCMU/8000" <sip:sipp@10.0.2.20:5060>;tag=1 |
+| sip.from.display_info         | keyword       | PCMU/8000 |
+| sip.from.uri.original         | wilcard       | sip:sipp@10.0.2.20:5060  |
+| sip.from.uri.scheme           | keyword       | sip | |
+| sip.from.uri.username         | keyword       | sipp | |
+| sip.from.uri.host             | keyword       | 10.0.2.20 | |
+| sip.from.uri.port             | long          | 5060 |
+| sip.from.tag                  | keyword       | 1 |
+| | | |
+| **SIP Headers Contact** | |  "Matthew Hodgson" <sip:voi18062@192.168.1.2:5060;line=aca6b97ca3f5e51a>;expires=1200;q=0.500 |
+| sip.contact.display_info      | keyword      | |
+| sip.contact.uri.original      | wildcard     | sip:test@10.0.2.15:5060 |
+| sip.contact.uri.scheme        | keyword      | sip |
+| sip.contact.uri.username      | keyword      | test |
+| sip.contact.uri.host          | keyword      | 10.0.2.15 |
+| sip.contact.uri.port          | long         | 5060 |
+| sip.contact.transport         | keyword      | udp | |
+| sip.contact.line              | keyword      | aca6b97ca3f5e51a |
+| sip.contact.expires           | integer      | 1200 |
+| sip.contact.q                 | float        | 0.5 |
+| | | |
+| **SIP Headers Auth** | | Authorization: Digest username="voi18062",realm="sip.cybercity.dk",uri="sip:192.168.1.2",nonce="1701b22972b90f440c3e4eb250842bb",opaque="1701a1351f70795",nc="00000001",response="79a0543188495d288c9ebbe0c881abdc" |
+| sip.auth.scheme               | keyword      | Digest |
+| sip.auth.realm                | keyword      | sip.cybercity.dk |
+| sip.auth.uri.original         | wildcard     | sip:192.168.1.2 |
+| sip.auth.uri.scheme           | keyword      | sip |
+| sip.auth.uri.host             | keyword      | 192.168.1.2 |
+| sip.auth.uri.port             | long         | |
+| user.name                     | keyword      | voi18062 |
+| | | |
+| **SIP Body / SDP** | | Needs Example |
+| sip.sdp.version               | integer      | 0 |
+| sip.sdp.owner.username        | keyword      | Matthew |
+| sip.sdp.owner.session_id      | keyword      | |
+| sip.sdp.owner.version         | keyword      | |
+| sip.sdp.owner.ip              | keyword      | 127.0.0.1 |
+| sip.sdp.session.name          | keyword      | CounterPath eyeBeam 1.5 |
+| sdp.connection.address        | keyword      | 127.0.0.1 |
+| | | |
+| **SIP Body / SDP Media**      |              | audio 27942 RTP/AVP 0 101 |
+| sip.sdp.audio.description[]   | wildcard     | audio 57126 RTP/AVP 8 101 |
+| sip.sdp.audio.port            | long         | 57126 |
+| sip.sdp.media.format[]        | wildcard     | 8, 101 (ITU-T G.711 PCMA, DynamicRTP-Type-101) |
+| sip.sdp.media.attributes[]    | wildcard     | 0 PCMU/8000, 101 telephone-event/8000, fmtp:101 0-16 |
+| sip.sdp.video.description[]   | wildcard     | video 57126 RTP/AVP 8 101 |
+| sip.sdp.video.port            | keyword      | 57126 |
+| sip.sdp.video.format[]        | wildcard     | 8, 101 (ITU-T G.711 PCMA, DynamicRTP-Type-101) |
+| sip.sdp.video.attributes[]    | wildcard     | 0 PCMU/8000, 101 telephone-event/8000, fmtp:101 0-16 |
 
 
 ## Usage
@@ -166,10 +157,9 @@ The goal here is to research and understand the impact of these changes on users
 
 ## Concerns
 
-Normalization, and the degree of normalization, of SIP URI fields may be an issue for discussion based on the potential implementation of ingesting SIP call records for the purposes of review for e.g. various types of communications fraud (e.g. should PSTN numbers be normalized with international dial codes, should implementaiton include capabilities to define internal call plans for more effective analysis, etc.)
+Normalization, and the degree of normalization, of SIP URI fields may be an issue for discussion based on the potential implementation of ingesting SIP call records for the purposes of review of e.g. various types of communications fraud (e.g. should PSTN numbers be normalized with international dial codes, should implementation include capabilities to define internal call plans for more effective analysis, etc.)
 
-Normalization of SIP/SDP and real time communication protocol connections may require the definition of a field similar to network.community_id to allow for the tracking of the full scope of a connection. Additionally the initial SDP setup phase often includes
-multiple audio/video codec definitions which may be difficult to normalize in such a way as to make analysis of the call setup phase effective.
+Normalization of SIP/SDP and real time communication protocol connections may require the definition of a field similar to network.community_id to allow for the tracking of the full scope of a connection. Additionally the initial SDP setup phase often includes multiple audio/video codec definitions which may be difficult to normalize in such a way as to make analysis of the call setup phase effective.
 
 Utilizing SIP fields in combination with network performance indicators (IP SLA, QOS settings, jitter, mos, etc.) would also be of interest to many users looking at SIP logging.
 <!--
@@ -191,9 +181,14 @@ Stage 4: Document any new concerns and their resolution. The goal here is to eli
 ## Real-world implementations
 
 Packetbeat Implementation (packet/protocol analysis)
+
+<!--
+Potential Additional Imnplementations
 Zeek Implementation (packet/protocol/connection analysis)
 Cisco Call Manager (Log ingestion)
 Microsoft Lync (Log Analysis)
+-->
+
 <!--
 Stage 4: Identify at least one real-world, production-ready implementation that uses these updated field definitions. An example of this might be a GA feature in an Elastic application in Kibana.
 -->
@@ -203,6 +198,8 @@ Stage 4: Identify at least one real-world, production-ready implementation that 
 The following are the people that consulted on the contents of this RFC.
 
 * @DainPerkins | Author
+* @marc-gr | Sponsor
+* @jiriatipteldotorg | Subject Matter Expert
 
 <!--
 Who will be or has been consulted on the contents of this RFC? Identify authorship and sponsorship, and optionally identify the nature of involvement of others. Link to GitHub aliases where possible. This list will likely change or grow stage after stage.
@@ -220,15 +217,15 @@ e.g.:
 ## References
 
 <!-- Insert any links appropriate to this RFC in this section. -->
-https://tools.ietf.org/html/rfc3261
-https://tools.ietf.org/html/rfc5621
-https://tools.ietf.org/html/rfc5630
-https://tools.ietf.org/html/rfc6878
-https://tools.ietf.org/html/rfc8591
-https://tools.ietf.org/id/draft-ietf-sipclf-format-05.html
-https://www.sipforum.org/
+* https://tools.ietf.org/html/rfc3261
+* https://tools.ietf.org/html/rfc5621
+* https://tools.ietf.org/html/rfc5630
+* https://tools.ietf.org/html/rfc6878
+* https://tools.ietf.org/html/rfc8591
+* https://tools.ietf.org/id/draft-ietf-sipclf-format-05.html
+* https://www.sipforum.org/
 
-https://github.com/elastic/ecs/issues/420
+* https://github.com/elastic/ecs/issues/420
 
 ### RFC Pull Requests
 
