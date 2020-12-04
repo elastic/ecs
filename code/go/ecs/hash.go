@@ -27,7 +27,7 @@ package ecs
 // Note that this fieldset should be used for common hashes that may be
 // computed over a range of generic bytes. Entity-specific hashes such as ja3
 // or imphash should be placed in the fieldsets to which they relate (i.e. tls
-// an pe).
+// and pe).
 type Hash struct {
 	// MD5 hash.
 	Md5 string `ecs:"md5"`
