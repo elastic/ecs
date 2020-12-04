@@ -157,6 +157,145 @@ class TestGeneratorsEsTemplate(unittest.TestCase):
         exp = {'type': 'constant_keyword'}
         self.assertEqual(es_template.entry_for(test_map), exp)
 
+    def test_es6_fallback_base_case_wildcard(self):
+        test_map = {
+            "field": {
+                "name": "field",
+                "type": "wildcard"
+            }
+        }
+
+        exp = {
+            "field": {
+                "name": "field",
+                "type": "keyword",
+                "ignore_above": 1024
+            }
+        }
+
+        es_template.es6_type_fallback(test_map)
+        self.assertEqual(test_map, exp)
+
+    def test_es6_fallback_recursive_case_wildcard(self):
+        test_map = {
+            "top_field": {
+                "properties": {
+                    "field": {
+                        "name": "field",
+                        "type": "wildcard"
+                    }
+                }
+            }
+        }
+
+        exp = {
+            "top_field": {
+                "properties": {
+                    "field": {
+                        "name": "field",
+                        "type": "keyword",
+                        "ignore_above": 1024
+                    }
+                }
+            }
+        }
+
+        es_template.es6_type_fallback(test_map)
+        self.assertEqual(test_map, exp)
+
+    def test_es6_fallback_base_case_version(self):
+        test_map = {
+            "field": {
+                "name": "field",
+                "type": "version"
+            }
+        }
+
+        exp = {
+            "field": {
+                "name": "field",
+                "type": "keyword",
+                "ignore_above": 1024
+            }
+        }
+
+        es_template.es6_type_fallback(test_map)
+        self.assertEqual(test_map, exp)
+
+    def test_es6_fallback_recursive_case_version(self):
+        test_map = {
+            "top_field": {
+                "properties": {
+                    "field": {
+                        "name": "field",
+                        "type": "version"
+                    }
+                }
+            }
+        }
+
+        exp = {
+            "top_field": {
+                "properties": {
+                    "field": {
+                        "name": "field",
+                        "type": "keyword",
+                        "ignore_above": 1024
+                    }
+                }
+            }
+        }
+
+        es_template.es6_type_fallback(test_map)
+        self.assertEqual(test_map, exp)
+
+    def test_es6_fallback_base_case_constant_keyword(self):
+        test_map = {
+            "field": {
+                "name": "field",
+                "type": "constant_keyword"
+            }
+        }
+
+        exp = {
+            "field": {
+                "name": "field",
+                "type": "keyword",
+                "ignore_above": 1024
+            }
+        }
+
+        es_template.es6_type_fallback(test_map)
+        self.assertEqual(test_map, exp)
+
+    def test_es6_fallback_recursive_case_constant_keyword(self):
+        test_map = {
+            "top_field": {
+                "properties": {
+                    "field": {
+                        "name": "field",
+                        "type": "constant_keyword"
+                    }
+                }
+            }
+        }
+
+        exp = {
+            "top_field": {
+                "properties": {
+                    "field": {
+                        "name": "field",
+                        "type": "keyword",
+                        "ignore_above": 1024
+                    }
+                }
+            }
+        }
+
+        es_template.es6_type_fallback(test_map)
+        self.assertEqual(test_map, exp)
+
+
 
 if __name__ == '__main__':
     unittest.main()
