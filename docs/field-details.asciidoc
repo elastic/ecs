@@ -7541,6 +7541,10 @@ The user fields describe information about the user that is relevant to the even
 
 Fields can have one entry or multiple entries. If a user has more than one id, provide an array that includes all of them.
 
+Find additional usage and examples in the user fields <<ecs-user-usage,usage>> section.
+
+
+
 [discrete]
 ==== User Field Details
 
@@ -7686,7 +7690,7 @@ example: `["kibana_admin", "reporting_user"]`
 [discrete]
 ==== Field Reuse
 
-The `user` fields are expected to be nested at: `client.user`, `destination.user`, `host.user`, `server.user`, `source.user`.
+The `user` fields are expected to be nested at: `client.user`, `destination.user`, `host.user`, `server.user`, `source.user`, `user.changes`, `user.effective`, `user.target`.
 
 Note also that the `user` fields may be used directly at the root of the events.
 
@@ -7704,13 +7708,38 @@ Note also that the `user` fields may be used directly at the root of the events.
 // ===============================================================
 
 
+| <<ecs-user,user.changes.*>>| beta:[ Reusing the user fields in this location is currently considered beta.]
+
+Fields to describe the user relevant to the event.
+
+// ===============================================================
+
+
+| <<ecs-user,user.effective.*>>| beta:[ Reusing the user fields in this location is currently considered beta.]
+
+Fields to describe the user relevant to the event.
+
+// ===============================================================
+
+
 | <<ecs-group,user.group.*>>
 | User's group relevant to the event.
 
 // ===============================================================
 
 
+| <<ecs-user,user.target.*>>| beta:[ Reusing the user fields in this location is currently considered beta.]
+
+Fields to describe the user relevant to the event.
+
+// ===============================================================
+
+
 |=====
+
+
+
+include::usage/user.asciidoc[]
 
 [[ecs-user_agent]]
 === User agent Fields
