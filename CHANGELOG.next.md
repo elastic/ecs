@@ -18,6 +18,8 @@ Thanks, you're awesome :-) -->
 
 * Added `event.category` "registry". #1040
 * Added `event.category` "session". #1049
+* Added usage documentation for `user` fields. #1066
+* Added `user` fields at `user.effective.*`, `user.target.*` and `user.changes.*`. #1066
 * Added `os.type`. #1111
 
 #### Improvements
@@ -25,6 +27,8 @@ Thanks, you're awesome :-) -->
 * Note `[` and `]` bracket characters may enclose a literal IPv6 address when populating `url.domain`. #1131
 
 #### Deprecated
+
+* Deprecated `host.user.*` fields for removal at the next major. #1066
 
 ### Tooling and Artifact Changes
 
