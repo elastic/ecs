@@ -1,16 +1,18 @@
 [[ecs-basic-types]]
-=== Basic Data Types
+=== Data Types
 
-NOTE: This section only applies to users of the Apache 2.0 license, OSS-only distribution of the Elastic Stack. Users of the default distribution under the Elastic license have access to all data types.
+IMPORTANT: The limitations noted in this section apply to the OSS-only distribution of the Elastic Stack. The default distribution with the Elastic license supports all data type used by ECS.
 
-Beginning in ECS 1.8.0, certain ECS fields adopt data types available only under the Basic license of the Elastic Stack. The OSS-only distribution does not have these data types available.
+Beginning with ECS 1.8.0, the ECS specification adopted additional Elasticsearch {ref-bare}/current/mapping-types.html[data types] only available in the default distribution of the Elastic Stack.
 
-Open source users can still benefit from ECS normalization. Any basic data types can be replaced with an equivalent fallback type if one is available. If a field uses a data type with no fallback available, open source users should not populate that ECS field.
+OSS-only users can still benefit from normalizing data to ECS. Some licensed data types will have a fallback, but OSS-only users will not populate a field if a fallback is not available.
+
+The following table details the additional types and their respective fallback type:
 
 [options="header"]
-.Basic Data Types and their Fallback Types
+.Data Types and their Fallback Type
 |=====
-| Basic Data Type | Open Source Fallback
+| Data Type | Fallback
 
 // ===============================================================
 
@@ -24,10 +26,6 @@ Open source users can still benefit from ECS normalization. Any basic data types
 
 |=====
 
-Depending on the method of data ingestion and template management, there are a few options for OSS-only distribution users to manage data type fallback:
+Some components will self-manage type fallback. OSS-only Beats will perform the fallback automatically, and OSS-only Logstash will install an OSS-compatible ECS template. The ECS tooling introduced a flag, `--oss`, for users to generate OSS-only compatible Elasticsearch index templates. The ECS tooling {ecs_github_repo_link}/USAGE.md#oss[usage guide] contains a detailed example.
 
-* Apache 2.0 license OSS-only Beats will perform this fallback for users.
-* Apache 2.0 license OSS-only Logstash will install an OSS-compatible ECS template.
-* The ECS tooling provides a flag, `--oss`, as an option for OSS-only users to generate OSS-compatible index templates. The {ecs_github_repo_link}/USAGE.md#oss[ECS GitHub repo] has additional details on the flag's usage.
-
-Support for these OSS-only fallback use cases are not to be considered an official variant of ECS but rather provided as a workaround.
+The use of fallback types are not a supported, official ECS variant but instead provided as a workaround.
