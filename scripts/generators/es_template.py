@@ -97,6 +97,13 @@ def generate_template_version(elasticsearch_version, mappings_section, out_dir, 
     if elasticsearch_version == 6:
         es6_mappings_section = copy.deepcopy(mappings_section)
         es6_type_fallback(es6_mappings_section['properties'])
+
+        # error.stack_trace needs special handling to set
+        # index: false and doc_values: false
+        error_stack_trace_mappings = es6_mappings_section['properties']['error']['properties']['stack_trace']
+        error_stack_trace_mappings.setdefault('index', False)
+        error_stack_trace_mappings.setdefault('doc_values', False)
+
         template['mappings'] = {'_doc': es6_mappings_section}
     else:
         template['mappings'] = mappings_section
