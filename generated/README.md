@@ -18,9 +18,11 @@ in a spreadsheet.
   default values are filled in, all fields being reused elsewhere are made explicit,
   additional attributes are computed.
 
-* `elasticsearch/{6,7}/template.json`: Sample Elasticsearch templates to get
-  started using ECS. Check out how to use them in
-  [generated/elasticsearch/README.md](elasticsearch).
+* `elasticsearch/`: Reference Elasticsearch component templates and a sample legacy
+  all-in-one template to get started using ECS. Check out how to use them in
+  [generated/elasticsearch/README.md](elasticsearch). Note that you can adjust
+  the fields included in these templates by following instructions in
+  [USAGE.md](/USAGE.md)
 
 If you'd like to share your own generator with the ECS community, you're welcome
 to look at our [contribution guidelines](/CONTRIBUTING.md), and then at the
