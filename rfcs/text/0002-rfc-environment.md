@@ -218,7 +218,7 @@ Sample of APM Transaction using `service.name` and `service.environment`
   }
 }
 ```
-### Sample Filebeat JSON document generated via the logback-ecs-endocer library
+### Sample Filebeat JSON document generated via the logback-ecs-encoder library
 
 `service.environment` would be added next to `service.name`
 
