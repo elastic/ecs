@@ -390,3 +390,4 @@ Stage 4: Identify at least one real-world, production-ready implementation that 
 <!-- An RFC should link to the PRs for each of it stage advancements. -->	
 
 * Stage 0: https://github.com/elastic/ecs/pull/891
+* Stage 1: https://github.com/elastic/ecs/pull/1070
