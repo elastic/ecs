@@ -380,7 +380,6 @@ Stage 4: Identify at least one real-world, production-ready implementation that 
 * @cyrille-leclerc | author
 * ? | sponsor
 * @exekias | subject matter expert
-* ? | grammar, spelling, prose
 
 ## References	
 
