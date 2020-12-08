@@ -1,8 +1,8 @@
 # 0005: Host Metric Fields
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
-- Stage: **1 (proposal)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
-- Date: **2020-10-13** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
+- Stage: **2 (draft)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
+- Date: **2020-12-01** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 <!--
 As you work on your RFC, use the "Stage N" comments to guide you in what you should focus on, for the stage you're targeting.
@@ -22,21 +22,16 @@ Proposed 7 new fields are:
 * host.disk.write.bytes
 
 ## Fields
+This RFC calls for the addition of host fields to collect basic monitoring metrics from a host or VM such as CPU, network and disk.
+Please see [`host`](0005/host.yml) for definitions of all fields.
+
+Note: the `host.network.*` and `host.disk.*` fields are gauges which represent
+IO since the last metric collection. In order to interpret these metrics, the
+collection period is needed. Collection period will be added into ECS separately.
 
 <!--
 Stage 1: Describe at a high level how this change affects fields. Which fieldsets will be impacted? How many fields overall? Are we primarily adding fields, removing fields, or changing existing fields? The goal here is to understand the fundamental technical implications and likely extent of these changes. ~2-5 sentences.
 -->
-This RFC calls for the addition of host fields to collect basic monitoring metrics from a host or VM such as CPU, network and disk.
-
-| field | type | description |
-| --- | --- | --- |
-| `host.cpu.usage` | scaled_float (scaling_factor 1000) | Percent CPU used with scaling_factor of 1000. This value is normalized by the number of CPU cores and it ranges from 0 to 1. For example: For a two core host, this value should be the average of the 2 cores, between 0 and 1. |
-| `host.network.ingress.bytes` | long | The number of bytes received (gauge) on all network interfaces by the host in a given period of time. |
-| `host.network.ingress.packets` | long | The number of packets (gauge) received on all network interfaces by the host in a given period of time. |
-| `host.network.egress.bytes` | long | The number of bytes (gauge) sent out on all network interfaces by the host in a given period of time. |
-| `host.network.egress.packets` | long | The number of packets (gauge) sent out on all network interfaces by the host in a given period of time. |
-| `host.disk.read.bytes` | long | The total number of bytes (gauge) read successfully in a given period of time. |
-| `host.disk.write.bytes` | long | The total number of bytes (gauge) write successfully in a given period of time. |
 
 <!--
 Stage 2: Include new or updated yml field definitions for all of the essential fields in this draft. While not exhaustive, the fields documented here should be comprehensive enough to deeply evaluate the technical considerations of this change. The goal here is to validate the technical details for all essential fields and to provide a basis for adding experimental field definitions to the schema. Use GitHub code blocks with yml syntax formatting.
@@ -73,6 +68,9 @@ Stage 1: Provide a high-level description of example sources of data. This does 
 <!--
 Stage 2: Included a real world example source document. Ideally this example comes from the source(s) identified in stage 1. If not, it should replace them. The goal here is to validate the utility of these field changes in the context of a real world example. Format with the source name as a ### header and the example document in a GitHub code block with json formatting.
 -->
+
+Please see example source document from AWS EC2 instance in
+[rfcs/text/0005/ec2.json](0005/ec2.json).
 
 <!--
 Stage 3: Add more real world example source documents so we have at least 2 total, but ideally 3. Format as described in stage 2.
@@ -159,6 +157,8 @@ e.g.:
 
 * Stage 0: https://github.com/elastic/ecs/pull/947
 * Stage 1: https://github.com/elastic/ecs/pull/950
+* Stage 2: https://github.com/elastic/ecs/pull/1028
+  * Stage 2 correction: https://github.com/elastic/ecs/pull/1158
 
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN

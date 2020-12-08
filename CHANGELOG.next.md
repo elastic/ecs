@@ -18,17 +18,25 @@ Thanks, you're awesome :-) -->
 
 * Added `event.category` "registry". #1040
 * Added `event.category` "session". #1049
+* Added usage documentation for `user` fields. #1066
+* Added `user` fields at `user.effective.*`, `user.target.*` and `user.changes.*`. #1066
 * Added `os.type`. #1111
 
 #### Improvements
 
+* Note `[` and `]` bracket characters may enclose a literal IPv6 address when populating `url.domain`. #1131
+
 #### Deprecated
+
+* Deprecated `host.user.*` fields for removal at the next major. #1066
 
 ### Tooling and Artifact Changes
 
 #### Breaking changes
 
 #### Bugfixes
+
+* `tracing` fields should be at root of Beats `fields.ecs.yml` artifacts. #1164
 
 #### Added
 
@@ -42,6 +50,10 @@ Thanks, you're awesome :-) -->
 * Added component templates for ECS field sets. #1156
 
 #### Improvements
+
+* Added a notice highlighting that the `tracing` fields are not nested under the
+  namespace `tracing.` #1162
+* ES 6.x template data types will fallback to supported types. #1171
 
 #### Deprecated
 

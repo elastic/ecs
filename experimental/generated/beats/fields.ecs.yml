@@ -2047,6 +2047,28 @@
       ignore_above: 1024
       description: Operating system architecture.
       example: x86_64
+    - name: cpu.usage
+      level: extended
+      type: scaled_float
+      description: 'Percent CPU used which is normalized by the number of CPU cores
+        and it ranges from 0 to 1. Scaling factor: 1000.
+
+        For example: For a two core host, this value should be the average of the
+        two cores, between 0 and 1.'
+      scaling_factor: 1000
+      default_field: false
+    - name: disk.read.bytes
+      level: extended
+      type: long
+      description: The total number of bytes (gauge) read successfully (aggregated
+        from all disks) since the last metric collection.
+      default_field: false
+    - name: disk.write.bytes
+      level: extended
+      type: long
+      description: The total number of bytes (gauge) written successfully (aggregated
+        from all disks) since the last metric collection.
+      default_field: false
     - name: domain
       level: extended
       type: keyword
@@ -2143,6 +2165,30 @@
         It can contain what `hostname` returns on Unix systems, the fully qualified
         domain name, or a name specified by the user. The sender decides which value
         to use.'
+    - name: network.egress.bytes
+      level: extended
+      type: long
+      description: The number of bytes (gauge) sent out on all network interfaces
+        by the host since the last metric collection.
+      default_field: false
+    - name: network.egress.packets
+      level: extended
+      type: long
+      description: The number of packets (gauge) sent out on all network interfaces
+        by the host since the last metric collection.
+      default_field: false
+    - name: network.ingress.bytes
+      level: extended
+      type: long
+      description: The number of bytes received (gauge) on all network interfaces
+        by the host since the last metric collection.
+      default_field: false
+    - name: network.ingress.packets
+      level: extended
+      type: long
+      description: The number of packets (gauge) received on all network interfaces
+        by the host since the last metric collection.
+      default_field: false
     - name: os.family
       level: extended
       type: keyword
@@ -5212,43 +5258,34 @@
       description: Normalized lowercase protocol name parsed from original string.
       example: tls
       default_field: false
-  - name: tracing
-    title: Tracing
-    group: 2
-    description: Distributed tracing makes it possible to analyze performance throughout
-      a microservice architecture all in one view. This is accomplished by tracing
-      all of the requests - from the initial web request in the front-end service
-      - to queries made through multiple back-end services.
-    type: group
-    fields:
-    - name: span.id
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: 'Unique identifier of the span within the scope of its trace.
+  - name: span.id
+    level: extended
+    type: keyword
+    ignore_above: 1024
+    description: 'Unique identifier of the span within the scope of its trace.
 
-        A span represents an operation within a transaction, such as a request to
-        another service, or a database query.'
-      example: 3ff9a8981b7ccd5a
-      default_field: false
-    - name: trace.id
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: 'Unique identifier of the trace.
+      A span represents an operation within a transaction, such as a request to another
+      service, or a database query.'
+    example: 3ff9a8981b7ccd5a
+    default_field: false
+  - name: trace.id
+    level: extended
+    type: keyword
+    ignore_above: 1024
+    description: 'Unique identifier of the trace.
 
-        A trace groups multiple events like transactions that belong together. For
-        example, a user request handled by multiple inter-connected services.'
-      example: 4bf92f3577b34da6a3ce929d0e0e4736
-    - name: transaction.id
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: 'Unique identifier of the transaction within the scope of its trace.
+      A trace groups multiple events like transactions that belong together. For example,
+      a user request handled by multiple inter-connected services.'
+    example: 4bf92f3577b34da6a3ce929d0e0e4736
+  - name: transaction.id
+    level: extended
+    type: keyword
+    ignore_above: 1024
+    description: 'Unique identifier of the transaction within the scope of its trace.
 
-        A transaction is the highest level of work measured within a service, such
-        as a request to a server.'
-      example: 00f067aa0ba902b7
+      A transaction is the highest level of work measured within a service, such as
+      a request to a server.'
+    example: 00f067aa0ba902b7
   - name: url
     title: URL
     group: 2
@@ -5262,19 +5299,26 @@
       description: 'Domain of the url, such as "www.elastic.co".
 
         In some cases a URL may refer to an IP and/or port directly, without a domain
-        name. In this case, the IP address would go to the `domain` field.'
+        name. In this case, the IP address would go to the `domain` field.
+
+        If the URL contains a literal IPv6 address enclosed by `[` and `]` (IETF RFC
+        2732), the `[` and `]` characters should also be captured in the `domain`
+        field.'
       example: www.elastic.co
     - name: extension
       level: extended
       type: keyword
       ignore_above: 1024
       description: 'The field contains the file extension from the original request
-        url.
+        url, excluding the leading dot.
 
         The file extension is only set if it exists, as not every url has a file extension.
 
         The leading period must not be included. For example, the value must be "png",
-        not ".png".'
+        not ".png".
+
+        Note that when the file name has multiple extensions (example.tar.gz), only
+        the last one should be captured ("gz", not "tar.gz").'
       example: png
     - name: fragment
       level: extended

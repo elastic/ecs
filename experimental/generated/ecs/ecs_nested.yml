@@ -158,7 +158,7 @@ base:
     events. These fields are common across all types of events.
   fields:
     '@timestamp':
-      dashed_name: -timestamp
+      dashed_name: timestamp
       description: 'Date/time when the event originated.
 
         This is the date/time extracted from the event, typically representing when
@@ -3843,6 +3843,40 @@ host:
       normalize: []
       short: Operating system architecture.
       type: keyword
+    host.cpu.usage:
+      dashed_name: host-cpu-usage
+      description: 'Percent CPU used which is normalized by the number of CPU cores
+        and it ranges from 0 to 1. Scaling factor: 1000.
+
+        For example: For a two core host, this value should be the average of the
+        two cores, between 0 and 1.'
+      flat_name: host.cpu.usage
+      level: extended
+      name: cpu.usage
+      normalize: []
+      scaling_factor: 1000
+      short: Percent CPU used, between 0 and 1.
+      type: scaled_float
+    host.disk.read.bytes:
+      dashed_name: host-disk-read-bytes
+      description: The total number of bytes (gauge) read successfully (aggregated
+        from all disks) since the last metric collection.
+      flat_name: host.disk.read.bytes
+      level: extended
+      name: disk.read.bytes
+      normalize: []
+      short: The number of bytes read by all disks.
+      type: long
+    host.disk.write.bytes:
+      dashed_name: host-disk-write-bytes
+      description: The total number of bytes (gauge) written successfully (aggregated
+        from all disks) since the last metric collection.
+      flat_name: host.disk.write.bytes
+      level: extended
+      name: disk.write.bytes
+      normalize: []
+      short: The number of bytes written on all disks.
+      type: long
     host.domain:
       dashed_name: host-domain
       description: 'Name of the domain of which the host is a member.
@@ -4018,6 +4052,46 @@ host:
       normalize: []
       short: Name of the host.
       type: keyword
+    host.network.egress.bytes:
+      dashed_name: host-network-egress-bytes
+      description: The number of bytes (gauge) sent out on all network interfaces
+        by the host since the last metric collection.
+      flat_name: host.network.egress.bytes
+      level: extended
+      name: network.egress.bytes
+      normalize: []
+      short: The number of bytes sent on all network interfaces.
+      type: long
+    host.network.egress.packets:
+      dashed_name: host-network-egress-packets
+      description: The number of packets (gauge) sent out on all network interfaces
+        by the host since the last metric collection.
+      flat_name: host.network.egress.packets
+      level: extended
+      name: network.egress.packets
+      normalize: []
+      short: The number of packets sent on all network interfaces.
+      type: long
+    host.network.ingress.bytes:
+      dashed_name: host-network-ingress-bytes
+      description: The number of bytes received (gauge) on all network interfaces
+        by the host since the last metric collection.
+      flat_name: host.network.ingress.bytes
+      level: extended
+      name: network.ingress.bytes
+      normalize: []
+      short: The number of bytes received on all network interfaces.
+      type: long
+    host.network.ingress.packets:
+      dashed_name: host-network-ingress-packets
+      description: The number of packets (gauge) received on all network interfaces
+        by the host since the last metric collection.
+      flat_name: host.network.ingress.packets
+      level: extended
+      name: network.ingress.packets
+      normalize: []
+      short: The number of packets received on all network interfaces.
+      type: long
     host.os.family:
       dashed_name: host-os-family
       description: OS family (such as redhat, debian, freebsd, windows).
@@ -9228,10 +9302,14 @@ tls:
   title: TLS
   type: group
 tracing:
-  description: Distributed tracing makes it possible to analyze performance throughout
+  description: 'Distributed tracing makes it possible to analyze performance throughout
     a microservice architecture all in one view. This is accomplished by tracing all
     of the requests - from the initial web request in the front-end service - to queries
     made through multiple back-end services.
+
+    Unlike most field sets in ECS, the tracing fields are *not* nested under the field
+    set name. In other words, the correct field name is `trace.id`, not `tracing.trace.id`,
+    and so on.'
   fields:
     span.id:
       dashed_name: span-id
@@ -9291,7 +9369,11 @@ url:
       description: 'Domain of the url, such as "www.elastic.co".
 
         In some cases a URL may refer to an IP and/or port directly, without a domain
-        name. In this case, the IP address would go to the `domain` field.'
+        name. In this case, the IP address would go to the `domain` field.
+
+        If the URL contains a literal IPv6 address enclosed by `[` and `]` (IETF RFC
+        2732), the `[` and `]` characters should also be captured in the `domain`
+        field.'
       example: www.elastic.co
       flat_name: url.domain
       level: extended
@@ -9302,19 +9384,22 @@ url:
     url.extension:
       dashed_name: url-extension
       description: 'The field contains the file extension from the original request
-        url.
+        url, excluding the leading dot.
 
         The file extension is only set if it exists, as not every url has a file extension.
 
         The leading period must not be included. For example, the value must be "png",
-        not ".png".'
+        not ".png".
+
+        Note that when the file name has multiple extensions (example.tar.gz), only
+        the last one should be captured ("gz", not "tar.gz").'
       example: png
       flat_name: url.extension
       ignore_above: 1024
       level: extended
       name: extension
       normalize: []
-      short: File extension from the original request url.
+      short: File extension from the request url, excluding the leading dot.
       type: keyword
     url.fragment:
       dashed_name: url-fragment
@@ -10034,25 +10119,31 @@ user:
       full: source.user
     - as: target
       at: user
+      beta: Reusing the user fields in this location is currently considered beta.
       full: user.target
     - as: effective
       at: user
+      beta: Reusing the user fields in this location is currently considered beta.
       full: user.effective
     - as: changes
       at: user
+      beta: Reusing the user fields in this location is currently considered beta.
       full: user.changes
     top_level: true
   reused_here:
   - full: user.group
     schema_name: group
     short: User's group relevant to the event.
-  - full: user.target
+  - beta: Reusing the user fields in this location is currently considered beta.
+    full: user.target
     schema_name: user
     short: Fields to describe the user relevant to the event.
-  - full: user.effective
+  - beta: Reusing the user fields in this location is currently considered beta.
+    full: user.effective
     schema_name: user
     short: Fields to describe the user relevant to the event.
-  - full: user.changes
+  - beta: Reusing the user fields in this location is currently considered beta.
+    full: user.changes
     schema_name: user
     short: Fields to describe the user relevant to the event.
   short: Fields to describe the user relevant to the event.

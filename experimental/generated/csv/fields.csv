@@ -230,6 +230,9 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 2.0.0-dev+exp,true,group,group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
 2.0.0-dev+exp,true,group,group.name,keyword,extended,,,Name of the group.
 2.0.0-dev+exp,true,host,host.architecture,keyword,core,,x86_64,Operating system architecture.
+2.0.0-dev+exp,true,host,host.cpu.usage,scaled_float,extended,,,"Percent CPU used, between 0 and 1."
+2.0.0-dev+exp,true,host,host.disk.read.bytes,long,extended,,,The number of bytes read by all disks.
+2.0.0-dev+exp,true,host,host.disk.write.bytes,long,extended,,,The number of bytes written on all disks.
 2.0.0-dev+exp,true,host,host.domain,keyword,extended,,CONTOSO,Name of the directory the group is a member of.
 2.0.0-dev+exp,true,host,host.geo.city_name,keyword,core,,Montreal,City name.
 2.0.0-dev+exp,true,host,host.geo.continent_name,keyword,core,,North America,Name of the continent.
@@ -244,6 +247,10 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 2.0.0-dev+exp,true,host,host.ip,ip,core,array,,Host ip addresses.
 2.0.0-dev+exp,true,host,host.mac,keyword,core,array,,Host mac addresses.
 2.0.0-dev+exp,true,host,host.name,keyword,core,,,Name of the host.
+2.0.0-dev+exp,true,host,host.network.egress.bytes,long,extended,,,The number of bytes sent on all network interfaces.
+2.0.0-dev+exp,true,host,host.network.egress.packets,long,extended,,,The number of packets sent on all network interfaces.
+2.0.0-dev+exp,true,host,host.network.ingress.bytes,long,extended,,,The number of bytes received on all network interfaces.
+2.0.0-dev+exp,true,host,host.network.ingress.packets,long,extended,,,The number of packets received on all network interfaces.
 2.0.0-dev+exp,true,host,host.os.family,keyword,extended,,debian,"OS family (such as redhat, debian, freebsd, windows)."
 2.0.0-dev+exp,true,host,host.os.full,wildcard,extended,,Mac OS Mojave,"Operating system name, including the version or code name."
 2.0.0-dev+exp,true,host,host.os.full.text,text,extended,,Mac OS Mojave,"Operating system name, including the version or code name."
@@ -631,7 +638,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 2.0.0-dev+exp,true,trace,trace.id,keyword,extended,,4bf92f3577b34da6a3ce929d0e0e4736,Unique identifier of the trace.
 2.0.0-dev+exp,true,transaction,transaction.id,keyword,extended,,00f067aa0ba902b7,Unique identifier of the transaction within the scope of its trace.
 2.0.0-dev+exp,true,url,url.domain,wildcard,extended,,www.elastic.co,Domain of the url.
-2.0.0-dev+exp,true,url,url.extension,keyword,extended,,png,File extension from the original request url.
+2.0.0-dev+exp,true,url,url.extension,keyword,extended,,png,"File extension from the request url, excluding the leading dot."
 2.0.0-dev+exp,true,url,url.fragment,keyword,extended,,,Portion of the url after the `#`.
 2.0.0-dev+exp,true,url,url.full,wildcard,extended,,https://www.elastic.co:443/search?q=elasticsearch#top,Full unparsed URL.
 2.0.0-dev+exp,true,url,url.full.text,text,extended,,https://www.elastic.co:443/search?q=elasticsearch#top,Full unparsed URL.
