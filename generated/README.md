@@ -12,14 +12,14 @@ In this directory, you'll find the following:
   definitions in a spreadsheet. GitHub's csv rendering also lets you filter
   the fields, too.
 
-* [ecs/\*.yml](ecs/*.yml): These are the files to use when you need to consume ECS
+* [ecs/\*.yml](ecs/): These are the files to use when you need to consume ECS
   programmatically. The code generating the other ECS artifacts all operate on one
   of these two representations (documentation, csv, Elasticsearch template, etc).
   The two files are the fully fleshed out representation of ECS:
   default values are filled in, all fields being reused elsewhere are made explicit,
   additional attributes are computed.
 
-* [elasticsearch/](elasticsearch/): Reference Elasticsearch component templates
+* [elasticsearch/](elasticsearch#readme): Reference Elasticsearch component templates
   and a sample legacy all-in-one template to get started using ECS.
   Check out how to use them in [elasticsearch/README.md](elasticsearch#readme).
   Note that you can customize the content of these templates by following the
