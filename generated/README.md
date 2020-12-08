@@ -9,7 +9,7 @@ In this directory, you'll find the following:
   be useful to community Beats maintainers.
 
 * [csv/fields.csv](csv/fields.csv): A csv file you can use to import ECS field
-  definitions in a **spreadsheet**. GitHub's csv rendering also lets you filter
+  definitions in a **spreadsheet**. GitHub's csv rendering lets you filter
   the fields, too.
 
 * [ecs/\*.yml](ecs/): These are the files to use when you need to **consume ECS
