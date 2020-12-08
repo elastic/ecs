@@ -6,7 +6,14 @@ point for experimentation.
 When you're ready to customize this template to the precise needs of your use case,
 please check out [USAGE.md](../../USAGE.md).
 
-## Notes on index naming
+The component index templates described below should be considered reference templates for ECS.
+
+The composable template that brings them together, and the legacy all-in-one index
+template should be considered sample templates. Both of them include all ECS fields,
+which is great for experimentation, but is not actually recommended. The best practice
+is to craft your index templates to contain only the field you needs.
+
+## Index naming
 
 These sample Elasticsearch templates will apply to any index named `try-ecs-*`.
 This is good for experimentation.
@@ -22,7 +29,7 @@ as the new default way to craft index templates.
 
 The following instructions let you use either approach.
 
-### Composable index templates
+### Composable and component index templates
 
 **Warning**: The artifacts based on composable templates are newly introduced in the ECS repository.
 Please try them out and give us feedback if you encounter any issues.
@@ -59,10 +66,11 @@ done
 ```
 
 A component template for each ECS field set is now loaded. You could stop here and
-craft a composable template with the settings you need, that loads only the ECS
+craft a composable template with the settings you need, which loads only the ECS
 fields your index needs via `composed_of`. You can look at [template.json](template.json) for an example.
 
-If you'd like to load this sample composable template for experimentation:
+If you'd like, you can load a sample composable template that contains all ECS fields,
+for experimentation:
 
 ```bash
 api="_index_template/try-ecs"
