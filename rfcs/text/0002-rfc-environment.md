@@ -2,7 +2,7 @@
 <!--^ The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC, taking care not to conflict with other RFCs.-->
 
 - Stage: **1 (Proposal)** <!-- Update to reflect target stage -->
-- Date: **TBD** <!-- Update to reflect date of most recent stage advancement -->
+- Date: **2020-12-08** <!-- Update to reflect date of most recent stage advancement -->
 
 <!--
 Stage 0: Provide a high level summary of the premise of these changes. Briefly describe the nature, purpose, and impact of the changes. ~2-5 sentences.
@@ -114,7 +114,7 @@ heartbeat.monitors:
   schedule: '@every 10s'
   check.response.status: 200
   timeout: 5s
-``` 
+```
 
 Note the support in Heartbeat of `service.name` is waiting for https://github.com/elastic/beats/pull/20330
 
@@ -129,7 +129,7 @@ Note that the `fields.env` field is just an example and it not likely to be used
 
 We propose to tackle later the questions of
 * Standardisating the characterization of the environment for infrastructure later.
-* Specifying the `service.environment` and service.name for service/application related 
+* Specifying the `service.environment` and service.name for service/application related
    * Log files collected by filebeat: application log file collected on disk...
    * Metrics collected by metricbeat: application metrics collected via Prometheus, Jolokia, JMX...
 For the metricbeat and filebeat problems described above, the solution used by Heartbeat HTTP monitors (see above) is an interesting path forward.
@@ -177,7 +177,7 @@ Sample of APM Transaction using `service.name` and `service.environment`
     ...
   }
   ```
-  
+
 ### Sample Heartbeat HTTP Monitor Check JSON document
 
 `service.environment` would be added next to `service.name`.
@@ -282,7 +282,7 @@ Sample of APM Transaction using `service.name` and `service.environment`
     "ecs": {
       "version": "1.6.0"
     },
-    
+
     "prometheus": {
       "order_per_country": {
         "histogram": {
@@ -350,7 +350,7 @@ Using the namespace `service` for `service.environment` could sound awkward to s
 
 Note that the `environment` field is a good candidate to be reused in other namespace than the `service.*` to cover the Infrastructure use cases.
 
-### Different standardisation chosen by OpenTelemetry 
+### Different standardisation chosen by OpenTelemetry
 
 OpenTelemetry has standardized `deployment.environment`, referring to [Wikipedia: Deployment Environment](https://en.wikipedia.org/wiki/Deployment_environment). The benefit of `deployment.environment` is that it works better for the characterization of the infrastructure (e.g. physical server, vm): https://github.com/open-telemetry/opentelemetry-specification/blob/master/specification/resource/semantic_conventions/deployment_environment.md
 
@@ -380,13 +380,13 @@ Stage 4: Identify at least one real-world, production-ready implementation that 
 * @exekias | sponsor
 * @sqren | subject matter expert
 
-## References	
+## References
 
-<!-- Insert any links appropriate to this RFC in this section. -->	
+<!-- Insert any links appropriate to this RFC in this section. -->
 
-### RFC Pull Requests	
+### RFC Pull Requests
 
-<!-- An RFC should link to the PRs for each of it stage advancements. -->	
+<!-- An RFC should link to the PRs for each of it stage advancements. -->
 
 * Stage 0: https://github.com/elastic/ecs/pull/891
 * Stage 1: https://github.com/elastic/ecs/pull/1070
