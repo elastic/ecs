@@ -14,6 +14,8 @@ Thanks, you're awesome :-) -->
 
 #### Bugfixes
 
+* Clean up `event.reference` description. #1181
+
 #### Added
 
 * Added `event.category` "registry". #1040
