@@ -1,8 +1,8 @@
 # 0005: Host Metric Fields
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
-- Stage: **2 (draft)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
-- Date: **2020-12-01** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
+- Stage: **3 (candidate)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
+- Date: **TBD** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 <!--
 As you work on your RFC, use the "Stage N" comments to guide you in what you should focus on, for the stage you're targeting.
@@ -125,6 +125,13 @@ Stage 4: Document any new concerns and their resolution. The goal here is to eli
 <!--
 Stage 4: Identify at least one real-world, production-ready implementation that uses these updated field definitions. An example of this might be a GA feature in an Elastic application in Kibana.
 -->
+Our goal is to switch related fields to these new host metrics in Kibana Observability
+metrics UI. For example: right now under hosts inventory, CPU usage will only display
+metrics that are collected by Metricbeat `system` module. With using the new host
+metric fields, CPU metric from `system` module will be `host.cpu.usage`, as well
+as CPU metrics from all AWS EC2 instances or Azure compute VMs. With Kibana Metrics
+UI switching to these new proposed host metric fields, all hosts will be discoverd
+and displayed in a single waffle map from different data collection sources.
 
 ## People
 
