@@ -47,6 +47,7 @@ Thanks, you're awesome :-) -->
 * Added support in the generated Go source go for `wildcard`, `version`, and `constant_keyword` data types. #1050
 * Added support for marking fields, field sets, or field reuse as beta in the documentation. #1051
 * Added support for `constant_keyword`'s optional parameter `value`. #1112
+* Added component templates for ECS field sets. #1156
 
 #### Improvements
 
