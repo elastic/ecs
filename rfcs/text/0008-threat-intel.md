@@ -229,6 +229,12 @@ The goal here is to research and understand the impact of these changes on users
  * Ingestion mechanism: Primary ingestion mechanisms will be Filebeat modules and Ingest Packages. There will be no impact on ingestion mechanisms.
  * Usage mechanism: The primary use of the proposed ECS fields and values is through Elastic Security solution. In 7.10 we released Indicator match rule to support the use of the proposed new fields and values.
 
+## References
+
+* [Domain Tools](https://www.domaintools.com/products/api-integration/)
+* [Abuse.ch Feodo Tracker](https://feodotracker.abuse.ch/downloads/ipblocklist.csv)
+* [Botvrij](https://botvrij.eu/data/)
+* [AlienVault OTX](/api/v1/indicators/export)
 ## Concerns
 
 <!--
