@@ -1,18 +1,16 @@
 [[ecs-oss-considerations]]
 === ECS Considerations in OSS Clusters
 
-IMPORTANT: The limitations noted in this section apply to the OSS-only distribution of the Elastic Stack. The default distribution with the Elastic license supports all data type used by ECS.
+NOTE: This section applies only to the Open Source, Apache 2.0 licensed distribution of the Elastic Stack. All Elasticsearch field types are available in the free, Basic licensed version.
 
-Beginning with ECS 1.8.0, the ECS specification adopted additional Elasticsearch {ref-bare}/current/mapping-types.html[data types] only available in the default distribution of the Elastic Stack.
+Beginning with ECS 1.8.0, ECS uses advanced {ref-bare}/current/mapping-types.html[field types] not available in the Open Source licensed Elastic Stack. Users can achieve similar functionality by replacing some of the basic licensed data types with somewhat equivalents types available in the OSS release.
 
-OSS-only users can still benefit from normalizing data to ECS. Some licensed data types will have a fallback, but OSS-only users will not populate a field if a fallback is not available.
-
-The following table details the additional types and their respective fallback type:
+The following table details these field types and their respective fallback type:
 
 [options="header"]
-.Data Types and their Fallback Type
+.Field Types and their Fallback Type
 |=====
-| Data Type | Fallback
+| Field Type | Fallback
 
 // ===============================================================
 
@@ -28,4 +26,4 @@ The following table details the additional types and their respective fallback t
 
 Some components will self-manage type fallback. OSS-only Beats will perform the fallback automatically, and OSS-only Logstash will install an OSS-compatible ECS template. The ECS tooling introduced a flag, `--oss`, for users to generate OSS-only compatible Elasticsearch index templates. The ECS tooling {ecs_github_repo_link}/USAGE.md#oss[usage guide] contains a detailed example.
 
-The use of fallback types are not a supported, official ECS variant but instead provided as a workaround.
+The use of fallback types does not constitute an official variant of ECS. It's a workaround suggested bringing most of the benefits of ECS to users of the Open Source distribution of the Elastic stack.
