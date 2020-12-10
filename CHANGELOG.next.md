@@ -20,6 +20,7 @@ Thanks, you're awesome :-) -->
 * Added `event.category` "session". #1049
 * Added usage documentation for `user` fields. #1066
 * Added `user` fields at `user.effective.*`, `user.target.*` and `user.changes.*`. #1066
+* Migrated subset of `keyword` fields to `wildcard`. #1098, #1185
 * Added `os.type`. #1111
 
 #### Improvements
