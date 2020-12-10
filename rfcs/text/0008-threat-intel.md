@@ -235,7 +235,7 @@ The goal here is to research and understand the impact of these changes on users
 Stage 1: Identify potential concerns, implementation challenges, or complexity. Spend some time on this. Play devil's advocate. Try to identify the sort of non-obvious challenges that tend to surface later. The goal here is to surface risks early, allow everyone the time to work through them, and ultimately document resolution for posterity's sake.
 -->
 
-1. Identified in Stage 1: There is a proposal to nest all IoC fields under `threat.ioc.*` instead of the current `threat.* structure.` This would make it consistent with taxonomy structure for `threat.tactic.*` and `threat.techinique.*` . This needs to be resovled in Stage 2 of the RFC process.
+1. Identified in Stage 1: There is a proposal to nest all IoC fields under `threat.ioc.*` instead of the current `threat.* structure.` This would make it consistent with taxonomy structure for `threat.tactic.*` and `threat.techinique.*`.
  * Proposed resolution: Nest all IoC fields under `threat.ioc.*`
 2. How to use `event.module`
  * Proposed resolution: pending
