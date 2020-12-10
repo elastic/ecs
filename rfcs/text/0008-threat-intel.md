@@ -25,7 +25,7 @@ Stage 1: Describe at a high level how this change affects fields. Which fieldset
 
 Field | Type | Example | Description
 --- | --- | --- | ---
-threat.ioc.time_first_seen | date | 2020-12-01 | The date and time when intelligence souce first reported sighting this indicator
+threat.ioc.time_first_seen | date | 2020-12-01 | The date and time when intelligence source first reported sighting this indicator
 threat.ioc.time_last_seen | date | 2020-12-02| The date and time when intelligence source last reported sighting this indicator.
 threat.ioc.sightings | long | 20 | Number of times this indicator was observed conducting threat activity
 threat.ioc.type | keyword | IPV4 | Type of indicator as represented by Cyber Observable in STIX 2.0
