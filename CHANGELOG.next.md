@@ -30,7 +30,7 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
-* Added component templates for ECS field sets. #1156
+* Added component templates for ECS field sets. #1156, #1186
 
 #### Improvements
 
