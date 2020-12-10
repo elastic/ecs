@@ -109,7 +109,7 @@ Some examples of commercial intelligence include:
   * [Domain Tools](https://www.domaintools.com/products/api-integration/)
 
 #### Abuse.ch Feodo Tracker
-This dataset from Abuse.ch provides a list of bonet C&C servers associated with the Feodo malware family (Dridex, Emotet).
+This dataset from Abuse.ch provides a list of botnet C&C servers associated with the Feodo malware family (Dridex, Emotet).
 [Abuse.ch Feodo Tracker](https://feodotracker.abuse.ch/downloads/ipblocklist.csv)
 ```
 # Firstseen,DstIP,DstPort,LastOnline,Malware
