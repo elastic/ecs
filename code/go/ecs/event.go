@@ -132,7 +132,9 @@ type Event struct {
 
 	// Raw text message of entire event. Used to demonstrate log integrity.
 	// This field is not indexed and doc_values are disabled. It cannot be
-	// searched, but it can be retrieved from `_source`.
+	// searched, but it can be retrieved from `_source`. If users wish to
+	// override this and index this field, consider using the wildcard data
+	// type.
 	Original string `ecs:"original"`
 
 	// Hash (perhaps logstash fingerprint) of raw field to be able to
