@@ -81,7 +81,7 @@ Stage 3: Add or update all remaining field definitions. The list should now be e
 Stage 1: Describe at a high-level how these field changes will be used in practice. Real world examples are encouraged. The goal here is to understand how people would leverage these fields to gain insights or solve problems. ~1-3 paragraphs.
 -->
 
-The additions described above will be used to enable cyber threat intelligence capabilities in Elastic Security solution. A new rule type Indicator match will be introduced in 7.10 and the propoosed ECS updates will enable a new category of detection alerts that match incoming log and event data against threat intelligence sources. Additionally in the future we will also develop enrichment flows that add context from threat intelligence to alerts and events to assist analysts in their investigative workflows.
+The additions described above will be used to enable cyber threat intelligence capabilities in Elastic Security solution. A new rule type Indicator match will be introduced in 7.10 and the proposed ECS updates will enable a new category of detection alerts that match incoming log and event data against threat intelligence sources. Additionally in the future we will also develop enrichment flows that add context from threat intelligence to alerts and events to assist analysts in their investigative workflows.
 
 There are two primary uses for these fields.
 
