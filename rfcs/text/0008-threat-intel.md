@@ -99,18 +99,8 @@ There are many sources of threat intelligence including open source, closed sour
 
 These sources typically provide intelligence that can be downloaded through REST API or in some cases downloadable CSV's or text files. These intelligence sources will update their data repositories at varying intervals.
 
-Some examples of open source intelligence are:
-  * [Abuse.ch Feodo Tracker](https://feodotracker.abuse.ch/downloads/ipblocklist.csv) - see below for sample data
-  * [Phish Tank](https://www.phishtank.com/)
-
-Some examples of commercial intelligence include:
-  * [Anomali ThreatStream](https://www.anomali.com/products/threatstream)
-  * [Virus Total](https://www.virustotal.com/gui/intelligence-overview)
-  * [Domain Tools](https://www.domaintools.com/products/api-integration/)
-
 #### Abuse.ch Feodo Tracker
 This dataset from Abuse.ch provides a list of botnet C&C servers associated with the Feodo malware family (Dridex, Emotet).
-[Abuse.ch Feodo Tracker](https://feodotracker.abuse.ch/downloads/ipblocklist.csv)
 ```
 # Firstseen,DstIP,DstPort,LastOnline,Malware
 2020-10-29 19:16:38,181.120.29.49,80,2020-11-02,Heodo
@@ -130,7 +120,6 @@ Stage 2: Included a real world example source document. Ideally this example com
 #### Botvrij.eu
 
 Freely available source of IOC's which includes Network IOCs, File Details, Email and Registry Key
-[https://botvrij.eu/data/](https://botvrij.eu/data/)
 
 ```
 cc2477cf4d596a88b349257cba3ef356 # md5 - AZORult spreads as a fake ProtonVPN installer (191)
@@ -229,12 +218,6 @@ The goal here is to research and understand the impact of these changes on users
  * Ingestion mechanism: Primary ingestion mechanisms will be Filebeat modules and Ingest Packages. There will be no impact on ingestion mechanisms.
  * Usage mechanism: The primary use of the proposed ECS fields and values is through Elastic Security solution. In 7.10 we released Indicator match rule to support the use of the proposed new fields and values.
 
-## References
-
-* [Domain Tools](https://www.domaintools.com/products/api-integration/)
-* [Abuse.ch Feodo Tracker](https://feodotracker.abuse.ch/downloads/ipblocklist.csv)
-* [Botvrij](https://botvrij.eu/data/)
-* [AlienVault OTX](/api/v1/indicators/export)
 ## Concerns
 
 <!--
@@ -277,9 +260,19 @@ The following are the people that consulted on the contents of this RFC.
 ## References
 
 * [Threat Intel Field Set Draft](https://docs.google.com/spreadsheets/d/1hS3tF-sGmwnKb7uUGLo3Rng_q6EFgwo6UCae8Sp4E-g/edit?usp=sharing)
-* [Abuse.ch Feodo Tracker](https://feodotracker.abuse.ch/downloads/ipblocklist.csv)
-* [https://botvrij.eu/data/](https://botvrij.eu/data/)
 * [STIX Cyber Observable data model](https://docs.oasis-open.org/cti/stix/v2.1/cs01/stix-v2.1-cs01.html#_mlbmudhl16lr)
+
+Some examples of open source intelligence are:
+  * [Abuse.ch Feodo Tracker](https://feodotracker.abuse.ch/downloads/ipblocklist.csv) - see below for sample data
+  * [Botvrij](https://botvrij.eu/data/)
+  * [Phish Tank](https://www.phishtank.com/)
+  * [AlienVault OTX](https://otx.alienvault.com/api)
+
+Some examples of commercial intelligence include:
+  * [Anomali ThreatStream](https://www.anomali.com/products/threatstream)
+  * [Virus Total](https://www.virustotal.com/gui/intelligence-overview)
+  * [Domain Tools](https://www.domaintools.com/products/api-integration/)
+   
 <!-- Insert any links appropriate to this RFC in this section. -->
 
 ### RFC Pull Requests
