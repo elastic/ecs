@@ -89,6 +89,37 @@ There are two primary uses for these fields.
 
 2. *Adding threat intelligence match/enrichment to another document which could be in a source event index or signals index.* The Indicator Match Rule will be used to generate signals when a match occurs between a source event and threat intelligence document. The ECS fields proposed here will be used to add the enrichment and threat intel context in the signal document. 
 
+### Proposed enrichment pipeline mechanics pseudocode
+
+1. Original document completes its standard pipeline for the given source (i.e. filebeat module pipeline)
+2. Original document is sent to "threat lookup" pipeline
+3. For each indicator type, we perform the following (a file sha256 for example):
+    - if exists "file.hash.sha256":
+        - enrich processor:
+            "policy_name": "file-sha256-policy",
+            "field" : "file.hash.sha256",
+            "target_field": "threat_match",
+            "max_matches": "1"
+        - policy file-sha256-policy:
+            "match": {
+                "indices": "threat-*",
+                "match_field": "file.hash.sha256",
+                "enrich_fields": ["event", "file", "ioc", "malware", "threat_actor"]
+            }
+    - rename:
+        field: "threat_match.file"
+        target: "threat_match.ioc.file"
+    - set:
+        field: "theat_match.matched"
+        value: "sha256"
+    - append:
+        field: "threat"
+        value: "{{ threat_match }}"
+    - remove:
+        field: "threat_match"
+
+**NOTE**: There may be some optimization on which enrichments we attempt based upon the event categorization fields. For instance, we know that data that presents the netflow model or "interface" doesn't contain a sha256 hash. Since those categorization fields are lists, if data presented as both netflow and file (for whatever reason), then we'd check both network-related lookups and file-related lookups
+
 ## Source data
 
 <!--
