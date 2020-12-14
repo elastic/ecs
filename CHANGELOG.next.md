@@ -18,6 +18,8 @@ Thanks, you're awesome :-) -->
 
 * Added `event.category` "registry". #1040
 * Added `event.category` "session". #1049
+* Added usage documentation for `user` fields. #1066
+* Added `user` fields at `user.effective.*`, `user.target.*` and `user.changes.*`. #1066
 * Added `os.type`. #1111
 * Added `hash.ssdeep`. #1169
 
@@ -26,6 +28,8 @@ Thanks, you're awesome :-) -->
 * Note `[` and `]` bracket characters may enclose a literal IPv6 address when populating `url.domain`. #1131
 
 #### Deprecated
+
+* Deprecated `host.user.*` fields for removal at the next major. #1066
 
 ### Tooling and Artifact Changes
 
@@ -44,11 +48,13 @@ Thanks, you're awesome :-) -->
 * Added support in the generated Go source go for `wildcard`, `version`, and `constant_keyword` data types. #1050
 * Added support for marking fields, field sets, or field reuse as beta in the documentation. #1051
 * Added support for `constant_keyword`'s optional parameter `value`. #1112
+* Added component templates for ECS field sets. #1156, #1186
 
 #### Improvements
 
 * Added a notice highlighting that the `tracing` fields are not nested under the
   namespace `tracing.` #1162
+* ES 6.x template data types will fallback to supported types. #1171, #1176, #1186
 
 #### Deprecated
 

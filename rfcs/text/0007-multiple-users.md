@@ -152,7 +152,7 @@ Here's an example of user "alice" running a command as root via sudo:
     "id": "1001",
     "effective": {
       "name": "root",
-      "id": "1"
+      "id": "0"
     }
   }
 }
@@ -186,7 +186,7 @@ Example where "root" creates user "bob":
 {
   "user": {
     "name": "root",
-    "id": "1",
+    "id": "0",
     "target": {
       "name": "bob",
       "id": "1002",
@@ -206,7 +206,7 @@ Example where "root" renames user "bob" to "bob.barker":
 {
   "user": {
     "name": "root",
-    "id": "1",
+    "id": "0",
     "target": {
       "name": "bob",
       "id": "1002"
@@ -237,7 +237,7 @@ we know "alice" is escalating privileges as "root", in order to modify user "bob
     "id": "1001",
     "effective": {
       "name": "root",
-      "id": "1"
+      "id": "0"
     },
     "target": {
       "name": "bob",
@@ -266,7 +266,7 @@ the event now looks like:
     "id": "1001",
     "effective": {
       "name": "root",
-      "id": "1"
+      "id": "0"
     },
     "target": {
       "name": "bob",
