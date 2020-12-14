@@ -30,6 +30,8 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
+* Added component templates for ECS field sets. #1156, #1186
+
 #### Improvements
 
 * Added a notice highlighting that the `tracing` fields are not nested under the
