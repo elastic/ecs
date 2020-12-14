@@ -205,7 +205,7 @@ def template_settings(es_version, ecs_version, mappings_section, template_settin
             error_stack_trace_mappings.setdefault('index', False)
             error_stack_trace_mappings.setdefault('doc_values', False)
         except KeyError:
-           pass
+            pass
 
         template['mappings'] = {'_doc': mappings_section}
     else:
