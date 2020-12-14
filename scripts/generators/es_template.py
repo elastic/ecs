@@ -212,7 +212,9 @@ def template_settings(es_version, ecs_version, mappings_section, template_settin
         template['mappings'] = mappings_section
 
     # _meta can't be at template root in legacy templates, so moving back to mappings section
-    mappings_section['_meta'] = template.pop('_meta')
+    # if present
+    if '_meta' in template:
+        mappings_section['_meta'] = template.pop('_meta')
 
     return template
 
