@@ -24,10 +24,9 @@ package ecs
 // Field names for common hashes (e.g. MD5, SHA1) are predefined. Add fields
 // for other hashes by lowercasing the hash algorithm name and using underscore
 // separators as appropriate (snake case, e.g. sha3_512).
-// Note that this fieldset should be used for common hashes that may be
-// computed over a range of generic bytes. Entity-specific hashes such as ja3
-// or imphash should be placed in the fieldsets to which they relate (i.e. tls
-// and pe).
+// Note that this fieldset is used for common hashes that may be computed over
+// a range of generic bytes. Entity-specific hashes such as ja3 or imphash are
+// placed in the fieldsets to which they relate (tls and pe, respectively).
 type Hash struct {
 	// MD5 hash.
 	Md5 string `ecs:"md5"`
@@ -42,6 +41,5 @@ type Hash struct {
 	Sha512 string `ecs:"sha512"`
 
 	// SSDEEP hash.
-	// Learn more at https://ssdeep-project.github.io/ssdeep/index.html.
 	Ssdeep string `ecs:"ssdeep"`
 }
