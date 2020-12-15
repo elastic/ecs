@@ -24,6 +24,7 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
+* Event categorization fields GA. #1067
 * Note `[` and `]` bracket characters may enclose a literal IPv6 address when populating `url.domain`. #1131
 
 #### Deprecated
