@@ -148,6 +148,72 @@ There are two primary uses for these fields.
 }
 2. *Adding threat intelligence match/enrichment to another document which could be in a source event index or signals index.* The Indicator Match Rule will be used to generate signals when a match occurs between a source event and threat intelligence document. The ECS fields proposed here will be used to add the enrichment and threat intel context in the signal document. 
 
+```json5
+{
+    "process": {
+        "name": "svchost.exe",
+        "pid": 1644,
+        "entity_id": "MDgyOWFiYTYtMzRkYi1kZTM2LTFkNDItMzBlYWM3NDVlOTgwLTE2NDQtMTMyNDk3MTA2OTcuNDc1OTExNTAw",
+        "executable": "C:\\Windows\\System32\\svchost.exe"
+    },
+    "message": "Endpoint file event",
+    "@timestamp": "2020-11-17T19:07:46.0956672Z",
+    "file": {
+        "path": "C:\\Windows\\Prefetch\\SVCHOST.EXE-AE7DB802.pf",
+        "extension": "pf",
+        "name": "SVCHOST.EXE-AE7DB802.pf",
+        "hash": {
+            "sha256": "0c415dd718e3b3728707d579cf8214f54c2942e964975a5f925e0b82fea644b4"
+        }
+    },
+    "threat": [
+        // Each enrichment is added as a nested object under `threat.*`
+        {
+            "ioc": {
+                // Copy all the object IOCs under `ioc.*`, providing full context
+                "file": {
+                    "hash": {
+                        "sha256": "0c415dd718e3b3728707d579cf8214f54c2942e964975a5f925e0b82fea644b4",
+                        "md5": "1eee2bf3f56d8abed72da2bc523e7431"
+                    },
+                    "size": 656896,
+                    "name": "invoice.doc"
+                },
+                /* `matched` will provide context about which of the IOCs above matched on this
+                   particular enrichment. If multiple matches for this IOC object, this could
+                   be a list */
+                "matched": "sha256",
+                "marking": {
+                    "tlp": "WHITE"
+                },
+                "first_seen": "2020-10-01",
+                "last_seen": "2020-11-01",
+                "sightings": 4
+            },
+            "malware": {
+                "name": "CryptoMinerX.B",
+                "family": "CryptoMinerX",
+                "type": "cryptominer"
+            },
+            "threat_actor": {
+                "name": "CryptoCurrency R Us",
+                "type": [
+                    "criminal"
+                ]
+            }
+        }
+    ],
+    // Tag the enriched document to indicate the threat enrichment matched
+    "tags": [
+        "threat-match"
+    ],
+    // This should already exist from the original ingest pipeline of the document
+    "related": {
+        "hash": [
+            "0c415dd718e3b3728707d579cf8214f54c2942e964975a5f925e0b82fea644b4"
+        ]
+    }
+}
 ### Proposed enrichment pipeline mechanics pseudocode
 
 1. Original document completes its standard pipeline for the given source (i.e. filebeat module pipeline)
