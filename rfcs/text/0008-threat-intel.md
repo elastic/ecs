@@ -25,7 +25,7 @@ Stage 1: Describe at a high level how this change affects fields. Which fieldset
 
 Field | Type | Example | Description
 --- | --- | --- | ---
-threat.ioc.time_first_seen | date | 2020-12-01 | The date and time when intelligence source first reported sighting this indicator
+threat.ioc.first_seen | date | 2020-12-01 | The date and time when intelligence source first reported sighting this indicator
 threat.ioc.last_seen | date | 2020-12-02| The date and time when intelligence source last reported sighting this indicator.
 threat.ioc.sightings | long | 20 | Number of times this indicator was observed conducting threat activity
 threat.ioc.type | keyword | IPV4 | Type of indicator as represented by Cyber Observable in STIX 2.0
@@ -54,18 +54,18 @@ event.original | keyword | 2020-10-29 19:16:38,181.120.29.49,80,2020-11-02,Heodo
 
 ### Using existing ECS Fields to store IOC information
 
-  * file.*
-  * file.hash.*
-  * url.*
-  * user.*
-  * registry.*
-  * as.*
-  * host.*
-  * network.*
-  * x509.*
-  * pe.*
-  * source.*
-  * destination.*
+Fieldset | Description | Reference
+--- | --- | ---
+File | Use existing File fields to describe file entity details involved in threat activity. No changes to existing ECS fieldset | [File Fields](https://www.elastic.co/guide/en/ecs/current/ecs-file.html)
+Hash | Use existing Hash fields to describe file entity details involved in threat activity. Hash fields are expected to be nested at `file.hash` , `process.hash`. No changes to existing ECS fieldset | [Hash Fields](https://www.elastic.co/guide/en/ecs/current/ecs-hash.html)
+URL | Use existing URL fields to describe internet resources involved in threat activity. No changes to existing ECS fieldset | [URL](https://www.elastic.co/guide/en/ecs/current/ecs-url.html)
+Registry | Use existing Registry fields involved in threat activity. No changes to existing ECS fieldset | [Registry](https://www.elastic.co/guide/en/ecs/current/ecs-registry.html)
+Source | Use existing fields to capture sender of network exchange involved in threat activity. No changes to existing ECS fieldset | [Source](https://www.elastic.co/guide/en/ecs/current/ecs-source.html)
+Destination | Use existing fields to capture destination of network exchange involved in threat activity. No changes to existing fieldset | [Destination](https://www.elastic.co/guide/en/ecs/current/ecs-destination.html)
+Autonomous System (AS) | Use existing fields to capture routing prefixes for threat activity. AS fields are expected to be nested at `source.as` , `destination.as`. No changes to existing fieldset | [AS](https://www.elastic.co/guide/en/ecs/current/ecs-as.html)
+Host | Use existing fields to describe computing instance involved in threat activity. No changes to existing fieldset. | [Host](https://www.elastic.co/guide/en/ecs/current/ecs-host.html)
+x509 | Use existing fields to describe certificates involved in threat activity. No changes to existing fieldset. | [x509](https://www.elastic.co/guide/en/ecs/current/ecs-x509.html)
+Portable Executable (PE) | Use existing fields to describe portable executables involved in threat activity. No changes to existing fieldset. | [PE](https://www.elastic.co/guide/en/ecs/current/ecs-pe.html)
 
 <!--
 Stage 2: Include new or updated yml field definitions for all of the essential fields in this draft. While not exhaustive, the fields documented here should be comprehensive enough to deeply evaluate the technical considerations of this change. The goal here is to validate the technical details for all essential fields and to provide a basis for adding experimental field definitions to the schema. Use GitHub code blocks with yml syntax formatting.
