@@ -87,6 +87,65 @@ There are two primary uses for these fields.
 
 1. *Storing threat intelligence as an event document in threat index(s).* Threat intelligence data will be collected from multiple sources stored in threat indices. The ECS fields proposed here will be used to structure the documents collected from various sources. 
 
+**Example**
+```json5
+{
+    "@timestamp": "2019-08-10T11:09:23.000Z",
+    "event.kind": "enrichment",
+    "event.category": "threat",
+    "event.type": "indicator",
+    "event.provider": "Abuse.ch",
+    "event.reference": "https://feodotracker.abuse.ch",
+    "event.dataset": "threatintel.abusemalware",
+    "event.module": "threatintel",
+
+    // The top-level file object here allows expressing multiple indicators for a single file object
+    "file.hash.sha256": "0c415dd718e3b3728707d579cf8214f54c2942e964975a5f925e0b82fea644b4",
+    "file.hash.md5": "1eee2bf3f56d8abed72da2bc523e7431",
+    "file.size": 656896,
+    "file.name": "invoice.doc",
+
+    // The ioc prefix here gives context of the indicators
+    "ioc.marking.tlp": "WHITE",
+    "ioc.time_first_seen": "2020-10-01",
+    "ioc.time_last_seen": "2020-11-01",
+    "ioc.sightings": "4",
+    /* It's possible to have multiple related IOCs in a given document,
+       e.g. sha256, sha1, ssdeep, etc. If that's the case this should be an array
+       of types (i.e. [sha1, sha256, ssdeep]) */
+    "ioc.type": ["sha256", "md5", "file_name", "file_size"],
+    "ioc.description": "file last associated with delivering Angler EK",
+
+    // These would provide attribution-related information for the IOCs
+    "malware": {
+        "name": "CryptoMinerX.B",
+        "family": "CryptoMinerX",
+        "type": "cryptominer"
+    },
+    "threat_actor": {
+        "name": "CryptoCurrency R Us",
+        "type": [
+            "criminal"
+        ]
+    },
+
+    // Filebeats and other fields, not part of ECS proposal
+    "fileset.name": "abusemalware",
+    "input.type": "log",
+    "log.offset": 0,
+
+    // Any indicators should also be copied to relevant related.* field
+    "related": {
+        "hash": [
+            "1eee2bf3f56d8abed72da2bc523e7431",
+            "0c415dd718e3b3728707d579cf8214f54c2942e964975a5f925e0b82fea644b4"
+        ]
+    },
+    "tags": [
+        "threatintel",
+        "forwarded"
+    ],
+}
 2. *Adding threat intelligence match/enrichment to another document which could be in a source event index or signals index.* The Indicator Match Rule will be used to generate signals when a match occurs between a source event and threat intelligence document. The ECS fields proposed here will be used to add the enrichment and threat intel context in the signal document. 
 
 ### Proposed enrichment pipeline mechanics pseudocode
