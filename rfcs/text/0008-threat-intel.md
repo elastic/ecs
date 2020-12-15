@@ -85,7 +85,9 @@ The additions described above will be used to enable cyber threat intelligence c
 
 There are two primary uses for these fields.
 
-1. *Storing threat intelligence as an event document in threat index(s).* Threat intelligence data will be collected from multiple sources stored in threat indices. The ECS fields proposed here will be used to structure the documents collected from various sources. 
+1. **Storing threat intelligence as an event document in threat index(s).**
+
+    Threat intelligence data will be collected from multiple sources stored in threat indices. The ECS fields proposed here will be used to structure the documents collected from various sources. 
 
 **Example**
 ```json5
@@ -146,8 +148,13 @@ There are two primary uses for these fields.
         "forwarded"
     ],
 }
-2. *Adding threat intelligence match/enrichment to another document which could be in a source event index or signals index.* The Indicator Match Rule will be used to generate signals when a match occurs between a source event and threat intelligence document. The ECS fields proposed here will be used to add the enrichment and threat intel context in the signal document. 
+```
 
+2. **Adding threat intelligence match/enrichment to another document which could be in a source event index or signals index.** 
+
+    The Indicator Match Rule will be used to generate signals when a match occurs between a source event and threat intelligence document. The ECS fields proposed here will be used to add the enrichment and threat intel context in the signal document. 
+
+**Example**
 ```json5
 {
     "process": {
@@ -214,6 +221,8 @@ There are two primary uses for these fields.
         ]
     }
 }
+```
+
 ### Proposed enrichment pipeline mechanics pseudocode
 
 1. Original document completes its standard pipeline for the given source (i.e. filebeat module pipeline)
