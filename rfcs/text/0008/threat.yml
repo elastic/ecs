@@ -1,0 +1,60 @@
+---
+- name: threat
+  title: Cyber threat information.
+  group: 2
+  description: >
+    These fields contain cyber threat information data.
+  type: group
+  reusable:
+    top_level: true
+  fields:
+    - name: ioc
+      level: extended
+      description: Indicator of Compromise information.
+      type: object
+      fields:
+        - name: first_seen
+          level: extended
+          type: date
+          description: The date and time when intelligence source first reported sighting this indicator.
+          example: "2020-11-05T17:25:47.000Z"
+        - name: last_seen
+          level: extended
+          type: date
+          description: The date and time when intelligence source last reported sighting this indicator.
+          example: "2020-11-05T17:25:47.000Z"
+        - name: sightings
+          level: extended
+          type: long
+          description: Number of times this indicator was observed conducting threat activity.
+          example: 20
+        - name: type
+          level: extended
+          type: keyword
+          description: Type of indicator as represented by Cyber Observable in STIX 2.0
+          example: ipv4-addr, domain-name
+        - name: description
+          level: extended
+          type: wildcard
+          description: Describes the type of action conducted by the threat.
+          example: IP x.x.x.x was seen delivering Angler EK
+        - name: scanner_stats
+          level: extended
+          type: long
+          description: Count of AV/EDR vendors that successfully detected malicious file or URL.
+          example: 4
+        - name: matched
+          level: extended
+          type: keyword
+          description: Identifies the field in the source document that matched this indicator.
+          example: file.hash.sha256, source.ip
+
+    - name: marking
+      level: extended
+      description: Restrictions, permissions, and other guidance for how data can be used and shared.
+      type: object
+        - name: tlp
+          level: extended
+          type: keyword
+          description: Traffic Light Protocol sharing markings.
+          example: White, Green, Amber, Red
