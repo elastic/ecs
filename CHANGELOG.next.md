@@ -37,6 +37,7 @@ Thanks, you're awesome :-) -->
 * Added usage documentation for `user` fields. #1066
 * Added `user` fields at `user.effective.*`, `user.target.*` and `user.changes.*`. #1066
 * Added `os.type`. #1111
+* Added `cloud.platform`. #1204
 
 #### Improvements
 
