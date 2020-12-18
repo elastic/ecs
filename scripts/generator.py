@@ -56,7 +56,7 @@ def main():
         exit()
 
     csv_generator.generate(flat, ecs_version, out_dir)
-    es_template.generate(nested, ecs_version, out_dir, args.mapping_settings)
+    es_template.generate(nested, ecs_version, out_dir, args.template_settings, args.mapping_settings)
     es_template.generate_legacy(flat, ecs_version, out_dir, args.template_settings, args.mapping_settings)
     beats.generate(nested, ecs_version, out_dir)
     if args.include or args.subset:

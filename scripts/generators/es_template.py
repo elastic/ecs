@@ -11,36 +11,48 @@ from schema.oss import TYPE_FALLBACKS
 
 # Composable Template
 
-def generate(ecs_nested, ecs_version, out_dir, mapping_settings_file):
+def generate(ecs_nested, ecs_version, out_dir, template_settings_file, mapping_settings_file):
     """This generates all artifacts for the composable template approach"""
     all_component_templates(ecs_nested, ecs_version, out_dir)
     component_names = component_name_convention(ecs_version, ecs_nested)
-    save_composable_template(ecs_version, component_names, out_dir, mapping_settings_file)
+    save_composable_template(ecs_version, component_names, out_dir, template_settings_file, mapping_settings_file)
 
 
-def save_composable_template(ecs_version, component_names, out_dir, mapping_settings_file):
+def save_composable_template(ecs_version, component_names, out_dir, template_settings_file, mapping_settings_file):
     """Generate the master sample composable template"""
-    template = {
-        "index_patterns": ["try-ecs-*"],
-        "composed_of": component_names,
-        "priority": 1,  # Very low, as this is a sample template
-        "_meta": {
-            "ecs_version": ecs_version,
-            "description": "Sample composable template that includes all ECS fields"
-        },
-        "template": {
-            "settings": {
-                "index": {
-                    "mapping": {
-                        "total_fields": {
-                            "limit": 2000
+    if template_settings_file:
+        with open(template_settings_file) as f:
+            template = json.load(f)
+
+        template["composed_of"] = component_names
+
+        if "template" not in template:
+            template["template"] = {}
+        assert "mappings" not in template["template"]
+        template["template"]["mappings"] = mapping_settings(mapping_settings_file)
+    else:
+        template = {
+            "index_patterns": ["try-ecs-*"],
+            "composed_of": component_names,
+            "priority": 1,  # Very low, as this is a sample template
+            "_meta": {
+                "ecs_version": ecs_version,
+                "description": "Sample composable template that includes all ECS fields"
+            },
+            "template": {
+                "settings": {
+                    "index": {
+                        "mapping": {
+                            "total_fields": {
+                                "limit": 2000
+                            }
                         }
                     }
-                }
-            },
-            "mappings": mapping_settings(mapping_settings_file)
+                },
+                "mappings": mapping_settings(mapping_settings_file)
+            }
         }
-    }
+
     filename = join(out_dir, "elasticsearch/template.json")
     save_json(filename, template)
 

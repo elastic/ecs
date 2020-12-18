@@ -15,6 +15,8 @@ Thanks, you're awesome :-) -->
 
 #### Bugfixes
 
+* Honor `--template-settings` option from `scripts/generator.py`. #1203
+
 #### Added
 
 #### Improvements
