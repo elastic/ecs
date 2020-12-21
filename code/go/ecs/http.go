@@ -22,6 +22,9 @@ package ecs
 // Fields related to HTTP activity. Use the `url` field set to store the url of
 // the request.
 type Http struct {
+	// A unique identifier for each HTTP request.
+	RequestID string `ecs:"request.id"`
+
 	// HTTP request method.
 	// Prior to ECS 1.6.0 the following guidance was provided:
 	// "The field value must be normalized to lowercase for querying."
