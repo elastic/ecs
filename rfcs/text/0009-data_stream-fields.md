@@ -31,19 +31,7 @@ data_stream.namespace | constant_keyword | A user defined namespace. Namespaces 
 
 In the new indexing strategy, the value of the data stream fields combine to the name of the actual data stream in the following manner `{data_stream.type}-{data_stream.dataset}-{data_stream.namespace}`. This means the fields can only contain characters that are valid as part of names of data streams.
 
-The following is the field definitions as a `fields.yml`:
-
-```yml
-- name: data_stream.type
-  type: constant_keyword
-  description: Data stream type.
-- name: data_stream.dataset
-  type: constant_keyword
-  description: Data stream dataset.
-- name: data_stream.namespace
-  type: constant_keyword
-  description: Data stream namespace.
-```
+The fields can be found in `rfcs/text/0009/data_stream.yml`.
 
 ### Restrictions on values
 
