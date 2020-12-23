@@ -13,32 +13,32 @@ This RFC is to create the Mach-O sub-field within the `file.` fieldset. This wil
 
 |   Name                                     |   Type     |   Description                                                               |
 |--------------------------------------------|------------|-----------------------------------------------------------------------------|
-|   file.mach-o.cpu                          |   object   |   CPU information for the file.                                             |
-|   file.mach-o.cpu.architecture             |   keyword  |   CPU architecture target for the file.                                     |
-|   file.mach-o.cpu.byte_order               |   keyword  |   CPU byte order for the file.                                              |
-|   file.mach-o.cpu.subtype                  |   keyword  |   CPU subtype for the file.                                                 |
-|   file.mach-o.cpu.type                     |   keyword  |   CPU type for the file.                                                    |
-|   file.mach-o.headers                      |   object   |   Header information for the file.                                          |
-|   file.mach-o.headers.commands             |   object   |   Header load commands for the file.                                        |
-|   file.mach-o.headers.commands.number      |   long     |   Number of load commands for the Mach-O header.                            |
-|   file.mach-o.headers.commands.size        |   long     |   Size of load commands of the Mach-O header.                               |
-|   file.mach-o.headers.commands.type        |   keyword  |   Type of the load commands for the Mach-O header.                          |
-|   file.mach-o.headers.magic                |   keyword  |   Magic field of the Mach-O header.                                         |
-|   file.mach-o.headers.flags                |   keyword  |   Flags set in the Mach-O header.                                           |
-|   file.mach-o.segments                     |   object   |   Segment information for the file.                                         |
-|   file.mach-o.segments.vmaddr              |   keyword  |   Memory address of this segment.                                           |
-|   file.mach-o.segments.name                |   keyword  |   Name of this segment.                                                     |
-|   file.mach-o.segments.vmsize              |   keyword  |   Memory size of this segment.                                              |
-|   file.mach-o.segments.fileoff             |   keyword  |   File offset of this segment.                                              |
-|   file.mach-o.segments.filesize            |   keyword  |   Amount of memory to map from the file.                                    |
-|   file.mach-o.segments.sections            |   object   |   Section information for the segment of the file.                          |
-|   file.mach-o.segments.sections.flags      |   keyword  |   Section flags for the segment of the file.                                |
-|   file.mach-o.segments.sections.name       |   keyword  |   Section name for the segment of the file.                                 |
-|   file.mach-o.segments.sections.type       |   keyword  |   Section type for the segment of the file.                                 |
-|   file.mach-o.segments.offset      |   keyword  |   Offset of the segment.                                             |
-|   file.mach-o.segment size     |   keyword  |   Segment limit size.                                            |
-|   file.mach-o.segment.flags     |   keyword  |   Segment flags.                                                 |
-|   file.mach-o.page_size                    |   long     |   Page size of the file.                                                    |
+|   mach-o.cpu                          |   object   |   CPU information for the file.                                             |
+|   mach-o.cpu.architecture             |   keyword  |   CPU architecture target for the file.                                     |
+|   mach-o.cpu.byte_order               |   keyword  |   CPU byte order for the file.                                              |
+|   mach-o.cpu.subtype                  |   keyword  |   CPU subtype for the file.                                                 |
+|   mach-o.cpu.type                     |   keyword  |   CPU type for the file.                                                    |
+|   mach-o.headers                      |   object   |   Header information for the file.                                          |
+|   mach-o.headers.commands             |   object   |   Header load commands for the file.                                        |
+|   mach-o.headers.commands.number      |   long     |   Number of load commands for the Mach-O header.                            |
+|   mach-o.headers.commands.size        |   long     |   Size of load commands of the Mach-O header.                               |
+|   mach-o.headers.commands.type        |   keyword  |   Type of the load commands for the Mach-O header.                          |
+|   mach-o.headers.magic                |   keyword  |   Magic field of the Mach-O header.                                         |
+|   mach-o.headers.flags                |   keyword  |   Flags set in the Mach-O header.                                           |
+|   mach-o.segments                     |   object   |   Segment information for the file.                                         |
+|   mach-o.segments.vmaddr              |   keyword  |   Memory address of this segment.                                           |
+|   mach-o.segments.name                |   keyword  |   Name of this segment.                                                     |
+|   mach-o.segments.vmsize              |   keyword  |   Memory size of this segment.                                              |
+|   mach-o.segments.fileoff             |   keyword  |   File offset of this segment.                                              |
+|   mach-o.segments.filesize            |   keyword  |   Amount of memory to map from the file.                                    |
+|   mach-o.segments.sections            |   object   |   Section information for the segment of the file.                          |
+|   mach-o.segments.sections.flags      |   keyword  |   Section flags for the segment of the file.                                |
+|   mach-o.segments.sections.name       |   keyword  |   Section name for the segment of the file.                                 |
+|   mach-o.segments.sections.type       |   keyword  |   Section type for the segment of the file.                                 |
+|   mach-o.segments.offset      |   keyword  |   Offset of the segment.                                             |
+|   mach-o.segment size     |   keyword  |   Segment limit size.                                            |
+|   mach-o.segment.flags     |   keyword  |   Segment flags.                                                 |
+|   mach-o.page_size                    |   long     |   Page size of the file.                                                    |
 
 
 **Stage 1**  
