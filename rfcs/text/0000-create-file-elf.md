@@ -56,7 +56,6 @@ Stage 3: Add or update all remaining field definitions. The list should now be e
 
 ## Usage
 
-**Stage 1**  
 
 In performing file analysis, specifically for malware research, understanding file similarities can be used to chain together malware samples and families to identify campaigns and possibly attribution. Additionally, understanding how malware components are re-used is useful in understanding malware telemetry, especially in understanding the impact being made through the introduction of defensive countermeasures.
 
