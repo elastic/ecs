@@ -89,6 +89,75 @@ Stage 1: Provide a high-level description of example sources of data. This does 
 
 Today, Elastic Agent adds the data_stream fields in all documents ingested. It's also possible to use the fields in data from other data sources. Elasticsearch 7.9+ ships with built-in index template mappings which will ensure that documents indexed into data streams that match `logs-*-*` and `metrics-*-*` will get the fields mapped correctly to `constant_keyword` types.
 
+Here are two example events, one for logs, one for metrics. It must be noted that for better readability some of the fields were removed.
+
+Example source document of type metrics:
+
+```
+{
+    "@timestamp": "2020-12-23T10:10:45.704Z",
+    "event": {
+      "dataset": "system.process_summary",
+      "module": "system",
+      "duration": 34693020
+    },
+    "service": {
+      "type": "system"
+    },
+    "system": {
+      "process": {
+        "summary": {
+          "dead": 0,
+          "total": 236,
+          "sleeping": 49,
+          "running": 0,
+          "idle": 95,
+          "stopped": 0,
+          "zombie": 0,
+          "unknown": 92
+        }
+      }
+    },
+    "data_stream": {
+      "dataset": "system.process_summary",
+      "namespace": "default",
+      "type": "metrics"
+    }
+}
+```
+
+Example source document of type logs:
+
+```
+{
+  "@timestamp": "2020-12-23T10:17:35.902Z",
+  "log.level": "debug",
+  "log.logger": "processors",
+  "log.origin": {
+    "file.name": "processing/processors.go",
+    "file.line": 203
+  },
+  "message": "Hello world ECS",
+  "input": {
+    "type": "log"
+  },
+  "event": {
+    "dataset": "elastic_agent.metricbeat"
+  },
+  "log": {
+    "file": {
+      "path": "/opt/Elastic/Agent/data/elastic-agent-1da173/logs/default/metricbeat-json.log"
+    },
+    "offset": 685026
+  },
+  "data_stream": {
+    "dataset": "elastic_agent.metricbeat",
+    "namespace": "default",
+    "type": "logs"
+  }
+}
+```
+
 ### Using data_stream fields with regular indices
 `data_stream` fields only make sense when indexing into data streams. They should not to be used for regular indices.
 
@@ -152,7 +221,7 @@ Additionally, as previously described, beginning in version 7.9, Elasticsearch s
 The following are the people that consulted on the contents of this RFC.
 
 * @roncohen | author, sponsor
-* @ruflin | subject matter expert
+* @ruflin | author, sponsor, subject matter expert
 
 
 <!--
