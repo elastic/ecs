@@ -30,7 +30,7 @@ This RFC is to create the Mach-O sub-field within the `file.` fieldset. This wil
 |   file.mach-o.segments.name                |   keyword  |   Name of this segment.                                                     |
 |   file.mach-o.segments.vmsize              |   long  |   Memory size of this segment.                                              |
 |   file.mach-o.segments.fileoff             |   keyword  |   File offset of this segment.                                              |
-|   file.mach-o.segments.filesize            |   keyword  |   Amount of memory to map from the file.                                    |
+|   file.mach-o.segments.filesize            |   long  |   Amount of memory to map from the file.                                    |
 |   file.mach-o.segments.sections            |   object   |   Section information for the segment of the file.                          |
 |   file.mach-o.segments.sections.flags      |   keyword  |   Section flags for the segment of the file.                                |
 |   file.mach-o.segments.sections.name       |   keyword  |   Section name for the segment of the file.                                 |
