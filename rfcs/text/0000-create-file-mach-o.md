@@ -38,10 +38,6 @@ This RFC is to create the Mach-O sub-field within the `file.` fieldset. This wil
 |   file.mach-o.segments.offset      |   keyword  |   Offset of the segment.                                             |
 |   file.mach-o.segment size     |   keyword  |   Segment limit size.                                            |
 |   file.mach-o.segment.flags     |   keyword  |   Segment flags.                                                 |
-|   file.mach-o.signature                    |   object   |   Signature information for the file.                                       |
-|   file.mach-o.cdhash  |   keyword  |   Code Digest (CD) SHA256 hash of the first 20-bytes of the file.           |
-|   file.mach-o.signature.team_id    |   keyword  |   Team identifier of the code signing certificate.                          |
-|   file.mach-o.signature.sealed_resources   |   long     |   Version of the resource envelope for the code signing certificate.        |
 |   file.mach-o.page_size                    |   long     |   Page size of the file.                                                    |
 
 
