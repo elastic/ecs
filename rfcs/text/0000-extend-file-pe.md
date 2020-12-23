@@ -34,6 +34,12 @@ This RFC is to create 25 additional sub-fields within the `file.pe` fieldset.
 | file.pe.sections.name | keyword | Section names of the file. |
 | file.pe.sections.raw_size | long | Size of the section or the dize of the initialized data on disk. |
 | file.pe.resources | nested | If the PE contains resources, some info about them |
+| file.pe.resources.chi2 | long | Chi-square probability distribution |
+| file.pe.resources.filetype | keyword | File type of the resources section |
+| file.pe.resources.entropy | long | Measurement of entropy randomness in the resources section. |
+| file.pe.resources.sha256 | keyword | SHA256 hash of resources section |
+| file.pe.resources.language | keyword | Language identification |
+| file.pe.resources.type | keyword | List of resource types. |
 | file.pe.machine_type | keyword | Machine type of the PE file. |
 | file.pe.hash.dhash | keyword | Difference Hash (dhash) to find files with a visually similar icon or thumbnail. |
 | file.pe.hash.md5 | keyword | MD5 hash of raw icon data |
