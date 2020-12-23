@@ -14,9 +14,11 @@ This RFC is to create the ELF sub-field within the `file.` fieldset. This will i
 | Name | Type | Description |
 | ---- | ---- | ----------- |
 | elf.creation_date | date | Extracted when possible from the file's metadata. Indicates when it was built or compiled. It can also be faked by malware creators. |
+| elf.exports | nested | List of exported element names and types. |
 | elf.exports.name | keyword | Name of exported symbol |
 | elf.exports.type | keyword | Type of exported symbol |
 | elf.segments | keyword | ELF object segment list. |
+| elf.header | nested | Header information of the ELF file. |
 | elf.header.class | keyword | Header class of the ELF file. |
 | elf.header.data | keyword | Data table of the ELF header. |
 | elf.header.machine | keyword | Machine architecture of the ELF header. |
@@ -26,9 +28,11 @@ This RFC is to create the ELF sub-field within the `file.` fieldset. This will i
 | elf.header.abi_version | keyword | Version of the ELF Application Binary Interface (ABI). |
 | elf.header.entrypoint | long | Header entrypoint of the ELF file. |
 | elf.header.object_version | keyword | "0x1" for original ELF files. |
+| elf.imports | nested | List of imported element names and types. |
 | elf.imports.name | keyword | Name of imported symbol |
 | elf.imports.type | keyword | Type of imported symbol |
 | elf.number_program_headers | long | Number of ELF Program Headers. |
+| elf.sections | nested | Section information of the ELF file. |
 | elf.sections.flags | keyword | ELF Section List flags. |
 | elf.sections.name | keyword | ELF Section List name. |
 | elf.sections.physical_offset | keyword | ELF Section List offset. |
