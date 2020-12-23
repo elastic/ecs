@@ -41,10 +41,12 @@ This RFC is to create 25 additional sub-fields within the `file.pe` fieldset.
 | file.pe.resources.language | keyword | Language identification |
 | file.pe.resources.type | keyword | List of resource types. |
 | file.pe.machine_type | keyword | Machine type of the PE file. |
-| file.pe.hash.dhash | keyword | Difference Hash (dhash) to find files with a visually similar icon or thumbnail. |
-| file.pe.hash.md5 | keyword | MD5 hash of raw icon data |
 | file.pe.packers | keyword | List of packers and tools used. |
 | file.pe.rich_header.hash.md5 | keyword | Hash of the PE header. |
+| file.pe.icon | nested | Information of embedded program icon. |
+| file.pe.icon.hash | nested | Hash information for the embedded program icon. |
+| file.pe.icon.hash.dhash | keyword | Difference Hash (dhash) to find files with a visually similar icon or thumbnail. |
+
 
 [New `pe.yml` fields](pe/pe.yml)
 
