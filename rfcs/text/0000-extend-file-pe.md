@@ -43,7 +43,7 @@ This RFC is to create 25 additional sub-fields within the `file.pe` fieldset.
 | file.pe.machine_type | keyword | Machine type of the PE file. |
 | file.pe.hash.dhash | keyword | Difference Hash (dhash) to find files with a visually similar icon or thumbnail. |
 | file.pe.hash.md5 | keyword | MD5 hash of raw icon data |
-| file.pe.packers | keyword | Merged list of all detected packers by all tools used. |
+| file.pe.packers | keyword | List of packers and tools used. |
 | file.pe.rich_header.hash.md5 | keyword | Hash of the PE header. |
 
 [New `pe.yml` fields](pe/pe.yml)
