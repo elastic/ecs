@@ -13,33 +13,33 @@ This RFC is to create the ELF sub-field within the `file.` fieldset. This will i
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| file.elf.creation_date | date | Extracted when possible from the file's metadata. Indicates when it was built or compiled. It can also be faked by malware creators. |
-| file.elf.exports.name | keyword | Name of exported symbol |
-| file.elf.exports.type | keyword | Type of exported symbol |
-| file.elf.segments | keyword | ELF object segment list. |
-| file.elf.header.class | keyword | Header class of the ELF file. |
-| file.elf.header.data | keyword | Data table of the ELF header. |
-| file.elf.header.machine | keyword | Machine architecture of the ELF header. |
-| file.elf.header.os_abi | keyword | NEED TO ADD |
-| file.elf.header.type | keyword | Header type of the ELF file. |
-| file.elf.header.version | keyword | Version of the ELF header. |
-| file.elf.header.abi_version | keyword | Version of the ELF Application Binary Interface (ABI). |
-| file.elf.header.entrypoint | long | Header entrypoint of the ELF file. |
-| file.elf.header.object_version | keyword | "0x1" for original ELF files. |
-| file.elf.imports.name | keyword | Name of imported symbol |
-| file.elf.imports.type | keyword | Type of imported symbol |
-| file.elf.number_program_headers | long | Number of ELF Program Headers. |
-| file.elf.sections.flags | keyword | ELF Section List flags. |
-| file.elf.sections.name | keyword | ELF Section List name. |
-| file.elf.sections.physical_offset | keyword | ELF Section List offset. |
-| file.elf.sections.section_type | keyword | ELF Section List type. |
-| file.elf.sections.size | long | ELF Section List size. |
-| file.elf.sections.virtual_address | long | ELF Section List virtual address. |
-| file.elf.shared_libraries | keyword | List of shared libraries used by this ELF object |
-| file.elf.telfhash | keyword | telfhash hash for ELF files. |
-| file.elf.architecture | keyword | Machine architecture of the ELF file. |
-| file.elf.byte_order | keyword | Byte sequence of ELF file. |
-| file.elf.cpu_type | keyword | CPU type of the ELF file. |
+| elf.creation_date | date | Extracted when possible from the file's metadata. Indicates when it was built or compiled. It can also be faked by malware creators. |
+| elf.exports.name | keyword | Name of exported symbol |
+| elf.exports.type | keyword | Type of exported symbol |
+| elf.segments | keyword | ELF object segment list. |
+| elf.header.class | keyword | Header class of the ELF file. |
+| elf.header.data | keyword | Data table of the ELF header. |
+| elf.header.machine | keyword | Machine architecture of the ELF header. |
+| elf.header.os_abi | keyword | NEED TO ADD |
+| elf.header.type | keyword | Header type of the ELF file. |
+| elf.header.version | keyword | Version of the ELF header. |
+| elf.header.abi_version | keyword | Version of the ELF Application Binary Interface (ABI). |
+| elf.header.entrypoint | long | Header entrypoint of the ELF file. |
+| elf.header.object_version | keyword | "0x1" for original ELF files. |
+| elf.imports.name | keyword | Name of imported symbol |
+| elf.imports.type | keyword | Type of imported symbol |
+| elf.number_program_headers | long | Number of ELF Program Headers. |
+| elf.sections.flags | keyword | ELF Section List flags. |
+| elf.sections.name | keyword | ELF Section List name. |
+| elf.sections.physical_offset | keyword | ELF Section List offset. |
+| elf.sections.section_type | keyword | ELF Section List type. |
+| elf.sections.size | long | ELF Section List size. |
+| elf.sections.virtual_address | long | ELF Section List virtual address. |
+| elf.shared_libraries | keyword | List of shared libraries used by this ELF object |
+| elf.telfhash | keyword | telfhash hash for ELF files. |
+| elf.architecture | keyword | Machine architecture of the ELF file. |
+| elf.byte_order | keyword | Byte sequence of ELF file. |
+| elf.cpu_type | keyword | CPU type of the ELF file. |
 
 
 **Stage 1**  
