@@ -28,7 +28,7 @@ This RFC is to create the Mach-O sub-field within the `file.` fieldset. This wil
 |   file.mach-o.segments                     |   object   |   Segment information for the file.                                         |
 |   file.mach-o.segments.vmaddr              |   keyword  |   Memory address of this segment.                                           |
 |   file.mach-o.segments.name                |   keyword  |   Name of this segment.                                                     |
-|   file.mach-o.segments.vmsize              |   keyword  |   Memory size of this segment.                                              |
+|   file.mach-o.segments.vmsize              |   long  |   Memory size of this segment.                                              |
 |   file.mach-o.segments.fileoff             |   keyword  |   File offset of this segment.                                              |
 |   file.mach-o.segments.filesize            |   keyword  |   Amount of memory to map from the file.                                    |
 |   file.mach-o.segments.sections            |   object   |   Section information for the segment of the file.                          |
