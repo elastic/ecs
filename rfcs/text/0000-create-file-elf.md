@@ -102,6 +102,7 @@ While likely not a large-scale ECS project, there would be documentation updates
 Stage 2: Identifies scope of impact of changes. Are breaking changes required? Should deprecation strategies be adopted? Will significant refactoring be involved? Break the impact down into:
  * Ingestion mechanisms (e.g. beats/logstash)
  * Usage mechanisms (e.g. Kibana applications, detections)
+    # https://github.com/elastic/ecs/tree/master/docs/usage#usage-docs
  * ECS project (e.g. docs, tooling)
 The goal here is to research and understand the impact of these changes on users in the community and development teams across Elastic. 2-5 sentences each.
 -->
