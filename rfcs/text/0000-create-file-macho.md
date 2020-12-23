@@ -1,6 +1,6 @@
 # 0000: Create the Mach-O sub-field of the File fieldset
 
-- Stage: **0 (strawperson)**
+- Stage: **1 (proposal)**
 - Date: **TBD**
 
 Create the Mach Object (Mach-O) sub-field, of the `file` top-level fieldset. This document metadata can be used for malware research, as well as coding and other application development efforts.
