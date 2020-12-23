@@ -95,34 +95,34 @@ Example source document of type metrics:
 
 ```
 {
-    "@timestamp": "2020-12-23T10:10:45.704Z",
-    "event": {
-      "dataset": "system.process_summary",
-      "module": "system",
-      "duration": 34693020
-    },
-    "service": {
-      "type": "system"
-    },
-    "system": {
-      "process": {
-        "summary": {
-          "dead": 0,
-          "total": 236,
-          "sleeping": 49,
-          "running": 0,
-          "idle": 95,
-          "stopped": 0,
-          "zombie": 0,
-          "unknown": 92
-        }
+  "@timestamp": "2020-12-23T10:10:45.704Z",
+  "event": {
+    "dataset": "system.process_summary",
+    "module": "system",
+    "duration": 34693020
+  },
+  "service": {
+    "type": "system"
+  },
+  "system": {
+    "process": {
+      "summary": {
+        "dead": 0,
+        "total": 236,
+        "sleeping": 49,
+        "running": 0,
+        "idle": 95,
+        "stopped": 0,
+        "zombie": 0,
+        "unknown": 92
       }
-    },
-    "data_stream": {
-      "dataset": "system.process_summary",
-      "namespace": "default",
-      "type": "metrics"
     }
+  },
+  "data_stream": {
+    "dataset": "system.process_summary",
+    "namespace": "default",
+    "type": "metrics"
+  }
 }
 ```
 
