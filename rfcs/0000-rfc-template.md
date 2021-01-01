@@ -111,6 +111,6 @@ e.g.:
 * Stage 0: https://github.com/elastic/ecs/pull/NNN
 
 <!--
-* Stage 1: https://github.com/elastic/ecs/pull/NNN
+* Stage 1: https://github.com/elastic/ecs/pull/1209
 ...
 -->
