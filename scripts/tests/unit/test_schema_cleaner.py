@@ -157,6 +157,20 @@ class TestSchemaCleaner(unittest.TestCase):
                                         "mandatory attributes: {}".format(missing_attribute)):
                 cleaner.field_mandatory_attributes(field)
 
+    def test_field_raises_on_alias_missing_path_attribute(self):
+        field = self.schema_process()['process']['fields']['pid']
+        field['field_details']['type'] = "alias"
+        with self.assertRaisesRegex(ValueError,
+                                    "mandatory attributes: {}".format("path")):
+            cleaner.field_mandatory_attributes(field)
+
+    def test_raises_on_missing_scaling_factor(self):
+        field = self.schema_process()['process']['fields']['pid']
+        field['field_details']['type'] = "scaled_float"
+        with self.assertRaisesRegex(ValueError,
+                                    "mandatory attributes: {}".format("scaling_factor")):
+            cleaner.field_mandatory_attributes(field)
+
     def test_field_simple_cleanup(self):
         my_field = {
             'field_details': {
@@ -208,6 +222,10 @@ class TestSchemaCleaner(unittest.TestCase):
         field_details = {**field_min_details, **{'index': False}}
         cleaner.field_defaults({'field_details': field_details})
         self.assertEqual(field_details['doc_values'], False)
+
+        field_details = {**field_min_details, **{'type': 'wildcard', 'index': True}}
+        cleaner.field_defaults({'field_details': field_details})
+        self.assertNotIn('index', field_details)
 
     def test_field_defaults_dont_override(self):
         field_details = {

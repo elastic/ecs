@@ -33,8 +33,9 @@
 
     - name: directory
       level: extended
-      type: keyword
+      type: wildcard
       short: Directory where the file is located.
+      beta: Note the usage of `wildcard` type is considered beta. This field used to be type `keyword`.
       description: >
         Directory where the file is located. It should include the drive letter,
         when appropriate.
@@ -53,8 +54,9 @@
 
     - name: path
       level: extended
-      type: keyword
+      type: wildcard
       short: Full path to the file, including the file name.
+      beta: Note the usage of `wildcard` type is considered beta. This field used to be type `keyword`.
       description: >
         Full path to the file, including the file name. It should include the
         drive letter, when appropriate.
@@ -65,7 +67,8 @@
 
     - name: target_path
       level: extended
-      type: keyword
+      type: wildcard
+      beta: Note the usage of `wildcard` type is considered beta. This field used to be type `keyword`.
       description: Target path for symlinks.
       multi_fields:
         - type: text
@@ -74,7 +77,12 @@
     - name: extension
       level: extended
       type: keyword
-      description: File extension.
+      short: File extension, excluding the leading dot.
+      description: >
+        File extension, excluding the leading dot.
+
+        Note that when the file name has multiple extensions (example.tar.gz),
+        only the last one should be captured ("gz", not "tar.gz").
       example: png
 
     - name: type

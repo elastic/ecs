@@ -12,6 +12,7 @@ from generators import ecs_helpers
 from generators import intermediate_files
 
 from schema import loader
+from schema import oss
 from schema import cleaner
 from schema import finalizer
 from schema import subset_filter
@@ -34,13 +35,18 @@ def main():
         default_dirs = True
 
     ecs_helpers.make_dirs(out_dir)
-    ecs_helpers.make_dirs(docs_dir)
 
     # To debug issues in the gradual building up of the nested structure, insert
     # statements like this after any step of interest.
     # ecs_helpers.yaml_dump('ecs.yml', fields)
 
+    # Detect usage of experimental changes to tweak artifact version label
+    if args.include and loader.EXPERIMENTAL_SCHEMA_DIR in args.include:
+        ecs_version += "+exp"
+
     fields = loader.load_schemas(ref=args.ref, included_files=args.include)
+    if args.oss:
+        oss.fallback(fields)
     cleaner.clean(fields, strict=args.strict)
     finalizer.finalize(fields)
     fields = subset_filter.filter(fields, args.subset, out_dir)
@@ -50,30 +56,34 @@ def main():
         exit()
 
     csv_generator.generate(flat, ecs_version, out_dir)
-    es_template.generate(flat, ecs_version, out_dir, args.template_settings, args.mapping_settings)
+    es_template.generate(nested, ecs_version, out_dir, args.mapping_settings)
+    es_template.generate_legacy(flat, ecs_version, out_dir, args.template_settings, args.mapping_settings)
     beats.generate(nested, ecs_version, out_dir)
     if args.include or args.subset:
         exit()
 
+    ecs_helpers.make_dirs(docs_dir)
     asciidoc_fields.generate(nested, ecs_version, docs_dir)
 
 
 def argument_parser():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--intermediate-only', action='store_true',
-                        help='generate intermediary files only')
+    parser.add_argument('--ref', action='store', help='Loads fields definitions from `./schemas` subdirectory from specified git reference. \
+                                                       Note that "--include experimental/schemas" will also respect this git ref.')
     parser.add_argument('--include', nargs='+',
                         help='include user specified directory of custom field definitions')
     parser.add_argument('--subset', nargs='+',
                         help='render a subset of the schema')
-    parser.add_argument('--out', action='store', help='directory to store the generated files')
-    parser.add_argument('--ref', action='store', help='git reference to use when building schemas')
+    parser.add_argument('--out', action='store', help='directory to output the generated files')
     parser.add_argument('--template-settings', action='store',
                         help='index template settings to use when generating elasticsearch template')
     parser.add_argument('--mapping-settings', action='store',
                         help='mapping settings to use when generating elasticsearch template')
+    parser.add_argument('--oss', action='store_true', help='replace basic data types with oss ones where possible')
     parser.add_argument('--strict', action='store_true',
-                        help='enforce stricter checking at schema cleanup')
+                        help='enforce strict checking at schema cleanup')
+    parser.add_argument('--intermediate-only', action='store_true',
+                        help='generate intermediary files only')
     args = parser.parse_args()
     # Clean up empty include of the Makefile
     if args.include and [''] == args.include:

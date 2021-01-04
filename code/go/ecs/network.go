@@ -61,6 +61,8 @@ type Network struct {
 
 	// Direction of the network traffic.
 	// Recommended values are:
+	//   * ingress
+	//   * egress
 	//   * inbound
 	//   * outbound
 	//   * internal
@@ -68,10 +70,17 @@ type Network struct {
 	//   * unknown
 	//
 	// When mapping events from a host-based monitoring context, populate this
-	// field from the host's point of view.
+	// field from the host's point of view, using the values "ingress" or
+	// "egress".
 	// When mapping events from a network or perimeter-based monitoring
-	// context, populate this field from the point of view of your network
-	// perimeter.
+	// context, populate this field from the point of view of the network
+	// perimeter, using the values "inbound", "outbound", "internal" or
+	// "external".
+	// Note that "internal" is not crossing perimeter boundaries, and is meant
+	// to describe communication between two hosts within the perimeter. Note
+	// also that "external" is meant to describe traffic between two hosts that
+	// are external to the perimeter. This could for example be useful for ISPs
+	// or VPN service providers.
 	Direction string `ecs:"direction"`
 
 	// Host IP address when the source IP address is the proxy.
@@ -94,9 +103,9 @@ type Network struct {
 	Packets int64 `ecs:"packets"`
 
 	// Network.inner fields are added in addition to network.vlan fields to
-	// describe  the innermost VLAN when q-in-q VLAN tagging is present.
-	// Allowed fields include  vlan.id and vlan.name. Inner vlan fields are
-	// typically used when sending traffic with multiple 802.1q encapsulations
-	// to a network sensor (e.g. Zeek, Wireshark.)
+	// describe the innermost VLAN when q-in-q VLAN tagging is present. Allowed
+	// fields include vlan.id and vlan.name. Inner vlan fields are typically
+	// used when sending traffic with multiple 802.1q encapsulations to a
+	// network sensor (e.g. Zeek, Wireshark.)
 	Inner map[string]interface{} `ecs:"inner"`
 }

@@ -35,8 +35,10 @@ Here's the recommended approach for converting an existing implementation to {ec
 
   - Review your original event data again
   - Consider populating the field based on additional meta-data such as static
-    information (e.g. add `event.type:syslog` even if syslog events don't mention this fact),
-    or information gathered from the environment (e.g. host information).
+    information (e.g. add `event.category:authentication` even if your auth events
+    don't mention the word "authentication")
+  - Consider capturing additional environment meta-data, such as information about the
+    host, container or cloud instance.
 
 . Review other extended fields from any field set you are already using, and
   attempt to populate it as well.
@@ -44,3 +46,18 @@ Here's the recommended approach for converting an existing implementation to {ec
 . Set `ecs.version` to the version of the schema you are conforming to. This will
   allow you to upgrade your sources, pipelines and content (like dashboards)
   smoothly in the future.
+
+[float]
+[[ecs-conv-spreasheet]]
+==== Using a spreadsheet to plan your migration
+
+Using a spreadsheet to plan the migration from pre-existing source fields to ECS
+is a common practice. It's a good way to address each of your fields methodically among colleagues.
+
+If the data source is either a structured log, or if you already have a pipeline
+producing events with these non-ECS field names, the tool
+https://github.com/elastic/ecs-mapper[ECS Mapper] may help you get started in performing all of these field renames.
+
+After exporting your mapping spreadsheet to CSV, ECS Mapper will convert your field mapping
+to equivalent pipelines for Beats, Elasticsearch, and Logstash. Learn more at
+https://github.com/elastic/ecs-mapper[ECS Mapper].

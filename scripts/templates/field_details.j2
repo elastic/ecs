@@ -4,7 +4,21 @@
 
 {{ fieldset['description']|replace("\n", "\n\n") }}
 
+{%- if usage_doc %}
+
+Find additional usage and examples in the {{ fieldset['name'] }} fields <<ecs-{{ fieldset['name']|replace("_", "-") }}-usage,usage>> section.
+
+{% endif %}
+
+{# Fieldset label beta header -#}
+{% if fieldset['beta'] -%}
+
+beta::[ {{ fieldset['beta'] }}]
+
+{% endif -%}
+
 {# Field Details Table Header -#}
+[discrete]
 ==== {{ fieldset['title'] }} Field Details
 
 [options="header"]
@@ -18,9 +32,19 @@
 {% if 'original_fieldset' not in field -%}
 
 {# `Field` column -#}
-| {{ field['flat_name'] }}
+|
+[[field-{{field['dashed_name']}}]]
+<<field-{{field['dashed_name']}}, {{ field['flat_name'] }}>>
+
 {# `Description` column -#}
+{#- Beta fields will add the `beta` label -#}
+{% if field['beta'] -%}
+| beta:[ {{ field['beta'] }} ]
+
+{{ field['description']|replace("\n", "\n\n") }}
+{%- else -%}
 | {{ field['description']|replace("\n", "\n\n") }}
+{%- endif %}
 
 type: {{ field['type'] }}
 
@@ -67,6 +91,7 @@ example: `{{ field['example'] }}`
 {# do we have `nestings` or `reusable` sections to worry about? -#}
 {% if 'nestings' in fieldset or 'reusable' in fieldset -%}
 
+[discrete]
 ==== Field Reuse
 
 {% if 'reusable' in fieldset -%}
@@ -88,6 +113,7 @@ Note also that the `{{ fieldset['name'] }}` fields are not expected to be used d
 {% if 'nestings' in fieldset -%}
 
 [[ecs-{{ fieldset['name'] }}-nestings]]
+[discrete]
 ===== Field sets that can be nested under {{ fieldset['title'] }}
 
 [options="header"]
@@ -99,8 +125,16 @@ Note also that the `{{ fieldset['name'] }}` fields are not expected to be used d
 
 {% for entry in render_nestings_reuse_section -%}
 
+{#- Beta marker on nested fields -#}
 | <<ecs-{{ entry['name'] }},{{ entry['flat_nesting'] }}>>
+{#- Beta marker on nested fields -#}
+{%- if entry['beta'] -%}
+| beta:[ {{ entry['beta'] }}]
+
+{{ entry['short'] }}
+{%- else %}
 | {{ entry['short'] }}
+{%- endif %}
 
 // ===============================================================
 
@@ -110,4 +144,9 @@ Note also that the `{{ fieldset['name'] }}` fields are not expected to be used d
 |=====
 
 {% endif %}{# if 'nestings' #}
-{%- endif %}{# if 'nestings' or 'reusable' in fieldset #}
+{%- endif -%}{# if 'nestings' or 'reusable' in fieldset #}
+{%- if usage_doc %}
+
+include::usage/{{ fieldset['name'] }}.asciidoc[]
+
+{% endif %}

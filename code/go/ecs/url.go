@@ -42,6 +42,9 @@ type Url struct {
 	// In some cases a URL may refer to an IP and/or port directly, without a
 	// domain name. In this case, the IP address would go to the `domain`
 	// field.
+	// If the URL contains a literal IPv6 address enclosed by `[` and `]` (IETF
+	// RFC 2732), the `[` and `]` characters should also be captured in the
+	// `domain` field.
 	Domain string `ecs:"domain"`
 
 	// The highest registered url domain, stripped of the subdomain.
@@ -62,6 +65,17 @@ type Url struct {
 	// as "co.uk".
 	TopLevelDomain string `ecs:"top_level_domain"`
 
+	// The subdomain portion of a fully qualified domain name includes all of
+	// the names except the host name under the registered_domain.  In a
+	// partially qualified domain, or if the the qualification level of the
+	// full name cannot be determined, subdomain contains all of the names
+	// below the registered domain.
+	// For example the subdomain portion of "www.east.mydomain.co.uk" is
+	// "east". If the domain has multiple levels of subdomain, such as
+	// "sub2.sub1.example.com", the subdomain field should contain "sub2.sub1",
+	// with no trailing period.
+	Subdomain string `ecs:"subdomain"`
+
 	// Port of the request, such as 443.
 	Port int64 `ecs:"port"`
 
@@ -76,11 +90,14 @@ type Url struct {
 	// differentiate between the two cases.
 	Query string `ecs:"query"`
 
-	// The field contains the file extension from the original request url.
+	// The field contains the file extension from the original request url,
+	// excluding the leading dot.
 	// The file extension is only set if it exists, as not every url has a file
 	// extension.
 	// The leading period must not be included. For example, the value must be
 	// "png", not ".png".
+	// Note that when the file name has multiple extensions (example.tar.gz),
+	// only the last one should be captured ("gz", not "tar.gz").
 	Extension string `ecs:"extension"`
 
 	// Portion of the url after the `#`, such as "top".

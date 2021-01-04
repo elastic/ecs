@@ -127,6 +127,16 @@ class TestGeneratorsAsciiFields(unittest.TestCase):
         self.assertEqual('as', foo_nesting_fields[0]['name'])
         self.assertEqual('Fields describing an AS', foo_nesting_fields[0]['short'])
 
+    def test_check_for_usage_doc_true(self):
+        usage_files = ["foo.asciidoc"]
+        foo_name = self.foo_fieldset.get('name')
+        self.assertTrue(asciidoc_fields.check_for_usage_doc(foo_name, usage_file_list=usage_files))
+
+    def test_check_for_usage_doc_false(self):
+        usage_files = ["notfoo.asciidoc"]
+        foo_name = self.foo_fieldset.get('name')
+        self.assertFalse(asciidoc_fields.check_for_usage_doc(foo_name, usage_file_list=usage_files))
+
 
 if __name__ == '__main__':
     unittest.main()
