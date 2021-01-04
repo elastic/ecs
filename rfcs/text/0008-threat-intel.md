@@ -30,6 +30,8 @@ threat.ioc.last_seen | date | 2020-12-02| The date and time when intelligence so
 threat.ioc.sightings | long | 20 | Number of times this indicator was observed conducting threat activity
 threat.ioc.type | keyword | IPV4 | Type of indicator as represented by Cyber Observable in STIX 2.0
 threat.ioc.description | wildcard | 201.10.10.90 was seen delivering Angler EK | Describes the type of action conducted by the threat
+threat.ioc.dataset | keyword | Feodo tracker | Identifies the name of specific dataset from the intelligence source.
+threat.ioc.provider | keyword | Abuse.ch | Identifies the name of intelligence provider
 threat.marking.tlp | keyword | RED | Data markings represent restrictions, permissions, and other guidance for how data can be used and shared. Examples could be TLP (White, Green, Amber, Red).
 threat.ioc.scanner_stats | long | 4 | Count of Anti virus/EDR that successfully detected malicious file or URL. Sources like VirusTotal, Reversing Labs often provide these statistics.
 
@@ -45,12 +47,9 @@ event.type | indicator | Propose adding this value to be used as a sub-bucket of
 Field | Type | Example | Description
 --- | ---| --- | ---
 event.reference | keyword | https://feodotracker.abuse.ch/ | URL to the intelligence source
-event.dataset | keyword | Feodo tracker | name of specific dataset from the intelligence source. Intelligence sources often provide multiple datasets - IP blocklist, File hash blocklist etc.
-event.provider | keyword | Abuse.ch | name of intelligence provider
 event.severity | long | 7 | severity provided by threat intelligence source
 event.risk_score | float | 10 | risk score provided by threat intelligence source
 event.original | keyword | 2020-10-29 19:16:38,181.120.29.49,80,2020-11-02,Heodo | raw intelligence event
- 
 
 ### Using existing ECS Fields to store IOC information
 
