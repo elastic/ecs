@@ -22,7 +22,10 @@ package ecs
 // Fields related to HTTP activity. Use the `url` field set to store the url of
 // the request.
 type Http struct {
-	// A unique identifier for each HTTP request.
+	// A unique identifier for each HTTP request to correlate logs between
+	// clients and servers in transactions.
+	// The id may be contained in a non-standard HTTP header, such as
+	// `X-Request-ID` or `X-Correlation-ID`.
 	RequestID string `ecs:"request.id"`
 
 	// HTTP request method.
