@@ -736,6 +736,77 @@ class TestSchemaLoader(unittest.TestCase):
         self.assertEqual(merged_fields['base']['fields']['message']['field_details']
                          ['multi_fields'], expected_message_multi_fields)
 
+    def test_overwrite_multi_fields(self):
+        schema1 = {
+            'base': {
+                'field_details': {
+                    'multi_fields': [
+                        {
+                            'type': 'text',
+                            'name': 'text'
+                        }
+                    ]
+                },
+                'fields': {
+                    'message': {
+                        'field_details': {
+                            'multi_fields': [
+                                {
+                                    'type': 'text',
+                                    'name': 'text'
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        }
+
+        # this schema should overwrite thee base and message fields
+        schema2 = {
+            'base': {
+                'field_details': {
+                    'multi_fields': [
+                        {
+                            'type': 'text',
+                            'name': 'text',
+                            'normalizer': 'lowercase',
+                        }
+                    ]
+                },
+                'fields': {
+                    'message': {
+                        'field_details': {
+                            'multi_fields': [
+                                {
+                                    'type': 'keyword',
+                                    'name': 'text'
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        }
+        merged_fields = loader.merge_fields(schema1, schema2)
+        expected_base_multi_fields = [
+            {
+                'type': 'text',
+                'name': 'text',
+                'normalizer': 'lowercase'
+            }
+        ]
+
+        expected_message_multi_fields = [
+            {
+                'type': 'keyword',
+                'name': 'text'
+            }
+        ]
+        self.assertEqual(merged_fields['base']['field_details']['multi_fields'], expected_base_multi_fields)
+        self.assertEqual(merged_fields['base']['fields']['message']['field_details']
+                         ['multi_fields'], expected_message_multi_fields)
+
 
 if __name__ == '__main__':
     unittest.main()

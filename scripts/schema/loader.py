@@ -186,24 +186,26 @@ def nest_fields(field_array):
     return schema_root
 
 
-def array_of_dicts_to_set(array_vals):
-    ret_set = set()
-    for dict_val in array_vals:
-        ret_set.add(frozenset(dict_val.items()))
-    return ret_set
+def array_of_maps_to_map(array_vals):
+    ret_map = {}
+    for map_val in array_vals:
+        name = map_val['name']
+        # if multiple name fields exist in the same custom definition this will take the last one
+        ret_map[name] = map_val
+    return ret_map
 
 
-def set_of_sets_to_array(set_vals):
+def map_of_maps_to_array(map_vals):
     ret_list = []
-    for set_info in set_vals:
-        ret_list.append(dict(set_info))
+    for key in map_vals:
+        ret_list.append(map_vals[key])
     return sorted(ret_list, key=lambda k: k['name'])
 
 
 def dedup_and_merge_lists(list_a, list_b):
-    list_a_set = array_of_dicts_to_set(list_a)
-    list_b_set = array_of_dicts_to_set(list_b)
-    return set_of_sets_to_array(list_a_set | list_b_set)
+    list_a_map = array_of_maps_to_map(list_a)
+    list_a_map.update(array_of_maps_to_map(list_b))
+    return map_of_maps_to_array(list_a_map)
 
 
 def merge_fields(a, b):
