@@ -47,14 +47,24 @@
           level: extended
           type: keyword
           description: Identifies the field in the source document that matched this indicator.
-          example: file.hash.sha256, source.ip
-
-    - name: marking
-      level: extended
-      description: Restrictions, permissions, and other guidance for how data can be used and shared.
-      type: object
-        - name: tlp
+          example: file.hash.sha256, source.ip          
+        - name: provider
           level: extended
           type: keyword
-          description: Traffic Light Protocol sharing markings.
-          example: White, Green, Amber, Red
+          description: Identifies the name of the intelligence provider
+          example: Abuse.ch
+        - name: dataset
+          level: extended
+          type: keyword
+          description: Identifies the name of specific dataset from the intelligence source.
+          example: Feodo Tracker
+        - name: marking
+          level: extended
+          description: Restrictions, permissions, and other guidance for how data can be used and shared.
+          type: object
+          fields: 
+            - name: tlp
+              level: extended
+              type: keyword
+              description: Traffic Light Protocol sharing markings.
+              example: White, Green, Amber, Red
