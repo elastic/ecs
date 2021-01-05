@@ -30,8 +30,9 @@ threat.ioc.last_seen | date | 2020-12-02| The date and time when intelligence so
 threat.ioc.sightings | long | 20 | Number of times this indicator was observed conducting threat activity
 threat.ioc.type | keyword | IPV4 | Type of indicator as represented by Cyber Observable in STIX 2.0
 threat.ioc.description | wildcard | 201.10.10.90 was seen delivering Angler EK | Describes the type of action conducted by the threat
-threat.ioc.dataset | keyword | Feodo tracker | Identifies the name of specific dataset from the intelligence source.
-threat.ioc.provider | keyword | Abuse.ch | Identifies the name of intelligence provider
+threat.ioc.dataset | keyword | theatintel | Identifies the name of specific dataset from the intelligence source.
+threat.ioc.module | keyword | threatintel.{abusemalware,abuseurl,misp,otx,limo} | Identifies the name of specific module where the data is coming from.
+threat.ioc.provider | keyword | Abuse.ch | Identifies the name of intelligence provider.
 threat.marking.tlp | keyword | RED | Data markings represent restrictions, permissions, and other guidance for how data can be used and shared. Examples could be TLP (White, Green, Amber, Red).
 threat.ioc.scanner_stats | long | 4 | Count of Anti virus/EDR that successfully detected malicious file or URL. Sources like VirusTotal, Reversing Labs often provide these statistics.
 
