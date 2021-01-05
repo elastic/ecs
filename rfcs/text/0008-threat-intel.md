@@ -42,7 +42,7 @@ Field | New Value | Description
 event.kind | enrichment | Propose adding this value to capture the type of information this event contains and how it should be used. Threat intelligence will be used to enrich source events and signals. Enrichment could also appy to other types of contextual data sources (not just threat intelligence) such as directory services, IPAM data, asset lists.
 event.category | threat | Propose adding this value to represent a new category of event data
 event.type | indicator | Propose adding this value to be used as a sub-bucket of `event.category` to represent type of threat information. In future this could be extended to other STIX 2.0 Standard Data Objects like Actor, Infrastucture etc.
-  
+
 ### Using existing Event Fieldset
 Field | Type | Example | Description
 --- | ---| --- | ---
@@ -86,7 +86,7 @@ There are two primary uses for these fields.
 
 1. **Storing threat intelligence as an event document in threat index(s).**
 
-    Threat intelligence data will be collected from multiple sources stored in threat indices. The ECS fields proposed here will be used to structure the documents collected from various sources. 
+    Threat intelligence data will be collected from multiple sources stored in threat indices. The ECS fields proposed here will be used to structure the documents collected from various sources.
 
 **Example**
 ```json5
@@ -117,19 +117,6 @@ There are two primary uses for these fields.
     "ioc.type": ["sha256", "md5", "file_name", "file_size"],
     "ioc.description": "file last associated with delivering Angler EK",
 
-    // These would provide attribution-related information for the IOCs
-    "malware": {
-        "name": "CryptoMinerX.B",
-        "family": "CryptoMinerX",
-        "type": "cryptominer"
-    },
-    "threat_actor": {
-        "name": "CryptoCurrency R Us",
-        "type": [
-            "criminal"
-        ]
-    },
-
     // Filebeats and other fields, not part of ECS proposal
     "fileset.name": "abusemalware",
     "input.type": "log",
@@ -149,9 +136,9 @@ There are two primary uses for these fields.
 }
 ```
 
-2. **Adding threat intelligence match/enrichment to another document which could be in a source event index or signals index.** 
+2. **Adding threat intelligence match/enrichment to another document which could be in a source event index or signals index.**
 
-    The Indicator Match Rule will be used to generate signals when a match occurs between a source event and threat intelligence document. The ECS fields proposed here will be used to add the enrichment and threat intel context in the signal document. 
+    The Indicator Match Rule will be used to generate signals when a match occurs between a source event and threat intelligence document. The ECS fields proposed here will be used to add the enrichment and threat intel context in the signal document.
 
 **Example**
 ```json5
@@ -172,10 +159,10 @@ There are two primary uses for these fields.
             "sha256": "0c415dd718e3b3728707d579cf8214f54c2942e964975a5f925e0b82fea644b4"
         }
     },
-    "threat": [
-        // Each enrichment is added as a nested object under `threat.*`
-        {
-            "ioc": {
+    "threat": {
+        "ioc": [
+            {
+                // Each enrichment is added as a nested object under `threat.ioc.*`
                 // Copy all the object IOCs under `ioc.*`, providing full context
                 "file": {
                     "hash": {
@@ -186,29 +173,25 @@ There are two primary uses for these fields.
                     "name": "invoice.doc"
                 },
                 /* `matched` will provide context about which of the IOCs above matched on this
-                   particular enrichment. If multiple matches for this IOC object, this could
-                   be a list */
+                    particular enrichment. If multiple matches for this IOC object, this could
+                    be a list */
                 "matched": "sha256",
                 "marking": {
                     "tlp": "WHITE"
                 },
                 "first_seen": "2020-10-01",
                 "last_seen": "2020-11-01",
-                "sightings": 4
-            },
-            "malware": {
-                "name": "CryptoMinerX.B",
-                "family": "CryptoMinerX",
-                "type": "cryptominer"
-            },
-            "threat_actor": {
-                "name": "CryptoCurrency R Us",
-                "type": [
-                    "criminal"
-                ]
+                "sightings": 4,
+                "type": ["sha256", "md5", "file_name", "file_size"],
+                "description": "file last associated with delivering Angler EK",
+
+                // Copy event.* data from source threatintel document
+                "provider": "Abuse.ch",
+                "dataset": "threatintel.abusemalware",
+                "module": "threatintel"
             }
-        }
-    ],
+        ]
+    },
     // Tag the enriched document to indicate the threat enrichment matched
     "tags": [
         "threat-match"
@@ -237,17 +220,26 @@ There are two primary uses for these fields.
             "match": {
                 "indices": "threat-*",
                 "match_field": "file.hash.sha256",
-                "enrich_fields": ["event", "file", "ioc", "malware", "threat_actor"]
+                "enrich_fields": ["event", "file", "ioc"]
             }
     - rename:
         field: "threat_match.file"
         target: "threat_match.ioc.file"
+    - rename:
+        field: "threat_match.event.provider"
+        target: "threat_match.ioc.provider"
+    - rename:
+        field: "threat_match.event.dataset"
+        target: "threat_match.ioc.dataset"
+    - rename:
+        field: "threat_match.event.module"
+        target: "threat_match.ioc.module"
     - set:
-        field: "theat_match.matched"
+        field: "threat_match.ioc.matched"
         value: "sha256"
     - append:
-        field: "threat"
-        value: "{{ threat_match }}"
+        field: "threat.ioc"
+        value: "{{ threat_match.ioc }}"
     - remove:
         field: "threat_match"
 
@@ -313,7 +305,7 @@ Schema
     "count": {"type": "integer"},
     "next": {"type": ["string", "null"]},
     "results": {
-        "type": "array", 
+        "type": "array",
         "items": {
             "additionalProperties": false,
             "required": ["indicator", "title", "content", "type", "id", "description"],
@@ -328,7 +320,7 @@ Schema
         }
     },
     "previous": {"type": ["string", "null"]}
-  } 
+  }
 }
 ```
 
@@ -436,7 +428,7 @@ Some examples of commercial intelligence include:
   * [Anomali ThreatStream](https://www.anomali.com/products/threatstream)
   * [Virus Total](https://www.virustotal.com/gui/intelligence-overview)
   * [Domain Tools](https://www.domaintools.com/products/api-integration/)
-   
+
 <!-- Insert any links appropriate to this RFC in this section. -->
 
 ### RFC Pull Requests
