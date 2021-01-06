@@ -64,6 +64,7 @@ Thanks, you're awesome :-) -->
 * Added support for marking fields, field sets, or field reuse as beta in the documentation. #1051
 * Added support for `constant_keyword`'s optional parameter `value`. #1112
 * Added component templates for ECS field sets. #1156, #1186, #1191
+* Added functionality for merging custom and core multi-fields. #982
 
 #### Improvements
 
