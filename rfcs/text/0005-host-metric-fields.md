@@ -23,7 +23,7 @@ Proposed 7 new fields are:
 
 ## Fields
 This RFC calls for the addition of host fields to collect basic monitoring metrics from a host or VM such as CPU, network and disk.
-Please see [`host`](0005/host.yml) for definitions of all fields.
+Please see [`host.yml`](0005/host.yml) for definitions of all fields.
 
 Note: the `host.network.*` and `host.disk.*` fields are gauges which represent
 IO since the last metric collection. In order to interpret these metrics, the
@@ -129,9 +129,10 @@ Our goal is to switch related fields to these new host metrics in Kibana Observa
 metrics UI. For example: right now under hosts inventory, CPU usage will only display
 metrics that are collected by Metricbeat `system` module. With using the new host
 metric fields, CPU metric from `system` module will be `host.cpu.usage`, as well
-as CPU metrics from all AWS EC2 instances or Azure compute VMs. With Kibana Metrics
-UI switching to these new proposed host metric fields, all hosts will be discoverd
-and displayed in a single waffle map from different data collection sources.
+as CPU metrics from all AWS EC2 instances or Azure compute VMs. With
+[Kibana Metrics UI](https://github.com/elastic/kibana/issues/87508) switching to
+these new proposed host metric fields, all hosts will be discovered and displayed
+in a single waffle map from different data collection sources.
 
 ## People
 
