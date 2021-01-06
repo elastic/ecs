@@ -646,6 +646,81 @@ class TestSchemaLoader(unittest.TestCase):
         }
         self.assertEqual(merged_fields, expected_fields)
 
+    def test_merge_and_overwrite_multi_fields(self):
+        originalSchema = {
+            'overwrite_field': {
+                'field_details': {
+                    'multi_fields': [
+                        {
+                            'type': 'text',
+                            'name': 'text',
+                            'norms': True
+                        }
+                    ]
+                },
+                'fields': {
+                    'message': {
+                        'field_details': {
+                            'multi_fields': [
+                                {
+                                    'type': 'text',
+                                    'name': 'text'
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        }
+
+        customSchema = {
+            'overwrite_field': {
+                'field_details': {
+                    'multi_fields': [
+                        # this entry will completely overwrite the originalSchema's name text entry
+                        {
+                            'type': 'text',
+                            'name': 'text'
+                        }
+                    ]
+                },
+                'fields': {
+                    'message': {
+                        'field_details': {
+                            'multi_fields': [
+                                # this entry will be merged with the originalSchema's multi_fields entries
+                                {
+                                    'type': 'keyword',
+                                    'name': 'a_field'
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        }
+        merged_fields = loader.merge_fields(originalSchema, customSchema)
+        expected_overwrite_field_mf = [
+            {
+                'type': 'text',
+                'name': 'text'
+            }
+        ]
+
+        expected_message_mf = [
+            {
+                'type': 'keyword',
+                'name': 'a_field'
+            },
+            {
+                'type': 'text',
+                'name': 'text'
+            }
+        ]
+        self.assertEqual(merged_fields['overwrite_field']['field_details']['multi_fields'], expected_overwrite_field_mf)
+        self.assertEqual(merged_fields['overwrite_field']['fields']['message']['field_details']
+                         ['multi_fields'], expected_message_mf)
+
 
 if __name__ == '__main__':
     unittest.main()
