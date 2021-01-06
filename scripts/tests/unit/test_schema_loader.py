@@ -646,19 +646,15 @@ class TestSchemaLoader(unittest.TestCase):
         }
         self.assertEqual(merged_fields, expected_fields)
 
-    def test_merge_multi_fields(self):
-        schema1 = {
-            'base': {
+    def test_merge_and_overwrite_multi_fields(self):
+        originalSchema = {
+            'overwrite_field': {
                 'field_details': {
                     'multi_fields': [
                         {
                             'type': 'text',
-                            'name': 'text'
-                        },
-                        {
-                            'type': 'keyword',
-                            'name': 'caseless',
-                            'normalizer': 'lowercase'
+                            'name': 'text',
+                            'norms': True
                         }
                     ]
                 },
@@ -677,17 +673,14 @@ class TestSchemaLoader(unittest.TestCase):
             }
         }
 
-        schema2 = {
-            'base': {
+        customSchema = {
+            'overwrite_field': {
                 'field_details': {
                     'multi_fields': [
+                        # this entry will completely overwrite the originalSchema's name text entry
                         {
                             'type': 'text',
                             'name': 'text'
-                        },
-                        {
-                            'type': 'text',
-                            'name': 'almost_text',
                         }
                     ]
                 },
@@ -695,6 +688,7 @@ class TestSchemaLoader(unittest.TestCase):
                     'message': {
                         'field_details': {
                             'multi_fields': [
+                                # this entry will be merged with the originalSchema's multi_fields entries
                                 {
                                     'type': 'keyword',
                                     'name': 'a_field'
@@ -705,24 +699,15 @@ class TestSchemaLoader(unittest.TestCase):
                 }
             }
         }
-        merged_fields = loader.merge_fields(schema1, schema2)
-        expected_multi_fields = [
-            {
-                'type': 'text',
-                'name': 'almost_text'
-            },
-            {
-                'type': 'keyword',
-                'name': 'caseless',
-                'normalizer': 'lowercase'
-            },
+        merged_fields = loader.merge_fields(originalSchema, customSchema)
+        expected_overwrite_field_mf = [
             {
                 'type': 'text',
                 'name': 'text'
             }
         ]
 
-        expected_message_multi_fields = [
+        expected_message_mf = [
             {
                 'type': 'keyword',
                 'name': 'a_field'
@@ -732,80 +717,9 @@ class TestSchemaLoader(unittest.TestCase):
                 'name': 'text'
             }
         ]
-        self.assertEqual(merged_fields['base']['field_details']['multi_fields'], expected_multi_fields)
-        self.assertEqual(merged_fields['base']['fields']['message']['field_details']
-                         ['multi_fields'], expected_message_multi_fields)
-
-    def test_overwrite_multi_fields(self):
-        schema1 = {
-            'base': {
-                'field_details': {
-                    'multi_fields': [
-                        {
-                            'type': 'text',
-                            'name': 'text'
-                        }
-                    ]
-                },
-                'fields': {
-                    'message': {
-                        'field_details': {
-                            'multi_fields': [
-                                {
-                                    'type': 'text',
-                                    'name': 'text'
-                                }
-                            ]
-                        }
-                    }
-                }
-            }
-        }
-
-        # this schema should overwrite thee base and message fields
-        schema2 = {
-            'base': {
-                'field_details': {
-                    'multi_fields': [
-                        {
-                            'type': 'text',
-                            'name': 'text',
-                            'normalizer': 'lowercase',
-                        }
-                    ]
-                },
-                'fields': {
-                    'message': {
-                        'field_details': {
-                            'multi_fields': [
-                                {
-                                    'type': 'keyword',
-                                    'name': 'text'
-                                }
-                            ]
-                        }
-                    }
-                }
-            }
-        }
-        merged_fields = loader.merge_fields(schema1, schema2)
-        expected_base_multi_fields = [
-            {
-                'type': 'text',
-                'name': 'text',
-                'normalizer': 'lowercase'
-            }
-        ]
-
-        expected_message_multi_fields = [
-            {
-                'type': 'keyword',
-                'name': 'text'
-            }
-        ]
-        self.assertEqual(merged_fields['base']['field_details']['multi_fields'], expected_base_multi_fields)
-        self.assertEqual(merged_fields['base']['fields']['message']['field_details']
-                         ['multi_fields'], expected_message_multi_fields)
+        self.assertEqual(merged_fields['overwrite_field']['field_details']['multi_fields'], expected_overwrite_field_mf)
+        self.assertEqual(merged_fields['overwrite_field']['fields']['message']['field_details']
+                         ['multi_fields'], expected_message_mf)
 
 
 if __name__ == '__main__':
