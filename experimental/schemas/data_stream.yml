@@ -21,7 +21,9 @@
       example: logs
       description: >
         An overarching type for the data stream.
+
         Currently allowed values include "logs", "metrics". We expect to also add "traces" and "synthetics" in the near future
+
         Any future values for `data_stream.type` should also adhere to the following restrictions (these are derived from the Elasticsearch index restrictions):
           * Must not contain `-`
           * Must not start with `+` or `_`
@@ -42,7 +44,7 @@
     - name: namespace
       level: extended
       type: constant_keyword
-      example: logs
+      example: production
       description: >
         A user defined namespace. Namespaces are useful to allow grouping of data.
         Many of our customers already organize their indices this way, and now we are providing this best practice as a default. Many people will use `default` as the value.
