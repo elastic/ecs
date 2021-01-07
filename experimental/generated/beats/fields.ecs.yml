@@ -567,45 +567,51 @@
   - name: data_stream
     title: Data Stream
     group: 2
-    description: 'The data_stream fields are part defining the new data stream naming
-      scheme. In the new data stream naming scheme the value of the data stream fields
-      combine to the name of the actual data stream in the following manner `{data_stream.type}-{data_stream.dataset}-{data_stream.namespace}`.
+    description: 'The data_stream fields take part in defining the new data stream
+      naming scheme.
+
+      In the new data stream naming scheme the value of the data stream fields combine
+      to the name of the actual data stream in the following manner `{data_stream.type}-{data_stream.dataset}-{data_stream.namespace}`.
       This means the fields can only contain characters that are valid as part of
-      names of data streams. More details about this can be found in this blog post.
-      TODO: Add link to blog post Due to the fact that the values of the `data_stream`
-      fields make up the data stream name, the restrictions on data stream names also
-      apply to values for the `data_stream` fields. As an example, they cannot include
-      \, /, *, ?, ", <, >, |, ` `. Please see the Elasticsearch reference for [restrictions
-      on index/data stream names](https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-create-index.html#indices-create-api-path-params).'
+      names of data streams. More details about this can be found in this https://www.elastic.co/blog/an-introduction-to-the-elastic-data-stream-naming-scheme[blog
+      post].
+
+      Due to the fact that the values of the `data_stream` fields make up the data
+      stream name, the restrictions on data stream names also apply to values for
+      the `data_stream` fields. As an example, they cannot include \, /, *, ?, ",
+      <, >, |, ` `. Please see the Elasticsearch reference for https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-create-index.html#indices-create-api-path-params[restrictions
+      on index/data stream names].'
     type: group
     fields:
     - name: dataset
       level: extended
       type: constant_keyword
-      description: 'The field can contain anything that makes sense to signify the
-        source of the data. Examples include `nginx.access`, `prometheus`, `endpoint`
-        etc. For data streams that otherwise fit, but that do not have dataset set
-        we use the value "generic" for the dataset value. `event.dataset` should have
-        the same value as `data_stream.dataset`. Data dataset value has the following
-        restrictions: * Must not contain `-` * No longer than 100 chars'
+      description: "The field can contain anything that makes sense to signify the\
+        \ source of the data.\nExamples include `nginx.access`, `prometheus`, `endpoint`\
+        \ etc. For data streams that otherwise fit, but that do not have dataset set\
+        \ we use the value \"generic\" for the dataset value. `event.dataset` should\
+        \ have the same value as `data_stream.dataset`.\nBeyond the Elasticsearch\
+        \ index naming criteria noted above, the `dataset` value has additional restrictions:\n\
+        \  * Must not contain `-`\n  * No longer than 100 characters"
       example: nginx.access
       default_field: false
     - name: namespace
       level: extended
       type: constant_keyword
-      description: 'A user defined namespace. Namespaces are useful to allow grouping
-        of data. Many of our customers already organize their indices this way, and
-        now we are providing this best practice as a default. Many people will use
-        `default` as the value. Data namespace value has the following restrictions:
-        * Must not contain `-` * No longer than 100 chars'
-      example: logs
+      description: "A user defined namespace. Namespaces are useful to allow grouping\
+        \ of data.\nMany users already organize their indices this way, and the data\
+        \ stream naming scheme now provides this best practice as a default. Many\
+        \ users will populate this field with `default`.\nBeyond the Elasticsearch\
+        \ index naming criteria noted above, `namespace` value has the additional\
+        \ restrictions:\n  * Must not contain `-`\n  * No longer than 100 characters"
+      example: production
       default_field: false
     - name: type
       level: extended
       type: constant_keyword
-      description: "An overarching type for the data stream. Currently allowed values\
+      description: "An overarching type for the data stream.\nCurrently allowed values\
         \ include \"logs\", \"metrics\". We expect to also add \"traces\" and \"synthetics\"\
-        \ in the near future Any future values for `data_stream.type` should also\
+        \ in the near future\nAny future values for `data_stream.type` should also\
         \ adhere to the following restrictions (these are derived from the Elasticsearch\
         \ index restrictions):\n  * Must not contain `-`\n  * Must not start with\
         \ `+` or `_`"
