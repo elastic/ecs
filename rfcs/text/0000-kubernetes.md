@@ -1,4 +1,4 @@
-# 0000: Kubernetes schema creation
+# 0000: Orchestrator field set creation
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
 - Stage: **0 (strawperson)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
@@ -90,20 +90,7 @@ Stage 4: Identify at least one real-world, production-ready implementation that 
 
 The following are the people that consulted on the contents of this RFC.
 
-* TBD | author
-
-<!--
-Who will be or has been consulted on the contents of this RFC? Identify authorship and sponsorship, and optionally identify the nature of involvement of others. Link to GitHub aliases where possible. This list will likely change or grow stage after stage.
-
-e.g.:
-
-* @Yasmina | author
-* @Monique | sponsor
-* @EunJung | subject matter expert
-* @JaneDoe | grammar, spelling, prose
-* @Mariana
--->
-
+* @ferozsalam | author
 
 ## References
 
