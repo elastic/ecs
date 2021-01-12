@@ -1,7 +1,7 @@
 # 0010: Email
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
-- Stage: **1 (proposal)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
+- Stage: **2 (proposal)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
 - Date: **2020-11-30** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 This RFC proposes a new top-level field to facilitate email use cases.
@@ -77,6 +77,43 @@ Stage 1: Provide a high-level description of example sources of data. This does 
 <!--
 Stage 2: Included a real world example source document. Ideally this example comes from the source(s) identified in stage 1. If not, it should replace them. The goal here is to validate the utility of these field changes in the context of a real world example. Format with the source name as a ### header and the example document in a GitHub code block with json formatting.
 -->
+```json
+{
+	"EndDate": "2020-11-10T22:12:34.8196921Z",
+	"FromIP": "8.8.8.8",
+	"Index": 25,
+	"MessageId": "\\u003c95689d8d5e7f429390a4e3646eef75e8-JFBVALKQOJXWILKBK4YVA7APGM3DKTLFONZWCZ3FINSW45DFOJ6EAQ2ENFTWK43UL4YTCMBYGIYHYU3NORYA====@microsoft.com\\u003e",
+	"MessageTraceId": "ff1a64a3-cafb-41b7-1efb-08d8848aedc3",
+	"Organization": "testdomain.onmicrosoft.com",
+	"Received": "2020-11-09T04:50:06.3312635",
+	"RecipientAddress": "john@testdomain.onmicrosoft.com",
+	"SenderAddress": "o365mc@microsoft.com",
+	"Size": 64329,
+	"StartDate": "2020-11-08T22:12:34.8196921Z",
+	"Status": "Delivered",
+	"Subject": "Weekly digest: Microsoft service updates",
+	"ToIP": null
+}
+
+{
+	"EndDate": "2020-11-10T22:12:34.8196921Z",
+	"FromIP": null,
+	"Index": 8,
+	"MessageId": "\\u003c72872e16-f4c2-4eef-a393-e5621748a0ff@AS8P19vMB1605.EURP191.PROD.OUTLOOK.COM\\u003e",
+	"MessageTraceId": "a4bd8c4c-3a4f-427f-8952-08d8850f9c20",
+	"Organization": "testdomain.onmicrosoft.com",
+	"Received": "2020-11-10T00:28:56.3306834",
+	"RecipientAddress": "o365mc@microsoft.com",
+	"SenderAddress": "postmaster@testdomain.onmicrosoft.com",
+	"Size": 96627,
+	"StartDate": "2020-11-08T22:12:34.8196921Z",
+	"Status": "Delivered",
+	"Subject": "Undeliverable: Message Center Major Change Update Notification",
+	"ToIP": "8.8.8.8"
+}
+```
+
+
 
 <!--
 Stage 3: Add more real world example source documents so we have at least 2 total, but ideally 3. Format as described in stage 2.
