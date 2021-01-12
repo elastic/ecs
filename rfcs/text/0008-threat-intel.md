@@ -25,16 +25,21 @@ Stage 1: Describe at a high level how this change affects fields. Which fieldset
 
 Field | Type | Example | Description
 --- | --- | --- | ---
-threat.ioc.first_seen | date | 2020-12-01 | The date and time when intelligence source first reported sighting this indicator
-threat.ioc.last_seen | date | 2020-12-02| The date and time when intelligence source last reported sighting this indicator.
-threat.ioc.sightings | long | 20 | Number of times this indicator was observed conducting threat activity
-threat.ioc.type | keyword | IPV4 | Type of indicator as represented by Cyber Observable in STIX 2.0
-threat.ioc.description | wildcard | 201.10.10.90 was seen delivering Angler EK | Describes the type of action conducted by the threat
-threat.ioc.dataset | keyword | theatintel | Identifies the name of specific dataset from the intelligence source.
-threat.ioc.module | keyword | threatintel.{abusemalware,abuseurl,misp,otx,limo} | Identifies the name of specific module where the data is coming from.
-threat.ioc.provider | keyword | Abuse.ch | Identifies the name of intelligence provider.
+threat.indicator.first_seen | date | 2020-12-01 | The date and time when intelligence source first reported sighting this indicator
+threat.indicator.last_seen | date | 2020-12-02| The date and time when intelligence source last reported sighting this indicator.
+threat.indicator.sightings | long | 20 | Number of times this indicator was observed conducting threat activity
+threat.indicator.type | keyword | ipv4-addr, domain-name, email-addr | Type of indicator as represented by Cyber Observable in STIX 2.0
+threat.indicator.description | wildcard | 201.10.10.90 was seen delivering Angler EK | Describes the type of action conducted by the threat
+threat.indicator.dataset | keyword | theatintel | Identifies the name of specific dataset from the intelligence source.
+threat.indicator.module | keyword | threatintel.{abusemalware,abuseurl,misp,otx,limo} | Identifies the name of specific module where the data is coming from.
+threat.indicator.provider | keyword | Abuse.ch | Identifies the name of intelligence provider.
+threat.indicator.confidence | keyword | High, 10, Confirmed by other sources, Certain, Almost Certain / Nearly Certain | Identifies the confidence rating assigned by the provider using STIX confidence scales (N/H/M/L, 0-10, Admirality, WEP, or DNI).
+threat.indicator.ip | ip | 1.2.3.4 | Identifies a threat indicator as an IP address (irrespective of direction).
+threat.indicator.domain | keyword | evil.com | Identifies a threat indicator as a domain (irrespective of direction).
+threat.indicator.port | long | 443 | Identifies a threat indicator as a port number (irrespective of direction).
+threat.indicator.email.address | wildcard [] | phish@evil.com | Identifies a threat indicator as an email address (irrespective of direction).
 threat.marking.tlp | keyword | RED | Data markings represent restrictions, permissions, and other guidance for how data can be used and shared. Examples could be TLP (White, Green, Amber, Red).
-threat.ioc.scanner_stats | long | 4 | Count of Anti virus/EDR that successfully detected malicious file or URL. Sources like VirusTotal, Reversing Labs often provide these statistics.
+threat.indicator.scanner_stats | long | 4 | Count of Anti virus/EDR that successfully detected malicious file or URL. Sources like VirusTotal, Reversing Labs often provide these statistics.
 
 ### Proposed New Values for Event Fieldset
 
@@ -52,7 +57,7 @@ event.severity | long | 7 | severity provided by threat intelligence source
 event.risk_score | float | 10 | risk score provided by threat intelligence source
 event.original | keyword | 2020-10-29 19:16:38,181.120.29.49,80,2020-11-02,Heodo | raw intelligence event
 
-### Using existing ECS Fields to store IOC information
+### Using existing ECS Fields to store indicator information
 
 Fieldset | Description | Reference
 --- | --- | ---
@@ -107,16 +112,16 @@ There are two primary uses for these fields.
     "file.size": 656896,
     "file.name": "invoice.doc",
 
-    // The ioc prefix here gives context of the indicators
-    "ioc.marking.tlp": "WHITE",
-    "ioc.time_first_seen": "2020-10-01",
-    "ioc.time_last_seen": "2020-11-01",
-    "ioc.sightings": "4",
-    /* It's possible to have multiple related IOCs in a given document,
+    // The indicator prefix here gives context of the indicators
+    "indicator.marking.tlp": "WHITE",
+    "indicator.time_first_seen": "2020-10-01",
+    "indicator.time_last_seen": "2020-11-01",
+    "indicator.sightings": "4",
+    /* It's possible to have multiple related indicators in a given document,
        e.g. sha256, sha1, ssdeep, etc. If that's the case this should be an array
        of types (i.e. [sha1, sha256, ssdeep]) */
-    "ioc.type": ["sha256", "md5", "file_name", "file_size"],
-    "ioc.description": "file last associated with delivering Angler EK",
+    "indicator.type": ["sha256", "md5", "file_name", "file_size"],
+    "indicator.description": "file last associated with delivering Angler EK",
 
     // Filebeats and other fields, not part of ECS proposal
     "fileset.name": "abusemalware",
@@ -161,10 +166,10 @@ There are two primary uses for these fields.
         }
     },
     "threat": {
-        "ioc": [
+        "indicator": [
             {
-                // Each enrichment is added as a nested object under `threat.ioc.*`
-                // Copy all the object IOCs under `ioc.*`, providing full context
+                // Each enrichment is added as a nested object under `threat.indicator.*`
+                // Copy all the object indicators under `indicator.*`, providing full context
                 "file": {
                     "hash": {
                         "sha256": "0c415dd718e3b3728707d579cf8214f54c2942e964975a5f925e0b82fea644b4",
@@ -173,8 +178,8 @@ There are two primary uses for these fields.
                     "size": 656896,
                     "name": "invoice.doc"
                 },
-                /* `matched` will provide context about which of the IOCs above matched on this
-                    particular enrichment. If multiple matches for this IOC object, this could
+                /* `matched` will provide context about which of the indicators above matched on this
+                    particular enrichment. If multiple matches for this indicator object, this could
                     be a list */
                 "matched": "sha256",
                 "marking": {
@@ -221,26 +226,26 @@ There are two primary uses for these fields.
             "match": {
                 "indices": "threat-*",
                 "match_field": "file.hash.sha256",
-                "enrich_fields": ["event", "file", "ioc"]
+                "enrich_fields": ["event", "file", "indicator"]
             }
     - rename:
         field: "threat_match.file"
-        target: "threat_match.ioc.file"
+        target: "threat_match.indicator.file"
     - rename:
         field: "threat_match.event.provider"
-        target: "threat_match.ioc.provider"
+        target: "threat_match.indicator.provider"
     - rename:
         field: "threat_match.event.dataset"
-        target: "threat_match.ioc.dataset"
+        target: "threat_match.indicator.dataset"
     - rename:
         field: "threat_match.event.module"
-        target: "threat_match.ioc.module"
+        target: "threat_match.indicator.module"
     - set:
-        field: "threat_match.ioc.matched"
+        field: "threat_match.indicator.matched"
         value: "sha256"
     - append:
-        field: "threat.ioc"
-        value: "{{ threat_match.ioc }}"
+        field: "threat.indicator"
+        value: "{{ threat_match.indicator }}"
     - remove:
         field: "threat_match"
 
@@ -252,7 +257,7 @@ There are two primary uses for these fields.
 Stage 1: Provide a high-level description of example sources of data. This does not yet need to be a concrete example of a source document, but instead can simply describe a potential source (e.g. nginx access log). This will ultimately be fleshed out to include literal source examples in a future stage. The goal here is to identify practical sources for these fields in the real world. ~1-3 sentences or unordered list.
 -->
 
-There are many sources of threat intelligence including open source, closed source and membership based ISAC's. Depending on the source the level of details can vary from atomic indicators of compromise (IoC) to higher order context around threat tactics, infrastructure and motivations. Generally freely available (open source) intelligence sources will provide details more focused on IoC's and commercial intelligence services will provide higher order details.
+There are many sources of threat intelligence including open source, closed source and membership based ISAC's. Depending on the source the level of details can vary from atomic indicators of compromise (IoC) to higher order context around threat tactics, infrastructure and motivations. Generally freely available (open source) intelligence sources will provide details more focused on indindicator's and commercial intelligence services will provide higher order details.
 
 These sources typically provide intelligence that can be downloaded through REST API or in some cases downloadable CSV's or text files. These intelligence sources will update their data repositories at varying intervals.
 
@@ -276,7 +281,7 @@ Stage 2: Included a real world example source document. Ideally this example com
 
 #### Botvrij.eu
 
-Freely available source of IOC's which includes Network IOCs, File Details, Email and Registry Key
+Freely available source of indindicator's which includes Network indindicators, File Details, Email and Registry Key
 
 ```
 cc2477cf4d596a88b349257cba3ef356 # md5 - AZORult spreads as a fake ProtonVPN installer (191)
@@ -381,11 +386,11 @@ The goal here is to research and understand the impact of these changes on users
 Stage 1: Identify potential concerns, implementation challenges, or complexity. Spend some time on this. Play devil's advocate. Try to identify the sort of non-obvious challenges that tend to surface later. The goal here is to surface risks early, allow everyone the time to work through them, and ultimately document resolution for posterity's sake.
 -->
 
-1. Identified in Stage 1: There is a proposal to nest all IoC fields under `threat.ioc.*` instead of the current `threat.* structure.` This would make it consistent with taxonomy structure for `threat.tactic.*` and `threat.techinique.*`.
- * Proposed resolution: Nest all IoC fields under `threat.ioc.*`
+1. Identified in Stage 1: There is a proposal to nest all indindicator fields under `threat.indicator.*` instead of the current `threat.* structure.` This would make it consistent with taxonomy structure for `threat.tactic.*` and `threat.techinique.*`.
+ * Proposed resolution: Nest all indindicator fields under `threat.indicator.*`
 2. How to use `event.module`
  * Proposed resolution: pending
-3. How to best represent malware{name,family,type}. Current proposal is to use `threat.ioc.classification` to describe threat delivery (Hacktool etc.) and family name.
+3. How to best represent malware{name,family,type}. Current proposal is to use `threat.indicator.classification` to describe threat delivery (Hacktool etc.) and family name.
 
 <!--
 Stage 2: Document new concerns or resolutions to previously listed concerns. It's not critical that all concerns have resolutions at this point, but it would be helpful if resolutions were taking shape for the most significant concerns.

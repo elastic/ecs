@@ -8,7 +8,7 @@
   reusable:
     top_level: true
   fields:
-    - name: ioc
+    - name: indicator
       level: extended
       description: Indicator of Compromise information.
       type: object
@@ -32,7 +32,7 @@
           level: extended
           type: keyword
           description: Type of indicator as represented by Cyber Observable in STIX 2.0
-          example: ipv4-addr, domain-name
+          example: ipv4-addr, domain-name, email-addr
         - name: description
           level: extended
           type: wildcard
@@ -47,12 +47,16 @@
           level: extended
           type: keyword
           description: Identifies the field in the source document that matched this indicator.
-          example: file.hash.sha256, source.ip          
+          example: file.hash.sha256, source.ip
         - name: provider
           level: extended
           type: keyword
-          description: Identifies the name of the intelligence provider
-          example: Abuse.ch
+          description: Identifies the name of the intelligence provider.
+        - name: confidence
+          level: extended
+          type: keyword
+          description: Identifies the confidence rating assigned by the provider using STIX confidence scales (N/H/M/L, 0-10, Admirality, WEP, or DNI).
+          example: High, 10, Confirmed by other sources, Certain, Almost Certain / Nearly Certain
         - name: module
           level: extended
           type: keyword
@@ -63,11 +67,36 @@
           type: keyword
           description: Identifies the name of specific dataset from the intelligence source.
           example: threatintel.{abusemalware,abuseurl,misp.otx.limo}
+        - name: ip
+          level: extended
+          type: ip
+          description: Identifies a threat indicator as an IP address (irrespective of direction).
+          example: 1.2.3.4
+        - name: domain
+          level: extended
+          type: keyword
+          description: Identifies a threat indicator as a domain (irrespective of direction).
+          example: evil.com
+        - name: port
+          level: extended
+          type: long
+          description: Identifies a threat indicator as a port number (irrespective of direction).
+          example: 443
+        - name: email
+          level: extended
+          description: Identifies email entities as threat indicators (irrespective of direction).
+          type: object
+          fields:
+            - name: address
+              level: extended
+              type: wildcard
+              description: Identifies a threat indicator as an email address (irrespective of direction).
+              example: pish@evil.com
         - name: marking
           level: extended
           description: Restrictions, permissions, and other guidance for how data can be used and shared.
           type: object
-          fields: 
+          fields:
             - name: tlp
               level: extended
               type: keyword
