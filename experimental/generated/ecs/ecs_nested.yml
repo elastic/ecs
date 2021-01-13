@@ -993,11 +993,11 @@ data_stream:
     of data streams. More details about this can be found in this https://www.elastic.co/blog/an-introduction-to-the-elastic-data-stream-naming-scheme[blog
     post].
 
-    Due to the fact that the values of the `data_stream` fields make up the data stream
-    name, the restrictions on data stream names also apply to values for the `data_stream`
-    fields. As an example, they cannot include \, /, *, ?, ", <, >, |, ` `. Please
-    see the Elasticsearch reference for https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-create-index.html#indices-create-api-path-params[restrictions
-    on index/data stream names].'
+    An Elasticsearch data stream consists of one or more backing indices, and a data
+    stream name forms part of the backing indices names. Due to this convention, data
+    streams must also follow index naming restrictions. For example, data stream names
+    cannot include \, /, *, ?, ", <, >, |, ` `. Please see the Elasticsearch reference
+    for additional https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-create-index.html#indices-create-api-path-params[restrictions].'
   fields:
     data_stream.dataset:
       dashed_name: data-stream-dataset
@@ -1006,8 +1006,8 @@ data_stream:
         \ etc. For data streams that otherwise fit, but that do not have dataset set\
         \ we use the value \"generic\" for the dataset value. `event.dataset` should\
         \ have the same value as `data_stream.dataset`.\nBeyond the Elasticsearch\
-        \ index naming criteria noted above, the `dataset` value has additional restrictions:\n\
-        \  * Must not contain `-`\n  * No longer than 100 characters"
+        \ data stream naming criteria noted above, the `dataset` value has additional\
+        \ restrictions:\n  * Must not contain `-`\n  * No longer than 100 characters"
       example: nginx.access
       flat_name: data_stream.dataset
       level: extended
@@ -1021,9 +1021,10 @@ data_stream:
       description: "A user defined namespace. Namespaces are useful to allow grouping\
         \ of data.\nMany users already organize their indices this way, and the data\
         \ stream naming scheme now provides this best practice as a default. Many\
-        \ users will populate this field with `default`.\nBeyond the Elasticsearch\
-        \ index naming criteria noted above, `namespace` value has the additional\
-        \ restrictions:\n  * Must not contain `-`\n  * No longer than 100 characters"
+        \ users will populate this field with `default`. If no value is used, it falls\
+        \ back to `default`.\nBeyond the Elasticsearch index naming criteria noted\
+        \ above, `namespace` value has the additional restrictions:\n  * Must not\
+        \ contain `-`\n  * No longer than 100 characters"
       example: production
       flat_name: data_stream.namespace
       level: extended
@@ -1034,12 +1035,10 @@ data_stream:
       type: constant_keyword
     data_stream.type:
       dashed_name: data-stream-type
-      description: "An overarching type for the data stream.\nCurrently allowed values\
-        \ include \"logs\", \"metrics\". We expect to also add \"traces\" and \"synthetics\"\
-        \ in the near future\nAny future values for `data_stream.type` should also\
-        \ adhere to the following restrictions (these are derived from the Elasticsearch\
-        \ index restrictions):\n  * Must not contain `-`\n  * Must not start with\
-        \ `+` or `_`"
+      description: 'An overarching type for the data stream.
+
+        Currently allowed values include "logs", "metrics". We expect to also add
+        "traces" and "synthetics" in the near future.'
       example: logs
       flat_name: data_stream.type
       level: extended
