@@ -51,11 +51,11 @@ type Cloud struct {
 	// Examples: AWS account name, Google Cloud ORG display name.
 	AccountName string `ecs:"account.name"`
 
-	// The cloud platform name is intended to distinguish services running on
+	// The cloud service name is intended to distinguish services running on
 	// different platforms within a provider, eg AWS EC2 vs Lambda, GCP GCE vs
 	// App Engine, Azure VM vs App Server.
 	// Examples: app engine, app service, cloud run, fargate, lambda.
-	Platform string `ecs:"platform"`
+	ServiceName string `ecs:"service.name"`
 
 	// The cloud project identifier.
 	// Examples: Google Cloud Project id, Azure Project id.
