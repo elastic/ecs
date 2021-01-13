@@ -32,7 +32,7 @@ This RFC is to create 25 additional sub-fields within the `file.pe` fieldset.
 | pe.sections.entropy | float | Measurement of entropy randomness in the file. |
 | pe.sections.flags | keyword | Section flags of the file. |
 | pe.sections.name | keyword | Section names of the file. |
-| pe.sections.raw_size | long | Size of the section or the dize of the initialized data on disk. |
+| pe.sections.raw_size | long | Size of the section or the size of the initialized data on disk. |
 | pe.resources | nested | If the PE contains resources, some info about them |
 | pe.resources.chi2 | long | Chi-square probability distribution |
 | pe.resources.filetype | keyword | File type of the resources section |
