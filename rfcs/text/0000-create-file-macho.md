@@ -25,7 +25,7 @@ This RFC is to create the Mach-O sub-field within the `file.` fieldset. This wil
 |   macho.header.commands.type        |   keyword  |   Type of the load commands for the Mach-O header.                          |
 |   macho.header.magic                |   keyword  |   Magic field of the Mach-O header.                                         |
 |   macho.header.flags                |   keyword  |   Flags set in the Mach-O header.                                           |
-|   macho.segments                     |   object   |   Segment information for the file.                                         |
+|   macho.segments                     |   flattened   |   Segment information for the file.                                         |
 |   macho.segments.vmaddr              |   keyword  |   Memory address of this segment.                                           |
 |   macho.segments.name                |   keyword  |   Name of this segment.                                                     |
 |   macho.segments.vmsize              |   keyword  |   Memory size of this segment.                                              |
