@@ -69,12 +69,17 @@ Stage 1: Provide a high-level description of example sources of data. This does 
 Stage 2: Included a real world example source document. Ideally this example comes from the source(s) identified in stage 1. If not, it should replace them. The goal here is to validate the utility of these field changes in the context of a real world example. Format with the source name as a ### header and the example document in a GitHub code block with json formatting.
 -->
 
-Please see example source document from AWS EC2 instance in
-[rfcs/text/0005/ec2.json](0005/ec2.json).
-
 <!--
 Stage 3: Add more real world example source documents so we have at least 2 total, but ideally 3. Format as described in stage 2.
 -->
+
+Please see example source document from AWS EC2 instance in
+[aws-ec2.json](0005/aws-ec2.json) and example source document from Azure
+compute VM in [azure-compute-vm.json](0005/azure-compute-vm.json).
+
+For system metrics, CPU, network, diskIO are reported separately from different
+metricsets. Please see example source document for CPU in [system-cpu.json](0005/system-cpu.json)
+and network in [system-network.json](0005/system-network.json).
 
 ## Scope of impact
 
