@@ -18,7 +18,7 @@ Thanks, you're awesome :-) -->
 #### Added
 
 * Added `http.request.id`. #1208
-* Added `cloud.platform`. #1204
+* Added `cloud.service.name`. #1204
 
 #### Improvements
 
