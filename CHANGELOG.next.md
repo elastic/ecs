@@ -17,6 +17,8 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
+* Added `http.request.id`. #1208
+
 #### Improvements
 
 #### Deprecated

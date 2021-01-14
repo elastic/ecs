@@ -2413,6 +2413,17 @@
       format: bytes
       description: Total size in bytes of the request (body and headers).
       example: 1437
+    - name: request.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'A unique identifier for each HTTP request to correlate logs between
+        clients and servers in transactions.
+
+        The id may be contained in a non-standard HTTP header, such as `X-Request-ID`
+        or `X-Correlation-ID`.'
+      example: 123e4567-e89b-12d3-a456-426614174000
+      default_field: false
     - name: request.method
       level: extended
       type: keyword
