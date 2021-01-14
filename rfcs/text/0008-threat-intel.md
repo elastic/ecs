@@ -282,7 +282,7 @@ Stage 2: Included a real world example source document. Ideally this example com
 
 #### Botvrij.eu
 
-Freely available source of indindicator's which includes Network indindicators, File Details, Email and Registry Key
+Freely available source of indicators which includes Network indicators, File Details, Email and Registry Key
 
 ```
 cc2477cf4d596a88b349257cba3ef356 # md5 - AZORult spreads as a fake ProtonVPN installer (191)
