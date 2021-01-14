@@ -37,7 +37,7 @@ threat.indicator.confidence | keyword | High, 10, Confirmed by other sources, Ce
 threat.indicator.ip | ip | 1.2.3.4 | Identifies a threat indicator as an IP address (irrespective of direction).
 threat.indicator.domain | keyword | evil.com | Identifies a threat indicator as a domain (irrespective of direction).
 threat.indicator.port | long | 443 | Identifies a threat indicator as a port number (irrespective of direction).
-threat.indicator.email.address | wildcard [] | phish@evil.com | Identifies a threat indicator as an email address (irrespective of direction).
+threat.indicator.email.address | keyword | phish@evil.com | Identifies a threat indicator as an email address (irrespective of direction).
 threat.marking.tlp | keyword | RED | Data markings represent restrictions, permissions, and other guidance for how data can be used and shared. Examples could be TLP (White, Green, Amber, Red).
 threat.indicator.scanner_stats | long | 4 | Count of Anti virus/EDR that successfully detected malicious file or URL. Sources like VirusTotal, Reversing Labs often provide these statistics.
 
