@@ -1,0 +1,69 @@
+[[ecs-categorization-values-usage]]
+=== Event Categorization Examples
+
+The following are examples use the four events categorization fields together.
+
+[float]
+==== Firewall blocked a network connection
+
+[source,yaml]
+----
+event:
+  kind: event
+  category:
+    - network
+  type:
+    - connection
+    - denied
+  outcome:
+    - success
+----
+
+[float]
+==== Failed attempt to add user account
+
+[source,yaml]
+----
+event:
+  kind: event
+  category:
+    - iam
+  type:
+    - user
+    - creation
+  outcome:
+    - failure
+----
+
+[float]
+==== Gathering information about a file
+
+[source,yaml]
+----
+event:
+  kind: event
+  category:
+    - iam
+  type:
+    - user
+    - creation
+  outcome:
+    - failure
+----
+
+[float]
+=== Security application failed to block a network connection
+
+[source,yaml]
+----
+event:
+  kind: alert
+  category:
+    - intrustion_detection
+    - network
+  type:
+    - connection
+    - denied
+  outcome: failure
+----
+
