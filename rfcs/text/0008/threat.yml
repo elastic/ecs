@@ -41,11 +41,6 @@
           type: long
           description: Count of AV/EDR vendors that successfully detected malicious file or URL.
           example: 4
-        - name: matched
-          level: extended
-          type: keyword
-          description: Identifies the field in the source document that matched this indicator.
-          example: file.hash.sha256, source.ip
         - name: provider
           level: extended
           type: keyword
@@ -100,3 +95,23 @@
               type: keyword
               description: Traffic Light Protocol sharing markings.
               example: White, Green, Amber, Red
+        - name: matched
+          level: extended
+          description: Information describing matched indicators. This is for enriched documents.
+          type: object
+          fields:
+            - name: atomic
+              level: extended
+              type: keyword
+              description: Identifies the atomic indicator that matched a local environment endpoint or network event.
+              example: 1.2.3.4, evil.com, phish@evil.com
+            - name: field
+              level: extended
+              type: keyword
+              description: Identifies the field of the atomic indicator that matched a local environment endpoint or network event.
+              example: file.hash.sha256, threat.indicator.ip
+            - name: type
+              level: extended
+              type: keyword
+              description: Identifies the type of the atomic indicator that matched a local environment endpoint or network event.
+              example: ipv4-addr, domain-name, email-addr, url
