@@ -26,15 +26,7 @@ type Geo struct {
 	// Longitude and latitude.
 	Location string `ecs:"location"`
 
-	// Two-letter code representing the continent.
-	// Possible codes are:
-	//   * AF - Africa
-	//   * AN - Antarctica
-	//   * AS - Asia
-	//   * EU - Europe
-	//   * NA - North America
-	//   * OC - Oceania
-	//   * SA - South America
+	// Two-letter code representing continent's name.
 	ContinentCode string `ecs:"continent_code"`
 
 	// Name of the continent.
@@ -52,14 +44,15 @@ type Geo struct {
 	// Country ISO code.
 	CountryIsoCode string `ecs:"country_iso_code"`
 
-	// Postal code. Also known as postcode, post code, or ZIP code.
+	// Postal code associated with the location.
+	// Values appropriate for this field may also be known as a postcode or ZIP
+	// code.
 	PostalCode string `ecs:"postal_code"`
 
 	// Region ISO code.
 	RegionIsoCode string `ecs:"region_iso_code"`
 
-	// The time zone associated with location, as specified by the IANA Time
-	// Zone Database.
+	// The time zone of the location.
 	TimeZone string `ecs:"time_zone"`
 
 	// User-defined description of a location, at the level of granularity they
