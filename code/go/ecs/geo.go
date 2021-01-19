@@ -53,7 +53,7 @@ type Geo struct {
 	RegionIsoCode string `ecs:"region_iso_code"`
 
 	// The time zone of the location.
-	TimeZone string `ecs:"time_zone"`
+	Timezone string `ecs:"timezone"`
 
 	// User-defined description of a location, at the level of granularity they
 	// care about.
