@@ -1,8 +1,8 @@
 # 0005: Host Metric Fields
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
-- Stage: **2 (draft)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
-- Date: **2020-12-01** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
+- Stage: **3 (candidate)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
+- Date: **2021-01-19** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 <!--
 As you work on your RFC, use the "Stage N" comments to guide you in what you should focus on, for the stage you're targeting.
@@ -23,7 +23,7 @@ Proposed 7 new fields are:
 
 ## Fields
 This RFC calls for the addition of host fields to collect basic monitoring metrics from a host or VM such as CPU, network and disk.
-Please see [`host`](0005/host.yml) for definitions of all fields.
+Please see [`host.yml`](0005/host.yml) for definitions of all fields.
 
 Note: the `host.network.*` and `host.disk.*` fields are gauges which represent
 IO since the last metric collection. In order to interpret these metrics, the
@@ -69,12 +69,17 @@ Stage 1: Provide a high-level description of example sources of data. This does 
 Stage 2: Included a real world example source document. Ideally this example comes from the source(s) identified in stage 1. If not, it should replace them. The goal here is to validate the utility of these field changes in the context of a real world example. Format with the source name as a ### header and the example document in a GitHub code block with json formatting.
 -->
 
-Please see example source document from AWS EC2 instance in
-[rfcs/text/0005/ec2.json](0005/ec2.json).
-
 <!--
 Stage 3: Add more real world example source documents so we have at least 2 total, but ideally 3. Format as described in stage 2.
 -->
+
+Please see example source document from AWS EC2 instance in
+[aws-ec2.json](0005/aws-ec2.json) and example source document from Azure
+compute VM in [azure-compute-vm.json](0005/azure-compute-vm.json).
+
+For system metrics, CPU, network, diskIO are reported separately from different
+metricsets. Please see example source document for CPU in [system-cpu.json](0005/system-cpu.json)
+and network in [system-network.json](0005/system-network.json).
 
 ## Scope of impact
 
@@ -125,6 +130,14 @@ Stage 4: Document any new concerns and their resolution. The goal here is to eli
 <!--
 Stage 4: Identify at least one real-world, production-ready implementation that uses these updated field definitions. An example of this might be a GA feature in an Elastic application in Kibana.
 -->
+Our goal is to switch related fields to these new host metrics in Kibana Observability
+metrics UI. For example: right now under hosts inventory, CPU usage will only display
+metrics that are collected by Metricbeat `system` module. With using the new host
+metric fields, CPU metric from `system` module will be `host.cpu.usage`, as well
+as CPU metrics from all AWS EC2 instances or Azure compute VMs. With
+[Kibana Metrics UI](https://github.com/elastic/kibana/issues/87508) switching to
+these new proposed host metric fields, all hosts will be discovered and displayed
+in a single waffle map from different data collection sources.
 
 ## People
 
@@ -159,6 +172,7 @@ e.g.:
 * Stage 1: https://github.com/elastic/ecs/pull/950
 * Stage 2: https://github.com/elastic/ecs/pull/1028
   * Stage 2 correction: https://github.com/elastic/ecs/pull/1158
+* Stage 3: https://github.com/elastic/ecs/pull/1182
 
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN
