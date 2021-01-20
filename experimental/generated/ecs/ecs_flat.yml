@@ -643,6 +643,21 @@ cloud.region:
   normalize: []
   short: Region in which this host is running.
   type: keyword
+cloud.service.name:
+  dashed_name: cloud-service-name
+  description: 'The cloud service name is intended to distinguish services running
+    on different platforms within a provider, eg AWS EC2 vs Lambda, GCP GCE vs App
+    Engine, Azure VM vs App Server.
+
+    Examples: app engine, app service, cloud run, fargate, lambda.'
+  example: lambda
+  flat_name: cloud.service.name
+  ignore_above: 1024
+  level: extended
+  name: service.name
+  normalize: []
+  short: The cloud service name.
+  type: keyword
 container.id:
   dashed_name: container-id
   description: Unique container id.
@@ -705,6 +720,52 @@ container.runtime:
   normalize: []
   short: Runtime managing this container.
   type: keyword
+data_stream.dataset:
+  dashed_name: data-stream-dataset
+  description: "The field can contain anything that makes sense to signify the source\
+    \ of the data.\nExamples include `nginx.access`, `prometheus`, `endpoint` etc.\
+    \ For data streams that otherwise fit, but that do not have dataset set we use\
+    \ the value \"generic\" for the dataset value. `event.dataset` should have the\
+    \ same value as `data_stream.dataset`.\nBeyond the Elasticsearch data stream naming\
+    \ criteria noted above, the `dataset` value has additional restrictions:\n  *\
+    \ Must not contain `-`\n  * No longer than 100 characters"
+  example: nginx.access
+  flat_name: data_stream.dataset
+  level: extended
+  name: dataset
+  normalize: []
+  short: The field can contain anything that makes sense to signify the source of
+    the data.
+  type: constant_keyword
+data_stream.namespace:
+  dashed_name: data-stream-namespace
+  description: "A user defined namespace. Namespaces are useful to allow grouping\
+    \ of data.\nMany users already organize their indices this way, and the data stream\
+    \ naming scheme now provides this best practice as a default. Many users will\
+    \ populate this field with `default`. If no value is used, it falls back to `default`.\n\
+    Beyond the Elasticsearch index naming criteria noted above, `namespace` value\
+    \ has the additional restrictions:\n  * Must not contain `-`\n  * No longer than\
+    \ 100 characters"
+  example: production
+  flat_name: data_stream.namespace
+  level: extended
+  name: namespace
+  normalize: []
+  short: A user defined namespace. Namespaces are useful to allow grouping of data.
+  type: constant_keyword
+data_stream.type:
+  dashed_name: data-stream-type
+  description: 'An overarching type for the data stream.
+
+    Currently allowed values are "logs" and "metrics". We expect to also add "traces"
+    and "synthetics" in the near future.'
+  example: logs
+  flat_name: data_stream.type
+  level: extended
+  name: type
+  normalize: []
+  short: An overarching type for the data stream.
+  type: constant_keyword
 destination.address:
   dashed_name: destination-address
   description: 'Some event destination addresses are defined ambiguously. The event
@@ -1236,6 +1297,17 @@ dll.hash.sha512:
   normalize: []
   original_fieldset: hash
   short: SHA512 hash.
+  type: keyword
+dll.hash.ssdeep:
+  dashed_name: dll-hash-ssdeep
+  description: SSDEEP hash.
+  flat_name: dll.hash.ssdeep
+  ignore_above: 1024
+  level: extended
+  name: ssdeep
+  normalize: []
+  original_fieldset: hash
+  short: SSDEEP hash.
   type: keyword
 dll.name:
   dashed_name: dll-name
@@ -2183,8 +2255,8 @@ event.reference:
   dashed_name: event-reference
   description: 'Reference URL linking to additional information about this event.
 
-    This URL links to a static definition of the this event. Alert events, indicated
-    by `event.kind:alert`, are a common use case for this field.'
+    This URL links to a static definition of this event. Alert events, indicated by
+    `event.kind:alert`, are a common use case for this field.'
   example: https://system.example.com/event/#0001234
   flat_name: event.reference
   ignore_above: 1024
@@ -2660,6 +2732,17 @@ file.hash.sha512:
   normalize: []
   original_fieldset: hash
   short: SHA512 hash.
+  type: keyword
+file.hash.ssdeep:
+  dashed_name: file-hash-ssdeep
+  description: SSDEEP hash.
+  flat_name: file.hash.ssdeep
+  ignore_above: 1024
+  level: extended
+  name: ssdeep
+  normalize: []
+  original_fieldset: hash
+  short: SSDEEP hash.
   type: keyword
 file.inode:
   dashed_name: file-inode
@@ -3786,6 +3869,21 @@ http.request.bytes:
   normalize: []
   short: Total size in bytes of the request (body and headers).
   type: long
+http.request.id:
+  dashed_name: http-request-id
+  description: 'A unique identifier for each HTTP request to correlate logs between
+    clients and servers in transactions.
+
+    The id may be contained in a non-standard HTTP header, such as `X-Request-ID`
+    or `X-Correlation-ID`.'
+  example: 123e4567-e89b-12d3-a456-426614174000
+  flat_name: http.request.id
+  ignore_above: 1024
+  level: extended
+  name: request.id
+  normalize: []
+  short: HTTP request ID.
+  type: keyword
 http.request.method:
   dashed_name: http-request-method
   description: 'HTTP request method.
@@ -5207,6 +5305,17 @@ process.hash.sha512:
   original_fieldset: hash
   short: SHA512 hash.
   type: keyword
+process.hash.ssdeep:
+  dashed_name: process-hash-ssdeep
+  description: SSDEEP hash.
+  flat_name: process.hash.ssdeep
+  ignore_above: 1024
+  level: extended
+  name: ssdeep
+  normalize: []
+  original_fieldset: hash
+  short: SSDEEP hash.
+  type: keyword
 process.name:
   beta: Note the usage of `wildcard` type is considered beta. This field used to be
     type `keyword`.
@@ -5441,6 +5550,17 @@ process.parent.hash.sha512:
   normalize: []
   original_fieldset: hash
   short: SHA512 hash.
+  type: keyword
+process.parent.hash.ssdeep:
+  dashed_name: process-parent-hash-ssdeep
+  description: SSDEEP hash.
+  flat_name: process.parent.hash.ssdeep
+  ignore_above: 1024
+  level: extended
+  name: ssdeep
+  normalize: []
+  original_fieldset: hash
+  short: SSDEEP hash.
   type: keyword
 process.parent.name:
   beta: Note the usage of `wildcard` type is considered beta. This field used to be

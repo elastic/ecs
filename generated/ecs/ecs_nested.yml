@@ -814,6 +814,21 @@ cloud:
       normalize: []
       short: Region in which this host is running.
       type: keyword
+    cloud.service.name:
+      dashed_name: cloud-service-name
+      description: 'The cloud service name is intended to distinguish services running
+        on different platforms within a provider, eg AWS EC2 vs Lambda, GCP GCE vs
+        App Engine, Azure VM vs App Server.
+
+        Examples: app engine, app service, cloud run, fargate, lambda.'
+      example: lambda
+      flat_name: cloud.service.name
+      ignore_above: 1024
+      level: extended
+      name: service.name
+      normalize: []
+      short: The cloud service name.
+      type: keyword
   footnote: 'Examples: If Metricbeat is running on an EC2 host and fetches data from
     its host, the cloud info contains the data about this machine. If Metricbeat runs
     on a remote machine outside the cloud and fetches data from a service running
@@ -1559,6 +1574,17 @@ dll:
       normalize: []
       original_fieldset: hash
       short: SHA512 hash.
+      type: keyword
+    dll.hash.ssdeep:
+      dashed_name: dll-hash-ssdeep
+      description: SSDEEP hash.
+      flat_name: dll.hash.ssdeep
+      ignore_above: 1024
+      level: extended
+      name: ssdeep
+      normalize: []
+      original_fieldset: hash
+      short: SSDEEP hash.
       type: keyword
     dll.name:
       dashed_name: dll-name
@@ -2587,7 +2613,7 @@ event:
       dashed_name: event-reference
       description: 'Reference URL linking to additional information about this event.
 
-        This URL links to a static definition of the this event. Alert events, indicated
+        This URL links to a static definition of this event. Alert events, indicated
         by `event.kind:alert`, are a common use case for this field.'
       example: https://system.example.com/event/#0001234
       flat_name: event.reference
@@ -3085,6 +3111,17 @@ file:
       normalize: []
       original_fieldset: hash
       short: SHA512 hash.
+      type: keyword
+    file.hash.ssdeep:
+      dashed_name: file-hash-ssdeep
+      description: SSDEEP hash.
+      flat_name: file.hash.ssdeep
+      ignore_above: 1024
+      level: extended
+      name: ssdeep
+      normalize: []
+      original_fieldset: hash
+      short: SSDEEP hash.
       type: keyword
     file.inode:
       dashed_name: file-inode
@@ -3818,11 +3855,16 @@ group:
   title: Group
   type: group
 hash:
-  description: 'The hash fields represent different hash algorithms and their values.
+  description: 'The hash fields represent different bitwise hash algorithms and their
+    values.
 
     Field names for common hashes (e.g. MD5, SHA1) are predefined. Add fields for
     other hashes by lowercasing the hash algorithm name and using underscore separators
-    as appropriate (snake case, e.g. sha3_512).'
+    as appropriate (snake case, e.g. sha3_512).
+
+    Note that this fieldset is used for common hashes that may be computed over a
+    range of generic bytes. Entity-specific hashes such as ja3 or imphash are placed
+    in the fieldsets to which they relate (tls and pe, respectively).'
   fields:
     hash.md5:
       dashed_name: hash-md5
@@ -3863,6 +3905,16 @@ hash:
       name: sha512
       normalize: []
       short: SHA512 hash.
+      type: keyword
+    hash.ssdeep:
+      dashed_name: hash-ssdeep
+      description: SSDEEP hash.
+      flat_name: hash.ssdeep
+      ignore_above: 1024
+      level: extended
+      name: ssdeep
+      normalize: []
+      short: SSDEEP hash.
       type: keyword
   group: 2
   name: hash
@@ -4405,6 +4457,21 @@ http:
       normalize: []
       short: Total size in bytes of the request (body and headers).
       type: long
+    http.request.id:
+      dashed_name: http-request-id
+      description: 'A unique identifier for each HTTP request to correlate logs between
+        clients and servers in transactions.
+
+        The id may be contained in a non-standard HTTP header, such as `X-Request-ID`
+        or `X-Correlation-ID`.'
+      example: 123e4567-e89b-12d3-a456-426614174000
+      flat_name: http.request.id
+      ignore_above: 1024
+      level: extended
+      name: request.id
+      normalize: []
+      short: HTTP request ID.
+      type: keyword
     http.request.method:
       dashed_name: http-request-method
       description: 'HTTP request method.
@@ -6206,6 +6273,17 @@ process:
       original_fieldset: hash
       short: SHA512 hash.
       type: keyword
+    process.hash.ssdeep:
+      dashed_name: process-hash-ssdeep
+      description: SSDEEP hash.
+      flat_name: process.hash.ssdeep
+      ignore_above: 1024
+      level: extended
+      name: ssdeep
+      normalize: []
+      original_fieldset: hash
+      short: SSDEEP hash.
+      type: keyword
     process.name:
       beta: Note the usage of `wildcard` type is considered beta. This field used
         to be type `keyword`.
@@ -6440,6 +6518,17 @@ process:
       normalize: []
       original_fieldset: hash
       short: SHA512 hash.
+      type: keyword
+    process.parent.hash.ssdeep:
+      dashed_name: process-parent-hash-ssdeep
+      description: SSDEEP hash.
+      flat_name: process.parent.hash.ssdeep
+      ignore_above: 1024
+      level: extended
+      name: ssdeep
+      normalize: []
+      original_fieldset: hash
+      short: SSDEEP hash.
       type: keyword
     process.parent.name:
       beta: Note the usage of `wildcard` type is considered beta. This field used
