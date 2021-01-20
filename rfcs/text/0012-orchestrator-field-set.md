@@ -93,8 +93,8 @@ Stage 3: Add or update all remaining field definitions. The list should now be e
 ## Usage
 
 The `orchestrator` field set will be used to capture typical concepts employed
-by container orchestrators to manage resources. The key intent of this is to allow
-for a a consistent method by which audit logs from container orchestrators can
+by container orchestrators to manage resources. The key intent of this is to create
+a consistent method by which audit logs from container orchestrators can
 be compared. For example, this would allow the creation of open source detection
 rulesets for suspicious Kubernetes events based on audit logs, which can be easily
 transferred from one cluster to another without depending on the specifics of
