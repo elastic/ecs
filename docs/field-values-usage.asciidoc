@@ -1,69 +1,150 @@
 [[ecs-categorization-values-usage]]
-=== Event Categorization Examples
+=== Categorization Usage
 
-The following are examples use the four events categorization fields together.
+The following are usage examples of populating the categorization fields. Using the categorization fields together helps identify and group common subsets of events.
+
+Each categorization example is based on an event from real-world data sources. Categorization fields should be populated using knowledge of each type of event a data source emits.
 
 [float]
 ==== Firewall blocked a network connection
 
-[source,yaml]
+Network firewalls generate events based on which network flows were allowed or denied based on the firewall's configuration.
+
+[source,json]
 ----
-event:
-  kind: event
-  category:
-    - network
-  type:
-    - connection
-    - denied
-  outcome:
-    - success
+...
+  {
+    "source": {
+      "address": "10.42.42.42",
+      "ip": "10.42.42.42",
+      "port": 38842
+    },
+    "destination": {
+      "address": "10.42.42.1",
+      "ip": "10.42.42.1",
+      "port": 443
+    },
+    "rule": {
+      "name": "wan-lan",
+      "id": "default"
+    },
+    ...
+    "event": {
+      "kind": "event", <1>
+      "category": [ <2>
+        "network"
+      ],
+      "type": [ <3>
+        "connection",
+        "denied"
+      ],
+      "outcome": "success", <4>
+      "action": "dropped" <5>
+    }
+  }
+...
+----
+
+<1> The `event` value will be the most common and most general event `kind`.
+<2> Event relates to network activity.
+<3> The firewall blocked, dropped, or someway `denied` the attempted network `connection`.
+<4> A blocked connection is expected based on the configuration of this firewall. The outcome is a `success` from the perspective of the firewall emitting the event.
+<5> The data source describes this `denied` connection as `dropped`, which is best captured in `event.action`.
+
+A "denied" network connection falls under different actions: "blocked", "dropped", "quarantined". The `event.action` can capture the action taken by the source, and populating `event.type:denied` provides a normalized category which is independent of the source.
+
+Any network flows or connections that are "denied" can be searched with a single query:
+
+[source,sh]
+----
+event.category:network AND event.type:denied
 ----
 
 [float]
-==== Failed attempt to add user account
+==== Failed attempt to create a user account
 
-[source,yaml]
+User `alice` attempts to add a user account, `bob`, into a directory service, but the action fails.
+
+[source,json]
 ----
-event:
-  kind: event
-  category:
-    - iam
-  type:
-    - user
-    - creation
-  outcome:
-    - failure
+{
+  "user": {
+    "name": "alice",
+    "target": {
+      "name": "bob"
+    }
+  },
+  "event": {
+    "kind": "event",
+    "category": [ <1>
+      "iam"
+    ],
+    "type": [ <2>
+      "user",
+      "creation"
+    ],
+    "outcome": "failure" <3>
+  }
+}
 ----
+
+<1> Categorized using `iam` for an event user account activity.
+<2> Both `user` and `creation`
+<3> The creation of a user account was attempted, but it was not successful.
 
 [float]
-==== Gathering information about a file
+==== Informational listing of a file
 
-[source,yaml]
+A utility, such as a file integrity monitoring (FIM) application, takes inventory of a file but does not access or modify the file.
+
+[source,json]
 ----
-event:
-  kind: event
-  category:
-    - iam
-  type:
-    - user
-    - creation
-  outcome:
-    - failure
+{
+  "file": {
+    "name": "example.png",
+    "owner": "alice",
+    "path": "/home/alice/example.png",
+    "type": "file"
+  },
+  "event": {
+    "kind": "event",
+    "category": [ <1>
+      "file"
+    ],
+    "type": [ <2>
+      "info"
+    ]
+  }
+}
 ----
+
+<1> A file was reported on
+<2> The "info" type categorizes purely informational events. A file was listed but not accessed or modified.
 
 [float]
 === Security application failed to block a network connection
 
-[source,yaml]
+An intrusion detection system (IDS) performing analysis on network connections and protocols attempts to block a connection but fails.
+
+[source,json]
 ----
-event:
-  kind: alert
-  category:
-    - intrustion_detection
-    - network
-  type:
-    - connection
-    - denied
-  outcome: failure
+{
+  "event": {
+    "kind": "alert", <1>
+    "category": [ <2>
+      "intrusion_detection",
+      "network"
+    ],
+    "type": [ <3>
+      "connection",
+      "denied"
+    ],
+    "outcome": "failure" <4>
+  }
+}
 ----
 
+<1> The event was associated with a detection alert from an intrusion detection application.
+<2> The data source is a network-based intrusion detection application.
+<3> A network connection is associated with the event, and the IDS attempted action to deny the connection from continuing.
+<4> The IDS application failed to deny the connection for some reason, resulting in `outcome: failure`
