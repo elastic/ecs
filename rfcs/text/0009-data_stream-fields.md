@@ -1,8 +1,8 @@
 # 0009: Data stream fields
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
-- Stage: **1 (proposal)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
-- Date: **2020-11-11** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
+- Stage: **2 (draft)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
+- Date: **2021-01-04** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 When introducing the new indexing strategy for Elastic Agent which uses data streams, we found that adding a few [constant_keyword](https://www.elastic.co/guide/en/elasticsearch/reference/master/keyword.html#constant-keyword-field-type) fields corresponding to the central components in the new indexing strategy would be advantageous.
 
@@ -30,6 +30,8 @@ data_stream.dataset | constant_keyword | The field can contain anything that mak
 data_stream.namespace | constant_keyword | A user defined namespace. Namespaces are useful to allow grouping of data. Many of our customers already organize their indices this way, and now we are providing this best practice as a default. Many people will use `default` as the value.
 
 In the new indexing strategy, the value of the data stream fields combine to the name of the actual data stream in the following manner `{data_stream.type}-{data_stream.dataset}-{data_stream.namespace}`. This means the fields can only contain characters that are valid as part of names of data streams.
+
+The fields can be found in `rfcs/text/0009/data_stream.yml`.
 
 ### Restrictions on values
 
@@ -86,6 +88,75 @@ Stage 1: Provide a high-level description of example sources of data. This does 
 -->
 
 Today, Elastic Agent adds the data_stream fields in all documents ingested. It's also possible to use the fields in data from other data sources. Elasticsearch 7.9+ ships with built-in index template mappings which will ensure that documents indexed into data streams that match `logs-*-*` and `metrics-*-*` will get the fields mapped correctly to `constant_keyword` types.
+
+Here are two example events, one for logs, one for metrics. It must be noted that for better readability some of the fields were removed.
+
+Example source document of type metrics:
+
+```
+{
+  "@timestamp": "2020-12-23T10:10:45.704Z",
+  "event": {
+    "dataset": "system.process_summary",
+    "module": "system",
+    "duration": 34693020
+  },
+  "service": {
+    "type": "system"
+  },
+  "system": {
+    "process": {
+      "summary": {
+        "dead": 0,
+        "total": 236,
+        "sleeping": 49,
+        "running": 0,
+        "idle": 95,
+        "stopped": 0,
+        "zombie": 0,
+        "unknown": 92
+      }
+    }
+  },
+  "data_stream": {
+    "dataset": "system.process_summary",
+    "namespace": "default",
+    "type": "metrics"
+  }
+}
+```
+
+Example source document of type logs:
+
+```
+{
+  "@timestamp": "2020-12-23T10:17:35.902Z",
+  "log.level": "debug",
+  "log.logger": "processors",
+  "log.origin": {
+    "file.name": "processing/processors.go",
+    "file.line": 203
+  },
+  "message": "Hello world ECS",
+  "input": {
+    "type": "log"
+  },
+  "event": {
+    "dataset": "elastic_agent.metricbeat"
+  },
+  "log": {
+    "file": {
+      "path": "/opt/Elastic/Agent/data/elastic-agent-1da173/logs/default/metricbeat-json.log"
+    },
+    "offset": 685026
+  },
+  "data_stream": {
+    "dataset": "elastic_agent.metricbeat",
+    "namespace": "default",
+    "type": "logs"
+  }
+}
+```
 
 ### Using data_stream fields with regular indices
 `data_stream` fields only make sense when indexing into data streams. They should not to be used for regular indices.
@@ -150,7 +221,7 @@ Additionally, as previously described, beginning in version 7.9, Elasticsearch s
 The following are the people that consulted on the contents of this RFC.
 
 * @roncohen | author, sponsor
-* @ruflin | subject matter expert
+* @ruflin | author, sponsor, subject matter expert
 
 
 <!--
@@ -182,7 +253,7 @@ e.g.:
 <!-- An RFC should link to the PRs for each of it stage advancements. -->
 
 * Stage 1: https://github.com/elastic/ecs/pull/980
-
+* Stage 2: https://github.com/elastic/ecs/pull/1145
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN
 ...

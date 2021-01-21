@@ -476,6 +476,17 @@
       ignore_above: 1024
       description: Region in which this host is running.
       example: us-east-1
+    - name: service.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The cloud service name is intended to distinguish services running
+        on different platforms within a provider, eg AWS EC2 vs Lambda, GCP GCE vs
+        App Engine, Azure VM vs App Server.
+
+        Examples: app engine, app service, cloud run, fargate, lambda.'
+      example: lambda
+      default_field: false
   - name: code_signature
     title: Code Signature
     group: 2
@@ -564,6 +575,58 @@
       ignore_above: 1024
       description: Runtime managing this container.
       example: docker
+  - name: data_stream
+    title: Data Stream
+    group: 2
+    description: 'The data_stream fields take part in defining the new data stream
+      naming scheme.
+
+      In the new data stream naming scheme the value of the data stream fields combine
+      to the name of the actual data stream in the following manner `{data_stream.type}-{data_stream.dataset}-{data_stream.namespace}`.
+      This means the fields can only contain characters that are valid as part of
+      names of data streams. More details about this can be found in this https://www.elastic.co/blog/an-introduction-to-the-elastic-data-stream-naming-scheme[blog
+      post].
+
+      An Elasticsearch data stream consists of one or more backing indices, and a
+      data stream name forms part of the backing indices names. Due to this convention,
+      data streams must also follow index naming restrictions. For example, data stream
+      names cannot include \, /, *, ?, ", <, >, |, ` `. Please see the Elasticsearch
+      reference for additional https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-create-index.html#indices-create-api-path-params[restrictions].'
+    type: group
+    fields:
+    - name: dataset
+      level: extended
+      type: constant_keyword
+      description: "The field can contain anything that makes sense to signify the\
+        \ source of the data.\nExamples include `nginx.access`, `prometheus`, `endpoint`\
+        \ etc. For data streams that otherwise fit, but that do not have dataset set\
+        \ we use the value \"generic\" for the dataset value. `event.dataset` should\
+        \ have the same value as `data_stream.dataset`.\nBeyond the Elasticsearch\
+        \ data stream naming criteria noted above, the `dataset` value has additional\
+        \ restrictions:\n  * Must not contain `-`\n  * No longer than 100 characters"
+      example: nginx.access
+      default_field: false
+    - name: namespace
+      level: extended
+      type: constant_keyword
+      description: "A user defined namespace. Namespaces are useful to allow grouping\
+        \ of data.\nMany users already organize their indices this way, and the data\
+        \ stream naming scheme now provides this best practice as a default. Many\
+        \ users will populate this field with `default`. If no value is used, it falls\
+        \ back to `default`.\nBeyond the Elasticsearch index naming criteria noted\
+        \ above, `namespace` value has the additional restrictions:\n  * Must not\
+        \ contain `-`\n  * No longer than 100 characters"
+      example: production
+      default_field: false
+    - name: type
+      level: extended
+      type: constant_keyword
+      description: 'An overarching type for the data stream.
+
+        Currently allowed values are "logs" and "metrics". We expect to also add "traces"
+        and "synthetics" in the near future.'
+      example: logs
+      default_field: false
   - name: destination
     title: Destination
     group: 2
@@ -887,6 +950,12 @@
       type: keyword
       ignore_above: 1024
       description: SHA512 hash.
+      default_field: false
+    - name: hash.ssdeep
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SSDEEP hash.
       default_field: false
     - name: name
       level: core
@@ -1334,7 +1403,8 @@
       description: 'Raw text message of entire event. Used to demonstrate log integrity.
 
         This field is not indexed and doc_values are disabled. It cannot be searched,
-        but it can be retrieved from `_source`.'
+        but it can be retrieved from `_source`. If users wish to override this and
+        index this field, consider using the wildcard data type.'
       example: Sep 19 08:26:10 host CEF:0&#124;Security&#124; threatmanager&#124;1.0&#124;100&#124;
         worm successfully stopped&#124;10&#124;src=10.0.0.1 dst=2.1.2.2spt=1232
       index: false
@@ -1391,7 +1461,7 @@
       ignore_above: 1024
       description: 'Reference URL linking to additional information about this event.
 
-        This URL links to a static definition of the this event. Alert events, indicated
+        This URL links to a static definition of this event. Alert events, indicated
         by `event.kind:alert`, are a common use case for this field.'
       example: https://system.example.com/event/#0001234
       default_field: false
@@ -1618,6 +1688,12 @@
       type: keyword
       ignore_above: 1024
       description: SHA512 hash.
+    - name: hash.ssdeep
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SSDEEP hash.
+      default_field: false
     - name: inode
       level: extended
       type: keyword
@@ -2004,11 +2080,16 @@
   - name: hash
     title: Hash
     group: 2
-    description: 'The hash fields represent different hash algorithms and their values.
+    description: 'The hash fields represent different bitwise hash algorithms and
+      their values.
 
       Field names for common hashes (e.g. MD5, SHA1) are predefined. Add fields for
       other hashes by lowercasing the hash algorithm name and using underscore separators
-      as appropriate (snake case, e.g. sha3_512).'
+      as appropriate (snake case, e.g. sha3_512).
+
+      Note that this fieldset is used for common hashes that may be computed over
+      a range of generic bytes. Entity-specific hashes such as ja3 or imphash are
+      placed in the fieldsets to which they relate (tls and pe, respectively).'
     type: group
     fields:
     - name: md5
@@ -2031,6 +2112,12 @@
       type: keyword
       ignore_above: 1024
       description: SHA512 hash.
+    - name: ssdeep
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SSDEEP hash.
+      default_field: false
   - name: host
     title: Host
     group: 2
@@ -2047,6 +2134,28 @@
       ignore_above: 1024
       description: Operating system architecture.
       example: x86_64
+    - name: cpu.usage
+      level: extended
+      type: scaled_float
+      description: 'Percent CPU used which is normalized by the number of CPU cores
+        and it ranges from 0 to 1. Scaling factor: 1000.
+
+        For example: For a two core host, this value should be the average of the
+        two cores, between 0 and 1.'
+      scaling_factor: 1000
+      default_field: false
+    - name: disk.read.bytes
+      level: extended
+      type: long
+      description: The total number of bytes (gauge) read successfully (aggregated
+        from all disks) since the last metric collection.
+      default_field: false
+    - name: disk.write.bytes
+      level: extended
+      type: long
+      description: The total number of bytes (gauge) written successfully (aggregated
+        from all disks) since the last metric collection.
+      default_field: false
     - name: domain
       level: extended
       type: keyword
@@ -2143,6 +2252,30 @@
         It can contain what `hostname` returns on Unix systems, the fully qualified
         domain name, or a name specified by the user. The sender decides which value
         to use.'
+    - name: network.egress.bytes
+      level: extended
+      type: long
+      description: The number of bytes (gauge) sent out on all network interfaces
+        by the host since the last metric collection.
+      default_field: false
+    - name: network.egress.packets
+      level: extended
+      type: long
+      description: The number of packets (gauge) sent out on all network interfaces
+        by the host since the last metric collection.
+      default_field: false
+    - name: network.ingress.bytes
+      level: extended
+      type: long
+      description: The number of bytes received (gauge) on all network interfaces
+        by the host since the last metric collection.
+      default_field: false
+    - name: network.ingress.packets
+      level: extended
+      type: long
+      description: The number of packets (gauge) received on all network interfaces
+        by the host since the last metric collection.
+      default_field: false
     - name: os.family
       level: extended
       type: keyword
@@ -2314,6 +2447,17 @@
       format: bytes
       description: Total size in bytes of the request (body and headers).
       example: 1437
+    - name: request.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'A unique identifier for each HTTP request to correlate logs between
+        clients and servers in transactions.
+
+        The id may be contained in a non-standard HTTP header, such as `X-Request-ID`
+        or `X-Correlation-ID`.'
+      example: 123e4567-e89b-12d3-a456-426614174000
+      default_field: false
     - name: request.method
       level: extended
       type: keyword
@@ -3379,6 +3523,12 @@
       type: keyword
       ignore_above: 1024
       description: SHA512 hash.
+    - name: hash.ssdeep
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SSDEEP hash.
+      default_field: false
     - name: name
       level: extended
       type: wildcard
@@ -3523,6 +3673,12 @@
       type: keyword
       ignore_above: 1024
       description: SHA512 hash.
+      default_field: false
+    - name: parent.hash.ssdeep
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SSDEEP hash.
       default_field: false
     - name: parent.name
       level: extended
@@ -5212,54 +5368,34 @@
       description: Normalized lowercase protocol name parsed from original string.
       example: tls
       default_field: false
-  - name: tracing
-    title: Tracing
-    group: 2
-    description: Distributed tracing makes it possible to analyze performance throughout
-      a microservice architecture all in one view. This is accomplished by tracing
-      all of the requests - from the initial web request in the front-end service
-      - to queries made through multiple back-end services.
-    type: group
-    fields:
-    - name: parent.id
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: 'Identifier of the parent span (or transaction) of the current
-        span (or transaction).
+  - name: span.id
+    level: extended
+    type: keyword
+    ignore_above: 1024
+    description: 'Unique identifier of the span within the scope of its trace.
 
-        The `parent.id` field can be used to determine the parent-child relationships
-        between spans (and transactions), within a trace.'
-      example: 106b80d11adc44f8
-      default_field: false
-    - name: span.id
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: 'Unique identifier of the span within the scope of its trace.
+      A span represents an operation within a transaction, such as a request to another
+      service, or a database query.'
+    example: 3ff9a8981b7ccd5a
+    default_field: false
+  - name: trace.id
+    level: extended
+    type: keyword
+    ignore_above: 1024
+    description: 'Unique identifier of the trace.
 
-        A span represents an operation within a transaction, such as a request to
-        another service, or a database query.'
-      example: 3ff9a8981b7ccd5a
-      default_field: false
-    - name: trace.id
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: 'Unique identifier of the trace.
+      A trace groups multiple events like transactions that belong together. For example,
+      a user request handled by multiple inter-connected services.'
+    example: 4bf92f3577b34da6a3ce929d0e0e4736
+  - name: transaction.id
+    level: extended
+    type: keyword
+    ignore_above: 1024
+    description: 'Unique identifier of the transaction within the scope of its trace.
 
-        A trace groups multiple events like transactions that belong together. For
-        example, a user request handled by multiple inter-connected services.'
-      example: 4bf92f3577b34da6a3ce929d0e0e4736
-    - name: transaction.id
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: 'Unique identifier of the transaction within the scope of its trace.
-
-        A transaction is the highest level of work measured within a service, such
-        as a request to a server.'
-      example: 00f067aa0ba902b7
+      A transaction is the highest level of work measured within a service, such as
+      a request to a server.'
+    example: 00f067aa0ba902b7
   - name: url
     title: URL
     group: 2
@@ -5273,19 +5409,26 @@
       description: 'Domain of the url, such as "www.elastic.co".
 
         In some cases a URL may refer to an IP and/or port directly, without a domain
-        name. In this case, the IP address would go to the `domain` field.'
+        name. In this case, the IP address would go to the `domain` field.
+
+        If the URL contains a literal IPv6 address enclosed by `[` and `]` (IETF RFC
+        2732), the `[` and `]` characters should also be captured in the `domain`
+        field.'
       example: www.elastic.co
     - name: extension
       level: extended
       type: keyword
       ignore_above: 1024
       description: 'The field contains the file extension from the original request
-        url.
+        url, excluding the leading dot.
 
         The file extension is only set if it exists, as not every url has a file extension.
 
         The leading period must not be included. For example, the value must be "png",
-        not ".png".'
+        not ".png".
+
+        Note that when the file name has multiple extensions (example.tar.gz), only
+        the last one should be captured ("gz", not "tar.gz").'
       example: png
     - name: fragment
       level: extended

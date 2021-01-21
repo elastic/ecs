@@ -1,8 +1,8 @@
 # 0005: Host Metric Fields
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
-- Stage: **1 (proposal)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
-- Date: **2020-10-13** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
+- Stage: **3 (candidate)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
+- Date: **2021-01-19** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 <!--
 As you work on your RFC, use the "Stage N" comments to guide you in what you should focus on, for the stage you're targeting.
@@ -22,21 +22,16 @@ Proposed 7 new fields are:
 * host.disk.write.bytes
 
 ## Fields
+This RFC calls for the addition of host fields to collect basic monitoring metrics from a host or VM such as CPU, network and disk.
+Please see [`host.yml`](0005/host.yml) for definitions of all fields.
+
+Note: the `host.network.*` and `host.disk.*` fields are gauges which represent
+IO since the last metric collection. In order to interpret these metrics, the
+collection period is needed. Collection period will be added into ECS separately.
 
 <!--
 Stage 1: Describe at a high level how this change affects fields. Which fieldsets will be impacted? How many fields overall? Are we primarily adding fields, removing fields, or changing existing fields? The goal here is to understand the fundamental technical implications and likely extent of these changes. ~2-5 sentences.
 -->
-This RFC calls for the addition of host fields to collect basic monitoring metrics from a host or VM such as CPU, network and disk.
-
-| field | type | description |
-| --- | --- | --- |
-| `host.cpu.usage` | scaled_float (scaling_factor 1000) | Percent CPU used with scaling_factor of 1000. This value is normalized by the number of CPU cores and it ranges from 0 to 1. For example: For a two core host, this value should be the average of the 2 cores, between 0 and 1. |
-| `host.network.ingress.bytes` | long | The number of bytes received (gauge) on all network interfaces by the host in a given period of time. |
-| `host.network.ingress.packets` | long | The number of packets (gauge) received on all network interfaces by the host in a given period of time. |
-| `host.network.egress.bytes` | long | The number of bytes (gauge) sent out on all network interfaces by the host in a given period of time. |
-| `host.network.egress.packets` | long | The number of packets (gauge) sent out on all network interfaces by the host in a given period of time. |
-| `host.disk.read.bytes` | long | The total number of bytes (gauge) read successfully in a given period of time. |
-| `host.disk.write.bytes` | long | The total number of bytes (gauge) write successfully in a given period of time. |
 
 <!--
 Stage 2: Include new or updated yml field definitions for all of the essential fields in this draft. While not exhaustive, the fields documented here should be comprehensive enough to deeply evaluate the technical considerations of this change. The goal here is to validate the technical details for all essential fields and to provide a basis for adding experimental field definitions to the schema. Use GitHub code blocks with yml syntax formatting.
@@ -77,6 +72,14 @@ Stage 2: Included a real world example source document. Ideally this example com
 <!--
 Stage 3: Add more real world example source documents so we have at least 2 total, but ideally 3. Format as described in stage 2.
 -->
+
+Please see example source document from AWS EC2 instance in
+[aws-ec2.json](0005/aws-ec2.json) and example source document from Azure
+compute VM in [azure-compute-vm.json](0005/azure-compute-vm.json).
+
+For system metrics, CPU, network, diskIO are reported separately from different
+metricsets. Please see example source document for CPU in [system-cpu.json](0005/system-cpu.json)
+and network in [system-network.json](0005/system-network.json).
 
 ## Scope of impact
 
@@ -127,6 +130,14 @@ Stage 4: Document any new concerns and their resolution. The goal here is to eli
 <!--
 Stage 4: Identify at least one real-world, production-ready implementation that uses these updated field definitions. An example of this might be a GA feature in an Elastic application in Kibana.
 -->
+Our goal is to switch related fields to these new host metrics in Kibana Observability
+metrics UI. For example: right now under hosts inventory, CPU usage will only display
+metrics that are collected by Metricbeat `system` module. With using the new host
+metric fields, CPU metric from `system` module will be `host.cpu.usage`, as well
+as CPU metrics from all AWS EC2 instances or Azure compute VMs. With
+[Kibana Metrics UI](https://github.com/elastic/kibana/issues/87508) switching to
+these new proposed host metric fields, all hosts will be discovered and displayed
+in a single waffle map from different data collection sources.
 
 ## People
 
@@ -159,6 +170,9 @@ e.g.:
 
 * Stage 0: https://github.com/elastic/ecs/pull/947
 * Stage 1: https://github.com/elastic/ecs/pull/950
+* Stage 2: https://github.com/elastic/ecs/pull/1028
+  * Stage 2 correction: https://github.com/elastic/ecs/pull/1158
+* Stage 3: https://github.com/elastic/ecs/pull/1182
 
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN

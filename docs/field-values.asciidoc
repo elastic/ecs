@@ -2,13 +2,6 @@
 [[ecs-category-field-values-reference]]
 == {ecs} Categorization Fields
 
-WARNING: This section of ECS is in beta and is subject to change. These allowed values
-are still under active development. Additional values will be published gradually,
-and some of the values or relationships described here may change.
-Users who want to provide feedback, or who want to have a look at
-upcoming allowed values can visit this public feedback document
-https://ela.st/ecs-categories-draft.
-
 At a high level, ECS provides fields to classify events in two different ways:
 "Where it's from" (e.g., `event.module`, `event.dataset`, `agent.type`, `observer.type`, etc.),
 and "What it is." The categorization fields hold the "What it is" information,
@@ -37,11 +30,6 @@ This is one of four ECS Categorization Fields, and indicates the highest level i
 `event.kind` gives high-level information about what type of information the event contains, without being specific to the contents of the event. For example, values of this field distinguish alert events from metric events.
 
 The value of this field can be used to inform how these kinds of events should be handled. They may warrant different retention, different access control, it may also help understand whether the data coming in at a regular interval or not.
-
-WARNING: After the beta period for categorization, only the allowed categorization
-values listed in the ECS repository and official ECS documentation should be considered
-official. Use of any other values may result in incompatible implementations
-that will require subsequent breaking changes.
 
 *Allowed Values*
 
@@ -124,11 +112,6 @@ This is one of four ECS Categorization Fields, and indicates the second level in
 `event.category` represents the "big buckets" of ECS categories. For example, filtering on `event.category:process` yields all events relating to process activity. This field is closely related to `event.type`, which is used as a subcategory.
 
 This field is an array. This will allow proper categorization of some events that fall in multiple categories.
-
-WARNING: After the beta period for categorization, only the allowed categorization
-values listed in the ECS repository and official ECS documentation should be considered
-official. Use of any other values may result in incompatible implementations
-that will require subsequent breaking changes.
 
 *Allowed Values*
 
@@ -345,11 +328,6 @@ This is one of four ECS Categorization Fields, and indicates the third level in 
 
 This field is an array. This will allow proper categorization of some events that fall in multiple event types.
 
-WARNING: After the beta period for categorization, only the allowed categorization
-values listed in the ECS repository and official ECS documentation should be considered
-official. Use of any other values may result in incompatible implementations
-that will require subsequent breaking changes.
-
 *Allowed Values*
 
 * <<ecs-event-type-access,access>>
@@ -509,11 +487,6 @@ Note that when a single transaction is described in multiple events, each event 
 Also note that in the case of a compound event (a single event that contains multiple logical events), this field should be populated with the value that best captures the overall success or failure from the perspective of the event producer.
 
 Further note that not all events will have an associated outcome. For example, this field is generally not populated for metric events, events with `event.type:info`, or any events for which an outcome does not make logical sense.
-
-WARNING: After the beta period for categorization, only the allowed categorization
-values listed in the ECS repository and official ECS documentation should be considered
-official. Use of any other values may result in incompatible implementations
-that will require subsequent breaking changes.
 
 *Allowed Values*
 

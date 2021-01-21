@@ -18,6 +18,15 @@
       - host
       - server
       - source
+      - at: user
+        as: target
+        beta: Reusing the user fields in this location is currently considered beta.
+      - at: user
+        as: effective
+        beta: Reusing the user fields in this location is currently considered beta.
+      - at: user
+        as: changes
+        beta: Reusing the user fields in this location is currently considered beta.
 
   type: group
   fields:
@@ -30,8 +39,9 @@
 
     - name: name
       level: core
-      type: keyword
+      type: wildcard
       example: albert
+      beta: Note the usage of `wildcard` type is considered beta. This field used to be type `keyword`.
       description: >
         Short name or login of the user.
       multi_fields:
@@ -40,7 +50,8 @@
 
     - name: full_name
       level: extended
-      type: keyword
+      type: wildcard
+      beta: Note the usage of `wildcard` type is considered beta. This field used to be type `keyword`.
       example: Albert Einstein
       description: >
         User's full name, if available.
@@ -50,7 +61,8 @@
 
     - name: email
       level: extended
-      type: keyword
+      type: wildcard
+      beta: Note the usage of `wildcard` type is considered beta. This field used to be type `keyword`.
       description: >
         User email address.
 
