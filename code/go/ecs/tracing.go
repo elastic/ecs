@@ -42,8 +42,8 @@ type Tracing struct {
 	TransactionID string `ecs:"transaction.id"`
 
 	// Unique identifier of the span within the scope of its trace.
-	// A span represents an operation within a trace, such as a request to
-	// another service, or a database query.
+	// A span represents an operation within a transaction, such as a request
+	// to another service, or a database query.
 	// The `span.id` allows messages from a single section of processing within
 	// the overall trace,  e.g. a request to a component, to be correlated
 	// together.
