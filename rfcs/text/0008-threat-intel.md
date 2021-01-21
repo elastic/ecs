@@ -261,7 +261,7 @@ There are two primary uses for these fields.
 Stage 1: Provide a high-level description of example sources of data. This does not yet need to be a concrete example of a source document, but instead can simply describe a potential source (e.g. nginx access log). This will ultimately be fleshed out to include literal source examples in a future stage. The goal here is to identify practical sources for these fields in the real world. ~1-3 sentences or unordered list.
 -->
 
-There are many sources of threat intelligence including open source, closed source and membership based ISAC's. Depending on the source the level of details can vary from atomic indicators of compromise (IoC) to higher order context around threat tactics, infrastructure and motivations. Generally freely available (open source) intelligence sources will provide details more focused on indindicator's and commercial intelligence services will provide higher order details.
+There are many sources of threat intelligence including open source, closed source, and membership-based ISAC's. Depending on the source the level of details can vary from atomic indicators of compromise (IoC) to higher-order context around threat tactics, infrastructure, and motivations. Generally freely available (open source) intelligence sources will provide details more focused on indicators and commercial intelligence services will provide higher-order details.
 
 These sources typically provide intelligence that can be downloaded through REST API or in some cases downloadable CSV's or text files. These intelligence sources will update their data repositories at varying intervals.
 
