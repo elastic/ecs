@@ -186,6 +186,28 @@ def nest_fields(field_array):
     return schema_root
 
 
+def array_of_maps_to_map(array_vals):
+    ret_map = {}
+    for map_val in array_vals:
+        name = map_val['name']
+        # if multiple name fields exist in the same custom definition this will take the last one
+        ret_map[name] = map_val
+    return ret_map
+
+
+def map_of_maps_to_array(map_vals):
+    ret_list = []
+    for key in map_vals:
+        ret_list.append(map_vals[key])
+    return sorted(ret_list, key=lambda k: k['name'])
+
+
+def dedup_and_merge_lists(list_a, list_b):
+    list_a_map = array_of_maps_to_map(list_a)
+    list_a_map.update(array_of_maps_to_map(list_b))
+    return map_of_maps_to_array(list_a_map)
+
+
 def merge_fields(a, b):
     """Merge ECS field sets with custom field sets."""
     a = copy.deepcopy(a)
@@ -199,6 +221,14 @@ def merge_fields(a, b):
             a[key].setdefault('field_details', {})
             a[key]['field_details'].setdefault('normalize', [])
             a[key]['field_details']['normalize'].extend(b[key]['field_details'].pop('normalize'))
+        if 'multi_fields' in b[key]['field_details']:
+            a[key].setdefault('field_details', {})
+            a[key]['field_details'].setdefault('multi_fields', [])
+            a[key]['field_details']['multi_fields'] = dedup_and_merge_lists(
+                a[key]['field_details']['multi_fields'], b[key]['field_details']['multi_fields'])
+            # if we don't do this then the update call below will overwrite a's field_details, with the original
+            # contents of b, which undoes our merging the multi_fields
+            del b[key]['field_details']['multi_fields']
         a[key]['field_details'].update(b[key]['field_details'])
         # merge schema details
         if 'schema_details' in b[key]:

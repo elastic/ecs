@@ -41,7 +41,7 @@ def main():
     # ecs_helpers.yaml_dump('ecs.yml', fields)
 
     # Detect usage of experimental changes to tweak artifact version label
-    if loader.EXPERIMENTAL_SCHEMA_DIR in args.include:
+    if args.include and loader.EXPERIMENTAL_SCHEMA_DIR in args.include:
         ecs_version += "+exp"
 
     fields = loader.load_schemas(ref=args.ref, included_files=args.include)
@@ -56,7 +56,8 @@ def main():
         exit()
 
     csv_generator.generate(flat, ecs_version, out_dir)
-    es_template.generate(flat, ecs_version, out_dir, args.template_settings, args.mapping_settings)
+    es_template.generate(nested, ecs_version, out_dir, args.mapping_settings)
+    es_template.generate_legacy(flat, ecs_version, out_dir, args.template_settings, args.mapping_settings)
     beats.generate(nested, ecs_version, out_dir)
     if args.include or args.subset:
         exit()

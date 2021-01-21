@@ -1,0 +1,72 @@
+{
+  "_meta": {
+    "description": "Sample composable template that includes all ECS fields",
+    "ecs_version": "2.0.0-dev+exp"
+  },
+  "composed_of": [
+    "ecs_2.0.0-dev-exp_agent",
+    "ecs_2.0.0-dev-exp_base",
+    "ecs_2.0.0-dev-exp_client",
+    "ecs_2.0.0-dev-exp_cloud",
+    "ecs_2.0.0-dev-exp_container",
+    "ecs_2.0.0-dev-exp_destination",
+    "ecs_2.0.0-dev-exp_dll",
+    "ecs_2.0.0-dev-exp_dns",
+    "ecs_2.0.0-dev-exp_ecs",
+    "ecs_2.0.0-dev-exp_error",
+    "ecs_2.0.0-dev-exp_event",
+    "ecs_2.0.0-dev-exp_file",
+    "ecs_2.0.0-dev-exp_group",
+    "ecs_2.0.0-dev-exp_host",
+    "ecs_2.0.0-dev-exp_http",
+    "ecs_2.0.0-dev-exp_log",
+    "ecs_2.0.0-dev-exp_network",
+    "ecs_2.0.0-dev-exp_observer",
+    "ecs_2.0.0-dev-exp_organization",
+    "ecs_2.0.0-dev-exp_package",
+    "ecs_2.0.0-dev-exp_process",
+    "ecs_2.0.0-dev-exp_registry",
+    "ecs_2.0.0-dev-exp_related",
+    "ecs_2.0.0-dev-exp_rule",
+    "ecs_2.0.0-dev-exp_server",
+    "ecs_2.0.0-dev-exp_service",
+    "ecs_2.0.0-dev-exp_source",
+    "ecs_2.0.0-dev-exp_threat",
+    "ecs_2.0.0-dev-exp_tls",
+    "ecs_2.0.0-dev-exp_tracing",
+    "ecs_2.0.0-dev-exp_url",
+    "ecs_2.0.0-dev-exp_user",
+    "ecs_2.0.0-dev-exp_user_agent",
+    "ecs_2.0.0-dev-exp_vulnerability",
+    "ecs_2.0.0-dev-exp_data_stream"
+  ],
+  "index_patterns": [
+    "try-ecs-*"
+  ],
+  "priority": 1,
+  "template": {
+    "mappings": {
+      "date_detection": false,
+      "dynamic_templates": [
+        {
+          "strings_as_keyword": {
+            "mapping": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "match_mapping_type": "string"
+          }
+        }
+      ]
+    },
+    "settings": {
+      "index": {
+        "mapping": {
+          "total_fields": {
+            "limit": 2000
+          }
+        }
+      }
+    }
+  }
+}

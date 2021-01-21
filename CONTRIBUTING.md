@@ -165,6 +165,18 @@ Jinja templates allow for formatting or styling changes to templates without nee
 * Expressions: `{{ ... }}`
 * Comments: `{{# ... #}}`
 
+#### Whitespace Control
+
+Whitespace can be stripped by adding the minus sign (`-`) to the start or end of a block. Adding `-` to the start or end of a block will remove the whitespace before or after that block.
+
+```
+{% for i in numbers -%}
+    {{i}}
+{%- endfor %}
+```
+
+All elements would be rendered without any separating whitespace. If `numbers` is list of numbers from `0` to `9`, the output would be `0123456789`.
+
 #### Variables
 
 Templates variables are passed to the template by the application. Typically these will either be used in an expression or within a control structure statement (e.g. a `for` loop). In the below example, `users` is passed into the template and is iterated over with a `for` loop.
