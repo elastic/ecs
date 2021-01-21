@@ -17,7 +17,9 @@ This RFC is to create the ELF sub-field within the `file.` fieldset. This will i
 | elf.exports | nested | List of exported element names and types. |
 | elf.exports.name | keyword | Name of exported symbol |
 | elf.exports.type | keyword | Type of exported symbol |
-| elf.segments | keyword | ELF object segment list. |
+| elf.segments | nested | ELF object segment list. |
+| elf.segments.type | keyword | ELF object segment type. |
+| elf.segments.sections | keyword | ELF object segment sections. |
 | elf.header | nested | Header information of the ELF file. |
 | elf.header.class | keyword | Header class of the ELF file. |
 | elf.header.data | keyword | Data table of the ELF header. |
