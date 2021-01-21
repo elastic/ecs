@@ -14,7 +14,7 @@ This RFC is to create the ELF sub-field within the `file.` fieldset. This will i
 | Name | Type | Description |
 | ---- | ---- | ----------- |
 | elf.creation_date | date | Extracted when possible from the file's metadata. Indicates when it was built or compiled. It can also be faked by malware creators. |
-| elf.exports | nested | List of exported element names and types. |
+| elf.exports | flattened | List of exported element names and types. |
 | elf.exports.name | keyword | Name of exported symbol |
 | elf.exports.type | keyword | Type of exported symbol |
 | elf.segments | nested | ELF object segment list. |
@@ -30,7 +30,7 @@ This RFC is to create the ELF sub-field within the `file.` fieldset. This will i
 | elf.header.abi_version | keyword | Version of the ELF Application Binary Interface (ABI). |
 | elf.header.entrypoint | long | Header entrypoint of the ELF file. |
 | elf.header.object_version | keyword | "0x1" for original ELF files. |
-| elf.imports | nested | List of imported element names and types. |
+| elf.imports | flattened | List of imported element names and types. |
 | elf.imports.name | keyword | Name of imported symbol |
 | elf.imports.type | keyword | Type of imported symbol |
 | elf.sections | nested | Section information of the ELF file. |
