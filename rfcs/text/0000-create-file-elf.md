@@ -20,7 +20,7 @@ This RFC is to create the ELF sub-field within the `file.` fieldset. This will i
 | elf.segments | nested | ELF object segment list. |
 | elf.segments.type | keyword | ELF object segment type. |
 | elf.segments.sections | keyword | ELF object segment sections. |
-| elf.header | nested | Header information of the ELF file. |
+| elf.header | group | Header information of the ELF file. |
 | elf.header.class | keyword | Header class of the ELF file. |
 | elf.header.data | keyword | Data table of the ELF header. |
 | elf.header.machine | keyword | Machine architecture of the ELF header. |
