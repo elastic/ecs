@@ -37,9 +37,12 @@ This RFC is to create the ELF sub-field within the `file.` fieldset. This will i
 | elf.sections.flags | keyword | ELF Section List flags. |
 | elf.sections.name | keyword | ELF Section List name. |
 | elf.sections.physical_offset | keyword | ELF Section List offset. |
-| elf.sections.section_type | keyword | ELF Section List type. |
-| elf.sections.size | long | ELF Section List size. |
+| elf.sections.type | keyword | ELF Section List type. |
+| elf.sections.physical_size | long | ELF Section List physical size. |
 | elf.sections.virtual_address | long | ELF Section List virtual address. |
+| elf.sections.virtual_size | long | ELF Section List virtual size. |
+| elf.sections.entropy | long | Shannon entropy calculation from the section. |
+| elf.sections.chi2 | long | Chi-square probability distribution of the section. |
 | elf.shared_libraries | keyword | List of shared libraries used by this ELF object |
 | elf.telfhash | keyword | telfhash hash for ELF files. |
 | elf.architecture | keyword | Machine architecture of the ELF file. |

@@ -119,15 +119,15 @@
           type: keyword
           level: extended
 
-        - name: section_type
+        - name: type
           description: >
             ELF Section List type.
           type: keyword
           level: extended
 
-        - name: size
+        - name: physical_size
           description: >
-            ELF Section List size.
+            ELF Section List physical size.
           format: bytes
           type: long
           level: extended
@@ -136,6 +136,27 @@
           description: >
             ELF Section List virtual address.
           format: string
+          type: long
+          level: extended
+
+        - name: virtual_size
+          description: >
+            ELF Section List virtual size.
+          format: string
+          type: long
+          level: extended
+
+        - name: entropy
+          description: >
+            Shannon entropy calculation from the section.
+          format: number
+          type: long
+          level: extended
+
+        - name: chi2
+          description: >
+            Chi-square probability distribution of the section.
+          format: number
           type: long
           level: extended
 
@@ -203,3 +224,16 @@
           description: ELF object segment sections.
           type: keyword
           level: extended
+
+
+
+    name: "Name of code section",
+    physical_offset: "[keyword] Offset of the section from the beginning of the segment, in hex",
+    physical_size: "[long] Size of the code section in the file in bytes",
+    virtual_address: "[keyword] relative virtual memory address when loaded",
+    virtual_size: "[long] Size of the section in bytes when loaded into memory",
+    flags: "[keyword] List of flag values as strings for this section",
+    type: "[keyword] Section type as string, if applicable",
+    segment_name: "[keyword] Name of segment for this section, if applicable",
+    entropy: "[float] shannon entropy calculated from section content in bits per byte of information",
+    chi2: "[float]"
