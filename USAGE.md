@@ -354,7 +354,7 @@ For `template.json`, the `mappings` object is left empty: `{}`. Likewise the `pr
 
 #### OSS (Deprecated)
 
-**Important**: The feature has been deprecated. An Apache 2.0 distribution of Elasticsearch will not be produced starting with the 7.11 release.
+**Important**: This feature has been deprecated. An Apache 2.0 distribution of Elasticsearch will not be produced starting with the 7.11 release.
 
 Users that want to use an Apache 2.0 distribution of Elasticsearch do not have access to the basic data types.
 However some of these types have an OSS replacement that can be used instead, without too much loss of functionality.
