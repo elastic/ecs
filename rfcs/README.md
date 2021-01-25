@@ -26,7 +26,7 @@ It's important to understand the overall goals and intentions of the RFC process
 7. Open a PR to commit your proposed changes to the RFC and advance to stage 1
 8. ECS committee and/or team members review
 9. ECS committee and/or team member merges RFC, formally accepting the proposal
-10. Repeat steps 6-9 for stage 2, 3, and 4
+10. Repeat steps 6-9 for stages 2 and 3
 
 ## Using the RFC template
 
@@ -34,7 +34,7 @@ All new RFCs should be started by copying [0000-rfc-template.md](./0000-rfc-temp
 
 Throughout the RFC template are comments that provide guidance on what type of content to include in each stage. It's ideal if you remove comments from your RFC as you fill out the content and they become obsolete. A pristine, finished RFC will have no explanatory comments remaining.
 
-For the most part, content is additive as you move through the stages. Occasionally, advancing a stage will require modifying existing content. This is OK! This process should be iterative, and the RFC document is considered living until it is finished (i.e. accepted as stage 4).
+For the most part, content is additive as you move through the stages. Occasionally, advancing a stage will require modifying existing content. This is OK! This process should be iterative, and the RFC document is considered living until it is finished (i.e. accepted as stage 3).
 
 ## Skipping stages
 
