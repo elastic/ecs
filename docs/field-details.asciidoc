@@ -115,13 +115,11 @@ Examples include Beats. Agents may also run on observers. ECS agent.* fields sha
 [[field-agent-build-original]]
 <<field-agent-build-original, agent.build.original>>
 
-| beta:[ Note the usage of `wildcard` type is considered beta. This field used to be type `keyword`. ]
-
-Extended build information for the agent.
+| Extended build information for the agent.
 
 This field is intended to contain any build information that a data source may provide, no specific formatting is required.
 
-type: wildcard
+type: keyword
 
 
 
@@ -257,11 +255,9 @@ example: `15169`
 [[field-as-organization-name]]
 <<field-as-organization-name, as.organization.name>>
 
-| beta:[ Note the usage of `wildcard` type is considered beta. This field used to be type `keyword`. ]
+| Organization name.
 
-Organization name.
-
-type: wildcard
+type: keyword
 
 Multi-fields:
 
@@ -345,11 +341,9 @@ example: `184`
 [[field-client-domain]]
 <<field-client-domain, client.domain>>
 
-| beta:[ Note the usage of `wildcard` type is considered beta. This field used to be type `keyword`. ]
+| Client domain.
 
-Client domain.
-
-type: wildcard
+type: keyword
 
 
 
@@ -463,15 +457,13 @@ type: long
 [[field-client-registered-domain]]
 <<field-client-registered-domain, client.registered_domain>>
 
-| beta:[ Note the usage of `wildcard` type is considered beta. This field used to be type `keyword`. ]
-
-The highest registered client domain, stripped of the subdomain.
+| The highest registered client domain, stripped of the subdomain.
 
 For example, the registered domain for "foo.example.com" is "example.com".
 
 This value can be determined precisely with a list like the public suffix list (http://publicsuffix.org). Trying to approximate this by simply taking the last two labels will not work well for TLDs such as "co.uk".
 
-type: wildcard
+type: keyword
 
 
 
@@ -1041,11 +1033,9 @@ example: `184`
 [[field-destination-domain]]
 <<field-destination-domain, destination.domain>>
 
-| beta:[ Note the usage of `wildcard` type is considered beta. This field used to be type `keyword`. ]
+| Destination domain.
 
-Destination domain.
-
-type: wildcard
+type: keyword
 
 
 
@@ -1159,15 +1149,13 @@ type: long
 [[field-destination-registered-domain]]
 <<field-destination-registered-domain, destination.registered_domain>>
 
-| beta:[ Note the usage of `wildcard` type is considered beta. This field used to be type `keyword`. ]
-
-The highest registered destination domain, stripped of the subdomain.
+| The highest registered destination domain, stripped of the subdomain.
 
 For example, the registered domain for "foo.example.com" is "example.com".
 
 This value can be determined precisely with a list like the public suffix list (http://publicsuffix.org). Trying to approximate this by simply taking the last two labels will not work well for TLDs such as "co.uk".
 
-type: wildcard
+type: keyword
 
 
 
@@ -1408,13 +1396,11 @@ example: `IN`
 [[field-dns-answers-data]]
 <<field-dns-answers-data, dns.answers.data>>
 
-| beta:[ Note the usage of `wildcard` type is considered beta. This field used to be type `keyword`. ]
-
-The data describing the resource.
+| The data describing the resource.
 
 The meaning of this data depends on the type and class of the resource record.
 
-type: wildcard
+type: keyword
 
 
 
@@ -1547,13 +1533,11 @@ example: `IN`
 [[field-dns-question-name]]
 <<field-dns-question-name, dns.question.name>>
 
-| beta:[ Note the usage of `wildcard` type is considered beta. This field used to be type `keyword`. ]
-
-The name being queried.
+| The name being queried.
 
 If the name field contains non-printable characters (below 32 or above 126), those characters should be represented as escaped base 10 integers (\DDD). Back slashes and quotes should be escaped. Tabs, carriage returns, and line feeds should be converted to \t, \r, and \n respectively.
 
-type: wildcard
+type: keyword
 
 
 
@@ -1796,11 +1780,9 @@ type: text
 [[field-error-stack-trace]]
 <<field-error-stack-trace, error.stack_trace>>
 
-| beta:[ Note the usage of `wildcard` type is considered beta. This field used to be type `keyword`. ]
+| The stack trace of this error in plain text.
 
-The stack trace of this error in plain text.
-
-type: wildcard
+type: keyword
 
 Multi-fields:
 
@@ -1820,11 +1802,9 @@ Multi-fields:
 [[field-error-type]]
 <<field-error-type, error.type>>
 
-| beta:[ Note the usage of `wildcard` type is considered beta. This field used to be type `keyword`. ]
+| The type of the error, for example the class name of the exception.
 
-The type of the error, for example the class name of the exception.
-
-type: wildcard
+type: keyword
 
 
 
@@ -2461,11 +2441,9 @@ example: `sda`
 [[field-file-directory]]
 <<field-file-directory, file.directory>>
 
-| beta:[ Note the usage of `wildcard` type is considered beta. This field used to be type `keyword`. ]
+| Directory where the file is located. It should include the drive letter, when appropriate.
 
-Directory where the file is located. It should include the drive letter, when appropriate.
-
-type: wildcard
+type: keyword
 
 
 
@@ -2643,11 +2621,9 @@ example: `alice`
 [[field-file-path]]
 <<field-file-path, file.path>>
 
-| beta:[ Note the usage of `wildcard` type is considered beta. This field used to be type `keyword`. ]
+| Full path to the file, including the file name. It should include the drive letter, when appropriate.
 
-Full path to the file, including the file name. It should include the drive letter, when appropriate.
-
-type: wildcard
+type: keyword
 
 Multi-fields:
 
@@ -2685,11 +2661,9 @@ example: `16384`
 [[field-file-target-path]]
 <<field-file-target-path, file.target_path>>
 
-| beta:[ Note the usage of `wildcard` type is considered beta. This field used to be type `keyword`. ]
+| Target path for symlinks.
 
-Target path for symlinks.
-
-type: wildcard
+type: keyword
 
 Multi-fields:
 
@@ -2882,15 +2856,13 @@ example: `{ "lon": -73.614830, "lat": 45.505918 }`
 [[field-geo-name]]
 <<field-geo-name, geo.name>>
 
-| beta:[ Note the usage of `wildcard` type is considered beta. This field used to be type `keyword`. ]
-
-User-defined description of a location, at the level of granularity they care about.
+| User-defined description of a location, at the level of granularity they care about.
 
 Could be the name of their data centers, the floor number, if this describes a local physical entity, city names.
 
 Not typically used in automated geolocation.
 
-type: wildcard
+type: keyword
 
 
 
@@ -3184,13 +3156,11 @@ example: `CONTOSO`
 [[field-host-hostname]]
 <<field-host-hostname, host.hostname>>
 
-| beta:[ Note the usage of `wildcard` type is considered beta. This field used to be type `keyword`. ]
-
-Hostname of the host.
+| Hostname of the host.
 
 It normally contains what the `hostname` command returns on the host machine.
 
-type: wildcard
+type: keyword
 
 
 
@@ -3383,11 +3353,9 @@ example: `887`
 [[field-http-request-body-content]]
 <<field-http-request-body-content, http.request.body.content>>
 
-| beta:[ Note the usage of `wildcard` type is considered beta. This field used to be type `keyword`. ]
+| The full HTTP request body.
 
-The full HTTP request body.
-
-type: wildcard
+type: keyword
 
 Multi-fields:
 
@@ -3481,11 +3449,9 @@ example: `image/gif`
 [[field-http-request-referrer]]
 <<field-http-request-referrer, http.request.referrer>>
 
-| beta:[ Note the usage of `wildcard` type is considered beta. This field used to be type `keyword`. ]
+| Referrer for this HTTP request.
 
-Referrer for this HTTP request.
-
-type: wildcard
+type: keyword
 
 
 
@@ -3515,11 +3481,9 @@ example: `887`
 [[field-http-response-body-content]]
 <<field-http-response-body-content, http.response.body.content>>
 
-| beta:[ Note the usage of `wildcard` type is considered beta. This field used to be type `keyword`. ]
+| The full HTTP response body.
 
-The full HTTP response body.
-
-type: wildcard
+type: keyword
 
 Multi-fields:
 
@@ -3699,13 +3663,11 @@ The details specific to your event source are typically not logged under `log.*`
 [[field-log-file-path]]
 <<field-log-file-path, log.file.path>>
 
-| beta:[ Note the usage of `wildcard` type is considered beta. This field used to be type `keyword`. ]
-
-Full path to the log file this event came from, including the file name. It should include the drive letter, when appropriate.
+| Full path to the log file this event came from, including the file name. It should include the drive letter, when appropriate.
 
 If the event wasn't read from a log file, do not populate this field.
 
-type: wildcard
+type: keyword
 
 
 
@@ -3739,11 +3701,9 @@ example: `error`
 [[field-log-logger]]
 <<field-log-logger, log.logger>>
 
-| beta:[ Note the usage of `wildcard` type is considered beta. This field used to be type `keyword`. ]
+| The name of the logger inside an application. This is usually the name of the class which initialized the logger, or can be a custom name.
 
-The name of the logger inside an application. This is usually the name of the class which initialized the logger, or can be a custom name.
-
-type: wildcard
+type: keyword
 
 
 
@@ -4537,11 +4497,9 @@ type: keyword
 [[field-organization-name]]
 <<field-organization-name, organization.name>>
 
-| beta:[ Note the usage of `wildcard` type is considered beta. This field used to be type `keyword`. ]
+| Organization name.
 
-Organization name.
-
-type: wildcard
+type: keyword
 
 Multi-fields:
 
@@ -4593,11 +4551,9 @@ example: `debian`
 [[field-os-full]]
 <<field-os-full, os.full>>
 
-| beta:[ Note the usage of `wildcard` type is considered beta. This field used to be type `keyword`. ]
+| Operating system name, including the version or code name.
 
-Operating system name, including the version or code name.
-
-type: wildcard
+type: keyword
 
 Multi-fields:
 
@@ -4633,11 +4589,9 @@ example: `4.4.0-112-generic`
 [[field-os-name]]
 <<field-os-name, os.name>>
 
-| beta:[ Note the usage of `wildcard` type is considered beta. This field used to be type `keyword`. ]
+| Operating system name, without the version.
 
-Operating system name, without the version.
-
-type: wildcard
+type: keyword
 
 Multi-fields:
 
@@ -5047,11 +5001,9 @@ example: `0c6803c4e922103c4dca5963aad36ddf`
 [[field-pe-original-file-name]]
 <<field-pe-original-file-name, pe.original_file_name>>
 
-| beta:[ Note the usage of `wildcard` type is considered beta. This field used to be type `keyword`. ]
+| Internal name of the file, provided at compile-time.
 
-Internal name of the file, provided at compile-time.
-
-type: wildcard
+type: keyword
 
 
 
@@ -5194,11 +5146,9 @@ example: `c2c455d9f99375d`
 [[field-process-executable]]
 <<field-process-executable, process.executable>>
 
-| beta:[ Note the usage of `wildcard` type is considered beta. This field used to be type `keyword`. ]
+| Absolute path to the process executable.
 
-Absolute path to the process executable.
-
-type: wildcard
+type: keyword
 
 Multi-fields:
 
@@ -5236,13 +5186,11 @@ example: `137`
 [[field-process-name]]
 <<field-process-name, process.name>>
 
-| beta:[ Note the usage of `wildcard` type is considered beta. This field used to be type `keyword`. ]
-
-Process name.
+| Process name.
 
 Sometimes called program name or similar.
 
-type: wildcard
+type: keyword
 
 Multi-fields:
 
@@ -5342,11 +5290,9 @@ example: `4242`
 [[field-process-thread-name]]
 <<field-process-thread-name, process.thread.name>>
 
-| beta:[ Note the usage of `wildcard` type is considered beta. This field used to be type `keyword`. ]
+| Thread name.
 
-Thread name.
-
-type: wildcard
+type: keyword
 
 
 
@@ -5360,13 +5306,11 @@ example: `thread-0`
 [[field-process-title]]
 <<field-process-title, process.title>>
 
-| beta:[ Note the usage of `wildcard` type is considered beta. This field used to be type `keyword`. ]
-
-Process title.
+| Process title.
 
 The proctitle, some times the same as process name. Can also be different: for example a browser setting its title to the web page currently opened.
 
-type: wildcard
+type: keyword
 
 Multi-fields:
 
@@ -5402,11 +5346,9 @@ example: `1325`
 [[field-process-working-directory]]
 <<field-process-working-directory, process.working_directory>>
 
-| beta:[ Note the usage of `wildcard` type is considered beta. This field used to be type `keyword`. ]
+| The working directory of the process.
 
-The working directory of the process.
-
-type: wildcard
+type: keyword
 
 Multi-fields:
 
@@ -5507,13 +5449,11 @@ example: `ZQBuAC0AVQBTAAAAZQBuAAAAAAA=`
 [[field-registry-data-strings]]
 <<field-registry-data-strings, registry.data.strings>>
 
-| beta:[ Note the usage of `wildcard` type is considered beta. This field used to be type `keyword`. ]
-
-Content when writing string types.
+| Content when writing string types.
 
 Populated as an array when writing string data to the registry. For single string registry types (REG_SZ, REG_EXPAND_SZ), this should be an array with one string. For sequences of string with REG_MULTI_SZ, this array will be variable length. For numeric data, such as REG_DWORD and REG_QWORD, this should be populated with the decimal representation (e.g `"1"`).
 
-type: wildcard
+type: keyword
 
 
 Note: this field should contain an array of values.
@@ -5562,11 +5502,9 @@ example: `HKLM`
 [[field-registry-key]]
 <<field-registry-key, registry.key>>
 
-| beta:[ Note the usage of `wildcard` type is considered beta. This field used to be type `keyword`. ]
+| Hive-relative path of keys.
 
-Hive-relative path of keys.
-
-type: wildcard
+type: keyword
 
 
 
@@ -5580,11 +5518,9 @@ example: `SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Opti
 [[field-registry-path]]
 <<field-registry-path, registry.path>>
 
-| beta:[ Note the usage of `wildcard` type is considered beta. This field used to be type `keyword`. ]
+| Full path, including hive, key and value
 
-Full path, including hive, key and value
-
-type: wildcard
+type: keyword
 
 
 
@@ -5947,11 +5883,9 @@ example: `184`
 [[field-server-domain]]
 <<field-server-domain, server.domain>>
 
-| beta:[ Note the usage of `wildcard` type is considered beta. This field used to be type `keyword`. ]
+| Server domain.
 
-Server domain.
-
-type: wildcard
+type: keyword
 
 
 
@@ -6065,15 +5999,13 @@ type: long
 [[field-server-registered-domain]]
 <<field-server-registered-domain, server.registered_domain>>
 
-| beta:[ Note the usage of `wildcard` type is considered beta. This field used to be type `keyword`. ]
-
-The highest registered server domain, stripped of the subdomain.
+| The highest registered server domain, stripped of the subdomain.
 
 For example, the registered domain for "foo.example.com" is "example.com".
 
 This value can be determined precisely with a list like the public suffix list (http://publicsuffix.org). Trying to approximate this by simply taking the last two labels will not work well for TLDs such as "co.uk".
 
-type: wildcard
+type: keyword
 
 
 
@@ -6362,11 +6294,9 @@ example: `184`
 [[field-source-domain]]
 <<field-source-domain, source.domain>>
 
-| beta:[ Note the usage of `wildcard` type is considered beta. This field used to be type `keyword`. ]
+| Source domain.
 
-Source domain.
-
-type: wildcard
+type: keyword
 
 
 
@@ -6480,15 +6410,13 @@ type: long
 [[field-source-registered-domain]]
 <<field-source-registered-domain, source.registered_domain>>
 
-| beta:[ Note the usage of `wildcard` type is considered beta. This field used to be type `keyword`. ]
-
-The highest registered source domain, stripped of the subdomain.
+| The highest registered source domain, stripped of the subdomain.
 
 For example, the registered domain for "foo.example.com" is "example.com".
 
 This value can be determined precisely with a list like the public suffix list (http://publicsuffix.org). Trying to approximate this by simply taking the last two labels will not work well for TLDs such as "co.uk".
 
-type: wildcard
+type: keyword
 
 
 
@@ -6907,11 +6835,9 @@ example: `0687F666A054EF17A08E2F2162EAB4CBC0D265E1D7875BE74BF3C712CA92DAF0`
 [[field-tls-client-issuer]]
 <<field-tls-client-issuer, tls.client.issuer>>
 
-| beta:[ Note the usage of `wildcard` type is considered beta. This field used to be type `keyword`. ]
+| Distinguished name of subject of the issuer of the x.509 certificate presented by the client.
 
-Distinguished name of subject of the issuer of the x.509 certificate presented by the client.
-
-type: wildcard
+type: keyword
 
 
 
@@ -6989,11 +6915,9 @@ example: `www.elastic.co`
 [[field-tls-client-subject]]
 <<field-tls-client-subject, tls.client.subject>>
 
-| beta:[ Note the usage of `wildcard` type is considered beta. This field used to be type `keyword`. ]
+| Distinguished name of subject of the x.509 certificate presented by the client.
 
-Distinguished name of subject of the x.509 certificate presented by the client.
-
-type: wildcard
+type: keyword
 
 
 
@@ -7173,11 +7097,9 @@ example: `0687F666A054EF17A08E2F2162EAB4CBC0D265E1D7875BE74BF3C712CA92DAF0`
 [[field-tls-server-issuer]]
 <<field-tls-server-issuer, tls.server.issuer>>
 
-| beta:[ Note the usage of `wildcard` type is considered beta. This field used to be type `keyword`. ]
+| Subject of the issuer of the x.509 certificate presented by the server.
 
-Subject of the issuer of the x.509 certificate presented by the server.
-
-type: wildcard
+type: keyword
 
 
 
@@ -7239,11 +7161,9 @@ example: `1970-01-01T00:00:00.000Z`
 [[field-tls-server-subject]]
 <<field-tls-server-subject, tls.server.subject>>
 
-| beta:[ Note the usage of `wildcard` type is considered beta. This field used to be type `keyword`. ]
+| Subject of the x.509 certificate presented by the server.
 
-Subject of the x.509 certificate presented by the server.
-
-type: wildcard
+type: keyword
 
 
 
@@ -7408,15 +7328,13 @@ URL fields provide support for complete or partial URLs, and supports the breaki
 [[field-url-domain]]
 <<field-url-domain, url.domain>>
 
-| beta:[ Note the usage of `wildcard` type is considered beta. This field used to be type `keyword`. ]
-
-Domain of the url, such as "www.elastic.co".
+| Domain of the url, such as "www.elastic.co".
 
 In some cases a URL may refer to an IP and/or port directly, without a domain name. In this case, the IP address would go to the `domain` field.
 
 If the URL contains a literal IPv6 address enclosed by `[` and `]` (IETF RFC 2732), the `[` and `]` characters should also be captured in the `domain` field.
 
-type: wildcard
+type: keyword
 
 
 
@@ -7470,11 +7388,9 @@ type: keyword
 [[field-url-full]]
 <<field-url-full, url.full>>
 
-| beta:[ Note the usage of `wildcard` type is considered beta. This field used to be type `keyword`. ]
+| If full URLs are important to your use case, they should be stored in `url.full`, whether this field is reconstructed or present in the event source.
 
-If full URLs are important to your use case, they should be stored in `url.full`, whether this field is reconstructed or present in the event source.
-
-type: wildcard
+type: keyword
 
 Multi-fields:
 
@@ -7494,15 +7410,13 @@ example: `https://www.elastic.co:443/search?q=elasticsearch#top`
 [[field-url-original]]
 <<field-url-original, url.original>>
 
-| beta:[ Note the usage of `wildcard` type is considered beta. This field used to be type `keyword`. ]
-
-Unmodified original url as seen in the event source.
+| Unmodified original url as seen in the event source.
 
 Note that in network monitoring, the observed URL may be a full URL, whereas in access logs, the URL is often just represented as a path.
 
 This field is meant to represent the URL as it was observed, complete or not.
 
-type: wildcard
+type: keyword
 
 Multi-fields:
 
@@ -7538,11 +7452,9 @@ type: keyword
 [[field-url-path]]
 <<field-url-path, url.path>>
 
-| beta:[ Note the usage of `wildcard` type is considered beta. This field used to be type `keyword`. ]
+| Path of the request, such as "/search".
 
-Path of the request, such as "/search".
-
-type: wildcard
+type: keyword
 
 
 
@@ -7590,15 +7502,13 @@ type: keyword
 [[field-url-registered-domain]]
 <<field-url-registered-domain, url.registered_domain>>
 
-| beta:[ Note the usage of `wildcard` type is considered beta. This field used to be type `keyword`. ]
-
-The highest registered url domain, stripped of the subdomain.
+| The highest registered url domain, stripped of the subdomain.
 
 For example, the registered domain for "foo.example.com" is "example.com".
 
 This value can be determined precisely with a list like the public suffix list (http://publicsuffix.org). Trying to approximate this by simply taking the last two labels will not work well for TLDs such as "co.uk".
 
-type: wildcard
+type: keyword
 
 
 
@@ -7722,11 +7632,9 @@ type: keyword
 [[field-user-email]]
 <<field-user-email, user.email>>
 
-| beta:[ Note the usage of `wildcard` type is considered beta. This field used to be type `keyword`. ]
+| User email address.
 
-User email address.
-
-type: wildcard
+type: keyword
 
 
 
@@ -7740,11 +7648,9 @@ type: wildcard
 [[field-user-full-name]]
 <<field-user-full-name, user.full_name>>
 
-| beta:[ Note the usage of `wildcard` type is considered beta. This field used to be type `keyword`. ]
+| User's full name, if available.
 
-User's full name, if available.
-
-type: wildcard
+type: keyword
 
 Multi-fields:
 
@@ -7798,11 +7704,9 @@ type: keyword
 [[field-user-name]]
 <<field-user-name, user.name>>
 
-| beta:[ Note the usage of `wildcard` type is considered beta. This field used to be type `keyword`. ]
+| Short name or login of the user.
 
-Short name or login of the user.
-
-type: wildcard
+type: keyword
 
 Multi-fields:
 
@@ -7945,11 +7849,9 @@ example: `Safari`
 [[field-user-agent-original]]
 <<field-user-agent-original, user_agent.original>>
 
-| beta:[ Note the usage of `wildcard` type is considered beta. This field used to be type `keyword`. ]
+| Unparsed user_agent string.
 
-Unparsed user_agent string.
-
-type: wildcard
+type: keyword
 
 Multi-fields:
 
@@ -8394,11 +8296,9 @@ example: `US`
 [[field-x509-issuer-distinguished-name]]
 <<field-x509-issuer-distinguished-name, x509.issuer.distinguished_name>>
 
-| beta:[ Note the usage of `wildcard` type is considered beta. This field used to be type `keyword`. ]
+| Distinguished name (DN) of issuing certificate authority.
 
-Distinguished name (DN) of issuing certificate authority.
-
-type: wildcard
+type: keyword
 
 
 
@@ -8654,11 +8554,9 @@ example: `US`
 [[field-x509-subject-distinguished-name]]
 <<field-x509-subject-distinguished-name, x509.subject.distinguished_name>>
 
-| beta:[ Note the usage of `wildcard` type is considered beta. This field used to be type `keyword`. ]
+| Distinguished name (DN) of the certificate subject entity.
 
-Distinguished name (DN) of the certificate subject entity.
-
-type: wildcard
+type: keyword
 
 
 
