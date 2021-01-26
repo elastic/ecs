@@ -187,3 +187,17 @@
         https://www.iana.org/assignments/media-types/media-types.xhtml[IANA official types],
         where possible. When more than one type is applicable, the most specific
         type should be used.
+
+    - name: content
+      level: extended
+      type: binary
+      description: Content of the file, base64 encoded
+      multi_fields:
+      - type: text
+        name: text
+        short: Content of the file, unencoded.
+        description: >
+          Content of the file, unencoded.
+
+          This field should only be used when the content of the file represent human-readable
+          data. Binary encoded formats should use `content` instead.

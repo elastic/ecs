@@ -1560,6 +1560,15 @@
         Leave unpopulated if a certificate was unchecked.'
       example: 'true'
       default_field: false
+    - name: content
+      level: extended
+      type: binary
+      multi_fields:
+      - name: text
+        type: text
+        norms: false
+      description: Content of the file, base64 encoded
+      default_field: false
     - name: created
       level: extended
       type: date
@@ -2341,6 +2350,9 @@
         type: text
         norms: false
         default_field: false
+      - name: raw
+        type: binary
+        default_field: false
       description: The full HTTP request body.
       example: Hello world
     - name: request.bytes
@@ -2404,6 +2416,9 @@
       - name: text
         type: text
         norms: false
+        default_field: false
+      - name: raw
+        type: binary
         default_field: false
       description: The full HTTP response body.
       example: Hello world

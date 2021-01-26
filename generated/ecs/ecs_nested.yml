@@ -2971,6 +2971,27 @@ file:
       short: Boolean to capture if the digital signature is verified against the binary
         content.
       type: boolean
+    file.content:
+      dashed_name: file-content
+      description: Content of the file, base64 encoded
+      flat_name: file.content
+      level: extended
+      multi_fields:
+      - description: 'Content of the file, unencoded.
+
+          This field should only be used when the content of the file represent human-readable
+          data. Binary encoded formats should use `content` instead.
+
+          '
+        flat_name: file.content.text
+        name: text
+        norms: false
+        short: Content of the file, unencoded.
+        type: text
+      name: content
+      normalize: []
+      short: Content of the file, base64 encoded
+      type: binary
     file.created:
       dashed_name: file-created
       description: 'File creation time.
@@ -4442,6 +4463,9 @@ http:
         name: text
         norms: false
         type: text
+      - flat_name: http.request.body.content.raw
+        name: raw
+        type: binary
       name: request.body.content
       normalize: []
       short: The full HTTP request body.
@@ -4543,6 +4567,9 @@ http:
         name: text
         norms: false
         type: text
+      - flat_name: http.response.body.content.raw
+        name: raw
+        type: binary
       name: response.body.content
       normalize: []
       short: The full HTTP response body.
