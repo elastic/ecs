@@ -758,7 +758,7 @@ e.g.:
 * Stage 2: https://github.com/elastic/ecs/pull/914
   * Stage 2 correction: https://github.com/elastic/ecs/pull/996
 * Legacy Stage 3: https://github.com/elastic/ecs/pull/1017
-  * Update legacy stage 3 to stage 2: https://github.com/elastic/ecs/pull/NNN
+  * Update legacy stage 3 to stage 2: https://github.com/elastic/ecs/pull/1239
 
 Note: This RFC was initially proposed via a PR that targeted stage 2,
 given the amount of discussion that has already has happened on this subject.
