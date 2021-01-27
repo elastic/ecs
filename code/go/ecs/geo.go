@@ -46,7 +46,7 @@ type Geo struct {
 
 	// Postal code associated with the location.
 	// Values appropriate for this field may also be known as a postcode or ZIP
-	// code.
+	// code and will vary widely from country to country.
 	PostalCode string `ecs:"postal_code"`
 
 	// Region ISO code.
