@@ -390,4 +390,4 @@ Stage 4: Identify at least one real-world, production-ready implementation that 
 
 * Stage 0: https://github.com/elastic/ecs/pull/891
 * Stage 1: https://github.com/elastic/ecs/pull/1070
-  * Stage 1 naming update: https://github.com/elastic/ecs/pull/NNN
+  * Update stage 1 naming: https://github.com/elastic/ecs/pull/1240
