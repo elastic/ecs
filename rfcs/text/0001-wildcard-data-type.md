@@ -522,7 +522,7 @@ The following are the people that consulted on the contents of this RFC.
 
 <!-- An RFC should link to the PRs for each of it stage advancements. -->
 
-Due to performance concerns brought up during implementation, the wildcard changes were [rolled back](https://github.com/elastic/ecs/pull/NNN) to iterate on this proposal with a focus on performance implications. The original round of PRs are listed under `First Phase`, and the PRs following the rollback are grouped under `Second Phase`.
+Due to performance concerns brought up during implementation, the wildcard changes were [rolled back](https://github.com/elastic/ecs/pull/1237) to iterate on this proposal with a focus on performance implications. The original round of PRs are listed under `First Phase`, and the PRs following the rollback are grouped under `Second Phase`.
 
 #### First Phase
 
@@ -533,4 +533,4 @@ Due to performance concerns brought up during implementation, the wildcard chang
 #### Second Phase
 
 * Stage 1:
-  * Rollback: https://github.com/elastic/ecs/pull/NNN
+  * Rollback: https://github.com/elastic/ecs/pull/1237
