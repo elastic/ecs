@@ -52,7 +52,7 @@ type Geo struct {
 	// Region ISO code.
 	RegionIsoCode string `ecs:"region_iso_code"`
 
-	// The time zone of the location.
+	// The time zone of the location, such as IANA time zone name.
 	Timezone string `ecs:"timezone"`
 
 	// User-defined description of a location, at the level of granularity they
