@@ -20,6 +20,7 @@ Thanks, you're awesome :-) -->
 * Added `http.request.id`. #1208
 * Added `cloud.service.name`. #1204
 * Added `hash.ssdeep`. #1169
+* Added `package.namespace`. #1038
 
 #### Improvements
 

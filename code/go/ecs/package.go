@@ -27,6 +27,9 @@ import (
 // contains general information about a package, such as name, version or size.
 // It also contains installation details, such as time or location.
 type Package struct {
+	// Package's namespace
+	Namespace string `ecs:"namespace"`
+
 	// Package name
 	Name string `ecs:"name"`
 
