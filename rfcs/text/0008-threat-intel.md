@@ -68,11 +68,8 @@ File | Use existing File fields to describe file entity details involved in thre
 Hash | Use existing Hash fields to describe file entity details involved in threat activity. Hash fields are expected to be nested at `file.hash` , `process.hash`. No changes to existing ECS fieldset | [Hash Fields](https://www.elastic.co/guide/en/ecs/current/ecs-hash.html)
 URL | Use existing URL fields to describe internet resources involved in threat activity. No changes to existing ECS fieldset | [URL](https://www.elastic.co/guide/en/ecs/current/ecs-url.html)
 Registry | Use existing Registry fields involved in threat activity. No changes to existing ECS fieldset | [Registry](https://www.elastic.co/guide/en/ecs/current/ecs-registry.html)
-Source | Use existing fields to capture sender of network exchange involved in threat activity. No changes to existing ECS fieldset | [Source](https://www.elastic.co/guide/en/ecs/current/ecs-source.html)
-Destination | Use existing fields to capture destination of network exchange involved in threat activity. No changes to existing fieldset | [Destination](https://www.elastic.co/guide/en/ecs/current/ecs-destination.html)
 Autonomous System (AS) | Use existing fields to capture routing prefixes for threat activity. AS fields are expected to be nested at `source.as` , `destination.as`, or `threat.indicator`. Changes will be needed to existing fieldset to add `threat.indicator`. | [AS](https://www.elastic.co/guide/en/ecs/current/ecs-as.html)
 Geographic | Use existing fields to capture geographic location for threat activity. Changes will be needed to the field reuse section to add `threat.indicator`. | [Geo](https://www.elastic.co/guide/en/ecs/current/ecs-geo.html)
-Host | Use existing fields to describe computing instance involved in threat activity. No changes to existing fieldset. | [Host](https://www.elastic.co/guide/en/ecs/current/ecs-host.html)
 x509 | Use existing fields to describe certificates involved in threat activity. No changes to existing fieldset. | [x509](https://www.elastic.co/guide/en/ecs/current/ecs-x509.html)
 Portable Executable (PE) | Use existing fields to describe portable executables involved in threat activity. No changes to existing fieldset. | [PE](https://www.elastic.co/guide/en/ecs/current/ecs-pe.html)
 
