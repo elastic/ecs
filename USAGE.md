@@ -30,7 +30,7 @@ relevant artifacts for their unique set of data sources.
     + [Subset](#subset)
     + [Ref](#ref)
     + [Mapping & Template Settings](#mapping--template-settings)
-    + [OSS](#oss)
+    + [OSS (Deprecated)](#oss-deprecated)
     + [Strict Mode](#strict-mode)
     + [Intermediate-Only](#intermediate-only)
 
@@ -352,13 +352,12 @@ The `--template-settings` argument defines [index level settings](https://www.el
 
 For `template.json`, the `mappings` object is left empty: `{}`. Likewise the `properties` object remains empty in the `mapping.json` example. This will be filled in automatically by the script.
 
-#### OSS
+#### OSS (Deprecated)
 
-**IMPORTANT**: This feature is unnecessary for most users. Our default free distribution
-comes with the Elastic Basic license, and supports all data types used by ECS.
-Learn more about our licenses [here](https://www.elastic.co/subscriptions).
+**Important**: This feature has been deprecated. An Apache 2.0 distribution of Elasticsearch will not be
+produced starting with the 7.11 release. Learn more about these changes [here](https://www.elastic.co/pricing/faq/licensing).
 
-Users that want to use the open source version of Elasticsearch do not have access to the basic data types.
+Users that want to use an Apache 2.0 distribution of Elasticsearch do not have access to the basic data types.
 However some of these types have an OSS replacement that can be used instead, without too much loss of functionality.
 
 This flag performs a best effort fallback, replacing basic data types with their OSS replacement.
