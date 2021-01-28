@@ -1,14 +1,23 @@
-[[ecs-categorization-values-usage]]
-=== Categorization Usage
+[[ecs-using-the-categorization-fields]]
+=== Using the Categorization Fields
 
-The following are usage examples of populating the categorization fields. Using the categorization fields together helps identify and group common subsets of events.
+The event categorization fields work together to identify and group similar events from multiple data sources.
 
-Each categorization example is based on an event from real-world data sources. Categorization fields should be populated using knowledge of each type of event a data source emits.
+These general principles can help guide the categorization process:
+
+* Events from multiple data sources that are similar enough to be viewed or analyzed together, should fall into the same `event.category` field.
+* Both `event.category` and `event.type` may be populated with multiple allowed values, if the event can be reasonably classified into more than one category and/or subcategory.
+* Values of `event.outcome` are a very limited set to indicate success or failure. Domain-specific actions, such as deny and allow, that could be considered outcomes are not
+  captured in the `event.outcome` field, but rather in the `event.type` and/or `event.action` fields.
+* Values of `event.category`, `event.type`, and `event.outcome` are consistent across all values of `event.kind`.
+* When a specific event doesn't fit into any of the defined allowed categorization values, the field should be left empty.
+
+The following examples detail populating the categorization fields and provides some context for the classification decisions.
 
 [float]
-==== Firewall blocked a network connection
+==== Firewall blocking a network connection
 
-Network firewalls generate events based on which network flows were allowed or denied based on the firewall's configuration.
+This event from a firewall describes a successfully blocked network connection:
 
 [source,json]
 ----
@@ -45,15 +54,15 @@ Network firewalls generate events based on which network flows were allowed or d
 ...
 ----
 
-<1> The `event` value will be the most common and most general event `kind`.
-<2> Event relates to network activity.
-<3> The firewall blocked, dropped, or someway `denied` the attempted network `connection`.
-<4> A blocked connection is expected based on the configuration of this firewall. The outcome is a `success` from the perspective of the firewall emitting the event.
-<5> The data source describes this `denied` connection as `dropped`, which is best captured in `event.action`.
+<1> Classifying as an `event`.
+<2> `event.category` categorizes this event as `network` activity.
+<3> The event was both an attempted network `connection` which was `denied`.
+<4> The blocking of this connection is expected. The outcome is a `success` from the perspective of the firewall emitting the event.
+<5> The firewall classifies this denied connection as `dropped`, and this value is captured in `event.action`.
 
-A "denied" network connection falls under different actions: "blocked", "dropped", "quarantined". The `event.action` can capture the action taken by the source, and populating `event.type:denied` provides a normalized category which is independent of the source.
+A "denied" network connection could fall under different action values: "blocked", "dropped", "quarantined", etc. The `event.action` field captures the action taken as described by the source, and populating `event.type:denied` provides an independent, normalized value.
 
-Any network flows or connections that are "denied" can be searched with a single query:
+A single query will return all denied network connections which have been normalized with the same categorization values:
 
 [source,sh]
 ----
@@ -63,7 +72,7 @@ event.category:network AND event.type:denied
 [float]
 ==== Failed attempt to create a user account
 
-User `alice` attempts to add a user account, `bob`, into a directory service, but the action fails.
+User `alice` attempts to add a user account, `bob`, into a directory service, but the action fails:
 
 [source,json]
 ----
@@ -75,27 +84,28 @@ User `alice` attempts to add a user account, `bob`, into a directory service, bu
     }
   },
   "event": {
-    "kind": "event",
-    "category": [ <1>
+    "kind": "event", <1>
+    "category": [ <2>
       "iam"
     ],
-    "type": [ <2>
+    "type": [ <3>
       "user",
       "creation"
     ],
-    "outcome": "failure" <3>
+    "outcome": "failure" <4>
   }
 }
 ----
 
-<1> Categorized using `iam` for an event user account activity.
-<2> Both `user` and `creation`
-<3> The creation of a user account was attempted, but it was not successful.
+<1> Again classifying as an `event`.
+<2> Categorized using `iam` for an event user account activity.
+<3> Both `user` and `creation`
+<4> The creation of a user account was attempted, but it was not successful.
 
 [float]
 ==== Informational listing of a file
 
-A utility, such as a file integrity monitoring (FIM) application, takes inventory of a file but does not access or modify the file.
+A utility, such as a file integrity monitoring (FIM) application, takes inventory of a file but does not access or modify the file:
 
 [source,json]
 ----
@@ -118,17 +128,28 @@ A utility, such as a file integrity monitoring (FIM) application, takes inventor
 }
 ----
 
-<1> A file was reported on
-<2> The "info" type categorizes purely informational events. A file was listed but not accessed or modified.
+<1> The event is reporting on a `file`.
+<2> The `info` type categorizes purely informational events. The target file here was not accessed or modified.
 
 [float]
 === Security application failed to block a network connection
 
-An intrusion detection system (IDS) performing analysis on network connections and protocols attempts to block a connection but fails.
+An intrusion detection system (IDS) attempts to block a connection but fails. The event emitted by the IDS is considered an alert:
 
 [source,json]
 ----
 {
+  "source": {
+      "address": "10.42.42.42",
+      "ip": "10.42.42.42",
+      "port": 38842
+    },
+  "destination": {
+      "address": "10.42.42.1",
+      "ip": "10.42.42.1",
+      "port": 443
+  },
+  ...
   "event": {
     "kind": "alert", <1>
     "category": [ <2>
@@ -144,7 +165,7 @@ An intrusion detection system (IDS) performing analysis on network connections a
 }
 ----
 
-<1> The event was associated with a detection alert from an intrusion detection application.
-<2> The data source is a network-based intrusion detection application.
-<3> A network connection is associated with the event, and the IDS attempted action to deny the connection from continuing.
-<4> The IDS application failed to deny the connection for some reason, resulting in `outcome: failure`
+<1> The IDS emitted this event when a detection rule generated an alert. The `event.type` is set to `alert`.
+<2> With the event emitted from a network IDS device, the event is categorized both as `network` and `intrusion_detection`.
+<3> The alert event is a `connection` that was `denied` by the IDS' configuration.
+<4> The IDS experience an issue when attempting to deny the connection. Since the action taken by the IDS failed, the outcome is set as `failure`.
