@@ -1,8 +1,8 @@
 # 0001: Wildcard Field Migration
 <!--^ The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC, taking care not to conflict with other RFCs.-->
 
-- Stage: **3 (candidate)** <!-- Update to reflect target stage -->
-- Date: **2020-11-10** <!-- Update to reflect date of most recent stage advancement -->
+- Stage: **1 (draft)** <!-- Update to reflect target stage -->
+- Date: **2021-01-29** <!-- Update to reflect date of most recent stage advancement -->
 
 Wildcard is a data type for Elasticsearch string fields being introduced in Elasticsearch 7.9. Wildcard optimizes performance for queries using wildcards (`*`) and regex, allowing users to perform `grep`-like searches without the limitations of the existing
 text[0] and keyword[1] types.
@@ -17,7 +17,7 @@ Stage 2: Include new or updated yml field definitions for all of the essential f
 
 ### Identified Wildcard Fields
 
-For a field to use wildcard, it will require changing the the field's defined schema `type` from `keyword` to `wildcard`. The following fields are candidates for `wildcard`:
+For a field to use wildcard, it will require changing the field's defined schema `type` from `keyword` to `wildcard`. The following fields are candidates for `wildcard`:
 
 | Field Set | Field(s) |
 | --------- | -------- |
@@ -522,7 +522,15 @@ The following are the people that consulted on the contents of this RFC.
 
 <!-- An RFC should link to the PRs for each of it stage advancements. -->
 
+Due to performance concerns brought up during implementation, the wildcard changes were [rolled back](https://github.com/elastic/ecs/pull/1237) to iterate on this proposal with a focus on performance implications. The original round of PRs are listed under `First Phase`, and the PRs following the rollback are grouped under `Second Phase`.
+
+#### First Phase
+
 * Stage 0: https://github.com/elastic/ecs/pull/890
 * Stage 1: https://github.com/elastic/ecs/pull/904
 * Stage 2: https://github.com/elastic/ecs/pull/970
 * Stage 3: https://github.com/elastic/ecs/pull/1015
+#### Second Phase
+
+* Stage 1:
+  * Rollback: https://github.com/elastic/ecs/pull/1237
