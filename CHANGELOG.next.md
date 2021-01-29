@@ -45,7 +45,6 @@ Thanks, you're awesome :-) -->
 #### Improvements
 
 * Event categorization fields GA. #1067
-* `wildcard` field type adoption. #1098
 * Note `[` and `]` bracket characters may enclose a literal IPv6 address when populating `url.domain`. #1131
 * Reinforce the exclusion of the leading dot from `url.extension`. #1151
 

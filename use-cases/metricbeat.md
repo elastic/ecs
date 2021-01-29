@@ -21,7 +21,7 @@ ECS fields used Metricbeat.
 | <a name="error.&ast;"></a>*error.&ast;* | *Error namespace<br/>Use for errors which can happen during fetching information for a service.<br/>* |  |  |  |
 | [error.message](../README.md#error.message)  | Error message returned by the service during fetching metrics. | core | text |  |
 | [error.code](../README.md#error.code)  | Error code returned by the service during fetching metrics. | core | keyword |  |
-| [host.hostname](../README.md#host.hostname)  | Hostname of the system metricbeat is running on or user defined name. | core | wildcard |  |
+| [host.hostname](../README.md#host.hostname)  | Hostname of the system metricbeat is running on or user defined name. | core | keyword |  |
 | <a name="host.timezone.offset.sec"></a>*host.timezone.offset.sec* | *Timezone offset of the host in seconds.* | (use case) | long |  |
 | [host.id](../README.md#host.id)  | Unique host id. | core | keyword |  |
 | [event.module](../README.md#event.module)  | Name of the module this data is coming from. | core | keyword | `mysql` |
