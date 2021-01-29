@@ -5033,8 +5033,6 @@ process.code_signature.valid:
     content.
   type: boolean
 process.command_line:
-  beta: Note the usage of `wildcard` type is considered beta. This field used to be
-    type `keyword`.
   dashed_name: process-command-line
   description: 'Full command line that started the process, including the absolute
     path to the executable, and all arguments.
@@ -5042,6 +5040,7 @@ process.command_line:
     Some arguments may be filtered to protect sensitive information.'
   example: /usr/bin/ssh -l user 10.0.0.16
   flat_name: process.command_line
+  ignore_above: 1024
   level: extended
   multi_fields:
   - flat_name: process.command_line.text
@@ -5051,7 +5050,7 @@ process.command_line:
   name: command_line
   normalize: []
   short: Full command line that started the process.
-  type: wildcard
+  type: keyword
 process.entity_id:
   dashed_name: process-entity-id
   description: 'Unique identifier for the process.
@@ -5273,8 +5272,6 @@ process.parent.code_signature.valid:
     content.
   type: boolean
 process.parent.command_line:
-  beta: Note the usage of `wildcard` type is considered beta. This field used to be
-    type `keyword`.
   dashed_name: process-parent-command-line
   description: 'Full command line that started the process, including the absolute
     path to the executable, and all arguments.
@@ -5282,6 +5279,7 @@ process.parent.command_line:
     Some arguments may be filtered to protect sensitive information.'
   example: /usr/bin/ssh -l user 10.0.0.16
   flat_name: process.parent.command_line
+  ignore_above: 1024
   level: extended
   multi_fields:
   - flat_name: process.parent.command_line.text
@@ -5292,7 +5290,7 @@ process.parent.command_line:
   normalize: []
   original_fieldset: process
   short: Full command line that started the process.
-  type: wildcard
+  type: keyword
 process.parent.entity_id:
   dashed_name: process-parent-entity-id
   description: 'Unique identifier for the process.
