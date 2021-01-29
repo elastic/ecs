@@ -534,4 +534,4 @@ Due to performance concerns brought up during implementation, the wildcard chang
 
 * Stage 1 (draft):
   * Rollback: https://github.com/elastic/ecs/pull/1237
-* Stage 2 (candidate): https://github.com/elastic/ecs/pull/NNN
+* Stage 2 (candidate): https://github.com/elastic/ecs/pull/1247
