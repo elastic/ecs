@@ -9,8 +9,8 @@ ECS usage in Auditbeat.
 |---|---|---|---|---|
 | [event.module](../README.md#event.module)  | Auditbeat module name. | core | keyword | `apache` |
 | <a name="file.&ast;"></a>*file.&ast;* | *File attributes.<br/>* |  |  |  |
-| [file.path](../README.md#file.path)  | The path to the file. | extended | wildcard | `/home/alice/example.png` |
-| [file.target_path](../README.md#file.target_path)  | The target path for symlinks. | extended | wildcard |  |
+| [file.path](../README.md#file.path)  | The path to the file. | extended | keyword | `/home/alice/example.png` |
+| [file.target_path](../README.md#file.target_path)  | The target path for symlinks. | extended | keyword |  |
 | [file.type](../README.md#file.type)  | The file type (file, dir, or symlink). | extended | keyword | `file` |
 | [file.device](../README.md#file.device)  | The device. | extended | keyword | `sda` |
 | [file.inode](../README.md#file.inode)  | The inode representing the file in the filesystem. | extended | keyword | `256383` |
