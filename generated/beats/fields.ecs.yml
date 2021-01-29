@@ -66,7 +66,8 @@
     fields:
     - name: build.original
       level: core
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       description: 'Extended build information for the agent.
 
         This field is intended to contain any build information that a data source
@@ -135,7 +136,8 @@
       example: 15169
     - name: organization.name
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       multi_fields:
       - name: text
         type: text
@@ -181,7 +183,8 @@
       example: 15169
     - name: as.organization.name
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       multi_fields:
       - name: text
         type: text
@@ -197,7 +200,8 @@
       example: 184
     - name: domain
       level: core
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       description: Client domain.
     - name: geo.city_name
       level: core
@@ -230,7 +234,8 @@
       example: '{ "lon": -73.614830, "lat": 45.505918 }'
     - name: geo.name
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       description: 'User-defined description of a location, at the level of granularity
         they care about.
 
@@ -287,7 +292,8 @@
       description: Port of the client.
     - name: registered_domain
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       description: 'The highest registered client domain, stripped of the subdomain.
 
         For example, the registered domain for "foo.example.com" is "example.com".
@@ -331,11 +337,13 @@
         For example, an LDAP or Active Directory domain name.'
     - name: user.email
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       description: User email address.
     - name: user.full_name
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       multi_fields:
       - name: text
         type: text
@@ -376,7 +384,8 @@
       description: Unique identifier of the user.
     - name: user.name
       level: core
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       multi_fields:
       - name: text
         type: text
@@ -607,7 +616,8 @@
       example: 15169
     - name: as.organization.name
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       multi_fields:
       - name: text
         type: text
@@ -623,7 +633,8 @@
       example: 184
     - name: domain
       level: core
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       description: Destination domain.
     - name: geo.city_name
       level: core
@@ -656,7 +667,8 @@
       example: '{ "lon": -73.614830, "lat": 45.505918 }'
     - name: geo.name
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       description: 'User-defined description of a location, at the level of granularity
         they care about.
 
@@ -712,7 +724,8 @@
       description: Port of the destination.
     - name: registered_domain
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       description: 'The highest registered destination domain, stripped of the subdomain.
 
         For example, the registered domain for "foo.example.com" is "example.com".
@@ -756,11 +769,13 @@
         For example, an LDAP or Active Directory domain name.'
     - name: user.email
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       description: User email address.
     - name: user.full_name
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       multi_fields:
       - name: text
         type: text
@@ -801,7 +816,8 @@
       description: Unique identifier of the user.
     - name: user.name
       level: core
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       multi_fields:
       - name: text
         type: text
@@ -962,7 +978,8 @@
       default_field: false
     - name: pe.original_file_name
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       description: Internal name of the file, provided at compile-time.
       example: MSPAINT.EXE
       default_field: false
@@ -1005,7 +1022,8 @@
       example: IN
     - name: answers.data
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       description: 'The data describing the resource.
 
         The meaning of this data depends on the type and class of the resource record.'
@@ -1064,7 +1082,8 @@
       example: IN
     - name: question.name
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       description: 'The name being queried.
 
         If the name field contains non-printable characters (below 32 or above 126),
@@ -1183,16 +1202,19 @@
       description: Error message.
     - name: stack_trace
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       multi_fields:
       - name: text
         type: text
         norms: false
         default_field: false
       description: The stack trace of this error in plain text.
+      index: false
     - name: type
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       description: The type of the error, for example the class name of the exception.
       example: java.lang.NullPointerException
   - name: event
@@ -1581,7 +1603,8 @@
       example: sda
     - name: directory
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       description: Directory where the file is located. It should include the drive
         letter, when appropriate.
       example: /home/alice
@@ -1681,7 +1704,8 @@
       example: alice
     - name: path
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       multi_fields:
       - name: text
         type: text
@@ -1731,7 +1755,8 @@
       default_field: false
     - name: pe.original_file_name
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       description: Internal name of the file, provided at compile-time.
       example: MSPAINT.EXE
       default_field: false
@@ -1751,7 +1776,8 @@
       example: 16384
     - name: target_path
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       multi_fields:
       - name: text
         type: text
@@ -1795,7 +1821,8 @@
       default_field: false
     - name: x509.issuer.distinguished_name
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       description: Distinguished name (DN) of issuing certificate authority.
       example: C=US, O=Example Inc, OU=www.example.com, CN=Example SHA2 High Assurance
         Server CA
@@ -1901,7 +1928,8 @@
       default_field: false
     - name: x509.subject.distinguished_name
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       description: Distinguished name (DN) of the certificate subject entity.
       example: C=US, ST=California, L=San Francisco, O=Example, Inc., CN=shared.global.example.net
       default_field: false
@@ -1980,7 +2008,8 @@
       example: '{ "lon": -73.614830, "lat": 45.505918 }'
     - name: name
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       description: 'User-defined description of a location, at the level of granularity
         they care about.
 
@@ -2124,7 +2153,8 @@
       example: '{ "lon": -73.614830, "lat": 45.505918 }'
     - name: geo.name
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       description: 'User-defined description of a location, at the level of granularity
         they care about.
 
@@ -2147,7 +2177,8 @@
       example: Quebec
     - name: hostname
       level: core
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       description: 'Hostname of the host.
 
         It normally contains what the `hostname` command returns on the host machine.'
@@ -2186,7 +2217,8 @@
       example: debian
     - name: os.full
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       multi_fields:
       - name: text
         type: text
@@ -2202,7 +2234,8 @@
       example: 4.4.0-112-generic
     - name: os.name
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       multi_fields:
       - name: text
         type: text
@@ -2260,11 +2293,13 @@
         For example, an LDAP or Active Directory domain name.'
     - name: user.email
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       description: User email address.
     - name: user.full_name
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       multi_fields:
       - name: text
         type: text
@@ -2305,7 +2340,8 @@
       description: Unique identifier of the user.
     - name: user.name
       level: core
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       multi_fields:
       - name: text
         type: text
@@ -2335,7 +2371,8 @@
       example: 887
     - name: request.body.content
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       multi_fields:
       - name: text
         type: text
@@ -2388,7 +2425,8 @@
       default_field: false
     - name: request.referrer
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       description: Referrer for this HTTP request.
       example: https://blog.example.com/
     - name: response.body.bytes
@@ -2399,7 +2437,8 @@
       example: 887
     - name: response.body.content
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       multi_fields:
       - name: text
         type: text
@@ -2485,7 +2524,8 @@
     fields:
     - name: file.path
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       description: 'Full path to the log file this event came from, including the
         file name. It should include the drive letter, when appropriate.
 
@@ -2506,7 +2546,8 @@
       example: error
     - name: logger
       level: core
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       description: The name of the logger inside an application. This is usually the
         name of the class which initialized the logger, or can be a custom name.
       example: org.elasticsearch.bootstrap.Bootstrap
@@ -2852,7 +2893,8 @@
       example: '{ "lon": -73.614830, "lat": 45.505918 }'
     - name: geo.name
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       description: 'User-defined description of a location, at the level of granularity
         they care about.
 
@@ -2960,7 +3002,8 @@
       example: debian
     - name: os.full
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       multi_fields:
       - name: text
         type: text
@@ -2976,7 +3019,8 @@
       example: 4.4.0-112-generic
     - name: os.name
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       multi_fields:
       - name: text
         type: text
@@ -3059,7 +3103,8 @@
       description: Unique identifier for the organization.
     - name: name
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       multi_fields:
       - name: text
         type: text
@@ -3080,7 +3125,8 @@
       example: debian
     - name: full
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       multi_fields:
       - name: text
         type: text
@@ -3096,7 +3142,8 @@
       example: 4.4.0-112-generic
     - name: name
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       multi_fields:
       - name: text
         type: text
@@ -3276,7 +3323,8 @@
       default_field: false
     - name: original_file_name
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       description: Internal name of the file, provided at compile-time.
       example: MSPAINT.EXE
       default_field: false
@@ -3360,7 +3408,8 @@
       default_field: false
     - name: command_line
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       multi_fields:
       - name: text
         type: text
@@ -3388,7 +3437,8 @@
       default_field: false
     - name: executable
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       multi_fields:
       - name: text
         type: text
@@ -3433,7 +3483,8 @@
       default_field: false
     - name: name
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       multi_fields:
       - name: text
         type: text
@@ -3507,7 +3558,8 @@
       default_field: false
     - name: parent.command_line
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       multi_fields:
       - name: text
         type: text
@@ -3535,7 +3587,8 @@
       default_field: false
     - name: parent.executable
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       multi_fields:
       - name: text
         type: text
@@ -3584,7 +3637,8 @@
       default_field: false
     - name: parent.name
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       multi_fields:
       - name: text
         type: text
@@ -3635,7 +3689,8 @@
       default_field: false
     - name: parent.pe.original_file_name
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       description: Internal name of the file, provided at compile-time.
       example: MSPAINT.EXE
       default_field: false
@@ -3681,13 +3736,15 @@
       default_field: false
     - name: parent.thread.name
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       description: Thread name.
       example: thread-0
       default_field: false
     - name: parent.title
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       multi_fields:
       - name: text
         type: text
@@ -3705,7 +3762,8 @@
       default_field: false
     - name: parent.working_directory
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       multi_fields:
       - name: text
         type: text
@@ -3754,7 +3812,8 @@
       default_field: false
     - name: pe.original_file_name
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       description: Internal name of the file, provided at compile-time.
       example: MSPAINT.EXE
       default_field: false
@@ -3795,12 +3854,14 @@
       example: 4242
     - name: thread.name
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       description: Thread name.
       example: thread-0
     - name: title
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       multi_fields:
       - name: text
         type: text
@@ -3817,7 +3878,8 @@
       example: 1325
     - name: working_directory
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       multi_fields:
       - name: text
         type: text
@@ -3844,7 +3906,8 @@
       default_field: false
     - name: data.strings
       level: core
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       description: 'Content when writing string types.
 
         Populated as an array when writing string data to the registry. For single
@@ -3870,13 +3933,15 @@
       default_field: false
     - name: key
       level: core
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       description: Hive-relative path of keys.
       example: SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\winword.exe
       default_field: false
     - name: path
       level: core
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       description: Full path, including hive, key and value
       example: HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution
         Options\winword.exe\Debugger
@@ -4061,7 +4126,8 @@
       example: 15169
     - name: as.organization.name
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       multi_fields:
       - name: text
         type: text
@@ -4077,7 +4143,8 @@
       example: 184
     - name: domain
       level: core
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       description: Server domain.
     - name: geo.city_name
       level: core
@@ -4110,7 +4177,8 @@
       example: '{ "lon": -73.614830, "lat": 45.505918 }'
     - name: geo.name
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       description: 'User-defined description of a location, at the level of granularity
         they care about.
 
@@ -4167,7 +4235,8 @@
       description: Port of the server.
     - name: registered_domain
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       description: 'The highest registered server domain, stripped of the subdomain.
 
         For example, the registered domain for "foo.example.com" is "example.com".
@@ -4211,11 +4280,13 @@
         For example, an LDAP or Active Directory domain name.'
     - name: user.email
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       description: User email address.
     - name: user.full_name
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       multi_fields:
       - name: text
         type: text
@@ -4256,7 +4327,8 @@
       description: Unique identifier of the user.
     - name: user.name
       level: core
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       multi_fields:
       - name: text
         type: text
@@ -4390,7 +4462,8 @@
       example: 15169
     - name: as.organization.name
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       multi_fields:
       - name: text
         type: text
@@ -4406,7 +4479,8 @@
       example: 184
     - name: domain
       level: core
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       description: Source domain.
     - name: geo.city_name
       level: core
@@ -4439,7 +4513,8 @@
       example: '{ "lon": -73.614830, "lat": 45.505918 }'
     - name: geo.name
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       description: 'User-defined description of a location, at the level of granularity
         they care about.
 
@@ -4496,7 +4571,8 @@
       description: Port of the source.
     - name: registered_domain
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       description: 'The highest registered source domain, stripped of the subdomain.
 
         For example, the registered domain for "foo.example.com" is "example.com".
@@ -4540,11 +4616,13 @@
         For example, an LDAP or Active Directory domain name.'
     - name: user.email
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       description: User email address.
     - name: user.full_name
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       multi_fields:
       - name: text
         type: text
@@ -4585,7 +4663,8 @@
       description: Unique identifier of the user.
     - name: user.name
       level: core
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       multi_fields:
       - name: text
         type: text
@@ -4759,7 +4838,8 @@
       default_field: false
     - name: client.issuer
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       description: Distinguished name of subject of the issuer of the x.509 certificate
         presented by the client.
       example: CN=Example Root CA, OU=Infrastructure Team, DC=example, DC=com
@@ -4797,7 +4877,8 @@
       default_field: false
     - name: client.subject
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       description: Distinguished name of subject of the x.509 certificate presented
         by the client.
       example: CN=myclient, OU=Documentation Team, DC=example, DC=com
@@ -4835,7 +4916,8 @@
       default_field: false
     - name: client.x509.issuer.distinguished_name
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       description: Distinguished name (DN) of issuing certificate authority.
       example: C=US, O=Example Inc, OU=www.example.com, CN=Example SHA2 High Assurance
         Server CA
@@ -4941,7 +5023,8 @@
       default_field: false
     - name: client.x509.subject.distinguished_name
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       description: Distinguished name (DN) of the certificate subject entity.
       example: C=US, ST=California, L=San Francisco, O=Example, Inc., CN=shared.global.example.net
       default_field: false
@@ -5054,7 +5137,8 @@
       default_field: false
     - name: server.issuer
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       description: Subject of the issuer of the x.509 certificate presented by the
         server.
       example: CN=Example Root CA, OU=Infrastructure Team, DC=example, DC=com
@@ -5083,7 +5167,8 @@
       default_field: false
     - name: server.subject
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       description: Subject of the x.509 certificate presented by the server.
       example: CN=www.example.com, OU=Infrastructure Team, DC=example, DC=com
       default_field: false
@@ -5112,7 +5197,8 @@
       default_field: false
     - name: server.x509.issuer.distinguished_name
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       description: Distinguished name (DN) of issuing certificate authority.
       example: C=US, O=Example Inc, OU=www.example.com, CN=Example SHA2 High Assurance
         Server CA
@@ -5218,7 +5304,8 @@
       default_field: false
     - name: server.x509.subject.distinguished_name
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       description: Distinguished name (DN) of the certificate subject entity.
       example: C=US, ST=California, L=San Francisco, O=Example, Inc., CN=shared.global.example.net
       default_field: false
@@ -5307,7 +5394,8 @@
     fields:
     - name: domain
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       description: 'Domain of the url, such as "www.elastic.co".
 
         In some cases a URL may refer to an IP and/or port directly, without a domain
@@ -5341,7 +5429,8 @@
         The `#` is not part of the fragment.'
     - name: full
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       multi_fields:
       - name: text
         type: text
@@ -5353,7 +5442,8 @@
       example: https://www.elastic.co:443/search?q=elasticsearch#top
     - name: original
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       multi_fields:
       - name: text
         type: text
@@ -5373,7 +5463,8 @@
       description: Password of the request.
     - name: path
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       description: Path of the request, such as "/search".
     - name: port
       level: extended
@@ -5394,7 +5485,8 @@
         the two cases.'
     - name: registered_domain
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       description: 'The highest registered url domain, stripped of the subdomain.
 
         For example, the registered domain for "foo.example.com" is "example.com".
@@ -5462,12 +5554,14 @@
       default_field: false
     - name: changes.email
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       description: User email address.
       default_field: false
     - name: changes.full_name
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       multi_fields:
       - name: text
         type: text
@@ -5513,7 +5607,8 @@
       default_field: false
     - name: changes.name
       level: core
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       multi_fields:
       - name: text
         type: text
@@ -5545,12 +5640,14 @@
       default_field: false
     - name: effective.email
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       description: User email address.
       default_field: false
     - name: effective.full_name
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       multi_fields:
       - name: text
         type: text
@@ -5596,7 +5693,8 @@
       default_field: false
     - name: effective.name
       level: core
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       multi_fields:
       - name: text
         type: text
@@ -5613,11 +5711,13 @@
       default_field: false
     - name: email
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       description: User email address.
     - name: full_name
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       multi_fields:
       - name: text
         type: text
@@ -5658,7 +5758,8 @@
       description: Unique identifier of the user.
     - name: name
       level: core
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       multi_fields:
       - name: text
         type: text
@@ -5683,12 +5784,14 @@
       default_field: false
     - name: target.email
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       description: User email address.
       default_field: false
     - name: target.full_name
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       multi_fields:
       - name: text
         type: text
@@ -5734,7 +5837,8 @@
       default_field: false
     - name: target.name
       level: core
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       multi_fields:
       - name: text
         type: text
@@ -5771,7 +5875,8 @@
       example: Safari
     - name: original
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       multi_fields:
       - name: text
         type: text
@@ -5787,7 +5892,8 @@
       example: debian
     - name: os.full
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       multi_fields:
       - name: text
         type: text
@@ -5803,7 +5909,8 @@
       example: 4.4.0-112-generic
     - name: os.name
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       multi_fields:
       - name: text
         type: text
@@ -6050,7 +6157,8 @@
       default_field: false
     - name: issuer.distinguished_name
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       description: Distinguished name (DN) of issuing certificate authority.
       example: C=US, O=Example Inc, OU=www.example.com, CN=Example SHA2 High Assurance
         Server CA
@@ -6156,7 +6264,8 @@
       default_field: false
     - name: subject.distinguished_name
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       description: Distinguished name (DN) of the certificate subject entity.
       example: C=US, ST=California, L=San Francisco, O=Example, Inc., CN=shared.global.example.net
       default_field: false
