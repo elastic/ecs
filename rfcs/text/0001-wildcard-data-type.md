@@ -1,8 +1,8 @@
 # 0001: Wildcard Field Migration
 <!--^ The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC, taking care not to conflict with other RFCs.-->
 
-- Stage: **1 (draft)** <!-- Update to reflect target stage -->
-- Date: **2021-01-29** <!-- Update to reflect date of most recent stage advancement -->
+- Stage: **2 (candidate)** <!-- Update to reflect target stage -->
+- Date: **TBD** <!-- Update to reflect date of most recent stage advancement -->
 
 Wildcard is a data type for Elasticsearch string fields being introduced in Elasticsearch 7.9. Wildcard optimizes performance for queries using wildcards (`*`) and regex, allowing users to perform `grep`-like searches without the limitations of the existing
 text[0] and keyword[1] types.
@@ -526,11 +526,12 @@ Due to performance concerns brought up during implementation, the wildcard chang
 
 #### First Phase
 
-* Stage 0: https://github.com/elastic/ecs/pull/890
-* Stage 1: https://github.com/elastic/ecs/pull/904
-* Stage 2: https://github.com/elastic/ecs/pull/970
-* Stage 3: https://github.com/elastic/ecs/pull/1015
+* Stage 0 (strawperson): https://github.com/elastic/ecs/pull/890
+* Stage 1 (proposal): https://github.com/elastic/ecs/pull/904
+* Stage 2 (draft): https://github.com/elastic/ecs/pull/970
+* Stage 3 (candidate): https://github.com/elastic/ecs/pull/1015
 #### Second Phase
 
-* Stage 1:
+* Stage 1 (draft):
   * Rollback: https://github.com/elastic/ecs/pull/1237
+* Stage 2 (candidate): https://github.com/elastic/ecs/pull/NNN
