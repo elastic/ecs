@@ -42,7 +42,7 @@ threat.marking.tlp | keyword | RED | Data markings represent restrictions, permi
 threat.indicator.scanner_stats | long | 4 | Count of Anti virus/EDR that successfully detected malicious file or URL. Sources like VirusTotal, Reversing Labs often provide these statistics.
 threat.indicator.matched.atomic | keyword | 2f5207f2add28b46267dc99bc5382480 | Identifies the atomic indicator that matched a local environment endpoint or network event.
 threat.indicator.matched.field | keyword | threat.indicator.ip | Identifies the field of the atomic indicator that matched a local environment endpoint or network event.
-threat.indicator.type | keyword | ipv4-addr, domain-name, email-addr, url | Identifies the type of the atomic indicator that matched a local environment endpoint or network event.
+threat.indicator.matched.type | keyword | ipv4-addr, domain-name, email-addr, url | Identifies the type of the atomic indicator that matched a local environment endpoint or network event.
 
 ### Proposed New Values for Event Fieldset
 
