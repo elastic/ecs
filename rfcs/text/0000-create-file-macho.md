@@ -36,7 +36,7 @@ This RFC is to create the Mach-O sub-field within the `file.` fieldset. This wil
 |   macho.segments.sections.name       |   keyword  |   Section name for the segment of the file.                                 |
 |   macho.segments.sections.type       |   keyword  |   Section type for the segment of the file.                                 |
 |   macho.segments.offset      |   keyword  |   Offset of the segment.                                             |
-|   macho.segment size     |   keyword  |   Segment limit size.                                            |
+|   macho.segments.size     |   keyword  |   Segment limit size.                                            |
 |   macho.segment.flags     |   keyword  |   Segment flags.                                                 |
 |   macho.page_size                    |   long     |   Page size of the file.                                                    |
 
