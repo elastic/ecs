@@ -39,6 +39,7 @@ This RFC is to create the Mach-O sub-field within the `file.` fieldset. This wil
 |   macho.segments.size     |   keyword  |   Segment limit size.                                            |
 |   macho.segment.flags     |   keyword  |   Segment flags.                                                 |
 |   macho.page_size                    |   long     |   Page size of the file.                                                    |
+|   macho.cdhash                    |   keyword     |   Code Digest (CD) SHA256 hash of the first 20-bytes of the file.                                                    |
 
 
 **Stage 1**  
