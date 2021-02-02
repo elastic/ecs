@@ -29,6 +29,7 @@ Thanks, you're awesome :-) -->
 #### Bugfixes
 
 * Clean up `event.reference` description. #1181
+* Go code generator fails if `scaled_float` type is used. #1250
 
 #### Added
 
