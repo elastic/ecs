@@ -280,7 +280,7 @@ func goDataType(fieldName, elasticsearchDataType string) string {
 		return "int64"
 	case "integer":
 		return "int32"
-	case "float":
+	case "float", "scaled_float":
 		return "float64"
 	case "date":
 		return "time.Time"
