@@ -1090,6 +1090,32 @@
             "ignore_above": 1024,
             "type": "keyword"
           },
+          "cpu": {
+            "properties": {
+              "usage": {
+                "scaling_factor": 1000,
+                "type": "scaled_float"
+              }
+            }
+          },
+          "disk": {
+            "properties": {
+              "read": {
+                "properties": {
+                  "bytes": {
+                    "type": "long"
+                  }
+                }
+              },
+              "write": {
+                "properties": {
+                  "bytes": {
+                    "type": "long"
+                  }
+                }
+              }
+            }
+          },
           "domain": {
             "ignore_above": 1024,
             "type": "keyword"
@@ -1147,6 +1173,30 @@
           "name": {
             "ignore_above": 1024,
             "type": "keyword"
+          },
+          "network": {
+            "properties": {
+              "egress": {
+                "properties": {
+                  "bytes": {
+                    "type": "long"
+                  },
+                  "packets": {
+                    "type": "long"
+                  }
+                }
+              },
+              "ingress": {
+                "properties": {
+                  "bytes": {
+                    "type": "long"
+                  },
+                  "packets": {
+                    "type": "long"
+                  }
+                }
+              }
+            }
           },
           "os": {
             "properties": {
