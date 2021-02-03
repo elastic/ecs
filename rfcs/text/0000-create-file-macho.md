@@ -18,13 +18,13 @@ This RFC is to create the Mach-O sub-field within the `file.` fieldset. This wil
 |   macho.cpu.byte_order               |   keyword  |   CPU byte order for the file.                                              |
 |   macho.cpu.subtype                  |   keyword  |   CPU subtype for the file.                                                 |
 |   macho.cpu.type                     |   keyword  |   CPU type for the file.                                                    |
-|   macho.header                      |   object   |   Header information for the file.                                          |
-|   macho.header.commands             |   object   |   Header load commands for the file.                                        |
-|   macho.header.commands.number      |   long     |   Number of load commands for the Mach-O header.                            |
-|   macho.header.commands.size        |   long     |   Size of load commands of the Mach-O header.                               |
-|   macho.header.commands.type        |   keyword  |   Type of the load commands for the Mach-O header.                          |
-|   macho.header.magic                |   keyword  |   Magic field of the Mach-O header.                                         |
-|   macho.header.flags                |   keyword  |   Flags set in the Mach-O header.                                           |
+|   macho.headers                      |   object   |   Header information for the file.                                          |
+|   macho.headers.commands             |   object   |   Header load commands for the file.                                        |
+|   macho.headers.commands.number      |   long     |   Number of load commands for the Mach-O header.                            |
+|   macho.headers.commands.size        |   long     |   Size of load commands of the Mach-O header.                               |
+|   macho.headers.commands.type        |   keyword  |   Type of the load commands for the Mach-O header.                          |
+|   macho.headers.magic                |   keyword  |   Magic field of the Mach-O header.                                         |
+|   macho.headers.flags                |   keyword  |   Flags set in the Mach-O header.                                           |
 |   macho.segments                     |   nested   |   Segment information for the file.                                         |
 |   macho.segments.vmaddr              |   keyword  |   Memory address of this segment.                                           |
 |   macho.segments.name                |   keyword  |   Name of this segment.                                                     |
