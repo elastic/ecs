@@ -118,19 +118,22 @@ A utility, such as a file integrity monitoring (FIM) application, takes inventor
     "type": "file"
   },
   "event": {
-    "kind": "event",
-    "category": [ <1>
+    "kind": "event", <1>
+    "category": [ <2>
       "file"
     ],
-    "type": [ <2>
+    "type": [ <3>
       "info"
     ]
   }
 }
 ----
 
-<1> The event is reporting on a `file`.
-<2> The `info` type categorizes purely informational events. The target file here was not accessed or modified.
+<1> Classifying as `event`.
+<2> The event is reporting on a `file`.
+<3> The `info` type categorizes purely informational events. The target file here was not accessed or modified.
+
+The source data didn't include any context around the event's outcome, so `event.outcome` should not be populated.
 
 [float]
 === Security application failed to block a network connection
