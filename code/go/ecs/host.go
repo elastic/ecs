@@ -66,7 +66,8 @@ type Host struct {
 	Domain string `ecs:"domain"`
 
 	// Percent CPU used which is normalized by the number of CPU cores and it
-	// ranges from 0 to 1. Scaling factor: 1000.
+	// ranges from 0 to 1.
+	// Scaling factor: 1000.
 	// For example: For a two core host, this value should be the average of
 	// the two cores, between 0 and 1.
 	CpuUsage float64 `ecs:"cpu.usage"`
