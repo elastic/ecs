@@ -6,7 +6,8 @@ The event categorization fields work together to identify and group similar even
 These general principles can help guide the categorization process:
 
 * Events from multiple data sources that are similar enough to be viewed or analyzed together, should fall into the same `event.category` field.
-* Both `event.category` and `event.type` may be populated with multiple allowed values, if the event can be reasonably classified into more than one category and/or subcategory.
+* Both `event.category` and `event.type` are arrays and may be populated with multiple allowed values, if the event can be reasonably classified into more than one category and/or type.
+* `event.kind`, `event.category`, `event.type` and `event.outcome` all have allowed values. This is to normalize these fields. Values that aren't in the list of allowed values should not be used.
 * Values of `event.outcome` are a very limited set to indicate success or failure. Domain-specific actions, such as deny and allow, that could be considered outcomes are not
   captured in the `event.outcome` field, but rather in the `event.type` and/or `event.action` fields.
 * Values of `event.category`, `event.type`, and `event.outcome` are consistent across all values of `event.kind`.
