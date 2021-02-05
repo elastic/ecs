@@ -34,8 +34,26 @@
     level: extended
     type: keyword
     short: Type of indicator
-    description: >
-      Type of indicator as represented by Cyber Observable in STIX 2.0
+    description: >
+      Type of indicator as represented by Cyber Observable in STIX 2.0.
+
+      Expected values
+        * autonomous-system
+        * artifact
+        * directory
+        * domain-name
+        * email-addr
+        * file
+        * ipv4-addr
+        * ipv6-addr
+        * mac-addr
+        * mutex
+        * process
+        * software
+        * url
+        * user-account
+        * windows-registry-key
+        * x-509-certificate
 
     example: ipv4-addr
 
@@ -46,7 +64,7 @@
     description: >
       Describes the type of action conducted by the threat.
 
-    example: IP x.x.x.x was seen delivering Angler EK
+    example: IP x.x.x.x was observed delivering the Angler EK.
 
   - name: indicator.scanner_stats
     level: extended
@@ -70,8 +88,14 @@
     type: keyword
     short: Indicator confidence rating
     description: >
-      Identifies the confidence rating assigned by the provider using STIX confidence
-      scales (N/H/M/L, 0-10, Admirality, WEP, or DNI).
+      Identifies the confidence rating assigned by the provider using STIX confidence scales.
+
+      Expected values:
+        * Not Specified, None, Low, Medium, High
+        * 0-10
+        * Admirality Scale (1-6)
+        * DNI Scale (5-95)
+        * WEP Scale (Impossible - Certain)
 
     example: High
 
