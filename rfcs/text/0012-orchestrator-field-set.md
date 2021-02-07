@@ -34,10 +34,9 @@ The proposed change adds six fields, as described below:
   fields:
     - name: cluster
       level: core
-      type: keyword
-      example: production
+      type: object
       description: >
-        Orchestrator cluster name.
+        Orchestrator cluster details.
 
     - name: type
       level: core
@@ -132,7 +131,9 @@ Examples of source data include:
     },
     "cloud.provider": "gcp",
     "event.action": "create",
-    "orchestrator.cluster": "test-dev",
+    "orchestrator.cluster": {
+        "name": "test-dev",
+    }
     "orchestrator.type": "Kubernetes",
     "orchestrator.subresource": "attach",
     "orchestrator.resource.type": "pods",
