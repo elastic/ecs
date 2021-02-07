@@ -45,6 +45,13 @@ The proposed change adds six fields, as described below:
       description: >
         Orchestrator cluster type.
 
+    - name: organization
+      level: core
+      type: keyword
+      example: elastic
+      description: >
+        Organization affected by the event (for multi-tenant orchestrator setups).
+
     - name: namespace
       level: core
       type: keyword
