@@ -1,6 +1,6 @@
 # 0012: Orchestrator field set creation
 
-- Stage: **0 (strawperson)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
+- Stage: **1 (draft)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
 - Date: **2021-01-11** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 There is currently no ECS field set for container orchestration engines. There is an example of an ECS
@@ -140,6 +140,45 @@ Examples of source data include:
     "orchestrator.resource.name": "test",
     "orchestrator.api_version": "v1",
     "user.name": "system:serviceaccount:test"
+  }
+}
+```
+
+### Hashicorp Nomad audit log
+
+```json
+{
+  "created_at": "2020-03-24T13:09:35.704224536-04:00",
+  "event_type": "audit",
+  "payload": {
+    "id": "8b826146-b264-af15-6526-29cb905145aa",
+    "stage": "OperationComplete",
+    "type": "audit",
+    "timestamp": "2020-03-24T13:09:35.703865005-04:00",
+    "version": 1,
+    "auth": {
+      "accessor_id": "a162f017-bcf7-900c-e22a-a2a8cbbcef53",
+      "name": "Bootstrap Token",
+      "global": true,
+      "create_time": "2020-03-24T17:08:35.086591881Z"
+    },
+    "request": {
+      "id": "02f0ac35-c7e8-0871-5a58-ee9dbc0a70ea",
+      "event.action": "GET",
+      "orchestrator.api_version": "v1",
+      "orchestrator.resource.type": "nodes",
+      "orchestrator.namespace": "default"
+      "request_meta": {
+        "remote_address": "127.0.0.1:33648",
+        "user_agent": "Go-http-client/1.1"
+      },
+      "node_meta": {
+        "ip": "127.0.0.1:4646"
+      }
+    },
+    "response": {
+      "status_code": 200
+    }
   }
 }
 ```
