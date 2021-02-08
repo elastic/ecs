@@ -2,7 +2,7 @@
 
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
-- Stage: **2 (Draft)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
+- Stage: **1 (Draft)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
 - Date: **TBD** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 Many security events refer to more than one file at the same time or contain duplicated attributes for files.
