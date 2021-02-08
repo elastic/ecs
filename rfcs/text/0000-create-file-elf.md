@@ -130,10 +130,12 @@ Stage 3: Document resolutions for all existing concerns. Any new concerns should
 Stage 4: Document any new concerns and their resolution. The goal here is to eliminate risk of churn and instability by ensuring all concerns have been addressed.
 -->
 
-`elf.imports` https://github.com/elastic/ecs/pull/1077#discussion_r572274291  
-Type flattened won't allow explicit field mappings to be defined, so I don't think it's necessary to explicitly list them here.
+**ELF Imports**
 
-However, is there intent to still describe for data sources on how to "shape" the data for these flattened fields? There are no type: flattened fields today in ECS, so how to best capture provide that type of guidance will need to be hashed out.
+Type flattened won't allow explicit field mappings to be defined, so I don't think it's necessary to explicitly list them here. However, is there intent to still describe for data sources on how to "shape" the data for these flattened fields? There are no type: flattened fields today in ECS, so how to best capture provide that type of guidance will need to be hashed out.
+
+* Field: `elf.imports`
+* Comment: https://github.com/elastic/ecs/pull/1077#discussion_r572274291  
 
 
 ## People
