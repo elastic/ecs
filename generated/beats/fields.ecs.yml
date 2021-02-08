@@ -4752,6 +4752,1260 @@
 
         This allows to look at a data set only for a specific version of a service.'
       example: 3.2.4
+  - name: sip
+    title: SIP
+    group: 2
+    description: 'These fields are used to describe SIPand AD based conversations
+      between endpoints and servers, as well as direct communications sessions between
+      endpoints.
+
+      Examples include network captures of SIP traffic, network sensors and observers
+      providing SIP decode information, as well as SIP server and SIP proxy logs.  It
+      is not expected that a SIP proxy or server, which is likely normalizing multiple
+      SIP network conversations, will provide the full scope of SIP  protocol fields.
+
+      URL fields have been nested under sip, sip.from, sip.to, sip.auth, sip.private,
+      and sip.contact. Typical implementations should minimally include url.original,
+      url.host, url.port, and url.username, and a  standard processing of URI host
+      domains is recommended (url.domain, url.top_level_domain, url.registered_domain,  url.subdomain)'
+    type: group
+    fields:
+    - name: accept
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SIP accept header indicating application compatibility
+      example: application/sdp
+      default_field: false
+    - name: allow
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Array of allowed/supported SIP Methods (INVITE, ACK, BYE, CANCEL,
+        REGISTER, OPTIONS,  PRACK, SUBSCRIBE, NOTIFY, PUBLISH, INFO, REFER, MESSAGE,
+        UPDATE.)
+      example: REGISTER, INVITE, ACK, BYE
+      default_field: false
+    - name: auth.realm
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Authorization realm for SIP authentication and authorization requests
+      example: sip.mydomain.com
+      default_field: false
+    - name: auth.scheme
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Supported SIP Authorization methods
+      example: digest
+      default_field: false
+    - name: auth.url.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Domain of the url, such as "www.elastic.co".
+
+        In some cases a URL may refer to an IP and/or port directly, without a domain
+        name. In this case, the IP address would go to the `domain` field.'
+      example: www.elastic.co
+      default_field: false
+    - name: auth.url.extension
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The field contains the file extension from the original request
+        url.
+
+        The file extension is only set if it exists, as not every url has a file extension.
+
+        The leading period must not be included. For example, the value must be "png",
+        not ".png".'
+      example: png
+      default_field: false
+    - name: auth.url.fragment
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Portion of the url after the `#`, such as "top".
+
+        The `#` is not part of the fragment.'
+      default_field: false
+    - name: auth.url.full
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: text
+        norms: false
+      description: If full URLs are important to your use case, they should be stored
+        in `url.full`, whether this field is reconstructed or present in the event
+        source.
+      example: https://www.elastic.co:443/search?q=elasticsearch#top
+      default_field: false
+    - name: auth.url.original
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: text
+        norms: false
+      description: 'Unmodified original url as seen in the event source.
+
+        Note that in network monitoring, the observed URL may be a full URL, whereas
+        in access logs, the URL is often just represented as a path.
+
+        This field is meant to represent the URL as it was observed, complete or not.'
+      example: https://www.elastic.co:443/search?q=elasticsearch#top or /search?q=elasticsearch
+      default_field: false
+    - name: auth.url.password
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Password of the request.
+      default_field: false
+    - name: auth.url.path
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Path of the request, such as "/search".
+      default_field: false
+    - name: auth.url.port
+      level: extended
+      type: long
+      format: string
+      description: Port of the request, such as 443.
+      example: 443
+      default_field: false
+    - name: auth.url.query
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The query field describes the query string of the request, such
+        as "q=elasticsearch".
+
+        The `?` is excluded from the query string. If a URL contains no `?`, there
+        is no query field. If there is a `?` but no query, the query field exists
+        with an empty string. The `exists` query can be used to differentiate between
+        the two cases.'
+      default_field: false
+    - name: auth.url.registered_domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The highest registered url domain, stripped of the subdomain.
+
+        For example, the registered domain for "foo.example.com" is "example.com".
+
+        This value can be determined precisely with a list like the public suffix
+        list (http://publicsuffix.org). Trying to approximate this by simply taking
+        the last two labels will not work well for TLDs such as "co.uk".'
+      example: example.com
+      default_field: false
+    - name: auth.url.scheme
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Scheme of the request, such as "https".
+
+        Note: The `:` is not part of the scheme.'
+      example: https
+      default_field: false
+    - name: auth.url.subdomain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The subdomain portion of a fully qualified domain name includes
+        all of the names except the host name under the registered_domain.  In a partially
+        qualified domain, or if the the qualification level of the full name cannot
+        be determined, subdomain contains all of the names below the registered domain.
+
+        For example the subdomain portion of "www.east.mydomain.co.uk" is "east".
+        If the domain has multiple levels of subdomain, such as "sub2.sub1.example.com",
+        the subdomain field should contain "sub2.sub1", with no trailing period.'
+      example: east
+      default_field: false
+    - name: auth.url.top_level_domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The effective top level domain (eTLD), also known as the domain
+        suffix, is the last part of the domain name. For example, the top level domain
+        for example.com is "com".
+
+        This value can be determined precisely with a list like the public suffix
+        list (http://publicsuffix.org). Trying to approximate this by simply taking
+        the last label will not work well for effective TLDs such as "co.uk".'
+      example: co.uk
+      default_field: false
+    - name: auth.url.username
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Username of the request.
+      default_field: false
+    - name: call_id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The SIP [RFC3261] Call-ID header value is a globally unique identifier,
+        which is mandatory in all requests/responses and identifies SIP messages belonging
+        to the same dialog or registration.
+      example: 55112@192.168.1.100
+      default_field: false
+    - name: code
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SIP response code (1xx, 2xx, 3xx, 4xx, 5xx)
+      example: 200
+      default_field: false
+    - name: contact.display_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Display name used by the SIP contact.
+      example: John Doe
+      default_field: false
+    - name: contact.expires
+      level: extended
+      type: integer
+      description: The number of seconds before a specific SIP contact expires.
+      example: 1800
+      default_field: false
+    - name: contact.line
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Optional SIP contact session identifier.
+      example: aca6b97ca3f5e51a
+      default_field: false
+    - name: contact.q
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SIP contact preference q value.
+      example: 0.2
+      default_field: false
+    - name: contact.transport
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Network transport used by SIP contact.
+      example: udp
+      default_field: false
+    - name: contact.url.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Domain of the url, such as "www.elastic.co".
+
+        In some cases a URL may refer to an IP and/or port directly, without a domain
+        name. In this case, the IP address would go to the `domain` field.'
+      example: www.elastic.co
+      default_field: false
+    - name: contact.url.extension
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The field contains the file extension from the original request
+        url.
+
+        The file extension is only set if it exists, as not every url has a file extension.
+
+        The leading period must not be included. For example, the value must be "png",
+        not ".png".'
+      example: png
+      default_field: false
+    - name: contact.url.fragment
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Portion of the url after the `#`, such as "top".
+
+        The `#` is not part of the fragment.'
+      default_field: false
+    - name: contact.url.full
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: text
+        norms: false
+      description: If full URLs are important to your use case, they should be stored
+        in `url.full`, whether this field is reconstructed or present in the event
+        source.
+      example: https://www.elastic.co:443/search?q=elasticsearch#top
+      default_field: false
+    - name: contact.url.original
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: text
+        norms: false
+      description: 'Unmodified original url as seen in the event source.
+
+        Note that in network monitoring, the observed URL may be a full URL, whereas
+        in access logs, the URL is often just represented as a path.
+
+        This field is meant to represent the URL as it was observed, complete or not.'
+      example: https://www.elastic.co:443/search?q=elasticsearch#top or /search?q=elasticsearch
+      default_field: false
+    - name: contact.url.password
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Password of the request.
+      default_field: false
+    - name: contact.url.path
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Path of the request, such as "/search".
+      default_field: false
+    - name: contact.url.port
+      level: extended
+      type: long
+      format: string
+      description: Port of the request, such as 443.
+      example: 443
+      default_field: false
+    - name: contact.url.query
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The query field describes the query string of the request, such
+        as "q=elasticsearch".
+
+        The `?` is excluded from the query string. If a URL contains no `?`, there
+        is no query field. If there is a `?` but no query, the query field exists
+        with an empty string. The `exists` query can be used to differentiate between
+        the two cases.'
+      default_field: false
+    - name: contact.url.registered_domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The highest registered url domain, stripped of the subdomain.
+
+        For example, the registered domain for "foo.example.com" is "example.com".
+
+        This value can be determined precisely with a list like the public suffix
+        list (http://publicsuffix.org). Trying to approximate this by simply taking
+        the last two labels will not work well for TLDs such as "co.uk".'
+      example: example.com
+      default_field: false
+    - name: contact.url.scheme
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Scheme of the request, such as "https".
+
+        Note: The `:` is not part of the scheme.'
+      example: https
+      default_field: false
+    - name: contact.url.subdomain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The subdomain portion of a fully qualified domain name includes
+        all of the names except the host name under the registered_domain.  In a partially
+        qualified domain, or if the the qualification level of the full name cannot
+        be determined, subdomain contains all of the names below the registered domain.
+
+        For example the subdomain portion of "www.east.mydomain.co.uk" is "east".
+        If the domain has multiple levels of subdomain, such as "sub2.sub1.example.com",
+        the subdomain field should contain "sub2.sub1", with no trailing period.'
+      example: east
+      default_field: false
+    - name: contact.url.top_level_domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The effective top level domain (eTLD), also known as the domain
+        suffix, is the last part of the domain name. For example, the top level domain
+        for example.com is "com".
+
+        This value can be determined precisely with a list like the public suffix
+        list (http://publicsuffix.org). Trying to approximate this by simply taking
+        the last label will not work well for effective TLDs such as "co.uk".'
+      example: co.uk
+      default_field: false
+    - name: contact.url.username
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Username of the request.
+      default_field: false
+    - name: content_length
+      level: extended
+      type: integer
+      description: Size of the message portion of the SIP packet, in bytes.
+      example: 32
+      default_field: false
+    - name: content_type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Content type identifies the media type used in the message.
+      example: application/sdp
+      default_field: false
+    - name: cseq.code
+      level: extended
+      type: integer
+      description: Integer counter representing the SIP request sequence
+      example: 68
+      default_field: false
+    - name: cseq.method
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SIP request type associated with the CSeq identifier.
+      example: INVITE
+      default_field: false
+    - name: from.display_info
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: This field records the associated contact name of the calling user
+        or system.
+      example: John Doe
+      default_field: false
+    - name: from.tag
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SIP source entity session tag, can be used with from.tag and call.id
+        to build a unique identifier for a given call session.
+      example: QvN92t713vSZK
+      default_field: false
+    - name: from.url.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Domain of the url, such as "www.elastic.co".
+
+        In some cases a URL may refer to an IP and/or port directly, without a domain
+        name. In this case, the IP address would go to the `domain` field.'
+      example: www.elastic.co
+      default_field: false
+    - name: from.url.extension
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The field contains the file extension from the original request
+        url.
+
+        The file extension is only set if it exists, as not every url has a file extension.
+
+        The leading period must not be included. For example, the value must be "png",
+        not ".png".'
+      example: png
+      default_field: false
+    - name: from.url.fragment
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Portion of the url after the `#`, such as "top".
+
+        The `#` is not part of the fragment.'
+      default_field: false
+    - name: from.url.full
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: text
+        norms: false
+      description: If full URLs are important to your use case, they should be stored
+        in `url.full`, whether this field is reconstructed or present in the event
+        source.
+      example: https://www.elastic.co:443/search?q=elasticsearch#top
+      default_field: false
+    - name: from.url.original
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: text
+        norms: false
+      description: 'Unmodified original url as seen in the event source.
+
+        Note that in network monitoring, the observed URL may be a full URL, whereas
+        in access logs, the URL is often just represented as a path.
+
+        This field is meant to represent the URL as it was observed, complete or not.'
+      example: https://www.elastic.co:443/search?q=elasticsearch#top or /search?q=elasticsearch
+      default_field: false
+    - name: from.url.password
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Password of the request.
+      default_field: false
+    - name: from.url.path
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Path of the request, such as "/search".
+      default_field: false
+    - name: from.url.port
+      level: extended
+      type: long
+      format: string
+      description: Port of the request, such as 443.
+      example: 443
+      default_field: false
+    - name: from.url.query
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The query field describes the query string of the request, such
+        as "q=elasticsearch".
+
+        The `?` is excluded from the query string. If a URL contains no `?`, there
+        is no query field. If there is a `?` but no query, the query field exists
+        with an empty string. The `exists` query can be used to differentiate between
+        the two cases.'
+      default_field: false
+    - name: from.url.registered_domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The highest registered url domain, stripped of the subdomain.
+
+        For example, the registered domain for "foo.example.com" is "example.com".
+
+        This value can be determined precisely with a list like the public suffix
+        list (http://publicsuffix.org). Trying to approximate this by simply taking
+        the last two labels will not work well for TLDs such as "co.uk".'
+      example: example.com
+      default_field: false
+    - name: from.url.scheme
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Scheme of the request, such as "https".
+
+        Note: The `:` is not part of the scheme.'
+      example: https
+      default_field: false
+    - name: from.url.subdomain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The subdomain portion of a fully qualified domain name includes
+        all of the names except the host name under the registered_domain.  In a partially
+        qualified domain, or if the the qualification level of the full name cannot
+        be determined, subdomain contains all of the names below the registered domain.
+
+        For example the subdomain portion of "www.east.mydomain.co.uk" is "east".
+        If the domain has multiple levels of subdomain, such as "sub2.sub1.example.com",
+        the subdomain field should contain "sub2.sub1", with no trailing period.'
+      example: east
+      default_field: false
+    - name: from.url.top_level_domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The effective top level domain (eTLD), also known as the domain
+        suffix, is the last part of the domain name. For example, the top level domain
+        for example.com is "com".
+
+        This value can be determined precisely with a list like the public suffix
+        list (http://publicsuffix.org). Trying to approximate this by simply taking
+        the last label will not work well for effective TLDs such as "co.uk".'
+      example: co.uk
+      default_field: false
+    - name: from.url.username
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Username of the request.
+      default_field: false
+    - name: max_forwards
+      level: extended
+      type: integer
+      description: The Max-Forwards header limits the number of times a request can
+        be forwarded on  its way to the recipient.
+      example: null
+      default_field: false
+    - name: method
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SIP request method, one of INVITE, ACK, BYE, CANCEL, REGISTER,
+        OPTIONS,  PRACK, SUBSCRIBE, NOTIFY, PUBLISH, INFO, REFER, SUB-NOT, MESSAGE,
+        UPDATE.
+      example: REGISTER
+      default_field: false
+    - name: privacy.type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Array of SIP privacy types implemented in the session.  One or
+        more of user, header, session, none, critical, id, and history.
+      example: user
+      default_field: false
+    - name: privacy.url.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Domain of the url, such as "www.elastic.co".
+
+        In some cases a URL may refer to an IP and/or port directly, without a domain
+        name. In this case, the IP address would go to the `domain` field.'
+      example: www.elastic.co
+      default_field: false
+    - name: privacy.url.extension
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The field contains the file extension from the original request
+        url.
+
+        The file extension is only set if it exists, as not every url has a file extension.
+
+        The leading period must not be included. For example, the value must be "png",
+        not ".png".'
+      example: png
+      default_field: false
+    - name: privacy.url.fragment
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Portion of the url after the `#`, such as "top".
+
+        The `#` is not part of the fragment.'
+      default_field: false
+    - name: privacy.url.full
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: text
+        norms: false
+      description: If full URLs are important to your use case, they should be stored
+        in `url.full`, whether this field is reconstructed or present in the event
+        source.
+      example: https://www.elastic.co:443/search?q=elasticsearch#top
+      default_field: false
+    - name: privacy.url.original
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: text
+        norms: false
+      description: 'Unmodified original url as seen in the event source.
+
+        Note that in network monitoring, the observed URL may be a full URL, whereas
+        in access logs, the URL is often just represented as a path.
+
+        This field is meant to represent the URL as it was observed, complete or not.'
+      example: https://www.elastic.co:443/search?q=elasticsearch#top or /search?q=elasticsearch
+      default_field: false
+    - name: privacy.url.password
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Password of the request.
+      default_field: false
+    - name: privacy.url.path
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Path of the request, such as "/search".
+      default_field: false
+    - name: privacy.url.port
+      level: extended
+      type: long
+      format: string
+      description: Port of the request, such as 443.
+      example: 443
+      default_field: false
+    - name: privacy.url.query
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The query field describes the query string of the request, such
+        as "q=elasticsearch".
+
+        The `?` is excluded from the query string. If a URL contains no `?`, there
+        is no query field. If there is a `?` but no query, the query field exists
+        with an empty string. The `exists` query can be used to differentiate between
+        the two cases.'
+      default_field: false
+    - name: privacy.url.registered_domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The highest registered url domain, stripped of the subdomain.
+
+        For example, the registered domain for "foo.example.com" is "example.com".
+
+        This value can be determined precisely with a list like the public suffix
+        list (http://publicsuffix.org). Trying to approximate this by simply taking
+        the last two labels will not work well for TLDs such as "co.uk".'
+      example: example.com
+      default_field: false
+    - name: privacy.url.scheme
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Scheme of the request, such as "https".
+
+        Note: The `:` is not part of the scheme.'
+      example: https
+      default_field: false
+    - name: privacy.url.subdomain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The subdomain portion of a fully qualified domain name includes
+        all of the names except the host name under the registered_domain.  In a partially
+        qualified domain, or if the the qualification level of the full name cannot
+        be determined, subdomain contains all of the names below the registered domain.
+
+        For example the subdomain portion of "www.east.mydomain.co.uk" is "east".
+        If the domain has multiple levels of subdomain, such as "sub2.sub1.example.com",
+        the subdomain field should contain "sub2.sub1", with no trailing period.'
+      example: east
+      default_field: false
+    - name: privacy.url.top_level_domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The effective top level domain (eTLD), also known as the domain
+        suffix, is the last part of the domain name. For example, the top level domain
+        for example.com is "com".
+
+        This value can be determined precisely with a list like the public suffix
+        list (http://publicsuffix.org). Trying to approximate this by simply taking
+        the last label will not work well for effective TLDs such as "co.uk".'
+      example: co.uk
+      default_field: false
+    - name: privacy.url.username
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Username of the request.
+      default_field: false
+    - name: sdp.audio.format
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Format offered for the SIP SDP audio connection.
+      example: 8,101
+      default_field: false
+    - name: sdp.audio.original
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Original value of SIP SDP audio protocols and codecs
+      example: audio 6000 RTP/AVP 8
+      default_field: false
+    - name: sdp.audio.port
+      level: extended
+      type: long
+      format: string
+      description: Network port used for the SIP SDP audio connection.
+      example: 6000
+      default_field: false
+    - name: sdp.audio.protocol
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Protocol offered for the SIP SDP audio connection.
+      example: RTP/AVP
+      default_field: false
+    - name: sdp.connection.address
+      level: extended
+      type: ip
+      description: IP address used to connect to the SIP SDP session
+      example: 10.1.1.50
+      default_field: false
+    - name: sdp.media.flags
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Array of 0 or more flags provided for the SIP SDP session.
+      example: recvonly
+      default_field: false
+    - name: sdp.media.type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: One or more of available media types offered for the SIP SDP session
+        (audio, video, etc.)
+      example: audio, video
+      default_field: false
+    - name: sdp.owner.ip
+      level: extended
+      type: ip
+      description: IP address of the SIP SDP session owner.
+      example: 10.1.1.50
+      default_field: false
+    - name: sdp.owner.session_id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SIP SDP session owners unique session id.
+      example: 1480144037
+      default_field: false
+    - name: sdp.owner.username
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the system handling the SIP session, or username associated
+        with the session.
+      example: FreeSWITCH
+      default_field: false
+    - name: sdp.owner.version
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SIP SDP session version number, typically incremented any time
+        session settings are modified.
+      example: 1480144038
+      default_field: false
+    - name: sdp.session.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the SIP SDP session, when available.
+      example: Company All Hands
+      default_field: false
+    - name: sdp.version
+      level: extended
+      type: integer
+      description: SIP Session Description Protocol version
+      example: 0
+      default_field: false
+    - name: sdp.video.format
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Formats supported for the SIP SDP video connection.
+      example: 31, 32
+      default_field: false
+    - name: sdp.video.original
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Original value of SIP SDP video protocols and codecs.
+      example: video 6001 RTP/AVP 31
+      default_field: false
+    - name: sdp.video.port
+      level: extended
+      type: long
+      format: string
+      description: Network port used for the SIP SDP video connection.
+      example: 6001
+      default_field: false
+    - name: sdp.video.protocol
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Protocol offered for the SIP SDP video connection.
+      example: RTP/AVP
+      default_field: false
+    - name: status
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SIP response code status message
+      example: OK
+      default_field: false
+    - name: supported
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SIP supported headers list the SIP extensions supported by the
+        device.
+      example: null
+      default_field: false
+    - name: to.display_info
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: This field records the associated contact name of the called user
+        or system.
+      example: John Doe
+      default_field: false
+    - name: to.tag
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SIP called entity session tag, can be used with from.tag and call.id
+        to build a unique identifier for a given call session.
+      example: QvN92t713vSZK
+      default_field: false
+    - name: to.url.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Domain of the url, such as "www.elastic.co".
+
+        In some cases a URL may refer to an IP and/or port directly, without a domain
+        name. In this case, the IP address would go to the `domain` field.'
+      example: www.elastic.co
+      default_field: false
+    - name: to.url.extension
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The field contains the file extension from the original request
+        url.
+
+        The file extension is only set if it exists, as not every url has a file extension.
+
+        The leading period must not be included. For example, the value must be "png",
+        not ".png".'
+      example: png
+      default_field: false
+    - name: to.url.fragment
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Portion of the url after the `#`, such as "top".
+
+        The `#` is not part of the fragment.'
+      default_field: false
+    - name: to.url.full
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: text
+        norms: false
+      description: If full URLs are important to your use case, they should be stored
+        in `url.full`, whether this field is reconstructed or present in the event
+        source.
+      example: https://www.elastic.co:443/search?q=elasticsearch#top
+      default_field: false
+    - name: to.url.original
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: text
+        norms: false
+      description: 'Unmodified original url as seen in the event source.
+
+        Note that in network monitoring, the observed URL may be a full URL, whereas
+        in access logs, the URL is often just represented as a path.
+
+        This field is meant to represent the URL as it was observed, complete or not.'
+      example: https://www.elastic.co:443/search?q=elasticsearch#top or /search?q=elasticsearch
+      default_field: false
+    - name: to.url.password
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Password of the request.
+      default_field: false
+    - name: to.url.path
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Path of the request, such as "/search".
+      default_field: false
+    - name: to.url.port
+      level: extended
+      type: long
+      format: string
+      description: Port of the request, such as 443.
+      example: 443
+      default_field: false
+    - name: to.url.query
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The query field describes the query string of the request, such
+        as "q=elasticsearch".
+
+        The `?` is excluded from the query string. If a URL contains no `?`, there
+        is no query field. If there is a `?` but no query, the query field exists
+        with an empty string. The `exists` query can be used to differentiate between
+        the two cases.'
+      default_field: false
+    - name: to.url.registered_domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The highest registered url domain, stripped of the subdomain.
+
+        For example, the registered domain for "foo.example.com" is "example.com".
+
+        This value can be determined precisely with a list like the public suffix
+        list (http://publicsuffix.org). Trying to approximate this by simply taking
+        the last two labels will not work well for TLDs such as "co.uk".'
+      example: example.com
+      default_field: false
+    - name: to.url.scheme
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Scheme of the request, such as "https".
+
+        Note: The `:` is not part of the scheme.'
+      example: https
+      default_field: false
+    - name: to.url.subdomain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The subdomain portion of a fully qualified domain name includes
+        all of the names except the host name under the registered_domain.  In a partially
+        qualified domain, or if the the qualification level of the full name cannot
+        be determined, subdomain contains all of the names below the registered domain.
+
+        For example the subdomain portion of "www.east.mydomain.co.uk" is "east".
+        If the domain has multiple levels of subdomain, such as "sub2.sub1.example.com",
+        the subdomain field should contain "sub2.sub1", with no trailing period.'
+      example: east
+      default_field: false
+    - name: to.url.top_level_domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The effective top level domain (eTLD), also known as the domain
+        suffix, is the last part of the domain name. For example, the top level domain
+        for example.com is "com".
+
+        This value can be determined precisely with a list like the public suffix
+        list (http://publicsuffix.org). Trying to approximate this by simply taking
+        the last label will not work well for effective TLDs such as "co.uk".'
+      example: co.uk
+      default_field: false
+    - name: to.url.username
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Username of the request.
+      default_field: false
+    - name: type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SIP packet type e.g. REQUEST / RESPONSE
+      example: REQUEST
+      default_field: false
+    - name: url.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Domain of the url, such as "www.elastic.co".
+
+        In some cases a URL may refer to an IP and/or port directly, without a domain
+        name. In this case, the IP address would go to the `domain` field.'
+      example: www.elastic.co
+      default_field: false
+    - name: url.extension
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The field contains the file extension from the original request
+        url.
+
+        The file extension is only set if it exists, as not every url has a file extension.
+
+        The leading period must not be included. For example, the value must be "png",
+        not ".png".'
+      example: png
+      default_field: false
+    - name: url.fragment
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Portion of the url after the `#`, such as "top".
+
+        The `#` is not part of the fragment.'
+      default_field: false
+    - name: url.full
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: text
+        norms: false
+      description: If full URLs are important to your use case, they should be stored
+        in `url.full`, whether this field is reconstructed or present in the event
+        source.
+      example: https://www.elastic.co:443/search?q=elasticsearch#top
+      default_field: false
+    - name: url.original
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: text
+        norms: false
+      description: 'Unmodified original url as seen in the event source.
+
+        Note that in network monitoring, the observed URL may be a full URL, whereas
+        in access logs, the URL is often just represented as a path.
+
+        This field is meant to represent the URL as it was observed, complete or not.'
+      example: https://www.elastic.co:443/search?q=elasticsearch#top or /search?q=elasticsearch
+      default_field: false
+    - name: url.password
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Password of the request.
+      default_field: false
+    - name: url.path
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Path of the request, such as "/search".
+      default_field: false
+    - name: url.port
+      level: extended
+      type: long
+      format: string
+      description: Port of the request, such as 443.
+      example: 443
+      default_field: false
+    - name: url.query
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The query field describes the query string of the request, such
+        as "q=elasticsearch".
+
+        The `?` is excluded from the query string. If a URL contains no `?`, there
+        is no query field. If there is a `?` but no query, the query field exists
+        with an empty string. The `exists` query can be used to differentiate between
+        the two cases.'
+      default_field: false
+    - name: url.registered_domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The highest registered url domain, stripped of the subdomain.
+
+        For example, the registered domain for "foo.example.com" is "example.com".
+
+        This value can be determined precisely with a list like the public suffix
+        list (http://publicsuffix.org). Trying to approximate this by simply taking
+        the last two labels will not work well for TLDs such as "co.uk".'
+      example: example.com
+      default_field: false
+    - name: url.scheme
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Scheme of the request, such as "https".
+
+        Note: The `:` is not part of the scheme.'
+      example: https
+      default_field: false
+    - name: url.subdomain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The subdomain portion of a fully qualified domain name includes
+        all of the names except the host name under the registered_domain.  In a partially
+        qualified domain, or if the the qualification level of the full name cannot
+        be determined, subdomain contains all of the names below the registered domain.
+
+        For example the subdomain portion of "www.east.mydomain.co.uk" is "east".
+        If the domain has multiple levels of subdomain, such as "sub2.sub1.example.com",
+        the subdomain field should contain "sub2.sub1", with no trailing period.'
+      example: east
+      default_field: false
+    - name: url.top_level_domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The effective top level domain (eTLD), also known as the domain
+        suffix, is the last part of the domain name. For example, the top level domain
+        for example.com is "com".
+
+        This value can be determined precisely with a list like the public suffix
+        list (http://publicsuffix.org). Trying to approximate this by simply taking
+        the last label will not work well for effective TLDs such as "co.uk".'
+      example: co.uk
+      default_field: false
+    - name: url.username
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Username of the request.
+      default_field: false
+    - name: version
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SIP protocol version used in the conversation (typically 2.0).
+      example: 2.0
+      default_field: false
+    - name: via.branch
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The SIP via branch header is a unique transaction id
+      example: z9hG4bK10_16a83292baa1de54e0b7843_I
+      default_field: false
+    - name: via.received.address
+      level: extended
+      type: ip
+      description: Translated address of the SIP endpoint when address translation
+        is being utilized.
+      example: 151.101.2.217
+      default_field: false
+    - name: via.received.port
+      level: extended
+      type: long
+      format: string
+      description: Translated network port of the SIP endpoint when address translation
+        is being utilized.
+      example: 5065
+      default_field: false
+    - name: via.sent_by.address
+      level: extended
+      type: ip
+      description: IP address used by SIP proxy.
+      example: 192.168.1.10
+      default_field: false
+    - name: via.sent_by.port
+      level: extended
+      type: long
+      format: string
+      description: Network port used by SIP proxy.
+      example: 5060
+      default_field: false
+    - name: via.transport
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Network transport used by SIP proxy.
+      example: udp
+      default_field: false
+    - name: via.version
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SIP protocol version used in the proxyied conversation (typically
+        2.0).
+      example: 2.0
+      default_field: false
   - name: source
     title: Source
     group: 2

@@ -6450,6 +6450,731 @@ example: `3.2.4`
 
 |=====
 
+[[ecs-sip]]
+=== SIP Fields
+
+These fields are used to describe SIPand AD based conversations between endpoints and servers, as well as direct communications sessions between endpoints.
+
+Examples include network captures of SIP traffic, network sensors and observers providing SIP decode information, as well as SIP server and SIP proxy logs.  It is not expected that a SIP proxy or server, which is likely normalizing multiple SIP network conversations, will provide the full scope of SIP  protocol fields.
+
+URL fields have been nested under sip, sip.from, sip.to, sip.auth, sip.private, and sip.contact. Typical implementations should minimally include url.original, url.host, url.port, and url.username, and a  standard processing of URI host domains is recommended (url.domain, url.top_level_domain, url.registered_domain,  url.subdomain)
+
+[discrete]
+==== SIP Field Details
+
+[options="header"]
+|=====
+| Field  | Description | Level
+
+// ===============================================================
+
+| sip.accept
+| SIP accept header indicating application compatibility
+
+type: keyword
+
+
+
+example: `application/sdp`
+
+| extended
+
+// ===============================================================
+
+| sip.allow
+| Array of allowed/supported SIP Methods (INVITE, ACK, BYE, CANCEL, REGISTER, OPTIONS,  PRACK, SUBSCRIBE, NOTIFY, PUBLISH, INFO, REFER, MESSAGE, UPDATE.)
+
+type: keyword
+
+
+
+example: `REGISTER, INVITE, ACK, BYE`
+
+| extended
+
+// ===============================================================
+
+| sip.auth.realm
+| Authorization realm for SIP authentication and authorization requests
+
+type: keyword
+
+
+
+example: `sip.mydomain.com`
+
+| extended
+
+// ===============================================================
+
+| sip.auth.scheme
+| Supported SIP Authorization methods
+
+type: keyword
+
+
+
+example: `digest`
+
+| extended
+
+// ===============================================================
+
+| sip.call_id
+| The SIP [RFC3261] Call-ID header value is a globally unique identifier, which is mandatory in all requests/responses and identifies SIP messages belonging to the same dialog or registration.
+
+type: keyword
+
+
+
+example: `55112@192.168.1.100`
+
+| extended
+
+// ===============================================================
+
+| sip.code
+| SIP response code (1xx, 2xx, 3xx, 4xx, 5xx)
+
+type: keyword
+
+
+
+example: `200`
+
+| extended
+
+// ===============================================================
+
+| sip.contact.display_name
+| Display name used by the SIP contact.
+
+type: keyword
+
+
+
+example: `John Doe`
+
+| extended
+
+// ===============================================================
+
+| sip.contact.expires
+| The number of seconds before a specific SIP contact expires.
+
+type: integer
+
+
+
+example: `1800`
+
+| extended
+
+// ===============================================================
+
+| sip.contact.line
+| Optional SIP contact session identifier.
+
+type: keyword
+
+
+
+example: `aca6b97ca3f5e51a`
+
+| extended
+
+// ===============================================================
+
+| sip.contact.q
+| SIP contact preference q value.
+
+type: keyword
+
+
+
+example: `0.2`
+
+| extended
+
+// ===============================================================
+
+| sip.contact.transport
+| Network transport used by SIP contact.
+
+type: keyword
+
+
+
+example: `udp`
+
+| extended
+
+// ===============================================================
+
+| sip.content_length
+| Size of the message portion of the SIP packet, in bytes.
+
+type: integer
+
+
+
+example: `32`
+
+| extended
+
+// ===============================================================
+
+| sip.content_type
+| Content type identifies the media type used in the message.
+
+type: keyword
+
+
+
+example: `application/sdp`
+
+| extended
+
+// ===============================================================
+
+| sip.cseq.code
+| Integer counter representing the SIP request sequence
+
+type: integer
+
+
+
+example: `68`
+
+| extended
+
+// ===============================================================
+
+| sip.cseq.method
+| SIP request type associated with the CSeq identifier.
+
+type: keyword
+
+
+
+example: `INVITE`
+
+| extended
+
+// ===============================================================
+
+| sip.from.display_info
+| This field records the associated contact name of the calling user or system.
+
+type: keyword
+
+
+
+example: `John Doe`
+
+| extended
+
+// ===============================================================
+
+| sip.from.tag
+| SIP source entity session tag, can be used with from.tag and call.id to build a unique identifier for a given call session.
+
+type: keyword
+
+
+
+example: `QvN92t713vSZK`
+
+| extended
+
+// ===============================================================
+
+| sip.max_forwards
+| The Max-Forwards header limits the number of times a request can be forwarded on  its way to the recipient.
+
+type: integer
+
+
+
+example: `None`
+
+| extended
+
+// ===============================================================
+
+| sip.method
+| SIP request method, one of INVITE, ACK, BYE, CANCEL, REGISTER, OPTIONS,  PRACK, SUBSCRIBE, NOTIFY, PUBLISH, INFO, REFER, SUB-NOT, MESSAGE, UPDATE.
+
+type: keyword
+
+
+
+example: `REGISTER`
+
+| extended
+
+// ===============================================================
+
+| sip.privacy.type
+| Array of SIP privacy types implemented in the session.  One or more of user, header, session, none, critical, id, and history.
+
+type: keyword
+
+
+
+example: `user`
+
+| extended
+
+// ===============================================================
+
+| sip.sdp.audio.format
+| Format offered for the SIP SDP audio connection.
+
+type: keyword
+
+
+
+example: `8,101`
+
+| extended
+
+// ===============================================================
+
+| sip.sdp.audio.original
+| Original value of SIP SDP audio protocols and codecs
+
+type: keyword
+
+
+
+example: `audio 6000 RTP/AVP 8`
+
+| extended
+
+// ===============================================================
+
+| sip.sdp.audio.port
+| Network port used for the SIP SDP audio connection.
+
+type: long
+
+
+
+example: `6000`
+
+| extended
+
+// ===============================================================
+
+| sip.sdp.audio.protocol
+| Protocol offered for the SIP SDP audio connection.
+
+type: keyword
+
+
+
+example: `RTP/AVP`
+
+| extended
+
+// ===============================================================
+
+| sip.sdp.connection.address
+| IP address used to connect to the SIP SDP session
+
+type: ip
+
+
+
+example: `10.1.1.50`
+
+| extended
+
+// ===============================================================
+
+| sip.sdp.media.flags
+| Array of 0 or more flags provided for the SIP SDP session.
+
+type: keyword
+
+
+
+example: `recvonly`
+
+| extended
+
+// ===============================================================
+
+| sip.sdp.media.type
+| One or more of available media types offered for the SIP SDP session (audio, video, etc.)
+
+type: keyword
+
+
+
+example: `audio, video`
+
+| extended
+
+// ===============================================================
+
+| sip.sdp.owner.ip
+| IP address of the SIP SDP session owner.
+
+type: ip
+
+
+
+example: `10.1.1.50`
+
+| extended
+
+// ===============================================================
+
+| sip.sdp.owner.session_id
+| SIP SDP session owners unique session id.
+
+type: keyword
+
+
+
+example: `1480144037`
+
+| extended
+
+// ===============================================================
+
+| sip.sdp.owner.username
+| Name of the system handling the SIP session, or username associated with the session.
+
+type: keyword
+
+
+
+example: `FreeSWITCH`
+
+| extended
+
+// ===============================================================
+
+| sip.sdp.owner.version
+| SIP SDP session version number, typically incremented any time session settings are modified.
+
+type: keyword
+
+
+
+example: `1480144038`
+
+| extended
+
+// ===============================================================
+
+| sip.sdp.session.name
+| Name of the SIP SDP session, when available.
+
+type: keyword
+
+
+
+example: `Company All Hands`
+
+| extended
+
+// ===============================================================
+
+| sip.sdp.version
+| SIP Session Description Protocol version
+
+type: integer
+
+
+
+example: `0`
+
+| extended
+
+// ===============================================================
+
+| sip.sdp.video.format
+| Formats supported for the SIP SDP video connection.
+
+type: keyword
+
+
+
+example: `31, 32`
+
+| extended
+
+// ===============================================================
+
+| sip.sdp.video.original
+| Original value of SIP SDP video protocols and codecs.
+
+type: keyword
+
+
+
+example: `video 6001 RTP/AVP 31`
+
+| extended
+
+// ===============================================================
+
+| sip.sdp.video.port
+| Network port used for the SIP SDP video connection.
+
+type: long
+
+
+
+example: `6001`
+
+| extended
+
+// ===============================================================
+
+| sip.sdp.video.protocol
+| Protocol offered for the SIP SDP video connection.
+
+type: keyword
+
+
+
+example: `RTP/AVP`
+
+| extended
+
+// ===============================================================
+
+| sip.status
+| SIP response code status message
+
+type: keyword
+
+
+
+example: `OK`
+
+| extended
+
+// ===============================================================
+
+| sip.supported
+| SIP supported headers list the SIP extensions supported by the device.
+
+type: keyword
+
+
+
+example: `None`
+
+| extended
+
+// ===============================================================
+
+| sip.to.display_info
+| This field records the associated contact name of the called user or system.
+
+type: keyword
+
+
+
+example: `John Doe`
+
+| extended
+
+// ===============================================================
+
+| sip.to.tag
+| SIP called entity session tag, can be used with from.tag and call.id to build a unique identifier for a given call session.
+
+type: keyword
+
+
+
+example: `QvN92t713vSZK`
+
+| extended
+
+// ===============================================================
+
+| sip.type
+| SIP packet type e.g. REQUEST / RESPONSE
+
+type: keyword
+
+
+
+example: `REQUEST`
+
+| extended
+
+// ===============================================================
+
+| sip.version
+| SIP protocol version used in the conversation (typically 2.0).
+
+type: keyword
+
+
+
+example: `2.0`
+
+| extended
+
+// ===============================================================
+
+| sip.via.branch
+| The SIP via branch header is a unique transaction id
+
+type: keyword
+
+
+
+example: `z9hG4bK10_16a83292baa1de54e0b7843_I`
+
+| extended
+
+// ===============================================================
+
+| sip.via.received.address
+| Translated address of the SIP endpoint when address translation is being utilized.
+
+type: ip
+
+
+
+example: `151.101.2.217`
+
+| extended
+
+// ===============================================================
+
+| sip.via.received.port
+| Translated network port of the SIP endpoint when address translation is being utilized.
+
+type: long
+
+
+
+example: `5065`
+
+| extended
+
+// ===============================================================
+
+| sip.via.sent_by.address
+| IP address used by SIP proxy.
+
+type: ip
+
+
+
+example: `192.168.1.10`
+
+| extended
+
+// ===============================================================
+
+| sip.via.sent_by.port
+| Network port used by SIP proxy.
+
+type: long
+
+
+
+example: `5060`
+
+| extended
+
+// ===============================================================
+
+| sip.via.transport
+| Network transport used by SIP proxy.
+
+type: keyword
+
+
+
+example: `udp`
+
+| extended
+
+// ===============================================================
+
+| sip.via.version
+| SIP protocol version used in the proxyied conversation (typically 2.0).
+
+type: keyword
+
+
+
+example: `2.0`
+
+| extended
+
+// ===============================================================
+
+|=====
+
+[discrete]
+==== Field Reuse
+
+
+
+
+[[ecs-sip-nestings]]
+[discrete]
+===== Field sets that can be nested under SIP
+
+[options="header"]
+|=====
+| Nested fields | Description
+
+// ===============================================================
+
+
+| <<ecs-url,sip.auth.url.*>>
+| Fields that let you store URLs in various forms.
+
+// ===============================================================
+
+
+| <<ecs-url,sip.contact.url.*>>
+| Fields that let you store URLs in various forms.
+
+// ===============================================================
+
+
+| <<ecs-url,sip.from.url.*>>
+| Fields that let you store URLs in various forms.
+
+// ===============================================================
+
+
+| <<ecs-url,sip.privacy.url.*>>
+| Fields that let you store URLs in various forms.
+
+// ===============================================================
+
+
+| <<ecs-url,sip.to.url.*>>
+| Fields that let you store URLs in various forms.
+
+// ===============================================================
+
+
+| <<ecs-url,sip.url.*>>
+| Fields that let you store URLs in various forms.
+
+// ===============================================================
+
+
+|=====
+
 [[ecs-source]]
 === Source Fields
 
@@ -7801,6 +8526,16 @@ type: keyword
 // ===============================================================
 
 |=====
+
+[discrete]
+==== Field Reuse
+
+The `url` fields are expected to be nested at: `sip.auth.url`, `sip.contact.url`, `sip.from.url`, `sip.privacy.url`, `sip.to.url`, `sip.url`.
+
+Note also that the `url` fields are not expected to be used directly at the root of the events.
+
+
+
 
 [[ecs-user]]
 === User Fields
