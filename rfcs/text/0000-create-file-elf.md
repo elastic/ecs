@@ -24,7 +24,7 @@ This RFC is to create the ELF sub-field within the `file.` fieldset. This will i
 | elf.header.class | keyword | Header class of the ELF file. |
 | elf.header.data | keyword | Data table of the ELF header. |
 | elf.header.machine | keyword | Machine architecture of the ELF header. |
-| elf.header.os_abi | keyword | NEED TO ADD |
+| elf.header.os_abi | keyword | Application Binary Interface (ABI) of the Linux OS. |
 | elf.header.type | keyword | Header type of the ELF file. |
 | elf.header.version | keyword | Version of the ELF header. |
 | elf.header.abi_version | keyword | Version of the ELF Application Binary Interface (ABI). |
