@@ -1,6 +1,6 @@
 # 0000: Create the ELF sub-field of the File fieldset
 
-- Stage: **1 (proposal)**
+- Stage: **1 (draft)**
 - Date: **TBD**
 
 Create the Executable Linkable Format (ELF) sub-field, of the `file` top-level fieldset. This document metadata can be used for malware research, as well as coding and other application development efforts.
