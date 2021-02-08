@@ -1,4 +1,4 @@
-# 0013: Multiple files in an event
+# 0000: Multiple files in an event
 
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
