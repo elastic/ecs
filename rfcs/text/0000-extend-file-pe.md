@@ -1,7 +1,7 @@
-# 0000: Extend the PE field set
+# 0014: Extend the PE field set
 
-- Stage: **1 (proposal)**
-- Date: **TBD**
+- Stage: **1 (draft)**
+- Date: **2021-02-08**
 
 The Portable Executable (PE) sub-field, of the `file` top-level fieldset, can be updated to include more file attributes to aid in file analysis. This additional document metadata can be used for malware research, as well as coding and other application development efforts.
 
