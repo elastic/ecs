@@ -130,11 +130,6 @@ Stage 3: Document resolutions for all existing concerns. Any new concerns should
 Stage 4: Document any new concerns and their resolution. The goal here is to eliminate risk of churn and instability by ensuring all concerns have been addressed.
 -->
 
-## Real-world implementations
-
-<!--
-Stage 4: Identify at least one real-world, production-ready implementation that uses these updated field definitions. An example of this might be a GA feature in an Elastic application in Kibana.
--->
 
 ## People
 
