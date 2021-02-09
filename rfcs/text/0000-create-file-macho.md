@@ -18,8 +18,7 @@ This RFC is to create the Mach-O sub-field within the `file.` fieldset. This wil
 |   macho.cpu.byte_order               |   keyword  |   CPU byte order for the file.                                              |
 |   macho.cpu.subtype                  |   keyword  |   CPU subtype for the file.                                                 |
 |   macho.cpu.type                     |   keyword  |   CPU type for the file.                                                    |
-|   macho.headers                      |   object   |   Header information for the file.                                          |
-|   macho.headers.commands             |   object   |   Header load commands for the file.                                        |
+|   macho.headers                      |   nested   |   Header information for the file.                                          |
 |   macho.headers.commands.number      |   long     |   Number of load commands for the Mach-O header.                            |
 |   macho.headers.commands.size        |   long     |   Size of load commands of the Mach-O header.                               |
 |   macho.headers.commands.type        |   keyword  |   Type of the load commands for the Mach-O header.                          |
