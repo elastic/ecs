@@ -40,167 +40,139 @@
       level: extended
       example: Intel, PowerPC, RISC, etc.
 
-    - name: header
+    - name: header.class
+      description: >
+        Header class of the ELF file.
+      type: keyword
+      level: extended
+
+    - name: header.data
+      description: >
+        Data table of the ELF header.
+      type: keyword
+      level: extended
+
+    - name: header.os_abi
+      description: >
+        Application Binary Interface (ABI) of the Linux OS.
+      type: keyword
+      level: extended
+
+    - name: header.type
+      description: >
+        Header type of the ELF file.
+      type: keyword
+      level: extended
+
+    - name: header.version
+      description: >
+        Version of the ELF header.
+      type: keyword
+      level: extended
+
+    - name: header.abi_version
+      type: keyword
       level: extended
       description: >
-        Header information of the ELF file.
-      type: group
-      fields:
-        - name: class
-          description: >
-            Header class of the ELF file.
-          type: keyword
-          level: extended
+        Version of the ELF Application Binary Interface (ABI).
 
-        - name: data
-          description: >
-            Data table of the ELF header.
-          type: keyword
-          level: extended
+    - name: header.entrypoint
+      format: string
+      level: extended
+      type: long
+      description: >
+        Header entrypoint of the ELF file.
 
-        - name: os_abi
-          description: >
-            Application Binary Interface (ABI) of the Linux OS.
-          type: keyword
-          level: extended
-
-        - name: type
-          description: >
-            Header type of the ELF file.
-          type: keyword
-          level: extended
-
-        - name: version
-          description: >
-            Version of the ELF header.
-          type: keyword
-          level: extended
-
-        - name: abi_version
-          type: keyword
-          level: extended
-          description: >
-            Version of the ELF Application Binary Interface (ABI).
-
-        - name: entrypoint
-          format: string
-          level: extended
-          type: long
-          description: >
-            Header entrypoint of the ELF file.
-
-        - name: object_version
-          type: keyword
-          level: extended
-          description: >
-            "0x1" for original ELF files.
+    - name: header.object_version
+      type: keyword
+      level: extended
+      description: >
+        "0x1" for original ELF files.
 
     - name: sections
       description: >
         Section information of the ELF file.
-      type: object
+      type: nested
       level: extended
-      fields:
-        - name: flags
-          description: >
-            ELF Section List flags.
-          type: keyword
-          level: extended
 
-        - name: name
-          description: >
-            ELF Section List name.
-          type: keyword
-          level: extended
+    - name: sections.flags
+      description: >
+        ELF Section List flags.
+      type: keyword
+      level: extended
 
-        - name: physical_offset
-          description: >
-            ELF Section List offset.
-          type: keyword
-          level: extended
+    - name: sections.name
+      description: >
+        ELF Section List name.
+      type: keyword
+      level: extended
 
-        - name: type
-          description: >
-            ELF Section List type.
-          type: keyword
-          level: extended
+    - name: sections.physical_offset
+      description: >
+        ELF Section List offset.
+      type: keyword
+      level: extended
 
-        - name: physical_size
-          description: >
-            ELF Section List physical size.
-          format: bytes
-          type: long
-          level: extended
+    - name: sections.type
+      description: >
+        ELF Section List type.
+      type: keyword
+      level: extended
 
-        - name: virtual_address
-          description: >
-            ELF Section List virtual address.
-          format: string
-          type: long
-          level: extended
+    - name: sections.physical_size
+      description: >
+        ELF Section List physical size.
+      format: bytes
+      type: long
+      level: extended
 
-        - name: virtual_size
-          description: >
-            ELF Section List virtual size.
-          format: string
-          type: long
-          level: extended
+    - name: sections.virtual_address
+      description: >
+        ELF Section List virtual address.
+      format: string
+      type: long
+      level: extended
 
-        - name: entropy
-          description: >
-            Shannon entropy calculation from the section.
-          format: number
-          type: long
-          level: extended
+    - name: sections.virtual_size
+      description: >
+        ELF Section List virtual size.
+      format: string
+      type: long
+      level: extended
 
-        - name: chi2
-          description: >
-            Chi-square probability distribution of the section.
-          format: number
-          type: long
-          level: extended
+    - name: sections.entropy
+      description: >
+        Shannon entropy calculation from the section.
+      format: number
+      type: long
+      level: extended
+
+    - name: sections.chi2
+      description: >
+        Chi-square probability distribution of the section.
+      format: number
+      type: long
+      level: extended
 
     - name: exports
       description: >
         List of exported element names and types.
       level: extended
       type: flattened
-      fields:
-        - name: name
-          description: >
-            Name of exported symbol
-          type: keyword
-          level: extended
-
-        - name: type
-          description: >
-            Type of exported symbol
-          type: keyword
-          level: extended
 
     - name: imports
       description: >
         List of imported element names and types.
       type: flattened
       level: extended
-      fields:
-        - name: name
-          description: >
-            Name of imported symbol
-          type: keyword
-          level: extended
-
-        - name: type
-          description: >
-            Type of imported symbol
-          type: keyword
-          level: extended
 
     - name: shared_libraries
       description: >
         List of shared libraries used by this ELF object
       type: keyword
       level: extended
+      normalize:
+       - array
 
     - name: telfhash
       short: telfhash hash for ELF files
@@ -214,13 +186,13 @@
         ELF object segment list.
       type: nested
       level: extended
-      fields:
-        - name: type
-          description: ELF object segment type.
-          type: keyword
-          level: extended
 
-        - name: sections
-          description: ELF object segment sections.
-          type: keyword
-          level: extended
+    - name: segments.type
+      description: ELF object segment type.
+      type: keyword
+      level: extended
+
+    - name: segments.sections
+      description: ELF object segment sections.
+      type: keyword
+      level: extended
