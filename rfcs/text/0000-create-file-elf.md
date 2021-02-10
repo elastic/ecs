@@ -1,7 +1,7 @@
-# 0000: Create the ELF sub-field of the File fieldset
+# 0015: Create the ELF sub-field of the File fieldset
 
 - Stage: **1 (draft)**
-- Date: **TBD**
+- Date: **2021-02-10**
 
 Create the Executable Linkable Format (ELF) sub-field, of the `file` top-level fieldset. This document metadata can be used for malware research, as well as coding and other application development efforts.
 
@@ -50,7 +50,7 @@ This RFC is to create the ELF sub-field within the `file.` fieldset. This will i
 | elf.cpu_type | keyword | CPU type of the ELF file. |
 
 
-**Stage 1**  
+**Stage 1**
 
 [New `elf.yml` candidate](../schemas/elf.yml)
 
@@ -135,7 +135,7 @@ Stage 4: Document any new concerns and their resolution. The goal here is to eli
 Type flattened won't allow explicit field mappings to be defined, so I don't think it's necessary to explicitly list them here. However, is there intent to still describe for data sources on how to "shape" the data for these flattened fields? There are no type: flattened fields today in ECS, so how to best capture provide that type of guidance will need to be hashed out.
 
 * Field: `elf.imports`
-* Comment: https://github.com/elastic/ecs/pull/1077#discussion_r572274291  
+* Comment: https://github.com/elastic/ecs/pull/1077#discussion_r572274291
 
 
 ## People
