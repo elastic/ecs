@@ -22,6 +22,13 @@ NOTE: If your events don't match any of these categorization values, you should
 leave the fields empty. This will ensure you can start populating the fields
 once the appropriate categorization values are published, in a later release.
 
+[float]
+[[ecs-category-usage]]
+=== Categorization Usage
+
+<<ecs-using-the-categorization-fields,Using the categorization fields>> contains examples combining the categorization fields to classify different types of events.
+
+
 [[ecs-allowed-values-event-kind]]
 === ECS Categorization Field: event.kind
 
@@ -517,3 +524,6 @@ Indicates that this event describes a successful result. A common example is `ev
 Indicates that this event describes only an attempt for which the result is unknown from the perspective of the event producer. For example, if the event contains information only about the request side of a transaction that results in a response, populating `event.outcome:unknown` in the request event is appropriate. The unknown value should not be used when an outcome doesn't make logical sense for the event. In such cases `event.outcome` should not be populated.
 
 
+
+
+include::field-values-usage.asciidoc[]
