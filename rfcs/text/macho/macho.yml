@@ -11,159 +11,132 @@
       - file
       - process
   fields:
-    - name: cpu
+
+    - name: cpu.architecture
+      description: CPU architecture target for the file.
+      type: keyword
       level: extended
-      description: CPU information for the file.
-      type: object
-      fields:
-        - name: architecture
-          description: CPU architecture target for the file.
-          type: keyword
-          level: extended
-          example: 64-bit
+      example: 64-bit
 
-        - name: byte_order
-          description: CPU byte order for the file.
-          type: keyword
-          level: extended
-          example: Little endian
+    - name: cpu.byte_order
+      description: CPU byte order for the file.
+      type: keyword
+      level: extended
+      example: Little endian
 
-        - name: subtype
-          description: CPU subtype for the file.
-          type: keyword
-          level: extended
-          example: ARM (all) 64-bit
+    - name: cpu.subtype
+      description: CPU subtype for the file.
+      type: keyword
+      level: extended
+      example: ARM (all) 64-bit
 
-        - name: type
-          description: CPU type for the file.
-          type: keyword
-          level: extended
-          example: ARM 64-bit
+    - name: cpu.type
+      description: CPU type for the file.
+      type: keyword
+      level: extended
+      example: ARM 64-bit
 
     - name: headers
       level: extended
       description: Header information for the file.
       type: nested
-      fields:
-        - name: commands
-          level: extended
-          description: Header load commands information for the file.
-          type: object
-          fields:
-            - name: number
-              description: Number of load commands for the Mach-O header.
-              type: long
-              level: extended
-              example: 23
 
-            - name: size
-              description: Size of load commands of the Mach-O header.
-              type: long
-              level: extended
-              format: bytes
-              example: 3888
+    - name: headers.commands.number
+      description: Number of load commands for the Mach-O header.
+      type: long
+      level: extended
+      example: 23
 
-            - name: type
-              description: Type of the load commands for the Mach-O header.
-              type: keyword
-              level: extended
-              example: LC_SYMTAB, 0x2c
+    - name: headers.commands.size
+      description: Size of load commands of the Mach-O header.
+      type: long
+      level: extended
+      format: bytes
+      example: 3888
 
-        - name: magic
-          description: Magic field of the Mach-O header.
-          type: keyword
-          level: extended
-          example: 0xfeedfacf
+    - name: headers.commands.type
+      description: Type of the load commands for the Mach-O header.
+      type: keyword
+      level: extended
+      example: LC_SYMTAB, 0x2c
 
-        - name: flags
-          description: Flags set in the Mach-O header.
-          type: keyword
-          level: extended
-          example: TWOLEVEL, 0x4000000
+    - name: headers.magic
+      description: Magic field of the Mach-O header.
+      type: keyword
+      level: extended
+      example: 0xfeedfacf
+
+    - name: headers.flags
+      description: Flags set in the Mach-O header.
+      type: keyword
+      level: extended
+      example: TWOLEVEL, 0x4000000
 
     - name: segments
       level: extended
-        description: Segment information for the file.
+      description: Segment information for the file.
       type: nested
-      fields:
-        - name: vmaddr
-          description: Memory address of this segment.
-          type: keyword
-          level: extended
-          example: 0x0
 
-        - name: name
-          description: Name of this segment.
-          type: keyword
-          level: extended
-          example: __TEXT, __DATA, __IMPORT
+    - name: segments.vmaddr
+      description: Memory address of this segment.
+      type: keyword
+      level: extended
+      example: 0x0
 
-        - name: vmsize
-          description: Memory size of this segment.
-          type: keyword
-          level: extended
-          example: 0x4c000
+    - name: segments.name
+      description: Name of this segment.
+      type: keyword
+      level: extended
+      example: __TEXT, __DATA, __IMPORT
 
-        - name: fileoff
-          description: File offset of this segment.
-          type: keyword
-          level: extended
-          example: 0x0
+    - name: segments.vmsize
+      description: Memory size of this segment.
+      type: keyword
+      level: extended
+      example: 0x4c000
 
-        - name: filesize
-          description: Amount of memory to map from the file.
-          type: keyword
-          level: extended
-          example: 0x4c000
+    - name: segments.fileoff
+      description: File offset of this segment.
+      type: keyword
+      level: extended
+      example: 0x0
 
-        - name: sections
-          level: extended
-          description: Section information for the segment of the file.
-          type: flattened
-          fields:
-            - name: flags
-              description: Section flags for the segment of the file.
-              type: keyword
-              level: extended
-              example: SECTION_ATTRIBUTES_USR, S_8BYTE_LITERALS
+    - name: segments.filesize
+      description: Amount of memory to map from the file.
+      type: keyword
+      level: extended
+      example: 0x4c000
 
-            - name: name
-              description: Section name for the segment of the file.
-              type: keyword
-              level: extended
-              example: __objc_classname, __stub_helper
+    - name: segments.sections
+      level: extended
+      description: Section information for the segment of the file.
+      type: flattened
 
-            - name: type
-              description: Section type for the segment of the file.
-              type: keyword
-              level: extended
-              example: S_REGULAR, S_CSTRING_LITERALS
+    - name: segments.offset
+      description: Offset of the segment.
+      type: long
+      format: bytes
+      level: extended
+      example: 0
 
-        - name: offset
-          description: Offset of the segment.
-          type: long
-          format: bytes
-          level: extended
-          example: 0
+    - name: segments.size
+      description: Segment limit size.
+      type: long
+      format: bytes
+      level: extended
+      example: 123456
 
-        - name: size
-          description: Segment limit size.
-          type: long
-          format: bytes
-          level: extended
-          example: 123456
-
-        - name: flags
-          description: Segment flags.
-          type: keyword
-          level: extended
-          example: 0x0
+    - name: segments.flags
+      description: Segment flags.
+      type: keyword
+      level: extended
+      example: 0x0
 
     - name: cdhash
-          description: Code Digest (CD) SHA256 hash of the first 20-bytes of the file.
-          type: keyword
-          level: extended
-          example: 2035094a7065b29421e7a51f51db9bd61807c3628f210b1f8e667235777dc592
+      description: Code Digest (CD) SHA256 hash of the first 20-bytes of the file.
+      type: keyword
+      level: extended
+      example: 2035094a7065b29421e7a51f51db9bd61807c3628f210b1f8e667235777dc592
 
     - name: page_size
       description: Page size of the file.
