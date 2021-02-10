@@ -26,6 +26,9 @@ type Geo struct {
 	// Longitude and latitude.
 	Location string `ecs:"location"`
 
+	// Two-letter code representing continent's name.
+	ContinentCode string `ecs:"continent_code"`
+
 	// Name of the continent.
 	ContinentName string `ecs:"continent_name"`
 
@@ -41,8 +44,16 @@ type Geo struct {
 	// Country ISO code.
 	CountryIsoCode string `ecs:"country_iso_code"`
 
+	// Postal code associated with the location.
+	// Values appropriate for this field may also be known as a postcode or ZIP
+	// code and will vary widely from country to country.
+	PostalCode string `ecs:"postal_code"`
+
 	// Region ISO code.
 	RegionIsoCode string `ecs:"region_iso_code"`
+
+	// The time zone of the location, such as IANA time zone name.
+	Timezone string `ecs:"timezone"`
 
 	// User-defined description of a location, at the level of granularity they
 	// care about.
