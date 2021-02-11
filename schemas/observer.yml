@@ -20,8 +20,15 @@
     - name: mac
       level: core
       type: keyword
+      example: '["00-00-5E-00-53-23", "00-00-5E-00-53-24"]'
+      short: MAC addresses of the observer.
       description: >
-        MAC addresses of the observer
+        MAC addresses of the observer.
+
+        The notation format from RFC 7042 is suggested: Each octet (that is, 8-bit byte) is
+        represented by two [uppercase] hexadecimal digits giving the value of
+        the octet as an unsigned integer. Successive octets are separated by a
+        hyphen.
       normalize:
         - array
 
@@ -96,8 +103,8 @@
       type: object
       short: Object field for ingress information
       description: >
-        Observer.ingress holds information like interface number and name, vlan, and zone information to 
-        classify ingress traffic.  Single armed monitoring such as a network sensor on a span port should 
+        Observer.ingress holds information like interface number and name, vlan, and zone information to
+        classify ingress traffic.  Single armed monitoring such as a network sensor on a span port should
         only use observer.ingress to categorize traffic.
 
     - name: ingress.zone
@@ -106,16 +113,16 @@
       short: Observer ingress zone
       example: DMZ
       description: >
-        Network zone of incoming traffic as reported by the observer to categorize the source area of ingress 
+        Network zone of incoming traffic as reported by the observer to categorize the source area of ingress
         traffic. e.g. internal, External, DMZ, HR, Legal, etc.
-      
+
     - name: egress
       level: extended
       type: object
       short: Object field for egress information
       description: >
-        Observer.egress holds information like interface number and name, vlan, and zone information to 
-        classify egress traffic.  Single armed monitoring such as a network sensor on a span port should 
+        Observer.egress holds information like interface number and name, vlan, and zone information to
+        classify egress traffic.  Single armed monitoring such as a network sensor on a span port should
         only use observer.ingress to categorize traffic.
 
     - name: egress.zone
@@ -124,5 +131,5 @@
       short: Observer Egress zone
       example: Public_Internet
       description: >
-        Network zone of outbound traffic as reported by the observer to categorize the destination area of egress 
+        Network zone of outbound traffic as reported by the observer to categorize the destination area of egress
         traffic, e.g. Internal, External, DMZ, HR, Legal, etc.

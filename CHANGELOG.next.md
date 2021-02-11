@@ -24,6 +24,8 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
+* Include formatting guidance and examples for MAC address fields. #456
+
 #### Deprecated
 
 
