@@ -44,7 +44,7 @@ type Host struct {
 	// Host ip addresses.
 	IP string `ecs:"ip"`
 
-	// Host mac addresses.
+	// Host MAC addresses.
 	// The notation format from RFC 7042 is suggested: Each octet (that is,
 	// 8-bit byte) is represented by two [uppercase] hexadecimal digits giving
 	// the value of the octet as an unsigned integer. Successive octets are
