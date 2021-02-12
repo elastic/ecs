@@ -33,41 +33,41 @@ The proposed change adds six fields, as described below:
   type: group
   fields:
     - name: cluster
-      level: core
+      level: extended
       type: object
       description: >
         Orchestrator cluster details.
 
     - name: type
-      level: core
+      level: extended
       type: keyword
       example: Nomad, Kubernetes
       description: >
         Orchestrator cluster type.
 
     - name: organization
-      level: core
+      level: extended
       type: keyword
       example: elastic
       description: >
         Organization affected by the event (for multi-tenant orchestrator setups).
 
     - name: namespace
-      level: core
+      level: extended
       type: keyword
       example: kube-system
       description: >
         Namespace in which the action is taking place.
 
     - name: resource.name
-      level: core
+      level: extended
       type: keyword
       example: test-pod-cdcws
       description: >
         Name of the resource being acted upon.
 
     - name: resource.type
-      level: core
+      level: extended
       type: keyword
       example: service
       description: >
