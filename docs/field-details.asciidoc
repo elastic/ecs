@@ -375,11 +375,13 @@ type: ip
 
 | MAC address of the client.
 
+The notation format from RFC 7042 is suggested: Each octet (that is, 8-bit byte) is represented by two [uppercase] hexadecimal digits giving the value of the octet as an unsigned integer. Successive octets are separated by a hyphen.
+
 type: keyword
 
 
 
-
+example: `00-00-5E-00-53-23`
 
 | core
 
@@ -1067,11 +1069,13 @@ type: ip
 
 | MAC address of the destination.
 
+The notation format from RFC 7042 is suggested: Each octet (that is, 8-bit byte) is represented by two [uppercase] hexadecimal digits giving the value of the octet as an unsigned integer. Successive octets are separated by a hyphen.
+
 type: keyword
 
 
 
-
+example: `00-00-5E-00-53-23`
 
 | core
 
@@ -2789,6 +2793,22 @@ example: `Montreal`
 // ===============================================================
 
 |
+[[field-geo-continent-code]]
+<<field-geo-continent-code, geo.continent_code>>
+
+| Two-letter code representing continent's name.
+
+type: keyword
+
+
+
+example: `NA`
+
+| core
+
+// ===============================================================
+
+|
 [[field-geo-continent-name]]
 <<field-geo-continent-name, geo.continent_name>>
 
@@ -2873,6 +2893,24 @@ example: `boston-dc`
 // ===============================================================
 
 |
+[[field-geo-postal-code]]
+<<field-geo-postal-code, geo.postal_code>>
+
+| Postal code associated with the location.
+
+Values appropriate for this field may also be known as a postcode or ZIP code and will vary widely from country to country.
+
+type: keyword
+
+
+
+example: `94040`
+
+| core
+
+// ===============================================================
+
+|
 [[field-geo-region-iso-code]]
 <<field-geo-region-iso-code, geo.region_iso_code>>
 
@@ -2899,6 +2937,22 @@ type: keyword
 
 
 example: `Quebec`
+
+| core
+
+// ===============================================================
+
+|
+[[field-geo-timezone]]
+<<field-geo-timezone, geo.timezone>>
+
+| The time zone of the location, such as IANA time zone name.
+
+type: keyword
+
+
+
+example: `America/Argentina/Buenos_Aires`
 
 | core
 
@@ -3271,7 +3325,9 @@ Note: this field should contain an array of values.
 [[field-host-mac]]
 <<field-host-mac, host.mac>>
 
-| Host mac addresses.
+| Host MAC addresses.
+
+The notation format from RFC 7042 is suggested: Each octet (that is, 8-bit byte) is represented by two [uppercase] hexadecimal digits giving the value of the octet as an unsigned integer. Successive octets are separated by a hyphen.
 
 type: keyword
 
@@ -3280,7 +3336,7 @@ Note: this field should contain an array of values.
 
 
 
-
+example: `["00-00-5E-00-53-23", "00-00-5E-00-53-24"]`
 
 | core
 
@@ -4318,7 +4374,7 @@ This could be a custom hardware appliance or a server that has been configured t
 [[field-observer-egress]]
 <<field-observer-egress, observer.egress>>
 
-| Observer.egress holds information like interface number and name, vlan, and zone information to  classify egress traffic.  Single armed monitoring such as a network sensor on a span port should  only use observer.ingress to categorize traffic.
+| Observer.egress holds information like interface number and name, vlan, and zone information to classify egress traffic.  Single armed monitoring such as a network sensor on a span port should only use observer.ingress to categorize traffic.
 
 type: object
 
@@ -4334,7 +4390,7 @@ type: object
 [[field-observer-egress-zone]]
 <<field-observer-egress-zone, observer.egress.zone>>
 
-| Network zone of outbound traffic as reported by the observer to categorize the destination area of egress  traffic, e.g. Internal, External, DMZ, HR, Legal, etc.
+| Network zone of outbound traffic as reported by the observer to categorize the destination area of egress traffic, e.g. Internal, External, DMZ, HR, Legal, etc.
 
 type: keyword
 
@@ -4366,7 +4422,7 @@ type: keyword
 [[field-observer-ingress]]
 <<field-observer-ingress, observer.ingress>>
 
-| Observer.ingress holds information like interface number and name, vlan, and zone information to  classify ingress traffic.  Single armed monitoring such as a network sensor on a span port should  only use observer.ingress to categorize traffic.
+| Observer.ingress holds information like interface number and name, vlan, and zone information to classify ingress traffic.  Single armed monitoring such as a network sensor on a span port should only use observer.ingress to categorize traffic.
 
 type: object
 
@@ -4382,7 +4438,7 @@ type: object
 [[field-observer-ingress-zone]]
 <<field-observer-ingress-zone, observer.ingress.zone>>
 
-| Network zone of incoming traffic as reported by the observer to categorize the source area of ingress  traffic. e.g. internal, External, DMZ, HR, Legal, etc.
+| Network zone of incoming traffic as reported by the observer to categorize the source area of ingress traffic. e.g. internal, External, DMZ, HR, Legal, etc.
 
 type: keyword
 
@@ -4417,7 +4473,9 @@ Note: this field should contain an array of values.
 [[field-observer-mac]]
 <<field-observer-mac, observer.mac>>
 
-| MAC addresses of the observer
+| MAC addresses of the observer.
+
+The notation format from RFC 7042 is suggested: Each octet (that is, 8-bit byte) is represented by two [uppercase] hexadecimal digits giving the value of the octet as an unsigned integer. Successive octets are separated by a hyphen.
 
 type: keyword
 
@@ -4426,7 +4484,7 @@ Note: this field should contain an array of values.
 
 
 
-
+example: `["00-00-5E-00-53-23", "00-00-5E-00-53-24"]`
 
 | core
 
@@ -6045,11 +6103,13 @@ type: ip
 
 | MAC address of the server.
 
+The notation format from RFC 7042 is suggested: Each octet (that is, 8-bit byte) is represented by two [uppercase] hexadecimal digits giving the value of the octet as an unsigned integer. Successive octets are separated by a hyphen.
+
 type: keyword
 
 
 
-
+example: `00-00-5E-00-53-23`
 
 | core
 
@@ -6456,11 +6516,13 @@ type: ip
 
 | MAC address of the source.
 
+The notation format from RFC 7042 is suggested: Each octet (that is, 8-bit byte) is represented by two [uppercase] hexadecimal digits giving the value of the octet as an unsigned integer. Successive octets are separated by a hyphen.
+
 type: keyword
 
 
 
-
+example: `00-00-5E-00-53-23`
 
 | core
 

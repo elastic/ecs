@@ -21,8 +21,11 @@ Thanks, you're awesome :-) -->
 * Added `cloud.service.name`. #1204
 * Added `hash.ssdeep`. #1169
 * Added additional host fields. #1248
+* Added `geo.timezone`, `geo.postal_code`, and `geo.continent_code`. #1229
 
 #### Improvements
+
+* Include formatting guidance and examples for MAC address fields. #456
 
 #### Deprecated
 
