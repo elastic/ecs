@@ -3,7 +3,7 @@
 - Stage: **1 (draft)**
 - Date: **TBD**
 
-Create the Mach Object (Mach-O) sub-field, of the `file` top-level fieldset. This document metadata can be used for malware research, as well as coding and other application development efforts.
+Create the Mach Object (Mach-O) sub-field, of the `file` or `process` top-level fieldsets. This document metadata can be used for malware research, as well as coding and other application development efforts.
 
 ## Fields
 
