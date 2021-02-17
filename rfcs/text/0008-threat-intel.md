@@ -449,7 +449,8 @@ Some examples of commercial intelligence include:
 * Stage 0: https://github.com/elastic/ecs/pull/986
 * Stage 1: https://github.com/elastic/ecs/pull/1037
   * Stage 1 correction: https://github.com/elastic/ecs/pull/1100
-* Stage 2: https://github.com/elastic/ecs/pull/1127
+* Stage 1 (originally stage 2 prior to removal of RFC stage 4): https://github.com/elastic/ecs/pull/1127
+
 
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN
