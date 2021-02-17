@@ -1,7 +1,7 @@
 # 0004: Session
 <!--^ The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC, taking care not to conflict with other RFCs.-->
 
-- Stage: **2 (draft)** <!-- Update to reflect target stage -->
+- Stage: **2 (candidate)** <!-- Update to reflect target stage -->
 - Date: TBD <!-- Update to reflect date of most recent stage advancement -->
 
 This RFC calls for the addition of session fields to describe events related to
