@@ -9,6 +9,10 @@ Thanks, you're awesome :-) -->
 ## Unreleased
 
 ### Schema Changes
+
+#### Improvements
+
+* `user.changes.*`, `user.effective.*`, and `user.target.*` field reuses are GA. #1271
 ### Tooling and Artifact Changes
 
 #### Breaking changes
