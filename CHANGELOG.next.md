@@ -20,7 +20,9 @@ Thanks, you're awesome :-) -->
 * Added `http.request.id`. #1208
 * Added `cloud.service.name`. #1204
 * Added `hash.ssdeep`. #1169
+* Added additional host fields. #1248
 * Added `geo.timezone`, `geo.postal_code`, and `geo.continent_code`. #1229
+* Extended `pe` fields added to experimental schema. #1256
 * Added `code_signature.team_id`, `code_signature.signing_id`. #1249
 
 #### Improvements
