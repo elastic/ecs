@@ -43,4 +43,14 @@ type CodeSignature struct {
 	// validity or trust status. Leave unpopulated if the validity or trust of
 	// the certificate was unchecked.
 	Status string `ecs:"status"`
+
+	// The team identifier used to sign the process.
+	// This is used to identify the team or vendor of a software product. Leave
+	// unpopulated if unavailable.
+	TeamID string `ecs:"team_id"`
+
+	// The identifier used to sign the process.
+	// This is used to identify the application manufactured by a software
+	// vendor. Leave unpopulated if unavailable.
+	SigningID string `ecs:"signing_id"`
 }
