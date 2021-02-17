@@ -1,7 +1,7 @@
 # 0008: Cyber Threat Intelligence Fields
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
-- Stage: **2 (proposal)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
+- Stage: **1 (draft)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
 - Date: **2020-11-09** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 Elastic Security Solution will be adding the capability to ingest, process and utilize threat intelligence information for increasing detection coverage and helping analysts make quicker investigation decisions. Threat intelligence can be collected from a number of sources with a variety of structured and semi-structured data representations. This makes threat intelligence an ideal candidate for ECS mappings. Threat intelligence data will require ECS mappings to normalize it and make it usable in our security solution. This RFC is focused on identifying new field sets and values that need to be created for threat intelligence data. Existing ECS field reuse will be prioritized where possible. If new fields are required we will utilize [STIX Cyber Observable data model](https://docs.oasis-open.org/cti/stix/v2.1/cs01/stix-v2.1-cs01.html#_mlbmudhl16lr) as guidance.
@@ -392,7 +392,7 @@ Stage 1: Identify potential concerns, implementation challenges, or complexity. 
   - `threatintel.indicator.*` (Filebeat module) will be normal field type and will be deprecated when nested field types are better supported in Kibana
   - `threat.indicator.*` (actual threat ECS fieldset) will be nested now and used for enriched doc
   - Once there is better support for nested field types in Kibana, there will be a migration to `threat.indicator.*`
-  - Do we see this development affecting the timeline for this RFC's advancement (https://github.com/elastic/ecs/pull/1127#issuecomment-777766608)? 
+  - Do we see this development affecting the timeline for this RFC's advancement (https://github.com/elastic/ecs/pull/1127#issuecomment-777766608)?
     >I imagine many users interested in threat.indicator.* fields are looking to map their own indicator sources to threat.indicator.* and then ingest those sources for use with indicator match rules. Is this something that will still be possible until the migration to threat.indicator.* happens?
     >
     >Including the threat.indicator.* fields in ECS would still document the fields as soon as they are implemented in the signals indices. Yet, until we feel confident encouraging using these fields to normalize users' data, I'm worried about the confusion and experience that would result.
