@@ -422,6 +422,7 @@ The following are the people that consulted on the contents of this RFC.
 * @shimonmodi | author
 * @peasead | subject matter expert
 * @MikePaquette | subject matter expert
+* @devonakerr | sponsor
 
 
 ## References
