@@ -29,6 +29,7 @@ Thanks, you're awesome :-) -->
 * Extended `pe` fields added to experimental schema. #1256
 * Added `code_signature.team_id`, `code_signature.signing_id`. #1249
 * Add `threat.indicator` fields to experimental schema. #1268
+* Add `elf` fieldset to experimental schema. #1261
 
 #### Improvements
 
