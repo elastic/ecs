@@ -35,15 +35,6 @@ Thanks, you're awesome :-) -->
 
 ### Schema Changes
 
-#### Improvements
-
-* `user.changes.*`, `user.effective.*`, and `user.target.*` field reuses are GA. #1271
-### Tooling and Artifact Changes
-
-#### Breaking changes
-
-#### Bugfixes
-
 #### Added
 
 * Added `http.request.id`. #1208
@@ -55,6 +46,17 @@ Thanks, you're awesome :-) -->
 * Added `code_signature.team_id`, `code_signature.signing_id`. #1249
 * Add `threat.indicator` fields to experimental schema. #1268
 * Add `elf` fieldset to experimental schema. #1261
+
+#### Improvements
+
+* `user.changes.*`, `user.effective.*`, and `user.target.*` field reuses are GA. #1271
+### Tooling and Artifact Changes
+
+#### Breaking changes
+
+#### Bugfixes
+
+#### Added
 
 #### Improvements
 
