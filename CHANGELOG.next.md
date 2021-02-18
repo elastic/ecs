@@ -10,6 +10,31 @@ Thanks, you're awesome :-) -->
 
 ### Schema Changes
 
+#### Breaking changes
+
+#### Bugfixes
+
+#### Added
+
+#### Improvements
+
+### Tooling and Artifact Changes
+
+#### Breaking changes
+
+#### Bugfixes
+
+#### Added
+
+#### Improvements
+
+#### Deprecated
+
+
+## 1.9.0 (Feature Freeze)
+
+### Schema Changes
+
 #### Improvements
 
 * `user.changes.*`, `user.effective.*`, and `user.target.*` field reuses are GA. #1271
