@@ -43,4 +43,14 @@ type CodeSignature struct {
 	// validity or trust status. Leave unpopulated if the validity or trust of
 	// the certificate was unchecked.
 	Status string `ecs:"status"`
+
+	// The team identifier used to sign the process.
+	// This is used to identify the team or vendor of a software product. The
+	// field is relevant to Apple *OS only.
+	TeamID string `ecs:"team_id"`
+
+	// The identifier used to sign the process.
+	// This is used to identify the application manufactured by a software
+	// vendor. The field is relevant to Apple *OS only.
+	SigningID string `ecs:"signing_id"`
 }
