@@ -53,18 +53,6 @@ Thanks, you're awesome :-) -->
 * Include formatting guidance and examples for MAC address fields. #456
 * New section in ECS detailing event categorization fields usage. #1242
 * `user.changes.*`, `user.effective.*`, and `user.target.*` field reuses are GA. #1271
-### Tooling and Artifact Changes
-
-#### Breaking changes
-
-#### Bugfixes
-
-#### Added
-
-#### Improvements
-
-#### Deprecated
-
 
 <!-- All empty sections:
 
