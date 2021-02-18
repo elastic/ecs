@@ -28,6 +28,7 @@ Thanks, you're awesome :-) -->
 * Added `geo.timezone`, `geo.postal_code`, and `geo.continent_code`. #1229
 * Extended `pe` fields added to experimental schema. #1256
 * Added `code_signature.team_id`, `code_signature.signing_id`. #1249
+* Add `threat.indicator` fields to experimental schema. #1268
 
 #### Improvements
 
