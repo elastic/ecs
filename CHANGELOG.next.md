@@ -50,6 +50,7 @@ Thanks, you're awesome :-) -->
 #### Improvements
 
 * `user.changes.*`, `user.effective.*`, and `user.target.*` field reuses are GA. #1271
+* Include formatting guidance and examples for MAC address fields. #456
 ### Tooling and Artifact Changes
 
 #### Breaking changes
@@ -59,8 +60,6 @@ Thanks, you're awesome :-) -->
 #### Added
 
 #### Improvements
-
-* Include formatting guidance and examples for MAC address fields. #456
 
 #### Deprecated
 
