@@ -151,6 +151,10 @@ Examples of source data include:
 {
   "created_at": "2020-03-24T13:09:35.704224536-04:00",
   "event_type": "audit",
+  "orchestrator.api_version": "v1",
+  "orchestrator.namespace": "default",
+  "orchestrator.resource.type": "nodes",
+  "orchestrator.type: "nomad",
   "payload": {
     "id": "8b826146-b264-af15-6526-29cb905145aa",
     "stage": "OperationComplete",
@@ -166,9 +170,6 @@ Examples of source data include:
     "request": {
       "id": "02f0ac35-c7e8-0871-5a58-ee9dbc0a70ea",
       "event.action": "GET",
-      "orchestrator.api_version": "v1",
-      "orchestrator.resource.type": "nodes",
-      "orchestrator.namespace": "default",
       "request_meta": {
         "remote_address": "127.0.0.1:33648",
         "user_agent": "Go-http-client/1.1"
