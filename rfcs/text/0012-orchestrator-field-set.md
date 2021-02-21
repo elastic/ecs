@@ -73,13 +73,6 @@ The proposed change adds six fields, as described below:
       description: >
         Type of resource being acted upon.
 
-    - name: subresource.type
-      level: extended
-      example: status
-      type: keyword
-      description: >
-        Subresource of the resource being acted upon, if applicable.
-
     - name: api_version
       level: extended
       example: v1beta1
