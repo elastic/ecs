@@ -41,9 +41,9 @@ The proposed change adds six fields, as described below:
     - name: type
       level: extended
       type: keyword
-      example: Nomad, Kubernetes
+      example: kubernetes
       description: >
-        Orchestrator cluster type.
+        Orchestrator cluster type (e.g. kubernetes, nomad or cloudfoundry).
 
     - name: organization
       level: extended
@@ -140,10 +140,10 @@ Examples of source data include:
     "event.action": "create",
     "orchestrator.cluster": {
         "name": "test-dev",
-    }
-    "orchestrator.type": "Kubernetes",
+    },
+    "orchestrator.type": "kubernetes",
     "orchestrator.subresource": "attach",
-    "orchestrator.resource.type": "pods",
+    "orchestrator.resource.type": "pod",
     "orchestrator.namespace": "default",
     "orchestrator.resource.name": "test",
     "orchestrator.api_version": "v1",
@@ -175,7 +175,7 @@ Examples of source data include:
       "event.action": "GET",
       "orchestrator.api_version": "v1",
       "orchestrator.resource.type": "nodes",
-      "orchestrator.namespace": "default"
+      "orchestrator.namespace": "default",
       "request_meta": {
         "remote_address": "127.0.0.1:33648",
         "user_agent": "Go-http-client/1.1"
