@@ -38,6 +38,18 @@ The proposed change adds six fields, as described below:
       description: >
         Orchestrator cluster details.
 
+    - name: cluster.name
+      level: extended
+      type: keyword
+      description: >
+        Name of the cluster.
+
+    - name: cluster.url
+      level: extended
+      type: keyword
+      description: >
+        URL of the cluster.
+
     - name: type
       level: extended
       type: keyword
