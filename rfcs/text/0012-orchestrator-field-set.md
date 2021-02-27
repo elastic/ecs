@@ -154,7 +154,7 @@ Examples of source data include:
   "orchestrator.api_version": "v1",
   "orchestrator.namespace": "default",
   "orchestrator.resource.type": "nodes",
-  "orchestrator.type: "nomad",
+  "orchestrator.type": "nomad",
   "payload": {
     "id": "8b826146-b264-af15-6526-29cb905145aa",
     "stage": "OperationComplete",
