@@ -145,6 +145,7 @@ Examples of source data include:
     "event.action": "create",
     "orchestrator.cluster": {
         "name": "test-dev",
+        "version": "1.19"
     },
     "orchestrator.type": "kubernetes",
     "orchestrator.subresource": "attach",
@@ -167,6 +168,10 @@ Examples of source data include:
   "orchestrator.namespace": "default",
   "orchestrator.resource.type": "nodes",
   "orchestrator.type": "nomad",
+  "orchestrator.cluster": {
+    "name": "test-dev",
+    "version": "1.0.4"
+  },
   "payload": {
     "id": "8b826146-b264-af15-6526-29cb905145aa",
     "stage": "OperationComplete",
