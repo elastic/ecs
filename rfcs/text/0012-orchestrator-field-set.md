@@ -44,6 +44,12 @@ The proposed change adds six fields, as described below:
       description: >
         URL of the cluster.
 
+    - name: cluster.version
+      level: extended
+      type: keyword
+      description: >
+        The version of the cluster.
+
     - name: type
       level: extended
       type: keyword
