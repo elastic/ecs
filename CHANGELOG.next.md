@@ -9,6 +9,15 @@ Thanks, you're awesome :-) -->
 ## Unreleased
 
 ### Schema Changes
+
+#### Breaking changes
+
+#### Bugfixes
+
+#### Added
+
+#### Improvements
+
 ### Tooling and Artifact Changes
 
 #### Breaking changes
@@ -17,21 +26,34 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
-* Added `http.request.id`. #1208
-* Added `cloud.service.name`. #1204
-* Added `hash.ssdeep`. #1169
-* Added additional host fields. #1248
-* Added `geo.timezone`, `geo.postal_code`, and `geo.continent_code`. #1229
-* Extended `pe` fields added to experimental schema. #1256
-* Add `file.fork_name` field #1288
+#### Improvements
 
+#### Deprecated
+
+
+## 1.9.0 (Feature Freeze)
+
+### Schema Changes
+
+#### Added
+
+* Added `hash.ssdeep`. #1169
+* Added `cloud.service.name`. #1204
+* Added `http.request.id`. #1208
+* `data_stream.*` fieldset introduced in experimental schema and artifacts. #1215
+* Added `geo.timezone`, `geo.postal_code`, and `geo.continent_code`. #1229
+* Added `beta` host metrics fields. #1248
+* Added `code_signature.team_id`, `code_signature.signing_id`. #1249
+* Extended `pe` fields added to experimental schema. #1256
+* Add `elf` fieldset to experimental schema. #1261
+* Add `threat.indicator` fields to experimental schema. #1268
+* Added `file.fork_name` field #1288
 
 #### Improvements
 
 * Include formatting guidance and examples for MAC address fields. #456
-
-#### Deprecated
-
+* New section in ECS detailing event categorization fields usage. #1242
+* `user.changes.*`, `user.effective.*`, and `user.target.*` field reuses are GA. #1271
 
 <!-- All empty sections:
 

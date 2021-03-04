@@ -106,8 +106,10 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 2.0.0-dev+exp,true,destination,destination.user.name.text,text,core,,albert,Short name or login of the user.
 2.0.0-dev+exp,true,destination,destination.user.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 2.0.0-dev+exp,true,dll,dll.code_signature.exists,boolean,core,,true,Boolean to capture if a signature is present.
+2.0.0-dev+exp,true,dll,dll.code_signature.signing_id,keyword,extended,,com.apple.xpc.proxy,The identifier used to sign the process.
 2.0.0-dev+exp,true,dll,dll.code_signature.status,keyword,extended,,ERROR_UNTRUSTED_ROOT,Additional information about the certificate status.
 2.0.0-dev+exp,true,dll,dll.code_signature.subject_name,keyword,core,,Microsoft Corporation,Subject name of the code signer
+2.0.0-dev+exp,true,dll,dll.code_signature.team_id,keyword,extended,,EQHXZ8M8AV,The team identifier used to sign the process.
 2.0.0-dev+exp,true,dll,dll.code_signature.trusted,boolean,extended,,true,Stores the trust status of the certificate chain.
 2.0.0-dev+exp,true,dll,dll.code_signature.valid,boolean,extended,,true,Boolean to capture if the digital signature is verified against the binary content.
 2.0.0-dev+exp,true,dll,dll.hash.md5,keyword,extended,,,MD5 hash.
@@ -208,8 +210,10 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 2.0.0-dev+exp,true,file,file.accessed,date,extended,,,Last time the file was accessed.
 2.0.0-dev+exp,true,file,file.attributes,keyword,extended,array,"[""readonly"", ""system""]",Array of file attributes.
 2.0.0-dev+exp,true,file,file.code_signature.exists,boolean,core,,true,Boolean to capture if a signature is present.
+2.0.0-dev+exp,true,file,file.code_signature.signing_id,keyword,extended,,com.apple.xpc.proxy,The identifier used to sign the process.
 2.0.0-dev+exp,true,file,file.code_signature.status,keyword,extended,,ERROR_UNTRUSTED_ROOT,Additional information about the certificate status.
 2.0.0-dev+exp,true,file,file.code_signature.subject_name,keyword,core,,Microsoft Corporation,Subject name of the code signer
+2.0.0-dev+exp,true,file,file.code_signature.team_id,keyword,extended,,EQHXZ8M8AV,The team identifier used to sign the process.
 2.0.0-dev+exp,true,file,file.code_signature.trusted,boolean,extended,,true,Stores the trust status of the certificate chain.
 2.0.0-dev+exp,true,file,file.code_signature.valid,boolean,extended,,true,Boolean to capture if the digital signature is verified against the binary content.
 2.0.0-dev+exp,true,file,file.created,date,extended,,,File creation time.
@@ -217,6 +221,35 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 2.0.0-dev+exp,true,file,file.device,keyword,extended,,sda,Device that is the source of the file.
 2.0.0-dev+exp,true,file,file.directory,wildcard,extended,,/home/alice,Directory where the file is located.
 2.0.0-dev+exp,true,file,file.drive_letter,keyword,extended,,C,Drive letter where the file is located.
+2.0.0-dev+exp,true,file,file.elf.architecture,keyword,extended,,x86-64,Machine architecture of the ELF file.
+2.0.0-dev+exp,true,file,file.elf.byte_order,keyword,extended,,"Little Endian, Big Endian",Byte sequence of ELF file.
+2.0.0-dev+exp,true,file,file.elf.cpu_type,keyword,extended,,Intel,CPU type of the ELF file.
+2.0.0-dev+exp,true,file,file.elf.creation_date,date,extended,,,Build or compile date.
+2.0.0-dev+exp,true,file,file.elf.exports,flattened,extended,,,List of exported element names and types.
+2.0.0-dev+exp,true,file,file.elf.header.abi_version,keyword,extended,,,Version of the ELF Application Binary Interface (ABI).
+2.0.0-dev+exp,true,file,file.elf.header.class,keyword,extended,,,Header class of the ELF file.
+2.0.0-dev+exp,true,file,file.elf.header.data,keyword,extended,,,Data table of the ELF header.
+2.0.0-dev+exp,true,file,file.elf.header.entrypoint,long,extended,,,Header entrypoint of the ELF file.
+2.0.0-dev+exp,true,file,file.elf.header.object_version,keyword,extended,,,"""0x1"" for original ELF files."
+2.0.0-dev+exp,true,file,file.elf.header.os_abi,keyword,extended,,,Application Binary Interface (ABI) of the Linux OS.
+2.0.0-dev+exp,true,file,file.elf.header.type,keyword,extended,,,Header type of the ELF file.
+2.0.0-dev+exp,true,file,file.elf.header.version,keyword,extended,,,Version of the ELF header.
+2.0.0-dev+exp,true,file,file.elf.imports,flattened,extended,,,List of imported element names and types.
+2.0.0-dev+exp,true,file,file.elf.sections,nested,extended,,,Section information of the ELF file.
+2.0.0-dev+exp,true,file,file.elf.sections.chi2,long,extended,,,Chi-square probability distribution of the section.
+2.0.0-dev+exp,true,file,file.elf.sections.entropy,long,extended,,,Shannon entropy calculation from the section.
+2.0.0-dev+exp,true,file,file.elf.sections.flags,keyword,extended,,,ELF Section List flags.
+2.0.0-dev+exp,true,file,file.elf.sections.name,keyword,extended,,,ELF Section List name.
+2.0.0-dev+exp,true,file,file.elf.sections.physical_offset,keyword,extended,,,ELF Section List offset.
+2.0.0-dev+exp,true,file,file.elf.sections.physical_size,long,extended,,,ELF Section List physical size.
+2.0.0-dev+exp,true,file,file.elf.sections.type,keyword,extended,,,ELF Section List type.
+2.0.0-dev+exp,true,file,file.elf.sections.virtual_address,long,extended,,,ELF Section List virtual address.
+2.0.0-dev+exp,true,file,file.elf.sections.virtual_size,long,extended,,,ELF Section List virtual size.
+2.0.0-dev+exp,true,file,file.elf.segments,nested,extended,,,ELF object segment list.
+2.0.0-dev+exp,true,file,file.elf.segments.sections,keyword,extended,,,ELF object segment sections.
+2.0.0-dev+exp,true,file,file.elf.segments.type,keyword,extended,,,ELF object segment type.
+2.0.0-dev+exp,true,file,file.elf.shared_libraries,keyword,extended,array,,List of shared libraries used by this ELF object
+2.0.0-dev+exp,true,file,file.elf.telfhash,keyword,extended,,,telfhash hash for ELF files
 2.0.0-dev+exp,true,file,file.extension,keyword,extended,,png,"File extension, excluding the leading dot."
 2.0.0-dev+exp,true,file,file.gid,keyword,extended,,1001,Primary group ID (GID) of the file.
 2.0.0-dev+exp,true,file,file.group,keyword,extended,,alice,Primary group name of the file.
@@ -457,12 +490,43 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 2.0.0-dev+exp,true,process,process.args,keyword,extended,array,"[""/usr/bin/ssh"", ""-l"", ""user"", ""10.0.0.16""]",Array of process arguments.
 2.0.0-dev+exp,true,process,process.args_count,long,extended,,4,Length of the process.args array.
 2.0.0-dev+exp,true,process,process.code_signature.exists,boolean,core,,true,Boolean to capture if a signature is present.
+2.0.0-dev+exp,true,process,process.code_signature.signing_id,keyword,extended,,com.apple.xpc.proxy,The identifier used to sign the process.
 2.0.0-dev+exp,true,process,process.code_signature.status,keyword,extended,,ERROR_UNTRUSTED_ROOT,Additional information about the certificate status.
 2.0.0-dev+exp,true,process,process.code_signature.subject_name,keyword,core,,Microsoft Corporation,Subject name of the code signer
+2.0.0-dev+exp,true,process,process.code_signature.team_id,keyword,extended,,EQHXZ8M8AV,The team identifier used to sign the process.
 2.0.0-dev+exp,true,process,process.code_signature.trusted,boolean,extended,,true,Stores the trust status of the certificate chain.
 2.0.0-dev+exp,true,process,process.code_signature.valid,boolean,extended,,true,Boolean to capture if the digital signature is verified against the binary content.
 2.0.0-dev+exp,true,process,process.command_line,wildcard,extended,,/usr/bin/ssh -l user 10.0.0.16,Full command line that started the process.
 2.0.0-dev+exp,true,process,process.command_line.text,text,extended,,/usr/bin/ssh -l user 10.0.0.16,Full command line that started the process.
+2.0.0-dev+exp,true,process,process.elf.architecture,keyword,extended,,x86-64,Machine architecture of the ELF file.
+2.0.0-dev+exp,true,process,process.elf.byte_order,keyword,extended,,"Little Endian, Big Endian",Byte sequence of ELF file.
+2.0.0-dev+exp,true,process,process.elf.cpu_type,keyword,extended,,Intel,CPU type of the ELF file.
+2.0.0-dev+exp,true,process,process.elf.creation_date,date,extended,,,Build or compile date.
+2.0.0-dev+exp,true,process,process.elf.exports,flattened,extended,,,List of exported element names and types.
+2.0.0-dev+exp,true,process,process.elf.header.abi_version,keyword,extended,,,Version of the ELF Application Binary Interface (ABI).
+2.0.0-dev+exp,true,process,process.elf.header.class,keyword,extended,,,Header class of the ELF file.
+2.0.0-dev+exp,true,process,process.elf.header.data,keyword,extended,,,Data table of the ELF header.
+2.0.0-dev+exp,true,process,process.elf.header.entrypoint,long,extended,,,Header entrypoint of the ELF file.
+2.0.0-dev+exp,true,process,process.elf.header.object_version,keyword,extended,,,"""0x1"" for original ELF files."
+2.0.0-dev+exp,true,process,process.elf.header.os_abi,keyword,extended,,,Application Binary Interface (ABI) of the Linux OS.
+2.0.0-dev+exp,true,process,process.elf.header.type,keyword,extended,,,Header type of the ELF file.
+2.0.0-dev+exp,true,process,process.elf.header.version,keyword,extended,,,Version of the ELF header.
+2.0.0-dev+exp,true,process,process.elf.imports,flattened,extended,,,List of imported element names and types.
+2.0.0-dev+exp,true,process,process.elf.sections,nested,extended,,,Section information of the ELF file.
+2.0.0-dev+exp,true,process,process.elf.sections.chi2,long,extended,,,Chi-square probability distribution of the section.
+2.0.0-dev+exp,true,process,process.elf.sections.entropy,long,extended,,,Shannon entropy calculation from the section.
+2.0.0-dev+exp,true,process,process.elf.sections.flags,keyword,extended,,,ELF Section List flags.
+2.0.0-dev+exp,true,process,process.elf.sections.name,keyword,extended,,,ELF Section List name.
+2.0.0-dev+exp,true,process,process.elf.sections.physical_offset,keyword,extended,,,ELF Section List offset.
+2.0.0-dev+exp,true,process,process.elf.sections.physical_size,long,extended,,,ELF Section List physical size.
+2.0.0-dev+exp,true,process,process.elf.sections.type,keyword,extended,,,ELF Section List type.
+2.0.0-dev+exp,true,process,process.elf.sections.virtual_address,long,extended,,,ELF Section List virtual address.
+2.0.0-dev+exp,true,process,process.elf.sections.virtual_size,long,extended,,,ELF Section List virtual size.
+2.0.0-dev+exp,true,process,process.elf.segments,nested,extended,,,ELF object segment list.
+2.0.0-dev+exp,true,process,process.elf.segments.sections,keyword,extended,,,ELF object segment sections.
+2.0.0-dev+exp,true,process,process.elf.segments.type,keyword,extended,,,ELF object segment type.
+2.0.0-dev+exp,true,process,process.elf.shared_libraries,keyword,extended,array,,List of shared libraries used by this ELF object
+2.0.0-dev+exp,true,process,process.elf.telfhash,keyword,extended,,,telfhash hash for ELF files
 2.0.0-dev+exp,true,process,process.entity_id,keyword,extended,,c2c455d9f99375d,Unique identifier for the process.
 2.0.0-dev+exp,true,process,process.executable,wildcard,extended,,/usr/bin/ssh,Absolute path to the process executable.
 2.0.0-dev+exp,true,process,process.executable.text,text,extended,,/usr/bin/ssh,Absolute path to the process executable.
@@ -477,12 +541,43 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 2.0.0-dev+exp,true,process,process.parent.args,keyword,extended,array,"[""/usr/bin/ssh"", ""-l"", ""user"", ""10.0.0.16""]",Array of process arguments.
 2.0.0-dev+exp,true,process,process.parent.args_count,long,extended,,4,Length of the process.args array.
 2.0.0-dev+exp,true,process,process.parent.code_signature.exists,boolean,core,,true,Boolean to capture if a signature is present.
+2.0.0-dev+exp,true,process,process.parent.code_signature.signing_id,keyword,extended,,com.apple.xpc.proxy,The identifier used to sign the process.
 2.0.0-dev+exp,true,process,process.parent.code_signature.status,keyword,extended,,ERROR_UNTRUSTED_ROOT,Additional information about the certificate status.
 2.0.0-dev+exp,true,process,process.parent.code_signature.subject_name,keyword,core,,Microsoft Corporation,Subject name of the code signer
+2.0.0-dev+exp,true,process,process.parent.code_signature.team_id,keyword,extended,,EQHXZ8M8AV,The team identifier used to sign the process.
 2.0.0-dev+exp,true,process,process.parent.code_signature.trusted,boolean,extended,,true,Stores the trust status of the certificate chain.
 2.0.0-dev+exp,true,process,process.parent.code_signature.valid,boolean,extended,,true,Boolean to capture if the digital signature is verified against the binary content.
 2.0.0-dev+exp,true,process,process.parent.command_line,wildcard,extended,,/usr/bin/ssh -l user 10.0.0.16,Full command line that started the process.
 2.0.0-dev+exp,true,process,process.parent.command_line.text,text,extended,,/usr/bin/ssh -l user 10.0.0.16,Full command line that started the process.
+2.0.0-dev+exp,true,process,process.parent.elf.architecture,keyword,extended,,x86-64,Machine architecture of the ELF file.
+2.0.0-dev+exp,true,process,process.parent.elf.byte_order,keyword,extended,,"Little Endian, Big Endian",Byte sequence of ELF file.
+2.0.0-dev+exp,true,process,process.parent.elf.cpu_type,keyword,extended,,Intel,CPU type of the ELF file.
+2.0.0-dev+exp,true,process,process.parent.elf.creation_date,date,extended,,,Build or compile date.
+2.0.0-dev+exp,true,process,process.parent.elf.exports,flattened,extended,,,List of exported element names and types.
+2.0.0-dev+exp,true,process,process.parent.elf.header.abi_version,keyword,extended,,,Version of the ELF Application Binary Interface (ABI).
+2.0.0-dev+exp,true,process,process.parent.elf.header.class,keyword,extended,,,Header class of the ELF file.
+2.0.0-dev+exp,true,process,process.parent.elf.header.data,keyword,extended,,,Data table of the ELF header.
+2.0.0-dev+exp,true,process,process.parent.elf.header.entrypoint,long,extended,,,Header entrypoint of the ELF file.
+2.0.0-dev+exp,true,process,process.parent.elf.header.object_version,keyword,extended,,,"""0x1"" for original ELF files."
+2.0.0-dev+exp,true,process,process.parent.elf.header.os_abi,keyword,extended,,,Application Binary Interface (ABI) of the Linux OS.
+2.0.0-dev+exp,true,process,process.parent.elf.header.type,keyword,extended,,,Header type of the ELF file.
+2.0.0-dev+exp,true,process,process.parent.elf.header.version,keyword,extended,,,Version of the ELF header.
+2.0.0-dev+exp,true,process,process.parent.elf.imports,flattened,extended,,,List of imported element names and types.
+2.0.0-dev+exp,true,process,process.parent.elf.sections,nested,extended,,,Section information of the ELF file.
+2.0.0-dev+exp,true,process,process.parent.elf.sections.chi2,long,extended,,,Chi-square probability distribution of the section.
+2.0.0-dev+exp,true,process,process.parent.elf.sections.entropy,long,extended,,,Shannon entropy calculation from the section.
+2.0.0-dev+exp,true,process,process.parent.elf.sections.flags,keyword,extended,,,ELF Section List flags.
+2.0.0-dev+exp,true,process,process.parent.elf.sections.name,keyword,extended,,,ELF Section List name.
+2.0.0-dev+exp,true,process,process.parent.elf.sections.physical_offset,keyword,extended,,,ELF Section List offset.
+2.0.0-dev+exp,true,process,process.parent.elf.sections.physical_size,long,extended,,,ELF Section List physical size.
+2.0.0-dev+exp,true,process,process.parent.elf.sections.type,keyword,extended,,,ELF Section List type.
+2.0.0-dev+exp,true,process,process.parent.elf.sections.virtual_address,long,extended,,,ELF Section List virtual address.
+2.0.0-dev+exp,true,process,process.parent.elf.sections.virtual_size,long,extended,,,ELF Section List virtual size.
+2.0.0-dev+exp,true,process,process.parent.elf.segments,nested,extended,,,ELF object segment list.
+2.0.0-dev+exp,true,process,process.parent.elf.segments.sections,keyword,extended,,,ELF object segment sections.
+2.0.0-dev+exp,true,process,process.parent.elf.segments.type,keyword,extended,,,ELF object segment type.
+2.0.0-dev+exp,true,process,process.parent.elf.shared_libraries,keyword,extended,array,,List of shared libraries used by this ELF object
+2.0.0-dev+exp,true,process,process.parent.elf.telfhash,keyword,extended,,,telfhash hash for ELF files
 2.0.0-dev+exp,true,process,process.parent.entity_id,keyword,extended,,c2c455d9f99375d,Unique identifier for the process.
 2.0.0-dev+exp,true,process,process.parent.executable,wildcard,extended,,/usr/bin/ssh,Absolute path to the process executable.
 2.0.0-dev+exp,true,process,process.parent.executable.text,text,extended,,/usr/bin/ssh,Absolute path to the process executable.
@@ -698,6 +793,118 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 2.0.0-dev+exp,true,source,source.user.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 2.0.0-dev+exp,true,span,span.id,keyword,extended,,3ff9a8981b7ccd5a,Unique identifier of the span within the scope of its trace.
 2.0.0-dev+exp,true,threat,threat.framework,keyword,extended,,MITRE ATT&CK,Threat classification framework.
+2.0.0-dev+exp,true,threat,threat.indicator.as.number,long,extended,,15169,Unique number allocated to the autonomous system.
+2.0.0-dev+exp,true,threat,threat.indicator.as.organization.name,wildcard,extended,,Google LLC,Organization name.
+2.0.0-dev+exp,true,threat,threat.indicator.as.organization.name.text,text,extended,,Google LLC,Organization name.
+2.0.0-dev+exp,true,threat,threat.indicator.confidence,keyword,extended,,High,Indicator confidence rating
+2.0.0-dev+exp,true,threat,threat.indicator.dataset,keyword,extended,,threatintel.abusemalware,Indicator dataset
+2.0.0-dev+exp,true,threat,threat.indicator.description,wildcard,extended,,IP x.x.x.x was observed delivering the Angler EK.,Indicator description
+2.0.0-dev+exp,true,threat,threat.indicator.domain,keyword,extended,,example.com,Indicator domain name
+2.0.0-dev+exp,true,threat,threat.indicator.email.address,keyword,extended,,phish@example.com,Indicator email address
+2.0.0-dev+exp,true,threat,threat.indicator.file.accessed,date,extended,,,Last time the file was accessed.
+2.0.0-dev+exp,true,threat,threat.indicator.file.attributes,keyword,extended,array,"[""readonly"", ""system""]",Array of file attributes.
+2.0.0-dev+exp,true,threat,threat.indicator.file.code_signature.exists,boolean,core,,true,Boolean to capture if a signature is present.
+2.0.0-dev+exp,true,threat,threat.indicator.file.code_signature.signing_id,keyword,extended,,com.apple.xpc.proxy,The identifier used to sign the process.
+2.0.0-dev+exp,true,threat,threat.indicator.file.code_signature.status,keyword,extended,,ERROR_UNTRUSTED_ROOT,Additional information about the certificate status.
+2.0.0-dev+exp,true,threat,threat.indicator.file.code_signature.subject_name,keyword,core,,Microsoft Corporation,Subject name of the code signer
+2.0.0-dev+exp,true,threat,threat.indicator.file.code_signature.team_id,keyword,extended,,EQHXZ8M8AV,The team identifier used to sign the process.
+2.0.0-dev+exp,true,threat,threat.indicator.file.code_signature.trusted,boolean,extended,,true,Stores the trust status of the certificate chain.
+2.0.0-dev+exp,true,threat,threat.indicator.file.code_signature.valid,boolean,extended,,true,Boolean to capture if the digital signature is verified against the binary content.
+2.0.0-dev+exp,true,threat,threat.indicator.file.created,date,extended,,,File creation time.
+2.0.0-dev+exp,true,threat,threat.indicator.file.ctime,date,extended,,,Last time the file attributes or metadata changed.
+2.0.0-dev+exp,true,threat,threat.indicator.file.device,keyword,extended,,sda,Device that is the source of the file.
+2.0.0-dev+exp,true,threat,threat.indicator.file.directory,wildcard,extended,,/home/alice,Directory where the file is located.
+2.0.0-dev+exp,true,threat,threat.indicator.file.drive_letter,keyword,extended,,C,Drive letter where the file is located.
+2.0.0-dev+exp,true,threat,threat.indicator.file.extension,keyword,extended,,png,"File extension, excluding the leading dot."
+2.0.0-dev+exp,true,threat,threat.indicator.file.gid,keyword,extended,,1001,Primary group ID (GID) of the file.
+2.0.0-dev+exp,true,threat,threat.indicator.file.group,keyword,extended,,alice,Primary group name of the file.
+2.0.0-dev+exp,true,threat,threat.indicator.file.inode,keyword,extended,,256383,Inode representing the file in the filesystem.
+2.0.0-dev+exp,true,threat,threat.indicator.file.mime_type,keyword,extended,,,"Media type of file, document, or arrangement of bytes."
+2.0.0-dev+exp,true,threat,threat.indicator.file.mode,keyword,extended,,0640,Mode of the file in octal representation.
+2.0.0-dev+exp,true,threat,threat.indicator.file.mtime,date,extended,,,Last time the file content was modified.
+2.0.0-dev+exp,true,threat,threat.indicator.file.name,keyword,extended,,example.png,"Name of the file including the extension, without the directory."
+2.0.0-dev+exp,true,threat,threat.indicator.file.owner,keyword,extended,,alice,File owner's username.
+2.0.0-dev+exp,true,threat,threat.indicator.file.path,wildcard,extended,,/home/alice/example.png,"Full path to the file, including the file name."
+2.0.0-dev+exp,true,threat,threat.indicator.file.path.text,text,extended,,/home/alice/example.png,"Full path to the file, including the file name."
+2.0.0-dev+exp,true,threat,threat.indicator.file.size,long,extended,,16384,File size in bytes.
+2.0.0-dev+exp,true,threat,threat.indicator.file.target_path,wildcard,extended,,,Target path for symlinks.
+2.0.0-dev+exp,true,threat,threat.indicator.file.target_path.text,text,extended,,,Target path for symlinks.
+2.0.0-dev+exp,true,threat,threat.indicator.file.type,keyword,extended,,file,"File type (file, dir, or symlink)."
+2.0.0-dev+exp,true,threat,threat.indicator.file.uid,keyword,extended,,1001,The user ID (UID) or security identifier (SID) of the file owner.
+2.0.0-dev+exp,true,threat,threat.indicator.first_seen,date,extended,,2020-11-05T17:25:47.000Z,Date/time indicator was first reported.
+2.0.0-dev+exp,true,threat,threat.indicator.geo.city_name,keyword,core,,Montreal,City name.
+2.0.0-dev+exp,true,threat,threat.indicator.geo.continent_code,keyword,core,,NA,Continent code.
+2.0.0-dev+exp,true,threat,threat.indicator.geo.continent_name,keyword,core,,North America,Name of the continent.
+2.0.0-dev+exp,true,threat,threat.indicator.geo.country_iso_code,keyword,core,,CA,Country ISO code.
+2.0.0-dev+exp,true,threat,threat.indicator.geo.country_name,keyword,core,,Canada,Country name.
+2.0.0-dev+exp,true,threat,threat.indicator.geo.location,geo_point,core,,"{ ""lon"": -73.614830, ""lat"": 45.505918 }",Longitude and latitude.
+2.0.0-dev+exp,true,threat,threat.indicator.geo.name,wildcard,extended,,boston-dc,User-defined description of a location.
+2.0.0-dev+exp,true,threat,threat.indicator.geo.postal_code,keyword,core,,94040,Postal code.
+2.0.0-dev+exp,true,threat,threat.indicator.geo.region_iso_code,keyword,core,,CA-QC,Region ISO code.
+2.0.0-dev+exp,true,threat,threat.indicator.geo.region_name,keyword,core,,Quebec,Region name.
+2.0.0-dev+exp,true,threat,threat.indicator.geo.timezone,keyword,core,,America/Argentina/Buenos_Aires,Time zone.
+2.0.0-dev+exp,true,threat,threat.indicator.hash.md5,keyword,extended,,,MD5 hash.
+2.0.0-dev+exp,true,threat,threat.indicator.hash.sha1,keyword,extended,,,SHA1 hash.
+2.0.0-dev+exp,true,threat,threat.indicator.hash.sha256,keyword,extended,,,SHA256 hash.
+2.0.0-dev+exp,true,threat,threat.indicator.hash.sha512,keyword,extended,,,SHA512 hash.
+2.0.0-dev+exp,true,threat,threat.indicator.hash.ssdeep,keyword,extended,,,SSDEEP hash.
+2.0.0-dev+exp,true,threat,threat.indicator.ip,ip,extended,,1.2.3.4,Indicator IP address
+2.0.0-dev+exp,true,threat,threat.indicator.last_seen,date,extended,,2020-11-05T17:25:47.000Z,Date/time indicator was last reported.
+2.0.0-dev+exp,true,threat,threat.indicator.marking.tlp,keyword,extended,,White,Indicator TLP marking
+2.0.0-dev+exp,true,threat,threat.indicator.matched.atomic,keyword,extended,,example.com,Indicator atomic match
+2.0.0-dev+exp,true,threat,threat.indicator.matched.field,keyword,extended,,file.hash.sha256,Indicator field match
+2.0.0-dev+exp,true,threat,threat.indicator.matched.type,keyword,extended,,domain-name,Indicator type match
+2.0.0-dev+exp,true,threat,threat.indicator.module,keyword,extended,,threatintel,Indicator module
+2.0.0-dev+exp,true,threat,threat.indicator.pe.architecture,keyword,extended,,x64,CPU architecture target for the file.
+2.0.0-dev+exp,true,threat,threat.indicator.pe.authentihash,keyword,extended,,ac9555d914bbb112ecc5f15bb9887ca8371f493ab0941344e976bb8410c8aa78,Authentihash of the PE file.
+2.0.0-dev+exp,true,threat,threat.indicator.pe.company,keyword,extended,,Microsoft Corporation,"Internal company name of the file, provided at compile-time."
+2.0.0-dev+exp,true,threat,threat.indicator.pe.compile_timestamp,date,extended,,2020-11-05T17:25:47.000Z,Compile timestamp of the PE file.
+2.0.0-dev+exp,true,threat,threat.indicator.pe.compiler.name,keyword,extended,,Clang,Name of the compiler
+2.0.0-dev+exp,true,threat,threat.indicator.pe.compiler.version,keyword,extended,,11.0.0,Version of the compiler.
+2.0.0-dev+exp,true,threat,threat.indicator.pe.creation_date,date,extended,,2020-11-05T17:25:47.000Z,Build or compile date.
+2.0.0-dev+exp,true,threat,threat.indicator.pe.debug,nested,extended,array,,Debug information
+2.0.0-dev+exp,true,threat,threat.indicator.pe.debug.offset,keyword,extended,,1296336,Debug offset information.
+2.0.0-dev+exp,true,threat,threat.indicator.pe.debug.size,long,extended,,816,Size of the debug information.
+2.0.0-dev+exp,true,threat,threat.indicator.pe.debug.timestamp,date,extended,,2020-11-05T17:25:47.000Z,Timestamp of the debug information.
+2.0.0-dev+exp,true,threat,threat.indicator.pe.debug.type,keyword,extended,,IMAGE_DEBUG_TYPE_POGO,Information type generated by the debug options.
+2.0.0-dev+exp,true,threat,threat.indicator.pe.description,keyword,extended,,Paint,"Internal description of the file, provided at compile-time."
+2.0.0-dev+exp,true,threat,threat.indicator.pe.entry_point,keyword,extended,,25856,Relative byte offset to the base of the PE file.
+2.0.0-dev+exp,true,threat,threat.indicator.pe.exports,keyword,extended,array,"[""DllInstall"", ""DllRegisterServer"", ""DllUnregisterServer""]",List of symbols exported by PE
+2.0.0-dev+exp,true,threat,threat.indicator.pe.file_version,keyword,extended,,6.3.9600.17415,Process name.
+2.0.0-dev+exp,true,threat,threat.indicator.pe.icon.hash.dhash,keyword,extended,,b806e17c8e330d82,Difference Hash (dhash) to find files with a visually similar icon or thumbnail.
+2.0.0-dev+exp,true,threat,threat.indicator.pe.imphash,keyword,extended,,0c6803c4e922103c4dca5963aad36ddf,A hash of the imports in a PE file.
+2.0.0-dev+exp,true,threat,threat.indicator.pe.imports,flattened,extended,,"{ ""library_name"" : ""mscoree.dll"", ""imported_functions"" : ""GetFileVersionInfoSizeA"" }",List of all imported functions
+2.0.0-dev+exp,true,threat,threat.indicator.pe.machine_type,keyword,extended,,"Intel 386 or later, and compatibles",Machine type of the PE file.
+2.0.0-dev+exp,true,threat,threat.indicator.pe.original_file_name,wildcard,extended,,MSPAINT.EXE,"Internal name of the file, provided at compile-time."
+2.0.0-dev+exp,true,threat,threat.indicator.pe.packers,keyword,extended,array,"[""ASPack v2.12"", "".NET executable""]",List of packers and tools used.
+2.0.0-dev+exp,true,threat,threat.indicator.pe.product,keyword,extended,,Microsoft® Windows® Operating System,"Internal product name of the file, provided at compile-time."
+2.0.0-dev+exp,true,threat,threat.indicator.pe.resources,nested,extended,array,,PE resource information
+2.0.0-dev+exp,true,threat,threat.indicator.pe.resources.chi2,long,extended,,-1,Chi-square probability distribution.
+2.0.0-dev+exp,true,threat,threat.indicator.pe.resources.entropy,long,extended,,"0, 1",Measurement of entropy randomness in the resources section.
+2.0.0-dev+exp,true,threat,threat.indicator.pe.resources.filetype,keyword,extended,,Data,File type of the resources section.
+2.0.0-dev+exp,true,threat,threat.indicator.pe.resources.language,keyword,extended,,CHINESE SIMPLIFIED,Language identification.
+2.0.0-dev+exp,true,threat,threat.indicator.pe.resources.sha256,keyword,extended,,e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855,SHA256 hash of resources section.
+2.0.0-dev+exp,true,threat,threat.indicator.pe.resources.type,keyword,extended,array,"[""RT_VERSION"", ""RT_MANIFEST""]",List of resource types.
+2.0.0-dev+exp,true,threat,threat.indicator.pe.rich_header.hash.md5,keyword,extended,,5aa1aa0f2b4be70397a1e9e2b87627cd,MD5 hash of the header for the PE file.
+2.0.0-dev+exp,true,threat,threat.indicator.pe.sections,nested,extended,array,,Data about sections of the compiled binary PE
+2.0.0-dev+exp,true,threat,threat.indicator.pe.sections.chi2,long,extended,,3027194,Chi-square probability distribution.
+2.0.0-dev+exp,true,threat,threat.indicator.pe.sections.entropy,float,extended,,6.24,Measurement of entropy randomness in the file.
+2.0.0-dev+exp,true,threat,threat.indicator.pe.sections.flags,keyword,extended,,rx,Section flags of the file.
+2.0.0-dev+exp,true,threat,threat.indicator.pe.sections.name,keyword,extended,,".text, .data",Section names of the file.
+2.0.0-dev+exp,true,threat,threat.indicator.pe.sections.raw_size,long,extended,,198144,Size of the section or the dize of the initialized data on disk.
+2.0.0-dev+exp,true,threat,threat.indicator.pe.sections.virtual_address,long,extended,,8192,Virtual address available to the file.
+2.0.0-dev+exp,true,threat,threat.indicator.port,long,extended,,443,Indicator port
+2.0.0-dev+exp,true,threat,threat.indicator.provider,keyword,extended,,VirusTotal,Identifies the name of the intelligence provider.
+2.0.0-dev+exp,true,threat,threat.indicator.registry.data.bytes,keyword,extended,,ZQBuAC0AVQBTAAAAZQBuAAAAAAA=,Original bytes written with base64 encoding.
+2.0.0-dev+exp,true,threat,threat.indicator.registry.data.strings,wildcard,core,array,"[""C:\rta\red_ttp\bin\myapp.exe""]",List of strings representing what was written to the registry.
+2.0.0-dev+exp,true,threat,threat.indicator.registry.data.type,keyword,core,,REG_SZ,Standard registry type for encoding contents
+2.0.0-dev+exp,true,threat,threat.indicator.registry.hive,keyword,core,,HKLM,Abbreviated name for the hive.
+2.0.0-dev+exp,true,threat,threat.indicator.registry.key,wildcard,core,,SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\winword.exe,Hive-relative path of keys.
+2.0.0-dev+exp,true,threat,threat.indicator.registry.path,wildcard,core,,HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\winword.exe\Debugger,"Full path, including hive, key and value"
+2.0.0-dev+exp,true,threat,threat.indicator.registry.value,keyword,core,,Debugger,Name of the value written.
+2.0.0-dev+exp,true,threat,threat.indicator.scanner_stats,long,extended,,4,Scanner statistics
+2.0.0-dev+exp,true,threat,threat.indicator.sightings,long,extended,,20,Number of times indicator observed
+2.0.0-dev+exp,true,threat,threat.indicator.type,keyword,extended,,ipv4-addr,Type of indicator
 2.0.0-dev+exp,true,threat,threat.tactic.id,keyword,extended,array,TA0002,Threat tactic id.
 2.0.0-dev+exp,true,threat,threat.tactic.name,keyword,extended,array,Execution,Threat tactic.
 2.0.0-dev+exp,true,threat,threat.tactic.reference,keyword,extended,array,https://attack.mitre.org/tactics/TA0002/,Threat tactic URL reference.
