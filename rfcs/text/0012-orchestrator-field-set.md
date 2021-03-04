@@ -32,12 +32,6 @@ The proposed change adds six fields, as described below:
     act upon.
   type: group
   fields:
-    - name: cluster
-      level: extended
-      type: object
-      description: >
-        Orchestrator cluster details.
-
     - name: cluster.name
       level: extended
       type: keyword
