@@ -258,6 +258,10 @@ Stage 4: Identify at least one real-world, production-ready implementation that 
 The following are the people that consulted on the contents of this RFC.
 
 * @ferozsalam | author
+* @exekias | sponsor
+* @ChrsMark | subject matter expert
+* @jsoriano | subject matter expert
+* @kaiyan-sheng | subject matter expert
 
 ## References
 
