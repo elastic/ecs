@@ -19,7 +19,7 @@ add a new schema rather than change existing material.
 
 ## Fields
 
-The proposed change adds six fields, as described below:
+The proposed change adds nine fields, as described below:
 
 ```
 ---
@@ -228,9 +228,9 @@ The key concern here is the dominance of one particular container orchestration
 system - Kubernetes - over the rest of the ecosystem. Other orchestrators include
 options like HashiCorp Nomad, Docker Swarm, and Apache Mesos, but it is unclear to
 what extent the alternatives share the same logical primitives as Kubernetes. An
-attempt has been made to ensure that the proposed field set is as generic and flexible 
+attempt has been made to ensure that the proposed field set is as generic and flexible
 as possible, however it would be useful to consider in some detail whether the
-preference is to keep the field set as generic as possible, or large enough to 
+preference is to keep the field set as generic as possible, or large enough to
 cover all the logical primitives of popular orchestrators. Input from contributors
 who have experience with the various alternative orchestration providers would be
 particularly valuable.
