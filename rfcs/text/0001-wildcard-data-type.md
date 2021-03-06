@@ -27,16 +27,14 @@ For a field to use wildcard, it will require changing the field's defined schema
 | [`destination`](0001/destination.yml) | `destination.domain`<br> `destination.registered_domain` |
 | [`dns`](0001/dns.yml) | `dns.question.name`<br> `dns.answers.data` |
 | [`error`](0001/error.yml) | `error.stack_trace`<br> `error.type` |
-| [`file`](0001/file.yml) | `file.directory`<br> `file.path`<br> `file.target_path` |
 | [`geo`](0001/geo.yml) | `geo.name` |
 | [`host`](0001/host.yml) | `host.hostname`<br> |
 | [`http`](0001/http.yml) | `http.request.referrer`<br> `http.request.body.content`<br> `http.response.body.content` |
-| [`log`](0001/log.yml) | `log.file.path`<br> `log.logger` |
 | [`organization`](0001/organization.yml) | `organization.name` |
 | [`os`](0001/os.yml) | `os.name`<br> `os.full` |
 | [`pe`](0001/pe.yml) | `pe.original_file_name` |
 | [`process`](0001/process.yml) | `process.command_line`<br> `process.executable`<br> `process.name`<br> `process.thread.name`<br> `process.title`<br> `process.working_directory`<br> |
-| [`registry`](0001/registry.yml) | `registry.key`<br> `registry.path`<br> `registry.data.strings` |
+| [`registry`](0001/registry.yml) | `registry.key`<br> `registry.data.strings` |
 | [`server`](0001/server.yml) | `server.domain`<br> `server.registered_domain` |
 | [`source`](0001/source.yml) | `source.domain`<br> `source.registered_domain` |
 | [`tls`](0001/tls.yml) | `tls.client.issuer`<br> `tls.client.subject`<br> `tls.server.issuer`<br> `tls.server.subject` |
@@ -177,18 +175,6 @@ Since deciding between `wildcard` and `keyword` involves weighing tradeoffs, thi
 ### Use Cases
 
 The following sections detail use cases which could benefit using the `wildcard` type.
-
-#### Paths
-
-* Flexible nesting of a file path: `file.path:*\\Users\\*\\Temp\\*`
-* Match under registry path: `registry.path:\\HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Image File Execution Options\\*\\Debugger`
-* A unique URL path: `url.full:https://api.example.com/account/*/foobar`
-
-The following are common categories
-
-* File and directory paths
-* URLs
-* Registry data
 
 #### Names
 
