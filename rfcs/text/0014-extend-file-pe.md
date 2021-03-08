@@ -334,7 +334,7 @@ The following are the people that consulted on the contents of this RFC.
 <!-- An RFC should link to the PRs for each of it stage advancements. -->
 
 * Stage 1: https://github.com/elastic/ecs/pull/1071
-* Stage 2:
+* Stage 2: https://github.com/elastic/ecs/pull/1295
 
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN
