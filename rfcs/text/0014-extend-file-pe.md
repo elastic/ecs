@@ -1,6 +1,6 @@
 # 0014: Extend the PE field set
 
-- Stage: **1 (draft)**
+- Stage: **2 (draft)**
 - Date: **2021-02-08**
 
 The Portable Executable (PE) sub-field, of the `file` top-level fieldset, can be updated to include more file attributes to aid in file analysis. This additional document metadata can be used for malware research, as well as coding and other application development efforts.
@@ -65,6 +65,7 @@ As another example, tracking file metadata for specific families is useful in pr
 
 This type of data can be provided by logs from VirusTotal, Reversing Labs, Lockheed Martin's LAIKABOSS, Emerson's File Scanning Framework, Target's Strelka, or other file/malware analysis platforms.
 
+* [Elastic Threat Intel Filebeat Module](https://www.elastic.co/guide/en/beats/filebeat/master/filebeat-module-threatintel.html)
 * [VirusTotal Filebeat module PR](https://github.com/elastic/beats/pull/21815)
 * [VirusTotal API](https://developers.virustotal.com/v3.0/reference)
 * [Emerson FSF](https://github.com/EmersonElectricCo/fsf)
@@ -77,17 +78,217 @@ Stage 1: Provide a high-level description of example sources of data. This does 
 
 <!--
 Stage 2: Included a real world example source document. Ideally this example comes from the source(s) identified in stage 1. If not, it should replace them. The goal here is to validate the utility of these field changes in the context of a real world example. Format with the source name as a ### header and the example document in a GitHub code block with json formatting.
+https[://]c4a08b8258a848efb518dcea18a1d11e[.]us-central1[.]gcp[.]cloud[.]es[.]io/goto/51d883b52d4ad99d9200c1b25cf1b5c9
 -->
-
+```
+"file": {
+  "pe": {
+    "machine_type": 332,
+    "flattened": {
+      "debug": [
+        {
+          "codeview": {
+            "signature": "RSDS",
+            "name": "G:\\Work\\new\\2345Pinyin\\bin\\Win32\\Release\\pdb\\2345PinyinSymbol.pdb",
+            "guid": "c27b9b78-caab-4629-9bf7-6acb4b63ac18",
+            "age": 1
+          },
+          "offset": 350324,
+          "size": 90,
+          "type_str": "IMAGE_DEBUG_TYPE_CODEVIEW",
+          "type": 2,
+          "timestamp": "Tue Jan 26 09:13:07 2021"
+        }
+      ],
+      "resources": [
+        {
+          "chi2": 257629.96875,
+          "filetype": "Data",
+          "entropy": 3.32720947265625,
+          "sha256": "49ba440033219598d7a9e5e27f5185063634c379dfaf4b188e49f0f43572beef",
+          "type": "RT_ICON",
+          "lang": "CHINESE SIMPLIFIED"
+        }
+      ]
+    },
+    "file_version": "7.4.0.8215",
+    "product": "2345王牌输入法",
+    "imports": [
+      {
+        "name": "GetStdHandle",
+        "library_name": "KERNEL32.dll",
+        "type": "function"
+      }
+    ],
+    "comments": "pinyin.2345.cc",
+    "overlay": {
+      "chi2": 26219.931640625,
+      "filetype": "Data",
+      "entropy": 7.256883144378662,
+      "offset": 480768,
+      "size": 14512,
+      "md5": "9a620f3583cc366f44e66df2a0f949a3"
+    },
+    "description": "2345王牌输入法-特殊符号输入器",
+    "creation_date": "2021-01-26T09:13:07.000Z",
+    "compilers": [
+      "id: 241, version: 40116 count=14",
+      "id: 243, version: 40116 count=153",
+      "id: 242, version: 40116 count=30",
+      "id: 259, version: 26706 count=25",
+      "id: 261, version: 26706 count=74",
+      "id: 260, version: 26706 count=35",
+      "id: 261, version: 27032 count=2",
+      "[ C ] VS2008 SP1 build 30729 count=5",
+      "[---] Unmarked objects count=344",
+      "[IMP] VS2008 SP1 build 30729 count=21",
+      "[---] Unmarked objects (old) count=1",
+      "id: 260, version: 27026 count=1",
+      "id: 265, version: 27026 count=131",
+      "id: 255, version: 27026 count=1",
+      "id: 151, version: 0 count=1",
+      "id: 258, version: 27026 count=1"
+    ],
+    "sections": [
+      {
+        "chi2": 1829004.63,
+        "virtual_address": 4096,
+        "entropy": 6.49,
+        "flags": "rx",
+        "name": ".text",
+        "raw_size": 260096,
+        "virtual_size": 259926,
+        "md5": "c001ed496e2cad5bb280d0d0bd97d4b4"
+      }
+    ],
+    "compile_timestamp": "2021-01-26T09:13:07.000Z",
+    "imphash": "12b9b9807742673c75c934de534f2014",
+    "original_file_name": "2345PinyinSymbol.exe",
+    "company": "版权所有(c) 2020, 2345移动科技",
+    "main_icon": {
+      "hash": {
+        "dhash": "e0c8f0b0b0acc071",
+        "md5": "8f852053f4dc483d5e25b2a663a4b0b4"
+      }
+    },
+    "entry_point": 165321,
+    "hash": {
+      "authentihash": "f489ddcf530ae777496441f1409989015ab9e32e57f5f5d7e51e6908ee1dc503"
+    },
+    "rich_pe_header": {
+      "hash": "47fc0aa8f66db08a535d296e0ee33f3c"
+    }
+  },
+  "name": [
+    "2345PinyinSymbol",
+    "2345PinyinSymbol.exe"
+  ],
+  "hash": {
+    "sha1": "39cba24308eaf3fd30c56978575a03e7a0e23ae6",
+    "sha256": "b707992a7f7bc4faa16cc1ed15ab1678356043fb4df89f534a87b94a686984f3",
+    "tlsh": "T1E3B42A117744D431D4A1027A09B4CEBA406AAD141FA2E9D733F47E79D830AF2AE73BE5",
+    "ssdeep": "6144:nxShDI04K5kYoybalj9IeTE55EAOOZ0MFYTBwZRm/wgt:nc/2Fyulj3EE8Z0MFYTqswgt",
+    "md5": "8a7dccc6914b4a495881c7d60afb0975"
+  }
+}
+```
+```
+"file": {
+  "size": 83968,
+  "mime_type": "application/vnd.microsoft.portable-executable",
+  "pe": {
+    "flattened": {
+      "resources": [
+        {
+          "chi2": 64265.625,
+          "filetype": "Data",
+          "entropy": 3.4589288234710693,
+          "sha256": "9380912d6091f82b8fcbf9b9870f2fb9c35cc8625672645d16ef8ba0f9fb4734",
+          "lang": "ITALIAN",
+          "type": "RT_VERSION"
+        },
+        {
+          "chi2": 4031.47216796875,
+          "filetype": "application/xml",
+          "entropy": 4.911615371704102,
+          "sha256": "4bb79dcea0a901f7d9eac5aa05728ae92acb42e0cb22e5dd14134f4421a3d8df",
+          "lang": "ENGLISH US",
+          "type": "RT_MANIFEST"
+        }
+      ]
+    },
+    "machine_type": 332,
+    "file_version": "12, 0, 6, 0 VS=14.0",
+    "product": "wintest.exe",
+    "imports": [
+      {
+        "name": "Sleep_bs",
+        "library_name": "WrapperINtime.dll",
+        "type": "function"
+      }
+    ],
+    "description": "wintest.exe",
+    "creation_date": "2017-03-30T16:52:41.000Z",
+    "compilers": [
+      "id: 203, version: 65501 count=2",
+      "[IMP] VS2013 build 21005 count=2",
+      "[ASM] VS2013 build 21005 count=3",
+      "[ C ] VS2013 build 21005 count=20",
+      "[C++] VS2013 build 21005 count=2",
+      "[IMP] VS2013 UPD5 build 40629 count=7",
+      "[---] Unmarked objects count=107",
+      "[ C ] VS2013 UPD5 build 40629 count=12",
+      "[RES] VS2013 build 21005 count=1",
+      "id: 151, version: 0 count=1",
+      "[LNK] VS2013 UPD5 build 40629 count=1"
+    ],
+    "sections": [
+      {
+        "chi2": 405468.38,
+        "virtual_address": 4096,
+        "entropy": 6.36,
+        "flags": "rx",
+        "name": ".text",
+        "raw_size": 58880,
+        "virtual_size": 58850,
+        "md5": "17f17d7c240ed150b96e50f98ec7836c"
+      }
+    ],
+    "compile_timestamp": "2017-03-30T16:52:41.000Z",
+    "imphash": "065313b32ca000e450a7a2a4038f3efc",
+    "original_file_name": "wintest.exe",
+    "company": "Copyright (C) 2008",
+    "entry_point": 61399,
+    "hash": {
+      "authentihash": "bbf16a08a7ff9ffd7cde34cee911f3ba3ec194d19d0552df413310df1eb7203e"
+    },
+    "rich_pe_header": {
+      "hash": "a4a8c20318bd433fc9503a52e432e7d7"
+    }
+  },
+  "name": [
+    "_0A087DC7FCE99DF60AED024FD23338D2",
+    "wintest.exe"
+  ],
+  "hash": {
+    "sha1": "7f19e5ef7e492d5dc0950c58fbf72497b0b25d17",
+    "sha256": "3a41bcfd3345ac98cea249a0cb3845f19742e4932dbdb0d7b9f498fc0ae290b1",
+    "tlsh": "T15D834B41F98EA071F0DE82FA1AA13B734A3D7A32872145D3B74E2DC1AB116D0547EB5B",
+    "ssdeep": "1536:/IOtsMCESUNxcWH3azqH1/XjPNZus3qS42a0GK4thM2AoMifZmmA3lF/KRgcLiY3:/fsMHSWeWXQc1/z14SK0GK4thM2ZFZmh",
+    "md5": "561cb328ba9b713f2c6610f0d26c3ccf"
+  }
+}
+```
 <!--
 Stage 3: Add more real world example source documents so we have at least 2 total, but ideally 3. Format as described in stage 2.
 -->
 
 ## Scope of impact
 
-There should be no breaking changes, depreciation strategies, or significant refactoring as this is extending the existing fieldset.
+There should be no breaking changes, depreciation strategies, or significant refactoring as this is creating a sub-field for the existing file. fieldset.
 
-While likely not a large-scale ECS project, there would be documentation updates needed to explain the new fields.
+* Ingestion mechanism - Elastic Threat Intel Filebeat module (https://www.elastic.co/guide/en/beats/filebeat/master/exported-fields-threatintel.html), Elastic VirusTotal Live Hunt Filebeat module (https://github.com/elastic/beats/pull/21815)
+* Usage mechanisms - threat hunting, file analysis, identifying file similarities
 
 <!--
 Stage 2: Identifies scope of impact of changes. Are breaking changes required? Should deprecation strategies be adopted? Will significant refactoring be involved? Break the impact down into:
@@ -121,6 +322,7 @@ The following are the people that consulted on the contents of this RFC.
 
 ## References
 
+* [Elastic Threat Intel Filebeat Module](https://www.elastic.co/guide/en/beats/filebeat/master/exported-fields-threatintel.html)
 * [VirusTotal Filebeat module PR](https://github.com/elastic/beats/pull/21815)
 * [VirusTotal API](https://developers.virustotal.com/v3.0/reference)
 * [Emerson FSF](https://github.com/EmersonElectricCo/fsf)
@@ -132,6 +334,7 @@ The following are the people that consulted on the contents of this RFC.
 <!-- An RFC should link to the PRs for each of it stage advancements. -->
 
 * Stage 1: https://github.com/elastic/ecs/pull/1071
+* Stage 2:
 
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN
