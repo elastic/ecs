@@ -1,7 +1,7 @@
 # 0008: Cyber Threat Intelligence Fields
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
-- Stage: **1 (draft)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
+- Stage: **2 (draft)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
 - Date: **2021-02-18** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 Elastic Security Solution will be adding the capability to ingest, process and utilize threat intelligence information for increasing detection coverage and helping analysts make quicker investigation decisions. Threat intelligence can be collected from a number of sources with a variety of structured and semi-structured data representations. This makes threat intelligence an ideal candidate for ECS mappings. Threat intelligence data will require ECS mappings to normalize it and make it usable in our security solution. This RFC is focused on identifying new field sets and values that need to be created for threat intelligence data. Existing ECS field reuse will be prioritized where possible. If new fields are required we will utilize [STIX Cyber Observable data model](https://docs.oasis-open.org/cti/stix/v2.1/cs01/stix-v2.1-cs01.html#_mlbmudhl16lr) as guidance.
@@ -262,109 +262,47 @@ There are many sources of threat intelligence including open source, closed sour
 
 These sources typically provide intelligence that can be downloaded through REST API or in some cases downloadable CSV's or text files. These intelligence sources will update their data repositories at varying intervals.
 
-#### Abuse.ch Feodo Tracker
-This dataset from Abuse.ch provides a list of botnet C&C servers associated with the Feodo malware family (Dridex, Emotet).
-```
-# Firstseen,DstIP,DstPort,LastOnline,Malware
-2020-10-29 19:16:38,181.120.29.49,80,2020-11-02,Heodo
-2020-10-29 19:16:35,190.45.24.210,80,2020-11-02,Heodo
-2020-10-29 19:16:32,109.242.153.9,80,2020-11-02,Heodo
-2020-10-29 19:16:28,169.1.39.242,80,2020-11-02,Heodo
-2020-10-29 19:14:24,201.171.244.130,80,2020-11-02,Heodo
-2020-10-29 19:14:20,64.207.182.168,8080,2020-11-02,Heodo
-2020-10-29 19:14:19,173.173.254.105,80,2020-11-02,Heodo
-2020-10-29 19:14:16,153.204.122.254,80,2020-10-30,Heodo
-2020-10-29 19:14:13,201.163.74.203,80,2020-11-02,Heodo
-```
+- Abuse.ch Malware - This dataset from Abuse.ch provides a list of malware hashes.
+- Abuse.ch URL - This dataset from Abuse.ch provides a list of malware URLs.
+- AlienVault OTX - This dataset from AlienVault provides a list of malware hashes, URLs, and IPs.
+- Anomali Limo - This dataset from Anomali provides threat information from the Limo service.
+
 <!--
 Stage 2: Included a real world example source document. Ideally this example comes from the source(s) identified in stage 1. If not, it should replace them. The goal here is to validate the utility of these field changes in the context of a real world example. Format with the source name as a ### header and the example document in a GitHub code block with json formatting.
 -->
 
-#### Botvrij.eu
-
-Freely available source of indicators which includes Network indicators, File Details, Email and Registry Key
-
+#### Abuse.ch Malware List
+This dataset from Abuse.ch provides a list of malware hashes.
 ```
-cc2477cf4d596a88b349257cba3ef356 # md5 - AZORult spreads as a fake ProtonVPN installer (191)
-573ff02981a5c70ae6b2594b45aa7caa # md5 - AZORult spreads as a fake ProtonVPN installer (191)
-c961a3e3bd646ed0732e867310333978 # md5 - AZORult spreads as a fake ProtonVPN installer (191)
-2a98e06c3310309c58fb149a8dc7392c # md5 - AZORult spreads as a fake ProtonVPN installer (191)
-f21c21c2fceac5118ebf088653275b4f # md5 - AZORult spreads as a fake ProtonVPN installer (191)
-0ae37532a7bbce03e7686eee49441c41 # md5 - AZORult spreads as a fake ProtonVPN installer (191)
-974b6559a6b45067b465050e5002214b # md5 - AZORult spreads as a fake ProtonVPN installer (191)
-7966c2c546b71e800397a67f942858d0 # md5 - This Is Not a Test: APT41 Initiates Global Intrusion Campaign Using Multiple Exploits (194)
-5909983db4d9023e4098e56361c96a6f # md5 - This Is Not a Test: APT41 Initiates Global Intrusion Campaign Using Multiple Exploits (194)
-3e856162c36b532925c8226b4ed3481c # md5 - This Is Not a Test: APT41 Initiates Global Intrusion Campaign Using Multiple Exploits (194)
-659bd19b562059f3f0cc978e15624fd9 # md5 - This Is Not a Test: APT41 Initiates Global Intrusion Campaign Using Multiple Exploits (194)
-
+{"md5_hash":"7871286a8f1f68a14b18ae475683f724","sha256_hash":"48a6aee18bcfe9058b35b1018832aef1c9efd8f50ac822f49abb484a5e2a4b1f","file_type":"dll","file_size":"277504","signature":null,"firstseen":"2021-01-14 06:14:05","urlhaus_download":"https://urlhaus-api.abuse.ch/v1/download/48a6aee18bcfe9058b35b1018832aef1c9efd8f50ac822f49abb484a5e2a4b1f/","virustotal":null,"imphash":"68aea345b134d576ccdef7f06db86088","ssdeep":"6144:+60EDP6uCLfGw/GpxXinM1BCo1PlumGx2mx2tXd0t115JG5:X5DpBw/KViMTB1MnEWk0115JW","tlsh":"1344D022AD13DD37E1F400FCA6A58F8561626E381F00A89777D41F8A98356F1BB2B717"}
+{"md5_hash":"7b4c77dc293347b467fb860e34515163","sha256_hash":"ec59538e8de8525b1674b3b8fe0c180ac822145350bcce054ad3fc6b95b1b5a4","file_type":"dll","file_size":"277504","signature":null,"firstseen":"2021-01-14 06:11:41","urlhaus_download":"https://urlhaus-api.abuse.ch/v1/download/ec59538e8de8525b1674b3b8fe0c180ac822145350bcce054ad3fc6b95b1b5a4/","virustotal":null,"imphash":"68aea345b134d576ccdef7f06db86088","ssdeep":"6144:+60EDP6uCLfGw/GpxXinM1BCo1PlumGx2mx2tXd0t115JGY:X5DpBw/KViMTB1MnEWk0115Jr","tlsh":"4E44D022AD13DD37E1F400FCA6A58F8561626E381F00A89777D41F8A98356F1BB2B717"}
+{"md5_hash":"373d34874d7bc89fd4cefa6272ee80bf","sha256_hash":"b0e914d1bbe19433cc9df64ea1ca07fe77f7b150b511b786e46e007941a62bd7","file_type":"dll","file_size":"277504","signature":null,"firstseen":"2021-01-14 06:11:22","urlhaus_download":"https://urlhaus-api.abuse.ch/v1/download/b0e914d1bbe19433cc9df64ea1ca07fe77f7b150b511b786e46e007941a62bd7/","virustotal":{"result":"25 / 66","percent":"37.88","link":"https://www.virustotal.com/gui/file/b0e914d1bbe19433cc9df64ea1ca07fe77f7b150b511b786e46e007941a62bd7/detection/f-b0e914d"},"imphash":"68aea345b134d576ccdef7f06db86088","ssdeep":"6144:+60EDP6uCLfGw/GpxXinM1BCo1PlumGx2mx2tXd0t115JGG:X5DpBw/KViMTB1MnEWk0115Jd","tlsh":"7544D022AD13DD37E1F400FCA6A58F8561626E381F00A89777D41F8A98356F1BB2B717"}
 ```
+
+#### Abuse.ch URL List
+This dataset from Abuse.ch provides a list of botnet C&C servers associated with malware.
+```
+{"id":"961548","urlhaus_reference":"https://urlhaus.abuse.ch/url/961548/","url":"http://103.72.223.103:34613/Mozi.m","url_status":"online","host":"103.72.223.103","date_added":"2021-01-14 21:19:13 UTC","threat":"malware_download","blacklists":{"spamhaus_dbl":"not listed","surbl":"not listed"},"reporter":"lrz_urlhaus","larted":"false","tags":["elf","Mozi"]}
+{"id":"961546","urlhaus_reference":"https://urlhaus.abuse.ch/url/961546/","url":"http://112.30.97.184:44941/Mozi.m","url_status":"online","host":"112.30.97.184","date_added":"2021-01-14 21:19:05 UTC","threat":"malware_download","blacklists":{"spamhaus_dbl":"not listed","surbl":"not listed"},"reporter":"lrz_urlhaus","larted":"false","tags":["elf","Mozi"]}
+{"id":"961547","urlhaus_reference":"https://urlhaus.abuse.ch/url/961547/","url":"http://113.110.198.53:37173/Mozi.m","url_status":"online","host":"113.110.198.53","date_added":"2021-01-14 21:19:05 UTC","threat":"malware_download","blacklists":{"spamhaus_dbl":"not listed","surbl":"not listed"},"reporter":"lrz_urlhaus","larted":"false","tags":["elf","Mozi"]}
+```
+
 #### AlienVault OTX
-
-Rest Endpoint: `/api/v1/indicators/export`
-
-Schema
+This dataset from AlienVault provides a list of malware hashes, URLs, and IPs.
 ```
-{
-  "$schema": "http://json-schema.org/draft-04/schema",
-  "additionalProperties": false,
-  "required": ["count", "next", "results", "previous"],
-  "properties": {
-    "count": {"type": "integer"},
-    "next": {"type": ["string", "null"]},
-    "results": {
-        "type": "array",
-        "items": {
-            "additionalProperties": false,
-            "required": ["indicator", "title", "content", "type", "id", "description"],
-            "properties": {
-                "indicator": {"type": "string"},
-                "title": {"type": ["string", "null"]},
-                "content": {"type": ["string", "null"]},
-                "type": {"type": "string"},
-                "id": {"type": "integer"},
-                "description": {"type": ["string", "null"]}
-            }
-        }
-    },
-    "previous": {"type": ["string", "null"]}
-  }
-}
+{"indicator":"86.104.194.30","description":null,"title":null,"content":"","type":"IPv4","id":1588938}
+{"indicator":"90421f8531f963d81cf54245b72cde80","description":"MD5 of a5725af4391d21a232dc6d4ad33d7d915bd190bdac9b1826b73f364dc5c1aa65","title":"Win32:Hoblig-B","content":"","type":"FileHash-MD5","id":9751110}
+{"indicator":"ip.anysrc.net","description":null,"title":null,"content":"","type":"hostname","id":16782717}
 ```
 
-Example
+#### Anomali Limo
+This dataset from Anomali provides threat information from the Limo service.
 ```
-{
-    "count": 3,
-    "next": null,
-    "results": [
-        {
-            "indicator": "rustybrooks.com",
-            "description": null,
-            "title": null,
-            "content": "",
-            "type": "domain",
-            "id": 1
-        },
-        {
-            "indicator": "roll20.com",
-            "description": null,
-            "title": null,
-            "content": "",
-            "type": "domain",
-            "id": 3
-        },
-        {
-            "indicator": "redacted.ch",
-            "description": null,
-            "title": null,
-            "content": "",
-            "type": "domain",
-            "id": 6
-        }
-    ],
-    "previous": null
-}
+{"created":"2020-01-22T02:58:57.431Z","description":"TS ID: 55241332361; iType: mal_url; State: active; Org: Cloudflare; Source: CyberCrime","id":"indicator--44c85d4f-45ca-4977-b693-c810bbfb7a28","labels":["malicious-activity","threatstream-severity-medium","threatstream-confidence-76"],"modified":"2020-01-22T02:58:57.431Z","name":"mal_url: http://chol.cc/Work6/PvqDq929BSx_A_D_M1n_a.php","object_marking_refs":["marking-definition--34098fce-860f-48ae-8e50-ebd3cc5e41da"],"pattern":"[url:value = 'http://chol.cc/Work6/PvqDq929BSx_A_D_M1n_a.php']","type":"indicator","valid_from":"2020-01-22T02:58:57.431Z"}
+{"created":"2020-01-22T02:58:57.503Z","description":"TS ID: 55241332307; iType: mal_url; State: active; Org: ServerMania; Source: CyberCrime","id":"indicator--f9fe5c81-6869-4247-af81-62b7c8aba209","labels":["malicious-activity","threatstream-severity-medium","threatstream-confidence-68"],"modified":"2020-01-22T02:58:57.503Z","name":"mal_url: http://worldatdoor.in/lewis/Panel/five/PvqDq929BSx_A_D_M1n_a.php","object_marking_refs":["marking-definition--34098fce-860f-48ae-8e50-ebd3cc5e41da"],"pattern":"[url:value = 'http://worldatdoor.in/lewis/Panel/five/PvqDq929BSx_A_D_M1n_a.php']","type":"indicator","valid_from":"2020-01-22T02:58:57.503Z"}
+{"created":"2020-01-22T02:58:57.57Z","description":"TS ID: 55241332302; iType: mal_url; State: active; Org: SPRINTHOST.RU - shared/premium hosting, VDS, dedic; Source: CyberCrime","id":"indicator--b0e14122-9005-4776-99fc-00872476c6d1","labels":["malicious-activity","threatstream-severity-medium","threatstream-confidence-71"],"modified":"2020-01-22T02:58:57.57Z","name":"mal_url: http://f0387770.xsph.ru/login","object_marking_refs":["marking-definition--34098fce-860f-48ae-8e50-ebd3cc5e41da"],"pattern":"[url:value = 'http://f0387770.xsph.ru/login']","type":"indicator","valid_from":"2020-01-22T02:58:57.57Z"}
 ```
+
 <!--
 Stage 3: Add more real world example source documents so we have at least 2 total, but ideally 3. Format as described in stage 2.
 -->
@@ -378,7 +316,7 @@ Stage 2: Identifies scope of impact of changes. Are breaking changes required? S
  * ECS project (e.g. docs, tooling)
 The goal here is to research and understand the impact of these changes on users in the community and development teams across Elastic. 2-5 sentences each.
 -->
- * Ingestion mechanism: Primary ingestion mechanisms will be Filebeat modules and Ingest Packages. There will be no impact on ingestion mechanisms.
+ * Ingestion mechanism: Primary ingestion mechanisms will be Filebeat modules and Ingest Packages. There will be no impact on ingestion mechanisms. [Filebeat module](https://www.elastic.co/guide/en/beats/filebeat/7.12/exported-fields-threatintel.html) is scheduled to be released in `7.12`.
  * Usage mechanism: The primary use of the proposed ECS fields and values is through Elastic Security solution. In 7.10 we released Indicator match rule to support the use of the proposed new fields and values.
 
 ## Concerns
@@ -431,10 +369,10 @@ The following are the people that consulted on the contents of this RFC.
 * [STIX Cyber Observable data model](https://docs.oasis-open.org/cti/stix/v2.1/cs01/stix-v2.1-cs01.html#_mlbmudhl16lr)
 
 Some examples of open source intelligence are:
-  * [Abuse.ch Feodo Tracker](https://feodotracker.abuse.ch/downloads/ipblocklist.csv) - see below for sample data
-  * [Botvrij](https://botvrij.eu/data/)
-  * [Phish Tank](https://www.phishtank.com/)
+  * [Abuse.ch Malware Tracker](https://feodotracker.abuse.ch/)
+  * [Abuse.ch URL Tracker](https://urlhaus.abuse.ch/)
   * [AlienVault OTX](https://otx.alienvault.com/api)
+  * [Anomali Limo](https://www.anomali.com/resources/limo)
 
 Some examples of commercial intelligence include:
   * [Anomali ThreatStream](https://www.anomali.com/products/threatstream)
@@ -451,6 +389,7 @@ Some examples of commercial intelligence include:
 * Stage 1: https://github.com/elastic/ecs/pull/1037
   * Stage 1 correction: https://github.com/elastic/ecs/pull/1100
 * Stage 1 (originally stage 2 prior to removal of RFC stage 4): https://github.com/elastic/ecs/pull/1127
+* Stage 2:
 
 
 <!--
