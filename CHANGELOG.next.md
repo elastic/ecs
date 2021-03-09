@@ -16,6 +16,8 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
+* Add `orchestrator` fieldset to experimental schema. #1292
+
 #### Improvements
 
 ### Tooling and Artifact Changes
