@@ -102,10 +102,16 @@ Example event from Microsoft Sysmon [source](https://www.ultimatewindowssecurity
     GrantedAccess: 0x40
     CallTrace: C:\Windows\SYSTEM32\ntdll.dll+a5594|C:\Windows\system32\KERNELBASE.dll+1e865|C:\mimikatz\x64\mimikatz.exe+77ad|C:\mimikatz\x64\mimikatz.exe+7759|C:\mimikatz\x64\mimikatz.exe+f095|C:\mimikatz\x64\mimikatz.exe+6610a|C:\mimikatz\x64\mimikatz.exe+65dc4|C:\mimikatz\x64\mimikatz.exe+4ac00|C:\mimikatz\x64\mimikatz.exe+4aa36|C:\mimikatz\x64\mimikatz.exe+4a81d|C:\mimikatz\x64\mimikatz.exe+6ebe5|C:\Windows\system32\KERNEL32.DLL+18102|C:\Windows\SYSTEM32\ntdll.dll+5c5b4
 
-The `Target*` fields of the Sysmon would map accordingly:
+The `Target*` fields of the Sysmon event would map:
 * `TargetProcessGUID` -> `process.target.entity_id`
 * `TargetProcessID` -> `process.target.pid`
 * `TargetProcessImage` -> `process.target.executable` and `process.target.name`
+
+The `Source*` fields of the Sysmon would map:
+* `SourceProcessGUID` -> `process.entity_id`
+* `SourceProcessId` -> `process.pid`
+* `SourceThreadId` -> `process.thread.tid` (side question: does it make sense to move `thread.*` from `process`?)
+* `SourceImage` -> `process.executable` and `process.name`
 
 
 <!--
