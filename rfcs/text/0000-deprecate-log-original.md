@@ -9,10 +9,6 @@ As you work on your RFC, use the "Stage N" comments to guide you in what you sho
 Feel free to remove these comments as you go along.
 -->
 
-<!--
-Stage 0: Provide a high level summary of the premise of these changes. Briefly describe the nature, purpose, and impact of the changes. ~2-5 sentences.
--->
-
 This RFC supersedes issue #841 which implies breaking changes therefore the RFC Process is indicated
 
 The request is to consolidate `log.original` and `event.original` by removing `log.original`, since these are almost equivalent in nature. (One) justification for preserving `event.original` is that not all events are logs.
