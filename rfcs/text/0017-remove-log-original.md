@@ -1,11 +1,11 @@
-# 0000: Remove log.original
+# 0017: Remove log.original
 
 - Stage: **0 (strawperson)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
-- Date: **TBD** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
+- Date: **2021-03-11** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 This RFC supersedes issue [#841](https://github.com/elastic/ecs/issues/841) which implies breaking changes therefore the RFC Process is indicated.
 
-The request is to consolidate `log.original` and `event.original` by removing `log.original`, since these are almost equivalent in nature. (One) justification for preserving `event.original` is that not all events are logs. Once `log.original` is removed, `event.original` will be the sole field intended to capture the original untouched event. 
+The request is to consolidate `log.original` and `event.original` by removing `log.original`, since these are almost equivalent in nature. (One) justification for preserving `event.original` is that not all events are logs. Once `log.original` is removed, `event.original` will be the sole field intended to capture the original untouched event.
 
 The removal of `log.original` will be considered a breaking change since the field is being removed from the schema. Possible migration/mitigations for users impacted may include:
 
@@ -96,8 +96,8 @@ e.g.:
 
 ## References
 
-[#841](https://github.com/elastic/ecs/issues/841)
-[#777](https://github.com/elastic/integrations/issues/777)
+* [#841](https://github.com/elastic/ecs/issues/841)
+* [#777](https://github.com/elastic/integrations/issues/777)
 
 ### RFC Pull Requests
 
