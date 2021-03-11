@@ -5,9 +5,9 @@
 
 This RFC supersedes issue [#841](https://github.com/elastic/ecs/issues/841) which implies breaking changes therefore the RFC Process is indicated.
 
-The request is to consolidate `log.original` and `event.original` by removing `log.original`, since these are almost equivalent in nature. (One) justification for preserving `event.original` is that not all events are logs.
+The request is to consolidate `log.original` and `event.original` by removing `log.original`, since these are almost equivalent in nature. (One) justification for preserving `event.original` is that not all events are logs. Once `log.original` is removed, `event.original` will be the sole field intended to capture the original untouched event. 
 
-Breaking changes may be:
+The removal of `log.original` will be considered a breaking change since the field is being removed from the schema. Possible migration/mitigations for users impacted may include:
 
 - requirement to alias `log.original` for current users of this field
 - TBD if there exist current users of fields with distinct content/meaning in a common index mapping
@@ -21,6 +21,10 @@ Breaking changes may be:
 
 <!--
 Stage 1: Describe at a high level how this change affects fields. Include new or updated yml field definitions for all of the essential fields in this draft. While not exhaustive, the fields documented here should be comprehensive enough to deeply evaluate the technical considerations of this change. The goal here is to validate the technical details for all essential fields and to provide a basis for adding experimental field definitions to the schema. Use GitHub code blocks with yml syntax formatting.
+-->
+
+<!--
+Memo: see https://github.com/elastic/ecs/pull/1298#discussion_r591870463
 -->
 
 <!--
@@ -75,7 +79,7 @@ Stage 3: Document resolutions for all existing concerns. Any new concerns should
 
 The following are the people that consulted on the contents of this RFC.
 
-* TBD | author
+* @djptek | author
 
 <!--
 Who will be or has been consulted on the contents of this RFC? Identify authorship and sponsorship, and optionally identify the nature of involvement of others. Link to GitHub aliases where possible. This list will likely change or grow stage after stage.
@@ -92,7 +96,8 @@ e.g.:
 
 ## References
 
-<!-- Insert any links appropriate to this RFC in this section. -->
+[#841](https://github.com/elastic/ecs/issues/841)
+[#777](https://github.com/elastic/integrations/issues/777)
 
 ### RFC Pull Requests
 
