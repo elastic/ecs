@@ -73,6 +73,7 @@ This type of data can be provided by logs from VirusTotal, Reversing Labs, Lockh
 * [Emerson FSF](https://github.com/EmersonElectricCo/fsf)
 * [Target Strelka](https://github.com/target/strelka)
 * [Lockheed Martin LAIKABOSS](https://github.com/lmco/laikaboss)
+* [LIEF Analysis Library](https://lief.quarkslab.com/doc/latest/api/python/macho.html)
 
 <!--
 Stage 1: Provide a high-level description of example sources of data. This does not yet need to be a concrete example of a source document, but instead can simply describe a potential source (e.g. nginx access log). This will ultimately be fleshed out to include literal source examples in a future stage. The goal here is to identify practical sources for these fields in the real world. ~1-3 sentences or unordered list.
