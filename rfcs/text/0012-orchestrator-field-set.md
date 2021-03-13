@@ -1,6 +1,6 @@
 # 0012: Orchestrator field set creation
 
-- Stage: **1 (draft)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
+- Stage: **2 (candidate)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
 - Date: **2021-03-05** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 There is currently no ECS field set for container orchestration engines. There is an example of an ECS
@@ -203,22 +203,29 @@ Examples of source data include:
 ```
 
 <!--
-Stage 2: Included a real world example source document. Ideally this example comes from the source(s) identified in stage 1. If not, it should replace them. The goal here is to validate the utility of these field changes in the context of a real world example. Format with the source name as a ### header and the example document in a GitHub code block with json formatting.
--->
-
-<!--
 Stage 3: Add more real world example source documents so we have at least 2 total, but ideally 3. Format as described in stage 2.
 -->
 
 ## Scope of impact
 
-<!--
-Stage 2: Identifies scope of impact of changes. Are breaking changes required? Should deprecation strategies be adopted? Will significant refactoring be involved? Break the impact down into:
- * Ingestion mechanisms (e.g. beats/logstash)
- * Usage mechanisms (e.g. Kibana applications, detections)
- * ECS project (e.g. docs, tooling)
-The goal here is to research and understand the impact of these changes on users in the community and development teams across Elastic. 2-5 sentences each.
--->
+As this RFC involves the creation of an entirely new fieldset, no breaking
+changes are envisaged. Some existing tooling might need updates to factor in the
+new fieldset's availability, however.
+
+### Ingestion mechanisms
+
+- The Filebeat [Kubernetes processor][5] will need updating, as it currently
+  uses fields that would be out-of-sync with ECS if this is committed.
+- Logstash should see no significant change.
+
+### Usage mechanisms
+
+- Elastic's detection-rules [repo][6] should see no change as there don't appear to
+  be any orchestrator-specific definitions in place.
+
+### ECS project
+
+Documentation updates might be required to reflect the new fieldset.
 
 ## Concerns
 
@@ -234,10 +241,6 @@ preference is to keep the field set as generic as possible, or large enough to
 cover all the logical primitives of popular orchestrators. Input from contributors
 who have experience with the various alternative orchestration providers would be
 particularly valuable.
-
-<!--
-Stage 2: Document new concerns or resolutions to previously listed concerns. It's not critical that all concerns have resolutions at this point, but it would be helpful if resolutions were taking shape for the most significant concerns.
--->
 
 <!--
 Stage 3: Document resolutions for all existing concerns. Any new concerns should be documented along with their resolution. The goal here is to eliminate the risk of churn and instability by resolving outstanding concerns.
@@ -275,13 +278,10 @@ The following are the people that consulted on the contents of this RFC.
 * Stage 0: https://github.com/elastic/ecs/pull/1209
 * Stage 1: https://github.com/elastic/ecs/pull/1230
 
-<!--
-* Stage 1: https://github.com/elastic/ecs/pull/NNN
-...
--->
-
 [0]: https://github.com/elastic/ecs/blob/master/use-cases/kubernetes.yml
 [1]: https://kubernetes.io/docs/tasks/debug-application-cluster/audit/
 [2]: https://kubernetes.io/docs/concepts/cluster-administration/logging/#logging-at-the-node-level
 [3]: https://www.hashicorp.com/blog/hashicorp-nomad-enterprise-audit-logging
 [4]: https://falco.org/docs/alerts/#file-output
+[5]: https://www.elastic.co/guide/en/beats/filebeat/current/running-on-kubernetes.html
+[6]: https://github.com/elastic/detection-rules/tree/main/rules
