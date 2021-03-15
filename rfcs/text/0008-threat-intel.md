@@ -30,7 +30,7 @@ threat.indicator.last_seen | date | 2020-12-02| The date and time when intellige
 threat.indicator.sightings | long | 20 | Number of times this indicator was observed conducting threat activity
 threat.indicator.type | keyword | ipv4-addr, domain-name, email-addr | Type of indicator as represented by Cyber Observable in STIX 2.0
 threat.indicator.description | keyword | 201.10.10.90 was seen delivering Angler EK | Describes the type of action conducted by the threat
-threat.indicator.dataset | keyword | theatintel | Identifies the name of specific dataset from the intelligence source.
+threat.indicator.dataset | keyword | threatintel | Identifies the name of specific dataset from the intelligence source.
 threat.indicator.module | keyword | threatintel.{abusemalware,abuseurl,misp,otx,limo} | Identifies the name of specific module where the data is coming from.
 threat.indicator.provider | keyword | Abuse.ch | Identifies the name of intelligence provider.
 threat.indicator.confidence | keyword | High, 10, Confirmed by other sources, Certain, Almost Certain / Nearly Certain | Identifies the confidence rating assigned by the provider using STIX confidence scales (N/H/M/L, 0-10, Admirality, WEP, or DNI).
