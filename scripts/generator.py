@@ -10,6 +10,7 @@ from generators import csv_generator
 from generators import es_template
 from generators import ecs_helpers
 from generators import intermediate_files
+from generators import rules_generator
 
 from schema import loader
 from schema import oss
@@ -59,6 +60,7 @@ def main():
     es_template.generate(nested, ecs_version, out_dir, args.mapping_settings)
     es_template.generate_legacy(flat, ecs_version, out_dir, args.template_settings, args.mapping_settings)
     beats.generate(nested, ecs_version, out_dir)
+    rules_generator.generate(flat, ecs_version, out_dir)
     if args.include or args.subset:
         exit()
 
