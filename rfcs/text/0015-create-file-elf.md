@@ -33,6 +33,7 @@ This RFC is to create the ELF sub-field within the `file.` fieldset. This will i
 | elf.imports | flattened | List of imported element names and types. |
 | elf.imports.name | keyword | Name of imported symbol |
 | elf.imports.type | keyword | Type of imported symbol |
+| elf.packers | keyword | Packers used for the ELF file. |
 | elf.sections | nested | Section information of the ELF file. |
 | elf.sections.flags | keyword | ELF Section List flags. |
 | elf.sections.name | keyword | ELF Section List name. |
