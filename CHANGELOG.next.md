@@ -49,6 +49,7 @@ Thanks, you're awesome :-) -->
 * Extended `pe` fields added to experimental schema. #1256
 * Add `elf` fieldset to experimental schema. #1261
 * Add `threat.indicator` fields to experimental schema. #1268
+* Add `threat.{group,software}` fields to threat fieldset.
 
 #### Improvements
 
