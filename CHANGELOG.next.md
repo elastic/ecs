@@ -22,6 +22,8 @@ Thanks, you're awesome :-) -->
 
 ### Tooling and Artifact Changes
 
+* Added generation of ECS detection rules. #1303
+
 #### Breaking changes
 
 #### Bugfixes
