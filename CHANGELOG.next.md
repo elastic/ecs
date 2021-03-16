@@ -30,6 +30,8 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
+* Go code generator now supports the `flattened` data type. #1302
+
 #### Deprecated
 
 
