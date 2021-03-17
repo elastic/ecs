@@ -35,7 +35,7 @@ The fields can be found in `rfcs/text/0009/data_stream.yml`.
 
 ### Restrictions on values
 
-Due to the fact that the values of the `data_stream` fields make up the data stream name, the restrictions on data stream names also apply to values for the `data_stream` fields. As an example, they cannot include \, /, *, ?, ", <, >, |, ` `. Please see the Elasticsearch reference for [restrictions on index/data stream names](https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-create-index.html#indices-create-api-path-params). Here follows the _additional_ restrictions imposed on the data stream fields:
+Due to the fact that the values of the `data_stream` fields make up the data stream name, the restrictions on data stream names also apply to values for the `data_stream` fields. As an example, they cannot include `\`, `/`, `*`, `?`, `"`, `<`, `>`, `|`, ` `, `,`, `#`. Please see the Elasticsearch reference for [restrictions on index/data stream names](https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-create-index.html#indices-create-api-path-params). Here follows the _additional_ restrictions imposed on the data stream fields:
 
 **data_stream.type**
 
