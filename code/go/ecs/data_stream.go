@@ -22,7 +22,7 @@ package ecs
 // The data_stream fields take part in defining the new data stream naming
 // scheme.
 // In the new data stream naming scheme the value of the data stream fields
-// combine to the name of the actual data stream in the following manner
+// combine to the name of the actual data stream in the following manner:
 // `{data_stream.type}-{data_stream.dataset}-{data_stream.namespace}`. This
 // means the fields can only contain characters that are valid as part of names
 // of data streams. More details about this can be found in this
