@@ -247,6 +247,7 @@ e.g.:
 * Discussion on [field value restrictions](https://github.com/elastic/kibana/issues/75846)
 * Restrictions on [index names](https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-create-index.html)
 * Blog post: [An introduction to the Elastic data stream naming scheme](https://www.elastic.co/blog/an-introduction-to-the-elastic-data-stream-naming-scheme)
+* Elasticsearch documentation on [data stream naming scheme](https://www.elastic.co/guide/en/elasticsearch/reference/current/set-up-a-data-stream.html#elastic-data-stream-naming-scheme.)
 
 ### RFC Pull Requests
 
