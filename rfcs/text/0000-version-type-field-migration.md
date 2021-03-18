@@ -15,6 +15,12 @@ Stage 0: Provide a high level summary of the premise of these changes. Briefly d
 
 Elasticsearch 7.10 introduced a new field data type specialized in handling software version values: `version`. The `version` type supports specialized precedence rules based on the rules outlined in [Semantic Versioning](semver.org) (semver). A `range` query against a `version` field for values between `1.0.0` and `1.5.0` will include `1.2.3` but not `1.11.2`. This differs from `keyword` fields where the `range` ordering is alphabetical.
 
+Examples:
+
+* Return documents with `.version` greater-than or equal to `1.1.0` and less-than `2.0.0`
+* Query across multiple versions without the need to know in advance ever possible versions in the index (e.g. `ecs.version:(1.3.0 OR 1.4.0 OR 1.5.0`)
+* Return all documents where minor version is 3 (`x.3.y`) or the major version is considered unstable (`0.x.y`).
+
 The purpose of this proposal is to identify which fields may be good candidates for adopting the `version` data type and design considerations for that migration.
 
 ## Fields
