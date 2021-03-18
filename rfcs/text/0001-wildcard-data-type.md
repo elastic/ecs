@@ -28,7 +28,7 @@ For a field to use wildcard, it will require changing the field's defined schema
 
 | Field Set | Field(s) |
 | --------- | -------- |
-| [`error`](0001/error.yml) | `error.stack_trace`<br> `error.type` |
+| [`error`](0001/error.yml) | `error.stack_trace` |
 | [`http`](0001/http.yml) | `http.request.body.content`<br> `http.response.body.content` |
 | [`process`](0001/process.yml) | `process.command_line` |
 | [`url`](0001/url.yml) | `url.full`<br> `url.original`<br> `url.path` |
