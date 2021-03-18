@@ -20,6 +20,8 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
+* Updated descriptions to use Elastic Security #1305
+
 ### Tooling and Artifact Changes
 
 #### Breaking changes
