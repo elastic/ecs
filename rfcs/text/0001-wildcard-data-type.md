@@ -462,6 +462,10 @@ Organization names such as `as.organization.name` and `organization.name` might 
 
 User identifiers, like usernames or email addresses, are also likely duplicated across events. Common prefixing is also a potential consideration.
 
+##### Specialized Text Analyzers
+
+For certain field and their values, the use of specialized text analysis could be an alternative to using the `wildcard` data type. For example, adopting the [path hierarchy tokenizer](https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-pathhierarchy-tokenizer.html) for file paths.
+
 ### Future breaking changes to adopt `wildcard`
 
 Often a large field is mapped a `keyword` to simplify substring searches. But:
