@@ -111,8 +111,8 @@ type GoType struct {
 	Name        string
 	Fields      []Field
 	NestedTypes map[string]*NestedField
-    // NestedTypes []NestedField
-	ImportTime  bool
+	// NestedTypes []NestedField
+	ImportTime bool
 }
 
 type NestedField struct {
@@ -188,7 +188,7 @@ func main() {
 				NestedTypes: make(map[string]*NestedField),
 			}
 
-			 for _, field := range group.Fields {
+			for _, field := range group.Fields {
 				// handle `nested` fields
 				if field.Type == "nested" {
 					n := NestedField{
@@ -196,10 +196,10 @@ func main() {
 						Type: "nested",
 					}
 
-				    t.NestedTypes[field.Name] = &n
+					t.NestedTypes[field.Name] = &n
 					fieldName := goTypeName(field.Name)
 					t.Fields = append(t.Fields, Field{
-                        Comment: descriptionToComment("\t", field.Description),
+						Comment: descriptionToComment("\t", field.Description),
 						Name:    goTypeName(fieldName),
 						Type:    "[]" + goTypeName(fieldName),
 					})
@@ -221,13 +221,13 @@ func main() {
 							JSONKey: fieldNameWithoutPrefix,
 						})
 					} else {
-					    t.Fields = append(t.Fields, Field{
-					    	Comment: descriptionToComment("\t", field.Description),
-					    	Name:    goTypeName(field.Name),
-					    	Type:    dataType,
-					    	JSONKey: field.Name,
-					    })
-				    }
+						t.Fields = append(t.Fields, Field{
+							Comment: descriptionToComment("\t", field.Description),
+							Name:    goTypeName(field.Name),
+							Type:    dataType,
+							JSONKey: field.Name,
+						})
+					}
 				}
 			}
 
