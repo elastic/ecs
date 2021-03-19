@@ -274,7 +274,7 @@ func goDataType(fieldName, elasticsearchDataType string) string {
 	}
 
 	switch elasticsearchDataType {
-	case "keyword", "wildcard", "version", "constant_keyword", "text", "ip", "geo_point", "flattened":
+	case "keyword", "wildcard", "version", "constant_keyword", "text", "ip", "geo_point":
 		return "string"
 	case "long":
 		return "int64"
@@ -286,7 +286,7 @@ func goDataType(fieldName, elasticsearchDataType string) string {
 		return "time.Time"
 	case "boolean":
 		return "bool"
-	case "object":
+	case "object", "flattened":
 		return "map[string]interface{}"
 	default:
 		log.Fatalf("no translation for %v (field %s)", elasticsearchDataType, fieldName)
