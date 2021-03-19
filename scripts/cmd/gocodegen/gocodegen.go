@@ -111,8 +111,7 @@ type GoType struct {
 	Name        string
 	Fields      []Field
 	NestedTypes map[string]*NestedField
-	// NestedTypes []NestedField
-	ImportTime bool
+	ImportTime  bool
 }
 
 type NestedField struct {
