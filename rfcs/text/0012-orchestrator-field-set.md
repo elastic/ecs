@@ -94,10 +94,6 @@ The proposed change adds nine fields, as described below:
 ```
 
 <!--
-Stage 2: Include new or updated yml field definitions for all of the essential fields in this draft. While not exhaustive, the fields documented here should be comprehensive enough to deeply evaluate the technical considerations of this change. The goal here is to validate the technical details for all essential fields and to provide a basis for adding experimental field definitions to the schema. Use GitHub code blocks with yml syntax formatting.
--->
-
-<!--
 Stage 3: Add or update all remaining field definitions. The list should now be exhaustive. The goal here is to validate the technical details of all remaining fields and to provide a basis for releasing these field definitions as beta in the schema. Use GitHub code blocks with yml syntax formatting.
 -->
 
@@ -214,8 +210,11 @@ new fieldset's availability, however.
 
 ### Ingestion mechanisms
 
-- The Filebeat [Kubernetes processor][5] will need updating, as it currently
-  uses fields that would be out-of-sync with ECS if this is committed.
+- The [Filebeat][5] and [Metricbeat][7] processors will need updating, as they currently
+  use fields that would be out-of-sync with ECS if this is committed.
+- The CloudFoundry [Filebeat][8] and [Metricbeat][9] processors will need updating for the same
+  reasons.
+- The Nomad [processor][10] will need updating.
 - Logstash should see no significant change.
 
 ### Usage mechanisms
@@ -224,8 +223,6 @@ new fieldset's availability, however.
   be any orchestrator-specific definitions in place.
 
 ### ECS project
-
-Documentation updates might be required to reflect the new fieldset.
 
 ## Concerns
 
@@ -286,3 +283,7 @@ The following are the people that consulted on the contents of this RFC.
 [4]: https://falco.org/docs/alerts/#file-output
 [5]: https://www.elastic.co/guide/en/beats/filebeat/current/running-on-kubernetes.html
 [6]: https://github.com/elastic/detection-rules/tree/main/rules
+[7]: https://www.elastic.co/guide/en/beats/metricbeat/current/running-on-kubernetes.html
+[8]: https://www.elastic.co/guide/en/beats/filebeat/current/running-on-cloudfoundry.html
+[9]: https://www.elastic.co/guide/en/beats/metricbeat/current/metricbeat-module-cloudfoundry.html
+[10]: https://github.com/elastic/beats/blob/master/x-pack/libbeat/processors/add_nomad_metadata/nomad.go
