@@ -19,7 +19,7 @@
 
 package ecs
 
-// These fields are used to describe SIPand AD based conversations between
+// These fields are used to describe SIP and AD based conversations between
 // endpoints and servers, as well as direct communications sessions between
 // endpoints.
 // Examples include network captures of SIP traffic, network sensors and
