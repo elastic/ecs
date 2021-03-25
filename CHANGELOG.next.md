@@ -21,6 +21,7 @@ Thanks, you're awesome :-) -->
 #### Improvements
 
 * Updated descriptions to use Elastic Security #1305
+* Host metrics fields from RFC 0005 are now GA. #1319
 
 ### Tooling and Artifact Changes
 
