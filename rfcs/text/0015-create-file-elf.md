@@ -95,8 +95,6 @@ https[://]c4a08b8258a848efb518dcea18a1d11e[.]us-central1[.]gcp[.]cloud[.]es[.]io
 ```
 "file": {
   "elf": {
-    "number_program_headers": 2,
-    "number_section_headers": 0,
     "packers": [
       "upx"
     ],
@@ -127,8 +125,6 @@ https[://]c4a08b8258a848efb518dcea18a1d11e[.]us-central1[.]gcp[.]cloud[.]es[.]io
 ```
 "file": {
   "elf": {
-    "number_program_headers": 7,
-    "number_section_headers": 27,
     "header": {
       "object_version": "0x1",
       "data": "2's complement, little endian",
