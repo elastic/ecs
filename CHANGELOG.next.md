@@ -57,6 +57,7 @@ Thanks, you're awesome :-) -->
 * Include formatting guidance and examples for MAC address fields. #456
 * New section in ECS detailing event categorization fields usage. #1242
 * `user.changes.*`, `user.effective.*`, and `user.target.*` field reuses are GA. #1271
+* Bump jinja2 from 2.11.2 to 2.11.3 #1310
 
 <!-- All empty sections:
 
