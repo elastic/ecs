@@ -95,10 +95,6 @@ Stage 2: Included a real world example source document. Ideally this example com
 Stage 3: Add more real world example source documents so we have at least 2 total, but ideally 3. Format as described in stage 2.
 -->
 
-There are many sources of threat intelligence including open source, closed source, and membership-based ISAC's. Depending on the source the level of details can vary from atomic indicators of compromise (IoC) to higher-order context around threat tactics, infrastructure, and motivations. Generally freely available (open source) intelligence sources will provide details more focused on indicators and commercial intelligence services will provide higher-order details.
-
-These sources typically provide intelligence that can be downloaded through REST API or in some cases downloadable CSV's or text files. These intelligence sources will update their data repositories at varying intervals.
-
 ## Scope of impact
 
 <!--
