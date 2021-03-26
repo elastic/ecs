@@ -21,6 +21,7 @@ Thanks, you're awesome :-) -->
 #### Improvements
 
 * Updated descriptions to use Elastic Security #1305
+* Correcting fieldset name capitilzation for generated ES template #1323
 
 ### Tooling and Artifact Changes
 
