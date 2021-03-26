@@ -21,6 +21,7 @@ Thanks, you're awesome :-) -->
 #### Improvements
 
 * Updated descriptions to use Elastic Security #1305
+* Host metrics fields from RFC 0005 are now GA. #1319
 
 ### Tooling and Artifact Changes
 
@@ -33,6 +34,7 @@ Thanks, you're awesome :-) -->
 #### Improvements
 
 * Go code generator now supports the `flattened` data type. #1302
+* Adjustments to use terminology that doesn't have negative connotation. #1315
 
 #### Deprecated
 
@@ -59,6 +61,7 @@ Thanks, you're awesome :-) -->
 * Include formatting guidance and examples for MAC address fields. #456
 * New section in ECS detailing event categorization fields usage. #1242
 * `user.changes.*`, `user.effective.*`, and `user.target.*` field reuses are GA. #1271
+* Bump jinja2 from 2.11.2 to 2.11.3 #1310
 
 <!-- All empty sections:
 
