@@ -3338,6 +3338,74 @@
       type: keyword
       ignore_above: 1024
       description: Observer version.
+  - name: orchestrator
+    title: Orchestrator
+    group: 2
+    description: Fields that describe the resources which container orchestrators
+      manage or act upon.
+    type: group
+    fields:
+    - name: api_version
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: API version being used to carry out the action
+      example: v1beta1
+      default_field: false
+    - name: cluster.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the cluster.
+      default_field: false
+    - name: cluster.url
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: URL of the API used to manage the cluster.
+      default_field: false
+    - name: cluster.version
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The version of the cluster.
+      default_field: false
+    - name: namespace
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Namespace in which the action is taking place.
+      example: kube-system
+      default_field: false
+    - name: organization
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Organization affected by the event (for multi-tenant orchestrator
+        setups).
+      example: elastic
+      default_field: false
+    - name: resource.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the resource being acted upon.
+      example: test-pod-cdcws
+      default_field: false
+    - name: resource.type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Type of resource being acted upon.
+      example: service
+      default_field: false
+    - name: type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Orchestrator cluster type (e.g. kubernetes, nomad or cloudfoundry).
+      example: kubernetes
+      default_field: false
   - name: organization
     title: Organization
     group: 2
