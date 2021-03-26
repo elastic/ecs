@@ -33,7 +33,7 @@ Thanks, you're awesome :-) -->
 #### Improvements
 
 * Go code generator now supports the `flattened` data type. #1302
-* Adjustments to use terminology that doesn't have negative connotation. #878
+* Adjustments to use terminology that doesn't have negative connotation. #1315
 
 #### Deprecated
 
