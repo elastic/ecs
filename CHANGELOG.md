@@ -3,6 +3,36 @@
 # CHANGELOG
 All notable changes to this project will be documented in this file based on the [Keep a Changelog](http://keepachangelog.com/) Standard. This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.9.0](https://github.com/elastic/ecs/compare/v1.8.0...v1.9.0)
+
+### Schema Changes
+
+#### Added
+
+* Added `hash.ssdeep`. #1169
+* Added `cloud.service.name`. #1204
+* Added `http.request.id`. #1208
+* `data_stream.*` fieldset introduced in experimental schema and artifacts. #1215
+* Added `geo.timezone`, `geo.postal_code`, and `geo.continent_code`. #1229
+* Added `beta` host metrics fields. #1248
+* Added `code_signature.team_id`, `code_signature.signing_id`. #1249
+* Extended `pe` fields added to experimental schema. #1256
+* Add `elf` fieldset to experimental schema. #1261
+* Add `threat.indicator` fields to experimental schema. #1268
+
+#### Improvements
+
+* Include formatting guidance and examples for MAC address fields. #456
+* New section in ECS detailing event categorization fields usage. #1242
+* `user.changes.*`, `user.effective.*`, and `user.target.*` field reuses are GA. #1271
+
+### Tooling and Artifact Changes
+
+#### Improvements
+
+* Update Python dependencies #1310, #1318
+
+
 ## [1.8.0](https://github.com/elastic/ecs/compare/v1.7.0...v1.8.0)
 
 ### Schema Changes
