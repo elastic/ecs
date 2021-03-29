@@ -82,6 +82,7 @@ Stage 3: Document resolutions for all existing concerns. Any new concerns should
 The following are the people that consulted on the contents of this RFC.
 
 * @djptek | author
+* @ebeahan | sponsor
 
 <!--
 Who will be or has been consulted on the contents of this RFC? Identify authorship and sponsorship, and optionally identify the nature of involvement of others. Link to GitHub aliases where possible. This list will likely change or grow stage after stage.
@@ -106,8 +107,4 @@ e.g.:
 <!-- An RFC should link to the PRs for each of it stage advancements. -->
 
 * Stage 0: https://github.com/elastic/ecs/pull/1298
-
-<!--
-* Stage 1: https://github.com/elastic/ecs/pull/NNN
-...
--->
+* Stage 1: https://github.com/elastic/ecs/pull/1314
