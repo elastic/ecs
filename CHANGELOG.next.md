@@ -55,6 +55,12 @@ Thanks, you're awesome :-) -->
 * `user.changes.*`, `user.effective.*`, and `user.target.*` field reuses are GA. #1271
 * Update Python dependencies #1310, #1318
 
+### Tooling and Artifact Changes
+
+#### Improvements
+
+* Adjustments to use terminology that doesn't have negative connotation. #1315
+
 <!-- All empty sections:
 
 ## Unreleased
