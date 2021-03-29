@@ -21,7 +21,6 @@ Thanks, you're awesome :-) -->
 #### Improvements
 
 * Updated descriptions to use Elastic Security #1305
-* Correcting fieldset name capitalization for generated ES template #1323
 * Host metrics fields from RFC 0005 are now GA. #1319
 
 ### Tooling and Artifact Changes
@@ -29,6 +28,8 @@ Thanks, you're awesome :-) -->
 #### Breaking changes
 
 #### Bugfixes
+
+* Correcting fieldset name capitalization for generated ES template #1323
 
 #### Added
 
