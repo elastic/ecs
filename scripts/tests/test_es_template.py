@@ -233,5 +233,6 @@ class TestGeneratorsEsTemplate(unittest.TestCase):
         exp = ["ecs_{}_acme".format(version)]
         self.assertEqual(es_template.component_name_convention(version, test_map), exp)
 
+
 if __name__ == '__main__':
     unittest.main()
