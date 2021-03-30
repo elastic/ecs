@@ -222,6 +222,16 @@ class TestGeneratorsEsTemplate(unittest.TestCase):
         es_template.es6_type_fallback(test_map)
         self.assertEqual(test_map, exp)
 
+    def test_component_composable_template_name(self):
+        version = "1.8"
+        test_map = {
+            "Acme": {
+                "name": "Acme",
+            }
+        }
+
+        exp = ["ecs_{}_acme".format(version)]
+        self.assertEqual(es_template.component_name_convention(version, test_map), exp)
 
 if __name__ == '__main__':
     unittest.main()
