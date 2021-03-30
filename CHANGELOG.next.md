@@ -16,14 +16,7 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
-<<<<<<< HEAD
 * Add `orchestrator` fieldset to experimental schema. #1292
-=======
-* Added Mime Type fields to HTTP request and response. #944
-* Added `threat.technique.subtechnique` to capture MITRE ATT&CK® subtechniques. #951
-* Added `configuration` as an allowed `event.category`. #963
-* Added network directions ingress and egress. #945
->>>>>>> 50167fb4 (Stage 2 RFC Updates)
 
 #### Improvements
 

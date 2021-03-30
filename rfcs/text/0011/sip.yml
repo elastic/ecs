@@ -4,7 +4,7 @@
   group: 2
   short: Fields describing SIP/SDP protocols, connections, and SIP/SDP based unified communications sessions.
   description: >
-    These fields are used to describe SIPand AD based conversations between endpoints and servers, as well
+    These fields are used to describe SIP based conversations between endpoints and servers, as well
     as direct communications sessions between endpoints.
 
     Examples include network captures of SIP traffic, network sensors and observers providing SIP decode
@@ -12,10 +12,10 @@
     which is likely normalizing multiple SIP network conversations, will provide the full scope of SIP 
     protocol fields.
 
-    URL fields have been nested under sip, sip.from, sip.to, sip.auth, sip.private, and sip.contact.
-    Typical implementations should minimally include url.original, url.host, url.port, and url.username, and a 
+    URL and User_Agent fields have been nested under sip, sip.from, sip.to, sip.auth, sip.private, and sip.contact.
+    Typical implementations should minimally include url.original, url.host, url.port, and url.username, a 
     standard processing of URI host domains is recommended (url.domain, url.top_level_domain, url.registered_domain, 
-    url.subdomain)
+    url.subdomain), as well as integrating User_Agent information, as available in the source data.
 
   type: group
   fields:
