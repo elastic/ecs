@@ -4,6 +4,8 @@ Changes to ECS are proposed as Requests for Comments (RFC) in [rfcs/](./rfcs/) a
 
 Each RFC is represented as a markdown document following a prescribed template that gets committed to the repo. Each stage of the RFC is represented as a pull request against that document.
 
+Every RFC should also have a corresponding folder (named after the RFC number) in [rfcs/text/](./text/). The folder should contain the proposed schema changes as standalone YAML files, or extended example mappings and larger source documents.
+
 Generally speaking, the ECS team will help steward the process, but the work of researching and iterating on aspects of an RFC will be owned by that RFC's contributor. If an RFC is being contributed by a community member, then someone at Elastic will need to act as a sponsor of the change to act as a long term owner after completion of the process. If it's not obvious who such a sponsor might be, then the ECS committee will assign a sponsor.
 
 ## Key questions we seek to answer through RFC process
@@ -21,7 +23,7 @@ Generally speaking, the ECS team will help steward the process, but the work of 
 
 * Allow contributors to quickly iterate and receive feedback on their fields in a transparent way without the high bar set for general availability in the schema
 * Clarify the level of stability to expect from a change in ECS while still allowing early adopters to try it out and provide feedback
-* Offer assurance that once an RFC reaches stage 4, we're able to guarantee backward compatibility
+* Offer assurance that once an RFC reaches stage 3, we're able to guarantee backward compatibility
 
 ## Responsibilities in this process
 
@@ -39,7 +41,7 @@ The **ECS team**:
 The **contributor**:
 * takes responsibility for doing all necessary legwork to move their RFC forward including but not limited to responding to feedback, identifying and bringing in subject matter experts, and researching the scope of impact
 * demonstrates how the fields in the RFC are expected to be used: from the data source, all the way to its consumption
-* commits to iterating on the RFCs through to stage 4 if necessary
+* commits to iterating on the RFCs through to stage 3 if necessary
 * creates and iterate on RFC PRs
 * implements all necessary changes to their RFC PRs
 
