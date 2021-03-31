@@ -29,6 +29,8 @@ Thanks, you're awesome :-) -->
 
 #### Bugfixes
 
+* Correcting fieldset name capitalization for generated ES template #1323
+
 #### Added
 
 #### Improvements
