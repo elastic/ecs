@@ -17,6 +17,7 @@ Thanks, you're awesome :-) -->
 #### Added
 
 * Add `orchestrator` fieldset to experimental schema. #1292
+* Extend `threat` fieldset to stage 1 RFC. #
 
 #### Improvements
 
