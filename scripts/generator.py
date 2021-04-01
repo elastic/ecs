@@ -36,6 +36,8 @@ def main():
 
     ecs_helpers.make_dirs(out_dir)
 
+    write_version_includes(ecs_version, out_dir)
+
     # To debug issues in the gradual building up of the nested structure, insert
     # statements like this after any step of interest.
     # ecs_helpers.yaml_dump('ecs.yml', fields)
@@ -100,6 +102,17 @@ def read_version(ref=None):
         print('Loading schemas from local files')
         with open('version', 'r') as infile:
             return infile.read().rstrip()
+
+
+def write_version_includes(version, directory):
+    with open('./generated/ecs_version.asiidoc', 'w') as version_include:
+        version_include.write(':ecs_version: '+version)
+    with open('./generated/ecs_github_repo_link.asiidoc', 'w') as github_include:
+        lhs = ':ecs_github_repo_link: https://github.com/elastic/ecs/tree/'
+        if version[-4:] == '-dev':
+           github_include.write(lhs+'master')
+        else:
+           github_include.write(lhs+version[:-2])
 
 
 if __name__ == '__main__':
