@@ -25,6 +25,8 @@ Thanks, you're awesome :-) -->
 
 ### Tooling and Artifact Changes
 
+* Generate include files to ensure referenced Github branch matches docs #1338
+
 #### Breaking changes
 
 #### Bugfixes
