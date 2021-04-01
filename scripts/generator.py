@@ -35,8 +35,7 @@ def main():
         default_dirs = True
 
     ecs_helpers.make_dirs(out_dir)
-
-    write_version_includes(ecs_version, out_dir)
+    ecs_helpers.make_dirs(docs_dir)
 
     # To debug issues in the gradual building up of the nested structure, insert
     # statements like this after any step of interest.
@@ -45,6 +44,7 @@ def main():
     # Detect usage of experimental changes to tweak artifact version label
     if args.include and loader.EXPERIMENTAL_SCHEMA_DIR in args.include:
         ecs_version += "+exp"
+    write_version_includes(ecs_version, docs_dir)
 
     fields = loader.load_schemas(ref=args.ref, included_files=args.include)
     if args.oss:
@@ -105,9 +105,9 @@ def read_version(ref=None):
 
 
 def write_version_includes(version, directory):
-    with open(directory + '/ecs_version.asciidoc', 'w') as version_include:
+    with open(os.path.join(directory, 'ecs_version.asciidoc'), 'w') as version_include:
         version_include.write(':ecs_version: ' + version)
-    with open(directory + '/ecs_github_repo_link.asciidoc', 'w') as github_include:
+    with open(os.path.join(directory, 'ecs_github_repo_link.asciidoc'), 'w') as github_include:
         lhs = ':ecs_github_repo_link: https://github.com/elastic/ecs/tree/'
         if version[-4:] == '-dev':
             github_include.write(lhs + 'master')
