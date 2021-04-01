@@ -86,7 +86,7 @@ Stage 3: Add more real world example source documents so we have at least 2 tota
 
 ## Scope of impact
 
-There should be no breaking changes, depreciation strategies, or significant refactoring as this is creating a sub-field for the existing file. fieldset.
+There should be no breaking changes, depreciation strategies, or significant refactoring as this is creating a sub-field for the `file` top-level fieldset.
 
 * Ingestion mechanism - Elastic Threat Intel Filebeat module (https://www.elastic.co/guide/en/beats/filebeat/master/exported-fields-threatintel.html), Elastic VirusTotal Live Hunt Filebeat module (https://github.com/elastic/beats/pull/21815)
 * Usage mechanisms - threat hunting, file analysis, identifying file similarities
