@@ -44,7 +44,7 @@ codegen: gocodegen
 
 # Build the asciidoc book.
 .PHONY: docs
-docs:
+docs: generator
 	if [ ! -d $(PWD)/build/docs ]; then \
 		git clone --depth=1 https://github.com/elastic/docs.git ./build/docs ; \
 	fi
