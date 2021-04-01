@@ -155,7 +155,7 @@ The goal here is to research and understand the impact of these changes on users
 Stage 1: Identify potential concerns, implementation challenges, or complexity. Spend some time on this. Play devil's advocate. Try to identify the sort of non-obvious challenges that tend to surface later. The goal here is to surface risks early, allow everyone the time to work through them, and ultimately document resolution for posterity's sake.
 -->
 
-A lot of this data is provided by MITRE in their ATT&CK matrix. While not required, MITRE ATT&CK would be the most logical source of this data, however, it could be sourced by others as well. There could be the feeling that MITRE is required for this model. We have tried to outline in the descriptions that MITRE ATT&CK is not required.
+The MITRE ATT&CK Matrix provides the material used in these examples. While ATT&CK may be the most widely known source organized in this manner, it is neither the only source of this data or the required source.
 
 <!--
 Stage 2: Document new concerns or resolutions to previously listed concerns. It's not critical that all concerns have resolutions at this point, but it would be helpful if resolutions were taking shape for the most significant concerns.
