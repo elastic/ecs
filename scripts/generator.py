@@ -106,13 +106,13 @@ def read_version(ref=None):
 
 def write_version_includes(version, directory):
     with open('./generated/ecs_version.asciidoc', 'w') as version_include:
-        version_include.write(':ecs_version: '+version)
+        version_include.write(':ecs_version: ' + version)
     with open('./generated/ecs_github_repo_link.asciidoc', 'w') as github_include:
         lhs = ':ecs_github_repo_link: https://github.com/elastic/ecs/tree/'
         if version[-4:] == '-dev':
-           github_include.write(lhs+'master')
+            github_include.write(lhs + 'master')
         else:
-           github_include.write(lhs+version[:-2])
+            github_include.write(lhs + version[:-2])
 
 
 if __name__ == '__main__':
