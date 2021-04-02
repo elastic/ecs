@@ -204,6 +204,8 @@ e.g.:
 
 ## References
 
+* https://github.com/elastic/apm-server/issues/3873
+
 <!-- Insert any links appropriate to this RFC in this section. -->
 
 ### RFC Pull Requests
