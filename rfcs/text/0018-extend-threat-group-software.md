@@ -191,11 +191,11 @@ e.g.:
 
 <!-- Insert any links appropriate to this RFC in this section. -->
 
-[AdFind Software](https://attack.mitre.org/software/S0552/)
-[FIN6 Group](https://attack.mitre.org/groups/G0037/)
-[Discovery Tactic](https://attack.mitre.org/tactics/TA0007/)
-[Account Discovery Technique](https://attack.mitre.org/techniques/T1087/)
-[Account Discovery: Domain Account Sub Technique](https://attack.mitre.org/techniques/T1087/002/)
+- [AdFind Software](https://attack.mitre.org/software/S0552/)
+- [FIN6 Group](https://attack.mitre.org/groups/G0037/)
+- [Discovery Tactic](https://attack.mitre.org/tactics/TA0007/)
+- [Account Discovery Technique](https://attack.mitre.org/techniques/T1087/)
+- [Account Discovery: Domain Account Sub Technique](https://attack.mitre.org/techniques/T1087/002/)
 
 ### RFC Pull Requests
 
