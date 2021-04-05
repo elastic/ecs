@@ -1,6 +1,6 @@
 # 0012: Orchestrator field set creation
 
-- Stage: **2 (candidate)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
+- Stage: **3 (finished)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
 - Date: **2021-03-26** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 There is currently no ECS field set for container orchestration engines. There is an example of an ECS
@@ -92,10 +92,6 @@ The proposed change adds nine fields, as described below:
       description: >
         API version being used to carry out the action
 ```
-
-<!--
-Stage 3: Add or update all remaining field definitions. The list should now be exhaustive. The goal here is to validate the technical details of all remaining fields and to provide a basis for releasing these field definitions as beta in the schema. Use GitHub code blocks with yml syntax formatting.
--->
 
 ## Usage
 
@@ -198,10 +194,6 @@ Examples of source data include:
 }
 ```
 
-<!--
-Stage 3: Add more real world example source documents so we have at least 2 total, but ideally 3. Format as described in stage 2.
--->
-
 ## Scope of impact
 
 As this RFC involves the creation of an entirely new fieldset, no breaking
@@ -239,19 +231,8 @@ cover all the logical primitives of popular orchestrators. Input from contributo
 who have experience with the various alternative orchestration providers would be
 particularly valuable.
 
-<!--
-Stage 3: Document resolutions for all existing concerns. Any new concerns should be documented along with their resolution. The goal here is to eliminate the risk of churn and instability by resolving outstanding concerns.
--->
-
-<!--
-Stage 4: Document any new concerns and their resolution. The goal here is to eliminate risk of churn and instability by ensuring all concerns have been addressed.
--->
-
-## Real-world implementations
-
-<!--
-Stage 4: Identify at least one real-world, production-ready implementation that uses these updated field definitions. An example of this might be a GA feature in an Elastic application in Kibana.
--->
+*Resolution*: Input from various orchestrators has been considered to ensure this field
+set remains as generic as possible.
 
 ## People
 
