@@ -2,7 +2,7 @@
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
 - Stage: **1 (draft)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
-- Date: **2021-03-29** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
+- Date: **2021-04-06** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 <!--
 As you work on your RFC, use the "Stage N" comments to guide you in what you should focus on, for the stage you're targeting.
@@ -116,7 +116,7 @@ Examples are from MITRE's [enterprise matrix](https://github.com/mitre/cti/blob/
         "Windows"
     ]
 }
-```        
+```
 ```yml
 {
     "name": "FIN6",
@@ -133,7 +133,7 @@ Examples are from MITRE's [enterprise matrix](https://github.com/mitre/cti/blob/
         "ITG08"
     ],
 }
-```    
+```
 
 <!--
 Stage 3: Add more real world example source documents so we have at least 2 total, but ideally 3. Format as described in stage 2.
