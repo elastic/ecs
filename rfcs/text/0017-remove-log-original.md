@@ -7,11 +7,6 @@ This RFC supersedes issue [#841](https://github.com/elastic/ecs/issues/841) whic
 
 The request is to consolidate `log.original` and `event.original` by removing `log.original`, since these are almost equivalent in nature. (One) justification for preserving `event.original` is that not all events are logs. Once `log.original` is removed, `event.original` will be the sole field intended to capture the original untouched event.
 
-The removal of `log.original` will be considered a breaking change since the field is being removed from the schema. Possible migration/mitigations for users impacted may include:
-
-- requirement to alias `log.original` for current users of this field
-- TBD if there exist current users of fields with distinct content/meaning in a common index mapping
-
 ## Fields
 
 | Field Set | Field(s) |
@@ -55,13 +50,12 @@ Stage 3: Add more real world example source documents so we have at least 2 tota
 
 ## Scope of impact
 
-<!--
-Stage 2: Identifies scope of impact of changes. Are breaking changes required? Should deprecation strategies be adopted? Will significant refactoring be involved? Break the impact down into:
- * Ingestion mechanisms (e.g. beats/logstash)
- * Usage mechanisms (e.g. Kibana applications, detections)
- * ECS project (e.g. docs, tooling)
-The goal here is to research and understand the impact of these changes on users in the community and development teams across Elastic. 2-5 sentences each.
--->
+Beats modules and Agent integration packages would be required to migrate if this change is adopted as proposed.
+
+The removal of `log.original` will be considered a breaking change since the field is being removed from the schema. Possible migration/mitigations for users impacted may include:
+
+- requirement to alias `log.original` for current users of this field
+- TBD if there exist current users of fields with distinct content/meaning in a common index mapping
 
 ## Concerns
 
