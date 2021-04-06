@@ -31,6 +31,7 @@ For a field to use wildcard, it will require changing the field's defined schema
 | [`error`](0001/error.yml) | `error.stack_trace` |
 | [`http`](0001/http.yml) | `http.request.body.content`<br> `http.response.body.content` |
 | [`process`](0001/process.yml) | `process.command_line` |
+| [`registry`](0001/registry.yml) | `registry.data.strings` |
 | [`url`](0001/url.yml) | `url.full`<br> `url.original`<br> `url.path` |
 
 The full set of schema files which will be transitioning to `wildcard` are located in directory [rfcs/text/0001/](0001/).
