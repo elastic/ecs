@@ -77,7 +77,7 @@ def component_name_convention(ecs_version, ecs_nested):
     version = ecs_version.replace('+', '-')
     names = []
     for (fieldset_name, fieldset) in candidate_components(ecs_nested).items():
-        names.append("ecs_{}_{}".format(version, fieldset_name))
+        names.append("ecs_{}_{}".format(version, fieldset_name.lower()))
     return names
 
 

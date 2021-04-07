@@ -31,6 +31,8 @@ Thanks, you're awesome :-) -->
 
 #### Bugfixes
 
+* Correcting fieldset name capitalization for generated ES template #1323
+
 #### Added
 
 #### Improvements
@@ -39,31 +41,6 @@ Thanks, you're awesome :-) -->
 * Adjustments to use terminology that doesn't have negative connotation. #1315
 
 #### Deprecated
-
-
-## 1.9.0 (Feature Freeze)
-
-### Schema Changes
-
-#### Added
-
-* Added `hash.ssdeep`. #1169
-* Added `cloud.service.name`. #1204
-* Added `http.request.id`. #1208
-* `data_stream.*` fieldset introduced in experimental schema and artifacts. #1215
-* Added `geo.timezone`, `geo.postal_code`, and `geo.continent_code`. #1229
-* Added `beta` host metrics fields. #1248
-* Added `code_signature.team_id`, `code_signature.signing_id`. #1249
-* Extended `pe` fields added to experimental schema. #1256
-* Add `elf` fieldset to experimental schema. #1261
-* Add `threat.indicator` fields to experimental schema. #1268
-
-#### Improvements
-
-* Include formatting guidance and examples for MAC address fields. #456
-* New section in ECS detailing event categorization fields usage. #1242
-* `user.changes.*`, `user.effective.*`, and `user.target.*` field reuses are GA. #1271
-* Bump jinja2 from 2.11.2 to 2.11.3 #1310
 
 <!-- All empty sections:
 
