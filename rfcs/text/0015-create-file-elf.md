@@ -90,7 +90,6 @@ Stage 1: Provide a high-level description of example sources of data. This does 
 ### Real world examples
 <!--
 Stage 2: Included a real world example source document. Ideally this example comes from the source(s) identified in stage 1. If not, it should replace them. The goal here is to validate the utility of these field changes in the context of a real world example. Format with the source name as a ### header and the example document in a GitHub code block with json formatting.
-https[://]c4a08b8258a848efb518dcea18a1d11e[.]us-central1[.]gcp[.]cloud[.]es[.]io/goto/22bceecfba7e40710e8c5ddefa853bc8
 -->
 ```
 "file": {
