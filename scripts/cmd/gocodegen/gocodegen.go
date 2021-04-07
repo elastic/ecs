@@ -201,6 +201,7 @@ func main() {
 						Comment: descriptionToComment("\t", field.Description),
 						Name:    goTypeName(fieldName),
 						Type:    "[]" + goTypeName(fieldName),
+						JSONKey: field.Name,
 					})
 
 				} else {
