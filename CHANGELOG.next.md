@@ -25,6 +25,8 @@ Thanks, you're awesome :-) -->
 
 ### Tooling and Artifact Changes
 
+* Adjustments to the field set "usage" docs #1345
+
 #### Breaking changes
 
 #### Bugfixes
