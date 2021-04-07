@@ -18,7 +18,7 @@ The request is to consolidate `log.original` and `event.original` by removing `l
 
 - The internal description of the field `event.original` in [`event`](0017/event.yml) should be updated to reflect the revised scope 
 
-- The [`Beats default fields inclusion list`](../../scripts/generators/beats_default_fields_whitelist.yml) list should be updated by removing `log.original` if/when Deprecation progresses to Removal
+- The [`Beats default fields inclusion list`](../../scripts/generators/beats_default_fields_allowlist.yml) list should be updated by removing `log.original` if/when Deprecation progresses to Removal
 
 - The extended description of `log.original` in the [`Log Fields documentation`](../../docs/field-details.asciidoc#field-log-original) should be amended by addition of a notice of deprecation and subsequently removal if/when Deprecation progresses to Removal
 
