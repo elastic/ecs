@@ -9,43 +9,44 @@ Create the Mach Object (Mach-O) sub-field, of the `file` or `process` top-level 
 
 **Stage 0**
 
-This RFC is to create the Mach-O sub-field within the `file.` fieldset. This will include 35 sub-fields.
+This RFC is to create the Mach-O sub-field within the `file.` fieldset. This will include 35 sub-fields. `macho` itself is a nested
+field to account for [multiarchitecture binaries](https://en.wikipedia.org/wiki/Fat_binary). Each architecture will be represented
+by a nested objected located at `file.macho`.
 
-|   Name                                     |   Type     |   Description                                                               |
-|--------------------------------------------|------------|-----------------------------------------------------------------------------|
-|   macho.cpu                          |   object   |   CPU information for the file.                                             |
-|   macho.cpu.architecture             |   keyword  |   CPU architecture target for the file.                                     |
-|   macho.cpu.byte_order               |   keyword  |   CPU byte order for the file.                                              |
-|   macho.cpu.subtype                  |   keyword  |   CPU subtype for the file.                                                 |
-|   macho.cpu.type                     |   keyword  |   CPU type for the file.                                                    |
-|   macho.headers                      |   nested   |   Header information for the file.                                          |
-|   macho.headers.commands.number      |   long     |   Number of load commands for the Mach-O header.                            |
-|   macho.headers.commands.size        |   long     |   Size of load commands of the Mach-O header.                               |
-|   macho.headers.commands.type        |   keyword  |   Type of the load commands for the Mach-O header.                          |
-|   macho.headers.magic                |   keyword  |   Magic field of the Mach-O header.                                         |
-|   macho.headers.flags                |   keyword  |   Flags set in the Mach-O header.                                           |
-|   macho.segments                 |   nested   |   Segment information for the file.                   |
-|   macho.segments.name            |   keyword  |   Name of this segment.                               |
-|   macho.segments.physical_offset |   long     |   File offset of this segment.                        |
-|   macho.segments.physical_size   |   keyword  |   Amount of memory to map from the file.              |
-|   macho.segments.virtual_address |   keyword  |   Memory address of this segment.                     |
-|   macho.segments.virtual_size    |   keyword  |   Memory size of this segment.                        |
-|   macho.segments.sections        |   keyword  |   Section names contained in this segment.            |
-|   macho.sections                 |   nested   |   Section information for the segment of the file.    |
-|   macho.sections.name            |   keyword  |   Section name for the segment of the file.           |
-|   macho.sections.flags           |   keyword  |   Section flags for the segment of the file.          |
-|   macho.sections.type            |   keyword  |   Section type for the segment of the file.           |
-|   macho.sections.physical_offset |   long     |   Section List offset.                                |
-|   macho.sections.physical_size   |   long     |   Section List physical size.                         |
-|   macho.sections.virtual_address |   long     |   Section List virtual address.                       |
-|   macho.sections.virtual_size    |   long     |   Section List virtual size.                          |
-|   macho.sections.entropy         |   float    |   Shannon entropy calculation from the section.       |
-|   macho.sections.chi2            |   float    |   Chi-square probability distribution of the section. |
-|   macho.page_size                    |   long     |   Page size of the file.                                                    |
-|   macho.cdhash                    |   keyword     |   Code Digest (CD) SHA256 hash of the first 20-bytes of the file.                                                    |
+| Name                           | Type    | Description                                                     |
+|--------------------------------|---------|-----------------------------------------------------------------|
+| macho.cpu                      | object  | CPU information for the file.                                   |
+| macho.cpu.architecture         | keyword | CPU architecture target for the file.                           |
+| macho.cpu.byte_order           | keyword | CPU byte order for the file.                                    |
+| macho.cpu.subtype              | keyword | CPU subtype for the file.                                       |
+| macho.cpu.type                 | keyword | CPU type for the file.                                          |
+| macho.headers                  | nested  | Header information for the file.                                |
+| macho.headers.commands.number  | long    | Number of load commands for the Mach-O header.                  |
+| macho.headers.commands.size    | long    | Size of load commands of the Mach-O header.                     |
+| macho.headers.commands.type    | keyword | Type of the load commands for the Mach-O header.                |
+| macho.headers.magic            | keyword | Magic field of the Mach-O header.                               |
+| macho.headers.flags            | keyword | Flags set in the Mach-O header.                                 |
+| macho.segments                 | nested  | Segment information for the file.                               |
+| macho.segments.name            | keyword | Name of this segment.                                           |
+| macho.segments.physical_offset | long    | File offset of this segment.                                    |
+| macho.segments.physical_size   | keyword | Amount of memory to map from the file.                          |
+| macho.segments.virtual_address | keyword | Memory address of this segment.                                 |
+| macho.segments.virtual_size    | keyword | Memory size of this segment.                                    |
+| macho.segments.sections        | keyword | Section names contained in this segment.                        |
+| macho.sections                 | nested  | Section information for the segment of the file.                |
+| macho.sections.name            | keyword | Section name for the segment of the file.                       |
+| macho.sections.flags           | keyword | Section flags for the segment of the file.                      |
+| macho.sections.type            | keyword | Section type for the segment of the file.                       |
+| macho.sections.physical_offset | long    | Section List offset.                                            |
+| macho.sections.physical_size   | long    | Section List physical size.                                     |
+| macho.sections.virtual_address | long    | Section List virtual address.                                   |
+| macho.sections.virtual_size    | long    | Section List virtual size.                                      |
+| macho.sections.entropy         | float   | Shannon entropy calculation from the section.                   |
+| macho.sections.chi2            | float   | Chi-square probability distribution of the section.             |
+| macho.page_size                | long    | Page size of the file.                                          |
+| macho.cdhash                   | keyword | Code Digest (CD) SHA256 hash of the first 20-bytes of the file. |
 
-
-**Stage 1**  
+**Stage 1**
 
 [New `macho.yml` candidate](macho/macho.yml)]
 
@@ -55,7 +56,7 @@ Stage 3: Add or update all remaining field definitions. The list should now be e
 
 ## Usage
 
-**Stage 1**  
+**Stage 1**
 
 In performing file analysis, specifically for malware research, understanding file similarities can be used to chain together malware samples and families to identify campaigns and possibly attribution. Additionally, understanding how malware components are re-used is useful in understanding malware telemetry, especially in understanding the impact being made through the introduction of defensive countermeasures.
 
