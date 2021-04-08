@@ -165,19 +165,34 @@
 
     - name: exports
       description: >
-        List of exported element names and types.
+        List of exported elements.
+        `elf.exports` expects the following object structure:
+
+        {
+          "exports": {
+            "size": "value",
+            "type": "value",
+            "binding": "value",
+            "visibility": "value",
+            "name": "value",
+            "section": "value",
+            "version": "value"
+          }
+        }
       level: extended
       type: flattened
 
     - name: imports
       description: >
-        List of imported element names and types.
+        List of imported elements.
         `elf.imports` expects the following object structure:
 
         {
           "imports": {
+            "type": "value",
             "name": "value",
-            "type": "value"
+            "library": "value",
+            "version": "value"
           }
         }
       type: flattened
