@@ -99,5 +99,5 @@ e.g.:
 
 * Stage 0: https://github.com/elastic/ecs/pull/1298
 * Stage 1: https://github.com/elastic/ecs/pull/1314
-* Stage 2: https://github.com/elastic/ecs/pull/TBC
+* Stage 2: https://github.com/elastic/ecs/pull/1347
 
