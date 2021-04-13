@@ -24,7 +24,7 @@ Thanks, you're awesome :-) -->
 * Updated descriptions to use Elastic Security #1305
 * Host metrics fields from RFC 0005 are now GA. #1319
 * Adjustments to the field set "usage" docs #1345
-* Adjustments to the sidebar naming convention for usage and examples docs #TBC
+* Adjustments to the sidebar naming convention for usage and examples docs #1354
 
 ### Tooling and Artifact Changes
 
