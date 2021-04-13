@@ -17,6 +17,7 @@ Thanks, you're awesome :-) -->
 #### Added
 
 * Add `orchestrator` fieldset to experimental schema. #1292
+* Extend `threat.*` experimental fields with proposed changes from RFC 0018. #1344
 
 #### Improvements
 
@@ -36,6 +37,7 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
+* Support `nested` types in go code generator. #1254
 * Go code generator now supports the `flattened` data type. #1302
 * Adjustments to use terminology that doesn't have negative connotation. #1315
 
