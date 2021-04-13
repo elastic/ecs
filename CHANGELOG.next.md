@@ -38,7 +38,7 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
-* Support `nested` types in go code generator. #1254, #1350
+* Support `nested` types in go code generator. #1254
 * Go code generator now supports the `flattened` data type. #1302
 * Adjustments to use terminology that doesn't have negative connotation. #1315
 
