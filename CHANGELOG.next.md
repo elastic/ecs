@@ -24,6 +24,7 @@ Thanks, you're awesome :-) -->
 * Updated descriptions to use Elastic Security #1305
 * Host metrics fields from RFC 0005 are now GA. #1319
 * Adjustments to the field set "usage" docs #1345
+* Adjustments to the sidebar naming convention for usage and examples docs #TBC
 
 ### Tooling and Artifact Changes
 
@@ -37,7 +38,6 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
-* Support `nested` types in go code generator. #1254
 * Go code generator now supports the `flattened` data type. #1302
 * Adjustments to use terminology that doesn't have negative connotation. #1315
 
