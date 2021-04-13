@@ -75,7 +75,6 @@ type {{.Name}} struct {
 	{{$field.Name}} {{$field.Type}} \u0060ecs:"{{$field.JSONKey}}"\u0060
 {{ end -}}
 }
-
 {{ range $nestedField := .NestedTypes }}
 type {{$nestedField.Name}} struct {
 {{- range $field := $nestedField.Fields}}
