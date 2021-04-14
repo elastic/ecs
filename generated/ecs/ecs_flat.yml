@@ -3691,6 +3691,27 @@ host.network.ingress.packets:
   normalize: []
   short: The number of packets received on all network interfaces.
   type: long
+host.os.build:
+  dashed_name: host-os-build
+  description: 'Operating system build.
+
+    On Windows, this is the value of `SOFTWARE\Microsoft\Windows NT\CurrentVersion\CurrentBuild`
+    registry key. Optionally, the update build revision (UBR) can be added to `CurrentBuild`
+    and be separated by a period (`.`). Example: `17763.1817`
+
+    For macOS, this is the value of returned by the `sw_vers -buildVersion` command.
+
+    On some Linux systems, this may be the value of the `BUILD_ID` parameter specified
+    in `/etc/os-release`.'
+  example: '17763.1817'
+  flat_name: host.os.build
+  ignore_above: 1024
+  level: extended
+  name: build
+  normalize: []
+  original_fieldset: os
+  short: Operation system build.
+  type: keyword
 host.os.family:
   dashed_name: host-os-family
   description: OS family (such as redhat, debian, freebsd, windows).
@@ -4914,6 +4935,27 @@ observer.name:
   name: name
   normalize: []
   short: Custom name of the observer.
+  type: keyword
+observer.os.build:
+  dashed_name: observer-os-build
+  description: 'Operating system build.
+
+    On Windows, this is the value of `SOFTWARE\Microsoft\Windows NT\CurrentVersion\CurrentBuild`
+    registry key. Optionally, the update build revision (UBR) can be added to `CurrentBuild`
+    and be separated by a period (`.`). Example: `17763.1817`
+
+    For macOS, this is the value of returned by the `sw_vers -buildVersion` command.
+
+    On some Linux systems, this may be the value of the `BUILD_ID` parameter specified
+    in `/etc/os-release`.'
+  example: '17763.1817'
+  flat_name: observer.os.build
+  ignore_above: 1024
+  level: extended
+  name: build
+  normalize: []
+  original_fieldset: os
+  short: Operation system build.
   type: keyword
 observer.os.family:
   dashed_name: observer-os-family
@@ -9503,6 +9545,27 @@ user_agent.original:
   name: original
   normalize: []
   short: Unparsed user_agent string.
+  type: keyword
+user_agent.os.build:
+  dashed_name: user-agent-os-build
+  description: 'Operating system build.
+
+    On Windows, this is the value of `SOFTWARE\Microsoft\Windows NT\CurrentVersion\CurrentBuild`
+    registry key. Optionally, the update build revision (UBR) can be added to `CurrentBuild`
+    and be separated by a period (`.`). Example: `17763.1817`
+
+    For macOS, this is the value of returned by the `sw_vers -buildVersion` command.
+
+    On some Linux systems, this may be the value of the `BUILD_ID` parameter specified
+    in `/etc/os-release`.'
+  example: '17763.1817'
+  flat_name: user_agent.os.build
+  ignore_above: 1024
+  level: extended
+  name: build
+  normalize: []
+  original_fieldset: os
+  short: Operation system build.
   type: keyword
 user_agent.os.family:
   dashed_name: user-agent-os-family

@@ -47,4 +47,15 @@ type Os struct {
 
 	// Operating system kernel version as a raw string.
 	Kernel string `ecs:"kernel"`
+
+	// Operating system build.
+	// On Windows, this is the value of `SOFTWARE\Microsoft\Windows
+	// NT\CurrentVersion\CurrentBuild` registry key. Optionally, the update
+	// build revision (UBR) can be added to `CurrentBuild` and be separated by
+	// a period (`.`). Example: `17763.1817`
+	// For macOS, this is the value of returned by the `sw_vers -buildVersion`
+	// command.
+	// On some Linux systems, this may be the value of the `BUILD_ID` parameter
+	// specified in `/etc/os-release`.
+	Build string `ecs:"build"`
 }

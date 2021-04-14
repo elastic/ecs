@@ -3226,6 +3226,22 @@
       description: The number of packets (gauge) received on all network interfaces
         by the host since the last metric collection.
       default_field: false
+    - name: os.build
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Operating system build.
+
+        On Windows, this is the value of `SOFTWARE\Microsoft\Windows NT\CurrentVersion\CurrentBuild`
+        registry key. Optionally, the update build revision (UBR) can be added to
+        `CurrentBuild` and be separated by a period (`.`). Example: `17763.1817`
+
+        For macOS, this is the value of returned by the `sw_vers -buildVersion` command.
+
+        On some Linux systems, this may be the value of the `BUILD_ID` parameter specified
+        in `/etc/os-release`.'
+      example: '17763.1817'
+      default_field: false
     - name: os.family
       level: extended
       type: keyword
@@ -4030,6 +4046,22 @@
 
         If no custom name is needed, the field can be left empty.'
       example: 1_proxySG
+    - name: os.build
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Operating system build.
+
+        On Windows, this is the value of `SOFTWARE\Microsoft\Windows NT\CurrentVersion\CurrentBuild`
+        registry key. Optionally, the update build revision (UBR) can be added to
+        `CurrentBuild` and be separated by a period (`.`). Example: `17763.1817`
+
+        For macOS, this is the value of returned by the `sw_vers -buildVersion` command.
+
+        On some Linux systems, this may be the value of the `BUILD_ID` parameter specified
+        in `/etc/os-release`.'
+      example: '17763.1817'
+      default_field: false
     - name: os.family
       level: extended
       type: keyword
@@ -4218,6 +4250,22 @@
     description: The OS fields contain information about the operating system.
     type: group
     fields:
+    - name: build
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Operating system build.
+
+        On Windows, this is the value of `SOFTWARE\Microsoft\Windows NT\CurrentVersion\CurrentBuild`
+        registry key. Optionally, the update build revision (UBR) can be added to
+        `CurrentBuild` and be separated by a period (`.`). Example: `17763.1817`
+
+        For macOS, this is the value of returned by the `sw_vers -buildVersion` command.
+
+        On some Linux systems, this may be the value of the `BUILD_ID` parameter specified
+        in `/etc/os-release`.'
+      example: '17763.1817'
+      default_field: false
     - name: family
       level: extended
       type: keyword
@@ -8899,6 +8947,22 @@
       description: Unparsed user_agent string.
       example: Mozilla/5.0 (iPhone; CPU iPhone OS 12_1 like Mac OS X) AppleWebKit/605.1.15
         (KHTML, like Gecko) Version/12.0 Mobile/15E148 Safari/604.1
+    - name: os.build
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Operating system build.
+
+        On Windows, this is the value of `SOFTWARE\Microsoft\Windows NT\CurrentVersion\CurrentBuild`
+        registry key. Optionally, the update build revision (UBR) can be added to
+        `CurrentBuild` and be separated by a period (`.`). Example: `17763.1817`
+
+        For macOS, this is the value of returned by the `sw_vers -buildVersion` command.
+
+        On some Linux systems, this may be the value of the `BUILD_ID` parameter specified
+        in `/etc/os-release`.'
+      example: '17763.1817'
+      default_field: false
     - name: os.family
       level: extended
       type: keyword
