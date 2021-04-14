@@ -74,3 +74,19 @@
       example: "4.4.0-112-generic"
       description: >
         Operating system kernel version as a raw string.
+
+    - name: build
+      level: extended
+      type: keyword
+      example: "17763.1817"
+      description: >
+        Operating system build.
+
+        On Windows, this is the value of `SOFTWARE\Microsoft\Windows NT\CurrentVersion\CurrentBuild`
+        registry key. Optionally, the update build revision (UBR) can be added to `CurrentBuild` and
+        be separated by a period (`.`). Example: `17763.1817`
+
+        For macOS, this is the value of returned by the `sw_vers -buildVersion` command.
+
+        On some Linux systems, this may be the value of the `BUILD_ID` parameter specified
+        in `/etc/os-release`.
