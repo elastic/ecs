@@ -78,6 +78,8 @@ def schema_assertions_and_warnings(schema):
     single_line_short_description(schema, strict=strict_mode)
     if 'beta' in schema['field_details']:
         single_line_beta_description(schema, strict=strict_mode)
+    if 'reusable' in schema['schema_details']:
+        single_line_short_override_description(schema, strict=strict_mode)
 
 
 def normalize_reuse_notation(schema):
@@ -234,3 +236,21 @@ def single_line_beta_description(schema_or_field, strict=True):
             raise ValueError(msg)
         else:
             ecs_helpers.strict_warning(msg)
+
+
+def single_line_short_override_description(schema_or_field, strict=True):
+    for field in schema_or_field['schema_details']['reusable']['expected']:
+        if not 'short_override' in field:
+            continue
+        short_length = len(field['short_override'])
+        if "\n" in field['short_override'] or short_length > SHORT_LIMIT:
+            msg = "Short descriptions must be single line, and under {} characters (current length: {}).\n".format(
+                SHORT_LIMIT,
+                short_length)
+            msg += "Offending field or field set: {}\nShort description:\n  {}".format(
+                field['full'],
+                field['short_override'])
+            if strict:
+                raise ValueError(msg)
+            else:
+                ecs_helpers.strict_warning(msg)
