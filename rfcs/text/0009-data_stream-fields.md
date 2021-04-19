@@ -257,7 +257,7 @@ e.g.:
 * Stage 2: https://github.com/elastic/ecs/pull/1145
 * Stage 3: https://github.com/elastic/ecs/pull/1212
   * Stage 3 date correction: https://github.com/elastic/ecs/pull/1306
-* Rollback to stage 2: https://github.com/elastic/ecs/pull/yyyy
+* Rollback to stage 2: https://github.com/elastic/ecs/pull/1367
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN
 ...
