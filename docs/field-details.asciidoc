@@ -1017,6 +1017,94 @@ example: `docker`
 
 |=====
 
+[[ecs-data_stream]]
+=== Data Stream Fields
+
+The data_stream fields take part in defining the new data stream naming scheme.
+
+In the new data stream naming scheme the value of the data stream fields combine to the name of the actual data stream in the following manner: `{data_stream.type}-{data_stream.dataset}-{data_stream.namespace}`. This means the fields can only contain characters that are valid as part of names of data streams. More details about this can be found in this https://www.elastic.co/blog/an-introduction-to-the-elastic-data-stream-naming-scheme[blog post].
+
+An Elasticsearch data stream consists of one or more backing indices, and a data stream name forms part of the backing indices names. Due to this convention, data streams must also follow index naming restrictions. For example, data stream names cannot include `\`, `/`, `*`, `?`, `"`, `<`, `>`, `|`, ` ` (space character), `,`, or `#`. Please see the Elasticsearch reference for additional https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-create-index.html#indices-create-api-path-params[restrictions].
+
+beta::[ These fields are in beta and are subject to change.]
+
+[discrete]
+==== Data Stream Field Details
+
+[options="header"]
+|=====
+| Field  | Description | Level
+
+// ===============================================================
+
+|
+[[field-data-stream-dataset]]
+<<field-data-stream-dataset, data_stream.dataset>>
+
+| The field can contain anything that makes sense to signify the source of the data.
+
+Examples include `nginx.access`, `prometheus`, `endpoint` etc. For data streams that otherwise fit, but that do not have dataset set we use the value "generic" for the dataset value. `event.dataset` should have the same value as `data_stream.dataset`.
+
+Beyond the Elasticsearch data stream naming criteria noted above, the `dataset` value has additional restrictions:
+
+  * Must not contain `-`
+
+  * No longer than 100 characters
+
+type: constant_keyword
+
+
+
+example: `nginx.access`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-data-stream-namespace]]
+<<field-data-stream-namespace, data_stream.namespace>>
+
+| A user defined namespace. Namespaces are useful to allow grouping of data.
+
+Many users already organize their indices this way, and the data stream naming scheme now provides this best practice as a default. Many users will populate this field with `default`. If no value is used, it falls back to `default`.
+
+Beyond the Elasticsearch index naming criteria noted above, `namespace` value has the additional restrictions:
+
+  * Must not contain `-`
+
+  * No longer than 100 characters
+
+type: constant_keyword
+
+
+
+example: `production`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-data-stream-type]]
+<<field-data-stream-type, data_stream.type>>
+
+| An overarching type for the data stream.
+
+Currently allowed values are "logs" and "metrics". We expect to also add "traces" and "synthetics" in the near future.
+
+type: constant_keyword
+
+
+
+example: `logs`
+
+| extended
+
+// ===============================================================
+
+|=====
+
 [[ecs-destination]]
 === Destination Fields
 

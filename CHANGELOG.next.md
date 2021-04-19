@@ -16,6 +16,7 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
+* Add `data_stream` fieldset. #1307
 * Add `orchestrator` fieldset as beta fields. #1326
 * Extend `threat.*` experimental fields with proposed changes from RFC 0018. #1344, #1351
 
