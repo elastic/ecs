@@ -1,8 +1,8 @@
 # 0009: Data stream fields
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
-- Stage: **3 (finished)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
-- Date: **2021-03-18** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
+- Stage: **2 (candidate)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
+- Date: **2021-04-19** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 When introducing the new indexing strategy for Elastic Agent which uses data streams, we found that adding a few [constant_keyword](https://www.elastic.co/guide/en/elasticsearch/reference/master/keyword.html#constant-keyword-field-type) fields corresponding to the central components in the new indexing strategy would be advantageous.
 
@@ -257,6 +257,7 @@ e.g.:
 * Stage 2: https://github.com/elastic/ecs/pull/1145
 * Stage 3: https://github.com/elastic/ecs/pull/1212
   * Stage 3 date correction: https://github.com/elastic/ecs/pull/1306
+* Rollback to stage 2: https://github.com/elastic/ecs/pull/yyyy
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN
 ...
