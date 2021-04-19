@@ -4695,6 +4695,168 @@ type: keyword
 
 |=====
 
+[[ecs-orchestrator]]
+=== Orchestrator Fields
+
+Fields that describe the resources which container orchestrators manage or act upon.
+
+beta::[ These fields are in beta and are subject to change.]
+
+[discrete]
+==== Orchestrator Field Details
+
+[options="header"]
+|=====
+| Field  | Description | Level
+
+// ===============================================================
+
+|
+[[field-orchestrator-api-version]]
+<<field-orchestrator-api-version, orchestrator.api_version>>
+
+| API version being used to carry out the action
+
+type: keyword
+
+
+
+example: `v1beta1`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-orchestrator-cluster-name]]
+<<field-orchestrator-cluster-name, orchestrator.cluster.name>>
+
+| Name of the cluster.
+
+type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-orchestrator-cluster-url]]
+<<field-orchestrator-cluster-url, orchestrator.cluster.url>>
+
+| URL of the API used to manage the cluster.
+
+type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-orchestrator-cluster-version]]
+<<field-orchestrator-cluster-version, orchestrator.cluster.version>>
+
+| The version of the cluster.
+
+type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-orchestrator-namespace]]
+<<field-orchestrator-namespace, orchestrator.namespace>>
+
+| Namespace in which the action is taking place.
+
+type: keyword
+
+
+
+example: `kube-system`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-orchestrator-organization]]
+<<field-orchestrator-organization, orchestrator.organization>>
+
+| Organization affected by the event (for multi-tenant orchestrator setups).
+
+type: keyword
+
+
+
+example: `elastic`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-orchestrator-resource-name]]
+<<field-orchestrator-resource-name, orchestrator.resource.name>>
+
+| Name of the resource being acted upon.
+
+type: keyword
+
+
+
+example: `test-pod-cdcws`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-orchestrator-resource-type]]
+<<field-orchestrator-resource-type, orchestrator.resource.type>>
+
+| Type of resource being acted upon.
+
+type: keyword
+
+
+
+example: `service`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-orchestrator-type]]
+<<field-orchestrator-type, orchestrator.type>>
+
+| Orchestrator cluster type (e.g. kubernetes, nomad or cloudfoundry).
+
+type: keyword
+
+
+
+example: `kubernetes`
+
+| extended
+
+// ===============================================================
+
+|=====
+
 [[ecs-organization]]
 === Organization Fields
 
@@ -7845,10 +8007,6 @@ The user fields describe information about the user that is relevant to the even
 
 Fields can have one entry or multiple entries. If a user has more than one id, provide an array that includes all of them.
 
-Find additional usage and examples in the user fields <<ecs-user-usage,usage>> section.
-
-
-
 [discrete]
 ==== User Field Details
 
@@ -8043,6 +8201,11 @@ Note also that the `user` fields may be used directly at the root of the events.
 |=====
 
 
+
+[discrete]
+==== User Field Usage
+
+For usage and examples of the user fields, please see the <<ecs-user-usage, User Fields Usage and Examples>> section.
 
 include::usage/user.asciidoc[]
 
