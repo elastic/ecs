@@ -112,7 +112,7 @@ Note also that the `{{ fieldset['name'] }}` fields are not expected to be used d
 
 [options="header"]
 |=====
-| Nested fields | Description
+| Field Set | Location | Description
 
 // ===============================================================
 
@@ -120,7 +120,8 @@ Note also that the `{{ fieldset['name'] }}` fields are not expected to be used d
 {% for entry in render_nestings_reuse_section -%}
 
 {#- Beta marker on nested fields -#}
-| <<ecs-{{ entry['name'] }},{{ entry['flat_nesting'] }}>>
+| <<ecs-{{ entry['name'] }},{{ entry['name'] }}>>
+| `{{ entry['flat_nesting'] }}`
 {#- Beta marker on nested fields -#}
 {%- if entry['beta'] -%}
 | beta:[ {{ entry['beta'] }}]
