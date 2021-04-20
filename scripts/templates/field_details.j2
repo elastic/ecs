@@ -4,6 +4,12 @@
 
 {{ fieldset['description']|replace("\n", "\n\n") }}
 
+{%- if usage_doc %}
+
+Find additional usage and examples in the {{ fieldset['name'] }} fields <<ecs-{{ fieldset['name']|replace("_", "-") }}-usage,usage>> section.
+
+{% endif %}
+
 {# Fieldset label beta header -#}
 {% if fieldset['beta'] -%}
 
@@ -120,8 +126,7 @@ Note also that the `{{ fieldset['name'] }}` fields are not expected to be used d
 {% for entry in render_nestings_reuse_section -%}
 
 {#- Beta marker on nested fields -#}
-
-| <<{{ entry['flat_nesting'] }}, {{ entry['name'] }}>>
+| <<ecs-{{ entry['name'] }},{{ entry['name'] }}>>
 | `{{ entry['flat_nesting'] }}`
 {#- Beta marker on nested fields -#}
 {%- if entry['beta'] -%}
@@ -143,11 +148,6 @@ Note also that the `{{ fieldset['name'] }}` fields are not expected to be used d
 {%- endif -%}{# if 'nestings' or 'reusable' in fieldset #}
 {%- if usage_doc %}
 
-{# Field Usage Table Header -#}
-[discrete]
-==== {{ fieldset['title'] }} Field Usage
-
-For usage and examples of the {{ fieldset['name'] }} fields, please see the <<ecs-{{ fieldset['name']|replace("_", "-") }}-usage, {{ fieldset['title'] }} Fields Usage and Examples>> section.
 
 include::usage/{{ fieldset['name'] }}.asciidoc[]
 
