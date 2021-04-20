@@ -107,6 +107,10 @@ e.g.:
 
 <!-- Insert any links appropriate to this RFC in this section. -->
 
+* https://github.com/elastic/ecs/issues/887
+* https://github.com/elastic/ecs/issues/842
+* https://www.elastic.co/guide/en/elasticsearch/reference/current/version.html
+
 ### RFC Pull Requests
 
 <!-- An RFC should link to the PRs for each of it stage advancements. -->
