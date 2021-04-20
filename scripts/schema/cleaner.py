@@ -198,19 +198,35 @@ def field_assertions_and_warnings(field):
 
 SHORT_LIMIT = 120
 
-
-def single_line_short_description(schema_or_field, strict=True):
-    short_length = len(schema_or_field['field_details']['short'])
-    if "\n" in schema_or_field['field_details']['short'] or short_length > SHORT_LIMIT:
+def single_line_short_check(short_to_check, short_name):
+    short_length = len(short_to_check)
+    if "\n" in short_to_check or short_length > SHORT_LIMIT:
         msg = "Short descriptions must be single line, and under {} characters (current length: {}).\n".format(
             SHORT_LIMIT, short_length)
         msg += "Offending field or field set: {}\nShort description:\n  {}".format(
-            schema_or_field['field_details']['name'],
-            schema_or_field['field_details']['short'])
+            short_name,
+            short_to_check)
+        return msg
+    return None
+
+def single_line_short_description(schema_or_field, strict=True):
+    error = single_line_short_check(schema_or_field['field_details']['short'], schema_or_field['field_details']['name'])
+    if error:
         if strict:
-            raise ValueError(msg)
+            raise ValueError(error)
         else:
-            ecs_helpers.strict_warning(msg)
+            ecs_helpers.strict_warning(error)
+
+def single_line_short_override_description(schema_or_field, strict=True):
+    for field in schema_or_field['schema_details']['reusable']['expected']:
+        if not 'short_override' in field:
+            continue
+        error = single_line_short_check(field['short_override'], field['full'])
+        if error:
+            if strict:
+                raise ValueError(error)
+            else:
+                ecs_helpers.strict_warning(error)
 
 
 def check_example_value(field, strict=True):
@@ -238,19 +254,4 @@ def single_line_beta_description(schema_or_field, strict=True):
             ecs_helpers.strict_warning(msg)
 
 
-def single_line_short_override_description(schema_or_field, strict=True):
-    for field in schema_or_field['schema_details']['reusable']['expected']:
-        if not 'short_override' in field:
-            continue
-        short_length = len(field['short_override'])
-        if "\n" in field['short_override'] or short_length > SHORT_LIMIT:
-            msg = "Short descriptions must be single line, and under {} characters (current length: {}).\n".format(
-                SHORT_LIMIT,
-                short_length)
-            msg += "Offending field or field set: {}\nShort description:\n  {}".format(
-                field['full'],
-                field['short_override'])
-            if strict:
-                raise ValueError(msg)
-            else:
-                ecs_helpers.strict_warning(msg)
+
