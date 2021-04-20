@@ -198,6 +198,7 @@ def field_assertions_and_warnings(field):
 
 SHORT_LIMIT = 120
 
+
 def single_line_short_check(short_to_check, short_name):
     short_length = len(short_to_check)
     if "\n" in short_to_check or short_length > SHORT_LIMIT:
@@ -209,6 +210,7 @@ def single_line_short_check(short_to_check, short_name):
         return msg
     return None
 
+
 def single_line_short_description(schema_or_field, strict=True):
     error = single_line_short_check(schema_or_field['field_details']['short'], schema_or_field['field_details']['name'])
     if error:
@@ -216,6 +218,7 @@ def single_line_short_description(schema_or_field, strict=True):
             raise ValueError(error)
         else:
             ecs_helpers.strict_warning(error)
+
 
 def single_line_short_override_description(schema_or_field, strict=True):
     for field in schema_or_field['schema_details']['reusable']['expected']:
@@ -252,6 +255,3 @@ def single_line_beta_description(schema_or_field, strict=True):
             raise ValueError(msg)
         else:
             ecs_helpers.strict_warning(msg)
-
-
-
