@@ -16,7 +16,8 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
-* Add `orchestrator` fieldset to experimental schema. #1292
+* Add `data_stream` fieldset. #1307
+* Add `orchestrator` fieldset as beta fields. #1326
 * Extend `threat.*` experimental fields with proposed changes from RFC 0018. #1344, #1351
 * Allow custom descriptions for self-nesting reuses via `short_override` #1366
 
