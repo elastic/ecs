@@ -29,9 +29,27 @@
     - name: tags
       level: core
       type: keyword
-      example: "[\"production\", \"env2\"]"
+      example: "[\"parse_warning, @timestamp QA\", \"env2\", ]"
+      short: List of keywords used to tag each event.
       description: >
         List of keywords used to tag each event.
+
+        This field should only contain short tags that are relevant enough to
+        be included by default in Kibana Discover for example.
+        See also tag_details.
+      normalize:
+        - array
+
+    - name: tag_details
+      level: custom
+      type: keyword
+      example: "[\"parse_warning, @timestamp QA: @timestamp field is more than 10 minutes off from event.created. Using event.created as @timestamp.\", \"parse_warning\"]"
+      short: List of keywords that can be used to augment the tags field.
+      description: >
+        List of keywords that can be used to augment the tags field.
+
+        Some tags need explanation or might include dynamic content. Such data
+        should go into the tag_details field
       normalize:
         - array
 
