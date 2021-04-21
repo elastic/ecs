@@ -9,10 +9,21 @@ Thanks, you're awesome :-) -->
 ## Unreleased
 
 ### Schema Changes
+### Tooling and Artifact Changes
 
 #### Breaking changes
 
 #### Bugfixes
+
+#### Added
+
+#### Improvements
+
+#### Deprecated
+
+## 1.10.0 (Feature Freeze)
+
+### Schema Changes
 
 #### Added
 
@@ -30,21 +41,15 @@ Thanks, you're awesome :-) -->
 
 ### Tooling and Artifact Changes
 
-#### Breaking changes
-
 #### Bugfixes
 
 * Correcting fieldset name capitalization for generated ES template #1323
-
-#### Added
 
 #### Improvements
 
 * Support `nested` types in go code generator. #1254, #1350
 * Go code generator now supports the `flattened` data type. #1302
 * Adjustments to use terminology that doesn't have negative connotation. #1315
-
-#### Deprecated
 
 <!-- All empty sections:
 
