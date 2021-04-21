@@ -44,11 +44,15 @@ codegen: gocodegen
 
 # Build the asciidoc book.
 .PHONY: docs
-docs: generator
+docs:
 	if [ ! -d $(PWD)/build/docs ]; then \
 		git clone --depth=1 https://github.com/elastic/docs.git ./build/docs ; \
 	fi
 	./build/docs/build_docs --asciidoctor --doc ./docs/index.asciidoc --chunk=2 $(OPEN_DOCS) --out ./build/html_docs
+
+# Run the generator and then build the asciidoc book
+.PHONY: gendocs
+gendocs: generator docs
 
 # Alias to generate experimental artifacts
 .PHONY: experimental

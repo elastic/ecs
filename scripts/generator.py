@@ -21,8 +21,8 @@ from schema import subset_filter
 def main():
     args = argument_parser()
 
-    ecs_version = read_version(args.ref)
-    print('Running generator. ECS version ' + ecs_version)
+    ecs_generated_version = read_version(args.ref)
+    print('Running generator. ECS version ' + ecs_generated_version)
 
     # default location to save files
     out_dir = 'generated'
@@ -43,8 +43,8 @@ def main():
 
     # Detect usage of experimental changes to tweak artifact version label
     if args.include and loader.EXPERIMENTAL_SCHEMA_DIR in args.include:
-        ecs_version += "+exp"
-    write_version_includes(ecs_version, docs_dir)
+        ecs_generated_version += "+exp"
+    write_version_includes(ecs_generated_version, docs_dir)
 
     fields = loader.load_schemas(ref=args.ref, included_files=args.include)
     if args.oss:
@@ -57,15 +57,15 @@ def main():
     if args.intermediate_only:
         exit()
 
-    csv_generator.generate(flat, ecs_version, out_dir)
-    es_template.generate(nested, ecs_version, out_dir, args.mapping_settings)
-    es_template.generate_legacy(flat, ecs_version, out_dir, args.template_settings, args.mapping_settings)
-    beats.generate(nested, ecs_version, out_dir)
+    csv_generator.generate(flat, ecs_generated_version, out_dir)
+    es_template.generate(nested, ecs_generated_version, out_dir, args.mapping_settings)
+    es_template.generate_legacy(flat, ecs_generated_version, out_dir, args.template_settings, args.mapping_settings)
+    beats.generate(nested, ecs_generated_version, out_dir)
     if args.include or args.subset:
         exit()
 
     ecs_helpers.make_dirs(docs_dir)
-    asciidoc_fields.generate(nested, ecs_version, docs_dir)
+    asciidoc_fields.generate(nested, ecs_generated_version, docs_dir)
 
 
 def argument_parser():
@@ -105,10 +105,10 @@ def read_version(ref=None):
 
 
 def write_version_includes(version, directory):
-    with open(os.path.join(directory, 'ecs_version.asciidoc'), 'w') as version_include:
-        version_include.write(':ecs_version: ' + version)
+    with open(os.path.join(directory, 'ecs_generated_version.asciidoc'), 'w') as version_include:
+        version_include.write(':ecs_generated_version: ' + version)
     with open(os.path.join(directory, 'ecs_github_repo_link.asciidoc'), 'w') as github_include:
-        lhs = ':ecs_github_repo_link: https://github.com/elastic/ecs/tree/'
+        lhs = ':ecs_github_repo_link: https://github.com/elastic/ecs/blob/'
         if version[-4:] == '-dev':
             github_include.write(lhs + 'master')
         else:
