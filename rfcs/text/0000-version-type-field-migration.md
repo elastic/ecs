@@ -70,11 +70,26 @@ Stage 2: Identifies scope of impact of changes. Are breaking changes required? S
 The goal here is to research and understand the impact of these changes on users in the community and development teams across Elastic. 2-5 sentences each.
 -->
 
+### Mapping conflicts
+
+Changing the field type will result in a mapping conflict across indices mapping version fields using `type: keyword` and indices mapping version fields as `type: version`.
+
 ## Concerns
 
 <!--
 Stage 1: Identify potential concerns, implementation challenges, or complexity. Spend some time on this. Play devil's advocate. Try to identify the sort of non-obvious challenges that tend to surface later. The goal here is to surface risks early, allow everyone the time to work through them, and ultimately document resolution for posterity's sake.
 -->
+
+### Version fields containing non-semantic version values
+
+Version string values that are not valid under the semver rules will still be indexed and retrieved as exact matches but will only appear _after_ any valid semver value with regular alphabetical ordering.
+
+Fields that expect version values but often contains values that do _not_ align with semver rules are probably best to remain using `keyword`. The [list](#Fields) of proposed fields will be assessed in a later stage to determine if each field's expected values make it a good candidate for `version`.
+
+
+### Kibana support
+
+Support in Kibana for the `version` data for index patterns, aggregations, and Lens is still [in-progress](https://github.com/elastic/kibana/issues/93248).
 
 <!--
 Stage 2: Document new concerns or resolutions to previously listed concerns. It's not critical that all concerns have resolutions at this point, but it would be helpful if resolutions were taking shape for the most significant concerns.
@@ -110,6 +125,7 @@ e.g.:
 * https://github.com/elastic/ecs/issues/887
 * https://github.com/elastic/ecs/issues/842
 * https://www.elastic.co/guide/en/elasticsearch/reference/current/version.html
+* https://github.com/elastic/kibana/issues/93248
 
 ### RFC Pull Requests
 
