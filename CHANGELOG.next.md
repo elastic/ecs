@@ -16,6 +16,28 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
+#### Improvements
+
+#### Deprecated
+
+### Tooling and Artifact Changes
+
+#### Breaking changes
+
+#### Bugfixes
+
+#### Added
+
+#### Improvements
+
+#### Deprecated
+
+## 1.10.0 (Feature Freeze)
+
+### Schema Changes
+
+#### Added
+
 * Add `data_stream` fieldset. #1307
 * Add `orchestrator` fieldset as beta fields. #1326
 * Extend `threat.*` experimental fields with proposed changes from RFC 0018. #1344, #1351
@@ -30,21 +52,15 @@ Thanks, you're awesome :-) -->
 
 ### Tooling and Artifact Changes
 
-#### Breaking changes
-
 #### Bugfixes
 
 * Correcting fieldset name capitalization for generated ES template #1323
-
-#### Added
 
 #### Improvements
 
 * Support `nested` types in go code generator. #1254, #1350
 * Go code generator now supports the `flattened` data type. #1302
 * Adjustments to use terminology that doesn't have negative connotation. #1315
-
-#### Deprecated
 
 <!-- All empty sections:
 
