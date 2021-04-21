@@ -9,6 +9,17 @@ Thanks, you're awesome :-) -->
 ## Unreleased
 
 ### Schema Changes
+
+#### Breaking changes
+
+#### Bugfixes
+
+#### Added
+
+#### Improvements
+
+#### Deprecated
+
 ### Tooling and Artifact Changes
 
 #### Breaking changes
