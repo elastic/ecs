@@ -30,8 +30,6 @@ Thanks, you're awesome :-) -->
 
 ### Tooling and Artifact Changes
 
-* Generate include files to ensure referenced Github branch matches docs #1338
-
 #### Breaking changes
 
 #### Bugfixes
@@ -45,6 +43,7 @@ Thanks, you're awesome :-) -->
 * Support `nested` types in go code generator. #1254, #1350
 * Go code generator now supports the `flattened` data type. #1302
 * Adjustments to use terminology that doesn't have negative connotation. #1315
+* Generate include files to ensure referenced Github branch matches docs #1338
 
 #### Deprecated
 
