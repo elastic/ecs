@@ -52,7 +52,7 @@ docs:
 
 # Run the generator and then build the asciidoc book
 .PHONY: gendocs
-gendocs: generator docs
+gendocs: generate docs
 
 # Alias to generate experimental artifacts
 .PHONY: experimental
