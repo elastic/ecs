@@ -89,9 +89,9 @@ Stage 1: Describe at a high-level how these field changes will be used in practi
 
 The additions described above will be used to enable cyber threat intelligence capabilities in Elastic Security solution. A new rule type Indicator match will be introduced in 7.10 and the proposed ECS updates will enable a new category of detection alerts that match incoming log and event data against threat intelligence sources. Additionally in the future we will also develop enrichment flows that add context from threat intelligence to alerts and events to assist analysts in their investigative workflows.
 
-There are two primary uses for these fields.
+While there are two primary uses for these fields, this RFC deals primarily with the first: ingestion/storage of threat intelligence.
 
-1. **Storing threat intelligence as an event document in threat index(s).**
+**Storing threat intelligence as an event document in threat index(s).**
 
     Threat intelligence data will be collected from multiple sources stored in threat indices. The ECS fields proposed here will be used to structure the documents collected from various sources.
 
@@ -142,115 +142,6 @@ There are two primary uses for these fields.
     ],
 }
 ```
-
-2. **Adding threat intelligence match/enrichment to another document which could be in a source event index or signals index.**
-
-    The Indicator Match Rule will be used to generate signals when a match occurs between a source event and threat intelligence document. The ECS fields proposed here will be used to add the enrichment and threat intel context in the signal document.
-
-**Example**
-```json5
-{
-    "process": {
-        "name": "svchost.exe",
-        "pid": 1644,
-        "entity_id": "MDgyOWFiYTYtMzRkYi1kZTM2LTFkNDItMzBlYWM3NDVlOTgwLTE2NDQtMTMyNDk3MTA2OTcuNDc1OTExNTAw",
-        "executable": "C:\\Windows\\System32\\svchost.exe"
-    },
-    "message": "Endpoint file event",
-    "@timestamp": "2020-11-17T19:07:46.0956672Z",
-    "file": {
-        "path": "C:\\Windows\\Prefetch\\SVCHOST.EXE-AE7DB802.pf",
-        "extension": "pf",
-        "name": "SVCHOST.EXE-AE7DB802.pf",
-        "hash": {
-            "sha256": "0c415dd718e3b3728707d579cf8214f54c2942e964975a5f925e0b82fea644b4"
-        }
-    },
-    "threat": {
-        "indicator": [
-            {
-                // Each enrichment is added as a nested object under `threat.indicator.*`
-                // Copy all the object indicators under `indicator.*`, providing full context
-                "file": {
-                    "hash": {
-                        "sha256": "0c415dd718e3b3728707d579cf8214f54c2942e964975a5f925e0b82fea644b4",
-                        "md5": "1eee2bf3f56d8abed72da2bc523e7431"
-                    },
-                    "size": 656896,
-                    "name": "invoice.doc"
-                },
-                /* `matched` will provide context about which of the indicators above matched on this
-                    particular enrichment. If multiple matches for this indicator object, this could
-                    be a list */
-                "matched": "sha256",
-                "marking": {
-                    "tlp": "WHITE"
-                },
-                "first_seen": "2020-10-01",
-                "last_seen": "2020-11-01",
-                "sightings": 4,
-                "type": ["sha256", "md5", "file_name", "file_size"],
-                "description": "file last associated with delivering Angler EK",
-
-                // Copy event.* data from source threatintel document
-                "provider": "Abuse.ch",
-                "dataset": "threatintel.abusemalware",
-                "module": "threatintel"
-            }
-        ]
-    },
-    // Tag the enriched document to indicate the threat enrichment matched
-    "tags": [
-        "threat-match"
-    ],
-    // This should already exist from the original ingest pipeline of the document
-    "related": {
-        "hash": [
-            "0c415dd718e3b3728707d579cf8214f54c2942e964975a5f925e0b82fea644b4"
-        ]
-    }
-}
-```
-
-### Proposed enrichment pipeline mechanics pseudocode
-
-1. Original document completes its standard pipeline for the given source (i.e. filebeat module pipeline)
-2. Original document is sent to "threat lookup" pipeline
-3. For each indicator type, we perform the following (a file sha256 for example):
-    - if exists "file.hash.sha256":
-        - enrich processor:
-            "policy_name": "file-sha256-policy",
-            "field" : "file.hash.sha256",
-            "target_field": "threat_match",
-            "max_matches": "1"
-        - policy file-sha256-policy:
-            "match": {
-                "indices": "threat-*",
-                "match_field": "file.hash.sha256",
-                "enrich_fields": ["event", "file", "indicator"]
-            }
-    - rename:
-        field: "threat_match.file"
-        target: "threat_match.indicator.file"
-    - rename:
-        field: "threat_match.event.provider"
-        target: "threat_match.indicator.provider"
-    - rename:
-        field: "threat_match.event.dataset"
-        target: "threat_match.indicator.dataset"
-    - rename:
-        field: "threat_match.event.module"
-        target: "threat_match.indicator.module"
-    - set:
-        field: "threat_match.indicator.matched"
-        value: "sha256"
-    - append:
-        field: "threat.indicator"
-        value: "{{ threat_match.indicator }}"
-    - remove:
-        field: "threat_match"
-
-**NOTE**: There may be some optimization on which enrichments we attempt based upon the event categorization fields. For instance, we know that data that presents the netflow model or "interface" doesn't contain a sha256 hash. Since those categorization fields are lists, if data presented as both netflow and file (for whatever reason), then we'd check both network-related lookups and file-related lookups
 
 ## Source data
 
