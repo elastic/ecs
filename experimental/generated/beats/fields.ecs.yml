@@ -4120,6 +4120,74 @@
       type: keyword
       ignore_above: 1024
       description: Observer version.
+  - name: orchestrator
+    title: Orchestrator
+    group: 2
+    description: Fields that describe the resources which container orchestrators
+      manage or act upon.
+    type: group
+    fields:
+    - name: api_version
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: API version being used to carry out the action
+      example: v1beta1
+      default_field: false
+    - name: cluster.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the cluster.
+      default_field: false
+    - name: cluster.url
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: URL of the API used to manage the cluster.
+      default_field: false
+    - name: cluster.version
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The version of the cluster.
+      default_field: false
+    - name: namespace
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Namespace in which the action is taking place.
+      example: kube-system
+      default_field: false
+    - name: organization
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Organization affected by the event (for multi-tenant orchestrator
+        setups).
+      example: elastic
+      default_field: false
+    - name: resource.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the resource being acted upon.
+      example: test-pod-cdcws
+      default_field: false
+    - name: resource.type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Type of resource being acted upon.
+      example: service
+      default_field: false
+    - name: type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Orchestrator cluster type (e.g. kubernetes, nomad or cloudfoundry).
+      example: kubernetes
+      default_field: false
   - name: organization
     title: Organization
     group: 2
@@ -6777,6 +6845,41 @@
         can be provided by detecting systems, evaluated at ingest time, or retrospectively
         tagged to events.
       example: MITRE ATT&CK
+    - name: group.alias
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: "The alias(es) of the group for a set of related intrusion activity\
+        \ that are tracked by a common name in the security community. While not required,\
+        \ you can use a MITRE ATT&CK\xAE group alias(es)."
+      example: '[ "Magecart Group 6" ]'
+      default_field: false
+    - name: group.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: "The id of the group for a set of related intrusion activity that\
+        \ are tracked by a common name in the security community. While not required,\
+        \ you can use a MITRE ATT&CK\xAE group id."
+      example: G0037
+      default_field: false
+    - name: group.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: "The name of the group for a set of related intrusion activity\
+        \ that are tracked by a common name in the security community. While not required,\
+        \ you can use a MITRE ATT&CK\xAE group name."
+      example: FIN6
+      default_field: false
+    - name: group.reference
+      level: extended
+      type: url
+      description: "The reference URL of the group for a set of related intrusion\
+        \ activity that are tracked by a common name in the security community. While\
+        \ not required, you can use a MITRE ATT&CK\xAE group reference URL."
+      example: https://attack.mitre.org/groups/G0037/
+      default_field: false
     - name: indicator.as.number
       level: extended
       type: long
@@ -7589,6 +7692,52 @@
         \ mutex\n  * process\n  * software\n  * url\n  * user-account\n  * windows-registry-key\n\
         \  * x-509-certificate"
       example: ipv4-addr
+      default_field: false
+    - name: software.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: "The id of the software used by this threat to conduct behavior\
+        \ commonly modeled using MITRE ATT&CK\xAE. While not required, you can use\
+        \ a MITRE ATT&CK\xAE software id."
+      example: S0552
+      default_field: false
+    - name: software.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: "The name of the software used by this threat to conduct behavior\
+        \ commonly modeled using MITRE ATT&CK\xAE. While not required, you can use\
+        \ a MITRE ATT&CK\xAE software name."
+      example: AdFind
+      default_field: false
+    - name: software.platforms
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: "The platform of the software used by this threat to conduct behavior\
+        \ commonly modeled using MITRE ATT&CK\xAE. While not required, you can use\
+        \ a MITRE ATT&CK\xAE software platform.\nExpected values\n  * AWS\n  * Azure\n\
+        \  * Azure AD\n  * GCP\n  * Linux\n  * macOS\n  * Network\n  * Office 365\n\
+        \  * PRE\n  * SaaS\n  * Windows"
+      example: Windows
+      default_field: false
+    - name: software.reference
+      level: extended
+      type: url
+      description: "The reference URL of the software used by this threat to conduct\
+        \ behavior commonly modeled using MITRE ATT&CK\xAE. While not required, you\
+        \ can use a MITRE ATT&CK\xAE software reference URL."
+      example: https://attack.mitre.org/software/S0552/
+      default_field: false
+    - name: software.type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: "The type of software used by this threat to conduct behavior commonly\
+        \ modeled using MITRE ATT&CK\xAE. While not required, you can use a MITRE\
+        \ ATT&CK\xAE software type.\nExpected values\n  * Malware\n  * Tool"
+      example: Tool
       default_field: false
     - name: tactic.id
       level: extended

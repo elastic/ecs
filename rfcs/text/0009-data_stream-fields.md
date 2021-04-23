@@ -1,8 +1,8 @@
 # 0009: Data stream fields
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
-- Stage: **2 (draft)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
-- Date: **2021-01-04** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
+- Stage: **3 (finished)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
+- Date: **2021-03-18** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 When introducing the new indexing strategy for Elastic Agent which uses data streams, we found that adding a few [constant_keyword](https://www.elastic.co/guide/en/elasticsearch/reference/master/keyword.html#constant-keyword-field-type) fields corresponding to the central components in the new indexing strategy would be advantageous.
 
@@ -35,7 +35,7 @@ The fields can be found in `rfcs/text/0009/data_stream.yml`.
 
 ### Restrictions on values
 
-Due to the fact that the values of the `data_stream` fields make up the data stream name, the restrictions on data stream names also apply to values for the `data_stream` fields. As an example, they cannot include \, /, *, ?, ", <, >, |, ` `. Please see the Elasticsearch reference for [restrictions on index/data stream names](https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-create-index.html#indices-create-api-path-params). Here follows the _additional_ restrictions imposed on the data stream fields:
+Due to the fact that the values of the `data_stream` fields make up the data stream name, the restrictions on data stream names also apply to values for the `data_stream` fields. As an example, they cannot include `\`, `/`, `*`, `?`, `"`, `<`, `>`, `|`, ` `, `,`, `#`. Please see the Elasticsearch reference for [restrictions on index/data stream names](https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-create-index.html#indices-create-api-path-params). Here follows the _additional_ restrictions imposed on the data stream fields:
 
 **data_stream.type**
 
@@ -246,7 +246,8 @@ e.g.:
 * Previous discussion on [dataset fields](https://github.com/elastic/ecs/pull/845)
 * Discussion on [field value restrictions](https://github.com/elastic/kibana/issues/75846)
 * Restrictions on [index names](https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-create-index.html)
-
+* Blog post: [An introduction to the Elastic data stream naming scheme](https://www.elastic.co/blog/an-introduction-to-the-elastic-data-stream-naming-scheme)
+* Elasticsearch documentation on [data stream naming scheme](https://www.elastic.co/guide/en/elasticsearch/reference/current/set-up-a-data-stream.html#elastic-data-stream-naming-scheme.)
 
 ### RFC Pull Requests
 
@@ -254,6 +255,8 @@ e.g.:
 
 * Stage 1: https://github.com/elastic/ecs/pull/980
 * Stage 2: https://github.com/elastic/ecs/pull/1145
+* Stage 3: https://github.com/elastic/ecs/pull/1212
+  * Stage 3 date correction: https://github.com/elastic/ecs/pull/1306
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN
 ...

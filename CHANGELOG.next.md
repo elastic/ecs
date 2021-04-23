@@ -16,7 +16,13 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
+* Add `orchestrator` fieldset to experimental schema. #1292
+* Extend `threat.*` experimental fields with proposed changes from RFC 0018. #1344
+
 #### Improvements
+
+* Updated descriptions to use Elastic Security #1305
+* Host metrics fields from RFC 0005 are now GA. #1319
 
 ### Tooling and Artifact Changes
 
@@ -24,35 +30,17 @@ Thanks, you're awesome :-) -->
 
 #### Bugfixes
 
+* Correcting fieldset name capitalization for generated ES template #1323
+
 #### Added
 
 #### Improvements
+
+* Support `nested` types in go code generator. #1254
+* Go code generator now supports the `flattened` data type. #1302
+* Adjustments to use terminology that doesn't have negative connotation. #1315
 
 #### Deprecated
-
-
-## 1.9.0 (Feature Freeze)
-
-### Schema Changes
-
-#### Added
-
-* Added `hash.ssdeep`. #1169
-* Added `cloud.service.name`. #1204
-* Added `http.request.id`. #1208
-* `data_stream.*` fieldset introduced in experimental schema and artifacts. #1215
-* Added `geo.timezone`, `geo.postal_code`, and `geo.continent_code`. #1229
-* Added `beta` host metrics fields. #1248
-* Added `code_signature.team_id`, `code_signature.signing_id`. #1249
-* Extended `pe` fields added to experimental schema. #1256
-* Add `elf` fieldset to experimental schema. #1261
-* Add `threat.indicator` fields to experimental schema. #1268
-
-#### Improvements
-
-* Include formatting guidance and examples for MAC address fields. #456
-* New section in ECS detailing event categorization fields usage. #1242
-* `user.changes.*`, `user.effective.*`, and `user.target.*` field reuses are GA. #1271
 
 <!-- All empty sections:
 

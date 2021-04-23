@@ -1,30 +1,36 @@
-# 0000: Name of RFC
+# 0016: Target process fields
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
 - Stage: **0 (strawperson)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
-- Date: **TBD** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
+- Date: **2021-03-09** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
-<!--
-As you work on your RFC, use the "Stage N" comments to guide you in what you should focus on, for the stage you're targeting.
-Feel free to remove these comments as you go along.
--->
 
-<!--
-Stage 0: Provide a high level summary of the premise of these changes. Briefly describe the nature, purpose, and impact of the changes. ~2-5 sentences.
--->
 
-<!--
-Stage 1: If the changes include field additions or modifications, please create a folder titled as the RFC number under rfcs/text/. This will be where proposed schema changes as standalone YAML files or extended example mappings and larger source documents will go as the RFC is iterated upon.
--->
+This RFC is to add model events that span multiple processes. There are some events for when one OS process accesses another. In Windows, this starts with a call to `OpenProcess` to gain a handle and then there are several APIs for things you can do with the handle once its open. For all of these operations, the general concept persists: one process requested access to another.
+
+The most common use cases for Windows:
+* reading the memory space, which is most famously done by mimikatz
+* injecting code
+* attaching a debugger
+* reading the Process Environment Block (PEB) for other benign or nefarious purpose
 
 ## Fields
 
+**Stage 0**
+
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| process.* | group | Remains unchanged and is always the _source_ process for cross-process activity. |
+| process.target.* | group | The `process.*` fieldset reused at `process.target.*` |
+| process.target.parent.* | group | Capture information about the parent of the target process. |
+
 <!--
-Stage 1: Describe at a high level how this change affects fields. Include new or updated yml field definitions for all of the essential fields in this draft. While not exhaustive, the fields documented here should be comprehensive enough to deeply evaluate the technical considerations of this change. The goal here is to validate the technical details for all essential fields and to provide a basis for adding experimental field definitions to the schema. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
+Stage 1: Describe at a high level how this change affects fields. Include new or updated yml field definitions for all of the essential fields in this draft. While not exhaustive, the fields documented here should be comprehensive enough to deeply evaluate the technical considerations of this change. The goal here is to validate the technical details for all essential fields and to provide a basis for adding experimental field definitions to the schema. Use GitHub code blocks with yml syntax formatting.
 -->
 
 <!--
-Stage 2: Add or update all remaining field definitions. The list should now be exhaustive. The goal here is to validate the technical details of all remaining fields and to provide a basis for releasing these field definitions as beta in the schema. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
+Stage 2: Add or update all remaining field definitions. The list should now be exhaustive. The goal here is to validate the technical details of all remaining fields and to provide a basis for releasing these field definitions as beta in the schema. Use GitHub code blocks with yml syntax formatting.
 -->
 
 ## Usage
@@ -40,7 +46,7 @@ Stage 1: Provide a high-level description of example sources of data. This does 
 -->
 
 <!--
-Stage 2: Included a real world example source document. Ideally this example comes from the source(s) identified in stage 1. If not, it should replace them. The goal here is to validate the utility of these field changes in the context of a real world example. Format with the source name as a ### header and the example document in a GitHub code block with json formatting, or if on the larger side, add them to the corresponding RFC folder.
+Stage 2: Included a real world example source document. Ideally this example comes from the source(s) identified in stage 1. If not, it should replace them. The goal here is to validate the utility of these field changes in the context of a real world example. Format with the source name as a ### header and the example document in a GitHub code block with json formatting.
 -->
 
 <!--
@@ -75,19 +81,9 @@ Stage 3: Document resolutions for all existing concerns. Any new concerns should
 
 The following are the people that consulted on the contents of this RFC.
 
-* TBD | author
+* @rw-access    | author
+* @andrewstucki | co-author
 
-<!--
-Who will be or has been consulted on the contents of this RFC? Identify authorship and sponsorship, and optionally identify the nature of involvement of others. Link to GitHub aliases where possible. This list will likely change or grow stage after stage.
-
-e.g.:
-
-* @Yasmina | author
-* @Monique | sponsor
-* @EunJung | subject matter expert
-* @JaneDoe | grammar, spelling, prose
-* @Mariana
--->
 
 
 ## References
@@ -98,7 +94,7 @@ e.g.:
 
 <!-- An RFC should link to the PRs for each of it stage advancements. -->
 
-* Stage 0: https://github.com/elastic/ecs/pull/NNN
+* Stage 0: https://github.com/elastic/ecs/pull/1286
 
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN
