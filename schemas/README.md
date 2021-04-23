@@ -32,6 +32,8 @@ Optional field set attributes:
 - type (ignored): at this level, should always be `group`
 - reusable (optional): Used to identify which field sets are expected to be reused in multiple places.
   See "Field set reuse" for details.
+- short_override: Used to override the top-level fieldset's short description when nesting. 
+  See "Field set reuse" for details.
 - beta: Adds a beta marker for the entire fieldset. The text provided in this attribute is used as content of the beta marker in the documentation.
   Beta notices should not have newlines.
 
@@ -51,12 +53,14 @@ multiple places, like for example `geo`, which can appear under `source`, `desti
 }
 ```
 
-The `reusable` attribute is composed of `top_level` and `expected` sub-attributes:
+The `reusable` attribute is composed of `top_level`, `expected`, and `short_override` sub-attributes:
 
 - top\_level (optional, default true): Is this field set expected at the root of
   events or is it only expected in the nested locations?
 - expected (default []): list of places the field set's fields are expected.
   There are two valid notations to list expected locations.
+- short_override (optional, default null): Sets the short description for the 
+  nested field, overriding the default top-level short description.
 
 The "flat" (or dotted) notation to represent where the fields are nested:
 
@@ -116,6 +120,18 @@ Beta notices should not have newlines.
     - at: user
       as: target
       beta: Reusing these fields in this location is currently considered beta.
+```
+
+The `short_override` marker can optionally be used along with `at` and `as` to set the short description of the nested field, instead of defaulting to the top-level fieldset's short description. 
+Like short, descriptions must not have newlines.
+
+```
+  reusable:
+    top_level: true
+    expected:
+    - at: user
+      as: target
+      short_override: My special target short description.
 ```
 
 ### List of fields

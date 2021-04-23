@@ -1057,11 +1057,12 @@ container:
   title: Container
   type: group
 data_stream:
+  beta: These fields are in beta and are subject to change.
   description: 'The data_stream fields take part in defining the new data stream naming
     scheme.
 
     In the new data stream naming scheme the value of the data stream fields combine
-    to the name of the actual data stream in the following manner `{data_stream.type}-{data_stream.dataset}-{data_stream.namespace}`.
+    to the name of the actual data stream in the following manner: `{data_stream.type}-{data_stream.dataset}-{data_stream.namespace}`.
     This means the fields can only contain characters that are valid as part of names
     of data streams. More details about this can be found in this https://www.elastic.co/blog/an-introduction-to-the-elastic-data-stream-naming-scheme[blog
     post].
@@ -1069,8 +1070,8 @@ data_stream:
     An Elasticsearch data stream consists of one or more backing indices, and a data
     stream name forms part of the backing indices names. Due to this convention, data
     streams must also follow index naming restrictions. For example, data stream names
-    cannot include \, /, *, ?, ", <, >, |, ` `. Please see the Elasticsearch reference
-    for additional https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-create-index.html#indices-create-api-path-params[restrictions].'
+    cannot include `\`, `/`, `*`, `?`, `"`, `<`, `>`, `|`, ` ` (space character),
+    `,`, or `#`. Please see the Elasticsearch reference for additional https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-create-index.html#indices-create-api-path-params[restrictions].'
   fields:
     data_stream.dataset:
       dashed_name: data-stream-dataset
@@ -7389,6 +7390,7 @@ observer:
   title: Observer
   type: group
 orchestrator:
+  beta: These fields are in beta and are subject to change.
   description: Fields that describe the resources which container orchestrators manage
     or act upon.
   fields:
@@ -10587,6 +10589,7 @@ process:
     - as: parent
       at: process
       full: process.parent
+      short_override: Information about the parent process.
     top_level: true
   reused_here:
   - full: process.code_signature
@@ -10603,7 +10606,7 @@ process:
     short: These fields contain Linux Executable Linkable Format (ELF) metadata.
   - full: process.parent
     schema_name: process
-    short: These fields contain information about a process.
+    short: Information about the parent process.
   short: These fields contain information about a process.
   title: Process
   type: group
@@ -12077,11 +12080,12 @@ threat:
         \ not required, you can use a MITRE ATT&CK\xAE group reference URL."
       example: https://attack.mitre.org/groups/G0037/
       flat_name: threat.group.reference
+      ignore_above: 1024
       level: extended
       name: group.reference
       normalize: []
       short: Reference URL of the group.
-      type: url
+      type: keyword
     threat.indicator.as.number:
       dashed_name: threat-indicator-as-number
       description: Unique number allocated to the autonomous system. The autonomous
@@ -13483,11 +13487,12 @@ threat:
         \ can use a MITRE ATT&CK\xAE software reference URL."
       example: https://attack.mitre.org/software/S0552/
       flat_name: threat.software.reference
+      ignore_above: 1024
       level: extended
       name: software.reference
       normalize: []
       short: Software reference URL.
-      type: url
+      type: keyword
     threat.software.type:
       dashed_name: threat-software-type
       description: "The type of software used by this threat to conduct behavior commonly\
@@ -15469,12 +15474,15 @@ user:
     - as: target
       at: user
       full: user.target
+      short_override: Targeted user of action taken.
     - as: effective
       at: user
       full: user.effective
+      short_override: User whose privileges were assumed.
     - as: changes
       at: user
       full: user.changes
+      short_override: Captures changes made to a user.
     top_level: true
   reused_here:
   - full: user.group
@@ -15482,13 +15490,13 @@ user:
     short: User's group relevant to the event.
   - full: user.target
     schema_name: user
-    short: Fields to describe the user relevant to the event.
+    short: Targeted user of action taken.
   - full: user.effective
     schema_name: user
-    short: Fields to describe the user relevant to the event.
+    short: User whose privileges were assumed.
   - full: user.changes
     schema_name: user
-    short: Fields to describe the user relevant to the event.
+    short: Captures changes made to a user.
   short: Fields to describe the user relevant to the event.
   title: User
   type: group
