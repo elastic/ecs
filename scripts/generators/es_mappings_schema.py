@@ -31,7 +31,7 @@ def generate(ecs_nested, ecs_version, out_dir):
             schema['properties'][fieldset_name] = field_mappings[fieldset_name]
             schema['properties'][fieldset_name]['type'] = 'object'
             schema['properties'][fieldset_name]['description'] = fieldset['description']
-    save_schema_file('full', ecs_version, schema_dir, schema)
+    save_schema_file('schema', ecs_version, schema_dir, schema)
 
 
 def candidate_schemas(ecs_nested):
