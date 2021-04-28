@@ -60,7 +60,10 @@ def main():
     es_template.generate(nested, ecs_version, out_dir, args.mapping_settings)
     es_template.generate_legacy(flat, ecs_version, out_dir, args.template_settings, args.mapping_settings)
     beats.generate(nested, ecs_version, out_dir)
-    es_mappings_schema.generate(nested, ecs_version, out_dir)
+
+    if args.es_mapping_json_schema:
+        es_mappings_schema.generate(nested, ecs_version, out_dir)
+
     if args.include or args.subset:
         exit()
 
@@ -86,6 +89,8 @@ def argument_parser():
                         help='enforce strict checking at schema cleanup')
     parser.add_argument('--intermediate-only', action='store_true',
                         help='generate intermediary files only')
+    parser.add_argument('--es-mapping-json-schema', action='store_true',
+                        help='generate a JSON schema based on the ECS-compliant Elasticsearch index mappings')
     args = parser.parse_args()
     # Clean up empty include of the Makefile
     if args.include and [''] == args.include:
