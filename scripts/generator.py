@@ -62,7 +62,7 @@ def main():
     beats.generate(nested, ecs_version, out_dir)
 
     if args.es_mapping_json_schema:
-        es_mappings_schema.generate(nested, ecs_version, out_dir)
+        es_mappings_schema.generate(nested, flat, ecs_version, out_dir)
 
     if args.include or args.subset:
         exit()

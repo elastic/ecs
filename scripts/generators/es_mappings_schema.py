@@ -8,13 +8,14 @@ import os
 from generators import ecs_helpers
 
 
-def generate(ecs_nested, ecs_version, out_dir):
+def generate(ecs_nested, ecs_flat, ecs_version, out_dir):
     schema_dir = os.path.join(out_dir, 'json_schema')
     ecs_helpers.make_dirs(schema_dir)
+    data_types = used_data_types(ecs_flat)
 
     schema = {}
     schema['version'] = ecs_version
-    schema['definitions'] = schema_definitions()
+    schema['definitions'] = schema_definitions(data_types)
     schema['properties'] = {}
 
     eligible_schemas = candidate_schemas(ecs_nested)
@@ -33,6 +34,17 @@ def generate(ecs_nested, ecs_version, out_dir):
             schema['properties'][fieldset_name]['description'] = fieldset['description']
     save_schema_file('schema', ecs_version, schema_dir, schema)
 
+
+def used_data_types(ecs_flat):
+
+    types = []
+
+    for field in ecs_flat.keys():
+        current_type = ecs_flat[field]['type']
+        if current_type not in types:
+            types.append(current_type)
+
+    return types
 
 def candidate_schemas(ecs_nested):
     components = {}
@@ -94,65 +106,18 @@ def entry_for(field):
     return field_entry
 
 
-def schema_definitions():
-    return {
+def schema_definitions(data_types):
+    definitions = {
         "types": {
-            "type": "object",
-            "boolean": {
-                "type": "string",
-                "enum": ["boolean"]
-            },
-            "constant_keyword": {
-                "type": "string",
-                "enum": ["constant_keyword"]
-            },
-            "integer": {
-                "type": "string",
-                "enum": ["integer"]
-            },
-            "long": {
-                "type": "string",
-                "enum": ["long"]
-            },
-            "float": {
-                "type": "string",
-                "enum": ["float"]
-            },
-            "scaled_float": {
-                "type": "string",
-                "enum": ["scaled_float"]
-            },
-            "ip": {
-                "type": "string",
-                "enum": ["ip"]
-            },
-            "geo_point": {
-                "type": "string",
-                "enum": ["geo_point"]
-            },
-            "keyword": {
-                "type": "string",
-                "enum": ["keyword"]
-            },
-            "text": {
-                "type": "string",
-                "enum": ["text"]
-            },
-            "date": {
-                "type": "string",
-                "enum": ["date", "date_nanos"]
-            },
-            "object": {
-                "type": "string",
-                "enum": ["object"]
-            }
-        },
-        "settings": {
-            "type": "object",
-            "ignore_above": {
-                "type": "integer",
-                "minimum": 0,
-                "maximum": 2147483647
-            }
+            "type": "object"
         }
     }
+
+    for data_type in data_types:
+        definitions['types'][data_type] = {}
+        definitions['types'][data_type] = {
+            "type": "string",
+            "enum": [ data_type ]
+        }
+
+    return definitions
