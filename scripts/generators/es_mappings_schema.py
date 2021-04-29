@@ -11,6 +11,7 @@ from generators import ecs_helpers
 def generate(ecs_nested, ecs_flat, ecs_version, out_dir):
     schema_dir = os.path.join(out_dir, 'json_schema')
     ecs_helpers.make_dirs(schema_dir)
+    # determine what data types are used in the schema
     data_types = used_data_types(ecs_flat)
 
     schema = {}
@@ -18,6 +19,7 @@ def generate(ecs_nested, ecs_flat, ecs_version, out_dir):
     schema['definitions'] = schema_definitions(data_types)
     schema['properties'] = {}
 
+    # Determine top-level field sets
     eligible_schemas = candidate_schemas(ecs_nested)
 
     for (fieldset_name, fieldset) in eligible_schemas.items():
@@ -32,7 +34,9 @@ def generate(ecs_nested, ecs_flat, ecs_version, out_dir):
             schema['properties'][fieldset_name] = field_mappings[fieldset_name]
             schema['properties'][fieldset_name]['type'] = 'object'
             schema['properties'][fieldset_name]['description'] = fieldset['description']
-    save_schema_file('schema', ecs_version, schema_dir, schema)
+
+    # write the final schema
+    save_schema_file('schema', schema_dir, schema)
 
 
 def used_data_types(ecs_flat):
@@ -46,6 +50,7 @@ def used_data_types(ecs_flat):
 
     return types
 
+
 def candidate_schemas(ecs_nested):
     components = {}
     for (fieldset_name, fieldset) in ecs_nested.items():
@@ -56,7 +61,7 @@ def candidate_schemas(ecs_nested):
     return components
 
 
-def save_schema_file(schema_name, ecs_version, out_dir, field_mappings):
+def save_schema_file(schema_name, out_dir, field_mappings):
     filename = f'{os.path.join(out_dir, schema_name)}.json'
     with open(filename, 'w') as jsonfile:
         jsonfile.write(json.dumps(field_mappings, indent=2, sort_keys=True))
@@ -117,7 +122,7 @@ def schema_definitions(data_types):
         definitions['types'][data_type] = {}
         definitions['types'][data_type] = {
             "type": "string",
-            "enum": [ data_type ]
+            "enum": [data_type]
         }
 
     return definitions
