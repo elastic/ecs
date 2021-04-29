@@ -9,7 +9,6 @@ Thanks, you're awesome :-) -->
 ## Unreleased
 
 ### Schema Changes
-* Added `process.user`. #1380
 
 #### Breaking changes
 
