@@ -45,6 +45,9 @@ type Process struct {
 	// Sometimes called program name or similar.
 	Name string `ecs:"name"`
 
+	// User associated with the running process.
+	User string `ecs:"user"`
+
 	// Parent process' pid.
 	PPID int64 `ecs:"ppid"`
 
