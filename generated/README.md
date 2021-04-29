@@ -25,6 +25,9 @@ In this directory, you'll find the following:
   Note that you can customize the content of these templates by following the
   instructions in [USAGE.md](/USAGE.md)
 
+* [rules/\*.ndjson](rules/): Detection Rules that you can load to
+  check if your documents conform to ECS requirements and best practices.
+
 If you'd like to share your own generator with the ECS community, you're welcome
 to look at our [contribution guidelines](/CONTRIBUTING.md), and then at the
 generators in `scripts/generators`.

@@ -37,6 +37,9 @@ clean:
 	rm -rf build generated/elasticsearch/component experimental/generated/elasticsearch/component
 	# Clean all markdown files for use-cases
 	find ./use-cases -type f -name '*.md' -not -name 'README.md' -print0 | xargs -0 rm --
+	-rm -rf generated/rules
+	-rm -rf experimental/generated/rules
+	-rm docs/using-best-practices.asciidoc
 
 # Alias to generate source code for all languages.
 .PHONY: codegen
@@ -44,7 +47,7 @@ codegen: gocodegen
 
 # Build the asciidoc book.
 .PHONY: docs
-docs:
+docs: generator
 	if [ ! -d $(PWD)/build/docs ]; then \
 		git clone --depth=1 https://github.com/elastic/docs.git ./build/docs ; \
 	fi
@@ -71,6 +74,7 @@ generate: generator legacy_use_cases codegen
 .PHONY: generator
 generator:
 	$(PYTHON) scripts/generator.py --strict --include "${INCLUDE}"
+	behave --format null scripts/features
 
 # Generate Go code from the schema.
 .PHONY: gocodegen
