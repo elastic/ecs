@@ -89,7 +89,7 @@ def argument_parser():
                         help='enforce strict checking at schema cleanup')
     parser.add_argument('--intermediate-only', action='store_true',
                         help='generate intermediary files only')
-    parser.add_argument('--es-mapping-json-schema', action='store_true',
+    parser.add_argument('--es-mappings-json-schema', action='store_true',
                         help='generate a JSON schema based on the ECS-compliant Elasticsearch index mappings')
     args = parser.parse_args()
     # Clean up empty include of the Makefile
