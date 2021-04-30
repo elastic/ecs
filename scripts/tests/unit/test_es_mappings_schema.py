@@ -78,7 +78,6 @@ class TestGeneratorsEsMappingsSchema(unittest.TestCase):
 
         self.assertEqual(schema, expected)
 
-
     def test_add_nested_to_explicit_object(self):
         schema = {
             'answers': {
@@ -135,9 +134,8 @@ class TestGeneratorsEsMappingsSchema(unittest.TestCase):
             }
         }
 
-        es_mappings_schema.add_nested(schema, ['answers'], { 'properties': {'type': 'object' }})
+        es_mappings_schema.add_nested(schema, ['answers'], {'properties': {'type': 'object'}})
         self.assertEqual(schema, expected)
-
 
     def test_entry_for_expected_structure(self):
         field = {
@@ -158,7 +156,6 @@ class TestGeneratorsEsMappingsSchema(unittest.TestCase):
 
         field_entry = es_mappings_schema.entry_for(field)
         self.assertEqual(field_entry, expected)
-
 
     def test_candidate_field_sets(self):
         nested = {
@@ -185,7 +182,6 @@ class TestGeneratorsEsMappingsSchema(unittest.TestCase):
         candidate_fields = es_mappings_schema.candidate_field_sets(nested)
         self.assertEqual(candidate_fields, expected)
 
-
     def test_used_data_types(self):
         flat = {
             'field1': {
@@ -204,7 +200,6 @@ class TestGeneratorsEsMappingsSchema(unittest.TestCase):
 
         self.assertEqual(data_types, expected)
 
-
     def test_save_schema_file(self):
         fake_filename = './generated/json_schema/schema.json'
         field_mapping = {'ecs_version': '1.0.0'}
@@ -216,7 +211,6 @@ class TestGeneratorsEsMappingsSchema(unittest.TestCase):
             mocked_file.assert_called_once_with(fake_filename, 'w')
 
             mocked_file().write.assert_called_once_with(expected)
-
 
     def test_schema_definitions(self):
         data_types = ['keyword', 'object']
