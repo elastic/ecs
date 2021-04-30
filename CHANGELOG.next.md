@@ -28,6 +28,8 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
+* Introduce JSON Schema generator for index mappings. #1390
+
 #### Improvements
 
 #### Deprecated
