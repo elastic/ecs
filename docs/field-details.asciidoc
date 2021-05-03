@@ -525,24 +525,27 @@ example: `co.uk`
 
 [options="header"]
 |=====
-| Nested fields | Description
+| Field Set | Location | Description
 
 // ===============================================================
 
 
-| <<ecs-as,client.as.*>>
+| <<ecs-as,as>>
+| `client.as.*`
 | Fields describing an Autonomous System (Internet routing prefix).
 
 // ===============================================================
 
 
-| <<ecs-geo,client.geo.*>>
+| <<ecs-geo,geo>>
+| `client.geo.*`
 | Fields describing a location.
 
 // ===============================================================
 
 
-| <<ecs-user,client.user.*>>
+| <<ecs-user,user>>
+| `client.user.*`
 | Fields to describe the user relevant to the event.
 
 // ===============================================================
@@ -1017,6 +1020,94 @@ example: `docker`
 
 |=====
 
+[[ecs-data_stream]]
+=== Data Stream Fields
+
+The data_stream fields take part in defining the new data stream naming scheme.
+
+In the new data stream naming scheme the value of the data stream fields combine to the name of the actual data stream in the following manner: `{data_stream.type}-{data_stream.dataset}-{data_stream.namespace}`. This means the fields can only contain characters that are valid as part of names of data streams. More details about this can be found in this https://www.elastic.co/blog/an-introduction-to-the-elastic-data-stream-naming-scheme[blog post].
+
+An Elasticsearch data stream consists of one or more backing indices, and a data stream name forms part of the backing indices names. Due to this convention, data streams must also follow index naming restrictions. For example, data stream names cannot include `\`, `/`, `*`, `?`, `"`, `<`, `>`, `|`, ` ` (space character), `,`, or `#`. Please see the Elasticsearch reference for additional https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-create-index.html#indices-create-api-path-params[restrictions].
+
+beta::[ These fields are in beta and are subject to change.]
+
+[discrete]
+==== Data Stream Field Details
+
+[options="header"]
+|=====
+| Field  | Description | Level
+
+// ===============================================================
+
+|
+[[field-data-stream-dataset]]
+<<field-data-stream-dataset, data_stream.dataset>>
+
+| The field can contain anything that makes sense to signify the source of the data.
+
+Examples include `nginx.access`, `prometheus`, `endpoint` etc. For data streams that otherwise fit, but that do not have dataset set we use the value "generic" for the dataset value. `event.dataset` should have the same value as `data_stream.dataset`.
+
+Beyond the Elasticsearch data stream naming criteria noted above, the `dataset` value has additional restrictions:
+
+  * Must not contain `-`
+
+  * No longer than 100 characters
+
+type: constant_keyword
+
+
+
+example: `nginx.access`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-data-stream-namespace]]
+<<field-data-stream-namespace, data_stream.namespace>>
+
+| A user defined namespace. Namespaces are useful to allow grouping of data.
+
+Many users already organize their indices this way, and the data stream naming scheme now provides this best practice as a default. Many users will populate this field with `default`. If no value is used, it falls back to `default`.
+
+Beyond the Elasticsearch index naming criteria noted above, `namespace` value has the additional restrictions:
+
+  * Must not contain `-`
+
+  * No longer than 100 characters
+
+type: constant_keyword
+
+
+
+example: `production`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-data-stream-type]]
+<<field-data-stream-type, data_stream.type>>
+
+| An overarching type for the data stream.
+
+Currently allowed values are "logs" and "metrics". We expect to also add "traces" and "synthetics" in the near future.
+
+type: constant_keyword
+
+
+
+example: `logs`
+
+| extended
+
+// ===============================================================
+
+|=====
+
 [[ecs-destination]]
 === Destination Fields
 
@@ -1255,24 +1346,27 @@ example: `co.uk`
 
 [options="header"]
 |=====
-| Nested fields | Description
+| Field Set | Location | Description
 
 // ===============================================================
 
 
-| <<ecs-as,destination.as.*>>
+| <<ecs-as,as>>
+| `destination.as.*`
 | Fields describing an Autonomous System (Internet routing prefix).
 
 // ===============================================================
 
 
-| <<ecs-geo,destination.geo.*>>
+| <<ecs-geo,geo>>
+| `destination.geo.*`
 | Fields describing a location.
 
 // ===============================================================
 
 
-| <<ecs-user,destination.user.*>>
+| <<ecs-user,user>>
+| `destination.user.*`
 | Fields to describe the user relevant to the event.
 
 // ===============================================================
@@ -1352,24 +1446,27 @@ example: `C:\Windows\System32\kernel32.dll`
 
 [options="header"]
 |=====
-| Nested fields | Description
+| Field Set | Location | Description
 
 // ===============================================================
 
 
-| <<ecs-code_signature,dll.code_signature.*>>
+| <<ecs-code_signature,code_signature>>
+| `dll.code_signature.*`
 | These fields contain information about binary code signatures.
 
 // ===============================================================
 
 
-| <<ecs-hash,dll.hash.*>>
+| <<ecs-hash,hash>>
+| `dll.hash.*`
 | Hashes, usually file hashes.
 
 // ===============================================================
 
 
-| <<ecs-pe,dll.pe.*>>
+| <<ecs-pe,pe>>
+| `dll.pe.*`
 | These fields contain Windows Portable Executable (PE) metadata.
 
 // ===============================================================
@@ -2765,30 +2862,34 @@ example: `1001`
 
 [options="header"]
 |=====
-| Nested fields | Description
+| Field Set | Location | Description
 
 // ===============================================================
 
 
-| <<ecs-code_signature,file.code_signature.*>>
+| <<ecs-code_signature,code_signature>>
+| `file.code_signature.*`
 | These fields contain information about binary code signatures.
 
 // ===============================================================
 
 
-| <<ecs-hash,file.hash.*>>
+| <<ecs-hash,hash>>
+| `file.hash.*`
 | Hashes, usually file hashes.
 
 // ===============================================================
 
 
-| <<ecs-pe,file.pe.*>>
+| <<ecs-pe,pe>>
+| `file.pe.*`
 | These fields contain Windows Portable Executable (PE) metadata.
 
 // ===============================================================
 
 
-| <<ecs-x509,file.x509.*>>
+| <<ecs-x509,x509>>
+| `file.x509.*`
 | These fields contain x509 certificate metadata.
 
 // ===============================================================
@@ -3502,24 +3603,27 @@ example: `1325`
 
 [options="header"]
 |=====
-| Nested fields | Description
+| Field Set | Location | Description
 
 // ===============================================================
 
 
-| <<ecs-geo,host.geo.*>>
+| <<ecs-geo,geo>>
+| `host.geo.*`
 | Fields describing a location.
 
 // ===============================================================
 
 
-| <<ecs-os,host.os.*>>
+| <<ecs-os,os>>
+| `host.os.*`
 | OS fields contain information about the operating system.
 
 // ===============================================================
 
 
-| <<ecs-user,host.user.*>>
+| <<ecs-user,user>>
+| `host.user.*`
 | Fields to describe the user relevant to the event.
 
 // ===============================================================
@@ -4357,18 +4461,20 @@ example: `ipv4`
 
 [options="header"]
 |=====
-| Nested fields | Description
+| Field Set | Location | Description
 
 // ===============================================================
 
 
-| <<ecs-vlan,network.inner.vlan.*>>
+| <<ecs-vlan,vlan>>
+| `network.inner.vlan.*`
 | Fields to describe observed VLAN information.
 
 // ===============================================================
 
 
-| <<ecs-vlan,network.vlan.*>>
+| <<ecs-vlan,vlan>>
+| `network.vlan.*`
 | Fields to describe observed VLAN information.
 
 // ===============================================================
@@ -4628,46 +4734,214 @@ type: keyword
 
 [options="header"]
 |=====
-| Nested fields | Description
+| Field Set | Location | Description
 
 // ===============================================================
 
 
-| <<ecs-interface,observer.egress.interface.*>>
+| <<ecs-interface,interface>>
+| `observer.egress.interface.*`
 | Fields to describe observer interface information.
 
 // ===============================================================
 
 
-| <<ecs-vlan,observer.egress.vlan.*>>
+| <<ecs-vlan,vlan>>
+| `observer.egress.vlan.*`
 | Fields to describe observed VLAN information.
 
 // ===============================================================
 
 
-| <<ecs-geo,observer.geo.*>>
+| <<ecs-geo,geo>>
+| `observer.geo.*`
 | Fields describing a location.
 
 // ===============================================================
 
 
-| <<ecs-interface,observer.ingress.interface.*>>
+| <<ecs-interface,interface>>
+| `observer.ingress.interface.*`
 | Fields to describe observer interface information.
 
 // ===============================================================
 
 
-| <<ecs-vlan,observer.ingress.vlan.*>>
+| <<ecs-vlan,vlan>>
+| `observer.ingress.vlan.*`
 | Fields to describe observed VLAN information.
 
 // ===============================================================
 
 
-| <<ecs-os,observer.os.*>>
+| <<ecs-os,os>>
+| `observer.os.*`
 | OS fields contain information about the operating system.
 
 // ===============================================================
 
+
+|=====
+
+[[ecs-orchestrator]]
+=== Orchestrator Fields
+
+Fields that describe the resources which container orchestrators manage or act upon.
+
+beta::[ These fields are in beta and are subject to change.]
+
+[discrete]
+==== Orchestrator Field Details
+
+[options="header"]
+|=====
+| Field  | Description | Level
+
+// ===============================================================
+
+|
+[[field-orchestrator-api-version]]
+<<field-orchestrator-api-version, orchestrator.api_version>>
+
+| API version being used to carry out the action
+
+type: keyword
+
+
+
+example: `v1beta1`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-orchestrator-cluster-name]]
+<<field-orchestrator-cluster-name, orchestrator.cluster.name>>
+
+| Name of the cluster.
+
+type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-orchestrator-cluster-url]]
+<<field-orchestrator-cluster-url, orchestrator.cluster.url>>
+
+| URL of the API used to manage the cluster.
+
+type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-orchestrator-cluster-version]]
+<<field-orchestrator-cluster-version, orchestrator.cluster.version>>
+
+| The version of the cluster.
+
+type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-orchestrator-namespace]]
+<<field-orchestrator-namespace, orchestrator.namespace>>
+
+| Namespace in which the action is taking place.
+
+type: keyword
+
+
+
+example: `kube-system`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-orchestrator-organization]]
+<<field-orchestrator-organization, orchestrator.organization>>
+
+| Organization affected by the event (for multi-tenant orchestrator setups).
+
+type: keyword
+
+
+
+example: `elastic`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-orchestrator-resource-name]]
+<<field-orchestrator-resource-name, orchestrator.resource.name>>
+
+| Name of the resource being acted upon.
+
+type: keyword
+
+
+
+example: `test-pod-cdcws`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-orchestrator-resource-type]]
+<<field-orchestrator-resource-type, orchestrator.resource.type>>
+
+| Type of resource being acted upon.
+
+type: keyword
+
+
+
+example: `service`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-orchestrator-type]]
+<<field-orchestrator-type, orchestrator.type>>
+
+| Orchestrator cluster type (e.g. kubernetes, nomad or cloudfoundry).
+
+type: keyword
+
+
+
+example: `kubernetes`
+
+| extended
+
+// ===============================================================
 
 |=====
 
@@ -5590,30 +5864,34 @@ Note also that the `process` fields may be used directly at the root of the even
 
 [options="header"]
 |=====
-| Nested fields | Description
+| Field Set | Location | Description
 
 // ===============================================================
 
 
-| <<ecs-code_signature,process.code_signature.*>>
+| <<ecs-code_signature,code_signature>>
+| `process.code_signature.*`
 | These fields contain information about binary code signatures.
 
 // ===============================================================
 
 
-| <<ecs-hash,process.hash.*>>
+| <<ecs-hash,hash>>
+| `process.hash.*`
 | Hashes, usually file hashes.
 
 // ===============================================================
 
 
-| <<ecs-process,process.parent.*>>
-| These fields contain information about a process.
+| <<ecs-process,process>>
+| `process.parent.*`
+| Information about the parent process.
 
 // ===============================================================
 
 
-| <<ecs-pe,process.pe.*>>
+| <<ecs-pe,pe>>
+| `process.pe.*`
 | These fields contain Windows Portable Executable (PE) metadata.
 
 // ===============================================================
@@ -6275,24 +6553,27 @@ example: `co.uk`
 
 [options="header"]
 |=====
-| Nested fields | Description
+| Field Set | Location | Description
 
 // ===============================================================
 
 
-| <<ecs-as,server.as.*>>
+| <<ecs-as,as>>
+| `server.as.*`
 | Fields describing an Autonomous System (Internet routing prefix).
 
 // ===============================================================
 
 
-| <<ecs-geo,server.geo.*>>
+| <<ecs-geo,geo>>
+| `server.geo.*`
 | Fields describing a location.
 
 // ===============================================================
 
 
-| <<ecs-user,server.user.*>>
+| <<ecs-user,user>>
+| `server.user.*`
 | Fields to describe the user relevant to the event.
 
 // ===============================================================
@@ -6688,24 +6969,27 @@ example: `co.uk`
 
 [options="header"]
 |=====
-| Nested fields | Description
+| Field Set | Location | Description
 
 // ===============================================================
 
 
-| <<ecs-as,source.as.*>>
+| <<ecs-as,as>>
+| `source.as.*`
 | Fields describing an Autonomous System (Internet routing prefix).
 
 // ===============================================================
 
 
-| <<ecs-geo,source.geo.*>>
+| <<ecs-geo,geo>>
+| `source.geo.*`
 | Fields describing a location.
 
 // ===============================================================
 
 
-| <<ecs-user,source.user.*>>
+| <<ecs-user,user>>
+| `source.user.*`
 | Fields to describe the user relevant to the event.
 
 // ===============================================================
@@ -7431,18 +7715,20 @@ example: `tls`
 
 [options="header"]
 |=====
-| Nested fields | Description
+| Field Set | Location | Description
 
 // ===============================================================
 
 
-| <<ecs-x509,tls.client.x509.*>>
+| <<ecs-x509,x509>>
+| `tls.client.x509.*`
 | These fields contain x509 certificate metadata.
 
 // ===============================================================
 
 
-| <<ecs-x509,tls.server.x509.*>>
+| <<ecs-x509,x509>>
+| `tls.server.x509.*`
 | These fields contain x509 certificate metadata.
 
 // ===============================================================
@@ -7809,10 +8095,6 @@ The user fields describe information about the user that is relevant to the even
 
 Fields can have one entry or multiple entries. If a user has more than one id, provide an array that includes all of them.
 
-Find additional usage and examples in the user fields <<ecs-user-usage,usage>> section.
-
-
-
 [discrete]
 ==== User Field Details
 
@@ -7971,31 +8253,35 @@ Note also that the `user` fields may be used directly at the root of the events.
 
 [options="header"]
 |=====
-| Nested fields | Description
+| Field Set | Location | Description
 
 // ===============================================================
 
 
-| <<ecs-user,user.changes.*>>
-| Fields to describe the user relevant to the event.
+| <<ecs-user,user>>
+| `user.changes.*`
+| Captures changes made to a user.
 
 // ===============================================================
 
 
-| <<ecs-user,user.effective.*>>
-| Fields to describe the user relevant to the event.
+| <<ecs-user,user>>
+| `user.effective.*`
+| User whose privileges were assumed.
 
 // ===============================================================
 
 
-| <<ecs-group,user.group.*>>
+| <<ecs-group,group>>
+| `user.group.*`
 | User's group relevant to the event.
 
 // ===============================================================
 
 
-| <<ecs-user,user.target.*>>
-| Fields to describe the user relevant to the event.
+| <<ecs-user,user>>
+| `user.target.*`
+| Targeted user of action taken.
 
 // ===============================================================
 
@@ -8003,6 +8289,11 @@ Note also that the `user` fields may be used directly at the root of the events.
 |=====
 
 
+
+[discrete]
+==== User Field Usage
+
+For usage and examples of the user fields, please see the <<ecs-user-usage, User Fields Usage and Examples>> section.
 
 include::usage/user.asciidoc[]
 
@@ -8106,12 +8397,13 @@ example: `12.0`
 
 [options="header"]
 |=====
-| Nested fields | Description
+| Field Set | Location | Description
 
 // ===============================================================
 
 
-| <<ecs-os,user_agent.os.*>>
+| <<ecs-os,os>>
+| `user_agent.os.*`
 | OS fields contain information about the operating system.
 
 // ===============================================================

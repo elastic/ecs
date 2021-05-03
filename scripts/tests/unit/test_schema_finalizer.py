@@ -46,7 +46,8 @@ class TestSchemaFinalizer(unittest.TestCase):
                         'top_level': True,
                         'order': 2,
                         'expected': [
-                            {'full': 'process.parent', 'at': 'process', 'as': 'parent'},
+                            {'full': 'process.parent', 'at': 'process', 'as': 'parent',
+                                'short_override': 'short override desc'},
                             {'full': 'reuse.process', 'at': 'reuse', 'as': 'process'},
                             {'full': 'reuse.process.parent', 'at': 'reuse.process', 'as': 'parent'},
                         ]
@@ -207,7 +208,7 @@ class TestSchemaFinalizer(unittest.TestCase):
         self.assertIn('server.user', fields['server']['schema_details']['nestings'])
         self.assertIn('reuse.process.parent', fields['reuse']['schema_details']['nestings'])
         # Attribute 'reused_here' lists nestings inside a destination schema
-        self.assertIn({'full': 'process.parent', 'schema_name': 'process', 'short': 'short desc'},
+        self.assertIn({'full': 'process.parent', 'schema_name': 'process', 'short': 'short override desc'},
                       fields['process']['schema_details']['reused_here'])
         self.assertIn({'full': 'user.effective', 'schema_name': 'user', 'short': 'short desc'},
                       fields['user']['schema_details']['reused_here'])
