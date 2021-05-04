@@ -28,11 +28,14 @@ by a nested objected located at `file.macho`.
 | macho.headers.flags            | keyword | Flags set in the Mach-O header.                                 |
 | macho.segments                 | nested  | Segment information for the file.                               |
 | macho.segments.name            | keyword | Name of this segment.                                           |
-| macho.segments.physical_offset | long    | File offset of this segment.                                    |
-| macho.segments.physical_size   | keyword | Amount of memory to map from the file.                          |
-| macho.segments.virtual_address | keyword | Memory address of this segment.                                 |
-| macho.segments.virtual_size    | keyword | Memory size of this segment.                                    |
+| macho.segments.fileoff         | long    | File offset of this segment.                                    |
+| macho.segments.filesize        | keyword | Amount of memory to map from the file.                          |
+| macho.segments.vmaddr          | keyword | Memory address of this segment.                                 |
+| macho.segments.vmsize          | keyword | Memory size of this segment.                                    |
 | macho.segments.sections        | keyword | Section names contained in this segment.                        |
+| macho.segments.segoff          | keyword | Offset of the segment.                        |
+| macho.segments.sizelimit            | keyword | Segment flags.                        |
+| macho.segments.flags          | keyword | Offset of the segment.                        |
 | macho.sections                 | nested  | Section information for the segment of the file.                |
 | macho.sections.name            | keyword | Section name for the segment of the file.                       |
 | macho.sections.flags           | keyword | Section flags for the segment of the file.                      |
