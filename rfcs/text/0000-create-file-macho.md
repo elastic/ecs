@@ -15,6 +15,7 @@ by a nested objected located at `file.macho`.
 
 | Name                           | Type    | Description                                                     |
 |--------------------------------|---------|-----------------------------------------------------------------|
+| macho.cdhash                   | keyword | Code Digest (CD) SHA256 hash of the first 20-bytes of the file. |
 | macho.cpu                      | object  | CPU information for the file.                                   |
 | macho.cpu.architecture         | keyword | CPU architecture target for the file.                           |
 | macho.cpu.byte_order           | keyword | CPU byte order for the file.                                    |
@@ -26,25 +27,24 @@ by a nested objected located at `file.macho`.
 | macho.headers.commands.type    | keyword | Type of the load commands for the Mach-O header.                |
 | macho.headers.magic            | keyword | Magic field of the Mach-O header.                               |
 | macho.headers.flags            | keyword | Flags set in the Mach-O header.                                 |
+| macho.page_size                | long    | Page size of the file.                                          |
+| macho.sections                 | nested  | Section information for the segment of the file.                |
+| macho.sections.chi2            | float   | Chi-square probability distribution of the section.             |
+| macho.sections.entropy         | float   | Shannon entropy calculation from the section.                   |
+| macho.sections.flags           | keyword | Section flags for the segment of the file.                      |
+| macho.sections.name            | keyword | Section name for the segment of the file.                       |
+| macho.sections.type            | keyword | Section type for the segment of the file.                       |
+| macho.sections.physical_offset | keyword    | Section List offset.                                            |
+| macho.sections.physical_size   | long    | Section List physical size.                                     |
+| macho.sections.virtual_address | keyword    | Section List virtual address.                                   |
+| macho.sections.virtual_size    | long    | Section List virtual size.                                      |
 | macho.segments                 | nested  | Segment information for the file.                               |
 | macho.segments.name            | keyword | Name of this segment.                                           |
-| macho.segments.physical_offset | long    | File offset of this segment.                                    |
-| macho.segments.physical_size   | keyword | Amount of memory to map from the file.                          |
-| macho.segments.virtual_address | keyword | Memory address of this segment.                                 |
-| macho.segments.virtual_size    | keyword | Memory size of this segment.                                    |
+| macho.segments.physical_offset | keyword    | File offset of this segment.                                    |
+| macho.segments.physical_size   | long | Amount of memory to map from the file.                          |
 | macho.segments.sections        | keyword | Section names contained in this segment.                        |
-| macho.sections                 | nested  | Section information for the segment of the file.                |
-| macho.sections.name            | keyword | Section name for the segment of the file.                       |
-| macho.sections.flags           | keyword | Section flags for the segment of the file.                      |
-| macho.sections.type            | keyword | Section type for the segment of the file.                       |
-| macho.sections.physical_offset | long    | Section List offset.                                            |
-| macho.sections.physical_size   | long    | Section List physical size.                                     |
-| macho.sections.virtual_address | long    | Section List virtual address.                                   |
-| macho.sections.virtual_size    | long    | Section List virtual size.                                      |
-| macho.sections.entropy         | float   | Shannon entropy calculation from the section.                   |
-| macho.sections.chi2            | float   | Chi-square probability distribution of the section.             |
-| macho.page_size                | long    | Page size of the file.                                          |
-| macho.cdhash                   | keyword | Code Digest (CD) SHA256 hash of the first 20-bytes of the file. |
+| macho.segments.virtual_address | keyword | Memory address of this segment.                                 |
+| macho.segments.virtual_size    | long | Memory size of this segment.                                    |
 
 **Stage 1**
 
