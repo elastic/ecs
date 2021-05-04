@@ -1,17 +1,11 @@
-# 0000: Name of RFC
+# 0019: Introduce rpc fieldset
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
 - Stage: **0 (strawperson)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
-- Date: **TBD** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
+- Date: **2021-04-14** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
-<!--
-As you work on your RFC, use the "Stage N" comments to guide you in what you should focus on, for the stage you're targeting.
-Feel free to remove these comments as you go along.
--->
-
-<!--
-Stage 0: Provide a high level summary of the premise of these changes. Briefly describe the nature, purpose, and impact of the changes. ~2-5 sentences.
--->
+We would like to introduce a new, top-level, `rpc` fieldset.  This fieldset would be suitable for recording information pertaining to RPCs (Remote Procedure Calls),
+such as the RPC system (e.g. gRPC, Thrift, Java RMI), service name, method name, and response status code.
 
 <!--
 Stage 1: If the changes include field additions or modifications, please create a folder titled as the RFC number under rfcs/text/. This will be where proposed schema changes as standalone YAML files or extended example mappings and larger source documents will go as the RFC is iterated upon.
@@ -35,9 +29,10 @@ Stage 1: Describe at a high-level how these field changes will be used in practi
 
 ## Source data
 
-<!--
-Stage 1: Provide a high-level description of example sources of data. This does not yet need to be a concrete example of a source document, but instead can simply describe a potential source (e.g. nginx access log). This will ultimately be fleshed out to include literal source examples in a future stage. The goal here is to identify practical sources for these fields in the real world. ~1-3 sentences or unordered list.
--->
+Initially the `rpc` fieldset will be populated by Elastic APM when translating [OpenTelemetry RPC semantic conventions][0].
+Later, Elastic APM may add support for RPC fields to its own protocol, for native RPC (namely gRPC) client and server instrumentation, and these too would result in ECS `rpc` fields.
+
+Custom appication logs would be another potential data source.
 
 <!--
 Stage 2: Included a real world example source document. Ideally this example comes from the source(s) identified in stage 1. If not, it should replace them. The goal here is to validate the utility of these field changes in the context of a real world example. Format with the source name as a ### header and the example document in a GitHub code block with json formatting, or if on the larger side, add them to the corresponding RFC folder.
@@ -75,7 +70,7 @@ Stage 3: Document resolutions for all existing concerns. Any new concerns should
 
 The following are the people that consulted on the contents of this RFC.
 
-* TBD | author
+* @axw | author
 
 <!--
 Who will be or has been consulted on the contents of this RFC? Identify authorship and sponsorship, and optionally identify the nature of involvement of others. Link to GitHub aliases where possible. This list will likely change or grow stage after stage.
@@ -92,15 +87,17 @@ e.g.:
 
 ## References
 
-<!-- Insert any links appropriate to this RFC in this section. -->
+* [OpenTelemetry RPC semantic conventions][0]
 
 ### RFC Pull Requests
 
 <!-- An RFC should link to the PRs for each of it stage advancements. -->
 
-* Stage 0: https://github.com/elastic/ecs/pull/NNN
+* Stage 0: https://github.com/elastic/ecs/pull/1357
 
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN
 ...
 -->
+
+[0]: https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/trace/semantic_conventions/rpc.md
