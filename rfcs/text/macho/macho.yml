@@ -35,11 +35,6 @@
       level: extended
       example: ARM 64-bit
 
-    - name: headers
-      level: extended
-      description: Header information for the file.
-      type: nested
-
     - name: headers.commands.number
       description: Number of load commands for the Mach-O header.
       type: long
@@ -70,11 +65,6 @@
       type: keyword
       level: extended
       example: TWOLEVEL, 0x4000000
-
-    - name: segments
-      level: extended
-      description: Segment information for the file.
-      type: nested
 
     - name: segments.vmaddr
       description: Memory address of this segment.
@@ -111,14 +101,14 @@
       description: Section information for the segment of the file.
       type: flattened
 
-    - name: segments.offset
+    - name: segments.segoff
       description: Offset of the segment.
       type: long
       format: bytes
       level: extended
       example: 0
 
-    - name: segments.size
+    - name: segments.sizelimit
       description: Segment limit size.
       type: long
       format: bytes
