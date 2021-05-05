@@ -7,7 +7,6 @@ from generators import ecs_helpers
 
 
 def generate(nested, ecs_version, out_dir):
-    save_asciidoc(path.join(out_dir, 'index.asciidoc'), page_index(ecs_version))
     save_asciidoc(path.join(out_dir, 'fields.asciidoc'), page_field_index(nested, ecs_version))
     save_asciidoc(path.join(out_dir, 'field-details.asciidoc'), page_field_details(nested))
     save_asciidoc(path.join(out_dir, 'field-values.asciidoc'), page_field_values(nested))
