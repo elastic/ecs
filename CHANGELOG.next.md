@@ -49,7 +49,6 @@ Thanks, you're awesome :-) -->
 * Host metrics fields from RFC 0005 are now GA. #1319
 * Adjustments to the field set "usage" docs #1345
 * Adjustments to the sidebar naming convention for usage and examples docs #1354
-* Ensure referenced Github branch matches docs and embed generated version #1381
 * Update `user.*` field reuse descriptions. #1382
 
 ### Tooling and Artifact Changes
