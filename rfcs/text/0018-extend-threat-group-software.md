@@ -1,8 +1,8 @@
 # 0018: Extend Threat Fieldset
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
-- Stage: **1 (draft)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
-- Date: **2021-04-06** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
+- Stage: **2 (candidate)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
+- Date: **2021-00-00** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 <!--
 As you work on your RFC, use the "Stage N" comments to guide you in what you should focus on, for the stage you're targeting.
@@ -103,6 +103,7 @@ Stage 2: Included a real world example source document. Ideally this example com
 Examples are from MITRE's [enterprise matrix](https://github.com/mitre/cti/blob/master/enterprise-attack/enterprise-attack.json).
 
 ```yml
+// Software Source Data
 {
     "external_references": [
         {
@@ -118,6 +119,7 @@ Examples are from MITRE's [enterprise matrix](https://github.com/mitre/cti/blob/
 }
 ```
 ```yml
+// Group Source Data
 {
     "name": "FIN6",
     "external_references": [
@@ -203,6 +205,7 @@ e.g.:
 
 * Stage 0: https://github.com/elastic/ecs/pull/1300
 * Stage 1: https://github.com/elastic/ecs/pull/1335
+* Stage 2: https://github.com/elastic/ecs/pull/nnnn
 
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN
