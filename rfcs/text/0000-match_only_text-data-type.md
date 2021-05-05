@@ -23,6 +23,22 @@ Stage 1: If the changes include field additions or modifications, please create 
 
 ## Fields
 
+The following fields are currently indexed as `text` and are candidates to migrate to `match_only_text`:
+
+* `message`
+* `error.message`
+
+
+<!--
+Stage 1: Describe at a high level how this change affects fields. Include new or updated yml field definitions for all of the essential fields in this draft. While not exhaustive, the fields documented here should be comprehensive enough to deeply evaluate the technical considerations of this change. The goal here is to validate the technical details for all essential fields and to provide a basis for adding experimental field definitions to the schema. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
+-->
+
+<!--
+Stage 2: Add or update all remaining field definitions. The list should now be exhaustive. The goal here is to validate the technical details of all remaining fields and to provide a basis for releasing these field definitions as beta in the schema. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
+-->
+
+## Usage
+
 Data is indexed the same as a `text` field that has:
 
 * `index_options: docs`
@@ -39,22 +55,6 @@ The `match_only_text` type supports the same feature set as `text`, except the f
 Like `text`, `match_only_text` fields do not support aggregations.
 
 This new field is part of the text family, so it is returned as a text field in the `_field_caps` output. Being a member of the `text` field family means migrating fields from `text` to `match_only_text` is a non-breaking change and the fields of `text` and `match_only_text` can be queried alongside each other.
-
-The following fields are currently indexed as `text` and are candidates to migrate to `match_only_text`:
-
-* `message`
-* `error.message`
-
-
-<!--
-Stage 1: Describe at a high level how this change affects fields. Include new or updated yml field definitions for all of the essential fields in this draft. While not exhaustive, the fields documented here should be comprehensive enough to deeply evaluate the technical considerations of this change. The goal here is to validate the technical details for all essential fields and to provide a basis for adding experimental field definitions to the schema. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
--->
-
-<!--
-Stage 2: Add or update all remaining field definitions. The list should now be exhaustive. The goal here is to validate the technical details of all remaining fields and to provide a basis for releasing these field definitions as beta in the schema. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
--->
-
-## Usage
 
 <!--
 Stage 1: Describe at a high-level how these field changes will be used in practice. Real world examples are encouraged. The goal here is to understand how people would leverage these fields to gain insights or solve problems. ~1-3 paragraphs.
