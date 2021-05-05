@@ -35,6 +35,7 @@ Thanks, you're awesome :-) -->
 
 * Go code generator now supports the `flattened` data type. #1302
 * Adjustments to use terminology that doesn't have negative connotation. #1315
+* Add reference to CSV in docs #1317
 
 #### Deprecated
 
