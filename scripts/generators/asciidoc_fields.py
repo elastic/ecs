@@ -7,7 +7,6 @@ from generators import ecs_helpers
 
 
 def generate(nested, ecs_version, out_dir):
-    save_asciidoc(path.join(out_dir, 'index.asciidoc'), page_index(ecs_version))
     save_asciidoc(path.join(out_dir, 'fields.asciidoc'), page_field_index(nested, ecs_version))
     save_asciidoc(path.join(out_dir, 'field-details.asciidoc'), page_field_details(nested))
     save_asciidoc(path.join(out_dir, 'field-values.asciidoc'), page_field_values(nested))
@@ -125,14 +124,6 @@ template_loader = jinja2.FileSystemLoader(searchpath=TEMPLATE_DIR)
 template_env = jinja2.Environment(loader=template_loader)
 
 # Rendering schemas
-
-# Index
-
-
-@templated('index.j2')
-def page_index(ecs_version):
-    return dict(ecs_version=ecs_version)
-
 
 # Field Index
 
