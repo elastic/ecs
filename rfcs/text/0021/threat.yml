@@ -1,0 +1,38 @@
+---
+- name: threat
+
+  fields:
+
+  - name: enrichments
+    level: extended
+    type: nested
+    short: List of indicators enriching the event
+    description: >
+      A list of associated indicators enriching the event, and the context of that association/enrichment
+
+  - name: enrichments.matched.atomic
+    level: extended
+    type: keyword
+    short: Indicator atomic match
+    description: >
+      Identifies the atomic indicator that matched a local environment endpoint or network event.
+
+    example: example.com
+
+  - name: enrichments.matched.field
+    level: extended
+    type: keyword
+    short: Indicator field match
+    description: >
+      Identifies the field of the atomic indicator that matched a local environment endpoint or network event.
+
+    example: file.hash.sha256
+
+  - name: enrichments.matched.type
+    level: extended
+    type: keyword
+    short: Indicator type match
+    description: >
+      Identifies the type of the atomic indicator that matched a local environment endpoint or network event.
+
+    example: domain-name
