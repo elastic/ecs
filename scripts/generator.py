@@ -26,11 +26,9 @@ def main():
 
     # default location to save files
     out_dir = 'generated'
-    docs_dir = 'docs'
     if args.out:
         default_dirs = False
         out_dir = os.path.join(args.out, out_dir)
-        docs_dir = os.path.join(args.out, docs_dir)
     else:
         default_dirs = True
 
@@ -62,9 +60,6 @@ def main():
     beats.generate(nested, ecs_generated_version, out_dir)
     if args.include or args.subset:
         exit()
-
-    ecs_helpers.make_dirs(docs_dir)
-    asciidoc_fields.generate(nested, ecs_generated_version, docs_dir)
 
 
 def argument_parser():
