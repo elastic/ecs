@@ -18,6 +18,8 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
+* Fix ecs GitHub repo link source branch #1393
+
 #### Deprecated
 
 ### Tooling and Artifact Changes
