@@ -11,8 +11,8 @@ As [documented](https://github.com/elastic/ecs/pull/1293#issuecomment-825212880)
 
 Moving this list of indicators to a new field allows us to:
 
-- reuse the existing `threat.indicator` fieldset
-- sidestep the documentation/mapping complexities around when `threat.indicator` is an object (indicator) vs. when it's an array of objects (enrichment)
+* reuse the existing `threat.indicator` fieldset
+* sidestep the documentation/mapping complexities around when `threat.indicator` is an object (indicator) vs. when it's an array of objects (enrichment)
 
 <!--
 Stage 1: If the changes include field additions or modifications, please create a folder titled as the RFC number under rfcs/text/. This will be where proposed schema changes as standalone YAML files or extended example mappings and larger source documents will go as the RFC is iterated upon.
@@ -214,7 +214,7 @@ Stage 3: Document resolutions for all existing concerns. Any new concerns should
 
 The following are the people that consulted on the contents of this RFC.
 
-- @rylnd | author
+* @rylnd | author
 
 <!--
 Who will be or has been consulted on the contents of this RFC? Identify authorship and sponsorship, and optionally identify the nature of involvement of others. Link to GitHub aliases where possible. This list will likely change or grow stage after stage.
@@ -232,14 +232,14 @@ e.g.:
 
 <!-- Insert any links appropriate to this RFC in this section. -->
 
-- Inciting comment: https://github.com/elastic/ecs/pull/1293#issuecomment-825212880
-- Threat Intel RFC: https://github.com/elastic/ecs/pull/1293
+* Inciting comment: https://github.com/elastic/ecs/pull/1293#issuecomment-825212880
+* Threat Intel RFC: https://github.com/elastic/ecs/pull/1293
 
 ### RFC Pull Requests
 
 <!-- An RFC should link to the PRs for each of it stage advancements. -->
 
-- Stage 0: https://github.com/elastic/ecs/pull/1386
+* Stage 0: https://github.com/elastic/ecs/pull/1386
 
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN
