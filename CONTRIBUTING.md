@@ -61,6 +61,7 @@ You need these tools to contribute to the ECS repo:
 * Request feedback about your changes.
   - Create a [Pull Request](https://help.github.com/articles/creating-a-pull-request/) against the ECS repo.
     - (Look for the `Compare & pull request` button on your branch in github.com.)
+  - Add an entry to [CHANGELOG.next.md](CHANGELOG.next.md).
   - Wait for reviews on your PR.
   - Incorporate review comments and push updates if needed.
 * Thank you for your contribution!
