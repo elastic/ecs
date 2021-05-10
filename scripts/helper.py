@@ -110,10 +110,6 @@ def get_markdown_row(field, link, multi_field):
         # Add ticks around examples to not break table
         example = "`{}`".format(field["example"])
 
-    # If link is true, it link to the anchor is provided. This is used for the use-cases
-    if link and ecs:
-        return '| [{}]({}#{})  | {} | {} | {} | {} |\n'.format(show_name, link, field["name"], description, field["level"], field["type"], example)
-
     # By default a anchor is attached to the name
     return '| <a name="{}"></a>{} | {} | {} | {} | {} |\n'.format(field["name"], show_name, description, field["level"], field["type"], example)
 
