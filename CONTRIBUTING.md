@@ -97,15 +97,15 @@ Please follow these guidelines when submitting Issues:
 * Click `New issue`. Provide as many details as possible to help reviewers and other contributors understand your proposal.
 * Add your text, and click `Submit new issue`.
 
-### Backports
-
-ECS maintains multiple release branches in the repo. The `master` branch is where all new contributions should be submitted, and features and bug fixes will be backported into other branches when appropriate. Any backporting needs will be handled by the ECS team.
-
-#### Branching
+### Branching
 
 * The `master` branch is where all new contributions are merged. This includes new features and bug fixes, and it may also include breaking changes.
 * The `1.x` branch gets backports of most non-breaking features and fixes. This branch represents the next `major.minor` release.
 * The `major.minor` branches (e.g. `1.6`, `1.5`, `1.4`, etc.) contain the latest released version of those releases.
+
+### Backports
+
+ECS maintains multiple release branches in the repo. The `master` branch is where all new contributions should be submitted, and features and bug fixes will be backported into other branches when appropriate. Any backporting needs will be handled by the ECS team.
 
 #### Tooling
 
