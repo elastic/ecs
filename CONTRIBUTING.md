@@ -99,9 +99,11 @@ Please follow these guidelines when submitting Issues:
 
 ### Branching
 
-* The `master` branch is where all new contributions are merged. This includes new features and bug fixes, and it may also include breaking changes.
-* The `1.x` branch gets backports of most non-breaking features and fixes. This branch represents the next `major.minor` release.
-* The `major.minor` branches (e.g. `1.6`, `1.5`, `1.4`, etc.) contain the latest released version of those releases.
+ECS follows this branching strategy:
+
+* The `master` is the next major version. It is where all new contributions are first merged. This includes new features and bug fixes, and it may also include breaking changes.
+* The `<major>.x` is the next minor version and gets backports of most non-breaking features and fixes.
+* The `<major>.<minor>` is the next release of a minor version, including patch releases.
 
 ### Backports
 
