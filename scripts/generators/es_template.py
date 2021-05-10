@@ -279,6 +279,7 @@ def es6_type_fallback(mappings):
         if 'properties' in details:
             es6_type_fallback(details['properties'])
 
+
 TYPE_FALLBACKS = {
     'constant_keyword': 'keyword',
     'wildcard': 'keyword',
