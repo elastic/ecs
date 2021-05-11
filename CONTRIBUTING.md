@@ -105,6 +105,15 @@ ECS follows this branching strategy:
 * The `<major>.x` is the next minor version and gets backports of most non-breaking features and fixes.
 * The `<major>.<minor>` is the next release of a minor version, including patch releases.
 
+### Changelog
+
+ECS maintains two changelog files:
+
+* [CHANGELOG.md](CHANGELOG.md) contains a list of notable changes for each released version of ECS.
+* [CHANGELOG.next.md](CHANGELOG.next.md) contains a list of unreleased ECS changes.
+
+Breaking changes intended for the next major version should be included underneath the `Breaking changes` sections in `CHANGELOG.next.md`.
+
 ### Backports
 
 ECS maintains multiple release branches in the repo. The `master` branch is where all new contributions should be submitted, and features and bug fixes will be backported into other branches when appropriate. Any backporting needs will be handled by the ECS team.
