@@ -13,7 +13,7 @@ Feel free to remove these comments as you go along.
 Stage 0: Provide a high level summary of the premise of these changes. Briefly describe the nature, purpose, and impact of the changes. ~2-5 sentences.
 -->
 
-Indexing `message` fields as the `text` type in security and application logs consumes significant disk space. Part of the disk space spent is on indexing to support phrase queries, which aren't often used in logging use cases. Elasticsearch 7.14 introduces a new field type called `match_only_text` which is a more space-efficient variant of the `text` field type for this logging-focused use cases.
+Indexing `message` fields as the `text` type in security and application logs consumes significant disk space. Part of the disk space spent is on indexing to support scoring and phrase queries, which aren't often used in logging use cases. Elasticsearch 7.14 introduces a new field type called `match_only_text` which is a more space-efficient variant of the `text` field type for this logging-focused use cases.
 
 This RFC proposes migrating existing ECS `text` fields to `match_only_text`. Most current ECS datasets are focused heavily on logging use cases, and we can pass this disk space savings onto users by migrating `text` fields to `match_only_text` by default in ECS. Upcoming changes in Elasticsearch will default to indexing the `message` field as `match_only_text`, and this change in ECS will also align better with this new stack default.
 
@@ -49,7 +49,7 @@ Data is indexed the same as a `text` field that has:
 The `match_only_text` type supports the same feature set as `text`, except the following:
 
 * No support for scoring: queries ignore index statistics and produce constant scores.
-* Span queries are unsupported. If a span query is run, then a field mapped as match_only_text will be ignored from the search response.
+* Span queries are unsupported. If a span query is run, then shards where the field is mapped as match_only_text will be returned as failed in the search response and their hits will be ignored.
 * Phrase and intervals queries run slower.
 
 Like `text`, `match_only_text` fields do not support aggregations.
