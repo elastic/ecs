@@ -8,9 +8,9 @@ Thanks, you're awesome :-) -->
 
 ## Unreleased
 
-### Schema Changes
+### Breaking Changes
 
-#### Breaking changes
+### Schema Changes
 
 #### Bugfixes
 
@@ -23,8 +23,6 @@ Thanks, you're awesome :-) -->
 #### Deprecated
 
 ### Tooling and Artifact Changes
-
-#### Breaking changes
 
 #### Bugfixes
 
