@@ -1849,6 +1849,510 @@ example: `1.0.0`
 
 |=====
 
+[[ecs-elf]]
+=== ELF Header Fields
+
+These fields contain Linux Executable Linkable Format (ELF) metadata.
+
+beta::[ These fields are in beta and are subject to change.]
+
+[discrete]
+==== ELF Header Field Details
+
+[options="header"]
+|=====
+| Field  | Description | Level
+
+// ===============================================================
+
+|
+[[field-elf-architecture]]
+<<field-elf-architecture, elf.architecture>>
+
+| Machine architecture of the ELF file.
+
+type: keyword
+
+
+
+example: `x86-64`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-byte-order]]
+<<field-elf-byte-order, elf.byte_order>>
+
+| Byte sequence of ELF file.
+
+type: keyword
+
+
+
+example: `Little Endian`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-cpu-type]]
+<<field-elf-cpu-type, elf.cpu_type>>
+
+| CPU type of the ELF file.
+
+type: keyword
+
+
+
+example: `Intel`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-creation-date]]
+<<field-elf-creation-date, elf.creation_date>>
+
+| Extracted when possible from the file's metadata. Indicates when it was built or compiled. It can also be faked by malware creators.
+
+type: date
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-exports]]
+<<field-elf-exports, elf.exports>>
+
+| List of exported element names and types.
+
+type: flattened
+
+
+Note: this field should contain an array of values.
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-header-abi-version]]
+<<field-elf-header-abi-version, elf.header.abi_version>>
+
+| Version of the ELF Application Binary Interface (ABI).
+
+type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-header-class]]
+<<field-elf-header-class, elf.header.class>>
+
+| Header class of the ELF file.
+
+type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-header-data]]
+<<field-elf-header-data, elf.header.data>>
+
+| Data table of the ELF header.
+
+type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-header-entrypoint]]
+<<field-elf-header-entrypoint, elf.header.entrypoint>>
+
+| Header entrypoint of the ELF file.
+
+type: long
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-header-object-version]]
+<<field-elf-header-object-version, elf.header.object_version>>
+
+| "0x1" for original ELF files.
+
+type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-header-os-abi]]
+<<field-elf-header-os-abi, elf.header.os_abi>>
+
+| Application Binary Interface (ABI) of the Linux OS.
+
+type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-header-type]]
+<<field-elf-header-type, elf.header.type>>
+
+| Header type of the ELF file.
+
+type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-header-version]]
+<<field-elf-header-version, elf.header.version>>
+
+| Version of the ELF header.
+
+type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-imports]]
+<<field-elf-imports, elf.imports>>
+
+| List of imported element names and types.
+
+type: flattened
+
+
+Note: this field should contain an array of values.
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-sections]]
+<<field-elf-sections, elf.sections>>
+
+| Section information of the ELF file.
+
+type: nested
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-sections-chi2]]
+<<field-elf-sections-chi2, elf.sections.chi2>>
+
+| Chi-square probability distribution of the section.
+
+type: long
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-sections-entropy]]
+<<field-elf-sections-entropy, elf.sections.entropy>>
+
+| Shannon entropy calculation from the section.
+
+type: long
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-sections-flags]]
+<<field-elf-sections-flags, elf.sections.flags>>
+
+| ELF Section List flags.
+
+type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-sections-name]]
+<<field-elf-sections-name, elf.sections.name>>
+
+| ELF Section List name.
+
+type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-sections-physical-offset]]
+<<field-elf-sections-physical-offset, elf.sections.physical_offset>>
+
+| ELF Section List offset.
+
+type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-sections-physical-size]]
+<<field-elf-sections-physical-size, elf.sections.physical_size>>
+
+| ELF Section List physical size.
+
+type: long
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-sections-type]]
+<<field-elf-sections-type, elf.sections.type>>
+
+| ELF Section List type.
+
+type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-sections-virtual-address]]
+<<field-elf-sections-virtual-address, elf.sections.virtual_address>>
+
+| ELF Section List virtual address.
+
+type: long
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-sections-virtual-size]]
+<<field-elf-sections-virtual-size, elf.sections.virtual_size>>
+
+| ELF Section List virtual size.
+
+type: long
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-segments]]
+<<field-elf-segments, elf.segments>>
+
+| ELF object segment list.
+
+type: nested
+
+
+Note: this field should contain an array of values.
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-segments-sections]]
+<<field-elf-segments-sections, elf.segments.sections>>
+
+| ELF object segment sections.
+
+type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-segments-type]]
+<<field-elf-segments-type, elf.segments.type>>
+
+| ELF object segment type.
+
+type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-shared-libraries]]
+<<field-elf-shared-libraries, elf.shared_libraries>>
+
+| List of shared libraries used by this ELF object.
+
+type: keyword
+
+
+Note: this field should contain an array of values.
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-telfhash]]
+<<field-elf-telfhash, elf.telfhash>>
+
+| telfhash symbol hash for ELF file.
+
+type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|=====
+
+[discrete]
+==== Field Reuse
+
+The `elf` fields are expected to be nested at: `file.elf`, `process.elf`.
+
+Note also that the `elf` fields are not expected to be used directly at the root of the events.
+
+
+
+
 [[ecs-error]]
 === Error Fields
 
@@ -2870,6 +3374,13 @@ example: `1001`
 | <<ecs-code_signature,code_signature>>
 | `file.code_signature.*`
 | These fields contain information about binary code signatures.
+
+// ===============================================================
+
+
+| <<ecs-elf,elf>>
+| `file.elf.*`
+| These fields contain Linux Executable Linkable Format (ELF) metadata.
 
 // ===============================================================
 
@@ -5870,6 +6381,13 @@ Note also that the `process` fields may be used directly at the root of the even
 | <<ecs-code_signature,code_signature>>
 | `process.code_signature.*`
 | These fields contain information about binary code signatures.
+
+// ===============================================================
+
+
+| <<ecs-elf,elf>>
+| `process.elf.*`
+| These fields contain Linux Executable Linkable Format (ELF) metadata.
 
 // ===============================================================
 

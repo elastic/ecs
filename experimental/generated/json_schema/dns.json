@@ -1,0 +1,234 @@
+{
+  "dns": {
+    "properties": {
+      "properties": {
+        "answers": {
+          "description": "An array containing an object for each answer section returned by the server. The main keys that should be present in these objects are defined by ECS. Records that have more information may contain more keys than what ECS defines. Not all DNS data sources give all details about DNS answers. At minimum, answer objects must contain the `data` key. If more information is available, map as much of it to ECS as possible, and add any additional fields to the answer objects as custom fields.",
+          "properties": {
+            "properties": {
+              "class": {
+                "description": "The class of DNS data contained in this resource record.",
+                "properties": {
+                  "type": {
+                    "$ref": "#/definitions/types/keyword"
+                  }
+                },
+                "required": [
+                  "type"
+                ],
+                "type": "object"
+              },
+              "data": {
+                "description": "The data describing the resource. The meaning of this data depends on the type and class of the resource record.",
+                "properties": {
+                  "type": {
+                    "$ref": "#/definitions/types/wildcard"
+                  }
+                },
+                "required": [
+                  "type"
+                ],
+                "type": "object"
+              },
+              "name": {
+                "description": "The domain name to which this resource record pertains. If a chain of CNAME is being resolved, each answer's `name` should be the one that corresponds with the answer's `data`. It should not simply be the original `question.name` repeated.",
+                "properties": {
+                  "type": {
+                    "$ref": "#/definitions/types/keyword"
+                  }
+                },
+                "required": [
+                  "type"
+                ],
+                "type": "object"
+              },
+              "ttl": {
+                "description": "The time interval in seconds that this resource record may be cached before it should be discarded. Zero values mean that the data should not be cached.",
+                "properties": {
+                  "type": {
+                    "$ref": "#/definitions/types/long"
+                  }
+                },
+                "required": [
+                  "type"
+                ],
+                "type": "object"
+              },
+              "type": {
+                "description": "The type of data contained in this resource record.",
+                "properties": {
+                  "type": {
+                    "$ref": "#/definitions/types/keyword"
+                  }
+                },
+                "required": [
+                  "type"
+                ],
+                "type": "object"
+              }
+            },
+            "type": {
+              "$ref": "#/definitions/types/object"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "type": "object"
+        },
+        "header_flags": {
+          "description": "Array of 2 letter DNS header flags. Expected values are: AA, TC, RD, RA, AD, CD, DO.",
+          "properties": {
+            "type": {
+              "$ref": "#/definitions/types/keyword"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "type": "object"
+        },
+        "id": {
+          "description": "The DNS packet identifier assigned by the program that generated the query. The identifier is copied to the response.",
+          "properties": {
+            "type": {
+              "$ref": "#/definitions/types/keyword"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "type": "object"
+        },
+        "op_code": {
+          "description": "The DNS operation code that specifies the kind of query in the message. This value is set by the originator of a query and copied into the response.",
+          "properties": {
+            "type": {
+              "$ref": "#/definitions/types/keyword"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "type": "object"
+        },
+        "question": {
+          "properties": {
+            "properties": {
+              "class": {
+                "description": "The class of records being queried.",
+                "properties": {
+                  "type": {
+                    "$ref": "#/definitions/types/keyword"
+                  }
+                },
+                "required": [
+                  "type"
+                ],
+                "type": "object"
+              },
+              "name": {
+                "description": "The name being queried. If the name field contains non-printable characters (below 32 or above 126), those characters should be represented as escaped base 10 integers (\\DDD). Back slashes and quotes should be escaped. Tabs, carriage returns, and line feeds should be converted to \\t, \\r, and \\n respectively.",
+                "properties": {
+                  "type": {
+                    "$ref": "#/definitions/types/wildcard"
+                  }
+                },
+                "required": [
+                  "type"
+                ],
+                "type": "object"
+              },
+              "registered_domain": {
+                "description": "The highest registered domain, stripped of the subdomain. For example, the registered domain for \"foo.example.com\" is \"example.com\". This value can be determined precisely with a list like the public suffix list (http://publicsuffix.org). Trying to approximate this by simply taking the last two labels will not work well for TLDs such as \"co.uk\".",
+                "properties": {
+                  "type": {
+                    "$ref": "#/definitions/types/keyword"
+                  }
+                },
+                "required": [
+                  "type"
+                ],
+                "type": "object"
+              },
+              "subdomain": {
+                "description": "The subdomain is all of the labels under the registered_domain. If the domain has multiple levels of subdomain, such as \"sub2.sub1.example.com\", the subdomain field should contain \"sub2.sub1\", with no trailing period.",
+                "properties": {
+                  "type": {
+                    "$ref": "#/definitions/types/keyword"
+                  }
+                },
+                "required": [
+                  "type"
+                ],
+                "type": "object"
+              },
+              "top_level_domain": {
+                "description": "The effective top level domain (eTLD), also known as the domain suffix, is the last part of the domain name. For example, the top level domain for example.com is \"com\". This value can be determined precisely with a list like the public suffix list (http://publicsuffix.org). Trying to approximate this by simply taking the last label will not work well for effective TLDs such as \"co.uk\".",
+                "properties": {
+                  "type": {
+                    "$ref": "#/definitions/types/keyword"
+                  }
+                },
+                "required": [
+                  "type"
+                ],
+                "type": "object"
+              },
+              "type": {
+                "description": "The type of record being queried.",
+                "properties": {
+                  "type": {
+                    "$ref": "#/definitions/types/keyword"
+                  }
+                },
+                "required": [
+                  "type"
+                ],
+                "type": "object"
+              }
+            },
+            "type": "object"
+          }
+        },
+        "resolved_ip": {
+          "description": "Array containing all IPs seen in `answers.data`. The `answers` array can be difficult to use, because of the variety of data formats it can contain. Extracting all IP addresses seen in there to `dns.resolved_ip` makes it possible to index them as IP addresses, and makes them easier to visualize and query for.",
+          "properties": {
+            "type": {
+              "$ref": "#/definitions/types/ip"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "type": "object"
+        },
+        "response_code": {
+          "description": "The DNS response code.",
+          "properties": {
+            "type": {
+              "$ref": "#/definitions/types/keyword"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "type": "object"
+        },
+        "type": {
+          "description": "The type of DNS event captured, query or answer. If your source of DNS events only gives you DNS queries, you should only create dns events of type `dns.type:query`. If your source of DNS events gives you answers as well, you should create one event per query (optionally as soon as the query is seen). And a second event containing all query details as well as an array of answers.",
+          "properties": {
+            "type": {
+              "$ref": "#/definitions/types/keyword"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  }
+}

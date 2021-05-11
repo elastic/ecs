@@ -1,0 +1,1003 @@
+{
+  "tls": {
+    "properties": {
+      "properties": {
+        "cipher": {
+          "description": "String indicating the cipher used during the current connection.",
+          "properties": {
+            "type": {
+              "$ref": "#/definitions/types/keyword"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "type": "object"
+        },
+        "client": {
+          "properties": {
+            "properties": {
+              "certificate": {
+                "description": "PEM-encoded stand-alone certificate offered by the client. This is usually mutually-exclusive of `client.certificate_chain` since this value also exists in that list.",
+                "properties": {
+                  "type": {
+                    "$ref": "#/definitions/types/keyword"
+                  }
+                },
+                "required": [
+                  "type"
+                ],
+                "type": "object"
+              },
+              "certificate_chain": {
+                "description": "Array of PEM-encoded certificates that make up the certificate chain offered by the client. This is usually mutually-exclusive of `client.certificate` since that value should be the first certificate in the chain.",
+                "properties": {
+                  "type": {
+                    "$ref": "#/definitions/types/keyword"
+                  }
+                },
+                "required": [
+                  "type"
+                ],
+                "type": "object"
+              },
+              "hash": {
+                "properties": {
+                  "properties": {
+                    "md5": {
+                      "description": "Certificate fingerprint using the MD5 digest of DER-encoded version of certificate offered by the client. For consistency with other hash values, this value should be formatted as an uppercase hash.",
+                      "properties": {
+                        "type": {
+                          "$ref": "#/definitions/types/keyword"
+                        }
+                      },
+                      "required": [
+                        "type"
+                      ],
+                      "type": "object"
+                    },
+                    "sha1": {
+                      "description": "Certificate fingerprint using the SHA1 digest of DER-encoded version of certificate offered by the client. For consistency with other hash values, this value should be formatted as an uppercase hash.",
+                      "properties": {
+                        "type": {
+                          "$ref": "#/definitions/types/keyword"
+                        }
+                      },
+                      "required": [
+                        "type"
+                      ],
+                      "type": "object"
+                    },
+                    "sha256": {
+                      "description": "Certificate fingerprint using the SHA256 digest of DER-encoded version of certificate offered by the client. For consistency with other hash values, this value should be formatted as an uppercase hash.",
+                      "properties": {
+                        "type": {
+                          "$ref": "#/definitions/types/keyword"
+                        }
+                      },
+                      "required": [
+                        "type"
+                      ],
+                      "type": "object"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "issuer": {
+                "description": "Distinguished name of subject of the issuer of the x.509 certificate presented by the client.",
+                "properties": {
+                  "type": {
+                    "$ref": "#/definitions/types/wildcard"
+                  }
+                },
+                "required": [
+                  "type"
+                ],
+                "type": "object"
+              },
+              "ja3": {
+                "description": "A hash that identifies clients based on how they perform an SSL/TLS handshake.",
+                "properties": {
+                  "type": {
+                    "$ref": "#/definitions/types/keyword"
+                  }
+                },
+                "required": [
+                  "type"
+                ],
+                "type": "object"
+              },
+              "not_after": {
+                "description": "Date/Time indicating when client certificate is no longer considered valid.",
+                "properties": {
+                  "type": {
+                    "$ref": "#/definitions/types/date"
+                  }
+                },
+                "required": [
+                  "type"
+                ],
+                "type": "object"
+              },
+              "not_before": {
+                "description": "Date/Time indicating when client certificate is first considered valid.",
+                "properties": {
+                  "type": {
+                    "$ref": "#/definitions/types/date"
+                  }
+                },
+                "required": [
+                  "type"
+                ],
+                "type": "object"
+              },
+              "server_name": {
+                "description": "Also called an SNI, this tells the server which hostname to which the client is attempting to connect to. When this value is available, it should get copied to `destination.domain`.",
+                "properties": {
+                  "type": {
+                    "$ref": "#/definitions/types/keyword"
+                  }
+                },
+                "required": [
+                  "type"
+                ],
+                "type": "object"
+              },
+              "subject": {
+                "description": "Distinguished name of subject of the x.509 certificate presented by the client.",
+                "properties": {
+                  "type": {
+                    "$ref": "#/definitions/types/wildcard"
+                  }
+                },
+                "required": [
+                  "type"
+                ],
+                "type": "object"
+              },
+              "supported_ciphers": {
+                "description": "Array of ciphers offered by the client during the client hello.",
+                "properties": {
+                  "type": {
+                    "$ref": "#/definitions/types/keyword"
+                  }
+                },
+                "required": [
+                  "type"
+                ],
+                "type": "object"
+              },
+              "x509": {
+                "properties": {
+                  "properties": {
+                    "alternative_names": {
+                      "description": "List of subject alternative names (SAN). Name types vary by certificate authority and certificate type but commonly contain IP addresses, DNS names (and wildcards), and email addresses.",
+                      "properties": {
+                        "type": {
+                          "$ref": "#/definitions/types/keyword"
+                        }
+                      },
+                      "required": [
+                        "type"
+                      ],
+                      "type": "object"
+                    },
+                    "issuer": {
+                      "properties": {
+                        "properties": {
+                          "common_name": {
+                            "description": "List of common name (CN) of issuing certificate authority.",
+                            "properties": {
+                              "type": {
+                                "$ref": "#/definitions/types/keyword"
+                              }
+                            },
+                            "required": [
+                              "type"
+                            ],
+                            "type": "object"
+                          },
+                          "country": {
+                            "description": "List of country (C) codes",
+                            "properties": {
+                              "type": {
+                                "$ref": "#/definitions/types/keyword"
+                              }
+                            },
+                            "required": [
+                              "type"
+                            ],
+                            "type": "object"
+                          },
+                          "distinguished_name": {
+                            "description": "Distinguished name (DN) of issuing certificate authority.",
+                            "properties": {
+                              "type": {
+                                "$ref": "#/definitions/types/wildcard"
+                              }
+                            },
+                            "required": [
+                              "type"
+                            ],
+                            "type": "object"
+                          },
+                          "locality": {
+                            "description": "List of locality names (L)",
+                            "properties": {
+                              "type": {
+                                "$ref": "#/definitions/types/keyword"
+                              }
+                            },
+                            "required": [
+                              "type"
+                            ],
+                            "type": "object"
+                          },
+                          "organization": {
+                            "description": "List of organizations (O) of issuing certificate authority.",
+                            "properties": {
+                              "type": {
+                                "$ref": "#/definitions/types/keyword"
+                              }
+                            },
+                            "required": [
+                              "type"
+                            ],
+                            "type": "object"
+                          },
+                          "organizational_unit": {
+                            "description": "List of organizational units (OU) of issuing certificate authority.",
+                            "properties": {
+                              "type": {
+                                "$ref": "#/definitions/types/keyword"
+                              }
+                            },
+                            "required": [
+                              "type"
+                            ],
+                            "type": "object"
+                          },
+                          "state_or_province": {
+                            "description": "List of state or province names (ST, S, or P)",
+                            "properties": {
+                              "type": {
+                                "$ref": "#/definitions/types/keyword"
+                              }
+                            },
+                            "required": [
+                              "type"
+                            ],
+                            "type": "object"
+                          }
+                        },
+                        "type": "object"
+                      }
+                    },
+                    "not_after": {
+                      "description": "Time at which the certificate is no longer considered valid.",
+                      "properties": {
+                        "type": {
+                          "$ref": "#/definitions/types/date"
+                        }
+                      },
+                      "required": [
+                        "type"
+                      ],
+                      "type": "object"
+                    },
+                    "not_before": {
+                      "description": "Time at which the certificate is first considered valid.",
+                      "properties": {
+                        "type": {
+                          "$ref": "#/definitions/types/date"
+                        }
+                      },
+                      "required": [
+                        "type"
+                      ],
+                      "type": "object"
+                    },
+                    "public_key_algorithm": {
+                      "description": "Algorithm used to generate the public key.",
+                      "properties": {
+                        "type": {
+                          "$ref": "#/definitions/types/keyword"
+                        }
+                      },
+                      "required": [
+                        "type"
+                      ],
+                      "type": "object"
+                    },
+                    "public_key_curve": {
+                      "description": "The curve used by the elliptic curve public key algorithm. This is algorithm specific.",
+                      "properties": {
+                        "type": {
+                          "$ref": "#/definitions/types/keyword"
+                        }
+                      },
+                      "required": [
+                        "type"
+                      ],
+                      "type": "object"
+                    },
+                    "public_key_exponent": {
+                      "description": "Exponent used to derive the public key. This is algorithm specific.",
+                      "properties": {
+                        "type": {
+                          "$ref": "#/definitions/types/long"
+                        }
+                      },
+                      "required": [
+                        "type"
+                      ],
+                      "type": "object"
+                    },
+                    "public_key_size": {
+                      "description": "The size of the public key space in bits.",
+                      "properties": {
+                        "type": {
+                          "$ref": "#/definitions/types/long"
+                        }
+                      },
+                      "required": [
+                        "type"
+                      ],
+                      "type": "object"
+                    },
+                    "serial_number": {
+                      "description": "Unique serial number issued by the certificate authority. For consistency, if this value is alphanumeric, it should be formatted without colons and uppercase characters.",
+                      "properties": {
+                        "type": {
+                          "$ref": "#/definitions/types/keyword"
+                        }
+                      },
+                      "required": [
+                        "type"
+                      ],
+                      "type": "object"
+                    },
+                    "signature_algorithm": {
+                      "description": "Identifier for certificate signature algorithm. We recommend using names found in Go Lang Crypto library. See https://github.com/golang/go/blob/go1.14/src/crypto/x509/x509.go#L337-L353.",
+                      "properties": {
+                        "type": {
+                          "$ref": "#/definitions/types/keyword"
+                        }
+                      },
+                      "required": [
+                        "type"
+                      ],
+                      "type": "object"
+                    },
+                    "subject": {
+                      "properties": {
+                        "properties": {
+                          "common_name": {
+                            "description": "List of common names (CN) of subject.",
+                            "properties": {
+                              "type": {
+                                "$ref": "#/definitions/types/keyword"
+                              }
+                            },
+                            "required": [
+                              "type"
+                            ],
+                            "type": "object"
+                          },
+                          "country": {
+                            "description": "List of country (C) code",
+                            "properties": {
+                              "type": {
+                                "$ref": "#/definitions/types/keyword"
+                              }
+                            },
+                            "required": [
+                              "type"
+                            ],
+                            "type": "object"
+                          },
+                          "distinguished_name": {
+                            "description": "Distinguished name (DN) of the certificate subject entity.",
+                            "properties": {
+                              "type": {
+                                "$ref": "#/definitions/types/wildcard"
+                              }
+                            },
+                            "required": [
+                              "type"
+                            ],
+                            "type": "object"
+                          },
+                          "locality": {
+                            "description": "List of locality names (L)",
+                            "properties": {
+                              "type": {
+                                "$ref": "#/definitions/types/keyword"
+                              }
+                            },
+                            "required": [
+                              "type"
+                            ],
+                            "type": "object"
+                          },
+                          "organization": {
+                            "description": "List of organizations (O) of subject.",
+                            "properties": {
+                              "type": {
+                                "$ref": "#/definitions/types/keyword"
+                              }
+                            },
+                            "required": [
+                              "type"
+                            ],
+                            "type": "object"
+                          },
+                          "organizational_unit": {
+                            "description": "List of organizational units (OU) of subject.",
+                            "properties": {
+                              "type": {
+                                "$ref": "#/definitions/types/keyword"
+                              }
+                            },
+                            "required": [
+                              "type"
+                            ],
+                            "type": "object"
+                          },
+                          "state_or_province": {
+                            "description": "List of state or province names (ST, S, or P)",
+                            "properties": {
+                              "type": {
+                                "$ref": "#/definitions/types/keyword"
+                              }
+                            },
+                            "required": [
+                              "type"
+                            ],
+                            "type": "object"
+                          }
+                        },
+                        "type": "object"
+                      }
+                    },
+                    "version_number": {
+                      "description": "Version of x509 format.",
+                      "properties": {
+                        "type": {
+                          "$ref": "#/definitions/types/keyword"
+                        }
+                      },
+                      "required": [
+                        "type"
+                      ],
+                      "type": "object"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "type": "object"
+          }
+        },
+        "curve": {
+          "description": "String indicating the curve used for the given cipher, when applicable.",
+          "properties": {
+            "type": {
+              "$ref": "#/definitions/types/keyword"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "type": "object"
+        },
+        "established": {
+          "description": "Boolean flag indicating if the TLS negotiation was successful and transitioned to an encrypted tunnel.",
+          "properties": {
+            "type": {
+              "$ref": "#/definitions/types/boolean"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "type": "object"
+        },
+        "next_protocol": {
+          "description": "String indicating the protocol being tunneled. Per the values in the IANA registry (https://www.iana.org/assignments/tls-extensiontype-values/tls-extensiontype-values.xhtml#alpn-protocol-ids), this string should be lower case.",
+          "properties": {
+            "type": {
+              "$ref": "#/definitions/types/keyword"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "type": "object"
+        },
+        "resumed": {
+          "description": "Boolean flag indicating if this TLS connection was resumed from an existing TLS negotiation.",
+          "properties": {
+            "type": {
+              "$ref": "#/definitions/types/boolean"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "type": "object"
+        },
+        "server": {
+          "properties": {
+            "properties": {
+              "certificate": {
+                "description": "PEM-encoded stand-alone certificate offered by the server. This is usually mutually-exclusive of `server.certificate_chain` since this value also exists in that list.",
+                "properties": {
+                  "type": {
+                    "$ref": "#/definitions/types/keyword"
+                  }
+                },
+                "required": [
+                  "type"
+                ],
+                "type": "object"
+              },
+              "certificate_chain": {
+                "description": "Array of PEM-encoded certificates that make up the certificate chain offered by the server. This is usually mutually-exclusive of `server.certificate` since that value should be the first certificate in the chain.",
+                "properties": {
+                  "type": {
+                    "$ref": "#/definitions/types/keyword"
+                  }
+                },
+                "required": [
+                  "type"
+                ],
+                "type": "object"
+              },
+              "hash": {
+                "properties": {
+                  "properties": {
+                    "md5": {
+                      "description": "Certificate fingerprint using the MD5 digest of DER-encoded version of certificate offered by the server. For consistency with other hash values, this value should be formatted as an uppercase hash.",
+                      "properties": {
+                        "type": {
+                          "$ref": "#/definitions/types/keyword"
+                        }
+                      },
+                      "required": [
+                        "type"
+                      ],
+                      "type": "object"
+                    },
+                    "sha1": {
+                      "description": "Certificate fingerprint using the SHA1 digest of DER-encoded version of certificate offered by the server. For consistency with other hash values, this value should be formatted as an uppercase hash.",
+                      "properties": {
+                        "type": {
+                          "$ref": "#/definitions/types/keyword"
+                        }
+                      },
+                      "required": [
+                        "type"
+                      ],
+                      "type": "object"
+                    },
+                    "sha256": {
+                      "description": "Certificate fingerprint using the SHA256 digest of DER-encoded version of certificate offered by the server. For consistency with other hash values, this value should be formatted as an uppercase hash.",
+                      "properties": {
+                        "type": {
+                          "$ref": "#/definitions/types/keyword"
+                        }
+                      },
+                      "required": [
+                        "type"
+                      ],
+                      "type": "object"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "issuer": {
+                "description": "Subject of the issuer of the x.509 certificate presented by the server.",
+                "properties": {
+                  "type": {
+                    "$ref": "#/definitions/types/wildcard"
+                  }
+                },
+                "required": [
+                  "type"
+                ],
+                "type": "object"
+              },
+              "ja3s": {
+                "description": "A hash that identifies servers based on how they perform an SSL/TLS handshake.",
+                "properties": {
+                  "type": {
+                    "$ref": "#/definitions/types/keyword"
+                  }
+                },
+                "required": [
+                  "type"
+                ],
+                "type": "object"
+              },
+              "not_after": {
+                "description": "Timestamp indicating when server certificate is no longer considered valid.",
+                "properties": {
+                  "type": {
+                    "$ref": "#/definitions/types/date"
+                  }
+                },
+                "required": [
+                  "type"
+                ],
+                "type": "object"
+              },
+              "not_before": {
+                "description": "Timestamp indicating when server certificate is first considered valid.",
+                "properties": {
+                  "type": {
+                    "$ref": "#/definitions/types/date"
+                  }
+                },
+                "required": [
+                  "type"
+                ],
+                "type": "object"
+              },
+              "subject": {
+                "description": "Subject of the x.509 certificate presented by the server.",
+                "properties": {
+                  "type": {
+                    "$ref": "#/definitions/types/wildcard"
+                  }
+                },
+                "required": [
+                  "type"
+                ],
+                "type": "object"
+              },
+              "x509": {
+                "properties": {
+                  "properties": {
+                    "alternative_names": {
+                      "description": "List of subject alternative names (SAN). Name types vary by certificate authority and certificate type but commonly contain IP addresses, DNS names (and wildcards), and email addresses.",
+                      "properties": {
+                        "type": {
+                          "$ref": "#/definitions/types/keyword"
+                        }
+                      },
+                      "required": [
+                        "type"
+                      ],
+                      "type": "object"
+                    },
+                    "issuer": {
+                      "properties": {
+                        "properties": {
+                          "common_name": {
+                            "description": "List of common name (CN) of issuing certificate authority.",
+                            "properties": {
+                              "type": {
+                                "$ref": "#/definitions/types/keyword"
+                              }
+                            },
+                            "required": [
+                              "type"
+                            ],
+                            "type": "object"
+                          },
+                          "country": {
+                            "description": "List of country (C) codes",
+                            "properties": {
+                              "type": {
+                                "$ref": "#/definitions/types/keyword"
+                              }
+                            },
+                            "required": [
+                              "type"
+                            ],
+                            "type": "object"
+                          },
+                          "distinguished_name": {
+                            "description": "Distinguished name (DN) of issuing certificate authority.",
+                            "properties": {
+                              "type": {
+                                "$ref": "#/definitions/types/wildcard"
+                              }
+                            },
+                            "required": [
+                              "type"
+                            ],
+                            "type": "object"
+                          },
+                          "locality": {
+                            "description": "List of locality names (L)",
+                            "properties": {
+                              "type": {
+                                "$ref": "#/definitions/types/keyword"
+                              }
+                            },
+                            "required": [
+                              "type"
+                            ],
+                            "type": "object"
+                          },
+                          "organization": {
+                            "description": "List of organizations (O) of issuing certificate authority.",
+                            "properties": {
+                              "type": {
+                                "$ref": "#/definitions/types/keyword"
+                              }
+                            },
+                            "required": [
+                              "type"
+                            ],
+                            "type": "object"
+                          },
+                          "organizational_unit": {
+                            "description": "List of organizational units (OU) of issuing certificate authority.",
+                            "properties": {
+                              "type": {
+                                "$ref": "#/definitions/types/keyword"
+                              }
+                            },
+                            "required": [
+                              "type"
+                            ],
+                            "type": "object"
+                          },
+                          "state_or_province": {
+                            "description": "List of state or province names (ST, S, or P)",
+                            "properties": {
+                              "type": {
+                                "$ref": "#/definitions/types/keyword"
+                              }
+                            },
+                            "required": [
+                              "type"
+                            ],
+                            "type": "object"
+                          }
+                        },
+                        "type": "object"
+                      }
+                    },
+                    "not_after": {
+                      "description": "Time at which the certificate is no longer considered valid.",
+                      "properties": {
+                        "type": {
+                          "$ref": "#/definitions/types/date"
+                        }
+                      },
+                      "required": [
+                        "type"
+                      ],
+                      "type": "object"
+                    },
+                    "not_before": {
+                      "description": "Time at which the certificate is first considered valid.",
+                      "properties": {
+                        "type": {
+                          "$ref": "#/definitions/types/date"
+                        }
+                      },
+                      "required": [
+                        "type"
+                      ],
+                      "type": "object"
+                    },
+                    "public_key_algorithm": {
+                      "description": "Algorithm used to generate the public key.",
+                      "properties": {
+                        "type": {
+                          "$ref": "#/definitions/types/keyword"
+                        }
+                      },
+                      "required": [
+                        "type"
+                      ],
+                      "type": "object"
+                    },
+                    "public_key_curve": {
+                      "description": "The curve used by the elliptic curve public key algorithm. This is algorithm specific.",
+                      "properties": {
+                        "type": {
+                          "$ref": "#/definitions/types/keyword"
+                        }
+                      },
+                      "required": [
+                        "type"
+                      ],
+                      "type": "object"
+                    },
+                    "public_key_exponent": {
+                      "description": "Exponent used to derive the public key. This is algorithm specific.",
+                      "properties": {
+                        "type": {
+                          "$ref": "#/definitions/types/long"
+                        }
+                      },
+                      "required": [
+                        "type"
+                      ],
+                      "type": "object"
+                    },
+                    "public_key_size": {
+                      "description": "The size of the public key space in bits.",
+                      "properties": {
+                        "type": {
+                          "$ref": "#/definitions/types/long"
+                        }
+                      },
+                      "required": [
+                        "type"
+                      ],
+                      "type": "object"
+                    },
+                    "serial_number": {
+                      "description": "Unique serial number issued by the certificate authority. For consistency, if this value is alphanumeric, it should be formatted without colons and uppercase characters.",
+                      "properties": {
+                        "type": {
+                          "$ref": "#/definitions/types/keyword"
+                        }
+                      },
+                      "required": [
+                        "type"
+                      ],
+                      "type": "object"
+                    },
+                    "signature_algorithm": {
+                      "description": "Identifier for certificate signature algorithm. We recommend using names found in Go Lang Crypto library. See https://github.com/golang/go/blob/go1.14/src/crypto/x509/x509.go#L337-L353.",
+                      "properties": {
+                        "type": {
+                          "$ref": "#/definitions/types/keyword"
+                        }
+                      },
+                      "required": [
+                        "type"
+                      ],
+                      "type": "object"
+                    },
+                    "subject": {
+                      "properties": {
+                        "properties": {
+                          "common_name": {
+                            "description": "List of common names (CN) of subject.",
+                            "properties": {
+                              "type": {
+                                "$ref": "#/definitions/types/keyword"
+                              }
+                            },
+                            "required": [
+                              "type"
+                            ],
+                            "type": "object"
+                          },
+                          "country": {
+                            "description": "List of country (C) code",
+                            "properties": {
+                              "type": {
+                                "$ref": "#/definitions/types/keyword"
+                              }
+                            },
+                            "required": [
+                              "type"
+                            ],
+                            "type": "object"
+                          },
+                          "distinguished_name": {
+                            "description": "Distinguished name (DN) of the certificate subject entity.",
+                            "properties": {
+                              "type": {
+                                "$ref": "#/definitions/types/wildcard"
+                              }
+                            },
+                            "required": [
+                              "type"
+                            ],
+                            "type": "object"
+                          },
+                          "locality": {
+                            "description": "List of locality names (L)",
+                            "properties": {
+                              "type": {
+                                "$ref": "#/definitions/types/keyword"
+                              }
+                            },
+                            "required": [
+                              "type"
+                            ],
+                            "type": "object"
+                          },
+                          "organization": {
+                            "description": "List of organizations (O) of subject.",
+                            "properties": {
+                              "type": {
+                                "$ref": "#/definitions/types/keyword"
+                              }
+                            },
+                            "required": [
+                              "type"
+                            ],
+                            "type": "object"
+                          },
+                          "organizational_unit": {
+                            "description": "List of organizational units (OU) of subject.",
+                            "properties": {
+                              "type": {
+                                "$ref": "#/definitions/types/keyword"
+                              }
+                            },
+                            "required": [
+                              "type"
+                            ],
+                            "type": "object"
+                          },
+                          "state_or_province": {
+                            "description": "List of state or province names (ST, S, or P)",
+                            "properties": {
+                              "type": {
+                                "$ref": "#/definitions/types/keyword"
+                              }
+                            },
+                            "required": [
+                              "type"
+                            ],
+                            "type": "object"
+                          }
+                        },
+                        "type": "object"
+                      }
+                    },
+                    "version_number": {
+                      "description": "Version of x509 format.",
+                      "properties": {
+                        "type": {
+                          "$ref": "#/definitions/types/keyword"
+                        }
+                      },
+                      "required": [
+                        "type"
+                      ],
+                      "type": "object"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "type": "object"
+          }
+        },
+        "version": {
+          "description": "Numeric part of the version parsed from the original string.",
+          "properties": {
+            "type": {
+              "$ref": "#/definitions/types/keyword"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "type": "object"
+        },
+        "version_protocol": {
+          "description": "Normalized lowercase protocol name parsed from original string.",
+          "properties": {
+            "type": {
+              "$ref": "#/definitions/types/keyword"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  }
+}

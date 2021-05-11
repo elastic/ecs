@@ -2570,6 +2570,7 @@ ecs:
   title: ECS
   type: group
 elf:
+  beta: These fields are in beta and are subject to change.
   description: These fields contain Linux Executable Linkable Format (ELF) metadata.
   fields:
     elf.architecture:
@@ -2586,7 +2587,7 @@ elf:
     elf.byte_order:
       dashed_name: elf-byte-order
       description: Byte sequence of ELF file.
-      example: Little Endian, Big Endian
+      example: Little Endian
       flat_name: elf.byte_order
       ignore_above: 1024
       level: extended
@@ -2621,7 +2622,8 @@ elf:
       flat_name: elf.exports
       level: extended
       name: exports
-      normalize: []
+      normalize:
+      - array
       short: List of exported element names and types.
       type: flattened
     elf.header.abi_version:
@@ -2710,7 +2712,8 @@ elf:
       flat_name: elf.imports
       level: extended
       name: imports
-      normalize: []
+      normalize:
+      - array
       short: List of imported element names and types.
       type: flattened
     elf.sections:
@@ -2818,7 +2821,8 @@ elf:
       flat_name: elf.segments
       level: extended
       name: segments
-      normalize: []
+      normalize:
+      - array
       short: ELF object segment list.
       type: nested
     elf.segments.sections:
@@ -2843,25 +2847,24 @@ elf:
       type: keyword
     elf.shared_libraries:
       dashed_name: elf-shared-libraries
-      description: List of shared libraries used by this ELF object
+      description: List of shared libraries used by this ELF object.
       flat_name: elf.shared_libraries
       ignore_above: 1024
       level: extended
       name: shared_libraries
       normalize:
       - array
-      short: List of shared libraries used by this ELF object
+      short: List of shared libraries used by this ELF object.
       type: keyword
     elf.telfhash:
       dashed_name: elf-telfhash
-      description: telfhash is symbol hash for ELF files, just like imphash is imports
-        hash for PE files. Learn more at https://github.com/trendmicro/telfhash.
+      description: telfhash symbol hash for ELF file.
       flat_name: elf.telfhash
       ignore_above: 1024
       level: extended
       name: telfhash
       normalize: []
-      short: telfhash hash for ELF files
+      short: telfhash hash for ELF file.
       type: keyword
   group: 2
   name: elf
@@ -3935,7 +3938,7 @@ file:
     file.elf.byte_order:
       dashed_name: file-elf-byte-order
       description: Byte sequence of ELF file.
-      example: Little Endian, Big Endian
+      example: Little Endian
       flat_name: file.elf.byte_order
       ignore_above: 1024
       level: extended
@@ -3973,7 +3976,8 @@ file:
       flat_name: file.elf.exports
       level: extended
       name: exports
-      normalize: []
+      normalize:
+      - array
       original_fieldset: elf
       short: List of exported element names and types.
       type: flattened
@@ -4071,7 +4075,8 @@ file:
       flat_name: file.elf.imports
       level: extended
       name: imports
-      normalize: []
+      normalize:
+      - array
       original_fieldset: elf
       short: List of imported element names and types.
       type: flattened
@@ -4190,7 +4195,8 @@ file:
       flat_name: file.elf.segments
       level: extended
       name: segments
-      normalize: []
+      normalize:
+      - array
       original_fieldset: elf
       short: ELF object segment list.
       type: nested
@@ -4218,7 +4224,7 @@ file:
       type: keyword
     file.elf.shared_libraries:
       dashed_name: file-elf-shared-libraries
-      description: List of shared libraries used by this ELF object
+      description: List of shared libraries used by this ELF object.
       flat_name: file.elf.shared_libraries
       ignore_above: 1024
       level: extended
@@ -4226,19 +4232,18 @@ file:
       normalize:
       - array
       original_fieldset: elf
-      short: List of shared libraries used by this ELF object
+      short: List of shared libraries used by this ELF object.
       type: keyword
     file.elf.telfhash:
       dashed_name: file-elf-telfhash
-      description: telfhash is symbol hash for ELF files, just like imphash is imports
-        hash for PE files. Learn more at https://github.com/trendmicro/telfhash.
+      description: telfhash symbol hash for ELF file.
       flat_name: file.elf.telfhash
       ignore_above: 1024
       level: extended
       name: telfhash
       normalize: []
       original_fieldset: elf
-      short: telfhash hash for ELF files
+      short: telfhash hash for ELF file.
       type: keyword
     file.extension:
       dashed_name: file-extension
@@ -5243,6 +5248,9 @@ file:
   - full: file.code_signature
     schema_name: code_signature
     short: These fields contain information about binary code signatures.
+  - full: file.elf
+    schema_name: elf
+    short: These fields contain Linux Executable Linkable Format (ELF) metadata.
   - full: file.hash
     schema_name: hash
     short: Hashes, usually file hashes.
@@ -5252,9 +5260,6 @@ file:
   - full: file.x509
     schema_name: x509
     short: These fields contain x509 certificate metadata.
-  - full: file.elf
-    schema_name: elf
-    short: These fields contain Linux Executable Linkable Format (ELF) metadata.
   short: Fields describing files.
   title: File
   type: group
@@ -8422,7 +8427,7 @@ process:
     process.elf.byte_order:
       dashed_name: process-elf-byte-order
       description: Byte sequence of ELF file.
-      example: Little Endian, Big Endian
+      example: Little Endian
       flat_name: process.elf.byte_order
       ignore_above: 1024
       level: extended
@@ -8460,7 +8465,8 @@ process:
       flat_name: process.elf.exports
       level: extended
       name: exports
-      normalize: []
+      normalize:
+      - array
       original_fieldset: elf
       short: List of exported element names and types.
       type: flattened
@@ -8558,7 +8564,8 @@ process:
       flat_name: process.elf.imports
       level: extended
       name: imports
-      normalize: []
+      normalize:
+      - array
       original_fieldset: elf
       short: List of imported element names and types.
       type: flattened
@@ -8677,7 +8684,8 @@ process:
       flat_name: process.elf.segments
       level: extended
       name: segments
-      normalize: []
+      normalize:
+      - array
       original_fieldset: elf
       short: ELF object segment list.
       type: nested
@@ -8705,7 +8713,7 @@ process:
       type: keyword
     process.elf.shared_libraries:
       dashed_name: process-elf-shared-libraries
-      description: List of shared libraries used by this ELF object
+      description: List of shared libraries used by this ELF object.
       flat_name: process.elf.shared_libraries
       ignore_above: 1024
       level: extended
@@ -8713,19 +8721,18 @@ process:
       normalize:
       - array
       original_fieldset: elf
-      short: List of shared libraries used by this ELF object
+      short: List of shared libraries used by this ELF object.
       type: keyword
     process.elf.telfhash:
       dashed_name: process-elf-telfhash
-      description: telfhash is symbol hash for ELF files, just like imphash is imports
-        hash for PE files. Learn more at https://github.com/trendmicro/telfhash.
+      description: telfhash symbol hash for ELF file.
       flat_name: process.elf.telfhash
       ignore_above: 1024
       level: extended
       name: telfhash
       normalize: []
       original_fieldset: elf
-      short: telfhash hash for ELF files
+      short: telfhash hash for ELF file.
       type: keyword
     process.entity_id:
       dashed_name: process-entity-id
@@ -9009,7 +9016,7 @@ process:
     process.parent.elf.byte_order:
       dashed_name: process-parent-elf-byte-order
       description: Byte sequence of ELF file.
-      example: Little Endian, Big Endian
+      example: Little Endian
       flat_name: process.parent.elf.byte_order
       ignore_above: 1024
       level: extended
@@ -9047,7 +9054,8 @@ process:
       flat_name: process.parent.elf.exports
       level: extended
       name: exports
-      normalize: []
+      normalize:
+      - array
       original_fieldset: elf
       short: List of exported element names and types.
       type: flattened
@@ -9145,7 +9153,8 @@ process:
       flat_name: process.parent.elf.imports
       level: extended
       name: imports
-      normalize: []
+      normalize:
+      - array
       original_fieldset: elf
       short: List of imported element names and types.
       type: flattened
@@ -9264,7 +9273,8 @@ process:
       flat_name: process.parent.elf.segments
       level: extended
       name: segments
-      normalize: []
+      normalize:
+      - array
       original_fieldset: elf
       short: ELF object segment list.
       type: nested
@@ -9292,7 +9302,7 @@ process:
       type: keyword
     process.parent.elf.shared_libraries:
       dashed_name: process-parent-elf-shared-libraries
-      description: List of shared libraries used by this ELF object
+      description: List of shared libraries used by this ELF object.
       flat_name: process.parent.elf.shared_libraries
       ignore_above: 1024
       level: extended
@@ -9300,19 +9310,18 @@ process:
       normalize:
       - array
       original_fieldset: elf
-      short: List of shared libraries used by this ELF object
+      short: List of shared libraries used by this ELF object.
       type: keyword
     process.parent.elf.telfhash:
       dashed_name: process-parent-elf-telfhash
-      description: telfhash is symbol hash for ELF files, just like imphash is imports
-        hash for PE files. Learn more at https://github.com/trendmicro/telfhash.
+      description: telfhash symbol hash for ELF file.
       flat_name: process.parent.elf.telfhash
       ignore_above: 1024
       level: extended
       name: telfhash
       normalize: []
       original_fieldset: elf
-      short: telfhash hash for ELF files
+      short: telfhash hash for ELF file.
       type: keyword
     process.parent.entity_id:
       dashed_name: process-parent-entity-id
@@ -10594,15 +10603,15 @@ process:
   - full: process.code_signature
     schema_name: code_signature
     short: These fields contain information about binary code signatures.
+  - full: process.elf
+    schema_name: elf
+    short: These fields contain Linux Executable Linkable Format (ELF) metadata.
   - full: process.hash
     schema_name: hash
     short: Hashes, usually file hashes.
   - full: process.pe
     schema_name: pe
     short: These fields contain Windows Portable Executable (PE) metadata.
-  - full: process.elf
-    schema_name: elf
-    short: These fields contain Linux Executable Linkable Format (ELF) metadata.
   - full: process.parent
     schema_name: process
     short: Information about the parent process.
@@ -12361,6 +12370,328 @@ threat:
       normalize: []
       original_fieldset: file
       short: Drive letter where the file is located.
+      type: keyword
+    threat.indicator.file.elf.architecture:
+      dashed_name: threat-indicator-file-elf-architecture
+      description: Machine architecture of the ELF file.
+      example: x86-64
+      flat_name: threat.indicator.file.elf.architecture
+      ignore_above: 1024
+      level: extended
+      name: architecture
+      normalize: []
+      original_fieldset: elf
+      short: Machine architecture of the ELF file.
+      type: keyword
+    threat.indicator.file.elf.byte_order:
+      dashed_name: threat-indicator-file-elf-byte-order
+      description: Byte sequence of ELF file.
+      example: Little Endian
+      flat_name: threat.indicator.file.elf.byte_order
+      ignore_above: 1024
+      level: extended
+      name: byte_order
+      normalize: []
+      original_fieldset: elf
+      short: Byte sequence of ELF file.
+      type: keyword
+    threat.indicator.file.elf.cpu_type:
+      dashed_name: threat-indicator-file-elf-cpu-type
+      description: CPU type of the ELF file.
+      example: Intel
+      flat_name: threat.indicator.file.elf.cpu_type
+      ignore_above: 1024
+      level: extended
+      name: cpu_type
+      normalize: []
+      original_fieldset: elf
+      short: CPU type of the ELF file.
+      type: keyword
+    threat.indicator.file.elf.creation_date:
+      dashed_name: threat-indicator-file-elf-creation-date
+      description: Extracted when possible from the file's metadata. Indicates when
+        it was built or compiled. It can also be faked by malware creators.
+      flat_name: threat.indicator.file.elf.creation_date
+      level: extended
+      name: creation_date
+      normalize: []
+      original_fieldset: elf
+      short: Build or compile date.
+      type: date
+    threat.indicator.file.elf.exports:
+      dashed_name: threat-indicator-file-elf-exports
+      description: List of exported element names and types.
+      flat_name: threat.indicator.file.elf.exports
+      level: extended
+      name: exports
+      normalize:
+      - array
+      original_fieldset: elf
+      short: List of exported element names and types.
+      type: flattened
+    threat.indicator.file.elf.header.abi_version:
+      dashed_name: threat-indicator-file-elf-header-abi-version
+      description: Version of the ELF Application Binary Interface (ABI).
+      flat_name: threat.indicator.file.elf.header.abi_version
+      ignore_above: 1024
+      level: extended
+      name: header.abi_version
+      normalize: []
+      original_fieldset: elf
+      short: Version of the ELF Application Binary Interface (ABI).
+      type: keyword
+    threat.indicator.file.elf.header.class:
+      dashed_name: threat-indicator-file-elf-header-class
+      description: Header class of the ELF file.
+      flat_name: threat.indicator.file.elf.header.class
+      ignore_above: 1024
+      level: extended
+      name: header.class
+      normalize: []
+      original_fieldset: elf
+      short: Header class of the ELF file.
+      type: keyword
+    threat.indicator.file.elf.header.data:
+      dashed_name: threat-indicator-file-elf-header-data
+      description: Data table of the ELF header.
+      flat_name: threat.indicator.file.elf.header.data
+      ignore_above: 1024
+      level: extended
+      name: header.data
+      normalize: []
+      original_fieldset: elf
+      short: Data table of the ELF header.
+      type: keyword
+    threat.indicator.file.elf.header.entrypoint:
+      dashed_name: threat-indicator-file-elf-header-entrypoint
+      description: Header entrypoint of the ELF file.
+      flat_name: threat.indicator.file.elf.header.entrypoint
+      format: string
+      level: extended
+      name: header.entrypoint
+      normalize: []
+      original_fieldset: elf
+      short: Header entrypoint of the ELF file.
+      type: long
+    threat.indicator.file.elf.header.object_version:
+      dashed_name: threat-indicator-file-elf-header-object-version
+      description: '"0x1" for original ELF files.'
+      flat_name: threat.indicator.file.elf.header.object_version
+      ignore_above: 1024
+      level: extended
+      name: header.object_version
+      normalize: []
+      original_fieldset: elf
+      short: '"0x1" for original ELF files.'
+      type: keyword
+    threat.indicator.file.elf.header.os_abi:
+      dashed_name: threat-indicator-file-elf-header-os-abi
+      description: Application Binary Interface (ABI) of the Linux OS.
+      flat_name: threat.indicator.file.elf.header.os_abi
+      ignore_above: 1024
+      level: extended
+      name: header.os_abi
+      normalize: []
+      original_fieldset: elf
+      short: Application Binary Interface (ABI) of the Linux OS.
+      type: keyword
+    threat.indicator.file.elf.header.type:
+      dashed_name: threat-indicator-file-elf-header-type
+      description: Header type of the ELF file.
+      flat_name: threat.indicator.file.elf.header.type
+      ignore_above: 1024
+      level: extended
+      name: header.type
+      normalize: []
+      original_fieldset: elf
+      short: Header type of the ELF file.
+      type: keyword
+    threat.indicator.file.elf.header.version:
+      dashed_name: threat-indicator-file-elf-header-version
+      description: Version of the ELF header.
+      flat_name: threat.indicator.file.elf.header.version
+      ignore_above: 1024
+      level: extended
+      name: header.version
+      normalize: []
+      original_fieldset: elf
+      short: Version of the ELF header.
+      type: keyword
+    threat.indicator.file.elf.imports:
+      dashed_name: threat-indicator-file-elf-imports
+      description: List of imported element names and types.
+      flat_name: threat.indicator.file.elf.imports
+      level: extended
+      name: imports
+      normalize:
+      - array
+      original_fieldset: elf
+      short: List of imported element names and types.
+      type: flattened
+    threat.indicator.file.elf.sections:
+      dashed_name: threat-indicator-file-elf-sections
+      description: Section information of the ELF file.
+      flat_name: threat.indicator.file.elf.sections
+      level: extended
+      name: sections
+      normalize: []
+      original_fieldset: elf
+      short: Section information of the ELF file.
+      type: nested
+    threat.indicator.file.elf.sections.chi2:
+      dashed_name: threat-indicator-file-elf-sections-chi2
+      description: Chi-square probability distribution of the section.
+      flat_name: threat.indicator.file.elf.sections.chi2
+      format: number
+      level: extended
+      name: sections.chi2
+      normalize: []
+      original_fieldset: elf
+      short: Chi-square probability distribution of the section.
+      type: long
+    threat.indicator.file.elf.sections.entropy:
+      dashed_name: threat-indicator-file-elf-sections-entropy
+      description: Shannon entropy calculation from the section.
+      flat_name: threat.indicator.file.elf.sections.entropy
+      format: number
+      level: extended
+      name: sections.entropy
+      normalize: []
+      original_fieldset: elf
+      short: Shannon entropy calculation from the section.
+      type: long
+    threat.indicator.file.elf.sections.flags:
+      dashed_name: threat-indicator-file-elf-sections-flags
+      description: ELF Section List flags.
+      flat_name: threat.indicator.file.elf.sections.flags
+      ignore_above: 1024
+      level: extended
+      name: sections.flags
+      normalize: []
+      original_fieldset: elf
+      short: ELF Section List flags.
+      type: keyword
+    threat.indicator.file.elf.sections.name:
+      dashed_name: threat-indicator-file-elf-sections-name
+      description: ELF Section List name.
+      flat_name: threat.indicator.file.elf.sections.name
+      ignore_above: 1024
+      level: extended
+      name: sections.name
+      normalize: []
+      original_fieldset: elf
+      short: ELF Section List name.
+      type: keyword
+    threat.indicator.file.elf.sections.physical_offset:
+      dashed_name: threat-indicator-file-elf-sections-physical-offset
+      description: ELF Section List offset.
+      flat_name: threat.indicator.file.elf.sections.physical_offset
+      ignore_above: 1024
+      level: extended
+      name: sections.physical_offset
+      normalize: []
+      original_fieldset: elf
+      short: ELF Section List offset.
+      type: keyword
+    threat.indicator.file.elf.sections.physical_size:
+      dashed_name: threat-indicator-file-elf-sections-physical-size
+      description: ELF Section List physical size.
+      flat_name: threat.indicator.file.elf.sections.physical_size
+      format: bytes
+      level: extended
+      name: sections.physical_size
+      normalize: []
+      original_fieldset: elf
+      short: ELF Section List physical size.
+      type: long
+    threat.indicator.file.elf.sections.type:
+      dashed_name: threat-indicator-file-elf-sections-type
+      description: ELF Section List type.
+      flat_name: threat.indicator.file.elf.sections.type
+      ignore_above: 1024
+      level: extended
+      name: sections.type
+      normalize: []
+      original_fieldset: elf
+      short: ELF Section List type.
+      type: keyword
+    threat.indicator.file.elf.sections.virtual_address:
+      dashed_name: threat-indicator-file-elf-sections-virtual-address
+      description: ELF Section List virtual address.
+      flat_name: threat.indicator.file.elf.sections.virtual_address
+      format: string
+      level: extended
+      name: sections.virtual_address
+      normalize: []
+      original_fieldset: elf
+      short: ELF Section List virtual address.
+      type: long
+    threat.indicator.file.elf.sections.virtual_size:
+      dashed_name: threat-indicator-file-elf-sections-virtual-size
+      description: ELF Section List virtual size.
+      flat_name: threat.indicator.file.elf.sections.virtual_size
+      format: string
+      level: extended
+      name: sections.virtual_size
+      normalize: []
+      original_fieldset: elf
+      short: ELF Section List virtual size.
+      type: long
+    threat.indicator.file.elf.segments:
+      dashed_name: threat-indicator-file-elf-segments
+      description: ELF object segment list.
+      flat_name: threat.indicator.file.elf.segments
+      level: extended
+      name: segments
+      normalize:
+      - array
+      original_fieldset: elf
+      short: ELF object segment list.
+      type: nested
+    threat.indicator.file.elf.segments.sections:
+      dashed_name: threat-indicator-file-elf-segments-sections
+      description: ELF object segment sections.
+      flat_name: threat.indicator.file.elf.segments.sections
+      ignore_above: 1024
+      level: extended
+      name: segments.sections
+      normalize: []
+      original_fieldset: elf
+      short: ELF object segment sections.
+      type: keyword
+    threat.indicator.file.elf.segments.type:
+      dashed_name: threat-indicator-file-elf-segments-type
+      description: ELF object segment type.
+      flat_name: threat.indicator.file.elf.segments.type
+      ignore_above: 1024
+      level: extended
+      name: segments.type
+      normalize: []
+      original_fieldset: elf
+      short: ELF object segment type.
+      type: keyword
+    threat.indicator.file.elf.shared_libraries:
+      dashed_name: threat-indicator-file-elf-shared-libraries
+      description: List of shared libraries used by this ELF object.
+      flat_name: threat.indicator.file.elf.shared_libraries
+      ignore_above: 1024
+      level: extended
+      name: shared_libraries
+      normalize:
+      - array
+      original_fieldset: elf
+      short: List of shared libraries used by this ELF object.
+      type: keyword
+    threat.indicator.file.elf.telfhash:
+      dashed_name: threat-indicator-file-elf-telfhash
+      description: telfhash symbol hash for ELF file.
+      flat_name: threat.indicator.file.elf.telfhash
+      ignore_above: 1024
+      level: extended
+      name: telfhash
+      normalize: []
+      original_fieldset: elf
+      short: telfhash hash for ELF file.
       type: keyword
     threat.indicator.file.extension:
       dashed_name: threat-indicator-file-extension

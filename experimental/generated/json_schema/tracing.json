@@ -1,0 +1,59 @@
+{
+  "span": {
+    "properties": {
+      "properties": {
+        "id": {
+          "description": "Unique identifier of the span within the scope of its trace. A span represents an operation within a transaction, such as a request to another service, or a database query.",
+          "properties": {
+            "type": {
+              "$ref": "#/definitions/types/keyword"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  },
+  "trace": {
+    "properties": {
+      "properties": {
+        "id": {
+          "description": "Unique identifier of the trace. A trace groups multiple events like transactions that belong together. For example, a user request handled by multiple inter-connected services.",
+          "properties": {
+            "type": {
+              "$ref": "#/definitions/types/keyword"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  },
+  "transaction": {
+    "properties": {
+      "properties": {
+        "id": {
+          "description": "Unique identifier of the transaction within the scope of its trace. A transaction is the highest level of work measured within a service, such as a request to a server.",
+          "properties": {
+            "type": {
+              "$ref": "#/definitions/types/keyword"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  }
+}
