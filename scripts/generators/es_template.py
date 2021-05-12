@@ -16,6 +16,7 @@ TYPE_FALLBACKS = {
 
 # Composable Template
 
+
 def generate(ecs_nested, ecs_version, out_dir, mapping_settings_file):
     """This generates all artifacts for the composable template approach"""
     all_component_templates(ecs_nested, ecs_version, out_dir)
