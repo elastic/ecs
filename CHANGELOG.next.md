@@ -8,9 +8,11 @@ Thanks, you're awesome :-) -->
 
 ## Unreleased
 
-### Schema Changes
+### Breaking Changes
 
-#### Breaking changes
+* Removing deprecated --oss from generator #1404
+
+### Schema Changes
 
 #### Bugfixes
 
@@ -23,8 +25,6 @@ Thanks, you're awesome :-) -->
 #### Deprecated
 
 ### Tooling and Artifact Changes
-
-#### Breaking changes
 
 #### Bugfixes
 
