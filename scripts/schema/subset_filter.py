@@ -26,8 +26,8 @@ def filter(fields, subset_file_globs, exclude_file_globs, out_dir):
     return fields
 
 
-# pops a field from yaml derived dict using path derived from ordered list of nodes
 def pop_field(fields, path):
+    '''pops a field from yaml derived dict using path derived from ordered list of nodes'''
     node_path = path.copy()
     if node_path[0] in fields:
         if len(node_path) == 1:
@@ -42,8 +42,8 @@ def pop_field(fields, path):
         print("No match for exclusion:", ".".join([e for e in path]))
 
 
-# traverses paths to one or more nodes in a yaml derived dict
 def exclude_trace_path(fields, item, path):
+    '''traverses paths to one or more nodes in a yaml derived dict'''
     for list_item in item:
         node_path = path.copy()
         node_path.append(list_item["name"])
@@ -53,7 +53,6 @@ def exclude_trace_path(fields, item, path):
             exclude_trace_path(fields, list_item["fields"], node_path)
 
 
-# excludes one or more fields from a yaml derived dict according to an exclude list
 def exclude_fields(fields, excludes):
     '''Traverses subset and eliminates any field which matches the excludes'''
     if excludes:
