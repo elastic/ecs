@@ -1,4 +1,5 @@
 import glob
+from os.path import join
 import yaml
 import os
 from generators import intermediate_files
@@ -8,8 +9,9 @@ from schema import cleaner
 # filter out the ones they don't need.
 
 
-def filter(fields, subset_file_globs, out_dir):
+def filter(fields, subset_file_globs, exclude_file_globs, out_dir):
     subsets = load_subset_definitions(subset_file_globs)
+    excludes = load_exclude_definitions(exclude_file_globs)
     for subset in subsets:
         subfields = extract_matching_fields(fields, subset['fields'])
         intermediate_files.generate(subfields, os.path.join(out_dir, 'ecs', 'subset', subset['name']), False)
@@ -18,8 +20,48 @@ def filter(fields, subset_file_globs, out_dir):
     if merged_subset:
         fields = extract_matching_fields(fields, merged_subset)
 
+    if excludes:
+        fields = exclude_fields(fields, excludes)
+
     return fields
 
+
+# pops a field from yaml derived dict using path derived from ordered list of nodes
+def pop_field(fields, path):
+    node_path = path.copy()
+    if node_path[0] in fields:
+        if len(node_path) == 1:
+            b4 = fields.copy()
+            fields.pop(node_path[0])
+            print("removed field:", (set(b4.keys() ^ set(fields.keys()))).pop())
+        else:
+            inner_field = node_path.pop(0)
+            print("prefix:", inner_field) 
+            pop_field(fields[inner_field]["fields"], node_path)            
+    else:
+        print("No match for exclusion:", ".".join([e for e in path]))
+
+
+# traverses paths to one or more nodes in a yaml derived dict
+def exclude_trace_path(fields, item, path):
+    for list_item in item:
+        node_path = path.copy()
+        node_path.append(list_item["name"])
+        if not "fields" in list_item:
+            pop_field(fields, node_path)
+        else:
+            exclude_trace_path(fields, list_item["fields"], node_path)
+    
+
+# excludes one or more fields from a yaml derived dict according to an exclude list 
+def exclude_fields(fields, excludes):
+    '''Traverses subset and eliminates any field which matches the excludes'''
+    if excludes:
+        for ex_list in excludes:
+            for item in ex_list:
+                exclude_trace_path(fields, item["fields"], [item["name"]])
+    return fields
+    
 
 def combine_all_subsets(subsets):
     '''Merges N subsets into one. Strips top level 'name' and 'fields' keys as well as non-ECS field options since we can't know how to merge those.'''
@@ -30,17 +72,28 @@ def combine_all_subsets(subsets):
     return merged_subset
 
 
+def load_definitions(file_globs):
+    sets = []
+    for f in eval_globs(file_globs):
+        raw = load_yaml_file(f)
+        sets.append(raw)
+    return sets
+
 def load_subset_definitions(file_globs):
     if not file_globs:
         return []
-    subsets = []
-    for f in eval_globs(file_globs):
-        raw = load_yaml_file(f)
-        subsets.append(raw)
+    subsets = load_definitions(file_globs)
     if not subsets:
         raise ValueError('--subset specified, but no subsets found in {}'.format(file_globs))
     return subsets
 
+def load_exclude_definitions(file_globs):
+    if not file_globs:
+        return []
+    excludes = load_definitions(file_globs)
+    if not excludes:
+        raise ValueError('--exclude specified, but no exclusions found in {}'.format(file_globs))
+    return excludes
 
 def load_yaml_file(file_name):
     with open(file_name) as f:
