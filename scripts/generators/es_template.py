@@ -8,6 +8,12 @@ from generators import ecs_helpers
 from schema.cleaner import field_or_multi_field_datatype_defaults
 
 
+TYPE_FALLBACKS = {
+    'constant_keyword': 'keyword',
+    'wildcard': 'keyword',
+    'version': 'keyword'
+}
+
 # Composable Template
 
 def generate(ecs_nested, ecs_version, out_dir, mapping_settings_file):
@@ -279,9 +285,3 @@ def es6_type_fallback(mappings):
         if 'properties' in details:
             es6_type_fallback(details['properties'])
 
-
-TYPE_FALLBACKS = {
-    'constant_keyword': 'keyword',
-    'wildcard': 'keyword',
-    'version': 'keyword'
-}
