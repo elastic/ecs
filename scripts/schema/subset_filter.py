@@ -1,8 +1,8 @@
 import glob
-from os.path import join
 import yaml
 import os
 from generators import intermediate_files
+from os.path import join
 from schema import cleaner
 
 # This script takes all ECS and custom fields already loaded, and lets users
@@ -36,8 +36,8 @@ def pop_field(fields, path):
             print("removed field:", (set(b4.keys() ^ set(fields.keys()))).pop())
         else:
             inner_field = node_path.pop(0)
-            print("prefix:", inner_field) 
-            pop_field(fields[inner_field]["fields"], node_path)            
+            print("prefix:", inner_field)
+            pop_field(fields[inner_field]["fields"], node_path)
     else:
         print("No match for exclusion:", ".".join([e for e in path]))
 
@@ -51,9 +51,9 @@ def exclude_trace_path(fields, item, path):
             pop_field(fields, node_path)
         else:
             exclude_trace_path(fields, list_item["fields"], node_path)
-    
 
-# excludes one or more fields from a yaml derived dict according to an exclude list 
+
+# excludes one or more fields from a yaml derived dict according to an exclude list
 def exclude_fields(fields, excludes):
     '''Traverses subset and eliminates any field which matches the excludes'''
     if excludes:
@@ -61,7 +61,7 @@ def exclude_fields(fields, excludes):
             for item in ex_list:
                 exclude_trace_path(fields, item["fields"], [item["name"]])
     return fields
-    
+
 
 def combine_all_subsets(subsets):
     '''Merges N subsets into one. Strips top level 'name' and 'fields' keys as well as non-ECS field options since we can't know how to merge those.'''
@@ -79,6 +79,7 @@ def load_definitions(file_globs):
         sets.append(raw)
     return sets
 
+
 def load_subset_definitions(file_globs):
     if not file_globs:
         return []
@@ -87,6 +88,7 @@ def load_subset_definitions(file_globs):
         raise ValueError('--subset specified, but no subsets found in {}'.format(file_globs))
     return subsets
 
+
 def load_exclude_definitions(file_globs):
     if not file_globs:
         return []
@@ -94,6 +96,7 @@ def load_exclude_definitions(file_globs):
     if not excludes:
         raise ValueError('--exclude specified, but no exclusions found in {}'.format(file_globs))
     return excludes
+
 
 def load_yaml_file(file_name):
     with open(file_name) as f:
