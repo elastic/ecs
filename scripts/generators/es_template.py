@@ -284,4 +284,3 @@ def es6_type_fallback(mappings):
                 field_or_multi_field_datatype_defaults(mappings[name])
         if 'properties' in details:
             es6_type_fallback(details['properties'])
-
