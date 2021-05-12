@@ -11,6 +11,7 @@ Thanks, you're awesome :-) -->
 ### Breaking Changes
 
 * Removing deprecated --oss from generator #1404
+* Removing use-cases directory #1405
 
 ### Schema Changes
 
