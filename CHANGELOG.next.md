@@ -10,6 +10,8 @@ Thanks, you're awesome :-) -->
 
 ### Breaking Changes
 
+* Removing deprecated --oss from generator #1404
+
 ### Schema Changes
 
 #### Bugfixes
