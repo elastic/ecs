@@ -17,6 +17,7 @@ from schema import cleaner
 from schema import finalizer
 from schema import subset_filter
 
+
 def main():
     args = argument_parser()
 
@@ -25,9 +26,11 @@ def main():
 
     # default location to save files
     out_dir = 'generated'
+    docs_dir = 'docs'
     if args.out:
         default_dirs = False
         out_dir = os.path.join(args.out, out_dir)
+        docs_dir = os.path.join(args.out, docs_dir)
     else:
         default_dirs = True
 
@@ -60,6 +63,9 @@ def main():
     if args.include or args.subset:
         exit()
 
+    ecs_helpers.make_dirs(docs_dir)
+    asciidoc_fields.generate(nested, ecs_generated_version, docs_dir)
+
 
 def argument_parser():
     parser = argparse.ArgumentParser()
@@ -67,10 +73,10 @@ def argument_parser():
                                                        Note that "--include experimental/schemas" will also respect this git ref.')
     parser.add_argument('--include', nargs='+',
                         help='include user specified directory of custom field definitions')
-    parser.add_argument('--subset', nargs='+',
-                        help='render a subset of the schema')
     parser.add_argument('--exclude', nargs='+',
                         help='exclude user specified subset of the schema')
+    parser.add_argument('--subset', nargs='+',
+                        help='render a subset of the schema')
     parser.add_argument('--out', action='store', help='directory to output the generated files')
     parser.add_argument('--template-settings', action='store',
                         help='index template settings to use when generating elasticsearch template')
