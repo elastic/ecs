@@ -48,9 +48,8 @@ def main():
     fields = loader.load_schemas(ref=args.ref, included_files=args.include)
     cleaner.clean(fields, strict=args.strict)
     finalizer.finalize(fields)
-    fields = exclude_filter.exclude(
-        subset_filter.filter(fields, args.subset, out_dir),
-        args.exclude, out_dir)
+    fields = subset_filter.filter(fields, args.subset, out_dir)
+    fields = exclude_filter.exclude(fields, args.exclude, out_dir)
     nested, flat = intermediate_files.generate(fields, os.path.join(out_dir, 'ecs'), default_dirs)
 
     if args.intermediate_only:
