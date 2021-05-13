@@ -16,6 +16,7 @@ from schema import oss
 from schema import cleaner
 from schema import finalizer
 from schema import subset_filter
+from schema import exclude_filter
 
 
 def main():
@@ -50,7 +51,9 @@ def main():
         oss.fallback(fields)
     cleaner.clean(fields, strict=args.strict)
     finalizer.finalize(fields)
-    fields = subset_filter.filter(fields, args.subset, args.exclude, out_dir)
+    fields = exclude_filter.exclude(
+        subset_filter.filter(fields, args.subset, out_dir),
+        args.exclude, out_dir)
     nested, flat = intermediate_files.generate(fields, os.path.join(out_dir, 'ecs'), default_dirs)
 
     if args.intermediate_only:
