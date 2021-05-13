@@ -24,6 +24,60 @@ The following fields are currently indexed as `text` and are candidates to migra
 * `message`
 * `error.message`
 
+ECS also has `text` type multi-fields for several fields using the convention `<field-name>.text`. This RFC also proposes to migrate all `text` multi-fields to using `match_only_text`, but the multi-field will remain using the `<field-name>.text` to avoid a breaking change.
+
+As part of this migration,
+
+* `client.as.organization.name.text`
+* `client.user.full_name.text`
+* `client.user.name.text`
+* `destination.as.organization.name.text`
+* `destination.user.full_name.text`
+* `destination.user.name.text`
+* `error.stack_trace.text`
+* `file.path.text`
+* `file.target_path.text`
+* `host.os.full.text`
+* `host.os.name.text`
+* `host.user.full_name.text`
+* `host.user.name.text`
+* `http.request.body.content.text`
+* `http.response.body.content.text`
+* `observer.os.full.text`
+* `observer.os.name.text`
+* `organization.name.text`
+* `process.command_line.text`
+* `process.executable.text`
+* `process.name.text`
+* `process.parent.command_line.text`
+* `process.parent.executable.text`
+* `process.parent.name.text`
+* `process.parent.title.text`
+* `process.parent.working_directory.text`
+* `process.title.text`
+* `process.working_directory.text`
+* `server.as.organization.name.text`
+* `server.user.full_name.text`
+* `server.user.name.text`
+* `source.as.organization.name.text`
+* `source.user.full_name.text`
+* `source.user.name.text`
+* `threat.technique.name.text`
+* `threat.technique.subtechnique.name.text`
+* `url.full.text`
+* `url.original.text`
+* `user.changes.full_name.text`
+* `user.changes.name.text`
+* `user.effective.full_name.text`
+* `user.effective.name.text`
+* `user.full_name.text`
+* `user.name.text`
+* `user.target.full_name.text`
+* `user.target.name.text`
+* `user_agent.original.text`
+* `user_agent.os.full.text`
+* `user_agent.os.name.text`
+* `vulnerability.description.text`
 
 <!--
 Stage 1: Describe at a high level how this change affects fields. Include new or updated yml field definitions for all of the essential fields in this draft. While not exhaustive, the fields documented here should be comprehensive enough to deeply evaluate the technical considerations of this change. The goal here is to validate the technical details for all essential fields and to provide a basis for adding experimental field definitions to the schema. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
@@ -70,6 +124,73 @@ Stage 2: Included a real world example source document. Ideally this example com
 Stage 3: Add more real world example source documents so we have at least 2 total, but ideally 3. Format as described in stage 2.
 -->
 
+Example index mappings with the `match_only_type` changes:
+
+### `message`
+
+```json
+{
+  "_meta": {
+    "documentation": "https://www.elastic.co/guide/en/ecs/current/ecs-base.html",
+    "ecs_version": "2.0.0-dev"
+  },
+  "template": {
+    "mappings": {
+      "properties": {
+        "message": {
+          "type": "match_only_text"
+        }
+      }
+    }
+  }
+}
+```
+
+### `error.message`
+
+```json
+{
+  "_meta": {
+    "documentation": "https://www.elastic.co/guide/en/ecs/current/ecs-error.html",
+    "ecs_version": "2.0.0-dev"
+  },
+  "template": {
+    "mappings": {
+      "properties": {
+        "error": {
+          "properties": {
+            "message": {
+              "type": "match_only_text"
+            },
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+### Field capabilities example for `message`
+
+```json
+{
+  "indices" : [
+    "test"
+  ],
+  "fields" : {
+    "message" : {
+      "text" : {
+        "type" : "text",
+        "metadata_field" : false,
+        "searchable" : true,
+        "aggregatable" : false
+      }
+    }
+  }
+}
+
+```
+
 ## Scope of impact
 
 <!--
@@ -80,11 +201,30 @@ Stage 2: Identifies scope of impact of changes. Are breaking changes required? S
 The goal here is to research and understand the impact of these changes on users in the community and development teams across Elastic. 2-5 sentences each.
 -->
 
+Ingestion mechanisms will need to adopt the new mappings to index fields as the new type. Since both `text` and `match_only_text` are members fo the `text` type family, this will not cause a conflict in Kibana index patterns across indices using the two `types` for the same field.
+
+As with all type changes in ECS, the ECS team will work to benchmark and identify any significant storage, indexing, or query changes. The Elasticsearch performance will be engaged, if necessary, to determine the results. However, `match_only_text` is a `text` field with these settings:
+
+* `index_options: docs`
+* `norms: false`
+
+As a convention, ECS already sets `norms: false` on all `text` fields, so this setting should have no impact to performance. Setting `index_options: docs` only indexes the doc number and is something that has already been long recommended to reduce the disk usage needed for indexing. Negative performance or storage side-effects from this change are not expected.
+
 ## Concerns
 
 <!--
 Stage 1: Identify potential concerns, implementation challenges, or complexity. Spend some time on this. Play devil's advocate. Try to identify the sort of non-obvious challenges that tend to surface later. The goal here is to surface risks early, allow everyone the time to work through them, and ultimately document resolution for posterity's sake.
 -->
+
+### Limitations
+
+As mentioned previously, there are limitations of using `match_only_text`:
+
+* No support for scoring: queries ignore index statistics and produce constant scores.
+* Span queries are unsupported. If a span query is run, then shards where the field is mapped as match_only_text will be returned as failed in the search response and their hits will be ignored.
+* Phrase and intervals queries run slower.
+
+For the logging use cases that make up the majority of ECS' adoption, disabling frequencies and positions should be acceptable for the reduction in index disk usage.
 
 <!--
 Stage 2: Document new concerns or resolutions to previously listed concerns. It's not critical that all concerns have resolutions at this point, but it would be helpful if resolutions were taking shape for the most significant concerns.
