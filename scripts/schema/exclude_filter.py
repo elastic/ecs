@@ -22,11 +22,9 @@ def pop_field(fields, path):
     if node_path[0] in fields:
         if len(node_path) == 1:
             b4 = fields.copy()
-            fields.pop(node_path[0])
-            print("removed field:", (set(b4.keys() ^ set(fields.keys()))).pop())
+            print("Removed field {0}".format(str(fields.pop(node_path[0]).get("field_details").get("flat_name"))))
         else:
             inner_field = node_path.pop(0)
-            print("prefix:", inner_field)
             pop_field(fields[inner_field]["fields"], node_path)
     else:
         print("No match for exclusion:", ".".join([e for e in path]))
@@ -48,6 +46,7 @@ def exclude_fields(fields, excludes):
     if excludes:
         for ex_list in excludes:
             for item in ex_list:
+                #print("Removing: ", end='')
                 exclude_trace_path(fields, item["fields"], [item["name"]])
     return fields
 
