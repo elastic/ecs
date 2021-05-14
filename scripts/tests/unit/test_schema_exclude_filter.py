@@ -30,6 +30,21 @@ class TestSchemaExcludeFilter(unittest.TestCase):
             'my_field_persist': {'field_details': {'flat_name': 'my_field_set.my_field_persist'}}}}}
         self.assertEqual(fields, expect_persisted)
 
+    def test_exclude_field_deep_path(self):
+        fields = {'d0': {'fields': {
+            'd1': {'field_details': {'flat_name': 'd0.d1'}, 'fields': {
+                'd2': {'field_details': {'flat_name': 'd0.d1.d2'}, 'fields': {
+                    'd3': {'field_details': {'flat_name': 'd0.d1.d2.d3'}}}}}}}}}
+        excludes = [[{'name': 'd0', 'fields': [{
+            'name': 'd1', 'fields': [{
+                'name': 'd2', 'fields': [{
+                    'name': 'd3'}]}]}]}]]
+        fields = exclude_filter.exclude_fields(fields, excludes)
+        expect_persisted = {'d0': {'fields': {
+            'd1': {'field_details': {'flat_name': 'd0.d1'}, 'fields': {
+                'd2': {'field_details': {'flat_name': 'd0.d1.d2'}, 'fields': {}}}}}}}
+        self.assertEqual(fields, expect_persisted)
+
     def test_exclude_fields(self):
         fields = {'my_field_set': {'fields': {
             'my_field_exclude_1': {'field_details': {'flat_name': 'my_field_set.my_field_exclude_1'}},
