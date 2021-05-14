@@ -40,6 +40,15 @@ class TestSchemaExcludeFilter(unittest.TestCase):
         expect_persisted = {'my_field_set': {'fields': {}}}
         self.assertEqual(fields, expect_persisted)
 
+    def test_exclude_non_existing_field_set(self):
+        fields = {'my_field_set': {'fields': {
+            'my_field_exclude': {'field_details': {'flat_name': 'my_field_set.my_field_exclude'}}}}}
+        excludes = [[{'name': 'my_non_existing_field_set', 'fields': [
+            {'name': 'my_field_exclude_1'}]}]]
+        with self.assertRaisesRegex(ValueError,
+                                    "--exclude specified, but no field my_non_existing_field_set.my_field_exclude_1 found"):
+            exclude_filter.exclude_fields(fields, excludes)
+
 
 '''
     def test_merging_superset(self):

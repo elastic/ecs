@@ -28,7 +28,7 @@ def pop_field(fields, path):
             inner_field = node_path.pop(0)
             pop_field(fields[inner_field]['fields'], node_path)
     else:
-        print('No match for exclusion:', '.'.join([e for e in path]))
+        raise ValueError('--exclude specified, but no field {} found'.format('.'.join([e for e in path])))
 
 
 def exclude_trace_path(fields, item, path):
@@ -44,7 +44,6 @@ def exclude_trace_path(fields, item, path):
 
 def exclude_fields(fields, excludes):
     """Traverses fields and eliminates any field which matches the excludes"""
-    print(str(excludes))
     if excludes:
         for ex_list in excludes:
             for item in ex_list:
