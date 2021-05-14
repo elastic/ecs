@@ -24,9 +24,7 @@ The following fields are currently indexed as `text` and are candidates to migra
 * `message`
 * `error.message`
 
-ECS also has `text` type multi-fields for several fields using the convention `<field-name>.text`. This RFC also proposes to migrate all `text` multi-fields to using `match_only_text`, but the multi-field will remain using the `<field-name>.text` to avoid a breaking change.
-
-As part of this migration,
+ECS also has `text` type multi-fields for several fields using the convention `<field-name>.text`. This RFC also proposes to migrate all `text` multi-fields to using `match_only_text`:
 
 * `client.as.organization.name.text`
 * `client.user.full_name.text`
