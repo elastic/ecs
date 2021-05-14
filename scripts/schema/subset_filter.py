@@ -2,8 +2,7 @@ import glob
 import yaml
 import os
 from generators import intermediate_files
-from os.path import join
-from schema import cleaner
+from schema import cleaner, loader
 
 # This script takes all ECS and custom fields already loaded, and lets users
 # filter out the ones they don't need.
@@ -31,38 +30,13 @@ def combine_all_subsets(subsets):
     return merged_subset
 
 
-def load_definitions(file_globs):
-    sets = []
-    for f in eval_globs(file_globs):
-        raw = load_yaml_file(f)
-        sets.append(raw)
-    return sets
-
-
 def load_subset_definitions(file_globs):
     if not file_globs:
         return []
-    subsets = load_definitions(file_globs)
+    subsets = loader.load_definitions(file_globs)
     if not subsets:
         raise ValueError('--subset specified, but no subsets found in {}'.format(file_globs))
     return subsets
-
-
-def load_yaml_file(file_name):
-    with open(file_name) as f:
-        return yaml.safe_load(f.read())
-
-
-def eval_globs(globs):
-    '''Accepts an array of glob patterns or file names, returns the array of actual files'''
-    all_files = []
-    for g in globs:
-        new_files = glob.glob(g)
-        if len(new_files) == 0:
-            warn("{} did not match any files".format(g))
-        else:
-            all_files.extend(new_files)
-    return all_files
 
 
 # You know, for silent tests
