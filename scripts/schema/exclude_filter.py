@@ -17,16 +17,14 @@ def exclude(fields, exclude_file_globs, out_dir):
     return fields
 
 
-def pop_field(fields, path):
+def pop_field(fields, node_path, path):
     """pops a field from yaml derived dict using path derived from ordered list of nodes"""
-    node_path = path.copy()
     if node_path[0] in fields:
         if len(node_path) == 1:
-            b4 = fields.copy()
             print('Removed field {0}'.format(str(fields.pop(node_path[0]).get('field_details').get('flat_name'))))
         else:
             inner_field = node_path.pop(0)
-            pop_field(fields[inner_field]['fields'], node_path)
+            pop_field(fields[inner_field]['fields'], node_path, path)
     else:
         raise ValueError('--exclude specified, but no field {} found'.format('.'.join([e for e in path])))
 
@@ -37,7 +35,7 @@ def exclude_trace_path(fields, item, path):
         node_path = path.copy()
         node_path.append(list_item['name'])
         if not 'fields' in list_item:
-            pop_field(fields, node_path)
+            pop_field(fields, node_path, node_path.copy())
         else:
             exclude_trace_path(fields, list_item['fields'], node_path)
 

@@ -42,11 +42,20 @@ class TestSchemaExcludeFilter(unittest.TestCase):
 
     def test_exclude_non_existing_field_set(self):
         fields = {'my_field_set': {'fields': {
-            'my_field_exclude': {'field_details': {'flat_name': 'my_field_set.my_field_exclude'}}}}}
+            'my_field': {'field_details': {'flat_name': 'my_field_set.my_field'}}}}}
         excludes = [[{'name': 'my_non_existing_field_set', 'fields': [
-            {'name': 'my_field_exclude_1'}]}]]
+            {'name': 'my_field_exclude'}]}]]
         with self.assertRaisesRegex(ValueError,
-                                    "--exclude specified, but no field my_non_existing_field_set.my_field_exclude_1 found"):
+                                    "--exclude specified, but no field my_non_existing_field_set.my_field_exclude found"):
+            exclude_filter.exclude_fields(fields, excludes)
+
+    def test_exclude_non_existing_field(self):
+        fields = {'my_field_set': {'fields': {
+            'my_field': {'field_details': {'flat_name': 'my_field_set.my_field'}}}}}
+        excludes = [[{'name': 'my_field_set', 'fields': [
+            {'name': 'my_non_existing_field'}]}]]
+        with self.assertRaisesRegex(ValueError,
+                                    "--exclude specified, but no field my_field_set.my_non_existing_field found"):
             exclude_filter.exclude_fields(fields, excludes)
 
 
