@@ -258,6 +258,11 @@ def load_yaml_file(file_name):
         return yaml.safe_load(f.read())
 
 
+# You know, for silent tests
+def warn(message):
+    print(message)
+
+
 def eval_globs(globs):
     '''Accepts an array of glob patterns or file names, returns the array of actual files'''
     all_files = []
