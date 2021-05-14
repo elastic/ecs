@@ -94,7 +94,7 @@ Data is indexed the same as a `text` field that has:
 * `index_options: docs`
 * `norms: false`
 
-`match_only_text` uses the `_source` for positional queries like `match_phrase`
+`match_only_text` uses the `_source` for positional queries like `match_phrase`.
 
 The `match_only_text` type supports the same feature set as `text`, except the following:
 
@@ -240,7 +240,9 @@ As with all type changes in ECS, the ECS team will benchmark and identify any si
 * `index_options: docs`
 * `norms: false`
 
-As a convention, ECS already sets `norms: false` on all `text` fields, so this setting should have no impact on performance. Setting `index_options: docs` only indexes the doc number and has already been long recommended to reduce the disk usage needed for indexing. Negative performance or storage side-effects from this change are not expected.
+As a convention, ECS already sets `norms: false` on all `text` fields, so this setting should have no impact on performance. Setting `index_options: docs` only indexes the doc number and has already been recommended to reduce the disk usage needed for indexing.
+
+Negative performance or storage side-effects from this change are not expected.
 
 ## Concerns
 
@@ -256,7 +258,7 @@ As mentioned previously, there are limitations of using `match_only_text`:
 * Span queries are unsupported. If a span query is run, then shards, where the field is mapped as match_only_text, will be returned as failed in the search response, and those shard hits will be ignored.
 * Phrase and intervals queries run slower.
 
-For the logging use cases that make up the majority of ECS' adoption, disabling frequencies and positions should be acceptable for reducing index disk usage.
+For the logging use cases that make up the majority of ECS adoption, disabling frequencies and positions should be acceptable for reducing index disk usage.
 
 <!--
 Stage 2: Document new concerns or resolutions to previously listed concerns. It's not critical that all concerns have resolutions at this point, but it would be helpful if resolutions were taking shape for the most significant concerns.
