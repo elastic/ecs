@@ -31,6 +31,8 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
+* Support `match_only-text` data type in Go code generator. #1418
+
 #### Improvements
 
 #### Deprecated
