@@ -19,10 +19,14 @@ Stage 1: If the changes include field additions or modifications, please create 
 
 ## Fields
 
+### Direct Usage
+
 The following fields are currently indexed as `text` and are candidates to migrate to `match_only_text`:
 
 * `message`
 * `error.message`
+
+### Multi-field Usage
 
 ECS also has `text` type multi-fields for several fields using the convention `<field-name>.text`. This RFC also proposes to migrate all `text` multi-fields to using `match_only_text`:
 
