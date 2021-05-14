@@ -14,11 +14,12 @@ class TestSchemaExcludeFilter(unittest.TestCase):
     def setUp(self):
         self.maxDiff = None
 
-    @mock.patch('schema.exclude_filter.warn')
+    @mock.patch('schema.exclude_filter.load_exclude_definitions')
     def test_load_exclude_definitions_raises_when_no_exclude_found(self, mock_warn):
         with self.assertRaisesRegex(ValueError,
-                                    "--exclude specified, but no excludes found in \['foo\*.yml'\]"):
+                                    "--exclude specified, but no exclusions found in \['foo\*.yml'\]"):
             exclude_filter.load_exclude_definitions(['foo*.yml'])
+            
 '''
     def test_basic_merging(self):
         basics = {'base': {'fields': '*'}, 'event': {}}
