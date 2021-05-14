@@ -1,3 +1,5 @@
+from unittest import result
+from unittest.case import TestCase
 from schema import exclude_filter
 import mock
 import os
@@ -30,14 +32,13 @@ class TestSchemaExcludeFilter(unittest.TestCase):
             'my_field_persist': {'field_details': {'flat_name': 'my_field_set.my_field_persist'}}}}}
         self.assertEqual(fields, expect_persisted)
 
-    """
     def test_exclude_field_deep_path(self):
         fields = {'d0': {'fields': {
-            'd1': {'field_details': {'flat_name': 'd0.d1'}}, 'fields': {
-                'd2': {'field_details': {'flat_name': 'd0.d1.d2'}}, 'fields': {
-                    'd3': {'field_details': {'flat_name': 'd0.d1.d2.d3'}}, 'fields': {
-                        'd4': {'field_details': {'flat_name': 'd0.d1.d2.d3.d4'}}, 'fields': {
-                            'd5': {'field_details': {'flat_name': 'd0.d1.d2.d3.d3.d4.d5'}}}}}}}}}
+            'd1': {'field_details': {'flat_name': 'd0.d1'}, 'fields': {
+                'd2': {'field_details': {'flat_name': 'd0.d1.d2'}, 'fields': {
+                    'd3': {'field_details': {'flat_name': 'd0.d1.d2.d3'}, 'fields': {
+                        'd4': {'field_details': {'flat_name': 'd0.d1.d2.d3.d4'}, 'fields': {
+                            'd5': {'field_details': {'flat_name': 'd0.d1.d2.d3.d4.d5'}}}}}}}}}}}}}
         excludes = [[{'name': 'd0', 'fields': [{
             'name': 'd1', 'fields': [{
                 'name': 'd2', 'fields': [{
@@ -46,12 +47,11 @@ class TestSchemaExcludeFilter(unittest.TestCase):
                             'name': 'd5'}]}]}]}]}]}]]
         fields = exclude_filter.exclude_fields(fields, excludes)
         expect_persisted = {'d0': {'fields': {
-            'd1': {'field_details': {'flat_name': 'd0.d1'}}, 'fields': {
-                'd2': {'field_details': {'flat_name': 'd0.d1.d2'}}, 'fields': {
-                    'd3': {'field_details': {'flat_name': 'd0.d1.d2.d3'}}, 'fields': {
-                        'd4': {'field_details': {'flat_name': 'd0.d1.d2.d3.d4'}}, 'fields': {}}}}}}}
+            'd1': {'field_details': {'flat_name': 'd0.d1'}, 'fields': {
+                'd2': {'field_details': {'flat_name': 'd0.d1.d2'}, 'fields': {
+                    'd3': {'field_details': {'flat_name': 'd0.d1.d2.d3'}, 'fields': {
+                        'd4': {'field_details': {'flat_name': 'd0.d1.d2.d3.d4'}, 'fields': {}}}}}}}}}}}
         self.assertEqual(fields, expect_persisted)
-    """
 
     def test_exclude_fields(self):
         fields = {'my_field_set': {'fields': {
