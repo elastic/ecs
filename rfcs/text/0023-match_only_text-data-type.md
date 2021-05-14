@@ -159,7 +159,7 @@ Example index mappings with the `match_only_type` changes:
           "properties": {
             "message": {
               "type": "match_only_text"
-            },
+            }
           }
         }
       }
