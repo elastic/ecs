@@ -75,6 +75,14 @@ type {{.Name}} struct {
 	{{$field.Name}} {{$field.Type}} \u0060ecs:"{{$field.JSONKey}}"\u0060
 {{ end -}}
 }
+{{ range $nestedField := .NestedTypes }}
+type {{$nestedField.Name}} struct {
+{{- range $field := $nestedField.Fields}}
+	// {{$field.Comment}}
+	{{$field.Name}} {{$field.Type}} \u0060ecs:"{{$field.JSONKey}}"\u0060
+{{ end -}}
+}
+{{ end -}}
 `
 
 const versionTmpl = `
@@ -101,7 +109,15 @@ type GoType struct {
 	Description string
 	Name        string
 	Fields      []Field
+	NestedTypes map[string]*NestedField
 	ImportTime  bool
+}
+
+type NestedField struct {
+	Name       string
+	Type       string
+	Fields     []Field
+	ImportTime bool
 }
 
 type Field struct {
@@ -167,20 +183,51 @@ func main() {
 				License:     license[1:],
 				Description: descriptionToComment("", group.Description),
 				Name:        goTypeName(group.Name),
+				NestedTypes: make(map[string]*NestedField),
 			}
 
 			for _, field := range group.Fields {
-				dataType := goDataType(field.Name, field.Type)
-				if strings.HasPrefix(dataType, "time.") {
-					t.ImportTime = true
-				}
+				// handle `nested` fields
+				if field.Type == "nested" {
+					n := NestedField{
+						Name: goTypeName(field.Name),
+						Type: "nested",
+					}
 
-				t.Fields = append(t.Fields, Field{
-					Comment: descriptionToComment("\t", field.Description),
-					Name:    goTypeName(field.Name),
-					Type:    dataType,
-					JSONKey: field.Name,
-				})
+					t.NestedTypes[field.Name] = &n
+					fieldName := goTypeName(field.Name)
+					t.Fields = append(t.Fields, Field{
+						Comment: descriptionToComment("\t", field.Description),
+						Name:    goTypeName(fieldName),
+						Type:    "[]" + goTypeName(fieldName),
+						JSONKey: field.Name,
+					})
+
+				} else {
+					dataType := goDataType(field.Name, field.Type)
+					if strings.HasPrefix(dataType, "time.") {
+						t.ImportTime = true
+					}
+
+					// check if field belongs under a nested field
+					if nestedField, ok := t.NestedTypes[(trimStringFromDot(field.Name))]; ok {
+						prefix := strings.ToLower(nestedField.Name) + "."
+						fieldNameWithoutPrefix := strings.ReplaceAll(field.Name, prefix, "")
+						nestedField.Fields = append(nestedField.Fields, Field{
+							Comment: descriptionToComment("\t", field.Description),
+							Name:    goTypeName(fieldNameWithoutPrefix),
+							Type:    dataType,
+							JSONKey: fieldNameWithoutPrefix,
+						})
+					} else {
+						t.Fields = append(t.Fields, Field{
+							Comment: descriptionToComment("\t", field.Description),
+							Name:    goTypeName(field.Name),
+							Type:    dataType,
+							JSONKey: field.Name,
+						})
+					}
+				}
 			}
 
 			b := new(bytes.Buffer)
@@ -312,4 +359,12 @@ func goTypeName(name string) string {
 		b.WriteString(strings.Title(abbreviations(w)))
 	}
 	return b.String()
+}
+
+// trim strings after "." character
+func trimStringFromDot(s string) string {
+	if idx := strings.Index(s, "."); idx != -1 {
+		return s[:idx]
+	}
+	return s
 }

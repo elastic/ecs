@@ -1,7 +1,7 @@
 # 0015: Create the ELF sub-field of the File fieldset
 
-- Stage: **1 (draft)**
-- Date: **2021-02-10**
+- Stage: **2 (candidate)**
+- Date: **2021-05-04**
 
 Create the Executable Linkable Format (ELF) sub-field, of the `file` top-level fieldset. This document metadata can be used for malware research, as well as coding and other application development efforts.
 
@@ -33,6 +33,7 @@ This RFC is to create the ELF sub-field within the `file.` fieldset. This will i
 | elf.imports | flattened | List of imported element names and types. |
 | elf.imports.name | keyword | Name of imported symbol |
 | elf.imports.type | keyword | Type of imported symbol |
+| elf.packers | keyword | Packers used for the ELF file. |
 | elf.sections | nested | Section information of the ELF file. |
 | elf.sections.flags | keyword | ELF Section List flags. |
 | elf.sections.name | keyword | ELF Section List name. |
@@ -41,8 +42,8 @@ This RFC is to create the ELF sub-field within the `file.` fieldset. This will i
 | elf.sections.physical_size | long | ELF Section List physical size. |
 | elf.sections.virtual_address | long | ELF Section List virtual address. |
 | elf.sections.virtual_size | long | ELF Section List virtual size. |
-| elf.sections.entropy | long | Shannon entropy calculation from the section. |
-| elf.sections.chi2 | long | Chi-square probability distribution of the section. |
+| elf.sections.entropy | float | Shannon entropy calculation from the section. |
+| elf.sections.chi2 | float | Chi-square probability distribution of the section. |
 | elf.shared_libraries | keyword | List of shared libraries used by this ELF object |
 | elf.telfhash | keyword | telfhash hash for ELF files. |
 | elf.architecture | keyword | Machine architecture of the ELF file. |
@@ -73,6 +74,7 @@ As another example, tracking file metadata for specific families is useful in pr
 
 This type of data can be provided by logs from VirusTotal, Reversing Labs, Lockheed Martin's LAIKABOSS, Emerson's File Scanning Framework, Target's Strelka, or other file/malware analysis platforms.
 
+* [Elastic Threat Intel Filebeat Module](https://www.elastic.co/guide/en/beats/filebeat/master/filebeat-module-threatintel.html)
 * [VirusTotal Filebeat module PR](https://github.com/elastic/beats/pull/21815)
 * [VirusTotal API](https://developers.virustotal.com/v3.0/reference)
 * [Emerson FSF](https://github.com/EmersonElectricCo/fsf)
@@ -86,10 +88,86 @@ Stage 1: Provide a high-level description of example sources of data. This does 
 **Stage 2**
 
 ### Real world examples
-
 <!--
 Stage 2: Included a real world example source document. Ideally this example comes from the source(s) identified in stage 1. If not, it should replace them. The goal here is to validate the utility of these field changes in the context of a real world example. Format with the source name as a ### header and the example document in a GitHub code block with json formatting.
 -->
+```
+"file": {
+  "elf": {
+    "packers": [
+      "upx"
+    ],
+    "header": {
+      "object_version": "0x1",
+      "data": "2's complement, little endian",
+      "os_abi": "UNIX - Linux",
+      "machine": "Advanced Micro Devices X86-64",
+      "entrypoint": 4846016,
+      "abi_version": 0,
+      "type": "EXEC (Executable file)",
+      "version": "1 (current)",
+      "class": "ELF64"
+    },
+    "segments": [
+      {
+        "type": "LOAD",
+        "sections": []
+      },
+      {
+        "type": "LOAD",
+        "sections": []
+      }
+    ]
+  }
+}
+```
+```
+"file": {
+  "elf": {
+    "header": {
+      "object_version": "0x1",
+      "data": "2's complement, little endian",
+      "machine": "Intel 80386",
+      "os_abi": "UNIX - System V",
+      "entrypoint": 0,
+      "abi_version": 0,
+      "type": "DYN (Shared object file)",
+      "class": "ELF32",
+      "version": "1 (current)"
+    },
+    "segments": [
+      {
+        "type": "PHDR",
+        "sections": []
+      },
+      {
+        "type": "LOAD",
+        "sections": []
+      },
+      {
+        "type": "LOAD",
+        "sections": []
+      },
+      {
+        "type": "DYNAMIC",
+        "sections": []
+      },
+      {
+        "type": "GNU_EH_FRAME",
+        "sections": []
+      },
+      {
+        "type": "GNU_STACK",
+        "sections": []
+      },
+      {
+        "type": "GNU_RELRO",
+        "sections": []
+      }
+    ]
+  }
+}
+```
 
 <!--
 Stage 3: Add more real world example source documents so we have at least 2 total, but ideally 3. Format as described in stage 2.
@@ -101,7 +179,8 @@ Stage 3: Add more real world example source documents so we have at least 2 tota
 
 There should be no breaking changes, depreciation strategies, or significant refactoring as this is creating a sub-field for the existing `file.` fieldset.
 
-While likely not a large-scale ECS project, there would be documentation updates needed to explain the new fields.
+* Ingestion mechanism - Elastic Threat Intel Filebeat module (https://www.elastic.co/guide/en/beats/filebeat/master/exported-fields-threatintel.html), Elastic VirusTotal Live Hunt Filebeat module (https://github.com/elastic/beats/pull/21815)
+* Usage mechanisms - threat hunting, file analysis, identifying file similarities
 
 <!--
 Stage 2: Identifies scope of impact of changes. Are breaking changes required? Should deprecation strategies be adopted? Will significant refactoring be involved? Break the impact down into:
@@ -135,7 +214,7 @@ Stage 4: Document any new concerns and their resolution. The goal here is to eli
 Type flattened won't allow explicit field mappings to be defined, so I don't think it's necessary to explicitly list them here. However, is there intent to still describe for data sources on how to "shape" the data for these flattened fields? There are no type: flattened fields today in ECS, so how to best capture provide that type of guidance will need to be hashed out.
 
 * Field: `elf.imports`
-* Comment: https://github.com/elastic/ecs/pull/1077#discussion_r572274291
+* Comment: https://github.com/elastic/ecs/pull/1077#discussion_r572274291, https://github.com/elastic/ecs/pull/1294#pullrequestreview-618911963
 
 
 ## People
@@ -155,6 +234,8 @@ The following are the people that consulted on the contents of this RFC.
 <!-- An RFC should link to the PRs for each of it stage advancements. -->
 
 * Stage 1: https://github.com/elastic/ecs/pull/1077
+* Stage 2: https://github.com/elastic/ecs/pull/1294
+  * Stage 2 advancement date correction: https://github.com/elastic/ecs/pull/1409
 
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN

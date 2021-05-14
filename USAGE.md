@@ -30,7 +30,6 @@ relevant artifacts for their unique set of data sources.
     + [Subset](#subset)
     + [Ref](#ref)
     + [Mapping & Template Settings](#mapping--template-settings)
-    + [OSS (Deprecated)](#oss-deprecated)
     + [Strict Mode](#strict-mode)
     + [Intermediate-Only](#intermediate-only)
 
@@ -351,30 +350,6 @@ The `--template-settings` argument defines [index level settings](https://www.el
 ```
 
 For `template.json`, the `mappings` object is left empty: `{}`. Likewise the `properties` object remains empty in the `mapping.json` example. This will be filled in automatically by the script.
-
-#### OSS (Deprecated)
-
-**Important**: This feature has been deprecated. An Apache 2.0 distribution of Elasticsearch will not be
-produced starting with the 7.11 release. Learn more about these changes [here](https://www.elastic.co/pricing/faq/licensing).
-
-Users that want to use an Apache 2.0 distribution of Elasticsearch do not have access to the basic data types.
-However some of these types have an OSS replacement that can be used instead, without too much loss of functionality.
-
-This flag performs a best effort fallback, replacing basic data types with their OSS replacement.
-
-Indices using purely OSS types will benefit from the normalization of ECS, but may be missing on some of the added functionality of these basic types.
-
-Current fallbacks applied by this flag are:
-
-- `constant_keyword` => `keyword`
-- `wildcard` => `keyword`
-- `version` => `keyword`
-
-Usage:
-
-```
-$ python scripts/generator.py --oss
-```
 
 #### Strict Mode
 
