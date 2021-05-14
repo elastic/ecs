@@ -30,6 +30,16 @@ class TestSchemaExcludeFilter(unittest.TestCase):
             'my_field_persist': {'field_details': {'flat_name': 'my_field_set.my_field_persist'}}}}}
         self.assertEqual(fields, expect_persisted)
 
+    def test_exclude_fields(self):
+        fields = {'my_field_set': {'fields': {
+            'my_field_exclude_1': {'field_details': {'flat_name': 'my_field_set.my_field_exclude_1'}},
+            'my_field_exclude_2': {'field_details': {'flat_name': 'my_field_set.my_field_exclude_2'}}}}}
+        excludes = [[{'name': 'my_field_set', 'fields': [
+            {'name': 'my_field_exclude_1'}, {'name': 'my_field_exclude_2'}]}]]
+        fields = exclude_filter.exclude_fields(fields, excludes)
+        expect_persisted = {'my_field_set': {'fields': {}}}
+        self.assertEqual(fields, expect_persisted)
+
 
 '''
     def test_merging_superset(self):
