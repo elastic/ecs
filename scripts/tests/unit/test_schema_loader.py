@@ -22,7 +22,6 @@ class TestSchemaLoader(unittest.TestCase):
         self.assertEqual(list(filter(lambda f: f.startswith('missing'), files)), [],
                          "The 'missing*' pattern should not show up in the resulting files")
 
-    
     # Pseudo-fixtures
 
     def schema_base(self):

@@ -281,5 +281,3 @@ def load_definitions(file_globs):
         raw = load_yaml_file(f)
         sets.append(raw)
     return sets
-
-
