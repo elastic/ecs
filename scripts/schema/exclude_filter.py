@@ -21,7 +21,7 @@ def pop_field(fields, node_path, path):
     """pops a field from yaml derived dict using path derived from ordered list of nodes"""
     if node_path[0] in fields:
         if len(node_path) == 1:
-            print('Removed field {0}'.format(str(fields.pop(node_path[0]).get('field_details').get('flat_name'))))
+            fields.pop(node_path[0])
         else:
             inner_field = node_path.pop(0)
             if 'fields' in fields[inner_field]:
