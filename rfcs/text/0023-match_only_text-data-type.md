@@ -238,7 +238,7 @@ Stage 3: Document resolutions for all existing concerns. Any new concerns should
 
 The following are the people that consulted on the contents of this RFC.
 
-* @ebeahan | author
+* @ebeahan | author, sponsor
 * @jpountz | subject matter expert
 
 <!--
