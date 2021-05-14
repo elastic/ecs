@@ -62,7 +62,9 @@ type Elf struct {
 	// "0x1" for original ELF files.
 	HeaderObjectVersion string `ecs:"header.object_version"`
 
-	// Section information of the ELF file.
+	// An array containing an object for each section of the ELF file.
+	// The keys that should be present in these objects are defined by
+	// sub-fields underneath `elf.sections.*`.
 	Sections []Sections `ecs:"sections"`
 
 	// List of exported element names and types.
@@ -77,7 +79,9 @@ type Elf struct {
 	// telfhash symbol hash for ELF file.
 	Telfhash string `ecs:"telfhash"`
 
-	// ELF object segment list.
+	// An array containing an object for each segment of the ELF file.
+	// The keys that should be present in these objects are defined by
+	// sub-fields underneath `elf.segments.*`.
 	Segments []Segments `ecs:"segments"`
 }
 
