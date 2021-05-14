@@ -170,6 +170,38 @@ Example index mappings with the `match_only_type` changes:
 }
 ```
 
+### Multi-field example usage
+
+```json
+{
+  "mappings": {
+    "properties": {
+      "client": {
+        "properties": {
+          "as": {
+            "properties": {
+              "organization": {
+                "properties": {
+                  "name": {
+                    "fields": {
+                      "text": {
+                        "type": "match_only_text"
+                      }
+                    },
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
 ### Field capabilities example for `message`
 
 ```json
