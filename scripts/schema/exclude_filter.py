@@ -24,7 +24,10 @@ def pop_field(fields, node_path, path):
             print('Removed field {0}'.format(str(fields.pop(node_path[0]).get('field_details').get('flat_name'))))
         else:
             inner_field = node_path.pop(0)
-            pop_field(fields[inner_field]['fields'], node_path, path)
+            if 'fields' in fields[inner_field]:
+                pop_field(fields[inner_field]['fields'], node_path, path)
+            else:
+                raise ValueError('--exclude specified, but no path to field {} found'.format('.'.join([e for e in path])))
     else:
         raise ValueError('--exclude specified, but no field {} found'.format('.'.join([e for e in path])))
 
