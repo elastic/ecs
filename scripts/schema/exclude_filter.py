@@ -44,10 +44,10 @@ def exclude_trace_path(fields, item, path):
 
 def exclude_fields(fields, excludes):
     """Traverses fields and eliminates any field which matches the excludes"""
+    print(str(excludes))
     if excludes:
         for ex_list in excludes:
             for item in ex_list:
-                #print('Removing: ', end='')
                 exclude_trace_path(fields, item['fields'], [item['name']])
     return fields
 

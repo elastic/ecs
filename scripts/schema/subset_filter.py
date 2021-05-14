@@ -39,11 +39,6 @@ def load_subset_definitions(file_globs):
     return subsets
 
 
-# You know, for silent tests
-def warn(message):
-    print(message)
-
-
 ecs_options = ['fields', 'enabled', 'index']
 
 

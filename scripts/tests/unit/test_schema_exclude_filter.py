@@ -14,22 +14,24 @@ class TestSchemaExcludeFilter(unittest.TestCase):
     def setUp(self):
         self.maxDiff = None
 
-    @mock.patch('schema.exclude_filter.load_exclude_definitions')
+    @mock.patch('schema.loader.warn')
     def test_load_exclude_definitions_raises_when_no_exclude_found(self, mock_warn):
         with self.assertRaisesRegex(ValueError,
                                     "--exclude specified, but no exclusions found in \['foo\*.yml'\]"):
             exclude_filter.load_exclude_definitions(['foo*.yml'])
-            
-'''
-    def test_basic_merging(self):
-        basics = {'base': {'fields': '*'}, 'event': {}}
-        network = {'network': {'fields': '*'}}
-        excludes = {}
-        exclude_filter.merge_excludes(excludes, basics)
-        exclude_filter.merge_excludes(excludes, network)
-        expected_excludes = {**basics, **network}
-        self.assertEqual(excludes, expected_excludes)
 
+    def test_exclude_field(self):
+        fields = {'my_field_set': {'fields': {
+            'my_field_exclude': {'field_details': {'flat_name': 'my_field_set.my_field_exclude'}},
+            'my_field_persist': {'field_details': {'flat_name': 'my_field_set.my_field_persist'}}}}}
+        excludes = [[{'name': 'my_field_set', 'fields': [{'name': 'my_field_exclude'}]}]]
+        fields = exclude_filter.exclude_fields(fields, excludes)
+        expect_persisted = {'my_field_set': {'fields': {
+            'my_field_persist': {'field_details': {'flat_name': 'my_field_set.my_field_persist'}}}}}
+        self.assertEqual(fields, expect_persisted)
+
+
+'''
     def test_merging_superset(self):
         # 'log' is used to test superset with the explicit '{'fields': '*'}' notation
         supersets = {'log': {'fields': '*'}, 'process': {'fields': '*'}}

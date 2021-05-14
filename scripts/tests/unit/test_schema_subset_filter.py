@@ -14,7 +14,7 @@ class TestSchemaSubsetFilter(unittest.TestCase):
     def setUp(self):
         self.maxDiff = None
 
-    @mock.patch('schema.subset_filter.warn')
+    @mock.patch('schema.loader.warn')
     def test_load_subset_definitions_raises_when_no_subset_found(self, mock_warn):
         with self.assertRaisesRegex(ValueError,
                                     "--subset specified, but no subsets found in \['foo\*.yml'\]"):
