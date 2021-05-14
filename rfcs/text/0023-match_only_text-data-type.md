@@ -240,7 +240,7 @@ As with all type changes in ECS, the ECS team will benchmark and identify any si
 
 As a convention, ECS already sets `norms: false` on all `text` fields, so this setting should have no impact on performance. Setting `index_options: docs` only indexes the doc number and has already been recommended to reduce the disk usage needed for indexing.
 
-Negative performance or storage side-effects from this change are not expected beyond the noted limitations for phrase and interval queries.
+Negative performance or storage side-effects from this change are not expected, beyond the noted limitation that phrase and interval queries will run slower.
 
 ## Concerns
 
