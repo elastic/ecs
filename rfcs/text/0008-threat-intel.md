@@ -45,9 +45,9 @@ threat.indicator.scanner_stats | long | 4 | Count of Anti virus/EDR that success
 
 Field | New Value | Description
 --- | --- | ---
-event.kind | enrichment | Propose adding this value to capture the type of information this event contains and how it should be used. Threat intelligence will be used to enrich source events and signals. Enrichment could also appy to other types of contextual data sources (not just threat intelligence) such as directory services, IPAM data, asset lists.
+event.kind | enrichment | Propose adding this value to capture the type of information this event contains and how it should be used. Threat intelligence will be used to enrich source events and signals. Enrichment could also apply to other types of contextual data sources (not just threat intelligence) such as directory services, IPAM data, asset lists.
 event.category | threat | Propose adding this value to represent a new category of event data
-event.type | indicator | Propose adding this value to be used as a sub-bucket of `event.category` to represent type of threat information. In future this could be extended to other STIX 2.0 Standard Data Objects like Actor, Infrastucture etc.
+event.type | indicator | Propose adding this value to be used as a sub-bucket of `event.category` to represent type of threat information. In future this could be extended to other STIX 2.0 Standard Data Objects like Actor, Infrastructure etc.
 
 ### Using existing Event Fieldset
 Field | Type | Example | Description
@@ -65,8 +65,8 @@ File | Use existing File fields to describe file entity details involved in thre
 Hash | Use existing Hash fields to describe file entity details involved in threat activity. Hash fields are expected to be nested at `file.hash` , `process.hash`. No changes to existing ECS fieldset | [Hash Fields](https://www.elastic.co/guide/en/ecs/current/ecs-hash.html)
 URL | Use existing URL fields to describe internet resources involved in threat activity. No changes to existing ECS fieldset | [URL](https://www.elastic.co/guide/en/ecs/current/ecs-url.html)
 Registry | Use existing Registry fields involved in threat activity. No changes to existing ECS fieldset | [Registry](https://www.elastic.co/guide/en/ecs/current/ecs-registry.html)
-Autonomous System (AS) | Use existing fields to capture routing prefixes for threat activity. AS fields are expected to be nested at `source.as` , `destination.as`, or `threat.indicator`. Changes will be needed to existing fieldset to add `threat.indicator`. | [AS](https://www.elastic.co/guide/en/ecs/current/ecs-as.html)
-Geographic | Use existing fields to capture geographic location for threat activity. Changes will be needed to the field reuse section to add `threat.indicator`. | [Geo](https://www.elastic.co/guide/en/ecs/current/ecs-geo.html)
+Autonomous System (AS) | Use existing fields to capture routing prefixes for threat activity. No changes to existing ECS fieldset. | [AS](https://www.elastic.co/guide/en/ecs/current/ecs-as.html)
+Geographic | Use existing fields to capture geographic location for threat activity. No changes to existing ECS fieldset. | [Geo](https://www.elastic.co/guide/en/ecs/current/ecs-geo.html)
 x509 | Use existing fields to describe certificates involved in threat activity. No changes to existing fieldset. | [x509](https://www.elastic.co/guide/en/ecs/current/ecs-x509.html)
 Portable Executable (PE) | Use existing fields to describe portable executables involved in threat activity. No changes to existing fieldset. | [PE](https://www.elastic.co/guide/en/ecs/current/ecs-pe.html)
 
