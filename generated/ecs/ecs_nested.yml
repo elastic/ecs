@@ -4782,7 +4782,7 @@ host:
     short: OS fields contain information about the operating system.
   - full: host.user
     schema_name: user
-    short: Fields to describe the user relevant to the event.
+    short: This reuse is deprecated and will be removed in the next major ECS version.
   short: Fields describing the relevant computing instance.
   title: Host
   type: group
@@ -10938,9 +10938,6 @@ user:
       at: destination
       full: destination.user
     - as: user
-      at: host
-      full: host.user
-    - as: user
       at: server
       full: server.user
     - as: user
@@ -10958,6 +10955,11 @@ user:
       at: user
       full: user.changes
       short_override: Captures changes made to a user.
+    - as: user
+      at: host
+      full: host.user
+      short_override: This reuse is deprecated and will be removed in the next major
+        ECS version.
     top_level: true
   reused_here:
   - full: user.group
