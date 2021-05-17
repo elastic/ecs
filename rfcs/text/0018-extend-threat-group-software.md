@@ -31,7 +31,7 @@ Field | Type | Example | Description
 --- | --- | --- | ---
 threat.software.id | keyword | S0552 | The id of the software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®. While not required, you can use a MITRE ATT&CK® software id.
 threat.software.name | keyword | AdFind | The name of the software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®. While not required, you can use a MITRE ATT&CK® software name.
-threat.software.platforms | keyword | Windows | The platform of the software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®. While not required, you can use a MITRE ATT&CK® software platform.
+threat.software.platforms | keyword | Windows | The platforms of the software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®. While not required, you can use a MITRE ATT&CK® software platforms.
 threat.software.reference | keyword | https://attack.mitre.org/software/S0552/ | The reference URL of the software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®. While not required, you can use a MITRE ATT&CK® software reference URL.
 threat.software.type | keyword | Tool | The type of software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®. While not required, you can use a MITRE ATT&CK® software type.
 threat.group.alias | keyword | FIN6, ITG08, Magecart Group 6, etc | The alias(es) of the group for a set of related intrusion activity that are tracked by a common name in the security community. While not required, you can use a MITRE ATT&CK® group alias(es).
