@@ -22,6 +22,7 @@ Thanks, you're awesome :-) -->
 #### Improvements
 
 * Fix ecs GitHub repo link source branch #1393
+* Explicitly include user identifiers in `relater.user` description. #1420
 
 #### Deprecated
 
