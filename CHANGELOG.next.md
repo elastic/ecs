@@ -16,6 +16,8 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
+* Remove `beta` from `orchestrator` field set. #1417
+
 #### Improvements
 
 * Fix ecs GitHub repo link source branch #1393
