@@ -8,25 +8,32 @@ Thanks, you're awesome :-) -->
 
 ## Unreleased
 
-### Schema Changes
+### Breaking Changes
 
-#### Breaking changes
+* Removing deprecated --oss from generator #1404
+* Removing use-cases directory #1405
+
+### Schema Changes
 
 #### Bugfixes
 
 #### Added
 
+* Remove `beta` from `orchestrator` field set. #1417
+
 #### Improvements
+
+* Fix ecs GitHub repo link source branch #1393
 
 #### Deprecated
 
 ### Tooling and Artifact Changes
 
-#### Breaking changes
-
 #### Bugfixes
 
 #### Added
+
+* Support `match_only_text` data type in Go code generator. #1418
 
 #### Improvements
 
