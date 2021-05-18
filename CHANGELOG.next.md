@@ -27,6 +27,8 @@ Thanks, you're awesome :-) -->
 
 #### Deprecated
 
+* Note deprecation of the `host.user.*` field reuse. #1422
+
 ### Tooling and Artifact Changes
 
 #### Bugfixes
