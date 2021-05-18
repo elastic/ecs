@@ -16,6 +16,7 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
+* `elf.*` field set added as beta. #1410
 * Remove `beta` from `orchestrator` field set. #1417
 
 #### Improvements
