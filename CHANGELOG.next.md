@@ -19,6 +19,8 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
+* Remove `beta` from `orchestrator` field set. #1417
+
 #### Improvements
 
 * Fix ecs GitHub repo link source branch #1393
@@ -30,6 +32,8 @@ Thanks, you're awesome :-) -->
 #### Bugfixes
 
 #### Added
+
+* Support `match_only_text` data type in Go code generator. #1418
 
 #### Improvements
 
