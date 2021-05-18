@@ -4,12 +4,18 @@
   group: 2
   description: >
     These fields contain Linux Executable Linkable Format (ELF) metadata.
+  beta: >
+    These fields are in beta and are subject to change.
   type: group
   reusable:
     top_level: false
     expected:
-      - file
-      - process
+      - at: file
+        as: elf
+        beta: This field reuse is beta and subject to change.
+      - at: process
+        as: elf
+        beta: This field reuse is beta and subject to change.
   fields:
     - name: creation_date
       short: Build or compile date.
@@ -31,7 +37,7 @@
         Byte sequence of ELF file.
       type: keyword
       level: extended
-      example: Little Endian, Big Endian
+      example: Little Endian
 
     - name: cpu_type
       description: >
@@ -90,10 +96,16 @@
         "0x1" for original ELF files.
 
     - name: sections
+      short: Section information of the ELF file.
       description: >
-        Section information of the ELF file.
+        An array containing an object for each section of the ELF file.
+
+        The keys that should be present in these objects are defined by sub-fields
+        underneath `elf.sections.*`.
       type: nested
       level: extended
+      normalize:
+        - "array"
 
     - name: sections.flags
       description: >
@@ -159,33 +171,43 @@
         List of exported element names and types.
       level: extended
       type: flattened
+      normalize:
+        - array
 
     - name: imports
       description: >
         List of imported element names and types.
       type: flattened
       level: extended
+      normalize:
+        - array
 
     - name: shared_libraries
       description: >
-        List of shared libraries used by this ELF object
+        List of shared libraries used by this ELF object.
       type: keyword
       level: extended
       normalize:
        - array
 
     - name: telfhash
-      short: telfhash hash for ELF files
+      short: telfhash hash for ELF file.
       description: >
-        telfhash is symbol hash for ELF files, just like imphash is imports hash for PE files. Learn more at https://github.com/trendmicro/telfhash.
+        telfhash symbol hash for ELF file.
       type: keyword
       level: extended
 
     - name: segments
+      short: ELF object segment list.
       description: >
-        ELF object segment list.
+        An array containing an object for each segment of the ELF file.
+
+        The keys that should be present in these objects are defined by sub-fields
+        underneath `elf.segments.*`.
       type: nested
       level: extended
+      normalize:
+        - array
 
     - name: segments.type
       description: ELF object segment type.
