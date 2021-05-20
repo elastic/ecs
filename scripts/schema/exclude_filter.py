@@ -56,7 +56,7 @@ def exclude_trace_path(fields, item, path, removed):
         if not 'fields' in list_item:
             parent = node_path[0]
             removed.append(pop_field(fields, node_path, node_path.copy(), removed))
-            # did we consume ALL the fields? if so, delete the Parent, unless it's base
+            # if parent field has no remaining fields and not 'base', pop it
             if parent != 'base' and parent in fields and len(fields[parent]['fields']) == 0:
                 fields.pop(parent)
         else:
