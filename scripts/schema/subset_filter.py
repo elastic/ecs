@@ -1,5 +1,3 @@
-import glob
-import yaml
 import os
 from generators import intermediate_files
 from schema import cleaner, loader

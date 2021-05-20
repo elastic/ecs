@@ -49,7 +49,7 @@ def main():
     cleaner.clean(fields, strict=args.strict)
     finalizer.finalize(fields)
     fields = subset_filter.filter(fields, args.subset, out_dir)
-    fields = exclude_filter.exclude(fields, args.exclude, out_dir)
+    fields = exclude_filter.exclude(fields, args.exclude)
     nested, flat = intermediate_files.generate(fields, os.path.join(out_dir, 'ecs'), default_dirs)
 
     if args.intermediate_only:

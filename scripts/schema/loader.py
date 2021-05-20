@@ -1,6 +1,5 @@
 import copy
 import glob
-import os
 import yaml
 
 from generators import ecs_helpers

@@ -1,4 +1,3 @@
-import os
 from schema import loader
 
 # This script should be run downstream of the subset filters - it takes
@@ -6,7 +5,7 @@ from schema import loader
 # removes a subset, for example, to simulate impact of future removals
 
 
-def exclude(fields, exclude_file_globs, out_dir):
+def exclude(fields, exclude_file_globs):
     excludes = load_exclude_definitions(exclude_file_globs)
 
     if excludes:
