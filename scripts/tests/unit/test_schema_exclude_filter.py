@@ -1,9 +1,6 @@
-from unittest import result
-from unittest.case import TestCase
 from schema import exclude_filter
 import mock
 import os
-import pprint
 import sys
 import unittest
 
