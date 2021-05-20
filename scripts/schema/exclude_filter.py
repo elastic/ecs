@@ -17,31 +17,50 @@ def exclude(fields, exclude_file_globs, out_dir):
     return fields
 
 
-def pop_field(fields, node_path, path):
+def long_path(path_as_list):
+    return '.'.join([e for e in path_as_list])
+
+
+def pop_field(fields, node_path, path, removed):
     """pops a field from yaml derived dict using path derived from ordered list of nodes"""
     if node_path[0] in fields:
         if len(node_path) == 1:
+            flat_name = long_path(path)
             fields.pop(node_path[0])
+            return flat_name
         else:
             inner_field = node_path.pop(0)
             if 'fields' in fields[inner_field]:
-                pop_field(fields[inner_field]['fields'], node_path, path)
+                popped = pop_field(fields[inner_field]['fields'], node_path, path, removed)
+                # is this an object field with no remaining children, if so, pop it
+                if fields[inner_field]['fields'] == {} and fields[inner_field]['field_details']['type'] == 'object':
+                    fields.pop(inner_field)
+                return popped
             else:
                 raise ValueError(
-                    '--exclude specified, but no path to field {} found'.format('.'.join([e for e in path])))
+                    '--exclude specified, but no path to field {} found'.format(long_path(path)))
     else:
-        raise ValueError('--exclude specified, but no field {} found'.format('.'.join([e for e in path])))
+        this_long_path = long_path(path)
+        # Check in case already removed parent
+        if not any([this_long_path.startswith(long_path) for long_path in removed if long_path != None]):
+            raise ValueError('--exclude specified, but no field {} found'.format(this_long_path))
 
 
-def exclude_trace_path(fields, item, path):
+def exclude_trace_path(fields, item, path, removed):
     """traverses paths to one or more nodes in a yaml derived dict"""
     for list_item in item:
         node_path = path.copy()
-        node_path.append(list_item['name'])
+        # cater for name.with.dots
+        for name in list_item['name'].split('.'):
+            node_path.append(name)
         if not 'fields' in list_item:
-            pop_field(fields, node_path, node_path.copy())
+            parent = node_path[0]
+            removed.append(pop_field(fields, node_path, node_path.copy(), removed))
+            # did we consume ALL the fields? if so, delete the Parent, unless it's base
+            if parent != 'base' and parent in fields and len(fields[parent]['fields']) == 0:
+                fields.pop(parent)
         else:
-            exclude_trace_path(fields, list_item['fields'], node_path)
+            raise ValueError('--exclude specified, can\'t parse fields in file {}'.format(item))            
 
 
 def exclude_fields(fields, excludes):
@@ -49,7 +68,7 @@ def exclude_fields(fields, excludes):
     if excludes:
         for ex_list in excludes:
             for item in ex_list:
-                exclude_trace_path(fields, item['fields'], [item['name']])
+                exclude_trace_path(fields, item['fields'], [item['name']], [])
     return fields
 
 
