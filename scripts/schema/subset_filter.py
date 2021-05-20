@@ -22,7 +22,7 @@ def filter(fields, subset_file_globs, out_dir):
 
 
 def combine_all_subsets(subsets):
-    '''Merges N subsets into one. Strips top level 'name' and 'fields' keys as well as non-ECS field options since we can't know how to merge those.'''
+    """Merges N subsets into one. Strips top level 'name' and 'fields' keys as well as non-ECS field options since we can't know how to merge those."""
     merged_subset = {}
     for subset in subsets:
         strip_non_ecs_options(subset['fields'])
@@ -50,7 +50,7 @@ def strip_non_ecs_options(subset):
 
 
 def merge_subsets(a, b):
-    '''Merges field subset definitions together. The b subset is merged into the a subset. Assumes that subsets have been stripped of non-ecs options.'''
+    """Merges field subset definitions together. The b subset is merged into the a subset. Assumes that subsets have been stripped of non-ecs options."""
     for key in b:
         if key not in a:
             a[key] = b[key]
@@ -71,7 +71,7 @@ def merge_subsets(a, b):
 
 
 def extract_matching_fields(fields, subset_definitions):
-    '''Removes fields that are not in the subset definition. Returns a copy without modifying the input fields dict.'''
+    """Removes fields that are not in the subset definition. Returns a copy without modifying the input fields dict."""
     retained_fields = {x: fields[x].copy() for x in subset_definitions}
     for key, val in subset_definitions.items():
         retained_fields[key]['field_details'] = fields[key]['field_details'].copy()

@@ -109,12 +109,12 @@ def read_schema_blob(blob, ref):
 
 
 def nest_schema(raw, file_name):
-    '''
+    """
     Raw schema files are an array of schema details: [{'name': 'base', ...}]
 
     This function loops over the array (usually 1 schema per file) and turns it into
     a dict with the schema name as the key: { 'base': { 'name': 'base', ...}}
-    '''
+    """
     fields = {}
     for schema in raw:
         if 'name' not in schema:
@@ -264,7 +264,7 @@ def warn(message):
 
 
 def eval_globs(globs):
-    '''Accepts an array of glob patterns or file names, returns the array of actual files'''
+    """Accepts an array of glob patterns or file names, returns the array of actual files"""
     all_files = []
     for g in globs:
         new_files = glob.glob(g)
