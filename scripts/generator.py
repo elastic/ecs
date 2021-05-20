@@ -59,7 +59,7 @@ def main():
     es_template.generate(nested, ecs_generated_version, out_dir, args.mapping_settings)
     es_template.generate_legacy(flat, ecs_generated_version, out_dir, args.template_settings, args.mapping_settings)
     beats.generate(nested, ecs_generated_version, out_dir)
-    if args.include or args.subset:
+    if args.include or args.subset or args.exclude:
         exit()
 
     ecs_helpers.make_dirs(docs_dir)
