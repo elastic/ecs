@@ -1,5 +1,3 @@
-import glob
-import yaml
 import os
 from schema import loader
 
