@@ -40,17 +40,9 @@ class TestSchemaExcludeFilter(unittest.TestCase):
                         'd4': {'field_details': {'flat_name': 'd0.d1.d2.d3.d4'}, 'fields': {
                             'd5': {'field_details': {'flat_name': 'd0.d1.d2.d3.d4.d5'}}}}}}}}}}}}}
         excludes = [[{'name': 'd0', 'fields': [{
-            'name': 'd1', 'fields': [{
-                'name': 'd2', 'fields': [{
-                    'name': 'd3', 'fields': [{
-                        'name': 'd4', 'fields': [{
-                            'name': 'd5'}]}]}]}]}]}]]
+            'name': 'd1.d2.d3.d4.d5'}]}]]
         fields = exclude_filter.exclude_fields(fields, excludes)
-        expect_persisted = {'d0': {'fields': {
-            'd1': {'field_details': {'flat_name': 'd0.d1'}, 'fields': {
-                'd2': {'field_details': {'flat_name': 'd0.d1.d2'}, 'fields': {
-                    'd3': {'field_details': {'flat_name': 'd0.d1.d2.d3'}, 'fields': {
-                        'd4': {'field_details': {'flat_name': 'd0.d1.d2.d3.d4'}, 'fields': {}}}}}}}}}}}
+        expect_persisted = {}
         self.assertEqual(fields, expect_persisted)
 
     def test_exclude_field_dot_path(self):
@@ -61,20 +53,20 @@ class TestSchemaExcludeFilter(unittest.TestCase):
                         'd4': {'field_details': {'flat_name': 'd0.d1.d2.d3.d4'}, 'fields': {
                             'd5': {'field_details': {'flat_name': 'd0.d1.d2.d3.d4.d5'}}}}}}}}}}}}}
         excludes = [[{'name': 'd0', 'fields': [{
-            'name': 'd1.d2.d3.d4.d5d5'}]}]]
+            'name': 'd1.d2.d3.d4.d5'}]}]]
         fields = exclude_filter.exclude_fields(fields, excludes)
         expect_persisted = {}
         self.assertEqual(fields, expect_persisted)
 
     def test_exclude_field_base_always_persists(self):
         fields = {'base': {'fields': {
-            'd1': {'field_details': {'flat_name': 'd0.d1'}, 'fields': {
-                'd2': {'field_details': {'flat_name': 'd0.d1.d2'}, 'fields': {
-                    'd3': {'field_details': {'flat_name': 'd0.d1.d2.d3'}, 'fields': {
-                        'd4': {'field_details': {'flat_name': 'd0.d1.d2.d3.d4'}, 'fields': {
-                            'd5': {'field_details': {'flat_name': 'd0.d1.d2.d3.d4.d5'}}}}}}}}}}}}}
+            'd1': {'field_details': {'flat_name': 'base.d1'}, 'fields': {
+                'd2': {'field_details': {'flat_name': 'base.d1.d2'}, 'fields': {
+                    'd3': {'field_details': {'flat_name': 'base.d1.d2.d3'}, 'fields': {
+                        'd4': {'field_details': {'flat_name': 'base.d1.d2.d3.d4'}, 'fields': {
+                            'd5': {'field_details': {'flat_name': 'base.d1.d2.d3.d4.d5'}}}}}}}}}}}}}
         excludes = [[{'name': 'base', 'fields': [{
-            'name': 'd1.d2.d3.d4.d5d5'}]}]]
+            'name': 'd1.d2.d3.d4.d5'}]}]]
         fields = exclude_filter.exclude_fields(fields, excludes)
         expect_persisted = {'base': {'fields': {}}}
         self.assertEqual(fields, expect_persisted)
@@ -86,7 +78,7 @@ class TestSchemaExcludeFilter(unittest.TestCase):
         excludes = [[{'name': 'my_field_set', 'fields': [
             {'name': 'my_field_exclude_1'}, {'name': 'my_field_exclude_2'}]}]]
         fields = exclude_filter.exclude_fields(fields, excludes)
-        expect_persisted = {'my_field_set': {'fields': {}}}
+        expect_persisted = {}
         self.assertEqual(fields, expect_persisted)
 
     def test_exclude_non_existing_field_set(self):
@@ -113,11 +105,7 @@ class TestSchemaExcludeFilter(unittest.TestCase):
                 'd2': {'field_details': {'flat_name': 'd0.d1.d2'}}, 'fields': {
                     'd3': {'field_details': {'flat_name': 'd0.d1.d2.d3'}}}}}}}
         excludes = [[{'name': 'd0', 'fields': [{
-            'name': 'd1', 'fields': [{
-                'name': 'd2', 'fields': [{
-                    'name': 'd3', 'fields': [{
-                        'name': 'd4', 'fields': [{
-                            'name': 'd5'}]}]}]}]}]}]]
+            'name': 'd1.d2.d3.d4.d5'}]}]]
         with self.assertRaisesRegex(ValueError,
                                     "--exclude specified, but no path to field d0.d1.d2.d3.d4.d5 found"):
             exclude_filter.exclude_fields(fields, excludes)

@@ -32,8 +32,8 @@ def pop_field(fields, node_path, path, removed):
             inner_field = node_path.pop(0)
             if 'fields' in fields[inner_field]:
                 popped = pop_field(fields[inner_field]['fields'], node_path, path, removed)
-                # is this an object field with no remaining children, if so, pop it
-                if fields[inner_field]['fields'] == {} and fields[inner_field]['field_details']['type'] == 'object':
+                # if object field with no remaining fields and not 'base', pop it
+                if fields[inner_field]['fields'] == {} and inner_field != 'base':
                     fields.pop(inner_field)
                 return popped
             else:
@@ -60,7 +60,7 @@ def exclude_trace_path(fields, item, path, removed):
             if parent != 'base' and parent in fields and len(fields[parent]['fields']) == 0:
                 fields.pop(parent)
         else:
-            raise ValueError('--exclude specified, can\'t parse fields in file {}'.format(item))            
+            raise ValueError('--exclude specified, can\'t parse fields in file {}'.format(item))
 
 
 def exclude_fields(fields, excludes):
