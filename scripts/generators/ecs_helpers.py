@@ -141,7 +141,7 @@ def yaml_load(filename):
 
 
 def list_subtract(original, subtracted):
-    '''Subtract two lists. original = subtracted'''
+    """Subtract two lists. original = subtracted"""
     return [item for item in original if item not in subtracted]
 
 
@@ -157,5 +157,5 @@ def list_extract_keys(lst, key_name):
 
 
 def is_intermediate(field):
-    '''Encapsulates the check to see if a field is an intermediate field or a "real" field.'''
+    """Encapsulates the check to see if a field is an intermediate field or a "real" field."""
     return ('intermediate' in field['field_details'] and field['field_details']['intermediate'])
