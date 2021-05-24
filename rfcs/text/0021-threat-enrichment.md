@@ -200,7 +200,7 @@ Stage 1: Identify potential concerns, implementation challenges, or complexity. 
 
 I believe this format should actually simplify much of the enrichment logic originally proposed in RFC 0008, since a naive implementation would simply copy the fields directly from each indicator document into `threat.enrichments`, and add the appropriate `matched` fields.
 
-While not a concern for ECS consumers at large, our existing experimental implementation within Kibana Security Solution will have to change significantly (for the better!), with accompanying data migration: https://github.com/elastic/security-team/issues/1102
+While not a concern for ECS consumers at large, our existing experimental implementation within Kibana Security Solution will have to change significantly (for the better!), with accompanying data migration: https://github.com/elastic/kibana/issues/100510
 
 <!--
 Stage 2: Document new concerns or resolutions to previously listed concerns. It's not critical that all concerns have resolutions at this point, but it would be helpful if resolutions were taking shape for the most significant concerns.
