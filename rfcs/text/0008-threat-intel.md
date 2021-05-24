@@ -248,6 +248,7 @@ The following are the people that consulted on the contents of this RFC.
 * @shimonmodi | author
 * @dcode | author
 * @peasead | author
+* @rylnd | author
 * @dcode | subject matter expert
 * @peasead | subject matter expert
 * @MikePaquette | subject matter expert
