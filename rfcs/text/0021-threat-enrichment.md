@@ -172,7 +172,7 @@ If it is determined that an event matches a given indicator, that event can be e
 Stage 1: Provide a high-level description of example sources of data. This does not yet need to be a concrete example of a source document, but instead can simply describe a potential source (e.g. nginx access log). This will ultimately be fleshed out to include literal source examples in a future stage. The goal here is to identify practical sources for these fields in the real world. ~1-3 sentences or unordered list.
 -->
 
-Source data are ECS indicator documents as specified RFC 0008. At present, the best source of these documents is the filebeat threatintel module.
+Source data are ECS indicator documents as specified RFC 0008. At present, the best source of these documents is the [filebeat threatintel module](https://github.com/elastic/beats/tree/master/x-pack/filebeat/module/threatintel).
 
 <!--
 Stage 2: Included a real world example source document. Ideally this example comes from the source(s) identified in stage 1. If not, it should replace them. The goal here is to validate the utility of these field changes in the context of a real world example. Format with the source name as a ### header and the example document in a GitHub code block with json formatting, or if on the larger side, add them to the corresponding RFC folder.
