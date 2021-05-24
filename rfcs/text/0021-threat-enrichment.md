@@ -34,11 +34,11 @@ As these fields represent the enrichment of an existing event with indicator inf
 
 Field | Type | Example | Description
 --- | --- | --- | ---
-matched.atomic | keyword | 2f5207f2add28b46267dc99bc5382480 | The value that matched between the event and the indicator
-matched.id | keyword | db8fb691ffdb4432a09ef171659c8993e6ddea1ea9b21381b93269d1bf2d0bc2 | The _id of the indicator document that matched the event
-matched.index | keyword | threat-index-000001 | The _index of the indicator document that matched the event
-matched.field | keyword | host.name | Identifies the field on the enriched event that matched the indicator
-matched.type | keyword | indicator_match_rule | Identifies the type of the atomic indicator that matched a local environment endpoint or network event.
+threat.enrichments.matched.atomic | keyword | 2f5207f2add28b46267dc99bc5382480 | The value that matched between the event and the indicator
+threat.enrichments.matched.id | keyword | db8fb691ffdb4432a09ef171659c8993e6ddea1ea9b21381b93269d1bf2d0bc2 | The _id of the indicator document that matched the event
+threat.enrichments.matched.index | keyword | threat-index-000001 | The _index of the indicator document that matched the event
+threat.enrichments.matched.field | keyword | host.name | Identifies the field on the enriched event that matched the indicator
+threat.enrichments.matched.type | keyword | indicator_match_rule | Identifies the type of the atomic indicator that matched a local environment endpoint or network event.
 
 <!--
 Stage 2: Add or update all remaining field definitions. The list should now be exhaustive. The goal here is to validate the technical details of all remaining fields and to provide a basis for releasing these field definitions as beta in the schema. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
