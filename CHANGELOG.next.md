@@ -9,6 +9,15 @@ Thanks, you're awesome :-) -->
 ## Unreleased
 
 ### Schema Changes
+
+#### Bugfixes
+
+#### Added
+
+#### Improvements
+
+#### Deprecated
+
 ### Tooling and Artifact Changes
 
 #### Breaking changes
@@ -18,6 +27,8 @@ Thanks, you're awesome :-) -->
 #### Added
 
 #### Improvements
+
+* Add --exclude flag to Generator to support field removal testing #1411
 
 #### Deprecated
 
