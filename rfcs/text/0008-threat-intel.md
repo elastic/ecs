@@ -204,7 +204,7 @@ Stage 2: Identifies scope of impact of changes. Are breaking changes required? S
  * ECS project (e.g. docs, tooling)
 The goal here is to research and understand the impact of these changes on users in the community and development teams across Elastic. 2-5 sentences each.
 -->
- * Ingestion mechanism: Primary ingestion mechanisms will be Filebeat modules and Ingest Packages. There will be no impact on ingestion mechanisms. [Filebeat module](https://www.elastic.co/guide/en/beats/filebeat/7.12/exported-fields-threatintel.html) is scheduled to be released in `7.12`.
+ * Ingestion mechanism: Primary ingestion mechanisms will be Filebeat modules and Ingest Packages. There will be no impact on ingestion mechanisms. [Filebeat module](https://www.elastic.co/guide/en/beats/filebeat/7.12/exported-fields-threatintel.html) was released in `7.12`.
  * Usage mechanism: The primary use of the proposed ECS fields and values is through Elastic Security solution. In 7.10 we released Indicator match rule to support the use of the proposed new fields and values.
 
 ## Concerns
