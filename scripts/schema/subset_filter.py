@@ -1,8 +1,6 @@
-import glob
-import yaml
 import os
 from generators import intermediate_files
-from schema import cleaner
+from schema import cleaner, loader
 
 # This script takes all ECS and custom fields already loaded, and lets users
 # filter out the ones they don't need.
@@ -22,7 +20,7 @@ def filter(fields, subset_file_globs, out_dir):
 
 
 def combine_all_subsets(subsets):
-    '''Merges N subsets into one. Strips top level 'name' and 'fields' keys as well as non-ECS field options since we can't know how to merge those.'''
+    """Merges N subsets into one. Strips top level 'name' and 'fields' keys as well as non-ECS field options since we can't know how to merge those."""
     merged_subset = {}
     for subset in subsets:
         strip_non_ecs_options(subset['fields'])
@@ -33,35 +31,10 @@ def combine_all_subsets(subsets):
 def load_subset_definitions(file_globs):
     if not file_globs:
         return []
-    subsets = []
-    for f in eval_globs(file_globs):
-        raw = load_yaml_file(f)
-        subsets.append(raw)
+    subsets = loader.load_definitions(file_globs)
     if not subsets:
         raise ValueError('--subset specified, but no subsets found in {}'.format(file_globs))
     return subsets
-
-
-def load_yaml_file(file_name):
-    with open(file_name) as f:
-        return yaml.safe_load(f.read())
-
-
-def eval_globs(globs):
-    '''Accepts an array of glob patterns or file names, returns the array of actual files'''
-    all_files = []
-    for g in globs:
-        new_files = glob.glob(g)
-        if len(new_files) == 0:
-            warn("{} did not match any files".format(g))
-        else:
-            all_files.extend(new_files)
-    return all_files
-
-
-# You know, for silent tests
-def warn(message):
-    print(message)
 
 
 ecs_options = ['fields', 'enabled', 'index']
@@ -75,7 +48,7 @@ def strip_non_ecs_options(subset):
 
 
 def merge_subsets(a, b):
-    '''Merges field subset definitions together. The b subset is merged into the a subset. Assumes that subsets have been stripped of non-ecs options.'''
+    """Merges field subset definitions together. The b subset is merged into the a subset. Assumes that subsets have been stripped of non-ecs options."""
     for key in b:
         if key not in a:
             a[key] = b[key]
@@ -96,7 +69,7 @@ def merge_subsets(a, b):
 
 
 def extract_matching_fields(fields, subset_definitions):
-    '''Removes fields that are not in the subset definition. Returns a copy without modifying the input fields dict.'''
+    """Removes fields that are not in the subset definition. Returns a copy without modifying the input fields dict."""
     retained_fields = {x: fields[x].copy() for x in subset_definitions}
     for key, val in subset_definitions.items():
         retained_fields[key]['field_details'] = fields[key]['field_details'].copy()
