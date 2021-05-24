@@ -263,13 +263,13 @@ def default_mapping_settings():
 
 
 def es6_type_fallback(mappings):
-    '''
+    """
     Visits each leaf in mappings object and fallback to an
     Elasticsearch 6.x supported type.
 
     Since a field like `wildcard` won't have the same defaults as
     a `keyword` field, we must add any missing defaults.
-    '''
+    """
 
     for (name, details) in mappings.items():
         if 'type' in details:

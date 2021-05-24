@@ -19,6 +19,7 @@ Thanks, you're awesome :-) -->
 #### Improvements
 
 * Fix ecs GitHub repo link source branch #1393
+* Add --exclude flag to Generator to support field removal testing #1411
 
 #### Deprecated
 
