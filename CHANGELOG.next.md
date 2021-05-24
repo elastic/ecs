@@ -36,6 +36,7 @@ Thanks, you're awesome :-) -->
 
 * Added a notice highlighting that the `tracing` fields are not nested under the
   namespace `tracing.` #1162
+* Add --exclude flag to Generator to support field removal testing #1411
 
 #### Deprecated
 
