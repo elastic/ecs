@@ -19,67 +19,10 @@ Stage 1: If the changes include field additions or modifications, please create 
 
 ## Fields
 
-### Direct Usage
-
 The following fields are currently indexed as `text` and are candidates to migrate to `match_only_text`:
 
 * `message`
 * `error.message`
-
-### Multi-field Usage
-
-ECS also has `text` type multi-fields for several fields using the convention `<field-name>.text`. This RFC also proposes to migrate all `text` multi-fields to using `match_only_text`:
-
-* `client.as.organization.name.text`
-* `client.user.full_name.text`
-* `client.user.name.text`
-* `destination.as.organization.name.text`
-* `destination.user.full_name.text`
-* `destination.user.name.text`
-* `error.stack_trace.text`
-* `file.path.text`
-* `file.target_path.text`
-* `host.os.full.text`
-* `host.os.name.text`
-* `host.user.full_name.text`
-* `host.user.name.text`
-* `http.request.body.content.text`
-* `http.response.body.content.text`
-* `observer.os.full.text`
-* `observer.os.name.text`
-* `organization.name.text`
-* `process.command_line.text`
-* `process.executable.text`
-* `process.name.text`
-* `process.parent.command_line.text`
-* `process.parent.executable.text`
-* `process.parent.name.text`
-* `process.parent.title.text`
-* `process.parent.working_directory.text`
-* `process.title.text`
-* `process.working_directory.text`
-* `server.as.organization.name.text`
-* `server.user.full_name.text`
-* `server.user.name.text`
-* `source.as.organization.name.text`
-* `source.user.full_name.text`
-* `source.user.name.text`
-* `threat.technique.name.text`
-* `threat.technique.subtechnique.name.text`
-* `url.full.text`
-* `url.original.text`
-* `user.changes.full_name.text`
-* `user.changes.name.text`
-* `user.effective.full_name.text`
-* `user.effective.name.text`
-* `user.full_name.text`
-* `user.name.text`
-* `user.target.full_name.text`
-* `user.target.name.text`
-* `user_agent.original.text`
-* `user_agent.os.full.text`
-* `user_agent.os.name.text`
-* `vulnerability.description.text`
 
 <!--
 Stage 1: Describe at a high level how this change affects fields. Include new or updated yml field definitions for all of the essential fields in this draft. While not exhaustive, the fields documented here should be comprehensive enough to deeply evaluate the technical considerations of this change. The goal here is to validate the technical details for all essential fields and to provide a basis for adding experimental field definitions to the schema. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
@@ -235,6 +178,8 @@ Stage 2: Identifies scope of impact of changes. Are breaking changes required? S
 The goal here is to research and understand the impact of these changes on users in the community and development teams across Elastic. 2-5 sentences each.
 -->
 
+### Ingestion mechanisms
+
 Ingestion mechanisms will need to adopt the new mappings to index fields as the new type. Since both `text` and `match_only_text` are members of the `text` type family, this will not cause a conflict in Kibana index patterns across indices using the two types for the same field.
 
 As with all type changes in ECS, the ECS team will benchmark and identify any significant storage, indexing, or query changes. The Elasticsearch performance will be engaged, if necessary, to determine the results. However, `match_only_text` is a `text` field with these settings:
@@ -245,6 +190,10 @@ As with all type changes in ECS, the ECS team will benchmark and identify any si
 As a convention, ECS already sets `norms: false` on all `text` fields, so this setting should have no impact on performance. Setting `index_options: docs` only indexes the doc number and has already been recommended to reduce the disk usage needed for indexing.
 
 Negative performance or storage side-effects from this change are not expected, beyond the noted limitation that phrase and interval queries will run slower.
+
+### `.text` multi-fields
+
+Many ECS `keyword` type fields also include a `text` multi-field. Migrating those additional `text` multi-fields to `match_only_text` was initially considered as part of this proposal, but it was later decided to hold off and revisit migrating these multi-fields at a later time.
 
 ## Concerns
 
@@ -260,7 +209,13 @@ As mentioned previously, there are limitations of using `match_only_text`:
 * Span queries are unsupported. If a span query is run, then shards, where the field is mapped as match_only_text, will be returned as failed in the search response, and those shard hits will be ignored.
 * Phrase and intervals queries run slower.
 
-For the logging use cases that make up the majority of ECS adoption, disabling frequencies and positions should be acceptable for reducing index disk usage.
+**Resolution**: For the logging use cases that make up the majority of ECS adoption, disabling frequencies and positions should be acceptable for reducing index disk usage.
+
+### Potential heavy usage of phrase and interval queries
+
+Security or observability solutions may depend on heavy usage of interval or, more likely, phrase queries. Users could also have implemented custom phrase or interval queries in alerting or detection rules.
+
+**Resolution**: To be determined; will discuss with solution teams about any concerns slower phrase and interval queries may have.
 
 <!--
 Stage 2: Document new concerns or resolutions to previously listed concerns. It's not critical that all concerns have resolutions at this point, but it would be helpful if resolutions were taking shape for the most significant concerns.
