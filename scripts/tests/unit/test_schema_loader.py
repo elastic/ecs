@@ -14,6 +14,14 @@ class TestSchemaLoader(unittest.TestCase):
     def setUp(self):
         self.maxDiff = None
 
+    @mock.patch('schema.loader.warn')
+    def test_eval_globs(self, mock_warn):
+        files = loader.eval_globs(['schemas/*.yml', 'missing*'])
+        self.assertTrue(mock_warn.called, "a warning should have been printed for missing*")
+        self.assertIn('schemas/base.yml', files)
+        self.assertEqual(list(filter(lambda f: f.startswith('missing'), files)), [],
+                         "The 'missing*' pattern should not show up in the resulting files")
+
     # Pseudo-fixtures
 
     def schema_base(self):
