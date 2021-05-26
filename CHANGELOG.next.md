@@ -19,13 +19,17 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
+* `elf.*` field set added as beta. #1410
 * Remove `beta` from `orchestrator` field set. #1417
 
 #### Improvements
 
 * Fix ecs GitHub repo link source branch #1393
+* Add --exclude flag to Generator to support field removal testing #1411
 
 #### Deprecated
+
+* Note deprecation of the `host.user.*` field reuse. #1422
 
 ### Tooling and Artifact Changes
 
