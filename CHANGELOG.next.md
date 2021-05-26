@@ -21,6 +21,7 @@ Thanks, you're awesome :-) -->
 
 * `elf.*` field set added as beta. #1410
 * Remove `beta` from `orchestrator` field set. #1417
+* Advanced RFC for adding a `ticket` schema to stage 1 #TBD
 
 #### Improvements
 
