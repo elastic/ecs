@@ -263,7 +263,7 @@ class TestSchemaCleaner(unittest.TestCase):
             cleaner.single_line_short_description(schema)
 
     def test_clean(self):
-        """A high level sanity test"""
+        '''A high level sanity test'''
         fields = self.schema_process()
         cleaner.clean(fields)
         # schemas are processed

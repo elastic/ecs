@@ -1,5 +1,5 @@
 def visit_fields(fields, fieldset_func=None, field_func=None):
-    """
+    '''
     This function navigates the deeply nested tree structure and runs provided
     functions on each fieldset or field encountered (both optional).
 
@@ -11,7 +11,7 @@ def visit_fields(fields, fieldset_func=None, field_func=None):
 
     The 'field_func(details)' provided will be called for each field, with the dictionary
     containing the field's details ({'field_details': {}, 'fields': {}).
-    """
+    '''
     for (name, details) in fields.items():
         if fieldset_func and 'schema_details' in details:
             fieldset_func(details)
@@ -24,14 +24,14 @@ def visit_fields(fields, fieldset_func=None, field_func=None):
 
 
 def visit_fields_with_path(fields, func, path=[]):
-    """
+    '''
     This function navigates the deeply nested tree structure and runs the provided
     function on all fields and field sets.
 
     The 'func' provided will be called for each field,
     with the dictionary containing their details ({'field_details': {}, 'fields': {})
     as well as the path array leading to the location of the field in question.
-    """
+    '''
     for (name, details) in fields.items():
         if 'field_details' in details:
             func(details, path)
@@ -44,14 +44,14 @@ def visit_fields_with_path(fields, func, path=[]):
 
 
 def visit_fields_with_memo(fields, func, memo=None):
-    """
+    '''
     This function navigates the deeply nested tree structure and runs the provided
     function on all fields and field sets.
 
     The 'func' provided will be called for each field,
     with the dictionary containing their details ({'field_details': {}, 'fields': {})
     as well as the 'memo' you pass in.
-    """
+    '''
     for (name, details) in fields.items():
         if 'field_details' in details:
             func(details, memo)

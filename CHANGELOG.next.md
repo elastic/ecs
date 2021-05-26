@@ -18,8 +18,6 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
-* Add --exclude flag to Generator to support field removal testing #1411
-
 #### Deprecated
 
 ### Tooling and Artifact Changes

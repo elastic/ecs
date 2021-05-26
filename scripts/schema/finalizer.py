@@ -19,7 +19,7 @@ from schema import visitor
 
 
 def finalize(fields):
-    """Intended entrypoint of the finalizer."""
+    '''Intended entrypoint of the finalizer.'''
     perform_reuse(fields)
     calculate_final_values(fields)
 
@@ -46,7 +46,7 @@ def order_reuses(fields):
 
 
 def perform_reuse(fields):
-    """Performs field reuse in two phases"""
+    '''Performs field reuse in two phases'''
     foreign_reuses, self_nestings = order_reuses(fields)
 
     # Phase 1: foreign reuse
@@ -97,11 +97,11 @@ def perform_reuse(fields):
 
 
 def ensure_valid_reuse(reused_schema, destination_schema=None):
-    """
+    '''
     Raise if either the reused schema or destination schema have root=true.
 
     Second param is optional, if testing for a self-nesting (where source=destination).
-    """
+    '''
     if reused_schema['schema_details']['root']:
         msg = "Schema {} has attribute root=true and therefore cannot be reused.".format(
             reused_schema['field_details']['name'])
@@ -113,7 +113,7 @@ def ensure_valid_reuse(reused_schema, destination_schema=None):
 
 
 def append_reused_here(reused_schema, reuse_entry, destination_schema):
-    """Captures two ways of denoting what field sets are reused under a given field set"""
+    '''Captures two ways of denoting what field sets are reused under a given field set'''
     # Legacy, too limited
     destination_schema['schema_details'].setdefault('nestings', [])
     destination_schema['schema_details']['nestings'] = sorted(
@@ -130,7 +130,7 @@ def append_reused_here(reused_schema, reuse_entry, destination_schema):
 
 
 def set_original_fieldset(fields, original_fieldset):
-    """Recursively set the 'original_fieldset' attribute for all fields in a group of fields"""
+    '''Recursively set the 'original_fieldset' attribute for all fields in a group of fields'''
     def func(details):
         # Don't override if already set (e.g. 'group' for user.group.* fields)
         details['field_details'].setdefault('original_fieldset', original_fieldset)
@@ -138,7 +138,7 @@ def set_original_fieldset(fields, original_fieldset):
 
 
 def field_group_at_path(dotted_path, fields):
-    """Returns the ['fields'] hash at the dotted_path."""
+    '''Returns the ['fields'] hash at the dotted_path.'''
     path = dotted_path.split('.')
     nesting = fields
     for next_field in path:
@@ -157,17 +157,17 @@ def field_group_at_path(dotted_path, fields):
 
 
 def calculate_final_values(fields):
-    """
+    '''
     This function navigates all fields recursively.
 
     It populates a few more values for the fields, especially path-based values
     like flat_name.
-    """
+    '''
     visitor.visit_fields_with_path(fields, field_finalizer)
 
 
 def field_finalizer(details, path):
-    """This is the function called by the visitor to perform the work of calculate_final_values"""
+    '''This is the function called by the visitor to perform the work of calculate_final_values'''
     name_array = path + [details['field_details']['node_name']]
     flat_name = '.'.join(name_array)
     details['field_details']['flat_name'] = flat_name

@@ -54,7 +54,7 @@ SCHEMA_MANDATORY_ATTRIBUTES = ['name', 'title', 'description']
 
 
 def schema_mandatory_attributes(schema):
-    """Ensures for the presence of the mandatory schema attributes and raises if any are missing"""
+    '''Ensures for the presence of the mandatory schema attributes and raises if any are missing'''
     current_schema_attributes = sorted(list(schema['field_details'].keys()) +
                                        list(schema['schema_details'].keys()))
     missing_attributes = ecs_helpers.list_subtract(SCHEMA_MANDATORY_ATTRIBUTES, current_schema_attributes)
@@ -137,7 +137,7 @@ def field_defaults(field):
 
 
 def field_or_multi_field_datatype_defaults(field_details):
-    """Sets datatype-related defaults on a canonical field or multi-field entries."""
+    '''Sets datatype-related defaults on a canonical field or multi-field entries.'''
     if field_details['type'] == 'keyword':
         field_details.setdefault('ignore_above', 1024)
     if field_details['type'] == 'text':
@@ -151,7 +151,7 @@ ACCEPTABLE_FIELD_LEVELS = ['core', 'extended', 'custom']
 
 
 def field_mandatory_attributes(field):
-    """Ensures for the presence of the mandatory field attributes and raises if any are missing"""
+    '''Ensures for the presence of the mandatory field attributes and raises if any are missing'''
     if ecs_helpers.is_intermediate(field):
         return
     current_field_attributes = sorted(field['field_details'].keys())
@@ -163,7 +163,7 @@ def field_mandatory_attributes(field):
 
 
 def field_assertions_and_warnings(field):
-    """Additional checks on a fleshed out field"""
+    '''Additional checks on a fleshed out field'''
     if not ecs_helpers.is_intermediate(field):
         single_line_short_description(field)
         if field['field_details']['level'] not in ACCEPTABLE_FIELD_LEVELS:

@@ -15,7 +15,6 @@ from schema import loader
 from schema import cleaner
 from schema import finalizer
 from schema import subset_filter
-from schema import exclude_filter
 
 
 def main():
@@ -45,7 +44,6 @@ def main():
     cleaner.clean(fields)
     finalizer.finalize(fields)
     fields = subset_filter.filter(fields, args.subset, out_dir)
-    fields = exclude_filter.exclude(fields, args.exclude)
     nested, flat = intermediate_files.generate(fields, os.path.join(out_dir, 'ecs'), default_dirs)
 
     if args.intermediate_only:
@@ -54,7 +52,7 @@ def main():
     csv_generator.generate(flat, ecs_version, out_dir)
     es_template.generate(flat, ecs_version, out_dir, args.template_settings, args.mapping_settings)
     beats.generate(nested, ecs_version, out_dir)
-    if args.include or args.subset or args.exclude:
+    if args.include or args.subset:
         exit()
 
     asciidoc_fields.generate(nested, ecs_version, docs_dir)
@@ -66,8 +64,6 @@ def argument_parser():
                         help='generate intermediary files only')
     parser.add_argument('--include', nargs='+',
                         help='include user specified directory of custom field definitions')
-    parser.add_argument('--exclude', nargs='+',
-                        help='exclude user specified subset of the schema')
     parser.add_argument('--subset', nargs='+',
                         help='render a subset of the schema')
     parser.add_argument('--out', action='store', help='directory to store the generated files')
