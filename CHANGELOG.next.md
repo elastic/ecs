@@ -22,7 +22,6 @@ Thanks, you're awesome :-) -->
 #### Improvements
 
 * Fix ecs GitHub repo link source branch #1393
-* Advanced RFC for ticket schema to stage 1 #TBD
 
 #### Deprecated
 
