@@ -1,6 +1,5 @@
 import copy
 import glob
-import os
 import yaml
 
 from generators import ecs_helpers
@@ -94,12 +93,12 @@ def read_schema_blob(blob, ref):
 
 
 def nest_schema(raw, file_name):
-    '''
+    """
     Raw schema files are an array of schema details: [{'name': 'base', ...}]
 
     This function loops over the array (usually 1 schema per file) and turns it into
     a dict with the schema name as the key: { 'base': { 'name': 'base', ...}}
-    '''
+    """
     fields = {}
     for schema in raw:
         if 'name' not in schema:
@@ -206,3 +205,33 @@ def merge_fields(a, b):
             a[key].setdefault('fields', {})
             a[key]['fields'] = merge_fields(a[key]['fields'], b[key]['fields'])
     return a
+
+
+def load_yaml_file(file_name):
+    with open(file_name) as f:
+        return yaml.safe_load(f.read())
+
+
+# You know, for silent tests
+def warn(message):
+    print(message)
+
+
+def eval_globs(globs):
+    """Accepts an array of glob patterns or file names, returns the array of actual files"""
+    all_files = []
+    for g in globs:
+        new_files = glob.glob(g)
+        if len(new_files) == 0:
+            warn("{} did not match any files".format(g))
+        else:
+            all_files.extend(new_files)
+    return all_files
+
+
+def load_definitions(file_globs):
+    sets = []
+    for f in eval_globs(file_globs):
+        raw = load_yaml_file(f)
+        sets.append(raw)
+    return sets
