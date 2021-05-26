@@ -20,7 +20,7 @@ def generate(fields, out_dir, default_dirs):
 
 
 def generate_flat_fields(fields):
-    '''Generate ecs_flat.yml'''
+    """Generate ecs_flat.yml"""
     filtered = remove_non_root_reusables(fields)
     flattened = {}
     visitor.visit_fields_with_memo(filtered, accumulate_field, flattened)
@@ -28,7 +28,7 @@ def generate_flat_fields(fields):
 
 
 def accumulate_field(details, memo):
-    '''Visitor function that accumulates all field details in the memo dict'''
+    """Visitor function that accumulates all field details in the memo dict"""
     if 'schema_details' in details or ecs_helpers.is_intermediate(details):
         return
     field_details = copy.deepcopy(details['field_details'])
@@ -39,7 +39,7 @@ def accumulate_field(details, memo):
 
 
 def generate_nested_fields(fields):
-    '''Generate ecs_nested.yml'''
+    """Generate ecs_nested.yml"""
     nested = {}
     # Flatten each field set, but keep all resulting fields nested under their
     # parent/host field set.
@@ -71,13 +71,13 @@ def generate_nested_fields(fields):
 
 
 def remove_internal_attributes(field_details):
-    '''Remove attributes only relevant to the deeply nested structure, but not to ecs_flat/nested.yml.'''
+    """Remove attributes only relevant to the deeply nested structure, but not to ecs_flat/nested.yml."""
     field_details.pop('node_name', None)
     field_details.pop('intermediate', None)
 
 
 def remove_non_root_reusables(fields_nested):
-    '''
+    """
     Remove field sets that have top_level=false from the root of the field definitions.
 
     This attribute means they're only meant to be in the "reusable/expected" locations
@@ -87,7 +87,7 @@ def remove_non_root_reusables(fields_nested):
     still needs to keep all field sets at the root of the YAML file, as it
     the official information about each field set. It's the responsibility of
     users consuming ecs_nested.yml to skip the field sets with top_level=false.
-    '''
+    """
     fields = {}
     for (name, field) in fields_nested.items():
         if 'reusable' not in field['schema_details'] or field['schema_details']['reusable']['top_level']:
