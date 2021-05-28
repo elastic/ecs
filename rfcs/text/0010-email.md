@@ -1,7 +1,7 @@
 # 0010: Email
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
-- Stage: **2 (proposal)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
+- Stage: **1 (draft)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
 - Date: **2020-11-30** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 This RFC proposes a new top-level field to facilitate email use cases.
@@ -195,5 +195,6 @@ e.g.:
 
 <!-- An RFC should link to the PRs for each of it stage advancements. -->
 
-* Stage 1: https://github.com/elastic/ecs/pull/999
+* Stage 1 (formerly proposal stage): https://github.com/elastic/ecs/pull/999
   * RFC ID correction: https://github.com/elastic/ecs/pull/1157
+* Stage 1 (draft): https://github.com/elastic/ecs/pull/1219
