@@ -155,6 +155,7 @@ Network Example
         "forwarded"
     ]
 }
+```
 
 File Example
 ```json5
@@ -215,6 +216,7 @@ File Example
         "forwarded"
     ]
 }
+```
 
 ## Source data
 
