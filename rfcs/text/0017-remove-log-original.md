@@ -18,9 +18,9 @@ The request is to consolidate `log.original` and `event.original` by removing `l
 
 - The internal description of the field `event.original` in [`event`](0017/event.yml) should be updated to reflect the revised scope 
 
-- The extended description of `log.original` in the [`Log Fields documentation`](../../docs/field-details.asciidoc#field-log-original) should be amended by addition of a notice of deprecation and subsequently removal if/when Deprecation progresses to Removal
+- The extended description of `log.original` in the [`Log Fields documentation`](https://github.com/elastic/ecs/blob/master/docs/field-details.asciidoc#field-log-original) should be amended by addition of a notice of deprecation and subsequently removal if/when Deprecation progresses to Removal
 
-- The extended description of `event.original` in the [`Event Fields documentation`](../../docs/field-details.asciidoc#field-event-original) should be amended to clarify the absorption of `log.original`
+- The extended description of `event.original` in the [`Event Fields documentation`](https://github.com/elastic/ecs/blob/master/docs/field-details.asciidoc#field-event-original) should be amended to clarify the absorption of `log.original`
 
  
 ## Usage
@@ -56,7 +56,7 @@ Beats modules, Agent integration packages and the Logging UI would be required t
 
 The removal of `log.original` will be considered a breaking change since the field is being removed from the schema. Possible migration/mitigations for users impacted may include:
 
-- The [`Beats default fields inclusion list`](../../scripts/generators/beats_default_fields_allowlist.yml) list should be updated by removing `log.original` if/when Deprecation progresses to Removal
+- The [`Beats default fields inclusion list`](https://github.com/elastic/ecs/blob/master/scripts/generators/beats_default_fields_allowlist.yml) list should be updated by removing `log.original` if/when Deprecation progresses to Removal
 
 - The logs UI `message` column currently displays `log.original` in the absence of a `message` field. This should be updated to use `event.original` as the substitute field. See [builtin_rules](https://github.com/elastic/kibana/blob/master/x-pack/plugins/infra/server/services/log_entries/message/builtin_rules/generic.ts) and [associated test](https://github.com/elastic/kibana/blob/master/x-pack/plugins/infra/server/services/log_entries/message/builtin_rules/generic.test.ts).
 
