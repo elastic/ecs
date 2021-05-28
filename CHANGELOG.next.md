@@ -8,27 +8,39 @@ Thanks, you're awesome :-) -->
 
 ## Unreleased
 
-### Schema Changes
+### Breaking Changes
 
-#### Breaking changes
+* Removing deprecated --oss from generator #1404
+* Removing use-cases directory #1405
+* Remove `host.user.*` field reuse. #1439
+
+### Schema Changes
 
 #### Bugfixes
 
 #### Added
+
+* `elf.*` field set added as beta. #1410
+* Remove `beta` from `orchestrator` field set. #1417
+* Extend `threat.*` field set beta. #1438
 
 #### Improvements
 
 * Fix ecs GitHub repo link source branch #1393
+* Add --exclude flag to Generator to support field removal testing #1411
+* Explicitly include user identifiers in `relater.user` description. #1420
 
 #### Deprecated
 
-### Tooling and Artifact Changes
+* Note deprecation of the `host.user.*` field reuse. #1422
 
-#### Breaking changes
+### Tooling and Artifact Changes
 
 #### Bugfixes
 
 #### Added
+
+* Support `match_only_text` data type in Go code generator. #1418
 
 #### Improvements
 

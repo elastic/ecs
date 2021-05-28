@@ -1329,6 +1329,191 @@
         ECS versions -- this field lets integrations adjust to the schema version
         of the events.'
       example: 1.0.0
+  - name: elf
+    title: ELF Header
+    group: 2
+    description: These fields contain Linux Executable Linkable Format (ELF) metadata.
+    type: group
+    fields:
+    - name: architecture
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Machine architecture of the ELF file.
+      example: x86-64
+      default_field: false
+    - name: byte_order
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Byte sequence of ELF file.
+      example: Little Endian
+      default_field: false
+    - name: cpu_type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: CPU type of the ELF file.
+      example: Intel
+      default_field: false
+    - name: creation_date
+      level: extended
+      type: date
+      description: Extracted when possible from the file's metadata. Indicates when
+        it was built or compiled. It can also be faked by malware creators.
+      default_field: false
+    - name: exports
+      level: extended
+      type: flattened
+      description: List of exported element names and types.
+      default_field: false
+    - name: header.abi_version
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Version of the ELF Application Binary Interface (ABI).
+      default_field: false
+    - name: header.class
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Header class of the ELF file.
+      default_field: false
+    - name: header.data
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Data table of the ELF header.
+      default_field: false
+    - name: header.entrypoint
+      level: extended
+      type: long
+      format: string
+      description: Header entrypoint of the ELF file.
+      default_field: false
+    - name: header.object_version
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: '"0x1" for original ELF files.'
+      default_field: false
+    - name: header.os_abi
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Application Binary Interface (ABI) of the Linux OS.
+      default_field: false
+    - name: header.type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Header type of the ELF file.
+      default_field: false
+    - name: header.version
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Version of the ELF header.
+      default_field: false
+    - name: imports
+      level: extended
+      type: flattened
+      description: List of imported element names and types.
+      default_field: false
+    - name: sections
+      level: extended
+      type: nested
+      description: 'An array containing an object for each section of the ELF file.
+
+        The keys that should be present in these objects are defined by sub-fields
+        underneath `elf.sections.*`.'
+      default_field: false
+    - name: sections.chi2
+      level: extended
+      type: long
+      format: number
+      description: Chi-square probability distribution of the section.
+      default_field: false
+    - name: sections.entropy
+      level: extended
+      type: long
+      format: number
+      description: Shannon entropy calculation from the section.
+      default_field: false
+    - name: sections.flags
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: ELF Section List flags.
+      default_field: false
+    - name: sections.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: ELF Section List name.
+      default_field: false
+    - name: sections.physical_offset
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: ELF Section List offset.
+      default_field: false
+    - name: sections.physical_size
+      level: extended
+      type: long
+      format: bytes
+      description: ELF Section List physical size.
+      default_field: false
+    - name: sections.type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: ELF Section List type.
+      default_field: false
+    - name: sections.virtual_address
+      level: extended
+      type: long
+      format: string
+      description: ELF Section List virtual address.
+      default_field: false
+    - name: sections.virtual_size
+      level: extended
+      type: long
+      format: string
+      description: ELF Section List virtual size.
+      default_field: false
+    - name: segments
+      level: extended
+      type: nested
+      description: 'An array containing an object for each segment of the ELF file.
+
+        The keys that should be present in these objects are defined by sub-fields
+        underneath `elf.segments.*`.'
+      default_field: false
+    - name: segments.sections
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: ELF object segment sections.
+      default_field: false
+    - name: segments.type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: ELF object segment type.
+      default_field: false
+    - name: shared_libraries
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of shared libraries used by this ELF object.
+      default_field: false
+    - name: telfhash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: telfhash symbol hash for ELF file.
+      default_field: false
   - name: error
     title: Error
     group: 2
@@ -1789,6 +1974,185 @@
 
         The value should be uppercase, and not include the colon.'
       example: C
+      default_field: false
+    - name: elf.architecture
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Machine architecture of the ELF file.
+      example: x86-64
+      default_field: false
+    - name: elf.byte_order
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Byte sequence of ELF file.
+      example: Little Endian
+      default_field: false
+    - name: elf.cpu_type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: CPU type of the ELF file.
+      example: Intel
+      default_field: false
+    - name: elf.creation_date
+      level: extended
+      type: date
+      description: Extracted when possible from the file's metadata. Indicates when
+        it was built or compiled. It can also be faked by malware creators.
+      default_field: false
+    - name: elf.exports
+      level: extended
+      type: flattened
+      description: List of exported element names and types.
+      default_field: false
+    - name: elf.header.abi_version
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Version of the ELF Application Binary Interface (ABI).
+      default_field: false
+    - name: elf.header.class
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Header class of the ELF file.
+      default_field: false
+    - name: elf.header.data
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Data table of the ELF header.
+      default_field: false
+    - name: elf.header.entrypoint
+      level: extended
+      type: long
+      format: string
+      description: Header entrypoint of the ELF file.
+      default_field: false
+    - name: elf.header.object_version
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: '"0x1" for original ELF files.'
+      default_field: false
+    - name: elf.header.os_abi
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Application Binary Interface (ABI) of the Linux OS.
+      default_field: false
+    - name: elf.header.type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Header type of the ELF file.
+      default_field: false
+    - name: elf.header.version
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Version of the ELF header.
+      default_field: false
+    - name: elf.imports
+      level: extended
+      type: flattened
+      description: List of imported element names and types.
+      default_field: false
+    - name: elf.sections
+      level: extended
+      type: nested
+      description: 'An array containing an object for each section of the ELF file.
+
+        The keys that should be present in these objects are defined by sub-fields
+        underneath `elf.sections.*`.'
+      default_field: false
+    - name: elf.sections.chi2
+      level: extended
+      type: long
+      format: number
+      description: Chi-square probability distribution of the section.
+      default_field: false
+    - name: elf.sections.entropy
+      level: extended
+      type: long
+      format: number
+      description: Shannon entropy calculation from the section.
+      default_field: false
+    - name: elf.sections.flags
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: ELF Section List flags.
+      default_field: false
+    - name: elf.sections.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: ELF Section List name.
+      default_field: false
+    - name: elf.sections.physical_offset
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: ELF Section List offset.
+      default_field: false
+    - name: elf.sections.physical_size
+      level: extended
+      type: long
+      format: bytes
+      description: ELF Section List physical size.
+      default_field: false
+    - name: elf.sections.type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: ELF Section List type.
+      default_field: false
+    - name: elf.sections.virtual_address
+      level: extended
+      type: long
+      format: string
+      description: ELF Section List virtual address.
+      default_field: false
+    - name: elf.sections.virtual_size
+      level: extended
+      type: long
+      format: string
+      description: ELF Section List virtual size.
+      default_field: false
+    - name: elf.segments
+      level: extended
+      type: nested
+      description: 'An array containing an object for each segment of the ELF file.
+
+        The keys that should be present in these objects are defined by sub-fields
+        underneath `elf.segments.*`.'
+      default_field: false
+    - name: elf.segments.sections
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: ELF object segment sections.
+      default_field: false
+    - name: elf.segments.type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: ELF object segment type.
+      default_field: false
+    - name: elf.shared_libraries
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of shared libraries used by this ELF object.
+      default_field: false
+    - name: elf.telfhash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: telfhash symbol hash for ELF file.
       default_field: false
     - name: extension
       level: extended
@@ -2558,78 +2922,6 @@
       type: long
       description: Seconds the host has been up.
       example: 1325
-    - name: user.domain
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: 'Name of the directory the user is a member of.
-
-        For example, an LDAP or Active Directory domain name.'
-    - name: user.email
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: User email address.
-    - name: user.full_name
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      multi_fields:
-      - name: text
-        type: text
-        norms: false
-        default_field: false
-      description: User's full name, if available.
-      example: Albert Einstein
-    - name: user.group.domain
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: 'Name of the directory the group is a member of.
-
-        For example, an LDAP or Active Directory domain name.'
-    - name: user.group.id
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Unique identifier for the group on the system/platform.
-    - name: user.group.name
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Name of the group.
-    - name: user.hash
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: 'Unique user hash to correlate information for a user in anonymized
-        form.
-
-        Useful if `user.id` or `user.name` contain confidential information and cannot
-        be used.'
-    - name: user.id
-      level: core
-      type: keyword
-      ignore_above: 1024
-      description: Unique identifier of the user.
-    - name: user.name
-      level: core
-      type: keyword
-      ignore_above: 1024
-      multi_fields:
-      - name: text
-        type: text
-        norms: false
-        default_field: false
-      description: Short name or login of the user.
-      example: albert
-    - name: user.roles
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Array of user roles at the time of the event.
-      example: '["kibana_admin", "reporting_user"]'
-      default_field: false
   - name: http
     title: HTTP
     group: 2
@@ -3812,6 +4104,185 @@
         Some arguments may be filtered to protect sensitive information.'
       example: /usr/bin/ssh -l user 10.0.0.16
       default_field: false
+    - name: elf.architecture
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Machine architecture of the ELF file.
+      example: x86-64
+      default_field: false
+    - name: elf.byte_order
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Byte sequence of ELF file.
+      example: Little Endian
+      default_field: false
+    - name: elf.cpu_type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: CPU type of the ELF file.
+      example: Intel
+      default_field: false
+    - name: elf.creation_date
+      level: extended
+      type: date
+      description: Extracted when possible from the file's metadata. Indicates when
+        it was built or compiled. It can also be faked by malware creators.
+      default_field: false
+    - name: elf.exports
+      level: extended
+      type: flattened
+      description: List of exported element names and types.
+      default_field: false
+    - name: elf.header.abi_version
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Version of the ELF Application Binary Interface (ABI).
+      default_field: false
+    - name: elf.header.class
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Header class of the ELF file.
+      default_field: false
+    - name: elf.header.data
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Data table of the ELF header.
+      default_field: false
+    - name: elf.header.entrypoint
+      level: extended
+      type: long
+      format: string
+      description: Header entrypoint of the ELF file.
+      default_field: false
+    - name: elf.header.object_version
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: '"0x1" for original ELF files.'
+      default_field: false
+    - name: elf.header.os_abi
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Application Binary Interface (ABI) of the Linux OS.
+      default_field: false
+    - name: elf.header.type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Header type of the ELF file.
+      default_field: false
+    - name: elf.header.version
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Version of the ELF header.
+      default_field: false
+    - name: elf.imports
+      level: extended
+      type: flattened
+      description: List of imported element names and types.
+      default_field: false
+    - name: elf.sections
+      level: extended
+      type: nested
+      description: 'An array containing an object for each section of the ELF file.
+
+        The keys that should be present in these objects are defined by sub-fields
+        underneath `elf.sections.*`.'
+      default_field: false
+    - name: elf.sections.chi2
+      level: extended
+      type: long
+      format: number
+      description: Chi-square probability distribution of the section.
+      default_field: false
+    - name: elf.sections.entropy
+      level: extended
+      type: long
+      format: number
+      description: Shannon entropy calculation from the section.
+      default_field: false
+    - name: elf.sections.flags
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: ELF Section List flags.
+      default_field: false
+    - name: elf.sections.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: ELF Section List name.
+      default_field: false
+    - name: elf.sections.physical_offset
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: ELF Section List offset.
+      default_field: false
+    - name: elf.sections.physical_size
+      level: extended
+      type: long
+      format: bytes
+      description: ELF Section List physical size.
+      default_field: false
+    - name: elf.sections.type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: ELF Section List type.
+      default_field: false
+    - name: elf.sections.virtual_address
+      level: extended
+      type: long
+      format: string
+      description: ELF Section List virtual address.
+      default_field: false
+    - name: elf.sections.virtual_size
+      level: extended
+      type: long
+      format: string
+      description: ELF Section List virtual size.
+      default_field: false
+    - name: elf.segments
+      level: extended
+      type: nested
+      description: 'An array containing an object for each segment of the ELF file.
+
+        The keys that should be present in these objects are defined by sub-fields
+        underneath `elf.segments.*`.'
+      default_field: false
+    - name: elf.segments.sections
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: ELF object segment sections.
+      default_field: false
+    - name: elf.segments.type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: ELF object segment type.
+      default_field: false
+    - name: elf.shared_libraries
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of shared libraries used by this ELF object.
+      default_field: false
+    - name: elf.telfhash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: telfhash symbol hash for ELF file.
+      default_field: false
     - name: entity_id
       level: extended
       type: keyword
@@ -3981,6 +4452,185 @@
 
         Some arguments may be filtered to protect sensitive information.'
       example: /usr/bin/ssh -l user 10.0.0.16
+      default_field: false
+    - name: parent.elf.architecture
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Machine architecture of the ELF file.
+      example: x86-64
+      default_field: false
+    - name: parent.elf.byte_order
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Byte sequence of ELF file.
+      example: Little Endian
+      default_field: false
+    - name: parent.elf.cpu_type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: CPU type of the ELF file.
+      example: Intel
+      default_field: false
+    - name: parent.elf.creation_date
+      level: extended
+      type: date
+      description: Extracted when possible from the file's metadata. Indicates when
+        it was built or compiled. It can also be faked by malware creators.
+      default_field: false
+    - name: parent.elf.exports
+      level: extended
+      type: flattened
+      description: List of exported element names and types.
+      default_field: false
+    - name: parent.elf.header.abi_version
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Version of the ELF Application Binary Interface (ABI).
+      default_field: false
+    - name: parent.elf.header.class
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Header class of the ELF file.
+      default_field: false
+    - name: parent.elf.header.data
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Data table of the ELF header.
+      default_field: false
+    - name: parent.elf.header.entrypoint
+      level: extended
+      type: long
+      format: string
+      description: Header entrypoint of the ELF file.
+      default_field: false
+    - name: parent.elf.header.object_version
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: '"0x1" for original ELF files.'
+      default_field: false
+    - name: parent.elf.header.os_abi
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Application Binary Interface (ABI) of the Linux OS.
+      default_field: false
+    - name: parent.elf.header.type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Header type of the ELF file.
+      default_field: false
+    - name: parent.elf.header.version
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Version of the ELF header.
+      default_field: false
+    - name: parent.elf.imports
+      level: extended
+      type: flattened
+      description: List of imported element names and types.
+      default_field: false
+    - name: parent.elf.sections
+      level: extended
+      type: nested
+      description: 'An array containing an object for each section of the ELF file.
+
+        The keys that should be present in these objects are defined by sub-fields
+        underneath `elf.sections.*`.'
+      default_field: false
+    - name: parent.elf.sections.chi2
+      level: extended
+      type: long
+      format: number
+      description: Chi-square probability distribution of the section.
+      default_field: false
+    - name: parent.elf.sections.entropy
+      level: extended
+      type: long
+      format: number
+      description: Shannon entropy calculation from the section.
+      default_field: false
+    - name: parent.elf.sections.flags
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: ELF Section List flags.
+      default_field: false
+    - name: parent.elf.sections.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: ELF Section List name.
+      default_field: false
+    - name: parent.elf.sections.physical_offset
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: ELF Section List offset.
+      default_field: false
+    - name: parent.elf.sections.physical_size
+      level: extended
+      type: long
+      format: bytes
+      description: ELF Section List physical size.
+      default_field: false
+    - name: parent.elf.sections.type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: ELF Section List type.
+      default_field: false
+    - name: parent.elf.sections.virtual_address
+      level: extended
+      type: long
+      format: string
+      description: ELF Section List virtual address.
+      default_field: false
+    - name: parent.elf.sections.virtual_size
+      level: extended
+      type: long
+      format: string
+      description: ELF Section List virtual size.
+      default_field: false
+    - name: parent.elf.segments
+      level: extended
+      type: nested
+      description: 'An array containing an object for each segment of the ELF file.
+
+        The keys that should be present in these objects are defined by sub-fields
+        underneath `elf.segments.*`.'
+      default_field: false
+    - name: parent.elf.segments.sections
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: ELF object segment sections.
+      default_field: false
+    - name: parent.elf.segments.type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: ELF object segment type.
+      default_field: false
+    - name: parent.elf.shared_libraries
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of shared libraries used by this ELF object.
+      default_field: false
+    - name: parent.elf.telfhash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: telfhash symbol hash for ELF file.
       default_field: false
     - name: parent.entity_id
       level: extended
@@ -4404,7 +5054,7 @@
       level: extended
       type: keyword
       ignore_above: 1024
-      description: All the user names seen on your event.
+      description: All the user names or other user identifiers seen on the event.
       default_field: false
   - name: rule
     title: Rule
@@ -5172,6 +5822,89 @@
         can be provided by detecting systems, evaluated at ingest time, or retrospectively
         tagged to events.
       example: MITRE ATT&CK
+    - name: group.alias
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: "The alias(es) of the group for a set of related intrusion activity\
+        \ that are tracked by a common name in the security community. While not required,\
+        \ you can use a MITRE ATT&CK\xAE group alias(es)."
+      example: '[ "Magecart Group 6" ]'
+      default_field: false
+    - name: group.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: "The id of the group for a set of related intrusion activity that\
+        \ are tracked by a common name in the security community. While not required,\
+        \ you can use a MITRE ATT&CK\xAE group id."
+      example: G0037
+      default_field: false
+    - name: group.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: "The name of the group for a set of related intrusion activity\
+        \ that are tracked by a common name in the security community. While not required,\
+        \ you can use a MITRE ATT&CK\xAE group name."
+      example: FIN6
+      default_field: false
+    - name: group.reference
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: "The reference URL of the group for a set of related intrusion\
+        \ activity that are tracked by a common name in the security community. While\
+        \ not required, you can use a MITRE ATT&CK\xAE group reference URL."
+      example: https://attack.mitre.org/groups/G0037/
+      default_field: false
+    - name: software.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: "The id of the software used by this threat to conduct behavior\
+        \ commonly modeled using MITRE ATT&CK\xAE. While not required, you can use\
+        \ a MITRE ATT&CK\xAE software id."
+      example: S0552
+      default_field: false
+    - name: software.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: "The name of the software used by this threat to conduct behavior\
+        \ commonly modeled using MITRE ATT&CK\xAE. While not required, you can use\
+        \ a MITRE ATT&CK\xAE software name."
+      example: AdFind
+      default_field: false
+    - name: software.platforms
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: "The platforms of the software used by this threat to conduct behavior\
+        \ commonly modeled using MITRE ATT&CK\xAE. While not required, you can use\
+        \ a MITRE ATT&CK\xAE software platforms.\nRecommended Values:\n  * AWS\n \
+        \ * Azure\n  * Azure AD\n  * GCP\n  * Linux\n  * macOS\n  * Network\n  * Office\
+        \ 365\n  * SaaS\n  * Windows"
+      example: '[ "Windows" ]'
+      default_field: false
+    - name: software.reference
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: "The reference URL of the software used by this threat to conduct\
+        \ behavior commonly modeled using MITRE ATT&CK\xAE. While not required, you\
+        \ can use a MITRE ATT&CK\xAE software reference URL."
+      example: https://attack.mitre.org/software/S0552/
+      default_field: false
+    - name: software.type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: "The type of software used by this threat to conduct behavior commonly\
+        \ modeled using MITRE ATT&CK\xAE. While not required, you can use a MITRE\
+        \ ATT&CK\xAE software type.\nRecommended values\n  * Malware\n  * Tool"
+      example: Tool
+      default_field: false
     - name: tactic.id
       level: extended
       type: keyword

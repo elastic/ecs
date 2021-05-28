@@ -425,7 +425,7 @@ class TestSchemaCleaner(unittest.TestCase):
             self.fail("cleaner.single_line_short_override_description() raised Exception unexpectedly.")
 
     def test_clean(self):
-        '''A high level sanity test'''
+        """A high level sanity test"""
         fields = self.schema_process()
         cleaner.clean(fields)
         # schemas are processed

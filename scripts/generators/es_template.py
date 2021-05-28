@@ -6,10 +6,16 @@ from os.path import join
 
 from generators import ecs_helpers
 from schema.cleaner import field_or_multi_field_datatype_defaults
-from schema.oss import TYPE_FALLBACKS
 
+
+TYPE_FALLBACKS = {
+    'constant_keyword': 'keyword',
+    'wildcard': 'keyword',
+    'version': 'keyword'
+}
 
 # Composable Template
+
 
 def generate(ecs_nested, ecs_version, out_dir, mapping_settings_file):
     """This generates all artifacts for the composable template approach"""
@@ -263,13 +269,13 @@ def default_mapping_settings():
 
 
 def es6_type_fallback(mappings):
-    '''
+    """
     Visits each leaf in mappings object and fallback to an
     Elasticsearch 6.x supported type.
 
     Since a field like `wildcard` won't have the same defaults as
     a `keyword` field, we must add any missing defaults.
-    '''
+    """
 
     for (name, details) in mappings.items():
         if 'type' in details:
