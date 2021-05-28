@@ -91,7 +91,7 @@ While there are two primary uses for these fields, this RFC deals primarily with
 
 **Storing threat intelligence as an event document in threat index(s).**
 
-    Threat intelligence data will be collected from multiple sources stored in threat indices. The ECS fields proposed here will be used to structure the documents collected from various sources.
+Threat intelligence data will be collected from multiple sources stored in threat indices. The ECS fields proposed here will be used to structure the documents collected from various sources.
 
 **Examples**
 
