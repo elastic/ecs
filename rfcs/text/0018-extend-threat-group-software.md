@@ -1,8 +1,8 @@
 # 0018: Extend Threat Fieldset
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
-- Stage: **2 (candidate)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
-- Date: **2021-00-00** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
+- Stage: **3 (candidate)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
+- Date: **2021-05-26** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 <!--
 As you work on your RFC, use the "Stage N" comments to guide you in what you should focus on, for the stage you're targeting.
@@ -49,9 +49,9 @@ These fields can be used to associate fields that already exist in the `threat.*
 
 Currently, tactic, technique, and sub-techniques are also included in rules for the Detection Engine, adding software and groups would make for more contextually relevant alerts that could aid in analysis and response operations.
 
-```yml
+**Existing threat fields**
+```json
 {
-// Existing threat fields
     "threat.framework": "ATT&CK",
     "threat.tactic.id": "TA0007",
     "threat.tactic.name": "Discovery",
@@ -61,20 +61,26 @@ Currently, tactic, technique, and sub-techniques are also included in rules for 
     "threat.technique.reference": "https://attack.mitre.org/techniques/T1087/",
     "threat.technique.subtechnique.id": "T1087.002",
     "threat.technique.subtechnique.name": "Domain Account",
-    "threat.technique.subtechnique.reference": "https://attack.mitre.org/techniques/T1087/002/",
-
-// New Software fields
+    "threat.technique.subtechnique.reference": "https://attack.mitre.org/techniques/T1087/002/"
+}
+```
+**New Software fields**
+```json
     "threat.software.id": "S0552",
     "threat.software.name": "AdFind",
     "threat.software": {
       "platforms": [
-        "Windows"
+        "Windows",
+        "Linux",
+        "macOS"
       ]
     },
     "threat.software.reference": "https://attack.mitre.org/software/S0552/",
-    "threat.software.type": "Tool",
-
-// New Group fields
+    "threat.software.type": "Tool"
+}
+```
+**New Group fields**
+```json
     "threat.group": {
       "alias": [
         "FIN6",
@@ -102,8 +108,8 @@ Stage 2: Included a real world example source document. Ideally this example com
 -->
 Examples are from MITRE's [enterprise matrix](https://github.com/mitre/cti/blob/master/enterprise-attack/enterprise-attack.json).
 
-```yml
-// Software Source Data
+**Software Source Data**
+```json
 {
     "external_references": [
         {
@@ -118,8 +124,38 @@ Examples are from MITRE's [enterprise matrix](https://github.com/mitre/cti/blob/
     ]
 }
 ```
-```yml
-// Group Source Data
+```json
+{
+    "external_references": [
+        {
+            "external_id": "S0369",
+            "url": "https://attack.mitre.org/software/S0369"
+        }
+    ],
+    "name": "CoinTicker",
+    "type": "malware",
+    "x_mitre_platforms": [
+        "macOS"
+    ]
+}
+```
+```json
+{
+    "external_references": [
+        {
+            "external_id": "S0023",
+            "url": "https://attack.mitre.org/software/S0023"
+        }
+    ],
+    "name": "CHOPSTICK",
+    "type": "malware",
+    "x_mitre_platforms": [
+        "Linux"
+    ]
+}
+```
+**Group Source Data**
+```json
 {
     "name": "FIN6",
     "external_references": [
@@ -133,6 +169,35 @@ Examples are from MITRE's [enterprise matrix](https://github.com/mitre/cti/blob/
         "Magecart Group 6",
         "SKELETON SPIDER",
         "ITG08"
+    ],
+}
+```
+```json
+{
+    "name": "Putter Panda",
+    "external_references": [
+        {
+            "url": "https://attack.mitre.org/groups/G0024",
+            "external_id": "G0024"
+        }
+    ],
+    "aliases": [
+        "APT2",
+        "MSUpdater"
+    ],
+}
+```
+```json
+{
+    "name": "Darkhotel",
+    "external_references": [
+        {
+            "url": "https://attack.mitre.org/groups/G0012",
+            "external_id": "G0012"
+        }
+    ],
+    "aliases": [
+        "DUBNIUM"
     ],
 }
 ```
@@ -194,7 +259,11 @@ e.g.:
 <!-- Insert any links appropriate to this RFC in this section. -->
 
 - [AdFind Software](https://attack.mitre.org/software/S0552/)
+- [CoinTicker](https://attack.mitre.org/software/S0369)
+- [CHOPSTICK](https://attack.mitre.org/software/S0023)
 - [FIN6 Group](https://attack.mitre.org/groups/G0037/)
+- [Putter Panda](https://attack.mitre.org/groups/G0024)
+- [DarkHotel](https://attack.mitre.org/groups/G0012)
 - [Discovery Tactic](https://attack.mitre.org/tactics/TA0007/)
 - [Account Discovery Technique](https://attack.mitre.org/techniques/T1087/)
 - [Account Discovery: Domain Account Sub Technique](https://attack.mitre.org/techniques/T1087/002/)
