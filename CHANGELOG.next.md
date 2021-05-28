@@ -12,6 +12,7 @@ Thanks, you're awesome :-) -->
 
 * Removing deprecated --oss from generator #1404
 * Removing use-cases directory #1405
+* Remove `host.user.*` field reuse. #1439
 
 ### Schema Changes
 
@@ -21,11 +22,13 @@ Thanks, you're awesome :-) -->
 
 * `elf.*` field set added as beta. #1410
 * Remove `beta` from `orchestrator` field set. #1417
+* Extend `threat.*` field set beta. #1438
 
 #### Improvements
 
 * Fix ecs GitHub repo link source branch #1393
 * Add --exclude flag to Generator to support field removal testing #1411
+* Explicitly include user identifiers in `relater.user` description. #1420
 
 #### Deprecated
 
