@@ -1,7 +1,7 @@
 # 0017: Remove log.original
 
 - Stage: **2 (candidate)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
-- Date: **2021-04-07** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
+- Date: **2021-04-28** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 This RFC supersedes issue [#841](https://github.com/elastic/ecs/issues/841) which implies breaking changes therefore the RFC Process is indicated.
 
@@ -18,12 +18,11 @@ The request is to consolidate `log.original` and `event.original` by removing `l
 
 - The internal description of the field `event.original` in [`event`](0017/event.yml) should be updated to reflect the revised scope 
 
-- The [`Beats default fields inclusion list`](../../scripts/generators/beats_default_fields_allowlist.yml) list should be updated by removing `log.original` if/when Deprecation progresses to Removal
-
 - The extended description of `log.original` in the [`Log Fields documentation`](../../docs/field-details.asciidoc#field-log-original) should be amended by addition of a notice of deprecation and subsequently removal if/when Deprecation progresses to Removal
 
 - The extended description of `event.original` in the [`Event Fields documentation`](../../docs/field-details.asciidoc#field-event-original) should be amended to clarify the absorption of `log.original`
 
+ 
 ## Usage
 
 The following examples are taken verbatim from the existing field definitions 
@@ -53,11 +52,20 @@ Stage 3: Add more real world example source documents so we have at least 2 tota
 
 ## Scope of impact
 
-Beats modules and Agent integration packages would be required to migrate if this change is adopted as proposed.
+Beats modules, Agent integration packages and the Logging UI would be required to migrate if this change is adopted as proposed.
 
 The removal of `log.original` will be considered a breaking change since the field is being removed from the schema. Possible migration/mitigations for users impacted may include:
 
-- requirement to alias `log.original` for current users of this field
+- The [`Beats default fields inclusion list`](../../scripts/generators/beats_default_fields_allowlist.yml) list should be updated by removing `log.original` if/when Deprecation progresses to Removal
+
+- The logs UI `message` column currently displays `log.original` in the absence of a `message` field. This should be updated to use `event.original` as the substitute field. See [builtin_rules](https://github.com/elastic/kibana/blob/master/x-pack/plugins/infra/server/services/log_entries/message/builtin_rules/generic.ts) and [associated test](https://github.com/elastic/kibana/blob/master/x-pack/plugins/infra/server/services/log_entries/message/builtin_rules/generic.test.ts).
+
+- References in the [RAC Rule Registry](https://github.com/elastic/kibana/blob/master/x-pack/plugins/rule_registry/common/assets/field_maps/ecs_field_map.ts) will need to be removed - these have `required: false` so hopefully non-breaking change.
+
+- Multiple tests in Kibana will need to be updated see e.g. [Function Test APM Mapping](https://github.com/elastic/kibana/blob/master/x-pack/test/functional/es_archives/monitoring/setup/collection/detect_apm/mappings.json)
+
+- TBD would it be beneficial to alias `log.original` for current users of this field
+
 - TBD if there exist current users of fields with distinct content/meaning in a common index mapping
 
 ## Concerns
@@ -74,18 +82,9 @@ The following are the people that consulted on the contents of this RFC.
 
 * @djptek | author
 * @ebeahan | sponsor
-
-<!--
-Who will be or has been consulted on the contents of this RFC? Identify authorship and sponsorship, and optionally identify the nature of involvement of others. Link to GitHub aliases where possible. This list will likely change or grow stage after stage.
-
-e.g.:
-
-* @Yasmina | author
-* @Monique | sponsor
-* @EunJung | subject matter expert
-* @JaneDoe | grammar, spelling, prose
-* @Mariana
--->
+* @andrewkroh | Beats & Logging UI
+* @jasonrhodes | Logging UI & RAC
+* @MikePaquette  | RAC
 
 
 ## References
