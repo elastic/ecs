@@ -135,6 +135,104 @@ class TestGeneratorsEsTemplate(unittest.TestCase):
         }
         self.assertEqual(es_template.entry_for(test_map), exp)
 
+    def test_constant_keyword_with_value(self):
+        test_map = {
+            'name': 'field_with_value',
+            'type': 'constant_keyword',
+            'value': 'foo'
+        }
+
+        exp = {
+            'type': 'constant_keyword',
+            'value': 'foo'
+        }
+        self.assertEqual(es_template.entry_for(test_map), exp)
+
+    def test_constant_keyword_no_value(self):
+        test_map = {
+            'name': 'field_without_value',
+            'type': 'constant_keyword'
+        }
+
+        exp = {'type': 'constant_keyword'}
+        self.assertEqual(es_template.entry_for(test_map), exp)
+
+    def test_es6_fallback_base_case_wildcard(self):
+        test_map = {
+            "field": {
+                "name": "field",
+                "type": "wildcard"
+            }
+        }
+
+        exp = {
+            "field": {
+                "name": "field",
+                "type": "keyword",
+                "ignore_above": 1024
+            }
+        }
+
+        es_template.es6_type_fallback(test_map)
+        self.assertEqual(test_map, exp)
+
+    def test_es6_fallback_recursive_case_wildcard(self):
+        test_map = {
+            "top_field": {
+                "properties": {
+                    "field": {
+                        "name": "field",
+                        "type": "wildcard"
+                    }
+                }
+            }
+        }
+
+        exp = {
+            "top_field": {
+                "properties": {
+                    "field": {
+                        "name": "field",
+                        "type": "keyword",
+                        "ignore_above": 1024
+                    }
+                }
+            }
+        }
+
+        es_template.es6_type_fallback(test_map)
+        self.assertEqual(test_map, exp)
+
+    def test_es6_fallback_base_case_constant_keyword(self):
+        test_map = {
+            "field": {
+                "name": "field",
+                "type": "constant_keyword"
+            }
+        }
+
+        exp = {
+            "field": {
+                "name": "field",
+                "type": "keyword",
+                "ignore_above": 1024
+            }
+        }
+
+        es_template.es6_type_fallback(test_map)
+        self.assertEqual(test_map, exp)
+
+    def test_component_composable_template_name(self):
+        version = "1.8"
+        test_map = {
+            "Acme": {
+                "name": "Acme",
+            }
+        }
+
+        exp = ["ecs_{}_acme".format(version)]
+        self.assertEqual(es_template.component_name_convention(version, test_map), exp)
+
 
 if __name__ == '__main__':
     unittest.main()

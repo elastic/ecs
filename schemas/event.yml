@@ -103,7 +103,7 @@
             `event.kind:pipeline_error` is often associated with parsing errors.
         - name: signal
           description: >
-            This value is used by the Elastic SIEM app to denote an Elasticsearch
+            This value is used by the Elastic Security app to denote an Elasticsearch
             document that was created by a SIEM detection engine rule.
 
             A signal will typically trigger a notification that something
@@ -590,7 +590,9 @@
           Raw text message of entire event. Used to demonstrate log integrity.
 
           This field is not indexed and doc_values are disabled. It cannot be
-          searched, but it can be retrieved from `_source`.
+          searched, but it can be retrieved from `_source`. If users wish to
+          override this and index this field, consider using the wildcard
+          data type.
       index: false
       doc_values: false
 
@@ -712,7 +714,7 @@
       description: >
         Reference URL linking to additional information about this event.
 
-        This URL links to a static definition of the this event.
+        This URL links to a static definition of this event.
         Alert events, indicated by `event.kind:alert`, are a common use case for this field.
 
       example: "https://system.example.com/event/#0001234"

@@ -14,6 +14,14 @@ class TestSchemaLoader(unittest.TestCase):
     def setUp(self):
         self.maxDiff = None
 
+    @mock.patch('schema.loader.warn')
+    def test_eval_globs(self, mock_warn):
+        files = loader.eval_globs(['schemas/*.yml', 'missing*'])
+        self.assertTrue(mock_warn.called, "a warning should have been printed for missing*")
+        self.assertIn('schemas/base.yml', files)
+        self.assertEqual(list(filter(lambda f: f.startswith('missing'), files)), [],
+                         "The 'missing*' pattern should not show up in the resulting files")
+
     # Pseudo-fixtures
 
     def schema_base(self):
@@ -79,6 +87,21 @@ class TestSchemaLoader(unittest.TestCase):
             fields['process']['fields']['thread'].keys(),
             "Fields containing nested fields should at least have the 'fields' subkey")
 
+    def test_load_schemas_git_ref(self):
+        fields = loader.load_schemas(ref='v1.6.0')
+        self.assertEqual(
+            ['field_details', 'fields', 'schema_details'],
+            sorted(fields['process'].keys()),
+            "Schemas should have 'field_details', 'fields' and 'schema_details' subkeys")
+        self.assertEqual(
+            ['field_details'],
+            list(fields['process']['fields']['pid'].keys()),
+            "Leaf fields should have only the 'field_details' subkey")
+        self.assertIn(
+            'fields',
+            fields['process']['fields']['thread'].keys(),
+            "Fields containing nested fields should at least have the 'fields' subkey")
+
     @mock.patch('schema.loader.read_schema_file')
     def test_load_schemas_fail_on_accidental_fieldset_redefinition(self, mock_read_schema):
         mock_read_schema.side_effect = [
@@ -123,6 +146,43 @@ class TestSchemaLoader(unittest.TestCase):
     def test_nest_schema_raises_on_missing_schema_name(self):
         with self.assertRaisesRegex(ValueError, 'incomplete.yml'):
             loader.nest_schema([{'description': 'just a description'}], 'incomplete.yml')
+
+    def test_load_schemas_from_git(self):
+        fields = loader.load_schemas_from_git('v1.0.0', target_dir='schemas')
+        self.assertEqual(
+            ['agent',
+             'base',
+             'client',
+             'cloud',
+             'container',
+             'destination',
+             'ecs',
+             'error',
+             'event',
+             'file',
+             'geo',
+             'group',
+             'host',
+             'http',
+             'log',
+             'network',
+             'observer',
+             'organization',
+             'os',
+             'process',
+             'related',
+             'server',
+             'service',
+             'source',
+             'url',
+             'user',
+             'user_agent'],
+            sorted(fields.keys()),
+            "Raw schema fields should have expected fieldsets for v1.0.0")
+
+    def test_load_schemas_from_git_missing_target_directory(self):
+        with self.assertRaisesRegex(KeyError, "not present in git ref 'v1.5.0'"):
+            loader.load_schemas_from_git('v1.5.0', target_dir='experimental')
 
     # nesting stuff
 
@@ -593,6 +653,81 @@ class TestSchemaLoader(unittest.TestCase):
             }
         }
         self.assertEqual(merged_fields, expected_fields)
+
+    def test_merge_and_overwrite_multi_fields(self):
+        originalSchema = {
+            'overwrite_field': {
+                'field_details': {
+                    'multi_fields': [
+                        {
+                            'type': 'text',
+                            'name': 'text',
+                            'norms': True
+                        }
+                    ]
+                },
+                'fields': {
+                    'message': {
+                        'field_details': {
+                            'multi_fields': [
+                                {
+                                    'type': 'text',
+                                    'name': 'text'
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        }
+
+        customSchema = {
+            'overwrite_field': {
+                'field_details': {
+                    'multi_fields': [
+                        # this entry will completely overwrite the originalSchema's name text entry
+                        {
+                            'type': 'text',
+                            'name': 'text'
+                        }
+                    ]
+                },
+                'fields': {
+                    'message': {
+                        'field_details': {
+                            'multi_fields': [
+                                # this entry will be merged with the originalSchema's multi_fields entries
+                                {
+                                    'type': 'keyword',
+                                    'name': 'a_field'
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        }
+        merged_fields = loader.merge_fields(originalSchema, customSchema)
+        expected_overwrite_field_mf = [
+            {
+                'type': 'text',
+                'name': 'text'
+            }
+        ]
+
+        expected_message_mf = [
+            {
+                'type': 'keyword',
+                'name': 'a_field'
+            },
+            {
+                'type': 'text',
+                'name': 'text'
+            }
+        ]
+        self.assertEqual(merged_fields['overwrite_field']['field_details']['multi_fields'], expected_overwrite_field_mf)
+        self.assertEqual(merged_fields['overwrite_field']['fields']['message']['field_details']
+                         ['multi_fields'], expected_message_mf)
 
 
 if __name__ == '__main__':

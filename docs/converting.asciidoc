@@ -35,8 +35,10 @@ Here's the recommended approach for converting an existing implementation to {ec
 
   - Review your original event data again
   - Consider populating the field based on additional meta-data such as static
-    information (e.g. add `event.type:syslog` even if syslog events don't mention this fact),
-    or information gathered from the environment (e.g. host information).
+    information (e.g. add `event.category:authentication` even if your auth events
+    don't mention the word "authentication")
+  - Consider capturing additional environment meta-data, such as information about the
+    host, container or cloud instance.
 
 . Review other extended fields from any field set you are already using, and
   attempt to populate it as well.

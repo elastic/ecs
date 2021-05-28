@@ -2,13 +2,6 @@
 [[ecs-category-field-values-reference]]
 == {ecs} Categorization Fields
 
-WARNING: This section of ECS is in beta and is subject to change. These allowed values
-are still under active development. Additional values will be published gradually,
-and some of the values or relationships described here may change.
-Users who want to provide feedback, or who want to have a look at
-upcoming allowed values can visit this public feedback document
-https://ela.st/ecs-categories-draft.
-
 At a high level, ECS provides fields to classify events in two different ways:
 "Where it's from" (e.g., `event.module`, `event.dataset`, `agent.type`, `observer.type`, etc.),
 and "What it is." The categorization fields hold the "What it is" information,
@@ -29,6 +22,13 @@ NOTE: If your events don't match any of these categorization values, you should
 leave the fields empty. This will ensure you can start populating the fields
 once the appropriate categorization values are published, in a later release.
 
+[float]
+[[ecs-category-usage]]
+=== Categorization Usage
+
+<<ecs-using-the-categorization-fields,Using the categorization fields>> contains examples combining the categorization fields to classify different types of events.
+
+
 [[ecs-allowed-values-event-kind]]
 === ECS Categorization Field: event.kind
 
@@ -37,11 +37,6 @@ This is one of four ECS Categorization Fields, and indicates the highest level i
 `event.kind` gives high-level information about what type of information the event contains, without being specific to the contents of the event. For example, values of this field distinguish alert events from metric events.
 
 The value of this field can be used to inform how these kinds of events should be handled. They may warrant different retention, different access control, it may also help understand whether the data coming in at a regular interval or not.
-
-WARNING: After the beta period for categorization, only the allowed categorization
-values listed in the ECS repository and official ECS documentation should be considered
-official. Use of any other values may result in incompatible implementations
-that will require subsequent breaking changes.
 
 *Allowed Values*
 
@@ -108,7 +103,7 @@ This value indicates that an error occurred during the ingestion of this event, 
 [[ecs-event-kind-signal]]
 ==== signal
 
-This value is used by the Elastic SIEM app to denote an Elasticsearch document that was created by a SIEM detection engine rule.
+This value is used by the Elastic Security app to denote an Elasticsearch document that was created by a SIEM detection engine rule.
 
 A signal will typically trigger a notification that something meaningful happened and should be investigated.
 
@@ -124,11 +119,6 @@ This is one of four ECS Categorization Fields, and indicates the second level in
 `event.category` represents the "big buckets" of ECS categories. For example, filtering on `event.category:process` yields all events relating to process activity. This field is closely related to `event.type`, which is used as a subcategory.
 
 This field is an array. This will allow proper categorization of some events that fall in multiple categories.
-
-WARNING: After the beta period for categorization, only the allowed categorization
-values listed in the ECS repository and official ECS documentation should be considered
-official. Use of any other values may result in incompatible implementations
-that will require subsequent breaking changes.
 
 *Allowed Values*
 
@@ -345,11 +335,6 @@ This is one of four ECS Categorization Fields, and indicates the third level in 
 
 This field is an array. This will allow proper categorization of some events that fall in multiple event types.
 
-WARNING: After the beta period for categorization, only the allowed categorization
-values listed in the ECS repository and official ECS documentation should be considered
-official. Use of any other values may result in incompatible implementations
-that will require subsequent breaking changes.
-
 *Allowed Values*
 
 * <<ecs-event-type-access,access>>
@@ -510,11 +495,6 @@ Also note that in the case of a compound event (a single event that contains mul
 
 Further note that not all events will have an associated outcome. For example, this field is generally not populated for metric events, events with `event.type:info`, or any events for which an outcome does not make logical sense.
 
-WARNING: After the beta period for categorization, only the allowed categorization
-values listed in the ECS repository and official ECS documentation should be considered
-official. Use of any other values may result in incompatible implementations
-that will require subsequent breaking changes.
-
 *Allowed Values*
 
 * <<ecs-event-outcome-failure,failure>>
@@ -544,3 +524,6 @@ Indicates that this event describes a successful result. A common example is `ev
 Indicates that this event describes only an attempt for which the result is unknown from the perspective of the event producer. For example, if the event contains information only about the request side of a transaction that results in a response, populating `event.outcome:unknown` in the request event is appropriate. The unknown value should not be used when an outcome doesn't make logical sense for the event. In such cases `event.outcome` should not be populated.
 
 
+
+
+include::field-values-usage.asciidoc[]

@@ -6,8 +6,9 @@ import jinja2
 from generators import ecs_helpers
 
 
-def generate(nested, ecs_version, out_dir):
-    save_asciidoc(path.join(out_dir, 'fields.asciidoc'), page_field_index(nested, ecs_version))
+def generate(nested, ecs_generated_version, out_dir):
+    save_asciidoc(path.join(out_dir, 'index.asciidoc'), page_index(ecs_generated_version))
+    save_asciidoc(path.join(out_dir, 'fields.asciidoc'), page_field_index(nested, ecs_generated_version))
     save_asciidoc(path.join(out_dir, 'field-details.asciidoc'), page_field_details(nested))
     save_asciidoc(path.join(out_dir, 'field-values.asciidoc'), page_field_values(nested))
 
@@ -39,7 +40,8 @@ def render_nestings_reuse_section(fieldset):
         rows.append({
             'flat_nesting': "{}.*".format(reused_here_entry['full']),
             'name': reused_here_entry['schema_name'],
-            'short': reused_here_entry['short']
+            'short': reused_here_entry['short'],
+            'beta': reused_here_entry.get('beta', '')
         })
 
     return sorted(rows, key=lambda x: x['flat_nesting'])
@@ -124,13 +126,21 @@ template_env = jinja2.Environment(loader=template_loader)
 
 # Rendering schemas
 
+# Index
+
+
+@templated('index.j2')
+def page_index(ecs_generated_version):
+    return dict(ecs_generated_version=ecs_generated_version)
+
+
 # Field Index
 
 
 @templated('fields.j2')
-def page_field_index(nested, ecs_version):
+def page_field_index(nested, ecs_generated_version):
     fieldsets = ecs_helpers.dict_sorted_by_keys(nested, ['group', 'name'])
-    return dict(ecs_version=ecs_version, fieldsets=fieldsets)
+    return dict(ecs_generated_version=ecs_generated_version, fieldsets=fieldsets)
 
 
 # Field Details Page

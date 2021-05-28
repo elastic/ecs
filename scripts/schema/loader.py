@@ -1,6 +1,5 @@
 import copy
 import glob
-import os
 import yaml
 
 from generators import ecs_helpers
@@ -42,6 +41,9 @@ from generators import ecs_helpers
 #   Examples of this are 'dns.answers', 'observer.egress'.
 
 
+EXPERIMENTAL_SCHEMA_DIR = 'experimental/schemas'
+
+
 def load_schemas(ref=None, included_files=[]):
     """Loads ECS and custom schemas. They are returned deeply nested and merged."""
     # ECS fields (from git ref or not)
@@ -51,9 +53,16 @@ def load_schemas(ref=None, included_files=[]):
         schema_files_raw = load_schema_files(ecs_helpers.ecs_files())
     fields = deep_nesting_representation(schema_files_raw)
 
-    # Custom additional files (never from git ref)
+    # Custom additional files
     if included_files and len(included_files) > 0:
         print('Loading user defined schemas: {0}'.format(included_files))
+        # If --ref provided and --include loading experimental schemas
+        if ref and EXPERIMENTAL_SCHEMA_DIR in included_files:
+            exp_schema_files_raw = load_schemas_from_git(ref, target_dir=EXPERIMENTAL_SCHEMA_DIR)
+            exp_fields = deep_nesting_representation(exp_schema_files_raw)
+            fields = merge_fields(fields, exp_fields)
+            included_files.remove(EXPERIMENTAL_SCHEMA_DIR)
+        # Remaining additional custom files (never from git ref)
         custom_files = ecs_helpers.get_glob_files(included_files, ecs_helpers.YAML_EXT)
         custom_fields = deep_nesting_representation(load_schema_files(custom_files))
         fields = merge_fields(fields, custom_fields)
@@ -68,13 +77,18 @@ def load_schema_files(files):
     return fields_nested
 
 
-def load_schemas_from_git(ref):
+def load_schemas_from_git(ref, target_dir='schemas'):
     tree = ecs_helpers.get_tree_by_ref(ref)
     fields_nested = {}
-    for blob in tree['schemas'].blobs:
-        if blob.name.endswith('.yml'):
-            new_fields = read_schema_blob(blob, ref)
-            fields_nested = ecs_helpers.safe_merge_dicts(fields_nested, new_fields)
+
+    # Handles case if target dir doesn't exists in git ref
+    if ecs_helpers.path_exists_in_git_tree(tree, target_dir):
+        for blob in tree[target_dir].blobs:
+            if blob.name.endswith('.yml'):
+                new_fields = read_schema_blob(blob, ref)
+                fields_nested = ecs_helpers.safe_merge_dicts(fields_nested, new_fields)
+    else:
+        raise KeyError(f"Target directory './{target_dir}' not present in git ref '{ref}'!")
     return fields_nested
 
 
@@ -94,12 +108,12 @@ def read_schema_blob(blob, ref):
 
 
 def nest_schema(raw, file_name):
-    '''
+    """
     Raw schema files are an array of schema details: [{'name': 'base', ...}]
 
     This function loops over the array (usually 1 schema per file) and turns it into
     a dict with the schema name as the key: { 'base': { 'name': 'base', ...}}
-    '''
+    """
     fields = {}
     for schema in raw:
         if 'name' not in schema:
@@ -171,6 +185,28 @@ def nest_fields(field_array):
     return schema_root
 
 
+def array_of_maps_to_map(array_vals):
+    ret_map = {}
+    for map_val in array_vals:
+        name = map_val['name']
+        # if multiple name fields exist in the same custom definition this will take the last one
+        ret_map[name] = map_val
+    return ret_map
+
+
+def map_of_maps_to_array(map_vals):
+    ret_list = []
+    for key in map_vals:
+        ret_list.append(map_vals[key])
+    return sorted(ret_list, key=lambda k: k['name'])
+
+
+def dedup_and_merge_lists(list_a, list_b):
+    list_a_map = array_of_maps_to_map(list_a)
+    list_a_map.update(array_of_maps_to_map(list_b))
+    return map_of_maps_to_array(list_a_map)
+
+
 def merge_fields(a, b):
     """Merge ECS field sets with custom field sets."""
     a = copy.deepcopy(a)
@@ -184,6 +220,14 @@ def merge_fields(a, b):
             a[key].setdefault('field_details', {})
             a[key]['field_details'].setdefault('normalize', [])
             a[key]['field_details']['normalize'].extend(b[key]['field_details'].pop('normalize'))
+        if 'multi_fields' in b[key]['field_details']:
+            a[key].setdefault('field_details', {})
+            a[key]['field_details'].setdefault('multi_fields', [])
+            a[key]['field_details']['multi_fields'] = dedup_and_merge_lists(
+                a[key]['field_details']['multi_fields'], b[key]['field_details']['multi_fields'])
+            # if we don't do this then the update call below will overwrite a's field_details, with the original
+            # contents of b, which undoes our merging the multi_fields
+            del b[key]['field_details']['multi_fields']
         a[key]['field_details'].update(b[key]['field_details'])
         # merge schema details
         if 'schema_details' in b[key]:
@@ -206,3 +250,33 @@ def merge_fields(a, b):
             a[key].setdefault('fields', {})
             a[key]['fields'] = merge_fields(a[key]['fields'], b[key]['fields'])
     return a
+
+
+def load_yaml_file(file_name):
+    with open(file_name) as f:
+        return yaml.safe_load(f.read())
+
+
+# You know, for silent tests
+def warn(message):
+    print(message)
+
+
+def eval_globs(globs):
+    """Accepts an array of glob patterns or file names, returns the array of actual files"""
+    all_files = []
+    for g in globs:
+        new_files = glob.glob(g)
+        if len(new_files) == 0:
+            warn("{} did not match any files".format(g))
+        else:
+            all_files.extend(new_files)
+    return all_files
+
+
+def load_definitions(file_globs):
+    sets = []
+    for f in eval_globs(file_globs):
+        raw = load_yaml_file(f)
+        sets.append(raw)
+    return sets

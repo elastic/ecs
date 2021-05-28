@@ -27,10 +27,10 @@ relevant artifacts for their unique set of data sources.
   * [Generator Options](#generator-options)
     + [Out](#out)
     + [Include](#include)
+    + [Exclude](#exclude)
     + [Subset](#subset)
     + [Ref](#ref)
     + [Mapping & Template Settings](#mapping--template-settings)
-    + [OSS](#oss)
     + [Strict Mode](#strict-mode)
     + [Intermediate-Only](#intermediate-only)
 
@@ -228,7 +228,44 @@ And looking at a specific artifact, `../myprojects/out/generated/elasticsearch/7
 ...
 ```
 
+Include can be used together with the `--ref` flag to merge custom fields into a targeted ECS version. See [`Ref`](#ref).
+
 > NOTE: The `--include` mechanism will not validate custom YAML files prior to merging. This allows for modifying existing ECS fields in a custom schema without having to redefine all the mandatory field attributes.
+
+#### Exclude
+
+Use the `--exclude` flag to generate ephemeral ECS artifacts based on the current ECS schema field definitions minus fields considered for removal, e.g. to assess impact of removing these. Warning! This is not the recommended route to remove a field permanently as it is not intentended to be invoked during the build process. Definitive field removal should be implemented using a custom [Subset](#subset) or via the [RFC process](https://github.com/elastic/ecs/tree/master/rfcs/README.md). Example:
+
+```
+$ python scripts/generator.py --exclude=../my-project/my-exclude-file.yml
+$ python scripts/generator.py --exclude="../my-project/schemas/a*.yml"
+```
+
+The `--exclude` flag expects a path to one or more YAML files using the same [file format](https://github.com/elastic/ecs/tree/master/schemas#fields-supported-in-schemasyml) as the ECS schema files. You can also use a subset, provided that relevant `name` and `fields` fields are preserved.
+
+```
+---
+- name: log
+  fields:
+    - name: original
+```
+
+The root Field Set `name` must always be present and specified with no dots `.`. Subfields may be specified using dot notation, for example:
+
+```
+---
+- name: log
+  fields:
+    - name: syslog.severity.name
+```
+
+Generate artifacts using `--exclude` to load our custom definitions in addition to `--out` to place them in the desired output directory:
+
+```
+$ python scripts/generator.py --exclude ../myproject/exclude-set.yml/ --out ../myproject/out/
+Loading schemas from local files
+Running generator. ECS version 1.11.0
+```
 
 #### Subset
 
@@ -275,11 +312,25 @@ It's also possible to combine `--include` and `--subset` together! Do note that 
 
 #### Ref
 
-The `--ref` argument allows for passing a specific `git` tag (e.g. `v.1.5.0`) or commit hash (`1454f8b`) that will be used to build ECS artifacts.
+The `--ref` argument allows for passing a specific `git` tag (e.g. `v1.5.0`) or commit hash (`1454f8b`) that will be used to build ECS artifacts.
 
 ```
 $ python scripts/generator.py --ref v1.5.0
 ```
+
+The `--ref` argument loads field definitions from the specified git reference (branch, tag, etc.) from directories [`./schemas`](./schemas) and [`./experimental/schemas`](./experimental/schemas) (when specified via `--include`).
+
+Here's another example loading both ECS fields and [experimental](experimental/README.md) changes *from branch "1.7"*, then adds custom fields on top.
+
+```
+$ python scripts/generator.py --ref 1.7 --include experimental/schemas ../myproject/fields/custom --out ../myproject/out
+```
+
+The command above will produce artifacts based on:
+
+* main ECS field definitions as of branch 1.7
+* experimental ECS changes as of branch 1.7
+* custom fields in `../myproject/fields/custom` as they are on the filesystem
 
 > Note: `--ref` does have a dependency on `git` being installed and all expected commits/tags fetched from the ECS upstream repo. This will unlikely be an issue unless you downloaded the ECS as a zip archive from GitHub vs. cloning it.
 
@@ -335,31 +386,6 @@ The `--template-settings` argument defines [index level settings](https://www.el
 ```
 
 For `template.json`, the `mappings` object is left empty: `{}`. Likewise the `properties` object remains empty in the `mapping.json` example. This will be filled in automatically by the script.
-
-#### OSS
-
-**IMPORTANT**: This feature is unnecessary for most users. Our default free distribution
-comes with the Elastic Basic license, and supports all data types used by ECS.
-Learn more about our licenses [here](https://www.elastic.co/subscriptions).
-
-Users that want to use the open source version of Elasticsearch do not have access to the basic data types.
-However some of these types have an OSS replacement that can be used instead, without too much loss of functionality.
-
-This flag performs a best effort fallback, replacing basic data types with their OSS replacement.
-
-Indices using purely OSS types will benefit from the normalization of ECS, but may be missing on some of the added functionality of these basic types.
-
-Current fallbacks applied by this flag are:
-
-- `constant_keyword` => `keyword`
-- `wildcard` => `keyword`
-- `version` => `keyword`
-
-Usage:
-
-```
-$ python scripts/generator.py --oss
-```
 
 #### Strict Mode
 

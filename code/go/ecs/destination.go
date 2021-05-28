@@ -43,6 +43,10 @@ type Destination struct {
 	Port int64 `ecs:"port"`
 
 	// MAC address of the destination.
+	// The notation format from RFC 7042 is suggested: Each octet (that is,
+	// 8-bit byte) is represented by two [uppercase] hexadecimal digits giving
+	// the value of the octet as an unsigned integer. Successive octets are
+	// separated by a hyphen.
 	MAC string `ecs:"mac"`
 
 	// Destination domain.

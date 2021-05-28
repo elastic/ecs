@@ -3,6 +3,89 @@
 # CHANGELOG
 All notable changes to this project will be documented in this file based on the [Keep a Changelog](http://keepachangelog.com/) Standard. This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.9.0](https://github.com/elastic/ecs/compare/v1.8.0...v1.9.0)
+
+### Schema Changes
+
+#### Added
+
+* Added `hash.ssdeep`. #1169
+* Added `cloud.service.name`. #1204
+* Added `http.request.id`. #1208
+* `data_stream.*` fieldset introduced in experimental schema and artifacts. #1215
+* Added `geo.timezone`, `geo.postal_code`, and `geo.continent_code`. #1229
+* Added `beta` host metrics fields. #1248
+* Added `code_signature.team_id`, `code_signature.signing_id`. #1249
+* Extended `pe` fields added to experimental schema. #1256
+* Add `elf` fieldset to experimental schema. #1261
+* Add `threat.indicator` fields to experimental schema. #1268
+
+#### Improvements
+
+* Include formatting guidance and examples for MAC address fields. #456
+* New section in ECS detailing event categorization fields usage. #1242
+* `user.changes.*`, `user.effective.*`, and `user.target.*` field reuses are GA. #1271
+
+### Tooling and Artifact Changes
+
+#### Improvements
+
+* Update Python dependencies #1310, #1318
+* Adjustments to use terminology that doesn't have negative connotation. #1315
+
+
+## [1.8.0](https://github.com/elastic/ecs/compare/v1.7.0...v1.8.0)
+
+### Schema Changes
+
+#### Bugfixes
+
+* Clean up `event.reference` description. #1181
+* Go code generator fails if `scaled_float` type is used. #1250
+
+#### Added
+
+* Added `event.category` "registry". #1040
+* Added `event.category` "session". #1049
+* Added usage documentation for `user` fields. #1066
+* Added `user` fields at `user.effective.*`, `user.target.*` and `user.changes.*`. #1066
+* Added `os.type`. #1111
+
+#### Improvements
+
+* Event categorization fields GA. #1067
+* Note `[` and `]` bracket characters may enclose a literal IPv6 address when populating `url.domain`. #1131
+* Reinforce the exclusion of the leading dot from `url.extension`. #1151
+
+#### Deprecated
+
+* Deprecated `host.user.*` fields for removal at the next major. #1066
+
+### Tooling and Artifact Changes
+
+#### Bugfixes
+
+* `tracing` fields should be at root of Beats `fields.ecs.yml` artifacts. #1164
+
+#### Added
+
+* Added the `path` key when type is `alias`, to support the [alias field type](https://www.elastic.co/guide/en/elasticsearch/reference/current/alias.html). #877
+* Added support for `scaled_float`'s mandatory parameter `scaling_factor`. #1042
+* Added ability for --oss flag to fall back `constant_keyword` to `keyword`. #1046
+* Added support in the generated Go source go for `wildcard`, `version`, and `constant_keyword` data types. #1050
+* Added support for marking fields, field sets, or field reuse as beta in the documentation. #1051
+* Added support for `constant_keyword`'s optional parameter `value`. #1112
+* Added component templates for ECS field sets. #1156, #1186, #1191
+* Added functionality for merging custom and core multi-fields. #982
+
+#### Improvements
+
+* Make all fields linkable directly. #1148
+* Added a notice highlighting that the `tracing` fields are not nested under the
+  namespace `tracing.` #1162
+* ES 6.x template data types will fallback to supported types. #1171, #1176, #1186
+* Add a documentation page discussing the experimental artifacts. #1189
+
 ## [1.7.0](https://github.com/elastic/ecs/compare/v1.6.0...v1.7.0)
 
 ### Schema Changes
@@ -18,6 +101,8 @@ All notable changes to this project will be documented in this file based on the
 * Added network directions ingress and egress. #945
 * Added `threat.technique.subtechnique` to capture MITRE ATT&CK® subtechniques. #951
 * Added `configuration` as an allowed `event.category`. #963
+* Added a new directory with experimental artifacts, which includes all changes
+  from RFCs that have reached stage 2. #993, #1053, #1115, #1117, #1118
 
 #### Improvements
 
@@ -25,6 +110,8 @@ All notable changes to this project will be documented in this file based on the
 * Provided better guidance for mapping network events. #969
 * Added the field `.subdomain` under `client`, `destination`, `server`, `source`
   and `url`, to match its presence at `dns.question.subdomain`. #981
+* Clarified ambiguity in guidance on how to use x509 fields for connections with
+  only one certificate. #1114
 
 ### Tooling and Artifact Changes
 
@@ -36,6 +123,7 @@ All notable changes to this project will be documented in this file based on the
 #### Bugfixes
 
 * Addressed issue where foreign reuses weren't using the user-supplied `as` value for their destination. #960
+* Experimental artifacts failed to install due to `event.original` index setting. #1053
 
 #### Added
 
@@ -43,13 +131,12 @@ All notable changes to this project will be documented in this file based on the
 * Added check under `--strict` that ensures composite types in example fields are quoted. #966
 * Added `ignore_above` and `normalizer` support for keyword multi-fields. #971
 * Added `--oss` flag for users who want to generate ECS templates for use on OSS clusters. #991
-* Added a new directory with experimental artifacts, which includes all changes
-  from RFCs that have reached stage 2. #993
 
 #### Improvements
 
 * Field details Jinja2 template components have been consolidated into one template #897
 * Add `[discrete]` marker before each section header in field details. #989
+* `--ref` now loads `experimental/schemas` based on git ref in addition to `schemas`. #1063
 
 
 ## [1.6.0](https://github.com/elastic/ecs/compare/v1.5.0...v1.6.0)

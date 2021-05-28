@@ -4,11 +4,12 @@
 
 {{ fieldset['description']|replace("\n", "\n\n") }}
 
-{%- if usage_doc %}
+{# Fieldset label beta header -#}
+{% if fieldset['beta'] -%}
 
-Find additional usage and examples in the {{ fieldset['name'] }} fields <<ecs-{{ fieldset['name']|replace("_", "-") }}-usage,usage>> section.
+beta::[ {{ fieldset['beta'] }}]
 
-{% endif %}
+{% endif -%}
 
 {# Field Details Table Header -#}
 [discrete]
@@ -25,9 +26,19 @@ Find additional usage and examples in the {{ fieldset['name'] }} fields <<ecs-{{
 {% if 'original_fieldset' not in field -%}
 
 {# `Field` column -#}
-| {{ field['flat_name'] }}
+|
+[[field-{{field['dashed_name']}}]]
+<<field-{{field['dashed_name']}}, {{ field['flat_name'] }}>>
+
 {# `Description` column -#}
+{#- Beta fields will add the `beta` label -#}
+{% if field['beta'] -%}
+| beta:[ {{ field['beta'] }} ]
+
+{{ field['description']|replace("\n", "\n\n") }}
+{%- else -%}
 | {{ field['description']|replace("\n", "\n\n") }}
+{%- endif %}
 
 type: {{ field['type'] }}
 
@@ -101,15 +112,24 @@ Note also that the `{{ fieldset['name'] }}` fields are not expected to be used d
 
 [options="header"]
 |=====
-| Nested fields | Description
+| Field Set | Location | Description
 
 // ===============================================================
 
 
 {% for entry in render_nestings_reuse_section -%}
 
-| <<ecs-{{ entry['name'] }},{{ entry['flat_nesting'] }}>>
+{#- Beta marker on nested fields -#}
+| <<ecs-{{ entry['name'] }},{{ entry['name'] }}>>
+| `{{ entry['flat_nesting'] }}`
+{#- Beta marker on nested fields -#}
+{%- if entry['beta'] -%}
+| beta:[ {{ entry['beta'] }}]
+
+{{ entry['short'] }}
+{%- else %}
 | {{ entry['short'] }}
+{%- endif %}
 
 // ===============================================================
 
@@ -121,6 +141,12 @@ Note also that the `{{ fieldset['name'] }}` fields are not expected to be used d
 {% endif %}{# if 'nestings' #}
 {%- endif -%}{# if 'nestings' or 'reusable' in fieldset #}
 {%- if usage_doc %}
+
+{# Field Usage Table Header -#}
+[discrete]
+==== {{ fieldset['title'] }} Field Usage
+
+For usage and examples of the {{ fieldset['name'] }} fields, please see the <<ecs-{{ fieldset['name']|replace("_", "-") }}-usage, {{ fieldset['title'] }} Fields Usage and Examples>> section.
 
 include::usage/{{ fieldset['name'] }}.asciidoc[]
 

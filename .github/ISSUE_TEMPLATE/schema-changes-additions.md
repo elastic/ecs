@@ -1,6 +1,6 @@
 ---
-name: "Minor Schema Changes and Additions"
-about: "Minor changes or additions to ECS."
+name: "Suggest a change"
+about: "Suggest changes or additions to ECS."
 labels: "enhancement"
 
 ---
@@ -13,11 +13,11 @@ Please fill in the following sections describing your proposed changes: -->
 
 **Summary**
 
-Provide a brief, high-level description of your proposed additions or changes.
+<!-- Provide a brief, high-level description of your proposed additions or changes. -->
 
 **Motivation**:
 
-Include any context around the suggestion and motivation for opening an issue.
+<!-- Include any context around the suggestion and motivation for opening an issue. -->
 
 **Detailed Design**:
 

@@ -1,5 +1,3 @@
-[![Travis](https://travis-ci.org/elastic/ecs.svg?branch=master)](https://travis-ci.org/elastic/ecs)
-
 # Elastic Common Schema (ECS)
 
 The Elastic Common Schema (ECS) defines a common set of fields for

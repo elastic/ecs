@@ -19,10 +19,14 @@
 
 package ecs
 
-// The hash fields represent different hash algorithms and their values.
+// The hash fields represent different bitwise hash algorithms and their
+// values.
 // Field names for common hashes (e.g. MD5, SHA1) are predefined. Add fields
 // for other hashes by lowercasing the hash algorithm name and using underscore
 // separators as appropriate (snake case, e.g. sha3_512).
+// Note that this fieldset is used for common hashes that may be computed over
+// a range of generic bytes. Entity-specific hashes such as ja3 or imphash are
+// placed in the fieldsets to which they relate (tls and pe, respectively).
 type Hash struct {
 	// MD5 hash.
 	Md5 string `ecs:"md5"`
@@ -35,4 +39,7 @@ type Hash struct {
 
 	// SHA512 hash.
 	Sha512 string `ecs:"sha512"`
+
+	// SSDEEP hash.
+	Ssdeep string `ecs:"ssdeep"`
 }

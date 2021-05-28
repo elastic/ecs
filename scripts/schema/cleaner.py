@@ -56,7 +56,7 @@ SCHEMA_MANDATORY_ATTRIBUTES = ['name', 'title', 'description']
 
 
 def schema_mandatory_attributes(schema):
-    '''Ensures for the presence of the mandatory schema attributes and raises if any are missing'''
+    """Ensures for the presence of the mandatory schema attributes and raises if any are missing"""
     current_schema_attributes = sorted(list(schema['field_details'].keys()) +
                                        list(schema['schema_details'].keys()))
     missing_attributes = ecs_helpers.list_subtract(SCHEMA_MANDATORY_ATTRIBUTES, current_schema_attributes)
@@ -74,8 +74,12 @@ def schema_mandatory_attributes(schema):
 
 
 def schema_assertions_and_warnings(schema):
-    '''Additional checks on a fleshed out schema'''
+    """Additional checks on a fleshed out schema"""
     single_line_short_description(schema, strict=strict_mode)
+    if 'beta' in schema['field_details']:
+        single_line_beta_description(schema, strict=strict_mode)
+    if 'reusable' in schema['schema_details']:
+        single_line_short_override_description(schema, strict=strict_mode)
 
 
 def normalize_reuse_notation(schema):
@@ -139,11 +143,14 @@ def field_defaults(field):
 
 
 def field_or_multi_field_datatype_defaults(field_details):
-    '''Sets datatype-related defaults on a canonical field or multi-field entries.'''
+    """Sets datatype-related defaults on a canonical field or multi-field entries."""
     if field_details['type'] == 'keyword':
         field_details.setdefault('ignore_above', 1024)
     if field_details['type'] == 'text':
         field_details.setdefault('norms', False)
+    # wildcard needs the index param stripped
+    if field_details['type'] == 'wildcard':
+        field_details.pop('index', None)
     if 'index' in field_details and not field_details['index']:
         field_details.setdefault('doc_values', False)
 
@@ -153,7 +160,7 @@ ACCEPTABLE_FIELD_LEVELS = ['core', 'extended', 'custom']
 
 
 def field_mandatory_attributes(field):
-    '''Ensures for the presence of the mandatory field attributes and raises if any are missing'''
+    """Ensures for the presence of the mandatory field attributes and raises if any are missing"""
     if ecs_helpers.is_intermediate(field):
         return
     current_field_attributes = sorted(field['field_details'].keys())
@@ -173,11 +180,13 @@ def field_mandatory_attributes(field):
 
 
 def field_assertions_and_warnings(field):
-    '''Additional checks on a fleshed out field'''
+    """Additional checks on a fleshed out field"""
     if not ecs_helpers.is_intermediate(field):
         # check short description length if in strict mode
         single_line_short_description(field, strict=strict_mode)
         check_example_value(field, strict=strict_mode)
+        if 'beta' in field['field_details']:
+            single_line_beta_description(field, strict=strict_mode)
         if field['field_details']['level'] not in ACCEPTABLE_FIELD_LEVELS:
             msg = "Invalid level for field '{}'.\nValue: {}\nAcceptable values: {}".format(
                 field['field_details']['name'], field['field_details']['level'],
@@ -190,18 +199,37 @@ def field_assertions_and_warnings(field):
 SHORT_LIMIT = 120
 
 
-def single_line_short_description(schema_or_field, strict=True):
-    short_length = len(schema_or_field['field_details']['short'])
-    if "\n" in schema_or_field['field_details']['short'] or short_length > SHORT_LIMIT:
+def single_line_short_check(short_to_check, short_name):
+    short_length = len(short_to_check)
+    if "\n" in short_to_check or short_length > SHORT_LIMIT:
         msg = "Short descriptions must be single line, and under {} characters (current length: {}).\n".format(
             SHORT_LIMIT, short_length)
         msg += "Offending field or field set: {}\nShort description:\n  {}".format(
-            schema_or_field['field_details']['name'],
-            schema_or_field['field_details']['short'])
+            short_name,
+            short_to_check)
+        return msg
+    return None
+
+
+def single_line_short_description(schema_or_field, strict=True):
+    error = single_line_short_check(schema_or_field['field_details']['short'], schema_or_field['field_details']['name'])
+    if error:
         if strict:
-            raise ValueError(msg)
+            raise ValueError(error)
         else:
-            ecs_helpers.strict_warning(msg)
+            ecs_helpers.strict_warning(error)
+
+
+def single_line_short_override_description(schema_or_field, strict=True):
+    for field in schema_or_field['schema_details']['reusable']['expected']:
+        if not 'short_override' in field:
+            continue
+        error = single_line_short_check(field['short_override'], field['full'])
+        if error:
+            if strict:
+                raise ValueError(error)
+            else:
+                ecs_helpers.strict_warning(error)
 
 
 def check_example_value(field, strict=True):
@@ -213,6 +241,16 @@ def check_example_value(field, strict=True):
     if isinstance(example_value, (list, dict)):
         name = field['field_details']['name']
         msg = f"Example value for field `{name}` contains an object or array which must be quoted to avoid YAML interpretation."
+        if strict:
+            raise ValueError(msg)
+        else:
+            ecs_helpers.strict_warning(msg)
+
+
+def single_line_beta_description(schema_or_field, strict=True):
+    if "\n" in schema_or_field['field_details']['beta']:
+        msg = "Beta descriptions must be single line.\n"
+        msg += f"Offending field or field set: {schema_or_field['field_details']['name']}"
         if strict:
             raise ValueError(msg)
         else:
