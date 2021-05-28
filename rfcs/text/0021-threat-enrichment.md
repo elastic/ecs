@@ -117,7 +117,6 @@ If it is determined that an event matches a given indicator, that event can be e
     ]
   },
   // Tag the enriched document to indicate the threat enrichment matched
-  // TODO I think this is now redundant with matched.type, but maybe still useful?
   "tags": ["threat-match"],
   // This should already exist from the original ingest pipeline of the document
   "related": {
