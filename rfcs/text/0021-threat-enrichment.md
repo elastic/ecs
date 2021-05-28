@@ -139,28 +139,26 @@ If it is determined that an event matches a given indicator, that event can be e
        "max_matches": "1"
      - policy file-sha256-policy:
        "match": {
-       "indices": "threat-\*",
-       "match_field": "file.hash.sha256",
-       "enrich_fields": ["event", "file", "indicator"]
+         "indices": "threat-\*",
+         "match_field": "file.hash.sha256",
+         "enrich_fields": ["event", "file", "indicator"]
        }
-   - rename:
-     field: "threat_match.file"
-     target: "threat_match.indicator.file"
-   - rename:
-     field: "threat_match.event.provider"
-     target: "threat_match.indicator.provider"
-   - rename:
-     field: "threat_match.event.dataset"
-     target: "threat_match.indicator.dataset"
-   - rename:
-     field: "threat_match.event.module"
-     target: "threat_match.indicator.module"
    - set:
-     field: "threat_match.indicator.matched"
-     value: "sha256"
+     field: "threat_match.matched.type"
+     value: "file-sha256-policy"
+   - set:
+     field: "threat_match.matched.field"
+     value: "file.hash.sha256"
+   - set:
+     field: "threat_match.matched.atomic"
+     value: "{{ file.hash.sha256 }}"
+   - set:
+     field: "threat.enrichments"
+     value: []
+     override: false
    - append:
-     field: "threat.indicator"
-     value: "{{ threat_match.indicator }}"
+     field: "threat.enrichments"
+     value: "{{ threat_match }}"
    - remove:
      field: "threat_match"
 
