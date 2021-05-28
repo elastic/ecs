@@ -33,6 +33,7 @@ threat.indicator.description | keyword | 201.10.10.90 was seen delivering Angler
 threat.indicator.dataset | keyword | threatintel.{abusemalware,abuseurl,misp,otx,limo} | Identifies the name of specific dataset from the intelligence source.
 threat.indicator.module | keyword | threatintel | Identifies the name of specific module where the data is coming from.
 threat.indicator.provider | keyword | Abuse.ch | Identifies the name of intelligence provider.
+threat.indicator.reference | keyword | https://urlhaus.abuse.ch/url/1292596 | Provides a reference for the indicator for additional information.
 threat.indicator.confidence | keyword | High, 10, Confirmed by other sources, Certain, Almost Certain / Nearly Certain | Identifies the confidence rating assigned by the provider using STIX confidence scales (N/H/M/L, 0-10, Admirality, WEP, or DNI).
 threat.indicator.ip | ip | 1.2.3.4 | Identifies a threat indicator as an IP address (irrespective of direction).
 threat.indicator.domain | keyword | evil.com | Identifies a threat indicator as a domain (irrespective of direction).
@@ -92,53 +93,128 @@ While there are two primary uses for these fields, this RFC deals primarily with
 
     Threat intelligence data will be collected from multiple sources stored in threat indices. The ECS fields proposed here will be used to structure the documents collected from various sources.
 
-**Example**
+**Examples**
+
+Network Example
 ```json5
 {
+    // Metadata about the indicator event
     "@timestamp": "2019-08-10T11:09:23.000Z",
-    "event.kind": "enrichment",
-    "event.category": "threat",
-    "event.type": "indicator",
-    "event.provider": "Abuse.ch",
-    "event.reference": "https://feodotracker.abuse.ch",
-    "event.dataset": "threatintel.abusemalware",
-    "event.module": "threatintel",
+    "event": {
+        "kind": "enrichment",
+        "category": "threat",
+        "type": "indicator",
+        "reference": "https://urlhaus.abuse.ch",
+        "severity": 7,
+        "risk_score": 10,
+        "original": "2020-10-29 19:16:38"
+    },
 
-    // The top-level file object here allows expressing multiple indicators for a single file object
-    "file.hash.sha256": "0c415dd718e3b3728707d579cf8214f54c2942e964975a5f925e0b82fea644b4",
-    "file.hash.md5": "1eee2bf3f56d8abed72da2bc523e7431",
-    "file.size": 656896,
-    "file.name": "invoice.doc",
-
-    // The indicator prefix here gives context of the indicators
-    "indicator.marking.tlp": "WHITE",
-    "indicator.time_first_seen": "2020-10-01",
-    "indicator.time_last_seen": "2020-11-01",
-    "indicator.sightings": "4",
-    /* It's possible to have multiple related indicators in a given document,
-       e.g. sha256, sha1, ssdeep, etc. If that's the case this should be an array
-       of types (i.e. [sha1, sha256, ssdeep]) */
-    "indicator.type": ["sha256", "md5", "file_name", "file_size"],
-    "indicator.description": "file last associated with delivering Angler EK",
-
-    // Filebeats and other fields, not part of ECS proposal
-    "fileset.name": "abusemalware",
-    "input.type": "log",
-    "log.offset": 0,
+    // Metadata about the indicator data
+    "threat.indicator": {
+        "first_seen": "2020-10-01",
+        "last_seen": "2020-11-01",
+        "sightings": "10",
+        "type": [
+            "ipv4-addr",
+            "port",
+            "domain-name",
+            "email-addr"
+        ],
+        "description": "Email address, domain, port, and IP address observed using an Angler EK campaign.",
+        "dataset": "threatintel.abuseurl",
+        "module": "threatintel",
+        "provider": "Abuse.ch",
+        "reference": "https://urlhaus.abuse.ch/url/1292596/",
+        "confidence": "High",
+        "ip": "1.2.3.4",
+        "domain": "malicious.evil",
+        "port": 443,
+        "email.address": "phish@malicious.evil",
+        "marking.tlp": "WHITE",
+        "scanner_stats": 4
+    },
 
     // Any indicators should also be copied to relevant related.* field
     "related": {
         "hash": [
             "1eee2bf3f56d8abed72da2bc523e7431",
             "0c415dd718e3b3728707d579cf8214f54c2942e964975a5f925e0b82fea644b4"
+        ],
+        "hosts": [
+            "nefarious.evil"
+        ],
+        "ip": [
+            "1.2.3.4"
         ]
     },
+
+    // Tags for context
     "tags": [
         "threatintel",
         "forwarded"
-    ],
+    ]
 }
-```
+
+File Example
+```json5
+{
+    // Metadata about the indicator event
+    "@timestamp": "2019-08-10T11:09:23.000Z",
+    "event": {
+        "kind": "enrichment",
+        "category": "threat",
+        "type": "indicator",
+        "reference": "https://bazaar.abuse.ch",
+        "severity": 7,
+        "risk_score": 10,
+        "original": "2020-10-29 19:16:38"
+        },
+
+    // Metadata about the indicator data
+    "threat.indicator": {
+        "first_seen": "2020-10-01",
+        "last_seen": "2020-11-01",
+        "sightings": "10",
+        "type": [
+            "file"
+        ],
+        "description": "Implant used during an Angler EK campaign.",
+        "dataset": "threatintel.malwarebazaar",
+        "module": "threatintel",
+        "provider": "Abuse.ch",
+        "reference": "https://bazaar.abuse.ch/sample/f3ec9a2f2766c6bcf8c2894a9927c227649249ac146aabfe8d26b259be7d7055",
+        "confidence": "High",
+        "file": {
+            "hash.sha256": "0c415dd718e3b3728707d579cf8214f54c2942e964975a5f925e0b82fea644b4",
+            "hash.md5": "1eee2bf3f56d8abed72da2bc523e7431",
+            "size": 656896,
+            "name": "invoice.doc"
+            },
+        "marking.tlp": "WHITE",
+        "scanner_stats": 4
+    },
+
+    // Any indicators should also be copied to relevant related.* field
+    "related": {
+        "hash": [
+            "1eee2bf3f56d8abed72da2bc523e7431",
+            "0c415dd718e3b3728707d579cf8214f54c2942e964975a5f925e0b82fea644b4"
+        ],
+        "hosts": [
+            "nefarious.evil"
+        ],
+        "ip": [
+            "1.2.3.4"
+        ]
+    },
+
+    // Tags for context
+    "tags": [
+        "threatintel",
+        "forwarded"
+    ]
+}
 
 ## Source data
 
