@@ -29,7 +29,7 @@ The following examples are taken verbatim from the existing field definitions
 and are included for completeness.
 
 These are the raw texts of entire events, for example a log message. They 
-differs from the extracted `message` field in that no processing has been 
+differ from the extracted `message` field in that no processing has been 
 applied and the field is not indexed by default. The field can still be 
 retrieved from `_source` and is well-suited to demonstration of log integrity
 or in a re-index pipeline 
@@ -99,4 +99,3 @@ The following are the people that consulted on the contents of this RFC.
 * Stage 0: https://github.com/elastic/ecs/pull/1298
 * Stage 1: https://github.com/elastic/ecs/pull/1314
 * Stage 2: https://github.com/elastic/ecs/pull/1347
-
