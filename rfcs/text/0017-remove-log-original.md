@@ -36,7 +36,7 @@ or in a re-index pipeline.
 
 ## Source data
 
-Any or all incoming log or event messages.
+Any or all incoming log or event messages when the original value of the event needs to be preserved.
 
 ```
 {"event.original": "Sep 19 08:26:10 host CEF:0&#124;Security&#124;
