@@ -32,7 +32,7 @@ These are the raw texts of entire events, for example a log message. They
 differ from the extracted `message` field in that no processing has been 
 applied and the field is not indexed by default. The field can still be 
 retrieved from `_source` and is well-suited to demonstration of log integrity
-or in a re-index pipeline 
+or in a re-index pipeline. 
 
 ## Source data
 
