@@ -112,7 +112,7 @@ Common Fields for Container Inventory Schema: https://github.com/elastic/beats/i
 <!-- An RFC should link to the PRs for each of it stage advancements. -->
 
 * Stage 0: https://github.com/elastic/ecs/pull/1441
-    * Stage 0 date correction: https://github.com/elastic/ecs/pull/NNNN
+    * Stage 0 date correction: https://github.com/elastic/ecs/pull/1447
 
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN
