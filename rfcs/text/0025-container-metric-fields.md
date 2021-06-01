@@ -1,4 +1,4 @@
-# 0000: Container Metric Fields
+# 0025: Container Metric Fields
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
 - Stage: **0 (strawperson)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
@@ -9,6 +9,10 @@ As you work on your RFC, use the "Stage N" comments to guide you in what you sho
 Feel free to remove these comments as you go along.
 -->
 
+<!--
+Stage 0: Provide a high level summary of the premise of these changes. Briefly describe the nature, purpose, and impact of the changes. ~2-5 sentences.
+-->
+
 This RFC proposes 6 additional container metric fields into ECS for monitoring
 container CPU, memory, disk and network performance using Metricbeat.
 With existing metadata fields `container.id`, `container.image.name`, `container.image.tag`,
@@ -16,10 +20,6 @@ With existing metadata fields `container.id`, `container.image.name`, `container
 fields will become the common field schema for container metrics. These metric
 fields and metadata fields are recommended or required for all events related to
 containers.
-
-<!--
-Stage 0: Provide a high level summary of the premise of these changes. Briefly describe the nature, purpose, and impact of the changes. ~2-5 sentences.
--->
 
 <!--
 Stage 1: If the changes include field additions or modifications, please create a folder titled as the RFC number under rfcs/text/. This will be where proposed schema changes as standalone YAML files or extended example mappings and larger source documents will go as the RFC is iterated upon.
@@ -111,7 +111,7 @@ Common Fields for Container Inventory Schema: https://github.com/elastic/beats/i
 
 <!-- An RFC should link to the PRs for each of it stage advancements. -->
 
-* Stage 0: https://github.com/elastic/ecs/pull/NNN
+* Stage 0: https://github.com/elastic/ecs/pull/1441
 
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN
