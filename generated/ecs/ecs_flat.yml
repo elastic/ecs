@@ -756,6 +756,52 @@ container.runtime:
   normalize: []
   short: Runtime managing this container.
   type: keyword
+data_stream.dataset:
+  dashed_name: data-stream-dataset
+  description: "The field can contain anything that makes sense to signify the source\
+    \ of the data.\nExamples include `nginx.access`, `prometheus`, `endpoint` etc.\
+    \ For data streams that otherwise fit, but that do not have dataset set we use\
+    \ the value \"generic\" for the dataset value. `event.dataset` should have the\
+    \ same value as `data_stream.dataset`.\nBeyond the Elasticsearch data stream naming\
+    \ criteria noted above, the `dataset` value has additional restrictions:\n  *\
+    \ Must not contain `-`\n  * No longer than 100 characters"
+  example: nginx.access
+  flat_name: data_stream.dataset
+  level: extended
+  name: dataset
+  normalize: []
+  short: The field can contain anything that makes sense to signify the source of
+    the data.
+  type: constant_keyword
+data_stream.namespace:
+  dashed_name: data-stream-namespace
+  description: "A user defined namespace. Namespaces are useful to allow grouping\
+    \ of data.\nMany users already organize their indices this way, and the data stream\
+    \ naming scheme now provides this best practice as a default. Many users will\
+    \ populate this field with `default`. If no value is used, it falls back to `default`.\n\
+    Beyond the Elasticsearch index naming criteria noted above, `namespace` value\
+    \ has the additional restrictions:\n  * Must not contain `-`\n  * No longer than\
+    \ 100 characters"
+  example: production
+  flat_name: data_stream.namespace
+  level: extended
+  name: namespace
+  normalize: []
+  short: A user defined namespace. Namespaces are useful to allow grouping of data.
+  type: constant_keyword
+data_stream.type:
+  dashed_name: data-stream-type
+  description: 'An overarching type for the data stream.
+
+    Currently allowed values are "logs" and "metrics". We expect to also add "traces"
+    and "synthetics" in the near future.'
+  example: logs
+  flat_name: data_stream.type
+  level: extended
+  name: type
+  normalize: []
+  short: An overarching type for the data stream.
+  type: constant_keyword
 destination.address:
   dashed_name: destination-address
   description: 'Some event destination addresses are defined ambiguously. The event
@@ -2169,7 +2215,7 @@ event.kind:
       of this event, and that event data may be missing, inconsistent, or incorrect.
       `event.kind:pipeline_error` is often associated with parsing errors.
     name: pipeline_error
-  - description: 'This value is used by the Elastic SIEM app to denote an Elasticsearch
+  - description: 'This value is used by the Elastic Security app to denote an Elasticsearch
       document that was created by a SIEM detection engine rule.
 
       A signal will typically trigger a notification that something meaningful happened
@@ -2735,6 +2781,335 @@ file.drive_letter:
   name: drive_letter
   normalize: []
   short: Drive letter where the file is located.
+  type: keyword
+file.elf.architecture:
+  dashed_name: file-elf-architecture
+  description: Machine architecture of the ELF file.
+  example: x86-64
+  flat_name: file.elf.architecture
+  ignore_above: 1024
+  level: extended
+  name: architecture
+  normalize: []
+  original_fieldset: elf
+  short: Machine architecture of the ELF file.
+  type: keyword
+file.elf.byte_order:
+  dashed_name: file-elf-byte-order
+  description: Byte sequence of ELF file.
+  example: Little Endian
+  flat_name: file.elf.byte_order
+  ignore_above: 1024
+  level: extended
+  name: byte_order
+  normalize: []
+  original_fieldset: elf
+  short: Byte sequence of ELF file.
+  type: keyword
+file.elf.cpu_type:
+  dashed_name: file-elf-cpu-type
+  description: CPU type of the ELF file.
+  example: Intel
+  flat_name: file.elf.cpu_type
+  ignore_above: 1024
+  level: extended
+  name: cpu_type
+  normalize: []
+  original_fieldset: elf
+  short: CPU type of the ELF file.
+  type: keyword
+file.elf.creation_date:
+  dashed_name: file-elf-creation-date
+  description: Extracted when possible from the file's metadata. Indicates when it
+    was built or compiled. It can also be faked by malware creators.
+  flat_name: file.elf.creation_date
+  level: extended
+  name: creation_date
+  normalize: []
+  original_fieldset: elf
+  short: Build or compile date.
+  type: date
+file.elf.exports:
+  dashed_name: file-elf-exports
+  description: List of exported element names and types.
+  flat_name: file.elf.exports
+  level: extended
+  name: exports
+  normalize:
+  - array
+  original_fieldset: elf
+  short: List of exported element names and types.
+  type: flattened
+file.elf.header.abi_version:
+  dashed_name: file-elf-header-abi-version
+  description: Version of the ELF Application Binary Interface (ABI).
+  flat_name: file.elf.header.abi_version
+  ignore_above: 1024
+  level: extended
+  name: header.abi_version
+  normalize: []
+  original_fieldset: elf
+  short: Version of the ELF Application Binary Interface (ABI).
+  type: keyword
+file.elf.header.class:
+  dashed_name: file-elf-header-class
+  description: Header class of the ELF file.
+  flat_name: file.elf.header.class
+  ignore_above: 1024
+  level: extended
+  name: header.class
+  normalize: []
+  original_fieldset: elf
+  short: Header class of the ELF file.
+  type: keyword
+file.elf.header.data:
+  dashed_name: file-elf-header-data
+  description: Data table of the ELF header.
+  flat_name: file.elf.header.data
+  ignore_above: 1024
+  level: extended
+  name: header.data
+  normalize: []
+  original_fieldset: elf
+  short: Data table of the ELF header.
+  type: keyword
+file.elf.header.entrypoint:
+  dashed_name: file-elf-header-entrypoint
+  description: Header entrypoint of the ELF file.
+  flat_name: file.elf.header.entrypoint
+  format: string
+  level: extended
+  name: header.entrypoint
+  normalize: []
+  original_fieldset: elf
+  short: Header entrypoint of the ELF file.
+  type: long
+file.elf.header.object_version:
+  dashed_name: file-elf-header-object-version
+  description: '"0x1" for original ELF files.'
+  flat_name: file.elf.header.object_version
+  ignore_above: 1024
+  level: extended
+  name: header.object_version
+  normalize: []
+  original_fieldset: elf
+  short: '"0x1" for original ELF files.'
+  type: keyword
+file.elf.header.os_abi:
+  dashed_name: file-elf-header-os-abi
+  description: Application Binary Interface (ABI) of the Linux OS.
+  flat_name: file.elf.header.os_abi
+  ignore_above: 1024
+  level: extended
+  name: header.os_abi
+  normalize: []
+  original_fieldset: elf
+  short: Application Binary Interface (ABI) of the Linux OS.
+  type: keyword
+file.elf.header.type:
+  dashed_name: file-elf-header-type
+  description: Header type of the ELF file.
+  flat_name: file.elf.header.type
+  ignore_above: 1024
+  level: extended
+  name: header.type
+  normalize: []
+  original_fieldset: elf
+  short: Header type of the ELF file.
+  type: keyword
+file.elf.header.version:
+  dashed_name: file-elf-header-version
+  description: Version of the ELF header.
+  flat_name: file.elf.header.version
+  ignore_above: 1024
+  level: extended
+  name: header.version
+  normalize: []
+  original_fieldset: elf
+  short: Version of the ELF header.
+  type: keyword
+file.elf.imports:
+  dashed_name: file-elf-imports
+  description: List of imported element names and types.
+  flat_name: file.elf.imports
+  level: extended
+  name: imports
+  normalize:
+  - array
+  original_fieldset: elf
+  short: List of imported element names and types.
+  type: flattened
+file.elf.sections:
+  dashed_name: file-elf-sections
+  description: 'An array containing an object for each section of the ELF file.
+
+    The keys that should be present in these objects are defined by sub-fields underneath
+    `elf.sections.*`.'
+  flat_name: file.elf.sections
+  level: extended
+  name: sections
+  normalize:
+  - array
+  original_fieldset: elf
+  short: Section information of the ELF file.
+  type: nested
+file.elf.sections.chi2:
+  dashed_name: file-elf-sections-chi2
+  description: Chi-square probability distribution of the section.
+  flat_name: file.elf.sections.chi2
+  format: number
+  level: extended
+  name: sections.chi2
+  normalize: []
+  original_fieldset: elf
+  short: Chi-square probability distribution of the section.
+  type: long
+file.elf.sections.entropy:
+  dashed_name: file-elf-sections-entropy
+  description: Shannon entropy calculation from the section.
+  flat_name: file.elf.sections.entropy
+  format: number
+  level: extended
+  name: sections.entropy
+  normalize: []
+  original_fieldset: elf
+  short: Shannon entropy calculation from the section.
+  type: long
+file.elf.sections.flags:
+  dashed_name: file-elf-sections-flags
+  description: ELF Section List flags.
+  flat_name: file.elf.sections.flags
+  ignore_above: 1024
+  level: extended
+  name: sections.flags
+  normalize: []
+  original_fieldset: elf
+  short: ELF Section List flags.
+  type: keyword
+file.elf.sections.name:
+  dashed_name: file-elf-sections-name
+  description: ELF Section List name.
+  flat_name: file.elf.sections.name
+  ignore_above: 1024
+  level: extended
+  name: sections.name
+  normalize: []
+  original_fieldset: elf
+  short: ELF Section List name.
+  type: keyword
+file.elf.sections.physical_offset:
+  dashed_name: file-elf-sections-physical-offset
+  description: ELF Section List offset.
+  flat_name: file.elf.sections.physical_offset
+  ignore_above: 1024
+  level: extended
+  name: sections.physical_offset
+  normalize: []
+  original_fieldset: elf
+  short: ELF Section List offset.
+  type: keyword
+file.elf.sections.physical_size:
+  dashed_name: file-elf-sections-physical-size
+  description: ELF Section List physical size.
+  flat_name: file.elf.sections.physical_size
+  format: bytes
+  level: extended
+  name: sections.physical_size
+  normalize: []
+  original_fieldset: elf
+  short: ELF Section List physical size.
+  type: long
+file.elf.sections.type:
+  dashed_name: file-elf-sections-type
+  description: ELF Section List type.
+  flat_name: file.elf.sections.type
+  ignore_above: 1024
+  level: extended
+  name: sections.type
+  normalize: []
+  original_fieldset: elf
+  short: ELF Section List type.
+  type: keyword
+file.elf.sections.virtual_address:
+  dashed_name: file-elf-sections-virtual-address
+  description: ELF Section List virtual address.
+  flat_name: file.elf.sections.virtual_address
+  format: string
+  level: extended
+  name: sections.virtual_address
+  normalize: []
+  original_fieldset: elf
+  short: ELF Section List virtual address.
+  type: long
+file.elf.sections.virtual_size:
+  dashed_name: file-elf-sections-virtual-size
+  description: ELF Section List virtual size.
+  flat_name: file.elf.sections.virtual_size
+  format: string
+  level: extended
+  name: sections.virtual_size
+  normalize: []
+  original_fieldset: elf
+  short: ELF Section List virtual size.
+  type: long
+file.elf.segments:
+  dashed_name: file-elf-segments
+  description: 'An array containing an object for each segment of the ELF file.
+
+    The keys that should be present in these objects are defined by sub-fields underneath
+    `elf.segments.*`.'
+  flat_name: file.elf.segments
+  level: extended
+  name: segments
+  normalize:
+  - array
+  original_fieldset: elf
+  short: ELF object segment list.
+  type: nested
+file.elf.segments.sections:
+  dashed_name: file-elf-segments-sections
+  description: ELF object segment sections.
+  flat_name: file.elf.segments.sections
+  ignore_above: 1024
+  level: extended
+  name: segments.sections
+  normalize: []
+  original_fieldset: elf
+  short: ELF object segment sections.
+  type: keyword
+file.elf.segments.type:
+  dashed_name: file-elf-segments-type
+  description: ELF object segment type.
+  flat_name: file.elf.segments.type
+  ignore_above: 1024
+  level: extended
+  name: segments.type
+  normalize: []
+  original_fieldset: elf
+  short: ELF object segment type.
+  type: keyword
+file.elf.shared_libraries:
+  dashed_name: file-elf-shared-libraries
+  description: List of shared libraries used by this ELF object.
+  flat_name: file.elf.shared_libraries
+  ignore_above: 1024
+  level: extended
+  name: shared_libraries
+  normalize:
+  - array
+  original_fieldset: elf
+  short: List of shared libraries used by this ELF object.
+  type: keyword
+file.elf.telfhash:
+  dashed_name: file-elf-telfhash
+  description: telfhash symbol hash for ELF file.
+  flat_name: file.elf.telfhash
+  ignore_above: 1024
+  level: extended
+  name: telfhash
+  normalize: []
+  original_fieldset: elf
+  short: telfhash hash for ELF file.
   type: keyword
 file.extension:
   dashed_name: file-extension
@@ -3397,7 +3772,6 @@ host.architecture:
   short: Operating system architecture.
   type: keyword
 host.cpu.usage:
-  beta: This field is currently considered beta.
   dashed_name: host-cpu-usage
   description: 'Percent CPU used which is normalized by the number of CPU cores and
     it ranges from 0 to 1.
@@ -3414,7 +3788,6 @@ host.cpu.usage:
   short: Percent CPU used, between 0 and 1.
   type: scaled_float
 host.disk.read.bytes:
-  beta: This field is currently considered beta.
   dashed_name: host-disk-read-bytes
   description: The total number of bytes (gauge) read successfully (aggregated from
     all disks) since the last metric collection.
@@ -3425,7 +3798,6 @@ host.disk.read.bytes:
   short: The number of bytes read by all disks.
   type: long
 host.disk.write.bytes:
-  beta: This field is currently considered beta.
   dashed_name: host-disk-write-bytes
   description: The total number of bytes (gauge) written successfully (aggregated
     from all disks) since the last metric collection.
@@ -3655,7 +4027,6 @@ host.name:
   short: Name of the host.
   type: keyword
 host.network.egress.bytes:
-  beta: This field is currently considered beta.
   dashed_name: host-network-egress-bytes
   description: The number of bytes (gauge) sent out on all network interfaces by the
     host since the last metric collection.
@@ -3666,7 +4037,6 @@ host.network.egress.bytes:
   short: The number of bytes sent on all network interfaces.
   type: long
 host.network.egress.packets:
-  beta: This field is currently considered beta.
   dashed_name: host-network-egress-packets
   description: The number of packets (gauge) sent out on all network interfaces by
     the host since the last metric collection.
@@ -3677,7 +4047,6 @@ host.network.egress.packets:
   short: The number of packets sent on all network interfaces.
   type: long
 host.network.ingress.bytes:
-  beta: This field is currently considered beta.
   dashed_name: host-network-ingress-bytes
   description: The number of bytes received (gauge) on all network interfaces by the
     host since the last metric collection.
@@ -3688,7 +4057,6 @@ host.network.ingress.bytes:
   short: The number of bytes received on all network interfaces.
   type: long
 host.network.ingress.packets:
-  beta: This field is currently considered beta.
   dashed_name: host-network-ingress-packets
   description: The number of packets (gauge) received on all network interfaces by
     the host since the last metric collection.
@@ -3822,138 +4190,6 @@ host.uptime:
   normalize: []
   short: Seconds the host has been up.
   type: long
-host.user.domain:
-  dashed_name: host-user-domain
-  description: 'Name of the directory the user is a member of.
-
-    For example, an LDAP or Active Directory domain name.'
-  flat_name: host.user.domain
-  ignore_above: 1024
-  level: extended
-  name: domain
-  normalize: []
-  original_fieldset: user
-  short: Name of the directory the user is a member of.
-  type: keyword
-host.user.email:
-  dashed_name: host-user-email
-  description: User email address.
-  flat_name: host.user.email
-  ignore_above: 1024
-  level: extended
-  name: email
-  normalize: []
-  original_fieldset: user
-  short: User email address.
-  type: keyword
-host.user.full_name:
-  dashed_name: host-user-full-name
-  description: User's full name, if available.
-  example: Albert Einstein
-  flat_name: host.user.full_name
-  ignore_above: 1024
-  level: extended
-  multi_fields:
-  - flat_name: host.user.full_name.text
-    name: text
-    norms: false
-    type: text
-  name: full_name
-  normalize: []
-  original_fieldset: user
-  short: User's full name, if available.
-  type: keyword
-host.user.group.domain:
-  dashed_name: host-user-group-domain
-  description: 'Name of the directory the group is a member of.
-
-    For example, an LDAP or Active Directory domain name.'
-  flat_name: host.user.group.domain
-  ignore_above: 1024
-  level: extended
-  name: domain
-  normalize: []
-  original_fieldset: group
-  short: Name of the directory the group is a member of.
-  type: keyword
-host.user.group.id:
-  dashed_name: host-user-group-id
-  description: Unique identifier for the group on the system/platform.
-  flat_name: host.user.group.id
-  ignore_above: 1024
-  level: extended
-  name: id
-  normalize: []
-  original_fieldset: group
-  short: Unique identifier for the group on the system/platform.
-  type: keyword
-host.user.group.name:
-  dashed_name: host-user-group-name
-  description: Name of the group.
-  flat_name: host.user.group.name
-  ignore_above: 1024
-  level: extended
-  name: name
-  normalize: []
-  original_fieldset: group
-  short: Name of the group.
-  type: keyword
-host.user.hash:
-  dashed_name: host-user-hash
-  description: 'Unique user hash to correlate information for a user in anonymized
-    form.
-
-    Useful if `user.id` or `user.name` contain confidential information and cannot
-    be used.'
-  flat_name: host.user.hash
-  ignore_above: 1024
-  level: extended
-  name: hash
-  normalize: []
-  original_fieldset: user
-  short: Unique user hash to correlate information for a user in anonymized form.
-  type: keyword
-host.user.id:
-  dashed_name: host-user-id
-  description: Unique identifier of the user.
-  flat_name: host.user.id
-  ignore_above: 1024
-  level: core
-  name: id
-  normalize: []
-  original_fieldset: user
-  short: Unique identifier of the user.
-  type: keyword
-host.user.name:
-  dashed_name: host-user-name
-  description: Short name or login of the user.
-  example: albert
-  flat_name: host.user.name
-  ignore_above: 1024
-  level: core
-  multi_fields:
-  - flat_name: host.user.name.text
-    name: text
-    norms: false
-    type: text
-  name: name
-  normalize: []
-  original_fieldset: user
-  short: Short name or login of the user.
-  type: keyword
-host.user.roles:
-  dashed_name: host-user-roles
-  description: Array of user roles at the time of the event.
-  example: '["kibana_admin", "reporting_user"]'
-  flat_name: host.user.roles
-  ignore_above: 1024
-  level: extended
-  name: roles
-  normalize:
-  - array
-  original_fieldset: user
-  short: Array of user roles at the time of the event.
-  type: keyword
 http.request.body.bytes:
   dashed_name: http-request-body-bytes
   description: Size in bytes of the request body.
@@ -5079,6 +5315,102 @@ observer.version:
   normalize: []
   short: Observer version.
   type: keyword
+orchestrator.api_version:
+  dashed_name: orchestrator-api-version
+  description: API version being used to carry out the action
+  example: v1beta1
+  flat_name: orchestrator.api_version
+  ignore_above: 1024
+  level: extended
+  name: api_version
+  normalize: []
+  short: API version being used to carry out the action
+  type: keyword
+orchestrator.cluster.name:
+  dashed_name: orchestrator-cluster-name
+  description: Name of the cluster.
+  flat_name: orchestrator.cluster.name
+  ignore_above: 1024
+  level: extended
+  name: cluster.name
+  normalize: []
+  short: Name of the cluster.
+  type: keyword
+orchestrator.cluster.url:
+  dashed_name: orchestrator-cluster-url
+  description: URL of the API used to manage the cluster.
+  flat_name: orchestrator.cluster.url
+  ignore_above: 1024
+  level: extended
+  name: cluster.url
+  normalize: []
+  short: URL of the API used to manage the cluster.
+  type: keyword
+orchestrator.cluster.version:
+  dashed_name: orchestrator-cluster-version
+  description: The version of the cluster.
+  flat_name: orchestrator.cluster.version
+  ignore_above: 1024
+  level: extended
+  name: cluster.version
+  normalize: []
+  short: The version of the cluster.
+  type: keyword
+orchestrator.namespace:
+  dashed_name: orchestrator-namespace
+  description: Namespace in which the action is taking place.
+  example: kube-system
+  flat_name: orchestrator.namespace
+  ignore_above: 1024
+  level: extended
+  name: namespace
+  normalize: []
+  short: Namespace in which the action is taking place.
+  type: keyword
+orchestrator.organization:
+  dashed_name: orchestrator-organization
+  description: Organization affected by the event (for multi-tenant orchestrator setups).
+  example: elastic
+  flat_name: orchestrator.organization
+  ignore_above: 1024
+  level: extended
+  name: organization
+  normalize: []
+  short: Organization affected by the event (for multi-tenant orchestrator setups).
+  type: keyword
+orchestrator.resource.name:
+  dashed_name: orchestrator-resource-name
+  description: Name of the resource being acted upon.
+  example: test-pod-cdcws
+  flat_name: orchestrator.resource.name
+  ignore_above: 1024
+  level: extended
+  name: resource.name
+  normalize: []
+  short: Name of the resource being acted upon.
+  type: keyword
+orchestrator.resource.type:
+  dashed_name: orchestrator-resource-type
+  description: Type of resource being acted upon.
+  example: service
+  flat_name: orchestrator.resource.type
+  ignore_above: 1024
+  level: extended
+  name: resource.type
+  normalize: []
+  short: Type of resource being acted upon.
+  type: keyword
+orchestrator.type:
+  dashed_name: orchestrator-type
+  description: Orchestrator cluster type (e.g. kubernetes, nomad or cloudfoundry).
+  example: kubernetes
+  flat_name: orchestrator.type
+  ignore_above: 1024
+  level: extended
+  name: type
+  normalize: []
+  short: Orchestrator cluster type (e.g. kubernetes, nomad or cloudfoundry).
+  type: keyword
 organization.id:
   dashed_name: organization-id
   description: Unique identifier for the organization.
@@ -5399,6 +5731,335 @@ process.command_line:
   normalize: []
   short: Full command line that started the process.
   type: keyword
+process.elf.architecture:
+  dashed_name: process-elf-architecture
+  description: Machine architecture of the ELF file.
+  example: x86-64
+  flat_name: process.elf.architecture
+  ignore_above: 1024
+  level: extended
+  name: architecture
+  normalize: []
+  original_fieldset: elf
+  short: Machine architecture of the ELF file.
+  type: keyword
+process.elf.byte_order:
+  dashed_name: process-elf-byte-order
+  description: Byte sequence of ELF file.
+  example: Little Endian
+  flat_name: process.elf.byte_order
+  ignore_above: 1024
+  level: extended
+  name: byte_order
+  normalize: []
+  original_fieldset: elf
+  short: Byte sequence of ELF file.
+  type: keyword
+process.elf.cpu_type:
+  dashed_name: process-elf-cpu-type
+  description: CPU type of the ELF file.
+  example: Intel
+  flat_name: process.elf.cpu_type
+  ignore_above: 1024
+  level: extended
+  name: cpu_type
+  normalize: []
+  original_fieldset: elf
+  short: CPU type of the ELF file.
+  type: keyword
+process.elf.creation_date:
+  dashed_name: process-elf-creation-date
+  description: Extracted when possible from the file's metadata. Indicates when it
+    was built or compiled. It can also be faked by malware creators.
+  flat_name: process.elf.creation_date
+  level: extended
+  name: creation_date
+  normalize: []
+  original_fieldset: elf
+  short: Build or compile date.
+  type: date
+process.elf.exports:
+  dashed_name: process-elf-exports
+  description: List of exported element names and types.
+  flat_name: process.elf.exports
+  level: extended
+  name: exports
+  normalize:
+  - array
+  original_fieldset: elf
+  short: List of exported element names and types.
+  type: flattened
+process.elf.header.abi_version:
+  dashed_name: process-elf-header-abi-version
+  description: Version of the ELF Application Binary Interface (ABI).
+  flat_name: process.elf.header.abi_version
+  ignore_above: 1024
+  level: extended
+  name: header.abi_version
+  normalize: []
+  original_fieldset: elf
+  short: Version of the ELF Application Binary Interface (ABI).
+  type: keyword
+process.elf.header.class:
+  dashed_name: process-elf-header-class
+  description: Header class of the ELF file.
+  flat_name: process.elf.header.class
+  ignore_above: 1024
+  level: extended
+  name: header.class
+  normalize: []
+  original_fieldset: elf
+  short: Header class of the ELF file.
+  type: keyword
+process.elf.header.data:
+  dashed_name: process-elf-header-data
+  description: Data table of the ELF header.
+  flat_name: process.elf.header.data
+  ignore_above: 1024
+  level: extended
+  name: header.data
+  normalize: []
+  original_fieldset: elf
+  short: Data table of the ELF header.
+  type: keyword
+process.elf.header.entrypoint:
+  dashed_name: process-elf-header-entrypoint
+  description: Header entrypoint of the ELF file.
+  flat_name: process.elf.header.entrypoint
+  format: string
+  level: extended
+  name: header.entrypoint
+  normalize: []
+  original_fieldset: elf
+  short: Header entrypoint of the ELF file.
+  type: long
+process.elf.header.object_version:
+  dashed_name: process-elf-header-object-version
+  description: '"0x1" for original ELF files.'
+  flat_name: process.elf.header.object_version
+  ignore_above: 1024
+  level: extended
+  name: header.object_version
+  normalize: []
+  original_fieldset: elf
+  short: '"0x1" for original ELF files.'
+  type: keyword
+process.elf.header.os_abi:
+  dashed_name: process-elf-header-os-abi
+  description: Application Binary Interface (ABI) of the Linux OS.
+  flat_name: process.elf.header.os_abi
+  ignore_above: 1024
+  level: extended
+  name: header.os_abi
+  normalize: []
+  original_fieldset: elf
+  short: Application Binary Interface (ABI) of the Linux OS.
+  type: keyword
+process.elf.header.type:
+  dashed_name: process-elf-header-type
+  description: Header type of the ELF file.
+  flat_name: process.elf.header.type
+  ignore_above: 1024
+  level: extended
+  name: header.type
+  normalize: []
+  original_fieldset: elf
+  short: Header type of the ELF file.
+  type: keyword
+process.elf.header.version:
+  dashed_name: process-elf-header-version
+  description: Version of the ELF header.
+  flat_name: process.elf.header.version
+  ignore_above: 1024
+  level: extended
+  name: header.version
+  normalize: []
+  original_fieldset: elf
+  short: Version of the ELF header.
+  type: keyword
+process.elf.imports:
+  dashed_name: process-elf-imports
+  description: List of imported element names and types.
+  flat_name: process.elf.imports
+  level: extended
+  name: imports
+  normalize:
+  - array
+  original_fieldset: elf
+  short: List of imported element names and types.
+  type: flattened
+process.elf.sections:
+  dashed_name: process-elf-sections
+  description: 'An array containing an object for each section of the ELF file.
+
+    The keys that should be present in these objects are defined by sub-fields underneath
+    `elf.sections.*`.'
+  flat_name: process.elf.sections
+  level: extended
+  name: sections
+  normalize:
+  - array
+  original_fieldset: elf
+  short: Section information of the ELF file.
+  type: nested
+process.elf.sections.chi2:
+  dashed_name: process-elf-sections-chi2
+  description: Chi-square probability distribution of the section.
+  flat_name: process.elf.sections.chi2
+  format: number
+  level: extended
+  name: sections.chi2
+  normalize: []
+  original_fieldset: elf
+  short: Chi-square probability distribution of the section.
+  type: long
+process.elf.sections.entropy:
+  dashed_name: process-elf-sections-entropy
+  description: Shannon entropy calculation from the section.
+  flat_name: process.elf.sections.entropy
+  format: number
+  level: extended
+  name: sections.entropy
+  normalize: []
+  original_fieldset: elf
+  short: Shannon entropy calculation from the section.
+  type: long
+process.elf.sections.flags:
+  dashed_name: process-elf-sections-flags
+  description: ELF Section List flags.
+  flat_name: process.elf.sections.flags
+  ignore_above: 1024
+  level: extended
+  name: sections.flags
+  normalize: []
+  original_fieldset: elf
+  short: ELF Section List flags.
+  type: keyword
+process.elf.sections.name:
+  dashed_name: process-elf-sections-name
+  description: ELF Section List name.
+  flat_name: process.elf.sections.name
+  ignore_above: 1024
+  level: extended
+  name: sections.name
+  normalize: []
+  original_fieldset: elf
+  short: ELF Section List name.
+  type: keyword
+process.elf.sections.physical_offset:
+  dashed_name: process-elf-sections-physical-offset
+  description: ELF Section List offset.
+  flat_name: process.elf.sections.physical_offset
+  ignore_above: 1024
+  level: extended
+  name: sections.physical_offset
+  normalize: []
+  original_fieldset: elf
+  short: ELF Section List offset.
+  type: keyword
+process.elf.sections.physical_size:
+  dashed_name: process-elf-sections-physical-size
+  description: ELF Section List physical size.
+  flat_name: process.elf.sections.physical_size
+  format: bytes
+  level: extended
+  name: sections.physical_size
+  normalize: []
+  original_fieldset: elf
+  short: ELF Section List physical size.
+  type: long
+process.elf.sections.type:
+  dashed_name: process-elf-sections-type
+  description: ELF Section List type.
+  flat_name: process.elf.sections.type
+  ignore_above: 1024
+  level: extended
+  name: sections.type
+  normalize: []
+  original_fieldset: elf
+  short: ELF Section List type.
+  type: keyword
+process.elf.sections.virtual_address:
+  dashed_name: process-elf-sections-virtual-address
+  description: ELF Section List virtual address.
+  flat_name: process.elf.sections.virtual_address
+  format: string
+  level: extended
+  name: sections.virtual_address
+  normalize: []
+  original_fieldset: elf
+  short: ELF Section List virtual address.
+  type: long
+process.elf.sections.virtual_size:
+  dashed_name: process-elf-sections-virtual-size
+  description: ELF Section List virtual size.
+  flat_name: process.elf.sections.virtual_size
+  format: string
+  level: extended
+  name: sections.virtual_size
+  normalize: []
+  original_fieldset: elf
+  short: ELF Section List virtual size.
+  type: long
+process.elf.segments:
+  dashed_name: process-elf-segments
+  description: 'An array containing an object for each segment of the ELF file.
+
+    The keys that should be present in these objects are defined by sub-fields underneath
+    `elf.segments.*`.'
+  flat_name: process.elf.segments
+  level: extended
+  name: segments
+  normalize:
+  - array
+  original_fieldset: elf
+  short: ELF object segment list.
+  type: nested
+process.elf.segments.sections:
+  dashed_name: process-elf-segments-sections
+  description: ELF object segment sections.
+  flat_name: process.elf.segments.sections
+  ignore_above: 1024
+  level: extended
+  name: segments.sections
+  normalize: []
+  original_fieldset: elf
+  short: ELF object segment sections.
+  type: keyword
+process.elf.segments.type:
+  dashed_name: process-elf-segments-type
+  description: ELF object segment type.
+  flat_name: process.elf.segments.type
+  ignore_above: 1024
+  level: extended
+  name: segments.type
+  normalize: []
+  original_fieldset: elf
+  short: ELF object segment type.
+  type: keyword
+process.elf.shared_libraries:
+  dashed_name: process-elf-shared-libraries
+  description: List of shared libraries used by this ELF object.
+  flat_name: process.elf.shared_libraries
+  ignore_above: 1024
+  level: extended
+  name: shared_libraries
+  normalize:
+  - array
+  original_fieldset: elf
+  short: List of shared libraries used by this ELF object.
+  type: keyword
+process.elf.telfhash:
+  dashed_name: process-elf-telfhash
+  description: telfhash symbol hash for ELF file.
+  flat_name: process.elf.telfhash
+  ignore_above: 1024
+  level: extended
+  name: telfhash
+  normalize: []
+  original_fieldset: elf
+  short: telfhash hash for ELF file.
+  type: keyword
 process.entity_id:
   dashed_name: process-entity-id
   description: 'Unique identifier for the process.
@@ -5668,6 +6329,335 @@ process.parent.command_line:
   normalize: []
   original_fieldset: process
   short: Full command line that started the process.
+  type: keyword
+process.parent.elf.architecture:
+  dashed_name: process-parent-elf-architecture
+  description: Machine architecture of the ELF file.
+  example: x86-64
+  flat_name: process.parent.elf.architecture
+  ignore_above: 1024
+  level: extended
+  name: architecture
+  normalize: []
+  original_fieldset: elf
+  short: Machine architecture of the ELF file.
+  type: keyword
+process.parent.elf.byte_order:
+  dashed_name: process-parent-elf-byte-order
+  description: Byte sequence of ELF file.
+  example: Little Endian
+  flat_name: process.parent.elf.byte_order
+  ignore_above: 1024
+  level: extended
+  name: byte_order
+  normalize: []
+  original_fieldset: elf
+  short: Byte sequence of ELF file.
+  type: keyword
+process.parent.elf.cpu_type:
+  dashed_name: process-parent-elf-cpu-type
+  description: CPU type of the ELF file.
+  example: Intel
+  flat_name: process.parent.elf.cpu_type
+  ignore_above: 1024
+  level: extended
+  name: cpu_type
+  normalize: []
+  original_fieldset: elf
+  short: CPU type of the ELF file.
+  type: keyword
+process.parent.elf.creation_date:
+  dashed_name: process-parent-elf-creation-date
+  description: Extracted when possible from the file's metadata. Indicates when it
+    was built or compiled. It can also be faked by malware creators.
+  flat_name: process.parent.elf.creation_date
+  level: extended
+  name: creation_date
+  normalize: []
+  original_fieldset: elf
+  short: Build or compile date.
+  type: date
+process.parent.elf.exports:
+  dashed_name: process-parent-elf-exports
+  description: List of exported element names and types.
+  flat_name: process.parent.elf.exports
+  level: extended
+  name: exports
+  normalize:
+  - array
+  original_fieldset: elf
+  short: List of exported element names and types.
+  type: flattened
+process.parent.elf.header.abi_version:
+  dashed_name: process-parent-elf-header-abi-version
+  description: Version of the ELF Application Binary Interface (ABI).
+  flat_name: process.parent.elf.header.abi_version
+  ignore_above: 1024
+  level: extended
+  name: header.abi_version
+  normalize: []
+  original_fieldset: elf
+  short: Version of the ELF Application Binary Interface (ABI).
+  type: keyword
+process.parent.elf.header.class:
+  dashed_name: process-parent-elf-header-class
+  description: Header class of the ELF file.
+  flat_name: process.parent.elf.header.class
+  ignore_above: 1024
+  level: extended
+  name: header.class
+  normalize: []
+  original_fieldset: elf
+  short: Header class of the ELF file.
+  type: keyword
+process.parent.elf.header.data:
+  dashed_name: process-parent-elf-header-data
+  description: Data table of the ELF header.
+  flat_name: process.parent.elf.header.data
+  ignore_above: 1024
+  level: extended
+  name: header.data
+  normalize: []
+  original_fieldset: elf
+  short: Data table of the ELF header.
+  type: keyword
+process.parent.elf.header.entrypoint:
+  dashed_name: process-parent-elf-header-entrypoint
+  description: Header entrypoint of the ELF file.
+  flat_name: process.parent.elf.header.entrypoint
+  format: string
+  level: extended
+  name: header.entrypoint
+  normalize: []
+  original_fieldset: elf
+  short: Header entrypoint of the ELF file.
+  type: long
+process.parent.elf.header.object_version:
+  dashed_name: process-parent-elf-header-object-version
+  description: '"0x1" for original ELF files.'
+  flat_name: process.parent.elf.header.object_version
+  ignore_above: 1024
+  level: extended
+  name: header.object_version
+  normalize: []
+  original_fieldset: elf
+  short: '"0x1" for original ELF files.'
+  type: keyword
+process.parent.elf.header.os_abi:
+  dashed_name: process-parent-elf-header-os-abi
+  description: Application Binary Interface (ABI) of the Linux OS.
+  flat_name: process.parent.elf.header.os_abi
+  ignore_above: 1024
+  level: extended
+  name: header.os_abi
+  normalize: []
+  original_fieldset: elf
+  short: Application Binary Interface (ABI) of the Linux OS.
+  type: keyword
+process.parent.elf.header.type:
+  dashed_name: process-parent-elf-header-type
+  description: Header type of the ELF file.
+  flat_name: process.parent.elf.header.type
+  ignore_above: 1024
+  level: extended
+  name: header.type
+  normalize: []
+  original_fieldset: elf
+  short: Header type of the ELF file.
+  type: keyword
+process.parent.elf.header.version:
+  dashed_name: process-parent-elf-header-version
+  description: Version of the ELF header.
+  flat_name: process.parent.elf.header.version
+  ignore_above: 1024
+  level: extended
+  name: header.version
+  normalize: []
+  original_fieldset: elf
+  short: Version of the ELF header.
+  type: keyword
+process.parent.elf.imports:
+  dashed_name: process-parent-elf-imports
+  description: List of imported element names and types.
+  flat_name: process.parent.elf.imports
+  level: extended
+  name: imports
+  normalize:
+  - array
+  original_fieldset: elf
+  short: List of imported element names and types.
+  type: flattened
+process.parent.elf.sections:
+  dashed_name: process-parent-elf-sections
+  description: 'An array containing an object for each section of the ELF file.
+
+    The keys that should be present in these objects are defined by sub-fields underneath
+    `elf.sections.*`.'
+  flat_name: process.parent.elf.sections
+  level: extended
+  name: sections
+  normalize:
+  - array
+  original_fieldset: elf
+  short: Section information of the ELF file.
+  type: nested
+process.parent.elf.sections.chi2:
+  dashed_name: process-parent-elf-sections-chi2
+  description: Chi-square probability distribution of the section.
+  flat_name: process.parent.elf.sections.chi2
+  format: number
+  level: extended
+  name: sections.chi2
+  normalize: []
+  original_fieldset: elf
+  short: Chi-square probability distribution of the section.
+  type: long
+process.parent.elf.sections.entropy:
+  dashed_name: process-parent-elf-sections-entropy
+  description: Shannon entropy calculation from the section.
+  flat_name: process.parent.elf.sections.entropy
+  format: number
+  level: extended
+  name: sections.entropy
+  normalize: []
+  original_fieldset: elf
+  short: Shannon entropy calculation from the section.
+  type: long
+process.parent.elf.sections.flags:
+  dashed_name: process-parent-elf-sections-flags
+  description: ELF Section List flags.
+  flat_name: process.parent.elf.sections.flags
+  ignore_above: 1024
+  level: extended
+  name: sections.flags
+  normalize: []
+  original_fieldset: elf
+  short: ELF Section List flags.
+  type: keyword
+process.parent.elf.sections.name:
+  dashed_name: process-parent-elf-sections-name
+  description: ELF Section List name.
+  flat_name: process.parent.elf.sections.name
+  ignore_above: 1024
+  level: extended
+  name: sections.name
+  normalize: []
+  original_fieldset: elf
+  short: ELF Section List name.
+  type: keyword
+process.parent.elf.sections.physical_offset:
+  dashed_name: process-parent-elf-sections-physical-offset
+  description: ELF Section List offset.
+  flat_name: process.parent.elf.sections.physical_offset
+  ignore_above: 1024
+  level: extended
+  name: sections.physical_offset
+  normalize: []
+  original_fieldset: elf
+  short: ELF Section List offset.
+  type: keyword
+process.parent.elf.sections.physical_size:
+  dashed_name: process-parent-elf-sections-physical-size
+  description: ELF Section List physical size.
+  flat_name: process.parent.elf.sections.physical_size
+  format: bytes
+  level: extended
+  name: sections.physical_size
+  normalize: []
+  original_fieldset: elf
+  short: ELF Section List physical size.
+  type: long
+process.parent.elf.sections.type:
+  dashed_name: process-parent-elf-sections-type
+  description: ELF Section List type.
+  flat_name: process.parent.elf.sections.type
+  ignore_above: 1024
+  level: extended
+  name: sections.type
+  normalize: []
+  original_fieldset: elf
+  short: ELF Section List type.
+  type: keyword
+process.parent.elf.sections.virtual_address:
+  dashed_name: process-parent-elf-sections-virtual-address
+  description: ELF Section List virtual address.
+  flat_name: process.parent.elf.sections.virtual_address
+  format: string
+  level: extended
+  name: sections.virtual_address
+  normalize: []
+  original_fieldset: elf
+  short: ELF Section List virtual address.
+  type: long
+process.parent.elf.sections.virtual_size:
+  dashed_name: process-parent-elf-sections-virtual-size
+  description: ELF Section List virtual size.
+  flat_name: process.parent.elf.sections.virtual_size
+  format: string
+  level: extended
+  name: sections.virtual_size
+  normalize: []
+  original_fieldset: elf
+  short: ELF Section List virtual size.
+  type: long
+process.parent.elf.segments:
+  dashed_name: process-parent-elf-segments
+  description: 'An array containing an object for each segment of the ELF file.
+
+    The keys that should be present in these objects are defined by sub-fields underneath
+    `elf.segments.*`.'
+  flat_name: process.parent.elf.segments
+  level: extended
+  name: segments
+  normalize:
+  - array
+  original_fieldset: elf
+  short: ELF object segment list.
+  type: nested
+process.parent.elf.segments.sections:
+  dashed_name: process-parent-elf-segments-sections
+  description: ELF object segment sections.
+  flat_name: process.parent.elf.segments.sections
+  ignore_above: 1024
+  level: extended
+  name: segments.sections
+  normalize: []
+  original_fieldset: elf
+  short: ELF object segment sections.
+  type: keyword
+process.parent.elf.segments.type:
+  dashed_name: process-parent-elf-segments-type
+  description: ELF object segment type.
+  flat_name: process.parent.elf.segments.type
+  ignore_above: 1024
+  level: extended
+  name: segments.type
+  normalize: []
+  original_fieldset: elf
+  short: ELF object segment type.
+  type: keyword
+process.parent.elf.shared_libraries:
+  dashed_name: process-parent-elf-shared-libraries
+  description: List of shared libraries used by this ELF object.
+  flat_name: process.parent.elf.shared_libraries
+  ignore_above: 1024
+  level: extended
+  name: shared_libraries
+  normalize:
+  - array
+  original_fieldset: elf
+  short: List of shared libraries used by this ELF object.
+  type: keyword
+process.parent.elf.telfhash:
+  dashed_name: process-parent-elf-telfhash
+  description: telfhash symbol hash for ELF file.
+  flat_name: process.parent.elf.telfhash
+  ignore_above: 1024
+  level: extended
+  name: telfhash
+  normalize: []
+  original_fieldset: elf
+  short: telfhash hash for ELF file.
   type: keyword
 process.parent.entity_id:
   dashed_name: process-parent-entity-id
@@ -6321,14 +7311,14 @@ related.ip:
   type: ip
 related.user:
   dashed_name: related-user
-  description: All the user names seen on your event.
+  description: All the user names or other user identifiers seen on the event.
   flat_name: related.user
   ignore_above: 1024
   level: extended
   name: user
   normalize:
   - array
-  short: All the user names seen on your event.
+  short: All the user names or other user identifiers seen on the event.
   type: keyword
 rule.author:
   dashed_name: rule-author
@@ -7519,6 +8509,136 @@ threat.framework:
   name: framework
   normalize: []
   short: Threat classification framework.
+  type: keyword
+threat.group.alias:
+  beta: This field is beta and subject to change.
+  dashed_name: threat-group-alias
+  description: "The alias(es) of the group for a set of related intrusion activity\
+    \ that are tracked by a common name in the security community. While not required,\
+    \ you can use a MITRE ATT&CK\xAE group alias(es)."
+  example: '[ "Magecart Group 6" ]'
+  flat_name: threat.group.alias
+  ignore_above: 1024
+  level: extended
+  name: group.alias
+  normalize:
+  - array
+  short: Alias of the group.
+  type: keyword
+threat.group.id:
+  beta: This field is beta and subject to change.
+  dashed_name: threat-group-id
+  description: "The id of the group for a set of related intrusion activity that are\
+    \ tracked by a common name in the security community. While not required, you\
+    \ can use a MITRE ATT&CK\xAE group id."
+  example: G0037
+  flat_name: threat.group.id
+  ignore_above: 1024
+  level: extended
+  name: group.id
+  normalize: []
+  short: ID of the group.
+  type: keyword
+threat.group.name:
+  beta: This field is beta and subject to change.
+  dashed_name: threat-group-name
+  description: "The name of the group for a set of related intrusion activity that\
+    \ are tracked by a common name in the security community. While not required,\
+    \ you can use a MITRE ATT&CK\xAE group name."
+  example: FIN6
+  flat_name: threat.group.name
+  ignore_above: 1024
+  level: extended
+  name: group.name
+  normalize: []
+  short: Name of the group.
+  type: keyword
+threat.group.reference:
+  beta: This field is beta and subject to change.
+  dashed_name: threat-group-reference
+  description: "The reference URL of the group for a set of related intrusion activity\
+    \ that are tracked by a common name in the security community. While not required,\
+    \ you can use a MITRE ATT&CK\xAE group reference URL."
+  example: https://attack.mitre.org/groups/G0037/
+  flat_name: threat.group.reference
+  ignore_above: 1024
+  level: extended
+  name: group.reference
+  normalize: []
+  short: Reference URL of the group.
+  type: keyword
+threat.software.id:
+  beta: This field is beta and subject to change.
+  dashed_name: threat-software-id
+  description: "The id of the software used by this threat to conduct behavior commonly\
+    \ modeled using MITRE ATT&CK\xAE. While not required, you can use a MITRE ATT&CK\xAE\
+    \ software id."
+  example: S0552
+  flat_name: threat.software.id
+  ignore_above: 1024
+  level: extended
+  name: software.id
+  normalize: []
+  short: ID of the software
+  type: keyword
+threat.software.name:
+  beta: This field is beta and subject to change.
+  dashed_name: threat-software-name
+  description: "The name of the software used by this threat to conduct behavior commonly\
+    \ modeled using MITRE ATT&CK\xAE. While not required, you can use a MITRE ATT&CK\xAE\
+    \ software name."
+  example: AdFind
+  flat_name: threat.software.name
+  ignore_above: 1024
+  level: extended
+  name: software.name
+  normalize: []
+  short: Name of the software.
+  type: keyword
+threat.software.platforms:
+  beta: This field is beta and subject to change.
+  dashed_name: threat-software-platforms
+  description: "The platforms of the software used by this threat to conduct behavior\
+    \ commonly modeled using MITRE ATT&CK\xAE. While not required, you can use a MITRE\
+    \ ATT&CK\xAE software platforms.\nRecommended Values:\n  * AWS\n  * Azure\n  *\
+    \ Azure AD\n  * GCP\n  * Linux\n  * macOS\n  * Network\n  * Office 365\n  * SaaS\n\
+    \  * Windows"
+  example: '[ "Windows" ]'
+  flat_name: threat.software.platforms
+  ignore_above: 1024
+  level: extended
+  name: software.platforms
+  normalize:
+  - array
+  short: Platforms of the software.
+  type: keyword
+threat.software.reference:
+  beta: This field is beta and subject to change.
+  dashed_name: threat-software-reference
+  description: "The reference URL of the software used by this threat to conduct behavior\
+    \ commonly modeled using MITRE ATT&CK\xAE. While not required, you can use a MITRE\
+    \ ATT&CK\xAE software reference URL."
+  example: https://attack.mitre.org/software/S0552/
+  flat_name: threat.software.reference
+  ignore_above: 1024
+  level: extended
+  name: software.reference
+  normalize: []
+  short: Software reference URL.
+  type: keyword
+threat.software.type:
+  beta: This field is beta and subject to change.
+  dashed_name: threat-software-type
+  description: "The type of software used by this threat to conduct behavior commonly\
+    \ modeled using MITRE ATT&CK\xAE. While not required, you can use a MITRE ATT&CK\xAE\
+    \ software type.\nRecommended values\n  * Malware\n  * Tool"
+  example: Tool
+  flat_name: threat.software.type
+  ignore_above: 1024
+  level: extended
+  name: software.type
+  normalize: []
+  short: Software type.
   type: keyword
 threat.tactic.id:
   dashed_name: threat-tactic-id

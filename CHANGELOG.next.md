@@ -8,53 +8,74 @@ Thanks, you're awesome :-) -->
 
 ## Unreleased
 
-### Schema Changes
+### Breaking Changes
 
-#### Breaking changes
+* Removing deprecated --oss from generator #1404
+* Removing use-cases directory #1405
+* Remove `host.user.*` field reuse. #1439
+
+### Schema Changes
 
 #### Bugfixes
 
 #### Added
 
-* Add `orchestrator` fieldset to experimental schema. #1292
+* `elf.*` field set added as beta. #1410
+* Remove `beta` from `orchestrator` field set. #1417
+* Extend `threat.*` field set beta. #1438
 
 #### Improvements
 
-### Tooling and Artifact Changes
+* Fix ecs GitHub repo link source branch #1393
+* Add --exclude flag to Generator to support field removal testing #1411
+* Explicitly include user identifiers in `relater.user` description. #1420
 
-#### Breaking changes
+#### Deprecated
+
+* Note deprecation of the `host.user.*` field reuse. #1422
+
+### Tooling and Artifact Changes
 
 #### Bugfixes
 
 #### Added
+
+* Support `match_only_text` data type in Go code generator. #1418
 
 #### Improvements
 
 #### Deprecated
 
-
-## 1.9.0 (Feature Freeze)
+## 1.10.0 (Feature Freeze)
 
 ### Schema Changes
 
 #### Added
 
-* Added `hash.ssdeep`. #1169
-* Added `cloud.service.name`. #1204
-* Added `http.request.id`. #1208
-* `data_stream.*` fieldset introduced in experimental schema and artifacts. #1215
-* Added `geo.timezone`, `geo.postal_code`, and `geo.continent_code`. #1229
-* Added `beta` host metrics fields. #1248
-* Added `code_signature.team_id`, `code_signature.signing_id`. #1249
-* Extended `pe` fields added to experimental schema. #1256
-* Add `elf` fieldset to experimental schema. #1261
-* Add `threat.indicator` fields to experimental schema. #1268
+* Add `data_stream` fieldset. #1307
+* Add `orchestrator` fieldset as beta fields. #1326
+* Extend `threat.*` experimental fields with proposed changes from RFC 0018. #1344, #1351
+* Allow custom descriptions for self-nesting reuses via `short_override` #1366
 
 #### Improvements
 
-* Include formatting guidance and examples for MAC address fields. #456
-* New section in ECS detailing event categorization fields usage. #1242
-* `user.changes.*`, `user.effective.*`, and `user.target.*` field reuses are GA. #1271
+* Updated descriptions to use Elastic Security #1305
+* Host metrics fields from RFC 0005 are now GA. #1319
+* Adjustments to the field set "usage" docs #1345
+* Adjustments to the sidebar naming convention for usage and examples docs #1354
+* Update `user.*` field reuse descriptions. #1382
+
+### Tooling and Artifact Changes
+
+#### Bugfixes
+
+* Correcting fieldset name capitalization for generated ES template #1323
+
+#### Improvements
+
+* Support `nested` types in go code generator. #1254, #1350
+* Go code generator now supports the `flattened` data type. #1302
+* Adjustments to use terminology that doesn't have negative connotation. #1315
 
 <!-- All empty sections:
 

@@ -358,8 +358,74 @@ class TestSchemaCleaner(unittest.TestCase):
         except Exception:
             self.fail("cleaner.check_example_value() raised Exception unexpectedly.")
 
+    def test_very_long_short_override_description_raises(self):
+        schema = {
+            'schema_details': {
+                'reusable': {
+                    'expected':
+                        [{'at': 'process',
+                          'as': 'parent',
+                          'full': 'process.parent',
+                          'short_override': "Single line but really long. " * 10}]
+                }
+            }
+        }
+        with self.assertRaisesRegex(ValueError, 'under 120 characters \(current length: 290\)'):
+            cleaner.single_line_short_override_description(schema)
+
+    def test_multiline_short_override_description_raises(self):
+        schema = {
+            'schema_details': {
+                'reusable': {
+                    'expected':
+                        [{'at': 'process',
+                          'as': 'parent',
+                          'full': 'process.parent',
+                          'short_override': "multiple\nlines"}]
+                }
+            }
+        }
+        with self.assertRaisesRegex(ValueError, 'single line'):
+            cleaner.single_line_short_override_description(schema)
+
+    def test_very_long_short_override_description_warns_strict_disabled(self):
+        schema = {
+            'schema_details': {
+                'reusable': {
+                    'expected':
+                        [{'at': 'process',
+                          'as': 'parent',
+                          'full': 'process.parent',
+                          'short_override': "Single line but really long. " * 10}]
+                }
+            }
+        }
+        try:
+            with self.assertWarnsRegex(UserWarning, 'under 120 characters \(current length: 290\)'):
+                cleaner.single_line_short_override_description(schema, strict=False)
+        except Exception:
+            self.fail("cleaner.single_line_short_override_description() raised Exception unexpectedly.")
+
+    def test_multiline_short_override_description_warns_strict_disabled(self):
+        schema = {
+            'schema_details': {
+                'reusable': {
+                    'expected':
+                        [{'at': 'process',
+                          'as': 'parent',
+                          'full': 'process.parent',
+                          'short_override': "multiple\nlines"}]
+                }
+            }
+        }
+        try:
+            with self.assertWarnsRegex(UserWarning, 'single line'):
+                cleaner.single_line_short_override_description(schema, strict=False)
+        except Exception:
+            self.fail("cleaner.single_line_short_override_description() raised Exception unexpectedly.")
+
     def test_clean(self):
-        '''A high level sanity test'''
+        """A high level sanity test"""
         fields = self.schema_process()
         cleaner.clean(fields)
         # schemas are processed
