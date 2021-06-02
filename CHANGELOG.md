@@ -3,6 +3,37 @@
 # CHANGELOG
 All notable changes to this project will be documented in this file based on the [Keep a Changelog](http://keepachangelog.com/) Standard. This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.10.0](https://github.com/elastic/ecs/compare/v1.9.0...v1.10.0)
+
+### Schema Changes
+
+#### Added
+
+* Add `data_stream` fieldset. #1307
+* Add `orchestrator` fieldset as beta fields. #1326
+* Extend `threat.*` experimental fields with proposed changes from RFC 0018. #1344, #1351
+* Allow custom descriptions for self-nesting reuses via `short_override` #1366
+
+#### Improvements
+
+* Updated descriptions to use Elastic Security #1305
+* Host metrics fields from RFC 0005 are now GA. #1319
+* Adjustments to the field set "usage" docs #1345
+* Adjustments to the sidebar naming convention for usage and examples docs #1354
+* Update `user.*` field reuse descriptions. #1382
+
+### Tooling and Artifact Changes
+
+#### Bugfixes
+
+* Correcting fieldset name capitalization for generated ES template #1323
+
+#### Improvements
+
+* Support `nested` types in go code generator. #1254, #1350
+* Go code generator now supports the `flattened` data type. #1302
+* Adjustments to use terminology that doesn't have negative connotation. #1315
+
 ## [1.9.0](https://github.com/elastic/ecs/compare/v1.8.0...v1.9.0)
 
 ### Schema Changes
