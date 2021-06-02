@@ -29,11 +29,8 @@ type Http struct {
 	RequestID string `ecs:"request.id"`
 
 	// HTTP request method.
-	// Prior to ECS 1.6.0 the following guidance was provided:
-	// "The field value must be normalized to lowercase for querying."
-	// As of ECS 1.6.0, the guidance is deprecated because the original case of
-	// the method may be useful in anomaly detection.  Original case will be
-	// mandated in ECS 2.0.0
+	// The value should retain its casing from the original event. For example,
+	// `GET`, `get`, and `GeT` are all considered valid values for this field.
 	RequestMethod string `ecs:"request.method"`
 
 	// Mime type of the body of the request.

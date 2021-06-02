@@ -13,6 +13,7 @@ Thanks, you're awesome :-) -->
 * Removing deprecated --oss from generator #1404
 * Removing use-cases directory #1405
 * Remove `host.user.*` field reuse. #1439
+* Remove deprecation notice on `http.request.method`. #1443
 
 ### Schema Changes
 
