@@ -121,7 +121,32 @@ The security detection rules [repo](https://github.com/elastic/detection-rules) 
 Stage 1: Identify potential concerns, implementation challenges, or complexity. Spend some time on this. Play devil's advocate. Try to identify the sort of non-obvious challenges that tend to surface later. The goal here is to surface risks early, allow everyone the time to work through them, and ultimately document resolution for posterity's sake.
 -->
 
-Since capturing the PPID is useful across the solutions, it will take coordination to complete eliminate it's use before removing from ECS. Field aliases might be of some use to alleviate some pain during the migration for any aggregations or visualizations relying on `process.ppid`.
+Since capturing the PPID is useful across the solutions, it will take coordination to complete eliminate it's use before removing from ECS.
+
+Field aliases might be of some use to alleviate some pain during the migration for any aggregations or visualizations relying on `process.ppid`:
+
+```
+PUT rfc_0018/_mapping
+{
+  "properties": {
+    "process": {
+      "properties": {
+        "ppid": {
+          "type": "alias",
+          "path": "process.parent.id"
+        },
+        "parent": {
+          "properties": {
+            "id": {
+              "type": "long"
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
 
 <!--
 Stage 2: Document new concerns or resolutions to previously listed concerns. It's not critical that all concerns have resolutions at this point, but it would be helpful if resolutions were taking shape for the most significant concerns.
