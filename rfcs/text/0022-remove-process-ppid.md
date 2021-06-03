@@ -19,10 +19,6 @@ There's no need to have two fields capturing the same value, and to avoid duplic
 
 ## Fields
 
-<!--
-Stage 1: Describe at a high level how this change affects fields. Include new or updated yml field definitions for all of the essential fields in this draft. While not exhaustive, the fields documented here should be comprehensive enough to deeply evaluate the technical considerations of this change. The goal here is to validate the technical details for all essential fields and to provide a basis for adding experimental field definitions to the schema. Use GitHub code blocks with yml syntax formatting.
--->
-
 Removing `process.ppid` will take place in two steps:
 
 1. ECS `1.x`: Indicate that `process.ppid` is deprecated in the fields description in an upcoming ECS minor release. Producers and consumers of `process.ppid` should transition to using `process.parent.id` instead.
@@ -34,17 +30,13 @@ Stage 2: Add or update all remaining field definitions. The list should now be e
 
 ## Usage
 
-<!--
-Stage 1: Describe at a high-level how these field changes will be used in practice. Real world examples are encouraged. The goal here is to understand how people would leverage these fields to gain insights or solve problems. ~1-3 paragraphs.
--->
-
 New processes are typically spawned directly from their parent, or calling, process. Capturing the parent pid (PPID) has many applications:
 
 * Modeling process hierarchy
 * Attackers may try to start a process with an arbitrary parent process set. Capturing the PPID value helps identify if an attacker is attempting privilege escalation through PPID spoofing.
 * Collecting PPID as a possible datapoint to help with the observability of a system.
 
-Users will still be able to capture the PPID in the `process.parent.pid` field. Having the one single field available should hep improve the experience for anyone trying to capture PPIDs from their events.
+Users will still be able to capture the PPID in the `process.parent.pid` field. Having the one single field available should help improve the experience for anyone trying to capture PPIDs from their events.
 
 ## Source data
 
