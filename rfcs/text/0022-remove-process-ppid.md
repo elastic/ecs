@@ -75,7 +75,7 @@ APM, Beats, Elastic Agent, and any processors that populate `process.ppid` today
 
 ### Usage mechanisms
 
-The security detection rules [repo](https://github.com/elastic/detection-rules) will need audited. Any usage of `process.ppid` should ideally migrate to `process.parent.id`.
+The security detection rules [repo](https://github.com/elastic/detection-rules) will need audited. Any usage of `process.ppid` should ideally migrate to `process.parent.id`, but backwards compatibility with also remain important.
 
 ## Concerns
 
