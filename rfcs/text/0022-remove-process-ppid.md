@@ -44,12 +44,50 @@ Users will still be able to capture the PPID in the `process.parent.pid` field. 
 Stage 1: Provide a high-level description of example sources of data. This does not yet need to be a concrete example of a source document, but instead can simply describe a potential source (e.g. nginx access log). This will ultimately be fleshed out to include literal source examples in a future stage. The goal here is to identify practical sources for these fields in the real world. ~1-3 sentences or unordered list.
 -->
 
-`process.ppid` is actively populated across several data sources:
+The `process.ppid` field is actively populated across several data sources:
 
 * APM Server and agents
 * Beats modules
 * Beats `add_process_metadata` processor
 * Elastic agent integration packages
+
+An example of how `process.ppid` is populated:
+
+```json
+{
+    "@timestamp": "2016-12-07T02:16:24.827Z",
+    "process": {
+        "executable": "/usr/bin/kmod",
+        "exit_code": 0,
+        "name": "modprobe",
+        "pid": 391,
+        "ppid": 390,
+    },
+    "service": {
+        "type": "auditd",
+    }
+}
+```
+
+And an example of how the above document would be updated to populate `process.parent.id` instead:
+
+```json
+{
+    "@timestamp": "2016-12-07T02:16:24.827Z",
+    "process": {
+        "executable": "/usr/bin/kmod",
+        "exit_code": 0,
+        "name": "modprobe",
+        "pid": 391,
+        "parent": {
+            "id": 390
+        }
+    },
+    "service": {
+        "type": "auditd",
+    }
+}
+```
 
 <!--
 Stage 2: Included a real world example source document. Ideally this example comes from the source(s) identified in stage 1. If not, it should replace them. The goal here is to validate the utility of these field changes in the context of a real world example. Format with the source name as a ### header and the example document in a GitHub code block with json formatting.
