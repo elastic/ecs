@@ -23,10 +23,10 @@ There's no need to have two fields capturing the same value, and to avoid duplic
 Stage 1: Describe at a high level how this change affects fields. Include new or updated yml field definitions for all of the essential fields in this draft. While not exhaustive, the fields documented here should be comprehensive enough to deeply evaluate the technical considerations of this change. The goal here is to validate the technical details for all essential fields and to provide a basis for adding experimental field definitions to the schema. Use GitHub code blocks with yml syntax formatting.
 -->
 
-### Timeline
+Removing `process.ppid` will take place in two steps:
 
-* ECS `1.x`: Indicate that `process.ppid` is deprecated in the fields description in an upcoming ECS minor release. Advise sources populating `process.ppid` to transition to `process.parent.id` instead.
-* Next ECS major: Remove `process.ppid` field in the next ECS major release.
+1. ECS `1.x`: Indicate that `process.ppid` is deprecated in the fields description in an upcoming ECS minor release. Producers and consumers of `process.ppid` should transition to using `process.parent.id` instead.
+2. ECS `8.0.0`: Remove `process.ppid` field.
 
 <!--
 Stage 2: Add or update all remaining field definitions. The list should now be exhaustive. The goal here is to validate the technical details of all remaining fields and to provide a basis for releasing these field definitions as beta in the schema. Use GitHub code blocks with yml syntax formatting.
