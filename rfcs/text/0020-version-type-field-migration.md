@@ -1,7 +1,7 @@
 # 0020: Version Type Field Migration
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
-- Stage: **0 (strawperson)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
+- Stage: **1 (draft)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
 - Date: **2021-04-22** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 <!--
@@ -132,6 +132,7 @@ e.g.:
 <!-- An RFC should link to the PRs for each of it stage advancements. -->
 
 * Stage 0: https://github.com/elastic/ecs/pull/1309
+* Stage 1: https://github.com/elastic/ecs/pull/NNNN
 
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN
