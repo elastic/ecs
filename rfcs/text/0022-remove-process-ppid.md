@@ -22,7 +22,7 @@ There's no need to have two fields capturing the same value, and to avoid duplic
 Removing `process.ppid` will take place in two steps:
 
 1. ECS `1.x`: Indicate that `process.ppid` is deprecated in the fields description in an upcoming ECS minor release. Producers and consumers of `process.ppid` should transition to using `process.parent.id` instead.
-2. ECS `8.0.0`: Remove `process.ppid` field.
+2. Later remove `process.ppid` field as a breaking change.
 
 <!--
 Stage 2: Add or update all remaining field definitions. The list should now be exhaustive. The goal here is to validate the technical details of all remaining fields and to provide a basis for releasing these field definitions as beta in the schema. Use GitHub code blocks with yml syntax formatting.
