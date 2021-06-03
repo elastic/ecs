@@ -36,7 +36,7 @@ New processes are typically spawned directly from their parent, or calling, proc
 * Attackers may try to start a process with an arbitrary parent process set. Capturing the PPID value helps identify if an attacker is attempting privilege escalation through PPID spoofing.
 * Collecting PPID as a possible datapoint to help with the observability of a system.
 
-Users will still be able to capture the PPID in the `process.parent.pid` field. Having the one single field available should help improve the experience for anyone trying to capture PPIDs from their events.
+Users will still be able to capture the PPID in the `process.parent.pid` field. Having the one single field available should help improve the experience for anyone trying to capture and query PPIDs from their events.
 
 ## Source data
 
