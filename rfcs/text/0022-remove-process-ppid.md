@@ -15,7 +15,7 @@ Stage 0: Provide a high level summary of the premise of these changes. Briefly d
 
 The `process.ppid` field has been part of ECS since 1.0.0. The `process.parent.*` fields were later introduced in ECS 1.3.0, including `process.parent.pid`. Both fields serve the same purpose: capture the process identifier (PID) of a process' parent.
 
-There's no need to have two fields capturing the same value, and to avoid duplication or user confusion, one of the fields should be removed. With all of the parent process fields are now included in ECS with the `process.parent.*` nesting, `process.ppid` could be deprecated and then later removed.
+There's no need to have two fields capturing the same value, and to avoid duplication or user confusion, one of the fields should be removed. With all of the parent process fields are now included in ECS with the `process.parent.*` nesting, `process.ppid` should be deprecated and then later removed.
 
 ## Fields
 
