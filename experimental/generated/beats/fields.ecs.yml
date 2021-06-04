@@ -3309,75 +3309,6 @@
       type: long
       description: Seconds the host has been up.
       example: 1325
-    - name: user.domain
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: 'Name of the directory the user is a member of.
-
-        For example, an LDAP or Active Directory domain name.'
-    - name: user.email
-      level: extended
-      type: wildcard
-      description: User email address.
-    - name: user.full_name
-      level: extended
-      type: wildcard
-      multi_fields:
-      - name: text
-        type: text
-        norms: false
-        default_field: false
-      description: User's full name, if available.
-      example: Albert Einstein
-    - name: user.group.domain
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: 'Name of the directory the group is a member of.
-
-        For example, an LDAP or Active Directory domain name.'
-    - name: user.group.id
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Unique identifier for the group on the system/platform.
-    - name: user.group.name
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Name of the group.
-    - name: user.hash
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: 'Unique user hash to correlate information for a user in anonymized
-        form.
-
-        Useful if `user.id` or `user.name` contain confidential information and cannot
-        be used.'
-    - name: user.id
-      level: core
-      type: keyword
-      ignore_above: 1024
-      description: Unique identifier of the user.
-    - name: user.name
-      level: core
-      type: wildcard
-      multi_fields:
-      - name: text
-        type: text
-        norms: false
-        default_field: false
-      description: Short name or login of the user.
-      example: albert
-    - name: user.roles
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Array of user roles at the time of the event.
-      example: '["kibana_admin", "reporting_user"]'
-      default_field: false
   - name: http
     title: HTTP
     group: 2
@@ -3424,14 +3355,9 @@
       ignore_above: 1024
       description: 'HTTP request method.
 
-        Prior to ECS 1.6.0 the following guidance was provided:
-
-        "The field value must be normalized to lowercase for querying."
-
-        As of ECS 1.6.0, the guidance is deprecated because the original case of the
-        method may be useful in anomaly detection.  Original case will be mandated
-        in ECS 2.0.0'
-      example: GET, POST, PUT, PoST
+        The value should retain its casing from the original event. For example, `GET`,
+        `get`, and `GeT` are all considered valid values for this field.'
+      example: POST
     - name: request.mime_type
       level: extended
       type: keyword
@@ -6111,7 +6037,7 @@
       level: extended
       type: keyword
       ignore_above: 1024
-      description: All the user names seen on your event.
+      description: All the user names or other user identifiers seen on the event.
       default_field: false
   - name: rule
     title: Rule
@@ -7915,12 +7841,12 @@
       level: extended
       type: keyword
       ignore_above: 1024
-      description: "The platform of the software used by this threat to conduct behavior\
+      description: "The platforms of the software used by this threat to conduct behavior\
         \ commonly modeled using MITRE ATT&CK\xAE. While not required, you can use\
-        \ a MITRE ATT&CK\xAE software platform.\nExpected values\n  * AWS\n  * Azure\n\
-        \  * Azure AD\n  * GCP\n  * Linux\n  * macOS\n  * Network\n  * Office 365\n\
-        \  * PRE\n  * SaaS\n  * Windows"
-      example: Windows
+        \ a MITRE ATT&CK\xAE software platforms.\nRecommended Values:\n  * AWS\n \
+        \ * Azure\n  * Azure AD\n  * GCP\n  * Linux\n  * macOS\n  * Network\n  * Office\
+        \ 365\n  * SaaS\n  * Windows"
+      example: '[ "Windows" ]'
       default_field: false
     - name: software.reference
       level: extended
@@ -7937,7 +7863,7 @@
       ignore_above: 1024
       description: "The type of software used by this threat to conduct behavior commonly\
         \ modeled using MITRE ATT&CK\xAE. While not required, you can use a MITRE\
-        \ ATT&CK\xAE software type.\nExpected values\n  * Malware\n  * Tool"
+        \ ATT&CK\xAE software type.\nRecommended values\n  * Malware\n  * Tool"
       example: Tool
       default_field: false
     - name: tactic.id
