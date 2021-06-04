@@ -123,6 +123,8 @@ The security detection rules [repo](https://github.com/elastic/detection-rules) 
 Stage 1: Identify potential concerns, implementation challenges, or complexity. Spend some time on this. Play devil's advocate. Try to identify the sort of non-obvious challenges that tend to surface later. The goal here is to surface risks early, allow everyone the time to work through them, and ultimately document resolution for posterity's sake.
 -->
 
+### Data producers populating `process.ppid`
+
 The `process.ppid` is populated in many data producers. Migrating to `process.parent.pid` will take coordination before removing the field from ECS entirely.
 
 Field aliases might be of some use to alleviate some pain during the migration for any aggregations or visualizations relying on `process.ppid`:
@@ -149,6 +151,10 @@ PUT rfc_0018/_mapping
   }
 }
 ```
+
+### Removing `process.parent.ppid`
+
+Removing `process.ppid` will also remove its reuse in `process.parent`: `process.parent.ppid` (parent's parent PID). This will leave ECS without an equivalent, replacement field.
 
 <!--
 Stage 2: Document new concerns or resolutions to previously listed concerns. It's not critical that all concerns have resolutions at this point, but it would be helpful if resolutions were taking shape for the most significant concerns.
