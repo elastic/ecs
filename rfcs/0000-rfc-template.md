@@ -17,6 +17,10 @@ Stage 0: Provide a high level summary of the premise of these changes. Briefly d
 Stage 1: If the changes include field additions or modifications, please create a folder titled as the RFC number under rfcs/text/. This will be where proposed schema changes as standalone YAML files or extended example mappings and larger source documents will go as the RFC is iterated upon.
 -->
 
+<!--
+Stage X: Provide a brief explanation of why the proposal is being marked as abandoned. This is useful context for anyone revisiting this proposal or considering similar changes later on.
+-->
+
 ## Fields
 
 <!--
