@@ -21,7 +21,7 @@ There's no need to have two fields to capture the same value and to avoid unneed
 
 Removing `process.ppid` will take place in two steps:
 
-1. ECS `1.x`: Indicate that `process.ppid` is deprecated in the fields description in an upcoming ECS minor release. Producers and consumers of `process.ppid` should transition to using `process.parent.id` instead.
+1. ECS `1.x`: Indicate that `process.ppid` is deprecated in the fields description in an upcoming ECS minor release. Producers and consumers of `process.ppid` should transition to using `process.parent.pid` instead.
 2. Later remove `process.ppid` field as a breaking change.
 
 Removing `process.ppid` will also eliminate the unnecessary `process.parent.ppid` field that exists in ECS due to the `process.*` field set being reused as `process.parent.*`.
@@ -71,7 +71,7 @@ An example of how `process.ppid` is populated:
 }
 ```
 
-Now how the above document would be updated for `process.parent.id` instead:
+Now how the above document would be updated for `process.parent.pid` instead:
 
 ```json
 {
@@ -82,7 +82,7 @@ Now how the above document would be updated for `process.parent.id` instead:
         "name": "modprobe",
         "pid": 391,
         "parent": {
-            "id": 390
+            "pid": 390
         }
     },
     "service": {
@@ -115,7 +115,7 @@ APM, Beats, Elastic Agent, and any processors that populate `process.ppid` today
 
 ### Usage mechanisms
 
-The security detection rules [repo](https://github.com/elastic/detection-rules) will need audited. Any usage of `process.ppid` should ideally migrate to `process.parent.id`, but backward compatibility also remains essential.
+The security detection rules [repo](https://github.com/elastic/detection-rules) will need audited. Any usage of `process.ppid` should ideally migrate to `process.parent.pid`, but backward compatibility also remains essential.
 
 ## Concerns
 
@@ -123,7 +123,7 @@ The security detection rules [repo](https://github.com/elastic/detection-rules) 
 Stage 1: Identify potential concerns, implementation challenges, or complexity. Spend some time on this. Play devil's advocate. Try to identify the sort of non-obvious challenges that tend to surface later. The goal here is to surface risks early, allow everyone the time to work through them, and ultimately document resolution for posterity's sake.
 -->
 
-The `process.ppid` is populated in many data producers. Migrating to `process.parent.id` will take coordination before removing the field from ECS entirely.
+The `process.ppid` is populated in many data producers. Migrating to `process.parent.pid` will take coordination before removing the field from ECS entirely.
 
 Field aliases might be of some use to alleviate some pain during the migration for any aggregations or visualizations relying on `process.ppid`:
 
@@ -135,11 +135,11 @@ PUT rfc_0018/_mapping
       "properties": {
         "ppid": {
           "type": "alias",
-          "path": "process.parent.id"
+          "path": "process.parent.pid"
         },
         "parent": {
           "properties": {
-            "id": {
+            "pid": {
               "type": "long"
             }
           }
