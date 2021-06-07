@@ -24,6 +24,7 @@ Thanks, you're awesome :-) -->
 * `elf.*` field set added as beta. #1410
 * Remove `beta` from `orchestrator` field set. #1417
 * Extend `threat.*` field set beta. #1438
+* Added `event.agent_id_status` field.
 
 #### Improvements
 

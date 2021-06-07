@@ -1581,6 +1581,24 @@
         Examples are `group-add`, `process-started`, `file-created`. The value is
         normally defined by the implementer.'
       example: user-password-change
+    - name: agent_id_status
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Agents are normally responsible for populating the `agent.id`
+        field value. If the system receiving events is capable of validating the value
+        based on authentication information for the client then this field can be
+        used to reflect the outcome of that validation.
+
+        For example if the agent''s connection is authenticated with mTLS and the
+        client cert contains the ID of the agent to which the cert was issued then
+        the `agent.id` value in events can be checked against the certificate. If
+        the values match then `event.agent_id_status: verified` is added to the event,
+        otherwise one of the other allowed values should be used.
+
+        If no validation is performed then the field should be omitted.'
+      example: verified
+      default_field: false
     - name: category
       level: core
       type: keyword

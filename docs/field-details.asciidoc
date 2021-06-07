@@ -2499,6 +2499,33 @@ example: `user-password-change`
 // ===============================================================
 
 |
+[[field-event-agent-id-status]]
+<<field-event-agent-id-status, event.agent_id_status>>
+
+| Agents are normally responsible for populating the `agent.id` field value. If the system receiving events is capable of validating the value based on authentication information for the client then this field can be used to reflect the outcome of that validation.
+
+For example if the agent's connection is authenticated with mTLS and the client cert contains the ID of the agent to which the cert was issued then the `agent.id` value in events can be checked against the certificate. If the values match then `event.agent_id_status: verified` is added to the event, otherwise one of the other allowed values should be used.
+
+If no validation is performed then the field should be omitted.
+
+type: keyword
+
+
+
+
+*Important*: The field value must be one of the following:
+
+verified, agent_id_mismatch, agent_id_missing, auth_metadata_missing
+
+To learn more about when to use which value, visit the page
+<<ecs-allowed-values-event-agent-id-status,allowed values for event.agent_id_status>>
+
+
+| extended
+
+// ===============================================================
+
+|
 [[field-event-category]]
 <<field-event-category, event.category>>
 

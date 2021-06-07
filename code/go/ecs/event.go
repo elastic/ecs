@@ -217,4 +217,17 @@ type Event struct {
 	// proxy with an `event.action` which denied the request may also populate
 	// `event.reason` with the reason why (e.g. `blocked site`).
 	Reason string `ecs:"reason"`
+
+	// Agents are normally responsible for populating the `agent.id` field
+	// value. If the system receiving events is capable of validating the value
+	// based on authentication information for the client then this field can
+	// be used to reflect the outcome of that validation.
+	// For example if the agent's connection is authenticated with mTLS and the
+	// client cert contains the ID of the agent to which the cert was issued
+	// then the `agent.id` value in events can be checked against the
+	// certificate. If the values match then `event.agent_id_status: verified`
+	// is added to the event, otherwise one of the other allowed values should
+	// be used.
+	// If no validation is performed then the field should be omitted.
+	AgentIDStatus string `ecs:"agent_id_status"`
 }
