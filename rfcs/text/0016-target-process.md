@@ -155,6 +155,7 @@ The following are the people that consulted on the contents of this RFC.
 
 * @rw-access    | author
 * @andrewstucki | co-author
+* @devonakerr   | sponsor
 
 
 
