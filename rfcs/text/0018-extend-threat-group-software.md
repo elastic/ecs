@@ -67,6 +67,7 @@ Currently, tactic, technique, and sub-techniques are also included in rules for 
 ```
 **New Software fields**
 ```json
+{
     "threat.software.id": "S0552",
     "threat.software.name": "AdFind",
     "threat.software": {
