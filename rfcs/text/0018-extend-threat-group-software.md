@@ -225,7 +225,22 @@ The goal here is to research and understand the impact of these changes on users
 Stage 1: Identify potential concerns, implementation challenges, or complexity. Spend some time on this. Play devil's advocate. Try to identify the sort of non-obvious challenges that tend to surface later. The goal here is to surface risks early, allow everyone the time to work through them, and ultimately document resolution for posterity's sake.
 -->
 
+**MITRE ATT&CK**
+
 The MITRE ATT&CK Matrix provides the material used in these examples. While ATT&CK may be the most widely known source organized in this manner, it is neither the only source of this data or the required source.
+
+To resolve this, we adjusted the descriptions with the following (where applicable):
+
+- `...While not required, you can use a MITRE ATT&CK® {software,group} {field}.`
+  - Example: `While not required, you can use a MITRE ATT&CK® software platform.`
+- `Recommended Values:` from `Expected Values:`
+  - Example:
+  ```
+  Recommended Values:
+    * AWS
+    * Azure
+    ...
+  ```
 
 <!--
 Stage 2: Document new concerns or resolutions to previously listed concerns. It's not critical that all concerns have resolutions at this point, but it would be helpful if resolutions were taking shape for the most significant concerns.
