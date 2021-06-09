@@ -83,6 +83,7 @@ Currently, tactic, technique, and sub-techniques are also included in rules for 
 ```
 **New Group fields**
 ```json
+{
     "threat.group": {
       "alias": [
         "FIN6",
