@@ -229,5 +229,13 @@ type Event struct {
 	// is added to the event, otherwise one of the other allowed values should
 	// be used.
 	// If no validation is performed then the field should be omitted.
+	// The allowed values are:
+	// `verified` - The `agent.id` field value matches expected value obtained
+	// from auth metadata.
+	// `mismatch` - The `agent.id` field value does not match the expected
+	// value obtained from auth metadata.
+	// `missing` - There was no `agent.id` field in the event to validate.
+	// `auth_metadata_missing` - There was no auth metadata or it was missing
+	// information about the agent ID.
 	AgentIDStatus string `ecs:"agent_id_status"`
 }

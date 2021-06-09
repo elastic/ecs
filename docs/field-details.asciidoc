@@ -2508,18 +2508,21 @@ For example if the agent's connection is authenticated with mTLS and the client 
 
 If no validation is performed then the field should be omitted.
 
+The allowed values are:
+
+`verified` - The `agent.id` field value matches expected value obtained from auth metadata.
+
+`mismatch` - The `agent.id` field value does not match the expected value obtained from auth metadata.
+
+`missing` - There was no `agent.id` field in the event to validate.
+
+`auth_metadata_missing` - There was no auth metadata or it was missing information about the agent ID.
+
 type: keyword
 
 
 
-
-*Important*: The field value must be one of the following:
-
-verified, agent_id_mismatch, agent_id_missing, auth_metadata_missing
-
-To learn more about when to use which value, visit the page
-<<ecs-allowed-values-event-agent-id-status,allowed values for event.agent_id_status>>
-
+example: `verified`
 
 | extended
 
