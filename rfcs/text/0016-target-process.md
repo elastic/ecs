@@ -2,7 +2,7 @@
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
 - Stage: **1 (draft)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
-- Date: **2021-03-09** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
+- Date: **2021-06-09** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 
 
@@ -35,7 +35,7 @@ This causes reuse of the `process.*` field set at two locations:
 * `process.parent.target*`
 
 
-The `process.parent.target` reused fieldset could be descoped if it's too complex or increases the field count too significantly. It does have value, because information of the parent process of the target remains valuable. More on that utility in the next section. 
+The `process.parent.target` reused fieldset could be descoped if it's too complex or increases the field count too significantly. It does have value, because information of the parent process of the target remains valuable. More on that utility in the next section.
 
 ```yml
   reusable:
