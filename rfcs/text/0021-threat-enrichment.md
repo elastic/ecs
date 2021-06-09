@@ -93,7 +93,8 @@ If it is determined that an event matches a given indicator, that event can be e
         "event": {
           "provider": "Abuse.ch",
           "dataset": "threatintel.abusemalware",
-          "module": "threatintel"
+          "module": "threatintel",
+          "reference": "https://system.example.com/event/#0001234"
         },
         "file": {
           "hash": {
