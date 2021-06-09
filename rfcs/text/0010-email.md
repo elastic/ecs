@@ -44,7 +44,7 @@ Email specific fields:
 | `email.domains` | `keyword[]` | domains related to the email |
 
 
-Other ECS fields used together with email usecases:
+Other ECS fields used together with email use cases:
 | field | description |
 | --- | --- |
 | `event.duration` | The duration related to the email event. Could be the total duration in Quarantine, how long the email took to send from source to destination etc |
