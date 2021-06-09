@@ -21,7 +21,7 @@ Stage 0: Provide a high level summary of the premise of these changes. Briefly d
 Stage 1: Describe at a high level how this change affects fields. Which fieldsets will be impacted? How many fields overall? Are we primarily adding fields, removing fields, or changing existing fields? The goal here is to understand the fundamental technical implications and likely extent of these changes. ~2-5 sentences.
 -->
 
-Email specific fields:
+### Email specific fields
 
 | field | type | description |
 | --- | --- | --- |
@@ -43,16 +43,7 @@ Email specific fields:
 | `email.recipients.addresses` | keyword | Recipient addresses |
 | `email.domains` | keyword | domains related to the email |
 
-
-Other ECS fields used together with email use cases:
-| field | description |
-| --- | --- |
-| `event.duration` | The duration related to the email event. Could be the total duration in Quarantine, how long the email took to send from source to destination etc |
-| `event.start` | When the email event started
-| `event.end` | When the email event ended
-| `process.name` | When the event is related to a server or client. Does not take MTA into account which is part of a ongoing discussion |
-| `network.protocol` | Type of email protocol used |
-| `tls.*` | Used for TLS related information for the connection to for example a SMTP server over TLS |
+### Additional event categorization allowed values
 
 
 
@@ -62,7 +53,7 @@ Other ECS fields used together with email use cases:
 Stage 1: Describe at a high-level how these field changes will be used in practice. Real world examples are encouraged. The goal here is to understand how people would leverage these fields to gain insights or solve problems. ~1-3 paragraphs.
 -->
 
-Email use cases stretch across all three Elastic solutions - Search, Observe, Protect. Whether it's searching for content within email, ensuring email infrastrucure is operational or detecting email based attacks, there are many possibilities for email fields within ECS.
+Email use cases stretch across all three Elastic solutions - Search, Observe, Protect. Whether it's searching for content within email, ensuring email infrastructure is operational or detecting email based attacks, there are many possibilities for email fields within ECS.
 
 ## Source data
 
@@ -79,6 +70,8 @@ Stage 2: Included a real world example source document. Ideally this example com
 -->
 
 ### Office365 - Successful Delivery
+
+#### Original Event
 
 ```json
 {
@@ -97,6 +90,12 @@ Stage 2: Included a real world example source document. Ideally this example com
 	"Subject": "Weekly digest: Microsoft service updates",
 	"ToIP": null
 }
+```
+
+#### Mapped Example
+
+```json
+
 ```
 
 ### Office365 - Undeliverable
