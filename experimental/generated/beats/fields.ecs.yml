@@ -456,7 +456,7 @@
       level: extended
       type: keyword
       ignore_above: 1024
-      description: Availability zone in which this host is running.
+      description: Availability zone in which this host, resource, or service is located.
       example: us-east-1c
     - name: instance.id
       level: extended
@@ -504,7 +504,7 @@
       level: extended
       type: keyword
       ignore_above: 1024
-      description: Region in which this host is running.
+      description: Region in which this host, resource, or service is located.
       example: us-east-1
     - name: service.name
       level: extended
@@ -3355,14 +3355,9 @@
       ignore_above: 1024
       description: 'HTTP request method.
 
-        Prior to ECS 1.6.0 the following guidance was provided:
-
-        "The field value must be normalized to lowercase for querying."
-
-        As of ECS 1.6.0, the guidance is deprecated because the original case of the
-        method may be useful in anomaly detection.  Original case will be mandated
-        in ECS 2.0.0'
-      example: GET, POST, PUT, PoST
+        The value should retain its casing from the original event. For example, `GET`,
+        `get`, and `GeT` are all considered valid values for this field.'
+      example: POST
     - name: request.mime_type
       level: extended
       type: keyword

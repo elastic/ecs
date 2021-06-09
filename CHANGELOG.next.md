@@ -13,6 +13,7 @@ Thanks, you're awesome :-) -->
 * Removing deprecated --oss from generator #1404
 * Removing use-cases directory #1405
 * Remove `host.user.*` field reuse. #1439
+* Remove deprecation notice on `http.request.method`. #1443
 
 ### Schema Changes
 
@@ -29,6 +30,7 @@ Thanks, you're awesome :-) -->
 * Fix ecs GitHub repo link source branch #1393
 * Add --exclude flag to Generator to support field removal testing #1411
 * Explicitly include user identifiers in `relater.user` description. #1420
+* Improve descriptions for `cloud.region` and `cloud.availability` fields. #1452
 
 #### Deprecated
 
