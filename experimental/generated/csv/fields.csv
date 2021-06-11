@@ -49,14 +49,14 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 2.0.0-dev+exp,true,client,client.user.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 2.0.0-dev+exp,true,cloud,cloud.account.id,keyword,extended,,666777888999,The cloud account or organization id.
 2.0.0-dev+exp,true,cloud,cloud.account.name,keyword,extended,,elastic-dev,The cloud account name.
-2.0.0-dev+exp,true,cloud,cloud.availability_zone,keyword,extended,,us-east-1c,Availability zone in which this host is running.
+2.0.0-dev+exp,true,cloud,cloud.availability_zone,keyword,extended,,us-east-1c,"Availability zone in which this host, resource, or service is located."
 2.0.0-dev+exp,true,cloud,cloud.instance.id,keyword,extended,,i-1234567890abcdef0,Instance ID of the host machine.
 2.0.0-dev+exp,true,cloud,cloud.instance.name,keyword,extended,,,Instance name of the host machine.
 2.0.0-dev+exp,true,cloud,cloud.machine.type,keyword,extended,,t2.medium,Machine type of the host machine.
 2.0.0-dev+exp,true,cloud,cloud.project.id,keyword,extended,,my-project,The cloud project id.
 2.0.0-dev+exp,true,cloud,cloud.project.name,keyword,extended,,my project,The cloud project name.
 2.0.0-dev+exp,true,cloud,cloud.provider,keyword,extended,,aws,Name of the cloud provider.
-2.0.0-dev+exp,true,cloud,cloud.region,keyword,extended,,us-east-1,Region in which this host is running.
+2.0.0-dev+exp,true,cloud,cloud.region,keyword,extended,,us-east-1,"Region in which this host, resource, or service is located."
 2.0.0-dev+exp,true,cloud,cloud.service.name,keyword,extended,,lambda,The cloud service name.
 2.0.0-dev+exp,true,container,container.id,keyword,core,,,Unique container id.
 2.0.0-dev+exp,true,container,container.image.name,keyword,extended,,,Name of the image the container was built on.
@@ -372,24 +372,12 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 2.0.0-dev+exp,true,host,host.os.version,keyword,extended,,10.14.1,Operating system version as a raw string.
 2.0.0-dev+exp,true,host,host.type,keyword,core,,,Type of host.
 2.0.0-dev+exp,true,host,host.uptime,long,extended,,1325,Seconds the host has been up.
-2.0.0-dev+exp,true,host,host.user.domain,keyword,extended,,,Name of the directory the user is a member of.
-2.0.0-dev+exp,true,host,host.user.email,wildcard,extended,,,User email address.
-2.0.0-dev+exp,true,host,host.user.full_name,wildcard,extended,,Albert Einstein,"User's full name, if available."
-2.0.0-dev+exp,true,host,host.user.full_name.text,text,extended,,Albert Einstein,"User's full name, if available."
-2.0.0-dev+exp,true,host,host.user.group.domain,keyword,extended,,,Name of the directory the group is a member of.
-2.0.0-dev+exp,true,host,host.user.group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
-2.0.0-dev+exp,true,host,host.user.group.name,keyword,extended,,,Name of the group.
-2.0.0-dev+exp,true,host,host.user.hash,keyword,extended,,,Unique user hash to correlate information for a user in anonymized form.
-2.0.0-dev+exp,true,host,host.user.id,keyword,core,,,Unique identifier of the user.
-2.0.0-dev+exp,true,host,host.user.name,wildcard,core,,albert,Short name or login of the user.
-2.0.0-dev+exp,true,host,host.user.name.text,text,core,,albert,Short name or login of the user.
-2.0.0-dev+exp,true,host,host.user.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 2.0.0-dev+exp,true,http,http.request.body.bytes,long,extended,,887,Size in bytes of the request body.
 2.0.0-dev+exp,true,http,http.request.body.content,wildcard,extended,,Hello world,The full HTTP request body.
 2.0.0-dev+exp,true,http,http.request.body.content.text,text,extended,,Hello world,The full HTTP request body.
 2.0.0-dev+exp,true,http,http.request.bytes,long,extended,,1437,Total size in bytes of the request (body and headers).
 2.0.0-dev+exp,true,http,http.request.id,keyword,extended,,123e4567-e89b-12d3-a456-426614174000,HTTP request ID.
-2.0.0-dev+exp,true,http,http.request.method,keyword,extended,,"GET, POST, PUT, PoST",HTTP request method.
+2.0.0-dev+exp,true,http,http.request.method,keyword,extended,,POST,HTTP request method.
 2.0.0-dev+exp,true,http,http.request.mime_type,keyword,extended,,image/gif,Mime type of the body of the request.
 2.0.0-dev+exp,true,http,http.request.referrer,wildcard,extended,,https://blog.example.com/,Referrer for this HTTP request.
 2.0.0-dev+exp,true,http,http.response.body.bytes,long,extended,,887,Size in bytes of the response body.
@@ -706,7 +694,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 2.0.0-dev+exp,true,related,related.hash,keyword,extended,array,,All the hashes seen on your event.
 2.0.0-dev+exp,true,related,related.hosts,keyword,extended,array,,All the host identifiers seen on your event.
 2.0.0-dev+exp,true,related,related.ip,ip,extended,array,,All of the IPs seen on your event.
-2.0.0-dev+exp,true,related,related.user,keyword,extended,array,,All the user names seen on your event.
+2.0.0-dev+exp,true,related,related.user,keyword,extended,array,,All the user names or other user identifiers seen on the event.
 2.0.0-dev+exp,true,rule,rule.author,keyword,extended,array,"[""Star-Lord""]",Rule author
 2.0.0-dev+exp,true,rule,rule.category,keyword,extended,,Attempted Information Leak,Rule category
 2.0.0-dev+exp,true,rule,rule.description,keyword,extended,,Block requests to public DNS over HTTPS / TLS protocols,Rule description
@@ -949,7 +937,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 2.0.0-dev+exp,true,threat,threat.indicator.type,keyword,extended,,ipv4-addr,Type of indicator
 2.0.0-dev+exp,true,threat,threat.software.id,keyword,extended,,S0552,ID of the software
 2.0.0-dev+exp,true,threat,threat.software.name,keyword,extended,,AdFind,Name of the software.
-2.0.0-dev+exp,true,threat,threat.software.platforms,keyword,extended,,Windows,Platform of the software.
+2.0.0-dev+exp,true,threat,threat.software.platforms,keyword,extended,array,"[ ""Windows"" ]",Platforms of the software.
 2.0.0-dev+exp,true,threat,threat.software.reference,keyword,extended,,https://attack.mitre.org/software/S0552/,Software reference URL.
 2.0.0-dev+exp,true,threat,threat.software.type,keyword,extended,,Tool,Software type.
 2.0.0-dev+exp,true,threat,threat.tactic.id,keyword,extended,array,TA0002,Threat tactic id.
