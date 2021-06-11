@@ -32,7 +32,7 @@
         Timestamp the ticket was created.
       example: 2021-03-09T17:05:23.773Z
 
-    - name: description.long
+    - name: description
       level: core
       type: text
       short: Long description of the ticket
@@ -43,33 +43,12 @@
         A fiber cut has occurred in Springfield due to a down telephone pole.  All internet and
         IP related services are down diddly offline. Customer call in-rates are elevated.
 
-    - name: description.short
-      level: core
-      type: text
-      short: Short description of the ticket
-      description: >
-        Short description / title of the ticket.  Typically, a brief overview.
-      example: >
-        Fiber cut in Springfield - internet service down
-
-    - name: details
-      level: extended
-      type: object
-      object_type: keyword
-      example: "{\"affected_version\": \"1.2.3\", \"env\": \"production\", \"resolution\": \"unresolved\", \"service\": \"Internet\"}"
-      short: Custom key/value pairs.
-      description: >
-        Custom key/value pairs.
-        Can be used to add meta information about the ticket, or include additional customized
-        ticket fields. Should not contain nested objects.
-        All values are stored as keyword.
-
-    - name: number
+    - name: id
       level: core
       type: keyword
-      short: Ticket number
+      short: Ticket id
       description: >
-        Numeric or alphanumeric unique identifier of the ticket; typically a ticket or record ID.
+        Numeric or alphanumeric unique identifier of the ticket; typically a ticket number or record ID.
       example: REQ-1234
 
     - name: priority
@@ -113,14 +92,6 @@
         Currently assigned state for the ticket.  May or may not be the same as ticket status.
       example: In-Progress
 
-    - name: status
-      level: extended
-      type: keyword
-      short: Current status of the ticket
-      description: >
-        Currently assigned status for the ticket.  May or may not be the same as ticket state.
-      example: Blocked
-
     - name: submitter
       level: core
       type: keyword
@@ -130,17 +101,14 @@
         person or group that is the requester of the ticket.
       example: Jane Doe
 
-    - name: tags
-      level: extended
-      type: object
-      object_type: keyword
-      example: "[\"production\", \"env2\", \"Sprint 10\"]"
-      short: List of tags assigned to the ticket
+    - name: summary
+      level: core
+      type: text
+      short: Short description of the ticket
       description: >
-        List/Array of tag attributes which may be assigned to the ticket.
-        All values are stored as keyword.
-      normalize:
-        - array
+        Short description, title, or summary of the ticket.  Typically, a brief overview.
+      example: >
+        Fiber cut in Springfield - internet service down
 
     - name: type
       level: core
@@ -149,3 +117,11 @@
       description: >
         The type categorization of the ticket.
       example: Change
+
+    - name: updated
+      level: core
+      type: date
+      short: Timestamp the ticket was updated or changed by this event
+      description: >
+        Timestamp the ticket was updated.
+      example: 2021-06-11T14:38:16.645Z

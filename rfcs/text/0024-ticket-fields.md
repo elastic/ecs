@@ -38,19 +38,17 @@ systems.
 
 - ticket.assignee
 - ticket.created
-- ticket.description.long
-- ticket.description.short
-- ticket.details
-- ticket.number
+- ticket.description
+- ticket.id
 - ticket.priority
 - ticket.requester
 - ticket.severity
 - ticket.source
 - ticket.state
-- ticket.status
 - ticket.submitter
-- ticket.tags
+- ticket.summary
 - ticket.type
+- ticket.updated
 
 <!--
 Stage 2: Add or update all remaining field definitions. The list should now be exhaustive. The goal here is to validate the technical details of all remaining fields and to provide a basis for releasing these field definitions as beta in the schema. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
