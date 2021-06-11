@@ -39,3 +39,7 @@ For the most part, content is additive as you move through the stages. Occasiona
 ## Skipping stages
 
 While advancing through multiple stages at a time is possible if all the necessary information is provided and thoroughly vetted, moving changes through stage by stage provides the greatest opportunity to iterate efficiently on changes and a much lower chance of an author wasting a ton of their time.
+
+## Abandoning RFCs
+
+If an RFC proposed change is no longer being pursued or has been inactive for an extended time period, the RFC should be assigned to stage X.
