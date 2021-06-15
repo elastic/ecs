@@ -754,14 +754,14 @@ cloud:
       type: keyword
     cloud.availability_zone:
       dashed_name: cloud-availability-zone
-      description: Availability zone in which this host is running.
+      description: Availability zone in which this host, resource, or service is located.
       example: us-east-1c
       flat_name: cloud.availability_zone
       ignore_above: 1024
       level: extended
       name: availability_zone
       normalize: []
-      short: Availability zone in which this host is running.
+      short: Availability zone in which this host, resource, or service is located.
       type: keyword
     cloud.instance.id:
       dashed_name: cloud-instance-id
@@ -835,14 +835,14 @@ cloud:
       type: keyword
     cloud.region:
       dashed_name: cloud-region
-      description: Region in which this host is running.
+      description: Region in which this host, resource, or service is located.
       example: us-east-1
       flat_name: cloud.region
       ignore_above: 1024
       level: extended
       name: region
       normalize: []
-      short: Region in which this host is running.
+      short: Region in which this host, resource, or service is located.
       type: keyword
     cloud.service.name:
       dashed_name: cloud-service-name
@@ -2984,6 +2984,41 @@ event:
       name: action
       normalize: []
       short: The action captured by the event.
+      type: keyword
+    event.agent_id_status:
+      dashed_name: event-agent-id-status
+      description: 'Agents are normally responsible for populating the `agent.id`
+        field value. If the system receiving events is capable of validating the value
+        based on authentication information for the client then this field can be
+        used to reflect the outcome of that validation.
+
+        For example if the agent''s connection is authenticated with mTLS and the
+        client cert contains the ID of the agent to which the cert was issued then
+        the `agent.id` value in events can be checked against the certificate. If
+        the values match then `event.agent_id_status: verified` is added to the event,
+        otherwise one of the other allowed values should be used.
+
+        If no validation is performed then the field should be omitted.
+
+        The allowed values are:
+
+        `verified` - The `agent.id` field value matches expected value obtained from
+        auth metadata.
+
+        `mismatch` - The `agent.id` field value does not match the expected value
+        obtained from auth metadata.
+
+        `missing` - There was no `agent.id` field in the event to validate.
+
+        `auth_metadata_missing` - There was no auth metadata or it was missing information
+        about the agent ID.'
+      example: verified
+      flat_name: event.agent_id_status
+      ignore_above: 1024
+      level: extended
+      name: agent_id_status
+      normalize: []
+      short: Validation status of the event's agent.id field.
       type: keyword
     event.category:
       allowed_values:
@@ -6090,14 +6125,9 @@ http:
       dashed_name: http-request-method
       description: 'HTTP request method.
 
-        Prior to ECS 1.6.0 the following guidance was provided:
-
-        "The field value must be normalized to lowercase for querying."
-
-        As of ECS 1.6.0, the guidance is deprecated because the original case of the
-        method may be useful in anomaly detection.  Original case will be mandated
-        in ECS 2.0.0'
-      example: GET, POST, PUT, PoST
+        The value should retain its casing from the original event. For example, `GET`,
+        `get`, and `GeT` are all considered valid values for this field.'
+      example: POST
       flat_name: http.request.method
       ignore_above: 1024
       level: extended

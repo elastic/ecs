@@ -49,14 +49,14 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 2.0.0-dev+exp,true,client,client.user.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 2.0.0-dev+exp,true,cloud,cloud.account.id,keyword,extended,,666777888999,The cloud account or organization id.
 2.0.0-dev+exp,true,cloud,cloud.account.name,keyword,extended,,elastic-dev,The cloud account name.
-2.0.0-dev+exp,true,cloud,cloud.availability_zone,keyword,extended,,us-east-1c,Availability zone in which this host is running.
+2.0.0-dev+exp,true,cloud,cloud.availability_zone,keyword,extended,,us-east-1c,"Availability zone in which this host, resource, or service is located."
 2.0.0-dev+exp,true,cloud,cloud.instance.id,keyword,extended,,i-1234567890abcdef0,Instance ID of the host machine.
 2.0.0-dev+exp,true,cloud,cloud.instance.name,keyword,extended,,,Instance name of the host machine.
 2.0.0-dev+exp,true,cloud,cloud.machine.type,keyword,extended,,t2.medium,Machine type of the host machine.
 2.0.0-dev+exp,true,cloud,cloud.project.id,keyword,extended,,my-project,The cloud project id.
 2.0.0-dev+exp,true,cloud,cloud.project.name,keyword,extended,,my project,The cloud project name.
 2.0.0-dev+exp,true,cloud,cloud.provider,keyword,extended,,aws,Name of the cloud provider.
-2.0.0-dev+exp,true,cloud,cloud.region,keyword,extended,,us-east-1,Region in which this host is running.
+2.0.0-dev+exp,true,cloud,cloud.region,keyword,extended,,us-east-1,"Region in which this host, resource, or service is located."
 2.0.0-dev+exp,true,cloud,cloud.service.name,keyword,extended,,lambda,The cloud service name.
 2.0.0-dev+exp,true,container,container.id,keyword,core,,,Unique container id.
 2.0.0-dev+exp,true,container,container.image.name,keyword,extended,,,Name of the image the container was built on.
@@ -183,6 +183,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 2.0.0-dev+exp,true,error,error.stack_trace.text,text,extended,,,The stack trace of this error in plain text.
 2.0.0-dev+exp,true,error,error.type,wildcard,extended,,java.lang.NullPointerException,"The type of the error, for example the class name of the exception."
 2.0.0-dev+exp,true,event,event.action,keyword,core,,user-password-change,The action captured by the event.
+2.0.0-dev+exp,true,event,event.agent_id_status,keyword,extended,,verified,Validation status of the event's agent.id field.
 2.0.0-dev+exp,true,event,event.category,keyword,core,array,authentication,Event category. The second categorization field in the hierarchy.
 2.0.0-dev+exp,true,event,event.code,keyword,extended,,4648,Identification code for this event.
 2.0.0-dev+exp,true,event,event.created,date,core,,2016-05-23T08:05:34.857Z,Time when the event was first read by an agent or by your pipeline.
@@ -377,7 +378,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 2.0.0-dev+exp,true,http,http.request.body.content.text,text,extended,,Hello world,The full HTTP request body.
 2.0.0-dev+exp,true,http,http.request.bytes,long,extended,,1437,Total size in bytes of the request (body and headers).
 2.0.0-dev+exp,true,http,http.request.id,keyword,extended,,123e4567-e89b-12d3-a456-426614174000,HTTP request ID.
-2.0.0-dev+exp,true,http,http.request.method,keyword,extended,,"GET, POST, PUT, PoST",HTTP request method.
+2.0.0-dev+exp,true,http,http.request.method,keyword,extended,,POST,HTTP request method.
 2.0.0-dev+exp,true,http,http.request.mime_type,keyword,extended,,image/gif,Mime type of the body of the request.
 2.0.0-dev+exp,true,http,http.request.referrer,wildcard,extended,,https://blog.example.com/,Referrer for this HTTP request.
 2.0.0-dev+exp,true,http,http.response.body.bytes,long,extended,,887,Size in bytes of the response body.
