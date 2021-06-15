@@ -3,6 +3,53 @@
 
   fields:
 
+  - name: enrichments
+    level: extended
+    type: nested
+    short: List of indicators enriching the event.
+    description: >
+      A list of associated indicators enriching the event, and the context of that association/enrichment.
+
+  - name: enrichments.matched.atomic
+    level: extended
+    type: keyword
+    short: Matched indicator value
+    description: >
+      Identifies the atomic indicator value that matched a local environment endpoint or network event.
+    example: bad-domain.com
+
+  - name: enrichments.matched.field
+    level: extended
+    type: keyword
+    short: Matched indicator field
+    description: >
+      Identifies the field of the atomic indicator that matched a local environment endpoint or network event.
+    example: file.hash.sha256
+
+  - name: enrichments.matched.id
+    level: extended
+    type: keyword
+    short: Matched indicator identifier
+    description: >
+      Identifies the _id of the indicator document enriching the event.
+    example: ff93aee5-86a1-4a61-b0e6-0cdc313d01b5
+
+  - name: enrichments.matched.index
+    level: extended
+    type: keyword
+    short: Matched indicator index
+    description: >
+      Identifies the _index of the indicator document enriching the event.
+    example: filebeat-8.0.0-2021.05.23-000011
+
+  - name: enrichments.matched.type
+    level: extended
+    type: keyword
+    short: Type of indicator match
+    description: >
+      Identifies the type of match that caused the event to be enriched with the given indicator
+    example: indicator_match_rule
+
   - name: indicator.first_seen
     level: extended
     type: date
