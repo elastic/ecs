@@ -25,8 +25,9 @@ Stage 1: Describe at a high level how this change affects fields. Which fieldset
 
 Field | Type | Example | Description
 --- | --- | --- | ---
-threat.indicator.first_seen | date | 2020-12-01 | The date and time when intelligence source first reported sighting this indicator
-threat.indicator.last_seen | date | 2020-12-02| The date and time when intelligence source last reported sighting this indicator.
+threat.indicator.first_seen | date | 2020-11-05T17:25:47.000Z | The date and time when intelligence source first reported sighting this indicator
+threat.indicator.last_seen | date | 2020-11-05T17:25:47.000Z | The date and time when intelligence source last reported sighting this indicator.
+threat.indicator.modified_at | date | 2020-11-05T17:25:47.000Z | The date and time when intelligence source last modified information for this indicator.
 threat.indicator.sightings | long | 20 | Number of times this indicator was observed conducting threat activity
 threat.indicator.type | keyword | ipv4-addr | Type of indicator as represented by Cyber Observable in STIX 2.0
 threat.indicator.description | keyword | 201.10.10.90 was seen delivering Angler EK | Describes the type of action conducted by the threat
@@ -110,8 +111,9 @@ Network Example
 
     // Metadata about the indicator data
     "threat.indicator": {
-        "first_seen": "2020-10-01",
-        "last_seen": "2020-11-01",
+        "first_seen": "2020-11-05T17:25:47.000Z",
+        "last_seen": "2020-11-05T17:25:47.000Z",
+        "modified_at": "2020-11-05T17:25:47.000Z"
         "sightings": "10",
         "type": [
             "ipv4-addr",
@@ -172,8 +174,9 @@ File Example
 
     // Metadata about the indicator data
     "threat.indicator": {
-        "first_seen": "2020-10-01",
-        "last_seen": "2020-11-01",
+        "first_seen": "2020-11-05T17:25:47.000Z",
+        "last_seen": "2020-11-05T17:25:47.000Z",
+        "modified_at": "2020-11-05T17:25:47.000Z"
         "sightings": "10",
         "type": [
             "file"
