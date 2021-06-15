@@ -24,7 +24,7 @@ Thanks, you're awesome :-) -->
 * `elf.*` field set added as beta. #1410
 * Remove `beta` from `orchestrator` field set. #1417
 * Extend `threat.*` field set beta. #1438
-* Added `event.agent_id_status` field. #1454 
+* Added `event.agent_id_status` field. #1454
 
 #### Improvements
 
@@ -44,6 +44,7 @@ Thanks, you're awesome :-) -->
 #### Added
 
 * Support `match_only_text` data type in Go code generator. #1418
+* Support for multi-level, self-nestings. #1459
 
 #### Improvements
 
