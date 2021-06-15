@@ -67,7 +67,7 @@ generate: generator codegen
 
 # Run the new generator
 .PHONY: generator
-generator:
+generator: ve
 	$(PYTHON) scripts/generator.py --strict --include "${INCLUDE}"
 
 # Generate Go code from the schema.
