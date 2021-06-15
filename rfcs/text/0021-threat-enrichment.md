@@ -240,6 +240,7 @@ e.g.:
 
 * Stage 0: https://github.com/elastic/ecs/pull/1386
 * Stage 1: https://github.com/elastic/ecs/pull/1400
+* Stage 2: https://github.com/elastic/ecs/pull/1460
 
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN
