@@ -1,7 +1,7 @@
 # 0017: Remove log.original
 
-- Stage: **2 (candidate)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
-- Date: **2021-04-28** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
+- Stage: **3 (candidate)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
+- Date: **2021-06-18** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 This RFC supersedes issue [#841](https://github.com/elastic/ecs/issues/841) which implies breaking changes therefore the RFC Process is indicated.
 
@@ -58,9 +58,13 @@ The removal of `log.original` will be considered a breaking change since the fie
 
 - The [`Beats default fields inclusion list`](https://github.com/elastic/ecs/blob/master/scripts/generators/beats_default_fields_allowlist.yml) list should be updated by removing `log.original` if/when Deprecation progresses to Removal
 
-- The logs UI `message` column currently displays `log.original` in the absence of a `message` field. This should be updated to use `event.original` as the substitute field. See [builtin_rules](https://github.com/elastic/kibana/blob/master/x-pack/plugins/infra/server/services/log_entries/message/builtin_rules/generic.ts) and [associated test](https://github.com/elastic/kibana/blob/master/x-pack/plugins/infra/server/services/log_entries/message/builtin_rules/generic.test.ts).
+- The logs UI `message` column currently displays `log.original` in the absence of a `message` field. It should be updated to use `event.original` as the substitute field. See [builtin_rules](https://github.com/elastic/kibana/blob/master/x-pack/plugins/infra/server/services/log_entries/message/builtin_rules/generic.ts) and [associated test](https://github.com/elastic/kibana/blob/master/x-pack/plugins/infra/server/services/log_entries/message/builtin_rules/generic.test.ts). Kibana team is aware and has a [PR awaiting review](https://github.com/elastic/kibana/pull/102236) which addresses this.
 
-- References in the [RAC Rule Registry](https://github.com/elastic/kibana/blob/master/x-pack/plugins/rule_registry/common/assets/field_maps/ecs_field_map.ts) will need to be removed - these have `required: false` so hopefully non-breaking change.
+- The breakdown of usage of this field in Kibana source shows:
+ - 88 usages in tests
+ - 22 usages outside of tests, e.g. `js`, `ts`, `map` files
+
+- For example, references in the [RAC Rule Registry](https://github.com/elastic/kibana/blob/master/x-pack/plugins/rule_registry/common/assets/field_maps/ecs_field_map.ts) will need to be removed - these have `required: false` so hopefully non-breaking change.
 
 - Multiple tests in Kibana will need to be updated see e.g. [Function Test APM Mapping](https://github.com/elastic/kibana/blob/master/x-pack/test/functional/es_archives/monitoring/setup/collection/detect_apm/mappings.json)
 
@@ -71,10 +75,6 @@ The removal of `log.original` will be considered a breaking change since the fie
 ## Concerns
 
 As a breaking change, this would require timely communication to the Elastic Community.
-
-<!--
-Stage 3: Document resolutions for all existing concerns. Any new concerns should be documented along with their resolution. The goal here is to eliminate risk of churn and instability by ensuring all concerns have been addressed.
--->
 
 ## People
 
@@ -89,8 +89,12 @@ The following are the people that consulted on the contents of this RFC.
 
 ## References
 
-* [#841](https://github.com/elastic/ecs/issues/841)
-* [#777](https://github.com/elastic/integrations/issues/777)
+### Issues
+* [ecs #841](https://github.com/elastic/ecs/issues/841)
+* [integrations #777](https://github.com/elastic/integrations/issues/777)
+
+### Stack PRs
+* [kibana PR #102236](https://github.com/elastic/kibana/pull/102236)
 
 ### RFC Pull Requests
 
