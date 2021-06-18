@@ -45,6 +45,12 @@ Any or all incoming log or event messages when the original value of the event n
           dst=2.1.2.2spt=1232"}
 
 {"event.original": "Sep 19 08:26:10 localhost My log"}
+
+{
+    "event": {
+        "original": "{\"Node\":\"compute01-hc-xx-local-abcdefgh-com\",\"CheckID\":\"_nomad-check-2724899cc463354bb6336c67421b73f36fb966e2\",\"Name\":\"service: \\\"hello-world\\\" check\",\"Status\":\"passing\",\"Notes\":\"\",\"Output\":\"HTTP GET http://10.100.8.99:8080/: 200 OK Output: Hello world! Your request address: 10.100.8.34:37230\\n\\nRuntime env:\\nPATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin\\nHOSTNAME=7c9b09a0258c\\nNOMAD_ALLOC_DIR=/alloc\\nNOMAD_ALLOC_ID=4c62244a-6924-4cb6-60d3-a4c574c58085\\nNOMAD_ALLOC_INDEX=0\\nNOMAD_ALLOC_NAME=hello-world.servers[0]\\nNOMAD_CPU_LIMIT=50\\nNOMAD_DC=xx\\nNOMAD_GROUP_NAME=servers\\nNOMAD_JOB_ID=hello-world\\nNOMAD_JOB_NAME=hello-world\\nNOMAD_MEMORY_LIMIT=32\\nNOMAD_NAMESPACE=default\\nNOMAD_REGION=global\\nNOMAD_SECRETS_DIR=/secrets\\nNOMAD_TASK_DIR=/local\\nNOMAD_TASK_NAME=hello-world\\nHOME=/\\n\",\"ServiceID\":\"_nomad-task-4c62244a-6924-4cb6-60d3-a4c574c58085-group-servers-hello-world-8080\",\"ServiceName\":\"hello-world\",\"ServiceTags\":[\"http\",\"traefik.enable=true\",\"traefik.http.routers.hello-world.entrypoints=https\",\"traefik.http.routers.hello-world.tls.certresolver=le\",\"traefik.http.routers.hello-world.tls.domains[0].main=svc.abcdefgh.com\",\"traefik.http.routers.hello-world.tls.domains[0].sans=*.svc.abcdefgh.com\"],\"Type\":\"http\",\"Definition\":{},\"CreateIndex\":4281349\"ModifyIndex\":5749556}"
+    }
+}
 ```
 <!--
 Stage 3: Add more real world example source documents so we have at least 2 total, but ideally 3. Format as described in stage 2.
