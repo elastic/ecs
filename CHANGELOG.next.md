@@ -40,6 +40,7 @@ Thanks, you're awesome :-) -->
 #### Added
 
 * Support `match_only_text` data type in Go code generator. #1418
+* Support for multi-level, self-nestings. #1459
 
 #### Improvements
 
