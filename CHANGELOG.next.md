@@ -25,6 +25,7 @@ Thanks, you're awesome :-) -->
 * Remove `beta` from `orchestrator` field set. #1417
 * Extend `threat.*` field set beta. #1438
 * Added `event.agent_id_status` field. #1454
+* `threat.enrichments` added to the experimental schema. #1457
 
 #### Improvements
 
