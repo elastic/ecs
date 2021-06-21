@@ -67,8 +67,8 @@ The removal of `log.original` will be considered a breaking change since the fie
 - The logs UI `message` column currently displays `log.original` in the absence of a `message` field. It should be updated to use `event.original` as the substitute field. See [builtin_rules](https://github.com/elastic/kibana/blob/master/x-pack/plugins/infra/server/services/log_entries/message/builtin_rules/generic.ts) and [associated test](https://github.com/elastic/kibana/blob/master/x-pack/plugins/infra/server/services/log_entries/message/builtin_rules/generic.test.ts). Kibana team is aware and has a [PR awaiting review](https://github.com/elastic/kibana/pull/102236) which addresses this.
 
 - The breakdown of usage of this field in Kibana source shows:
- - 88 usages in tests
- - 22 usages outside of tests, e.g. `js`, `ts`, `map` files
+  - 88 usages in tests
+  - 22 usages outside of tests, e.g. `js`, `ts`, `map` files
 
 - For example, references in the [RAC Rule Registry](https://github.com/elastic/kibana/blob/master/x-pack/plugins/rule_registry/common/assets/field_maps/ecs_field_map.ts) will need to be removed - these have `required: false` so hopefully non-breaking change.
 
