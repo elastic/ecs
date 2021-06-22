@@ -52,9 +52,6 @@ Any or all incoming log or event messages when the original value of the event n
     }
 }
 ```
-<!--
-Stage 3: Add more real world example source documents so we have at least 2 total, but ideally 3. Format as described in stage 2.
--->
 
 ## Scope of impact
 
@@ -82,6 +79,14 @@ The removal of `log.original` will be considered a breaking change since the fie
 
 As a breaking change, this would require timely communication to the Elastic Community.
 
+With respect to internal stakeholders, the following actons have been taken:
+
+- Reached out the Beats + Integrations teams: Filebeat has already taken action, thanks @P1llus
+
+- Reached out to Logs UI team: `logs.original` has now been superceed by `event.original` as fallback when `message`not available, thanks @weltenwort
+
+- Reached out to RAC: the reference [RAC Rule Registry](https://github.com/elastic/kibana/blob/master/x-pack/plugins/rule_registry/common/assets/field_maps/ecs_field_map.ts) has been acknowledged, thanks @jasonrhodes
+
 ## People
 
 The following are the people that consulted on the contents of this RFC.
@@ -92,12 +97,13 @@ The following are the people that consulted on the contents of this RFC.
 * @jasonrhodes | Logging UI & RAC
 * @MikePaquette  | RAC
 
-
 ## References
 
 ### Issues
 * [ecs #841](https://github.com/elastic/ecs/issues/841)
 * [integrations #777](https://github.com/elastic/integrations/issues/777)
+* [integrations #994](https://github.com/elastic/integrations/issues/994)
+* [logs UI #101307](https://github.com/elastic/kibana/issues/101307)
 
 ### Stack PRs
 * [kibana PR #102236](https://github.com/elastic/kibana/pull/102236)
@@ -109,3 +115,4 @@ The following are the people that consulted on the contents of this RFC.
 * Stage 0: https://github.com/elastic/ecs/pull/1298
 * Stage 1: https://github.com/elastic/ecs/pull/1314
 * Stage 2: https://github.com/elastic/ecs/pull/1347
+* Stage 3: https://github.com/elastic/ecs/pull/1465
