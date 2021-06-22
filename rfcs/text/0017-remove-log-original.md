@@ -1,6 +1,6 @@
 # 0017: Remove log.original
 
-- Stage: **3 (candidate)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
+- Stage: **3 (finished)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
 - Date: **2021-06-18** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 This RFC supersedes issue [#841](https://github.com/elastic/ecs/issues/841) which implies breaking changes therefore the RFC Process is indicated.
