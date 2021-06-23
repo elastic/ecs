@@ -27,6 +27,7 @@ Thanks, you're awesome :-) -->
 * Added `event.agent_id_status` field. #1454
 * `threat.enrichments` added to the experimental schema. #1457
 * `process.target` and `process.target.parent` added to experimental schema. #1467
+* Threat indicator fields progress to beta stage. #1471
 
 #### Improvements
 
