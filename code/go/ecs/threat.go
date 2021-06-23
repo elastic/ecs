@@ -103,7 +103,7 @@ type Threat struct {
 
 	// Identifies the confidence rating assigned by the provider using
 	// STIX confidence scales.
-	// Expected values:
+	// Recommended values:
 	//   * Not Specified, None, Low, Medium, High
 	//   * 0-10
 	//   * Admirality Scale (1-6)
