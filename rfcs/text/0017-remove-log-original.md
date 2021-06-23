@@ -116,3 +116,4 @@ The following are the people that consulted on the contents of this RFC.
 * Stage 1: https://github.com/elastic/ecs/pull/1314
 * Stage 2: https://github.com/elastic/ecs/pull/1347
 * Stage 3: https://github.com/elastic/ecs/pull/1465
+* Implementation: https://github.com/elastic/ecs/pull/1469
