@@ -3421,11 +3421,13 @@ event:
       type: keyword
     event.original:
       dashed_name: event-original
-      description: 'Raw text message of entire event. Used to demonstrate log integrity.
+      description: 'Raw text message of entire event. Used to demonstrate log integrity  or
+        where the full log message (before splitting it up in multiple  parts) may
+        be required, e.g. for reindex.
 
         This field is not indexed and doc_values are disabled. It cannot be searched,
         but it can be retrieved from `_source`. If users wish to override this and
-        index this field, consider using the wildcard data type.'
+        index this field, please see `Field data types` in the `Elasticsearch Reference`.'
       doc_values: false
       example: Sep 19 08:26:10 host CEF:0&#124;Security&#124; threatmanager&#124;1.0&#124;100&#124;
         worm successfully stopped&#124;10&#124;src=10.0.0.1 dst=2.1.2.2spt=1232
@@ -6395,8 +6397,11 @@ log:
       type: keyword
     log.original:
       dashed_name: log-original
-      description: 'This is the original log message and contains the full log message
-        before splitting it up in multiple parts.
+      description: 'Deprecated for Removal in next major version release. This field
+        is superceeded by  `event.original`
+
+        This is the original log message and contains the full log message before
+        splitting it up in multiple parts.
 
         In contrast to the `message` field which can contain an extracted part of
         the log message, this field contains the original, full log message. It can
@@ -6413,7 +6418,8 @@ log:
       level: core
       name: original
       normalize: []
-      short: Original log message with light interpretation only (encoding, newlines).
+      short: Deprecated Original log message with light interpretation only (encoding,
+        newlines).
       type: keyword
     log.syslog:
       dashed_name: log-syslog
@@ -12464,11 +12470,13 @@ threat:
       type: keyword
     threat.enrichments.event.original:
       dashed_name: threat-enrichments-event-original
-      description: 'Raw text message of entire event. Used to demonstrate log integrity.
+      description: 'Raw text message of entire event. Used to demonstrate log integrity  or
+        where the full log message (before splitting it up in multiple  parts) may
+        be required, e.g. for reindex.
 
         This field is not indexed and doc_values are disabled. It cannot be searched,
         but it can be retrieved from `_source`. If users wish to override this and
-        index this field, consider using the wildcard data type.'
+        index this field, please see `Field data types` in the `Elasticsearch Reference`.'
       doc_values: false
       example: Sep 19 08:26:10 host CEF:0&#124;Security&#124; threatmanager&#124;1.0&#124;100&#124;
         worm successfully stopped&#124;10&#124;src=10.0.0.1 dst=2.1.2.2spt=1232
