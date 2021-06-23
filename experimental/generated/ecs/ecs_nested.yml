@@ -17284,10 +17284,11 @@ threat:
       short: Reference URL of the group.
       type: keyword
     threat.indicator.confidence:
+      beta: This field is beta and subject to change.
       dashed_name: threat-indicator-confidence
-      description: "Identifies the confidence rating assigned by the provider using\
-        \ STIX confidence scales.\nExpected values:\n  * Not Specified, None, Low,\
-        \ Medium, High\n  * 0-10\n  * Admirality Scale (1-6)\n  * DNI Scale (5-95)\n\
+      description: "Identifies\_the\_confidence\_rating\_assigned\_by\_the\_provider\_\
+        using\_STIX\_confidence scales.\nExpected values:\n  * Not Specified, None,\
+        \ Low, Medium, High\n  * 0-10\n  * Admirality Scale (1-6)\n  * DNI Scale (5-95)\n\
         \  * WEP Scale (Impossible - Certain)"
       example: High
       flat_name: threat.indicator.confidence
@@ -17297,39 +17298,20 @@ threat:
       normalize: []
       short: Indicator confidence rating
       type: keyword
-    threat.indicator.dataset:
-      dashed_name: threat-indicator-dataset
-      description: Identifies the name of specific dataset from the intelligence source.
-      example: threatintel.abusemalware
-      flat_name: threat.indicator.dataset
-      ignore_above: 1024
-      level: extended
-      name: indicator.dataset
-      normalize: []
-      short: Indicator dataset
-      type: keyword
     threat.indicator.description:
+      beta: This field is beta and subject to change.
       dashed_name: threat-indicator-description
       description: Describes the type of action conducted by the threat.
       example: IP x.x.x.x was observed delivering the Angler EK.
       flat_name: threat.indicator.description
+      ignore_above: 1024
       level: extended
       name: indicator.description
       normalize: []
       short: Indicator description
-      type: wildcard
-    threat.indicator.domain:
-      dashed_name: threat-indicator-domain
-      description: Identifies a threat indicator as a domain (irrespective of direction).
-      example: example.com
-      flat_name: threat.indicator.domain
-      ignore_above: 1024
-      level: extended
-      name: indicator.domain
-      normalize: []
-      short: Indicator domain name
       type: keyword
     threat.indicator.email.address:
+      beta: This field is beta and subject to change.
       dashed_name: threat-indicator-email-address
       description: Identifies a threat indicator as an email address (irrespective
         of direction).
@@ -17342,6 +17324,7 @@ threat:
       short: Indicator email address
       type: keyword
     threat.indicator.first_seen:
+      beta: This field is beta and subject to change.
       dashed_name: threat-indicator-first-seen
       description: The date and time when intelligence source first reported sighting
         this indicator.
@@ -17353,6 +17336,7 @@ threat:
       short: Date/time indicator was first reported.
       type: date
     threat.indicator.ip:
+      beta: This field is beta and subject to change.
       dashed_name: threat-indicator-ip
       description: Identifies a threat indicator as an IP address (irrespective of
         direction).
@@ -17364,6 +17348,7 @@ threat:
       short: Indicator IP address
       type: ip
     threat.indicator.last_seen:
+      beta: This field is beta and subject to change.
       dashed_name: threat-indicator-last-seen
       description: The date and time when intelligence source last reported sighting
         this indicator.
@@ -17375,10 +17360,11 @@ threat:
       short: Date/time indicator was last reported.
       type: date
     threat.indicator.marking.tlp:
+      beta: This field is beta and subject to change.
       dashed_name: threat-indicator-marking-tlp
-      description: "Traffic Light Protocol sharing markings.\nExpected values are:\n\
-        \  * White\n  * Green\n  * Amber\n  * Red"
-      example: White
+      description: "Traffic Light Protocol sharing markings.\nRecommended values are:\n\
+        \  * WHITE\n  * GREEN\n  * AMBER\n  * RED"
+      example: WHITE
       flat_name: threat.indicator.marking.tlp
       ignore_above: 1024
       level: extended
@@ -17386,54 +17372,20 @@ threat:
       normalize: []
       short: Indicator TLP marking
       type: keyword
-    threat.indicator.matched.atomic:
-      dashed_name: threat-indicator-matched-atomic
-      description: Identifies the atomic indicator that matched a local environment
-        endpoint or network event.
-      example: example.com
-      flat_name: threat.indicator.matched.atomic
-      ignore_above: 1024
+    threat.indicator.modified_at:
+      beta: This field is beta and subject to change.
+      dashed_name: threat-indicator-modified-at
+      description: The date and time when intelligence source last modified information
+        for this indicator.
+      example: '2020-11-05T17:25:47.000Z'
+      flat_name: threat.indicator.modified_at
       level: extended
-      name: indicator.matched.atomic
+      name: indicator.modified_at
       normalize: []
-      short: Indicator atomic match
-      type: keyword
-    threat.indicator.matched.field:
-      dashed_name: threat-indicator-matched-field
-      description: Identifies the field of the atomic indicator that matched a local
-        environment endpoint or network event.
-      example: file.hash.sha256
-      flat_name: threat.indicator.matched.field
-      ignore_above: 1024
-      level: extended
-      name: indicator.matched.field
-      normalize: []
-      short: Indicator field match
-      type: keyword
-    threat.indicator.matched.type:
-      dashed_name: threat-indicator-matched-type
-      description: Identifies the type of the atomic indicator that matched a local
-        environment endpoint or network event.
-      example: domain-name
-      flat_name: threat.indicator.matched.type
-      ignore_above: 1024
-      level: extended
-      name: indicator.matched.type
-      normalize: []
-      short: Indicator type match
-      type: keyword
-    threat.indicator.module:
-      dashed_name: threat-indicator-module
-      description: Identifies the name of specific module this data is coming from.
-      example: threatintel
-      flat_name: threat.indicator.module
-      ignore_above: 1024
-      level: extended
-      name: indicator.module
-      normalize: []
-      short: Indicator module
-      type: keyword
+      short: Date/time indicator was last updated.
+      type: date
     threat.indicator.port:
+      beta: This field is beta and subject to change.
       dashed_name: threat-indicator-port
       description: Identifies a threat indicator as a port number (irrespective of
         direction).
@@ -17444,18 +17396,8 @@ threat:
       normalize: []
       short: Indicator port
       type: long
-    threat.indicator.provider:
-      dashed_name: threat-indicator-provider
-      description: Identifies the name of the intelligence provider.
-      example: VirusTotal
-      flat_name: threat.indicator.provider
-      ignore_above: 1024
-      level: extended
-      name: indicator.provider
-      normalize: []
-      short: Identifies the name of the intelligence provider.
-      type: keyword
     threat.indicator.scanner_stats:
+      beta: This field is beta and subject to change.
       dashed_name: threat-indicator-scanner-stats
       description: Count of AV/EDR vendors that successfully detected malicious file
         or URL.
@@ -17467,6 +17409,7 @@ threat:
       short: Scanner statistics
       type: long
     threat.indicator.sightings:
+      beta: This field is beta and subject to change.
       dashed_name: threat-indicator-sightings
       description: Number of times this indicator was observed conducting threat activity.
       example: 20
@@ -17477,12 +17420,13 @@ threat:
       short: Number of times indicator observed
       type: long
     threat.indicator.type:
+      beta: This field is beta and subject to change.
       dashed_name: threat-indicator-type
       description: "Type of indicator as represented by Cyber Observable in STIX 2.0.\n\
-        Expected values\n  * autonomous-system\n  * artifact\n  * directory\n  * domain-name\n\
-        \  * email-addr\n  * file\n  * ipv4-addr\n  * ipv6-addr\n  * mac-addr\n  *\
-        \ mutex\n  * process\n  * software\n  * url\n  * user-account\n  * windows-registry-key\n\
-        \  * x-509-certificate"
+        Recommended values:\n  * autonomous-system\n  * artifact\n  * directory\n\
+        \  * domain-name\n  * email-addr\n  * file\n  * ipv4-addr\n  * ipv6-addr\n\
+        \  * mac-addr\n  * mutex\n  * port\n  * process\n  * software\n  * url\n \
+        \ * user-account\n  * windows-registry-key\n  * x509-certificate"
       example: ipv4-addr
       flat_name: threat.indicator.type
       ignore_above: 1024

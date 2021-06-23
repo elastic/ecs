@@ -19,6 +19,10 @@
 
 package ecs
 
+import (
+	"time"
+)
+
 // Fields to classify events and alerts according to a threat taxonomy such as
 // the MITRE ATT&CK® framework.
 // These fields are for users to classify alerts from all of their sources
@@ -53,6 +57,79 @@ type Threat struct {
 	// that are tracked by a common name in the security community. While not
 	// required, you can use a MITRE ATT&CK® group reference URL.
 	GroupReference string `ecs:"group.reference"`
+
+	// The date and time when intelligence source first reported sighting this
+	// indicator.
+	IndicatorFirstSeen time.Time `ecs:"indicator.first_seen"`
+
+	// The date and time when intelligence source last reported sighting this
+	// indicator.
+	IndicatorLastSeen time.Time `ecs:"indicator.last_seen"`
+
+	// The date and time when intelligence source last modified information for
+	// this indicator.
+	IndicatorModifiedAt time.Time `ecs:"indicator.modified_at"`
+
+	// Number of times this indicator was observed conducting threat activity.
+	IndicatorSightings int64 `ecs:"indicator.sightings"`
+
+	// Type of indicator as represented by Cyber Observable in STIX 2.0.
+	// Recommended values:
+	//   * autonomous-system
+	//   * artifact
+	//   * directory
+	//   * domain-name
+	//   * email-addr
+	//   * file
+	//   * ipv4-addr
+	//   * ipv6-addr
+	//   * mac-addr
+	//   * mutex
+	//   * port
+	//   * process
+	//   * software
+	//   * url
+	//   * user-account
+	//   * windows-registry-key
+	//   * x509-certificate
+	IndicatorType string `ecs:"indicator.type"`
+
+	// Describes the type of action conducted by the threat.
+	IndicatorDescription string `ecs:"indicator.description"`
+
+	// Count of AV/EDR vendors that successfully detected malicious file or
+	// URL.
+	IndicatorScannerStats int64 `ecs:"indicator.scanner_stats"`
+
+	// Identifies the confidence rating assigned by the provider using
+	// STIX confidence scales.
+	// Expected values:
+	//   * Not Specified, None, Low, Medium, High
+	//   * 0-10
+	//   * Admirality Scale (1-6)
+	//   * DNI Scale (5-95)
+	//   * WEP Scale (Impossible - Certain)
+	IndicatorConfidence string `ecs:"indicator.confidence"`
+
+	// Identifies a threat indicator as an IP address (irrespective of
+	// direction).
+	IndicatorIP string `ecs:"indicator.ip"`
+
+	// Identifies a threat indicator as a port number (irrespective of
+	// direction).
+	IndicatorPort int64 `ecs:"indicator.port"`
+
+	// Identifies a threat indicator as an email address (irrespective of
+	// direction).
+	IndicatorEmailAddress string `ecs:"indicator.email.address"`
+
+	// Traffic Light Protocol sharing markings.
+	// Recommended values are:
+	//   * WHITE
+	//   * GREEN
+	//   * AMBER
+	//   * RED
+	IndicatorMarkingTlp string `ecs:"indicator.marking.tlp"`
 
 	// The id of the software used by this threat to conduct behavior commonly
 	// modeled using MITRE ATT&CK®. While not required, you can use a MITRE
