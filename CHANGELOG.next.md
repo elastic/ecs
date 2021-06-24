@@ -50,6 +50,8 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
+* Swap `Location` and `Field Set` columns in `Field Reuse` table for better readability. #1472
+
 #### Deprecated
 
 <!-- All empty sections:
