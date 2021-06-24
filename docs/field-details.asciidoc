@@ -278,6 +278,7 @@ example: `Google LLC`
 [discrete]
 ==== Field Reuse
 
+<<<<<<< HEAD
 The `as` fields are expected to be nested at:
 
 
@@ -289,6 +290,9 @@ The `as` fields are expected to be nested at:
 
 * `source.as`
 
+=======
+The `as` fields are expected to be nested at: `client.as`, `destination.as`, `server.as`, `source.as`, `threat.enrichments.as`.
+>>>>>>> 411131a3 (generate artifacts)
 
 Note also that the `as` fields are not expected to be used directly at the root of the events.
 
@@ -3032,6 +3036,16 @@ example: `https://mysystem.example.com/alert/5271dedb-f5b0-4218-87f0-4ac4870a38f
 
 |=====
 
+[discrete]
+==== Field Reuse
+
+The `event` fields are expected to be nested at: `threat.enrichments.event`.
+
+Note also that the `event` fields may be used directly at the root of the events.
+
+
+
+
 [[ecs-file]]
 === File Fields
 
@@ -3418,6 +3432,10 @@ example: `1001`
 [discrete]
 ==== Field Reuse
 
+The `file` fields are expected to be nested at: `threat.enrichments.file`.
+
+Note also that the `file` fields may be used directly at the root of the events.
+
 
 
 
@@ -3673,6 +3691,7 @@ example: `America/Argentina/Buenos_Aires`
 [discrete]
 ==== Field Reuse
 
+<<<<<<< HEAD
 The `geo` fields are expected to be nested at:
 
 
@@ -3688,6 +3707,9 @@ The `geo` fields are expected to be nested at:
 
 * `source.geo`
 
+=======
+The `geo` fields are expected to be nested at: `client.geo`, `destination.geo`, `host.geo`, `observer.geo`, `server.geo`, `source.geo`, `threat.enrichments.geo`.
+>>>>>>> 411131a3 (generate artifacts)
 
 Note also that the `geo` fields are not expected to be used directly at the root of the events.
 
@@ -3877,6 +3899,7 @@ type: keyword
 [discrete]
 ==== Field Reuse
 
+<<<<<<< HEAD
 The `hash` fields are expected to be nested at:
 
 
@@ -3886,6 +3909,9 @@ The `hash` fields are expected to be nested at:
 
 * `process.hash`
 
+=======
+The `hash` fields are expected to be nested at: `dll.hash`, `file.hash`, `process.hash`, `threat.enrichments.hash`.
+>>>>>>> 411131a3 (generate artifacts)
 
 Note also that the `hash` fields are not expected to be used directly at the root of the events.
 
@@ -7636,6 +7662,114 @@ These fields are for users to classify alerts from all of their sources (e.g. ID
 // ===============================================================
 
 |
+[[field-threat-enrichments]]
+<<field-threat-enrichments, threat.enrichments>>
+
+| beta:[ This field is beta and subject to change. ]
+
+A list of associated indicators enriching the event, and the context of that association/enrichment.
+
+type: nested
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-threat-enrichments-matched-atomic]]
+<<field-threat-enrichments-matched-atomic, threat.enrichments.matched.atomic>>
+
+| beta:[ This field is beta and subject to change. ]
+
+Identifies the atomic indicator value that matched a local environment endpoint or network event.
+
+type: keyword
+
+
+
+example: `bad-domain.com`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-threat-enrichments-matched-field]]
+<<field-threat-enrichments-matched-field, threat.enrichments.matched.field>>
+
+| beta:[ This field is beta and subject to change. ]
+
+Identifies the field of the atomic indicator that matched a local environment endpoint or network event.
+
+type: keyword
+
+
+
+example: `file.hash.sha256`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-threat-enrichments-matched-id]]
+<<field-threat-enrichments-matched-id, threat.enrichments.matched.id>>
+
+| beta:[ This field is beta and subject to change. ]
+
+Identifies the _id of the indicator document enriching the event.
+
+type: keyword
+
+
+
+example: `ff93aee5-86a1-4a61-b0e6-0cdc313d01b5`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-threat-enrichments-matched-index]]
+<<field-threat-enrichments-matched-index, threat.enrichments.matched.index>>
+
+| beta:[ This field is beta and subject to change. ]
+
+Identifies the _index of the indicator document enriching the event.
+
+type: keyword
+
+
+
+example: `filebeat-8.0.0-2021.05.23-000011`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-threat-enrichments-matched-type]]
+<<field-threat-enrichments-matched-type, threat.enrichments.matched.type>>
+
+| beta:[ This field is beta and subject to change. ]
+
+Identifies the type of match that caused the event to be enriched with the given indicator
+
+type: keyword
+
+
+
+example: `indicator_match_rule`
+
+| extended
+
+// ===============================================================
+
+|
 [[field-threat-framework]]
 <<field-threat-framework, threat.framework>>
 
@@ -8303,6 +8437,81 @@ example: `https://attack.mitre.org/techniques/T1059/001/`
 | extended
 
 // ===============================================================
+
+|=====
+
+[discrete]
+==== Field Reuse
+
+
+
+
+[[ecs-threat-nestings]]
+[discrete]
+===== Field sets that can be nested under Threat
+
+[options="header"]
+|=====
+| Field Set | Location | Description
+
+// ===============================================================
+
+
+| `threat.enrichments.as.*`
+| <<ecs-as,as>>| beta:[ Reusing the `as` fields in this location is currently considered beta.]
+
+Fields describing an Autonomous System (Internet routing prefix).
+
+// ===============================================================
+
+
+| `threat.enrichments.event.*`
+| <<ecs-event,event>>| beta:[ Reusing the `event` fields in this location is currently considered beta.]
+
+Fields breaking down the event details.
+
+// ===============================================================
+
+
+| `threat.enrichments.file.*`
+| <<ecs-file,file>>| beta:[ Reusing the `file` fields in this location is currently considered beta.]
+
+Fields describing files.
+
+// ===============================================================
+
+
+| `threat.enrichments.geo.*`
+| <<ecs-geo,geo>>| beta:[ Reusing the `geo` fields in this location is currently considered beta.]
+
+Fields describing a location.
+
+// ===============================================================
+
+
+| `threat.enrichments.hash.*`
+| <<ecs-hash,hash>>| beta:[ Reusing the `hash` fields in this location is currently considered beta.]
+
+Hashes, usually file hashes.
+
+// ===============================================================
+
+
+| `threat.enrichments.url.*`
+| <<ecs-url,url>>| beta:[ Reusing the `url` fields in this location is currently considered beta.]
+
+Fields that let you store URLs in various forms.
+
+// ===============================================================
+
+
+| `threat.enrichments.x509.*`
+| <<ecs-x509,x509>>| beta:[ Reusing the `x509` fields in this location is currently considered beta.]
+
+These fields contain x509 certificate metadata.
+
+// ===============================================================
+
 
 |=====
 
@@ -9179,6 +9388,16 @@ type: keyword
 // ===============================================================
 
 |=====
+
+[discrete]
+==== Field Reuse
+
+The `url` fields are expected to be nested at: `threat.enrichments.url`.
+
+Note also that the `url` fields may be used directly at the root of the events.
+
+
+
 
 [[ecs-user]]
 === User Fields
@@ -10282,6 +10501,7 @@ example: `3`
 [discrete]
 ==== Field Reuse
 
+<<<<<<< HEAD
 The `x509` fields are expected to be nested at:
 
 
@@ -10291,6 +10511,9 @@ The `x509` fields are expected to be nested at:
 
 * `tls.server.x509`
 
+=======
+The `x509` fields are expected to be nested at: `file.x509`, `threat.enrichments.x509`, `tls.client.x509`, `tls.server.x509`.
+>>>>>>> 411131a3 (generate artifacts)
 
 Note also that the `x509` fields are not expected to be used directly at the root of the events.
 

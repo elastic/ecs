@@ -32,6 +32,10 @@ import (
 // used by this detected threat, to accomplish the goal (e.g. "endpoint denial
 // of service").
 type Threat struct {
+	// A list of associated indicators enriching the event, and the context of
+	// that association/enrichment.
+	Enrichments []Enrichments `ecs:"enrichments"`
+
 	// Name of the threat framework used to further categorize and classify the
 	// tactic and technique of the reported threat. Framework classification
 	// can be provided by detecting systems, evaluated at ingest time, or
@@ -211,4 +215,24 @@ type Threat struct {
 	// MITRE ATT&CK® subtechnique, for example. (ex.
 	// https://attack.mitre.org/techniques/T1059/001/)
 	TechniqueSubtechniqueReference string `ecs:"technique.subtechnique.reference"`
+}
+
+type Enrichments struct {
+	// Identifies the atomic indicator value that matched a local environment
+	// endpoint or network event.
+	MatchedAtomic string `ecs:"matched.atomic"`
+
+	// Identifies the field of the atomic indicator that matched a local
+	// environment endpoint or network event.
+	MatchedField string `ecs:"matched.field"`
+
+	// Identifies the _id of the indicator document enriching the event.
+	MatchedID string `ecs:"matched.id"`
+
+	// Identifies the _index of the indicator document enriching the event.
+	MatchedIndex string `ecs:"matched.index"`
+
+	// Identifies the type of match that caused the event to be enriched with
+	// the given indicator
+	MatchedType string `ecs:"matched.type"`
 }
