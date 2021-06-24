@@ -50,6 +50,8 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
+* Use a bullet points to list field reuses. #1473
+
 #### Deprecated
 
 <!-- All empty sections:
