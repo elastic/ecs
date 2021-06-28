@@ -12,6 +12,8 @@ Thanks, you're awesome :-) -->
 
 * Removing deprecated --oss from generator #1404
 * Removing use-cases directory #1405
+* Remove `host.user.*` field reuse. #1439
+* Remove deprecation notice on `http.request.method`. #1443
 
 ### Schema Changes
 
@@ -21,15 +23,22 @@ Thanks, you're awesome :-) -->
 
 * `elf.*` field set added as beta. #1410
 * Remove `beta` from `orchestrator` field set. #1417
+* Extend `threat.*` field set beta. #1438
+* Added `event.agent_id_status` field. #1454
+* `threat.enrichments` added to the experimental schema. #1457
+* `process.target` and `process.target.parent` added to experimental schema. #1467
 
 #### Improvements
 
 * Fix ecs GitHub repo link source branch #1393
 * Add --exclude flag to Generator to support field removal testing #1411
+* Explicitly include user identifiers in `relater.user` description. #1420
+* Improve descriptions for `cloud.region` and `cloud.availability` fields. #1452
 
 #### Deprecated
 
 * Note deprecation of the `host.user.*` field reuse. #1422
+* Note deprecation of `log.original` superseded by `event.original` #1469
 
 ### Tooling and Artifact Changes
 
@@ -38,41 +47,14 @@ Thanks, you're awesome :-) -->
 #### Added
 
 * Support `match_only_text` data type in Go code generator. #1418
+* Support for multi-level, self-nestings. #1459
 
 #### Improvements
+
+* Swap `Location` and `Field Set` columns in `Field Reuse` table for better readability. #1472, #1476
+* Use a bullet points to list field reuses. #1473
 
 #### Deprecated
-
-## 1.10.0 (Feature Freeze)
-
-### Schema Changes
-
-#### Added
-
-* Add `data_stream` fieldset. #1307
-* Add `orchestrator` fieldset as beta fields. #1326
-* Extend `threat.*` experimental fields with proposed changes from RFC 0018. #1344, #1351
-* Allow custom descriptions for self-nesting reuses via `short_override` #1366
-
-#### Improvements
-
-* Updated descriptions to use Elastic Security #1305
-* Host metrics fields from RFC 0005 are now GA. #1319
-* Adjustments to the field set "usage" docs #1345
-* Adjustments to the sidebar naming convention for usage and examples docs #1354
-* Update `user.*` field reuse descriptions. #1382
-
-### Tooling and Artifact Changes
-
-#### Bugfixes
-
-* Correcting fieldset name capitalization for generated ES template #1323
-
-#### Improvements
-
-* Support `nested` types in go code generator. #1254, #1350
-* Go code generator now supports the `flattened` data type. #1302
-* Adjustments to use terminology that doesn't have negative connotation. #1315
 
 <!-- All empty sections:
 

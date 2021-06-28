@@ -589,14 +589,14 @@ cloud.account.name:
   type: keyword
 cloud.availability_zone:
   dashed_name: cloud-availability-zone
-  description: Availability zone in which this host is running.
+  description: Availability zone in which this host, resource, or service is located.
   example: us-east-1c
   flat_name: cloud.availability_zone
   ignore_above: 1024
   level: extended
   name: availability_zone
   normalize: []
-  short: Availability zone in which this host is running.
+  short: Availability zone in which this host, resource, or service is located.
   type: keyword
 cloud.instance.id:
   dashed_name: cloud-instance-id
@@ -670,14 +670,14 @@ cloud.provider:
   type: keyword
 cloud.region:
   dashed_name: cloud-region
-  description: Region in which this host is running.
+  description: Region in which this host, resource, or service is located.
   example: us-east-1
   flat_name: cloud.region
   ignore_above: 1024
   level: extended
   name: region
   normalize: []
-  short: Region in which this host is running.
+  short: Region in which this host, resource, or service is located.
   type: keyword
 cloud.service.name:
   dashed_name: cloud-service-name
@@ -1865,6 +1865,41 @@ event.action:
   normalize: []
   short: The action captured by the event.
   type: keyword
+event.agent_id_status:
+  dashed_name: event-agent-id-status
+  description: 'Agents are normally responsible for populating the `agent.id` field
+    value. If the system receiving events is capable of validating the value based
+    on authentication information for the client then this field can be used to reflect
+    the outcome of that validation.
+
+    For example if the agent''s connection is authenticated with mTLS and the client
+    cert contains the ID of the agent to which the cert was issued then the `agent.id`
+    value in events can be checked against the certificate. If the values match then
+    `event.agent_id_status: verified` is added to the event, otherwise one of the
+    other allowed values should be used.
+
+    If no validation is performed then the field should be omitted.
+
+    The allowed values are:
+
+    `verified` - The `agent.id` field value matches expected value obtained from auth
+    metadata.
+
+    `mismatch` - The `agent.id` field value does not match the expected value obtained
+    from auth metadata.
+
+    `missing` - There was no `agent.id` field in the event to validate.
+
+    `auth_metadata_missing` - There was no auth metadata or it was missing information
+    about the agent ID.'
+  example: verified
+  flat_name: event.agent_id_status
+  ignore_above: 1024
+  level: extended
+  name: agent_id_status
+  normalize: []
+  short: Validation status of the event's agent.id field.
+  type: keyword
 event.category:
   allowed_values:
   - description: Events in this category are related to the challenge and response
@@ -2260,11 +2295,13 @@ event.module:
   type: keyword
 event.original:
   dashed_name: event-original
-  description: 'Raw text message of entire event. Used to demonstrate log integrity.
+  description: 'Raw text message of entire event. Used to demonstrate log integrity  or
+    where the full log message (before splitting it up in multiple  parts) may be
+    required, e.g. for reindex.
 
     This field is not indexed and doc_values are disabled. It cannot be searched,
     but it can be retrieved from `_source`. If users wish to override this and index
-    this field, consider using the wildcard data type.'
+    this field, please see `Field data types` in the `Elasticsearch Reference`.'
   doc_values: false
   example: Sep 19 08:26:10 host CEF:0&#124;Security&#124; threatmanager&#124;1.0&#124;100&#124;
     worm successfully stopped&#124;10&#124;src=10.0.0.1 dst=2.1.2.2spt=1232
@@ -4190,138 +4227,6 @@ host.uptime:
   normalize: []
   short: Seconds the host has been up.
   type: long
-host.user.domain:
-  dashed_name: host-user-domain
-  description: 'Name of the directory the user is a member of.
-
-    For example, an LDAP or Active Directory domain name.'
-  flat_name: host.user.domain
-  ignore_above: 1024
-  level: extended
-  name: domain
-  normalize: []
-  original_fieldset: user
-  short: Name of the directory the user is a member of.
-  type: keyword
-host.user.email:
-  dashed_name: host-user-email
-  description: User email address.
-  flat_name: host.user.email
-  ignore_above: 1024
-  level: extended
-  name: email
-  normalize: []
-  original_fieldset: user
-  short: User email address.
-  type: keyword
-host.user.full_name:
-  dashed_name: host-user-full-name
-  description: User's full name, if available.
-  example: Albert Einstein
-  flat_name: host.user.full_name
-  ignore_above: 1024
-  level: extended
-  multi_fields:
-  - flat_name: host.user.full_name.text
-    name: text
-    norms: false
-    type: text
-  name: full_name
-  normalize: []
-  original_fieldset: user
-  short: User's full name, if available.
-  type: keyword
-host.user.group.domain:
-  dashed_name: host-user-group-domain
-  description: 'Name of the directory the group is a member of.
-
-    For example, an LDAP or Active Directory domain name.'
-  flat_name: host.user.group.domain
-  ignore_above: 1024
-  level: extended
-  name: domain
-  normalize: []
-  original_fieldset: group
-  short: Name of the directory the group is a member of.
-  type: keyword
-host.user.group.id:
-  dashed_name: host-user-group-id
-  description: Unique identifier for the group on the system/platform.
-  flat_name: host.user.group.id
-  ignore_above: 1024
-  level: extended
-  name: id
-  normalize: []
-  original_fieldset: group
-  short: Unique identifier for the group on the system/platform.
-  type: keyword
-host.user.group.name:
-  dashed_name: host-user-group-name
-  description: Name of the group.
-  flat_name: host.user.group.name
-  ignore_above: 1024
-  level: extended
-  name: name
-  normalize: []
-  original_fieldset: group
-  short: Name of the group.
-  type: keyword
-host.user.hash:
-  dashed_name: host-user-hash
-  description: 'Unique user hash to correlate information for a user in anonymized
-    form.
-
-    Useful if `user.id` or `user.name` contain confidential information and cannot
-    be used.'
-  flat_name: host.user.hash
-  ignore_above: 1024
-  level: extended
-  name: hash
-  normalize: []
-  original_fieldset: user
-  short: Unique user hash to correlate information for a user in anonymized form.
-  type: keyword
-host.user.id:
-  dashed_name: host-user-id
-  description: Unique identifier of the user.
-  flat_name: host.user.id
-  ignore_above: 1024
-  level: core
-  name: id
-  normalize: []
-  original_fieldset: user
-  short: Unique identifier of the user.
-  type: keyword
-host.user.name:
-  dashed_name: host-user-name
-  description: Short name or login of the user.
-  example: albert
-  flat_name: host.user.name
-  ignore_above: 1024
-  level: core
-  multi_fields:
-  - flat_name: host.user.name.text
-    name: text
-    norms: false
-    type: text
-  name: name
-  normalize: []
-  original_fieldset: user
-  short: Short name or login of the user.
-  type: keyword
-host.user.roles:
-  dashed_name: host-user-roles
-  description: Array of user roles at the time of the event.
-  example: '["kibana_admin", "reporting_user"]'
-  flat_name: host.user.roles
-  ignore_above: 1024
-  level: extended
-  name: roles
-  normalize:
-  - array
-  original_fieldset: user
-  short: Array of user roles at the time of the event.
-  type: keyword
 http.request.body.bytes:
   dashed_name: http-request-body-bytes
   description: Size in bytes of the request body.
@@ -4379,13 +4284,9 @@ http.request.method:
   dashed_name: http-request-method
   description: 'HTTP request method.
 
-    Prior to ECS 1.6.0 the following guidance was provided:
-
-    "The field value must be normalized to lowercase for querying."
-
-    As of ECS 1.6.0, the guidance is deprecated because the original case of the method
-    may be useful in anomaly detection.  Original case will be mandated in ECS 2.0.0'
-  example: GET, POST, PUT, PoST
+    The value should retain its casing from the original event. For example, `GET`,
+    `get`, and `GeT` are all considered valid values for this field.'
+  example: POST
   flat_name: http.request.method
   ignore_above: 1024
   level: extended
@@ -4592,8 +4493,11 @@ log.origin.function:
   type: keyword
 log.original:
   dashed_name: log-original
-  description: 'This is the original log message and contains the full log message
-    before splitting it up in multiple parts.
+  description: 'Deprecated for removal in next major version release. This field is
+    superseded by  `event.original`.
+
+    This is the original log message and contains the full log message before splitting
+    it up in multiple parts.
 
     In contrast to the `message` field which can contain an extracted part of the
     log message, this field contains the original, full log message. It can have already
@@ -4610,7 +4514,8 @@ log.original:
   level: core
   name: original
   normalize: []
-  short: Original log message with light interpretation only (encoding, newlines).
+  short: Deprecated original log message with light interpretation only (encoding,
+    newlines).
   type: keyword
 log.syslog:
   dashed_name: log-syslog
@@ -7443,14 +7348,14 @@ related.ip:
   type: ip
 related.user:
   dashed_name: related-user
-  description: All the user names seen on your event.
+  description: All the user names or other user identifiers seen on the event.
   flat_name: related.user
   ignore_above: 1024
   level: extended
   name: user
   normalize:
   - array
-  short: All the user names seen on your event.
+  short: All the user names or other user identifiers seen on the event.
   type: keyword
 rule.author:
   dashed_name: rule-author
@@ -8641,6 +8546,136 @@ threat.framework:
   name: framework
   normalize: []
   short: Threat classification framework.
+  type: keyword
+threat.group.alias:
+  beta: This field is beta and subject to change.
+  dashed_name: threat-group-alias
+  description: "The alias(es) of the group for a set of related intrusion activity\
+    \ that are tracked by a common name in the security community. While not required,\
+    \ you can use a MITRE ATT&CK\xAE group alias(es)."
+  example: '[ "Magecart Group 6" ]'
+  flat_name: threat.group.alias
+  ignore_above: 1024
+  level: extended
+  name: group.alias
+  normalize:
+  - array
+  short: Alias of the group.
+  type: keyword
+threat.group.id:
+  beta: This field is beta and subject to change.
+  dashed_name: threat-group-id
+  description: "The id of the group for a set of related intrusion activity that are\
+    \ tracked by a common name in the security community. While not required, you\
+    \ can use a MITRE ATT&CK\xAE group id."
+  example: G0037
+  flat_name: threat.group.id
+  ignore_above: 1024
+  level: extended
+  name: group.id
+  normalize: []
+  short: ID of the group.
+  type: keyword
+threat.group.name:
+  beta: This field is beta and subject to change.
+  dashed_name: threat-group-name
+  description: "The name of the group for a set of related intrusion activity that\
+    \ are tracked by a common name in the security community. While not required,\
+    \ you can use a MITRE ATT&CK\xAE group name."
+  example: FIN6
+  flat_name: threat.group.name
+  ignore_above: 1024
+  level: extended
+  name: group.name
+  normalize: []
+  short: Name of the group.
+  type: keyword
+threat.group.reference:
+  beta: This field is beta and subject to change.
+  dashed_name: threat-group-reference
+  description: "The reference URL of the group for a set of related intrusion activity\
+    \ that are tracked by a common name in the security community. While not required,\
+    \ you can use a MITRE ATT&CK\xAE group reference URL."
+  example: https://attack.mitre.org/groups/G0037/
+  flat_name: threat.group.reference
+  ignore_above: 1024
+  level: extended
+  name: group.reference
+  normalize: []
+  short: Reference URL of the group.
+  type: keyword
+threat.software.id:
+  beta: This field is beta and subject to change.
+  dashed_name: threat-software-id
+  description: "The id of the software used by this threat to conduct behavior commonly\
+    \ modeled using MITRE ATT&CK\xAE. While not required, you can use a MITRE ATT&CK\xAE\
+    \ software id."
+  example: S0552
+  flat_name: threat.software.id
+  ignore_above: 1024
+  level: extended
+  name: software.id
+  normalize: []
+  short: ID of the software
+  type: keyword
+threat.software.name:
+  beta: This field is beta and subject to change.
+  dashed_name: threat-software-name
+  description: "The name of the software used by this threat to conduct behavior commonly\
+    \ modeled using MITRE ATT&CK\xAE. While not required, you can use a MITRE ATT&CK\xAE\
+    \ software name."
+  example: AdFind
+  flat_name: threat.software.name
+  ignore_above: 1024
+  level: extended
+  name: software.name
+  normalize: []
+  short: Name of the software.
+  type: keyword
+threat.software.platforms:
+  beta: This field is beta and subject to change.
+  dashed_name: threat-software-platforms
+  description: "The platforms of the software used by this threat to conduct behavior\
+    \ commonly modeled using MITRE ATT&CK\xAE. While not required, you can use a MITRE\
+    \ ATT&CK\xAE software platforms.\nRecommended Values:\n  * AWS\n  * Azure\n  *\
+    \ Azure AD\n  * GCP\n  * Linux\n  * macOS\n  * Network\n  * Office 365\n  * SaaS\n\
+    \  * Windows"
+  example: '[ "Windows" ]'
+  flat_name: threat.software.platforms
+  ignore_above: 1024
+  level: extended
+  name: software.platforms
+  normalize:
+  - array
+  short: Platforms of the software.
+  type: keyword
+threat.software.reference:
+  beta: This field is beta and subject to change.
+  dashed_name: threat-software-reference
+  description: "The reference URL of the software used by this threat to conduct behavior\
+    \ commonly modeled using MITRE ATT&CK\xAE. While not required, you can use a MITRE\
+    \ ATT&CK\xAE software reference URL."
+  example: https://attack.mitre.org/software/S0552/
+  flat_name: threat.software.reference
+  ignore_above: 1024
+  level: extended
+  name: software.reference
+  normalize: []
+  short: Software reference URL.
+  type: keyword
+threat.software.type:
+  beta: This field is beta and subject to change.
+  dashed_name: threat-software-type
+  description: "The type of software used by this threat to conduct behavior commonly\
+    \ modeled using MITRE ATT&CK\xAE. While not required, you can use a MITRE ATT&CK\xAE\
+    \ software type.\nRecommended values\n  * Malware\n  * Tool"
+  example: Tool
+  flat_name: threat.software.type
+  ignore_above: 1024
+  level: extended
+  name: software.type
+  normalize: []
+  short: Software type.
   type: keyword
 threat.tactic.id:
   dashed_name: threat-tactic-id
