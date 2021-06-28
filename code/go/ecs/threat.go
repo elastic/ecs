@@ -101,8 +101,8 @@ type Threat struct {
 	// URL.
 	IndicatorScannerStats int64 `ecs:"indicator.scanner_stats"`
 
-	// Identifies the confidence rating assigned by the provider using
-	// STIX confidence scales.
+	// Identifies the confidence rating assigned by the provider using STIX
+	// confidence scales.
 	// Recommended values:
 	//   * Not Specified, None, Low, Medium, High
 	//   * 0-10
