@@ -130,11 +130,13 @@ type Event struct {
 	// to `event.severity`.
 	Severity int64 `ecs:"severity"`
 
-	// Raw text message of entire event. Used to demonstrate log integrity.
+	// Raw text message of entire event. Used to demonstrate log integrity  or
+	// where the full log message (before splitting it up in multiple  parts)
+	// may be required, e.g. for reindex.
 	// This field is not indexed and doc_values are disabled. It cannot be
 	// searched, but it can be retrieved from `_source`. If users wish to
-	// override this and index this field, consider using the wildcard data
-	// type.
+	// override this and index this field, please see `Field data types` in the
+	// `Elasticsearch Reference`.
 	Original string `ecs:"original"`
 
 	// Hash (perhaps logstash fingerprint) of raw field to be able to
