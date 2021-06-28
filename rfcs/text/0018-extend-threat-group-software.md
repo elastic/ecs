@@ -30,10 +30,11 @@ Stage 2: Add or update all remaining field definitions. The list should now be e
 
 Field | Type | Example | Description
 --- | --- | --- | ---
-threat.software.id | keyword | S0552 | The id of the software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®. While not required, you can use a MITRE ATT&CK® software id.
-threat.software.name | keyword | AdFind | The name of the software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®. While not required, you can use a MITRE ATT&CK® software name.
+threat.software.id | keyword | S0226 | The id of the software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®. While not required, you can use a MITRE ATT&CK® software id.
+threat.software.name | keyword | Smoke Loader | The name of the software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®. While not required, you can use a MITRE ATT&CK® software name.
+threat.software.alias | keyword | Dofoil | The name of the software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®. While not required, you can use a MITRE ATT&CK® software name.
 threat.software.platforms | keyword | Windows | The platforms of the software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®. While not required, you can use a MITRE ATT&CK® software platforms.
-threat.software.reference | keyword | https://attack.mitre.org/software/S0552/ | The reference URL of the software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®. While not required, you can use a MITRE ATT&CK® software reference URL.
+threat.software.reference | keyword | https://attack.mitre.org/software/S0226/ | The reference URL of the software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®. While not required, you can use a MITRE ATT&CK® software reference URL.
 threat.software.type | keyword | Tool | The type of software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®. While not required, you can use a MITRE ATT&CK® software type.
 threat.group.alias | keyword | FIN6, ITG08, Magecart Group 6, etc | The alias(es) of the group for a set of related intrusion activity that are tracked by a common name in the security community. While not required, you can use a MITRE ATT&CK® group alias(es).
 threat.group.id | keyword | G0037 | The id of the group for a set of related intrusion activity that are tracked by a common name in the security community. While not required, you can use a MITRE ATT&CK® group id.
@@ -68,17 +69,25 @@ Currently, tactic, technique, and sub-techniques are also included in rules for 
 **New Software fields**
 ```json
 {
-    "threat.software.id": "S0552",
-    "threat.software.name": "AdFind",
+    "threat.software.id": "S0023",
+    "threat.software.name": "CHOPSTICK",
+    "threat.software": {
+      "alias": [
+        "Backdoor.SofacyX",
+        "SPLM",
+        "Xagent",
+        "X-Agent",
+        "webhp"
+      ]
+    },
     "threat.software": {
       "platforms": [
         "Windows",
-        "Linux",
-        "macOS"
+        "Linux"
       ]
     },
-    "threat.software.reference": "https://attack.mitre.org/software/S0552/",
-    "threat.software.type": "Tool"
+    "threat.software.reference": "https://attack.mitre.org/software/S0023/",
+    "threat.software.type": "Malware"
 }
 ```
 **New Group fields**
