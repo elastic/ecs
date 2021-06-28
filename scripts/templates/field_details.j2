@@ -90,7 +90,11 @@ example: `{{ field['example'] }}`
 
 {% if 'reusable' in fieldset -%}
 
-The `{{ fieldset['name'] }}` fields are expected to be nested at: `{{ sorted_reuse_fields|join("`, `") }}`.
+The `{{ fieldset['name'] }}` fields are expected to be nested at:
+
+{% for entry in sorted_reuse_fields %}
+* `{{ entry }}`
+{% endfor %}
 
 {% if 'top_level' in fieldset['reusable'] and fieldset['reusable']['top_level'] -%}
 
