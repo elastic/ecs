@@ -34,6 +34,7 @@ Thanks, you're awesome :-) -->
 #### Deprecated
 
 * Note deprecation of the `host.user.*` field reuse. #1422
+* Note deprecation of `log.original` superseded by `event.original` #1469
 
 ### Tooling and Artifact Changes
 
