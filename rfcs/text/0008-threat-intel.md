@@ -233,6 +233,8 @@ These sources typically provide intelligence that can be downloaded through REST
 - Abuse.ch URL - This dataset from Abuse.ch provides a list of malware URLs.
 - AlienVault OTX - This dataset from AlienVault provides a list of malware hashes, URLs, and IPs.
 - Anomali Limo - This dataset from Anomali provides threat information from the Limo service.
+- Malware Bazaar - This dataset from Malware Bazaar provides Malware threat information.
+- ThreatFox - This dataset from ThreatFox provides malware and network threat information.
 
 <!--
 Stage 2: Included a real world example source document. Ideally this example comes from the source(s) identified in stage 1. If not, it should replace them. The goal here is to validate the utility of these field changes in the context of a real world example. Format with the source name as a ### header and the example document in a GitHub code block with json formatting.
@@ -274,6 +276,23 @@ This dataset from Anomali provides threat information from the Limo service.
 Stage 3: Add more real world example source documents so we have at least 2 total, but ideally 3. Format as described in stage 2.
 -->
 
+#### Malware Bazaar
+This dataset from Malware Bazaar provides Malware threat information.
+```
+{"sha256_hash":"832fb4090879c1bebe75bea939a9c5724dbf87898febd425f94f7e03ee687d3b","sha3_384_hash":"a609684a08bfdd533be2a05b8649fc5f5e71642dde35d7d07fff11e5be60b9ec803959ab1be0a9225e098ca301a00b95","sha1_hash":"e7f6bf55ee9477a4208f0253d94deff4453aaa64","md5_hash":"781228e0a889c0624a5f1d8e9f5b0b30","first_seen":"2021-05-28 12:06:39","last_seen":null,"file_name":"Mozi.a","file_size":123164,"file_type_mime":"application/x-executable","file_type":"elf","reporter":"tolisec","anonymous":0,"signature":"Mozi","imphash":null,"tlsh":"A0C312E48E1121A0C5ADE566CC540FCAC3112D5E671E0DCA8F2CEE64AEC4AF45EADD6C","telfhash":null,"ssdeep":"3072:Lp2ANLHdrdTZvaSx6voDSnTi2Zr/G5kdstkUtfR1sAP/y:LF1HdrdFdrWnpp/G50sdfRmAPa","tags":["Mozi"],"code_sign":[],"intelligence":{"clamav":["Unix.Malware.Agent-7349999-0","Unix.Packed.Gafgyt-9390807-0","Unix.Packed.Gafgyt-9390815-0","Unix.Packed.Mirai-7640005-0"],"downloads":"65","uploads":"1","mail":null}}
+{"sha256_hash":"57744761595c2dccdf76560c4e0fe7ea33ea85be281d1b7a9c9b4e9e9dbb0221","sha3_384_hash":"1399177d3a9d63eb342398bf3b31d151c3e02b666e181727d3628280af5adc0e5e4a17204168d994374990e126c2751c","sha1_hash":"0edecb66e625e6b07da5eab828e41b319b6aefdd","md5_hash":"cddc397ae51b9bb0bc9407a7165e33d9","first_seen":"2021-03-02 12:06:37","last_seen":null,"file_name":"sample.bin","file_size":385992,"file_type_mime":"application/x-executable","file_type":"elf","reporter":"c3rb3ru5d3d53c","anonymous":0,"signature":"Mirai","imphash":null,"tlsh":"8C84390FBF210EFBE89FDE3B02EE0B05219C950622997B397574C914F95A54B4AE3874","telfhash":null,"ssdeep":"6144:eOLyBx1SeRlVwwGsBmyjtc3LzdPvwTyughNG0FzPqOkJ:eOLyBxRIsnjtILOyuSNJxPqOkJ","tags":["botnet","mirai","Mozi"],"code_sign":[],"intelligence":{"clamav":["SecuriteInfo.com.Linux.Mirai-29.UNOFFICIAL","SecuriteInfo.com.Linux.Mirai-63.UNOFFICIAL","Unix.Dropper.Botnet-6566040-0","Unix.Dropper.Mirai-7135934-0","Unix.Dropper.Mirai-7136013-0","Unix.Dropper.Mirai-7136057-0","Unix.Dropper.Mirai-7136070-0","Unix.Exploit.Mirai-9795501-0","Unix.Packed.Botnet-6566031-0","Unix.Trojan.Gafgyt-6735924-0","Unix.Trojan.Gafgyt-6748839-0","Unix.Trojan.Mirai-7100807-0","Unix.Trojan.Mirai-8025795-0","Unix.Trojan.Mirai-9762350-0","Unix.Trojan.Mirai-9763616-0","Unix.Trojan.Mirai-9769616-0"],"downloads":"129","uploads":"1","mail":null}}
+{"sha256_hash":"12013662c71da69de977c04cd7021f13a70cf7bed4ca6c82acbc100464d4b0ef","sha3_384_hash":"c8f175202c18fc7670313fc5a7221b347b2f4f204d3eaa2c5e5ed1a1ed3038f6f038c48edcbe4efb232a6b3d2a6bd51d","sha1_hash":"292559e94f1c04b7d0c65d4a01bbbc5dc1ff6f21","md5_hash":"eec5c6c219535fba3a0492ea8118b397","first_seen":"2021-01-12 20:52:19","last_seen":null,"file_name":"Mozi.m","file_size":307960,"file_type_mime":"application/x-executable","file_type":"elf","reporter":"r3dbU7z","anonymous":0,"signature":"Mirai","imphash":null,"tlsh":"13643A8AFD81AE25D5C126BBFE2F4289331317B8D2EB71029D145F2876CA94F0F7A541","telfhash":"d4014e084c695a78f066c975d0fb3172562e449af75236141b75fc2e2e638e2312192f","ssdeep":"6144:T2s/gAWuboqsJ9xcJxspJBqQgTuaJZRhVabE5wKSDP99zBa77oNsKqqfPqOJ:T2s/bW+UmJqBxAuaPRhVabEDSDP99zBT","tags":["elf","mirai","Mozi"],"code_sign":[],"intelligence":{"clamav":["SecuriteInfo.com.Linux.Mirai-29.UNOFFICIAL","SecuriteInfo.com.Linux.Mirai-63.UNOFFICIAL","Unix.Dropper.Botnet-6566040-0","Unix.Dropper.Mirai-7135934-0","Unix.Dropper.Mirai-7136013-0","Unix.Dropper.Mirai-7136057-0","Unix.Dropper.Mirai-7136070-0","Unix.Exploit.Mirai-9795501-0","Unix.Packed.Botnet-6566031-0","Unix.Trojan.Gafgyt-6735924-0","Unix.Trojan.Gafgyt-6748839-0","Unix.Trojan.Mirai-7100807-0","Unix.Trojan.Mirai-8025795-0","Unix.Trojan.Mirai-9762350-0","Unix.Trojan.Mirai-9763616-0","Unix.Trojan.Mirai-9769616-0"],"downloads":"134","uploads":"1","mail":null}}
+```
+
+#### ThreatFox
+This dataset from ThreatFox provides malware and network threat information.
+```
+{"id":"115772","ioc":"46.229.199.126:53822","threat_type":"botnet_cc","threat_type_desc":"Indicator that identifies a botnet command&control server (C&C)","ioc_type":"ip:port","ioc_type_desc":"ip:port combination that is used for botnet Command&control (C&C)","malware":"elf.mozi","malware_printable":"Mozi","malware_alias":null,"malware_malpedia":"https://malpedia.caad.fkie.fraunhofer.de/details/elf.mozi","confidence_level":75,"first_seen":"2021-06-15 08:22:52 UTC","last_seen":null,"reference":"https://bazaar.abuse.ch/sample/4b41223ca64ab6ef4b3b9c9d4257902a32f9fa8cdf4d9f6261b24b8dee81d233/","reporter":"abuse_ch","tags":["Mozi"]}
+{"id":"115771","ioc":"188.254.247.90:37294","threat_type":"botnet_cc","threat_type_desc":"Indicator that identifies a botnet command&control server (C&C)","ioc_type":"ip:port","ioc_type_desc":"ip:port combination that is used for botnet Command&control (C&C)","malware":"elf.mozi","malware_printable":"Mozi","malware_alias":null,"malware_malpedia":"https://malpedia.caad.fkie.fraunhofer.de/details/elf.mozi","confidence_level":75,"first_seen":"2021-06-15 08:22:51 UTC","last_seen":null,"reference":"https://bazaar.abuse.ch/sample/4b41223ca64ab6ef4b3b9c9d4257902a32f9fa8cdf4d9f6261b24b8dee81d233/","reporter":"abuse_ch","tags":["Mozi"]}
+{"id":"115770","ioc":"119.195.9.2:5611","threat_type":"botnet_cc","threat_type_desc":"Indicator that identifies a botnet command&control server (C&C)","ioc_type":"ip:port","ioc_type_desc":"ip:port combination that is used for botnet Command&control (C&C)","malware":"elf.mozi","malware_printable":"Mozi","malware_alias":null,"malware_malpedia":"https://malpedia.caad.fkie.fraunhofer.de/details/elf.mozi","confidence_level":75,"first_seen":"2021-06-15 08:22:50 UTC","last_seen":null,"reference":"https://bazaar.abuse.ch/sample/4b41223ca64ab6ef4b3b9c9d4257902a32f9fa8cdf4d9f6261b24b8dee81d233/","reporter":"abuse_ch","tags":["Mozi"]}
+```
+
+
 ## Scope of impact
 
 <!--
@@ -283,7 +302,7 @@ Stage 2: Identifies scope of impact of changes. Are breaking changes required? S
  * ECS project (e.g. docs, tooling)
 The goal here is to research and understand the impact of these changes on users in the community and development teams across Elastic. 2-5 sentences each.
 -->
- * Ingestion mechanism: Primary ingestion mechanisms will be Filebeat modules and Ingest Packages. There will be no impact on ingestion mechanisms. [Filebeat module](https://www.elastic.co/guide/en/beats/filebeat/7.12/exported-fields-threatintel.html) was released in `7.12`.
+ * Ingestion mechanism: Primary ingestion mechanisms will be Filebeat modules and Ingest Packages. There will be no impact on ingestion mechanisms. [Filebeat module](https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-module-threatintel.html) was released in `7.12`.
  * Usage mechanism: The primary use of the proposed ECS fields and values is through Elastic Security solution. In 7.10 we released Indicator match rule to support the use of the proposed new fields and values.
 
 ## Concerns
@@ -344,9 +363,12 @@ Some examples of open source intelligence are:
   * [Abuse.ch URL Tracker](https://urlhaus.abuse.ch/)
   * [AlienVault OTX](https://otx.alienvault.com/api)
   * [Anomali Limo](https://www.anomali.com/resources/limo)
+  * [Malware Bazaar](https://bazaar.abuse.ch/)
+  * [ThreatFox](https://threatfox.abuse.ch/)
 
 Some examples of commercial intelligence include:
   * [Anomali ThreatStream](https://www.anomali.com/products/threatstream)
+  * [Recorded Future](https://api.recordedfuture.com/v2/)
   * [Virus Total](https://www.virustotal.com/gui/intelligence-overview)
   * [Domain Tools](https://www.domaintools.com/products/api-integration/)
 
@@ -361,6 +383,7 @@ Some examples of commercial intelligence include:
   * Stage 1 correction: https://github.com/elastic/ecs/pull/1100
 * Stage 1 (originally stage 2 prior to removal of RFC stage 4): https://github.com/elastic/ecs/pull/1127
 * Stage 2: https://github.com/elastic/ecs/pull/1293
+* Stage 3: 
 
 
 <!--
