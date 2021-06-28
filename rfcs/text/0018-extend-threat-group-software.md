@@ -31,8 +31,8 @@ Stage 2: Add or update all remaining field definitions. The list should now be e
 Field | Type | Example | Description
 --- | --- | --- | ---
 threat.software.id | keyword | S0226 | The id of the software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®. While not required, you can use a MITRE ATT&CK® software id.
-threat.software.name | keyword | Smoke Loader | The name of the software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®. While not required, you can use a MITRE ATT&CK® software name.
-threat.software.alias | keyword | Dofoil | The name of the software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®. While not required, you can use a MITRE ATT&CK® software name.
+threat.software.name | keyword | CHOPSTICK | The name of the software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®. While not required, you can use a MITRE ATT&CK® software name.
+threat.software.alias | keyword | X-Agent | The name of the software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®. While not required, you can use a MITRE ATT&CK® software name.
 threat.software.platforms | keyword | Windows | The platforms of the software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®. While not required, you can use a MITRE ATT&CK® software platforms.
 threat.software.reference | keyword | https://attack.mitre.org/software/S0226/ | The reference URL of the software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®. While not required, you can use a MITRE ATT&CK® software reference URL.
 threat.software.type | keyword | Tool | The type of software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®. While not required, you can use a MITRE ATT&CK® software type.
