@@ -383,7 +383,7 @@ Some examples of commercial intelligence include:
   * Stage 1 correction: https://github.com/elastic/ecs/pull/1100
 * Stage 1 (originally stage 2 prior to removal of RFC stage 4): https://github.com/elastic/ecs/pull/1127
 * Stage 2: https://github.com/elastic/ecs/pull/1293
-* Stage 3: 
+* Stage 3: https://github.com/elastic/ecs/pull/1480
 
 
 <!--
