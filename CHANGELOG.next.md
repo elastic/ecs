@@ -39,6 +39,7 @@ Thanks, you're awesome :-) -->
 #### Deprecated
 
 * Note deprecation of the `host.user.*` field reuse. #1422
+* Note deprecation of `log.original` superseded by `event.original` #1469
 
 ### Tooling and Artifact Changes
 
@@ -50,6 +51,9 @@ Thanks, you're awesome :-) -->
 * Support for multi-level, self-nestings. #1459
 
 #### Improvements
+
+* Swap `Location` and `Field Set` columns in `Field Reuse` table for better readability. #1472, #1476
+* Use a bullet points to list field reuses. #1473
 
 #### Deprecated
 

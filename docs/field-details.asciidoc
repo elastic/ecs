@@ -278,7 +278,17 @@ example: `Google LLC`
 [discrete]
 ==== Field Reuse
 
-The `as` fields are expected to be nested at: `client.as`, `destination.as`, `server.as`, `source.as`.
+The `as` fields are expected to be nested at:
+
+
+* `client.as`
+
+* `destination.as`
+
+* `server.as`
+
+* `source.as`
+
 
 Note also that the `as` fields are not expected to be used directly at the root of the events.
 
@@ -525,27 +535,27 @@ example: `co.uk`
 
 [options="header"]
 |=====
-| Field Set | Location | Description
+| Location | Field Set | Description
 
 // ===============================================================
 
 
-| <<ecs-as,as>>
 | `client.as.*`
+| <<ecs-as,as>>
 | Fields describing an Autonomous System (Internet routing prefix).
 
 // ===============================================================
 
 
-| <<ecs-geo,geo>>
 | `client.geo.*`
+| <<ecs-geo,geo>>
 | Fields describing a location.
 
 // ===============================================================
 
 
-| <<ecs-user,user>>
 | `client.user.*`
+| <<ecs-user,user>>
 | Fields to describe the user relevant to the event.
 
 // ===============================================================
@@ -896,7 +906,15 @@ example: `true`
 [discrete]
 ==== Field Reuse
 
-The `code_signature` fields are expected to be nested at: `dll.code_signature`, `file.code_signature`, `process.code_signature`.
+The `code_signature` fields are expected to be nested at:
+
+
+* `dll.code_signature`
+
+* `file.code_signature`
+
+* `process.code_signature`
+
 
 Note also that the `code_signature` fields are not expected to be used directly at the root of the events.
 
@@ -1346,27 +1364,27 @@ example: `co.uk`
 
 [options="header"]
 |=====
-| Field Set | Location | Description
+| Location | Field Set | Description
 
 // ===============================================================
 
 
-| <<ecs-as,as>>
 | `destination.as.*`
+| <<ecs-as,as>>
 | Fields describing an Autonomous System (Internet routing prefix).
 
 // ===============================================================
 
 
-| <<ecs-geo,geo>>
 | `destination.geo.*`
+| <<ecs-geo,geo>>
 | Fields describing a location.
 
 // ===============================================================
 
 
-| <<ecs-user,user>>
 | `destination.user.*`
+| <<ecs-user,user>>
 | Fields to describe the user relevant to the event.
 
 // ===============================================================
@@ -1446,27 +1464,27 @@ example: `C:\Windows\System32\kernel32.dll`
 
 [options="header"]
 |=====
-| Field Set | Location | Description
+| Location | Field Set | Description
 
 // ===============================================================
 
 
-| <<ecs-code_signature,code_signature>>
 | `dll.code_signature.*`
+| <<ecs-code_signature,code_signature>>
 | These fields contain information about binary code signatures.
 
 // ===============================================================
 
 
-| <<ecs-hash,hash>>
 | `dll.hash.*`
+| <<ecs-hash,hash>>
 | Hashes, usually file hashes.
 
 // ===============================================================
 
 
-| <<ecs-pe,pe>>
 | `dll.pe.*`
+| <<ecs-pe,pe>>
 | These fields contain Windows Portable Executable (PE) metadata.
 
 // ===============================================================
@@ -2353,7 +2371,13 @@ type: keyword
 [discrete]
 ==== Field Reuse
 
-The `elf` fields are expected to be nested at: `file.elf`, `process.elf`.
+The `elf` fields are expected to be nested at:
+
+
+* `file.elf`
+
+* `process.elf`
+
 
 Note also that the `elf` fields are not expected to be used directly at the root of the events.
 
@@ -2753,9 +2777,9 @@ example: `apache`
 [[field-event-original]]
 <<field-event-original, event.original>>
 
-| Raw text message of entire event. Used to demonstrate log integrity.
+| Raw text message of entire event. Used to demonstrate log integrity  or where the full log message (before splitting it up in multiple  parts) may be required, e.g. for reindex.
 
-This field is not indexed and doc_values are disabled. It cannot be searched, but it can be retrieved from `_source`. If users wish to override this and index this field, consider using the wildcard data type.
+This field is not indexed and doc_values are disabled. It cannot be searched, but it can be retrieved from `_source`. If users wish to override this and index this field, please see `Field data types` in the `Elasticsearch Reference`.
 
 type: keyword
 
@@ -3403,42 +3427,42 @@ example: `1001`
 
 [options="header"]
 |=====
-| Field Set | Location | Description
+| Location | Field Set | Description
 
 // ===============================================================
 
 
-| <<ecs-code_signature,code_signature>>
 | `file.code_signature.*`
+| <<ecs-code_signature,code_signature>>
 | These fields contain information about binary code signatures.
 
 // ===============================================================
 
 
-| <<ecs-elf,elf>>
-| `file.elf.*`| beta:[ This field reuse is beta and subject to change.]
+| `file.elf.*`
+| <<ecs-elf,elf>>| beta:[ This field reuse is beta and subject to change.]
 
 These fields contain Linux Executable Linkable Format (ELF) metadata.
 
 // ===============================================================
 
 
-| <<ecs-hash,hash>>
 | `file.hash.*`
+| <<ecs-hash,hash>>
 | Hashes, usually file hashes.
 
 // ===============================================================
 
 
-| <<ecs-pe,pe>>
 | `file.pe.*`
+| <<ecs-pe,pe>>
 | These fields contain Windows Portable Executable (PE) metadata.
 
 // ===============================================================
 
 
-| <<ecs-x509,x509>>
 | `file.x509.*`
+| <<ecs-x509,x509>>
 | These fields contain x509 certificate metadata.
 
 // ===============================================================
@@ -3649,7 +3673,21 @@ example: `America/Argentina/Buenos_Aires`
 [discrete]
 ==== Field Reuse
 
-The `geo` fields are expected to be nested at: `client.geo`, `destination.geo`, `host.geo`, `observer.geo`, `server.geo`, `source.geo`.
+The `geo` fields are expected to be nested at:
+
+
+* `client.geo`
+
+* `destination.geo`
+
+* `host.geo`
+
+* `observer.geo`
+
+* `server.geo`
+
+* `source.geo`
+
 
 Note also that the `geo` fields are not expected to be used directly at the root of the events.
 
@@ -3725,7 +3763,11 @@ type: keyword
 [discrete]
 ==== Field Reuse
 
-The `group` fields are expected to be nested at: `user.group`.
+The `group` fields are expected to be nested at:
+
+
+* `user.group`
+
 
 Note also that the `group` fields may be used directly at the root of the events.
 
@@ -3835,7 +3877,15 @@ type: keyword
 [discrete]
 ==== Field Reuse
 
-The `hash` fields are expected to be nested at: `dll.hash`, `file.hash`, `process.hash`.
+The `hash` fields are expected to be nested at:
+
+
+* `dll.hash`
+
+* `file.hash`
+
+* `process.hash`
+
 
 Note also that the `hash` fields are not expected to be used directly at the root of the events.
 
@@ -4152,20 +4202,20 @@ example: `1325`
 
 [options="header"]
 |=====
-| Field Set | Location | Description
+| Location | Field Set | Description
 
 // ===============================================================
 
 
-| <<ecs-geo,geo>>
 | `host.geo.*`
+| <<ecs-geo,geo>>
 | Fields describing a location.
 
 // ===============================================================
 
 
-| <<ecs-os,os>>
 | `host.os.*`
+| <<ecs-os,os>>
 | OS fields contain information about the operating system.
 
 // ===============================================================
@@ -4484,7 +4534,13 @@ example: `eth0`
 [discrete]
 ==== Field Reuse
 
-The `interface` fields are expected to be nested at: `observer.egress.interface`, `observer.ingress.interface`.
+The `interface` fields are expected to be nested at:
+
+
+* `observer.egress.interface`
+
+* `observer.ingress.interface`
+
 
 Note also that the `interface` fields are not expected to be used directly at the root of the events.
 
@@ -4617,7 +4673,9 @@ example: `init`
 [[field-log-original]]
 <<field-log-original, log.original>>
 
-| This is the original log message and contains the full log message before splitting it up in multiple parts.
+| Deprecated for removal in next major version release. This field is superseded by  `event.original`.
+
+This is the original log message and contains the full log message before splitting it up in multiple parts.
 
 In contrast to the `message` field which can contain an extracted part of the log message, this field contains the original, full log message. It can have already some modifications applied like encoding or new lines removed to clean up the log message.
 
@@ -4999,20 +5057,20 @@ example: `ipv4`
 
 [options="header"]
 |=====
-| Field Set | Location | Description
+| Location | Field Set | Description
 
 // ===============================================================
 
 
-| <<ecs-vlan,vlan>>
 | `network.inner.vlan.*`
+| <<ecs-vlan,vlan>>
 | Fields to describe observed VLAN information.
 
 // ===============================================================
 
 
-| <<ecs-vlan,vlan>>
 | `network.vlan.*`
+| <<ecs-vlan,vlan>>
 | Fields to describe observed VLAN information.
 
 // ===============================================================
@@ -5272,48 +5330,48 @@ type: keyword
 
 [options="header"]
 |=====
-| Field Set | Location | Description
+| Location | Field Set | Description
 
 // ===============================================================
 
 
-| <<ecs-interface,interface>>
 | `observer.egress.interface.*`
+| <<ecs-interface,interface>>
 | Fields to describe observer interface information.
 
 // ===============================================================
 
 
-| <<ecs-vlan,vlan>>
 | `observer.egress.vlan.*`
+| <<ecs-vlan,vlan>>
 | Fields to describe observed VLAN information.
 
 // ===============================================================
 
 
-| <<ecs-geo,geo>>
 | `observer.geo.*`
+| <<ecs-geo,geo>>
 | Fields describing a location.
 
 // ===============================================================
 
 
-| <<ecs-interface,interface>>
 | `observer.ingress.interface.*`
+| <<ecs-interface,interface>>
 | Fields to describe observer interface information.
 
 // ===============================================================
 
 
-| <<ecs-vlan,vlan>>
 | `observer.ingress.vlan.*`
+| <<ecs-vlan,vlan>>
 | Fields to describe observed VLAN information.
 
 // ===============================================================
 
 
-| <<ecs-os,os>>
 | `observer.os.*`
+| <<ecs-os,os>>
 | OS fields contain information about the operating system.
 
 // ===============================================================
@@ -5684,7 +5742,15 @@ example: `10.14.1`
 [discrete]
 ==== Field Reuse
 
-The `os` fields are expected to be nested at: `host.os`, `observer.os`, `user_agent.os`.
+The `os` fields are expected to be nested at:
+
+
+* `host.os`
+
+* `observer.os`
+
+* `user_agent.os`
+
 
 Note also that the `os` fields are not expected to be used directly at the root of the events.
 
@@ -6054,7 +6120,15 @@ example: `Microsoft® Windows® Operating System`
 [discrete]
 ==== Field Reuse
 
-The `pe` fields are expected to be nested at: `dll.pe`, `file.pe`, `process.pe`.
+The `pe` fields are expected to be nested at:
+
+
+* `dll.pe`
+
+* `file.pe`
+
+* `process.pe`
+
 
 Note also that the `pe` fields are not expected to be used directly at the root of the events.
 
@@ -6387,7 +6461,11 @@ example: `/home/alice`
 [discrete]
 ==== Field Reuse
 
-The `process` fields are expected to be nested at: `process.parent`.
+The `process` fields are expected to be nested at:
+
+
+* `process.parent`
+
 
 Note also that the `process` fields may be used directly at the root of the events.
 
@@ -6400,42 +6478,42 @@ Note also that the `process` fields may be used directly at the root of the even
 
 [options="header"]
 |=====
-| Field Set | Location | Description
+| Location | Field Set | Description
 
 // ===============================================================
 
 
-| <<ecs-code_signature,code_signature>>
 | `process.code_signature.*`
+| <<ecs-code_signature,code_signature>>
 | These fields contain information about binary code signatures.
 
 // ===============================================================
 
 
-| <<ecs-elf,elf>>
-| `process.elf.*`| beta:[ This field reuse is beta and subject to change.]
+| `process.elf.*`
+| <<ecs-elf,elf>>| beta:[ This field reuse is beta and subject to change.]
 
 These fields contain Linux Executable Linkable Format (ELF) metadata.
 
 // ===============================================================
 
 
-| <<ecs-hash,hash>>
 | `process.hash.*`
+| <<ecs-hash,hash>>
 | Hashes, usually file hashes.
 
 // ===============================================================
 
 
-| <<ecs-process,process>>
 | `process.parent.*`
+| <<ecs-process,process>>
 | Information about the parent process.
 
 // ===============================================================
 
 
-| <<ecs-pe,pe>>
 | `process.pe.*`
+| <<ecs-pe,pe>>
 | These fields contain Windows Portable Executable (PE) metadata.
 
 // ===============================================================
@@ -7097,27 +7175,27 @@ example: `co.uk`
 
 [options="header"]
 |=====
-| Field Set | Location | Description
+| Location | Field Set | Description
 
 // ===============================================================
 
 
-| <<ecs-as,as>>
 | `server.as.*`
+| <<ecs-as,as>>
 | Fields describing an Autonomous System (Internet routing prefix).
 
 // ===============================================================
 
 
-| <<ecs-geo,geo>>
 | `server.geo.*`
+| <<ecs-geo,geo>>
 | Fields describing a location.
 
 // ===============================================================
 
 
-| <<ecs-user,user>>
 | `server.user.*`
+| <<ecs-user,user>>
 | Fields to describe the user relevant to the event.
 
 // ===============================================================
@@ -7513,27 +7591,27 @@ example: `co.uk`
 
 [options="header"]
 |=====
-| Field Set | Location | Description
+| Location | Field Set | Description
 
 // ===============================================================
 
 
-| <<ecs-as,as>>
 | `source.as.*`
+| <<ecs-as,as>>
 | Fields describing an Autonomous System (Internet routing prefix).
 
 // ===============================================================
 
 
-| <<ecs-geo,geo>>
 | `source.geo.*`
+| <<ecs-geo,geo>>
 | Fields describing a location.
 
 // ===============================================================
 
 
-| <<ecs-user,user>>
 | `source.user.*`
+| <<ecs-user,user>>
 | Fields to describe the user relevant to the event.
 
 // ===============================================================
@@ -8729,20 +8807,20 @@ example: `tls`
 
 [options="header"]
 |=====
-| Field Set | Location | Description
+| Location | Field Set | Description
 
 // ===============================================================
 
 
-| <<ecs-x509,x509>>
 | `tls.client.x509.*`
+| <<ecs-x509,x509>>
 | These fields contain x509 certificate metadata.
 
 // ===============================================================
 
 
-| <<ecs-x509,x509>>
 | `tls.server.x509.*`
+| <<ecs-x509,x509>>
 | These fields contain x509 certificate metadata.
 
 // ===============================================================
@@ -9254,7 +9332,23 @@ example: `["kibana_admin", "reporting_user"]`
 [discrete]
 ==== Field Reuse
 
-The `user` fields are expected to be nested at: `client.user`, `destination.user`, `server.user`, `source.user`, `user.changes`, `user.effective`, `user.target`.
+The `user` fields are expected to be nested at:
+
+
+* `client.user`
+
+* `destination.user`
+
+* `server.user`
+
+* `source.user`
+
+* `user.changes`
+
+* `user.effective`
+
+* `user.target`
+
 
 Note also that the `user` fields may be used directly at the root of the events.
 
@@ -9267,34 +9361,34 @@ Note also that the `user` fields may be used directly at the root of the events.
 
 [options="header"]
 |=====
-| Field Set | Location | Description
+| Location | Field Set | Description
 
 // ===============================================================
 
 
-| <<ecs-user,user>>
 | `user.changes.*`
+| <<ecs-user,user>>
 | Captures changes made to a user.
 
 // ===============================================================
 
 
-| <<ecs-user,user>>
 | `user.effective.*`
+| <<ecs-user,user>>
 | User whose privileges were assumed.
 
 // ===============================================================
 
 
-| <<ecs-group,group>>
 | `user.group.*`
+| <<ecs-group,group>>
 | User's group relevant to the event.
 
 // ===============================================================
 
 
-| <<ecs-user,user>>
 | `user.target.*`
+| <<ecs-user,user>>
 | Targeted user of action taken.
 
 // ===============================================================
@@ -9411,13 +9505,13 @@ example: `12.0`
 
 [options="header"]
 |=====
-| Field Set | Location | Description
+| Location | Field Set | Description
 
 // ===============================================================
 
 
-| <<ecs-os,os>>
 | `user_agent.os.*`
+| <<ecs-os,os>>
 | OS fields contain information about the operating system.
 
 // ===============================================================
@@ -9482,7 +9576,17 @@ example: `outside`
 [discrete]
 ==== Field Reuse
 
-The `vlan` fields are expected to be nested at: `network.inner.vlan`, `network.vlan`, `observer.egress.vlan`, `observer.ingress.vlan`.
+The `vlan` fields are expected to be nested at:
+
+
+* `network.inner.vlan`
+
+* `network.vlan`
+
+* `observer.egress.vlan`
+
+* `observer.ingress.vlan`
+
 
 Note also that the `vlan` fields are not expected to be used directly at the root of the events.
 
@@ -10178,7 +10282,15 @@ example: `3`
 [discrete]
 ==== Field Reuse
 
-The `x509` fields are expected to be nested at: `file.x509`, `tls.client.x509`, `tls.server.x509`.
+The `x509` fields are expected to be nested at:
+
+
+* `file.x509`
+
+* `tls.client.x509`
+
+* `tls.server.x509`
+
 
 Note also that the `x509` fields are not expected to be used directly at the root of the events.
 
