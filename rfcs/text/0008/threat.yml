@@ -21,6 +21,15 @@
 
     example: "2020-11-05T17:25:47.000Z"
 
+  - name: indicator.modified_at
+    level: extended
+    type: date
+    short: Date/time indicator was last updated.
+    description: >
+      The date and time when intelligence source last modified information for this indicator.
+
+    example: "2020-11-05T17:25:47.000Z"
+
   - name: indicator.sightings
     level: extended
     type: long
@@ -37,7 +46,7 @@
     description: >
       Type of indicator as represented by Cyber Observable in STIX 2.0.
 
-      Expected values
+      Recommended values:
         * autonomous-system
         * artifact
         * directory
@@ -48,18 +57,19 @@
         * ipv6-addr
         * mac-addr
         * mutex
+        * port
         * process
         * software
         * url
         * user-account
         * windows-registry-key
-        * x-509-certificate
+        * x509-certificate
 
     example: ipv4-addr
 
   - name: indicator.description
     level: extended
-    type: wildcard
+    type: keyword
     short: Indicator description
     description: >
       Describes the type of action conducted by the threat.
@@ -74,14 +84,6 @@
       Count of AV/EDR vendors that successfully detected malicious file or URL.
 
     example: 4
-
-  - name: indicator.provider
-    level: extended
-    type: keyword
-    description: >
-      Identifies the name of the intelligence provider.
-
-    example: VirusTotal
 
   - name: indicator.confidence
     level: extended
@@ -99,24 +101,6 @@
 
     example: High
 
-  - name: indicator.module
-    level: extended
-    type: keyword
-    short: Indicator module
-    description: >
-      Identifies the name of specific module this data is coming from.
-
-    example: threatintel
-
-  - name: indicator.dataset
-    level: extended
-    type: keyword
-    short: Indicator dataset
-    description: >
-      Identifies the name of specific dataset from the intelligence source.
-
-    example: threatintel.abusemalware
-
   - name: indicator.ip
     level: extended
     type: ip
@@ -125,15 +109,6 @@
       Identifies a threat indicator as an IP address (irrespective of direction).
 
     example: 1.2.3.4
-
-  - name: indicator.domain
-    level: extended
-    type: keyword
-    short: Indicator domain name
-    description: >
-      Identifies a threat indicator as a domain (irrespective of direction).
-
-    example: example.com
 
   - name: indicator.port
     level: extended
@@ -160,37 +135,10 @@
     description: >
       Traffic Light Protocol sharing markings.
 
-      Expected values are:
-        * White
-        * Green
-        * Amber
-        * Red
+      Recommended values are:
+        * WHITE
+        * GREEN
+        * AMBER
+        * RED
 
     example: White
-
-  - name: indicator.matched.atomic
-    level: extended
-    type: keyword
-    short: Indicator atomic match
-    description: >
-      Identifies the atomic indicator that matched a local environment endpoint or network event.
-
-    example: example.com
-
-  - name: indicator.matched.field
-    level: extended
-    type: keyword
-    short: Indicator field match
-    description: >
-      Identifies the field of the atomic indicator that matched a local environment endpoint or network event.
-
-    example: file.hash.sha256
-
-  - name: indicator.matched.type
-    level: extended
-    type: keyword
-    short: Indicator type match
-    description: >
-      Identifies the type of the atomic indicator that matched a local environment endpoint or network event.
-
-    example: domain-name
