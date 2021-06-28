@@ -30,7 +30,7 @@ Stage 2: Add or update all remaining field definitions. The list should now be e
 
 Field | Type | Example | Description
 --- | --- | --- | ---
-threat.software.id | keyword | S0226 | The id of the software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®. While not required, you can use a MITRE ATT&CK® software id.
+threat.software.id | keyword | S0023 | The id of the software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®. While not required, you can use a MITRE ATT&CK® software id.
 threat.software.name | keyword | CHOPSTICK | The name of the software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®. While not required, you can use a MITRE ATT&CK® software name.
 threat.software.alias | keyword | X-Agent | The name of the software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®. While not required, you can use a MITRE ATT&CK® software name.
 threat.software.platforms | keyword | Windows | The platforms of the software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®. While not required, you can use a MITRE ATT&CK® software platforms.
