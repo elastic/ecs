@@ -238,6 +238,19 @@ class TestSchemaCleaner(unittest.TestCase):
         cleaner.field_defaults({'field_details': field_details})
         self.assertEqual(field_details['ignore_above'], 8000)
 
+    def test_field_defaults_index_false_doc_values_false(self):
+        field_details = {
+            'description': 'description',
+            'level': 'extended',
+            'name': 'my_non_indexed_field',
+            'type': 'keyword',
+            'index': False,
+            'doc_values': False
+        }
+        cleaner.field_defaults({'field_details': field_details})
+        self.assertNotIn("ignore_above", field_details)
+
+
     def test_multi_field_defaults_and_precalc(self):
         field_details = {
             'description': 'description',
