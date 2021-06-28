@@ -250,7 +250,6 @@ class TestSchemaCleaner(unittest.TestCase):
         cleaner.field_defaults({'field_details': field_details})
         self.assertNotIn("ignore_above", field_details)
 
-
     def test_multi_field_defaults_and_precalc(self):
         field_details = {
             'description': 'description',
