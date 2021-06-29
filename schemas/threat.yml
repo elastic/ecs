@@ -66,6 +66,158 @@
 
       example: "https://attack.mitre.org/groups/G0037/"
 
+    - name: indicator.first_seen
+      level: extended
+      type: date
+      short: Date/time indicator was first reported.
+      beta: This field is beta and subject to change.
+      description: >
+        The date and time when intelligence source first reported sighting this indicator.
+
+      example: "2020-11-05T17:25:47.000Z"
+
+    - name: indicator.last_seen
+      level: extended
+      type: date
+      short: Date/time indicator was last reported.
+      beta: This field is beta and subject to change.
+      description: >
+        The date and time when intelligence source last reported sighting this indicator.
+
+      example: "2020-11-05T17:25:47.000Z"
+
+    - name: indicator.modified_at
+      level: extended
+      type: date
+      short: Date/time indicator was last updated.
+      beta: This field is beta and subject to change.
+      description: >
+        The date and time when intelligence source last modified information for this indicator.
+
+      example: "2020-11-05T17:25:47.000Z"
+
+    - name: indicator.sightings
+      level: extended
+      type: long
+      short: Number of times indicator observed
+      beta: This field is beta and subject to change.
+      description: >
+        Number of times this indicator was observed conducting threat activity.
+
+      example: 20
+
+    - name: indicator.type
+      level: extended
+      type: keyword
+      short: Type of indicator
+      beta: This field is beta and subject to change.
+      description: >
+        Type of indicator as represented by Cyber Observable in STIX 2.0.
+
+        Recommended values:
+          * autonomous-system
+          * artifact
+          * directory
+          * domain-name
+          * email-addr
+          * file
+          * ipv4-addr
+          * ipv6-addr
+          * mac-addr
+          * mutex
+          * port
+          * process
+          * software
+          * url
+          * user-account
+          * windows-registry-key
+          * x509-certificate
+
+      example: ipv4-addr
+
+    - name: indicator.description
+      level: extended
+      type: keyword
+      short: Indicator description
+      beta: This field is beta and subject to change.
+      description: >
+        Describes the type of action conducted by the threat.
+
+      example: IP x.x.x.x was observed delivering the Angler EK.
+
+    - name: indicator.scanner_stats
+      level: extended
+      type: long
+      short: Scanner statistics
+      beta: This field is beta and subject to change.
+      description: >
+        Count of AV/EDR vendors that successfully detected malicious file or URL.
+
+      example: 4
+
+    - name: indicator.confidence
+      level: extended
+      type: keyword
+      short: Indicator confidence rating
+      beta: This field is beta and subject to change.
+      description: >
+        Identifies the confidence rating assigned by the provider using STIX confidence scales.
+
+        Recommended values:
+          * Not Specified, None, Low, Medium, High
+          * 0-10
+          * Admirality Scale (1-6)
+          * DNI Scale (5-95)
+          * WEP Scale (Impossible - Certain)
+
+      example: High
+
+    - name: indicator.ip
+      level: extended
+      type: ip
+      short: Indicator IP address
+      beta: This field is beta and subject to change.
+      description: >
+        Identifies a threat indicator as an IP address (irrespective of direction).
+
+      example: 1.2.3.4
+
+    - name: indicator.port
+      level: extended
+      type: long
+      short: Indicator port
+      beta: This field is beta and subject to change.
+      description: >
+        Identifies a threat indicator as a port number (irrespective of direction).
+
+      example: 443
+
+    - name: indicator.email.address
+      level: extended
+      type: keyword
+      short: Indicator email address
+      beta: This field is beta and subject to change.
+      description: >
+        Identifies a threat indicator as an email address (irrespective of direction).
+
+      example: phish@example.com
+
+    - name: indicator.marking.tlp
+      level: extended
+      type: keyword
+      short: Indicator TLP marking
+      beta: This field is beta and subject to change.
+      description: >
+        Traffic Light Protocol sharing markings.
+
+        Recommended values are:
+          * WHITE
+          * GREEN
+          * AMBER
+          * RED
+
+      example: WHITE
+
     - name: software.id
       level: extended
       type: keyword
