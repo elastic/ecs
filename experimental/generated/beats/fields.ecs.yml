@@ -9779,30 +9779,17 @@
       type: keyword
       ignore_above: 1024
       description: "Identifies the confidence rating assigned by the provider using\
-        \ STIX confidence scales.\nExpected values:\n  * Not Specified, None, Low,\
+        \ STIX confidence scales.\nRecommended values:\n  * Not Specified, None, Low,\
         \ Medium, High\n  * 0-10\n  * Admirality Scale (1-6)\n  * DNI Scale (5-95)\n\
         \  * WEP Scale (Impossible - Certain)"
       example: High
       default_field: false
-    - name: indicator.dataset
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Identifies the name of specific dataset from the intelligence source.
-      example: threatintel.abusemalware
-      default_field: false
     - name: indicator.description
       level: extended
-      type: wildcard
-      description: Describes the type of action conducted by the threat.
-      example: IP x.x.x.x was observed delivering the Angler EK.
-      default_field: false
-    - name: indicator.domain
-      level: extended
       type: keyword
       ignore_above: 1024
-      description: Identifies a threat indicator as a domain (irrespective of direction).
-      example: example.com
+      description: Describes the type of action conducted by the threat.
+      example: IP x.x.x.x was observed delivering the Angler EK.
       default_field: false
     - name: indicator.email.address
       level: extended
@@ -9837,40 +9824,16 @@
       level: extended
       type: keyword
       ignore_above: 1024
-      description: "Traffic Light Protocol sharing markings.\nExpected values are:\n\
-        \  * White\n  * Green\n  * Amber\n  * Red"
-      example: White
+      description: "Traffic Light Protocol sharing markings.\nRecommended values are:\n\
+        \  * WHITE\n  * GREEN\n  * AMBER\n  * RED"
+      example: WHITE
       default_field: false
-    - name: indicator.matched.atomic
+    - name: indicator.modified_at
       level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Identifies the atomic indicator that matched a local environment
-        endpoint or network event.
-      example: example.com
-      default_field: false
-    - name: indicator.matched.field
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Identifies the field of the atomic indicator that matched a local
-        environment endpoint or network event.
-      example: file.hash.sha256
-      default_field: false
-    - name: indicator.matched.type
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Identifies the type of the atomic indicator that matched a local
-        environment endpoint or network event.
-      example: domain-name
-      default_field: false
-    - name: indicator.module
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Identifies the name of specific module this data is coming from.
-      example: threatintel
+      type: date
+      description: The date and time when intelligence source last modified information
+        for this indicator.
+      example: '2020-11-05T17:25:47.000Z'
       default_field: false
     - name: indicator.port
       level: extended
@@ -9878,13 +9841,6 @@
       description: Identifies a threat indicator as a port number (irrespective of
         direction).
       example: 443
-      default_field: false
-    - name: indicator.provider
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Identifies the name of the intelligence provider.
-      example: VirusTotal
       default_field: false
     - name: indicator.scanner_stats
       level: extended
@@ -9904,10 +9860,10 @@
       type: keyword
       ignore_above: 1024
       description: "Type of indicator as represented by Cyber Observable in STIX 2.0.\n\
-        Expected values\n  * autonomous-system\n  * artifact\n  * directory\n  * domain-name\n\
-        \  * email-addr\n  * file\n  * ipv4-addr\n  * ipv6-addr\n  * mac-addr\n  *\
-        \ mutex\n  * process\n  * software\n  * url\n  * user-account\n  * windows-registry-key\n\
-        \  * x-509-certificate"
+        Recommended values:\n  * autonomous-system\n  * artifact\n  * directory\n\
+        \  * domain-name\n  * email-addr\n  * file\n  * ipv4-addr\n  * ipv6-addr\n\
+        \  * mac-addr\n  * mutex\n  * port\n  * process\n  * software\n  * url\n \
+        \ * user-account\n  * windows-registry-key\n  * x509-certificate"
       example: ipv4-addr
       default_field: false
     - name: software.id

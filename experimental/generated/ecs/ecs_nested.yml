@@ -151,6 +151,7 @@ as:
       full: source.as
     - as: as
       at: threat.enrichments
+      beta: Reusing the `as` fields in this location is currently considered beta.
       full: threat.enrichments.as
     top_level: false
   short: Fields describing an Autonomous System (Internet routing prefix).
@@ -3777,6 +3778,7 @@ event:
     expected:
     - as: event
       at: threat.enrichments
+      beta: Reusing the `event` fields in this location is currently considered beta.
       full: threat.enrichments.event
     top_level: true
   short: Fields breaking down the event details.
@@ -5301,6 +5303,7 @@ file:
     expected:
     - as: file
       at: threat.enrichments
+      beta: Reusing the `file` fields in this location is currently considered beta.
       full: threat.enrichments.file
     top_level: true
   reused_here:
@@ -5483,6 +5486,7 @@ geo:
       full: source.geo
     - as: geo
       at: threat.enrichments
+      beta: Reusing the `geo` fields in this location is currently considered beta.
       full: threat.enrichments.geo
     top_level: false
   short: Fields describing a location.
@@ -5614,6 +5618,7 @@ hash:
       full: dll.hash
     - as: hash
       at: threat.enrichments
+      beta: Reusing the `hash` fields in this location is currently considered beta.
       full: threat.enrichments.hash
     top_level: false
   short: Hashes, usually file hashes.
@@ -14329,6 +14334,7 @@ threat:
     \ \"endpoint denial of service\")."
   fields:
     threat.enrichments:
+      beta: This field is beta and subject to change.
       dashed_name: threat-enrichments
       description: A list of associated indicators enriching the event, and the context
         of that association/enrichment.
@@ -16087,6 +16093,7 @@ threat:
       short: SSDEEP hash.
       type: keyword
     threat.enrichments.matched.atomic:
+      beta: This field is beta and subject to change.
       dashed_name: threat-enrichments-matched-atomic
       description: Identifies the atomic indicator value that matched a local environment
         endpoint or network event.
@@ -16099,6 +16106,7 @@ threat:
       short: Matched indicator value
       type: keyword
     threat.enrichments.matched.field:
+      beta: This field is beta and subject to change.
       dashed_name: threat-enrichments-matched-field
       description: Identifies the field of the atomic indicator that matched a local
         environment endpoint or network event.
@@ -16111,6 +16119,7 @@ threat:
       short: Matched indicator field
       type: keyword
     threat.enrichments.matched.id:
+      beta: This field is beta and subject to change.
       dashed_name: threat-enrichments-matched-id
       description: Identifies the _id of the indicator document enriching the event.
       example: ff93aee5-86a1-4a61-b0e6-0cdc313d01b5
@@ -16122,6 +16131,7 @@ threat:
       short: Matched indicator identifier
       type: keyword
     threat.enrichments.matched.index:
+      beta: This field is beta and subject to change.
       dashed_name: threat-enrichments-matched-index
       description: Identifies the _index of the indicator document enriching the event.
       example: filebeat-8.0.0-2021.05.23-000011
@@ -16133,6 +16143,7 @@ threat:
       short: Matched indicator index
       type: keyword
     threat.enrichments.matched.type:
+      beta: This field is beta and subject to change.
       dashed_name: threat-enrichments-matched-type
       description: Identifies the type of match that caused the event to be enriched
         with the given indicator
@@ -17292,9 +17303,10 @@ threat:
       short: Reference URL of the group.
       type: keyword
     threat.indicator.confidence:
+      beta: This field is beta and subject to change.
       dashed_name: threat-indicator-confidence
       description: "Identifies the confidence rating assigned by the provider using\
-        \ STIX confidence scales.\nExpected values:\n  * Not Specified, None, Low,\
+        \ STIX confidence scales.\nRecommended values:\n  * Not Specified, None, Low,\
         \ Medium, High\n  * 0-10\n  * Admirality Scale (1-6)\n  * DNI Scale (5-95)\n\
         \  * WEP Scale (Impossible - Certain)"
       example: High
@@ -17305,39 +17317,20 @@ threat:
       normalize: []
       short: Indicator confidence rating
       type: keyword
-    threat.indicator.dataset:
-      dashed_name: threat-indicator-dataset
-      description: Identifies the name of specific dataset from the intelligence source.
-      example: threatintel.abusemalware
-      flat_name: threat.indicator.dataset
-      ignore_above: 1024
-      level: extended
-      name: indicator.dataset
-      normalize: []
-      short: Indicator dataset
-      type: keyword
     threat.indicator.description:
+      beta: This field is beta and subject to change.
       dashed_name: threat-indicator-description
       description: Describes the type of action conducted by the threat.
       example: IP x.x.x.x was observed delivering the Angler EK.
       flat_name: threat.indicator.description
+      ignore_above: 1024
       level: extended
       name: indicator.description
       normalize: []
       short: Indicator description
-      type: wildcard
-    threat.indicator.domain:
-      dashed_name: threat-indicator-domain
-      description: Identifies a threat indicator as a domain (irrespective of direction).
-      example: example.com
-      flat_name: threat.indicator.domain
-      ignore_above: 1024
-      level: extended
-      name: indicator.domain
-      normalize: []
-      short: Indicator domain name
       type: keyword
     threat.indicator.email.address:
+      beta: This field is beta and subject to change.
       dashed_name: threat-indicator-email-address
       description: Identifies a threat indicator as an email address (irrespective
         of direction).
@@ -17350,6 +17343,7 @@ threat:
       short: Indicator email address
       type: keyword
     threat.indicator.first_seen:
+      beta: This field is beta and subject to change.
       dashed_name: threat-indicator-first-seen
       description: The date and time when intelligence source first reported sighting
         this indicator.
@@ -17361,6 +17355,7 @@ threat:
       short: Date/time indicator was first reported.
       type: date
     threat.indicator.ip:
+      beta: This field is beta and subject to change.
       dashed_name: threat-indicator-ip
       description: Identifies a threat indicator as an IP address (irrespective of
         direction).
@@ -17372,6 +17367,7 @@ threat:
       short: Indicator IP address
       type: ip
     threat.indicator.last_seen:
+      beta: This field is beta and subject to change.
       dashed_name: threat-indicator-last-seen
       description: The date and time when intelligence source last reported sighting
         this indicator.
@@ -17383,10 +17379,11 @@ threat:
       short: Date/time indicator was last reported.
       type: date
     threat.indicator.marking.tlp:
+      beta: This field is beta and subject to change.
       dashed_name: threat-indicator-marking-tlp
-      description: "Traffic Light Protocol sharing markings.\nExpected values are:\n\
-        \  * White\n  * Green\n  * Amber\n  * Red"
-      example: White
+      description: "Traffic Light Protocol sharing markings.\nRecommended values are:\n\
+        \  * WHITE\n  * GREEN\n  * AMBER\n  * RED"
+      example: WHITE
       flat_name: threat.indicator.marking.tlp
       ignore_above: 1024
       level: extended
@@ -17394,54 +17391,20 @@ threat:
       normalize: []
       short: Indicator TLP marking
       type: keyword
-    threat.indicator.matched.atomic:
-      dashed_name: threat-indicator-matched-atomic
-      description: Identifies the atomic indicator that matched a local environment
-        endpoint or network event.
-      example: example.com
-      flat_name: threat.indicator.matched.atomic
-      ignore_above: 1024
+    threat.indicator.modified_at:
+      beta: This field is beta and subject to change.
+      dashed_name: threat-indicator-modified-at
+      description: The date and time when intelligence source last modified information
+        for this indicator.
+      example: '2020-11-05T17:25:47.000Z'
+      flat_name: threat.indicator.modified_at
       level: extended
-      name: indicator.matched.atomic
+      name: indicator.modified_at
       normalize: []
-      short: Indicator atomic match
-      type: keyword
-    threat.indicator.matched.field:
-      dashed_name: threat-indicator-matched-field
-      description: Identifies the field of the atomic indicator that matched a local
-        environment endpoint or network event.
-      example: file.hash.sha256
-      flat_name: threat.indicator.matched.field
-      ignore_above: 1024
-      level: extended
-      name: indicator.matched.field
-      normalize: []
-      short: Indicator field match
-      type: keyword
-    threat.indicator.matched.type:
-      dashed_name: threat-indicator-matched-type
-      description: Identifies the type of the atomic indicator that matched a local
-        environment endpoint or network event.
-      example: domain-name
-      flat_name: threat.indicator.matched.type
-      ignore_above: 1024
-      level: extended
-      name: indicator.matched.type
-      normalize: []
-      short: Indicator type match
-      type: keyword
-    threat.indicator.module:
-      dashed_name: threat-indicator-module
-      description: Identifies the name of specific module this data is coming from.
-      example: threatintel
-      flat_name: threat.indicator.module
-      ignore_above: 1024
-      level: extended
-      name: indicator.module
-      normalize: []
-      short: Indicator module
-      type: keyword
+      short: Date/time indicator was last updated.
+      type: date
     threat.indicator.port:
+      beta: This field is beta and subject to change.
       dashed_name: threat-indicator-port
       description: Identifies a threat indicator as a port number (irrespective of
         direction).
@@ -17452,18 +17415,8 @@ threat:
       normalize: []
       short: Indicator port
       type: long
-    threat.indicator.provider:
-      dashed_name: threat-indicator-provider
-      description: Identifies the name of the intelligence provider.
-      example: VirusTotal
-      flat_name: threat.indicator.provider
-      ignore_above: 1024
-      level: extended
-      name: indicator.provider
-      normalize: []
-      short: Identifies the name of the intelligence provider.
-      type: keyword
     threat.indicator.scanner_stats:
+      beta: This field is beta and subject to change.
       dashed_name: threat-indicator-scanner-stats
       description: Count of AV/EDR vendors that successfully detected malicious file
         or URL.
@@ -17475,6 +17428,7 @@ threat:
       short: Scanner statistics
       type: long
     threat.indicator.sightings:
+      beta: This field is beta and subject to change.
       dashed_name: threat-indicator-sightings
       description: Number of times this indicator was observed conducting threat activity.
       example: 20
@@ -17485,12 +17439,13 @@ threat:
       short: Number of times indicator observed
       type: long
     threat.indicator.type:
+      beta: This field is beta and subject to change.
       dashed_name: threat-indicator-type
       description: "Type of indicator as represented by Cyber Observable in STIX 2.0.\n\
-        Expected values\n  * autonomous-system\n  * artifact\n  * directory\n  * domain-name\n\
-        \  * email-addr\n  * file\n  * ipv4-addr\n  * ipv6-addr\n  * mac-addr\n  *\
-        \ mutex\n  * process\n  * software\n  * url\n  * user-account\n  * windows-registry-key\n\
-        \  * x-509-certificate"
+        Recommended values:\n  * autonomous-system\n  * artifact\n  * directory\n\
+        \  * domain-name\n  * email-addr\n  * file\n  * ipv4-addr\n  * ipv6-addr\n\
+        \  * mac-addr\n  * mutex\n  * port\n  * process\n  * software\n  * url\n \
+        \ * user-account\n  * windows-registry-key\n  * x509-certificate"
       example: ipv4-addr
       flat_name: threat.indicator.type
       ignore_above: 1024
@@ -17714,19 +17669,24 @@ threat:
   - threat.enrichments.x509
   prefix: threat.
   reused_here:
-  - full: threat.enrichments.as
+  - beta: Reusing the `as` fields in this location is currently considered beta.
+    full: threat.enrichments.as
     schema_name: as
     short: Fields describing an Autonomous System (Internet routing prefix).
-  - full: threat.enrichments.event
+  - beta: Reusing the `event` fields in this location is currently considered beta.
+    full: threat.enrichments.event
     schema_name: event
     short: Fields breaking down the event details.
-  - full: threat.enrichments.file
+  - beta: Reusing the `file` fields in this location is currently considered beta.
+    full: threat.enrichments.file
     schema_name: file
     short: Fields describing files.
-  - full: threat.enrichments.geo
+  - beta: Reusing the `geo` fields in this location is currently considered beta.
+    full: threat.enrichments.geo
     schema_name: geo
     short: Fields describing a location.
-  - full: threat.enrichments.hash
+  - beta: Reusing the `hash` fields in this location is currently considered beta.
+    full: threat.enrichments.hash
     schema_name: hash
     short: Hashes, usually file hashes.
   - full: threat.enrichments.pe
@@ -17735,10 +17695,12 @@ threat:
   - full: threat.enrichments.registry
     schema_name: registry
     short: Fields related to Windows Registry operations.
-  - full: threat.enrichments.url
+  - beta: Reusing the `url` fields in this location is currently considered beta.
+    full: threat.enrichments.url
     schema_name: url
     short: Fields that let you store URLs in various forms.
-  - full: threat.enrichments.x509
+  - beta: Reusing the `x509` fields in this location is currently considered beta.
+    full: threat.enrichments.x509
     schema_name: x509
     short: These fields contain x509 certificate metadata.
   short: Fields to classify events and alerts according to a threat taxonomy.
@@ -19009,6 +18971,7 @@ url:
     expected:
     - as: url
       at: threat.enrichments
+      beta: Reusing the `url` fields in this location is currently considered beta.
       full: threat.enrichments.url
     top_level: true
   short: Fields that let you store URLs in various forms.
@@ -20295,14 +20258,15 @@ x509:
       at: file
       full: file.x509
     - as: x509
+      at: threat.enrichments
+      beta: Reusing the `x509` fields in this location is currently considered beta.
+      full: threat.enrichments.x509
+    - as: x509
       at: tls.client
       full: tls.client.x509
     - as: x509
       at: tls.server
       full: tls.server.x509
-    - as: x509
-      at: threat.enrichments
-      full: threat.enrichments.x509
     top_level: false
   short: These fields contain x509 certificate metadata.
   title: x509 Certificate
