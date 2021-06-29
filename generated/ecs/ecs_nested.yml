@@ -151,6 +151,10 @@ as:
     - as: as
       at: source
       full: source.as
+    - as: as
+      at: threat.enrichments
+      beta: Reusing the `as` fields in this location is currently considered beta.
+      full: threat.enrichments.as
     top_level: false
   short: Fields describing an Autonomous System (Internet routing prefix).
   title: Autonomous System
@@ -3421,6 +3425,13 @@ event:
   group: 2
   name: event
   prefix: event.
+  reusable:
+    expected:
+    - as: event
+      at: threat.enrichments
+      beta: Reusing the `event` fields in this location is currently considered beta.
+      full: threat.enrichments.event
+    top_level: true
   short: Fields breaking down the event details.
   title: Event
   type: group
@@ -4573,6 +4584,13 @@ file:
   - file.pe
   - file.x509
   prefix: file.
+  reusable:
+    expected:
+    - as: file
+      at: threat.enrichments
+      beta: Reusing the `file` fields in this location is currently considered beta.
+      full: threat.enrichments.file
+    top_level: true
   reused_here:
   - full: file.code_signature
     schema_name: code_signature
@@ -4752,6 +4770,10 @@ geo:
     - as: geo
       at: source
       full: source.geo
+    - as: geo
+      at: threat.enrichments
+      beta: Reusing the `geo` fields in this location is currently considered beta.
+      full: threat.enrichments.geo
     top_level: false
   short: Fields describing a location.
   title: Geo
@@ -4880,6 +4902,10 @@ hash:
     - as: hash
       at: dll
       full: dll.hash
+    - as: hash
+      at: threat.enrichments
+      beta: Reusing the `hash` fields in this location is currently considered beta.
+      full: threat.enrichments.hash
     top_level: false
   short: Hashes, usually file hashes.
   title: Hash
@@ -10186,6 +10212,2364 @@ threat:
     \ kind of approach is used by this detected threat, to accomplish the goal (e.g.\
     \ \"endpoint denial of service\")."
   fields:
+    threat.enrichments:
+      beta: This field is beta and subject to change.
+      dashed_name: threat-enrichments
+      description: A list of associated indicators enriching the event, and the context
+        of that association/enrichment.
+      flat_name: threat.enrichments
+      level: extended
+      name: enrichments
+      normalize: []
+      short: List of indicators enriching the event.
+      type: nested
+    threat.enrichments.as.number:
+      dashed_name: threat-enrichments-as-number
+      description: Unique number allocated to the autonomous system. The autonomous
+        system number (ASN) uniquely identifies each network on the Internet.
+      example: 15169
+      flat_name: threat.enrichments.as.number
+      level: extended
+      name: number
+      normalize: []
+      original_fieldset: as
+      short: Unique number allocated to the autonomous system.
+      type: long
+    threat.enrichments.as.organization.name:
+      dashed_name: threat-enrichments-as-organization-name
+      description: Organization name.
+      example: Google LLC
+      flat_name: threat.enrichments.as.organization.name
+      ignore_above: 1024
+      level: extended
+      multi_fields:
+      - flat_name: threat.enrichments.as.organization.name.text
+        name: text
+        norms: false
+        type: text
+      name: organization.name
+      normalize: []
+      original_fieldset: as
+      short: Organization name.
+      type: keyword
+    threat.enrichments.event.action:
+      dashed_name: threat-enrichments-event-action
+      description: 'The action captured by the event.
+
+        This describes the information in the event. It is more specific than `event.category`.
+        Examples are `group-add`, `process-started`, `file-created`. The value is
+        normally defined by the implementer.'
+      example: user-password-change
+      flat_name: threat.enrichments.event.action
+      ignore_above: 1024
+      level: core
+      name: action
+      normalize: []
+      original_fieldset: event
+      short: The action captured by the event.
+      type: keyword
+    threat.enrichments.event.agent_id_status:
+      dashed_name: threat-enrichments-event-agent-id-status
+      description: 'Agents are normally responsible for populating the `agent.id`
+        field value. If the system receiving events is capable of validating the value
+        based on authentication information for the client then this field can be
+        used to reflect the outcome of that validation.
+
+        For example if the agent''s connection is authenticated with mTLS and the
+        client cert contains the ID of the agent to which the cert was issued then
+        the `agent.id` value in events can be checked against the certificate. If
+        the values match then `event.agent_id_status: verified` is added to the event,
+        otherwise one of the other allowed values should be used.
+
+        If no validation is performed then the field should be omitted.
+
+        The allowed values are:
+
+        `verified` - The `agent.id` field value matches expected value obtained from
+        auth metadata.
+
+        `mismatch` - The `agent.id` field value does not match the expected value
+        obtained from auth metadata.
+
+        `missing` - There was no `agent.id` field in the event to validate.
+
+        `auth_metadata_missing` - There was no auth metadata or it was missing information
+        about the agent ID.'
+      example: verified
+      flat_name: threat.enrichments.event.agent_id_status
+      ignore_above: 1024
+      level: extended
+      name: agent_id_status
+      normalize: []
+      original_fieldset: event
+      short: Validation status of the event's agent.id field.
+      type: keyword
+    threat.enrichments.event.category:
+      allowed_values:
+      - description: Events in this category are related to the challenge and response
+          process in which credentials are supplied and verified to allow the creation
+          of a session. Common sources for these logs are Windows event logs and ssh
+          logs. Visualize and analyze events in this category to look for failed logins,
+          and other authentication-related activity.
+        expected_event_types:
+        - start
+        - end
+        - info
+        name: authentication
+      - description: 'Events in the configuration category have to deal with creating,
+          modifying, or deleting the settings or parameters of an application, process,
+          or system.
+
+          Example sources include security policy change logs, configuration auditing
+          logging, and system integrity monitoring.'
+        expected_event_types:
+        - access
+        - change
+        - creation
+        - deletion
+        - info
+        name: configuration
+      - description: The database category denotes events and metrics relating to
+          a data storage and retrieval system. Note that use of this category is not
+          limited to relational database systems. Examples include event logs from
+          MS SQL, MySQL, Elasticsearch, MongoDB, etc. Use this category to visualize
+          and analyze database activity such as accesses and changes.
+        expected_event_types:
+        - access
+        - change
+        - info
+        - error
+        name: database
+      - description: 'Events in the driver category have to do with operating system
+          device drivers and similar software entities such as Windows drivers, kernel
+          extensions, kernel modules, etc.
+
+          Use events and metrics in this category to visualize and analyze driver-related
+          activity and status on hosts.'
+        expected_event_types:
+        - change
+        - end
+        - info
+        - start
+        name: driver
+      - description: Relating to a set of information that has been created on, or
+          has existed on a filesystem. Use this category of events to visualize and
+          analyze the creation, access, and deletions of files. Events in this category
+          can come from both host-based and network-based sources. An example source
+          of a network-based detection of a file transfer would be the Zeek file.log.
+        expected_event_types:
+        - change
+        - creation
+        - deletion
+        - info
+        name: file
+      - description: 'Use this category to visualize and analyze information such
+          as host inventory or host lifecycle events.
+
+          Most of the events in this category can usually be observed from the outside,
+          such as from a hypervisor or a control plane''s point of view. Some can
+          also be seen from within, such as "start" or "end".
+
+          Note that this category is for information about hosts themselves; it is
+          not meant to capture activity "happening on a host".'
+        expected_event_types:
+        - access
+        - change
+        - end
+        - info
+        - start
+        name: host
+      - description: Identity and access management (IAM) events relating to users,
+          groups, and administration. Use this category to visualize and analyze IAM-related
+          logs and data from active directory, LDAP, Okta, Duo, and other IAM systems.
+        expected_event_types:
+        - admin
+        - change
+        - creation
+        - deletion
+        - group
+        - info
+        - user
+        name: iam
+      - description: Relating to intrusion detections from IDS/IPS systems and functions,
+          both network and host-based. Use this category to visualize and analyze
+          intrusion detection alerts from systems such as Snort, Suricata, and Palo
+          Alto threat detections.
+        expected_event_types:
+        - allowed
+        - denied
+        - info
+        name: intrusion_detection
+      - description: Malware detection events and alerts. Use this category to visualize
+          and analyze malware detections from EDR/EPP systems such as Elastic Endpoint
+          Security, Symantec Endpoint Protection, Crowdstrike, and network IDS/IPS
+          systems such as Suricata, or other sources of malware-related events such
+          as Palo Alto Networks threat logs and Wildfire logs.
+        expected_event_types:
+        - info
+        name: malware
+      - description: Relating to all network activity, including network connection
+          lifecycle, network traffic, and essentially any event that includes an IP
+          address. Many events containing decoded network protocol transactions fit
+          into this category. Use events in this category to visualize or analyze
+          counts of network ports, protocols, addresses, geolocation information,
+          etc.
+        expected_event_types:
+        - access
+        - allowed
+        - connection
+        - denied
+        - end
+        - info
+        - protocol
+        - start
+        name: network
+      - description: Relating to software packages installed on hosts. Use this category
+          to visualize and analyze inventory of software installed on various hosts,
+          or to determine host vulnerability in the absence of vulnerability scan
+          data.
+        expected_event_types:
+        - access
+        - change
+        - deletion
+        - info
+        - installation
+        - start
+        name: package
+      - description: Use this category of events to visualize and analyze process-specific
+          information such as lifecycle events or process ancestry.
+        expected_event_types:
+        - access
+        - change
+        - end
+        - info
+        - start
+        name: process
+      - description: Having to do with settings and assets stored in the Windows registry.
+          Use this category to visualize and analyze activity such as registry access
+          and modifications.
+        expected_event_types:
+        - access
+        - change
+        - creation
+        - deletion
+        name: registry
+      - description: The session category is applied to events and metrics regarding
+          logical persistent connections to hosts and services. Use this category
+          to visualize and analyze interactive or automated persistent connections
+          between assets. Data for this category may come from Windows Event logs,
+          SSH logs, or stateless sessions such as HTTP cookie-based sessions, etc.
+        expected_event_types:
+        - start
+        - end
+        - info
+        name: session
+      - description: 'Relating to web server access. Use this category to create a
+          dashboard of web server/proxy activity from apache, IIS, nginx web servers,
+          etc. Note: events from network observers such as Zeek http log may also
+          be included in this category.'
+        expected_event_types:
+        - access
+        - error
+        - info
+        name: web
+      dashed_name: threat-enrichments-event-category
+      description: 'This is one of four ECS Categorization Fields, and indicates the
+        second level in the ECS category hierarchy.
+
+        `event.category` represents the "big buckets" of ECS categories. For example,
+        filtering on `event.category:process` yields all events relating to process
+        activity. This field is closely related to `event.type`, which is used as
+        a subcategory.
+
+        This field is an array. This will allow proper categorization of some events
+        that fall in multiple categories.'
+      example: authentication
+      flat_name: threat.enrichments.event.category
+      ignore_above: 1024
+      level: core
+      name: category
+      normalize:
+      - array
+      original_fieldset: event
+      short: Event category. The second categorization field in the hierarchy.
+      type: keyword
+    threat.enrichments.event.code:
+      dashed_name: threat-enrichments-event-code
+      description: 'Identification code for this event, if one exists.
+
+        Some event sources use event codes to identify messages unambiguously, regardless
+        of message language or wording adjustments over time. An example of this is
+        the Windows Event ID.'
+      example: 4648
+      flat_name: threat.enrichments.event.code
+      ignore_above: 1024
+      level: extended
+      name: code
+      normalize: []
+      original_fieldset: event
+      short: Identification code for this event.
+      type: keyword
+    threat.enrichments.event.created:
+      dashed_name: threat-enrichments-event-created
+      description: 'event.created contains the date/time when the event was first
+        read by an agent, or by your pipeline.
+
+        This field is distinct from @timestamp in that @timestamp typically contain
+        the time extracted from the original event.
+
+        In most situations, these two timestamps will be slightly different. The difference
+        can be used to calculate the delay between your source generating an event,
+        and the time when your agent first processed it. This can be used to monitor
+        your agent''s or pipeline''s ability to keep up with your event source.
+
+        In case the two timestamps are identical, @timestamp should be used.'
+      example: '2016-05-23T08:05:34.857Z'
+      flat_name: threat.enrichments.event.created
+      level: core
+      name: created
+      normalize: []
+      original_fieldset: event
+      short: Time when the event was first read by an agent or by your pipeline.
+      type: date
+    threat.enrichments.event.dataset:
+      dashed_name: threat-enrichments-event-dataset
+      description: 'Name of the dataset.
+
+        If an event source publishes more than one type of log or events (e.g. access
+        log, error log), the dataset is used to specify which one the event comes
+        from.
+
+        It''s recommended but not required to start the dataset name with the module
+        name, followed by a dot, then the dataset name.'
+      example: apache.access
+      flat_name: threat.enrichments.event.dataset
+      ignore_above: 1024
+      level: core
+      name: dataset
+      normalize: []
+      original_fieldset: event
+      short: Name of the dataset.
+      type: keyword
+    threat.enrichments.event.duration:
+      dashed_name: threat-enrichments-event-duration
+      description: 'Duration of the event in nanoseconds.
+
+        If event.start and event.end are known this value should be the difference
+        between the end and start time.'
+      flat_name: threat.enrichments.event.duration
+      format: duration
+      input_format: nanoseconds
+      level: core
+      name: duration
+      normalize: []
+      original_fieldset: event
+      output_format: asMilliseconds
+      output_precision: 1
+      short: Duration of the event in nanoseconds.
+      type: long
+    threat.enrichments.event.end:
+      dashed_name: threat-enrichments-event-end
+      description: event.end contains the date when the event ended or when the activity
+        was last observed.
+      flat_name: threat.enrichments.event.end
+      level: extended
+      name: end
+      normalize: []
+      original_fieldset: event
+      short: event.end contains the date when the event ended or when the activity
+        was last observed.
+      type: date
+    threat.enrichments.event.hash:
+      dashed_name: threat-enrichments-event-hash
+      description: Hash (perhaps logstash fingerprint) of raw field to be able to
+        demonstrate log integrity.
+      example: 123456789012345678901234567890ABCD
+      flat_name: threat.enrichments.event.hash
+      ignore_above: 1024
+      level: extended
+      name: hash
+      normalize: []
+      original_fieldset: event
+      short: Hash (perhaps logstash fingerprint) of raw field to be able to demonstrate
+        log integrity.
+      type: keyword
+    threat.enrichments.event.id:
+      dashed_name: threat-enrichments-event-id
+      description: Unique ID to describe the event.
+      example: 8a4f500d
+      flat_name: threat.enrichments.event.id
+      ignore_above: 1024
+      level: core
+      name: id
+      normalize: []
+      original_fieldset: event
+      short: Unique ID to describe the event.
+      type: keyword
+    threat.enrichments.event.ingested:
+      dashed_name: threat-enrichments-event-ingested
+      description: 'Timestamp when an event arrived in the central data store.
+
+        This is different from `@timestamp`, which is when the event originally occurred.  It''s
+        also different from `event.created`, which is meant to capture the first time
+        an agent saw the event.
+
+        In normal conditions, assuming no tampering, the timestamps should chronologically
+        look like this: `@timestamp` < `event.created` < `event.ingested`.'
+      example: '2016-05-23T08:05:35.101Z'
+      flat_name: threat.enrichments.event.ingested
+      level: core
+      name: ingested
+      normalize: []
+      original_fieldset: event
+      short: Timestamp when an event arrived in the central data store.
+      type: date
+    threat.enrichments.event.kind:
+      allowed_values:
+      - description: 'This value indicates an event that describes an alert or notable
+          event, triggered by a detection rule.
+
+          `event.kind:alert` is often populated for events coming from firewalls,
+          intrusion detection systems, endpoint detection and response systems, and
+          so on.'
+        name: alert
+      - description: This value is the most general and most common value for this
+          field. It is used to represent events that indicate that something happened.
+        name: event
+      - description: 'This value is used to indicate that this event describes a numeric
+          measurement taken at given point in time.
+
+          Examples include CPU utilization, memory usage, or device temperature.
+
+          Metric events are often collected on a predictable frequency, such as once
+          every few seconds, or once a minute, but can also be used to describe ad-hoc
+          numeric metric queries.'
+        name: metric
+      - description: 'The state value is similar to metric, indicating that this event
+          describes a measurement taken at given point in time, except that the measurement
+          does not result in a numeric value, but rather one of a fixed set of categorical
+          values that represent conditions or states.
+
+          Examples include periodic events reporting Elasticsearch cluster state (green/yellow/red),
+          the state of a TCP connection (open, closed, fin_wait, etc.), the state
+          of a host with respect to a software vulnerability (vulnerable, not vulnerable),
+          and the state of a system regarding compliance with a regulatory standard
+          (compliant, not compliant).
+
+          Note that an event that describes a change of state would not use `event.kind:state`,
+          but instead would use ''event.kind:event'' since a state change fits the
+          more general event definition of something that happened.
+
+          State events are often collected on a predictable frequency, such as once
+          every few seconds, once a minute, once an hour, or once a day, but can also
+          be used to describe ad-hoc state queries.'
+        name: state
+      - description: This value indicates that an error occurred during the ingestion
+          of this event, and that event data may be missing, inconsistent, or incorrect.
+          `event.kind:pipeline_error` is often associated with parsing errors.
+        name: pipeline_error
+      - description: 'This value is used by the Elastic Security app to denote an
+          Elasticsearch document that was created by a SIEM detection engine rule.
+
+          A signal will typically trigger a notification that something meaningful
+          happened and should be investigated.
+
+          Usage of this value is reserved, and pipelines should not populate `event.kind`
+          with the value "signal".'
+        name: signal
+      dashed_name: threat-enrichments-event-kind
+      description: 'This is one of four ECS Categorization Fields, and indicates the
+        highest level in the ECS category hierarchy.
+
+        `event.kind` gives high-level information about what type of information the
+        event contains, without being specific to the contents of the event. For example,
+        values of this field distinguish alert events from metric events.
+
+        The value of this field can be used to inform how these kinds of events should
+        be handled. They may warrant different retention, different access control,
+        it may also help understand whether the data coming in at a regular interval
+        or not.'
+      example: alert
+      flat_name: threat.enrichments.event.kind
+      ignore_above: 1024
+      level: core
+      name: kind
+      normalize: []
+      original_fieldset: event
+      short: The kind of the event. The highest categorization field in the hierarchy.
+      type: keyword
+    threat.enrichments.event.module:
+      dashed_name: threat-enrichments-event-module
+      description: 'Name of the module this data is coming from.
+
+        If your monitoring agent supports the concept of modules or plugins to process
+        events of a given source (e.g. Apache logs), `event.module` should contain
+        the name of this module.'
+      example: apache
+      flat_name: threat.enrichments.event.module
+      ignore_above: 1024
+      level: core
+      name: module
+      normalize: []
+      original_fieldset: event
+      short: Name of the module this data is coming from.
+      type: keyword
+    threat.enrichments.event.original:
+      dashed_name: threat-enrichments-event-original
+      description: 'Raw text message of entire event. Used to demonstrate log integrity  or
+        where the full log message (before splitting it up in multiple  parts) may
+        be required, e.g. for reindex.
+
+        This field is not indexed and doc_values are disabled. It cannot be searched,
+        but it can be retrieved from `_source`. If users wish to override this and
+        index this field, please see `Field data types` in the `Elasticsearch Reference`.'
+      doc_values: false
+      example: Sep 19 08:26:10 host CEF:0&#124;Security&#124; threatmanager&#124;1.0&#124;100&#124;
+        worm successfully stopped&#124;10&#124;src=10.0.0.1 dst=2.1.2.2spt=1232
+      flat_name: threat.enrichments.event.original
+      ignore_above: 1024
+      index: false
+      level: core
+      name: original
+      normalize: []
+      original_fieldset: event
+      short: Raw text message of entire event.
+      type: keyword
+    threat.enrichments.event.outcome:
+      allowed_values:
+      - description: Indicates that this event describes a failed result. A common
+          example is `event.category:file AND event.type:access AND event.outcome:failure`
+          to indicate that a file access was attempted, but was not successful.
+        name: failure
+      - description: Indicates that this event describes a successful result. A common
+          example is `event.category:file AND event.type:create AND event.outcome:success`
+          to indicate that a file was successfully created.
+        name: success
+      - description: Indicates that this event describes only an attempt for which
+          the result is unknown from the perspective of the event producer. For example,
+          if the event contains information only about the request side of a transaction
+          that results in a response, populating `event.outcome:unknown` in the request
+          event is appropriate. The unknown value should not be used when an outcome
+          doesn't make logical sense for the event. In such cases `event.outcome`
+          should not be populated.
+        name: unknown
+      dashed_name: threat-enrichments-event-outcome
+      description: 'This is one of four ECS Categorization Fields, and indicates the
+        lowest level in the ECS category hierarchy.
+
+        `event.outcome` simply denotes whether the event represents a success or a
+        failure from the perspective of the entity that produced the event.
+
+        Note that when a single transaction is described in multiple events, each
+        event may populate different values of `event.outcome`, according to their
+        perspective.
+
+        Also note that in the case of a compound event (a single event that contains
+        multiple logical events), this field should be populated with the value that
+        best captures the overall success or failure from the perspective of the event
+        producer.
+
+        Further note that not all events will have an associated outcome. For example,
+        this field is generally not populated for metric events, events with `event.type:info`,
+        or any events for which an outcome does not make logical sense.'
+      example: success
+      flat_name: threat.enrichments.event.outcome
+      ignore_above: 1024
+      level: core
+      name: outcome
+      normalize: []
+      original_fieldset: event
+      short: The outcome of the event. The lowest level categorization field in the
+        hierarchy.
+      type: keyword
+    threat.enrichments.event.provider:
+      dashed_name: threat-enrichments-event-provider
+      description: 'Source of the event.
+
+        Event transports such as Syslog or the Windows Event Log typically mention
+        the source of an event. It can be the name of the software that generated
+        the event (e.g. Sysmon, httpd), or of a subsystem of the operating system
+        (kernel, Microsoft-Windows-Security-Auditing).'
+      example: kernel
+      flat_name: threat.enrichments.event.provider
+      ignore_above: 1024
+      level: extended
+      name: provider
+      normalize: []
+      original_fieldset: event
+      short: Source of the event.
+      type: keyword
+    threat.enrichments.event.reason:
+      dashed_name: threat-enrichments-event-reason
+      description: 'Reason why this event happened, according to the source.
+
+        This describes the why of a particular action or outcome captured in the event.
+        Where `event.action` captures the action from the event, `event.reason` describes
+        why that action was taken. For example, a web proxy with an `event.action`
+        which denied the request may also populate `event.reason` with the reason
+        why (e.g. `blocked site`).'
+      example: Terminated an unexpected process
+      flat_name: threat.enrichments.event.reason
+      ignore_above: 1024
+      level: extended
+      name: reason
+      normalize: []
+      original_fieldset: event
+      short: Reason why this event happened, according to the source
+      type: keyword
+    threat.enrichments.event.reference:
+      dashed_name: threat-enrichments-event-reference
+      description: 'Reference URL linking to additional information about this event.
+
+        This URL links to a static definition of this event. Alert events, indicated
+        by `event.kind:alert`, are a common use case for this field.'
+      example: https://system.example.com/event/#0001234
+      flat_name: threat.enrichments.event.reference
+      ignore_above: 1024
+      level: extended
+      name: reference
+      normalize: []
+      original_fieldset: event
+      short: Event reference URL
+      type: keyword
+    threat.enrichments.event.risk_score:
+      dashed_name: threat-enrichments-event-risk-score
+      description: Risk score or priority of the event (e.g. security solutions).
+        Use your system's original value here.
+      flat_name: threat.enrichments.event.risk_score
+      level: core
+      name: risk_score
+      normalize: []
+      original_fieldset: event
+      short: Risk score or priority of the event (e.g. security solutions). Use your
+        system's original value here.
+      type: float
+    threat.enrichments.event.risk_score_norm:
+      dashed_name: threat-enrichments-event-risk-score-norm
+      description: 'Normalized risk score or priority of the event, on a scale of
+        0 to 100.
+
+        This is mainly useful if you use more than one system that assigns risk scores,
+        and you want to see a normalized value across all systems.'
+      flat_name: threat.enrichments.event.risk_score_norm
+      level: extended
+      name: risk_score_norm
+      normalize: []
+      original_fieldset: event
+      short: Normalized risk score or priority of the event (0-100).
+      type: float
+    threat.enrichments.event.sequence:
+      dashed_name: threat-enrichments-event-sequence
+      description: 'Sequence number of the event.
+
+        The sequence number is a value published by some event sources, to make the
+        exact ordering of events unambiguous, regardless of the timestamp precision.'
+      flat_name: threat.enrichments.event.sequence
+      format: string
+      level: extended
+      name: sequence
+      normalize: []
+      original_fieldset: event
+      short: Sequence number of the event.
+      type: long
+    threat.enrichments.event.severity:
+      dashed_name: threat-enrichments-event-severity
+      description: 'The numeric severity of the event according to your event source.
+
+        What the different severity values mean can be different between sources and
+        use cases. It''s up to the implementer to make sure severities are consistent
+        across events from the same source.
+
+        The Syslog severity belongs in `log.syslog.severity.code`. `event.severity`
+        is meant to represent the severity according to the event source (e.g. firewall,
+        IDS). If the event source does not publish its own severity, you may optionally
+        copy the `log.syslog.severity.code` to `event.severity`.'
+      example: 7
+      flat_name: threat.enrichments.event.severity
+      format: string
+      level: core
+      name: severity
+      normalize: []
+      original_fieldset: event
+      short: Numeric severity of the event.
+      type: long
+    threat.enrichments.event.start:
+      dashed_name: threat-enrichments-event-start
+      description: event.start contains the date when the event started or when the
+        activity was first observed.
+      flat_name: threat.enrichments.event.start
+      level: extended
+      name: start
+      normalize: []
+      original_fieldset: event
+      short: event.start contains the date when the event started or when the activity
+        was first observed.
+      type: date
+    threat.enrichments.event.timezone:
+      dashed_name: threat-enrichments-event-timezone
+      description: 'This field should be populated when the event''s timestamp does
+        not include timezone information already (e.g. default Syslog timestamps).
+        It''s optional otherwise.
+
+        Acceptable timezone formats are: a canonical ID (e.g. "Europe/Amsterdam"),
+        abbreviated (e.g. "EST") or an HH:mm differential (e.g. "-05:00").'
+      flat_name: threat.enrichments.event.timezone
+      ignore_above: 1024
+      level: extended
+      name: timezone
+      normalize: []
+      original_fieldset: event
+      short: Event time zone.
+      type: keyword
+    threat.enrichments.event.type:
+      allowed_values:
+      - description: The access event type is used for the subset of events within
+          a category that indicate that something was accessed. Common examples include
+          `event.category:database AND event.type:access`, or `event.category:file
+          AND event.type:access`. Note for file access, both directory listings and
+          file opens should be included in this subcategory. You can further distinguish
+          access operations using the ECS `event.action` field.
+        name: access
+      - description: 'The admin event type is used for the subset of events within
+          a category that are related to admin objects. For example, administrative
+          changes within an IAM framework that do not specifically affect a user or
+          group (e.g., adding new applications to a federation solution or connecting
+          discrete forests in Active Directory) would fall into this subcategory.
+          Common example: `event.category:iam AND event.type:change AND event.type:admin`.
+          You can further distinguish admin operations using the ECS `event.action`
+          field.'
+        name: admin
+      - description: The allowed event type is used for the subset of events within
+          a category that indicate that something was allowed. Common examples include
+          `event.category:network AND event.type:connection AND event.type:allowed`
+          (to indicate a network firewall event for which the firewall disposition
+          was to allow the connection to complete) and `event.category:intrusion_detection
+          AND event.type:allowed` (to indicate a network intrusion prevention system
+          event for which the IPS disposition was to allow the connection to complete).
+          You can further distinguish allowed operations using the ECS `event.action`
+          field, populating with values of your choosing, such as "allow", "detect",
+          or "pass".
+        name: allowed
+      - description: The change event type is used for the subset of events within
+          a category that indicate that something has changed. If semantics best describe
+          an event as modified, then include them in this subcategory. Common examples
+          include `event.category:process AND event.type:change`, and `event.category:file
+          AND event.type:change`. You can further distinguish change operations using
+          the ECS `event.action` field.
+        name: change
+      - description: Used primarily with `event.category:network` this value is used
+          for the subset of network traffic that includes sufficient information for
+          the event to be included in flow or connection analysis. Events in this
+          subcategory will contain at least source and destination IP addresses, source
+          and destination TCP/UDP ports, and will usually contain counts of bytes
+          and/or packets transferred. Events in this subcategory may contain unidirectional
+          or bidirectional information, including summary information. Use this subcategory
+          to visualize and analyze network connections. Flow analysis, including Netflow,
+          IPFIX, and other flow-related events fit in this subcategory. Note that
+          firewall events from many Next-Generation Firewall (NGFW) devices will also
+          fit into this subcategory.  A common filter for flow/connection information
+          would be `event.category:network AND event.type:connection AND event.type:end`
+          (to view or analyze all completed network connections, ignoring mid-flow
+          reports). You can further distinguish connection events using the ECS `event.action`
+          field, populating with values of your choosing, such as "timeout", or "reset".
+        name: connection
+      - description: The "creation" event type is used for the subset of events within
+          a category that indicate that something was created. A common example is
+          `event.category:file AND event.type:creation`.
+        name: creation
+      - description: The deletion event type is used for the subset of events within
+          a category that indicate that something was deleted. A common example is
+          `event.category:file AND event.type:deletion` to indicate that a file has
+          been deleted.
+        name: deletion
+      - description: The denied event type is used for the subset of events within
+          a category that indicate that something was denied. Common examples include
+          `event.category:network AND event.type:denied` (to indicate a network firewall
+          event for which the firewall disposition was to deny the connection) and
+          `event.category:intrusion_detection AND event.type:denied` (to indicate
+          a network intrusion prevention system event for which the IPS disposition
+          was to deny the connection to complete). You can further distinguish denied
+          operations using the ECS `event.action` field, populating with values of
+          your choosing, such as "blocked", "dropped", or "quarantined".
+        name: denied
+      - description: The end event type is used for the subset of events within a
+          category that indicate something has ended. A common example is `event.category:process
+          AND event.type:end`.
+        name: end
+      - description: The error event type is used for the subset of events within
+          a category that indicate or describe an error. A common example is `event.category:database
+          AND event.type:error`. Note that pipeline errors that occur during the event
+          ingestion process should not use this `event.type` value. Instead, they
+          should use `event.kind:pipeline_error`.
+        name: error
+      - description: 'The group event type is used for the subset of events within
+          a category that are related to group objects. Common example: `event.category:iam
+          AND event.type:creation AND event.type:group`. You can further distinguish
+          group operations using the ECS `event.action` field.'
+        name: group
+      - description: The info event type is used for the subset of events within a
+          category that indicate that they are purely informational, and don't report
+          a state change, or any type of action. For example, an initial run of a
+          file integrity monitoring system (FIM), where an agent reports all files
+          under management, would fall into the "info" subcategory. Similarly, an
+          event containing a dump of all currently running processes (as opposed to
+          reporting that a process started/ended) would fall into the "info" subcategory.
+          An additional common examples is `event.category:intrusion_detection AND
+          event.type:info`.
+        name: info
+      - description: The installation event type is used for the subset of events
+          within a category that indicate that something was installed. A common example
+          is `event.category:package` AND `event.type:installation`.
+        name: installation
+      - description: The protocol event type is used for the subset of events within
+          a category that indicate that they contain protocol details or analysis,
+          beyond simply identifying the protocol. Generally, network events that contain
+          specific protocol details will fall into this subcategory. A common example
+          is `event.category:network AND event.type:protocol AND event.type:connection
+          AND event.type:end` (to indicate that the event is a network connection
+          event sent at the end of a connection that also includes a protocol detail
+          breakdown). Note that events that only indicate the name or id of the protocol
+          should not use the protocol value. Further note that when the protocol subcategory
+          is used, the identified protocol is populated in the ECS `network.protocol`
+          field.
+        name: protocol
+      - description: The start event type is used for the subset of events within
+          a category that indicate something has started. A common example is `event.category:process
+          AND event.type:start`.
+        name: start
+      - description: 'The user event type is used for the subset of events within
+          a category that are related to user objects. Common example: `event.category:iam
+          AND event.type:deletion AND event.type:user`. You can further distinguish
+          user operations using the ECS `event.action` field.'
+        name: user
+      dashed_name: threat-enrichments-event-type
+      description: 'This is one of four ECS Categorization Fields, and indicates the
+        third level in the ECS category hierarchy.
+
+        `event.type` represents a categorization "sub-bucket" that, when used along
+        with the `event.category` field values, enables filtering events down to a
+        level appropriate for single visualization.
+
+        This field is an array. This will allow proper categorization of some events
+        that fall in multiple event types.'
+      flat_name: threat.enrichments.event.type
+      ignore_above: 1024
+      level: core
+      name: type
+      normalize:
+      - array
+      original_fieldset: event
+      short: Event type. The third categorization field in the hierarchy.
+      type: keyword
+    threat.enrichments.event.url:
+      dashed_name: threat-enrichments-event-url
+      description: 'URL linking to an external system to continue investigation of
+        this event.
+
+        This URL links to another system where in-depth investigation of the specific
+        occurrence of this event can take place. Alert events, indicated by `event.kind:alert`,
+        are a common use case for this field.'
+      example: https://mysystem.example.com/alert/5271dedb-f5b0-4218-87f0-4ac4870a38fe
+      flat_name: threat.enrichments.event.url
+      ignore_above: 1024
+      level: extended
+      name: url
+      normalize: []
+      original_fieldset: event
+      short: Event investigation URL
+      type: keyword
+    threat.enrichments.file.accessed:
+      dashed_name: threat-enrichments-file-accessed
+      description: 'Last time the file was accessed.
+
+        Note that not all filesystems keep track of access time.'
+      flat_name: threat.enrichments.file.accessed
+      level: extended
+      name: accessed
+      normalize: []
+      original_fieldset: file
+      short: Last time the file was accessed.
+      type: date
+    threat.enrichments.file.attributes:
+      dashed_name: threat-enrichments-file-attributes
+      description: 'Array of file attributes.
+
+        Attributes names will vary by platform. Here''s a non-exhaustive list of values
+        that are expected in this field: archive, compressed, directory, encrypted,
+        execute, hidden, read, readonly, system, write.'
+      example: '["readonly", "system"]'
+      flat_name: threat.enrichments.file.attributes
+      ignore_above: 1024
+      level: extended
+      name: attributes
+      normalize:
+      - array
+      original_fieldset: file
+      short: Array of file attributes.
+      type: keyword
+    threat.enrichments.file.code_signature.exists:
+      dashed_name: threat-enrichments-file-code-signature-exists
+      description: Boolean to capture if a signature is present.
+      example: 'true'
+      flat_name: threat.enrichments.file.code_signature.exists
+      level: core
+      name: exists
+      normalize: []
+      original_fieldset: code_signature
+      short: Boolean to capture if a signature is present.
+      type: boolean
+    threat.enrichments.file.code_signature.signing_id:
+      dashed_name: threat-enrichments-file-code-signature-signing-id
+      description: 'The identifier used to sign the process.
+
+        This is used to identify the application manufactured by a software vendor.
+        The field is relevant to Apple *OS only.'
+      example: com.apple.xpc.proxy
+      flat_name: threat.enrichments.file.code_signature.signing_id
+      ignore_above: 1024
+      level: extended
+      name: signing_id
+      normalize: []
+      original_fieldset: code_signature
+      short: The identifier used to sign the process.
+      type: keyword
+    threat.enrichments.file.code_signature.status:
+      dashed_name: threat-enrichments-file-code-signature-status
+      description: 'Additional information about the certificate status.
+
+        This is useful for logging cryptographic errors with the certificate validity
+        or trust status. Leave unpopulated if the validity or trust of the certificate
+        was unchecked.'
+      example: ERROR_UNTRUSTED_ROOT
+      flat_name: threat.enrichments.file.code_signature.status
+      ignore_above: 1024
+      level: extended
+      name: status
+      normalize: []
+      original_fieldset: code_signature
+      short: Additional information about the certificate status.
+      type: keyword
+    threat.enrichments.file.code_signature.subject_name:
+      dashed_name: threat-enrichments-file-code-signature-subject-name
+      description: Subject name of the code signer
+      example: Microsoft Corporation
+      flat_name: threat.enrichments.file.code_signature.subject_name
+      ignore_above: 1024
+      level: core
+      name: subject_name
+      normalize: []
+      original_fieldset: code_signature
+      short: Subject name of the code signer
+      type: keyword
+    threat.enrichments.file.code_signature.team_id:
+      dashed_name: threat-enrichments-file-code-signature-team-id
+      description: 'The team identifier used to sign the process.
+
+        This is used to identify the team or vendor of a software product. The field
+        is relevant to Apple *OS only.'
+      example: EQHXZ8M8AV
+      flat_name: threat.enrichments.file.code_signature.team_id
+      ignore_above: 1024
+      level: extended
+      name: team_id
+      normalize: []
+      original_fieldset: code_signature
+      short: The team identifier used to sign the process.
+      type: keyword
+    threat.enrichments.file.code_signature.trusted:
+      dashed_name: threat-enrichments-file-code-signature-trusted
+      description: 'Stores the trust status of the certificate chain.
+
+        Validating the trust of the certificate chain may be complicated, and this
+        field should only be populated by tools that actively check the status.'
+      example: 'true'
+      flat_name: threat.enrichments.file.code_signature.trusted
+      level: extended
+      name: trusted
+      normalize: []
+      original_fieldset: code_signature
+      short: Stores the trust status of the certificate chain.
+      type: boolean
+    threat.enrichments.file.code_signature.valid:
+      dashed_name: threat-enrichments-file-code-signature-valid
+      description: 'Boolean to capture if the digital signature is verified against
+        the binary content.
+
+        Leave unpopulated if a certificate was unchecked.'
+      example: 'true'
+      flat_name: threat.enrichments.file.code_signature.valid
+      level: extended
+      name: valid
+      normalize: []
+      original_fieldset: code_signature
+      short: Boolean to capture if the digital signature is verified against the binary
+        content.
+      type: boolean
+    threat.enrichments.file.created:
+      dashed_name: threat-enrichments-file-created
+      description: 'File creation time.
+
+        Note that not all filesystems store the creation time.'
+      flat_name: threat.enrichments.file.created
+      level: extended
+      name: created
+      normalize: []
+      original_fieldset: file
+      short: File creation time.
+      type: date
+    threat.enrichments.file.ctime:
+      dashed_name: threat-enrichments-file-ctime
+      description: 'Last time the file attributes or metadata changed.
+
+        Note that changes to the file content will update `mtime`. This implies `ctime`
+        will be adjusted at the same time, since `mtime` is an attribute of the file.'
+      flat_name: threat.enrichments.file.ctime
+      level: extended
+      name: ctime
+      normalize: []
+      original_fieldset: file
+      short: Last time the file attributes or metadata changed.
+      type: date
+    threat.enrichments.file.device:
+      dashed_name: threat-enrichments-file-device
+      description: Device that is the source of the file.
+      example: sda
+      flat_name: threat.enrichments.file.device
+      ignore_above: 1024
+      level: extended
+      name: device
+      normalize: []
+      original_fieldset: file
+      short: Device that is the source of the file.
+      type: keyword
+    threat.enrichments.file.directory:
+      dashed_name: threat-enrichments-file-directory
+      description: Directory where the file is located. It should include the drive
+        letter, when appropriate.
+      example: /home/alice
+      flat_name: threat.enrichments.file.directory
+      ignore_above: 1024
+      level: extended
+      name: directory
+      normalize: []
+      original_fieldset: file
+      short: Directory where the file is located.
+      type: keyword
+    threat.enrichments.file.drive_letter:
+      dashed_name: threat-enrichments-file-drive-letter
+      description: 'Drive letter where the file is located. This field is only relevant
+        on Windows.
+
+        The value should be uppercase, and not include the colon.'
+      example: C
+      flat_name: threat.enrichments.file.drive_letter
+      ignore_above: 1
+      level: extended
+      name: drive_letter
+      normalize: []
+      original_fieldset: file
+      short: Drive letter where the file is located.
+      type: keyword
+    threat.enrichments.file.elf.architecture:
+      dashed_name: threat-enrichments-file-elf-architecture
+      description: Machine architecture of the ELF file.
+      example: x86-64
+      flat_name: threat.enrichments.file.elf.architecture
+      ignore_above: 1024
+      level: extended
+      name: architecture
+      normalize: []
+      original_fieldset: elf
+      short: Machine architecture of the ELF file.
+      type: keyword
+    threat.enrichments.file.elf.byte_order:
+      dashed_name: threat-enrichments-file-elf-byte-order
+      description: Byte sequence of ELF file.
+      example: Little Endian
+      flat_name: threat.enrichments.file.elf.byte_order
+      ignore_above: 1024
+      level: extended
+      name: byte_order
+      normalize: []
+      original_fieldset: elf
+      short: Byte sequence of ELF file.
+      type: keyword
+    threat.enrichments.file.elf.cpu_type:
+      dashed_name: threat-enrichments-file-elf-cpu-type
+      description: CPU type of the ELF file.
+      example: Intel
+      flat_name: threat.enrichments.file.elf.cpu_type
+      ignore_above: 1024
+      level: extended
+      name: cpu_type
+      normalize: []
+      original_fieldset: elf
+      short: CPU type of the ELF file.
+      type: keyword
+    threat.enrichments.file.elf.creation_date:
+      dashed_name: threat-enrichments-file-elf-creation-date
+      description: Extracted when possible from the file's metadata. Indicates when
+        it was built or compiled. It can also be faked by malware creators.
+      flat_name: threat.enrichments.file.elf.creation_date
+      level: extended
+      name: creation_date
+      normalize: []
+      original_fieldset: elf
+      short: Build or compile date.
+      type: date
+    threat.enrichments.file.elf.exports:
+      dashed_name: threat-enrichments-file-elf-exports
+      description: List of exported element names and types.
+      flat_name: threat.enrichments.file.elf.exports
+      level: extended
+      name: exports
+      normalize:
+      - array
+      original_fieldset: elf
+      short: List of exported element names and types.
+      type: flattened
+    threat.enrichments.file.elf.header.abi_version:
+      dashed_name: threat-enrichments-file-elf-header-abi-version
+      description: Version of the ELF Application Binary Interface (ABI).
+      flat_name: threat.enrichments.file.elf.header.abi_version
+      ignore_above: 1024
+      level: extended
+      name: header.abi_version
+      normalize: []
+      original_fieldset: elf
+      short: Version of the ELF Application Binary Interface (ABI).
+      type: keyword
+    threat.enrichments.file.elf.header.class:
+      dashed_name: threat-enrichments-file-elf-header-class
+      description: Header class of the ELF file.
+      flat_name: threat.enrichments.file.elf.header.class
+      ignore_above: 1024
+      level: extended
+      name: header.class
+      normalize: []
+      original_fieldset: elf
+      short: Header class of the ELF file.
+      type: keyword
+    threat.enrichments.file.elf.header.data:
+      dashed_name: threat-enrichments-file-elf-header-data
+      description: Data table of the ELF header.
+      flat_name: threat.enrichments.file.elf.header.data
+      ignore_above: 1024
+      level: extended
+      name: header.data
+      normalize: []
+      original_fieldset: elf
+      short: Data table of the ELF header.
+      type: keyword
+    threat.enrichments.file.elf.header.entrypoint:
+      dashed_name: threat-enrichments-file-elf-header-entrypoint
+      description: Header entrypoint of the ELF file.
+      flat_name: threat.enrichments.file.elf.header.entrypoint
+      format: string
+      level: extended
+      name: header.entrypoint
+      normalize: []
+      original_fieldset: elf
+      short: Header entrypoint of the ELF file.
+      type: long
+    threat.enrichments.file.elf.header.object_version:
+      dashed_name: threat-enrichments-file-elf-header-object-version
+      description: '"0x1" for original ELF files.'
+      flat_name: threat.enrichments.file.elf.header.object_version
+      ignore_above: 1024
+      level: extended
+      name: header.object_version
+      normalize: []
+      original_fieldset: elf
+      short: '"0x1" for original ELF files.'
+      type: keyword
+    threat.enrichments.file.elf.header.os_abi:
+      dashed_name: threat-enrichments-file-elf-header-os-abi
+      description: Application Binary Interface (ABI) of the Linux OS.
+      flat_name: threat.enrichments.file.elf.header.os_abi
+      ignore_above: 1024
+      level: extended
+      name: header.os_abi
+      normalize: []
+      original_fieldset: elf
+      short: Application Binary Interface (ABI) of the Linux OS.
+      type: keyword
+    threat.enrichments.file.elf.header.type:
+      dashed_name: threat-enrichments-file-elf-header-type
+      description: Header type of the ELF file.
+      flat_name: threat.enrichments.file.elf.header.type
+      ignore_above: 1024
+      level: extended
+      name: header.type
+      normalize: []
+      original_fieldset: elf
+      short: Header type of the ELF file.
+      type: keyword
+    threat.enrichments.file.elf.header.version:
+      dashed_name: threat-enrichments-file-elf-header-version
+      description: Version of the ELF header.
+      flat_name: threat.enrichments.file.elf.header.version
+      ignore_above: 1024
+      level: extended
+      name: header.version
+      normalize: []
+      original_fieldset: elf
+      short: Version of the ELF header.
+      type: keyword
+    threat.enrichments.file.elf.imports:
+      dashed_name: threat-enrichments-file-elf-imports
+      description: List of imported element names and types.
+      flat_name: threat.enrichments.file.elf.imports
+      level: extended
+      name: imports
+      normalize:
+      - array
+      original_fieldset: elf
+      short: List of imported element names and types.
+      type: flattened
+    threat.enrichments.file.elf.sections:
+      dashed_name: threat-enrichments-file-elf-sections
+      description: 'An array containing an object for each section of the ELF file.
+
+        The keys that should be present in these objects are defined by sub-fields
+        underneath `elf.sections.*`.'
+      flat_name: threat.enrichments.file.elf.sections
+      level: extended
+      name: sections
+      normalize:
+      - array
+      original_fieldset: elf
+      short: Section information of the ELF file.
+      type: nested
+    threat.enrichments.file.elf.sections.chi2:
+      dashed_name: threat-enrichments-file-elf-sections-chi2
+      description: Chi-square probability distribution of the section.
+      flat_name: threat.enrichments.file.elf.sections.chi2
+      format: number
+      level: extended
+      name: sections.chi2
+      normalize: []
+      original_fieldset: elf
+      short: Chi-square probability distribution of the section.
+      type: long
+    threat.enrichments.file.elf.sections.entropy:
+      dashed_name: threat-enrichments-file-elf-sections-entropy
+      description: Shannon entropy calculation from the section.
+      flat_name: threat.enrichments.file.elf.sections.entropy
+      format: number
+      level: extended
+      name: sections.entropy
+      normalize: []
+      original_fieldset: elf
+      short: Shannon entropy calculation from the section.
+      type: long
+    threat.enrichments.file.elf.sections.flags:
+      dashed_name: threat-enrichments-file-elf-sections-flags
+      description: ELF Section List flags.
+      flat_name: threat.enrichments.file.elf.sections.flags
+      ignore_above: 1024
+      level: extended
+      name: sections.flags
+      normalize: []
+      original_fieldset: elf
+      short: ELF Section List flags.
+      type: keyword
+    threat.enrichments.file.elf.sections.name:
+      dashed_name: threat-enrichments-file-elf-sections-name
+      description: ELF Section List name.
+      flat_name: threat.enrichments.file.elf.sections.name
+      ignore_above: 1024
+      level: extended
+      name: sections.name
+      normalize: []
+      original_fieldset: elf
+      short: ELF Section List name.
+      type: keyword
+    threat.enrichments.file.elf.sections.physical_offset:
+      dashed_name: threat-enrichments-file-elf-sections-physical-offset
+      description: ELF Section List offset.
+      flat_name: threat.enrichments.file.elf.sections.physical_offset
+      ignore_above: 1024
+      level: extended
+      name: sections.physical_offset
+      normalize: []
+      original_fieldset: elf
+      short: ELF Section List offset.
+      type: keyword
+    threat.enrichments.file.elf.sections.physical_size:
+      dashed_name: threat-enrichments-file-elf-sections-physical-size
+      description: ELF Section List physical size.
+      flat_name: threat.enrichments.file.elf.sections.physical_size
+      format: bytes
+      level: extended
+      name: sections.physical_size
+      normalize: []
+      original_fieldset: elf
+      short: ELF Section List physical size.
+      type: long
+    threat.enrichments.file.elf.sections.type:
+      dashed_name: threat-enrichments-file-elf-sections-type
+      description: ELF Section List type.
+      flat_name: threat.enrichments.file.elf.sections.type
+      ignore_above: 1024
+      level: extended
+      name: sections.type
+      normalize: []
+      original_fieldset: elf
+      short: ELF Section List type.
+      type: keyword
+    threat.enrichments.file.elf.sections.virtual_address:
+      dashed_name: threat-enrichments-file-elf-sections-virtual-address
+      description: ELF Section List virtual address.
+      flat_name: threat.enrichments.file.elf.sections.virtual_address
+      format: string
+      level: extended
+      name: sections.virtual_address
+      normalize: []
+      original_fieldset: elf
+      short: ELF Section List virtual address.
+      type: long
+    threat.enrichments.file.elf.sections.virtual_size:
+      dashed_name: threat-enrichments-file-elf-sections-virtual-size
+      description: ELF Section List virtual size.
+      flat_name: threat.enrichments.file.elf.sections.virtual_size
+      format: string
+      level: extended
+      name: sections.virtual_size
+      normalize: []
+      original_fieldset: elf
+      short: ELF Section List virtual size.
+      type: long
+    threat.enrichments.file.elf.segments:
+      dashed_name: threat-enrichments-file-elf-segments
+      description: 'An array containing an object for each segment of the ELF file.
+
+        The keys that should be present in these objects are defined by sub-fields
+        underneath `elf.segments.*`.'
+      flat_name: threat.enrichments.file.elf.segments
+      level: extended
+      name: segments
+      normalize:
+      - array
+      original_fieldset: elf
+      short: ELF object segment list.
+      type: nested
+    threat.enrichments.file.elf.segments.sections:
+      dashed_name: threat-enrichments-file-elf-segments-sections
+      description: ELF object segment sections.
+      flat_name: threat.enrichments.file.elf.segments.sections
+      ignore_above: 1024
+      level: extended
+      name: segments.sections
+      normalize: []
+      original_fieldset: elf
+      short: ELF object segment sections.
+      type: keyword
+    threat.enrichments.file.elf.segments.type:
+      dashed_name: threat-enrichments-file-elf-segments-type
+      description: ELF object segment type.
+      flat_name: threat.enrichments.file.elf.segments.type
+      ignore_above: 1024
+      level: extended
+      name: segments.type
+      normalize: []
+      original_fieldset: elf
+      short: ELF object segment type.
+      type: keyword
+    threat.enrichments.file.elf.shared_libraries:
+      dashed_name: threat-enrichments-file-elf-shared-libraries
+      description: List of shared libraries used by this ELF object.
+      flat_name: threat.enrichments.file.elf.shared_libraries
+      ignore_above: 1024
+      level: extended
+      name: shared_libraries
+      normalize:
+      - array
+      original_fieldset: elf
+      short: List of shared libraries used by this ELF object.
+      type: keyword
+    threat.enrichments.file.elf.telfhash:
+      dashed_name: threat-enrichments-file-elf-telfhash
+      description: telfhash symbol hash for ELF file.
+      flat_name: threat.enrichments.file.elf.telfhash
+      ignore_above: 1024
+      level: extended
+      name: telfhash
+      normalize: []
+      original_fieldset: elf
+      short: telfhash hash for ELF file.
+      type: keyword
+    threat.enrichments.file.extension:
+      dashed_name: threat-enrichments-file-extension
+      description: 'File extension, excluding the leading dot.
+
+        Note that when the file name has multiple extensions (example.tar.gz), only
+        the last one should be captured ("gz", not "tar.gz").'
+      example: png
+      flat_name: threat.enrichments.file.extension
+      ignore_above: 1024
+      level: extended
+      name: extension
+      normalize: []
+      original_fieldset: file
+      short: File extension, excluding the leading dot.
+      type: keyword
+    threat.enrichments.file.gid:
+      dashed_name: threat-enrichments-file-gid
+      description: Primary group ID (GID) of the file.
+      example: '1001'
+      flat_name: threat.enrichments.file.gid
+      ignore_above: 1024
+      level: extended
+      name: gid
+      normalize: []
+      original_fieldset: file
+      short: Primary group ID (GID) of the file.
+      type: keyword
+    threat.enrichments.file.group:
+      dashed_name: threat-enrichments-file-group
+      description: Primary group name of the file.
+      example: alice
+      flat_name: threat.enrichments.file.group
+      ignore_above: 1024
+      level: extended
+      name: group
+      normalize: []
+      original_fieldset: file
+      short: Primary group name of the file.
+      type: keyword
+    threat.enrichments.file.inode:
+      dashed_name: threat-enrichments-file-inode
+      description: Inode representing the file in the filesystem.
+      example: '256383'
+      flat_name: threat.enrichments.file.inode
+      ignore_above: 1024
+      level: extended
+      name: inode
+      normalize: []
+      original_fieldset: file
+      short: Inode representing the file in the filesystem.
+      type: keyword
+    threat.enrichments.file.mime_type:
+      dashed_name: threat-enrichments-file-mime-type
+      description: MIME type should identify the format of the file or stream of bytes
+        using https://www.iana.org/assignments/media-types/media-types.xhtml[IANA
+        official types], where possible. When more than one type is applicable, the
+        most specific type should be used.
+      flat_name: threat.enrichments.file.mime_type
+      ignore_above: 1024
+      level: extended
+      name: mime_type
+      normalize: []
+      original_fieldset: file
+      short: Media type of file, document, or arrangement of bytes.
+      type: keyword
+    threat.enrichments.file.mode:
+      dashed_name: threat-enrichments-file-mode
+      description: Mode of the file in octal representation.
+      example: '0640'
+      flat_name: threat.enrichments.file.mode
+      ignore_above: 1024
+      level: extended
+      name: mode
+      normalize: []
+      original_fieldset: file
+      short: Mode of the file in octal representation.
+      type: keyword
+    threat.enrichments.file.mtime:
+      dashed_name: threat-enrichments-file-mtime
+      description: Last time the file content was modified.
+      flat_name: threat.enrichments.file.mtime
+      level: extended
+      name: mtime
+      normalize: []
+      original_fieldset: file
+      short: Last time the file content was modified.
+      type: date
+    threat.enrichments.file.name:
+      dashed_name: threat-enrichments-file-name
+      description: Name of the file including the extension, without the directory.
+      example: example.png
+      flat_name: threat.enrichments.file.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      normalize: []
+      original_fieldset: file
+      short: Name of the file including the extension, without the directory.
+      type: keyword
+    threat.enrichments.file.owner:
+      dashed_name: threat-enrichments-file-owner
+      description: File owner's username.
+      example: alice
+      flat_name: threat.enrichments.file.owner
+      ignore_above: 1024
+      level: extended
+      name: owner
+      normalize: []
+      original_fieldset: file
+      short: File owner's username.
+      type: keyword
+    threat.enrichments.file.path:
+      dashed_name: threat-enrichments-file-path
+      description: Full path to the file, including the file name. It should include
+        the drive letter, when appropriate.
+      example: /home/alice/example.png
+      flat_name: threat.enrichments.file.path
+      ignore_above: 1024
+      level: extended
+      multi_fields:
+      - flat_name: threat.enrichments.file.path.text
+        name: text
+        norms: false
+        type: text
+      name: path
+      normalize: []
+      original_fieldset: file
+      short: Full path to the file, including the file name.
+      type: keyword
+    threat.enrichments.file.size:
+      dashed_name: threat-enrichments-file-size
+      description: 'File size in bytes.
+
+        Only relevant when `file.type` is "file".'
+      example: 16384
+      flat_name: threat.enrichments.file.size
+      level: extended
+      name: size
+      normalize: []
+      original_fieldset: file
+      short: File size in bytes.
+      type: long
+    threat.enrichments.file.target_path:
+      dashed_name: threat-enrichments-file-target-path
+      description: Target path for symlinks.
+      flat_name: threat.enrichments.file.target_path
+      ignore_above: 1024
+      level: extended
+      multi_fields:
+      - flat_name: threat.enrichments.file.target_path.text
+        name: text
+        norms: false
+        type: text
+      name: target_path
+      normalize: []
+      original_fieldset: file
+      short: Target path for symlinks.
+      type: keyword
+    threat.enrichments.file.type:
+      dashed_name: threat-enrichments-file-type
+      description: File type (file, dir, or symlink).
+      example: file
+      flat_name: threat.enrichments.file.type
+      ignore_above: 1024
+      level: extended
+      name: type
+      normalize: []
+      original_fieldset: file
+      short: File type (file, dir, or symlink).
+      type: keyword
+    threat.enrichments.file.uid:
+      dashed_name: threat-enrichments-file-uid
+      description: The user ID (UID) or security identifier (SID) of the file owner.
+      example: '1001'
+      flat_name: threat.enrichments.file.uid
+      ignore_above: 1024
+      level: extended
+      name: uid
+      normalize: []
+      original_fieldset: file
+      short: The user ID (UID) or security identifier (SID) of the file owner.
+      type: keyword
+    threat.enrichments.geo.city_name:
+      dashed_name: threat-enrichments-geo-city-name
+      description: City name.
+      example: Montreal
+      flat_name: threat.enrichments.geo.city_name
+      ignore_above: 1024
+      level: core
+      name: city_name
+      normalize: []
+      original_fieldset: geo
+      short: City name.
+      type: keyword
+    threat.enrichments.geo.continent_code:
+      dashed_name: threat-enrichments-geo-continent-code
+      description: Two-letter code representing continent's name.
+      example: NA
+      flat_name: threat.enrichments.geo.continent_code
+      ignore_above: 1024
+      level: core
+      name: continent_code
+      normalize: []
+      original_fieldset: geo
+      short: Continent code.
+      type: keyword
+    threat.enrichments.geo.continent_name:
+      dashed_name: threat-enrichments-geo-continent-name
+      description: Name of the continent.
+      example: North America
+      flat_name: threat.enrichments.geo.continent_name
+      ignore_above: 1024
+      level: core
+      name: continent_name
+      normalize: []
+      original_fieldset: geo
+      short: Name of the continent.
+      type: keyword
+    threat.enrichments.geo.country_iso_code:
+      dashed_name: threat-enrichments-geo-country-iso-code
+      description: Country ISO code.
+      example: CA
+      flat_name: threat.enrichments.geo.country_iso_code
+      ignore_above: 1024
+      level: core
+      name: country_iso_code
+      normalize: []
+      original_fieldset: geo
+      short: Country ISO code.
+      type: keyword
+    threat.enrichments.geo.country_name:
+      dashed_name: threat-enrichments-geo-country-name
+      description: Country name.
+      example: Canada
+      flat_name: threat.enrichments.geo.country_name
+      ignore_above: 1024
+      level: core
+      name: country_name
+      normalize: []
+      original_fieldset: geo
+      short: Country name.
+      type: keyword
+    threat.enrichments.geo.location:
+      dashed_name: threat-enrichments-geo-location
+      description: Longitude and latitude.
+      example: '{ "lon": -73.614830, "lat": 45.505918 }'
+      flat_name: threat.enrichments.geo.location
+      level: core
+      name: location
+      normalize: []
+      original_fieldset: geo
+      short: Longitude and latitude.
+      type: geo_point
+    threat.enrichments.geo.name:
+      dashed_name: threat-enrichments-geo-name
+      description: 'User-defined description of a location, at the level of granularity
+        they care about.
+
+        Could be the name of their data centers, the floor number, if this describes
+        a local physical entity, city names.
+
+        Not typically used in automated geolocation.'
+      example: boston-dc
+      flat_name: threat.enrichments.geo.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      normalize: []
+      original_fieldset: geo
+      short: User-defined description of a location.
+      type: keyword
+    threat.enrichments.geo.postal_code:
+      dashed_name: threat-enrichments-geo-postal-code
+      description: 'Postal code associated with the location.
+
+        Values appropriate for this field may also be known as a postcode or ZIP code
+        and will vary widely from country to country.'
+      example: 94040
+      flat_name: threat.enrichments.geo.postal_code
+      ignore_above: 1024
+      level: core
+      name: postal_code
+      normalize: []
+      original_fieldset: geo
+      short: Postal code.
+      type: keyword
+    threat.enrichments.geo.region_iso_code:
+      dashed_name: threat-enrichments-geo-region-iso-code
+      description: Region ISO code.
+      example: CA-QC
+      flat_name: threat.enrichments.geo.region_iso_code
+      ignore_above: 1024
+      level: core
+      name: region_iso_code
+      normalize: []
+      original_fieldset: geo
+      short: Region ISO code.
+      type: keyword
+    threat.enrichments.geo.region_name:
+      dashed_name: threat-enrichments-geo-region-name
+      description: Region name.
+      example: Quebec
+      flat_name: threat.enrichments.geo.region_name
+      ignore_above: 1024
+      level: core
+      name: region_name
+      normalize: []
+      original_fieldset: geo
+      short: Region name.
+      type: keyword
+    threat.enrichments.geo.timezone:
+      dashed_name: threat-enrichments-geo-timezone
+      description: The time zone of the location, such as IANA time zone name.
+      example: America/Argentina/Buenos_Aires
+      flat_name: threat.enrichments.geo.timezone
+      ignore_above: 1024
+      level: core
+      name: timezone
+      normalize: []
+      original_fieldset: geo
+      short: Time zone.
+      type: keyword
+    threat.enrichments.hash.md5:
+      dashed_name: threat-enrichments-hash-md5
+      description: MD5 hash.
+      flat_name: threat.enrichments.hash.md5
+      ignore_above: 1024
+      level: extended
+      name: md5
+      normalize: []
+      original_fieldset: hash
+      short: MD5 hash.
+      type: keyword
+    threat.enrichments.hash.sha1:
+      dashed_name: threat-enrichments-hash-sha1
+      description: SHA1 hash.
+      flat_name: threat.enrichments.hash.sha1
+      ignore_above: 1024
+      level: extended
+      name: sha1
+      normalize: []
+      original_fieldset: hash
+      short: SHA1 hash.
+      type: keyword
+    threat.enrichments.hash.sha256:
+      dashed_name: threat-enrichments-hash-sha256
+      description: SHA256 hash.
+      flat_name: threat.enrichments.hash.sha256
+      ignore_above: 1024
+      level: extended
+      name: sha256
+      normalize: []
+      original_fieldset: hash
+      short: SHA256 hash.
+      type: keyword
+    threat.enrichments.hash.sha512:
+      dashed_name: threat-enrichments-hash-sha512
+      description: SHA512 hash.
+      flat_name: threat.enrichments.hash.sha512
+      ignore_above: 1024
+      level: extended
+      name: sha512
+      normalize: []
+      original_fieldset: hash
+      short: SHA512 hash.
+      type: keyword
+    threat.enrichments.hash.ssdeep:
+      dashed_name: threat-enrichments-hash-ssdeep
+      description: SSDEEP hash.
+      flat_name: threat.enrichments.hash.ssdeep
+      ignore_above: 1024
+      level: extended
+      name: ssdeep
+      normalize: []
+      original_fieldset: hash
+      short: SSDEEP hash.
+      type: keyword
+    threat.enrichments.matched.atomic:
+      beta: This field is beta and subject to change.
+      dashed_name: threat-enrichments-matched-atomic
+      description: Identifies the atomic indicator value that matched a local environment
+        endpoint or network event.
+      example: bad-domain.com
+      flat_name: threat.enrichments.matched.atomic
+      ignore_above: 1024
+      level: extended
+      name: enrichments.matched.atomic
+      normalize: []
+      short: Matched indicator value
+      type: keyword
+    threat.enrichments.matched.field:
+      beta: This field is beta and subject to change.
+      dashed_name: threat-enrichments-matched-field
+      description: Identifies the field of the atomic indicator that matched a local
+        environment endpoint or network event.
+      example: file.hash.sha256
+      flat_name: threat.enrichments.matched.field
+      ignore_above: 1024
+      level: extended
+      name: enrichments.matched.field
+      normalize: []
+      short: Matched indicator field
+      type: keyword
+    threat.enrichments.matched.id:
+      beta: This field is beta and subject to change.
+      dashed_name: threat-enrichments-matched-id
+      description: Identifies the _id of the indicator document enriching the event.
+      example: ff93aee5-86a1-4a61-b0e6-0cdc313d01b5
+      flat_name: threat.enrichments.matched.id
+      ignore_above: 1024
+      level: extended
+      name: enrichments.matched.id
+      normalize: []
+      short: Matched indicator identifier
+      type: keyword
+    threat.enrichments.matched.index:
+      beta: This field is beta and subject to change.
+      dashed_name: threat-enrichments-matched-index
+      description: Identifies the _index of the indicator document enriching the event.
+      example: filebeat-8.0.0-2021.05.23-000011
+      flat_name: threat.enrichments.matched.index
+      ignore_above: 1024
+      level: extended
+      name: enrichments.matched.index
+      normalize: []
+      short: Matched indicator index
+      type: keyword
+    threat.enrichments.matched.type:
+      beta: This field is beta and subject to change.
+      dashed_name: threat-enrichments-matched-type
+      description: Identifies the type of match that caused the event to be enriched
+        with the given indicator
+      example: indicator_match_rule
+      flat_name: threat.enrichments.matched.type
+      ignore_above: 1024
+      level: extended
+      name: enrichments.matched.type
+      normalize: []
+      short: Type of indicator match
+      type: keyword
+    threat.enrichments.url.domain:
+      dashed_name: threat-enrichments-url-domain
+      description: 'Domain of the url, such as "www.elastic.co".
+
+        In some cases a URL may refer to an IP and/or port directly, without a domain
+        name. In this case, the IP address would go to the `domain` field.
+
+        If the URL contains a literal IPv6 address enclosed by `[` and `]` (IETF RFC
+        2732), the `[` and `]` characters should also be captured in the `domain`
+        field.'
+      example: www.elastic.co
+      flat_name: threat.enrichments.url.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: url
+      short: Domain of the url.
+      type: keyword
+    threat.enrichments.url.extension:
+      dashed_name: threat-enrichments-url-extension
+      description: 'The field contains the file extension from the original request
+        url, excluding the leading dot.
+
+        The file extension is only set if it exists, as not every url has a file extension.
+
+        The leading period must not be included. For example, the value must be "png",
+        not ".png".
+
+        Note that when the file name has multiple extensions (example.tar.gz), only
+        the last one should be captured ("gz", not "tar.gz").'
+      example: png
+      flat_name: threat.enrichments.url.extension
+      ignore_above: 1024
+      level: extended
+      name: extension
+      normalize: []
+      original_fieldset: url
+      short: File extension from the request url, excluding the leading dot.
+      type: keyword
+    threat.enrichments.url.fragment:
+      dashed_name: threat-enrichments-url-fragment
+      description: 'Portion of the url after the `#`, such as "top".
+
+        The `#` is not part of the fragment.'
+      flat_name: threat.enrichments.url.fragment
+      ignore_above: 1024
+      level: extended
+      name: fragment
+      normalize: []
+      original_fieldset: url
+      short: Portion of the url after the `#`.
+      type: keyword
+    threat.enrichments.url.full:
+      dashed_name: threat-enrichments-url-full
+      description: If full URLs are important to your use case, they should be stored
+        in `url.full`, whether this field is reconstructed or present in the event
+        source.
+      example: https://www.elastic.co:443/search?q=elasticsearch#top
+      flat_name: threat.enrichments.url.full
+      ignore_above: 1024
+      level: extended
+      multi_fields:
+      - flat_name: threat.enrichments.url.full.text
+        name: text
+        norms: false
+        type: text
+      name: full
+      normalize: []
+      original_fieldset: url
+      short: Full unparsed URL.
+      type: keyword
+    threat.enrichments.url.original:
+      dashed_name: threat-enrichments-url-original
+      description: 'Unmodified original url as seen in the event source.
+
+        Note that in network monitoring, the observed URL may be a full URL, whereas
+        in access logs, the URL is often just represented as a path.
+
+        This field is meant to represent the URL as it was observed, complete or not.'
+      example: https://www.elastic.co:443/search?q=elasticsearch#top or /search?q=elasticsearch
+      flat_name: threat.enrichments.url.original
+      ignore_above: 1024
+      level: extended
+      multi_fields:
+      - flat_name: threat.enrichments.url.original.text
+        name: text
+        norms: false
+        type: text
+      name: original
+      normalize: []
+      original_fieldset: url
+      short: Unmodified original url as seen in the event source.
+      type: keyword
+    threat.enrichments.url.password:
+      dashed_name: threat-enrichments-url-password
+      description: Password of the request.
+      flat_name: threat.enrichments.url.password
+      ignore_above: 1024
+      level: extended
+      name: password
+      normalize: []
+      original_fieldset: url
+      short: Password of the request.
+      type: keyword
+    threat.enrichments.url.path:
+      dashed_name: threat-enrichments-url-path
+      description: Path of the request, such as "/search".
+      flat_name: threat.enrichments.url.path
+      ignore_above: 1024
+      level: extended
+      name: path
+      normalize: []
+      original_fieldset: url
+      short: Path of the request, such as "/search".
+      type: keyword
+    threat.enrichments.url.port:
+      dashed_name: threat-enrichments-url-port
+      description: Port of the request, such as 443.
+      example: 443
+      flat_name: threat.enrichments.url.port
+      format: string
+      level: extended
+      name: port
+      normalize: []
+      original_fieldset: url
+      short: Port of the request, such as 443.
+      type: long
+    threat.enrichments.url.query:
+      dashed_name: threat-enrichments-url-query
+      description: 'The query field describes the query string of the request, such
+        as "q=elasticsearch".
+
+        The `?` is excluded from the query string. If a URL contains no `?`, there
+        is no query field. If there is a `?` but no query, the query field exists
+        with an empty string. The `exists` query can be used to differentiate between
+        the two cases.'
+      flat_name: threat.enrichments.url.query
+      ignore_above: 1024
+      level: extended
+      name: query
+      normalize: []
+      original_fieldset: url
+      short: Query string of the request.
+      type: keyword
+    threat.enrichments.url.registered_domain:
+      dashed_name: threat-enrichments-url-registered-domain
+      description: 'The highest registered url domain, stripped of the subdomain.
+
+        For example, the registered domain for "foo.example.com" is "example.com".
+
+        This value can be determined precisely with a list like the public suffix
+        list (http://publicsuffix.org). Trying to approximate this by simply taking
+        the last two labels will not work well for TLDs such as "co.uk".'
+      example: example.com
+      flat_name: threat.enrichments.url.registered_domain
+      ignore_above: 1024
+      level: extended
+      name: registered_domain
+      normalize: []
+      original_fieldset: url
+      short: The highest registered url domain, stripped of the subdomain.
+      type: keyword
+    threat.enrichments.url.scheme:
+      dashed_name: threat-enrichments-url-scheme
+      description: 'Scheme of the request, such as "https".
+
+        Note: The `:` is not part of the scheme.'
+      example: https
+      flat_name: threat.enrichments.url.scheme
+      ignore_above: 1024
+      level: extended
+      name: scheme
+      normalize: []
+      original_fieldset: url
+      short: Scheme of the url.
+      type: keyword
+    threat.enrichments.url.subdomain:
+      dashed_name: threat-enrichments-url-subdomain
+      description: 'The subdomain portion of a fully qualified domain name includes
+        all of the names except the host name under the registered_domain.  In a partially
+        qualified domain, or if the the qualification level of the full name cannot
+        be determined, subdomain contains all of the names below the registered domain.
+
+        For example the subdomain portion of "www.east.mydomain.co.uk" is "east".
+        If the domain has multiple levels of subdomain, such as "sub2.sub1.example.com",
+        the subdomain field should contain "sub2.sub1", with no trailing period.'
+      example: east
+      flat_name: threat.enrichments.url.subdomain
+      ignore_above: 1024
+      level: extended
+      name: subdomain
+      normalize: []
+      original_fieldset: url
+      short: The subdomain of the domain.
+      type: keyword
+    threat.enrichments.url.top_level_domain:
+      dashed_name: threat-enrichments-url-top-level-domain
+      description: 'The effective top level domain (eTLD), also known as the domain
+        suffix, is the last part of the domain name. For example, the top level domain
+        for example.com is "com".
+
+        This value can be determined precisely with a list like the public suffix
+        list (http://publicsuffix.org). Trying to approximate this by simply taking
+        the last label will not work well for effective TLDs such as "co.uk".'
+      example: co.uk
+      flat_name: threat.enrichments.url.top_level_domain
+      ignore_above: 1024
+      level: extended
+      name: top_level_domain
+      normalize: []
+      original_fieldset: url
+      short: The effective top level domain (com, org, net, co.uk).
+      type: keyword
+    threat.enrichments.url.username:
+      dashed_name: threat-enrichments-url-username
+      description: Username of the request.
+      flat_name: threat.enrichments.url.username
+      ignore_above: 1024
+      level: extended
+      name: username
+      normalize: []
+      original_fieldset: url
+      short: Username of the request.
+      type: keyword
+    threat.enrichments.x509.alternative_names:
+      dashed_name: threat-enrichments-x509-alternative-names
+      description: List of subject alternative names (SAN). Name types vary by certificate
+        authority and certificate type but commonly contain IP addresses, DNS names
+        (and wildcards), and email addresses.
+      example: '*.elastic.co'
+      flat_name: threat.enrichments.x509.alternative_names
+      ignore_above: 1024
+      level: extended
+      name: alternative_names
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of subject alternative names (SAN).
+      type: keyword
+    threat.enrichments.x509.issuer.common_name:
+      dashed_name: threat-enrichments-x509-issuer-common-name
+      description: List of common name (CN) of issuing certificate authority.
+      example: Example SHA2 High Assurance Server CA
+      flat_name: threat.enrichments.x509.issuer.common_name
+      ignore_above: 1024
+      level: extended
+      name: issuer.common_name
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of common name (CN) of issuing certificate authority.
+      type: keyword
+    threat.enrichments.x509.issuer.country:
+      dashed_name: threat-enrichments-x509-issuer-country
+      description: List of country (C) codes
+      example: US
+      flat_name: threat.enrichments.x509.issuer.country
+      ignore_above: 1024
+      level: extended
+      name: issuer.country
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of country (C) codes
+      type: keyword
+    threat.enrichments.x509.issuer.distinguished_name:
+      dashed_name: threat-enrichments-x509-issuer-distinguished-name
+      description: Distinguished name (DN) of issuing certificate authority.
+      example: C=US, O=Example Inc, OU=www.example.com, CN=Example SHA2 High Assurance
+        Server CA
+      flat_name: threat.enrichments.x509.issuer.distinguished_name
+      ignore_above: 1024
+      level: extended
+      name: issuer.distinguished_name
+      normalize: []
+      original_fieldset: x509
+      short: Distinguished name (DN) of issuing certificate authority.
+      type: keyword
+    threat.enrichments.x509.issuer.locality:
+      dashed_name: threat-enrichments-x509-issuer-locality
+      description: List of locality names (L)
+      example: Mountain View
+      flat_name: threat.enrichments.x509.issuer.locality
+      ignore_above: 1024
+      level: extended
+      name: issuer.locality
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of locality names (L)
+      type: keyword
+    threat.enrichments.x509.issuer.organization:
+      dashed_name: threat-enrichments-x509-issuer-organization
+      description: List of organizations (O) of issuing certificate authority.
+      example: Example Inc
+      flat_name: threat.enrichments.x509.issuer.organization
+      ignore_above: 1024
+      level: extended
+      name: issuer.organization
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of organizations (O) of issuing certificate authority.
+      type: keyword
+    threat.enrichments.x509.issuer.organizational_unit:
+      dashed_name: threat-enrichments-x509-issuer-organizational-unit
+      description: List of organizational units (OU) of issuing certificate authority.
+      example: www.example.com
+      flat_name: threat.enrichments.x509.issuer.organizational_unit
+      ignore_above: 1024
+      level: extended
+      name: issuer.organizational_unit
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of organizational units (OU) of issuing certificate authority.
+      type: keyword
+    threat.enrichments.x509.issuer.state_or_province:
+      dashed_name: threat-enrichments-x509-issuer-state-or-province
+      description: List of state or province names (ST, S, or P)
+      example: California
+      flat_name: threat.enrichments.x509.issuer.state_or_province
+      ignore_above: 1024
+      level: extended
+      name: issuer.state_or_province
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of state or province names (ST, S, or P)
+      type: keyword
+    threat.enrichments.x509.not_after:
+      dashed_name: threat-enrichments-x509-not-after
+      description: Time at which the certificate is no longer considered valid.
+      example: 2020-07-16 03:15:39+00:00
+      flat_name: threat.enrichments.x509.not_after
+      level: extended
+      name: not_after
+      normalize: []
+      original_fieldset: x509
+      short: Time at which the certificate is no longer considered valid.
+      type: date
+    threat.enrichments.x509.not_before:
+      dashed_name: threat-enrichments-x509-not-before
+      description: Time at which the certificate is first considered valid.
+      example: 2019-08-16 01:40:25+00:00
+      flat_name: threat.enrichments.x509.not_before
+      level: extended
+      name: not_before
+      normalize: []
+      original_fieldset: x509
+      short: Time at which the certificate is first considered valid.
+      type: date
+    threat.enrichments.x509.public_key_algorithm:
+      dashed_name: threat-enrichments-x509-public-key-algorithm
+      description: Algorithm used to generate the public key.
+      example: RSA
+      flat_name: threat.enrichments.x509.public_key_algorithm
+      ignore_above: 1024
+      level: extended
+      name: public_key_algorithm
+      normalize: []
+      original_fieldset: x509
+      short: Algorithm used to generate the public key.
+      type: keyword
+    threat.enrichments.x509.public_key_curve:
+      dashed_name: threat-enrichments-x509-public-key-curve
+      description: The curve used by the elliptic curve public key algorithm. This
+        is algorithm specific.
+      example: nistp521
+      flat_name: threat.enrichments.x509.public_key_curve
+      ignore_above: 1024
+      level: extended
+      name: public_key_curve
+      normalize: []
+      original_fieldset: x509
+      short: The curve used by the elliptic curve public key algorithm. This is algorithm
+        specific.
+      type: keyword
+    threat.enrichments.x509.public_key_exponent:
+      dashed_name: threat-enrichments-x509-public-key-exponent
+      description: Exponent used to derive the public key. This is algorithm specific.
+      doc_values: false
+      example: 65537
+      flat_name: threat.enrichments.x509.public_key_exponent
+      index: false
+      level: extended
+      name: public_key_exponent
+      normalize: []
+      original_fieldset: x509
+      short: Exponent used to derive the public key. This is algorithm specific.
+      type: long
+    threat.enrichments.x509.public_key_size:
+      dashed_name: threat-enrichments-x509-public-key-size
+      description: The size of the public key space in bits.
+      example: 2048
+      flat_name: threat.enrichments.x509.public_key_size
+      level: extended
+      name: public_key_size
+      normalize: []
+      original_fieldset: x509
+      short: The size of the public key space in bits.
+      type: long
+    threat.enrichments.x509.serial_number:
+      dashed_name: threat-enrichments-x509-serial-number
+      description: Unique serial number issued by the certificate authority. For consistency,
+        if this value is alphanumeric, it should be formatted without colons and uppercase
+        characters.
+      example: 55FBB9C7DEBF09809D12CCAA
+      flat_name: threat.enrichments.x509.serial_number
+      ignore_above: 1024
+      level: extended
+      name: serial_number
+      normalize: []
+      original_fieldset: x509
+      short: Unique serial number issued by the certificate authority.
+      type: keyword
+    threat.enrichments.x509.signature_algorithm:
+      dashed_name: threat-enrichments-x509-signature-algorithm
+      description: Identifier for certificate signature algorithm. We recommend using
+        names found in Go Lang Crypto library. See https://github.com/golang/go/blob/go1.14/src/crypto/x509/x509.go#L337-L353.
+      example: SHA256-RSA
+      flat_name: threat.enrichments.x509.signature_algorithm
+      ignore_above: 1024
+      level: extended
+      name: signature_algorithm
+      normalize: []
+      original_fieldset: x509
+      short: Identifier for certificate signature algorithm.
+      type: keyword
+    threat.enrichments.x509.subject.common_name:
+      dashed_name: threat-enrichments-x509-subject-common-name
+      description: List of common names (CN) of subject.
+      example: shared.global.example.net
+      flat_name: threat.enrichments.x509.subject.common_name
+      ignore_above: 1024
+      level: extended
+      name: subject.common_name
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of common names (CN) of subject.
+      type: keyword
+    threat.enrichments.x509.subject.country:
+      dashed_name: threat-enrichments-x509-subject-country
+      description: List of country (C) code
+      example: US
+      flat_name: threat.enrichments.x509.subject.country
+      ignore_above: 1024
+      level: extended
+      name: subject.country
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of country (C) code
+      type: keyword
+    threat.enrichments.x509.subject.distinguished_name:
+      dashed_name: threat-enrichments-x509-subject-distinguished-name
+      description: Distinguished name (DN) of the certificate subject entity.
+      example: C=US, ST=California, L=San Francisco, O=Example, Inc., CN=shared.global.example.net
+      flat_name: threat.enrichments.x509.subject.distinguished_name
+      ignore_above: 1024
+      level: extended
+      name: subject.distinguished_name
+      normalize: []
+      original_fieldset: x509
+      short: Distinguished name (DN) of the certificate subject entity.
+      type: keyword
+    threat.enrichments.x509.subject.locality:
+      dashed_name: threat-enrichments-x509-subject-locality
+      description: List of locality names (L)
+      example: San Francisco
+      flat_name: threat.enrichments.x509.subject.locality
+      ignore_above: 1024
+      level: extended
+      name: subject.locality
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of locality names (L)
+      type: keyword
+    threat.enrichments.x509.subject.organization:
+      dashed_name: threat-enrichments-x509-subject-organization
+      description: List of organizations (O) of subject.
+      example: Example, Inc.
+      flat_name: threat.enrichments.x509.subject.organization
+      ignore_above: 1024
+      level: extended
+      name: subject.organization
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of organizations (O) of subject.
+      type: keyword
+    threat.enrichments.x509.subject.organizational_unit:
+      dashed_name: threat-enrichments-x509-subject-organizational-unit
+      description: List of organizational units (OU) of subject.
+      flat_name: threat.enrichments.x509.subject.organizational_unit
+      ignore_above: 1024
+      level: extended
+      name: subject.organizational_unit
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of organizational units (OU) of subject.
+      type: keyword
+    threat.enrichments.x509.subject.state_or_province:
+      dashed_name: threat-enrichments-x509-subject-state-or-province
+      description: List of state or province names (ST, S, or P)
+      example: California
+      flat_name: threat.enrichments.x509.subject.state_or_province
+      ignore_above: 1024
+      level: extended
+      name: subject.state_or_province
+      normalize:
+      - array
+      original_fieldset: x509
+      short: List of state or province names (ST, S, or P)
+      type: keyword
+    threat.enrichments.x509.version_number:
+      dashed_name: threat-enrichments-x509-version-number
+      description: Version of x509 format.
+      example: 3
+      flat_name: threat.enrichments.x509.version_number
+      ignore_above: 1024
+      level: extended
+      name: version_number
+      normalize: []
+      original_fieldset: x509
+      short: Version of x509 format.
+      type: keyword
     threat.framework:
       dashed_name: threat-framework
       description: Name of the threat framework used to further categorize and classify
@@ -10612,7 +12996,44 @@ threat:
       type: keyword
   group: 2
   name: threat
+  nestings:
+  - threat.enrichments.as
+  - threat.enrichments.event
+  - threat.enrichments.file
+  - threat.enrichments.geo
+  - threat.enrichments.hash
+  - threat.enrichments.url
+  - threat.enrichments.x509
   prefix: threat.
+  reused_here:
+  - beta: Reusing the `as` fields in this location is currently considered beta.
+    full: threat.enrichments.as
+    schema_name: as
+    short: Fields describing an Autonomous System (Internet routing prefix).
+  - beta: Reusing the `event` fields in this location is currently considered beta.
+    full: threat.enrichments.event
+    schema_name: event
+    short: Fields breaking down the event details.
+  - beta: Reusing the `file` fields in this location is currently considered beta.
+    full: threat.enrichments.file
+    schema_name: file
+    short: Fields describing files.
+  - beta: Reusing the `geo` fields in this location is currently considered beta.
+    full: threat.enrichments.geo
+    schema_name: geo
+    short: Fields describing a location.
+  - beta: Reusing the `hash` fields in this location is currently considered beta.
+    full: threat.enrichments.hash
+    schema_name: hash
+    short: Hashes, usually file hashes.
+  - beta: Reusing the `url` fields in this location is currently considered beta.
+    full: threat.enrichments.url
+    schema_name: url
+    short: Fields that let you store URLs in various forms.
+  - beta: Reusing the `x509` fields in this location is currently considered beta.
+    full: threat.enrichments.x509
+    schema_name: x509
+    short: These fields contain x509 certificate metadata.
   short: Fields to classify events and alerts according to a threat taxonomy.
   title: Threat
   type: group
@@ -11890,6 +14311,13 @@ url:
   group: 2
   name: url
   prefix: url.
+  reusable:
+    expected:
+    - as: url
+      at: threat.enrichments
+      beta: Reusing the `url` fields in this location is currently considered beta.
+      full: threat.enrichments.url
+    top_level: true
   short: Fields that let you store URLs in various forms.
   title: URL
   type: group
@@ -13190,6 +15618,10 @@ x509:
     - as: x509
       at: file
       full: file.x509
+    - as: x509
+      at: threat.enrichments
+      beta: Reusing the `x509` fields in this location is currently considered beta.
+      full: threat.enrichments.x509
     - as: x509
       at: tls.client
       full: tls.client.x509
