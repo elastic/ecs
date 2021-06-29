@@ -39,6 +39,8 @@ type Log struct {
 	// If the event wasn't read from a log file, do not populate this field.
 	FilePath string `ecs:"file.path"`
 
+	// Deprecated for removal in next major version release. This field is
+	// superseded by  `event.original`.
 	// This is the original log message and contains the full log message
 	// before splitting it up in multiple parts.
 	// In contrast to the `message` field which can contain an extracted part
