@@ -45,6 +45,8 @@ Thanks, you're awesome :-) -->
 
 #### Bugfixes
 
+* Remove `ignore_above` when `index: false` and `doc_values: false`. #1483
+
 #### Added
 
 * Support `match_only_text` data type in Go code generator. #1418
