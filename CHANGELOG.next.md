@@ -45,6 +45,8 @@ Thanks, you're awesome :-) -->
 
 #### Bugfixes
 
+* Ensure `doc_values` is carried into Beats artifacts. #1488
+
 #### Added
 
 * Support `match_only_text` data type in Go code generator. #1418
