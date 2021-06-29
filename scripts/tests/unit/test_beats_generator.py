@@ -10,11 +10,11 @@ from scripts.generators import beats
 
 class TestGeneratorsBeatsFields(unittest.TestCase):
     def setUp(self):
-        self.df_allowlist = { "@timestamp" }
+        self.df_allowlist = {"@timestamp"}
 
     def test_fieldset_field_array_expected_structure(self):
         fields = {
-                'id': {
+            'id': {
                 'dashed_name': 'agent-id',
                 'description': 'description',
                 'flat_name': 'agent.id',
@@ -72,6 +72,7 @@ class TestGeneratorsBeatsFields(unittest.TestCase):
         self.assertEqual(field_entry['type'], 'keyword')
         self.assertFalse(field_entry['index'])
         self.assertFalse(field_entry['doc_values'])
+
 
 if __name__ == '__main__':
     unittest.main()
