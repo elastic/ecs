@@ -151,6 +151,7 @@ as:
       full: source.as
     - as: as
       at: threat.enrichments
+      beta: Reusing the `as` fields in this location is currently considered beta.
       full: threat.enrichments.as
     top_level: false
   short: Fields describing an Autonomous System (Internet routing prefix).
@@ -3777,6 +3778,7 @@ event:
     expected:
     - as: event
       at: threat.enrichments
+      beta: Reusing the `event` fields in this location is currently considered beta.
       full: threat.enrichments.event
     top_level: true
   short: Fields breaking down the event details.
@@ -5301,6 +5303,7 @@ file:
     expected:
     - as: file
       at: threat.enrichments
+      beta: Reusing the `file` fields in this location is currently considered beta.
       full: threat.enrichments.file
     top_level: true
   reused_here:
@@ -5483,6 +5486,7 @@ geo:
       full: source.geo
     - as: geo
       at: threat.enrichments
+      beta: Reusing the `geo` fields in this location is currently considered beta.
       full: threat.enrichments.geo
     top_level: false
   short: Fields describing a location.
@@ -5614,6 +5618,7 @@ hash:
       full: dll.hash
     - as: hash
       at: threat.enrichments
+      beta: Reusing the `hash` fields in this location is currently considered beta.
       full: threat.enrichments.hash
     top_level: false
   short: Hashes, usually file hashes.
@@ -14467,6 +14472,7 @@ threat:
     \ \"endpoint denial of service\")."
   fields:
     threat.enrichments:
+      beta: This field is beta and subject to change.
       dashed_name: threat-enrichments
       description: A list of associated indicators enriching the event, and the context
         of that association/enrichment.
@@ -16225,6 +16231,7 @@ threat:
       short: SSDEEP hash.
       type: keyword
     threat.enrichments.matched.atomic:
+      beta: This field is beta and subject to change.
       dashed_name: threat-enrichments-matched-atomic
       description: Identifies the atomic indicator value that matched a local environment
         endpoint or network event.
@@ -16237,6 +16244,7 @@ threat:
       short: Matched indicator value
       type: keyword
     threat.enrichments.matched.field:
+      beta: This field is beta and subject to change.
       dashed_name: threat-enrichments-matched-field
       description: Identifies the field of the atomic indicator that matched a local
         environment endpoint or network event.
@@ -16249,6 +16257,7 @@ threat:
       short: Matched indicator field
       type: keyword
     threat.enrichments.matched.id:
+      beta: This field is beta and subject to change.
       dashed_name: threat-enrichments-matched-id
       description: Identifies the _id of the indicator document enriching the event.
       example: ff93aee5-86a1-4a61-b0e6-0cdc313d01b5
@@ -16260,6 +16269,7 @@ threat:
       short: Matched indicator identifier
       type: keyword
     threat.enrichments.matched.index:
+      beta: This field is beta and subject to change.
       dashed_name: threat-enrichments-matched-index
       description: Identifies the _index of the indicator document enriching the event.
       example: filebeat-8.0.0-2021.05.23-000011
@@ -16271,6 +16281,7 @@ threat:
       short: Matched indicator index
       type: keyword
     threat.enrichments.matched.type:
+      beta: This field is beta and subject to change.
       dashed_name: threat-enrichments-matched-type
       description: Identifies the type of match that caused the event to be enriched
         with the given indicator
@@ -17796,19 +17807,24 @@ threat:
   - threat.enrichments.x509
   prefix: threat.
   reused_here:
-  - full: threat.enrichments.as
+  - beta: Reusing the `as` fields in this location is currently considered beta.
+    full: threat.enrichments.as
     schema_name: as
     short: Fields describing an Autonomous System (Internet routing prefix).
-  - full: threat.enrichments.event
+  - beta: Reusing the `event` fields in this location is currently considered beta.
+    full: threat.enrichments.event
     schema_name: event
     short: Fields breaking down the event details.
-  - full: threat.enrichments.file
+  - beta: Reusing the `file` fields in this location is currently considered beta.
+    full: threat.enrichments.file
     schema_name: file
     short: Fields describing files.
-  - full: threat.enrichments.geo
+  - beta: Reusing the `geo` fields in this location is currently considered beta.
+    full: threat.enrichments.geo
     schema_name: geo
     short: Fields describing a location.
-  - full: threat.enrichments.hash
+  - beta: Reusing the `hash` fields in this location is currently considered beta.
+    full: threat.enrichments.hash
     schema_name: hash
     short: Hashes, usually file hashes.
   - full: threat.enrichments.pe
@@ -17817,10 +17833,12 @@ threat:
   - full: threat.enrichments.registry
     schema_name: registry
     short: Fields related to Windows Registry operations.
-  - full: threat.enrichments.url
+  - beta: Reusing the `url` fields in this location is currently considered beta.
+    full: threat.enrichments.url
     schema_name: url
     short: Fields that let you store URLs in various forms.
-  - full: threat.enrichments.x509
+  - beta: Reusing the `x509` fields in this location is currently considered beta.
+    full: threat.enrichments.x509
     schema_name: x509
     short: These fields contain x509 certificate metadata.
   short: Fields to classify events and alerts according to a threat taxonomy.
@@ -19091,6 +19109,7 @@ url:
     expected:
     - as: url
       at: threat.enrichments
+      beta: Reusing the `url` fields in this location is currently considered beta.
       full: threat.enrichments.url
     top_level: true
   short: Fields that let you store URLs in various forms.
@@ -20382,14 +20401,15 @@ x509:
       at: file
       full: file.x509
     - as: x509
+      at: threat.enrichments
+      beta: Reusing the `x509` fields in this location is currently considered beta.
+      full: threat.enrichments.x509
+    - as: x509
       at: tls.client
       full: tls.client.x509
     - as: x509
       at: tls.server
       full: tls.server.x509
-    - as: x509
-      at: threat.enrichments
-      full: threat.enrichments.x509
     top_level: false
   short: These fields contain x509 certificate metadata.
   title: x509 Certificate
