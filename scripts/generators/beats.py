@@ -39,7 +39,8 @@ def fieldset_field_array(source_fields, df_allowlist, fieldset_prefix):
     allowed_keys = ['name', 'level', 'required', 'type', 'object_type',
                     'ignore_above', 'multi_fields', 'format', 'input_format',
                     'output_format', 'output_precision', 'description',
-                    'example', 'enabled', 'index', 'path', 'scaling_factor']
+                    'example', 'enabled', 'index', 'doc_values', 'path',
+                    'scaling_factor']
     multi_fields_allowed_keys = ['name', 'type', 'norms', 'default_field', 'normalizer', 'ignore_above']
 
     fields = []

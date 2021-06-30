@@ -57,6 +57,7 @@ Thanks, you're awesome :-) -->
 #### Bugfixes
 
 * Remove `ignore_above` when `index: false` and `doc_values: false`. #1483
+* Ensure `doc_values` is carried into Beats artifacts. #1488
 
 #### Added
 
