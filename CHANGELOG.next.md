@@ -8,11 +8,22 @@ Thanks, you're awesome :-) -->
 
 ## Unreleased
 
-### Breaking Changes
-
 ### Schema Changes
+### Tooling and Artifact Changes
+
+#### Breaking changes
 
 #### Bugfixes
+
+#### Added
+
+#### Improvements
+
+#### Deprecated
+
+## 1.11.0 (Feature Freeze)
+
+### Schema Changes
 
 #### Added
 
@@ -51,8 +62,6 @@ Thanks, you're awesome :-) -->
 
 * Swap `Location` and `Field Set` columns in `Field Reuse` table for better readability. #1472, #1476
 * Use a bullet points to list field reuses. #1473
-
-#### Deprecated
 
 <!-- All empty sections:
 
