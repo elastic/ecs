@@ -8,6 +8,9 @@ Thanks, you're awesome :-) -->
 
 ## Unreleased
 
+### Schema Changes
+### Tooling and Artifact Changes
+
 ### Breaking Changes
 
 * Removing deprecated --oss from generator #1404
@@ -15,9 +18,17 @@ Thanks, you're awesome :-) -->
 * Remove `host.user.*` field reuse. #1439
 * Remove deprecation notice on `http.request.method`. #1443
 
-### Schema Changes
-
 #### Bugfixes
+
+#### Added
+
+#### Improvements
+
+#### Deprecated
+
+## 1.11.0 (Feature Freeze)
+
+### Schema Changes
 
 #### Added
 
@@ -56,8 +67,6 @@ Thanks, you're awesome :-) -->
 
 * Swap `Location` and `Field Set` columns in `Field Reuse` table for better readability. #1472, #1476
 * Use a bullet points to list field reuses. #1473
-
-#### Deprecated
 
 <!-- All empty sections:
 
