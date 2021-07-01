@@ -37,6 +37,8 @@ threat.indicator.port | long | 443 | Identifies a threat indicator as a port num
 threat.indicator.email.address | keyword | phish@evil.com | Identifies a threat indicator as an email address (irrespective of direction).
 threat.marking.tlp | keyword | RED | Data markings represent restrictions, permissions, and other guidance for how data can be used and shared. Examples could be TLP (WHITE, GREEN, AMBER, RED).
 threat.indicator.scanner_stats | long | 4 | Count of Anti virus/EDR that successfully detected malicious file or URL. Sources like VirusTotal, Reversing Labs often provide these statistics.
+threat.indicator.reference | keyword | https://feodotracker.abuse.ch/ | URL to the intelligence source
+threat.indicator.provider | keyword | lrz_urlhaus | The name of the indicator's provider
 
 ### Proposed New Values for Event Fieldset
 
