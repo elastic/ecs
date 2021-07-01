@@ -456,7 +456,7 @@
       level: extended
       type: keyword
       ignore_above: 1024
-      description: Availability zone in which this host is running.
+      description: Availability zone in which this host, resource, or service is located.
       example: us-east-1c
     - name: instance.id
       level: extended
@@ -504,7 +504,7 @@
       level: extended
       type: keyword
       ignore_above: 1024
-      description: Region in which this host is running.
+      description: Region in which this host, resource, or service is located.
       example: us-east-1
     - name: service.name
       level: extended
@@ -632,7 +632,7 @@
       naming scheme.
 
       In the new data stream naming scheme the value of the data stream fields combine
-      to the name of the actual data stream in the following manner `{data_stream.type}-{data_stream.dataset}-{data_stream.namespace}`.
+      to the name of the actual data stream in the following manner: `{data_stream.type}-{data_stream.dataset}-{data_stream.namespace}`.
       This means the fields can only contain characters that are valid as part of
       names of data streams. More details about this can be found in this https://www.elastic.co/blog/an-introduction-to-the-elastic-data-stream-naming-scheme[blog
       post].
@@ -640,8 +640,8 @@
       An Elasticsearch data stream consists of one or more backing indices, and a
       data stream name forms part of the backing indices names. Due to this convention,
       data streams must also follow index naming restrictions. For example, data stream
-      names cannot include \, /, *, ?, ", <, >, |, ` `. Please see the Elasticsearch
-      reference for additional https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-create-index.html#indices-create-api-path-params[restrictions].'
+      names cannot include `\`, `/`, `*`, `?`, `"`, `<`, `>`, `|`, ` ` (space character),
+      `,`, or `#`. Please see the Elasticsearch reference for additional https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-create-index.html#indices-create-api-path-params[restrictions].'
     type: group
     fields:
     - name: dataset
@@ -1538,7 +1538,7 @@
       type: keyword
       ignore_above: 1024
       description: Byte sequence of ELF file.
-      example: Little Endian, Big Endian
+      example: Little Endian
       default_field: false
     - name: cpu_type
       level: extended
@@ -1614,7 +1614,10 @@
     - name: sections
       level: extended
       type: nested
-      description: Section information of the ELF file.
+      description: 'An array containing an object for each section of the ELF file.
+
+        The keys that should be present in these objects are defined by sub-fields
+        underneath `elf.sections.*`.'
       default_field: false
     - name: sections.chi2
       level: extended
@@ -1673,7 +1676,10 @@
     - name: segments
       level: extended
       type: nested
-      description: ELF object segment list.
+      description: 'An array containing an object for each segment of the ELF file.
+
+        The keys that should be present in these objects are defined by sub-fields
+        underneath `elf.segments.*`.'
       default_field: false
     - name: segments.sections
       level: extended
@@ -1691,14 +1697,13 @@
       level: extended
       type: keyword
       ignore_above: 1024
-      description: List of shared libraries used by this ELF object
+      description: List of shared libraries used by this ELF object.
       default_field: false
     - name: telfhash
       level: extended
       type: keyword
       ignore_above: 1024
-      description: telfhash is symbol hash for ELF files, just like imphash is imports
-        hash for PE files. Learn more at https://github.com/trendmicro/telfhash.
+      description: telfhash symbol hash for ELF file.
       default_field: false
   - name: error
     title: Error
@@ -1764,6 +1769,37 @@
         Examples are `group-add`, `process-started`, `file-created`. The value is
         normally defined by the implementer.'
       example: user-password-change
+    - name: agent_id_status
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Agents are normally responsible for populating the `agent.id`
+        field value. If the system receiving events is capable of validating the value
+        based on authentication information for the client then this field can be
+        used to reflect the outcome of that validation.
+
+        For example if the agent''s connection is authenticated with mTLS and the
+        client cert contains the ID of the agent to which the cert was issued then
+        the `agent.id` value in events can be checked against the certificate. If
+        the values match then `event.agent_id_status: verified` is added to the event,
+        otherwise one of the other allowed values should be used.
+
+        If no validation is performed then the field should be omitted.
+
+        The allowed values are:
+
+        `verified` - The `agent.id` field value matches expected value obtained from
+        auth metadata.
+
+        `mismatch` - The `agent.id` field value does not match the expected value
+        obtained from auth metadata.
+
+        `missing` - There was no `agent.id` field in the event to validate.
+
+        `auth_metadata_missing` - There was no auth metadata or it was missing information
+        about the agent ID.'
+      example: verified
+      default_field: false
     - name: category
       level: core
       type: keyword
@@ -1889,15 +1925,17 @@
     - name: original
       level: core
       type: keyword
-      ignore_above: 1024
-      description: 'Raw text message of entire event. Used to demonstrate log integrity.
+      description: 'Raw text message of entire event. Used to demonstrate log integrity  or
+        where the full log message (before splitting it up in multiple  parts) may
+        be required, e.g. for reindex.
 
         This field is not indexed and doc_values are disabled. It cannot be searched,
         but it can be retrieved from `_source`. If users wish to override this and
-        index this field, consider using the wildcard data type.'
+        index this field, please see `Field data types` in the `Elasticsearch Reference`.'
       example: Sep 19 08:26:10 host CEF:0&#124;Security&#124; threatmanager&#124;1.0&#124;100&#124;
         worm successfully stopped&#124;10&#124;src=10.0.0.1 dst=2.1.2.2spt=1232
       index: false
+      doc_values: false
     - name: outcome
       level: core
       type: keyword
@@ -2169,7 +2207,7 @@
       type: keyword
       ignore_above: 1024
       description: Byte sequence of ELF file.
-      example: Little Endian, Big Endian
+      example: Little Endian
       default_field: false
     - name: elf.cpu_type
       level: extended
@@ -2245,7 +2283,10 @@
     - name: elf.sections
       level: extended
       type: nested
-      description: Section information of the ELF file.
+      description: 'An array containing an object for each section of the ELF file.
+
+        The keys that should be present in these objects are defined by sub-fields
+        underneath `elf.sections.*`.'
       default_field: false
     - name: elf.sections.chi2
       level: extended
@@ -2304,7 +2345,10 @@
     - name: elf.segments
       level: extended
       type: nested
-      description: ELF object segment list.
+      description: 'An array containing an object for each segment of the ELF file.
+
+        The keys that should be present in these objects are defined by sub-fields
+        underneath `elf.segments.*`.'
       default_field: false
     - name: elf.segments.sections
       level: extended
@@ -2322,14 +2366,13 @@
       level: extended
       type: keyword
       ignore_above: 1024
-      description: List of shared libraries used by this ELF object
+      description: List of shared libraries used by this ELF object.
       default_field: false
     - name: elf.telfhash
       level: extended
       type: keyword
       ignore_above: 1024
-      description: telfhash is symbol hash for ELF files, just like imphash is imports
-        hash for PE files. Learn more at https://github.com/trendmicro/telfhash.
+      description: telfhash symbol hash for ELF file.
       default_field: false
     - name: extension
       level: extended
@@ -2807,6 +2850,7 @@
       description: Exponent used to derive the public key. This is algorithm specific.
       example: 65537
       index: false
+      doc_values: false
       default_field: false
     - name: x509.public_key_size
       level: extended
@@ -3299,75 +3343,6 @@
       type: long
       description: Seconds the host has been up.
       example: 1325
-    - name: user.domain
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: 'Name of the directory the user is a member of.
-
-        For example, an LDAP or Active Directory domain name.'
-    - name: user.email
-      level: extended
-      type: wildcard
-      description: User email address.
-    - name: user.full_name
-      level: extended
-      type: wildcard
-      multi_fields:
-      - name: text
-        type: text
-        norms: false
-        default_field: false
-      description: User's full name, if available.
-      example: Albert Einstein
-    - name: user.group.domain
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: 'Name of the directory the group is a member of.
-
-        For example, an LDAP or Active Directory domain name.'
-    - name: user.group.id
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Unique identifier for the group on the system/platform.
-    - name: user.group.name
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Name of the group.
-    - name: user.hash
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: 'Unique user hash to correlate information for a user in anonymized
-        form.
-
-        Useful if `user.id` or `user.name` contain confidential information and cannot
-        be used.'
-    - name: user.id
-      level: core
-      type: keyword
-      ignore_above: 1024
-      description: Unique identifier of the user.
-    - name: user.name
-      level: core
-      type: wildcard
-      multi_fields:
-      - name: text
-        type: text
-        norms: false
-        default_field: false
-      description: Short name or login of the user.
-      example: albert
-    - name: user.roles
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Array of user roles at the time of the event.
-      example: '["kibana_admin", "reporting_user"]'
-      default_field: false
   - name: http
     title: HTTP
     group: 2
@@ -3414,14 +3389,9 @@
       ignore_above: 1024
       description: 'HTTP request method.
 
-        Prior to ECS 1.6.0 the following guidance was provided:
-
-        "The field value must be normalized to lowercase for querying."
-
-        As of ECS 1.6.0, the guidance is deprecated because the original case of the
-        method may be useful in anomaly detection.  Original case will be mandated
-        in ECS 2.0.0'
-      example: GET, POST, PUT, PoST
+        The value should retain its casing from the original event. For example, `GET`,
+        `get`, and `GeT` are all considered valid values for this field.'
+      example: POST
     - name: request.mime_type
       level: extended
       type: keyword
@@ -3583,9 +3553,11 @@
     - name: original
       level: core
       type: keyword
-      ignore_above: 1024
-      description: 'This is the original log message and contains the full log message
-        before splitting it up in multiple parts.
+      description: 'Deprecated for removal in next major version release. This field
+        is superseded by  `event.original`.
+
+        This is the original log message and contains the full log message before
+        splitting it up in multiple parts.
 
         In contrast to the `message` field which can contain an extracted part of
         the log message, this field contains the original, full log message. It can
@@ -3596,6 +3568,7 @@
         but the value can be retrieved from `_source`.'
       example: Sep 19 08:26:10 localhost My log
       index: false
+      doc_values: false
     - name: syslog
       level: extended
       type: object
@@ -4759,7 +4732,7 @@
       type: keyword
       ignore_above: 1024
       description: Byte sequence of ELF file.
-      example: Little Endian, Big Endian
+      example: Little Endian
       default_field: false
     - name: elf.cpu_type
       level: extended
@@ -4835,7 +4808,10 @@
     - name: elf.sections
       level: extended
       type: nested
-      description: Section information of the ELF file.
+      description: 'An array containing an object for each section of the ELF file.
+
+        The keys that should be present in these objects are defined by sub-fields
+        underneath `elf.sections.*`.'
       default_field: false
     - name: elf.sections.chi2
       level: extended
@@ -4894,7 +4870,10 @@
     - name: elf.segments
       level: extended
       type: nested
-      description: ELF object segment list.
+      description: 'An array containing an object for each segment of the ELF file.
+
+        The keys that should be present in these objects are defined by sub-fields
+        underneath `elf.segments.*`.'
       default_field: false
     - name: elf.segments.sections
       level: extended
@@ -4912,14 +4891,13 @@
       level: extended
       type: keyword
       ignore_above: 1024
-      description: List of shared libraries used by this ELF object
+      description: List of shared libraries used by this ELF object.
       default_field: false
     - name: elf.telfhash
       level: extended
       type: keyword
       ignore_above: 1024
-      description: telfhash is symbol hash for ELF files, just like imphash is imports
-        hash for PE files. Learn more at https://github.com/trendmicro/telfhash.
+      description: telfhash symbol hash for ELF file.
       default_field: false
     - name: entity_id
       level: extended
@@ -5100,7 +5078,7 @@
       type: keyword
       ignore_above: 1024
       description: Byte sequence of ELF file.
-      example: Little Endian, Big Endian
+      example: Little Endian
       default_field: false
     - name: parent.elf.cpu_type
       level: extended
@@ -5176,7 +5154,10 @@
     - name: parent.elf.sections
       level: extended
       type: nested
-      description: Section information of the ELF file.
+      description: 'An array containing an object for each section of the ELF file.
+
+        The keys that should be present in these objects are defined by sub-fields
+        underneath `elf.sections.*`.'
       default_field: false
     - name: parent.elf.sections.chi2
       level: extended
@@ -5235,7 +5216,10 @@
     - name: parent.elf.segments
       level: extended
       type: nested
-      description: ELF object segment list.
+      description: 'An array containing an object for each segment of the ELF file.
+
+        The keys that should be present in these objects are defined by sub-fields
+        underneath `elf.segments.*`.'
       default_field: false
     - name: parent.elf.segments.sections
       level: extended
@@ -5253,14 +5237,13 @@
       level: extended
       type: keyword
       ignore_above: 1024
-      description: List of shared libraries used by this ELF object
+      description: List of shared libraries used by this ELF object.
       default_field: false
     - name: parent.elf.telfhash
       level: extended
       type: keyword
       ignore_above: 1024
-      description: telfhash is symbol hash for ELF files, just like imphash is imports
-        hash for PE files. Learn more at https://github.com/trendmicro/telfhash.
+      description: telfhash symbol hash for ELF file.
       default_field: false
     - name: parent.entity_id
       level: extended
@@ -5951,6 +5934,1364 @@
       type: date
       description: The time the process started.
       example: '2016-05-23T08:05:34.853Z'
+    - name: target.args
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Array of process arguments, starting with the absolute path to
+        the executable.
+
+        May be filtered to protect sensitive information.'
+      example: '["/usr/bin/ssh", "-l", "user", "10.0.0.16"]'
+      default_field: false
+    - name: target.args_count
+      level: extended
+      type: long
+      description: 'Length of the process.args array.
+
+        This field can be useful for querying or performing bucket analysis on how
+        many arguments were provided to start a process. More arguments may be an
+        indication of suspicious activity.'
+      example: 4
+      default_field: false
+    - name: target.code_signature.exists
+      level: core
+      type: boolean
+      description: Boolean to capture if a signature is present.
+      example: 'true'
+      default_field: false
+    - name: target.code_signature.signing_id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The identifier used to sign the process.
+
+        This is used to identify the application manufactured by a software vendor.
+        The field is relevant to Apple *OS only.'
+      example: com.apple.xpc.proxy
+      default_field: false
+    - name: target.code_signature.status
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Additional information about the certificate status.
+
+        This is useful for logging cryptographic errors with the certificate validity
+        or trust status. Leave unpopulated if the validity or trust of the certificate
+        was unchecked.'
+      example: ERROR_UNTRUSTED_ROOT
+      default_field: false
+    - name: target.code_signature.subject_name
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: Subject name of the code signer
+      example: Microsoft Corporation
+      default_field: false
+    - name: target.code_signature.team_id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The team identifier used to sign the process.
+
+        This is used to identify the team or vendor of a software product. The field
+        is relevant to Apple *OS only.'
+      example: EQHXZ8M8AV
+      default_field: false
+    - name: target.code_signature.trusted
+      level: extended
+      type: boolean
+      description: 'Stores the trust status of the certificate chain.
+
+        Validating the trust of the certificate chain may be complicated, and this
+        field should only be populated by tools that actively check the status.'
+      example: 'true'
+      default_field: false
+    - name: target.code_signature.valid
+      level: extended
+      type: boolean
+      description: 'Boolean to capture if the digital signature is verified against
+        the binary content.
+
+        Leave unpopulated if a certificate was unchecked.'
+      example: 'true'
+      default_field: false
+    - name: target.command_line
+      level: extended
+      type: wildcard
+      multi_fields:
+      - name: text
+        type: text
+        norms: false
+      description: 'Full command line that started the process, including the absolute
+        path to the executable, and all arguments.
+
+        Some arguments may be filtered to protect sensitive information.'
+      example: /usr/bin/ssh -l user 10.0.0.16
+      default_field: false
+    - name: target.elf.architecture
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Machine architecture of the ELF file.
+      example: x86-64
+      default_field: false
+    - name: target.elf.byte_order
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Byte sequence of ELF file.
+      example: Little Endian
+      default_field: false
+    - name: target.elf.cpu_type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: CPU type of the ELF file.
+      example: Intel
+      default_field: false
+    - name: target.elf.creation_date
+      level: extended
+      type: date
+      description: Extracted when possible from the file's metadata. Indicates when
+        it was built or compiled. It can also be faked by malware creators.
+      default_field: false
+    - name: target.elf.exports
+      level: extended
+      type: flattened
+      description: List of exported element names and types.
+      default_field: false
+    - name: target.elf.header.abi_version
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Version of the ELF Application Binary Interface (ABI).
+      default_field: false
+    - name: target.elf.header.class
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Header class of the ELF file.
+      default_field: false
+    - name: target.elf.header.data
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Data table of the ELF header.
+      default_field: false
+    - name: target.elf.header.entrypoint
+      level: extended
+      type: long
+      format: string
+      description: Header entrypoint of the ELF file.
+      default_field: false
+    - name: target.elf.header.object_version
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: '"0x1" for original ELF files.'
+      default_field: false
+    - name: target.elf.header.os_abi
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Application Binary Interface (ABI) of the Linux OS.
+      default_field: false
+    - name: target.elf.header.type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Header type of the ELF file.
+      default_field: false
+    - name: target.elf.header.version
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Version of the ELF header.
+      default_field: false
+    - name: target.elf.imports
+      level: extended
+      type: flattened
+      description: List of imported element names and types.
+      default_field: false
+    - name: target.elf.sections
+      level: extended
+      type: nested
+      description: 'An array containing an object for each section of the ELF file.
+
+        The keys that should be present in these objects are defined by sub-fields
+        underneath `elf.sections.*`.'
+      default_field: false
+    - name: target.elf.sections.chi2
+      level: extended
+      type: long
+      format: number
+      description: Chi-square probability distribution of the section.
+      default_field: false
+    - name: target.elf.sections.entropy
+      level: extended
+      type: long
+      format: number
+      description: Shannon entropy calculation from the section.
+      default_field: false
+    - name: target.elf.sections.flags
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: ELF Section List flags.
+      default_field: false
+    - name: target.elf.sections.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: ELF Section List name.
+      default_field: false
+    - name: target.elf.sections.physical_offset
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: ELF Section List offset.
+      default_field: false
+    - name: target.elf.sections.physical_size
+      level: extended
+      type: long
+      format: bytes
+      description: ELF Section List physical size.
+      default_field: false
+    - name: target.elf.sections.type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: ELF Section List type.
+      default_field: false
+    - name: target.elf.sections.virtual_address
+      level: extended
+      type: long
+      format: string
+      description: ELF Section List virtual address.
+      default_field: false
+    - name: target.elf.sections.virtual_size
+      level: extended
+      type: long
+      format: string
+      description: ELF Section List virtual size.
+      default_field: false
+    - name: target.elf.segments
+      level: extended
+      type: nested
+      description: 'An array containing an object for each segment of the ELF file.
+
+        The keys that should be present in these objects are defined by sub-fields
+        underneath `elf.segments.*`.'
+      default_field: false
+    - name: target.elf.segments.sections
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: ELF object segment sections.
+      default_field: false
+    - name: target.elf.segments.type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: ELF object segment type.
+      default_field: false
+    - name: target.elf.shared_libraries
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of shared libraries used by this ELF object.
+      default_field: false
+    - name: target.elf.telfhash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: telfhash symbol hash for ELF file.
+      default_field: false
+    - name: target.entity_id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Unique identifier for the process.
+
+        The implementation of this is specified by the data source, but some examples
+        of what could be used here are a process-generated UUID, Sysmon Process GUIDs,
+        or a hash of some uniquely identifying components of a process.
+
+        Constructing a globally unique identifier is a common practice to mitigate
+        PID reuse as well as to identify a specific process over time, across multiple
+        monitored hosts.'
+      example: c2c455d9f99375d
+      default_field: false
+    - name: target.executable
+      level: extended
+      type: wildcard
+      multi_fields:
+      - name: text
+        type: text
+        norms: false
+      description: Absolute path to the process executable.
+      example: /usr/bin/ssh
+      default_field: false
+    - name: target.exit_code
+      level: extended
+      type: long
+      description: 'The exit code of the process, if this is a termination event.
+
+        The field should be absent if there is no exit code for the event (e.g. process
+        start).'
+      example: 137
+      default_field: false
+    - name: target.hash.md5
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: MD5 hash.
+      default_field: false
+    - name: target.hash.sha1
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SHA1 hash.
+      default_field: false
+    - name: target.hash.sha256
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SHA256 hash.
+      default_field: false
+    - name: target.hash.sha512
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SHA512 hash.
+      default_field: false
+    - name: target.hash.ssdeep
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SSDEEP hash.
+      default_field: false
+    - name: target.name
+      level: extended
+      type: wildcard
+      multi_fields:
+      - name: text
+        type: text
+        norms: false
+      description: 'Process name.
+
+        Sometimes called program name or similar.'
+      example: ssh
+      default_field: false
+    - name: target.parent.args
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Array of process arguments, starting with the absolute path to
+        the executable.
+
+        May be filtered to protect sensitive information.'
+      example: '["/usr/bin/ssh", "-l", "user", "10.0.0.16"]'
+      default_field: false
+    - name: target.parent.args_count
+      level: extended
+      type: long
+      description: 'Length of the process.args array.
+
+        This field can be useful for querying or performing bucket analysis on how
+        many arguments were provided to start a process. More arguments may be an
+        indication of suspicious activity.'
+      example: 4
+      default_field: false
+    - name: target.parent.code_signature.exists
+      level: core
+      type: boolean
+      description: Boolean to capture if a signature is present.
+      example: 'true'
+      default_field: false
+    - name: target.parent.code_signature.signing_id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The identifier used to sign the process.
+
+        This is used to identify the application manufactured by a software vendor.
+        The field is relevant to Apple *OS only.'
+      example: com.apple.xpc.proxy
+      default_field: false
+    - name: target.parent.code_signature.status
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Additional information about the certificate status.
+
+        This is useful for logging cryptographic errors with the certificate validity
+        or trust status. Leave unpopulated if the validity or trust of the certificate
+        was unchecked.'
+      example: ERROR_UNTRUSTED_ROOT
+      default_field: false
+    - name: target.parent.code_signature.subject_name
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: Subject name of the code signer
+      example: Microsoft Corporation
+      default_field: false
+    - name: target.parent.code_signature.team_id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The team identifier used to sign the process.
+
+        This is used to identify the team or vendor of a software product. The field
+        is relevant to Apple *OS only.'
+      example: EQHXZ8M8AV
+      default_field: false
+    - name: target.parent.code_signature.trusted
+      level: extended
+      type: boolean
+      description: 'Stores the trust status of the certificate chain.
+
+        Validating the trust of the certificate chain may be complicated, and this
+        field should only be populated by tools that actively check the status.'
+      example: 'true'
+      default_field: false
+    - name: target.parent.code_signature.valid
+      level: extended
+      type: boolean
+      description: 'Boolean to capture if the digital signature is verified against
+        the binary content.
+
+        Leave unpopulated if a certificate was unchecked.'
+      example: 'true'
+      default_field: false
+    - name: target.parent.command_line
+      level: extended
+      type: wildcard
+      multi_fields:
+      - name: text
+        type: text
+        norms: false
+      description: 'Full command line that started the process, including the absolute
+        path to the executable, and all arguments.
+
+        Some arguments may be filtered to protect sensitive information.'
+      example: /usr/bin/ssh -l user 10.0.0.16
+      default_field: false
+    - name: target.parent.elf.architecture
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Machine architecture of the ELF file.
+      example: x86-64
+      default_field: false
+    - name: target.parent.elf.byte_order
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Byte sequence of ELF file.
+      example: Little Endian
+      default_field: false
+    - name: target.parent.elf.cpu_type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: CPU type of the ELF file.
+      example: Intel
+      default_field: false
+    - name: target.parent.elf.creation_date
+      level: extended
+      type: date
+      description: Extracted when possible from the file's metadata. Indicates when
+        it was built or compiled. It can also be faked by malware creators.
+      default_field: false
+    - name: target.parent.elf.exports
+      level: extended
+      type: flattened
+      description: List of exported element names and types.
+      default_field: false
+    - name: target.parent.elf.header.abi_version
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Version of the ELF Application Binary Interface (ABI).
+      default_field: false
+    - name: target.parent.elf.header.class
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Header class of the ELF file.
+      default_field: false
+    - name: target.parent.elf.header.data
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Data table of the ELF header.
+      default_field: false
+    - name: target.parent.elf.header.entrypoint
+      level: extended
+      type: long
+      format: string
+      description: Header entrypoint of the ELF file.
+      default_field: false
+    - name: target.parent.elf.header.object_version
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: '"0x1" for original ELF files.'
+      default_field: false
+    - name: target.parent.elf.header.os_abi
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Application Binary Interface (ABI) of the Linux OS.
+      default_field: false
+    - name: target.parent.elf.header.type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Header type of the ELF file.
+      default_field: false
+    - name: target.parent.elf.header.version
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Version of the ELF header.
+      default_field: false
+    - name: target.parent.elf.imports
+      level: extended
+      type: flattened
+      description: List of imported element names and types.
+      default_field: false
+    - name: target.parent.elf.sections
+      level: extended
+      type: nested
+      description: 'An array containing an object for each section of the ELF file.
+
+        The keys that should be present in these objects are defined by sub-fields
+        underneath `elf.sections.*`.'
+      default_field: false
+    - name: target.parent.elf.sections.chi2
+      level: extended
+      type: long
+      format: number
+      description: Chi-square probability distribution of the section.
+      default_field: false
+    - name: target.parent.elf.sections.entropy
+      level: extended
+      type: long
+      format: number
+      description: Shannon entropy calculation from the section.
+      default_field: false
+    - name: target.parent.elf.sections.flags
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: ELF Section List flags.
+      default_field: false
+    - name: target.parent.elf.sections.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: ELF Section List name.
+      default_field: false
+    - name: target.parent.elf.sections.physical_offset
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: ELF Section List offset.
+      default_field: false
+    - name: target.parent.elf.sections.physical_size
+      level: extended
+      type: long
+      format: bytes
+      description: ELF Section List physical size.
+      default_field: false
+    - name: target.parent.elf.sections.type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: ELF Section List type.
+      default_field: false
+    - name: target.parent.elf.sections.virtual_address
+      level: extended
+      type: long
+      format: string
+      description: ELF Section List virtual address.
+      default_field: false
+    - name: target.parent.elf.sections.virtual_size
+      level: extended
+      type: long
+      format: string
+      description: ELF Section List virtual size.
+      default_field: false
+    - name: target.parent.elf.segments
+      level: extended
+      type: nested
+      description: 'An array containing an object for each segment of the ELF file.
+
+        The keys that should be present in these objects are defined by sub-fields
+        underneath `elf.segments.*`.'
+      default_field: false
+    - name: target.parent.elf.segments.sections
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: ELF object segment sections.
+      default_field: false
+    - name: target.parent.elf.segments.type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: ELF object segment type.
+      default_field: false
+    - name: target.parent.elf.shared_libraries
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of shared libraries used by this ELF object.
+      default_field: false
+    - name: target.parent.elf.telfhash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: telfhash symbol hash for ELF file.
+      default_field: false
+    - name: target.parent.entity_id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Unique identifier for the process.
+
+        The implementation of this is specified by the data source, but some examples
+        of what could be used here are a process-generated UUID, Sysmon Process GUIDs,
+        or a hash of some uniquely identifying components of a process.
+
+        Constructing a globally unique identifier is a common practice to mitigate
+        PID reuse as well as to identify a specific process over time, across multiple
+        monitored hosts.'
+      example: c2c455d9f99375d
+      default_field: false
+    - name: target.parent.executable
+      level: extended
+      type: wildcard
+      multi_fields:
+      - name: text
+        type: text
+        norms: false
+      description: Absolute path to the process executable.
+      example: /usr/bin/ssh
+      default_field: false
+    - name: target.parent.exit_code
+      level: extended
+      type: long
+      description: 'The exit code of the process, if this is a termination event.
+
+        The field should be absent if there is no exit code for the event (e.g. process
+        start).'
+      example: 137
+      default_field: false
+    - name: target.parent.hash.md5
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: MD5 hash.
+      default_field: false
+    - name: target.parent.hash.sha1
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SHA1 hash.
+      default_field: false
+    - name: target.parent.hash.sha256
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SHA256 hash.
+      default_field: false
+    - name: target.parent.hash.sha512
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SHA512 hash.
+      default_field: false
+    - name: target.parent.hash.ssdeep
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SSDEEP hash.
+      default_field: false
+    - name: target.parent.name
+      level: extended
+      type: wildcard
+      multi_fields:
+      - name: text
+        type: text
+        norms: false
+      description: 'Process name.
+
+        Sometimes called program name or similar.'
+      example: ssh
+      default_field: false
+    - name: target.parent.pe.architecture
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: CPU architecture target for the file.
+      example: x64
+      default_field: false
+    - name: target.parent.pe.authentihash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Authentihash of the PE file.
+      example: ac9555d914bbb112ecc5f15bb9887ca8371f493ab0941344e976bb8410c8aa78
+      default_field: false
+    - name: target.parent.pe.company
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Internal company name of the file, provided at compile-time.
+      example: Microsoft Corporation
+      default_field: false
+    - name: target.parent.pe.compile_timestamp
+      level: extended
+      type: date
+      description: Compile timestamp of the PE file.
+      example: '2020-11-05T17:25:47.000Z'
+      default_field: false
+    - name: target.parent.pe.compiler.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the compiler
+      example: Clang
+      default_field: false
+    - name: target.parent.pe.compiler.version
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Version of the compiler.
+      example: 11.0.0
+      default_field: false
+    - name: target.parent.pe.creation_date
+      level: extended
+      type: date
+      description: Extracted when possible from the file's metadata. Indicates when
+        it was built or compiled. It can also be faked by malware creators.
+      example: '2020-11-05T17:25:47.000Z'
+      default_field: false
+    - name: target.parent.pe.debug
+      level: extended
+      type: nested
+      description: 'An array containing an object for each debug entry, if present.
+
+        The expected fields for this nested object fall under the `debug.` prefix.'
+      default_field: false
+    - name: target.parent.pe.debug.offset
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Debug offset information.
+      example: 1296336
+      default_field: false
+    - name: target.parent.pe.debug.size
+      level: extended
+      type: long
+      format: bytes
+      description: Size of the debug information.
+      example: 816
+      default_field: false
+    - name: target.parent.pe.debug.timestamp
+      level: extended
+      type: date
+      description: Timestamp of the debug information.
+      example: '2020-11-05T17:25:47.000Z'
+      default_field: false
+    - name: target.parent.pe.debug.type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Information type generated by the debug options.
+      example: IMAGE_DEBUG_TYPE_POGO
+      default_field: false
+    - name: target.parent.pe.description
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Internal description of the file, provided at compile-time.
+      example: Paint
+      default_field: false
+    - name: target.parent.pe.entry_point
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Relative byte offset to the base of the PE file.
+      example: 25856
+      default_field: false
+    - name: target.parent.pe.exports
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of symbols exported by PE
+      example: '["DllInstall", "DllRegisterServer", "DllUnregisterServer"]'
+      default_field: false
+    - name: target.parent.pe.file_version
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Internal version of the file, provided at compile-time.
+      example: 6.3.9600.17415
+      default_field: false
+    - name: target.parent.pe.icon.hash.dhash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Difference Hash (dhash) to find files with a visually similar icon
+        or thumbnail.
+      example: b806e17c8e330d82
+      default_field: false
+    - name: target.parent.pe.imphash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'A hash of the imports in a PE file. An imphash -- or import hash
+        -- can be used to fingerprint binaries even after recompilation or other code-level
+        transformations have occurred, which would change more traditional hash values.
+
+        Learn more at https://www.fireeye.com/blog/threat-research/2014/01/tracking-malware-import-hashing.html.'
+      example: 0c6803c4e922103c4dca5963aad36ddf
+      default_field: false
+    - name: target.parent.pe.imports
+      level: extended
+      type: flattened
+      description: List of all imported functions
+      example: '{ "library_name" : "mscoree.dll", "imported_functions" : "GetFileVersionInfoSizeA"
+        }'
+      default_field: false
+    - name: target.parent.pe.machine_type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Machine type of the PE file.
+      example: Intel 386 or later, and compatibles
+      default_field: false
+    - name: target.parent.pe.original_file_name
+      level: extended
+      type: wildcard
+      description: Internal name of the file, provided at compile-time.
+      example: MSPAINT.EXE
+      default_field: false
+    - name: target.parent.pe.packers
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of packers and tools used.
+      example: '["ASPack v2.12", ".NET executable"]'
+      default_field: false
+    - name: target.parent.pe.product
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Internal product name of the file, provided at compile-time.
+      example: "Microsoft\xAE Windows\xAE Operating System"
+      default_field: false
+    - name: target.parent.pe.resources
+      level: extended
+      type: nested
+      description: 'An array containing an object for each PE resource, if present.
+
+        The expected fields for this nested object fall under the `resources.` prefix.'
+      default_field: false
+    - name: target.parent.pe.resources.chi2
+      level: extended
+      type: long
+      description: Chi-square probability distribution.
+      example: -1
+      default_field: false
+    - name: target.parent.pe.resources.entropy
+      level: extended
+      type: long
+      description: Measurement of entropy randomness in the resources section.
+      example: 0, 1
+      default_field: false
+    - name: target.parent.pe.resources.filetype
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: File type of the resources section.
+      example: Data
+      default_field: false
+    - name: target.parent.pe.resources.language
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Language identification.
+      example: CHINESE SIMPLIFIED
+      default_field: false
+    - name: target.parent.pe.resources.sha256
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SHA256 hash of resources section.
+      example: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      default_field: false
+    - name: target.parent.pe.resources.type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Digest of resource types.
+      example: '["RT_VERSION", "RT_MANIFEST"]'
+      default_field: false
+    - name: target.parent.pe.rich_header.hash.md5
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: MD5 hash of the header for the PE file.
+      example: 5aa1aa0f2b4be70397a1e9e2b87627cd
+      default_field: false
+    - name: target.parent.pe.sections
+      level: extended
+      type: nested
+      description: Data about sections of compiled binary PE
+      default_field: false
+    - name: target.parent.pe.sections.chi2
+      level: extended
+      type: long
+      description: Chi-square probability distribution.
+      example: 3027194
+      default_field: false
+    - name: target.parent.pe.sections.entropy
+      level: extended
+      type: float
+      description: Measurement of entropy randomness in the file.
+      example: 6.24
+      default_field: false
+    - name: target.parent.pe.sections.flags
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Section flags of the file.
+      example: rx
+      default_field: false
+    - name: target.parent.pe.sections.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Section names of the file.
+      example: .text, .data
+      default_field: false
+    - name: target.parent.pe.sections.raw_size
+      level: extended
+      type: long
+      format: bytes
+      description: Size of the section or the dize of the initialized data on disk.
+      example: 198144
+      default_field: false
+    - name: target.parent.pe.sections.virtual_address
+      level: extended
+      type: long
+      format: bytes
+      description: Virtual address available to the file.
+      example: 8192
+      default_field: false
+    - name: target.parent.pgid
+      level: extended
+      type: long
+      format: string
+      description: Identifier of the group of processes the process belongs to.
+      default_field: false
+    - name: target.parent.pid
+      level: core
+      type: long
+      format: string
+      description: Process id.
+      example: 4242
+      default_field: false
+    - name: target.parent.ppid
+      level: extended
+      type: long
+      format: string
+      description: Parent process' pid.
+      example: 4241
+      default_field: false
+    - name: target.parent.start
+      level: extended
+      type: date
+      description: The time the process started.
+      example: '2016-05-23T08:05:34.853Z'
+      default_field: false
+    - name: target.parent.thread.id
+      level: extended
+      type: long
+      format: string
+      description: Thread ID.
+      example: 4242
+      default_field: false
+    - name: target.parent.thread.name
+      level: extended
+      type: wildcard
+      description: Thread name.
+      example: thread-0
+      default_field: false
+    - name: target.parent.title
+      level: extended
+      type: wildcard
+      multi_fields:
+      - name: text
+        type: text
+        norms: false
+      description: 'Process title.
+
+        The proctitle, some times the same as process name. Can also be different:
+        for example a browser setting its title to the web page currently opened.'
+      default_field: false
+    - name: target.parent.uptime
+      level: extended
+      type: long
+      description: Seconds the process has been up.
+      example: 1325
+      default_field: false
+    - name: target.parent.working_directory
+      level: extended
+      type: wildcard
+      multi_fields:
+      - name: text
+        type: text
+        norms: false
+      description: The working directory of the process.
+      example: /home/alice
+      default_field: false
+    - name: target.pe.architecture
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: CPU architecture target for the file.
+      example: x64
+      default_field: false
+    - name: target.pe.authentihash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Authentihash of the PE file.
+      example: ac9555d914bbb112ecc5f15bb9887ca8371f493ab0941344e976bb8410c8aa78
+      default_field: false
+    - name: target.pe.company
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Internal company name of the file, provided at compile-time.
+      example: Microsoft Corporation
+      default_field: false
+    - name: target.pe.compile_timestamp
+      level: extended
+      type: date
+      description: Compile timestamp of the PE file.
+      example: '2020-11-05T17:25:47.000Z'
+      default_field: false
+    - name: target.pe.compiler.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the compiler
+      example: Clang
+      default_field: false
+    - name: target.pe.compiler.version
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Version of the compiler.
+      example: 11.0.0
+      default_field: false
+    - name: target.pe.creation_date
+      level: extended
+      type: date
+      description: Extracted when possible from the file's metadata. Indicates when
+        it was built or compiled. It can also be faked by malware creators.
+      example: '2020-11-05T17:25:47.000Z'
+      default_field: false
+    - name: target.pe.debug
+      level: extended
+      type: nested
+      description: 'An array containing an object for each debug entry, if present.
+
+        The expected fields for this nested object fall under the `debug.` prefix.'
+      default_field: false
+    - name: target.pe.debug.offset
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Debug offset information.
+      example: 1296336
+      default_field: false
+    - name: target.pe.debug.size
+      level: extended
+      type: long
+      format: bytes
+      description: Size of the debug information.
+      example: 816
+      default_field: false
+    - name: target.pe.debug.timestamp
+      level: extended
+      type: date
+      description: Timestamp of the debug information.
+      example: '2020-11-05T17:25:47.000Z'
+      default_field: false
+    - name: target.pe.debug.type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Information type generated by the debug options.
+      example: IMAGE_DEBUG_TYPE_POGO
+      default_field: false
+    - name: target.pe.description
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Internal description of the file, provided at compile-time.
+      example: Paint
+      default_field: false
+    - name: target.pe.entry_point
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Relative byte offset to the base of the PE file.
+      example: 25856
+      default_field: false
+    - name: target.pe.exports
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of symbols exported by PE
+      example: '["DllInstall", "DllRegisterServer", "DllUnregisterServer"]'
+      default_field: false
+    - name: target.pe.file_version
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Internal version of the file, provided at compile-time.
+      example: 6.3.9600.17415
+      default_field: false
+    - name: target.pe.icon.hash.dhash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Difference Hash (dhash) to find files with a visually similar icon
+        or thumbnail.
+      example: b806e17c8e330d82
+      default_field: false
+    - name: target.pe.imphash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'A hash of the imports in a PE file. An imphash -- or import hash
+        -- can be used to fingerprint binaries even after recompilation or other code-level
+        transformations have occurred, which would change more traditional hash values.
+
+        Learn more at https://www.fireeye.com/blog/threat-research/2014/01/tracking-malware-import-hashing.html.'
+      example: 0c6803c4e922103c4dca5963aad36ddf
+      default_field: false
+    - name: target.pe.imports
+      level: extended
+      type: flattened
+      description: List of all imported functions
+      example: '{ "library_name" : "mscoree.dll", "imported_functions" : "GetFileVersionInfoSizeA"
+        }'
+      default_field: false
+    - name: target.pe.machine_type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Machine type of the PE file.
+      example: Intel 386 or later, and compatibles
+      default_field: false
+    - name: target.pe.original_file_name
+      level: extended
+      type: wildcard
+      description: Internal name of the file, provided at compile-time.
+      example: MSPAINT.EXE
+      default_field: false
+    - name: target.pe.packers
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of packers and tools used.
+      example: '["ASPack v2.12", ".NET executable"]'
+      default_field: false
+    - name: target.pe.product
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Internal product name of the file, provided at compile-time.
+      example: "Microsoft\xAE Windows\xAE Operating System"
+      default_field: false
+    - name: target.pe.resources
+      level: extended
+      type: nested
+      description: 'An array containing an object for each PE resource, if present.
+
+        The expected fields for this nested object fall under the `resources.` prefix.'
+      default_field: false
+    - name: target.pe.resources.chi2
+      level: extended
+      type: long
+      description: Chi-square probability distribution.
+      example: -1
+      default_field: false
+    - name: target.pe.resources.entropy
+      level: extended
+      type: long
+      description: Measurement of entropy randomness in the resources section.
+      example: 0, 1
+      default_field: false
+    - name: target.pe.resources.filetype
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: File type of the resources section.
+      example: Data
+      default_field: false
+    - name: target.pe.resources.language
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Language identification.
+      example: CHINESE SIMPLIFIED
+      default_field: false
+    - name: target.pe.resources.sha256
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SHA256 hash of resources section.
+      example: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      default_field: false
+    - name: target.pe.resources.type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Digest of resource types.
+      example: '["RT_VERSION", "RT_MANIFEST"]'
+      default_field: false
+    - name: target.pe.rich_header.hash.md5
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: MD5 hash of the header for the PE file.
+      example: 5aa1aa0f2b4be70397a1e9e2b87627cd
+      default_field: false
+    - name: target.pe.sections
+      level: extended
+      type: nested
+      description: Data about sections of compiled binary PE
+      default_field: false
+    - name: target.pe.sections.chi2
+      level: extended
+      type: long
+      description: Chi-square probability distribution.
+      example: 3027194
+      default_field: false
+    - name: target.pe.sections.entropy
+      level: extended
+      type: float
+      description: Measurement of entropy randomness in the file.
+      example: 6.24
+      default_field: false
+    - name: target.pe.sections.flags
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Section flags of the file.
+      example: rx
+      default_field: false
+    - name: target.pe.sections.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Section names of the file.
+      example: .text, .data
+      default_field: false
+    - name: target.pe.sections.raw_size
+      level: extended
+      type: long
+      format: bytes
+      description: Size of the section or the dize of the initialized data on disk.
+      example: 198144
+      default_field: false
+    - name: target.pe.sections.virtual_address
+      level: extended
+      type: long
+      format: bytes
+      description: Virtual address available to the file.
+      example: 8192
+      default_field: false
+    - name: target.pgid
+      level: extended
+      type: long
+      format: string
+      description: Identifier of the group of processes the process belongs to.
+      default_field: false
+    - name: target.pid
+      level: core
+      type: long
+      format: string
+      description: Process id.
+      example: 4242
+      default_field: false
+    - name: target.ppid
+      level: extended
+      type: long
+      format: string
+      description: Parent process' pid.
+      example: 4241
+      default_field: false
+    - name: target.start
+      level: extended
+      type: date
+      description: The time the process started.
+      example: '2016-05-23T08:05:34.853Z'
+      default_field: false
+    - name: target.thread.id
+      level: extended
+      type: long
+      format: string
+      description: Thread ID.
+      example: 4242
+      default_field: false
+    - name: target.thread.name
+      level: extended
+      type: wildcard
+      description: Thread name.
+      example: thread-0
+      default_field: false
+    - name: target.title
+      level: extended
+      type: wildcard
+      multi_fields:
+      - name: text
+        type: text
+        norms: false
+      description: 'Process title.
+
+        The proctitle, some times the same as process name. Can also be different:
+        for example a browser setting its title to the web page currently opened.'
+      default_field: false
+    - name: target.uptime
+      level: extended
+      type: long
+      description: Seconds the process has been up.
+      example: 1325
+      default_field: false
+    - name: target.working_directory
+      level: extended
+      type: wildcard
+      multi_fields:
+      - name: text
+        type: text
+        norms: false
+      description: The working directory of the process.
+      example: /home/alice
+      default_field: false
     - name: thread.id
       level: extended
       type: long
@@ -6091,7 +7432,7 @@
       level: extended
       type: keyword
       ignore_above: 1024
-      description: All the user names seen on your event.
+      description: All the user names or other user identifiers seen on the event.
       default_field: false
   - name: rule
     title: Rule
@@ -6836,23 +8177,20 @@
       \ \"endpoint denial of service\")."
     type: group
     fields:
-    - name: framework
+    - name: enrichments
       level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Name of the threat framework used to further categorize and classify
-        the tactic and technique of the reported threat. Framework classification
-        can be provided by detecting systems, evaluated at ingest time, or retrospectively
-        tagged to events.
-      example: MITRE ATT&CK
-    - name: indicator.as.number
+      type: nested
+      description: A list of associated indicators enriching the event, and the context
+        of that association/enrichment.
+      default_field: false
+    - name: enrichments.as.number
       level: extended
       type: long
       description: Unique number allocated to the autonomous system. The autonomous
         system number (ASN) uniquely identifies each network on the Internet.
       example: 15169
       default_field: false
-    - name: indicator.as.organization.name
+    - name: enrichments.as.organization.name
       level: extended
       type: wildcard
       multi_fields:
@@ -6862,52 +8200,345 @@
       description: Organization name.
       example: Google LLC
       default_field: false
-    - name: indicator.confidence
+    - name: enrichments.event.action
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: 'The action captured by the event.
+
+        This describes the information in the event. It is more specific than `event.category`.
+        Examples are `group-add`, `process-started`, `file-created`. The value is
+        normally defined by the implementer.'
+      example: user-password-change
+      default_field: false
+    - name: enrichments.event.agent_id_status
       level: extended
       type: keyword
       ignore_above: 1024
-      description: "Identifies the confidence rating assigned by the provider using\
-        \ STIX confidence scales.\nExpected values:\n  * Not Specified, None, Low,\
-        \ Medium, High\n  * 0-10\n  * Admirality Scale (1-6)\n  * DNI Scale (5-95)\n\
-        \  * WEP Scale (Impossible - Certain)"
-      example: High
+      description: 'Agents are normally responsible for populating the `agent.id`
+        field value. If the system receiving events is capable of validating the value
+        based on authentication information for the client then this field can be
+        used to reflect the outcome of that validation.
+
+        For example if the agent''s connection is authenticated with mTLS and the
+        client cert contains the ID of the agent to which the cert was issued then
+        the `agent.id` value in events can be checked against the certificate. If
+        the values match then `event.agent_id_status: verified` is added to the event,
+        otherwise one of the other allowed values should be used.
+
+        If no validation is performed then the field should be omitted.
+
+        The allowed values are:
+
+        `verified` - The `agent.id` field value matches expected value obtained from
+        auth metadata.
+
+        `mismatch` - The `agent.id` field value does not match the expected value
+        obtained from auth metadata.
+
+        `missing` - There was no `agent.id` field in the event to validate.
+
+        `auth_metadata_missing` - There was no auth metadata or it was missing information
+        about the agent ID.'
+      example: verified
       default_field: false
-    - name: indicator.dataset
+    - name: enrichments.event.category
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: 'This is one of four ECS Categorization Fields, and indicates the
+        second level in the ECS category hierarchy.
+
+        `event.category` represents the "big buckets" of ECS categories. For example,
+        filtering on `event.category:process` yields all events relating to process
+        activity. This field is closely related to `event.type`, which is used as
+        a subcategory.
+
+        This field is an array. This will allow proper categorization of some events
+        that fall in multiple categories.'
+      example: authentication
+      default_field: false
+    - name: enrichments.event.code
       level: extended
       type: keyword
       ignore_above: 1024
-      description: Identifies the name of specific dataset from the intelligence source.
-      example: threatintel.abusemalware
+      description: 'Identification code for this event, if one exists.
+
+        Some event sources use event codes to identify messages unambiguously, regardless
+        of message language or wording adjustments over time. An example of this is
+        the Windows Event ID.'
+      example: 4648
       default_field: false
-    - name: indicator.description
+    - name: enrichments.event.created
+      level: core
+      type: date
+      description: 'event.created contains the date/time when the event was first
+        read by an agent, or by your pipeline.
+
+        This field is distinct from @timestamp in that @timestamp typically contain
+        the time extracted from the original event.
+
+        In most situations, these two timestamps will be slightly different. The difference
+        can be used to calculate the delay between your source generating an event,
+        and the time when your agent first processed it. This can be used to monitor
+        your agent''s or pipeline''s ability to keep up with your event source.
+
+        In case the two timestamps are identical, @timestamp should be used.'
+      example: '2016-05-23T08:05:34.857Z'
+      default_field: false
+    - name: enrichments.event.dataset
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the dataset.
+
+        If an event source publishes more than one type of log or events (e.g. access
+        log, error log), the dataset is used to specify which one the event comes
+        from.
+
+        It''s recommended but not required to start the dataset name with the module
+        name, followed by a dot, then the dataset name.'
+      example: apache.access
+      default_field: false
+    - name: enrichments.event.duration
+      level: core
+      type: long
+      format: duration
+      input_format: nanoseconds
+      output_format: asMilliseconds
+      output_precision: 1
+      description: 'Duration of the event in nanoseconds.
+
+        If event.start and event.end are known this value should be the difference
+        between the end and start time.'
+      default_field: false
+    - name: enrichments.event.end
       level: extended
-      type: wildcard
-      description: Describes the type of action conducted by the threat.
-      example: IP x.x.x.x was observed delivering the Angler EK.
+      type: date
+      description: event.end contains the date when the event ended or when the activity
+        was last observed.
       default_field: false
-    - name: indicator.domain
+    - name: enrichments.event.hash
       level: extended
       type: keyword
       ignore_above: 1024
-      description: Identifies a threat indicator as a domain (irrespective of direction).
-      example: example.com
+      description: Hash (perhaps logstash fingerprint) of raw field to be able to
+        demonstrate log integrity.
+      example: 123456789012345678901234567890ABCD
       default_field: false
-    - name: indicator.email.address
+    - name: enrichments.event.id
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: Unique ID to describe the event.
+      example: 8a4f500d
+      default_field: false
+    - name: enrichments.event.ingested
+      level: core
+      type: date
+      description: 'Timestamp when an event arrived in the central data store.
+
+        This is different from `@timestamp`, which is when the event originally occurred.  It''s
+        also different from `event.created`, which is meant to capture the first time
+        an agent saw the event.
+
+        In normal conditions, assuming no tampering, the timestamps should chronologically
+        look like this: `@timestamp` < `event.created` < `event.ingested`.'
+      example: '2016-05-23T08:05:35.101Z'
+      default_field: false
+    - name: enrichments.event.kind
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: 'This is one of four ECS Categorization Fields, and indicates the
+        highest level in the ECS category hierarchy.
+
+        `event.kind` gives high-level information about what type of information the
+        event contains, without being specific to the contents of the event. For example,
+        values of this field distinguish alert events from metric events.
+
+        The value of this field can be used to inform how these kinds of events should
+        be handled. They may warrant different retention, different access control,
+        it may also help understand whether the data coming in at a regular interval
+        or not.'
+      example: alert
+      default_field: false
+    - name: enrichments.event.module
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the module this data is coming from.
+
+        If your monitoring agent supports the concept of modules or plugins to process
+        events of a given source (e.g. Apache logs), `event.module` should contain
+        the name of this module.'
+      example: apache
+      default_field: false
+    - name: enrichments.event.original
+      level: core
+      type: keyword
+      description: 'Raw text message of entire event. Used to demonstrate log integrity  or
+        where the full log message (before splitting it up in multiple  parts) may
+        be required, e.g. for reindex.
+
+        This field is not indexed and doc_values are disabled. It cannot be searched,
+        but it can be retrieved from `_source`. If users wish to override this and
+        index this field, please see `Field data types` in the `Elasticsearch Reference`.'
+      example: Sep 19 08:26:10 host CEF:0&#124;Security&#124; threatmanager&#124;1.0&#124;100&#124;
+        worm successfully stopped&#124;10&#124;src=10.0.0.1 dst=2.1.2.2spt=1232
+      index: false
+      doc_values: false
+      default_field: false
+    - name: enrichments.event.outcome
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: 'This is one of four ECS Categorization Fields, and indicates the
+        lowest level in the ECS category hierarchy.
+
+        `event.outcome` simply denotes whether the event represents a success or a
+        failure from the perspective of the entity that produced the event.
+
+        Note that when a single transaction is described in multiple events, each
+        event may populate different values of `event.outcome`, according to their
+        perspective.
+
+        Also note that in the case of a compound event (a single event that contains
+        multiple logical events), this field should be populated with the value that
+        best captures the overall success or failure from the perspective of the event
+        producer.
+
+        Further note that not all events will have an associated outcome. For example,
+        this field is generally not populated for metric events, events with `event.type:info`,
+        or any events for which an outcome does not make logical sense.'
+      example: success
+      default_field: false
+    - name: enrichments.event.provider
       level: extended
       type: keyword
       ignore_above: 1024
-      description: Identifies a threat indicator as an email address (irrespective
-        of direction).
-      example: phish@example.com
+      description: 'Source of the event.
+
+        Event transports such as Syslog or the Windows Event Log typically mention
+        the source of an event. It can be the name of the software that generated
+        the event (e.g. Sysmon, httpd), or of a subsystem of the operating system
+        (kernel, Microsoft-Windows-Security-Auditing).'
+      example: kernel
       default_field: false
-    - name: indicator.file.accessed
+    - name: enrichments.event.reason
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Reason why this event happened, according to the source.
+
+        This describes the why of a particular action or outcome captured in the event.
+        Where `event.action` captures the action from the event, `event.reason` describes
+        why that action was taken. For example, a web proxy with an `event.action`
+        which denied the request may also populate `event.reason` with the reason
+        why (e.g. `blocked site`).'
+      example: Terminated an unexpected process
+      default_field: false
+    - name: enrichments.event.reference
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Reference URL linking to additional information about this event.
+
+        This URL links to a static definition of this event. Alert events, indicated
+        by `event.kind:alert`, are a common use case for this field.'
+      example: https://system.example.com/event/#0001234
+      default_field: false
+    - name: enrichments.event.risk_score
+      level: core
+      type: float
+      description: Risk score or priority of the event (e.g. security solutions).
+        Use your system's original value here.
+      default_field: false
+    - name: enrichments.event.risk_score_norm
+      level: extended
+      type: float
+      description: 'Normalized risk score or priority of the event, on a scale of
+        0 to 100.
+
+        This is mainly useful if you use more than one system that assigns risk scores,
+        and you want to see a normalized value across all systems.'
+      default_field: false
+    - name: enrichments.event.sequence
+      level: extended
+      type: long
+      format: string
+      description: 'Sequence number of the event.
+
+        The sequence number is a value published by some event sources, to make the
+        exact ordering of events unambiguous, regardless of the timestamp precision.'
+      default_field: false
+    - name: enrichments.event.severity
+      level: core
+      type: long
+      format: string
+      description: 'The numeric severity of the event according to your event source.
+
+        What the different severity values mean can be different between sources and
+        use cases. It''s up to the implementer to make sure severities are consistent
+        across events from the same source.
+
+        The Syslog severity belongs in `log.syslog.severity.code`. `event.severity`
+        is meant to represent the severity according to the event source (e.g. firewall,
+        IDS). If the event source does not publish its own severity, you may optionally
+        copy the `log.syslog.severity.code` to `event.severity`.'
+      example: 7
+      default_field: false
+    - name: enrichments.event.start
+      level: extended
+      type: date
+      description: event.start contains the date when the event started or when the
+        activity was first observed.
+      default_field: false
+    - name: enrichments.event.timezone
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'This field should be populated when the event''s timestamp does
+        not include timezone information already (e.g. default Syslog timestamps).
+        It''s optional otherwise.
+
+        Acceptable timezone formats are: a canonical ID (e.g. "Europe/Amsterdam"),
+        abbreviated (e.g. "EST") or an HH:mm differential (e.g. "-05:00").'
+      default_field: false
+    - name: enrichments.event.type
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: 'This is one of four ECS Categorization Fields, and indicates the
+        third level in the ECS category hierarchy.
+
+        `event.type` represents a categorization "sub-bucket" that, when used along
+        with the `event.category` field values, enables filtering events down to a
+        level appropriate for single visualization.
+
+        This field is an array. This will allow proper categorization of some events
+        that fall in multiple event types.'
+      default_field: false
+    - name: enrichments.event.url
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'URL linking to an external system to continue investigation of
+        this event.
+
+        This URL links to another system where in-depth investigation of the specific
+        occurrence of this event can take place. Alert events, indicated by `event.kind:alert`,
+        are a common use case for this field.'
+      example: https://mysystem.example.com/alert/5271dedb-f5b0-4218-87f0-4ac4870a38fe
+      default_field: false
+    - name: enrichments.file.accessed
       level: extended
       type: date
       description: 'Last time the file was accessed.
 
         Note that not all filesystems keep track of access time.'
       default_field: false
-    - name: indicator.file.attributes
+    - name: enrichments.file.attributes
       level: extended
       type: keyword
       ignore_above: 1024
@@ -6918,13 +8549,13 @@
         execute, hidden, read, readonly, system, write.'
       example: '["readonly", "system"]'
       default_field: false
-    - name: indicator.file.code_signature.exists
+    - name: enrichments.file.code_signature.exists
       level: core
       type: boolean
       description: Boolean to capture if a signature is present.
       example: 'true'
       default_field: false
-    - name: indicator.file.code_signature.signing_id
+    - name: enrichments.file.code_signature.signing_id
       level: extended
       type: keyword
       ignore_above: 1024
@@ -6934,7 +8565,7 @@
         The field is relevant to Apple *OS only.'
       example: com.apple.xpc.proxy
       default_field: false
-    - name: indicator.file.code_signature.status
+    - name: enrichments.file.code_signature.status
       level: extended
       type: keyword
       ignore_above: 1024
@@ -6945,14 +8576,14 @@
         was unchecked.'
       example: ERROR_UNTRUSTED_ROOT
       default_field: false
-    - name: indicator.file.code_signature.subject_name
+    - name: enrichments.file.code_signature.subject_name
       level: core
       type: keyword
       ignore_above: 1024
       description: Subject name of the code signer
       example: Microsoft Corporation
       default_field: false
-    - name: indicator.file.code_signature.team_id
+    - name: enrichments.file.code_signature.team_id
       level: extended
       type: keyword
       ignore_above: 1024
@@ -6962,7 +8593,7 @@
         is relevant to Apple *OS only.'
       example: EQHXZ8M8AV
       default_field: false
-    - name: indicator.file.code_signature.trusted
+    - name: enrichments.file.code_signature.trusted
       level: extended
       type: boolean
       description: 'Stores the trust status of the certificate chain.
@@ -6971,7 +8602,7 @@
         field should only be populated by tools that actively check the status.'
       example: 'true'
       default_field: false
-    - name: indicator.file.code_signature.valid
+    - name: enrichments.file.code_signature.valid
       level: extended
       type: boolean
       description: 'Boolean to capture if the digital signature is verified against
@@ -6980,14 +8611,14 @@
         Leave unpopulated if a certificate was unchecked.'
       example: 'true'
       default_field: false
-    - name: indicator.file.created
+    - name: enrichments.file.created
       level: extended
       type: date
       description: 'File creation time.
 
         Note that not all filesystems store the creation time.'
       default_field: false
-    - name: indicator.file.ctime
+    - name: enrichments.file.ctime
       level: extended
       type: date
       description: 'Last time the file attributes or metadata changed.
@@ -6995,21 +8626,21 @@
         Note that changes to the file content will update `mtime`. This implies `ctime`
         will be adjusted at the same time, since `mtime` is an attribute of the file.'
       default_field: false
-    - name: indicator.file.device
+    - name: enrichments.file.device
       level: extended
       type: keyword
       ignore_above: 1024
       description: Device that is the source of the file.
       example: sda
       default_field: false
-    - name: indicator.file.directory
+    - name: enrichments.file.directory
       level: extended
       type: wildcard
       description: Directory where the file is located. It should include the drive
         letter, when appropriate.
       example: /home/alice
       default_field: false
-    - name: indicator.file.drive_letter
+    - name: enrichments.file.drive_letter
       level: extended
       type: keyword
       ignore_above: 1
@@ -7019,7 +8650,186 @@
         The value should be uppercase, and not include the colon.'
       example: C
       default_field: false
-    - name: indicator.file.extension
+    - name: enrichments.file.elf.architecture
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Machine architecture of the ELF file.
+      example: x86-64
+      default_field: false
+    - name: enrichments.file.elf.byte_order
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Byte sequence of ELF file.
+      example: Little Endian
+      default_field: false
+    - name: enrichments.file.elf.cpu_type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: CPU type of the ELF file.
+      example: Intel
+      default_field: false
+    - name: enrichments.file.elf.creation_date
+      level: extended
+      type: date
+      description: Extracted when possible from the file's metadata. Indicates when
+        it was built or compiled. It can also be faked by malware creators.
+      default_field: false
+    - name: enrichments.file.elf.exports
+      level: extended
+      type: flattened
+      description: List of exported element names and types.
+      default_field: false
+    - name: enrichments.file.elf.header.abi_version
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Version of the ELF Application Binary Interface (ABI).
+      default_field: false
+    - name: enrichments.file.elf.header.class
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Header class of the ELF file.
+      default_field: false
+    - name: enrichments.file.elf.header.data
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Data table of the ELF header.
+      default_field: false
+    - name: enrichments.file.elf.header.entrypoint
+      level: extended
+      type: long
+      format: string
+      description: Header entrypoint of the ELF file.
+      default_field: false
+    - name: enrichments.file.elf.header.object_version
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: '"0x1" for original ELF files.'
+      default_field: false
+    - name: enrichments.file.elf.header.os_abi
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Application Binary Interface (ABI) of the Linux OS.
+      default_field: false
+    - name: enrichments.file.elf.header.type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Header type of the ELF file.
+      default_field: false
+    - name: enrichments.file.elf.header.version
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Version of the ELF header.
+      default_field: false
+    - name: enrichments.file.elf.imports
+      level: extended
+      type: flattened
+      description: List of imported element names and types.
+      default_field: false
+    - name: enrichments.file.elf.sections
+      level: extended
+      type: nested
+      description: 'An array containing an object for each section of the ELF file.
+
+        The keys that should be present in these objects are defined by sub-fields
+        underneath `elf.sections.*`.'
+      default_field: false
+    - name: enrichments.file.elf.sections.chi2
+      level: extended
+      type: long
+      format: number
+      description: Chi-square probability distribution of the section.
+      default_field: false
+    - name: enrichments.file.elf.sections.entropy
+      level: extended
+      type: long
+      format: number
+      description: Shannon entropy calculation from the section.
+      default_field: false
+    - name: enrichments.file.elf.sections.flags
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: ELF Section List flags.
+      default_field: false
+    - name: enrichments.file.elf.sections.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: ELF Section List name.
+      default_field: false
+    - name: enrichments.file.elf.sections.physical_offset
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: ELF Section List offset.
+      default_field: false
+    - name: enrichments.file.elf.sections.physical_size
+      level: extended
+      type: long
+      format: bytes
+      description: ELF Section List physical size.
+      default_field: false
+    - name: enrichments.file.elf.sections.type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: ELF Section List type.
+      default_field: false
+    - name: enrichments.file.elf.sections.virtual_address
+      level: extended
+      type: long
+      format: string
+      description: ELF Section List virtual address.
+      default_field: false
+    - name: enrichments.file.elf.sections.virtual_size
+      level: extended
+      type: long
+      format: string
+      description: ELF Section List virtual size.
+      default_field: false
+    - name: enrichments.file.elf.segments
+      level: extended
+      type: nested
+      description: 'An array containing an object for each segment of the ELF file.
+
+        The keys that should be present in these objects are defined by sub-fields
+        underneath `elf.segments.*`.'
+      default_field: false
+    - name: enrichments.file.elf.segments.sections
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: ELF object segment sections.
+      default_field: false
+    - name: enrichments.file.elf.segments.type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: ELF object segment type.
+      default_field: false
+    - name: enrichments.file.elf.shared_libraries
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of shared libraries used by this ELF object.
+      default_field: false
+    - name: enrichments.file.elf.telfhash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: telfhash symbol hash for ELF file.
+      default_field: false
+    - name: enrichments.file.extension
       level: extended
       type: keyword
       ignore_above: 1024
@@ -7029,28 +8839,28 @@
         the last one should be captured ("gz", not "tar.gz").'
       example: png
       default_field: false
-    - name: indicator.file.gid
+    - name: enrichments.file.gid
       level: extended
       type: keyword
       ignore_above: 1024
       description: Primary group ID (GID) of the file.
       example: '1001'
       default_field: false
-    - name: indicator.file.group
+    - name: enrichments.file.group
       level: extended
       type: keyword
       ignore_above: 1024
       description: Primary group name of the file.
       example: alice
       default_field: false
-    - name: indicator.file.inode
+    - name: enrichments.file.inode
       level: extended
       type: keyword
       ignore_above: 1024
       description: Inode representing the file in the filesystem.
       example: '256383'
       default_field: false
-    - name: indicator.file.mime_type
+    - name: enrichments.file.mime_type
       level: extended
       type: keyword
       ignore_above: 1024
@@ -7059,33 +8869,33 @@
         official types], where possible. When more than one type is applicable, the
         most specific type should be used.
       default_field: false
-    - name: indicator.file.mode
+    - name: enrichments.file.mode
       level: extended
       type: keyword
       ignore_above: 1024
       description: Mode of the file in octal representation.
       example: '0640'
       default_field: false
-    - name: indicator.file.mtime
+    - name: enrichments.file.mtime
       level: extended
       type: date
       description: Last time the file content was modified.
       default_field: false
-    - name: indicator.file.name
+    - name: enrichments.file.name
       level: extended
       type: keyword
       ignore_above: 1024
       description: Name of the file including the extension, without the directory.
       example: example.png
       default_field: false
-    - name: indicator.file.owner
+    - name: enrichments.file.owner
       level: extended
       type: keyword
       ignore_above: 1024
       description: File owner's username.
       example: alice
       default_field: false
-    - name: indicator.file.path
+    - name: enrichments.file.path
       level: extended
       type: wildcard
       multi_fields:
@@ -7096,7 +8906,7 @@
         the drive letter, when appropriate.
       example: /home/alice/example.png
       default_field: false
-    - name: indicator.file.size
+    - name: enrichments.file.size
       level: extended
       type: long
       description: 'File size in bytes.
@@ -7104,7 +8914,7 @@
         Only relevant when `file.type` is "file".'
       example: 16384
       default_field: false
-    - name: indicator.file.target_path
+    - name: enrichments.file.target_path
       level: extended
       type: wildcard
       multi_fields:
@@ -7113,69 +8923,62 @@
         norms: false
       description: Target path for symlinks.
       default_field: false
-    - name: indicator.file.type
+    - name: enrichments.file.type
       level: extended
       type: keyword
       ignore_above: 1024
       description: File type (file, dir, or symlink).
       example: file
       default_field: false
-    - name: indicator.file.uid
+    - name: enrichments.file.uid
       level: extended
       type: keyword
       ignore_above: 1024
       description: The user ID (UID) or security identifier (SID) of the file owner.
       example: '1001'
       default_field: false
-    - name: indicator.first_seen
-      level: extended
-      type: date
-      description: The date and time when intelligence source first reported sighting
-        this indicator.
-      example: '2020-11-05T17:25:47.000Z'
-      default_field: false
-    - name: indicator.geo.city_name
+    - name: enrichments.geo.city_name
       level: core
       type: keyword
       ignore_above: 1024
       description: City name.
       example: Montreal
       default_field: false
-    - name: indicator.geo.continent_code
+    - name: enrichments.geo.continent_code
       level: core
       type: keyword
       ignore_above: 1024
       description: Two-letter code representing continent's name.
       example: NA
       default_field: false
-    - name: indicator.geo.continent_name
+    - name: enrichments.geo.continent_name
       level: core
       type: keyword
       ignore_above: 1024
       description: Name of the continent.
       example: North America
       default_field: false
-    - name: indicator.geo.country_iso_code
+    - name: enrichments.geo.country_iso_code
       level: core
       type: keyword
       ignore_above: 1024
       description: Country ISO code.
       example: CA
       default_field: false
-    - name: indicator.geo.country_name
+    - name: enrichments.geo.country_name
       level: core
       type: keyword
       ignore_above: 1024
       description: Country name.
       example: Canada
       default_field: false
-    - name: indicator.geo.location
+    - name: enrichments.geo.location
       level: core
       type: geo_point
       description: Longitude and latitude.
       example: '{ "lon": -73.614830, "lat": 45.505918 }'
       default_field: false
-    - name: indicator.geo.name
+    - name: enrichments.geo.name
       level: extended
       type: wildcard
       description: 'User-defined description of a location, at the level of granularity
@@ -7187,7 +8990,7 @@
         Not typically used in automated geolocation.'
       example: boston-dc
       default_field: false
-    - name: indicator.geo.postal_code
+    - name: enrichments.geo.postal_code
       level: core
       type: keyword
       ignore_above: 1024
@@ -7197,56 +9000,808 @@
         and will vary widely from country to country.'
       example: 94040
       default_field: false
-    - name: indicator.geo.region_iso_code
+    - name: enrichments.geo.region_iso_code
       level: core
       type: keyword
       ignore_above: 1024
       description: Region ISO code.
       example: CA-QC
       default_field: false
-    - name: indicator.geo.region_name
+    - name: enrichments.geo.region_name
       level: core
       type: keyword
       ignore_above: 1024
       description: Region name.
       example: Quebec
       default_field: false
-    - name: indicator.geo.timezone
+    - name: enrichments.geo.timezone
       level: core
       type: keyword
       ignore_above: 1024
       description: The time zone of the location, such as IANA time zone name.
       example: America/Argentina/Buenos_Aires
       default_field: false
-    - name: indicator.hash.md5
+    - name: enrichments.hash.md5
       level: extended
       type: keyword
       ignore_above: 1024
       description: MD5 hash.
       default_field: false
-    - name: indicator.hash.sha1
+    - name: enrichments.hash.sha1
       level: extended
       type: keyword
       ignore_above: 1024
       description: SHA1 hash.
       default_field: false
-    - name: indicator.hash.sha256
+    - name: enrichments.hash.sha256
       level: extended
       type: keyword
       ignore_above: 1024
       description: SHA256 hash.
       default_field: false
-    - name: indicator.hash.sha512
+    - name: enrichments.hash.sha512
       level: extended
       type: keyword
       ignore_above: 1024
       description: SHA512 hash.
       default_field: false
-    - name: indicator.hash.ssdeep
+    - name: enrichments.hash.ssdeep
       level: extended
       type: keyword
       ignore_above: 1024
       description: SSDEEP hash.
+      default_field: false
+    - name: enrichments.matched.atomic
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifies the atomic indicator value that matched a local environment
+        endpoint or network event.
+      example: bad-domain.com
+      default_field: false
+    - name: enrichments.matched.field
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifies the field of the atomic indicator that matched a local
+        environment endpoint or network event.
+      example: file.hash.sha256
+      default_field: false
+    - name: enrichments.matched.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifies the _id of the indicator document enriching the event.
+      example: ff93aee5-86a1-4a61-b0e6-0cdc313d01b5
+      default_field: false
+    - name: enrichments.matched.index
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifies the _index of the indicator document enriching the event.
+      example: filebeat-8.0.0-2021.05.23-000011
+      default_field: false
+    - name: enrichments.matched.type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifies the type of match that caused the event to be enriched
+        with the given indicator
+      example: indicator_match_rule
+      default_field: false
+    - name: enrichments.pe.architecture
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: CPU architecture target for the file.
+      example: x64
+      default_field: false
+    - name: enrichments.pe.authentihash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Authentihash of the PE file.
+      example: ac9555d914bbb112ecc5f15bb9887ca8371f493ab0941344e976bb8410c8aa78
+      default_field: false
+    - name: enrichments.pe.company
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Internal company name of the file, provided at compile-time.
+      example: Microsoft Corporation
+      default_field: false
+    - name: enrichments.pe.compile_timestamp
+      level: extended
+      type: date
+      description: Compile timestamp of the PE file.
+      example: '2020-11-05T17:25:47.000Z'
+      default_field: false
+    - name: enrichments.pe.compiler.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the compiler
+      example: Clang
+      default_field: false
+    - name: enrichments.pe.compiler.version
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Version of the compiler.
+      example: 11.0.0
+      default_field: false
+    - name: enrichments.pe.creation_date
+      level: extended
+      type: date
+      description: Extracted when possible from the file's metadata. Indicates when
+        it was built or compiled. It can also be faked by malware creators.
+      example: '2020-11-05T17:25:47.000Z'
+      default_field: false
+    - name: enrichments.pe.debug
+      level: extended
+      type: nested
+      description: 'An array containing an object for each debug entry, if present.
+
+        The expected fields for this nested object fall under the `debug.` prefix.'
+      default_field: false
+    - name: enrichments.pe.debug.offset
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Debug offset information.
+      example: 1296336
+      default_field: false
+    - name: enrichments.pe.debug.size
+      level: extended
+      type: long
+      format: bytes
+      description: Size of the debug information.
+      example: 816
+      default_field: false
+    - name: enrichments.pe.debug.timestamp
+      level: extended
+      type: date
+      description: Timestamp of the debug information.
+      example: '2020-11-05T17:25:47.000Z'
+      default_field: false
+    - name: enrichments.pe.debug.type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Information type generated by the debug options.
+      example: IMAGE_DEBUG_TYPE_POGO
+      default_field: false
+    - name: enrichments.pe.description
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Internal description of the file, provided at compile-time.
+      example: Paint
+      default_field: false
+    - name: enrichments.pe.entry_point
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Relative byte offset to the base of the PE file.
+      example: 25856
+      default_field: false
+    - name: enrichments.pe.exports
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of symbols exported by PE
+      example: '["DllInstall", "DllRegisterServer", "DllUnregisterServer"]'
+      default_field: false
+    - name: enrichments.pe.file_version
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Internal version of the file, provided at compile-time.
+      example: 6.3.9600.17415
+      default_field: false
+    - name: enrichments.pe.icon.hash.dhash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Difference Hash (dhash) to find files with a visually similar icon
+        or thumbnail.
+      example: b806e17c8e330d82
+      default_field: false
+    - name: enrichments.pe.imphash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'A hash of the imports in a PE file. An imphash -- or import hash
+        -- can be used to fingerprint binaries even after recompilation or other code-level
+        transformations have occurred, which would change more traditional hash values.
+
+        Learn more at https://www.fireeye.com/blog/threat-research/2014/01/tracking-malware-import-hashing.html.'
+      example: 0c6803c4e922103c4dca5963aad36ddf
+      default_field: false
+    - name: enrichments.pe.imports
+      level: extended
+      type: flattened
+      description: List of all imported functions
+      example: '{ "library_name" : "mscoree.dll", "imported_functions" : "GetFileVersionInfoSizeA"
+        }'
+      default_field: false
+    - name: enrichments.pe.machine_type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Machine type of the PE file.
+      example: Intel 386 or later, and compatibles
+      default_field: false
+    - name: enrichments.pe.original_file_name
+      level: extended
+      type: wildcard
+      description: Internal name of the file, provided at compile-time.
+      example: MSPAINT.EXE
+      default_field: false
+    - name: enrichments.pe.packers
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of packers and tools used.
+      example: '["ASPack v2.12", ".NET executable"]'
+      default_field: false
+    - name: enrichments.pe.product
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Internal product name of the file, provided at compile-time.
+      example: "Microsoft\xAE Windows\xAE Operating System"
+      default_field: false
+    - name: enrichments.pe.resources
+      level: extended
+      type: nested
+      description: 'An array containing an object for each PE resource, if present.
+
+        The expected fields for this nested object fall under the `resources.` prefix.'
+      default_field: false
+    - name: enrichments.pe.resources.chi2
+      level: extended
+      type: long
+      description: Chi-square probability distribution.
+      example: -1
+      default_field: false
+    - name: enrichments.pe.resources.entropy
+      level: extended
+      type: long
+      description: Measurement of entropy randomness in the resources section.
+      example: 0, 1
+      default_field: false
+    - name: enrichments.pe.resources.filetype
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: File type of the resources section.
+      example: Data
+      default_field: false
+    - name: enrichments.pe.resources.language
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Language identification.
+      example: CHINESE SIMPLIFIED
+      default_field: false
+    - name: enrichments.pe.resources.sha256
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SHA256 hash of resources section.
+      example: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      default_field: false
+    - name: enrichments.pe.resources.type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Digest of resource types.
+      example: '["RT_VERSION", "RT_MANIFEST"]'
+      default_field: false
+    - name: enrichments.pe.rich_header.hash.md5
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: MD5 hash of the header for the PE file.
+      example: 5aa1aa0f2b4be70397a1e9e2b87627cd
+      default_field: false
+    - name: enrichments.pe.sections
+      level: extended
+      type: nested
+      description: Data about sections of compiled binary PE
+      default_field: false
+    - name: enrichments.pe.sections.chi2
+      level: extended
+      type: long
+      description: Chi-square probability distribution.
+      example: 3027194
+      default_field: false
+    - name: enrichments.pe.sections.entropy
+      level: extended
+      type: float
+      description: Measurement of entropy randomness in the file.
+      example: 6.24
+      default_field: false
+    - name: enrichments.pe.sections.flags
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Section flags of the file.
+      example: rx
+      default_field: false
+    - name: enrichments.pe.sections.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Section names of the file.
+      example: .text, .data
+      default_field: false
+    - name: enrichments.pe.sections.raw_size
+      level: extended
+      type: long
+      format: bytes
+      description: Size of the section or the dize of the initialized data on disk.
+      example: 198144
+      default_field: false
+    - name: enrichments.pe.sections.virtual_address
+      level: extended
+      type: long
+      format: bytes
+      description: Virtual address available to the file.
+      example: 8192
+      default_field: false
+    - name: enrichments.registry.data.bytes
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Original bytes written with base64 encoding.
+
+        For Windows registry operations, such as SetValueEx and RegQueryValueEx, this
+        corresponds to the data pointed by `lp_data`. This is optional but provides
+        better recoverability and should be populated for REG_BINARY encoded values.'
+      example: ZQBuAC0AVQBTAAAAZQBuAAAAAAA=
+      default_field: false
+    - name: enrichments.registry.data.strings
+      level: core
+      type: wildcard
+      description: 'Content when writing string types.
+
+        Populated as an array when writing string data to the registry. For single
+        string registry types (REG_SZ, REG_EXPAND_SZ), this should be an array with
+        one string. For sequences of string with REG_MULTI_SZ, this array will be
+        variable length. For numeric data, such as REG_DWORD and REG_QWORD, this should
+        be populated with the decimal representation (e.g `"1"`).'
+      example: '["C:\rta\red_ttp\bin\myapp.exe"]'
+      default_field: false
+    - name: enrichments.registry.data.type
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: Standard registry type for encoding contents
+      example: REG_SZ
+      default_field: false
+    - name: enrichments.registry.hive
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: Abbreviated name for the hive.
+      example: HKLM
+      default_field: false
+    - name: enrichments.registry.key
+      level: core
+      type: wildcard
+      description: Hive-relative path of keys.
+      example: SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\winword.exe
+      default_field: false
+    - name: enrichments.registry.path
+      level: core
+      type: wildcard
+      description: Full path, including hive, key and value
+      example: HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution
+        Options\winword.exe\Debugger
+      default_field: false
+    - name: enrichments.registry.value
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: Name of the value written.
+      example: Debugger
+      default_field: false
+    - name: enrichments.url.domain
+      level: extended
+      type: wildcard
+      description: 'Domain of the url, such as "www.elastic.co".
+
+        In some cases a URL may refer to an IP and/or port directly, without a domain
+        name. In this case, the IP address would go to the `domain` field.
+
+        If the URL contains a literal IPv6 address enclosed by `[` and `]` (IETF RFC
+        2732), the `[` and `]` characters should also be captured in the `domain`
+        field.'
+      example: www.elastic.co
+      default_field: false
+    - name: enrichments.url.extension
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The field contains the file extension from the original request
+        url, excluding the leading dot.
+
+        The file extension is only set if it exists, as not every url has a file extension.
+
+        The leading period must not be included. For example, the value must be "png",
+        not ".png".
+
+        Note that when the file name has multiple extensions (example.tar.gz), only
+        the last one should be captured ("gz", not "tar.gz").'
+      example: png
+      default_field: false
+    - name: enrichments.url.fragment
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Portion of the url after the `#`, such as "top".
+
+        The `#` is not part of the fragment.'
+      default_field: false
+    - name: enrichments.url.full
+      level: extended
+      type: wildcard
+      multi_fields:
+      - name: text
+        type: text
+        norms: false
+      description: If full URLs are important to your use case, they should be stored
+        in `url.full`, whether this field is reconstructed or present in the event
+        source.
+      example: https://www.elastic.co:443/search?q=elasticsearch#top
+      default_field: false
+    - name: enrichments.url.original
+      level: extended
+      type: wildcard
+      multi_fields:
+      - name: text
+        type: text
+        norms: false
+      description: 'Unmodified original url as seen in the event source.
+
+        Note that in network monitoring, the observed URL may be a full URL, whereas
+        in access logs, the URL is often just represented as a path.
+
+        This field is meant to represent the URL as it was observed, complete or not.'
+      example: https://www.elastic.co:443/search?q=elasticsearch#top or /search?q=elasticsearch
+      default_field: false
+    - name: enrichments.url.password
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Password of the request.
+      default_field: false
+    - name: enrichments.url.path
+      level: extended
+      type: wildcard
+      description: Path of the request, such as "/search".
+      default_field: false
+    - name: enrichments.url.port
+      level: extended
+      type: long
+      format: string
+      description: Port of the request, such as 443.
+      example: 443
+      default_field: false
+    - name: enrichments.url.query
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The query field describes the query string of the request, such
+        as "q=elasticsearch".
+
+        The `?` is excluded from the query string. If a URL contains no `?`, there
+        is no query field. If there is a `?` but no query, the query field exists
+        with an empty string. The `exists` query can be used to differentiate between
+        the two cases.'
+      default_field: false
+    - name: enrichments.url.registered_domain
+      level: extended
+      type: wildcard
+      description: 'The highest registered url domain, stripped of the subdomain.
+
+        For example, the registered domain for "foo.example.com" is "example.com".
+
+        This value can be determined precisely with a list like the public suffix
+        list (http://publicsuffix.org). Trying to approximate this by simply taking
+        the last two labels will not work well for TLDs such as "co.uk".'
+      example: example.com
+      default_field: false
+    - name: enrichments.url.scheme
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Scheme of the request, such as "https".
+
+        Note: The `:` is not part of the scheme.'
+      example: https
+      default_field: false
+    - name: enrichments.url.subdomain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The subdomain portion of a fully qualified domain name includes
+        all of the names except the host name under the registered_domain.  In a partially
+        qualified domain, or if the the qualification level of the full name cannot
+        be determined, subdomain contains all of the names below the registered domain.
+
+        For example the subdomain portion of "www.east.mydomain.co.uk" is "east".
+        If the domain has multiple levels of subdomain, such as "sub2.sub1.example.com",
+        the subdomain field should contain "sub2.sub1", with no trailing period.'
+      example: east
+      default_field: false
+    - name: enrichments.url.top_level_domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The effective top level domain (eTLD), also known as the domain
+        suffix, is the last part of the domain name. For example, the top level domain
+        for example.com is "com".
+
+        This value can be determined precisely with a list like the public suffix
+        list (http://publicsuffix.org). Trying to approximate this by simply taking
+        the last label will not work well for effective TLDs such as "co.uk".'
+      example: co.uk
+      default_field: false
+    - name: enrichments.url.username
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Username of the request.
+      default_field: false
+    - name: enrichments.x509.alternative_names
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of subject alternative names (SAN). Name types vary by certificate
+        authority and certificate type but commonly contain IP addresses, DNS names
+        (and wildcards), and email addresses.
+      example: '*.elastic.co'
+      default_field: false
+    - name: enrichments.x509.issuer.common_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of common name (CN) of issuing certificate authority.
+      example: Example SHA2 High Assurance Server CA
+      default_field: false
+    - name: enrichments.x509.issuer.country
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of country (C) codes
+      example: US
+      default_field: false
+    - name: enrichments.x509.issuer.distinguished_name
+      level: extended
+      type: wildcard
+      description: Distinguished name (DN) of issuing certificate authority.
+      example: C=US, O=Example Inc, OU=www.example.com, CN=Example SHA2 High Assurance
+        Server CA
+      default_field: false
+    - name: enrichments.x509.issuer.locality
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of locality names (L)
+      example: Mountain View
+      default_field: false
+    - name: enrichments.x509.issuer.organization
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of organizations (O) of issuing certificate authority.
+      example: Example Inc
+      default_field: false
+    - name: enrichments.x509.issuer.organizational_unit
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of organizational units (OU) of issuing certificate authority.
+      example: www.example.com
+      default_field: false
+    - name: enrichments.x509.issuer.state_or_province
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of state or province names (ST, S, or P)
+      example: California
+      default_field: false
+    - name: enrichments.x509.not_after
+      level: extended
+      type: date
+      description: Time at which the certificate is no longer considered valid.
+      example: 2020-07-16 03:15:39+00:00
+      default_field: false
+    - name: enrichments.x509.not_before
+      level: extended
+      type: date
+      description: Time at which the certificate is first considered valid.
+      example: 2019-08-16 01:40:25+00:00
+      default_field: false
+    - name: enrichments.x509.public_key_algorithm
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Algorithm used to generate the public key.
+      example: RSA
+      default_field: false
+    - name: enrichments.x509.public_key_curve
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The curve used by the elliptic curve public key algorithm. This
+        is algorithm specific.
+      example: nistp521
+      default_field: false
+    - name: enrichments.x509.public_key_exponent
+      level: extended
+      type: long
+      description: Exponent used to derive the public key. This is algorithm specific.
+      example: 65537
+      index: false
+      doc_values: false
+      default_field: false
+    - name: enrichments.x509.public_key_size
+      level: extended
+      type: long
+      description: The size of the public key space in bits.
+      example: 2048
+      default_field: false
+    - name: enrichments.x509.serial_number
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Unique serial number issued by the certificate authority. For consistency,
+        if this value is alphanumeric, it should be formatted without colons and uppercase
+        characters.
+      example: 55FBB9C7DEBF09809D12CCAA
+      default_field: false
+    - name: enrichments.x509.signature_algorithm
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifier for certificate signature algorithm. We recommend using
+        names found in Go Lang Crypto library. See https://github.com/golang/go/blob/go1.14/src/crypto/x509/x509.go#L337-L353.
+      example: SHA256-RSA
+      default_field: false
+    - name: enrichments.x509.subject.common_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of common names (CN) of subject.
+      example: shared.global.example.net
+      default_field: false
+    - name: enrichments.x509.subject.country
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of country (C) code
+      example: US
+      default_field: false
+    - name: enrichments.x509.subject.distinguished_name
+      level: extended
+      type: wildcard
+      description: Distinguished name (DN) of the certificate subject entity.
+      example: C=US, ST=California, L=San Francisco, O=Example, Inc., CN=shared.global.example.net
+      default_field: false
+    - name: enrichments.x509.subject.locality
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of locality names (L)
+      example: San Francisco
+      default_field: false
+    - name: enrichments.x509.subject.organization
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of organizations (O) of subject.
+      example: Example, Inc.
+      default_field: false
+    - name: enrichments.x509.subject.organizational_unit
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of organizational units (OU) of subject.
+      default_field: false
+    - name: enrichments.x509.subject.state_or_province
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of state or province names (ST, S, or P)
+      example: California
+      default_field: false
+    - name: enrichments.x509.version_number
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Version of x509 format.
+      example: 3
+      default_field: false
+    - name: framework
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the threat framework used to further categorize and classify
+        the tactic and technique of the reported threat. Framework classification
+        can be provided by detecting systems, evaluated at ingest time, or retrospectively
+        tagged to events.
+      example: MITRE ATT&CK
+    - name: group.alias
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: "The alias(es) of the group for a set of related intrusion activity\
+        \ that are tracked by a common name in the security community. While not required,\
+        \ you can use a MITRE ATT&CK\xAE group alias(es)."
+      example: '[ "Magecart Group 6" ]'
+      default_field: false
+    - name: group.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: "The id of the group for a set of related intrusion activity that\
+        \ are tracked by a common name in the security community. While not required,\
+        \ you can use a MITRE ATT&CK\xAE group id."
+      example: G0037
+      default_field: false
+    - name: group.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: "The name of the group for a set of related intrusion activity\
+        \ that are tracked by a common name in the security community. While not required,\
+        \ you can use a MITRE ATT&CK\xAE group name."
+      example: FIN6
+      default_field: false
+    - name: group.reference
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: "The reference URL of the group for a set of related intrusion\
+        \ activity that are tracked by a common name in the security community. While\
+        \ not required, you can use a MITRE ATT&CK\xAE group reference URL."
+      example: https://attack.mitre.org/groups/G0037/
+      default_field: false
+    - name: indicator.confidence
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: "Identifies the confidence rating assigned by the provider using\
+        \ STIX confidence scales.\nRecommended values:\n  * Not Specified, None, Low,\
+        \ Medium, High\n  * 0-10\n  * Admirality Scale (1-6)\n  * DNI Scale (5-95)\n\
+        \  * WEP Scale (Impossible - Certain)"
+      example: High
+      default_field: false
+    - name: indicator.description
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Describes the type of action conducted by the threat.
+      example: IP x.x.x.x was observed delivering the Angler EK.
+      default_field: false
+    - name: indicator.email.address
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifies a threat indicator as an email address (irrespective
+        of direction).
+      example: phish@example.com
+      default_field: false
+    - name: indicator.first_seen
+      level: extended
+      type: date
+      description: The date and time when intelligence source first reported sighting
+        this indicator.
+      example: '2020-11-05T17:25:47.000Z'
       default_field: false
     - name: indicator.ip
       level: extended
@@ -7266,302 +9821,16 @@
       level: extended
       type: keyword
       ignore_above: 1024
-      description: "Traffic Light Protocol sharing markings.\nExpected values are:\n\
-        \  * White\n  * Green\n  * Amber\n  * Red"
-      example: White
+      description: "Traffic Light Protocol sharing markings.\nRecommended values are:\n\
+        \  * WHITE\n  * GREEN\n  * AMBER\n  * RED"
+      example: WHITE
       default_field: false
-    - name: indicator.matched.atomic
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Identifies the atomic indicator that matched a local environment
-        endpoint or network event.
-      example: example.com
-      default_field: false
-    - name: indicator.matched.field
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Identifies the field of the atomic indicator that matched a local
-        environment endpoint or network event.
-      example: file.hash.sha256
-      default_field: false
-    - name: indicator.matched.type
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Identifies the type of the atomic indicator that matched a local
-        environment endpoint or network event.
-      example: domain-name
-      default_field: false
-    - name: indicator.module
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Identifies the name of specific module this data is coming from.
-      example: threatintel
-      default_field: false
-    - name: indicator.pe.architecture
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: CPU architecture target for the file.
-      example: x64
-      default_field: false
-    - name: indicator.pe.authentihash
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Authentihash of the PE file.
-      example: ac9555d914bbb112ecc5f15bb9887ca8371f493ab0941344e976bb8410c8aa78
-      default_field: false
-    - name: indicator.pe.company
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Internal company name of the file, provided at compile-time.
-      example: Microsoft Corporation
-      default_field: false
-    - name: indicator.pe.compile_timestamp
+    - name: indicator.modified_at
       level: extended
       type: date
-      description: Compile timestamp of the PE file.
+      description: The date and time when intelligence source last modified information
+        for this indicator.
       example: '2020-11-05T17:25:47.000Z'
-      default_field: false
-    - name: indicator.pe.compiler.name
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Name of the compiler
-      example: Clang
-      default_field: false
-    - name: indicator.pe.compiler.version
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Version of the compiler.
-      example: 11.0.0
-      default_field: false
-    - name: indicator.pe.creation_date
-      level: extended
-      type: date
-      description: Extracted when possible from the file's metadata. Indicates when
-        it was built or compiled. It can also be faked by malware creators.
-      example: '2020-11-05T17:25:47.000Z'
-      default_field: false
-    - name: indicator.pe.debug
-      level: extended
-      type: nested
-      description: 'An array containing an object for each debug entry, if present.
-
-        The expected fields for this nested object fall under the `debug.` prefix.'
-      default_field: false
-    - name: indicator.pe.debug.offset
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Debug offset information.
-      example: 1296336
-      default_field: false
-    - name: indicator.pe.debug.size
-      level: extended
-      type: long
-      format: bytes
-      description: Size of the debug information.
-      example: 816
-      default_field: false
-    - name: indicator.pe.debug.timestamp
-      level: extended
-      type: date
-      description: Timestamp of the debug information.
-      example: '2020-11-05T17:25:47.000Z'
-      default_field: false
-    - name: indicator.pe.debug.type
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Information type generated by the debug options.
-      example: IMAGE_DEBUG_TYPE_POGO
-      default_field: false
-    - name: indicator.pe.description
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Internal description of the file, provided at compile-time.
-      example: Paint
-      default_field: false
-    - name: indicator.pe.entry_point
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Relative byte offset to the base of the PE file.
-      example: 25856
-      default_field: false
-    - name: indicator.pe.exports
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: List of symbols exported by PE
-      example: '["DllInstall", "DllRegisterServer", "DllUnregisterServer"]'
-      default_field: false
-    - name: indicator.pe.file_version
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Internal version of the file, provided at compile-time.
-      example: 6.3.9600.17415
-      default_field: false
-    - name: indicator.pe.icon.hash.dhash
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Difference Hash (dhash) to find files with a visually similar icon
-        or thumbnail.
-      example: b806e17c8e330d82
-      default_field: false
-    - name: indicator.pe.imphash
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: 'A hash of the imports in a PE file. An imphash -- or import hash
-        -- can be used to fingerprint binaries even after recompilation or other code-level
-        transformations have occurred, which would change more traditional hash values.
-
-        Learn more at https://www.fireeye.com/blog/threat-research/2014/01/tracking-malware-import-hashing.html.'
-      example: 0c6803c4e922103c4dca5963aad36ddf
-      default_field: false
-    - name: indicator.pe.imports
-      level: extended
-      type: flattened
-      description: List of all imported functions
-      example: '{ "library_name" : "mscoree.dll", "imported_functions" : "GetFileVersionInfoSizeA"
-        }'
-      default_field: false
-    - name: indicator.pe.machine_type
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Machine type of the PE file.
-      example: Intel 386 or later, and compatibles
-      default_field: false
-    - name: indicator.pe.original_file_name
-      level: extended
-      type: wildcard
-      description: Internal name of the file, provided at compile-time.
-      example: MSPAINT.EXE
-      default_field: false
-    - name: indicator.pe.packers
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: List of packers and tools used.
-      example: '["ASPack v2.12", ".NET executable"]'
-      default_field: false
-    - name: indicator.pe.product
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Internal product name of the file, provided at compile-time.
-      example: "Microsoft\xAE Windows\xAE Operating System"
-      default_field: false
-    - name: indicator.pe.resources
-      level: extended
-      type: nested
-      description: 'An array containing an object for each PE resource, if present.
-
-        The expected fields for this nested object fall under the `resources.` prefix.'
-      default_field: false
-    - name: indicator.pe.resources.chi2
-      level: extended
-      type: long
-      description: Chi-square probability distribution.
-      example: -1
-      default_field: false
-    - name: indicator.pe.resources.entropy
-      level: extended
-      type: long
-      description: Measurement of entropy randomness in the resources section.
-      example: 0, 1
-      default_field: false
-    - name: indicator.pe.resources.filetype
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: File type of the resources section.
-      example: Data
-      default_field: false
-    - name: indicator.pe.resources.language
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Language identification.
-      example: CHINESE SIMPLIFIED
-      default_field: false
-    - name: indicator.pe.resources.sha256
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: SHA256 hash of resources section.
-      example: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-      default_field: false
-    - name: indicator.pe.resources.type
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Digest of resource types.
-      example: '["RT_VERSION", "RT_MANIFEST"]'
-      default_field: false
-    - name: indicator.pe.rich_header.hash.md5
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: MD5 hash of the header for the PE file.
-      example: 5aa1aa0f2b4be70397a1e9e2b87627cd
-      default_field: false
-    - name: indicator.pe.sections
-      level: extended
-      type: nested
-      description: Data about sections of compiled binary PE
-      default_field: false
-    - name: indicator.pe.sections.chi2
-      level: extended
-      type: long
-      description: Chi-square probability distribution.
-      example: 3027194
-      default_field: false
-    - name: indicator.pe.sections.entropy
-      level: extended
-      type: float
-      description: Measurement of entropy randomness in the file.
-      example: 6.24
-      default_field: false
-    - name: indicator.pe.sections.flags
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Section flags of the file.
-      example: rx
-      default_field: false
-    - name: indicator.pe.sections.name
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Section names of the file.
-      example: .text, .data
-      default_field: false
-    - name: indicator.pe.sections.raw_size
-      level: extended
-      type: long
-      format: bytes
-      description: Size of the section or the dize of the initialized data on disk.
-      example: 198144
-      default_field: false
-    - name: indicator.pe.sections.virtual_address
-      level: extended
-      type: long
-      format: bytes
-      description: Virtual address available to the file.
-      example: 8192
       default_field: false
     - name: indicator.port
       level: extended
@@ -7569,70 +9838,6 @@
       description: Identifies a threat indicator as a port number (irrespective of
         direction).
       example: 443
-      default_field: false
-    - name: indicator.provider
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Identifies the name of the intelligence provider.
-      example: VirusTotal
-      default_field: false
-    - name: indicator.registry.data.bytes
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: 'Original bytes written with base64 encoding.
-
-        For Windows registry operations, such as SetValueEx and RegQueryValueEx, this
-        corresponds to the data pointed by `lp_data`. This is optional but provides
-        better recoverability and should be populated for REG_BINARY encoded values.'
-      example: ZQBuAC0AVQBTAAAAZQBuAAAAAAA=
-      default_field: false
-    - name: indicator.registry.data.strings
-      level: core
-      type: wildcard
-      description: 'Content when writing string types.
-
-        Populated as an array when writing string data to the registry. For single
-        string registry types (REG_SZ, REG_EXPAND_SZ), this should be an array with
-        one string. For sequences of string with REG_MULTI_SZ, this array will be
-        variable length. For numeric data, such as REG_DWORD and REG_QWORD, this should
-        be populated with the decimal representation (e.g `"1"`).'
-      example: '["C:\rta\red_ttp\bin\myapp.exe"]'
-      default_field: false
-    - name: indicator.registry.data.type
-      level: core
-      type: keyword
-      ignore_above: 1024
-      description: Standard registry type for encoding contents
-      example: REG_SZ
-      default_field: false
-    - name: indicator.registry.hive
-      level: core
-      type: keyword
-      ignore_above: 1024
-      description: Abbreviated name for the hive.
-      example: HKLM
-      default_field: false
-    - name: indicator.registry.key
-      level: core
-      type: wildcard
-      description: Hive-relative path of keys.
-      example: SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\winword.exe
-      default_field: false
-    - name: indicator.registry.path
-      level: core
-      type: wildcard
-      description: Full path, including hive, key and value
-      example: HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution
-        Options\winword.exe\Debugger
-      default_field: false
-    - name: indicator.registry.value
-      level: core
-      type: keyword
-      ignore_above: 1024
-      description: Name of the value written.
-      example: Debugger
       default_field: false
     - name: indicator.scanner_stats
       level: extended
@@ -7652,11 +9857,58 @@
       type: keyword
       ignore_above: 1024
       description: "Type of indicator as represented by Cyber Observable in STIX 2.0.\n\
-        Expected values\n  * autonomous-system\n  * artifact\n  * directory\n  * domain-name\n\
-        \  * email-addr\n  * file\n  * ipv4-addr\n  * ipv6-addr\n  * mac-addr\n  *\
-        \ mutex\n  * process\n  * software\n  * url\n  * user-account\n  * windows-registry-key\n\
-        \  * x-509-certificate"
+        Recommended values:\n  * autonomous-system\n  * artifact\n  * directory\n\
+        \  * domain-name\n  * email-addr\n  * file\n  * ipv4-addr\n  * ipv6-addr\n\
+        \  * mac-addr\n  * mutex\n  * port\n  * process\n  * software\n  * url\n \
+        \ * user-account\n  * windows-registry-key\n  * x509-certificate"
       example: ipv4-addr
+      default_field: false
+    - name: software.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: "The id of the software used by this threat to conduct behavior\
+        \ commonly modeled using MITRE ATT&CK\xAE. While not required, you can use\
+        \ a MITRE ATT&CK\xAE software id."
+      example: S0552
+      default_field: false
+    - name: software.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: "The name of the software used by this threat to conduct behavior\
+        \ commonly modeled using MITRE ATT&CK\xAE. While not required, you can use\
+        \ a MITRE ATT&CK\xAE software name."
+      example: AdFind
+      default_field: false
+    - name: software.platforms
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: "The platforms of the software used by this threat to conduct behavior\
+        \ commonly modeled using MITRE ATT&CK\xAE. While not required, you can use\
+        \ a MITRE ATT&CK\xAE software platforms.\nRecommended Values:\n  * AWS\n \
+        \ * Azure\n  * Azure AD\n  * GCP\n  * Linux\n  * macOS\n  * Network\n  * Office\
+        \ 365\n  * SaaS\n  * Windows"
+      example: '[ "Windows" ]'
+      default_field: false
+    - name: software.reference
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: "The reference URL of the software used by this threat to conduct\
+        \ behavior commonly modeled using MITRE ATT&CK\xAE. While not required, you\
+        \ can use a MITRE ATT&CK\xAE software reference URL."
+      example: https://attack.mitre.org/software/S0552/
+      default_field: false
+    - name: software.type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: "The type of software used by this threat to conduct behavior commonly\
+        \ modeled using MITRE ATT&CK\xAE. While not required, you can use a MITRE\
+        \ ATT&CK\xAE software type.\nRecommended values\n  * Malware\n  * Tool"
+      example: Tool
       default_field: false
     - name: tactic.id
       level: extended
@@ -7938,6 +10190,7 @@
       description: Exponent used to derive the public key. This is algorithm specific.
       example: 65537
       index: false
+      doc_values: false
       default_field: false
     - name: client.x509.public_key_size
       level: extended
@@ -8215,6 +10468,7 @@
       description: Exponent used to derive the public key. This is algorithm specific.
       example: 65537
       index: false
+      doc_values: false
       default_field: false
     - name: server.x509.public_key_size
       level: extended
@@ -9153,6 +11407,7 @@
       description: Exponent used to derive the public key. This is algorithm specific.
       example: 65537
       index: false
+      doc_values: false
       default_field: false
     - name: public_key_size
       level: extended

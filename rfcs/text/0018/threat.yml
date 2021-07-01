@@ -24,11 +24,11 @@
   - name: software.platforms
     level: extended
     type: keyword
-    short: Platform of the software.
+    short: platforms of the software.
     description: >
-      The platform of the software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®. While not required, you can use a MITRE ATT&CK® software platform.
+      The platforms of the software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®. While not required, you can use a MITRE ATT&CK® software platforms.
 
-      Expected values
+      Recommended Values:
         * AWS
         * Azure
         * Azure AD
@@ -37,7 +37,6 @@
         * macOS
         * Network
         * Office 365
-        * PRE
         * SaaS
         * Windows
 
@@ -59,11 +58,22 @@
     description: >
       The type of software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®. While not required, you can use a MITRE ATT&CK® software type.
 
-      Expected values
+      Recommended values
         * Malware
         * Tool
 
     example: "Tool"
+
+  - name: group.alias
+    level: extended
+    type: keyword
+    short: Alias of the group.
+    description: >
+      The alias(es) of the group for a set of related intrusion activity that are tracked by a common name in the security community. While not required, you can use a MITRE ATT&CK® group alias(es).
+
+    example: '[ "Magecart Group 6" ]'
+    normalize:
+      - array
 
   - name: group.id
     level: extended

@@ -278,7 +278,19 @@ example: `Google LLC`
 [discrete]
 ==== Field Reuse
 
-The `as` fields are expected to be nested at: `client.as`, `destination.as`, `server.as`, `source.as`.
+The `as` fields are expected to be nested at:
+
+
+* `client.as`
+
+* `destination.as`
+
+* `server.as`
+
+* `source.as`
+
+* `threat.enrichments.as`
+
 
 Note also that the `as` fields are not expected to be used directly at the root of the events.
 
@@ -525,24 +537,27 @@ example: `co.uk`
 
 [options="header"]
 |=====
-| Nested fields | Description
+| Location | Field Set | Description
 
 // ===============================================================
 
 
-| <<ecs-as,client.as.*>>
+| `client.as.*`
+| <<ecs-as,as>>
 | Fields describing an Autonomous System (Internet routing prefix).
 
 // ===============================================================
 
 
-| <<ecs-geo,client.geo.*>>
+| `client.geo.*`
+| <<ecs-geo,geo>>
 | Fields describing a location.
 
 // ===============================================================
 
 
-| <<ecs-user,client.user.*>>
+| `client.user.*`
+| <<ecs-user,user>>
 | Fields to describe the user relevant to the event.
 
 // ===============================================================
@@ -604,7 +619,7 @@ example: `elastic-dev`
 [[field-cloud-availability-zone]]
 <<field-cloud-availability-zone, cloud.availability_zone>>
 
-| Availability zone in which this host is running.
+| Availability zone in which this host, resource, or service is located.
 
 type: keyword
 
@@ -720,7 +735,7 @@ example: `aws`
 [[field-cloud-region]]
 <<field-cloud-region, cloud.region>>
 
-| Region in which this host is running.
+| Region in which this host, resource, or service is located.
 
 type: keyword
 
@@ -893,7 +908,15 @@ example: `true`
 [discrete]
 ==== Field Reuse
 
-The `code_signature` fields are expected to be nested at: `dll.code_signature`, `file.code_signature`, `process.code_signature`.
+The `code_signature` fields are expected to be nested at:
+
+
+* `dll.code_signature`
+
+* `file.code_signature`
+
+* `process.code_signature`
+
 
 Note also that the `code_signature` fields are not expected to be used directly at the root of the events.
 
@@ -1010,6 +1033,94 @@ type: keyword
 
 
 example: `docker`
+
+| extended
+
+// ===============================================================
+
+|=====
+
+[[ecs-data_stream]]
+=== Data Stream Fields
+
+The data_stream fields take part in defining the new data stream naming scheme.
+
+In the new data stream naming scheme the value of the data stream fields combine to the name of the actual data stream in the following manner: `{data_stream.type}-{data_stream.dataset}-{data_stream.namespace}`. This means the fields can only contain characters that are valid as part of names of data streams. More details about this can be found in this https://www.elastic.co/blog/an-introduction-to-the-elastic-data-stream-naming-scheme[blog post].
+
+An Elasticsearch data stream consists of one or more backing indices, and a data stream name forms part of the backing indices names. Due to this convention, data streams must also follow index naming restrictions. For example, data stream names cannot include `\`, `/`, `*`, `?`, `"`, `<`, `>`, `|`, ` ` (space character), `,`, or `#`. Please see the Elasticsearch reference for additional https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-create-index.html#indices-create-api-path-params[restrictions].
+
+beta::[ These fields are in beta and are subject to change.]
+
+[discrete]
+==== Data Stream Field Details
+
+[options="header"]
+|=====
+| Field  | Description | Level
+
+// ===============================================================
+
+|
+[[field-data-stream-dataset]]
+<<field-data-stream-dataset, data_stream.dataset>>
+
+| The field can contain anything that makes sense to signify the source of the data.
+
+Examples include `nginx.access`, `prometheus`, `endpoint` etc. For data streams that otherwise fit, but that do not have dataset set we use the value "generic" for the dataset value. `event.dataset` should have the same value as `data_stream.dataset`.
+
+Beyond the Elasticsearch data stream naming criteria noted above, the `dataset` value has additional restrictions:
+
+  * Must not contain `-`
+
+  * No longer than 100 characters
+
+type: constant_keyword
+
+
+
+example: `nginx.access`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-data-stream-namespace]]
+<<field-data-stream-namespace, data_stream.namespace>>
+
+| A user defined namespace. Namespaces are useful to allow grouping of data.
+
+Many users already organize their indices this way, and the data stream naming scheme now provides this best practice as a default. Many users will populate this field with `default`. If no value is used, it falls back to `default`.
+
+Beyond the Elasticsearch index naming criteria noted above, `namespace` value has the additional restrictions:
+
+  * Must not contain `-`
+
+  * No longer than 100 characters
+
+type: constant_keyword
+
+
+
+example: `production`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-data-stream-type]]
+<<field-data-stream-type, data_stream.type>>
+
+| An overarching type for the data stream.
+
+Currently allowed values are "logs" and "metrics". We expect to also add "traces" and "synthetics" in the near future.
+
+type: constant_keyword
+
+
+
+example: `logs`
 
 | extended
 
@@ -1255,24 +1366,27 @@ example: `co.uk`
 
 [options="header"]
 |=====
-| Nested fields | Description
+| Location | Field Set | Description
 
 // ===============================================================
 
 
-| <<ecs-as,destination.as.*>>
+| `destination.as.*`
+| <<ecs-as,as>>
 | Fields describing an Autonomous System (Internet routing prefix).
 
 // ===============================================================
 
 
-| <<ecs-geo,destination.geo.*>>
+| `destination.geo.*`
+| <<ecs-geo,geo>>
 | Fields describing a location.
 
 // ===============================================================
 
 
-| <<ecs-user,destination.user.*>>
+| `destination.user.*`
+| <<ecs-user,user>>
 | Fields to describe the user relevant to the event.
 
 // ===============================================================
@@ -1352,24 +1466,27 @@ example: `C:\Windows\System32\kernel32.dll`
 
 [options="header"]
 |=====
-| Nested fields | Description
+| Location | Field Set | Description
 
 // ===============================================================
 
 
-| <<ecs-code_signature,dll.code_signature.*>>
+| `dll.code_signature.*`
+| <<ecs-code_signature,code_signature>>
 | These fields contain information about binary code signatures.
 
 // ===============================================================
 
 
-| <<ecs-hash,dll.hash.*>>
+| `dll.hash.*`
+| <<ecs-hash,hash>>
 | Hashes, usually file hashes.
 
 // ===============================================================
 
 
-| <<ecs-pe,dll.pe.*>>
+| `dll.pe.*`
+| <<ecs-pe,pe>>
 | These fields contain Windows Portable Executable (PE) metadata.
 
 // ===============================================================
@@ -1752,6 +1869,523 @@ example: `1.0.0`
 
 |=====
 
+[[ecs-elf]]
+=== ELF Header Fields
+
+These fields contain Linux Executable Linkable Format (ELF) metadata.
+
+beta::[ These fields are in beta and are subject to change.]
+
+[discrete]
+==== ELF Header Field Details
+
+[options="header"]
+|=====
+| Field  | Description | Level
+
+// ===============================================================
+
+|
+[[field-elf-architecture]]
+<<field-elf-architecture, elf.architecture>>
+
+| Machine architecture of the ELF file.
+
+type: keyword
+
+
+
+example: `x86-64`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-byte-order]]
+<<field-elf-byte-order, elf.byte_order>>
+
+| Byte sequence of ELF file.
+
+type: keyword
+
+
+
+example: `Little Endian`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-cpu-type]]
+<<field-elf-cpu-type, elf.cpu_type>>
+
+| CPU type of the ELF file.
+
+type: keyword
+
+
+
+example: `Intel`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-creation-date]]
+<<field-elf-creation-date, elf.creation_date>>
+
+| Extracted when possible from the file's metadata. Indicates when it was built or compiled. It can also be faked by malware creators.
+
+type: date
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-exports]]
+<<field-elf-exports, elf.exports>>
+
+| List of exported element names and types.
+
+type: flattened
+
+
+Note: this field should contain an array of values.
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-header-abi-version]]
+<<field-elf-header-abi-version, elf.header.abi_version>>
+
+| Version of the ELF Application Binary Interface (ABI).
+
+type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-header-class]]
+<<field-elf-header-class, elf.header.class>>
+
+| Header class of the ELF file.
+
+type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-header-data]]
+<<field-elf-header-data, elf.header.data>>
+
+| Data table of the ELF header.
+
+type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-header-entrypoint]]
+<<field-elf-header-entrypoint, elf.header.entrypoint>>
+
+| Header entrypoint of the ELF file.
+
+type: long
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-header-object-version]]
+<<field-elf-header-object-version, elf.header.object_version>>
+
+| "0x1" for original ELF files.
+
+type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-header-os-abi]]
+<<field-elf-header-os-abi, elf.header.os_abi>>
+
+| Application Binary Interface (ABI) of the Linux OS.
+
+type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-header-type]]
+<<field-elf-header-type, elf.header.type>>
+
+| Header type of the ELF file.
+
+type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-header-version]]
+<<field-elf-header-version, elf.header.version>>
+
+| Version of the ELF header.
+
+type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-imports]]
+<<field-elf-imports, elf.imports>>
+
+| List of imported element names and types.
+
+type: flattened
+
+
+Note: this field should contain an array of values.
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-sections]]
+<<field-elf-sections, elf.sections>>
+
+| An array containing an object for each section of the ELF file.
+
+The keys that should be present in these objects are defined by sub-fields underneath `elf.sections.*`.
+
+type: nested
+
+
+Note: this field should contain an array of values.
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-sections-chi2]]
+<<field-elf-sections-chi2, elf.sections.chi2>>
+
+| Chi-square probability distribution of the section.
+
+type: long
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-sections-entropy]]
+<<field-elf-sections-entropy, elf.sections.entropy>>
+
+| Shannon entropy calculation from the section.
+
+type: long
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-sections-flags]]
+<<field-elf-sections-flags, elf.sections.flags>>
+
+| ELF Section List flags.
+
+type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-sections-name]]
+<<field-elf-sections-name, elf.sections.name>>
+
+| ELF Section List name.
+
+type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-sections-physical-offset]]
+<<field-elf-sections-physical-offset, elf.sections.physical_offset>>
+
+| ELF Section List offset.
+
+type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-sections-physical-size]]
+<<field-elf-sections-physical-size, elf.sections.physical_size>>
+
+| ELF Section List physical size.
+
+type: long
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-sections-type]]
+<<field-elf-sections-type, elf.sections.type>>
+
+| ELF Section List type.
+
+type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-sections-virtual-address]]
+<<field-elf-sections-virtual-address, elf.sections.virtual_address>>
+
+| ELF Section List virtual address.
+
+type: long
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-sections-virtual-size]]
+<<field-elf-sections-virtual-size, elf.sections.virtual_size>>
+
+| ELF Section List virtual size.
+
+type: long
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-segments]]
+<<field-elf-segments, elf.segments>>
+
+| An array containing an object for each segment of the ELF file.
+
+The keys that should be present in these objects are defined by sub-fields underneath `elf.segments.*`.
+
+type: nested
+
+
+Note: this field should contain an array of values.
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-segments-sections]]
+<<field-elf-segments-sections, elf.segments.sections>>
+
+| ELF object segment sections.
+
+type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-segments-type]]
+<<field-elf-segments-type, elf.segments.type>>
+
+| ELF object segment type.
+
+type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-shared-libraries]]
+<<field-elf-shared-libraries, elf.shared_libraries>>
+
+| List of shared libraries used by this ELF object.
+
+type: keyword
+
+
+Note: this field should contain an array of values.
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-telfhash]]
+<<field-elf-telfhash, elf.telfhash>>
+
+| telfhash symbol hash for ELF file.
+
+type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|=====
+
+[discrete]
+==== Field Reuse
+
+The `elf` fields are expected to be nested at:
+
+
+* `file.elf`
+
+* `process.elf`
+
+
+Note also that the `elf` fields are not expected to be used directly at the root of the events.
+
+
+
+
 [[ecs-error]]
 === Error Fields
 
@@ -1887,6 +2521,36 @@ type: keyword
 example: `user-password-change`
 
 | core
+
+// ===============================================================
+
+|
+[[field-event-agent-id-status]]
+<<field-event-agent-id-status, event.agent_id_status>>
+
+| Agents are normally responsible for populating the `agent.id` field value. If the system receiving events is capable of validating the value based on authentication information for the client then this field can be used to reflect the outcome of that validation.
+
+For example if the agent's connection is authenticated with mTLS and the client cert contains the ID of the agent to which the cert was issued then the `agent.id` value in events can be checked against the certificate. If the values match then `event.agent_id_status: verified` is added to the event, otherwise one of the other allowed values should be used.
+
+If no validation is performed then the field should be omitted.
+
+The allowed values are:
+
+`verified` - The `agent.id` field value matches expected value obtained from auth metadata.
+
+`mismatch` - The `agent.id` field value does not match the expected value obtained from auth metadata.
+
+`missing` - There was no `agent.id` field in the event to validate.
+
+`auth_metadata_missing` - There was no auth metadata or it was missing information about the agent ID.
+
+type: keyword
+
+
+
+example: `verified`
+
+| extended
 
 // ===============================================================
 
@@ -2115,9 +2779,9 @@ example: `apache`
 [[field-event-original]]
 <<field-event-original, event.original>>
 
-| Raw text message of entire event. Used to demonstrate log integrity.
+| Raw text message of entire event. Used to demonstrate log integrity  or where the full log message (before splitting it up in multiple  parts) may be required, e.g. for reindex.
 
-This field is not indexed and doc_values are disabled. It cannot be searched, but it can be retrieved from `_source`. If users wish to override this and index this field, consider using the wildcard data type.
+This field is not indexed and doc_values are disabled. It cannot be searched, but it can be retrieved from `_source`. If users wish to override this and index this field, please see `Field data types` in the `Elasticsearch Reference`.
 
 type: keyword
 
@@ -2369,6 +3033,20 @@ example: `https://mysystem.example.com/alert/5271dedb-f5b0-4218-87f0-4ac4870a38f
 // ===============================================================
 
 |=====
+
+[discrete]
+==== Field Reuse
+
+The `event` fields are expected to be nested at:
+
+
+* `threat.enrichments.event`
+
+
+Note also that the `event` fields may be used directly at the root of the events.
+
+
+
 
 [[ecs-file]]
 === File Fields
@@ -2756,6 +3434,14 @@ example: `1001`
 [discrete]
 ==== Field Reuse
 
+The `file` fields are expected to be nested at:
+
+
+* `threat.enrichments.file`
+
+
+Note also that the `file` fields may be used directly at the root of the events.
+
 
 
 
@@ -2765,30 +3451,42 @@ example: `1001`
 
 [options="header"]
 |=====
-| Nested fields | Description
+| Location | Field Set | Description
 
 // ===============================================================
 
 
-| <<ecs-code_signature,file.code_signature.*>>
+| `file.code_signature.*`
+| <<ecs-code_signature,code_signature>>
 | These fields contain information about binary code signatures.
 
 // ===============================================================
 
 
-| <<ecs-hash,file.hash.*>>
+| `file.elf.*`
+| <<ecs-elf,elf>>| beta:[ This field reuse is beta and subject to change.]
+
+These fields contain Linux Executable Linkable Format (ELF) metadata.
+
+// ===============================================================
+
+
+| `file.hash.*`
+| <<ecs-hash,hash>>
 | Hashes, usually file hashes.
 
 // ===============================================================
 
 
-| <<ecs-pe,file.pe.*>>
+| `file.pe.*`
+| <<ecs-pe,pe>>
 | These fields contain Windows Portable Executable (PE) metadata.
 
 // ===============================================================
 
 
-| <<ecs-x509,file.x509.*>>
+| `file.x509.*`
+| <<ecs-x509,x509>>
 | These fields contain x509 certificate metadata.
 
 // ===============================================================
@@ -2999,7 +3697,23 @@ example: `America/Argentina/Buenos_Aires`
 [discrete]
 ==== Field Reuse
 
-The `geo` fields are expected to be nested at: `client.geo`, `destination.geo`, `host.geo`, `observer.geo`, `server.geo`, `source.geo`.
+The `geo` fields are expected to be nested at:
+
+
+* `client.geo`
+
+* `destination.geo`
+
+* `host.geo`
+
+* `observer.geo`
+
+* `server.geo`
+
+* `source.geo`
+
+* `threat.enrichments.geo`
+
 
 Note also that the `geo` fields are not expected to be used directly at the root of the events.
 
@@ -3075,7 +3789,11 @@ type: keyword
 [discrete]
 ==== Field Reuse
 
-The `group` fields are expected to be nested at: `user.group`.
+The `group` fields are expected to be nested at:
+
+
+* `user.group`
+
 
 Note also that the `group` fields may be used directly at the root of the events.
 
@@ -3185,7 +3903,17 @@ type: keyword
 [discrete]
 ==== Field Reuse
 
-The `hash` fields are expected to be nested at: `dll.hash`, `file.hash`, `process.hash`.
+The `hash` fields are expected to be nested at:
+
+
+* `dll.hash`
+
+* `file.hash`
+
+* `process.hash`
+
+* `threat.enrichments.hash`
+
 
 Note also that the `hash` fields are not expected to be used directly at the root of the events.
 
@@ -3502,25 +4230,21 @@ example: `1325`
 
 [options="header"]
 |=====
-| Nested fields | Description
+| Location | Field Set | Description
 
 // ===============================================================
 
 
-| <<ecs-geo,host.geo.*>>
+| `host.geo.*`
+| <<ecs-geo,geo>>
 | Fields describing a location.
 
 // ===============================================================
 
 
-| <<ecs-os,host.os.*>>
+| `host.os.*`
+| <<ecs-os,os>>
 | OS fields contain information about the operating system.
-
-// ===============================================================
-
-
-| <<ecs-user,host.user.*>>
-| Fields to describe the user relevant to the event.
 
 // ===============================================================
 
@@ -3619,17 +4343,13 @@ example: `123e4567-e89b-12d3-a456-426614174000`
 
 | HTTP request method.
 
-Prior to ECS 1.6.0 the following guidance was provided:
-
-"The field value must be normalized to lowercase for querying."
-
-As of ECS 1.6.0, the guidance is deprecated because the original case of the method may be useful in anomaly detection.  Original case will be mandated in ECS 2.0.0
+The value should retain its casing from the original event. For example, `GET`, `get`, and `GeT` are all considered valid values for this field.
 
 type: keyword
 
 
 
-example: `GET, POST, PUT, PoST`
+example: `POST`
 
 | extended
 
@@ -3842,7 +4562,13 @@ example: `eth0`
 [discrete]
 ==== Field Reuse
 
-The `interface` fields are expected to be nested at: `observer.egress.interface`, `observer.ingress.interface`.
+The `interface` fields are expected to be nested at:
+
+
+* `observer.egress.interface`
+
+* `observer.ingress.interface`
+
 
 Note also that the `interface` fields are not expected to be used directly at the root of the events.
 
@@ -3975,7 +4701,9 @@ example: `init`
 [[field-log-original]]
 <<field-log-original, log.original>>
 
-| This is the original log message and contains the full log message before splitting it up in multiple parts.
+| Deprecated for removal in next major version release. This field is superseded by  `event.original`.
+
+This is the original log message and contains the full log message before splitting it up in multiple parts.
 
 In contrast to the `message` field which can contain an extracted part of the log message, this field contains the original, full log message. It can have already some modifications applied like encoding or new lines removed to clean up the log message.
 
@@ -4357,18 +5085,20 @@ example: `ipv4`
 
 [options="header"]
 |=====
-| Nested fields | Description
+| Location | Field Set | Description
 
 // ===============================================================
 
 
-| <<ecs-vlan,network.inner.vlan.*>>
+| `network.inner.vlan.*`
+| <<ecs-vlan,vlan>>
 | Fields to describe observed VLAN information.
 
 // ===============================================================
 
 
-| <<ecs-vlan,network.vlan.*>>
+| `network.vlan.*`
+| <<ecs-vlan,vlan>>
 | Fields to describe observed VLAN information.
 
 // ===============================================================
@@ -4628,46 +5358,212 @@ type: keyword
 
 [options="header"]
 |=====
-| Nested fields | Description
+| Location | Field Set | Description
 
 // ===============================================================
 
 
-| <<ecs-interface,observer.egress.interface.*>>
+| `observer.egress.interface.*`
+| <<ecs-interface,interface>>
 | Fields to describe observer interface information.
 
 // ===============================================================
 
 
-| <<ecs-vlan,observer.egress.vlan.*>>
+| `observer.egress.vlan.*`
+| <<ecs-vlan,vlan>>
 | Fields to describe observed VLAN information.
 
 // ===============================================================
 
 
-| <<ecs-geo,observer.geo.*>>
+| `observer.geo.*`
+| <<ecs-geo,geo>>
 | Fields describing a location.
 
 // ===============================================================
 
 
-| <<ecs-interface,observer.ingress.interface.*>>
+| `observer.ingress.interface.*`
+| <<ecs-interface,interface>>
 | Fields to describe observer interface information.
 
 // ===============================================================
 
 
-| <<ecs-vlan,observer.ingress.vlan.*>>
+| `observer.ingress.vlan.*`
+| <<ecs-vlan,vlan>>
 | Fields to describe observed VLAN information.
 
 // ===============================================================
 
 
-| <<ecs-os,observer.os.*>>
+| `observer.os.*`
+| <<ecs-os,os>>
 | OS fields contain information about the operating system.
 
 // ===============================================================
 
+
+|=====
+
+[[ecs-orchestrator]]
+=== Orchestrator Fields
+
+Fields that describe the resources which container orchestrators manage or act upon.
+
+[discrete]
+==== Orchestrator Field Details
+
+[options="header"]
+|=====
+| Field  | Description | Level
+
+// ===============================================================
+
+|
+[[field-orchestrator-api-version]]
+<<field-orchestrator-api-version, orchestrator.api_version>>
+
+| API version being used to carry out the action
+
+type: keyword
+
+
+
+example: `v1beta1`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-orchestrator-cluster-name]]
+<<field-orchestrator-cluster-name, orchestrator.cluster.name>>
+
+| Name of the cluster.
+
+type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-orchestrator-cluster-url]]
+<<field-orchestrator-cluster-url, orchestrator.cluster.url>>
+
+| URL of the API used to manage the cluster.
+
+type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-orchestrator-cluster-version]]
+<<field-orchestrator-cluster-version, orchestrator.cluster.version>>
+
+| The version of the cluster.
+
+type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-orchestrator-namespace]]
+<<field-orchestrator-namespace, orchestrator.namespace>>
+
+| Namespace in which the action is taking place.
+
+type: keyword
+
+
+
+example: `kube-system`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-orchestrator-organization]]
+<<field-orchestrator-organization, orchestrator.organization>>
+
+| Organization affected by the event (for multi-tenant orchestrator setups).
+
+type: keyword
+
+
+
+example: `elastic`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-orchestrator-resource-name]]
+<<field-orchestrator-resource-name, orchestrator.resource.name>>
+
+| Name of the resource being acted upon.
+
+type: keyword
+
+
+
+example: `test-pod-cdcws`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-orchestrator-resource-type]]
+<<field-orchestrator-resource-type, orchestrator.resource.type>>
+
+| Type of resource being acted upon.
+
+type: keyword
+
+
+
+example: `service`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-orchestrator-type]]
+<<field-orchestrator-type, orchestrator.type>>
+
+| Orchestrator cluster type (e.g. kubernetes, nomad or cloudfoundry).
+
+type: keyword
+
+
+
+example: `kubernetes`
+
+| extended
+
+// ===============================================================
 
 |=====
 
@@ -4874,7 +5770,15 @@ example: `10.14.1`
 [discrete]
 ==== Field Reuse
 
-The `os` fields are expected to be nested at: `host.os`, `observer.os`, `user_agent.os`.
+The `os` fields are expected to be nested at:
+
+
+* `host.os`
+
+* `observer.os`
+
+* `user_agent.os`
+
 
 Note also that the `os` fields are not expected to be used directly at the root of the events.
 
@@ -5244,7 +6148,15 @@ example: `Microsoft® Windows® Operating System`
 [discrete]
 ==== Field Reuse
 
-The `pe` fields are expected to be nested at: `dll.pe`, `file.pe`, `process.pe`.
+The `pe` fields are expected to be nested at:
+
+
+* `dll.pe`
+
+* `file.pe`
+
+* `process.pe`
+
 
 Note also that the `pe` fields are not expected to be used directly at the root of the events.
 
@@ -5577,7 +6489,11 @@ example: `/home/alice`
 [discrete]
 ==== Field Reuse
 
-The `process` fields are expected to be nested at: `process.parent`.
+The `process` fields are expected to be nested at:
+
+
+* `process.parent`
+
 
 Note also that the `process` fields may be used directly at the root of the events.
 
@@ -5590,30 +6506,42 @@ Note also that the `process` fields may be used directly at the root of the even
 
 [options="header"]
 |=====
-| Nested fields | Description
+| Location | Field Set | Description
 
 // ===============================================================
 
 
-| <<ecs-code_signature,process.code_signature.*>>
+| `process.code_signature.*`
+| <<ecs-code_signature,code_signature>>
 | These fields contain information about binary code signatures.
 
 // ===============================================================
 
 
-| <<ecs-hash,process.hash.*>>
+| `process.elf.*`
+| <<ecs-elf,elf>>| beta:[ This field reuse is beta and subject to change.]
+
+These fields contain Linux Executable Linkable Format (ELF) metadata.
+
+// ===============================================================
+
+
+| `process.hash.*`
+| <<ecs-hash,hash>>
 | Hashes, usually file hashes.
 
 // ===============================================================
 
 
-| <<ecs-process,process.parent.*>>
-| These fields contain information about a process.
+| `process.parent.*`
+| <<ecs-process,process>>
+| Information about the parent process.
 
 // ===============================================================
 
 
-| <<ecs-pe,process.pe.*>>
+| `process.pe.*`
+| <<ecs-pe,pe>>
 | These fields contain Windows Portable Executable (PE) metadata.
 
 // ===============================================================
@@ -5835,7 +6763,7 @@ Note: this field should contain an array of values.
 [[field-related-user]]
 <<field-related-user, related.user>>
 
-| All the user names seen on your event.
+| All the user names or other user identifiers seen on the event.
 
 type: keyword
 
@@ -6275,24 +7203,27 @@ example: `co.uk`
 
 [options="header"]
 |=====
-| Nested fields | Description
+| Location | Field Set | Description
 
 // ===============================================================
 
 
-| <<ecs-as,server.as.*>>
+| `server.as.*`
+| <<ecs-as,as>>
 | Fields describing an Autonomous System (Internet routing prefix).
 
 // ===============================================================
 
 
-| <<ecs-geo,server.geo.*>>
+| `server.geo.*`
+| <<ecs-geo,geo>>
 | Fields describing a location.
 
 // ===============================================================
 
 
-| <<ecs-user,server.user.*>>
+| `server.user.*`
+| <<ecs-user,user>>
 | Fields to describe the user relevant to the event.
 
 // ===============================================================
@@ -6688,24 +7619,27 @@ example: `co.uk`
 
 [options="header"]
 |=====
-| Nested fields | Description
+| Location | Field Set | Description
 
 // ===============================================================
 
 
-| <<ecs-as,source.as.*>>
+| `source.as.*`
+| <<ecs-as,as>>
 | Fields describing an Autonomous System (Internet routing prefix).
 
 // ===============================================================
 
 
-| <<ecs-geo,source.geo.*>>
+| `source.geo.*`
+| <<ecs-geo,geo>>
 | Fields describing a location.
 
 // ===============================================================
 
 
-| <<ecs-user,source.user.*>>
+| `source.user.*`
+| <<ecs-user,user>>
 | Fields to describe the user relevant to the event.
 
 // ===============================================================
@@ -6730,6 +7664,114 @@ These fields are for users to classify alerts from all of their sources (e.g. ID
 // ===============================================================
 
 |
+[[field-threat-enrichments]]
+<<field-threat-enrichments, threat.enrichments>>
+
+| beta:[ This field is beta and subject to change. ]
+
+A list of associated indicators enriching the event, and the context of that association/enrichment.
+
+type: nested
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-threat-enrichments-matched-atomic]]
+<<field-threat-enrichments-matched-atomic, threat.enrichments.matched.atomic>>
+
+| beta:[ This field is beta and subject to change. ]
+
+Identifies the atomic indicator value that matched a local environment endpoint or network event.
+
+type: keyword
+
+
+
+example: `bad-domain.com`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-threat-enrichments-matched-field]]
+<<field-threat-enrichments-matched-field, threat.enrichments.matched.field>>
+
+| beta:[ This field is beta and subject to change. ]
+
+Identifies the field of the atomic indicator that matched a local environment endpoint or network event.
+
+type: keyword
+
+
+
+example: `file.hash.sha256`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-threat-enrichments-matched-id]]
+<<field-threat-enrichments-matched-id, threat.enrichments.matched.id>>
+
+| beta:[ This field is beta and subject to change. ]
+
+Identifies the _id of the indicator document enriching the event.
+
+type: keyword
+
+
+
+example: `ff93aee5-86a1-4a61-b0e6-0cdc313d01b5`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-threat-enrichments-matched-index]]
+<<field-threat-enrichments-matched-index, threat.enrichments.matched.index>>
+
+| beta:[ This field is beta and subject to change. ]
+
+Identifies the _index of the indicator document enriching the event.
+
+type: keyword
+
+
+
+example: `filebeat-8.0.0-2021.05.23-000011`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-threat-enrichments-matched-type]]
+<<field-threat-enrichments-matched-type, threat.enrichments.matched.type>>
+
+| beta:[ This field is beta and subject to change. ]
+
+Identifies the type of match that caused the event to be enriched with the given indicator
+
+type: keyword
+
+
+
+example: `indicator_match_rule`
+
+| extended
+
+// ===============================================================
+
+|
 [[field-threat-framework]]
 <<field-threat-framework, threat.framework>>
 
@@ -6740,6 +7782,476 @@ type: keyword
 
 
 example: `MITRE ATT&CK`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-threat-group-alias]]
+<<field-threat-group-alias, threat.group.alias>>
+
+| beta:[ This field is beta and subject to change. ]
+
+The alias(es) of the group for a set of related intrusion activity that are tracked by a common name in the security community. While not required, you can use a MITRE ATT&CK® group alias(es).
+
+type: keyword
+
+
+Note: this field should contain an array of values.
+
+
+
+example: `[ "Magecart Group 6" ]`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-threat-group-id]]
+<<field-threat-group-id, threat.group.id>>
+
+| beta:[ This field is beta and subject to change. ]
+
+The id of the group for a set of related intrusion activity that are tracked by a common name in the security community. While not required, you can use a MITRE ATT&CK® group id.
+
+type: keyword
+
+
+
+example: `G0037`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-threat-group-name]]
+<<field-threat-group-name, threat.group.name>>
+
+| beta:[ This field is beta and subject to change. ]
+
+The name of the group for a set of related intrusion activity that are tracked by a common name in the security community. While not required, you can use a MITRE ATT&CK® group name.
+
+type: keyword
+
+
+
+example: `FIN6`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-threat-group-reference]]
+<<field-threat-group-reference, threat.group.reference>>
+
+| beta:[ This field is beta and subject to change. ]
+
+The reference URL of the group for a set of related intrusion activity that are tracked by a common name in the security community. While not required, you can use a MITRE ATT&CK® group reference URL.
+
+type: keyword
+
+
+
+example: `https://attack.mitre.org/groups/G0037/`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-threat-indicator-confidence]]
+<<field-threat-indicator-confidence, threat.indicator.confidence>>
+
+| beta:[ This field is beta and subject to change. ]
+
+Identifies the confidence rating assigned by the provider using STIX confidence scales.
+
+Recommended values:
+
+  * Not Specified, None, Low, Medium, High
+
+  * 0-10
+
+  * Admirality Scale (1-6)
+
+  * DNI Scale (5-95)
+
+  * WEP Scale (Impossible - Certain)
+
+type: keyword
+
+
+
+example: `High`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-threat-indicator-description]]
+<<field-threat-indicator-description, threat.indicator.description>>
+
+| beta:[ This field is beta and subject to change. ]
+
+Describes the type of action conducted by the threat.
+
+type: keyword
+
+
+
+example: `IP x.x.x.x was observed delivering the Angler EK.`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-threat-indicator-email-address]]
+<<field-threat-indicator-email-address, threat.indicator.email.address>>
+
+| beta:[ This field is beta and subject to change. ]
+
+Identifies a threat indicator as an email address (irrespective of direction).
+
+type: keyword
+
+
+
+example: `phish@example.com`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-threat-indicator-first-seen]]
+<<field-threat-indicator-first-seen, threat.indicator.first_seen>>
+
+| beta:[ This field is beta and subject to change. ]
+
+The date and time when intelligence source first reported sighting this indicator.
+
+type: date
+
+
+
+example: `2020-11-05T17:25:47.000Z`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-threat-indicator-ip]]
+<<field-threat-indicator-ip, threat.indicator.ip>>
+
+| beta:[ This field is beta and subject to change. ]
+
+Identifies a threat indicator as an IP address (irrespective of direction).
+
+type: ip
+
+
+
+example: `1.2.3.4`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-threat-indicator-last-seen]]
+<<field-threat-indicator-last-seen, threat.indicator.last_seen>>
+
+| beta:[ This field is beta and subject to change. ]
+
+The date and time when intelligence source last reported sighting this indicator.
+
+type: date
+
+
+
+example: `2020-11-05T17:25:47.000Z`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-threat-indicator-marking-tlp]]
+<<field-threat-indicator-marking-tlp, threat.indicator.marking.tlp>>
+
+| beta:[ This field is beta and subject to change. ]
+
+Traffic Light Protocol sharing markings.
+
+Recommended values are:
+
+  * WHITE
+
+  * GREEN
+
+  * AMBER
+
+  * RED
+
+type: keyword
+
+
+
+example: `WHITE`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-threat-indicator-modified-at]]
+<<field-threat-indicator-modified-at, threat.indicator.modified_at>>
+
+| beta:[ This field is beta and subject to change. ]
+
+The date and time when intelligence source last modified information for this indicator.
+
+type: date
+
+
+
+example: `2020-11-05T17:25:47.000Z`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-threat-indicator-port]]
+<<field-threat-indicator-port, threat.indicator.port>>
+
+| beta:[ This field is beta and subject to change. ]
+
+Identifies a threat indicator as a port number (irrespective of direction).
+
+type: long
+
+
+
+example: `443`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-threat-indicator-scanner-stats]]
+<<field-threat-indicator-scanner-stats, threat.indicator.scanner_stats>>
+
+| beta:[ This field is beta and subject to change. ]
+
+Count of AV/EDR vendors that successfully detected malicious file or URL.
+
+type: long
+
+
+
+example: `4`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-threat-indicator-sightings]]
+<<field-threat-indicator-sightings, threat.indicator.sightings>>
+
+| beta:[ This field is beta and subject to change. ]
+
+Number of times this indicator was observed conducting threat activity.
+
+type: long
+
+
+
+example: `20`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-threat-indicator-type]]
+<<field-threat-indicator-type, threat.indicator.type>>
+
+| beta:[ This field is beta and subject to change. ]
+
+Type of indicator as represented by Cyber Observable in STIX 2.0.
+
+Recommended values:
+
+  * autonomous-system
+
+  * artifact
+
+  * directory
+
+  * domain-name
+
+  * email-addr
+
+  * file
+
+  * ipv4-addr
+
+  * ipv6-addr
+
+  * mac-addr
+
+  * mutex
+
+  * port
+
+  * process
+
+  * software
+
+  * url
+
+  * user-account
+
+  * windows-registry-key
+
+  * x509-certificate
+
+type: keyword
+
+
+
+example: `ipv4-addr`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-threat-software-id]]
+<<field-threat-software-id, threat.software.id>>
+
+| beta:[ This field is beta and subject to change. ]
+
+The id of the software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®. While not required, you can use a MITRE ATT&CK® software id.
+
+type: keyword
+
+
+
+example: `S0552`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-threat-software-name]]
+<<field-threat-software-name, threat.software.name>>
+
+| beta:[ This field is beta and subject to change. ]
+
+The name of the software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®. While not required, you can use a MITRE ATT&CK® software name.
+
+type: keyword
+
+
+
+example: `AdFind`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-threat-software-platforms]]
+<<field-threat-software-platforms, threat.software.platforms>>
+
+| beta:[ This field is beta and subject to change. ]
+
+The platforms of the software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®. While not required, you can use a MITRE ATT&CK® software platforms.
+
+Recommended Values:
+
+  * AWS
+
+  * Azure
+
+  * Azure AD
+
+  * GCP
+
+  * Linux
+
+  * macOS
+
+  * Network
+
+  * Office 365
+
+  * SaaS
+
+  * Windows
+
+type: keyword
+
+
+Note: this field should contain an array of values.
+
+
+
+example: `[ "Windows" ]`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-threat-software-reference]]
+<<field-threat-software-reference, threat.software.reference>>
+
+| beta:[ This field is beta and subject to change. ]
+
+The reference URL of the software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®. While not required, you can use a MITRE ATT&CK® software reference URL.
+
+type: keyword
+
+
+
+example: `https://attack.mitre.org/software/S0552/`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-threat-software-type]]
+<<field-threat-software-type, threat.software.type>>
+
+| beta:[ This field is beta and subject to change. ]
+
+The type of software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®. While not required, you can use a MITRE ATT&CK® software type.
+
+Recommended values
+
+  * Malware
+
+  * Tool
+
+type: keyword
+
+
+
+example: `Tool`
 
 | extended
 
@@ -6927,6 +8439,81 @@ example: `https://attack.mitre.org/techniques/T1059/001/`
 | extended
 
 // ===============================================================
+
+|=====
+
+[discrete]
+==== Field Reuse
+
+
+
+
+[[ecs-threat-nestings]]
+[discrete]
+===== Field sets that can be nested under Threat
+
+[options="header"]
+|=====
+| Location | Field Set | Description
+
+// ===============================================================
+
+
+| `threat.enrichments.as.*`
+| <<ecs-as,as>>| beta:[ Reusing the `as` fields in this location is currently considered beta.]
+
+Fields describing an Autonomous System (Internet routing prefix).
+
+// ===============================================================
+
+
+| `threat.enrichments.event.*`
+| <<ecs-event,event>>| beta:[ Reusing the `event` fields in this location is currently considered beta.]
+
+Fields breaking down the event details.
+
+// ===============================================================
+
+
+| `threat.enrichments.file.*`
+| <<ecs-file,file>>| beta:[ Reusing the `file` fields in this location is currently considered beta.]
+
+Fields describing files.
+
+// ===============================================================
+
+
+| `threat.enrichments.geo.*`
+| <<ecs-geo,geo>>| beta:[ Reusing the `geo` fields in this location is currently considered beta.]
+
+Fields describing a location.
+
+// ===============================================================
+
+
+| `threat.enrichments.hash.*`
+| <<ecs-hash,hash>>| beta:[ Reusing the `hash` fields in this location is currently considered beta.]
+
+Hashes, usually file hashes.
+
+// ===============================================================
+
+
+| `threat.enrichments.url.*`
+| <<ecs-url,url>>| beta:[ Reusing the `url` fields in this location is currently considered beta.]
+
+Fields that let you store URLs in various forms.
+
+// ===============================================================
+
+
+| `threat.enrichments.x509.*`
+| <<ecs-x509,x509>>| beta:[ Reusing the `x509` fields in this location is currently considered beta.]
+
+These fields contain x509 certificate metadata.
+
+// ===============================================================
+
 
 |=====
 
@@ -7431,18 +9018,20 @@ example: `tls`
 
 [options="header"]
 |=====
-| Nested fields | Description
+| Location | Field Set | Description
 
 // ===============================================================
 
 
-| <<ecs-x509,tls.client.x509.*>>
+| `tls.client.x509.*`
+| <<ecs-x509,x509>>
 | These fields contain x509 certificate metadata.
 
 // ===============================================================
 
 
-| <<ecs-x509,tls.server.x509.*>>
+| `tls.server.x509.*`
+| <<ecs-x509,x509>>
 | These fields contain x509 certificate metadata.
 
 // ===============================================================
@@ -7802,16 +9391,26 @@ type: keyword
 
 |=====
 
+[discrete]
+==== Field Reuse
+
+The `url` fields are expected to be nested at:
+
+
+* `threat.enrichments.url`
+
+
+Note also that the `url` fields may be used directly at the root of the events.
+
+
+
+
 [[ecs-user]]
 === User Fields
 
 The user fields describe information about the user that is relevant to the event.
 
 Fields can have one entry or multiple entries. If a user has more than one id, provide an array that includes all of them.
-
-Find additional usage and examples in the user fields <<ecs-user-usage,usage>> section.
-
-
 
 [discrete]
 ==== User Field Details
@@ -7958,7 +9557,23 @@ example: `["kibana_admin", "reporting_user"]`
 [discrete]
 ==== Field Reuse
 
-The `user` fields are expected to be nested at: `client.user`, `destination.user`, `host.user`, `server.user`, `source.user`, `user.changes`, `user.effective`, `user.target`.
+The `user` fields are expected to be nested at:
+
+
+* `client.user`
+
+* `destination.user`
+
+* `server.user`
+
+* `source.user`
+
+* `user.changes`
+
+* `user.effective`
+
+* `user.target`
+
 
 Note also that the `user` fields may be used directly at the root of the events.
 
@@ -7971,31 +9586,35 @@ Note also that the `user` fields may be used directly at the root of the events.
 
 [options="header"]
 |=====
-| Nested fields | Description
+| Location | Field Set | Description
 
 // ===============================================================
 
 
-| <<ecs-user,user.changes.*>>
-| Fields to describe the user relevant to the event.
+| `user.changes.*`
+| <<ecs-user,user>>
+| Captures changes made to a user.
 
 // ===============================================================
 
 
-| <<ecs-user,user.effective.*>>
-| Fields to describe the user relevant to the event.
+| `user.effective.*`
+| <<ecs-user,user>>
+| User whose privileges were assumed.
 
 // ===============================================================
 
 
-| <<ecs-group,user.group.*>>
+| `user.group.*`
+| <<ecs-group,group>>
 | User's group relevant to the event.
 
 // ===============================================================
 
 
-| <<ecs-user,user.target.*>>
-| Fields to describe the user relevant to the event.
+| `user.target.*`
+| <<ecs-user,user>>
+| Targeted user of action taken.
 
 // ===============================================================
 
@@ -8003,6 +9622,11 @@ Note also that the `user` fields may be used directly at the root of the events.
 |=====
 
 
+
+[discrete]
+==== User Field Usage
+
+For usage and examples of the user fields, please see the <<ecs-user-usage, User Fields Usage and Examples>> section.
 
 include::usage/user.asciidoc[]
 
@@ -8106,12 +9730,13 @@ example: `12.0`
 
 [options="header"]
 |=====
-| Nested fields | Description
+| Location | Field Set | Description
 
 // ===============================================================
 
 
-| <<ecs-os,user_agent.os.*>>
+| `user_agent.os.*`
+| <<ecs-os,os>>
 | OS fields contain information about the operating system.
 
 // ===============================================================
@@ -8176,7 +9801,17 @@ example: `outside`
 [discrete]
 ==== Field Reuse
 
-The `vlan` fields are expected to be nested at: `network.inner.vlan`, `network.vlan`, `observer.egress.vlan`, `observer.ingress.vlan`.
+The `vlan` fields are expected to be nested at:
+
+
+* `network.inner.vlan`
+
+* `network.vlan`
+
+* `observer.egress.vlan`
+
+* `observer.ingress.vlan`
+
 
 Note also that the `vlan` fields are not expected to be used directly at the root of the events.
 
@@ -8872,7 +10507,17 @@ example: `3`
 [discrete]
 ==== Field Reuse
 
-The `x509` fields are expected to be nested at: `file.x509`, `tls.client.x509`, `tls.server.x509`.
+The `x509` fields are expected to be nested at:
+
+
+* `file.x509`
+
+* `threat.enrichments.x509`
+
+* `tls.client.x509`
+
+* `tls.server.x509`
+
 
 Note also that the `x509` fields are not expected to be used directly at the root of the events.
 

@@ -61,6 +61,7 @@ You need these tools to contribute to the ECS repo:
 * Request feedback about your changes.
   - Create a [Pull Request](https://help.github.com/articles/creating-a-pull-request/) against the ECS repo.
     - (Look for the `Compare & pull request` button on your branch in github.com.)
+  - Add an entry to [CHANGELOG.next.md](CHANGELOG.next.md).
   - Wait for reviews on your PR.
   - Incorporate review comments and push updates if needed.
 * Thank you for your contribution!
@@ -96,15 +97,26 @@ Please follow these guidelines when submitting Issues:
 * Click `New issue`. Provide as many details as possible to help reviewers and other contributors understand your proposal.
 * Add your text, and click `Submit new issue`.
 
+### Branching
+
+ECS follows this branching strategy:
+
+* The `master` is the next major version. It is where all new contributions are first merged. This includes new features and bug fixes, and it may also include breaking changes.
+* The `<major>.x` is the next minor version and gets backports of most non-breaking features and fixes.
+* The `<major>.<minor>` is the next release of a minor version, including patch releases.
+
+### Changelog
+
+ECS maintains two changelog files:
+
+* [CHANGELOG.md](CHANGELOG.md) contains a list of notable changes for each released version of ECS.
+* [CHANGELOG.next.md](CHANGELOG.next.md) contains a list of unreleased ECS changes.
+
+Breaking changes intended for the next major version should be included underneath the `Breaking changes` sections in `CHANGELOG.next.md`.
+
 ### Backports
 
 ECS maintains multiple release branches in the repo. The `master` branch is where all new contributions should be submitted, and features and bug fixes will be backported into other branches when appropriate. Any backporting needs will be handled by the ECS team.
-
-#### Branching
-
-* The `master` branch is where all new contributions are merged. This includes new features and bug fixes, and it may also include breaking changes.
-* The `1.x` branch gets backports of most non-breaking features and fixes. This branch represents the next `major.minor` release.
-* The `major.minor` branches (e.g. `1.6`, `1.5`, `1.4`, etc.) contain the latest released version of those releases.
 
 #### Tooling
 
