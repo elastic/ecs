@@ -124,8 +124,6 @@ Network Example
             "email-addr"
         ],
         "description": "Email address, domain, port, and IP address observed using an Angler EK campaign.",
-        "dataset": "threatintel.abuseurl",
-        "module": "threatintel",
         "provider": "Abuse.ch",
         "reference": "https://urlhaus.abuse.ch/url/1292596/",
         "confidence": "High",
@@ -184,8 +182,6 @@ File Example
             "file"
         ],
         "description": "Implant used during an Angler EK campaign.",
-        "dataset": "threatintel.malwarebazaar",
-        "module": "threatintel",
         "provider": "Abuse.ch",
         "reference": "https://bazaar.abuse.ch/sample/f3ec9a2f2766c6bcf8c2894a9927c227649249ac146aabfe8d26b259be7d7055",
         "confidence": "High",
