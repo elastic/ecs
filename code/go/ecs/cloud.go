@@ -25,10 +25,10 @@ type Cloud struct {
 	// digitalocean.
 	Provider string `ecs:"provider"`
 
-	// Availability zone in which this host is running.
+	// Availability zone in which this host, resource, or service is located.
 	AvailabilityZone string `ecs:"availability_zone"`
 
-	// Region in which this host is running.
+	// Region in which this host, resource, or service is located.
 	Region string `ecs:"region"`
 
 	// Instance ID of the host machine.
