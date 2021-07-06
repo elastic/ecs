@@ -1,7 +1,7 @@
 # 0021: Threat Enrichment
 
 - Stage: **2 (candidate)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
-- Date: **2021-06-24** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
+- Date: **2021-07-06** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 <!--
 Stage 0: Provide a high level summary of the premise of these changes. Briefly describe the nature, purpose, and impact of the changes. ~2-5 sentences.
@@ -234,6 +234,7 @@ e.g.:
 * Stage 0: https://github.com/elastic/ecs/pull/1386
 * Stage 1: https://github.com/elastic/ecs/pull/1400
 * Stage 2: https://github.com/elastic/ecs/pull/1460
+  * Stage 2 addendum: https://github.com/elastic/ecs/pull/1502
 
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN
