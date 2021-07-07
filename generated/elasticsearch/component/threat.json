@@ -14,35 +14,23 @@
                   "properties": {
                     "as": {
                       "properties": {
-                        "data": {
-                          "properties": {
-                            "bytes": {
-                              "ignore_above": 1024,
-                              "type": "keyword"
-                            },
-                            "strings": {
-                              "ignore_above": 1024,
-                              "type": "keyword"
-                            },
-                            "type": {
-                              "ignore_above": 1024,
-                              "type": "keyword"
-                            }
-                          }
-                        },
-                        "hive": {
+                        "md5": {
                           "ignore_above": 1024,
                           "type": "keyword"
                         },
-                        "key": {
+                        "sha1": {
                           "ignore_above": 1024,
                           "type": "keyword"
                         },
-                        "path": {
+                        "sha256": {
                           "ignore_above": 1024,
                           "type": "keyword"
                         },
-                        "value": {
+                        "sha512": {
+                          "ignore_above": 1024,
+                          "type": "keyword"
+                        },
+                        "ssdeep": {
                           "ignore_above": 1024,
                           "type": "keyword"
                         }
@@ -84,6 +72,38 @@
                     "modified_at": {
                       "type": "date"
                     },
+                    "pe": {
+                      "properties": {
+                        "architecture": {
+                          "ignore_above": 1024,
+                          "type": "keyword"
+                        },
+                        "company": {
+                          "ignore_above": 1024,
+                          "type": "keyword"
+                        },
+                        "description": {
+                          "ignore_above": 1024,
+                          "type": "keyword"
+                        },
+                        "file_version": {
+                          "ignore_above": 1024,
+                          "type": "keyword"
+                        },
+                        "imphash": {
+                          "ignore_above": 1024,
+                          "type": "keyword"
+                        },
+                        "original_file_name": {
+                          "ignore_above": 1024,
+                          "type": "keyword"
+                        },
+                        "product": {
+                          "ignore_above": 1024,
+                          "type": "keyword"
+                        }
+                      }
+                    },
                     "port": {
                       "type": "long"
                     },
@@ -94,6 +114,42 @@
                     "reference": {
                       "ignore_above": 1024,
                       "type": "keyword"
+                    },
+                    "registry": {
+                      "properties": {
+                        "data": {
+                          "properties": {
+                            "bytes": {
+                              "ignore_above": 1024,
+                              "type": "keyword"
+                            },
+                            "strings": {
+                              "ignore_above": 1024,
+                              "type": "keyword"
+                            },
+                            "type": {
+                              "ignore_above": 1024,
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "hive": {
+                          "ignore_above": 1024,
+                          "type": "keyword"
+                        },
+                        "key": {
+                          "ignore_above": 1024,
+                          "type": "keyword"
+                        },
+                        "path": {
+                          "ignore_above": 1024,
+                          "type": "keyword"
+                        },
+                        "value": {
+                          "ignore_above": 1024,
+                          "type": "keyword"
+                        }
+                      }
                     },
                     "scanner_stats": {
                       "type": "long"
@@ -340,37 +396,22 @@
               "properties": {
                 "as": {
                   "properties": {
-                    "data": {
+                    "number": {
+                      "type": "long"
+                    },
+                    "organization": {
                       "properties": {
-                        "bytes": {
-                          "ignore_above": 1024,
-                          "type": "keyword"
-                        },
-                        "strings": {
-                          "ignore_above": 1024,
-                          "type": "keyword"
-                        },
-                        "type": {
+                        "name": {
+                          "fields": {
+                            "text": {
+                              "norms": false,
+                              "type": "text"
+                            }
+                          },
                           "ignore_above": 1024,
                           "type": "keyword"
                         }
                       }
-                    },
-                    "hive": {
-                      "ignore_above": 1024,
-                      "type": "keyword"
-                    },
-                    "key": {
-                      "ignore_above": 1024,
-                      "type": "keyword"
-                    },
-                    "path": {
-                      "ignore_above": 1024,
-                      "type": "keyword"
-                    },
-                    "value": {
-                      "ignore_above": 1024,
-                      "type": "keyword"
                     }
                   }
                 },
@@ -722,6 +763,38 @@
                 "modified_at": {
                   "type": "date"
                 },
+                "pe": {
+                  "properties": {
+                    "architecture": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    },
+                    "company": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    },
+                    "description": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    },
+                    "file_version": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    },
+                    "imphash": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    },
+                    "original_file_name": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    },
+                    "product": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    }
+                  }
+                },
                 "port": {
                   "type": "long"
                 },
@@ -732,6 +805,42 @@
                 "reference": {
                   "ignore_above": 1024,
                   "type": "keyword"
+                },
+                "registry": {
+                  "properties": {
+                    "data": {
+                      "properties": {
+                        "bytes": {
+                          "ignore_above": 1024,
+                          "type": "keyword"
+                        },
+                        "strings": {
+                          "ignore_above": 1024,
+                          "type": "keyword"
+                        },
+                        "type": {
+                          "ignore_above": 1024,
+                          "type": "keyword"
+                        }
+                      }
+                    },
+                    "hive": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    },
+                    "key": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    },
+                    "path": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    },
+                    "value": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    }
+                  }
                 },
                 "scanner_stats": {
                   "type": "long"

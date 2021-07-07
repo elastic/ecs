@@ -7151,14 +7151,14 @@ pe:
     - as: pe
       at: process
       full: process.pe
-    - as: as
+    - as: pe
       at: threat.indicator
       beta: Reusing the `as` fields in this location is currently considered beta.
-      full: threat.indicator.as
-    - as: as
+      full: threat.indicator.pe
+    - as: pe
       at: threat.enrichments.indicator
       beta: Reusing the `as` fields in this location is currently considered beta.
-      full: threat.enrichments.indicator.as
+      full: threat.enrichments.indicator.pe
     top_level: false
   short: These fields contain Windows Portable Executable (PE) metadata.
   title: PE Header
@@ -8903,14 +8903,14 @@ registry:
   prefix: registry.
   reusable:
     expected:
-    - as: as
+    - as: registry
       at: threat.indicator
       beta: Reusing the `as` fields in this location is currently considered beta.
-      full: threat.indicator.as
-    - as: as
+      full: threat.indicator.registry
+    - as: registry
       at: threat.enrichments.indicator
       beta: Reusing the `as` fields in this location is currently considered beta.
-      full: threat.enrichments.indicator.as
+      full: threat.enrichments.indicator.registry
     top_level: true
   short: Fields related to Windows Registry operations.
   title: Registry
@@ -10258,101 +10258,60 @@ threat:
       normalize: []
       short: Indicators
       type: object
-    threat.enrichments.indicator.as.data.bytes:
-      dashed_name: threat-enrichments-indicator-as-data-bytes
-      description: 'Original bytes written with base64 encoding.
-
-        For Windows registry operations, such as SetValueEx and RegQueryValueEx, this
-        corresponds to the data pointed by `lp_data`. This is optional but provides
-        better recoverability and should be populated for REG_BINARY encoded values.'
-      example: ZQBuAC0AVQBTAAAAZQBuAAAAAAA=
-      flat_name: threat.enrichments.indicator.as.data.bytes
+    threat.enrichments.indicator.as.md5:
+      dashed_name: threat-enrichments-indicator-as-md5
+      description: MD5 hash.
+      flat_name: threat.enrichments.indicator.as.md5
       ignore_above: 1024
       level: extended
-      name: data.bytes
+      name: md5
       normalize: []
-      original_fieldset: registry
-      short: Original bytes written with base64 encoding.
+      original_fieldset: hash
+      short: MD5 hash.
       type: keyword
-    threat.enrichments.indicator.as.data.strings:
-      dashed_name: threat-enrichments-indicator-as-data-strings
-      description: 'Content when writing string types.
-
-        Populated as an array when writing string data to the registry. For single
-        string registry types (REG_SZ, REG_EXPAND_SZ), this should be an array with
-        one string. For sequences of string with REG_MULTI_SZ, this array will be
-        variable length. For numeric data, such as REG_DWORD and REG_QWORD, this should
-        be populated with the decimal representation (e.g `"1"`).'
-      example: '["C:\rta\red_ttp\bin\myapp.exe"]'
-      flat_name: threat.enrichments.indicator.as.data.strings
+    threat.enrichments.indicator.as.sha1:
+      dashed_name: threat-enrichments-indicator-as-sha1
+      description: SHA1 hash.
+      flat_name: threat.enrichments.indicator.as.sha1
       ignore_above: 1024
-      level: core
-      name: data.strings
-      normalize:
-      - array
-      original_fieldset: registry
-      short: List of strings representing what was written to the registry.
-      type: keyword
-    threat.enrichments.indicator.as.data.type:
-      dashed_name: threat-enrichments-indicator-as-data-type
-      description: Standard registry type for encoding contents
-      example: REG_SZ
-      flat_name: threat.enrichments.indicator.as.data.type
-      ignore_above: 1024
-      level: core
-      name: data.type
+      level: extended
+      name: sha1
       normalize: []
-      original_fieldset: registry
-      short: Standard registry type for encoding contents
+      original_fieldset: hash
+      short: SHA1 hash.
       type: keyword
-    threat.enrichments.indicator.as.hive:
-      dashed_name: threat-enrichments-indicator-as-hive
-      description: Abbreviated name for the hive.
-      example: HKLM
-      flat_name: threat.enrichments.indicator.as.hive
+    threat.enrichments.indicator.as.sha256:
+      dashed_name: threat-enrichments-indicator-as-sha256
+      description: SHA256 hash.
+      flat_name: threat.enrichments.indicator.as.sha256
       ignore_above: 1024
-      level: core
-      name: hive
+      level: extended
+      name: sha256
       normalize: []
-      original_fieldset: registry
-      short: Abbreviated name for the hive.
+      original_fieldset: hash
+      short: SHA256 hash.
       type: keyword
-    threat.enrichments.indicator.as.key:
-      dashed_name: threat-enrichments-indicator-as-key
-      description: Hive-relative path of keys.
-      example: SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\winword.exe
-      flat_name: threat.enrichments.indicator.as.key
+    threat.enrichments.indicator.as.sha512:
+      dashed_name: threat-enrichments-indicator-as-sha512
+      description: SHA512 hash.
+      flat_name: threat.enrichments.indicator.as.sha512
       ignore_above: 1024
-      level: core
-      name: key
+      level: extended
+      name: sha512
       normalize: []
-      original_fieldset: registry
-      short: Hive-relative path of keys.
+      original_fieldset: hash
+      short: SHA512 hash.
       type: keyword
-    threat.enrichments.indicator.as.path:
-      dashed_name: threat-enrichments-indicator-as-path
-      description: Full path, including hive, key and value
-      example: HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution
-        Options\winword.exe\Debugger
-      flat_name: threat.enrichments.indicator.as.path
+    threat.enrichments.indicator.as.ssdeep:
+      dashed_name: threat-enrichments-indicator-as-ssdeep
+      description: SSDEEP hash.
+      flat_name: threat.enrichments.indicator.as.ssdeep
       ignore_above: 1024
-      level: core
-      name: path
+      level: extended
+      name: ssdeep
       normalize: []
-      original_fieldset: registry
-      short: Full path, including hive, key and value
-      type: keyword
-    threat.enrichments.indicator.as.value:
-      dashed_name: threat-enrichments-indicator-as-value
-      description: Name of the value written.
-      example: Debugger
-      flat_name: threat.enrichments.indicator.as.value
-      ignore_above: 1024
-      level: core
-      name: value
-      normalize: []
-      original_fieldset: registry
-      short: Name of the value written.
+      original_fieldset: hash
+      short: SSDEEP hash.
       type: keyword
     threat.enrichments.indicator.confidence:
       beta: This field is beta and subject to change.
@@ -10455,6 +10414,94 @@ threat:
       normalize: []
       short: Date/time indicator was last updated.
       type: date
+    threat.enrichments.indicator.pe.architecture:
+      dashed_name: threat-enrichments-indicator-pe-architecture
+      description: CPU architecture target for the file.
+      example: x64
+      flat_name: threat.enrichments.indicator.pe.architecture
+      ignore_above: 1024
+      level: extended
+      name: architecture
+      normalize: []
+      original_fieldset: pe
+      short: CPU architecture target for the file.
+      type: keyword
+    threat.enrichments.indicator.pe.company:
+      dashed_name: threat-enrichments-indicator-pe-company
+      description: Internal company name of the file, provided at compile-time.
+      example: Microsoft Corporation
+      flat_name: threat.enrichments.indicator.pe.company
+      ignore_above: 1024
+      level: extended
+      name: company
+      normalize: []
+      original_fieldset: pe
+      short: Internal company name of the file, provided at compile-time.
+      type: keyword
+    threat.enrichments.indicator.pe.description:
+      dashed_name: threat-enrichments-indicator-pe-description
+      description: Internal description of the file, provided at compile-time.
+      example: Paint
+      flat_name: threat.enrichments.indicator.pe.description
+      ignore_above: 1024
+      level: extended
+      name: description
+      normalize: []
+      original_fieldset: pe
+      short: Internal description of the file, provided at compile-time.
+      type: keyword
+    threat.enrichments.indicator.pe.file_version:
+      dashed_name: threat-enrichments-indicator-pe-file-version
+      description: Internal version of the file, provided at compile-time.
+      example: 6.3.9600.17415
+      flat_name: threat.enrichments.indicator.pe.file_version
+      ignore_above: 1024
+      level: extended
+      name: file_version
+      normalize: []
+      original_fieldset: pe
+      short: Process name.
+      type: keyword
+    threat.enrichments.indicator.pe.imphash:
+      dashed_name: threat-enrichments-indicator-pe-imphash
+      description: 'A hash of the imports in a PE file. An imphash -- or import hash
+        -- can be used to fingerprint binaries even after recompilation or other code-level
+        transformations have occurred, which would change more traditional hash values.
+
+        Learn more at https://www.fireeye.com/blog/threat-research/2014/01/tracking-malware-import-hashing.html.'
+      example: 0c6803c4e922103c4dca5963aad36ddf
+      flat_name: threat.enrichments.indicator.pe.imphash
+      ignore_above: 1024
+      level: extended
+      name: imphash
+      normalize: []
+      original_fieldset: pe
+      short: A hash of the imports in a PE file.
+      type: keyword
+    threat.enrichments.indicator.pe.original_file_name:
+      dashed_name: threat-enrichments-indicator-pe-original-file-name
+      description: Internal name of the file, provided at compile-time.
+      example: MSPAINT.EXE
+      flat_name: threat.enrichments.indicator.pe.original_file_name
+      ignore_above: 1024
+      level: extended
+      name: original_file_name
+      normalize: []
+      original_fieldset: pe
+      short: Internal name of the file, provided at compile-time.
+      type: keyword
+    threat.enrichments.indicator.pe.product:
+      dashed_name: threat-enrichments-indicator-pe-product
+      description: Internal product name of the file, provided at compile-time.
+      example: "Microsoft\xAE Windows\xAE Operating System"
+      flat_name: threat.enrichments.indicator.pe.product
+      ignore_above: 1024
+      level: extended
+      name: product
+      normalize: []
+      original_fieldset: pe
+      short: Internal product name of the file, provided at compile-time.
+      type: keyword
     threat.enrichments.indicator.port:
       beta: This field is beta and subject to change.
       dashed_name: threat-enrichments-indicator-port
@@ -10490,6 +10537,102 @@ threat:
       name: enrichments.indicator.reference
       normalize: []
       short: Indicator reference URL
+      type: keyword
+    threat.enrichments.indicator.registry.data.bytes:
+      dashed_name: threat-enrichments-indicator-registry-data-bytes
+      description: 'Original bytes written with base64 encoding.
+
+        For Windows registry operations, such as SetValueEx and RegQueryValueEx, this
+        corresponds to the data pointed by `lp_data`. This is optional but provides
+        better recoverability and should be populated for REG_BINARY encoded values.'
+      example: ZQBuAC0AVQBTAAAAZQBuAAAAAAA=
+      flat_name: threat.enrichments.indicator.registry.data.bytes
+      ignore_above: 1024
+      level: extended
+      name: data.bytes
+      normalize: []
+      original_fieldset: registry
+      short: Original bytes written with base64 encoding.
+      type: keyword
+    threat.enrichments.indicator.registry.data.strings:
+      dashed_name: threat-enrichments-indicator-registry-data-strings
+      description: 'Content when writing string types.
+
+        Populated as an array when writing string data to the registry. For single
+        string registry types (REG_SZ, REG_EXPAND_SZ), this should be an array with
+        one string. For sequences of string with REG_MULTI_SZ, this array will be
+        variable length. For numeric data, such as REG_DWORD and REG_QWORD, this should
+        be populated with the decimal representation (e.g `"1"`).'
+      example: '["C:\rta\red_ttp\bin\myapp.exe"]'
+      flat_name: threat.enrichments.indicator.registry.data.strings
+      ignore_above: 1024
+      level: core
+      name: data.strings
+      normalize:
+      - array
+      original_fieldset: registry
+      short: List of strings representing what was written to the registry.
+      type: keyword
+    threat.enrichments.indicator.registry.data.type:
+      dashed_name: threat-enrichments-indicator-registry-data-type
+      description: Standard registry type for encoding contents
+      example: REG_SZ
+      flat_name: threat.enrichments.indicator.registry.data.type
+      ignore_above: 1024
+      level: core
+      name: data.type
+      normalize: []
+      original_fieldset: registry
+      short: Standard registry type for encoding contents
+      type: keyword
+    threat.enrichments.indicator.registry.hive:
+      dashed_name: threat-enrichments-indicator-registry-hive
+      description: Abbreviated name for the hive.
+      example: HKLM
+      flat_name: threat.enrichments.indicator.registry.hive
+      ignore_above: 1024
+      level: core
+      name: hive
+      normalize: []
+      original_fieldset: registry
+      short: Abbreviated name for the hive.
+      type: keyword
+    threat.enrichments.indicator.registry.key:
+      dashed_name: threat-enrichments-indicator-registry-key
+      description: Hive-relative path of keys.
+      example: SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\winword.exe
+      flat_name: threat.enrichments.indicator.registry.key
+      ignore_above: 1024
+      level: core
+      name: key
+      normalize: []
+      original_fieldset: registry
+      short: Hive-relative path of keys.
+      type: keyword
+    threat.enrichments.indicator.registry.path:
+      dashed_name: threat-enrichments-indicator-registry-path
+      description: Full path, including hive, key and value
+      example: HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution
+        Options\winword.exe\Debugger
+      flat_name: threat.enrichments.indicator.registry.path
+      ignore_above: 1024
+      level: core
+      name: path
+      normalize: []
+      original_fieldset: registry
+      short: Full path, including hive, key and value
+      type: keyword
+    threat.enrichments.indicator.registry.value:
+      dashed_name: threat-enrichments-indicator-registry-value
+      description: Name of the value written.
+      example: Debugger
+      flat_name: threat.enrichments.indicator.registry.value
+      ignore_above: 1024
+      level: core
+      name: value
+      normalize: []
+      original_fieldset: registry
+      short: Name of the value written.
       type: keyword
     threat.enrichments.indicator.scanner_stats:
       beta: This field is beta and subject to change.
@@ -11195,101 +11338,34 @@ threat:
       normalize: []
       short: Reference URL of the group.
       type: keyword
-    threat.indicator.as.data.bytes:
-      dashed_name: threat-indicator-as-data-bytes
-      description: 'Original bytes written with base64 encoding.
-
-        For Windows registry operations, such as SetValueEx and RegQueryValueEx, this
-        corresponds to the data pointed by `lp_data`. This is optional but provides
-        better recoverability and should be populated for REG_BINARY encoded values.'
-      example: ZQBuAC0AVQBTAAAAZQBuAAAAAAA=
-      flat_name: threat.indicator.as.data.bytes
+    threat.indicator.as.number:
+      dashed_name: threat-indicator-as-number
+      description: Unique number allocated to the autonomous system. The autonomous
+        system number (ASN) uniquely identifies each network on the Internet.
+      example: 15169
+      flat_name: threat.indicator.as.number
+      level: extended
+      name: number
+      normalize: []
+      original_fieldset: as
+      short: Unique number allocated to the autonomous system.
+      type: long
+    threat.indicator.as.organization.name:
+      dashed_name: threat-indicator-as-organization-name
+      description: Organization name.
+      example: Google LLC
+      flat_name: threat.indicator.as.organization.name
       ignore_above: 1024
       level: extended
-      name: data.bytes
+      multi_fields:
+      - flat_name: threat.indicator.as.organization.name.text
+        name: text
+        norms: false
+        type: text
+      name: organization.name
       normalize: []
-      original_fieldset: registry
-      short: Original bytes written with base64 encoding.
-      type: keyword
-    threat.indicator.as.data.strings:
-      dashed_name: threat-indicator-as-data-strings
-      description: 'Content when writing string types.
-
-        Populated as an array when writing string data to the registry. For single
-        string registry types (REG_SZ, REG_EXPAND_SZ), this should be an array with
-        one string. For sequences of string with REG_MULTI_SZ, this array will be
-        variable length. For numeric data, such as REG_DWORD and REG_QWORD, this should
-        be populated with the decimal representation (e.g `"1"`).'
-      example: '["C:\rta\red_ttp\bin\myapp.exe"]'
-      flat_name: threat.indicator.as.data.strings
-      ignore_above: 1024
-      level: core
-      name: data.strings
-      normalize:
-      - array
-      original_fieldset: registry
-      short: List of strings representing what was written to the registry.
-      type: keyword
-    threat.indicator.as.data.type:
-      dashed_name: threat-indicator-as-data-type
-      description: Standard registry type for encoding contents
-      example: REG_SZ
-      flat_name: threat.indicator.as.data.type
-      ignore_above: 1024
-      level: core
-      name: data.type
-      normalize: []
-      original_fieldset: registry
-      short: Standard registry type for encoding contents
-      type: keyword
-    threat.indicator.as.hive:
-      dashed_name: threat-indicator-as-hive
-      description: Abbreviated name for the hive.
-      example: HKLM
-      flat_name: threat.indicator.as.hive
-      ignore_above: 1024
-      level: core
-      name: hive
-      normalize: []
-      original_fieldset: registry
-      short: Abbreviated name for the hive.
-      type: keyword
-    threat.indicator.as.key:
-      dashed_name: threat-indicator-as-key
-      description: Hive-relative path of keys.
-      example: SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\winword.exe
-      flat_name: threat.indicator.as.key
-      ignore_above: 1024
-      level: core
-      name: key
-      normalize: []
-      original_fieldset: registry
-      short: Hive-relative path of keys.
-      type: keyword
-    threat.indicator.as.path:
-      dashed_name: threat-indicator-as-path
-      description: Full path, including hive, key and value
-      example: HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution
-        Options\winword.exe\Debugger
-      flat_name: threat.indicator.as.path
-      ignore_above: 1024
-      level: core
-      name: path
-      normalize: []
-      original_fieldset: registry
-      short: Full path, including hive, key and value
-      type: keyword
-    threat.indicator.as.value:
-      dashed_name: threat-indicator-as-value
-      description: Name of the value written.
-      example: Debugger
-      flat_name: threat.indicator.as.value
-      ignore_above: 1024
-      level: core
-      name: value
-      normalize: []
-      original_fieldset: registry
-      short: Name of the value written.
+      original_fieldset: as
+      short: Organization name.
       type: keyword
     threat.indicator.confidence:
       beta: This field is beta and subject to change.
@@ -12290,6 +12366,94 @@ threat:
       normalize: []
       short: Date/time indicator was last updated.
       type: date
+    threat.indicator.pe.architecture:
+      dashed_name: threat-indicator-pe-architecture
+      description: CPU architecture target for the file.
+      example: x64
+      flat_name: threat.indicator.pe.architecture
+      ignore_above: 1024
+      level: extended
+      name: architecture
+      normalize: []
+      original_fieldset: pe
+      short: CPU architecture target for the file.
+      type: keyword
+    threat.indicator.pe.company:
+      dashed_name: threat-indicator-pe-company
+      description: Internal company name of the file, provided at compile-time.
+      example: Microsoft Corporation
+      flat_name: threat.indicator.pe.company
+      ignore_above: 1024
+      level: extended
+      name: company
+      normalize: []
+      original_fieldset: pe
+      short: Internal company name of the file, provided at compile-time.
+      type: keyword
+    threat.indicator.pe.description:
+      dashed_name: threat-indicator-pe-description
+      description: Internal description of the file, provided at compile-time.
+      example: Paint
+      flat_name: threat.indicator.pe.description
+      ignore_above: 1024
+      level: extended
+      name: description
+      normalize: []
+      original_fieldset: pe
+      short: Internal description of the file, provided at compile-time.
+      type: keyword
+    threat.indicator.pe.file_version:
+      dashed_name: threat-indicator-pe-file-version
+      description: Internal version of the file, provided at compile-time.
+      example: 6.3.9600.17415
+      flat_name: threat.indicator.pe.file_version
+      ignore_above: 1024
+      level: extended
+      name: file_version
+      normalize: []
+      original_fieldset: pe
+      short: Process name.
+      type: keyword
+    threat.indicator.pe.imphash:
+      dashed_name: threat-indicator-pe-imphash
+      description: 'A hash of the imports in a PE file. An imphash -- or import hash
+        -- can be used to fingerprint binaries even after recompilation or other code-level
+        transformations have occurred, which would change more traditional hash values.
+
+        Learn more at https://www.fireeye.com/blog/threat-research/2014/01/tracking-malware-import-hashing.html.'
+      example: 0c6803c4e922103c4dca5963aad36ddf
+      flat_name: threat.indicator.pe.imphash
+      ignore_above: 1024
+      level: extended
+      name: imphash
+      normalize: []
+      original_fieldset: pe
+      short: A hash of the imports in a PE file.
+      type: keyword
+    threat.indicator.pe.original_file_name:
+      dashed_name: threat-indicator-pe-original-file-name
+      description: Internal name of the file, provided at compile-time.
+      example: MSPAINT.EXE
+      flat_name: threat.indicator.pe.original_file_name
+      ignore_above: 1024
+      level: extended
+      name: original_file_name
+      normalize: []
+      original_fieldset: pe
+      short: Internal name of the file, provided at compile-time.
+      type: keyword
+    threat.indicator.pe.product:
+      dashed_name: threat-indicator-pe-product
+      description: Internal product name of the file, provided at compile-time.
+      example: "Microsoft\xAE Windows\xAE Operating System"
+      flat_name: threat.indicator.pe.product
+      ignore_above: 1024
+      level: extended
+      name: product
+      normalize: []
+      original_fieldset: pe
+      short: Internal product name of the file, provided at compile-time.
+      type: keyword
     threat.indicator.port:
       beta: This field is beta and subject to change.
       dashed_name: threat-indicator-port
@@ -12325,6 +12489,102 @@ threat:
       name: indicator.reference
       normalize: []
       short: Indicator reference URL
+      type: keyword
+    threat.indicator.registry.data.bytes:
+      dashed_name: threat-indicator-registry-data-bytes
+      description: 'Original bytes written with base64 encoding.
+
+        For Windows registry operations, such as SetValueEx and RegQueryValueEx, this
+        corresponds to the data pointed by `lp_data`. This is optional but provides
+        better recoverability and should be populated for REG_BINARY encoded values.'
+      example: ZQBuAC0AVQBTAAAAZQBuAAAAAAA=
+      flat_name: threat.indicator.registry.data.bytes
+      ignore_above: 1024
+      level: extended
+      name: data.bytes
+      normalize: []
+      original_fieldset: registry
+      short: Original bytes written with base64 encoding.
+      type: keyword
+    threat.indicator.registry.data.strings:
+      dashed_name: threat-indicator-registry-data-strings
+      description: 'Content when writing string types.
+
+        Populated as an array when writing string data to the registry. For single
+        string registry types (REG_SZ, REG_EXPAND_SZ), this should be an array with
+        one string. For sequences of string with REG_MULTI_SZ, this array will be
+        variable length. For numeric data, such as REG_DWORD and REG_QWORD, this should
+        be populated with the decimal representation (e.g `"1"`).'
+      example: '["C:\rta\red_ttp\bin\myapp.exe"]'
+      flat_name: threat.indicator.registry.data.strings
+      ignore_above: 1024
+      level: core
+      name: data.strings
+      normalize:
+      - array
+      original_fieldset: registry
+      short: List of strings representing what was written to the registry.
+      type: keyword
+    threat.indicator.registry.data.type:
+      dashed_name: threat-indicator-registry-data-type
+      description: Standard registry type for encoding contents
+      example: REG_SZ
+      flat_name: threat.indicator.registry.data.type
+      ignore_above: 1024
+      level: core
+      name: data.type
+      normalize: []
+      original_fieldset: registry
+      short: Standard registry type for encoding contents
+      type: keyword
+    threat.indicator.registry.hive:
+      dashed_name: threat-indicator-registry-hive
+      description: Abbreviated name for the hive.
+      example: HKLM
+      flat_name: threat.indicator.registry.hive
+      ignore_above: 1024
+      level: core
+      name: hive
+      normalize: []
+      original_fieldset: registry
+      short: Abbreviated name for the hive.
+      type: keyword
+    threat.indicator.registry.key:
+      dashed_name: threat-indicator-registry-key
+      description: Hive-relative path of keys.
+      example: SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\winword.exe
+      flat_name: threat.indicator.registry.key
+      ignore_above: 1024
+      level: core
+      name: key
+      normalize: []
+      original_fieldset: registry
+      short: Hive-relative path of keys.
+      type: keyword
+    threat.indicator.registry.path:
+      dashed_name: threat-indicator-registry-path
+      description: Full path, including hive, key and value
+      example: HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution
+        Options\winword.exe\Debugger
+      flat_name: threat.indicator.registry.path
+      ignore_above: 1024
+      level: core
+      name: path
+      normalize: []
+      original_fieldset: registry
+      short: Full path, including hive, key and value
+      type: keyword
+    threat.indicator.registry.value:
+      dashed_name: threat-indicator-registry-value
+      description: Name of the value written.
+      example: Debugger
+      flat_name: threat.indicator.registry.value
+      ignore_above: 1024
+      level: core
+      name: value
+      normalize: []
+      original_fieldset: registry
+      short: Name of the value written.
       type: keyword
     threat.indicator.scanner_stats:
       beta: This field is beta and subject to change.
@@ -12573,16 +12833,16 @@ threat:
   - threat.enrichments.indicator.as
   - threat.enrichments.indicator.as
   - threat.enrichments.indicator.as
-  - threat.enrichments.indicator.as
-  - threat.enrichments.indicator.as
+  - threat.enrichments.indicator.pe
+  - threat.enrichments.indicator.registry
   - threat.enrichments.url
   - threat.enrichments.x509
-  - threat.indicator.as
-  - threat.indicator.as
   - threat.indicator.as
   - threat.indicator.file
   - threat.indicator.geo
   - threat.indicator.hash
+  - threat.indicator.pe
+  - threat.indicator.registry
   prefix: threat.
   reused_here:
   - beta: Reusing the `as` fields in this location is currently considered beta.
@@ -12618,19 +12878,19 @@ threat:
     schema_name: hash
     short: Hashes, usually file hashes.
   - beta: Reusing the `as` fields in this location is currently considered beta.
-    full: threat.indicator.as
+    full: threat.indicator.pe
     schema_name: pe
     short: These fields contain Windows Portable Executable (PE) metadata.
   - beta: Reusing the `as` fields in this location is currently considered beta.
-    full: threat.enrichments.indicator.as
+    full: threat.enrichments.indicator.pe
     schema_name: pe
     short: These fields contain Windows Portable Executable (PE) metadata.
   - beta: Reusing the `as` fields in this location is currently considered beta.
-    full: threat.indicator.as
+    full: threat.indicator.registry
     schema_name: registry
     short: Fields related to Windows Registry operations.
   - beta: Reusing the `as` fields in this location is currently considered beta.
-    full: threat.enrichments.indicator.as
+    full: threat.enrichments.indicator.registry
     schema_name: registry
     short: Fields related to Windows Registry operations.
   - beta: Reusing the `url` fields in this location is currently considered beta.
