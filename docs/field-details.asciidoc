@@ -3425,7 +3425,7 @@ example: `1001`
 The `file` fields are expected to be nested at:
 
 
-* `threat.enrichments.indicator.as`
+* `threat.enrichments.indicator.file`
 
 * `threat.indicator.file`
 
@@ -3702,7 +3702,7 @@ The `geo` fields are expected to be nested at:
 
 * `source.geo`
 
-* `threat.enrichments.indicator.as`
+* `threat.enrichments.indicator.geo`
 
 * `threat.indicator.geo`
 
@@ -3904,7 +3904,7 @@ The `hash` fields are expected to be nested at:
 
 * `process.hash`
 
-* `threat.enrichments.indicator.as`
+* `threat.enrichments.indicator.hash`
 
 * `threat.indicator.hash`
 
@@ -8839,24 +8839,24 @@ Fields describing an Autonomous System (Internet routing prefix).
 // ===============================================================
 
 
-| `threat.enrichments.indicator.as.*`
-| <<ecs-file,file>>| beta:[ Reusing the `as` fields in this location is currently considered beta.]
+| `threat.enrichments.indicator.file.*`
+| <<ecs-file,file>>| beta:[ Reusing the `file` fields in this location is currently considered beta.]
 
 Fields describing files.
 
 // ===============================================================
 
 
-| `threat.enrichments.indicator.as.*`
-| <<ecs-geo,geo>>| beta:[ Reusing the `as` fields in this location is currently considered beta.]
+| `threat.enrichments.indicator.geo.*`
+| <<ecs-geo,geo>>| beta:[ Reusing the `geo` fields in this location is currently considered beta.]
 
 Fields describing a location.
 
 // ===============================================================
 
 
-| `threat.enrichments.indicator.as.*`
-| <<ecs-hash,hash>>| beta:[ Reusing the `as` fields in this location is currently considered beta.]
+| `threat.enrichments.indicator.hash.*`
+| <<ecs-hash,hash>>| beta:[ Reusing the `hash` fields in this location is currently considered beta.]
 
 Hashes, usually file hashes.
 
@@ -8879,7 +8879,7 @@ Fields related to Windows Registry operations.
 // ===============================================================
 
 
-| `threat.enrichments.url.*`
+| `threat.enrichments.indicator.url.*`
 | <<ecs-url,url>>| beta:[ Reusing the `url` fields in this location is currently considered beta.]
 
 Fields that let you store URLs in various forms.
@@ -8887,7 +8887,7 @@ Fields that let you store URLs in various forms.
 // ===============================================================
 
 
-| `threat.enrichments.x509.*`
+| `threat.enrichments.indicator.x509.*`
 | <<ecs-x509,x509>>| beta:[ Reusing the `x509` fields in this location is currently considered beta.]
 
 These fields contain x509 certificate metadata.
@@ -8939,6 +8939,22 @@ These fields contain Windows Portable Executable (PE) metadata.
 | <<ecs-registry,registry>>| beta:[ Reusing the `as` fields in this location is currently considered beta.]
 
 Fields related to Windows Registry operations.
+
+// ===============================================================
+
+
+| `threat.indicator.url.*`
+| <<ecs-url,url>>| beta:[ Reusing the `url` fields in this location is currently considered beta.]
+
+Fields that let you store URLs in various forms.
+
+// ===============================================================
+
+
+| `threat.indicator.x509.*`
+| <<ecs-x509,x509>>| beta:[ Reusing the `x509` fields in this location is currently considered beta.]
+
+These fields contain x509 certificate metadata.
 
 // ===============================================================
 
@@ -9825,7 +9841,9 @@ type: keyword
 The `url` fields are expected to be nested at:
 
 
-* `threat.enrichments.url`
+* `threat.enrichments.indicator.url`
+
+* `threat.indicator.url`
 
 
 Note also that the `url` fields may be used directly at the root of the events.
@@ -10940,7 +10958,9 @@ The `x509` fields are expected to be nested at:
 
 * `file.x509`
 
-* `threat.enrichments.x509`
+* `threat.enrichments.indicator.x509`
+
+* `threat.indicator.x509`
 
 * `tls.client.x509`
 
