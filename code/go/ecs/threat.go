@@ -32,8 +32,8 @@ import (
 // used by this detected threat, to accomplish the goal (e.g. "endpoint denial
 // of service").
 type Threat struct {
-	// A list of associated indicators enriching the event, and the context of
-	// that association/enrichment.
+	// A list of associated indicators objects enriching the event, and the
+	// context of that association/enrichment.
 	Enrichments []Enrichments `ecs:"enrichments"`
 
 	// Name of the threat framework used to further categorize and classify the
@@ -224,7 +224,7 @@ type Threat struct {
 }
 
 type Enrichments struct {
-	// Indicators
+	// Object containing associated indicators enriching the event.
 	Indicator map[string]interface{} `ecs:"indicator"`
 
 	// The date and time when intelligence source first reported sighting this
