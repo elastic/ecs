@@ -130,8 +130,8 @@ type Event struct {
 	// to `event.severity`.
 	Severity int64 `ecs:"severity"`
 
-	// Raw text message of entire event. Used to demonstrate log integrity  or
-	// where the full log message (before splitting it up in multiple  parts)
+	// Raw text message of entire event. Used to demonstrate log integrity or
+	// where the full log message (before splitting it up in multiple parts)
 	// may be required, e.g. for reindex.
 	// This field is not indexed and doc_values are disabled. It cannot be
 	// searched, but it can be retrieved from `_source`. If users wish to
