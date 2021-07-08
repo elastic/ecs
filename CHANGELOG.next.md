@@ -68,7 +68,7 @@ Thanks, you're awesome :-) -->
 
 * Swap `Location` and `Field Set` columns in `Field Reuse` table for better readability. #1472, #1476
 * Use a bullet points to list field reuses. #1473
-* Improve wording in `Threat` schema
+* Improve wording in `Threat` schema #1505
 
 <!-- All empty sections:
 
