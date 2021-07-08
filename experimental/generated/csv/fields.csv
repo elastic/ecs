@@ -990,111 +990,185 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 2.0.0-dev+exp,true,source,source.user.name.text,text,core,,albert,Short name or login of the user.
 2.0.0-dev+exp,true,source,source.user.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 2.0.0-dev+exp,true,span,span.id,keyword,extended,,3ff9a8981b7ccd5a,Unique identifier of the span within the scope of its trace.
-2.0.0-dev+exp,true,threat,threat.enrichments,nested,extended,,,List of indicators enriching the event.
-2.0.0-dev+exp,true,threat,threat.enrichments.as.number,long,extended,,15169,Unique number allocated to the autonomous system.
-2.0.0-dev+exp,true,threat,threat.enrichments.as.organization.name,wildcard,extended,,Google LLC,Organization name.
-2.0.0-dev+exp,true,threat,threat.enrichments.as.organization.name.text,text,extended,,Google LLC,Organization name.
-2.0.0-dev+exp,true,threat,threat.enrichments.event.action,keyword,core,,user-password-change,The action captured by the event.
-2.0.0-dev+exp,true,threat,threat.enrichments.event.agent_id_status,keyword,extended,,verified,Validation status of the event's agent.id field.
-2.0.0-dev+exp,true,threat,threat.enrichments.event.category,keyword,core,array,authentication,Event category. The second categorization field in the hierarchy.
-2.0.0-dev+exp,true,threat,threat.enrichments.event.code,keyword,extended,,4648,Identification code for this event.
-2.0.0-dev+exp,true,threat,threat.enrichments.event.created,date,core,,2016-05-23T08:05:34.857Z,Time when the event was first read by an agent or by your pipeline.
-2.0.0-dev+exp,true,threat,threat.enrichments.event.dataset,keyword,core,,apache.access,Name of the dataset.
-2.0.0-dev+exp,true,threat,threat.enrichments.event.duration,long,core,,,Duration of the event in nanoseconds.
-2.0.0-dev+exp,true,threat,threat.enrichments.event.end,date,extended,,,event.end contains the date when the event ended or when the activity was last observed.
-2.0.0-dev+exp,true,threat,threat.enrichments.event.hash,keyword,extended,,123456789012345678901234567890ABCD,Hash (perhaps logstash fingerprint) of raw field to be able to demonstrate log integrity.
-2.0.0-dev+exp,true,threat,threat.enrichments.event.id,keyword,core,,8a4f500d,Unique ID to describe the event.
-2.0.0-dev+exp,true,threat,threat.enrichments.event.ingested,date,core,,2016-05-23T08:05:35.101Z,Timestamp when an event arrived in the central data store.
-2.0.0-dev+exp,true,threat,threat.enrichments.event.kind,keyword,core,,alert,The kind of the event. The highest categorization field in the hierarchy.
-2.0.0-dev+exp,true,threat,threat.enrichments.event.module,keyword,core,,apache,Name of the module this data is coming from.
-2.0.0-dev+exp,false,threat,threat.enrichments.event.original,keyword,core,,Sep 19 08:26:10 host CEF:0&#124;Security&#124; threatmanager&#124;1.0&#124;100&#124; worm successfully stopped&#124;10&#124;src=10.0.0.1 dst=2.1.2.2spt=1232,Raw text message of entire event.
-2.0.0-dev+exp,true,threat,threat.enrichments.event.outcome,keyword,core,,success,The outcome of the event. The lowest level categorization field in the hierarchy.
-2.0.0-dev+exp,true,threat,threat.enrichments.event.provider,keyword,extended,,kernel,Source of the event.
-2.0.0-dev+exp,true,threat,threat.enrichments.event.reason,keyword,extended,,Terminated an unexpected process,"Reason why this event happened, according to the source"
-2.0.0-dev+exp,true,threat,threat.enrichments.event.reference,keyword,extended,,https://system.example.com/event/#0001234,Event reference URL
-2.0.0-dev+exp,true,threat,threat.enrichments.event.risk_score,float,core,,,Risk score or priority of the event (e.g. security solutions). Use your system's original value here.
-2.0.0-dev+exp,true,threat,threat.enrichments.event.risk_score_norm,float,extended,,,Normalized risk score or priority of the event (0-100).
-2.0.0-dev+exp,true,threat,threat.enrichments.event.sequence,long,extended,,,Sequence number of the event.
-2.0.0-dev+exp,true,threat,threat.enrichments.event.severity,long,core,,7,Numeric severity of the event.
-2.0.0-dev+exp,true,threat,threat.enrichments.event.start,date,extended,,,event.start contains the date when the event started or when the activity was first observed.
-2.0.0-dev+exp,true,threat,threat.enrichments.event.timezone,keyword,extended,,,Event time zone.
-2.0.0-dev+exp,true,threat,threat.enrichments.event.type,keyword,core,array,,Event type. The third categorization field in the hierarchy.
-2.0.0-dev+exp,true,threat,threat.enrichments.event.url,keyword,extended,,https://mysystem.example.com/alert/5271dedb-f5b0-4218-87f0-4ac4870a38fe,Event investigation URL
-2.0.0-dev+exp,true,threat,threat.enrichments.file.accessed,date,extended,,,Last time the file was accessed.
-2.0.0-dev+exp,true,threat,threat.enrichments.file.attributes,keyword,extended,array,"[""readonly"", ""system""]",Array of file attributes.
-2.0.0-dev+exp,true,threat,threat.enrichments.file.code_signature.exists,boolean,core,,true,Boolean to capture if a signature is present.
-2.0.0-dev+exp,true,threat,threat.enrichments.file.code_signature.signing_id,keyword,extended,,com.apple.xpc.proxy,The identifier used to sign the process.
-2.0.0-dev+exp,true,threat,threat.enrichments.file.code_signature.status,keyword,extended,,ERROR_UNTRUSTED_ROOT,Additional information about the certificate status.
-2.0.0-dev+exp,true,threat,threat.enrichments.file.code_signature.subject_name,keyword,core,,Microsoft Corporation,Subject name of the code signer
-2.0.0-dev+exp,true,threat,threat.enrichments.file.code_signature.team_id,keyword,extended,,EQHXZ8M8AV,The team identifier used to sign the process.
-2.0.0-dev+exp,true,threat,threat.enrichments.file.code_signature.trusted,boolean,extended,,true,Stores the trust status of the certificate chain.
-2.0.0-dev+exp,true,threat,threat.enrichments.file.code_signature.valid,boolean,extended,,true,Boolean to capture if the digital signature is verified against the binary content.
-2.0.0-dev+exp,true,threat,threat.enrichments.file.created,date,extended,,,File creation time.
-2.0.0-dev+exp,true,threat,threat.enrichments.file.ctime,date,extended,,,Last time the file attributes or metadata changed.
-2.0.0-dev+exp,true,threat,threat.enrichments.file.device,keyword,extended,,sda,Device that is the source of the file.
-2.0.0-dev+exp,true,threat,threat.enrichments.file.directory,wildcard,extended,,/home/alice,Directory where the file is located.
-2.0.0-dev+exp,true,threat,threat.enrichments.file.drive_letter,keyword,extended,,C,Drive letter where the file is located.
-2.0.0-dev+exp,true,threat,threat.enrichments.file.elf.architecture,keyword,extended,,x86-64,Machine architecture of the ELF file.
-2.0.0-dev+exp,true,threat,threat.enrichments.file.elf.byte_order,keyword,extended,,Little Endian,Byte sequence of ELF file.
-2.0.0-dev+exp,true,threat,threat.enrichments.file.elf.cpu_type,keyword,extended,,Intel,CPU type of the ELF file.
-2.0.0-dev+exp,true,threat,threat.enrichments.file.elf.creation_date,date,extended,,,Build or compile date.
-2.0.0-dev+exp,true,threat,threat.enrichments.file.elf.exports,flattened,extended,array,,List of exported element names and types.
-2.0.0-dev+exp,true,threat,threat.enrichments.file.elf.header.abi_version,keyword,extended,,,Version of the ELF Application Binary Interface (ABI).
-2.0.0-dev+exp,true,threat,threat.enrichments.file.elf.header.class,keyword,extended,,,Header class of the ELF file.
-2.0.0-dev+exp,true,threat,threat.enrichments.file.elf.header.data,keyword,extended,,,Data table of the ELF header.
-2.0.0-dev+exp,true,threat,threat.enrichments.file.elf.header.entrypoint,long,extended,,,Header entrypoint of the ELF file.
-2.0.0-dev+exp,true,threat,threat.enrichments.file.elf.header.object_version,keyword,extended,,,"""0x1"" for original ELF files."
-2.0.0-dev+exp,true,threat,threat.enrichments.file.elf.header.os_abi,keyword,extended,,,Application Binary Interface (ABI) of the Linux OS.
-2.0.0-dev+exp,true,threat,threat.enrichments.file.elf.header.type,keyword,extended,,,Header type of the ELF file.
-2.0.0-dev+exp,true,threat,threat.enrichments.file.elf.header.version,keyword,extended,,,Version of the ELF header.
-2.0.0-dev+exp,true,threat,threat.enrichments.file.elf.imports,flattened,extended,array,,List of imported element names and types.
-2.0.0-dev+exp,true,threat,threat.enrichments.file.elf.sections,nested,extended,array,,Section information of the ELF file.
-2.0.0-dev+exp,true,threat,threat.enrichments.file.elf.sections.chi2,long,extended,,,Chi-square probability distribution of the section.
-2.0.0-dev+exp,true,threat,threat.enrichments.file.elf.sections.entropy,long,extended,,,Shannon entropy calculation from the section.
-2.0.0-dev+exp,true,threat,threat.enrichments.file.elf.sections.flags,keyword,extended,,,ELF Section List flags.
-2.0.0-dev+exp,true,threat,threat.enrichments.file.elf.sections.name,keyword,extended,,,ELF Section List name.
-2.0.0-dev+exp,true,threat,threat.enrichments.file.elf.sections.physical_offset,keyword,extended,,,ELF Section List offset.
-2.0.0-dev+exp,true,threat,threat.enrichments.file.elf.sections.physical_size,long,extended,,,ELF Section List physical size.
-2.0.0-dev+exp,true,threat,threat.enrichments.file.elf.sections.type,keyword,extended,,,ELF Section List type.
-2.0.0-dev+exp,true,threat,threat.enrichments.file.elf.sections.virtual_address,long,extended,,,ELF Section List virtual address.
-2.0.0-dev+exp,true,threat,threat.enrichments.file.elf.sections.virtual_size,long,extended,,,ELF Section List virtual size.
-2.0.0-dev+exp,true,threat,threat.enrichments.file.elf.segments,nested,extended,array,,ELF object segment list.
-2.0.0-dev+exp,true,threat,threat.enrichments.file.elf.segments.sections,keyword,extended,,,ELF object segment sections.
-2.0.0-dev+exp,true,threat,threat.enrichments.file.elf.segments.type,keyword,extended,,,ELF object segment type.
-2.0.0-dev+exp,true,threat,threat.enrichments.file.elf.shared_libraries,keyword,extended,array,,List of shared libraries used by this ELF object.
-2.0.0-dev+exp,true,threat,threat.enrichments.file.elf.telfhash,keyword,extended,,,telfhash hash for ELF file.
-2.0.0-dev+exp,true,threat,threat.enrichments.file.extension,keyword,extended,,png,"File extension, excluding the leading dot."
-2.0.0-dev+exp,true,threat,threat.enrichments.file.gid,keyword,extended,,1001,Primary group ID (GID) of the file.
-2.0.0-dev+exp,true,threat,threat.enrichments.file.group,keyword,extended,,alice,Primary group name of the file.
-2.0.0-dev+exp,true,threat,threat.enrichments.file.inode,keyword,extended,,256383,Inode representing the file in the filesystem.
-2.0.0-dev+exp,true,threat,threat.enrichments.file.mime_type,keyword,extended,,,"Media type of file, document, or arrangement of bytes."
-2.0.0-dev+exp,true,threat,threat.enrichments.file.mode,keyword,extended,,0640,Mode of the file in octal representation.
-2.0.0-dev+exp,true,threat,threat.enrichments.file.mtime,date,extended,,,Last time the file content was modified.
-2.0.0-dev+exp,true,threat,threat.enrichments.file.name,keyword,extended,,example.png,"Name of the file including the extension, without the directory."
-2.0.0-dev+exp,true,threat,threat.enrichments.file.owner,keyword,extended,,alice,File owner's username.
-2.0.0-dev+exp,true,threat,threat.enrichments.file.path,wildcard,extended,,/home/alice/example.png,"Full path to the file, including the file name."
-2.0.0-dev+exp,true,threat,threat.enrichments.file.path.text,text,extended,,/home/alice/example.png,"Full path to the file, including the file name."
-2.0.0-dev+exp,true,threat,threat.enrichments.file.size,long,extended,,16384,File size in bytes.
-2.0.0-dev+exp,true,threat,threat.enrichments.file.target_path,wildcard,extended,,,Target path for symlinks.
-2.0.0-dev+exp,true,threat,threat.enrichments.file.target_path.text,text,extended,,,Target path for symlinks.
-2.0.0-dev+exp,true,threat,threat.enrichments.file.type,keyword,extended,,file,"File type (file, dir, or symlink)."
-2.0.0-dev+exp,true,threat,threat.enrichments.file.uid,keyword,extended,,1001,The user ID (UID) or security identifier (SID) of the file owner.
-2.0.0-dev+exp,true,threat,threat.enrichments.geo.city_name,keyword,core,,Montreal,City name.
-2.0.0-dev+exp,true,threat,threat.enrichments.geo.continent_code,keyword,core,,NA,Continent code.
-2.0.0-dev+exp,true,threat,threat.enrichments.geo.continent_name,keyword,core,,North America,Name of the continent.
-2.0.0-dev+exp,true,threat,threat.enrichments.geo.country_iso_code,keyword,core,,CA,Country ISO code.
-2.0.0-dev+exp,true,threat,threat.enrichments.geo.country_name,keyword,core,,Canada,Country name.
-2.0.0-dev+exp,true,threat,threat.enrichments.geo.location,geo_point,core,,"{ ""lon"": -73.614830, ""lat"": 45.505918 }",Longitude and latitude.
-2.0.0-dev+exp,true,threat,threat.enrichments.geo.name,wildcard,extended,,boston-dc,User-defined description of a location.
-2.0.0-dev+exp,true,threat,threat.enrichments.geo.postal_code,keyword,core,,94040,Postal code.
-2.0.0-dev+exp,true,threat,threat.enrichments.geo.region_iso_code,keyword,core,,CA-QC,Region ISO code.
-2.0.0-dev+exp,true,threat,threat.enrichments.geo.region_name,keyword,core,,Quebec,Region name.
-2.0.0-dev+exp,true,threat,threat.enrichments.geo.timezone,keyword,core,,America/Argentina/Buenos_Aires,Time zone.
-2.0.0-dev+exp,true,threat,threat.enrichments.hash.md5,keyword,extended,,,MD5 hash.
-2.0.0-dev+exp,true,threat,threat.enrichments.hash.sha1,keyword,extended,,,SHA1 hash.
-2.0.0-dev+exp,true,threat,threat.enrichments.hash.sha256,keyword,extended,,,SHA256 hash.
-2.0.0-dev+exp,true,threat,threat.enrichments.hash.sha512,keyword,extended,,,SHA512 hash.
-2.0.0-dev+exp,true,threat,threat.enrichments.hash.ssdeep,keyword,extended,,,SSDEEP hash.
+2.0.0-dev+exp,true,threat,threat.enrichments,nested,extended,,,List of objects containing indicators enriching the event.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator,object,extended,,,Object containing indicators enriching the event.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.as.number,long,extended,,15169,Unique number allocated to the autonomous system.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.as.organization.name,wildcard,extended,,Google LLC,Organization name.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.as.organization.name.text,text,extended,,Google LLC,Organization name.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.confidence,keyword,extended,,High,Indicator confidence rating
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.description,keyword,extended,,IP x.x.x.x was observed delivering the Angler EK.,Indicator description
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.email.address,keyword,extended,,phish@example.com,Indicator email address
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.accessed,date,extended,,,Last time the file was accessed.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.attributes,keyword,extended,array,"[""readonly"", ""system""]",Array of file attributes.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.code_signature.exists,boolean,core,,true,Boolean to capture if a signature is present.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.code_signature.signing_id,keyword,extended,,com.apple.xpc.proxy,The identifier used to sign the process.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.code_signature.status,keyword,extended,,ERROR_UNTRUSTED_ROOT,Additional information about the certificate status.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.code_signature.subject_name,keyword,core,,Microsoft Corporation,Subject name of the code signer
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.code_signature.team_id,keyword,extended,,EQHXZ8M8AV,The team identifier used to sign the process.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.code_signature.trusted,boolean,extended,,true,Stores the trust status of the certificate chain.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.code_signature.valid,boolean,extended,,true,Boolean to capture if the digital signature is verified against the binary content.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.created,date,extended,,,File creation time.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.ctime,date,extended,,,Last time the file attributes or metadata changed.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.device,keyword,extended,,sda,Device that is the source of the file.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.directory,wildcard,extended,,/home/alice,Directory where the file is located.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.drive_letter,keyword,extended,,C,Drive letter where the file is located.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.elf.architecture,keyword,extended,,x86-64,Machine architecture of the ELF file.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.elf.byte_order,keyword,extended,,Little Endian,Byte sequence of ELF file.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.elf.cpu_type,keyword,extended,,Intel,CPU type of the ELF file.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.elf.creation_date,date,extended,,,Build or compile date.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.elf.exports,flattened,extended,array,,List of exported element names and types.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.elf.header.abi_version,keyword,extended,,,Version of the ELF Application Binary Interface (ABI).
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.elf.header.class,keyword,extended,,,Header class of the ELF file.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.elf.header.data,keyword,extended,,,Data table of the ELF header.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.elf.header.entrypoint,long,extended,,,Header entrypoint of the ELF file.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.elf.header.object_version,keyword,extended,,,"""0x1"" for original ELF files."
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.elf.header.os_abi,keyword,extended,,,Application Binary Interface (ABI) of the Linux OS.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.elf.header.type,keyword,extended,,,Header type of the ELF file.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.elf.header.version,keyword,extended,,,Version of the ELF header.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.elf.imports,flattened,extended,array,,List of imported element names and types.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.elf.sections,nested,extended,array,,Section information of the ELF file.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.elf.sections.chi2,long,extended,,,Chi-square probability distribution of the section.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.elf.sections.entropy,long,extended,,,Shannon entropy calculation from the section.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.elf.sections.flags,keyword,extended,,,ELF Section List flags.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.elf.sections.name,keyword,extended,,,ELF Section List name.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.elf.sections.physical_offset,keyword,extended,,,ELF Section List offset.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.elf.sections.physical_size,long,extended,,,ELF Section List physical size.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.elf.sections.type,keyword,extended,,,ELF Section List type.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.elf.sections.virtual_address,long,extended,,,ELF Section List virtual address.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.elf.sections.virtual_size,long,extended,,,ELF Section List virtual size.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.elf.segments,nested,extended,array,,ELF object segment list.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.elf.segments.sections,keyword,extended,,,ELF object segment sections.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.elf.segments.type,keyword,extended,,,ELF object segment type.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.elf.shared_libraries,keyword,extended,array,,List of shared libraries used by this ELF object.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.elf.telfhash,keyword,extended,,,telfhash hash for ELF file.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.extension,keyword,extended,,png,"File extension, excluding the leading dot."
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.gid,keyword,extended,,1001,Primary group ID (GID) of the file.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.group,keyword,extended,,alice,Primary group name of the file.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.inode,keyword,extended,,256383,Inode representing the file in the filesystem.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.mime_type,keyword,extended,,,"Media type of file, document, or arrangement of bytes."
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.mode,keyword,extended,,0640,Mode of the file in octal representation.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.mtime,date,extended,,,Last time the file content was modified.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.name,keyword,extended,,example.png,"Name of the file including the extension, without the directory."
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.owner,keyword,extended,,alice,File owner's username.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.path,wildcard,extended,,/home/alice/example.png,"Full path to the file, including the file name."
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.path.text,text,extended,,/home/alice/example.png,"Full path to the file, including the file name."
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.size,long,extended,,16384,File size in bytes.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.target_path,wildcard,extended,,,Target path for symlinks.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.target_path.text,text,extended,,,Target path for symlinks.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.type,keyword,extended,,file,"File type (file, dir, or symlink)."
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.uid,keyword,extended,,1001,The user ID (UID) or security identifier (SID) of the file owner.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.first_seen,date,extended,,2020-11-05T17:25:47.000Z,Date/time indicator was first reported.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.geo.city_name,keyword,core,,Montreal,City name.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.geo.continent_code,keyword,core,,NA,Continent code.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.geo.continent_name,keyword,core,,North America,Name of the continent.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.geo.country_iso_code,keyword,core,,CA,Country ISO code.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.geo.country_name,keyword,core,,Canada,Country name.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.geo.location,geo_point,core,,"{ ""lon"": -73.614830, ""lat"": 45.505918 }",Longitude and latitude.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.geo.name,wildcard,extended,,boston-dc,User-defined description of a location.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.geo.postal_code,keyword,core,,94040,Postal code.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.geo.region_iso_code,keyword,core,,CA-QC,Region ISO code.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.geo.region_name,keyword,core,,Quebec,Region name.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.geo.timezone,keyword,core,,America/Argentina/Buenos_Aires,Time zone.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.hash.md5,keyword,extended,,,MD5 hash.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.hash.sha1,keyword,extended,,,SHA1 hash.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.hash.sha256,keyword,extended,,,SHA256 hash.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.hash.sha512,keyword,extended,,,SHA512 hash.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.hash.ssdeep,keyword,extended,,,SSDEEP hash.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.ip,ip,extended,,1.2.3.4,Indicator IP address
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.last_seen,date,extended,,2020-11-05T17:25:47.000Z,Date/time indicator was last reported.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.marking.tlp,keyword,extended,,White,Indicator TLP marking
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.modified_at,date,extended,,2020-11-05T17:25:47.000Z,Date/time indicator was last updated.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.pe.architecture,keyword,extended,,x64,CPU architecture target for the file.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.pe.authentihash,keyword,extended,,ac9555d914bbb112ecc5f15bb9887ca8371f493ab0941344e976bb8410c8aa78,Authentihash of the PE file.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.pe.company,keyword,extended,,Microsoft Corporation,"Internal company name of the file, provided at compile-time."
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.pe.compile_timestamp,date,extended,,2020-11-05T17:25:47.000Z,Compile timestamp of the PE file.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.pe.compiler.name,keyword,extended,,Clang,Name of the compiler
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.pe.compiler.version,keyword,extended,,11.0.0,Version of the compiler.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.pe.creation_date,date,extended,,2020-11-05T17:25:47.000Z,Build or compile date.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.pe.debug,nested,extended,array,,Debug information
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.pe.debug.offset,keyword,extended,,1296336,Debug offset information.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.pe.debug.size,long,extended,,816,Size of the debug information.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.pe.debug.timestamp,date,extended,,2020-11-05T17:25:47.000Z,Timestamp of the debug information.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.pe.debug.type,keyword,extended,,IMAGE_DEBUG_TYPE_POGO,Information type generated by the debug options.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.pe.description,keyword,extended,,Paint,"Internal description of the file, provided at compile-time."
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.pe.entry_point,keyword,extended,,25856,Relative byte offset to the base of the PE file.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.pe.exports,keyword,extended,array,"[""DllInstall"", ""DllRegisterServer"", ""DllUnregisterServer""]",List of symbols exported by PE
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.pe.file_version,keyword,extended,,6.3.9600.17415,Process name.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.pe.icon.hash.dhash,keyword,extended,,b806e17c8e330d82,Difference Hash (dhash) to find files with a visually similar icon or thumbnail.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.pe.imphash,keyword,extended,,0c6803c4e922103c4dca5963aad36ddf,A hash of the imports in a PE file.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.pe.imports,flattened,extended,,"{ ""library_name"" : ""mscoree.dll"", ""imported_functions"" : ""GetFileVersionInfoSizeA"" }",List of all imported functions
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.pe.machine_type,keyword,extended,,"Intel 386 or later, and compatibles",Machine type of the PE file.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.pe.original_file_name,wildcard,extended,,MSPAINT.EXE,"Internal name of the file, provided at compile-time."
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.pe.packers,keyword,extended,array,"[""ASPack v2.12"", "".NET executable""]",List of packers and tools used.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.pe.product,keyword,extended,,Microsoft® Windows® Operating System,"Internal product name of the file, provided at compile-time."
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.pe.resources,nested,extended,array,,PE resource information
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.pe.resources.chi2,long,extended,,-1,Chi-square probability distribution.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.pe.resources.entropy,long,extended,,"0, 1",Measurement of entropy randomness in the resources section.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.pe.resources.filetype,keyword,extended,,Data,File type of the resources section.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.pe.resources.language,keyword,extended,,CHINESE SIMPLIFIED,Language identification.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.pe.resources.sha256,keyword,extended,,e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855,SHA256 hash of resources section.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.pe.resources.type,keyword,extended,array,"[""RT_VERSION"", ""RT_MANIFEST""]",List of resource types.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.pe.rich_header.hash.md5,keyword,extended,,5aa1aa0f2b4be70397a1e9e2b87627cd,MD5 hash of the header for the PE file.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.pe.sections,nested,extended,array,,Data about sections of the compiled binary PE
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.pe.sections.chi2,long,extended,,3027194,Chi-square probability distribution.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.pe.sections.entropy,float,extended,,6.24,Measurement of entropy randomness in the file.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.pe.sections.flags,keyword,extended,,rx,Section flags of the file.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.pe.sections.name,keyword,extended,,".text, .data",Section names of the file.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.pe.sections.raw_size,long,extended,,198144,Size of the section or the dize of the initialized data on disk.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.pe.sections.virtual_address,long,extended,,8192,Virtual address available to the file.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.port,long,extended,,443,Indicator port
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.provider,keyword,extended,,lrz_urlhaus,Indicator provider
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.reference,keyword,extended,,https://system.example.com/indicator/0001234,Indicator reference URL
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.registry.data.bytes,keyword,extended,,ZQBuAC0AVQBTAAAAZQBuAAAAAAA=,Original bytes written with base64 encoding.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.registry.data.strings,wildcard,core,array,"[""C:\rta\red_ttp\bin\myapp.exe""]",List of strings representing what was written to the registry.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.registry.data.type,keyword,core,,REG_SZ,Standard registry type for encoding contents
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.registry.hive,keyword,core,,HKLM,Abbreviated name for the hive.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.registry.key,wildcard,core,,SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\winword.exe,Hive-relative path of keys.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.registry.path,wildcard,core,,HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\winword.exe\Debugger,"Full path, including hive, key and value"
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.registry.value,keyword,core,,Debugger,Name of the value written.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.scanner_stats,long,extended,,4,Scanner statistics
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.sightings,long,extended,,20,Number of times indicator observed
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.type,keyword,extended,,ipv4-addr,Type of indicator
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.url.domain,wildcard,extended,,www.elastic.co,Domain of the url.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.url.extension,keyword,extended,,png,"File extension from the request url, excluding the leading dot."
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.url.fragment,keyword,extended,,,Portion of the url after the `#`.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.url.full,wildcard,extended,,https://www.elastic.co:443/search?q=elasticsearch#top,Full unparsed URL.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.url.full.text,text,extended,,https://www.elastic.co:443/search?q=elasticsearch#top,Full unparsed URL.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.url.original,wildcard,extended,,https://www.elastic.co:443/search?q=elasticsearch#top or /search?q=elasticsearch,Unmodified original url as seen in the event source.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.url.original.text,text,extended,,https://www.elastic.co:443/search?q=elasticsearch#top or /search?q=elasticsearch,Unmodified original url as seen in the event source.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.url.password,keyword,extended,,,Password of the request.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.url.path,wildcard,extended,,,"Path of the request, such as ""/search""."
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.url.port,long,extended,,443,"Port of the request, such as 443."
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.url.query,keyword,extended,,,Query string of the request.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.url.registered_domain,wildcard,extended,,example.com,"The highest registered url domain, stripped of the subdomain."
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.url.scheme,keyword,extended,,https,Scheme of the url.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.url.subdomain,keyword,extended,,east,The subdomain of the domain.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.url.top_level_domain,keyword,extended,,co.uk,"The effective top level domain (com, org, net, co.uk)."
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.url.username,keyword,extended,,,Username of the request.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.x509.alternative_names,keyword,extended,array,*.elastic.co,List of subject alternative names (SAN).
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.x509.issuer.common_name,keyword,extended,array,Example SHA2 High Assurance Server CA,List of common name (CN) of issuing certificate authority.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.x509.issuer.country,keyword,extended,array,US,List of country (C) codes
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.x509.issuer.distinguished_name,wildcard,extended,,"C=US, O=Example Inc, OU=www.example.com, CN=Example SHA2 High Assurance Server CA",Distinguished name (DN) of issuing certificate authority.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.x509.issuer.locality,keyword,extended,array,Mountain View,List of locality names (L)
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.x509.issuer.organization,keyword,extended,array,Example Inc,List of organizations (O) of issuing certificate authority.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.x509.issuer.organizational_unit,keyword,extended,array,www.example.com,List of organizational units (OU) of issuing certificate authority.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.x509.issuer.state_or_province,keyword,extended,array,California,"List of state or province names (ST, S, or P)"
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.x509.not_after,date,extended,,2020-07-16 03:15:39+00:00,Time at which the certificate is no longer considered valid.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.x509.not_before,date,extended,,2019-08-16 01:40:25+00:00,Time at which the certificate is first considered valid.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.x509.public_key_algorithm,keyword,extended,,RSA,Algorithm used to generate the public key.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.x509.public_key_curve,keyword,extended,,nistp521,The curve used by the elliptic curve public key algorithm. This is algorithm specific.
+2.0.0-dev+exp,false,threat,threat.enrichments.indicator.x509.public_key_exponent,long,extended,,65537,Exponent used to derive the public key. This is algorithm specific.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.x509.public_key_size,long,extended,,2048,The size of the public key space in bits.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.x509.serial_number,keyword,extended,,55FBB9C7DEBF09809D12CCAA,Unique serial number issued by the certificate authority.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.x509.signature_algorithm,keyword,extended,,SHA256-RSA,Identifier for certificate signature algorithm.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.x509.subject.common_name,keyword,extended,array,shared.global.example.net,List of common names (CN) of subject.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.x509.subject.country,keyword,extended,array,US,List of country (C) code
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.x509.subject.distinguished_name,wildcard,extended,,"C=US, ST=California, L=San Francisco, O=Example, Inc., CN=shared.global.example.net",Distinguished name (DN) of the certificate subject entity.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.x509.subject.locality,keyword,extended,array,San Francisco,List of locality names (L)
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.x509.subject.organization,keyword,extended,array,"Example, Inc.",List of organizations (O) of subject.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.x509.subject.organizational_unit,keyword,extended,array,,List of organizational units (OU) of subject.
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.x509.subject.state_or_province,keyword,extended,array,California,"List of state or province names (ST, S, or P)"
+2.0.0-dev+exp,true,threat,threat.enrichments.indicator.x509.version_number,keyword,extended,,3,Version of x509 format.
 2.0.0-dev+exp,true,threat,threat.enrichments.matched.atomic,keyword,extended,,bad-domain.com,Matched indicator value
 2.0.0-dev+exp,true,threat,threat.enrichments.matched.field,keyword,extended,,file.hash.sha256,Matched indicator field
 2.0.0-dev+exp,true,threat,threat.enrichments.matched.id,keyword,extended,,ff93aee5-86a1-4a61-b0e6-0cdc313d01b5,Matched indicator identifier
@@ -1145,63 +1219,188 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 2.0.0-dev+exp,true,threat,threat.enrichments.registry.key,wildcard,core,,SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\winword.exe,Hive-relative path of keys.
 2.0.0-dev+exp,true,threat,threat.enrichments.registry.path,wildcard,core,,HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\winword.exe\Debugger,"Full path, including hive, key and value"
 2.0.0-dev+exp,true,threat,threat.enrichments.registry.value,keyword,core,,Debugger,Name of the value written.
-2.0.0-dev+exp,true,threat,threat.enrichments.url.domain,wildcard,extended,,www.elastic.co,Domain of the url.
-2.0.0-dev+exp,true,threat,threat.enrichments.url.extension,keyword,extended,,png,"File extension from the request url, excluding the leading dot."
-2.0.0-dev+exp,true,threat,threat.enrichments.url.fragment,keyword,extended,,,Portion of the url after the `#`.
-2.0.0-dev+exp,true,threat,threat.enrichments.url.full,wildcard,extended,,https://www.elastic.co:443/search?q=elasticsearch#top,Full unparsed URL.
-2.0.0-dev+exp,true,threat,threat.enrichments.url.full.text,text,extended,,https://www.elastic.co:443/search?q=elasticsearch#top,Full unparsed URL.
-2.0.0-dev+exp,true,threat,threat.enrichments.url.original,wildcard,extended,,https://www.elastic.co:443/search?q=elasticsearch#top or /search?q=elasticsearch,Unmodified original url as seen in the event source.
-2.0.0-dev+exp,true,threat,threat.enrichments.url.original.text,text,extended,,https://www.elastic.co:443/search?q=elasticsearch#top or /search?q=elasticsearch,Unmodified original url as seen in the event source.
-2.0.0-dev+exp,true,threat,threat.enrichments.url.password,keyword,extended,,,Password of the request.
-2.0.0-dev+exp,true,threat,threat.enrichments.url.path,wildcard,extended,,,"Path of the request, such as ""/search""."
-2.0.0-dev+exp,true,threat,threat.enrichments.url.port,long,extended,,443,"Port of the request, such as 443."
-2.0.0-dev+exp,true,threat,threat.enrichments.url.query,keyword,extended,,,Query string of the request.
-2.0.0-dev+exp,true,threat,threat.enrichments.url.registered_domain,wildcard,extended,,example.com,"The highest registered url domain, stripped of the subdomain."
-2.0.0-dev+exp,true,threat,threat.enrichments.url.scheme,keyword,extended,,https,Scheme of the url.
-2.0.0-dev+exp,true,threat,threat.enrichments.url.subdomain,keyword,extended,,east,The subdomain of the domain.
-2.0.0-dev+exp,true,threat,threat.enrichments.url.top_level_domain,keyword,extended,,co.uk,"The effective top level domain (com, org, net, co.uk)."
-2.0.0-dev+exp,true,threat,threat.enrichments.url.username,keyword,extended,,,Username of the request.
-2.0.0-dev+exp,true,threat,threat.enrichments.x509.alternative_names,keyword,extended,array,*.elastic.co,List of subject alternative names (SAN).
-2.0.0-dev+exp,true,threat,threat.enrichments.x509.issuer.common_name,keyword,extended,array,Example SHA2 High Assurance Server CA,List of common name (CN) of issuing certificate authority.
-2.0.0-dev+exp,true,threat,threat.enrichments.x509.issuer.country,keyword,extended,array,US,List of country (C) codes
-2.0.0-dev+exp,true,threat,threat.enrichments.x509.issuer.distinguished_name,wildcard,extended,,"C=US, O=Example Inc, OU=www.example.com, CN=Example SHA2 High Assurance Server CA",Distinguished name (DN) of issuing certificate authority.
-2.0.0-dev+exp,true,threat,threat.enrichments.x509.issuer.locality,keyword,extended,array,Mountain View,List of locality names (L)
-2.0.0-dev+exp,true,threat,threat.enrichments.x509.issuer.organization,keyword,extended,array,Example Inc,List of organizations (O) of issuing certificate authority.
-2.0.0-dev+exp,true,threat,threat.enrichments.x509.issuer.organizational_unit,keyword,extended,array,www.example.com,List of organizational units (OU) of issuing certificate authority.
-2.0.0-dev+exp,true,threat,threat.enrichments.x509.issuer.state_or_province,keyword,extended,array,California,"List of state or province names (ST, S, or P)"
-2.0.0-dev+exp,true,threat,threat.enrichments.x509.not_after,date,extended,,2020-07-16 03:15:39+00:00,Time at which the certificate is no longer considered valid.
-2.0.0-dev+exp,true,threat,threat.enrichments.x509.not_before,date,extended,,2019-08-16 01:40:25+00:00,Time at which the certificate is first considered valid.
-2.0.0-dev+exp,true,threat,threat.enrichments.x509.public_key_algorithm,keyword,extended,,RSA,Algorithm used to generate the public key.
-2.0.0-dev+exp,true,threat,threat.enrichments.x509.public_key_curve,keyword,extended,,nistp521,The curve used by the elliptic curve public key algorithm. This is algorithm specific.
-2.0.0-dev+exp,false,threat,threat.enrichments.x509.public_key_exponent,long,extended,,65537,Exponent used to derive the public key. This is algorithm specific.
-2.0.0-dev+exp,true,threat,threat.enrichments.x509.public_key_size,long,extended,,2048,The size of the public key space in bits.
-2.0.0-dev+exp,true,threat,threat.enrichments.x509.serial_number,keyword,extended,,55FBB9C7DEBF09809D12CCAA,Unique serial number issued by the certificate authority.
-2.0.0-dev+exp,true,threat,threat.enrichments.x509.signature_algorithm,keyword,extended,,SHA256-RSA,Identifier for certificate signature algorithm.
-2.0.0-dev+exp,true,threat,threat.enrichments.x509.subject.common_name,keyword,extended,array,shared.global.example.net,List of common names (CN) of subject.
-2.0.0-dev+exp,true,threat,threat.enrichments.x509.subject.country,keyword,extended,array,US,List of country (C) code
-2.0.0-dev+exp,true,threat,threat.enrichments.x509.subject.distinguished_name,wildcard,extended,,"C=US, ST=California, L=San Francisco, O=Example, Inc., CN=shared.global.example.net",Distinguished name (DN) of the certificate subject entity.
-2.0.0-dev+exp,true,threat,threat.enrichments.x509.subject.locality,keyword,extended,array,San Francisco,List of locality names (L)
-2.0.0-dev+exp,true,threat,threat.enrichments.x509.subject.organization,keyword,extended,array,"Example, Inc.",List of organizations (O) of subject.
-2.0.0-dev+exp,true,threat,threat.enrichments.x509.subject.organizational_unit,keyword,extended,array,,List of organizational units (OU) of subject.
-2.0.0-dev+exp,true,threat,threat.enrichments.x509.subject.state_or_province,keyword,extended,array,California,"List of state or province names (ST, S, or P)"
-2.0.0-dev+exp,true,threat,threat.enrichments.x509.version_number,keyword,extended,,3,Version of x509 format.
 2.0.0-dev+exp,true,threat,threat.framework,keyword,extended,,MITRE ATT&CK,Threat classification framework.
 2.0.0-dev+exp,true,threat,threat.group.alias,keyword,extended,array,"[ ""Magecart Group 6"" ]",Alias of the group.
 2.0.0-dev+exp,true,threat,threat.group.id,keyword,extended,,G0037,ID of the group.
 2.0.0-dev+exp,true,threat,threat.group.name,keyword,extended,,FIN6,Name of the group.
 2.0.0-dev+exp,true,threat,threat.group.reference,keyword,extended,,https://attack.mitre.org/groups/G0037/,Reference URL of the group.
+2.0.0-dev+exp,true,threat,threat.indicator.as.number,long,extended,,15169,Unique number allocated to the autonomous system.
+2.0.0-dev+exp,true,threat,threat.indicator.as.organization.name,wildcard,extended,,Google LLC,Organization name.
+2.0.0-dev+exp,true,threat,threat.indicator.as.organization.name.text,text,extended,,Google LLC,Organization name.
 2.0.0-dev+exp,true,threat,threat.indicator.confidence,keyword,extended,,High,Indicator confidence rating
 2.0.0-dev+exp,true,threat,threat.indicator.description,keyword,extended,,IP x.x.x.x was observed delivering the Angler EK.,Indicator description
 2.0.0-dev+exp,true,threat,threat.indicator.email.address,keyword,extended,,phish@example.com,Indicator email address
+2.0.0-dev+exp,true,threat,threat.indicator.file.accessed,date,extended,,,Last time the file was accessed.
+2.0.0-dev+exp,true,threat,threat.indicator.file.attributes,keyword,extended,array,"[""readonly"", ""system""]",Array of file attributes.
+2.0.0-dev+exp,true,threat,threat.indicator.file.code_signature.exists,boolean,core,,true,Boolean to capture if a signature is present.
+2.0.0-dev+exp,true,threat,threat.indicator.file.code_signature.signing_id,keyword,extended,,com.apple.xpc.proxy,The identifier used to sign the process.
+2.0.0-dev+exp,true,threat,threat.indicator.file.code_signature.status,keyword,extended,,ERROR_UNTRUSTED_ROOT,Additional information about the certificate status.
+2.0.0-dev+exp,true,threat,threat.indicator.file.code_signature.subject_name,keyword,core,,Microsoft Corporation,Subject name of the code signer
+2.0.0-dev+exp,true,threat,threat.indicator.file.code_signature.team_id,keyword,extended,,EQHXZ8M8AV,The team identifier used to sign the process.
+2.0.0-dev+exp,true,threat,threat.indicator.file.code_signature.trusted,boolean,extended,,true,Stores the trust status of the certificate chain.
+2.0.0-dev+exp,true,threat,threat.indicator.file.code_signature.valid,boolean,extended,,true,Boolean to capture if the digital signature is verified against the binary content.
+2.0.0-dev+exp,true,threat,threat.indicator.file.created,date,extended,,,File creation time.
+2.0.0-dev+exp,true,threat,threat.indicator.file.ctime,date,extended,,,Last time the file attributes or metadata changed.
+2.0.0-dev+exp,true,threat,threat.indicator.file.device,keyword,extended,,sda,Device that is the source of the file.
+2.0.0-dev+exp,true,threat,threat.indicator.file.directory,wildcard,extended,,/home/alice,Directory where the file is located.
+2.0.0-dev+exp,true,threat,threat.indicator.file.drive_letter,keyword,extended,,C,Drive letter where the file is located.
+2.0.0-dev+exp,true,threat,threat.indicator.file.elf.architecture,keyword,extended,,x86-64,Machine architecture of the ELF file.
+2.0.0-dev+exp,true,threat,threat.indicator.file.elf.byte_order,keyword,extended,,Little Endian,Byte sequence of ELF file.
+2.0.0-dev+exp,true,threat,threat.indicator.file.elf.cpu_type,keyword,extended,,Intel,CPU type of the ELF file.
+2.0.0-dev+exp,true,threat,threat.indicator.file.elf.creation_date,date,extended,,,Build or compile date.
+2.0.0-dev+exp,true,threat,threat.indicator.file.elf.exports,flattened,extended,array,,List of exported element names and types.
+2.0.0-dev+exp,true,threat,threat.indicator.file.elf.header.abi_version,keyword,extended,,,Version of the ELF Application Binary Interface (ABI).
+2.0.0-dev+exp,true,threat,threat.indicator.file.elf.header.class,keyword,extended,,,Header class of the ELF file.
+2.0.0-dev+exp,true,threat,threat.indicator.file.elf.header.data,keyword,extended,,,Data table of the ELF header.
+2.0.0-dev+exp,true,threat,threat.indicator.file.elf.header.entrypoint,long,extended,,,Header entrypoint of the ELF file.
+2.0.0-dev+exp,true,threat,threat.indicator.file.elf.header.object_version,keyword,extended,,,"""0x1"" for original ELF files."
+2.0.0-dev+exp,true,threat,threat.indicator.file.elf.header.os_abi,keyword,extended,,,Application Binary Interface (ABI) of the Linux OS.
+2.0.0-dev+exp,true,threat,threat.indicator.file.elf.header.type,keyword,extended,,,Header type of the ELF file.
+2.0.0-dev+exp,true,threat,threat.indicator.file.elf.header.version,keyword,extended,,,Version of the ELF header.
+2.0.0-dev+exp,true,threat,threat.indicator.file.elf.imports,flattened,extended,array,,List of imported element names and types.
+2.0.0-dev+exp,true,threat,threat.indicator.file.elf.sections,nested,extended,array,,Section information of the ELF file.
+2.0.0-dev+exp,true,threat,threat.indicator.file.elf.sections.chi2,long,extended,,,Chi-square probability distribution of the section.
+2.0.0-dev+exp,true,threat,threat.indicator.file.elf.sections.entropy,long,extended,,,Shannon entropy calculation from the section.
+2.0.0-dev+exp,true,threat,threat.indicator.file.elf.sections.flags,keyword,extended,,,ELF Section List flags.
+2.0.0-dev+exp,true,threat,threat.indicator.file.elf.sections.name,keyword,extended,,,ELF Section List name.
+2.0.0-dev+exp,true,threat,threat.indicator.file.elf.sections.physical_offset,keyword,extended,,,ELF Section List offset.
+2.0.0-dev+exp,true,threat,threat.indicator.file.elf.sections.physical_size,long,extended,,,ELF Section List physical size.
+2.0.0-dev+exp,true,threat,threat.indicator.file.elf.sections.type,keyword,extended,,,ELF Section List type.
+2.0.0-dev+exp,true,threat,threat.indicator.file.elf.sections.virtual_address,long,extended,,,ELF Section List virtual address.
+2.0.0-dev+exp,true,threat,threat.indicator.file.elf.sections.virtual_size,long,extended,,,ELF Section List virtual size.
+2.0.0-dev+exp,true,threat,threat.indicator.file.elf.segments,nested,extended,array,,ELF object segment list.
+2.0.0-dev+exp,true,threat,threat.indicator.file.elf.segments.sections,keyword,extended,,,ELF object segment sections.
+2.0.0-dev+exp,true,threat,threat.indicator.file.elf.segments.type,keyword,extended,,,ELF object segment type.
+2.0.0-dev+exp,true,threat,threat.indicator.file.elf.shared_libraries,keyword,extended,array,,List of shared libraries used by this ELF object.
+2.0.0-dev+exp,true,threat,threat.indicator.file.elf.telfhash,keyword,extended,,,telfhash hash for ELF file.
+2.0.0-dev+exp,true,threat,threat.indicator.file.extension,keyword,extended,,png,"File extension, excluding the leading dot."
+2.0.0-dev+exp,true,threat,threat.indicator.file.gid,keyword,extended,,1001,Primary group ID (GID) of the file.
+2.0.0-dev+exp,true,threat,threat.indicator.file.group,keyword,extended,,alice,Primary group name of the file.
+2.0.0-dev+exp,true,threat,threat.indicator.file.inode,keyword,extended,,256383,Inode representing the file in the filesystem.
+2.0.0-dev+exp,true,threat,threat.indicator.file.mime_type,keyword,extended,,,"Media type of file, document, or arrangement of bytes."
+2.0.0-dev+exp,true,threat,threat.indicator.file.mode,keyword,extended,,0640,Mode of the file in octal representation.
+2.0.0-dev+exp,true,threat,threat.indicator.file.mtime,date,extended,,,Last time the file content was modified.
+2.0.0-dev+exp,true,threat,threat.indicator.file.name,keyword,extended,,example.png,"Name of the file including the extension, without the directory."
+2.0.0-dev+exp,true,threat,threat.indicator.file.owner,keyword,extended,,alice,File owner's username.
+2.0.0-dev+exp,true,threat,threat.indicator.file.path,wildcard,extended,,/home/alice/example.png,"Full path to the file, including the file name."
+2.0.0-dev+exp,true,threat,threat.indicator.file.path.text,text,extended,,/home/alice/example.png,"Full path to the file, including the file name."
+2.0.0-dev+exp,true,threat,threat.indicator.file.size,long,extended,,16384,File size in bytes.
+2.0.0-dev+exp,true,threat,threat.indicator.file.target_path,wildcard,extended,,,Target path for symlinks.
+2.0.0-dev+exp,true,threat,threat.indicator.file.target_path.text,text,extended,,,Target path for symlinks.
+2.0.0-dev+exp,true,threat,threat.indicator.file.type,keyword,extended,,file,"File type (file, dir, or symlink)."
+2.0.0-dev+exp,true,threat,threat.indicator.file.uid,keyword,extended,,1001,The user ID (UID) or security identifier (SID) of the file owner.
 2.0.0-dev+exp,true,threat,threat.indicator.first_seen,date,extended,,2020-11-05T17:25:47.000Z,Date/time indicator was first reported.
+2.0.0-dev+exp,true,threat,threat.indicator.geo.city_name,keyword,core,,Montreal,City name.
+2.0.0-dev+exp,true,threat,threat.indicator.geo.continent_code,keyword,core,,NA,Continent code.
+2.0.0-dev+exp,true,threat,threat.indicator.geo.continent_name,keyword,core,,North America,Name of the continent.
+2.0.0-dev+exp,true,threat,threat.indicator.geo.country_iso_code,keyword,core,,CA,Country ISO code.
+2.0.0-dev+exp,true,threat,threat.indicator.geo.country_name,keyword,core,,Canada,Country name.
+2.0.0-dev+exp,true,threat,threat.indicator.geo.location,geo_point,core,,"{ ""lon"": -73.614830, ""lat"": 45.505918 }",Longitude and latitude.
+2.0.0-dev+exp,true,threat,threat.indicator.geo.name,wildcard,extended,,boston-dc,User-defined description of a location.
+2.0.0-dev+exp,true,threat,threat.indicator.geo.postal_code,keyword,core,,94040,Postal code.
+2.0.0-dev+exp,true,threat,threat.indicator.geo.region_iso_code,keyword,core,,CA-QC,Region ISO code.
+2.0.0-dev+exp,true,threat,threat.indicator.geo.region_name,keyword,core,,Quebec,Region name.
+2.0.0-dev+exp,true,threat,threat.indicator.geo.timezone,keyword,core,,America/Argentina/Buenos_Aires,Time zone.
+2.0.0-dev+exp,true,threat,threat.indicator.hash.md5,keyword,extended,,,MD5 hash.
+2.0.0-dev+exp,true,threat,threat.indicator.hash.sha1,keyword,extended,,,SHA1 hash.
+2.0.0-dev+exp,true,threat,threat.indicator.hash.sha256,keyword,extended,,,SHA256 hash.
+2.0.0-dev+exp,true,threat,threat.indicator.hash.sha512,keyword,extended,,,SHA512 hash.
+2.0.0-dev+exp,true,threat,threat.indicator.hash.ssdeep,keyword,extended,,,SSDEEP hash.
 2.0.0-dev+exp,true,threat,threat.indicator.ip,ip,extended,,1.2.3.4,Indicator IP address
 2.0.0-dev+exp,true,threat,threat.indicator.last_seen,date,extended,,2020-11-05T17:25:47.000Z,Date/time indicator was last reported.
 2.0.0-dev+exp,true,threat,threat.indicator.marking.tlp,keyword,extended,,WHITE,Indicator TLP marking
 2.0.0-dev+exp,true,threat,threat.indicator.modified_at,date,extended,,2020-11-05T17:25:47.000Z,Date/time indicator was last updated.
+2.0.0-dev+exp,true,threat,threat.indicator.pe.architecture,keyword,extended,,x64,CPU architecture target for the file.
+2.0.0-dev+exp,true,threat,threat.indicator.pe.authentihash,keyword,extended,,ac9555d914bbb112ecc5f15bb9887ca8371f493ab0941344e976bb8410c8aa78,Authentihash of the PE file.
+2.0.0-dev+exp,true,threat,threat.indicator.pe.company,keyword,extended,,Microsoft Corporation,"Internal company name of the file, provided at compile-time."
+2.0.0-dev+exp,true,threat,threat.indicator.pe.compile_timestamp,date,extended,,2020-11-05T17:25:47.000Z,Compile timestamp of the PE file.
+2.0.0-dev+exp,true,threat,threat.indicator.pe.compiler.name,keyword,extended,,Clang,Name of the compiler
+2.0.0-dev+exp,true,threat,threat.indicator.pe.compiler.version,keyword,extended,,11.0.0,Version of the compiler.
+2.0.0-dev+exp,true,threat,threat.indicator.pe.creation_date,date,extended,,2020-11-05T17:25:47.000Z,Build or compile date.
+2.0.0-dev+exp,true,threat,threat.indicator.pe.debug,nested,extended,array,,Debug information
+2.0.0-dev+exp,true,threat,threat.indicator.pe.debug.offset,keyword,extended,,1296336,Debug offset information.
+2.0.0-dev+exp,true,threat,threat.indicator.pe.debug.size,long,extended,,816,Size of the debug information.
+2.0.0-dev+exp,true,threat,threat.indicator.pe.debug.timestamp,date,extended,,2020-11-05T17:25:47.000Z,Timestamp of the debug information.
+2.0.0-dev+exp,true,threat,threat.indicator.pe.debug.type,keyword,extended,,IMAGE_DEBUG_TYPE_POGO,Information type generated by the debug options.
+2.0.0-dev+exp,true,threat,threat.indicator.pe.description,keyword,extended,,Paint,"Internal description of the file, provided at compile-time."
+2.0.0-dev+exp,true,threat,threat.indicator.pe.entry_point,keyword,extended,,25856,Relative byte offset to the base of the PE file.
+2.0.0-dev+exp,true,threat,threat.indicator.pe.exports,keyword,extended,array,"[""DllInstall"", ""DllRegisterServer"", ""DllUnregisterServer""]",List of symbols exported by PE
+2.0.0-dev+exp,true,threat,threat.indicator.pe.file_version,keyword,extended,,6.3.9600.17415,Process name.
+2.0.0-dev+exp,true,threat,threat.indicator.pe.icon.hash.dhash,keyword,extended,,b806e17c8e330d82,Difference Hash (dhash) to find files with a visually similar icon or thumbnail.
+2.0.0-dev+exp,true,threat,threat.indicator.pe.imphash,keyword,extended,,0c6803c4e922103c4dca5963aad36ddf,A hash of the imports in a PE file.
+2.0.0-dev+exp,true,threat,threat.indicator.pe.imports,flattened,extended,,"{ ""library_name"" : ""mscoree.dll"", ""imported_functions"" : ""GetFileVersionInfoSizeA"" }",List of all imported functions
+2.0.0-dev+exp,true,threat,threat.indicator.pe.machine_type,keyword,extended,,"Intel 386 or later, and compatibles",Machine type of the PE file.
+2.0.0-dev+exp,true,threat,threat.indicator.pe.original_file_name,wildcard,extended,,MSPAINT.EXE,"Internal name of the file, provided at compile-time."
+2.0.0-dev+exp,true,threat,threat.indicator.pe.packers,keyword,extended,array,"[""ASPack v2.12"", "".NET executable""]",List of packers and tools used.
+2.0.0-dev+exp,true,threat,threat.indicator.pe.product,keyword,extended,,Microsoft® Windows® Operating System,"Internal product name of the file, provided at compile-time."
+2.0.0-dev+exp,true,threat,threat.indicator.pe.resources,nested,extended,array,,PE resource information
+2.0.0-dev+exp,true,threat,threat.indicator.pe.resources.chi2,long,extended,,-1,Chi-square probability distribution.
+2.0.0-dev+exp,true,threat,threat.indicator.pe.resources.entropy,long,extended,,"0, 1",Measurement of entropy randomness in the resources section.
+2.0.0-dev+exp,true,threat,threat.indicator.pe.resources.filetype,keyword,extended,,Data,File type of the resources section.
+2.0.0-dev+exp,true,threat,threat.indicator.pe.resources.language,keyword,extended,,CHINESE SIMPLIFIED,Language identification.
+2.0.0-dev+exp,true,threat,threat.indicator.pe.resources.sha256,keyword,extended,,e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855,SHA256 hash of resources section.
+2.0.0-dev+exp,true,threat,threat.indicator.pe.resources.type,keyword,extended,array,"[""RT_VERSION"", ""RT_MANIFEST""]",List of resource types.
+2.0.0-dev+exp,true,threat,threat.indicator.pe.rich_header.hash.md5,keyword,extended,,5aa1aa0f2b4be70397a1e9e2b87627cd,MD5 hash of the header for the PE file.
+2.0.0-dev+exp,true,threat,threat.indicator.pe.sections,nested,extended,array,,Data about sections of the compiled binary PE
+2.0.0-dev+exp,true,threat,threat.indicator.pe.sections.chi2,long,extended,,3027194,Chi-square probability distribution.
+2.0.0-dev+exp,true,threat,threat.indicator.pe.sections.entropy,float,extended,,6.24,Measurement of entropy randomness in the file.
+2.0.0-dev+exp,true,threat,threat.indicator.pe.sections.flags,keyword,extended,,rx,Section flags of the file.
+2.0.0-dev+exp,true,threat,threat.indicator.pe.sections.name,keyword,extended,,".text, .data",Section names of the file.
+2.0.0-dev+exp,true,threat,threat.indicator.pe.sections.raw_size,long,extended,,198144,Size of the section or the dize of the initialized data on disk.
+2.0.0-dev+exp,true,threat,threat.indicator.pe.sections.virtual_address,long,extended,,8192,Virtual address available to the file.
 2.0.0-dev+exp,true,threat,threat.indicator.port,long,extended,,443,Indicator port
+2.0.0-dev+exp,true,threat,threat.indicator.provider,keyword,extended,,lrz_urlhaus,Indicator provider
+2.0.0-dev+exp,true,threat,threat.indicator.reference,keyword,extended,,https://system.example.com/indicator/0001234,Indicator reference URL
+2.0.0-dev+exp,true,threat,threat.indicator.registry.data.bytes,keyword,extended,,ZQBuAC0AVQBTAAAAZQBuAAAAAAA=,Original bytes written with base64 encoding.
+2.0.0-dev+exp,true,threat,threat.indicator.registry.data.strings,wildcard,core,array,"[""C:\rta\red_ttp\bin\myapp.exe""]",List of strings representing what was written to the registry.
+2.0.0-dev+exp,true,threat,threat.indicator.registry.data.type,keyword,core,,REG_SZ,Standard registry type for encoding contents
+2.0.0-dev+exp,true,threat,threat.indicator.registry.hive,keyword,core,,HKLM,Abbreviated name for the hive.
+2.0.0-dev+exp,true,threat,threat.indicator.registry.key,wildcard,core,,SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\winword.exe,Hive-relative path of keys.
+2.0.0-dev+exp,true,threat,threat.indicator.registry.path,wildcard,core,,HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\winword.exe\Debugger,"Full path, including hive, key and value"
+2.0.0-dev+exp,true,threat,threat.indicator.registry.value,keyword,core,,Debugger,Name of the value written.
 2.0.0-dev+exp,true,threat,threat.indicator.scanner_stats,long,extended,,4,Scanner statistics
 2.0.0-dev+exp,true,threat,threat.indicator.sightings,long,extended,,20,Number of times indicator observed
 2.0.0-dev+exp,true,threat,threat.indicator.type,keyword,extended,,ipv4-addr,Type of indicator
+2.0.0-dev+exp,true,threat,threat.indicator.url.domain,wildcard,extended,,www.elastic.co,Domain of the url.
+2.0.0-dev+exp,true,threat,threat.indicator.url.extension,keyword,extended,,png,"File extension from the request url, excluding the leading dot."
+2.0.0-dev+exp,true,threat,threat.indicator.url.fragment,keyword,extended,,,Portion of the url after the `#`.
+2.0.0-dev+exp,true,threat,threat.indicator.url.full,wildcard,extended,,https://www.elastic.co:443/search?q=elasticsearch#top,Full unparsed URL.
+2.0.0-dev+exp,true,threat,threat.indicator.url.full.text,text,extended,,https://www.elastic.co:443/search?q=elasticsearch#top,Full unparsed URL.
+2.0.0-dev+exp,true,threat,threat.indicator.url.original,wildcard,extended,,https://www.elastic.co:443/search?q=elasticsearch#top or /search?q=elasticsearch,Unmodified original url as seen in the event source.
+2.0.0-dev+exp,true,threat,threat.indicator.url.original.text,text,extended,,https://www.elastic.co:443/search?q=elasticsearch#top or /search?q=elasticsearch,Unmodified original url as seen in the event source.
+2.0.0-dev+exp,true,threat,threat.indicator.url.password,keyword,extended,,,Password of the request.
+2.0.0-dev+exp,true,threat,threat.indicator.url.path,wildcard,extended,,,"Path of the request, such as ""/search""."
+2.0.0-dev+exp,true,threat,threat.indicator.url.port,long,extended,,443,"Port of the request, such as 443."
+2.0.0-dev+exp,true,threat,threat.indicator.url.query,keyword,extended,,,Query string of the request.
+2.0.0-dev+exp,true,threat,threat.indicator.url.registered_domain,wildcard,extended,,example.com,"The highest registered url domain, stripped of the subdomain."
+2.0.0-dev+exp,true,threat,threat.indicator.url.scheme,keyword,extended,,https,Scheme of the url.
+2.0.0-dev+exp,true,threat,threat.indicator.url.subdomain,keyword,extended,,east,The subdomain of the domain.
+2.0.0-dev+exp,true,threat,threat.indicator.url.top_level_domain,keyword,extended,,co.uk,"The effective top level domain (com, org, net, co.uk)."
+2.0.0-dev+exp,true,threat,threat.indicator.url.username,keyword,extended,,,Username of the request.
+2.0.0-dev+exp,true,threat,threat.indicator.x509.alternative_names,keyword,extended,array,*.elastic.co,List of subject alternative names (SAN).
+2.0.0-dev+exp,true,threat,threat.indicator.x509.issuer.common_name,keyword,extended,array,Example SHA2 High Assurance Server CA,List of common name (CN) of issuing certificate authority.
+2.0.0-dev+exp,true,threat,threat.indicator.x509.issuer.country,keyword,extended,array,US,List of country (C) codes
+2.0.0-dev+exp,true,threat,threat.indicator.x509.issuer.distinguished_name,wildcard,extended,,"C=US, O=Example Inc, OU=www.example.com, CN=Example SHA2 High Assurance Server CA",Distinguished name (DN) of issuing certificate authority.
+2.0.0-dev+exp,true,threat,threat.indicator.x509.issuer.locality,keyword,extended,array,Mountain View,List of locality names (L)
+2.0.0-dev+exp,true,threat,threat.indicator.x509.issuer.organization,keyword,extended,array,Example Inc,List of organizations (O) of issuing certificate authority.
+2.0.0-dev+exp,true,threat,threat.indicator.x509.issuer.organizational_unit,keyword,extended,array,www.example.com,List of organizational units (OU) of issuing certificate authority.
+2.0.0-dev+exp,true,threat,threat.indicator.x509.issuer.state_or_province,keyword,extended,array,California,"List of state or province names (ST, S, or P)"
+2.0.0-dev+exp,true,threat,threat.indicator.x509.not_after,date,extended,,2020-07-16 03:15:39+00:00,Time at which the certificate is no longer considered valid.
+2.0.0-dev+exp,true,threat,threat.indicator.x509.not_before,date,extended,,2019-08-16 01:40:25+00:00,Time at which the certificate is first considered valid.
+2.0.0-dev+exp,true,threat,threat.indicator.x509.public_key_algorithm,keyword,extended,,RSA,Algorithm used to generate the public key.
+2.0.0-dev+exp,true,threat,threat.indicator.x509.public_key_curve,keyword,extended,,nistp521,The curve used by the elliptic curve public key algorithm. This is algorithm specific.
+2.0.0-dev+exp,false,threat,threat.indicator.x509.public_key_exponent,long,extended,,65537,Exponent used to derive the public key. This is algorithm specific.
+2.0.0-dev+exp,true,threat,threat.indicator.x509.public_key_size,long,extended,,2048,The size of the public key space in bits.
+2.0.0-dev+exp,true,threat,threat.indicator.x509.serial_number,keyword,extended,,55FBB9C7DEBF09809D12CCAA,Unique serial number issued by the certificate authority.
+2.0.0-dev+exp,true,threat,threat.indicator.x509.signature_algorithm,keyword,extended,,SHA256-RSA,Identifier for certificate signature algorithm.
+2.0.0-dev+exp,true,threat,threat.indicator.x509.subject.common_name,keyword,extended,array,shared.global.example.net,List of common names (CN) of subject.
+2.0.0-dev+exp,true,threat,threat.indicator.x509.subject.country,keyword,extended,array,US,List of country (C) code
+2.0.0-dev+exp,true,threat,threat.indicator.x509.subject.distinguished_name,wildcard,extended,,"C=US, ST=California, L=San Francisco, O=Example, Inc., CN=shared.global.example.net",Distinguished name (DN) of the certificate subject entity.
+2.0.0-dev+exp,true,threat,threat.indicator.x509.subject.locality,keyword,extended,array,San Francisco,List of locality names (L)
+2.0.0-dev+exp,true,threat,threat.indicator.x509.subject.organization,keyword,extended,array,"Example, Inc.",List of organizations (O) of subject.
+2.0.0-dev+exp,true,threat,threat.indicator.x509.subject.organizational_unit,keyword,extended,array,,List of organizational units (OU) of subject.
+2.0.0-dev+exp,true,threat,threat.indicator.x509.subject.state_or_province,keyword,extended,array,California,"List of state or province names (ST, S, or P)"
+2.0.0-dev+exp,true,threat,threat.indicator.x509.version_number,keyword,extended,,3,Version of x509 format.
 2.0.0-dev+exp,true,threat,threat.software.id,keyword,extended,,S0552,ID of the software
 2.0.0-dev+exp,true,threat,threat.software.name,keyword,extended,,AdFind,Name of the software.
 2.0.0-dev+exp,true,threat,threat.software.platforms,keyword,extended,array,"[ ""Windows"" ]",Platforms of the software.
