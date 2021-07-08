@@ -37,6 +37,8 @@ threat.indicator.port | long | 443 | Identifies a threat indicator as a port num
 threat.indicator.email.address | keyword | phish@evil.com | Identifies a threat indicator as an email address (irrespective of direction).
 threat.marking.tlp | keyword | RED | Data markings represent restrictions, permissions, and other guidance for how data can be used and shared. Examples could be TLP (WHITE, GREEN, AMBER, RED).
 threat.indicator.scanner_stats | long | 4 | Count of Anti virus/EDR that successfully detected malicious file or URL. Sources like VirusTotal, Reversing Labs often provide these statistics.
+threat.indicator.reference | keyword | https://feodotracker.abuse.ch/ | URL to the intelligence source
+threat.indicator.provider | keyword | lrz_urlhaus | The name of the indicator's provider
 
 ### Proposed New Values for Event Fieldset
 
@@ -122,8 +124,6 @@ Network Example
             "email-addr"
         ],
         "description": "Email address, domain, port, and IP address observed using an Angler EK campaign.",
-        "dataset": "threatintel.abuseurl",
-        "module": "threatintel",
         "provider": "Abuse.ch",
         "reference": "https://urlhaus.abuse.ch/url/1292596/",
         "confidence": "High",
@@ -182,8 +182,6 @@ File Example
             "file"
         ],
         "description": "Implant used during an Angler EK campaign.",
-        "dataset": "threatintel.malwarebazaar",
-        "module": "threatintel",
         "provider": "Abuse.ch",
         "reference": "https://bazaar.abuse.ch/sample/f3ec9a2f2766c6bcf8c2894a9927c227649249ac146aabfe8d26b259be7d7055",
         "confidence": "High",
@@ -383,8 +381,8 @@ Some examples of commercial intelligence include:
   * Stage 1 correction: https://github.com/elastic/ecs/pull/1100
 * Stage 1 (originally stage 2 prior to removal of RFC stage 4): https://github.com/elastic/ecs/pull/1127
 * Stage 2: https://github.com/elastic/ecs/pull/1293
+  * Stage 2 addendum: https://github.com/elastic/ecs/pull/1502
 * Stage 3: https://github.com/elastic/ecs/pull/1480
-
 
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN
