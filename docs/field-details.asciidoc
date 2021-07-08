@@ -289,7 +289,9 @@ The `as` fields are expected to be nested at:
 
 * `source.as`
 
-* `threat.enrichments.as`
+* `threat.enrichments.indicator.as`
+
+* `threat.indicator.as`
 
 
 Note also that the `as` fields are not expected to be used directly at the root of the events.
@@ -2779,7 +2781,7 @@ example: `apache`
 [[field-event-original]]
 <<field-event-original, event.original>>
 
-| Raw text message of entire event. Used to demonstrate log integrity  or where the full log message (before splitting it up in multiple  parts) may be required, e.g. for reindex.
+| Raw text message of entire event. Used to demonstrate log integrity or where the full log message (before splitting it up in multiple parts) may be required, e.g. for reindex.
 
 This field is not indexed and doc_values are disabled. It cannot be searched, but it can be retrieved from `_source`. If users wish to override this and index this field, please see `Field data types` in the `Elasticsearch Reference`.
 
@@ -3033,20 +3035,6 @@ example: `https://mysystem.example.com/alert/5271dedb-f5b0-4218-87f0-4ac4870a38f
 // ===============================================================
 
 |=====
-
-[discrete]
-==== Field Reuse
-
-The `event` fields are expected to be nested at:
-
-
-* `threat.enrichments.event`
-
-
-Note also that the `event` fields may be used directly at the root of the events.
-
-
-
 
 [[ecs-file]]
 === File Fields
@@ -3437,7 +3425,9 @@ example: `1001`
 The `file` fields are expected to be nested at:
 
 
-* `threat.enrichments.file`
+* `threat.enrichments.indicator.file`
+
+* `threat.indicator.file`
 
 
 Note also that the `file` fields may be used directly at the root of the events.
@@ -3712,7 +3702,9 @@ The `geo` fields are expected to be nested at:
 
 * `source.geo`
 
-* `threat.enrichments.geo`
+* `threat.enrichments.indicator.geo`
+
+* `threat.indicator.geo`
 
 
 Note also that the `geo` fields are not expected to be used directly at the root of the events.
@@ -3912,7 +3904,9 @@ The `hash` fields are expected to be nested at:
 
 * `process.hash`
 
-* `threat.enrichments.hash`
+* `threat.enrichments.indicator.hash`
+
+* `threat.indicator.hash`
 
 
 Note also that the `hash` fields are not expected to be used directly at the root of the events.
@@ -6168,6 +6162,10 @@ The `pe` fields are expected to be nested at:
 
 * `process.pe`
 
+* `threat.enrichments.indicator.pe`
+
+* `threat.indicator.pe`
+
 
 Note also that the `pe` fields are not expected to be used directly at the root of the events.
 
@@ -6694,6 +6692,22 @@ example: `Debugger`
 // ===============================================================
 
 |=====
+
+[discrete]
+==== Field Reuse
+
+The `registry` fields are expected to be nested at:
+
+
+* `threat.enrichments.indicator.registry`
+
+* `threat.indicator.registry`
+
+
+Note also that the `registry` fields may be used directly at the root of the events.
+
+
+
 
 [[ecs-related]]
 === Related Fields
@@ -7680,13 +7694,335 @@ These fields are for users to classify alerts from all of their sources (e.g. ID
 
 | beta:[ This field is beta and subject to change. ]
 
-A list of associated indicators enriching the event, and the context of that association/enrichment.
+A list of associated indicators objects enriching the event, and the context of that association/enrichment.
 
 type: nested
 
 
 
 
+
+| extended
+
+// ===============================================================
+
+|
+[[field-threat-enrichments-indicator]]
+<<field-threat-enrichments-indicator, threat.enrichments.indicator>>
+
+| beta:[ This field is beta and subject to change. ]
+
+Object containing associated indicators enriching the event.
+
+type: object
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-threat-enrichments-indicator-confidence]]
+<<field-threat-enrichments-indicator-confidence, threat.enrichments.indicator.confidence>>
+
+| beta:[ This field is beta and subject to change. ]
+
+Identifies the confidence rating assigned by the provider using STIX confidence scales. Expected values:
+
+  * Not Specified, None, Low, Medium, High
+
+  * 0-10
+
+  * Admirality Scale (1-6)
+
+  * DNI Scale (5-95)
+
+  * WEP Scale (Impossible - Certain)
+
+type: keyword
+
+
+
+example: `High`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-threat-enrichments-indicator-description]]
+<<field-threat-enrichments-indicator-description, threat.enrichments.indicator.description>>
+
+| beta:[ This field is beta and subject to change. ]
+
+Describes the type of action conducted by the threat.
+
+type: keyword
+
+
+
+example: `IP x.x.x.x was observed delivering the Angler EK.`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-threat-enrichments-indicator-email-address]]
+<<field-threat-enrichments-indicator-email-address, threat.enrichments.indicator.email.address>>
+
+| beta:[ This field is beta and subject to change. ]
+
+Identifies a threat indicator as an email address (irrespective of direction).
+
+type: keyword
+
+
+
+example: `phish@example.com`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-threat-enrichments-indicator-first-seen]]
+<<field-threat-enrichments-indicator-first-seen, threat.enrichments.indicator.first_seen>>
+
+| beta:[ This field is beta and subject to change. ]
+
+The date and time when intelligence source first reported sighting this indicator.
+
+type: date
+
+
+
+example: `2020-11-05T17:25:47.000Z`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-threat-enrichments-indicator-ip]]
+<<field-threat-enrichments-indicator-ip, threat.enrichments.indicator.ip>>
+
+| beta:[ This field is beta and subject to change. ]
+
+Identifies a threat indicator as an IP address (irrespective of direction).
+
+type: ip
+
+
+
+example: `1.2.3.4`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-threat-enrichments-indicator-last-seen]]
+<<field-threat-enrichments-indicator-last-seen, threat.enrichments.indicator.last_seen>>
+
+| beta:[ This field is beta and subject to change. ]
+
+The date and time when intelligence source last reported sighting this indicator.
+
+type: date
+
+
+
+example: `2020-11-05T17:25:47.000Z`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-threat-enrichments-indicator-marking-tlp]]
+<<field-threat-enrichments-indicator-marking-tlp, threat.enrichments.indicator.marking.tlp>>
+
+| beta:[ This field is beta and subject to change. ]
+
+Traffic Light Protocol sharing markings. Recommended values are:
+
+  * WHITE
+
+  * GREEN
+
+  * AMBER
+
+  * RED
+
+type: keyword
+
+
+
+example: `White`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-threat-enrichments-indicator-modified-at]]
+<<field-threat-enrichments-indicator-modified-at, threat.enrichments.indicator.modified_at>>
+
+| beta:[ This field is beta and subject to change. ]
+
+The date and time when intelligence source last modified information for this indicator.
+
+type: date
+
+
+
+example: `2020-11-05T17:25:47.000Z`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-threat-enrichments-indicator-port]]
+<<field-threat-enrichments-indicator-port, threat.enrichments.indicator.port>>
+
+| beta:[ This field is beta and subject to change. ]
+
+Identifies a threat indicator as a port number (irrespective of direction).
+
+type: long
+
+
+
+example: `443`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-threat-enrichments-indicator-provider]]
+<<field-threat-enrichments-indicator-provider, threat.enrichments.indicator.provider>>
+
+| beta:[ This field is beta and subject to change. ]
+
+The name of the indicator's provider.
+
+type: keyword
+
+
+
+example: `lrz_urlhaus`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-threat-enrichments-indicator-reference]]
+<<field-threat-enrichments-indicator-reference, threat.enrichments.indicator.reference>>
+
+| beta:[ This field is beta and subject to change. ]
+
+Reference URL linking to additional information about this indicator.
+
+type: keyword
+
+
+
+example: `https://system.example.com/indicator/0001234`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-threat-enrichments-indicator-scanner-stats]]
+<<field-threat-enrichments-indicator-scanner-stats, threat.enrichments.indicator.scanner_stats>>
+
+| beta:[ This field is beta and subject to change. ]
+
+Count of AV/EDR vendors that successfully detected malicious file or URL.
+
+type: long
+
+
+
+example: `4`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-threat-enrichments-indicator-sightings]]
+<<field-threat-enrichments-indicator-sightings, threat.enrichments.indicator.sightings>>
+
+| beta:[ This field is beta and subject to change. ]
+
+Number of times this indicator was observed conducting threat activity.
+
+type: long
+
+
+
+example: `20`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-threat-enrichments-indicator-type]]
+<<field-threat-enrichments-indicator-type, threat.enrichments.indicator.type>>
+
+| beta:[ This field is beta and subject to change. ]
+
+Type of indicator as represented by Cyber Observable in STIX 2.0. Recommended values:
+
+  * autonomous-system
+
+  * artifact
+
+  * directory
+
+  * domain-name
+
+  * email-addr
+
+  * file
+
+  * ipv4-addr
+
+  * ipv6-addr
+
+  * mac-addr
+
+  * mutex
+
+  * port
+
+  * process
+
+  * software
+
+  * url
+
+  * user-account
+
+  * windows-registry-key
+
+  * x509-certificate
+
+type: keyword
+
+
+
+example: `ipv4-addr`
 
 | extended
 
@@ -8052,6 +8388,42 @@ type: long
 
 
 example: `443`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-threat-indicator-provider]]
+<<field-threat-indicator-provider, threat.indicator.provider>>
+
+| beta:[ This field is beta and subject to change. ]
+
+The name of the indicator's provider.
+
+type: keyword
+
+
+
+example: `lrz_urlhaus`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-threat-indicator-reference]]
+<<field-threat-indicator-reference, threat.indicator.reference>>
+
+| beta:[ This field is beta and subject to change. ]
+
+Reference URL linking to additional information about this indicator.
+
+type: keyword
+
+
+
+example: `https://system.example.com/indicator/0001234`
 
 | extended
 
@@ -8470,7 +8842,7 @@ example: `https://attack.mitre.org/techniques/T1059/001/`
 // ===============================================================
 
 
-| `threat.enrichments.as.*`
+| `threat.enrichments.indicator.as.*`
 | <<ecs-as,as>>| beta:[ Reusing the `as` fields in this location is currently considered beta.]
 
 Fields describing an Autonomous System (Internet routing prefix).
@@ -8478,15 +8850,7 @@ Fields describing an Autonomous System (Internet routing prefix).
 // ===============================================================
 
 
-| `threat.enrichments.event.*`
-| <<ecs-event,event>>| beta:[ Reusing the `event` fields in this location is currently considered beta.]
-
-Fields breaking down the event details.
-
-// ===============================================================
-
-
-| `threat.enrichments.file.*`
+| `threat.enrichments.indicator.file.*`
 | <<ecs-file,file>>| beta:[ Reusing the `file` fields in this location is currently considered beta.]
 
 Fields describing files.
@@ -8494,7 +8858,7 @@ Fields describing files.
 // ===============================================================
 
 
-| `threat.enrichments.geo.*`
+| `threat.enrichments.indicator.geo.*`
 | <<ecs-geo,geo>>| beta:[ Reusing the `geo` fields in this location is currently considered beta.]
 
 Fields describing a location.
@@ -8502,7 +8866,7 @@ Fields describing a location.
 // ===============================================================
 
 
-| `threat.enrichments.hash.*`
+| `threat.enrichments.indicator.hash.*`
 | <<ecs-hash,hash>>| beta:[ Reusing the `hash` fields in this location is currently considered beta.]
 
 Hashes, usually file hashes.
@@ -8510,7 +8874,23 @@ Hashes, usually file hashes.
 // ===============================================================
 
 
-| `threat.enrichments.url.*`
+| `threat.enrichments.indicator.pe.*`
+| <<ecs-pe,pe>>| beta:[ Reusing the `pe` fields in this location is currently considered beta.]
+
+These fields contain Windows Portable Executable (PE) metadata.
+
+// ===============================================================
+
+
+| `threat.enrichments.indicator.registry.*`
+| <<ecs-registry,registry>>| beta:[ Reusing the `registry` fields in this location is currently considered beta.]
+
+Fields related to Windows Registry operations.
+
+// ===============================================================
+
+
+| `threat.enrichments.indicator.url.*`
 | <<ecs-url,url>>| beta:[ Reusing the `url` fields in this location is currently considered beta.]
 
 Fields that let you store URLs in various forms.
@@ -8518,7 +8898,71 @@ Fields that let you store URLs in various forms.
 // ===============================================================
 
 
-| `threat.enrichments.x509.*`
+| `threat.enrichments.indicator.x509.*`
+| <<ecs-x509,x509>>| beta:[ Reusing the `x509` fields in this location is currently considered beta.]
+
+These fields contain x509 certificate metadata.
+
+// ===============================================================
+
+
+| `threat.indicator.as.*`
+| <<ecs-as,as>>| beta:[ Reusing the `as` fields in this location is currently considered beta.]
+
+Fields describing an Autonomous System (Internet routing prefix).
+
+// ===============================================================
+
+
+| `threat.indicator.file.*`
+| <<ecs-file,file>>| beta:[ Reusing the `file` fields in this location is currently considered beta.]
+
+Fields describing files.
+
+// ===============================================================
+
+
+| `threat.indicator.geo.*`
+| <<ecs-geo,geo>>| beta:[ Reusing the `geo` fields in this location is currently considered beta.]
+
+Fields describing a location.
+
+// ===============================================================
+
+
+| `threat.indicator.hash.*`
+| <<ecs-hash,hash>>| beta:[ Reusing the `hash` fields in this location is currently considered beta.]
+
+Hashes, usually file hashes.
+
+// ===============================================================
+
+
+| `threat.indicator.pe.*`
+| <<ecs-pe,pe>>| beta:[ Reusing the `pe` fields in this location is currently considered beta.]
+
+These fields contain Windows Portable Executable (PE) metadata.
+
+// ===============================================================
+
+
+| `threat.indicator.registry.*`
+| <<ecs-registry,registry>>| beta:[ Reusing the `registry` fields in this location is currently considered beta.]
+
+Fields related to Windows Registry operations.
+
+// ===============================================================
+
+
+| `threat.indicator.url.*`
+| <<ecs-url,url>>| beta:[ Reusing the `url` fields in this location is currently considered beta.]
+
+Fields that let you store URLs in various forms.
+
+// ===============================================================
+
+
+| `threat.indicator.x509.*`
 | <<ecs-x509,x509>>| beta:[ Reusing the `x509` fields in this location is currently considered beta.]
 
 These fields contain x509 certificate metadata.
@@ -9408,7 +9852,9 @@ type: keyword
 The `url` fields are expected to be nested at:
 
 
-* `threat.enrichments.url`
+* `threat.enrichments.indicator.url`
+
+* `threat.indicator.url`
 
 
 Note also that the `url` fields may be used directly at the root of the events.
@@ -10525,7 +10971,9 @@ The `x509` fields are expected to be nested at:
 
 * `file.x509`
 
-* `threat.enrichments.x509`
+* `threat.enrichments.indicator.x509`
+
+* `threat.indicator.x509`
 
 * `tls.client.x509`
 
