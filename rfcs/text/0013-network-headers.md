@@ -1,16 +1,11 @@
 # 0013: network headers
-<!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
-- Stage: **0 (strawperson)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
+- Stage: **1 (strawperson)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
 - Date: **2021-02-05** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 <!--
 As you work on your RFC, use the "Stage N" comments to guide you in what you should focus on, for the stage you're targeting.
 Feel free to remove these comments as you go along.
--->
-
-<!--
-Stage 0: Provide a high level summary of the premise of these changes. Briefly describe the nature, purpose, and impact of the changes. ~2-5 sentences.
 -->
 
 We now have ~30 filebeat modules that can potentially record TCP
@@ -47,6 +42,27 @@ network.header.tcp.options
 network.header.udp.length
 network.header.udp.checksum
 
+## Stage 0 Comments
+
+Comments from Stage 0 pointed out that we may want to capture headers
+for bi-directional flows so we would want the ability for the headers
+to be in `source` and `destination` groups not just in one `network`
+group.
+
+Another comment from Stage 0 was drop the `header` part to shorten the
+fields and define tcp flags as an array.
+
+## Revised Proposal
+With that input revising the proposed fields to be a field set that
+can be nested under `source` and `destination`.  It may also be
+valuable to nest under `observer` and `nat` fields.  This would be
+similar to `geo` and `as` field sets.
+
+Proposal is to name this new field set `header` and have protocol
+groupings underneath that.  For example:
+
+source.header.tcp.flags
+destination.header.ip.flags
 
 <!--
 Stage 1: Describe at a high level how this change affects fields. Which fieldsets will be impacted? How many fields overall? Are we primarily adding fields, removing fields, or changing existing fields? The goal here is to understand the fundamental technical implications and likely extent of these changes. ~2-5 sentences.
