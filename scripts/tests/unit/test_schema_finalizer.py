@@ -46,9 +46,12 @@ class TestSchemaFinalizer(unittest.TestCase):
                         'top_level': True,
                         'order': 2,
                         'expected': [
-                            {'full': 'process.parent', 'at': 'process', 'as': 'parent'},
+                            {'full': 'process.parent', 'at': 'process', 'as': 'parent',
+                                'short_override': 'short override desc'},
                             {'full': 'reuse.process', 'at': 'reuse', 'as': 'process'},
                             {'full': 'reuse.process.parent', 'at': 'reuse.process', 'as': 'parent'},
+                            {'full': 'reuse.process.target', 'at': 'reuse.process', 'as': 'target'},
+                            {'full': 'reuse.process.target.parent', 'at': 'reuse.process.target', 'as': 'parent'}
                         ]
                     }
                 },
@@ -178,24 +181,28 @@ class TestSchemaFinalizer(unittest.TestCase):
         server_fields = fields['server']['fields']
         user_fields = fields['user']['fields']
         process_reuse_fields = fields['reuse']['fields']['process']['fields']
+        process_target_reuse_fields = fields['reuse']['fields']['process']['fields']['target']['fields']
         # Expected reuse
         self.assertIn('parent', process_fields)
         self.assertIn('user', server_fields)
         self.assertIn('target', user_fields)
         self.assertIn('effective', user_fields)
         self.assertIn('parent', process_reuse_fields)
+        self.assertIn('parent', process_target_reuse_fields)
         # Sanity check for presence of leaf fields, after performing reuse
         self.assertIn('name', user_fields['target']['fields'])
         self.assertIn('name', user_fields['effective']['fields'])
         self.assertIn('name', server_fields['user']['fields'])
         self.assertIn('pid', process_fields['parent']['fields'])
         self.assertIn('pid', process_reuse_fields['parent']['fields'])
+        self.assertIn('pid', process_target_reuse_fields['parent']['fields'])
         # Ensure the parent field of reused fields is marked as intermediate
         self.assertTrue(server_fields['user']['field_details']['intermediate'])
         self.assertTrue(process_fields['parent']['field_details']['intermediate'])
         self.assertTrue(user_fields['target']['field_details']['intermediate'])
         self.assertTrue(user_fields['effective']['field_details']['intermediate'])
         self.assertTrue(process_reuse_fields['parent']['field_details']['intermediate'])
+        self.assertTrue(process_target_reuse_fields['parent']['field_details']['intermediate'])
         # No unexpected cross-nesting
         self.assertNotIn('target', user_fields['target']['fields'])
         self.assertNotIn('target', user_fields['effective']['fields'])
@@ -206,8 +213,9 @@ class TestSchemaFinalizer(unittest.TestCase):
         self.assertIn('user.target', fields['user']['schema_details']['nestings'])
         self.assertIn('server.user', fields['server']['schema_details']['nestings'])
         self.assertIn('reuse.process.parent', fields['reuse']['schema_details']['nestings'])
+        self.assertIn('reuse.process.target.parent', fields['reuse']['schema_details']['nestings'])
         # Attribute 'reused_here' lists nestings inside a destination schema
-        self.assertIn({'full': 'process.parent', 'schema_name': 'process', 'short': 'short desc'},
+        self.assertIn({'full': 'process.parent', 'schema_name': 'process', 'short': 'short override desc'},
                       fields['process']['schema_details']['reused_here'])
         self.assertIn({'full': 'user.effective', 'schema_name': 'user', 'short': 'short desc'},
                       fields['user']['schema_details']['reused_here'])
@@ -216,6 +224,8 @@ class TestSchemaFinalizer(unittest.TestCase):
         self.assertIn({'full': 'server.user', 'schema_name': 'user', 'short': 'short desc'},
                       fields['server']['schema_details']['reused_here'])
         self.assertIn({'full': 'reuse.process.parent', 'schema_name': 'process', 'short': 'short desc'},
+                      fields['reuse']['schema_details']['reused_here'])
+        self.assertIn({'full': 'reuse.process.target.parent', 'schema_name': 'process', 'short': 'short desc'},
                       fields['reuse']['schema_details']['reused_here'])
         # Reused fields have an indication they're reused
         self.assertEqual(process_fields['parent']['field_details']['original_fieldset'], 'process',
@@ -226,6 +236,8 @@ class TestSchemaFinalizer(unittest.TestCase):
                          "The parent field of foreign reused fields should have 'original_fieldset' populated")
         self.assertEqual(server_fields['user']['fields']['name']['field_details']['original_fieldset'], 'user')
         self.assertEqual(process_reuse_fields['parent']['field_details']['original_fieldset'], 'process',
+                         "The parent field of reused fields should have 'original_fieldset' populated")
+        self.assertEqual(process_target_reuse_fields['parent']['field_details']['original_fieldset'], 'process',
                          "The parent field of reused fields should have 'original_fieldset' populated")
         # Original fieldset's fields must not be marked with 'original_fieldset='
         self.assertNotIn('original_fieldset', user_fields['name']['field_details'])

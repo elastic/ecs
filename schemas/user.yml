@@ -15,18 +15,17 @@
     expected:
       - client
       - destination
-      - host
       - server
       - source
       - at: user
         as: target
-        beta: Reusing the user fields in this location is currently considered beta.
+        short_override: Targeted user of action taken.
       - at: user
         as: effective
-        beta: Reusing the user fields in this location is currently considered beta.
+        short_override: User whose privileges were assumed.
       - at: user
         as: changes
-        beta: Reusing the user fields in this location is currently considered beta.
+        short_override: Captures changes made to a user.
 
   type: group
   fields:
@@ -39,9 +38,8 @@
 
     - name: name
       level: core
-      type: wildcard
+      type: keyword
       example: albert
-      beta: Note the usage of `wildcard` type is considered beta. This field used to be type `keyword`.
       description: >
         Short name or login of the user.
       multi_fields:
@@ -50,8 +48,7 @@
 
     - name: full_name
       level: extended
-      type: wildcard
-      beta: Note the usage of `wildcard` type is considered beta. This field used to be type `keyword`.
+      type: keyword
       example: Albert Einstein
       description: >
         User's full name, if available.
@@ -61,8 +58,7 @@
 
     - name: email
       level: extended
-      type: wildcard
-      beta: Note the usage of `wildcard` type is considered beta. This field used to be type `keyword`.
+      type: keyword
       description: >
         User email address.
 

@@ -1,0 +1,69 @@
+---
+- name: orchestrator
+  title: Orchestrator
+  group: 2
+  short: Fields relevant to container orchestrators.
+  description: >
+    Fields that describe the resources which container orchestrators manage or
+    act upon.
+  type: group
+  fields:
+    - name: cluster.name
+      level: extended
+      type: keyword
+      description: >
+        Name of the cluster.
+
+    - name: cluster.url
+      level: extended
+      type: keyword
+      description: >
+        URL of the API used to manage the cluster.
+
+    - name: cluster.version
+      level: extended
+      type: keyword
+      description: >
+        The version of the cluster.
+
+    - name: type
+      level: extended
+      type: keyword
+      example: kubernetes
+      description: >
+        Orchestrator cluster type (e.g. kubernetes, nomad or cloudfoundry).
+
+    - name: organization
+      level: extended
+      type: keyword
+      example: elastic
+      description: >
+        Organization affected by the event (for multi-tenant orchestrator setups).
+
+    - name: namespace
+      level: extended
+      type: keyword
+      example: kube-system
+      description: >
+        Namespace in which the action is taking place.
+
+    - name: resource.name
+      level: extended
+      type: keyword
+      example: test-pod-cdcws
+      description: >
+        Name of the resource being acted upon.
+
+    - name: resource.type
+      level: extended
+      type: keyword
+      example: service
+      description: >
+        Type of resource being acted upon.
+
+    - name: api_version
+      level: extended
+      example: v1beta1
+      type: keyword
+      description: >
+        API version being used to carry out the action

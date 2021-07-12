@@ -20,11 +20,19 @@
                 "exists": {
                   "type": "boolean"
                 },
+                "signing_id": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
                 "status": {
                   "ignore_above": 1024,
                   "type": "keyword"
                 },
                 "subject_name": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "team_id": {
                   "ignore_above": 1024,
                   "type": "keyword"
                 },
@@ -43,7 +51,125 @@
                   "type": "text"
                 }
               },
-              "type": "wildcard"
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "elf": {
+              "properties": {
+                "architecture": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "byte_order": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "cpu_type": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "creation_date": {
+                  "type": "date"
+                },
+                "exports": {
+                  "type": "flattened"
+                },
+                "header": {
+                  "properties": {
+                    "abi_version": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    },
+                    "class": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    },
+                    "data": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    },
+                    "entrypoint": {
+                      "type": "long"
+                    },
+                    "object_version": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    },
+                    "os_abi": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    },
+                    "type": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    },
+                    "version": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "imports": {
+                  "type": "flattened"
+                },
+                "sections": {
+                  "properties": {
+                    "chi2": {
+                      "type": "long"
+                    },
+                    "entropy": {
+                      "type": "long"
+                    },
+                    "flags": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    },
+                    "name": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    },
+                    "physical_offset": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    },
+                    "physical_size": {
+                      "type": "long"
+                    },
+                    "type": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    },
+                    "virtual_address": {
+                      "type": "long"
+                    },
+                    "virtual_size": {
+                      "type": "long"
+                    }
+                  },
+                  "type": "nested"
+                },
+                "segments": {
+                  "properties": {
+                    "sections": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    },
+                    "type": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    }
+                  },
+                  "type": "nested"
+                },
+                "shared_libraries": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "telfhash": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                }
+              }
             },
             "entity_id": {
               "ignore_above": 1024,
@@ -56,7 +182,8 @@
                   "type": "text"
                 }
               },
-              "type": "wildcard"
+              "ignore_above": 1024,
+              "type": "keyword"
             },
             "exit_code": {
               "type": "long"
@@ -92,7 +219,8 @@
                   "type": "text"
                 }
               },
-              "type": "wildcard"
+              "ignore_above": 1024,
+              "type": "keyword"
             },
             "parent": {
               "properties": {
@@ -108,11 +236,19 @@
                     "exists": {
                       "type": "boolean"
                     },
+                    "signing_id": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    },
                     "status": {
                       "ignore_above": 1024,
                       "type": "keyword"
                     },
                     "subject_name": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    },
+                    "team_id": {
                       "ignore_above": 1024,
                       "type": "keyword"
                     },
@@ -131,7 +267,125 @@
                       "type": "text"
                     }
                   },
-                  "type": "wildcard"
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "elf": {
+                  "properties": {
+                    "architecture": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    },
+                    "byte_order": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    },
+                    "cpu_type": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    },
+                    "creation_date": {
+                      "type": "date"
+                    },
+                    "exports": {
+                      "type": "flattened"
+                    },
+                    "header": {
+                      "properties": {
+                        "abi_version": {
+                          "ignore_above": 1024,
+                          "type": "keyword"
+                        },
+                        "class": {
+                          "ignore_above": 1024,
+                          "type": "keyword"
+                        },
+                        "data": {
+                          "ignore_above": 1024,
+                          "type": "keyword"
+                        },
+                        "entrypoint": {
+                          "type": "long"
+                        },
+                        "object_version": {
+                          "ignore_above": 1024,
+                          "type": "keyword"
+                        },
+                        "os_abi": {
+                          "ignore_above": 1024,
+                          "type": "keyword"
+                        },
+                        "type": {
+                          "ignore_above": 1024,
+                          "type": "keyword"
+                        },
+                        "version": {
+                          "ignore_above": 1024,
+                          "type": "keyword"
+                        }
+                      }
+                    },
+                    "imports": {
+                      "type": "flattened"
+                    },
+                    "sections": {
+                      "properties": {
+                        "chi2": {
+                          "type": "long"
+                        },
+                        "entropy": {
+                          "type": "long"
+                        },
+                        "flags": {
+                          "ignore_above": 1024,
+                          "type": "keyword"
+                        },
+                        "name": {
+                          "ignore_above": 1024,
+                          "type": "keyword"
+                        },
+                        "physical_offset": {
+                          "ignore_above": 1024,
+                          "type": "keyword"
+                        },
+                        "physical_size": {
+                          "type": "long"
+                        },
+                        "type": {
+                          "ignore_above": 1024,
+                          "type": "keyword"
+                        },
+                        "virtual_address": {
+                          "type": "long"
+                        },
+                        "virtual_size": {
+                          "type": "long"
+                        }
+                      },
+                      "type": "nested"
+                    },
+                    "segments": {
+                      "properties": {
+                        "sections": {
+                          "ignore_above": 1024,
+                          "type": "keyword"
+                        },
+                        "type": {
+                          "ignore_above": 1024,
+                          "type": "keyword"
+                        }
+                      },
+                      "type": "nested"
+                    },
+                    "shared_libraries": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    },
+                    "telfhash": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    }
+                  }
                 },
                 "entity_id": {
                   "ignore_above": 1024,
@@ -144,7 +398,8 @@
                       "type": "text"
                     }
                   },
-                  "type": "wildcard"
+                  "ignore_above": 1024,
+                  "type": "keyword"
                 },
                 "exit_code": {
                   "type": "long"
@@ -180,7 +435,8 @@
                       "type": "text"
                     }
                   },
-                  "type": "wildcard"
+                  "ignore_above": 1024,
+                  "type": "keyword"
                 },
                 "pe": {
                   "properties": {
@@ -205,7 +461,8 @@
                       "type": "keyword"
                     },
                     "original_file_name": {
-                      "type": "wildcard"
+                      "ignore_above": 1024,
+                      "type": "keyword"
                     },
                     "product": {
                       "ignore_above": 1024,
@@ -231,7 +488,8 @@
                       "type": "long"
                     },
                     "name": {
-                      "type": "wildcard"
+                      "ignore_above": 1024,
+                      "type": "keyword"
                     }
                   }
                 },
@@ -242,7 +500,8 @@
                       "type": "text"
                     }
                   },
-                  "type": "wildcard"
+                  "ignore_above": 1024,
+                  "type": "keyword"
                 },
                 "uptime": {
                   "type": "long"
@@ -254,7 +513,8 @@
                       "type": "text"
                     }
                   },
-                  "type": "wildcard"
+                  "ignore_above": 1024,
+                  "type": "keyword"
                 }
               }
             },
@@ -281,7 +541,8 @@
                   "type": "keyword"
                 },
                 "original_file_name": {
-                  "type": "wildcard"
+                  "ignore_above": 1024,
+                  "type": "keyword"
                 },
                 "product": {
                   "ignore_above": 1024,
@@ -307,7 +568,8 @@
                   "type": "long"
                 },
                 "name": {
-                  "type": "wildcard"
+                  "ignore_above": 1024,
+                  "type": "keyword"
                 }
               }
             },
@@ -318,7 +580,8 @@
                   "type": "text"
                 }
               },
-              "type": "wildcard"
+              "ignore_above": 1024,
+              "type": "keyword"
             },
             "uptime": {
               "type": "long"
@@ -330,7 +593,8 @@
                   "type": "text"
                 }
               },
-              "type": "wildcard"
+              "ignore_above": 1024,
+              "type": "keyword"
             }
           }
         }

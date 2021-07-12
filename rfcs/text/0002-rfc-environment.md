@@ -1,7 +1,7 @@
 # 0002: Service Environment Field
 <!--^ The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC, taking care not to conflict with other RFCs.-->
 
-- Stage: **1 (Proposal)** <!-- Update to reflect target stage -->
+- Stage: **1 (Draft)** <!-- Update to reflect target stage -->
 - Date: **2020-12-08** <!-- Update to reflect date of most recent stage advancement -->
 
 <!--
@@ -390,3 +390,4 @@ Stage 4: Identify at least one real-world, production-ready implementation that 
 
 * Stage 0: https://github.com/elastic/ecs/pull/891
 * Stage 1: https://github.com/elastic/ecs/pull/1070
+  * Update stage 1 naming: https://github.com/elastic/ecs/pull/1240

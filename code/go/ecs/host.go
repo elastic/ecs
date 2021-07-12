@@ -44,7 +44,11 @@ type Host struct {
 	// Host ip addresses.
 	IP string `ecs:"ip"`
 
-	// Host mac addresses.
+	// Host MAC addresses.
+	// The notation format from RFC 7042 is suggested: Each octet (that is,
+	// 8-bit byte) is represented by two [uppercase] hexadecimal digits giving
+	// the value of the octet as an unsigned integer. Successive octets are
+	// separated by a hyphen.
 	MAC string `ecs:"mac"`
 
 	// Type of host.
@@ -64,4 +68,35 @@ type Host struct {
 	// or NetBIOS domain name. For Linux this could be the domain of the host's
 	// LDAP provider.
 	Domain string `ecs:"domain"`
+
+	// Percent CPU used which is normalized by the number of CPU cores and it
+	// ranges from 0 to 1.
+	// Scaling factor: 1000.
+	// For example: For a two core host, this value should be the average of
+	// the two cores, between 0 and 1.
+	CpuUsage float64 `ecs:"cpu.usage"`
+
+	// The total number of bytes (gauge) read successfully (aggregated from all
+	// disks) since the last metric collection.
+	DiskReadBytes int64 `ecs:"disk.read.bytes"`
+
+	// The total number of bytes (gauge) written successfully (aggregated from
+	// all disks) since the last metric collection.
+	DiskWriteBytes int64 `ecs:"disk.write.bytes"`
+
+	// The number of bytes received (gauge) on all network interfaces by the
+	// host since the last metric collection.
+	NetworkIngressBytes int64 `ecs:"network.ingress.bytes"`
+
+	// The number of packets (gauge) received on all network interfaces by the
+	// host since the last metric collection.
+	NetworkIngressPackets int64 `ecs:"network.ingress.packets"`
+
+	// The number of bytes (gauge) sent out on all network interfaces by the
+	// host since the last metric collection.
+	NetworkEgressBytes int64 `ecs:"network.egress.bytes"`
+
+	// The number of packets (gauge) sent out on all network interfaces by the
+	// host since the last metric collection.
+	NetworkEgressPackets int64 `ecs:"network.egress.packets"`
 }
