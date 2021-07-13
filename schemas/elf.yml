@@ -1,0 +1,220 @@
+---
+- name: elf
+  title: ELF Header
+  group: 2
+  description: >
+    These fields contain Linux Executable Linkable Format (ELF) metadata.
+  beta: >
+    These fields are in beta and are subject to change.
+  type: group
+  reusable:
+    top_level: false
+    expected:
+      - at: file
+        as: elf
+        beta: This field reuse is beta and subject to change.
+      - at: process
+        as: elf
+        beta: This field reuse is beta and subject to change.
+  fields:
+    - name: creation_date
+      short: Build or compile date.
+      description: >
+        Extracted when possible from the file's metadata. Indicates when it was
+        built or compiled. It can also be faked by malware creators.
+      type: date
+      level: extended
+
+    - name: architecture
+      description: >
+        Machine architecture of the ELF file.
+      type: keyword
+      level: extended
+      example: x86-64
+
+    - name: byte_order
+      description: >
+        Byte sequence of ELF file.
+      type: keyword
+      level: extended
+      example: Little Endian
+
+    - name: cpu_type
+      description: >
+        CPU type of the ELF file.
+      type: keyword
+      level: extended
+      example: Intel
+
+    - name: header.class
+      description: >
+        Header class of the ELF file.
+      type: keyword
+      level: extended
+
+    - name: header.data
+      description: >
+        Data table of the ELF header.
+      type: keyword
+      level: extended
+
+    - name: header.os_abi
+      description: >
+        Application Binary Interface (ABI) of the Linux OS.
+      type: keyword
+      level: extended
+
+    - name: header.type
+      description: >
+        Header type of the ELF file.
+      type: keyword
+      level: extended
+
+    - name: header.version
+      description: >
+        Version of the ELF header.
+      type: keyword
+      level: extended
+
+    - name: header.abi_version
+      type: keyword
+      level: extended
+      description: >
+        Version of the ELF Application Binary Interface (ABI).
+
+    - name: header.entrypoint
+      format: string
+      level: extended
+      type: long
+      description: >
+        Header entrypoint of the ELF file.
+
+    - name: header.object_version
+      type: keyword
+      level: extended
+      description: >
+        "0x1" for original ELF files.
+
+    - name: sections
+      short: Section information of the ELF file.
+      description: >
+        An array containing an object for each section of the ELF file.
+
+        The keys that should be present in these objects are defined by sub-fields
+        underneath `elf.sections.*`.
+      type: nested
+      level: extended
+      normalize:
+        - "array"
+
+    - name: sections.flags
+      description: >
+        ELF Section List flags.
+      type: keyword
+      level: extended
+
+    - name: sections.name
+      description: >
+        ELF Section List name.
+      type: keyword
+      level: extended
+
+    - name: sections.physical_offset
+      description: >
+        ELF Section List offset.
+      type: keyword
+      level: extended
+
+    - name: sections.type
+      description: >
+        ELF Section List type.
+      type: keyword
+      level: extended
+
+    - name: sections.physical_size
+      description: >
+        ELF Section List physical size.
+      format: bytes
+      type: long
+      level: extended
+
+    - name: sections.virtual_address
+      description: >
+        ELF Section List virtual address.
+      format: string
+      type: long
+      level: extended
+
+    - name: sections.virtual_size
+      description: >
+        ELF Section List virtual size.
+      format: string
+      type: long
+      level: extended
+
+    - name: sections.entropy
+      description: >
+        Shannon entropy calculation from the section.
+      format: number
+      type: long
+      level: extended
+
+    - name: sections.chi2
+      description: >
+        Chi-square probability distribution of the section.
+      format: number
+      type: long
+      level: extended
+
+    - name: exports
+      description: >
+        List of exported element names and types.
+      level: extended
+      type: flattened
+      normalize:
+        - array
+
+    - name: imports
+      description: >
+        List of imported element names and types.
+      type: flattened
+      level: extended
+      normalize:
+        - array
+
+    - name: shared_libraries
+      description: >
+        List of shared libraries used by this ELF object.
+      type: keyword
+      level: extended
+      normalize:
+       - array
+
+    - name: telfhash
+      short: telfhash hash for ELF file.
+      description: >
+        telfhash symbol hash for ELF file.
+      type: keyword
+      level: extended
+
+    - name: segments
+      short: ELF object segment list.
+      description: >
+        An array containing an object for each segment of the ELF file.
+
+        The keys that should be present in these objects are defined by sub-fields
+        underneath `elf.segments.*`.
+      type: nested
+      level: extended
+      normalize:
+        - array
+
+    - name: segments.type
+      description: ELF object segment type.
+      type: keyword
+      level: extended
+
+    - name: segments.sections
+      description: ELF object segment sections.
+      type: keyword
+      level: extended

@@ -89,6 +89,15 @@
       description: >
         "0x1" for original ELF files.
 
+    - name: packers
+      type: keyword
+      level: extended
+      description: >
+        Packers used for the ELF file.
+      normalize:
+       - array
+      example: '[ "upx" ]'
+
     - name: sections
       description: >
         Section information of the ELF file.
@@ -144,25 +153,48 @@
       description: >
         Shannon entropy calculation from the section.
       format: number
-      type: long
+      type: float
       level: extended
 
     - name: sections.chi2
       description: >
         Chi-square probability distribution of the section.
       format: number
-      type: long
+      type: float
       level: extended
 
     - name: exports
       description: >
-        List of exported element names and types.
+        List of exported elements.
+        `elf.exports` expects the following object structure:
+
+        {
+          "exports": {
+            "size": "value",
+            "type": "value",
+            "binding": "value",
+            "visibility": "value",
+            "name": "value",
+            "section": "value",
+            "version": "value"
+          }
+        }
       level: extended
       type: flattened
 
     - name: imports
       description: >
-        List of imported element names and types.
+        List of imported elements.
+        `elf.imports` expects the following object structure:
+
+        {
+          "imports": {
+            "type": "value",
+            "name": "value",
+            "library": "value",
+            "version": "value"
+          }
+        }
       type: flattened
       level: extended
 

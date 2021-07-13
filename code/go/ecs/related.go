@@ -31,7 +31,7 @@ type Related struct {
 	// All of the IPs seen on your event.
 	IP string `ecs:"ip"`
 
-	// All the user names seen on your event.
+	// All the user names or other user identifiers seen on the event.
 	User string `ecs:"user"`
 
 	// All the hashes seen on your event. Populating this field, then using it
