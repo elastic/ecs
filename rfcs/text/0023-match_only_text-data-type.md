@@ -19,10 +19,67 @@ Stage 1: If the changes include field additions or modifications, please create 
 
 ## Fields
 
+### Direct Usage
+
 The following fields are currently indexed as `text` and are candidates to migrate to `match_only_text`:
 
 * `message`
 * `error.message`
+
+### Multi-field Usage
+
+ECS also has `text` type multi-fields for several fields using the convention `<field-name>.text`. This RFC also proposes to migrate all `text` multi-fields to using `match_only_text`:
+
+* `client.as.organization.name.text`
+* `client.user.full_name.text`
+* `client.user.name.text`
+* `destination.as.organization.name.text`
+* `destination.user.full_name.text`
+* `destination.user.name.text`
+* `error.stack_trace.text`
+* `file.path.text`
+* `file.target_path.text`
+* `host.os.full.text`
+* `host.os.name.text`
+* `host.user.full_name.text`
+* `host.user.name.text`
+* `http.request.body.content.text`
+* `http.response.body.content.text`
+* `observer.os.full.text`
+* `observer.os.name.text`
+* `organization.name.text`
+* `process.command_line.text`
+* `process.executable.text`
+* `process.name.text`
+* `process.parent.command_line.text`
+* `process.parent.executable.text`
+* `process.parent.name.text`
+* `process.parent.title.text`
+* `process.parent.working_directory.text`
+* `process.title.text`
+* `process.working_directory.text`
+* `server.as.organization.name.text`
+* `server.user.full_name.text`
+* `server.user.name.text`
+* `source.as.organization.name.text`
+* `source.user.full_name.text`
+* `source.user.name.text`
+* `threat.technique.name.text`
+* `threat.technique.subtechnique.name.text`
+* `url.full.text`
+* `url.original.text`
+* `user.changes.full_name.text`
+* `user.changes.name.text`
+* `user.effective.full_name.text`
+* `user.effective.name.text`
+* `user.full_name.text`
+* `user.name.text`
+* `user.target.full_name.text`
+* `user.target.name.text`
+* `user_agent.original.text`
+* `user_agent.os.full.text`
+* `user_agent.os.name.text`
+* `vulnerability.description.text`
 
 <!--
 Stage 1: Describe at a high level how this change affects fields. Include new or updated yml field definitions for all of the essential fields in this draft. While not exhaustive, the fields documented here should be comprehensive enough to deeply evaluate the technical considerations of this change. The goal here is to validate the technical details for all essential fields and to provide a basis for adding experimental field definitions to the schema. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
