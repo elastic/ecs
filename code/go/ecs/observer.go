@@ -32,7 +32,11 @@ package ecs
 // and ETL components used in processing events or metrics are not considered
 // observers in ECS.
 type Observer struct {
-	// MAC addresses of the observer
+	// MAC addresses of the observer.
+	// The notation format from RFC 7042 is suggested: Each octet (that is,
+	// 8-bit byte) is represented by two [uppercase] hexadecimal digits giving
+	// the value of the octet as an unsigned integer. Successive octets are
+	// separated by a hyphen.
 	MAC string `ecs:"mac"`
 
 	// IP addresses of the observer.
@@ -67,24 +71,24 @@ type Observer struct {
 	Type string `ecs:"type"`
 
 	// Observer.ingress holds information like interface number and name, vlan,
-	// and zone information to  classify ingress traffic.  Single armed
-	// monitoring such as a network sensor on a span port should  only use
+	// and zone information to classify ingress traffic.  Single armed
+	// monitoring such as a network sensor on a span port should only use
 	// observer.ingress to categorize traffic.
 	Ingress map[string]interface{} `ecs:"ingress"`
 
 	// Network zone of incoming traffic as reported by the observer to
-	// categorize the source area of ingress  traffic. e.g. internal, External,
+	// categorize the source area of ingress traffic. e.g. internal, External,
 	// DMZ, HR, Legal, etc.
 	IngressZone string `ecs:"ingress.zone"`
 
 	// Observer.egress holds information like interface number and name, vlan,
-	// and zone information to  classify egress traffic.  Single armed
-	// monitoring such as a network sensor on a span port should  only use
+	// and zone information to classify egress traffic.  Single armed
+	// monitoring such as a network sensor on a span port should only use
 	// observer.ingress to categorize traffic.
 	Egress map[string]interface{} `ecs:"egress"`
 
 	// Network zone of outbound traffic as reported by the observer to
-	// categorize the destination area of egress  traffic, e.g. Internal,
+	// categorize the destination area of egress traffic, e.g. Internal,
 	// External, DMZ, HR, Legal, etc.
 	EgressZone string `ecs:"egress.zone"`
 }

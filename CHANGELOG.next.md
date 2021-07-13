@@ -11,73 +11,67 @@ Thanks, you're awesome :-) -->
 ### Schema Changes
 ### Tooling and Artifact Changes
 
-#### Breaking changes
+### Breaking Changes
+
+* Removing deprecated --oss from generator #1404
+* Removing use-cases directory #1405
+* Remove `host.user.*` field reuse. #1439
+* Remove deprecation notice on `http.request.method`. #1443
 
 #### Bugfixes
 
 #### Added
 
-* Added `http.request.id`. #1208
-* Added `cloud.service.name`. #1204
-* Added `hash.ssdeep`. #1169
+* Added `file.fork_name` field #1288
 
 #### Improvements
 
 #### Deprecated
 
-
-## 1.8.0 (Feature Freeze)
+## 1.11.0 (Feature Freeze)
 
 ### Schema Changes
 
-#### Bugfixes
-
-* Clean up `event.reference` description. #1181
-
 #### Added
 
-* Added `event.category` "registry". #1040
-* Added `event.category` "session". #1049
-* Added usage documentation for `user` fields. #1066
-* Added `user` fields at `user.effective.*`, `user.target.*` and `user.changes.*`. #1066
-* Added `os.type`. #1111
+* `elf.*` field set added as beta. #1410
+* Remove `beta` from `orchestrator` field set. #1417
+* Extend `threat.*` field set beta. #1438
+* Added `event.agent_id_status` field. #1454
+* `process.target` and `process.target.parent` added to experimental schema. #1467
+* Threat indicator fields progress to beta stage. #1471, #1504
+* `threat.enrichments` beta fields. #1478, #1504
 
 #### Improvements
 
-* Event categorization fields GA. #1067
-* Note `[` and `]` bracket characters may enclose a literal IPv6 address when populating `url.domain`. #1131
-* Reinforce the exclusion of the leading dot from `url.extension`. #1151
+* Fix ecs GitHub repo link source branch #1393
+* Add --exclude flag to Generator to support field removal testing #1411
+* Explicitly include user identifiers in `relater.user` description. #1420
+* Improve descriptions for `cloud.region` and `cloud.availability` fields. #1452
 
 #### Deprecated
 
-* Deprecated `host.user.*` fields for removal at the next major. #1066
+* Note deprecation of the `host.user.*` field reuse. #1422
+* Note deprecation of `log.original` superseded by `event.original` #1469
 
 ### Tooling and Artifact Changes
 
 #### Bugfixes
 
-* `tracing` fields should be at root of Beats `fields.ecs.yml` artifacts. #1164
+* Remove `ignore_above` when `index: false` and `doc_values: false`. #1483
+* Ensure `doc_values` is carried into Beats artifacts. #1488
 
 #### Added
 
-* Added ability to supply free-form usage documentation per fieldset. #988
-* Added the `path` key when type is `alias`, to support the [alias field type](https://www.elastic.co/guide/en/elasticsearch/reference/current/alias.html). #877
-* Added support for `scaled_float`'s mandatory parameter `scaling_factor`. #1042
-* Added ability for --oss flag to fall back `constant_keyword` to `keyword`. #1046
-* Added support in the generated Go source go for `wildcard`, `version`, and `constant_keyword` data types. #1050
-* Added support for marking fields, field sets, or field reuse as beta in the documentation. #1051
-* Added support for `constant_keyword`'s optional parameter `value`. #1112
-* Added component templates for ECS field sets. #1156, #1186, #1191
-* Added functionality for merging custom and core multi-fields. #982
+* Support `match_only_text` data type in Go code generator. #1418
+* Support for multi-level, self-nestings. #1459
+* `beta` attribute now supported on categorization allowed values. #1511
 
 #### Improvements
 
-* Make all fields linkable directly. #1148
-* Added a notice highlighting that the `tracing` fields are not nested under the
-  namespace `tracing.` #1162
-* ES 6.x template data types will fallback to supported types. #1171, #1176, #1186
-* Add a documentation page discussing the experimental artifacts. #1189
-
+* Swap `Location` and `Field Set` columns in `Field Reuse` table for better readability. #1472, #1476
+* Use a bullet points to list field reuses. #1473
+* Improve wording in `Threat` schema #1505
 
 <!-- All empty sections:
 

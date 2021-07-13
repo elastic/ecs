@@ -35,8 +35,6 @@ check-license-headers:
 .PHONY: clean
 clean:
 	rm -rf build generated/elasticsearch/component experimental/generated/elasticsearch/component
-	# Clean all markdown files for use-cases
-	find ./use-cases -type f -name '*.md' -not -name 'README.md' -print0 | xargs -0 rm --
 
 # Alias to generate source code for all languages.
 .PHONY: codegen
@@ -64,12 +62,12 @@ fmt: ve
 
 # Alias to generate everything.
 .PHONY: generate
-generate: generator legacy_use_cases codegen
+generate: generator codegen
 	$(PYTHON) --version
 
 # Run the new generator
 .PHONY: generator
-generator:
+generator: ve
 	$(PYTHON) scripts/generator.py --strict --include "${INCLUDE}"
 
 # Generate Go code from the schema.
@@ -81,11 +79,6 @@ gocodegen:
 	        -version=$(VERSION) \
 	        -schema=../schemas \
 	        -out=../code/go/ecs
-
-# Generate the Use Cases
-.PHONY: legacy_use_cases
-legacy_use_cases: ve
-	$(PYTHON) scripts/use-cases.py --stdout=true >> /dev/null
 
 # Check Makefile format.
 .PHONY: makelint

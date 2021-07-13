@@ -1,7 +1,7 @@
 {
   "_meta": {
     "documentation": "https://www.elastic.co/guide/en/ecs/current/ecs-host.html",
-    "ecs_version": "2.0.0-dev+exp"
+    "ecs_version": "8.0.0-dev+exp"
   },
   "template": {
     "mappings": {
@@ -48,6 +48,10 @@
                   "ignore_above": 1024,
                   "type": "keyword"
                 },
+                "continent_code": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
                 "continent_name": {
                   "ignore_above": 1024,
                   "type": "keyword"
@@ -66,11 +70,19 @@
                 "name": {
                   "type": "wildcard"
                 },
+                "postal_code": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
                 "region_iso_code": {
                   "ignore_above": 1024,
                   "type": "keyword"
                 },
                 "region_name": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "timezone": {
                   "ignore_above": 1024,
                   "type": "keyword"
                 }
@@ -166,63 +178,6 @@
             },
             "uptime": {
               "type": "long"
-            },
-            "user": {
-              "properties": {
-                "domain": {
-                  "ignore_above": 1024,
-                  "type": "keyword"
-                },
-                "email": {
-                  "type": "wildcard"
-                },
-                "full_name": {
-                  "fields": {
-                    "text": {
-                      "norms": false,
-                      "type": "text"
-                    }
-                  },
-                  "type": "wildcard"
-                },
-                "group": {
-                  "properties": {
-                    "domain": {
-                      "ignore_above": 1024,
-                      "type": "keyword"
-                    },
-                    "id": {
-                      "ignore_above": 1024,
-                      "type": "keyword"
-                    },
-                    "name": {
-                      "ignore_above": 1024,
-                      "type": "keyword"
-                    }
-                  }
-                },
-                "hash": {
-                  "ignore_above": 1024,
-                  "type": "keyword"
-                },
-                "id": {
-                  "ignore_above": 1024,
-                  "type": "keyword"
-                },
-                "name": {
-                  "fields": {
-                    "text": {
-                      "norms": false,
-                      "type": "text"
-                    }
-                  },
-                  "type": "wildcard"
-                },
-                "roles": {
-                  "ignore_above": 1024,
-                  "type": "keyword"
-                }
-              }
             }
           }
         }
