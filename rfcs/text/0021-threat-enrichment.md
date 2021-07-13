@@ -1,7 +1,7 @@
 # 0021: Threat Enrichment
 
-- Stage: **1 (draft)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
-- Date: **2021-06-10** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
+- Stage: **2 (candidate)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
+- Date: **2021-07-06** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 <!--
 Stage 0: Provide a high level summary of the premise of these changes. Briefly describe the nature, purpose, and impact of the changes. ~2-5 sentences.
@@ -24,11 +24,10 @@ Stage 1: If the changes include field additions or modifications, please create 
 Stage 1: Describe at a high level how this change affects fields. Include new or updated yml field definitions for all of the essential fields in this draft. While not exhaustive, the fields documented here should be comprehensive enough to deeply evaluate the technical considerations of this change. The goal here is to validate the technical details for all essential fields and to provide a basis for adding experimental field definitions to the schema. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
 -->
 
-As these fields represent the enrichment of an existing event with indicator information, they are comprised of three categories of data:
+As these fields represent the enrichment of an existing event with indicator information, they are comprised of two categories of data:
 
 1. The indicator's indicator fields, as defined in RFC 0018
-2. Other relevant ECS fields from the indicator (see below)
-3. Fields representing the context of the enrichment itself
+2. Fields representing the context of the enrichment itself
 
 ### Proposed new fields
 
@@ -84,25 +83,19 @@ If it is determined that an event matches a given indicator, that event can be e
             "tlp": "WHITE"
           },
           "first_seen": "2020-10-01",
+          "file": {
+            "hash": {
+              "sha256": "0c415dd718e3b3728707d579cf8214f54c2942e964975a5f925e0b82fea644b4",
+              "md5": "1eee2bf3f56d8abed72da2bc523e7431"
+            },
+            "size": 656896,
+            "name": "invoice.doc"
+          },
           "last_seen": "2020-11-01",
+          "reference": "https://system.example.com/event/#0001234",
           "sightings": 4,
           "type": ["sha256", "md5", "file_name", "file_size"],
           "description": "file last associated with delivering Angler EK"
-        },
-        // event and file fields are copied from the indicator doc, if relevant
-        "event": {
-          "provider": "Abuse.ch",
-          "dataset": "threatintel.abusemalware",
-          "module": "threatintel",
-          "reference": "https://system.example.com/event/#0001234"
-        },
-        "file": {
-          "hash": {
-            "sha256": "0c415dd718e3b3728707d579cf8214f54c2942e964975a5f925e0b82fea644b4",
-            "md5": "1eee2bf3f56d8abed72da2bc523e7431"
-          },
-          "size": 656896,
-          "name": "invoice.doc"
         },
         /* `matched` will provide context about which of the indicators above matched on this
               particular enrichment. If multiple matches for this indicator object, this could
@@ -140,17 +133,17 @@ If it is determined that an event matches a given indicator, that event can be e
      - policy file-sha256-policy:
        "match": {
          "indices": "threat-\*",
-         "match_field": "file.hash.sha256",
-         "enrich_fields": ["event", "file", "indicator"]
+         "match_field": "threat.indicator.file.hash.sha256",
+         "enrich_fields": ["threat.indicator"]
        }
    - set:
-     field: "threat_match.matched.type"
+     field: "threat_match.threat.matched.type"
      value: "file-sha256-policy"
    - set:
-     field: "threat_match.matched.field"
+     field: "threat_match.threat.matched.field"
      value: "file.hash.sha256"
    - set:
-     field: "threat_match.matched.atomic"
+     field: "threat_match.threat.matched.atomic"
      value: "{{ file.hash.sha256 }}"
    - set:
      field: "threat.enrichments"
@@ -158,7 +151,7 @@ If it is determined that an event matches a given indicator, that event can be e
      override: false
    - append:
      field: "threat.enrichments"
-     value: "{{ threat_match }}"
+     value: "{{ threat_match.threat }}"
    - remove:
      field: "threat_match"
 
@@ -240,6 +233,8 @@ e.g.:
 
 * Stage 0: https://github.com/elastic/ecs/pull/1386
 * Stage 1: https://github.com/elastic/ecs/pull/1400
+* Stage 2: https://github.com/elastic/ecs/pull/1460
+  * Stage 2 addendum: https://github.com/elastic/ecs/pull/1502
 
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN

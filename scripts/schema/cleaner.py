@@ -153,6 +153,7 @@ def field_or_multi_field_datatype_defaults(field_details):
         field_details.pop('index', None)
     if 'index' in field_details and not field_details['index']:
         field_details.setdefault('doc_values', False)
+        field_details.pop('ignore_above', None)
 
 
 FIELD_MANDATORY_ATTRIBUTES = ['name', 'description', 'type', 'level']
