@@ -3509,6 +3509,29 @@ file.extension:
   normalize: []
   short: File extension, excluding the leading dot.
   type: keyword
+file.fork_name:
+  dashed_name: file-fork-name
+  description: 'A fork is additional data associated with a filesystem object.
+
+    On Linux, a resource fork is used to store additional data with a filesystem object.
+    A file always has at least one fork for the data portion, and additional forks
+    may exist.
+
+    On NTFS, this is analogous to an Alternate Data Stream (ADS), and the default
+    data stream for a file is just called $DATA. Zone.Identifier is commonly used
+    by Windows to track contents downloaded from the Internet. An ADS is typically
+    of the form: `C:\path\to\filename.extension:some_fork_name`, and `some_fork_name`
+    is the value that should populate `fork_name`. `filename.extension` should populate
+    `file.name`, and `extension` should populate `file.extension`. The full path,
+    `file.path`, will include the fork name.'
+  example: Zone.Identifer
+  flat_name: file.fork_name
+  ignore_above: 1024
+  level: extended
+  name: fork_name
+  normalize: []
+  short: A fork is additional data associated with a filesystem object.
+  type: keyword
 file.gid:
   dashed_name: file-gid
   description: Primary group ID (GID) of the file.
@@ -13044,6 +13067,30 @@ threat.enrichments.indicator.file.extension:
   original_fieldset: file
   short: File extension, excluding the leading dot.
   type: keyword
+threat.enrichments.indicator.file.fork_name:
+  dashed_name: threat-enrichments-indicator-file-fork-name
+  description: 'A fork is additional data associated with a filesystem object.
+
+    On Linux, a resource fork is used to store additional data with a filesystem object.
+    A file always has at least one fork for the data portion, and additional forks
+    may exist.
+
+    On NTFS, this is analogous to an Alternate Data Stream (ADS), and the default
+    data stream for a file is just called $DATA. Zone.Identifier is commonly used
+    by Windows to track contents downloaded from the Internet. An ADS is typically
+    of the form: `C:\path\to\filename.extension:some_fork_name`, and `some_fork_name`
+    is the value that should populate `fork_name`. `filename.extension` should populate
+    `file.name`, and `extension` should populate `file.extension`. The full path,
+    `file.path`, will include the fork name.'
+  example: Zone.Identifer
+  flat_name: threat.enrichments.indicator.file.fork_name
+  ignore_above: 1024
+  level: extended
+  name: fork_name
+  normalize: []
+  original_fieldset: file
+  short: A fork is additional data associated with a filesystem object.
+  type: keyword
 threat.enrichments.indicator.file.gid:
   dashed_name: threat-enrichments-indicator-file-gid
   description: Primary group ID (GID) of the file.
@@ -15897,6 +15944,30 @@ threat.indicator.file.extension:
   normalize: []
   original_fieldset: file
   short: File extension, excluding the leading dot.
+  type: keyword
+threat.indicator.file.fork_name:
+  dashed_name: threat-indicator-file-fork-name
+  description: 'A fork is additional data associated with a filesystem object.
+
+    On Linux, a resource fork is used to store additional data with a filesystem object.
+    A file always has at least one fork for the data portion, and additional forks
+    may exist.
+
+    On NTFS, this is analogous to an Alternate Data Stream (ADS), and the default
+    data stream for a file is just called $DATA. Zone.Identifier is commonly used
+    by Windows to track contents downloaded from the Internet. An ADS is typically
+    of the form: `C:\path\to\filename.extension:some_fork_name`, and `some_fork_name`
+    is the value that should populate `fork_name`. `filename.extension` should populate
+    `file.name`, and `extension` should populate `file.extension`. The full path,
+    `file.path`, will include the fork name.'
+  example: Zone.Identifer
+  flat_name: threat.indicator.file.fork_name
+  ignore_above: 1024
+  level: extended
+  name: fork_name
+  normalize: []
+  original_fieldset: file
+  short: A fork is additional data associated with a filesystem object.
   type: keyword
 threat.indicator.file.gid:
   dashed_name: threat-indicator-file-gid

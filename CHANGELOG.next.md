@@ -17,6 +17,8 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
+* Added `file.fork_name` field #1288
+
 #### Improvements
 
 #### Deprecated
