@@ -58,6 +58,7 @@ Thanks, you're awesome :-) -->
 
 * Support `match_only_text` data type in Go code generator. #1418
 * Support for multi-level, self-nestings. #1459
+* `beta` attribute now supported on categorization allowed values. #1511
 
 #### Improvements
 
