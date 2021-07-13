@@ -22,6 +22,8 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
+* Added `file.fork_name` field #1288
+
 #### Improvements
 
 #### Deprecated
@@ -73,8 +75,6 @@ Thanks, you're awesome :-) -->
 <!-- All empty sections:
 
 ## Unreleased
-
-* Added `file.fork_name` field #1288
 
 ### Schema Changes
 ### Tooling and Artifact Changes
