@@ -1,13 +1,20 @@
 # 0001: Wildcard Field Migration
 <!--^ The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC, taking care not to conflict with other RFCs.-->
 
-- Stage: **1 (draft)** <!-- Update to reflect target stage -->
-- Date: **2021-01-29** <!-- Update to reflect date of most recent stage advancement -->
+- Stage: **2 (candidate)** <!-- Update to reflect target stage -->
+- Date: **2021-07-14** <!-- Update to reflect date of most recent stage advancement -->
 
 Wildcard is a data type for Elasticsearch string fields being introduced in Elasticsearch 7.9. Wildcard optimizes performance for queries using wildcards (`*`) and regex, allowing users to perform `grep`-like searches without the limitations of the existing
 text[0] and keyword[1] types.
 
 This RFC focuses on migrating a subset of existing ECS fields, all of which are currently using the `keyword` type, to `wildcard`. Any net new fields introduced into ECS and are well-suited are encouraged to use `wildcard` independently of this RFC.
+
+The objectives of this migration:
+
+* Leverage the improved searching using `wildcard` of regular expressions and leading wildcard on high-cardinality fields. Wildcard excels when searching for something in the middle of strings when there are many unique values to evaluate. It also addresses issues with the partial matching of string values important to [security use cases](https://socprime.com/blog/elastic-for-security-analysts-part-1-searching-strings/).
+* Remove security blindspots caused by `keyword` field size limits (`ignore_above`) and the Lucence hard limit (32k for each value) when dealing with large event values or messages.
+* Potentially less disk usage for high-cardinality fields
+* Potentially simpler search expressions
 
 ## Fields
 
@@ -21,29 +28,11 @@ For a field to use wildcard, it will require changing the field's defined schema
 
 | Field Set | Field(s) |
 | --------- | -------- |
-| [`agent`](0001/agent.yml) | `agent.build.original` |
-| [`as`](0001/as.yml) | `as.organization.name` |
-| [`client`](0001/client.yml) | `client.domain`<br> `client.registered_domain` |
-| [`destination`](0001/destination.yml) | `destination.domain`<br> `destination.registered_domain` |
-| [`dns`](0001/dns.yml) | `dns.question.name`<br> `dns.answers.data` |
-| [`error`](0001/error.yml) | `error.stack_trace`<br> `error.type` |
-| [`file`](0001/file.yml) | `file.directory`<br> `file.path`<br> `file.target_path` |
-| [`geo`](0001/geo.yml) | `geo.name` |
-| [`host`](0001/host.yml) | `host.hostname`<br> |
-| [`http`](0001/http.yml) | `http.request.referrer`<br> `http.request.body.content`<br> `http.response.body.content` |
-| [`log`](0001/log.yml) | `log.file.path`<br> `log.logger` |
-| [`organization`](0001/organization.yml) | `organization.name` |
-| [`os`](0001/os.yml) | `os.name`<br> `os.full` |
-| [`pe`](0001/pe.yml) | `pe.original_file_name` |
-| [`process`](0001/process.yml) | `process.command_line`<br> `process.executable`<br> `process.name`<br> `process.thread.name`<br> `process.title`<br> `process.working_directory`<br> |
-| [`registry`](0001/registry.yml) | `registry.key`<br> `registry.path`<br> `registry.data.strings` |
-| [`server`](0001/server.yml) | `server.domain`<br> `server.registered_domain` |
-| [`source`](0001/source.yml) | `source.domain`<br> `source.registered_domain` |
-| [`tls`](0001/tls.yml) | `tls.client.issuer`<br> `tls.client.subject`<br> `tls.server.issuer`<br> `tls.server.subject` |
-| [`url`](0001/url.yml) | `url.full`<br> `url.original`<br> `url.path`<br> `url.domain`<br> `url.registered_domain` |
-| [`user`](0001/user.yml) | `user.name`<br> `user.full_name`<br> `user.email` |
-| [`user_agent`](0001/user_agent.yml) | `user_agent.original` |
-| [`x509`](0001/x509.yml) | `x509.issuer.distinguished_name`<br> `x509.subject.distinguished_name` |
+| [`error`](0001/error.yml) | `error.stack_trace` |
+| [`http`](0001/http.yml) | `http.request.body.content`<br> `http.response.body.content` |
+| [`process`](0001/process.yml) | `process.command_line` |
+| [`registry`](0001/registry.yml) | `registry.data.strings` |
+| [`url`](0001/url.yml) | `url.full`<br> `url.original`<br> `url.path` |
 
 The full set of schema files which will be transitioning to `wildcard` are located in directory [rfcs/text/0001/](0001/).
 
@@ -177,18 +166,6 @@ Since deciding between `wildcard` and `keyword` involves weighing tradeoffs, thi
 ### Use Cases
 
 The following sections detail use cases which could benefit using the `wildcard` type.
-
-#### Paths
-
-* Flexible nesting of a file path: `file.path:*\\Users\\*\\Temp\\*`
-* Match under registry path: `registry.path:\\HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Image File Execution Options\\*\\Debugger`
-* A unique URL path: `url.full:https://api.example.com/account/*/foobar`
-
-The following are common categories
-
-* File and directory paths
-* URLs
-* Registry data
 
 #### Names
 
@@ -409,6 +386,32 @@ Stage 2: Identifies scope of impact of changes. Are breaking changes required? S
 The goal here is to research and understand the impact of these changes on users in the community and development teams across Elastic. 2-5 sentences each.
 -->
 
+`keyword` and `wildcard` are both members of the keyword type family but use different underlying data structures. Wildcard uses two data structures to accelerate wildcard and regexp searching:
+
+1. n-gram index of all three character sequences in the string values
+2. binary doc value store of the original values
+
+Wildcard fields require more disk space for the additional n-gram index. This disk cost is only recovered if the full doc values that are also stored compress better than the compression of the keyword fields for the doc values. Keyword values are compressed based on common-prefixes in the values, but wildcard values use LZ4 based on blocks of 32 values. These two compression approaches vary depending on size, duplicate values, the cardinality of the data, and so on.
+
+### Storage and Indexing Costs
+
+When assembling the initial list of candidate fields to migrate to `wildcard,` we split focus between query performance improvements and removing security blind spots. However, we overlooked the storage and indexing costs when switching fields to be indexed as `wildcard.`
+
+ECS fields will be re-evaluated now in terms of storage and indexing using the following criteria:
+
+* Underestimating cardinality of particular fields. How many unique fields are expected for a given field? Thousands? Hundreds of Thousands? Millions?
+* Disk costs for mostly identical values. Which fields are more likely to have values sharing common prefixes and better compression as `keyword`?
+
+### Query Performance
+
+Query performance of `wildcard` vs. `keyword` hasn't been benchmarked extensively. ECS recognizes some fields may need `wildcard` even with an increase in storage and indexing overhead due to other query benefits.
+
+Keyword vs. wildcard query characteristics:
+
+* `keyword` will perform queries faster for a prefix query (`foo*`) on a low-cardinality field (< hundreds of thousands of unique values) than `wildcard.`
+* `wildcard` will perform much faster than `keyword` for leading wildcard or regexp queries but only on a high-cardinality field (> millions of unique values).
+* `wildcard` fields should avoid being used extensively for sorting and aggregation features
+
 ### Ingestion
 
 Any component producing data (Beats, Logstash, third-party developed, etc.) will need to adopt the mappings in their index templates. The discussion around the handling of OSS vs. Basic field types between OSS and Basic modules/plugins will be handled outside of this proposal.
@@ -439,9 +442,47 @@ The `case_insensitivity` query parameter is an expected feature in Elasticsearch
 
 Performance and storage characteristics between wildcard and keyword will be different[5], and this difference may have an impact depending on deployment size and/or the level of duplication in the field data. Fields which were previously indexed as keyword will be switched to wildcard. With these fields now indexed as wildcard, users will be querying fields which are indexed as keyword in some indices and as wildcard in others. Any potential indexing or querying differences needs to be understood and captured.
 
-#### Resolution
+The performance characteristics for both indexing and querying for the two types were explored and observations [noted](#comparison-with-keyword) in the earlier phases of this proposal. However, after additional benchmarking the increases in storage costs and decreasing in index performance was found to be significant enough that we need to revisit our approach. Each candidate field will need to be reassessed against a more rigorous set of criteria for inclusion into this initial type migration.
 
-The performance characteristics for both indexing and querying for the two types has been explored and observations [noted](#comparison-with-keyword).
+#### Resolution (Pending)
+
+The following categories are areas that were initially candidates for `wildcard`, but after reviewing the benchmarking data, the fields will not typically have high enough cardinality to make them ideal candidates for `wildcard`.
+##### File paths and names
+
+File path values are likely to compress extremely well as `keyword` since `keyword` fields have common-prefix-based compression (`wildcard` values are blocks of 32 values compressed into a single LZ4 blob). On top of the worse doc values compression, the number of `postings` also increases significantly due to n-grams.
+
+##### Host and Organization Naming
+
+Hostname values are very likely duplicated from event to event. Even though an index might have thousands of different hosts, it's unlikely to see millions of unique hostname values.
+
+Depending on an organization's host naming convention, there's also some possibility of common prefixing (hosts named `USNHCDBRD-D001` and `USNHCW2K8-P001` both share the prefix `USNHC`).
+
+Organization names such as `as.organization.name` and `organization.name` might be better suited to `text.`
+
+##### User Identifiers
+
+User identifiers, like usernames or email addresses, are also likely duplicated across events. Common prefixing is also a potential consideration.
+
+##### Specialized Text Analyzers
+
+For certain field and their values, the use of specialized text analysis could be an alternative to using the `wildcard` data type. For example, adopting the [path hierarchy tokenizer](https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-pathhierarchy-tokenizer.html) for file paths.
+
+### Future breaking changes to adopt `wildcard`
+
+Often a large field is mapped a `keyword` to simplify substring searches. But:
+
+* larger field = many unique values = slow substring searches
+* size limits for `keyword` will drop overly large values
+
+Unlike a migration from `keyword` to `wildcard,` migrating from `text` to `wildcard` would be a breaking change. The initial wildcard proposal focused on non-breaking changes of existing keyword fields in ECS, but now understanding the storage/indexing characteristics of `wildcard` better and the new implementation timeline may be worth discussing more for the next ECS major.
+
+#### `message`
+
+As of ECS 1.8, `message` is mapped as type `text`. While `text` is great searching fields containing "everyday language", `wildcard` may improve the substring search issues encountered when indexing larger strings vs. migrating to `keyword`.
+
+#### `event.original`
+
+Also as of ECS 1.8, the `event.original` field is not indexed due to the very large value sizes and the significant impact indexes those values could have. However, if users had the need and understood the trade-offs, `wildcard` could be a more appropriate type than `keyword`.
 
 ### Wildcard field value character limits
 
@@ -526,11 +567,12 @@ Due to performance concerns brought up during implementation, the wildcard chang
 
 #### First Phase
 
-* Stage 0: https://github.com/elastic/ecs/pull/890
-* Stage 1: https://github.com/elastic/ecs/pull/904
-* Stage 2: https://github.com/elastic/ecs/pull/970
-* Stage 3: https://github.com/elastic/ecs/pull/1015
+* Stage 0 (strawperson): https://github.com/elastic/ecs/pull/890
+* Stage 1 (proposal): https://github.com/elastic/ecs/pull/904
+* Stage 2 (draft): https://github.com/elastic/ecs/pull/970
+* Stage 3 (candidate): https://github.com/elastic/ecs/pull/1015
 #### Second Phase
 
-* Stage 1:
+* Stage 1 (draft):
   * Rollback: https://github.com/elastic/ecs/pull/1237
+* Stage 2 (candidate): https://github.com/elastic/ecs/pull/1247
