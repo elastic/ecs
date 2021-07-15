@@ -63,7 +63,7 @@ def load_schemas(ref=None, included_files=[]):
             fields = merge_fields(fields, exp_fields)
             included_files.remove(EXPERIMENTAL_SCHEMA_DIR)
         # Remaining additional custom files (never from git ref)
-        custom_files = ecs_helpers.get_glob_files(included_files, ecs_helpers.YAML_EXT)
+        custom_files = ecs_helpers.get_glob_files(included_files)
         custom_fields = deep_nesting_representation(load_schema_files(custom_files))
         fields = merge_fields(fields, custom_fields)
     return fields

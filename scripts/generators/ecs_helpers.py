@@ -97,14 +97,21 @@ def dict_clean_string_values(dict):
 # File helpers
 
 
-YAML_EXT = ('*.yml', '*.yaml')
+YAML_EXT = {'yml', 'yaml'}
 
 
-def get_glob_files(paths, file_types):
+def is_yaml(path):
+    return set(path.split('.')[1:]).intersection(YAML_EXT) != set()
+
+
+def get_glob_files(paths):
     all_files = []
     for path in paths:
-        for t in file_types:
-            all_files.extend(glob.glob(os.path.join(path, t)))
+        if is_yaml(path):
+            all_files.extend(glob.glob(path))
+        else:
+            for t in YAML_EXT:
+                all_files.extend(glob.glob(os.path.join(path, '*.' + t)))
     return sorted(all_files)
 
 
