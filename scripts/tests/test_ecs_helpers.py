@@ -113,5 +113,14 @@ class TestECSHelpers(unittest.TestCase):
         self.assertTrue(ecs_helpers.path_exists_in_git_tree(tree, 'schemas'))
 
 
+    # file helpers
+
+    def test_is_yaml(self):
+        self.assertTrue(ecs_helpers.is_yaml('./schemas/base.yml'))
+        self.assertTrue(ecs_helpers.is_yaml('./build/docs/conf.yaml'))
+        self.assertFalse(ecs_helpers.is_yaml('./README.md'))
+        self.assertFalse(ecs_helpers.is_yaml('./schemas/'))
+        self.assertFalse(ecs_helpers.is_yaml('./build'))
+
 if __name__ == '__main__':
     unittest.main()

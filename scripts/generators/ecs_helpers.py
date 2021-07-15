@@ -104,9 +104,16 @@ def is_yaml(path):
     return set(path.split('.')[1:]).intersection(YAML_EXT) != set()
 
 
+def safe_list(o):
+    if isinstance(o, list):
+        return o
+    else:
+        return o.split(',')
+
+
 def get_glob_files(paths):
     all_files = []
-    for path in paths:
+    for path in safe_list(paths):
         if is_yaml(path):
             all_files.extend(glob.glob(path))
         else:
