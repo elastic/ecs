@@ -1,8 +1,8 @@
 # 0023: Migrate `text` fields to `match_only_text`
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
-- Stage: **1 (draft)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
-- Date: **2021-07-15** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
+- Stage: **2 (candidate)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
+- Date: **TBD** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 <!--
 As you work on your RFC, use the "Stage N" comments to guide you in what you should focus on, for the stage you're targeting.
@@ -318,6 +318,7 @@ e.g.:
 
 * Stage 0: https://github.com/elastic/ecs/pull/1396
 * Stage 1: https://github.com/elastic/ecs/pull/1415
+* Stage 2: https://github.com/elastic/ecs/pull/NNN
 
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN
