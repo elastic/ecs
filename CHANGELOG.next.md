@@ -11,6 +11,8 @@ Thanks, you're awesome :-) -->
 ### Schema Changes
 ### Tooling and Artifact Changes
 
+* Align input options for --include and --subset arguments #1519
+
 ### Breaking Changes
 
 * Removing deprecated --oss from generator #1404
