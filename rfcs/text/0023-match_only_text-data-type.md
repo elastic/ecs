@@ -266,7 +266,7 @@ As mentioned previously, there are limitations of using `match_only_text`:
 
 Security or observability solutions may depend on heavy usage of interval or, more likely, phrase queries. Users could also have implemented custom phrase or interval queries in alerting or detection rules.
 
-**Resolution**: To be determined; will discuss with solution teams about any concerns slower phrase and interval queries may have.
+**Resolution**: The reduced disk overhead provided from using `match_only_text` fields will benefit most users, and it should be the default ECS experience. In desired, users can update their index mappings to use `text` over `match_only_text` with no conflicts.
 
 <!--
 Stage 2: Document new concerns or resolutions to previously listed concerns. It's not critical that all concerns have resolutions at this point, but it would be helpful if resolutions were taking shape for the most significant concerns.
