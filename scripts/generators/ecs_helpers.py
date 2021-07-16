@@ -101,6 +101,7 @@ YAML_EXT = {'yml', 'yaml'}
 
 
 def is_yaml(path):
+    """Returns True if path """
     return set(path.split('.')[1:]).intersection(YAML_EXT) != set()
 
 
@@ -112,6 +113,7 @@ def safe_list(o):
 
 
 def get_glob_files(paths):
+    
     all_files = []
     for path in safe_list(paths):
         if is_yaml(path):
