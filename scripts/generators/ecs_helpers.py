@@ -101,19 +101,20 @@ YAML_EXT = {'yml', 'yaml'}
 
 
 def is_yaml(path):
-    """Returns True if path """
+    """Returns True if path matches an element of the yaml extensions set"""
     return set(path.split('.')[1:]).intersection(YAML_EXT) != set()
 
 
 def safe_list(o):
+    """converts o to a list if it isn't already a list"""
     if isinstance(o, list):
         return o
     else:
         return o.split(',')
 
 
-def get_glob_files(paths):
-
+def glob_yaml_files(paths):
+    """Accepts string, or list representing a path, wildcard or folder. Returns list of matched yaml files"""
     all_files = []
     for path in safe_list(paths):
         if is_yaml(path):

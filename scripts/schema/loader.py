@@ -63,7 +63,7 @@ def load_schemas(ref=None, included_files=[]):
             fields = merge_fields(fields, exp_fields)
             included_files.remove(EXPERIMENTAL_SCHEMA_DIR)
         # Remaining additional custom files (never from git ref)
-        custom_files = ecs_helpers.get_glob_files(included_files)
+        custom_files = ecs_helpers.glob_yaml_files(included_files)
         custom_fields = deep_nesting_representation(load_schema_files(custom_files))
         fields = merge_fields(fields, custom_fields)
     return fields
@@ -276,7 +276,8 @@ def eval_globs(globs):
 
 def load_definitions(file_globs):
     sets = []
-    for f in eval_globs(file_globs):
+    #for f in eval_globs(file_globs):
+    for f in ecs_helpers.glob_yaml_files(file_globs):
         raw = load_yaml_file(f)
         sets.append(raw)
     return sets
