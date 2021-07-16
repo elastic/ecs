@@ -113,7 +113,7 @@ def safe_list(o):
 
 
 def get_glob_files(paths):
-    
+
     all_files = []
     for path in safe_list(paths):
         if is_yaml(path):

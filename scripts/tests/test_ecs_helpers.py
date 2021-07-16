@@ -112,7 +112,6 @@ class TestECSHelpers(unittest.TestCase):
         self.assertFalse(ecs_helpers.path_exists_in_git_tree(tree, 'nonexistant'))
         self.assertTrue(ecs_helpers.path_exists_in_git_tree(tree, 'schemas'))
 
-
     # file helpers
 
     def test_is_yaml(self):
@@ -129,14 +128,18 @@ class TestECSHelpers(unittest.TestCase):
         self.assertEqual(ecs_helpers.get_glob_files('schemas/base.yml'), ['schemas/base.yml'])
         self.assertEqual(ecs_helpers.get_glob_files(['schemas/base.yml']), ['schemas/base.yml'])
         # convert to set as element order is not being tested
-        self.assertEqual(set(ecs_helpers.get_glob_files(['schemas/base.yml', 'schemas/log.yml'])), {'schemas/base.yml', 'schemas/log.yml'})
+        self.assertEqual(set(ecs_helpers.get_glob_files(
+            ['schemas/base.yml', 'schemas/log.yml'])), {'schemas/base.yml', 'schemas/log.yml'})
         self.assertTrue(set(ecs_helpers.get_glob_files('schemas/b*.yml')).intersection({'schemas/base.yml'}) != set())
-        self.assertTrue(set(ecs_helpers.get_glob_files('schemas/[bl]*.yml')).intersection({'schemas/base.yml', 'schemas/log.yml'}) != set())
+        self.assertTrue(set(ecs_helpers.get_glob_files(
+            'schemas/[bl]*.yml')).intersection({'schemas/base.yml', 'schemas/log.yml'}) != set())
         min_schema_count = 46
         self.assertTrue(len(ecs_helpers.get_glob_files(ecs_helpers.get_glob_files('schemas'))) >= min_schema_count)
         self.assertTrue(len(ecs_helpers.get_glob_files(ecs_helpers.get_glob_files('schemas/'))) >= min_schema_count)
-        self.assertTrue(len(ecs_helpers.get_glob_files(ecs_helpers.get_glob_files('schemas/*.yml'))) >= min_schema_count)
+        self.assertTrue(len(ecs_helpers.get_glob_files(
+            ecs_helpers.get_glob_files('schemas/*.yml'))) >= min_schema_count)
         self.assertEqual(len(ecs_helpers.get_glob_files(ecs_helpers.get_glob_files('schemas/*.yaml'))), 0)
+
 
 if __name__ == '__main__':
     unittest.main()
