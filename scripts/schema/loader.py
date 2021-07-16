@@ -276,7 +276,6 @@ def eval_globs(globs):
 
 def load_definitions(file_globs):
     sets = []
-    #for f in eval_globs(file_globs):
     for f in ecs_helpers.glob_yaml_files(file_globs):
         raw = load_yaml_file(f)
         sets.append(raw)
