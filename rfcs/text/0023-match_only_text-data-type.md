@@ -1,17 +1,17 @@
 # 0023: Migrate `text` fields to `match_only_text`
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
-- Stage: **1 (draft)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
-- Date: **2021-07-15** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
+- Stage: **2 (candidate)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
+- Date: **2021-07-19** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 <!--
 As you work on your RFC, use the "Stage N" comments to guide you in what you should focus on, for the stage you're targeting.
 Feel free to remove these comments as you go along.
 -->
 
-Indexing `message` fields as the `text` type in security and application logs consume significant disk space. Part of the disk space spent is on indexing to support scoring and phrase queries, which aren't often used in logging use cases. Elasticsearch 7.14 introduces a new field type called `match_only_text`, a more space-efficient variant of the `text` field type for these logging-focused use cases.
+Indexing `message` fields as the `text` type in security and application logs consume significant disk space. Part of the disk space spent is on indexing to support scoring and phrase queries, which logging use cases don't frequently use. Elasticsearch 7.14 introduces a new field type called `match_only_text`, a more space-efficient variant of the `text` field type for these logging-focused use cases.
 
-This RFC proposes migrating existing ECS `text` fields to `match_only_text`. Most current ECS datasets are focused heavily on logging use cases, and we can pass these disk space savings onto users by migrating `text` fields to `match_only_text` by default in ECS. Upcoming changes in Elasticsearch will default to indexing the `message` field as `match_only_text`, and this change in ECS will also align better with this new stack default.
+This RFC proposes migrating existing ECS `text` fields to `match_only_text`. Most current ECS datasets are focused heavily on logging use cases, and we can pass these disk space savings onto users by migrating `text` fields to `match_only_text` by default in ECS. In addition, upcoming changes in Elasticsearch will default to indexing the `message` field as `match_only_text`, and this change in ECS will also align better with this new stack default.
 
 <!--
 Stage 1: If the changes include field additions or modifications, please create a folder titled as the RFC number under rfcs/text/. This will be where proposed schema changes as standalone YAML files or extended example mappings and larger source documents will go as the RFC is iterated upon.
@@ -101,12 +101,12 @@ Data is indexed the same as a `text` field that has:
 The `match_only_text` type supports the same feature set as `text`, except the following:
 
 * No support for scoring: queries ignore index statistics and produce constant scores.
-* Span queries are unsupported. If a span query is run, then shards, where the field is mapped as match_only_text, will be returned as failed in the search response, and those shard hits will be ignored.
+* Span queries are unsupported. If a span query runs, shards where the field maps as match_only_text, will return as failed in the search response, and those shard hits are ignored.
 * Phrase and intervals queries run slower.
 
 Like `text`, `match_only_text` fields support limited aggregations.
 
-This new field is part of the text family, so it is returned as a text field in the `_field_caps` output. Being a member of the `text` field family means migrating fields from `text` to `match_only_text` is a non-breaking change, and `text` and `match_only_text` fields can be queried alongside each other.
+This new field is part of the text family and is returned as a text field in the `_field_caps` output. Being a member of the `text` field family means migrating fields from `text` to `match_only_text` is a non-breaking change. Users can query `text` and `match_only_text` fields alongside each other.
 
 <!--
 Stage 1: Describe at a high-level how these field changes will be used in practice. Real world examples are encouraged. The goal here is to understand how people would leverage these fields to gain insights or solve problems. ~1-3 paragraphs.
@@ -235,22 +235,16 @@ Stage 2: Identifies scope of impact of changes. Are breaking changes required? S
 The goal here is to research and understand the impact of these changes on users in the community and development teams across Elastic. 2-5 sentences each.
 -->
 
-### Ingestion mechanisms
-
-Ingestion mechanisms will need to adopt the new mappings to index fields as the new type. Since both `text` and `match_only_text` are members of the `text` type family, this will not cause a conflict in Kibana index patterns across indices using the two types for the same field.
+Ingestion mechanisms will need to adopt the new mappings to index fields as the new type. However, since both `text` and `match_only_text` are members of the `text` type family, this will not cause a conflict in Kibana index patterns across indices using the two types for the same field.
 
 As with all type changes in ECS, the ECS team will benchmark and identify any significant storage, indexing, or query changes. The Elasticsearch performance will be engaged, if necessary, to determine the results. However, `match_only_text` is a `text` field with these settings:
 
 * `index_options: docs`
 * `norms: false`
 
-As a convention, ECS already sets `norms: false` on all `text` fields, so this setting should have no impact on performance. Setting `index_options: docs` only indexes the doc number and has already been recommended to reduce the disk usage needed for indexing.
+ECS already sets `norms: false` on all `text` fields as a convention, so this setting should have no impact on performance. Setting `index_options: docs` only indexes the doc number and has already been recommended to reduce the disk usage needed for indexing.
 
-Negative performance or storage side-effects from this change are not expected, beyond the noted limitation that phrase and interval queries will run slower.
-
-### `.text` multi-fields
-
-Many ECS `keyword` type fields also include a `text` multi-field. Migrating those additional `text` multi-fields to `match_only_text` was initially considered as part of this proposal, but it was later decided to hold off and revisit migrating these multi-fields at a later time.
+Negative performance or storage side-effects from this change are not expected, except the noted limitation of phrase and interval queries will run slower.
 
 ## Concerns
 
@@ -263,16 +257,16 @@ Stage 1: Identify potential concerns, implementation challenges, or complexity. 
 As mentioned previously, there are limitations of using `match_only_text`:
 
 * No support for scoring: queries ignore index statistics and produce constant scores.
-* Span queries are unsupported. If a span query is run, then shards, where the field is mapped as match_only_text, will be returned as failed in the search response, and those shard hits will be ignored.
+* Span queries are unsupported. If a span query runs, shards where the field maps as match_only_text will return as failed in the search response, and those shard hits are ignored.
 * Phrase and intervals queries run slower.
 
-**Resolution**: For the logging use cases that make up the majority of ECS adoption, disabling frequencies and positions should be acceptable for reducing index disk usage.
+**Resolution**: For the logging use cases that make up most ECS adoption, disabling frequencies and positions should be acceptable for reducing index disk usage.
 
 ### Potential heavy usage of phrase and interval queries
 
 Security or observability solutions may depend on heavy usage of interval or, more likely, phrase queries. Users could also have implemented custom phrase or interval queries in alerting or detection rules.
 
-**Resolution**: To be determined; will discuss with solution teams about any concerns slower phrase and interval queries may have.
+**Resolution**: The reduced disk overhead provided from using `match_only_text` fields will benefit most users, and it should be the default ECS experience. In desired, users can update their index mappings to use `text` over `match_only_text` with no conflicts.
 
 <!--
 Stage 2: Document new concerns or resolutions to previously listed concerns. It's not critical that all concerns have resolutions at this point, but it would be helpful if resolutions were taking shape for the most significant concerns.
@@ -318,6 +312,7 @@ e.g.:
 
 * Stage 0: https://github.com/elastic/ecs/pull/1396
 * Stage 1: https://github.com/elastic/ecs/pull/1415
+* Stage 2: https://github.com/elastic/ecs/pull/1522
 
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN
