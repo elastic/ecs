@@ -19,7 +19,13 @@ I'm proposing to add the following kind of fields:
 
 Field | Example | Description
  -- | -- | --
-faas.trigger | "http" | one of `http`,`pubsub`,`datasource`, `timer`, `other`
+faas.trigger.type | "http" | one of `http`,`pubsub`,`datasource`, `timer`, `other`
+faas.trigger.name | "POST /{proxy+}/Prod" | Human readable name of the trigger instance.
+faas.trigger.id | `arn:aws:sqs:us-east-2:123456789012:my-queue` | The ID of the trigger instance (e.g. Api-ID, SQS-queue-ARN, etc.)
+faas.trigger.account.name | "SomeAccount" | The name of the account the trigger belongs to.
+faas.trigger.account.id | `12345678912` | The ID of the account the trigger belongs to.
+faas.trigger.region | `us-east-1` | The cloud region of the trigger.
+faas.trigger.version | `2.1` | The version of the trigger.
 faas.execution | "af9d5aa4-a685-4c5f-a22b-444f80b3cc28" | The execution ID of the current function execution.
 faas.coldstart |  true | Boolean value indicating a cold start of a function
 faas.name | "my-lambda-function" | the name of the function
