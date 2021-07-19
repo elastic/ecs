@@ -6142,17 +6142,19 @@ host:
       dashed_name: host-user-email
       description: User email address.
       flat_name: host.user.email
+      ignore_above: 1024
       level: extended
       name: email
       normalize: []
       original_fieldset: user
       short: User email address.
-      type: wildcard
+      type: keyword
     host.user.full_name:
       dashed_name: host-user-full-name
       description: User's full name, if available.
       example: Albert Einstein
       flat_name: host.user.full_name
+      ignore_above: 1024
       level: extended
       multi_fields:
       - flat_name: host.user.full_name.text
@@ -6163,7 +6165,7 @@ host:
       normalize: []
       original_fieldset: user
       short: User's full name, if available.
-      type: wildcard
+      type: keyword
     host.user.group.domain:
       dashed_name: host-user-group-domain
       description: 'Name of the directory the group is a member of.
@@ -6230,6 +6232,7 @@ host:
       description: Short name or login of the user.
       example: albert
       flat_name: host.user.name
+      ignore_above: 1024
       level: core
       multi_fields:
       - flat_name: host.user.name.text
@@ -6240,7 +6243,7 @@ host:
       normalize: []
       original_fieldset: user
       short: Short name or login of the user.
-      type: wildcard
+      type: keyword
     host.user.roles:
       dashed_name: host-user-roles
       description: Array of user roles at the time of the event.

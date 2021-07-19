@@ -3402,11 +3402,13 @@
         For example, an LDAP or Active Directory domain name.'
     - name: user.email
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       description: User email address.
     - name: user.full_name
       level: extended
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       multi_fields:
       - name: text
         type: text
@@ -3447,7 +3449,8 @@
       description: Unique identifier of the user.
     - name: user.name
       level: core
-      type: wildcard
+      type: keyword
+      ignore_above: 1024
       multi_fields:
       - name: text
         type: text
