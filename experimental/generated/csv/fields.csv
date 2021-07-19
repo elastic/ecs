@@ -3,7 +3,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev+exp,true,base,labels,object,core,,"{""application"": ""foo-bar"", ""env"": ""production""}",Custom key/value pairs.
 1.12.0-dev+exp,true,base,message,text,core,,Hello World,Log message optimized for viewing in a log viewer.
 1.12.0-dev+exp,true,base,tags,keyword,core,array,"[""production"", ""env2""]",List of keywords used to tag each event.
-1.12.0-dev+exp,true,agent,agent.build.original,wildcard,core,,"metricbeat version 7.6.0 (amd64), libbeat 7.6.0 [6a23e8f8f30f5001ba344e4e54d8d9cb82cb107c built 2020-02-05 23:10:10 +0000 UTC]",Extended build information for the agent.
+1.12.0-dev+exp,true,agent,agent.build.original,keyword,core,,"metricbeat version 7.6.0 (amd64), libbeat 7.6.0 [6a23e8f8f30f5001ba344e4e54d8d9cb82cb107c built 2020-02-05 23:10:10 +0000 UTC]",Extended build information for the agent.
 1.12.0-dev+exp,true,agent,agent.ephemeral_id,keyword,extended,,8a4f500f,Ephemeral identifier of this agent.
 1.12.0-dev+exp,true,agent,agent.id,keyword,core,,8a4f500d,Unique identifier of this agent.
 1.12.0-dev+exp,true,agent,agent.name,keyword,core,,foo,Custom name of the agent.
@@ -11,17 +11,17 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev+exp,true,agent,agent.version,keyword,core,,6.0.0-rc2,Version of the agent.
 1.12.0-dev+exp,true,client,client.address,keyword,extended,,,Client network address.
 1.12.0-dev+exp,true,client,client.as.number,long,extended,,15169,Unique number allocated to the autonomous system.
-1.12.0-dev+exp,true,client,client.as.organization.name,wildcard,extended,,Google LLC,Organization name.
+1.12.0-dev+exp,true,client,client.as.organization.name,keyword,extended,,Google LLC,Organization name.
 1.12.0-dev+exp,true,client,client.as.organization.name.text,text,extended,,Google LLC,Organization name.
 1.12.0-dev+exp,true,client,client.bytes,long,core,,184,Bytes sent from the client to the server.
-1.12.0-dev+exp,true,client,client.domain,wildcard,core,,,Client domain.
+1.12.0-dev+exp,true,client,client.domain,keyword,core,,,Client domain.
 1.12.0-dev+exp,true,client,client.geo.city_name,keyword,core,,Montreal,City name.
 1.12.0-dev+exp,true,client,client.geo.continent_code,keyword,core,,NA,Continent code.
 1.12.0-dev+exp,true,client,client.geo.continent_name,keyword,core,,North America,Name of the continent.
 1.12.0-dev+exp,true,client,client.geo.country_iso_code,keyword,core,,CA,Country ISO code.
 1.12.0-dev+exp,true,client,client.geo.country_name,keyword,core,,Canada,Country name.
 1.12.0-dev+exp,true,client,client.geo.location,geo_point,core,,"{ ""lon"": -73.614830, ""lat"": 45.505918 }",Longitude and latitude.
-1.12.0-dev+exp,true,client,client.geo.name,wildcard,extended,,boston-dc,User-defined description of a location.
+1.12.0-dev+exp,true,client,client.geo.name,keyword,extended,,boston-dc,User-defined description of a location.
 1.12.0-dev+exp,true,client,client.geo.postal_code,keyword,core,,94040,Postal code.
 1.12.0-dev+exp,true,client,client.geo.region_iso_code,keyword,core,,CA-QC,Region ISO code.
 1.12.0-dev+exp,true,client,client.geo.region_name,keyword,core,,Quebec,Region name.
@@ -32,19 +32,19 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev+exp,true,client,client.nat.port,long,extended,,,Client NAT port
 1.12.0-dev+exp,true,client,client.packets,long,core,,12,Packets sent from the client to the server.
 1.12.0-dev+exp,true,client,client.port,long,core,,,Port of the client.
-1.12.0-dev+exp,true,client,client.registered_domain,wildcard,extended,,example.com,"The highest registered client domain, stripped of the subdomain."
+1.12.0-dev+exp,true,client,client.registered_domain,keyword,extended,,example.com,"The highest registered client domain, stripped of the subdomain."
 1.12.0-dev+exp,true,client,client.subdomain,keyword,extended,,east,The subdomain of the domain.
 1.12.0-dev+exp,true,client,client.top_level_domain,keyword,extended,,co.uk,"The effective top level domain (com, org, net, co.uk)."
 1.12.0-dev+exp,true,client,client.user.domain,keyword,extended,,,Name of the directory the user is a member of.
-1.12.0-dev+exp,true,client,client.user.email,wildcard,extended,,,User email address.
-1.12.0-dev+exp,true,client,client.user.full_name,wildcard,extended,,Albert Einstein,"User's full name, if available."
+1.12.0-dev+exp,true,client,client.user.email,keyword,extended,,,User email address.
+1.12.0-dev+exp,true,client,client.user.full_name,keyword,extended,,Albert Einstein,"User's full name, if available."
 1.12.0-dev+exp,true,client,client.user.full_name.text,text,extended,,Albert Einstein,"User's full name, if available."
 1.12.0-dev+exp,true,client,client.user.group.domain,keyword,extended,,,Name of the directory the group is a member of.
 1.12.0-dev+exp,true,client,client.user.group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
 1.12.0-dev+exp,true,client,client.user.group.name,keyword,extended,,,Name of the group.
 1.12.0-dev+exp,true,client,client.user.hash,keyword,extended,,,Unique user hash to correlate information for a user in anonymized form.
 1.12.0-dev+exp,true,client,client.user.id,keyword,core,,,Unique identifier of the user.
-1.12.0-dev+exp,true,client,client.user.name,wildcard,core,,albert,Short name or login of the user.
+1.12.0-dev+exp,true,client,client.user.name,keyword,core,,albert,Short name or login of the user.
 1.12.0-dev+exp,true,client,client.user.name.text,text,core,,albert,Short name or login of the user.
 1.12.0-dev+exp,true,client,client.user.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 1.12.0-dev+exp,true,cloud,cloud.account.id,keyword,extended,,666777888999,The cloud account or organization id.
@@ -69,17 +69,17 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev+exp,true,data_stream,data_stream.type,constant_keyword,extended,,logs,An overarching type for the data stream.
 1.12.0-dev+exp,true,destination,destination.address,keyword,extended,,,Destination network address.
 1.12.0-dev+exp,true,destination,destination.as.number,long,extended,,15169,Unique number allocated to the autonomous system.
-1.12.0-dev+exp,true,destination,destination.as.organization.name,wildcard,extended,,Google LLC,Organization name.
+1.12.0-dev+exp,true,destination,destination.as.organization.name,keyword,extended,,Google LLC,Organization name.
 1.12.0-dev+exp,true,destination,destination.as.organization.name.text,text,extended,,Google LLC,Organization name.
 1.12.0-dev+exp,true,destination,destination.bytes,long,core,,184,Bytes sent from the destination to the source.
-1.12.0-dev+exp,true,destination,destination.domain,wildcard,core,,,Destination domain.
+1.12.0-dev+exp,true,destination,destination.domain,keyword,core,,,Destination domain.
 1.12.0-dev+exp,true,destination,destination.geo.city_name,keyword,core,,Montreal,City name.
 1.12.0-dev+exp,true,destination,destination.geo.continent_code,keyword,core,,NA,Continent code.
 1.12.0-dev+exp,true,destination,destination.geo.continent_name,keyword,core,,North America,Name of the continent.
 1.12.0-dev+exp,true,destination,destination.geo.country_iso_code,keyword,core,,CA,Country ISO code.
 1.12.0-dev+exp,true,destination,destination.geo.country_name,keyword,core,,Canada,Country name.
 1.12.0-dev+exp,true,destination,destination.geo.location,geo_point,core,,"{ ""lon"": -73.614830, ""lat"": 45.505918 }",Longitude and latitude.
-1.12.0-dev+exp,true,destination,destination.geo.name,wildcard,extended,,boston-dc,User-defined description of a location.
+1.12.0-dev+exp,true,destination,destination.geo.name,keyword,extended,,boston-dc,User-defined description of a location.
 1.12.0-dev+exp,true,destination,destination.geo.postal_code,keyword,core,,94040,Postal code.
 1.12.0-dev+exp,true,destination,destination.geo.region_iso_code,keyword,core,,CA-QC,Region ISO code.
 1.12.0-dev+exp,true,destination,destination.geo.region_name,keyword,core,,Quebec,Region name.
@@ -90,19 +90,19 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev+exp,true,destination,destination.nat.port,long,extended,,,Destination NAT Port
 1.12.0-dev+exp,true,destination,destination.packets,long,core,,12,Packets sent from the destination to the source.
 1.12.0-dev+exp,true,destination,destination.port,long,core,,,Port of the destination.
-1.12.0-dev+exp,true,destination,destination.registered_domain,wildcard,extended,,example.com,"The highest registered destination domain, stripped of the subdomain."
+1.12.0-dev+exp,true,destination,destination.registered_domain,keyword,extended,,example.com,"The highest registered destination domain, stripped of the subdomain."
 1.12.0-dev+exp,true,destination,destination.subdomain,keyword,extended,,east,The subdomain of the domain.
 1.12.0-dev+exp,true,destination,destination.top_level_domain,keyword,extended,,co.uk,"The effective top level domain (com, org, net, co.uk)."
 1.12.0-dev+exp,true,destination,destination.user.domain,keyword,extended,,,Name of the directory the user is a member of.
-1.12.0-dev+exp,true,destination,destination.user.email,wildcard,extended,,,User email address.
-1.12.0-dev+exp,true,destination,destination.user.full_name,wildcard,extended,,Albert Einstein,"User's full name, if available."
+1.12.0-dev+exp,true,destination,destination.user.email,keyword,extended,,,User email address.
+1.12.0-dev+exp,true,destination,destination.user.full_name,keyword,extended,,Albert Einstein,"User's full name, if available."
 1.12.0-dev+exp,true,destination,destination.user.full_name.text,text,extended,,Albert Einstein,"User's full name, if available."
 1.12.0-dev+exp,true,destination,destination.user.group.domain,keyword,extended,,,Name of the directory the group is a member of.
 1.12.0-dev+exp,true,destination,destination.user.group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
 1.12.0-dev+exp,true,destination,destination.user.group.name,keyword,extended,,,Name of the group.
 1.12.0-dev+exp,true,destination,destination.user.hash,keyword,extended,,,Unique user hash to correlate information for a user in anonymized form.
 1.12.0-dev+exp,true,destination,destination.user.id,keyword,core,,,Unique identifier of the user.
-1.12.0-dev+exp,true,destination,destination.user.name,wildcard,core,,albert,Short name or login of the user.
+1.12.0-dev+exp,true,destination,destination.user.name,keyword,core,,albert,Short name or login of the user.
 1.12.0-dev+exp,true,destination,destination.user.name.text,text,core,,albert,Short name or login of the user.
 1.12.0-dev+exp,true,destination,destination.user.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 1.12.0-dev+exp,true,dll,dll.code_signature.exists,boolean,core,,true,Boolean to capture if a signature is present.
@@ -139,7 +139,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev+exp,true,dll,dll.pe.imphash,keyword,extended,,0c6803c4e922103c4dca5963aad36ddf,A hash of the imports in a PE file.
 1.12.0-dev+exp,true,dll,dll.pe.imports,flattened,extended,,"{ ""library_name"" : ""mscoree.dll"", ""imported_functions"" : ""GetFileVersionInfoSizeA"" }",List of all imported functions
 1.12.0-dev+exp,true,dll,dll.pe.machine_type,keyword,extended,,"Intel 386 or later, and compatibles",Machine type of the PE file.
-1.12.0-dev+exp,true,dll,dll.pe.original_file_name,wildcard,extended,,MSPAINT.EXE,"Internal name of the file, provided at compile-time."
+1.12.0-dev+exp,true,dll,dll.pe.original_file_name,keyword,extended,,MSPAINT.EXE,"Internal name of the file, provided at compile-time."
 1.12.0-dev+exp,true,dll,dll.pe.packers,keyword,extended,array,"[""ASPack v2.12"", "".NET executable""]",List of packers and tools used.
 1.12.0-dev+exp,true,dll,dll.pe.product,keyword,extended,,Microsoft® Windows® Operating System,"Internal product name of the file, provided at compile-time."
 1.12.0-dev+exp,true,dll,dll.pe.resources,nested,extended,array,,PE resource information
@@ -159,7 +159,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev+exp,true,dll,dll.pe.sections.virtual_address,long,extended,,8192,Virtual address available to the file.
 1.12.0-dev+exp,true,dns,dns.answers,object,extended,array,,Array of DNS answers.
 1.12.0-dev+exp,true,dns,dns.answers.class,keyword,extended,,IN,The class of DNS data contained in this resource record.
-1.12.0-dev+exp,true,dns,dns.answers.data,wildcard,extended,,10.10.10.10,The data describing the resource.
+1.12.0-dev+exp,true,dns,dns.answers.data,keyword,extended,,10.10.10.10,The data describing the resource.
 1.12.0-dev+exp,true,dns,dns.answers.name,keyword,extended,,www.example.com,The domain name to which this resource record pertains.
 1.12.0-dev+exp,true,dns,dns.answers.ttl,long,extended,,180,The time interval in seconds that this resource record may be cached before it should be discarded.
 1.12.0-dev+exp,true,dns,dns.answers.type,keyword,extended,,CNAME,The type of data contained in this resource record.
@@ -167,7 +167,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev+exp,true,dns,dns.id,keyword,extended,,62111,The DNS packet identifier assigned by the program that generated the query. The identifier is copied to the response.
 1.12.0-dev+exp,true,dns,dns.op_code,keyword,extended,,QUERY,The DNS operation code that specifies the kind of query in the message.
 1.12.0-dev+exp,true,dns,dns.question.class,keyword,extended,,IN,The class of records being queried.
-1.12.0-dev+exp,true,dns,dns.question.name,wildcard,extended,,www.example.com,The name being queried.
+1.12.0-dev+exp,true,dns,dns.question.name,keyword,extended,,www.example.com,The name being queried.
 1.12.0-dev+exp,true,dns,dns.question.registered_domain,keyword,extended,,example.com,"The highest registered domain, stripped of the subdomain."
 1.12.0-dev+exp,true,dns,dns.question.subdomain,keyword,extended,,www,The subdomain of the domain.
 1.12.0-dev+exp,true,dns,dns.question.top_level_domain,keyword,extended,,co.uk,"The effective top level domain (com, org, net, co.uk)."
@@ -181,7 +181,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev+exp,true,error,error.message,text,core,,,Error message.
 1.12.0-dev+exp,true,error,error.stack_trace,wildcard,extended,,,The stack trace of this error in plain text.
 1.12.0-dev+exp,true,error,error.stack_trace.text,text,extended,,,The stack trace of this error in plain text.
-1.12.0-dev+exp,true,error,error.type,wildcard,extended,,java.lang.NullPointerException,"The type of the error, for example the class name of the exception."
+1.12.0-dev+exp,true,error,error.type,keyword,extended,,java.lang.NullPointerException,"The type of the error, for example the class name of the exception."
 1.12.0-dev+exp,true,event,event.action,keyword,core,,user-password-change,The action captured by the event.
 1.12.0-dev+exp,true,event,event.agent_id_status,keyword,extended,,verified,Validation status of the event's agent.id field.
 1.12.0-dev+exp,true,event,event.category,keyword,core,array,authentication,Event category. The second categorization field in the hierarchy.
@@ -220,7 +220,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev+exp,true,file,file.created,date,extended,,,File creation time.
 1.12.0-dev+exp,true,file,file.ctime,date,extended,,,Last time the file attributes or metadata changed.
 1.12.0-dev+exp,true,file,file.device,keyword,extended,,sda,Device that is the source of the file.
-1.12.0-dev+exp,true,file,file.directory,wildcard,extended,,/home/alice,Directory where the file is located.
+1.12.0-dev+exp,true,file,file.directory,keyword,extended,,/home/alice,Directory where the file is located.
 1.12.0-dev+exp,true,file,file.drive_letter,keyword,extended,,C,Drive letter where the file is located.
 1.12.0-dev+exp,true,file,file.elf.architecture,keyword,extended,,x86-64,Machine architecture of the ELF file.
 1.12.0-dev+exp,true,file,file.elf.byte_order,keyword,extended,,Little Endian,Byte sequence of ELF file.
@@ -266,7 +266,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev+exp,true,file,file.mtime,date,extended,,,Last time the file content was modified.
 1.12.0-dev+exp,true,file,file.name,keyword,extended,,example.png,"Name of the file including the extension, without the directory."
 1.12.0-dev+exp,true,file,file.owner,keyword,extended,,alice,File owner's username.
-1.12.0-dev+exp,true,file,file.path,wildcard,extended,,/home/alice/example.png,"Full path to the file, including the file name."
+1.12.0-dev+exp,true,file,file.path,keyword,extended,,/home/alice/example.png,"Full path to the file, including the file name."
 1.12.0-dev+exp,true,file,file.path.text,text,extended,,/home/alice/example.png,"Full path to the file, including the file name."
 1.12.0-dev+exp,true,file,file.pe.architecture,keyword,extended,,x64,CPU architecture target for the file.
 1.12.0-dev+exp,true,file,file.pe.authentihash,keyword,extended,,ac9555d914bbb112ecc5f15bb9887ca8371f493ab0941344e976bb8410c8aa78,Authentihash of the PE file.
@@ -288,7 +288,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev+exp,true,file,file.pe.imphash,keyword,extended,,0c6803c4e922103c4dca5963aad36ddf,A hash of the imports in a PE file.
 1.12.0-dev+exp,true,file,file.pe.imports,flattened,extended,,"{ ""library_name"" : ""mscoree.dll"", ""imported_functions"" : ""GetFileVersionInfoSizeA"" }",List of all imported functions
 1.12.0-dev+exp,true,file,file.pe.machine_type,keyword,extended,,"Intel 386 or later, and compatibles",Machine type of the PE file.
-1.12.0-dev+exp,true,file,file.pe.original_file_name,wildcard,extended,,MSPAINT.EXE,"Internal name of the file, provided at compile-time."
+1.12.0-dev+exp,true,file,file.pe.original_file_name,keyword,extended,,MSPAINT.EXE,"Internal name of the file, provided at compile-time."
 1.12.0-dev+exp,true,file,file.pe.packers,keyword,extended,array,"[""ASPack v2.12"", "".NET executable""]",List of packers and tools used.
 1.12.0-dev+exp,true,file,file.pe.product,keyword,extended,,Microsoft® Windows® Operating System,"Internal product name of the file, provided at compile-time."
 1.12.0-dev+exp,true,file,file.pe.resources,nested,extended,array,,PE resource information
@@ -307,14 +307,14 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev+exp,true,file,file.pe.sections.raw_size,long,extended,,198144,Size of the section or the dize of the initialized data on disk.
 1.12.0-dev+exp,true,file,file.pe.sections.virtual_address,long,extended,,8192,Virtual address available to the file.
 1.12.0-dev+exp,true,file,file.size,long,extended,,16384,File size in bytes.
-1.12.0-dev+exp,true,file,file.target_path,wildcard,extended,,,Target path for symlinks.
+1.12.0-dev+exp,true,file,file.target_path,keyword,extended,,,Target path for symlinks.
 1.12.0-dev+exp,true,file,file.target_path.text,text,extended,,,Target path for symlinks.
 1.12.0-dev+exp,true,file,file.type,keyword,extended,,file,"File type (file, dir, or symlink)."
 1.12.0-dev+exp,true,file,file.uid,keyword,extended,,1001,The user ID (UID) or security identifier (SID) of the file owner.
 1.12.0-dev+exp,true,file,file.x509.alternative_names,keyword,extended,array,*.elastic.co,List of subject alternative names (SAN).
 1.12.0-dev+exp,true,file,file.x509.issuer.common_name,keyword,extended,array,Example SHA2 High Assurance Server CA,List of common name (CN) of issuing certificate authority.
 1.12.0-dev+exp,true,file,file.x509.issuer.country,keyword,extended,array,US,List of country (C) codes
-1.12.0-dev+exp,true,file,file.x509.issuer.distinguished_name,wildcard,extended,,"C=US, O=Example Inc, OU=www.example.com, CN=Example SHA2 High Assurance Server CA",Distinguished name (DN) of issuing certificate authority.
+1.12.0-dev+exp,true,file,file.x509.issuer.distinguished_name,keyword,extended,,"C=US, O=Example Inc, OU=www.example.com, CN=Example SHA2 High Assurance Server CA",Distinguished name (DN) of issuing certificate authority.
 1.12.0-dev+exp,true,file,file.x509.issuer.locality,keyword,extended,array,Mountain View,List of locality names (L)
 1.12.0-dev+exp,true,file,file.x509.issuer.organization,keyword,extended,array,Example Inc,List of organizations (O) of issuing certificate authority.
 1.12.0-dev+exp,true,file,file.x509.issuer.organizational_unit,keyword,extended,array,www.example.com,List of organizational units (OU) of issuing certificate authority.
@@ -329,7 +329,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev+exp,true,file,file.x509.signature_algorithm,keyword,extended,,SHA256-RSA,Identifier for certificate signature algorithm.
 1.12.0-dev+exp,true,file,file.x509.subject.common_name,keyword,extended,array,shared.global.example.net,List of common names (CN) of subject.
 1.12.0-dev+exp,true,file,file.x509.subject.country,keyword,extended,array,US,List of country (C) code
-1.12.0-dev+exp,true,file,file.x509.subject.distinguished_name,wildcard,extended,,"C=US, ST=California, L=San Francisco, O=Example, Inc., CN=shared.global.example.net",Distinguished name (DN) of the certificate subject entity.
+1.12.0-dev+exp,true,file,file.x509.subject.distinguished_name,keyword,extended,,"C=US, ST=California, L=San Francisco, O=Example, Inc., CN=shared.global.example.net",Distinguished name (DN) of the certificate subject entity.
 1.12.0-dev+exp,true,file,file.x509.subject.locality,keyword,extended,array,San Francisco,List of locality names (L)
 1.12.0-dev+exp,true,file,file.x509.subject.organization,keyword,extended,array,"Example, Inc.",List of organizations (O) of subject.
 1.12.0-dev+exp,true,file,file.x509.subject.organizational_unit,keyword,extended,array,,List of organizational units (OU) of subject.
@@ -349,12 +349,12 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev+exp,true,host,host.geo.country_iso_code,keyword,core,,CA,Country ISO code.
 1.12.0-dev+exp,true,host,host.geo.country_name,keyword,core,,Canada,Country name.
 1.12.0-dev+exp,true,host,host.geo.location,geo_point,core,,"{ ""lon"": -73.614830, ""lat"": 45.505918 }",Longitude and latitude.
-1.12.0-dev+exp,true,host,host.geo.name,wildcard,extended,,boston-dc,User-defined description of a location.
+1.12.0-dev+exp,true,host,host.geo.name,keyword,extended,,boston-dc,User-defined description of a location.
 1.12.0-dev+exp,true,host,host.geo.postal_code,keyword,core,,94040,Postal code.
 1.12.0-dev+exp,true,host,host.geo.region_iso_code,keyword,core,,CA-QC,Region ISO code.
 1.12.0-dev+exp,true,host,host.geo.region_name,keyword,core,,Quebec,Region name.
 1.12.0-dev+exp,true,host,host.geo.timezone,keyword,core,,America/Argentina/Buenos_Aires,Time zone.
-1.12.0-dev+exp,true,host,host.hostname,wildcard,core,,,Hostname of the host.
+1.12.0-dev+exp,true,host,host.hostname,keyword,core,,,Hostname of the host.
 1.12.0-dev+exp,true,host,host.id,keyword,core,,,Unique host id.
 1.12.0-dev+exp,true,host,host.ip,ip,core,array,,Host ip addresses.
 1.12.0-dev+exp,true,host,host.mac,keyword,core,array,"[""00-00-5E-00-53-23"", ""00-00-5E-00-53-24""]",Host MAC addresses.
@@ -364,10 +364,10 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev+exp,true,host,host.network.ingress.bytes,long,extended,,,The number of bytes received on all network interfaces.
 1.12.0-dev+exp,true,host,host.network.ingress.packets,long,extended,,,The number of packets received on all network interfaces.
 1.12.0-dev+exp,true,host,host.os.family,keyword,extended,,debian,"OS family (such as redhat, debian, freebsd, windows)."
-1.12.0-dev+exp,true,host,host.os.full,wildcard,extended,,Mac OS Mojave,"Operating system name, including the version or code name."
+1.12.0-dev+exp,true,host,host.os.full,keyword,extended,,Mac OS Mojave,"Operating system name, including the version or code name."
 1.12.0-dev+exp,true,host,host.os.full.text,text,extended,,Mac OS Mojave,"Operating system name, including the version or code name."
 1.12.0-dev+exp,true,host,host.os.kernel,keyword,extended,,4.4.0-112-generic,Operating system kernel version as a raw string.
-1.12.0-dev+exp,true,host,host.os.name,wildcard,extended,,Mac OS X,"Operating system name, without the version."
+1.12.0-dev+exp,true,host,host.os.name,keyword,extended,,Mac OS X,"Operating system name, without the version."
 1.12.0-dev+exp,true,host,host.os.name.text,text,extended,,Mac OS X,"Operating system name, without the version."
 1.12.0-dev+exp,true,host,host.os.platform,keyword,extended,,darwin,"Operating system platform (such centos, ubuntu, windows)."
 1.12.0-dev+exp,true,host,host.os.type,keyword,extended,,macos,"Which commercial OS family (one of: linux, macos, unix or windows)."
@@ -375,15 +375,15 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev+exp,true,host,host.type,keyword,core,,,Type of host.
 1.12.0-dev+exp,true,host,host.uptime,long,extended,,1325,Seconds the host has been up.
 1.12.0-dev+exp,true,host,host.user.domain,keyword,extended,,,Name of the directory the user is a member of.
-1.12.0-dev+exp,true,host,host.user.email,wildcard,extended,,,User email address.
-1.12.0-dev+exp,true,host,host.user.full_name,wildcard,extended,,Albert Einstein,"User's full name, if available."
+1.12.0-dev+exp,true,host,host.user.email,keyword,extended,,,User email address.
+1.12.0-dev+exp,true,host,host.user.full_name,keyword,extended,,Albert Einstein,"User's full name, if available."
 1.12.0-dev+exp,true,host,host.user.full_name.text,text,extended,,Albert Einstein,"User's full name, if available."
 1.12.0-dev+exp,true,host,host.user.group.domain,keyword,extended,,,Name of the directory the group is a member of.
 1.12.0-dev+exp,true,host,host.user.group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
 1.12.0-dev+exp,true,host,host.user.group.name,keyword,extended,,,Name of the group.
 1.12.0-dev+exp,true,host,host.user.hash,keyword,extended,,,Unique user hash to correlate information for a user in anonymized form.
 1.12.0-dev+exp,true,host,host.user.id,keyword,core,,,Unique identifier of the user.
-1.12.0-dev+exp,true,host,host.user.name,wildcard,core,,albert,Short name or login of the user.
+1.12.0-dev+exp,true,host,host.user.name,keyword,core,,albert,Short name or login of the user.
 1.12.0-dev+exp,true,host,host.user.name.text,text,core,,albert,Short name or login of the user.
 1.12.0-dev+exp,true,host,host.user.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 1.12.0-dev+exp,true,http,http.request.body.bytes,long,extended,,887,Size in bytes of the request body.
@@ -393,7 +393,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev+exp,true,http,http.request.id,keyword,extended,,123e4567-e89b-12d3-a456-426614174000,HTTP request ID.
 1.12.0-dev+exp,true,http,http.request.method,keyword,extended,,"GET, POST, PUT, PoST",HTTP request method.
 1.12.0-dev+exp,true,http,http.request.mime_type,keyword,extended,,image/gif,Mime type of the body of the request.
-1.12.0-dev+exp,true,http,http.request.referrer,wildcard,extended,,https://blog.example.com/,Referrer for this HTTP request.
+1.12.0-dev+exp,true,http,http.request.referrer,keyword,extended,,https://blog.example.com/,Referrer for this HTTP request.
 1.12.0-dev+exp,true,http,http.response.body.bytes,long,extended,,887,Size in bytes of the response body.
 1.12.0-dev+exp,true,http,http.response.body.content,wildcard,extended,,Hello world,The full HTTP response body.
 1.12.0-dev+exp,true,http,http.response.body.content.text,text,extended,,Hello world,The full HTTP response body.
@@ -401,9 +401,9 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev+exp,true,http,http.response.mime_type,keyword,extended,,image/gif,Mime type of the body of the response.
 1.12.0-dev+exp,true,http,http.response.status_code,long,extended,,404,HTTP response status code.
 1.12.0-dev+exp,true,http,http.version,keyword,extended,,1.1,HTTP version.
-1.12.0-dev+exp,true,log,log.file.path,wildcard,extended,,/var/log/fun-times.log,Full path to the log file this event came from.
+1.12.0-dev+exp,true,log,log.file.path,keyword,extended,,/var/log/fun-times.log,Full path to the log file this event came from.
 1.12.0-dev+exp,true,log,log.level,keyword,core,,error,Log level of the log event.
-1.12.0-dev+exp,true,log,log.logger,wildcard,core,,org.elasticsearch.bootstrap.Bootstrap,Name of the logger.
+1.12.0-dev+exp,true,log,log.logger,keyword,core,,org.elasticsearch.bootstrap.Bootstrap,Name of the logger.
 1.12.0-dev+exp,true,log,log.origin.file.line,integer,extended,,42,The line number of the file which originated the log event.
 1.12.0-dev+exp,true,log,log.origin.file.name,keyword,extended,,Bootstrap.java,The code file which originated the log event.
 1.12.0-dev+exp,true,log,log.origin.function,keyword,extended,,init,The function which originated the log event.
@@ -443,7 +443,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev+exp,true,observer,observer.geo.country_iso_code,keyword,core,,CA,Country ISO code.
 1.12.0-dev+exp,true,observer,observer.geo.country_name,keyword,core,,Canada,Country name.
 1.12.0-dev+exp,true,observer,observer.geo.location,geo_point,core,,"{ ""lon"": -73.614830, ""lat"": 45.505918 }",Longitude and latitude.
-1.12.0-dev+exp,true,observer,observer.geo.name,wildcard,extended,,boston-dc,User-defined description of a location.
+1.12.0-dev+exp,true,observer,observer.geo.name,keyword,extended,,boston-dc,User-defined description of a location.
 1.12.0-dev+exp,true,observer,observer.geo.postal_code,keyword,core,,94040,Postal code.
 1.12.0-dev+exp,true,observer,observer.geo.region_iso_code,keyword,core,,CA-QC,Region ISO code.
 1.12.0-dev+exp,true,observer,observer.geo.region_name,keyword,core,,Quebec,Region name.
@@ -460,10 +460,10 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev+exp,true,observer,observer.mac,keyword,core,array,"[""00-00-5E-00-53-23"", ""00-00-5E-00-53-24""]",MAC addresses of the observer.
 1.12.0-dev+exp,true,observer,observer.name,keyword,extended,,1_proxySG,Custom name of the observer.
 1.12.0-dev+exp,true,observer,observer.os.family,keyword,extended,,debian,"OS family (such as redhat, debian, freebsd, windows)."
-1.12.0-dev+exp,true,observer,observer.os.full,wildcard,extended,,Mac OS Mojave,"Operating system name, including the version or code name."
+1.12.0-dev+exp,true,observer,observer.os.full,keyword,extended,,Mac OS Mojave,"Operating system name, including the version or code name."
 1.12.0-dev+exp,true,observer,observer.os.full.text,text,extended,,Mac OS Mojave,"Operating system name, including the version or code name."
 1.12.0-dev+exp,true,observer,observer.os.kernel,keyword,extended,,4.4.0-112-generic,Operating system kernel version as a raw string.
-1.12.0-dev+exp,true,observer,observer.os.name,wildcard,extended,,Mac OS X,"Operating system name, without the version."
+1.12.0-dev+exp,true,observer,observer.os.name,keyword,extended,,Mac OS X,"Operating system name, without the version."
 1.12.0-dev+exp,true,observer,observer.os.name.text,text,extended,,Mac OS X,"Operating system name, without the version."
 1.12.0-dev+exp,true,observer,observer.os.platform,keyword,extended,,darwin,"Operating system platform (such centos, ubuntu, windows)."
 1.12.0-dev+exp,true,observer,observer.os.type,keyword,extended,,macos,"Which commercial OS family (one of: linux, macos, unix or windows)."
@@ -483,7 +483,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev+exp,true,orchestrator,orchestrator.resource.type,keyword,extended,,service,Type of resource being acted upon.
 1.12.0-dev+exp,true,orchestrator,orchestrator.type,keyword,extended,,kubernetes,"Orchestrator cluster type (e.g. kubernetes, nomad or cloudfoundry)."
 1.12.0-dev+exp,true,organization,organization.id,keyword,extended,,,Unique identifier for the organization.
-1.12.0-dev+exp,true,organization,organization.name,wildcard,extended,,,Organization name.
+1.12.0-dev+exp,true,organization,organization.name,keyword,extended,,,Organization name.
 1.12.0-dev+exp,true,organization,organization.name.text,text,extended,,,Organization name.
 1.12.0-dev+exp,true,package,package.architecture,keyword,extended,,x86_64,Package architecture.
 1.12.0-dev+exp,true,package,package.build_version,keyword,extended,,36f4f7e89dd61b0988b12ee000b98966867710cd,Build version information
@@ -539,7 +539,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev+exp,true,process,process.elf.shared_libraries,keyword,extended,array,,List of shared libraries used by this ELF object.
 1.12.0-dev+exp,true,process,process.elf.telfhash,keyword,extended,,,telfhash hash for ELF file.
 1.12.0-dev+exp,true,process,process.entity_id,keyword,extended,,c2c455d9f99375d,Unique identifier for the process.
-1.12.0-dev+exp,true,process,process.executable,wildcard,extended,,/usr/bin/ssh,Absolute path to the process executable.
+1.12.0-dev+exp,true,process,process.executable,keyword,extended,,/usr/bin/ssh,Absolute path to the process executable.
 1.12.0-dev+exp,true,process,process.executable.text,text,extended,,/usr/bin/ssh,Absolute path to the process executable.
 1.12.0-dev+exp,true,process,process.exit_code,long,extended,,137,The exit code of the process.
 1.12.0-dev+exp,true,process,process.hash.md5,keyword,extended,,,MD5 hash.
@@ -547,7 +547,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev+exp,true,process,process.hash.sha256,keyword,extended,,,SHA256 hash.
 1.12.0-dev+exp,true,process,process.hash.sha512,keyword,extended,,,SHA512 hash.
 1.12.0-dev+exp,true,process,process.hash.ssdeep,keyword,extended,,,SSDEEP hash.
-1.12.0-dev+exp,true,process,process.name,wildcard,extended,,ssh,Process name.
+1.12.0-dev+exp,true,process,process.name,keyword,extended,,ssh,Process name.
 1.12.0-dev+exp,true,process,process.name.text,text,extended,,ssh,Process name.
 1.12.0-dev+exp,true,process,process.parent.args,keyword,extended,array,"[""/usr/bin/ssh"", ""-l"", ""user"", ""10.0.0.16""]",Array of process arguments.
 1.12.0-dev+exp,true,process,process.parent.args_count,long,extended,,4,Length of the process.args array.
@@ -590,7 +590,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev+exp,true,process,process.parent.elf.shared_libraries,keyword,extended,array,,List of shared libraries used by this ELF object.
 1.12.0-dev+exp,true,process,process.parent.elf.telfhash,keyword,extended,,,telfhash hash for ELF file.
 1.12.0-dev+exp,true,process,process.parent.entity_id,keyword,extended,,c2c455d9f99375d,Unique identifier for the process.
-1.12.0-dev+exp,true,process,process.parent.executable,wildcard,extended,,/usr/bin/ssh,Absolute path to the process executable.
+1.12.0-dev+exp,true,process,process.parent.executable,keyword,extended,,/usr/bin/ssh,Absolute path to the process executable.
 1.12.0-dev+exp,true,process,process.parent.executable.text,text,extended,,/usr/bin/ssh,Absolute path to the process executable.
 1.12.0-dev+exp,true,process,process.parent.exit_code,long,extended,,137,The exit code of the process.
 1.12.0-dev+exp,true,process,process.parent.hash.md5,keyword,extended,,,MD5 hash.
@@ -598,7 +598,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev+exp,true,process,process.parent.hash.sha256,keyword,extended,,,SHA256 hash.
 1.12.0-dev+exp,true,process,process.parent.hash.sha512,keyword,extended,,,SHA512 hash.
 1.12.0-dev+exp,true,process,process.parent.hash.ssdeep,keyword,extended,,,SSDEEP hash.
-1.12.0-dev+exp,true,process,process.parent.name,wildcard,extended,,ssh,Process name.
+1.12.0-dev+exp,true,process,process.parent.name,keyword,extended,,ssh,Process name.
 1.12.0-dev+exp,true,process,process.parent.name.text,text,extended,,ssh,Process name.
 1.12.0-dev+exp,true,process,process.parent.pe.architecture,keyword,extended,,x64,CPU architecture target for the file.
 1.12.0-dev+exp,true,process,process.parent.pe.authentihash,keyword,extended,,ac9555d914bbb112ecc5f15bb9887ca8371f493ab0941344e976bb8410c8aa78,Authentihash of the PE file.
@@ -620,7 +620,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev+exp,true,process,process.parent.pe.imphash,keyword,extended,,0c6803c4e922103c4dca5963aad36ddf,A hash of the imports in a PE file.
 1.12.0-dev+exp,true,process,process.parent.pe.imports,flattened,extended,,"{ ""library_name"" : ""mscoree.dll"", ""imported_functions"" : ""GetFileVersionInfoSizeA"" }",List of all imported functions
 1.12.0-dev+exp,true,process,process.parent.pe.machine_type,keyword,extended,,"Intel 386 or later, and compatibles",Machine type of the PE file.
-1.12.0-dev+exp,true,process,process.parent.pe.original_file_name,wildcard,extended,,MSPAINT.EXE,"Internal name of the file, provided at compile-time."
+1.12.0-dev+exp,true,process,process.parent.pe.original_file_name,keyword,extended,,MSPAINT.EXE,"Internal name of the file, provided at compile-time."
 1.12.0-dev+exp,true,process,process.parent.pe.packers,keyword,extended,array,"[""ASPack v2.12"", "".NET executable""]",List of packers and tools used.
 1.12.0-dev+exp,true,process,process.parent.pe.product,keyword,extended,,Microsoft® Windows® Operating System,"Internal product name of the file, provided at compile-time."
 1.12.0-dev+exp,true,process,process.parent.pe.resources,nested,extended,array,,PE resource information
@@ -643,11 +643,11 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev+exp,true,process,process.parent.ppid,long,extended,,4241,Parent process' pid.
 1.12.0-dev+exp,true,process,process.parent.start,date,extended,,2016-05-23T08:05:34.853Z,The time the process started.
 1.12.0-dev+exp,true,process,process.parent.thread.id,long,extended,,4242,Thread ID.
-1.12.0-dev+exp,true,process,process.parent.thread.name,wildcard,extended,,thread-0,Thread name.
-1.12.0-dev+exp,true,process,process.parent.title,wildcard,extended,,,Process title.
+1.12.0-dev+exp,true,process,process.parent.thread.name,keyword,extended,,thread-0,Thread name.
+1.12.0-dev+exp,true,process,process.parent.title,keyword,extended,,,Process title.
 1.12.0-dev+exp,true,process,process.parent.title.text,text,extended,,,Process title.
 1.12.0-dev+exp,true,process,process.parent.uptime,long,extended,,1325,Seconds the process has been up.
-1.12.0-dev+exp,true,process,process.parent.working_directory,wildcard,extended,,/home/alice,The working directory of the process.
+1.12.0-dev+exp,true,process,process.parent.working_directory,keyword,extended,,/home/alice,The working directory of the process.
 1.12.0-dev+exp,true,process,process.parent.working_directory.text,text,extended,,/home/alice,The working directory of the process.
 1.12.0-dev+exp,true,process,process.pe.architecture,keyword,extended,,x64,CPU architecture target for the file.
 1.12.0-dev+exp,true,process,process.pe.authentihash,keyword,extended,,ac9555d914bbb112ecc5f15bb9887ca8371f493ab0941344e976bb8410c8aa78,Authentihash of the PE file.
@@ -669,7 +669,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev+exp,true,process,process.pe.imphash,keyword,extended,,0c6803c4e922103c4dca5963aad36ddf,A hash of the imports in a PE file.
 1.12.0-dev+exp,true,process,process.pe.imports,flattened,extended,,"{ ""library_name"" : ""mscoree.dll"", ""imported_functions"" : ""GetFileVersionInfoSizeA"" }",List of all imported functions
 1.12.0-dev+exp,true,process,process.pe.machine_type,keyword,extended,,"Intel 386 or later, and compatibles",Machine type of the PE file.
-1.12.0-dev+exp,true,process,process.pe.original_file_name,wildcard,extended,,MSPAINT.EXE,"Internal name of the file, provided at compile-time."
+1.12.0-dev+exp,true,process,process.pe.original_file_name,keyword,extended,,MSPAINT.EXE,"Internal name of the file, provided at compile-time."
 1.12.0-dev+exp,true,process,process.pe.packers,keyword,extended,array,"[""ASPack v2.12"", "".NET executable""]",List of packers and tools used.
 1.12.0-dev+exp,true,process,process.pe.product,keyword,extended,,Microsoft® Windows® Operating System,"Internal product name of the file, provided at compile-time."
 1.12.0-dev+exp,true,process,process.pe.resources,nested,extended,array,,PE resource information
@@ -732,7 +732,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev+exp,true,process,process.target.elf.shared_libraries,keyword,extended,array,,List of shared libraries used by this ELF object.
 1.12.0-dev+exp,true,process,process.target.elf.telfhash,keyword,extended,,,telfhash hash for ELF file.
 1.12.0-dev+exp,true,process,process.target.entity_id,keyword,extended,,c2c455d9f99375d,Unique identifier for the process.
-1.12.0-dev+exp,true,process,process.target.executable,wildcard,extended,,/usr/bin/ssh,Absolute path to the process executable.
+1.12.0-dev+exp,true,process,process.target.executable,keyword,extended,,/usr/bin/ssh,Absolute path to the process executable.
 1.12.0-dev+exp,true,process,process.target.executable.text,text,extended,,/usr/bin/ssh,Absolute path to the process executable.
 1.12.0-dev+exp,true,process,process.target.exit_code,long,extended,,137,The exit code of the process.
 1.12.0-dev+exp,true,process,process.target.hash.md5,keyword,extended,,,MD5 hash.
@@ -740,7 +740,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev+exp,true,process,process.target.hash.sha256,keyword,extended,,,SHA256 hash.
 1.12.0-dev+exp,true,process,process.target.hash.sha512,keyword,extended,,,SHA512 hash.
 1.12.0-dev+exp,true,process,process.target.hash.ssdeep,keyword,extended,,,SSDEEP hash.
-1.12.0-dev+exp,true,process,process.target.name,wildcard,extended,,ssh,Process name.
+1.12.0-dev+exp,true,process,process.target.name,keyword,extended,,ssh,Process name.
 1.12.0-dev+exp,true,process,process.target.name.text,text,extended,,ssh,Process name.
 1.12.0-dev+exp,true,process,process.target.parent.args,keyword,extended,array,"[""/usr/bin/ssh"", ""-l"", ""user"", ""10.0.0.16""]",Array of process arguments.
 1.12.0-dev+exp,true,process,process.target.parent.args_count,long,extended,,4,Length of the process.args array.
@@ -783,7 +783,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev+exp,true,process,process.target.parent.elf.shared_libraries,keyword,extended,array,,List of shared libraries used by this ELF object.
 1.12.0-dev+exp,true,process,process.target.parent.elf.telfhash,keyword,extended,,,telfhash hash for ELF file.
 1.12.0-dev+exp,true,process,process.target.parent.entity_id,keyword,extended,,c2c455d9f99375d,Unique identifier for the process.
-1.12.0-dev+exp,true,process,process.target.parent.executable,wildcard,extended,,/usr/bin/ssh,Absolute path to the process executable.
+1.12.0-dev+exp,true,process,process.target.parent.executable,keyword,extended,,/usr/bin/ssh,Absolute path to the process executable.
 1.12.0-dev+exp,true,process,process.target.parent.executable.text,text,extended,,/usr/bin/ssh,Absolute path to the process executable.
 1.12.0-dev+exp,true,process,process.target.parent.exit_code,long,extended,,137,The exit code of the process.
 1.12.0-dev+exp,true,process,process.target.parent.hash.md5,keyword,extended,,,MD5 hash.
@@ -791,7 +791,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev+exp,true,process,process.target.parent.hash.sha256,keyword,extended,,,SHA256 hash.
 1.12.0-dev+exp,true,process,process.target.parent.hash.sha512,keyword,extended,,,SHA512 hash.
 1.12.0-dev+exp,true,process,process.target.parent.hash.ssdeep,keyword,extended,,,SSDEEP hash.
-1.12.0-dev+exp,true,process,process.target.parent.name,wildcard,extended,,ssh,Process name.
+1.12.0-dev+exp,true,process,process.target.parent.name,keyword,extended,,ssh,Process name.
 1.12.0-dev+exp,true,process,process.target.parent.name.text,text,extended,,ssh,Process name.
 1.12.0-dev+exp,true,process,process.target.parent.pe.architecture,keyword,extended,,x64,CPU architecture target for the file.
 1.12.0-dev+exp,true,process,process.target.parent.pe.authentihash,keyword,extended,,ac9555d914bbb112ecc5f15bb9887ca8371f493ab0941344e976bb8410c8aa78,Authentihash of the PE file.
@@ -813,7 +813,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev+exp,true,process,process.target.parent.pe.imphash,keyword,extended,,0c6803c4e922103c4dca5963aad36ddf,A hash of the imports in a PE file.
 1.12.0-dev+exp,true,process,process.target.parent.pe.imports,flattened,extended,,"{ ""library_name"" : ""mscoree.dll"", ""imported_functions"" : ""GetFileVersionInfoSizeA"" }",List of all imported functions
 1.12.0-dev+exp,true,process,process.target.parent.pe.machine_type,keyword,extended,,"Intel 386 or later, and compatibles",Machine type of the PE file.
-1.12.0-dev+exp,true,process,process.target.parent.pe.original_file_name,wildcard,extended,,MSPAINT.EXE,"Internal name of the file, provided at compile-time."
+1.12.0-dev+exp,true,process,process.target.parent.pe.original_file_name,keyword,extended,,MSPAINT.EXE,"Internal name of the file, provided at compile-time."
 1.12.0-dev+exp,true,process,process.target.parent.pe.packers,keyword,extended,array,"[""ASPack v2.12"", "".NET executable""]",List of packers and tools used.
 1.12.0-dev+exp,true,process,process.target.parent.pe.product,keyword,extended,,Microsoft® Windows® Operating System,"Internal product name of the file, provided at compile-time."
 1.12.0-dev+exp,true,process,process.target.parent.pe.resources,nested,extended,array,,PE resource information
@@ -836,11 +836,11 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev+exp,true,process,process.target.parent.ppid,long,extended,,4241,Parent process' pid.
 1.12.0-dev+exp,true,process,process.target.parent.start,date,extended,,2016-05-23T08:05:34.853Z,The time the process started.
 1.12.0-dev+exp,true,process,process.target.parent.thread.id,long,extended,,4242,Thread ID.
-1.12.0-dev+exp,true,process,process.target.parent.thread.name,wildcard,extended,,thread-0,Thread name.
-1.12.0-dev+exp,true,process,process.target.parent.title,wildcard,extended,,,Process title.
+1.12.0-dev+exp,true,process,process.target.parent.thread.name,keyword,extended,,thread-0,Thread name.
+1.12.0-dev+exp,true,process,process.target.parent.title,keyword,extended,,,Process title.
 1.12.0-dev+exp,true,process,process.target.parent.title.text,text,extended,,,Process title.
 1.12.0-dev+exp,true,process,process.target.parent.uptime,long,extended,,1325,Seconds the process has been up.
-1.12.0-dev+exp,true,process,process.target.parent.working_directory,wildcard,extended,,/home/alice,The working directory of the process.
+1.12.0-dev+exp,true,process,process.target.parent.working_directory,keyword,extended,,/home/alice,The working directory of the process.
 1.12.0-dev+exp,true,process,process.target.parent.working_directory.text,text,extended,,/home/alice,The working directory of the process.
 1.12.0-dev+exp,true,process,process.target.pe.architecture,keyword,extended,,x64,CPU architecture target for the file.
 1.12.0-dev+exp,true,process,process.target.pe.authentihash,keyword,extended,,ac9555d914bbb112ecc5f15bb9887ca8371f493ab0941344e976bb8410c8aa78,Authentihash of the PE file.
@@ -862,7 +862,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev+exp,true,process,process.target.pe.imphash,keyword,extended,,0c6803c4e922103c4dca5963aad36ddf,A hash of the imports in a PE file.
 1.12.0-dev+exp,true,process,process.target.pe.imports,flattened,extended,,"{ ""library_name"" : ""mscoree.dll"", ""imported_functions"" : ""GetFileVersionInfoSizeA"" }",List of all imported functions
 1.12.0-dev+exp,true,process,process.target.pe.machine_type,keyword,extended,,"Intel 386 or later, and compatibles",Machine type of the PE file.
-1.12.0-dev+exp,true,process,process.target.pe.original_file_name,wildcard,extended,,MSPAINT.EXE,"Internal name of the file, provided at compile-time."
+1.12.0-dev+exp,true,process,process.target.pe.original_file_name,keyword,extended,,MSPAINT.EXE,"Internal name of the file, provided at compile-time."
 1.12.0-dev+exp,true,process,process.target.pe.packers,keyword,extended,array,"[""ASPack v2.12"", "".NET executable""]",List of packers and tools used.
 1.12.0-dev+exp,true,process,process.target.pe.product,keyword,extended,,Microsoft® Windows® Operating System,"Internal product name of the file, provided at compile-time."
 1.12.0-dev+exp,true,process,process.target.pe.resources,nested,extended,array,,PE resource information
@@ -885,25 +885,25 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev+exp,true,process,process.target.ppid,long,extended,,4241,Parent process' pid.
 1.12.0-dev+exp,true,process,process.target.start,date,extended,,2016-05-23T08:05:34.853Z,The time the process started.
 1.12.0-dev+exp,true,process,process.target.thread.id,long,extended,,4242,Thread ID.
-1.12.0-dev+exp,true,process,process.target.thread.name,wildcard,extended,,thread-0,Thread name.
-1.12.0-dev+exp,true,process,process.target.title,wildcard,extended,,,Process title.
+1.12.0-dev+exp,true,process,process.target.thread.name,keyword,extended,,thread-0,Thread name.
+1.12.0-dev+exp,true,process,process.target.title,keyword,extended,,,Process title.
 1.12.0-dev+exp,true,process,process.target.title.text,text,extended,,,Process title.
 1.12.0-dev+exp,true,process,process.target.uptime,long,extended,,1325,Seconds the process has been up.
-1.12.0-dev+exp,true,process,process.target.working_directory,wildcard,extended,,/home/alice,The working directory of the process.
+1.12.0-dev+exp,true,process,process.target.working_directory,keyword,extended,,/home/alice,The working directory of the process.
 1.12.0-dev+exp,true,process,process.target.working_directory.text,text,extended,,/home/alice,The working directory of the process.
 1.12.0-dev+exp,true,process,process.thread.id,long,extended,,4242,Thread ID.
-1.12.0-dev+exp,true,process,process.thread.name,wildcard,extended,,thread-0,Thread name.
-1.12.0-dev+exp,true,process,process.title,wildcard,extended,,,Process title.
+1.12.0-dev+exp,true,process,process.thread.name,keyword,extended,,thread-0,Thread name.
+1.12.0-dev+exp,true,process,process.title,keyword,extended,,,Process title.
 1.12.0-dev+exp,true,process,process.title.text,text,extended,,,Process title.
 1.12.0-dev+exp,true,process,process.uptime,long,extended,,1325,Seconds the process has been up.
-1.12.0-dev+exp,true,process,process.working_directory,wildcard,extended,,/home/alice,The working directory of the process.
+1.12.0-dev+exp,true,process,process.working_directory,keyword,extended,,/home/alice,The working directory of the process.
 1.12.0-dev+exp,true,process,process.working_directory.text,text,extended,,/home/alice,The working directory of the process.
 1.12.0-dev+exp,true,registry,registry.data.bytes,keyword,extended,,ZQBuAC0AVQBTAAAAZQBuAAAAAAA=,Original bytes written with base64 encoding.
 1.12.0-dev+exp,true,registry,registry.data.strings,wildcard,core,array,"[""C:\rta\red_ttp\bin\myapp.exe""]",List of strings representing what was written to the registry.
 1.12.0-dev+exp,true,registry,registry.data.type,keyword,core,,REG_SZ,Standard registry type for encoding contents
 1.12.0-dev+exp,true,registry,registry.hive,keyword,core,,HKLM,Abbreviated name for the hive.
-1.12.0-dev+exp,true,registry,registry.key,wildcard,core,,SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\winword.exe,Hive-relative path of keys.
-1.12.0-dev+exp,true,registry,registry.path,wildcard,core,,HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\winword.exe\Debugger,"Full path, including hive, key and value"
+1.12.0-dev+exp,true,registry,registry.key,keyword,core,,SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\winword.exe,Hive-relative path of keys.
+1.12.0-dev+exp,true,registry,registry.path,keyword,core,,HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\winword.exe\Debugger,"Full path, including hive, key and value"
 1.12.0-dev+exp,true,registry,registry.value,keyword,core,,Debugger,Name of the value written.
 1.12.0-dev+exp,true,related,related.hash,keyword,extended,array,,All the hashes seen on your event.
 1.12.0-dev+exp,true,related,related.hosts,keyword,extended,array,,All the host identifiers seen on your event.
@@ -921,17 +921,17 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev+exp,true,rule,rule.version,keyword,extended,,1.1,Rule version
 1.12.0-dev+exp,true,server,server.address,keyword,extended,,,Server network address.
 1.12.0-dev+exp,true,server,server.as.number,long,extended,,15169,Unique number allocated to the autonomous system.
-1.12.0-dev+exp,true,server,server.as.organization.name,wildcard,extended,,Google LLC,Organization name.
+1.12.0-dev+exp,true,server,server.as.organization.name,keyword,extended,,Google LLC,Organization name.
 1.12.0-dev+exp,true,server,server.as.organization.name.text,text,extended,,Google LLC,Organization name.
 1.12.0-dev+exp,true,server,server.bytes,long,core,,184,Bytes sent from the server to the client.
-1.12.0-dev+exp,true,server,server.domain,wildcard,core,,,Server domain.
+1.12.0-dev+exp,true,server,server.domain,keyword,core,,,Server domain.
 1.12.0-dev+exp,true,server,server.geo.city_name,keyword,core,,Montreal,City name.
 1.12.0-dev+exp,true,server,server.geo.continent_code,keyword,core,,NA,Continent code.
 1.12.0-dev+exp,true,server,server.geo.continent_name,keyword,core,,North America,Name of the continent.
 1.12.0-dev+exp,true,server,server.geo.country_iso_code,keyword,core,,CA,Country ISO code.
 1.12.0-dev+exp,true,server,server.geo.country_name,keyword,core,,Canada,Country name.
 1.12.0-dev+exp,true,server,server.geo.location,geo_point,core,,"{ ""lon"": -73.614830, ""lat"": 45.505918 }",Longitude and latitude.
-1.12.0-dev+exp,true,server,server.geo.name,wildcard,extended,,boston-dc,User-defined description of a location.
+1.12.0-dev+exp,true,server,server.geo.name,keyword,extended,,boston-dc,User-defined description of a location.
 1.12.0-dev+exp,true,server,server.geo.postal_code,keyword,core,,94040,Postal code.
 1.12.0-dev+exp,true,server,server.geo.region_iso_code,keyword,core,,CA-QC,Region ISO code.
 1.12.0-dev+exp,true,server,server.geo.region_name,keyword,core,,Quebec,Region name.
@@ -942,19 +942,19 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev+exp,true,server,server.nat.port,long,extended,,,Server NAT port
 1.12.0-dev+exp,true,server,server.packets,long,core,,12,Packets sent from the server to the client.
 1.12.0-dev+exp,true,server,server.port,long,core,,,Port of the server.
-1.12.0-dev+exp,true,server,server.registered_domain,wildcard,extended,,example.com,"The highest registered server domain, stripped of the subdomain."
+1.12.0-dev+exp,true,server,server.registered_domain,keyword,extended,,example.com,"The highest registered server domain, stripped of the subdomain."
 1.12.0-dev+exp,true,server,server.subdomain,keyword,extended,,east,The subdomain of the domain.
 1.12.0-dev+exp,true,server,server.top_level_domain,keyword,extended,,co.uk,"The effective top level domain (com, org, net, co.uk)."
 1.12.0-dev+exp,true,server,server.user.domain,keyword,extended,,,Name of the directory the user is a member of.
-1.12.0-dev+exp,true,server,server.user.email,wildcard,extended,,,User email address.
-1.12.0-dev+exp,true,server,server.user.full_name,wildcard,extended,,Albert Einstein,"User's full name, if available."
+1.12.0-dev+exp,true,server,server.user.email,keyword,extended,,,User email address.
+1.12.0-dev+exp,true,server,server.user.full_name,keyword,extended,,Albert Einstein,"User's full name, if available."
 1.12.0-dev+exp,true,server,server.user.full_name.text,text,extended,,Albert Einstein,"User's full name, if available."
 1.12.0-dev+exp,true,server,server.user.group.domain,keyword,extended,,,Name of the directory the group is a member of.
 1.12.0-dev+exp,true,server,server.user.group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
 1.12.0-dev+exp,true,server,server.user.group.name,keyword,extended,,,Name of the group.
 1.12.0-dev+exp,true,server,server.user.hash,keyword,extended,,,Unique user hash to correlate information for a user in anonymized form.
 1.12.0-dev+exp,true,server,server.user.id,keyword,core,,,Unique identifier of the user.
-1.12.0-dev+exp,true,server,server.user.name,wildcard,core,,albert,Short name or login of the user.
+1.12.0-dev+exp,true,server,server.user.name,keyword,core,,albert,Short name or login of the user.
 1.12.0-dev+exp,true,server,server.user.name.text,text,core,,albert,Short name or login of the user.
 1.12.0-dev+exp,true,server,server.user.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 1.12.0-dev+exp,true,service,service.ephemeral_id,keyword,extended,,8a4f500f,Ephemeral identifier of this service.
@@ -966,17 +966,17 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev+exp,true,service,service.version,keyword,core,,3.2.4,Version of the service.
 1.12.0-dev+exp,true,source,source.address,keyword,extended,,,Source network address.
 1.12.0-dev+exp,true,source,source.as.number,long,extended,,15169,Unique number allocated to the autonomous system.
-1.12.0-dev+exp,true,source,source.as.organization.name,wildcard,extended,,Google LLC,Organization name.
+1.12.0-dev+exp,true,source,source.as.organization.name,keyword,extended,,Google LLC,Organization name.
 1.12.0-dev+exp,true,source,source.as.organization.name.text,text,extended,,Google LLC,Organization name.
 1.12.0-dev+exp,true,source,source.bytes,long,core,,184,Bytes sent from the source to the destination.
-1.12.0-dev+exp,true,source,source.domain,wildcard,core,,,Source domain.
+1.12.0-dev+exp,true,source,source.domain,keyword,core,,,Source domain.
 1.12.0-dev+exp,true,source,source.geo.city_name,keyword,core,,Montreal,City name.
 1.12.0-dev+exp,true,source,source.geo.continent_code,keyword,core,,NA,Continent code.
 1.12.0-dev+exp,true,source,source.geo.continent_name,keyword,core,,North America,Name of the continent.
 1.12.0-dev+exp,true,source,source.geo.country_iso_code,keyword,core,,CA,Country ISO code.
 1.12.0-dev+exp,true,source,source.geo.country_name,keyword,core,,Canada,Country name.
 1.12.0-dev+exp,true,source,source.geo.location,geo_point,core,,"{ ""lon"": -73.614830, ""lat"": 45.505918 }",Longitude and latitude.
-1.12.0-dev+exp,true,source,source.geo.name,wildcard,extended,,boston-dc,User-defined description of a location.
+1.12.0-dev+exp,true,source,source.geo.name,keyword,extended,,boston-dc,User-defined description of a location.
 1.12.0-dev+exp,true,source,source.geo.postal_code,keyword,core,,94040,Postal code.
 1.12.0-dev+exp,true,source,source.geo.region_iso_code,keyword,core,,CA-QC,Region ISO code.
 1.12.0-dev+exp,true,source,source.geo.region_name,keyword,core,,Quebec,Region name.
@@ -987,26 +987,26 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev+exp,true,source,source.nat.port,long,extended,,,Source NAT port
 1.12.0-dev+exp,true,source,source.packets,long,core,,12,Packets sent from the source to the destination.
 1.12.0-dev+exp,true,source,source.port,long,core,,,Port of the source.
-1.12.0-dev+exp,true,source,source.registered_domain,wildcard,extended,,example.com,"The highest registered source domain, stripped of the subdomain."
+1.12.0-dev+exp,true,source,source.registered_domain,keyword,extended,,example.com,"The highest registered source domain, stripped of the subdomain."
 1.12.0-dev+exp,true,source,source.subdomain,keyword,extended,,east,The subdomain of the domain.
 1.12.0-dev+exp,true,source,source.top_level_domain,keyword,extended,,co.uk,"The effective top level domain (com, org, net, co.uk)."
 1.12.0-dev+exp,true,source,source.user.domain,keyword,extended,,,Name of the directory the user is a member of.
-1.12.0-dev+exp,true,source,source.user.email,wildcard,extended,,,User email address.
-1.12.0-dev+exp,true,source,source.user.full_name,wildcard,extended,,Albert Einstein,"User's full name, if available."
+1.12.0-dev+exp,true,source,source.user.email,keyword,extended,,,User email address.
+1.12.0-dev+exp,true,source,source.user.full_name,keyword,extended,,Albert Einstein,"User's full name, if available."
 1.12.0-dev+exp,true,source,source.user.full_name.text,text,extended,,Albert Einstein,"User's full name, if available."
 1.12.0-dev+exp,true,source,source.user.group.domain,keyword,extended,,,Name of the directory the group is a member of.
 1.12.0-dev+exp,true,source,source.user.group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
 1.12.0-dev+exp,true,source,source.user.group.name,keyword,extended,,,Name of the group.
 1.12.0-dev+exp,true,source,source.user.hash,keyword,extended,,,Unique user hash to correlate information for a user in anonymized form.
 1.12.0-dev+exp,true,source,source.user.id,keyword,core,,,Unique identifier of the user.
-1.12.0-dev+exp,true,source,source.user.name,wildcard,core,,albert,Short name or login of the user.
+1.12.0-dev+exp,true,source,source.user.name,keyword,core,,albert,Short name or login of the user.
 1.12.0-dev+exp,true,source,source.user.name.text,text,core,,albert,Short name or login of the user.
 1.12.0-dev+exp,true,source,source.user.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 1.12.0-dev+exp,true,span,span.id,keyword,extended,,3ff9a8981b7ccd5a,Unique identifier of the span within the scope of its trace.
 1.12.0-dev+exp,true,threat,threat.enrichments,nested,extended,,,List of objects containing indicators enriching the event.
 1.12.0-dev+exp,true,threat,threat.enrichments.indicator,object,extended,,,Object containing indicators enriching the event.
 1.12.0-dev+exp,true,threat,threat.enrichments.indicator.as.number,long,extended,,15169,Unique number allocated to the autonomous system.
-1.12.0-dev+exp,true,threat,threat.enrichments.indicator.as.organization.name,wildcard,extended,,Google LLC,Organization name.
+1.12.0-dev+exp,true,threat,threat.enrichments.indicator.as.organization.name,keyword,extended,,Google LLC,Organization name.
 1.12.0-dev+exp,true,threat,threat.enrichments.indicator.as.organization.name.text,text,extended,,Google LLC,Organization name.
 1.12.0-dev+exp,true,threat,threat.enrichments.indicator.confidence,keyword,extended,,High,Indicator confidence rating
 1.12.0-dev+exp,true,threat,threat.enrichments.indicator.description,keyword,extended,,IP x.x.x.x was observed delivering the Angler EK.,Indicator description
@@ -1023,7 +1023,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev+exp,true,threat,threat.enrichments.indicator.file.created,date,extended,,,File creation time.
 1.12.0-dev+exp,true,threat,threat.enrichments.indicator.file.ctime,date,extended,,,Last time the file attributes or metadata changed.
 1.12.0-dev+exp,true,threat,threat.enrichments.indicator.file.device,keyword,extended,,sda,Device that is the source of the file.
-1.12.0-dev+exp,true,threat,threat.enrichments.indicator.file.directory,wildcard,extended,,/home/alice,Directory where the file is located.
+1.12.0-dev+exp,true,threat,threat.enrichments.indicator.file.directory,keyword,extended,,/home/alice,Directory where the file is located.
 1.12.0-dev+exp,true,threat,threat.enrichments.indicator.file.drive_letter,keyword,extended,,C,Drive letter where the file is located.
 1.12.0-dev+exp,true,threat,threat.enrichments.indicator.file.elf.architecture,keyword,extended,,x86-64,Machine architecture of the ELF file.
 1.12.0-dev+exp,true,threat,threat.enrichments.indicator.file.elf.byte_order,keyword,extended,,Little Endian,Byte sequence of ELF file.
@@ -1064,10 +1064,10 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev+exp,true,threat,threat.enrichments.indicator.file.mtime,date,extended,,,Last time the file content was modified.
 1.12.0-dev+exp,true,threat,threat.enrichments.indicator.file.name,keyword,extended,,example.png,"Name of the file including the extension, without the directory."
 1.12.0-dev+exp,true,threat,threat.enrichments.indicator.file.owner,keyword,extended,,alice,File owner's username.
-1.12.0-dev+exp,true,threat,threat.enrichments.indicator.file.path,wildcard,extended,,/home/alice/example.png,"Full path to the file, including the file name."
+1.12.0-dev+exp,true,threat,threat.enrichments.indicator.file.path,keyword,extended,,/home/alice/example.png,"Full path to the file, including the file name."
 1.12.0-dev+exp,true,threat,threat.enrichments.indicator.file.path.text,text,extended,,/home/alice/example.png,"Full path to the file, including the file name."
 1.12.0-dev+exp,true,threat,threat.enrichments.indicator.file.size,long,extended,,16384,File size in bytes.
-1.12.0-dev+exp,true,threat,threat.enrichments.indicator.file.target_path,wildcard,extended,,,Target path for symlinks.
+1.12.0-dev+exp,true,threat,threat.enrichments.indicator.file.target_path,keyword,extended,,,Target path for symlinks.
 1.12.0-dev+exp,true,threat,threat.enrichments.indicator.file.target_path.text,text,extended,,,Target path for symlinks.
 1.12.0-dev+exp,true,threat,threat.enrichments.indicator.file.type,keyword,extended,,file,"File type (file, dir, or symlink)."
 1.12.0-dev+exp,true,threat,threat.enrichments.indicator.file.uid,keyword,extended,,1001,The user ID (UID) or security identifier (SID) of the file owner.
@@ -1078,7 +1078,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev+exp,true,threat,threat.enrichments.indicator.geo.country_iso_code,keyword,core,,CA,Country ISO code.
 1.12.0-dev+exp,true,threat,threat.enrichments.indicator.geo.country_name,keyword,core,,Canada,Country name.
 1.12.0-dev+exp,true,threat,threat.enrichments.indicator.geo.location,geo_point,core,,"{ ""lon"": -73.614830, ""lat"": 45.505918 }",Longitude and latitude.
-1.12.0-dev+exp,true,threat,threat.enrichments.indicator.geo.name,wildcard,extended,,boston-dc,User-defined description of a location.
+1.12.0-dev+exp,true,threat,threat.enrichments.indicator.geo.name,keyword,extended,,boston-dc,User-defined description of a location.
 1.12.0-dev+exp,true,threat,threat.enrichments.indicator.geo.postal_code,keyword,core,,94040,Postal code.
 1.12.0-dev+exp,true,threat,threat.enrichments.indicator.geo.region_iso_code,keyword,core,,CA-QC,Region ISO code.
 1.12.0-dev+exp,true,threat,threat.enrichments.indicator.geo.region_name,keyword,core,,Quebec,Region name.
@@ -1112,7 +1112,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev+exp,true,threat,threat.enrichments.indicator.pe.imphash,keyword,extended,,0c6803c4e922103c4dca5963aad36ddf,A hash of the imports in a PE file.
 1.12.0-dev+exp,true,threat,threat.enrichments.indicator.pe.imports,flattened,extended,,"{ ""library_name"" : ""mscoree.dll"", ""imported_functions"" : ""GetFileVersionInfoSizeA"" }",List of all imported functions
 1.12.0-dev+exp,true,threat,threat.enrichments.indicator.pe.machine_type,keyword,extended,,"Intel 386 or later, and compatibles",Machine type of the PE file.
-1.12.0-dev+exp,true,threat,threat.enrichments.indicator.pe.original_file_name,wildcard,extended,,MSPAINT.EXE,"Internal name of the file, provided at compile-time."
+1.12.0-dev+exp,true,threat,threat.enrichments.indicator.pe.original_file_name,keyword,extended,,MSPAINT.EXE,"Internal name of the file, provided at compile-time."
 1.12.0-dev+exp,true,threat,threat.enrichments.indicator.pe.packers,keyword,extended,array,"[""ASPack v2.12"", "".NET executable""]",List of packers and tools used.
 1.12.0-dev+exp,true,threat,threat.enrichments.indicator.pe.product,keyword,extended,,Microsoft® Windows® Operating System,"Internal product name of the file, provided at compile-time."
 1.12.0-dev+exp,true,threat,threat.enrichments.indicator.pe.resources,nested,extended,array,,PE resource information
@@ -1137,13 +1137,13 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev+exp,true,threat,threat.enrichments.indicator.registry.data.strings,wildcard,core,array,"[""C:\rta\red_ttp\bin\myapp.exe""]",List of strings representing what was written to the registry.
 1.12.0-dev+exp,true,threat,threat.enrichments.indicator.registry.data.type,keyword,core,,REG_SZ,Standard registry type for encoding contents
 1.12.0-dev+exp,true,threat,threat.enrichments.indicator.registry.hive,keyword,core,,HKLM,Abbreviated name for the hive.
-1.12.0-dev+exp,true,threat,threat.enrichments.indicator.registry.key,wildcard,core,,SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\winword.exe,Hive-relative path of keys.
-1.12.0-dev+exp,true,threat,threat.enrichments.indicator.registry.path,wildcard,core,,HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\winword.exe\Debugger,"Full path, including hive, key and value"
+1.12.0-dev+exp,true,threat,threat.enrichments.indicator.registry.key,keyword,core,,SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\winword.exe,Hive-relative path of keys.
+1.12.0-dev+exp,true,threat,threat.enrichments.indicator.registry.path,keyword,core,,HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\winword.exe\Debugger,"Full path, including hive, key and value"
 1.12.0-dev+exp,true,threat,threat.enrichments.indicator.registry.value,keyword,core,,Debugger,Name of the value written.
 1.12.0-dev+exp,true,threat,threat.enrichments.indicator.scanner_stats,long,extended,,4,Scanner statistics
 1.12.0-dev+exp,true,threat,threat.enrichments.indicator.sightings,long,extended,,20,Number of times indicator observed
 1.12.0-dev+exp,true,threat,threat.enrichments.indicator.type,keyword,extended,,ipv4-addr,Type of indicator
-1.12.0-dev+exp,true,threat,threat.enrichments.indicator.url.domain,wildcard,extended,,www.elastic.co,Domain of the url.
+1.12.0-dev+exp,true,threat,threat.enrichments.indicator.url.domain,keyword,extended,,www.elastic.co,Domain of the url.
 1.12.0-dev+exp,true,threat,threat.enrichments.indicator.url.extension,keyword,extended,,png,"File extension from the request url, excluding the leading dot."
 1.12.0-dev+exp,true,threat,threat.enrichments.indicator.url.fragment,keyword,extended,,,Portion of the url after the `#`.
 1.12.0-dev+exp,true,threat,threat.enrichments.indicator.url.full,wildcard,extended,,https://www.elastic.co:443/search?q=elasticsearch#top,Full unparsed URL.
@@ -1154,7 +1154,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev+exp,true,threat,threat.enrichments.indicator.url.path,wildcard,extended,,,"Path of the request, such as ""/search""."
 1.12.0-dev+exp,true,threat,threat.enrichments.indicator.url.port,long,extended,,443,"Port of the request, such as 443."
 1.12.0-dev+exp,true,threat,threat.enrichments.indicator.url.query,keyword,extended,,,Query string of the request.
-1.12.0-dev+exp,true,threat,threat.enrichments.indicator.url.registered_domain,wildcard,extended,,example.com,"The highest registered url domain, stripped of the subdomain."
+1.12.0-dev+exp,true,threat,threat.enrichments.indicator.url.registered_domain,keyword,extended,,example.com,"The highest registered url domain, stripped of the subdomain."
 1.12.0-dev+exp,true,threat,threat.enrichments.indicator.url.scheme,keyword,extended,,https,Scheme of the url.
 1.12.0-dev+exp,true,threat,threat.enrichments.indicator.url.subdomain,keyword,extended,,east,The subdomain of the domain.
 1.12.0-dev+exp,true,threat,threat.enrichments.indicator.url.top_level_domain,keyword,extended,,co.uk,"The effective top level domain (com, org, net, co.uk)."
@@ -1162,7 +1162,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev+exp,true,threat,threat.enrichments.indicator.x509.alternative_names,keyword,extended,array,*.elastic.co,List of subject alternative names (SAN).
 1.12.0-dev+exp,true,threat,threat.enrichments.indicator.x509.issuer.common_name,keyword,extended,array,Example SHA2 High Assurance Server CA,List of common name (CN) of issuing certificate authority.
 1.12.0-dev+exp,true,threat,threat.enrichments.indicator.x509.issuer.country,keyword,extended,array,US,List of country (C) codes
-1.12.0-dev+exp,true,threat,threat.enrichments.indicator.x509.issuer.distinguished_name,wildcard,extended,,"C=US, O=Example Inc, OU=www.example.com, CN=Example SHA2 High Assurance Server CA",Distinguished name (DN) of issuing certificate authority.
+1.12.0-dev+exp,true,threat,threat.enrichments.indicator.x509.issuer.distinguished_name,keyword,extended,,"C=US, O=Example Inc, OU=www.example.com, CN=Example SHA2 High Assurance Server CA",Distinguished name (DN) of issuing certificate authority.
 1.12.0-dev+exp,true,threat,threat.enrichments.indicator.x509.issuer.locality,keyword,extended,array,Mountain View,List of locality names (L)
 1.12.0-dev+exp,true,threat,threat.enrichments.indicator.x509.issuer.organization,keyword,extended,array,Example Inc,List of organizations (O) of issuing certificate authority.
 1.12.0-dev+exp,true,threat,threat.enrichments.indicator.x509.issuer.organizational_unit,keyword,extended,array,www.example.com,List of organizational units (OU) of issuing certificate authority.
@@ -1177,7 +1177,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev+exp,true,threat,threat.enrichments.indicator.x509.signature_algorithm,keyword,extended,,SHA256-RSA,Identifier for certificate signature algorithm.
 1.12.0-dev+exp,true,threat,threat.enrichments.indicator.x509.subject.common_name,keyword,extended,array,shared.global.example.net,List of common names (CN) of subject.
 1.12.0-dev+exp,true,threat,threat.enrichments.indicator.x509.subject.country,keyword,extended,array,US,List of country (C) code
-1.12.0-dev+exp,true,threat,threat.enrichments.indicator.x509.subject.distinguished_name,wildcard,extended,,"C=US, ST=California, L=San Francisco, O=Example, Inc., CN=shared.global.example.net",Distinguished name (DN) of the certificate subject entity.
+1.12.0-dev+exp,true,threat,threat.enrichments.indicator.x509.subject.distinguished_name,keyword,extended,,"C=US, ST=California, L=San Francisco, O=Example, Inc., CN=shared.global.example.net",Distinguished name (DN) of the certificate subject entity.
 1.12.0-dev+exp,true,threat,threat.enrichments.indicator.x509.subject.locality,keyword,extended,array,San Francisco,List of locality names (L)
 1.12.0-dev+exp,true,threat,threat.enrichments.indicator.x509.subject.organization,keyword,extended,array,"Example, Inc.",List of organizations (O) of subject.
 1.12.0-dev+exp,true,threat,threat.enrichments.indicator.x509.subject.organizational_unit,keyword,extended,array,,List of organizational units (OU) of subject.
@@ -1188,58 +1188,13 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev+exp,true,threat,threat.enrichments.matched.id,keyword,extended,,ff93aee5-86a1-4a61-b0e6-0cdc313d01b5,Matched indicator identifier
 1.12.0-dev+exp,true,threat,threat.enrichments.matched.index,keyword,extended,,filebeat-8.0.0-2021.05.23-000011,Matched indicator index
 1.12.0-dev+exp,true,threat,threat.enrichments.matched.type,keyword,extended,,indicator_match_rule,Type of indicator match
-1.12.0-dev+exp,true,threat,threat.enrichments.pe.architecture,keyword,extended,,x64,CPU architecture target for the file.
-1.12.0-dev+exp,true,threat,threat.enrichments.pe.authentihash,keyword,extended,,ac9555d914bbb112ecc5f15bb9887ca8371f493ab0941344e976bb8410c8aa78,Authentihash of the PE file.
-1.12.0-dev+exp,true,threat,threat.enrichments.pe.company,keyword,extended,,Microsoft Corporation,"Internal company name of the file, provided at compile-time."
-1.12.0-dev+exp,true,threat,threat.enrichments.pe.compile_timestamp,date,extended,,2020-11-05T17:25:47.000Z,Compile timestamp of the PE file.
-1.12.0-dev+exp,true,threat,threat.enrichments.pe.compiler.name,keyword,extended,,Clang,Name of the compiler
-1.12.0-dev+exp,true,threat,threat.enrichments.pe.compiler.version,keyword,extended,,11.0.0,Version of the compiler.
-1.12.0-dev+exp,true,threat,threat.enrichments.pe.creation_date,date,extended,,2020-11-05T17:25:47.000Z,Build or compile date.
-1.12.0-dev+exp,true,threat,threat.enrichments.pe.debug,nested,extended,array,,Debug information
-1.12.0-dev+exp,true,threat,threat.enrichments.pe.debug.offset,keyword,extended,,1296336,Debug offset information.
-1.12.0-dev+exp,true,threat,threat.enrichments.pe.debug.size,long,extended,,816,Size of the debug information.
-1.12.0-dev+exp,true,threat,threat.enrichments.pe.debug.timestamp,date,extended,,2020-11-05T17:25:47.000Z,Timestamp of the debug information.
-1.12.0-dev+exp,true,threat,threat.enrichments.pe.debug.type,keyword,extended,,IMAGE_DEBUG_TYPE_POGO,Information type generated by the debug options.
-1.12.0-dev+exp,true,threat,threat.enrichments.pe.description,keyword,extended,,Paint,"Internal description of the file, provided at compile-time."
-1.12.0-dev+exp,true,threat,threat.enrichments.pe.entry_point,keyword,extended,,25856,Relative byte offset to the base of the PE file.
-1.12.0-dev+exp,true,threat,threat.enrichments.pe.exports,keyword,extended,array,"[""DllInstall"", ""DllRegisterServer"", ""DllUnregisterServer""]",List of symbols exported by PE
-1.12.0-dev+exp,true,threat,threat.enrichments.pe.file_version,keyword,extended,,6.3.9600.17415,Process name.
-1.12.0-dev+exp,true,threat,threat.enrichments.pe.icon.hash.dhash,keyword,extended,,b806e17c8e330d82,Difference Hash (dhash) to find files with a visually similar icon or thumbnail.
-1.12.0-dev+exp,true,threat,threat.enrichments.pe.imphash,keyword,extended,,0c6803c4e922103c4dca5963aad36ddf,A hash of the imports in a PE file.
-1.12.0-dev+exp,true,threat,threat.enrichments.pe.imports,flattened,extended,,"{ ""library_name"" : ""mscoree.dll"", ""imported_functions"" : ""GetFileVersionInfoSizeA"" }",List of all imported functions
-1.12.0-dev+exp,true,threat,threat.enrichments.pe.machine_type,keyword,extended,,"Intel 386 or later, and compatibles",Machine type of the PE file.
-1.12.0-dev+exp,true,threat,threat.enrichments.pe.original_file_name,wildcard,extended,,MSPAINT.EXE,"Internal name of the file, provided at compile-time."
-1.12.0-dev+exp,true,threat,threat.enrichments.pe.packers,keyword,extended,array,"[""ASPack v2.12"", "".NET executable""]",List of packers and tools used.
-1.12.0-dev+exp,true,threat,threat.enrichments.pe.product,keyword,extended,,Microsoft® Windows® Operating System,"Internal product name of the file, provided at compile-time."
-1.12.0-dev+exp,true,threat,threat.enrichments.pe.resources,nested,extended,array,,PE resource information
-1.12.0-dev+exp,true,threat,threat.enrichments.pe.resources.chi2,long,extended,,-1,Chi-square probability distribution.
-1.12.0-dev+exp,true,threat,threat.enrichments.pe.resources.entropy,long,extended,,"0, 1",Measurement of entropy randomness in the resources section.
-1.12.0-dev+exp,true,threat,threat.enrichments.pe.resources.filetype,keyword,extended,,Data,File type of the resources section.
-1.12.0-dev+exp,true,threat,threat.enrichments.pe.resources.language,keyword,extended,,CHINESE SIMPLIFIED,Language identification.
-1.12.0-dev+exp,true,threat,threat.enrichments.pe.resources.sha256,keyword,extended,,e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855,SHA256 hash of resources section.
-1.12.0-dev+exp,true,threat,threat.enrichments.pe.resources.type,keyword,extended,array,"[""RT_VERSION"", ""RT_MANIFEST""]",List of resource types.
-1.12.0-dev+exp,true,threat,threat.enrichments.pe.rich_header.hash.md5,keyword,extended,,5aa1aa0f2b4be70397a1e9e2b87627cd,MD5 hash of the header for the PE file.
-1.12.0-dev+exp,true,threat,threat.enrichments.pe.sections,nested,extended,array,,Data about sections of the compiled binary PE
-1.12.0-dev+exp,true,threat,threat.enrichments.pe.sections.chi2,long,extended,,3027194,Chi-square probability distribution.
-1.12.0-dev+exp,true,threat,threat.enrichments.pe.sections.entropy,float,extended,,6.24,Measurement of entropy randomness in the file.
-1.12.0-dev+exp,true,threat,threat.enrichments.pe.sections.flags,keyword,extended,,rx,Section flags of the file.
-1.12.0-dev+exp,true,threat,threat.enrichments.pe.sections.name,keyword,extended,,".text, .data",Section names of the file.
-1.12.0-dev+exp,true,threat,threat.enrichments.pe.sections.raw_size,long,extended,,198144,Size of the section or the dize of the initialized data on disk.
-1.12.0-dev+exp,true,threat,threat.enrichments.pe.sections.virtual_address,long,extended,,8192,Virtual address available to the file.
-1.12.0-dev+exp,true,threat,threat.enrichments.registry.data.bytes,keyword,extended,,ZQBuAC0AVQBTAAAAZQBuAAAAAAA=,Original bytes written with base64 encoding.
-1.12.0-dev+exp,true,threat,threat.enrichments.registry.data.strings,wildcard,core,array,"[""C:\rta\red_ttp\bin\myapp.exe""]",List of strings representing what was written to the registry.
-1.12.0-dev+exp,true,threat,threat.enrichments.registry.data.type,keyword,core,,REG_SZ,Standard registry type for encoding contents
-1.12.0-dev+exp,true,threat,threat.enrichments.registry.hive,keyword,core,,HKLM,Abbreviated name for the hive.
-1.12.0-dev+exp,true,threat,threat.enrichments.registry.key,wildcard,core,,SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\winword.exe,Hive-relative path of keys.
-1.12.0-dev+exp,true,threat,threat.enrichments.registry.path,wildcard,core,,HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\winword.exe\Debugger,"Full path, including hive, key and value"
-1.12.0-dev+exp,true,threat,threat.enrichments.registry.value,keyword,core,,Debugger,Name of the value written.
 1.12.0-dev+exp,true,threat,threat.framework,keyword,extended,,MITRE ATT&CK,Threat classification framework.
 1.12.0-dev+exp,true,threat,threat.group.alias,keyword,extended,array,"[ ""Magecart Group 6"" ]",Alias of the group.
 1.12.0-dev+exp,true,threat,threat.group.id,keyword,extended,,G0037,ID of the group.
 1.12.0-dev+exp,true,threat,threat.group.name,keyword,extended,,FIN6,Name of the group.
 1.12.0-dev+exp,true,threat,threat.group.reference,keyword,extended,,https://attack.mitre.org/groups/G0037/,Reference URL of the group.
 1.12.0-dev+exp,true,threat,threat.indicator.as.number,long,extended,,15169,Unique number allocated to the autonomous system.
-1.12.0-dev+exp,true,threat,threat.indicator.as.organization.name,wildcard,extended,,Google LLC,Organization name.
+1.12.0-dev+exp,true,threat,threat.indicator.as.organization.name,keyword,extended,,Google LLC,Organization name.
 1.12.0-dev+exp,true,threat,threat.indicator.as.organization.name.text,text,extended,,Google LLC,Organization name.
 1.12.0-dev+exp,true,threat,threat.indicator.confidence,keyword,extended,,High,Indicator confidence rating
 1.12.0-dev+exp,true,threat,threat.indicator.description,keyword,extended,,IP x.x.x.x was observed delivering the Angler EK.,Indicator description
@@ -1256,7 +1211,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev+exp,true,threat,threat.indicator.file.created,date,extended,,,File creation time.
 1.12.0-dev+exp,true,threat,threat.indicator.file.ctime,date,extended,,,Last time the file attributes or metadata changed.
 1.12.0-dev+exp,true,threat,threat.indicator.file.device,keyword,extended,,sda,Device that is the source of the file.
-1.12.0-dev+exp,true,threat,threat.indicator.file.directory,wildcard,extended,,/home/alice,Directory where the file is located.
+1.12.0-dev+exp,true,threat,threat.indicator.file.directory,keyword,extended,,/home/alice,Directory where the file is located.
 1.12.0-dev+exp,true,threat,threat.indicator.file.drive_letter,keyword,extended,,C,Drive letter where the file is located.
 1.12.0-dev+exp,true,threat,threat.indicator.file.elf.architecture,keyword,extended,,x86-64,Machine architecture of the ELF file.
 1.12.0-dev+exp,true,threat,threat.indicator.file.elf.byte_order,keyword,extended,,Little Endian,Byte sequence of ELF file.
@@ -1297,10 +1252,10 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev+exp,true,threat,threat.indicator.file.mtime,date,extended,,,Last time the file content was modified.
 1.12.0-dev+exp,true,threat,threat.indicator.file.name,keyword,extended,,example.png,"Name of the file including the extension, without the directory."
 1.12.0-dev+exp,true,threat,threat.indicator.file.owner,keyword,extended,,alice,File owner's username.
-1.12.0-dev+exp,true,threat,threat.indicator.file.path,wildcard,extended,,/home/alice/example.png,"Full path to the file, including the file name."
+1.12.0-dev+exp,true,threat,threat.indicator.file.path,keyword,extended,,/home/alice/example.png,"Full path to the file, including the file name."
 1.12.0-dev+exp,true,threat,threat.indicator.file.path.text,text,extended,,/home/alice/example.png,"Full path to the file, including the file name."
 1.12.0-dev+exp,true,threat,threat.indicator.file.size,long,extended,,16384,File size in bytes.
-1.12.0-dev+exp,true,threat,threat.indicator.file.target_path,wildcard,extended,,,Target path for symlinks.
+1.12.0-dev+exp,true,threat,threat.indicator.file.target_path,keyword,extended,,,Target path for symlinks.
 1.12.0-dev+exp,true,threat,threat.indicator.file.target_path.text,text,extended,,,Target path for symlinks.
 1.12.0-dev+exp,true,threat,threat.indicator.file.type,keyword,extended,,file,"File type (file, dir, or symlink)."
 1.12.0-dev+exp,true,threat,threat.indicator.file.uid,keyword,extended,,1001,The user ID (UID) or security identifier (SID) of the file owner.
@@ -1311,7 +1266,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev+exp,true,threat,threat.indicator.geo.country_iso_code,keyword,core,,CA,Country ISO code.
 1.12.0-dev+exp,true,threat,threat.indicator.geo.country_name,keyword,core,,Canada,Country name.
 1.12.0-dev+exp,true,threat,threat.indicator.geo.location,geo_point,core,,"{ ""lon"": -73.614830, ""lat"": 45.505918 }",Longitude and latitude.
-1.12.0-dev+exp,true,threat,threat.indicator.geo.name,wildcard,extended,,boston-dc,User-defined description of a location.
+1.12.0-dev+exp,true,threat,threat.indicator.geo.name,keyword,extended,,boston-dc,User-defined description of a location.
 1.12.0-dev+exp,true,threat,threat.indicator.geo.postal_code,keyword,core,,94040,Postal code.
 1.12.0-dev+exp,true,threat,threat.indicator.geo.region_iso_code,keyword,core,,CA-QC,Region ISO code.
 1.12.0-dev+exp,true,threat,threat.indicator.geo.region_name,keyword,core,,Quebec,Region name.
@@ -1345,7 +1300,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev+exp,true,threat,threat.indicator.pe.imphash,keyword,extended,,0c6803c4e922103c4dca5963aad36ddf,A hash of the imports in a PE file.
 1.12.0-dev+exp,true,threat,threat.indicator.pe.imports,flattened,extended,,"{ ""library_name"" : ""mscoree.dll"", ""imported_functions"" : ""GetFileVersionInfoSizeA"" }",List of all imported functions
 1.12.0-dev+exp,true,threat,threat.indicator.pe.machine_type,keyword,extended,,"Intel 386 or later, and compatibles",Machine type of the PE file.
-1.12.0-dev+exp,true,threat,threat.indicator.pe.original_file_name,wildcard,extended,,MSPAINT.EXE,"Internal name of the file, provided at compile-time."
+1.12.0-dev+exp,true,threat,threat.indicator.pe.original_file_name,keyword,extended,,MSPAINT.EXE,"Internal name of the file, provided at compile-time."
 1.12.0-dev+exp,true,threat,threat.indicator.pe.packers,keyword,extended,array,"[""ASPack v2.12"", "".NET executable""]",List of packers and tools used.
 1.12.0-dev+exp,true,threat,threat.indicator.pe.product,keyword,extended,,Microsoft® Windows® Operating System,"Internal product name of the file, provided at compile-time."
 1.12.0-dev+exp,true,threat,threat.indicator.pe.resources,nested,extended,array,,PE resource information
@@ -1370,13 +1325,13 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev+exp,true,threat,threat.indicator.registry.data.strings,wildcard,core,array,"[""C:\rta\red_ttp\bin\myapp.exe""]",List of strings representing what was written to the registry.
 1.12.0-dev+exp,true,threat,threat.indicator.registry.data.type,keyword,core,,REG_SZ,Standard registry type for encoding contents
 1.12.0-dev+exp,true,threat,threat.indicator.registry.hive,keyword,core,,HKLM,Abbreviated name for the hive.
-1.12.0-dev+exp,true,threat,threat.indicator.registry.key,wildcard,core,,SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\winword.exe,Hive-relative path of keys.
-1.12.0-dev+exp,true,threat,threat.indicator.registry.path,wildcard,core,,HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\winword.exe\Debugger,"Full path, including hive, key and value"
+1.12.0-dev+exp,true,threat,threat.indicator.registry.key,keyword,core,,SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\winword.exe,Hive-relative path of keys.
+1.12.0-dev+exp,true,threat,threat.indicator.registry.path,keyword,core,,HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\winword.exe\Debugger,"Full path, including hive, key and value"
 1.12.0-dev+exp,true,threat,threat.indicator.registry.value,keyword,core,,Debugger,Name of the value written.
 1.12.0-dev+exp,true,threat,threat.indicator.scanner_stats,long,extended,,4,Scanner statistics
 1.12.0-dev+exp,true,threat,threat.indicator.sightings,long,extended,,20,Number of times indicator observed
 1.12.0-dev+exp,true,threat,threat.indicator.type,keyword,extended,,ipv4-addr,Type of indicator
-1.12.0-dev+exp,true,threat,threat.indicator.url.domain,wildcard,extended,,www.elastic.co,Domain of the url.
+1.12.0-dev+exp,true,threat,threat.indicator.url.domain,keyword,extended,,www.elastic.co,Domain of the url.
 1.12.0-dev+exp,true,threat,threat.indicator.url.extension,keyword,extended,,png,"File extension from the request url, excluding the leading dot."
 1.12.0-dev+exp,true,threat,threat.indicator.url.fragment,keyword,extended,,,Portion of the url after the `#`.
 1.12.0-dev+exp,true,threat,threat.indicator.url.full,wildcard,extended,,https://www.elastic.co:443/search?q=elasticsearch#top,Full unparsed URL.
@@ -1387,7 +1342,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev+exp,true,threat,threat.indicator.url.path,wildcard,extended,,,"Path of the request, such as ""/search""."
 1.12.0-dev+exp,true,threat,threat.indicator.url.port,long,extended,,443,"Port of the request, such as 443."
 1.12.0-dev+exp,true,threat,threat.indicator.url.query,keyword,extended,,,Query string of the request.
-1.12.0-dev+exp,true,threat,threat.indicator.url.registered_domain,wildcard,extended,,example.com,"The highest registered url domain, stripped of the subdomain."
+1.12.0-dev+exp,true,threat,threat.indicator.url.registered_domain,keyword,extended,,example.com,"The highest registered url domain, stripped of the subdomain."
 1.12.0-dev+exp,true,threat,threat.indicator.url.scheme,keyword,extended,,https,Scheme of the url.
 1.12.0-dev+exp,true,threat,threat.indicator.url.subdomain,keyword,extended,,east,The subdomain of the domain.
 1.12.0-dev+exp,true,threat,threat.indicator.url.top_level_domain,keyword,extended,,co.uk,"The effective top level domain (com, org, net, co.uk)."
@@ -1395,7 +1350,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev+exp,true,threat,threat.indicator.x509.alternative_names,keyword,extended,array,*.elastic.co,List of subject alternative names (SAN).
 1.12.0-dev+exp,true,threat,threat.indicator.x509.issuer.common_name,keyword,extended,array,Example SHA2 High Assurance Server CA,List of common name (CN) of issuing certificate authority.
 1.12.0-dev+exp,true,threat,threat.indicator.x509.issuer.country,keyword,extended,array,US,List of country (C) codes
-1.12.0-dev+exp,true,threat,threat.indicator.x509.issuer.distinguished_name,wildcard,extended,,"C=US, O=Example Inc, OU=www.example.com, CN=Example SHA2 High Assurance Server CA",Distinguished name (DN) of issuing certificate authority.
+1.12.0-dev+exp,true,threat,threat.indicator.x509.issuer.distinguished_name,keyword,extended,,"C=US, O=Example Inc, OU=www.example.com, CN=Example SHA2 High Assurance Server CA",Distinguished name (DN) of issuing certificate authority.
 1.12.0-dev+exp,true,threat,threat.indicator.x509.issuer.locality,keyword,extended,array,Mountain View,List of locality names (L)
 1.12.0-dev+exp,true,threat,threat.indicator.x509.issuer.organization,keyword,extended,array,Example Inc,List of organizations (O) of issuing certificate authority.
 1.12.0-dev+exp,true,threat,threat.indicator.x509.issuer.organizational_unit,keyword,extended,array,www.example.com,List of organizational units (OU) of issuing certificate authority.
@@ -1410,7 +1365,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev+exp,true,threat,threat.indicator.x509.signature_algorithm,keyword,extended,,SHA256-RSA,Identifier for certificate signature algorithm.
 1.12.0-dev+exp,true,threat,threat.indicator.x509.subject.common_name,keyword,extended,array,shared.global.example.net,List of common names (CN) of subject.
 1.12.0-dev+exp,true,threat,threat.indicator.x509.subject.country,keyword,extended,array,US,List of country (C) code
-1.12.0-dev+exp,true,threat,threat.indicator.x509.subject.distinguished_name,wildcard,extended,,"C=US, ST=California, L=San Francisco, O=Example, Inc., CN=shared.global.example.net",Distinguished name (DN) of the certificate subject entity.
+1.12.0-dev+exp,true,threat,threat.indicator.x509.subject.distinguished_name,keyword,extended,,"C=US, ST=California, L=San Francisco, O=Example, Inc., CN=shared.global.example.net",Distinguished name (DN) of the certificate subject entity.
 1.12.0-dev+exp,true,threat,threat.indicator.x509.subject.locality,keyword,extended,array,San Francisco,List of locality names (L)
 1.12.0-dev+exp,true,threat,threat.indicator.x509.subject.organization,keyword,extended,array,"Example, Inc.",List of organizations (O) of subject.
 1.12.0-dev+exp,true,threat,threat.indicator.x509.subject.organizational_unit,keyword,extended,array,,List of organizational units (OU) of subject.
@@ -1438,17 +1393,17 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev+exp,true,tls,tls.client.hash.md5,keyword,extended,,0F76C7F2C55BFD7D8E8B8F4BFBF0C9EC,Certificate fingerprint using the MD5 digest of DER-encoded version of certificate offered by the client.
 1.12.0-dev+exp,true,tls,tls.client.hash.sha1,keyword,extended,,9E393D93138888D288266C2D915214D1D1CCEB2A,Certificate fingerprint using the SHA1 digest of DER-encoded version of certificate offered by the client.
 1.12.0-dev+exp,true,tls,tls.client.hash.sha256,keyword,extended,,0687F666A054EF17A08E2F2162EAB4CBC0D265E1D7875BE74BF3C712CA92DAF0,Certificate fingerprint using the SHA256 digest of DER-encoded version of certificate offered by the client.
-1.12.0-dev+exp,true,tls,tls.client.issuer,wildcard,extended,,"CN=Example Root CA, OU=Infrastructure Team, DC=example, DC=com",Distinguished name of subject of the issuer of the x.509 certificate presented by the client.
+1.12.0-dev+exp,true,tls,tls.client.issuer,keyword,extended,,"CN=Example Root CA, OU=Infrastructure Team, DC=example, DC=com",Distinguished name of subject of the issuer of the x.509 certificate presented by the client.
 1.12.0-dev+exp,true,tls,tls.client.ja3,keyword,extended,,d4e5b18d6b55c71272893221c96ba240,A hash that identifies clients based on how they perform an SSL/TLS handshake.
 1.12.0-dev+exp,true,tls,tls.client.not_after,date,extended,,2021-01-01T00:00:00.000Z,Date/Time indicating when client certificate is no longer considered valid.
 1.12.0-dev+exp,true,tls,tls.client.not_before,date,extended,,1970-01-01T00:00:00.000Z,Date/Time indicating when client certificate is first considered valid.
 1.12.0-dev+exp,true,tls,tls.client.server_name,keyword,extended,,www.elastic.co,Hostname the client is trying to connect to. Also called the SNI.
-1.12.0-dev+exp,true,tls,tls.client.subject,wildcard,extended,,"CN=myclient, OU=Documentation Team, DC=example, DC=com",Distinguished name of subject of the x.509 certificate presented by the client.
+1.12.0-dev+exp,true,tls,tls.client.subject,keyword,extended,,"CN=myclient, OU=Documentation Team, DC=example, DC=com",Distinguished name of subject of the x.509 certificate presented by the client.
 1.12.0-dev+exp,true,tls,tls.client.supported_ciphers,keyword,extended,array,"[""TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384"", ""TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384"", ""...""]",Array of ciphers offered by the client during the client hello.
 1.12.0-dev+exp,true,tls,tls.client.x509.alternative_names,keyword,extended,array,*.elastic.co,List of subject alternative names (SAN).
 1.12.0-dev+exp,true,tls,tls.client.x509.issuer.common_name,keyword,extended,array,Example SHA2 High Assurance Server CA,List of common name (CN) of issuing certificate authority.
 1.12.0-dev+exp,true,tls,tls.client.x509.issuer.country,keyword,extended,array,US,List of country (C) codes
-1.12.0-dev+exp,true,tls,tls.client.x509.issuer.distinguished_name,wildcard,extended,,"C=US, O=Example Inc, OU=www.example.com, CN=Example SHA2 High Assurance Server CA",Distinguished name (DN) of issuing certificate authority.
+1.12.0-dev+exp,true,tls,tls.client.x509.issuer.distinguished_name,keyword,extended,,"C=US, O=Example Inc, OU=www.example.com, CN=Example SHA2 High Assurance Server CA",Distinguished name (DN) of issuing certificate authority.
 1.12.0-dev+exp,true,tls,tls.client.x509.issuer.locality,keyword,extended,array,Mountain View,List of locality names (L)
 1.12.0-dev+exp,true,tls,tls.client.x509.issuer.organization,keyword,extended,array,Example Inc,List of organizations (O) of issuing certificate authority.
 1.12.0-dev+exp,true,tls,tls.client.x509.issuer.organizational_unit,keyword,extended,array,www.example.com,List of organizational units (OU) of issuing certificate authority.
@@ -1463,7 +1418,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev+exp,true,tls,tls.client.x509.signature_algorithm,keyword,extended,,SHA256-RSA,Identifier for certificate signature algorithm.
 1.12.0-dev+exp,true,tls,tls.client.x509.subject.common_name,keyword,extended,array,shared.global.example.net,List of common names (CN) of subject.
 1.12.0-dev+exp,true,tls,tls.client.x509.subject.country,keyword,extended,array,US,List of country (C) code
-1.12.0-dev+exp,true,tls,tls.client.x509.subject.distinguished_name,wildcard,extended,,"C=US, ST=California, L=San Francisco, O=Example, Inc., CN=shared.global.example.net",Distinguished name (DN) of the certificate subject entity.
+1.12.0-dev+exp,true,tls,tls.client.x509.subject.distinguished_name,keyword,extended,,"C=US, ST=California, L=San Francisco, O=Example, Inc., CN=shared.global.example.net",Distinguished name (DN) of the certificate subject entity.
 1.12.0-dev+exp,true,tls,tls.client.x509.subject.locality,keyword,extended,array,San Francisco,List of locality names (L)
 1.12.0-dev+exp,true,tls,tls.client.x509.subject.organization,keyword,extended,array,"Example, Inc.",List of organizations (O) of subject.
 1.12.0-dev+exp,true,tls,tls.client.x509.subject.organizational_unit,keyword,extended,array,,List of organizational units (OU) of subject.
@@ -1478,15 +1433,15 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev+exp,true,tls,tls.server.hash.md5,keyword,extended,,0F76C7F2C55BFD7D8E8B8F4BFBF0C9EC,Certificate fingerprint using the MD5 digest of DER-encoded version of certificate offered by the server.
 1.12.0-dev+exp,true,tls,tls.server.hash.sha1,keyword,extended,,9E393D93138888D288266C2D915214D1D1CCEB2A,Certificate fingerprint using the SHA1 digest of DER-encoded version of certificate offered by the server.
 1.12.0-dev+exp,true,tls,tls.server.hash.sha256,keyword,extended,,0687F666A054EF17A08E2F2162EAB4CBC0D265E1D7875BE74BF3C712CA92DAF0,Certificate fingerprint using the SHA256 digest of DER-encoded version of certificate offered by the server.
-1.12.0-dev+exp,true,tls,tls.server.issuer,wildcard,extended,,"CN=Example Root CA, OU=Infrastructure Team, DC=example, DC=com",Subject of the issuer of the x.509 certificate presented by the server.
+1.12.0-dev+exp,true,tls,tls.server.issuer,keyword,extended,,"CN=Example Root CA, OU=Infrastructure Team, DC=example, DC=com",Subject of the issuer of the x.509 certificate presented by the server.
 1.12.0-dev+exp,true,tls,tls.server.ja3s,keyword,extended,,394441ab65754e2207b1e1b457b3641d,A hash that identifies servers based on how they perform an SSL/TLS handshake.
 1.12.0-dev+exp,true,tls,tls.server.not_after,date,extended,,2021-01-01T00:00:00.000Z,Timestamp indicating when server certificate is no longer considered valid.
 1.12.0-dev+exp,true,tls,tls.server.not_before,date,extended,,1970-01-01T00:00:00.000Z,Timestamp indicating when server certificate is first considered valid.
-1.12.0-dev+exp,true,tls,tls.server.subject,wildcard,extended,,"CN=www.example.com, OU=Infrastructure Team, DC=example, DC=com",Subject of the x.509 certificate presented by the server.
+1.12.0-dev+exp,true,tls,tls.server.subject,keyword,extended,,"CN=www.example.com, OU=Infrastructure Team, DC=example, DC=com",Subject of the x.509 certificate presented by the server.
 1.12.0-dev+exp,true,tls,tls.server.x509.alternative_names,keyword,extended,array,*.elastic.co,List of subject alternative names (SAN).
 1.12.0-dev+exp,true,tls,tls.server.x509.issuer.common_name,keyword,extended,array,Example SHA2 High Assurance Server CA,List of common name (CN) of issuing certificate authority.
 1.12.0-dev+exp,true,tls,tls.server.x509.issuer.country,keyword,extended,array,US,List of country (C) codes
-1.12.0-dev+exp,true,tls,tls.server.x509.issuer.distinguished_name,wildcard,extended,,"C=US, O=Example Inc, OU=www.example.com, CN=Example SHA2 High Assurance Server CA",Distinguished name (DN) of issuing certificate authority.
+1.12.0-dev+exp,true,tls,tls.server.x509.issuer.distinguished_name,keyword,extended,,"C=US, O=Example Inc, OU=www.example.com, CN=Example SHA2 High Assurance Server CA",Distinguished name (DN) of issuing certificate authority.
 1.12.0-dev+exp,true,tls,tls.server.x509.issuer.locality,keyword,extended,array,Mountain View,List of locality names (L)
 1.12.0-dev+exp,true,tls,tls.server.x509.issuer.organization,keyword,extended,array,Example Inc,List of organizations (O) of issuing certificate authority.
 1.12.0-dev+exp,true,tls,tls.server.x509.issuer.organizational_unit,keyword,extended,array,www.example.com,List of organizational units (OU) of issuing certificate authority.
@@ -1501,7 +1456,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev+exp,true,tls,tls.server.x509.signature_algorithm,keyword,extended,,SHA256-RSA,Identifier for certificate signature algorithm.
 1.12.0-dev+exp,true,tls,tls.server.x509.subject.common_name,keyword,extended,array,shared.global.example.net,List of common names (CN) of subject.
 1.12.0-dev+exp,true,tls,tls.server.x509.subject.country,keyword,extended,array,US,List of country (C) code
-1.12.0-dev+exp,true,tls,tls.server.x509.subject.distinguished_name,wildcard,extended,,"C=US, ST=California, L=San Francisco, O=Example, Inc., CN=shared.global.example.net",Distinguished name (DN) of the certificate subject entity.
+1.12.0-dev+exp,true,tls,tls.server.x509.subject.distinguished_name,keyword,extended,,"C=US, ST=California, L=San Francisco, O=Example, Inc., CN=shared.global.example.net",Distinguished name (DN) of the certificate subject entity.
 1.12.0-dev+exp,true,tls,tls.server.x509.subject.locality,keyword,extended,array,San Francisco,List of locality names (L)
 1.12.0-dev+exp,true,tls,tls.server.x509.subject.organization,keyword,extended,array,"Example, Inc.",List of organizations (O) of subject.
 1.12.0-dev+exp,true,tls,tls.server.x509.subject.organizational_unit,keyword,extended,array,,List of organizational units (OU) of subject.
@@ -1511,7 +1466,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev+exp,true,tls,tls.version_protocol,keyword,extended,,tls,Normalized lowercase protocol name parsed from original string.
 1.12.0-dev+exp,true,trace,trace.id,keyword,extended,,4bf92f3577b34da6a3ce929d0e0e4736,Unique identifier of the trace.
 1.12.0-dev+exp,true,transaction,transaction.id,keyword,extended,,00f067aa0ba902b7,Unique identifier of the transaction within the scope of its trace.
-1.12.0-dev+exp,true,url,url.domain,wildcard,extended,,www.elastic.co,Domain of the url.
+1.12.0-dev+exp,true,url,url.domain,keyword,extended,,www.elastic.co,Domain of the url.
 1.12.0-dev+exp,true,url,url.extension,keyword,extended,,png,"File extension from the request url, excluding the leading dot."
 1.12.0-dev+exp,true,url,url.fragment,keyword,extended,,,Portion of the url after the `#`.
 1.12.0-dev+exp,true,url,url.full,wildcard,extended,,https://www.elastic.co:443/search?q=elasticsearch#top,Full unparsed URL.
@@ -1522,68 +1477,68 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev+exp,true,url,url.path,wildcard,extended,,,"Path of the request, such as ""/search""."
 1.12.0-dev+exp,true,url,url.port,long,extended,,443,"Port of the request, such as 443."
 1.12.0-dev+exp,true,url,url.query,keyword,extended,,,Query string of the request.
-1.12.0-dev+exp,true,url,url.registered_domain,wildcard,extended,,example.com,"The highest registered url domain, stripped of the subdomain."
+1.12.0-dev+exp,true,url,url.registered_domain,keyword,extended,,example.com,"The highest registered url domain, stripped of the subdomain."
 1.12.0-dev+exp,true,url,url.scheme,keyword,extended,,https,Scheme of the url.
 1.12.0-dev+exp,true,url,url.subdomain,keyword,extended,,east,The subdomain of the domain.
 1.12.0-dev+exp,true,url,url.top_level_domain,keyword,extended,,co.uk,"The effective top level domain (com, org, net, co.uk)."
 1.12.0-dev+exp,true,url,url.username,keyword,extended,,,Username of the request.
 1.12.0-dev+exp,true,user,user.changes.domain,keyword,extended,,,Name of the directory the user is a member of.
-1.12.0-dev+exp,true,user,user.changes.email,wildcard,extended,,,User email address.
-1.12.0-dev+exp,true,user,user.changes.full_name,wildcard,extended,,Albert Einstein,"User's full name, if available."
+1.12.0-dev+exp,true,user,user.changes.email,keyword,extended,,,User email address.
+1.12.0-dev+exp,true,user,user.changes.full_name,keyword,extended,,Albert Einstein,"User's full name, if available."
 1.12.0-dev+exp,true,user,user.changes.full_name.text,text,extended,,Albert Einstein,"User's full name, if available."
 1.12.0-dev+exp,true,user,user.changes.group.domain,keyword,extended,,,Name of the directory the group is a member of.
 1.12.0-dev+exp,true,user,user.changes.group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
 1.12.0-dev+exp,true,user,user.changes.group.name,keyword,extended,,,Name of the group.
 1.12.0-dev+exp,true,user,user.changes.hash,keyword,extended,,,Unique user hash to correlate information for a user in anonymized form.
 1.12.0-dev+exp,true,user,user.changes.id,keyword,core,,,Unique identifier of the user.
-1.12.0-dev+exp,true,user,user.changes.name,wildcard,core,,albert,Short name or login of the user.
+1.12.0-dev+exp,true,user,user.changes.name,keyword,core,,albert,Short name or login of the user.
 1.12.0-dev+exp,true,user,user.changes.name.text,text,core,,albert,Short name or login of the user.
 1.12.0-dev+exp,true,user,user.changes.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 1.12.0-dev+exp,true,user,user.domain,keyword,extended,,,Name of the directory the user is a member of.
 1.12.0-dev+exp,true,user,user.effective.domain,keyword,extended,,,Name of the directory the user is a member of.
-1.12.0-dev+exp,true,user,user.effective.email,wildcard,extended,,,User email address.
-1.12.0-dev+exp,true,user,user.effective.full_name,wildcard,extended,,Albert Einstein,"User's full name, if available."
+1.12.0-dev+exp,true,user,user.effective.email,keyword,extended,,,User email address.
+1.12.0-dev+exp,true,user,user.effective.full_name,keyword,extended,,Albert Einstein,"User's full name, if available."
 1.12.0-dev+exp,true,user,user.effective.full_name.text,text,extended,,Albert Einstein,"User's full name, if available."
 1.12.0-dev+exp,true,user,user.effective.group.domain,keyword,extended,,,Name of the directory the group is a member of.
 1.12.0-dev+exp,true,user,user.effective.group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
 1.12.0-dev+exp,true,user,user.effective.group.name,keyword,extended,,,Name of the group.
 1.12.0-dev+exp,true,user,user.effective.hash,keyword,extended,,,Unique user hash to correlate information for a user in anonymized form.
 1.12.0-dev+exp,true,user,user.effective.id,keyword,core,,,Unique identifier of the user.
-1.12.0-dev+exp,true,user,user.effective.name,wildcard,core,,albert,Short name or login of the user.
+1.12.0-dev+exp,true,user,user.effective.name,keyword,core,,albert,Short name or login of the user.
 1.12.0-dev+exp,true,user,user.effective.name.text,text,core,,albert,Short name or login of the user.
 1.12.0-dev+exp,true,user,user.effective.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
-1.12.0-dev+exp,true,user,user.email,wildcard,extended,,,User email address.
-1.12.0-dev+exp,true,user,user.full_name,wildcard,extended,,Albert Einstein,"User's full name, if available."
+1.12.0-dev+exp,true,user,user.email,keyword,extended,,,User email address.
+1.12.0-dev+exp,true,user,user.full_name,keyword,extended,,Albert Einstein,"User's full name, if available."
 1.12.0-dev+exp,true,user,user.full_name.text,text,extended,,Albert Einstein,"User's full name, if available."
 1.12.0-dev+exp,true,user,user.group.domain,keyword,extended,,,Name of the directory the group is a member of.
 1.12.0-dev+exp,true,user,user.group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
 1.12.0-dev+exp,true,user,user.group.name,keyword,extended,,,Name of the group.
 1.12.0-dev+exp,true,user,user.hash,keyword,extended,,,Unique user hash to correlate information for a user in anonymized form.
 1.12.0-dev+exp,true,user,user.id,keyword,core,,,Unique identifier of the user.
-1.12.0-dev+exp,true,user,user.name,wildcard,core,,albert,Short name or login of the user.
+1.12.0-dev+exp,true,user,user.name,keyword,core,,albert,Short name or login of the user.
 1.12.0-dev+exp,true,user,user.name.text,text,core,,albert,Short name or login of the user.
 1.12.0-dev+exp,true,user,user.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 1.12.0-dev+exp,true,user,user.target.domain,keyword,extended,,,Name of the directory the user is a member of.
-1.12.0-dev+exp,true,user,user.target.email,wildcard,extended,,,User email address.
-1.12.0-dev+exp,true,user,user.target.full_name,wildcard,extended,,Albert Einstein,"User's full name, if available."
+1.12.0-dev+exp,true,user,user.target.email,keyword,extended,,,User email address.
+1.12.0-dev+exp,true,user,user.target.full_name,keyword,extended,,Albert Einstein,"User's full name, if available."
 1.12.0-dev+exp,true,user,user.target.full_name.text,text,extended,,Albert Einstein,"User's full name, if available."
 1.12.0-dev+exp,true,user,user.target.group.domain,keyword,extended,,,Name of the directory the group is a member of.
 1.12.0-dev+exp,true,user,user.target.group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
 1.12.0-dev+exp,true,user,user.target.group.name,keyword,extended,,,Name of the group.
 1.12.0-dev+exp,true,user,user.target.hash,keyword,extended,,,Unique user hash to correlate information for a user in anonymized form.
 1.12.0-dev+exp,true,user,user.target.id,keyword,core,,,Unique identifier of the user.
-1.12.0-dev+exp,true,user,user.target.name,wildcard,core,,albert,Short name or login of the user.
+1.12.0-dev+exp,true,user,user.target.name,keyword,core,,albert,Short name or login of the user.
 1.12.0-dev+exp,true,user,user.target.name.text,text,core,,albert,Short name or login of the user.
 1.12.0-dev+exp,true,user,user.target.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 1.12.0-dev+exp,true,user_agent,user_agent.device.name,keyword,extended,,iPhone,Name of the device.
 1.12.0-dev+exp,true,user_agent,user_agent.name,keyword,extended,,Safari,Name of the user agent.
-1.12.0-dev+exp,true,user_agent,user_agent.original,wildcard,extended,,"Mozilla/5.0 (iPhone; CPU iPhone OS 12_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0 Mobile/15E148 Safari/604.1",Unparsed user_agent string.
+1.12.0-dev+exp,true,user_agent,user_agent.original,keyword,extended,,"Mozilla/5.0 (iPhone; CPU iPhone OS 12_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0 Mobile/15E148 Safari/604.1",Unparsed user_agent string.
 1.12.0-dev+exp,true,user_agent,user_agent.original.text,text,extended,,"Mozilla/5.0 (iPhone; CPU iPhone OS 12_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0 Mobile/15E148 Safari/604.1",Unparsed user_agent string.
 1.12.0-dev+exp,true,user_agent,user_agent.os.family,keyword,extended,,debian,"OS family (such as redhat, debian, freebsd, windows)."
-1.12.0-dev+exp,true,user_agent,user_agent.os.full,wildcard,extended,,Mac OS Mojave,"Operating system name, including the version or code name."
+1.12.0-dev+exp,true,user_agent,user_agent.os.full,keyword,extended,,Mac OS Mojave,"Operating system name, including the version or code name."
 1.12.0-dev+exp,true,user_agent,user_agent.os.full.text,text,extended,,Mac OS Mojave,"Operating system name, including the version or code name."
 1.12.0-dev+exp,true,user_agent,user_agent.os.kernel,keyword,extended,,4.4.0-112-generic,Operating system kernel version as a raw string.
-1.12.0-dev+exp,true,user_agent,user_agent.os.name,wildcard,extended,,Mac OS X,"Operating system name, without the version."
+1.12.0-dev+exp,true,user_agent,user_agent.os.name,keyword,extended,,Mac OS X,"Operating system name, without the version."
 1.12.0-dev+exp,true,user_agent,user_agent.os.name.text,text,extended,,Mac OS X,"Operating system name, without the version."
 1.12.0-dev+exp,true,user_agent,user_agent.os.platform,keyword,extended,,darwin,"Operating system platform (such centos, ubuntu, windows)."
 1.12.0-dev+exp,true,user_agent,user_agent.os.type,keyword,extended,,macos,"Which commercial OS family (one of: linux, macos, unix or windows)."

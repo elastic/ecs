@@ -1539,15 +1539,13 @@
       description: Error message.
     - name: stack_trace
       level: extended
-      type: keyword
+      type: wildcard
       multi_fields:
       - name: text
         type: text
         norms: false
         default_field: false
       description: The stack trace of this error in plain text.
-      index: false
-      doc_values: false
     - name: type
       level: extended
       type: keyword
@@ -3062,8 +3060,7 @@
       example: 887
     - name: request.body.content
       level: extended
-      type: keyword
-      ignore_above: 1024
+      type: wildcard
       multi_fields:
       - name: text
         type: text
@@ -3128,8 +3125,7 @@
       example: 887
     - name: response.body.content
       level: extended
-      type: keyword
-      ignore_above: 1024
+      type: wildcard
       multi_fields:
       - name: text
         type: text
@@ -4220,8 +4216,7 @@
       default_field: false
     - name: command_line
       level: extended
-      type: keyword
-      ignore_above: 1024
+      type: wildcard
       multi_fields:
       - name: text
         type: text
@@ -4569,8 +4564,7 @@
       default_field: false
     - name: parent.command_line
       level: extended
-      type: keyword
-      ignore_above: 1024
+      type: wildcard
       multi_fields:
       - name: text
         type: text
@@ -5096,8 +5090,7 @@
       default_field: false
     - name: data.strings
       level: core
-      type: keyword
-      ignore_above: 1024
+      type: wildcard
       description: 'Content when writing string types.
 
         Populated as an array when writing string data to the registry. For single
@@ -6661,8 +6654,7 @@
       default_field: false
     - name: enrichments.indicator.registry.data.strings
       level: core
-      type: keyword
-      ignore_above: 1024
+      type: wildcard
       description: 'Content when writing string types.
 
         Populated as an array when writing string data to the registry. For single
@@ -6772,8 +6764,7 @@
       default_field: false
     - name: enrichments.indicator.url.full
       level: extended
-      type: keyword
-      ignore_above: 1024
+      type: wildcard
       multi_fields:
       - name: text
         type: text
@@ -6785,8 +6776,7 @@
       default_field: false
     - name: enrichments.indicator.url.original
       level: extended
-      type: keyword
-      ignore_above: 1024
+      type: wildcard
       multi_fields:
       - name: text
         type: text
@@ -6807,8 +6797,7 @@
       default_field: false
     - name: enrichments.indicator.url.path
       level: extended
-      type: keyword
-      ignore_above: 1024
+      type: wildcard
       description: Path of the request, such as "/search".
       default_field: false
     - name: enrichments.indicator.url.port
@@ -7849,8 +7838,7 @@
       default_field: false
     - name: indicator.registry.data.strings
       level: core
-      type: keyword
-      ignore_above: 1024
+      type: wildcard
       description: 'Content when writing string types.
 
         Populated as an array when writing string data to the registry. For single
@@ -7960,8 +7948,7 @@
       default_field: false
     - name: indicator.url.full
       level: extended
-      type: keyword
-      ignore_above: 1024
+      type: wildcard
       multi_fields:
       - name: text
         type: text
@@ -7973,8 +7960,7 @@
       default_field: false
     - name: indicator.url.original
       level: extended
-      type: keyword
-      ignore_above: 1024
+      type: wildcard
       multi_fields:
       - name: text
         type: text
@@ -7995,8 +7981,7 @@
       default_field: false
     - name: indicator.url.path
       level: extended
-      type: keyword
-      ignore_above: 1024
+      type: wildcard
       description: Path of the request, such as "/search".
       default_field: false
     - name: indicator.url.port
@@ -9023,8 +9008,7 @@
         The `#` is not part of the fragment.'
     - name: full
       level: extended
-      type: keyword
-      ignore_above: 1024
+      type: wildcard
       multi_fields:
       - name: text
         type: text
@@ -9036,8 +9020,7 @@
       example: https://www.elastic.co:443/search?q=elasticsearch#top
     - name: original
       level: extended
-      type: keyword
-      ignore_above: 1024
+      type: wildcard
       multi_fields:
       - name: text
         type: text
@@ -9057,8 +9040,7 @@
       description: Password of the request.
     - name: path
       level: extended
-      type: keyword
-      ignore_above: 1024
+      type: wildcard
       description: Path of the request, such as "/search".
     - name: port
       level: extended
