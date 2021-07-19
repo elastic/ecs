@@ -283,5 +283,11 @@ def es6_type_fallback(mappings):
             if fallback_type:
                 mappings[name]['type'] = fallback_type
                 field_or_multi_field_datatype_defaults(mappings[name])
+        if 'fields' in details:
+            for field_name, field_value in details['fields'].items():
+                fallback_type = TYPE_FALLBACKS.get(field_value['type'])
+                if fallback_type:
+                    mappings[name]['fields'][field_name]['type'] = fallback_type
+                    field_or_multi_field_datatype_defaults(mappings[name]['fields'][field_name])
         if 'properties' in details:
             es6_type_fallback(details['properties'])
