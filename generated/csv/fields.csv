@@ -148,8 +148,8 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev,true,error,error.code,keyword,core,,,Error code describing the error.
 1.12.0-dev,true,error,error.id,keyword,core,,,Unique identifier for the error.
 1.12.0-dev,true,error,error.message,text,core,,,Error message.
-1.12.0-dev,false,error,error.stack_trace,keyword,extended,,,The stack trace of this error in plain text.
-1.12.0-dev,false,error,error.stack_trace.text,text,extended,,,The stack trace of this error in plain text.
+1.12.0-dev,true,error,error.stack_trace,wildcard,extended,,,The stack trace of this error in plain text.
+1.12.0-dev,true,error,error.stack_trace.text,text,extended,,,The stack trace of this error in plain text.
 1.12.0-dev,true,error,error.type,keyword,extended,,java.lang.NullPointerException,"The type of the error, for example the class name of the exception."
 1.12.0-dev,true,event,event.action,keyword,core,,user-password-change,The action captured by the event.
 1.12.0-dev,true,event,event.agent_id_status,keyword,extended,,verified,Validation status of the event's agent.id field.
@@ -325,7 +325,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev,true,host,host.user.name.text,text,core,,albert,Short name or login of the user.
 1.12.0-dev,true,host,host.user.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 1.12.0-dev,true,http,http.request.body.bytes,long,extended,,887,Size in bytes of the request body.
-1.12.0-dev,true,http,http.request.body.content,keyword,extended,,Hello world,The full HTTP request body.
+1.12.0-dev,true,http,http.request.body.content,wildcard,extended,,Hello world,The full HTTP request body.
 1.12.0-dev,true,http,http.request.body.content.text,text,extended,,Hello world,The full HTTP request body.
 1.12.0-dev,true,http,http.request.bytes,long,extended,,1437,Total size in bytes of the request (body and headers).
 1.12.0-dev,true,http,http.request.id,keyword,extended,,123e4567-e89b-12d3-a456-426614174000,HTTP request ID.
@@ -333,7 +333,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev,true,http,http.request.mime_type,keyword,extended,,image/gif,Mime type of the body of the request.
 1.12.0-dev,true,http,http.request.referrer,keyword,extended,,https://blog.example.com/,Referrer for this HTTP request.
 1.12.0-dev,true,http,http.response.body.bytes,long,extended,,887,Size in bytes of the response body.
-1.12.0-dev,true,http,http.response.body.content,keyword,extended,,Hello world,The full HTTP response body.
+1.12.0-dev,true,http,http.response.body.content,wildcard,extended,,Hello world,The full HTTP response body.
 1.12.0-dev,true,http,http.response.body.content.text,text,extended,,Hello world,The full HTTP response body.
 1.12.0-dev,true,http,http.response.bytes,long,extended,,1437,Total size in bytes of the response (body and headers).
 1.12.0-dev,true,http,http.response.mime_type,keyword,extended,,image/gif,Mime type of the body of the response.
@@ -445,7 +445,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev,true,process,process.code_signature.team_id,keyword,extended,,EQHXZ8M8AV,The team identifier used to sign the process.
 1.12.0-dev,true,process,process.code_signature.trusted,boolean,extended,,true,Stores the trust status of the certificate chain.
 1.12.0-dev,true,process,process.code_signature.valid,boolean,extended,,true,Boolean to capture if the digital signature is verified against the binary content.
-1.12.0-dev,true,process,process.command_line,keyword,extended,,/usr/bin/ssh -l user 10.0.0.16,Full command line that started the process.
+1.12.0-dev,true,process,process.command_line,wildcard,extended,,/usr/bin/ssh -l user 10.0.0.16,Full command line that started the process.
 1.12.0-dev,true,process,process.command_line.text,text,extended,,/usr/bin/ssh -l user 10.0.0.16,Full command line that started the process.
 1.12.0-dev,true,process,process.elf.architecture,keyword,extended,,x86-64,Machine architecture of the ELF file.
 1.12.0-dev,true,process,process.elf.byte_order,keyword,extended,,Little Endian,Byte sequence of ELF file.
@@ -496,7 +496,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev,true,process,process.parent.code_signature.team_id,keyword,extended,,EQHXZ8M8AV,The team identifier used to sign the process.
 1.12.0-dev,true,process,process.parent.code_signature.trusted,boolean,extended,,true,Stores the trust status of the certificate chain.
 1.12.0-dev,true,process,process.parent.code_signature.valid,boolean,extended,,true,Boolean to capture if the digital signature is verified against the binary content.
-1.12.0-dev,true,process,process.parent.command_line,keyword,extended,,/usr/bin/ssh -l user 10.0.0.16,Full command line that started the process.
+1.12.0-dev,true,process,process.parent.command_line,wildcard,extended,,/usr/bin/ssh -l user 10.0.0.16,Full command line that started the process.
 1.12.0-dev,true,process,process.parent.command_line.text,text,extended,,/usr/bin/ssh -l user 10.0.0.16,Full command line that started the process.
 1.12.0-dev,true,process,process.parent.elf.architecture,keyword,extended,,x86-64,Machine architecture of the ELF file.
 1.12.0-dev,true,process,process.parent.elf.byte_order,keyword,extended,,Little Endian,Byte sequence of ELF file.
@@ -575,7 +575,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev,true,process,process.working_directory,keyword,extended,,/home/alice,The working directory of the process.
 1.12.0-dev,true,process,process.working_directory.text,text,extended,,/home/alice,The working directory of the process.
 1.12.0-dev,true,registry,registry.data.bytes,keyword,extended,,ZQBuAC0AVQBTAAAAZQBuAAAAAAA=,Original bytes written with base64 encoding.
-1.12.0-dev,true,registry,registry.data.strings,keyword,core,array,"[""C:\rta\red_ttp\bin\myapp.exe""]",List of strings representing what was written to the registry.
+1.12.0-dev,true,registry,registry.data.strings,wildcard,core,array,"[""C:\rta\red_ttp\bin\myapp.exe""]",List of strings representing what was written to the registry.
 1.12.0-dev,true,registry,registry.data.type,keyword,core,,REG_SZ,Standard registry type for encoding contents
 1.12.0-dev,true,registry,registry.hive,keyword,core,,HKLM,Abbreviated name for the hive.
 1.12.0-dev,true,registry,registry.key,keyword,core,,SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\winword.exe,Hive-relative path of keys.
@@ -779,7 +779,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev,true,threat,threat.enrichments.indicator.provider,keyword,extended,,lrz_urlhaus,Indicator provider
 1.12.0-dev,true,threat,threat.enrichments.indicator.reference,keyword,extended,,https://system.example.com/indicator/0001234,Indicator reference URL
 1.12.0-dev,true,threat,threat.enrichments.indicator.registry.data.bytes,keyword,extended,,ZQBuAC0AVQBTAAAAZQBuAAAAAAA=,Original bytes written with base64 encoding.
-1.12.0-dev,true,threat,threat.enrichments.indicator.registry.data.strings,keyword,core,array,"[""C:\rta\red_ttp\bin\myapp.exe""]",List of strings representing what was written to the registry.
+1.12.0-dev,true,threat,threat.enrichments.indicator.registry.data.strings,wildcard,core,array,"[""C:\rta\red_ttp\bin\myapp.exe""]",List of strings representing what was written to the registry.
 1.12.0-dev,true,threat,threat.enrichments.indicator.registry.data.type,keyword,core,,REG_SZ,Standard registry type for encoding contents
 1.12.0-dev,true,threat,threat.enrichments.indicator.registry.hive,keyword,core,,HKLM,Abbreviated name for the hive.
 1.12.0-dev,true,threat,threat.enrichments.indicator.registry.key,keyword,core,,SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\winword.exe,Hive-relative path of keys.
@@ -791,12 +791,12 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev,true,threat,threat.enrichments.indicator.url.domain,keyword,extended,,www.elastic.co,Domain of the url.
 1.12.0-dev,true,threat,threat.enrichments.indicator.url.extension,keyword,extended,,png,"File extension from the request url, excluding the leading dot."
 1.12.0-dev,true,threat,threat.enrichments.indicator.url.fragment,keyword,extended,,,Portion of the url after the `#`.
-1.12.0-dev,true,threat,threat.enrichments.indicator.url.full,keyword,extended,,https://www.elastic.co:443/search?q=elasticsearch#top,Full unparsed URL.
+1.12.0-dev,true,threat,threat.enrichments.indicator.url.full,wildcard,extended,,https://www.elastic.co:443/search?q=elasticsearch#top,Full unparsed URL.
 1.12.0-dev,true,threat,threat.enrichments.indicator.url.full.text,text,extended,,https://www.elastic.co:443/search?q=elasticsearch#top,Full unparsed URL.
-1.12.0-dev,true,threat,threat.enrichments.indicator.url.original,keyword,extended,,https://www.elastic.co:443/search?q=elasticsearch#top or /search?q=elasticsearch,Unmodified original url as seen in the event source.
+1.12.0-dev,true,threat,threat.enrichments.indicator.url.original,wildcard,extended,,https://www.elastic.co:443/search?q=elasticsearch#top or /search?q=elasticsearch,Unmodified original url as seen in the event source.
 1.12.0-dev,true,threat,threat.enrichments.indicator.url.original.text,text,extended,,https://www.elastic.co:443/search?q=elasticsearch#top or /search?q=elasticsearch,Unmodified original url as seen in the event source.
 1.12.0-dev,true,threat,threat.enrichments.indicator.url.password,keyword,extended,,,Password of the request.
-1.12.0-dev,true,threat,threat.enrichments.indicator.url.path,keyword,extended,,,"Path of the request, such as ""/search""."
+1.12.0-dev,true,threat,threat.enrichments.indicator.url.path,wildcard,extended,,,"Path of the request, such as ""/search""."
 1.12.0-dev,true,threat,threat.enrichments.indicator.url.port,long,extended,,443,"Port of the request, such as 443."
 1.12.0-dev,true,threat,threat.enrichments.indicator.url.query,keyword,extended,,,Query string of the request.
 1.12.0-dev,true,threat,threat.enrichments.indicator.url.registered_domain,keyword,extended,,example.com,"The highest registered url domain, stripped of the subdomain."
@@ -936,7 +936,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev,true,threat,threat.indicator.provider,keyword,extended,,lrz_urlhaus,Indicator provider
 1.12.0-dev,true,threat,threat.indicator.reference,keyword,extended,,https://system.example.com/indicator/0001234,Indicator reference URL
 1.12.0-dev,true,threat,threat.indicator.registry.data.bytes,keyword,extended,,ZQBuAC0AVQBTAAAAZQBuAAAAAAA=,Original bytes written with base64 encoding.
-1.12.0-dev,true,threat,threat.indicator.registry.data.strings,keyword,core,array,"[""C:\rta\red_ttp\bin\myapp.exe""]",List of strings representing what was written to the registry.
+1.12.0-dev,true,threat,threat.indicator.registry.data.strings,wildcard,core,array,"[""C:\rta\red_ttp\bin\myapp.exe""]",List of strings representing what was written to the registry.
 1.12.0-dev,true,threat,threat.indicator.registry.data.type,keyword,core,,REG_SZ,Standard registry type for encoding contents
 1.12.0-dev,true,threat,threat.indicator.registry.hive,keyword,core,,HKLM,Abbreviated name for the hive.
 1.12.0-dev,true,threat,threat.indicator.registry.key,keyword,core,,SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\winword.exe,Hive-relative path of keys.
@@ -948,12 +948,12 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev,true,threat,threat.indicator.url.domain,keyword,extended,,www.elastic.co,Domain of the url.
 1.12.0-dev,true,threat,threat.indicator.url.extension,keyword,extended,,png,"File extension from the request url, excluding the leading dot."
 1.12.0-dev,true,threat,threat.indicator.url.fragment,keyword,extended,,,Portion of the url after the `#`.
-1.12.0-dev,true,threat,threat.indicator.url.full,keyword,extended,,https://www.elastic.co:443/search?q=elasticsearch#top,Full unparsed URL.
+1.12.0-dev,true,threat,threat.indicator.url.full,wildcard,extended,,https://www.elastic.co:443/search?q=elasticsearch#top,Full unparsed URL.
 1.12.0-dev,true,threat,threat.indicator.url.full.text,text,extended,,https://www.elastic.co:443/search?q=elasticsearch#top,Full unparsed URL.
-1.12.0-dev,true,threat,threat.indicator.url.original,keyword,extended,,https://www.elastic.co:443/search?q=elasticsearch#top or /search?q=elasticsearch,Unmodified original url as seen in the event source.
+1.12.0-dev,true,threat,threat.indicator.url.original,wildcard,extended,,https://www.elastic.co:443/search?q=elasticsearch#top or /search?q=elasticsearch,Unmodified original url as seen in the event source.
 1.12.0-dev,true,threat,threat.indicator.url.original.text,text,extended,,https://www.elastic.co:443/search?q=elasticsearch#top or /search?q=elasticsearch,Unmodified original url as seen in the event source.
 1.12.0-dev,true,threat,threat.indicator.url.password,keyword,extended,,,Password of the request.
-1.12.0-dev,true,threat,threat.indicator.url.path,keyword,extended,,,"Path of the request, such as ""/search""."
+1.12.0-dev,true,threat,threat.indicator.url.path,wildcard,extended,,,"Path of the request, such as ""/search""."
 1.12.0-dev,true,threat,threat.indicator.url.port,long,extended,,443,"Port of the request, such as 443."
 1.12.0-dev,true,threat,threat.indicator.url.query,keyword,extended,,,Query string of the request.
 1.12.0-dev,true,threat,threat.indicator.url.registered_domain,keyword,extended,,example.com,"The highest registered url domain, stripped of the subdomain."
@@ -1083,12 +1083,12 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev,true,url,url.domain,keyword,extended,,www.elastic.co,Domain of the url.
 1.12.0-dev,true,url,url.extension,keyword,extended,,png,"File extension from the request url, excluding the leading dot."
 1.12.0-dev,true,url,url.fragment,keyword,extended,,,Portion of the url after the `#`.
-1.12.0-dev,true,url,url.full,keyword,extended,,https://www.elastic.co:443/search?q=elasticsearch#top,Full unparsed URL.
+1.12.0-dev,true,url,url.full,wildcard,extended,,https://www.elastic.co:443/search?q=elasticsearch#top,Full unparsed URL.
 1.12.0-dev,true,url,url.full.text,text,extended,,https://www.elastic.co:443/search?q=elasticsearch#top,Full unparsed URL.
-1.12.0-dev,true,url,url.original,keyword,extended,,https://www.elastic.co:443/search?q=elasticsearch#top or /search?q=elasticsearch,Unmodified original url as seen in the event source.
+1.12.0-dev,true,url,url.original,wildcard,extended,,https://www.elastic.co:443/search?q=elasticsearch#top or /search?q=elasticsearch,Unmodified original url as seen in the event source.
 1.12.0-dev,true,url,url.original.text,text,extended,,https://www.elastic.co:443/search?q=elasticsearch#top or /search?q=elasticsearch,Unmodified original url as seen in the event source.
 1.12.0-dev,true,url,url.password,keyword,extended,,,Password of the request.
-1.12.0-dev,true,url,url.path,keyword,extended,,,"Path of the request, such as ""/search""."
+1.12.0-dev,true,url,url.path,wildcard,extended,,,"Path of the request, such as ""/search""."
 1.12.0-dev,true,url,url.port,long,extended,,443,"Port of the request, such as 443."
 1.12.0-dev,true,url,url.query,keyword,extended,,,Query string of the request.
 1.12.0-dev,true,url,url.registered_domain,keyword,extended,,example.com,"The highest registered url domain, stripped of the subdomain."
