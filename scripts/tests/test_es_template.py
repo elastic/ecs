@@ -222,6 +222,112 @@ class TestGeneratorsEsTemplate(unittest.TestCase):
         es_template.es6_type_fallback(test_map)
         self.assertEqual(test_map, exp)
 
+    def test_es6_fallback_base_case_match_only_text(self):
+        test_map = {
+            "field": {
+                "name": "field",
+                "type": "match_only_text"
+            }
+        }
+
+        exp = {
+            "field": {
+                "name": "field",
+                "type": "text",
+                "norms": False
+            }
+        }
+
+        es_template.es6_type_fallback(test_map)
+        self.assertEqual(test_map, exp)
+
+    def test_es6_fallback_recursive_case_match_only_text(self):
+        test_map = {
+            "top_field": {
+                "properties": {
+                    "field": {
+                        "name": "field",
+                        "type": "match_only_text"
+                    }
+                }
+            }
+        }
+
+        exp = {
+            "top_field": {
+                "properties": {
+                    "field": {
+                        "name": "field",
+                        "type": "text",
+                        "norms": False
+                    }
+                }
+            }
+        }
+
+        es_template.es6_type_fallback(test_map)
+        self.assertEqual(test_map, exp)
+
+    def test_es6_fallback_multifield_base_match_only_text(self):
+        test_map = {
+            "field": {
+                "name": "field",
+                "fields": {
+                    "text": {
+                        "type": "match_only_text"
+                    }
+                }
+            }
+        }
+
+        exp = {
+            "field": {
+                "name": "field",
+                "fields": {
+                    "text": {
+                        "type": "text",
+                        "norms": False
+                    }
+                }
+            }
+        }
+
+        es_template.es6_type_fallback(test_map)
+        self.assertEqual(test_map, exp)
+
+    def test_es6_fallback_multifield_recursive_match_only_text(self):
+        test_map = {
+            "top_field": {
+                "properties": {
+                    "field": {
+                        "fields": {
+                            "text": {
+                                "type": "match_only_text"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        exp = {
+            "top_field": {
+                "properties": {
+                    "field": {
+                        "fields": {
+                            "text": {
+                                "type": "text",
+                                "norms": False
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        es_template.es6_type_fallback(test_map)
+        self.assertEqual(test_map, exp)
+
     def test_component_composable_template_name(self):
         version = "1.8"
         test_map = {
