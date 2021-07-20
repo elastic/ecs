@@ -1,15 +1,8 @@
 ---
 - name: process
-  fields:
-    - name: command_line
-      type: wildcard
-    - name: executable
-      type: wildcard
-    - name: name
-      type: wildcard
-    - name: thread.name
-      type: wildcard
-    - name: title
-      type: wildcard
-    - name: working_directory
-      type: wildcard
+  reusable:
+    expected:
+      - at: process
+        as: target
+      - at: process.target
+        as: parent
