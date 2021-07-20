@@ -24,7 +24,9 @@ Stage 2: Include new or updated yml field definitions for all of the essential f
 
 ### Identified Wildcard Fields
 
-It will require changing the field's defined schema `type` from `keyword` to `wildcard` for a field to use the wildcard data type. The following fields are candidates for `wildcard`:
+It will require changing the field's defined schema `type` from `keyword` to `wildcard` for a field to use the wildcard data type.
+
+The following fields are the identified candidates for migrating to `wildcard`:
 
 | Field Set | Field(s) |
 | --------- | -------- |
@@ -40,7 +42,7 @@ The complete set of proposed field definitions are in the [rfcs/text/0001/](0001
 
 Here's an example of applying this change to the `process.command_line` field:
 
-**Definition as of ECS 1.6.0**
+**Definition as of ECS 1.10.0**
 
 Schema definition:
 
@@ -231,50 +233,6 @@ Stage 2: Included a real world example source document. Ideally this example com
 
 Each example in this section contains a partial index mapping, a partial event, and one wildcard search query. Each query example uses a leading wildcard on expected high-cardinality fields where `wildcard` is expected to perform better than `keyword`.
 
-**Windows registry event from sysmon:**
-
-```
-### Mapping (partial)
-...
-        "registry" : {
-          "properties" : {
-            "key" : {
-              "type" : "wildcard"
-            }
-          }
-        }
-...
-
-### Event (partial)
-...
-    "registry": {
-      "path": "HKU\\S-1-5-21-1957236100-58272097-297103362-500\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\\HideFileExt",
-      "hive": "HKU",
-      "key": "S-1-5-21-1957236100-58272097-297103362-500\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\\HideFileExt",
-      "value": "HideFileExt",
-      "data": {
-        "strings": [
-          "1"
-        ],
-        "type": "SZ_DWORD"
-      }
-...
-
-### Query
-
-GET winlogbeat-*/_search
-{
-  "query": {
-    "wildcard": {
-      "registry.key": {
-        "value": "*CurrentVersion*"
-      }
-    }
-  }
-}
-
-```
-
 **Windows Powershell logging event:**
 
 ```
@@ -379,7 +337,7 @@ Wildcard fields require more disk space for the additional n-gram index. This di
 
 ### Storage and Indexing Costs
 
-When assembling the initial list of candidate fields to migrate to `wildcard,` we split focus between query performance improvements and removing security blind spots. However, we overlooked the storage and indexing costs when switching fields to be indexed as `wildcard.`
+When assembling the initial list of candidate fields to migrate to `wildcard`, we split focus between query performance improvements and removing security blind spots. However, we overlooked the storage and indexing costs when switching fields to be indexed as `wildcard.`
 
 ECS fields will be re-evaluated now in terms of storage and indexing using the following criteria:
 
@@ -418,7 +376,7 @@ Some fields require flexibility in how users search. For example, their content 
 
 #### Resolution
 
-The `case_insensitivity` query parameter was added in Elasticsearch 7.10. Both `keyword` and `wildcard` types will be supported, and each type's noted [performance characteristics](#comparison-with-keyword) will be consistent.
+The `case_insensitivity` query parameter was added in Elasticsearch 7.10. Both `keyword` and `wildcard` types are supported, and each type's noted [performance characteristics](#comparison-with-keyword) will be consistent.
 
 ### Performance differences
 
