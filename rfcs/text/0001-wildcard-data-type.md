@@ -4,10 +4,10 @@
 - Stage: **3 (finished)** <!-- Update to reflect target stage -->
 - Date: **TBD** <!-- Update to reflect date of most recent stage advancement -->
 
-Wildcard is a data type for Elasticsearch string fields being introduced in Elasticsearch 7.9. Wildcard optimizes performance for queries using wildcards (`*`) and regex, allowing users to perform `grep`-like searches without the limitations of the existing
+Wildcard is a data type for Elasticsearch string fields introduced in Elasticsearch 7.9. Wildcard optimizes performance for queries using wildcards (`*`) and regex, allowing users to perform `grep`-like searches without the limitations of the existing
 text[0] and keyword[1] types.
 
-This RFC focuses on migrating a subset of existing ECS fields, all of which are currently using the `keyword` type, to `wildcard`. Any net new fields introduced into ECS and are well-suited are encouraged to use `wildcard` independently of this RFC.
+This RFC focuses on migrating a subset of existing ECS fields, all of which currently use the `keyword` type, to `wildcard`. Any net new fields introduced into ECS and are well-suited are encouraged to use `wildcard` independently of this RFC.
 
 The objectives of this migration:
 
@@ -24,7 +24,7 @@ Stage 2: Include new or updated yml field definitions for all of the essential f
 
 ### Identified Wildcard Fields
 
-For a field to use wildcard, it will require changing the field's defined schema `type` from `keyword` to `wildcard`. The following fields are candidates for `wildcard`:
+It will require changing the field's defined schema `type` from `keyword` to `wildcard` for a field to use the wildcard data type. The following fields are candidates for `wildcard`:
 
 | Field Set | Field(s) |
 | --------- | -------- |
@@ -34,7 +34,7 @@ For a field to use wildcard, it will require changing the field's defined schema
 | [`registry`](0001/registry.yml) | `registry.data.strings` |
 | [`url`](0001/url.yml) | `url.full`<br> `url.original`<br> `url.path` |
 
-The full set of schema files which will be transitioning to `wildcard` are located in directory [rfcs/text/0001/](0001/).
+The complete set of proposed field definitions are in the [rfcs/text/0001/](0001/) directory.
 
 ### Example definition
 
@@ -111,7 +111,7 @@ Mapping definition:
 }
 ```
 
-**Note**: the existing `text` data type multi-field will remain only if there is a need to support tokenized searches.
+**Note**: the existing `text` data type multi-field will remain if there is a need to support tokenized searches.
 
 ## Usage
 
@@ -119,13 +119,13 @@ Mapping definition:
 Stage 1: Describe at a high-level how these field changes will be used in practice. Real world examples are encouraged. The goal here is to understand how people would leverage these fields to gain insights or solve problems. ~1-3 paragraphs.
 -->
 
-Wildcard is well-suited for cases requiring partial matching of string values across long unstructured or semi-structured fields. Often machine generated events, such as logs, metrics, and traces, aren't well suited for the analysis applied on `text` fields. Using `keyword` allows for exact value searching and introduces filtering, sorting, and aggregations. Keyword fields do also support regex and wildcard queries, however the field's search performance can vary a lot, depending on the query (e.g. leading wildcard) and the cardinality of the data.
+Wildcard is well-suited for cases requiring partial matching of string values across long unstructured or semi-structured fields. Often, machine-generated events, such as logs, metrics, and traces, aren't well suited for the analysis applied on `text` fields. Using `keyword` allows for exact value searching and introduces filtering, sorting, and aggregations. Keyword fields also support regex and wildcard queries, however, the field's search performance can vary, depending on the query (for example, leading wildcard) and the cardinality of the data.
 
-Often ECS approaches semi-structured fields by breaking their values down into structured ones. These structured fields then enable better use of keyword fields' characteristics. For example, a URL can break down into its constituent parts: scheme, domain,  port, path, etc., and those parts can in turn be mapped to unique fields. However, not all fields are structured enough for this approach.
+Often ECS approaches semi-structured fields by breaking their values down into structured ones. These structured fields then enable better use of keyword fields' characteristics. For example, a URL can break down into its constituent parts: scheme, domain, port, path, etc., and those parts can, in turn, map to unique fields. However, not all fields are structured enough for this approach.
 
-In the security discipline, threat hunting searches and detection rules often rely on `grep`-like wildcard and regex patterns. Many other security platforms and SIEMs support wildcard and regex in this way, and it often can be confusing to security practitioners trying to adopt their detections and techniques to Elastic. These users require detailed pattern-matching operations that perform consistently well across large data sets. Wildcard is optimized for this type of need.
+In the security discipline, threat hunting searches and detection rules often rely on `grep`-like wildcard and regex patterns. Many other security platforms with search capabilities support wildcard and regex in this way. It often can be confusing to security practitioners trying to adopt their detections and techniques to Elastic. These users require detailed pattern-matching operations that perform consistently well across large data sets. Wildcard provides another capability to address this challenge.
 
-A final interesting property of wildcard is its unlimited max character field size. Elasticsearch keyword field default to a max allowed string size of 256 characters which ECS ups to 1024 using `ignore_above`. Keyword can't be increased infinitely because Lucene has a hard set max limit of 32766 bytes for a single term. Due to how wildcard strings are indexed, they do not share this limitation. This makes wildcard the ideal data type for a very large string field (>32kB) that still needs to be indexed.
+Finally, wildcard support an unlimited character field size. Elasticsearch keyword fields default to a maximum string size of 256 characters which ECS ups to 1024 using `ignore_above`. A keyword field's size cannot increase infinitely due to Lucene's max limit of 32766 bytes for a single term. Due to how wildcard strings are indexed, they do not share this limitation. Wildcard is preferred over keyword when very long strings (>32kB) need to be indexed.
 
 ### Comparison with keyword
 
@@ -150,16 +150,16 @@ The following table is a comparison of `wildcard` vs. `keyword` [2]:
 | Supports normalizers in mappings | Y | N |
 | Indexing speeds | Fast | Slower (see *6) |
 
-1. Somewhat slower as doc values retrieved from compressed blocks of 32
-2. Somewhat slower because approximate matches with n-grams need verification
-3. Keyword field visits every unique value only once but wildcard field assesses every utterance of values
-4. If "allow expensive queries" is enabled
-5. Depends on common prefixes - keyword fields have common-prefix based compression whereas wildcard fields are whole-value LZ4 compression.
-6. Will vary with content but a test indexing weblogs took 499 seconds vs. keyword's 365 seconds.
+1. Somewhat slower as doc values retrieved from compressed blocks of 32.
+2. Somewhat slower because approximate matches with n-grams need verification.
+3. Keyword field visits every unique value only once, but wildcard field assesses every utterance of values.
+4. If "allow expensive queries" is enabled.
+5. Depends on common prefixes - keyword fields have common-prefix-based compression, whereas wildcard fields are whole-value LZ4 compression.
+6. Will vary with content, but a test indexing weblogs took 499 seconds vs. keyword's 365 seconds.
 
 ### Decision Flow
 
-Since deciding between `wildcard` and `keyword` involves weighing tradeoffs, this workflow is a visual to help assess when choosing `wildcard` may provide an advantage [2].
+Since deciding between `wildcard` and `keyword` involves weighing trade-offs, this workflow is a visual to help assess when choosing `wildcard` may provide an advantage [2].
 
 <img width="929" alt="wildcard-field-workflow" src="https://images.contentstack.io/v3/assets/bltefdd0b53724fa2ce/blt086af7a2897168a8/5f37050cdb5c28785b6f0413/blog-wildcard-field-workflow.png">
 
@@ -185,7 +185,7 @@ Common categories:
 
 #### Stack traces
 
-Program stack traces tend to be well-structured but with long text and varied contents. There are too many subtleties and application-specific patterns to map all of them accurately with ECS' field definitions. Better performing wildcard searches can help the user formulate their own queries easier and with a smaller performance hit.
+Program stack traces tend to be well-structured but with long text and varied contents. There are too many subtleties and application-specific patterns to map all of them accurately with ECS' field definitions. Better performing wildcard searches can help users formulate their queries easier and with a more minor performance hit.
 
 Looking at the following example of a stack trace:
 
@@ -208,11 +208,11 @@ at java.base/java.lang.invoke.LambdaMetafactory.metafactory(LambdaMetafactory.ja
 at java.base/java.lang.invoke.BootstrapMethodInvoker.invoke(BootstrapMethodInvoker.java:127)
 ```
 
-When looking for similar events that also contain the phrase `lambda$performRequestAndParseEntity$9(RestHighLevelClient.java`, I'd need a field that supports searching in the middle of a string. Keyword would perform poorly and text would require rethinking the query to match the analyzer and tokenization applied at index time.
+When looking for similar events containing the phrase `lambda$performRequestAndParseEntity$9(RestHighLevelClient.java`, users need a field that supports searching in the middle of a string. Keyword would perform poorly, and text would require rethinking the query to match the analyzer and tokenization applied at index time.
 
 #### Command-line execution
 
-The arguments, order of those arguments, and values passed can be arbitrary in a command-line execution. If searching across multiple arguments, retaining their ordering, and/or the argument-value pairing is key to the search criteria, multiple wildcards patterns may be needed in a single query. If the presence of the arguments/values is the only criteria regardless of ordering or pairing, using a structured field such as `process.args` would be preferred. Wildcard searching such an unstructured field indexed as keyword, like `process.command_line`, can cause performance challenges.
+The arguments, order of those arguments, and values passed can be arbitrary in a command-line execution. Multiple wildcards patterns may be needed in a single query if searching across multiple arguments, retaining their ordering, or the argument-value pairing is key to the search criteria. If arguments/values are the only criteria regardless of ordering or pairing, using a structured field such as `process.args` would be preferred. Wildcard searching such an unstructured field indexed as keyword, like `process.command_line`, can cause performance challenges.
 
 Example:
 
@@ -220,7 +220,7 @@ Example:
 process.command_line:*\/f foo* AND process.command_line:*\/b bar*
 ```
 
-Additional cases for wildcard searching against command line executions:
+Additional cases for wildcard searching against command-line executions:
 
 * Multiple spaces in the command line execution
 * Isolating specific substrings where ordering matters
@@ -243,9 +243,9 @@ Stage 2: Included a real world example source document. Ideally this example com
 * Endpoint agents
 * Application stack traces
 
-### Real world examples
+### Real-world examples
 
-Each example in this section contains a partial index mapping, a partial event, and one wildcard search query. Each query example uses a leading wildcard on expected high-cardinality fields where `wildcard` is performs far better than `keyword`.
+Each example in this section contains a partial index mapping, a partial event, and one wildcard search query. Each query example uses a leading wildcard on expected high-cardinality fields where `wildcard` is expected to perform better than `keyword`.
 
 **Windows registry event from sysmon:**
 
@@ -391,7 +391,7 @@ The goal here is to research and understand the impact of these changes on users
 1. n-gram index of all three character sequences in the string values
 2. binary doc value store of the original values
 
-Wildcard fields require more disk space for the additional n-gram index. This disk cost is only recovered if the full doc values that are also stored compress better than the compression of the keyword fields for the doc values. Keyword values are compressed based on common-prefixes in the values, but wildcard values use LZ4 based on blocks of 32 values. These two compression approaches vary depending on size, duplicate values, the cardinality of the data, and so on.
+Wildcard fields require more disk space for the additional n-gram index. This disk cost is only recovered if the full doc values are also stored compress better than the compression of the keyword fields for the doc values. Keyword values are compressed based on common-prefixes in the values, but wildcard values use LZ4 based on blocks of 32 values. These two compression approaches vary depending on size, duplicate values, the cardinality of the data, and so on.
 
 ### Storage and Indexing Costs
 
@@ -399,7 +399,7 @@ When assembling the initial list of candidate fields to migrate to `wildcard,` w
 
 ECS fields will be re-evaluated now in terms of storage and indexing using the following criteria:
 
-* Underestimating cardinality of particular fields. How many unique fields are expected for a given field? Thousands? Hundreds of Thousands? Millions?
+* Underestimating cardinality of particular fields. For example, how many unique fields are expected for a given field? Thousands? Hundreds of Thousands? Millions?
 * Disk costs for mostly identical values. Which fields are more likely to have values sharing common prefixes and better compression as `keyword`?
 
 ### Query Performance
@@ -418,11 +418,11 @@ Any component producing data (Beats, Logstash, third-party developed, etc.) will
 
 ### Usage mechanisms
 
-Part of the 7.9 release is the introduction of the keyword family[3]. Grouping field types by family is intended to eliminate backwards compatibility issues when replacing an older field type with a new, more specialized type on time-based indices (e.g. `keyword` replaced with `wildcard`). The `wildcard` data type will return `keyword` in the output of the field capabilities API call, and this change will enable both types to behave identically at query time. This feature eliminates concerns arising from Kibana's field compatibility checks in index patterns.
+The `wildcard` type is a member of the keyword family[3]. Grouping field types by family eliminates backward compatibility issues when replacing an older field type with a new, more specialized type on time-based indices (e.g. `keyword` replaced with `wildcard`). The `wildcard` data type will return `keyword` in the field caps API response, and this change will enable both types to behave identically at query time. This feature eliminates concerns arising from Kibana's field compatibility checks in index patterns.
 
 ### ECS project
 
-ECS is and will remain an open source licensed project. However, there will be features available under the Elastic license that will benefit the user experience with the Elastic stack and solutions that have a place in the ECS specification. The ECS project's tooling will create an option in the tooling to generate OSS compatible mappings that continue supporting the OSS licensed features of Elastic. The discussion and implementation of this functionality will take place outside this proposal.
+ECS will remain an Apache 2.0 licensed open-source project. However, there will be features available under the Elastic license that will benefit the user experience with the Elastic stack and solutions that have a place in the ECS specification. The ECS project's tooling will create an option in the tooling to generate OSS compatible mappings that continue supporting the OSS licensed features of Elastic. The discussion and implementation of this functionality will take place outside this proposal.
 
 ## Concerns
 
@@ -432,28 +432,28 @@ Stage 2: Document new concerns or resolutions to previously listed concerns. It'
 
 ### Wildcard and case-insensitivity
 
-Some fields require flexibility in how users search. Their content is messy (e.g. user-agent) or popular for threat hunters (e.g. file paths and names, command line processes), and a single character in the opposite casing can bypass a detection today for `keyword` fields. The `wildcard` field provides improved performance of leading `wildcard` and `regex` term-level queries, but is also a step towards case-insensitive search support in Elasticsearch. As Elasticsearch moves forward towards introducing a case-insensitive query option [3], ECS considers the fields adopting `wildcard` to be popular candidates for case-insensitive searching once the feature is available.
+Some fields require flexibility in how users search. For example, their content is messy (such as user-agent values) or popular for threat hunters (command line processes), and a single character in the opposite casing can bypass a detection today for `keyword` fields. The `wildcard` field provides improved performance of leading `wildcard` and `regex` term-level queries but is also a step towards case-insensitive search support in Elasticsearch.
 
 #### Resolution
 
-The `case_insensitivity` query parameter is an expected feature in Elasticsearch 7.10 with support for the `regexp`, `term`, `prefix`, and `wildcard` query types[4]. Since this is a query parameter, both `keyword` and `wildcard` types will be supported, and each type's noted [performance characteristics](#comparison-with-keyword) will be consistent.
+The `case_insensitivity` query parameter was added in Elasticsearch 7.10. Both `keyword` and `wildcard` types will be supported, and each type's noted [performance characteristics](#comparison-with-keyword) will be consistent.
 
 ### Performance differences
 
-Performance and storage characteristics between wildcard and keyword will be different[5], and this difference may have an impact depending on deployment size and/or the level of duplication in the field data. Fields which were previously indexed as keyword will be switched to wildcard. With these fields now indexed as wildcard, users will be querying fields which are indexed as keyword in some indices and as wildcard in others. Any potential indexing or querying differences needs to be understood and captured.
+Performance and storage characteristics between wildcard and keyword will be different[4]. This difference will vary based deployment size and/or the amount of field data duplication. Fields that were previously indexed as keyword will switch to wildcard. With these fields now indexed as wildcard, users will be querying fields that are indexed as keyword in some indices and as wildcard in others. Any possible indexing or querying differences need to be understood and captured.
 
-The performance characteristics for both indexing and querying for the two types were explored and observations [noted](#comparison-with-keyword) in the earlier phases of this proposal. However, after additional benchmarking the increases in storage costs and decreasing in index performance was found to be significant enough that we need to revisit our approach. Each candidate field will need to be reassessed against a more rigorous set of criteria for inclusion into this initial type migration.
+Indexing and query performance characteristics of both types were explored. The observations were [noted](#comparison-with-keyword) earlier in this proposal. However, after additional benchmarking, the increases in storage costs and decreasing in index performance were found to be significant enough that we need to revisit our approach.
 
-#### Resolution (Pending)
+#### Resolution
 
-The following categories are areas that were initially candidates for `wildcard`, but after reviewing the benchmarking data, the fields will not typically have high enough cardinality to make them ideal candidates for `wildcard`.
+The following categories were initially candidates for `wildcard`, but after reviewing the benchmarking data, the fields will not typically have high enough cardinality to make them ideal candidates for `wildcard`.
 ##### File paths and names
 
-File path values are likely to compress extremely well as `keyword` since `keyword` fields have common-prefix-based compression (`wildcard` values are blocks of 32 values compressed into a single LZ4 blob). On top of the worse doc values compression, the number of `postings` also increases significantly due to n-grams.
+File path values are likely to compress well as `keyword` since `keyword` fields have common-prefix-based compression (`wildcard` values are blocks of 32 values compressed into a single LZ4 blob). On top of the worse doc values compression, the number of `postings` also increases significantly due to n-grams.
 
 ##### Host and Organization Naming
 
-Hostname values are very likely duplicated from event to event. Even though an index might have thousands of different hosts, it's unlikely to see millions of unique hostname values.
+Often, hostname values duplicate from event to event. An index will usually have thousands of different hosts and is unlikely to see millions of unique hostname values.
 
 Depending on an organization's host naming convention, there's also some possibility of common prefixing (hosts named `USNHCDBRD-D001` and `USNHCW2K8-P001` both share the prefix `USNHC`).
 
@@ -486,11 +486,11 @@ Also as of ECS 1.8, the `event.original` field is not indexed due to the very la
 
 ### Wildcard field value character limits
 
-ECS applies the `ignore_above` setting to keyword fields to prevent strings longer than 1024 characters from being indexed or stored. While `ignore_above` can be raised, Lucene implements a term byte-length limit of 32766 which cannot be adjusted. Wildcard supports an unlimited max character size for a field value. The `wildcard` field type will still have the `ignore_above` option available, and a reasonable limit may be need applied to mitigate unexpected side-effects.
+ECS applies the `ignore_above` setting to keyword fields to prevent strings longer than 1024 characters from being indexed or stored. Users may raise the setting of `ignore_above`, but Lucene implements a term byte-length limit of 32766, which cannot be adjusted. Wildcard supports an unlimited max character size for a field value. The `wildcard` field type will still have the `ignore_above` option available, and a reasonable limit may need applying to mitigate unexpected side-effects.
 
 #### Resolution
 
-This ability to ingest extremely long values is considered an advantage of `wildcard` compared to `keyword`. Therefore, the `wildcard` fields will not have an `ignore_above` option defined initially.
+This ability to ingest very long values is considered an advantage of `wildcard` compared to `keyword`. Therefore, the `wildcard` fields will not have an `ignore_above` option defined initially.
 
 ### Licensing
 
@@ -545,9 +545,8 @@ The following are the people that consulted on the contents of this RFC.
 * [0] Wildcard queries on `text` fields are limited to matching individual tokens rather than the original value of the field.
 * [1] Keyword fields are not tokenized like `text` fields, so patterns can match multiple words. However they suffer from slow performance with wildcard searching (especially with leading wildcards).
 * [2] https://www.elastic.co/blog/find-strings-within-strings-faster-with-the-new-elasticsearch-wildcard-field
-* [3] https://github.com/elastic/elasticsearch/issues/61162
-* [4] https://github.com/elastic/elasticsearch/issues/61162
-* [5] https://github.com/elastic/elasticsearch/pull/58483
+* [3] https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-term-query.html#term-field-params
+* [4] https://github.com/elastic/elasticsearch/pull/58483
 
 ## References
 
