@@ -1,13 +1,20 @@
 # 0020: Version Type Field Migration
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
-- Stage: **0 (strawperson)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
-- Date: **2021-04-22** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
+- Stage: **X (abandoned)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
+- Date: **2021-07-20** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 <!--
 As you work on your RFC, use the "Stage N" comments to guide you in what you should focus on, for the stage you're targeting.
 Feel free to remove these comments as you go along.
 -->
+
+<!--
+Stage X: Provide a brief explanation of why the proposal is being marked as abandoned. This is useful context for anyone revisiting this proposal or considering similar changes later on.
+-->
+## Abandoned
+
+As the time this proposal was marked `abandoned`, adopting `version` is not a priority for the ECS team or other ECS stakeholders. The team may revisit reviewing how `version` could be beneficial later on.
 
 <!--
 Stage 0: Provide a high level summary of the premise of these changes. Briefly describe the nature, purpose, and impact of the changes. ~2-5 sentences.
@@ -132,6 +139,7 @@ e.g.:
 <!-- An RFC should link to the PRs for each of it stage advancements. -->
 
 * Stage 0: https://github.com/elastic/ecs/pull/1309
+* Stage X: https://github.com/elastic/ecs/pull/1451
 
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN
