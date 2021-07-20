@@ -11,7 +11,8 @@ from schema.cleaner import field_or_multi_field_datatype_defaults
 TYPE_FALLBACKS = {
     'constant_keyword': 'keyword',
     'wildcard': 'keyword',
-    'version': 'keyword'
+    'version': 'keyword',
+    'match_only_text': 'text'
 }
 
 # Composable Template
