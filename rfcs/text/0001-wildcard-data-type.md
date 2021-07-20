@@ -167,22 +167,6 @@ Since deciding between `wildcard` and `keyword` involves weighing trade-offs, th
 
 The following sections detail use cases which could benefit using the `wildcard` type.
 
-#### Names
-
-Similar to paths, different names components may need to be searched using one or more wildcard.
-
-* Flexible host name searching: `host.name:prod-*-db*`
-* Likewise, flexible searching of user names or accounts: `user.email:foo*@example.com`
-
-Common categories:
-
-* Usernames
-* Host names
-* Process names
-* OS names
-* Email addresses
-* Domains
-
 #### Stack traces
 
 Program stack traces tend to be well-structured but with long text and varied contents. There are too many subtleties and application-specific patterns to map all of them accurately with ECS' field definitions. Better performing wildcard searches can help users formulate their queries easier and with a more minor performance hit.
