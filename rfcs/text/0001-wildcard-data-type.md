@@ -388,8 +388,6 @@ ECS fields will be re-evaluated now in terms of storage and indexing using the f
 
 ### Query Performance
 
-Query performance of `wildcard` vs. `keyword` hasn't been benchmarked extensively. ECS recognizes some fields may need `wildcard` even with an increase in storage and indexing overhead due to other query benefits.
-
 Keyword vs. wildcard query characteristics:
 
 * `keyword` will perform queries faster for a prefix query (`foo*`) on a low-cardinality field (< hundreds of thousands of unique values) than `wildcard.`
