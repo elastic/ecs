@@ -22,7 +22,8 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
-* Added `file.fork_name` field #1288
+* Added `file.fork_name` field. #1288
+* Beta migration on some `keyword` fields to `wildcard`. #1517
 
 #### Improvements
 
