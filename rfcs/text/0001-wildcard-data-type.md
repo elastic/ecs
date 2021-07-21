@@ -171,7 +171,7 @@ The following sections detail use cases which could benefit using the `wildcard`
 
 #### Stack traces
 
-Program stack traces tend to be well-structured but with long text and varied contents. There are too many subtleties and application-specific patterns to map all of them accurately with ECS' field definitions. Better performing wildcard searches can help users formulate their queries easier and with a more minor performance hit.
+Program stack traces tend to be well-structured but with long text and varied contents. There are too many subtleties and application-specific patterns to map all of them accurately with ECS' field definitions. Better performing wildcard searches can help users formulate their queries easier and with a less significant performance hit.
 
 Looking at the following example of a stack trace:
 
@@ -337,7 +337,7 @@ Wildcard fields require more disk space for the additional n-gram index. This di
 
 ### Storage and Indexing Costs
 
-When assembling the initial list of candidate fields to migrate to `wildcard`, we split focus between query performance improvements and removing security blind spots. However, we overlooked the storage and indexing costs when switching fields to be indexed as `wildcard.`
+When assembling the initial list of candidate fields to migrate to `wildcard`, we split focus between query performance improvements and removing security blind spots. However, we overlooked the storage and indexing costs when switching fields to be indexed as `wildcard`.
 
 ECS fields will be re-evaluated now in terms of storage and indexing using the following criteria:
 
@@ -354,7 +354,7 @@ Keyword vs. wildcard query characteristics:
 
 ### Ingestion
 
-Any component producing data (Beats, Logstash, third-party developed, etc.) will need to adopt the mappings in their index templates.
+Any component producing data (Agent, Beats, Logstash, third-party developed, etc.) will need to adopt the mappings in their index templates.
 
 ### Usage mechanisms
 
@@ -380,7 +380,7 @@ The `case_insensitivity` query parameter was added in Elasticsearch 7.10. Both `
 
 ### Performance differences
 
-Performance and storage characteristics between wildcard and keyword will be different[4]. This difference will vary based deployment size and/or the amount of field data duplication. Fields that were previously indexed as keyword will switch to wildcard. With these fields now indexed as wildcard, users will be querying fields that are indexed as keyword in some indices and as wildcard in others. Any possible indexing or querying differences need to be understood and captured.
+Performance and storage characteristics between `wildcard` and `keyword` will be different[4]. This difference will vary based deployment size and/or the amount of field data duplication. Fields that were previously indexed as `keyword` will switch to `wildcard`. With these fields now indexed as `wildcard`, users will query fields that are indexed as keyword in some indices and as wildcard in others. Any possible indexing or querying differences need to be understood and captured.
 
 Indexing and query performance characteristics of both types were explored. The observations were [noted](#comparison-with-keyword) earlier in this proposal. However, after additional benchmarking, the increases in storage costs and decreasing in index performance were found to be significant enough that we need to revisit our approach.
 
@@ -389,11 +389,11 @@ Indexing and query performance characteristics of both types were explored. The 
 The following categories were initially candidates for `wildcard`, but after reviewing the benchmarking data, the fields will not typically have high enough cardinality to make them ideal candidates for `wildcard`.
 ##### File paths and names
 
-File path values are likely to compress well as `keyword` since `keyword` fields have common-prefix-based compression (`wildcard` values are blocks of 32 values compressed into a single LZ4 blob). On top of the worse doc values compression, the number of `postings` also increases significantly due to n-grams.
+File path values are likely to compress well as `keyword` since `keyword` fields have common-prefix-based compression (`wildcard` values are blocks of 32 values compressed into a single LZ4 blob). In addition to worsened doc values compression, the number of `postings` also increases significantly due to n-grams.
 
 ##### Host and Organization Naming
 
-Often, hostname values duplicate from event to event. An index will usually have thousands of different hosts and is unlikely to see millions of unique hostname values.
+Often, hostname values are duplicated from event to event. An index will usually have thousands of different hosts and is unlikely to see millions of unique hostname values.
 
 Depending on an organization's host naming convention, there's also some possibility of common prefixing (hosts named `USNHCDBRD-D001` and `USNHCW2K8-P001` both share the prefix `USNHC`).
 
