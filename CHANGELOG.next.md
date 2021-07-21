@@ -19,6 +19,7 @@ Thanks, you're awesome :-) -->
 
 * Added `file.fork_name` field. #1288
 * Beta migration on some `keyword` fields to `wildcard`. #1517
+* Support ES 6.x type fallback for `match_only_text` field types. #1528
 
 #### Improvements
 
