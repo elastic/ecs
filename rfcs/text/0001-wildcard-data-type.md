@@ -372,7 +372,7 @@ Stage 2: Document new concerns or resolutions to previously listed concerns. It'
 
 ### Wildcard and case-insensitivity
 
-Some fields require flexibility in how users search. For example, their content is messy (such as user-agent values) or popular for threat hunters (command line processes), and a single character in the opposite casing can bypass a detection today for `keyword` fields. The `wildcard` field provides improved performance of leading `wildcard` and `regex` term-level queries but is also a step towards case-insensitive search support in Elasticsearch.
+Some fields require flexibility in how users search. For example, their content is messy (such as user-agent values) or popular for threat hunters (process command-lines or a PowerShell script). The `wildcard` field provides improved performance of leading `wildcard` and `regex` term-level queries.
 
 #### Resolution
 
