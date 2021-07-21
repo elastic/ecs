@@ -24,7 +24,7 @@ Stage 2: Include new or updated yml field definitions for all of the essential f
 
 ### Identified Wildcard Fields
 
-It will require changing the field's defined schema `type` from `keyword` to `wildcard` for a field to use the wildcard data type.
+For a field to use wildcard, it will require changing the field's defined schema `type` from `keyword` to `wildcard`. The following fields are candidates for `wildcard`:
 
 The following fields are the identified candidates for migrating to `wildcard`:
 
@@ -123,7 +123,7 @@ Stage 1: Describe at a high-level how these field changes will be used in practi
 
 Wildcard is well-suited for cases requiring partial matching of string values across long unstructured or semi-structured fields. Often, machine-generated events, such as logs, metrics, and traces, aren't well suited for the analysis applied on `text` fields. Using `keyword` allows for exact value searching and introduces filtering, sorting, and aggregations. Keyword fields also support regex and wildcard queries, however, the field's search performance can vary, depending on the query (for example, leading wildcard) and the cardinality of the data.
 
-Often ECS approaches semi-structured fields by breaking their values down into structured ones. These structured fields then enable better use of keyword fields' characteristics. For example, a URL can break down into its constituent parts: scheme, domain, port, path, etc., and those parts can, in turn, map to unique fields. However, not all fields are structured enough for this approach.
+Often ECS approaches semi-structured fields by breaking their values down into structured ones. These structured fields then enable better use of keyword fields' characteristics. For example, a URL can break down into its constituent parts: scheme, domain, port, path, etc., and those parts can, in turn, map to unique fields. However, not all fields are structured enough for this approach. Wildcard fields can work if a value doesn't have an established structure or can't be tokenized to accommodate all use cases.
 
 In the security discipline, threat hunting searches and detection rules often rely on `grep`-like wildcard and regex patterns. Many other security platforms with search capabilities support wildcard and regex in this way. It often can be confusing to security practitioners trying to adopt their detections and techniques to Elastic. These users require detailed pattern-matching operations that perform consistently well across large data sets. Wildcard provides another capability to address this challenge.
 
