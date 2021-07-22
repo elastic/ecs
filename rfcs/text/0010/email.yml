@@ -1,0 +1,94 @@
+---
+- name: email
+  title: Email
+  group: 2
+  short: Fields describing an email message.
+  description: >
+    Email fields are used for information about an email message header and body.
+  type: group
+  fields:
+
+    - name: to
+      level: extended
+      type: keyword
+      short: Recipient address(es)
+      description: >
+        Stores the `to` email address(es).
+      example: "employee@example.com"
+      normalize:
+        - array
+
+    - name: from
+      level: extended
+      type: keyword
+      short: Sender address(es)
+      description: >
+        Stores the `from` email address(es).
+      example: "administrator@example.com"
+      normalize:
+        - array
+
+    - name: cc
+      level: extended
+      type: keyword
+      short: CC recipient(s)
+      description: >
+        The email address(es) of the carbon copy (CC) recipient(s).
+      example: "cc.user@example.com"
+      normalize:
+        - array
+
+    - name: bcc
+      level: extended
+      type: keyword
+      short: BCC recipient(s)
+      description: >
+        The email address(es) of the blind carbon copy (BCC) recipient(s).
+      example: "bcc.user@example.com"
+      normalize:
+        - array
+
+    - name: reply_to
+      level: extended
+      type: keyword
+      short: Address for replies.
+      description: >
+        The address that replies should be delivered to.
+      example: "user@example.com"
+
+    - name: timestamp
+      level: extended
+      type: date
+      short: Date and time message was sent.
+      description: >
+        The date and time that the sender authorized delivery of the message.
+
+        For example, by pressing a "Send" button in their email client.
+      example: "2020-11-10T22:12:34.8196921Z"
+
+    - name: subject
+      level: extended
+      type: keyword
+      short: Topic of the message
+      description: >
+        A brief summary of the topic of the message.
+      example: "Status update: email fields progress"
+      multi_fields:
+      - type: match_only_text
+        name: text
+
+    - name: content_type
+      level: extended
+      type: keyword
+      short: Content-Type header value
+      description: >
+        Information about how the message is to be displayed. Typically a MIME type.
+      example: "multipart/mixed"
+
+    - name: message_id
+      level: extended
+      type: keyword
+      short: Message identifier
+      description: >
+        Unique identifier for the email message.
+      example: "<CAO_do4n4jwcfabQcEScYd9oSjDytgm_PveKKiF_gtBEYL8a0XQ@mail.example.com>"
