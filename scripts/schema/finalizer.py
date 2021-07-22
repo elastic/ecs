@@ -89,7 +89,11 @@ def perform_reuse(fields):
             new_field_details['name'] = nest_as
             new_field_details['original_fieldset'] = schema_name
             new_field_details['intermediate'] = True
-            destination_fields = schema['fields']
+            # to handle multi-level self-nesting
+            if reuse_entry['at'] != schema_name:
+                destination_fields = field_group_at_path(reuse_entry['at'], fields)
+            else:
+                destination_fields = schema['fields']
             destination_fields[nest_as] = {
                 'field_details': new_field_details,
                 # Make a new copy of the pristine copy
