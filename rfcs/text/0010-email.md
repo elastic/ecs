@@ -80,7 +80,32 @@ Stage 2: Included a real world example source document. Ideally this example com
 #### Mapped Example
 
 ```json
-
+{
+	"@timestamp": 1626984241830,
+	"email": {
+		"timestamp": "2020-11-08T22:12:34.8196921Z",
+        "from": [
+		    "o365mc@microsoft.com"
+		],
+		"to": [
+			"john@testdomain.onmicrosoft.com"
+		],
+		"subject": "Weekly digest: Microsoft service updates",
+		"message_id": "\\u003c95689d8d5e7f429390a4e3646eef75e8-JFBVALKQOJXWILKBK4YVA7APGM3DKTLFONZWCZ3FINSW45DFOJ6EAQ2ENFTWK43UL4YTCMBYGIYHYU3NORYA====@microsoft.com\\u003e"
+	},
+	"source": {
+		"address": "8.8.8.8",
+		"ip": "8.8.8.8"
+	},
+	"event": {
+		"action": "delivered",
+		"kind": "event",
+		"category": [
+			"email",
+			"network"
+		]
+	}
+}
 ```
 
 ### Office365 - Undeliverable
