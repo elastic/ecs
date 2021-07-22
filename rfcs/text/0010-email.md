@@ -4,16 +4,7 @@
 - Stage: **1 (draft)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
 - Date: **TBD** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
-This RFC proposes a new top-level field to facilitate email use cases.
-
-<!--
-As you work on your RFC, use the "Stage N" comments to guide you in what you should focus on, for the stage you're targeting.
-Feel free to remove these comments as you go along.
--->
-
-<!--
-Stage 0: Provide a high level summary of the premise of these changes. Briefly describe the nature, purpose, and impact of the changes. ~2-5 sentences.
--->
+This RFC proposes a new top-level field set to facilitate email use cases, `email.*`. The `email.*` field set adds fields for the sender, recipient, message header fields, and other attributes of an email message typically seen logs produced by mail transfer agent (MTA) and email gateway applications.
 
 ## Fields
 
@@ -25,23 +16,17 @@ Stage 1: Describe at a high level how this change affects fields. Which fieldset
 
 | field | type | description |
 | --- | --- | --- |
-| `email.bcc.addresses` | keyword | Addresses of Bcc's |
-| `email.cc.addresses` | keyword | Addresses of Cc's |
-| `email.attachments_count` | long | A field outside the flattened structure to control how many attachments are included in the email |
-| `email.attachments` | flattened | A flattened field for anything related to attachments. This allows objects being stored with all information for each file when you have multiple attachments |
-| `email.direction` | keyword | Direction of the message based on the sending and receving domains |
-| `email.sender.address` | keyword | Senders email address |
-| `email.sender.domain` | keyword | Domain of the sender |
-| `email.sender.top_level_domain` | keyword | Top level domain of the sender |
-| `email.sender.registered_domain` | keyword | Registered domain of the sender |
-| `email.sender.subdomain` | keyword | Subdomain of the sender |
-| `email.message_id` | keyword | Internet message ID of the message |
-| `email.reply_to.address` | keyword | Reply-to address |
-| `email.return_path.address` | keyword | The return address for the message |
-| `email.size` | long | Total size of the message, in bytes, including attachments |
-| `email.subject` | keyword | Subject of the message |
-| `email.recipients.addresses` | keyword | Recipient addresses |
-| `email.domains` | keyword | domains related to the email |
+| `email.from` | keyword (array) | Stores the `from` email address(es) |
+| `email.timestamp` | keyword (array) | The local date and time the message was written |
+| `email.to` | keyword (array) | The email address(es) of the message recipient(s) |
+| `email.subject` | keyword; `.text` text multi-field | A brief summary of the topic of the message |
+| `email.cc` | keyword (array) | The email address(es) of the carbon copy (CC) recipient(s) |
+| `email.bcc` | keyword (array) | The email address(es) of the blind carbon copy (CC) recipient(s) |
+| `email.content_type` | keyword | Information about how the message is to be displayed. Typically a MIME type |
+| `email.message_id` | keyword | Unique identifier for the email message |
+| `email.reply_to` | keyword | Address that replies should be delivered to |
+| `email.return_path` | keyword | Address that replies should be delivered to |
+
 
 ### Additional event categorization allowed values
 
@@ -144,7 +129,8 @@ Stage 1: Identify potential concerns, implementation challenges, or complexity. 
 * Whether we want to add specific fields for email protocols, either as a root field or nested under email.* (SMTP, IMAP, POP etc).
 * Need to make sure that the ECS fieldset for email catches all common use cases, for example spam, metrics and deliverables and logging.
 * Whether we want to create a new event.category field (email) and which event.type it should be combined with.
-* The email RFC will be the first ECS fieldset that uses the flattened datatype (for attachments), need to ensure that there will be major issues related to this.
+* Should the display name be captured separately from the email address for senders and recipients. If so, how do we accomplish this in a document while keeping the 1:1 of a display name to email address.
+* Should attachments be considered in this initial proposal?
 
 <!--
 Stage 2: Document new concerns or resolutions to previously listed concerns. It's not critical that all concerns have resolutions at this point, but it would be helpful if resolutions were taking shape for the most significant concerns.
