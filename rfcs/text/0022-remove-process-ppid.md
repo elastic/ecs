@@ -168,7 +168,12 @@ Stage 3: Document resolutions for all existing concerns. Any new concerns should
 
 The following are the people that consulted on the contents of this RFC.
 
-* @ebeahan | author
+* @ebeahan | author, sponsor
+* @jonathan-buttner | subject matter expert
+* @gabriellandau | subject matter expert
+* @ferullo | subject matter expert
+* @rw-access | subject matter expert
+
 
 <!--
 Who will be or has been consulted on the contents of this RFC? Identify authorship and sponsorship, and optionally identify the nature of involvement of others. Link to GitHub aliases where possible. This list will likely change or grow stage after stage.
