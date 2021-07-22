@@ -18,7 +18,7 @@ Stage 1: If the changes include field additions or modifications, please create 
 -->
 
 This RFC proposes 6 additional container metric fields into ECS for monitoring
-container CPU, memory, disk and network performance using Metricbeat:
+container CPU, memory, disk and network performance:
 - container.cpu.usage
 - container.memory.usage
 - container.network.ingress.bytes
@@ -49,7 +49,7 @@ Stage 2: Add or update all remaining field definitions. The list should now be e
 ## Usage
 
 Container metric fields and container metadata fields can be collected from
-varies different sources. For example, a user who uses both Docker, Cloudfoundry
+several sources. For example, a user who uses both Docker, Cloudfoundry
 and AWS Fargate would like to collect data regarding all containers and store
 them in a centralized location. Without these new container metric fields,
 Metricbeat is reporting container metrics under different names from different
@@ -59,7 +59,7 @@ Cloudfoundry, `cloudfoundry.container.cpu.pct` is used and for AWS Fargate,
 With these different field names, Kibana Docker containers metrics UI can only
 display data collected from Docker but no other sources.
 
-With the additional container metric fields proposed here, user should be able
+With the additional container metric fields proposed here, users should be able
 to see the same metric field collected from different sources and Kibana should
 be able to display all containers, not only from Docker, but also Cloudfoundry,
 AWS Fargate and etc.
