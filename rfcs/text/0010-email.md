@@ -30,7 +30,7 @@ Stage 1: Describe at a high level how this change affects fields. Which fieldset
 
 ### Additional event categorization allowed values
 
-
+Email events may benefit from an additional ECS allowed event categorization value: `event.category: email`.
 
 ## Usage
 
