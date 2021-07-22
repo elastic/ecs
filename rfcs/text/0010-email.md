@@ -93,10 +93,6 @@ Stage 2: Included a real world example source document. Ideally this example com
 		"subject": "Weekly digest: Microsoft service updates",
 		"message_id": "\\u003c95689d8d5e7f429390a4e3646eef75e8-JFBVALKQOJXWILKBK4YVA7APGM3DKTLFONZWCZ3FINSW45DFOJ6EAQ2ENFTWK43UL4YTCMBYGIYHYU3NORYA====@microsoft.com\\u003e"
 	},
-	"source": {
-		"address": "8.8.8.8",
-		"ip": "8.8.8.8"
-	},
 	"event": {
 		"action": "delivered",
 		"kind": "event",
@@ -129,7 +125,32 @@ Stage 2: Included a real world example source document. Ideally this example com
 }
 ```
 
+#### Mapped Example
 
+```json
+{
+	"@timestamp": 1626984241830,
+	"email": {
+		"timestamp": "2020-11-10T22:12:34.8196921Z",
+        "from": [
+		    "postmaster@testdomain.onmicrosoft.com"
+		],
+		"to": [
+			"o365mc@microsoft.com"
+		],
+		"subject": "Undeliverable: Message Center Major Change Update Notification",
+		"message_id": "\\u003c72872e16-f4c2-4eef-a393-e5621748a0ff@AS8P19vMB1605.EURP191.PROD.OUTLOOK.COM\\u003e"
+	},
+	"event": {
+		"action": "delivered",
+		"kind": "event",
+		"category": [
+			"email",
+			"network"
+		]
+	}
+}
+```
 
 <!--
 Stage 3: Add more real world example source documents so we have at least 2 total, but ideally 3. Format as described in stage 2.
