@@ -2,7 +2,7 @@
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
 - Stage: **1 (draft)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
-- Date: **2020-11-30** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
+- Date: **TBD** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 This RFC proposes a new top-level field to facilitate email use cases.
 
@@ -170,7 +170,9 @@ The following are the people that consulted on the contents of this RFC.
 
 * @ebeahan | Co-author
 * @p1llus | Co-author, subject matter expert
-* @jamiehynds | Sponsor
+* @jamiehynds | Co-sponsor
+* @devonkerr | Co-sponsor
+
 
 <!--
 Who will be or has been consulted on the contents of this RFC? Identify authorship and sponsorship, and optionally identify the nature of involvement of others. Link to GitHub aliases where possible. This list will likely change or grow stage after stage.
