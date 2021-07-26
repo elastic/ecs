@@ -2456,9 +2456,11 @@ type: text
 [[field-error-stack-trace]]
 <<field-error-stack-trace, error.stack_trace>>
 
-| The stack trace of this error in plain text.
+| beta:[ Use of the `wildcard` data type for this field is currently beta. ]
 
-type: keyword
+The stack trace of this error in plain text.
+
+type: wildcard
 
 Multi-fields:
 
@@ -3190,6 +3192,26 @@ type: keyword
 
 
 example: `png`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-file-fork-name]]
+<<field-file-fork-name, file.fork_name>>
+
+| A fork is additional data associated with a filesystem object.
+
+On Linux, a resource fork is used to store additional data with a filesystem object. A file always has at least one fork for the data portion, and additional forks may exist.
+
+On NTFS, this is analogous to an Alternate Data Stream (ADS), and the default data stream for a file is just called $DATA. Zone.Identifier is commonly used by Windows to track contents downloaded from the Internet. An ADS is typically of the form: `C:\path\to\filename.extension:some_fork_name`, and `some_fork_name` is the value that should populate `fork_name`. `filename.extension` should populate `file.name`, and `extension` should populate `file.extension`. The full path, `file.path`, will include the fork name.
+
+type: keyword
+
+
+
+example: `Zone.Identifer`
 
 | extended
 
@@ -4279,9 +4301,11 @@ example: `887`
 [[field-http-request-body-content]]
 <<field-http-request-body-content, http.request.body.content>>
 
-| The full HTTP request body.
+| beta:[ Use of the `wildcard` data type for this field is currently beta. ]
 
-type: keyword
+The full HTTP request body.
+
+type: wildcard
 
 Multi-fields:
 
@@ -4403,9 +4427,11 @@ example: `887`
 [[field-http-response-body-content]]
 <<field-http-response-body-content, http.response.body.content>>
 
-| The full HTTP response body.
+| beta:[ Use of the `wildcard` data type for this field is currently beta. ]
 
-type: keyword
+The full HTTP response body.
+
+type: wildcard
 
 Multi-fields:
 
@@ -4647,7 +4673,7 @@ example: `org.elasticsearch.bootstrap.Bootstrap`
 
 | The line number of the file containing the source code which originated the log event.
 
-type: integer
+type: long
 
 
 
@@ -4695,7 +4721,7 @@ example: `init`
 [[field-log-original]]
 <<field-log-original, log.original>>
 
-| Deprecated for removal in next major version release. This field is superseded by  `event.original`.
+| Deprecated for removal in next major version release. This field is superseded by `event.original`.
 
 This is the original log message and contains the full log message before splitting it up in multiple parts.
 
@@ -6220,11 +6246,13 @@ example: `4`
 [[field-process-command-line]]
 <<field-process-command-line, process.command_line>>
 
-| Full command line that started the process, including the absolute path to the executable, and all arguments.
+| beta:[ Use of the `wildcard` data type for this field is currently beta. ]
+
+Full command line that started the process, including the absolute path to the executable, and all arguments.
 
 Some arguments may be filtered to protect sensitive information.
 
-type: keyword
+type: wildcard
 
 Multi-fields:
 
@@ -6583,11 +6611,13 @@ example: `ZQBuAC0AVQBTAAAAZQBuAAAAAAA=`
 [[field-registry-data-strings]]
 <<field-registry-data-strings, registry.data.strings>>
 
-| Content when writing string types.
+| beta:[ Use of the `wildcard` data type for this field is currently beta. ]
+
+Content when writing string types.
 
 Populated as an array when writing string data to the registry. For single string registry types (REG_SZ, REG_EXPAND_SZ), this should be an array with one string. For sequences of string with REG_MULTI_SZ, this array will be variable length. For numeric data, such as REG_DWORD and REG_QWORD, this should be populated with the decimal representation (e.g `"1"`).
 
-type: keyword
+type: wildcard
 
 
 Note: this field should contain an array of values.
@@ -9633,9 +9663,11 @@ type: keyword
 [[field-url-full]]
 <<field-url-full, url.full>>
 
-| If full URLs are important to your use case, they should be stored in `url.full`, whether this field is reconstructed or present in the event source.
+| beta:[ Use of the `wildcard` data type for this field is currently beta. ]
 
-type: keyword
+If full URLs are important to your use case, they should be stored in `url.full`, whether this field is reconstructed or present in the event source.
+
+type: wildcard
 
 Multi-fields:
 
@@ -9655,13 +9687,15 @@ example: `https://www.elastic.co:443/search?q=elasticsearch#top`
 [[field-url-original]]
 <<field-url-original, url.original>>
 
-| Unmodified original url as seen in the event source.
+| beta:[ Use of the `wildcard` data type for this field is currently beta. ]
+
+Unmodified original url as seen in the event source.
 
 Note that in network monitoring, the observed URL may be a full URL, whereas in access logs, the URL is often just represented as a path.
 
 This field is meant to represent the URL as it was observed, complete or not.
 
-type: keyword
+type: wildcard
 
 Multi-fields:
 
@@ -9697,9 +9731,11 @@ type: keyword
 [[field-url-path]]
 <<field-url-path, url.path>>
 
-| Path of the request, such as "/search".
+| beta:[ Use of the `wildcard` data type for this field is currently beta. ]
 
-type: keyword
+Path of the request, such as "/search".
+
+type: wildcard
 
 
 

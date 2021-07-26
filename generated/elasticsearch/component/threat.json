@@ -1,7 +1,7 @@
 {
   "_meta": {
     "documentation": "https://www.elastic.co/guide/en/ecs/current/ecs-threat.html",
-    "ecs_version": "2.0.0-dev"
+    "ecs_version": "8.0.0-dev"
   },
   "template": {
     "mappings": {
@@ -226,6 +226,10 @@
                           "ignore_above": 1024,
                           "type": "keyword"
                         },
+                        "fork_name": {
+                          "ignore_above": 1024,
+                          "type": "keyword"
+                        },
                         "gid": {
                           "ignore_above": 1024,
                           "type": "keyword"
@@ -433,8 +437,7 @@
                               "type": "keyword"
                             },
                             "strings": {
-                              "ignore_above": 1024,
-                              "type": "keyword"
+                              "type": "wildcard"
                             },
                             "type": {
                               "ignore_above": 1024,
@@ -491,8 +494,7 @@
                               "type": "text"
                             }
                           },
-                          "ignore_above": 1024,
-                          "type": "keyword"
+                          "type": "wildcard"
                         },
                         "original": {
                           "fields": {
@@ -501,16 +503,14 @@
                               "type": "text"
                             }
                           },
-                          "ignore_above": 1024,
-                          "type": "keyword"
+                          "type": "wildcard"
                         },
                         "password": {
                           "ignore_above": 1024,
                           "type": "keyword"
                         },
                         "path": {
-                          "ignore_above": 1024,
-                          "type": "keyword"
+                          "type": "wildcard"
                         },
                         "port": {
                           "type": "long"
@@ -917,6 +917,10 @@
                       "ignore_above": 1024,
                       "type": "keyword"
                     },
+                    "fork_name": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    },
                     "gid": {
                       "ignore_above": 1024,
                       "type": "keyword"
@@ -1124,8 +1128,7 @@
                           "type": "keyword"
                         },
                         "strings": {
-                          "ignore_above": 1024,
-                          "type": "keyword"
+                          "type": "wildcard"
                         },
                         "type": {
                           "ignore_above": 1024,
@@ -1182,8 +1185,7 @@
                           "type": "text"
                         }
                       },
-                      "ignore_above": 1024,
-                      "type": "keyword"
+                      "type": "wildcard"
                     },
                     "original": {
                       "fields": {
@@ -1192,16 +1194,14 @@
                           "type": "text"
                         }
                       },
-                      "ignore_above": 1024,
-                      "type": "keyword"
+                      "type": "wildcard"
                     },
                     "password": {
                       "ignore_above": 1024,
                       "type": "keyword"
                     },
                     "path": {
-                      "ignore_above": 1024,
-                      "type": "keyword"
+                      "type": "wildcard"
                     },
                     "port": {
                       "type": "long"

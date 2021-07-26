@@ -1823,11 +1823,10 @@ error.message:
   short: Error message.
   type: text
 error.stack_trace:
+  beta: Use of the `wildcard` data type for this field is currently beta.
   dashed_name: error-stack-trace
   description: The stack trace of this error in plain text.
-  doc_values: false
   flat_name: error.stack_trace
-  index: false
   level: extended
   multi_fields:
   - flat_name: error.stack_trace.text
@@ -1837,7 +1836,7 @@ error.stack_trace:
   name: stack_trace
   normalize: []
   short: The stack trace of this error in plain text.
-  type: keyword
+  type: wildcard
 error.type:
   dashed_name: error-type
   description: The type of the error, for example the class name of the exception.
@@ -3160,6 +3159,29 @@ file.extension:
   normalize: []
   short: File extension, excluding the leading dot.
   type: keyword
+file.fork_name:
+  dashed_name: file-fork-name
+  description: 'A fork is additional data associated with a filesystem object.
+
+    On Linux, a resource fork is used to store additional data with a filesystem object.
+    A file always has at least one fork for the data portion, and additional forks
+    may exist.
+
+    On NTFS, this is analogous to an Alternate Data Stream (ADS), and the default
+    data stream for a file is just called $DATA. Zone.Identifier is commonly used
+    by Windows to track contents downloaded from the Internet. An ADS is typically
+    of the form: `C:\path\to\filename.extension:some_fork_name`, and `some_fork_name`
+    is the value that should populate `fork_name`. `filename.extension` should populate
+    `file.name`, and `extension` should populate `file.extension`. The full path,
+    `file.path`, will include the fork name.'
+  example: Zone.Identifer
+  flat_name: file.fork_name
+  ignore_above: 1024
+  level: extended
+  name: fork_name
+  normalize: []
+  short: A fork is additional data associated with a filesystem object.
+  type: keyword
 file.gid:
   dashed_name: file-gid
   description: Primary group ID (GID) of the file.
@@ -4237,11 +4259,11 @@ http.request.body.bytes:
   short: Size in bytes of the request body.
   type: long
 http.request.body.content:
+  beta: Use of the `wildcard` data type for this field is currently beta.
   dashed_name: http-request-body-content
   description: The full HTTP request body.
   example: Hello world
   flat_name: http.request.body.content
-  ignore_above: 1024
   level: extended
   multi_fields:
   - flat_name: http.request.body.content.text
@@ -4251,7 +4273,7 @@ http.request.body.content:
   name: request.body.content
   normalize: []
   short: The full HTTP request body.
-  type: keyword
+  type: wildcard
 http.request.bytes:
   dashed_name: http-request-bytes
   description: Total size in bytes of the request (body and headers).
@@ -4330,11 +4352,11 @@ http.response.body.bytes:
   short: Size in bytes of the response body.
   type: long
 http.response.body.content:
+  beta: Use of the `wildcard` data type for this field is currently beta.
   dashed_name: http-response-body-content
   description: The full HTTP response body.
   example: Hello world
   flat_name: http.response.body.content
-  ignore_above: 1024
   level: extended
   multi_fields:
   - flat_name: http.response.body.content.text
@@ -4344,7 +4366,7 @@ http.response.body.content:
   name: response.body.content
   normalize: []
   short: The full HTTP response body.
-  type: keyword
+  type: wildcard
 http.response.bytes:
   dashed_name: http-response-bytes
   description: Total size in bytes of the response (body and headers).
@@ -4462,7 +4484,7 @@ log.origin.file.line:
   name: origin.file.line
   normalize: []
   short: The line number of the file which originated the log event.
-  type: integer
+  type: long
 log.origin.file.name:
   dashed_name: log-origin-file-name
   description: 'The name of the file containing the source code which originated the
@@ -4492,7 +4514,7 @@ log.origin.function:
 log.original:
   dashed_name: log-original
   description: 'Deprecated for removal in next major version release. This field is
-    superseded by  `event.original`.
+    superseded by `event.original`.
 
     This is the original log message and contains the full log message before splitting
     it up in multiple parts.
@@ -5747,6 +5769,7 @@ process.code_signature.valid:
     content.
   type: boolean
 process.command_line:
+  beta: Use of the `wildcard` data type for this field is currently beta.
   dashed_name: process-command-line
   description: 'Full command line that started the process, including the absolute
     path to the executable, and all arguments.
@@ -5754,7 +5777,6 @@ process.command_line:
     Some arguments may be filtered to protect sensitive information.'
   example: /usr/bin/ssh -l user 10.0.0.16
   flat_name: process.command_line
-  ignore_above: 1024
   level: extended
   multi_fields:
   - flat_name: process.command_line.text
@@ -5764,7 +5786,7 @@ process.command_line:
   name: command_line
   normalize: []
   short: Full command line that started the process.
-  type: keyword
+  type: wildcard
 process.elf.architecture:
   dashed_name: process-elf-architecture
   description: Machine architecture of the ELF file.
@@ -6345,6 +6367,7 @@ process.parent.code_signature.valid:
     content.
   type: boolean
 process.parent.command_line:
+  beta: Use of the `wildcard` data type for this field is currently beta.
   dashed_name: process-parent-command-line
   description: 'Full command line that started the process, including the absolute
     path to the executable, and all arguments.
@@ -6352,7 +6375,6 @@ process.parent.command_line:
     Some arguments may be filtered to protect sensitive information.'
   example: /usr/bin/ssh -l user 10.0.0.16
   flat_name: process.parent.command_line
-  ignore_above: 1024
   level: extended
   multi_fields:
   - flat_name: process.parent.command_line.text
@@ -6363,7 +6385,7 @@ process.parent.command_line:
   normalize: []
   original_fieldset: process
   short: Full command line that started the process.
-  type: keyword
+  type: wildcard
 process.parent.elf.architecture:
   dashed_name: process-parent-elf-architecture
   description: Machine architecture of the ELF file.
@@ -7235,6 +7257,7 @@ registry.data.bytes:
   short: Original bytes written with base64 encoding.
   type: keyword
 registry.data.strings:
+  beta: Use of the `wildcard` data type for this field is currently beta.
   dashed_name: registry-data-strings
   description: 'Content when writing string types.
 
@@ -7245,13 +7268,12 @@ registry.data.strings:
     the decimal representation (e.g `"1"`).'
   example: '["C:\rta\red_ttp\bin\myapp.exe"]'
   flat_name: registry.data.strings
-  ignore_above: 1024
   level: core
   name: data.strings
   normalize:
   - array
   short: List of strings representing what was written to the registry.
-  type: keyword
+  type: wildcard
 registry.data.type:
   dashed_name: registry-data-type
   description: Standard registry type for encoding contents
@@ -9156,6 +9178,30 @@ threat.enrichments.indicator.file.extension:
   original_fieldset: file
   short: File extension, excluding the leading dot.
   type: keyword
+threat.enrichments.indicator.file.fork_name:
+  dashed_name: threat-enrichments-indicator-file-fork-name
+  description: 'A fork is additional data associated with a filesystem object.
+
+    On Linux, a resource fork is used to store additional data with a filesystem object.
+    A file always has at least one fork for the data portion, and additional forks
+    may exist.
+
+    On NTFS, this is analogous to an Alternate Data Stream (ADS), and the default
+    data stream for a file is just called $DATA. Zone.Identifier is commonly used
+    by Windows to track contents downloaded from the Internet. An ADS is typically
+    of the form: `C:\path\to\filename.extension:some_fork_name`, and `some_fork_name`
+    is the value that should populate `fork_name`. `filename.extension` should populate
+    `file.name`, and `extension` should populate `file.extension`. The full path,
+    `file.path`, will include the fork name.'
+  example: Zone.Identifer
+  flat_name: threat.enrichments.indicator.file.fork_name
+  ignore_above: 1024
+  level: extended
+  name: fork_name
+  normalize: []
+  original_fieldset: file
+  short: A fork is additional data associated with a filesystem object.
+  type: keyword
 threat.enrichments.indicator.file.gid:
   dashed_name: threat-enrichments-indicator-file-gid
   description: Primary group ID (GID) of the file.
@@ -9718,6 +9764,7 @@ threat.enrichments.indicator.registry.data.bytes:
   short: Original bytes written with base64 encoding.
   type: keyword
 threat.enrichments.indicator.registry.data.strings:
+  beta: Use of the `wildcard` data type for this field is currently beta.
   dashed_name: threat-enrichments-indicator-registry-data-strings
   description: 'Content when writing string types.
 
@@ -9728,14 +9775,13 @@ threat.enrichments.indicator.registry.data.strings:
     the decimal representation (e.g `"1"`).'
   example: '["C:\rta\red_ttp\bin\myapp.exe"]'
   flat_name: threat.enrichments.indicator.registry.data.strings
-  ignore_above: 1024
   level: core
   name: data.strings
   normalize:
   - array
   original_fieldset: registry
   short: List of strings representing what was written to the registry.
-  type: keyword
+  type: wildcard
 threat.enrichments.indicator.registry.data.type:
   dashed_name: threat-enrichments-indicator-registry-data-type
   description: Standard registry type for encoding contents
@@ -9889,12 +9935,12 @@ threat.enrichments.indicator.url.fragment:
   short: Portion of the url after the `#`.
   type: keyword
 threat.enrichments.indicator.url.full:
+  beta: Use of the `wildcard` data type for this field is currently beta.
   dashed_name: threat-enrichments-indicator-url-full
   description: If full URLs are important to your use case, they should be stored
     in `url.full`, whether this field is reconstructed or present in the event source.
   example: https://www.elastic.co:443/search?q=elasticsearch#top
   flat_name: threat.enrichments.indicator.url.full
-  ignore_above: 1024
   level: extended
   multi_fields:
   - flat_name: threat.enrichments.indicator.url.full.text
@@ -9905,8 +9951,9 @@ threat.enrichments.indicator.url.full:
   normalize: []
   original_fieldset: url
   short: Full unparsed URL.
-  type: keyword
+  type: wildcard
 threat.enrichments.indicator.url.original:
+  beta: Use of the `wildcard` data type for this field is currently beta.
   dashed_name: threat-enrichments-indicator-url-original
   description: 'Unmodified original url as seen in the event source.
 
@@ -9916,7 +9963,6 @@ threat.enrichments.indicator.url.original:
     This field is meant to represent the URL as it was observed, complete or not.'
   example: https://www.elastic.co:443/search?q=elasticsearch#top or /search?q=elasticsearch
   flat_name: threat.enrichments.indicator.url.original
-  ignore_above: 1024
   level: extended
   multi_fields:
   - flat_name: threat.enrichments.indicator.url.original.text
@@ -9927,7 +9973,7 @@ threat.enrichments.indicator.url.original:
   normalize: []
   original_fieldset: url
   short: Unmodified original url as seen in the event source.
-  type: keyword
+  type: wildcard
 threat.enrichments.indicator.url.password:
   dashed_name: threat-enrichments-indicator-url-password
   description: Password of the request.
@@ -9940,16 +9986,16 @@ threat.enrichments.indicator.url.password:
   short: Password of the request.
   type: keyword
 threat.enrichments.indicator.url.path:
+  beta: Use of the `wildcard` data type for this field is currently beta.
   dashed_name: threat-enrichments-indicator-url-path
   description: Path of the request, such as "/search".
   flat_name: threat.enrichments.indicator.url.path
-  ignore_above: 1024
   level: extended
   name: path
   normalize: []
   original_fieldset: url
   short: Path of the request, such as "/search".
-  type: keyword
+  type: wildcard
 threat.enrichments.indicator.url.port:
   dashed_name: threat-enrichments-indicator-url-port
   description: Port of the request, such as 443.
@@ -11104,6 +11150,30 @@ threat.indicator.file.extension:
   original_fieldset: file
   short: File extension, excluding the leading dot.
   type: keyword
+threat.indicator.file.fork_name:
+  dashed_name: threat-indicator-file-fork-name
+  description: 'A fork is additional data associated with a filesystem object.
+
+    On Linux, a resource fork is used to store additional data with a filesystem object.
+    A file always has at least one fork for the data portion, and additional forks
+    may exist.
+
+    On NTFS, this is analogous to an Alternate Data Stream (ADS), and the default
+    data stream for a file is just called $DATA. Zone.Identifier is commonly used
+    by Windows to track contents downloaded from the Internet. An ADS is typically
+    of the form: `C:\path\to\filename.extension:some_fork_name`, and `some_fork_name`
+    is the value that should populate `fork_name`. `filename.extension` should populate
+    `file.name`, and `extension` should populate `file.extension`. The full path,
+    `file.path`, will include the fork name.'
+  example: Zone.Identifer
+  flat_name: threat.indicator.file.fork_name
+  ignore_above: 1024
+  level: extended
+  name: fork_name
+  normalize: []
+  original_fieldset: file
+  short: A fork is additional data associated with a filesystem object.
+  type: keyword
 threat.indicator.file.gid:
   dashed_name: threat-indicator-file-gid
   description: Primary group ID (GID) of the file.
@@ -11666,6 +11736,7 @@ threat.indicator.registry.data.bytes:
   short: Original bytes written with base64 encoding.
   type: keyword
 threat.indicator.registry.data.strings:
+  beta: Use of the `wildcard` data type for this field is currently beta.
   dashed_name: threat-indicator-registry-data-strings
   description: 'Content when writing string types.
 
@@ -11676,14 +11747,13 @@ threat.indicator.registry.data.strings:
     the decimal representation (e.g `"1"`).'
   example: '["C:\rta\red_ttp\bin\myapp.exe"]'
   flat_name: threat.indicator.registry.data.strings
-  ignore_above: 1024
   level: core
   name: data.strings
   normalize:
   - array
   original_fieldset: registry
   short: List of strings representing what was written to the registry.
-  type: keyword
+  type: wildcard
 threat.indicator.registry.data.type:
   dashed_name: threat-indicator-registry-data-type
   description: Standard registry type for encoding contents
@@ -11837,12 +11907,12 @@ threat.indicator.url.fragment:
   short: Portion of the url after the `#`.
   type: keyword
 threat.indicator.url.full:
+  beta: Use of the `wildcard` data type for this field is currently beta.
   dashed_name: threat-indicator-url-full
   description: If full URLs are important to your use case, they should be stored
     in `url.full`, whether this field is reconstructed or present in the event source.
   example: https://www.elastic.co:443/search?q=elasticsearch#top
   flat_name: threat.indicator.url.full
-  ignore_above: 1024
   level: extended
   multi_fields:
   - flat_name: threat.indicator.url.full.text
@@ -11853,8 +11923,9 @@ threat.indicator.url.full:
   normalize: []
   original_fieldset: url
   short: Full unparsed URL.
-  type: keyword
+  type: wildcard
 threat.indicator.url.original:
+  beta: Use of the `wildcard` data type for this field is currently beta.
   dashed_name: threat-indicator-url-original
   description: 'Unmodified original url as seen in the event source.
 
@@ -11864,7 +11935,6 @@ threat.indicator.url.original:
     This field is meant to represent the URL as it was observed, complete or not.'
   example: https://www.elastic.co:443/search?q=elasticsearch#top or /search?q=elasticsearch
   flat_name: threat.indicator.url.original
-  ignore_above: 1024
   level: extended
   multi_fields:
   - flat_name: threat.indicator.url.original.text
@@ -11875,7 +11945,7 @@ threat.indicator.url.original:
   normalize: []
   original_fieldset: url
   short: Unmodified original url as seen in the event source.
-  type: keyword
+  type: wildcard
 threat.indicator.url.password:
   dashed_name: threat-indicator-url-password
   description: Password of the request.
@@ -11888,16 +11958,16 @@ threat.indicator.url.password:
   short: Password of the request.
   type: keyword
 threat.indicator.url.path:
+  beta: Use of the `wildcard` data type for this field is currently beta.
   dashed_name: threat-indicator-url-path
   description: Path of the request, such as "/search".
   flat_name: threat.indicator.url.path
-  ignore_above: 1024
   level: extended
   name: path
   normalize: []
   original_fieldset: url
   short: Path of the request, such as "/search".
-  type: keyword
+  type: wildcard
 threat.indicator.url.port:
   dashed_name: threat-indicator-url-port
   description: Port of the request, such as 443.
@@ -13562,12 +13632,12 @@ url.fragment:
   short: Portion of the url after the `#`.
   type: keyword
 url.full:
+  beta: Use of the `wildcard` data type for this field is currently beta.
   dashed_name: url-full
   description: If full URLs are important to your use case, they should be stored
     in `url.full`, whether this field is reconstructed or present in the event source.
   example: https://www.elastic.co:443/search?q=elasticsearch#top
   flat_name: url.full
-  ignore_above: 1024
   level: extended
   multi_fields:
   - flat_name: url.full.text
@@ -13577,8 +13647,9 @@ url.full:
   name: full
   normalize: []
   short: Full unparsed URL.
-  type: keyword
+  type: wildcard
 url.original:
+  beta: Use of the `wildcard` data type for this field is currently beta.
   dashed_name: url-original
   description: 'Unmodified original url as seen in the event source.
 
@@ -13588,7 +13659,6 @@ url.original:
     This field is meant to represent the URL as it was observed, complete or not.'
   example: https://www.elastic.co:443/search?q=elasticsearch#top or /search?q=elasticsearch
   flat_name: url.original
-  ignore_above: 1024
   level: extended
   multi_fields:
   - flat_name: url.original.text
@@ -13598,7 +13668,7 @@ url.original:
   name: original
   normalize: []
   short: Unmodified original url as seen in the event source.
-  type: keyword
+  type: wildcard
 url.password:
   dashed_name: url-password
   description: Password of the request.
@@ -13610,15 +13680,15 @@ url.password:
   short: Password of the request.
   type: keyword
 url.path:
+  beta: Use of the `wildcard` data type for this field is currently beta.
   dashed_name: url-path
   description: Path of the request, such as "/search".
   flat_name: url.path
-  ignore_above: 1024
   level: extended
   name: path
   normalize: []
   short: Path of the request, such as "/search".
-  type: keyword
+  type: wildcard
 url.port:
   dashed_name: url-port
   description: Port of the request, such as 443.
