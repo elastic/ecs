@@ -40,7 +40,7 @@ type Log struct {
 	FilePath string `ecs:"file.path"`
 
 	// Deprecated for removal in next major version release. This field is
-	// superseded by  `event.original`.
+	// superseded by `event.original`.
 	// This is the original log message and contains the full log message
 	// before splitting it up in multiple parts.
 	// In contrast to the `message` field which can contain an extracted part
@@ -63,7 +63,7 @@ type Log struct {
 
 	// The line number of the file containing the source code which originated
 	// the log event.
-	OriginFileLine int32 `ecs:"origin.file.line"`
+	OriginFileLine int64 `ecs:"origin.file.line"`
 
 	// The name of the function or method which originated the log event.
 	OriginFunction string `ecs:"origin.function"`
