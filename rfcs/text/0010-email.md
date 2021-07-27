@@ -23,7 +23,7 @@ Stage 1: Describe at a high level how this change affects fields. Which fieldset
 | `email.cc` | keyword (array) | The email address(es) of the carbon copy (CC) recipient(s) |
 | `email.bcc` | keyword (array) | The email address(es) of the blind carbon copy (CC) recipient(s) |
 | `email.content_type` | keyword | Information about how the message is to be displayed. Typically a MIME type |
-| `email.message_id` | keyword | Unique identifier for the email message |
+| `email.message_id` | keyword | Unique identifier for the email message that refers to a particular version of a particular message |
 | `email.reply_to` | keyword | Address that replies should be delivered to |
 
 ### Additional event categorization allowed values
