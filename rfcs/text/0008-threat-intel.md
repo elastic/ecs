@@ -2,7 +2,7 @@
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
 - Stage: **2 (candidate)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
-- Date: **2021-06-23** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
+- Date: **2021-07-06** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 Elastic Security Solution will be adding the capability to ingest, process and utilize threat intelligence information for increasing detection coverage and helping analysts make quicker investigation decisions. Threat intelligence can be collected from a number of sources with a variety of structured and semi-structured data representations. This makes threat intelligence an ideal candidate for ECS mappings. Threat intelligence data will require ECS mappings to normalize it and make it usable in our security solution. This RFC is focused on identifying new field sets and values that need to be created for threat intelligence data. Existing ECS field reuse will be prioritized where possible. If new fields are required we will utilize [STIX Cyber Observable data model](https://docs.oasis-open.org/cti/stix/v2.1/cs01/stix-v2.1-cs01.html#_mlbmudhl16lr) as guidance.
 
@@ -37,6 +37,8 @@ threat.indicator.port | long | 443 | Identifies a threat indicator as a port num
 threat.indicator.email.address | keyword | phish@evil.com | Identifies a threat indicator as an email address (irrespective of direction).
 threat.marking.tlp | keyword | RED | Data markings represent restrictions, permissions, and other guidance for how data can be used and shared. Examples could be TLP (WHITE, GREEN, AMBER, RED).
 threat.indicator.scanner_stats | long | 4 | Count of Anti virus/EDR that successfully detected malicious file or URL. Sources like VirusTotal, Reversing Labs often provide these statistics.
+threat.indicator.reference | keyword | https://feodotracker.abuse.ch/ | URL to the intelligence source
+threat.indicator.provider | keyword | lrz_urlhaus | The name of the indicator's provider
 
 ### Proposed New Values for Event Fieldset
 
@@ -122,8 +124,6 @@ Network Example
             "email-addr"
         ],
         "description": "Email address, domain, port, and IP address observed using an Angler EK campaign.",
-        "dataset": "threatintel.abuseurl",
-        "module": "threatintel",
         "provider": "Abuse.ch",
         "reference": "https://urlhaus.abuse.ch/url/1292596/",
         "confidence": "High",
@@ -182,8 +182,6 @@ File Example
             "file"
         ],
         "description": "Implant used during an Angler EK campaign.",
-        "dataset": "threatintel.malwarebazaar",
-        "module": "threatintel",
         "provider": "Abuse.ch",
         "reference": "https://bazaar.abuse.ch/sample/f3ec9a2f2766c6bcf8c2894a9927c227649249ac146aabfe8d26b259be7d7055",
         "confidence": "High",
@@ -361,6 +359,7 @@ Some examples of commercial intelligence include:
   * Stage 1 correction: https://github.com/elastic/ecs/pull/1100
 * Stage 1 (originally stage 2 prior to removal of RFC stage 4): https://github.com/elastic/ecs/pull/1127
 * Stage 2: https://github.com/elastic/ecs/pull/1293
+  * Stage 2 addendum: https://github.com/elastic/ecs/pull/1502
 
 
 <!--
