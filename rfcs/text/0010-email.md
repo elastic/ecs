@@ -60,20 +60,20 @@ Stage 2: Included a real world example source document. Ideally this example com
 
 ```json
 {
-	"EndDate": "2020-11-10T22:12:34.8196921Z",
-	"FromIP": "8.8.8.8",
-	"Index": 25,
-	"MessageId": "\\u003c95689d8d5e7f429390a4e3646eef75e8-JFBVALKQOJXWILKBK4YVA7APGM3DKTLFONZWCZ3FINSW45DFOJ6EAQ2ENFTWK43UL4YTCMBYGIYHYU3NORYA====@microsoft.com\\u003e",
-	"MessageTraceId": "ff1a64a3-cafb-41b7-1efb-08d8848aedc3",
-	"Organization": "testdomain.onmicrosoft.com",
-	"Received": "2020-11-09T04:50:06.3312635",
-	"RecipientAddress": "john@testdomain.onmicrosoft.com",
-	"SenderAddress": "o365mc@microsoft.com",
-	"Size": 64329,
-	"StartDate": "2020-11-08T22:12:34.8196921Z",
-	"Status": "Delivered",
-	"Subject": "Weekly digest: Microsoft service updates",
-	"ToIP": null
+  "EndDate": "2020-11-10T22:12:34.8196921Z",
+  "FromIP": "8.8.8.8",
+  "Index": 25,
+  "MessageId": "\\u003c95689d8d5e7f429390a4e3646eef75e8-JFBVALKQOJXWILKBK4YVA7APGM3DKTLFONZWCZ3FINSW45DFOJ6EAQ2ENFTWK43UL4YTCMBYGIYHYU3NORYA====@microsoft.com\\u003e",
+  "MessageTraceId": "ff1a64a3-cafb-41b7-1efb-08d8848aedc3",
+  "Organization": "testdomain.onmicrosoft.com",
+  "Received": "2020-11-09T04:50:06.3312635",
+  "RecipientAddress": "john@testdomain.onmicrosoft.com",
+  "SenderAddress": "o365mc@microsoft.com",
+  "Size": 64329,
+  "StartDate": "2020-11-08T22:12:34.8196921Z",
+  "Status": "Delivered",
+  "Subject": "Weekly digest: Microsoft service updates",
+  "ToIP": null
 }
 ```
 
@@ -81,26 +81,26 @@ Stage 2: Included a real world example source document. Ideally this example com
 
 ```json
 {
-	"@timestamp": 1626984241830,
-	"email": {
-		"timestamp": "2020-11-08T22:12:34.8196921Z",
+  "@timestamp": 1626984241830,
+  "email": {
+    "timestamp": "2020-11-08T22:12:34.8196921Z",
         "from": [
-		    "o365mc@microsoft.com"
-		],
-		"to": [
-			"john@testdomain.onmicrosoft.com"
-		],
-		"subject": "Weekly digest: Microsoft service updates",
-		"message_id": "\\u003c95689d8d5e7f429390a4e3646eef75e8-JFBVALKQOJXWILKBK4YVA7APGM3DKTLFONZWCZ3FINSW45DFOJ6EAQ2ENFTWK43UL4YTCMBYGIYHYU3NORYA====@microsoft.com\\u003e"
-	},
-	"event": {
-		"action": "delivered",
-		"kind": "event",
-		"category": [
-			"email",
-			"network"
-		]
-	}
+  	    "o365mc@microsoft.com"
+  	],
+    "to": [
+      "john@testdomain.onmicrosoft.com"
+    ],
+    "subject": "Weekly digest: Microsoft service updates",
+    "message_id": "\\u003c95689d8d5e7f429390a4e3646eef75e8-JFBVALKQOJXWILKBK4YVA7APGM3DKTLFONZWCZ3FINSW45DFOJ6EAQ2ENFTWK43UL4YTCMBYGIYHYU3NORYA====@microsoft.com\\u003e"
+  },
+  "event": {
+    "action": "delivered",
+    "kind": "event",
+    "category": [
+      "email",
+      "network"
+    ]
+  }
 }
 ```
 
@@ -110,20 +110,20 @@ Stage 2: Included a real world example source document. Ideally this example com
 
 ```json
 {
-	"EndDate": "2020-11-10T22:12:34.8196921Z",
-	"FromIP": null,
-	"Index": 8,
-	"MessageId": "\\u003c72872e16-f4c2-4eef-a393-e5621748a0ff@AS8P19vMB1605.EURP191.PROD.OUTLOOK.COM\\u003e",
-	"MessageTraceId": "a4bd8c4c-3a4f-427f-8952-08d8850f9c20",
-	"Organization": "testdomain.onmicrosoft.com",
-	"Received": "2020-11-10T00:28:56.3306834",
-	"RecipientAddress": "o365mc@microsoft.com",
-	"SenderAddress": "postmaster@testdomain.onmicrosoft.com",
-	"Size": 96627,
-	"StartDate": "2020-11-08T22:12:34.8196921Z",
-	"Status": "Delivered",
-	"Subject": "Undeliverable: Message Center Major Change Update Notification",
-	"ToIP": "8.8.8.8"
+  "EndDate": "2020-11-10T22:12:34.8196921Z",
+  "FromIP": null,
+  "Index": 8,
+  "MessageId": "\\u003c72872e16-f4c2-4eef-a393-e5621748a0ff@AS8P19vMB1605.EURP191.PROD.OUTLOOK.COM\\u003e",
+  "MessageTraceId": "a4bd8c4c-3a4f-427f-8952-08d8850f9c20",
+  "Organization": "testdomain.onmicrosoft.com",
+  "Received": "2020-11-10T00:28:56.3306834",
+  "RecipientAddress": "o365mc@microsoft.com",
+  "SenderAddress": "postmaster@testdomain.onmicrosoft.com",
+  "Size": 96627,
+  "StartDate": "2020-11-08T22:12:34.8196921Z",
+  "Status": "Delivered",
+  "Subject": "Undeliverable: Message Center Major Change Update Notification",
+  "ToIP": "8.8.8.8"
 }
 ```
 
@@ -131,26 +131,26 @@ Stage 2: Included a real world example source document. Ideally this example com
 
 ```json
 {
-	"@timestamp": 1626984241830,
-	"email": {
-		"timestamp": "2020-11-10T22:12:34.8196921Z",
+  "@timestamp": 1626984241830,
+  "email": {
+    "timestamp": "2020-11-10T22:12:34.8196921Z",
         "from": [
-		    "postmaster@testdomain.onmicrosoft.com"
-		],
-		"to": [
-			"o365mc@microsoft.com"
-		],
-		"subject": "Undeliverable: Message Center Major Change Update Notification",
-		"message_id": "\\u003c72872e16-f4c2-4eef-a393-e5621748a0ff@AS8P19vMB1605.EURP191.PROD.OUTLOOK.COM\\u003e"
-	},
-	"event": {
-		"action": "delivered",
-		"kind": "event",
-		"category": [
-			"email",
-			"network"
-		]
-	}
+          "postmaster@testdomain.onmicrosoft.com"
+        ],
+        "to": [
+          "o365mc@microsoft.com"
+        ],
+        "subject": "Undeliverable: Message Center Major Change Update Notification",
+        "message_id": "\\u003c72872e16-f4c2-4eef-a393-e5621748a0ff@AS8P19vMB1605.EURP191.PROD.OUTLOOK.COM\\u003e"
+    },
+  "event": {
+    "action": "delivered",
+    "kind": "event",
+    "category": [
+      "email",
+      "network"
+    ]
+  }
 }
 ```
 
