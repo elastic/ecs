@@ -287,9 +287,9 @@ Stage 3: Document resolutions for all existing concerns. Any new concerns should
 The following are the people that consulted on the contents of this RFC.
 
 * @ebeahan | Co-author
-* @p1llus | Co-author, subject matter expert
+* @P1llus | Co-author, subject matter expert
 * @jamiehynds | Co-sponsor
-* @devonkerr | Co-sponsor
+* @devonakerr | Co-sponsor
 
 
 <!--
