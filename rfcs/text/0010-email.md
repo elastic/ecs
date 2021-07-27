@@ -171,11 +171,25 @@ The goal here is to research and understand the impact of these changes on users
 Stage 1: Identify potential concerns, implementation challenges, or complexity. Spend some time on this. Play devil's advocate. Try to identify the sort of non-obvious challenges that tend to surface later. The goal here is to surface risks early, allow everyone the time to work through them, and ultimately document resolution for posterity's sake.
 -->
 
-* Whether we want to add specific fields for email protocols, either as a root field or nested under email.* (SMTP, IMAP, POP etc).
-* Need to make sure that the ECS fieldset for email catches all common use cases, for example spam, metrics and deliverables and logging.
-* Whether we want to create a new event.category field (email) and which event.type it should be combined with.
-* Should the display name be captured separately from the email address for senders and recipients. If so, how do we accomplish this in a document while keeping the 1:1 of a display name to email address.
-* Should attachments be considered in this initial proposal?
+### Email messages vs. protocols
+
+The fields proposed in this document are focused on the contents of an email message but not on specific fields for email protocols. Do protocols like SMTP, POP3, IMAP, etc. be represented in ECS?
+
+### Email metrics and observability use caes
+
+Does the initial set of `email` fields need to consider observability and email monitoring use cases, for example spam, metrics, deliverables, and logging.
+
+### Additional event categorization values
+
+Should a new event.category field (email) be created, and, if so, which `event.type` values the `email` category should be combined with.
+
+### Display names
+
+Should the display name be captured separately from the email address for senders and recipients. If so, how do we accomplish this in a document while keeping the 1:1 of a display name to email address.
+
+### Attachments
+
+Should attachments be considered in this initial proposal? If so, should the fields should mirror (or potentially nest) the `file.*` fields?
 
 <!--
 Stage 2: Document new concerns or resolutions to previously listed concerns. It's not critical that all concerns have resolutions at this point, but it would be helpful if resolutions were taking shape for the most significant concerns.
