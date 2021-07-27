@@ -55,7 +55,7 @@ Stage 2: Included a real world example source document. Ideally this example com
 
 ### Office365 - Successful Delivery
 
-#### Original Event
+#### Original log
 
 ```json
 {
@@ -76,7 +76,7 @@ Stage 2: Included a real world example source document. Ideally this example com
 }
 ```
 
-#### Mapped Example
+#### Mapped event
 
 ```json
 {
@@ -105,6 +105,8 @@ Stage 2: Included a real world example source document. Ideally this example com
 
 ### Office365 - Undeliverable
 
+#### Original log
+
 ```json
 {
 	"EndDate": "2020-11-10T22:12:34.8196921Z",
@@ -124,7 +126,7 @@ Stage 2: Included a real world example source document. Ideally this example com
 }
 ```
 
-#### Mapped Example
+#### Mapped event
 
 ```json
 {
@@ -150,6 +152,49 @@ Stage 2: Included a real world example source document. Ideally this example com
 	}
 }
 ```
+
+### Proofpoint Tap
+
+#### Original log
+
+```
+<38>1 2016-06-24T21:00:08Z - ProofpointTAP - MSGBLK [tapmsg@21139 messageTime="2016-06-24T21:18:38.000Z" messageID="20160624211145.62086.mail@evil.zz" recipient="clark.kent@pharmtech.zz, diana.prince@pharmtech.zz" sender="e99d7ed5580193f36a51f597bc2c0210@evil.zz" senderIP="192.0.2.255" phishScore="46" spamScore="4" QID="r2FNwRHF004109" GUID="c26dbea0-80d5-463b-b93c-4e8b708219ce" xmailer="Spambot v2.5"]
+```
+
+#### Mapped event
+
+```json
+{
+  "@timestamp": "2016-06-24T21:00:08Z",
+  "email": {
+    "timestamp": "2016-06-24T21:18:38.000Z",
+    "message_id": "20160624211145.62086.mail@evil.zz",
+    "to": [
+      "clark.kent@pharmtech.zz",
+      "diana.prince@pharmtech.zz"
+    ],
+    "from": [
+      "e99d7ed5580193f36a51f597bc2c0210@evil.zz"
+    ],
+    "subject": "Please find a totally safe invoice attached.",
+    "reply_to": "null"
+  },
+  "event": {
+    "id": "c26dbea0-80d5-463b-b93c-4e8b708219ce",
+    "kind": "event",
+    "category": "email",
+    "action": "MSGBLK"
+  },
+  "source": {
+    "address": "192.0.2.255",
+    "ip": "192.0.2.255"
+  }
+}
+```
+
+#### Original log
+
+#### Mapped event
 
 <!--
 Stage 3: Add more real world example source documents so we have at least 2 total, but ideally 3. Format as described in stage 2.
