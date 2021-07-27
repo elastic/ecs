@@ -188,15 +188,47 @@ Stage 2: Included a real world example source document. Ideally this example com
     "action": "MSGBLK"
   },
   "source": {
-    "address": "192.0.2.255",
-    "ip": "192.0.2.255"
+    "address": 192.0.2.255,
+    "ip": 192.0.2.255
   }
 }
 ```
 
+### Mimecast Receipt log
+
 #### Original log
 
+```
+datetime=2017-05-26T16:47:41+0100|aCode=7O7I7MvGP1mj8plHRDuHEA|acc=C0A0|SpamLimit=0|IP=123.123.123.123|Dir=Internal|MsgId=<81ce15$8r2j59@mail01.example.com>|Subject=\message subject\|headerFrom=from@mimecast.com|Sender=from@mimecast.com|Rcpt=auser@mimecast.com|SpamInfo=[]|Act=Acc|TlsVer=TLSv1|Cphr=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA|SpamProcessingDetail={"spf":{"info":"SPF_FAIL","allow":true},"dkim":{"info":"DKIM_UNKNOWN","allow":true}}|SpamScore=1
+```
+
 #### Mapped event
+
+```json
+{
+  "@timestamp": "2017-05-26T16:47:41+0100",
+  "source": {
+    "address": 123.123.123.123,
+    "ip": 123.123.123.123
+  },
+  "email": {
+    "message_id": "<81ce15$8r2j59@mail01.example.com>",
+    "from": [
+      "from@mimecast.com"
+    ],
+    "to": [
+      "auser@mimecast.com"
+    ],
+    "subject": "message subject",
+    "direction": "internal"
+  },
+  "tls": {
+    "cipher": "TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA",
+    "version": "1.0",
+    "version_protocol": "tls"
+  }
+}
+```
 
 <!--
 Stage 3: Add more real world example source documents so we have at least 2 total, but ideally 3. Format as described in stage 2.
