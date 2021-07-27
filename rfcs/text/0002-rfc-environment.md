@@ -1,8 +1,8 @@
 # 0002: Service Environment Field
 <!--^ The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC, taking care not to conflict with other RFCs.-->
 
-- Stage: **1 (Draft)** <!-- Update to reflect target stage -->
-- Date: **2020-12-08** <!-- Update to reflect date of most recent stage advancement -->
+- Stage: **2 (candidate)** <!-- Update to reflect target stage -->
+- Date: **TBD** <!-- Update to reflect date of most recent stage advancement -->
 
 <!--
 Stage 0: Provide a high level summary of the premise of these changes. Briefly describe the nature, purpose, and impact of the changes. ~2-5 sentences.
