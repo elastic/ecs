@@ -178,7 +178,8 @@ Stage 2: Included a real world example source document. Ideally this example com
       "e99d7ed5580193f36a51f597bc2c0210@evil.zz"
     ],
     "subject": "Please find a totally safe invoice attached.",
-    "reply_to": "null"
+    "reply_to": "null",
+    "x_mailer": "Spambot v2.5"
   },
   "event": {
     "id": "c26dbea0-80d5-463b-b93c-4e8b708219ce",
