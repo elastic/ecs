@@ -11,6 +11,21 @@
   type: group
   fields:
 
+    - name: environment
+      level: extended
+      type: keyword
+      short: Environment of the service.
+      description: >
+        Identifies the environment where the service is running.
+
+        The environment field can group services and applications from
+        the same environment. If service runs in different
+        environments (production, staging, QA, or development) under the
+        same name, `service.environment` can identify the instance of that
+        service.
+
+      example: production
+
     - name: id
       level: core
       type: keyword
@@ -110,7 +125,7 @@
       level: extended
       type: keyword
       short: Address of this service.
-      description: > 
+      description: >
         Address where data about this service was collected from.
 
         This should be a URI, network address (ipv4:port or [ipv6]:port) or a resource path (sockets).
