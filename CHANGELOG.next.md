@@ -9,6 +9,11 @@ Thanks, you're awesome :-) -->
 ## Unreleased
 
 ### Schema Changes
+
+#### Added
+
+* Added `service.address` field. #1537
+
 ### Tooling and Artifact Changes
 
 #### Breaking changes
