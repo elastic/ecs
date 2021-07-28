@@ -9,6 +9,11 @@ Thanks, you're awesome :-) -->
 ## Unreleased
 
 ### Schema Changes
+
+#### Added
+
+* Added `service.address` field. #1537
+
 ### Tooling and Artifact Changes
 
 ### Breaking Changes
@@ -29,6 +34,7 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
+* Beta migration of `text` and `.text` multi-fields to `match_only_text`. #1532
 #### Deprecated
 
 ## 1.11.0 (Feature Freeze)
