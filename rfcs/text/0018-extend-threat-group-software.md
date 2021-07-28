@@ -263,9 +263,8 @@ Stage 3: Document resolutions for all existing concerns. Any new concerns should
 
 The following are the people that consulted on the contents of this RFC.
 
-* @peasead | author
+* @peasead | author, subject matter expert
 * @devonakerr | sponsor
-* @peasead | subject matter expert
 * @dcode | subject matter expert
 
 <!--
@@ -303,6 +302,7 @@ e.g.:
 * Stage 1: https://github.com/elastic/ecs/pull/1335
 * Stage 2: https://github.com/elastic/ecs/pull/1395
     * Stage 2 advancement date correction: https://github.com/elastic/ecs/pull/1429
+* Stage 3: https://github.com/elastic/ecs/pull/1442
 
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN
