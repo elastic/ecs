@@ -9,6 +9,11 @@ Thanks, you're awesome :-) -->
 ## Unreleased
 
 ### Schema Changes
+
+#### Added
+
+* Added `service.address` field. #1537
+
 ### Tooling and Artifact Changes
 
 ### Breaking Changes
@@ -17,13 +22,19 @@ Thanks, you're awesome :-) -->
 * Removing use-cases directory #1405
 * Remove `host.user.*` field reuse. #1439
 * Remove deprecation notice on `http.request.method`. #1443
+* Migrate `log.origin.file.line` from `integer` to `long`. #1533
 
 #### Bugfixes
 
 #### Added
 
+* Added `file.fork_name` field. #1288
+* Beta migration on some `keyword` fields to `wildcard`. #1517
+* Support ES 6.x type fallback for `match_only_text` field types. #1528
+
 #### Improvements
 
+* Beta migration of `text` and `.text` multi-fields to `match_only_text`. #1532
 #### Deprecated
 
 ## 1.11.0 (Feature Freeze)
@@ -63,6 +74,7 @@ Thanks, you're awesome :-) -->
 
 * Support `match_only_text` data type in Go code generator. #1418
 * Support for multi-level, self-nestings. #1459
+* `beta` attribute now supported on categorization allowed values. #1511
 
 #### Improvements
 

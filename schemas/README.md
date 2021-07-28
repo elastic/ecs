@@ -32,7 +32,7 @@ Optional field set attributes:
 - type (ignored): at this level, should always be `group`
 - reusable (optional): Used to identify which field sets are expected to be reused in multiple places.
   See "Field set reuse" for details.
-- short_override: Used to override the top-level fieldset's short description when nesting. 
+- short_override: Used to override the top-level fieldset's short description when nesting.
   See "Field set reuse" for details.
 - beta: Adds a beta marker for the entire fieldset. The text provided in this attribute is used as content of the beta marker in the documentation.
   Beta notices should not have newlines.
@@ -59,7 +59,7 @@ The `reusable` attribute is composed of `top_level`, `expected`, and `short_over
   events or is it only expected in the nested locations?
 - expected (default []): list of places the field set's fields are expected.
   There are two valid notations to list expected locations.
-- short_override (optional, default null): Sets the short description for the 
+- short_override (optional, default null): Sets the short description for the
   nested field, overriding the default top-level short description.
 
 The "flat" (or dotted) notation to represent where the fields are nested:
@@ -122,7 +122,7 @@ Beta notices should not have newlines.
       beta: Reusing these fields in this location is currently considered beta.
 ```
 
-The `short_override` marker can optionally be used along with `at` and `as` to set the short description of the nested field, instead of defaulting to the top-level fieldset's short description. 
+The `short_override` marker can optionally be used along with `at` and `as` to set the short description of the nested field, instead of defaulting to the top-level fieldset's short description.
 Like short, descriptions must not have newlines.
 
 ```
@@ -180,7 +180,8 @@ Supported keys to describe expected values for a field
 ```
 
 - accepted\_values: list of dictionaries with the 'name' and 'description' of the expected values.
-  Optionally, entries in this list can specify 'expected\_event\_types'.
+  Optionally, entries in this list can specify 'expected\_event\_types'. The `beta` field is also
+  allowed here and will add a beta marker to the allowed value in the ECS categorization docs.
 - expected\_event\_types: list of expected "event.type" values to use in association
   with that category.
 

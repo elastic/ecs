@@ -73,4 +73,9 @@ type Service struct {
 	// Ephemeral identifier of this service (if one exists).
 	// This id normally changes across restarts, but `service.id` does not.
 	EphemeralID string `ecs:"ephemeral_id"`
+
+	// Address where data about this service was collected from.
+	// This should be a URI, network address (ipv4:port or [ipv6]:port) or a
+	// resource path (sockets).
+	Address string `ecs:"address"`
 }

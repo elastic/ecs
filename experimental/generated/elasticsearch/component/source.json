@@ -1,7 +1,7 @@
 {
   "_meta": {
     "documentation": "https://www.elastic.co/guide/en/ecs/current/ecs-source.html",
-    "ecs_version": "2.0.0-dev+exp"
+    "ecs_version": "8.0.0-dev+exp"
   },
   "template": {
     "mappings": {
@@ -22,11 +22,11 @@
                     "name": {
                       "fields": {
                         "text": {
-                          "norms": false,
-                          "type": "text"
+                          "type": "match_only_text"
                         }
                       },
-                      "type": "wildcard"
+                      "ignore_above": 1024,
+                      "type": "keyword"
                     }
                   }
                 }
@@ -36,7 +36,8 @@
               "type": "long"
             },
             "domain": {
-              "type": "wildcard"
+              "ignore_above": 1024,
+              "type": "keyword"
             },
             "geo": {
               "properties": {
@@ -64,7 +65,8 @@
                   "type": "geo_point"
                 },
                 "name": {
-                  "type": "wildcard"
+                  "ignore_above": 1024,
+                  "type": "keyword"
                 },
                 "postal_code": {
                   "ignore_above": 1024,
@@ -108,7 +110,8 @@
               "type": "long"
             },
             "registered_domain": {
-              "type": "wildcard"
+              "ignore_above": 1024,
+              "type": "keyword"
             },
             "subdomain": {
               "ignore_above": 1024,
@@ -125,16 +128,17 @@
                   "type": "keyword"
                 },
                 "email": {
-                  "type": "wildcard"
+                  "ignore_above": 1024,
+                  "type": "keyword"
                 },
                 "full_name": {
                   "fields": {
                     "text": {
-                      "norms": false,
-                      "type": "text"
+                      "type": "match_only_text"
                     }
                   },
-                  "type": "wildcard"
+                  "ignore_above": 1024,
+                  "type": "keyword"
                 },
                 "group": {
                   "properties": {
@@ -163,11 +167,11 @@
                 "name": {
                   "fields": {
                     "text": {
-                      "norms": false,
-                      "type": "text"
+                      "type": "match_only_text"
                     }
                   },
-                  "type": "wildcard"
+                  "ignore_above": 1024,
+                  "type": "keyword"
                 },
                 "roles": {
                   "ignore_above": 1024,

@@ -1,7 +1,7 @@
 {
   "_meta": {
     "documentation": "https://www.elastic.co/guide/en/ecs/current/ecs-file.html",
-    "ecs_version": "2.0.0-dev+exp"
+    "ecs_version": "8.0.0-dev+exp"
   },
   "template": {
     "mappings": {
@@ -55,7 +55,8 @@
               "type": "keyword"
             },
             "directory": {
-              "type": "wildcard"
+              "ignore_above": 1024,
+              "type": "keyword"
             },
             "drive_letter": {
               "ignore_above": 1,
@@ -182,6 +183,10 @@
               "ignore_above": 1024,
               "type": "keyword"
             },
+            "fork_name": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
             "gid": {
               "ignore_above": 1024,
               "type": "keyword"
@@ -240,11 +245,11 @@
             "path": {
               "fields": {
                 "text": {
-                  "norms": false,
-                  "type": "text"
+                  "type": "match_only_text"
                 }
               },
-              "type": "wildcard"
+              "ignore_above": 1024,
+              "type": "keyword"
             },
             "pe": {
               "properties": {
@@ -337,7 +342,8 @@
                   "type": "keyword"
                 },
                 "original_file_name": {
-                  "type": "wildcard"
+                  "ignore_above": 1024,
+                  "type": "keyword"
                 },
                 "packers": {
                   "ignore_above": 1024,
@@ -419,11 +425,11 @@
             "target_path": {
               "fields": {
                 "text": {
-                  "norms": false,
-                  "type": "text"
+                  "type": "match_only_text"
                 }
               },
-              "type": "wildcard"
+              "ignore_above": 1024,
+              "type": "keyword"
             },
             "type": {
               "ignore_above": 1024,
@@ -450,7 +456,8 @@
                       "type": "keyword"
                     },
                     "distinguished_name": {
-                      "type": "wildcard"
+                      "ignore_above": 1024,
+                      "type": "keyword"
                     },
                     "locality": {
                       "ignore_above": 1024,
@@ -511,7 +518,8 @@
                       "type": "keyword"
                     },
                     "distinguished_name": {
-                      "type": "wildcard"
+                      "ignore_above": 1024,
+                      "type": "keyword"
                     },
                     "locality": {
                       "ignore_above": 1024,

@@ -1,7 +1,7 @@
 {
   "_meta": {
     "documentation": "https://www.elastic.co/guide/en/ecs/current/ecs-threat.html",
-    "ecs_version": "2.0.0-dev"
+    "ecs_version": "8.0.0-dev"
   },
   "template": {
     "mappings": {
@@ -22,8 +22,7 @@
                             "name": {
                               "fields": {
                                 "text": {
-                                  "norms": false,
-                                  "type": "text"
+                                  "type": "match_only_text"
                                 }
                               },
                               "ignore_above": 1024,
@@ -226,6 +225,10 @@
                           "ignore_above": 1024,
                           "type": "keyword"
                         },
+                        "fork_name": {
+                          "ignore_above": 1024,
+                          "type": "keyword"
+                        },
                         "gid": {
                           "ignore_above": 1024,
                           "type": "keyword"
@@ -260,8 +263,7 @@
                         "path": {
                           "fields": {
                             "text": {
-                              "norms": false,
-                              "type": "text"
+                              "type": "match_only_text"
                             }
                           },
                           "ignore_above": 1024,
@@ -273,8 +275,7 @@
                         "target_path": {
                           "fields": {
                             "text": {
-                              "norms": false,
-                              "type": "text"
+                              "type": "match_only_text"
                             }
                           },
                           "ignore_above": 1024,
@@ -433,8 +434,7 @@
                               "type": "keyword"
                             },
                             "strings": {
-                              "ignore_above": 1024,
-                              "type": "keyword"
+                              "type": "wildcard"
                             },
                             "type": {
                               "ignore_above": 1024,
@@ -487,30 +487,25 @@
                         "full": {
                           "fields": {
                             "text": {
-                              "norms": false,
-                              "type": "text"
+                              "type": "match_only_text"
                             }
                           },
-                          "ignore_above": 1024,
-                          "type": "keyword"
+                          "type": "wildcard"
                         },
                         "original": {
                           "fields": {
                             "text": {
-                              "norms": false,
-                              "type": "text"
+                              "type": "match_only_text"
                             }
                           },
-                          "ignore_above": 1024,
-                          "type": "keyword"
+                          "type": "wildcard"
                         },
                         "password": {
                           "ignore_above": 1024,
                           "type": "keyword"
                         },
                         "path": {
-                          "ignore_above": 1024,
-                          "type": "keyword"
+                          "type": "wildcard"
                         },
                         "port": {
                           "type": "long"
@@ -713,8 +708,7 @@
                         "name": {
                           "fields": {
                             "text": {
-                              "norms": false,
-                              "type": "text"
+                              "type": "match_only_text"
                             }
                           },
                           "ignore_above": 1024,
@@ -917,6 +911,10 @@
                       "ignore_above": 1024,
                       "type": "keyword"
                     },
+                    "fork_name": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    },
                     "gid": {
                       "ignore_above": 1024,
                       "type": "keyword"
@@ -951,8 +949,7 @@
                     "path": {
                       "fields": {
                         "text": {
-                          "norms": false,
-                          "type": "text"
+                          "type": "match_only_text"
                         }
                       },
                       "ignore_above": 1024,
@@ -964,8 +961,7 @@
                     "target_path": {
                       "fields": {
                         "text": {
-                          "norms": false,
-                          "type": "text"
+                          "type": "match_only_text"
                         }
                       },
                       "ignore_above": 1024,
@@ -1124,8 +1120,7 @@
                           "type": "keyword"
                         },
                         "strings": {
-                          "ignore_above": 1024,
-                          "type": "keyword"
+                          "type": "wildcard"
                         },
                         "type": {
                           "ignore_above": 1024,
@@ -1178,30 +1173,25 @@
                     "full": {
                       "fields": {
                         "text": {
-                          "norms": false,
-                          "type": "text"
+                          "type": "match_only_text"
                         }
                       },
-                      "ignore_above": 1024,
-                      "type": "keyword"
+                      "type": "wildcard"
                     },
                     "original": {
                       "fields": {
                         "text": {
-                          "norms": false,
-                          "type": "text"
+                          "type": "match_only_text"
                         }
                       },
-                      "ignore_above": 1024,
-                      "type": "keyword"
+                      "type": "wildcard"
                     },
                     "password": {
                       "ignore_above": 1024,
                       "type": "keyword"
                     },
                     "path": {
-                      "ignore_above": 1024,
-                      "type": "keyword"
+                      "type": "wildcard"
                     },
                     "port": {
                       "type": "long"
@@ -1389,8 +1379,7 @@
                 "name": {
                   "fields": {
                     "text": {
-                      "norms": false,
-                      "type": "text"
+                      "type": "match_only_text"
                     }
                   },
                   "ignore_above": 1024,
@@ -1409,8 +1398,7 @@
                     "name": {
                       "fields": {
                         "text": {
-                          "norms": false,
-                          "type": "text"
+                          "type": "match_only_text"
                         }
                       },
                       "ignore_above": 1024,

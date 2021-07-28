@@ -1,7 +1,7 @@
 {
   "_meta": {
     "documentation": "https://www.elastic.co/guide/en/ecs/current/ecs-process.html",
-    "ecs_version": "2.0.0-dev+exp"
+    "ecs_version": "8.0.0-dev+exp"
   },
   "template": {
     "mappings": {
@@ -47,8 +47,7 @@
             "command_line": {
               "fields": {
                 "text": {
-                  "norms": false,
-                  "type": "text"
+                  "type": "match_only_text"
                 }
               },
               "type": "wildcard"
@@ -177,11 +176,11 @@
             "executable": {
               "fields": {
                 "text": {
-                  "norms": false,
-                  "type": "text"
+                  "type": "match_only_text"
                 }
               },
-              "type": "wildcard"
+              "ignore_above": 1024,
+              "type": "keyword"
             },
             "exit_code": {
               "type": "long"
@@ -213,11 +212,11 @@
             "name": {
               "fields": {
                 "text": {
-                  "norms": false,
-                  "type": "text"
+                  "type": "match_only_text"
                 }
               },
-              "type": "wildcard"
+              "ignore_above": 1024,
+              "type": "keyword"
             },
             "parent": {
               "properties": {
@@ -260,8 +259,7 @@
                 "command_line": {
                   "fields": {
                     "text": {
-                      "norms": false,
-                      "type": "text"
+                      "type": "match_only_text"
                     }
                   },
                   "type": "wildcard"
@@ -390,11 +388,11 @@
                 "executable": {
                   "fields": {
                     "text": {
-                      "norms": false,
-                      "type": "text"
+                      "type": "match_only_text"
                     }
                   },
-                  "type": "wildcard"
+                  "ignore_above": 1024,
+                  "type": "keyword"
                 },
                 "exit_code": {
                   "type": "long"
@@ -426,11 +424,11 @@
                 "name": {
                   "fields": {
                     "text": {
-                      "norms": false,
-                      "type": "text"
+                      "type": "match_only_text"
                     }
                   },
-                  "type": "wildcard"
+                  "ignore_above": 1024,
+                  "type": "keyword"
                 },
                 "pe": {
                   "properties": {
@@ -523,7 +521,8 @@
                       "type": "keyword"
                     },
                     "original_file_name": {
-                      "type": "wildcard"
+                      "ignore_above": 1024,
+                      "type": "keyword"
                     },
                     "packers": {
                       "ignore_above": 1024,
@@ -617,18 +616,19 @@
                       "type": "long"
                     },
                     "name": {
-                      "type": "wildcard"
+                      "ignore_above": 1024,
+                      "type": "keyword"
                     }
                   }
                 },
                 "title": {
                   "fields": {
                     "text": {
-                      "norms": false,
-                      "type": "text"
+                      "type": "match_only_text"
                     }
                   },
-                  "type": "wildcard"
+                  "ignore_above": 1024,
+                  "type": "keyword"
                 },
                 "uptime": {
                   "type": "long"
@@ -636,11 +636,11 @@
                 "working_directory": {
                   "fields": {
                     "text": {
-                      "norms": false,
-                      "type": "text"
+                      "type": "match_only_text"
                     }
                   },
-                  "type": "wildcard"
+                  "ignore_above": 1024,
+                  "type": "keyword"
                 }
               }
             },
@@ -735,7 +735,8 @@
                   "type": "keyword"
                 },
                 "original_file_name": {
-                  "type": "wildcard"
+                  "ignore_above": 1024,
+                  "type": "keyword"
                 },
                 "packers": {
                   "ignore_above": 1024,
@@ -864,8 +865,7 @@
                 "command_line": {
                   "fields": {
                     "text": {
-                      "norms": false,
-                      "type": "text"
+                      "type": "match_only_text"
                     }
                   },
                   "type": "wildcard"
@@ -994,11 +994,11 @@
                 "executable": {
                   "fields": {
                     "text": {
-                      "norms": false,
-                      "type": "text"
+                      "type": "match_only_text"
                     }
                   },
-                  "type": "wildcard"
+                  "ignore_above": 1024,
+                  "type": "keyword"
                 },
                 "exit_code": {
                   "type": "long"
@@ -1030,11 +1030,11 @@
                 "name": {
                   "fields": {
                     "text": {
-                      "norms": false,
-                      "type": "text"
+                      "type": "match_only_text"
                     }
                   },
-                  "type": "wildcard"
+                  "ignore_above": 1024,
+                  "type": "keyword"
                 },
                 "parent": {
                   "properties": {
@@ -1077,8 +1077,7 @@
                     "command_line": {
                       "fields": {
                         "text": {
-                          "norms": false,
-                          "type": "text"
+                          "type": "match_only_text"
                         }
                       },
                       "type": "wildcard"
@@ -1207,11 +1206,11 @@
                     "executable": {
                       "fields": {
                         "text": {
-                          "norms": false,
-                          "type": "text"
+                          "type": "match_only_text"
                         }
                       },
-                      "type": "wildcard"
+                      "ignore_above": 1024,
+                      "type": "keyword"
                     },
                     "exit_code": {
                       "type": "long"
@@ -1243,11 +1242,11 @@
                     "name": {
                       "fields": {
                         "text": {
-                          "norms": false,
-                          "type": "text"
+                          "type": "match_only_text"
                         }
                       },
-                      "type": "wildcard"
+                      "ignore_above": 1024,
+                      "type": "keyword"
                     },
                     "pe": {
                       "properties": {
@@ -1340,7 +1339,8 @@
                           "type": "keyword"
                         },
                         "original_file_name": {
-                          "type": "wildcard"
+                          "ignore_above": 1024,
+                          "type": "keyword"
                         },
                         "packers": {
                           "ignore_above": 1024,
@@ -1434,18 +1434,19 @@
                           "type": "long"
                         },
                         "name": {
-                          "type": "wildcard"
+                          "ignore_above": 1024,
+                          "type": "keyword"
                         }
                       }
                     },
                     "title": {
                       "fields": {
                         "text": {
-                          "norms": false,
-                          "type": "text"
+                          "type": "match_only_text"
                         }
                       },
-                      "type": "wildcard"
+                      "ignore_above": 1024,
+                      "type": "keyword"
                     },
                     "uptime": {
                       "type": "long"
@@ -1453,11 +1454,11 @@
                     "working_directory": {
                       "fields": {
                         "text": {
-                          "norms": false,
-                          "type": "text"
+                          "type": "match_only_text"
                         }
                       },
-                      "type": "wildcard"
+                      "ignore_above": 1024,
+                      "type": "keyword"
                     }
                   }
                 },
@@ -1552,7 +1553,8 @@
                       "type": "keyword"
                     },
                     "original_file_name": {
-                      "type": "wildcard"
+                      "ignore_above": 1024,
+                      "type": "keyword"
                     },
                     "packers": {
                       "ignore_above": 1024,
@@ -1646,18 +1648,19 @@
                       "type": "long"
                     },
                     "name": {
-                      "type": "wildcard"
+                      "ignore_above": 1024,
+                      "type": "keyword"
                     }
                   }
                 },
                 "title": {
                   "fields": {
                     "text": {
-                      "norms": false,
-                      "type": "text"
+                      "type": "match_only_text"
                     }
                   },
-                  "type": "wildcard"
+                  "ignore_above": 1024,
+                  "type": "keyword"
                 },
                 "uptime": {
                   "type": "long"
@@ -1665,11 +1668,11 @@
                 "working_directory": {
                   "fields": {
                     "text": {
-                      "norms": false,
-                      "type": "text"
+                      "type": "match_only_text"
                     }
                   },
-                  "type": "wildcard"
+                  "ignore_above": 1024,
+                  "type": "keyword"
                 }
               }
             },
@@ -1679,18 +1682,19 @@
                   "type": "long"
                 },
                 "name": {
-                  "type": "wildcard"
+                  "ignore_above": 1024,
+                  "type": "keyword"
                 }
               }
             },
             "title": {
               "fields": {
                 "text": {
-                  "norms": false,
-                  "type": "text"
+                  "type": "match_only_text"
                 }
               },
-              "type": "wildcard"
+              "ignore_above": 1024,
+              "type": "keyword"
             },
             "uptime": {
               "type": "long"
@@ -1698,11 +1702,11 @@
             "working_directory": {
               "fields": {
                 "text": {
-                  "norms": false,
-                  "type": "text"
+                  "type": "match_only_text"
                 }
               },
-              "type": "wildcard"
+              "ignore_above": 1024,
+              "type": "keyword"
             }
           }
         }
