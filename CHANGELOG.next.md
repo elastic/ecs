@@ -28,6 +28,7 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
+* Beta migration of `text` and `.text` multi-fields to `match_only_text`. #1532
 #### Deprecated
 
 ## 1.11.0 (Feature Freeze)

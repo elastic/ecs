@@ -19,7 +19,7 @@ ECS fields used Metricbeat.
 | <a name="service.host"></a>*service.host* | *Host address that is used to connect to the service.<br/>This normally contains hostname + port.<br/>REVIEW: Should this be service.uri instead, sometimes it's more then just the host? It could also include a path or the protocol.* | (use case) | keyword | `elasticsearch:9200` |
 | <a name="request.rtt"></a>*request.rtt* | *Request round trip time.<br/>How long did the request take to fetch metrics from the service.<br/>REVIEW: THIS DOES NOT EXIST YET IN ECS.* | (use case) | long | `115` |
 | <a name="error.&ast;"></a>*error.&ast;* | *Error namespace<br/>Use for errors which can happen during fetching information for a service.<br/>* |  |  |  |
-| [error.message](../README.md#error.message)  | Error message returned by the service during fetching metrics. | core | text |  |
+| [error.message](../README.md#error.message)  | Error message returned by the service during fetching metrics. | core | match_only_text |  |
 | [error.code](../README.md#error.code)  | Error code returned by the service during fetching metrics. | core | keyword |  |
 | [host.hostname](../README.md#host.hostname)  | Hostname of the system metricbeat is running on or user defined name. | core | keyword |  |
 | <a name="host.timezone.offset.sec"></a>*host.timezone.offset.sec* | *Timezone offset of the host in seconds.* | (use case) | long |  |
