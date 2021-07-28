@@ -2,7 +2,7 @@
 <!--^ The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC, taking care not to conflict with other RFCs.-->
 
 - Stage: **2 (candidate)** <!-- Update to reflect target stage -->
-- Date: **TBD** <!-- Update to reflect date of most recent stage advancement -->
+- Date: **2021-07-28** <!-- Update to reflect date of most recent stage advancement -->
 
 <!--
 Stage 0: Provide a high level summary of the premise of these changes. Briefly describe the nature, purpose, and impact of the changes. ~2-5 sentences.
@@ -376,7 +376,8 @@ Stage 4: Identify at least one real-world, production-ready implementation that 
 
 ## People
 
-* @cyrille-leclerc | author
+* @cyrille-leclerc | co-author
+* @eyalkoren | co-author
 * @exekias | sponsor
 * @sqren | subject matter expert
 
@@ -391,3 +392,4 @@ Stage 4: Identify at least one real-world, production-ready implementation that 
 * Stage 0: https://github.com/elastic/ecs/pull/891
 * Stage 1: https://github.com/elastic/ecs/pull/1070
   * Update stage 1 naming: https://github.com/elastic/ecs/pull/1240
+* Stage 2: https://github.com/elastic/ecs/pull/1536
