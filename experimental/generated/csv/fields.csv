@@ -1,7 +1,7 @@
 ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.0.0-dev+exp,true,base,@timestamp,date,core,,2016-05-23T08:05:34.853Z,Date/time when the event originated.
 8.0.0-dev+exp,true,base,labels,object,core,,"{""application"": ""foo-bar"", ""env"": ""production""}",Custom key/value pairs.
-8.0.0-dev+exp,true,base,message,text,core,,Hello World,Log message optimized for viewing in a log viewer.
+8.0.0-dev+exp,true,base,message,match_only_text,core,,Hello World,Log message optimized for viewing in a log viewer.
 8.0.0-dev+exp,true,base,tags,keyword,core,array,"[""production"", ""env2""]",List of keywords used to tag each event.
 8.0.0-dev+exp,true,agent,agent.build.original,keyword,core,,"metricbeat version 7.6.0 (amd64), libbeat 7.6.0 [6a23e8f8f30f5001ba344e4e54d8d9cb82cb107c built 2020-02-05 23:10:10 +0000 UTC]",Extended build information for the agent.
 8.0.0-dev+exp,true,agent,agent.ephemeral_id,keyword,extended,,8a4f500f,Ephemeral identifier of this agent.
@@ -12,7 +12,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.0.0-dev+exp,true,client,client.address,keyword,extended,,,Client network address.
 8.0.0-dev+exp,true,client,client.as.number,long,extended,,15169,Unique number allocated to the autonomous system.
 8.0.0-dev+exp,true,client,client.as.organization.name,keyword,extended,,Google LLC,Organization name.
-8.0.0-dev+exp,true,client,client.as.organization.name.text,text,extended,,Google LLC,Organization name.
+8.0.0-dev+exp,true,client,client.as.organization.name.text,match_only_text,extended,,Google LLC,Organization name.
 8.0.0-dev+exp,true,client,client.bytes,long,core,,184,Bytes sent from the client to the server.
 8.0.0-dev+exp,true,client,client.domain,keyword,core,,,Client domain.
 8.0.0-dev+exp,true,client,client.geo.city_name,keyword,core,,Montreal,City name.
@@ -38,14 +38,14 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.0.0-dev+exp,true,client,client.user.domain,keyword,extended,,,Name of the directory the user is a member of.
 8.0.0-dev+exp,true,client,client.user.email,keyword,extended,,,User email address.
 8.0.0-dev+exp,true,client,client.user.full_name,keyword,extended,,Albert Einstein,"User's full name, if available."
-8.0.0-dev+exp,true,client,client.user.full_name.text,text,extended,,Albert Einstein,"User's full name, if available."
+8.0.0-dev+exp,true,client,client.user.full_name.text,match_only_text,extended,,Albert Einstein,"User's full name, if available."
 8.0.0-dev+exp,true,client,client.user.group.domain,keyword,extended,,,Name of the directory the group is a member of.
 8.0.0-dev+exp,true,client,client.user.group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
 8.0.0-dev+exp,true,client,client.user.group.name,keyword,extended,,,Name of the group.
 8.0.0-dev+exp,true,client,client.user.hash,keyword,extended,,,Unique user hash to correlate information for a user in anonymized form.
 8.0.0-dev+exp,true,client,client.user.id,keyword,core,,,Unique identifier of the user.
 8.0.0-dev+exp,true,client,client.user.name,keyword,core,,albert,Short name or login of the user.
-8.0.0-dev+exp,true,client,client.user.name.text,text,core,,albert,Short name or login of the user.
+8.0.0-dev+exp,true,client,client.user.name.text,match_only_text,core,,albert,Short name or login of the user.
 8.0.0-dev+exp,true,client,client.user.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 8.0.0-dev+exp,true,cloud,cloud.account.id,keyword,extended,,666777888999,The cloud account or organization id.
 8.0.0-dev+exp,true,cloud,cloud.account.name,keyword,extended,,elastic-dev,The cloud account name.
@@ -70,7 +70,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.0.0-dev+exp,true,destination,destination.address,keyword,extended,,,Destination network address.
 8.0.0-dev+exp,true,destination,destination.as.number,long,extended,,15169,Unique number allocated to the autonomous system.
 8.0.0-dev+exp,true,destination,destination.as.organization.name,keyword,extended,,Google LLC,Organization name.
-8.0.0-dev+exp,true,destination,destination.as.organization.name.text,text,extended,,Google LLC,Organization name.
+8.0.0-dev+exp,true,destination,destination.as.organization.name.text,match_only_text,extended,,Google LLC,Organization name.
 8.0.0-dev+exp,true,destination,destination.bytes,long,core,,184,Bytes sent from the destination to the source.
 8.0.0-dev+exp,true,destination,destination.domain,keyword,core,,,Destination domain.
 8.0.0-dev+exp,true,destination,destination.geo.city_name,keyword,core,,Montreal,City name.
@@ -96,14 +96,14 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.0.0-dev+exp,true,destination,destination.user.domain,keyword,extended,,,Name of the directory the user is a member of.
 8.0.0-dev+exp,true,destination,destination.user.email,keyword,extended,,,User email address.
 8.0.0-dev+exp,true,destination,destination.user.full_name,keyword,extended,,Albert Einstein,"User's full name, if available."
-8.0.0-dev+exp,true,destination,destination.user.full_name.text,text,extended,,Albert Einstein,"User's full name, if available."
+8.0.0-dev+exp,true,destination,destination.user.full_name.text,match_only_text,extended,,Albert Einstein,"User's full name, if available."
 8.0.0-dev+exp,true,destination,destination.user.group.domain,keyword,extended,,,Name of the directory the group is a member of.
 8.0.0-dev+exp,true,destination,destination.user.group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
 8.0.0-dev+exp,true,destination,destination.user.group.name,keyword,extended,,,Name of the group.
 8.0.0-dev+exp,true,destination,destination.user.hash,keyword,extended,,,Unique user hash to correlate information for a user in anonymized form.
 8.0.0-dev+exp,true,destination,destination.user.id,keyword,core,,,Unique identifier of the user.
 8.0.0-dev+exp,true,destination,destination.user.name,keyword,core,,albert,Short name or login of the user.
-8.0.0-dev+exp,true,destination,destination.user.name.text,text,core,,albert,Short name or login of the user.
+8.0.0-dev+exp,true,destination,destination.user.name.text,match_only_text,core,,albert,Short name or login of the user.
 8.0.0-dev+exp,true,destination,destination.user.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 8.0.0-dev+exp,true,dll,dll.code_signature.exists,boolean,core,,true,Boolean to capture if a signature is present.
 8.0.0-dev+exp,true,dll,dll.code_signature.signing_id,keyword,extended,,com.apple.xpc.proxy,The identifier used to sign the process.
@@ -178,9 +178,9 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.0.0-dev+exp,true,ecs,ecs.version,keyword,core,,1.0.0,ECS version this event conforms to.
 8.0.0-dev+exp,true,error,error.code,keyword,core,,,Error code describing the error.
 8.0.0-dev+exp,true,error,error.id,keyword,core,,,Unique identifier for the error.
-8.0.0-dev+exp,true,error,error.message,text,core,,,Error message.
+8.0.0-dev+exp,true,error,error.message,match_only_text,core,,,Error message.
 8.0.0-dev+exp,true,error,error.stack_trace,wildcard,extended,,,The stack trace of this error in plain text.
-8.0.0-dev+exp,true,error,error.stack_trace.text,text,extended,,,The stack trace of this error in plain text.
+8.0.0-dev+exp,true,error,error.stack_trace.text,match_only_text,extended,,,The stack trace of this error in plain text.
 8.0.0-dev+exp,true,error,error.type,keyword,extended,,java.lang.NullPointerException,"The type of the error, for example the class name of the exception."
 8.0.0-dev+exp,true,event,event.action,keyword,core,,user-password-change,The action captured by the event.
 8.0.0-dev+exp,true,event,event.agent_id_status,keyword,extended,,verified,Validation status of the event's agent.id field.
@@ -267,7 +267,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.0.0-dev+exp,true,file,file.name,keyword,extended,,example.png,"Name of the file including the extension, without the directory."
 8.0.0-dev+exp,true,file,file.owner,keyword,extended,,alice,File owner's username.
 8.0.0-dev+exp,true,file,file.path,keyword,extended,,/home/alice/example.png,"Full path to the file, including the file name."
-8.0.0-dev+exp,true,file,file.path.text,text,extended,,/home/alice/example.png,"Full path to the file, including the file name."
+8.0.0-dev+exp,true,file,file.path.text,match_only_text,extended,,/home/alice/example.png,"Full path to the file, including the file name."
 8.0.0-dev+exp,true,file,file.pe.architecture,keyword,extended,,x64,CPU architecture target for the file.
 8.0.0-dev+exp,true,file,file.pe.authentihash,keyword,extended,,ac9555d914bbb112ecc5f15bb9887ca8371f493ab0941344e976bb8410c8aa78,Authentihash of the PE file.
 8.0.0-dev+exp,true,file,file.pe.company,keyword,extended,,Microsoft Corporation,"Internal company name of the file, provided at compile-time."
@@ -308,7 +308,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.0.0-dev+exp,true,file,file.pe.sections.virtual_address,long,extended,,8192,Virtual address available to the file.
 8.0.0-dev+exp,true,file,file.size,long,extended,,16384,File size in bytes.
 8.0.0-dev+exp,true,file,file.target_path,keyword,extended,,,Target path for symlinks.
-8.0.0-dev+exp,true,file,file.target_path.text,text,extended,,,Target path for symlinks.
+8.0.0-dev+exp,true,file,file.target_path.text,match_only_text,extended,,,Target path for symlinks.
 8.0.0-dev+exp,true,file,file.type,keyword,extended,,file,"File type (file, dir, or symlink)."
 8.0.0-dev+exp,true,file,file.uid,keyword,extended,,1001,The user ID (UID) or security identifier (SID) of the file owner.
 8.0.0-dev+exp,true,file,file.x509.alternative_names,keyword,extended,array,*.elastic.co,List of subject alternative names (SAN).
@@ -365,10 +365,10 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.0.0-dev+exp,true,host,host.network.ingress.packets,long,extended,,,The number of packets received on all network interfaces.
 8.0.0-dev+exp,true,host,host.os.family,keyword,extended,,debian,"OS family (such as redhat, debian, freebsd, windows)."
 8.0.0-dev+exp,true,host,host.os.full,keyword,extended,,Mac OS Mojave,"Operating system name, including the version or code name."
-8.0.0-dev+exp,true,host,host.os.full.text,text,extended,,Mac OS Mojave,"Operating system name, including the version or code name."
+8.0.0-dev+exp,true,host,host.os.full.text,match_only_text,extended,,Mac OS Mojave,"Operating system name, including the version or code name."
 8.0.0-dev+exp,true,host,host.os.kernel,keyword,extended,,4.4.0-112-generic,Operating system kernel version as a raw string.
 8.0.0-dev+exp,true,host,host.os.name,keyword,extended,,Mac OS X,"Operating system name, without the version."
-8.0.0-dev+exp,true,host,host.os.name.text,text,extended,,Mac OS X,"Operating system name, without the version."
+8.0.0-dev+exp,true,host,host.os.name.text,match_only_text,extended,,Mac OS X,"Operating system name, without the version."
 8.0.0-dev+exp,true,host,host.os.platform,keyword,extended,,darwin,"Operating system platform (such centos, ubuntu, windows)."
 8.0.0-dev+exp,true,host,host.os.type,keyword,extended,,macos,"Which commercial OS family (one of: linux, macos, unix or windows)."
 8.0.0-dev+exp,true,host,host.os.version,keyword,extended,,10.14.1,Operating system version as a raw string.
@@ -449,10 +449,10 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.0.0-dev+exp,true,observer,observer.name,keyword,extended,,1_proxySG,Custom name of the observer.
 8.0.0-dev+exp,true,observer,observer.os.family,keyword,extended,,debian,"OS family (such as redhat, debian, freebsd, windows)."
 8.0.0-dev+exp,true,observer,observer.os.full,keyword,extended,,Mac OS Mojave,"Operating system name, including the version or code name."
-8.0.0-dev+exp,true,observer,observer.os.full.text,text,extended,,Mac OS Mojave,"Operating system name, including the version or code name."
+8.0.0-dev+exp,true,observer,observer.os.full.text,match_only_text,extended,,Mac OS Mojave,"Operating system name, including the version or code name."
 8.0.0-dev+exp,true,observer,observer.os.kernel,keyword,extended,,4.4.0-112-generic,Operating system kernel version as a raw string.
 8.0.0-dev+exp,true,observer,observer.os.name,keyword,extended,,Mac OS X,"Operating system name, without the version."
-8.0.0-dev+exp,true,observer,observer.os.name.text,text,extended,,Mac OS X,"Operating system name, without the version."
+8.0.0-dev+exp,true,observer,observer.os.name.text,match_only_text,extended,,Mac OS X,"Operating system name, without the version."
 8.0.0-dev+exp,true,observer,observer.os.platform,keyword,extended,,darwin,"Operating system platform (such centos, ubuntu, windows)."
 8.0.0-dev+exp,true,observer,observer.os.type,keyword,extended,,macos,"Which commercial OS family (one of: linux, macos, unix or windows)."
 8.0.0-dev+exp,true,observer,observer.os.version,keyword,extended,,10.14.1,Operating system version as a raw string.
@@ -496,7 +496,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.0.0-dev+exp,true,process,process.code_signature.trusted,boolean,extended,,true,Stores the trust status of the certificate chain.
 8.0.0-dev+exp,true,process,process.code_signature.valid,boolean,extended,,true,Boolean to capture if the digital signature is verified against the binary content.
 8.0.0-dev+exp,true,process,process.command_line,wildcard,extended,,/usr/bin/ssh -l user 10.0.0.16,Full command line that started the process.
-8.0.0-dev+exp,true,process,process.command_line.text,text,extended,,/usr/bin/ssh -l user 10.0.0.16,Full command line that started the process.
+8.0.0-dev+exp,true,process,process.command_line.text,match_only_text,extended,,/usr/bin/ssh -l user 10.0.0.16,Full command line that started the process.
 8.0.0-dev+exp,true,process,process.elf.architecture,keyword,extended,,x86-64,Machine architecture of the ELF file.
 8.0.0-dev+exp,true,process,process.elf.byte_order,keyword,extended,,Little Endian,Byte sequence of ELF file.
 8.0.0-dev+exp,true,process,process.elf.cpu_type,keyword,extended,,Intel,CPU type of the ELF file.
@@ -528,7 +528,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.0.0-dev+exp,true,process,process.elf.telfhash,keyword,extended,,,telfhash hash for ELF file.
 8.0.0-dev+exp,true,process,process.entity_id,keyword,extended,,c2c455d9f99375d,Unique identifier for the process.
 8.0.0-dev+exp,true,process,process.executable,keyword,extended,,/usr/bin/ssh,Absolute path to the process executable.
-8.0.0-dev+exp,true,process,process.executable.text,text,extended,,/usr/bin/ssh,Absolute path to the process executable.
+8.0.0-dev+exp,true,process,process.executable.text,match_only_text,extended,,/usr/bin/ssh,Absolute path to the process executable.
 8.0.0-dev+exp,true,process,process.exit_code,long,extended,,137,The exit code of the process.
 8.0.0-dev+exp,true,process,process.hash.md5,keyword,extended,,,MD5 hash.
 8.0.0-dev+exp,true,process,process.hash.sha1,keyword,extended,,,SHA1 hash.
@@ -536,7 +536,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.0.0-dev+exp,true,process,process.hash.sha512,keyword,extended,,,SHA512 hash.
 8.0.0-dev+exp,true,process,process.hash.ssdeep,keyword,extended,,,SSDEEP hash.
 8.0.0-dev+exp,true,process,process.name,keyword,extended,,ssh,Process name.
-8.0.0-dev+exp,true,process,process.name.text,text,extended,,ssh,Process name.
+8.0.0-dev+exp,true,process,process.name.text,match_only_text,extended,,ssh,Process name.
 8.0.0-dev+exp,true,process,process.parent.args,keyword,extended,array,"[""/usr/bin/ssh"", ""-l"", ""user"", ""10.0.0.16""]",Array of process arguments.
 8.0.0-dev+exp,true,process,process.parent.args_count,long,extended,,4,Length of the process.args array.
 8.0.0-dev+exp,true,process,process.parent.code_signature.exists,boolean,core,,true,Boolean to capture if a signature is present.
@@ -547,7 +547,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.0.0-dev+exp,true,process,process.parent.code_signature.trusted,boolean,extended,,true,Stores the trust status of the certificate chain.
 8.0.0-dev+exp,true,process,process.parent.code_signature.valid,boolean,extended,,true,Boolean to capture if the digital signature is verified against the binary content.
 8.0.0-dev+exp,true,process,process.parent.command_line,wildcard,extended,,/usr/bin/ssh -l user 10.0.0.16,Full command line that started the process.
-8.0.0-dev+exp,true,process,process.parent.command_line.text,text,extended,,/usr/bin/ssh -l user 10.0.0.16,Full command line that started the process.
+8.0.0-dev+exp,true,process,process.parent.command_line.text,match_only_text,extended,,/usr/bin/ssh -l user 10.0.0.16,Full command line that started the process.
 8.0.0-dev+exp,true,process,process.parent.elf.architecture,keyword,extended,,x86-64,Machine architecture of the ELF file.
 8.0.0-dev+exp,true,process,process.parent.elf.byte_order,keyword,extended,,Little Endian,Byte sequence of ELF file.
 8.0.0-dev+exp,true,process,process.parent.elf.cpu_type,keyword,extended,,Intel,CPU type of the ELF file.
@@ -579,7 +579,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.0.0-dev+exp,true,process,process.parent.elf.telfhash,keyword,extended,,,telfhash hash for ELF file.
 8.0.0-dev+exp,true,process,process.parent.entity_id,keyword,extended,,c2c455d9f99375d,Unique identifier for the process.
 8.0.0-dev+exp,true,process,process.parent.executable,keyword,extended,,/usr/bin/ssh,Absolute path to the process executable.
-8.0.0-dev+exp,true,process,process.parent.executable.text,text,extended,,/usr/bin/ssh,Absolute path to the process executable.
+8.0.0-dev+exp,true,process,process.parent.executable.text,match_only_text,extended,,/usr/bin/ssh,Absolute path to the process executable.
 8.0.0-dev+exp,true,process,process.parent.exit_code,long,extended,,137,The exit code of the process.
 8.0.0-dev+exp,true,process,process.parent.hash.md5,keyword,extended,,,MD5 hash.
 8.0.0-dev+exp,true,process,process.parent.hash.sha1,keyword,extended,,,SHA1 hash.
@@ -587,7 +587,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.0.0-dev+exp,true,process,process.parent.hash.sha512,keyword,extended,,,SHA512 hash.
 8.0.0-dev+exp,true,process,process.parent.hash.ssdeep,keyword,extended,,,SSDEEP hash.
 8.0.0-dev+exp,true,process,process.parent.name,keyword,extended,,ssh,Process name.
-8.0.0-dev+exp,true,process,process.parent.name.text,text,extended,,ssh,Process name.
+8.0.0-dev+exp,true,process,process.parent.name.text,match_only_text,extended,,ssh,Process name.
 8.0.0-dev+exp,true,process,process.parent.pe.architecture,keyword,extended,,x64,CPU architecture target for the file.
 8.0.0-dev+exp,true,process,process.parent.pe.authentihash,keyword,extended,,ac9555d914bbb112ecc5f15bb9887ca8371f493ab0941344e976bb8410c8aa78,Authentihash of the PE file.
 8.0.0-dev+exp,true,process,process.parent.pe.company,keyword,extended,,Microsoft Corporation,"Internal company name of the file, provided at compile-time."
@@ -633,10 +633,10 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.0.0-dev+exp,true,process,process.parent.thread.id,long,extended,,4242,Thread ID.
 8.0.0-dev+exp,true,process,process.parent.thread.name,keyword,extended,,thread-0,Thread name.
 8.0.0-dev+exp,true,process,process.parent.title,keyword,extended,,,Process title.
-8.0.0-dev+exp,true,process,process.parent.title.text,text,extended,,,Process title.
+8.0.0-dev+exp,true,process,process.parent.title.text,match_only_text,extended,,,Process title.
 8.0.0-dev+exp,true,process,process.parent.uptime,long,extended,,1325,Seconds the process has been up.
 8.0.0-dev+exp,true,process,process.parent.working_directory,keyword,extended,,/home/alice,The working directory of the process.
-8.0.0-dev+exp,true,process,process.parent.working_directory.text,text,extended,,/home/alice,The working directory of the process.
+8.0.0-dev+exp,true,process,process.parent.working_directory.text,match_only_text,extended,,/home/alice,The working directory of the process.
 8.0.0-dev+exp,true,process,process.pe.architecture,keyword,extended,,x64,CPU architecture target for the file.
 8.0.0-dev+exp,true,process,process.pe.authentihash,keyword,extended,,ac9555d914bbb112ecc5f15bb9887ca8371f493ab0941344e976bb8410c8aa78,Authentihash of the PE file.
 8.0.0-dev+exp,true,process,process.pe.company,keyword,extended,,Microsoft Corporation,"Internal company name of the file, provided at compile-time."
@@ -689,7 +689,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.0.0-dev+exp,true,process,process.target.code_signature.trusted,boolean,extended,,true,Stores the trust status of the certificate chain.
 8.0.0-dev+exp,true,process,process.target.code_signature.valid,boolean,extended,,true,Boolean to capture if the digital signature is verified against the binary content.
 8.0.0-dev+exp,true,process,process.target.command_line,wildcard,extended,,/usr/bin/ssh -l user 10.0.0.16,Full command line that started the process.
-8.0.0-dev+exp,true,process,process.target.command_line.text,text,extended,,/usr/bin/ssh -l user 10.0.0.16,Full command line that started the process.
+8.0.0-dev+exp,true,process,process.target.command_line.text,match_only_text,extended,,/usr/bin/ssh -l user 10.0.0.16,Full command line that started the process.
 8.0.0-dev+exp,true,process,process.target.elf.architecture,keyword,extended,,x86-64,Machine architecture of the ELF file.
 8.0.0-dev+exp,true,process,process.target.elf.byte_order,keyword,extended,,Little Endian,Byte sequence of ELF file.
 8.0.0-dev+exp,true,process,process.target.elf.cpu_type,keyword,extended,,Intel,CPU type of the ELF file.
@@ -721,7 +721,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.0.0-dev+exp,true,process,process.target.elf.telfhash,keyword,extended,,,telfhash hash for ELF file.
 8.0.0-dev+exp,true,process,process.target.entity_id,keyword,extended,,c2c455d9f99375d,Unique identifier for the process.
 8.0.0-dev+exp,true,process,process.target.executable,keyword,extended,,/usr/bin/ssh,Absolute path to the process executable.
-8.0.0-dev+exp,true,process,process.target.executable.text,text,extended,,/usr/bin/ssh,Absolute path to the process executable.
+8.0.0-dev+exp,true,process,process.target.executable.text,match_only_text,extended,,/usr/bin/ssh,Absolute path to the process executable.
 8.0.0-dev+exp,true,process,process.target.exit_code,long,extended,,137,The exit code of the process.
 8.0.0-dev+exp,true,process,process.target.hash.md5,keyword,extended,,,MD5 hash.
 8.0.0-dev+exp,true,process,process.target.hash.sha1,keyword,extended,,,SHA1 hash.
@@ -729,7 +729,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.0.0-dev+exp,true,process,process.target.hash.sha512,keyword,extended,,,SHA512 hash.
 8.0.0-dev+exp,true,process,process.target.hash.ssdeep,keyword,extended,,,SSDEEP hash.
 8.0.0-dev+exp,true,process,process.target.name,keyword,extended,,ssh,Process name.
-8.0.0-dev+exp,true,process,process.target.name.text,text,extended,,ssh,Process name.
+8.0.0-dev+exp,true,process,process.target.name.text,match_only_text,extended,,ssh,Process name.
 8.0.0-dev+exp,true,process,process.target.parent.args,keyword,extended,array,"[""/usr/bin/ssh"", ""-l"", ""user"", ""10.0.0.16""]",Array of process arguments.
 8.0.0-dev+exp,true,process,process.target.parent.args_count,long,extended,,4,Length of the process.args array.
 8.0.0-dev+exp,true,process,process.target.parent.code_signature.exists,boolean,core,,true,Boolean to capture if a signature is present.
@@ -740,7 +740,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.0.0-dev+exp,true,process,process.target.parent.code_signature.trusted,boolean,extended,,true,Stores the trust status of the certificate chain.
 8.0.0-dev+exp,true,process,process.target.parent.code_signature.valid,boolean,extended,,true,Boolean to capture if the digital signature is verified against the binary content.
 8.0.0-dev+exp,true,process,process.target.parent.command_line,wildcard,extended,,/usr/bin/ssh -l user 10.0.0.16,Full command line that started the process.
-8.0.0-dev+exp,true,process,process.target.parent.command_line.text,text,extended,,/usr/bin/ssh -l user 10.0.0.16,Full command line that started the process.
+8.0.0-dev+exp,true,process,process.target.parent.command_line.text,match_only_text,extended,,/usr/bin/ssh -l user 10.0.0.16,Full command line that started the process.
 8.0.0-dev+exp,true,process,process.target.parent.elf.architecture,keyword,extended,,x86-64,Machine architecture of the ELF file.
 8.0.0-dev+exp,true,process,process.target.parent.elf.byte_order,keyword,extended,,Little Endian,Byte sequence of ELF file.
 8.0.0-dev+exp,true,process,process.target.parent.elf.cpu_type,keyword,extended,,Intel,CPU type of the ELF file.
@@ -772,7 +772,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.0.0-dev+exp,true,process,process.target.parent.elf.telfhash,keyword,extended,,,telfhash hash for ELF file.
 8.0.0-dev+exp,true,process,process.target.parent.entity_id,keyword,extended,,c2c455d9f99375d,Unique identifier for the process.
 8.0.0-dev+exp,true,process,process.target.parent.executable,keyword,extended,,/usr/bin/ssh,Absolute path to the process executable.
-8.0.0-dev+exp,true,process,process.target.parent.executable.text,text,extended,,/usr/bin/ssh,Absolute path to the process executable.
+8.0.0-dev+exp,true,process,process.target.parent.executable.text,match_only_text,extended,,/usr/bin/ssh,Absolute path to the process executable.
 8.0.0-dev+exp,true,process,process.target.parent.exit_code,long,extended,,137,The exit code of the process.
 8.0.0-dev+exp,true,process,process.target.parent.hash.md5,keyword,extended,,,MD5 hash.
 8.0.0-dev+exp,true,process,process.target.parent.hash.sha1,keyword,extended,,,SHA1 hash.
@@ -780,7 +780,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.0.0-dev+exp,true,process,process.target.parent.hash.sha512,keyword,extended,,,SHA512 hash.
 8.0.0-dev+exp,true,process,process.target.parent.hash.ssdeep,keyword,extended,,,SSDEEP hash.
 8.0.0-dev+exp,true,process,process.target.parent.name,keyword,extended,,ssh,Process name.
-8.0.0-dev+exp,true,process,process.target.parent.name.text,text,extended,,ssh,Process name.
+8.0.0-dev+exp,true,process,process.target.parent.name.text,match_only_text,extended,,ssh,Process name.
 8.0.0-dev+exp,true,process,process.target.parent.pe.architecture,keyword,extended,,x64,CPU architecture target for the file.
 8.0.0-dev+exp,true,process,process.target.parent.pe.authentihash,keyword,extended,,ac9555d914bbb112ecc5f15bb9887ca8371f493ab0941344e976bb8410c8aa78,Authentihash of the PE file.
 8.0.0-dev+exp,true,process,process.target.parent.pe.company,keyword,extended,,Microsoft Corporation,"Internal company name of the file, provided at compile-time."
@@ -826,10 +826,10 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.0.0-dev+exp,true,process,process.target.parent.thread.id,long,extended,,4242,Thread ID.
 8.0.0-dev+exp,true,process,process.target.parent.thread.name,keyword,extended,,thread-0,Thread name.
 8.0.0-dev+exp,true,process,process.target.parent.title,keyword,extended,,,Process title.
-8.0.0-dev+exp,true,process,process.target.parent.title.text,text,extended,,,Process title.
+8.0.0-dev+exp,true,process,process.target.parent.title.text,match_only_text,extended,,,Process title.
 8.0.0-dev+exp,true,process,process.target.parent.uptime,long,extended,,1325,Seconds the process has been up.
 8.0.0-dev+exp,true,process,process.target.parent.working_directory,keyword,extended,,/home/alice,The working directory of the process.
-8.0.0-dev+exp,true,process,process.target.parent.working_directory.text,text,extended,,/home/alice,The working directory of the process.
+8.0.0-dev+exp,true,process,process.target.parent.working_directory.text,match_only_text,extended,,/home/alice,The working directory of the process.
 8.0.0-dev+exp,true,process,process.target.pe.architecture,keyword,extended,,x64,CPU architecture target for the file.
 8.0.0-dev+exp,true,process,process.target.pe.authentihash,keyword,extended,,ac9555d914bbb112ecc5f15bb9887ca8371f493ab0941344e976bb8410c8aa78,Authentihash of the PE file.
 8.0.0-dev+exp,true,process,process.target.pe.company,keyword,extended,,Microsoft Corporation,"Internal company name of the file, provided at compile-time."
@@ -875,17 +875,17 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.0.0-dev+exp,true,process,process.target.thread.id,long,extended,,4242,Thread ID.
 8.0.0-dev+exp,true,process,process.target.thread.name,keyword,extended,,thread-0,Thread name.
 8.0.0-dev+exp,true,process,process.target.title,keyword,extended,,,Process title.
-8.0.0-dev+exp,true,process,process.target.title.text,text,extended,,,Process title.
+8.0.0-dev+exp,true,process,process.target.title.text,match_only_text,extended,,,Process title.
 8.0.0-dev+exp,true,process,process.target.uptime,long,extended,,1325,Seconds the process has been up.
 8.0.0-dev+exp,true,process,process.target.working_directory,keyword,extended,,/home/alice,The working directory of the process.
-8.0.0-dev+exp,true,process,process.target.working_directory.text,text,extended,,/home/alice,The working directory of the process.
+8.0.0-dev+exp,true,process,process.target.working_directory.text,match_only_text,extended,,/home/alice,The working directory of the process.
 8.0.0-dev+exp,true,process,process.thread.id,long,extended,,4242,Thread ID.
 8.0.0-dev+exp,true,process,process.thread.name,keyword,extended,,thread-0,Thread name.
 8.0.0-dev+exp,true,process,process.title,keyword,extended,,,Process title.
-8.0.0-dev+exp,true,process,process.title.text,text,extended,,,Process title.
+8.0.0-dev+exp,true,process,process.title.text,match_only_text,extended,,,Process title.
 8.0.0-dev+exp,true,process,process.uptime,long,extended,,1325,Seconds the process has been up.
 8.0.0-dev+exp,true,process,process.working_directory,keyword,extended,,/home/alice,The working directory of the process.
-8.0.0-dev+exp,true,process,process.working_directory.text,text,extended,,/home/alice,The working directory of the process.
+8.0.0-dev+exp,true,process,process.working_directory.text,match_only_text,extended,,/home/alice,The working directory of the process.
 8.0.0-dev+exp,true,registry,registry.data.bytes,keyword,extended,,ZQBuAC0AVQBTAAAAZQBuAAAAAAA=,Original bytes written with base64 encoding.
 8.0.0-dev+exp,true,registry,registry.data.strings,wildcard,core,array,"[""C:\rta\red_ttp\bin\myapp.exe""]",List of strings representing what was written to the registry.
 8.0.0-dev+exp,true,registry,registry.data.type,keyword,core,,REG_SZ,Standard registry type for encoding contents
@@ -910,7 +910,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.0.0-dev+exp,true,server,server.address,keyword,extended,,,Server network address.
 8.0.0-dev+exp,true,server,server.as.number,long,extended,,15169,Unique number allocated to the autonomous system.
 8.0.0-dev+exp,true,server,server.as.organization.name,keyword,extended,,Google LLC,Organization name.
-8.0.0-dev+exp,true,server,server.as.organization.name.text,text,extended,,Google LLC,Organization name.
+8.0.0-dev+exp,true,server,server.as.organization.name.text,match_only_text,extended,,Google LLC,Organization name.
 8.0.0-dev+exp,true,server,server.bytes,long,core,,184,Bytes sent from the server to the client.
 8.0.0-dev+exp,true,server,server.domain,keyword,core,,,Server domain.
 8.0.0-dev+exp,true,server,server.geo.city_name,keyword,core,,Montreal,City name.
@@ -936,14 +936,14 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.0.0-dev+exp,true,server,server.user.domain,keyword,extended,,,Name of the directory the user is a member of.
 8.0.0-dev+exp,true,server,server.user.email,keyword,extended,,,User email address.
 8.0.0-dev+exp,true,server,server.user.full_name,keyword,extended,,Albert Einstein,"User's full name, if available."
-8.0.0-dev+exp,true,server,server.user.full_name.text,text,extended,,Albert Einstein,"User's full name, if available."
+8.0.0-dev+exp,true,server,server.user.full_name.text,match_only_text,extended,,Albert Einstein,"User's full name, if available."
 8.0.0-dev+exp,true,server,server.user.group.domain,keyword,extended,,,Name of the directory the group is a member of.
 8.0.0-dev+exp,true,server,server.user.group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
 8.0.0-dev+exp,true,server,server.user.group.name,keyword,extended,,,Name of the group.
 8.0.0-dev+exp,true,server,server.user.hash,keyword,extended,,,Unique user hash to correlate information for a user in anonymized form.
 8.0.0-dev+exp,true,server,server.user.id,keyword,core,,,Unique identifier of the user.
 8.0.0-dev+exp,true,server,server.user.name,keyword,core,,albert,Short name or login of the user.
-8.0.0-dev+exp,true,server,server.user.name.text,text,core,,albert,Short name or login of the user.
+8.0.0-dev+exp,true,server,server.user.name.text,match_only_text,core,,albert,Short name or login of the user.
 8.0.0-dev+exp,true,server,server.user.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 8.0.0-dev+exp,true,service,service.address,keyword,extended,,172.26.0.2:5432,Address of this service.
 8.0.0-dev+exp,true,service,service.ephemeral_id,keyword,extended,,8a4f500f,Ephemeral identifier of this service.
@@ -956,7 +956,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.0.0-dev+exp,true,source,source.address,keyword,extended,,,Source network address.
 8.0.0-dev+exp,true,source,source.as.number,long,extended,,15169,Unique number allocated to the autonomous system.
 8.0.0-dev+exp,true,source,source.as.organization.name,keyword,extended,,Google LLC,Organization name.
-8.0.0-dev+exp,true,source,source.as.organization.name.text,text,extended,,Google LLC,Organization name.
+8.0.0-dev+exp,true,source,source.as.organization.name.text,match_only_text,extended,,Google LLC,Organization name.
 8.0.0-dev+exp,true,source,source.bytes,long,core,,184,Bytes sent from the source to the destination.
 8.0.0-dev+exp,true,source,source.domain,keyword,core,,,Source domain.
 8.0.0-dev+exp,true,source,source.geo.city_name,keyword,core,,Montreal,City name.
@@ -982,21 +982,21 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.0.0-dev+exp,true,source,source.user.domain,keyword,extended,,,Name of the directory the user is a member of.
 8.0.0-dev+exp,true,source,source.user.email,keyword,extended,,,User email address.
 8.0.0-dev+exp,true,source,source.user.full_name,keyword,extended,,Albert Einstein,"User's full name, if available."
-8.0.0-dev+exp,true,source,source.user.full_name.text,text,extended,,Albert Einstein,"User's full name, if available."
+8.0.0-dev+exp,true,source,source.user.full_name.text,match_only_text,extended,,Albert Einstein,"User's full name, if available."
 8.0.0-dev+exp,true,source,source.user.group.domain,keyword,extended,,,Name of the directory the group is a member of.
 8.0.0-dev+exp,true,source,source.user.group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
 8.0.0-dev+exp,true,source,source.user.group.name,keyword,extended,,,Name of the group.
 8.0.0-dev+exp,true,source,source.user.hash,keyword,extended,,,Unique user hash to correlate information for a user in anonymized form.
 8.0.0-dev+exp,true,source,source.user.id,keyword,core,,,Unique identifier of the user.
 8.0.0-dev+exp,true,source,source.user.name,keyword,core,,albert,Short name or login of the user.
-8.0.0-dev+exp,true,source,source.user.name.text,text,core,,albert,Short name or login of the user.
+8.0.0-dev+exp,true,source,source.user.name.text,match_only_text,core,,albert,Short name or login of the user.
 8.0.0-dev+exp,true,source,source.user.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 8.0.0-dev+exp,true,span,span.id,keyword,extended,,3ff9a8981b7ccd5a,Unique identifier of the span within the scope of its trace.
 8.0.0-dev+exp,true,threat,threat.enrichments,nested,extended,,,List of objects containing indicators enriching the event.
 8.0.0-dev+exp,true,threat,threat.enrichments.indicator,object,extended,,,Object containing indicators enriching the event.
 8.0.0-dev+exp,true,threat,threat.enrichments.indicator.as.number,long,extended,,15169,Unique number allocated to the autonomous system.
 8.0.0-dev+exp,true,threat,threat.enrichments.indicator.as.organization.name,keyword,extended,,Google LLC,Organization name.
-8.0.0-dev+exp,true,threat,threat.enrichments.indicator.as.organization.name.text,text,extended,,Google LLC,Organization name.
+8.0.0-dev+exp,true,threat,threat.enrichments.indicator.as.organization.name.text,match_only_text,extended,,Google LLC,Organization name.
 8.0.0-dev+exp,true,threat,threat.enrichments.indicator.confidence,keyword,extended,,High,Indicator confidence rating
 8.0.0-dev+exp,true,threat,threat.enrichments.indicator.description,keyword,extended,,IP x.x.x.x was observed delivering the Angler EK.,Indicator description
 8.0.0-dev+exp,true,threat,threat.enrichments.indicator.email.address,keyword,extended,,phish@example.com,Indicator email address
@@ -1054,10 +1054,10 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.name,keyword,extended,,example.png,"Name of the file including the extension, without the directory."
 8.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.owner,keyword,extended,,alice,File owner's username.
 8.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.path,keyword,extended,,/home/alice/example.png,"Full path to the file, including the file name."
-8.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.path.text,text,extended,,/home/alice/example.png,"Full path to the file, including the file name."
+8.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.path.text,match_only_text,extended,,/home/alice/example.png,"Full path to the file, including the file name."
 8.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.size,long,extended,,16384,File size in bytes.
 8.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.target_path,keyword,extended,,,Target path for symlinks.
-8.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.target_path.text,text,extended,,,Target path for symlinks.
+8.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.target_path.text,match_only_text,extended,,,Target path for symlinks.
 8.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.type,keyword,extended,,file,"File type (file, dir, or symlink)."
 8.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.uid,keyword,extended,,1001,The user ID (UID) or security identifier (SID) of the file owner.
 8.0.0-dev+exp,true,threat,threat.enrichments.indicator.first_seen,date,extended,,2020-11-05T17:25:47.000Z,Date/time indicator was first reported.
@@ -1136,9 +1136,9 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.0.0-dev+exp,true,threat,threat.enrichments.indicator.url.extension,keyword,extended,,png,"File extension from the request url, excluding the leading dot."
 8.0.0-dev+exp,true,threat,threat.enrichments.indicator.url.fragment,keyword,extended,,,Portion of the url after the `#`.
 8.0.0-dev+exp,true,threat,threat.enrichments.indicator.url.full,wildcard,extended,,https://www.elastic.co:443/search?q=elasticsearch#top,Full unparsed URL.
-8.0.0-dev+exp,true,threat,threat.enrichments.indicator.url.full.text,text,extended,,https://www.elastic.co:443/search?q=elasticsearch#top,Full unparsed URL.
+8.0.0-dev+exp,true,threat,threat.enrichments.indicator.url.full.text,match_only_text,extended,,https://www.elastic.co:443/search?q=elasticsearch#top,Full unparsed URL.
 8.0.0-dev+exp,true,threat,threat.enrichments.indicator.url.original,wildcard,extended,,https://www.elastic.co:443/search?q=elasticsearch#top or /search?q=elasticsearch,Unmodified original url as seen in the event source.
-8.0.0-dev+exp,true,threat,threat.enrichments.indicator.url.original.text,text,extended,,https://www.elastic.co:443/search?q=elasticsearch#top or /search?q=elasticsearch,Unmodified original url as seen in the event source.
+8.0.0-dev+exp,true,threat,threat.enrichments.indicator.url.original.text,match_only_text,extended,,https://www.elastic.co:443/search?q=elasticsearch#top or /search?q=elasticsearch,Unmodified original url as seen in the event source.
 8.0.0-dev+exp,true,threat,threat.enrichments.indicator.url.password,keyword,extended,,,Password of the request.
 8.0.0-dev+exp,true,threat,threat.enrichments.indicator.url.path,wildcard,extended,,,"Path of the request, such as ""/search""."
 8.0.0-dev+exp,true,threat,threat.enrichments.indicator.url.port,long,extended,,443,"Port of the request, such as 443."
@@ -1184,7 +1184,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.0.0-dev+exp,true,threat,threat.group.reference,keyword,extended,,https://attack.mitre.org/groups/G0037/,Reference URL of the group.
 8.0.0-dev+exp,true,threat,threat.indicator.as.number,long,extended,,15169,Unique number allocated to the autonomous system.
 8.0.0-dev+exp,true,threat,threat.indicator.as.organization.name,keyword,extended,,Google LLC,Organization name.
-8.0.0-dev+exp,true,threat,threat.indicator.as.organization.name.text,text,extended,,Google LLC,Organization name.
+8.0.0-dev+exp,true,threat,threat.indicator.as.organization.name.text,match_only_text,extended,,Google LLC,Organization name.
 8.0.0-dev+exp,true,threat,threat.indicator.confidence,keyword,extended,,High,Indicator confidence rating
 8.0.0-dev+exp,true,threat,threat.indicator.description,keyword,extended,,IP x.x.x.x was observed delivering the Angler EK.,Indicator description
 8.0.0-dev+exp,true,threat,threat.indicator.email.address,keyword,extended,,phish@example.com,Indicator email address
@@ -1242,10 +1242,10 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.0.0-dev+exp,true,threat,threat.indicator.file.name,keyword,extended,,example.png,"Name of the file including the extension, without the directory."
 8.0.0-dev+exp,true,threat,threat.indicator.file.owner,keyword,extended,,alice,File owner's username.
 8.0.0-dev+exp,true,threat,threat.indicator.file.path,keyword,extended,,/home/alice/example.png,"Full path to the file, including the file name."
-8.0.0-dev+exp,true,threat,threat.indicator.file.path.text,text,extended,,/home/alice/example.png,"Full path to the file, including the file name."
+8.0.0-dev+exp,true,threat,threat.indicator.file.path.text,match_only_text,extended,,/home/alice/example.png,"Full path to the file, including the file name."
 8.0.0-dev+exp,true,threat,threat.indicator.file.size,long,extended,,16384,File size in bytes.
 8.0.0-dev+exp,true,threat,threat.indicator.file.target_path,keyword,extended,,,Target path for symlinks.
-8.0.0-dev+exp,true,threat,threat.indicator.file.target_path.text,text,extended,,,Target path for symlinks.
+8.0.0-dev+exp,true,threat,threat.indicator.file.target_path.text,match_only_text,extended,,,Target path for symlinks.
 8.0.0-dev+exp,true,threat,threat.indicator.file.type,keyword,extended,,file,"File type (file, dir, or symlink)."
 8.0.0-dev+exp,true,threat,threat.indicator.file.uid,keyword,extended,,1001,The user ID (UID) or security identifier (SID) of the file owner.
 8.0.0-dev+exp,true,threat,threat.indicator.first_seen,date,extended,,2020-11-05T17:25:47.000Z,Date/time indicator was first reported.
@@ -1324,9 +1324,9 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.0.0-dev+exp,true,threat,threat.indicator.url.extension,keyword,extended,,png,"File extension from the request url, excluding the leading dot."
 8.0.0-dev+exp,true,threat,threat.indicator.url.fragment,keyword,extended,,,Portion of the url after the `#`.
 8.0.0-dev+exp,true,threat,threat.indicator.url.full,wildcard,extended,,https://www.elastic.co:443/search?q=elasticsearch#top,Full unparsed URL.
-8.0.0-dev+exp,true,threat,threat.indicator.url.full.text,text,extended,,https://www.elastic.co:443/search?q=elasticsearch#top,Full unparsed URL.
+8.0.0-dev+exp,true,threat,threat.indicator.url.full.text,match_only_text,extended,,https://www.elastic.co:443/search?q=elasticsearch#top,Full unparsed URL.
 8.0.0-dev+exp,true,threat,threat.indicator.url.original,wildcard,extended,,https://www.elastic.co:443/search?q=elasticsearch#top or /search?q=elasticsearch,Unmodified original url as seen in the event source.
-8.0.0-dev+exp,true,threat,threat.indicator.url.original.text,text,extended,,https://www.elastic.co:443/search?q=elasticsearch#top or /search?q=elasticsearch,Unmodified original url as seen in the event source.
+8.0.0-dev+exp,true,threat,threat.indicator.url.original.text,match_only_text,extended,,https://www.elastic.co:443/search?q=elasticsearch#top or /search?q=elasticsearch,Unmodified original url as seen in the event source.
 8.0.0-dev+exp,true,threat,threat.indicator.url.password,keyword,extended,,,Password of the request.
 8.0.0-dev+exp,true,threat,threat.indicator.url.path,wildcard,extended,,,"Path of the request, such as ""/search""."
 8.0.0-dev+exp,true,threat,threat.indicator.url.port,long,extended,,443,"Port of the request, such as 443."
@@ -1370,11 +1370,11 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.0.0-dev+exp,true,threat,threat.tactic.reference,keyword,extended,array,https://attack.mitre.org/tactics/TA0002/,Threat tactic URL reference.
 8.0.0-dev+exp,true,threat,threat.technique.id,keyword,extended,array,T1059,Threat technique id.
 8.0.0-dev+exp,true,threat,threat.technique.name,keyword,extended,array,Command and Scripting Interpreter,Threat technique name.
-8.0.0-dev+exp,true,threat,threat.technique.name.text,text,extended,,Command and Scripting Interpreter,Threat technique name.
+8.0.0-dev+exp,true,threat,threat.technique.name.text,match_only_text,extended,,Command and Scripting Interpreter,Threat technique name.
 8.0.0-dev+exp,true,threat,threat.technique.reference,keyword,extended,array,https://attack.mitre.org/techniques/T1059/,Threat technique URL reference.
 8.0.0-dev+exp,true,threat,threat.technique.subtechnique.id,keyword,extended,array,T1059.001,Threat subtechnique id.
 8.0.0-dev+exp,true,threat,threat.technique.subtechnique.name,keyword,extended,array,PowerShell,Threat subtechnique name.
-8.0.0-dev+exp,true,threat,threat.technique.subtechnique.name.text,text,extended,,PowerShell,Threat subtechnique name.
+8.0.0-dev+exp,true,threat,threat.technique.subtechnique.name.text,match_only_text,extended,,PowerShell,Threat subtechnique name.
 8.0.0-dev+exp,true,threat,threat.technique.subtechnique.reference,keyword,extended,array,https://attack.mitre.org/techniques/T1059/001/,Threat subtechnique URL reference.
 8.0.0-dev+exp,true,tls,tls.cipher,keyword,extended,,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256,String indicating the cipher used during the current connection.
 8.0.0-dev+exp,true,tls,tls.client.certificate,keyword,extended,,MII...,PEM-encoded stand-alone certificate offered by the client.
@@ -1459,9 +1459,9 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.0.0-dev+exp,true,url,url.extension,keyword,extended,,png,"File extension from the request url, excluding the leading dot."
 8.0.0-dev+exp,true,url,url.fragment,keyword,extended,,,Portion of the url after the `#`.
 8.0.0-dev+exp,true,url,url.full,wildcard,extended,,https://www.elastic.co:443/search?q=elasticsearch#top,Full unparsed URL.
-8.0.0-dev+exp,true,url,url.full.text,text,extended,,https://www.elastic.co:443/search?q=elasticsearch#top,Full unparsed URL.
+8.0.0-dev+exp,true,url,url.full.text,match_only_text,extended,,https://www.elastic.co:443/search?q=elasticsearch#top,Full unparsed URL.
 8.0.0-dev+exp,true,url,url.original,wildcard,extended,,https://www.elastic.co:443/search?q=elasticsearch#top or /search?q=elasticsearch,Unmodified original url as seen in the event source.
-8.0.0-dev+exp,true,url,url.original.text,text,extended,,https://www.elastic.co:443/search?q=elasticsearch#top or /search?q=elasticsearch,Unmodified original url as seen in the event source.
+8.0.0-dev+exp,true,url,url.original.text,match_only_text,extended,,https://www.elastic.co:443/search?q=elasticsearch#top or /search?q=elasticsearch,Unmodified original url as seen in the event source.
 8.0.0-dev+exp,true,url,url.password,keyword,extended,,,Password of the request.
 8.0.0-dev+exp,true,url,url.path,wildcard,extended,,,"Path of the request, such as ""/search""."
 8.0.0-dev+exp,true,url,url.port,long,extended,,443,"Port of the request, such as 443."
@@ -1474,61 +1474,61 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.0.0-dev+exp,true,user,user.changes.domain,keyword,extended,,,Name of the directory the user is a member of.
 8.0.0-dev+exp,true,user,user.changes.email,keyword,extended,,,User email address.
 8.0.0-dev+exp,true,user,user.changes.full_name,keyword,extended,,Albert Einstein,"User's full name, if available."
-8.0.0-dev+exp,true,user,user.changes.full_name.text,text,extended,,Albert Einstein,"User's full name, if available."
+8.0.0-dev+exp,true,user,user.changes.full_name.text,match_only_text,extended,,Albert Einstein,"User's full name, if available."
 8.0.0-dev+exp,true,user,user.changes.group.domain,keyword,extended,,,Name of the directory the group is a member of.
 8.0.0-dev+exp,true,user,user.changes.group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
 8.0.0-dev+exp,true,user,user.changes.group.name,keyword,extended,,,Name of the group.
 8.0.0-dev+exp,true,user,user.changes.hash,keyword,extended,,,Unique user hash to correlate information for a user in anonymized form.
 8.0.0-dev+exp,true,user,user.changes.id,keyword,core,,,Unique identifier of the user.
 8.0.0-dev+exp,true,user,user.changes.name,keyword,core,,albert,Short name or login of the user.
-8.0.0-dev+exp,true,user,user.changes.name.text,text,core,,albert,Short name or login of the user.
+8.0.0-dev+exp,true,user,user.changes.name.text,match_only_text,core,,albert,Short name or login of the user.
 8.0.0-dev+exp,true,user,user.changes.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 8.0.0-dev+exp,true,user,user.domain,keyword,extended,,,Name of the directory the user is a member of.
 8.0.0-dev+exp,true,user,user.effective.domain,keyword,extended,,,Name of the directory the user is a member of.
 8.0.0-dev+exp,true,user,user.effective.email,keyword,extended,,,User email address.
 8.0.0-dev+exp,true,user,user.effective.full_name,keyword,extended,,Albert Einstein,"User's full name, if available."
-8.0.0-dev+exp,true,user,user.effective.full_name.text,text,extended,,Albert Einstein,"User's full name, if available."
+8.0.0-dev+exp,true,user,user.effective.full_name.text,match_only_text,extended,,Albert Einstein,"User's full name, if available."
 8.0.0-dev+exp,true,user,user.effective.group.domain,keyword,extended,,,Name of the directory the group is a member of.
 8.0.0-dev+exp,true,user,user.effective.group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
 8.0.0-dev+exp,true,user,user.effective.group.name,keyword,extended,,,Name of the group.
 8.0.0-dev+exp,true,user,user.effective.hash,keyword,extended,,,Unique user hash to correlate information for a user in anonymized form.
 8.0.0-dev+exp,true,user,user.effective.id,keyword,core,,,Unique identifier of the user.
 8.0.0-dev+exp,true,user,user.effective.name,keyword,core,,albert,Short name or login of the user.
-8.0.0-dev+exp,true,user,user.effective.name.text,text,core,,albert,Short name or login of the user.
+8.0.0-dev+exp,true,user,user.effective.name.text,match_only_text,core,,albert,Short name or login of the user.
 8.0.0-dev+exp,true,user,user.effective.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 8.0.0-dev+exp,true,user,user.email,keyword,extended,,,User email address.
 8.0.0-dev+exp,true,user,user.full_name,keyword,extended,,Albert Einstein,"User's full name, if available."
-8.0.0-dev+exp,true,user,user.full_name.text,text,extended,,Albert Einstein,"User's full name, if available."
+8.0.0-dev+exp,true,user,user.full_name.text,match_only_text,extended,,Albert Einstein,"User's full name, if available."
 8.0.0-dev+exp,true,user,user.group.domain,keyword,extended,,,Name of the directory the group is a member of.
 8.0.0-dev+exp,true,user,user.group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
 8.0.0-dev+exp,true,user,user.group.name,keyword,extended,,,Name of the group.
 8.0.0-dev+exp,true,user,user.hash,keyword,extended,,,Unique user hash to correlate information for a user in anonymized form.
 8.0.0-dev+exp,true,user,user.id,keyword,core,,,Unique identifier of the user.
 8.0.0-dev+exp,true,user,user.name,keyword,core,,albert,Short name or login of the user.
-8.0.0-dev+exp,true,user,user.name.text,text,core,,albert,Short name or login of the user.
+8.0.0-dev+exp,true,user,user.name.text,match_only_text,core,,albert,Short name or login of the user.
 8.0.0-dev+exp,true,user,user.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 8.0.0-dev+exp,true,user,user.target.domain,keyword,extended,,,Name of the directory the user is a member of.
 8.0.0-dev+exp,true,user,user.target.email,keyword,extended,,,User email address.
 8.0.0-dev+exp,true,user,user.target.full_name,keyword,extended,,Albert Einstein,"User's full name, if available."
-8.0.0-dev+exp,true,user,user.target.full_name.text,text,extended,,Albert Einstein,"User's full name, if available."
+8.0.0-dev+exp,true,user,user.target.full_name.text,match_only_text,extended,,Albert Einstein,"User's full name, if available."
 8.0.0-dev+exp,true,user,user.target.group.domain,keyword,extended,,,Name of the directory the group is a member of.
 8.0.0-dev+exp,true,user,user.target.group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
 8.0.0-dev+exp,true,user,user.target.group.name,keyword,extended,,,Name of the group.
 8.0.0-dev+exp,true,user,user.target.hash,keyword,extended,,,Unique user hash to correlate information for a user in anonymized form.
 8.0.0-dev+exp,true,user,user.target.id,keyword,core,,,Unique identifier of the user.
 8.0.0-dev+exp,true,user,user.target.name,keyword,core,,albert,Short name or login of the user.
-8.0.0-dev+exp,true,user,user.target.name.text,text,core,,albert,Short name or login of the user.
+8.0.0-dev+exp,true,user,user.target.name.text,match_only_text,core,,albert,Short name or login of the user.
 8.0.0-dev+exp,true,user,user.target.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 8.0.0-dev+exp,true,user_agent,user_agent.device.name,keyword,extended,,iPhone,Name of the device.
 8.0.0-dev+exp,true,user_agent,user_agent.name,keyword,extended,,Safari,Name of the user agent.
 8.0.0-dev+exp,true,user_agent,user_agent.original,keyword,extended,,"Mozilla/5.0 (iPhone; CPU iPhone OS 12_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0 Mobile/15E148 Safari/604.1",Unparsed user_agent string.
-8.0.0-dev+exp,true,user_agent,user_agent.original.text,text,extended,,"Mozilla/5.0 (iPhone; CPU iPhone OS 12_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0 Mobile/15E148 Safari/604.1",Unparsed user_agent string.
+8.0.0-dev+exp,true,user_agent,user_agent.original.text,match_only_text,extended,,"Mozilla/5.0 (iPhone; CPU iPhone OS 12_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0 Mobile/15E148 Safari/604.1",Unparsed user_agent string.
 8.0.0-dev+exp,true,user_agent,user_agent.os.family,keyword,extended,,debian,"OS family (such as redhat, debian, freebsd, windows)."
 8.0.0-dev+exp,true,user_agent,user_agent.os.full,keyword,extended,,Mac OS Mojave,"Operating system name, including the version or code name."
-8.0.0-dev+exp,true,user_agent,user_agent.os.full.text,text,extended,,Mac OS Mojave,"Operating system name, including the version or code name."
+8.0.0-dev+exp,true,user_agent,user_agent.os.full.text,match_only_text,extended,,Mac OS Mojave,"Operating system name, including the version or code name."
 8.0.0-dev+exp,true,user_agent,user_agent.os.kernel,keyword,extended,,4.4.0-112-generic,Operating system kernel version as a raw string.
 8.0.0-dev+exp,true,user_agent,user_agent.os.name,keyword,extended,,Mac OS X,"Operating system name, without the version."
-8.0.0-dev+exp,true,user_agent,user_agent.os.name.text,text,extended,,Mac OS X,"Operating system name, without the version."
+8.0.0-dev+exp,true,user_agent,user_agent.os.name.text,match_only_text,extended,,Mac OS X,"Operating system name, without the version."
 8.0.0-dev+exp,true,user_agent,user_agent.os.platform,keyword,extended,,darwin,"Operating system platform (such centos, ubuntu, windows)."
 8.0.0-dev+exp,true,user_agent,user_agent.os.type,keyword,extended,,macos,"Which commercial OS family (one of: linux, macos, unix or windows)."
 8.0.0-dev+exp,true,user_agent,user_agent.os.version,keyword,extended,,10.14.1,Operating system version as a raw string.
@@ -1536,7 +1536,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.0.0-dev+exp,true,vulnerability,vulnerability.category,keyword,extended,array,"[""Firewall""]",Category of a vulnerability.
 8.0.0-dev+exp,true,vulnerability,vulnerability.classification,keyword,extended,,CVSS,Classification of the vulnerability.
 8.0.0-dev+exp,true,vulnerability,vulnerability.description,keyword,extended,,"In macOS before 2.12.6, there is a vulnerability in the RPC...",Description of the vulnerability.
-8.0.0-dev+exp,true,vulnerability,vulnerability.description.text,text,extended,,"In macOS before 2.12.6, there is a vulnerability in the RPC...",Description of the vulnerability.
+8.0.0-dev+exp,true,vulnerability,vulnerability.description.text,match_only_text,extended,,"In macOS before 2.12.6, there is a vulnerability in the RPC...",Description of the vulnerability.
 8.0.0-dev+exp,true,vulnerability,vulnerability.enumeration,keyword,extended,,CVE,Identifier of the vulnerability.
 8.0.0-dev+exp,true,vulnerability,vulnerability.id,keyword,extended,,CVE-2019-00001,ID of the vulnerability.
 8.0.0-dev+exp,true,vulnerability,vulnerability.reference,keyword,extended,,https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-6111,Reference of the vulnerability.
