@@ -7908,6 +7908,16 @@
       These fields help you find and correlate logs for a specific service and version.'
     type: group
     fields:
+    - name: address
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Address where data about this service was collected from.
+
+        This should be a URI, network address (ipv4:port or [ipv6]:port) or a resource
+        path (sockets).'
+      example: 172.26.0.2:5432
+      default_field: false
     - name: ephemeral_id
       level: extended
       type: keyword
