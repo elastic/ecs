@@ -9,7 +9,7 @@ ECS fields used in Filebeat for the apache module.
 |---|---|---|---|---|
 | <a name="id"></a>*id* | *Unique id to describe the event.* | (use case) | keyword | `8a4f500d` |
 | [@timestamp](../README.md#@timestamp)  | Timestamp of the log line after processing. | core | date | `2016-05-23T08:05:34.853Z` |
-| [message](../README.md#message)  | Log message of the event | core | text | `Hello World` |
+| [message](../README.md#message)  | Log message of the event | core | match_only_text | `Hello World` |
 | [event.module](../README.md#event.module)  | Currently fileset.module | core | keyword | `apache` |
 | [event.dataset](../README.md#event.dataset)  | Currenly fileset.name | core | keyword | `access` |
 | [source.ip](../README.md#source.ip)  | Source ip of the request. Currently apache.access.remote_ip | core | ip | `192.168.1.1` |
