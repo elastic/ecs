@@ -17,7 +17,7 @@ Stage 1: Describe at a high level how this change affects fields. Which fieldset
 | field | type | description |
 | --- | --- | --- |
 | `email.from` | keyword | Stores the `from` email address |
-| `email.timestamp` | keyword (array) | The local date and time the message was written |
+| `email.timestamp` | date | The local date and time the message was written |
 | `email.to` | keyword (array) | The email address(es) of the message recipient(s) |
 | `email.subject` | keyword; `.text` text multi-field | A brief summary of the topic of the message |
 | `email.cc` | keyword (array) | The email address(es) of the carbon copy (CC) recipient(s) |
