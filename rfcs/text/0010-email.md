@@ -26,7 +26,7 @@ Stage 1: Describe at a high level how this change affects fields. Which fieldset
 | `email.message_id` | wildcard | Unique identifier for the email message that refers to a particular version of a particular message |
 | `email.reply_to` | keyword | Address that replies should be delivered to |
 | `email.direction` | keyword | Direction of the message based on the sending and receiving domains |
-| `email.x_mailer` | keyword | What application was used to draft and send the original email.
+| `email.x_mailer` | keyword | What application was used to draft and send the original email. |
 
 ### Additional event categorization allowed values
 
