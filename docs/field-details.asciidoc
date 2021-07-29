@@ -58,13 +58,15 @@ example: `{"application": "foo-bar", "env": "production"}`
 [[field-message]]
 <<field-message, message>>
 
-| For log events the message field contains the log message, optimized for viewing in a log viewer.
+| beta:[ Use of the `match_only_text` type for this field is currently beta. ]
+
+For log events the message field contains the log message, optimized for viewing in a log viewer.
 
 For structured logs without an original message field, other fields can be concatenated to form a human-readable summary of the event.
 
 If multiple messages exist, they can be combined into one message.
 
-type: text
+type: match_only_text
 
 
 
@@ -255,13 +257,15 @@ example: `15169`
 [[field-as-organization-name]]
 <<field-as-organization-name, as.organization.name>>
 
-| Organization name.
+| beta:[ Use of the `match_only_text` type in the `.text` multi-field is currently beta. ]
+
+Organization name.
 
 type: keyword
 
 Multi-fields:
 
-* as.organization.name.text (type: text)
+* as.organization.name.text (type: match_only_text)
 
 
 
@@ -2440,9 +2444,11 @@ type: keyword
 [[field-error-message]]
 <<field-error-message, error.message>>
 
-| Error message.
+| beta:[ Use of the `match_only_text` type for this field is currently beta. ]
 
-type: text
+Error message.
+
+type: match_only_text
 
 
 
@@ -2456,7 +2462,7 @@ type: text
 [[field-error-stack-trace]]
 <<field-error-stack-trace, error.stack_trace>>
 
-| beta:[ Use of the `wildcard` data type for this field is currently beta. ]
+| beta:[ Use of `wildcard` as the primary type and `match_only_type` as the `.text` multi-field type are both currently beta. ]
 
 The stack trace of this error in plain text.
 
@@ -2464,7 +2470,7 @@ type: wildcard
 
 Multi-fields:
 
-* error.stack_trace.text (type: text)
+* error.stack_trace.text (type: match_only_text)
 
 
 
@@ -3349,13 +3355,15 @@ example: `alice`
 [[field-file-path]]
 <<field-file-path, file.path>>
 
-| Full path to the file, including the file name. It should include the drive letter, when appropriate.
+| beta:[ Use of the `match_only_text` type in the `.text` multi-field is currently beta. ]
+
+Full path to the file, including the file name. It should include the drive letter, when appropriate.
 
 type: keyword
 
 Multi-fields:
 
-* file.path.text (type: text)
+* file.path.text (type: match_only_text)
 
 
 
@@ -3389,13 +3397,15 @@ example: `16384`
 [[field-file-target-path]]
 <<field-file-target-path, file.target_path>>
 
-| Target path for symlinks.
+| beta:[ Use of the `match_only_text` type in the `.text` multi-field is currently beta. ]
+
+Target path for symlinks.
 
 type: keyword
 
 Multi-fields:
 
-* file.target_path.text (type: text)
+* file.target_path.text (type: match_only_text)
 
 
 
@@ -5677,13 +5687,15 @@ example: `debian`
 [[field-os-full]]
 <<field-os-full, os.full>>
 
-| Operating system name, including the version or code name.
+| beta:[ Use of the `match_only_text` type in the `.text` multi-field is currently beta. ]
+
+Operating system name, including the version or code name.
 
 type: keyword
 
 Multi-fields:
 
-* os.full.text (type: text)
+* os.full.text (type: match_only_text)
 
 
 
@@ -5715,13 +5727,15 @@ example: `4.4.0-112-generic`
 [[field-os-name]]
 <<field-os-name, os.name>>
 
-| Operating system name, without the version.
+| beta:[ Use of the `match_only_text` type in the `.text` multi-field is currently beta. ]
+
+Operating system name, without the version.
 
 type: keyword
 
 Multi-fields:
 
-* os.name.text (type: text)
+* os.name.text (type: match_only_text)
 
 
 
@@ -6246,7 +6260,7 @@ example: `4`
 [[field-process-command-line]]
 <<field-process-command-line, process.command_line>>
 
-| beta:[ Use of the `wildcard` data type for this field is currently beta. ]
+| beta:[ Use of `wildcard` as the primary type and `match_only_type` as the `.text` multi-field type are both currently beta. ]
 
 Full command line that started the process, including the absolute path to the executable, and all arguments.
 
@@ -6256,7 +6270,7 @@ type: wildcard
 
 Multi-fields:
 
-* process.command_line.text (type: text)
+* process.command_line.text (type: match_only_text)
 
 
 
@@ -6292,13 +6306,15 @@ example: `c2c455d9f99375d`
 [[field-process-executable]]
 <<field-process-executable, process.executable>>
 
-| Absolute path to the process executable.
+| beta:[ Use of the `match_only_text` type in the `.text` multi-field is currently beta. ]
+
+Absolute path to the process executable.
 
 type: keyword
 
 Multi-fields:
 
-* process.executable.text (type: text)
+* process.executable.text (type: match_only_text)
 
 
 
@@ -6332,7 +6348,9 @@ example: `137`
 [[field-process-name]]
 <<field-process-name, process.name>>
 
-| Process name.
+| beta:[ Use of the `match_only_text` type in the `.text` multi-field is currently beta. ]
+
+Process name.
 
 Sometimes called program name or similar.
 
@@ -6340,7 +6358,7 @@ type: keyword
 
 Multi-fields:
 
-* process.name.text (type: text)
+* process.name.text (type: match_only_text)
 
 
 
@@ -6452,7 +6470,9 @@ example: `thread-0`
 [[field-process-title]]
 <<field-process-title, process.title>>
 
-| Process title.
+| beta:[ Use of the `match_only_text` type in the `.text` multi-field is currently beta. ]
+
+Process title.
 
 The proctitle, some times the same as process name. Can also be different: for example a browser setting its title to the web page currently opened.
 
@@ -6460,7 +6480,7 @@ type: keyword
 
 Multi-fields:
 
-* process.title.text (type: text)
+* process.title.text (type: match_only_text)
 
 
 
@@ -6492,13 +6512,15 @@ example: `1325`
 [[field-process-working-directory]]
 <<field-process-working-directory, process.working_directory>>
 
-| The working directory of the process.
+| beta:[ Use of the `match_only_text` type in the `.text` multi-field is currently beta. ]
+
+The working directory of the process.
 
 type: keyword
 
 Multi-fields:
 
-* process.working_directory.text (type: text)
+* process.working_directory.text (type: match_only_text)
 
 
 
@@ -7288,6 +7310,44 @@ These fields help you find and correlate logs for a specific service and version
 [options="header"]
 |=====
 | Field  | Description | Level
+
+// ===============================================================
+
+|
+[[field-service-address]]
+<<field-service-address, service.address>>
+
+| Address where data about this service was collected from.
+
+This should be a URI, network address (ipv4:port or [ipv6]:port) or a resource path (sockets).
+
+type: keyword
+
+
+
+example: `172.26.0.2:5432`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-service-environment]]
+<<field-service-environment, service.environment>>
+
+| beta:[ This field is beta and subject to change. ]
+
+Identifies the environment where the service is running.
+
+If the same service runs in different environments (production, staging, QA, development, etc.), the environment can identify other instances of the same service. Can also group services and applications from the same environment.
+
+type: keyword
+
+
+
+example: `production`
+
+| extended
 
 // ===============================================================
 
@@ -8739,13 +8799,15 @@ example: `T1059`
 [[field-threat-technique-name]]
 <<field-threat-technique-name, threat.technique.name>>
 
-| The name of technique used by this threat. You can use a MITRE ATT&CK® technique, for example. (ex. https://attack.mitre.org/techniques/T1059/)
+| beta:[ Use of the `match_only_text` type in the `.text` multi-field is currently beta. ]
+
+The name of technique used by this threat. You can use a MITRE ATT&CK® technique, for example. (ex. https://attack.mitre.org/techniques/T1059/)
 
 type: keyword
 
 Multi-fields:
 
-* threat.technique.name.text (type: text)
+* threat.technique.name.text (type: match_only_text)
 
 
 
@@ -8802,13 +8864,15 @@ example: `T1059.001`
 [[field-threat-technique-subtechnique-name]]
 <<field-threat-technique-subtechnique-name, threat.technique.subtechnique.name>>
 
-| The name of subtechnique used by this threat. You can use a MITRE ATT&CK® subtechnique, for example. (ex. https://attack.mitre.org/techniques/T1059/001/)
+| beta:[ Use of the `match_only_text` type in the `.text` multi-field is currently beta. ]
+
+The name of subtechnique used by this threat. You can use a MITRE ATT&CK® subtechnique, for example. (ex. https://attack.mitre.org/techniques/T1059/001/)
 
 type: keyword
 
 Multi-fields:
 
-* threat.technique.subtechnique.name.text (type: text)
+* threat.technique.subtechnique.name.text (type: match_only_text)
 
 
 
@@ -9663,7 +9727,7 @@ type: keyword
 [[field-url-full]]
 <<field-url-full, url.full>>
 
-| beta:[ Use of the `wildcard` data type for this field is currently beta. ]
+| beta:[ Use of `wildcard` as the primary type and `match_only_type` as the `.text` multi-field type are both currently beta ]
 
 If full URLs are important to your use case, they should be stored in `url.full`, whether this field is reconstructed or present in the event source.
 
@@ -9671,7 +9735,7 @@ type: wildcard
 
 Multi-fields:
 
-* url.full.text (type: text)
+* url.full.text (type: match_only_text)
 
 
 
@@ -9687,7 +9751,7 @@ example: `https://www.elastic.co:443/search?q=elasticsearch#top`
 [[field-url-original]]
 <<field-url-original, url.original>>
 
-| beta:[ Use of the `wildcard` data type for this field is currently beta. ]
+| beta:[ Use of `wildcard` as the primary type and `match_only_type` as the `.text` multi-field type are both currently beta. ]
 
 Unmodified original url as seen in the event source.
 
@@ -9699,7 +9763,7 @@ type: wildcard
 
 Multi-fields:
 
-* url.original.text (type: text)
+* url.original.text (type: match_only_text)
 
 
 
@@ -9941,13 +10005,15 @@ type: keyword
 [[field-user-full-name]]
 <<field-user-full-name, user.full_name>>
 
-| User's full name, if available.
+| beta:[ Use of the `match_only_text` type in the `.text` multi-field is currently beta. ]
+
+User's full name, if available.
 
 type: keyword
 
 Multi-fields:
 
-* user.full_name.text (type: text)
+* user.full_name.text (type: match_only_text)
 
 
 
@@ -9997,13 +10063,15 @@ type: keyword
 [[field-user-name]]
 <<field-user-name, user.name>>
 
-| Short name or login of the user.
+| beta:[ Use of the `match_only_text` type in the `.text` multi-field is currently beta. ]
+
+Short name or login of the user.
 
 type: keyword
 
 Multi-fields:
 
-* user.name.text (type: text)
+* user.name.text (type: match_only_text)
 
 
 
@@ -10164,13 +10232,15 @@ example: `Safari`
 [[field-user-agent-original]]
 <<field-user-agent-original, user_agent.original>>
 
-| Unparsed user_agent string.
+| beta:[ Use of the `match_only_text` type in the `.text` multi-field is currently beta. ]
+
+Unparsed user_agent string.
 
 type: keyword
 
 Multi-fields:
 
-* user_agent.original.text (type: text)
+* user_agent.original.text (type: match_only_text)
 
 
 
@@ -10355,13 +10425,15 @@ example: `CVSS`
 [[field-vulnerability-description]]
 <<field-vulnerability-description, vulnerability.description>>
 
-| The description of the vulnerability that provides additional context of the vulnerability. For example (https://cve.mitre.org/about/faqs.html#cve_entry_descriptions_created[Common Vulnerabilities and Exposure CVE description])
+| beta:[ Use of the `match_only_text` type in the `.text` multi-field is currently beta. ]
+
+The description of the vulnerability that provides additional context of the vulnerability. For example (https://cve.mitre.org/about/faqs.html#cve_entry_descriptions_created[Common Vulnerabilities and Exposure CVE description])
 
 type: keyword
 
 Multi-fields:
 
-* vulnerability.description.text (type: text)
+* vulnerability.description.text (type: match_only_text)
 
 
 

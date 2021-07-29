@@ -33,7 +33,7 @@
     example: '{"application": "foo-bar", "env": "production"}'
   - name: message
     level: core
-    type: text
+    type: match_only_text
     description: 'For log events the message field contains the log message, optimized
       for viewing in a log viewer.
 
@@ -140,8 +140,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: Organization name.
       example: Google LLC
@@ -187,8 +186,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: Organization name.
       example: Google LLC
@@ -376,8 +374,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: User's full name, if available.
       example: Albert Einstein
@@ -418,8 +415,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: Short name or login of the user.
       example: albert
@@ -722,8 +718,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: Organization name.
       example: Google LLC
@@ -910,8 +905,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: User's full name, if available.
       example: Albert Einstein
@@ -952,8 +946,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: Short name or login of the user.
       example: albert
@@ -1745,15 +1738,14 @@
       description: Unique identifier for the error.
     - name: message
       level: core
-      type: text
+      type: match_only_text
       description: Error message.
     - name: stack_trace
       level: extended
       type: wildcard
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: The stack trace of this error in plain text.
     - name: type
@@ -2504,8 +2496,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: Full path to the file, including the file name. It should include
         the drive letter, when appropriate.
@@ -2786,8 +2777,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: Target path for symlinks.
     - name: type
@@ -3330,8 +3320,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: Operating system name, including the version or code name.
       example: Mac OS Mojave
@@ -3347,8 +3336,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: Operating system name, without the version.
       example: Mac OS X
@@ -4069,8 +4057,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: Operating system name, including the version or code name.
       example: Mac OS Mojave
@@ -4086,8 +4073,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: Operating system name, without the version.
       example: Mac OS X
@@ -4260,8 +4246,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: Operating system name, including the version or code name.
       example: Mac OS Mojave
@@ -4277,8 +4262,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: Operating system name, without the version.
       example: Mac OS X
@@ -4772,8 +4756,7 @@
       type: wildcard
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: 'Full command line that started the process, including the absolute
         path to the executable, and all arguments.
 
@@ -4980,8 +4963,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: Absolute path to the process executable.
       example: /usr/bin/ssh
@@ -5026,8 +5008,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: 'Process name.
 
@@ -5120,8 +5101,7 @@
       type: wildcard
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: 'Full command line that started the process, including the absolute
         path to the executable, and all arguments.
 
@@ -5328,8 +5308,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: Absolute path to the process executable.
       example: /usr/bin/ssh
       default_field: false
@@ -5378,8 +5357,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: 'Process name.
 
         Sometimes called program name or similar.'
@@ -5694,8 +5672,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: 'Process title.
 
         The proctitle, some times the same as process name. Can also be different:
@@ -5713,8 +5690,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: The working directory of the process.
       example: /home/alice
       default_field: false
@@ -6090,8 +6066,7 @@
       type: wildcard
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: 'Full command line that started the process, including the absolute
         path to the executable, and all arguments.
 
@@ -6298,8 +6273,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: Absolute path to the process executable.
       example: /usr/bin/ssh
       default_field: false
@@ -6348,8 +6322,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: 'Process name.
 
         Sometimes called program name or similar.'
@@ -6442,8 +6415,7 @@
       type: wildcard
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: 'Full command line that started the process, including the absolute
         path to the executable, and all arguments.
 
@@ -6650,8 +6622,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: Absolute path to the process executable.
       example: /usr/bin/ssh
       default_field: false
@@ -6700,8 +6671,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: 'Process name.
 
         Sometimes called program name or similar.'
@@ -7016,8 +6986,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: 'Process title.
 
         The proctitle, some times the same as process name. Can also be different:
@@ -7035,8 +7004,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: The working directory of the process.
       example: /home/alice
       default_field: false
@@ -7349,8 +7317,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: 'Process title.
 
         The proctitle, some times the same as process name. Can also be different:
@@ -7368,8 +7335,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: The working directory of the process.
       example: /home/alice
       default_field: false
@@ -7391,8 +7357,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: 'Process title.
 
@@ -7409,8 +7374,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: The working directory of the process.
       example: /home/alice
@@ -7656,8 +7620,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: Organization name.
       example: Google LLC
@@ -7845,8 +7808,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: User's full name, if available.
       example: Albert Einstein
@@ -7887,8 +7849,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: Short name or login of the user.
       example: albert
@@ -7908,6 +7869,27 @@
       These fields help you find and correlate logs for a specific service and version.'
     type: group
     fields:
+    - name: address
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Address where data about this service was collected from.
+
+        This should be a URI, network address (ipv4:port or [ipv6]:port) or a resource
+        path (sockets).'
+      example: 172.26.0.2:5432
+      default_field: false
+    - name: environment
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Identifies the environment where the service is running.
+
+        If the same service runs in different environments (production, staging, QA,
+        development, etc.), the environment can identify other instances of the same
+        service. Can also group services and applications from the same environment.'
+      example: production
+      default_field: false
     - name: ephemeral_id
       level: extended
       type: keyword
@@ -8022,8 +8004,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: Organization name.
       example: Google LLC
@@ -8211,8 +8192,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: User's full name, if available.
       example: Albert Einstein
@@ -8253,8 +8233,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: Short name or login of the user.
       example: albert
@@ -8301,8 +8280,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: Organization name.
       example: Google LLC
       default_field: false
@@ -8721,8 +8699,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: Full path to the file, including the file name. It should include
         the drive letter, when appropriate.
       example: /home/alice/example.png
@@ -8741,8 +8718,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: Target path for symlinks.
       default_field: false
     - name: enrichments.indicator.file.type
@@ -9320,8 +9296,7 @@
       type: wildcard
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: If full URLs are important to your use case, they should be stored
         in `url.full`, whether this field is reconstructed or present in the event
         source.
@@ -9332,8 +9307,7 @@
       type: wildcard
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: 'Unmodified original url as seen in the event source.
 
         Note that in network monitoring, the observed URL may be a full URL, whereas
@@ -9695,8 +9669,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: Organization name.
       example: Google LLC
       default_field: false
@@ -10115,8 +10088,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: Full path to the file, including the file name. It should include
         the drive letter, when appropriate.
       example: /home/alice/example.png
@@ -10135,8 +10107,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: Target path for symlinks.
       default_field: false
     - name: indicator.file.type
@@ -10714,8 +10685,7 @@
       type: wildcard
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: If full URLs are important to your use case, they should be stored
         in `url.full`, whether this field is reconstructed or present in the event
         source.
@@ -10726,8 +10696,7 @@
       type: wildcard
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: 'Unmodified original url as seen in the event source.
 
         Note that in network monitoring, the observed URL may be a full URL, whereas
@@ -11075,8 +11044,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: "The name of technique used by this threat. You can use a MITRE\
         \ ATT&CK\xAE technique, for example. (ex. https://attack.mitre.org/techniques/T1059/)"
@@ -11102,8 +11070,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: "The name of subtechnique used by this threat. You can use a MITRE\
         \ ATT&CK\xAE subtechnique, for example. (ex. https://attack.mitre.org/techniques/T1059/001/)"
       example: PowerShell
@@ -11774,8 +11741,7 @@
       type: wildcard
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: If full URLs are important to your use case, they should be stored
         in `url.full`, whether this field is reconstructed or present in the event
@@ -11786,8 +11752,7 @@
       type: wildcard
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: 'Unmodified original url as seen in the event source.
 
@@ -11903,8 +11868,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: User's full name, if available.
       example: Albert Einstein
       default_field: false
@@ -11950,8 +11914,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: Short name or login of the user.
       example: albert
       default_field: false
@@ -11989,8 +11952,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: User's full name, if available.
       example: Albert Einstein
       default_field: false
@@ -12036,8 +11998,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: Short name or login of the user.
       example: albert
       default_field: false
@@ -12059,8 +12020,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: User's full name, if available.
       example: Albert Einstein
@@ -12101,8 +12061,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: Short name or login of the user.
       example: albert
@@ -12133,8 +12092,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: User's full name, if available.
       example: Albert Einstein
       default_field: false
@@ -12180,8 +12138,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: Short name or login of the user.
       example: albert
       default_field: false
@@ -12218,8 +12175,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: Unparsed user_agent string.
       example: Mozilla/5.0 (iPhone; CPU iPhone OS 12_1 like Mac OS X) AppleWebKit/605.1.15
         (KHTML, like Gecko) Version/12.0 Mobile/15E148 Safari/604.1
@@ -12235,8 +12191,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: Operating system name, including the version or code name.
       example: Mac OS Mojave
@@ -12252,8 +12207,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: Operating system name, without the version.
       example: Mac OS X
@@ -12358,8 +12312,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: The description of the vulnerability that provides additional context
         of the vulnerability. For example (https://cve.mitre.org/about/faqs.html#cve_entry_descriptions_created[Common
         Vulnerabilities and Exposure CVE description])
