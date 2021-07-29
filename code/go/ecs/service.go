@@ -24,6 +24,13 @@ package ecs
 // These fields help you find and correlate logs for a specific service and
 // version.
 type Service struct {
+	// Identifies the environment where the service is running.
+	// If the same service runs in different environments (production, staging,
+	// QA, development, etc.), the environment can identify other instances of
+	// the same service. Can also group services and applications from the same
+	// environment.
+	Environment string `ecs:"environment"`
+
 	// Unique identifier of the running service. If the service is comprised of
 	// many nodes, the `service.id` should be the same for all nodes.
 	// This id should uniquely identify the service. This makes it possible to
