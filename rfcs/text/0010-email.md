@@ -272,7 +272,7 @@ Should attachments be considered in this initial proposal? If so, should the fie
 
 ### Spam processing details
 
-Should fields intended to capture details around spam processing like sender policy framework (SPF) or domainkeys identified mail (DKIM) be in scope for this proposal as well?
+Should fields intended to capture details around spam processing like sender policy framework (SPF), domainkeys identified mail (DKIM), or domain-based message authentication, reporting, and conformance (DMARC) be in scope for this proposal as well?
 
 <!--
 Stage 2: Document new concerns or resolutions to previously listed concerns. It's not critical that all concerns have resolutions at this point, but it would be helpful if resolutions were taking shape for the most significant concerns.
