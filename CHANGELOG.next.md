@@ -13,6 +13,7 @@ Thanks, you're awesome :-) -->
 #### Added
 
 * Added `service.address` field. #1537
+* Promote `threat.software.*` and `threat.group.*` fields to GA. #1540
 * Added `service.environment` as a beta field. #1541
 
 ### Tooling and Artifact Changes
