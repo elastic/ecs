@@ -43,23 +43,23 @@ type Threat struct {
 	Framework string `ecs:"framework"`
 
 	// The alias(es) of the group for a set of related intrusion activity that
-	// are tracked by a common name in the security community. While not
-	// required, you can use a MITRE ATT&CK® group alias(es).
+	// are tracked by a common name in the security community.
+	// While not required, you can use a MITRE ATT&CK® group alias(es).
 	GroupAlias string `ecs:"group.alias"`
 
 	// The id of the group for a set of related intrusion activity that are
-	// tracked by a common name in the security community. While not required,
-	// you can use a MITRE ATT&CK® group id.
+	// tracked by a common name in the security community.
+	// While not required, you can use a MITRE ATT&CK® group id.
 	GroupID string `ecs:"group.id"`
 
 	// The name of the group for a set of related intrusion activity that are
-	// tracked by a common name in the security community. While not required,
-	// you can use a MITRE ATT&CK® group name.
+	// tracked by a common name in the security community.
+	// While not required, you can use a MITRE ATT&CK® group name.
 	GroupName string `ecs:"group.name"`
 
 	// The reference URL of the group for a set of related intrusion activity
-	// that are tracked by a common name in the security community. While not
-	// required, you can use a MITRE ATT&CK® group reference URL.
+	// that are tracked by a common name in the security community.
+	// While not required, you can use a MITRE ATT&CK® group reference URL.
 	GroupReference string `ecs:"group.reference"`
 
 	// The date and time when intelligence source first reported sighting this
@@ -142,18 +142,23 @@ type Threat struct {
 	IndicatorProvider string `ecs:"indicator.provider"`
 
 	// The id of the software used by this threat to conduct behavior commonly
-	// modeled using MITRE ATT&CK®. While not required, you can use a MITRE
-	// ATT&CK® software id.
+	// modeled using MITRE ATT&CK®.
+	// While not required, you can use a MITRE ATT&CK® software id.
 	SoftwareID string `ecs:"software.id"`
 
 	// The name of the software used by this threat to conduct behavior
-	// commonly modeled using MITRE ATT&CK®. While not required, you can use a
-	// MITRE ATT&CK® software name.
+	// commonly modeled using MITRE ATT&CK®.
+	// While not required, you can use a MITRE ATT&CK® software name.
 	SoftwareName string `ecs:"software.name"`
 
+	// The alias(es) of the software for a set of related intrusion activity
+	// that are tracked by a common name in the security community.
+	// While not required, you can use a MITRE ATT&CK® associated software
+	// description.
+	SoftwareAlias string `ecs:"software.alias"`
+
 	// The platforms of the software used by this threat to conduct behavior
-	// commonly modeled using MITRE ATT&CK®. While not required, you can use a
-	// MITRE ATT&CK® software platforms.
+	// commonly modeled using MITRE ATT&CK®.
 	// Recommended Values:
 	//   * AWS
 	//   * Azure
@@ -165,19 +170,22 @@ type Threat struct {
 	//   * Office 365
 	//   * SaaS
 	//   * Windows
+	//
+	// While not required, you can use a MITRE ATT&CK® software platforms.
 	SoftwarePlatforms string `ecs:"software.platforms"`
 
 	// The reference URL of the software used by this threat to conduct
-	// behavior commonly modeled using MITRE ATT&CK®. While not required, you
-	// can use a MITRE ATT&CK® software reference URL.
+	// behavior commonly modeled using MITRE ATT&CK®.
+	// While not required, you can use a MITRE ATT&CK® software reference URL.
 	SoftwareReference string `ecs:"software.reference"`
 
 	// The type of software used by this threat to conduct behavior commonly
-	// modeled using MITRE ATT&CK®. While not required, you can use a MITRE
-	// ATT&CK® software type.
+	// modeled using MITRE ATT&CK®.
 	// Recommended values
 	//   * Malware
 	//   * Tool
+	//
+	//  While not required, you can use a MITRE ATT&CK® software type.
 	SoftwareType string `ecs:"software.type"`
 
 	// The id of tactic used by this threat. You can use a MITRE ATT&CK®
