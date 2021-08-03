@@ -31,7 +31,7 @@ threat.indicator.modified_at | date | 2020-11-05T17:25:47.000Z | The date and ti
 threat.indicator.sightings | long | 20 | Number of times this indicator was observed conducting threat activity
 threat.indicator.type | keyword | ipv4-addr | Type of indicator as represented by Cyber Observable in STIX 2.0
 threat.indicator.description | keyword | 201.10.10.90 was seen delivering Angler EK | Describes the type of action conducted by the threat
-threat.indicator.confidence | keyword | High, 10, Confirmed by other sources, Certain, Almost Certain / Nearly Certain | Identifies the confidence rating assigned by the provider using STIX confidence scales (N/H/M/L, 0-10, Admirality, WEP, or DNI).
+threat.indicator.confidence | keyword | Almost Certain/Nearly Certain | Identifies the vendor-neutral confidence rating using the DNI STIX confidence scale. Vendor-specific confidence scales may be added as custom fields.
 threat.indicator.ip | ip | 1.2.3.4 | Identifies a threat indicator as an IP address (irrespective of direction).
 threat.indicator.port | long | 443 | Identifies a threat indicator as a port number (irrespective of direction).
 threat.indicator.email.address | keyword | phish@evil.com | Identifies a threat indicator as an email address (irrespective of direction).
