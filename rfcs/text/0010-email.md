@@ -16,7 +16,7 @@ Stage 1: Describe at a high level how this change affects fields. Which fieldset
 
 | field | type | description |
 | --- | --- | --- |
-| `email.from` | keyword | Stores the `from` email address |
+| `email.from` | keyword | Stores the `from` email address from the RFC5322 `From:` header field. |
 | `email.origination_timestamp` | date | The date and time the email message was composed. Many email clients will fill this in automatically when the message is sent by a user. |
 | `email.delivery_timestamp` | date | The date and time the email message was received by the service or client. |
 | `email.to` | keyword (array) | The email address(es) of the message recipient(s) |
