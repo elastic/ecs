@@ -310,6 +310,8 @@ Stage 1: Identify potential concerns, implementation challenges, or complexity. 
 -->
 
 1. How to best represent malware{name,family,type}. Current proposal is to use `threat.indicator.classification` to describe threat delivery (Hacktool etc.) and family name.
+  - This can be represented through the use of the [`threat.software.*`](https://www.elastic.co/guide/en/ecs/master/ecs-threat.html) fields.
+  - Awaiting [approval](https://github.com/elastic/ecs/pull/1480#issuecomment-889312434) of this recommendation.
 1. Field types (Ref: https://github.com/elastic/ecs/pull/1127#issuecomment-776126293)
   - `threatintel.indicator.*` (Filebeat module) will be normal field type and will be deprecated when nested field types are better supported in Kibana
   - `threat.indicator.*` (actual threat ECS fieldset) will be nested now and used for enriched doc
