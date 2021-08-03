@@ -3366,12 +3366,15 @@ event:
       type: date
     event.kind:
       allowed_values:
-      - description: 'This value indicates an event that describes an alert or notable
-          event, triggered by a detection rule.
+      - description: 'This value indicates an event such as an alert or notable event,
+          triggered by a detection rule executing externally to the Elastic Stack.
 
           `event.kind:alert` is often populated for events coming from firewalls,
           intrusion detection systems, endpoint detection and response systems, and
-          so on.'
+          so on.
+
+          This value is not used by Elastic solutions for alert documents that are
+          created by rules executing within the Kibana alerting framework.'
         name: alert
       - description: This value is the most general and most common value for this
           field. It is used to represent events that indicate that something happened.
@@ -3408,14 +3411,12 @@ event:
           of this event, and that event data may be missing, inconsistent, or incorrect.
           `event.kind:pipeline_error` is often associated with parsing errors.
         name: pipeline_error
-      - description: 'This value is used by the Elastic Security app to denote an
-          Elasticsearch document that was created by a SIEM detection engine rule.
+      - description: 'This value is used by Elastic solutions (e.g., Security, Observability)
+          for alert documents that are created by rules executing within the Kibana
+          alerting framework.
 
-          A signal will typically trigger a notification that something meaningful
-          happened and should be investigated.
-
-          Usage of this value is reserved, and pipelines should not populate `event.kind`
-          with the value "signal".'
+          Usage of this value is reserved, and data ingestion pipelines must not populate
+          `event.kind` with the value "signal".'
         name: signal
       dashed_name: event-kind
       description: 'This is one of four ECS Categorization Fields, and indicates the
