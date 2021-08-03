@@ -24,7 +24,8 @@ Stage 1: Describe at a high level how this change affects fields. Which fieldset
 | `email.cc` | keyword (array) | The email address(es) of the carbon copy (CC) recipient(s) |
 | `email.bcc` | keyword (array) | The email address(es) of the blind carbon copy (CC) recipient(s) |
 | `email.content_type` | keyword | Information about how the message is to be displayed. Typically a MIME type |
-| `email.message_id` | wildcard | Unique identifier for the email message that refers to a particular version of a particular message |
+| `email.message_id` | wildcard |  Identifier from the RFC5322 `Message-ID:` header field that refers to a particular version of a particular message. |
+| `email.external_id` | keyword | Unique identifier provided by an external source (for example, the `X-MS-Exchange-Organization-Network-Message-Id` id)
 | `email.reply_to` | keyword | Address that replies should be delivered to |
 | `email.direction` | keyword | Direction of the message based on the sending and receiving domains |
 | `email.x_mailer` | keyword | What application was used to draft and send the original email. |
