@@ -18,6 +18,7 @@ Stage 1: Describe at a high level how this change affects fields. Which fieldset
 | --- | --- | --- |
 | `email.from` | keyword | Stores the `from` email address |
 | `email.origination_timestamp` | date | The date and time the email message was composed. Many email clients will fill this in automatically when the message is sent by a user. |
+| `email.delivery_timestamp` | date | The date and time the email message was received by the service or client. |
 | `email.to` | keyword (array) | The email address(es) of the message recipient(s) |
 | `email.subject` | keyword; `.text` text multi-field | A brief summary of the topic of the message |
 | `email.cc` | keyword (array) | The email address(es) of the carbon copy (CC) recipient(s) |
