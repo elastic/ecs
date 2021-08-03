@@ -41,6 +41,7 @@ Thanks, you're awesome :-) -->
 * Add --exclude flag to Generator to support field removal testing #1411
 * Explicitly include user identifiers in `relater.user` description. #1420
 * Improve descriptions for `cloud.region` and `cloud.availability` fields. #1452
+* Clarify `event.kind` descriptions for `alert` and `signal`. #1548
 
 #### Deprecated
 
