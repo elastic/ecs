@@ -29,6 +29,11 @@ Stage 1: Describe at a high level how this change affects fields. Which fieldset
 | `email.reply_to` | keyword | Address that replies should be delivered to |
 | `email.direction` | keyword | Direction of the message based on the sending and receiving domains |
 | `email.x_mailer` | keyword | What application was used to draft and send the original email. |
+| `email.attachments` | nested | Nested object of attachments on the email. |
+| `email.attachments.file.mime_type` | keyword | MIME type of the attachment file. |
+| `email.attachments.file.name` | keyword | Name of the file including the extension. |
+| `email.attachments.file.extension` | keyword | File extension, excluding the leading dot. |
+| `email.attachments.file.size` | long | File size in bytes. |
 
 ### Additional event categorization allowed values
 
