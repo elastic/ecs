@@ -1,8 +1,8 @@
 # 0025: Container Metric Fields
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
-- Stage: **0 (strawperson)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
-- Date: **2021-06-01** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
+- Stage: **1 (draft)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
+- Date: **2021-07-29** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 <!--
 As you work on your RFC, use the "Stage N" comments to guide you in what you should focus on, for the stage you're targeting.
@@ -13,19 +13,27 @@ Feel free to remove these comments as you go along.
 Stage 0: Provide a high level summary of the premise of these changes. Briefly describe the nature, purpose, and impact of the changes. ~2-5 sentences.
 -->
 
+<!--
+Stage 1: If the changes include field additions or modifications, please create a folder titled as the RFC number under rfcs/text/. This will be where proposed schema changes as standalone YAML files or extended example mappings and larger source documents will go as the RFC is iterated upon.
+-->
+
 This RFC proposes 6 additional container metric fields into ECS for monitoring
-container CPU, memory, disk and network performance using Metricbeat.
+container CPU, memory, disk and network performance:
+- container.cpu.usage
+- container.memory.usage
+- container.network.ingress.bytes
+- container.network.egress.bytes
+- container.disk.read.bytes
+- container.disk.write.bytes
+
 With existing metadata fields `container.id`, `container.image.name`, `container.image.tag`,
 `container.labels`, `container.name` and `container.runtime`, these total 12
 fields will become the common field schema for container metrics. These metric
 fields and metadata fields are recommended or required for all events related to
 containers.
 
-<!--
-Stage 1: If the changes include field additions or modifications, please create a folder titled as the RFC number under rfcs/text/. This will be where proposed schema changes as standalone YAML files or extended example mappings and larger source documents will go as the RFC is iterated upon.
--->
-
 ## Fields
+
 This RFC calls for the addition of metric fields to collect basic monitoring
 metrics from a container such as CPU, memory, network and disk.
 Please see [`container.yml`](0000/container.yml) for definitions of all fields.
@@ -40,11 +48,33 @@ Stage 2: Add or update all remaining field definitions. The list should now be e
 
 ## Usage
 
+Container metric fields and container metadata fields can be collected from
+several sources. For example, a user who uses both Docker, Cloudfoundry
+and AWS Fargate would like to collect data regarding all containers and store
+them in a centralized location. Without these new container metric fields,
+Metricbeat is reporting container metrics under different names from different
+sources. For example, for CPU usage, `docker.cpu.total.pct` is used. For
+Cloudfoundry, `cloudfoundry.container.cpu.pct` is used and for AWS Fargate,
+`awsfargate.task_stats.cpu.total.pct` is used.
+With these different field names, Kibana Docker containers metrics UI can only
+display data collected from Docker but no other sources.
+
+With the additional container metric fields proposed here, users should be able
+to see the same metric field collected from different sources and Kibana should
+be able to display all containers, not only from Docker, but also Cloudfoundry,
+AWS Fargate and etc.
+
 <!--
 Stage 1: Describe at a high-level how these field changes will be used in practice. Real world examples are encouraged. The goal here is to understand how people would leverage these fields to gain insights or solve problems. ~1-3 paragraphs.
 -->
 
 ## Source data
+
+- Docker
+- Kubernetes
+- AWS Fargate
+- Cloudfoundry
+- Google GKE
 
 <!--
 Stage 1: Provide a high-level description of example sources of data. This does not yet need to be a concrete example of a source document, but instead can simply describe a potential source (e.g. nginx access log). This will ultimately be fleshed out to include literal source examples in a future stage. The goal here is to identify practical sources for these fields in the real world. ~1-3 sentences or unordered list.
@@ -73,6 +103,12 @@ The goal here is to research and understand the impact of these changes on users
 <!--
 Stage 1: Identify potential concerns, implementation challenges, or complexity. Spend some time on this. Play devil's advocate. Try to identify the sort of non-obvious challenges that tend to surface later. The goal here is to surface risks early, allow everyone the time to work through them, and ultimately document resolution for posterity's sake.
 -->
+
+We need to carefully define each field because when collecting these container
+metrics from different sources, the scope of these metrics change. We should
+make sure when users are using these metrics, they are all collected to represent
+the same thing. For example, `container.cpu.usage` needs to be a normalized value
+between 0 and 1.
 
 <!--
 Stage 2: Document new concerns or resolutions to previously listed concerns. It's not critical that all concerns have resolutions at this point, but it would be helpful if resolutions were taking shape for the most significant concerns.
@@ -118,3 +154,4 @@ Common Fields for Container Inventory Schema: https://github.com/elastic/beats/i
 * Stage 1: https://github.com/elastic/ecs/pull/NNN
 ...
 -->
+* Stage 1: https://github.com/elastic/ecs/pull/1529

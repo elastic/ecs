@@ -13,6 +13,10 @@ Thanks, you're awesome :-) -->
 #### Added
 
 * Added `service.address` field. #1537
+* Promote `threat.software.*` and `threat.group.*` fields to GA. #1540
+* Added `service.environment` as a beta field. #1541
+* Added `process.end` field. #1544
+* Introduce container metric fields into experimental schema. #1546
 
 ### Tooling and Artifact Changes
 
@@ -34,6 +38,7 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
+* Beta migration of `text` and `.text` multi-fields to `match_only_text`. #1532
 #### Deprecated
 
 ## 1.11.0 (Feature Freeze)
@@ -56,6 +61,7 @@ Thanks, you're awesome :-) -->
 * Add --exclude flag to Generator to support field removal testing #1411
 * Explicitly include user identifiers in `relater.user` description. #1420
 * Improve descriptions for `cloud.region` and `cloud.availability` fields. #1452
+* Clarify `event.kind` descriptions for `alert` and `signal`. #1548
 
 #### Deprecated
 
