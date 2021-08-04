@@ -1,8 +1,8 @@
 # 0022: Remove process.ppid
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
-- Stage: **1 (draft)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
-- Date: **2021-07-22** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
+- Stage: **2 (candidate)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
+- Date: **TBD** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 <!--
 As you work on your RFC, use the "Stage N" comments to guide you in what you should focus on, for the stage you're targeting.
@@ -92,10 +92,6 @@ Now how the above document would be updated for `process.parent.pid` instead:
 ```
 
 <!--
-Stage 2: Included a real world example source document. Ideally this example comes from the source(s) identified in stage 1. If not, it should replace them. The goal here is to validate the utility of these field changes in the context of a real world example. Format with the source name as a ### header and the example document in a GitHub code block with json formatting.
--->
-
-<!--
 Stage 3: Add more real world example source documents so we have at least 2 total, but ideally 3. Format as described in stage 2.
 -->
 
@@ -125,9 +121,9 @@ Stage 1: Identify potential concerns, implementation challenges, or complexity. 
 
 ### Data producers populating `process.ppid`
 
-The `process.ppid` is populated in many data producers. Migrating to `process.parent.pid` will take coordination before removing the field from ECS entirely.
+The `process.ppid` is populated in many data producers. Migrating to `process.parent.pid` will take coordination when `process.ppid` is removed from ECS.
 
-Field aliases might be of some use to alleviate some pain during the migration for any aggregations or visualizations relying on `process.ppid`:
+Resolution: Field aliases might be of some use to alleviate some pain during the migration for any aggregations or visualizations relying on `process.ppid`:
 
 ```
 PUT rfc_0018/_mapping
@@ -155,6 +151,8 @@ PUT rfc_0018/_mapping
 ### Removing `process.parent.ppid`
 
 Removing `process.ppid` will also remove its reuse in `process.parent`: `process.parent.ppid` (parent's parent PID). This will leave ECS without an equivalent, replacement field.
+
+Resolution: [Discussed](https://github.com/elastic/ecs/pull/1450#issuecomment-854773783) with Protections, Endpoint, and Observability stakeholders. Not having a replacement field for the parent's parent PID didn't raise significant concerns.
 
 <!--
 Stage 2: Document new concerns or resolutions to previously listed concerns. It's not critical that all concerns have resolutions at this point, but it would be helpful if resolutions were taking shape for the most significant concerns.
@@ -199,6 +197,7 @@ e.g.:
 * Stage 0: https://github.com/elastic/ecs/pull/1337
 * Stage 1: https://github.com/elastic/ecs/pull/1450
   * Stage 1 date correction: https://github.com/elastic/ecs/pull/1555
+* Stage 2: https://github.com/elastic/ecs/pull/NNNN
 
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN
