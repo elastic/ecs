@@ -315,15 +315,18 @@ Stage 1: Identify potential concerns, implementation challenges, or complexity. 
 2. Data shippers (Beats, packages, etc.) will need to generate normal `threat.indicator.*` fields.
   - In `7.14` (current Beat modules, packages, etc.) data will be shipped using the current `threatintel.indicator.*` fields
   - In `7.15+` data will be shipped using `threat.indicator.*` and existing Beat modules, packages, indicator match rules, templates, etc. will need to be changed
-> retaining in the event the previous discussion is needed (https://github.com/elastic/ecs/pull/1480#discussion_r682908848)
->1. Field types (Ref: https://github.com/elastic/ecs/pull/1127#issuecomment-776126293)
->  - `threatintel.indicator.*` (Filebeat module) will be normal field type and will be deprecated when nested field types are better supported in Kibana
->  - `threat.indicator.*` (actual threat ECS fieldset) will be nested now and used for enriched doc
->  - Once there is better support for nested field types in Kibana, there will be a migration to `threat.indicator.*`
->  - Do we see this development affecting the timeline for this RFC's advancement (https://github.com/elastic/ecs/pull/1127#issuecomment-777766608)?
-    >I imagine many users interested in threat.indicator.* fields are looking to map their own indicator sources to threat.indicator.* and then ingest those sources for use with indicator match rules. Is this something that will still be possible until the migration to threat.indicator.* happens?
-    >
-    >Including the threat.indicator.* fields in ECS would still document the fields as soon as they are implemented in the signals indices. Yet, until we feel confident encouraging using these fields to normalize users' data, I'm worried about the confusion and experience that would result.
+ retaining in the event the previous discussion is needed (https://github.com/elastic/ecs/pull/1480#discussion_r682908848)
+ 
+<!--
+1. Field types (Ref: https://github.com/elastic/ecs/pull/1127#issuecomment-776126293)
+  - `threatintel.indicator.*` (Filebeat module) will be normal field type and will be deprecated when nested field types are better supported in Kibana
+  - `threat.indicator.*` (actual threat ECS fieldset) will be nested now and used for enriched doc
+  - Once there is better support for nested field types in Kibana, there will be a migration to `threat.indicator.*`
+  - Do we see this development affecting the timeline for this RFC's advancement (https://github.com/elastic/ecs/pull/1127#issuecomment-777766608)?
+    I imagine many users interested in threat.indicator.* fields are looking to map their own indicator sources to threat.indicator.* and then ingest those sources for use with indicator match rules. Is this something that will still be possible until the migration to threat.indicator.* happens?
+
+    Including the threat.indicator.* fields in ECS would still document the fields as soon as they are implemented in the signals indices. Yet, until we feel confident encouraging using these fields to normalize users' data, I'm worried about the confusion and experience that would result.
+-->
 
 <!--
 Stage 2: Document new concerns or resolutions to previously listed concerns. It's not critical that all concerns have resolutions at this point, but it would be helpful if resolutions were taking shape for the most significant concerns.
