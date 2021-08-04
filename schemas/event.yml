@@ -64,6 +64,15 @@
 
             `event.kind:alert` is often populated for events coming from firewalls,
             intrusion detection systems, endpoint detection and response systems, and so on.
+        - name: enrichment
+          description: >
+            The `enrichment` value indicates an event collected to provide additional
+            context, often to other events.
+
+            An example is collecting indicators of compromise (IOCs) from a threat
+            intelligence provider with the intent to use those values to enrich other
+            events. The IOC events from the intelligence provider should be categorized
+            as `event.kind:enrichment`.
         - name: event
           description: >
             This value is the most general and most common value for this field.
@@ -112,15 +121,6 @@
 
             Usage of this value is reserved, and pipelines should not populate
             `event.kind` with the value "signal".
-        - name: enrichment
-          description: >
-            The `enrichment` value indicates an event collected to provide additional
-            context, often to other events.
-
-            An example is collecting indicators of compromise (IOCs) from a threat
-            intelligence provider with the intent to use those values to enrich other
-            events. The IOC events from the intelligence provider should be categorized
-            as `event.kind:enrichment`.
 
     - name: category
       level: core

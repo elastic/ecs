@@ -3000,6 +3000,13 @@ event:
           intrusion detection systems, endpoint detection and response systems, and
           so on.'
         name: alert
+      - description: 'The `enrichment` value indicates an event collected to provide
+          additional context, often to other events.
+
+          An example is collecting indicators of compromise (IOCs) from a threat intelligence
+          provider with the intent to use those values to enrich other events. The
+          IOC events from the intelligence provider should be categorized as `event.kind:enrichment`.'
+        name: enrichment
       - description: This value is the most general and most common value for this
           field. It is used to represent events that indicate that something happened.
         name: event
@@ -3044,13 +3051,6 @@ event:
           Usage of this value is reserved, and pipelines should not populate `event.kind`
           with the value "signal".'
         name: signal
-      - description: 'The `enrichment` value indicates an event collected to provide
-          additional context, often to other events.
-
-          An example is collecting indicators of compromise (IOCs) from a threat intelligence
-          provider with the intent to use those values to enrich other events. The
-          IOC events from the intelligence provider should be categorized as `event.kind:enrichment`.'
-        name: enrichment
       dashed_name: event-kind
       description: 'This is one of four ECS Categorization Fields, and indicates the
         highest level in the ECS category hierarchy.

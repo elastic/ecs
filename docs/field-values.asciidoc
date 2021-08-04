@@ -41,12 +41,12 @@ The value of this field can be used to inform how these kinds of events should b
 *Allowed Values*
 
 * <<ecs-event-kind-alert,alert>>
+* <<ecs-event-kind-enrichment,enrichment>>
 * <<ecs-event-kind-event,event>>
 * <<ecs-event-kind-metric,metric>>
 * <<ecs-event-kind-state,state>>
 * <<ecs-event-kind-pipeline_error,pipeline_error>>
 * <<ecs-event-kind-signal,signal>>
-* <<ecs-event-kind-enrichment,enrichment>>
 
 [float]
 [[ecs-event-kind-alert]]
@@ -55,6 +55,16 @@ The value of this field can be used to inform how these kinds of events should b
 This value indicates an event that describes an alert or notable event, triggered by a detection rule.
 
 `event.kind:alert` is often populated for events coming from firewalls, intrusion detection systems, endpoint detection and response systems, and so on.
+
+
+
+[float]
+[[ecs-event-kind-enrichment]]
+==== enrichment
+
+The `enrichment` value indicates an event collected to provide additional context, often to other events.
+
+An example is collecting indicators of compromise (IOCs) from a threat intelligence provider with the intent to use those values to enrich other events. The IOC events from the intelligence provider should be categorized as `event.kind:enrichment`.
 
 
 
@@ -109,16 +119,6 @@ This value is used by the Elastic Security app to denote an Elasticsearch docume
 A signal will typically trigger a notification that something meaningful happened and should be investigated.
 
 Usage of this value is reserved, and pipelines should not populate `event.kind` with the value "signal".
-
-
-
-[float]
-[[ecs-event-kind-enrichment]]
-==== enrichment
-
-The `enrichment` value indicates an event collected to provide additional context, often to other events.
-
-An example is collecting indicators of compromise (IOCs) from a threat intelligence provider with the intent to use those values to enrich other events. The IOC events from the intelligence provider should be categorized as `event.kind:enrichment`.
 
 
 
