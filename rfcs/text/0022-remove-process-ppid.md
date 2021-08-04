@@ -11,16 +11,16 @@ Feel free to remove these comments as you go along.
 
 The `process.ppid` field has been part of ECS since 1.0.0. The `process.parent.*` fields were later introduced in ECS 1.3.0, including `process.parent.pid`. Both fields serve the same purpose: capture the process identifier (PID) of a process' parent.
 
-There's no need to have two fields to capture the same value and to avoid unneeded duplication and confusion, one of the fields should be removed. All of the parent process fields are now included in ECS with the `process.parent.*` nesting, and `process.ppid` should be deprecated and later removed.
+There's no need to have two fields to capture the same value. ECS now includes all parent process fields under the `process.parent.*` nesting, and `process.ppid` should be deprecated and later removed.
 
 ## Fields
 
 Removing `process.ppid` will take place in two steps:
 
-1. ECS `1.x`: Indicate that `process.ppid` is deprecated in the fields description in an upcoming ECS minor release. Producers and consumers of `process.ppid` should transition to using `process.parent.pid` instead.
+1. ECS `1.x`: Indicate that `process.ppid` is deprecated in the fields description in an upcoming ECS minor release. Producers and consumers of `process.ppid` should use `process.parent.pid` instead.
 2. Later remove `process.ppid` field as a breaking change.
 
-Removing `process.ppid` will also eliminate the unnecessary `process.parent.ppid` field that exists in ECS due to the `process.*` field set being reused as `process.parent.*`.
+Removing `process.ppid` will also eliminate `process.parent.ppid`.
 
 ## Usage
 
@@ -30,7 +30,7 @@ New processes are typically spawned directly from their parent, or calling, proc
 * Attackers may try to start a process with an arbitrary parent process set. Capturing the PPID value helps identify if an attacker is attempting privilege escalation through PPID spoofing.
 * Collecting PPID as a possible data point to help with the observability of a system.
 
-Users will still be able to capture the PPID in the `process.parent.pid` field. Having the one single field available should help improve the experience for anyone trying to capture and query PPIDs from their events.
+Users will still be able to capture the PPID in the `process.parent.pid` field. Having the single field available should help improve the experience for anyone trying to capture and query PPIDs from their events.
 
 ## Source data
 
@@ -59,7 +59,7 @@ An example of how `process.ppid` is populated:
 }
 ```
 
-Now how the above document would be updated for `process.parent.pid` instead:
+Now the mapping for above document would be updated to use `process.parent.pid` instead:
 
 ```json
 {
@@ -95,19 +95,15 @@ The security detection rules [repo](https://github.com/elastic/detection-rules) 
 
 ### ECS
 
-The field will be marked as deprecated in an upcoming ECS `1.x` release in the ECS documentation. It will be removed entirely from ECS and the docs in the `8.0` release.
+The field will be marked as deprecated in an upcoming ECS `1.x` release in the ECS documentation and be removed entirely from ECS and the docs in the `8.0` release.
 
 ## Concerns
 
-<!--
-Stage 1: Identify potential concerns, implementation challenges, or complexity. Spend some time on this. Play devil's advocate. Try to identify the sort of non-obvious challenges that tend to surface later. The goal here is to surface risks early, allow everyone the time to work through them, and ultimately document resolution for posterity's sake.
--->
-
 ### Data producers populating `process.ppid`
 
-The `process.ppid` is populated in many data producers. Migrating to `process.parent.pid` will take coordination when `process.ppid` is removed from ECS.
+The `process.ppid` is populated in many data producers, so migrating to `process.parent.pid` will take coordination when `process.ppid` is removed.
 
-Resolution: Field aliases might be of some use to alleviate some pain during the migration for any aggregations or visualizations relying on `process.ppid`:
+**Resolution**: Field aliases might be of some use to alleviate some pain during the migration for any aggregations or visualizations relying on `process.ppid`:
 
 ```
 PUT rfc_0018/_mapping
@@ -136,9 +132,7 @@ PUT rfc_0018/_mapping
 
 Removing `process.ppid` will also remove its reuse in `process.parent`: `process.parent.ppid` (parent's parent PID). This will leave ECS without an equivalent, replacement field.
 
-Resolution: [Discussed](https://github.com/elastic/ecs/pull/1450#issuecomment-854773783) with Protections, Endpoint, and Observability stakeholders. Not having a replacement field for the parent's parent PID didn't raise significant concerns.
-
-Stage 2: Document new concerns or resolutions to previously listed concerns. It's not critical that all concerns have resolutions at this point, but it would be helpful if resolutions were taking shape for the most significant concerns.
+**Resolution**: [Discussed](https://github.com/elastic/ecs/pull/1450#issuecomment-854773783) with Protections, Endpoint, and Observability stakeholders. Not having a replacement field for the parent's parent PID didn't raise significant concerns.
 
 <!--
 Stage 3: Document resolutions for all existing concerns. Any new concerns should be documented along with their resolution. The goal here is to eliminate risk of churn and instability by ensuring all concerns have been addressed.
