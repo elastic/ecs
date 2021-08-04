@@ -169,7 +169,7 @@ Stage 2: Included a real world example source document. Ideally this example com
 #### Original log
 
 ```
-<38>1 2016-06-24T21:00:08Z - ProofpointTAP - MSGBLK [tapmsg@21139 messageTime="2016-06-24T21:18:38.000Z" messageID="20160624211145.62086.mail@evil.zz" recipient="clark.kent@pharmtech.zz, diana.prince@pharmtech.zz" sender="e99d7ed5580193f36a51f597bc2c0210@evil.zz" senderIP="192.0.2.255" phishScore="46" spamScore="4" QID="r2FNwRHF004109" GUID="c26dbea0-80d5-463b-b93c-4e8b708219ce" xmailer="Spambot v2.5"]
+<38>1 2016-06-24T21:00:08Z - ProofpointTAP - MSGBLK [tapmsg@21139 messageTime="2016-06-24T21:18:38.000Z" messageID="20160624211145.62086.mail@evil.zz" recipient="clark.kent@pharmtech.zz, diana.prince@pharmtech.zz" sender="e99d7ed5580193f36a51f597bc2c0210@evil.zz" senderIP="192.0.2.255" phishScore="46" spamScore="4" QID="r2FNwRHF004109" GUID="c26dbea0-80d5-463b-b93c-4e8b708219ce" subject="Please find a totally safe invoice attached." quarantineRule="module.sandbox.threat" quarantineFolder="Attachment Defense" policyRoutes="default_inbound,executives" modulesRun="sandbox,urldefense,spam,pdr" headerFrom="\"A. Badguy\" <badguy@evil.zz>" headerTo="\"Clark Kent\" <clark.kent@pharmtech.zz>; \"Diana Prince\" <diana.prince@pharmtech.zz>" headerCC="\"Bruce Wayne\" <bruce.wayne@university-of-education.zz>" headerReplyTo="null" toAddresses="clark.kent@pharmtech.zz,diana.prince@pharmtech.zz" ccAddresses="bruce.wayne@university-of-education.zz" fromAddress="badguy@evil.zz" replyToAddress="null" clusterId="pharmtech_hosted" messageParts="[{\"contentType\":\"text/plain\",\"disposition\":\"inline\",\"filename\":\"text.txt\",\"md5\":\"008c5926ca861023c1d2a36653fd88e2\",\"oContentType\":\"text/plain\",\"sandboxStatus\":\"unsupported\",\"sha256\":\"85738f8f9a7f1b04b5329c590ebcb9e425925c6d0984089c43a022de4f19c281\"},{\"contentType\":\"application/pdf\",\"disposition\":\"attached\",\"filename\":\"Invoice for Pharmtech.pdf\",\"md5\":\"5873c7d37608e0d49bcaa6f32b6c731f\",\"oContentType\":\"application/pdf\",\"sandboxStatus\":\"threat\",\"sha256\":\"2fab740f143fc1aa4c1cd0146d334c5593b1428f6d062b2c406e5efe8abe95ca\"}]" xmailer="Spambot v2.5"]
 ```
 
 #### Mapped event
@@ -180,16 +180,33 @@ Stage 2: Included a real world example source document. Ideally this example com
   "email": {
     "timestamp": "2016-06-24T21:18:38.000Z",
     "message_id": "20160624211145.62086.mail@evil.zz",
+    "external_id": "c26dbea0-80d5-463b-b93c-4e8b708219ce",
     "to": [
       "clark.kent@pharmtech.zz",
       "diana.prince@pharmtech.zz"
     ],
+    "cc": [
+      "bruce.wayne@university-of-education.zz"
+    ],
     "from": [
-      "e99d7ed5580193f36a51f597bc2c0210@evil.zz"
+      "badguy@evil.zz"
     ],
     "subject": "Please find a totally safe invoice attached.",
     "reply_to": "null",
-    "x_mailer": "Spambot v2.5"
+    "x_mailer": "Spambot v2.5",
+    "attachments": [
+      {
+        "file": {
+          "mime_type": "application/pdf",
+          "name": "Invoice for Pharmtech.pdf",
+          "extension": "pdf"
+        },
+        "hash": {
+          "md5": "5873c7d37608e0d49bcaa6f32b6c731f",
+          "sha256": "2fab740f143fc1aa4c1cd0146d334c5593b1428f6d062b2c406e5efe8abe95ca"
+        }
+      }
+    ]
   },
   "event": {
     "id": "c26dbea0-80d5-463b-b93c-4e8b708219ce",
@@ -275,10 +292,6 @@ Should a new event.category field (email) be created, and, if so, which `event.t
 ### Display names
 
 Should the display name be captured separately from the email address for senders and recipients. If so, how do we accomplish this in a document while keeping the 1:1 of a display name to email address.
-
-### Attachments
-
-Should attachments be considered in this initial proposal? If so, should the fields should mirror (or potentially nest) the `file.*` fields?
 
 ### Spam processing details
 
