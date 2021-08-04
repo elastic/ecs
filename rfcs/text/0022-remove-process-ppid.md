@@ -93,6 +93,10 @@ APM, Beats, Elastic Agent, and any processors that populate `process.ppid` today
 
 The security detection rules [repo](https://github.com/elastic/detection-rules) will need audited. Any usage of `process.ppid` should ideally migrate to `process.parent.pid`, but backward compatibility also remains essential.
 
+### ECS
+
+The field will be marked as deprecated in an upcoming ECS `1.x` release in the ECS documentation. It will be removed entirely from ECS and the docs in the `8.0` release.
+
 ## Concerns
 
 <!--
