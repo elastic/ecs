@@ -697,6 +697,37 @@ cloud.service.name:
   normalize: []
   short: The cloud service name.
   type: keyword
+container.cpu.usage:
+  dashed_name: container-cpu-usage
+  description: 'Percent CPU used which is normalized by the number of CPU cores and
+    it ranges from 0 to 1. Scaling factor: 1000.'
+  flat_name: container.cpu.usage
+  level: extended
+  name: cpu.usage
+  normalize: []
+  scaling_factor: 1000
+  short: Percent CPU used, between 0 and 1.
+  type: scaled_float
+container.disk.read.bytes:
+  dashed_name: container-disk-read-bytes
+  description: The total number of bytes (gauge) read successfully (aggregated from
+    all disks) since the last metric collection.
+  flat_name: container.disk.read.bytes
+  level: extended
+  name: disk.read.bytes
+  normalize: []
+  short: The number of bytes read by all disks.
+  type: long
+container.disk.write.bytes:
+  dashed_name: container-disk-write-bytes
+  description: The total number of bytes (gauge) written successfully (aggregated
+    from all disks) since the last metric collection.
+  flat_name: container.disk.write.bytes
+  level: extended
+  name: disk.write.bytes
+  normalize: []
+  short: The number of bytes written on all disks.
+  type: long
 container.id:
   dashed_name: container-id
   description: Unique container id.
@@ -738,6 +769,17 @@ container.labels:
   object_type: keyword
   short: Image labels.
   type: object
+container.memory.usage:
+  dashed_name: container-memory-usage
+  description: 'Memory usage percentage and it ranges from 0 to 1. Scaling factor:
+    1000.'
+  flat_name: container.memory.usage
+  level: extended
+  name: memory.usage
+  normalize: []
+  scaling_factor: 1000
+  short: Percent memory used, between 0 and 1.
+  type: scaled_float
 container.name:
   dashed_name: container-name
   description: Container name.
@@ -748,6 +790,26 @@ container.name:
   normalize: []
   short: Container name.
   type: keyword
+container.network.egress.bytes:
+  dashed_name: container-network-egress-bytes
+  description: The number of bytes (gauge) sent out on all network interfaces by the
+    container since the last metric collection.
+  flat_name: container.network.egress.bytes
+  level: extended
+  name: network.egress.bytes
+  normalize: []
+  short: The number of bytes sent on all network interfaces.
+  type: long
+container.network.ingress.bytes:
+  dashed_name: container-network-ingress-bytes
+  description: The number of bytes received (gauge) on all network interfaces by the
+    container since the last metric collection.
+  flat_name: container.network.ingress.bytes
+  level: extended
+  name: network.ingress.bytes
+  normalize: []
+  short: The number of bytes received on all network interfaces.
+  type: long
 container.runtime:
   dashed_name: container-runtime
   description: Runtime managing this container.
@@ -2584,11 +2646,14 @@ event.ingested:
   type: date
 event.kind:
   allowed_values:
-  - description: 'This value indicates an event that describes an alert or notable
-      event, triggered by a detection rule.
+  - description: 'This value indicates an event such as an alert or notable event,
+      triggered by a detection rule executing externally to the Elastic Stack.
 
       `event.kind:alert` is often populated for events coming from firewalls, intrusion
-      detection systems, endpoint detection and response systems, and so on.'
+      detection systems, endpoint detection and response systems, and so on.
+
+      This value is not used by Elastic solutions for alert documents that are created
+      by rules executing within the Kibana alerting framework.'
     name: alert
   - description: This value is the most general and most common value for this field.
       It is used to represent events that indicate that something happened.
@@ -2625,14 +2690,12 @@ event.kind:
       of this event, and that event data may be missing, inconsistent, or incorrect.
       `event.kind:pipeline_error` is often associated with parsing errors.
     name: pipeline_error
-  - description: 'This value is used by the Elastic Security app to denote an Elasticsearch
-      document that was created by a SIEM detection engine rule.
+  - description: 'This value is used by Elastic solutions (e.g., Security, Observability)
+      for alert documents that are created by rules executing within the Kibana alerting
+      framework.
 
-      A signal will typically trigger a notification that something meaningful happened
-      and should be investigated.
-
-      Usage of this value is reserved, and pipelines should not populate `event.kind`
-      with the value "signal".'
+      Usage of this value is reserved, and data ingestion pipelines must not populate
+      `event.kind` with the value "signal".'
     name: signal
   dashed_name: event-kind
   description: 'This is one of four ECS Categorization Fields, and indicates the highest
@@ -14812,10 +14875,9 @@ threat.framework:
   short: Threat classification framework.
   type: keyword
 threat.group.alias:
-  beta: This field is beta and subject to change.
   dashed_name: threat-group-alias
   description: "The alias(es) of the group for a set of related intrusion activity\
-    \ that are tracked by a common name in the security community. While not required,\
+    \ that are tracked by a common name in the security community.\nWhile not required,\
     \ you can use a MITRE ATT&CK\xAE group alias(es)."
   example: '[ "Magecart Group 6" ]'
   flat_name: threat.group.alias
@@ -14827,10 +14889,9 @@ threat.group.alias:
   short: Alias of the group.
   type: keyword
 threat.group.id:
-  beta: This field is beta and subject to change.
   dashed_name: threat-group-id
   description: "The id of the group for a set of related intrusion activity that are\
-    \ tracked by a common name in the security community. While not required, you\
+    \ tracked by a common name in the security community.\nWhile not required, you\
     \ can use a MITRE ATT&CK\xAE group id."
   example: G0037
   flat_name: threat.group.id
@@ -14841,10 +14902,9 @@ threat.group.id:
   short: ID of the group.
   type: keyword
 threat.group.name:
-  beta: This field is beta and subject to change.
   dashed_name: threat-group-name
   description: "The name of the group for a set of related intrusion activity that\
-    \ are tracked by a common name in the security community. While not required,\
+    \ are tracked by a common name in the security community.\nWhile not required,\
     \ you can use a MITRE ATT&CK\xAE group name."
   example: FIN6
   flat_name: threat.group.name
@@ -14855,10 +14915,9 @@ threat.group.name:
   short: Name of the group.
   type: keyword
 threat.group.reference:
-  beta: This field is beta and subject to change.
   dashed_name: threat-group-reference
   description: "The reference URL of the group for a set of related intrusion activity\
-    \ that are tracked by a common name in the security community. While not required,\
+    \ that are tracked by a common name in the security community.\nWhile not required,\
     \ you can use a MITRE ATT&CK\xAE group reference URL."
   example: https://attack.mitre.org/groups/G0037/
   flat_name: threat.group.reference
@@ -17080,11 +17139,24 @@ threat.indicator.x509.version_number:
   original_fieldset: x509
   short: Version of x509 format.
   type: keyword
+threat.software.alias:
+  dashed_name: threat-software-alias
+  description: "The alias(es) of the software for a set of related intrusion activity\
+    \ that are tracked by a common name in the security community.\nWhile not required,\
+    \ you can use a MITRE ATT&CK\xAE associated software description."
+  example: '[ "X-Agent" ]'
+  flat_name: threat.software.alias
+  ignore_above: 1024
+  level: extended
+  name: software.alias
+  normalize:
+  - array
+  short: Alias of the software
+  type: keyword
 threat.software.id:
-  beta: This field is beta and subject to change.
   dashed_name: threat-software-id
   description: "The id of the software used by this threat to conduct behavior commonly\
-    \ modeled using MITRE ATT&CK\xAE. While not required, you can use a MITRE ATT&CK\xAE\
+    \ modeled using MITRE ATT&CK\xAE.\nWhile not required, you can use a MITRE ATT&CK\xAE\
     \ software id."
   example: S0552
   flat_name: threat.software.id
@@ -17095,10 +17167,9 @@ threat.software.id:
   short: ID of the software
   type: keyword
 threat.software.name:
-  beta: This field is beta and subject to change.
   dashed_name: threat-software-name
   description: "The name of the software used by this threat to conduct behavior commonly\
-    \ modeled using MITRE ATT&CK\xAE. While not required, you can use a MITRE ATT&CK\xAE\
+    \ modeled using MITRE ATT&CK\xAE.\nWhile not required, you can use a MITRE ATT&CK\xAE\
     \ software name."
   example: AdFind
   flat_name: threat.software.name
@@ -17109,13 +17180,12 @@ threat.software.name:
   short: Name of the software.
   type: keyword
 threat.software.platforms:
-  beta: This field is beta and subject to change.
   dashed_name: threat-software-platforms
   description: "The platforms of the software used by this threat to conduct behavior\
-    \ commonly modeled using MITRE ATT&CK\xAE. While not required, you can use a MITRE\
-    \ ATT&CK\xAE software platforms.\nRecommended Values:\n  * AWS\n  * Azure\n  *\
-    \ Azure AD\n  * GCP\n  * Linux\n  * macOS\n  * Network\n  * Office 365\n  * SaaS\n\
-    \  * Windows"
+    \ commonly modeled using MITRE ATT&CK\xAE.\nRecommended Values:\n  * AWS\n  *\
+    \ Azure\n  * Azure AD\n  * GCP\n  * Linux\n  * macOS\n  * Network\n  * Office\
+    \ 365\n  * SaaS\n  * Windows\n\nWhile not required, you can use a MITRE ATT&CK\xAE\
+    \ software platforms."
   example: '[ "Windows" ]'
   flat_name: threat.software.platforms
   ignore_above: 1024
@@ -17126,11 +17196,10 @@ threat.software.platforms:
   short: Platforms of the software.
   type: keyword
 threat.software.reference:
-  beta: This field is beta and subject to change.
   dashed_name: threat-software-reference
   description: "The reference URL of the software used by this threat to conduct behavior\
-    \ commonly modeled using MITRE ATT&CK\xAE. While not required, you can use a MITRE\
-    \ ATT&CK\xAE software reference URL."
+    \ commonly modeled using MITRE ATT&CK\xAE.\nWhile not required, you can use a\
+    \ MITRE ATT&CK\xAE software reference URL."
   example: https://attack.mitre.org/software/S0552/
   flat_name: threat.software.reference
   ignore_above: 1024
@@ -17140,11 +17209,10 @@ threat.software.reference:
   short: Software reference URL.
   type: keyword
 threat.software.type:
-  beta: This field is beta and subject to change.
   dashed_name: threat-software-type
   description: "The type of software used by this threat to conduct behavior commonly\
-    \ modeled using MITRE ATT&CK\xAE. While not required, you can use a MITRE ATT&CK\xAE\
-    \ software type.\nRecommended values\n  * Malware\n  * Tool"
+    \ modeled using MITRE ATT&CK\xAE.\nRecommended values\n  * Malware\n  * Tool\n\
+    \n While not required, you can use a MITRE ATT&CK\xAE software type."
   example: Tool
   flat_name: threat.software.type
   ignore_above: 1024
