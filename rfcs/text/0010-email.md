@@ -287,7 +287,7 @@ Does the initial set of `email` fields need to consider observability and email 
 
 ### Additional event categorization values
 
-Should a new event.category field (email) be created, and, if so, which `event.type` values the `email` category should be combined with.
+Should a new event.category field (email) be created, and, if so, which `event.type` values the `email` category should be combined with?
 
 ### Display names
 
