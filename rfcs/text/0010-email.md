@@ -31,9 +31,12 @@ Stage 1: Describe at a high level how this change affects fields. Which fieldset
 | `email.x_mailer` | keyword | What application was used to draft and send the original email. |
 | `email.attachments` | nested | Nested object of attachments on the email. |
 | `email.attachments.file.mime_type` | keyword | MIME type of the attachment file. |
-| `email.attachments.file.name` | keyword | Name of the file including the extension. |
-| `email.attachments.file.extension` | keyword | File extension, excluding the leading dot. |
-| `email.attachments.file.size` | long | File size in bytes. |
+| `email.attachments.file.name` | keyword | Name of the attachment file including the extension. |
+| `email.attachments.file.extension` | keyword | Attachment file extension, excluding the leading dot. |
+| `email.attachments.file.size` | long | Attachment file size in bytes. |
+| `email.attachments.hash.md5` | keyword | MD5 hash of the file attachment. |
+| `email.attachments.hash.sha1` | keyword | SHA-1 hash of the file attachment. |
+| `email.attachments.hash.sha256` | keyword | SHA-256 hash of the file attachment. |
 
 ### Additional event categorization allowed values
 
