@@ -9,10 +9,6 @@ As you work on your RFC, use the "Stage N" comments to guide you in what you sho
 Feel free to remove these comments as you go along.
 -->
 
-<!--
-Stage 0: Provide a high level summary of the premise of these changes. Briefly describe the nature, purpose, and impact of the changes. ~2-5 sentences.
--->
-
 The `process.ppid` field has been part of ECS since 1.0.0. The `process.parent.*` fields were later introduced in ECS 1.3.0, including `process.parent.pid`. Both fields serve the same purpose: capture the process identifier (PID) of a process' parent.
 
 There's no need to have two fields to capture the same value and to avoid unneeded duplication and confusion, one of the fields should be removed. All of the parent process fields are now included in ECS with the `process.parent.*` nesting, and `process.ppid` should be deprecated and later removed.
@@ -26,10 +22,6 @@ Removing `process.ppid` will take place in two steps:
 
 Removing `process.ppid` will also eliminate the unnecessary `process.parent.ppid` field that exists in ECS due to the `process.*` field set being reused as `process.parent.*`.
 
-<!--
-Stage 2: Add or update all remaining field definitions. The list should now be exhaustive. The goal here is to validate the technical details of all remaining fields and to provide a basis for releasing these field definitions as beta in the schema. Use GitHub code blocks with yml syntax formatting.
--->
-
 ## Usage
 
 New processes are typically spawned directly from their parent, or calling, process. Capturing the parent PID (PPID) has many applications:
@@ -41,10 +33,6 @@ New processes are typically spawned directly from their parent, or calling, proc
 Users will still be able to capture the PPID in the `process.parent.pid` field. Having the one single field available should help improve the experience for anyone trying to capture and query PPIDs from their events.
 
 ## Source data
-
-<!--
-Stage 1: Provide a high-level description of example sources of data. This does not yet need to be a concrete example of a source document, but instead can simply describe a potential source (e.g. nginx access log). This will ultimately be fleshed out to include literal source examples in a future stage. The goal here is to identify practical sources for these fields in the real world. ~1-3 sentences or unordered list.
--->
 
 The `process.ppid` is populated across several data sources:
 
@@ -97,14 +85,6 @@ Stage 3: Add more real world example source documents so we have at least 2 tota
 
 ## Scope of impact
 
-<!--
-Stage 2: Identifies scope of impact of changes. Are breaking changes required? Should deprecation strategies be adopted? Will significant refactoring be involved? Break the impact down into:
- * Ingestion mechanisms (e.g. beats/logstash)
- * Usage mechanisms (e.g. Kibana applications, detections)
- * ECS project (e.g. docs, tooling)
-The goal here is to research and understand the impact of these changes on users in the community and development teams across Elastic. 2-5 sentences each.
--->
-
 ### Ingestion mechanisms
 
 APM, Beats, Elastic Agent, and any processors that populate `process.ppid` today will need to be identified and a migration plan to `process.parent.pid` established.
@@ -154,9 +134,7 @@ Removing `process.ppid` will also remove its reuse in `process.parent`: `process
 
 Resolution: [Discussed](https://github.com/elastic/ecs/pull/1450#issuecomment-854773783) with Protections, Endpoint, and Observability stakeholders. Not having a replacement field for the parent's parent PID didn't raise significant concerns.
 
-<!--
 Stage 2: Document new concerns or resolutions to previously listed concerns. It's not critical that all concerns have resolutions at this point, but it would be helpful if resolutions were taking shape for the most significant concerns.
--->
 
 <!--
 Stage 3: Document resolutions for all existing concerns. Any new concerns should be documented along with their resolution. The goal here is to eliminate risk of churn and instability by ensuring all concerns have been addressed.
