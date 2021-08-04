@@ -9,6 +9,15 @@ Thanks, you're awesome :-) -->
 ## Unreleased
 
 ### Schema Changes
+
+#### Added
+
+* Added `service.address` field. #1537
+* Promote `threat.software.*` and `threat.group.*` fields to GA. #1540
+* Added `service.environment` as a beta field. #1541
+* Added `process.end` field. #1544
+* Introduce container metric fields into experimental schema. #1546
+
 ### Tooling and Artifact Changes
 
 ### Breaking Changes
@@ -17,15 +26,19 @@ Thanks, you're awesome :-) -->
 * Removing use-cases directory #1405
 * Remove `host.user.*` field reuse. #1439
 * Remove deprecation notice on `http.request.method`. #1443
+* Migrate `log.origin.file.line` from `integer` to `long`. #1533
 
 #### Bugfixes
 
 #### Added
 
-* Added `file.fork_name` field #1288
+* Added `file.fork_name` field. #1288
+* Beta migration on some `keyword` fields to `wildcard`. #1517
+* Support ES 6.x type fallback for `match_only_text` field types. #1528
 
 #### Improvements
 
+* Beta migration of `text` and `.text` multi-fields to `match_only_text`. #1532
 #### Deprecated
 
 ## 1.11.0 (Feature Freeze)
@@ -48,6 +61,7 @@ Thanks, you're awesome :-) -->
 * Add --exclude flag to Generator to support field removal testing #1411
 * Explicitly include user identifiers in `relater.user` description. #1420
 * Improve descriptions for `cloud.region` and `cloud.availability` fields. #1452
+* Clarify `event.kind` descriptions for `alert` and `signal`. #1548
 
 #### Deprecated
 

@@ -22,11 +22,11 @@
                             "name": {
                               "fields": {
                                 "text": {
-                                  "norms": false,
-                                  "type": "text"
+                                  "type": "match_only_text"
                                 }
                               },
-                              "type": "wildcard"
+                              "ignore_above": 1024,
+                              "type": "keyword"
                             }
                           }
                         }
@@ -97,7 +97,8 @@
                           "type": "keyword"
                         },
                         "directory": {
-                          "type": "wildcard"
+                          "ignore_above": 1024,
+                          "type": "keyword"
                         },
                         "drive_letter": {
                           "ignore_above": 1,
@@ -262,11 +263,11 @@
                         "path": {
                           "fields": {
                             "text": {
-                              "norms": false,
-                              "type": "text"
+                              "type": "match_only_text"
                             }
                           },
-                          "type": "wildcard"
+                          "ignore_above": 1024,
+                          "type": "keyword"
                         },
                         "size": {
                           "type": "long"
@@ -274,11 +275,11 @@
                         "target_path": {
                           "fields": {
                             "text": {
-                              "norms": false,
-                              "type": "text"
+                              "type": "match_only_text"
                             }
                           },
-                          "type": "wildcard"
+                          "ignore_above": 1024,
+                          "type": "keyword"
                         },
                         "type": {
                           "ignore_above": 1024,
@@ -319,7 +320,8 @@
                           "type": "geo_point"
                         },
                         "name": {
-                          "type": "wildcard"
+                          "ignore_above": 1024,
+                          "type": "keyword"
                         },
                         "postal_code": {
                           "ignore_above": 1024,
@@ -471,7 +473,8 @@
                           "type": "keyword"
                         },
                         "original_file_name": {
-                          "type": "wildcard"
+                          "ignore_above": 1024,
+                          "type": "keyword"
                         },
                         "packers": {
                           "ignore_above": 1024,
@@ -580,10 +583,12 @@
                           "type": "keyword"
                         },
                         "key": {
-                          "type": "wildcard"
+                          "ignore_above": 1024,
+                          "type": "keyword"
                         },
                         "path": {
-                          "type": "wildcard"
+                          "ignore_above": 1024,
+                          "type": "keyword"
                         },
                         "value": {
                           "ignore_above": 1024,
@@ -604,7 +609,8 @@
                     "url": {
                       "properties": {
                         "domain": {
-                          "type": "wildcard"
+                          "ignore_above": 1024,
+                          "type": "keyword"
                         },
                         "extension": {
                           "ignore_above": 1024,
@@ -617,8 +623,7 @@
                         "full": {
                           "fields": {
                             "text": {
-                              "norms": false,
-                              "type": "text"
+                              "type": "match_only_text"
                             }
                           },
                           "type": "wildcard"
@@ -626,8 +631,7 @@
                         "original": {
                           "fields": {
                             "text": {
-                              "norms": false,
-                              "type": "text"
+                              "type": "match_only_text"
                             }
                           },
                           "type": "wildcard"
@@ -647,7 +651,8 @@
                           "type": "keyword"
                         },
                         "registered_domain": {
-                          "type": "wildcard"
+                          "ignore_above": 1024,
+                          "type": "keyword"
                         },
                         "scheme": {
                           "ignore_above": 1024,
@@ -684,7 +689,8 @@
                               "type": "keyword"
                             },
                             "distinguished_name": {
-                              "type": "wildcard"
+                              "ignore_above": 1024,
+                              "type": "keyword"
                             },
                             "locality": {
                               "ignore_above": 1024,
@@ -745,7 +751,8 @@
                               "type": "keyword"
                             },
                             "distinguished_name": {
-                              "type": "wildcard"
+                              "ignore_above": 1024,
+                              "type": "keyword"
                             },
                             "locality": {
                               "ignore_above": 1024,
@@ -797,206 +804,6 @@
                       "type": "keyword"
                     }
                   }
-                },
-                "pe": {
-                  "properties": {
-                    "architecture": {
-                      "ignore_above": 1024,
-                      "type": "keyword"
-                    },
-                    "authentihash": {
-                      "ignore_above": 1024,
-                      "type": "keyword"
-                    },
-                    "company": {
-                      "ignore_above": 1024,
-                      "type": "keyword"
-                    },
-                    "compile_timestamp": {
-                      "type": "date"
-                    },
-                    "compiler": {
-                      "properties": {
-                        "name": {
-                          "ignore_above": 1024,
-                          "type": "keyword"
-                        },
-                        "version": {
-                          "ignore_above": 1024,
-                          "type": "keyword"
-                        }
-                      }
-                    },
-                    "creation_date": {
-                      "type": "date"
-                    },
-                    "debug": {
-                      "properties": {
-                        "offset": {
-                          "ignore_above": 1024,
-                          "type": "keyword"
-                        },
-                        "size": {
-                          "type": "long"
-                        },
-                        "timestamp": {
-                          "type": "date"
-                        },
-                        "type": {
-                          "ignore_above": 1024,
-                          "type": "keyword"
-                        }
-                      },
-                      "type": "nested"
-                    },
-                    "description": {
-                      "ignore_above": 1024,
-                      "type": "keyword"
-                    },
-                    "entry_point": {
-                      "ignore_above": 1024,
-                      "type": "keyword"
-                    },
-                    "exports": {
-                      "ignore_above": 1024,
-                      "type": "keyword"
-                    },
-                    "file_version": {
-                      "ignore_above": 1024,
-                      "type": "keyword"
-                    },
-                    "icon": {
-                      "properties": {
-                        "hash": {
-                          "properties": {
-                            "dhash": {
-                              "ignore_above": 1024,
-                              "type": "keyword"
-                            }
-                          }
-                        }
-                      }
-                    },
-                    "imphash": {
-                      "ignore_above": 1024,
-                      "type": "keyword"
-                    },
-                    "imports": {
-                      "type": "flattened"
-                    },
-                    "machine_type": {
-                      "ignore_above": 1024,
-                      "type": "keyword"
-                    },
-                    "original_file_name": {
-                      "type": "wildcard"
-                    },
-                    "packers": {
-                      "ignore_above": 1024,
-                      "type": "keyword"
-                    },
-                    "product": {
-                      "ignore_above": 1024,
-                      "type": "keyword"
-                    },
-                    "resources": {
-                      "properties": {
-                        "chi2": {
-                          "type": "long"
-                        },
-                        "entropy": {
-                          "type": "long"
-                        },
-                        "filetype": {
-                          "ignore_above": 1024,
-                          "type": "keyword"
-                        },
-                        "language": {
-                          "ignore_above": 1024,
-                          "type": "keyword"
-                        },
-                        "sha256": {
-                          "ignore_above": 1024,
-                          "type": "keyword"
-                        },
-                        "type": {
-                          "ignore_above": 1024,
-                          "type": "keyword"
-                        }
-                      },
-                      "type": "nested"
-                    },
-                    "rich_header": {
-                      "properties": {
-                        "hash": {
-                          "properties": {
-                            "md5": {
-                              "ignore_above": 1024,
-                              "type": "keyword"
-                            }
-                          }
-                        }
-                      }
-                    },
-                    "sections": {
-                      "properties": {
-                        "chi2": {
-                          "type": "long"
-                        },
-                        "entropy": {
-                          "type": "float"
-                        },
-                        "flags": {
-                          "ignore_above": 1024,
-                          "type": "keyword"
-                        },
-                        "name": {
-                          "ignore_above": 1024,
-                          "type": "keyword"
-                        },
-                        "raw_size": {
-                          "type": "long"
-                        },
-                        "virtual_address": {
-                          "type": "long"
-                        }
-                      },
-                      "type": "nested"
-                    }
-                  }
-                },
-                "registry": {
-                  "properties": {
-                    "data": {
-                      "properties": {
-                        "bytes": {
-                          "ignore_above": 1024,
-                          "type": "keyword"
-                        },
-                        "strings": {
-                          "type": "wildcard"
-                        },
-                        "type": {
-                          "ignore_above": 1024,
-                          "type": "keyword"
-                        }
-                      }
-                    },
-                    "hive": {
-                      "ignore_above": 1024,
-                      "type": "keyword"
-                    },
-                    "key": {
-                      "type": "wildcard"
-                    },
-                    "path": {
-                      "type": "wildcard"
-                    },
-                    "value": {
-                      "ignore_above": 1024,
-                      "type": "keyword"
-                    }
-                  }
                 }
               },
               "type": "nested"
@@ -1037,11 +844,11 @@
                         "name": {
                           "fields": {
                             "text": {
-                              "norms": false,
-                              "type": "text"
+                              "type": "match_only_text"
                             }
                           },
-                          "type": "wildcard"
+                          "ignore_above": 1024,
+                          "type": "keyword"
                         }
                       }
                     }
@@ -1112,7 +919,8 @@
                       "type": "keyword"
                     },
                     "directory": {
-                      "type": "wildcard"
+                      "ignore_above": 1024,
+                      "type": "keyword"
                     },
                     "drive_letter": {
                       "ignore_above": 1,
@@ -1277,11 +1085,11 @@
                     "path": {
                       "fields": {
                         "text": {
-                          "norms": false,
-                          "type": "text"
+                          "type": "match_only_text"
                         }
                       },
-                      "type": "wildcard"
+                      "ignore_above": 1024,
+                      "type": "keyword"
                     },
                     "size": {
                       "type": "long"
@@ -1289,11 +1097,11 @@
                     "target_path": {
                       "fields": {
                         "text": {
-                          "norms": false,
-                          "type": "text"
+                          "type": "match_only_text"
                         }
                       },
-                      "type": "wildcard"
+                      "ignore_above": 1024,
+                      "type": "keyword"
                     },
                     "type": {
                       "ignore_above": 1024,
@@ -1334,7 +1142,8 @@
                       "type": "geo_point"
                     },
                     "name": {
-                      "type": "wildcard"
+                      "ignore_above": 1024,
+                      "type": "keyword"
                     },
                     "postal_code": {
                       "ignore_above": 1024,
@@ -1486,7 +1295,8 @@
                       "type": "keyword"
                     },
                     "original_file_name": {
-                      "type": "wildcard"
+                      "ignore_above": 1024,
+                      "type": "keyword"
                     },
                     "packers": {
                       "ignore_above": 1024,
@@ -1595,10 +1405,12 @@
                       "type": "keyword"
                     },
                     "key": {
-                      "type": "wildcard"
+                      "ignore_above": 1024,
+                      "type": "keyword"
                     },
                     "path": {
-                      "type": "wildcard"
+                      "ignore_above": 1024,
+                      "type": "keyword"
                     },
                     "value": {
                       "ignore_above": 1024,
@@ -1619,7 +1431,8 @@
                 "url": {
                   "properties": {
                     "domain": {
-                      "type": "wildcard"
+                      "ignore_above": 1024,
+                      "type": "keyword"
                     },
                     "extension": {
                       "ignore_above": 1024,
@@ -1632,8 +1445,7 @@
                     "full": {
                       "fields": {
                         "text": {
-                          "norms": false,
-                          "type": "text"
+                          "type": "match_only_text"
                         }
                       },
                       "type": "wildcard"
@@ -1641,8 +1453,7 @@
                     "original": {
                       "fields": {
                         "text": {
-                          "norms": false,
-                          "type": "text"
+                          "type": "match_only_text"
                         }
                       },
                       "type": "wildcard"
@@ -1662,7 +1473,8 @@
                       "type": "keyword"
                     },
                     "registered_domain": {
-                      "type": "wildcard"
+                      "ignore_above": 1024,
+                      "type": "keyword"
                     },
                     "scheme": {
                       "ignore_above": 1024,
@@ -1699,7 +1511,8 @@
                           "type": "keyword"
                         },
                         "distinguished_name": {
-                          "type": "wildcard"
+                          "ignore_above": 1024,
+                          "type": "keyword"
                         },
                         "locality": {
                           "ignore_above": 1024,
@@ -1760,7 +1573,8 @@
                           "type": "keyword"
                         },
                         "distinguished_name": {
-                          "type": "wildcard"
+                          "ignore_above": 1024,
+                          "type": "keyword"
                         },
                         "locality": {
                           "ignore_above": 1024,
@@ -1790,6 +1604,10 @@
             },
             "software": {
               "properties": {
+                "alias": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
                 "id": {
                   "ignore_above": 1024,
                   "type": "keyword"
@@ -1837,8 +1655,7 @@
                 "name": {
                   "fields": {
                     "text": {
-                      "norms": false,
-                      "type": "text"
+                      "type": "match_only_text"
                     }
                   },
                   "ignore_above": 1024,
@@ -1857,8 +1674,7 @@
                     "name": {
                       "fields": {
                         "text": {
-                          "norms": false,
-                          "type": "text"
+                          "type": "match_only_text"
                         }
                       },
                       "ignore_above": 1024,

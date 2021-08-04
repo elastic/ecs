@@ -27,7 +27,8 @@
           "build": {
             "properties": {
               "original": {
-                "type": "wildcard"
+                "ignore_above": 1024,
+                "type": "keyword"
               }
             }
           },
@@ -69,11 +70,11 @@
                   "name": {
                     "fields": {
                       "text": {
-                        "norms": false,
-                        "type": "text"
+                        "type": "match_only_text"
                       }
                     },
-                    "type": "wildcard"
+                    "ignore_above": 1024,
+                    "type": "keyword"
                   }
                 }
               }
@@ -83,7 +84,8 @@
             "type": "long"
           },
           "domain": {
-            "type": "wildcard"
+            "ignore_above": 1024,
+            "type": "keyword"
           },
           "geo": {
             "properties": {
@@ -111,7 +113,8 @@
                 "type": "geo_point"
               },
               "name": {
-                "type": "wildcard"
+                "ignore_above": 1024,
+                "type": "keyword"
               },
               "postal_code": {
                 "ignore_above": 1024,
@@ -155,7 +158,8 @@
             "type": "long"
           },
           "registered_domain": {
-            "type": "wildcard"
+            "ignore_above": 1024,
+            "type": "keyword"
           },
           "subdomain": {
             "ignore_above": 1024,
@@ -172,16 +176,17 @@
                 "type": "keyword"
               },
               "email": {
-                "type": "wildcard"
+                "ignore_above": 1024,
+                "type": "keyword"
               },
               "full_name": {
                 "fields": {
                   "text": {
-                    "norms": false,
-                    "type": "text"
+                    "type": "match_only_text"
                   }
                 },
-                "type": "wildcard"
+                "ignore_above": 1024,
+                "type": "keyword"
               },
               "group": {
                 "properties": {
@@ -210,11 +215,11 @@
               "name": {
                 "fields": {
                   "text": {
-                    "norms": false,
-                    "type": "text"
+                    "type": "match_only_text"
                   }
                 },
-                "type": "wildcard"
+                "ignore_above": 1024,
+                "type": "keyword"
               },
               "roles": {
                 "ignore_above": 1024,
@@ -294,6 +299,32 @@
       },
       "container": {
         "properties": {
+          "cpu": {
+            "properties": {
+              "usage": {
+                "scaling_factor": 1000,
+                "type": "scaled_float"
+              }
+            }
+          },
+          "disk": {
+            "properties": {
+              "read": {
+                "properties": {
+                  "bytes": {
+                    "type": "long"
+                  }
+                }
+              },
+              "write": {
+                "properties": {
+                  "bytes": {
+                    "type": "long"
+                  }
+                }
+              }
+            }
+          },
           "id": {
             "ignore_above": 1024,
             "type": "keyword"
@@ -313,9 +344,35 @@
           "labels": {
             "type": "object"
           },
+          "memory": {
+            "properties": {
+              "usage": {
+                "scaling_factor": 1000,
+                "type": "scaled_float"
+              }
+            }
+          },
           "name": {
             "ignore_above": 1024,
             "type": "keyword"
+          },
+          "network": {
+            "properties": {
+              "egress": {
+                "properties": {
+                  "bytes": {
+                    "type": "long"
+                  }
+                }
+              },
+              "ingress": {
+                "properties": {
+                  "bytes": {
+                    "type": "long"
+                  }
+                }
+              }
+            }
           },
           "runtime": {
             "ignore_above": 1024,
@@ -352,11 +409,11 @@
                   "name": {
                     "fields": {
                       "text": {
-                        "norms": false,
-                        "type": "text"
+                        "type": "match_only_text"
                       }
                     },
-                    "type": "wildcard"
+                    "ignore_above": 1024,
+                    "type": "keyword"
                   }
                 }
               }
@@ -366,7 +423,8 @@
             "type": "long"
           },
           "domain": {
-            "type": "wildcard"
+            "ignore_above": 1024,
+            "type": "keyword"
           },
           "geo": {
             "properties": {
@@ -394,7 +452,8 @@
                 "type": "geo_point"
               },
               "name": {
-                "type": "wildcard"
+                "ignore_above": 1024,
+                "type": "keyword"
               },
               "postal_code": {
                 "ignore_above": 1024,
@@ -438,7 +497,8 @@
             "type": "long"
           },
           "registered_domain": {
-            "type": "wildcard"
+            "ignore_above": 1024,
+            "type": "keyword"
           },
           "subdomain": {
             "ignore_above": 1024,
@@ -455,16 +515,17 @@
                 "type": "keyword"
               },
               "email": {
-                "type": "wildcard"
+                "ignore_above": 1024,
+                "type": "keyword"
               },
               "full_name": {
                 "fields": {
                   "text": {
-                    "norms": false,
-                    "type": "text"
+                    "type": "match_only_text"
                   }
                 },
-                "type": "wildcard"
+                "ignore_above": 1024,
+                "type": "keyword"
               },
               "group": {
                 "properties": {
@@ -493,11 +554,11 @@
               "name": {
                 "fields": {
                   "text": {
-                    "norms": false,
-                    "type": "text"
+                    "type": "match_only_text"
                   }
                 },
-                "type": "wildcard"
+                "ignore_above": 1024,
+                "type": "keyword"
               },
               "roles": {
                 "ignore_above": 1024,
@@ -661,7 +722,8 @@
                 "type": "keyword"
               },
               "original_file_name": {
-                "type": "wildcard"
+                "ignore_above": 1024,
+                "type": "keyword"
               },
               "packers": {
                 "ignore_above": 1024,
@@ -748,7 +810,8 @@
                 "type": "keyword"
               },
               "data": {
-                "type": "wildcard"
+                "ignore_above": 1024,
+                "type": "keyword"
               },
               "name": {
                 "ignore_above": 1024,
@@ -783,7 +846,8 @@
                 "type": "keyword"
               },
               "name": {
-                "type": "wildcard"
+                "ignore_above": 1024,
+                "type": "keyword"
               },
               "registered_domain": {
                 "ignore_above": 1024,
@@ -835,20 +899,19 @@
             "type": "keyword"
           },
           "message": {
-            "norms": false,
-            "type": "text"
+            "type": "match_only_text"
           },
           "stack_trace": {
             "fields": {
               "text": {
-                "norms": false,
-                "type": "text"
+                "type": "match_only_text"
               }
             },
             "type": "wildcard"
           },
           "type": {
-            "type": "wildcard"
+            "ignore_above": 1024,
+            "type": "keyword"
           }
         }
       },
@@ -1001,7 +1064,8 @@
             "type": "keyword"
           },
           "directory": {
-            "type": "wildcard"
+            "ignore_above": 1024,
+            "type": "keyword"
           },
           "drive_letter": {
             "ignore_above": 1,
@@ -1190,11 +1254,11 @@
           "path": {
             "fields": {
               "text": {
-                "norms": false,
-                "type": "text"
+                "type": "match_only_text"
               }
             },
-            "type": "wildcard"
+            "ignore_above": 1024,
+            "type": "keyword"
           },
           "pe": {
             "properties": {
@@ -1287,7 +1351,8 @@
                 "type": "keyword"
               },
               "original_file_name": {
-                "type": "wildcard"
+                "ignore_above": 1024,
+                "type": "keyword"
               },
               "packers": {
                 "ignore_above": 1024,
@@ -1369,11 +1434,11 @@
           "target_path": {
             "fields": {
               "text": {
-                "norms": false,
-                "type": "text"
+                "type": "match_only_text"
               }
             },
-            "type": "wildcard"
+            "ignore_above": 1024,
+            "type": "keyword"
           },
           "type": {
             "ignore_above": 1024,
@@ -1400,7 +1465,8 @@
                     "type": "keyword"
                   },
                   "distinguished_name": {
-                    "type": "wildcard"
+                    "ignore_above": 1024,
+                    "type": "keyword"
                   },
                   "locality": {
                     "ignore_above": 1024,
@@ -1461,7 +1527,8 @@
                     "type": "keyword"
                   },
                   "distinguished_name": {
-                    "type": "wildcard"
+                    "ignore_above": 1024,
+                    "type": "keyword"
                   },
                   "locality": {
                     "ignore_above": 1024,
@@ -1567,7 +1634,8 @@
                 "type": "geo_point"
               },
               "name": {
-                "type": "wildcard"
+                "ignore_above": 1024,
+                "type": "keyword"
               },
               "postal_code": {
                 "ignore_above": 1024,
@@ -1588,7 +1656,8 @@
             }
           },
           "hostname": {
-            "type": "wildcard"
+            "ignore_above": 1024,
+            "type": "keyword"
           },
           "id": {
             "ignore_above": 1024,
@@ -1638,11 +1707,11 @@
               "full": {
                 "fields": {
                   "text": {
-                    "norms": false,
-                    "type": "text"
+                    "type": "match_only_text"
                   }
                 },
-                "type": "wildcard"
+                "ignore_above": 1024,
+                "type": "keyword"
               },
               "kernel": {
                 "ignore_above": 1024,
@@ -1651,11 +1720,11 @@
               "name": {
                 "fields": {
                   "text": {
-                    "norms": false,
-                    "type": "text"
+                    "type": "match_only_text"
                   }
                 },
-                "type": "wildcard"
+                "ignore_above": 1024,
+                "type": "keyword"
               },
               "platform": {
                 "ignore_above": 1024,
@@ -1716,7 +1785,8 @@
                 "type": "keyword"
               },
               "referrer": {
-                "type": "wildcard"
+                "ignore_above": 1024,
+                "type": "keyword"
               }
             }
           },
@@ -1764,7 +1834,8 @@
           "file": {
             "properties": {
               "path": {
-                "type": "wildcard"
+                "ignore_above": 1024,
+                "type": "keyword"
               }
             }
           },
@@ -1773,14 +1844,15 @@
             "type": "keyword"
           },
           "logger": {
-            "type": "wildcard"
+            "ignore_above": 1024,
+            "type": "keyword"
           },
           "origin": {
             "properties": {
               "file": {
                 "properties": {
                   "line": {
-                    "type": "integer"
+                    "type": "long"
                   },
                   "name": {
                     "ignore_above": 1024,
@@ -1832,8 +1904,7 @@
         }
       },
       "message": {
-        "norms": false,
-        "type": "text"
+        "type": "match_only_text"
       },
       "network": {
         "properties": {
@@ -1974,7 +2045,8 @@
                 "type": "geo_point"
               },
               "name": {
-                "type": "wildcard"
+                "ignore_above": 1024,
+                "type": "keyword"
               },
               "postal_code": {
                 "ignore_above": 1024,
@@ -2055,11 +2127,11 @@
               "full": {
                 "fields": {
                   "text": {
-                    "norms": false,
-                    "type": "text"
+                    "type": "match_only_text"
                   }
                 },
-                "type": "wildcard"
+                "ignore_above": 1024,
+                "type": "keyword"
               },
               "kernel": {
                 "ignore_above": 1024,
@@ -2068,11 +2140,11 @@
               "name": {
                 "fields": {
                   "text": {
-                    "norms": false,
-                    "type": "text"
+                    "type": "match_only_text"
                   }
                 },
-                "type": "wildcard"
+                "ignore_above": 1024,
+                "type": "keyword"
               },
               "platform": {
                 "ignore_above": 1024,
@@ -2171,7 +2243,8 @@
                 "type": "text"
               }
             },
-            "type": "wildcard"
+            "ignore_above": 1024,
+            "type": "keyword"
           }
         }
       },
@@ -2270,8 +2343,7 @@
           "command_line": {
             "fields": {
               "text": {
-                "norms": false,
-                "type": "text"
+                "type": "match_only_text"
               }
             },
             "type": "wildcard"
@@ -2393,6 +2465,9 @@
               }
             }
           },
+          "end": {
+            "type": "date"
+          },
           "entity_id": {
             "ignore_above": 1024,
             "type": "keyword"
@@ -2400,11 +2475,11 @@
           "executable": {
             "fields": {
               "text": {
-                "norms": false,
-                "type": "text"
+                "type": "match_only_text"
               }
             },
-            "type": "wildcard"
+            "ignore_above": 1024,
+            "type": "keyword"
           },
           "exit_code": {
             "type": "long"
@@ -2436,11 +2511,11 @@
           "name": {
             "fields": {
               "text": {
-                "norms": false,
-                "type": "text"
+                "type": "match_only_text"
               }
             },
-            "type": "wildcard"
+            "ignore_above": 1024,
+            "type": "keyword"
           },
           "parent": {
             "properties": {
@@ -2483,8 +2558,7 @@
               "command_line": {
                 "fields": {
                   "text": {
-                    "norms": false,
-                    "type": "text"
+                    "type": "match_only_text"
                   }
                 },
                 "type": "wildcard"
@@ -2606,6 +2680,9 @@
                   }
                 }
               },
+              "end": {
+                "type": "date"
+              },
               "entity_id": {
                 "ignore_above": 1024,
                 "type": "keyword"
@@ -2613,11 +2690,11 @@
               "executable": {
                 "fields": {
                   "text": {
-                    "norms": false,
-                    "type": "text"
+                    "type": "match_only_text"
                   }
                 },
-                "type": "wildcard"
+                "ignore_above": 1024,
+                "type": "keyword"
               },
               "exit_code": {
                 "type": "long"
@@ -2649,11 +2726,11 @@
               "name": {
                 "fields": {
                   "text": {
-                    "norms": false,
-                    "type": "text"
+                    "type": "match_only_text"
                   }
                 },
-                "type": "wildcard"
+                "ignore_above": 1024,
+                "type": "keyword"
               },
               "pe": {
                 "properties": {
@@ -2746,7 +2823,8 @@
                     "type": "keyword"
                   },
                   "original_file_name": {
-                    "type": "wildcard"
+                    "ignore_above": 1024,
+                    "type": "keyword"
                   },
                   "packers": {
                     "ignore_above": 1024,
@@ -2840,18 +2918,19 @@
                     "type": "long"
                   },
                   "name": {
-                    "type": "wildcard"
+                    "ignore_above": 1024,
+                    "type": "keyword"
                   }
                 }
               },
               "title": {
                 "fields": {
                   "text": {
-                    "norms": false,
-                    "type": "text"
+                    "type": "match_only_text"
                   }
                 },
-                "type": "wildcard"
+                "ignore_above": 1024,
+                "type": "keyword"
               },
               "uptime": {
                 "type": "long"
@@ -2859,11 +2938,11 @@
               "working_directory": {
                 "fields": {
                   "text": {
-                    "norms": false,
-                    "type": "text"
+                    "type": "match_only_text"
                   }
                 },
-                "type": "wildcard"
+                "ignore_above": 1024,
+                "type": "keyword"
               }
             }
           },
@@ -2958,7 +3037,8 @@
                 "type": "keyword"
               },
               "original_file_name": {
-                "type": "wildcard"
+                "ignore_above": 1024,
+                "type": "keyword"
               },
               "packers": {
                 "ignore_above": 1024,
@@ -3087,8 +3167,7 @@
               "command_line": {
                 "fields": {
                   "text": {
-                    "norms": false,
-                    "type": "text"
+                    "type": "match_only_text"
                   }
                 },
                 "type": "wildcard"
@@ -3210,6 +3289,9 @@
                   }
                 }
               },
+              "end": {
+                "type": "date"
+              },
               "entity_id": {
                 "ignore_above": 1024,
                 "type": "keyword"
@@ -3217,11 +3299,11 @@
               "executable": {
                 "fields": {
                   "text": {
-                    "norms": false,
-                    "type": "text"
+                    "type": "match_only_text"
                   }
                 },
-                "type": "wildcard"
+                "ignore_above": 1024,
+                "type": "keyword"
               },
               "exit_code": {
                 "type": "long"
@@ -3253,11 +3335,11 @@
               "name": {
                 "fields": {
                   "text": {
-                    "norms": false,
-                    "type": "text"
+                    "type": "match_only_text"
                   }
                 },
-                "type": "wildcard"
+                "ignore_above": 1024,
+                "type": "keyword"
               },
               "parent": {
                 "properties": {
@@ -3300,8 +3382,7 @@
                   "command_line": {
                     "fields": {
                       "text": {
-                        "norms": false,
-                        "type": "text"
+                        "type": "match_only_text"
                       }
                     },
                     "type": "wildcard"
@@ -3423,6 +3504,9 @@
                       }
                     }
                   },
+                  "end": {
+                    "type": "date"
+                  },
                   "entity_id": {
                     "ignore_above": 1024,
                     "type": "keyword"
@@ -3430,11 +3514,11 @@
                   "executable": {
                     "fields": {
                       "text": {
-                        "norms": false,
-                        "type": "text"
+                        "type": "match_only_text"
                       }
                     },
-                    "type": "wildcard"
+                    "ignore_above": 1024,
+                    "type": "keyword"
                   },
                   "exit_code": {
                     "type": "long"
@@ -3466,11 +3550,11 @@
                   "name": {
                     "fields": {
                       "text": {
-                        "norms": false,
-                        "type": "text"
+                        "type": "match_only_text"
                       }
                     },
-                    "type": "wildcard"
+                    "ignore_above": 1024,
+                    "type": "keyword"
                   },
                   "pe": {
                     "properties": {
@@ -3563,7 +3647,8 @@
                         "type": "keyword"
                       },
                       "original_file_name": {
-                        "type": "wildcard"
+                        "ignore_above": 1024,
+                        "type": "keyword"
                       },
                       "packers": {
                         "ignore_above": 1024,
@@ -3657,18 +3742,19 @@
                         "type": "long"
                       },
                       "name": {
-                        "type": "wildcard"
+                        "ignore_above": 1024,
+                        "type": "keyword"
                       }
                     }
                   },
                   "title": {
                     "fields": {
                       "text": {
-                        "norms": false,
-                        "type": "text"
+                        "type": "match_only_text"
                       }
                     },
-                    "type": "wildcard"
+                    "ignore_above": 1024,
+                    "type": "keyword"
                   },
                   "uptime": {
                     "type": "long"
@@ -3676,11 +3762,11 @@
                   "working_directory": {
                     "fields": {
                       "text": {
-                        "norms": false,
-                        "type": "text"
+                        "type": "match_only_text"
                       }
                     },
-                    "type": "wildcard"
+                    "ignore_above": 1024,
+                    "type": "keyword"
                   }
                 }
               },
@@ -3775,7 +3861,8 @@
                     "type": "keyword"
                   },
                   "original_file_name": {
-                    "type": "wildcard"
+                    "ignore_above": 1024,
+                    "type": "keyword"
                   },
                   "packers": {
                     "ignore_above": 1024,
@@ -3869,18 +3956,19 @@
                     "type": "long"
                   },
                   "name": {
-                    "type": "wildcard"
+                    "ignore_above": 1024,
+                    "type": "keyword"
                   }
                 }
               },
               "title": {
                 "fields": {
                   "text": {
-                    "norms": false,
-                    "type": "text"
+                    "type": "match_only_text"
                   }
                 },
-                "type": "wildcard"
+                "ignore_above": 1024,
+                "type": "keyword"
               },
               "uptime": {
                 "type": "long"
@@ -3888,11 +3976,11 @@
               "working_directory": {
                 "fields": {
                   "text": {
-                    "norms": false,
-                    "type": "text"
+                    "type": "match_only_text"
                   }
                 },
-                "type": "wildcard"
+                "ignore_above": 1024,
+                "type": "keyword"
               }
             }
           },
@@ -3902,18 +3990,19 @@
                 "type": "long"
               },
               "name": {
-                "type": "wildcard"
+                "ignore_above": 1024,
+                "type": "keyword"
               }
             }
           },
           "title": {
             "fields": {
               "text": {
-                "norms": false,
-                "type": "text"
+                "type": "match_only_text"
               }
             },
-            "type": "wildcard"
+            "ignore_above": 1024,
+            "type": "keyword"
           },
           "uptime": {
             "type": "long"
@@ -3921,11 +4010,11 @@
           "working_directory": {
             "fields": {
               "text": {
-                "norms": false,
-                "type": "text"
+                "type": "match_only_text"
               }
             },
-            "type": "wildcard"
+            "ignore_above": 1024,
+            "type": "keyword"
           }
         }
       },
@@ -3951,10 +4040,12 @@
             "type": "keyword"
           },
           "key": {
-            "type": "wildcard"
+            "ignore_above": 1024,
+            "type": "keyword"
           },
           "path": {
-            "type": "wildcard"
+            "ignore_above": 1024,
+            "type": "keyword"
           },
           "value": {
             "ignore_above": 1024,
@@ -4041,11 +4132,11 @@
                   "name": {
                     "fields": {
                       "text": {
-                        "norms": false,
-                        "type": "text"
+                        "type": "match_only_text"
                       }
                     },
-                    "type": "wildcard"
+                    "ignore_above": 1024,
+                    "type": "keyword"
                   }
                 }
               }
@@ -4055,7 +4146,8 @@
             "type": "long"
           },
           "domain": {
-            "type": "wildcard"
+            "ignore_above": 1024,
+            "type": "keyword"
           },
           "geo": {
             "properties": {
@@ -4083,7 +4175,8 @@
                 "type": "geo_point"
               },
               "name": {
-                "type": "wildcard"
+                "ignore_above": 1024,
+                "type": "keyword"
               },
               "postal_code": {
                 "ignore_above": 1024,
@@ -4127,7 +4220,8 @@
             "type": "long"
           },
           "registered_domain": {
-            "type": "wildcard"
+            "ignore_above": 1024,
+            "type": "keyword"
           },
           "subdomain": {
             "ignore_above": 1024,
@@ -4144,16 +4238,17 @@
                 "type": "keyword"
               },
               "email": {
-                "type": "wildcard"
+                "ignore_above": 1024,
+                "type": "keyword"
               },
               "full_name": {
                 "fields": {
                   "text": {
-                    "norms": false,
-                    "type": "text"
+                    "type": "match_only_text"
                   }
                 },
-                "type": "wildcard"
+                "ignore_above": 1024,
+                "type": "keyword"
               },
               "group": {
                 "properties": {
@@ -4182,11 +4277,11 @@
               "name": {
                 "fields": {
                   "text": {
-                    "norms": false,
-                    "type": "text"
+                    "type": "match_only_text"
                   }
                 },
-                "type": "wildcard"
+                "ignore_above": 1024,
+                "type": "keyword"
               },
               "roles": {
                 "ignore_above": 1024,
@@ -4198,6 +4293,14 @@
       },
       "service": {
         "properties": {
+          "address": {
+            "ignore_above": 1024,
+            "type": "keyword"
+          },
+          "environment": {
+            "ignore_above": 1024,
+            "type": "keyword"
+          },
           "ephemeral_id": {
             "ignore_above": 1024,
             "type": "keyword"
@@ -4248,11 +4351,11 @@
                   "name": {
                     "fields": {
                       "text": {
-                        "norms": false,
-                        "type": "text"
+                        "type": "match_only_text"
                       }
                     },
-                    "type": "wildcard"
+                    "ignore_above": 1024,
+                    "type": "keyword"
                   }
                 }
               }
@@ -4262,7 +4365,8 @@
             "type": "long"
           },
           "domain": {
-            "type": "wildcard"
+            "ignore_above": 1024,
+            "type": "keyword"
           },
           "geo": {
             "properties": {
@@ -4290,7 +4394,8 @@
                 "type": "geo_point"
               },
               "name": {
-                "type": "wildcard"
+                "ignore_above": 1024,
+                "type": "keyword"
               },
               "postal_code": {
                 "ignore_above": 1024,
@@ -4334,7 +4439,8 @@
             "type": "long"
           },
           "registered_domain": {
-            "type": "wildcard"
+            "ignore_above": 1024,
+            "type": "keyword"
           },
           "subdomain": {
             "ignore_above": 1024,
@@ -4351,16 +4457,17 @@
                 "type": "keyword"
               },
               "email": {
-                "type": "wildcard"
+                "ignore_above": 1024,
+                "type": "keyword"
               },
               "full_name": {
                 "fields": {
                   "text": {
-                    "norms": false,
-                    "type": "text"
+                    "type": "match_only_text"
                   }
                 },
-                "type": "wildcard"
+                "ignore_above": 1024,
+                "type": "keyword"
               },
               "group": {
                 "properties": {
@@ -4389,11 +4496,11 @@
               "name": {
                 "fields": {
                   "text": {
-                    "norms": false,
-                    "type": "text"
+                    "type": "match_only_text"
                   }
                 },
-                "type": "wildcard"
+                "ignore_above": 1024,
+                "type": "keyword"
               },
               "roles": {
                 "ignore_above": 1024,
@@ -4431,11 +4538,11 @@
                           "name": {
                             "fields": {
                               "text": {
-                                "norms": false,
-                                "type": "text"
+                                "type": "match_only_text"
                               }
                             },
-                            "type": "wildcard"
+                            "ignore_above": 1024,
+                            "type": "keyword"
                           }
                         }
                       }
@@ -4506,7 +4613,8 @@
                         "type": "keyword"
                       },
                       "directory": {
-                        "type": "wildcard"
+                        "ignore_above": 1024,
+                        "type": "keyword"
                       },
                       "drive_letter": {
                         "ignore_above": 1,
@@ -4671,11 +4779,11 @@
                       "path": {
                         "fields": {
                           "text": {
-                            "norms": false,
-                            "type": "text"
+                            "type": "match_only_text"
                           }
                         },
-                        "type": "wildcard"
+                        "ignore_above": 1024,
+                        "type": "keyword"
                       },
                       "size": {
                         "type": "long"
@@ -4683,11 +4791,11 @@
                       "target_path": {
                         "fields": {
                           "text": {
-                            "norms": false,
-                            "type": "text"
+                            "type": "match_only_text"
                           }
                         },
-                        "type": "wildcard"
+                        "ignore_above": 1024,
+                        "type": "keyword"
                       },
                       "type": {
                         "ignore_above": 1024,
@@ -4728,7 +4836,8 @@
                         "type": "geo_point"
                       },
                       "name": {
-                        "type": "wildcard"
+                        "ignore_above": 1024,
+                        "type": "keyword"
                       },
                       "postal_code": {
                         "ignore_above": 1024,
@@ -4880,7 +4989,8 @@
                         "type": "keyword"
                       },
                       "original_file_name": {
-                        "type": "wildcard"
+                        "ignore_above": 1024,
+                        "type": "keyword"
                       },
                       "packers": {
                         "ignore_above": 1024,
@@ -4989,10 +5099,12 @@
                         "type": "keyword"
                       },
                       "key": {
-                        "type": "wildcard"
+                        "ignore_above": 1024,
+                        "type": "keyword"
                       },
                       "path": {
-                        "type": "wildcard"
+                        "ignore_above": 1024,
+                        "type": "keyword"
                       },
                       "value": {
                         "ignore_above": 1024,
@@ -5013,7 +5125,8 @@
                   "url": {
                     "properties": {
                       "domain": {
-                        "type": "wildcard"
+                        "ignore_above": 1024,
+                        "type": "keyword"
                       },
                       "extension": {
                         "ignore_above": 1024,
@@ -5026,8 +5139,7 @@
                       "full": {
                         "fields": {
                           "text": {
-                            "norms": false,
-                            "type": "text"
+                            "type": "match_only_text"
                           }
                         },
                         "type": "wildcard"
@@ -5035,8 +5147,7 @@
                       "original": {
                         "fields": {
                           "text": {
-                            "norms": false,
-                            "type": "text"
+                            "type": "match_only_text"
                           }
                         },
                         "type": "wildcard"
@@ -5056,7 +5167,8 @@
                         "type": "keyword"
                       },
                       "registered_domain": {
-                        "type": "wildcard"
+                        "ignore_above": 1024,
+                        "type": "keyword"
                       },
                       "scheme": {
                         "ignore_above": 1024,
@@ -5093,7 +5205,8 @@
                             "type": "keyword"
                           },
                           "distinguished_name": {
-                            "type": "wildcard"
+                            "ignore_above": 1024,
+                            "type": "keyword"
                           },
                           "locality": {
                             "ignore_above": 1024,
@@ -5154,7 +5267,8 @@
                             "type": "keyword"
                           },
                           "distinguished_name": {
-                            "type": "wildcard"
+                            "ignore_above": 1024,
+                            "type": "keyword"
                           },
                           "locality": {
                             "ignore_above": 1024,
@@ -5206,206 +5320,6 @@
                     "type": "keyword"
                   }
                 }
-              },
-              "pe": {
-                "properties": {
-                  "architecture": {
-                    "ignore_above": 1024,
-                    "type": "keyword"
-                  },
-                  "authentihash": {
-                    "ignore_above": 1024,
-                    "type": "keyword"
-                  },
-                  "company": {
-                    "ignore_above": 1024,
-                    "type": "keyword"
-                  },
-                  "compile_timestamp": {
-                    "type": "date"
-                  },
-                  "compiler": {
-                    "properties": {
-                      "name": {
-                        "ignore_above": 1024,
-                        "type": "keyword"
-                      },
-                      "version": {
-                        "ignore_above": 1024,
-                        "type": "keyword"
-                      }
-                    }
-                  },
-                  "creation_date": {
-                    "type": "date"
-                  },
-                  "debug": {
-                    "properties": {
-                      "offset": {
-                        "ignore_above": 1024,
-                        "type": "keyword"
-                      },
-                      "size": {
-                        "type": "long"
-                      },
-                      "timestamp": {
-                        "type": "date"
-                      },
-                      "type": {
-                        "ignore_above": 1024,
-                        "type": "keyword"
-                      }
-                    },
-                    "type": "nested"
-                  },
-                  "description": {
-                    "ignore_above": 1024,
-                    "type": "keyword"
-                  },
-                  "entry_point": {
-                    "ignore_above": 1024,
-                    "type": "keyword"
-                  },
-                  "exports": {
-                    "ignore_above": 1024,
-                    "type": "keyword"
-                  },
-                  "file_version": {
-                    "ignore_above": 1024,
-                    "type": "keyword"
-                  },
-                  "icon": {
-                    "properties": {
-                      "hash": {
-                        "properties": {
-                          "dhash": {
-                            "ignore_above": 1024,
-                            "type": "keyword"
-                          }
-                        }
-                      }
-                    }
-                  },
-                  "imphash": {
-                    "ignore_above": 1024,
-                    "type": "keyword"
-                  },
-                  "imports": {
-                    "type": "flattened"
-                  },
-                  "machine_type": {
-                    "ignore_above": 1024,
-                    "type": "keyword"
-                  },
-                  "original_file_name": {
-                    "type": "wildcard"
-                  },
-                  "packers": {
-                    "ignore_above": 1024,
-                    "type": "keyword"
-                  },
-                  "product": {
-                    "ignore_above": 1024,
-                    "type": "keyword"
-                  },
-                  "resources": {
-                    "properties": {
-                      "chi2": {
-                        "type": "long"
-                      },
-                      "entropy": {
-                        "type": "long"
-                      },
-                      "filetype": {
-                        "ignore_above": 1024,
-                        "type": "keyword"
-                      },
-                      "language": {
-                        "ignore_above": 1024,
-                        "type": "keyword"
-                      },
-                      "sha256": {
-                        "ignore_above": 1024,
-                        "type": "keyword"
-                      },
-                      "type": {
-                        "ignore_above": 1024,
-                        "type": "keyword"
-                      }
-                    },
-                    "type": "nested"
-                  },
-                  "rich_header": {
-                    "properties": {
-                      "hash": {
-                        "properties": {
-                          "md5": {
-                            "ignore_above": 1024,
-                            "type": "keyword"
-                          }
-                        }
-                      }
-                    }
-                  },
-                  "sections": {
-                    "properties": {
-                      "chi2": {
-                        "type": "long"
-                      },
-                      "entropy": {
-                        "type": "float"
-                      },
-                      "flags": {
-                        "ignore_above": 1024,
-                        "type": "keyword"
-                      },
-                      "name": {
-                        "ignore_above": 1024,
-                        "type": "keyword"
-                      },
-                      "raw_size": {
-                        "type": "long"
-                      },
-                      "virtual_address": {
-                        "type": "long"
-                      }
-                    },
-                    "type": "nested"
-                  }
-                }
-              },
-              "registry": {
-                "properties": {
-                  "data": {
-                    "properties": {
-                      "bytes": {
-                        "ignore_above": 1024,
-                        "type": "keyword"
-                      },
-                      "strings": {
-                        "type": "wildcard"
-                      },
-                      "type": {
-                        "ignore_above": 1024,
-                        "type": "keyword"
-                      }
-                    }
-                  },
-                  "hive": {
-                    "ignore_above": 1024,
-                    "type": "keyword"
-                  },
-                  "key": {
-                    "type": "wildcard"
-                  },
-                  "path": {
-                    "type": "wildcard"
-                  },
-                  "value": {
-                    "ignore_above": 1024,
-                    "type": "keyword"
-                  }
-                }
               }
             },
             "type": "nested"
@@ -5446,11 +5360,11 @@
                       "name": {
                         "fields": {
                           "text": {
-                            "norms": false,
-                            "type": "text"
+                            "type": "match_only_text"
                           }
                         },
-                        "type": "wildcard"
+                        "ignore_above": 1024,
+                        "type": "keyword"
                       }
                     }
                   }
@@ -5521,7 +5435,8 @@
                     "type": "keyword"
                   },
                   "directory": {
-                    "type": "wildcard"
+                    "ignore_above": 1024,
+                    "type": "keyword"
                   },
                   "drive_letter": {
                     "ignore_above": 1,
@@ -5686,11 +5601,11 @@
                   "path": {
                     "fields": {
                       "text": {
-                        "norms": false,
-                        "type": "text"
+                        "type": "match_only_text"
                       }
                     },
-                    "type": "wildcard"
+                    "ignore_above": 1024,
+                    "type": "keyword"
                   },
                   "size": {
                     "type": "long"
@@ -5698,11 +5613,11 @@
                   "target_path": {
                     "fields": {
                       "text": {
-                        "norms": false,
-                        "type": "text"
+                        "type": "match_only_text"
                       }
                     },
-                    "type": "wildcard"
+                    "ignore_above": 1024,
+                    "type": "keyword"
                   },
                   "type": {
                     "ignore_above": 1024,
@@ -5743,7 +5658,8 @@
                     "type": "geo_point"
                   },
                   "name": {
-                    "type": "wildcard"
+                    "ignore_above": 1024,
+                    "type": "keyword"
                   },
                   "postal_code": {
                     "ignore_above": 1024,
@@ -5895,7 +5811,8 @@
                     "type": "keyword"
                   },
                   "original_file_name": {
-                    "type": "wildcard"
+                    "ignore_above": 1024,
+                    "type": "keyword"
                   },
                   "packers": {
                     "ignore_above": 1024,
@@ -6004,10 +5921,12 @@
                     "type": "keyword"
                   },
                   "key": {
-                    "type": "wildcard"
+                    "ignore_above": 1024,
+                    "type": "keyword"
                   },
                   "path": {
-                    "type": "wildcard"
+                    "ignore_above": 1024,
+                    "type": "keyword"
                   },
                   "value": {
                     "ignore_above": 1024,
@@ -6028,7 +5947,8 @@
               "url": {
                 "properties": {
                   "domain": {
-                    "type": "wildcard"
+                    "ignore_above": 1024,
+                    "type": "keyword"
                   },
                   "extension": {
                     "ignore_above": 1024,
@@ -6041,8 +5961,7 @@
                   "full": {
                     "fields": {
                       "text": {
-                        "norms": false,
-                        "type": "text"
+                        "type": "match_only_text"
                       }
                     },
                     "type": "wildcard"
@@ -6050,8 +5969,7 @@
                   "original": {
                     "fields": {
                       "text": {
-                        "norms": false,
-                        "type": "text"
+                        "type": "match_only_text"
                       }
                     },
                     "type": "wildcard"
@@ -6071,7 +5989,8 @@
                     "type": "keyword"
                   },
                   "registered_domain": {
-                    "type": "wildcard"
+                    "ignore_above": 1024,
+                    "type": "keyword"
                   },
                   "scheme": {
                     "ignore_above": 1024,
@@ -6108,7 +6027,8 @@
                         "type": "keyword"
                       },
                       "distinguished_name": {
-                        "type": "wildcard"
+                        "ignore_above": 1024,
+                        "type": "keyword"
                       },
                       "locality": {
                         "ignore_above": 1024,
@@ -6169,7 +6089,8 @@
                         "type": "keyword"
                       },
                       "distinguished_name": {
-                        "type": "wildcard"
+                        "ignore_above": 1024,
+                        "type": "keyword"
                       },
                       "locality": {
                         "ignore_above": 1024,
@@ -6199,6 +6120,10 @@
           },
           "software": {
             "properties": {
+              "alias": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
               "id": {
                 "ignore_above": 1024,
                 "type": "keyword"
@@ -6246,8 +6171,7 @@
               "name": {
                 "fields": {
                   "text": {
-                    "norms": false,
-                    "type": "text"
+                    "type": "match_only_text"
                   }
                 },
                 "ignore_above": 1024,
@@ -6266,8 +6190,7 @@
                   "name": {
                     "fields": {
                       "text": {
-                        "norms": false,
-                        "type": "text"
+                        "type": "match_only_text"
                       }
                     },
                     "ignore_above": 1024,
@@ -6316,7 +6239,8 @@
                 }
               },
               "issuer": {
-                "type": "wildcard"
+                "ignore_above": 1024,
+                "type": "keyword"
               },
               "ja3": {
                 "ignore_above": 1024,
@@ -6333,7 +6257,8 @@
                 "type": "keyword"
               },
               "subject": {
-                "type": "wildcard"
+                "ignore_above": 1024,
+                "type": "keyword"
               },
               "supported_ciphers": {
                 "ignore_above": 1024,
@@ -6356,7 +6281,8 @@
                         "type": "keyword"
                       },
                       "distinguished_name": {
-                        "type": "wildcard"
+                        "ignore_above": 1024,
+                        "type": "keyword"
                       },
                       "locality": {
                         "ignore_above": 1024,
@@ -6417,7 +6343,8 @@
                         "type": "keyword"
                       },
                       "distinguished_name": {
-                        "type": "wildcard"
+                        "ignore_above": 1024,
+                        "type": "keyword"
                       },
                       "locality": {
                         "ignore_above": 1024,
@@ -6486,7 +6413,8 @@
                 }
               },
               "issuer": {
-                "type": "wildcard"
+                "ignore_above": 1024,
+                "type": "keyword"
               },
               "ja3s": {
                 "ignore_above": 1024,
@@ -6499,7 +6427,8 @@
                 "type": "date"
               },
               "subject": {
-                "type": "wildcard"
+                "ignore_above": 1024,
+                "type": "keyword"
               },
               "x509": {
                 "properties": {
@@ -6518,7 +6447,8 @@
                         "type": "keyword"
                       },
                       "distinguished_name": {
-                        "type": "wildcard"
+                        "ignore_above": 1024,
+                        "type": "keyword"
                       },
                       "locality": {
                         "ignore_above": 1024,
@@ -6579,7 +6509,8 @@
                         "type": "keyword"
                       },
                       "distinguished_name": {
-                        "type": "wildcard"
+                        "ignore_above": 1024,
+                        "type": "keyword"
                       },
                       "locality": {
                         "ignore_above": 1024,
@@ -6636,7 +6567,8 @@
       "url": {
         "properties": {
           "domain": {
-            "type": "wildcard"
+            "ignore_above": 1024,
+            "type": "keyword"
           },
           "extension": {
             "ignore_above": 1024,
@@ -6649,8 +6581,7 @@
           "full": {
             "fields": {
               "text": {
-                "norms": false,
-                "type": "text"
+                "type": "match_only_text"
               }
             },
             "type": "wildcard"
@@ -6658,8 +6589,7 @@
           "original": {
             "fields": {
               "text": {
-                "norms": false,
-                "type": "text"
+                "type": "match_only_text"
               }
             },
             "type": "wildcard"
@@ -6679,7 +6609,8 @@
             "type": "keyword"
           },
           "registered_domain": {
-            "type": "wildcard"
+            "ignore_above": 1024,
+            "type": "keyword"
           },
           "scheme": {
             "ignore_above": 1024,
@@ -6708,16 +6639,17 @@
                 "type": "keyword"
               },
               "email": {
-                "type": "wildcard"
+                "ignore_above": 1024,
+                "type": "keyword"
               },
               "full_name": {
                 "fields": {
                   "text": {
-                    "norms": false,
-                    "type": "text"
+                    "type": "match_only_text"
                   }
                 },
-                "type": "wildcard"
+                "ignore_above": 1024,
+                "type": "keyword"
               },
               "group": {
                 "properties": {
@@ -6746,11 +6678,11 @@
               "name": {
                 "fields": {
                   "text": {
-                    "norms": false,
-                    "type": "text"
+                    "type": "match_only_text"
                   }
                 },
-                "type": "wildcard"
+                "ignore_above": 1024,
+                "type": "keyword"
               },
               "roles": {
                 "ignore_above": 1024,
@@ -6769,16 +6701,17 @@
                 "type": "keyword"
               },
               "email": {
-                "type": "wildcard"
+                "ignore_above": 1024,
+                "type": "keyword"
               },
               "full_name": {
                 "fields": {
                   "text": {
-                    "norms": false,
-                    "type": "text"
+                    "type": "match_only_text"
                   }
                 },
-                "type": "wildcard"
+                "ignore_above": 1024,
+                "type": "keyword"
               },
               "group": {
                 "properties": {
@@ -6807,11 +6740,11 @@
               "name": {
                 "fields": {
                   "text": {
-                    "norms": false,
-                    "type": "text"
+                    "type": "match_only_text"
                   }
                 },
-                "type": "wildcard"
+                "ignore_above": 1024,
+                "type": "keyword"
               },
               "roles": {
                 "ignore_above": 1024,
@@ -6820,16 +6753,17 @@
             }
           },
           "email": {
-            "type": "wildcard"
+            "ignore_above": 1024,
+            "type": "keyword"
           },
           "full_name": {
             "fields": {
               "text": {
-                "norms": false,
-                "type": "text"
+                "type": "match_only_text"
               }
             },
-            "type": "wildcard"
+            "ignore_above": 1024,
+            "type": "keyword"
           },
           "group": {
             "properties": {
@@ -6858,11 +6792,11 @@
           "name": {
             "fields": {
               "text": {
-                "norms": false,
-                "type": "text"
+                "type": "match_only_text"
               }
             },
-            "type": "wildcard"
+            "ignore_above": 1024,
+            "type": "keyword"
           },
           "roles": {
             "ignore_above": 1024,
@@ -6875,16 +6809,17 @@
                 "type": "keyword"
               },
               "email": {
-                "type": "wildcard"
+                "ignore_above": 1024,
+                "type": "keyword"
               },
               "full_name": {
                 "fields": {
                   "text": {
-                    "norms": false,
-                    "type": "text"
+                    "type": "match_only_text"
                   }
                 },
-                "type": "wildcard"
+                "ignore_above": 1024,
+                "type": "keyword"
               },
               "group": {
                 "properties": {
@@ -6913,11 +6848,11 @@
               "name": {
                 "fields": {
                   "text": {
-                    "norms": false,
-                    "type": "text"
+                    "type": "match_only_text"
                   }
                 },
-                "type": "wildcard"
+                "ignore_above": 1024,
+                "type": "keyword"
               },
               "roles": {
                 "ignore_above": 1024,
@@ -6944,11 +6879,11 @@
           "original": {
             "fields": {
               "text": {
-                "norms": false,
-                "type": "text"
+                "type": "match_only_text"
               }
             },
-            "type": "wildcard"
+            "ignore_above": 1024,
+            "type": "keyword"
           },
           "os": {
             "properties": {
@@ -6959,11 +6894,11 @@
               "full": {
                 "fields": {
                   "text": {
-                    "norms": false,
-                    "type": "text"
+                    "type": "match_only_text"
                   }
                 },
-                "type": "wildcard"
+                "ignore_above": 1024,
+                "type": "keyword"
               },
               "kernel": {
                 "ignore_above": 1024,
@@ -6972,11 +6907,11 @@
               "name": {
                 "fields": {
                   "text": {
-                    "norms": false,
-                    "type": "text"
+                    "type": "match_only_text"
                   }
                 },
-                "type": "wildcard"
+                "ignore_above": 1024,
+                "type": "keyword"
               },
               "platform": {
                 "ignore_above": 1024,
@@ -7011,8 +6946,7 @@
           "description": {
             "fields": {
               "text": {
-                "norms": false,
-                "type": "text"
+                "type": "match_only_text"
               }
             },
             "ignore_above": 1024,
