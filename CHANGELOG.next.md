@@ -15,6 +15,7 @@ Thanks, you're awesome :-) -->
 * Added `service.address` field. #1537
 * Promote `threat.software.*` and `threat.group.*` fields to GA. #1540
 * Added `service.environment` as a beta field. #1541
+* Added `process.end` field. #1544
 * Introduce container metric fields into experimental schema. #1546
 
 ### Tooling and Artifact Changes
