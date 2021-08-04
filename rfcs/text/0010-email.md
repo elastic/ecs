@@ -281,6 +281,8 @@ Stage 1: Identify potential concerns, implementation challenges, or complexity. 
 
 The fields proposed in this document are focused on the contents of an email message but not on specific fields for email protocols. Do protocols like SMTP, POP3, IMAP, etc. be represented in ECS?
 
+For example, users may need to compare the email address from the SMTP (envelope) sender to the `From:` header email address.
+
 ### Email metrics and observability use caes
 
 Does the initial set of `email` fields need to consider observability and email monitoring use cases, for example spam, metrics, deliverables, and logging.
