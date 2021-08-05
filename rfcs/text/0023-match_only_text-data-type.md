@@ -94,7 +94,7 @@ The `match_only_text` type supports the same feature set as `text`, except the f
 
 Like `text`, `match_only_text` fields support limited aggregations.
 
-This new field is part of the text family and is returned as a text field in the `_field_caps` output. Being a member of the `text` field family means migrating fields from `text` to `match_only_text` is a non-breaking change. Users can query `text` and `match_only_text` fields alongside each other.
+This new field is part of the text family and returns as a text field in the `_field_caps` output. Being a member of the `text` field family means migrating fields from `text` to `match_only_text` is a non-breaking change. Users can query `text` and `match_only_text` fields alongside each other.
 
 ## Source data
 
@@ -206,7 +206,7 @@ As with all type changes in ECS, the ECS team will benchmark and identify any si
 * `index_options: docs`
 * `norms: false`
 
-ECS already sets `norms: false` on all `text` fields as a convention, so this setting should have no impact on performance. Setting `index_options: docs` only indexes the doc number and has already been recommended to reduce the disk usage needed for indexing.
+ECS already sets `norms: false` on all `text` fields as a convention, so this setting should not impact performance. Setting `index_options: docs` only indexes the doc number and has already been recommended to reduce the disk usage needed for indexing.
 
 Negative performance or storage side-effects from this change are not expected, except the noted limitation of phrase and interval queries will run slower.
 
