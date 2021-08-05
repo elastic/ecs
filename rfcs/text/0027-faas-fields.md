@@ -68,19 +68,19 @@ faas.trigger.request_id | keyword | e.g. `123456789` | The iD of the trigger req
 For the initially proposed fields `faas.name`, `faas.id`, `faas.version` and `faas.instance` we decided to reuse the existing fields `service.name`, `service.id`, `service.version` and `service.node.name`.
 
 ### Nesting `cloud.*` and `service.*` fields under `_.origin.*` and `_.target.*`
-We identified a big overlap between the initially proposed `faas.trigger.*` fields with the already existing `cloud.*` and `service.` fields. 
+We identified a big overlap between the initially proposed `faas.trigger.*` fields with the already existing `cloud.*` and `service.` fields.
 Allowing to **self-nest cloud and service fields** under `cloud.origin.*` / `cloud.target.*` and `service.origin.*` / `service.target.*`, respectively, would allow to cover most of the `faas.trigger.*` fields.
 
-Moreover, the proposal for nesting cloud fields would resolve other use cases as well (e.g. https://github.com/elastic/ecs/issues/1282). 
+Moreover, the proposal for nesting cloud fields would resolve other use cases as well (e.g. https://github.com/elastic/ecs/issues/1282).
 
 Initially proposed | New proposed nested cloud or service field
 -- | --
-faas.trigger.name |  `service.origin.name` 
-faas.trigger.id | `service.origin.id` 
-faas.trigger.version | `service.origin.version` 
-faas.trigger.account.name | `cloud.origin.account.name` 
-faas.trigger.account.id | `cloud.origin.account.id` 
-faas.trigger.region | `cloud.origin.region` 
+faas.trigger.name |  `service.origin.name`
+faas.trigger.id | `service.origin.id`
+faas.trigger.version | `service.origin.version`
+faas.trigger.account.name | `cloud.origin.account.name`
+faas.trigger.account.id | `cloud.origin.account.id`
+faas.trigger.region | `cloud.origin.region`
 
 
 <!--
@@ -103,7 +103,7 @@ These IDs will be used to correlate APM data (traces / transactions), logs and m
 Indicates the type of the function trigger. Allows to group different function types.
 
 ### `service.origin.*` & `cloud.origin.*`
-Provides meta information on the origin service that triggered the faas function. End users can use this information to better understand the context, dependencies and causalities when analyzing and troubleshooting faas-related observability scenarios. 
+Provides meta information on the origin service that triggered the faas function. End users can use this information to better understand the context, dependencies and causalities when analyzing and troubleshooting faas-related observability scenarios.
 For example, this information could provide insights on analysis questions like this: "Do function invocations that are triggered from cloud region us-east-1 behave similar to invocations from region eu-west-1?", etc.
 
 ## Source data
@@ -176,8 +176,4 @@ e.g.:
 <!-- An RFC should link to the PRs for each of it stage advancements. -->
 
 * Stage 0: https://github.com/elastic/ecs/pull/1518
-
-<!--
-* Stage 1: https://github.com/elastic/ecs/pull/NNN
-...
--->
+* Stage 1: https://github.com/elastic/ecs/pull/1542
