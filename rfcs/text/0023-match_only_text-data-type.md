@@ -13,10 +13,6 @@ Indexing `message` fields as the `text` type in security and application logs co
 
 This RFC proposes migrating existing ECS `text` fields to `match_only_text`. Most current ECS datasets are focused heavily on logging use cases, and we can pass these disk space savings onto users by migrating `text` fields to `match_only_text` by default in ECS. In addition, upcoming changes in Elasticsearch will default to indexing the `message` field as `match_only_text`, and this change in ECS will also align better with this new stack default.
 
-<!--
-Stage 1: If the changes include field additions or modifications, please create a folder titled as the RFC number under rfcs/text/. This will be where proposed schema changes as standalone YAML files or extended example mappings and larger source documents will go as the RFC is iterated upon.
--->
-
 ## Fields
 
 ### Direct Usage
@@ -81,14 +77,6 @@ ECS also has `text` type multi-fields for several fields using the convention `<
 * `user_agent.os.name.text`
 * `vulnerability.description.text`
 
-<!--
-Stage 1: Describe at a high level how this change affects fields. Include new or updated yml field definitions for all of the essential fields in this draft. While not exhaustive, the fields documented here should be comprehensive enough to deeply evaluate the technical considerations of this change. The goal here is to validate the technical details for all essential fields and to provide a basis for adding experimental field definitions to the schema. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
--->
-
-<!--
-Stage 2: Add or update all remaining field definitions. The list should now be exhaustive. The goal here is to validate the technical details of all remaining fields and to provide a basis for releasing these field definitions as beta in the schema. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
--->
-
 ## Usage
 
 Data is indexed the same as a `text` field that has:
@@ -108,19 +96,7 @@ Like `text`, `match_only_text` fields support limited aggregations.
 
 This new field is part of the text family and is returned as a text field in the `_field_caps` output. Being a member of the `text` field family means migrating fields from `text` to `match_only_text` is a non-breaking change. Users can query `text` and `match_only_text` fields alongside each other.
 
-<!--
-Stage 1: Describe at a high-level how these field changes will be used in practice. Real world examples are encouraged. The goal here is to understand how people would leverage these fields to gain insights or solve problems. ~1-3 paragraphs.
--->
-
 ## Source data
-
-<!--
-Stage 1: Provide a high-level description of example sources of data. This does not yet need to be a concrete example of a source document, but instead can simply describe a potential source (e.g. nginx access log). This will ultimately be fleshed out to include literal source examples in a future stage. The goal here is to identify practical sources for these fields in the real world. ~1-3 sentences or unordered list.
--->
-
-<!--
-Stage 2: Included a real world example source document. Ideally this example comes from the source(s) identified in stage 1. If not, it should replace them. The goal here is to validate the utility of these field changes in the context of a real world example. Format with the source name as a ### header and the example document in a GitHub code block with json formatting, or if on the larger side, add them to the corresponding RFC folder.
--->
 
 <!--
 Stage 3: Add more real world example source documents so we have at least 2 total, but ideally 3. Format as described in stage 2.
@@ -227,14 +203,6 @@ Example index mappings with the `match_only_type` changes:
 
 ## Scope of impact
 
-<!--
-Stage 2: Identifies scope of impact of changes. Are breaking changes required? Should deprecation strategies be adopted? Will significant refactoring be involved? Break the impact down into:
- * Ingestion mechanisms (e.g. beats/logstash)
- * Usage mechanisms (e.g. Kibana applications, detections)
- * ECS project (e.g. docs, tooling)
-The goal here is to research and understand the impact of these changes on users in the community and development teams across Elastic. 2-5 sentences each.
--->
-
 Ingestion mechanisms will need to adopt the new mappings to index fields as the new type. However, since both `text` and `match_only_text` are members of the `text` type family, this will not cause a conflict in Kibana index patterns across indices using the two types for the same field.
 
 As with all type changes in ECS, the ECS team will benchmark and identify any significant storage, indexing, or query changes. The Elasticsearch performance will be engaged, if necessary, to determine the results. However, `match_only_text` is a `text` field with these settings:
@@ -247,10 +215,6 @@ ECS already sets `norms: false` on all `text` fields as a convention, so this se
 Negative performance or storage side-effects from this change are not expected, except the noted limitation of phrase and interval queries will run slower.
 
 ## Concerns
-
-<!--
-Stage 1: Identify potential concerns, implementation challenges, or complexity. Spend some time on this. Play devil's advocate. Try to identify the sort of non-obvious challenges that tend to surface later. The goal here is to surface risks early, allow everyone the time to work through them, and ultimately document resolution for posterity's sake.
--->
 
 ### Limitations
 
@@ -269,10 +233,6 @@ Security or observability solutions may depend on heavy usage of interval or, mo
 **Resolution**: The reduced disk overhead provided from using `match_only_text` fields will benefit most users, and it should be the default ECS experience. In desired, users can update their index mappings to use `text` over `match_only_text` with no conflicts.
 
 <!--
-Stage 2: Document new concerns or resolutions to previously listed concerns. It's not critical that all concerns have resolutions at this point, but it would be helpful if resolutions were taking shape for the most significant concerns.
--->
-
-<!--
 Stage 3: Document resolutions for all existing concerns. Any new concerns should be documented along with their resolution. The goal here is to eliminate risk of churn and instability by ensuring all concerns have been addressed.
 -->
 
@@ -282,19 +242,6 @@ The following are the people that consulted on the contents of this RFC.
 
 * @ebeahan | author, sponsor
 * @jpountz | subject matter expert
-
-<!--
-Who will be or has been consulted on the contents of this RFC? Identify authorship and sponsorship, and optionally identify the nature of involvement of others. Link to GitHub aliases where possible. This list will likely change or grow stage after stage.
-
-e.g.:
-
-* @Yasmina | author
-* @Monique | sponsor
-* @EunJung | subject matter expert
-* @JaneDoe | grammar, spelling, prose
-* @Mariana
--->
-
 
 ## References
 
@@ -314,8 +261,3 @@ e.g.:
 * Stage 1: https://github.com/elastic/ecs/pull/1415
 * Stage 2: https://github.com/elastic/ecs/pull/1522
 * Stage 3: https://github.com/elastic/ecs/pull/NNNN
-
-<!--
-* Stage 1: https://github.com/elastic/ecs/pull/NNN
-...
--->
