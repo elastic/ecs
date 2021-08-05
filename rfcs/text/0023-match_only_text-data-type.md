@@ -248,6 +248,7 @@ The following are the people that consulted on the contents of this RFC.
 <!-- Insert any links appropriate to this RFC in this section. -->
 
 * https://www.elastic.co/guide/en/elasticsearch/reference/master/text.html#match-only-text-field-type
+* https://www.elastic.co/blog/save-10-percent-disk-space-on-your-logging-datasets-with-match-only-text
 * https://github.com/elastic/elasticsearch/pull/66172
 * https://github.com/elastic/ecs/issues/1377
 * https://github.com/elastic/elasticsearch/issues/64467
