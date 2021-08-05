@@ -9,7 +9,7 @@ As you work on your RFC, use the "Stage N" comments to guide you in what you sho
 Feel free to remove these comments as you go along.
 -->
 
-Indexing `message` fields as the `text` type in security and application logs consume significant disk space. Part of the disk space spent is on indexing to support scoring and phrase queries, which logging use cases don't frequently use. Elasticsearch 7.14 introduces a new field type called `match_only_text`, a more space-efficient variant of the `text` field type for these logging-focused use cases.
+Indexing `message` fields as the `text` type in security and application logs consume significant disk space. Part of the disk space spent is on indexing to support scoring and phrase queries, which logging use cases don't frequently use. Elasticsearch 7.14 introduced a new field type called `match_only_text`, a more space-efficient variant of the `text` field type for these logging-focused use cases.
 
 This RFC proposes migrating existing ECS `text` fields to `match_only_text`. Most current ECS datasets are focused heavily on logging use cases, and we can pass these disk space savings onto users by migrating `text` fields to `match_only_text` by default in ECS. In addition, upcoming changes in Elasticsearch will default to indexing the `message` field as `match_only_text`, and this change in ECS will also align better with this new stack default.
 
