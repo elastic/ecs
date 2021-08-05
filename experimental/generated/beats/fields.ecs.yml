@@ -528,6 +528,16 @@
     description: These fields contain information about binary code signatures.
     type: group
     fields:
+    - name: digest_algorithm
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The hashing algorithm used to sign the process.
+
+        This value can distinguish signatures when a file is signed multiple times
+        by the same signer but with a different digest algorithm.'
+      example: sha256
+      default_field: false
     - name: exists
       level: core
       type: boolean
@@ -571,6 +581,12 @@
         This is used to identify the team or vendor of a software product. The field
         is relevant to Apple *OS only.'
       example: EQHXZ8M8AV
+      default_field: false
+    - name: timestamp
+      level: extended
+      type: date
+      description: Date and time when the code signature was generated and signed.
+      example: '2021-01-01T12:10:30Z'
       default_field: false
     - name: trusted
       level: extended
@@ -1012,6 +1028,16 @@
       * Dynamic library (`.dylib`) commonly used on macOS'
     type: group
     fields:
+    - name: code_signature.digest_algorithm
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The hashing algorithm used to sign the process.
+
+        This value can distinguish signatures when a file is signed multiple times
+        by the same signer but with a different digest algorithm.'
+      example: sha256
+      default_field: false
     - name: code_signature.exists
       level: core
       type: boolean
@@ -1055,6 +1081,12 @@
         This is used to identify the team or vendor of a software product. The field
         is relevant to Apple *OS only.'
       example: EQHXZ8M8AV
+      default_field: false
+    - name: code_signature.timestamp
+      level: extended
+      type: date
+      description: Date and time when the code signature was generated and signed.
+      example: '2021-01-01T12:10:30Z'
       default_field: false
     - name: code_signature.trusted
       level: extended
@@ -2148,6 +2180,16 @@
         execute, hidden, read, readonly, system, write.'
       example: '["readonly", "system"]'
       default_field: false
+    - name: code_signature.digest_algorithm
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The hashing algorithm used to sign the process.
+
+        This value can distinguish signatures when a file is signed multiple times
+        by the same signer but with a different digest algorithm.'
+      example: sha256
+      default_field: false
     - name: code_signature.exists
       level: core
       type: boolean
@@ -2191,6 +2233,12 @@
         This is used to identify the team or vendor of a software product. The field
         is relevant to Apple *OS only.'
       example: EQHXZ8M8AV
+      default_field: false
+    - name: code_signature.timestamp
+      level: extended
+      type: date
+      description: Date and time when the code signature was generated and signed.
+      example: '2021-01-01T12:10:30Z'
       default_field: false
     - name: code_signature.trusted
       level: extended
@@ -4727,6 +4775,16 @@
         indication of suspicious activity.'
       example: 4
       default_field: false
+    - name: code_signature.digest_algorithm
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The hashing algorithm used to sign the process.
+
+        This value can distinguish signatures when a file is signed multiple times
+        by the same signer but with a different digest algorithm.'
+      example: sha256
+      default_field: false
     - name: code_signature.exists
       level: core
       type: boolean
@@ -4770,6 +4828,12 @@
         This is used to identify the team or vendor of a software product. The field
         is relevant to Apple *OS only.'
       example: EQHXZ8M8AV
+      default_field: false
+    - name: code_signature.timestamp
+      level: extended
+      type: date
+      description: Date and time when the code signature was generated and signed.
+      example: '2021-01-01T12:10:30Z'
       default_field: false
     - name: code_signature.trusted
       level: extended
@@ -5078,6 +5142,16 @@
         indication of suspicious activity.'
       example: 4
       default_field: false
+    - name: parent.code_signature.digest_algorithm
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The hashing algorithm used to sign the process.
+
+        This value can distinguish signatures when a file is signed multiple times
+        by the same signer but with a different digest algorithm.'
+      example: sha256
+      default_field: false
     - name: parent.code_signature.exists
       level: core
       type: boolean
@@ -5121,6 +5195,12 @@
         This is used to identify the team or vendor of a software product. The field
         is relevant to Apple *OS only.'
       example: EQHXZ8M8AV
+      default_field: false
+    - name: parent.code_signature.timestamp
+      level: extended
+      type: date
+      description: Date and time when the code signature was generated and signed.
+      example: '2021-01-01T12:10:30Z'
       default_field: false
     - name: parent.code_signature.trusted
       level: extended
@@ -6049,6 +6129,16 @@
         indication of suspicious activity.'
       example: 4
       default_field: false
+    - name: target.code_signature.digest_algorithm
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The hashing algorithm used to sign the process.
+
+        This value can distinguish signatures when a file is signed multiple times
+        by the same signer but with a different digest algorithm.'
+      example: sha256
+      default_field: false
     - name: target.code_signature.exists
       level: core
       type: boolean
@@ -6092,6 +6182,12 @@
         This is used to identify the team or vendor of a software product. The field
         is relevant to Apple *OS only.'
       example: EQHXZ8M8AV
+      default_field: false
+    - name: target.code_signature.timestamp
+      level: extended
+      type: date
+      description: Date and time when the code signature was generated and signed.
+      example: '2021-01-01T12:10:30Z'
       default_field: false
     - name: target.code_signature.trusted
       level: extended
@@ -6404,6 +6500,16 @@
         indication of suspicious activity.'
       example: 4
       default_field: false
+    - name: target.parent.code_signature.digest_algorithm
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The hashing algorithm used to sign the process.
+
+        This value can distinguish signatures when a file is signed multiple times
+        by the same signer but with a different digest algorithm.'
+      example: sha256
+      default_field: false
     - name: target.parent.code_signature.exists
       level: core
       type: boolean
@@ -6447,6 +6553,12 @@
         This is used to identify the team or vendor of a software product. The field
         is relevant to Apple *OS only.'
       example: EQHXZ8M8AV
+      default_field: false
+    - name: target.parent.code_signature.timestamp
+      level: extended
+      type: date
+      description: Date and time when the code signature was generated and signed.
+      example: '2021-01-01T12:10:30Z'
       default_field: false
     - name: target.parent.code_signature.trusted
       level: extended
@@ -8389,6 +8501,16 @@
         execute, hidden, read, readonly, system, write.'
       example: '["readonly", "system"]'
       default_field: false
+    - name: enrichments.indicator.file.code_signature.digest_algorithm
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The hashing algorithm used to sign the process.
+
+        This value can distinguish signatures when a file is signed multiple times
+        by the same signer but with a different digest algorithm.'
+      example: sha256
+      default_field: false
     - name: enrichments.indicator.file.code_signature.exists
       level: core
       type: boolean
@@ -8432,6 +8554,12 @@
         This is used to identify the team or vendor of a software product. The field
         is relevant to Apple *OS only.'
       example: EQHXZ8M8AV
+      default_field: false
+    - name: enrichments.indicator.file.code_signature.timestamp
+      level: extended
+      type: date
+      description: Date and time when the code signature was generated and signed.
+      example: '2021-01-01T12:10:30Z'
       default_field: false
     - name: enrichments.indicator.file.code_signature.trusted
       level: extended
@@ -9778,6 +9906,16 @@
         execute, hidden, read, readonly, system, write.'
       example: '["readonly", "system"]'
       default_field: false
+    - name: indicator.file.code_signature.digest_algorithm
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The hashing algorithm used to sign the process.
+
+        This value can distinguish signatures when a file is signed multiple times
+        by the same signer but with a different digest algorithm.'
+      example: sha256
+      default_field: false
     - name: indicator.file.code_signature.exists
       level: core
       type: boolean
@@ -9821,6 +9959,12 @@
         This is used to identify the team or vendor of a software product. The field
         is relevant to Apple *OS only.'
       example: EQHXZ8M8AV
+      default_field: false
+    - name: indicator.file.code_signature.timestamp
+      level: extended
+      type: date
+      description: Date and time when the code signature was generated and signed.
+      example: '2021-01-01T12:10:30Z'
       default_field: false
     - name: indicator.file.code_signature.trusted
       level: extended
