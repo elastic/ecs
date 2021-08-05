@@ -63,6 +63,6 @@ type CodeSignature struct {
 	// times by the same signer but with a different digest algorithm.
 	DigestAlgorithm string `ecs:"digest_algorithm"`
 
-	// Timestamp of when the code signature was generated and signed.
+	// Date and time when the code signature was generated and signed.
 	Timestamp time.Time `ecs:"timestamp"`
 }
