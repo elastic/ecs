@@ -98,10 +98,6 @@ This new field is part of the text family and is returned as a text field in the
 
 ## Source data
 
-<!--
-Stage 3: Add more real world example source documents so we have at least 2 total, but ideally 3. Format as described in stage 2.
--->
-
 Example index mappings with the `match_only_type` changes:
 
 ### `message`
@@ -224,17 +220,13 @@ As mentioned previously, there are limitations of using `match_only_text`:
 * Span queries are unsupported. If a span query runs, shards where the field maps as match_only_text will return as failed in the search response, and those shard hits are ignored.
 * Phrase and intervals queries run slower.
 
-**Resolution**: For the logging use cases that make up most ECS adoption, disabling frequencies and positions should be acceptable for reducing index disk usage.
+**Resolution**: For the logging use cases that make up most ECS adoption, disabling frequencies and positions should be acceptable in exchange for reducing index disk usage.
 
 ### Potential heavy usage of phrase and interval queries
 
 Security or observability solutions may depend on heavy usage of interval or, more likely, phrase queries. Users could also have implemented custom phrase or interval queries in alerting or detection rules.
 
-**Resolution**: The reduced disk overhead provided from using `match_only_text` fields will benefit most users, and it should be the default ECS experience. In desired, users can update their index mappings to use `text` over `match_only_text` with no conflicts.
-
-<!--
-Stage 3: Document resolutions for all existing concerns. Any new concerns should be documented along with their resolution. The goal here is to eliminate risk of churn and instability by ensuring all concerns have been addressed.
--->
+**Resolution**: The reduced disk overhead provided from using `match_only_text` fields will benefit most users, and it should be the default ECS experience. If desired, users can update their index mappings to use `text` over `match_only_text` with no conflicts, and an upcoming ECS docs addition will describe this interchangeability.
 
 ## People
 
