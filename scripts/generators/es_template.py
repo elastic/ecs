@@ -231,7 +231,8 @@ def save_json(file, data):
     if sys.version_info >= (3, 0):
         open_mode = "w"
     with open(file, open_mode) as jsonfile:
-        jsonfile.write(json.dumps(data, indent=2, sort_keys=True))
+        json.dump(data, jsonfile, indent=2, sort_keys=True)
+        jsonfile.write('\n')
 
 
 def default_template_settings(ecs_version):
