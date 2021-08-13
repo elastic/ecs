@@ -129,6 +129,8 @@ client.as.number:
   short: Unique number allocated to the autonomous system.
   type: long
 client.as.organization.name:
+  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
+    beta.
   dashed_name: client-as-organization-name
   description: Organization name.
   example: Google LLC
@@ -138,8 +140,7 @@ client.as.organization.name:
   multi_fields:
   - flat_name: client.as.organization.name.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: organization.name
   normalize: []
   original_fieldset: as
@@ -452,6 +453,8 @@ client.user.email:
   short: User email address.
   type: keyword
 client.user.full_name:
+  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
+    beta.
   dashed_name: client-user-full-name
   description: User's full name, if available.
   example: Albert Einstein
@@ -461,8 +464,7 @@ client.user.full_name:
   multi_fields:
   - flat_name: client.user.full_name.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: full_name
   normalize: []
   original_fieldset: user
@@ -530,6 +532,8 @@ client.user.id:
   short: Unique identifier of the user.
   type: keyword
 client.user.name:
+  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
+    beta.
   dashed_name: client-user-name
   description: Short name or login of the user.
   example: albert
@@ -539,8 +543,7 @@ client.user.name:
   multi_fields:
   - flat_name: client.user.name.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: name
   normalize: []
   original_fieldset: user
@@ -694,6 +697,37 @@ cloud.service.name:
   normalize: []
   short: The cloud service name.
   type: keyword
+container.cpu.usage:
+  dashed_name: container-cpu-usage
+  description: 'Percent CPU used which is normalized by the number of CPU cores and
+    it ranges from 0 to 1. Scaling factor: 1000.'
+  flat_name: container.cpu.usage
+  level: extended
+  name: cpu.usage
+  normalize: []
+  scaling_factor: 1000
+  short: Percent CPU used, between 0 and 1.
+  type: scaled_float
+container.disk.read.bytes:
+  dashed_name: container-disk-read-bytes
+  description: The total number of bytes (gauge) read successfully (aggregated from
+    all disks) since the last metric collection.
+  flat_name: container.disk.read.bytes
+  level: extended
+  name: disk.read.bytes
+  normalize: []
+  short: The number of bytes read by all disks.
+  type: long
+container.disk.write.bytes:
+  dashed_name: container-disk-write-bytes
+  description: The total number of bytes (gauge) written successfully (aggregated
+    from all disks) since the last metric collection.
+  flat_name: container.disk.write.bytes
+  level: extended
+  name: disk.write.bytes
+  normalize: []
+  short: The number of bytes written on all disks.
+  type: long
 container.id:
   dashed_name: container-id
   description: Unique container id.
@@ -735,6 +769,17 @@ container.labels:
   object_type: keyword
   short: Image labels.
   type: object
+container.memory.usage:
+  dashed_name: container-memory-usage
+  description: 'Memory usage percentage and it ranges from 0 to 1. Scaling factor:
+    1000.'
+  flat_name: container.memory.usage
+  level: extended
+  name: memory.usage
+  normalize: []
+  scaling_factor: 1000
+  short: Percent memory used, between 0 and 1.
+  type: scaled_float
 container.name:
   dashed_name: container-name
   description: Container name.
@@ -745,6 +790,26 @@ container.name:
   normalize: []
   short: Container name.
   type: keyword
+container.network.egress.bytes:
+  dashed_name: container-network-egress-bytes
+  description: The number of bytes (gauge) sent out on all network interfaces by the
+    container since the last metric collection.
+  flat_name: container.network.egress.bytes
+  level: extended
+  name: network.egress.bytes
+  normalize: []
+  short: The number of bytes sent on all network interfaces.
+  type: long
+container.network.ingress.bytes:
+  dashed_name: container-network-ingress-bytes
+  description: The number of bytes received (gauge) on all network interfaces by the
+    container since the last metric collection.
+  flat_name: container.network.ingress.bytes
+  level: extended
+  name: network.ingress.bytes
+  normalize: []
+  short: The number of bytes received on all network interfaces.
+  type: long
 container.runtime:
   dashed_name: container-runtime
   description: Runtime managing this container.
@@ -830,6 +895,8 @@ destination.as.number:
   short: Unique number allocated to the autonomous system.
   type: long
 destination.as.organization.name:
+  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
+    beta.
   dashed_name: destination-as-organization-name
   description: Organization name.
   example: Google LLC
@@ -839,8 +906,7 @@ destination.as.organization.name:
   multi_fields:
   - flat_name: destination.as.organization.name.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: organization.name
   normalize: []
   original_fieldset: as
@@ -1152,6 +1218,8 @@ destination.user.email:
   short: User email address.
   type: keyword
 destination.user.full_name:
+  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
+    beta.
   dashed_name: destination-user-full-name
   description: User's full name, if available.
   example: Albert Einstein
@@ -1161,8 +1229,7 @@ destination.user.full_name:
   multi_fields:
   - flat_name: destination.user.full_name.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: full_name
   normalize: []
   original_fieldset: user
@@ -1230,6 +1297,8 @@ destination.user.id:
   short: Unique identifier of the user.
   type: keyword
 destination.user.name:
+  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
+    beta.
   dashed_name: destination-user-name
   description: Short name or login of the user.
   example: albert
@@ -1239,8 +1308,7 @@ destination.user.name:
   multi_fields:
   - flat_name: destination.user.name.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: name
   normalize: []
   original_fieldset: user
@@ -1258,6 +1326,21 @@ destination.user.roles:
   - array
   original_fieldset: user
   short: Array of user roles at the time of the event.
+  type: keyword
+dll.code_signature.digest_algorithm:
+  dashed_name: dll-code-signature-digest-algorithm
+  description: 'The hashing algorithm used to sign the process.
+
+    This value can distinguish signatures when a file is signed multiple times by
+    the same signer but with a different digest algorithm.'
+  example: sha256
+  flat_name: dll.code_signature.digest_algorithm
+  ignore_above: 1024
+  level: extended
+  name: digest_algorithm
+  normalize: []
+  original_fieldset: code_signature
+  short: Hashing algorithm used to sign the process.
   type: keyword
 dll.code_signature.exists:
   dashed_name: dll-code-signature-exists
@@ -1328,6 +1411,17 @@ dll.code_signature.team_id:
   original_fieldset: code_signature
   short: The team identifier used to sign the process.
   type: keyword
+dll.code_signature.timestamp:
+  dashed_name: dll-code-signature-timestamp
+  description: Date and time when the code signature was generated and signed.
+  example: '2021-01-01T12:10:30Z'
+  flat_name: dll.code_signature.timestamp
+  level: extended
+  name: timestamp
+  normalize: []
+  original_fieldset: code_signature
+  short: When the signature was generated and signed.
+  type: date
 dll.code_signature.trusted:
   dashed_name: dll-code-signature-trusted
   description: 'Stores the trust status of the certificate chain.
@@ -2184,17 +2278,18 @@ error.id:
   short: Unique identifier for the error.
   type: keyword
 error.message:
+  beta: Use of the `match_only_text` type for this field is currently beta.
   dashed_name: error-message
   description: Error message.
   flat_name: error.message
   level: core
   name: message
   normalize: []
-  norms: false
   short: Error message.
-  type: text
+  type: match_only_text
 error.stack_trace:
-  beta: Use of the `wildcard` data type for this field is currently beta.
+  beta: Use of `wildcard` as the primary type and `match_only_type` as the `.text`
+    multi-field type are both currently beta.
   dashed_name: error-stack-trace
   description: The stack trace of this error in plain text.
   flat_name: error.stack_trace
@@ -2202,8 +2297,7 @@ error.stack_trace:
   multi_fields:
   - flat_name: error.stack_trace.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: stack_trace
   normalize: []
   short: The stack trace of this error in plain text.
@@ -2427,6 +2521,11 @@ event.category:
     - end
     - info
     name: session
+  - description: Use this category to visualize and analyze events describing threat
+      actors' targets, motives, or behaviors.
+    expected_event_types:
+    - indicator
+    name: threat
   - description: 'Relating to web server access. Use this category to create a dashboard
       of web server/proxy activity from apache, IIS, nginx web servers, etc. Note:
       events from network observers such as Zeek http log may also be included in
@@ -2578,12 +2677,22 @@ event.ingested:
   type: date
 event.kind:
   allowed_values:
-  - description: 'This value indicates an event that describes an alert or notable
-      event, triggered by a detection rule.
+  - description: 'This value indicates an event such as an alert or notable event,
+      triggered by a detection rule executing externally to the Elastic Stack.
 
       `event.kind:alert` is often populated for events coming from firewalls, intrusion
-      detection systems, endpoint detection and response systems, and so on.'
+      detection systems, endpoint detection and response systems, and so on.
+
+      This value is not used by Elastic solutions for alert documents that are created
+      by rules executing within the Kibana alerting framework.'
     name: alert
+  - description: 'The `enrichment` value indicates an event collected to provide additional
+      context, often to other events.
+
+      An example is collecting indicators of compromise (IOCs) from a threat intelligence
+      provider with the intent to use those values to enrich other events. The IOC
+      events from the intelligence provider should be categorized as `event.kind:enrichment`.'
+    name: enrichment
   - description: This value is the most general and most common value for this field.
       It is used to represent events that indicate that something happened.
     name: event
@@ -2619,14 +2728,12 @@ event.kind:
       of this event, and that event data may be missing, inconsistent, or incorrect.
       `event.kind:pipeline_error` is often associated with parsing errors.
     name: pipeline_error
-  - description: 'This value is used by the Elastic Security app to denote an Elasticsearch
-      document that was created by a SIEM detection engine rule.
+  - description: 'This value is used by Elastic solutions (e.g., Security, Observability)
+      for alert documents that are created by rules executing within the Kibana alerting
+      framework.
 
-      A signal will typically trigger a notification that something meaningful happened
-      and should be investigated.
-
-      Usage of this value is reserved, and pipelines should not populate `event.kind`
-      with the value "signal".'
+      Usage of this value is reserved, and data ingestion pipelines must not populate
+      `event.kind` with the value "signal".'
     name: signal
   dashed_name: event-kind
   description: 'This is one of four ECS Categorization Fields, and indicates the highest
@@ -2935,6 +3042,11 @@ event.type:
       AND event.type:group`. You can further distinguish group operations using the
       ECS `event.action` field.'
     name: group
+  - description: 'The indicator event type is used for the subset of events within
+      a category that contain details about indicators of compromise (IOCs).
+
+      A common example is `event.category:threat AND event.type:indicator`.'
+    name: indicator
   - description: The info event type is used for the subset of events within a category
       that indicate that they are purely informational, and don't report a state change,
       or any type of action. For example, an initial run of a file integrity monitoring
@@ -3029,6 +3141,21 @@ file.attributes:
   - array
   short: Array of file attributes.
   type: keyword
+file.code_signature.digest_algorithm:
+  dashed_name: file-code-signature-digest-algorithm
+  description: 'The hashing algorithm used to sign the process.
+
+    This value can distinguish signatures when a file is signed multiple times by
+    the same signer but with a different digest algorithm.'
+  example: sha256
+  flat_name: file.code_signature.digest_algorithm
+  ignore_above: 1024
+  level: extended
+  name: digest_algorithm
+  normalize: []
+  original_fieldset: code_signature
+  short: Hashing algorithm used to sign the process.
+  type: keyword
 file.code_signature.exists:
   dashed_name: file-code-signature-exists
   description: Boolean to capture if a signature is present.
@@ -3098,6 +3225,17 @@ file.code_signature.team_id:
   original_fieldset: code_signature
   short: The team identifier used to sign the process.
   type: keyword
+file.code_signature.timestamp:
+  dashed_name: file-code-signature-timestamp
+  description: Date and time when the code signature was generated and signed.
+  example: '2021-01-01T12:10:30Z'
+  flat_name: file.code_signature.timestamp
+  level: extended
+  name: timestamp
+  normalize: []
+  original_fieldset: code_signature
+  short: When the signature was generated and signed.
+  type: date
 file.code_signature.trusted:
   dashed_name: file-code-signature-trusted
   description: 'Stores the trust status of the certificate chain.
@@ -3697,6 +3835,8 @@ file.owner:
   short: File owner's username.
   type: keyword
 file.path:
+  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
+    beta.
   dashed_name: file-path
   description: Full path to the file, including the file name. It should include the
     drive letter, when appropriate.
@@ -3707,8 +3847,7 @@ file.path:
   multi_fields:
   - flat_name: file.path.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: path
   normalize: []
   short: Full path to the file, including the file name.
@@ -4185,6 +4324,8 @@ file.size:
   short: File size in bytes.
   type: long
 file.target_path:
+  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
+    beta.
   dashed_name: file-target-path
   description: Target path for symlinks.
   flat_name: file.target_path
@@ -4193,8 +4334,7 @@ file.target_path:
   multi_fields:
   - flat_name: file.target_path.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: target_path
   normalize: []
   short: Target path for symlinks.
@@ -4878,6 +5018,8 @@ host.os.family:
   short: OS family (such as redhat, debian, freebsd, windows).
   type: keyword
 host.os.full:
+  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
+    beta.
   dashed_name: host-os-full
   description: Operating system name, including the version or code name.
   example: Mac OS Mojave
@@ -4887,8 +5029,7 @@ host.os.full:
   multi_fields:
   - flat_name: host.os.full.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: full
   normalize: []
   original_fieldset: os
@@ -4907,6 +5048,8 @@ host.os.kernel:
   short: Operating system kernel version as a raw string.
   type: keyword
 host.os.name:
+  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
+    beta.
   dashed_name: host-os-name
   description: Operating system name, without the version.
   example: Mac OS X
@@ -4916,8 +5059,7 @@ host.os.name:
   multi_fields:
   - flat_name: host.os.name.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: name
   normalize: []
   original_fieldset: os
@@ -5359,6 +5501,7 @@ log.syslog.severity.name:
   short: Syslog text-based severity of the event.
   type: keyword
 message:
+  beta: Use of the `match_only_text` type for this field is currently beta.
   dashed_name: message
   description: 'For log events the message field contains the log message, optimized
     for viewing in a log viewer.
@@ -5372,9 +5515,8 @@ message:
   level: core
   name: message
   normalize: []
-  norms: false
   short: Log message optimized for viewing in a log viewer.
-  type: text
+  type: match_only_text
 network.application:
   dashed_name: network-application
   description: 'A name given to an application level protocol. This can be arbitrarily
@@ -5969,6 +6111,8 @@ observer.os.family:
   short: OS family (such as redhat, debian, freebsd, windows).
   type: keyword
 observer.os.full:
+  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
+    beta.
   dashed_name: observer-os-full
   description: Operating system name, including the version or code name.
   example: Mac OS Mojave
@@ -5978,8 +6122,7 @@ observer.os.full:
   multi_fields:
   - flat_name: observer.os.full.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: full
   normalize: []
   original_fieldset: os
@@ -5998,6 +6141,8 @@ observer.os.kernel:
   short: Operating system kernel version as a raw string.
   type: keyword
 observer.os.name:
+  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
+    beta.
   dashed_name: observer-os-name
   description: Operating system name, without the version.
   example: Mac OS X
@@ -6007,8 +6152,7 @@ observer.os.name:
   multi_fields:
   - flat_name: observer.os.name.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: name
   normalize: []
   original_fieldset: os
@@ -6412,6 +6556,21 @@ process.args_count:
   normalize: []
   short: Length of the process.args array.
   type: long
+process.code_signature.digest_algorithm:
+  dashed_name: process-code-signature-digest-algorithm
+  description: 'The hashing algorithm used to sign the process.
+
+    This value can distinguish signatures when a file is signed multiple times by
+    the same signer but with a different digest algorithm.'
+  example: sha256
+  flat_name: process.code_signature.digest_algorithm
+  ignore_above: 1024
+  level: extended
+  name: digest_algorithm
+  normalize: []
+  original_fieldset: code_signature
+  short: Hashing algorithm used to sign the process.
+  type: keyword
 process.code_signature.exists:
   dashed_name: process-code-signature-exists
   description: Boolean to capture if a signature is present.
@@ -6481,6 +6640,17 @@ process.code_signature.team_id:
   original_fieldset: code_signature
   short: The team identifier used to sign the process.
   type: keyword
+process.code_signature.timestamp:
+  dashed_name: process-code-signature-timestamp
+  description: Date and time when the code signature was generated and signed.
+  example: '2021-01-01T12:10:30Z'
+  flat_name: process.code_signature.timestamp
+  level: extended
+  name: timestamp
+  normalize: []
+  original_fieldset: code_signature
+  short: When the signature was generated and signed.
+  type: date
 process.code_signature.trusted:
   dashed_name: process-code-signature-trusted
   description: 'Stores the trust status of the certificate chain.
@@ -6511,7 +6681,8 @@ process.code_signature.valid:
     content.
   type: boolean
 process.command_line:
-  beta: Use of the `wildcard` data type for this field is currently beta.
+  beta: Use of `wildcard` as the primary type and `match_only_type` as the `.text`
+    multi-field type are both currently beta.
   dashed_name: process-command-line
   description: 'Full command line that started the process, including the absolute
     path to the executable, and all arguments.
@@ -6523,8 +6694,7 @@ process.command_line:
   multi_fields:
   - flat_name: process.command_line.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: command_line
   normalize: []
   short: Full command line that started the process.
@@ -6858,6 +7028,16 @@ process.elf.telfhash:
   original_fieldset: elf
   short: telfhash hash for ELF file.
   type: keyword
+process.end:
+  dashed_name: process-end
+  description: The time the process ended.
+  example: '2016-05-23T08:05:34.853Z'
+  flat_name: process.end
+  level: extended
+  name: end
+  normalize: []
+  short: The time the process ended.
+  type: date
 process.entity_id:
   dashed_name: process-entity-id
   description: 'Unique identifier for the process.
@@ -6878,6 +7058,8 @@ process.entity_id:
   short: Unique identifier for the process.
   type: keyword
 process.executable:
+  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
+    beta.
   dashed_name: process-executable
   description: Absolute path to the process executable.
   example: /usr/bin/ssh
@@ -6887,8 +7069,7 @@ process.executable:
   multi_fields:
   - flat_name: process.executable.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: executable
   normalize: []
   short: Absolute path to the process executable.
@@ -6962,6 +7143,8 @@ process.hash.ssdeep:
   short: SSDEEP hash.
   type: keyword
 process.name:
+  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
+    beta.
   dashed_name: process-name
   description: 'Process name.
 
@@ -6973,8 +7156,7 @@ process.name:
   multi_fields:
   - flat_name: process.name.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: name
   normalize: []
   short: Process name.
@@ -7010,6 +7192,21 @@ process.parent.args_count:
   original_fieldset: process
   short: Length of the process.args array.
   type: long
+process.parent.code_signature.digest_algorithm:
+  dashed_name: process-parent-code-signature-digest-algorithm
+  description: 'The hashing algorithm used to sign the process.
+
+    This value can distinguish signatures when a file is signed multiple times by
+    the same signer but with a different digest algorithm.'
+  example: sha256
+  flat_name: process.parent.code_signature.digest_algorithm
+  ignore_above: 1024
+  level: extended
+  name: digest_algorithm
+  normalize: []
+  original_fieldset: code_signature
+  short: Hashing algorithm used to sign the process.
+  type: keyword
 process.parent.code_signature.exists:
   dashed_name: process-parent-code-signature-exists
   description: Boolean to capture if a signature is present.
@@ -7079,6 +7276,17 @@ process.parent.code_signature.team_id:
   original_fieldset: code_signature
   short: The team identifier used to sign the process.
   type: keyword
+process.parent.code_signature.timestamp:
+  dashed_name: process-parent-code-signature-timestamp
+  description: Date and time when the code signature was generated and signed.
+  example: '2021-01-01T12:10:30Z'
+  flat_name: process.parent.code_signature.timestamp
+  level: extended
+  name: timestamp
+  normalize: []
+  original_fieldset: code_signature
+  short: When the signature was generated and signed.
+  type: date
 process.parent.code_signature.trusted:
   dashed_name: process-parent-code-signature-trusted
   description: 'Stores the trust status of the certificate chain.
@@ -7109,7 +7317,8 @@ process.parent.code_signature.valid:
     content.
   type: boolean
 process.parent.command_line:
-  beta: Use of the `wildcard` data type for this field is currently beta.
+  beta: Use of `wildcard` as the primary type and `match_only_type` as the `.text`
+    multi-field type are both currently beta.
   dashed_name: process-parent-command-line
   description: 'Full command line that started the process, including the absolute
     path to the executable, and all arguments.
@@ -7121,8 +7330,7 @@ process.parent.command_line:
   multi_fields:
   - flat_name: process.parent.command_line.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: command_line
   normalize: []
   original_fieldset: process
@@ -7457,6 +7665,17 @@ process.parent.elf.telfhash:
   original_fieldset: elf
   short: telfhash hash for ELF file.
   type: keyword
+process.parent.end:
+  dashed_name: process-parent-end
+  description: The time the process ended.
+  example: '2016-05-23T08:05:34.853Z'
+  flat_name: process.parent.end
+  level: extended
+  name: end
+  normalize: []
+  original_fieldset: process
+  short: The time the process ended.
+  type: date
 process.parent.entity_id:
   dashed_name: process-parent-entity-id
   description: 'Unique identifier for the process.
@@ -7478,6 +7697,8 @@ process.parent.entity_id:
   short: Unique identifier for the process.
   type: keyword
 process.parent.executable:
+  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
+    beta.
   dashed_name: process-parent-executable
   description: Absolute path to the process executable.
   example: /usr/bin/ssh
@@ -7487,8 +7708,7 @@ process.parent.executable:
   multi_fields:
   - flat_name: process.parent.executable.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: executable
   normalize: []
   original_fieldset: process
@@ -7564,6 +7784,8 @@ process.parent.hash.ssdeep:
   short: SSDEEP hash.
   type: keyword
 process.parent.name:
+  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
+    beta.
   dashed_name: process-parent-name
   description: 'Process name.
 
@@ -7575,8 +7797,7 @@ process.parent.name:
   multi_fields:
   - flat_name: process.parent.name.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: name
   normalize: []
   original_fieldset: process
@@ -8112,6 +8333,8 @@ process.parent.thread.name:
   short: Thread name.
   type: keyword
 process.parent.title:
+  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
+    beta.
   dashed_name: process-parent-title
   description: 'Process title.
 
@@ -8123,8 +8346,7 @@ process.parent.title:
   multi_fields:
   - flat_name: process.parent.title.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: title
   normalize: []
   original_fieldset: process
@@ -8142,6 +8364,8 @@ process.parent.uptime:
   short: Seconds the process has been up.
   type: long
 process.parent.working_directory:
+  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
+    beta.
   dashed_name: process-parent-working-directory
   description: The working directory of the process.
   example: /home/alice
@@ -8151,8 +8375,7 @@ process.parent.working_directory:
   multi_fields:
   - flat_name: process.parent.working_directory.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: working_directory
   normalize: []
   original_fieldset: process
@@ -8690,6 +8913,21 @@ process.target.args_count:
   original_fieldset: process
   short: Length of the process.args array.
   type: long
+process.target.code_signature.digest_algorithm:
+  dashed_name: process-target-code-signature-digest-algorithm
+  description: 'The hashing algorithm used to sign the process.
+
+    This value can distinguish signatures when a file is signed multiple times by
+    the same signer but with a different digest algorithm.'
+  example: sha256
+  flat_name: process.target.code_signature.digest_algorithm
+  ignore_above: 1024
+  level: extended
+  name: digest_algorithm
+  normalize: []
+  original_fieldset: code_signature
+  short: Hashing algorithm used to sign the process.
+  type: keyword
 process.target.code_signature.exists:
   dashed_name: process-target-code-signature-exists
   description: Boolean to capture if a signature is present.
@@ -8759,6 +8997,17 @@ process.target.code_signature.team_id:
   original_fieldset: code_signature
   short: The team identifier used to sign the process.
   type: keyword
+process.target.code_signature.timestamp:
+  dashed_name: process-target-code-signature-timestamp
+  description: Date and time when the code signature was generated and signed.
+  example: '2021-01-01T12:10:30Z'
+  flat_name: process.target.code_signature.timestamp
+  level: extended
+  name: timestamp
+  normalize: []
+  original_fieldset: code_signature
+  short: When the signature was generated and signed.
+  type: date
 process.target.code_signature.trusted:
   dashed_name: process-target-code-signature-trusted
   description: 'Stores the trust status of the certificate chain.
@@ -8789,7 +9038,8 @@ process.target.code_signature.valid:
     content.
   type: boolean
 process.target.command_line:
-  beta: Use of the `wildcard` data type for this field is currently beta.
+  beta: Use of `wildcard` as the primary type and `match_only_type` as the `.text`
+    multi-field type are both currently beta.
   dashed_name: process-target-command-line
   description: 'Full command line that started the process, including the absolute
     path to the executable, and all arguments.
@@ -8801,8 +9051,7 @@ process.target.command_line:
   multi_fields:
   - flat_name: process.target.command_line.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: command_line
   normalize: []
   original_fieldset: process
@@ -9137,6 +9386,17 @@ process.target.elf.telfhash:
   original_fieldset: elf
   short: telfhash hash for ELF file.
   type: keyword
+process.target.end:
+  dashed_name: process-target-end
+  description: The time the process ended.
+  example: '2016-05-23T08:05:34.853Z'
+  flat_name: process.target.end
+  level: extended
+  name: end
+  normalize: []
+  original_fieldset: process
+  short: The time the process ended.
+  type: date
 process.target.entity_id:
   dashed_name: process-target-entity-id
   description: 'Unique identifier for the process.
@@ -9158,6 +9418,8 @@ process.target.entity_id:
   short: Unique identifier for the process.
   type: keyword
 process.target.executable:
+  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
+    beta.
   dashed_name: process-target-executable
   description: Absolute path to the process executable.
   example: /usr/bin/ssh
@@ -9167,8 +9429,7 @@ process.target.executable:
   multi_fields:
   - flat_name: process.target.executable.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: executable
   normalize: []
   original_fieldset: process
@@ -9244,6 +9505,8 @@ process.target.hash.ssdeep:
   short: SSDEEP hash.
   type: keyword
 process.target.name:
+  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
+    beta.
   dashed_name: process-target-name
   description: 'Process name.
 
@@ -9255,8 +9518,7 @@ process.target.name:
   multi_fields:
   - flat_name: process.target.name.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: name
   normalize: []
   original_fieldset: process
@@ -9293,6 +9555,21 @@ process.target.parent.args_count:
   original_fieldset: process
   short: Length of the process.args array.
   type: long
+process.target.parent.code_signature.digest_algorithm:
+  dashed_name: process-target-parent-code-signature-digest-algorithm
+  description: 'The hashing algorithm used to sign the process.
+
+    This value can distinguish signatures when a file is signed multiple times by
+    the same signer but with a different digest algorithm.'
+  example: sha256
+  flat_name: process.target.parent.code_signature.digest_algorithm
+  ignore_above: 1024
+  level: extended
+  name: digest_algorithm
+  normalize: []
+  original_fieldset: code_signature
+  short: Hashing algorithm used to sign the process.
+  type: keyword
 process.target.parent.code_signature.exists:
   dashed_name: process-target-parent-code-signature-exists
   description: Boolean to capture if a signature is present.
@@ -9362,6 +9639,17 @@ process.target.parent.code_signature.team_id:
   original_fieldset: code_signature
   short: The team identifier used to sign the process.
   type: keyword
+process.target.parent.code_signature.timestamp:
+  dashed_name: process-target-parent-code-signature-timestamp
+  description: Date and time when the code signature was generated and signed.
+  example: '2021-01-01T12:10:30Z'
+  flat_name: process.target.parent.code_signature.timestamp
+  level: extended
+  name: timestamp
+  normalize: []
+  original_fieldset: code_signature
+  short: When the signature was generated and signed.
+  type: date
 process.target.parent.code_signature.trusted:
   dashed_name: process-target-parent-code-signature-trusted
   description: 'Stores the trust status of the certificate chain.
@@ -9392,7 +9680,8 @@ process.target.parent.code_signature.valid:
     content.
   type: boolean
 process.target.parent.command_line:
-  beta: Use of the `wildcard` data type for this field is currently beta.
+  beta: Use of `wildcard` as the primary type and `match_only_type` as the `.text`
+    multi-field type are both currently beta.
   dashed_name: process-target-parent-command-line
   description: 'Full command line that started the process, including the absolute
     path to the executable, and all arguments.
@@ -9404,8 +9693,7 @@ process.target.parent.command_line:
   multi_fields:
   - flat_name: process.target.parent.command_line.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: command_line
   normalize: []
   original_fieldset: process
@@ -9740,6 +10028,17 @@ process.target.parent.elf.telfhash:
   original_fieldset: elf
   short: telfhash hash for ELF file.
   type: keyword
+process.target.parent.end:
+  dashed_name: process-target-parent-end
+  description: The time the process ended.
+  example: '2016-05-23T08:05:34.853Z'
+  flat_name: process.target.parent.end
+  level: extended
+  name: end
+  normalize: []
+  original_fieldset: process
+  short: The time the process ended.
+  type: date
 process.target.parent.entity_id:
   dashed_name: process-target-parent-entity-id
   description: 'Unique identifier for the process.
@@ -9761,6 +10060,8 @@ process.target.parent.entity_id:
   short: Unique identifier for the process.
   type: keyword
 process.target.parent.executable:
+  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
+    beta.
   dashed_name: process-target-parent-executable
   description: Absolute path to the process executable.
   example: /usr/bin/ssh
@@ -9770,8 +10071,7 @@ process.target.parent.executable:
   multi_fields:
   - flat_name: process.target.parent.executable.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: executable
   normalize: []
   original_fieldset: process
@@ -9847,6 +10147,8 @@ process.target.parent.hash.ssdeep:
   short: SSDEEP hash.
   type: keyword
 process.target.parent.name:
+  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
+    beta.
   dashed_name: process-target-parent-name
   description: 'Process name.
 
@@ -9858,8 +10160,7 @@ process.target.parent.name:
   multi_fields:
   - flat_name: process.target.parent.name.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: name
   normalize: []
   original_fieldset: process
@@ -10395,6 +10696,8 @@ process.target.parent.thread.name:
   short: Thread name.
   type: keyword
 process.target.parent.title:
+  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
+    beta.
   dashed_name: process-target-parent-title
   description: 'Process title.
 
@@ -10406,8 +10709,7 @@ process.target.parent.title:
   multi_fields:
   - flat_name: process.target.parent.title.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: title
   normalize: []
   original_fieldset: process
@@ -10425,6 +10727,8 @@ process.target.parent.uptime:
   short: Seconds the process has been up.
   type: long
 process.target.parent.working_directory:
+  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
+    beta.
   dashed_name: process-target-parent-working-directory
   description: The working directory of the process.
   example: /home/alice
@@ -10434,8 +10738,7 @@ process.target.parent.working_directory:
   multi_fields:
   - flat_name: process.target.parent.working_directory.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: working_directory
   normalize: []
   original_fieldset: process
@@ -10971,6 +11274,8 @@ process.target.thread.name:
   short: Thread name.
   type: keyword
 process.target.title:
+  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
+    beta.
   dashed_name: process-target-title
   description: 'Process title.
 
@@ -10982,8 +11287,7 @@ process.target.title:
   multi_fields:
   - flat_name: process.target.title.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: title
   normalize: []
   original_fieldset: process
@@ -11001,6 +11305,8 @@ process.target.uptime:
   short: Seconds the process has been up.
   type: long
 process.target.working_directory:
+  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
+    beta.
   dashed_name: process-target-working-directory
   description: The working directory of the process.
   example: /home/alice
@@ -11010,8 +11316,7 @@ process.target.working_directory:
   multi_fields:
   - flat_name: process.target.working_directory.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: working_directory
   normalize: []
   original_fieldset: process
@@ -11040,6 +11345,8 @@ process.thread.name:
   short: Thread name.
   type: keyword
 process.title:
+  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
+    beta.
   dashed_name: process-title
   description: 'Process title.
 
@@ -11051,8 +11358,7 @@ process.title:
   multi_fields:
   - flat_name: process.title.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: title
   normalize: []
   short: Process title.
@@ -11068,6 +11374,8 @@ process.uptime:
   short: Seconds the process has been up.
   type: long
 process.working_directory:
+  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
+    beta.
   dashed_name: process-working-directory
   description: The working directory of the process.
   example: /home/alice
@@ -11077,8 +11385,7 @@ process.working_directory:
   multi_fields:
   - flat_name: process.working_directory.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: working_directory
   normalize: []
   short: The working directory of the process.
@@ -11368,6 +11675,8 @@ server.as.number:
   short: Unique number allocated to the autonomous system.
   type: long
 server.as.organization.name:
+  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
+    beta.
   dashed_name: server-as-organization-name
   description: Organization name.
   example: Google LLC
@@ -11377,8 +11686,7 @@ server.as.organization.name:
   multi_fields:
   - flat_name: server.as.organization.name.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: organization.name
   normalize: []
   original_fieldset: as
@@ -11691,6 +11999,8 @@ server.user.email:
   short: User email address.
   type: keyword
 server.user.full_name:
+  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
+    beta.
   dashed_name: server-user-full-name
   description: User's full name, if available.
   example: Albert Einstein
@@ -11700,8 +12010,7 @@ server.user.full_name:
   multi_fields:
   - flat_name: server.user.full_name.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: full_name
   normalize: []
   original_fieldset: user
@@ -11769,6 +12078,8 @@ server.user.id:
   short: Unique identifier of the user.
   type: keyword
 server.user.name:
+  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
+    beta.
   dashed_name: server-user-name
   description: Short name or login of the user.
   example: albert
@@ -11778,8 +12089,7 @@ server.user.name:
   multi_fields:
   - flat_name: server.user.name.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: name
   normalize: []
   original_fieldset: user
@@ -11797,6 +12107,36 @@ server.user.roles:
   - array
   original_fieldset: user
   short: Array of user roles at the time of the event.
+  type: keyword
+service.address:
+  dashed_name: service-address
+  description: 'Address where data about this service was collected from.
+
+    This should be a URI, network address (ipv4:port or [ipv6]:port) or a resource
+    path (sockets).'
+  example: 172.26.0.2:5432
+  flat_name: service.address
+  ignore_above: 1024
+  level: extended
+  name: address
+  normalize: []
+  short: Address of this service.
+  type: keyword
+service.environment:
+  beta: This field is beta and subject to change.
+  dashed_name: service-environment
+  description: 'Identifies the environment where the service is running.
+
+    If the same service runs in different environments (production, staging, QA, development,
+    etc.), the environment can identify other instances of the same service. Can also
+    group services and applications from the same environment.'
+  example: production
+  flat_name: service.environment
+  ignore_above: 1024
+  level: extended
+  name: environment
+  normalize: []
+  short: Environment of the service.
   type: keyword
 service.ephemeral_id:
   dashed_name: service-ephemeral-id
@@ -11938,6 +12278,8 @@ source.as.number:
   short: Unique number allocated to the autonomous system.
   type: long
 source.as.organization.name:
+  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
+    beta.
   dashed_name: source-as-organization-name
   description: Organization name.
   example: Google LLC
@@ -11947,8 +12289,7 @@ source.as.organization.name:
   multi_fields:
   - flat_name: source.as.organization.name.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: organization.name
   normalize: []
   original_fieldset: as
@@ -12261,6 +12602,8 @@ source.user.email:
   short: User email address.
   type: keyword
 source.user.full_name:
+  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
+    beta.
   dashed_name: source-user-full-name
   description: User's full name, if available.
   example: Albert Einstein
@@ -12270,8 +12613,7 @@ source.user.full_name:
   multi_fields:
   - flat_name: source.user.full_name.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: full_name
   normalize: []
   original_fieldset: user
@@ -12339,6 +12681,8 @@ source.user.id:
   short: Unique identifier of the user.
   type: keyword
 source.user.name:
+  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
+    beta.
   dashed_name: source-user-name
   description: Short name or login of the user.
   example: albert
@@ -12348,8 +12692,7 @@ source.user.name:
   multi_fields:
   - flat_name: source.user.name.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: name
   normalize: []
   original_fieldset: user
@@ -12428,6 +12771,8 @@ threat.enrichments.indicator.as.number:
   short: Unique number allocated to the autonomous system.
   type: long
 threat.enrichments.indicator.as.organization.name:
+  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
+    beta.
   dashed_name: threat-enrichments-indicator-as-organization-name
   description: Organization name.
   example: Google LLC
@@ -12437,8 +12782,7 @@ threat.enrichments.indicator.as.organization.name:
   multi_fields:
   - flat_name: threat.enrichments.indicator.as.organization.name.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: organization.name
   normalize: []
   original_fieldset: as
@@ -12513,6 +12857,21 @@ threat.enrichments.indicator.file.attributes:
   original_fieldset: file
   short: Array of file attributes.
   type: keyword
+threat.enrichments.indicator.file.code_signature.digest_algorithm:
+  dashed_name: threat-enrichments-indicator-file-code-signature-digest-algorithm
+  description: 'The hashing algorithm used to sign the process.
+
+    This value can distinguish signatures when a file is signed multiple times by
+    the same signer but with a different digest algorithm.'
+  example: sha256
+  flat_name: threat.enrichments.indicator.file.code_signature.digest_algorithm
+  ignore_above: 1024
+  level: extended
+  name: digest_algorithm
+  normalize: []
+  original_fieldset: code_signature
+  short: Hashing algorithm used to sign the process.
+  type: keyword
 threat.enrichments.indicator.file.code_signature.exists:
   dashed_name: threat-enrichments-indicator-file-code-signature-exists
   description: Boolean to capture if a signature is present.
@@ -12582,6 +12941,17 @@ threat.enrichments.indicator.file.code_signature.team_id:
   original_fieldset: code_signature
   short: The team identifier used to sign the process.
   type: keyword
+threat.enrichments.indicator.file.code_signature.timestamp:
+  dashed_name: threat-enrichments-indicator-file-code-signature-timestamp
+  description: Date and time when the code signature was generated and signed.
+  example: '2021-01-01T12:10:30Z'
+  flat_name: threat.enrichments.indicator.file.code_signature.timestamp
+  level: extended
+  name: timestamp
+  normalize: []
+  original_fieldset: code_signature
+  short: When the signature was generated and signed.
+  type: date
 threat.enrichments.indicator.file.code_signature.trusted:
   dashed_name: threat-enrichments-indicator-file-code-signature-trusted
   description: 'Stores the trust status of the certificate chain.
@@ -13141,6 +13511,8 @@ threat.enrichments.indicator.file.owner:
   short: File owner's username.
   type: keyword
 threat.enrichments.indicator.file.path:
+  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
+    beta.
   dashed_name: threat-enrichments-indicator-file-path
   description: Full path to the file, including the file name. It should include the
     drive letter, when appropriate.
@@ -13151,8 +13523,7 @@ threat.enrichments.indicator.file.path:
   multi_fields:
   - flat_name: threat.enrichments.indicator.file.path.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: path
   normalize: []
   original_fieldset: file
@@ -13172,6 +13543,8 @@ threat.enrichments.indicator.file.size:
   short: File size in bytes.
   type: long
 threat.enrichments.indicator.file.target_path:
+  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
+    beta.
   dashed_name: threat-enrichments-indicator-file-target-path
   description: Target path for symlinks.
   flat_name: threat.enrichments.indicator.file.target_path
@@ -13180,8 +13553,7 @@ threat.enrichments.indicator.file.target_path:
   multi_fields:
   - flat_name: threat.enrichments.indicator.file.target_path.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: target_path
   normalize: []
   original_fieldset: file
@@ -14148,7 +14520,8 @@ threat.enrichments.indicator.url.fragment:
   short: Portion of the url after the `#`.
   type: keyword
 threat.enrichments.indicator.url.full:
-  beta: Use of the `wildcard` data type for this field is currently beta.
+  beta: Use of `wildcard` as the primary type and `match_only_type` as the `.text`
+    multi-field type are both currently beta
   dashed_name: threat-enrichments-indicator-url-full
   description: If full URLs are important to your use case, they should be stored
     in `url.full`, whether this field is reconstructed or present in the event source.
@@ -14158,15 +14531,15 @@ threat.enrichments.indicator.url.full:
   multi_fields:
   - flat_name: threat.enrichments.indicator.url.full.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: full
   normalize: []
   original_fieldset: url
   short: Full unparsed URL.
   type: wildcard
 threat.enrichments.indicator.url.original:
-  beta: Use of the `wildcard` data type for this field is currently beta.
+  beta: Use of `wildcard` as the primary type and `match_only_type` as the `.text`
+    multi-field type are both currently beta.
   dashed_name: threat-enrichments-indicator-url-original
   description: 'Unmodified original url as seen in the event source.
 
@@ -14180,8 +14553,7 @@ threat.enrichments.indicator.url.original:
   multi_fields:
   - flat_name: threat.enrichments.indicator.url.original.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: original
   normalize: []
   original_fieldset: url
@@ -14702,10 +15074,9 @@ threat.framework:
   short: Threat classification framework.
   type: keyword
 threat.group.alias:
-  beta: This field is beta and subject to change.
   dashed_name: threat-group-alias
   description: "The alias(es) of the group for a set of related intrusion activity\
-    \ that are tracked by a common name in the security community. While not required,\
+    \ that are tracked by a common name in the security community.\nWhile not required,\
     \ you can use a MITRE ATT&CK\xAE group alias(es)."
   example: '[ "Magecart Group 6" ]'
   flat_name: threat.group.alias
@@ -14717,10 +15088,9 @@ threat.group.alias:
   short: Alias of the group.
   type: keyword
 threat.group.id:
-  beta: This field is beta and subject to change.
   dashed_name: threat-group-id
   description: "The id of the group for a set of related intrusion activity that are\
-    \ tracked by a common name in the security community. While not required, you\
+    \ tracked by a common name in the security community.\nWhile not required, you\
     \ can use a MITRE ATT&CK\xAE group id."
   example: G0037
   flat_name: threat.group.id
@@ -14731,10 +15101,9 @@ threat.group.id:
   short: ID of the group.
   type: keyword
 threat.group.name:
-  beta: This field is beta and subject to change.
   dashed_name: threat-group-name
   description: "The name of the group for a set of related intrusion activity that\
-    \ are tracked by a common name in the security community. While not required,\
+    \ are tracked by a common name in the security community.\nWhile not required,\
     \ you can use a MITRE ATT&CK\xAE group name."
   example: FIN6
   flat_name: threat.group.name
@@ -14745,10 +15114,9 @@ threat.group.name:
   short: Name of the group.
   type: keyword
 threat.group.reference:
-  beta: This field is beta and subject to change.
   dashed_name: threat-group-reference
   description: "The reference URL of the group for a set of related intrusion activity\
-    \ that are tracked by a common name in the security community. While not required,\
+    \ that are tracked by a common name in the security community.\nWhile not required,\
     \ you can use a MITRE ATT&CK\xAE group reference URL."
   example: https://attack.mitre.org/groups/G0037/
   flat_name: threat.group.reference
@@ -14771,6 +15139,8 @@ threat.indicator.as.number:
   short: Unique number allocated to the autonomous system.
   type: long
 threat.indicator.as.organization.name:
+  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
+    beta.
   dashed_name: threat-indicator-as-organization-name
   description: Organization name.
   example: Google LLC
@@ -14780,8 +15150,7 @@ threat.indicator.as.organization.name:
   multi_fields:
   - flat_name: threat.indicator.as.organization.name.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: organization.name
   normalize: []
   original_fieldset: as
@@ -14856,6 +15225,21 @@ threat.indicator.file.attributes:
   original_fieldset: file
   short: Array of file attributes.
   type: keyword
+threat.indicator.file.code_signature.digest_algorithm:
+  dashed_name: threat-indicator-file-code-signature-digest-algorithm
+  description: 'The hashing algorithm used to sign the process.
+
+    This value can distinguish signatures when a file is signed multiple times by
+    the same signer but with a different digest algorithm.'
+  example: sha256
+  flat_name: threat.indicator.file.code_signature.digest_algorithm
+  ignore_above: 1024
+  level: extended
+  name: digest_algorithm
+  normalize: []
+  original_fieldset: code_signature
+  short: Hashing algorithm used to sign the process.
+  type: keyword
 threat.indicator.file.code_signature.exists:
   dashed_name: threat-indicator-file-code-signature-exists
   description: Boolean to capture if a signature is present.
@@ -14925,6 +15309,17 @@ threat.indicator.file.code_signature.team_id:
   original_fieldset: code_signature
   short: The team identifier used to sign the process.
   type: keyword
+threat.indicator.file.code_signature.timestamp:
+  dashed_name: threat-indicator-file-code-signature-timestamp
+  description: Date and time when the code signature was generated and signed.
+  example: '2021-01-01T12:10:30Z'
+  flat_name: threat.indicator.file.code_signature.timestamp
+  level: extended
+  name: timestamp
+  normalize: []
+  original_fieldset: code_signature
+  short: When the signature was generated and signed.
+  type: date
 threat.indicator.file.code_signature.trusted:
   dashed_name: threat-indicator-file-code-signature-trusted
   description: 'Stores the trust status of the certificate chain.
@@ -15484,6 +15879,8 @@ threat.indicator.file.owner:
   short: File owner's username.
   type: keyword
 threat.indicator.file.path:
+  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
+    beta.
   dashed_name: threat-indicator-file-path
   description: Full path to the file, including the file name. It should include the
     drive letter, when appropriate.
@@ -15494,8 +15891,7 @@ threat.indicator.file.path:
   multi_fields:
   - flat_name: threat.indicator.file.path.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: path
   normalize: []
   original_fieldset: file
@@ -15515,6 +15911,8 @@ threat.indicator.file.size:
   short: File size in bytes.
   type: long
 threat.indicator.file.target_path:
+  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
+    beta.
   dashed_name: threat-indicator-file-target-path
   description: Target path for symlinks.
   flat_name: threat.indicator.file.target_path
@@ -15523,8 +15921,7 @@ threat.indicator.file.target_path:
   multi_fields:
   - flat_name: threat.indicator.file.target_path.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: target_path
   normalize: []
   original_fieldset: file
@@ -16491,7 +16888,8 @@ threat.indicator.url.fragment:
   short: Portion of the url after the `#`.
   type: keyword
 threat.indicator.url.full:
-  beta: Use of the `wildcard` data type for this field is currently beta.
+  beta: Use of `wildcard` as the primary type and `match_only_type` as the `.text`
+    multi-field type are both currently beta
   dashed_name: threat-indicator-url-full
   description: If full URLs are important to your use case, they should be stored
     in `url.full`, whether this field is reconstructed or present in the event source.
@@ -16501,15 +16899,15 @@ threat.indicator.url.full:
   multi_fields:
   - flat_name: threat.indicator.url.full.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: full
   normalize: []
   original_fieldset: url
   short: Full unparsed URL.
   type: wildcard
 threat.indicator.url.original:
-  beta: Use of the `wildcard` data type for this field is currently beta.
+  beta: Use of `wildcard` as the primary type and `match_only_type` as the `.text`
+    multi-field type are both currently beta.
   dashed_name: threat-indicator-url-original
   description: 'Unmodified original url as seen in the event source.
 
@@ -16523,8 +16921,7 @@ threat.indicator.url.original:
   multi_fields:
   - flat_name: threat.indicator.url.original.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: original
   normalize: []
   original_fieldset: url
@@ -16967,11 +17364,24 @@ threat.indicator.x509.version_number:
   original_fieldset: x509
   short: Version of x509 format.
   type: keyword
+threat.software.alias:
+  dashed_name: threat-software-alias
+  description: "The alias(es) of the software for a set of related intrusion activity\
+    \ that are tracked by a common name in the security community.\nWhile not required,\
+    \ you can use a MITRE ATT&CK\xAE associated software description."
+  example: '[ "X-Agent" ]'
+  flat_name: threat.software.alias
+  ignore_above: 1024
+  level: extended
+  name: software.alias
+  normalize:
+  - array
+  short: Alias of the software
+  type: keyword
 threat.software.id:
-  beta: This field is beta and subject to change.
   dashed_name: threat-software-id
   description: "The id of the software used by this threat to conduct behavior commonly\
-    \ modeled using MITRE ATT&CK\xAE. While not required, you can use a MITRE ATT&CK\xAE\
+    \ modeled using MITRE ATT&CK\xAE.\nWhile not required, you can use a MITRE ATT&CK\xAE\
     \ software id."
   example: S0552
   flat_name: threat.software.id
@@ -16982,10 +17392,9 @@ threat.software.id:
   short: ID of the software
   type: keyword
 threat.software.name:
-  beta: This field is beta and subject to change.
   dashed_name: threat-software-name
   description: "The name of the software used by this threat to conduct behavior commonly\
-    \ modeled using MITRE ATT&CK\xAE. While not required, you can use a MITRE ATT&CK\xAE\
+    \ modeled using MITRE ATT&CK\xAE.\nWhile not required, you can use a MITRE ATT&CK\xAE\
     \ software name."
   example: AdFind
   flat_name: threat.software.name
@@ -16996,13 +17405,12 @@ threat.software.name:
   short: Name of the software.
   type: keyword
 threat.software.platforms:
-  beta: This field is beta and subject to change.
   dashed_name: threat-software-platforms
   description: "The platforms of the software used by this threat to conduct behavior\
-    \ commonly modeled using MITRE ATT&CK\xAE. While not required, you can use a MITRE\
-    \ ATT&CK\xAE software platforms.\nRecommended Values:\n  * AWS\n  * Azure\n  *\
-    \ Azure AD\n  * GCP\n  * Linux\n  * macOS\n  * Network\n  * Office 365\n  * SaaS\n\
-    \  * Windows"
+    \ commonly modeled using MITRE ATT&CK\xAE.\nRecommended Values:\n  * AWS\n  *\
+    \ Azure\n  * Azure AD\n  * GCP\n  * Linux\n  * macOS\n  * Network\n  * Office\
+    \ 365\n  * SaaS\n  * Windows\n\nWhile not required, you can use a MITRE ATT&CK\xAE\
+    \ software platforms."
   example: '[ "Windows" ]'
   flat_name: threat.software.platforms
   ignore_above: 1024
@@ -17013,11 +17421,10 @@ threat.software.platforms:
   short: Platforms of the software.
   type: keyword
 threat.software.reference:
-  beta: This field is beta and subject to change.
   dashed_name: threat-software-reference
   description: "The reference URL of the software used by this threat to conduct behavior\
-    \ commonly modeled using MITRE ATT&CK\xAE. While not required, you can use a MITRE\
-    \ ATT&CK\xAE software reference URL."
+    \ commonly modeled using MITRE ATT&CK\xAE.\nWhile not required, you can use a\
+    \ MITRE ATT&CK\xAE software reference URL."
   example: https://attack.mitre.org/software/S0552/
   flat_name: threat.software.reference
   ignore_above: 1024
@@ -17027,11 +17434,10 @@ threat.software.reference:
   short: Software reference URL.
   type: keyword
 threat.software.type:
-  beta: This field is beta and subject to change.
   dashed_name: threat-software-type
   description: "The type of software used by this threat to conduct behavior commonly\
-    \ modeled using MITRE ATT&CK\xAE. While not required, you can use a MITRE ATT&CK\xAE\
-    \ software type.\nRecommended values\n  * Malware\n  * Tool"
+    \ modeled using MITRE ATT&CK\xAE.\nRecommended values\n  * Malware\n  * Tool\n\
+    \n While not required, you can use a MITRE ATT&CK\xAE software type."
   example: Tool
   flat_name: threat.software.type
   ignore_above: 1024
@@ -17094,6 +17500,8 @@ threat.technique.id:
   short: Threat technique id.
   type: keyword
 threat.technique.name:
+  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
+    beta.
   dashed_name: threat-technique-name
   description: "The name of technique used by this threat. You can use a MITRE ATT&CK\xAE\
     \ technique, for example. (ex. https://attack.mitre.org/techniques/T1059/)"
@@ -17104,8 +17512,7 @@ threat.technique.name:
   multi_fields:
   - flat_name: threat.technique.name.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: technique.name
   normalize:
   - array
@@ -17138,6 +17545,8 @@ threat.technique.subtechnique.id:
   short: Threat subtechnique id.
   type: keyword
 threat.technique.subtechnique.name:
+  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
+    beta.
   dashed_name: threat-technique-subtechnique-name
   description: "The name of subtechnique used by this threat. You can use a MITRE\
     \ ATT&CK\xAE subtechnique, for example. (ex. https://attack.mitre.org/techniques/T1059/001/)"
@@ -17148,8 +17557,7 @@ threat.technique.subtechnique.name:
   multi_fields:
   - flat_name: threat.technique.subtechnique.name.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: technique.subtechnique.name
   normalize:
   - array
@@ -18216,7 +18624,8 @@ url.fragment:
   short: Portion of the url after the `#`.
   type: keyword
 url.full:
-  beta: Use of the `wildcard` data type for this field is currently beta.
+  beta: Use of `wildcard` as the primary type and `match_only_type` as the `.text`
+    multi-field type are both currently beta
   dashed_name: url-full
   description: If full URLs are important to your use case, they should be stored
     in `url.full`, whether this field is reconstructed or present in the event source.
@@ -18226,14 +18635,14 @@ url.full:
   multi_fields:
   - flat_name: url.full.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: full
   normalize: []
   short: Full unparsed URL.
   type: wildcard
 url.original:
-  beta: Use of the `wildcard` data type for this field is currently beta.
+  beta: Use of `wildcard` as the primary type and `match_only_type` as the `.text`
+    multi-field type are both currently beta.
   dashed_name: url-original
   description: 'Unmodified original url as seen in the event source.
 
@@ -18247,8 +18656,7 @@ url.original:
   multi_fields:
   - flat_name: url.original.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: original
   normalize: []
   short: Unmodified original url as seen in the event source.
@@ -18400,6 +18808,8 @@ user.changes.email:
   short: User email address.
   type: keyword
 user.changes.full_name:
+  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
+    beta.
   dashed_name: user-changes-full-name
   description: User's full name, if available.
   example: Albert Einstein
@@ -18409,8 +18819,7 @@ user.changes.full_name:
   multi_fields:
   - flat_name: user.changes.full_name.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: full_name
   normalize: []
   original_fieldset: user
@@ -18478,6 +18887,8 @@ user.changes.id:
   short: Unique identifier of the user.
   type: keyword
 user.changes.name:
+  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
+    beta.
   dashed_name: user-changes-name
   description: Short name or login of the user.
   example: albert
@@ -18487,8 +18898,7 @@ user.changes.name:
   multi_fields:
   - flat_name: user.changes.name.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: name
   normalize: []
   original_fieldset: user
@@ -18544,6 +18954,8 @@ user.effective.email:
   short: User email address.
   type: keyword
 user.effective.full_name:
+  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
+    beta.
   dashed_name: user-effective-full-name
   description: User's full name, if available.
   example: Albert Einstein
@@ -18553,8 +18965,7 @@ user.effective.full_name:
   multi_fields:
   - flat_name: user.effective.full_name.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: full_name
   normalize: []
   original_fieldset: user
@@ -18622,6 +19033,8 @@ user.effective.id:
   short: Unique identifier of the user.
   type: keyword
 user.effective.name:
+  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
+    beta.
   dashed_name: user-effective-name
   description: Short name or login of the user.
   example: albert
@@ -18631,8 +19044,7 @@ user.effective.name:
   multi_fields:
   - flat_name: user.effective.name.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: name
   normalize: []
   original_fieldset: user
@@ -18662,6 +19074,8 @@ user.email:
   short: User email address.
   type: keyword
 user.full_name:
+  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
+    beta.
   dashed_name: user-full-name
   description: User's full name, if available.
   example: Albert Einstein
@@ -18671,8 +19085,7 @@ user.full_name:
   multi_fields:
   - flat_name: user.full_name.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: full_name
   normalize: []
   short: User's full name, if available.
@@ -18737,6 +19150,8 @@ user.id:
   short: Unique identifier of the user.
   type: keyword
 user.name:
+  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
+    beta.
   dashed_name: user-name
   description: Short name or login of the user.
   example: albert
@@ -18746,8 +19161,7 @@ user.name:
   multi_fields:
   - flat_name: user.name.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: name
   normalize: []
   short: Short name or login of the user.
@@ -18789,6 +19203,8 @@ user.target.email:
   short: User email address.
   type: keyword
 user.target.full_name:
+  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
+    beta.
   dashed_name: user-target-full-name
   description: User's full name, if available.
   example: Albert Einstein
@@ -18798,8 +19214,7 @@ user.target.full_name:
   multi_fields:
   - flat_name: user.target.full_name.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: full_name
   normalize: []
   original_fieldset: user
@@ -18867,6 +19282,8 @@ user.target.id:
   short: Unique identifier of the user.
   type: keyword
 user.target.name:
+  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
+    beta.
   dashed_name: user-target-name
   description: Short name or login of the user.
   example: albert
@@ -18876,8 +19293,7 @@ user.target.name:
   multi_fields:
   - flat_name: user.target.name.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: name
   normalize: []
   original_fieldset: user
@@ -18919,6 +19335,8 @@ user_agent.name:
   short: Name of the user agent.
   type: keyword
 user_agent.original:
+  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
+    beta.
   dashed_name: user-agent-original
   description: Unparsed user_agent string.
   example: Mozilla/5.0 (iPhone; CPU iPhone OS 12_1 like Mac OS X) AppleWebKit/605.1.15
@@ -18929,8 +19347,7 @@ user_agent.original:
   multi_fields:
   - flat_name: user_agent.original.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: original
   normalize: []
   short: Unparsed user_agent string.
@@ -18948,6 +19365,8 @@ user_agent.os.family:
   short: OS family (such as redhat, debian, freebsd, windows).
   type: keyword
 user_agent.os.full:
+  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
+    beta.
   dashed_name: user-agent-os-full
   description: Operating system name, including the version or code name.
   example: Mac OS Mojave
@@ -18957,8 +19376,7 @@ user_agent.os.full:
   multi_fields:
   - flat_name: user_agent.os.full.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: full
   normalize: []
   original_fieldset: os
@@ -18977,6 +19395,8 @@ user_agent.os.kernel:
   short: Operating system kernel version as a raw string.
   type: keyword
 user_agent.os.name:
+  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
+    beta.
   dashed_name: user-agent-os-name
   description: Operating system name, without the version.
   example: Mac OS X
@@ -18986,8 +19406,7 @@ user_agent.os.name:
   multi_fields:
   - flat_name: user_agent.os.name.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: name
   normalize: []
   original_fieldset: os
@@ -19077,6 +19496,8 @@ vulnerability.classification:
   short: Classification of the vulnerability.
   type: keyword
 vulnerability.description:
+  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
+    beta.
   dashed_name: vulnerability-description
   description: The description of the vulnerability that provides additional context
     of the vulnerability. For example (https://cve.mitre.org/about/faqs.html#cve_entry_descriptions_created[Common
@@ -19088,8 +19509,7 @@ vulnerability.description:
   multi_fields:
   - flat_name: vulnerability.description.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: description
   normalize: []
   short: Description of the vulnerability.
