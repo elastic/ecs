@@ -25,7 +25,7 @@ Stage 1: Describe at a high level how this change affects fields. Which fieldset
 | `email.bcc` | keyword (array) | The email address(es) of the blind carbon copy (CC) recipient(s) |
 | `email.content_type` | keyword | Information about how the message is to be displayed. Typically a MIME type |
 | `email.message_id` | wildcard |  Identifier from the RFC5322 `Message-ID:` header field that refers to a particular version of a particular message. |
-| `email.external_id` | keyword | Unique identifier provided by an external source (for example, the `X-MS-Exchange-Organization-Network-Message-Id` id)
+| `email.local_id` | keyword | Unique identifier given to the email by the source (MTA, gateway, etc.) that created the event and is not persistent across hops (for example, the `X-MS-Exchange-Organization-Network-Message-Id` id). |
 | `email.reply_to` | keyword | The address that replies should be delivered to from the RFC 5322 `Reply-To:` header field. |
 | `email.direction` | keyword | Direction of the message based on the sending and receiving domains |
 | `email.x_mailer` | keyword | What application was used to draft and send the original email. |
@@ -180,7 +180,7 @@ Stage 2: Included a real world example source document. Ideally this example com
   "email": {
     "timestamp": "2016-06-24T21:18:38.000Z",
     "message_id": "20160624211145.62086.mail@evil.zz",
-    "external_id": "c26dbea0-80d5-463b-b93c-4e8b708219ce",
+    "local_id": "c26dbea0-80d5-463b-b93c-4e8b708219ce",
     "to": [
       "clark.kent@pharmtech.zz",
       "diana.prince@pharmtech.zz"
