@@ -115,7 +115,7 @@ def render_template(template_name, **context):
 
 def save_asciidoc(f, text):
     with open(f, "w") as outfile:
-        outfile.write(text)
+        print(text.strip(), file=outfile)
 
 # jinja2 setup
 
