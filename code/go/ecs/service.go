@@ -24,6 +24,13 @@ package ecs
 // These fields help you find and correlate logs for a specific service and
 // version.
 type Service struct {
+	// Identifies the environment where the service is running.
+	// If the same service runs in different environments (production, staging,
+	// QA, development, etc.), the environment can identify other instances of
+	// the same service. Can also group services and applications from the same
+	// environment.
+	Environment string `ecs:"environment"`
+
 	// Unique identifier of the running service. If the service is comprised of
 	// many nodes, the `service.id` should be the same for all nodes.
 	// This id should uniquely identify the service. This makes it possible to
@@ -73,4 +80,9 @@ type Service struct {
 	// Ephemeral identifier of this service (if one exists).
 	// This id normally changes across restarts, but `service.id` does not.
 	EphemeralID string `ecs:"ephemeral_id"`
+
+	// Address where data about this service was collected from.
+	// This should be a URI, network address (ipv4:port or [ipv6]:port) or a
+	// resource path (sockets).
+	Address string `ecs:"address"`
 }

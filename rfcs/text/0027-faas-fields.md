@@ -1,13 +1,38 @@
-# 0025: Container Metric Fields
+# 0027: Function as a Service Fields
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
-- Stage: **1 (draft)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
-- Date: **2021-07-29** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
+- Stage: **0 (strawperson)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
+- Date: **2021-07-22** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 <!--
 As you work on your RFC, use the "Stage N" comments to guide you in what you should focus on, for the stage you're targeting.
 Feel free to remove these comments as you go along.
 -->
+
+Using APM agents in the context of serverless environments (e.g. AWS Lambda, Azu Functions, etc.) allows to capture function as a service (faas) specific context that can be of great value for the end users and provide correlation points with other sources of data.
+
+Extending ECS with a dedicated fields group or embedding it into exsting `cloud` fields would allow to capture this data in a meaningful, semantically aligned way and correlate the data accross different use cases (e.g. correlating AWS Lambda traces with corresponding Lambda metrics and logs).
+
+The existing specification in OpenTelemetry can serve as a good orientation: https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/trace/semantic_conventions/faas.md#example
+
+I'm proposing to add the following kind of fields:
+
+Field | Example | Description
+ -- | -- | --
+faas.trigger.type | "http" | one of `http`,`pubsub`,`datasource`, `timer`, `other`
+faas.trigger.name | "POST /{proxy+}/Prod" | Human readable name of the trigger instance.
+faas.trigger.id | `arn:aws:sqs:us-east-2:123456789012:my-queue` | The ID of the trigger instance (e.g. Api-ID, SQS-queue-ARN, etc.)
+faas.trigger.request_id | e.g. `123456789` | The iD of the trigger request , message, event, etc.
+faas.trigger.account.name | "SomeAccount" | The name of the account the trigger belongs to.
+faas.trigger.account.id | `12345678912` | The ID of the account the trigger belongs to.
+faas.trigger.region | `us-east-1` | The cloud region of the trigger.
+faas.trigger.version | `2.1` | The version of the trigger.
+faas.execution | "af9d5aa4-a685-4c5f-a22b-444f80b3cc28" | The execution ID of the current function execution.
+faas.coldstart |  true | Boolean value indicating a cold start of a function
+faas.name | "my-lambda-function" | the name of the function
+faas.id | "arn:aws:lambda:us-west-2:123456789012:function:my-lambda-function" | The ID of the function
+faas.version | "semver:2.0.0" | The version of the function
+faas.instance | "my-lambda-function:instance-0001" | The instance of the function
 
 <!--
 Stage 0: Provide a high level summary of the premise of these changes. Briefly describe the nature, purpose, and impact of the changes. ~2-5 sentences.
@@ -17,26 +42,11 @@ Stage 0: Provide a high level summary of the premise of these changes. Briefly d
 Stage 1: If the changes include field additions or modifications, please create a folder titled as the RFC number under rfcs/text/. This will be where proposed schema changes as standalone YAML files or extended example mappings and larger source documents will go as the RFC is iterated upon.
 -->
 
-This RFC proposes 6 additional container metric fields into ECS for monitoring
-container CPU, memory, disk and network performance:
-- container.cpu.usage
-- container.memory.usage
-- container.network.ingress.bytes
-- container.network.egress.bytes
-- container.disk.read.bytes
-- container.disk.write.bytes
-
-With existing metadata fields `container.id`, `container.image.name`, `container.image.tag`,
-`container.labels`, `container.name` and `container.runtime`, these total 12
-fields will become the common field schema for container metrics. These metric
-fields and metadata fields are recommended or required for all events related to
-containers.
+<!--
+Stage X: Provide a brief explanation of why the proposal is being marked as abandoned. This is useful context for anyone revisiting this proposal or considering similar changes later on.
+-->
 
 ## Fields
-
-This RFC calls for the addition of metric fields to collect basic monitoring
-metrics from a container such as CPU, memory, network and disk.
-Please see [`container.yml`](0000/container.yml) for definitions of all fields.
 
 <!--
 Stage 1: Describe at a high level how this change affects fields. Include new or updated yml field definitions for all of the essential fields in this draft. While not exhaustive, the fields documented here should be comprehensive enough to deeply evaluate the technical considerations of this change. The goal here is to validate the technical details for all essential fields and to provide a basis for adding experimental field definitions to the schema. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
@@ -48,33 +58,11 @@ Stage 2: Add or update all remaining field definitions. The list should now be e
 
 ## Usage
 
-Container metric fields and container metadata fields can be collected from
-several sources. For example, a user who uses both Docker, Cloudfoundry
-and AWS Fargate would like to collect data regarding all containers and store
-them in a centralized location. Without these new container metric fields,
-Metricbeat is reporting container metrics under different names from different
-sources. For example, for CPU usage, `docker.cpu.total.pct` is used. For
-Cloudfoundry, `cloudfoundry.container.cpu.pct` is used and for AWS Fargate,
-`awsfargate.task_stats.cpu.total.pct` is used.
-With these different field names, Kibana Docker containers metrics UI can only
-display data collected from Docker but no other sources.
-
-With the additional container metric fields proposed here, users should be able
-to see the same metric field collected from different sources and Kibana should
-be able to display all containers, not only from Docker, but also Cloudfoundry,
-AWS Fargate and etc.
-
 <!--
 Stage 1: Describe at a high-level how these field changes will be used in practice. Real world examples are encouraged. The goal here is to understand how people would leverage these fields to gain insights or solve problems. ~1-3 paragraphs.
 -->
 
 ## Source data
-
-- Docker
-- Kubernetes
-- AWS Fargate
-- Cloudfoundry
-- Google GKE
 
 <!--
 Stage 1: Provide a high-level description of example sources of data. This does not yet need to be a concrete example of a source document, but instead can simply describe a potential source (e.g. nginx access log). This will ultimately be fleshed out to include literal source examples in a future stage. The goal here is to identify practical sources for these fields in the real world. ~1-3 sentences or unordered list.
@@ -104,12 +92,6 @@ The goal here is to research and understand the impact of these changes on users
 Stage 1: Identify potential concerns, implementation challenges, or complexity. Spend some time on this. Play devil's advocate. Try to identify the sort of non-obvious challenges that tend to surface later. The goal here is to surface risks early, allow everyone the time to work through them, and ultimately document resolution for posterity's sake.
 -->
 
-We need to carefully define each field because when collecting these container
-metrics from different sources, the scope of these metrics change. We should
-make sure when users are using these metrics, they are all collected to represent
-the same thing. For example, `container.cpu.usage` needs to be a normalized value
-between 0 and 1.
-
 <!--
 Stage 2: Document new concerns or resolutions to previously listed concerns. It's not critical that all concerns have resolutions at this point, but it would be helpful if resolutions were taking shape for the most significant concerns.
 -->
@@ -122,9 +104,7 @@ Stage 3: Document resolutions for all existing concerns. Any new concerns should
 
 The following are the people that consulted on the contents of this RFC.
 
-* @kaiyan-sheng | author
-* @cyrille-leclerc | sponsor
-* @jsoriano | subject matter expert
+* @AlexanderWert | author
 
 <!--
 Who will be or has been consulted on the contents of this RFC? Identify authorship and sponsorship, and optionally identify the nature of involvement of others. Link to GitHub aliases where possible. This list will likely change or grow stage after stage.
@@ -141,17 +121,15 @@ e.g.:
 
 ## References
 
-Common Fields for Container Inventory Schema: https://github.com/elastic/beats/issues/22179
+<!-- Insert any links appropriate to this RFC in this section. -->
 
 ### RFC Pull Requests
 
 <!-- An RFC should link to the PRs for each of it stage advancements. -->
 
-* Stage 0: https://github.com/elastic/ecs/pull/1441
-    * Stage 0 date correction: https://github.com/elastic/ecs/pull/1447
+* Stage 0: https://github.com/elastic/ecs/pull/1518
 
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN
 ...
 -->
-* Stage 1: https://github.com/elastic/ecs/pull/1529
