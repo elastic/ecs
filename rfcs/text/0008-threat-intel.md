@@ -309,10 +309,7 @@ The goal here is to research and understand the impact of these changes on users
 Stage 1: Identify potential concerns, implementation challenges, or complexity. Spend some time on this. Play devil's advocate. Try to identify the sort of non-obvious challenges that tend to surface later. The goal here is to surface risks early, allow everyone the time to work through them, and ultimately document resolution for posterity's sake.
 -->
 
-1. How to best represent malware{name,family,type}. Current proposal is to use `threat.indicator.classification` to describe threat delivery (Hacktool etc.) and family name.
-  - This can be represented through the use of the [`threat.software.*`](https://www.elastic.co/guide/en/ecs/master/ecs-threat.html) fields.
-  - Awaiting [approval](https://github.com/elastic/ecs/pull/1480#issuecomment-889312434) of this recommendation.
-2. Data shippers (Beats, packages, etc.) will need to generate normal `threat.indicator.*` fields
+1. Data shippers (Beats, packages, etc.) will need to generate normal `threat.indicator.*` fields
   - In `7.14` (current Beat modules, packages, etc.) data will be shipped using the current `threatintel.indicator.*` fields
   - In `7.15+` data will be shipped using `threat.indicator.*` and existing Beat modules, packages, indicator match rules, templates, etc. will need to be changed from `threatintel.indicator.*` to `threat.indicator.*`
 
