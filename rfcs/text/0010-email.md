@@ -2,7 +2,7 @@
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
 - Stage: **1 (draft)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
-- Date: **TBD** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
+- Date: **2021-08-16** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 This RFC proposes a new top-level field set to facilitate email use cases, `email.*`. The `email.*` field set adds fields for the sender, recipient, message header fields, and other attributes of an email message typically seen logs produced by mail transfer agent (MTA) and email gateway applications.
 
