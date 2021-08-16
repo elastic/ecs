@@ -17,6 +17,7 @@ Thanks, you're awesome :-) -->
 * Added `service.environment` as a beta field. #1541
 * Added `process.end` field. #1544
 * Introduce container metric fields into experimental schema. #1546
+* Update `user.name` and `user.id` examples for clarity. #1566
 
 ### Tooling and Artifact Changes
 
