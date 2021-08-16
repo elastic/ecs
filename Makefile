@@ -3,7 +3,6 @@
 #
 .DEFAULT_GOAL    := all
 FIND             := find . -type f -not -path './build/*' -not -path './.git/*'
-FORCE_GO_MODULES := GO111MODULE=on
 OPEN_DOCS        ?= "--open"
 PYTHON           := build/ve/bin/python
 VERSION          := $(shell cat version)
@@ -36,10 +35,6 @@ check-license-headers:
 clean:
 	rm -rf build generated/elasticsearch/component experimental/generated/elasticsearch/component
 
-# Alias to generate source code for all languages.
-.PHONY: codegen
-codegen: gocodegen
-
 # Build the asciidoc book.
 .PHONY: docs
 docs:
@@ -57,28 +52,16 @@ experimental: ve
 .PHONY: fmt
 fmt: ve
 	$(FIND) -name '*.py' -exec build/ve/bin/autopep8 --ignore E402 --in-place --max-line-length 120 {} \;
-	go get golang.org/x/tools/cmd/goimports
-	goimports -w -l -local github.com/elastic $(shell $(FIND) -name '*.go')
 
 # Alias to generate everything.
 .PHONY: generate
-generate: generator codegen
+generate: generator
 	$(PYTHON) --version
 
 # Run the new generator
 .PHONY: generator
 generator: ve
 	$(PYTHON) scripts/generator.py --strict --include "${INCLUDE}"
-
-# Generate Go code from the schema.
-.PHONY: gocodegen
-gocodegen:
-	find code/go/ecs -name '*.go' -not -name 'doc.go' | xargs rm
-	cd scripts \
-	  && $(FORCE_GO_MODULES) go run cmd/gocodegen/gocodegen.go \
-	        -version=$(VERSION) \
-	        -schema=../schemas \
-	        -out=../code/go/ecs
 
 # Check Makefile format.
 .PHONY: makelint
@@ -95,11 +78,6 @@ misspell:
 
 .PHONY: reload_docs
 reload_docs: generator docs
-
-# Download and setup tooling dependencies.
-.PHONY: setup
-setup: ve
-	cd scripts && $(FORCE_GO_MODULES) go mod download
 
 # Run the ECS tests
 .PHONY: test
