@@ -891,6 +891,20 @@ cloud:
 code_signature:
   description: These fields contain information about binary code signatures.
   fields:
+    code_signature.digest_algorithm:
+      dashed_name: code-signature-digest-algorithm
+      description: 'The hashing algorithm used to sign the process.
+
+        This value can distinguish signatures when a file is signed multiple times
+        by the same signer but with a different digest algorithm.'
+      example: sha256
+      flat_name: code_signature.digest_algorithm
+      ignore_above: 1024
+      level: extended
+      name: digest_algorithm
+      normalize: []
+      short: Hashing algorithm used to sign the process.
+      type: keyword
     code_signature.exists:
       dashed_name: code-signature-exists
       description: Boolean to capture if a signature is present.
@@ -955,6 +969,16 @@ code_signature:
       normalize: []
       short: The team identifier used to sign the process.
       type: keyword
+    code_signature.timestamp:
+      dashed_name: code-signature-timestamp
+      description: Date and time when the code signature was generated and signed.
+      example: '2021-01-01T12:10:30Z'
+      flat_name: code_signature.timestamp
+      level: extended
+      name: timestamp
+      normalize: []
+      short: When the signature was generated and signed.
+      type: date
     code_signature.trusted:
       dashed_name: code-signature-trusted
       description: 'Stores the trust status of the certificate chain.
@@ -1712,6 +1736,21 @@ dll:
 
     * Dynamic library (`.dylib`) commonly used on macOS'
   fields:
+    dll.code_signature.digest_algorithm:
+      dashed_name: dll-code-signature-digest-algorithm
+      description: 'The hashing algorithm used to sign the process.
+
+        This value can distinguish signatures when a file is signed multiple times
+        by the same signer but with a different digest algorithm.'
+      example: sha256
+      flat_name: dll.code_signature.digest_algorithm
+      ignore_above: 1024
+      level: extended
+      name: digest_algorithm
+      normalize: []
+      original_fieldset: code_signature
+      short: Hashing algorithm used to sign the process.
+      type: keyword
     dll.code_signature.exists:
       dashed_name: dll-code-signature-exists
       description: Boolean to capture if a signature is present.
@@ -1781,6 +1820,17 @@ dll:
       original_fieldset: code_signature
       short: The team identifier used to sign the process.
       type: keyword
+    dll.code_signature.timestamp:
+      dashed_name: dll-code-signature-timestamp
+      description: Date and time when the code signature was generated and signed.
+      example: '2021-01-01T12:10:30Z'
+      flat_name: dll.code_signature.timestamp
+      level: extended
+      name: timestamp
+      normalize: []
+      original_fieldset: code_signature
+      short: When the signature was generated and signed.
+      type: date
     dll.code_signature.trusted:
       dashed_name: dll-code-signature-trusted
       description: 'Stores the trust status of the certificate chain.
@@ -3275,6 +3325,11 @@ event:
         - end
         - info
         name: session
+      - description: Use this category to visualize and analyze events describing
+          threat actors' targets, motives, or behaviors.
+        expected_event_types:
+        - indicator
+        name: threat
       - description: 'Relating to web server access. Use this category to create a
           dashboard of web server/proxy activity from apache, IIS, nginx web servers,
           etc. Note: events from network observers such as Zeek http log may also
@@ -3438,6 +3493,13 @@ event:
           This value is not used by Elastic solutions for alert documents that are
           created by rules executing within the Kibana alerting framework.'
         name: alert
+      - description: 'The `enrichment` value indicates an event collected to provide
+          additional context, often to other events.
+
+          An example is collecting indicators of compromise (IOCs) from a threat intelligence
+          provider with the intent to use those values to enrich other events. The
+          IOC events from the intelligence provider should be categorized as `event.kind:enrichment`.'
+        name: enrichment
       - description: This value is the most general and most common value for this
           field. It is used to represent events that indicate that something happened.
         name: event
@@ -3796,6 +3858,11 @@ event:
           AND event.type:creation AND event.type:group`. You can further distinguish
           group operations using the ECS `event.action` field.'
         name: group
+      - description: 'The indicator event type is used for the subset of events within
+          a category that contain details about indicators of compromise (IOCs).
+
+          A common example is `event.category:threat AND event.type:indicator`.'
+        name: indicator
       - description: The info event type is used for the subset of events within a
           category that indicate that they are purely informational, and don't report
           a state change, or any type of action. For example, an initial run of a
@@ -3907,6 +3974,21 @@ file:
       - array
       short: Array of file attributes.
       type: keyword
+    file.code_signature.digest_algorithm:
+      dashed_name: file-code-signature-digest-algorithm
+      description: 'The hashing algorithm used to sign the process.
+
+        This value can distinguish signatures when a file is signed multiple times
+        by the same signer but with a different digest algorithm.'
+      example: sha256
+      flat_name: file.code_signature.digest_algorithm
+      ignore_above: 1024
+      level: extended
+      name: digest_algorithm
+      normalize: []
+      original_fieldset: code_signature
+      short: Hashing algorithm used to sign the process.
+      type: keyword
     file.code_signature.exists:
       dashed_name: file-code-signature-exists
       description: Boolean to capture if a signature is present.
@@ -3976,6 +4058,17 @@ file:
       original_fieldset: code_signature
       short: The team identifier used to sign the process.
       type: keyword
+    file.code_signature.timestamp:
+      dashed_name: file-code-signature-timestamp
+      description: Date and time when the code signature was generated and signed.
+      example: '2021-01-01T12:10:30Z'
+      flat_name: file.code_signature.timestamp
+      level: extended
+      name: timestamp
+      normalize: []
+      original_fieldset: code_signature
+      short: When the signature was generated and signed.
+      type: date
     file.code_signature.trusted:
       dashed_name: file-code-signature-trusted
       description: 'Stores the trust status of the certificate chain.
@@ -8384,6 +8477,21 @@ process:
       normalize: []
       short: Length of the process.args array.
       type: long
+    process.code_signature.digest_algorithm:
+      dashed_name: process-code-signature-digest-algorithm
+      description: 'The hashing algorithm used to sign the process.
+
+        This value can distinguish signatures when a file is signed multiple times
+        by the same signer but with a different digest algorithm.'
+      example: sha256
+      flat_name: process.code_signature.digest_algorithm
+      ignore_above: 1024
+      level: extended
+      name: digest_algorithm
+      normalize: []
+      original_fieldset: code_signature
+      short: Hashing algorithm used to sign the process.
+      type: keyword
     process.code_signature.exists:
       dashed_name: process-code-signature-exists
       description: Boolean to capture if a signature is present.
@@ -8453,6 +8561,17 @@ process:
       original_fieldset: code_signature
       short: The team identifier used to sign the process.
       type: keyword
+    process.code_signature.timestamp:
+      dashed_name: process-code-signature-timestamp
+      description: Date and time when the code signature was generated and signed.
+      example: '2021-01-01T12:10:30Z'
+      flat_name: process.code_signature.timestamp
+      level: extended
+      name: timestamp
+      normalize: []
+      original_fieldset: code_signature
+      short: When the signature was generated and signed.
+      type: date
     process.code_signature.trusted:
       dashed_name: process-code-signature-trusted
       description: 'Stores the trust status of the certificate chain.
@@ -8994,6 +9113,21 @@ process:
       original_fieldset: process
       short: Length of the process.args array.
       type: long
+    process.parent.code_signature.digest_algorithm:
+      dashed_name: process-parent-code-signature-digest-algorithm
+      description: 'The hashing algorithm used to sign the process.
+
+        This value can distinguish signatures when a file is signed multiple times
+        by the same signer but with a different digest algorithm.'
+      example: sha256
+      flat_name: process.parent.code_signature.digest_algorithm
+      ignore_above: 1024
+      level: extended
+      name: digest_algorithm
+      normalize: []
+      original_fieldset: code_signature
+      short: Hashing algorithm used to sign the process.
+      type: keyword
     process.parent.code_signature.exists:
       dashed_name: process-parent-code-signature-exists
       description: Boolean to capture if a signature is present.
@@ -9063,6 +9197,17 @@ process:
       original_fieldset: code_signature
       short: The team identifier used to sign the process.
       type: keyword
+    process.parent.code_signature.timestamp:
+      dashed_name: process-parent-code-signature-timestamp
+      description: Date and time when the code signature was generated and signed.
+      example: '2021-01-01T12:10:30Z'
+      flat_name: process.parent.code_signature.timestamp
+      level: extended
+      name: timestamp
+      normalize: []
+      original_fieldset: code_signature
+      short: When the signature was generated and signed.
+      type: date
     process.parent.code_signature.trusted:
       dashed_name: process-parent-code-signature-trusted
       description: 'Stores the trust status of the certificate chain.
@@ -10691,6 +10836,21 @@ process:
       original_fieldset: process
       short: Length of the process.args array.
       type: long
+    process.target.code_signature.digest_algorithm:
+      dashed_name: process-target-code-signature-digest-algorithm
+      description: 'The hashing algorithm used to sign the process.
+
+        This value can distinguish signatures when a file is signed multiple times
+        by the same signer but with a different digest algorithm.'
+      example: sha256
+      flat_name: process.target.code_signature.digest_algorithm
+      ignore_above: 1024
+      level: extended
+      name: digest_algorithm
+      normalize: []
+      original_fieldset: code_signature
+      short: Hashing algorithm used to sign the process.
+      type: keyword
     process.target.code_signature.exists:
       dashed_name: process-target-code-signature-exists
       description: Boolean to capture if a signature is present.
@@ -10760,6 +10920,17 @@ process:
       original_fieldset: code_signature
       short: The team identifier used to sign the process.
       type: keyword
+    process.target.code_signature.timestamp:
+      dashed_name: process-target-code-signature-timestamp
+      description: Date and time when the code signature was generated and signed.
+      example: '2021-01-01T12:10:30Z'
+      flat_name: process.target.code_signature.timestamp
+      level: extended
+      name: timestamp
+      normalize: []
+      original_fieldset: code_signature
+      short: When the signature was generated and signed.
+      type: date
     process.target.code_signature.trusted:
       dashed_name: process-target-code-signature-trusted
       description: 'Stores the trust status of the certificate chain.
@@ -11307,6 +11478,21 @@ process:
       original_fieldset: process
       short: Length of the process.args array.
       type: long
+    process.target.parent.code_signature.digest_algorithm:
+      dashed_name: process-target-parent-code-signature-digest-algorithm
+      description: 'The hashing algorithm used to sign the process.
+
+        This value can distinguish signatures when a file is signed multiple times
+        by the same signer but with a different digest algorithm.'
+      example: sha256
+      flat_name: process.target.parent.code_signature.digest_algorithm
+      ignore_above: 1024
+      level: extended
+      name: digest_algorithm
+      normalize: []
+      original_fieldset: code_signature
+      short: Hashing algorithm used to sign the process.
+      type: keyword
     process.target.parent.code_signature.exists:
       dashed_name: process-target-parent-code-signature-exists
       description: Boolean to capture if a signature is present.
@@ -11376,6 +11562,17 @@ process:
       original_fieldset: code_signature
       short: The team identifier used to sign the process.
       type: keyword
+    process.target.parent.code_signature.timestamp:
+      dashed_name: process-target-parent-code-signature-timestamp
+      description: Date and time when the code signature was generated and signed.
+      example: '2021-01-01T12:10:30Z'
+      flat_name: process.target.parent.code_signature.timestamp
+      level: extended
+      name: timestamp
+      normalize: []
+      original_fieldset: code_signature
+      short: When the signature was generated and signed.
+      type: date
     process.target.parent.code_signature.trusted:
       dashed_name: process-target-parent-code-signature-trusted
       description: 'Stores the trust status of the certificate chain.
@@ -14757,6 +14954,21 @@ threat:
       original_fieldset: file
       short: Array of file attributes.
       type: keyword
+    threat.enrichments.indicator.file.code_signature.digest_algorithm:
+      dashed_name: threat-enrichments-indicator-file-code-signature-digest-algorithm
+      description: 'The hashing algorithm used to sign the process.
+
+        This value can distinguish signatures when a file is signed multiple times
+        by the same signer but with a different digest algorithm.'
+      example: sha256
+      flat_name: threat.enrichments.indicator.file.code_signature.digest_algorithm
+      ignore_above: 1024
+      level: extended
+      name: digest_algorithm
+      normalize: []
+      original_fieldset: code_signature
+      short: Hashing algorithm used to sign the process.
+      type: keyword
     threat.enrichments.indicator.file.code_signature.exists:
       dashed_name: threat-enrichments-indicator-file-code-signature-exists
       description: Boolean to capture if a signature is present.
@@ -14826,6 +15038,17 @@ threat:
       original_fieldset: code_signature
       short: The team identifier used to sign the process.
       type: keyword
+    threat.enrichments.indicator.file.code_signature.timestamp:
+      dashed_name: threat-enrichments-indicator-file-code-signature-timestamp
+      description: Date and time when the code signature was generated and signed.
+      example: '2021-01-01T12:10:30Z'
+      flat_name: threat.enrichments.indicator.file.code_signature.timestamp
+      level: extended
+      name: timestamp
+      normalize: []
+      original_fieldset: code_signature
+      short: When the signature was generated and signed.
+      type: date
     threat.enrichments.indicator.file.code_signature.trusted:
       dashed_name: threat-enrichments-indicator-file-code-signature-trusted
       description: 'Stores the trust status of the certificate chain.
@@ -17104,6 +17327,21 @@ threat:
       original_fieldset: file
       short: Array of file attributes.
       type: keyword
+    threat.indicator.file.code_signature.digest_algorithm:
+      dashed_name: threat-indicator-file-code-signature-digest-algorithm
+      description: 'The hashing algorithm used to sign the process.
+
+        This value can distinguish signatures when a file is signed multiple times
+        by the same signer but with a different digest algorithm.'
+      example: sha256
+      flat_name: threat.indicator.file.code_signature.digest_algorithm
+      ignore_above: 1024
+      level: extended
+      name: digest_algorithm
+      normalize: []
+      original_fieldset: code_signature
+      short: Hashing algorithm used to sign the process.
+      type: keyword
     threat.indicator.file.code_signature.exists:
       dashed_name: threat-indicator-file-code-signature-exists
       description: Boolean to capture if a signature is present.
@@ -17173,6 +17411,17 @@ threat:
       original_fieldset: code_signature
       short: The team identifier used to sign the process.
       type: keyword
+    threat.indicator.file.code_signature.timestamp:
+      dashed_name: threat-indicator-file-code-signature-timestamp
+      description: Date and time when the code signature was generated and signed.
+      example: '2021-01-01T12:10:30Z'
+      flat_name: threat.indicator.file.code_signature.timestamp
+      level: extended
+      name: timestamp
+      normalize: []
+      original_fieldset: code_signature
+      short: When the signature was generated and signed.
+      type: date
     threat.indicator.file.code_signature.trusted:
       dashed_name: threat-indicator-file-code-signature-trusted
       description: 'Stores the trust status of the certificate chain.

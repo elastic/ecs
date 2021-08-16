@@ -788,6 +788,24 @@ These fields contain information about binary code signatures.
 // ===============================================================
 
 |
+[[field-code-signature-digest-algorithm]]
+<<field-code-signature-digest-algorithm, code_signature.digest_algorithm>>
+
+| The hashing algorithm used to sign the process.
+
+This value can distinguish signatures when a file is signed multiple times by the same signer but with a different digest algorithm.
+
+type: keyword
+
+
+
+example: `sha256`
+
+| extended
+
+// ===============================================================
+
+|
 [[field-code-signature-exists]]
 <<field-code-signature-exists, code_signature.exists>>
 
@@ -868,6 +886,22 @@ type: keyword
 
 
 example: `EQHXZ8M8AV`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-code-signature-timestamp]]
+<<field-code-signature-timestamp, code_signature.timestamp>>
+
+| Date and time when the code signature was generated and signed.
+
+type: date
+
+
+
+example: `2021-01-01T12:10:30Z`
 
 | extended
 
@@ -2584,7 +2618,7 @@ Note: this field should contain an array of values.
 
 *Important*: The field value must be one of the following:
 
-authentication, configuration, database, driver, file, host, iam, intrusion_detection, malware, network, package, process, registry, session, web
+authentication, configuration, database, driver, file, host, iam, intrusion_detection, malware, network, package, process, registry, session, threat, web
 
 To learn more about when to use which value, visit the page
 <<ecs-allowed-values-event-category,allowed values for event.category>>
@@ -2757,7 +2791,7 @@ type: keyword
 
 *Important*: The field value must be one of the following:
 
-alert, event, metric, state, pipeline_error, signal
+alert, enrichment, event, metric, state, pipeline_error, signal
 
 To learn more about when to use which value, visit the page
 <<ecs-allowed-values-event-kind,allowed values for event.kind>>
@@ -3014,7 +3048,7 @@ Note: this field should contain an array of values.
 
 *Important*: The field value must be one of the following:
 
-access, admin, allowed, change, connection, creation, deletion, denied, end, error, group, info, installation, protocol, start, user
+access, admin, allowed, change, connection, creation, deletion, denied, end, error, group, indicator, info, installation, protocol, start, user
 
 To learn more about when to use which value, visit the page
 <<ecs-allowed-values-event-type,allowed values for event.type>>
