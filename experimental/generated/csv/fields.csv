@@ -184,6 +184,28 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 1.12.0-dev+exp,true,dns,dns.response_code,keyword,extended,,NOERROR,The DNS response code.
 1.12.0-dev+exp,true,dns,dns.type,keyword,extended,,answer,"The type of DNS event captured, query or answer."
 1.12.0-dev+exp,true,ecs,ecs.version,keyword,core,,1.0.0,ECS version this event conforms to.
+1.12.0-dev+exp,true,email,email.attachments,nested,extended,,,List of objects describing the attachments.
+1.12.0-dev+exp,true,email,email.attachments.file.extension,keyword,extended,,txt,Attachment file extension.
+1.12.0-dev+exp,true,email,email.attachments.file.mime_type,keyword,extended,,text/plain,MIME type of the attachment file.
+1.12.0-dev+exp,true,email,email.attachments.file.name,keyword,extended,,attachment.txt,Name of the attachment file.
+1.12.0-dev+exp,true,email,email.attachments.file.size,long,extended,,64329,Attachment file size.
+1.12.0-dev+exp,true,email,email.attachments.hash.md5,keyword,extended,,e25f1c98ffdacf611473af364362ec48,MD5 hash of the attachment.
+1.12.0-dev+exp,true,email,email.attachments.hash.sha1,keyword,extended,,8c1cd40f17109b427e61d4e72ca6d9a4fc8175f3,SHA-1 hash of the attachment.
+1.12.0-dev+exp,true,email,email.attachments.hash.sha256,keyword,extended,,f0366b3559f577d8732f7e9cc343a4960d202e8137dcc42f9783f3963f6abc6a,SHA-256 hash of the attachment.
+1.12.0-dev+exp,true,email,email.bcc,keyword,extended,array,"['bcc.user1@example.com', 'bcc.user2@example.com']",Email address(es) of BCC recipients
+1.12.0-dev+exp,true,email,email.cc,keyword,extended,array,"['cc.user1@example.com', 'cc.user2@example.com']",Email address(es) of CC recipients
+1.12.0-dev+exp,true,email,email.content_type,keyword,extended,,text/plain,MIME type of the email message.
+1.12.0-dev+exp,true,email,email.delivery_timestamp,date,extended,,2020-11-10T22:12:34.8196921Z,Date and time when message was delivered.
+1.12.0-dev+exp,true,email,email.direction,keyword,extended,,inbound,Direction of the message.
+1.12.0-dev+exp,true,email,email.from,keyword,extended,,sender@example.com,The sender's email address.
+1.12.0-dev+exp,true,email,email.local_id,keyword,extended,,c26dbea0-80d5-463b-b93c-4e8b708219ce,Unique identifier given by the source.
+1.12.0-dev+exp,true,email,email.message_id,keyword,extended,,<81ce15$8r2j59@mail01.example.com>,Value from the Message-ID header.
+1.12.0-dev+exp,true,email,email.origination_timestamp,date,extended,,2020-11-10T22:12:34.8196921Z,Date and time the email was composed.
+1.12.0-dev+exp,true,email,email.reply_to,keyword,extended,,reply.here@example.com,Address replies should be delivered to.
+1.12.0-dev+exp,true,email,email.subject,keyword,extended,,Please see this important message.,The subject of the email message.
+1.12.0-dev+exp,true,email,email.subject.text,match_only_text,extended,,Please see this important message.,The subject of the email message.
+1.12.0-dev+exp,true,email,email.to,keyword,extended,array,"['user1@example.com', 'user2@example.com']",Email address(es) of the recipients.
+1.12.0-dev+exp,true,email,email.x_mailer,keyword,extended,,Spambot v2.5,Application that drafted email.
 1.12.0-dev+exp,true,error,error.code,keyword,core,,,Error code describing the error.
 1.12.0-dev+exp,true,error,error.id,keyword,core,,,Unique identifier for the error.
 1.12.0-dev+exp,true,error,error.message,match_only_text,core,,,Error message.
