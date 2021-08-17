@@ -18,6 +18,7 @@ Thanks, you're awesome :-) -->
 * Added `process.end` field. #1544
 * Introduce container metric fields into experimental schema. #1546
 * Update `user.name` and `user.id` examples for clarity. #1566
+* Add `email.*` field set in the experimental fields. #1569
 
 ### Tooling and Artifact Changes
 
