@@ -5391,7 +5391,8 @@ http.request.body.bytes:
   short: Size in bytes of the request body.
   type: long
 http.request.body.content:
-  beta: Use of the `wildcard` data type for this field is currently beta.
+  beta: Use of `wildcard` as the primary type and `match_only_type` as the `.text`
+    multi-field type are both currently beta.
   dashed_name: http-request-body-content
   description: The full HTTP request body.
   example: Hello world
@@ -5400,8 +5401,7 @@ http.request.body.content:
   multi_fields:
   - flat_name: http.request.body.content.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: request.body.content
   normalize: []
   short: The full HTTP request body.
@@ -5484,7 +5484,8 @@ http.response.body.bytes:
   short: Size in bytes of the response body.
   type: long
 http.response.body.content:
-  beta: Use of the `wildcard` data type for this field is currently beta.
+  beta: Use of `wildcard` as the primary type and `match_only_type` as the `.text`
+    multi-field type are both currently beta.
   dashed_name: http-response-body-content
   description: The full HTTP response body.
   example: Hello world
@@ -5493,8 +5494,7 @@ http.response.body.content:
   multi_fields:
   - flat_name: http.response.body.content.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: response.body.content
   normalize: []
   short: The full HTTP response body.
@@ -6612,6 +6612,8 @@ organization.id:
   short: Unique identifier for the organization.
   type: keyword
 organization.name:
+  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
+    beta.
   dashed_name: organization-name
   description: Organization name.
   flat_name: organization.name
@@ -6620,8 +6622,7 @@ organization.name:
   multi_fields:
   - flat_name: organization.name.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: name
   normalize: []
   short: Organization name.
