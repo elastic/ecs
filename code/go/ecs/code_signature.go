@@ -19,6 +19,10 @@
 
 package ecs
 
+import (
+	"time"
+)
+
 // These fields contain information about binary code signatures.
 type CodeSignature struct {
 	// Boolean to capture if a signature is present.
@@ -53,4 +57,12 @@ type CodeSignature struct {
 	// This is used to identify the application manufactured by a software
 	// vendor. The field is relevant to Apple *OS only.
 	SigningID string `ecs:"signing_id"`
+
+	// The hashing algorithm used to sign the process.
+	// This value can distinguish signatures when a file is signed multiple
+	// times by the same signer but with a different digest algorithm.
+	DigestAlgorithm string `ecs:"digest_algorithm"`
+
+	// Date and time when the code signature was generated and signed.
+	Timestamp time.Time `ecs:"timestamp"`
 }

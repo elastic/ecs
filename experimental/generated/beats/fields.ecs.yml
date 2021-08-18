@@ -33,7 +33,7 @@
     example: '{"application": "foo-bar", "env": "production"}'
   - name: message
     level: core
-    type: text
+    type: match_only_text
     description: 'For log events the message field contains the log message, optimized
       for viewing in a log viewer.
 
@@ -140,8 +140,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: Organization name.
       example: Google LLC
@@ -187,8 +186,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: Organization name.
       example: Google LLC
@@ -376,8 +374,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: User's full name, if available.
       example: Albert Einstein
@@ -412,17 +409,17 @@
       type: keyword
       ignore_above: 1024
       description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
     - name: user.name
       level: core
       type: keyword
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: Short name or login of the user.
-      example: albert
+      example: a.einstein
     - name: user.roles
       level: extended
       type: keyword
@@ -532,6 +529,16 @@
     description: These fields contain information about binary code signatures.
     type: group
     fields:
+    - name: digest_algorithm
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The hashing algorithm used to sign the process.
+
+        This value can distinguish signatures when a file is signed multiple times
+        by the same signer but with a different digest algorithm.'
+      example: sha256
+      default_field: false
     - name: exists
       level: core
       type: boolean
@@ -576,6 +583,12 @@
         is relevant to Apple *OS only.'
       example: EQHXZ8M8AV
       default_field: false
+    - name: timestamp
+      level: extended
+      type: date
+      description: Date and time when the code signature was generated and signed.
+      example: '2021-01-01T12:10:30Z'
+      default_field: false
     - name: trusted
       level: extended
       type: boolean
@@ -603,6 +616,25 @@
       These fields help correlate data based containers from any runtime.'
     type: group
     fields:
+    - name: cpu.usage
+      level: extended
+      type: scaled_float
+      description: 'Percent CPU used which is normalized by the number of CPU cores
+        and it ranges from 0 to 1. Scaling factor: 1000.'
+      scaling_factor: 1000
+      default_field: false
+    - name: disk.read.bytes
+      level: extended
+      type: long
+      description: The total number of bytes (gauge) read successfully (aggregated
+        from all disks) since the last metric collection.
+      default_field: false
+    - name: disk.write.bytes
+      level: extended
+      type: long
+      description: The total number of bytes (gauge) written successfully (aggregated
+        from all disks) since the last metric collection.
+      default_field: false
     - name: id
       level: core
       type: keyword
@@ -623,11 +655,30 @@
       type: object
       object_type: keyword
       description: Image labels.
+    - name: memory.usage
+      level: extended
+      type: scaled_float
+      description: 'Memory usage percentage and it ranges from 0 to 1. Scaling factor:
+        1000.'
+      scaling_factor: 1000
+      default_field: false
     - name: name
       level: extended
       type: keyword
       ignore_above: 1024
       description: Container name.
+    - name: network.egress.bytes
+      level: extended
+      type: long
+      description: The number of bytes (gauge) sent out on all network interfaces
+        by the container since the last metric collection.
+      default_field: false
+    - name: network.ingress.bytes
+      level: extended
+      type: long
+      description: The number of bytes received (gauge) on all network interfaces
+        by the container since the last metric collection.
+      default_field: false
     - name: runtime
       level: extended
       type: keyword
@@ -722,8 +773,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: Organization name.
       example: Google LLC
@@ -910,8 +960,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: User's full name, if available.
       example: Albert Einstein
@@ -946,17 +995,17 @@
       type: keyword
       ignore_above: 1024
       description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
     - name: user.name
       level: core
       type: keyword
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: Short name or login of the user.
-      example: albert
+      example: a.einstein
     - name: user.roles
       level: extended
       type: keyword
@@ -981,6 +1030,16 @@
       * Dynamic library (`.dylib`) commonly used on macOS'
     type: group
     fields:
+    - name: code_signature.digest_algorithm
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The hashing algorithm used to sign the process.
+
+        This value can distinguish signatures when a file is signed multiple times
+        by the same signer but with a different digest algorithm.'
+      example: sha256
+      default_field: false
     - name: code_signature.exists
       level: core
       type: boolean
@@ -1024,6 +1083,12 @@
         This is used to identify the team or vendor of a software product. The field
         is relevant to Apple *OS only.'
       example: EQHXZ8M8AV
+      default_field: false
+    - name: code_signature.timestamp
+      level: extended
+      type: date
+      description: Date and time when the code signature was generated and signed.
+      example: '2021-01-01T12:10:30Z'
       default_field: false
     - name: code_signature.trusted
       level: extended
@@ -1724,6 +1789,176 @@
       ignore_above: 1024
       description: telfhash symbol hash for ELF file.
       default_field: false
+  - name: email
+    title: Email
+    group: 2
+    description: 'Fields relating to an email transaction.
+
+      This field set focuses on the email message header, body, and attachments. Network
+      protocols that send and receive email messages such as SMTP are outside the
+      scope of the `email.*` fields.'
+    type: group
+    fields:
+    - name: attachments
+      level: extended
+      type: nested
+      description: A list of attachment files sent along with an email message.
+      default_field: false
+    - name: attachments.file.extension
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Attachment file extension, excluding the leading dot.
+      example: txt
+      default_field: false
+    - name: attachments.file.mime_type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The MIME media type of the attachment.
+
+        This value will typically be extracted from the `Content-Type` MIME header
+        field.'
+      example: text/plain
+      default_field: false
+    - name: attachments.file.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the attachment file including the file extension.
+      example: attachment.txt
+      default_field: false
+    - name: attachments.file.size
+      level: extended
+      type: long
+      description: Attachment file size in bytes.
+      example: 64329
+      default_field: false
+    - name: attachments.hash.md5
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: MD5 hash of the attachment file.
+      example: e25f1c98ffdacf611473af364362ec48
+      default_field: false
+    - name: attachments.hash.sha1
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SHA-1 hash of the attachment file.
+      example: 8c1cd40f17109b427e61d4e72ca6d9a4fc8175f3
+      default_field: false
+    - name: attachments.hash.sha256
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SHA-256 hash of the attachment file.
+      example: f0366b3559f577d8732f7e9cc343a4960d202e8137dcc42f9783f3963f6abc6a
+      default_field: false
+    - name: bcc
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The email address(es) of the blind carbon carbon (BCC) recipients.
+      example: '[''bcc.user1@example.com'', ''bcc.user2@example.com'']'
+      default_field: false
+    - name: cc
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The email address(es) of the carbon carbon (BCC) recipients.
+      example: '[''cc.user1@example.com'', ''cc.user2@example.com'']'
+      default_field: false
+    - name: content_type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Information about how the message is to be displayed.
+
+        Typically a MIME type.'
+      example: text/plain
+      default_field: false
+    - name: delivery_timestamp
+      level: extended
+      type: date
+      description: The date and time when the email message was received by the service
+        or client.
+      example: '2020-11-10T22:12:34.8196921Z'
+      default_field: false
+    - name: direction
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The direction of the message based on the sending and receiving
+        domains.
+      example: inbound
+      default_field: false
+    - name: from
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The email address of the sender, typically from the RFC 5322 `From:`
+        header field.
+      example: sender@example.com
+      default_field: false
+    - name: local_id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Unique identifier given to the email by the source that created
+        the event.
+
+        Identifier is not persistent across hops.'
+      example: c26dbea0-80d5-463b-b93c-4e8b708219ce
+      default_field: false
+    - name: message_id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifier from the RFC 5322 `Message-ID:` email header that refers
+        to a particular email message.
+      example: <81ce15$8r2j59@mail01.example.com>
+      default_field: false
+    - name: origination_timestamp
+      level: extended
+      type: date
+      description: The date and time the email message was composed. Many email clients
+        will fill in this value automatically when the message is sent by a user.
+      example: '2020-11-10T22:12:34.8196921Z'
+      default_field: false
+    - name: reply_to
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The address that replies should be delivered to based on the value
+        in the RFC 5322 `Reply-To:` header.
+      example: reply.here@example.com
+      default_field: false
+    - name: subject
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: match_only_text
+      description: A brief summary of the topic of the message.
+      example: Please see this important message.
+      default_field: false
+    - name: to
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The email address(es) of the message recipients.
+      example: '[''user1@example.com'', ''user2@example.com'']'
+      default_field: false
+    - name: x_mailer
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The name of the application that was used to draft and send the
+        original email message.
+      example: Spambot v2.5
+      default_field: false
   - name: error
     title: Error
     group: 2
@@ -1745,15 +1980,14 @@
       description: Unique identifier for the error.
     - name: message
       level: core
-      type: text
+      type: match_only_text
       description: Error message.
     - name: stack_trace
       level: extended
       type: wildcard
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: The stack trace of this error in plain text.
     - name: type
@@ -2118,6 +2352,16 @@
         execute, hidden, read, readonly, system, write.'
       example: '["readonly", "system"]'
       default_field: false
+    - name: code_signature.digest_algorithm
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The hashing algorithm used to sign the process.
+
+        This value can distinguish signatures when a file is signed multiple times
+        by the same signer but with a different digest algorithm.'
+      example: sha256
+      default_field: false
     - name: code_signature.exists
       level: core
       type: boolean
@@ -2161,6 +2405,12 @@
         This is used to identify the team or vendor of a software product. The field
         is relevant to Apple *OS only.'
       example: EQHXZ8M8AV
+      default_field: false
+    - name: code_signature.timestamp
+      level: extended
+      type: date
+      description: Date and time when the code signature was generated and signed.
+      example: '2021-01-01T12:10:30Z'
       default_field: false
     - name: code_signature.trusted
       level: extended
@@ -2504,8 +2754,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: Full path to the file, including the file name. It should include
         the drive letter, when appropriate.
@@ -2786,8 +3035,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: Target path for symlinks.
     - name: type
@@ -3330,8 +3578,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: Operating system name, including the version or code name.
       example: Mac OS Mojave
@@ -3347,8 +3594,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: Operating system name, without the version.
       example: Mac OS X
@@ -3411,8 +3657,7 @@
       type: wildcard
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: The full HTTP request body.
       example: Hello world
@@ -3471,8 +3716,7 @@
       type: wildcard
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: The full HTTP response body.
       example: Hello world
@@ -4069,8 +4313,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: Operating system name, including the version or code name.
       example: Mac OS Mojave
@@ -4086,8 +4329,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: Operating system name, without the version.
       example: Mac OS X
@@ -4238,8 +4480,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: Organization name.
   - name: os
@@ -4260,8 +4501,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: Operating system name, including the version or code name.
       example: Mac OS Mojave
@@ -4277,8 +4517,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: Operating system name, without the version.
       example: Mac OS X
@@ -4705,6 +4944,16 @@
         indication of suspicious activity.'
       example: 4
       default_field: false
+    - name: code_signature.digest_algorithm
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The hashing algorithm used to sign the process.
+
+        This value can distinguish signatures when a file is signed multiple times
+        by the same signer but with a different digest algorithm.'
+      example: sha256
+      default_field: false
     - name: code_signature.exists
       level: core
       type: boolean
@@ -4749,6 +4998,12 @@
         is relevant to Apple *OS only.'
       example: EQHXZ8M8AV
       default_field: false
+    - name: code_signature.timestamp
+      level: extended
+      type: date
+      description: Date and time when the code signature was generated and signed.
+      example: '2021-01-01T12:10:30Z'
+      default_field: false
     - name: code_signature.trusted
       level: extended
       type: boolean
@@ -4772,8 +5027,7 @@
       type: wildcard
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: 'Full command line that started the process, including the absolute
         path to the executable, and all arguments.
 
@@ -4959,6 +5213,12 @@
       ignore_above: 1024
       description: telfhash symbol hash for ELF file.
       default_field: false
+    - name: end
+      level: extended
+      type: date
+      description: The time the process ended.
+      example: '2016-05-23T08:05:34.853Z'
+      default_field: false
     - name: entity_id
       level: extended
       type: keyword
@@ -4980,8 +5240,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: Absolute path to the process executable.
       example: /usr/bin/ssh
@@ -5026,8 +5285,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: 'Process name.
 
@@ -5052,6 +5310,16 @@
         many arguments were provided to start a process. More arguments may be an
         indication of suspicious activity.'
       example: 4
+      default_field: false
+    - name: parent.code_signature.digest_algorithm
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The hashing algorithm used to sign the process.
+
+        This value can distinguish signatures when a file is signed multiple times
+        by the same signer but with a different digest algorithm.'
+      example: sha256
       default_field: false
     - name: parent.code_signature.exists
       level: core
@@ -5097,6 +5365,12 @@
         is relevant to Apple *OS only.'
       example: EQHXZ8M8AV
       default_field: false
+    - name: parent.code_signature.timestamp
+      level: extended
+      type: date
+      description: Date and time when the code signature was generated and signed.
+      example: '2021-01-01T12:10:30Z'
+      default_field: false
     - name: parent.code_signature.trusted
       level: extended
       type: boolean
@@ -5120,8 +5394,7 @@
       type: wildcard
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: 'Full command line that started the process, including the absolute
         path to the executable, and all arguments.
 
@@ -5307,6 +5580,12 @@
       ignore_above: 1024
       description: telfhash symbol hash for ELF file.
       default_field: false
+    - name: parent.end
+      level: extended
+      type: date
+      description: The time the process ended.
+      example: '2016-05-23T08:05:34.853Z'
+      default_field: false
     - name: parent.entity_id
       level: extended
       type: keyword
@@ -5328,8 +5607,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: Absolute path to the process executable.
       example: /usr/bin/ssh
       default_field: false
@@ -5378,8 +5656,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: 'Process name.
 
         Sometimes called program name or similar.'
@@ -5694,8 +5971,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: 'Process title.
 
         The proctitle, some times the same as process name. Can also be different:
@@ -5713,8 +5989,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: The working directory of the process.
       example: /home/alice
       default_field: false
@@ -6023,6 +6298,16 @@
         indication of suspicious activity.'
       example: 4
       default_field: false
+    - name: target.code_signature.digest_algorithm
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The hashing algorithm used to sign the process.
+
+        This value can distinguish signatures when a file is signed multiple times
+        by the same signer but with a different digest algorithm.'
+      example: sha256
+      default_field: false
     - name: target.code_signature.exists
       level: core
       type: boolean
@@ -6067,6 +6352,12 @@
         is relevant to Apple *OS only.'
       example: EQHXZ8M8AV
       default_field: false
+    - name: target.code_signature.timestamp
+      level: extended
+      type: date
+      description: Date and time when the code signature was generated and signed.
+      example: '2021-01-01T12:10:30Z'
+      default_field: false
     - name: target.code_signature.trusted
       level: extended
       type: boolean
@@ -6090,8 +6381,7 @@
       type: wildcard
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: 'Full command line that started the process, including the absolute
         path to the executable, and all arguments.
 
@@ -6277,6 +6567,12 @@
       ignore_above: 1024
       description: telfhash symbol hash for ELF file.
       default_field: false
+    - name: target.end
+      level: extended
+      type: date
+      description: The time the process ended.
+      example: '2016-05-23T08:05:34.853Z'
+      default_field: false
     - name: target.entity_id
       level: extended
       type: keyword
@@ -6298,8 +6594,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: Absolute path to the process executable.
       example: /usr/bin/ssh
       default_field: false
@@ -6348,8 +6643,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: 'Process name.
 
         Sometimes called program name or similar.'
@@ -6374,6 +6668,16 @@
         many arguments were provided to start a process. More arguments may be an
         indication of suspicious activity.'
       example: 4
+      default_field: false
+    - name: target.parent.code_signature.digest_algorithm
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The hashing algorithm used to sign the process.
+
+        This value can distinguish signatures when a file is signed multiple times
+        by the same signer but with a different digest algorithm.'
+      example: sha256
       default_field: false
     - name: target.parent.code_signature.exists
       level: core
@@ -6419,6 +6723,12 @@
         is relevant to Apple *OS only.'
       example: EQHXZ8M8AV
       default_field: false
+    - name: target.parent.code_signature.timestamp
+      level: extended
+      type: date
+      description: Date and time when the code signature was generated and signed.
+      example: '2021-01-01T12:10:30Z'
+      default_field: false
     - name: target.parent.code_signature.trusted
       level: extended
       type: boolean
@@ -6442,8 +6752,7 @@
       type: wildcard
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: 'Full command line that started the process, including the absolute
         path to the executable, and all arguments.
 
@@ -6629,6 +6938,12 @@
       ignore_above: 1024
       description: telfhash symbol hash for ELF file.
       default_field: false
+    - name: target.parent.end
+      level: extended
+      type: date
+      description: The time the process ended.
+      example: '2016-05-23T08:05:34.853Z'
+      default_field: false
     - name: target.parent.entity_id
       level: extended
       type: keyword
@@ -6650,8 +6965,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: Absolute path to the process executable.
       example: /usr/bin/ssh
       default_field: false
@@ -6700,8 +7014,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: 'Process name.
 
         Sometimes called program name or similar.'
@@ -7016,8 +7329,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: 'Process title.
 
         The proctitle, some times the same as process name. Can also be different:
@@ -7035,8 +7347,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: The working directory of the process.
       example: /home/alice
       default_field: false
@@ -7349,8 +7660,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: 'Process title.
 
         The proctitle, some times the same as process name. Can also be different:
@@ -7368,8 +7678,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: The working directory of the process.
       example: /home/alice
       default_field: false
@@ -7391,8 +7700,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: 'Process title.
 
@@ -7409,8 +7717,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: The working directory of the process.
       example: /home/alice
@@ -7656,8 +7963,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: Organization name.
       example: Google LLC
@@ -7845,8 +8151,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: User's full name, if available.
       example: Albert Einstein
@@ -7881,17 +8186,17 @@
       type: keyword
       ignore_above: 1024
       description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
     - name: user.name
       level: core
       type: keyword
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: Short name or login of the user.
-      example: albert
+      example: a.einstein
     - name: user.roles
       level: extended
       type: keyword
@@ -7908,6 +8213,27 @@
       These fields help you find and correlate logs for a specific service and version.'
     type: group
     fields:
+    - name: address
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Address where data about this service was collected from.
+
+        This should be a URI, network address (ipv4:port or [ipv6]:port) or a resource
+        path (sockets).'
+      example: 172.26.0.2:5432
+      default_field: false
+    - name: environment
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Identifies the environment where the service is running.
+
+        If the same service runs in different environments (production, staging, QA,
+        development, etc.), the environment can identify other instances of the same
+        service. Can also group services and applications from the same environment.'
+      example: production
+      default_field: false
     - name: ephemeral_id
       level: extended
       type: keyword
@@ -8022,8 +8348,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: Organization name.
       example: Google LLC
@@ -8211,8 +8536,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: User's full name, if available.
       example: Albert Einstein
@@ -8247,17 +8571,17 @@
       type: keyword
       ignore_above: 1024
       description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
     - name: user.name
       level: core
       type: keyword
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: Short name or login of the user.
-      example: albert
+      example: a.einstein
     - name: user.roles
       level: extended
       type: keyword
@@ -8301,8 +8625,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: Organization name.
       example: Google LLC
       default_field: false
@@ -8349,6 +8672,16 @@
         execute, hidden, read, readonly, system, write.'
       example: '["readonly", "system"]'
       default_field: false
+    - name: enrichments.indicator.file.code_signature.digest_algorithm
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The hashing algorithm used to sign the process.
+
+        This value can distinguish signatures when a file is signed multiple times
+        by the same signer but with a different digest algorithm.'
+      example: sha256
+      default_field: false
     - name: enrichments.indicator.file.code_signature.exists
       level: core
       type: boolean
@@ -8392,6 +8725,12 @@
         This is used to identify the team or vendor of a software product. The field
         is relevant to Apple *OS only.'
       example: EQHXZ8M8AV
+      default_field: false
+    - name: enrichments.indicator.file.code_signature.timestamp
+      level: extended
+      type: date
+      description: Date and time when the code signature was generated and signed.
+      example: '2021-01-01T12:10:30Z'
       default_field: false
     - name: enrichments.indicator.file.code_signature.trusted
       level: extended
@@ -8721,8 +9060,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: Full path to the file, including the file name. It should include
         the drive letter, when appropriate.
       example: /home/alice/example.png
@@ -8741,8 +9079,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: Target path for symlinks.
       default_field: false
     - name: enrichments.indicator.file.type
@@ -9320,8 +9657,7 @@
       type: wildcard
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: If full URLs are important to your use case, they should be stored
         in `url.full`, whether this field is reconstructed or present in the event
         source.
@@ -9332,8 +9668,7 @@
       type: wildcard
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: 'Unmodified original url as seen in the event source.
 
         Note that in network monitoring, the observed URL may be a full URL, whereas
@@ -9651,8 +9986,8 @@
       type: keyword
       ignore_above: 1024
       description: "The alias(es) of the group for a set of related intrusion activity\
-        \ that are tracked by a common name in the security community. While not required,\
-        \ you can use a MITRE ATT&CK\xAE group alias(es)."
+        \ that are tracked by a common name in the security community.\nWhile not\
+        \ required, you can use a MITRE ATT&CK\xAE group alias(es)."
       example: '[ "Magecart Group 6" ]'
       default_field: false
     - name: group.id
@@ -9660,7 +9995,7 @@
       type: keyword
       ignore_above: 1024
       description: "The id of the group for a set of related intrusion activity that\
-        \ are tracked by a common name in the security community. While not required,\
+        \ are tracked by a common name in the security community.\nWhile not required,\
         \ you can use a MITRE ATT&CK\xAE group id."
       example: G0037
       default_field: false
@@ -9669,8 +10004,8 @@
       type: keyword
       ignore_above: 1024
       description: "The name of the group for a set of related intrusion activity\
-        \ that are tracked by a common name in the security community. While not required,\
-        \ you can use a MITRE ATT&CK\xAE group name."
+        \ that are tracked by a common name in the security community.\nWhile not\
+        \ required, you can use a MITRE ATT&CK\xAE group name."
       example: FIN6
       default_field: false
     - name: group.reference
@@ -9678,8 +10013,8 @@
       type: keyword
       ignore_above: 1024
       description: "The reference URL of the group for a set of related intrusion\
-        \ activity that are tracked by a common name in the security community. While\
-        \ not required, you can use a MITRE ATT&CK\xAE group reference URL."
+        \ activity that are tracked by a common name in the security community.\n\
+        While not required, you can use a MITRE ATT&CK\xAE group reference URL."
       example: https://attack.mitre.org/groups/G0037/
       default_field: false
     - name: indicator.as.number
@@ -9695,8 +10030,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: Organization name.
       example: Google LLC
       default_field: false
@@ -9743,6 +10077,16 @@
         execute, hidden, read, readonly, system, write.'
       example: '["readonly", "system"]'
       default_field: false
+    - name: indicator.file.code_signature.digest_algorithm
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The hashing algorithm used to sign the process.
+
+        This value can distinguish signatures when a file is signed multiple times
+        by the same signer but with a different digest algorithm.'
+      example: sha256
+      default_field: false
     - name: indicator.file.code_signature.exists
       level: core
       type: boolean
@@ -9786,6 +10130,12 @@
         This is used to identify the team or vendor of a software product. The field
         is relevant to Apple *OS only.'
       example: EQHXZ8M8AV
+      default_field: false
+    - name: indicator.file.code_signature.timestamp
+      level: extended
+      type: date
+      description: Date and time when the code signature was generated and signed.
+      example: '2021-01-01T12:10:30Z'
       default_field: false
     - name: indicator.file.code_signature.trusted
       level: extended
@@ -10115,8 +10465,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: Full path to the file, including the file name. It should include
         the drive letter, when appropriate.
       example: /home/alice/example.png
@@ -10135,8 +10484,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: Target path for symlinks.
       default_field: false
     - name: indicator.file.type
@@ -10714,8 +11062,7 @@
       type: wildcard
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: If full URLs are important to your use case, they should be stored
         in `url.full`, whether this field is reconstructed or present in the event
         source.
@@ -10726,8 +11073,7 @@
       type: wildcard
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: 'Unmodified original url as seen in the event source.
 
         Note that in network monitoring, the observed URL may be a full URL, whereas
@@ -10993,12 +11339,21 @@
       description: Version of x509 format.
       example: 3
       default_field: false
+    - name: software.alias
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: "The alias(es) of the software for a set of related intrusion activity\
+        \ that are tracked by a common name in the security community.\nWhile not\
+        \ required, you can use a MITRE ATT&CK\xAE associated software description."
+      example: '[ "X-Agent" ]'
+      default_field: false
     - name: software.id
       level: extended
       type: keyword
       ignore_above: 1024
       description: "The id of the software used by this threat to conduct behavior\
-        \ commonly modeled using MITRE ATT&CK\xAE. While not required, you can use\
+        \ commonly modeled using MITRE ATT&CK\xAE.\nWhile not required, you can use\
         \ a MITRE ATT&CK\xAE software id."
       example: S0552
       default_field: false
@@ -11007,7 +11362,7 @@
       type: keyword
       ignore_above: 1024
       description: "The name of the software used by this threat to conduct behavior\
-        \ commonly modeled using MITRE ATT&CK\xAE. While not required, you can use\
+        \ commonly modeled using MITRE ATT&CK\xAE.\nWhile not required, you can use\
         \ a MITRE ATT&CK\xAE software name."
       example: AdFind
       default_field: false
@@ -11016,10 +11371,10 @@
       type: keyword
       ignore_above: 1024
       description: "The platforms of the software used by this threat to conduct behavior\
-        \ commonly modeled using MITRE ATT&CK\xAE. While not required, you can use\
-        \ a MITRE ATT&CK\xAE software platforms.\nRecommended Values:\n  * AWS\n \
-        \ * Azure\n  * Azure AD\n  * GCP\n  * Linux\n  * macOS\n  * Network\n  * Office\
-        \ 365\n  * SaaS\n  * Windows"
+        \ commonly modeled using MITRE ATT&CK\xAE.\nRecommended Values:\n  * AWS\n\
+        \  * Azure\n  * Azure AD\n  * GCP\n  * Linux\n  * macOS\n  * Network\n  *\
+        \ Office 365\n  * SaaS\n  * Windows\n\nWhile not required, you can use a MITRE\
+        \ ATT&CK\xAE software platforms."
       example: '[ "Windows" ]'
       default_field: false
     - name: software.reference
@@ -11027,7 +11382,7 @@
       type: keyword
       ignore_above: 1024
       description: "The reference URL of the software used by this threat to conduct\
-        \ behavior commonly modeled using MITRE ATT&CK\xAE. While not required, you\
+        \ behavior commonly modeled using MITRE ATT&CK\xAE.\nWhile not required, you\
         \ can use a MITRE ATT&CK\xAE software reference URL."
       example: https://attack.mitre.org/software/S0552/
       default_field: false
@@ -11036,8 +11391,8 @@
       type: keyword
       ignore_above: 1024
       description: "The type of software used by this threat to conduct behavior commonly\
-        \ modeled using MITRE ATT&CK\xAE. While not required, you can use a MITRE\
-        \ ATT&CK\xAE software type.\nRecommended values\n  * Malware\n  * Tool"
+        \ modeled using MITRE ATT&CK\xAE.\nRecommended values\n  * Malware\n  * Tool\n\
+        \n While not required, you can use a MITRE ATT&CK\xAE software type."
       example: Tool
       default_field: false
     - name: tactic.id
@@ -11075,8 +11430,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: "The name of technique used by this threat. You can use a MITRE\
         \ ATT&CK\xAE technique, for example. (ex. https://attack.mitre.org/techniques/T1059/)"
@@ -11102,8 +11456,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: "The name of subtechnique used by this threat. You can use a MITRE\
         \ ATT&CK\xAE subtechnique, for example. (ex. https://attack.mitre.org/techniques/T1059/001/)"
       example: PowerShell
@@ -11774,8 +12127,7 @@
       type: wildcard
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: If full URLs are important to your use case, they should be stored
         in `url.full`, whether this field is reconstructed or present in the event
@@ -11786,8 +12138,7 @@
       type: wildcard
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: 'Unmodified original url as seen in the event source.
 
@@ -11903,8 +12254,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: User's full name, if available.
       example: Albert Einstein
       default_field: false
@@ -11943,6 +12293,7 @@
       type: keyword
       ignore_above: 1024
       description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
       default_field: false
     - name: changes.name
       level: core
@@ -11950,10 +12301,9 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: Short name or login of the user.
-      example: albert
+      example: a.einstein
       default_field: false
     - name: changes.roles
       level: extended
@@ -11989,8 +12339,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: User's full name, if available.
       example: Albert Einstein
       default_field: false
@@ -12029,6 +12378,7 @@
       type: keyword
       ignore_above: 1024
       description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
       default_field: false
     - name: effective.name
       level: core
@@ -12036,10 +12386,9 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: Short name or login of the user.
-      example: albert
+      example: a.einstein
       default_field: false
     - name: effective.roles
       level: extended
@@ -12059,8 +12408,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: User's full name, if available.
       example: Albert Einstein
@@ -12095,17 +12443,17 @@
       type: keyword
       ignore_above: 1024
       description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
     - name: name
       level: core
       type: keyword
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: Short name or login of the user.
-      example: albert
+      example: a.einstein
     - name: roles
       level: extended
       type: keyword
@@ -12133,8 +12481,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: User's full name, if available.
       example: Albert Einstein
       default_field: false
@@ -12173,6 +12520,7 @@
       type: keyword
       ignore_above: 1024
       description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
       default_field: false
     - name: target.name
       level: core
@@ -12180,10 +12528,9 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: Short name or login of the user.
-      example: albert
+      example: a.einstein
       default_field: false
     - name: target.roles
       level: extended
@@ -12218,8 +12565,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: Unparsed user_agent string.
       example: Mozilla/5.0 (iPhone; CPU iPhone OS 12_1 like Mac OS X) AppleWebKit/605.1.15
         (KHTML, like Gecko) Version/12.0 Mobile/15E148 Safari/604.1
@@ -12235,8 +12581,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: Operating system name, including the version or code name.
       example: Mac OS Mojave
@@ -12252,8 +12597,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: Operating system name, without the version.
       example: Mac OS X
@@ -12358,8 +12702,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: The description of the vulnerability that provides additional context
         of the vulnerability. For example (https://cve.mitre.org/about/faqs.html#cve_entry_descriptions_created[Common
         Vulnerabilities and Exposure CVE description])

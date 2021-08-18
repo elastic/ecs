@@ -95,4 +95,7 @@ type Process struct {
 	// The field should be absent if there is no exit code for the event (e.g.
 	// process start).
 	ExitCode int64 `ecs:"exit_code"`
+
+	// The time the process ended.
+	End time.Time `ecs:"end"`
 }

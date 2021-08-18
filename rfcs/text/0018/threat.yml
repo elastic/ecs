@@ -10,7 +10,7 @@
     description: >
       The id of the software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®. While not required, you can use a MITRE ATT&CK® software id.
 
-    example: "S0552"
+    example: "S0226"
 
   - name: software.name
     level: extended
@@ -19,14 +19,25 @@
     description: >
       The name of the software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®. While not required, you can use a MITRE ATT&CK® software name.
 
-    example: "AdFind"
+    example: "CHOPSTICK"
+
+  - name: software.alias
+    level: extended
+    type: keyword
+    short: Alias of the software.
+    description: >
+      The alias(es) of the software for a set of related intrusion activity that are tracked by a common name in the security community. While not required, you can use a MITRE ATT&CK® associated software description.
+
+    example: '[ "X-Agent" ]'
+    normalize:
+      - array
 
   - name: software.platforms
     level: extended
     type: keyword
     short: platforms of the software.
     description: >
-      The platforms of the software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®. While not required, you can use a MITRE ATT&CK® software platforms.
+      The platforms of the software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®. While not required, you can use a MITRE ATT&CK® software platform.
 
       Recommended Values:
         * AWS
@@ -40,7 +51,9 @@
         * SaaS
         * Windows
 
-    example: "Windows"
+    example: '[ "Windows" ]'
+    normalize:
+      - array
 
   - name: software.reference
     level: extended
@@ -49,7 +62,7 @@
     description: >
       The reference URL of the software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®. While not required, you can use a MITRE ATT&CK® software reference URL.
 
-    example: "https://attack.mitre.org/software/S0552/"
+    example: "https://attack.mitre.org/software/S0023/"
 
   - name: software.type
     level: extended
@@ -62,7 +75,7 @@
         * Malware
         * Tool
 
-    example: "Tool"
+    example: "Malware"
 
   - name: group.alias
     level: extended
