@@ -10,15 +10,15 @@ Thanks, you're awesome :-) -->
 
 ### Schema Changes
 
+#### Breaking changes
+
+#### Bugfixes
+
 #### Added
 
-* Added `service.address` field. #1537
-* Promote `threat.software.*` and `threat.group.*` fields to GA. #1540
-* Added `service.environment` as a beta field. #1541
-* Added `process.end` field. #1544
-* Introduce container metric fields into experimental schema. #1546
-* Update `user.name` and `user.id` examples for clarity. #1566
-* Add `email.*` field set in the experimental fields. #1569
+#### Improvements
+
+#### Deprecated
 
 ### Tooling and Artifact Changes
 
@@ -28,20 +28,53 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
+#### Improvements
+
+#### Deprecated
+
+## 1.12.0 (Feature Freeze)
+
+### Schema Changes
+
+#### Added
+
 * Added `file.fork_name` field. #1288
-* Beta migration on some `keyword` fields to `wildcard`. #1517
-* Support ES 6.x type fallback for `match_only_text` field types. #1528
+* Added `service.address` field. #1537
+* Added `service.environment` as a beta field. #1541
+* Added `process.end` field. #1544
+* Added container metric fields into experimental schema. #1546
+* Add `code_signature.digest_algorithm` and `code_signature.timestamp` fields. #1557
+* Add `email.*` field set in the experimental fields. #1569
 
 #### Improvements
 
+* Beta migration on some `keyword` fields to `wildcard`. #1517
+* Promote `threat.software.*` and `threat.group.*` fields to GA. #1540
+* Update `user.name` and `user.id` examples for clarity. #1566
 * Beta migration of `text` and `.text` multi-fields to `match_only_text`. #1532, #1571
-#### Deprecated
+
+### Tooling and Artifact Changes
+
+#### Added
+
+* Support ES 6.x type fallback for `match_only_text` field types. #1528
 
 <!-- All empty sections:
 
 ## Unreleased
 
 ### Schema Changes
+
+#### Breaking changes
+
+#### Bugfixes
+
+#### Added
+
+#### Improvements
+
+#### Deprecated
+
 ### Tooling and Artifact Changes
 
 #### Breaking changes
