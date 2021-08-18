@@ -133,6 +133,14 @@ The goal here is to research and understand the impact of these changes on users
 
 ## Concerns
 
+### Nesting origin field to identify 3rd party
+During stage 1 review @ebeahan identied the potential confusion over an established ECS pattern
+where the root entity defines the `do'er` and `*.target.*` the affected entity.
+
+This proposal extends this pattern as there are 3 active parties involved.
+This puts the onus on ECS documentation being extremely clear on which field a user needs to
+query to get their intended results.
+
 <!--
 Stage 1: Identify potential concerns, implementation challenges, or complexity. Spend some time on this. Play devil's advocate. Try to identify the sort of non-obvious challenges that tend to surface later. The goal here is to surface risks early, allow everyone the time to work through them, and ultimately document resolution for posterity's sake.
 -->
