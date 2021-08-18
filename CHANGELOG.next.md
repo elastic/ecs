@@ -34,7 +34,7 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
-* Beta migration of `text` and `.text` multi-fields to `match_only_text`. #1532
+* Beta migration of `text` and `.text` multi-fields to `match_only_text`. #1532, #1571
 #### Deprecated
 
 <!-- All empty sections:
