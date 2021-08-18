@@ -15,6 +15,7 @@ Thanks, you're awesome :-) -->
 * Remove `host.user.*` field reuse. #1439
 * Remove deprecation notice on `http.request.method`. #1443
 * Migrate `log.origin.file.line` from `integer` to `long`. #1533
+* Remove `log.original` field. #1580
 
 #### Bugfixes
 
