@@ -409,6 +409,7 @@
       type: keyword
       ignore_above: 1024
       description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
     - name: user.name
       level: core
       type: keyword
@@ -418,7 +419,7 @@
         type: match_only_text
         default_field: false
       description: Short name or login of the user.
-      example: albert
+      example: a.einstein
     - name: user.roles
       level: extended
       type: keyword
@@ -528,6 +529,16 @@
     description: These fields contain information about binary code signatures.
     type: group
     fields:
+    - name: digest_algorithm
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The hashing algorithm used to sign the process.
+
+        This value can distinguish signatures when a file is signed multiple times
+        by the same signer but with a different digest algorithm.'
+      example: sha256
+      default_field: false
     - name: exists
       level: core
       type: boolean
@@ -571,6 +582,12 @@
         This is used to identify the team or vendor of a software product. The field
         is relevant to Apple *OS only.'
       example: EQHXZ8M8AV
+      default_field: false
+    - name: timestamp
+      level: extended
+      type: date
+      description: Date and time when the code signature was generated and signed.
+      example: '2021-01-01T12:10:30Z'
       default_field: false
     - name: trusted
       level: extended
@@ -978,6 +995,7 @@
       type: keyword
       ignore_above: 1024
       description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
     - name: user.name
       level: core
       type: keyword
@@ -987,7 +1005,7 @@
         type: match_only_text
         default_field: false
       description: Short name or login of the user.
-      example: albert
+      example: a.einstein
     - name: user.roles
       level: extended
       type: keyword
@@ -1012,6 +1030,16 @@
       * Dynamic library (`.dylib`) commonly used on macOS'
     type: group
     fields:
+    - name: code_signature.digest_algorithm
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The hashing algorithm used to sign the process.
+
+        This value can distinguish signatures when a file is signed multiple times
+        by the same signer but with a different digest algorithm.'
+      example: sha256
+      default_field: false
     - name: code_signature.exists
       level: core
       type: boolean
@@ -1055,6 +1083,12 @@
         This is used to identify the team or vendor of a software product. The field
         is relevant to Apple *OS only.'
       example: EQHXZ8M8AV
+      default_field: false
+    - name: code_signature.timestamp
+      level: extended
+      type: date
+      description: Date and time when the code signature was generated and signed.
+      example: '2021-01-01T12:10:30Z'
       default_field: false
     - name: code_signature.trusted
       level: extended
@@ -1755,6 +1789,176 @@
       ignore_above: 1024
       description: telfhash symbol hash for ELF file.
       default_field: false
+  - name: email
+    title: Email
+    group: 2
+    description: 'Fields relating to an email transaction.
+
+      This field set focuses on the email message header, body, and attachments. Network
+      protocols that send and receive email messages such as SMTP are outside the
+      scope of the `email.*` fields.'
+    type: group
+    fields:
+    - name: attachments
+      level: extended
+      type: nested
+      description: A list of attachment files sent along with an email message.
+      default_field: false
+    - name: attachments.file.extension
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Attachment file extension, excluding the leading dot.
+      example: txt
+      default_field: false
+    - name: attachments.file.mime_type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The MIME media type of the attachment.
+
+        This value will typically be extracted from the `Content-Type` MIME header
+        field.'
+      example: text/plain
+      default_field: false
+    - name: attachments.file.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the attachment file including the file extension.
+      example: attachment.txt
+      default_field: false
+    - name: attachments.file.size
+      level: extended
+      type: long
+      description: Attachment file size in bytes.
+      example: 64329
+      default_field: false
+    - name: attachments.hash.md5
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: MD5 hash of the attachment file.
+      example: e25f1c98ffdacf611473af364362ec48
+      default_field: false
+    - name: attachments.hash.sha1
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SHA-1 hash of the attachment file.
+      example: 8c1cd40f17109b427e61d4e72ca6d9a4fc8175f3
+      default_field: false
+    - name: attachments.hash.sha256
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SHA-256 hash of the attachment file.
+      example: f0366b3559f577d8732f7e9cc343a4960d202e8137dcc42f9783f3963f6abc6a
+      default_field: false
+    - name: bcc
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The email address(es) of the blind carbon carbon (BCC) recipients.
+      example: '[''bcc.user1@example.com'', ''bcc.user2@example.com'']'
+      default_field: false
+    - name: cc
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The email address(es) of the carbon carbon (BCC) recipients.
+      example: '[''cc.user1@example.com'', ''cc.user2@example.com'']'
+      default_field: false
+    - name: content_type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Information about how the message is to be displayed.
+
+        Typically a MIME type.'
+      example: text/plain
+      default_field: false
+    - name: delivery_timestamp
+      level: extended
+      type: date
+      description: The date and time when the email message was received by the service
+        or client.
+      example: '2020-11-10T22:12:34.8196921Z'
+      default_field: false
+    - name: direction
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The direction of the message based on the sending and receiving
+        domains.
+      example: inbound
+      default_field: false
+    - name: from
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The email address of the sender, typically from the RFC 5322 `From:`
+        header field.
+      example: sender@example.com
+      default_field: false
+    - name: local_id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Unique identifier given to the email by the source that created
+        the event.
+
+        Identifier is not persistent across hops.'
+      example: c26dbea0-80d5-463b-b93c-4e8b708219ce
+      default_field: false
+    - name: message_id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifier from the RFC 5322 `Message-ID:` email header that refers
+        to a particular email message.
+      example: <81ce15$8r2j59@mail01.example.com>
+      default_field: false
+    - name: origination_timestamp
+      level: extended
+      type: date
+      description: The date and time the email message was composed. Many email clients
+        will fill in this value automatically when the message is sent by a user.
+      example: '2020-11-10T22:12:34.8196921Z'
+      default_field: false
+    - name: reply_to
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The address that replies should be delivered to based on the value
+        in the RFC 5322 `Reply-To:` header.
+      example: reply.here@example.com
+      default_field: false
+    - name: subject
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: match_only_text
+      description: A brief summary of the topic of the message.
+      example: Please see this important message.
+      default_field: false
+    - name: to
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The email address(es) of the message recipients.
+      example: '[''user1@example.com'', ''user2@example.com'']'
+      default_field: false
+    - name: x_mailer
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The name of the application that was used to draft and send the
+        original email message.
+      example: Spambot v2.5
+      default_field: false
   - name: error
     title: Error
     group: 2
@@ -2148,6 +2352,16 @@
         execute, hidden, read, readonly, system, write.'
       example: '["readonly", "system"]'
       default_field: false
+    - name: code_signature.digest_algorithm
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The hashing algorithm used to sign the process.
+
+        This value can distinguish signatures when a file is signed multiple times
+        by the same signer but with a different digest algorithm.'
+      example: sha256
+      default_field: false
     - name: code_signature.exists
       level: core
       type: boolean
@@ -2191,6 +2405,12 @@
         This is used to identify the team or vendor of a software product. The field
         is relevant to Apple *OS only.'
       example: EQHXZ8M8AV
+      default_field: false
+    - name: code_signature.timestamp
+      level: extended
+      type: date
+      description: Date and time when the code signature was generated and signed.
+      example: '2021-01-01T12:10:30Z'
       default_field: false
     - name: code_signature.trusted
       level: extended
@@ -3437,8 +3657,7 @@
       type: wildcard
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: The full HTTP request body.
       example: Hello world
@@ -3497,8 +3716,7 @@
       type: wildcard
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: The full HTTP response body.
       example: Hello world
@@ -4262,8 +4480,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: Organization name.
   - name: os
@@ -4727,6 +4944,16 @@
         indication of suspicious activity.'
       example: 4
       default_field: false
+    - name: code_signature.digest_algorithm
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The hashing algorithm used to sign the process.
+
+        This value can distinguish signatures when a file is signed multiple times
+        by the same signer but with a different digest algorithm.'
+      example: sha256
+      default_field: false
     - name: code_signature.exists
       level: core
       type: boolean
@@ -4770,6 +4997,12 @@
         This is used to identify the team or vendor of a software product. The field
         is relevant to Apple *OS only.'
       example: EQHXZ8M8AV
+      default_field: false
+    - name: code_signature.timestamp
+      level: extended
+      type: date
+      description: Date and time when the code signature was generated and signed.
+      example: '2021-01-01T12:10:30Z'
       default_field: false
     - name: code_signature.trusted
       level: extended
@@ -5078,6 +5311,16 @@
         indication of suspicious activity.'
       example: 4
       default_field: false
+    - name: parent.code_signature.digest_algorithm
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The hashing algorithm used to sign the process.
+
+        This value can distinguish signatures when a file is signed multiple times
+        by the same signer but with a different digest algorithm.'
+      example: sha256
+      default_field: false
     - name: parent.code_signature.exists
       level: core
       type: boolean
@@ -5121,6 +5364,12 @@
         This is used to identify the team or vendor of a software product. The field
         is relevant to Apple *OS only.'
       example: EQHXZ8M8AV
+      default_field: false
+    - name: parent.code_signature.timestamp
+      level: extended
+      type: date
+      description: Date and time when the code signature was generated and signed.
+      example: '2021-01-01T12:10:30Z'
       default_field: false
     - name: parent.code_signature.trusted
       level: extended
@@ -6049,6 +6298,16 @@
         indication of suspicious activity.'
       example: 4
       default_field: false
+    - name: target.code_signature.digest_algorithm
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The hashing algorithm used to sign the process.
+
+        This value can distinguish signatures when a file is signed multiple times
+        by the same signer but with a different digest algorithm.'
+      example: sha256
+      default_field: false
     - name: target.code_signature.exists
       level: core
       type: boolean
@@ -6092,6 +6351,12 @@
         This is used to identify the team or vendor of a software product. The field
         is relevant to Apple *OS only.'
       example: EQHXZ8M8AV
+      default_field: false
+    - name: target.code_signature.timestamp
+      level: extended
+      type: date
+      description: Date and time when the code signature was generated and signed.
+      example: '2021-01-01T12:10:30Z'
       default_field: false
     - name: target.code_signature.trusted
       level: extended
@@ -6404,6 +6669,16 @@
         indication of suspicious activity.'
       example: 4
       default_field: false
+    - name: target.parent.code_signature.digest_algorithm
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The hashing algorithm used to sign the process.
+
+        This value can distinguish signatures when a file is signed multiple times
+        by the same signer but with a different digest algorithm.'
+      example: sha256
+      default_field: false
     - name: target.parent.code_signature.exists
       level: core
       type: boolean
@@ -6447,6 +6722,12 @@
         This is used to identify the team or vendor of a software product. The field
         is relevant to Apple *OS only.'
       example: EQHXZ8M8AV
+      default_field: false
+    - name: target.parent.code_signature.timestamp
+      level: extended
+      type: date
+      description: Date and time when the code signature was generated and signed.
+      example: '2021-01-01T12:10:30Z'
       default_field: false
     - name: target.parent.code_signature.trusted
       level: extended
@@ -7905,6 +8186,7 @@
       type: keyword
       ignore_above: 1024
       description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
     - name: user.name
       level: core
       type: keyword
@@ -7914,7 +8196,7 @@
         type: match_only_text
         default_field: false
       description: Short name or login of the user.
-      example: albert
+      example: a.einstein
     - name: user.roles
       level: extended
       type: keyword
@@ -8289,6 +8571,7 @@
       type: keyword
       ignore_above: 1024
       description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
     - name: user.name
       level: core
       type: keyword
@@ -8298,7 +8581,7 @@
         type: match_only_text
         default_field: false
       description: Short name or login of the user.
-      example: albert
+      example: a.einstein
     - name: user.roles
       level: extended
       type: keyword
@@ -8389,6 +8672,16 @@
         execute, hidden, read, readonly, system, write.'
       example: '["readonly", "system"]'
       default_field: false
+    - name: enrichments.indicator.file.code_signature.digest_algorithm
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The hashing algorithm used to sign the process.
+
+        This value can distinguish signatures when a file is signed multiple times
+        by the same signer but with a different digest algorithm.'
+      example: sha256
+      default_field: false
     - name: enrichments.indicator.file.code_signature.exists
       level: core
       type: boolean
@@ -8432,6 +8725,12 @@
         This is used to identify the team or vendor of a software product. The field
         is relevant to Apple *OS only.'
       example: EQHXZ8M8AV
+      default_field: false
+    - name: enrichments.indicator.file.code_signature.timestamp
+      level: extended
+      type: date
+      description: Date and time when the code signature was generated and signed.
+      example: '2021-01-01T12:10:30Z'
       default_field: false
     - name: enrichments.indicator.file.code_signature.trusted
       level: extended
@@ -9778,6 +10077,16 @@
         execute, hidden, read, readonly, system, write.'
       example: '["readonly", "system"]'
       default_field: false
+    - name: indicator.file.code_signature.digest_algorithm
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The hashing algorithm used to sign the process.
+
+        This value can distinguish signatures when a file is signed multiple times
+        by the same signer but with a different digest algorithm.'
+      example: sha256
+      default_field: false
     - name: indicator.file.code_signature.exists
       level: core
       type: boolean
@@ -9821,6 +10130,12 @@
         This is used to identify the team or vendor of a software product. The field
         is relevant to Apple *OS only.'
       example: EQHXZ8M8AV
+      default_field: false
+    - name: indicator.file.code_signature.timestamp
+      level: extended
+      type: date
+      description: Date and time when the code signature was generated and signed.
+      example: '2021-01-01T12:10:30Z'
       default_field: false
     - name: indicator.file.code_signature.trusted
       level: extended
@@ -11978,6 +12293,7 @@
       type: keyword
       ignore_above: 1024
       description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
       default_field: false
     - name: changes.name
       level: core
@@ -11987,7 +12303,7 @@
       - name: text
         type: match_only_text
       description: Short name or login of the user.
-      example: albert
+      example: a.einstein
       default_field: false
     - name: changes.roles
       level: extended
@@ -12062,6 +12378,7 @@
       type: keyword
       ignore_above: 1024
       description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
       default_field: false
     - name: effective.name
       level: core
@@ -12071,7 +12388,7 @@
       - name: text
         type: match_only_text
       description: Short name or login of the user.
-      example: albert
+      example: a.einstein
       default_field: false
     - name: effective.roles
       level: extended
@@ -12126,6 +12443,7 @@
       type: keyword
       ignore_above: 1024
       description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
     - name: name
       level: core
       type: keyword
@@ -12135,7 +12453,7 @@
         type: match_only_text
         default_field: false
       description: Short name or login of the user.
-      example: albert
+      example: a.einstein
     - name: roles
       level: extended
       type: keyword
@@ -12202,6 +12520,7 @@
       type: keyword
       ignore_above: 1024
       description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
       default_field: false
     - name: target.name
       level: core
@@ -12211,7 +12530,7 @@
       - name: text
         type: match_only_text
       description: Short name or login of the user.
-      example: albert
+      example: a.einstein
       default_field: false
     - name: target.roles
       level: extended

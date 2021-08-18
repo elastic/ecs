@@ -679,6 +679,7 @@ client:
     client.user.id:
       dashed_name: client-user-id
       description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
       flat_name: client.user.id
       ignore_above: 1024
       level: core
@@ -692,7 +693,7 @@ client:
         beta.
       dashed_name: client-user-name
       description: Short name or login of the user.
-      example: albert
+      example: a.einstein
       flat_name: client.user.name
       ignore_above: 1024
       level: core
@@ -891,6 +892,20 @@ cloud:
 code_signature:
   description: These fields contain information about binary code signatures.
   fields:
+    code_signature.digest_algorithm:
+      dashed_name: code-signature-digest-algorithm
+      description: 'The hashing algorithm used to sign the process.
+
+        This value can distinguish signatures when a file is signed multiple times
+        by the same signer but with a different digest algorithm.'
+      example: sha256
+      flat_name: code_signature.digest_algorithm
+      ignore_above: 1024
+      level: extended
+      name: digest_algorithm
+      normalize: []
+      short: Hashing algorithm used to sign the process.
+      type: keyword
     code_signature.exists:
       dashed_name: code-signature-exists
       description: Boolean to capture if a signature is present.
@@ -955,6 +970,16 @@ code_signature:
       normalize: []
       short: The team identifier used to sign the process.
       type: keyword
+    code_signature.timestamp:
+      dashed_name: code-signature-timestamp
+      description: Date and time when the code signature was generated and signed.
+      example: '2021-01-01T12:10:30Z'
+      flat_name: code_signature.timestamp
+      level: extended
+      name: timestamp
+      normalize: []
+      short: When the signature was generated and signed.
+      type: date
     code_signature.trusted:
       dashed_name: code-signature-trusted
       description: 'Stores the trust status of the certificate chain.
@@ -1577,6 +1602,7 @@ destination:
     destination.user.id:
       dashed_name: destination-user-id
       description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
       flat_name: destination.user.id
       ignore_above: 1024
       level: core
@@ -1590,7 +1616,7 @@ destination:
         beta.
       dashed_name: destination-user-name
       description: Short name or login of the user.
-      example: albert
+      example: a.einstein
       flat_name: destination.user.name
       ignore_above: 1024
       level: core
@@ -1650,6 +1676,21 @@ dll:
 
     * Dynamic library (`.dylib`) commonly used on macOS'
   fields:
+    dll.code_signature.digest_algorithm:
+      dashed_name: dll-code-signature-digest-algorithm
+      description: 'The hashing algorithm used to sign the process.
+
+        This value can distinguish signatures when a file is signed multiple times
+        by the same signer but with a different digest algorithm.'
+      example: sha256
+      flat_name: dll.code_signature.digest_algorithm
+      ignore_above: 1024
+      level: extended
+      name: digest_algorithm
+      normalize: []
+      original_fieldset: code_signature
+      short: Hashing algorithm used to sign the process.
+      type: keyword
     dll.code_signature.exists:
       dashed_name: dll-code-signature-exists
       description: Boolean to capture if a signature is present.
@@ -1719,6 +1760,17 @@ dll:
       original_fieldset: code_signature
       short: The team identifier used to sign the process.
       type: keyword
+    dll.code_signature.timestamp:
+      dashed_name: dll-code-signature-timestamp
+      description: Date and time when the code signature was generated and signed.
+      example: '2021-01-01T12:10:30Z'
+      flat_name: dll.code_signature.timestamp
+      level: extended
+      name: timestamp
+      normalize: []
+      original_fieldset: code_signature
+      short: When the signature was generated and signed.
+      type: date
     dll.code_signature.trusted:
       dashed_name: dll-code-signature-trusted
       description: 'Stores the trust status of the certificate chain.
@@ -3490,6 +3542,21 @@ file:
       - array
       short: Array of file attributes.
       type: keyword
+    file.code_signature.digest_algorithm:
+      dashed_name: file-code-signature-digest-algorithm
+      description: 'The hashing algorithm used to sign the process.
+
+        This value can distinguish signatures when a file is signed multiple times
+        by the same signer but with a different digest algorithm.'
+      example: sha256
+      flat_name: file.code_signature.digest_algorithm
+      ignore_above: 1024
+      level: extended
+      name: digest_algorithm
+      normalize: []
+      original_fieldset: code_signature
+      short: Hashing algorithm used to sign the process.
+      type: keyword
     file.code_signature.exists:
       dashed_name: file-code-signature-exists
       description: Boolean to capture if a signature is present.
@@ -3559,6 +3626,17 @@ file:
       original_fieldset: code_signature
       short: The team identifier used to sign the process.
       type: keyword
+    file.code_signature.timestamp:
+      dashed_name: file-code-signature-timestamp
+      description: Date and time when the code signature was generated and signed.
+      example: '2021-01-01T12:10:30Z'
+      flat_name: file.code_signature.timestamp
+      level: extended
+      name: timestamp
+      normalize: []
+      original_fieldset: code_signature
+      short: When the signature was generated and signed.
+      type: date
     file.code_signature.trusted:
       dashed_name: file-code-signature-trusted
       description: 'Stores the trust status of the certificate chain.
@@ -5442,7 +5520,8 @@ http:
       short: Size in bytes of the request body.
       type: long
     http.request.body.content:
-      beta: Use of the `wildcard` data type for this field is currently beta.
+      beta: Use of `wildcard` as the primary type and `match_only_type` as the `.text`
+        multi-field type are both currently beta.
       dashed_name: http-request-body-content
       description: The full HTTP request body.
       example: Hello world
@@ -5451,8 +5530,7 @@ http:
       multi_fields:
       - flat_name: http.request.body.content.text
         name: text
-        norms: false
-        type: text
+        type: match_only_text
       name: request.body.content
       normalize: []
       short: The full HTTP request body.
@@ -5536,7 +5614,8 @@ http:
       short: Size in bytes of the response body.
       type: long
     http.response.body.content:
-      beta: Use of the `wildcard` data type for this field is currently beta.
+      beta: Use of `wildcard` as the primary type and `match_only_type` as the `.text`
+        multi-field type are both currently beta.
       dashed_name: http-response-body-content
       description: The full HTTP response body.
       example: Hello world
@@ -5545,8 +5624,7 @@ http:
       multi_fields:
       - flat_name: http.response.body.content.text
         name: text
-        norms: false
-        type: text
+        type: match_only_text
       name: response.body.content
       normalize: []
       short: The full HTTP response body.
@@ -6807,6 +6885,8 @@ organization:
       short: Unique identifier for the organization.
       type: keyword
     organization.name:
+      beta: Use of the `match_only_text` type in the `.text` multi-field is currently
+        beta.
       dashed_name: organization-name
       description: Organization name.
       flat_name: organization.name
@@ -6815,8 +6895,7 @@ organization:
       multi_fields:
       - flat_name: organization.name.text
         name: text
-        norms: false
-        type: text
+        type: match_only_text
       name: name
       normalize: []
       short: Organization name.
@@ -7254,6 +7333,21 @@ process:
       normalize: []
       short: Length of the process.args array.
       type: long
+    process.code_signature.digest_algorithm:
+      dashed_name: process-code-signature-digest-algorithm
+      description: 'The hashing algorithm used to sign the process.
+
+        This value can distinguish signatures when a file is signed multiple times
+        by the same signer but with a different digest algorithm.'
+      example: sha256
+      flat_name: process.code_signature.digest_algorithm
+      ignore_above: 1024
+      level: extended
+      name: digest_algorithm
+      normalize: []
+      original_fieldset: code_signature
+      short: Hashing algorithm used to sign the process.
+      type: keyword
     process.code_signature.exists:
       dashed_name: process-code-signature-exists
       description: Boolean to capture if a signature is present.
@@ -7323,6 +7417,17 @@ process:
       original_fieldset: code_signature
       short: The team identifier used to sign the process.
       type: keyword
+    process.code_signature.timestamp:
+      dashed_name: process-code-signature-timestamp
+      description: Date and time when the code signature was generated and signed.
+      example: '2021-01-01T12:10:30Z'
+      flat_name: process.code_signature.timestamp
+      level: extended
+      name: timestamp
+      normalize: []
+      original_fieldset: code_signature
+      short: When the signature was generated and signed.
+      type: date
     process.code_signature.trusted:
       dashed_name: process-code-signature-trusted
       description: 'Stores the trust status of the certificate chain.
@@ -7864,6 +7969,21 @@ process:
       original_fieldset: process
       short: Length of the process.args array.
       type: long
+    process.parent.code_signature.digest_algorithm:
+      dashed_name: process-parent-code-signature-digest-algorithm
+      description: 'The hashing algorithm used to sign the process.
+
+        This value can distinguish signatures when a file is signed multiple times
+        by the same signer but with a different digest algorithm.'
+      example: sha256
+      flat_name: process.parent.code_signature.digest_algorithm
+      ignore_above: 1024
+      level: extended
+      name: digest_algorithm
+      normalize: []
+      original_fieldset: code_signature
+      short: Hashing algorithm used to sign the process.
+      type: keyword
     process.parent.code_signature.exists:
       dashed_name: process-parent-code-signature-exists
       description: Boolean to capture if a signature is present.
@@ -7933,6 +8053,17 @@ process:
       original_fieldset: code_signature
       short: The team identifier used to sign the process.
       type: keyword
+    process.parent.code_signature.timestamp:
+      dashed_name: process-parent-code-signature-timestamp
+      description: Date and time when the code signature was generated and signed.
+      example: '2021-01-01T12:10:30Z'
+      flat_name: process.parent.code_signature.timestamp
+      level: extended
+      name: timestamp
+      normalize: []
+      original_fieldset: code_signature
+      short: When the signature was generated and signed.
+      type: date
     process.parent.code_signature.trusted:
       dashed_name: process-parent-code-signature-trusted
       description: 'Stores the trust status of the certificate chain.
@@ -9643,6 +9774,7 @@ server:
     server.user.id:
       dashed_name: server-user-id
       description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
       flat_name: server.user.id
       ignore_above: 1024
       level: core
@@ -9656,7 +9788,7 @@ server:
         beta.
       dashed_name: server-user-name
       description: Short name or login of the user.
-      example: albert
+      example: a.einstein
       flat_name: server.user.name
       ignore_above: 1024
       level: core
@@ -10291,6 +10423,7 @@ source:
     source.user.id:
       dashed_name: source-user-id
       description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
       flat_name: source.user.id
       ignore_above: 1024
       level: core
@@ -10304,7 +10437,7 @@ source:
         beta.
       dashed_name: source-user-name
       description: Short name or login of the user.
-      example: albert
+      example: a.einstein
       flat_name: source.user.name
       ignore_above: 1024
       level: core
@@ -10479,6 +10612,21 @@ threat:
       original_fieldset: file
       short: Array of file attributes.
       type: keyword
+    threat.enrichments.indicator.file.code_signature.digest_algorithm:
+      dashed_name: threat-enrichments-indicator-file-code-signature-digest-algorithm
+      description: 'The hashing algorithm used to sign the process.
+
+        This value can distinguish signatures when a file is signed multiple times
+        by the same signer but with a different digest algorithm.'
+      example: sha256
+      flat_name: threat.enrichments.indicator.file.code_signature.digest_algorithm
+      ignore_above: 1024
+      level: extended
+      name: digest_algorithm
+      normalize: []
+      original_fieldset: code_signature
+      short: Hashing algorithm used to sign the process.
+      type: keyword
     threat.enrichments.indicator.file.code_signature.exists:
       dashed_name: threat-enrichments-indicator-file-code-signature-exists
       description: Boolean to capture if a signature is present.
@@ -10548,6 +10696,17 @@ threat:
       original_fieldset: code_signature
       short: The team identifier used to sign the process.
       type: keyword
+    threat.enrichments.indicator.file.code_signature.timestamp:
+      dashed_name: threat-enrichments-indicator-file-code-signature-timestamp
+      description: Date and time when the code signature was generated and signed.
+      example: '2021-01-01T12:10:30Z'
+      flat_name: threat.enrichments.indicator.file.code_signature.timestamp
+      level: extended
+      name: timestamp
+      normalize: []
+      original_fieldset: code_signature
+      short: When the signature was generated and signed.
+      type: date
     threat.enrichments.indicator.file.code_signature.trusted:
       dashed_name: threat-enrichments-indicator-file-code-signature-trusted
       description: 'Stores the trust status of the certificate chain.
@@ -12454,6 +12613,21 @@ threat:
       original_fieldset: file
       short: Array of file attributes.
       type: keyword
+    threat.indicator.file.code_signature.digest_algorithm:
+      dashed_name: threat-indicator-file-code-signature-digest-algorithm
+      description: 'The hashing algorithm used to sign the process.
+
+        This value can distinguish signatures when a file is signed multiple times
+        by the same signer but with a different digest algorithm.'
+      example: sha256
+      flat_name: threat.indicator.file.code_signature.digest_algorithm
+      ignore_above: 1024
+      level: extended
+      name: digest_algorithm
+      normalize: []
+      original_fieldset: code_signature
+      short: Hashing algorithm used to sign the process.
+      type: keyword
     threat.indicator.file.code_signature.exists:
       dashed_name: threat-indicator-file-code-signature-exists
       description: Boolean to capture if a signature is present.
@@ -12523,6 +12697,17 @@ threat:
       original_fieldset: code_signature
       short: The team identifier used to sign the process.
       type: keyword
+    threat.indicator.file.code_signature.timestamp:
+      dashed_name: threat-indicator-file-code-signature-timestamp
+      description: Date and time when the code signature was generated and signed.
+      example: '2021-01-01T12:10:30Z'
+      flat_name: threat.indicator.file.code_signature.timestamp
+      level: extended
+      name: timestamp
+      normalize: []
+      original_fieldset: code_signature
+      short: When the signature was generated and signed.
+      type: date
     threat.indicator.file.code_signature.trusted:
       dashed_name: threat-indicator-file-code-signature-trusted
       description: 'Stores the trust status of the certificate chain.
@@ -15890,6 +16075,7 @@ user:
     user.changes.id:
       dashed_name: user-changes-id
       description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
       flat_name: user.changes.id
       ignore_above: 1024
       level: core
@@ -15903,7 +16089,7 @@ user:
         beta.
       dashed_name: user-changes-name
       description: Short name or login of the user.
-      example: albert
+      example: a.einstein
       flat_name: user.changes.name
       ignore_above: 1024
       level: core
@@ -16036,6 +16222,7 @@ user:
     user.effective.id:
       dashed_name: user-effective-id
       description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
       flat_name: user.effective.id
       ignore_above: 1024
       level: core
@@ -16049,7 +16236,7 @@ user:
         beta.
       dashed_name: user-effective-name
       description: Short name or login of the user.
-      example: albert
+      example: a.einstein
       flat_name: user.effective.name
       ignore_above: 1024
       level: core
@@ -16154,6 +16341,7 @@ user:
     user.id:
       dashed_name: user-id
       description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
       flat_name: user.id
       ignore_above: 1024
       level: core
@@ -16166,7 +16354,7 @@ user:
         beta.
       dashed_name: user-name
       description: Short name or login of the user.
-      example: albert
+      example: a.einstein
       flat_name: user.name
       ignore_above: 1024
       level: core
@@ -16285,6 +16473,7 @@ user:
     user.target.id:
       dashed_name: user-target-id
       description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
       flat_name: user.target.id
       ignore_above: 1024
       level: core
@@ -16298,7 +16487,7 @@ user:
         beta.
       dashed_name: user-target-name
       description: Short name or login of the user.
-      example: albert
+      example: a.einstein
       flat_name: user.target.name
       ignore_above: 1024
       level: core
