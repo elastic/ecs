@@ -13,7 +13,7 @@ Feel free to remove these comments as you go along.
 Stage 0: Provide a high level summary of the premise of these changes. Briefly describe the nature, purpose, and impact of the changes. ~2-5 sentences.
 -->
 
-Include host information (serial number, manufacturer, and model), bring hostname across other applicable fieldsets.
+Include host information (serial number, manufacturer, and model), bring hostname across other applicable fieldsets. These fields represent fields not currently represented in the ECS standard that we see in our data sources Tenable SC, Tanium, etc.) that we believe are important enough to create an ECS field to capture for our ELK Siem users.
 
 <!--
 Stage 1: If the changes include field additions or modifications, please create a folder titled as the RFC number under rfcs/text/. This will be where proposed schema changes as standalone YAML files or extended example mappings and larger source documents will go as the RFC is iterated upon.
