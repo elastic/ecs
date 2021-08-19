@@ -235,6 +235,7 @@ e.g.:
 * Stage 1: https://github.com/elastic/ecs/pull/1400
 * Stage 2: https://github.com/elastic/ecs/pull/1460
   * Stage 2 addendum: https://github.com/elastic/ecs/pull/1502
+* Stage 3: https://github.com/elastic/ecs/pull/1581
 
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN
