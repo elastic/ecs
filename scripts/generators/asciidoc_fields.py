@@ -122,7 +122,7 @@ def save_asciidoc(f, text):
 
 TEMPLATE_DIR = path.join(path.dirname(path.abspath(__file__)), '../templates')
 template_loader = jinja2.FileSystemLoader(searchpath=TEMPLATE_DIR)
-template_env = jinja2.Environment(loader=template_loader)
+template_env = jinja2.Environment(loader=template_loader, keep_trailing_newline=True)
 
 # Rendering schemas
 
