@@ -523,6 +523,7 @@ client.user.hash:
 client.user.id:
   dashed_name: client-user-id
   description: Unique identifier of the user.
+  example: S-1-5-21-202424912787-2692429404-2351956786-1000
   flat_name: client.user.id
   ignore_above: 1024
   level: core
@@ -536,7 +537,7 @@ client.user.name:
     beta.
   dashed_name: client-user-name
   description: Short name or login of the user.
-  example: albert
+  example: a.einstein
   flat_name: client.user.name
   ignore_above: 1024
   level: core
@@ -1226,6 +1227,7 @@ destination.user.hash:
 destination.user.id:
   dashed_name: destination-user-id
   description: Unique identifier of the user.
+  example: S-1-5-21-202424912787-2692429404-2351956786-1000
   flat_name: destination.user.id
   ignore_above: 1024
   level: core
@@ -1239,7 +1241,7 @@ destination.user.name:
     beta.
   dashed_name: destination-user-name
   description: Short name or login of the user.
-  example: albert
+  example: a.einstein
   flat_name: destination.user.name
   ignore_above: 1024
   level: core
@@ -4339,7 +4341,8 @@ http.request.body.bytes:
   short: Size in bytes of the request body.
   type: long
 http.request.body.content:
-  beta: Use of the `wildcard` data type for this field is currently beta.
+  beta: Use of `wildcard` as the primary type and `match_only_type` as the `.text`
+    multi-field type are both currently beta.
   dashed_name: http-request-body-content
   description: The full HTTP request body.
   example: Hello world
@@ -4348,8 +4351,7 @@ http.request.body.content:
   multi_fields:
   - flat_name: http.request.body.content.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: request.body.content
   normalize: []
   short: The full HTTP request body.
@@ -4432,7 +4434,8 @@ http.response.body.bytes:
   short: Size in bytes of the response body.
   type: long
 http.response.body.content:
-  beta: Use of the `wildcard` data type for this field is currently beta.
+  beta: Use of `wildcard` as the primary type and `match_only_type` as the `.text`
+    multi-field type are both currently beta.
   dashed_name: http-response-body-content
   description: The full HTTP response body.
   example: Hello world
@@ -4441,8 +4444,7 @@ http.response.body.content:
   multi_fields:
   - flat_name: http.response.body.content.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: response.body.content
   normalize: []
   short: The full HTTP response body.
@@ -4590,31 +4592,6 @@ log.origin.function:
   name: origin.function
   normalize: []
   short: The function which originated the log event.
-  type: keyword
-log.original:
-  dashed_name: log-original
-  description: 'Deprecated for removal in next major version release. This field is
-    superseded by `event.original`.
-
-    This is the original log message and contains the full log message before splitting
-    it up in multiple parts.
-
-    In contrast to the `message` field which can contain an extracted part of the
-    log message, this field contains the original, full log message. It can have already
-    some modifications applied like encoding or new lines removed to clean up the
-    log message.
-
-    This field is not indexed and doc_values are disabled so it can''t be queried
-    but the value can be retrieved from `_source`.'
-  doc_values: false
-  example: Sep 19 08:26:10 localhost My log
-  flat_name: log.original
-  index: false
-  level: core
-  name: original
-  normalize: []
-  short: Deprecated original log message with light interpretation only (encoding,
-    newlines).
   type: keyword
 log.syslog:
   dashed_name: log-syslog
@@ -5560,6 +5537,8 @@ organization.id:
   short: Unique identifier for the organization.
   type: keyword
 organization.name:
+  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
+    beta.
   dashed_name: organization-name
   description: Organization name.
   flat_name: organization.name
@@ -5568,8 +5547,7 @@ organization.name:
   multi_fields:
   - flat_name: organization.name.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: name
   normalize: []
   short: Organization name.
@@ -8083,6 +8061,7 @@ server.user.hash:
 server.user.id:
   dashed_name: server-user-id
   description: Unique identifier of the user.
+  example: S-1-5-21-202424912787-2692429404-2351956786-1000
   flat_name: server.user.id
   ignore_above: 1024
   level: core
@@ -8096,7 +8075,7 @@ server.user.name:
     beta.
   dashed_name: server-user-name
   description: Short name or login of the user.
-  example: albert
+  example: a.einstein
   flat_name: server.user.name
   ignore_above: 1024
   level: core
@@ -8686,6 +8665,7 @@ source.user.hash:
 source.user.id:
   dashed_name: source-user-id
   description: Unique identifier of the user.
+  example: S-1-5-21-202424912787-2692429404-2351956786-1000
   flat_name: source.user.id
   ignore_above: 1024
   level: core
@@ -8699,7 +8679,7 @@ source.user.name:
     beta.
   dashed_name: source-user-name
   description: Short name or login of the user.
-  example: albert
+  example: a.einstein
   flat_name: source.user.name
   ignore_above: 1024
   level: core
@@ -14150,6 +14130,7 @@ user.changes.hash:
 user.changes.id:
   dashed_name: user-changes-id
   description: Unique identifier of the user.
+  example: S-1-5-21-202424912787-2692429404-2351956786-1000
   flat_name: user.changes.id
   ignore_above: 1024
   level: core
@@ -14163,7 +14144,7 @@ user.changes.name:
     beta.
   dashed_name: user-changes-name
   description: Short name or login of the user.
-  example: albert
+  example: a.einstein
   flat_name: user.changes.name
   ignore_above: 1024
   level: core
@@ -14296,6 +14277,7 @@ user.effective.hash:
 user.effective.id:
   dashed_name: user-effective-id
   description: Unique identifier of the user.
+  example: S-1-5-21-202424912787-2692429404-2351956786-1000
   flat_name: user.effective.id
   ignore_above: 1024
   level: core
@@ -14309,7 +14291,7 @@ user.effective.name:
     beta.
   dashed_name: user-effective-name
   description: Short name or login of the user.
-  example: albert
+  example: a.einstein
   flat_name: user.effective.name
   ignore_above: 1024
   level: core
@@ -14414,6 +14396,7 @@ user.hash:
 user.id:
   dashed_name: user-id
   description: Unique identifier of the user.
+  example: S-1-5-21-202424912787-2692429404-2351956786-1000
   flat_name: user.id
   ignore_above: 1024
   level: core
@@ -14426,7 +14409,7 @@ user.name:
     beta.
   dashed_name: user-name
   description: Short name or login of the user.
-  example: albert
+  example: a.einstein
   flat_name: user.name
   ignore_above: 1024
   level: core
@@ -14545,6 +14528,7 @@ user.target.hash:
 user.target.id:
   dashed_name: user-target-id
   description: Unique identifier of the user.
+  example: S-1-5-21-202424912787-2692429404-2351956786-1000
   flat_name: user.target.id
   ignore_above: 1024
   level: core
@@ -14558,7 +14542,7 @@ user.target.name:
     beta.
   dashed_name: user-target-name
   description: Short name or login of the user.
-  example: albert
+  example: a.einstein
   flat_name: user.target.name
   ignore_above: 1024
   level: core

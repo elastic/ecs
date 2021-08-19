@@ -4345,7 +4345,7 @@ example: `887`
 [[field-http-request-body-content]]
 <<field-http-request-body-content, http.request.body.content>>
 
-| beta:[ Use of the `wildcard` data type for this field is currently beta. ]
+| beta:[ Use of `wildcard` as the primary type and `match_only_type` as the `.text` multi-field type are both currently beta. ]
 
 The full HTTP request body.
 
@@ -4353,7 +4353,7 @@ type: wildcard
 
 Multi-fields:
 
-* http.request.body.content.text (type: text)
+* http.request.body.content.text (type: match_only_text)
 
 
 
@@ -4471,7 +4471,7 @@ example: `887`
 [[field-http-response-body-content]]
 <<field-http-response-body-content, http.response.body.content>>
 
-| beta:[ Use of the `wildcard` data type for this field is currently beta. ]
+| beta:[ Use of `wildcard` as the primary type and `match_only_type` as the `.text` multi-field type are both currently beta. ]
 
 The full HTTP response body.
 
@@ -4479,7 +4479,7 @@ type: wildcard
 
 Multi-fields:
 
-* http.response.body.content.text (type: text)
+* http.response.body.content.text (type: match_only_text)
 
 
 
@@ -4758,28 +4758,6 @@ type: keyword
 example: `init`
 
 | extended
-
-// ===============================================================
-
-|
-[[field-log-original]]
-<<field-log-original, log.original>>
-
-| Deprecated for removal in next major version release. This field is superseded by `event.original`.
-
-This is the original log message and contains the full log message before splitting it up in multiple parts.
-
-In contrast to the `message` field which can contain an extracted part of the log message, this field contains the original, full log message. It can have already some modifications applied like encoding or new lines removed to clean up the log message.
-
-This field is not indexed and doc_values are disabled so it can't be queried but the value can be retrieved from `_source`.
-
-type: keyword
-
-
-
-example: `Sep 19 08:26:10 localhost My log`
-
-| core
 
 // ===============================================================
 
@@ -5667,13 +5645,15 @@ type: keyword
 [[field-organization-name]]
 <<field-organization-name, organization.name>>
 
-| Organization name.
+| beta:[ Use of the `match_only_text` type in the `.text` multi-field is currently beta. ]
+
+Organization name.
 
 type: keyword
 
 Multi-fields:
 
-* organization.name.text (type: text)
+* organization.name.text (type: match_only_text)
 
 
 
@@ -10128,7 +10108,7 @@ type: keyword
 
 
 
-
+example: `S-1-5-21-202424912787-2692429404-2351956786-1000`
 
 | core
 
@@ -10152,7 +10132,7 @@ Multi-fields:
 
 
 
-example: `albert`
+example: `a.einstein`
 
 | core
 

@@ -409,6 +409,7 @@
       type: keyword
       ignore_above: 1024
       description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
     - name: user.name
       level: core
       type: keyword
@@ -418,7 +419,7 @@
         type: match_only_text
         default_field: false
       description: Short name or login of the user.
-      example: albert
+      example: a.einstein
     - name: user.roles
       level: extended
       type: keyword
@@ -956,6 +957,7 @@
       type: keyword
       ignore_above: 1024
       description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
     - name: user.name
       level: core
       type: keyword
@@ -965,7 +967,7 @@
         type: match_only_text
         default_field: false
       description: Short name or login of the user.
-      example: albert
+      example: a.einstein
     - name: user.roles
       level: extended
       type: keyword
@@ -3027,8 +3029,7 @@
       type: wildcard
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: The full HTTP request body.
       example: Hello world
@@ -3087,8 +3088,7 @@
       type: wildcard
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: The full HTTP response body.
       example: Hello world
@@ -3219,25 +3219,6 @@
       ignore_above: 1024
       description: The name of the function or method which originated the log event.
       example: init
-    - name: original
-      level: core
-      type: keyword
-      description: 'Deprecated for removal in next major version release. This field
-        is superseded by `event.original`.
-
-        This is the original log message and contains the full log message before
-        splitting it up in multiple parts.
-
-        In contrast to the `message` field which can contain an extracted part of
-        the log message, this field contains the original, full log message. It can
-        have already some modifications applied like encoding or new lines removed
-        to clean up the log message.
-
-        This field is not indexed and doc_values are disabled so it can''t be queried
-        but the value can be retrieved from `_source`.'
-      example: Sep 19 08:26:10 localhost My log
-      index: false
-      doc_values: false
     - name: syslog
       level: extended
       type: object
@@ -3852,8 +3833,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: Organization name.
   - name: os
@@ -5525,6 +5505,7 @@
       type: keyword
       ignore_above: 1024
       description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
     - name: user.name
       level: core
       type: keyword
@@ -5534,7 +5515,7 @@
         type: match_only_text
         default_field: false
       description: Short name or login of the user.
-      example: albert
+      example: a.einstein
     - name: user.roles
       level: extended
       type: keyword
@@ -5909,6 +5890,7 @@
       type: keyword
       ignore_above: 1024
       description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
     - name: user.name
       level: core
       type: keyword
@@ -5918,7 +5900,7 @@
         type: match_only_text
         default_field: false
       description: Short name or login of the user.
-      example: albert
+      example: a.einstein
     - name: user.roles
       level: extended
       type: keyword
@@ -9210,6 +9192,7 @@
       type: keyword
       ignore_above: 1024
       description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
       default_field: false
     - name: changes.name
       level: core
@@ -9219,7 +9202,7 @@
       - name: text
         type: match_only_text
       description: Short name or login of the user.
-      example: albert
+      example: a.einstein
       default_field: false
     - name: changes.roles
       level: extended
@@ -9294,6 +9277,7 @@
       type: keyword
       ignore_above: 1024
       description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
       default_field: false
     - name: effective.name
       level: core
@@ -9303,7 +9287,7 @@
       - name: text
         type: match_only_text
       description: Short name or login of the user.
-      example: albert
+      example: a.einstein
       default_field: false
     - name: effective.roles
       level: extended
@@ -9358,6 +9342,7 @@
       type: keyword
       ignore_above: 1024
       description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
     - name: name
       level: core
       type: keyword
@@ -9367,7 +9352,7 @@
         type: match_only_text
         default_field: false
       description: Short name or login of the user.
-      example: albert
+      example: a.einstein
     - name: roles
       level: extended
       type: keyword
@@ -9434,6 +9419,7 @@
       type: keyword
       ignore_above: 1024
       description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
       default_field: false
     - name: target.name
       level: core
@@ -9443,7 +9429,7 @@
       - name: text
         type: match_only_text
       description: Short name or login of the user.
-      example: albert
+      example: a.einstein
       default_field: false
     - name: target.roles
       level: extended

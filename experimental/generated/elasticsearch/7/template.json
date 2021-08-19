@@ -895,6 +895,105 @@
           }
         }
       },
+      "email": {
+        "properties": {
+          "attachments": {
+            "properties": {
+              "file": {
+                "properties": {
+                  "extension": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  },
+                  "mime_type": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  },
+                  "name": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  },
+                  "size": {
+                    "type": "long"
+                  }
+                }
+              },
+              "hash": {
+                "properties": {
+                  "md5": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  },
+                  "sha1": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  },
+                  "sha256": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  }
+                }
+              }
+            },
+            "type": "nested"
+          },
+          "bcc": {
+            "ignore_above": 1024,
+            "type": "keyword"
+          },
+          "cc": {
+            "ignore_above": 1024,
+            "type": "keyword"
+          },
+          "content_type": {
+            "ignore_above": 1024,
+            "type": "keyword"
+          },
+          "delivery_timestamp": {
+            "type": "date"
+          },
+          "direction": {
+            "ignore_above": 1024,
+            "type": "keyword"
+          },
+          "from": {
+            "ignore_above": 1024,
+            "type": "keyword"
+          },
+          "local_id": {
+            "ignore_above": 1024,
+            "type": "keyword"
+          },
+          "message_id": {
+            "ignore_above": 1024,
+            "type": "keyword"
+          },
+          "origination_timestamp": {
+            "type": "date"
+          },
+          "reply_to": {
+            "ignore_above": 1024,
+            "type": "keyword"
+          },
+          "subject": {
+            "fields": {
+              "text": {
+                "type": "match_only_text"
+              }
+            },
+            "ignore_above": 1024,
+            "type": "keyword"
+          },
+          "to": {
+            "ignore_above": 1024,
+            "type": "keyword"
+          },
+          "x_mailer": {
+            "ignore_above": 1024,
+            "type": "keyword"
+          }
+        }
+      },
       "error": {
         "properties": {
           "code": {
@@ -1775,8 +1874,7 @@
                   "content": {
                     "fields": {
                       "text": {
-                        "norms": false,
-                        "type": "text"
+                        "type": "match_only_text"
                       }
                     },
                     "type": "wildcard"
@@ -1814,8 +1912,7 @@
                   "content": {
                     "fields": {
                       "text": {
-                        "norms": false,
-                        "type": "text"
+                        "type": "match_only_text"
                       }
                     },
                     "type": "wildcard"
@@ -1879,11 +1976,6 @@
                 "type": "keyword"
               }
             }
-          },
-          "original": {
-            "doc_values": false,
-            "index": false,
-            "type": "keyword"
           },
           "syslog": {
             "properties": {
@@ -2253,8 +2345,7 @@
           "name": {
             "fields": {
               "text": {
-                "norms": false,
-                "type": "text"
+                "type": "match_only_text"
               }
             },
             "ignore_above": 1024,

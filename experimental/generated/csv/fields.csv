@@ -43,9 +43,9 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.0.0-dev+exp,true,client,client.user.group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
 8.0.0-dev+exp,true,client,client.user.group.name,keyword,extended,,,Name of the group.
 8.0.0-dev+exp,true,client,client.user.hash,keyword,extended,,,Unique user hash to correlate information for a user in anonymized form.
-8.0.0-dev+exp,true,client,client.user.id,keyword,core,,,Unique identifier of the user.
-8.0.0-dev+exp,true,client,client.user.name,keyword,core,,albert,Short name or login of the user.
-8.0.0-dev+exp,true,client,client.user.name.text,match_only_text,core,,albert,Short name or login of the user.
+8.0.0-dev+exp,true,client,client.user.id,keyword,core,,S-1-5-21-202424912787-2692429404-2351956786-1000,Unique identifier of the user.
+8.0.0-dev+exp,true,client,client.user.name,keyword,core,,a.einstein,Short name or login of the user.
+8.0.0-dev+exp,true,client,client.user.name.text,match_only_text,core,,a.einstein,Short name or login of the user.
 8.0.0-dev+exp,true,client,client.user.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 8.0.0-dev+exp,true,cloud,cloud.account.id,keyword,extended,,666777888999,The cloud account or organization id.
 8.0.0-dev+exp,true,cloud,cloud.account.name,keyword,extended,,elastic-dev,The cloud account name.
@@ -107,9 +107,9 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.0.0-dev+exp,true,destination,destination.user.group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
 8.0.0-dev+exp,true,destination,destination.user.group.name,keyword,extended,,,Name of the group.
 8.0.0-dev+exp,true,destination,destination.user.hash,keyword,extended,,,Unique user hash to correlate information for a user in anonymized form.
-8.0.0-dev+exp,true,destination,destination.user.id,keyword,core,,,Unique identifier of the user.
-8.0.0-dev+exp,true,destination,destination.user.name,keyword,core,,albert,Short name or login of the user.
-8.0.0-dev+exp,true,destination,destination.user.name.text,match_only_text,core,,albert,Short name or login of the user.
+8.0.0-dev+exp,true,destination,destination.user.id,keyword,core,,S-1-5-21-202424912787-2692429404-2351956786-1000,Unique identifier of the user.
+8.0.0-dev+exp,true,destination,destination.user.name,keyword,core,,a.einstein,Short name or login of the user.
+8.0.0-dev+exp,true,destination,destination.user.name.text,match_only_text,core,,a.einstein,Short name or login of the user.
 8.0.0-dev+exp,true,destination,destination.user.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 8.0.0-dev+exp,true,dll,dll.code_signature.digest_algorithm,keyword,extended,,sha256,Hashing algorithm used to sign the process.
 8.0.0-dev+exp,true,dll,dll.code_signature.exists,boolean,core,,true,Boolean to capture if a signature is present.
@@ -184,6 +184,28 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.0.0-dev+exp,true,dns,dns.response_code,keyword,extended,,NOERROR,The DNS response code.
 8.0.0-dev+exp,true,dns,dns.type,keyword,extended,,answer,"The type of DNS event captured, query or answer."
 8.0.0-dev+exp,true,ecs,ecs.version,keyword,core,,1.0.0,ECS version this event conforms to.
+8.0.0-dev+exp,true,email,email.attachments,nested,extended,,,List of objects describing the attachments.
+8.0.0-dev+exp,true,email,email.attachments.file.extension,keyword,extended,,txt,Attachment file extension.
+8.0.0-dev+exp,true,email,email.attachments.file.mime_type,keyword,extended,,text/plain,MIME type of the attachment file.
+8.0.0-dev+exp,true,email,email.attachments.file.name,keyword,extended,,attachment.txt,Name of the attachment file.
+8.0.0-dev+exp,true,email,email.attachments.file.size,long,extended,,64329,Attachment file size.
+8.0.0-dev+exp,true,email,email.attachments.hash.md5,keyword,extended,,e25f1c98ffdacf611473af364362ec48,MD5 hash of the attachment.
+8.0.0-dev+exp,true,email,email.attachments.hash.sha1,keyword,extended,,8c1cd40f17109b427e61d4e72ca6d9a4fc8175f3,SHA-1 hash of the attachment.
+8.0.0-dev+exp,true,email,email.attachments.hash.sha256,keyword,extended,,f0366b3559f577d8732f7e9cc343a4960d202e8137dcc42f9783f3963f6abc6a,SHA-256 hash of the attachment.
+8.0.0-dev+exp,true,email,email.bcc,keyword,extended,array,"['bcc.user1@example.com', 'bcc.user2@example.com']",Email address(es) of BCC recipients
+8.0.0-dev+exp,true,email,email.cc,keyword,extended,array,"['cc.user1@example.com', 'cc.user2@example.com']",Email address(es) of CC recipients
+8.0.0-dev+exp,true,email,email.content_type,keyword,extended,,text/plain,MIME type of the email message.
+8.0.0-dev+exp,true,email,email.delivery_timestamp,date,extended,,2020-11-10T22:12:34.8196921Z,Date and time when message was delivered.
+8.0.0-dev+exp,true,email,email.direction,keyword,extended,,inbound,Direction of the message.
+8.0.0-dev+exp,true,email,email.from,keyword,extended,,sender@example.com,The sender's email address.
+8.0.0-dev+exp,true,email,email.local_id,keyword,extended,,c26dbea0-80d5-463b-b93c-4e8b708219ce,Unique identifier given by the source.
+8.0.0-dev+exp,true,email,email.message_id,keyword,extended,,<81ce15$8r2j59@mail01.example.com>,Value from the Message-ID header.
+8.0.0-dev+exp,true,email,email.origination_timestamp,date,extended,,2020-11-10T22:12:34.8196921Z,Date and time the email was composed.
+8.0.0-dev+exp,true,email,email.reply_to,keyword,extended,,reply.here@example.com,Address replies should be delivered to.
+8.0.0-dev+exp,true,email,email.subject,keyword,extended,,Please see this important message.,The subject of the email message.
+8.0.0-dev+exp,true,email,email.subject.text,match_only_text,extended,,Please see this important message.,The subject of the email message.
+8.0.0-dev+exp,true,email,email.to,keyword,extended,array,"['user1@example.com', 'user2@example.com']",Email address(es) of the recipients.
+8.0.0-dev+exp,true,email,email.x_mailer,keyword,extended,,Spambot v2.5,Application that drafted email.
 8.0.0-dev+exp,true,error,error.code,keyword,core,,,Error code describing the error.
 8.0.0-dev+exp,true,error,error.id,keyword,core,,,Unique identifier for the error.
 8.0.0-dev+exp,true,error,error.message,match_only_text,core,,,Error message.
@@ -386,7 +408,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.0.0-dev+exp,true,host,host.uptime,long,extended,,1325,Seconds the host has been up.
 8.0.0-dev+exp,true,http,http.request.body.bytes,long,extended,,887,Size in bytes of the request body.
 8.0.0-dev+exp,true,http,http.request.body.content,wildcard,extended,,Hello world,The full HTTP request body.
-8.0.0-dev+exp,true,http,http.request.body.content.text,text,extended,,Hello world,The full HTTP request body.
+8.0.0-dev+exp,true,http,http.request.body.content.text,match_only_text,extended,,Hello world,The full HTTP request body.
 8.0.0-dev+exp,true,http,http.request.bytes,long,extended,,1437,Total size in bytes of the request (body and headers).
 8.0.0-dev+exp,true,http,http.request.id,keyword,extended,,123e4567-e89b-12d3-a456-426614174000,HTTP request ID.
 8.0.0-dev+exp,true,http,http.request.method,keyword,extended,,POST,HTTP request method.
@@ -394,7 +416,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.0.0-dev+exp,true,http,http.request.referrer,keyword,extended,,https://blog.example.com/,Referrer for this HTTP request.
 8.0.0-dev+exp,true,http,http.response.body.bytes,long,extended,,887,Size in bytes of the response body.
 8.0.0-dev+exp,true,http,http.response.body.content,wildcard,extended,,Hello world,The full HTTP response body.
-8.0.0-dev+exp,true,http,http.response.body.content.text,text,extended,,Hello world,The full HTTP response body.
+8.0.0-dev+exp,true,http,http.response.body.content.text,match_only_text,extended,,Hello world,The full HTTP response body.
 8.0.0-dev+exp,true,http,http.response.bytes,long,extended,,1437,Total size in bytes of the response (body and headers).
 8.0.0-dev+exp,true,http,http.response.mime_type,keyword,extended,,image/gif,Mime type of the body of the response.
 8.0.0-dev+exp,true,http,http.response.status_code,long,extended,,404,HTTP response status code.
@@ -405,7 +427,6 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.0.0-dev+exp,true,log,log.origin.file.line,long,extended,,42,The line number of the file which originated the log event.
 8.0.0-dev+exp,true,log,log.origin.file.name,keyword,extended,,Bootstrap.java,The code file which originated the log event.
 8.0.0-dev+exp,true,log,log.origin.function,keyword,extended,,init,The function which originated the log event.
-8.0.0-dev+exp,false,log,log.original,keyword,core,,Sep 19 08:26:10 localhost My log,"Deprecated original log message with light interpretation only (encoding, newlines)."
 8.0.0-dev+exp,true,log,log.syslog,object,extended,,,Syslog metadata
 8.0.0-dev+exp,true,log,log.syslog.facility.code,long,extended,,23,Syslog numeric facility of the event.
 8.0.0-dev+exp,true,log,log.syslog.facility.name,keyword,extended,,local7,Syslog text-based facility of the event.
@@ -482,7 +503,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.0.0-dev+exp,true,orchestrator,orchestrator.type,keyword,extended,,kubernetes,"Orchestrator cluster type (e.g. kubernetes, nomad or cloudfoundry)."
 8.0.0-dev+exp,true,organization,organization.id,keyword,extended,,,Unique identifier for the organization.
 8.0.0-dev+exp,true,organization,organization.name,keyword,extended,,,Organization name.
-8.0.0-dev+exp,true,organization,organization.name.text,text,extended,,,Organization name.
+8.0.0-dev+exp,true,organization,organization.name.text,match_only_text,extended,,,Organization name.
 8.0.0-dev+exp,true,package,package.architecture,keyword,extended,,x86_64,Package architecture.
 8.0.0-dev+exp,true,package,package.build_version,keyword,extended,,36f4f7e89dd61b0988b12ee000b98966867710cd,Build version information
 8.0.0-dev+exp,true,package,package.checksum,keyword,extended,,68b329da9893e34099c7d8ad5cb9c940,Checksum of the installed package for verification.
@@ -963,9 +984,9 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.0.0-dev+exp,true,server,server.user.group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
 8.0.0-dev+exp,true,server,server.user.group.name,keyword,extended,,,Name of the group.
 8.0.0-dev+exp,true,server,server.user.hash,keyword,extended,,,Unique user hash to correlate information for a user in anonymized form.
-8.0.0-dev+exp,true,server,server.user.id,keyword,core,,,Unique identifier of the user.
-8.0.0-dev+exp,true,server,server.user.name,keyword,core,,albert,Short name or login of the user.
-8.0.0-dev+exp,true,server,server.user.name.text,match_only_text,core,,albert,Short name or login of the user.
+8.0.0-dev+exp,true,server,server.user.id,keyword,core,,S-1-5-21-202424912787-2692429404-2351956786-1000,Unique identifier of the user.
+8.0.0-dev+exp,true,server,server.user.name,keyword,core,,a.einstein,Short name or login of the user.
+8.0.0-dev+exp,true,server,server.user.name.text,match_only_text,core,,a.einstein,Short name or login of the user.
 8.0.0-dev+exp,true,server,server.user.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 8.0.0-dev+exp,true,service,service.address,keyword,extended,,172.26.0.2:5432,Address of this service.
 8.0.0-dev+exp,true,service,service.environment,keyword,extended,,production,Environment of the service.
@@ -1010,9 +1031,9 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.0.0-dev+exp,true,source,source.user.group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
 8.0.0-dev+exp,true,source,source.user.group.name,keyword,extended,,,Name of the group.
 8.0.0-dev+exp,true,source,source.user.hash,keyword,extended,,,Unique user hash to correlate information for a user in anonymized form.
-8.0.0-dev+exp,true,source,source.user.id,keyword,core,,,Unique identifier of the user.
-8.0.0-dev+exp,true,source,source.user.name,keyword,core,,albert,Short name or login of the user.
-8.0.0-dev+exp,true,source,source.user.name.text,match_only_text,core,,albert,Short name or login of the user.
+8.0.0-dev+exp,true,source,source.user.id,keyword,core,,S-1-5-21-202424912787-2692429404-2351956786-1000,Unique identifier of the user.
+8.0.0-dev+exp,true,source,source.user.name,keyword,core,,a.einstein,Short name or login of the user.
+8.0.0-dev+exp,true,source,source.user.name.text,match_only_text,core,,a.einstein,Short name or login of the user.
 8.0.0-dev+exp,true,source,source.user.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 8.0.0-dev+exp,true,span,span.id,keyword,extended,,3ff9a8981b7ccd5a,Unique identifier of the span within the scope of its trace.
 8.0.0-dev+exp,true,threat,threat.enrichments,nested,extended,,,List of objects containing indicators enriching the event.
@@ -1507,9 +1528,9 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.0.0-dev+exp,true,user,user.changes.group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
 8.0.0-dev+exp,true,user,user.changes.group.name,keyword,extended,,,Name of the group.
 8.0.0-dev+exp,true,user,user.changes.hash,keyword,extended,,,Unique user hash to correlate information for a user in anonymized form.
-8.0.0-dev+exp,true,user,user.changes.id,keyword,core,,,Unique identifier of the user.
-8.0.0-dev+exp,true,user,user.changes.name,keyword,core,,albert,Short name or login of the user.
-8.0.0-dev+exp,true,user,user.changes.name.text,match_only_text,core,,albert,Short name or login of the user.
+8.0.0-dev+exp,true,user,user.changes.id,keyword,core,,S-1-5-21-202424912787-2692429404-2351956786-1000,Unique identifier of the user.
+8.0.0-dev+exp,true,user,user.changes.name,keyword,core,,a.einstein,Short name or login of the user.
+8.0.0-dev+exp,true,user,user.changes.name.text,match_only_text,core,,a.einstein,Short name or login of the user.
 8.0.0-dev+exp,true,user,user.changes.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 8.0.0-dev+exp,true,user,user.domain,keyword,extended,,,Name of the directory the user is a member of.
 8.0.0-dev+exp,true,user,user.effective.domain,keyword,extended,,,Name of the directory the user is a member of.
@@ -1520,9 +1541,9 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.0.0-dev+exp,true,user,user.effective.group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
 8.0.0-dev+exp,true,user,user.effective.group.name,keyword,extended,,,Name of the group.
 8.0.0-dev+exp,true,user,user.effective.hash,keyword,extended,,,Unique user hash to correlate information for a user in anonymized form.
-8.0.0-dev+exp,true,user,user.effective.id,keyword,core,,,Unique identifier of the user.
-8.0.0-dev+exp,true,user,user.effective.name,keyword,core,,albert,Short name or login of the user.
-8.0.0-dev+exp,true,user,user.effective.name.text,match_only_text,core,,albert,Short name or login of the user.
+8.0.0-dev+exp,true,user,user.effective.id,keyword,core,,S-1-5-21-202424912787-2692429404-2351956786-1000,Unique identifier of the user.
+8.0.0-dev+exp,true,user,user.effective.name,keyword,core,,a.einstein,Short name or login of the user.
+8.0.0-dev+exp,true,user,user.effective.name.text,match_only_text,core,,a.einstein,Short name or login of the user.
 8.0.0-dev+exp,true,user,user.effective.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 8.0.0-dev+exp,true,user,user.email,keyword,extended,,,User email address.
 8.0.0-dev+exp,true,user,user.full_name,keyword,extended,,Albert Einstein,"User's full name, if available."
@@ -1531,9 +1552,9 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.0.0-dev+exp,true,user,user.group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
 8.0.0-dev+exp,true,user,user.group.name,keyword,extended,,,Name of the group.
 8.0.0-dev+exp,true,user,user.hash,keyword,extended,,,Unique user hash to correlate information for a user in anonymized form.
-8.0.0-dev+exp,true,user,user.id,keyword,core,,,Unique identifier of the user.
-8.0.0-dev+exp,true,user,user.name,keyword,core,,albert,Short name or login of the user.
-8.0.0-dev+exp,true,user,user.name.text,match_only_text,core,,albert,Short name or login of the user.
+8.0.0-dev+exp,true,user,user.id,keyword,core,,S-1-5-21-202424912787-2692429404-2351956786-1000,Unique identifier of the user.
+8.0.0-dev+exp,true,user,user.name,keyword,core,,a.einstein,Short name or login of the user.
+8.0.0-dev+exp,true,user,user.name.text,match_only_text,core,,a.einstein,Short name or login of the user.
 8.0.0-dev+exp,true,user,user.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 8.0.0-dev+exp,true,user,user.target.domain,keyword,extended,,,Name of the directory the user is a member of.
 8.0.0-dev+exp,true,user,user.target.email,keyword,extended,,,User email address.
@@ -1543,9 +1564,9 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.0.0-dev+exp,true,user,user.target.group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
 8.0.0-dev+exp,true,user,user.target.group.name,keyword,extended,,,Name of the group.
 8.0.0-dev+exp,true,user,user.target.hash,keyword,extended,,,Unique user hash to correlate information for a user in anonymized form.
-8.0.0-dev+exp,true,user,user.target.id,keyword,core,,,Unique identifier of the user.
-8.0.0-dev+exp,true,user,user.target.name,keyword,core,,albert,Short name or login of the user.
-8.0.0-dev+exp,true,user,user.target.name.text,match_only_text,core,,albert,Short name or login of the user.
+8.0.0-dev+exp,true,user,user.target.id,keyword,core,,S-1-5-21-202424912787-2692429404-2351956786-1000,Unique identifier of the user.
+8.0.0-dev+exp,true,user,user.target.name,keyword,core,,a.einstein,Short name or login of the user.
+8.0.0-dev+exp,true,user,user.target.name.text,match_only_text,core,,a.einstein,Short name or login of the user.
 8.0.0-dev+exp,true,user,user.target.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 8.0.0-dev+exp,true,user_agent,user_agent.device.name,keyword,extended,,iPhone,Name of the device.
 8.0.0-dev+exp,true,user_agent,user_agent.name,keyword,extended,,Safari,Name of the user agent.
