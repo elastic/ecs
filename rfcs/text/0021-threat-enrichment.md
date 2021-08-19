@@ -1,6 +1,6 @@
 # 0021: Threat Enrichment
 
-- Stage: **2 (candidate)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
+- Stage: **3 (finished)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
 - Date: **2021-07-06** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 <!--
