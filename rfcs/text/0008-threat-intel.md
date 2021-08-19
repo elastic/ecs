@@ -1,8 +1,8 @@
 # 0008: Cyber Threat Intelligence Fields
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
-- Stage: **2 (candidate)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
-- Date: **2021-07-06** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
+- Stage: **3 (finished)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
+- Date: **2021-08-19** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 Elastic Security Solution will be adding the capability to ingest, process and utilize threat intelligence information for increasing detection coverage and helping analysts make quicker investigation decisions. Threat intelligence can be collected from a number of sources with a variety of structured and semi-structured data representations. This makes threat intelligence an ideal candidate for ECS mappings. Threat intelligence data will require ECS mappings to normalize it and make it usable in our security solution. This RFC is focused on identifying new field sets and values that need to be created for threat intelligence data. Existing ECS field reuse will be prioritized where possible. If new fields are required we will utilize [STIX Cyber Observable data model](https://docs.oasis-open.org/cti/stix/v2.1/cs01/stix-v2.1-cs01.html#_mlbmudhl16lr) as guidance.
 
@@ -31,7 +31,7 @@ threat.indicator.modified_at | date | 2020-11-05T17:25:47.000Z | The date and ti
 threat.indicator.sightings | long | 20 | Number of times this indicator was observed conducting threat activity
 threat.indicator.type | keyword | ipv4-addr | Type of indicator as represented by Cyber Observable in STIX 2.0
 threat.indicator.description | keyword | 201.10.10.90 was seen delivering Angler EK | Describes the type of action conducted by the threat
-threat.indicator.confidence | keyword | High, 10, Confirmed by other sources, Certain, Almost Certain / Nearly Certain | Identifies the confidence rating assigned by the provider using STIX confidence scales (N/H/M/L, 0-10, Admirality, WEP, or DNI).
+threat.indicator.confidence | keyword | Medium | Identifies the vendor-neutral confidence rating using the None/Low/Medium/High scale defined in Appendix A of the STIX 2.1 framework. Vendor-specific confidence scales may be added as custom fields.
 threat.indicator.ip | ip | 1.2.3.4 | Identifies a threat indicator as an IP address (irrespective of direction).
 threat.indicator.port | long | 443 | Identifies a threat indicator as a port number (irrespective of direction).
 threat.indicator.email.address | keyword | phish@evil.com | Identifies a threat indicator as an email address (irrespective of direction).
@@ -231,6 +231,8 @@ These sources typically provide intelligence that can be downloaded through REST
 - Abuse.ch URL - This dataset from Abuse.ch provides a list of malware URLs.
 - AlienVault OTX - This dataset from AlienVault provides a list of malware hashes, URLs, and IPs.
 - Anomali Limo - This dataset from Anomali provides threat information from the Limo service.
+- Malware Bazaar - This dataset from Malware Bazaar provides Malware threat information.
+- ThreatFox - This dataset from ThreatFox provides malware and network threat information.
 
 <!--
 Stage 2: Included a real world example source document. Ideally this example comes from the source(s) identified in stage 1. If not, it should replace them. The goal here is to validate the utility of these field changes in the context of a real world example. Format with the source name as a ### header and the example document in a GitHub code block with json formatting.
@@ -272,6 +274,23 @@ This dataset from Anomali provides threat information from the Limo service.
 Stage 3: Add more real world example source documents so we have at least 2 total, but ideally 3. Format as described in stage 2.
 -->
 
+#### Malware Bazaar
+This dataset from Malware Bazaar provides Malware threat information.
+```
+{"sha256_hash":"832fb4090879c1bebe75bea939a9c5724dbf87898febd425f94f7e03ee687d3b","sha3_384_hash":"a609684a08bfdd533be2a05b8649fc5f5e71642dde35d7d07fff11e5be60b9ec803959ab1be0a9225e098ca301a00b95","sha1_hash":"e7f6bf55ee9477a4208f0253d94deff4453aaa64","md5_hash":"781228e0a889c0624a5f1d8e9f5b0b30","first_seen":"2021-05-28 12:06:39","last_seen":null,"file_name":"Mozi.a","file_size":123164,"file_type_mime":"application/x-executable","file_type":"elf","reporter":"tolisec","anonymous":0,"signature":"Mozi","imphash":null,"tlsh":"A0C312E48E1121A0C5ADE566CC540FCAC3112D5E671E0DCA8F2CEE64AEC4AF45EADD6C","telfhash":null,"ssdeep":"3072:Lp2ANLHdrdTZvaSx6voDSnTi2Zr/G5kdstkUtfR1sAP/y:LF1HdrdFdrWnpp/G50sdfRmAPa","tags":["Mozi"],"code_sign":[],"intelligence":{"clamav":["Unix.Malware.Agent-7349999-0","Unix.Packed.Gafgyt-9390807-0","Unix.Packed.Gafgyt-9390815-0","Unix.Packed.Mirai-7640005-0"],"downloads":"65","uploads":"1","mail":null}}
+{"sha256_hash":"57744761595c2dccdf76560c4e0fe7ea33ea85be281d1b7a9c9b4e9e9dbb0221","sha3_384_hash":"1399177d3a9d63eb342398bf3b31d151c3e02b666e181727d3628280af5adc0e5e4a17204168d994374990e126c2751c","sha1_hash":"0edecb66e625e6b07da5eab828e41b319b6aefdd","md5_hash":"cddc397ae51b9bb0bc9407a7165e33d9","first_seen":"2021-03-02 12:06:37","last_seen":null,"file_name":"sample.bin","file_size":385992,"file_type_mime":"application/x-executable","file_type":"elf","reporter":"c3rb3ru5d3d53c","anonymous":0,"signature":"Mirai","imphash":null,"tlsh":"8C84390FBF210EFBE89FDE3B02EE0B05219C950622997B397574C914F95A54B4AE3874","telfhash":null,"ssdeep":"6144:eOLyBx1SeRlVwwGsBmyjtc3LzdPvwTyughNG0FzPqOkJ:eOLyBxRIsnjtILOyuSNJxPqOkJ","tags":["botnet","mirai","Mozi"],"code_sign":[],"intelligence":{"clamav":["SecuriteInfo.com.Linux.Mirai-29.UNOFFICIAL","SecuriteInfo.com.Linux.Mirai-63.UNOFFICIAL","Unix.Dropper.Botnet-6566040-0","Unix.Dropper.Mirai-7135934-0","Unix.Dropper.Mirai-7136013-0","Unix.Dropper.Mirai-7136057-0","Unix.Dropper.Mirai-7136070-0","Unix.Exploit.Mirai-9795501-0","Unix.Packed.Botnet-6566031-0","Unix.Trojan.Gafgyt-6735924-0","Unix.Trojan.Gafgyt-6748839-0","Unix.Trojan.Mirai-7100807-0","Unix.Trojan.Mirai-8025795-0","Unix.Trojan.Mirai-9762350-0","Unix.Trojan.Mirai-9763616-0","Unix.Trojan.Mirai-9769616-0"],"downloads":"129","uploads":"1","mail":null}}
+{"sha256_hash":"12013662c71da69de977c04cd7021f13a70cf7bed4ca6c82acbc100464d4b0ef","sha3_384_hash":"c8f175202c18fc7670313fc5a7221b347b2f4f204d3eaa2c5e5ed1a1ed3038f6f038c48edcbe4efb232a6b3d2a6bd51d","sha1_hash":"292559e94f1c04b7d0c65d4a01bbbc5dc1ff6f21","md5_hash":"eec5c6c219535fba3a0492ea8118b397","first_seen":"2021-01-12 20:52:19","last_seen":null,"file_name":"Mozi.m","file_size":307960,"file_type_mime":"application/x-executable","file_type":"elf","reporter":"r3dbU7z","anonymous":0,"signature":"Mirai","imphash":null,"tlsh":"13643A8AFD81AE25D5C126BBFE2F4289331317B8D2EB71029D145F2876CA94F0F7A541","telfhash":"d4014e084c695a78f066c975d0fb3172562e449af75236141b75fc2e2e638e2312192f","ssdeep":"6144:T2s/gAWuboqsJ9xcJxspJBqQgTuaJZRhVabE5wKSDP99zBa77oNsKqqfPqOJ:T2s/bW+UmJqBxAuaPRhVabEDSDP99zBT","tags":["elf","mirai","Mozi"],"code_sign":[],"intelligence":{"clamav":["SecuriteInfo.com.Linux.Mirai-29.UNOFFICIAL","SecuriteInfo.com.Linux.Mirai-63.UNOFFICIAL","Unix.Dropper.Botnet-6566040-0","Unix.Dropper.Mirai-7135934-0","Unix.Dropper.Mirai-7136013-0","Unix.Dropper.Mirai-7136057-0","Unix.Dropper.Mirai-7136070-0","Unix.Exploit.Mirai-9795501-0","Unix.Packed.Botnet-6566031-0","Unix.Trojan.Gafgyt-6735924-0","Unix.Trojan.Gafgyt-6748839-0","Unix.Trojan.Mirai-7100807-0","Unix.Trojan.Mirai-8025795-0","Unix.Trojan.Mirai-9762350-0","Unix.Trojan.Mirai-9763616-0","Unix.Trojan.Mirai-9769616-0"],"downloads":"134","uploads":"1","mail":null}}
+```
+
+#### ThreatFox
+This dataset from ThreatFox provides malware and network threat information.
+```
+{"id":"115772","ioc":"46.229.199.126:53822","threat_type":"botnet_cc","threat_type_desc":"Indicator that identifies a botnet command&control server (C&C)","ioc_type":"ip:port","ioc_type_desc":"ip:port combination that is used for botnet Command&control (C&C)","malware":"elf.mozi","malware_printable":"Mozi","malware_alias":null,"malware_malpedia":"https://malpedia.caad.fkie.fraunhofer.de/details/elf.mozi","confidence_level":75,"first_seen":"2021-06-15 08:22:52 UTC","last_seen":null,"reference":"https://bazaar.abuse.ch/sample/4b41223ca64ab6ef4b3b9c9d4257902a32f9fa8cdf4d9f6261b24b8dee81d233/","reporter":"abuse_ch","tags":["Mozi"]}
+{"id":"115771","ioc":"188.254.247.90:37294","threat_type":"botnet_cc","threat_type_desc":"Indicator that identifies a botnet command&control server (C&C)","ioc_type":"ip:port","ioc_type_desc":"ip:port combination that is used for botnet Command&control (C&C)","malware":"elf.mozi","malware_printable":"Mozi","malware_alias":null,"malware_malpedia":"https://malpedia.caad.fkie.fraunhofer.de/details/elf.mozi","confidence_level":75,"first_seen":"2021-06-15 08:22:51 UTC","last_seen":null,"reference":"https://bazaar.abuse.ch/sample/4b41223ca64ab6ef4b3b9c9d4257902a32f9fa8cdf4d9f6261b24b8dee81d233/","reporter":"abuse_ch","tags":["Mozi"]}
+{"id":"115770","ioc":"119.195.9.2:5611","threat_type":"botnet_cc","threat_type_desc":"Indicator that identifies a botnet command&control server (C&C)","ioc_type":"ip:port","ioc_type_desc":"ip:port combination that is used for botnet Command&control (C&C)","malware":"elf.mozi","malware_printable":"Mozi","malware_alias":null,"malware_malpedia":"https://malpedia.caad.fkie.fraunhofer.de/details/elf.mozi","confidence_level":75,"first_seen":"2021-06-15 08:22:50 UTC","last_seen":null,"reference":"https://bazaar.abuse.ch/sample/4b41223ca64ab6ef4b3b9c9d4257902a32f9fa8cdf4d9f6261b24b8dee81d233/","reporter":"abuse_ch","tags":["Mozi"]}
+```
+
+
 ## Scope of impact
 
 <!--
@@ -281,7 +300,7 @@ Stage 2: Identifies scope of impact of changes. Are breaking changes required? S
  * ECS project (e.g. docs, tooling)
 The goal here is to research and understand the impact of these changes on users in the community and development teams across Elastic. 2-5 sentences each.
 -->
- * Ingestion mechanism: Primary ingestion mechanisms will be Filebeat modules and Ingest Packages. There will be no impact on ingestion mechanisms. [Filebeat module](https://www.elastic.co/guide/en/beats/filebeat/7.12/exported-fields-threatintel.html) was released in `7.12`.
+ * Ingestion mechanism: Primary ingestion mechanisms will be Filebeat modules and Ingest Packages. There will be no impact on ingestion mechanisms. [Filebeat module](https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-module-threatintel.html) was released in `7.12`.
  * Usage mechanism: The primary use of the proposed ECS fields and values is through Elastic Security solution. In 7.10 we released Indicator match rule to support the use of the proposed new fields and values.
 
 ## Concerns
@@ -290,15 +309,21 @@ The goal here is to research and understand the impact of these changes on users
 Stage 1: Identify potential concerns, implementation challenges, or complexity. Spend some time on this. Play devil's advocate. Try to identify the sort of non-obvious challenges that tend to surface later. The goal here is to surface risks early, allow everyone the time to work through them, and ultimately document resolution for posterity's sake.
 -->
 
-1. How to best represent malware{name,family,type}. Current proposal is to use `threat.indicator.classification` to describe threat delivery (Hacktool etc.) and family name.
+1. Data shippers (Beats, packages, etc.) will need to generate normal `threat.indicator.*` fields
+  - In `7.14` (current Beat modules, packages, etc.) data will be shipped using the current `threatintel.indicator.*` fields
+  - In `7.15+` data will be shipped using `threat.indicator.*` and existing Beat modules, packages, indicator match rules, templates, etc. will need to be changed from `threatintel.indicator.*` to `threat.indicator.*`
+
+<!--
+ retaining in the event the previous discussion is needed (https://github.com/elastic/ecs/pull/1480#discussion_r682908848)
 1. Field types (Ref: https://github.com/elastic/ecs/pull/1127#issuecomment-776126293)
   - `threatintel.indicator.*` (Filebeat module) will be normal field type and will be deprecated when nested field types are better supported in Kibana
   - `threat.indicator.*` (actual threat ECS fieldset) will be nested now and used for enriched doc
   - Once there is better support for nested field types in Kibana, there will be a migration to `threat.indicator.*`
   - Do we see this development affecting the timeline for this RFC's advancement (https://github.com/elastic/ecs/pull/1127#issuecomment-777766608)?
-    >I imagine many users interested in threat.indicator.* fields are looking to map their own indicator sources to threat.indicator.* and then ingest those sources for use with indicator match rules. Is this something that will still be possible until the migration to threat.indicator.* happens?
-    >
-    >Including the threat.indicator.* fields in ECS would still document the fields as soon as they are implemented in the signals indices. Yet, until we feel confident encouraging using these fields to normalize users' data, I'm worried about the confusion and experience that would result.
+    I imagine many users interested in threat.indicator.* fields are looking to map their own indicator sources to threat.indicator.* and then ingest those sources for use with indicator match rules. Is this something that will still be possible until the migration to threat.indicator.* happens?
+
+    Including the threat.indicator.* fields in ECS would still document the fields as soon as they are implemented in the signals indices. Yet, until we feel confident encouraging using these fields to normalize users' data, I'm worried about the confusion and experience that would result.
+-->
 
 <!--
 Stage 2: Document new concerns or resolutions to previously listed concerns. It's not critical that all concerns have resolutions at this point, but it would be helpful if resolutions were taking shape for the most significant concerns.
@@ -342,9 +367,12 @@ Some examples of open source intelligence are:
   * [Abuse.ch URL Tracker](https://urlhaus.abuse.ch/)
   * [AlienVault OTX](https://otx.alienvault.com/api)
   * [Anomali Limo](https://www.anomali.com/resources/limo)
+  * [Malware Bazaar](https://bazaar.abuse.ch/)
+  * [ThreatFox](https://threatfox.abuse.ch/)
 
 Some examples of commercial intelligence include:
   * [Anomali ThreatStream](https://www.anomali.com/products/threatstream)
+  * [Recorded Future](https://api.recordedfuture.com/v2/)
   * [Virus Total](https://www.virustotal.com/gui/intelligence-overview)
   * [Domain Tools](https://www.domaintools.com/products/api-integration/)
 
@@ -360,7 +388,7 @@ Some examples of commercial intelligence include:
 * Stage 1 (originally stage 2 prior to removal of RFC stage 4): https://github.com/elastic/ecs/pull/1127
 * Stage 2: https://github.com/elastic/ecs/pull/1293
   * Stage 2 addendum: https://github.com/elastic/ecs/pull/1502
-
+* Stage 3: https://github.com/elastic/ecs/pull/1480
 
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN
