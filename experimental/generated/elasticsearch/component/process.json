@@ -1,7 +1,7 @@
 {
   "_meta": {
     "documentation": "https://www.elastic.co/guide/en/ecs/current/ecs-process.html",
-    "ecs_version": "2.0.0-dev+exp"
+    "ecs_version": "8.0.0-dev+exp"
   },
   "template": {
     "mappings": {
@@ -17,6 +17,10 @@
             },
             "code_signature": {
               "properties": {
+                "digest_algorithm": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
                 "exists": {
                   "type": "boolean"
                 },
@@ -36,6 +40,9 @@
                   "ignore_above": 1024,
                   "type": "keyword"
                 },
+                "timestamp": {
+                  "type": "date"
+                },
                 "trusted": {
                   "type": "boolean"
                 },
@@ -47,8 +54,7 @@
             "command_line": {
               "fields": {
                 "text": {
-                  "norms": false,
-                  "type": "text"
+                  "type": "match_only_text"
                 }
               },
               "type": "wildcard"
@@ -170,6 +176,9 @@
                 }
               }
             },
+            "end": {
+              "type": "date"
+            },
             "entity_id": {
               "ignore_above": 1024,
               "type": "keyword"
@@ -177,11 +186,11 @@
             "executable": {
               "fields": {
                 "text": {
-                  "norms": false,
-                  "type": "text"
+                  "type": "match_only_text"
                 }
               },
-              "type": "wildcard"
+              "ignore_above": 1024,
+              "type": "keyword"
             },
             "exit_code": {
               "type": "long"
@@ -213,11 +222,11 @@
             "name": {
               "fields": {
                 "text": {
-                  "norms": false,
-                  "type": "text"
+                  "type": "match_only_text"
                 }
               },
-              "type": "wildcard"
+              "ignore_above": 1024,
+              "type": "keyword"
             },
             "parent": {
               "properties": {
@@ -230,6 +239,10 @@
                 },
                 "code_signature": {
                   "properties": {
+                    "digest_algorithm": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    },
                     "exists": {
                       "type": "boolean"
                     },
@@ -249,6 +262,9 @@
                       "ignore_above": 1024,
                       "type": "keyword"
                     },
+                    "timestamp": {
+                      "type": "date"
+                    },
                     "trusted": {
                       "type": "boolean"
                     },
@@ -260,8 +276,7 @@
                 "command_line": {
                   "fields": {
                     "text": {
-                      "norms": false,
-                      "type": "text"
+                      "type": "match_only_text"
                     }
                   },
                   "type": "wildcard"
@@ -383,6 +398,9 @@
                     }
                   }
                 },
+                "end": {
+                  "type": "date"
+                },
                 "entity_id": {
                   "ignore_above": 1024,
                   "type": "keyword"
@@ -390,11 +408,11 @@
                 "executable": {
                   "fields": {
                     "text": {
-                      "norms": false,
-                      "type": "text"
+                      "type": "match_only_text"
                     }
                   },
-                  "type": "wildcard"
+                  "ignore_above": 1024,
+                  "type": "keyword"
                 },
                 "exit_code": {
                   "type": "long"
@@ -426,11 +444,11 @@
                 "name": {
                   "fields": {
                     "text": {
-                      "norms": false,
-                      "type": "text"
+                      "type": "match_only_text"
                     }
                   },
-                  "type": "wildcard"
+                  "ignore_above": 1024,
+                  "type": "keyword"
                 },
                 "pe": {
                   "properties": {
@@ -523,7 +541,8 @@
                       "type": "keyword"
                     },
                     "original_file_name": {
-                      "type": "wildcard"
+                      "ignore_above": 1024,
+                      "type": "keyword"
                     },
                     "packers": {
                       "ignore_above": 1024,
@@ -617,18 +636,19 @@
                       "type": "long"
                     },
                     "name": {
-                      "type": "wildcard"
+                      "ignore_above": 1024,
+                      "type": "keyword"
                     }
                   }
                 },
                 "title": {
                   "fields": {
                     "text": {
-                      "norms": false,
-                      "type": "text"
+                      "type": "match_only_text"
                     }
                   },
-                  "type": "wildcard"
+                  "ignore_above": 1024,
+                  "type": "keyword"
                 },
                 "uptime": {
                   "type": "long"
@@ -636,11 +656,11 @@
                 "working_directory": {
                   "fields": {
                     "text": {
-                      "norms": false,
-                      "type": "text"
+                      "type": "match_only_text"
                     }
                   },
-                  "type": "wildcard"
+                  "ignore_above": 1024,
+                  "type": "keyword"
                 }
               }
             },
@@ -735,7 +755,8 @@
                   "type": "keyword"
                 },
                 "original_file_name": {
-                  "type": "wildcard"
+                  "ignore_above": 1024,
+                  "type": "keyword"
                 },
                 "packers": {
                   "ignore_above": 1024,
@@ -834,6 +855,10 @@
                 },
                 "code_signature": {
                   "properties": {
+                    "digest_algorithm": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    },
                     "exists": {
                       "type": "boolean"
                     },
@@ -853,6 +878,9 @@
                       "ignore_above": 1024,
                       "type": "keyword"
                     },
+                    "timestamp": {
+                      "type": "date"
+                    },
                     "trusted": {
                       "type": "boolean"
                     },
@@ -864,8 +892,7 @@
                 "command_line": {
                   "fields": {
                     "text": {
-                      "norms": false,
-                      "type": "text"
+                      "type": "match_only_text"
                     }
                   },
                   "type": "wildcard"
@@ -987,6 +1014,9 @@
                     }
                   }
                 },
+                "end": {
+                  "type": "date"
+                },
                 "entity_id": {
                   "ignore_above": 1024,
                   "type": "keyword"
@@ -994,11 +1024,11 @@
                 "executable": {
                   "fields": {
                     "text": {
-                      "norms": false,
-                      "type": "text"
+                      "type": "match_only_text"
                     }
                   },
-                  "type": "wildcard"
+                  "ignore_above": 1024,
+                  "type": "keyword"
                 },
                 "exit_code": {
                   "type": "long"
@@ -1030,11 +1060,11 @@
                 "name": {
                   "fields": {
                     "text": {
-                      "norms": false,
-                      "type": "text"
+                      "type": "match_only_text"
                     }
                   },
-                  "type": "wildcard"
+                  "ignore_above": 1024,
+                  "type": "keyword"
                 },
                 "parent": {
                   "properties": {
@@ -1047,6 +1077,10 @@
                     },
                     "code_signature": {
                       "properties": {
+                        "digest_algorithm": {
+                          "ignore_above": 1024,
+                          "type": "keyword"
+                        },
                         "exists": {
                           "type": "boolean"
                         },
@@ -1066,6 +1100,9 @@
                           "ignore_above": 1024,
                           "type": "keyword"
                         },
+                        "timestamp": {
+                          "type": "date"
+                        },
                         "trusted": {
                           "type": "boolean"
                         },
@@ -1077,8 +1114,7 @@
                     "command_line": {
                       "fields": {
                         "text": {
-                          "norms": false,
-                          "type": "text"
+                          "type": "match_only_text"
                         }
                       },
                       "type": "wildcard"
@@ -1200,6 +1236,9 @@
                         }
                       }
                     },
+                    "end": {
+                      "type": "date"
+                    },
                     "entity_id": {
                       "ignore_above": 1024,
                       "type": "keyword"
@@ -1207,11 +1246,11 @@
                     "executable": {
                       "fields": {
                         "text": {
-                          "norms": false,
-                          "type": "text"
+                          "type": "match_only_text"
                         }
                       },
-                      "type": "wildcard"
+                      "ignore_above": 1024,
+                      "type": "keyword"
                     },
                     "exit_code": {
                       "type": "long"
@@ -1243,11 +1282,11 @@
                     "name": {
                       "fields": {
                         "text": {
-                          "norms": false,
-                          "type": "text"
+                          "type": "match_only_text"
                         }
                       },
-                      "type": "wildcard"
+                      "ignore_above": 1024,
+                      "type": "keyword"
                     },
                     "pe": {
                       "properties": {
@@ -1340,7 +1379,8 @@
                           "type": "keyword"
                         },
                         "original_file_name": {
-                          "type": "wildcard"
+                          "ignore_above": 1024,
+                          "type": "keyword"
                         },
                         "packers": {
                           "ignore_above": 1024,
@@ -1434,18 +1474,19 @@
                           "type": "long"
                         },
                         "name": {
-                          "type": "wildcard"
+                          "ignore_above": 1024,
+                          "type": "keyword"
                         }
                       }
                     },
                     "title": {
                       "fields": {
                         "text": {
-                          "norms": false,
-                          "type": "text"
+                          "type": "match_only_text"
                         }
                       },
-                      "type": "wildcard"
+                      "ignore_above": 1024,
+                      "type": "keyword"
                     },
                     "uptime": {
                       "type": "long"
@@ -1453,11 +1494,11 @@
                     "working_directory": {
                       "fields": {
                         "text": {
-                          "norms": false,
-                          "type": "text"
+                          "type": "match_only_text"
                         }
                       },
-                      "type": "wildcard"
+                      "ignore_above": 1024,
+                      "type": "keyword"
                     }
                   }
                 },
@@ -1552,7 +1593,8 @@
                       "type": "keyword"
                     },
                     "original_file_name": {
-                      "type": "wildcard"
+                      "ignore_above": 1024,
+                      "type": "keyword"
                     },
                     "packers": {
                       "ignore_above": 1024,
@@ -1646,18 +1688,19 @@
                       "type": "long"
                     },
                     "name": {
-                      "type": "wildcard"
+                      "ignore_above": 1024,
+                      "type": "keyword"
                     }
                   }
                 },
                 "title": {
                   "fields": {
                     "text": {
-                      "norms": false,
-                      "type": "text"
+                      "type": "match_only_text"
                     }
                   },
-                  "type": "wildcard"
+                  "ignore_above": 1024,
+                  "type": "keyword"
                 },
                 "uptime": {
                   "type": "long"
@@ -1665,11 +1708,11 @@
                 "working_directory": {
                   "fields": {
                     "text": {
-                      "norms": false,
-                      "type": "text"
+                      "type": "match_only_text"
                     }
                   },
-                  "type": "wildcard"
+                  "ignore_above": 1024,
+                  "type": "keyword"
                 }
               }
             },
@@ -1679,18 +1722,19 @@
                   "type": "long"
                 },
                 "name": {
-                  "type": "wildcard"
+                  "ignore_above": 1024,
+                  "type": "keyword"
                 }
               }
             },
             "title": {
               "fields": {
                 "text": {
-                  "norms": false,
-                  "type": "text"
+                  "type": "match_only_text"
                 }
               },
-              "type": "wildcard"
+              "ignore_above": 1024,
+              "type": "keyword"
             },
             "uptime": {
               "type": "long"
@@ -1698,11 +1742,11 @@
             "working_directory": {
               "fields": {
                 "text": {
-                  "norms": false,
-                  "type": "text"
+                  "type": "match_only_text"
                 }
               },
-              "type": "wildcard"
+              "ignore_above": 1024,
+              "type": "keyword"
             }
           }
         }

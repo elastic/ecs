@@ -39,18 +39,6 @@ type Log struct {
 	// If the event wasn't read from a log file, do not populate this field.
 	FilePath string `ecs:"file.path"`
 
-	// Deprecated for removal in next major version release. This field is
-	// superseded by  `event.original`.
-	// This is the original log message and contains the full log message
-	// before splitting it up in multiple parts.
-	// In contrast to the `message` field which can contain an extracted part
-	// of the log message, this field contains the original, full log message.
-	// It can have already some modifications applied like encoding or new
-	// lines removed to clean up the log message.
-	// This field is not indexed and doc_values are disabled so it can't be
-	// queried but the value can be retrieved from `_source`.
-	Original string `ecs:"original"`
-
 	// The name of the logger inside an application. This is usually the name
 	// of the class which initialized the logger, or can be a custom name.
 	Logger string `ecs:"logger"`
@@ -63,7 +51,7 @@ type Log struct {
 
 	// The line number of the file containing the source code which originated
 	// the log event.
-	OriginFileLine int32 `ecs:"origin.file.line"`
+	OriginFileLine int64 `ecs:"origin.file.line"`
 
 	// The name of the function or method which originated the log event.
 	OriginFunction string `ecs:"origin.function"`

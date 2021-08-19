@@ -50,12 +50,15 @@
 
     - name: request.body.content
       level: extended
-      type: keyword
+      type: wildcard
+      beta: >
+        Use of `wildcard` as the primary type and `match_only_type` as
+        the `.text` multi-field type are both currently beta.
       description: >
         The full HTTP request body.
       example: Hello world
       multi_fields:
-      - type: text
+      - type: match_only_text
         name: text
 
     - name: request.referrer
@@ -89,12 +92,15 @@
 
     - name: response.body.content
       level: extended
-      type: keyword
+      type: wildcard
+      beta: >
+        Use of `wildcard` as the primary type and `match_only_type` as
+        the `.text` multi-field type are both currently beta.
       description: >
         The full HTTP response body.
       example: Hello world
       multi_fields:
-      - type: text
+      - type: match_only_text
         name: text
 
     - name: version

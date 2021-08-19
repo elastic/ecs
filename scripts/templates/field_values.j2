@@ -41,7 +41,13 @@ once the appropriate categorization values are published, in a later release.
 {% for value_details in field['allowed_values'] %}
 [float]
 [[ecs-{{ field['dashed_name'] }}-{{ value_details['name'] }}]]
-==== {{ value_details['name'] }}
+==== {{ value_details['name'] -}}
+
+{% if value_details['beta'] %}
+
+beta:[ {{ value_details['beta'] }} ]
+
+{%- endif %}
 
 {{ value_details['description']|replace("\n", "\n\n") }}
 

@@ -245,10 +245,10 @@
       level: extended
       type: keyword
       short: Alias of the group.
-      beta: This field is beta and subject to change.
       description: >
-        The alias(es) of the group for a set of related intrusion activity that are tracked by a common name in the security community. While not required, you can use a MITRE ATT&CK® group alias(es).
+        The alias(es) of the group for a set of related intrusion activity that are tracked by a common name in the security community.
 
+        While not required, you can use a MITRE ATT&CK® group alias(es).
       example: '[ "Magecart Group 6" ]'
       normalize:
         - array
@@ -257,30 +257,30 @@
       level: extended
       type: keyword
       short: ID of the group.
-      beta: This field is beta and subject to change.
       description: >
-        The id of the group for a set of related intrusion activity that are tracked by a common name in the security community. While not required, you can use a MITRE ATT&CK® group id.
+        The id of the group for a set of related intrusion activity that are tracked by a common name in the security community.
 
+        While not required, you can use a MITRE ATT&CK® group id.
       example: "G0037"
 
     - name: group.name
       level: extended
       type: keyword
       short: Name of the group.
-      beta: This field is beta and subject to change.
       description: >
-        The name of the group for a set of related intrusion activity that are tracked by a common name in the security community. While not required, you can use a MITRE ATT&CK® group name.
+        The name of the group for a set of related intrusion activity that are tracked by a common name in the security community.
 
+        While not required, you can use a MITRE ATT&CK® group name.
       example: "FIN6"
 
     - name: group.reference
       level: extended
       type: keyword
       short: Reference URL of the group.
-      beta: This field is beta and subject to change.
       description: >
-        The reference URL of the group for a set of related intrusion activity that are tracked by a common name in the security community. While not required, you can use a MITRE ATT&CK® group reference URL.
+        The reference URL of the group for a set of related intrusion activity that are tracked by a common name in the security community.
 
+        While not required, you can use a MITRE ATT&CK® group reference URL.
       example: "https://attack.mitre.org/groups/G0037/"
 
     - name: indicator.first_seen
@@ -457,29 +457,41 @@
       level: extended
       type: keyword
       short: ID of the software
-      beta: This field is beta and subject to change.
       description: >
-        The id of the software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®. While not required, you can use a MITRE ATT&CK® software id.
+        The id of the software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®.
 
+        While not required, you can use a MITRE ATT&CK® software id.
       example: "S0552"
 
     - name: software.name
       level: extended
       type: keyword
       short: Name of the software.
-      beta: This field is beta and subject to change.
       description: >
-        The name of the software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®. While not required, you can use a MITRE ATT&CK® software name.
+        The name of the software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®.
 
+        While not required, you can use a MITRE ATT&CK® software name.
       example: "AdFind"
+
+    - name: software.alias
+      level: extended
+      type: keyword
+      short: Alias of the software
+      description: >
+        The alias(es) of the software for a set of related intrusion activity that are tracked by a common name in the
+        security community.
+
+        While not required, you can use a MITRE ATT&CK® associated software description.
+      example: '[ "X-Agent" ]'
+      normalize:
+        - array
 
     - name: software.platforms
       level: extended
       type: keyword
       short: Platforms of the software.
-      beta: This field is beta and subject to change.
       description: >
-        The platforms of the software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®. While not required, you can use a MITRE ATT&CK® software platforms.
+        The platforms of the software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®.
 
         Recommended Values:
           * AWS
@@ -493,6 +505,7 @@
           * SaaS
           * Windows
 
+        While not required, you can use a MITRE ATT&CK® software platforms.
       example: '[ "Windows" ]'
       normalize:
         - array
@@ -501,24 +514,24 @@
       level: extended
       type: keyword
       short: Software reference URL.
-      beta: This field is beta and subject to change.
       description: >
-        The reference URL of the software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®. While not required, you can use a MITRE ATT&CK® software reference URL.
+        The reference URL of the software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®.
 
+        While not required, you can use a MITRE ATT&CK® software reference URL.
       example: "https://attack.mitre.org/software/S0552/"
 
     - name: software.type
       level: extended
       type: keyword
       short: Software type.
-      beta: This field is beta and subject to change.
       description: >
-        The type of software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®. While not required, you can use a MITRE ATT&CK® software type.
+        The type of software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®.
 
         Recommended values
           * Malware
           * Tool
 
+         While not required, you can use a MITRE ATT&CK® software type.
       example: "Tool"
 
     - name: tactic.id
@@ -574,8 +587,9 @@
     - name: technique.name
       level: extended
       type: keyword
+      beta: Use of the `match_only_text` type in the `.text` multi-field is currently beta.
       multi_fields:
-      - type: text
+      - type: match_only_text
         name: text
       short: Threat technique name.
       description: >
@@ -614,9 +628,10 @@
       level: extended
       type: keyword
       multi_fields:
-      - type: text
+      - type: match_only_text
         name: text
       short: Threat subtechnique name.
+      beta: Use of the `match_only_text` type in the `.text` multi-field is currently beta.
       description: >
           The name of subtechnique used by this threat. You can use a MITRE ATT&CK® subtechnique, for example.
           (ex. https://attack.mitre.org/techniques/T1059/001/)

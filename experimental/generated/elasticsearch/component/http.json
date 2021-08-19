@@ -1,7 +1,7 @@
 {
   "_meta": {
     "documentation": "https://www.elastic.co/guide/en/ecs/current/ecs-http.html",
-    "ecs_version": "2.0.0-dev+exp"
+    "ecs_version": "8.0.0-dev+exp"
   },
   "template": {
     "mappings": {
@@ -18,8 +18,7 @@
                     "content": {
                       "fields": {
                         "text": {
-                          "norms": false,
-                          "type": "text"
+                          "type": "match_only_text"
                         }
                       },
                       "type": "wildcard"
@@ -42,7 +41,8 @@
                   "type": "keyword"
                 },
                 "referrer": {
-                  "type": "wildcard"
+                  "ignore_above": 1024,
+                  "type": "keyword"
                 }
               }
             },
@@ -56,8 +56,7 @@
                     "content": {
                       "fields": {
                         "text": {
-                          "norms": false,
-                          "type": "text"
+                          "type": "match_only_text"
                         }
                       },
                       "type": "wildcard"

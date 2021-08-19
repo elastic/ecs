@@ -1,13 +1,39 @@
 {
   "_meta": {
     "documentation": "https://www.elastic.co/guide/en/ecs/current/ecs-container.html",
-    "ecs_version": "2.0.0-dev+exp"
+    "ecs_version": "8.0.0-dev+exp"
   },
   "template": {
     "mappings": {
       "properties": {
         "container": {
           "properties": {
+            "cpu": {
+              "properties": {
+                "usage": {
+                  "scaling_factor": 1000,
+                  "type": "scaled_float"
+                }
+              }
+            },
+            "disk": {
+              "properties": {
+                "read": {
+                  "properties": {
+                    "bytes": {
+                      "type": "long"
+                    }
+                  }
+                },
+                "write": {
+                  "properties": {
+                    "bytes": {
+                      "type": "long"
+                    }
+                  }
+                }
+              }
+            },
             "id": {
               "ignore_above": 1024,
               "type": "keyword"
@@ -27,9 +53,35 @@
             "labels": {
               "type": "object"
             },
+            "memory": {
+              "properties": {
+                "usage": {
+                  "scaling_factor": 1000,
+                  "type": "scaled_float"
+                }
+              }
+            },
             "name": {
               "ignore_above": 1024,
               "type": "keyword"
+            },
+            "network": {
+              "properties": {
+                "egress": {
+                  "properties": {
+                    "bytes": {
+                      "type": "long"
+                    }
+                  }
+                },
+                "ingress": {
+                  "properties": {
+                    "bytes": {
+                      "type": "long"
+                    }
+                  }
+                }
+              }
             },
             "runtime": {
               "ignore_above": 1024,

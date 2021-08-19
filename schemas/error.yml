@@ -19,7 +19,8 @@
 
     - name: message
       level: core
-      type: text
+      type: match_only_text
+      beta: Use of the `match_only_text` type for this field is currently beta.
       description: >
         Error message.
 
@@ -38,10 +39,12 @@
 
     - name: stack_trace
       level: extended
-      type: keyword
-      index: false
+      type: wildcard
+      beta: >
+        Use of `wildcard` as the primary type and `match_only_type` as
+        the `.text` multi-field type are both currently beta.
       description: >
         The stack trace of this error in plain text.
       multi_fields:
-      - type: text
+      - type: match_only_text
         name: text
