@@ -1,7 +1,7 @@
 # 0022: Remove process.ppid
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
-- Stage: **2 (candidate)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
+- Stage: **3 (finished)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
 - Date: **2021-08-05** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 <!--
@@ -174,6 +174,7 @@ e.g.:
 * Stage 1: https://github.com/elastic/ecs/pull/1450
   * Stage 1 date correction: https://github.com/elastic/ecs/pull/1555
 * Stage 2: https://github.com/elastic/ecs/pull/1556
+* Stage 3: https://github.com/elastic/ecs/pull/NNNN
 
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN
