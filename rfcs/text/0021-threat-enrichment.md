@@ -79,6 +79,7 @@ If it is determined that an event matches a given indicator, that event can be e
         // Each enrichment is added as a nested object under `threat.enrichments.*`
         // Copy all the object indicators under `indicator.*`, providing full context
         "indicator": {
+          "confidence": "High",
           "marking": {
             "tlp": "WHITE"
           },
