@@ -79,10 +79,6 @@ Now the mapping for above document would be updated to use `process.parent.pid` 
 }
 ```
 
-<!--
-Stage 3: Add more real world example source documents so we have at least 2 total, but ideally 3. Format as described in stage 2.
--->
-
 ## Scope of impact
 
 ### Ingestion mechanisms
@@ -105,7 +101,7 @@ The `process.ppid` is populated in many data producers, so migrating to `process
 
 **Resolution**: Field aliases might be of some use to alleviate some pain during the migration for any aggregations or visualizations relying on `process.ppid`:
 
-```
+```json
 PUT rfc_0018/_mapping
 {
   "properties": {
@@ -133,10 +129,6 @@ PUT rfc_0018/_mapping
 Removing `process.ppid` will also remove its reuse in `process.parent`: `process.parent.ppid` (parent's parent PID). This will leave ECS without an equivalent, replacement field.
 
 **Resolution**: [Discussed](https://github.com/elastic/ecs/pull/1450#issuecomment-854773783) with Protections, Endpoint, and Observability stakeholders. Not having a replacement field for the parent's parent PID didn't raise significant concerns.
-
-<!--
-Stage 3: Document resolutions for all existing concerns. Any new concerns should be documented along with their resolution. The goal here is to eliminate risk of churn and instability by ensuring all concerns have been addressed.
--->
 
 ## People
 
