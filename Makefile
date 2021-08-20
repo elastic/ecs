@@ -73,8 +73,13 @@ makelint:
 # Check for basic misspellings.
 .PHONY: misspell
 misspell:
-	go get github.com/client9/misspell/cmd/misspell
-	misspell README.md CONTRIBUTING.md schemas/*
+	@if [ ! -d $(PWD)/build/misspell ]; then \
+	    mkdir -p ./build/misspell ; \
+	    curl -L -o ./build/mispell/install-misspell.sh https://git.io/misspell ; \
+		chmod +x ./build/install-misspell.sh ; \
+		./build/misspell/install-misspell.sh -b ./build/misspell ; \
+	fi
+	./build/misspell/bin/misspell -error README.md CONTRIBUTING.md schemas/* docs/* experimental/schemas/*
 
 .PHONY: reload_docs
 reload_docs: generator docs
