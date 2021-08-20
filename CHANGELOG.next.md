@@ -23,7 +23,7 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
-* Wildcard type field migration GA. #1582
+* Wildcard type field migration GA. #1582, #1583
 
 #### Deprecated
 
