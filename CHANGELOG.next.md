@@ -23,6 +23,8 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
+* Wildcard type field migration GA. #1582
+
 #### Deprecated
 
 ### Tooling and Artifact Changes
