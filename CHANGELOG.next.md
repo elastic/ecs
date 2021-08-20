@@ -23,6 +23,9 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
+* Wildcard type field migration GA. #1582
+* `match_only_text` type field migration GA. #1584
+
 #### Deprecated
 
 ### Tooling and Artifact Changes
