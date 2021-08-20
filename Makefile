@@ -18,17 +18,11 @@ all: generate experimental
 # Check verifies that all of the committed files that are generated are
 # up-to-date.
 .PHONY: check
-check: generate experimental test fmt misspell makelint check-license-headers
+check: generate experimental test fmt misspell makelint
 	# Check if diff is empty.
 	git diff | cat
 	git update-index --refresh
 	git diff-index --exit-code HEAD --
-
-# Check license headers on files (currently .go files only).
-.PHONY: check-license-headers
-check-license-headers:
-	go get github.com/elastic/go-licenser
-	go-licenser -d
 
 # Clean deletes all temporary and generated content.
 .PHONY: clean
