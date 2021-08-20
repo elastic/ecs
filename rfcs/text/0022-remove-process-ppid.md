@@ -17,7 +17,7 @@ There's no need to have two fields to capture the same value. ECS now includes a
 
 Removing `process.ppid` will take place in two steps:
 
-1. ECS `1.x`: Indicate that `process.ppid` is deprecated in the fields description in an upcoming ECS minor release. Producers and consumers of `process.ppid` should use `process.parent.pid` instead.
+1. ECS `1.x`: Indicate that `process.ppid` is deprecated in the fields description in an upcoming ECS minor release. Instead, producers and consumers of `process.ppid` should use `process.parent.pid`.
 2. Later remove `process.ppid` field as a breaking change.
 
 Removing `process.ppid` will also eliminate `process.parent.ppid`.
@@ -59,7 +59,7 @@ An example of how `process.ppid` is populated:
 }
 ```
 
-Now the mapping for above document would be updated to use `process.parent.pid` instead:
+The above mapping would be updated to use `process.parent.pid`:
 
 ```json
 {
@@ -87,7 +87,7 @@ APM, Beats, Elastic Agent, and any processors that populate `process.ppid` today
 
 ### Usage mechanisms
 
-The security detection rules [repo](https://github.com/elastic/detection-rules) will need audited. Any usage of `process.ppid` should ideally migrate to `process.parent.pid`, but backward compatibility also remains essential.
+The security detection rules [repo](https://github.com/elastic/detection-rules) will need auditing. Any usage of `process.ppid` should ideally migrate to `process.parent.pid`, but backward compatibility also remains essential.
 
 ### ECS
 
