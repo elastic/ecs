@@ -42,6 +42,8 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
+* Remove remaining Go deps after removing Go code generator. #1585
+
 #### Deprecated
 
 ## 1.12.0 (Feature Freeze)
