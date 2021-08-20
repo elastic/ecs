@@ -68,10 +68,10 @@ makelint:
 .PHONY: misspell
 misspell:
 	@if [ ! -d $(PWD)/build/misspell ]; then \
-	    mkdir -p ./build/misspell ; \
-	    curl -L -o ./build/mispell/install-misspell.sh https://git.io/misspell ; \
-		chmod +x ./build/install-misspell.sh ; \
-		./build/misspell/install-misspell.sh -b ./build/misspell ; \
+	    mkdir -p ./build/misspell/bin ; \
+	    curl -sLo ./build/misspell/install-misspell.sh https://git.io/misspell ; \
+		chmod +x ./build/misspell/install-misspell.sh ; \
+		./build/misspell/install-misspell.sh -b ./build/misspell/bin >> /dev/null 2>&1 ; \
 	fi
 	./build/misspell/bin/misspell -error README.md CONTRIBUTING.md schemas/* docs/* experimental/schemas/*
 
