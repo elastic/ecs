@@ -66,6 +66,10 @@ Thanks, you're awesome :-) -->
 
 * Support ES 6.x type fallback for `match_only_text` field types. #1528
 
+#### Bugfixes
+
+* Prevent failure if no files need to be deleted `find | xargs rm`. #1588
+
 <!-- All empty sections:
 
 ## Unreleased
