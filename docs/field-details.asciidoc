@@ -7805,23 +7805,25 @@ type: object
 
 | beta:[ This field is beta and subject to change. ]
 
-Identifies the confidence rating assigned by the provider using STIX confidence scales. Expected values:
+Identifies the vendor-neutral confidence rating using the None/Low/Medium/High scale defined in Appendix A of the STIX 2.1 framework. Vendor-specific confidence scales may be added as custom fields.
 
-  * Not Specified, None, Low, Medium, High
+Expected values are:
 
-  * 0-10
+  * Not Specified
 
-  * Admirality Scale (1-6)
+  * None
 
-  * DNI Scale (5-95)
+  * Low
 
-  * WEP Scale (Impossible - Certain)
+  * Medium
+
+  * High
 
 type: keyword
 
 
 
-example: `High`
+example: `Medium`
 
 | extended
 
@@ -8288,27 +8290,25 @@ example: `https://attack.mitre.org/groups/G0037/`
 [[field-threat-indicator-confidence]]
 <<field-threat-indicator-confidence, threat.indicator.confidence>>
 
-| beta:[ This field is beta and subject to change. ]
+| Identifies the vendor-neutral confidence rating using the None/Low/Medium/High scale defined in Appendix A of the STIX 2.1 framework. Vendor-specific confidence scales may be added as custom fields.
 
-Identifies the confidence rating assigned by the provider using STIX confidence scales.
+Expected values are:
 
-Recommended values:
+  * Not Specified
 
-  * Not Specified, None, Low, Medium, High
+  * None
 
-  * 0-10
+  * Low
 
-  * Admirality Scale (1-6)
+  * Medium
 
-  * DNI Scale (5-95)
-
-  * WEP Scale (Impossible - Certain)
+  * High
 
 type: keyword
 
 
 
-example: `High`
+example: `Medium`
 
 | extended
 
@@ -8318,9 +8318,7 @@ example: `High`
 [[field-threat-indicator-description]]
 <<field-threat-indicator-description, threat.indicator.description>>
 
-| beta:[ This field is beta and subject to change. ]
-
-Describes the type of action conducted by the threat.
+| Describes the type of action conducted by the threat.
 
 type: keyword
 
@@ -8336,9 +8334,7 @@ example: `IP x.x.x.x was observed delivering the Angler EK.`
 [[field-threat-indicator-email-address]]
 <<field-threat-indicator-email-address, threat.indicator.email.address>>
 
-| beta:[ This field is beta and subject to change. ]
-
-Identifies a threat indicator as an email address (irrespective of direction).
+| Identifies a threat indicator as an email address (irrespective of direction).
 
 type: keyword
 
@@ -8354,9 +8350,7 @@ example: `phish@example.com`
 [[field-threat-indicator-first-seen]]
 <<field-threat-indicator-first-seen, threat.indicator.first_seen>>
 
-| beta:[ This field is beta and subject to change. ]
-
-The date and time when intelligence source first reported sighting this indicator.
+| The date and time when intelligence source first reported sighting this indicator.
 
 type: date
 
@@ -8372,9 +8366,7 @@ example: `2020-11-05T17:25:47.000Z`
 [[field-threat-indicator-ip]]
 <<field-threat-indicator-ip, threat.indicator.ip>>
 
-| beta:[ This field is beta and subject to change. ]
-
-Identifies a threat indicator as an IP address (irrespective of direction).
+| Identifies a threat indicator as an IP address (irrespective of direction).
 
 type: ip
 
@@ -8390,9 +8382,7 @@ example: `1.2.3.4`
 [[field-threat-indicator-last-seen]]
 <<field-threat-indicator-last-seen, threat.indicator.last_seen>>
 
-| beta:[ This field is beta and subject to change. ]
-
-The date and time when intelligence source last reported sighting this indicator.
+| The date and time when intelligence source last reported sighting this indicator.
 
 type: date
 
@@ -8408,9 +8398,7 @@ example: `2020-11-05T17:25:47.000Z`
 [[field-threat-indicator-marking-tlp]]
 <<field-threat-indicator-marking-tlp, threat.indicator.marking.tlp>>
 
-| beta:[ This field is beta and subject to change. ]
-
-Traffic Light Protocol sharing markings.
+| Traffic Light Protocol sharing markings.
 
 Recommended values are:
 
@@ -8436,9 +8424,7 @@ example: `WHITE`
 [[field-threat-indicator-modified-at]]
 <<field-threat-indicator-modified-at, threat.indicator.modified_at>>
 
-| beta:[ This field is beta and subject to change. ]
-
-The date and time when intelligence source last modified information for this indicator.
+| The date and time when intelligence source last modified information for this indicator.
 
 type: date
 
@@ -8454,9 +8440,7 @@ example: `2020-11-05T17:25:47.000Z`
 [[field-threat-indicator-port]]
 <<field-threat-indicator-port, threat.indicator.port>>
 
-| beta:[ This field is beta and subject to change. ]
-
-Identifies a threat indicator as a port number (irrespective of direction).
+| Identifies a threat indicator as a port number (irrespective of direction).
 
 type: long
 
@@ -8472,9 +8456,7 @@ example: `443`
 [[field-threat-indicator-provider]]
 <<field-threat-indicator-provider, threat.indicator.provider>>
 
-| beta:[ This field is beta and subject to change. ]
-
-The name of the indicator's provider.
+| The name of the indicator's provider.
 
 type: keyword
 
@@ -8490,9 +8472,7 @@ example: `lrz_urlhaus`
 [[field-threat-indicator-reference]]
 <<field-threat-indicator-reference, threat.indicator.reference>>
 
-| beta:[ This field is beta and subject to change. ]
-
-Reference URL linking to additional information about this indicator.
+| Reference URL linking to additional information about this indicator.
 
 type: keyword
 
@@ -8508,9 +8488,7 @@ example: `https://system.example.com/indicator/0001234`
 [[field-threat-indicator-scanner-stats]]
 <<field-threat-indicator-scanner-stats, threat.indicator.scanner_stats>>
 
-| beta:[ This field is beta and subject to change. ]
-
-Count of AV/EDR vendors that successfully detected malicious file or URL.
+| Count of AV/EDR vendors that successfully detected malicious file or URL.
 
 type: long
 
@@ -8526,9 +8504,7 @@ example: `4`
 [[field-threat-indicator-sightings]]
 <<field-threat-indicator-sightings, threat.indicator.sightings>>
 
-| beta:[ This field is beta and subject to change. ]
-
-Number of times this indicator was observed conducting threat activity.
+| Number of times this indicator was observed conducting threat activity.
 
 type: long
 
@@ -8544,9 +8520,7 @@ example: `20`
 [[field-threat-indicator-type]]
 <<field-threat-indicator-type, threat.indicator.type>>
 
-| beta:[ This field is beta and subject to change. ]
-
-Type of indicator as represented by Cyber Observable in STIX 2.0.
+| Type of indicator as represented by Cyber Observable in STIX 2.0.
 
 Recommended values:
 
@@ -9007,65 +8981,57 @@ These fields contain x509 certificate metadata.
 
 
 | `threat.indicator.as.*`
-| <<ecs-as,as>>| beta:[ Reusing the `as` fields in this location is currently considered beta.]
-
-Fields describing an Autonomous System (Internet routing prefix).
+| <<ecs-as,as>>
+| Fields describing an Autonomous System (Internet routing prefix).
 
 // ===============================================================
 
 
 | `threat.indicator.file.*`
-| <<ecs-file,file>>| beta:[ Reusing the `file` fields in this location is currently considered beta.]
-
-Fields describing files.
+| <<ecs-file,file>>
+| Fields describing files.
 
 // ===============================================================
 
 
 | `threat.indicator.geo.*`
-| <<ecs-geo,geo>>| beta:[ Reusing the `geo` fields in this location is currently considered beta.]
-
-Fields describing a location.
+| <<ecs-geo,geo>>
+| Fields describing a location.
 
 // ===============================================================
 
 
 | `threat.indicator.hash.*`
-| <<ecs-hash,hash>>| beta:[ Reusing the `hash` fields in this location is currently considered beta.]
-
-Hashes, usually file hashes.
+| <<ecs-hash,hash>>
+| Hashes, usually file hashes.
 
 // ===============================================================
 
 
 | `threat.indicator.pe.*`
-| <<ecs-pe,pe>>| beta:[ Reusing the `pe` fields in this location is currently considered beta.]
-
-These fields contain Windows Portable Executable (PE) metadata.
+| <<ecs-pe,pe>>
+| These fields contain Windows Portable Executable (PE) metadata.
 
 // ===============================================================
 
 
 | `threat.indicator.registry.*`
-| <<ecs-registry,registry>>| beta:[ Reusing the `registry` fields in this location is currently considered beta.]
-
-Fields related to Windows Registry operations.
+| <<ecs-registry,registry>>
+| Fields related to Windows Registry operations.
 
 // ===============================================================
 
 
 | `threat.indicator.url.*`
-| <<ecs-url,url>>| beta:[ Reusing the `url` fields in this location is currently considered beta.]
-
-Fields that let you store URLs in various forms.
+| <<ecs-url,url>>
+| Fields that let you store URLs in various forms.
 
 // ===============================================================
 
 
 | `threat.indicator.x509.*`
-| <<ecs-x509,x509>>| beta:[ Reusing the `x509` fields in this location is currently considered beta.]
-
-These fields contain x509 certificate metadata.
+| <<ecs-x509,x509>>
+| These fields contain x509 certificate metadata.
 
 // ===============================================================
 
