@@ -96,3 +96,22 @@ the ECS data itself, this is not an issue because all fields are predefined.
 
 As long as there are no conflicts, underline notation and ECS dot notation can
 coexist in the same document.
+
+[float]
+[[type-interop]]
+==== What if I want to use a different data type from the same field type family?
+
+In Elasticsearch, field types are grouped by family. Types in the same family support
+the same search functionality but may have different space usage or performance
+characteristics.
+
+For example, both `keyword` and `wildcard` types are members of the `keyword` family, and
+`text` and `match_only_text` are members of the `text` family.
+
+The default field types in ECS are selected to provide the best default experience for the
+majority of users. However, if your use case requires a the performance or space usage of a
+different field type, the default field type may be replaced with a type from the same field
+type family.
+
+The Elasticsearch {ref}/mapping-types.html[mapping types] section has more information about type
+families.
