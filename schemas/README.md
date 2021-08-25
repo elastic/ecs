@@ -169,7 +169,7 @@ Supported keys to describe fields
 Supported keys to describe expected values for a field
 
 ```YAML
-  accepted_values:
+  allowed_values:
   - name: authentication
     description: ...
   - name: process
@@ -179,7 +179,7 @@ Supported keys to describe expected values for a field
       - iamgroot
 ```
 
-- accepted\_values: list of dictionaries with the 'name' and 'description' of the expected values.
+- allowed\_values: list of dictionaries with the 'name' and 'description' of the expected values.
   Optionally, entries in this list can specify 'expected\_event\_types'. The `beta` field is also
   allowed here and will add a beta marker to the allowed value in the ECS categorization docs.
 - expected\_event\_types: list of expected "event.type" values to use in association
