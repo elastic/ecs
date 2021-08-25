@@ -349,4 +349,4 @@ e.g.:
 * Stage 1 (formerly proposal stage): https://github.com/elastic/ecs/pull/999
   * RFC ID correction: https://github.com/elastic/ecs/pull/1157
 * Stage 1 (draft): https://github.com/elastic/ecs/pull/1219
-* Stage 2 (candidate): https://github.com/elastic/ecs/pull/NNNN
+* Stage 2 (candidate): https://github.com/elastic/ecs/pull/1593
