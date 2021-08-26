@@ -152,7 +152,6 @@ as:
       full: source.as
     - as: as
       at: threat.indicator
-      beta: Reusing the `as` fields in this location is currently considered beta.
       full: threat.indicator.as
     - as: as
       at: threat.enrichments.indicator
@@ -4688,7 +4687,6 @@ file:
     expected:
     - as: file
       at: threat.indicator
-      beta: Reusing the `file` fields in this location is currently considered beta.
       full: threat.indicator.file
     - as: file
       at: threat.enrichments.indicator
@@ -4876,7 +4874,6 @@ geo:
       full: source.geo
     - as: geo
       at: threat.indicator
-      beta: Reusing the `geo` fields in this location is currently considered beta.
       full: threat.indicator.geo
     - as: geo
       at: threat.enrichments.indicator
@@ -5012,7 +5009,6 @@ hash:
       full: dll.hash
     - as: hash
       at: threat.indicator
-      beta: Reusing the `hash` fields in this location is currently considered beta.
       full: threat.indicator.hash
     - as: hash
       at: threat.enrichments.indicator
@@ -7222,7 +7218,6 @@ pe:
       full: process.pe
     - as: pe
       at: threat.indicator
-      beta: Reusing the `pe` fields in this location is currently considered beta.
       full: threat.indicator.pe
     - as: pe
       at: threat.enrichments.indicator
@@ -9034,8 +9029,6 @@ registry:
     expected:
     - as: registry
       at: threat.indicator
-      beta: Reusing the `registry` fields in this location is currently considered
-        beta.
       full: threat.indicator.registry
     - as: registry
       at: threat.enrichments.indicator
@@ -10446,11 +10439,11 @@ threat:
     threat.enrichments.indicator.confidence:
       beta: This field is beta and subject to change.
       dashed_name: threat-enrichments-indicator-confidence
-      description: "Identifies\_the\_confidence\_rating\_assigned\_by\_the\_provider\_\
-        using\_STIX\_confidence scales. Expected values:\n  * Not Specified, None,\
-        \ Low, Medium, High\n  * 0-10\n  * Admirality Scale (1-6)\n  * DNI Scale (5-95)\n\
-        \  * WEP Scale (Impossible - Certain)"
-      example: High
+      description: "Identifies\_the\_vendor-neutral confidence\_rating\_using\_the\
+        \ None/Low/Medium/High\_scale defined in Appendix A of the STIX 2.1 framework.\
+        \ Vendor-specific confidence scales may be added as custom fields.\nExpected\
+        \ values are:\n  * Not Specified\n  * None\n  * Low\n  * Medium\n  * High"
+      example: Medium
       flat_name: threat.enrichments.indicator.confidence
       ignore_above: 1024
       level: extended
@@ -12433,13 +12426,12 @@ threat:
       short: Organization name.
       type: keyword
     threat.indicator.confidence:
-      beta: This field is beta and subject to change.
       dashed_name: threat-indicator-confidence
-      description: "Identifies the confidence rating assigned by the provider using\
-        \ STIX confidence scales.\nRecommended values:\n  * Not Specified, None, Low,\
-        \ Medium, High\n  * 0-10\n  * Admirality Scale (1-6)\n  * DNI Scale (5-95)\n\
-        \  * WEP Scale (Impossible - Certain)"
-      example: High
+      description: "Identifies\_the\_vendor-neutral confidence\_rating\_using\_the\
+        \ None/Low/Medium/High\_scale defined in Appendix A of the STIX 2.1 framework.\
+        \ Vendor-specific confidence scales may be added as custom fields.\nExpected\
+        \ values are:\n  * Not Specified\n  * None\n  * Low\n  * Medium\n  * High"
+      example: Medium
       flat_name: threat.indicator.confidence
       ignore_above: 1024
       level: extended
@@ -12448,7 +12440,6 @@ threat:
       short: Indicator confidence rating
       type: keyword
     threat.indicator.description:
-      beta: This field is beta and subject to change.
       dashed_name: threat-indicator-description
       description: Describes the type of action conducted by the threat.
       example: IP x.x.x.x was observed delivering the Angler EK.
@@ -12460,7 +12451,6 @@ threat:
       short: Indicator description
       type: keyword
     threat.indicator.email.address:
-      beta: This field is beta and subject to change.
       dashed_name: threat-indicator-email-address
       description: Identifies a threat indicator as an email address (irrespective
         of direction).
@@ -13224,7 +13214,6 @@ threat:
       short: The user ID (UID) or security identifier (SID) of the file owner.
       type: keyword
     threat.indicator.first_seen:
-      beta: This field is beta and subject to change.
       dashed_name: threat-indicator-first-seen
       description: The date and time when intelligence source first reported sighting
         this indicator.
@@ -13431,7 +13420,6 @@ threat:
       short: SSDEEP hash.
       type: keyword
     threat.indicator.ip:
-      beta: This field is beta and subject to change.
       dashed_name: threat-indicator-ip
       description: Identifies a threat indicator as an IP address (irrespective of
         direction).
@@ -13443,7 +13431,6 @@ threat:
       short: Indicator IP address
       type: ip
     threat.indicator.last_seen:
-      beta: This field is beta and subject to change.
       dashed_name: threat-indicator-last-seen
       description: The date and time when intelligence source last reported sighting
         this indicator.
@@ -13455,7 +13442,6 @@ threat:
       short: Date/time indicator was last reported.
       type: date
     threat.indicator.marking.tlp:
-      beta: This field is beta and subject to change.
       dashed_name: threat-indicator-marking-tlp
       description: "Traffic Light Protocol sharing markings.\nRecommended values are:\n\
         \  * WHITE\n  * GREEN\n  * AMBER\n  * RED"
@@ -13468,7 +13454,6 @@ threat:
       short: Indicator TLP marking
       type: keyword
     threat.indicator.modified_at:
-      beta: This field is beta and subject to change.
       dashed_name: threat-indicator-modified-at
       description: The date and time when intelligence source last modified information
         for this indicator.
@@ -13568,7 +13553,6 @@ threat:
       short: Internal product name of the file, provided at compile-time.
       type: keyword
     threat.indicator.port:
-      beta: This field is beta and subject to change.
       dashed_name: threat-indicator-port
       description: Identifies a threat indicator as a port number (irrespective of
         direction).
@@ -13580,7 +13564,6 @@ threat:
       short: Indicator port
       type: long
     threat.indicator.provider:
-      beta: This field is beta and subject to change.
       dashed_name: threat-indicator-provider
       description: The name of the indicator's provider.
       example: lrz_urlhaus
@@ -13592,7 +13575,6 @@ threat:
       short: Indicator provider
       type: keyword
     threat.indicator.reference:
-      beta: This field is beta and subject to change.
       dashed_name: threat-indicator-reference
       description: Reference URL linking to additional information about this indicator.
       example: https://system.example.com/indicator/0001234
@@ -13699,7 +13681,6 @@ threat:
       short: Name of the value written.
       type: keyword
     threat.indicator.scanner_stats:
-      beta: This field is beta and subject to change.
       dashed_name: threat-indicator-scanner-stats
       description: Count of AV/EDR vendors that successfully detected malicious file
         or URL.
@@ -13711,7 +13692,6 @@ threat:
       short: Scanner statistics
       type: long
     threat.indicator.sightings:
-      beta: This field is beta and subject to change.
       dashed_name: threat-indicator-sightings
       description: Number of times this indicator was observed conducting threat activity.
       example: 20
@@ -13722,7 +13702,6 @@ threat:
       short: Number of times indicator observed
       type: long
     threat.indicator.type:
-      beta: This field is beta and subject to change.
       dashed_name: threat-indicator-type
       description: "Type of indicator as represented by Cyber Observable in STIX 2.0.\n\
         Recommended values:\n  * autonomous-system\n  * artifact\n  * directory\n\
@@ -14492,64 +14471,56 @@ threat:
   - threat.indicator.x509
   prefix: threat.
   reused_here:
-  - beta: Reusing the `as` fields in this location is currently considered beta.
-    full: threat.indicator.as
+  - full: threat.indicator.as
     schema_name: as
     short: Fields describing an Autonomous System (Internet routing prefix).
   - beta: Reusing the `as` fields in this location is currently considered beta.
     full: threat.enrichments.indicator.as
     schema_name: as
     short: Fields describing an Autonomous System (Internet routing prefix).
-  - beta: Reusing the `file` fields in this location is currently considered beta.
-    full: threat.indicator.file
+  - full: threat.indicator.file
     schema_name: file
     short: Fields describing files.
   - beta: Reusing the `file` fields in this location is currently considered beta.
     full: threat.enrichments.indicator.file
     schema_name: file
     short: Fields describing files.
-  - beta: Reusing the `geo` fields in this location is currently considered beta.
-    full: threat.indicator.geo
+  - full: threat.indicator.geo
     schema_name: geo
     short: Fields describing a location.
   - beta: Reusing the `geo` fields in this location is currently considered beta.
     full: threat.enrichments.indicator.geo
     schema_name: geo
     short: Fields describing a location.
-  - beta: Reusing the `hash` fields in this location is currently considered beta.
-    full: threat.indicator.hash
+  - full: threat.indicator.hash
     schema_name: hash
     short: Hashes, usually file hashes.
   - beta: Reusing the `hash` fields in this location is currently considered beta.
     full: threat.enrichments.indicator.hash
     schema_name: hash
     short: Hashes, usually file hashes.
-  - beta: Reusing the `pe` fields in this location is currently considered beta.
-    full: threat.indicator.pe
+  - full: threat.indicator.pe
     schema_name: pe
     short: These fields contain Windows Portable Executable (PE) metadata.
   - beta: Reusing the `pe` fields in this location is currently considered beta.
     full: threat.enrichments.indicator.pe
     schema_name: pe
     short: These fields contain Windows Portable Executable (PE) metadata.
-  - beta: Reusing the `registry` fields in this location is currently considered beta.
-    full: threat.indicator.registry
+  - full: threat.indicator.registry
     schema_name: registry
     short: Fields related to Windows Registry operations.
   - beta: Reusing the `registry` fields in this location is currently considered beta.
     full: threat.enrichments.indicator.registry
     schema_name: registry
     short: Fields related to Windows Registry operations.
-  - beta: Reusing the `url` fields in this location is currently considered beta.
-    full: threat.indicator.url
+  - full: threat.indicator.url
     schema_name: url
     short: Fields that let you store URLs in various forms.
   - beta: Reusing the `url` fields in this location is currently considered beta.
     full: threat.enrichments.indicator.url
     schema_name: url
     short: Fields that let you store URLs in various forms.
-  - beta: Reusing the `x509` fields in this location is currently considered beta.
-    full: threat.indicator.x509
+  - full: threat.indicator.x509
     schema_name: x509
     short: These fields contain x509 certificate metadata.
   - beta: Reusing the `x509` fields in this location is currently considered beta.
@@ -15832,7 +15803,6 @@ url:
     expected:
     - as: url
       at: threat.indicator
-      beta: Reusing the `url` fields in this location is currently considered beta.
       full: threat.indicator.url
     - as: url
       at: threat.enrichments.indicator
@@ -17133,7 +17103,6 @@ x509:
       full: file.x509
     - as: x509
       at: threat.indicator
-      beta: Reusing the `x509` fields in this location is currently considered beta.
       full: threat.indicator.x509
     - as: x509
       at: threat.enrichments.indicator

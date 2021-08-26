@@ -25,6 +25,7 @@ Thanks, you're awesome :-) -->
 
 * Wildcard type field migration GA. #1582
 * `match_only_text` type field migration GA. #1584
+* Threat indicator fields GA from RFC 0008. #1586
 
 #### Deprecated
 
@@ -41,6 +42,8 @@ Thanks, you're awesome :-) -->
 #### Added
 
 #### Improvements
+
+* Remove remaining Go deps after removing Go code generator. #1585
 
 #### Deprecated
 
