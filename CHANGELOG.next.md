@@ -69,6 +69,9 @@ Thanks, you're awesome :-) -->
 #### Bugfixes
 
 * Prevent failure if no files need to be deleted `find | xargs rm`. #1588
+#### Improvements
+
+* Document field type family interoperability in FAQ. #1591
 
 <!-- All empty sections:
 
