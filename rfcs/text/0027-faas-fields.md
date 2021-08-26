@@ -1,8 +1,8 @@
 # 0027: Function as a Service Fields
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
-- Stage: **1 (draft)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
-- Date: **2021-08-19** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
+- Stage: **2 (candidate)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
+- Date: **TBD** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 <!--
 As you work on your RFC, use the "Stage N" comments to guide you in what you should focus on, for the stage you're targeting.
