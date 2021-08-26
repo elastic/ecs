@@ -86,6 +86,7 @@ faas.trigger.region | `cloud.origin.region`
 <!--
 Stage 2: Add or update all remaining field definitions. The list should now be exhaustive. The goal here is to validate the technical details of all remaining fields and to provide a basis for releasing these field definitions as beta in the schema. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
 -->
+Done.
 
 ## Usage
 
@@ -116,6 +117,160 @@ Faas functions provide meta-information in their execution environment. APM agen
 <!--
 Stage 2: Included a real world example source document. Ideally this example comes from the source(s) identified in stage 1. If not, it should replace them. The goal here is to validate the utility of these field changes in the context of a real world example. Format with the source name as a ### header and the example document in a GitHub code block with json formatting, or if on the larger side, add them to the corresponding RFC folder.
 -->
+The above fields will be derived by the APM agents from the AWS Lambda `context object` and the `event object` that are passed with an invocation of a Lambda function. Below is an example for the context and event object.
+The mapping to the proposed fields for this example is layed out in the following table
+
+target ECS field | source field
+--- | ---
+faas.coldstart | No source field. Determined by the APM agent on the first Lambda function invocation.
+faas.execution | `context.awsRequestId`
+faas.trigger.type | No source field. Determined by the APM agent based on the `event object` type. Would be `http` in this example.
+faas.trigger.request_id | `event.requestContext.requestId`
+service.origin.name | `${event.requestContext.httpMethod} ${event.requestContext.resourcePath}/${event.requestContext.stage}` -> `GET /fetch_all/dev`
+service.origin.id | `event.requestContext.apiId`
+service.origin.version | No source field. Determined by the APM agent based on the `event object` type whether it's API version `1.0` or `2.0`.
+cloud.origin.service.name | `api gateway`
+cloud.origin.account.id | `event.requestContext.accountId`
+
+### AWS Lambda context object 
+Description [available here](https://docs.aws.amazon.com/lambda/latest/dg/nodejs-context.html).
+
+**context:**
+```json 
+{
+    "callbackWaitsForEmptyEventLoop": true,
+    "functionVersion": "$LATEST",
+    "functionName": "the-function-name",
+    "memoryLimitInMB": "128",
+    "logGroupName": "/aws/lambda/the-function-name",
+    "logStreamName": "2021/08/13/[$LATEST]08834acf4e4f463b95b7b99aa8b34aff",
+    "invokedFunctionArn": "arn:aws:lambda:us-west-2:XXXXXXXXXXXX:function:the-function-name",
+    "awsRequestId": "649bf7d0-c6ae-432d-899d-da44ccd7ee95"
+}
+```
+### AWS Lambda event object 
+Description [available here](https://docs.aws.amazon.com/lambda/latest/dg/services-apigateway.html).
+
+**event:**
+```json
+{
+    "resource": "/fetch_all",
+    "path": "/fetch_all",
+    "httpMethod": "GET",
+    "headers": {
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Accept-Language": "en-US,en;q=0.5",
+        "CloudFront-Forwarded-Proto": "https",
+        "CloudFront-Is-Desktop-Viewer": "true",
+        "CloudFront-Is-Mobile-Viewer": "false",
+        "CloudFront-Is-SmartTV-Viewer": "false",
+        "CloudFront-Is-Tablet-Viewer": "false",
+        "CloudFront-Viewer-Country": "US",
+        "Host": "02plqthge2.execute-api.us-east-1.amazonaws.com",
+        "upgrade-insecure-requests": "1",
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:72.0) Gecko/20100101 Firefox/72.0",
+        "Via": "2.0 969f35f01b6eddd92239a3e818fc1e0d.cloudfront.net (CloudFront)",
+        "X-Amz-Cf-Id": "eDbpfDwO-CRYymEFLkW6CBCsU_H_PS8R93_us53QWvXWLS45v3NvQw==",
+        "X-Amzn-Trace-Id": "Root=1-5e502af4-fd0c1c6fdc164e1d6361183b",
+        "X-Forwarded-For": "76.76.241.57, 52.46.47.139",
+        "X-Forwarded-Port": "443",
+        "X-Forwarded-Proto": "https"
+    },
+    "multiValueHeaders": {
+        "Accept": [
+            "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
+        ],
+        "Accept-Encoding": [
+            "gzip, deflate, br"
+        ],
+        "Accept-Language": [
+            "en-US,en;q=0.5"
+        ],
+        "CloudFront-Forwarded-Proto": [
+            "https"
+        ],
+        "CloudFront-Is-Desktop-Viewer": [
+            "true"
+        ],
+        "CloudFront-Is-Mobile-Viewer": [
+            "false"
+        ],
+        "CloudFront-Is-SmartTV-Viewer": [
+            "false"
+        ],
+        "CloudFront-Is-Tablet-Viewer": [
+            "false"
+        ],
+        "CloudFront-Viewer-Country": [
+            "US"
+        ],
+        "Host": [
+            "02plqthge2.execute-api.us-east-1.amazonaws.com"
+        ],
+        "upgrade-insecure-requests": [
+            "1"
+        ],
+        "User-Agent": [
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:72.0) Gecko/20100101 Firefox/72.0"
+        ],
+        "Via": [
+            "2.0 969f35f01b6eddd92239a3e818fc1e0d.cloudfront.net (CloudFront)"
+        ],
+        "X-Amz-Cf-Id": [
+            "eDbpfDwO-CRYymEFLkW6CBCsU_H_PS8R93_us53QWvXWLS45v3NvQw=="
+        ],
+        "X-Amzn-Trace-Id": [
+            "Root=1-5e502af4-fd0c1c6fdc164e1d6361183b"
+        ],
+        "X-Forwarded-For": [
+            "76.76.241.57, 52.46.47.139"
+        ],
+        "X-Forwarded-Port": [
+            "443"
+        ],
+        "X-Forwarded-Proto": [
+            "https"
+        ]
+    },
+    "queryStringParameters": null,
+    "multiValueQueryStringParameters": null,
+    "pathParameters": null,
+    "stageVariables": null,
+    "requestContext": {
+        "resourceId": "y3tkf7",
+        "resourcePath": "/fetch_all",
+        "httpMethod": "GET",
+        "extendedRequestId": "IQumRELJIAMF6fQ=",
+        "requestTime": "21/Feb/2020:19:09:40 +0000",
+        "path": "/dev/fetch_all",
+        "accountId": "571481734049",
+        "protocol": "HTTP/1.1",
+        "stage": "dev",
+        "domainPrefix": "02plqthge2",
+        "requestTimeEpoch": 1582312180890,
+        "requestId": "6f3dffca-46f8-4c8b-800b-6bc1ea2554ec",
+        "identity": {
+            "cognitoIdentityPoolId": null,
+            "accountId": null,
+            "cognitoIdentityId": null,
+            "caller": null,
+            "sourceIp": "76.76.241.57",
+            "principalOrgId": null,
+            "accessKey": null,
+            "cognitoAuthenticationType": null,
+            "cognitoAuthenticationProvider": null,
+            "userArn": null,
+            "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:72.0) Gecko/20100101 Firefox/72.0",
+            "user": null
+        },
+        "domainName": "02plqthge2.execute-api.us-east-1.amazonaws.com",
+        "apiId": "02plqthge2"
+    },
+    "body": null,
+    "isBase64Encoded": false
+}
+```
 
 <!--
 Stage 3: Add more real world example source documents so we have at least 2 total, but ideally 3. Format as described in stage 2.
@@ -130,6 +285,13 @@ Stage 2: Identifies scope of impact of changes. Are breaking changes required? S
  * ECS project (e.g. docs, tooling)
 The goal here is to research and understand the impact of these changes on users in the community and development teams across Elastic. 2-5 sentences each.
 -->
+- Ingestion mechanisms:
+  - APM server will extend the intake V2 API to accept the new fields and store them with the transaction documents
+  - APM server will extend OpenTelemetry field mapping to account for these new fields
+- Usage mechanisms:
+  - APM UI may utilize the new fields to provide Lambda / serverless specific visualizations (e.g. indicating cold starts on transactions in the waterfall view, showing meta information on lambda service views)
+- ECS project
+  - the concept of self-nesting service and cloud fields under *origin* and *target* needs clear documentation that avoids confusion around when to use which of the fields. Tried to address this with the description in the schema for those fields in this PR.
 
 ## Concerns
 
@@ -148,6 +310,8 @@ Stage 1: Identify potential concerns, implementation challenges, or complexity. 
 <!--
 Stage 2: Document new concerns or resolutions to previously listed concerns. It's not critical that all concerns have resolutions at this point, but it would be helpful if resolutions were taking shape for the most significant concerns.
 -->
+
+- extended descriptio / footnote for service and cloud fields in this PR to avoid confusion about *origin* and *target* nesting of service and cloud fields
 
 <!--
 Stage 3: Document resolutions for all existing concerns. Any new concerns should be documented along with their resolution. The goal here is to eliminate risk of churn and instability by ensuring all concerns have been addressed.
