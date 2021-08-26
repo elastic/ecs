@@ -74,6 +74,10 @@ Thanks, you're awesome :-) -->
 
 * Support ES 6.x type fallback for `match_only_text` field types. #1528
 
+#### Improvements
+
+* Document field type family interoperability in FAQ. #1591
+
 <!-- All empty sections:
 
 ## Unreleased
