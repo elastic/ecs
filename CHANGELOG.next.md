@@ -16,6 +16,7 @@ Thanks, you're awesome :-) -->
 * Remove deprecation notice on `http.request.method`. #1443
 * Migrate `log.origin.file.line` from `integer` to `long`. #1533
 * Remove `log.original` field. #1580
+* Remove `process.ppid` field. #1596
 
 #### Bugfixes
 
