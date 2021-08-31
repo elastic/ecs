@@ -130,3 +130,63 @@ using the `threat.indicator.*` fields.
 [discrete]
 [[ecs-threat-usage-enrichments]]
 ===== Enrichments
+
+```JSON
+{
+  "process": {
+    "name": "svchost.exe",
+    "pid": 1644,
+    "entity_id": "MDgyOWFiYTYtMzRkYi1kZTM2LTFkNDItMzBlYWM3NDVlOTgwLTE2NDQtMTMyNDk3MTA2OTcuNDc1OTExNTAw",
+    "executable": "C:\\Windows\\System32\\svchost.exe"
+  },
+  "message": "Endpoint file event",
+  "@timestamp": "2020-11-17T19:07:46.0956672Z",
+  "file": {
+    "path": "C:\\Windows\\Prefetch\\SVCHOST.EXE-AE7DB802.pf",
+    "extension": "pf",
+    "name": "SVCHOST.EXE-AE7DB802.pf",
+    "hash": {
+      "sha256": "0c415dd718e3b3728707d579cf8214f54c2942e964975a5f925e0b82fea644b4"
+    }
+  },
+  "threat": {
+    "enrichments": [
+      {
+        "indicator": { <1>
+          "marking": {
+            "tlp": "WHITE"
+          },
+          "first_seen": "2020-11-17T19:07:46.0956672Z",
+          "file": {
+            "hash": {
+              "sha256": "0c415dd718e3b3728707d579cf8214f54c2942e964975a5f925e0b82fea644b4",
+              "md5": "1eee2bf3f56d8abed72da2bc523e7431"
+            },
+            "size": 656896,
+            "name": "invoice.doc"
+          },
+          "last_seen": "2020-11-17T19:07:46.0956672Z",
+          "reference": "https://system.example.com/event/#0001234",
+          "sightings": 4,
+          "type": [
+              "sha256",
+              "md5",
+              "file_name",
+              "file_size"
+        ],
+          "description": "file last associated with delivering Angler EK"
+        },
+        "matched": { <2>
+          "atomic": "0c415dd718e3b3728707d579cf8214f54c2942e964975a5f925e0b82fea644b4",
+          "field": "file.hash.sha256",
+          "id": "abc123f03",
+          "index": "threat-indicators-index-000001",
+          "type": "indicator_match_rule"
+        }
+      }
+    ]
+  }
+}
+```
+<1> Each enrichment is added as a nested object under `threat.enrichments.*` Copy all the object indicators under `indicator.*`, providing full context.
+<2> `matched` will provide context about which of the indicators above matched on the particular enrichment. If multiple matches for this indicator object, this could be a list.
