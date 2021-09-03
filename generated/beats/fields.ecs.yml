@@ -3029,8 +3029,7 @@
       type: wildcard
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: The full HTTP request body.
       example: Hello world
@@ -3089,8 +3088,7 @@
       type: wildcard
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: The full HTTP response body.
       example: Hello world
@@ -3221,25 +3219,6 @@
       ignore_above: 1024
       description: The name of the function or method which originated the log event.
       example: init
-    - name: original
-      level: core
-      type: keyword
-      description: 'Deprecated for removal in next major version release. This field
-        is superseded by `event.original`.
-
-        This is the original log message and contains the full log message before
-        splitting it up in multiple parts.
-
-        In contrast to the `message` field which can contain an extracted part of
-        the log message, this field contains the original, full log message. It can
-        have already some modifications applied like encoding or new lines removed
-        to clean up the log message.
-
-        This field is not indexed and doc_values are disabled so it can''t be queried
-        but the value can be retrieved from `_source`.'
-      example: Sep 19 08:26:10 localhost My log
-      index: false
-      doc_values: false
     - name: syslog
       level: extended
       type: object
@@ -3854,8 +3833,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: Organization name.
   - name: os
@@ -4893,13 +4871,6 @@
       description: Process id.
       example: 4242
       default_field: false
-    - name: parent.ppid
-      level: extended
-      type: long
-      format: string
-      description: Parent process' pid.
-      example: 4241
-      default_field: false
     - name: parent.start
       level: extended
       type: date
@@ -5012,12 +4983,6 @@
       format: string
       description: Process id.
       example: 4242
-    - name: ppid
-      level: extended
-      type: long
-      format: string
-      description: Parent process' pid.
-      example: 4241
     - name: start
       level: extended
       type: date
@@ -5974,11 +5939,11 @@
       level: extended
       type: keyword
       ignore_above: 1024
-      description: "Identifies\_the\_confidence\_rating\_assigned\_by\_the\_provider\_\
-        using\_STIX\_confidence scales. Expected values:\n  * Not Specified, None,\
-        \ Low, Medium, High\n  * 0-10\n  * Admirality Scale (1-6)\n  * DNI Scale (5-95)\n\
-        \  * WEP Scale (Impossible - Certain)"
-      example: High
+      description: "Identifies\_the\_vendor-neutral confidence\_rating\_using\_the\
+        \ None/Low/Medium/High\_scale defined in Appendix A of the STIX 2.1 framework.\
+        \ Vendor-specific confidence scales may be added as custom fields.\nExpected\
+        \ values are:\n  * Not Specified\n  * None\n  * Low\n  * Medium\n  * High"
+      example: Medium
       default_field: false
     - name: enrichments.indicator.description
       level: extended
@@ -7169,11 +7134,11 @@
       level: extended
       type: keyword
       ignore_above: 1024
-      description: "Identifies the confidence rating assigned by the provider using\
-        \ STIX confidence scales.\nRecommended values:\n  * Not Specified, None, Low,\
-        \ Medium, High\n  * 0-10\n  * Admirality Scale (1-6)\n  * DNI Scale (5-95)\n\
-        \  * WEP Scale (Impossible - Certain)"
-      example: High
+      description: "Identifies\_the\_vendor-neutral confidence\_rating\_using\_the\
+        \ None/Low/Medium/High\_scale defined in Appendix A of the STIX 2.1 framework.\
+        \ Vendor-specific confidence scales may be added as custom fields.\nExpected\
+        \ values are:\n  * Not Specified\n  * None\n  * Low\n  * Medium\n  * High"
+      example: Medium
       default_field: false
     - name: indicator.description
       level: extended

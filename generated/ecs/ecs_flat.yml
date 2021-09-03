@@ -129,8 +129,6 @@ client.as.number:
   short: Unique number allocated to the autonomous system.
   type: long
 client.as.organization.name:
-  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
-    beta.
   dashed_name: client-as-organization-name
   description: Organization name.
   example: Google LLC
@@ -453,8 +451,6 @@ client.user.email:
   short: User email address.
   type: keyword
 client.user.full_name:
-  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
-    beta.
   dashed_name: client-user-full-name
   description: User's full name, if available.
   example: Albert Einstein
@@ -533,8 +529,6 @@ client.user.id:
   short: Unique identifier of the user.
   type: keyword
 client.user.name:
-  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
-    beta.
   dashed_name: client-user-name
   description: Short name or login of the user.
   example: a.einstein
@@ -834,8 +828,6 @@ destination.as.number:
   short: Unique number allocated to the autonomous system.
   type: long
 destination.as.organization.name:
-  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
-    beta.
   dashed_name: destination-as-organization-name
   description: Organization name.
   example: Google LLC
@@ -1157,8 +1149,6 @@ destination.user.email:
   short: User email address.
   type: keyword
 destination.user.full_name:
-  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
-    beta.
   dashed_name: destination-user-full-name
   description: User's full name, if available.
   example: Albert Einstein
@@ -1237,8 +1227,6 @@ destination.user.id:
   short: Unique identifier of the user.
   type: keyword
 destination.user.name:
-  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
-    beta.
   dashed_name: destination-user-name
   description: Short name or login of the user.
   example: a.einstein
@@ -1847,7 +1835,6 @@ error.id:
   short: Unique identifier for the error.
   type: keyword
 error.message:
-  beta: Use of the `match_only_text` type for this field is currently beta.
   dashed_name: error-message
   description: Error message.
   flat_name: error.message
@@ -1857,8 +1844,6 @@ error.message:
   short: Error message.
   type: match_only_text
 error.stack_trace:
-  beta: Use of `wildcard` as the primary type and `match_only_type` as the `.text`
-    multi-field type are both currently beta.
   dashed_name: error-stack-trace
   description: The stack trace of this error in plain text.
   flat_name: error.stack_trace
@@ -3404,8 +3389,6 @@ file.owner:
   short: File owner's username.
   type: keyword
 file.path:
-  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
-    beta.
   dashed_name: file-path
   description: Full path to the file, including the file name. It should include the
     drive letter, when appropriate.
@@ -3522,8 +3505,6 @@ file.size:
   short: File size in bytes.
   type: long
 file.target_path:
-  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
-    beta.
   dashed_name: file-target-path
   description: Target path for symlinks.
   flat_name: file.target_path
@@ -4216,8 +4197,6 @@ host.os.family:
   short: OS family (such as redhat, debian, freebsd, windows).
   type: keyword
 host.os.full:
-  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
-    beta.
   dashed_name: host-os-full
   description: Operating system name, including the version or code name.
   example: Mac OS Mojave
@@ -4246,8 +4225,6 @@ host.os.kernel:
   short: Operating system kernel version as a raw string.
   type: keyword
 host.os.name:
-  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
-    beta.
   dashed_name: host-os-name
   description: Operating system name, without the version.
   example: Mac OS X
@@ -4341,7 +4318,6 @@ http.request.body.bytes:
   short: Size in bytes of the request body.
   type: long
 http.request.body.content:
-  beta: Use of the `wildcard` data type for this field is currently beta.
   dashed_name: http-request-body-content
   description: The full HTTP request body.
   example: Hello world
@@ -4350,8 +4326,7 @@ http.request.body.content:
   multi_fields:
   - flat_name: http.request.body.content.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: request.body.content
   normalize: []
   short: The full HTTP request body.
@@ -4434,7 +4409,6 @@ http.response.body.bytes:
   short: Size in bytes of the response body.
   type: long
 http.response.body.content:
-  beta: Use of the `wildcard` data type for this field is currently beta.
   dashed_name: http-response-body-content
   description: The full HTTP response body.
   example: Hello world
@@ -4443,8 +4417,7 @@ http.response.body.content:
   multi_fields:
   - flat_name: http.response.body.content.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: response.body.content
   normalize: []
   short: The full HTTP response body.
@@ -4593,31 +4566,6 @@ log.origin.function:
   normalize: []
   short: The function which originated the log event.
   type: keyword
-log.original:
-  dashed_name: log-original
-  description: 'Deprecated for removal in next major version release. This field is
-    superseded by `event.original`.
-
-    This is the original log message and contains the full log message before splitting
-    it up in multiple parts.
-
-    In contrast to the `message` field which can contain an extracted part of the
-    log message, this field contains the original, full log message. It can have already
-    some modifications applied like encoding or new lines removed to clean up the
-    log message.
-
-    This field is not indexed and doc_values are disabled so it can''t be queried
-    but the value can be retrieved from `_source`.'
-  doc_values: false
-  example: Sep 19 08:26:10 localhost My log
-  flat_name: log.original
-  index: false
-  level: core
-  name: original
-  normalize: []
-  short: Deprecated original log message with light interpretation only (encoding,
-    newlines).
-  type: keyword
 log.syslog:
   dashed_name: log-syslog
   description: The Syslog metadata of the event, if the event was transmitted via
@@ -4699,7 +4647,6 @@ log.syslog.severity.name:
   short: Syslog text-based severity of the event.
   type: keyword
 message:
-  beta: Use of the `match_only_text` type for this field is currently beta.
   dashed_name: message
   description: 'For log events the message field contains the log message, optimized
     for viewing in a log viewer.
@@ -5309,8 +5256,6 @@ observer.os.family:
   short: OS family (such as redhat, debian, freebsd, windows).
   type: keyword
 observer.os.full:
-  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
-    beta.
   dashed_name: observer-os-full
   description: Operating system name, including the version or code name.
   example: Mac OS Mojave
@@ -5339,8 +5284,6 @@ observer.os.kernel:
   short: Operating system kernel version as a raw string.
   type: keyword
 observer.os.name:
-  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
-    beta.
   dashed_name: observer-os-name
   description: Operating system name, without the version.
   example: Mac OS X
@@ -5570,8 +5513,7 @@ organization.name:
   multi_fields:
   - flat_name: organization.name.text
     name: text
-    norms: false
-    type: text
+    type: match_only_text
   name: name
   normalize: []
   short: Organization name.
@@ -5879,8 +5821,6 @@ process.code_signature.valid:
     content.
   type: boolean
 process.command_line:
-  beta: Use of `wildcard` as the primary type and `match_only_type` as the `.text`
-    multi-field type are both currently beta.
   dashed_name: process-command-line
   description: 'Full command line that started the process, including the absolute
     path to the executable, and all arguments.
@@ -6256,8 +6196,6 @@ process.entity_id:
   short: Unique identifier for the process.
   type: keyword
 process.executable:
-  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
-    beta.
   dashed_name: process-executable
   description: Absolute path to the process executable.
   example: /usr/bin/ssh
@@ -6341,8 +6279,6 @@ process.hash.ssdeep:
   short: SSDEEP hash.
   type: keyword
 process.name:
-  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
-    beta.
   dashed_name: process-name
   description: 'Process name.
 
@@ -6515,8 +6451,6 @@ process.parent.code_signature.valid:
     content.
   type: boolean
 process.parent.command_line:
-  beta: Use of `wildcard` as the primary type and `match_only_type` as the `.text`
-    multi-field type are both currently beta.
   dashed_name: process-parent-command-line
   description: 'Full command line that started the process, including the absolute
     path to the executable, and all arguments.
@@ -6895,8 +6829,6 @@ process.parent.entity_id:
   short: Unique identifier for the process.
   type: keyword
 process.parent.executable:
-  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
-    beta.
   dashed_name: process-parent-executable
   description: Absolute path to the process executable.
   example: /usr/bin/ssh
@@ -6982,8 +6914,6 @@ process.parent.hash.ssdeep:
   short: SSDEEP hash.
   type: keyword
 process.parent.name:
-  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
-    beta.
   dashed_name: process-parent-name
   description: 'Process name.
 
@@ -7112,18 +7042,6 @@ process.parent.pid:
   original_fieldset: process
   short: Process id.
   type: long
-process.parent.ppid:
-  dashed_name: process-parent-ppid
-  description: Parent process' pid.
-  example: 4241
-  flat_name: process.parent.ppid
-  format: string
-  level: extended
-  name: ppid
-  normalize: []
-  original_fieldset: process
-  short: Parent process' pid.
-  type: long
 process.parent.start:
   dashed_name: process-parent-start
   description: The time the process started.
@@ -7160,8 +7078,6 @@ process.parent.thread.name:
   short: Thread name.
   type: keyword
 process.parent.title:
-  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
-    beta.
   dashed_name: process-parent-title
   description: 'Process title.
 
@@ -7191,8 +7107,6 @@ process.parent.uptime:
   short: Seconds the process has been up.
   type: long
 process.parent.working_directory:
-  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
-    beta.
   dashed_name: process-parent-working-directory
   description: The working directory of the process.
   example: /home/alice
@@ -7317,17 +7231,6 @@ process.pid:
   normalize: []
   short: Process id.
   type: long
-process.ppid:
-  dashed_name: process-ppid
-  description: Parent process' pid.
-  example: 4241
-  flat_name: process.ppid
-  format: string
-  level: extended
-  name: ppid
-  normalize: []
-  short: Parent process' pid.
-  type: long
 process.start:
   dashed_name: process-start
   description: The time the process started.
@@ -7361,8 +7264,6 @@ process.thread.name:
   short: Thread name.
   type: keyword
 process.title:
-  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
-    beta.
   dashed_name: process-title
   description: 'Process title.
 
@@ -7390,8 +7291,6 @@ process.uptime:
   short: Seconds the process has been up.
   type: long
 process.working_directory:
-  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
-    beta.
   dashed_name: process-working-directory
   description: The working directory of the process.
   example: /home/alice
@@ -7422,7 +7321,6 @@ registry.data.bytes:
   short: Original bytes written with base64 encoding.
   type: keyword
 registry.data.strings:
-  beta: Use of the `wildcard` data type for this field is currently beta.
   dashed_name: registry-data-strings
   description: 'Content when writing string types.
 
@@ -7691,8 +7589,6 @@ server.as.number:
   short: Unique number allocated to the autonomous system.
   type: long
 server.as.organization.name:
-  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
-    beta.
   dashed_name: server-as-organization-name
   description: Organization name.
   example: Google LLC
@@ -8015,8 +7911,6 @@ server.user.email:
   short: User email address.
   type: keyword
 server.user.full_name:
-  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
-    beta.
   dashed_name: server-user-full-name
   description: User's full name, if available.
   example: Albert Einstein
@@ -8095,8 +7989,6 @@ server.user.id:
   short: Unique identifier of the user.
   type: keyword
 server.user.name:
-  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
-    beta.
   dashed_name: server-user-name
   description: Short name or login of the user.
   example: a.einstein
@@ -8295,8 +8187,6 @@ source.as.number:
   short: Unique number allocated to the autonomous system.
   type: long
 source.as.organization.name:
-  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
-    beta.
   dashed_name: source-as-organization-name
   description: Organization name.
   example: Google LLC
@@ -8619,8 +8509,6 @@ source.user.email:
   short: User email address.
   type: keyword
 source.user.full_name:
-  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
-    beta.
   dashed_name: source-user-full-name
   description: User's full name, if available.
   example: Albert Einstein
@@ -8699,8 +8587,6 @@ source.user.id:
   short: Unique identifier of the user.
   type: keyword
 source.user.name:
-  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
-    beta.
   dashed_name: source-user-name
   description: Short name or login of the user.
   example: a.einstein
@@ -8789,8 +8675,6 @@ threat.enrichments.indicator.as.number:
   short: Unique number allocated to the autonomous system.
   type: long
 threat.enrichments.indicator.as.organization.name:
-  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
-    beta.
   dashed_name: threat-enrichments-indicator-as-organization-name
   description: Organization name.
   example: Google LLC
@@ -8809,11 +8693,11 @@ threat.enrichments.indicator.as.organization.name:
 threat.enrichments.indicator.confidence:
   beta: This field is beta and subject to change.
   dashed_name: threat-enrichments-indicator-confidence
-  description: "Identifies\_the\_confidence\_rating\_assigned\_by\_the\_provider\_\
-    using\_STIX\_confidence scales. Expected values:\n  * Not Specified, None, Low,\
-    \ Medium, High\n  * 0-10\n  * Admirality Scale (1-6)\n  * DNI Scale (5-95)\n \
-    \ * WEP Scale (Impossible - Certain)"
-  example: High
+  description: "Identifies\_the\_vendor-neutral confidence\_rating\_using\_the None/Low/Medium/High\_\
+    scale defined in Appendix A of the STIX 2.1 framework. Vendor-specific confidence\
+    \ scales may be added as custom fields.\nExpected values are:\n  * Not Specified\n\
+    \  * None\n  * Low\n  * Medium\n  * High"
+  example: Medium
   flat_name: threat.enrichments.indicator.confidence
   ignore_above: 1024
   level: extended
@@ -9529,8 +9413,6 @@ threat.enrichments.indicator.file.owner:
   short: File owner's username.
   type: keyword
 threat.enrichments.indicator.file.path:
-  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
-    beta.
   dashed_name: threat-enrichments-indicator-file-path
   description: Full path to the file, including the file name. It should include the
     drive letter, when appropriate.
@@ -9561,8 +9443,6 @@ threat.enrichments.indicator.file.size:
   short: File size in bytes.
   type: long
 threat.enrichments.indicator.file.target_path:
-  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
-    beta.
   dashed_name: threat-enrichments-indicator-file-target-path
   description: Target path for symlinks.
   flat_name: threat.enrichments.indicator.file.target_path
@@ -9996,7 +9876,6 @@ threat.enrichments.indicator.registry.data.bytes:
   short: Original bytes written with base64 encoding.
   type: keyword
 threat.enrichments.indicator.registry.data.strings:
-  beta: Use of the `wildcard` data type for this field is currently beta.
   dashed_name: threat-enrichments-indicator-registry-data-strings
   description: 'Content when writing string types.
 
@@ -10167,8 +10046,6 @@ threat.enrichments.indicator.url.fragment:
   short: Portion of the url after the `#`.
   type: keyword
 threat.enrichments.indicator.url.full:
-  beta: Use of `wildcard` as the primary type and `match_only_type` as the `.text`
-    multi-field type are both currently beta
   dashed_name: threat-enrichments-indicator-url-full
   description: If full URLs are important to your use case, they should be stored
     in `url.full`, whether this field is reconstructed or present in the event source.
@@ -10185,8 +10062,6 @@ threat.enrichments.indicator.url.full:
   short: Full unparsed URL.
   type: wildcard
 threat.enrichments.indicator.url.original:
-  beta: Use of `wildcard` as the primary type and `match_only_type` as the `.text`
-    multi-field type are both currently beta.
   dashed_name: threat-enrichments-indicator-url-original
   description: 'Unmodified original url as seen in the event source.
 
@@ -10218,7 +10093,6 @@ threat.enrichments.indicator.url.password:
   short: Password of the request.
   type: keyword
 threat.enrichments.indicator.url.path:
-  beta: Use of the `wildcard` data type for this field is currently beta.
   dashed_name: threat-enrichments-indicator-url-path
   description: Path of the request, such as "/search".
   flat_name: threat.enrichments.indicator.url.path
@@ -10786,8 +10660,6 @@ threat.indicator.as.number:
   short: Unique number allocated to the autonomous system.
   type: long
 threat.indicator.as.organization.name:
-  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
-    beta.
   dashed_name: threat-indicator-as-organization-name
   description: Organization name.
   example: Google LLC
@@ -10804,13 +10676,12 @@ threat.indicator.as.organization.name:
   short: Organization name.
   type: keyword
 threat.indicator.confidence:
-  beta: This field is beta and subject to change.
   dashed_name: threat-indicator-confidence
-  description: "Identifies the confidence rating assigned by the provider using STIX\
-    \ confidence scales.\nRecommended values:\n  * Not Specified, None, Low, Medium,\
-    \ High\n  * 0-10\n  * Admirality Scale (1-6)\n  * DNI Scale (5-95)\n  * WEP Scale\
-    \ (Impossible - Certain)"
-  example: High
+  description: "Identifies\_the\_vendor-neutral confidence\_rating\_using\_the None/Low/Medium/High\_\
+    scale defined in Appendix A of the STIX 2.1 framework. Vendor-specific confidence\
+    \ scales may be added as custom fields.\nExpected values are:\n  * Not Specified\n\
+    \  * None\n  * Low\n  * Medium\n  * High"
+  example: Medium
   flat_name: threat.indicator.confidence
   ignore_above: 1024
   level: extended
@@ -10819,7 +10690,6 @@ threat.indicator.confidence:
   short: Indicator confidence rating
   type: keyword
 threat.indicator.description:
-  beta: This field is beta and subject to change.
   dashed_name: threat-indicator-description
   description: Describes the type of action conducted by the threat.
   example: IP x.x.x.x was observed delivering the Angler EK.
@@ -10831,7 +10701,6 @@ threat.indicator.description:
   short: Indicator description
   type: keyword
 threat.indicator.email.address:
-  beta: This field is beta and subject to change.
   dashed_name: threat-indicator-email-address
   description: Identifies a threat indicator as an email address (irrespective of
     direction).
@@ -11526,8 +11395,6 @@ threat.indicator.file.owner:
   short: File owner's username.
   type: keyword
 threat.indicator.file.path:
-  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
-    beta.
   dashed_name: threat-indicator-file-path
   description: Full path to the file, including the file name. It should include the
     drive letter, when appropriate.
@@ -11558,8 +11425,6 @@ threat.indicator.file.size:
   short: File size in bytes.
   type: long
 threat.indicator.file.target_path:
-  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
-    beta.
   dashed_name: threat-indicator-file-target-path
   description: Target path for symlinks.
   flat_name: threat.indicator.file.target_path
@@ -11599,7 +11464,6 @@ threat.indicator.file.uid:
   short: The user ID (UID) or security identifier (SID) of the file owner.
   type: keyword
 threat.indicator.first_seen:
-  beta: This field is beta and subject to change.
   dashed_name: threat-indicator-first-seen
   description: The date and time when intelligence source first reported sighting
     this indicator.
@@ -11806,7 +11670,6 @@ threat.indicator.hash.ssdeep:
   short: SSDEEP hash.
   type: keyword
 threat.indicator.ip:
-  beta: This field is beta and subject to change.
   dashed_name: threat-indicator-ip
   description: Identifies a threat indicator as an IP address (irrespective of direction).
   example: 1.2.3.4
@@ -11817,7 +11680,6 @@ threat.indicator.ip:
   short: Indicator IP address
   type: ip
 threat.indicator.last_seen:
-  beta: This field is beta and subject to change.
   dashed_name: threat-indicator-last-seen
   description: The date and time when intelligence source last reported sighting this
     indicator.
@@ -11829,7 +11691,6 @@ threat.indicator.last_seen:
   short: Date/time indicator was last reported.
   type: date
 threat.indicator.marking.tlp:
-  beta: This field is beta and subject to change.
   dashed_name: threat-indicator-marking-tlp
   description: "Traffic Light Protocol sharing markings.\nRecommended values are:\n\
     \  * WHITE\n  * GREEN\n  * AMBER\n  * RED"
@@ -11842,7 +11703,6 @@ threat.indicator.marking.tlp:
   short: Indicator TLP marking
   type: keyword
 threat.indicator.modified_at:
-  beta: This field is beta and subject to change.
   dashed_name: threat-indicator-modified-at
   description: The date and time when intelligence source last modified information
     for this indicator.
@@ -11942,7 +11802,6 @@ threat.indicator.pe.product:
   short: Internal product name of the file, provided at compile-time.
   type: keyword
 threat.indicator.port:
-  beta: This field is beta and subject to change.
   dashed_name: threat-indicator-port
   description: Identifies a threat indicator as a port number (irrespective of direction).
   example: 443
@@ -11953,7 +11812,6 @@ threat.indicator.port:
   short: Indicator port
   type: long
 threat.indicator.provider:
-  beta: This field is beta and subject to change.
   dashed_name: threat-indicator-provider
   description: The name of the indicator's provider.
   example: lrz_urlhaus
@@ -11965,7 +11823,6 @@ threat.indicator.provider:
   short: Indicator provider
   type: keyword
 threat.indicator.reference:
-  beta: This field is beta and subject to change.
   dashed_name: threat-indicator-reference
   description: Reference URL linking to additional information about this indicator.
   example: https://system.example.com/indicator/0001234
@@ -11993,7 +11850,6 @@ threat.indicator.registry.data.bytes:
   short: Original bytes written with base64 encoding.
   type: keyword
 threat.indicator.registry.data.strings:
-  beta: Use of the `wildcard` data type for this field is currently beta.
   dashed_name: threat-indicator-registry-data-strings
   description: 'Content when writing string types.
 
@@ -12073,7 +11929,6 @@ threat.indicator.registry.value:
   short: Name of the value written.
   type: keyword
 threat.indicator.scanner_stats:
-  beta: This field is beta and subject to change.
   dashed_name: threat-indicator-scanner-stats
   description: Count of AV/EDR vendors that successfully detected malicious file or
     URL.
@@ -12085,7 +11940,6 @@ threat.indicator.scanner_stats:
   short: Scanner statistics
   type: long
 threat.indicator.sightings:
-  beta: This field is beta and subject to change.
   dashed_name: threat-indicator-sightings
   description: Number of times this indicator was observed conducting threat activity.
   example: 20
@@ -12096,7 +11950,6 @@ threat.indicator.sightings:
   short: Number of times indicator observed
   type: long
 threat.indicator.type:
-  beta: This field is beta and subject to change.
   dashed_name: threat-indicator-type
   description: "Type of indicator as represented by Cyber Observable in STIX 2.0.\n\
     Recommended values:\n  * autonomous-system\n  * artifact\n  * directory\n  * domain-name\n\
@@ -12164,8 +12017,6 @@ threat.indicator.url.fragment:
   short: Portion of the url after the `#`.
   type: keyword
 threat.indicator.url.full:
-  beta: Use of `wildcard` as the primary type and `match_only_type` as the `.text`
-    multi-field type are both currently beta
   dashed_name: threat-indicator-url-full
   description: If full URLs are important to your use case, they should be stored
     in `url.full`, whether this field is reconstructed or present in the event source.
@@ -12182,8 +12033,6 @@ threat.indicator.url.full:
   short: Full unparsed URL.
   type: wildcard
 threat.indicator.url.original:
-  beta: Use of `wildcard` as the primary type and `match_only_type` as the `.text`
-    multi-field type are both currently beta.
   dashed_name: threat-indicator-url-original
   description: 'Unmodified original url as seen in the event source.
 
@@ -12215,7 +12064,6 @@ threat.indicator.url.password:
   short: Password of the request.
   type: keyword
 threat.indicator.url.path:
-  beta: Use of the `wildcard` data type for this field is currently beta.
   dashed_name: threat-indicator-url-path
   description: Path of the request, such as "/search".
   flat_name: threat.indicator.url.path
@@ -12776,8 +12624,6 @@ threat.technique.id:
   short: Threat technique id.
   type: keyword
 threat.technique.name:
-  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
-    beta.
   dashed_name: threat-technique-name
   description: "The name of technique used by this threat. You can use a MITRE ATT&CK\xAE\
     \ technique, for example. (ex. https://attack.mitre.org/techniques/T1059/)"
@@ -12821,8 +12667,6 @@ threat.technique.subtechnique.id:
   short: Threat subtechnique id.
   type: keyword
 threat.technique.subtechnique.name:
-  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
-    beta.
   dashed_name: threat-technique-subtechnique-name
   description: "The name of subtechnique used by this threat. You can use a MITRE\
     \ ATT&CK\xAE subtechnique, for example. (ex. https://attack.mitre.org/techniques/T1059/001/)"
@@ -13900,8 +13744,6 @@ url.fragment:
   short: Portion of the url after the `#`.
   type: keyword
 url.full:
-  beta: Use of `wildcard` as the primary type and `match_only_type` as the `.text`
-    multi-field type are both currently beta
   dashed_name: url-full
   description: If full URLs are important to your use case, they should be stored
     in `url.full`, whether this field is reconstructed or present in the event source.
@@ -13917,8 +13759,6 @@ url.full:
   short: Full unparsed URL.
   type: wildcard
 url.original:
-  beta: Use of `wildcard` as the primary type and `match_only_type` as the `.text`
-    multi-field type are both currently beta.
   dashed_name: url-original
   description: 'Unmodified original url as seen in the event source.
 
@@ -13948,7 +13788,6 @@ url.password:
   short: Password of the request.
   type: keyword
 url.path:
-  beta: Use of the `wildcard` data type for this field is currently beta.
   dashed_name: url-path
   description: Path of the request, such as "/search".
   flat_name: url.path
@@ -14084,8 +13923,6 @@ user.changes.email:
   short: User email address.
   type: keyword
 user.changes.full_name:
-  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
-    beta.
   dashed_name: user-changes-full-name
   description: User's full name, if available.
   example: Albert Einstein
@@ -14164,8 +14001,6 @@ user.changes.id:
   short: Unique identifier of the user.
   type: keyword
 user.changes.name:
-  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
-    beta.
   dashed_name: user-changes-name
   description: Short name or login of the user.
   example: a.einstein
@@ -14231,8 +14066,6 @@ user.effective.email:
   short: User email address.
   type: keyword
 user.effective.full_name:
-  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
-    beta.
   dashed_name: user-effective-full-name
   description: User's full name, if available.
   example: Albert Einstein
@@ -14311,8 +14144,6 @@ user.effective.id:
   short: Unique identifier of the user.
   type: keyword
 user.effective.name:
-  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
-    beta.
   dashed_name: user-effective-name
   description: Short name or login of the user.
   example: a.einstein
@@ -14352,8 +14183,6 @@ user.email:
   short: User email address.
   type: keyword
 user.full_name:
-  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
-    beta.
   dashed_name: user-full-name
   description: User's full name, if available.
   example: Albert Einstein
@@ -14429,8 +14258,6 @@ user.id:
   short: Unique identifier of the user.
   type: keyword
 user.name:
-  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
-    beta.
   dashed_name: user-name
   description: Short name or login of the user.
   example: a.einstein
@@ -14482,8 +14309,6 @@ user.target.email:
   short: User email address.
   type: keyword
 user.target.full_name:
-  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
-    beta.
   dashed_name: user-target-full-name
   description: User's full name, if available.
   example: Albert Einstein
@@ -14562,8 +14387,6 @@ user.target.id:
   short: Unique identifier of the user.
   type: keyword
 user.target.name:
-  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
-    beta.
   dashed_name: user-target-name
   description: Short name or login of the user.
   example: a.einstein
@@ -14615,8 +14438,6 @@ user_agent.name:
   short: Name of the user agent.
   type: keyword
 user_agent.original:
-  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
-    beta.
   dashed_name: user-agent-original
   description: Unparsed user_agent string.
   example: Mozilla/5.0 (iPhone; CPU iPhone OS 12_1 like Mac OS X) AppleWebKit/605.1.15
@@ -14645,8 +14466,6 @@ user_agent.os.family:
   short: OS family (such as redhat, debian, freebsd, windows).
   type: keyword
 user_agent.os.full:
-  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
-    beta.
   dashed_name: user-agent-os-full
   description: Operating system name, including the version or code name.
   example: Mac OS Mojave
@@ -14675,8 +14494,6 @@ user_agent.os.kernel:
   short: Operating system kernel version as a raw string.
   type: keyword
 user_agent.os.name:
-  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
-    beta.
   dashed_name: user-agent-os-name
   description: Operating system name, without the version.
   example: Mac OS X
@@ -14776,8 +14593,6 @@ vulnerability.classification:
   short: Classification of the vulnerability.
   type: keyword
 vulnerability.description:
-  beta: Use of the `match_only_text` type in the `.text` multi-field is currently
-    beta.
   dashed_name: vulnerability-description
   description: The description of the vulnerability that provides additional context
     of the vulnerability. For example (https://cve.mitre.org/about/faqs.html#cve_entry_descriptions_created[Common

@@ -52,18 +52,9 @@
 
         Sometimes called program name or similar.
       example: ssh
-      beta: Use of the `match_only_text` type in the `.text` multi-field is currently beta.
       multi_fields:
       - type: match_only_text
         name: text
-
-    - name: ppid
-      format: string
-      level: extended
-      type: long
-      description: >
-        Parent process' pid.
-      example: 4241
 
     - name: pgid
       format: string
@@ -75,9 +66,6 @@
     - name: command_line
       level: extended
       type: wildcard
-      beta: >
-        Use of `wildcard` as the primary type and `match_only_type` as
-        the `.text` multi-field type are both currently beta.
       short: Full command line that started the process.
       description: >
         Full command line that started the process, including the absolute path
@@ -119,7 +107,6 @@
       description: >
         Absolute path to the process executable.
       example: /usr/bin/ssh
-      beta: Use of the `match_only_text` type in the `.text` multi-field is currently beta.
       multi_fields:
       - type: match_only_text
         name: text
@@ -133,7 +120,6 @@
 
         The proctitle, some times the same as process name. Can also be different:
         for example a browser setting its title to the web page currently opened.
-      beta: Use of the `match_only_text` type in the `.text` multi-field is currently beta.
       multi_fields:
       - type: match_only_text
         name: text
@@ -173,7 +159,6 @@
       example: /home/alice
       description: >
         The working directory of the process.
-      beta: Use of the `match_only_text` type in the `.text` multi-field is currently beta.
       multi_fields:
       - type: match_only_text
         name: text

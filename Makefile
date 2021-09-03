@@ -3,7 +3,6 @@
 #
 .DEFAULT_GOAL    := all
 FIND             := find . -type f -not -path './build/*' -not -path './.git/*'
-FORCE_GO_MODULES := GO111MODULE=on
 OPEN_DOCS        ?= "--open"
 PYTHON           := build/ve/bin/python
 VERSION          := $(shell cat version)
@@ -19,26 +18,16 @@ all: generate experimental
 # Check verifies that all of the committed files that are generated are
 # up-to-date.
 .PHONY: check
-check: generate experimental test fmt misspell makelint check-license-headers
+check: generate experimental test fmt misspell makelint
 	# Check if diff is empty.
 	git diff | cat
 	git update-index --refresh
 	git diff-index --exit-code HEAD --
 
-# Check license headers on files (currently .go files only).
-.PHONY: check-license-headers
-check-license-headers:
-	go get github.com/elastic/go-licenser
-	go-licenser -d
-
 # Clean deletes all temporary and generated content.
 .PHONY: clean
 clean:
 	rm -rf build generated/elasticsearch/component experimental/generated/elasticsearch/component
-
-# Alias to generate source code for all languages.
-.PHONY: codegen
-codegen: gocodegen
 
 # Build the asciidoc book.
 .PHONY: docs
@@ -57,28 +46,16 @@ experimental: ve
 .PHONY: fmt
 fmt: ve
 	$(FIND) -name '*.py' -exec build/ve/bin/autopep8 --ignore E402 --in-place --max-line-length 120 {} \;
-	go get golang.org/x/tools/cmd/goimports
-	goimports -w -l -local github.com/elastic $(shell $(FIND) -name '*.go')
 
 # Alias to generate everything.
 .PHONY: generate
-generate: generator codegen
+generate: generator
 	$(PYTHON) --version
 
 # Run the new generator
 .PHONY: generator
 generator: ve
 	$(PYTHON) scripts/generator.py --strict --include "${INCLUDE}"
-
-# Generate Go code from the schema.
-.PHONY: gocodegen
-gocodegen:
-	find code/go/ecs -name '*.go' -not -name 'doc.go' | xargs rm
-	cd scripts \
-	  && $(FORCE_GO_MODULES) go run cmd/gocodegen/gocodegen.go \
-	        -version=$(VERSION) \
-	        -schema=../schemas \
-	        -out=../code/go/ecs
 
 # Check Makefile format.
 .PHONY: makelint
@@ -90,16 +67,16 @@ makelint:
 # Check for basic misspellings.
 .PHONY: misspell
 misspell:
-	go get github.com/client9/misspell/cmd/misspell
-	misspell README.md CONTRIBUTING.md schemas/*
+	@if [ ! -d $(PWD)/build/misspell ]; then \
+	    mkdir -p ./build/misspell/bin ; \
+	    curl -sLo ./build/misspell/install-misspell.sh https://git.io/misspell ; \
+		chmod +x ./build/misspell/install-misspell.sh ; \
+		./build/misspell/install-misspell.sh -b ./build/misspell/bin >> /dev/null 2>&1 ; \
+	fi
+	./build/misspell/bin/misspell -error README.md CONTRIBUTING.md schemas/* docs/* experimental/schemas/*
 
 .PHONY: reload_docs
 reload_docs: generator docs
-
-# Download and setup tooling dependencies.
-.PHONY: setup
-setup: ve
-	cd scripts && $(FORCE_GO_MODULES) go mod download
 
 # Run the ECS tests
 .PHONY: test

@@ -1,8 +1,8 @@
 # 0022: Remove process.ppid
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
-- Stage: **2 (candidate)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
-- Date: **2021-08-05** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
+- Stage: **3 (finished)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
+- Date: **2021-08-26** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 <!--
 As you work on your RFC, use the "Stage N" comments to guide you in what you should focus on, for the stage you're targeting.
@@ -17,7 +17,7 @@ There's no need to have two fields to capture the same value. ECS now includes a
 
 Removing `process.ppid` will take place in two steps:
 
-1. ECS `1.x`: Indicate that `process.ppid` is deprecated in the fields description in an upcoming ECS minor release. Producers and consumers of `process.ppid` should use `process.parent.pid` instead.
+1. ECS `1.x`: Indicate that `process.ppid` is deprecated in the fields description in an upcoming ECS minor release. Instead, producers and consumers of `process.ppid` should use `process.parent.pid`.
 2. Later remove `process.ppid` field as a breaking change.
 
 Removing `process.ppid` will also eliminate `process.parent.ppid`.
@@ -59,7 +59,7 @@ An example of how `process.ppid` is populated:
 }
 ```
 
-Now the mapping for above document would be updated to use `process.parent.pid` instead:
+The above mapping would be updated to use `process.parent.pid`:
 
 ```json
 {
@@ -79,10 +79,6 @@ Now the mapping for above document would be updated to use `process.parent.pid` 
 }
 ```
 
-<!--
-Stage 3: Add more real world example source documents so we have at least 2 total, but ideally 3. Format as described in stage 2.
--->
-
 ## Scope of impact
 
 ### Ingestion mechanisms
@@ -91,7 +87,7 @@ APM, Beats, Elastic Agent, and any processors that populate `process.ppid` today
 
 ### Usage mechanisms
 
-The security detection rules [repo](https://github.com/elastic/detection-rules) will need audited. Any usage of `process.ppid` should ideally migrate to `process.parent.pid`, but backward compatibility also remains essential.
+The security detection rules [repo](https://github.com/elastic/detection-rules) will need auditing. Any usage of `process.ppid` should ideally migrate to `process.parent.pid`, but backward compatibility also remains essential.
 
 ### ECS
 
@@ -105,7 +101,7 @@ The `process.ppid` is populated in many data producers, so migrating to `process
 
 **Resolution**: Field aliases might be of some use to alleviate some pain during the migration for any aggregations or visualizations relying on `process.ppid`:
 
-```
+```json
 PUT rfc_0018/_mapping
 {
   "properties": {
@@ -133,10 +129,6 @@ PUT rfc_0018/_mapping
 Removing `process.ppid` will also remove its reuse in `process.parent`: `process.parent.ppid` (parent's parent PID). This will leave ECS without an equivalent, replacement field.
 
 **Resolution**: [Discussed](https://github.com/elastic/ecs/pull/1450#issuecomment-854773783) with Protections, Endpoint, and Observability stakeholders. Not having a replacement field for the parent's parent PID didn't raise significant concerns.
-
-<!--
-Stage 3: Document resolutions for all existing concerns. Any new concerns should be documented along with their resolution. The goal here is to eliminate risk of churn and instability by ensuring all concerns have been addressed.
--->
 
 ## People
 
@@ -174,6 +166,7 @@ e.g.:
 * Stage 1: https://github.com/elastic/ecs/pull/1450
   * Stage 1 date correction: https://github.com/elastic/ecs/pull/1555
 * Stage 2: https://github.com/elastic/ecs/pull/1556
+* Stage 3: https://github.com/elastic/ecs/pull/1592
 
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN

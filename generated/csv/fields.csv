@@ -318,7 +318,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.0.0-dev,true,host,host.uptime,long,extended,,1325,Seconds the host has been up.
 8.0.0-dev,true,http,http.request.body.bytes,long,extended,,887,Size in bytes of the request body.
 8.0.0-dev,true,http,http.request.body.content,wildcard,extended,,Hello world,The full HTTP request body.
-8.0.0-dev,true,http,http.request.body.content.text,text,extended,,Hello world,The full HTTP request body.
+8.0.0-dev,true,http,http.request.body.content.text,match_only_text,extended,,Hello world,The full HTTP request body.
 8.0.0-dev,true,http,http.request.bytes,long,extended,,1437,Total size in bytes of the request (body and headers).
 8.0.0-dev,true,http,http.request.id,keyword,extended,,123e4567-e89b-12d3-a456-426614174000,HTTP request ID.
 8.0.0-dev,true,http,http.request.method,keyword,extended,,POST,HTTP request method.
@@ -326,7 +326,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.0.0-dev,true,http,http.request.referrer,keyword,extended,,https://blog.example.com/,Referrer for this HTTP request.
 8.0.0-dev,true,http,http.response.body.bytes,long,extended,,887,Size in bytes of the response body.
 8.0.0-dev,true,http,http.response.body.content,wildcard,extended,,Hello world,The full HTTP response body.
-8.0.0-dev,true,http,http.response.body.content.text,text,extended,,Hello world,The full HTTP response body.
+8.0.0-dev,true,http,http.response.body.content.text,match_only_text,extended,,Hello world,The full HTTP response body.
 8.0.0-dev,true,http,http.response.bytes,long,extended,,1437,Total size in bytes of the response (body and headers).
 8.0.0-dev,true,http,http.response.mime_type,keyword,extended,,image/gif,Mime type of the body of the response.
 8.0.0-dev,true,http,http.response.status_code,long,extended,,404,HTTP response status code.
@@ -337,7 +337,6 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.0.0-dev,true,log,log.origin.file.line,long,extended,,42,The line number of the file which originated the log event.
 8.0.0-dev,true,log,log.origin.file.name,keyword,extended,,Bootstrap.java,The code file which originated the log event.
 8.0.0-dev,true,log,log.origin.function,keyword,extended,,init,The function which originated the log event.
-8.0.0-dev,false,log,log.original,keyword,core,,Sep 19 08:26:10 localhost My log,"Deprecated original log message with light interpretation only (encoding, newlines)."
 8.0.0-dev,true,log,log.syslog,object,extended,,,Syslog metadata
 8.0.0-dev,true,log,log.syslog.facility.code,long,extended,,23,Syslog numeric facility of the event.
 8.0.0-dev,true,log,log.syslog.facility.name,keyword,extended,,local7,Syslog text-based facility of the event.
@@ -414,7 +413,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.0.0-dev,true,orchestrator,orchestrator.type,keyword,extended,,kubernetes,"Orchestrator cluster type (e.g. kubernetes, nomad or cloudfoundry)."
 8.0.0-dev,true,organization,organization.id,keyword,extended,,,Unique identifier for the organization.
 8.0.0-dev,true,organization,organization.name,keyword,extended,,,Organization name.
-8.0.0-dev,true,organization,organization.name.text,text,extended,,,Organization name.
+8.0.0-dev,true,organization,organization.name.text,match_only_text,extended,,,Organization name.
 8.0.0-dev,true,package,package.architecture,keyword,extended,,x86_64,Package architecture.
 8.0.0-dev,true,package,package.build_version,keyword,extended,,36f4f7e89dd61b0988b12ee000b98966867710cd,Build version information
 8.0.0-dev,true,package,package.checksum,keyword,extended,,68b329da9893e34099c7d8ad5cb9c940,Checksum of the installed package for verification.
@@ -545,7 +544,6 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.0.0-dev,true,process,process.parent.pe.product,keyword,extended,,Microsoft® Windows® Operating System,"Internal product name of the file, provided at compile-time."
 8.0.0-dev,true,process,process.parent.pgid,long,extended,,,Identifier of the group of processes the process belongs to.
 8.0.0-dev,true,process,process.parent.pid,long,core,,4242,Process id.
-8.0.0-dev,true,process,process.parent.ppid,long,extended,,4241,Parent process' pid.
 8.0.0-dev,true,process,process.parent.start,date,extended,,2016-05-23T08:05:34.853Z,The time the process started.
 8.0.0-dev,true,process,process.parent.thread.id,long,extended,,4242,Thread ID.
 8.0.0-dev,true,process,process.parent.thread.name,keyword,extended,,thread-0,Thread name.
@@ -563,7 +561,6 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.0.0-dev,true,process,process.pe.product,keyword,extended,,Microsoft® Windows® Operating System,"Internal product name of the file, provided at compile-time."
 8.0.0-dev,true,process,process.pgid,long,extended,,,Identifier of the group of processes the process belongs to.
 8.0.0-dev,true,process,process.pid,long,core,,4242,Process id.
-8.0.0-dev,true,process,process.ppid,long,extended,,4241,Parent process' pid.
 8.0.0-dev,true,process,process.start,date,extended,,2016-05-23T08:05:34.853Z,The time the process started.
 8.0.0-dev,true,process,process.thread.id,long,extended,,4242,Thread ID.
 8.0.0-dev,true,process,process.thread.name,keyword,extended,,thread-0,Thread name.
@@ -684,7 +681,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.0.0-dev,true,threat,threat.enrichments.indicator.as.number,long,extended,,15169,Unique number allocated to the autonomous system.
 8.0.0-dev,true,threat,threat.enrichments.indicator.as.organization.name,keyword,extended,,Google LLC,Organization name.
 8.0.0-dev,true,threat,threat.enrichments.indicator.as.organization.name.text,match_only_text,extended,,Google LLC,Organization name.
-8.0.0-dev,true,threat,threat.enrichments.indicator.confidence,keyword,extended,,High,Indicator confidence rating
+8.0.0-dev,true,threat,threat.enrichments.indicator.confidence,keyword,extended,,Medium,Indicator confidence rating
 8.0.0-dev,true,threat,threat.enrichments.indicator.description,keyword,extended,,IP x.x.x.x was observed delivering the Angler EK.,Indicator description
 8.0.0-dev,true,threat,threat.enrichments.indicator.email.address,keyword,extended,,phish@example.com,Indicator email address
 8.0.0-dev,true,threat,threat.enrichments.indicator.file.accessed,date,extended,,,Last time the file was accessed.
@@ -843,7 +840,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.0.0-dev,true,threat,threat.indicator.as.number,long,extended,,15169,Unique number allocated to the autonomous system.
 8.0.0-dev,true,threat,threat.indicator.as.organization.name,keyword,extended,,Google LLC,Organization name.
 8.0.0-dev,true,threat,threat.indicator.as.organization.name.text,match_only_text,extended,,Google LLC,Organization name.
-8.0.0-dev,true,threat,threat.indicator.confidence,keyword,extended,,High,Indicator confidence rating
+8.0.0-dev,true,threat,threat.indicator.confidence,keyword,extended,,Medium,Indicator confidence rating
 8.0.0-dev,true,threat,threat.indicator.description,keyword,extended,,IP x.x.x.x was observed delivering the Angler EK.,Indicator description
 8.0.0-dev,true,threat,threat.indicator.email.address,keyword,extended,,phish@example.com,Indicator email address
 8.0.0-dev,true,threat,threat.indicator.file.accessed,date,extended,,,Last time the file was accessed.

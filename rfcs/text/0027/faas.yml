@@ -1,0 +1,69 @@
+---
+- name: faas
+  title: Function as a Service
+  group: 2
+  short: Fields for function as a service executions.
+  description: >
+    Fields related to serverless execution contexts and invocations of 
+    function as a service resources such as AWS Lambda, Azure functions, 
+    Google Cloud Functions, etc.
+  type: group
+  fields:
+    - name: execution
+      level: extended
+      example: af9d5aa4-a685-4c5f-a22b-444f80b3cc28
+      type: keyword
+      short: The execution ID.
+      description: >
+        Uniquely identifies an invocation of a serverless function.
+    - name: trigger.type
+      level: extended
+      type: keyword
+      short: The type of the trigger a function invoction is resulting from. 
+      description: >
+        Serverless functions can be triggered through different types of upstream services, 
+        such as API gateways, message queues, change events on storage files, etc.
+        This field specifies the type of the trigger.
+      example: http
+      allowed_values:
+        - name: http
+          description: >
+            This value indicates a function invocation triggered through an HTTP request.
+            For example, on AWS, `trigger.type` is set to the value `http` if an API Gateway 
+            triggers a Lambda function.
+        - name: pubsub
+          description: >
+            This value indicates a function invocation triggered through a message being received.
+            For example, on AWS, `trigger.type` is set to the value `pubsub` if a Lambda function 
+            is triggered by an SQS or an SNS message.
+        - name: datasource
+          description: >
+            This value indicates a function invocation triggered by an event that results from a 
+            change on a datasource.
+            For example, on AWS, `trigger.type` is set to the value `datasource` if a Lambda function 
+            is triggered by a change on a S3 bucket or file.
+        - name: timer
+          description: >
+            This value indicates a scheduled function invocation.
+            For example, on AWS, `trigger.type` is set to the value `timer` if a Lambda function 
+            is triggered by a scheduled CloudWatch event.
+        - name: other
+          description: >
+            This value is used if a function invocation does not fit into any of the explicit 
+            `trigger.type` categories.
+    - name: trigger.request_id
+      level: extended
+      example: zf7d5cb3-a685-4c5f-a22b-745f80b3dx49
+      type: keyword
+      description: >
+        The unique request ID of the trigger event for a function invocation.
+    - name: coldstart
+      level: extended
+      type: boolean
+      example: true
+      short: Indicates a cold start of a function.
+      description: >
+        Boolean value indicating a cold start of a function invocation.
+        A function invocation leads to a cold start if the serverless 
+        runtime needs to be created and started before the actual request can be handled.
+        Requests that hit active serverless runtimes do not suffer from a cold start.
