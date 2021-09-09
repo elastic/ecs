@@ -13617,6 +13617,465 @@ threat.enrichments.indicator.file.path:
   original_fieldset: file
   short: Full path to the file, including the file name.
   type: keyword
+threat.enrichments.indicator.file.pe.architecture:
+  dashed_name: threat-enrichments-indicator-file-pe-architecture
+  description: CPU architecture target for the file.
+  example: x64
+  flat_name: threat.enrichments.indicator.file.pe.architecture
+  ignore_above: 1024
+  level: extended
+  name: architecture
+  normalize: []
+  original_fieldset: pe
+  short: CPU architecture target for the file.
+  type: keyword
+threat.enrichments.indicator.file.pe.authentihash:
+  dashed_name: threat-enrichments-indicator-file-pe-authentihash
+  description: Authentihash of the PE file.
+  example: ac9555d914bbb112ecc5f15bb9887ca8371f493ab0941344e976bb8410c8aa78
+  flat_name: threat.enrichments.indicator.file.pe.authentihash
+  ignore_above: 1024
+  level: extended
+  name: authentihash
+  normalize: []
+  original_fieldset: pe
+  short: Authentihash of the PE file.
+  type: keyword
+threat.enrichments.indicator.file.pe.company:
+  dashed_name: threat-enrichments-indicator-file-pe-company
+  description: Internal company name of the file, provided at compile-time.
+  example: Microsoft Corporation
+  flat_name: threat.enrichments.indicator.file.pe.company
+  ignore_above: 1024
+  level: extended
+  name: company
+  normalize: []
+  original_fieldset: pe
+  short: Internal company name of the file, provided at compile-time.
+  type: keyword
+threat.enrichments.indicator.file.pe.compile_timestamp:
+  dashed_name: threat-enrichments-indicator-file-pe-compile-timestamp
+  description: Compile timestamp of the PE file.
+  example: '2020-11-05T17:25:47.000Z'
+  flat_name: threat.enrichments.indicator.file.pe.compile_timestamp
+  level: extended
+  name: compile_timestamp
+  normalize: []
+  original_fieldset: pe
+  short: Compile timestamp of the PE file.
+  type: date
+threat.enrichments.indicator.file.pe.compiler.name:
+  dashed_name: threat-enrichments-indicator-file-pe-compiler-name
+  description: Name of the compiler
+  example: Clang
+  flat_name: threat.enrichments.indicator.file.pe.compiler.name
+  ignore_above: 1024
+  level: extended
+  name: compiler.name
+  normalize: []
+  original_fieldset: pe
+  short: Name of the compiler
+  type: keyword
+threat.enrichments.indicator.file.pe.compiler.version:
+  dashed_name: threat-enrichments-indicator-file-pe-compiler-version
+  description: Version of the compiler.
+  example: 11.0.0
+  flat_name: threat.enrichments.indicator.file.pe.compiler.version
+  ignore_above: 1024
+  level: extended
+  name: compiler.version
+  normalize: []
+  original_fieldset: pe
+  short: Version of the compiler.
+  type: keyword
+threat.enrichments.indicator.file.pe.creation_date:
+  dashed_name: threat-enrichments-indicator-file-pe-creation-date
+  description: Extracted when possible from the file's metadata. Indicates when it
+    was built or compiled. It can also be faked by malware creators.
+  example: '2020-11-05T17:25:47.000Z'
+  flat_name: threat.enrichments.indicator.file.pe.creation_date
+  level: extended
+  name: creation_date
+  normalize: []
+  original_fieldset: pe
+  short: Build or compile date.
+  type: date
+threat.enrichments.indicator.file.pe.debug:
+  dashed_name: threat-enrichments-indicator-file-pe-debug
+  description: 'An array containing an object for each debug entry, if present.
+
+    The expected fields for this nested object fall under the `debug.` prefix.'
+  flat_name: threat.enrichments.indicator.file.pe.debug
+  level: extended
+  name: debug
+  normalize:
+  - array
+  original_fieldset: pe
+  short: Debug information
+  type: nested
+threat.enrichments.indicator.file.pe.debug.offset:
+  dashed_name: threat-enrichments-indicator-file-pe-debug-offset
+  description: Debug offset information.
+  example: 1296336
+  flat_name: threat.enrichments.indicator.file.pe.debug.offset
+  ignore_above: 1024
+  level: extended
+  name: debug.offset
+  normalize: []
+  original_fieldset: pe
+  short: Debug offset information.
+  type: keyword
+threat.enrichments.indicator.file.pe.debug.size:
+  dashed_name: threat-enrichments-indicator-file-pe-debug-size
+  description: Size of the debug information.
+  example: 816
+  flat_name: threat.enrichments.indicator.file.pe.debug.size
+  format: bytes
+  level: extended
+  name: debug.size
+  normalize: []
+  original_fieldset: pe
+  short: Size of the debug information.
+  type: long
+threat.enrichments.indicator.file.pe.debug.timestamp:
+  dashed_name: threat-enrichments-indicator-file-pe-debug-timestamp
+  description: Timestamp of the debug information.
+  example: '2020-11-05T17:25:47.000Z'
+  flat_name: threat.enrichments.indicator.file.pe.debug.timestamp
+  level: extended
+  name: debug.timestamp
+  normalize: []
+  original_fieldset: pe
+  short: Timestamp of the debug information.
+  type: date
+threat.enrichments.indicator.file.pe.debug.type:
+  dashed_name: threat-enrichments-indicator-file-pe-debug-type
+  description: Information type generated by the debug options.
+  example: IMAGE_DEBUG_TYPE_POGO
+  flat_name: threat.enrichments.indicator.file.pe.debug.type
+  ignore_above: 1024
+  level: extended
+  name: debug.type
+  normalize: []
+  original_fieldset: pe
+  short: Information type generated by the debug options.
+  type: keyword
+threat.enrichments.indicator.file.pe.description:
+  dashed_name: threat-enrichments-indicator-file-pe-description
+  description: Internal description of the file, provided at compile-time.
+  example: Paint
+  flat_name: threat.enrichments.indicator.file.pe.description
+  ignore_above: 1024
+  level: extended
+  name: description
+  normalize: []
+  original_fieldset: pe
+  short: Internal description of the file, provided at compile-time.
+  type: keyword
+threat.enrichments.indicator.file.pe.entry_point:
+  dashed_name: threat-enrichments-indicator-file-pe-entry-point
+  description: Relative byte offset to the base of the PE file.
+  example: 25856
+  flat_name: threat.enrichments.indicator.file.pe.entry_point
+  ignore_above: 1024
+  level: extended
+  name: entry_point
+  normalize: []
+  original_fieldset: pe
+  short: Relative byte offset to the base of the PE file.
+  type: keyword
+threat.enrichments.indicator.file.pe.exports:
+  dashed_name: threat-enrichments-indicator-file-pe-exports
+  description: List of symbols exported by PE
+  example: '["DllInstall", "DllRegisterServer", "DllUnregisterServer"]'
+  flat_name: threat.enrichments.indicator.file.pe.exports
+  ignore_above: 1024
+  level: extended
+  name: exports
+  normalize:
+  - array
+  original_fieldset: pe
+  short: List of symbols exported by PE
+  type: keyword
+threat.enrichments.indicator.file.pe.file_version:
+  dashed_name: threat-enrichments-indicator-file-pe-file-version
+  description: Internal version of the file, provided at compile-time.
+  example: 6.3.9600.17415
+  flat_name: threat.enrichments.indicator.file.pe.file_version
+  ignore_above: 1024
+  level: extended
+  name: file_version
+  normalize: []
+  original_fieldset: pe
+  short: Process name.
+  type: keyword
+threat.enrichments.indicator.file.pe.icon.hash.dhash:
+  dashed_name: threat-enrichments-indicator-file-pe-icon-hash-dhash
+  description: Difference Hash (dhash) to find files with a visually similar icon
+    or thumbnail.
+  example: b806e17c8e330d82
+  flat_name: threat.enrichments.indicator.file.pe.icon.hash.dhash
+  ignore_above: 1024
+  level: extended
+  name: icon.hash.dhash
+  normalize: []
+  original_fieldset: pe
+  short: Difference Hash (dhash) to find files with a visually similar icon or thumbnail.
+  type: keyword
+threat.enrichments.indicator.file.pe.imphash:
+  dashed_name: threat-enrichments-indicator-file-pe-imphash
+  description: 'A hash of the imports in a PE file. An imphash -- or import hash --
+    can be used to fingerprint binaries even after recompilation or other code-level
+    transformations have occurred, which would change more traditional hash values.
+
+    Learn more at https://www.fireeye.com/blog/threat-research/2014/01/tracking-malware-import-hashing.html.'
+  example: 0c6803c4e922103c4dca5963aad36ddf
+  flat_name: threat.enrichments.indicator.file.pe.imphash
+  ignore_above: 1024
+  level: extended
+  name: imphash
+  normalize: []
+  original_fieldset: pe
+  short: A hash of the imports in a PE file.
+  type: keyword
+threat.enrichments.indicator.file.pe.imports:
+  dashed_name: threat-enrichments-indicator-file-pe-imports
+  description: List of all imported functions
+  example: '{ "library_name" : "mscoree.dll", "imported_functions" : "GetFileVersionInfoSizeA"
+    }'
+  flat_name: threat.enrichments.indicator.file.pe.imports
+  level: extended
+  name: imports
+  normalize: []
+  original_fieldset: pe
+  short: List of all imported functions
+  type: flattened
+threat.enrichments.indicator.file.pe.machine_type:
+  dashed_name: threat-enrichments-indicator-file-pe-machine-type
+  description: Machine type of the PE file.
+  example: Intel 386 or later, and compatibles
+  flat_name: threat.enrichments.indicator.file.pe.machine_type
+  ignore_above: 1024
+  level: extended
+  name: machine_type
+  normalize: []
+  original_fieldset: pe
+  short: Machine type of the PE file.
+  type: keyword
+threat.enrichments.indicator.file.pe.original_file_name:
+  dashed_name: threat-enrichments-indicator-file-pe-original-file-name
+  description: Internal name of the file, provided at compile-time.
+  example: MSPAINT.EXE
+  flat_name: threat.enrichments.indicator.file.pe.original_file_name
+  ignore_above: 1024
+  level: extended
+  name: original_file_name
+  normalize: []
+  original_fieldset: pe
+  short: Internal name of the file, provided at compile-time.
+  type: keyword
+threat.enrichments.indicator.file.pe.packers:
+  dashed_name: threat-enrichments-indicator-file-pe-packers
+  description: List of packers and tools used.
+  example: '["ASPack v2.12", ".NET executable"]'
+  flat_name: threat.enrichments.indicator.file.pe.packers
+  ignore_above: 1024
+  level: extended
+  name: packers
+  normalize:
+  - array
+  original_fieldset: pe
+  short: List of packers and tools used.
+  type: keyword
+threat.enrichments.indicator.file.pe.product:
+  dashed_name: threat-enrichments-indicator-file-pe-product
+  description: Internal product name of the file, provided at compile-time.
+  example: "Microsoft\xAE Windows\xAE Operating System"
+  flat_name: threat.enrichments.indicator.file.pe.product
+  ignore_above: 1024
+  level: extended
+  name: product
+  normalize: []
+  original_fieldset: pe
+  short: Internal product name of the file, provided at compile-time.
+  type: keyword
+threat.enrichments.indicator.file.pe.resources:
+  dashed_name: threat-enrichments-indicator-file-pe-resources
+  description: 'An array containing an object for each PE resource, if present.
+
+    The expected fields for this nested object fall under the `resources.` prefix.'
+  flat_name: threat.enrichments.indicator.file.pe.resources
+  level: extended
+  name: resources
+  normalize:
+  - array
+  original_fieldset: pe
+  short: PE resource information
+  type: nested
+threat.enrichments.indicator.file.pe.resources.chi2:
+  dashed_name: threat-enrichments-indicator-file-pe-resources-chi2
+  description: Chi-square probability distribution.
+  example: -1
+  flat_name: threat.enrichments.indicator.file.pe.resources.chi2
+  level: extended
+  name: resources.chi2
+  normalize: []
+  original_fieldset: pe
+  short: Chi-square probability distribution.
+  type: long
+threat.enrichments.indicator.file.pe.resources.entropy:
+  dashed_name: threat-enrichments-indicator-file-pe-resources-entropy
+  description: Measurement of entropy randomness in the resources section.
+  example: 0, 1
+  flat_name: threat.enrichments.indicator.file.pe.resources.entropy
+  level: extended
+  name: resources.entropy
+  normalize: []
+  original_fieldset: pe
+  short: Measurement of entropy randomness in the resources section.
+  type: long
+threat.enrichments.indicator.file.pe.resources.filetype:
+  dashed_name: threat-enrichments-indicator-file-pe-resources-filetype
+  description: File type of the resources section.
+  example: Data
+  flat_name: threat.enrichments.indicator.file.pe.resources.filetype
+  ignore_above: 1024
+  level: extended
+  name: resources.filetype
+  normalize: []
+  original_fieldset: pe
+  short: File type of the resources section.
+  type: keyword
+threat.enrichments.indicator.file.pe.resources.language:
+  dashed_name: threat-enrichments-indicator-file-pe-resources-language
+  description: Language identification.
+  example: CHINESE SIMPLIFIED
+  flat_name: threat.enrichments.indicator.file.pe.resources.language
+  ignore_above: 1024
+  level: extended
+  name: resources.language
+  normalize: []
+  original_fieldset: pe
+  short: Language identification.
+  type: keyword
+threat.enrichments.indicator.file.pe.resources.sha256:
+  dashed_name: threat-enrichments-indicator-file-pe-resources-sha256
+  description: SHA256 hash of resources section.
+  example: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+  flat_name: threat.enrichments.indicator.file.pe.resources.sha256
+  ignore_above: 1024
+  level: extended
+  name: resources.sha256
+  normalize: []
+  original_fieldset: pe
+  short: SHA256 hash of resources section.
+  type: keyword
+threat.enrichments.indicator.file.pe.resources.type:
+  dashed_name: threat-enrichments-indicator-file-pe-resources-type
+  description: Digest of resource types.
+  example: '["RT_VERSION", "RT_MANIFEST"]'
+  flat_name: threat.enrichments.indicator.file.pe.resources.type
+  ignore_above: 1024
+  level: extended
+  name: resources.type
+  normalize:
+  - array
+  original_fieldset: pe
+  short: List of resource types.
+  type: keyword
+threat.enrichments.indicator.file.pe.rich_header.hash.md5:
+  dashed_name: threat-enrichments-indicator-file-pe-rich-header-hash-md5
+  description: MD5 hash of the header for the PE file.
+  example: 5aa1aa0f2b4be70397a1e9e2b87627cd
+  flat_name: threat.enrichments.indicator.file.pe.rich_header.hash.md5
+  ignore_above: 1024
+  level: extended
+  name: rich_header.hash.md5
+  normalize: []
+  original_fieldset: pe
+  short: MD5 hash of the header for the PE file.
+  type: keyword
+threat.enrichments.indicator.file.pe.sections:
+  dashed_name: threat-enrichments-indicator-file-pe-sections
+  description: Data about sections of compiled binary PE
+  flat_name: threat.enrichments.indicator.file.pe.sections
+  level: extended
+  name: sections
+  normalize:
+  - array
+  original_fieldset: pe
+  short: Data about sections of the compiled binary PE
+  type: nested
+threat.enrichments.indicator.file.pe.sections.chi2:
+  dashed_name: threat-enrichments-indicator-file-pe-sections-chi2
+  description: Chi-square probability distribution.
+  example: 3027194
+  flat_name: threat.enrichments.indicator.file.pe.sections.chi2
+  level: extended
+  name: sections.chi2
+  normalize: []
+  original_fieldset: pe
+  short: Chi-square probability distribution.
+  type: long
+threat.enrichments.indicator.file.pe.sections.entropy:
+  dashed_name: threat-enrichments-indicator-file-pe-sections-entropy
+  description: Measurement of entropy randomness in the file.
+  example: 6.24
+  flat_name: threat.enrichments.indicator.file.pe.sections.entropy
+  level: extended
+  name: sections.entropy
+  normalize: []
+  original_fieldset: pe
+  short: Measurement of entropy randomness in the file.
+  type: float
+threat.enrichments.indicator.file.pe.sections.flags:
+  dashed_name: threat-enrichments-indicator-file-pe-sections-flags
+  description: Section flags of the file.
+  example: rx
+  flat_name: threat.enrichments.indicator.file.pe.sections.flags
+  ignore_above: 1024
+  level: extended
+  name: sections.flags
+  normalize: []
+  original_fieldset: pe
+  short: Section flags of the file.
+  type: keyword
+threat.enrichments.indicator.file.pe.sections.name:
+  dashed_name: threat-enrichments-indicator-file-pe-sections-name
+  description: Section names of the file.
+  example: .text, .data
+  flat_name: threat.enrichments.indicator.file.pe.sections.name
+  ignore_above: 1024
+  level: extended
+  name: sections.name
+  normalize: []
+  original_fieldset: pe
+  short: Section names of the file.
+  type: keyword
+threat.enrichments.indicator.file.pe.sections.raw_size:
+  dashed_name: threat-enrichments-indicator-file-pe-sections-raw-size
+  description: Size of the section or the dize of the initialized data on disk.
+  example: 198144
+  flat_name: threat.enrichments.indicator.file.pe.sections.raw_size
+  format: bytes
+  level: extended
+  name: sections.raw_size
+  normalize: []
+  original_fieldset: pe
+  short: Size of the section or the dize of the initialized data on disk.
+  type: long
+threat.enrichments.indicator.file.pe.sections.virtual_address:
+  dashed_name: threat-enrichments-indicator-file-pe-sections-virtual-address
+  description: Virtual address available to the file.
+  example: 8192
+  flat_name: threat.enrichments.indicator.file.pe.sections.virtual_address
+  format: bytes
+  level: extended
+  name: sections.virtual_address
+  normalize: []
+  original_fieldset: pe
+  short: Virtual address available to the file.
+  type: long
 threat.enrichments.indicator.file.size:
   dashed_name: threat-enrichments-indicator-file-size
   description: 'File size in bytes.
@@ -15970,6 +16429,465 @@ threat.indicator.file.path:
   original_fieldset: file
   short: Full path to the file, including the file name.
   type: keyword
+threat.indicator.file.pe.architecture:
+  dashed_name: threat-indicator-file-pe-architecture
+  description: CPU architecture target for the file.
+  example: x64
+  flat_name: threat.indicator.file.pe.architecture
+  ignore_above: 1024
+  level: extended
+  name: architecture
+  normalize: []
+  original_fieldset: pe
+  short: CPU architecture target for the file.
+  type: keyword
+threat.indicator.file.pe.authentihash:
+  dashed_name: threat-indicator-file-pe-authentihash
+  description: Authentihash of the PE file.
+  example: ac9555d914bbb112ecc5f15bb9887ca8371f493ab0941344e976bb8410c8aa78
+  flat_name: threat.indicator.file.pe.authentihash
+  ignore_above: 1024
+  level: extended
+  name: authentihash
+  normalize: []
+  original_fieldset: pe
+  short: Authentihash of the PE file.
+  type: keyword
+threat.indicator.file.pe.company:
+  dashed_name: threat-indicator-file-pe-company
+  description: Internal company name of the file, provided at compile-time.
+  example: Microsoft Corporation
+  flat_name: threat.indicator.file.pe.company
+  ignore_above: 1024
+  level: extended
+  name: company
+  normalize: []
+  original_fieldset: pe
+  short: Internal company name of the file, provided at compile-time.
+  type: keyword
+threat.indicator.file.pe.compile_timestamp:
+  dashed_name: threat-indicator-file-pe-compile-timestamp
+  description: Compile timestamp of the PE file.
+  example: '2020-11-05T17:25:47.000Z'
+  flat_name: threat.indicator.file.pe.compile_timestamp
+  level: extended
+  name: compile_timestamp
+  normalize: []
+  original_fieldset: pe
+  short: Compile timestamp of the PE file.
+  type: date
+threat.indicator.file.pe.compiler.name:
+  dashed_name: threat-indicator-file-pe-compiler-name
+  description: Name of the compiler
+  example: Clang
+  flat_name: threat.indicator.file.pe.compiler.name
+  ignore_above: 1024
+  level: extended
+  name: compiler.name
+  normalize: []
+  original_fieldset: pe
+  short: Name of the compiler
+  type: keyword
+threat.indicator.file.pe.compiler.version:
+  dashed_name: threat-indicator-file-pe-compiler-version
+  description: Version of the compiler.
+  example: 11.0.0
+  flat_name: threat.indicator.file.pe.compiler.version
+  ignore_above: 1024
+  level: extended
+  name: compiler.version
+  normalize: []
+  original_fieldset: pe
+  short: Version of the compiler.
+  type: keyword
+threat.indicator.file.pe.creation_date:
+  dashed_name: threat-indicator-file-pe-creation-date
+  description: Extracted when possible from the file's metadata. Indicates when it
+    was built or compiled. It can also be faked by malware creators.
+  example: '2020-11-05T17:25:47.000Z'
+  flat_name: threat.indicator.file.pe.creation_date
+  level: extended
+  name: creation_date
+  normalize: []
+  original_fieldset: pe
+  short: Build or compile date.
+  type: date
+threat.indicator.file.pe.debug:
+  dashed_name: threat-indicator-file-pe-debug
+  description: 'An array containing an object for each debug entry, if present.
+
+    The expected fields for this nested object fall under the `debug.` prefix.'
+  flat_name: threat.indicator.file.pe.debug
+  level: extended
+  name: debug
+  normalize:
+  - array
+  original_fieldset: pe
+  short: Debug information
+  type: nested
+threat.indicator.file.pe.debug.offset:
+  dashed_name: threat-indicator-file-pe-debug-offset
+  description: Debug offset information.
+  example: 1296336
+  flat_name: threat.indicator.file.pe.debug.offset
+  ignore_above: 1024
+  level: extended
+  name: debug.offset
+  normalize: []
+  original_fieldset: pe
+  short: Debug offset information.
+  type: keyword
+threat.indicator.file.pe.debug.size:
+  dashed_name: threat-indicator-file-pe-debug-size
+  description: Size of the debug information.
+  example: 816
+  flat_name: threat.indicator.file.pe.debug.size
+  format: bytes
+  level: extended
+  name: debug.size
+  normalize: []
+  original_fieldset: pe
+  short: Size of the debug information.
+  type: long
+threat.indicator.file.pe.debug.timestamp:
+  dashed_name: threat-indicator-file-pe-debug-timestamp
+  description: Timestamp of the debug information.
+  example: '2020-11-05T17:25:47.000Z'
+  flat_name: threat.indicator.file.pe.debug.timestamp
+  level: extended
+  name: debug.timestamp
+  normalize: []
+  original_fieldset: pe
+  short: Timestamp of the debug information.
+  type: date
+threat.indicator.file.pe.debug.type:
+  dashed_name: threat-indicator-file-pe-debug-type
+  description: Information type generated by the debug options.
+  example: IMAGE_DEBUG_TYPE_POGO
+  flat_name: threat.indicator.file.pe.debug.type
+  ignore_above: 1024
+  level: extended
+  name: debug.type
+  normalize: []
+  original_fieldset: pe
+  short: Information type generated by the debug options.
+  type: keyword
+threat.indicator.file.pe.description:
+  dashed_name: threat-indicator-file-pe-description
+  description: Internal description of the file, provided at compile-time.
+  example: Paint
+  flat_name: threat.indicator.file.pe.description
+  ignore_above: 1024
+  level: extended
+  name: description
+  normalize: []
+  original_fieldset: pe
+  short: Internal description of the file, provided at compile-time.
+  type: keyword
+threat.indicator.file.pe.entry_point:
+  dashed_name: threat-indicator-file-pe-entry-point
+  description: Relative byte offset to the base of the PE file.
+  example: 25856
+  flat_name: threat.indicator.file.pe.entry_point
+  ignore_above: 1024
+  level: extended
+  name: entry_point
+  normalize: []
+  original_fieldset: pe
+  short: Relative byte offset to the base of the PE file.
+  type: keyword
+threat.indicator.file.pe.exports:
+  dashed_name: threat-indicator-file-pe-exports
+  description: List of symbols exported by PE
+  example: '["DllInstall", "DllRegisterServer", "DllUnregisterServer"]'
+  flat_name: threat.indicator.file.pe.exports
+  ignore_above: 1024
+  level: extended
+  name: exports
+  normalize:
+  - array
+  original_fieldset: pe
+  short: List of symbols exported by PE
+  type: keyword
+threat.indicator.file.pe.file_version:
+  dashed_name: threat-indicator-file-pe-file-version
+  description: Internal version of the file, provided at compile-time.
+  example: 6.3.9600.17415
+  flat_name: threat.indicator.file.pe.file_version
+  ignore_above: 1024
+  level: extended
+  name: file_version
+  normalize: []
+  original_fieldset: pe
+  short: Process name.
+  type: keyword
+threat.indicator.file.pe.icon.hash.dhash:
+  dashed_name: threat-indicator-file-pe-icon-hash-dhash
+  description: Difference Hash (dhash) to find files with a visually similar icon
+    or thumbnail.
+  example: b806e17c8e330d82
+  flat_name: threat.indicator.file.pe.icon.hash.dhash
+  ignore_above: 1024
+  level: extended
+  name: icon.hash.dhash
+  normalize: []
+  original_fieldset: pe
+  short: Difference Hash (dhash) to find files with a visually similar icon or thumbnail.
+  type: keyword
+threat.indicator.file.pe.imphash:
+  dashed_name: threat-indicator-file-pe-imphash
+  description: 'A hash of the imports in a PE file. An imphash -- or import hash --
+    can be used to fingerprint binaries even after recompilation or other code-level
+    transformations have occurred, which would change more traditional hash values.
+
+    Learn more at https://www.fireeye.com/blog/threat-research/2014/01/tracking-malware-import-hashing.html.'
+  example: 0c6803c4e922103c4dca5963aad36ddf
+  flat_name: threat.indicator.file.pe.imphash
+  ignore_above: 1024
+  level: extended
+  name: imphash
+  normalize: []
+  original_fieldset: pe
+  short: A hash of the imports in a PE file.
+  type: keyword
+threat.indicator.file.pe.imports:
+  dashed_name: threat-indicator-file-pe-imports
+  description: List of all imported functions
+  example: '{ "library_name" : "mscoree.dll", "imported_functions" : "GetFileVersionInfoSizeA"
+    }'
+  flat_name: threat.indicator.file.pe.imports
+  level: extended
+  name: imports
+  normalize: []
+  original_fieldset: pe
+  short: List of all imported functions
+  type: flattened
+threat.indicator.file.pe.machine_type:
+  dashed_name: threat-indicator-file-pe-machine-type
+  description: Machine type of the PE file.
+  example: Intel 386 or later, and compatibles
+  flat_name: threat.indicator.file.pe.machine_type
+  ignore_above: 1024
+  level: extended
+  name: machine_type
+  normalize: []
+  original_fieldset: pe
+  short: Machine type of the PE file.
+  type: keyword
+threat.indicator.file.pe.original_file_name:
+  dashed_name: threat-indicator-file-pe-original-file-name
+  description: Internal name of the file, provided at compile-time.
+  example: MSPAINT.EXE
+  flat_name: threat.indicator.file.pe.original_file_name
+  ignore_above: 1024
+  level: extended
+  name: original_file_name
+  normalize: []
+  original_fieldset: pe
+  short: Internal name of the file, provided at compile-time.
+  type: keyword
+threat.indicator.file.pe.packers:
+  dashed_name: threat-indicator-file-pe-packers
+  description: List of packers and tools used.
+  example: '["ASPack v2.12", ".NET executable"]'
+  flat_name: threat.indicator.file.pe.packers
+  ignore_above: 1024
+  level: extended
+  name: packers
+  normalize:
+  - array
+  original_fieldset: pe
+  short: List of packers and tools used.
+  type: keyword
+threat.indicator.file.pe.product:
+  dashed_name: threat-indicator-file-pe-product
+  description: Internal product name of the file, provided at compile-time.
+  example: "Microsoft\xAE Windows\xAE Operating System"
+  flat_name: threat.indicator.file.pe.product
+  ignore_above: 1024
+  level: extended
+  name: product
+  normalize: []
+  original_fieldset: pe
+  short: Internal product name of the file, provided at compile-time.
+  type: keyword
+threat.indicator.file.pe.resources:
+  dashed_name: threat-indicator-file-pe-resources
+  description: 'An array containing an object for each PE resource, if present.
+
+    The expected fields for this nested object fall under the `resources.` prefix.'
+  flat_name: threat.indicator.file.pe.resources
+  level: extended
+  name: resources
+  normalize:
+  - array
+  original_fieldset: pe
+  short: PE resource information
+  type: nested
+threat.indicator.file.pe.resources.chi2:
+  dashed_name: threat-indicator-file-pe-resources-chi2
+  description: Chi-square probability distribution.
+  example: -1
+  flat_name: threat.indicator.file.pe.resources.chi2
+  level: extended
+  name: resources.chi2
+  normalize: []
+  original_fieldset: pe
+  short: Chi-square probability distribution.
+  type: long
+threat.indicator.file.pe.resources.entropy:
+  dashed_name: threat-indicator-file-pe-resources-entropy
+  description: Measurement of entropy randomness in the resources section.
+  example: 0, 1
+  flat_name: threat.indicator.file.pe.resources.entropy
+  level: extended
+  name: resources.entropy
+  normalize: []
+  original_fieldset: pe
+  short: Measurement of entropy randomness in the resources section.
+  type: long
+threat.indicator.file.pe.resources.filetype:
+  dashed_name: threat-indicator-file-pe-resources-filetype
+  description: File type of the resources section.
+  example: Data
+  flat_name: threat.indicator.file.pe.resources.filetype
+  ignore_above: 1024
+  level: extended
+  name: resources.filetype
+  normalize: []
+  original_fieldset: pe
+  short: File type of the resources section.
+  type: keyword
+threat.indicator.file.pe.resources.language:
+  dashed_name: threat-indicator-file-pe-resources-language
+  description: Language identification.
+  example: CHINESE SIMPLIFIED
+  flat_name: threat.indicator.file.pe.resources.language
+  ignore_above: 1024
+  level: extended
+  name: resources.language
+  normalize: []
+  original_fieldset: pe
+  short: Language identification.
+  type: keyword
+threat.indicator.file.pe.resources.sha256:
+  dashed_name: threat-indicator-file-pe-resources-sha256
+  description: SHA256 hash of resources section.
+  example: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+  flat_name: threat.indicator.file.pe.resources.sha256
+  ignore_above: 1024
+  level: extended
+  name: resources.sha256
+  normalize: []
+  original_fieldset: pe
+  short: SHA256 hash of resources section.
+  type: keyword
+threat.indicator.file.pe.resources.type:
+  dashed_name: threat-indicator-file-pe-resources-type
+  description: Digest of resource types.
+  example: '["RT_VERSION", "RT_MANIFEST"]'
+  flat_name: threat.indicator.file.pe.resources.type
+  ignore_above: 1024
+  level: extended
+  name: resources.type
+  normalize:
+  - array
+  original_fieldset: pe
+  short: List of resource types.
+  type: keyword
+threat.indicator.file.pe.rich_header.hash.md5:
+  dashed_name: threat-indicator-file-pe-rich-header-hash-md5
+  description: MD5 hash of the header for the PE file.
+  example: 5aa1aa0f2b4be70397a1e9e2b87627cd
+  flat_name: threat.indicator.file.pe.rich_header.hash.md5
+  ignore_above: 1024
+  level: extended
+  name: rich_header.hash.md5
+  normalize: []
+  original_fieldset: pe
+  short: MD5 hash of the header for the PE file.
+  type: keyword
+threat.indicator.file.pe.sections:
+  dashed_name: threat-indicator-file-pe-sections
+  description: Data about sections of compiled binary PE
+  flat_name: threat.indicator.file.pe.sections
+  level: extended
+  name: sections
+  normalize:
+  - array
+  original_fieldset: pe
+  short: Data about sections of the compiled binary PE
+  type: nested
+threat.indicator.file.pe.sections.chi2:
+  dashed_name: threat-indicator-file-pe-sections-chi2
+  description: Chi-square probability distribution.
+  example: 3027194
+  flat_name: threat.indicator.file.pe.sections.chi2
+  level: extended
+  name: sections.chi2
+  normalize: []
+  original_fieldset: pe
+  short: Chi-square probability distribution.
+  type: long
+threat.indicator.file.pe.sections.entropy:
+  dashed_name: threat-indicator-file-pe-sections-entropy
+  description: Measurement of entropy randomness in the file.
+  example: 6.24
+  flat_name: threat.indicator.file.pe.sections.entropy
+  level: extended
+  name: sections.entropy
+  normalize: []
+  original_fieldset: pe
+  short: Measurement of entropy randomness in the file.
+  type: float
+threat.indicator.file.pe.sections.flags:
+  dashed_name: threat-indicator-file-pe-sections-flags
+  description: Section flags of the file.
+  example: rx
+  flat_name: threat.indicator.file.pe.sections.flags
+  ignore_above: 1024
+  level: extended
+  name: sections.flags
+  normalize: []
+  original_fieldset: pe
+  short: Section flags of the file.
+  type: keyword
+threat.indicator.file.pe.sections.name:
+  dashed_name: threat-indicator-file-pe-sections-name
+  description: Section names of the file.
+  example: .text, .data
+  flat_name: threat.indicator.file.pe.sections.name
+  ignore_above: 1024
+  level: extended
+  name: sections.name
+  normalize: []
+  original_fieldset: pe
+  short: Section names of the file.
+  type: keyword
+threat.indicator.file.pe.sections.raw_size:
+  dashed_name: threat-indicator-file-pe-sections-raw-size
+  description: Size of the section or the dize of the initialized data on disk.
+  example: 198144
+  flat_name: threat.indicator.file.pe.sections.raw_size
+  format: bytes
+  level: extended
+  name: sections.raw_size
+  normalize: []
+  original_fieldset: pe
+  short: Size of the section or the dize of the initialized data on disk.
+  type: long
+threat.indicator.file.pe.sections.virtual_address:
+  dashed_name: threat-indicator-file-pe-sections-virtual-address
+  description: Virtual address available to the file.
+  example: 8192
+  flat_name: threat.indicator.file.pe.sections.virtual_address
+  format: bytes
+  level: extended
+  name: sections.virtual_address
+  normalize: []
+  original_fieldset: pe
+  short: Virtual address available to the file.
+  type: long
 threat.indicator.file.size:
   dashed_name: threat-indicator-file-size
   description: 'File size in bytes.

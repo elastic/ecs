@@ -1959,15 +1959,15 @@ dll:
   - dll.pe
   prefix: dll.
   reused_here:
+  - full: dll.pe
+    schema_name: pe
+    short: These fields contain Windows Portable Executable (PE) metadata.
   - full: dll.code_signature
     schema_name: code_signature
     short: These fields contain information about binary code signatures.
   - full: dll.hash
     schema_name: hash
     short: Hashes, usually file hashes.
-  - full: dll.pe
-    schema_name: pe
-    short: These fields contain Windows Portable Executable (PE) metadata.
   short: These fields contain information about code libraries dynamically loaded
     into processes.
   title: DLL
@@ -4694,6 +4694,9 @@ file:
       full: threat.enrichments.indicator.file
     top_level: true
   reused_here:
+  - full: file.pe
+    schema_name: pe
+    short: These fields contain Windows Portable Executable (PE) metadata.
   - full: file.code_signature
     schema_name: code_signature
     short: These fields contain information about binary code signatures.
@@ -4704,9 +4707,6 @@ file:
   - full: file.hash
     schema_name: hash
     short: Hashes, usually file hashes.
-  - full: file.pe
-    schema_name: pe
-    short: These fields contain Windows Portable Executable (PE) metadata.
   - full: file.x509
     schema_name: x509
     short: These fields contain x509 certificate metadata.
@@ -8889,6 +8889,9 @@ process:
       short_override: Information about the parent process.
     top_level: true
   reused_here:
+  - full: process.pe
+    schema_name: pe
+    short: These fields contain Windows Portable Executable (PE) metadata.
   - full: process.code_signature
     schema_name: code_signature
     short: These fields contain information about binary code signatures.
@@ -8899,9 +8902,6 @@ process:
   - full: process.hash
     schema_name: hash
     short: Hashes, usually file hashes.
-  - full: process.pe
-    schema_name: pe
-    short: These fields contain Windows Portable Executable (PE) metadata.
   - full: process.parent
     schema_name: process
     short: Information about the parent process.
@@ -11152,6 +11152,94 @@ threat:
       original_fieldset: file
       short: Full path to the file, including the file name.
       type: keyword
+    threat.enrichments.indicator.file.pe.architecture:
+      dashed_name: threat-enrichments-indicator-file-pe-architecture
+      description: CPU architecture target for the file.
+      example: x64
+      flat_name: threat.enrichments.indicator.file.pe.architecture
+      ignore_above: 1024
+      level: extended
+      name: architecture
+      normalize: []
+      original_fieldset: pe
+      short: CPU architecture target for the file.
+      type: keyword
+    threat.enrichments.indicator.file.pe.company:
+      dashed_name: threat-enrichments-indicator-file-pe-company
+      description: Internal company name of the file, provided at compile-time.
+      example: Microsoft Corporation
+      flat_name: threat.enrichments.indicator.file.pe.company
+      ignore_above: 1024
+      level: extended
+      name: company
+      normalize: []
+      original_fieldset: pe
+      short: Internal company name of the file, provided at compile-time.
+      type: keyword
+    threat.enrichments.indicator.file.pe.description:
+      dashed_name: threat-enrichments-indicator-file-pe-description
+      description: Internal description of the file, provided at compile-time.
+      example: Paint
+      flat_name: threat.enrichments.indicator.file.pe.description
+      ignore_above: 1024
+      level: extended
+      name: description
+      normalize: []
+      original_fieldset: pe
+      short: Internal description of the file, provided at compile-time.
+      type: keyword
+    threat.enrichments.indicator.file.pe.file_version:
+      dashed_name: threat-enrichments-indicator-file-pe-file-version
+      description: Internal version of the file, provided at compile-time.
+      example: 6.3.9600.17415
+      flat_name: threat.enrichments.indicator.file.pe.file_version
+      ignore_above: 1024
+      level: extended
+      name: file_version
+      normalize: []
+      original_fieldset: pe
+      short: Process name.
+      type: keyword
+    threat.enrichments.indicator.file.pe.imphash:
+      dashed_name: threat-enrichments-indicator-file-pe-imphash
+      description: 'A hash of the imports in a PE file. An imphash -- or import hash
+        -- can be used to fingerprint binaries even after recompilation or other code-level
+        transformations have occurred, which would change more traditional hash values.
+
+        Learn more at https://www.fireeye.com/blog/threat-research/2014/01/tracking-malware-import-hashing.html.'
+      example: 0c6803c4e922103c4dca5963aad36ddf
+      flat_name: threat.enrichments.indicator.file.pe.imphash
+      ignore_above: 1024
+      level: extended
+      name: imphash
+      normalize: []
+      original_fieldset: pe
+      short: A hash of the imports in a PE file.
+      type: keyword
+    threat.enrichments.indicator.file.pe.original_file_name:
+      dashed_name: threat-enrichments-indicator-file-pe-original-file-name
+      description: Internal name of the file, provided at compile-time.
+      example: MSPAINT.EXE
+      flat_name: threat.enrichments.indicator.file.pe.original_file_name
+      ignore_above: 1024
+      level: extended
+      name: original_file_name
+      normalize: []
+      original_fieldset: pe
+      short: Internal name of the file, provided at compile-time.
+      type: keyword
+    threat.enrichments.indicator.file.pe.product:
+      dashed_name: threat-enrichments-indicator-file-pe-product
+      description: Internal product name of the file, provided at compile-time.
+      example: "Microsoft\xAE Windows\xAE Operating System"
+      flat_name: threat.enrichments.indicator.file.pe.product
+      ignore_above: 1024
+      level: extended
+      name: product
+      normalize: []
+      original_fieldset: pe
+      short: Internal product name of the file, provided at compile-time.
+      type: keyword
     threat.enrichments.indicator.file.size:
       dashed_name: threat-enrichments-indicator-file-size
       description: 'File size in bytes.
@@ -13138,6 +13226,94 @@ threat:
       original_fieldset: file
       short: Full path to the file, including the file name.
       type: keyword
+    threat.indicator.file.pe.architecture:
+      dashed_name: threat-indicator-file-pe-architecture
+      description: CPU architecture target for the file.
+      example: x64
+      flat_name: threat.indicator.file.pe.architecture
+      ignore_above: 1024
+      level: extended
+      name: architecture
+      normalize: []
+      original_fieldset: pe
+      short: CPU architecture target for the file.
+      type: keyword
+    threat.indicator.file.pe.company:
+      dashed_name: threat-indicator-file-pe-company
+      description: Internal company name of the file, provided at compile-time.
+      example: Microsoft Corporation
+      flat_name: threat.indicator.file.pe.company
+      ignore_above: 1024
+      level: extended
+      name: company
+      normalize: []
+      original_fieldset: pe
+      short: Internal company name of the file, provided at compile-time.
+      type: keyword
+    threat.indicator.file.pe.description:
+      dashed_name: threat-indicator-file-pe-description
+      description: Internal description of the file, provided at compile-time.
+      example: Paint
+      flat_name: threat.indicator.file.pe.description
+      ignore_above: 1024
+      level: extended
+      name: description
+      normalize: []
+      original_fieldset: pe
+      short: Internal description of the file, provided at compile-time.
+      type: keyword
+    threat.indicator.file.pe.file_version:
+      dashed_name: threat-indicator-file-pe-file-version
+      description: Internal version of the file, provided at compile-time.
+      example: 6.3.9600.17415
+      flat_name: threat.indicator.file.pe.file_version
+      ignore_above: 1024
+      level: extended
+      name: file_version
+      normalize: []
+      original_fieldset: pe
+      short: Process name.
+      type: keyword
+    threat.indicator.file.pe.imphash:
+      dashed_name: threat-indicator-file-pe-imphash
+      description: 'A hash of the imports in a PE file. An imphash -- or import hash
+        -- can be used to fingerprint binaries even after recompilation or other code-level
+        transformations have occurred, which would change more traditional hash values.
+
+        Learn more at https://www.fireeye.com/blog/threat-research/2014/01/tracking-malware-import-hashing.html.'
+      example: 0c6803c4e922103c4dca5963aad36ddf
+      flat_name: threat.indicator.file.pe.imphash
+      ignore_above: 1024
+      level: extended
+      name: imphash
+      normalize: []
+      original_fieldset: pe
+      short: A hash of the imports in a PE file.
+      type: keyword
+    threat.indicator.file.pe.original_file_name:
+      dashed_name: threat-indicator-file-pe-original-file-name
+      description: Internal name of the file, provided at compile-time.
+      example: MSPAINT.EXE
+      flat_name: threat.indicator.file.pe.original_file_name
+      ignore_above: 1024
+      level: extended
+      name: original_file_name
+      normalize: []
+      original_fieldset: pe
+      short: Internal name of the file, provided at compile-time.
+      type: keyword
+    threat.indicator.file.pe.product:
+      dashed_name: threat-indicator-file-pe-product
+      description: Internal product name of the file, provided at compile-time.
+      example: "Microsoft\xAE Windows\xAE Operating System"
+      flat_name: threat.indicator.file.pe.product
+      ignore_above: 1024
+      level: extended
+      name: product
+      normalize: []
+      original_fieldset: pe
+      short: Internal product name of the file, provided at compile-time.
+      type: keyword
     threat.indicator.file.size:
       dashed_name: threat-indicator-file-size
       description: 'File size in bytes.
@@ -14448,6 +14624,13 @@ threat:
   - threat.indicator.x509
   prefix: threat.
   reused_here:
+  - full: threat.indicator.pe
+    schema_name: pe
+    short: These fields contain Windows Portable Executable (PE) metadata.
+  - beta: Reusing the `pe` fields in this location is currently considered beta.
+    full: threat.enrichments.indicator.pe
+    schema_name: pe
+    short: These fields contain Windows Portable Executable (PE) metadata.
   - full: threat.indicator.as
     schema_name: as
     short: Fields describing an Autonomous System (Internet routing prefix).
@@ -14476,13 +14659,6 @@ threat:
     full: threat.enrichments.indicator.hash
     schema_name: hash
     short: Hashes, usually file hashes.
-  - full: threat.indicator.pe
-    schema_name: pe
-    short: These fields contain Windows Portable Executable (PE) metadata.
-  - beta: Reusing the `pe` fields in this location is currently considered beta.
-    full: threat.enrichments.indicator.pe
-    schema_name: pe
-    short: These fields contain Windows Portable Executable (PE) metadata.
   - full: threat.indicator.registry
     schema_name: registry
     short: Fields related to Windows Registry operations.
