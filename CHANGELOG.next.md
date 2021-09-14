@@ -16,6 +16,7 @@ Thanks, you're awesome :-) -->
 * Remove deprecation notice on `http.request.method`. #1443
 * Migrate `log.origin.file.line` from `integer` to `long`. #1533
 * Remove `log.original` field. #1580
+* Remove `process.ppid` field. #1596
 
 #### Bugfixes
 
@@ -73,6 +74,10 @@ Thanks, you're awesome :-) -->
 #### Added
 
 * Support ES 6.x type fallback for `match_only_text` field types. #1528
+
+#### Improvements
+
+* Document field type family interoperability in FAQ. #1591
 
 <!-- All empty sections:
 

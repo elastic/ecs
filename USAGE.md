@@ -234,7 +234,7 @@ Include can be used together with the `--ref` flag to merge custom fields into a
 
 #### Exclude
 
-Use the `--exclude` flag to generate ephemeral ECS artifacts based on the current ECS schema field definitions minus fields considered for removal, e.g. to assess impact of removing these. Warning! This is not the recommended route to remove a field permanently as it is not intentended to be invoked during the build process. Definitive field removal should be implemented using a custom [Subset](#subset) or via the [RFC process](https://github.com/elastic/ecs/tree/master/rfcs/README.md). Example:
+Use the `--exclude` flag to generate ephemeral ECS artifacts based on the current ECS schema field definitions minus fields considered for removal, e.g. to assess impact of removing these. Warning! This is not the recommended route to remove a field permanently as it is not intended to be invoked during the build process. Definitive field removal should be implemented using a custom [Subset](#subset) or via the [RFC process](https://github.com/elastic/ecs/tree/master/rfcs/README.md). Example:
 
 ```
 $ python scripts/generator.py --exclude=../my-project/my-exclude-file.yml
