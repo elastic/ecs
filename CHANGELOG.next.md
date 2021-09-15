@@ -52,6 +52,9 @@ Thanks, you're awesome :-) -->
 
 ### Schema Changes
 
+#### Bugfixes
+* Updating `hash` order to correct nesting. #1603
+
 #### Added
 
 * Added `file.fork_name` field. #1288
@@ -68,7 +71,6 @@ Thanks, you're awesome :-) -->
 * Promote `threat.software.*` and `threat.group.*` fields to GA. #1540
 * Update `user.name` and `user.id` examples for clarity. #1566
 * Beta migration of `text` and `.text` multi-fields to `match_only_text`. #1532, #1571
-* Updating `hash` order to correct nesting. #1603
 
 ### Tooling and Artifact Changes
 
