@@ -52,6 +52,10 @@ Thanks, you're awesome :-) -->
 
 ### Schema Changes
 
+#### Bugfixes
+
+* Updating `pe` order to correct nesting. #1605
+
 #### Added
 
 * Added `file.fork_name` field. #1288
