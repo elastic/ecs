@@ -52,6 +52,10 @@ Thanks, you're awesome :-) -->
 
 ### Schema Changes
 
+#### Breaking changes
+
+* Removing incorrect `pe` reuses. #1606
+
 #### Added
 
 * Added `file.fork_name` field. #1288
