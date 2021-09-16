@@ -52,8 +52,11 @@ Thanks, you're awesome :-) -->
 
 ### Schema Changes
 
-#### Breaking changes
+#### Bugfixes
 
+* Updating `hash` order to correct nesting. #1603
+* Removing incorrect `hash` reuses. #1604
+* Updating `pe` order to correct nesting. #1605
 * Removing incorrect `pe` reuses. #1606
 
 #### Added

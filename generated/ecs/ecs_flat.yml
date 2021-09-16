@@ -9340,6 +9340,61 @@ threat.enrichments.indicator.file.group:
   original_fieldset: file
   short: Primary group name of the file.
   type: keyword
+threat.enrichments.indicator.file.hash.md5:
+  dashed_name: threat-enrichments-indicator-file-hash-md5
+  description: MD5 hash.
+  flat_name: threat.enrichments.indicator.file.hash.md5
+  ignore_above: 1024
+  level: extended
+  name: md5
+  normalize: []
+  original_fieldset: hash
+  short: MD5 hash.
+  type: keyword
+threat.enrichments.indicator.file.hash.sha1:
+  dashed_name: threat-enrichments-indicator-file-hash-sha1
+  description: SHA1 hash.
+  flat_name: threat.enrichments.indicator.file.hash.sha1
+  ignore_above: 1024
+  level: extended
+  name: sha1
+  normalize: []
+  original_fieldset: hash
+  short: SHA1 hash.
+  type: keyword
+threat.enrichments.indicator.file.hash.sha256:
+  dashed_name: threat-enrichments-indicator-file-hash-sha256
+  description: SHA256 hash.
+  flat_name: threat.enrichments.indicator.file.hash.sha256
+  ignore_above: 1024
+  level: extended
+  name: sha256
+  normalize: []
+  original_fieldset: hash
+  short: SHA256 hash.
+  type: keyword
+threat.enrichments.indicator.file.hash.sha512:
+  dashed_name: threat-enrichments-indicator-file-hash-sha512
+  description: SHA512 hash.
+  flat_name: threat.enrichments.indicator.file.hash.sha512
+  ignore_above: 1024
+  level: extended
+  name: sha512
+  normalize: []
+  original_fieldset: hash
+  short: SHA512 hash.
+  type: keyword
+threat.enrichments.indicator.file.hash.ssdeep:
+  dashed_name: threat-enrichments-indicator-file-hash-ssdeep
+  description: SSDEEP hash.
+  flat_name: threat.enrichments.indicator.file.hash.ssdeep
+  ignore_above: 1024
+  level: extended
+  name: ssdeep
+  normalize: []
+  original_fieldset: hash
+  short: SSDEEP hash.
+  type: keyword
 threat.enrichments.indicator.file.inode:
   dashed_name: threat-enrichments-indicator-file-inode
   description: Inode representing the file in the filesystem.
@@ -9428,6 +9483,94 @@ threat.enrichments.indicator.file.path:
   normalize: []
   original_fieldset: file
   short: Full path to the file, including the file name.
+  type: keyword
+threat.enrichments.indicator.file.pe.architecture:
+  dashed_name: threat-enrichments-indicator-file-pe-architecture
+  description: CPU architecture target for the file.
+  example: x64
+  flat_name: threat.enrichments.indicator.file.pe.architecture
+  ignore_above: 1024
+  level: extended
+  name: architecture
+  normalize: []
+  original_fieldset: pe
+  short: CPU architecture target for the file.
+  type: keyword
+threat.enrichments.indicator.file.pe.company:
+  dashed_name: threat-enrichments-indicator-file-pe-company
+  description: Internal company name of the file, provided at compile-time.
+  example: Microsoft Corporation
+  flat_name: threat.enrichments.indicator.file.pe.company
+  ignore_above: 1024
+  level: extended
+  name: company
+  normalize: []
+  original_fieldset: pe
+  short: Internal company name of the file, provided at compile-time.
+  type: keyword
+threat.enrichments.indicator.file.pe.description:
+  dashed_name: threat-enrichments-indicator-file-pe-description
+  description: Internal description of the file, provided at compile-time.
+  example: Paint
+  flat_name: threat.enrichments.indicator.file.pe.description
+  ignore_above: 1024
+  level: extended
+  name: description
+  normalize: []
+  original_fieldset: pe
+  short: Internal description of the file, provided at compile-time.
+  type: keyword
+threat.enrichments.indicator.file.pe.file_version:
+  dashed_name: threat-enrichments-indicator-file-pe-file-version
+  description: Internal version of the file, provided at compile-time.
+  example: 6.3.9600.17415
+  flat_name: threat.enrichments.indicator.file.pe.file_version
+  ignore_above: 1024
+  level: extended
+  name: file_version
+  normalize: []
+  original_fieldset: pe
+  short: Process name.
+  type: keyword
+threat.enrichments.indicator.file.pe.imphash:
+  dashed_name: threat-enrichments-indicator-file-pe-imphash
+  description: 'A hash of the imports in a PE file. An imphash -- or import hash --
+    can be used to fingerprint binaries even after recompilation or other code-level
+    transformations have occurred, which would change more traditional hash values.
+
+    Learn more at https://www.fireeye.com/blog/threat-research/2014/01/tracking-malware-import-hashing.html.'
+  example: 0c6803c4e922103c4dca5963aad36ddf
+  flat_name: threat.enrichments.indicator.file.pe.imphash
+  ignore_above: 1024
+  level: extended
+  name: imphash
+  normalize: []
+  original_fieldset: pe
+  short: A hash of the imports in a PE file.
+  type: keyword
+threat.enrichments.indicator.file.pe.original_file_name:
+  dashed_name: threat-enrichments-indicator-file-pe-original-file-name
+  description: Internal name of the file, provided at compile-time.
+  example: MSPAINT.EXE
+  flat_name: threat.enrichments.indicator.file.pe.original_file_name
+  ignore_above: 1024
+  level: extended
+  name: original_file_name
+  normalize: []
+  original_fieldset: pe
+  short: Internal name of the file, provided at compile-time.
+  type: keyword
+threat.enrichments.indicator.file.pe.product:
+  dashed_name: threat-enrichments-indicator-file-pe-product
+  description: Internal product name of the file, provided at compile-time.
+  example: "Microsoft\xAE Windows\xAE Operating System"
+  flat_name: threat.enrichments.indicator.file.pe.product
+  ignore_above: 1024
+  level: extended
+  name: product
+  normalize: []
+  original_fieldset: pe
+  short: Internal product name of the file, provided at compile-time.
   type: keyword
 threat.enrichments.indicator.file.size:
   dashed_name: threat-enrichments-indicator-file-size
@@ -9632,61 +9775,6 @@ threat.enrichments.indicator.geo.timezone:
   normalize: []
   original_fieldset: geo
   short: Time zone.
-  type: keyword
-threat.enrichments.indicator.hash.md5:
-  dashed_name: threat-enrichments-indicator-hash-md5
-  description: MD5 hash.
-  flat_name: threat.enrichments.indicator.hash.md5
-  ignore_above: 1024
-  level: extended
-  name: md5
-  normalize: []
-  original_fieldset: hash
-  short: MD5 hash.
-  type: keyword
-threat.enrichments.indicator.hash.sha1:
-  dashed_name: threat-enrichments-indicator-hash-sha1
-  description: SHA1 hash.
-  flat_name: threat.enrichments.indicator.hash.sha1
-  ignore_above: 1024
-  level: extended
-  name: sha1
-  normalize: []
-  original_fieldset: hash
-  short: SHA1 hash.
-  type: keyword
-threat.enrichments.indicator.hash.sha256:
-  dashed_name: threat-enrichments-indicator-hash-sha256
-  description: SHA256 hash.
-  flat_name: threat.enrichments.indicator.hash.sha256
-  ignore_above: 1024
-  level: extended
-  name: sha256
-  normalize: []
-  original_fieldset: hash
-  short: SHA256 hash.
-  type: keyword
-threat.enrichments.indicator.hash.sha512:
-  dashed_name: threat-enrichments-indicator-hash-sha512
-  description: SHA512 hash.
-  flat_name: threat.enrichments.indicator.hash.sha512
-  ignore_above: 1024
-  level: extended
-  name: sha512
-  normalize: []
-  original_fieldset: hash
-  short: SHA512 hash.
-  type: keyword
-threat.enrichments.indicator.hash.ssdeep:
-  dashed_name: threat-enrichments-indicator-hash-ssdeep
-  description: SSDEEP hash.
-  flat_name: threat.enrichments.indicator.hash.ssdeep
-  ignore_above: 1024
-  level: extended
-  name: ssdeep
-  normalize: []
-  original_fieldset: hash
-  short: SSDEEP hash.
   type: keyword
 threat.enrichments.indicator.ip:
   beta: This field is beta and subject to change.
@@ -11234,6 +11322,61 @@ threat.indicator.file.group:
   original_fieldset: file
   short: Primary group name of the file.
   type: keyword
+threat.indicator.file.hash.md5:
+  dashed_name: threat-indicator-file-hash-md5
+  description: MD5 hash.
+  flat_name: threat.indicator.file.hash.md5
+  ignore_above: 1024
+  level: extended
+  name: md5
+  normalize: []
+  original_fieldset: hash
+  short: MD5 hash.
+  type: keyword
+threat.indicator.file.hash.sha1:
+  dashed_name: threat-indicator-file-hash-sha1
+  description: SHA1 hash.
+  flat_name: threat.indicator.file.hash.sha1
+  ignore_above: 1024
+  level: extended
+  name: sha1
+  normalize: []
+  original_fieldset: hash
+  short: SHA1 hash.
+  type: keyword
+threat.indicator.file.hash.sha256:
+  dashed_name: threat-indicator-file-hash-sha256
+  description: SHA256 hash.
+  flat_name: threat.indicator.file.hash.sha256
+  ignore_above: 1024
+  level: extended
+  name: sha256
+  normalize: []
+  original_fieldset: hash
+  short: SHA256 hash.
+  type: keyword
+threat.indicator.file.hash.sha512:
+  dashed_name: threat-indicator-file-hash-sha512
+  description: SHA512 hash.
+  flat_name: threat.indicator.file.hash.sha512
+  ignore_above: 1024
+  level: extended
+  name: sha512
+  normalize: []
+  original_fieldset: hash
+  short: SHA512 hash.
+  type: keyword
+threat.indicator.file.hash.ssdeep:
+  dashed_name: threat-indicator-file-hash-ssdeep
+  description: SSDEEP hash.
+  flat_name: threat.indicator.file.hash.ssdeep
+  ignore_above: 1024
+  level: extended
+  name: ssdeep
+  normalize: []
+  original_fieldset: hash
+  short: SSDEEP hash.
+  type: keyword
 threat.indicator.file.inode:
   dashed_name: threat-indicator-file-inode
   description: Inode representing the file in the filesystem.
@@ -11322,6 +11465,94 @@ threat.indicator.file.path:
   normalize: []
   original_fieldset: file
   short: Full path to the file, including the file name.
+  type: keyword
+threat.indicator.file.pe.architecture:
+  dashed_name: threat-indicator-file-pe-architecture
+  description: CPU architecture target for the file.
+  example: x64
+  flat_name: threat.indicator.file.pe.architecture
+  ignore_above: 1024
+  level: extended
+  name: architecture
+  normalize: []
+  original_fieldset: pe
+  short: CPU architecture target for the file.
+  type: keyword
+threat.indicator.file.pe.company:
+  dashed_name: threat-indicator-file-pe-company
+  description: Internal company name of the file, provided at compile-time.
+  example: Microsoft Corporation
+  flat_name: threat.indicator.file.pe.company
+  ignore_above: 1024
+  level: extended
+  name: company
+  normalize: []
+  original_fieldset: pe
+  short: Internal company name of the file, provided at compile-time.
+  type: keyword
+threat.indicator.file.pe.description:
+  dashed_name: threat-indicator-file-pe-description
+  description: Internal description of the file, provided at compile-time.
+  example: Paint
+  flat_name: threat.indicator.file.pe.description
+  ignore_above: 1024
+  level: extended
+  name: description
+  normalize: []
+  original_fieldset: pe
+  short: Internal description of the file, provided at compile-time.
+  type: keyword
+threat.indicator.file.pe.file_version:
+  dashed_name: threat-indicator-file-pe-file-version
+  description: Internal version of the file, provided at compile-time.
+  example: 6.3.9600.17415
+  flat_name: threat.indicator.file.pe.file_version
+  ignore_above: 1024
+  level: extended
+  name: file_version
+  normalize: []
+  original_fieldset: pe
+  short: Process name.
+  type: keyword
+threat.indicator.file.pe.imphash:
+  dashed_name: threat-indicator-file-pe-imphash
+  description: 'A hash of the imports in a PE file. An imphash -- or import hash --
+    can be used to fingerprint binaries even after recompilation or other code-level
+    transformations have occurred, which would change more traditional hash values.
+
+    Learn more at https://www.fireeye.com/blog/threat-research/2014/01/tracking-malware-import-hashing.html.'
+  example: 0c6803c4e922103c4dca5963aad36ddf
+  flat_name: threat.indicator.file.pe.imphash
+  ignore_above: 1024
+  level: extended
+  name: imphash
+  normalize: []
+  original_fieldset: pe
+  short: A hash of the imports in a PE file.
+  type: keyword
+threat.indicator.file.pe.original_file_name:
+  dashed_name: threat-indicator-file-pe-original-file-name
+  description: Internal name of the file, provided at compile-time.
+  example: MSPAINT.EXE
+  flat_name: threat.indicator.file.pe.original_file_name
+  ignore_above: 1024
+  level: extended
+  name: original_file_name
+  normalize: []
+  original_fieldset: pe
+  short: Internal name of the file, provided at compile-time.
+  type: keyword
+threat.indicator.file.pe.product:
+  dashed_name: threat-indicator-file-pe-product
+  description: Internal product name of the file, provided at compile-time.
+  example: "Microsoft\xAE Windows\xAE Operating System"
+  flat_name: threat.indicator.file.pe.product
+  ignore_above: 1024
+  level: extended
+  name: product
+  normalize: []
+  original_fieldset: pe
+  short: Internal product name of the file, provided at compile-time.
   type: keyword
 threat.indicator.file.size:
   dashed_name: threat-indicator-file-size
@@ -11525,61 +11756,6 @@ threat.indicator.geo.timezone:
   normalize: []
   original_fieldset: geo
   short: Time zone.
-  type: keyword
-threat.indicator.hash.md5:
-  dashed_name: threat-indicator-hash-md5
-  description: MD5 hash.
-  flat_name: threat.indicator.hash.md5
-  ignore_above: 1024
-  level: extended
-  name: md5
-  normalize: []
-  original_fieldset: hash
-  short: MD5 hash.
-  type: keyword
-threat.indicator.hash.sha1:
-  dashed_name: threat-indicator-hash-sha1
-  description: SHA1 hash.
-  flat_name: threat.indicator.hash.sha1
-  ignore_above: 1024
-  level: extended
-  name: sha1
-  normalize: []
-  original_fieldset: hash
-  short: SHA1 hash.
-  type: keyword
-threat.indicator.hash.sha256:
-  dashed_name: threat-indicator-hash-sha256
-  description: SHA256 hash.
-  flat_name: threat.indicator.hash.sha256
-  ignore_above: 1024
-  level: extended
-  name: sha256
-  normalize: []
-  original_fieldset: hash
-  short: SHA256 hash.
-  type: keyword
-threat.indicator.hash.sha512:
-  dashed_name: threat-indicator-hash-sha512
-  description: SHA512 hash.
-  flat_name: threat.indicator.hash.sha512
-  ignore_above: 1024
-  level: extended
-  name: sha512
-  normalize: []
-  original_fieldset: hash
-  short: SHA512 hash.
-  type: keyword
-threat.indicator.hash.ssdeep:
-  dashed_name: threat-indicator-hash-ssdeep
-  description: SSDEEP hash.
-  flat_name: threat.indicator.hash.ssdeep
-  ignore_above: 1024
-  level: extended
-  name: ssdeep
-  normalize: []
-  original_fieldset: hash
-  short: SSDEEP hash.
   type: keyword
 threat.indicator.ip:
   dashed_name: threat-indicator-ip
