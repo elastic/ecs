@@ -53,7 +53,9 @@ Thanks, you're awesome :-) -->
 ### Schema Changes
 
 #### Bugfixes
+
 * Updating `hash` order to correct nesting. #1603
+* Removing incorrect `hash` reuses. #1604
 
 #### Added
 

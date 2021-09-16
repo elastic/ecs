@@ -5007,13 +5007,6 @@ hash:
     - as: hash
       at: dll
       full: dll.hash
-    - as: hash
-      at: threat.indicator
-      full: threat.indicator.hash
-    - as: hash
-      at: threat.enrichments.indicator
-      beta: Reusing the `hash` fields in this location is currently considered beta.
-      full: threat.enrichments.indicator.hash
     top_level: false
   short: Hashes, usually file hashes.
   title: Hash
@@ -11411,61 +11404,6 @@ threat:
       original_fieldset: geo
       short: Time zone.
       type: keyword
-    threat.enrichments.indicator.hash.md5:
-      dashed_name: threat-enrichments-indicator-hash-md5
-      description: MD5 hash.
-      flat_name: threat.enrichments.indicator.hash.md5
-      ignore_above: 1024
-      level: extended
-      name: md5
-      normalize: []
-      original_fieldset: hash
-      short: MD5 hash.
-      type: keyword
-    threat.enrichments.indicator.hash.sha1:
-      dashed_name: threat-enrichments-indicator-hash-sha1
-      description: SHA1 hash.
-      flat_name: threat.enrichments.indicator.hash.sha1
-      ignore_above: 1024
-      level: extended
-      name: sha1
-      normalize: []
-      original_fieldset: hash
-      short: SHA1 hash.
-      type: keyword
-    threat.enrichments.indicator.hash.sha256:
-      dashed_name: threat-enrichments-indicator-hash-sha256
-      description: SHA256 hash.
-      flat_name: threat.enrichments.indicator.hash.sha256
-      ignore_above: 1024
-      level: extended
-      name: sha256
-      normalize: []
-      original_fieldset: hash
-      short: SHA256 hash.
-      type: keyword
-    threat.enrichments.indicator.hash.sha512:
-      dashed_name: threat-enrichments-indicator-hash-sha512
-      description: SHA512 hash.
-      flat_name: threat.enrichments.indicator.hash.sha512
-      ignore_above: 1024
-      level: extended
-      name: sha512
-      normalize: []
-      original_fieldset: hash
-      short: SHA512 hash.
-      type: keyword
-    threat.enrichments.indicator.hash.ssdeep:
-      dashed_name: threat-enrichments-indicator-hash-ssdeep
-      description: SSDEEP hash.
-      flat_name: threat.enrichments.indicator.hash.ssdeep
-      ignore_above: 1024
-      level: extended
-      name: ssdeep
-      normalize: []
-      original_fieldset: hash
-      short: SSDEEP hash.
-      type: keyword
     threat.enrichments.indicator.ip:
       beta: This field is beta and subject to change.
       dashed_name: threat-enrichments-indicator-ip
@@ -13451,61 +13389,6 @@ threat:
       original_fieldset: geo
       short: Time zone.
       type: keyword
-    threat.indicator.hash.md5:
-      dashed_name: threat-indicator-hash-md5
-      description: MD5 hash.
-      flat_name: threat.indicator.hash.md5
-      ignore_above: 1024
-      level: extended
-      name: md5
-      normalize: []
-      original_fieldset: hash
-      short: MD5 hash.
-      type: keyword
-    threat.indicator.hash.sha1:
-      dashed_name: threat-indicator-hash-sha1
-      description: SHA1 hash.
-      flat_name: threat.indicator.hash.sha1
-      ignore_above: 1024
-      level: extended
-      name: sha1
-      normalize: []
-      original_fieldset: hash
-      short: SHA1 hash.
-      type: keyword
-    threat.indicator.hash.sha256:
-      dashed_name: threat-indicator-hash-sha256
-      description: SHA256 hash.
-      flat_name: threat.indicator.hash.sha256
-      ignore_above: 1024
-      level: extended
-      name: sha256
-      normalize: []
-      original_fieldset: hash
-      short: SHA256 hash.
-      type: keyword
-    threat.indicator.hash.sha512:
-      dashed_name: threat-indicator-hash-sha512
-      description: SHA512 hash.
-      flat_name: threat.indicator.hash.sha512
-      ignore_above: 1024
-      level: extended
-      name: sha512
-      normalize: []
-      original_fieldset: hash
-      short: SHA512 hash.
-      type: keyword
-    threat.indicator.hash.ssdeep:
-      dashed_name: threat-indicator-hash-ssdeep
-      description: SSDEEP hash.
-      flat_name: threat.indicator.hash.ssdeep
-      ignore_above: 1024
-      level: extended
-      name: ssdeep
-      normalize: []
-      original_fieldset: hash
-      short: SSDEEP hash.
-      type: keyword
     threat.indicator.ip:
       dashed_name: threat-indicator-ip
       description: Identifies a threat indicator as an IP address (irrespective of
@@ -14543,7 +14426,6 @@ threat:
   - threat.enrichments.indicator.as
   - threat.enrichments.indicator.file
   - threat.enrichments.indicator.geo
-  - threat.enrichments.indicator.hash
   - threat.enrichments.indicator.pe
   - threat.enrichments.indicator.registry
   - threat.enrichments.indicator.url
@@ -14551,20 +14433,12 @@ threat:
   - threat.indicator.as
   - threat.indicator.file
   - threat.indicator.geo
-  - threat.indicator.hash
   - threat.indicator.pe
   - threat.indicator.registry
   - threat.indicator.url
   - threat.indicator.x509
   prefix: threat.
   reused_here:
-  - full: threat.indicator.hash
-    schema_name: hash
-    short: Hashes, usually file hashes.
-  - beta: Reusing the `hash` fields in this location is currently considered beta.
-    full: threat.enrichments.indicator.hash
-    schema_name: hash
-    short: Hashes, usually file hashes.
   - full: threat.indicator.as
     schema_name: as
     short: Fields describing an Autonomous System (Internet routing prefix).
