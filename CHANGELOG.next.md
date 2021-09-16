@@ -56,6 +56,7 @@ Thanks, you're awesome :-) -->
 
 * Updating `hash` order to correct nesting. #1603
 * Removing incorrect `hash` reuses. #1604
+* Updating `pe` order to correct nesting. #1605
 
 #### Added
 
