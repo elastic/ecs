@@ -1,0 +1,78 @@
+[[ecs-cloud-usage]]
+==== Cloud Fields Usage and Examples
+
+Here are the subjects covered in this page.
+
+* <<ecs-cloud-usage-field-reuse>>
+** <<ecs-cloud-usage-cloud-at-root>>
+** <<ecs-cloud-usage-origin-target>>
+
+[discrete]
+[[ecs-cloud-usage-field-reuse]]
+===== Field reuse
+
+The cloud fields can be used to 
+* <<ecs-cloud-usage-cloud-at-root,describe the cloud resource an event comes from>>
+* or to <<ecs-cloud-usage-origin-target,describe the context of an external cloud resource>> that has a direct invocation relationship to the observed service or resource
+
+[discrete]
+[[ecs-cloud-usage-cloud-at-root]]
+====== Cloud fields at the Root of an Event
+
+Use the cloud fields at the root of an event to describe the cloud resource the event primarily relates to. 
+An example for this use case is a log entry being recorded for a service that is deployed in a cloud environment:
+
+[source,json]
+-----------
+{
+  "cloud": {
+    "provider": "aws", 
+    "region": "us-east-1",
+    "service": { "name": "ec2" }
+  }
+}
+-----------
+
+[discrete]
+[[ecs-cloud-usage-origin-target]]
+====== Describing external cloud resources in an invocation relationship
+
+Managed cloud services can be in an invocation relationship to the observed service (i.e. service for which the corresponding event is captured).
+For instance, an observed service running on AWS Lambda can be invoked through an AWS API Gateway. 
+Another example is an observed service that invokes an external cloud service (e.g. AWS Simple Email Service). 
+In the context of an invocation relationship, cloud fields can be nested under `cloud.origin.*` and `cloud.target.*`, respectively, 
+to capture the cloud context on origin or target cloud services from the perspective of an observed service. 
+This concept is similar to <<ecs-service-usage-origin-target,nesting of service fields>> under `service.origin.*` and `service.target.*`.
+
+Let's consider an exemplary event that represents an inbound AWS Lambda invocation coming from an AWS API Gateway. Use the following `cloud.origin.*` 
+nesting to describe the API Gateway service from the perspective of the AWS Lambda service:
+
+[source,json]
+-----------
+{
+  "service": { <1> 
+    "name": "MyLambdaFunction",
+    "version": "1.0.0",
+    "origin": { <2>
+      "name": "MyGateway",
+      "version" "2.0",
+    }
+  },
+  "cloud": { <3>
+    "provider": "aws", 
+    "region": "us-east-1",
+    "service": { "name": "lambda" },
+    "origin": { <4>
+      "provider": "aws", 
+      "region": "eu-west-1",
+      "service": { "name": "apigateway" }
+    }
+  }
+}
+-----------
+<1> Describes the observed AWS Lambda function 
+<2> Describes the API Gateway service where the inbound request comes from
+<3> Describes the cloud context of the observed AWS Lambda function 
+<4> Describes the cloud context of the API Gateway service where the inbound request comes from
+
+Note that `cloud.origin.*` and `cloud.target.*` fields should only be used on events that represent an invocation relationship.
