@@ -2393,12 +2393,12 @@ dll:
   - dll.pe
   prefix: dll.
   reused_here:
-  - full: dll.code_signature
-    schema_name: code_signature
-    short: These fields contain information about binary code signatures.
   - full: dll.hash
     schema_name: hash
     short: Hashes, usually file hashes.
+  - full: dll.code_signature
+    schema_name: code_signature
+    short: These fields contain information about binary code signatures.
   - full: dll.pe
     schema_name: pe
     short: These fields contain Windows Portable Executable (PE) metadata.
@@ -5761,6 +5761,9 @@ file:
       full: threat.enrichments.indicator.file
     top_level: true
   reused_here:
+  - full: file.hash
+    schema_name: hash
+    short: Hashes, usually file hashes.
   - full: file.code_signature
     schema_name: code_signature
     short: These fields contain information about binary code signatures.
@@ -5768,9 +5771,6 @@ file:
     full: file.elf
     schema_name: elf
     short: These fields contain Linux Executable Linkable Format (ELF) metadata.
-  - full: file.hash
-    schema_name: hash
-    short: Hashes, usually file hashes.
   - full: file.pe
     schema_name: pe
     short: These fields contain Windows Portable Executable (PE) metadata.
@@ -13447,6 +13447,9 @@ process:
       full: process.target.parent
     top_level: true
   reused_here:
+  - full: process.hash
+    schema_name: hash
+    short: Hashes, usually file hashes.
   - full: process.code_signature
     schema_name: code_signature
     short: These fields contain information about binary code signatures.
@@ -13454,9 +13457,6 @@ process:
     full: process.elf
     schema_name: elf
     short: These fields contain Linux Executable Linkable Format (ELF) metadata.
-  - full: process.hash
-    schema_name: hash
-    short: Hashes, usually file hashes.
   - full: process.pe
     schema_name: pe
     short: These fields contain Windows Portable Executable (PE) metadata.
@@ -15626,6 +15626,61 @@ threat:
       normalize: []
       original_fieldset: file
       short: Primary group name of the file.
+      type: keyword
+    threat.enrichments.indicator.file.hash.md5:
+      dashed_name: threat-enrichments-indicator-file-hash-md5
+      description: MD5 hash.
+      flat_name: threat.enrichments.indicator.file.hash.md5
+      ignore_above: 1024
+      level: extended
+      name: md5
+      normalize: []
+      original_fieldset: hash
+      short: MD5 hash.
+      type: keyword
+    threat.enrichments.indicator.file.hash.sha1:
+      dashed_name: threat-enrichments-indicator-file-hash-sha1
+      description: SHA1 hash.
+      flat_name: threat.enrichments.indicator.file.hash.sha1
+      ignore_above: 1024
+      level: extended
+      name: sha1
+      normalize: []
+      original_fieldset: hash
+      short: SHA1 hash.
+      type: keyword
+    threat.enrichments.indicator.file.hash.sha256:
+      dashed_name: threat-enrichments-indicator-file-hash-sha256
+      description: SHA256 hash.
+      flat_name: threat.enrichments.indicator.file.hash.sha256
+      ignore_above: 1024
+      level: extended
+      name: sha256
+      normalize: []
+      original_fieldset: hash
+      short: SHA256 hash.
+      type: keyword
+    threat.enrichments.indicator.file.hash.sha512:
+      dashed_name: threat-enrichments-indicator-file-hash-sha512
+      description: SHA512 hash.
+      flat_name: threat.enrichments.indicator.file.hash.sha512
+      ignore_above: 1024
+      level: extended
+      name: sha512
+      normalize: []
+      original_fieldset: hash
+      short: SHA512 hash.
+      type: keyword
+    threat.enrichments.indicator.file.hash.ssdeep:
+      dashed_name: threat-enrichments-indicator-file-hash-ssdeep
+      description: SSDEEP hash.
+      flat_name: threat.enrichments.indicator.file.hash.ssdeep
+      ignore_above: 1024
+      level: extended
+      name: ssdeep
+      normalize: []
+      original_fieldset: hash
+      short: SSDEEP hash.
       type: keyword
     threat.enrichments.indicator.file.inode:
       dashed_name: threat-enrichments-indicator-file-inode
@@ -17985,6 +18040,61 @@ threat:
       original_fieldset: file
       short: Primary group name of the file.
       type: keyword
+    threat.indicator.file.hash.md5:
+      dashed_name: threat-indicator-file-hash-md5
+      description: MD5 hash.
+      flat_name: threat.indicator.file.hash.md5
+      ignore_above: 1024
+      level: extended
+      name: md5
+      normalize: []
+      original_fieldset: hash
+      short: MD5 hash.
+      type: keyword
+    threat.indicator.file.hash.sha1:
+      dashed_name: threat-indicator-file-hash-sha1
+      description: SHA1 hash.
+      flat_name: threat.indicator.file.hash.sha1
+      ignore_above: 1024
+      level: extended
+      name: sha1
+      normalize: []
+      original_fieldset: hash
+      short: SHA1 hash.
+      type: keyword
+    threat.indicator.file.hash.sha256:
+      dashed_name: threat-indicator-file-hash-sha256
+      description: SHA256 hash.
+      flat_name: threat.indicator.file.hash.sha256
+      ignore_above: 1024
+      level: extended
+      name: sha256
+      normalize: []
+      original_fieldset: hash
+      short: SHA256 hash.
+      type: keyword
+    threat.indicator.file.hash.sha512:
+      dashed_name: threat-indicator-file-hash-sha512
+      description: SHA512 hash.
+      flat_name: threat.indicator.file.hash.sha512
+      ignore_above: 1024
+      level: extended
+      name: sha512
+      normalize: []
+      original_fieldset: hash
+      short: SHA512 hash.
+      type: keyword
+    threat.indicator.file.hash.ssdeep:
+      dashed_name: threat-indicator-file-hash-ssdeep
+      description: SSDEEP hash.
+      flat_name: threat.indicator.file.hash.ssdeep
+      ignore_above: 1024
+      level: extended
+      name: ssdeep
+      normalize: []
+      original_fieldset: hash
+      short: SSDEEP hash.
+      type: keyword
     threat.indicator.file.inode:
       dashed_name: threat-indicator-file-inode
       description: Inode representing the file in the filesystem.
@@ -19756,6 +19866,13 @@ threat:
   - threat.indicator.x509
   prefix: threat.
   reused_here:
+  - full: threat.indicator.hash
+    schema_name: hash
+    short: Hashes, usually file hashes.
+  - beta: Reusing the `hash` fields in this location is currently considered beta.
+    full: threat.enrichments.indicator.hash
+    schema_name: hash
+    short: Hashes, usually file hashes.
   - full: threat.indicator.as
     schema_name: as
     short: Fields describing an Autonomous System (Internet routing prefix).
@@ -19777,13 +19894,6 @@ threat:
     full: threat.enrichments.indicator.geo
     schema_name: geo
     short: Fields describing a location.
-  - full: threat.indicator.hash
-    schema_name: hash
-    short: Hashes, usually file hashes.
-  - beta: Reusing the `hash` fields in this location is currently considered beta.
-    full: threat.enrichments.indicator.hash
-    schema_name: hash
-    short: Hashes, usually file hashes.
   - full: threat.indicator.pe
     schema_name: pe
     short: These fields contain Windows Portable Executable (PE) metadata.

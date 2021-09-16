@@ -52,6 +52,9 @@ Thanks, you're awesome :-) -->
 
 ### Schema Changes
 
+#### Bugfixes
+* Updating `hash` order to correct nesting. #1603
+
 #### Added
 
 * Added `file.fork_name` field. #1288
