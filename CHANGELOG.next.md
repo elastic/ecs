@@ -58,6 +58,7 @@ Thanks, you're awesome :-) -->
 * Removing incorrect `hash` reuses. #1604
 * Updating `pe` order to correct nesting. #1605
 * Removing incorrect `pe` reuses. #1606
+* Correcting `enrichments` to an `array` type. #1608
 
 #### Added
 
