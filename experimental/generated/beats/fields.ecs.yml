@@ -5919,13 +5919,6 @@
       description: Process id.
       example: 4242
       default_field: false
-    - name: parent.ppid
-      level: extended
-      type: long
-      format: string
-      description: Parent process' pid.
-      example: 4241
-      default_field: false
     - name: parent.start
       level: extended
       type: date
@@ -6248,12 +6241,6 @@
       format: string
       description: Process id.
       example: 4242
-    - name: ppid
-      level: extended
-      type: long
-      format: string
-      description: Parent process' pid.
-      example: 4241
     - name: start
       level: extended
       type: date
@@ -7277,13 +7264,6 @@
       description: Process id.
       example: 4242
       default_field: false
-    - name: target.parent.ppid
-      level: extended
-      type: long
-      format: string
-      description: Parent process' pid.
-      example: 4241
-      default_field: false
     - name: target.parent.start
       level: extended
       type: date
@@ -7607,13 +7587,6 @@
       format: string
       description: Process id.
       example: 4242
-      default_field: false
-    - name: target.ppid
-      level: extended
-      type: long
-      format: string
-      description: Parent process' pid.
-      example: 4241
       default_field: false
     - name: target.start
       level: extended
@@ -8614,11 +8587,11 @@
       level: extended
       type: keyword
       ignore_above: 1024
-      description: "Identifies\_the\_confidence\_rating\_assigned\_by\_the\_provider\_\
-        using\_STIX\_confidence scales. Expected values:\n  * Not Specified, None,\
-        \ Low, Medium, High\n  * 0-10\n  * Admirality Scale (1-6)\n  * DNI Scale (5-95)\n\
-        \  * WEP Scale (Impossible - Certain)"
-      example: High
+      description: "Identifies\_the\_vendor-neutral confidence\_rating\_using\_the\
+        \ None/Low/Medium/High\_scale defined in Appendix A of the STIX 2.1 framework.\
+        \ Vendor-specific confidence scales may be added as custom fields.\nExpected\
+        \ values are:\n  * Not Specified\n  * None\n  * Low\n  * Medium\n  * High"
+      example: Medium
       default_field: false
     - name: enrichments.indicator.description
       level: extended
@@ -8993,6 +8966,36 @@
       description: Primary group name of the file.
       example: alice
       default_field: false
+    - name: enrichments.indicator.file.hash.md5
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: MD5 hash.
+      default_field: false
+    - name: enrichments.indicator.file.hash.sha1
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SHA1 hash.
+      default_field: false
+    - name: enrichments.indicator.file.hash.sha256
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SHA256 hash.
+      default_field: false
+    - name: enrichments.indicator.file.hash.sha512
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SHA512 hash.
+      default_field: false
+    - name: enrichments.indicator.file.hash.ssdeep
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SSDEEP hash.
+      default_field: false
     - name: enrichments.indicator.file.inode
       level: extended
       type: keyword
@@ -9045,6 +9048,269 @@
       description: Full path to the file, including the file name. It should include
         the drive letter, when appropriate.
       example: /home/alice/example.png
+      default_field: false
+    - name: enrichments.indicator.file.pe.architecture
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: CPU architecture target for the file.
+      example: x64
+      default_field: false
+    - name: enrichments.indicator.file.pe.authentihash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Authentihash of the PE file.
+      example: ac9555d914bbb112ecc5f15bb9887ca8371f493ab0941344e976bb8410c8aa78
+      default_field: false
+    - name: enrichments.indicator.file.pe.company
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Internal company name of the file, provided at compile-time.
+      example: Microsoft Corporation
+      default_field: false
+    - name: enrichments.indicator.file.pe.compile_timestamp
+      level: extended
+      type: date
+      description: Compile timestamp of the PE file.
+      example: '2020-11-05T17:25:47.000Z'
+      default_field: false
+    - name: enrichments.indicator.file.pe.compiler.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the compiler
+      example: Clang
+      default_field: false
+    - name: enrichments.indicator.file.pe.compiler.version
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Version of the compiler.
+      example: 11.0.0
+      default_field: false
+    - name: enrichments.indicator.file.pe.creation_date
+      level: extended
+      type: date
+      description: Extracted when possible from the file's metadata. Indicates when
+        it was built or compiled. It can also be faked by malware creators.
+      example: '2020-11-05T17:25:47.000Z'
+      default_field: false
+    - name: enrichments.indicator.file.pe.debug
+      level: extended
+      type: nested
+      description: 'An array containing an object for each debug entry, if present.
+
+        The expected fields for this nested object fall under the `debug.` prefix.'
+      default_field: false
+    - name: enrichments.indicator.file.pe.debug.offset
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Debug offset information.
+      example: 1296336
+      default_field: false
+    - name: enrichments.indicator.file.pe.debug.size
+      level: extended
+      type: long
+      format: bytes
+      description: Size of the debug information.
+      example: 816
+      default_field: false
+    - name: enrichments.indicator.file.pe.debug.timestamp
+      level: extended
+      type: date
+      description: Timestamp of the debug information.
+      example: '2020-11-05T17:25:47.000Z'
+      default_field: false
+    - name: enrichments.indicator.file.pe.debug.type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Information type generated by the debug options.
+      example: IMAGE_DEBUG_TYPE_POGO
+      default_field: false
+    - name: enrichments.indicator.file.pe.description
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Internal description of the file, provided at compile-time.
+      example: Paint
+      default_field: false
+    - name: enrichments.indicator.file.pe.entry_point
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Relative byte offset to the base of the PE file.
+      example: 25856
+      default_field: false
+    - name: enrichments.indicator.file.pe.exports
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of symbols exported by PE
+      example: '["DllInstall", "DllRegisterServer", "DllUnregisterServer"]'
+      default_field: false
+    - name: enrichments.indicator.file.pe.file_version
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Internal version of the file, provided at compile-time.
+      example: 6.3.9600.17415
+      default_field: false
+    - name: enrichments.indicator.file.pe.icon.hash.dhash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Difference Hash (dhash) to find files with a visually similar icon
+        or thumbnail.
+      example: b806e17c8e330d82
+      default_field: false
+    - name: enrichments.indicator.file.pe.imphash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'A hash of the imports in a PE file. An imphash -- or import hash
+        -- can be used to fingerprint binaries even after recompilation or other code-level
+        transformations have occurred, which would change more traditional hash values.
+
+        Learn more at https://www.fireeye.com/blog/threat-research/2014/01/tracking-malware-import-hashing.html.'
+      example: 0c6803c4e922103c4dca5963aad36ddf
+      default_field: false
+    - name: enrichments.indicator.file.pe.imports
+      level: extended
+      type: flattened
+      description: List of all imported functions
+      example: '{ "library_name" : "mscoree.dll", "imported_functions" : "GetFileVersionInfoSizeA"
+        }'
+      default_field: false
+    - name: enrichments.indicator.file.pe.machine_type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Machine type of the PE file.
+      example: Intel 386 or later, and compatibles
+      default_field: false
+    - name: enrichments.indicator.file.pe.original_file_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Internal name of the file, provided at compile-time.
+      example: MSPAINT.EXE
+      default_field: false
+    - name: enrichments.indicator.file.pe.packers
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of packers and tools used.
+      example: '["ASPack v2.12", ".NET executable"]'
+      default_field: false
+    - name: enrichments.indicator.file.pe.product
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Internal product name of the file, provided at compile-time.
+      example: "Microsoft\xAE Windows\xAE Operating System"
+      default_field: false
+    - name: enrichments.indicator.file.pe.resources
+      level: extended
+      type: nested
+      description: 'An array containing an object for each PE resource, if present.
+
+        The expected fields for this nested object fall under the `resources.` prefix.'
+      default_field: false
+    - name: enrichments.indicator.file.pe.resources.chi2
+      level: extended
+      type: long
+      description: Chi-square probability distribution.
+      example: -1
+      default_field: false
+    - name: enrichments.indicator.file.pe.resources.entropy
+      level: extended
+      type: long
+      description: Measurement of entropy randomness in the resources section.
+      example: 0, 1
+      default_field: false
+    - name: enrichments.indicator.file.pe.resources.filetype
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: File type of the resources section.
+      example: Data
+      default_field: false
+    - name: enrichments.indicator.file.pe.resources.language
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Language identification.
+      example: CHINESE SIMPLIFIED
+      default_field: false
+    - name: enrichments.indicator.file.pe.resources.sha256
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SHA256 hash of resources section.
+      example: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      default_field: false
+    - name: enrichments.indicator.file.pe.resources.type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Digest of resource types.
+      example: '["RT_VERSION", "RT_MANIFEST"]'
+      default_field: false
+    - name: enrichments.indicator.file.pe.rich_header.hash.md5
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: MD5 hash of the header for the PE file.
+      example: 5aa1aa0f2b4be70397a1e9e2b87627cd
+      default_field: false
+    - name: enrichments.indicator.file.pe.sections
+      level: extended
+      type: nested
+      description: Data about sections of compiled binary PE
+      default_field: false
+    - name: enrichments.indicator.file.pe.sections.chi2
+      level: extended
+      type: long
+      description: Chi-square probability distribution.
+      example: 3027194
+      default_field: false
+    - name: enrichments.indicator.file.pe.sections.entropy
+      level: extended
+      type: float
+      description: Measurement of entropy randomness in the file.
+      example: 6.24
+      default_field: false
+    - name: enrichments.indicator.file.pe.sections.flags
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Section flags of the file.
+      example: rx
+      default_field: false
+    - name: enrichments.indicator.file.pe.sections.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Section names of the file.
+      example: .text, .data
+      default_field: false
+    - name: enrichments.indicator.file.pe.sections.raw_size
+      level: extended
+      type: long
+      format: bytes
+      description: Size of the section or the dize of the initialized data on disk.
+      example: 198144
+      default_field: false
+    - name: enrichments.indicator.file.pe.sections.virtual_address
+      level: extended
+      type: long
+      format: bytes
+      description: Virtual address available to the file.
+      example: 8192
       default_field: false
     - name: enrichments.indicator.file.size
       level: extended
@@ -9169,36 +9435,6 @@
       description: The time zone of the location, such as IANA time zone name.
       example: America/Argentina/Buenos_Aires
       default_field: false
-    - name: enrichments.indicator.hash.md5
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: MD5 hash.
-      default_field: false
-    - name: enrichments.indicator.hash.sha1
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: SHA1 hash.
-      default_field: false
-    - name: enrichments.indicator.hash.sha256
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: SHA256 hash.
-      default_field: false
-    - name: enrichments.indicator.hash.sha512
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: SHA512 hash.
-      default_field: false
-    - name: enrichments.indicator.hash.ssdeep
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: SSDEEP hash.
-      default_field: false
     - name: enrichments.indicator.ip
       level: extended
       type: ip
@@ -9227,269 +9463,6 @@
       description: The date and time when intelligence source last modified information
         for this indicator.
       example: '2020-11-05T17:25:47.000Z'
-      default_field: false
-    - name: enrichments.indicator.pe.architecture
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: CPU architecture target for the file.
-      example: x64
-      default_field: false
-    - name: enrichments.indicator.pe.authentihash
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Authentihash of the PE file.
-      example: ac9555d914bbb112ecc5f15bb9887ca8371f493ab0941344e976bb8410c8aa78
-      default_field: false
-    - name: enrichments.indicator.pe.company
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Internal company name of the file, provided at compile-time.
-      example: Microsoft Corporation
-      default_field: false
-    - name: enrichments.indicator.pe.compile_timestamp
-      level: extended
-      type: date
-      description: Compile timestamp of the PE file.
-      example: '2020-11-05T17:25:47.000Z'
-      default_field: false
-    - name: enrichments.indicator.pe.compiler.name
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Name of the compiler
-      example: Clang
-      default_field: false
-    - name: enrichments.indicator.pe.compiler.version
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Version of the compiler.
-      example: 11.0.0
-      default_field: false
-    - name: enrichments.indicator.pe.creation_date
-      level: extended
-      type: date
-      description: Extracted when possible from the file's metadata. Indicates when
-        it was built or compiled. It can also be faked by malware creators.
-      example: '2020-11-05T17:25:47.000Z'
-      default_field: false
-    - name: enrichments.indicator.pe.debug
-      level: extended
-      type: nested
-      description: 'An array containing an object for each debug entry, if present.
-
-        The expected fields for this nested object fall under the `debug.` prefix.'
-      default_field: false
-    - name: enrichments.indicator.pe.debug.offset
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Debug offset information.
-      example: 1296336
-      default_field: false
-    - name: enrichments.indicator.pe.debug.size
-      level: extended
-      type: long
-      format: bytes
-      description: Size of the debug information.
-      example: 816
-      default_field: false
-    - name: enrichments.indicator.pe.debug.timestamp
-      level: extended
-      type: date
-      description: Timestamp of the debug information.
-      example: '2020-11-05T17:25:47.000Z'
-      default_field: false
-    - name: enrichments.indicator.pe.debug.type
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Information type generated by the debug options.
-      example: IMAGE_DEBUG_TYPE_POGO
-      default_field: false
-    - name: enrichments.indicator.pe.description
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Internal description of the file, provided at compile-time.
-      example: Paint
-      default_field: false
-    - name: enrichments.indicator.pe.entry_point
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Relative byte offset to the base of the PE file.
-      example: 25856
-      default_field: false
-    - name: enrichments.indicator.pe.exports
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: List of symbols exported by PE
-      example: '["DllInstall", "DllRegisterServer", "DllUnregisterServer"]'
-      default_field: false
-    - name: enrichments.indicator.pe.file_version
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Internal version of the file, provided at compile-time.
-      example: 6.3.9600.17415
-      default_field: false
-    - name: enrichments.indicator.pe.icon.hash.dhash
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Difference Hash (dhash) to find files with a visually similar icon
-        or thumbnail.
-      example: b806e17c8e330d82
-      default_field: false
-    - name: enrichments.indicator.pe.imphash
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: 'A hash of the imports in a PE file. An imphash -- or import hash
-        -- can be used to fingerprint binaries even after recompilation or other code-level
-        transformations have occurred, which would change more traditional hash values.
-
-        Learn more at https://www.fireeye.com/blog/threat-research/2014/01/tracking-malware-import-hashing.html.'
-      example: 0c6803c4e922103c4dca5963aad36ddf
-      default_field: false
-    - name: enrichments.indicator.pe.imports
-      level: extended
-      type: flattened
-      description: List of all imported functions
-      example: '{ "library_name" : "mscoree.dll", "imported_functions" : "GetFileVersionInfoSizeA"
-        }'
-      default_field: false
-    - name: enrichments.indicator.pe.machine_type
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Machine type of the PE file.
-      example: Intel 386 or later, and compatibles
-      default_field: false
-    - name: enrichments.indicator.pe.original_file_name
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Internal name of the file, provided at compile-time.
-      example: MSPAINT.EXE
-      default_field: false
-    - name: enrichments.indicator.pe.packers
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: List of packers and tools used.
-      example: '["ASPack v2.12", ".NET executable"]'
-      default_field: false
-    - name: enrichments.indicator.pe.product
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Internal product name of the file, provided at compile-time.
-      example: "Microsoft\xAE Windows\xAE Operating System"
-      default_field: false
-    - name: enrichments.indicator.pe.resources
-      level: extended
-      type: nested
-      description: 'An array containing an object for each PE resource, if present.
-
-        The expected fields for this nested object fall under the `resources.` prefix.'
-      default_field: false
-    - name: enrichments.indicator.pe.resources.chi2
-      level: extended
-      type: long
-      description: Chi-square probability distribution.
-      example: -1
-      default_field: false
-    - name: enrichments.indicator.pe.resources.entropy
-      level: extended
-      type: long
-      description: Measurement of entropy randomness in the resources section.
-      example: 0, 1
-      default_field: false
-    - name: enrichments.indicator.pe.resources.filetype
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: File type of the resources section.
-      example: Data
-      default_field: false
-    - name: enrichments.indicator.pe.resources.language
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Language identification.
-      example: CHINESE SIMPLIFIED
-      default_field: false
-    - name: enrichments.indicator.pe.resources.sha256
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: SHA256 hash of resources section.
-      example: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-      default_field: false
-    - name: enrichments.indicator.pe.resources.type
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Digest of resource types.
-      example: '["RT_VERSION", "RT_MANIFEST"]'
-      default_field: false
-    - name: enrichments.indicator.pe.rich_header.hash.md5
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: MD5 hash of the header for the PE file.
-      example: 5aa1aa0f2b4be70397a1e9e2b87627cd
-      default_field: false
-    - name: enrichments.indicator.pe.sections
-      level: extended
-      type: nested
-      description: Data about sections of compiled binary PE
-      default_field: false
-    - name: enrichments.indicator.pe.sections.chi2
-      level: extended
-      type: long
-      description: Chi-square probability distribution.
-      example: 3027194
-      default_field: false
-    - name: enrichments.indicator.pe.sections.entropy
-      level: extended
-      type: float
-      description: Measurement of entropy randomness in the file.
-      example: 6.24
-      default_field: false
-    - name: enrichments.indicator.pe.sections.flags
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Section flags of the file.
-      example: rx
-      default_field: false
-    - name: enrichments.indicator.pe.sections.name
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Section names of the file.
-      example: .text, .data
-      default_field: false
-    - name: enrichments.indicator.pe.sections.raw_size
-      level: extended
-      type: long
-      format: bytes
-      description: Size of the section or the dize of the initialized data on disk.
-      example: 198144
-      default_field: false
-    - name: enrichments.indicator.pe.sections.virtual_address
-      level: extended
-      type: long
-      format: bytes
-      description: Virtual address available to the file.
-      example: 8192
       default_field: false
     - name: enrichments.indicator.port
       level: extended
@@ -10019,11 +9992,11 @@
       level: extended
       type: keyword
       ignore_above: 1024
-      description: "Identifies the confidence rating assigned by the provider using\
-        \ STIX confidence scales.\nRecommended values:\n  * Not Specified, None, Low,\
-        \ Medium, High\n  * 0-10\n  * Admirality Scale (1-6)\n  * DNI Scale (5-95)\n\
-        \  * WEP Scale (Impossible - Certain)"
-      example: High
+      description: "Identifies\_the\_vendor-neutral confidence\_rating\_using\_the\
+        \ None/Low/Medium/High\_scale defined in Appendix A of the STIX 2.1 framework.\
+        \ Vendor-specific confidence scales may be added as custom fields.\nExpected\
+        \ values are:\n  * Not Specified\n  * None\n  * Low\n  * Medium\n  * High"
+      example: Medium
       default_field: false
     - name: indicator.description
       level: extended
@@ -10398,6 +10371,36 @@
       description: Primary group name of the file.
       example: alice
       default_field: false
+    - name: indicator.file.hash.md5
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: MD5 hash.
+      default_field: false
+    - name: indicator.file.hash.sha1
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SHA1 hash.
+      default_field: false
+    - name: indicator.file.hash.sha256
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SHA256 hash.
+      default_field: false
+    - name: indicator.file.hash.sha512
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SHA512 hash.
+      default_field: false
+    - name: indicator.file.hash.ssdeep
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SSDEEP hash.
+      default_field: false
     - name: indicator.file.inode
       level: extended
       type: keyword
@@ -10450,6 +10453,269 @@
       description: Full path to the file, including the file name. It should include
         the drive letter, when appropriate.
       example: /home/alice/example.png
+      default_field: false
+    - name: indicator.file.pe.architecture
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: CPU architecture target for the file.
+      example: x64
+      default_field: false
+    - name: indicator.file.pe.authentihash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Authentihash of the PE file.
+      example: ac9555d914bbb112ecc5f15bb9887ca8371f493ab0941344e976bb8410c8aa78
+      default_field: false
+    - name: indicator.file.pe.company
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Internal company name of the file, provided at compile-time.
+      example: Microsoft Corporation
+      default_field: false
+    - name: indicator.file.pe.compile_timestamp
+      level: extended
+      type: date
+      description: Compile timestamp of the PE file.
+      example: '2020-11-05T17:25:47.000Z'
+      default_field: false
+    - name: indicator.file.pe.compiler.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the compiler
+      example: Clang
+      default_field: false
+    - name: indicator.file.pe.compiler.version
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Version of the compiler.
+      example: 11.0.0
+      default_field: false
+    - name: indicator.file.pe.creation_date
+      level: extended
+      type: date
+      description: Extracted when possible from the file's metadata. Indicates when
+        it was built or compiled. It can also be faked by malware creators.
+      example: '2020-11-05T17:25:47.000Z'
+      default_field: false
+    - name: indicator.file.pe.debug
+      level: extended
+      type: nested
+      description: 'An array containing an object for each debug entry, if present.
+
+        The expected fields for this nested object fall under the `debug.` prefix.'
+      default_field: false
+    - name: indicator.file.pe.debug.offset
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Debug offset information.
+      example: 1296336
+      default_field: false
+    - name: indicator.file.pe.debug.size
+      level: extended
+      type: long
+      format: bytes
+      description: Size of the debug information.
+      example: 816
+      default_field: false
+    - name: indicator.file.pe.debug.timestamp
+      level: extended
+      type: date
+      description: Timestamp of the debug information.
+      example: '2020-11-05T17:25:47.000Z'
+      default_field: false
+    - name: indicator.file.pe.debug.type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Information type generated by the debug options.
+      example: IMAGE_DEBUG_TYPE_POGO
+      default_field: false
+    - name: indicator.file.pe.description
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Internal description of the file, provided at compile-time.
+      example: Paint
+      default_field: false
+    - name: indicator.file.pe.entry_point
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Relative byte offset to the base of the PE file.
+      example: 25856
+      default_field: false
+    - name: indicator.file.pe.exports
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of symbols exported by PE
+      example: '["DllInstall", "DllRegisterServer", "DllUnregisterServer"]'
+      default_field: false
+    - name: indicator.file.pe.file_version
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Internal version of the file, provided at compile-time.
+      example: 6.3.9600.17415
+      default_field: false
+    - name: indicator.file.pe.icon.hash.dhash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Difference Hash (dhash) to find files with a visually similar icon
+        or thumbnail.
+      example: b806e17c8e330d82
+      default_field: false
+    - name: indicator.file.pe.imphash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'A hash of the imports in a PE file. An imphash -- or import hash
+        -- can be used to fingerprint binaries even after recompilation or other code-level
+        transformations have occurred, which would change more traditional hash values.
+
+        Learn more at https://www.fireeye.com/blog/threat-research/2014/01/tracking-malware-import-hashing.html.'
+      example: 0c6803c4e922103c4dca5963aad36ddf
+      default_field: false
+    - name: indicator.file.pe.imports
+      level: extended
+      type: flattened
+      description: List of all imported functions
+      example: '{ "library_name" : "mscoree.dll", "imported_functions" : "GetFileVersionInfoSizeA"
+        }'
+      default_field: false
+    - name: indicator.file.pe.machine_type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Machine type of the PE file.
+      example: Intel 386 or later, and compatibles
+      default_field: false
+    - name: indicator.file.pe.original_file_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Internal name of the file, provided at compile-time.
+      example: MSPAINT.EXE
+      default_field: false
+    - name: indicator.file.pe.packers
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of packers and tools used.
+      example: '["ASPack v2.12", ".NET executable"]'
+      default_field: false
+    - name: indicator.file.pe.product
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Internal product name of the file, provided at compile-time.
+      example: "Microsoft\xAE Windows\xAE Operating System"
+      default_field: false
+    - name: indicator.file.pe.resources
+      level: extended
+      type: nested
+      description: 'An array containing an object for each PE resource, if present.
+
+        The expected fields for this nested object fall under the `resources.` prefix.'
+      default_field: false
+    - name: indicator.file.pe.resources.chi2
+      level: extended
+      type: long
+      description: Chi-square probability distribution.
+      example: -1
+      default_field: false
+    - name: indicator.file.pe.resources.entropy
+      level: extended
+      type: long
+      description: Measurement of entropy randomness in the resources section.
+      example: 0, 1
+      default_field: false
+    - name: indicator.file.pe.resources.filetype
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: File type of the resources section.
+      example: Data
+      default_field: false
+    - name: indicator.file.pe.resources.language
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Language identification.
+      example: CHINESE SIMPLIFIED
+      default_field: false
+    - name: indicator.file.pe.resources.sha256
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SHA256 hash of resources section.
+      example: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      default_field: false
+    - name: indicator.file.pe.resources.type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Digest of resource types.
+      example: '["RT_VERSION", "RT_MANIFEST"]'
+      default_field: false
+    - name: indicator.file.pe.rich_header.hash.md5
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: MD5 hash of the header for the PE file.
+      example: 5aa1aa0f2b4be70397a1e9e2b87627cd
+      default_field: false
+    - name: indicator.file.pe.sections
+      level: extended
+      type: nested
+      description: Data about sections of compiled binary PE
+      default_field: false
+    - name: indicator.file.pe.sections.chi2
+      level: extended
+      type: long
+      description: Chi-square probability distribution.
+      example: 3027194
+      default_field: false
+    - name: indicator.file.pe.sections.entropy
+      level: extended
+      type: float
+      description: Measurement of entropy randomness in the file.
+      example: 6.24
+      default_field: false
+    - name: indicator.file.pe.sections.flags
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Section flags of the file.
+      example: rx
+      default_field: false
+    - name: indicator.file.pe.sections.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Section names of the file.
+      example: .text, .data
+      default_field: false
+    - name: indicator.file.pe.sections.raw_size
+      level: extended
+      type: long
+      format: bytes
+      description: Size of the section or the dize of the initialized data on disk.
+      example: 198144
+      default_field: false
+    - name: indicator.file.pe.sections.virtual_address
+      level: extended
+      type: long
+      format: bytes
+      description: Virtual address available to the file.
+      example: 8192
       default_field: false
     - name: indicator.file.size
       level: extended
@@ -10574,36 +10840,6 @@
       description: The time zone of the location, such as IANA time zone name.
       example: America/Argentina/Buenos_Aires
       default_field: false
-    - name: indicator.hash.md5
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: MD5 hash.
-      default_field: false
-    - name: indicator.hash.sha1
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: SHA1 hash.
-      default_field: false
-    - name: indicator.hash.sha256
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: SHA256 hash.
-      default_field: false
-    - name: indicator.hash.sha512
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: SHA512 hash.
-      default_field: false
-    - name: indicator.hash.ssdeep
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: SSDEEP hash.
-      default_field: false
     - name: indicator.ip
       level: extended
       type: ip
@@ -10632,269 +10868,6 @@
       description: The date and time when intelligence source last modified information
         for this indicator.
       example: '2020-11-05T17:25:47.000Z'
-      default_field: false
-    - name: indicator.pe.architecture
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: CPU architecture target for the file.
-      example: x64
-      default_field: false
-    - name: indicator.pe.authentihash
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Authentihash of the PE file.
-      example: ac9555d914bbb112ecc5f15bb9887ca8371f493ab0941344e976bb8410c8aa78
-      default_field: false
-    - name: indicator.pe.company
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Internal company name of the file, provided at compile-time.
-      example: Microsoft Corporation
-      default_field: false
-    - name: indicator.pe.compile_timestamp
-      level: extended
-      type: date
-      description: Compile timestamp of the PE file.
-      example: '2020-11-05T17:25:47.000Z'
-      default_field: false
-    - name: indicator.pe.compiler.name
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Name of the compiler
-      example: Clang
-      default_field: false
-    - name: indicator.pe.compiler.version
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Version of the compiler.
-      example: 11.0.0
-      default_field: false
-    - name: indicator.pe.creation_date
-      level: extended
-      type: date
-      description: Extracted when possible from the file's metadata. Indicates when
-        it was built or compiled. It can also be faked by malware creators.
-      example: '2020-11-05T17:25:47.000Z'
-      default_field: false
-    - name: indicator.pe.debug
-      level: extended
-      type: nested
-      description: 'An array containing an object for each debug entry, if present.
-
-        The expected fields for this nested object fall under the `debug.` prefix.'
-      default_field: false
-    - name: indicator.pe.debug.offset
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Debug offset information.
-      example: 1296336
-      default_field: false
-    - name: indicator.pe.debug.size
-      level: extended
-      type: long
-      format: bytes
-      description: Size of the debug information.
-      example: 816
-      default_field: false
-    - name: indicator.pe.debug.timestamp
-      level: extended
-      type: date
-      description: Timestamp of the debug information.
-      example: '2020-11-05T17:25:47.000Z'
-      default_field: false
-    - name: indicator.pe.debug.type
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Information type generated by the debug options.
-      example: IMAGE_DEBUG_TYPE_POGO
-      default_field: false
-    - name: indicator.pe.description
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Internal description of the file, provided at compile-time.
-      example: Paint
-      default_field: false
-    - name: indicator.pe.entry_point
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Relative byte offset to the base of the PE file.
-      example: 25856
-      default_field: false
-    - name: indicator.pe.exports
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: List of symbols exported by PE
-      example: '["DllInstall", "DllRegisterServer", "DllUnregisterServer"]'
-      default_field: false
-    - name: indicator.pe.file_version
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Internal version of the file, provided at compile-time.
-      example: 6.3.9600.17415
-      default_field: false
-    - name: indicator.pe.icon.hash.dhash
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Difference Hash (dhash) to find files with a visually similar icon
-        or thumbnail.
-      example: b806e17c8e330d82
-      default_field: false
-    - name: indicator.pe.imphash
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: 'A hash of the imports in a PE file. An imphash -- or import hash
-        -- can be used to fingerprint binaries even after recompilation or other code-level
-        transformations have occurred, which would change more traditional hash values.
-
-        Learn more at https://www.fireeye.com/blog/threat-research/2014/01/tracking-malware-import-hashing.html.'
-      example: 0c6803c4e922103c4dca5963aad36ddf
-      default_field: false
-    - name: indicator.pe.imports
-      level: extended
-      type: flattened
-      description: List of all imported functions
-      example: '{ "library_name" : "mscoree.dll", "imported_functions" : "GetFileVersionInfoSizeA"
-        }'
-      default_field: false
-    - name: indicator.pe.machine_type
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Machine type of the PE file.
-      example: Intel 386 or later, and compatibles
-      default_field: false
-    - name: indicator.pe.original_file_name
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Internal name of the file, provided at compile-time.
-      example: MSPAINT.EXE
-      default_field: false
-    - name: indicator.pe.packers
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: List of packers and tools used.
-      example: '["ASPack v2.12", ".NET executable"]'
-      default_field: false
-    - name: indicator.pe.product
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Internal product name of the file, provided at compile-time.
-      example: "Microsoft\xAE Windows\xAE Operating System"
-      default_field: false
-    - name: indicator.pe.resources
-      level: extended
-      type: nested
-      description: 'An array containing an object for each PE resource, if present.
-
-        The expected fields for this nested object fall under the `resources.` prefix.'
-      default_field: false
-    - name: indicator.pe.resources.chi2
-      level: extended
-      type: long
-      description: Chi-square probability distribution.
-      example: -1
-      default_field: false
-    - name: indicator.pe.resources.entropy
-      level: extended
-      type: long
-      description: Measurement of entropy randomness in the resources section.
-      example: 0, 1
-      default_field: false
-    - name: indicator.pe.resources.filetype
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: File type of the resources section.
-      example: Data
-      default_field: false
-    - name: indicator.pe.resources.language
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Language identification.
-      example: CHINESE SIMPLIFIED
-      default_field: false
-    - name: indicator.pe.resources.sha256
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: SHA256 hash of resources section.
-      example: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-      default_field: false
-    - name: indicator.pe.resources.type
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Digest of resource types.
-      example: '["RT_VERSION", "RT_MANIFEST"]'
-      default_field: false
-    - name: indicator.pe.rich_header.hash.md5
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: MD5 hash of the header for the PE file.
-      example: 5aa1aa0f2b4be70397a1e9e2b87627cd
-      default_field: false
-    - name: indicator.pe.sections
-      level: extended
-      type: nested
-      description: Data about sections of compiled binary PE
-      default_field: false
-    - name: indicator.pe.sections.chi2
-      level: extended
-      type: long
-      description: Chi-square probability distribution.
-      example: 3027194
-      default_field: false
-    - name: indicator.pe.sections.entropy
-      level: extended
-      type: float
-      description: Measurement of entropy randomness in the file.
-      example: 6.24
-      default_field: false
-    - name: indicator.pe.sections.flags
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Section flags of the file.
-      example: rx
-      default_field: false
-    - name: indicator.pe.sections.name
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Section names of the file.
-      example: .text, .data
-      default_field: false
-    - name: indicator.pe.sections.raw_size
-      level: extended
-      type: long
-      format: bytes
-      description: Size of the section or the dize of the initialized data on disk.
-      example: 198144
-      default_field: false
-    - name: indicator.pe.sections.virtual_address
-      level: extended
-      type: long
-      format: bytes
-      description: Virtual address available to the file.
-      example: 8192
       default_field: false
     - name: indicator.port
       level: extended
