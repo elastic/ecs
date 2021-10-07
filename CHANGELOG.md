@@ -3,6 +3,14 @@
 # CHANGELOG
 All notable changes to this project will be documented in this file based on the [Keep a Changelog](http://keepachangelog.com/) Standard. This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.12.1](https://github.com/elastic/ecs/compare/v1.12.0...v1.12.1)
+
+### Schema Changes
+
+#### Bugfixes
+
+* Updating `x509` order to correct nesting. ##1621
+
 ## [1.12.0](https://github.com/elastic/ecs/compare/v1.11.0...v1.12.0)
 
 ### Schema Changes
