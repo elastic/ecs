@@ -16,23 +16,23 @@ The request is to consolidate `log.original` and `event.original` by removing `l
 
 - The internal description of the field `log.original` in [`log`](0017/log.yml) should be amended by addition of a notice of deprecation and subsequently removal if/when Deprecation progresses to Removal
 
-- The internal description of the field `event.original` in [`event`](0017/event.yml) should be updated to reflect the revised scope 
+- The internal description of the field `event.original` in [`event`](0017/event.yml) should be updated to reflect the revised scope
 
 - The extended description of `log.original` in the [`Log Fields documentation`](https://github.com/elastic/ecs/blob/master/docs/field-details.asciidoc#field-log-original) should be amended by addition of a notice of deprecation and subsequently removal if/when Deprecation progresses to Removal
 
 - The extended description of `event.original` in the [`Event Fields documentation`](https://github.com/elastic/ecs/blob/master/docs/field-details.asciidoc#field-event-original) should be amended to clarify the absorption of `log.original`
 
- 
+
 ## Usage
 
-The following examples are taken verbatim from the existing field definitions 
+The following examples are taken verbatim from the existing field definitions
 and are included for completeness.
 
-These are the raw texts of entire events, for example a log message. They 
-differ from the extracted `message` field in that no processing has been 
-applied and the field is not indexed by default. The field can still be 
+These are the raw texts of entire events, for example a log message. They
+differ from the extracted `message` field in that no processing has been
+applied and the field is not indexed by default. The field can still be
 retrieved from `_source` and is well-suited to demonstration of log integrity
-or in a re-index pipeline. 
+or in a re-index pipeline.
 
 ## Source data
 
