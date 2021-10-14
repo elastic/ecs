@@ -3,6 +3,57 @@
 # CHANGELOG
 All notable changes to this project will be documented in this file based on the [Keep a Changelog](http://keepachangelog.com/) Standard. This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.12.1](https://github.com/elastic/ecs/compare/v1.12.0...v1.12.1)
+
+### Schema Changes
+
+#### Bugfixes
+
+* Updating `x509` order to correct nesting. ##1621
+
+## [1.12.0](https://github.com/elastic/ecs/compare/v1.11.0...v1.12.0)
+
+### Schema Changes
+
+#### Bugfixes
+
+* Updating `hash` order to correct nesting. #1603
+* Removing incorrect `hash` reuses. #1604
+* Updating `pe` order to correct nesting. #1605
+* Removing incorrect `pe` reuses. #1606
+* Correcting `enrichments` to an `array` type. #1608
+
+#### Added
+
+* Added `file.fork_name` field. #1288
+* Added `service.address` field. #1537
+* Added `service.environment` as a beta field. #1541
+* Added `process.end` field. #1544
+* Added container metric fields into experimental schema. #1546
+* Add `code_signature.digest_algorithm` and `code_signature.timestamp` fields. #1557
+* Add `email.*` field set in the experimental fields. #1569
+
+#### Improvements
+
+* Beta migration on some `keyword` fields to `wildcard`. #1517
+* Promote `threat.software.*` and `threat.group.*` fields to GA. #1540
+* Update `user.name` and `user.id` examples for clarity. #1566
+* Beta migration of `text` and `.text` multi-fields to `match_only_text`. #1532, #1571
+
+### Tooling and Artifact Changes
+
+#### Added
+
+* Support ES 6.x type fallback for `match_only_text` field types. #1528
+
+#### Bugfixes
+
+* Prevent failure if no files need to be deleted `find | xargs rm`. #1588
+
+#### Improvements
+
+* Document field type family interoperability in FAQ. #1591
+
 ## [1.11.0](https://github.com/elastic/ecs/compare/v1.10.0...v1.11.0)
 
 ### Schema Changes
