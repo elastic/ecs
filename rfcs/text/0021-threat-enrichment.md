@@ -37,6 +37,7 @@ threat.enrichments.matched.atomic | keyword | 2f5207f2add28b46267dc99bc5382480 |
 threat.enrichments.matched.id | keyword | db8fb691ffdb4432a09ef171659c8993e6ddea1ea9b21381b93269d1bf2d0bc2 | The _id of the indicator document that matched the event
 threat.enrichments.matched.index | keyword | threat-index-000001 | The _index of the indicator document that matched the event
 threat.enrichments.matched.field | keyword | host.name | Identifies the field on the enriched event that matched the indicator
+threat.enrichments.matched.occurred | date | 2021-10-05T17:00:58.326Z | Indicates when the match was generated
 threat.enrichments.matched.type | keyword | indicator_match_rule | Identifies the type of the atomic indicator that matched a local environment endpoint or network event.
 
 <!--
@@ -106,6 +107,7 @@ If it is determined that an event matches a given indicator, that event can be e
           "field": "file.hash.sha256",
           "id": "abc123f03",
           "index": "threat-indicators-index-000001",
+          "occurred": "2021-10-05T17:00:58.326Z",
           "type": "indicator_match_rule"
         }
       }
@@ -137,6 +139,9 @@ If it is determined that an event matches a given indicator, that event can be e
          "match_field": "threat.indicator.file.hash.sha256",
          "enrich_fields": ["threat.indicator"]
        }
+   - script:
+     lang:  "painless"
+     inline: "ctx.threat_match.threat.matched.occurred = new SimpleDateFormat(\"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\").setTimeZone(TimeZone.getTimeZone(\"UTC\")).format(new Date());"
    - set:
      field: "threat_match.threat.matched.type"
      value: "file-sha256-policy"
