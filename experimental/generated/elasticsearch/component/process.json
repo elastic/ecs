@@ -17,6 +17,10 @@
             },
             "code_signature": {
               "properties": {
+                "digest_algorithm": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
                 "exists": {
                   "type": "boolean"
                 },
@@ -36,6 +40,9 @@
                   "ignore_above": 1024,
                   "type": "keyword"
                 },
+                "timestamp": {
+                  "type": "date"
+                },
                 "trusted": {
                   "type": "boolean"
                 },
@@ -47,8 +54,7 @@
             "command_line": {
               "fields": {
                 "text": {
-                  "norms": false,
-                  "type": "text"
+                  "type": "match_only_text"
                 }
               },
               "type": "wildcard"
@@ -170,6 +176,9 @@
                 }
               }
             },
+            "end": {
+              "type": "date"
+            },
             "entity_id": {
               "ignore_above": 1024,
               "type": "keyword"
@@ -177,11 +186,11 @@
             "executable": {
               "fields": {
                 "text": {
-                  "norms": false,
-                  "type": "text"
+                  "type": "match_only_text"
                 }
               },
-              "type": "wildcard"
+              "ignore_above": 1024,
+              "type": "keyword"
             },
             "exit_code": {
               "type": "long"
@@ -213,11 +222,11 @@
             "name": {
               "fields": {
                 "text": {
-                  "norms": false,
-                  "type": "text"
+                  "type": "match_only_text"
                 }
               },
-              "type": "wildcard"
+              "ignore_above": 1024,
+              "type": "keyword"
             },
             "parent": {
               "properties": {
@@ -230,6 +239,10 @@
                 },
                 "code_signature": {
                   "properties": {
+                    "digest_algorithm": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    },
                     "exists": {
                       "type": "boolean"
                     },
@@ -249,6 +262,9 @@
                       "ignore_above": 1024,
                       "type": "keyword"
                     },
+                    "timestamp": {
+                      "type": "date"
+                    },
                     "trusted": {
                       "type": "boolean"
                     },
@@ -260,8 +276,7 @@
                 "command_line": {
                   "fields": {
                     "text": {
-                      "norms": false,
-                      "type": "text"
+                      "type": "match_only_text"
                     }
                   },
                   "type": "wildcard"
@@ -383,6 +398,9 @@
                     }
                   }
                 },
+                "end": {
+                  "type": "date"
+                },
                 "entity_id": {
                   "ignore_above": 1024,
                   "type": "keyword"
@@ -390,11 +408,11 @@
                 "executable": {
                   "fields": {
                     "text": {
-                      "norms": false,
-                      "type": "text"
+                      "type": "match_only_text"
                     }
                   },
-                  "type": "wildcard"
+                  "ignore_above": 1024,
+                  "type": "keyword"
                 },
                 "exit_code": {
                   "type": "long"
@@ -426,11 +444,11 @@
                 "name": {
                   "fields": {
                     "text": {
-                      "norms": false,
-                      "type": "text"
+                      "type": "match_only_text"
                     }
                   },
-                  "type": "wildcard"
+                  "ignore_above": 1024,
+                  "type": "keyword"
                 },
                 "pe": {
                   "properties": {
@@ -523,7 +541,8 @@
                       "type": "keyword"
                     },
                     "original_file_name": {
-                      "type": "wildcard"
+                      "ignore_above": 1024,
+                      "type": "keyword"
                     },
                     "packers": {
                       "ignore_above": 1024,
@@ -605,9 +624,6 @@
                 "pid": {
                   "type": "long"
                 },
-                "ppid": {
-                  "type": "long"
-                },
                 "start": {
                   "type": "date"
                 },
@@ -617,18 +633,19 @@
                       "type": "long"
                     },
                     "name": {
-                      "type": "wildcard"
+                      "ignore_above": 1024,
+                      "type": "keyword"
                     }
                   }
                 },
                 "title": {
                   "fields": {
                     "text": {
-                      "norms": false,
-                      "type": "text"
+                      "type": "match_only_text"
                     }
                   },
-                  "type": "wildcard"
+                  "ignore_above": 1024,
+                  "type": "keyword"
                 },
                 "uptime": {
                   "type": "long"
@@ -636,11 +653,11 @@
                 "working_directory": {
                   "fields": {
                     "text": {
-                      "norms": false,
-                      "type": "text"
+                      "type": "match_only_text"
                     }
                   },
-                  "type": "wildcard"
+                  "ignore_above": 1024,
+                  "type": "keyword"
                 }
               }
             },
@@ -735,7 +752,8 @@
                   "type": "keyword"
                 },
                 "original_file_name": {
-                  "type": "wildcard"
+                  "ignore_above": 1024,
+                  "type": "keyword"
                 },
                 "packers": {
                   "ignore_above": 1024,
@@ -817,9 +835,6 @@
             "pid": {
               "type": "long"
             },
-            "ppid": {
-              "type": "long"
-            },
             "start": {
               "type": "date"
             },
@@ -834,6 +849,10 @@
                 },
                 "code_signature": {
                   "properties": {
+                    "digest_algorithm": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    },
                     "exists": {
                       "type": "boolean"
                     },
@@ -853,6 +872,9 @@
                       "ignore_above": 1024,
                       "type": "keyword"
                     },
+                    "timestamp": {
+                      "type": "date"
+                    },
                     "trusted": {
                       "type": "boolean"
                     },
@@ -864,8 +886,7 @@
                 "command_line": {
                   "fields": {
                     "text": {
-                      "norms": false,
-                      "type": "text"
+                      "type": "match_only_text"
                     }
                   },
                   "type": "wildcard"
@@ -987,6 +1008,9 @@
                     }
                   }
                 },
+                "end": {
+                  "type": "date"
+                },
                 "entity_id": {
                   "ignore_above": 1024,
                   "type": "keyword"
@@ -994,11 +1018,11 @@
                 "executable": {
                   "fields": {
                     "text": {
-                      "norms": false,
-                      "type": "text"
+                      "type": "match_only_text"
                     }
                   },
-                  "type": "wildcard"
+                  "ignore_above": 1024,
+                  "type": "keyword"
                 },
                 "exit_code": {
                   "type": "long"
@@ -1030,11 +1054,11 @@
                 "name": {
                   "fields": {
                     "text": {
-                      "norms": false,
-                      "type": "text"
+                      "type": "match_only_text"
                     }
                   },
-                  "type": "wildcard"
+                  "ignore_above": 1024,
+                  "type": "keyword"
                 },
                 "parent": {
                   "properties": {
@@ -1047,6 +1071,10 @@
                     },
                     "code_signature": {
                       "properties": {
+                        "digest_algorithm": {
+                          "ignore_above": 1024,
+                          "type": "keyword"
+                        },
                         "exists": {
                           "type": "boolean"
                         },
@@ -1066,6 +1094,9 @@
                           "ignore_above": 1024,
                           "type": "keyword"
                         },
+                        "timestamp": {
+                          "type": "date"
+                        },
                         "trusted": {
                           "type": "boolean"
                         },
@@ -1077,8 +1108,7 @@
                     "command_line": {
                       "fields": {
                         "text": {
-                          "norms": false,
-                          "type": "text"
+                          "type": "match_only_text"
                         }
                       },
                       "type": "wildcard"
@@ -1200,6 +1230,9 @@
                         }
                       }
                     },
+                    "end": {
+                      "type": "date"
+                    },
                     "entity_id": {
                       "ignore_above": 1024,
                       "type": "keyword"
@@ -1207,11 +1240,11 @@
                     "executable": {
                       "fields": {
                         "text": {
-                          "norms": false,
-                          "type": "text"
+                          "type": "match_only_text"
                         }
                       },
-                      "type": "wildcard"
+                      "ignore_above": 1024,
+                      "type": "keyword"
                     },
                     "exit_code": {
                       "type": "long"
@@ -1243,11 +1276,11 @@
                     "name": {
                       "fields": {
                         "text": {
-                          "norms": false,
-                          "type": "text"
+                          "type": "match_only_text"
                         }
                       },
-                      "type": "wildcard"
+                      "ignore_above": 1024,
+                      "type": "keyword"
                     },
                     "pe": {
                       "properties": {
@@ -1340,7 +1373,8 @@
                           "type": "keyword"
                         },
                         "original_file_name": {
-                          "type": "wildcard"
+                          "ignore_above": 1024,
+                          "type": "keyword"
                         },
                         "packers": {
                           "ignore_above": 1024,
@@ -1422,9 +1456,6 @@
                     "pid": {
                       "type": "long"
                     },
-                    "ppid": {
-                      "type": "long"
-                    },
                     "start": {
                       "type": "date"
                     },
@@ -1434,18 +1465,19 @@
                           "type": "long"
                         },
                         "name": {
-                          "type": "wildcard"
+                          "ignore_above": 1024,
+                          "type": "keyword"
                         }
                       }
                     },
                     "title": {
                       "fields": {
                         "text": {
-                          "norms": false,
-                          "type": "text"
+                          "type": "match_only_text"
                         }
                       },
-                      "type": "wildcard"
+                      "ignore_above": 1024,
+                      "type": "keyword"
                     },
                     "uptime": {
                       "type": "long"
@@ -1453,11 +1485,11 @@
                     "working_directory": {
                       "fields": {
                         "text": {
-                          "norms": false,
-                          "type": "text"
+                          "type": "match_only_text"
                         }
                       },
-                      "type": "wildcard"
+                      "ignore_above": 1024,
+                      "type": "keyword"
                     }
                   }
                 },
@@ -1552,7 +1584,8 @@
                       "type": "keyword"
                     },
                     "original_file_name": {
-                      "type": "wildcard"
+                      "ignore_above": 1024,
+                      "type": "keyword"
                     },
                     "packers": {
                       "ignore_above": 1024,
@@ -1634,9 +1667,6 @@
                 "pid": {
                   "type": "long"
                 },
-                "ppid": {
-                  "type": "long"
-                },
                 "start": {
                   "type": "date"
                 },
@@ -1646,18 +1676,19 @@
                       "type": "long"
                     },
                     "name": {
-                      "type": "wildcard"
+                      "ignore_above": 1024,
+                      "type": "keyword"
                     }
                   }
                 },
                 "title": {
                   "fields": {
                     "text": {
-                      "norms": false,
-                      "type": "text"
+                      "type": "match_only_text"
                     }
                   },
-                  "type": "wildcard"
+                  "ignore_above": 1024,
+                  "type": "keyword"
                 },
                 "uptime": {
                   "type": "long"
@@ -1665,11 +1696,11 @@
                 "working_directory": {
                   "fields": {
                     "text": {
-                      "norms": false,
-                      "type": "text"
+                      "type": "match_only_text"
                     }
                   },
-                  "type": "wildcard"
+                  "ignore_above": 1024,
+                  "type": "keyword"
                 }
               }
             },
@@ -1679,18 +1710,19 @@
                   "type": "long"
                 },
                 "name": {
-                  "type": "wildcard"
+                  "ignore_above": 1024,
+                  "type": "keyword"
                 }
               }
             },
             "title": {
               "fields": {
                 "text": {
-                  "norms": false,
-                  "type": "text"
+                  "type": "match_only_text"
                 }
               },
-              "type": "wildcard"
+              "ignore_above": 1024,
+              "type": "keyword"
             },
             "uptime": {
               "type": "long"
@@ -1698,11 +1730,11 @@
             "working_directory": {
               "fields": {
                 "text": {
-                  "norms": false,
-                  "type": "text"
+                  "type": "match_only_text"
                 }
               },
-              "type": "wildcard"
+              "ignore_above": 1024,
+              "type": "keyword"
             }
           }
         }

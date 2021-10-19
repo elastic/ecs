@@ -64,7 +64,7 @@ For structured logs without an original message field, other fields can be conca
 
 If multiple messages exist, they can be combined into one message.
 
-type: text
+type: match_only_text
 
 
 
@@ -94,6 +94,7 @@ example: `["production", "env2"]`
 // ===============================================================
 
 |=====
+
 
 [[ecs-agent]]
 === Agent Fields
@@ -221,6 +222,7 @@ example: `6.0.0-rc2`
 
 |=====
 
+
 [[ecs-as]]
 === Autonomous System Fields
 
@@ -261,7 +263,7 @@ type: keyword
 
 Multi-fields:
 
-* as.organization.name.text (type: text)
+* as.organization.name.text (type: match_only_text)
 
 
 
@@ -295,10 +297,6 @@ The `as` fields are expected to be nested at:
 
 
 Note also that the `as` fields are not expected to be used directly at the root of the events.
-
-
-
-
 [[ecs-client]]
 === Client Fields
 
@@ -530,9 +528,6 @@ example: `co.uk`
 [discrete]
 ==== Field Reuse
 
-
-
-
 [[ecs-client-nestings]]
 [discrete]
 ===== Field sets that can be nested under Client
@@ -566,6 +561,7 @@ example: `co.uk`
 
 
 |=====
+
 
 [[ecs-cloud]]
 === Cloud Fields
@@ -769,6 +765,16 @@ example: `lambda`
 
 |=====
 
+
+
+[discrete]
+==== Cloud Field Usage
+
+For usage and examples of the cloud fields, please see the <<ecs-cloud-usage, Cloud Fields Usage and Examples>> section.
+
+include::usage/cloud.asciidoc[]
+
+
 [[ecs-code_signature]]
 === Code Signature Fields
 
@@ -780,6 +786,24 @@ These fields contain information about binary code signatures.
 [options="header"]
 |=====
 | Field  | Description | Level
+
+// ===============================================================
+
+|
+[[field-code-signature-digest-algorithm]]
+<<field-code-signature-digest-algorithm, code_signature.digest_algorithm>>
+
+| The hashing algorithm used to sign the process.
+
+This value can distinguish signatures when a file is signed multiple times by the same signer but with a different digest algorithm.
+
+type: keyword
+
+
+
+example: `sha256`
+
+| extended
 
 // ===============================================================
 
@@ -870,6 +894,22 @@ example: `EQHXZ8M8AV`
 // ===============================================================
 
 |
+[[field-code-signature-timestamp]]
+<<field-code-signature-timestamp, code_signature.timestamp>>
+
+| Date and time when the code signature was generated and signed.
+
+type: date
+
+
+
+example: `2021-01-01T12:10:30Z`
+
+| extended
+
+// ===============================================================
+
+|
 [[field-code-signature-trusted]]
 <<field-code-signature-trusted, code_signature.trusted>>
 
@@ -921,10 +961,6 @@ The `code_signature` fields are expected to be nested at:
 
 
 Note also that the `code_signature` fields are not expected to be used directly at the root of the events.
-
-
-
-
 [[ecs-container]]
 === Container Fields
 
@@ -1042,6 +1078,7 @@ example: `docker`
 
 |=====
 
+
 [[ecs-data_stream]]
 === Data Stream Fields
 
@@ -1129,6 +1166,7 @@ example: `logs`
 // ===============================================================
 
 |=====
+
 
 [[ecs-destination]]
 === Destination Fields
@@ -1359,9 +1397,6 @@ example: `co.uk`
 [discrete]
 ==== Field Reuse
 
-
-
-
 [[ecs-destination-nestings]]
 [discrete]
 ===== Field sets that can be nested under Destination
@@ -1395,6 +1430,7 @@ example: `co.uk`
 
 
 |=====
+
 
 [[ecs-dll]]
 === DLL Fields
@@ -1459,9 +1495,6 @@ example: `C:\Windows\System32\kernel32.dll`
 [discrete]
 ==== Field Reuse
 
-
-
-
 [[ecs-dll-nestings]]
 [discrete]
 ===== Field sets that can be nested under DLL
@@ -1495,6 +1528,7 @@ example: `C:\Windows\System32\kernel32.dll`
 
 
 |=====
+
 
 [[ecs-dns]]
 === DNS Fields
@@ -1837,6 +1871,7 @@ example: `answer`
 
 |=====
 
+
 [[ecs-ecs]]
 === ECS Fields
 
@@ -1870,6 +1905,7 @@ example: `1.0.0`
 // ===============================================================
 
 |=====
+
 
 [[ecs-elf]]
 === ELF Header Fields
@@ -2384,10 +2420,6 @@ The `elf` fields are expected to be nested at:
 
 
 Note also that the `elf` fields are not expected to be used directly at the root of the events.
-
-
-
-
 [[ecs-error]]
 === Error Fields
 
@@ -2442,7 +2474,7 @@ type: keyword
 
 | Error message.
 
-type: text
+type: match_only_text
 
 
 
@@ -2458,11 +2490,11 @@ type: text
 
 | The stack trace of this error in plain text.
 
-type: keyword
+type: wildcard
 
 Multi-fields:
 
-* error.stack_trace.text (type: text)
+* error.stack_trace.text (type: match_only_text)
 
 
 
@@ -2491,6 +2523,7 @@ example: `java.lang.NullPointerException`
 // ===============================================================
 
 |=====
+
 
 [[ecs-event]]
 === Event Fields
@@ -2576,7 +2609,7 @@ Note: this field should contain an array of values.
 
 *Important*: The field value must be one of the following:
 
-authentication, configuration, database, driver, file, host, iam, intrusion_detection, malware, network, package, process, registry, session, web
+authentication, configuration, database, driver, file, host, iam, intrusion_detection, malware, network, package, process, registry, session, threat, web
 
 To learn more about when to use which value, visit the page
 <<ecs-allowed-values-event-category,allowed values for event.category>>
@@ -2749,7 +2782,7 @@ type: keyword
 
 *Important*: The field value must be one of the following:
 
-alert, event, metric, state, pipeline_error, signal
+alert, enrichment, event, metric, state, pipeline_error, signal
 
 To learn more about when to use which value, visit the page
 <<ecs-allowed-values-event-kind,allowed values for event.kind>>
@@ -3006,7 +3039,7 @@ Note: this field should contain an array of values.
 
 *Important*: The field value must be one of the following:
 
-access, admin, allowed, change, connection, creation, deletion, denied, end, error, group, info, installation, protocol, start, user
+access, admin, allowed, change, connection, creation, deletion, denied, end, error, group, indicator, info, installation, protocol, start, user
 
 To learn more about when to use which value, visit the page
 <<ecs-allowed-values-event-type,allowed values for event.type>>
@@ -3035,6 +3068,7 @@ example: `https://mysystem.example.com/alert/5271dedb-f5b0-4218-87f0-4ac4870a38f
 // ===============================================================
 
 |=====
+
 
 [[ecs-file]]
 === File Fields
@@ -3353,7 +3387,7 @@ type: keyword
 
 Multi-fields:
 
-* file.path.text (type: text)
+* file.path.text (type: match_only_text)
 
 
 
@@ -3393,7 +3427,7 @@ type: keyword
 
 Multi-fields:
 
-* file.target_path.text (type: text)
+* file.target_path.text (type: match_only_text)
 
 
 
@@ -3452,9 +3486,6 @@ The `file` fields are expected to be nested at:
 
 Note also that the `file` fields may be used directly at the root of the events.
 
-
-
-
 [[ecs-file-nestings]]
 [discrete]
 ===== Field sets that can be nested under File
@@ -3503,6 +3534,7 @@ These fields contain Linux Executable Linkable Format (ELF) metadata.
 
 
 |=====
+
 
 [[ecs-geo]]
 === Geo Fields
@@ -3728,10 +3760,6 @@ The `geo` fields are expected to be nested at:
 
 
 Note also that the `geo` fields are not expected to be used directly at the root of the events.
-
-
-
-
 [[ecs-group]]
 === Group Fields
 
@@ -3808,8 +3836,6 @@ The `group` fields are expected to be nested at:
 
 
 Note also that the `group` fields may be used directly at the root of the events.
-
-
 
 
 [[ecs-hash]]
@@ -3924,16 +3950,8 @@ The `hash` fields are expected to be nested at:
 
 * `process.hash`
 
-* `threat.enrichments.indicator.hash`
-
-* `threat.indicator.hash`
-
 
 Note also that the `hash` fields are not expected to be used directly at the root of the events.
-
-
-
-
 [[ecs-host]]
 === Host Fields
 
@@ -4235,9 +4253,6 @@ example: `1325`
 [discrete]
 ==== Field Reuse
 
-
-
-
 [[ecs-host-nestings]]
 [discrete]
 ===== Field sets that can be nested under Host
@@ -4264,6 +4279,7 @@ example: `1325`
 
 
 |=====
+
 
 [[ecs-http]]
 === HTTP Fields
@@ -4301,11 +4317,11 @@ example: `887`
 
 | The full HTTP request body.
 
-type: keyword
+type: wildcard
 
 Multi-fields:
 
-* http.request.body.content.text (type: text)
+* http.request.body.content.text (type: match_only_text)
 
 
 
@@ -4425,11 +4441,11 @@ example: `887`
 
 | The full HTTP response body.
 
-type: keyword
+type: wildcard
 
 Multi-fields:
 
-* http.response.body.content.text (type: text)
+* http.response.body.content.text (type: match_only_text)
 
 
 
@@ -4509,6 +4525,7 @@ example: `1.1`
 
 |=====
 
+
 [[ecs-interface]]
 === Interface Fields
 
@@ -4585,10 +4602,6 @@ The `interface` fields are expected to be nested at:
 
 
 Note also that the `interface` fields are not expected to be used directly at the root of the events.
-
-
-
-
 [[ecs-log]]
 === Log Fields
 
@@ -4667,7 +4680,7 @@ example: `org.elasticsearch.bootstrap.Bootstrap`
 
 | The line number of the file containing the source code which originated the log event.
 
-type: integer
+type: long
 
 
 
@@ -4708,28 +4721,6 @@ type: keyword
 example: `init`
 
 | extended
-
-// ===============================================================
-
-|
-[[field-log-original]]
-<<field-log-original, log.original>>
-
-| Deprecated for removal in next major version release. This field is superseded by  `event.original`.
-
-This is the original log message and contains the full log message before splitting it up in multiple parts.
-
-In contrast to the `message` field which can contain an extracted part of the log message, this field contains the original, full log message. It can have already some modifications applied like encoding or new lines removed to clean up the log message.
-
-This field is not indexed and doc_values are disabled so it can't be queried but the value can be retrieved from `_source`.
-
-type: keyword
-
-
-
-example: `Sep 19 08:26:10 localhost My log`
-
-| core
 
 // ===============================================================
 
@@ -4838,6 +4829,7 @@ example: `Error`
 // ===============================================================
 
 |=====
+
 
 [[ecs-network]]
 === Network Fields
@@ -5090,9 +5082,6 @@ example: `ipv4`
 [discrete]
 ==== Field Reuse
 
-
-
-
 [[ecs-network-nestings]]
 [discrete]
 ===== Field sets that can be nested under Network
@@ -5119,6 +5108,7 @@ example: `ipv4`
 
 
 |=====
+
 
 [[ecs-observer]]
 === Observer Fields
@@ -5363,9 +5353,6 @@ type: keyword
 [discrete]
 ==== Field Reuse
 
-
-
-
 [[ecs-observer-nestings]]
 [discrete]
 ===== Field sets that can be nested under Observer
@@ -5420,6 +5407,7 @@ type: keyword
 
 
 |=====
+
 
 [[ecs-orchestrator]]
 === Orchestrator Fields
@@ -5581,6 +5569,7 @@ example: `kubernetes`
 
 |=====
 
+
 [[ecs-organization]]
 === Organization Fields
 
@@ -5623,7 +5612,7 @@ type: keyword
 
 Multi-fields:
 
-* organization.name.text (type: text)
+* organization.name.text (type: match_only_text)
 
 
 
@@ -5636,6 +5625,7 @@ Multi-fields:
 // ===============================================================
 
 |=====
+
 
 [[ecs-os]]
 === Operating System Fields
@@ -5677,7 +5667,7 @@ type: keyword
 
 Multi-fields:
 
-* os.full.text (type: text)
+* os.full.text (type: match_only_text)
 
 
 
@@ -5715,7 +5705,7 @@ type: keyword
 
 Multi-fields:
 
-* os.name.text (type: text)
+* os.name.text (type: match_only_text)
 
 
 
@@ -5795,10 +5785,6 @@ The `os` fields are expected to be nested at:
 
 
 Note also that the `os` fields are not expected to be used directly at the root of the events.
-
-
-
-
 [[ecs-package]]
 === Package Fields
 
@@ -6029,6 +6015,7 @@ example: `1.12.9`
 
 |=====
 
+
 [[ecs-pe]]
 === PE Header Fields
 
@@ -6171,16 +6158,8 @@ The `pe` fields are expected to be nested at:
 
 * `process.pe`
 
-* `threat.enrichments.indicator.pe`
-
-* `threat.indicator.pe`
-
 
 Note also that the `pe` fields are not expected to be used directly at the root of the events.
-
-
-
-
 [[ecs-process]]
 === Process Fields
 
@@ -6244,17 +6223,33 @@ example: `4`
 
 Some arguments may be filtered to protect sensitive information.
 
-type: keyword
+type: wildcard
 
 Multi-fields:
 
-* process.command_line.text (type: text)
+* process.command_line.text (type: match_only_text)
 
 
 
 
 
 example: `/usr/bin/ssh -l user 10.0.0.16`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-process-end]]
+<<field-process-end, process.end>>
+
+| The time the process ended.
+
+type: date
+
+
+
+example: `2016-05-23T08:05:34.853Z`
 
 | extended
 
@@ -6290,7 +6285,7 @@ type: keyword
 
 Multi-fields:
 
-* process.executable.text (type: text)
+* process.executable.text (type: match_only_text)
 
 
 
@@ -6332,7 +6327,7 @@ type: keyword
 
 Multi-fields:
 
-* process.name.text (type: text)
+* process.name.text (type: match_only_text)
 
 
 
@@ -6373,22 +6368,6 @@ type: long
 example: `4242`
 
 | core
-
-// ===============================================================
-
-|
-[[field-process-ppid]]
-<<field-process-ppid, process.ppid>>
-
-| Parent process' pid.
-
-type: long
-
-
-
-example: `4241`
-
-| extended
 
 // ===============================================================
 
@@ -6452,7 +6431,7 @@ type: keyword
 
 Multi-fields:
 
-* process.title.text (type: text)
+* process.title.text (type: match_only_text)
 
 
 
@@ -6490,7 +6469,7 @@ type: keyword
 
 Multi-fields:
 
-* process.working_directory.text (type: text)
+* process.working_directory.text (type: match_only_text)
 
 
 
@@ -6514,9 +6493,6 @@ The `process` fields are expected to be nested at:
 
 
 Note also that the `process` fields may be used directly at the root of the events.
-
-
-
 
 [[ecs-process-nestings]]
 [discrete]
@@ -6567,6 +6543,7 @@ These fields contain Linux Executable Linkable Format (ELF) metadata.
 
 |=====
 
+
 [[ecs-registry]]
 === Registry Fields
 
@@ -6607,7 +6584,7 @@ example: `ZQBuAC0AVQBTAAAAZQBuAAAAAAA=`
 
 Populated as an array when writing string data to the registry. For single string registry types (REG_SZ, REG_EXPAND_SZ), this should be an array with one string. For sequences of string with REG_MULTI_SZ, this array will be variable length. For numeric data, such as REG_DWORD and REG_QWORD, this should be populated with the decimal representation (e.g `"1"`).
 
-type: keyword
+type: wildcard
 
 
 Note: this field should contain an array of values.
@@ -6716,8 +6693,6 @@ The `registry` fields are expected to be nested at:
 Note also that the `registry` fields may be used directly at the root of the events.
 
 
-
-
 [[ecs-related]]
 === Related Fields
 
@@ -6813,6 +6788,7 @@ Note: this field should contain an array of values.
 // ===============================================================
 
 |=====
+
 
 [[ecs-rule]]
 === Rule Fields
@@ -6996,6 +6972,7 @@ example: `1.1`
 // ===============================================================
 
 |=====
+
 
 [[ecs-server]]
 === Server Fields
@@ -7228,9 +7205,6 @@ example: `co.uk`
 [discrete]
 ==== Field Reuse
 
-
-
-
 [[ecs-server-nestings]]
 [discrete]
 ===== Field sets that can be nested under Server
@@ -7265,6 +7239,7 @@ example: `co.uk`
 
 |=====
 
+
 [[ecs-service]]
 === Service Fields
 
@@ -7278,6 +7253,44 @@ These fields help you find and correlate logs for a specific service and version
 [options="header"]
 |=====
 | Field  | Description | Level
+
+// ===============================================================
+
+|
+[[field-service-address]]
+<<field-service-address, service.address>>
+
+| Address where data about this service was collected from.
+
+This should be a URI, network address (ipv4:port or [ipv6]:port) or a resource path (sockets).
+
+type: keyword
+
+
+
+example: `172.26.0.2:5432`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-service-environment]]
+<<field-service-environment, service.environment>>
+
+| beta:[ This field is beta and subject to change. ]
+
+Identifies the environment where the service is running.
+
+If the same service runs in different environments (production, staging, QA, development, etc.), the environment can identify other instances of the same service. Can also group services and applications from the same environment.
+
+type: keyword
+
+
+
+example: `production`
+
+| extended
 
 // ===============================================================
 
@@ -7414,6 +7427,16 @@ example: `3.2.4`
 // ===============================================================
 
 |=====
+
+
+
+[discrete]
+==== Service Field Usage
+
+For usage and examples of the service fields, please see the <<ecs-service-usage, Service Fields Usage and Examples>> section.
+
+include::usage/service.asciidoc[]
+
 
 [[ecs-source]]
 === Source Fields
@@ -7644,9 +7667,6 @@ example: `co.uk`
 [discrete]
 ==== Field Reuse
 
-
-
-
 [[ecs-source-nestings]]
 [discrete]
 ===== Field sets that can be nested under Source
@@ -7681,6 +7701,7 @@ example: `co.uk`
 
 |=====
 
+
 [[ecs-threat]]
 === Threat Fields
 
@@ -7706,6 +7727,9 @@ These fields are for users to classify alerts from all of their sources (e.g. ID
 A list of associated indicators objects enriching the event, and the context of that association/enrichment.
 
 type: nested
+
+
+Note: this field should contain an array of values.
 
 
 
@@ -7739,23 +7763,25 @@ type: object
 
 | beta:[ This field is beta and subject to change. ]
 
-Identifies the confidence rating assigned by the provider using STIX confidence scales. Expected values:
+Identifies the vendor-neutral confidence rating using the None/Low/Medium/High scale defined in Appendix A of the STIX 2.1 framework. Vendor-specific confidence scales may be added as custom fields.
 
-  * Not Specified, None, Low, Medium, High
+Expected values are:
 
-  * 0-10
+  * Not Specified
 
-  * Admirality Scale (1-6)
+  * None
 
-  * DNI Scale (5-95)
+  * Low
 
-  * WEP Scale (Impossible - Certain)
+  * Medium
+
+  * High
 
 type: keyword
 
 
 
-example: `High`
+example: `Medium`
 
 | extended
 
@@ -8147,9 +8173,9 @@ example: `MITRE ATT&CK`
 [[field-threat-group-alias]]
 <<field-threat-group-alias, threat.group.alias>>
 
-| beta:[ This field is beta and subject to change. ]
+| The alias(es) of the group for a set of related intrusion activity that are tracked by a common name in the security community.
 
-The alias(es) of the group for a set of related intrusion activity that are tracked by a common name in the security community. While not required, you can use a MITRE ATT&CK® group alias(es).
+While not required, you can use a MITRE ATT&CK® group alias(es).
 
 type: keyword
 
@@ -8168,9 +8194,9 @@ example: `[ "Magecart Group 6" ]`
 [[field-threat-group-id]]
 <<field-threat-group-id, threat.group.id>>
 
-| beta:[ This field is beta and subject to change. ]
+| The id of the group for a set of related intrusion activity that are tracked by a common name in the security community.
 
-The id of the group for a set of related intrusion activity that are tracked by a common name in the security community. While not required, you can use a MITRE ATT&CK® group id.
+While not required, you can use a MITRE ATT&CK® group id.
 
 type: keyword
 
@@ -8186,9 +8212,9 @@ example: `G0037`
 [[field-threat-group-name]]
 <<field-threat-group-name, threat.group.name>>
 
-| beta:[ This field is beta and subject to change. ]
+| The name of the group for a set of related intrusion activity that are tracked by a common name in the security community.
 
-The name of the group for a set of related intrusion activity that are tracked by a common name in the security community. While not required, you can use a MITRE ATT&CK® group name.
+While not required, you can use a MITRE ATT&CK® group name.
 
 type: keyword
 
@@ -8204,9 +8230,9 @@ example: `FIN6`
 [[field-threat-group-reference]]
 <<field-threat-group-reference, threat.group.reference>>
 
-| beta:[ This field is beta and subject to change. ]
+| The reference URL of the group for a set of related intrusion activity that are tracked by a common name in the security community.
 
-The reference URL of the group for a set of related intrusion activity that are tracked by a common name in the security community. While not required, you can use a MITRE ATT&CK® group reference URL.
+While not required, you can use a MITRE ATT&CK® group reference URL.
 
 type: keyword
 
@@ -8222,27 +8248,25 @@ example: `https://attack.mitre.org/groups/G0037/`
 [[field-threat-indicator-confidence]]
 <<field-threat-indicator-confidence, threat.indicator.confidence>>
 
-| beta:[ This field is beta and subject to change. ]
+| Identifies the vendor-neutral confidence rating using the None/Low/Medium/High scale defined in Appendix A of the STIX 2.1 framework. Vendor-specific confidence scales may be added as custom fields.
 
-Identifies the confidence rating assigned by the provider using STIX confidence scales.
+Expected values are:
 
-Recommended values:
+  * Not Specified
 
-  * Not Specified, None, Low, Medium, High
+  * None
 
-  * 0-10
+  * Low
 
-  * Admirality Scale (1-6)
+  * Medium
 
-  * DNI Scale (5-95)
-
-  * WEP Scale (Impossible - Certain)
+  * High
 
 type: keyword
 
 
 
-example: `High`
+example: `Medium`
 
 | extended
 
@@ -8252,9 +8276,7 @@ example: `High`
 [[field-threat-indicator-description]]
 <<field-threat-indicator-description, threat.indicator.description>>
 
-| beta:[ This field is beta and subject to change. ]
-
-Describes the type of action conducted by the threat.
+| Describes the type of action conducted by the threat.
 
 type: keyword
 
@@ -8270,9 +8292,7 @@ example: `IP x.x.x.x was observed delivering the Angler EK.`
 [[field-threat-indicator-email-address]]
 <<field-threat-indicator-email-address, threat.indicator.email.address>>
 
-| beta:[ This field is beta and subject to change. ]
-
-Identifies a threat indicator as an email address (irrespective of direction).
+| Identifies a threat indicator as an email address (irrespective of direction).
 
 type: keyword
 
@@ -8288,9 +8308,7 @@ example: `phish@example.com`
 [[field-threat-indicator-first-seen]]
 <<field-threat-indicator-first-seen, threat.indicator.first_seen>>
 
-| beta:[ This field is beta and subject to change. ]
-
-The date and time when intelligence source first reported sighting this indicator.
+| The date and time when intelligence source first reported sighting this indicator.
 
 type: date
 
@@ -8306,9 +8324,7 @@ example: `2020-11-05T17:25:47.000Z`
 [[field-threat-indicator-ip]]
 <<field-threat-indicator-ip, threat.indicator.ip>>
 
-| beta:[ This field is beta and subject to change. ]
-
-Identifies a threat indicator as an IP address (irrespective of direction).
+| Identifies a threat indicator as an IP address (irrespective of direction).
 
 type: ip
 
@@ -8324,9 +8340,7 @@ example: `1.2.3.4`
 [[field-threat-indicator-last-seen]]
 <<field-threat-indicator-last-seen, threat.indicator.last_seen>>
 
-| beta:[ This field is beta and subject to change. ]
-
-The date and time when intelligence source last reported sighting this indicator.
+| The date and time when intelligence source last reported sighting this indicator.
 
 type: date
 
@@ -8342,9 +8356,7 @@ example: `2020-11-05T17:25:47.000Z`
 [[field-threat-indicator-marking-tlp]]
 <<field-threat-indicator-marking-tlp, threat.indicator.marking.tlp>>
 
-| beta:[ This field is beta and subject to change. ]
-
-Traffic Light Protocol sharing markings.
+| Traffic Light Protocol sharing markings.
 
 Recommended values are:
 
@@ -8370,9 +8382,7 @@ example: `WHITE`
 [[field-threat-indicator-modified-at]]
 <<field-threat-indicator-modified-at, threat.indicator.modified_at>>
 
-| beta:[ This field is beta and subject to change. ]
-
-The date and time when intelligence source last modified information for this indicator.
+| The date and time when intelligence source last modified information for this indicator.
 
 type: date
 
@@ -8388,9 +8398,7 @@ example: `2020-11-05T17:25:47.000Z`
 [[field-threat-indicator-port]]
 <<field-threat-indicator-port, threat.indicator.port>>
 
-| beta:[ This field is beta and subject to change. ]
-
-Identifies a threat indicator as a port number (irrespective of direction).
+| Identifies a threat indicator as a port number (irrespective of direction).
 
 type: long
 
@@ -8406,9 +8414,7 @@ example: `443`
 [[field-threat-indicator-provider]]
 <<field-threat-indicator-provider, threat.indicator.provider>>
 
-| beta:[ This field is beta and subject to change. ]
-
-The name of the indicator's provider.
+| The name of the indicator's provider.
 
 type: keyword
 
@@ -8424,9 +8430,7 @@ example: `lrz_urlhaus`
 [[field-threat-indicator-reference]]
 <<field-threat-indicator-reference, threat.indicator.reference>>
 
-| beta:[ This field is beta and subject to change. ]
-
-Reference URL linking to additional information about this indicator.
+| Reference URL linking to additional information about this indicator.
 
 type: keyword
 
@@ -8442,9 +8446,7 @@ example: `https://system.example.com/indicator/0001234`
 [[field-threat-indicator-scanner-stats]]
 <<field-threat-indicator-scanner-stats, threat.indicator.scanner_stats>>
 
-| beta:[ This field is beta and subject to change. ]
-
-Count of AV/EDR vendors that successfully detected malicious file or URL.
+| Count of AV/EDR vendors that successfully detected malicious file or URL.
 
 type: long
 
@@ -8460,9 +8462,7 @@ example: `4`
 [[field-threat-indicator-sightings]]
 <<field-threat-indicator-sightings, threat.indicator.sightings>>
 
-| beta:[ This field is beta and subject to change. ]
-
-Number of times this indicator was observed conducting threat activity.
+| Number of times this indicator was observed conducting threat activity.
 
 type: long
 
@@ -8478,9 +8478,7 @@ example: `20`
 [[field-threat-indicator-type]]
 <<field-threat-indicator-type, threat.indicator.type>>
 
-| beta:[ This field is beta and subject to change. ]
-
-Type of indicator as represented by Cyber Observable in STIX 2.0.
+| Type of indicator as represented by Cyber Observable in STIX 2.0.
 
 Recommended values:
 
@@ -8529,12 +8527,33 @@ example: `ipv4-addr`
 // ===============================================================
 
 |
+[[field-threat-software-alias]]
+<<field-threat-software-alias, threat.software.alias>>
+
+| The alias(es) of the software for a set of related intrusion activity that are tracked by a common name in the security community.
+
+While not required, you can use a MITRE ATT&CK® associated software description.
+
+type: keyword
+
+
+Note: this field should contain an array of values.
+
+
+
+example: `[ "X-Agent" ]`
+
+| extended
+
+// ===============================================================
+
+|
 [[field-threat-software-id]]
 <<field-threat-software-id, threat.software.id>>
 
-| beta:[ This field is beta and subject to change. ]
+| The id of the software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®.
 
-The id of the software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®. While not required, you can use a MITRE ATT&CK® software id.
+While not required, you can use a MITRE ATT&CK® software id.
 
 type: keyword
 
@@ -8550,9 +8569,9 @@ example: `S0552`
 [[field-threat-software-name]]
 <<field-threat-software-name, threat.software.name>>
 
-| beta:[ This field is beta and subject to change. ]
+| The name of the software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®.
 
-The name of the software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®. While not required, you can use a MITRE ATT&CK® software name.
+While not required, you can use a MITRE ATT&CK® software name.
 
 type: keyword
 
@@ -8568,9 +8587,7 @@ example: `AdFind`
 [[field-threat-software-platforms]]
 <<field-threat-software-platforms, threat.software.platforms>>
 
-| beta:[ This field is beta and subject to change. ]
-
-The platforms of the software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®. While not required, you can use a MITRE ATT&CK® software platforms.
+| The platforms of the software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®.
 
 Recommended Values:
 
@@ -8594,6 +8611,10 @@ Recommended Values:
 
   * Windows
 
+
+
+While not required, you can use a MITRE ATT&CK® software platforms.
+
 type: keyword
 
 
@@ -8611,9 +8632,9 @@ example: `[ "Windows" ]`
 [[field-threat-software-reference]]
 <<field-threat-software-reference, threat.software.reference>>
 
-| beta:[ This field is beta and subject to change. ]
+| The reference URL of the software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®.
 
-The reference URL of the software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®. While not required, you can use a MITRE ATT&CK® software reference URL.
+While not required, you can use a MITRE ATT&CK® software reference URL.
 
 type: keyword
 
@@ -8629,15 +8650,17 @@ example: `https://attack.mitre.org/software/S0552/`
 [[field-threat-software-type]]
 <<field-threat-software-type, threat.software.type>>
 
-| beta:[ This field is beta and subject to change. ]
-
-The type of software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®. While not required, you can use a MITRE ATT&CK® software type.
+| The type of software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®.
 
 Recommended values
 
   * Malware
 
   * Tool
+
+
+
+ While not required, you can use a MITRE ATT&CK® software type.
 
 type: keyword
 
@@ -8735,7 +8758,7 @@ type: keyword
 
 Multi-fields:
 
-* threat.technique.name.text (type: text)
+* threat.technique.name.text (type: match_only_text)
 
 
 
@@ -8798,7 +8821,7 @@ type: keyword
 
 Multi-fields:
 
-* threat.technique.subtechnique.name.text (type: text)
+* threat.technique.subtechnique.name.text (type: match_only_text)
 
 
 
@@ -8837,9 +8860,6 @@ example: `https://attack.mitre.org/techniques/T1059/001/`
 [discrete]
 ==== Field Reuse
 
-
-
-
 [[ecs-threat-nestings]]
 [discrete]
 ===== Field sets that can be nested under Threat
@@ -8875,22 +8895,6 @@ Fields describing a location.
 // ===============================================================
 
 
-| `threat.enrichments.indicator.hash.*`
-| <<ecs-hash,hash>>| beta:[ Reusing the `hash` fields in this location is currently considered beta.]
-
-Hashes, usually file hashes.
-
-// ===============================================================
-
-
-| `threat.enrichments.indicator.pe.*`
-| <<ecs-pe,pe>>| beta:[ Reusing the `pe` fields in this location is currently considered beta.]
-
-These fields contain Windows Portable Executable (PE) metadata.
-
-// ===============================================================
-
-
 | `threat.enrichments.indicator.registry.*`
 | <<ecs-registry,registry>>| beta:[ Reusing the `registry` fields in this location is currently considered beta.]
 
@@ -8916,70 +8920,49 @@ These fields contain x509 certificate metadata.
 
 
 | `threat.indicator.as.*`
-| <<ecs-as,as>>| beta:[ Reusing the `as` fields in this location is currently considered beta.]
-
-Fields describing an Autonomous System (Internet routing prefix).
+| <<ecs-as,as>>
+| Fields describing an Autonomous System (Internet routing prefix).
 
 // ===============================================================
 
 
 | `threat.indicator.file.*`
-| <<ecs-file,file>>| beta:[ Reusing the `file` fields in this location is currently considered beta.]
-
-Fields describing files.
+| <<ecs-file,file>>
+| Fields describing files.
 
 // ===============================================================
 
 
 | `threat.indicator.geo.*`
-| <<ecs-geo,geo>>| beta:[ Reusing the `geo` fields in this location is currently considered beta.]
-
-Fields describing a location.
-
-// ===============================================================
-
-
-| `threat.indicator.hash.*`
-| <<ecs-hash,hash>>| beta:[ Reusing the `hash` fields in this location is currently considered beta.]
-
-Hashes, usually file hashes.
-
-// ===============================================================
-
-
-| `threat.indicator.pe.*`
-| <<ecs-pe,pe>>| beta:[ Reusing the `pe` fields in this location is currently considered beta.]
-
-These fields contain Windows Portable Executable (PE) metadata.
+| <<ecs-geo,geo>>
+| Fields describing a location.
 
 // ===============================================================
 
 
 | `threat.indicator.registry.*`
-| <<ecs-registry,registry>>| beta:[ Reusing the `registry` fields in this location is currently considered beta.]
-
-Fields related to Windows Registry operations.
+| <<ecs-registry,registry>>
+| Fields related to Windows Registry operations.
 
 // ===============================================================
 
 
 | `threat.indicator.url.*`
-| <<ecs-url,url>>| beta:[ Reusing the `url` fields in this location is currently considered beta.]
-
-Fields that let you store URLs in various forms.
+| <<ecs-url,url>>
+| Fields that let you store URLs in various forms.
 
 // ===============================================================
 
 
 | `threat.indicator.x509.*`
-| <<ecs-x509,x509>>| beta:[ Reusing the `x509` fields in this location is currently considered beta.]
-
-These fields contain x509 certificate metadata.
+| <<ecs-x509,x509>>
+| These fields contain x509 certificate metadata.
 
 // ===============================================================
 
 
 |=====
+
 
 [[ecs-tls]]
 === TLS Fields
@@ -9473,9 +9456,6 @@ example: `tls`
 [discrete]
 ==== Field Reuse
 
-
-
-
 [[ecs-tls-nestings]]
 [discrete]
 ===== Field sets that can be nested under TLS
@@ -9502,6 +9482,7 @@ example: `tls`
 
 
 |=====
+
 
 [[ecs-tracing]]
 === Tracing Fields
@@ -9574,6 +9555,7 @@ example: `00f067aa0ba902b7`
 // ===============================================================
 
 |=====
+
 
 [[ecs-url]]
 === URL Fields
@@ -9655,11 +9637,11 @@ type: keyword
 
 | If full URLs are important to your use case, they should be stored in `url.full`, whether this field is reconstructed or present in the event source.
 
-type: keyword
+type: wildcard
 
 Multi-fields:
 
-* url.full.text (type: text)
+* url.full.text (type: match_only_text)
 
 
 
@@ -9681,11 +9663,11 @@ Note that in network monitoring, the observed URL may be a full URL, whereas in 
 
 This field is meant to represent the URL as it was observed, complete or not.
 
-type: keyword
+type: wildcard
 
 Multi-fields:
 
-* url.original.text (type: text)
+* url.original.text (type: match_only_text)
 
 
 
@@ -9719,7 +9701,7 @@ type: keyword
 
 | Path of the request, such as "/search".
 
-type: keyword
+type: wildcard
 
 
 
@@ -9869,8 +9851,6 @@ The `url` fields are expected to be nested at:
 Note also that the `url` fields may be used directly at the root of the events.
 
 
-
-
 [[ecs-user]]
 === User Fields
 
@@ -9931,7 +9911,7 @@ type: keyword
 
 Multi-fields:
 
-* user.full_name.text (type: text)
+* user.full_name.text (type: match_only_text)
 
 
 
@@ -9971,7 +9951,7 @@ type: keyword
 
 
 
-
+example: `S-1-5-21-202424912787-2692429404-2351956786-1000`
 
 | core
 
@@ -9987,13 +9967,13 @@ type: keyword
 
 Multi-fields:
 
-* user.name.text (type: text)
+* user.name.text (type: match_only_text)
 
 
 
 
 
-example: `albert`
+example: `a.einstein`
 
 | core
 
@@ -10042,9 +10022,6 @@ The `user` fields are expected to be nested at:
 
 
 Note also that the `user` fields may be used directly at the root of the events.
-
-
-
 
 [[ecs-user-nestings]]
 [discrete]
@@ -10095,6 +10072,7 @@ Note also that the `user` fields may be used directly at the root of the events.
 For usage and examples of the user fields, please see the <<ecs-user-usage, User Fields Usage and Examples>> section.
 
 include::usage/user.asciidoc[]
+
 
 [[ecs-user_agent]]
 === User agent Fields
@@ -10154,7 +10132,7 @@ type: keyword
 
 Multi-fields:
 
-* user_agent.original.text (type: text)
+* user_agent.original.text (type: match_only_text)
 
 
 
@@ -10187,9 +10165,6 @@ example: `12.0`
 [discrete]
 ==== Field Reuse
 
-
-
-
 [[ecs-user_agent-nestings]]
 [discrete]
 ===== Field sets that can be nested under User agent
@@ -10209,6 +10184,7 @@ example: `12.0`
 
 
 |=====
+
 
 [[ecs-vlan]]
 === VLAN Fields
@@ -10280,10 +10256,6 @@ The `vlan` fields are expected to be nested at:
 
 
 Note also that the `vlan` fields are not expected to be used directly at the root of the events.
-
-
-
-
 [[ecs-vulnerability]]
 === Vulnerability Fields
 
@@ -10345,7 +10317,7 @@ type: keyword
 
 Multi-fields:
 
-* vulnerability.description.text (type: text)
+* vulnerability.description.text (type: match_only_text)
 
 
 
@@ -10526,6 +10498,7 @@ example: `Critical`
 // ===============================================================
 
 |=====
+
 
 [[ecs-x509]]
 === x509 Certificate Fields
@@ -10988,7 +10961,3 @@ The `x509` fields are expected to be nested at:
 
 
 Note also that the `x509` fields are not expected to be used directly at the root of the events.
-
-
-
-

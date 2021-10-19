@@ -15,7 +15,6 @@
     expected:
       - at: threat.indicator
         as: file
-        beta: Reusing the `file` fields in this location is currently considered beta.
       - at: threat.enrichments.indicator
         as: file
         beta: Reusing the `file` fields in this location is currently considered beta.
@@ -69,7 +68,7 @@
         drive letter, when appropriate.
       example: "/home/alice/example.png"
       multi_fields:
-        - type: text
+        - type: match_only_text
           name: text
 
     - name: target_path
@@ -77,7 +76,7 @@
       type: keyword
       description: Target path for symlinks.
       multi_fields:
-        - type: text
+        - type: match_only_text
           name: text
 
     - name: extension

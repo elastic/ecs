@@ -19,7 +19,7 @@
 
     - name: message
       level: core
-      type: text
+      type: match_only_text
       description: >
         Error message.
 
@@ -38,10 +38,9 @@
 
     - name: stack_trace
       level: extended
-      type: keyword
-      index: false
+      type: wildcard
       description: >
         The stack trace of this error in plain text.
       multi_fields:
-      - type: text
+      - type: match_only_text
         name: text

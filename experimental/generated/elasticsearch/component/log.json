@@ -11,7 +11,8 @@
             "file": {
               "properties": {
                 "path": {
-                  "type": "wildcard"
+                  "ignore_above": 1024,
+                  "type": "keyword"
                 }
               }
             },
@@ -20,14 +21,15 @@
               "type": "keyword"
             },
             "logger": {
-              "type": "wildcard"
+              "ignore_above": 1024,
+              "type": "keyword"
             },
             "origin": {
               "properties": {
                 "file": {
                   "properties": {
                     "line": {
-                      "type": "integer"
+                      "type": "long"
                     },
                     "name": {
                       "ignore_above": 1024,
@@ -40,11 +42,6 @@
                   "type": "keyword"
                 }
               }
-            },
-            "original": {
-              "doc_values": false,
-              "index": false,
-              "type": "keyword"
             },
             "syslog": {
               "properties": {

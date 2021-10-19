@@ -11,7 +11,6 @@
     expected:
       - at: threat.indicator
         as: url
-        beta: Reusing the `url` fields in this location is currently considered beta.
       - at: threat.enrichments.indicator
         as: url
         beta: Reusing the `url` fields in this location is currently considered beta.
@@ -19,7 +18,7 @@
 
     - name: original
       level: extended
-      type: keyword
+      type: wildcard
       short: Unmodified original url as seen in the event source.
       description: >
         Unmodified original url as seen in the event source.
@@ -32,12 +31,12 @@
       example: >
         https://www.elastic.co:443/search?q=elasticsearch#top or /search?q=elasticsearch
       multi_fields:
-      - type: text
+      - type: match_only_text
         name: text
 
     - name: full
       level: extended
-      type: keyword
+      type: wildcard
       short: Full unparsed URL.
       description: >
         If full URLs are important to your use case, they should be stored in
@@ -45,7 +44,7 @@
         event source.
       example: https://www.elastic.co:443/search?q=elasticsearch#top
       multi_fields:
-      - type: text
+      - type: match_only_text
         name: text
 
     - name: scheme
@@ -125,7 +124,7 @@
 
     - name: path
       level: extended
-      type: keyword
+      type: wildcard
       description: >
         Path of the request, such as "/search".
 

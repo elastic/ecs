@@ -33,7 +33,7 @@
     example: '{"application": "foo-bar", "env": "production"}'
   - name: message
     level: core
-    type: text
+    type: match_only_text
     description: 'For log events the message field contains the log message, optimized
       for viewing in a log viewer.
 
@@ -140,8 +140,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: Organization name.
       example: Google LLC
@@ -187,8 +186,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: Organization name.
       example: Google LLC
@@ -376,8 +374,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: User's full name, if available.
       example: Albert Einstein
@@ -412,17 +409,17 @@
       type: keyword
       ignore_above: 1024
       description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
     - name: user.name
       level: core
       type: keyword
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: Short name or login of the user.
-      example: albert
+      example: a.einstein
     - name: user.roles
       level: extended
       type: keyword
@@ -532,6 +529,16 @@
     description: These fields contain information about binary code signatures.
     type: group
     fields:
+    - name: digest_algorithm
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The hashing algorithm used to sign the process.
+
+        This value can distinguish signatures when a file is signed multiple times
+        by the same signer but with a different digest algorithm.'
+      example: sha256
+      default_field: false
     - name: exists
       level: core
       type: boolean
@@ -575,6 +582,12 @@
         This is used to identify the team or vendor of a software product. The field
         is relevant to Apple *OS only.'
       example: EQHXZ8M8AV
+      default_field: false
+    - name: timestamp
+      level: extended
+      type: date
+      description: Date and time when the code signature was generated and signed.
+      example: '2021-01-01T12:10:30Z'
       default_field: false
     - name: trusted
       level: extended
@@ -722,8 +735,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: Organization name.
       example: Google LLC
@@ -910,8 +922,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: User's full name, if available.
       example: Albert Einstein
@@ -946,17 +957,17 @@
       type: keyword
       ignore_above: 1024
       description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
     - name: user.name
       level: core
       type: keyword
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: Short name or login of the user.
-      example: albert
+      example: a.einstein
     - name: user.roles
       level: extended
       type: keyword
@@ -981,6 +992,16 @@
       * Dynamic library (`.dylib`) commonly used on macOS'
     type: group
     fields:
+    - name: code_signature.digest_algorithm
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The hashing algorithm used to sign the process.
+
+        This value can distinguish signatures when a file is signed multiple times
+        by the same signer but with a different digest algorithm.'
+      example: sha256
+      default_field: false
     - name: code_signature.exists
       level: core
       type: boolean
@@ -1024,6 +1045,12 @@
         This is used to identify the team or vendor of a software product. The field
         is relevant to Apple *OS only.'
       example: EQHXZ8M8AV
+      default_field: false
+    - name: code_signature.timestamp
+      level: extended
+      type: date
+      description: Date and time when the code signature was generated and signed.
+      example: '2021-01-01T12:10:30Z'
       default_field: false
     - name: code_signature.trusted
       level: extended
@@ -1535,19 +1562,16 @@
       description: Unique identifier for the error.
     - name: message
       level: core
-      type: text
+      type: match_only_text
       description: Error message.
     - name: stack_trace
       level: extended
-      type: keyword
+      type: wildcard
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: The stack trace of this error in plain text.
-      index: false
-      doc_values: false
     - name: type
       level: extended
       type: keyword
@@ -1910,6 +1934,16 @@
         execute, hidden, read, readonly, system, write.'
       example: '["readonly", "system"]'
       default_field: false
+    - name: code_signature.digest_algorithm
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The hashing algorithm used to sign the process.
+
+        This value can distinguish signatures when a file is signed multiple times
+        by the same signer but with a different digest algorithm.'
+      example: sha256
+      default_field: false
     - name: code_signature.exists
       level: core
       type: boolean
@@ -1953,6 +1987,12 @@
         This is used to identify the team or vendor of a software product. The field
         is relevant to Apple *OS only.'
       example: EQHXZ8M8AV
+      default_field: false
+    - name: code_signature.timestamp
+      level: extended
+      type: date
+      description: Date and time when the code signature was generated and signed.
+      example: '2021-01-01T12:10:30Z'
       default_field: false
     - name: code_signature.trusted
       level: extended
@@ -2296,8 +2336,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: Full path to the file, including the file name. It should include
         the drive letter, when appropriate.
@@ -2368,8 +2407,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: Target path for symlinks.
     - name: type
@@ -2912,8 +2950,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: Operating system name, including the version or code name.
       example: Mac OS Mojave
@@ -2929,8 +2966,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: Operating system name, without the version.
       example: Mac OS X
@@ -2990,12 +3026,10 @@
       example: 887
     - name: request.body.content
       level: extended
-      type: keyword
-      ignore_above: 1024
+      type: wildcard
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: The full HTTP request body.
       example: Hello world
@@ -3051,12 +3085,10 @@
       example: 887
     - name: response.body.content
       level: extended
-      type: keyword
-      ignore_above: 1024
+      type: wildcard
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: The full HTTP response body.
       example: Hello world
@@ -3167,7 +3199,7 @@
       example: org.elasticsearch.bootstrap.Bootstrap
     - name: origin.file.line
       level: extended
-      type: integer
+      type: long
       description: The line number of the file containing the source code which originated
         the log event.
       example: 42
@@ -3187,25 +3219,6 @@
       ignore_above: 1024
       description: The name of the function or method which originated the log event.
       example: init
-    - name: original
-      level: core
-      type: keyword
-      description: 'Deprecated for removal in next major version release. This field
-        is superseded by  `event.original`.
-
-        This is the original log message and contains the full log message before
-        splitting it up in multiple parts.
-
-        In contrast to the `message` field which can contain an extracted part of
-        the log message, this field contains the original, full log message. It can
-        have already some modifications applied like encoding or new lines removed
-        to clean up the log message.
-
-        This field is not indexed and doc_values are disabled so it can''t be queried
-        but the value can be retrieved from `_source`.'
-      example: Sep 19 08:26:10 localhost My log
-      index: false
-      doc_values: false
     - name: syslog
       level: extended
       type: object
@@ -3653,8 +3666,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: Operating system name, including the version or code name.
       example: Mac OS Mojave
@@ -3670,8 +3682,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: Operating system name, without the version.
       example: Mac OS X
@@ -3822,8 +3833,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: Organization name.
   - name: os
@@ -3844,8 +3854,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: Operating system name, including the version or code name.
       example: Mac OS Mojave
@@ -3861,8 +3870,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: Operating system name, without the version.
       example: Mac OS X
@@ -4079,6 +4087,16 @@
         indication of suspicious activity.'
       example: 4
       default_field: false
+    - name: code_signature.digest_algorithm
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The hashing algorithm used to sign the process.
+
+        This value can distinguish signatures when a file is signed multiple times
+        by the same signer but with a different digest algorithm.'
+      example: sha256
+      default_field: false
     - name: code_signature.exists
       level: core
       type: boolean
@@ -4123,6 +4141,12 @@
         is relevant to Apple *OS only.'
       example: EQHXZ8M8AV
       default_field: false
+    - name: code_signature.timestamp
+      level: extended
+      type: date
+      description: Date and time when the code signature was generated and signed.
+      example: '2021-01-01T12:10:30Z'
+      default_field: false
     - name: code_signature.trusted
       level: extended
       type: boolean
@@ -4143,12 +4167,10 @@
       default_field: false
     - name: command_line
       level: extended
-      type: keyword
-      ignore_above: 1024
+      type: wildcard
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: 'Full command line that started the process, including the absolute
         path to the executable, and all arguments.
 
@@ -4334,6 +4356,12 @@
       ignore_above: 1024
       description: telfhash symbol hash for ELF file.
       default_field: false
+    - name: end
+      level: extended
+      type: date
+      description: The time the process ended.
+      example: '2016-05-23T08:05:34.853Z'
+      default_field: false
     - name: entity_id
       level: extended
       type: keyword
@@ -4355,8 +4383,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: Absolute path to the process executable.
       example: /usr/bin/ssh
@@ -4401,8 +4428,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: 'Process name.
 
@@ -4427,6 +4453,16 @@
         many arguments were provided to start a process. More arguments may be an
         indication of suspicious activity.'
       example: 4
+      default_field: false
+    - name: parent.code_signature.digest_algorithm
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The hashing algorithm used to sign the process.
+
+        This value can distinguish signatures when a file is signed multiple times
+        by the same signer but with a different digest algorithm.'
+      example: sha256
       default_field: false
     - name: parent.code_signature.exists
       level: core
@@ -4472,6 +4508,12 @@
         is relevant to Apple *OS only.'
       example: EQHXZ8M8AV
       default_field: false
+    - name: parent.code_signature.timestamp
+      level: extended
+      type: date
+      description: Date and time when the code signature was generated and signed.
+      example: '2021-01-01T12:10:30Z'
+      default_field: false
     - name: parent.code_signature.trusted
       level: extended
       type: boolean
@@ -4492,12 +4534,10 @@
       default_field: false
     - name: parent.command_line
       level: extended
-      type: keyword
-      ignore_above: 1024
+      type: wildcard
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: 'Full command line that started the process, including the absolute
         path to the executable, and all arguments.
 
@@ -4683,6 +4723,12 @@
       ignore_above: 1024
       description: telfhash symbol hash for ELF file.
       default_field: false
+    - name: parent.end
+      level: extended
+      type: date
+      description: The time the process ended.
+      example: '2016-05-23T08:05:34.853Z'
+      default_field: false
     - name: parent.entity_id
       level: extended
       type: keyword
@@ -4704,8 +4750,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: Absolute path to the process executable.
       example: /usr/bin/ssh
       default_field: false
@@ -4754,8 +4799,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: 'Process name.
 
         Sometimes called program name or similar.'
@@ -4827,13 +4871,6 @@
       description: Process id.
       example: 4242
       default_field: false
-    - name: parent.ppid
-      level: extended
-      type: long
-      format: string
-      description: Parent process' pid.
-      example: 4241
-      default_field: false
     - name: parent.start
       level: extended
       type: date
@@ -4860,8 +4897,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: 'Process title.
 
         The proctitle, some times the same as process name. Can also be different:
@@ -4879,8 +4915,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: The working directory of the process.
       example: /home/alice
       default_field: false
@@ -4948,12 +4983,6 @@
       format: string
       description: Process id.
       example: 4242
-    - name: ppid
-      level: extended
-      type: long
-      format: string
-      description: Parent process' pid.
-      example: 4241
     - name: start
       level: extended
       type: date
@@ -4977,8 +5006,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: 'Process title.
 
@@ -4995,8 +5023,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: The working directory of the process.
       example: /home/alice
@@ -5019,8 +5046,7 @@
       default_field: false
     - name: data.strings
       level: core
-      type: keyword
-      ignore_above: 1024
+      type: wildcard
       description: 'Content when writing string types.
 
         Populated as an array when writing string data to the registry. For single
@@ -5243,8 +5269,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: Organization name.
       example: Google LLC
@@ -5432,8 +5457,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: User's full name, if available.
       example: Albert Einstein
@@ -5468,17 +5492,17 @@
       type: keyword
       ignore_above: 1024
       description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
     - name: user.name
       level: core
       type: keyword
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: Short name or login of the user.
-      example: albert
+      example: a.einstein
     - name: user.roles
       level: extended
       type: keyword
@@ -5495,6 +5519,27 @@
       These fields help you find and correlate logs for a specific service and version.'
     type: group
     fields:
+    - name: address
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Address where data about this service was collected from.
+
+        This should be a URI, network address (ipv4:port or [ipv6]:port) or a resource
+        path (sockets).'
+      example: 172.26.0.2:5432
+      default_field: false
+    - name: environment
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Identifies the environment where the service is running.
+
+        If the same service runs in different environments (production, staging, QA,
+        development, etc.), the environment can identify other instances of the same
+        service. Can also group services and applications from the same environment.'
+      example: production
+      default_field: false
     - name: ephemeral_id
       level: extended
       type: keyword
@@ -5609,8 +5654,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: Organization name.
       example: Google LLC
@@ -5798,8 +5842,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: User's full name, if available.
       example: Albert Einstein
@@ -5834,17 +5877,17 @@
       type: keyword
       ignore_above: 1024
       description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
     - name: user.name
       level: core
       type: keyword
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: Short name or login of the user.
-      example: albert
+      example: a.einstein
     - name: user.roles
       level: extended
       type: keyword
@@ -5888,8 +5931,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: Organization name.
       example: Google LLC
       default_field: false
@@ -5897,11 +5939,11 @@
       level: extended
       type: keyword
       ignore_above: 1024
-      description: "Identifies\_the\_confidence\_rating\_assigned\_by\_the\_provider\_\
-        using\_STIX\_confidence scales. Expected values:\n  * Not Specified, None,\
-        \ Low, Medium, High\n  * 0-10\n  * Admirality Scale (1-6)\n  * DNI Scale (5-95)\n\
-        \  * WEP Scale (Impossible - Certain)"
-      example: High
+      description: "Identifies\_the\_vendor-neutral confidence\_rating\_using\_the\
+        \ None/Low/Medium/High\_scale defined in Appendix A of the STIX 2.1 framework.\
+        \ Vendor-specific confidence scales may be added as custom fields.\nExpected\
+        \ values are:\n  * Not Specified\n  * None\n  * Low\n  * Medium\n  * High"
+      example: Medium
       default_field: false
     - name: enrichments.indicator.description
       level: extended
@@ -5935,6 +5977,16 @@
         that are expected in this field: archive, compressed, directory, encrypted,
         execute, hidden, read, readonly, system, write.'
       example: '["readonly", "system"]'
+      default_field: false
+    - name: enrichments.indicator.file.code_signature.digest_algorithm
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The hashing algorithm used to sign the process.
+
+        This value can distinguish signatures when a file is signed multiple times
+        by the same signer but with a different digest algorithm.'
+      example: sha256
       default_field: false
     - name: enrichments.indicator.file.code_signature.exists
       level: core
@@ -5979,6 +6031,12 @@
         This is used to identify the team or vendor of a software product. The field
         is relevant to Apple *OS only.'
       example: EQHXZ8M8AV
+      default_field: false
+    - name: enrichments.indicator.file.code_signature.timestamp
+      level: extended
+      type: date
+      description: Date and time when the code signature was generated and signed.
+      example: '2021-01-01T12:10:30Z'
       default_field: false
     - name: enrichments.indicator.file.code_signature.trusted
       level: extended
@@ -6260,6 +6318,36 @@
       description: Primary group name of the file.
       example: alice
       default_field: false
+    - name: enrichments.indicator.file.hash.md5
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: MD5 hash.
+      default_field: false
+    - name: enrichments.indicator.file.hash.sha1
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SHA1 hash.
+      default_field: false
+    - name: enrichments.indicator.file.hash.sha256
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SHA256 hash.
+      default_field: false
+    - name: enrichments.indicator.file.hash.sha512
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SHA512 hash.
+      default_field: false
+    - name: enrichments.indicator.file.hash.ssdeep
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SSDEEP hash.
+      default_field: false
     - name: enrichments.indicator.file.inode
       level: extended
       type: keyword
@@ -6308,11 +6396,63 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: Full path to the file, including the file name. It should include
         the drive letter, when appropriate.
       example: /home/alice/example.png
+      default_field: false
+    - name: enrichments.indicator.file.pe.architecture
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: CPU architecture target for the file.
+      example: x64
+      default_field: false
+    - name: enrichments.indicator.file.pe.company
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Internal company name of the file, provided at compile-time.
+      example: Microsoft Corporation
+      default_field: false
+    - name: enrichments.indicator.file.pe.description
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Internal description of the file, provided at compile-time.
+      example: Paint
+      default_field: false
+    - name: enrichments.indicator.file.pe.file_version
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Internal version of the file, provided at compile-time.
+      example: 6.3.9600.17415
+      default_field: false
+    - name: enrichments.indicator.file.pe.imphash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'A hash of the imports in a PE file. An imphash -- or import hash
+        -- can be used to fingerprint binaries even after recompilation or other code-level
+        transformations have occurred, which would change more traditional hash values.
+
+        Learn more at https://www.fireeye.com/blog/threat-research/2014/01/tracking-malware-import-hashing.html.'
+      example: 0c6803c4e922103c4dca5963aad36ddf
+      default_field: false
+    - name: enrichments.indicator.file.pe.original_file_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Internal name of the file, provided at compile-time.
+      example: MSPAINT.EXE
+      default_field: false
+    - name: enrichments.indicator.file.pe.product
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Internal product name of the file, provided at compile-time.
+      example: "Microsoft\xAE Windows\xAE Operating System"
       default_field: false
     - name: enrichments.indicator.file.size
       level: extended
@@ -6328,8 +6468,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: Target path for symlinks.
       default_field: false
     - name: enrichments.indicator.file.type
@@ -6345,6 +6484,178 @@
       ignore_above: 1024
       description: The user ID (UID) or security identifier (SID) of the file owner.
       example: '1001'
+      default_field: false
+    - name: enrichments.indicator.file.x509.alternative_names
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of subject alternative names (SAN). Name types vary by certificate
+        authority and certificate type but commonly contain IP addresses, DNS names
+        (and wildcards), and email addresses.
+      example: '*.elastic.co'
+      default_field: false
+    - name: enrichments.indicator.file.x509.issuer.common_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of common name (CN) of issuing certificate authority.
+      example: Example SHA2 High Assurance Server CA
+      default_field: false
+    - name: enrichments.indicator.file.x509.issuer.country
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of country (C) codes
+      example: US
+      default_field: false
+    - name: enrichments.indicator.file.x509.issuer.distinguished_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Distinguished name (DN) of issuing certificate authority.
+      example: C=US, O=Example Inc, OU=www.example.com, CN=Example SHA2 High Assurance
+        Server CA
+      default_field: false
+    - name: enrichments.indicator.file.x509.issuer.locality
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of locality names (L)
+      example: Mountain View
+      default_field: false
+    - name: enrichments.indicator.file.x509.issuer.organization
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of organizations (O) of issuing certificate authority.
+      example: Example Inc
+      default_field: false
+    - name: enrichments.indicator.file.x509.issuer.organizational_unit
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of organizational units (OU) of issuing certificate authority.
+      example: www.example.com
+      default_field: false
+    - name: enrichments.indicator.file.x509.issuer.state_or_province
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of state or province names (ST, S, or P)
+      example: California
+      default_field: false
+    - name: enrichments.indicator.file.x509.not_after
+      level: extended
+      type: date
+      description: Time at which the certificate is no longer considered valid.
+      example: 2020-07-16 03:15:39+00:00
+      default_field: false
+    - name: enrichments.indicator.file.x509.not_before
+      level: extended
+      type: date
+      description: Time at which the certificate is first considered valid.
+      example: 2019-08-16 01:40:25+00:00
+      default_field: false
+    - name: enrichments.indicator.file.x509.public_key_algorithm
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Algorithm used to generate the public key.
+      example: RSA
+      default_field: false
+    - name: enrichments.indicator.file.x509.public_key_curve
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The curve used by the elliptic curve public key algorithm. This
+        is algorithm specific.
+      example: nistp521
+      default_field: false
+    - name: enrichments.indicator.file.x509.public_key_exponent
+      level: extended
+      type: long
+      description: Exponent used to derive the public key. This is algorithm specific.
+      example: 65537
+      index: false
+      doc_values: false
+      default_field: false
+    - name: enrichments.indicator.file.x509.public_key_size
+      level: extended
+      type: long
+      description: The size of the public key space in bits.
+      example: 2048
+      default_field: false
+    - name: enrichments.indicator.file.x509.serial_number
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Unique serial number issued by the certificate authority. For consistency,
+        if this value is alphanumeric, it should be formatted without colons and uppercase
+        characters.
+      example: 55FBB9C7DEBF09809D12CCAA
+      default_field: false
+    - name: enrichments.indicator.file.x509.signature_algorithm
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifier for certificate signature algorithm. We recommend using
+        names found in Go Lang Crypto library. See https://github.com/golang/go/blob/go1.14/src/crypto/x509/x509.go#L337-L353.
+      example: SHA256-RSA
+      default_field: false
+    - name: enrichments.indicator.file.x509.subject.common_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of common names (CN) of subject.
+      example: shared.global.example.net
+      default_field: false
+    - name: enrichments.indicator.file.x509.subject.country
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of country (C) code
+      example: US
+      default_field: false
+    - name: enrichments.indicator.file.x509.subject.distinguished_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Distinguished name (DN) of the certificate subject entity.
+      example: C=US, ST=California, L=San Francisco, O=Example, Inc., CN=shared.global.example.net
+      default_field: false
+    - name: enrichments.indicator.file.x509.subject.locality
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of locality names (L)
+      example: San Francisco
+      default_field: false
+    - name: enrichments.indicator.file.x509.subject.organization
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of organizations (O) of subject.
+      example: Example, Inc.
+      default_field: false
+    - name: enrichments.indicator.file.x509.subject.organizational_unit
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of organizational units (OU) of subject.
+      default_field: false
+    - name: enrichments.indicator.file.x509.subject.state_or_province
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of state or province names (ST, S, or P)
+      example: California
+      default_field: false
+    - name: enrichments.indicator.file.x509.version_number
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Version of x509 format.
+      example: 3
       default_field: false
     - name: enrichments.indicator.first_seen
       level: extended
@@ -6438,36 +6749,6 @@
       description: The time zone of the location, such as IANA time zone name.
       example: America/Argentina/Buenos_Aires
       default_field: false
-    - name: enrichments.indicator.hash.md5
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: MD5 hash.
-      default_field: false
-    - name: enrichments.indicator.hash.sha1
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: SHA1 hash.
-      default_field: false
-    - name: enrichments.indicator.hash.sha256
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: SHA256 hash.
-      default_field: false
-    - name: enrichments.indicator.hash.sha512
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: SHA512 hash.
-      default_field: false
-    - name: enrichments.indicator.hash.ssdeep
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: SSDEEP hash.
-      default_field: false
     - name: enrichments.indicator.ip
       level: extended
       type: ip
@@ -6496,59 +6777,6 @@
       description: The date and time when intelligence source last modified information
         for this indicator.
       example: '2020-11-05T17:25:47.000Z'
-      default_field: false
-    - name: enrichments.indicator.pe.architecture
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: CPU architecture target for the file.
-      example: x64
-      default_field: false
-    - name: enrichments.indicator.pe.company
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Internal company name of the file, provided at compile-time.
-      example: Microsoft Corporation
-      default_field: false
-    - name: enrichments.indicator.pe.description
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Internal description of the file, provided at compile-time.
-      example: Paint
-      default_field: false
-    - name: enrichments.indicator.pe.file_version
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Internal version of the file, provided at compile-time.
-      example: 6.3.9600.17415
-      default_field: false
-    - name: enrichments.indicator.pe.imphash
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: 'A hash of the imports in a PE file. An imphash -- or import hash
-        -- can be used to fingerprint binaries even after recompilation or other code-level
-        transformations have occurred, which would change more traditional hash values.
-
-        Learn more at https://www.fireeye.com/blog/threat-research/2014/01/tracking-malware-import-hashing.html.'
-      example: 0c6803c4e922103c4dca5963aad36ddf
-      default_field: false
-    - name: enrichments.indicator.pe.original_file_name
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Internal name of the file, provided at compile-time.
-      example: MSPAINT.EXE
-      default_field: false
-    - name: enrichments.indicator.pe.product
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Internal product name of the file, provided at compile-time.
-      example: "Microsoft\xAE Windows\xAE Operating System"
       default_field: false
     - name: enrichments.indicator.port
       level: extended
@@ -6584,8 +6812,7 @@
       default_field: false
     - name: enrichments.indicator.registry.data.strings
       level: core
-      type: keyword
-      ignore_above: 1024
+      type: wildcard
       description: 'Content when writing string types.
 
         Populated as an array when writing string data to the registry. For single
@@ -6695,12 +6922,10 @@
       default_field: false
     - name: enrichments.indicator.url.full
       level: extended
-      type: keyword
-      ignore_above: 1024
+      type: wildcard
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: If full URLs are important to your use case, they should be stored
         in `url.full`, whether this field is reconstructed or present in the event
         source.
@@ -6708,12 +6933,10 @@
       default_field: false
     - name: enrichments.indicator.url.original
       level: extended
-      type: keyword
-      ignore_above: 1024
+      type: wildcard
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: 'Unmodified original url as seen in the event source.
 
         Note that in network monitoring, the observed URL may be a full URL, whereas
@@ -6730,8 +6953,7 @@
       default_field: false
     - name: enrichments.indicator.url.path
       level: extended
-      type: keyword
-      ignore_above: 1024
+      type: wildcard
       description: Path of the request, such as "/search".
       default_field: false
     - name: enrichments.indicator.url.port
@@ -7032,8 +7254,8 @@
       type: keyword
       ignore_above: 1024
       description: "The alias(es) of the group for a set of related intrusion activity\
-        \ that are tracked by a common name in the security community. While not required,\
-        \ you can use a MITRE ATT&CK\xAE group alias(es)."
+        \ that are tracked by a common name in the security community.\nWhile not\
+        \ required, you can use a MITRE ATT&CK\xAE group alias(es)."
       example: '[ "Magecart Group 6" ]'
       default_field: false
     - name: group.id
@@ -7041,7 +7263,7 @@
       type: keyword
       ignore_above: 1024
       description: "The id of the group for a set of related intrusion activity that\
-        \ are tracked by a common name in the security community. While not required,\
+        \ are tracked by a common name in the security community.\nWhile not required,\
         \ you can use a MITRE ATT&CK\xAE group id."
       example: G0037
       default_field: false
@@ -7050,8 +7272,8 @@
       type: keyword
       ignore_above: 1024
       description: "The name of the group for a set of related intrusion activity\
-        \ that are tracked by a common name in the security community. While not required,\
-        \ you can use a MITRE ATT&CK\xAE group name."
+        \ that are tracked by a common name in the security community.\nWhile not\
+        \ required, you can use a MITRE ATT&CK\xAE group name."
       example: FIN6
       default_field: false
     - name: group.reference
@@ -7059,8 +7281,8 @@
       type: keyword
       ignore_above: 1024
       description: "The reference URL of the group for a set of related intrusion\
-        \ activity that are tracked by a common name in the security community. While\
-        \ not required, you can use a MITRE ATT&CK\xAE group reference URL."
+        \ activity that are tracked by a common name in the security community.\n\
+        While not required, you can use a MITRE ATT&CK\xAE group reference URL."
       example: https://attack.mitre.org/groups/G0037/
       default_field: false
     - name: indicator.as.number
@@ -7076,8 +7298,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: Organization name.
       example: Google LLC
       default_field: false
@@ -7085,11 +7306,11 @@
       level: extended
       type: keyword
       ignore_above: 1024
-      description: "Identifies the confidence rating assigned by the provider using\
-        \ STIX confidence scales.\nRecommended values:\n  * Not Specified, None, Low,\
-        \ Medium, High\n  * 0-10\n  * Admirality Scale (1-6)\n  * DNI Scale (5-95)\n\
-        \  * WEP Scale (Impossible - Certain)"
-      example: High
+      description: "Identifies\_the\_vendor-neutral confidence\_rating\_using\_the\
+        \ None/Low/Medium/High\_scale defined in Appendix A of the STIX 2.1 framework.\
+        \ Vendor-specific confidence scales may be added as custom fields.\nExpected\
+        \ values are:\n  * Not Specified\n  * None\n  * Low\n  * Medium\n  * High"
+      example: Medium
       default_field: false
     - name: indicator.description
       level: extended
@@ -7123,6 +7344,16 @@
         that are expected in this field: archive, compressed, directory, encrypted,
         execute, hidden, read, readonly, system, write.'
       example: '["readonly", "system"]'
+      default_field: false
+    - name: indicator.file.code_signature.digest_algorithm
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The hashing algorithm used to sign the process.
+
+        This value can distinguish signatures when a file is signed multiple times
+        by the same signer but with a different digest algorithm.'
+      example: sha256
       default_field: false
     - name: indicator.file.code_signature.exists
       level: core
@@ -7167,6 +7398,12 @@
         This is used to identify the team or vendor of a software product. The field
         is relevant to Apple *OS only.'
       example: EQHXZ8M8AV
+      default_field: false
+    - name: indicator.file.code_signature.timestamp
+      level: extended
+      type: date
+      description: Date and time when the code signature was generated and signed.
+      example: '2021-01-01T12:10:30Z'
       default_field: false
     - name: indicator.file.code_signature.trusted
       level: extended
@@ -7448,6 +7685,36 @@
       description: Primary group name of the file.
       example: alice
       default_field: false
+    - name: indicator.file.hash.md5
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: MD5 hash.
+      default_field: false
+    - name: indicator.file.hash.sha1
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SHA1 hash.
+      default_field: false
+    - name: indicator.file.hash.sha256
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SHA256 hash.
+      default_field: false
+    - name: indicator.file.hash.sha512
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SHA512 hash.
+      default_field: false
+    - name: indicator.file.hash.ssdeep
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SSDEEP hash.
+      default_field: false
     - name: indicator.file.inode
       level: extended
       type: keyword
@@ -7496,11 +7763,63 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: Full path to the file, including the file name. It should include
         the drive letter, when appropriate.
       example: /home/alice/example.png
+      default_field: false
+    - name: indicator.file.pe.architecture
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: CPU architecture target for the file.
+      example: x64
+      default_field: false
+    - name: indicator.file.pe.company
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Internal company name of the file, provided at compile-time.
+      example: Microsoft Corporation
+      default_field: false
+    - name: indicator.file.pe.description
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Internal description of the file, provided at compile-time.
+      example: Paint
+      default_field: false
+    - name: indicator.file.pe.file_version
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Internal version of the file, provided at compile-time.
+      example: 6.3.9600.17415
+      default_field: false
+    - name: indicator.file.pe.imphash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'A hash of the imports in a PE file. An imphash -- or import hash
+        -- can be used to fingerprint binaries even after recompilation or other code-level
+        transformations have occurred, which would change more traditional hash values.
+
+        Learn more at https://www.fireeye.com/blog/threat-research/2014/01/tracking-malware-import-hashing.html.'
+      example: 0c6803c4e922103c4dca5963aad36ddf
+      default_field: false
+    - name: indicator.file.pe.original_file_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Internal name of the file, provided at compile-time.
+      example: MSPAINT.EXE
+      default_field: false
+    - name: indicator.file.pe.product
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Internal product name of the file, provided at compile-time.
+      example: "Microsoft\xAE Windows\xAE Operating System"
       default_field: false
     - name: indicator.file.size
       level: extended
@@ -7516,8 +7835,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: Target path for symlinks.
       default_field: false
     - name: indicator.file.type
@@ -7533,6 +7851,178 @@
       ignore_above: 1024
       description: The user ID (UID) or security identifier (SID) of the file owner.
       example: '1001'
+      default_field: false
+    - name: indicator.file.x509.alternative_names
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of subject alternative names (SAN). Name types vary by certificate
+        authority and certificate type but commonly contain IP addresses, DNS names
+        (and wildcards), and email addresses.
+      example: '*.elastic.co'
+      default_field: false
+    - name: indicator.file.x509.issuer.common_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of common name (CN) of issuing certificate authority.
+      example: Example SHA2 High Assurance Server CA
+      default_field: false
+    - name: indicator.file.x509.issuer.country
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of country (C) codes
+      example: US
+      default_field: false
+    - name: indicator.file.x509.issuer.distinguished_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Distinguished name (DN) of issuing certificate authority.
+      example: C=US, O=Example Inc, OU=www.example.com, CN=Example SHA2 High Assurance
+        Server CA
+      default_field: false
+    - name: indicator.file.x509.issuer.locality
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of locality names (L)
+      example: Mountain View
+      default_field: false
+    - name: indicator.file.x509.issuer.organization
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of organizations (O) of issuing certificate authority.
+      example: Example Inc
+      default_field: false
+    - name: indicator.file.x509.issuer.organizational_unit
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of organizational units (OU) of issuing certificate authority.
+      example: www.example.com
+      default_field: false
+    - name: indicator.file.x509.issuer.state_or_province
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of state or province names (ST, S, or P)
+      example: California
+      default_field: false
+    - name: indicator.file.x509.not_after
+      level: extended
+      type: date
+      description: Time at which the certificate is no longer considered valid.
+      example: 2020-07-16 03:15:39+00:00
+      default_field: false
+    - name: indicator.file.x509.not_before
+      level: extended
+      type: date
+      description: Time at which the certificate is first considered valid.
+      example: 2019-08-16 01:40:25+00:00
+      default_field: false
+    - name: indicator.file.x509.public_key_algorithm
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Algorithm used to generate the public key.
+      example: RSA
+      default_field: false
+    - name: indicator.file.x509.public_key_curve
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The curve used by the elliptic curve public key algorithm. This
+        is algorithm specific.
+      example: nistp521
+      default_field: false
+    - name: indicator.file.x509.public_key_exponent
+      level: extended
+      type: long
+      description: Exponent used to derive the public key. This is algorithm specific.
+      example: 65537
+      index: false
+      doc_values: false
+      default_field: false
+    - name: indicator.file.x509.public_key_size
+      level: extended
+      type: long
+      description: The size of the public key space in bits.
+      example: 2048
+      default_field: false
+    - name: indicator.file.x509.serial_number
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Unique serial number issued by the certificate authority. For consistency,
+        if this value is alphanumeric, it should be formatted without colons and uppercase
+        characters.
+      example: 55FBB9C7DEBF09809D12CCAA
+      default_field: false
+    - name: indicator.file.x509.signature_algorithm
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifier for certificate signature algorithm. We recommend using
+        names found in Go Lang Crypto library. See https://github.com/golang/go/blob/go1.14/src/crypto/x509/x509.go#L337-L353.
+      example: SHA256-RSA
+      default_field: false
+    - name: indicator.file.x509.subject.common_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of common names (CN) of subject.
+      example: shared.global.example.net
+      default_field: false
+    - name: indicator.file.x509.subject.country
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of country (C) code
+      example: US
+      default_field: false
+    - name: indicator.file.x509.subject.distinguished_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Distinguished name (DN) of the certificate subject entity.
+      example: C=US, ST=California, L=San Francisco, O=Example, Inc., CN=shared.global.example.net
+      default_field: false
+    - name: indicator.file.x509.subject.locality
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of locality names (L)
+      example: San Francisco
+      default_field: false
+    - name: indicator.file.x509.subject.organization
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of organizations (O) of subject.
+      example: Example, Inc.
+      default_field: false
+    - name: indicator.file.x509.subject.organizational_unit
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of organizational units (OU) of subject.
+      default_field: false
+    - name: indicator.file.x509.subject.state_or_province
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of state or province names (ST, S, or P)
+      example: California
+      default_field: false
+    - name: indicator.file.x509.version_number
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Version of x509 format.
+      example: 3
       default_field: false
     - name: indicator.first_seen
       level: extended
@@ -7626,36 +8116,6 @@
       description: The time zone of the location, such as IANA time zone name.
       example: America/Argentina/Buenos_Aires
       default_field: false
-    - name: indicator.hash.md5
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: MD5 hash.
-      default_field: false
-    - name: indicator.hash.sha1
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: SHA1 hash.
-      default_field: false
-    - name: indicator.hash.sha256
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: SHA256 hash.
-      default_field: false
-    - name: indicator.hash.sha512
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: SHA512 hash.
-      default_field: false
-    - name: indicator.hash.ssdeep
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: SSDEEP hash.
-      default_field: false
     - name: indicator.ip
       level: extended
       type: ip
@@ -7684,59 +8144,6 @@
       description: The date and time when intelligence source last modified information
         for this indicator.
       example: '2020-11-05T17:25:47.000Z'
-      default_field: false
-    - name: indicator.pe.architecture
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: CPU architecture target for the file.
-      example: x64
-      default_field: false
-    - name: indicator.pe.company
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Internal company name of the file, provided at compile-time.
-      example: Microsoft Corporation
-      default_field: false
-    - name: indicator.pe.description
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Internal description of the file, provided at compile-time.
-      example: Paint
-      default_field: false
-    - name: indicator.pe.file_version
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Internal version of the file, provided at compile-time.
-      example: 6.3.9600.17415
-      default_field: false
-    - name: indicator.pe.imphash
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: 'A hash of the imports in a PE file. An imphash -- or import hash
-        -- can be used to fingerprint binaries even after recompilation or other code-level
-        transformations have occurred, which would change more traditional hash values.
-
-        Learn more at https://www.fireeye.com/blog/threat-research/2014/01/tracking-malware-import-hashing.html.'
-      example: 0c6803c4e922103c4dca5963aad36ddf
-      default_field: false
-    - name: indicator.pe.original_file_name
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Internal name of the file, provided at compile-time.
-      example: MSPAINT.EXE
-      default_field: false
-    - name: indicator.pe.product
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Internal product name of the file, provided at compile-time.
-      example: "Microsoft\xAE Windows\xAE Operating System"
       default_field: false
     - name: indicator.port
       level: extended
@@ -7772,8 +8179,7 @@
       default_field: false
     - name: indicator.registry.data.strings
       level: core
-      type: keyword
-      ignore_above: 1024
+      type: wildcard
       description: 'Content when writing string types.
 
         Populated as an array when writing string data to the registry. For single
@@ -7883,12 +8289,10 @@
       default_field: false
     - name: indicator.url.full
       level: extended
-      type: keyword
-      ignore_above: 1024
+      type: wildcard
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: If full URLs are important to your use case, they should be stored
         in `url.full`, whether this field is reconstructed or present in the event
         source.
@@ -7896,12 +8300,10 @@
       default_field: false
     - name: indicator.url.original
       level: extended
-      type: keyword
-      ignore_above: 1024
+      type: wildcard
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: 'Unmodified original url as seen in the event source.
 
         Note that in network monitoring, the observed URL may be a full URL, whereas
@@ -7918,8 +8320,7 @@
       default_field: false
     - name: indicator.url.path
       level: extended
-      type: keyword
-      ignore_above: 1024
+      type: wildcard
       description: Path of the request, such as "/search".
       default_field: false
     - name: indicator.url.port
@@ -8168,12 +8569,21 @@
       description: Version of x509 format.
       example: 3
       default_field: false
+    - name: software.alias
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: "The alias(es) of the software for a set of related intrusion activity\
+        \ that are tracked by a common name in the security community.\nWhile not\
+        \ required, you can use a MITRE ATT&CK\xAE associated software description."
+      example: '[ "X-Agent" ]'
+      default_field: false
     - name: software.id
       level: extended
       type: keyword
       ignore_above: 1024
       description: "The id of the software used by this threat to conduct behavior\
-        \ commonly modeled using MITRE ATT&CK\xAE. While not required, you can use\
+        \ commonly modeled using MITRE ATT&CK\xAE.\nWhile not required, you can use\
         \ a MITRE ATT&CK\xAE software id."
       example: S0552
       default_field: false
@@ -8182,7 +8592,7 @@
       type: keyword
       ignore_above: 1024
       description: "The name of the software used by this threat to conduct behavior\
-        \ commonly modeled using MITRE ATT&CK\xAE. While not required, you can use\
+        \ commonly modeled using MITRE ATT&CK\xAE.\nWhile not required, you can use\
         \ a MITRE ATT&CK\xAE software name."
       example: AdFind
       default_field: false
@@ -8191,10 +8601,10 @@
       type: keyword
       ignore_above: 1024
       description: "The platforms of the software used by this threat to conduct behavior\
-        \ commonly modeled using MITRE ATT&CK\xAE. While not required, you can use\
-        \ a MITRE ATT&CK\xAE software platforms.\nRecommended Values:\n  * AWS\n \
-        \ * Azure\n  * Azure AD\n  * GCP\n  * Linux\n  * macOS\n  * Network\n  * Office\
-        \ 365\n  * SaaS\n  * Windows"
+        \ commonly modeled using MITRE ATT&CK\xAE.\nRecommended Values:\n  * AWS\n\
+        \  * Azure\n  * Azure AD\n  * GCP\n  * Linux\n  * macOS\n  * Network\n  *\
+        \ Office 365\n  * SaaS\n  * Windows\n\nWhile not required, you can use a MITRE\
+        \ ATT&CK\xAE software platforms."
       example: '[ "Windows" ]'
       default_field: false
     - name: software.reference
@@ -8202,7 +8612,7 @@
       type: keyword
       ignore_above: 1024
       description: "The reference URL of the software used by this threat to conduct\
-        \ behavior commonly modeled using MITRE ATT&CK\xAE. While not required, you\
+        \ behavior commonly modeled using MITRE ATT&CK\xAE.\nWhile not required, you\
         \ can use a MITRE ATT&CK\xAE software reference URL."
       example: https://attack.mitre.org/software/S0552/
       default_field: false
@@ -8211,8 +8621,8 @@
       type: keyword
       ignore_above: 1024
       description: "The type of software used by this threat to conduct behavior commonly\
-        \ modeled using MITRE ATT&CK\xAE. While not required, you can use a MITRE\
-        \ ATT&CK\xAE software type.\nRecommended values\n  * Malware\n  * Tool"
+        \ modeled using MITRE ATT&CK\xAE.\nRecommended values\n  * Malware\n  * Tool\n\
+        \n While not required, you can use a MITRE ATT&CK\xAE software type."
       example: Tool
       default_field: false
     - name: tactic.id
@@ -8250,8 +8660,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: "The name of technique used by this threat. You can use a MITRE\
         \ ATT&CK\xAE technique, for example. (ex. https://attack.mitre.org/techniques/T1059/)"
@@ -8277,8 +8686,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: "The name of subtechnique used by this threat. You can use a MITRE\
         \ ATT&CK\xAE subtechnique, for example. (ex. https://attack.mitre.org/techniques/T1059/001/)"
       example: PowerShell
@@ -8946,12 +9354,10 @@
         The `#` is not part of the fragment.'
     - name: full
       level: extended
-      type: keyword
-      ignore_above: 1024
+      type: wildcard
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: If full URLs are important to your use case, they should be stored
         in `url.full`, whether this field is reconstructed or present in the event
@@ -8959,12 +9365,10 @@
       example: https://www.elastic.co:443/search?q=elasticsearch#top
     - name: original
       level: extended
-      type: keyword
-      ignore_above: 1024
+      type: wildcard
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: 'Unmodified original url as seen in the event source.
 
@@ -8980,8 +9384,7 @@
       description: Password of the request.
     - name: path
       level: extended
-      type: keyword
-      ignore_above: 1024
+      type: wildcard
       description: Path of the request, such as "/search".
     - name: port
       level: extended
@@ -9081,8 +9484,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: User's full name, if available.
       example: Albert Einstein
       default_field: false
@@ -9121,6 +9523,7 @@
       type: keyword
       ignore_above: 1024
       description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
       default_field: false
     - name: changes.name
       level: core
@@ -9128,10 +9531,9 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: Short name or login of the user.
-      example: albert
+      example: a.einstein
       default_field: false
     - name: changes.roles
       level: extended
@@ -9167,8 +9569,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: User's full name, if available.
       example: Albert Einstein
       default_field: false
@@ -9207,6 +9608,7 @@
       type: keyword
       ignore_above: 1024
       description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
       default_field: false
     - name: effective.name
       level: core
@@ -9214,10 +9616,9 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: Short name or login of the user.
-      example: albert
+      example: a.einstein
       default_field: false
     - name: effective.roles
       level: extended
@@ -9237,8 +9638,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: User's full name, if available.
       example: Albert Einstein
@@ -9273,17 +9673,17 @@
       type: keyword
       ignore_above: 1024
       description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
     - name: name
       level: core
       type: keyword
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: Short name or login of the user.
-      example: albert
+      example: a.einstein
     - name: roles
       level: extended
       type: keyword
@@ -9311,8 +9711,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: User's full name, if available.
       example: Albert Einstein
       default_field: false
@@ -9351,6 +9750,7 @@
       type: keyword
       ignore_above: 1024
       description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
       default_field: false
     - name: target.name
       level: core
@@ -9358,10 +9758,9 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: Short name or login of the user.
-      example: albert
+      example: a.einstein
       default_field: false
     - name: target.roles
       level: extended
@@ -9396,8 +9795,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: Unparsed user_agent string.
       example: Mozilla/5.0 (iPhone; CPU iPhone OS 12_1 like Mac OS X) AppleWebKit/605.1.15
         (KHTML, like Gecko) Version/12.0 Mobile/15E148 Safari/604.1
@@ -9413,8 +9811,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: Operating system name, including the version or code name.
       example: Mac OS Mojave
@@ -9430,8 +9827,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
         default_field: false
       description: Operating system name, without the version.
       example: Mac OS X
@@ -9536,8 +9932,7 @@
       ignore_above: 1024
       multi_fields:
       - name: text
-        type: text
-        norms: false
+        type: match_only_text
       description: The description of the vulnerability that provides additional context
         of the vulnerability. For example (https://cve.mitre.org/about/faqs.html#cve_entry_descriptions_created[Common
         Vulnerabilities and Exposure CVE description])

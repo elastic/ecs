@@ -50,12 +50,12 @@
 
     - name: request.body.content
       level: extended
-      type: keyword
+      type: wildcard
       description: >
         The full HTTP request body.
       example: Hello world
       multi_fields:
-      - type: text
+      - type: match_only_text
         name: text
 
     - name: request.referrer
@@ -89,12 +89,12 @@
 
     - name: response.body.content
       level: extended
-      type: keyword
+      type: wildcard
       description: >
         The full HTTP response body.
       example: Hello world
       multi_fields:
-      - type: text
+      - type: match_only_text
         name: text
 
     - name: version

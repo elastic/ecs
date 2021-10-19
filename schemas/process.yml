@@ -53,16 +53,8 @@
         Sometimes called program name or similar.
       example: ssh
       multi_fields:
-      - type: text
+      - type: match_only_text
         name: text
-
-    - name: ppid
-      format: string
-      level: extended
-      type: long
-      description: >
-        Parent process' pid.
-      example: 4241
 
     - name: pgid
       format: string
@@ -73,7 +65,7 @@
 
     - name: command_line
       level: extended
-      type: keyword
+      type: wildcard
       short: Full command line that started the process.
       description: >
         Full command line that started the process, including the absolute path
@@ -82,7 +74,7 @@
         Some arguments may be filtered to protect sensitive information.
       example: "/usr/bin/ssh -l user 10.0.0.16"
       multi_fields:
-      - type: text
+      - type: match_only_text
         name: text
 
     - name: args
@@ -116,7 +108,7 @@
         Absolute path to the process executable.
       example: /usr/bin/ssh
       multi_fields:
-      - type: text
+      - type: match_only_text
         name: text
 
     - name: title
@@ -129,7 +121,7 @@
         The proctitle, some times the same as process name. Can also be different:
         for example a browser setting its title to the web page currently opened.
       multi_fields:
-      - type: text
+      - type: match_only_text
         name: text
 
     - name: thread.id
@@ -168,7 +160,7 @@
       description: >
         The working directory of the process.
       multi_fields:
-      - type: text
+      - type: match_only_text
         name: text
 
     - name: exit_code
@@ -181,3 +173,10 @@
 
         The field should be absent if there is no exit code for the event (e.g.
         process start).
+
+    - name: end
+      level: extended
+      type: date
+      example: "2016-05-23T08:05:34.853Z"
+      description: >
+        The time the process ended.

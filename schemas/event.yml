@@ -59,11 +59,23 @@
       allowed_values:
         - name: alert
           description: >
-            This value indicates an event that describes an alert or notable event,
-            triggered by a detection rule.
+            This value indicates an event such as an alert or notable event,
+            triggered by a detection rule executing externally to the Elastic Stack.
 
             `event.kind:alert` is often populated for events coming from firewalls,
             intrusion detection systems, endpoint detection and response systems, and so on.
+
+            This value is not used by Elastic solutions for alert documents
+            that are created by rules executing within the Kibana alerting framework.
+        - name: enrichment
+          description: >
+            The `enrichment` value indicates an event collected to provide additional
+            context, often to other events.
+
+            An example is collecting indicators of compromise (IOCs) from a threat
+            intelligence provider with the intent to use those values to enrich other
+            events. The IOC events from the intelligence provider should be categorized
+            as `event.kind:enrichment`.
         - name: event
           description: >
             This value is the most general and most common value for this field.
@@ -104,13 +116,10 @@
             `event.kind:pipeline_error` is often associated with parsing errors.
         - name: signal
           description: >
-            This value is used by the Elastic Security app to denote an Elasticsearch
-            document that was created by a SIEM detection engine rule.
+            This value is used by Elastic solutions (e.g., Security, Observability) for alert documents
+            that are created by rules executing within the Kibana alerting framework.
 
-            A signal will typically trigger a notification that something
-            meaningful happened and should be investigated.
-
-            Usage of this value is reserved, and pipelines should not populate
+            Usage of this value is reserved, and data ingestion pipelines must not populate
             `event.kind` with the value "signal".
 
     - name: category
@@ -296,6 +305,11 @@
             - start
             - end
             - info
+        - name: threat
+          description: >
+            Use this category to visualize and analyze events describing threat actors' targets, motives, or behaviors.
+          expected_event_types:
+            - indicator
         - name: web
           description: >
             Relating to web server access. Use this category to create a dashboard of
@@ -475,6 +489,12 @@
             Common example: `event.category:iam AND event.type:creation AND event.type:group`.
             You can further distinguish group operations using the ECS
             `event.action` field.
+        - name: indicator
+          description: >
+            The indicator event type is used for the subset of events within a category
+            that contain details about indicators of compromise (IOCs).
+
+            A common example is `event.category:threat AND event.type:indicator`.
         - name: info
           description: >
             The info event type is used for the subset of events within a category

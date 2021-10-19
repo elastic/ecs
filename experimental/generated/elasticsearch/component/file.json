@@ -17,6 +17,10 @@
             },
             "code_signature": {
               "properties": {
+                "digest_algorithm": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
                 "exists": {
                   "type": "boolean"
                 },
@@ -35,6 +39,9 @@
                 "team_id": {
                   "ignore_above": 1024,
                   "type": "keyword"
+                },
+                "timestamp": {
+                  "type": "date"
                 },
                 "trusted": {
                   "type": "boolean"
@@ -55,7 +62,8 @@
               "type": "keyword"
             },
             "directory": {
-              "type": "wildcard"
+              "ignore_above": 1024,
+              "type": "keyword"
             },
             "drive_letter": {
               "ignore_above": 1,
@@ -244,11 +252,11 @@
             "path": {
               "fields": {
                 "text": {
-                  "norms": false,
-                  "type": "text"
+                  "type": "match_only_text"
                 }
               },
-              "type": "wildcard"
+              "ignore_above": 1024,
+              "type": "keyword"
             },
             "pe": {
               "properties": {
@@ -341,7 +349,8 @@
                   "type": "keyword"
                 },
                 "original_file_name": {
-                  "type": "wildcard"
+                  "ignore_above": 1024,
+                  "type": "keyword"
                 },
                 "packers": {
                   "ignore_above": 1024,
@@ -423,11 +432,11 @@
             "target_path": {
               "fields": {
                 "text": {
-                  "norms": false,
-                  "type": "text"
+                  "type": "match_only_text"
                 }
               },
-              "type": "wildcard"
+              "ignore_above": 1024,
+              "type": "keyword"
             },
             "type": {
               "ignore_above": 1024,
@@ -454,7 +463,8 @@
                       "type": "keyword"
                     },
                     "distinguished_name": {
-                      "type": "wildcard"
+                      "ignore_above": 1024,
+                      "type": "keyword"
                     },
                     "locality": {
                       "ignore_above": 1024,
@@ -515,7 +525,8 @@
                       "type": "keyword"
                     },
                     "distinguished_name": {
-                      "type": "wildcard"
+                      "ignore_above": 1024,
+                      "type": "keyword"
                     },
                     "locality": {
                       "ignore_above": 1024,
