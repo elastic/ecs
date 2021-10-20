@@ -162,9 +162,13 @@ Use the `--include` flag to generate ECS artifacts based on the current ECS sche
 
 ```
 $ python scripts/generator.py --include ../myproject/ecs/custom-fields/
+$ python scripts/generator.py --include ../myproject/ecs/custom-fields/ ../myproject/ecs/more-custom-fields/
+$ python scripts/generator.py --include ../myproject/ecs/custom-fields/myprefix*.yml
+$ python scripts/generator.py --include ../myproject/ecs/custom-fields/[some]*[re].yml
+$ python scripts/generator.py --include ../myproject/ecs/custom-fields/myfile1.yml ../myproject/ecs/custom-fields/myfile2.yml
 ```
 
-The `--include` flag expects a directory of schema YAML files using the same [file format](https://github.com/elastic/ecs/tree/master/schemas#fields-supported-in-schemasyml) as the ECS schema files. This is useful for maintaining custom field definitions that are _outside_ of the ECS schema, but allows for merging the custom fields with the official ECS fields for your deployment.
+The `--include` flag expects one or more directories or subsets of schema YAML files using the same [file format](https://github.com/elastic/ecs/tree/master/schemas#fields-supported-in-schemasyml) as the ECS schema files. This is useful for maintaining custom field definitions that are _outside_ of the ECS schema, but allows for merging the custom fields with the official ECS fields for your deployment.
 
 For example, if we defined the following schema definition in a file named `myproject/ecs/custom-fields/widget.yml`:
 
@@ -237,11 +241,14 @@ Include can be used together with the `--ref` flag to merge custom fields into a
 Use the `--exclude` flag to generate ephemeral ECS artifacts based on the current ECS schema field definitions minus fields considered for removal, e.g. to assess impact of removing these. Warning! This is not the recommended route to remove a field permanently as it is not intended to be invoked during the build process. Definitive field removal should be implemented using a custom [Subset](#subset) or via the [RFC process](https://github.com/elastic/ecs/tree/master/rfcs/README.md). Example:
 
 ```
-$ python scripts/generator.py --exclude=../my-project/my-exclude-file.yml
-$ python scripts/generator.py --exclude="../my-project/schemas/a*.yml"
+$ python scripts/generator.py --exclude ../myproject/ecs/custom-fields/
+$ python scripts/generator.py --exclude ../myproject/ecs/custom-fields/ ../myproject/ecs/more-custom-fields/
+$ python scripts/generator.py --exclude ../myproject/ecs/custom-fields/myprefix*.yml
+$ python scripts/generator.py --exclude ../myproject/ecs/custom-fields/[some]*[re].yml
+$ python scripts/generator.py --exclude ../myproject/ecs/custom-fields/myfile1.yml ../myproject/ecs/custom-fields/myfile2.yml
 ```
 
-The `--exclude` flag expects a path to one or more YAML files using the same [file format](https://github.com/elastic/ecs/tree/master/schemas#fields-supported-in-schemasyml) as the ECS schema files. You can also use a subset, provided that relevant `name` and `fields` fields are preserved.
+The `--exclude` flag expects one or more directories or subsets of schema YAML files using the same [file format](https://github.com/elastic/ecs/tree/master/schemas#fields-supported-in-schemasyml) as the ECS schema files. You can also use a subset, provided that relevant `name` and `fields` fields are preserved.
 
 ```
 ---

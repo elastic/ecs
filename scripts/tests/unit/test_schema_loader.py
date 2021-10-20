@@ -34,6 +34,18 @@ class TestSchemaLoader(unittest.TestCase):
         self.assertEqual(['schemas/agent.yml', 'schemas/x509.yml'], files,
                          "glob should load all files matching '['schemas/agent.yml', 'schemas/x509.yml']'")
 
+    @mock.patch('schema.loader.warn')
+    def test_eval_globs_folder(self, mock_warn):
+        files = loader.eval_globs(['schemas/'])
+        self.assertIn('schemas/base.yml', files,
+            "glob should load all files in folder 'schemas' including 'schemas/base.yml']'")
+
+    @mock.patch('schema.loader.warn')
+    def test_eval_globs_folders(self, mock_warn):
+        files = loader.eval_globs(['schemas/', 'usage-example/fields/custom/'])
+        self.assertIn('usage-example/fields/custom/acme.yml', files,
+            "glob should load all files in folders ['schemas/', 'usage-example/fields/custom/'] including 'usage-example/fields/custom/acme.yml''")
+
     # Pseudo-fixtures
 
     def schema_base(self):

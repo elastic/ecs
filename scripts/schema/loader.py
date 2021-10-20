@@ -266,6 +266,8 @@ def eval_globs(globs):
     """Accepts an array of glob patterns or file names, returns the array of actual files"""
     all_files = []
     for g in globs:
+        if g.endswith('/'):
+            g += '*'
         new_files = glob.glob(g)
         if len(new_files) == 0:
             warn("{} did not match any files".format(g))
