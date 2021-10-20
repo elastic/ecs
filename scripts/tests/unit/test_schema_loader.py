@@ -22,6 +22,18 @@ class TestSchemaLoader(unittest.TestCase):
         self.assertEqual(list(filter(lambda f: f.startswith('missing'), files)), [],
                          "The 'missing*' pattern should not show up in the resulting files")
 
+    @mock.patch('schema.loader.warn')
+    def test_eval_globs_pattern(self, mock_warn):
+        files = loader.eval_globs(['schemas/a*.yml'])
+        self.assertEqual(['schemas/agent.yml', 'schemas/as.yml'].sort(), files.sort(),
+                         "glob should load all files matching 'schemas/a*.yml'")
+
+    @mock.patch('schema.loader.warn')
+    def test_eval_globs_filenames(self, mock_warn):
+        files = loader.eval_globs(['schemas/agent.yml', 'schemas/x509.yml'])
+        self.assertEqual(['schemas/agent.yml', 'schemas/x509.yml'], files,
+                         "glob should load all files matching '['schemas/agent.yml', 'schemas/x509.yml']'")
+
     # Pseudo-fixtures
 
     def schema_base(self):
