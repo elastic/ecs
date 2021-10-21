@@ -63,6 +63,7 @@
       not change if data is sent through queuing systems like Kafka, Redis, or processing
       systems such as Logstash or APM Server.'
     type: group
+    default_field: true
     fields:
     - name: build.original
       level: core
@@ -119,7 +120,6 @@
       ignore_above: 1024
       description: Version of the agent.
       example: 6.0.0-rc2
-    default_field: true
   - name: as
     title: Autonomous System
     group: 2
@@ -128,6 +128,7 @@
       behalf of a single administrative entity or domain that presents a common, clearly
       defined routing policy to the internet.
     type: group
+    default_field: true
     fields:
     - name: number
       level: extended
@@ -145,7 +146,6 @@
         default_field: false
       description: Organization name.
       example: Google LLC
-    default_field: true
   - name: client
     title: Client
     group: 2
@@ -165,6 +165,7 @@
       in that category, you should still ensure that source and destination are filled
       appropriately.'
     type: group
+    default_field: true
     fields:
     - name: address
       level: extended
@@ -429,7 +430,6 @@
       description: Array of user roles at the time of the event.
       example: '["kibana_admin", "reporting_user"]'
       default_field: false
-    default_field: true
   - name: cloud
     title: Cloud
     group: 2
@@ -441,6 +441,7 @@
       in the cloud, the field contains cloud data from the machine the service is
       running on.'
     type: group
+    default_field: true
     fields:
     - name: account.id
       level: extended
@@ -526,12 +527,12 @@
         Examples: app engine, app service, cloud run, fargate, lambda.'
       example: lambda
       default_field: false
-    default_field: true
   - name: code_signature
     title: Code Signature
     group: 2
     description: These fields contain information about binary code signatures.
     type: group
+    default_field: true
     fields:
     - name: digest_algorithm
       level: extended
@@ -611,7 +612,6 @@
         Leave unpopulated if a certificate was unchecked.'
       example: 'true'
       default_field: false
-    default_field: true
   - name: container
     title: Container
     group: 2
@@ -620,6 +620,7 @@
 
       These fields help correlate data based containers from any runtime.'
     type: group
+    default_field: true
     fields:
     - name: cpu.usage
       level: extended
@@ -690,7 +691,6 @@
       ignore_above: 1024
       description: Runtime managing this container.
       example: docker
-    default_field: true
   - name: data_stream
     title: Data Stream
     group: 2
@@ -709,6 +709,7 @@
       names cannot include `\`, `/`, `*`, `?`, `"`, `<`, `>`, `|`, ` ` (space character),
       `,`, or `#`. Please see the Elasticsearch reference for additional https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-create-index.html#indices-create-api-path-params[restrictions].'
     type: group
+    default_field: true
     fields:
     - name: dataset
       level: extended
@@ -743,7 +744,6 @@
         and "synthetics" in the near future.'
       example: logs
       default_field: false
-    default_field: true
   - name: destination
     title: Destination
     group: 2
@@ -757,6 +757,7 @@
       transaction. If the event also contains identification of the client and server
       roles, then the client and server fields should also be populated.'
     type: group
+    default_field: true
     fields:
     - name: address
       level: extended
@@ -1020,7 +1021,6 @@
       description: Array of user roles at the time of the event.
       example: '["kibana_admin", "reporting_user"]'
       default_field: false
-    default_field: true
   - name: dll
     title: DLL
     group: 2
@@ -1037,6 +1037,7 @@
 
       * Dynamic library (`.dylib`) commonly used on macOS'
     type: group
+    default_field: true
     fields:
     - name: code_signature.digest_algorithm
       level: extended
@@ -1425,7 +1426,6 @@
       description: Virtual address available to the file.
       example: 8192
       default_field: false
-    default_field: true
   - name: dns
     title: DNS
     group: 2
@@ -1436,6 +1436,7 @@
       query details as well as all of the answers that were provided for this query
       (`dns.type:answer`).'
     type: group
+    default_field: true
     fields:
     - name: answers
       level: extended
@@ -1595,12 +1596,12 @@
         one event per query (optionally as soon as the query is seen). And a second
         event containing all query details as well as an array of answers.'
       example: answer
-    default_field: true
   - name: ecs
     title: ECS
     group: 2
     description: Meta-information specific to ECS.
     type: group
+    default_field: true
     fields:
     - name: version
       level: core
@@ -1614,12 +1615,12 @@
         ECS versions -- this field lets integrations adjust to the schema version
         of the events.'
       example: 1.0.0
-    default_field: true
   - name: elf
     title: ELF Header
     group: 2
     description: These fields contain Linux Executable Linkable Format (ELF) metadata.
     type: group
+    default_field: true
     fields:
     - name: architecture
       level: extended
@@ -1800,7 +1801,6 @@
       ignore_above: 1024
       description: telfhash symbol hash for ELF file.
       default_field: false
-    default_field: true
   - name: email
     title: Email
     group: 2
@@ -1810,6 +1810,7 @@
       protocols that send and receive email messages such as SMTP are outside the
       scope of the `email.*` fields.'
     type: group
+    default_field: true
     fields:
     - name: attachments
       level: extended
@@ -1971,7 +1972,6 @@
         original email message.
       example: Spambot v2.5
       default_field: false
-    default_field: true
   - name: error
     title: Error
     group: 2
@@ -1980,6 +1980,7 @@
       Use them for errors that happen while fetching events or in cases where the
       event itself contains an error.'
     type: group
+    default_field: true
     fields:
     - name: code
       level: core
@@ -2009,7 +2010,6 @@
       ignore_above: 1024
       description: The type of the error, for example the class name of the exception.
       example: java.lang.NullPointerException
-    default_field: true
   - name: event
     title: Event
     group: 2
@@ -2026,6 +2026,7 @@
       temperature. See the `event.kind` definition in this section for additional
       details about metric and state events.'
     type: group
+    default_field: true
     fields:
     - name: action
       level: core
@@ -2337,7 +2338,6 @@
         are a common use case for this field.'
       example: https://mysystem.example.com/alert/5271dedb-f5b0-4218-87f0-4ac4870a38fe
       default_field: false
-    default_field: true
   - name: file
     title: File
     group: 2
@@ -2349,6 +2349,7 @@
       services). File fields provide details about the affected file associated with
       the event or metric.'
     type: group
+    default_field: true
     fields:
     - name: accessed
       level: extended
@@ -3237,7 +3238,6 @@
       description: Version of x509 format.
       example: 3
       default_field: false
-    default_field: true
   - name: geo
     title: Geo
     group: 2
@@ -3247,6 +3247,7 @@
       This geolocation information can be derived from techniques such as Geo IP,
       or be user-supplied.'
     type: group
+    default_field: true
     fields:
     - name: city_name
       level: core
@@ -3325,13 +3326,13 @@
       description: The time zone of the location, such as IANA time zone name.
       example: America/Argentina/Buenos_Aires
       default_field: false
-    default_field: true
   - name: group
     title: Group
     group: 2
     description: The group fields are meant to represent groups that are relevant
       to the event.
     type: group
+    default_field: true
     fields:
     - name: domain
       level: extended
@@ -3350,7 +3351,6 @@
       type: keyword
       ignore_above: 1024
       description: Name of the group.
-    default_field: true
   - name: hash
     title: Hash
     group: 2
@@ -3365,6 +3365,7 @@
       a range of generic bytes. Entity-specific hashes such as ja3 or imphash are
       placed in the fieldsets to which they relate (tls and pe, respectively).'
     type: group
+    default_field: true
     fields:
     - name: md5
       level: extended
@@ -3392,7 +3393,6 @@
       ignore_above: 1024
       description: SSDEEP hash.
       default_field: false
-    default_field: true
   - name: host
     title: Host
     group: 2
@@ -3402,6 +3402,7 @@
       event happened, or from which the measurement was taken. Host types include
       hardware, virtual machines, Docker containers, and Kubernetes nodes.'
     type: group
+    default_field: true
     fields:
     - name: architecture
       level: core
@@ -3658,13 +3659,13 @@
       type: long
       description: Seconds the host has been up.
       example: 1325
-    default_field: true
   - name: http
     title: HTTP
     group: 2
     description: Fields related to HTTP activity. Use the `url` field set to store
       the url of the request.
     type: group
+    default_field: true
     fields:
     - name: request.body.bytes
       level: extended
@@ -3770,7 +3771,6 @@
       ignore_above: 1024
       description: HTTP version.
       example: 1.1
-    default_field: true
   - name: interface
     title: Interface
     group: 2
@@ -3780,6 +3780,7 @@
       a single observer interface (e.g. network sensor on a span port) only the observer.ingress
       information should be populated.
     type: group
+    default_field: true
     fields:
     - name: alias
       level: extended
@@ -3804,7 +3805,6 @@
       description: Interface name as reported by the system.
       example: eth0
       default_field: false
-    default_field: true
   - name: log
     title: Log
     group: 2
@@ -3817,6 +3817,7 @@
       The details specific to your event source are typically not logged under `log.*`,
       but rather in `event.*` or in other ECS fields.'
     type: group
+    default_field: true
     fields:
     - name: file.path
       level: extended
@@ -3919,7 +3920,6 @@
         If the event source does not specify a distinct severity, you can optionally
         copy the Syslog severity to `log.level`.'
       example: Error
-    default_field: true
   - name: network
     title: Network
     group: 2
@@ -3929,6 +3929,7 @@
       The network.* fields should be populated with details about the network activity
       associated with an event.'
     type: group
+    default_field: true
     fields:
     - name: application
       level: extended
@@ -4072,7 +4073,6 @@
       description: Optional VLAN name as reported by the observer.
       example: outside
       default_field: false
-    default_field: true
   - name: observer
     title: Observer
     group: 2
@@ -4089,6 +4089,7 @@
       or metric. Message queues and ETL components used in processing events or metrics
       are not considered observers in ECS.'
     type: group
+    default_field: true
     fields:
     - name: egress
       level: extended
@@ -4396,13 +4397,13 @@
       type: keyword
       ignore_above: 1024
       description: Observer version.
-    default_field: true
   - name: orchestrator
     title: Orchestrator
     group: 2
     description: Fields that describe the resources which container orchestrators
       manage or act upon.
     type: group
+    default_field: true
     fields:
     - name: api_version
       level: extended
@@ -4465,7 +4466,6 @@
       description: Orchestrator cluster type (e.g. kubernetes, nomad or cloudfoundry).
       example: kubernetes
       default_field: false
-    default_field: true
   - name: organization
     title: Organization
     group: 2
@@ -4475,6 +4475,7 @@
       These fields help you arrange or filter data stored in an index by one or multiple
       organizations.'
     type: group
+    default_field: true
     fields:
     - name: id
       level: extended
@@ -4490,12 +4491,12 @@
         type: match_only_text
         default_field: false
       description: Organization name.
-    default_field: true
   - name: os
     title: Operating System
     group: 2
     description: The OS fields contain information about the operating system.
     type: group
+    default_field: true
     fields:
     - name: family
       level: extended
@@ -4556,7 +4557,6 @@
       ignore_above: 1024
       description: Operating system version as a raw string.
       example: 10.14.1
-    default_field: true
   - name: package
     title: Package
     group: 2
@@ -4564,6 +4564,7 @@
       It contains general information about a package, such as name, version or size.
       It also contains installation details, such as time or location.
     type: group
+    default_field: true
     fields:
     - name: architecture
       level: extended
@@ -4655,12 +4656,12 @@
       ignore_above: 1024
       description: Package version
       example: 1.12.9
-    default_field: true
   - name: pe
     title: PE Header
     group: 2
     description: These fields contain Windows Portable Executable (PE) metadata.
     type: group
+    default_field: true
     fields:
     - name: architecture
       level: extended
@@ -4925,7 +4926,6 @@
       description: Virtual address available to the file.
       example: 8192
       default_field: false
-    default_field: true
   - name: process
     title: Process
     group: 2
@@ -4935,6 +4935,7 @@
       from a log message.  The `process.pid` often stays in the metric itself and
       is copied to the global field for correlation.'
     type: group
+    default_field: true
     fields:
     - name: args
       level: extended
@@ -7705,12 +7706,12 @@
         default_field: false
       description: The working directory of the process.
       example: /home/alice
-    default_field: true
   - name: registry
     title: Registry
     group: 2
     description: Fields related to Windows Registry operations.
     type: group
+    default_field: true
     fields:
     - name: data.bytes
       level: extended
@@ -7771,7 +7772,6 @@
       description: Name of the value written.
       example: Debugger
       default_field: false
-    default_field: true
   - name: related
     title: Related
     group: 2
@@ -7787,6 +7787,7 @@
       to `related.ip`, you can then search for a given IP trivially, no matter where
       it appeared, by querying `related.ip:192.0.2.15`.'
     type: group
+    default_field: true
     fields:
     - name: hash
       level: extended
@@ -7813,7 +7814,6 @@
       ignore_above: 1024
       description: All the user names or other user identifiers seen on the event.
       default_field: false
-    default_field: true
   - name: rule
     title: Rule
     group: 2
@@ -7825,6 +7825,7 @@
       application firewalls, url filters, endpoint detection and response (EDR) systems,
       etc.'
     type: group
+    default_field: true
     fields:
     - name: author
       level: extended
@@ -7908,7 +7909,6 @@
       description: The version / revision of the rule being used for analysis.
       example: 1.1
       default_field: false
-    default_field: true
   - name: server
     title: Server
     group: 2
@@ -7928,6 +7928,7 @@
       in that category, you should still ensure that source and destination are filled
       appropriately.'
     type: group
+    default_field: true
     fields:
     - name: address
       level: extended
@@ -8192,7 +8193,6 @@
       description: Array of user roles at the time of the event.
       example: '["kibana_admin", "reporting_user"]'
       default_field: false
-    default_field: true
   - name: service
     title: Service
     group: 2
@@ -8201,6 +8201,7 @@
 
       These fields help you find and correlate logs for a specific service and version.'
     type: group
+    default_field: true
     fields:
     - name: address
       level: extended
@@ -8301,7 +8302,6 @@
 
         This allows to look at a data set only for a specific version of a service.'
       example: 3.2.4
-    default_field: true
   - name: source
     title: Source
     group: 2
@@ -8315,6 +8315,7 @@
       transaction. If the event also contains identification of the client and server
       roles, then the client and server fields should also be populated.'
     type: group
+    default_field: true
     fields:
     - name: address
       level: extended
@@ -8579,7 +8580,6 @@
       description: Array of user roles at the time of the event.
       example: '["kibana_admin", "reporting_user"]'
       default_field: false
-    default_field: true
   - name: threat
     title: Threat
     group: 2
@@ -8591,6 +8591,7 @@
       \ which kind of approach is used by this detected threat, to accomplish the\
       \ goal (e.g. \"endpoint denial of service\")."
     type: group
+    default_field: true
     fields:
     - name: enrichments
       level: extended
@@ -11804,7 +11805,6 @@
         \ use a MITRE ATT&CK\xAE subtechnique, for example. (ex. https://attack.mitre.org/techniques/T1059/001/)"
       example: https://attack.mitre.org/techniques/T1059/001/
       default_field: false
-    default_field: true
   - name: tls
     title: TLS
     group: 2
@@ -11812,6 +11812,7 @@
       protocol itself and intentionally avoids in-depth analysis of the related x.509
       certificate files.
     type: group
+    default_field: true
     fields:
     - name: cipher
       level: extended
@@ -12388,7 +12389,6 @@
       description: Normalized lowercase protocol name parsed from original string.
       example: tls
       default_field: false
-    default_field: true
   - name: span.id
     level: extended
     type: keyword
@@ -12423,6 +12423,7 @@
     description: URL fields provide support for complete or partial URLs, and supports
       the breaking down into scheme, domain, path, and so on.
     type: group
+    default_field: true
     fields:
     - name: domain
       level: extended
@@ -12561,7 +12562,6 @@
       type: keyword
       ignore_above: 1024
       description: Username of the request.
-    default_field: true
   - name: user
     title: User
     group: 2
@@ -12571,6 +12571,7 @@
       Fields can have one entry or multiple entries. If a user has more than one id,
       provide an array that includes all of them.'
     type: group
+    default_field: true
     fields:
     - name: changes.domain
       level: extended
@@ -12877,7 +12878,6 @@
       description: Array of user roles at the time of the event.
       example: '["kibana_admin", "reporting_user"]'
       default_field: false
-    default_field: true
   - name: user_agent
     title: User agent
     group: 2
@@ -12885,6 +12885,7 @@
 
       They often show up in web service logs coming from the parsed user agent string.'
     type: group
+    default_field: true
     fields:
     - name: device.name
       level: extended
@@ -12973,7 +12974,6 @@
       ignore_above: 1024
       description: Version of the user agent.
       example: 12.0
-    default_field: true
   - name: vlan
     title: VLAN
     group: 2
@@ -12994,6 +12994,7 @@
       specific information when observer events contain discrete ingress and egress
       VLAN information, typically provided by firewalls, routers, or load balancers.'
     type: group
+    default_field: true
     fields:
     - name: id
       level: extended
@@ -13009,13 +13010,13 @@
       description: Optional VLAN name as reported by the observer.
       example: outside
       default_field: false
-    default_field: true
   - name: vulnerability
     title: Vulnerability
     group: 2
     description: The vulnerability fields describe information about a vulnerability
       that is relevant to an event.
     type: group
+    default_field: true
     fields:
     - name: category
       level: extended
@@ -13138,7 +13139,6 @@
         prioritization regarding remediation. For example (https://nvd.nist.gov/vuln-metrics/cvss)
       example: Critical
       default_field: false
-    default_field: true
   - name: x509
     title: x509 Certificate
     group: 2
@@ -13155,6 +13155,7 @@
       use the x509 fields under the relevant TLS fields: `tls.server.x509` and/or
       `tls.client.x509`.'
     type: group
+    default_field: true
     fields:
     - name: alternative_names
       level: extended
@@ -13328,4 +13329,3 @@
       description: Version of x509 format.
       example: 3
       default_field: false
-    default_field: true

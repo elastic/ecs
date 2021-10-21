@@ -23,8 +23,8 @@ def generate(ecs_nested, ecs_version, out_dir):
             continue
 
         beats_field = ecs_helpers.dict_copy_keys_ordered(fieldset, allowed_fieldset_keys)
-        beats_field['fields'] = fieldset_field_array(fieldset['fields'], df_allowlist, fieldset['prefix'])
         beats_field['default_field'] = True
+        beats_field['fields'] = fieldset_field_array(fieldset['fields'], df_allowlist, fieldset['prefix'])
         beats_fields.append(beats_field)
 
     beats_file = OrderedDict()
