@@ -53,11 +53,33 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.0.0-dev+exp,true,cloud,cloud.instance.id,keyword,extended,,i-1234567890abcdef0,Instance ID of the host machine.
 8.0.0-dev+exp,true,cloud,cloud.instance.name,keyword,extended,,,Instance name of the host machine.
 8.0.0-dev+exp,true,cloud,cloud.machine.type,keyword,extended,,t2.medium,Machine type of the host machine.
+8.0.0-dev+exp,true,cloud,cloud.origin.account.id,keyword,extended,,666777888999,The cloud account or organization id.
+8.0.0-dev+exp,true,cloud,cloud.origin.account.name,keyword,extended,,elastic-dev,The cloud account name.
+8.0.0-dev+exp,true,cloud,cloud.origin.availability_zone,keyword,extended,,us-east-1c,"Availability zone in which this host, resource, or service is located."
+8.0.0-dev+exp,true,cloud,cloud.origin.instance.id,keyword,extended,,i-1234567890abcdef0,Instance ID of the host machine.
+8.0.0-dev+exp,true,cloud,cloud.origin.instance.name,keyword,extended,,,Instance name of the host machine.
+8.0.0-dev+exp,true,cloud,cloud.origin.machine.type,keyword,extended,,t2.medium,Machine type of the host machine.
+8.0.0-dev+exp,true,cloud,cloud.origin.project.id,keyword,extended,,my-project,The cloud project id.
+8.0.0-dev+exp,true,cloud,cloud.origin.project.name,keyword,extended,,my project,The cloud project name.
+8.0.0-dev+exp,true,cloud,cloud.origin.provider,keyword,extended,,aws,Name of the cloud provider.
+8.0.0-dev+exp,true,cloud,cloud.origin.region,keyword,extended,,us-east-1,"Region in which this host, resource, or service is located."
+8.0.0-dev+exp,true,cloud,cloud.origin.service.name,keyword,extended,,lambda,The cloud service name.
 8.0.0-dev+exp,true,cloud,cloud.project.id,keyword,extended,,my-project,The cloud project id.
 8.0.0-dev+exp,true,cloud,cloud.project.name,keyword,extended,,my project,The cloud project name.
 8.0.0-dev+exp,true,cloud,cloud.provider,keyword,extended,,aws,Name of the cloud provider.
 8.0.0-dev+exp,true,cloud,cloud.region,keyword,extended,,us-east-1,"Region in which this host, resource, or service is located."
 8.0.0-dev+exp,true,cloud,cloud.service.name,keyword,extended,,lambda,The cloud service name.
+8.0.0-dev+exp,true,cloud,cloud.target.account.id,keyword,extended,,666777888999,The cloud account or organization id.
+8.0.0-dev+exp,true,cloud,cloud.target.account.name,keyword,extended,,elastic-dev,The cloud account name.
+8.0.0-dev+exp,true,cloud,cloud.target.availability_zone,keyword,extended,,us-east-1c,"Availability zone in which this host, resource, or service is located."
+8.0.0-dev+exp,true,cloud,cloud.target.instance.id,keyword,extended,,i-1234567890abcdef0,Instance ID of the host machine.
+8.0.0-dev+exp,true,cloud,cloud.target.instance.name,keyword,extended,,,Instance name of the host machine.
+8.0.0-dev+exp,true,cloud,cloud.target.machine.type,keyword,extended,,t2.medium,Machine type of the host machine.
+8.0.0-dev+exp,true,cloud,cloud.target.project.id,keyword,extended,,my-project,The cloud project id.
+8.0.0-dev+exp,true,cloud,cloud.target.project.name,keyword,extended,,my project,The cloud project name.
+8.0.0-dev+exp,true,cloud,cloud.target.provider,keyword,extended,,aws,Name of the cloud provider.
+8.0.0-dev+exp,true,cloud,cloud.target.region,keyword,extended,,us-east-1,"Region in which this host, resource, or service is located."
+8.0.0-dev+exp,true,cloud,cloud.target.service.name,keyword,extended,,lambda,The cloud service name.
 8.0.0-dev+exp,true,container,container.cpu.usage,scaled_float,extended,,,"Percent CPU used, between 0 and 1."
 8.0.0-dev+exp,true,container,container.disk.read.bytes,long,extended,,,The number of bytes read by all disks.
 8.0.0-dev+exp,true,container,container.disk.write.bytes,long,extended,,,The number of bytes written on all disks.
@@ -238,6 +260,11 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.0.0-dev+exp,true,event,event.timezone,keyword,extended,,,Event time zone.
 8.0.0-dev+exp,true,event,event.type,keyword,core,array,,Event type. The third categorization field in the hierarchy.
 8.0.0-dev+exp,true,event,event.url,keyword,extended,,https://mysystem.example.com/alert/5271dedb-f5b0-4218-87f0-4ac4870a38fe,Event investigation URL
+8.0.0-dev+exp,true,faas,faas.coldstart,boolean,extended,,,Boolean value indicating a cold start of a function.
+8.0.0-dev+exp,true,faas,faas.execution,keyword,extended,,af9d5aa4-a685-4c5f-a22b-444f80b3cc28,The execution ID of the current function execution.
+8.0.0-dev+exp,true,faas,faas.trigger,nested,extended,,,Details about the function trigger.
+8.0.0-dev+exp,true,faas,faas.trigger.request_id,keyword,extended,,123456789,"The ID of the trigger request , message, event, etc."
+8.0.0-dev+exp,true,faas,faas.trigger.type,keyword,extended,,http,The trigger for the function execution.
 8.0.0-dev+exp,true,file,file.accessed,date,extended,,,Last time the file was accessed.
 8.0.0-dev+exp,true,file,file.attributes,keyword,extended,array,"[""readonly"", ""system""]",Array of file attributes.
 8.0.0-dev+exp,true,file,file.code_signature.digest_algorithm,keyword,extended,,sha256,Hashing algorithm used to sign the process.
@@ -990,7 +1017,25 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.0.0-dev+exp,true,service,service.id,keyword,core,,d37e5ebfe0ae6c4972dbe9f0174a1637bb8247f6,Unique identifier of the running service.
 8.0.0-dev+exp,true,service,service.name,keyword,core,,elasticsearch-metrics,Name of the service.
 8.0.0-dev+exp,true,service,service.node.name,keyword,extended,,instance-0000000016,Name of the service node.
+8.0.0-dev+exp,true,service,service.origin.address,keyword,extended,,172.26.0.2:5432,Address of this service.
+8.0.0-dev+exp,true,service,service.origin.environment,keyword,extended,,production,Environment of the service.
+8.0.0-dev+exp,true,service,service.origin.ephemeral_id,keyword,extended,,8a4f500f,Ephemeral identifier of this service.
+8.0.0-dev+exp,true,service,service.origin.id,keyword,core,,d37e5ebfe0ae6c4972dbe9f0174a1637bb8247f6,Unique identifier of the running service.
+8.0.0-dev+exp,true,service,service.origin.name,keyword,core,,elasticsearch-metrics,Name of the service.
+8.0.0-dev+exp,true,service,service.origin.node.name,keyword,extended,,instance-0000000016,Name of the service node.
+8.0.0-dev+exp,true,service,service.origin.state,keyword,core,,,Current state of the service.
+8.0.0-dev+exp,true,service,service.origin.type,keyword,core,,elasticsearch,The type of the service.
+8.0.0-dev+exp,true,service,service.origin.version,keyword,core,,3.2.4,Version of the service.
 8.0.0-dev+exp,true,service,service.state,keyword,core,,,Current state of the service.
+8.0.0-dev+exp,true,service,service.target.address,keyword,extended,,172.26.0.2:5432,Address of this service.
+8.0.0-dev+exp,true,service,service.target.environment,keyword,extended,,production,Environment of the service.
+8.0.0-dev+exp,true,service,service.target.ephemeral_id,keyword,extended,,8a4f500f,Ephemeral identifier of this service.
+8.0.0-dev+exp,true,service,service.target.id,keyword,core,,d37e5ebfe0ae6c4972dbe9f0174a1637bb8247f6,Unique identifier of the running service.
+8.0.0-dev+exp,true,service,service.target.name,keyword,core,,elasticsearch-metrics,Name of the service.
+8.0.0-dev+exp,true,service,service.target.node.name,keyword,extended,,instance-0000000016,Name of the service node.
+8.0.0-dev+exp,true,service,service.target.state,keyword,core,,,Current state of the service.
+8.0.0-dev+exp,true,service,service.target.type,keyword,core,,elasticsearch,The type of the service.
+8.0.0-dev+exp,true,service,service.target.version,keyword,core,,3.2.4,Version of the service.
 8.0.0-dev+exp,true,service,service.type,keyword,core,,elasticsearch,The type of the service.
 8.0.0-dev+exp,true,service,service.version,keyword,core,,3.2.4,Version of the service.
 8.0.0-dev+exp,true,source,source.address,keyword,extended,,,Source network address.

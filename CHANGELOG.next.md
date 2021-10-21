@@ -22,6 +22,8 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
+* Added `faas.*` field set as beta. #1628
+
 #### Improvements
 
 * Wildcard type field migration GA. #1582
