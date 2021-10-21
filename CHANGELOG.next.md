@@ -10,8 +10,6 @@ Thanks, you're awesome :-) -->
 
 ### Schema Changes
 
-* Align input options for --include and --subset arguments #1519
-
 #### Breaking changes
 
 * Remove `host.user.*` field reuse. #1439
@@ -33,6 +31,8 @@ Thanks, you're awesome :-) -->
 #### Deprecated
 
 ### Tooling and Artifact Changes
+
+* Align input options for --include and --subset arguments #1519
 
 #### Breaking Changes
 
