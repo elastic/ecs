@@ -63,6 +63,7 @@
       not change if data is sent through queuing systems like Kafka, Redis, or processing
       systems such as Logstash or APM Server.'
     type: group
+    default_field: true
     fields:
     - name: build.original
       level: core
@@ -127,6 +128,7 @@
       behalf of a single administrative entity or domain that presents a common, clearly
       defined routing policy to the internet.
     type: group
+    default_field: true
     fields:
     - name: number
       level: extended
@@ -163,6 +165,7 @@
       in that category, you should still ensure that source and destination are filled
       appropriately.'
     type: group
+    default_field: true
     fields:
     - name: address
       level: extended
@@ -448,6 +451,7 @@
       cloud.target.* may only be used in the  context of outgoing requests or events
       to describe the target service''s  cloud information.'
     type: group
+    default_field: true
     fields:
     - name: account.id
       level: extended
@@ -720,6 +724,7 @@
     group: 2
     description: These fields contain information about binary code signatures.
     type: group
+    default_field: true
     fields:
     - name: digest_algorithm
       level: extended
@@ -807,6 +812,7 @@
 
       These fields help correlate data based containers from any runtime.'
     type: group
+    default_field: true
     fields:
     - name: cpu.usage
       level: extended
@@ -895,6 +901,7 @@
       names cannot include `\`, `/`, `*`, `?`, `"`, `<`, `>`, `|`, ` ` (space character),
       `,`, or `#`. Please see the Elasticsearch reference for additional https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-create-index.html#indices-create-api-path-params[restrictions].'
     type: group
+    default_field: true
     fields:
     - name: dataset
       level: extended
@@ -942,6 +949,7 @@
       transaction. If the event also contains identification of the client and server
       roles, then the client and server fields should also be populated.'
     type: group
+    default_field: true
     fields:
     - name: address
       level: extended
@@ -1221,6 +1229,7 @@
 
       * Dynamic library (`.dylib`) commonly used on macOS'
     type: group
+    default_field: true
     fields:
     - name: code_signature.digest_algorithm
       level: extended
@@ -1619,6 +1628,7 @@
       query details as well as all of the answers that were provided for this query
       (`dns.type:answer`).'
     type: group
+    default_field: true
     fields:
     - name: answers
       level: extended
@@ -1783,6 +1793,7 @@
     group: 2
     description: Meta-information specific to ECS.
     type: group
+    default_field: true
     fields:
     - name: version
       level: core
@@ -1801,6 +1812,7 @@
     group: 2
     description: These fields contain Linux Executable Linkable Format (ELF) metadata.
     type: group
+    default_field: true
     fields:
     - name: architecture
       level: extended
@@ -1990,6 +2002,7 @@
       protocols that send and receive email messages such as SMTP are outside the
       scope of the `email.*` fields.'
     type: group
+    default_field: true
     fields:
     - name: attachments
       level: extended
@@ -2159,6 +2172,7 @@
       Use them for errors that happen while fetching events or in cases where the
       event itself contains an error.'
     type: group
+    default_field: true
     fields:
     - name: code
       level: core
@@ -2204,6 +2218,7 @@
       temperature. See the `event.kind` definition in this section for additional
       details about metric and state events.'
     type: group
+    default_field: true
     fields:
     - name: action
       level: core
@@ -2565,6 +2580,7 @@
       services). File fields provide details about the affected file associated with
       the event or metric.'
     type: group
+    default_field: true
     fields:
     - name: accessed
       level: extended
@@ -3462,6 +3478,7 @@
       This geolocation information can be derived from techniques such as Geo IP,
       or be user-supplied.'
     type: group
+    default_field: true
     fields:
     - name: city_name
       level: core
@@ -3546,6 +3563,7 @@
     description: The group fields are meant to represent groups that are relevant
       to the event.
     type: group
+    default_field: true
     fields:
     - name: domain
       level: extended
@@ -3578,6 +3596,7 @@
       a range of generic bytes. Entity-specific hashes such as ja3 or imphash are
       placed in the fieldsets to which they relate (tls and pe, respectively).'
     type: group
+    default_field: true
     fields:
     - name: md5
       level: extended
@@ -3614,6 +3633,7 @@
       event happened, or from which the measurement was taken. Host types include
       hardware, virtual machines, Docker containers, and Kubernetes nodes.'
     type: group
+    default_field: true
     fields:
     - name: architecture
       level: core
@@ -3876,6 +3896,7 @@
     description: Fields related to HTTP activity. Use the `url` field set to store
       the url of the request.
     type: group
+    default_field: true
     fields:
     - name: request.body.bytes
       level: extended
@@ -3990,6 +4011,7 @@
       a single observer interface (e.g. network sensor on a span port) only the observer.ingress
       information should be populated.
     type: group
+    default_field: true
     fields:
     - name: alias
       level: extended
@@ -4026,6 +4048,7 @@
       The details specific to your event source are typically not logged under `log.*`,
       but rather in `event.*` or in other ECS fields.'
     type: group
+    default_field: true
     fields:
     - name: file.path
       level: extended
@@ -4137,6 +4160,7 @@
       The network.* fields should be populated with details about the network activity
       associated with an event.'
     type: group
+    default_field: true
     fields:
     - name: application
       level: extended
@@ -4296,6 +4320,7 @@
       or metric. Message queues and ETL components used in processing events or metrics
       are not considered observers in ECS.'
     type: group
+    default_field: true
     fields:
     - name: egress
       level: extended
@@ -4609,6 +4634,7 @@
     description: Fields that describe the resources which container orchestrators
       manage or act upon.
     type: group
+    default_field: true
     fields:
     - name: api_version
       level: extended
@@ -4680,6 +4706,7 @@
       These fields help you arrange or filter data stored in an index by one or multiple
       organizations.'
     type: group
+    default_field: true
     fields:
     - name: id
       level: extended
@@ -4700,6 +4727,7 @@
     group: 2
     description: The OS fields contain information about the operating system.
     type: group
+    default_field: true
     fields:
     - name: family
       level: extended
@@ -4767,6 +4795,7 @@
       It contains general information about a package, such as name, version or size.
       It also contains installation details, such as time or location.
     type: group
+    default_field: true
     fields:
     - name: architecture
       level: extended
@@ -4863,6 +4892,7 @@
     group: 2
     description: These fields contain Windows Portable Executable (PE) metadata.
     type: group
+    default_field: true
     fields:
     - name: architecture
       level: extended
@@ -5136,6 +5166,7 @@
       from a log message.  The `process.pid` often stays in the metric itself and
       is copied to the global field for correlation.'
     type: group
+    default_field: true
     fields:
     - name: args
       level: extended
@@ -7911,6 +7942,7 @@
     group: 2
     description: Fields related to Windows Registry operations.
     type: group
+    default_field: true
     fields:
     - name: data.bytes
       level: extended
@@ -7986,6 +8018,7 @@
       to `related.ip`, you can then search for a given IP trivially, no matter where
       it appeared, by querying `related.ip:192.0.2.15`.'
     type: group
+    default_field: true
     fields:
     - name: hash
       level: extended
@@ -8023,6 +8056,7 @@
       application firewalls, url filters, endpoint detection and response (EDR) systems,
       etc.'
     type: group
+    default_field: true
     fields:
     - name: author
       level: extended
@@ -8125,6 +8159,7 @@
       in that category, you should still ensure that source and destination are filled
       appropriately.'
     type: group
+    default_field: true
     fields:
     - name: address
       level: extended
@@ -8405,6 +8440,7 @@
       The fieldset service.target.*  may only be used in the context of outgoing requests
       or events to describe the target  service of the request.
     type: group
+    default_field: true
     fields:
     - name: address
       level: extended
@@ -8730,6 +8766,7 @@
       transaction. If the event also contains identification of the client and server
       roles, then the client and server fields should also be populated.'
     type: group
+    default_field: true
     fields:
     - name: address
       level: extended
@@ -9005,6 +9042,7 @@
       \ which kind of approach is used by this detected threat, to accomplish the\
       \ goal (e.g. \"endpoint denial of service\")."
     type: group
+    default_field: true
     fields:
     - name: enrichments
       level: extended
@@ -12225,6 +12263,7 @@
       protocol itself and intentionally avoids in-depth analysis of the related x.509
       certificate files.
     type: group
+    default_field: true
     fields:
     - name: cipher
       level: extended
@@ -12835,6 +12874,7 @@
     description: URL fields provide support for complete or partial URLs, and supports
       the breaking down into scheme, domain, path, and so on.
     type: group
+    default_field: true
     fields:
     - name: domain
       level: extended
@@ -12982,6 +13022,7 @@
       Fields can have one entry or multiple entries. If a user has more than one id,
       provide an array that includes all of them.'
     type: group
+    default_field: true
     fields:
     - name: changes.domain
       level: extended
@@ -13295,6 +13336,7 @@
 
       They often show up in web service logs coming from the parsed user agent string.'
     type: group
+    default_field: true
     fields:
     - name: device.name
       level: extended
@@ -13403,6 +13445,7 @@
       specific information when observer events contain discrete ingress and egress
       VLAN information, typically provided by firewalls, routers, or load balancers.'
     type: group
+    default_field: true
     fields:
     - name: id
       level: extended
@@ -13424,6 +13467,7 @@
     description: The vulnerability fields describe information about a vulnerability
       that is relevant to an event.
     type: group
+    default_field: true
     fields:
     - name: category
       level: extended
@@ -13562,6 +13606,7 @@
       use the x509 fields under the relevant TLS fields: `tls.server.x509` and/or
       `tls.client.x509`.'
     type: group
+    default_field: true
     fields:
     - name: alternative_names
       level: extended
