@@ -22,6 +22,8 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
+* Added `faas.*` field set as beta. #1628
+
 #### Improvements
 
 * Wildcard type field migration GA. #1582
@@ -47,6 +49,7 @@ Thanks, you're awesome :-) -->
 #### Improvements
 
 * Remove remaining Go deps after removing Go code generator. #1585
+* Add explicit `default_field: true` for Beats artifacts. #1633
 
 #### Deprecated
 
