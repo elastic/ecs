@@ -276,11 +276,14 @@ Running generator. ECS version 1.11.0
 
 #### Subset
 
-If your indices will never populate particular ECS fields, there's no need to include those field definitions in your index mappings. The `--subset` argument allows for passing a subset definition YAML file which indicates which field sets or specific fields to include in the generated artifacts.
+If your indices will never populate particular ECS fields, there's no need to include those field definitions in your index mappings, with the exception of the `base` fieldset, which must exist and which must contain at least one ECS field. The `--subset` argument allows for passing a subset definition YAML file which indicates which field sets or specific fields to include in the generated artifacts.
 
 ```
-$ python scripts/generator.py --subset ../myproject/subsets/subset.yml
-```
+$ python scripts/generator.py --subset ../myproject/ecs/subset-fields/
+$ python scripts/generator.py --subset ../myproject/ecs/subset-fields/ ../myproject/ecs/more-subset-fields/
+$ python scripts/generator.py --subset ../myproject/ecs/custom-fields/subset.yml
+$ python scripts/generator.py --subset ../myproject/ecs/custom-fields/[some]*[re].yml
+$ python scripts/generator.py --subset ../myproject/ecs/custom-fields/myfile1.yml ../myproject/ecs/custom-fields/myfile2.yml```
 
 Example subset file:
 
@@ -316,6 +319,12 @@ Reviewing the above example, the generator using subset will output artifacts co
 * All `agent.*` fields, `dll.*`, and `ecs.*` fields
 
 It's also possible to combine `--include` and `--subset` together! Do note that your subset YAML filter file will need to list any custom fields being passed with `--include`. Otherwise, `--subset` will filter those fields out.
+
+Example with `--include` and `--subset` file:
+
+```
+python scripts/generator.py --subset ./usage-example/fields/subset.yml --include ./usage-example/fields/custom/acme.yml
+```
 
 #### Ref
 
