@@ -44,8 +44,6 @@ Thanks, you're awesome :-) -->
 * Remove `log.original` field. #1580
 * Remove `process.ppid` field. #1596
 
-#### Bugfixes
-
 #### Added
 
 * Added `faas.*` field set as beta. #1628
@@ -56,8 +54,6 @@ Thanks, you're awesome :-) -->
 * `match_only_text` type field migration GA. #1584
 * Threat indicator fields GA from RFC 0008. #1586
 
-#### Deprecated
-
 ### Tooling and Artifact Changes
 
 #### Breaking Changes
@@ -66,16 +62,10 @@ Thanks, you're awesome :-) -->
 * Removing use-cases directory #1405
 * Remove Go code generator. #1567
 
-#### Bugfixes
-
-#### Added
-
 #### Improvements
 
 * Remove remaining Go deps after removing Go code generator. #1585
 * Add explicit `default_field: true` for Beats artifacts. #1633
-
-#### Deprecated
 
 <!-- All empty sections:
 
