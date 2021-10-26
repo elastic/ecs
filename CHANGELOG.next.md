@@ -12,6 +12,32 @@ Thanks, you're awesome :-) -->
 
 #### Breaking changes
 
+#### Bugfixes
+
+#### Added
+
+#### Improvements
+
+#### Deprecated
+
+### Tooling and Artifact Changes
+
+#### Breaking changes
+
+#### Bugfixes
+
+#### Added
+
+#### Improvements
+
+#### Deprecated
+
+## 8.0.0 (Feature Freeze)
+
+### Schema Changes
+
+#### Breaking changes
+
 * Remove `host.user.*` field reuse. #1439
 * Remove deprecation notice on `http.request.method`. #1443
 * Migrate `log.origin.file.line` from `integer` to `long`. #1533
