@@ -12,13 +12,37 @@ Thanks, you're awesome :-) -->
 
 #### Breaking changes
 
+#### Bugfixes
+
+#### Added
+
+#### Improvements
+
+#### Deprecated
+
+### Tooling and Artifact Changes
+
+#### Breaking changes
+
+#### Bugfixes
+
+#### Added
+
+#### Improvements
+
+#### Deprecated
+
+## 8.0.0 (Feature Freeze)
+
+### Schema Changes
+
+#### Breaking changes
+
 * Remove `host.user.*` field reuse. #1439
 * Remove deprecation notice on `http.request.method`. #1443
 * Migrate `log.origin.file.line` from `integer` to `long`. #1533
 * Remove `log.original` field. #1580
 * Remove `process.ppid` field. #1596
-
-#### Bugfixes
 
 #### Added
 
@@ -30,8 +54,6 @@ Thanks, you're awesome :-) -->
 * `match_only_text` type field migration GA. #1584
 * Threat indicator fields GA from RFC 0008. #1586
 
-#### Deprecated
-
 ### Tooling and Artifact Changes
 
 #### Breaking Changes
@@ -40,16 +62,10 @@ Thanks, you're awesome :-) -->
 * Removing use-cases directory #1405
 * Remove Go code generator. #1567
 
-#### Bugfixes
-
-#### Added
-
 #### Improvements
 
 * Remove remaining Go deps after removing Go code generator. #1585
 * Add explicit `default_field: true` for Beats artifacts. #1633
-
-#### Deprecated
 
 <!-- All empty sections:
 
