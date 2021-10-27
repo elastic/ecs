@@ -2,7 +2,7 @@
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
 - Stage: **2 (candidate)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
-- Date: **2021-06-01** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
+- Date: **2021-09-14** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 <!--
 As you work on your RFC, use the "Stage N" comments to guide you in what you should focus on, for the stage you're targeting.
@@ -132,11 +132,11 @@ service.origin.version | No source field. Determined by the APM agent based on t
 cloud.origin.service.name | `api gateway`
 cloud.origin.account.id | `event.requestContext.accountId`
 
-### AWS Lambda context object 
+### AWS Lambda context object
 Description [available here](https://docs.aws.amazon.com/lambda/latest/dg/nodejs-context.html).
 
 **context:**
-```json 
+```json
 {
     "callbackWaitsForEmptyEventLoop": true,
     "functionVersion": "$LATEST",
@@ -148,7 +148,7 @@ Description [available here](https://docs.aws.amazon.com/lambda/latest/dg/nodejs
     "awsRequestId": "649bf7d0-c6ae-432d-899d-da44ccd7ee95"
 }
 ```
-### AWS Lambda event object 
+### AWS Lambda event object
 Description [available here](https://docs.aws.amazon.com/lambda/latest/dg/services-apigateway.html).
 
 **event:**
@@ -350,3 +350,4 @@ e.g.:
 * Stage 0: https://github.com/elastic/ecs/pull/1518
 * Stage 1: https://github.com/elastic/ecs/pull/1542
 * Stage 2: https://github.com/elastic/ecs/pull/1594
+  * Stage 2 date correction: https://github.com/elastic/ecs/pull/1642
