@@ -276,7 +276,7 @@ Running generator. ECS version 1.11.0
 
 #### Subset
 
-If your indices will never populate particular ECS fields, there's no need to include those field definitions in your index mappings, with the exception of the `base` fieldset, which must exist and which must contain at least one ECS field. The `--subset` argument allows for passing a subset definition YAML file which indicates which field sets or specific fields to include in the generated artifacts.
+If your indices will never populate particular ECS fields, there's no need to include those field definitions in your index mappings, with the exception of the `base` fieldset, which must exist and which must contain at least the `@timestamp` field. The `--subset` argument allows for passing a subset definition YAML file which indicates which field sets or specific fields to include in the generated artifacts.
 
 ```
 $ python scripts/generator.py --subset ../myproject/ecs/subset-fields/
