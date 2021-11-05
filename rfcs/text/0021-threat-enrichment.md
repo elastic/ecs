@@ -1,7 +1,7 @@
 # 0021: Threat Enrichment
 
-- Stage: **2 (candidate)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
-- Date: **2021-07-06** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
+- Stage: **3 (finished)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
+- Date: **2021-10-20** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 <!--
 Stage 0: Provide a high level summary of the premise of these changes. Briefly describe the nature, purpose, and impact of the changes. ~2-5 sentences.
@@ -37,6 +37,7 @@ threat.enrichments.matched.atomic | keyword | 2f5207f2add28b46267dc99bc5382480 |
 threat.enrichments.matched.id | keyword | db8fb691ffdb4432a09ef171659c8993e6ddea1ea9b21381b93269d1bf2d0bc2 | The _id of the indicator document that matched the event
 threat.enrichments.matched.index | keyword | threat-index-000001 | The _index of the indicator document that matched the event
 threat.enrichments.matched.field | keyword | host.name | Identifies the field on the enriched event that matched the indicator
+threat.enrichments.matched.occurred | date | 2021-10-05T17:00:58.326Z | Indicates when the match was generated
 threat.enrichments.matched.type | keyword | indicator_match_rule | Identifies the type of the atomic indicator that matched a local environment endpoint or network event.
 
 <!--
@@ -79,6 +80,7 @@ If it is determined that an event matches a given indicator, that event can be e
         // Each enrichment is added as a nested object under `threat.enrichments.*`
         // Copy all the object indicators under `indicator.*`, providing full context
         "indicator": {
+          "confidence": "High",
           "marking": {
             "tlp": "WHITE"
           },
@@ -105,6 +107,7 @@ If it is determined that an event matches a given indicator, that event can be e
           "field": "file.hash.sha256",
           "id": "abc123f03",
           "index": "threat-indicators-index-000001",
+          "occurred": "2021-10-05T17:00:58.326Z",
           "type": "indicator_match_rule"
         }
       }
@@ -136,6 +139,9 @@ If it is determined that an event matches a given indicator, that event can be e
          "match_field": "threat.indicator.file.hash.sha256",
          "enrich_fields": ["threat.indicator"]
        }
+   - script:
+     lang:  "painless"
+     inline: "ctx.threat_match.threat.matched.occurred = new SimpleDateFormat(\"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'\").setTimeZone(TimeZone.getTimeZone(\"UTC\")).format(new Date());"
    - set:
      field: "threat_match.threat.matched.type"
      value: "file-sha256-policy"
@@ -235,6 +241,7 @@ e.g.:
 * Stage 1: https://github.com/elastic/ecs/pull/1400
 * Stage 2: https://github.com/elastic/ecs/pull/1460
   * Stage 2 addendum: https://github.com/elastic/ecs/pull/1502
+* Stage 3: https://github.com/elastic/ecs/pull/1581
 
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN

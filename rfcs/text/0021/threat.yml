@@ -50,6 +50,14 @@
       Identifies the _index of the indicator document enriching the event.
     example: filebeat-8.0.0-2021.05.23-000011
 
+  - name: enrichments.matched.occurred
+    level: extended
+    type: date
+    short: Date of match
+    description: >
+      Indicates when the indicator match was generated
+    example: 2021-10-05T17:00:58.326Z
+
   - name: enrichments.matched.type
     level: extended
     type: keyword
@@ -145,16 +153,16 @@
     type: keyword
     short: Indicator confidence rating
     description: >
-      Identifies the confidence rating assigned by the provider using STIX confidence scales.
+      Identifies the vendor-neutral confidence rating using the None/Low/Medium/High scale defined in Appendix A of the STIX 2.1 framework. Vendor-specific confidence scales may be added as custom fields.
 
       Expected values:
-        * Not Specified, None, Low, Medium, High
-        * 0-10
-        * Admirality Scale (1-6)
-        * DNI Scale (5-95)
-        * WEP Scale (Impossible - Certain)
+        * Not Specified
+        * None
+        * Low
+        * Medium
+        * High
 
-    example: High
+    example: Medium
 
   - name: enrichments.indicator.ip
     level: extended
