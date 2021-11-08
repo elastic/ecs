@@ -14,6 +14,7 @@
 # KIND, either express or implied.  See the License for the
 # specific language governing permissions and limitations
 # under the License.
+
 from os.path import join
 from collections import OrderedDict
 from generators import ecs_helpers
