@@ -24,6 +24,15 @@ check: generate experimental test fmt misspell makelint
 	git update-index --refresh
 	git diff-index --exit-code HEAD --
 
+# Check for license headers
+.PHONY: check_license_headers
+check_license_headers:
+	@echo "Files missing license headers:\n"
+	@find . -type f \( -path './scripts/*' -o -path './schemas/*' \) \
+	\( -name '*.py' -o -name '*.yml' \) \
+	-print0 | xargs -0 -n1 grep -L "Licensed to Elasticsearch B.V." \
+	|| exit 0
+
 # Clean deletes all temporary and generated content.
 .PHONY: clean
 clean:
@@ -81,7 +90,7 @@ reload_docs: generator docs
 # Run the ECS tests
 .PHONY: test
 test: ve
-	$(PYTHON) -m unittest discover -v --start-directory scripts/tests
+	$(PYTHON) -m unittest discover -v -Lstart-directory scripts/tests
 
 # Create a virtualenv to run Python.
 .PHONY: ve
