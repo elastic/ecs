@@ -90,7 +90,7 @@ reload_docs: generator docs
 # Run the ECS tests
 .PHONY: test
 test: ve
-	$(PYTHON) -m unittest discover -v -Lstart-directory scripts/tests
+	$(PYTHON) -m unittest discover -v --start-directory scripts/tests
 
 # Create a virtualenv to run Python.
 .PHONY: ve
