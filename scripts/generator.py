@@ -46,10 +46,10 @@ def main():
         print('Experimental ECS version ' + ecs_generated_version)
 
     fields = loader.load_schemas(ref=args.ref, included_files=args.include)
-    cleaner.clean(fields, strict=args.strict)
-    finalizer.finalize(fields)
     fields = subset_filter.filter(fields, args.subset, out_dir)
     fields = exclude_filter.exclude(fields, args.exclude)
+    cleaner.clean(fields, strict=args.strict)
+    finalizer.finalize(fields)
     nested, flat = intermediate_files.generate(fields, os.path.join(out_dir, 'ecs'), default_dirs)
 
     if args.intermediate_only:
