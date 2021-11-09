@@ -2,7 +2,7 @@
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
 - Stage: **1 (strawperson)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
-- Date: **2021-09-20** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
+- Date: **2021-11-05** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 <!--
 As you work on your RFC, use the "Stage N" comments to guide you in what you should focus on, for the stage you're targeting.
@@ -115,4 +115,5 @@ e.g.:
 
 * Stage 0: https://github.com/elastic/ecs/pull/1610
 * Stage 1: https://github.com/elastic/ecs/pull/1626
+  * Stage 1 date correction: https://github.com/elastic/ecs/pull/1650
 
