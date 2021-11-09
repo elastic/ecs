@@ -1,0 +1,77 @@
+---
+- name: cgroup
+  title: Common cgroup metrics
+  group: 2
+  short: fields common to cgroups V1 and V2
+  description: >
+    Fields related to cgroup metrics. Due to controller changes betweeen V1 and V2, many same or similar metrics
+    will often appear under different controller names. These fields are common to both cgroup versions.
+  type: group
+  fields:
+    - name: version
+      level: extended
+      type: long
+      description: >
+        The cgroups version linked to the metrics
+    - name: cpu
+      level: extended
+      type: group
+      short: CPU Metrics
+      description: >
+        Metrics related to CPU controllers.
+      fields:
+        - name: periods
+          level: extended
+          type: long
+          example: 454839343
+          description: >
+            Number of period intervals that have elapsed.
+        - name: throttled
+          level: extended
+          type: group
+          description: >
+            Metrics for the time a resource has been throttled.
+          fields:
+            - name: us
+              level: extended
+              type: long
+              example: 15000
+              description: >
+                Microseconds of CPU throttled time.
+        - name: usage
+          level: extended
+          type: scaled_float
+          scaling_factor: 1000
+          description: >
+            CPU usage, normalized by the CPU count.
+    - name: memory
+      level: extended
+      type: group
+      description: >
+        Metrics related to memory controllers.
+      fields:
+        - name: usage
+          level: extended
+          type: long
+          example: 25600
+          description: >
+            Memory usage in bytes
+        - name: limit
+          type: long
+          example: 256
+          description: >
+            Memory limit within the cgroup.
+        - name: swap
+          level: extended
+          type: group
+          description: >
+            Cgroup swap statistics.
+          fields:
+            - name: usage
+              level: extended
+              type: long
+              example: 5600
+              description: >
+                The amount of cgroup memory in swap.
+
+
