@@ -100,7 +100,3 @@ build/ve/bin/activate: scripts/requirements.txt
 	@build/ve/bin/pip install -Ur scripts/requirements.txt
 	@touch build/ve/bin/activate
 
-# Check YAML syntax (currently not enforced).
-.PHONY: yamllint
-yamllint: ve
-	build/ve/bin/yamllint schemas/*.yml
