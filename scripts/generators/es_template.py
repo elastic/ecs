@@ -29,7 +29,8 @@ TYPE_FALLBACKS = {
     'constant_keyword': 'keyword',
     'wildcard': 'keyword',
     'version': 'keyword',
-    'match_only_text': 'text'
+    'match_only_text': 'text',
+    'flattened': 'object'
 }
 
 # Composable Template

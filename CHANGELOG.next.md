@@ -26,6 +26,8 @@ Thanks, you're awesome :-) -->
 
 #### Bugfixes
 
+* Add `object` as fallback for `flattened` type. #1653 
+
 #### Added
 
 #### Improvements
