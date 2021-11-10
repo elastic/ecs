@@ -30,6 +30,8 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
+* Update refs from master to main in USAGE.md etc #1658
+
 #### Deprecated
 
 ## 8.0.0 (Feature Freeze)
