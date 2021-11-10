@@ -30,7 +30,7 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
-* Update refs from master to main in .github templates #xxxx
+* Update refs from master to main in .github templates #1659
 
 #### Deprecated
 
