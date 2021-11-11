@@ -37,6 +37,7 @@ The **ECS team**:
 * curates the overall RFC process, including closing stalled or abandoned RFCs
 * reports on the status of open RFCs
 * acts on behalf of the committee for some but not all PRs
+* helps community users identify a sponsor at Elastic
 
 The **contributor**:
 * takes responsibility for doing all necessary legwork to move their RFC forward including but not limited to responding to feedback, identifying and bringing in subject matter experts, and researching the scope of impact
