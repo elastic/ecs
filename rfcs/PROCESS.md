@@ -6,7 +6,7 @@ Each RFC is represented as a markdown document following a prescribed template t
 
 If proposing new fields or changing existing fields, the RFC should also have a corresponding folder (named after the RFC number) in [rfcs/text/](./text/). The folder should contain the proposed schema changes as standalone YAML files or extended example mappings and larger source documents.
 
-Generally speaking, the ECS team will help steward the process, but the work of researching and iterating on aspects of an RFC will be owned by that RFC's contributor. If an RFC is being contributed by a community member, then someone at Elastic will need to act as a sponsor of the change to act as a long term owner after completion of the process. If it's not obvious who such a sponsor might be, then the ECS committee will assign a sponsor.
+Generally speaking, the ECS team will help steward the process, but the work of researching and iterating on aspects of an RFC will be owned by that RFC's contributor. If an RFC is being contributed by a community member, then someone at Elastic will need to act as a sponsor of the change to act as a long term owner after completion of the process. The ECS team can help community users with identifying an internal sponsor. If it's not obvious who such a sponsor might be, then the ECS committee will assign a sponsor.
 
 ## Key questions we seek to answer through RFC process
 
