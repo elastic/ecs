@@ -33,6 +33,7 @@ Thanks, you're awesome :-) -->
 #### Improvements
 
 * Apply yamllint and set sensible config #1661
+* Update refs from master to main in USAGE.md etc #1658
 
 #### Deprecated
 
