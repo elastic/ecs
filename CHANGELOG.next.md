@@ -32,6 +32,8 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
+* Apply yamllint and set sensible config #1661
+
 #### Deprecated
 
 ## 8.0.0 (Feature Freeze)
