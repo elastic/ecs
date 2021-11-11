@@ -7,7 +7,7 @@ labels: "enhancement"
 <!--
 Please first search existing issues for the changes you are requesting; it may already exist as an open issue.
 
-Substantial schema changes or additions should follow the RFC process: https://github.com/elastic/ecs/blob/master/rfcs/README.md
+Substantial schema changes or additions should follow the RFC process: https://github.com/elastic/ecs/blob/main/rfcs/README.md
 
 Please fill in the following sections describing your proposed changes: -->
 
