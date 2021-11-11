@@ -15,7 +15,9 @@ from schema import visitor
 TYPE_FALLBACKS = {
     'constant_keyword': 'keyword',
     'wildcard': 'keyword',
-    'version': 'keyword'
+    'version': 'keyword',
+    'match_only_text': 'text',
+    'flattened': 'object'
 }
 
 
