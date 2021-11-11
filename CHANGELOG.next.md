@@ -32,6 +32,8 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
+* Update refs from master to main in .github templates #1659
+
 #### Deprecated
 
 ## 8.0.0 (Feature Freeze)
