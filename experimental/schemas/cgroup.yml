@@ -1,0 +1,52 @@
+---
+- name: cgroup
+  title: Common cgroup metrics
+  group: 2
+  short: fields common to cgroups V1 and V2
+  description: >
+    Fields related to control group (cgroup) metrics. Due to controller changes
+    between V1 and V2, many same or similar metrics will often appear under
+    different controller names. These fields are common to both cgroup versions.
+  type: group
+  fields:
+    - name: version
+      level: extended
+      type: long
+      description: >
+        The cgroup version linked to the metrics
+    - name: cpu.periods
+      level: extended
+      type: long
+      example: 454839343
+      description: >
+        Number of period intervals that have elapsed.
+    - name: cpu.throttled.us
+      level: extended
+      type: long
+      example: 15000
+      description: >
+        Microseconds of CPU throttled time.
+    - name: cpu.usage
+      level: extended
+      type: scaled_float
+      scaling_factor: 1000
+      description: >
+        CPU usage, normalized by the CPU count.
+    - name: memory.usage
+      level: extended
+      type: long
+      example: 25600
+      description: >
+        Memory usage in bytes
+    - name: memory.limit
+      level: extended
+      type: long
+      example: 256
+      description: >
+        Memory limit within the cgroup.
+    - name: memory.swap.usage
+      level: extended
+      type: long
+      example: 5600
+      description: >
+        The amount of cgroup memory in swap.
