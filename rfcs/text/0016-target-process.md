@@ -1,10 +1,8 @@
 # 0016: Target process fields
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
-- Stage: **1 (draft)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
-- Date: **2021-06-09** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
-
-
+- Stage: **X (abandoned)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
+- Date: **2021-11-16** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 This RFC is to add model events that span multiple processes. There are some events for when one OS process accesses another. In Windows, this starts with a call to `OpenProcess` to gain a handle and then there are several APIs for things you can do with the handle once its open. For all of these operations, the general concept persists: one process requested access to another.
 
@@ -13,6 +11,10 @@ The most common use cases for Windows:
 * injecting code
 * attaching a debugger
 * reading the Process Environment Block (PEB) for other benign or nefarious purpose
+
+## Stage X
+
+This RFC is not being worked on actively, and it has been marked as abandoned. If an individual wishes to advance it in the future, open a new pull request against this proposal.
 
 ## Fields
 
