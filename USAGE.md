@@ -135,7 +135,7 @@ Running generator. ECS version 1.5.0
 **Points to note on the defaults**:
 
 * Artifacts are created in the [`generated`](generated) directory and the entire schema is included
-* Documentation updates will be written to the appropriate file under the `docs` directory. More specifics on generated doc files is covered in the [contributor's file](https://github.com/elastic/ecs/blob/master/CONTRIBUTING.md#generated-documentation-files)
+* Documentation updates will be written to the appropriate file under the `docs` directory. More specifics on generated doc files is covered in the [contributor's file](https://github.com/elastic/ecs/blob/main/CONTRIBUTING.md#generated-documentation-files)
 * Each run of the script will rewrite the entirety of the `generated` directory
 * The script will need to be executed from the top-level of the ECS repo
 * The `version` displayed when running `generator.py` is based on the current value of the [version](version) file in the top-level of the repo
@@ -164,7 +164,7 @@ Use the `--include` flag to generate ECS artifacts based on the current ECS sche
 $ python scripts/generator.py --include ../myproject/ecs/custom-fields/
 ```
 
-The `--include` flag expects a directory of schema YAML files using the same [file format](https://github.com/elastic/ecs/tree/master/schemas#fields-supported-in-schemasyml) as the ECS schema files. This is useful for maintaining custom field definitions that are _outside_ of the ECS schema, but allows for merging the custom fields with the official ECS fields for your deployment.
+The `--include` flag expects a directory of schema YAML files using the same [file format](https://github.com/elastic/ecs/tree/main/schemas#fields-supported-in-schemasyml) as the ECS schema files. This is useful for maintaining custom field definitions that are _outside_ of the ECS schema, but allows for merging the custom fields with the official ECS fields for your deployment.
 
 For example, if we defined the following schema definition in a file named `myproject/ecs/custom-fields/widget.yml`:
 
@@ -234,14 +234,14 @@ Include can be used together with the `--ref` flag to merge custom fields into a
 
 #### Exclude
 
-Use the `--exclude` flag to generate ephemeral ECS artifacts based on the current ECS schema field definitions minus fields considered for removal, e.g. to assess impact of removing these. Warning! This is not the recommended route to remove a field permanently as it is not intended to be invoked during the build process. Definitive field removal should be implemented using a custom [Subset](#subset) or via the [RFC process](https://github.com/elastic/ecs/tree/master/rfcs/README.md). Example:
+Use the `--exclude` flag to generate ephemeral ECS artifacts based on the current ECS schema field definitions minus fields considered for removal, e.g. to assess impact of removing these. Warning! This is not the recommended route to remove a field permanently as it is not intended to be invoked during the build process. Definitive field removal should be implemented using a custom [Subset](#subset) or via the [RFC process](https://github.com/elastic/ecs/tree/main/rfcs/README.md). Example:
 
 ```
 $ python scripts/generator.py --exclude=../my-project/my-exclude-file.yml
 $ python scripts/generator.py --exclude="../my-project/schemas/a*.yml"
 ```
 
-The `--exclude` flag expects a path to one or more YAML files using the same [file format](https://github.com/elastic/ecs/tree/master/schemas#fields-supported-in-schemasyml) as the ECS schema files. You can also use a subset, provided that relevant `name` and `fields` fields are preserved.
+The `--exclude` flag expects a path to one or more YAML files using the same [file format](https://github.com/elastic/ecs/tree/main/schemas#fields-supported-in-schemasyml) as the ECS schema files. You can also use a subset, provided that relevant `name` and `fields` fields are preserved.
 
 ```
 ---
