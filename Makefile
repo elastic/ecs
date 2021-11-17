@@ -103,4 +103,5 @@ build/ve/bin/activate: scripts/requirements.txt
 # Check YAML syntax (currently not enforced).
 .PHONY: yamllint
 yamllint: ve
-	build/ve/bin/yamllint -d "{extends: relaxed, rules: {line-length: {max: 256}}}" schemas/*.yml  
+	build/ve/bin/yamllint schemas/*.yml
+  
