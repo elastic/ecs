@@ -104,4 +104,3 @@ build/ve/bin/activate: scripts/requirements.txt
 .PHONY: yamllint
 yamllint: ve
 	build/ve/bin/yamllint schemas/*.yml
-  
