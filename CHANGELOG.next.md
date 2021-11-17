@@ -22,17 +22,23 @@ Thanks, you're awesome :-) -->
 
 #### Deprecated
 
+#### Removed
+
+- Removing `process.target.*` reuses from experimental schema. #1666
+
 ### Tooling and Artifact Changes
 
 #### Breaking changes
 
 #### Bugfixes
 
-* Add `object` as fallback for `flattened` type. #1653 
+* Add `object` as fallback for `flattened` type. #1653
 
 #### Added
 
 #### Improvements
+
+* Update refs from master to main in USAGE.md etc #1658
 
 #### Deprecated
 

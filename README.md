@@ -27,7 +27,7 @@ You can learn more in [generated/README.md](generated)
 
 ## Releases of ECS
 
-The master branch of this repository should never be considered an
+The main branch of this repository should never be considered an
 official release of ECS. You can browse official releases of ECS
 [here](https://github.com/elastic/ecs/releases).
 

@@ -101,7 +101,7 @@ Please follow these guidelines when submitting Issues:
 
 ECS follows this branching strategy:
 
-* The `master` is the next major version. It is where all new contributions are first merged. This includes new features and bug fixes, and it may also include breaking changes.
+* The `main` is the next major version. It is where all new contributions are first merged. This includes new features and bug fixes, and it may also include breaking changes.
 * The `<major>.x` is the next minor version and gets backports of most non-breaking features and fixes.
 * The `<major>.<minor>` is the next release of a minor version, including patch releases.
 
@@ -116,7 +116,7 @@ Breaking changes intended for the next major version should be included undernea
 
 ### Backports
 
-ECS maintains multiple release branches in the repo. The `master` branch is where all new contributions should be submitted, and features and bug fixes will be backported into other branches when appropriate. Any backporting needs will be handled by the ECS team.
+ECS maintains multiple release branches in the repo. The `main` branch is where all new contributions should be submitted, and features and bug fixes will be backported into other branches when appropriate. Any backporting needs will be handled by the ECS team.
 
 #### Tooling
 
