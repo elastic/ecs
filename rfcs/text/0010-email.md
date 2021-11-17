@@ -19,10 +19,16 @@ Stage 1: Describe at a high level how this change affects fields. Which fieldset
 | `email.from` | keyword | Stores the `from` email address from the RFC5322 `From:` header field. |
 | `email.origination_timestamp` | date | The date and time the email message was composed. Many email clients will fill this in automatically when the message is sent by a user. |
 | `email.delivery_timestamp` | date | The date and time the email message was received by the service or client. |
-| `email.to` | keyword (array) | The email address(es) of the message recipient(s) |
+| `email.to` | nested | Nested object with the message recipient(s) |
+| `email.to.address` | keyword | The email address of message recipient |
+| `email.to.display_name` | keyword | The display name of message recipient |
 | `email.subject` | keyword; `.text` text multi-field | A brief summary of the topic of the message |
-| `email.cc` | keyword (array) | The email address(es) of the carbon copy (CC) recipient(s) |
-| `email.bcc` | keyword (array) | The email address(es) of the blind carbon copy (CC) recipient(s) |
+| `email.cc` | nested | Nested object with the carbon copy (CC) recipient(s) |
+| `email.cc.address` | keyword | The email address of a carbon copy (CC) recipient |
+| `email.cc.display_name` | keyword | The display name of carbon copy (CC) recipient |
+| `email.bcc` | nested | Nested object with the blind carbon copy (CC) recipient(s) |
+| `email.bcc.address` | keyword | The email address of the blind carbon copy (CC) recipient(s) |
+| `email.bcc.display_name` | keyword | The display name of the blind carbon copy (CC) recipient(s) |
 | `email.content_type` | keyword | Information about how the message is to be displayed. Typically a MIME type |
 | `email.message_id` | wildcard |  Identifier from the RFC5322 `Message-ID:` header field that refers to a particular version of a particular message. |
 | `email.local_id` | keyword | Unique identifier given to the email by the source (MTA, gateway, etc.) that created the event and is not persistent across hops (for example, the `X-MS-Exchange-Organization-Network-Message-Id` id). |

@@ -17,6 +17,9 @@
       description: >
         A list of attachment files sent along with an email message.
 
+      normalize:
+        - array
+
     - name: attachments.file.extension
       level: extended
       type: keyword
@@ -78,7 +81,7 @@
     - name: bcc
       level: extended
       type: keyword
-      short: Email address(es) of BCC recipients
+      short: BCC recipients
       description: >
         The email address(es) of the blind carbon carbon (BCC) recipients.
       example: "['bcc.user1@example.com', 'bcc.user2@example.com']"
@@ -86,16 +89,55 @@
       normalize:
         - array
 
-    - name: cc
+    - name: bcc
       level: extended
-      type: keyword
-      short: Email address(es) of CC recipients
+      type: nested
+      short: List of objects describing BCC recipients
       description: >
-        The email address(es) of the carbon carbon (BCC) recipients.
-      example: "['cc.user1@example.com', 'cc.user2@example.com']"
-
+        The email address(es) of the blind carbon carbon (BCC) recipients.
       normalize:
         - array
+
+    - name: bcc.address
+      level: extended
+      type: keyword
+      short: Email address of BCC recipient
+      description: >
+        The email address of BCC recipient
+      example: "bcc.user1@example.com"
+
+    - name: bcc.display_name
+      level: extended
+      type: keyword
+      short: Display name of BCC recipient
+      description: >
+        The display name of the BCC recipient
+      example: "BCC User"
+
+    - name: cc
+      level: extended
+      type: nested
+      short: List of objects describing CC recipients
+      description: >
+        The email address(es) of the carbon carbon (BCC) recipients.
+      normalize:
+        - array
+
+    - name: cc.address
+      level: extended
+      type: keyword
+      short: Email address of CC recipient
+      description: >
+        The email address of CC recipient
+      example: "cc.user1@example.com"
+
+    - name: cc.display_name
+      level: extended
+      type: keyword
+      short: Display name of CC recipient
+      description: >
+        The display name of CC recipient
+      example: "CC User"
 
     - name: content_type
       level: extended
@@ -180,14 +222,28 @@
 
     - name: to
       level: extended
-      type: keyword
-      short: Email address(es) of the recipients.
+      type: nested
+      short: List of objects describing recipients.
       description: >
-        The email address(es) of the message recipients.
-      example: "['user1@example.com', 'user2@example.com']"
-
+        The email addresses of message recipients.
       normalize:
         - array
+
+    - name: to.address
+      level: extended
+      type: keyword
+      short: Email address of recipient
+      description: >
+        The email address of recipient
+      example: "user1@example.com"
+
+    - name: to.display_name
+      level: extended
+      type: keyword
+      short: Display name of recipient
+      description: >
+        The display name of recipient
+      example: "Example User"
 
     - name: x_mailer
       level: extended
