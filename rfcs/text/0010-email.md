@@ -285,21 +285,31 @@ The fields proposed in this document focus on an email message's content but not
 
 For example, users may need to compare the email address from the SMTP (envelope) sender to the `From:` header email address.
 
+**Resolution**: Focus on email message content in this initial phase. Additional protocol details can be added later on.
+
 ### Email metrics and observability use cases
 
 Does the initial set of `email` fields need to consider observability and email monitoring use cases, for example, spam, metrics, deliverables, and logging?
+
+**Resolution**: This initial field set focuses on email message content.
 
 ### Additional event categorization values
 
 Should a new event.category field (email) be created, and, if so, which `event.type` values should be used for the `email` category?
 
+**Resolution**: Propose to add `event.category: email` and make `info` an expected event type for the category.
+
 ### Display names
 
 Should the display name be captured separately from the email address for senders and recipients? If so, how do we accomplish this in a document while keeping the 1:1 of a display name to email address?
 
+**Resolution**: Use `nested` types to allows arrays of objects containing both the email address and display name for the `to`, `cc`, and `bcc` recipients.
+
 ### Spam processing details
 
 Should fields intended to capture details around spam processing like sender policy framework (SPF), domainkeys identified mail (DKIM), or domain-based message authentication, reporting, and conformance (DMARC) be in scope for this proposal as well?
+
+**Resolution**: This initial field set focuses on email message content.
 
 <!--
 Stage 2: Document new concerns or resolutions to previously listed concerns. It's not critical that all concerns have resolutions at this point, but it would be helpful if resolutions were taking shape for the most significant concerns.
