@@ -88,9 +88,9 @@ Stage 2: Included a real world example source document. Ideally this example com
   "@timestamp": 1626984241830,
   "email": {
     "timestamp": "2020-11-08T22:12:34.8196921Z",
-        "from": [
-  	    "o365mc@microsoft.com"
-  	],
+     "from": {
+  	    "address": "o365mc@microsoft.com"
+  	},
     "to": [
       {
         "address": "john@testdomain.onmicrosoft.com"
@@ -223,8 +223,8 @@ Stage 2: Included a real world example source document. Ideally this example com
     "action": "MSGBLK"
   },
   "source": {
-    "address": 192.0.2.255,
-    "ip": 192.0.2.255
+    "address": "192.0.2.255",
+    "ip": "192.0.2.255"
   }
 }
 ```
@@ -243,8 +243,8 @@ datetime=2017-05-26T16:47:41+0100|aCode=7O7I7MvGP1mj8plHRDuHEA|acc=C0A0|SpamLimi
 {
   "@timestamp": "2017-05-26T16:47:41+0100",
   "source": {
-    "address": 123.123.123.123,
-    "ip": 123.123.123.123
+    "address": "123.123.123.123",
+    "ip": "123.123.123.123"
   },
   "email": {
     "message_id": "<81ce15$8r2j59@mail01.example.com>",
