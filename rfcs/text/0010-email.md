@@ -306,7 +306,7 @@ The fields proposed in this document are focused on the contents of an email mes
 
 For example, users may need to compare the email address from the SMTP (envelope) sender to the `From:` header email address.
 
-### Email metrics and observability use caes
+### Email metrics and observability use cases
 
 Does the initial set of `email` fields need to consider observability and email monitoring use cases, for example spam, metrics, deliverables, and logging.
 
