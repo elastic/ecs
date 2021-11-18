@@ -157,7 +157,9 @@ Stage 2: Included a real world example source document. Ideally this example com
           "address": "postmaster@testdomain.onmicrosoft.com"
         },
         "to": [
-          "o365mc@microsoft.com"
+          {
+            "address": "o365mc@microsoft.com"
+          }
         ],
         "subject": "Undeliverable: Message Center Major Change Update Notification",
         "message_id": "\\u003c72872e16-f4c2-4eef-a393-e5621748a0ff@AS8P19vMB1605.EURP191.PROD.OUTLOOK.COM\\u003e"
@@ -191,15 +193,25 @@ Stage 2: Included a real world example source document. Ideally this example com
     "message_id": "20160624211145.62086.mail@evil.zz",
     "local_id": "c26dbea0-80d5-463b-b93c-4e8b708219ce",
     "to": [
-      "clark.kent@pharmtech.zz",
-      "diana.prince@pharmtech.zz"
+      {
+        "address": "clark.kent@pharmtech.zz",
+        "display_name": "Clark Kent"
+      },
+      {
+        "address": "diana.prince@pharmtech.zz",
+        "display_name": "Diana Prince"
+      }
     ],
     "cc": [
-      "bruce.wayne@university-of-education.zz"
+      {
+        "address": "bruce.wayne@university-of-education.zz",
+        "display_name": "Bruce Wayne"
+      }
     ],
-    "from": [
-      "badguy@evil.zz"
-    ],
+    "from": {
+      "address": "badguy@evil.zz",
+      "display_name": "A. Badguy"
+    },
     "subject": "Please find a totally safe invoice attached.",
     "reply_to": "null",
     "x_mailer": "Spambot v2.5",
@@ -249,11 +261,13 @@ datetime=2017-05-26T16:47:41+0100|aCode=7O7I7MvGP1mj8plHRDuHEA|acc=C0A0|SpamLimi
   },
   "email": {
     "message_id": "<81ce15$8r2j59@mail01.example.com>",
-    "from": [
-      "from@mimecast.com"
-    ],
+    "from": {
+      "address": "from@mimecast.com"
+    },
     "to": [
-      "auser@mimecast.com"
+      {
+        "address": "auser@mimecast.com"
+      }
     ],
     "subject": "message subject",
     "direction": "internal"
