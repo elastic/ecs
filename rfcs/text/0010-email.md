@@ -16,7 +16,8 @@ Stage 1: Describe at a high level how this change affects fields. Which fieldset
 
 | field | type | description |
 | --- | --- | --- |
-| `email.from` | keyword | Stores the `from` email address from the RFC5322 `From:` header field. |
+| `email.from.address` | keyword | Stores the `from` email address from the RFC5322 `From:` header field. |
+| `email.from.display_name` | keyword | Stores the display name of the `from` address. |
 | `email.origination_timestamp` | date | The date and time the email message was composed. Many email clients will fill this in automatically when the message is sent by a user. |
 | `email.delivery_timestamp` | date | The date and time the email message was received by the service or client. |
 | `email.to` | nested | Nested object with the message recipient(s) |
@@ -104,7 +105,9 @@ Stage 2: Included a real world example source document. Ideally this example com
   	    "o365mc@microsoft.com"
   	],
     "to": [
-      "john@testdomain.onmicrosoft.com"
+      {
+        "address": "john@testdomain.onmicrosoft.com"
+      }
     ],
     "subject": "Weekly digest: Microsoft service updates",
     "message_id": "\\u003c95689d8d5e7f429390a4e3646eef75e8-JFBVALKQOJXWILKBK4YVA7APGM3DKTLFONZWCZ3FINSW45DFOJ6EAQ2ENFTWK43UL4YTCMBYGIYHYU3NORYA====@microsoft.com\\u003e"
@@ -150,9 +153,9 @@ Stage 2: Included a real world example source document. Ideally this example com
   "@timestamp": 1626984241830,
   "email": {
     "timestamp": "2020-11-10T22:12:34.8196921Z",
-        "from": [
-          "postmaster@testdomain.onmicrosoft.com"
-        ],
+        "from": {
+          "address": "postmaster@testdomain.onmicrosoft.com"
+        },
         "to": [
           "o365mc@microsoft.com"
         ],
