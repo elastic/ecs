@@ -273,13 +273,9 @@ Stage 3: Add more real world example source documents so we have at least 2 tota
 
 ## Scope of impact
 
-<!--
-Stage 2: Identifies scope of impact of changes. Are breaking changes required? Should deprecation strategies be adopted? Will significant refactoring be involved? Break the impact down into:
- * Ingestion mechanisms (e.g. beats/logstash)
- * Usage mechanisms (e.g. Kibana applications, detections)
- * ECS project (e.g. docs, tooling)
-The goal here is to research and understand the impact of these changes on users in the community and development teams across Elastic. 2-5 sentences each.
--->
+This is a new field set, and the changes introduced will not affect existing ECS implementations.
+
+Integrations or other data sources mapping to ECS will need to map their original events to the new fields.
 
 ## Concerns
 
