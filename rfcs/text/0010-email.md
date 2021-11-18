@@ -1,5 +1,4 @@
 # 0010: Email
-<!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
 - Stage: **2 (candidate)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
 - Date: **TBD** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
@@ -7,10 +6,6 @@
 This RFC proposes a new top-level field set to facilitate email use cases, `email.*`. The `email.*` field set adds fields for the sender, recipient, message header fields, and other attributes of an email message typically seen logs produced by mail transfer agent (MTA) and email gateway applications.
 
 ## Fields
-
-<!--
-Stage 1: Describe at a high level how this change affects fields. Which fieldsets will be impacted? How many fields overall? Are we primarily adding fields, removing fields, or changing existing fields? The goal here is to understand the fundamental technical implications and likely extent of these changes. ~2-5 sentences.
--->
 
 ### Email specific fields
 
@@ -51,17 +46,9 @@ Email events may benefit from an additional ECS allowed event categorization val
 
 ## Usage
 
-<!--
-Stage 1: Describe at a high-level how these field changes will be used in practice. Real world examples are encouraged. The goal here is to understand how people would leverage these fields to gain insights or solve problems. ~1-3 paragraphs.
--->
-
 Email use cases stretch across all three Elastic solutions - Search, Observe, Protect. Whether it's searching for content within email, ensuring email infrastructure is operational or detecting email based attacks, there are many possibilities for email fields within ECS.
 
 ## Source data
-
-<!--
-Stage 1: Provide a high-level description of example sources of data. This does not yet need to be a concrete example of a source document, but instead can simply describe a potential source (e.g. nginx access log). This will ultimately be fleshed out to include literal source examples in a future stage. The goal here is to identify practical sources for these fields in the real world. ~1-3 sentences or unordered list.
--->
 
 - **Email Analytics**: [Hubspot](https://legacydocs.hubspot.com/docs/methods/email/email_events_overview), Marketo, Salesforce Pardot
 - **Email Server**: [O365 Message Tracing](https://docs.microsoft.com/en-us/exchange/monitoring/trace-an-email-message/run-a-message-trace-and-view-results), [Postfix](https://nxlog.co/documentation/nxlog-user-guide/postfix.html)
@@ -296,10 +283,6 @@ The goal here is to research and understand the impact of these changes on users
 
 ## Concerns
 
-<!--
-Stage 1: Identify potential concerns, implementation challenges, or complexity. Spend some time on this. Play devil's advocate. Try to identify the sort of non-obvious challenges that tend to surface later. The goal here is to surface risks early, allow everyone the time to work through them, and ultimately document resolution for posterity's sake.
--->
-
 ### Email messages vs. protocols
 
 The fields proposed in this document are focused on the contents of an email message but not on specific fields for email protocols. Do protocols like SMTP, POP3, IMAP, etc. be represented in ECS?
@@ -338,19 +321,6 @@ The following are the people that consulted on the contents of this RFC.
 * @P1llus | Co-author, subject matter expert
 * @jamiehynds | Co-sponsor
 * @devonakerr | Co-sponsor
-
-
-<!--
-Who will be or has been consulted on the contents of this RFC? Identify authorship and sponsorship, and optionally identify the nature of involvement of others. Link to GitHub aliases where possible. This list will likely change or grow stage after stage.
-
-e.g.:
-
-* @Yasmina | author
-* @Monique | sponsor
-* @EunJung | subject matter expert
-* @JaneDoe | grammar, spelling, prose
-* @Mariana
--->
 
 
 ## References
