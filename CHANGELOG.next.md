@@ -36,7 +36,7 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
-* Clean up trailing spaces and additional newlines in schemas #1661
+* Clean up trailing spaces and additional newlines in schemas #1667
 * Update refs from master to main in USAGE.md etc #1658
 
 #### Deprecated
