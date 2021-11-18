@@ -46,7 +46,7 @@ Email events may benefit from an additional ECS allowed event categorization val
 
 ## Usage
 
-Email use cases stretch across all three Elastic solutions - Search, Observe, Protect. Whether it's searching for content within email, ensuring email infrastructure is operational or detecting email based attacks, there are many possibilities for email fields within ECS.
+Email use cases stretch across all three Elastic solutions - Search, Observe, Protect. Whether it's searching for content within email, ensuring email infrastructure is operational, or detecting email-based attacks, there are many possibilities for email fields within ECS.
 
 ## Source data
 
@@ -285,21 +285,21 @@ The goal here is to research and understand the impact of these changes on users
 
 ### Email messages vs. protocols
 
-The fields proposed in this document are focused on the contents of an email message but not on specific fields for email protocols. Do protocols like SMTP, POP3, IMAP, etc. be represented in ECS?
+The fields proposed in this document focus on an email message's content but not on specific fields for email protocols. However, should protocols like SMTP, POP3, IMAP, etc., be represented in ECS?
 
 For example, users may need to compare the email address from the SMTP (envelope) sender to the `From:` header email address.
 
 ### Email metrics and observability use cases
 
-Does the initial set of `email` fields need to consider observability and email monitoring use cases, for example spam, metrics, deliverables, and logging.
+Does the initial set of `email` fields need to consider observability and email monitoring use cases, for example, spam, metrics, deliverables, and logging?
 
 ### Additional event categorization values
 
-Should a new event.category field (email) be created, and, if so, which `event.type` values the `email` category should be combined with?
+Should a new event.category field (email) be created, and, if so, which `event.type` values should be used for the `email` category?
 
 ### Display names
 
-Should the display name be captured separately from the email address for senders and recipients. If so, how do we accomplish this in a document while keeping the 1:1 of a display name to email address.
+Should the display name be captured separately from the email address for senders and recipients? If so, how do we accomplish this in a document while keeping the 1:1 of a display name to email address?
 
 ### Spam processing details
 
