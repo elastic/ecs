@@ -1,9 +1,13 @@
 # 0014: Extend the PE field set
 
-- Stage: **1 (draft)**
-- Date: **2021-02-08**
+- Stage: **X (abandoned)**
+- Date: **2021-11-18**
 
 The Portable Executable (PE) sub-field, of the `file` top-level fieldset, can be updated to include more file attributes to aid in file analysis. This additional document metadata can be used for malware research, as well as coding and other application development efforts.
+
+## Stage X
+
+This RFC is not being worked on actively, and it has been marked as abandoned. If an individual wishes to advance it in the future, open a new pull request against this proposal.
 
 ## Fields
 
@@ -132,6 +136,7 @@ The following are the people that consulted on the contents of this RFC.
 <!-- An RFC should link to the PRs for each of it stage advancements. -->
 
 * Stage 1: https://github.com/elastic/ecs/pull/1071
+* Stage X: https://github.com/elastic/ecs/pull/1670
 
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN

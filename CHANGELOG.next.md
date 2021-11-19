@@ -23,6 +23,7 @@ Thanks, you're awesome :-) -->
 #### Removed
 
 - Removing `process.target.*` reuses from experimental schema. #1666
+- Removing RFC 0014 `pe.*` fields from experimental schema. #1670
 
 ### Tooling and Artifact Changes
 
@@ -36,6 +37,7 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
+* Clean up trailing spaces and additional newlines in schemas #1667
 * Update refs from master to main in USAGE.md etc #1658
 
 #### Deprecated
