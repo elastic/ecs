@@ -77,7 +77,7 @@ See [usage-example/](usage-example/) for a complete example with source files.
 
 ### Prerequisites
 
-* [Python 3.6+](https://www.python.org/)
+* [Python 3.8+](https://www.python.org/)
 * [make](https://www.gnu.org/software/make/)
 * [pip](https://pypi.org/project/pip/)
 * [git](https://git-scm.com/)
