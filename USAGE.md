@@ -114,7 +114,7 @@ by using `build/ve/bin/python` instead of `python` in the examples shown here.
 
 #### Option 2: Install dependencies via pip
 
-Install dependencies using `pip` (An active `virutalenv` is recommended):
+Install dependencies using `pip` (An active `virtualenv` is recommended):
 
 ```
 $ pip install -r scripts/requirements.txt
