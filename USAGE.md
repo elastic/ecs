@@ -20,8 +20,7 @@ relevant artifacts for their unique set of data sources.
 - [Setup and Install](#setup-and-install)
   * [Prerequisites](#prerequisites)
     + [Clone from GitHub](#clone-from-github)
-    + [Option 1: Install dependencies via make (recommended)](#option-1-install-dependencies-via-make-recommended)
-    + [Option 2: Install dependencies via pip](#option-2-install-dependencies-via-pip)
+    + [Install dependencies](#install-dependencies)
 - [Usage](#usage)
   * [Getting Started - Generating Artifacts](#getting-started---generating-artifacts)
   * [Generator Options](#generator-options)
@@ -99,20 +98,7 @@ Prior to installing dependencies or running the tools, it's recommended to check
 $ git checkout v1.5.0
 ```
 
-#### Option 1: Install dependencies via make (recommended)
-
-Setting up a `virtualenv` (`venv`) can be accomplished by running `make ve` the top-level of the ECS repo:
-
-```
-$ make ve
-```
-
-All necessary Python dependencies will also be installed with `pip`.
-
-You can use the Python and dependencies from this isolated virtual environment
-by using `build/ve/bin/python` instead of `python` in the examples shown here.
-
-#### Option 2: Install dependencies via pip
+#### Install dependencies
 
 Install dependencies using `pip` (An active `virtualenv` is recommended):
 
