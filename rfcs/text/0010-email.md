@@ -11,8 +11,11 @@ This RFC proposes a new top-level field set to facilitate email use cases, `emai
 
 | field | type | description |
 | --- | --- | --- |
+| `email.from` | nested | Nested object with the message senders(s) |
 | `email.from.address` | keyword | Stores the `from` email address from the RFC5322 `From:` header field. |
 | `email.from.display_name` | keyword | Stores the display name of the `from` address. |
+| `email.sender.address` | keyword | When the `from` field contains more than one address or the `sender` and `from` are distinct then this field is populated. |
+| `email.sender.display_name` | keyword | Stores the display name of the `sender` if present. |
 | `email.origination_timestamp` | date | The date and time the email message was composed. Many email clients will fill this in automatically when the message is sent by a user. |
 | `email.delivery_timestamp` | date | The date and time the email message was received by the service or client. |
 | `email.to` | nested | Nested object with the message recipient(s) |
@@ -28,7 +31,7 @@ This RFC proposes a new top-level field set to facilitate email use cases, `emai
 | `email.content_type` | keyword | Information about how the message is to be displayed. Typically a MIME type |
 | `email.message_id` | wildcard |  Identifier from the RFC5322 `Message-ID:` header field that refers to a particular version of a particular message. |
 | `email.local_id` | keyword | Unique identifier given to the email by the source (MTA, gateway, etc.) that created the event and is not persistent across hops (for example, the `X-MS-Exchange-Organization-Network-Message-Id` id). |
-| `email.reply_to` | keyword | The address that replies should be delivered to from the RFC 5322 `Reply-To:` header field. |
+| `email.reply_to.address` | keyword | The address that replies should be delivered to from the RFC 5322 `Reply-To:` header field. |
 | `email.direction` | keyword | Direction of the message based on the sending and receiving domains |
 | `email.x_mailer` | keyword | What application was used to draft and send the original email. |
 | `email.attachments` | nested | Nested object of attachments on the email. |
