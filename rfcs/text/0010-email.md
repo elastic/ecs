@@ -92,9 +92,11 @@ Stage 2: Included a real world example source document. Ideally this example com
   "@timestamp": 1626984241830,
   "email": {
     "timestamp": "2020-11-08T22:12:34.8196921Z",
-     "from": {
+     "from": [
+       {
   	    "address": "o365mc@microsoft.com"
-  	},
+  	   }
+    ],
     "to": [
       {
         "address": "john@testdomain.onmicrosoft.com"
@@ -144,9 +146,11 @@ Stage 2: Included a real world example source document. Ideally this example com
   "@timestamp": 1626984241830,
   "email": {
     "timestamp": "2020-11-10T22:12:34.8196921Z",
-        "from": {
-          "address": "postmaster@testdomain.onmicrosoft.com"
-        },
+        "from": [
+          {
+            "address": "postmaster@testdomain.onmicrosoft.com"
+          }
+        ],
         "to": [
           {
             "address": "o365mc@microsoft.com"
@@ -199,10 +203,12 @@ Stage 2: Included a real world example source document. Ideally this example com
         "display_name": "Bruce Wayne"
       }
     ],
-    "from": {
-      "address": "badguy@evil.zz",
-      "display_name": "A. Badguy"
-    },
+    "from": [
+      {
+        "address": "badguy@evil.zz",
+        "display_name": "A. Badguy"
+      }
+    ],
     "subject": "Please find a totally safe invoice attached.",
     "reply_to": "null",
     "x_mailer": "Spambot v2.5",
@@ -252,9 +258,11 @@ datetime=2017-05-26T16:47:41+0100|aCode=7O7I7MvGP1mj8plHRDuHEA|acc=C0A0|SpamLimi
   },
   "email": {
     "message_id": "<81ce15$8r2j59@mail01.example.com>",
-    "from": {
-      "address": "from@mimecast.com"
-    },
+    "from": [
+      {
+        "address": "from@mimecast.com"
+      }
+    ],
     "to": [
       {
         "address": "auser@mimecast.com"
