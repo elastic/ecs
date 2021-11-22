@@ -33,8 +33,7 @@ There are two primary ways in which you can contribute to ECS.
 You need these tools to contribute to the ECS repo:
 
 * [Git](https://git-scm.com/)
-* [Python 3.6+](https://www.python.org/)
-* [Go 1.13](https://golang.org/)
+* [Python 3.8+](https://www.python.org/)
 
 ### Submitting Changes
 
