@@ -165,6 +165,15 @@
         The direction of the message based on the sending and receiving domains.
       example: inbound
 
+    - name: from
+      level: extended
+      type: nested
+      short: List of objects describing sender.
+      description: >
+        The email addresses of message sender.
+      normalize:
+        - array
+
     - name: from.address
       level: extended
       type: keyword
@@ -209,13 +218,35 @@
         automatically when the message is sent by a user.
       example: "2020-11-10T22:12:34.8196921Z"
 
-    - name: reply_to
+    - name: reply_to.address
       level: extended
       type: keyword
       short: Address replies should be delivered to.
       description: >
         The address that replies should be delivered to based on the value in the RFC 5322 `Reply-To:` header.
       example: "reply.here@example.com"
+
+    - name: reply_to.display_name
+      level: extended
+      type: keyword
+      short: Display name included with reply-to address.
+      description: >
+        The display name included with the `Reply-To` address.
+
+    - name: sender.address
+      level: extended
+      type: keyword
+      short: Address of the message sender.
+      description: >
+        Per RFC 5322, specifies the address responsible for the actual transmission of
+        the message.
+
+    - name: sender.display_name
+      level: extended
+      type: keyword
+      short: Display name of the sending address.
+      description: >
+        The display name of the `Sender:`, if included.
 
     - name: subject
       level: extended
