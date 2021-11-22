@@ -32,6 +32,7 @@ This RFC proposes a new top-level field set to facilitate email use cases, `emai
 | `email.message_id` | wildcard |  Identifier from the RFC5322 `Message-ID:` header field that refers to a particular version of a particular message. |
 | `email.local_id` | keyword | Unique identifier given to the email by the source (MTA, gateway, etc.) that created the event and is not persistent across hops (for example, the `X-MS-Exchange-Organization-Network-Message-Id` id). |
 | `email.reply_to.address` | keyword | The address that replies should be delivered to from the RFC 5322 `Reply-To:` header field. |
+| `email.reply_to.display_name` | keyword | The display name included with the `Reply-To` address. |
 | `email.direction` | keyword | Direction of the message based on the sending and receiving domains |
 | `email.x_mailer` | keyword | What application was used to draft and send the original email. |
 | `email.attachments` | nested | Nested object of attachments on the email. |
