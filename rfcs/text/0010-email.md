@@ -209,8 +209,13 @@ Stage 2: Included a real world example source document. Ideally this example com
         "display_name": "A. Badguy"
       }
     ],
+    "sender": {
+      "address": "e99d7ed5580193f36a51f597bc2c0210@evil.zz"
+    },
     "subject": "Please find a totally safe invoice attached.",
-    "reply_to": "null",
+    "reply_to": {
+      "address": "null"
+    },
     "x_mailer": "Spambot v2.5",
     "attachments": [
       {
