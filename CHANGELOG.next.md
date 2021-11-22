@@ -23,6 +23,7 @@ Thanks, you're awesome :-) -->
 #### Removed
 
 - Removing `process.target.*` reuses from experimental schema. #1666
+- Removing RFC 0014 `pe.*` fields from experimental schema. #1670
 
 ### Tooling and Artifact Changes
 

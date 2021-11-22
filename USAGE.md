@@ -20,8 +20,7 @@ relevant artifacts for their unique set of data sources.
 - [Setup and Install](#setup-and-install)
   * [Prerequisites](#prerequisites)
     + [Clone from GitHub](#clone-from-github)
-    + [Option 1: Install dependencies via make (recommended)](#option-1-install-dependencies-via-make-recommended)
-    + [Option 2: Install dependencies via pip](#option-2-install-dependencies-via-pip)
+    + [Install dependencies](#install-dependencies)
 - [Usage](#usage)
   * [Getting Started - Generating Artifacts](#getting-started---generating-artifacts)
   * [Generator Options](#generator-options)
@@ -77,7 +76,7 @@ See [usage-example/](usage-example/) for a complete example with source files.
 
 ### Prerequisites
 
-* [Python 3.6+](https://www.python.org/)
+* [Python 3.8+](https://www.python.org/)
 * [make](https://www.gnu.org/software/make/)
 * [pip](https://pypi.org/project/pip/)
 * [git](https://git-scm.com/)
@@ -99,22 +98,9 @@ Prior to installing dependencies or running the tools, it's recommended to check
 $ git checkout v1.5.0
 ```
 
-#### Option 1: Install dependencies via make (recommended)
+#### Install dependencies
 
-Setting up a `virtualenv` (`venv`) can be accomplished by running `make ve` the top-level of the ECS repo:
-
-```
-$ make ve
-```
-
-All necessary Python dependencies will also be installed with `pip`.
-
-You can use the Python and dependencies from this isolated virtual environment
-by using `build/ve/bin/python` instead of `python` in the examples shown here.
-
-#### Option 2: Install dependencies via pip
-
-Install dependencies using `pip` (An active `virutalenv` is recommended):
+Install dependencies using `pip` (An active `virtualenv` is recommended):
 
 ```
 $ pip install -r scripts/requirements.txt
