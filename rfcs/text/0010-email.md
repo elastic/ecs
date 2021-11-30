@@ -19,7 +19,7 @@ This RFC proposes a new top-level field set to facilitate email use cases, `emai
 | `email.cc.address` | keyword (array) | The email address of a carbon copy (CC) recipient |
 | `email.bcc.address` | keyword (array) | The email address of the blind carbon copy (CC) recipient(s) |
 | `email.reply_to.address` | keyword (array) | The address that replies should be delivered to from the RFC 5322 `Reply-To:` header field. |
-| `email.subject` | keyword | `.text` text multi-field | A brief summary of the topic of the message |
+| `email.subject` | keyword (`.text` text multi-field) | A brief summary of the topic of the message |
 | `email.content_type` | keyword | Information about how the message is to be displayed. Typically a MIME type |
 | `email.message_id` | wildcard |  Identifier from the RFC5322 `Message-ID:` header field that refers to a particular version of a particular message. |
 | `email.local_id` | keyword | Unique identifier given to the email by the source (MTA, gateway, etc.) that created the event and is not persistent across hops (for example, the `X-MS-Exchange-Organization-Network-Message-Id` id). |
