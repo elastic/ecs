@@ -304,7 +304,7 @@ Should a new event.category field (email) be created, and, if so, which `event.t
 
 Should the display name be captured separately from the email address for senders and recipients? If so, how do we accomplish this in a document while keeping the 1:1 of a display name to email address?
 
-**Resolution**: Previously, this proposal considered using `nested` types to allows arrays of objects containing both the email address and display name for the `to`, `cc`, and `bcc` recipients. However, after more consideration of the limitations to using `nested` fields types and limited support for `nested` fields in Kibana, that decision was reversed.
+**Resolution**: Initially, this proposal considered using `nested` types to allows arrays of objects containing both the email address and display name for the `to`, `cc`, and `bcc` recipients. However, after more consideration of the limitations to using `nested` fields types and limited support for `nested` fields in Kibana, that decision was reversed.
 
 ### Spam processing details
 
