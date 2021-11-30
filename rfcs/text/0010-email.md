@@ -11,28 +11,18 @@ This RFC proposes a new top-level field set to facilitate email use cases, `emai
 
 | field | type | description |
 | --- | --- | --- |
-| `email.from` | nested | Nested object with the message senders(s) |
 | `email.from.address` | keyword | Stores the `from` email address from the RFC5322 `From:` header field. |
-| `email.from.display_name` | keyword | Stores the display name of the `from` address. |
 | `email.sender.address` | keyword | When the `from` field contains more than one address or the `sender` and `from` are distinct then this field is populated. |
-| `email.sender.display_name` | keyword | Stores the display name of the `sender` if present. |
 | `email.origination_timestamp` | date | The date and time the email message was composed. Many email clients will fill this in automatically when the message is sent by a user. |
 | `email.delivery_timestamp` | date | The date and time the email message was received by the service or client. |
-| `email.to` | nested | Nested object with the message recipient(s) |
 | `email.to.address` | keyword | The email address of message recipient |
-| `email.to.display_name` | keyword | The display name of message recipient |
 | `email.subject` | keyword | `.text` text multi-field | A brief summary of the topic of the message |
-| `email.cc` | nested | Nested object with the carbon copy (CC) recipient(s) |
 | `email.cc.address` | keyword | The email address of a carbon copy (CC) recipient |
-| `email.cc.display_name` | keyword | The display name of carbon copy (CC) recipient |
-| `email.bcc` | nested | Nested object with the blind carbon copy (CC) recipient(s) |
 | `email.bcc.address` | keyword | The email address of the blind carbon copy (CC) recipient(s) |
-| `email.bcc.display_name` | keyword | The display name of the blind carbon copy (CC) recipient(s) |
 | `email.content_type` | keyword | Information about how the message is to be displayed. Typically a MIME type |
 | `email.message_id` | wildcard |  Identifier from the RFC5322 `Message-ID:` header field that refers to a particular version of a particular message. |
 | `email.local_id` | keyword | Unique identifier given to the email by the source (MTA, gateway, etc.) that created the event and is not persistent across hops (for example, the `X-MS-Exchange-Organization-Network-Message-Id` id). |
 | `email.reply_to.address` | keyword | The address that replies should be delivered to from the RFC 5322 `Reply-To:` header field. |
-| `email.reply_to.display_name` | keyword | The display name included with the `Reply-To` address. |
 | `email.direction` | keyword | Direction of the message based on the sending and receiving domains |
 | `email.x_mailer` | keyword | What application was used to draft and send the original email. |
 | `email.attachments` | nested | Nested object of attachments on the email. |
@@ -68,7 +58,7 @@ Stage 2: Included a real world example source document. Ideally this example com
 
 ```json
 {
-  "EndDate": "2020-11-10T22:12:34.8196921Z",
+  "EndDate": "2021-11-10T22:12:34.8196921Z",
   "FromIP": "8.8.8.8",
   "Index": 25,
   "MessageId": "\\u003c95689d8d5e7f429390a4e3646eef75e8-JFBVALKQOJXWILKBK4YVA7APGM3DKTLFONZWCZ3FINSW45DFOJ6EAQ2ENFTWK43UL4YTCMBYGIYHYU3NORYA====@microsoft.com\\u003e",
@@ -92,16 +82,16 @@ Stage 2: Included a real world example source document. Ideally this example com
   "@timestamp": 1626984241830,
   "email": {
     "timestamp": "2020-11-08T22:12:34.8196921Z",
-     "from": [
-       {
-  	    "address": "o365mc@microsoft.com"
-  	   }
-    ],
-    "to": [
-      {
-        "address": "john@testdomain.onmicrosoft.com"
-      }
-    ],
+     "from": {
+  	    "address": [
+          "o365mc@microsoft.com"
+        ]
+      },
+    "to": {
+      "address": [
+        "john@testdomain.onmicrosoft.com"
+      ]
+    },
     "subject": "Weekly digest: Microsoft service updates",
     "message_id": "\\u003c95689d8d5e7f429390a4e3646eef75e8-JFBVALKQOJXWILKBK4YVA7APGM3DKTLFONZWCZ3FINSW45DFOJ6EAQ2ENFTWK43UL4YTCMBYGIYHYU3NORYA====@microsoft.com\\u003e"
   },
@@ -146,16 +136,16 @@ Stage 2: Included a real world example source document. Ideally this example com
   "@timestamp": 1626984241830,
   "email": {
     "timestamp": "2020-11-10T22:12:34.8196921Z",
-        "from": [
-          {
-            "address": "postmaster@testdomain.onmicrosoft.com"
-          }
-        ],
-        "to": [
-          {
-            "address": "o365mc@microsoft.com"
-          }
-        ],
+        "from": {
+          "address": [
+            "postmaster@testdomain.onmicrosoft.com"
+          ]
+        },
+        "to": {
+          "address": [
+            "o365mc@microsoft.com"
+          ]
+        },
         "subject": "Undeliverable: Message Center Major Change Update Notification",
         "message_id": "\\u003c72872e16-f4c2-4eef-a393-e5621748a0ff@AS8P19vMB1605.EURP191.PROD.OUTLOOK.COM\\u003e"
     },
@@ -175,40 +165,34 @@ Stage 2: Included a real world example source document. Ideally this example com
 #### Original log
 
 ```
-<38>1 2016-06-24T21:00:08Z - ProofpointTAP - MSGBLK [tapmsg@21139 messageTime="2016-06-24T21:18:38.000Z" messageID="20160624211145.62086.mail@evil.zz" recipient="clark.kent@pharmtech.zz, diana.prince@pharmtech.zz" sender="e99d7ed5580193f36a51f597bc2c0210@evil.zz" senderIP="192.0.2.255" phishScore="46" spamScore="4" QID="r2FNwRHF004109" GUID="c26dbea0-80d5-463b-b93c-4e8b708219ce" subject="Please find a totally safe invoice attached." quarantineRule="module.sandbox.threat" quarantineFolder="Attachment Defense" policyRoutes="default_inbound,executives" modulesRun="sandbox,urldefense,spam,pdr" headerFrom="\"A. Badguy\" <badguy@evil.zz>" headerTo="\"Clark Kent\" <clark.kent@pharmtech.zz>; \"Diana Prince\" <diana.prince@pharmtech.zz>" headerCC="\"Bruce Wayne\" <bruce.wayne@university-of-education.zz>" headerReplyTo="null" toAddresses="clark.kent@pharmtech.zz,diana.prince@pharmtech.zz" ccAddresses="bruce.wayne@university-of-education.zz" fromAddress="badguy@evil.zz" replyToAddress="null" clusterId="pharmtech_hosted" messageParts="[{\"contentType\":\"text/plain\",\"disposition\":\"inline\",\"filename\":\"text.txt\",\"md5\":\"008c5926ca861023c1d2a36653fd88e2\",\"oContentType\":\"text/plain\",\"sandboxStatus\":\"unsupported\",\"sha256\":\"85738f8f9a7f1b04b5329c590ebcb9e425925c6d0984089c43a022de4f19c281\"},{\"contentType\":\"application/pdf\",\"disposition\":\"attached\",\"filename\":\"Invoice for Pharmtech.pdf\",\"md5\":\"5873c7d37608e0d49bcaa6f32b6c731f\",\"oContentType\":\"application/pdf\",\"sandboxStatus\":\"threat\",\"sha256\":\"2fab740f143fc1aa4c1cd0146d334c5593b1428f6d062b2c406e5efe8abe95ca\"}]" xmailer="Spambot v2.5"]
+<38>1 2021-06-24T21:00:08Z - ProofpointTAP - MSGBLK [tapmsg@21139 messageTime="2021-06-24T21:18:38.000Z" messageID="20160624211145.62086.mail@evil.zz" recipient="clark.kent@pharmtech.zz, diana.prince@pharmtech.zz" sender="e99d7ed5580193f36a51f597bc2c0210@evil.zz" senderIP="192.0.2.255" phishScore="46" spamScore="4" QID="r2FNwRHF004109" GUID="c26dbea0-80d5-463b-b93c-4e8b708219ce" subject="Please find a totally safe invoice attached." quarantineRule="module.sandbox.threat" quarantineFolder="Attachment Defense" policyRoutes="default_inbound,executives" modulesRun="sandbox,urldefense,spam,pdr" headerFrom="\"A. Badguy\" <badguy@evil.zz>" headerTo="\"Clark Kent\" <clark.kent@pharmtech.zz>; \"Diana Prince\" <diana.prince@pharmtech.zz>" headerCC="\"Bruce Wayne\" <bruce.wayne@university-of-education.zz>" headerReplyTo="null" toAddresses="clark.kent@pharmtech.zz,diana.prince@pharmtech.zz" ccAddresses="bruce.wayne@university-of-education.zz" fromAddress="badguy@evil.zz" replyToAddress="null" clusterId="pharmtech_hosted" messageParts="[{\"contentType\":\"text/plain\",\"disposition\":\"inline\",\"filename\":\"text.txt\",\"md5\":\"008c5926ca861023c1d2a36653fd88e2\",\"oContentType\":\"text/plain\",\"sandboxStatus\":\"unsupported\",\"sha256\":\"85738f8f9a7f1b04b5329c590ebcb9e425925c6d0984089c43a022de4f19c281\"},{\"contentType\":\"application/pdf\",\"disposition\":\"attached\",\"filename\":\"Invoice for Pharmtech.pdf\",\"md5\":\"5873c7d37608e0d49bcaa6f32b6c731f\",\"oContentType\":\"application/pdf\",\"sandboxStatus\":\"threat\",\"sha256\":\"2fab740f143fc1aa4c1cd0146d334c5593b1428f6d062b2c406e5efe8abe95ca\"}]" xmailer="Spambot v2.5"]
 ```
 
 #### Mapped event
 
 ```json
 {
-  "@timestamp": "2016-06-24T21:00:08Z",
+  "@timestamp": "2021-06-24T21:00:08Z",
   "email": {
-    "timestamp": "2016-06-24T21:18:38.000Z",
-    "message_id": "20160624211145.62086.mail@evil.zz",
+    "timestamp": "2021-06-24T21:18:38.000Z",
+    "message_id": "20210624211145.62086.mail@evil.zz",
     "local_id": "c26dbea0-80d5-463b-b93c-4e8b708219ce",
-    "to": [
-      {
-        "address": "clark.kent@pharmtech.zz",
-        "display_name": "Clark Kent"
-      },
-      {
-        "address": "diana.prince@pharmtech.zz",
-        "display_name": "Diana Prince"
-      }
-    ],
-    "cc": [
-      {
-        "address": "bruce.wayne@university-of-education.zz",
-        "display_name": "Bruce Wayne"
-      }
-    ],
-    "from": [
-      {
-        "address": "badguy@evil.zz",
-        "display_name": "A. Badguy"
-      }
-    ],
+    "to": {
+      "address": [
+        "clark.kent@pharmtech.zz",
+        "diana.prince@pharmtech.zz"
+      ]
+    },
+    "cc": {
+      "address": [
+        "bruce.wayne@university-of-education.zz"
+      ]
+    },
+    "from": {
+      "address": [
+        "badguy@evil.zz"
+      ]
+    },
     "sender": {
       "address": "e99d7ed5580193f36a51f597bc2c0210@evil.zz"
     },
@@ -249,30 +233,30 @@ Stage 2: Included a real world example source document. Ideally this example com
 #### Original log
 
 ```
-datetime=2017-05-26T16:47:41+0100|aCode=7O7I7MvGP1mj8plHRDuHEA|acc=C0A0|SpamLimit=0|IP=123.123.123.123|Dir=Internal|MsgId=<81ce15$8r2j59@mail01.example.com>|Subject=\message subject\|headerFrom=from@mimecast.com|Sender=from@mimecast.com|Rcpt=auser@mimecast.com|SpamInfo=[]|Act=Acc|TlsVer=TLSv1|Cphr=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA|SpamProcessingDetail={"spf":{"info":"SPF_FAIL","allow":true},"dkim":{"info":"DKIM_UNKNOWN","allow":true}}|SpamScore=1
+datetime=2021-05-26T16:47:41+0100|aCode=7O7I7MvGP1mj8plHRDuHEA|acc=C0A0|SpamLimit=0|IP=123.123.123.123|Dir=Internal|MsgId=<81ce15$8r2j59@mail01.example.com>|Subject=\message subject\|headerFrom=from@mimecast.com|Sender=from@mimecast.com|Rcpt=auser@mimecast.com|SpamInfo=[]|Act=Acc|TlsVer=TLSv1|Cphr=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA|SpamProcessingDetail={"spf":{"info":"SPF_FAIL","allow":true},"dkim":{"info":"DKIM_UNKNOWN","allow":true}}|SpamScore=1
 ```
 
 #### Mapped event
 
 ```json
 {
-  "@timestamp": "2017-05-26T16:47:41+0100",
+  "@timestamp": "2021-05-26T16:47:41+0100",
   "source": {
     "address": "123.123.123.123",
     "ip": "123.123.123.123"
   },
   "email": {
     "message_id": "<81ce15$8r2j59@mail01.example.com>",
-    "from": [
-      {
-        "address": "from@mimecast.com"
-      }
-    ],
-    "to": [
-      {
-        "address": "auser@mimecast.com"
-      }
-    ],
+    "from": {
+      "address": [
+        "from@mimecast.com"
+      ]
+    },
+    "to": {
+      "address": [
+        "auser@mimecast.com"
+      ]
+    },
     "subject": "message subject",
     "direction": "internal"
   },
