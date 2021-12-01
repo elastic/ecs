@@ -57,6 +57,7 @@ Thanks, you're awesome :-) -->
 #### Added
 
 * Added `faas.*` field set as beta. #1628
+* Added three new fields to hash schema. #1678
 
 #### Improvements
 
