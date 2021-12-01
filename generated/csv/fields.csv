@@ -137,7 +137,6 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.1.0-dev,true,dll,dll.code_signature.trusted,boolean,extended,,true,Stores the trust status of the certificate chain.
 8.1.0-dev,true,dll,dll.code_signature.valid,boolean,extended,,true,Boolean to capture if the digital signature is verified against the binary content.
 8.1.0-dev,true,dll,dll.hash.md5,keyword,extended,,,MD5 hash.
-8.1.0-dev,true,dll,dll.hash.pehash,keyword,extended,,,PEHASH hash.
 8.1.0-dev,true,dll,dll.hash.sha1,keyword,extended,,,SHA1 hash.
 8.1.0-dev,true,dll,dll.hash.sha256,keyword,extended,,,SHA256 hash.
 8.1.0-dev,true,dll,dll.hash.sha384,keyword,extended,,,SHA384 hash.
@@ -152,6 +151,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.1.0-dev,true,dll,dll.pe.file_version,keyword,extended,,6.3.9600.17415,Process name.
 8.1.0-dev,true,dll,dll.pe.imphash,keyword,extended,,0c6803c4e922103c4dca5963aad36ddf,A hash of the imports in a PE file.
 8.1.0-dev,true,dll,dll.pe.original_file_name,keyword,extended,,MSPAINT.EXE,"Internal name of the file, provided at compile-time."
+8.1.0-dev,true,dll,dll.pe.pehash,keyword,extended,,73ff189b63cd6be375a7ff25179a38d347651975,A hash of the PE header and data from one or more PE sections.
 8.1.0-dev,true,dll,dll.pe.product,keyword,extended,,Microsoft® Windows® Operating System,"Internal product name of the file, provided at compile-time."
 8.1.0-dev,true,dns,dns.answers,object,extended,array,,Array of DNS answers.
 8.1.0-dev,true,dns,dns.answers.class,keyword,extended,,IN,The class of DNS data contained in this resource record.
@@ -259,7 +259,6 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.1.0-dev,true,file,file.gid,keyword,extended,,1001,Primary group ID (GID) of the file.
 8.1.0-dev,true,file,file.group,keyword,extended,,alice,Primary group name of the file.
 8.1.0-dev,true,file,file.hash.md5,keyword,extended,,,MD5 hash.
-8.1.0-dev,true,file,file.hash.pehash,keyword,extended,,,PEHASH hash.
 8.1.0-dev,true,file,file.hash.sha1,keyword,extended,,,SHA1 hash.
 8.1.0-dev,true,file,file.hash.sha256,keyword,extended,,,SHA256 hash.
 8.1.0-dev,true,file,file.hash.sha384,keyword,extended,,,SHA384 hash.
@@ -280,6 +279,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.1.0-dev,true,file,file.pe.file_version,keyword,extended,,6.3.9600.17415,Process name.
 8.1.0-dev,true,file,file.pe.imphash,keyword,extended,,0c6803c4e922103c4dca5963aad36ddf,A hash of the imports in a PE file.
 8.1.0-dev,true,file,file.pe.original_file_name,keyword,extended,,MSPAINT.EXE,"Internal name of the file, provided at compile-time."
+8.1.0-dev,true,file,file.pe.pehash,keyword,extended,,73ff189b63cd6be375a7ff25179a38d347651975,A hash of the PE header and data from one or more PE sections.
 8.1.0-dev,true,file,file.pe.product,keyword,extended,,Microsoft® Windows® Operating System,"Internal product name of the file, provided at compile-time."
 8.1.0-dev,true,file,file.size,long,extended,,16384,File size in bytes.
 8.1.0-dev,true,file,file.target_path,keyword,extended,,,Target path for symlinks.
@@ -508,7 +508,6 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.1.0-dev,true,process,process.executable.text,match_only_text,extended,,/usr/bin/ssh,Absolute path to the process executable.
 8.1.0-dev,true,process,process.exit_code,long,extended,,137,The exit code of the process.
 8.1.0-dev,true,process,process.hash.md5,keyword,extended,,,MD5 hash.
-8.1.0-dev,true,process,process.hash.pehash,keyword,extended,,,PEHASH hash.
 8.1.0-dev,true,process,process.hash.sha1,keyword,extended,,,SHA1 hash.
 8.1.0-dev,true,process,process.hash.sha256,keyword,extended,,,SHA256 hash.
 8.1.0-dev,true,process,process.hash.sha384,keyword,extended,,,SHA384 hash.
@@ -565,7 +564,6 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.1.0-dev,true,process,process.parent.executable.text,match_only_text,extended,,/usr/bin/ssh,Absolute path to the process executable.
 8.1.0-dev,true,process,process.parent.exit_code,long,extended,,137,The exit code of the process.
 8.1.0-dev,true,process,process.parent.hash.md5,keyword,extended,,,MD5 hash.
-8.1.0-dev,true,process,process.parent.hash.pehash,keyword,extended,,,PEHASH hash.
 8.1.0-dev,true,process,process.parent.hash.sha1,keyword,extended,,,SHA1 hash.
 8.1.0-dev,true,process,process.parent.hash.sha256,keyword,extended,,,SHA256 hash.
 8.1.0-dev,true,process,process.parent.hash.sha384,keyword,extended,,,SHA384 hash.
@@ -580,6 +578,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.1.0-dev,true,process,process.parent.pe.file_version,keyword,extended,,6.3.9600.17415,Process name.
 8.1.0-dev,true,process,process.parent.pe.imphash,keyword,extended,,0c6803c4e922103c4dca5963aad36ddf,A hash of the imports in a PE file.
 8.1.0-dev,true,process,process.parent.pe.original_file_name,keyword,extended,,MSPAINT.EXE,"Internal name of the file, provided at compile-time."
+8.1.0-dev,true,process,process.parent.pe.pehash,keyword,extended,,73ff189b63cd6be375a7ff25179a38d347651975,A hash of the PE header and data from one or more PE sections.
 8.1.0-dev,true,process,process.parent.pe.product,keyword,extended,,Microsoft® Windows® Operating System,"Internal product name of the file, provided at compile-time."
 8.1.0-dev,true,process,process.parent.pgid,long,extended,,,Identifier of the group of processes the process belongs to.
 8.1.0-dev,true,process,process.parent.pid,long,core,,4242,Process id.
@@ -597,6 +596,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.1.0-dev,true,process,process.pe.file_version,keyword,extended,,6.3.9600.17415,Process name.
 8.1.0-dev,true,process,process.pe.imphash,keyword,extended,,0c6803c4e922103c4dca5963aad36ddf,A hash of the imports in a PE file.
 8.1.0-dev,true,process,process.pe.original_file_name,keyword,extended,,MSPAINT.EXE,"Internal name of the file, provided at compile-time."
+8.1.0-dev,true,process,process.pe.pehash,keyword,extended,,73ff189b63cd6be375a7ff25179a38d347651975,A hash of the PE header and data from one or more PE sections.
 8.1.0-dev,true,process,process.pe.product,keyword,extended,,Microsoft® Windows® Operating System,"Internal product name of the file, provided at compile-time."
 8.1.0-dev,true,process,process.pgid,long,extended,,,Identifier of the group of processes the process belongs to.
 8.1.0-dev,true,process,process.pid,long,core,,4242,Process id.
@@ -791,7 +791,6 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.1.0-dev,true,threat,threat.enrichments.indicator.file.gid,keyword,extended,,1001,Primary group ID (GID) of the file.
 8.1.0-dev,true,threat,threat.enrichments.indicator.file.group,keyword,extended,,alice,Primary group name of the file.
 8.1.0-dev,true,threat,threat.enrichments.indicator.file.hash.md5,keyword,extended,,,MD5 hash.
-8.1.0-dev,true,threat,threat.enrichments.indicator.file.hash.pehash,keyword,extended,,,PEHASH hash.
 8.1.0-dev,true,threat,threat.enrichments.indicator.file.hash.sha1,keyword,extended,,,SHA1 hash.
 8.1.0-dev,true,threat,threat.enrichments.indicator.file.hash.sha256,keyword,extended,,,SHA256 hash.
 8.1.0-dev,true,threat,threat.enrichments.indicator.file.hash.sha384,keyword,extended,,,SHA384 hash.
@@ -812,6 +811,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.1.0-dev,true,threat,threat.enrichments.indicator.file.pe.file_version,keyword,extended,,6.3.9600.17415,Process name.
 8.1.0-dev,true,threat,threat.enrichments.indicator.file.pe.imphash,keyword,extended,,0c6803c4e922103c4dca5963aad36ddf,A hash of the imports in a PE file.
 8.1.0-dev,true,threat,threat.enrichments.indicator.file.pe.original_file_name,keyword,extended,,MSPAINT.EXE,"Internal name of the file, provided at compile-time."
+8.1.0-dev,true,threat,threat.enrichments.indicator.file.pe.pehash,keyword,extended,,73ff189b63cd6be375a7ff25179a38d347651975,A hash of the PE header and data from one or more PE sections.
 8.1.0-dev,true,threat,threat.enrichments.indicator.file.pe.product,keyword,extended,,Microsoft® Windows® Operating System,"Internal product name of the file, provided at compile-time."
 8.1.0-dev,true,threat,threat.enrichments.indicator.file.size,long,extended,,16384,File size in bytes.
 8.1.0-dev,true,threat,threat.enrichments.indicator.file.target_path,keyword,extended,,,Target path for symlinks.
@@ -978,7 +978,6 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.1.0-dev,true,threat,threat.indicator.file.gid,keyword,extended,,1001,Primary group ID (GID) of the file.
 8.1.0-dev,true,threat,threat.indicator.file.group,keyword,extended,,alice,Primary group name of the file.
 8.1.0-dev,true,threat,threat.indicator.file.hash.md5,keyword,extended,,,MD5 hash.
-8.1.0-dev,true,threat,threat.indicator.file.hash.pehash,keyword,extended,,,PEHASH hash.
 8.1.0-dev,true,threat,threat.indicator.file.hash.sha1,keyword,extended,,,SHA1 hash.
 8.1.0-dev,true,threat,threat.indicator.file.hash.sha256,keyword,extended,,,SHA256 hash.
 8.1.0-dev,true,threat,threat.indicator.file.hash.sha384,keyword,extended,,,SHA384 hash.
@@ -999,6 +998,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.1.0-dev,true,threat,threat.indicator.file.pe.file_version,keyword,extended,,6.3.9600.17415,Process name.
 8.1.0-dev,true,threat,threat.indicator.file.pe.imphash,keyword,extended,,0c6803c4e922103c4dca5963aad36ddf,A hash of the imports in a PE file.
 8.1.0-dev,true,threat,threat.indicator.file.pe.original_file_name,keyword,extended,,MSPAINT.EXE,"Internal name of the file, provided at compile-time."
+8.1.0-dev,true,threat,threat.indicator.file.pe.pehash,keyword,extended,,73ff189b63cd6be375a7ff25179a38d347651975,A hash of the PE header and data from one or more PE sections.
 8.1.0-dev,true,threat,threat.indicator.file.pe.product,keyword,extended,,Microsoft® Windows® Operating System,"Internal product name of the file, provided at compile-time."
 8.1.0-dev,true,threat,threat.indicator.file.size,long,extended,,16384,File size in bytes.
 8.1.0-dev,true,threat,threat.indicator.file.target_path,keyword,extended,,,Target path for symlinks.
