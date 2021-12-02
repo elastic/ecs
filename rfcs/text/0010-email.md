@@ -82,11 +82,11 @@ Stage 2: Included a real world example source document. Ideally this example com
   "@timestamp": 1626984241830,
   "email": {
     "timestamp": "2020-11-08T22:12:34.8196921Z",
-     "from": {
-  	    "address": [
-          "o365mc@microsoft.com"
-        ]
-      },
+    "from": {
+  	  "address": [
+        "o365mc@microsoft.com"
+      ]
+    },
     "to": {
       "address": [
         "john@testdomain.onmicrosoft.com"
