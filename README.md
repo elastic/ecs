@@ -1,3 +1,7 @@
+[![Supported Python versions](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![Unit Tests](https://github.com/elastic/ecs/workflows/Tests/badge.svg)](https://github.com/elastic/ecs/actions)
+[![Chat](https://img.shields.io/badge/chat-%23stack--ecs-blueviolet)](https://ela.st/slack)
+
 # Elastic Common Schema (ECS)
 
 The Elastic Common Schema (ECS) defines a common set of fields for
