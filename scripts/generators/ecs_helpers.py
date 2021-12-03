@@ -140,7 +140,7 @@ def path_exists_in_git_tree(tree, file_path):
 
 
 def usage_doc_files():
-    usage_docs_dir = os.path.join(os.path.dirname(__file__), '../../docs/usage')
+    usage_docs_dir = os.path.join(os.path.dirname(__file__), '../../docs/fields/usage')
     usage_docs_path = pathlib.Path(usage_docs_dir)
     if usage_docs_path.is_dir():
         return [x.name for x in usage_docs_path.glob('*.asciidoc') if x.is_file()]
