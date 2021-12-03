@@ -43,7 +43,7 @@ def main():
 
     # default location to save files
     out_dir = 'generated'
-    docs_dir = 'docs'
+    docs_dir = 'docs/fields'
     if args.out:
         default_dirs = False
         out_dir = os.path.join(args.out, out_dir)
