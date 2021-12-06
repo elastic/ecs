@@ -7,10 +7,13 @@ from generators import ecs_helpers
 
 
 def generate(nested, ecs_generated_version, out_dir):
+    # fields docs now have a dedicated docs subdir: docs/fields
+    fields_docs_dir = out_dir + '/fields'
+
     save_asciidoc(path.join(out_dir, 'index.asciidoc'), page_index(ecs_generated_version))
-    save_asciidoc(path.join(out_dir, 'fields.asciidoc'), page_field_index(nested, ecs_generated_version))
-    save_asciidoc(path.join(out_dir, 'field-details.asciidoc'), page_field_details(nested))
-    save_asciidoc(path.join(out_dir, 'field-values.asciidoc'), page_field_values(nested))
+    save_asciidoc(path.join(fields_docs_dir, 'fields.asciidoc'), page_field_index(nested, ecs_generated_version))
+    save_asciidoc(path.join(fields_docs_dir, 'field-details.asciidoc'), page_field_details(nested))
+    save_asciidoc(path.join(fields_docs_dir, 'field-values.asciidoc'), page_field_values(nested))
 
 # Helpers
 
