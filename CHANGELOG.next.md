@@ -16,6 +16,8 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
+* Added two new fields (sha384,tlsh) to hash schema and one field to pe schema (pehash). #1678
+
 #### Improvements
 
 #### Deprecated
@@ -57,7 +59,6 @@ Thanks, you're awesome :-) -->
 #### Added
 
 * Added `faas.*` field set as beta. #1628
-* Added two new fields (sha384,tlsh) to hash schema and one field to pe schema (pehash). #1678
 
 #### Improvements
 
