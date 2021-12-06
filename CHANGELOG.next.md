@@ -66,6 +66,7 @@ Thanks, you're awesome :-) -->
 
 * Remove remaining Go deps after removing Go code generator. #1585
 * Add explicit `default_field: true` for Beats artifacts. #1633
+* Reorganize docs directory structure. #1679
 
 <!-- All empty sections:
 
