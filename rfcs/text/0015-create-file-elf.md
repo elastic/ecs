@@ -236,4 +236,4 @@ The following are the people that consulted on the contents of this RFC.
 * Stage 1: https://github.com/elastic/ecs/pull/1077
 * Stage 2: https://github.com/elastic/ecs/pull/1294
   * Stage 2 advancement date correction: https://github.com/elastic/ecs/pull/1409
-* Stage 3: https://github.com/elastic/ecs/pull/nnnn
+* Stage 3: https://github.com/elastic/ecs/pull/1686
