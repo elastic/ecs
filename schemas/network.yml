@@ -1,3 +1,19 @@
+# Licensed to Elasticsearch B.V. under one or more contributor
+# license agreements. See the NOTICE file distributed with
+# this work for additional information regarding copyright
+# ownership. Elasticsearch B.V. licenses this file to you under
+# the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# 	http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
 ---
 - name: network
   title: Network
@@ -24,8 +40,7 @@
       description: >
         In the OSI Model this would be the Network Layer. ipv4, ipv6, ipsec, pim, etc
 
-        The field value must be normalized to lowercase for querying. See
-        the documentation section "Implementing ECS".
+        The field value must be normalized to lowercase for querying.
       example: ipv4
 
     - name: iana_number
@@ -46,8 +61,7 @@
         Same as network.iana_number, but instead using the Keyword name of the
         transport layer (udp, tcp, ipv6-icmp, etc.)
 
-        The field value must be normalized to lowercase for querying. See
-        the documentation section "Implementing ECS".
+        The field value must be normalized to lowercase for querying.
       example: tcp
 
     - name: application
@@ -56,25 +70,26 @@
       short: >
         Application level protocol name.
       description: >
-        A name given to an application level protocol. This can be arbitrarily assigned for
-        things like microservices, but also apply to things like skype, icq,
-        facebook, twitter. This would be used in situations where the vendor
-        or service can be decoded such as from the source/dest IP owners,
-        ports, or wire format.
+        When a specific application or service is identified from network
+        connection details (source/dest IPs, ports, certificates, or
+        wire format), this field captures the application's or service's name.
 
-        The field value must be normalized to lowercase for querying. See
-        the documentation section "Implementing ECS".
+        For example, the original event identifies the network connection being
+        from a specific web service in a `https` network connection, like
+        `facebook` or `twitter`.
+
+        The field value must be normalized to lowercase for querying.
       example: aim
 
     - name: protocol
       level: core
       type: keyword
-      short: L7 Network protocol name.
+      short: Application protocol name.
       description: >
-        L7 Network protocol name. ex. http, lumberjack, transport protocol.
+        In the OSI Model this would be the Application Layer protocol. For
+        example, `http`, `dns`, or `ssh`.
 
-        The field value must be normalized to lowercase for querying. See
-        the documentation section "Implementing ECS".
+        The field value must be normalized to lowercase for querying.
       example: http
 
     - name: direction

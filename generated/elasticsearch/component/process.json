@@ -1,7 +1,7 @@
 {
   "_meta": {
     "documentation": "https://www.elastic.co/guide/en/ecs/current/ecs-process.html",
-    "ecs_version": "2.0.0-dev"
+    "ecs_version": "8.1.0-dev"
   },
   "template": {
     "mappings": {
@@ -17,6 +17,10 @@
             },
             "code_signature": {
               "properties": {
+                "digest_algorithm": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
                 "exists": {
                   "type": "boolean"
                 },
@@ -36,6 +40,9 @@
                   "ignore_above": 1024,
                   "type": "keyword"
                 },
+                "timestamp": {
+                  "type": "date"
+                },
                 "trusted": {
                   "type": "boolean"
                 },
@@ -47,12 +54,10 @@
             "command_line": {
               "fields": {
                 "text": {
-                  "norms": false,
-                  "type": "text"
+                  "type": "match_only_text"
                 }
               },
-              "ignore_above": 1024,
-              "type": "keyword"
+              "type": "wildcard"
             },
             "elf": {
               "properties": {
@@ -171,6 +176,9 @@
                 }
               }
             },
+            "end": {
+              "type": "date"
+            },
             "entity_id": {
               "ignore_above": 1024,
               "type": "keyword"
@@ -178,8 +186,7 @@
             "executable": {
               "fields": {
                 "text": {
-                  "norms": false,
-                  "type": "text"
+                  "type": "match_only_text"
                 }
               },
               "ignore_above": 1024,
@@ -202,11 +209,19 @@
                   "ignore_above": 1024,
                   "type": "keyword"
                 },
+                "sha384": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
                 "sha512": {
                   "ignore_above": 1024,
                   "type": "keyword"
                 },
                 "ssdeep": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "tlsh": {
                   "ignore_above": 1024,
                   "type": "keyword"
                 }
@@ -215,8 +230,7 @@
             "name": {
               "fields": {
                 "text": {
-                  "norms": false,
-                  "type": "text"
+                  "type": "match_only_text"
                 }
               },
               "ignore_above": 1024,
@@ -233,6 +247,10 @@
                 },
                 "code_signature": {
                   "properties": {
+                    "digest_algorithm": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    },
                     "exists": {
                       "type": "boolean"
                     },
@@ -252,6 +270,9 @@
                       "ignore_above": 1024,
                       "type": "keyword"
                     },
+                    "timestamp": {
+                      "type": "date"
+                    },
                     "trusted": {
                       "type": "boolean"
                     },
@@ -263,12 +284,10 @@
                 "command_line": {
                   "fields": {
                     "text": {
-                      "norms": false,
-                      "type": "text"
+                      "type": "match_only_text"
                     }
                   },
-                  "ignore_above": 1024,
-                  "type": "keyword"
+                  "type": "wildcard"
                 },
                 "elf": {
                   "properties": {
@@ -387,6 +406,9 @@
                     }
                   }
                 },
+                "end": {
+                  "type": "date"
+                },
                 "entity_id": {
                   "ignore_above": 1024,
                   "type": "keyword"
@@ -394,8 +416,7 @@
                 "executable": {
                   "fields": {
                     "text": {
-                      "norms": false,
-                      "type": "text"
+                      "type": "match_only_text"
                     }
                   },
                   "ignore_above": 1024,
@@ -418,11 +439,19 @@
                       "ignore_above": 1024,
                       "type": "keyword"
                     },
+                    "sha384": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    },
                     "sha512": {
                       "ignore_above": 1024,
                       "type": "keyword"
                     },
                     "ssdeep": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    },
+                    "tlsh": {
                       "ignore_above": 1024,
                       "type": "keyword"
                     }
@@ -431,8 +460,7 @@
                 "name": {
                   "fields": {
                     "text": {
-                      "norms": false,
-                      "type": "text"
+                      "type": "match_only_text"
                     }
                   },
                   "ignore_above": 1024,
@@ -464,6 +492,10 @@
                       "ignore_above": 1024,
                       "type": "keyword"
                     },
+                    "pehash": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    },
                     "product": {
                       "ignore_above": 1024,
                       "type": "keyword"
@@ -474,9 +506,6 @@
                   "type": "long"
                 },
                 "pid": {
-                  "type": "long"
-                },
-                "ppid": {
                   "type": "long"
                 },
                 "start": {
@@ -496,8 +525,7 @@
                 "title": {
                   "fields": {
                     "text": {
-                      "norms": false,
-                      "type": "text"
+                      "type": "match_only_text"
                     }
                   },
                   "ignore_above": 1024,
@@ -509,8 +537,7 @@
                 "working_directory": {
                   "fields": {
                     "text": {
-                      "norms": false,
-                      "type": "text"
+                      "type": "match_only_text"
                     }
                   },
                   "ignore_above": 1024,
@@ -544,6 +571,10 @@
                   "ignore_above": 1024,
                   "type": "keyword"
                 },
+                "pehash": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
                 "product": {
                   "ignore_above": 1024,
                   "type": "keyword"
@@ -554,9 +585,6 @@
               "type": "long"
             },
             "pid": {
-              "type": "long"
-            },
-            "ppid": {
               "type": "long"
             },
             "start": {
@@ -576,8 +604,7 @@
             "title": {
               "fields": {
                 "text": {
-                  "norms": false,
-                  "type": "text"
+                  "type": "match_only_text"
                 }
               },
               "ignore_above": 1024,
@@ -589,8 +616,7 @@
             "working_directory": {
               "fields": {
                 "text": {
-                  "norms": false,
-                  "type": "text"
+                  "type": "match_only_text"
                 }
               },
               "ignore_above": 1024,

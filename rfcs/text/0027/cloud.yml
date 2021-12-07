@@ -1,0 +1,22 @@
+---
+- name: cloud
+  footnote: >
+    Examples: If Metricbeat is running on an EC2 host and fetches data from its
+    host, the cloud info contains the data about this machine. If Metricbeat
+    runs on a remote machine outside the cloud and fetches data from a service
+    running in the cloud, the field contains cloud data from the machine the
+    service is running on.
+
+    The cloud fields may be self-nested under cloud.origin.* and cloud.target.* to describe origin or target service's cloud information in the context of incoming or outgoing requests, respectively.
+    However, the fieldsets cloud.origin.* and cloud.target.* must not be confused with the root cloud fieldset that is used to describe the cloud context of the actual service under observation.
+    The fieldset cloud.origin.* may only be used in the context of incoming requests or events to provide the originating service's cloud information.
+    The fieldset cloud.target.* may only be used in the context of outgoing requests or events to describe the target service's cloud information.
+  reusable:
+    top_level: true
+    expected:
+      - at: cloud
+        as: target
+        short_override: Provides the cloud information of the target entity in case of an outgoing request or event.
+      - at: cloud
+        as: origin
+        short_override: Provides the cloud information of the origin entity in case of an incoming request or event.

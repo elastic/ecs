@@ -1,3 +1,19 @@
+# Licensed to Elasticsearch B.V. under one or more contributor
+# license agreements. See the NOTICE file distributed with
+# this work for additional information regarding copyright
+# ownership. Elasticsearch B.V. licenses this file to you under
+# the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# 	http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
 ---
 - name: url
   title: URL
@@ -6,11 +22,19 @@
     URL fields provide support for complete or partial URLs, and supports the
     breaking down into scheme, domain, path, and so on.
   type: group
+  reusable:
+    top_level: true
+    expected:
+      - at: threat.indicator
+        as: url
+      - at: threat.enrichments.indicator
+        as: url
+        beta: Reusing the `url` fields in this location is currently considered beta.
   fields:
 
     - name: original
       level: extended
-      type: keyword
+      type: wildcard
       short: Unmodified original url as seen in the event source.
       description: >
         Unmodified original url as seen in the event source.
@@ -23,12 +47,12 @@
       example: >
         https://www.elastic.co:443/search?q=elasticsearch#top or /search?q=elasticsearch
       multi_fields:
-      - type: text
-        name: text
+        - type: match_only_text
+          name: text
 
     - name: full
       level: extended
-      type: keyword
+      type: wildcard
       short: Full unparsed URL.
       description: >
         If full URLs are important to your use case, they should be stored in
@@ -36,8 +60,8 @@
         event source.
       example: https://www.elastic.co:443/search?q=elasticsearch#top
       multi_fields:
-      - type: text
-        name: text
+        - type: match_only_text
+          name: text
 
     - name: scheme
       level: extended
@@ -116,7 +140,7 @@
 
     - name: path
       level: extended
-      type: keyword
+      type: wildcard
       description: >
         Path of the request, such as "/search".
 

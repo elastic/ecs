@@ -10,6 +10,14 @@
     description: >
       A list of associated indicators enriching the event, and the context of that association/enrichment
 
+  - name: enrichments.indicator
+    level: extended
+    type: object
+    short: Indicators
+    beta: This field is beta and subject to change.
+    description: >
+      Indicators
+
   - name: enrichments.matched.atomic
     level: extended
     type: keyword
@@ -42,6 +50,14 @@
       Identifies the _index of the indicator document enriching the event.
     example: filebeat-8.0.0-2021.05.23-000011
 
+  - name: enrichments.matched.occurred
+    level: extended
+    type: date
+    short: Date of match
+    description: >
+      Indicates when the indicator match was generated
+    example: 2021-10-05T17:00:58.326Z
+
   - name: enrichments.matched.type
     level: extended
     type: keyword
@@ -49,3 +65,159 @@
     description: >
       Identifies the type of match that caused the event to be enriched with the given indicator
     example: indicator_match_rule
+
+  - name: enrichments.indicator.first_seen
+    level: extended
+    type: date
+    short: Date/time indicator was first reported.
+    description: >
+      The date and time when intelligence source first reported sighting this indicator.
+
+    example: "2020-11-05T17:25:47.000Z"
+
+  - name: enrichments.indicator.last_seen
+    level: extended
+    type: date
+    short: Date/time indicator was last reported.
+    description: >
+      The date and time when intelligence source last reported sighting this indicator.
+
+    example: "2020-11-05T17:25:47.000Z"
+
+  - name: enrichments.indicator.modified_at
+    level: extended
+    type: date
+    short: Date/time indicator was last updated.
+    description: >
+      The date and time when intelligence source last modified information for this indicator.
+
+    example: "2020-11-05T17:25:47.000Z"
+
+  - name: enrichments.indicator.sightings
+    level: extended
+    type: long
+    short: Number of times indicator observed
+    description: >
+      Number of times this indicator was observed conducting threat activity.
+
+    example: 20
+
+  - name: enrichments.indicator.type
+    level: extended
+    type: keyword
+    short: Type of indicator
+    description: >
+      Type of indicator as represented by Cyber Observable in STIX 2.0.
+
+      Recommended values:
+        * autonomous-system
+        * artifact
+        * directory
+        * domain-name
+        * email-addr
+        * file
+        * ipv4-addr
+        * ipv6-addr
+        * mac-addr
+        * mutex
+        * port
+        * process
+        * software
+        * url
+        * user-account
+        * windows-registry-key
+        * x509-certificate
+
+    example: ipv4-addr
+
+  - name: enrichments.indicator.description
+    level: extended
+    type: keyword
+    short: Indicator description
+    description: >
+      Describes the type of action conducted by the threat.
+
+    example: IP x.x.x.x was observed delivering the Angler EK.
+
+  - name: enrichments.indicator.scanner_stats
+    level: extended
+    type: long
+    short: Scanner statistics
+    description: >
+      Count of AV/EDR vendors that successfully detected malicious file or URL.
+
+    example: 4
+
+  - name: enrichments.indicator.confidence
+    level: extended
+    type: keyword
+    short: Indicator confidence rating
+    description: >
+      Identifies the vendor-neutral confidence rating using the None/Low/Medium/High scale defined in Appendix A of the STIX 2.1 framework. Vendor-specific confidence scales may be added as custom fields.
+
+      Expected values:
+        * Not Specified
+        * None
+        * Low
+        * Medium
+        * High
+
+    example: Medium
+
+  - name: enrichments.indicator.ip
+    level: extended
+    type: ip
+    short: Indicator IP address
+    description: >
+      Identifies a threat indicator as an IP address (irrespective of direction).
+
+    example: 1.2.3.4
+
+  - name: enrichments.indicator.port
+    level: extended
+    type: long
+    short: Indicator port
+    description: >
+      Identifies a threat indicator as a port number (irrespective of direction).
+
+    example: 443
+
+  - name: enrichments.indicator.email.address
+    level: extended
+    type: keyword
+    short: Indicator email address
+    description: >
+      Identifies a threat indicator as an email address (irrespective of direction).
+
+    example: phish@example.com
+
+  - name: enrichments.indicator.marking.tlp
+    level: extended
+    type: keyword
+    short: Indicator TLP marking
+    description: >
+      Traffic Light Protocol sharing markings.
+
+      Recommended values are:
+        * WHITE
+        * GREEN
+        * AMBER
+        * RED
+
+    example: White
+
+  - name: enrichments.indicator.reference
+    level: extended
+    type: keyword
+    short: Indicator reference URL
+    description: >
+      Reference URL linking to additional information about this indicator.
+    example: https://system.example.com/indicator/0001234
+
+  - name: enrichments.indicator.provider
+    level: extended
+    type: keyword
+    short: Indicator provider
+    description: >
+      The name of the indicator's provider.
+    example: lrz_urlhaus

@@ -1,3 +1,19 @@
+# Licensed to Elasticsearch B.V. under one or more contributor
+# license agreements. See the NOTICE file distributed with
+# this work for additional information regarding copyright
+# ownership. Elasticsearch B.V. licenses this file to you under
+# the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# 	http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
 ---
 - name: threat
   title: Threat
@@ -7,12 +23,241 @@
    Fields to classify events and alerts according to a threat taxonomy such as the MITRE ATT&CK® framework.
 
    These fields are for users to classify alerts from all of their sources (e.g. IDS, NGFW, etc.) within a
-   common taxonomy. The threat.tactic.* are meant to capture the high level category of the threat
+   common taxonomy. The threat.tactic.* fields are meant to capture the high level category of the threat
    (e.g. "impact"). The threat.technique.* fields are meant to capture which kind of approach is used by
    this detected threat, to accomplish the goal (e.g. "endpoint denial of service").
 
   type: group
   fields:
+
+    - name: enrichments
+      level: extended
+      type: nested
+      short: List of objects containing indicators enriching the event.
+      beta: This field is beta and subject to change.
+      description: >
+        A list of associated indicators objects enriching the event, and the context of
+        that association/enrichment.
+      normalize:
+        - array
+
+    - name: enrichments.indicator
+      level: extended
+      type: object
+      short: Object containing indicators enriching the event.
+      beta: This field is beta and subject to change.
+      description: >
+        Object containing associated indicators enriching the event.
+
+    - name: enrichments.indicator.first_seen
+      level: extended
+      type: date
+      short: Date/time indicator was first reported.
+      beta: This field is beta and subject to change.
+      description: >
+        The date and time when intelligence source first reported sighting this indicator.
+      example: "2020-11-05T17:25:47.000Z"
+
+    - name: enrichments.indicator.last_seen
+      level: extended
+      type: date
+      short: Date/time indicator was last reported.
+      beta: This field is beta and subject to change.
+      description: >
+        The date and time when intelligence source last reported sighting this indicator.
+      example: "2020-11-05T17:25:47.000Z"
+
+    - name: enrichments.indicator.modified_at
+      level: extended
+      type: date
+      short: Date/time indicator was last updated.
+      beta: This field is beta and subject to change.
+      description: >
+        The date and time when intelligence source last modified information for this indicator.
+      example: "2020-11-05T17:25:47.000Z"
+
+    - name: enrichments.indicator.sightings
+      level: extended
+      type: long
+      short: Number of times indicator observed
+      beta: This field is beta and subject to change.
+      description: >
+        Number of times this indicator was observed conducting threat activity.
+      example: 20
+
+    - name: enrichments.indicator.type
+      level: extended
+      type: keyword
+      short: Type of indicator
+      beta: This field is beta and subject to change.
+      description: >
+        Type of indicator as represented by Cyber Observable in STIX 2.0.
+        Recommended values:
+          * autonomous-system
+          * artifact
+          * directory
+          * domain-name
+          * email-addr
+          * file
+          * ipv4-addr
+          * ipv6-addr
+          * mac-addr
+          * mutex
+          * port
+          * process
+          * software
+          * url
+          * user-account
+          * windows-registry-key
+          * x509-certificate
+      example: ipv4-addr
+
+    - name: enrichments.indicator.description
+      level: extended
+      type: keyword
+      short: Indicator description
+      beta: This field is beta and subject to change.
+      description: >
+        Describes the type of action conducted by the threat.
+      example: IP x.x.x.x was observed delivering the Angler EK.
+
+    - name: enrichments.indicator.scanner_stats
+      level: extended
+      type: long
+      short: Scanner statistics
+      beta: This field is beta and subject to change.
+      description: >
+        Count of AV/EDR vendors that successfully detected malicious file or URL.
+      example: 4
+
+    - name: enrichments.indicator.confidence
+      level: extended
+      type: keyword
+      short: Indicator confidence rating
+      beta: This field is beta and subject to change.
+      description: >
+        Identifies the vendor-neutral confidence rating using the None/Low/Medium/High scale defined in Appendix A of the STIX 2.1 framework. Vendor-specific
+        confidence scales may be added as custom fields.
+
+        Expected values are:
+          * Not Specified
+          * None
+          * Low
+          * Medium
+          * High
+      example: Medium
+
+    - name: enrichments.indicator.ip
+      level: extended
+      type: ip
+      short: Indicator IP address
+      beta: This field is beta and subject to change.
+      description: >
+        Identifies a threat indicator as an IP address (irrespective of direction).
+      example: 1.2.3.4
+
+    - name: enrichments.indicator.port
+      level: extended
+      type: long
+      short: Indicator port
+      beta: This field is beta and subject to change.
+      description: >
+        Identifies a threat indicator as a port number (irrespective of direction).
+      example: 443
+
+    - name: enrichments.indicator.email.address
+      level: extended
+      type: keyword
+      short: Indicator email address
+      beta: This field is beta and subject to change.
+      description: >
+        Identifies a threat indicator as an email address (irrespective of direction).
+      example: phish@example.com
+
+    - name: enrichments.indicator.marking.tlp
+      level: extended
+      type: keyword
+      short: Indicator TLP marking
+      beta: This field is beta and subject to change.
+      description: >
+        Traffic Light Protocol sharing markings.
+        Recommended values are:
+          * WHITE
+          * GREEN
+          * AMBER
+          * RED
+      example: White
+
+    - name: enrichments.indicator.reference
+      level: extended
+      type: keyword
+      short: Indicator reference URL
+      beta: This field is beta and subject to change.
+      description: >
+        Reference URL linking to additional information about this indicator.
+      example: https://system.example.com/indicator/0001234
+
+    - name: enrichments.indicator.provider
+      level: extended
+      type: keyword
+      short: Indicator provider
+      beta: This field is beta and subject to change.
+      description: >
+        The name of the indicator's provider.
+      example: lrz_urlhaus
+
+    - name: enrichments.matched.atomic
+      level: extended
+      type: keyword
+      short: Matched indicator value
+      beta: This field is beta and subject to change.
+      description: >
+        Identifies the atomic indicator value that matched a local environment endpoint or network event.
+      example: bad-domain.com
+
+    - name: enrichments.matched.field
+      level: extended
+      type: keyword
+      short: Matched indicator field
+      beta: This field is beta and subject to change.
+      description: >
+        Identifies the field of the atomic indicator that matched a local environment endpoint or network event.
+      example: file.hash.sha256
+
+    - name: enrichments.matched.id
+      level: extended
+      type: keyword
+      short: Matched indicator identifier
+      beta: This field is beta and subject to change.
+      description: >
+        Identifies the _id of the indicator document enriching the event.
+      example: ff93aee5-86a1-4a61-b0e6-0cdc313d01b5
+
+    - name: enrichments.matched.index
+      level: extended
+      type: keyword
+      short: Matched indicator index
+      beta: This field is beta and subject to change.
+      description: >
+        Identifies the _index of the indicator document enriching the event.
+      example: filebeat-8.0.0-2021.05.23-000011
+
+    - name: enrichments.matched.occurred
+      level: extended
+      type: date
+      short: Date of match
+      description: >
+        Indicates when the indicator match was generated
+      example: 2021-10-05T17:00:58.326Z
+
+    - name: enrichments.matched.type
+      level: extended
+      type: keyword
+      short: Type of indicator match
+      beta: This field is beta and subject to change.
+      description: >
+        Identifies the type of match that caused the event to be enriched with the given indicator
+      example: indicator_match_rule
 
     - name: framework
       level: extended
@@ -28,10 +273,10 @@
       level: extended
       type: keyword
       short: Alias of the group.
-      beta: This field is beta and subject to change.
       description: >
-        The alias(es) of the group for a set of related intrusion activity that are tracked by a common name in the security community. While not required, you can use a MITRE ATT&CK® group alias(es).
+        The alias(es) of the group for a set of related intrusion activity that are tracked by a common name in the security community.
 
+        While not required, you can use a MITRE ATT&CK® group alias(es).
       example: '[ "Magecart Group 6" ]'
       normalize:
         - array
@@ -40,59 +285,227 @@
       level: extended
       type: keyword
       short: ID of the group.
-      beta: This field is beta and subject to change.
       description: >
-        The id of the group for a set of related intrusion activity that are tracked by a common name in the security community. While not required, you can use a MITRE ATT&CK® group id.
+        The id of the group for a set of related intrusion activity that are tracked by a common name in the security community.
 
+        While not required, you can use a MITRE ATT&CK® group id.
       example: "G0037"
 
     - name: group.name
       level: extended
       type: keyword
       short: Name of the group.
-      beta: This field is beta and subject to change.
       description: >
-        The name of the group for a set of related intrusion activity that are tracked by a common name in the security community. While not required, you can use a MITRE ATT&CK® group name.
+        The name of the group for a set of related intrusion activity that are tracked by a common name in the security community.
 
+        While not required, you can use a MITRE ATT&CK® group name.
       example: "FIN6"
 
     - name: group.reference
       level: extended
       type: keyword
       short: Reference URL of the group.
-      beta: This field is beta and subject to change.
       description: >
-        The reference URL of the group for a set of related intrusion activity that are tracked by a common name in the security community. While not required, you can use a MITRE ATT&CK® group reference URL.
+        The reference URL of the group for a set of related intrusion activity that are tracked by a common name in the security community.
 
+        While not required, you can use a MITRE ATT&CK® group reference URL.
       example: "https://attack.mitre.org/groups/G0037/"
+
+    - name: indicator.first_seen
+      level: extended
+      type: date
+      short: Date/time indicator was first reported.
+      description: >
+        The date and time when intelligence source first reported sighting this indicator.
+
+      example: "2020-11-05T17:25:47.000Z"
+
+    - name: indicator.last_seen
+      level: extended
+      type: date
+      short: Date/time indicator was last reported.
+      description: >
+        The date and time when intelligence source last reported sighting this indicator.
+
+      example: "2020-11-05T17:25:47.000Z"
+
+    - name: indicator.modified_at
+      level: extended
+      type: date
+      short: Date/time indicator was last updated.
+      description: >
+        The date and time when intelligence source last modified information for this indicator.
+
+      example: "2020-11-05T17:25:47.000Z"
+
+    - name: indicator.sightings
+      level: extended
+      type: long
+      short: Number of times indicator observed
+      description: >
+        Number of times this indicator was observed conducting threat activity.
+
+      example: 20
+
+    - name: indicator.type
+      level: extended
+      type: keyword
+      short: Type of indicator
+      description: >
+        Type of indicator as represented by Cyber Observable in STIX 2.0.
+
+        Recommended values:
+          * autonomous-system
+          * artifact
+          * directory
+          * domain-name
+          * email-addr
+          * file
+          * ipv4-addr
+          * ipv6-addr
+          * mac-addr
+          * mutex
+          * port
+          * process
+          * software
+          * url
+          * user-account
+          * windows-registry-key
+          * x509-certificate
+
+      example: ipv4-addr
+
+    - name: indicator.description
+      level: extended
+      type: keyword
+      short: Indicator description
+      description: >
+        Describes the type of action conducted by the threat.
+
+      example: IP x.x.x.x was observed delivering the Angler EK.
+
+    - name: indicator.scanner_stats
+      level: extended
+      type: long
+      short: Scanner statistics
+      description: >
+        Count of AV/EDR vendors that successfully detected malicious file or URL.
+
+      example: 4
+
+    - name: indicator.confidence
+      level: extended
+      type: keyword
+      short: Indicator confidence rating
+      description: >
+        Identifies the vendor-neutral confidence rating using the None/Low/Medium/High scale defined in Appendix A of the STIX 2.1 framework. Vendor-specific
+        confidence scales may be added as custom fields.
+
+        Expected values are:
+          * Not Specified
+          * None
+          * Low
+          * Medium
+          * High
+      example: Medium
+
+    - name: indicator.ip
+      level: extended
+      type: ip
+      short: Indicator IP address
+      description: >
+        Identifies a threat indicator as an IP address (irrespective of direction).
+
+      example: 1.2.3.4
+
+    - name: indicator.port
+      level: extended
+      type: long
+      short: Indicator port
+      description: >
+        Identifies a threat indicator as a port number (irrespective of direction).
+
+      example: 443
+
+    - name: indicator.email.address
+      level: extended
+      type: keyword
+      short: Indicator email address
+      description: >
+        Identifies a threat indicator as an email address (irrespective of direction).
+
+      example: phish@example.com
+
+    - name: indicator.marking.tlp
+      level: extended
+      type: keyword
+      short: Indicator TLP marking
+      description: >
+        Traffic Light Protocol sharing markings.
+
+        Recommended values are:
+          * WHITE
+          * GREEN
+          * AMBER
+          * RED
+
+      example: WHITE
+
+    - name: indicator.reference
+      level: extended
+      type: keyword
+      short: Indicator reference URL
+      description: >
+        Reference URL linking to additional information about this indicator.
+      example: https://system.example.com/indicator/0001234
+
+    - name: indicator.provider
+      level: extended
+      type: keyword
+      short: Indicator provider
+      description: >
+        The name of the indicator's provider.
+      example: lrz_urlhaus
 
     - name: software.id
       level: extended
       type: keyword
       short: ID of the software
-      beta: This field is beta and subject to change.
       description: >
-        The id of the software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®. While not required, you can use a MITRE ATT&CK® software id.
+        The id of the software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®.
 
+        While not required, you can use a MITRE ATT&CK® software id.
       example: "S0552"
 
     - name: software.name
       level: extended
       type: keyword
       short: Name of the software.
-      beta: This field is beta and subject to change.
       description: >
-        The name of the software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®. While not required, you can use a MITRE ATT&CK® software name.
+        The name of the software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®.
 
+        While not required, you can use a MITRE ATT&CK® software name.
       example: "AdFind"
+
+    - name: software.alias
+      level: extended
+      type: keyword
+      short: Alias of the software
+      description: >
+        The alias(es) of the software for a set of related intrusion activity that are tracked by a common name in the
+        security community.
+
+        While not required, you can use a MITRE ATT&CK® associated software description.
+      example: '[ "X-Agent" ]'
+      normalize:
+        - array
 
     - name: software.platforms
       level: extended
       type: keyword
       short: Platforms of the software.
-      beta: This field is beta and subject to change.
       description: >
-        The platforms of the software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®. While not required, you can use a MITRE ATT&CK® software platforms.
+        The platforms of the software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®.
 
         Recommended Values:
           * AWS
@@ -106,6 +519,7 @@
           * SaaS
           * Windows
 
+        While not required, you can use a MITRE ATT&CK® software platforms.
       example: '[ "Windows" ]'
       normalize:
         - array
@@ -114,24 +528,24 @@
       level: extended
       type: keyword
       short: Software reference URL.
-      beta: This field is beta and subject to change.
       description: >
-        The reference URL of the software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®. While not required, you can use a MITRE ATT&CK® software reference URL.
+        The reference URL of the software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®.
 
+        While not required, you can use a MITRE ATT&CK® software reference URL.
       example: "https://attack.mitre.org/software/S0552/"
 
     - name: software.type
       level: extended
       type: keyword
       short: Software type.
-      beta: This field is beta and subject to change.
       description: >
-        The type of software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®. While not required, you can use a MITRE ATT&CK® software type.
+        The type of software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®.
 
         Recommended values
           * Malware
           * Tool
 
+         While not required, you can use a MITRE ATT&CK® software type.
       example: "Tool"
 
     - name: tactic.id
@@ -188,8 +602,8 @@
       level: extended
       type: keyword
       multi_fields:
-      - type: text
-        name: text
+        - type: match_only_text
+          name: text
       short: Threat technique name.
       description: >
           The name of technique used by this threat. You can use a MITRE ATT&CK® technique, for example.
@@ -227,8 +641,8 @@
       level: extended
       type: keyword
       multi_fields:
-      - type: text
-        name: text
+        - type: match_only_text
+          name: text
       short: Threat subtechnique name.
       description: >
           The name of subtechnique used by this threat. You can use a MITRE ATT&CK® subtechnique, for example.

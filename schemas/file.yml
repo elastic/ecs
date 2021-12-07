@@ -1,3 +1,19 @@
+# Licensed to Elasticsearch B.V. under one or more contributor
+# license agreements. See the NOTICE file distributed with
+# this work for additional information regarding copyright
+# ownership. Elasticsearch B.V. licenses this file to you under
+# the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# 	http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
 ---
 - name: file
   group: 2
@@ -10,6 +26,14 @@
     and/or file events (e.g., those produced by File Integrity Monitoring [FIM] products or services).
     File fields provide details about the affected file associated with the event or metric.
   type: group
+  reusable:
+    top_level: true
+    expected:
+      - at: threat.indicator
+        as: file
+      - at: threat.enrichments.indicator
+        as: file
+        beta: Reusing the `file` fields in this location is currently considered beta.
   fields:
     - name: name
       level: extended
@@ -60,7 +84,7 @@
         drive letter, when appropriate.
       example: "/home/alice/example.png"
       multi_fields:
-        - type: text
+        - type: match_only_text
           name: text
 
     - name: target_path
@@ -68,7 +92,7 @@
       type: keyword
       description: Target path for symlinks.
       multi_fields:
-        - type: text
+        - type: match_only_text
           name: text
 
     - name: extension
@@ -184,3 +208,21 @@
         https://www.iana.org/assignments/media-types/media-types.xhtml[IANA official types],
         where possible. When more than one type is applicable, the most specific
         type should be used.
+
+    - name: fork_name
+      level: extended
+      type: keyword
+      description: >
+        A fork is additional data associated with a filesystem object.
+
+        On Linux, a resource fork is used to store additional data with a filesystem object. A file always has at
+        least one fork for the data portion, and additional forks may exist.
+
+        On NTFS, this is analogous to an Alternate Data Stream (ADS), and the default data stream for a file is just called $DATA.
+        Zone.Identifier is commonly used by Windows to track contents downloaded from the Internet. An ADS is typically of the form:
+        `C:\path\to\filename.extension:some_fork_name`, and `some_fork_name` is the value that should populate `fork_name`.
+        `filename.extension` should populate `file.name`, and `extension` should populate `file.extension`.
+        The full path, `file.path`, will include the fork name.
+
+      short: A fork is additional data associated with a filesystem object.
+      example: Zone.Identifer

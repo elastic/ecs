@@ -1,3 +1,20 @@
+# Licensed to Elasticsearch B.V. under one or more contributor
+# license agreements. See the NOTICE file distributed with
+# this work for additional information regarding copyright
+# ownership. Elasticsearch B.V. licenses this file to you under
+# the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# 	http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+
 import copy
 import json
 import sys
@@ -11,7 +28,9 @@ from schema.cleaner import field_or_multi_field_datatype_defaults
 TYPE_FALLBACKS = {
     'constant_keyword': 'keyword',
     'wildcard': 'keyword',
-    'version': 'keyword'
+    'version': 'keyword',
+    'match_only_text': 'text',
+    'flattened': 'object'
 }
 
 # Composable Template
@@ -230,7 +249,8 @@ def save_json(file, data):
     if sys.version_info >= (3, 0):
         open_mode = "w"
     with open(file, open_mode) as jsonfile:
-        jsonfile.write(json.dumps(data, indent=2, sort_keys=True))
+        json.dump(data, jsonfile, indent=2, sort_keys=True)
+        jsonfile.write('\n')
 
 
 def default_template_settings(ecs_version):
@@ -283,5 +303,13 @@ def es6_type_fallback(mappings):
             if fallback_type:
                 mappings[name]['type'] = fallback_type
                 field_or_multi_field_datatype_defaults(mappings[name])
+        # support multi-fields
+        if 'fields' in details:
+            # potentially multiple multi-fields
+            for field_name, field_value in details['fields'].items():
+                fallback_type = TYPE_FALLBACKS.get(field_value['type'])
+                if fallback_type:
+                    mappings[name]['fields'][field_name]['type'] = fallback_type
+                    field_or_multi_field_datatype_defaults(mappings[name]['fields'][field_name])
         if 'properties' in details:
             es6_type_fallback(details['properties'])

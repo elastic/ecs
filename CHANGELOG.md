@@ -3,6 +3,103 @@
 # CHANGELOG
 All notable changes to this project will be documented in this file based on the [Keep a Changelog](http://keepachangelog.com/) Standard. This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.12.1](https://github.com/elastic/ecs/compare/v1.12.0...v1.12.1)
+
+### Schema Changes
+
+#### Bugfixes
+
+* Updating `x509` order to correct nesting. ##1621
+
+## [1.12.0](https://github.com/elastic/ecs/compare/v1.11.0...v1.12.0)
+
+### Schema Changes
+
+#### Bugfixes
+
+* Updating `hash` order to correct nesting. #1603
+* Removing incorrect `hash` reuses. #1604
+* Updating `pe` order to correct nesting. #1605
+* Removing incorrect `pe` reuses. #1606
+* Correcting `enrichments` to an `array` type. #1608
+
+#### Added
+
+* Added `file.fork_name` field. #1288
+* Added `service.address` field. #1537
+* Added `service.environment` as a beta field. #1541
+* Added `process.end` field. #1544
+* Added container metric fields into experimental schema. #1546
+* Add `code_signature.digest_algorithm` and `code_signature.timestamp` fields. #1557
+* Add `email.*` field set in the experimental fields. #1569
+
+#### Improvements
+
+* Beta migration on some `keyword` fields to `wildcard`. #1517
+* Promote `threat.software.*` and `threat.group.*` fields to GA. #1540
+* Update `user.name` and `user.id` examples for clarity. #1566
+* Beta migration of `text` and `.text` multi-fields to `match_only_text`. #1532, #1571
+
+### Tooling and Artifact Changes
+
+#### Added
+
+* Support ES 6.x type fallback for `match_only_text` field types. #1528
+
+#### Bugfixes
+
+* Prevent failure if no files need to be deleted `find | xargs rm`. #1588
+
+#### Improvements
+
+* Document field type family interoperability in FAQ. #1591
+
+## [1.11.0](https://github.com/elastic/ecs/compare/v1.10.0...v1.11.0)
+
+### Schema Changes
+
+#### Added
+
+* `elf.*` field set added as beta. #1410
+* Remove `beta` from `orchestrator` field set. #1417
+* Extend `threat.*` field set beta. #1438
+* Added `event.agent_id_status` field. #1454
+* `process.target` and `process.target.parent` added to experimental schema. #1467
+* Threat indicator fields progress to beta stage. #1471, #1504
+* `threat.enrichments` beta fields. #1478, #1504
+
+#### Improvements
+
+* Fix ecs GitHub repo link source branch #1393
+* Add --exclude flag to Generator to support field removal testing #1411
+* Explicitly include user identifiers in `relater.user` description. #1420
+* Improve descriptions for `cloud.region` and `cloud.availability` fields. #1452
+* Clarify `event.kind` descriptions for `alert` and `signal`. #1548
+
+#### Deprecated
+
+* Note deprecation of the `host.user.*` field reuse. #1422
+* Note deprecation of `log.original` superseded by `event.original` #1469
+
+### Tooling and Artifact Changes
+
+#### Bugfixes
+
+* Remove `ignore_above` when `index: false` and `doc_values: false`. #1483
+* Ensure `doc_values` is carried into Beats artifacts. #1488
+
+#### Added
+
+* Support `match_only_text` data type in Go code generator. #1418
+* Support for multi-level, self-nestings. #1459
+* `beta` attribute now supported on categorization allowed values. #1511
+
+#### Improvements
+
+* Swap `Location` and `Field Set` columns in `Field Reuse` table for better readability. #1472, #1476
+* Use a bullet points to list field reuses. #1473
+* Improve wording in `Threat` schema #1505
+
 ## [1.10.0](https://github.com/elastic/ecs/compare/v1.9.0...v1.10.0)
 
 ### Schema Changes

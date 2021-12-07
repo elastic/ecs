@@ -1,3 +1,20 @@
+# Licensed to Elasticsearch B.V. under one or more contributor
+# license agreements. See the NOTICE file distributed with
+# this work for additional information regarding copyright
+# ownership. Elasticsearch B.V. licenses this file to you under
+# the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# 	http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+
 import os
 import sys
 import unittest
@@ -15,6 +32,7 @@ class TestGeneratorsAsciiFields(unittest.TestCase):
 
     def setUp(self):
         self.foo_fieldset = self.dummy_fieldset()
+        self.event_dummy_nested_fields = self.dummy_nested_event_fieldset()
 
     def dummy_fieldset(self):
         return {
@@ -42,6 +60,7 @@ class TestGeneratorsAsciiFields(unittest.TestCase):
                     ]
                 },
                 'foo.id': {
+                    'beta': 'this is a beta field',
                     'dashed_name': 'foo-id',
                     'description': 'Unique ID of the foo.',
                     'example': 'foo123',
@@ -94,6 +113,75 @@ class TestGeneratorsAsciiFields(unittest.TestCase):
             'type': 'group'
         }
 
+    def dummy_nested_event_fieldset(self):
+        return {
+            'event': {
+                'name': 'event',
+                'description': 'description',
+                'type': 'group',
+                'title': 'Event',
+                'prefix': 'event.',
+                'fields': {
+                    'event.kind': {
+                        'dashed_name': 'event-kind',
+                        'name': 'kind',
+                        'allowed_values': [{
+                            'description': 'fluffy foo',
+                            'name': 'fluffy',
+                        },
+                            {
+                            'description': 'coarse foo',
+                            'name': 'coarse',
+                            'beta': 'beta',
+                        }
+                        ]
+                    },
+                    'event.category': {
+                        'dashed_name': 'event-category',
+                        'name': 'category',
+                        'allowed_values': [{
+                            'description': 'fluffy foo',
+                            'name': 'fluffy',
+                        },
+                            {
+                            'description': 'coarse foo',
+                            'name': 'coarse',
+                            'beta': 'beta',
+                        }
+                        ]
+                    },
+                    'event.type': {
+                        'dashed_name': 'event-type',
+                        'name': 'type',
+                        'allowed_values': [{
+                            'description': 'fluffy foo',
+                            'name': 'fluffy',
+                        },
+                            {
+                            'description': 'coarse foo',
+                            'name': 'coarse',
+                            'beta': 'beta',
+                        }
+                        ]
+                    },
+                    'event.outcome': {
+                        'dashed_name': 'event-outcome',
+                        'name': 'outcome',
+                        'allowed_values': [{
+                            'description': 'fluffy foo',
+                            'name': 'fluffy',
+                        },
+                            {
+                            'description': 'coarse foo',
+                            'name': 'coarse',
+                            'beta': 'beta',
+                        }
+                        ]
+                    }
+                }
+            }
+        }
+
     def test_validate_sort_fieldset(self):
         sorted_foo_fields = asciidoc_fields.sort_fields(self.foo_fieldset)
         #import pdb;pdb.set_trace()
@@ -136,6 +224,10 @@ class TestGeneratorsAsciiFields(unittest.TestCase):
         usage_files = ["notfoo.asciidoc"]
         foo_name = self.foo_fieldset.get('name')
         self.assertFalse(asciidoc_fields.check_for_usage_doc(foo_name, usage_file_list=usage_files))
+
+    def test_check_for_page_field_value_rendering(self):
+        rendered_field_values = asciidoc_fields.page_field_values(self.event_dummy_nested_fields)
+        self.assertIn('beta', rendered_field_values)
 
 
 if __name__ == '__main__':

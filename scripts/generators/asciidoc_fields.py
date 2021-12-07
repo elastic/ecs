@@ -1,3 +1,20 @@
+# Licensed to Elasticsearch B.V. under one or more contributor
+# license agreements. See the NOTICE file distributed with
+# this work for additional information regarding copyright
+# ownership. Elasticsearch B.V. licenses this file to you under
+# the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# 	http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+
 from functools import wraps
 import os.path as path
 
@@ -7,10 +24,13 @@ from generators import ecs_helpers
 
 
 def generate(nested, ecs_generated_version, out_dir):
+    # fields docs now have a dedicated docs subdir: docs/fields
+    fields_docs_dir = out_dir + '/fields'
+
     save_asciidoc(path.join(out_dir, 'index.asciidoc'), page_index(ecs_generated_version))
-    save_asciidoc(path.join(out_dir, 'fields.asciidoc'), page_field_index(nested, ecs_generated_version))
-    save_asciidoc(path.join(out_dir, 'field-details.asciidoc'), page_field_details(nested))
-    save_asciidoc(path.join(out_dir, 'field-values.asciidoc'), page_field_values(nested))
+    save_asciidoc(path.join(fields_docs_dir, 'fields.asciidoc'), page_field_index(nested, ecs_generated_version))
+    save_asciidoc(path.join(fields_docs_dir, 'field-details.asciidoc'), page_field_details(nested))
+    save_asciidoc(path.join(fields_docs_dir, 'field-values.asciidoc'), page_field_values(nested))
 
 # Helpers
 
@@ -122,7 +142,7 @@ def save_asciidoc(f, text):
 
 TEMPLATE_DIR = path.join(path.dirname(path.abspath(__file__)), '../templates')
 template_loader = jinja2.FileSystemLoader(searchpath=TEMPLATE_DIR)
-template_env = jinja2.Environment(loader=template_loader)
+template_env = jinja2.Environment(loader=template_loader, keep_trailing_newline=True)
 
 # Rendering schemas
 

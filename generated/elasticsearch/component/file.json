@@ -1,7 +1,7 @@
 {
   "_meta": {
     "documentation": "https://www.elastic.co/guide/en/ecs/current/ecs-file.html",
-    "ecs_version": "2.0.0-dev"
+    "ecs_version": "8.1.0-dev"
   },
   "template": {
     "mappings": {
@@ -17,6 +17,10 @@
             },
             "code_signature": {
               "properties": {
+                "digest_algorithm": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
                 "exists": {
                   "type": "boolean"
                 },
@@ -35,6 +39,9 @@
                 "team_id": {
                   "ignore_above": 1024,
                   "type": "keyword"
+                },
+                "timestamp": {
+                  "type": "date"
                 },
                 "trusted": {
                   "type": "boolean"
@@ -183,6 +190,10 @@
               "ignore_above": 1024,
               "type": "keyword"
             },
+            "fork_name": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
             "gid": {
               "ignore_above": 1024,
               "type": "keyword"
@@ -205,11 +216,19 @@
                   "ignore_above": 1024,
                   "type": "keyword"
                 },
+                "sha384": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
                 "sha512": {
                   "ignore_above": 1024,
                   "type": "keyword"
                 },
                 "ssdeep": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "tlsh": {
                   "ignore_above": 1024,
                   "type": "keyword"
                 }
@@ -241,8 +260,7 @@
             "path": {
               "fields": {
                 "text": {
-                  "norms": false,
-                  "type": "text"
+                  "type": "match_only_text"
                 }
               },
               "ignore_above": 1024,
@@ -274,6 +292,10 @@
                   "ignore_above": 1024,
                   "type": "keyword"
                 },
+                "pehash": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
                 "product": {
                   "ignore_above": 1024,
                   "type": "keyword"
@@ -286,8 +308,7 @@
             "target_path": {
               "fields": {
                 "text": {
-                  "norms": false,
-                  "type": "text"
+                  "type": "match_only_text"
                 }
               },
               "ignore_above": 1024,

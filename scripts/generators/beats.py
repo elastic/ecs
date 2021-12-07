@@ -1,3 +1,20 @@
+# Licensed to Elasticsearch B.V. under one or more contributor
+# license agreements. See the NOTICE file distributed with
+# this work for additional information regarding copyright
+# ownership. Elasticsearch B.V. licenses this file to you under
+# the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# 	http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+
 from os.path import join
 from collections import OrderedDict
 from generators import ecs_helpers
@@ -23,6 +40,8 @@ def generate(ecs_nested, ecs_version, out_dir):
             continue
 
         beats_field = ecs_helpers.dict_copy_keys_ordered(fieldset, allowed_fieldset_keys)
+        if 'default_field' not in beats_field:
+            beats_field['default_field'] = True
         beats_field['fields'] = fieldset_field_array(fieldset['fields'], df_allowlist, fieldset['prefix'])
         beats_fields.append(beats_field)
 
@@ -39,7 +58,8 @@ def fieldset_field_array(source_fields, df_allowlist, fieldset_prefix):
     allowed_keys = ['name', 'level', 'required', 'type', 'object_type',
                     'ignore_above', 'multi_fields', 'format', 'input_format',
                     'output_format', 'output_precision', 'description',
-                    'example', 'enabled', 'index', 'path', 'scaling_factor']
+                    'example', 'enabled', 'index', 'doc_values', 'path',
+                    'scaling_factor']
     multi_fields_allowed_keys = ['name', 'type', 'norms', 'default_field', 'normalizer', 'ignore_above']
 
     fields = []

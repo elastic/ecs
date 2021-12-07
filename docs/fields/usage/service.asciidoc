@@ -1,0 +1,92 @@
+[[ecs-service-usage]]
+==== Service Fields Usage and Examples
+
+Here are the subjects covered in this page.
+
+* <<ecs-service-usage-field-reuse>>
+** <<ecs-service-usage-service-at-root>>
+** <<ecs-service-usage-origin-target>>
+
+[discrete]
+[[ecs-service-usage-field-reuse]]
+===== Field reuse
+
+The service fields can be used to 
+* <<ecs-service-usage-service-at-root,describe the service for or from which the data was collected>> (i.e. observed service)
+* or to <<ecs-service-usage-origin-target,describe external services that have a direct invocation relationship>> to the observed service
+
+[discrete]
+[[ecs-service-usage-service-at-root]]
+====== Service fields at the Root of an Event
+
+Use the service fields at the root of an event to describe the service the event primarily relates to. 
+An example for this use case is a log entry being recorded for a particular service or appplication (e.g. `MyService`):
+
+[source,json]
+-----------
+{
+  "service": { <1>
+    "id": "d37e5ebfe0ae6c4972dbe9f0174a1637bb8247f6", 
+    "name": "MyService",
+    "version": "1.0.0"
+  }, 
+  ...
+}
+-----------
+<1> Describes the service for which the log entry is being captured
+
+[discrete]
+[[ecs-service-usage-origin-target]]
+====== Describing external services in an invocation relationship
+
+Multiple services can be in an invocation relationship.
+Where it is possible to apply https://www.elastic.co/guide/en/apm/guide/current/apm-distributed-tracing.html[distributed tracing] on all the involved services
+describe the individual services <<ecs-service-usage-service-at-root,using root-level service fields>>
+and use the <<ecs-related,tracing fields>> to represent the invocation relationship.
+
+There are situations when distributed tracing cannot be applied on some external services that are in an invocation relationship to an observed service.
+Let's consider the example of a service `MyService` being deployed on a cloud provider with an upstream API gateway that passes through requests to 
+`MyService` (with additional context information about the API gateway itself).
+To describe the API gateway as a service from the perspective of `MyService` one can self-nest the service fields under `service.origin`:
+
+[source,json]
+-----------
+{
+  "service": { <1>
+    "id": "d37e5ebfe0ae6c4972dbe9f0174a1637bb8247f6", 
+    "name": "MyService",
+    "version": "1.0.0",
+    "origin": { <2>
+      "id": "api-gateway-46372994637e2b4567", 
+      "name": "SomeGateway",
+      "version" "2.5.1",
+    }
+  }, 
+  ...
+}
+-----------
+<1> Describes the observed service that receives the inbound request from an external service
+<2> Describes the origin external service of the inbound request
+
+Similar to the usage of `service.origin` fields the service fields can be self-nested under `service.target.*` to describe an external target service for an outbound request:
+
+[source,json]
+-----------
+{
+  "service": { <1>
+    "id": "d37e5ebfe0ae6c4972dbe9f0174a1637bb8247f6", 
+    "name": "MyService",
+    "version": "1.0.0",
+    "target": { <2>
+      "id": "sms-service-0xe6c4272dbeAf0134", 
+      "name": "ManagedSMSService",
+      "version": "1.9.0",
+    }
+  }, 
+  ...
+}
+-----------
+<1> Describes the observed service that emits the outbound request to an external service
+<2> Describes the target external service of the outbound request
+
+Note that `service.origin.*` and `service.target.*` fields should only be used on events that represent an invocation relationship.
