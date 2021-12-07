@@ -1,0 +1,303 @@
+# Licensed to Elasticsearch B.V. under one or more contributor
+# license agreements. See the NOTICE file distributed with
+# this work for additional information regarding copyright
+# ownership. Elasticsearch B.V. licenses this file to you under
+# the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# 	http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+---
+- name: process
+  title: Process
+  group: 2
+  short: These fields contain information about a process.
+  description: >
+    These fields contain information about a process.
+
+    These fields can help you correlate metrics information with a process id/name
+    from a log message.  The `process.pid` often stays in the metric itself and is
+    copied to the global field for correlation.
+  type: group
+  reusable:
+    top_level: true
+    expected:
+      - at: process
+        as: parent
+        short_override: Information about the parent process.
+      - at: process
+        as: entry_leader
+        short_override: Information about the entry session leader process.
+      - at: process
+        as: session_leader
+        short_override: Information about the session leader process.
+      - at: process
+        as: group_leader
+        short_override: Information about the process group leader process. Undefined if same as process.
+
+  fields:
+
+    - name: pid
+      format: string
+      level: core
+      type: long
+      description: >
+        Process id.
+      example: 4242
+
+    - name: ppid
+      level: core
+      type: long
+      description: >
+        Parent process id.
+      example: 4242
+
+    - name: sid
+      level: core
+      type: long
+      description: >
+        Session id.
+      example: 4242
+
+    - name: entity_id
+      level: extended
+      type: keyword
+      short: Unique identifier for the process.
+      description: >
+        Unique identifier for the process.
+
+        The implementation of this is specified by the data source, but some
+        examples of what could be used here are a process-generated UUID,
+        Sysmon Process GUIDs, or a hash of some uniquely identifying components
+        of a process.
+
+        Constructing a globally unique identifier is a common practice to mitigate
+        PID reuse as well as to identify a specific process over time, across multiple
+        monitored hosts.
+      example: c2c455d9f99375d
+
+    - name: name
+      level: extended
+      type: keyword
+      short: Process name.
+      description: >
+        Process name.
+
+        Sometimes called program name or similar.
+      example: ssh
+      multi_fields:
+        - type: match_only_text
+          name: text
+
+    - name: pgid
+      format: string
+      level: extended
+      type: long
+      description: >
+        Identifier of the group of processes the process belongs to.
+
+    - name: command_line
+      level: extended
+      type: wildcard
+      short: Full command line that started the process.
+      description: >
+        Full command line that started the process, including the absolute path
+        to the executable, and all arguments.
+
+        Some arguments may be filtered to protect sensitive information.
+      example: "/usr/bin/ssh -l user 10.0.0.16"
+      multi_fields:
+        - type: match_only_text
+          name: text
+
+    - name: args
+      level: extended
+      type: keyword
+      short: Array of process arguments.
+      description: >
+        Array of process arguments, starting with the absolute path to the executable.
+
+        May be filtered to protect sensitive information.
+      example: "[\"/usr/bin/ssh\", \"-l\", \"user\", \"10.0.0.16\"]"
+      normalize:
+        - array
+
+    - name: args_count
+      level: extended
+      type: long
+      short: Length of the process.args array.
+      description: >
+        Length of the process.args array.
+
+        This field can be useful for querying or performing bucket analysis on
+        how many arguments were provided to start a process.
+        More arguments may be an indication of suspicious activity.
+      example: 4
+
+    - name: executable
+      level: extended
+      type: keyword
+      description: >
+        Absolute path to the process executable.
+      example: /usr/bin/ssh
+      multi_fields:
+        - type: match_only_text
+          name: text
+
+    - name: title
+      level: extended
+      type: keyword
+      short: Process title.
+      description: >
+        Process title.
+
+        The proctitle, some times the same as process name. Can also be different:
+        for example a browser setting its title to the web page currently opened.
+      multi_fields:
+        - type: match_only_text
+          name: text
+
+    - name: thread.id
+      format: string
+      level: extended
+      type: long
+      example: 4242
+      description: >
+        Thread ID.
+
+    - name: thread.name
+      level: extended
+      type: keyword
+      example: 'thread-0'
+      description: >
+        Thread name.
+
+    - name: start
+      level: extended
+      type: date
+      example: "2016-05-23T08:05:34.853Z"
+      description: >
+        The time the process started.
+
+    - name: start_nanos
+      level: extended
+      type: nanos
+      example: "2016-05-23T08:05:34.123456789"
+      description: >
+        The time the process started with nano second precision.
+
+    - name: uptime
+      level: extended
+      type: long
+      example: 1325
+      description: >
+        Seconds the process has been up.
+
+    - name: working_directory
+      level: extended
+      type: keyword
+      example: /home/alice
+      description: >
+        The working directory of the process.
+      multi_fields:
+        - type: match_only_text
+          name: text
+
+    - name: exit_code
+      level: extended
+      type: long
+      example: 137
+      short: The exit code of the process.
+      description: >
+        The exit code of the process, if this is a termination event.
+
+        The field should be absent if there is no exit code for the event (e.g.
+        process start).
+
+    - name: end
+      level: extended
+      type: date
+      example: "2016-05-23T08:05:34.853Z"
+      description: >
+        The time the process ended.
+
+    - name: end_nanos
+      level: extended
+      type: nanos
+      example: "2016-05-23T08:05:34.123456789"
+      description: >
+        The time the process ended with nano second precision.
+
+    - name: interactive
+      level: extended
+      type: boolean
+      example: true
+      short: Whether the process is connected to an interactive shell.
+      description: >
+        Whether the process is connected to an interactive shell.
+
+        Process interactivity is infered from the processes file descriptors. If the character device for the controlling tty is the same as stdin and stderr for the process, the process is considered interactive.
+
+        Note: A non-interactive process can belong to an interactive session. Backgrounded processes are an example of this.
+
+    - name: tty
+      level: extended
+      type: fd
+      example: >
+        process.tty = {
+          char_device: {
+            major: 4,
+            minor: 1
+          }
+        }
+      short: The file descriptor for the controlling tty (ctty).
+      description: >
+        The file descriptor for the controlling tty (ctty) of the session.
+
+        If set, session is interactive.
+
+    - name: env_vars
+      level: extended
+      type: object
+      short: Array of environment variables.
+      description: >
+        Array of environment variables.
+
+        May be filtered to protect sensitive information.
+      example: "[{ key: 'PATH', value: '/usr/bin;/usr/local/bin;'}, { key: 'USER', value: 'ubuntu' }]"
+      normalize:
+        - array
+
+    - name: entry_meta
+      level: extended
+      type: object
+      short: Information about the entry point for the session.
+      description: >
+        Information about the entry point for the session.
+
+        This is only set on the nested process.entry_leader process.
+
+    - name: entry_meta.type
+      level: extended
+      type: keyword
+      short: The entry mechanism.
+      description: >
+        The entry mechanism.
+
+        Values include: init(e.g systemd), sshd, ssm, kubelet, teleport, terminal, console
+
+    - name: entry_meta.source
+      level: extended
+      type: source
+      short: Entry point information for a session.
+      description: >
+        Entry point information for a session.
+
+        Remote client information such as ip, port and geo location. This field would NOT be set for entry types like 'init'.

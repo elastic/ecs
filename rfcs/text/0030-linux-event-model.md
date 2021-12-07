@@ -106,6 +106,9 @@ e.g.:
 
 <!-- Insert any links appropriate to this RFC in this section. -->
 
+https://github.com/elastic/security-team/blob/main/docs/adaptive-workload-protection-team/architecture/linux-event-model.md
+https://github.com/elastic/security-team/pull/2071/files
+
 ### RFC Pull Requests
 
 <!-- An RFC should link to the PRs for each of it stage advancements. -->

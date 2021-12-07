@@ -1,0 +1,168 @@
+# Licensed to Elasticsearch B.V. under one or more contributor
+# license agreements. See the NOTICE file distributed with
+# this work for additional information regarding copyright
+# ownership. Elasticsearch B.V. licenses this file to you under
+# the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# 	http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+---
+- name: observer
+  title: Observer
+  group: 2
+  short: Fields describing an entity observing the event from outside the host.
+  description: >
+    An observer is defined as a special network, security, or application device
+    used to detect, observe, or create network, security, or application-related events and metrics.
+
+    This could be a custom hardware appliance or a server that has been configured
+    to run special network, security, or application software.
+    Examples include firewalls, web proxies, intrusion detection/prevention systems,
+    network monitoring sensors, web application firewalls, data loss prevention systems, and APM servers.
+    The observer.* fields shall be populated with details of the system, if any,
+    that detects, observes and/or creates a network, security, or application event or metric.
+    Message queues and ETL components used in processing events or metrics are not considered observers in ECS.
+  type: group
+  fields:
+
+    - name: mac
+      level: core
+      type: keyword
+      example: '["00-00-5E-00-53-23", "00-00-5E-00-53-24"]'
+      short: MAC addresses of the observer.
+      description: >
+        MAC addresses of the observer.
+
+        The notation format from RFC 7042 is suggested: Each octet (that is, 8-bit byte) is
+        represented by two [uppercase] hexadecimal digits giving the value of
+        the octet as an unsigned integer. Successive octets are separated by a
+        hyphen.
+      normalize:
+        - array
+
+    - name: ip
+      level: core
+      type: ip
+      description: >
+        IP addresses of the observer.
+      normalize:
+        - array
+
+    - name: hostname
+      level: core
+      type: keyword
+      description: >
+        Hostname of the observer.
+
+    - name: name
+      level: extended
+      type: keyword
+      short: Custom name of the observer.
+      description: >
+        Custom name of the observer.
+
+        This is a name that can be given to an observer. This can be helpful
+        for example if multiple firewalls of the same model are used in an
+        organization.
+
+        If no custom name is needed, the field can be left empty.
+
+      example: 1_proxySG
+
+    - name: product
+      level: extended
+      type: keyword
+      description: >
+        The product name of the observer.
+      example: s200
+
+    - name: vendor
+      level: core
+      type: keyword
+      description: >
+        Vendor name of the observer.
+      example: Symantec
+
+    - name: version
+      level: core
+      type: keyword
+      description: >
+        Observer version.
+
+    - name: serial_number
+      level: extended
+      type: keyword
+      description: >
+        Observer serial number.
+
+    - name: type
+      level: core
+      type: keyword
+      short: The type of the observer the data is coming from.
+      description: >
+        The type of the observer the data is coming from.
+
+        There is no predefined list of observer types. Some examples are
+        `forwarder`, `firewall`, `ids`, `ips`, `proxy`, `poller`, `sensor`, `APM server`.
+      example: firewall
+
+    - name: ingress
+      level: extended
+      type: object
+      short: Object field for ingress information
+      description: >
+        Observer.ingress holds information like interface number and name, vlan, and zone information to
+        classify ingress traffic.  Single armed monitoring such as a network sensor on a span port should
+        only use observer.ingress to categorize traffic.
+
+    - name: ingress.zone
+      level: extended
+      type: keyword
+      short: Observer ingress zone
+      example: DMZ
+      description: >
+        Network zone of incoming traffic as reported by the observer to categorize the source area of ingress
+        traffic. e.g. internal, External, DMZ, HR, Legal, etc.
+
+    - name: egress
+      level: extended
+      type: object
+      short: Object field for egress information
+      description: >
+        Observer.egress holds information like interface number and name, vlan, and zone information to
+        classify egress traffic.  Single armed monitoring such as a network sensor on a span port should
+        only use observer.ingress to categorize traffic.
+
+    - name: egress.zone
+      level: extended
+      type: keyword
+      short: Observer Egress zone
+      example: Public_Internet
+      description: >
+        Network zone of outbound traffic as reported by the observer to categorize the destination area of egress
+        traffic, e.g. Internal, External, DMZ, HR, Legal, etc.
+
+    - name: boot.id
+      level: extended
+      type: keyword
+      short: Linux boot uuid taken from /proc/sys/kernel/random/boot_id
+      example: 88a1f0ed-5ae5-41ee-af6b-41921c311872
+      description: >
+        Linux boot uuid taken from /proc/sys/kernel/random/boot_id. Note the boot_id value from /proc may or may not be the same in containers as on the host. Some container runtimes will bind mount a new boot_id value onto the proc file in each container.
+
+    - name: pid_ns_ino
+      level: extended
+      type: keyword
+      short: Pid namespace inode
+      example: 256383
+      description: >
+        This is the inode number of the namespace in the namespace file system (nsfs). Unsigned int inum in include/linux/ns_common.h.
+

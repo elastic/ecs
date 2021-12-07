@@ -1,0 +1,67 @@
+# Licensed to Elasticsearch B.V. under one or more contributor
+# license agreements. See the NOTICE file distributed with
+# this work for additional information regarding copyright
+# ownership. Elasticsearch B.V. licenses this file to you under
+# the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# 	http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+---
+- name: group
+  title: Group
+  group: 2
+  type: group
+  short: User's group relevant to the event.
+  description: >
+    The group fields are meant to represent groups that are relevant to the
+    event.
+
+  reusable:
+    order: 1
+    top_level: true
+    expected:
+      - user
+      - process
+      - at: group
+        as: real
+        short_override: The real group (rgid).
+      - at: group
+        as: effective
+        short_override: The effective group (egid).
+      - at: group
+        as: saved
+        short_override: The saved group (egid).
+      - at: group
+        as: supplemental
+        short_override: The supplemental group (egid).
+
+  fields:
+
+    - name: id
+      level: extended
+      type: keyword
+      description: >
+        Unique identifier for the group on the system/platform.
+
+    - name: name
+      level: extended
+      type: keyword
+      description: >
+        Name of the group.
+
+    - name: domain
+      level: extended
+      type: keyword
+      short: Name of the directory the group is a member of.
+      description: >
+        Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.
