@@ -31,6 +31,8 @@ Thanks, you're awesome :-) -->
 
 #### Breaking changes
 
+* Remove template generation for ES6. #1680
+
 #### Bugfixes
 
 * Add `object` as fallback for `flattened` type. #1653
