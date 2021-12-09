@@ -20,8 +20,7 @@ relevant artifacts for their unique set of data sources.
 - [Setup and Install](#setup-and-install)
   * [Prerequisites](#prerequisites)
     + [Clone from GitHub](#clone-from-github)
-    + [Option 1: Install dependencies via make (recommended)](#option-1-install-dependencies-via-make-recommended)
-    + [Option 2: Install dependencies via pip](#option-2-install-dependencies-via-pip)
+    + [Install dependencies](#install-dependencies)
 - [Usage](#usage)
   * [Getting Started - Generating Artifacts](#getting-started---generating-artifacts)
   * [Generator Options](#generator-options)
@@ -77,7 +76,7 @@ See [usage-example/](usage-example/) for a complete example with source files.
 
 ### Prerequisites
 
-* [Python 3.6+](https://www.python.org/)
+* [Python 3.8+](https://www.python.org/)
 * [make](https://www.gnu.org/software/make/)
 * [pip](https://pypi.org/project/pip/)
 * [git](https://git-scm.com/)
@@ -99,22 +98,9 @@ Prior to installing dependencies or running the tools, it's recommended to check
 $ git checkout v1.5.0
 ```
 
-#### Option 1: Install dependencies via make (recommended)
+#### Install dependencies
 
-Setting up a `virtualenv` (`venv`) can be accomplished by running `make ve` the top-level of the ECS repo:
-
-```
-$ make ve
-```
-
-All necessary Python dependencies will also be installed with `pip`.
-
-You can use the Python and dependencies from this isolated virtual environment
-by using `build/ve/bin/python` instead of `python` in the examples shown here.
-
-#### Option 2: Install dependencies via pip
-
-Install dependencies using `pip` (An active `virutalenv` is recommended):
+Install dependencies using `pip` (An active `virtualenv` is recommended):
 
 ```
 $ pip install -r scripts/requirements.txt
@@ -135,7 +121,7 @@ Running generator. ECS version 1.5.0
 **Points to note on the defaults**:
 
 * Artifacts are created in the [`generated`](generated) directory and the entire schema is included
-* Documentation updates will be written to the appropriate file under the `docs` directory. More specifics on generated doc files is covered in the [contributor's file](https://github.com/elastic/ecs/blob/master/CONTRIBUTING.md#generated-documentation-files)
+* Documentation updates will be written to the appropriate file under the `docs` directory. More specifics on generated doc files is covered in the [contributor's file](https://github.com/elastic/ecs/blob/main/CONTRIBUTING.md#generated-documentation-files)
 * Each run of the script will rewrite the entirety of the `generated` directory
 * The script will need to be executed from the top-level of the ECS repo
 * The `version` displayed when running `generator.py` is based on the current value of the [version](version) file in the top-level of the repo
@@ -238,7 +224,7 @@ Include can be used together with the `--ref` flag to merge custom fields into a
 
 #### Exclude
 
-Use the `--exclude` flag to generate ephemeral ECS artifacts based on the current ECS schema field definitions minus fields considered for removal, e.g. to assess impact of removing these. Warning! This is not the recommended route to remove a field permanently as it is not intended to be invoked during the build process. Definitive field removal should be implemented using a custom [Subset](#subset) or via the [RFC process](https://github.com/elastic/ecs/tree/master/rfcs/README.md). Example:
+Use the `--exclude` flag to generate ephemeral ECS artifacts based on the current ECS schema field definitions minus fields considered for removal, e.g. to assess impact of removing these. Warning! This is not the recommended route to remove a field permanently as it is not intended to be invoked during the build process. Definitive field removal should be implemented using a custom [Subset](#subset) or via the [RFC process](https://github.com/elastic/ecs/tree/main/rfcs/README.md). Example:
 
 ```
 $ python scripts/generator.py --exclude ../myproject/ecs/custom-fields/

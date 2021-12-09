@@ -16,9 +16,16 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
+* Added two new fields (sha384,tlsh) to hash schema and one field to pe schema (pehash). #1678
+
 #### Improvements
 
 #### Deprecated
+
+#### Removed
+
+- Removing `process.target.*` reuses from experimental schema. #1666
+- Removing RFC 0014 `pe.*` fields from experimental schema. #1670
 
 ### Tooling and Artifact Changes
 
@@ -26,9 +33,14 @@ Thanks, you're awesome :-) -->
 
 #### Bugfixes
 
+* Add `object` as fallback for `flattened` type. #1653
+
 #### Added
 
 #### Improvements
+
+* Clean up trailing spaces and additional newlines in schemas #1667
+* Update refs from master to main in USAGE.md etc #1658
 
 #### Deprecated
 
@@ -68,6 +80,7 @@ Thanks, you're awesome :-) -->
 
 * Remove remaining Go deps after removing Go code generator. #1585
 * Add explicit `default_field: true` for Beats artifacts. #1633
+* Reorganize docs directory structure. #1679
 
 <!-- All empty sections:
 

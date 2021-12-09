@@ -101,6 +101,75 @@ agent.version:
   normalize: []
   short: Version of the agent.
   type: keyword
+cgroup.cpu.periods:
+  dashed_name: cgroup-cpu-periods
+  description: Number of period intervals that have elapsed.
+  example: 454839343
+  flat_name: cgroup.cpu.periods
+  level: extended
+  name: cpu.periods
+  normalize: []
+  short: Number of period intervals that have elapsed.
+  type: long
+cgroup.cpu.throttled.us:
+  dashed_name: cgroup-cpu-throttled-us
+  description: Microseconds of CPU throttled time.
+  example: 15000
+  flat_name: cgroup.cpu.throttled.us
+  level: extended
+  name: cpu.throttled.us
+  normalize: []
+  short: Microseconds of CPU throttled time.
+  type: long
+cgroup.cpu.usage:
+  dashed_name: cgroup-cpu-usage
+  description: CPU usage, normalized by the CPU count.
+  flat_name: cgroup.cpu.usage
+  level: extended
+  name: cpu.usage
+  normalize: []
+  scaling_factor: 1000
+  short: CPU usage, normalized by the CPU count.
+  type: scaled_float
+cgroup.memory.limit:
+  dashed_name: cgroup-memory-limit
+  description: Memory limit within the cgroup.
+  example: 256
+  flat_name: cgroup.memory.limit
+  level: extended
+  name: memory.limit
+  normalize: []
+  short: Memory limit within the cgroup.
+  type: long
+cgroup.memory.swap.usage:
+  dashed_name: cgroup-memory-swap-usage
+  description: The amount of cgroup memory in swap.
+  example: 5600
+  flat_name: cgroup.memory.swap.usage
+  level: extended
+  name: memory.swap.usage
+  normalize: []
+  short: The amount of cgroup memory in swap.
+  type: long
+cgroup.memory.usage:
+  dashed_name: cgroup-memory-usage
+  description: Memory usage in bytes
+  example: 25600
+  flat_name: cgroup.memory.usage
+  level: extended
+  name: memory.usage
+  normalize: []
+  short: Memory usage in bytes
+  type: long
+cgroup.version:
+  dashed_name: cgroup-version
+  description: The cgroup version linked to the metrics
+  flat_name: cgroup.version
+  level: extended
+  name: version
+  normalize: []
+  short: The cgroup version linked to the metrics
+  type: long
 client.address:
   dashed_name: client-address
   description: 'Some event client addresses are defined ambiguously. The event will
@@ -157,13 +226,17 @@ client.bytes:
   type: long
 client.domain:
   dashed_name: client-domain
-  description: Client domain.
+  description: 'The domain name of the client system.
+
+    This value may be a host name, a fully qualified domain name, or another host
+    naming format. The value may derive from the original event or be added from enrichment.'
+  example: foo.example.com
   flat_name: client.domain
   ignore_above: 1024
   level: core
   name: domain
   normalize: []
-  short: Client domain.
+  short: The domain name of the client.
   type: keyword
 client.geo.city_name:
   dashed_name: client-geo-city-name
@@ -1210,13 +1283,17 @@ destination.bytes:
   type: long
 destination.domain:
   dashed_name: destination-domain
-  description: Destination domain.
+  description: 'The domain name of the destination system.
+
+    This value may be a host name, a fully qualified domain name, or another host
+    naming format. The value may derive from the original event or be added from enrichment.'
+  example: foo.example.com
   flat_name: destination.domain
   ignore_above: 1024
   level: core
   name: domain
   normalize: []
-  short: Destination domain.
+  short: The domain name of the destination.
   type: keyword
 destination.geo.city_name:
   dashed_name: destination-geo-city-name
@@ -1766,6 +1843,17 @@ dll.hash.sha256:
   original_fieldset: hash
   short: SHA256 hash.
   type: keyword
+dll.hash.sha384:
+  dashed_name: dll-hash-sha384
+  description: SHA384 hash.
+  flat_name: dll.hash.sha384
+  ignore_above: 1024
+  level: extended
+  name: sha384
+  normalize: []
+  original_fieldset: hash
+  short: SHA384 hash.
+  type: keyword
 dll.hash.sha512:
   dashed_name: dll-hash-sha512
   description: SHA512 hash.
@@ -1787,6 +1875,17 @@ dll.hash.ssdeep:
   normalize: []
   original_fieldset: hash
   short: SSDEEP hash.
+  type: keyword
+dll.hash.tlsh:
+  dashed_name: dll-hash-tlsh
+  description: TLSH hash.
+  flat_name: dll.hash.tlsh
+  ignore_above: 1024
+  level: extended
+  name: tlsh
+  normalize: []
+  original_fieldset: hash
+  short: TLSH hash.
   type: keyword
 dll.name:
   dashed_name: dll-name
@@ -1824,18 +1923,6 @@ dll.pe.architecture:
   original_fieldset: pe
   short: CPU architecture target for the file.
   type: keyword
-dll.pe.authentihash:
-  dashed_name: dll-pe-authentihash
-  description: Authentihash of the PE file.
-  example: ac9555d914bbb112ecc5f15bb9887ca8371f493ab0941344e976bb8410c8aa78
-  flat_name: dll.pe.authentihash
-  ignore_above: 1024
-  level: extended
-  name: authentihash
-  normalize: []
-  original_fieldset: pe
-  short: Authentihash of the PE file.
-  type: keyword
 dll.pe.company:
   dashed_name: dll-pe-company
   description: Internal company name of the file, provided at compile-time.
@@ -1847,113 +1934,6 @@ dll.pe.company:
   normalize: []
   original_fieldset: pe
   short: Internal company name of the file, provided at compile-time.
-  type: keyword
-dll.pe.compile_timestamp:
-  dashed_name: dll-pe-compile-timestamp
-  description: Compile timestamp of the PE file.
-  example: '2020-11-05T17:25:47.000Z'
-  flat_name: dll.pe.compile_timestamp
-  level: extended
-  name: compile_timestamp
-  normalize: []
-  original_fieldset: pe
-  short: Compile timestamp of the PE file.
-  type: date
-dll.pe.compiler.name:
-  dashed_name: dll-pe-compiler-name
-  description: Name of the compiler
-  example: Clang
-  flat_name: dll.pe.compiler.name
-  ignore_above: 1024
-  level: extended
-  name: compiler.name
-  normalize: []
-  original_fieldset: pe
-  short: Name of the compiler
-  type: keyword
-dll.pe.compiler.version:
-  dashed_name: dll-pe-compiler-version
-  description: Version of the compiler.
-  example: 11.0.0
-  flat_name: dll.pe.compiler.version
-  ignore_above: 1024
-  level: extended
-  name: compiler.version
-  normalize: []
-  original_fieldset: pe
-  short: Version of the compiler.
-  type: keyword
-dll.pe.creation_date:
-  dashed_name: dll-pe-creation-date
-  description: Extracted when possible from the file's metadata. Indicates when it
-    was built or compiled. It can also be faked by malware creators.
-  example: '2020-11-05T17:25:47.000Z'
-  flat_name: dll.pe.creation_date
-  level: extended
-  name: creation_date
-  normalize: []
-  original_fieldset: pe
-  short: Build or compile date.
-  type: date
-dll.pe.debug:
-  dashed_name: dll-pe-debug
-  description: 'An array containing an object for each debug entry, if present.
-
-    The expected fields for this nested object fall under the `debug.` prefix.'
-  flat_name: dll.pe.debug
-  level: extended
-  name: debug
-  normalize:
-  - array
-  original_fieldset: pe
-  short: Debug information
-  type: nested
-dll.pe.debug.offset:
-  dashed_name: dll-pe-debug-offset
-  description: Debug offset information.
-  example: 1296336
-  flat_name: dll.pe.debug.offset
-  ignore_above: 1024
-  level: extended
-  name: debug.offset
-  normalize: []
-  original_fieldset: pe
-  short: Debug offset information.
-  type: keyword
-dll.pe.debug.size:
-  dashed_name: dll-pe-debug-size
-  description: Size of the debug information.
-  example: 816
-  flat_name: dll.pe.debug.size
-  format: bytes
-  level: extended
-  name: debug.size
-  normalize: []
-  original_fieldset: pe
-  short: Size of the debug information.
-  type: long
-dll.pe.debug.timestamp:
-  dashed_name: dll-pe-debug-timestamp
-  description: Timestamp of the debug information.
-  example: '2020-11-05T17:25:47.000Z'
-  flat_name: dll.pe.debug.timestamp
-  level: extended
-  name: debug.timestamp
-  normalize: []
-  original_fieldset: pe
-  short: Timestamp of the debug information.
-  type: date
-dll.pe.debug.type:
-  dashed_name: dll-pe-debug-type
-  description: Information type generated by the debug options.
-  example: IMAGE_DEBUG_TYPE_POGO
-  flat_name: dll.pe.debug.type
-  ignore_above: 1024
-  level: extended
-  name: debug.type
-  normalize: []
-  original_fieldset: pe
-  short: Information type generated by the debug options.
   type: keyword
 dll.pe.description:
   dashed_name: dll-pe-description
@@ -1967,31 +1947,6 @@ dll.pe.description:
   original_fieldset: pe
   short: Internal description of the file, provided at compile-time.
   type: keyword
-dll.pe.entry_point:
-  dashed_name: dll-pe-entry-point
-  description: Relative byte offset to the base of the PE file.
-  example: 25856
-  flat_name: dll.pe.entry_point
-  ignore_above: 1024
-  level: extended
-  name: entry_point
-  normalize: []
-  original_fieldset: pe
-  short: Relative byte offset to the base of the PE file.
-  type: keyword
-dll.pe.exports:
-  dashed_name: dll-pe-exports
-  description: List of symbols exported by PE
-  example: '["DllInstall", "DllRegisterServer", "DllUnregisterServer"]'
-  flat_name: dll.pe.exports
-  ignore_above: 1024
-  level: extended
-  name: exports
-  normalize:
-  - array
-  original_fieldset: pe
-  short: List of symbols exported by PE
-  type: keyword
 dll.pe.file_version:
   dashed_name: dll-pe-file-version
   description: Internal version of the file, provided at compile-time.
@@ -2003,19 +1958,6 @@ dll.pe.file_version:
   normalize: []
   original_fieldset: pe
   short: Process name.
-  type: keyword
-dll.pe.icon.hash.dhash:
-  dashed_name: dll-pe-icon-hash-dhash
-  description: Difference Hash (dhash) to find files with a visually similar icon
-    or thumbnail.
-  example: b806e17c8e330d82
-  flat_name: dll.pe.icon.hash.dhash
-  ignore_above: 1024
-  level: extended
-  name: icon.hash.dhash
-  normalize: []
-  original_fieldset: pe
-  short: Difference Hash (dhash) to find files with a visually similar icon or thumbnail.
   type: keyword
 dll.pe.imphash:
   dashed_name: dll-pe-imphash
@@ -2033,30 +1975,6 @@ dll.pe.imphash:
   original_fieldset: pe
   short: A hash of the imports in a PE file.
   type: keyword
-dll.pe.imports:
-  dashed_name: dll-pe-imports
-  description: List of all imported functions
-  example: '{ "library_name" : "mscoree.dll", "imported_functions" : "GetFileVersionInfoSizeA"
-    }'
-  flat_name: dll.pe.imports
-  level: extended
-  name: imports
-  normalize: []
-  original_fieldset: pe
-  short: List of all imported functions
-  type: flattened
-dll.pe.machine_type:
-  dashed_name: dll-pe-machine-type
-  description: Machine type of the PE file.
-  example: Intel 386 or later, and compatibles
-  flat_name: dll.pe.machine_type
-  ignore_above: 1024
-  level: extended
-  name: machine_type
-  normalize: []
-  original_fieldset: pe
-  short: Machine type of the PE file.
-  type: keyword
 dll.pe.original_file_name:
   dashed_name: dll-pe-original-file-name
   description: Internal name of the file, provided at compile-time.
@@ -2069,18 +1987,21 @@ dll.pe.original_file_name:
   original_fieldset: pe
   short: Internal name of the file, provided at compile-time.
   type: keyword
-dll.pe.packers:
-  dashed_name: dll-pe-packers
-  description: List of packers and tools used.
-  example: '["ASPack v2.12", ".NET executable"]'
-  flat_name: dll.pe.packers
+dll.pe.pehash:
+  dashed_name: dll-pe-pehash
+  description: 'A hash of the PE header and data from one or more PE sections. An
+    pehash can be used to cluster files by transforming structural information about
+    a file into a hash value.
+
+    Learn more at https://www.usenix.org/legacy/events/leet09/tech/full_papers/wicherski/wicherski_html/index.html.'
+  example: 73ff189b63cd6be375a7ff25179a38d347651975
+  flat_name: dll.pe.pehash
   ignore_above: 1024
   level: extended
-  name: packers
-  normalize:
-  - array
+  name: pehash
+  normalize: []
   original_fieldset: pe
-  short: List of packers and tools used.
+  short: A hash of the PE header and data from one or more PE sections.
   type: keyword
 dll.pe.product:
   dashed_name: dll-pe-product
@@ -2094,183 +2015,6 @@ dll.pe.product:
   original_fieldset: pe
   short: Internal product name of the file, provided at compile-time.
   type: keyword
-dll.pe.resources:
-  dashed_name: dll-pe-resources
-  description: 'An array containing an object for each PE resource, if present.
-
-    The expected fields for this nested object fall under the `resources.` prefix.'
-  flat_name: dll.pe.resources
-  level: extended
-  name: resources
-  normalize:
-  - array
-  original_fieldset: pe
-  short: PE resource information
-  type: nested
-dll.pe.resources.chi2:
-  dashed_name: dll-pe-resources-chi2
-  description: Chi-square probability distribution.
-  example: -1
-  flat_name: dll.pe.resources.chi2
-  level: extended
-  name: resources.chi2
-  normalize: []
-  original_fieldset: pe
-  short: Chi-square probability distribution.
-  type: long
-dll.pe.resources.entropy:
-  dashed_name: dll-pe-resources-entropy
-  description: Measurement of entropy randomness in the resources section.
-  example: 0, 1
-  flat_name: dll.pe.resources.entropy
-  level: extended
-  name: resources.entropy
-  normalize: []
-  original_fieldset: pe
-  short: Measurement of entropy randomness in the resources section.
-  type: long
-dll.pe.resources.filetype:
-  dashed_name: dll-pe-resources-filetype
-  description: File type of the resources section.
-  example: Data
-  flat_name: dll.pe.resources.filetype
-  ignore_above: 1024
-  level: extended
-  name: resources.filetype
-  normalize: []
-  original_fieldset: pe
-  short: File type of the resources section.
-  type: keyword
-dll.pe.resources.language:
-  dashed_name: dll-pe-resources-language
-  description: Language identification.
-  example: CHINESE SIMPLIFIED
-  flat_name: dll.pe.resources.language
-  ignore_above: 1024
-  level: extended
-  name: resources.language
-  normalize: []
-  original_fieldset: pe
-  short: Language identification.
-  type: keyword
-dll.pe.resources.sha256:
-  dashed_name: dll-pe-resources-sha256
-  description: SHA256 hash of resources section.
-  example: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-  flat_name: dll.pe.resources.sha256
-  ignore_above: 1024
-  level: extended
-  name: resources.sha256
-  normalize: []
-  original_fieldset: pe
-  short: SHA256 hash of resources section.
-  type: keyword
-dll.pe.resources.type:
-  dashed_name: dll-pe-resources-type
-  description: Digest of resource types.
-  example: '["RT_VERSION", "RT_MANIFEST"]'
-  flat_name: dll.pe.resources.type
-  ignore_above: 1024
-  level: extended
-  name: resources.type
-  normalize:
-  - array
-  original_fieldset: pe
-  short: List of resource types.
-  type: keyword
-dll.pe.rich_header.hash.md5:
-  dashed_name: dll-pe-rich-header-hash-md5
-  description: MD5 hash of the header for the PE file.
-  example: 5aa1aa0f2b4be70397a1e9e2b87627cd
-  flat_name: dll.pe.rich_header.hash.md5
-  ignore_above: 1024
-  level: extended
-  name: rich_header.hash.md5
-  normalize: []
-  original_fieldset: pe
-  short: MD5 hash of the header for the PE file.
-  type: keyword
-dll.pe.sections:
-  dashed_name: dll-pe-sections
-  description: Data about sections of compiled binary PE
-  flat_name: dll.pe.sections
-  level: extended
-  name: sections
-  normalize:
-  - array
-  original_fieldset: pe
-  short: Data about sections of the compiled binary PE
-  type: nested
-dll.pe.sections.chi2:
-  dashed_name: dll-pe-sections-chi2
-  description: Chi-square probability distribution.
-  example: 3027194
-  flat_name: dll.pe.sections.chi2
-  level: extended
-  name: sections.chi2
-  normalize: []
-  original_fieldset: pe
-  short: Chi-square probability distribution.
-  type: long
-dll.pe.sections.entropy:
-  dashed_name: dll-pe-sections-entropy
-  description: Measurement of entropy randomness in the file.
-  example: 6.24
-  flat_name: dll.pe.sections.entropy
-  level: extended
-  name: sections.entropy
-  normalize: []
-  original_fieldset: pe
-  short: Measurement of entropy randomness in the file.
-  type: float
-dll.pe.sections.flags:
-  dashed_name: dll-pe-sections-flags
-  description: Section flags of the file.
-  example: rx
-  flat_name: dll.pe.sections.flags
-  ignore_above: 1024
-  level: extended
-  name: sections.flags
-  normalize: []
-  original_fieldset: pe
-  short: Section flags of the file.
-  type: keyword
-dll.pe.sections.name:
-  dashed_name: dll-pe-sections-name
-  description: Section names of the file.
-  example: .text, .data
-  flat_name: dll.pe.sections.name
-  ignore_above: 1024
-  level: extended
-  name: sections.name
-  normalize: []
-  original_fieldset: pe
-  short: Section names of the file.
-  type: keyword
-dll.pe.sections.raw_size:
-  dashed_name: dll-pe-sections-raw-size
-  description: Size of the section or the dize of the initialized data on disk.
-  example: 198144
-  flat_name: dll.pe.sections.raw_size
-  format: bytes
-  level: extended
-  name: sections.raw_size
-  normalize: []
-  original_fieldset: pe
-  short: Size of the section or the dize of the initialized data on disk.
-  type: long
-dll.pe.sections.virtual_address:
-  dashed_name: dll-pe-sections-virtual-address
-  description: Virtual address available to the file.
-  example: 8192
-  flat_name: dll.pe.sections.virtual_address
-  format: bytes
-  level: extended
-  name: sections.virtual_address
-  normalize: []
-  original_fieldset: pe
-  short: Virtual address available to the file.
-  type: long
 dns.answers:
   dashed_name: dns-answers
   description: 'An array containing an object for each answer section returned by
@@ -4323,6 +4067,17 @@ file.hash.sha256:
   original_fieldset: hash
   short: SHA256 hash.
   type: keyword
+file.hash.sha384:
+  dashed_name: file-hash-sha384
+  description: SHA384 hash.
+  flat_name: file.hash.sha384
+  ignore_above: 1024
+  level: extended
+  name: sha384
+  normalize: []
+  original_fieldset: hash
+  short: SHA384 hash.
+  type: keyword
 file.hash.sha512:
   dashed_name: file-hash-sha512
   description: SHA512 hash.
@@ -4344,6 +4099,17 @@ file.hash.ssdeep:
   normalize: []
   original_fieldset: hash
   short: SSDEEP hash.
+  type: keyword
+file.hash.tlsh:
+  dashed_name: file-hash-tlsh
+  description: TLSH hash.
+  flat_name: file.hash.tlsh
+  ignore_above: 1024
+  level: extended
+  name: tlsh
+  normalize: []
+  original_fieldset: hash
+  short: TLSH hash.
   type: keyword
 file.inode:
   dashed_name: file-inode
@@ -4439,18 +4205,6 @@ file.pe.architecture:
   original_fieldset: pe
   short: CPU architecture target for the file.
   type: keyword
-file.pe.authentihash:
-  dashed_name: file-pe-authentihash
-  description: Authentihash of the PE file.
-  example: ac9555d914bbb112ecc5f15bb9887ca8371f493ab0941344e976bb8410c8aa78
-  flat_name: file.pe.authentihash
-  ignore_above: 1024
-  level: extended
-  name: authentihash
-  normalize: []
-  original_fieldset: pe
-  short: Authentihash of the PE file.
-  type: keyword
 file.pe.company:
   dashed_name: file-pe-company
   description: Internal company name of the file, provided at compile-time.
@@ -4462,113 +4216,6 @@ file.pe.company:
   normalize: []
   original_fieldset: pe
   short: Internal company name of the file, provided at compile-time.
-  type: keyword
-file.pe.compile_timestamp:
-  dashed_name: file-pe-compile-timestamp
-  description: Compile timestamp of the PE file.
-  example: '2020-11-05T17:25:47.000Z'
-  flat_name: file.pe.compile_timestamp
-  level: extended
-  name: compile_timestamp
-  normalize: []
-  original_fieldset: pe
-  short: Compile timestamp of the PE file.
-  type: date
-file.pe.compiler.name:
-  dashed_name: file-pe-compiler-name
-  description: Name of the compiler
-  example: Clang
-  flat_name: file.pe.compiler.name
-  ignore_above: 1024
-  level: extended
-  name: compiler.name
-  normalize: []
-  original_fieldset: pe
-  short: Name of the compiler
-  type: keyword
-file.pe.compiler.version:
-  dashed_name: file-pe-compiler-version
-  description: Version of the compiler.
-  example: 11.0.0
-  flat_name: file.pe.compiler.version
-  ignore_above: 1024
-  level: extended
-  name: compiler.version
-  normalize: []
-  original_fieldset: pe
-  short: Version of the compiler.
-  type: keyword
-file.pe.creation_date:
-  dashed_name: file-pe-creation-date
-  description: Extracted when possible from the file's metadata. Indicates when it
-    was built or compiled. It can also be faked by malware creators.
-  example: '2020-11-05T17:25:47.000Z'
-  flat_name: file.pe.creation_date
-  level: extended
-  name: creation_date
-  normalize: []
-  original_fieldset: pe
-  short: Build or compile date.
-  type: date
-file.pe.debug:
-  dashed_name: file-pe-debug
-  description: 'An array containing an object for each debug entry, if present.
-
-    The expected fields for this nested object fall under the `debug.` prefix.'
-  flat_name: file.pe.debug
-  level: extended
-  name: debug
-  normalize:
-  - array
-  original_fieldset: pe
-  short: Debug information
-  type: nested
-file.pe.debug.offset:
-  dashed_name: file-pe-debug-offset
-  description: Debug offset information.
-  example: 1296336
-  flat_name: file.pe.debug.offset
-  ignore_above: 1024
-  level: extended
-  name: debug.offset
-  normalize: []
-  original_fieldset: pe
-  short: Debug offset information.
-  type: keyword
-file.pe.debug.size:
-  dashed_name: file-pe-debug-size
-  description: Size of the debug information.
-  example: 816
-  flat_name: file.pe.debug.size
-  format: bytes
-  level: extended
-  name: debug.size
-  normalize: []
-  original_fieldset: pe
-  short: Size of the debug information.
-  type: long
-file.pe.debug.timestamp:
-  dashed_name: file-pe-debug-timestamp
-  description: Timestamp of the debug information.
-  example: '2020-11-05T17:25:47.000Z'
-  flat_name: file.pe.debug.timestamp
-  level: extended
-  name: debug.timestamp
-  normalize: []
-  original_fieldset: pe
-  short: Timestamp of the debug information.
-  type: date
-file.pe.debug.type:
-  dashed_name: file-pe-debug-type
-  description: Information type generated by the debug options.
-  example: IMAGE_DEBUG_TYPE_POGO
-  flat_name: file.pe.debug.type
-  ignore_above: 1024
-  level: extended
-  name: debug.type
-  normalize: []
-  original_fieldset: pe
-  short: Information type generated by the debug options.
   type: keyword
 file.pe.description:
   dashed_name: file-pe-description
@@ -4582,31 +4229,6 @@ file.pe.description:
   original_fieldset: pe
   short: Internal description of the file, provided at compile-time.
   type: keyword
-file.pe.entry_point:
-  dashed_name: file-pe-entry-point
-  description: Relative byte offset to the base of the PE file.
-  example: 25856
-  flat_name: file.pe.entry_point
-  ignore_above: 1024
-  level: extended
-  name: entry_point
-  normalize: []
-  original_fieldset: pe
-  short: Relative byte offset to the base of the PE file.
-  type: keyword
-file.pe.exports:
-  dashed_name: file-pe-exports
-  description: List of symbols exported by PE
-  example: '["DllInstall", "DllRegisterServer", "DllUnregisterServer"]'
-  flat_name: file.pe.exports
-  ignore_above: 1024
-  level: extended
-  name: exports
-  normalize:
-  - array
-  original_fieldset: pe
-  short: List of symbols exported by PE
-  type: keyword
 file.pe.file_version:
   dashed_name: file-pe-file-version
   description: Internal version of the file, provided at compile-time.
@@ -4618,19 +4240,6 @@ file.pe.file_version:
   normalize: []
   original_fieldset: pe
   short: Process name.
-  type: keyword
-file.pe.icon.hash.dhash:
-  dashed_name: file-pe-icon-hash-dhash
-  description: Difference Hash (dhash) to find files with a visually similar icon
-    or thumbnail.
-  example: b806e17c8e330d82
-  flat_name: file.pe.icon.hash.dhash
-  ignore_above: 1024
-  level: extended
-  name: icon.hash.dhash
-  normalize: []
-  original_fieldset: pe
-  short: Difference Hash (dhash) to find files with a visually similar icon or thumbnail.
   type: keyword
 file.pe.imphash:
   dashed_name: file-pe-imphash
@@ -4648,30 +4257,6 @@ file.pe.imphash:
   original_fieldset: pe
   short: A hash of the imports in a PE file.
   type: keyword
-file.pe.imports:
-  dashed_name: file-pe-imports
-  description: List of all imported functions
-  example: '{ "library_name" : "mscoree.dll", "imported_functions" : "GetFileVersionInfoSizeA"
-    }'
-  flat_name: file.pe.imports
-  level: extended
-  name: imports
-  normalize: []
-  original_fieldset: pe
-  short: List of all imported functions
-  type: flattened
-file.pe.machine_type:
-  dashed_name: file-pe-machine-type
-  description: Machine type of the PE file.
-  example: Intel 386 or later, and compatibles
-  flat_name: file.pe.machine_type
-  ignore_above: 1024
-  level: extended
-  name: machine_type
-  normalize: []
-  original_fieldset: pe
-  short: Machine type of the PE file.
-  type: keyword
 file.pe.original_file_name:
   dashed_name: file-pe-original-file-name
   description: Internal name of the file, provided at compile-time.
@@ -4684,18 +4269,21 @@ file.pe.original_file_name:
   original_fieldset: pe
   short: Internal name of the file, provided at compile-time.
   type: keyword
-file.pe.packers:
-  dashed_name: file-pe-packers
-  description: List of packers and tools used.
-  example: '["ASPack v2.12", ".NET executable"]'
-  flat_name: file.pe.packers
+file.pe.pehash:
+  dashed_name: file-pe-pehash
+  description: 'A hash of the PE header and data from one or more PE sections. An
+    pehash can be used to cluster files by transforming structural information about
+    a file into a hash value.
+
+    Learn more at https://www.usenix.org/legacy/events/leet09/tech/full_papers/wicherski/wicherski_html/index.html.'
+  example: 73ff189b63cd6be375a7ff25179a38d347651975
+  flat_name: file.pe.pehash
   ignore_above: 1024
   level: extended
-  name: packers
-  normalize:
-  - array
+  name: pehash
+  normalize: []
   original_fieldset: pe
-  short: List of packers and tools used.
+  short: A hash of the PE header and data from one or more PE sections.
   type: keyword
 file.pe.product:
   dashed_name: file-pe-product
@@ -4709,183 +4297,6 @@ file.pe.product:
   original_fieldset: pe
   short: Internal product name of the file, provided at compile-time.
   type: keyword
-file.pe.resources:
-  dashed_name: file-pe-resources
-  description: 'An array containing an object for each PE resource, if present.
-
-    The expected fields for this nested object fall under the `resources.` prefix.'
-  flat_name: file.pe.resources
-  level: extended
-  name: resources
-  normalize:
-  - array
-  original_fieldset: pe
-  short: PE resource information
-  type: nested
-file.pe.resources.chi2:
-  dashed_name: file-pe-resources-chi2
-  description: Chi-square probability distribution.
-  example: -1
-  flat_name: file.pe.resources.chi2
-  level: extended
-  name: resources.chi2
-  normalize: []
-  original_fieldset: pe
-  short: Chi-square probability distribution.
-  type: long
-file.pe.resources.entropy:
-  dashed_name: file-pe-resources-entropy
-  description: Measurement of entropy randomness in the resources section.
-  example: 0, 1
-  flat_name: file.pe.resources.entropy
-  level: extended
-  name: resources.entropy
-  normalize: []
-  original_fieldset: pe
-  short: Measurement of entropy randomness in the resources section.
-  type: long
-file.pe.resources.filetype:
-  dashed_name: file-pe-resources-filetype
-  description: File type of the resources section.
-  example: Data
-  flat_name: file.pe.resources.filetype
-  ignore_above: 1024
-  level: extended
-  name: resources.filetype
-  normalize: []
-  original_fieldset: pe
-  short: File type of the resources section.
-  type: keyword
-file.pe.resources.language:
-  dashed_name: file-pe-resources-language
-  description: Language identification.
-  example: CHINESE SIMPLIFIED
-  flat_name: file.pe.resources.language
-  ignore_above: 1024
-  level: extended
-  name: resources.language
-  normalize: []
-  original_fieldset: pe
-  short: Language identification.
-  type: keyword
-file.pe.resources.sha256:
-  dashed_name: file-pe-resources-sha256
-  description: SHA256 hash of resources section.
-  example: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-  flat_name: file.pe.resources.sha256
-  ignore_above: 1024
-  level: extended
-  name: resources.sha256
-  normalize: []
-  original_fieldset: pe
-  short: SHA256 hash of resources section.
-  type: keyword
-file.pe.resources.type:
-  dashed_name: file-pe-resources-type
-  description: Digest of resource types.
-  example: '["RT_VERSION", "RT_MANIFEST"]'
-  flat_name: file.pe.resources.type
-  ignore_above: 1024
-  level: extended
-  name: resources.type
-  normalize:
-  - array
-  original_fieldset: pe
-  short: List of resource types.
-  type: keyword
-file.pe.rich_header.hash.md5:
-  dashed_name: file-pe-rich-header-hash-md5
-  description: MD5 hash of the header for the PE file.
-  example: 5aa1aa0f2b4be70397a1e9e2b87627cd
-  flat_name: file.pe.rich_header.hash.md5
-  ignore_above: 1024
-  level: extended
-  name: rich_header.hash.md5
-  normalize: []
-  original_fieldset: pe
-  short: MD5 hash of the header for the PE file.
-  type: keyword
-file.pe.sections:
-  dashed_name: file-pe-sections
-  description: Data about sections of compiled binary PE
-  flat_name: file.pe.sections
-  level: extended
-  name: sections
-  normalize:
-  - array
-  original_fieldset: pe
-  short: Data about sections of the compiled binary PE
-  type: nested
-file.pe.sections.chi2:
-  dashed_name: file-pe-sections-chi2
-  description: Chi-square probability distribution.
-  example: 3027194
-  flat_name: file.pe.sections.chi2
-  level: extended
-  name: sections.chi2
-  normalize: []
-  original_fieldset: pe
-  short: Chi-square probability distribution.
-  type: long
-file.pe.sections.entropy:
-  dashed_name: file-pe-sections-entropy
-  description: Measurement of entropy randomness in the file.
-  example: 6.24
-  flat_name: file.pe.sections.entropy
-  level: extended
-  name: sections.entropy
-  normalize: []
-  original_fieldset: pe
-  short: Measurement of entropy randomness in the file.
-  type: float
-file.pe.sections.flags:
-  dashed_name: file-pe-sections-flags
-  description: Section flags of the file.
-  example: rx
-  flat_name: file.pe.sections.flags
-  ignore_above: 1024
-  level: extended
-  name: sections.flags
-  normalize: []
-  original_fieldset: pe
-  short: Section flags of the file.
-  type: keyword
-file.pe.sections.name:
-  dashed_name: file-pe-sections-name
-  description: Section names of the file.
-  example: .text, .data
-  flat_name: file.pe.sections.name
-  ignore_above: 1024
-  level: extended
-  name: sections.name
-  normalize: []
-  original_fieldset: pe
-  short: Section names of the file.
-  type: keyword
-file.pe.sections.raw_size:
-  dashed_name: file-pe-sections-raw-size
-  description: Size of the section or the dize of the initialized data on disk.
-  example: 198144
-  flat_name: file.pe.sections.raw_size
-  format: bytes
-  level: extended
-  name: sections.raw_size
-  normalize: []
-  original_fieldset: pe
-  short: Size of the section or the dize of the initialized data on disk.
-  type: long
-file.pe.sections.virtual_address:
-  dashed_name: file-pe-sections-virtual-address
-  description: Virtual address available to the file.
-  example: 8192
-  flat_name: file.pe.sections.virtual_address
-  format: bytes
-  level: extended
-  name: sections.virtual_address
-  normalize: []
-  original_fieldset: pe
-  short: Virtual address available to the file.
-  type: long
 file.size:
   dashed_name: file-size
   description: 'File size in bytes.
@@ -7649,6 +7060,17 @@ process.hash.sha256:
   original_fieldset: hash
   short: SHA256 hash.
   type: keyword
+process.hash.sha384:
+  dashed_name: process-hash-sha384
+  description: SHA384 hash.
+  flat_name: process.hash.sha384
+  ignore_above: 1024
+  level: extended
+  name: sha384
+  normalize: []
+  original_fieldset: hash
+  short: SHA384 hash.
+  type: keyword
 process.hash.sha512:
   dashed_name: process-hash-sha512
   description: SHA512 hash.
@@ -7670,6 +7092,17 @@ process.hash.ssdeep:
   normalize: []
   original_fieldset: hash
   short: SSDEEP hash.
+  type: keyword
+process.hash.tlsh:
+  dashed_name: process-hash-tlsh
+  description: TLSH hash.
+  flat_name: process.hash.tlsh
+  ignore_above: 1024
+  level: extended
+  name: tlsh
+  normalize: []
+  original_fieldset: hash
+  short: TLSH hash.
   type: keyword
 process.name:
   dashed_name: process-name
@@ -8284,6 +7717,17 @@ process.parent.hash.sha256:
   original_fieldset: hash
   short: SHA256 hash.
   type: keyword
+process.parent.hash.sha384:
+  dashed_name: process-parent-hash-sha384
+  description: SHA384 hash.
+  flat_name: process.parent.hash.sha384
+  ignore_above: 1024
+  level: extended
+  name: sha384
+  normalize: []
+  original_fieldset: hash
+  short: SHA384 hash.
+  type: keyword
 process.parent.hash.sha512:
   dashed_name: process-parent-hash-sha512
   description: SHA512 hash.
@@ -8305,6 +7749,17 @@ process.parent.hash.ssdeep:
   normalize: []
   original_fieldset: hash
   short: SSDEEP hash.
+  type: keyword
+process.parent.hash.tlsh:
+  dashed_name: process-parent-hash-tlsh
+  description: TLSH hash.
+  flat_name: process.parent.hash.tlsh
+  ignore_above: 1024
+  level: extended
+  name: tlsh
+  normalize: []
+  original_fieldset: hash
+  short: TLSH hash.
   type: keyword
 process.parent.name:
   dashed_name: process-parent-name
@@ -8336,18 +7791,6 @@ process.parent.pe.architecture:
   original_fieldset: pe
   short: CPU architecture target for the file.
   type: keyword
-process.parent.pe.authentihash:
-  dashed_name: process-parent-pe-authentihash
-  description: Authentihash of the PE file.
-  example: ac9555d914bbb112ecc5f15bb9887ca8371f493ab0941344e976bb8410c8aa78
-  flat_name: process.parent.pe.authentihash
-  ignore_above: 1024
-  level: extended
-  name: authentihash
-  normalize: []
-  original_fieldset: pe
-  short: Authentihash of the PE file.
-  type: keyword
 process.parent.pe.company:
   dashed_name: process-parent-pe-company
   description: Internal company name of the file, provided at compile-time.
@@ -8359,113 +7802,6 @@ process.parent.pe.company:
   normalize: []
   original_fieldset: pe
   short: Internal company name of the file, provided at compile-time.
-  type: keyword
-process.parent.pe.compile_timestamp:
-  dashed_name: process-parent-pe-compile-timestamp
-  description: Compile timestamp of the PE file.
-  example: '2020-11-05T17:25:47.000Z'
-  flat_name: process.parent.pe.compile_timestamp
-  level: extended
-  name: compile_timestamp
-  normalize: []
-  original_fieldset: pe
-  short: Compile timestamp of the PE file.
-  type: date
-process.parent.pe.compiler.name:
-  dashed_name: process-parent-pe-compiler-name
-  description: Name of the compiler
-  example: Clang
-  flat_name: process.parent.pe.compiler.name
-  ignore_above: 1024
-  level: extended
-  name: compiler.name
-  normalize: []
-  original_fieldset: pe
-  short: Name of the compiler
-  type: keyword
-process.parent.pe.compiler.version:
-  dashed_name: process-parent-pe-compiler-version
-  description: Version of the compiler.
-  example: 11.0.0
-  flat_name: process.parent.pe.compiler.version
-  ignore_above: 1024
-  level: extended
-  name: compiler.version
-  normalize: []
-  original_fieldset: pe
-  short: Version of the compiler.
-  type: keyword
-process.parent.pe.creation_date:
-  dashed_name: process-parent-pe-creation-date
-  description: Extracted when possible from the file's metadata. Indicates when it
-    was built or compiled. It can also be faked by malware creators.
-  example: '2020-11-05T17:25:47.000Z'
-  flat_name: process.parent.pe.creation_date
-  level: extended
-  name: creation_date
-  normalize: []
-  original_fieldset: pe
-  short: Build or compile date.
-  type: date
-process.parent.pe.debug:
-  dashed_name: process-parent-pe-debug
-  description: 'An array containing an object for each debug entry, if present.
-
-    The expected fields for this nested object fall under the `debug.` prefix.'
-  flat_name: process.parent.pe.debug
-  level: extended
-  name: debug
-  normalize:
-  - array
-  original_fieldset: pe
-  short: Debug information
-  type: nested
-process.parent.pe.debug.offset:
-  dashed_name: process-parent-pe-debug-offset
-  description: Debug offset information.
-  example: 1296336
-  flat_name: process.parent.pe.debug.offset
-  ignore_above: 1024
-  level: extended
-  name: debug.offset
-  normalize: []
-  original_fieldset: pe
-  short: Debug offset information.
-  type: keyword
-process.parent.pe.debug.size:
-  dashed_name: process-parent-pe-debug-size
-  description: Size of the debug information.
-  example: 816
-  flat_name: process.parent.pe.debug.size
-  format: bytes
-  level: extended
-  name: debug.size
-  normalize: []
-  original_fieldset: pe
-  short: Size of the debug information.
-  type: long
-process.parent.pe.debug.timestamp:
-  dashed_name: process-parent-pe-debug-timestamp
-  description: Timestamp of the debug information.
-  example: '2020-11-05T17:25:47.000Z'
-  flat_name: process.parent.pe.debug.timestamp
-  level: extended
-  name: debug.timestamp
-  normalize: []
-  original_fieldset: pe
-  short: Timestamp of the debug information.
-  type: date
-process.parent.pe.debug.type:
-  dashed_name: process-parent-pe-debug-type
-  description: Information type generated by the debug options.
-  example: IMAGE_DEBUG_TYPE_POGO
-  flat_name: process.parent.pe.debug.type
-  ignore_above: 1024
-  level: extended
-  name: debug.type
-  normalize: []
-  original_fieldset: pe
-  short: Information type generated by the debug options.
   type: keyword
 process.parent.pe.description:
   dashed_name: process-parent-pe-description
@@ -8479,31 +7815,6 @@ process.parent.pe.description:
   original_fieldset: pe
   short: Internal description of the file, provided at compile-time.
   type: keyword
-process.parent.pe.entry_point:
-  dashed_name: process-parent-pe-entry-point
-  description: Relative byte offset to the base of the PE file.
-  example: 25856
-  flat_name: process.parent.pe.entry_point
-  ignore_above: 1024
-  level: extended
-  name: entry_point
-  normalize: []
-  original_fieldset: pe
-  short: Relative byte offset to the base of the PE file.
-  type: keyword
-process.parent.pe.exports:
-  dashed_name: process-parent-pe-exports
-  description: List of symbols exported by PE
-  example: '["DllInstall", "DllRegisterServer", "DllUnregisterServer"]'
-  flat_name: process.parent.pe.exports
-  ignore_above: 1024
-  level: extended
-  name: exports
-  normalize:
-  - array
-  original_fieldset: pe
-  short: List of symbols exported by PE
-  type: keyword
 process.parent.pe.file_version:
   dashed_name: process-parent-pe-file-version
   description: Internal version of the file, provided at compile-time.
@@ -8515,19 +7826,6 @@ process.parent.pe.file_version:
   normalize: []
   original_fieldset: pe
   short: Process name.
-  type: keyword
-process.parent.pe.icon.hash.dhash:
-  dashed_name: process-parent-pe-icon-hash-dhash
-  description: Difference Hash (dhash) to find files with a visually similar icon
-    or thumbnail.
-  example: b806e17c8e330d82
-  flat_name: process.parent.pe.icon.hash.dhash
-  ignore_above: 1024
-  level: extended
-  name: icon.hash.dhash
-  normalize: []
-  original_fieldset: pe
-  short: Difference Hash (dhash) to find files with a visually similar icon or thumbnail.
   type: keyword
 process.parent.pe.imphash:
   dashed_name: process-parent-pe-imphash
@@ -8545,30 +7843,6 @@ process.parent.pe.imphash:
   original_fieldset: pe
   short: A hash of the imports in a PE file.
   type: keyword
-process.parent.pe.imports:
-  dashed_name: process-parent-pe-imports
-  description: List of all imported functions
-  example: '{ "library_name" : "mscoree.dll", "imported_functions" : "GetFileVersionInfoSizeA"
-    }'
-  flat_name: process.parent.pe.imports
-  level: extended
-  name: imports
-  normalize: []
-  original_fieldset: pe
-  short: List of all imported functions
-  type: flattened
-process.parent.pe.machine_type:
-  dashed_name: process-parent-pe-machine-type
-  description: Machine type of the PE file.
-  example: Intel 386 or later, and compatibles
-  flat_name: process.parent.pe.machine_type
-  ignore_above: 1024
-  level: extended
-  name: machine_type
-  normalize: []
-  original_fieldset: pe
-  short: Machine type of the PE file.
-  type: keyword
 process.parent.pe.original_file_name:
   dashed_name: process-parent-pe-original-file-name
   description: Internal name of the file, provided at compile-time.
@@ -8581,18 +7855,21 @@ process.parent.pe.original_file_name:
   original_fieldset: pe
   short: Internal name of the file, provided at compile-time.
   type: keyword
-process.parent.pe.packers:
-  dashed_name: process-parent-pe-packers
-  description: List of packers and tools used.
-  example: '["ASPack v2.12", ".NET executable"]'
-  flat_name: process.parent.pe.packers
+process.parent.pe.pehash:
+  dashed_name: process-parent-pe-pehash
+  description: 'A hash of the PE header and data from one or more PE sections. An
+    pehash can be used to cluster files by transforming structural information about
+    a file into a hash value.
+
+    Learn more at https://www.usenix.org/legacy/events/leet09/tech/full_papers/wicherski/wicherski_html/index.html.'
+  example: 73ff189b63cd6be375a7ff25179a38d347651975
+  flat_name: process.parent.pe.pehash
   ignore_above: 1024
   level: extended
-  name: packers
-  normalize:
-  - array
+  name: pehash
+  normalize: []
   original_fieldset: pe
-  short: List of packers and tools used.
+  short: A hash of the PE header and data from one or more PE sections.
   type: keyword
 process.parent.pe.product:
   dashed_name: process-parent-pe-product
@@ -8606,183 +7883,6 @@ process.parent.pe.product:
   original_fieldset: pe
   short: Internal product name of the file, provided at compile-time.
   type: keyword
-process.parent.pe.resources:
-  dashed_name: process-parent-pe-resources
-  description: 'An array containing an object for each PE resource, if present.
-
-    The expected fields for this nested object fall under the `resources.` prefix.'
-  flat_name: process.parent.pe.resources
-  level: extended
-  name: resources
-  normalize:
-  - array
-  original_fieldset: pe
-  short: PE resource information
-  type: nested
-process.parent.pe.resources.chi2:
-  dashed_name: process-parent-pe-resources-chi2
-  description: Chi-square probability distribution.
-  example: -1
-  flat_name: process.parent.pe.resources.chi2
-  level: extended
-  name: resources.chi2
-  normalize: []
-  original_fieldset: pe
-  short: Chi-square probability distribution.
-  type: long
-process.parent.pe.resources.entropy:
-  dashed_name: process-parent-pe-resources-entropy
-  description: Measurement of entropy randomness in the resources section.
-  example: 0, 1
-  flat_name: process.parent.pe.resources.entropy
-  level: extended
-  name: resources.entropy
-  normalize: []
-  original_fieldset: pe
-  short: Measurement of entropy randomness in the resources section.
-  type: long
-process.parent.pe.resources.filetype:
-  dashed_name: process-parent-pe-resources-filetype
-  description: File type of the resources section.
-  example: Data
-  flat_name: process.parent.pe.resources.filetype
-  ignore_above: 1024
-  level: extended
-  name: resources.filetype
-  normalize: []
-  original_fieldset: pe
-  short: File type of the resources section.
-  type: keyword
-process.parent.pe.resources.language:
-  dashed_name: process-parent-pe-resources-language
-  description: Language identification.
-  example: CHINESE SIMPLIFIED
-  flat_name: process.parent.pe.resources.language
-  ignore_above: 1024
-  level: extended
-  name: resources.language
-  normalize: []
-  original_fieldset: pe
-  short: Language identification.
-  type: keyword
-process.parent.pe.resources.sha256:
-  dashed_name: process-parent-pe-resources-sha256
-  description: SHA256 hash of resources section.
-  example: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-  flat_name: process.parent.pe.resources.sha256
-  ignore_above: 1024
-  level: extended
-  name: resources.sha256
-  normalize: []
-  original_fieldset: pe
-  short: SHA256 hash of resources section.
-  type: keyword
-process.parent.pe.resources.type:
-  dashed_name: process-parent-pe-resources-type
-  description: Digest of resource types.
-  example: '["RT_VERSION", "RT_MANIFEST"]'
-  flat_name: process.parent.pe.resources.type
-  ignore_above: 1024
-  level: extended
-  name: resources.type
-  normalize:
-  - array
-  original_fieldset: pe
-  short: List of resource types.
-  type: keyword
-process.parent.pe.rich_header.hash.md5:
-  dashed_name: process-parent-pe-rich-header-hash-md5
-  description: MD5 hash of the header for the PE file.
-  example: 5aa1aa0f2b4be70397a1e9e2b87627cd
-  flat_name: process.parent.pe.rich_header.hash.md5
-  ignore_above: 1024
-  level: extended
-  name: rich_header.hash.md5
-  normalize: []
-  original_fieldset: pe
-  short: MD5 hash of the header for the PE file.
-  type: keyword
-process.parent.pe.sections:
-  dashed_name: process-parent-pe-sections
-  description: Data about sections of compiled binary PE
-  flat_name: process.parent.pe.sections
-  level: extended
-  name: sections
-  normalize:
-  - array
-  original_fieldset: pe
-  short: Data about sections of the compiled binary PE
-  type: nested
-process.parent.pe.sections.chi2:
-  dashed_name: process-parent-pe-sections-chi2
-  description: Chi-square probability distribution.
-  example: 3027194
-  flat_name: process.parent.pe.sections.chi2
-  level: extended
-  name: sections.chi2
-  normalize: []
-  original_fieldset: pe
-  short: Chi-square probability distribution.
-  type: long
-process.parent.pe.sections.entropy:
-  dashed_name: process-parent-pe-sections-entropy
-  description: Measurement of entropy randomness in the file.
-  example: 6.24
-  flat_name: process.parent.pe.sections.entropy
-  level: extended
-  name: sections.entropy
-  normalize: []
-  original_fieldset: pe
-  short: Measurement of entropy randomness in the file.
-  type: float
-process.parent.pe.sections.flags:
-  dashed_name: process-parent-pe-sections-flags
-  description: Section flags of the file.
-  example: rx
-  flat_name: process.parent.pe.sections.flags
-  ignore_above: 1024
-  level: extended
-  name: sections.flags
-  normalize: []
-  original_fieldset: pe
-  short: Section flags of the file.
-  type: keyword
-process.parent.pe.sections.name:
-  dashed_name: process-parent-pe-sections-name
-  description: Section names of the file.
-  example: .text, .data
-  flat_name: process.parent.pe.sections.name
-  ignore_above: 1024
-  level: extended
-  name: sections.name
-  normalize: []
-  original_fieldset: pe
-  short: Section names of the file.
-  type: keyword
-process.parent.pe.sections.raw_size:
-  dashed_name: process-parent-pe-sections-raw-size
-  description: Size of the section or the dize of the initialized data on disk.
-  example: 198144
-  flat_name: process.parent.pe.sections.raw_size
-  format: bytes
-  level: extended
-  name: sections.raw_size
-  normalize: []
-  original_fieldset: pe
-  short: Size of the section or the dize of the initialized data on disk.
-  type: long
-process.parent.pe.sections.virtual_address:
-  dashed_name: process-parent-pe-sections-virtual-address
-  description: Virtual address available to the file.
-  example: 8192
-  flat_name: process.parent.pe.sections.virtual_address
-  format: bytes
-  level: extended
-  name: sections.virtual_address
-  normalize: []
-  original_fieldset: pe
-  short: Virtual address available to the file.
-  type: long
 process.parent.pgid:
   dashed_name: process-parent-pgid
   description: Identifier of the group of processes the process belongs to.
@@ -8898,18 +7998,6 @@ process.pe.architecture:
   original_fieldset: pe
   short: CPU architecture target for the file.
   type: keyword
-process.pe.authentihash:
-  dashed_name: process-pe-authentihash
-  description: Authentihash of the PE file.
-  example: ac9555d914bbb112ecc5f15bb9887ca8371f493ab0941344e976bb8410c8aa78
-  flat_name: process.pe.authentihash
-  ignore_above: 1024
-  level: extended
-  name: authentihash
-  normalize: []
-  original_fieldset: pe
-  short: Authentihash of the PE file.
-  type: keyword
 process.pe.company:
   dashed_name: process-pe-company
   description: Internal company name of the file, provided at compile-time.
@@ -8921,113 +8009,6 @@ process.pe.company:
   normalize: []
   original_fieldset: pe
   short: Internal company name of the file, provided at compile-time.
-  type: keyword
-process.pe.compile_timestamp:
-  dashed_name: process-pe-compile-timestamp
-  description: Compile timestamp of the PE file.
-  example: '2020-11-05T17:25:47.000Z'
-  flat_name: process.pe.compile_timestamp
-  level: extended
-  name: compile_timestamp
-  normalize: []
-  original_fieldset: pe
-  short: Compile timestamp of the PE file.
-  type: date
-process.pe.compiler.name:
-  dashed_name: process-pe-compiler-name
-  description: Name of the compiler
-  example: Clang
-  flat_name: process.pe.compiler.name
-  ignore_above: 1024
-  level: extended
-  name: compiler.name
-  normalize: []
-  original_fieldset: pe
-  short: Name of the compiler
-  type: keyword
-process.pe.compiler.version:
-  dashed_name: process-pe-compiler-version
-  description: Version of the compiler.
-  example: 11.0.0
-  flat_name: process.pe.compiler.version
-  ignore_above: 1024
-  level: extended
-  name: compiler.version
-  normalize: []
-  original_fieldset: pe
-  short: Version of the compiler.
-  type: keyword
-process.pe.creation_date:
-  dashed_name: process-pe-creation-date
-  description: Extracted when possible from the file's metadata. Indicates when it
-    was built or compiled. It can also be faked by malware creators.
-  example: '2020-11-05T17:25:47.000Z'
-  flat_name: process.pe.creation_date
-  level: extended
-  name: creation_date
-  normalize: []
-  original_fieldset: pe
-  short: Build or compile date.
-  type: date
-process.pe.debug:
-  dashed_name: process-pe-debug
-  description: 'An array containing an object for each debug entry, if present.
-
-    The expected fields for this nested object fall under the `debug.` prefix.'
-  flat_name: process.pe.debug
-  level: extended
-  name: debug
-  normalize:
-  - array
-  original_fieldset: pe
-  short: Debug information
-  type: nested
-process.pe.debug.offset:
-  dashed_name: process-pe-debug-offset
-  description: Debug offset information.
-  example: 1296336
-  flat_name: process.pe.debug.offset
-  ignore_above: 1024
-  level: extended
-  name: debug.offset
-  normalize: []
-  original_fieldset: pe
-  short: Debug offset information.
-  type: keyword
-process.pe.debug.size:
-  dashed_name: process-pe-debug-size
-  description: Size of the debug information.
-  example: 816
-  flat_name: process.pe.debug.size
-  format: bytes
-  level: extended
-  name: debug.size
-  normalize: []
-  original_fieldset: pe
-  short: Size of the debug information.
-  type: long
-process.pe.debug.timestamp:
-  dashed_name: process-pe-debug-timestamp
-  description: Timestamp of the debug information.
-  example: '2020-11-05T17:25:47.000Z'
-  flat_name: process.pe.debug.timestamp
-  level: extended
-  name: debug.timestamp
-  normalize: []
-  original_fieldset: pe
-  short: Timestamp of the debug information.
-  type: date
-process.pe.debug.type:
-  dashed_name: process-pe-debug-type
-  description: Information type generated by the debug options.
-  example: IMAGE_DEBUG_TYPE_POGO
-  flat_name: process.pe.debug.type
-  ignore_above: 1024
-  level: extended
-  name: debug.type
-  normalize: []
-  original_fieldset: pe
-  short: Information type generated by the debug options.
   type: keyword
 process.pe.description:
   dashed_name: process-pe-description
@@ -9041,31 +8022,6 @@ process.pe.description:
   original_fieldset: pe
   short: Internal description of the file, provided at compile-time.
   type: keyword
-process.pe.entry_point:
-  dashed_name: process-pe-entry-point
-  description: Relative byte offset to the base of the PE file.
-  example: 25856
-  flat_name: process.pe.entry_point
-  ignore_above: 1024
-  level: extended
-  name: entry_point
-  normalize: []
-  original_fieldset: pe
-  short: Relative byte offset to the base of the PE file.
-  type: keyword
-process.pe.exports:
-  dashed_name: process-pe-exports
-  description: List of symbols exported by PE
-  example: '["DllInstall", "DllRegisterServer", "DllUnregisterServer"]'
-  flat_name: process.pe.exports
-  ignore_above: 1024
-  level: extended
-  name: exports
-  normalize:
-  - array
-  original_fieldset: pe
-  short: List of symbols exported by PE
-  type: keyword
 process.pe.file_version:
   dashed_name: process-pe-file-version
   description: Internal version of the file, provided at compile-time.
@@ -9077,19 +8033,6 @@ process.pe.file_version:
   normalize: []
   original_fieldset: pe
   short: Process name.
-  type: keyword
-process.pe.icon.hash.dhash:
-  dashed_name: process-pe-icon-hash-dhash
-  description: Difference Hash (dhash) to find files with a visually similar icon
-    or thumbnail.
-  example: b806e17c8e330d82
-  flat_name: process.pe.icon.hash.dhash
-  ignore_above: 1024
-  level: extended
-  name: icon.hash.dhash
-  normalize: []
-  original_fieldset: pe
-  short: Difference Hash (dhash) to find files with a visually similar icon or thumbnail.
   type: keyword
 process.pe.imphash:
   dashed_name: process-pe-imphash
@@ -9107,30 +8050,6 @@ process.pe.imphash:
   original_fieldset: pe
   short: A hash of the imports in a PE file.
   type: keyword
-process.pe.imports:
-  dashed_name: process-pe-imports
-  description: List of all imported functions
-  example: '{ "library_name" : "mscoree.dll", "imported_functions" : "GetFileVersionInfoSizeA"
-    }'
-  flat_name: process.pe.imports
-  level: extended
-  name: imports
-  normalize: []
-  original_fieldset: pe
-  short: List of all imported functions
-  type: flattened
-process.pe.machine_type:
-  dashed_name: process-pe-machine-type
-  description: Machine type of the PE file.
-  example: Intel 386 or later, and compatibles
-  flat_name: process.pe.machine_type
-  ignore_above: 1024
-  level: extended
-  name: machine_type
-  normalize: []
-  original_fieldset: pe
-  short: Machine type of the PE file.
-  type: keyword
 process.pe.original_file_name:
   dashed_name: process-pe-original-file-name
   description: Internal name of the file, provided at compile-time.
@@ -9143,18 +8062,21 @@ process.pe.original_file_name:
   original_fieldset: pe
   short: Internal name of the file, provided at compile-time.
   type: keyword
-process.pe.packers:
-  dashed_name: process-pe-packers
-  description: List of packers and tools used.
-  example: '["ASPack v2.12", ".NET executable"]'
-  flat_name: process.pe.packers
+process.pe.pehash:
+  dashed_name: process-pe-pehash
+  description: 'A hash of the PE header and data from one or more PE sections. An
+    pehash can be used to cluster files by transforming structural information about
+    a file into a hash value.
+
+    Learn more at https://www.usenix.org/legacy/events/leet09/tech/full_papers/wicherski/wicherski_html/index.html.'
+  example: 73ff189b63cd6be375a7ff25179a38d347651975
+  flat_name: process.pe.pehash
   ignore_above: 1024
   level: extended
-  name: packers
-  normalize:
-  - array
+  name: pehash
+  normalize: []
   original_fieldset: pe
-  short: List of packers and tools used.
+  short: A hash of the PE header and data from one or more PE sections.
   type: keyword
 process.pe.product:
   dashed_name: process-pe-product
@@ -9168,183 +8090,6 @@ process.pe.product:
   original_fieldset: pe
   short: Internal product name of the file, provided at compile-time.
   type: keyword
-process.pe.resources:
-  dashed_name: process-pe-resources
-  description: 'An array containing an object for each PE resource, if present.
-
-    The expected fields for this nested object fall under the `resources.` prefix.'
-  flat_name: process.pe.resources
-  level: extended
-  name: resources
-  normalize:
-  - array
-  original_fieldset: pe
-  short: PE resource information
-  type: nested
-process.pe.resources.chi2:
-  dashed_name: process-pe-resources-chi2
-  description: Chi-square probability distribution.
-  example: -1
-  flat_name: process.pe.resources.chi2
-  level: extended
-  name: resources.chi2
-  normalize: []
-  original_fieldset: pe
-  short: Chi-square probability distribution.
-  type: long
-process.pe.resources.entropy:
-  dashed_name: process-pe-resources-entropy
-  description: Measurement of entropy randomness in the resources section.
-  example: 0, 1
-  flat_name: process.pe.resources.entropy
-  level: extended
-  name: resources.entropy
-  normalize: []
-  original_fieldset: pe
-  short: Measurement of entropy randomness in the resources section.
-  type: long
-process.pe.resources.filetype:
-  dashed_name: process-pe-resources-filetype
-  description: File type of the resources section.
-  example: Data
-  flat_name: process.pe.resources.filetype
-  ignore_above: 1024
-  level: extended
-  name: resources.filetype
-  normalize: []
-  original_fieldset: pe
-  short: File type of the resources section.
-  type: keyword
-process.pe.resources.language:
-  dashed_name: process-pe-resources-language
-  description: Language identification.
-  example: CHINESE SIMPLIFIED
-  flat_name: process.pe.resources.language
-  ignore_above: 1024
-  level: extended
-  name: resources.language
-  normalize: []
-  original_fieldset: pe
-  short: Language identification.
-  type: keyword
-process.pe.resources.sha256:
-  dashed_name: process-pe-resources-sha256
-  description: SHA256 hash of resources section.
-  example: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-  flat_name: process.pe.resources.sha256
-  ignore_above: 1024
-  level: extended
-  name: resources.sha256
-  normalize: []
-  original_fieldset: pe
-  short: SHA256 hash of resources section.
-  type: keyword
-process.pe.resources.type:
-  dashed_name: process-pe-resources-type
-  description: Digest of resource types.
-  example: '["RT_VERSION", "RT_MANIFEST"]'
-  flat_name: process.pe.resources.type
-  ignore_above: 1024
-  level: extended
-  name: resources.type
-  normalize:
-  - array
-  original_fieldset: pe
-  short: List of resource types.
-  type: keyword
-process.pe.rich_header.hash.md5:
-  dashed_name: process-pe-rich-header-hash-md5
-  description: MD5 hash of the header for the PE file.
-  example: 5aa1aa0f2b4be70397a1e9e2b87627cd
-  flat_name: process.pe.rich_header.hash.md5
-  ignore_above: 1024
-  level: extended
-  name: rich_header.hash.md5
-  normalize: []
-  original_fieldset: pe
-  short: MD5 hash of the header for the PE file.
-  type: keyword
-process.pe.sections:
-  dashed_name: process-pe-sections
-  description: Data about sections of compiled binary PE
-  flat_name: process.pe.sections
-  level: extended
-  name: sections
-  normalize:
-  - array
-  original_fieldset: pe
-  short: Data about sections of the compiled binary PE
-  type: nested
-process.pe.sections.chi2:
-  dashed_name: process-pe-sections-chi2
-  description: Chi-square probability distribution.
-  example: 3027194
-  flat_name: process.pe.sections.chi2
-  level: extended
-  name: sections.chi2
-  normalize: []
-  original_fieldset: pe
-  short: Chi-square probability distribution.
-  type: long
-process.pe.sections.entropy:
-  dashed_name: process-pe-sections-entropy
-  description: Measurement of entropy randomness in the file.
-  example: 6.24
-  flat_name: process.pe.sections.entropy
-  level: extended
-  name: sections.entropy
-  normalize: []
-  original_fieldset: pe
-  short: Measurement of entropy randomness in the file.
-  type: float
-process.pe.sections.flags:
-  dashed_name: process-pe-sections-flags
-  description: Section flags of the file.
-  example: rx
-  flat_name: process.pe.sections.flags
-  ignore_above: 1024
-  level: extended
-  name: sections.flags
-  normalize: []
-  original_fieldset: pe
-  short: Section flags of the file.
-  type: keyword
-process.pe.sections.name:
-  dashed_name: process-pe-sections-name
-  description: Section names of the file.
-  example: .text, .data
-  flat_name: process.pe.sections.name
-  ignore_above: 1024
-  level: extended
-  name: sections.name
-  normalize: []
-  original_fieldset: pe
-  short: Section names of the file.
-  type: keyword
-process.pe.sections.raw_size:
-  dashed_name: process-pe-sections-raw-size
-  description: Size of the section or the dize of the initialized data on disk.
-  example: 198144
-  flat_name: process.pe.sections.raw_size
-  format: bytes
-  level: extended
-  name: sections.raw_size
-  normalize: []
-  original_fieldset: pe
-  short: Size of the section or the dize of the initialized data on disk.
-  type: long
-process.pe.sections.virtual_address:
-  dashed_name: process-pe-sections-virtual-address
-  description: Virtual address available to the file.
-  example: 8192
-  flat_name: process.pe.sections.virtual_address
-  format: bytes
-  level: extended
-  name: sections.virtual_address
-  normalize: []
-  original_fieldset: pe
-  short: Virtual address available to the file.
-  type: long
 process.pgid:
   dashed_name: process-pgid
   description: Identifier of the group of processes the process belongs to.
@@ -9376,2402 +8121,6 @@ process.start:
   normalize: []
   short: The time the process started.
   type: date
-process.target.args:
-  dashed_name: process-target-args
-  description: 'Array of process arguments, starting with the absolute path to the
-    executable.
-
-    May be filtered to protect sensitive information.'
-  example: '["/usr/bin/ssh", "-l", "user", "10.0.0.16"]'
-  flat_name: process.target.args
-  ignore_above: 1024
-  level: extended
-  name: args
-  normalize:
-  - array
-  original_fieldset: process
-  short: Array of process arguments.
-  type: keyword
-process.target.args_count:
-  dashed_name: process-target-args-count
-  description: 'Length of the process.args array.
-
-    This field can be useful for querying or performing bucket analysis on how many
-    arguments were provided to start a process. More arguments may be an indication
-    of suspicious activity.'
-  example: 4
-  flat_name: process.target.args_count
-  level: extended
-  name: args_count
-  normalize: []
-  original_fieldset: process
-  short: Length of the process.args array.
-  type: long
-process.target.code_signature.digest_algorithm:
-  dashed_name: process-target-code-signature-digest-algorithm
-  description: 'The hashing algorithm used to sign the process.
-
-    This value can distinguish signatures when a file is signed multiple times by
-    the same signer but with a different digest algorithm.'
-  example: sha256
-  flat_name: process.target.code_signature.digest_algorithm
-  ignore_above: 1024
-  level: extended
-  name: digest_algorithm
-  normalize: []
-  original_fieldset: code_signature
-  short: Hashing algorithm used to sign the process.
-  type: keyword
-process.target.code_signature.exists:
-  dashed_name: process-target-code-signature-exists
-  description: Boolean to capture if a signature is present.
-  example: 'true'
-  flat_name: process.target.code_signature.exists
-  level: core
-  name: exists
-  normalize: []
-  original_fieldset: code_signature
-  short: Boolean to capture if a signature is present.
-  type: boolean
-process.target.code_signature.signing_id:
-  dashed_name: process-target-code-signature-signing-id
-  description: 'The identifier used to sign the process.
-
-    This is used to identify the application manufactured by a software vendor. The
-    field is relevant to Apple *OS only.'
-  example: com.apple.xpc.proxy
-  flat_name: process.target.code_signature.signing_id
-  ignore_above: 1024
-  level: extended
-  name: signing_id
-  normalize: []
-  original_fieldset: code_signature
-  short: The identifier used to sign the process.
-  type: keyword
-process.target.code_signature.status:
-  dashed_name: process-target-code-signature-status
-  description: 'Additional information about the certificate status.
-
-    This is useful for logging cryptographic errors with the certificate validity
-    or trust status. Leave unpopulated if the validity or trust of the certificate
-    was unchecked.'
-  example: ERROR_UNTRUSTED_ROOT
-  flat_name: process.target.code_signature.status
-  ignore_above: 1024
-  level: extended
-  name: status
-  normalize: []
-  original_fieldset: code_signature
-  short: Additional information about the certificate status.
-  type: keyword
-process.target.code_signature.subject_name:
-  dashed_name: process-target-code-signature-subject-name
-  description: Subject name of the code signer
-  example: Microsoft Corporation
-  flat_name: process.target.code_signature.subject_name
-  ignore_above: 1024
-  level: core
-  name: subject_name
-  normalize: []
-  original_fieldset: code_signature
-  short: Subject name of the code signer
-  type: keyword
-process.target.code_signature.team_id:
-  dashed_name: process-target-code-signature-team-id
-  description: 'The team identifier used to sign the process.
-
-    This is used to identify the team or vendor of a software product. The field is
-    relevant to Apple *OS only.'
-  example: EQHXZ8M8AV
-  flat_name: process.target.code_signature.team_id
-  ignore_above: 1024
-  level: extended
-  name: team_id
-  normalize: []
-  original_fieldset: code_signature
-  short: The team identifier used to sign the process.
-  type: keyword
-process.target.code_signature.timestamp:
-  dashed_name: process-target-code-signature-timestamp
-  description: Date and time when the code signature was generated and signed.
-  example: '2021-01-01T12:10:30Z'
-  flat_name: process.target.code_signature.timestamp
-  level: extended
-  name: timestamp
-  normalize: []
-  original_fieldset: code_signature
-  short: When the signature was generated and signed.
-  type: date
-process.target.code_signature.trusted:
-  dashed_name: process-target-code-signature-trusted
-  description: 'Stores the trust status of the certificate chain.
-
-    Validating the trust of the certificate chain may be complicated, and this field
-    should only be populated by tools that actively check the status.'
-  example: 'true'
-  flat_name: process.target.code_signature.trusted
-  level: extended
-  name: trusted
-  normalize: []
-  original_fieldset: code_signature
-  short: Stores the trust status of the certificate chain.
-  type: boolean
-process.target.code_signature.valid:
-  dashed_name: process-target-code-signature-valid
-  description: 'Boolean to capture if the digital signature is verified against the
-    binary content.
-
-    Leave unpopulated if a certificate was unchecked.'
-  example: 'true'
-  flat_name: process.target.code_signature.valid
-  level: extended
-  name: valid
-  normalize: []
-  original_fieldset: code_signature
-  short: Boolean to capture if the digital signature is verified against the binary
-    content.
-  type: boolean
-process.target.command_line:
-  dashed_name: process-target-command-line
-  description: 'Full command line that started the process, including the absolute
-    path to the executable, and all arguments.
-
-    Some arguments may be filtered to protect sensitive information.'
-  example: /usr/bin/ssh -l user 10.0.0.16
-  flat_name: process.target.command_line
-  level: extended
-  multi_fields:
-  - flat_name: process.target.command_line.text
-    name: text
-    type: match_only_text
-  name: command_line
-  normalize: []
-  original_fieldset: process
-  short: Full command line that started the process.
-  type: wildcard
-process.target.elf.architecture:
-  dashed_name: process-target-elf-architecture
-  description: Machine architecture of the ELF file.
-  example: x86-64
-  flat_name: process.target.elf.architecture
-  ignore_above: 1024
-  level: extended
-  name: architecture
-  normalize: []
-  original_fieldset: elf
-  short: Machine architecture of the ELF file.
-  type: keyword
-process.target.elf.byte_order:
-  dashed_name: process-target-elf-byte-order
-  description: Byte sequence of ELF file.
-  example: Little Endian
-  flat_name: process.target.elf.byte_order
-  ignore_above: 1024
-  level: extended
-  name: byte_order
-  normalize: []
-  original_fieldset: elf
-  short: Byte sequence of ELF file.
-  type: keyword
-process.target.elf.cpu_type:
-  dashed_name: process-target-elf-cpu-type
-  description: CPU type of the ELF file.
-  example: Intel
-  flat_name: process.target.elf.cpu_type
-  ignore_above: 1024
-  level: extended
-  name: cpu_type
-  normalize: []
-  original_fieldset: elf
-  short: CPU type of the ELF file.
-  type: keyword
-process.target.elf.creation_date:
-  dashed_name: process-target-elf-creation-date
-  description: Extracted when possible from the file's metadata. Indicates when it
-    was built or compiled. It can also be faked by malware creators.
-  flat_name: process.target.elf.creation_date
-  level: extended
-  name: creation_date
-  normalize: []
-  original_fieldset: elf
-  short: Build or compile date.
-  type: date
-process.target.elf.exports:
-  dashed_name: process-target-elf-exports
-  description: List of exported element names and types.
-  flat_name: process.target.elf.exports
-  level: extended
-  name: exports
-  normalize:
-  - array
-  original_fieldset: elf
-  short: List of exported element names and types.
-  type: flattened
-process.target.elf.header.abi_version:
-  dashed_name: process-target-elf-header-abi-version
-  description: Version of the ELF Application Binary Interface (ABI).
-  flat_name: process.target.elf.header.abi_version
-  ignore_above: 1024
-  level: extended
-  name: header.abi_version
-  normalize: []
-  original_fieldset: elf
-  short: Version of the ELF Application Binary Interface (ABI).
-  type: keyword
-process.target.elf.header.class:
-  dashed_name: process-target-elf-header-class
-  description: Header class of the ELF file.
-  flat_name: process.target.elf.header.class
-  ignore_above: 1024
-  level: extended
-  name: header.class
-  normalize: []
-  original_fieldset: elf
-  short: Header class of the ELF file.
-  type: keyword
-process.target.elf.header.data:
-  dashed_name: process-target-elf-header-data
-  description: Data table of the ELF header.
-  flat_name: process.target.elf.header.data
-  ignore_above: 1024
-  level: extended
-  name: header.data
-  normalize: []
-  original_fieldset: elf
-  short: Data table of the ELF header.
-  type: keyword
-process.target.elf.header.entrypoint:
-  dashed_name: process-target-elf-header-entrypoint
-  description: Header entrypoint of the ELF file.
-  flat_name: process.target.elf.header.entrypoint
-  format: string
-  level: extended
-  name: header.entrypoint
-  normalize: []
-  original_fieldset: elf
-  short: Header entrypoint of the ELF file.
-  type: long
-process.target.elf.header.object_version:
-  dashed_name: process-target-elf-header-object-version
-  description: '"0x1" for original ELF files.'
-  flat_name: process.target.elf.header.object_version
-  ignore_above: 1024
-  level: extended
-  name: header.object_version
-  normalize: []
-  original_fieldset: elf
-  short: '"0x1" for original ELF files.'
-  type: keyword
-process.target.elf.header.os_abi:
-  dashed_name: process-target-elf-header-os-abi
-  description: Application Binary Interface (ABI) of the Linux OS.
-  flat_name: process.target.elf.header.os_abi
-  ignore_above: 1024
-  level: extended
-  name: header.os_abi
-  normalize: []
-  original_fieldset: elf
-  short: Application Binary Interface (ABI) of the Linux OS.
-  type: keyword
-process.target.elf.header.type:
-  dashed_name: process-target-elf-header-type
-  description: Header type of the ELF file.
-  flat_name: process.target.elf.header.type
-  ignore_above: 1024
-  level: extended
-  name: header.type
-  normalize: []
-  original_fieldset: elf
-  short: Header type of the ELF file.
-  type: keyword
-process.target.elf.header.version:
-  dashed_name: process-target-elf-header-version
-  description: Version of the ELF header.
-  flat_name: process.target.elf.header.version
-  ignore_above: 1024
-  level: extended
-  name: header.version
-  normalize: []
-  original_fieldset: elf
-  short: Version of the ELF header.
-  type: keyword
-process.target.elf.imports:
-  dashed_name: process-target-elf-imports
-  description: List of imported element names and types.
-  flat_name: process.target.elf.imports
-  level: extended
-  name: imports
-  normalize:
-  - array
-  original_fieldset: elf
-  short: List of imported element names and types.
-  type: flattened
-process.target.elf.sections:
-  dashed_name: process-target-elf-sections
-  description: 'An array containing an object for each section of the ELF file.
-
-    The keys that should be present in these objects are defined by sub-fields underneath
-    `elf.sections.*`.'
-  flat_name: process.target.elf.sections
-  level: extended
-  name: sections
-  normalize:
-  - array
-  original_fieldset: elf
-  short: Section information of the ELF file.
-  type: nested
-process.target.elf.sections.chi2:
-  dashed_name: process-target-elf-sections-chi2
-  description: Chi-square probability distribution of the section.
-  flat_name: process.target.elf.sections.chi2
-  format: number
-  level: extended
-  name: sections.chi2
-  normalize: []
-  original_fieldset: elf
-  short: Chi-square probability distribution of the section.
-  type: long
-process.target.elf.sections.entropy:
-  dashed_name: process-target-elf-sections-entropy
-  description: Shannon entropy calculation from the section.
-  flat_name: process.target.elf.sections.entropy
-  format: number
-  level: extended
-  name: sections.entropy
-  normalize: []
-  original_fieldset: elf
-  short: Shannon entropy calculation from the section.
-  type: long
-process.target.elf.sections.flags:
-  dashed_name: process-target-elf-sections-flags
-  description: ELF Section List flags.
-  flat_name: process.target.elf.sections.flags
-  ignore_above: 1024
-  level: extended
-  name: sections.flags
-  normalize: []
-  original_fieldset: elf
-  short: ELF Section List flags.
-  type: keyword
-process.target.elf.sections.name:
-  dashed_name: process-target-elf-sections-name
-  description: ELF Section List name.
-  flat_name: process.target.elf.sections.name
-  ignore_above: 1024
-  level: extended
-  name: sections.name
-  normalize: []
-  original_fieldset: elf
-  short: ELF Section List name.
-  type: keyword
-process.target.elf.sections.physical_offset:
-  dashed_name: process-target-elf-sections-physical-offset
-  description: ELF Section List offset.
-  flat_name: process.target.elf.sections.physical_offset
-  ignore_above: 1024
-  level: extended
-  name: sections.physical_offset
-  normalize: []
-  original_fieldset: elf
-  short: ELF Section List offset.
-  type: keyword
-process.target.elf.sections.physical_size:
-  dashed_name: process-target-elf-sections-physical-size
-  description: ELF Section List physical size.
-  flat_name: process.target.elf.sections.physical_size
-  format: bytes
-  level: extended
-  name: sections.physical_size
-  normalize: []
-  original_fieldset: elf
-  short: ELF Section List physical size.
-  type: long
-process.target.elf.sections.type:
-  dashed_name: process-target-elf-sections-type
-  description: ELF Section List type.
-  flat_name: process.target.elf.sections.type
-  ignore_above: 1024
-  level: extended
-  name: sections.type
-  normalize: []
-  original_fieldset: elf
-  short: ELF Section List type.
-  type: keyword
-process.target.elf.sections.virtual_address:
-  dashed_name: process-target-elf-sections-virtual-address
-  description: ELF Section List virtual address.
-  flat_name: process.target.elf.sections.virtual_address
-  format: string
-  level: extended
-  name: sections.virtual_address
-  normalize: []
-  original_fieldset: elf
-  short: ELF Section List virtual address.
-  type: long
-process.target.elf.sections.virtual_size:
-  dashed_name: process-target-elf-sections-virtual-size
-  description: ELF Section List virtual size.
-  flat_name: process.target.elf.sections.virtual_size
-  format: string
-  level: extended
-  name: sections.virtual_size
-  normalize: []
-  original_fieldset: elf
-  short: ELF Section List virtual size.
-  type: long
-process.target.elf.segments:
-  dashed_name: process-target-elf-segments
-  description: 'An array containing an object for each segment of the ELF file.
-
-    The keys that should be present in these objects are defined by sub-fields underneath
-    `elf.segments.*`.'
-  flat_name: process.target.elf.segments
-  level: extended
-  name: segments
-  normalize:
-  - array
-  original_fieldset: elf
-  short: ELF object segment list.
-  type: nested
-process.target.elf.segments.sections:
-  dashed_name: process-target-elf-segments-sections
-  description: ELF object segment sections.
-  flat_name: process.target.elf.segments.sections
-  ignore_above: 1024
-  level: extended
-  name: segments.sections
-  normalize: []
-  original_fieldset: elf
-  short: ELF object segment sections.
-  type: keyword
-process.target.elf.segments.type:
-  dashed_name: process-target-elf-segments-type
-  description: ELF object segment type.
-  flat_name: process.target.elf.segments.type
-  ignore_above: 1024
-  level: extended
-  name: segments.type
-  normalize: []
-  original_fieldset: elf
-  short: ELF object segment type.
-  type: keyword
-process.target.elf.shared_libraries:
-  dashed_name: process-target-elf-shared-libraries
-  description: List of shared libraries used by this ELF object.
-  flat_name: process.target.elf.shared_libraries
-  ignore_above: 1024
-  level: extended
-  name: shared_libraries
-  normalize:
-  - array
-  original_fieldset: elf
-  short: List of shared libraries used by this ELF object.
-  type: keyword
-process.target.elf.telfhash:
-  dashed_name: process-target-elf-telfhash
-  description: telfhash symbol hash for ELF file.
-  flat_name: process.target.elf.telfhash
-  ignore_above: 1024
-  level: extended
-  name: telfhash
-  normalize: []
-  original_fieldset: elf
-  short: telfhash hash for ELF file.
-  type: keyword
-process.target.end:
-  dashed_name: process-target-end
-  description: The time the process ended.
-  example: '2016-05-23T08:05:34.853Z'
-  flat_name: process.target.end
-  level: extended
-  name: end
-  normalize: []
-  original_fieldset: process
-  short: The time the process ended.
-  type: date
-process.target.entity_id:
-  dashed_name: process-target-entity-id
-  description: 'Unique identifier for the process.
-
-    The implementation of this is specified by the data source, but some examples
-    of what could be used here are a process-generated UUID, Sysmon Process GUIDs,
-    or a hash of some uniquely identifying components of a process.
-
-    Constructing a globally unique identifier is a common practice to mitigate PID
-    reuse as well as to identify a specific process over time, across multiple monitored
-    hosts.'
-  example: c2c455d9f99375d
-  flat_name: process.target.entity_id
-  ignore_above: 1024
-  level: extended
-  name: entity_id
-  normalize: []
-  original_fieldset: process
-  short: Unique identifier for the process.
-  type: keyword
-process.target.executable:
-  dashed_name: process-target-executable
-  description: Absolute path to the process executable.
-  example: /usr/bin/ssh
-  flat_name: process.target.executable
-  ignore_above: 1024
-  level: extended
-  multi_fields:
-  - flat_name: process.target.executable.text
-    name: text
-    type: match_only_text
-  name: executable
-  normalize: []
-  original_fieldset: process
-  short: Absolute path to the process executable.
-  type: keyword
-process.target.exit_code:
-  dashed_name: process-target-exit-code
-  description: 'The exit code of the process, if this is a termination event.
-
-    The field should be absent if there is no exit code for the event (e.g. process
-    start).'
-  example: 137
-  flat_name: process.target.exit_code
-  level: extended
-  name: exit_code
-  normalize: []
-  original_fieldset: process
-  short: The exit code of the process.
-  type: long
-process.target.hash.md5:
-  dashed_name: process-target-hash-md5
-  description: MD5 hash.
-  flat_name: process.target.hash.md5
-  ignore_above: 1024
-  level: extended
-  name: md5
-  normalize: []
-  original_fieldset: hash
-  short: MD5 hash.
-  type: keyword
-process.target.hash.sha1:
-  dashed_name: process-target-hash-sha1
-  description: SHA1 hash.
-  flat_name: process.target.hash.sha1
-  ignore_above: 1024
-  level: extended
-  name: sha1
-  normalize: []
-  original_fieldset: hash
-  short: SHA1 hash.
-  type: keyword
-process.target.hash.sha256:
-  dashed_name: process-target-hash-sha256
-  description: SHA256 hash.
-  flat_name: process.target.hash.sha256
-  ignore_above: 1024
-  level: extended
-  name: sha256
-  normalize: []
-  original_fieldset: hash
-  short: SHA256 hash.
-  type: keyword
-process.target.hash.sha512:
-  dashed_name: process-target-hash-sha512
-  description: SHA512 hash.
-  flat_name: process.target.hash.sha512
-  ignore_above: 1024
-  level: extended
-  name: sha512
-  normalize: []
-  original_fieldset: hash
-  short: SHA512 hash.
-  type: keyword
-process.target.hash.ssdeep:
-  dashed_name: process-target-hash-ssdeep
-  description: SSDEEP hash.
-  flat_name: process.target.hash.ssdeep
-  ignore_above: 1024
-  level: extended
-  name: ssdeep
-  normalize: []
-  original_fieldset: hash
-  short: SSDEEP hash.
-  type: keyword
-process.target.name:
-  dashed_name: process-target-name
-  description: 'Process name.
-
-    Sometimes called program name or similar.'
-  example: ssh
-  flat_name: process.target.name
-  ignore_above: 1024
-  level: extended
-  multi_fields:
-  - flat_name: process.target.name.text
-    name: text
-    type: match_only_text
-  name: name
-  normalize: []
-  original_fieldset: process
-  short: Process name.
-  type: keyword
-process.target.parent.args:
-  dashed_name: process-target-parent-args
-  description: 'Array of process arguments, starting with the absolute path to the
-    executable.
-
-    May be filtered to protect sensitive information.'
-  example: '["/usr/bin/ssh", "-l", "user", "10.0.0.16"]'
-  flat_name: process.target.parent.args
-  ignore_above: 1024
-  level: extended
-  name: args
-  normalize:
-  - array
-  original_fieldset: process
-  short: Array of process arguments.
-  type: keyword
-process.target.parent.args_count:
-  dashed_name: process-target-parent-args-count
-  description: 'Length of the process.args array.
-
-    This field can be useful for querying or performing bucket analysis on how many
-    arguments were provided to start a process. More arguments may be an indication
-    of suspicious activity.'
-  example: 4
-  flat_name: process.target.parent.args_count
-  level: extended
-  name: args_count
-  normalize: []
-  original_fieldset: process
-  short: Length of the process.args array.
-  type: long
-process.target.parent.code_signature.digest_algorithm:
-  dashed_name: process-target-parent-code-signature-digest-algorithm
-  description: 'The hashing algorithm used to sign the process.
-
-    This value can distinguish signatures when a file is signed multiple times by
-    the same signer but with a different digest algorithm.'
-  example: sha256
-  flat_name: process.target.parent.code_signature.digest_algorithm
-  ignore_above: 1024
-  level: extended
-  name: digest_algorithm
-  normalize: []
-  original_fieldset: code_signature
-  short: Hashing algorithm used to sign the process.
-  type: keyword
-process.target.parent.code_signature.exists:
-  dashed_name: process-target-parent-code-signature-exists
-  description: Boolean to capture if a signature is present.
-  example: 'true'
-  flat_name: process.target.parent.code_signature.exists
-  level: core
-  name: exists
-  normalize: []
-  original_fieldset: code_signature
-  short: Boolean to capture if a signature is present.
-  type: boolean
-process.target.parent.code_signature.signing_id:
-  dashed_name: process-target-parent-code-signature-signing-id
-  description: 'The identifier used to sign the process.
-
-    This is used to identify the application manufactured by a software vendor. The
-    field is relevant to Apple *OS only.'
-  example: com.apple.xpc.proxy
-  flat_name: process.target.parent.code_signature.signing_id
-  ignore_above: 1024
-  level: extended
-  name: signing_id
-  normalize: []
-  original_fieldset: code_signature
-  short: The identifier used to sign the process.
-  type: keyword
-process.target.parent.code_signature.status:
-  dashed_name: process-target-parent-code-signature-status
-  description: 'Additional information about the certificate status.
-
-    This is useful for logging cryptographic errors with the certificate validity
-    or trust status. Leave unpopulated if the validity or trust of the certificate
-    was unchecked.'
-  example: ERROR_UNTRUSTED_ROOT
-  flat_name: process.target.parent.code_signature.status
-  ignore_above: 1024
-  level: extended
-  name: status
-  normalize: []
-  original_fieldset: code_signature
-  short: Additional information about the certificate status.
-  type: keyword
-process.target.parent.code_signature.subject_name:
-  dashed_name: process-target-parent-code-signature-subject-name
-  description: Subject name of the code signer
-  example: Microsoft Corporation
-  flat_name: process.target.parent.code_signature.subject_name
-  ignore_above: 1024
-  level: core
-  name: subject_name
-  normalize: []
-  original_fieldset: code_signature
-  short: Subject name of the code signer
-  type: keyword
-process.target.parent.code_signature.team_id:
-  dashed_name: process-target-parent-code-signature-team-id
-  description: 'The team identifier used to sign the process.
-
-    This is used to identify the team or vendor of a software product. The field is
-    relevant to Apple *OS only.'
-  example: EQHXZ8M8AV
-  flat_name: process.target.parent.code_signature.team_id
-  ignore_above: 1024
-  level: extended
-  name: team_id
-  normalize: []
-  original_fieldset: code_signature
-  short: The team identifier used to sign the process.
-  type: keyword
-process.target.parent.code_signature.timestamp:
-  dashed_name: process-target-parent-code-signature-timestamp
-  description: Date and time when the code signature was generated and signed.
-  example: '2021-01-01T12:10:30Z'
-  flat_name: process.target.parent.code_signature.timestamp
-  level: extended
-  name: timestamp
-  normalize: []
-  original_fieldset: code_signature
-  short: When the signature was generated and signed.
-  type: date
-process.target.parent.code_signature.trusted:
-  dashed_name: process-target-parent-code-signature-trusted
-  description: 'Stores the trust status of the certificate chain.
-
-    Validating the trust of the certificate chain may be complicated, and this field
-    should only be populated by tools that actively check the status.'
-  example: 'true'
-  flat_name: process.target.parent.code_signature.trusted
-  level: extended
-  name: trusted
-  normalize: []
-  original_fieldset: code_signature
-  short: Stores the trust status of the certificate chain.
-  type: boolean
-process.target.parent.code_signature.valid:
-  dashed_name: process-target-parent-code-signature-valid
-  description: 'Boolean to capture if the digital signature is verified against the
-    binary content.
-
-    Leave unpopulated if a certificate was unchecked.'
-  example: 'true'
-  flat_name: process.target.parent.code_signature.valid
-  level: extended
-  name: valid
-  normalize: []
-  original_fieldset: code_signature
-  short: Boolean to capture if the digital signature is verified against the binary
-    content.
-  type: boolean
-process.target.parent.command_line:
-  dashed_name: process-target-parent-command-line
-  description: 'Full command line that started the process, including the absolute
-    path to the executable, and all arguments.
-
-    Some arguments may be filtered to protect sensitive information.'
-  example: /usr/bin/ssh -l user 10.0.0.16
-  flat_name: process.target.parent.command_line
-  level: extended
-  multi_fields:
-  - flat_name: process.target.parent.command_line.text
-    name: text
-    type: match_only_text
-  name: command_line
-  normalize: []
-  original_fieldset: process
-  short: Full command line that started the process.
-  type: wildcard
-process.target.parent.elf.architecture:
-  dashed_name: process-target-parent-elf-architecture
-  description: Machine architecture of the ELF file.
-  example: x86-64
-  flat_name: process.target.parent.elf.architecture
-  ignore_above: 1024
-  level: extended
-  name: architecture
-  normalize: []
-  original_fieldset: elf
-  short: Machine architecture of the ELF file.
-  type: keyword
-process.target.parent.elf.byte_order:
-  dashed_name: process-target-parent-elf-byte-order
-  description: Byte sequence of ELF file.
-  example: Little Endian
-  flat_name: process.target.parent.elf.byte_order
-  ignore_above: 1024
-  level: extended
-  name: byte_order
-  normalize: []
-  original_fieldset: elf
-  short: Byte sequence of ELF file.
-  type: keyword
-process.target.parent.elf.cpu_type:
-  dashed_name: process-target-parent-elf-cpu-type
-  description: CPU type of the ELF file.
-  example: Intel
-  flat_name: process.target.parent.elf.cpu_type
-  ignore_above: 1024
-  level: extended
-  name: cpu_type
-  normalize: []
-  original_fieldset: elf
-  short: CPU type of the ELF file.
-  type: keyword
-process.target.parent.elf.creation_date:
-  dashed_name: process-target-parent-elf-creation-date
-  description: Extracted when possible from the file's metadata. Indicates when it
-    was built or compiled. It can also be faked by malware creators.
-  flat_name: process.target.parent.elf.creation_date
-  level: extended
-  name: creation_date
-  normalize: []
-  original_fieldset: elf
-  short: Build or compile date.
-  type: date
-process.target.parent.elf.exports:
-  dashed_name: process-target-parent-elf-exports
-  description: List of exported element names and types.
-  flat_name: process.target.parent.elf.exports
-  level: extended
-  name: exports
-  normalize:
-  - array
-  original_fieldset: elf
-  short: List of exported element names and types.
-  type: flattened
-process.target.parent.elf.header.abi_version:
-  dashed_name: process-target-parent-elf-header-abi-version
-  description: Version of the ELF Application Binary Interface (ABI).
-  flat_name: process.target.parent.elf.header.abi_version
-  ignore_above: 1024
-  level: extended
-  name: header.abi_version
-  normalize: []
-  original_fieldset: elf
-  short: Version of the ELF Application Binary Interface (ABI).
-  type: keyword
-process.target.parent.elf.header.class:
-  dashed_name: process-target-parent-elf-header-class
-  description: Header class of the ELF file.
-  flat_name: process.target.parent.elf.header.class
-  ignore_above: 1024
-  level: extended
-  name: header.class
-  normalize: []
-  original_fieldset: elf
-  short: Header class of the ELF file.
-  type: keyword
-process.target.parent.elf.header.data:
-  dashed_name: process-target-parent-elf-header-data
-  description: Data table of the ELF header.
-  flat_name: process.target.parent.elf.header.data
-  ignore_above: 1024
-  level: extended
-  name: header.data
-  normalize: []
-  original_fieldset: elf
-  short: Data table of the ELF header.
-  type: keyword
-process.target.parent.elf.header.entrypoint:
-  dashed_name: process-target-parent-elf-header-entrypoint
-  description: Header entrypoint of the ELF file.
-  flat_name: process.target.parent.elf.header.entrypoint
-  format: string
-  level: extended
-  name: header.entrypoint
-  normalize: []
-  original_fieldset: elf
-  short: Header entrypoint of the ELF file.
-  type: long
-process.target.parent.elf.header.object_version:
-  dashed_name: process-target-parent-elf-header-object-version
-  description: '"0x1" for original ELF files.'
-  flat_name: process.target.parent.elf.header.object_version
-  ignore_above: 1024
-  level: extended
-  name: header.object_version
-  normalize: []
-  original_fieldset: elf
-  short: '"0x1" for original ELF files.'
-  type: keyword
-process.target.parent.elf.header.os_abi:
-  dashed_name: process-target-parent-elf-header-os-abi
-  description: Application Binary Interface (ABI) of the Linux OS.
-  flat_name: process.target.parent.elf.header.os_abi
-  ignore_above: 1024
-  level: extended
-  name: header.os_abi
-  normalize: []
-  original_fieldset: elf
-  short: Application Binary Interface (ABI) of the Linux OS.
-  type: keyword
-process.target.parent.elf.header.type:
-  dashed_name: process-target-parent-elf-header-type
-  description: Header type of the ELF file.
-  flat_name: process.target.parent.elf.header.type
-  ignore_above: 1024
-  level: extended
-  name: header.type
-  normalize: []
-  original_fieldset: elf
-  short: Header type of the ELF file.
-  type: keyword
-process.target.parent.elf.header.version:
-  dashed_name: process-target-parent-elf-header-version
-  description: Version of the ELF header.
-  flat_name: process.target.parent.elf.header.version
-  ignore_above: 1024
-  level: extended
-  name: header.version
-  normalize: []
-  original_fieldset: elf
-  short: Version of the ELF header.
-  type: keyword
-process.target.parent.elf.imports:
-  dashed_name: process-target-parent-elf-imports
-  description: List of imported element names and types.
-  flat_name: process.target.parent.elf.imports
-  level: extended
-  name: imports
-  normalize:
-  - array
-  original_fieldset: elf
-  short: List of imported element names and types.
-  type: flattened
-process.target.parent.elf.sections:
-  dashed_name: process-target-parent-elf-sections
-  description: 'An array containing an object for each section of the ELF file.
-
-    The keys that should be present in these objects are defined by sub-fields underneath
-    `elf.sections.*`.'
-  flat_name: process.target.parent.elf.sections
-  level: extended
-  name: sections
-  normalize:
-  - array
-  original_fieldset: elf
-  short: Section information of the ELF file.
-  type: nested
-process.target.parent.elf.sections.chi2:
-  dashed_name: process-target-parent-elf-sections-chi2
-  description: Chi-square probability distribution of the section.
-  flat_name: process.target.parent.elf.sections.chi2
-  format: number
-  level: extended
-  name: sections.chi2
-  normalize: []
-  original_fieldset: elf
-  short: Chi-square probability distribution of the section.
-  type: long
-process.target.parent.elf.sections.entropy:
-  dashed_name: process-target-parent-elf-sections-entropy
-  description: Shannon entropy calculation from the section.
-  flat_name: process.target.parent.elf.sections.entropy
-  format: number
-  level: extended
-  name: sections.entropy
-  normalize: []
-  original_fieldset: elf
-  short: Shannon entropy calculation from the section.
-  type: long
-process.target.parent.elf.sections.flags:
-  dashed_name: process-target-parent-elf-sections-flags
-  description: ELF Section List flags.
-  flat_name: process.target.parent.elf.sections.flags
-  ignore_above: 1024
-  level: extended
-  name: sections.flags
-  normalize: []
-  original_fieldset: elf
-  short: ELF Section List flags.
-  type: keyword
-process.target.parent.elf.sections.name:
-  dashed_name: process-target-parent-elf-sections-name
-  description: ELF Section List name.
-  flat_name: process.target.parent.elf.sections.name
-  ignore_above: 1024
-  level: extended
-  name: sections.name
-  normalize: []
-  original_fieldset: elf
-  short: ELF Section List name.
-  type: keyword
-process.target.parent.elf.sections.physical_offset:
-  dashed_name: process-target-parent-elf-sections-physical-offset
-  description: ELF Section List offset.
-  flat_name: process.target.parent.elf.sections.physical_offset
-  ignore_above: 1024
-  level: extended
-  name: sections.physical_offset
-  normalize: []
-  original_fieldset: elf
-  short: ELF Section List offset.
-  type: keyword
-process.target.parent.elf.sections.physical_size:
-  dashed_name: process-target-parent-elf-sections-physical-size
-  description: ELF Section List physical size.
-  flat_name: process.target.parent.elf.sections.physical_size
-  format: bytes
-  level: extended
-  name: sections.physical_size
-  normalize: []
-  original_fieldset: elf
-  short: ELF Section List physical size.
-  type: long
-process.target.parent.elf.sections.type:
-  dashed_name: process-target-parent-elf-sections-type
-  description: ELF Section List type.
-  flat_name: process.target.parent.elf.sections.type
-  ignore_above: 1024
-  level: extended
-  name: sections.type
-  normalize: []
-  original_fieldset: elf
-  short: ELF Section List type.
-  type: keyword
-process.target.parent.elf.sections.virtual_address:
-  dashed_name: process-target-parent-elf-sections-virtual-address
-  description: ELF Section List virtual address.
-  flat_name: process.target.parent.elf.sections.virtual_address
-  format: string
-  level: extended
-  name: sections.virtual_address
-  normalize: []
-  original_fieldset: elf
-  short: ELF Section List virtual address.
-  type: long
-process.target.parent.elf.sections.virtual_size:
-  dashed_name: process-target-parent-elf-sections-virtual-size
-  description: ELF Section List virtual size.
-  flat_name: process.target.parent.elf.sections.virtual_size
-  format: string
-  level: extended
-  name: sections.virtual_size
-  normalize: []
-  original_fieldset: elf
-  short: ELF Section List virtual size.
-  type: long
-process.target.parent.elf.segments:
-  dashed_name: process-target-parent-elf-segments
-  description: 'An array containing an object for each segment of the ELF file.
-
-    The keys that should be present in these objects are defined by sub-fields underneath
-    `elf.segments.*`.'
-  flat_name: process.target.parent.elf.segments
-  level: extended
-  name: segments
-  normalize:
-  - array
-  original_fieldset: elf
-  short: ELF object segment list.
-  type: nested
-process.target.parent.elf.segments.sections:
-  dashed_name: process-target-parent-elf-segments-sections
-  description: ELF object segment sections.
-  flat_name: process.target.parent.elf.segments.sections
-  ignore_above: 1024
-  level: extended
-  name: segments.sections
-  normalize: []
-  original_fieldset: elf
-  short: ELF object segment sections.
-  type: keyword
-process.target.parent.elf.segments.type:
-  dashed_name: process-target-parent-elf-segments-type
-  description: ELF object segment type.
-  flat_name: process.target.parent.elf.segments.type
-  ignore_above: 1024
-  level: extended
-  name: segments.type
-  normalize: []
-  original_fieldset: elf
-  short: ELF object segment type.
-  type: keyword
-process.target.parent.elf.shared_libraries:
-  dashed_name: process-target-parent-elf-shared-libraries
-  description: List of shared libraries used by this ELF object.
-  flat_name: process.target.parent.elf.shared_libraries
-  ignore_above: 1024
-  level: extended
-  name: shared_libraries
-  normalize:
-  - array
-  original_fieldset: elf
-  short: List of shared libraries used by this ELF object.
-  type: keyword
-process.target.parent.elf.telfhash:
-  dashed_name: process-target-parent-elf-telfhash
-  description: telfhash symbol hash for ELF file.
-  flat_name: process.target.parent.elf.telfhash
-  ignore_above: 1024
-  level: extended
-  name: telfhash
-  normalize: []
-  original_fieldset: elf
-  short: telfhash hash for ELF file.
-  type: keyword
-process.target.parent.end:
-  dashed_name: process-target-parent-end
-  description: The time the process ended.
-  example: '2016-05-23T08:05:34.853Z'
-  flat_name: process.target.parent.end
-  level: extended
-  name: end
-  normalize: []
-  original_fieldset: process
-  short: The time the process ended.
-  type: date
-process.target.parent.entity_id:
-  dashed_name: process-target-parent-entity-id
-  description: 'Unique identifier for the process.
-
-    The implementation of this is specified by the data source, but some examples
-    of what could be used here are a process-generated UUID, Sysmon Process GUIDs,
-    or a hash of some uniquely identifying components of a process.
-
-    Constructing a globally unique identifier is a common practice to mitigate PID
-    reuse as well as to identify a specific process over time, across multiple monitored
-    hosts.'
-  example: c2c455d9f99375d
-  flat_name: process.target.parent.entity_id
-  ignore_above: 1024
-  level: extended
-  name: entity_id
-  normalize: []
-  original_fieldset: process
-  short: Unique identifier for the process.
-  type: keyword
-process.target.parent.executable:
-  dashed_name: process-target-parent-executable
-  description: Absolute path to the process executable.
-  example: /usr/bin/ssh
-  flat_name: process.target.parent.executable
-  ignore_above: 1024
-  level: extended
-  multi_fields:
-  - flat_name: process.target.parent.executable.text
-    name: text
-    type: match_only_text
-  name: executable
-  normalize: []
-  original_fieldset: process
-  short: Absolute path to the process executable.
-  type: keyword
-process.target.parent.exit_code:
-  dashed_name: process-target-parent-exit-code
-  description: 'The exit code of the process, if this is a termination event.
-
-    The field should be absent if there is no exit code for the event (e.g. process
-    start).'
-  example: 137
-  flat_name: process.target.parent.exit_code
-  level: extended
-  name: exit_code
-  normalize: []
-  original_fieldset: process
-  short: The exit code of the process.
-  type: long
-process.target.parent.hash.md5:
-  dashed_name: process-target-parent-hash-md5
-  description: MD5 hash.
-  flat_name: process.target.parent.hash.md5
-  ignore_above: 1024
-  level: extended
-  name: md5
-  normalize: []
-  original_fieldset: hash
-  short: MD5 hash.
-  type: keyword
-process.target.parent.hash.sha1:
-  dashed_name: process-target-parent-hash-sha1
-  description: SHA1 hash.
-  flat_name: process.target.parent.hash.sha1
-  ignore_above: 1024
-  level: extended
-  name: sha1
-  normalize: []
-  original_fieldset: hash
-  short: SHA1 hash.
-  type: keyword
-process.target.parent.hash.sha256:
-  dashed_name: process-target-parent-hash-sha256
-  description: SHA256 hash.
-  flat_name: process.target.parent.hash.sha256
-  ignore_above: 1024
-  level: extended
-  name: sha256
-  normalize: []
-  original_fieldset: hash
-  short: SHA256 hash.
-  type: keyword
-process.target.parent.hash.sha512:
-  dashed_name: process-target-parent-hash-sha512
-  description: SHA512 hash.
-  flat_name: process.target.parent.hash.sha512
-  ignore_above: 1024
-  level: extended
-  name: sha512
-  normalize: []
-  original_fieldset: hash
-  short: SHA512 hash.
-  type: keyword
-process.target.parent.hash.ssdeep:
-  dashed_name: process-target-parent-hash-ssdeep
-  description: SSDEEP hash.
-  flat_name: process.target.parent.hash.ssdeep
-  ignore_above: 1024
-  level: extended
-  name: ssdeep
-  normalize: []
-  original_fieldset: hash
-  short: SSDEEP hash.
-  type: keyword
-process.target.parent.name:
-  dashed_name: process-target-parent-name
-  description: 'Process name.
-
-    Sometimes called program name or similar.'
-  example: ssh
-  flat_name: process.target.parent.name
-  ignore_above: 1024
-  level: extended
-  multi_fields:
-  - flat_name: process.target.parent.name.text
-    name: text
-    type: match_only_text
-  name: name
-  normalize: []
-  original_fieldset: process
-  short: Process name.
-  type: keyword
-process.target.parent.pe.architecture:
-  dashed_name: process-target-parent-pe-architecture
-  description: CPU architecture target for the file.
-  example: x64
-  flat_name: process.target.parent.pe.architecture
-  ignore_above: 1024
-  level: extended
-  name: architecture
-  normalize: []
-  original_fieldset: pe
-  short: CPU architecture target for the file.
-  type: keyword
-process.target.parent.pe.authentihash:
-  dashed_name: process-target-parent-pe-authentihash
-  description: Authentihash of the PE file.
-  example: ac9555d914bbb112ecc5f15bb9887ca8371f493ab0941344e976bb8410c8aa78
-  flat_name: process.target.parent.pe.authentihash
-  ignore_above: 1024
-  level: extended
-  name: authentihash
-  normalize: []
-  original_fieldset: pe
-  short: Authentihash of the PE file.
-  type: keyword
-process.target.parent.pe.company:
-  dashed_name: process-target-parent-pe-company
-  description: Internal company name of the file, provided at compile-time.
-  example: Microsoft Corporation
-  flat_name: process.target.parent.pe.company
-  ignore_above: 1024
-  level: extended
-  name: company
-  normalize: []
-  original_fieldset: pe
-  short: Internal company name of the file, provided at compile-time.
-  type: keyword
-process.target.parent.pe.compile_timestamp:
-  dashed_name: process-target-parent-pe-compile-timestamp
-  description: Compile timestamp of the PE file.
-  example: '2020-11-05T17:25:47.000Z'
-  flat_name: process.target.parent.pe.compile_timestamp
-  level: extended
-  name: compile_timestamp
-  normalize: []
-  original_fieldset: pe
-  short: Compile timestamp of the PE file.
-  type: date
-process.target.parent.pe.compiler.name:
-  dashed_name: process-target-parent-pe-compiler-name
-  description: Name of the compiler
-  example: Clang
-  flat_name: process.target.parent.pe.compiler.name
-  ignore_above: 1024
-  level: extended
-  name: compiler.name
-  normalize: []
-  original_fieldset: pe
-  short: Name of the compiler
-  type: keyword
-process.target.parent.pe.compiler.version:
-  dashed_name: process-target-parent-pe-compiler-version
-  description: Version of the compiler.
-  example: 11.0.0
-  flat_name: process.target.parent.pe.compiler.version
-  ignore_above: 1024
-  level: extended
-  name: compiler.version
-  normalize: []
-  original_fieldset: pe
-  short: Version of the compiler.
-  type: keyword
-process.target.parent.pe.creation_date:
-  dashed_name: process-target-parent-pe-creation-date
-  description: Extracted when possible from the file's metadata. Indicates when it
-    was built or compiled. It can also be faked by malware creators.
-  example: '2020-11-05T17:25:47.000Z'
-  flat_name: process.target.parent.pe.creation_date
-  level: extended
-  name: creation_date
-  normalize: []
-  original_fieldset: pe
-  short: Build or compile date.
-  type: date
-process.target.parent.pe.debug:
-  dashed_name: process-target-parent-pe-debug
-  description: 'An array containing an object for each debug entry, if present.
-
-    The expected fields for this nested object fall under the `debug.` prefix.'
-  flat_name: process.target.parent.pe.debug
-  level: extended
-  name: debug
-  normalize:
-  - array
-  original_fieldset: pe
-  short: Debug information
-  type: nested
-process.target.parent.pe.debug.offset:
-  dashed_name: process-target-parent-pe-debug-offset
-  description: Debug offset information.
-  example: 1296336
-  flat_name: process.target.parent.pe.debug.offset
-  ignore_above: 1024
-  level: extended
-  name: debug.offset
-  normalize: []
-  original_fieldset: pe
-  short: Debug offset information.
-  type: keyword
-process.target.parent.pe.debug.size:
-  dashed_name: process-target-parent-pe-debug-size
-  description: Size of the debug information.
-  example: 816
-  flat_name: process.target.parent.pe.debug.size
-  format: bytes
-  level: extended
-  name: debug.size
-  normalize: []
-  original_fieldset: pe
-  short: Size of the debug information.
-  type: long
-process.target.parent.pe.debug.timestamp:
-  dashed_name: process-target-parent-pe-debug-timestamp
-  description: Timestamp of the debug information.
-  example: '2020-11-05T17:25:47.000Z'
-  flat_name: process.target.parent.pe.debug.timestamp
-  level: extended
-  name: debug.timestamp
-  normalize: []
-  original_fieldset: pe
-  short: Timestamp of the debug information.
-  type: date
-process.target.parent.pe.debug.type:
-  dashed_name: process-target-parent-pe-debug-type
-  description: Information type generated by the debug options.
-  example: IMAGE_DEBUG_TYPE_POGO
-  flat_name: process.target.parent.pe.debug.type
-  ignore_above: 1024
-  level: extended
-  name: debug.type
-  normalize: []
-  original_fieldset: pe
-  short: Information type generated by the debug options.
-  type: keyword
-process.target.parent.pe.description:
-  dashed_name: process-target-parent-pe-description
-  description: Internal description of the file, provided at compile-time.
-  example: Paint
-  flat_name: process.target.parent.pe.description
-  ignore_above: 1024
-  level: extended
-  name: description
-  normalize: []
-  original_fieldset: pe
-  short: Internal description of the file, provided at compile-time.
-  type: keyword
-process.target.parent.pe.entry_point:
-  dashed_name: process-target-parent-pe-entry-point
-  description: Relative byte offset to the base of the PE file.
-  example: 25856
-  flat_name: process.target.parent.pe.entry_point
-  ignore_above: 1024
-  level: extended
-  name: entry_point
-  normalize: []
-  original_fieldset: pe
-  short: Relative byte offset to the base of the PE file.
-  type: keyword
-process.target.parent.pe.exports:
-  dashed_name: process-target-parent-pe-exports
-  description: List of symbols exported by PE
-  example: '["DllInstall", "DllRegisterServer", "DllUnregisterServer"]'
-  flat_name: process.target.parent.pe.exports
-  ignore_above: 1024
-  level: extended
-  name: exports
-  normalize:
-  - array
-  original_fieldset: pe
-  short: List of symbols exported by PE
-  type: keyword
-process.target.parent.pe.file_version:
-  dashed_name: process-target-parent-pe-file-version
-  description: Internal version of the file, provided at compile-time.
-  example: 6.3.9600.17415
-  flat_name: process.target.parent.pe.file_version
-  ignore_above: 1024
-  level: extended
-  name: file_version
-  normalize: []
-  original_fieldset: pe
-  short: Process name.
-  type: keyword
-process.target.parent.pe.icon.hash.dhash:
-  dashed_name: process-target-parent-pe-icon-hash-dhash
-  description: Difference Hash (dhash) to find files with a visually similar icon
-    or thumbnail.
-  example: b806e17c8e330d82
-  flat_name: process.target.parent.pe.icon.hash.dhash
-  ignore_above: 1024
-  level: extended
-  name: icon.hash.dhash
-  normalize: []
-  original_fieldset: pe
-  short: Difference Hash (dhash) to find files with a visually similar icon or thumbnail.
-  type: keyword
-process.target.parent.pe.imphash:
-  dashed_name: process-target-parent-pe-imphash
-  description: 'A hash of the imports in a PE file. An imphash -- or import hash --
-    can be used to fingerprint binaries even after recompilation or other code-level
-    transformations have occurred, which would change more traditional hash values.
-
-    Learn more at https://www.fireeye.com/blog/threat-research/2014/01/tracking-malware-import-hashing.html.'
-  example: 0c6803c4e922103c4dca5963aad36ddf
-  flat_name: process.target.parent.pe.imphash
-  ignore_above: 1024
-  level: extended
-  name: imphash
-  normalize: []
-  original_fieldset: pe
-  short: A hash of the imports in a PE file.
-  type: keyword
-process.target.parent.pe.imports:
-  dashed_name: process-target-parent-pe-imports
-  description: List of all imported functions
-  example: '{ "library_name" : "mscoree.dll", "imported_functions" : "GetFileVersionInfoSizeA"
-    }'
-  flat_name: process.target.parent.pe.imports
-  level: extended
-  name: imports
-  normalize: []
-  original_fieldset: pe
-  short: List of all imported functions
-  type: flattened
-process.target.parent.pe.machine_type:
-  dashed_name: process-target-parent-pe-machine-type
-  description: Machine type of the PE file.
-  example: Intel 386 or later, and compatibles
-  flat_name: process.target.parent.pe.machine_type
-  ignore_above: 1024
-  level: extended
-  name: machine_type
-  normalize: []
-  original_fieldset: pe
-  short: Machine type of the PE file.
-  type: keyword
-process.target.parent.pe.original_file_name:
-  dashed_name: process-target-parent-pe-original-file-name
-  description: Internal name of the file, provided at compile-time.
-  example: MSPAINT.EXE
-  flat_name: process.target.parent.pe.original_file_name
-  ignore_above: 1024
-  level: extended
-  name: original_file_name
-  normalize: []
-  original_fieldset: pe
-  short: Internal name of the file, provided at compile-time.
-  type: keyword
-process.target.parent.pe.packers:
-  dashed_name: process-target-parent-pe-packers
-  description: List of packers and tools used.
-  example: '["ASPack v2.12", ".NET executable"]'
-  flat_name: process.target.parent.pe.packers
-  ignore_above: 1024
-  level: extended
-  name: packers
-  normalize:
-  - array
-  original_fieldset: pe
-  short: List of packers and tools used.
-  type: keyword
-process.target.parent.pe.product:
-  dashed_name: process-target-parent-pe-product
-  description: Internal product name of the file, provided at compile-time.
-  example: "Microsoft\xAE Windows\xAE Operating System"
-  flat_name: process.target.parent.pe.product
-  ignore_above: 1024
-  level: extended
-  name: product
-  normalize: []
-  original_fieldset: pe
-  short: Internal product name of the file, provided at compile-time.
-  type: keyword
-process.target.parent.pe.resources:
-  dashed_name: process-target-parent-pe-resources
-  description: 'An array containing an object for each PE resource, if present.
-
-    The expected fields for this nested object fall under the `resources.` prefix.'
-  flat_name: process.target.parent.pe.resources
-  level: extended
-  name: resources
-  normalize:
-  - array
-  original_fieldset: pe
-  short: PE resource information
-  type: nested
-process.target.parent.pe.resources.chi2:
-  dashed_name: process-target-parent-pe-resources-chi2
-  description: Chi-square probability distribution.
-  example: -1
-  flat_name: process.target.parent.pe.resources.chi2
-  level: extended
-  name: resources.chi2
-  normalize: []
-  original_fieldset: pe
-  short: Chi-square probability distribution.
-  type: long
-process.target.parent.pe.resources.entropy:
-  dashed_name: process-target-parent-pe-resources-entropy
-  description: Measurement of entropy randomness in the resources section.
-  example: 0, 1
-  flat_name: process.target.parent.pe.resources.entropy
-  level: extended
-  name: resources.entropy
-  normalize: []
-  original_fieldset: pe
-  short: Measurement of entropy randomness in the resources section.
-  type: long
-process.target.parent.pe.resources.filetype:
-  dashed_name: process-target-parent-pe-resources-filetype
-  description: File type of the resources section.
-  example: Data
-  flat_name: process.target.parent.pe.resources.filetype
-  ignore_above: 1024
-  level: extended
-  name: resources.filetype
-  normalize: []
-  original_fieldset: pe
-  short: File type of the resources section.
-  type: keyword
-process.target.parent.pe.resources.language:
-  dashed_name: process-target-parent-pe-resources-language
-  description: Language identification.
-  example: CHINESE SIMPLIFIED
-  flat_name: process.target.parent.pe.resources.language
-  ignore_above: 1024
-  level: extended
-  name: resources.language
-  normalize: []
-  original_fieldset: pe
-  short: Language identification.
-  type: keyword
-process.target.parent.pe.resources.sha256:
-  dashed_name: process-target-parent-pe-resources-sha256
-  description: SHA256 hash of resources section.
-  example: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-  flat_name: process.target.parent.pe.resources.sha256
-  ignore_above: 1024
-  level: extended
-  name: resources.sha256
-  normalize: []
-  original_fieldset: pe
-  short: SHA256 hash of resources section.
-  type: keyword
-process.target.parent.pe.resources.type:
-  dashed_name: process-target-parent-pe-resources-type
-  description: Digest of resource types.
-  example: '["RT_VERSION", "RT_MANIFEST"]'
-  flat_name: process.target.parent.pe.resources.type
-  ignore_above: 1024
-  level: extended
-  name: resources.type
-  normalize:
-  - array
-  original_fieldset: pe
-  short: List of resource types.
-  type: keyword
-process.target.parent.pe.rich_header.hash.md5:
-  dashed_name: process-target-parent-pe-rich-header-hash-md5
-  description: MD5 hash of the header for the PE file.
-  example: 5aa1aa0f2b4be70397a1e9e2b87627cd
-  flat_name: process.target.parent.pe.rich_header.hash.md5
-  ignore_above: 1024
-  level: extended
-  name: rich_header.hash.md5
-  normalize: []
-  original_fieldset: pe
-  short: MD5 hash of the header for the PE file.
-  type: keyword
-process.target.parent.pe.sections:
-  dashed_name: process-target-parent-pe-sections
-  description: Data about sections of compiled binary PE
-  flat_name: process.target.parent.pe.sections
-  level: extended
-  name: sections
-  normalize:
-  - array
-  original_fieldset: pe
-  short: Data about sections of the compiled binary PE
-  type: nested
-process.target.parent.pe.sections.chi2:
-  dashed_name: process-target-parent-pe-sections-chi2
-  description: Chi-square probability distribution.
-  example: 3027194
-  flat_name: process.target.parent.pe.sections.chi2
-  level: extended
-  name: sections.chi2
-  normalize: []
-  original_fieldset: pe
-  short: Chi-square probability distribution.
-  type: long
-process.target.parent.pe.sections.entropy:
-  dashed_name: process-target-parent-pe-sections-entropy
-  description: Measurement of entropy randomness in the file.
-  example: 6.24
-  flat_name: process.target.parent.pe.sections.entropy
-  level: extended
-  name: sections.entropy
-  normalize: []
-  original_fieldset: pe
-  short: Measurement of entropy randomness in the file.
-  type: float
-process.target.parent.pe.sections.flags:
-  dashed_name: process-target-parent-pe-sections-flags
-  description: Section flags of the file.
-  example: rx
-  flat_name: process.target.parent.pe.sections.flags
-  ignore_above: 1024
-  level: extended
-  name: sections.flags
-  normalize: []
-  original_fieldset: pe
-  short: Section flags of the file.
-  type: keyword
-process.target.parent.pe.sections.name:
-  dashed_name: process-target-parent-pe-sections-name
-  description: Section names of the file.
-  example: .text, .data
-  flat_name: process.target.parent.pe.sections.name
-  ignore_above: 1024
-  level: extended
-  name: sections.name
-  normalize: []
-  original_fieldset: pe
-  short: Section names of the file.
-  type: keyword
-process.target.parent.pe.sections.raw_size:
-  dashed_name: process-target-parent-pe-sections-raw-size
-  description: Size of the section or the dize of the initialized data on disk.
-  example: 198144
-  flat_name: process.target.parent.pe.sections.raw_size
-  format: bytes
-  level: extended
-  name: sections.raw_size
-  normalize: []
-  original_fieldset: pe
-  short: Size of the section or the dize of the initialized data on disk.
-  type: long
-process.target.parent.pe.sections.virtual_address:
-  dashed_name: process-target-parent-pe-sections-virtual-address
-  description: Virtual address available to the file.
-  example: 8192
-  flat_name: process.target.parent.pe.sections.virtual_address
-  format: bytes
-  level: extended
-  name: sections.virtual_address
-  normalize: []
-  original_fieldset: pe
-  short: Virtual address available to the file.
-  type: long
-process.target.parent.pgid:
-  dashed_name: process-target-parent-pgid
-  description: Identifier of the group of processes the process belongs to.
-  flat_name: process.target.parent.pgid
-  format: string
-  level: extended
-  name: pgid
-  normalize: []
-  original_fieldset: process
-  short: Identifier of the group of processes the process belongs to.
-  type: long
-process.target.parent.pid:
-  dashed_name: process-target-parent-pid
-  description: Process id.
-  example: 4242
-  flat_name: process.target.parent.pid
-  format: string
-  level: core
-  name: pid
-  normalize: []
-  original_fieldset: process
-  short: Process id.
-  type: long
-process.target.parent.start:
-  dashed_name: process-target-parent-start
-  description: The time the process started.
-  example: '2016-05-23T08:05:34.853Z'
-  flat_name: process.target.parent.start
-  level: extended
-  name: start
-  normalize: []
-  original_fieldset: process
-  short: The time the process started.
-  type: date
-process.target.parent.thread.id:
-  dashed_name: process-target-parent-thread-id
-  description: Thread ID.
-  example: 4242
-  flat_name: process.target.parent.thread.id
-  format: string
-  level: extended
-  name: thread.id
-  normalize: []
-  original_fieldset: process
-  short: Thread ID.
-  type: long
-process.target.parent.thread.name:
-  dashed_name: process-target-parent-thread-name
-  description: Thread name.
-  example: thread-0
-  flat_name: process.target.parent.thread.name
-  ignore_above: 1024
-  level: extended
-  name: thread.name
-  normalize: []
-  original_fieldset: process
-  short: Thread name.
-  type: keyword
-process.target.parent.title:
-  dashed_name: process-target-parent-title
-  description: 'Process title.
-
-    The proctitle, some times the same as process name. Can also be different: for
-    example a browser setting its title to the web page currently opened.'
-  flat_name: process.target.parent.title
-  ignore_above: 1024
-  level: extended
-  multi_fields:
-  - flat_name: process.target.parent.title.text
-    name: text
-    type: match_only_text
-  name: title
-  normalize: []
-  original_fieldset: process
-  short: Process title.
-  type: keyword
-process.target.parent.uptime:
-  dashed_name: process-target-parent-uptime
-  description: Seconds the process has been up.
-  example: 1325
-  flat_name: process.target.parent.uptime
-  level: extended
-  name: uptime
-  normalize: []
-  original_fieldset: process
-  short: Seconds the process has been up.
-  type: long
-process.target.parent.working_directory:
-  dashed_name: process-target-parent-working-directory
-  description: The working directory of the process.
-  example: /home/alice
-  flat_name: process.target.parent.working_directory
-  ignore_above: 1024
-  level: extended
-  multi_fields:
-  - flat_name: process.target.parent.working_directory.text
-    name: text
-    type: match_only_text
-  name: working_directory
-  normalize: []
-  original_fieldset: process
-  short: The working directory of the process.
-  type: keyword
-process.target.pe.architecture:
-  dashed_name: process-target-pe-architecture
-  description: CPU architecture target for the file.
-  example: x64
-  flat_name: process.target.pe.architecture
-  ignore_above: 1024
-  level: extended
-  name: architecture
-  normalize: []
-  original_fieldset: pe
-  short: CPU architecture target for the file.
-  type: keyword
-process.target.pe.authentihash:
-  dashed_name: process-target-pe-authentihash
-  description: Authentihash of the PE file.
-  example: ac9555d914bbb112ecc5f15bb9887ca8371f493ab0941344e976bb8410c8aa78
-  flat_name: process.target.pe.authentihash
-  ignore_above: 1024
-  level: extended
-  name: authentihash
-  normalize: []
-  original_fieldset: pe
-  short: Authentihash of the PE file.
-  type: keyword
-process.target.pe.company:
-  dashed_name: process-target-pe-company
-  description: Internal company name of the file, provided at compile-time.
-  example: Microsoft Corporation
-  flat_name: process.target.pe.company
-  ignore_above: 1024
-  level: extended
-  name: company
-  normalize: []
-  original_fieldset: pe
-  short: Internal company name of the file, provided at compile-time.
-  type: keyword
-process.target.pe.compile_timestamp:
-  dashed_name: process-target-pe-compile-timestamp
-  description: Compile timestamp of the PE file.
-  example: '2020-11-05T17:25:47.000Z'
-  flat_name: process.target.pe.compile_timestamp
-  level: extended
-  name: compile_timestamp
-  normalize: []
-  original_fieldset: pe
-  short: Compile timestamp of the PE file.
-  type: date
-process.target.pe.compiler.name:
-  dashed_name: process-target-pe-compiler-name
-  description: Name of the compiler
-  example: Clang
-  flat_name: process.target.pe.compiler.name
-  ignore_above: 1024
-  level: extended
-  name: compiler.name
-  normalize: []
-  original_fieldset: pe
-  short: Name of the compiler
-  type: keyword
-process.target.pe.compiler.version:
-  dashed_name: process-target-pe-compiler-version
-  description: Version of the compiler.
-  example: 11.0.0
-  flat_name: process.target.pe.compiler.version
-  ignore_above: 1024
-  level: extended
-  name: compiler.version
-  normalize: []
-  original_fieldset: pe
-  short: Version of the compiler.
-  type: keyword
-process.target.pe.creation_date:
-  dashed_name: process-target-pe-creation-date
-  description: Extracted when possible from the file's metadata. Indicates when it
-    was built or compiled. It can also be faked by malware creators.
-  example: '2020-11-05T17:25:47.000Z'
-  flat_name: process.target.pe.creation_date
-  level: extended
-  name: creation_date
-  normalize: []
-  original_fieldset: pe
-  short: Build or compile date.
-  type: date
-process.target.pe.debug:
-  dashed_name: process-target-pe-debug
-  description: 'An array containing an object for each debug entry, if present.
-
-    The expected fields for this nested object fall under the `debug.` prefix.'
-  flat_name: process.target.pe.debug
-  level: extended
-  name: debug
-  normalize:
-  - array
-  original_fieldset: pe
-  short: Debug information
-  type: nested
-process.target.pe.debug.offset:
-  dashed_name: process-target-pe-debug-offset
-  description: Debug offset information.
-  example: 1296336
-  flat_name: process.target.pe.debug.offset
-  ignore_above: 1024
-  level: extended
-  name: debug.offset
-  normalize: []
-  original_fieldset: pe
-  short: Debug offset information.
-  type: keyword
-process.target.pe.debug.size:
-  dashed_name: process-target-pe-debug-size
-  description: Size of the debug information.
-  example: 816
-  flat_name: process.target.pe.debug.size
-  format: bytes
-  level: extended
-  name: debug.size
-  normalize: []
-  original_fieldset: pe
-  short: Size of the debug information.
-  type: long
-process.target.pe.debug.timestamp:
-  dashed_name: process-target-pe-debug-timestamp
-  description: Timestamp of the debug information.
-  example: '2020-11-05T17:25:47.000Z'
-  flat_name: process.target.pe.debug.timestamp
-  level: extended
-  name: debug.timestamp
-  normalize: []
-  original_fieldset: pe
-  short: Timestamp of the debug information.
-  type: date
-process.target.pe.debug.type:
-  dashed_name: process-target-pe-debug-type
-  description: Information type generated by the debug options.
-  example: IMAGE_DEBUG_TYPE_POGO
-  flat_name: process.target.pe.debug.type
-  ignore_above: 1024
-  level: extended
-  name: debug.type
-  normalize: []
-  original_fieldset: pe
-  short: Information type generated by the debug options.
-  type: keyword
-process.target.pe.description:
-  dashed_name: process-target-pe-description
-  description: Internal description of the file, provided at compile-time.
-  example: Paint
-  flat_name: process.target.pe.description
-  ignore_above: 1024
-  level: extended
-  name: description
-  normalize: []
-  original_fieldset: pe
-  short: Internal description of the file, provided at compile-time.
-  type: keyword
-process.target.pe.entry_point:
-  dashed_name: process-target-pe-entry-point
-  description: Relative byte offset to the base of the PE file.
-  example: 25856
-  flat_name: process.target.pe.entry_point
-  ignore_above: 1024
-  level: extended
-  name: entry_point
-  normalize: []
-  original_fieldset: pe
-  short: Relative byte offset to the base of the PE file.
-  type: keyword
-process.target.pe.exports:
-  dashed_name: process-target-pe-exports
-  description: List of symbols exported by PE
-  example: '["DllInstall", "DllRegisterServer", "DllUnregisterServer"]'
-  flat_name: process.target.pe.exports
-  ignore_above: 1024
-  level: extended
-  name: exports
-  normalize:
-  - array
-  original_fieldset: pe
-  short: List of symbols exported by PE
-  type: keyword
-process.target.pe.file_version:
-  dashed_name: process-target-pe-file-version
-  description: Internal version of the file, provided at compile-time.
-  example: 6.3.9600.17415
-  flat_name: process.target.pe.file_version
-  ignore_above: 1024
-  level: extended
-  name: file_version
-  normalize: []
-  original_fieldset: pe
-  short: Process name.
-  type: keyword
-process.target.pe.icon.hash.dhash:
-  dashed_name: process-target-pe-icon-hash-dhash
-  description: Difference Hash (dhash) to find files with a visually similar icon
-    or thumbnail.
-  example: b806e17c8e330d82
-  flat_name: process.target.pe.icon.hash.dhash
-  ignore_above: 1024
-  level: extended
-  name: icon.hash.dhash
-  normalize: []
-  original_fieldset: pe
-  short: Difference Hash (dhash) to find files with a visually similar icon or thumbnail.
-  type: keyword
-process.target.pe.imphash:
-  dashed_name: process-target-pe-imphash
-  description: 'A hash of the imports in a PE file. An imphash -- or import hash --
-    can be used to fingerprint binaries even after recompilation or other code-level
-    transformations have occurred, which would change more traditional hash values.
-
-    Learn more at https://www.fireeye.com/blog/threat-research/2014/01/tracking-malware-import-hashing.html.'
-  example: 0c6803c4e922103c4dca5963aad36ddf
-  flat_name: process.target.pe.imphash
-  ignore_above: 1024
-  level: extended
-  name: imphash
-  normalize: []
-  original_fieldset: pe
-  short: A hash of the imports in a PE file.
-  type: keyword
-process.target.pe.imports:
-  dashed_name: process-target-pe-imports
-  description: List of all imported functions
-  example: '{ "library_name" : "mscoree.dll", "imported_functions" : "GetFileVersionInfoSizeA"
-    }'
-  flat_name: process.target.pe.imports
-  level: extended
-  name: imports
-  normalize: []
-  original_fieldset: pe
-  short: List of all imported functions
-  type: flattened
-process.target.pe.machine_type:
-  dashed_name: process-target-pe-machine-type
-  description: Machine type of the PE file.
-  example: Intel 386 or later, and compatibles
-  flat_name: process.target.pe.machine_type
-  ignore_above: 1024
-  level: extended
-  name: machine_type
-  normalize: []
-  original_fieldset: pe
-  short: Machine type of the PE file.
-  type: keyword
-process.target.pe.original_file_name:
-  dashed_name: process-target-pe-original-file-name
-  description: Internal name of the file, provided at compile-time.
-  example: MSPAINT.EXE
-  flat_name: process.target.pe.original_file_name
-  ignore_above: 1024
-  level: extended
-  name: original_file_name
-  normalize: []
-  original_fieldset: pe
-  short: Internal name of the file, provided at compile-time.
-  type: keyword
-process.target.pe.packers:
-  dashed_name: process-target-pe-packers
-  description: List of packers and tools used.
-  example: '["ASPack v2.12", ".NET executable"]'
-  flat_name: process.target.pe.packers
-  ignore_above: 1024
-  level: extended
-  name: packers
-  normalize:
-  - array
-  original_fieldset: pe
-  short: List of packers and tools used.
-  type: keyword
-process.target.pe.product:
-  dashed_name: process-target-pe-product
-  description: Internal product name of the file, provided at compile-time.
-  example: "Microsoft\xAE Windows\xAE Operating System"
-  flat_name: process.target.pe.product
-  ignore_above: 1024
-  level: extended
-  name: product
-  normalize: []
-  original_fieldset: pe
-  short: Internal product name of the file, provided at compile-time.
-  type: keyword
-process.target.pe.resources:
-  dashed_name: process-target-pe-resources
-  description: 'An array containing an object for each PE resource, if present.
-
-    The expected fields for this nested object fall under the `resources.` prefix.'
-  flat_name: process.target.pe.resources
-  level: extended
-  name: resources
-  normalize:
-  - array
-  original_fieldset: pe
-  short: PE resource information
-  type: nested
-process.target.pe.resources.chi2:
-  dashed_name: process-target-pe-resources-chi2
-  description: Chi-square probability distribution.
-  example: -1
-  flat_name: process.target.pe.resources.chi2
-  level: extended
-  name: resources.chi2
-  normalize: []
-  original_fieldset: pe
-  short: Chi-square probability distribution.
-  type: long
-process.target.pe.resources.entropy:
-  dashed_name: process-target-pe-resources-entropy
-  description: Measurement of entropy randomness in the resources section.
-  example: 0, 1
-  flat_name: process.target.pe.resources.entropy
-  level: extended
-  name: resources.entropy
-  normalize: []
-  original_fieldset: pe
-  short: Measurement of entropy randomness in the resources section.
-  type: long
-process.target.pe.resources.filetype:
-  dashed_name: process-target-pe-resources-filetype
-  description: File type of the resources section.
-  example: Data
-  flat_name: process.target.pe.resources.filetype
-  ignore_above: 1024
-  level: extended
-  name: resources.filetype
-  normalize: []
-  original_fieldset: pe
-  short: File type of the resources section.
-  type: keyword
-process.target.pe.resources.language:
-  dashed_name: process-target-pe-resources-language
-  description: Language identification.
-  example: CHINESE SIMPLIFIED
-  flat_name: process.target.pe.resources.language
-  ignore_above: 1024
-  level: extended
-  name: resources.language
-  normalize: []
-  original_fieldset: pe
-  short: Language identification.
-  type: keyword
-process.target.pe.resources.sha256:
-  dashed_name: process-target-pe-resources-sha256
-  description: SHA256 hash of resources section.
-  example: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-  flat_name: process.target.pe.resources.sha256
-  ignore_above: 1024
-  level: extended
-  name: resources.sha256
-  normalize: []
-  original_fieldset: pe
-  short: SHA256 hash of resources section.
-  type: keyword
-process.target.pe.resources.type:
-  dashed_name: process-target-pe-resources-type
-  description: Digest of resource types.
-  example: '["RT_VERSION", "RT_MANIFEST"]'
-  flat_name: process.target.pe.resources.type
-  ignore_above: 1024
-  level: extended
-  name: resources.type
-  normalize:
-  - array
-  original_fieldset: pe
-  short: List of resource types.
-  type: keyword
-process.target.pe.rich_header.hash.md5:
-  dashed_name: process-target-pe-rich-header-hash-md5
-  description: MD5 hash of the header for the PE file.
-  example: 5aa1aa0f2b4be70397a1e9e2b87627cd
-  flat_name: process.target.pe.rich_header.hash.md5
-  ignore_above: 1024
-  level: extended
-  name: rich_header.hash.md5
-  normalize: []
-  original_fieldset: pe
-  short: MD5 hash of the header for the PE file.
-  type: keyword
-process.target.pe.sections:
-  dashed_name: process-target-pe-sections
-  description: Data about sections of compiled binary PE
-  flat_name: process.target.pe.sections
-  level: extended
-  name: sections
-  normalize:
-  - array
-  original_fieldset: pe
-  short: Data about sections of the compiled binary PE
-  type: nested
-process.target.pe.sections.chi2:
-  dashed_name: process-target-pe-sections-chi2
-  description: Chi-square probability distribution.
-  example: 3027194
-  flat_name: process.target.pe.sections.chi2
-  level: extended
-  name: sections.chi2
-  normalize: []
-  original_fieldset: pe
-  short: Chi-square probability distribution.
-  type: long
-process.target.pe.sections.entropy:
-  dashed_name: process-target-pe-sections-entropy
-  description: Measurement of entropy randomness in the file.
-  example: 6.24
-  flat_name: process.target.pe.sections.entropy
-  level: extended
-  name: sections.entropy
-  normalize: []
-  original_fieldset: pe
-  short: Measurement of entropy randomness in the file.
-  type: float
-process.target.pe.sections.flags:
-  dashed_name: process-target-pe-sections-flags
-  description: Section flags of the file.
-  example: rx
-  flat_name: process.target.pe.sections.flags
-  ignore_above: 1024
-  level: extended
-  name: sections.flags
-  normalize: []
-  original_fieldset: pe
-  short: Section flags of the file.
-  type: keyword
-process.target.pe.sections.name:
-  dashed_name: process-target-pe-sections-name
-  description: Section names of the file.
-  example: .text, .data
-  flat_name: process.target.pe.sections.name
-  ignore_above: 1024
-  level: extended
-  name: sections.name
-  normalize: []
-  original_fieldset: pe
-  short: Section names of the file.
-  type: keyword
-process.target.pe.sections.raw_size:
-  dashed_name: process-target-pe-sections-raw-size
-  description: Size of the section or the dize of the initialized data on disk.
-  example: 198144
-  flat_name: process.target.pe.sections.raw_size
-  format: bytes
-  level: extended
-  name: sections.raw_size
-  normalize: []
-  original_fieldset: pe
-  short: Size of the section or the dize of the initialized data on disk.
-  type: long
-process.target.pe.sections.virtual_address:
-  dashed_name: process-target-pe-sections-virtual-address
-  description: Virtual address available to the file.
-  example: 8192
-  flat_name: process.target.pe.sections.virtual_address
-  format: bytes
-  level: extended
-  name: sections.virtual_address
-  normalize: []
-  original_fieldset: pe
-  short: Virtual address available to the file.
-  type: long
-process.target.pgid:
-  dashed_name: process-target-pgid
-  description: Identifier of the group of processes the process belongs to.
-  flat_name: process.target.pgid
-  format: string
-  level: extended
-  name: pgid
-  normalize: []
-  original_fieldset: process
-  short: Identifier of the group of processes the process belongs to.
-  type: long
-process.target.pid:
-  dashed_name: process-target-pid
-  description: Process id.
-  example: 4242
-  flat_name: process.target.pid
-  format: string
-  level: core
-  name: pid
-  normalize: []
-  original_fieldset: process
-  short: Process id.
-  type: long
-process.target.start:
-  dashed_name: process-target-start
-  description: The time the process started.
-  example: '2016-05-23T08:05:34.853Z'
-  flat_name: process.target.start
-  level: extended
-  name: start
-  normalize: []
-  original_fieldset: process
-  short: The time the process started.
-  type: date
-process.target.thread.id:
-  dashed_name: process-target-thread-id
-  description: Thread ID.
-  example: 4242
-  flat_name: process.target.thread.id
-  format: string
-  level: extended
-  name: thread.id
-  normalize: []
-  original_fieldset: process
-  short: Thread ID.
-  type: long
-process.target.thread.name:
-  dashed_name: process-target-thread-name
-  description: Thread name.
-  example: thread-0
-  flat_name: process.target.thread.name
-  ignore_above: 1024
-  level: extended
-  name: thread.name
-  normalize: []
-  original_fieldset: process
-  short: Thread name.
-  type: keyword
-process.target.title:
-  dashed_name: process-target-title
-  description: 'Process title.
-
-    The proctitle, some times the same as process name. Can also be different: for
-    example a browser setting its title to the web page currently opened.'
-  flat_name: process.target.title
-  ignore_above: 1024
-  level: extended
-  multi_fields:
-  - flat_name: process.target.title.text
-    name: text
-    type: match_only_text
-  name: title
-  normalize: []
-  original_fieldset: process
-  short: Process title.
-  type: keyword
-process.target.uptime:
-  dashed_name: process-target-uptime
-  description: Seconds the process has been up.
-  example: 1325
-  flat_name: process.target.uptime
-  level: extended
-  name: uptime
-  normalize: []
-  original_fieldset: process
-  short: Seconds the process has been up.
-  type: long
-process.target.working_directory:
-  dashed_name: process-target-working-directory
-  description: The working directory of the process.
-  example: /home/alice
-  flat_name: process.target.working_directory
-  ignore_above: 1024
-  level: extended
-  multi_fields:
-  - flat_name: process.target.working_directory.text
-    name: text
-    type: match_only_text
-  name: working_directory
-  normalize: []
-  original_fieldset: process
-  short: The working directory of the process.
-  type: keyword
 process.thread.id:
   dashed_name: process-thread-id
   description: Thread ID.
@@ -12148,13 +8497,17 @@ server.bytes:
   type: long
 server.domain:
   dashed_name: server-domain
-  description: Server domain.
+  description: 'The domain name of the server system.
+
+    This value may be a host name, a fully qualified domain name, or another host
+    naming format. The value may derive from the original event or be added from enrichment.'
+  example: foo.example.com
   flat_name: server.domain
   ignore_above: 1024
   level: core
   name: domain
   normalize: []
-  short: Server domain.
+  short: The domain name of the server.
   type: keyword
 server.geo.city_name:
   dashed_name: server-geo-city-name
@@ -13048,13 +9401,17 @@ source.bytes:
   type: long
 source.domain:
   dashed_name: source-domain
-  description: Source domain.
+  description: 'The domain name of the source system.
+
+    This value may be a host name, a fully qualified domain name, or another host
+    naming format. The value may derive from the original event or be added from enrichment.'
+  example: foo.example.com
   flat_name: source.domain
   ignore_above: 1024
   level: core
   name: domain
   normalize: []
-  short: Source domain.
+  short: The domain name of the source.
   type: keyword
 source.geo.city_name:
   dashed_name: source-geo-city-name
@@ -14207,6 +10564,17 @@ threat.enrichments.indicator.file.hash.sha256:
   original_fieldset: hash
   short: SHA256 hash.
   type: keyword
+threat.enrichments.indicator.file.hash.sha384:
+  dashed_name: threat-enrichments-indicator-file-hash-sha384
+  description: SHA384 hash.
+  flat_name: threat.enrichments.indicator.file.hash.sha384
+  ignore_above: 1024
+  level: extended
+  name: sha384
+  normalize: []
+  original_fieldset: hash
+  short: SHA384 hash.
+  type: keyword
 threat.enrichments.indicator.file.hash.sha512:
   dashed_name: threat-enrichments-indicator-file-hash-sha512
   description: SHA512 hash.
@@ -14228,6 +10596,17 @@ threat.enrichments.indicator.file.hash.ssdeep:
   normalize: []
   original_fieldset: hash
   short: SSDEEP hash.
+  type: keyword
+threat.enrichments.indicator.file.hash.tlsh:
+  dashed_name: threat-enrichments-indicator-file-hash-tlsh
+  description: TLSH hash.
+  flat_name: threat.enrichments.indicator.file.hash.tlsh
+  ignore_above: 1024
+  level: extended
+  name: tlsh
+  normalize: []
+  original_fieldset: hash
+  short: TLSH hash.
   type: keyword
 threat.enrichments.indicator.file.inode:
   dashed_name: threat-enrichments-indicator-file-inode
@@ -14330,18 +10709,6 @@ threat.enrichments.indicator.file.pe.architecture:
   original_fieldset: pe
   short: CPU architecture target for the file.
   type: keyword
-threat.enrichments.indicator.file.pe.authentihash:
-  dashed_name: threat-enrichments-indicator-file-pe-authentihash
-  description: Authentihash of the PE file.
-  example: ac9555d914bbb112ecc5f15bb9887ca8371f493ab0941344e976bb8410c8aa78
-  flat_name: threat.enrichments.indicator.file.pe.authentihash
-  ignore_above: 1024
-  level: extended
-  name: authentihash
-  normalize: []
-  original_fieldset: pe
-  short: Authentihash of the PE file.
-  type: keyword
 threat.enrichments.indicator.file.pe.company:
   dashed_name: threat-enrichments-indicator-file-pe-company
   description: Internal company name of the file, provided at compile-time.
@@ -14353,113 +10720,6 @@ threat.enrichments.indicator.file.pe.company:
   normalize: []
   original_fieldset: pe
   short: Internal company name of the file, provided at compile-time.
-  type: keyword
-threat.enrichments.indicator.file.pe.compile_timestamp:
-  dashed_name: threat-enrichments-indicator-file-pe-compile-timestamp
-  description: Compile timestamp of the PE file.
-  example: '2020-11-05T17:25:47.000Z'
-  flat_name: threat.enrichments.indicator.file.pe.compile_timestamp
-  level: extended
-  name: compile_timestamp
-  normalize: []
-  original_fieldset: pe
-  short: Compile timestamp of the PE file.
-  type: date
-threat.enrichments.indicator.file.pe.compiler.name:
-  dashed_name: threat-enrichments-indicator-file-pe-compiler-name
-  description: Name of the compiler
-  example: Clang
-  flat_name: threat.enrichments.indicator.file.pe.compiler.name
-  ignore_above: 1024
-  level: extended
-  name: compiler.name
-  normalize: []
-  original_fieldset: pe
-  short: Name of the compiler
-  type: keyword
-threat.enrichments.indicator.file.pe.compiler.version:
-  dashed_name: threat-enrichments-indicator-file-pe-compiler-version
-  description: Version of the compiler.
-  example: 11.0.0
-  flat_name: threat.enrichments.indicator.file.pe.compiler.version
-  ignore_above: 1024
-  level: extended
-  name: compiler.version
-  normalize: []
-  original_fieldset: pe
-  short: Version of the compiler.
-  type: keyword
-threat.enrichments.indicator.file.pe.creation_date:
-  dashed_name: threat-enrichments-indicator-file-pe-creation-date
-  description: Extracted when possible from the file's metadata. Indicates when it
-    was built or compiled. It can also be faked by malware creators.
-  example: '2020-11-05T17:25:47.000Z'
-  flat_name: threat.enrichments.indicator.file.pe.creation_date
-  level: extended
-  name: creation_date
-  normalize: []
-  original_fieldset: pe
-  short: Build or compile date.
-  type: date
-threat.enrichments.indicator.file.pe.debug:
-  dashed_name: threat-enrichments-indicator-file-pe-debug
-  description: 'An array containing an object for each debug entry, if present.
-
-    The expected fields for this nested object fall under the `debug.` prefix.'
-  flat_name: threat.enrichments.indicator.file.pe.debug
-  level: extended
-  name: debug
-  normalize:
-  - array
-  original_fieldset: pe
-  short: Debug information
-  type: nested
-threat.enrichments.indicator.file.pe.debug.offset:
-  dashed_name: threat-enrichments-indicator-file-pe-debug-offset
-  description: Debug offset information.
-  example: 1296336
-  flat_name: threat.enrichments.indicator.file.pe.debug.offset
-  ignore_above: 1024
-  level: extended
-  name: debug.offset
-  normalize: []
-  original_fieldset: pe
-  short: Debug offset information.
-  type: keyword
-threat.enrichments.indicator.file.pe.debug.size:
-  dashed_name: threat-enrichments-indicator-file-pe-debug-size
-  description: Size of the debug information.
-  example: 816
-  flat_name: threat.enrichments.indicator.file.pe.debug.size
-  format: bytes
-  level: extended
-  name: debug.size
-  normalize: []
-  original_fieldset: pe
-  short: Size of the debug information.
-  type: long
-threat.enrichments.indicator.file.pe.debug.timestamp:
-  dashed_name: threat-enrichments-indicator-file-pe-debug-timestamp
-  description: Timestamp of the debug information.
-  example: '2020-11-05T17:25:47.000Z'
-  flat_name: threat.enrichments.indicator.file.pe.debug.timestamp
-  level: extended
-  name: debug.timestamp
-  normalize: []
-  original_fieldset: pe
-  short: Timestamp of the debug information.
-  type: date
-threat.enrichments.indicator.file.pe.debug.type:
-  dashed_name: threat-enrichments-indicator-file-pe-debug-type
-  description: Information type generated by the debug options.
-  example: IMAGE_DEBUG_TYPE_POGO
-  flat_name: threat.enrichments.indicator.file.pe.debug.type
-  ignore_above: 1024
-  level: extended
-  name: debug.type
-  normalize: []
-  original_fieldset: pe
-  short: Information type generated by the debug options.
   type: keyword
 threat.enrichments.indicator.file.pe.description:
   dashed_name: threat-enrichments-indicator-file-pe-description
@@ -14473,31 +10733,6 @@ threat.enrichments.indicator.file.pe.description:
   original_fieldset: pe
   short: Internal description of the file, provided at compile-time.
   type: keyword
-threat.enrichments.indicator.file.pe.entry_point:
-  dashed_name: threat-enrichments-indicator-file-pe-entry-point
-  description: Relative byte offset to the base of the PE file.
-  example: 25856
-  flat_name: threat.enrichments.indicator.file.pe.entry_point
-  ignore_above: 1024
-  level: extended
-  name: entry_point
-  normalize: []
-  original_fieldset: pe
-  short: Relative byte offset to the base of the PE file.
-  type: keyword
-threat.enrichments.indicator.file.pe.exports:
-  dashed_name: threat-enrichments-indicator-file-pe-exports
-  description: List of symbols exported by PE
-  example: '["DllInstall", "DllRegisterServer", "DllUnregisterServer"]'
-  flat_name: threat.enrichments.indicator.file.pe.exports
-  ignore_above: 1024
-  level: extended
-  name: exports
-  normalize:
-  - array
-  original_fieldset: pe
-  short: List of symbols exported by PE
-  type: keyword
 threat.enrichments.indicator.file.pe.file_version:
   dashed_name: threat-enrichments-indicator-file-pe-file-version
   description: Internal version of the file, provided at compile-time.
@@ -14509,19 +10744,6 @@ threat.enrichments.indicator.file.pe.file_version:
   normalize: []
   original_fieldset: pe
   short: Process name.
-  type: keyword
-threat.enrichments.indicator.file.pe.icon.hash.dhash:
-  dashed_name: threat-enrichments-indicator-file-pe-icon-hash-dhash
-  description: Difference Hash (dhash) to find files with a visually similar icon
-    or thumbnail.
-  example: b806e17c8e330d82
-  flat_name: threat.enrichments.indicator.file.pe.icon.hash.dhash
-  ignore_above: 1024
-  level: extended
-  name: icon.hash.dhash
-  normalize: []
-  original_fieldset: pe
-  short: Difference Hash (dhash) to find files with a visually similar icon or thumbnail.
   type: keyword
 threat.enrichments.indicator.file.pe.imphash:
   dashed_name: threat-enrichments-indicator-file-pe-imphash
@@ -14539,30 +10761,6 @@ threat.enrichments.indicator.file.pe.imphash:
   original_fieldset: pe
   short: A hash of the imports in a PE file.
   type: keyword
-threat.enrichments.indicator.file.pe.imports:
-  dashed_name: threat-enrichments-indicator-file-pe-imports
-  description: List of all imported functions
-  example: '{ "library_name" : "mscoree.dll", "imported_functions" : "GetFileVersionInfoSizeA"
-    }'
-  flat_name: threat.enrichments.indicator.file.pe.imports
-  level: extended
-  name: imports
-  normalize: []
-  original_fieldset: pe
-  short: List of all imported functions
-  type: flattened
-threat.enrichments.indicator.file.pe.machine_type:
-  dashed_name: threat-enrichments-indicator-file-pe-machine-type
-  description: Machine type of the PE file.
-  example: Intel 386 or later, and compatibles
-  flat_name: threat.enrichments.indicator.file.pe.machine_type
-  ignore_above: 1024
-  level: extended
-  name: machine_type
-  normalize: []
-  original_fieldset: pe
-  short: Machine type of the PE file.
-  type: keyword
 threat.enrichments.indicator.file.pe.original_file_name:
   dashed_name: threat-enrichments-indicator-file-pe-original-file-name
   description: Internal name of the file, provided at compile-time.
@@ -14575,18 +10773,21 @@ threat.enrichments.indicator.file.pe.original_file_name:
   original_fieldset: pe
   short: Internal name of the file, provided at compile-time.
   type: keyword
-threat.enrichments.indicator.file.pe.packers:
-  dashed_name: threat-enrichments-indicator-file-pe-packers
-  description: List of packers and tools used.
-  example: '["ASPack v2.12", ".NET executable"]'
-  flat_name: threat.enrichments.indicator.file.pe.packers
+threat.enrichments.indicator.file.pe.pehash:
+  dashed_name: threat-enrichments-indicator-file-pe-pehash
+  description: 'A hash of the PE header and data from one or more PE sections. An
+    pehash can be used to cluster files by transforming structural information about
+    a file into a hash value.
+
+    Learn more at https://www.usenix.org/legacy/events/leet09/tech/full_papers/wicherski/wicherski_html/index.html.'
+  example: 73ff189b63cd6be375a7ff25179a38d347651975
+  flat_name: threat.enrichments.indicator.file.pe.pehash
   ignore_above: 1024
   level: extended
-  name: packers
-  normalize:
-  - array
+  name: pehash
+  normalize: []
   original_fieldset: pe
-  short: List of packers and tools used.
+  short: A hash of the PE header and data from one or more PE sections.
   type: keyword
 threat.enrichments.indicator.file.pe.product:
   dashed_name: threat-enrichments-indicator-file-pe-product
@@ -14600,183 +10801,6 @@ threat.enrichments.indicator.file.pe.product:
   original_fieldset: pe
   short: Internal product name of the file, provided at compile-time.
   type: keyword
-threat.enrichments.indicator.file.pe.resources:
-  dashed_name: threat-enrichments-indicator-file-pe-resources
-  description: 'An array containing an object for each PE resource, if present.
-
-    The expected fields for this nested object fall under the `resources.` prefix.'
-  flat_name: threat.enrichments.indicator.file.pe.resources
-  level: extended
-  name: resources
-  normalize:
-  - array
-  original_fieldset: pe
-  short: PE resource information
-  type: nested
-threat.enrichments.indicator.file.pe.resources.chi2:
-  dashed_name: threat-enrichments-indicator-file-pe-resources-chi2
-  description: Chi-square probability distribution.
-  example: -1
-  flat_name: threat.enrichments.indicator.file.pe.resources.chi2
-  level: extended
-  name: resources.chi2
-  normalize: []
-  original_fieldset: pe
-  short: Chi-square probability distribution.
-  type: long
-threat.enrichments.indicator.file.pe.resources.entropy:
-  dashed_name: threat-enrichments-indicator-file-pe-resources-entropy
-  description: Measurement of entropy randomness in the resources section.
-  example: 0, 1
-  flat_name: threat.enrichments.indicator.file.pe.resources.entropy
-  level: extended
-  name: resources.entropy
-  normalize: []
-  original_fieldset: pe
-  short: Measurement of entropy randomness in the resources section.
-  type: long
-threat.enrichments.indicator.file.pe.resources.filetype:
-  dashed_name: threat-enrichments-indicator-file-pe-resources-filetype
-  description: File type of the resources section.
-  example: Data
-  flat_name: threat.enrichments.indicator.file.pe.resources.filetype
-  ignore_above: 1024
-  level: extended
-  name: resources.filetype
-  normalize: []
-  original_fieldset: pe
-  short: File type of the resources section.
-  type: keyword
-threat.enrichments.indicator.file.pe.resources.language:
-  dashed_name: threat-enrichments-indicator-file-pe-resources-language
-  description: Language identification.
-  example: CHINESE SIMPLIFIED
-  flat_name: threat.enrichments.indicator.file.pe.resources.language
-  ignore_above: 1024
-  level: extended
-  name: resources.language
-  normalize: []
-  original_fieldset: pe
-  short: Language identification.
-  type: keyword
-threat.enrichments.indicator.file.pe.resources.sha256:
-  dashed_name: threat-enrichments-indicator-file-pe-resources-sha256
-  description: SHA256 hash of resources section.
-  example: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-  flat_name: threat.enrichments.indicator.file.pe.resources.sha256
-  ignore_above: 1024
-  level: extended
-  name: resources.sha256
-  normalize: []
-  original_fieldset: pe
-  short: SHA256 hash of resources section.
-  type: keyword
-threat.enrichments.indicator.file.pe.resources.type:
-  dashed_name: threat-enrichments-indicator-file-pe-resources-type
-  description: Digest of resource types.
-  example: '["RT_VERSION", "RT_MANIFEST"]'
-  flat_name: threat.enrichments.indicator.file.pe.resources.type
-  ignore_above: 1024
-  level: extended
-  name: resources.type
-  normalize:
-  - array
-  original_fieldset: pe
-  short: List of resource types.
-  type: keyword
-threat.enrichments.indicator.file.pe.rich_header.hash.md5:
-  dashed_name: threat-enrichments-indicator-file-pe-rich-header-hash-md5
-  description: MD5 hash of the header for the PE file.
-  example: 5aa1aa0f2b4be70397a1e9e2b87627cd
-  flat_name: threat.enrichments.indicator.file.pe.rich_header.hash.md5
-  ignore_above: 1024
-  level: extended
-  name: rich_header.hash.md5
-  normalize: []
-  original_fieldset: pe
-  short: MD5 hash of the header for the PE file.
-  type: keyword
-threat.enrichments.indicator.file.pe.sections:
-  dashed_name: threat-enrichments-indicator-file-pe-sections
-  description: Data about sections of compiled binary PE
-  flat_name: threat.enrichments.indicator.file.pe.sections
-  level: extended
-  name: sections
-  normalize:
-  - array
-  original_fieldset: pe
-  short: Data about sections of the compiled binary PE
-  type: nested
-threat.enrichments.indicator.file.pe.sections.chi2:
-  dashed_name: threat-enrichments-indicator-file-pe-sections-chi2
-  description: Chi-square probability distribution.
-  example: 3027194
-  flat_name: threat.enrichments.indicator.file.pe.sections.chi2
-  level: extended
-  name: sections.chi2
-  normalize: []
-  original_fieldset: pe
-  short: Chi-square probability distribution.
-  type: long
-threat.enrichments.indicator.file.pe.sections.entropy:
-  dashed_name: threat-enrichments-indicator-file-pe-sections-entropy
-  description: Measurement of entropy randomness in the file.
-  example: 6.24
-  flat_name: threat.enrichments.indicator.file.pe.sections.entropy
-  level: extended
-  name: sections.entropy
-  normalize: []
-  original_fieldset: pe
-  short: Measurement of entropy randomness in the file.
-  type: float
-threat.enrichments.indicator.file.pe.sections.flags:
-  dashed_name: threat-enrichments-indicator-file-pe-sections-flags
-  description: Section flags of the file.
-  example: rx
-  flat_name: threat.enrichments.indicator.file.pe.sections.flags
-  ignore_above: 1024
-  level: extended
-  name: sections.flags
-  normalize: []
-  original_fieldset: pe
-  short: Section flags of the file.
-  type: keyword
-threat.enrichments.indicator.file.pe.sections.name:
-  dashed_name: threat-enrichments-indicator-file-pe-sections-name
-  description: Section names of the file.
-  example: .text, .data
-  flat_name: threat.enrichments.indicator.file.pe.sections.name
-  ignore_above: 1024
-  level: extended
-  name: sections.name
-  normalize: []
-  original_fieldset: pe
-  short: Section names of the file.
-  type: keyword
-threat.enrichments.indicator.file.pe.sections.raw_size:
-  dashed_name: threat-enrichments-indicator-file-pe-sections-raw-size
-  description: Size of the section or the dize of the initialized data on disk.
-  example: 198144
-  flat_name: threat.enrichments.indicator.file.pe.sections.raw_size
-  format: bytes
-  level: extended
-  name: sections.raw_size
-  normalize: []
-  original_fieldset: pe
-  short: Size of the section or the dize of the initialized data on disk.
-  type: long
-threat.enrichments.indicator.file.pe.sections.virtual_address:
-  dashed_name: threat-enrichments-indicator-file-pe-sections-virtual-address
-  description: Virtual address available to the file.
-  example: 8192
-  flat_name: threat.enrichments.indicator.file.pe.sections.virtual_address
-  format: bytes
-  level: extended
-  name: sections.virtual_address
-  normalize: []
-  original_fieldset: pe
-  short: Virtual address available to the file.
-  type: long
 threat.enrichments.indicator.file.size:
   dashed_name: threat-enrichments-indicator-file-size
   description: 'File size in bytes.
@@ -16876,6 +12900,17 @@ threat.indicator.file.hash.sha256:
   original_fieldset: hash
   short: SHA256 hash.
   type: keyword
+threat.indicator.file.hash.sha384:
+  dashed_name: threat-indicator-file-hash-sha384
+  description: SHA384 hash.
+  flat_name: threat.indicator.file.hash.sha384
+  ignore_above: 1024
+  level: extended
+  name: sha384
+  normalize: []
+  original_fieldset: hash
+  short: SHA384 hash.
+  type: keyword
 threat.indicator.file.hash.sha512:
   dashed_name: threat-indicator-file-hash-sha512
   description: SHA512 hash.
@@ -16897,6 +12932,17 @@ threat.indicator.file.hash.ssdeep:
   normalize: []
   original_fieldset: hash
   short: SSDEEP hash.
+  type: keyword
+threat.indicator.file.hash.tlsh:
+  dashed_name: threat-indicator-file-hash-tlsh
+  description: TLSH hash.
+  flat_name: threat.indicator.file.hash.tlsh
+  ignore_above: 1024
+  level: extended
+  name: tlsh
+  normalize: []
+  original_fieldset: hash
+  short: TLSH hash.
   type: keyword
 threat.indicator.file.inode:
   dashed_name: threat-indicator-file-inode
@@ -16999,18 +13045,6 @@ threat.indicator.file.pe.architecture:
   original_fieldset: pe
   short: CPU architecture target for the file.
   type: keyword
-threat.indicator.file.pe.authentihash:
-  dashed_name: threat-indicator-file-pe-authentihash
-  description: Authentihash of the PE file.
-  example: ac9555d914bbb112ecc5f15bb9887ca8371f493ab0941344e976bb8410c8aa78
-  flat_name: threat.indicator.file.pe.authentihash
-  ignore_above: 1024
-  level: extended
-  name: authentihash
-  normalize: []
-  original_fieldset: pe
-  short: Authentihash of the PE file.
-  type: keyword
 threat.indicator.file.pe.company:
   dashed_name: threat-indicator-file-pe-company
   description: Internal company name of the file, provided at compile-time.
@@ -17022,113 +13056,6 @@ threat.indicator.file.pe.company:
   normalize: []
   original_fieldset: pe
   short: Internal company name of the file, provided at compile-time.
-  type: keyword
-threat.indicator.file.pe.compile_timestamp:
-  dashed_name: threat-indicator-file-pe-compile-timestamp
-  description: Compile timestamp of the PE file.
-  example: '2020-11-05T17:25:47.000Z'
-  flat_name: threat.indicator.file.pe.compile_timestamp
-  level: extended
-  name: compile_timestamp
-  normalize: []
-  original_fieldset: pe
-  short: Compile timestamp of the PE file.
-  type: date
-threat.indicator.file.pe.compiler.name:
-  dashed_name: threat-indicator-file-pe-compiler-name
-  description: Name of the compiler
-  example: Clang
-  flat_name: threat.indicator.file.pe.compiler.name
-  ignore_above: 1024
-  level: extended
-  name: compiler.name
-  normalize: []
-  original_fieldset: pe
-  short: Name of the compiler
-  type: keyword
-threat.indicator.file.pe.compiler.version:
-  dashed_name: threat-indicator-file-pe-compiler-version
-  description: Version of the compiler.
-  example: 11.0.0
-  flat_name: threat.indicator.file.pe.compiler.version
-  ignore_above: 1024
-  level: extended
-  name: compiler.version
-  normalize: []
-  original_fieldset: pe
-  short: Version of the compiler.
-  type: keyword
-threat.indicator.file.pe.creation_date:
-  dashed_name: threat-indicator-file-pe-creation-date
-  description: Extracted when possible from the file's metadata. Indicates when it
-    was built or compiled. It can also be faked by malware creators.
-  example: '2020-11-05T17:25:47.000Z'
-  flat_name: threat.indicator.file.pe.creation_date
-  level: extended
-  name: creation_date
-  normalize: []
-  original_fieldset: pe
-  short: Build or compile date.
-  type: date
-threat.indicator.file.pe.debug:
-  dashed_name: threat-indicator-file-pe-debug
-  description: 'An array containing an object for each debug entry, if present.
-
-    The expected fields for this nested object fall under the `debug.` prefix.'
-  flat_name: threat.indicator.file.pe.debug
-  level: extended
-  name: debug
-  normalize:
-  - array
-  original_fieldset: pe
-  short: Debug information
-  type: nested
-threat.indicator.file.pe.debug.offset:
-  dashed_name: threat-indicator-file-pe-debug-offset
-  description: Debug offset information.
-  example: 1296336
-  flat_name: threat.indicator.file.pe.debug.offset
-  ignore_above: 1024
-  level: extended
-  name: debug.offset
-  normalize: []
-  original_fieldset: pe
-  short: Debug offset information.
-  type: keyword
-threat.indicator.file.pe.debug.size:
-  dashed_name: threat-indicator-file-pe-debug-size
-  description: Size of the debug information.
-  example: 816
-  flat_name: threat.indicator.file.pe.debug.size
-  format: bytes
-  level: extended
-  name: debug.size
-  normalize: []
-  original_fieldset: pe
-  short: Size of the debug information.
-  type: long
-threat.indicator.file.pe.debug.timestamp:
-  dashed_name: threat-indicator-file-pe-debug-timestamp
-  description: Timestamp of the debug information.
-  example: '2020-11-05T17:25:47.000Z'
-  flat_name: threat.indicator.file.pe.debug.timestamp
-  level: extended
-  name: debug.timestamp
-  normalize: []
-  original_fieldset: pe
-  short: Timestamp of the debug information.
-  type: date
-threat.indicator.file.pe.debug.type:
-  dashed_name: threat-indicator-file-pe-debug-type
-  description: Information type generated by the debug options.
-  example: IMAGE_DEBUG_TYPE_POGO
-  flat_name: threat.indicator.file.pe.debug.type
-  ignore_above: 1024
-  level: extended
-  name: debug.type
-  normalize: []
-  original_fieldset: pe
-  short: Information type generated by the debug options.
   type: keyword
 threat.indicator.file.pe.description:
   dashed_name: threat-indicator-file-pe-description
@@ -17142,31 +13069,6 @@ threat.indicator.file.pe.description:
   original_fieldset: pe
   short: Internal description of the file, provided at compile-time.
   type: keyword
-threat.indicator.file.pe.entry_point:
-  dashed_name: threat-indicator-file-pe-entry-point
-  description: Relative byte offset to the base of the PE file.
-  example: 25856
-  flat_name: threat.indicator.file.pe.entry_point
-  ignore_above: 1024
-  level: extended
-  name: entry_point
-  normalize: []
-  original_fieldset: pe
-  short: Relative byte offset to the base of the PE file.
-  type: keyword
-threat.indicator.file.pe.exports:
-  dashed_name: threat-indicator-file-pe-exports
-  description: List of symbols exported by PE
-  example: '["DllInstall", "DllRegisterServer", "DllUnregisterServer"]'
-  flat_name: threat.indicator.file.pe.exports
-  ignore_above: 1024
-  level: extended
-  name: exports
-  normalize:
-  - array
-  original_fieldset: pe
-  short: List of symbols exported by PE
-  type: keyword
 threat.indicator.file.pe.file_version:
   dashed_name: threat-indicator-file-pe-file-version
   description: Internal version of the file, provided at compile-time.
@@ -17178,19 +13080,6 @@ threat.indicator.file.pe.file_version:
   normalize: []
   original_fieldset: pe
   short: Process name.
-  type: keyword
-threat.indicator.file.pe.icon.hash.dhash:
-  dashed_name: threat-indicator-file-pe-icon-hash-dhash
-  description: Difference Hash (dhash) to find files with a visually similar icon
-    or thumbnail.
-  example: b806e17c8e330d82
-  flat_name: threat.indicator.file.pe.icon.hash.dhash
-  ignore_above: 1024
-  level: extended
-  name: icon.hash.dhash
-  normalize: []
-  original_fieldset: pe
-  short: Difference Hash (dhash) to find files with a visually similar icon or thumbnail.
   type: keyword
 threat.indicator.file.pe.imphash:
   dashed_name: threat-indicator-file-pe-imphash
@@ -17208,30 +13097,6 @@ threat.indicator.file.pe.imphash:
   original_fieldset: pe
   short: A hash of the imports in a PE file.
   type: keyword
-threat.indicator.file.pe.imports:
-  dashed_name: threat-indicator-file-pe-imports
-  description: List of all imported functions
-  example: '{ "library_name" : "mscoree.dll", "imported_functions" : "GetFileVersionInfoSizeA"
-    }'
-  flat_name: threat.indicator.file.pe.imports
-  level: extended
-  name: imports
-  normalize: []
-  original_fieldset: pe
-  short: List of all imported functions
-  type: flattened
-threat.indicator.file.pe.machine_type:
-  dashed_name: threat-indicator-file-pe-machine-type
-  description: Machine type of the PE file.
-  example: Intel 386 or later, and compatibles
-  flat_name: threat.indicator.file.pe.machine_type
-  ignore_above: 1024
-  level: extended
-  name: machine_type
-  normalize: []
-  original_fieldset: pe
-  short: Machine type of the PE file.
-  type: keyword
 threat.indicator.file.pe.original_file_name:
   dashed_name: threat-indicator-file-pe-original-file-name
   description: Internal name of the file, provided at compile-time.
@@ -17244,18 +13109,21 @@ threat.indicator.file.pe.original_file_name:
   original_fieldset: pe
   short: Internal name of the file, provided at compile-time.
   type: keyword
-threat.indicator.file.pe.packers:
-  dashed_name: threat-indicator-file-pe-packers
-  description: List of packers and tools used.
-  example: '["ASPack v2.12", ".NET executable"]'
-  flat_name: threat.indicator.file.pe.packers
+threat.indicator.file.pe.pehash:
+  dashed_name: threat-indicator-file-pe-pehash
+  description: 'A hash of the PE header and data from one or more PE sections. An
+    pehash can be used to cluster files by transforming structural information about
+    a file into a hash value.
+
+    Learn more at https://www.usenix.org/legacy/events/leet09/tech/full_papers/wicherski/wicherski_html/index.html.'
+  example: 73ff189b63cd6be375a7ff25179a38d347651975
+  flat_name: threat.indicator.file.pe.pehash
   ignore_above: 1024
   level: extended
-  name: packers
-  normalize:
-  - array
+  name: pehash
+  normalize: []
   original_fieldset: pe
-  short: List of packers and tools used.
+  short: A hash of the PE header and data from one or more PE sections.
   type: keyword
 threat.indicator.file.pe.product:
   dashed_name: threat-indicator-file-pe-product
@@ -17269,183 +13137,6 @@ threat.indicator.file.pe.product:
   original_fieldset: pe
   short: Internal product name of the file, provided at compile-time.
   type: keyword
-threat.indicator.file.pe.resources:
-  dashed_name: threat-indicator-file-pe-resources
-  description: 'An array containing an object for each PE resource, if present.
-
-    The expected fields for this nested object fall under the `resources.` prefix.'
-  flat_name: threat.indicator.file.pe.resources
-  level: extended
-  name: resources
-  normalize:
-  - array
-  original_fieldset: pe
-  short: PE resource information
-  type: nested
-threat.indicator.file.pe.resources.chi2:
-  dashed_name: threat-indicator-file-pe-resources-chi2
-  description: Chi-square probability distribution.
-  example: -1
-  flat_name: threat.indicator.file.pe.resources.chi2
-  level: extended
-  name: resources.chi2
-  normalize: []
-  original_fieldset: pe
-  short: Chi-square probability distribution.
-  type: long
-threat.indicator.file.pe.resources.entropy:
-  dashed_name: threat-indicator-file-pe-resources-entropy
-  description: Measurement of entropy randomness in the resources section.
-  example: 0, 1
-  flat_name: threat.indicator.file.pe.resources.entropy
-  level: extended
-  name: resources.entropy
-  normalize: []
-  original_fieldset: pe
-  short: Measurement of entropy randomness in the resources section.
-  type: long
-threat.indicator.file.pe.resources.filetype:
-  dashed_name: threat-indicator-file-pe-resources-filetype
-  description: File type of the resources section.
-  example: Data
-  flat_name: threat.indicator.file.pe.resources.filetype
-  ignore_above: 1024
-  level: extended
-  name: resources.filetype
-  normalize: []
-  original_fieldset: pe
-  short: File type of the resources section.
-  type: keyword
-threat.indicator.file.pe.resources.language:
-  dashed_name: threat-indicator-file-pe-resources-language
-  description: Language identification.
-  example: CHINESE SIMPLIFIED
-  flat_name: threat.indicator.file.pe.resources.language
-  ignore_above: 1024
-  level: extended
-  name: resources.language
-  normalize: []
-  original_fieldset: pe
-  short: Language identification.
-  type: keyword
-threat.indicator.file.pe.resources.sha256:
-  dashed_name: threat-indicator-file-pe-resources-sha256
-  description: SHA256 hash of resources section.
-  example: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-  flat_name: threat.indicator.file.pe.resources.sha256
-  ignore_above: 1024
-  level: extended
-  name: resources.sha256
-  normalize: []
-  original_fieldset: pe
-  short: SHA256 hash of resources section.
-  type: keyword
-threat.indicator.file.pe.resources.type:
-  dashed_name: threat-indicator-file-pe-resources-type
-  description: Digest of resource types.
-  example: '["RT_VERSION", "RT_MANIFEST"]'
-  flat_name: threat.indicator.file.pe.resources.type
-  ignore_above: 1024
-  level: extended
-  name: resources.type
-  normalize:
-  - array
-  original_fieldset: pe
-  short: List of resource types.
-  type: keyword
-threat.indicator.file.pe.rich_header.hash.md5:
-  dashed_name: threat-indicator-file-pe-rich-header-hash-md5
-  description: MD5 hash of the header for the PE file.
-  example: 5aa1aa0f2b4be70397a1e9e2b87627cd
-  flat_name: threat.indicator.file.pe.rich_header.hash.md5
-  ignore_above: 1024
-  level: extended
-  name: rich_header.hash.md5
-  normalize: []
-  original_fieldset: pe
-  short: MD5 hash of the header for the PE file.
-  type: keyword
-threat.indicator.file.pe.sections:
-  dashed_name: threat-indicator-file-pe-sections
-  description: Data about sections of compiled binary PE
-  flat_name: threat.indicator.file.pe.sections
-  level: extended
-  name: sections
-  normalize:
-  - array
-  original_fieldset: pe
-  short: Data about sections of the compiled binary PE
-  type: nested
-threat.indicator.file.pe.sections.chi2:
-  dashed_name: threat-indicator-file-pe-sections-chi2
-  description: Chi-square probability distribution.
-  example: 3027194
-  flat_name: threat.indicator.file.pe.sections.chi2
-  level: extended
-  name: sections.chi2
-  normalize: []
-  original_fieldset: pe
-  short: Chi-square probability distribution.
-  type: long
-threat.indicator.file.pe.sections.entropy:
-  dashed_name: threat-indicator-file-pe-sections-entropy
-  description: Measurement of entropy randomness in the file.
-  example: 6.24
-  flat_name: threat.indicator.file.pe.sections.entropy
-  level: extended
-  name: sections.entropy
-  normalize: []
-  original_fieldset: pe
-  short: Measurement of entropy randomness in the file.
-  type: float
-threat.indicator.file.pe.sections.flags:
-  dashed_name: threat-indicator-file-pe-sections-flags
-  description: Section flags of the file.
-  example: rx
-  flat_name: threat.indicator.file.pe.sections.flags
-  ignore_above: 1024
-  level: extended
-  name: sections.flags
-  normalize: []
-  original_fieldset: pe
-  short: Section flags of the file.
-  type: keyword
-threat.indicator.file.pe.sections.name:
-  dashed_name: threat-indicator-file-pe-sections-name
-  description: Section names of the file.
-  example: .text, .data
-  flat_name: threat.indicator.file.pe.sections.name
-  ignore_above: 1024
-  level: extended
-  name: sections.name
-  normalize: []
-  original_fieldset: pe
-  short: Section names of the file.
-  type: keyword
-threat.indicator.file.pe.sections.raw_size:
-  dashed_name: threat-indicator-file-pe-sections-raw-size
-  description: Size of the section or the dize of the initialized data on disk.
-  example: 198144
-  flat_name: threat.indicator.file.pe.sections.raw_size
-  format: bytes
-  level: extended
-  name: sections.raw_size
-  normalize: []
-  original_fieldset: pe
-  short: Size of the section or the dize of the initialized data on disk.
-  type: long
-threat.indicator.file.pe.sections.virtual_address:
-  dashed_name: threat-indicator-file-pe-sections-virtual-address
-  description: Virtual address available to the file.
-  example: 8192
-  flat_name: threat.indicator.file.pe.sections.virtual_address
-  format: bytes
-  level: extended
-  name: sections.virtual_address
-  normalize: []
-  original_fieldset: pe
-  short: Virtual address available to the file.
-  type: long
 threat.indicator.file.size:
   dashed_name: threat-indicator-file-size
   description: 'File size in bytes.

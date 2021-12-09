@@ -24,6 +24,15 @@ check: generate experimental test fmt misspell makelint
 	git update-index --refresh
 	git diff-index --exit-code HEAD --
 
+# Check for license headers
+.PHONY: check_license_headers
+check_license_headers:
+	@echo "Files missing license headers:\n"
+	@find . -type f \( -path './scripts/*' -o -path './schemas/*' \) \
+	\( -name '*.py' -o -name '*.yml' \) \
+	-print0 | xargs -0 -n1 grep -L "Licensed to Elasticsearch B.V." \
+	|| exit 0
+
 # Clean deletes all temporary and generated content.
 .PHONY: clean
 clean:
@@ -86,9 +95,9 @@ test: ve
 # Create a virtualenv to run Python.
 .PHONY: ve
 ve: build/ve/bin/activate
-build/ve/bin/activate: scripts/requirements.txt
+build/ve/bin/activate: scripts/requirements.txt scripts/requirements-dev.txt
 	@test -d build/ve || python3 -mvenv build/ve
-	@build/ve/bin/pip install -Ur scripts/requirements.txt
+	@build/ve/bin/pip install -Ur scripts/requirements.txt -r scripts/requirements-dev.txt
 	@touch build/ve/bin/activate
 
 # Check YAML syntax (currently not enforced).
