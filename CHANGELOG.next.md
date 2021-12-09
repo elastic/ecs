@@ -31,8 +31,6 @@ Thanks, you're awesome :-) -->
 
 #### Breaking changes
 
-* Remove template generation for ES6. #1680
-
 #### Bugfixes
 
 * Add `object` as fallback for `flattened` type. #1653
@@ -75,6 +73,7 @@ Thanks, you're awesome :-) -->
 * Removing deprecated --oss from generator #1404
 * Removing use-cases directory #1405
 * Remove Go code generator. #1567
+* Remove template generation for ES6. #1680
 
 #### Improvements
 

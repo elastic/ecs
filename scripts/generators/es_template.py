@@ -15,23 +15,12 @@
 # specific language governing permissions and limitations
 # under the License.
 
-import copy
 import json
 import sys
 
 from os.path import join
 
 from generators import ecs_helpers
-from schema.cleaner import field_or_multi_field_datatype_defaults
-
-
-TYPE_FALLBACKS = {
-    'constant_keyword': 'keyword',
-    'wildcard': 'keyword',
-    'version': 'keyword',
-    'match_only_text': 'text',
-    'flattened': 'object'
-}
 
 # Composable Template
 
