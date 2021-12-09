@@ -16,22 +16,9 @@
 # under the License.
 ---
 - name: process
-  title: Process
-  group: 2
-  short: These fields contain information about a process.
-  description: >
-    These fields contain information about a process.
-
-    These fields can help you correlate metrics information with a process id/name
-    from a log message.  The `process.pid` often stays in the metric itself and is
-    copied to the global field for correlation.
-  type: group
   reusable:
     top_level: true
     expected:
-      - at: process
-        as: parent
-        short_override: Information about the parent process.
       - at: process
         as: entry_leader
         short_override: Information about the entry session leader process.
@@ -43,14 +30,6 @@
         short_override: Information about the process group leader process. Undefined if same as process.
 
   fields:
-
-    - name: pid
-      format: string
-      level: core
-      type: long
-      description: >
-        Process id.
-      example: 4242
 
     - name: ppid
       level: core
@@ -65,126 +44,6 @@
       description: >
         Session id.
       example: 4242
-
-    - name: entity_id
-      level: extended
-      type: keyword
-      short: Unique identifier for the process.
-      description: >
-        Unique identifier for the process.
-
-        The implementation of this is specified by the data source, but some
-        examples of what could be used here are a process-generated UUID,
-        Sysmon Process GUIDs, or a hash of some uniquely identifying components
-        of a process.
-
-        Constructing a globally unique identifier is a common practice to mitigate
-        PID reuse as well as to identify a specific process over time, across multiple
-        monitored hosts.
-      example: c2c455d9f99375d
-
-    - name: name
-      level: extended
-      type: keyword
-      short: Process name.
-      description: >
-        Process name.
-
-        Sometimes called program name or similar.
-      example: ssh
-      multi_fields:
-        - type: match_only_text
-          name: text
-
-    - name: pgid
-      format: string
-      level: extended
-      type: long
-      description: >
-        Identifier of the group of processes the process belongs to.
-
-    - name: command_line
-      level: extended
-      type: wildcard
-      short: Full command line that started the process.
-      description: >
-        Full command line that started the process, including the absolute path
-        to the executable, and all arguments.
-
-        Some arguments may be filtered to protect sensitive information.
-      example: "/usr/bin/ssh -l user 10.0.0.16"
-      multi_fields:
-        - type: match_only_text
-          name: text
-
-    - name: args
-      level: extended
-      type: keyword
-      short: Array of process arguments.
-      description: >
-        Array of process arguments, starting with the absolute path to the executable.
-
-        May be filtered to protect sensitive information.
-      example: "[\"/usr/bin/ssh\", \"-l\", \"user\", \"10.0.0.16\"]"
-      normalize:
-        - array
-
-    - name: args_count
-      level: extended
-      type: long
-      short: Length of the process.args array.
-      description: >
-        Length of the process.args array.
-
-        This field can be useful for querying or performing bucket analysis on
-        how many arguments were provided to start a process.
-        More arguments may be an indication of suspicious activity.
-      example: 4
-
-    - name: executable
-      level: extended
-      type: keyword
-      description: >
-        Absolute path to the process executable.
-      example: /usr/bin/ssh
-      multi_fields:
-        - type: match_only_text
-          name: text
-
-    - name: title
-      level: extended
-      type: keyword
-      short: Process title.
-      description: >
-        Process title.
-
-        The proctitle, some times the same as process name. Can also be different:
-        for example a browser setting its title to the web page currently opened.
-      multi_fields:
-        - type: match_only_text
-          name: text
-
-    - name: thread.id
-      format: string
-      level: extended
-      type: long
-      example: 4242
-      description: >
-        Thread ID.
-
-    - name: thread.name
-      level: extended
-      type: keyword
-      example: 'thread-0'
-      description: >
-        Thread name.
-
-    - name: start
-      level: extended
-      type: date
-      example: "2016-05-23T08:05:34.853Z"
-      description: >
-        The time this process started.
 
     - name: ppid_start
       level: extended
@@ -207,40 +66,39 @@
       description: >
         The time this process's session started.
 
-    - name: uptime
-      level: extended
-      type: long
-      example: 1325
-      description: >
-        Seconds the process has been up.
-
-    - name: working_directory
+    - name: previous_args
       level: extended
       type: keyword
-      example: /home/alice
+      short: Array of process arguments the previous fork or exec.
       description: >
-        The working directory of the process.
+        Array of process arguments, starting with the absolute path to the executable.
+
+        May be filtered to protect sensitive information.
+      example: "[\"/usr/bin/ssh\", \"-l\", \"user\", \"10.0.0.16\"]"
+      normalize:
+        - array
+
+    - name: previous_args_count
+      level: extended
+      type: long
+      short: Length of the process.previous_args array.
+      description: >
+        Length of the process.previous_args array.
+
+        This field can be useful for querying or performing bucket analysis on
+        how many arguments were provided to start a process.
+        More arguments may be an indication of suspicious activity.
+      example: 4
+
+    - name: previous_executable
+      level: extended
+      type: keyword
+      description: >
+        Absolute path to the process previous executable.
+      example: /usr/bin/ssh
       multi_fields:
         - type: match_only_text
           name: text
-
-    - name: exit_code
-      level: extended
-      type: long
-      example: 137
-      short: The exit code of the process.
-      description: >
-        The exit code of the process, if this is a termination event.
-
-        The field should be absent if there is no exit code for the event (e.g.
-        process start).
-
-    - name: end
-      level: extended
-      type: date
-      example: "2016-05-23T08:05:34.853Z"
-      description: >
-        The time the process ended.
 
     - name: interactive
       level: extended
@@ -254,21 +112,44 @@
 
         Note: A non-interactive process can belong to an interactive session. Backgrounded processes are an example of this.
 
-    - name: tty
+    - name: fds
       level: extended
-      type: fd
-      example: >
-        process.tty = {
-          char_device: {
-            major: 4,
-            minor: 1
-          }
-        }
-      short: The file descriptor for the controlling tty (ctty).
+      type: nested
+      short: An array of the lowest file descriptors for the process.
       description: >
-        The file descriptor for the controlling tty (ctty) of the session.
+        An array of the lowest file descriptors for the process.
 
-        If set, session is interactive.
+        Typically includes fd0(stdin), fd1(stdout), fd2(stderr), but can include other non character devices such as files, sockets, pipes and FIFOs.
+
+      example: >
+        [
+          {
+            descriptor:0,
+            type: 'char_device',
+            char_device: {
+              major: 8,
+              minor: 1
+            }
+          },
+          {
+            descriptor:1,
+            type:'char_device',
+            char_device: {
+              major: 8,
+              minor: 1
+            }
+          },
+          {
+            descriptor:9,
+            type:'pipe',
+            pipe: {
+              inode: '6183207'
+            }
+          }
+        ]
+
+      normalize:
+        - array
 
     - name: env_vars
       level: extended
