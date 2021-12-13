@@ -153,7 +153,7 @@
 
     - name: env_vars
       level: extended
-      type: object
+      type: nested
       short: Array of environment variables.
       description: >
         Array of environment variables.
@@ -162,15 +162,6 @@
       example: "[{ key: 'PATH', value: '/usr/bin;/usr/local/bin;'}, { key: 'USER', value: 'ubuntu' }]"
       normalize:
         - array
-
-    - name: entry_meta
-      level: extended
-      type: object
-      short: Information about the entry point for the session.
-      description: >
-        Information about the entry point for the session.
-
-        This is only set on the nested process.entry_leader process.
 
     - name: entry_meta.type
       level: extended
@@ -188,4 +179,12 @@
       description: >
         Entry point information for a session.
 
-        Remote client information such as ip, port and geo location. This field would NOT be set for entry types like 'init'.
+        Remote client information such as ip, port and geo location.
+
+    - name: pid_ns_ino
+      level: extended
+      type: keyword
+      short: Pid namespace inode
+      example: 256383
+      description: >
+        This is the inode number of the namespace in the namespace file system (nsfs). Unsigned int inum in include/linux/ns_common.h.

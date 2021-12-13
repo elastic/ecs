@@ -80,36 +80,6 @@
         The minor number is used only by the driver specified by the major number; other parts of the kernel don’t use it, and merely pass it along to the driver. It is common for a driver to control several devices; the minor number provides a way for the driver to differentiate among them.
       example: 128
 
-    - name: file
-      level: extended
-      type: file
-      short: File information for the FD.
-      description: >
-        Specifics about a file that the FD is referencing.
-
-        This field is only populated if fd.type: file
-
-    - name: file.inode
-      level: extended
-      type: keyword
-      short: The inode for the file.
-      description: >
-        Inode representing the file in the filesystem.
-
-      example: 256383
-
-    - name: file.path
-      level: extended
-      type: keyword
-      short: The path to the file in the filesystem.
-      description: >
-        The path to the file in the filesystem.
-
-      example: /etc/hosts
-      multi_fields:
-        - type: match_only_text
-          name: text
-
     - name: file.block_device
       level: extended
       type: object
@@ -235,37 +205,3 @@
         Pipe information for the FD.
 
         Only set if fd.type: pipe
-
-    - name: pipe.inode
-      level: extended
-      type: keyword
-      description: The inode of the pipe.
-
-    - name: pipe.read_end
-      level: extended
-      type: boolean
-      description: Whether this is the 'read' end of the pipe.
-
-    - name: fifo
-      level: extended
-      type: object
-      short: FIFO information for the FD.
-      description: >
-        FIFO information for the FD.
-
-        Only set if fd.type: fifo
-
-    - name: fifo.inode
-      level: extended
-      type: keyword
-      description: The inode of the FIFO.
-
-    - name: fifo.path
-      level: extended
-      type: keyword
-      description: The path to the file for the FIFO.
-
-    - name: fifo.read_end
-      level: extended
-      type: boolean
-      description: Whether this is the 'read' end of the FIFO.
