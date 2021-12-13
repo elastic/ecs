@@ -1,32 +1,28 @@
 # 0010: Email
-<!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
-- Stage: **1 (draft)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
-- Date: **2021-08-16** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
+- Stage: **2 (candidate)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
+- Date: **2021-12-13** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 This RFC proposes a new top-level field set to facilitate email use cases, `email.*`. The `email.*` field set adds fields for the sender, recipient, message header fields, and other attributes of an email message typically seen logs produced by mail transfer agent (MTA) and email gateway applications.
 
 ## Fields
 
-<!--
-Stage 1: Describe at a high level how this change affects fields. Which fieldsets will be impacted? How many fields overall? Are we primarily adding fields, removing fields, or changing existing fields? The goal here is to understand the fundamental technical implications and likely extent of these changes. ~2-5 sentences.
--->
-
 ### Email specific fields
 
 | field | type | description |
 | --- | --- | --- |
-| `email.from` | keyword | Stores the `from` email address from the RFC5322 `From:` header field. |
 | `email.origination_timestamp` | date | The date and time the email message was composed. Many email clients will fill this in automatically when the message is sent by a user. |
 | `email.delivery_timestamp` | date | The date and time the email message was received by the service or client. |
-| `email.to` | keyword (array) | The email address(es) of the message recipient(s) |
-| `email.subject` | keyword; `.text` text multi-field | A brief summary of the topic of the message |
-| `email.cc` | keyword (array) | The email address(es) of the carbon copy (CC) recipient(s) |
-| `email.bcc` | keyword (array) | The email address(es) of the blind carbon copy (CC) recipient(s) |
+| `email.from.address` | keyword (array) | Stores the `from` email address from the RFC5322 `From:` header field. |
+| `email.sender.address` | keyword | When the `from` field contains more than one address or the `sender` and `from` are distinct then this field is populated. |
+| `email.to.address` | keyword (array)| The email address of message recipient |
+| `email.cc.address` | keyword (array) | The email address of a carbon copy (CC) recipient |
+| `email.bcc.address` | keyword (array) | The email address of the blind carbon copy (CC) recipient(s) |
+| `email.reply_to.address` | keyword (array) | The address that replies should be delivered to from the RFC 5322 `Reply-To:` header field. |
+| `email.subject` | keyword (`.text` text multi-field) | A brief summary of the topic of the message |
 | `email.content_type` | keyword | Information about how the message is to be displayed. Typically a MIME type |
 | `email.message_id` | wildcard |  Identifier from the RFC5322 `Message-ID:` header field that refers to a particular version of a particular message. |
 | `email.local_id` | keyword | Unique identifier given to the email by the source (MTA, gateway, etc.) that created the event and is not persistent across hops (for example, the `X-MS-Exchange-Organization-Network-Message-Id` id). |
-| `email.reply_to` | keyword | The address that replies should be delivered to from the RFC 5322 `Reply-To:` header field. |
 | `email.direction` | keyword | Direction of the message based on the sending and receiving domains |
 | `email.x_mailer` | keyword | What application was used to draft and send the original email. |
 | `email.attachments` | nested | Nested object of attachments on the email. |
@@ -44,17 +40,9 @@ Email events may benefit from an additional ECS allowed event categorization val
 
 ## Usage
 
-<!--
-Stage 1: Describe at a high-level how these field changes will be used in practice. Real world examples are encouraged. The goal here is to understand how people would leverage these fields to gain insights or solve problems. ~1-3 paragraphs.
--->
-
-Email use cases stretch across all three Elastic solutions - Search, Observe, Protect. Whether it's searching for content within email, ensuring email infrastructure is operational or detecting email based attacks, there are many possibilities for email fields within ECS.
+Email use cases stretch across all three Elastic solutions - Search, Observe, Protect. Whether it's searching for content within email, ensuring email infrastructure is operational, or detecting email-based attacks, there are many possibilities for email fields within ECS.
 
 ## Source data
-
-<!--
-Stage 1: Provide a high-level description of example sources of data. This does not yet need to be a concrete example of a source document, but instead can simply describe a potential source (e.g. nginx access log). This will ultimately be fleshed out to include literal source examples in a future stage. The goal here is to identify practical sources for these fields in the real world. ~1-3 sentences or unordered list.
--->
 
 - **Email Analytics**: [Hubspot](https://legacydocs.hubspot.com/docs/methods/email/email_events_overview), Marketo, Salesforce Pardot
 - **Email Server**: [O365 Message Tracing](https://docs.microsoft.com/en-us/exchange/monitoring/trace-an-email-message/run-a-message-trace-and-view-results), [Postfix](https://nxlog.co/documentation/nxlog-user-guide/postfix.html)
@@ -70,7 +58,7 @@ Stage 2: Included a real world example source document. Ideally this example com
 
 ```json
 {
-  "EndDate": "2020-11-10T22:12:34.8196921Z",
+  "EndDate": "2021-11-10T22:12:34.8196921Z",
   "FromIP": "8.8.8.8",
   "Index": 25,
   "MessageId": "\\u003c95689d8d5e7f429390a4e3646eef75e8-JFBVALKQOJXWILKBK4YVA7APGM3DKTLFONZWCZ3FINSW45DFOJ6EAQ2ENFTWK43UL4YTCMBYGIYHYU3NORYA====@microsoft.com\\u003e",
@@ -94,12 +82,16 @@ Stage 2: Included a real world example source document. Ideally this example com
   "@timestamp": 1626984241830,
   "email": {
     "timestamp": "2020-11-08T22:12:34.8196921Z",
-        "from": [
-  	    "o365mc@microsoft.com"
-  	],
-    "to": [
-      "john@testdomain.onmicrosoft.com"
-    ],
+    "from": {
+  	  "address": [
+        "o365mc@microsoft.com"
+      ]
+    },
+    "to": {
+      "address": [
+        "john@testdomain.onmicrosoft.com"
+      ]
+    },
     "subject": "Weekly digest: Microsoft service updates",
     "message_id": "\\u003c95689d8d5e7f429390a4e3646eef75e8-JFBVALKQOJXWILKBK4YVA7APGM3DKTLFONZWCZ3FINSW45DFOJ6EAQ2ENFTWK43UL4YTCMBYGIYHYU3NORYA====@microsoft.com\\u003e"
   },
@@ -144,12 +136,16 @@ Stage 2: Included a real world example source document. Ideally this example com
   "@timestamp": 1626984241830,
   "email": {
     "timestamp": "2020-11-10T22:12:34.8196921Z",
-        "from": [
-          "postmaster@testdomain.onmicrosoft.com"
-        ],
-        "to": [
-          "o365mc@microsoft.com"
-        ],
+        "from": {
+          "address": [
+            "postmaster@testdomain.onmicrosoft.com"
+          ]
+        },
+        "to": {
+          "address": [
+            "o365mc@microsoft.com"
+          ]
+        },
         "subject": "Undeliverable: Message Center Major Change Update Notification",
         "message_id": "\\u003c72872e16-f4c2-4eef-a393-e5621748a0ff@AS8P19vMB1605.EURP191.PROD.OUTLOOK.COM\\u003e"
     },
@@ -169,30 +165,41 @@ Stage 2: Included a real world example source document. Ideally this example com
 #### Original log
 
 ```
-<38>1 2016-06-24T21:00:08Z - ProofpointTAP - MSGBLK [tapmsg@21139 messageTime="2016-06-24T21:18:38.000Z" messageID="20160624211145.62086.mail@evil.zz" recipient="clark.kent@pharmtech.zz, diana.prince@pharmtech.zz" sender="e99d7ed5580193f36a51f597bc2c0210@evil.zz" senderIP="192.0.2.255" phishScore="46" spamScore="4" QID="r2FNwRHF004109" GUID="c26dbea0-80d5-463b-b93c-4e8b708219ce" subject="Please find a totally safe invoice attached." quarantineRule="module.sandbox.threat" quarantineFolder="Attachment Defense" policyRoutes="default_inbound,executives" modulesRun="sandbox,urldefense,spam,pdr" headerFrom="\"A. Badguy\" <badguy@evil.zz>" headerTo="\"Clark Kent\" <clark.kent@pharmtech.zz>; \"Diana Prince\" <diana.prince@pharmtech.zz>" headerCC="\"Bruce Wayne\" <bruce.wayne@university-of-education.zz>" headerReplyTo="null" toAddresses="clark.kent@pharmtech.zz,diana.prince@pharmtech.zz" ccAddresses="bruce.wayne@university-of-education.zz" fromAddress="badguy@evil.zz" replyToAddress="null" clusterId="pharmtech_hosted" messageParts="[{\"contentType\":\"text/plain\",\"disposition\":\"inline\",\"filename\":\"text.txt\",\"md5\":\"008c5926ca861023c1d2a36653fd88e2\",\"oContentType\":\"text/plain\",\"sandboxStatus\":\"unsupported\",\"sha256\":\"85738f8f9a7f1b04b5329c590ebcb9e425925c6d0984089c43a022de4f19c281\"},{\"contentType\":\"application/pdf\",\"disposition\":\"attached\",\"filename\":\"Invoice for Pharmtech.pdf\",\"md5\":\"5873c7d37608e0d49bcaa6f32b6c731f\",\"oContentType\":\"application/pdf\",\"sandboxStatus\":\"threat\",\"sha256\":\"2fab740f143fc1aa4c1cd0146d334c5593b1428f6d062b2c406e5efe8abe95ca\"}]" xmailer="Spambot v2.5"]
+<38>1 2021-06-24T21:00:08Z - ProofpointTAP - MSGBLK [tapmsg@21139 messageTime="2021-06-24T21:18:38.000Z" messageID="20160624211145.62086.mail@evil.zz" recipient="clark.kent@pharmtech.zz, diana.prince@pharmtech.zz" sender="e99d7ed5580193f36a51f597bc2c0210@evil.zz" senderIP="192.0.2.255" phishScore="46" spamScore="4" QID="r2FNwRHF004109" GUID="c26dbea0-80d5-463b-b93c-4e8b708219ce" subject="Please find a totally safe invoice attached." quarantineRule="module.sandbox.threat" quarantineFolder="Attachment Defense" policyRoutes="default_inbound,executives" modulesRun="sandbox,urldefense,spam,pdr" headerFrom="\"A. Badguy\" <badguy@evil.zz>" headerTo="\"Clark Kent\" <clark.kent@pharmtech.zz>; \"Diana Prince\" <diana.prince@pharmtech.zz>" headerCC="\"Bruce Wayne\" <bruce.wayne@university-of-education.zz>" headerReplyTo="null" toAddresses="clark.kent@pharmtech.zz,diana.prince@pharmtech.zz" ccAddresses="bruce.wayne@university-of-education.zz" fromAddress="badguy@evil.zz" replyToAddress="null" clusterId="pharmtech_hosted" messageParts="[{\"contentType\":\"text/plain\",\"disposition\":\"inline\",\"filename\":\"text.txt\",\"md5\":\"008c5926ca861023c1d2a36653fd88e2\",\"oContentType\":\"text/plain\",\"sandboxStatus\":\"unsupported\",\"sha256\":\"85738f8f9a7f1b04b5329c590ebcb9e425925c6d0984089c43a022de4f19c281\"},{\"contentType\":\"application/pdf\",\"disposition\":\"attached\",\"filename\":\"Invoice for Pharmtech.pdf\",\"md5\":\"5873c7d37608e0d49bcaa6f32b6c731f\",\"oContentType\":\"application/pdf\",\"sandboxStatus\":\"threat\",\"sha256\":\"2fab740f143fc1aa4c1cd0146d334c5593b1428f6d062b2c406e5efe8abe95ca\"}]" xmailer="Spambot v2.5"]
 ```
 
 #### Mapped event
 
 ```json
 {
-  "@timestamp": "2016-06-24T21:00:08Z",
+  "@timestamp": "2021-06-24T21:00:08Z",
   "email": {
-    "timestamp": "2016-06-24T21:18:38.000Z",
-    "message_id": "20160624211145.62086.mail@evil.zz",
+    "timestamp": "2021-06-24T21:18:38.000Z",
+    "message_id": "20210624211145.62086.mail@evil.zz",
     "local_id": "c26dbea0-80d5-463b-b93c-4e8b708219ce",
-    "to": [
-      "clark.kent@pharmtech.zz",
-      "diana.prince@pharmtech.zz"
-    ],
-    "cc": [
-      "bruce.wayne@university-of-education.zz"
-    ],
-    "from": [
-      "badguy@evil.zz"
-    ],
+    "to": {
+      "address": [
+        "clark.kent@pharmtech.zz",
+        "diana.prince@pharmtech.zz"
+      ]
+    },
+    "cc": {
+      "address": [
+        "bruce.wayne@university-of-education.zz"
+      ]
+    },
+    "from": {
+      "address": [
+        "badguy@evil.zz"
+      ]
+    },
+    "sender": {
+      "address": "e99d7ed5580193f36a51f597bc2c0210@evil.zz"
+    },
     "subject": "Please find a totally safe invoice attached.",
-    "reply_to": "null",
+    "reply_to": {
+      "address": "null"
+    },
     "x_mailer": "Spambot v2.5",
     "attachments": [
       {
@@ -215,8 +222,8 @@ Stage 2: Included a real world example source document. Ideally this example com
     "action": "MSGBLK"
   },
   "source": {
-    "address": 192.0.2.255,
-    "ip": 192.0.2.255
+    "address": "192.0.2.255",
+    "ip": "192.0.2.255"
   }
 }
 ```
@@ -226,26 +233,30 @@ Stage 2: Included a real world example source document. Ideally this example com
 #### Original log
 
 ```
-datetime=2017-05-26T16:47:41+0100|aCode=7O7I7MvGP1mj8plHRDuHEA|acc=C0A0|SpamLimit=0|IP=123.123.123.123|Dir=Internal|MsgId=<81ce15$8r2j59@mail01.example.com>|Subject=\message subject\|headerFrom=from@mimecast.com|Sender=from@mimecast.com|Rcpt=auser@mimecast.com|SpamInfo=[]|Act=Acc|TlsVer=TLSv1|Cphr=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA|SpamProcessingDetail={"spf":{"info":"SPF_FAIL","allow":true},"dkim":{"info":"DKIM_UNKNOWN","allow":true}}|SpamScore=1
+datetime=2021-05-26T16:47:41+0100|aCode=7O7I7MvGP1mj8plHRDuHEA|acc=C0A0|SpamLimit=0|IP=123.123.123.123|Dir=Internal|MsgId=<81ce15$8r2j59@mail01.example.com>|Subject=\message subject\|headerFrom=from@mimecast.com|Sender=from@mimecast.com|Rcpt=auser@mimecast.com|SpamInfo=[]|Act=Acc|TlsVer=TLSv1|Cphr=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA|SpamProcessingDetail={"spf":{"info":"SPF_FAIL","allow":true},"dkim":{"info":"DKIM_UNKNOWN","allow":true}}|SpamScore=1
 ```
 
 #### Mapped event
 
 ```json
 {
-  "@timestamp": "2017-05-26T16:47:41+0100",
+  "@timestamp": "2021-05-26T16:47:41+0100",
   "source": {
-    "address": 123.123.123.123,
-    "ip": 123.123.123.123
+    "address": "123.123.123.123",
+    "ip": "123.123.123.123"
   },
   "email": {
     "message_id": "<81ce15$8r2j59@mail01.example.com>",
-    "from": [
-      "from@mimecast.com"
-    ],
-    "to": [
-      "auser@mimecast.com"
-    ],
+    "from": {
+      "address": [
+        "from@mimecast.com"
+      ]
+    },
+    "to": {
+      "address": [
+        "auser@mimecast.com"
+      ]
+    },
     "subject": "message subject",
     "direction": "internal"
   },
@@ -263,41 +274,43 @@ Stage 3: Add more real world example source documents so we have at least 2 tota
 
 ## Scope of impact
 
-<!--
-Stage 2: Identifies scope of impact of changes. Are breaking changes required? Should deprecation strategies be adopted? Will significant refactoring be involved? Break the impact down into:
- * Ingestion mechanisms (e.g. beats/logstash)
- * Usage mechanisms (e.g. Kibana applications, detections)
- * ECS project (e.g. docs, tooling)
-The goal here is to research and understand the impact of these changes on users in the community and development teams across Elastic. 2-5 sentences each.
--->
+This is a new field set, and the changes introduced will not affect existing ECS implementations.
+
+Integrations or other data sources mapping to ECS will need to map their original events to the new fields.
 
 ## Concerns
 
-<!--
-Stage 1: Identify potential concerns, implementation challenges, or complexity. Spend some time on this. Play devil's advocate. Try to identify the sort of non-obvious challenges that tend to surface later. The goal here is to surface risks early, allow everyone the time to work through them, and ultimately document resolution for posterity's sake.
--->
-
 ### Email messages vs. protocols
 
-The fields proposed in this document are focused on the contents of an email message but not on specific fields for email protocols. Do protocols like SMTP, POP3, IMAP, etc. be represented in ECS?
+The fields proposed in this document focus on an email message's content but not on specific fields for email protocols. However, should protocols like SMTP, POP3, IMAP, etc., be represented in ECS?
 
 For example, users may need to compare the email address from the SMTP (envelope) sender to the `From:` header email address.
 
-### Email metrics and observability use caes
+**Resolution**: Focus on email message content in this initial phase. Additional protocol details can be added later on.
 
-Does the initial set of `email` fields need to consider observability and email monitoring use cases, for example spam, metrics, deliverables, and logging.
+### Email metrics and observability use cases
+
+Does the initial set of `email` fields need to consider observability and email monitoring use cases, for example, spam, metrics, deliverables, and logging?
+
+**Resolution**: This initial field set focuses on email message content.
 
 ### Additional event categorization values
 
-Should a new event.category field (email) be created, and, if so, which `event.type` values the `email` category should be combined with?
+Should a new event.category field (email) be created, and, if so, which `event.type` values should be used for the `email` category?
+
+**Resolution**: Propose to add `event.category: email` and make `info` an expected event type for the category.
 
 ### Display names
 
-Should the display name be captured separately from the email address for senders and recipients. If so, how do we accomplish this in a document while keeping the 1:1 of a display name to email address.
+Should the display name be captured separately from the email address for senders and recipients? If so, how do we accomplish this in a document while keeping the 1:1 of a display name to email address?
+
+**Resolution**: Initially, this proposal considered using `nested` types to allows arrays of objects containing both the email address and display name for the `to`, `cc`, and `bcc` recipients. However, after more consideration of the limitations to using `nested` fields types and limited support for `nested` fields in Kibana, that decision was reversed.
 
 ### Spam processing details
 
 Should fields intended to capture details around spam processing like sender policy framework (SPF), domainkeys identified mail (DKIM), or domain-based message authentication, reporting, and conformance (DMARC) be in scope for this proposal as well?
+
+**Resolution**: This initial field set focuses on email message content.
 
 <!--
 Stage 2: Document new concerns or resolutions to previously listed concerns. It's not critical that all concerns have resolutions at this point, but it would be helpful if resolutions were taking shape for the most significant concerns.
@@ -315,19 +328,6 @@ The following are the people that consulted on the contents of this RFC.
 * @P1llus | Co-author, subject matter expert
 * @jamiehynds | Co-sponsor
 * @devonakerr | Co-sponsor
-
-
-<!--
-Who will be or has been consulted on the contents of this RFC? Identify authorship and sponsorship, and optionally identify the nature of involvement of others. Link to GitHub aliases where possible. This list will likely change or grow stage after stage.
-
-e.g.:
-
-* @Yasmina | author
-* @Monique | sponsor
-* @EunJung | subject matter expert
-* @JaneDoe | grammar, spelling, prose
-* @Mariana
--->
 
 
 ## References
@@ -349,3 +349,4 @@ e.g.:
 * Stage 1 (formerly proposal stage): https://github.com/elastic/ecs/pull/999
   * RFC ID correction: https://github.com/elastic/ecs/pull/1157
 * Stage 1 (draft): https://github.com/elastic/ecs/pull/1219
+* Stage 2 (candidate): https://github.com/elastic/ecs/pull/1593
