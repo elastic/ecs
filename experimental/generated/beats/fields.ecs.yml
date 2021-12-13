@@ -1933,19 +1933,19 @@
       description: SHA-256 hash of the attachment file.
       example: f0366b3559f577d8732f7e9cc343a4960d202e8137dcc42f9783f3963f6abc6a
       default_field: false
-    - name: bcc
+    - name: bcc.address
       level: extended
       type: keyword
       ignore_above: 1024
-      description: The email address(es) of the blind carbon carbon (BCC) recipients.
-      example: '[''bcc.user1@example.com'', ''bcc.user2@example.com'']'
+      description: The email address of BCC recipient
+      example: bcc.user1@example.com
       default_field: false
-    - name: cc
+    - name: cc.address
       level: extended
       type: keyword
       ignore_above: 1024
-      description: The email address(es) of the carbon carbon (BCC) recipients.
-      example: '[''cc.user1@example.com'', ''cc.user2@example.com'']'
+      description: The email address of CC recipient
+      example: cc.user1@example.com
       default_field: false
     - name: content_type
       level: extended
@@ -1971,7 +1971,7 @@
         domains.
       example: inbound
       default_field: false
-    - name: from
+    - name: from.address
       level: extended
       type: keyword
       ignore_above: 1024
@@ -2004,13 +2004,20 @@
         will fill in this value automatically when the message is sent by a user.
       example: '2020-11-10T22:12:34.8196921Z'
       default_field: false
-    - name: reply_to
+    - name: reply_to.address
       level: extended
       type: keyword
       ignore_above: 1024
       description: The address that replies should be delivered to based on the value
         in the RFC 5322 `Reply-To:` header.
       example: reply.here@example.com
+      default_field: false
+    - name: sender.address
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Per RFC 5322, specifies the address responsible for the actual
+        transmission of the message.
       default_field: false
     - name: subject
       level: extended
@@ -2022,12 +2029,12 @@
       description: A brief summary of the topic of the message.
       example: Please see this important message.
       default_field: false
-    - name: to
+    - name: to.address
       level: extended
       type: keyword
       ignore_above: 1024
-      description: The email address(es) of the message recipients.
-      example: '[''user1@example.com'', ''user2@example.com'']'
+      description: The email address of recipient
+      example: user1@example.com
       default_field: false
     - name: x_mailer
       level: extended

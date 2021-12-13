@@ -2466,6 +2466,409 @@ The `elf` fields are expected to be nested at:
 
 
 Note also that the `elf` fields are not expected to be used directly at the root of the events.
+[[ecs-email]]
+=== Email Fields
+
+Fields relating to an email transaction.
+
+This field set focuses on the email message header, body, and attachments. Network protocols that send and receive email messages such as SMTP are outside the scope of the `email.*` fields.
+
+beta::[ These fields are in beta and subject to change.]
+
+[discrete]
+==== Email Field Details
+
+[options="header"]
+|=====
+| Field  | Description | Level
+
+// ===============================================================
+
+|
+[[field-email-attachments]]
+<<field-email-attachments, email.attachments>>
+
+| A list of attachment files sent along with an email message.
+
+type: nested
+
+
+Note: this field should contain an array of values.
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-email-attachments-file-extension]]
+<<field-email-attachments-file-extension, email.attachments.file.extension>>
+
+| Attachment file extension, excluding the leading dot.
+
+type: keyword
+
+
+
+example: `txt`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-email-attachments-file-mime-type]]
+<<field-email-attachments-file-mime-type, email.attachments.file.mime_type>>
+
+| The MIME media type of the attachment.
+
+This value will typically be extracted from the `Content-Type` MIME header field.
+
+type: keyword
+
+
+
+example: `text/plain`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-email-attachments-file-name]]
+<<field-email-attachments-file-name, email.attachments.file.name>>
+
+| Name of the attachment file including the file extension.
+
+type: keyword
+
+
+
+example: `attachment.txt`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-email-attachments-file-size]]
+<<field-email-attachments-file-size, email.attachments.file.size>>
+
+| Attachment file size in bytes.
+
+type: long
+
+
+
+example: `64329`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-email-attachments-hash-md5]]
+<<field-email-attachments-hash-md5, email.attachments.hash.md5>>
+
+| MD5 hash of the attachment file.
+
+type: keyword
+
+
+
+example: `e25f1c98ffdacf611473af364362ec48`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-email-attachments-hash-sha1]]
+<<field-email-attachments-hash-sha1, email.attachments.hash.sha1>>
+
+| SHA-1 hash of the attachment file.
+
+type: keyword
+
+
+
+example: `8c1cd40f17109b427e61d4e72ca6d9a4fc8175f3`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-email-attachments-hash-sha256]]
+<<field-email-attachments-hash-sha256, email.attachments.hash.sha256>>
+
+| SHA-256 hash of the attachment file.
+
+type: keyword
+
+
+
+example: `f0366b3559f577d8732f7e9cc343a4960d202e8137dcc42f9783f3963f6abc6a`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-email-bcc-address]]
+<<field-email-bcc-address, email.bcc.address>>
+
+| The email address of BCC recipient
+
+type: keyword
+
+
+Note: this field should contain an array of values.
+
+
+
+example: `bcc.user1@example.com`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-email-cc-address]]
+<<field-email-cc-address, email.cc.address>>
+
+| The email address of CC recipient
+
+type: keyword
+
+
+Note: this field should contain an array of values.
+
+
+
+example: `cc.user1@example.com`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-email-content-type]]
+<<field-email-content-type, email.content_type>>
+
+| Information about how the message is to be displayed.
+
+Typically a MIME type.
+
+type: keyword
+
+
+
+example: `text/plain`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-email-delivery-timestamp]]
+<<field-email-delivery-timestamp, email.delivery_timestamp>>
+
+| The date and time when the email message was received by the service or client.
+
+type: date
+
+
+
+example: `2020-11-10T22:12:34.8196921Z`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-email-direction]]
+<<field-email-direction, email.direction>>
+
+| The direction of the message based on the sending and receiving domains.
+
+type: keyword
+
+
+
+example: `inbound`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-email-from-address]]
+<<field-email-from-address, email.from.address>>
+
+| The email address of the sender, typically from the RFC 5322 `From:` header field.
+
+type: keyword
+
+
+Note: this field should contain an array of values.
+
+
+
+example: `sender@example.com`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-email-local-id]]
+<<field-email-local-id, email.local_id>>
+
+| Unique identifier given to the email by the source that created the event.
+
+Identifier is not persistent across hops.
+
+type: keyword
+
+
+
+example: `c26dbea0-80d5-463b-b93c-4e8b708219ce`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-email-message-id]]
+<<field-email-message-id, email.message_id>>
+
+| Identifier from the RFC 5322 `Message-ID:` email header that refers to a particular email message.
+
+type: keyword
+
+
+
+example: `<81ce15$8r2j59@mail01.example.com>`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-email-origination-timestamp]]
+<<field-email-origination-timestamp, email.origination_timestamp>>
+
+| The date and time the email message was composed. Many email clients will fill in this value automatically when the message is sent by a user.
+
+type: date
+
+
+
+example: `2020-11-10T22:12:34.8196921Z`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-email-reply-to-address]]
+<<field-email-reply-to-address, email.reply_to.address>>
+
+| The address that replies should be delivered to based on the value in the RFC 5322 `Reply-To:` header.
+
+type: keyword
+
+
+Note: this field should contain an array of values.
+
+
+
+example: `reply.here@example.com`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-email-sender-address]]
+<<field-email-sender-address, email.sender.address>>
+
+| Per RFC 5322, specifies the address responsible for the actual transmission of the message.
+
+type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-email-subject]]
+<<field-email-subject, email.subject>>
+
+| A brief summary of the topic of the message.
+
+type: keyword
+
+Multi-fields:
+
+* email.subject.text (type: match_only_text)
+
+
+
+
+
+example: `Please see this important message.`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-email-to-address]]
+<<field-email-to-address, email.to.address>>
+
+| The email address of recipient
+
+type: keyword
+
+
+Note: this field should contain an array of values.
+
+
+
+example: `user1@example.com`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-email-x-mailer]]
+<<field-email-x-mailer, email.x_mailer>>
+
+| The name of the application that was used to draft and send the original email message.
+
+type: keyword
+
+
+
+example: `Spambot v2.5`
+
+| extended
+
+// ===============================================================
+
+|=====
+
+
 [[ecs-error]]
 === Error Fields
 
@@ -2655,7 +3058,7 @@ Note: this field should contain an array of values.
 
 *Important*: The field value must be one of the following:
 
-authentication, configuration, database, driver, file, host, iam, intrusion_detection, malware, network, package, process, registry, session, threat, web
+authentication, configuration, database, driver, email, file, host, iam, intrusion_detection, malware, network, package, process, registry, session, threat, web
 
 To learn more about when to use which value, visit the page
 <<ecs-allowed-values-event-category,allowed values for event.category>>

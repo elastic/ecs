@@ -3107,6 +3107,7 @@ elf:
   title: ELF Header
   type: group
 email:
+  beta: These fields are in beta and subject to change.
   description: 'Fields relating to an email transaction.
 
     This field set focuses on the email message header, body, and attachments. Network
@@ -3119,7 +3120,8 @@ email:
       flat_name: email.attachments
       level: extended
       name: attachments
-      normalize: []
+      normalize:
+      - array
       short: List of objects describing the attachments.
       type: nested
     email.attachments.file.extension:
@@ -3201,29 +3203,29 @@ email:
       normalize: []
       short: SHA-256 hash of the attachment.
       type: keyword
-    email.bcc:
-      dashed_name: email-bcc
-      description: The email address(es) of the blind carbon carbon (BCC) recipients.
-      example: '[''bcc.user1@example.com'', ''bcc.user2@example.com'']'
-      flat_name: email.bcc
+    email.bcc.address:
+      dashed_name: email-bcc-address
+      description: The email address of BCC recipient
+      example: bcc.user1@example.com
+      flat_name: email.bcc.address
       ignore_above: 1024
       level: extended
-      name: bcc
+      name: bcc.address
       normalize:
       - array
-      short: Email address(es) of BCC recipients
+      short: Email address of BCC recipient
       type: keyword
-    email.cc:
-      dashed_name: email-cc
-      description: The email address(es) of the carbon carbon (BCC) recipients.
-      example: '[''cc.user1@example.com'', ''cc.user2@example.com'']'
-      flat_name: email.cc
+    email.cc.address:
+      dashed_name: email-cc-address
+      description: The email address of CC recipient
+      example: cc.user1@example.com
+      flat_name: email.cc.address
       ignore_above: 1024
       level: extended
-      name: cc
+      name: cc.address
       normalize:
       - array
-      short: Email address(es) of CC recipients
+      short: Email address of CC recipient
       type: keyword
     email.content_type:
       dashed_name: email-content-type
@@ -3261,16 +3263,17 @@ email:
       normalize: []
       short: Direction of the message.
       type: keyword
-    email.from:
-      dashed_name: email-from
+    email.from.address:
+      dashed_name: email-from-address
       description: The email address of the sender, typically from the RFC 5322 `From:`
         header field.
       example: sender@example.com
-      flat_name: email.from
+      flat_name: email.from.address
       ignore_above: 1024
       level: extended
-      name: from
-      normalize: []
+      name: from.address
+      normalize:
+      - array
       short: The sender's email address.
       type: keyword
     email.local_id:
@@ -3310,17 +3313,29 @@ email:
       normalize: []
       short: Date and time the email was composed.
       type: date
-    email.reply_to:
-      dashed_name: email-reply-to
+    email.reply_to.address:
+      dashed_name: email-reply-to-address
       description: The address that replies should be delivered to based on the value
         in the RFC 5322 `Reply-To:` header.
       example: reply.here@example.com
-      flat_name: email.reply_to
+      flat_name: email.reply_to.address
       ignore_above: 1024
       level: extended
-      name: reply_to
-      normalize: []
+      name: reply_to.address
+      normalize:
+      - array
       short: Address replies should be delivered to.
+      type: keyword
+    email.sender.address:
+      dashed_name: email-sender-address
+      description: Per RFC 5322, specifies the address responsible for the actual
+        transmission of the message.
+      flat_name: email.sender.address
+      ignore_above: 1024
+      level: extended
+      name: sender.address
+      normalize: []
+      short: Address of the message sender.
       type: keyword
     email.subject:
       dashed_name: email-subject
@@ -3337,17 +3352,17 @@ email:
       normalize: []
       short: The subject of the email message.
       type: keyword
-    email.to:
-      dashed_name: email-to
-      description: The email address(es) of the message recipients.
-      example: '[''user1@example.com'', ''user2@example.com'']'
-      flat_name: email.to
+    email.to.address:
+      dashed_name: email-to-address
+      description: The email address of recipient
+      example: user1@example.com
+      flat_name: email.to.address
       ignore_above: 1024
       level: extended
-      name: to
+      name: to.address
       normalize:
       - array
-      short: Email address(es) of the recipients.
+      short: Email address of recipient
       type: keyword
     email.x_mailer:
       dashed_name: email-x-mailer
@@ -3544,6 +3559,15 @@ event:
         - info
         - start
         name: driver
+      - beta: This event categorization value is beta and subject to change.
+        description: 'This category is used for events relating to email messages,
+          email attachments, and email network or protocol activity.
+
+          Emails events can be produced by email security gateways, mail transfer
+          agents, email cloud service providers, or mail server monitoring applications.'
+        expected_event_types:
+        - info
+        name: email
       - description: Relating to a set of information that has been created on, or
           has existed on a filesystem. Use this category of events to visualize and
           analyze the creation, access, and deletions of files. Events in this category

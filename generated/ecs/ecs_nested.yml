@@ -2964,6 +2964,282 @@ elf:
   short: These fields contain Linux Executable Linkable Format (ELF) metadata.
   title: ELF Header
   type: group
+email:
+  beta: These fields are in beta and subject to change.
+  description: 'Fields relating to an email transaction.
+
+    This field set focuses on the email message header, body, and attachments. Network
+    protocols that send and receive email messages such as SMTP are outside the scope
+    of the `email.*` fields.'
+  fields:
+    email.attachments:
+      dashed_name: email-attachments
+      description: A list of attachment files sent along with an email message.
+      flat_name: email.attachments
+      level: extended
+      name: attachments
+      normalize:
+      - array
+      short: List of objects describing the attachments.
+      type: nested
+    email.attachments.file.extension:
+      dashed_name: email-attachments-file-extension
+      description: Attachment file extension, excluding the leading dot.
+      example: txt
+      flat_name: email.attachments.file.extension
+      ignore_above: 1024
+      level: extended
+      name: attachments.file.extension
+      normalize: []
+      short: Attachment file extension.
+      type: keyword
+    email.attachments.file.mime_type:
+      dashed_name: email-attachments-file-mime-type
+      description: 'The MIME media type of the attachment.
+
+        This value will typically be extracted from the `Content-Type` MIME header
+        field.'
+      example: text/plain
+      flat_name: email.attachments.file.mime_type
+      ignore_above: 1024
+      level: extended
+      name: attachments.file.mime_type
+      normalize: []
+      short: MIME type of the attachment file.
+      type: keyword
+    email.attachments.file.name:
+      dashed_name: email-attachments-file-name
+      description: Name of the attachment file including the file extension.
+      example: attachment.txt
+      flat_name: email.attachments.file.name
+      ignore_above: 1024
+      level: extended
+      name: attachments.file.name
+      normalize: []
+      short: Name of the attachment file.
+      type: keyword
+    email.attachments.file.size:
+      dashed_name: email-attachments-file-size
+      description: Attachment file size in bytes.
+      example: 64329
+      flat_name: email.attachments.file.size
+      level: extended
+      name: attachments.file.size
+      normalize: []
+      short: Attachment file size.
+      type: long
+    email.attachments.hash.md5:
+      dashed_name: email-attachments-hash-md5
+      description: MD5 hash of the attachment file.
+      example: e25f1c98ffdacf611473af364362ec48
+      flat_name: email.attachments.hash.md5
+      ignore_above: 1024
+      level: extended
+      name: attachments.hash.md5
+      normalize: []
+      short: MD5 hash of the attachment.
+      type: keyword
+    email.attachments.hash.sha1:
+      dashed_name: email-attachments-hash-sha1
+      description: SHA-1 hash of the attachment file.
+      example: 8c1cd40f17109b427e61d4e72ca6d9a4fc8175f3
+      flat_name: email.attachments.hash.sha1
+      ignore_above: 1024
+      level: extended
+      name: attachments.hash.sha1
+      normalize: []
+      short: SHA-1 hash of the attachment.
+      type: keyword
+    email.attachments.hash.sha256:
+      dashed_name: email-attachments-hash-sha256
+      description: SHA-256 hash of the attachment file.
+      example: f0366b3559f577d8732f7e9cc343a4960d202e8137dcc42f9783f3963f6abc6a
+      flat_name: email.attachments.hash.sha256
+      ignore_above: 1024
+      level: extended
+      name: attachments.hash.sha256
+      normalize: []
+      short: SHA-256 hash of the attachment.
+      type: keyword
+    email.bcc.address:
+      dashed_name: email-bcc-address
+      description: The email address of BCC recipient
+      example: bcc.user1@example.com
+      flat_name: email.bcc.address
+      ignore_above: 1024
+      level: extended
+      name: bcc.address
+      normalize:
+      - array
+      short: Email address of BCC recipient
+      type: keyword
+    email.cc.address:
+      dashed_name: email-cc-address
+      description: The email address of CC recipient
+      example: cc.user1@example.com
+      flat_name: email.cc.address
+      ignore_above: 1024
+      level: extended
+      name: cc.address
+      normalize:
+      - array
+      short: Email address of CC recipient
+      type: keyword
+    email.content_type:
+      dashed_name: email-content-type
+      description: 'Information about how the message is to be displayed.
+
+        Typically a MIME type.'
+      example: text/plain
+      flat_name: email.content_type
+      ignore_above: 1024
+      level: extended
+      name: content_type
+      normalize: []
+      short: MIME type of the email message.
+      type: keyword
+    email.delivery_timestamp:
+      dashed_name: email-delivery-timestamp
+      description: The date and time when the email message was received by the service
+        or client.
+      example: '2020-11-10T22:12:34.8196921Z'
+      flat_name: email.delivery_timestamp
+      level: extended
+      name: delivery_timestamp
+      normalize: []
+      short: Date and time when message was delivered.
+      type: date
+    email.direction:
+      dashed_name: email-direction
+      description: The direction of the message based on the sending and receiving
+        domains.
+      example: inbound
+      flat_name: email.direction
+      ignore_above: 1024
+      level: extended
+      name: direction
+      normalize: []
+      short: Direction of the message.
+      type: keyword
+    email.from.address:
+      dashed_name: email-from-address
+      description: The email address of the sender, typically from the RFC 5322 `From:`
+        header field.
+      example: sender@example.com
+      flat_name: email.from.address
+      ignore_above: 1024
+      level: extended
+      name: from.address
+      normalize:
+      - array
+      short: The sender's email address.
+      type: keyword
+    email.local_id:
+      dashed_name: email-local-id
+      description: 'Unique identifier given to the email by the source that created
+        the event.
+
+        Identifier is not persistent across hops.'
+      example: c26dbea0-80d5-463b-b93c-4e8b708219ce
+      flat_name: email.local_id
+      ignore_above: 1024
+      level: extended
+      name: local_id
+      normalize: []
+      short: Unique identifier given by the source.
+      type: keyword
+    email.message_id:
+      dashed_name: email-message-id
+      description: Identifier from the RFC 5322 `Message-ID:` email header that refers
+        to a particular email message.
+      example: <81ce15$8r2j59@mail01.example.com>
+      flat_name: email.message_id
+      ignore_above: 1024
+      level: extended
+      name: message_id
+      normalize: []
+      short: Value from the Message-ID header.
+      type: keyword
+    email.origination_timestamp:
+      dashed_name: email-origination-timestamp
+      description: The date and time the email message was composed. Many email clients
+        will fill in this value automatically when the message is sent by a user.
+      example: '2020-11-10T22:12:34.8196921Z'
+      flat_name: email.origination_timestamp
+      level: extended
+      name: origination_timestamp
+      normalize: []
+      short: Date and time the email was composed.
+      type: date
+    email.reply_to.address:
+      dashed_name: email-reply-to-address
+      description: The address that replies should be delivered to based on the value
+        in the RFC 5322 `Reply-To:` header.
+      example: reply.here@example.com
+      flat_name: email.reply_to.address
+      ignore_above: 1024
+      level: extended
+      name: reply_to.address
+      normalize:
+      - array
+      short: Address replies should be delivered to.
+      type: keyword
+    email.sender.address:
+      dashed_name: email-sender-address
+      description: Per RFC 5322, specifies the address responsible for the actual
+        transmission of the message.
+      flat_name: email.sender.address
+      ignore_above: 1024
+      level: extended
+      name: sender.address
+      normalize: []
+      short: Address of the message sender.
+      type: keyword
+    email.subject:
+      dashed_name: email-subject
+      description: A brief summary of the topic of the message.
+      example: Please see this important message.
+      flat_name: email.subject
+      ignore_above: 1024
+      level: extended
+      multi_fields:
+      - flat_name: email.subject.text
+        name: text
+        type: match_only_text
+      name: subject
+      normalize: []
+      short: The subject of the email message.
+      type: keyword
+    email.to.address:
+      dashed_name: email-to-address
+      description: The email address of recipient
+      example: user1@example.com
+      flat_name: email.to.address
+      ignore_above: 1024
+      level: extended
+      name: to.address
+      normalize:
+      - array
+      short: Email address of recipient
+      type: keyword
+    email.x_mailer:
+      dashed_name: email-x-mailer
+      description: The name of the application that was used to draft and send the
+        original email message.
+      example: Spambot v2.5
+      flat_name: email.x_mailer
+      ignore_above: 1024
+      level: extended
+      name: x_mailer
+      normalize: []
+      short: Application that drafted email.
+      type: keyword
+  group: 2
+  name: email
+  prefix: email.
+  short: Fields describing an email transaction.
+  title: Email
+  type: group
 error:
   description: 'These fields can represent errors of any kind.
 
@@ -3141,6 +3417,15 @@ event:
         - info
         - start
         name: driver
+      - beta: This event categorization value is beta and subject to change.
+        description: 'This category is used for events relating to email messages,
+          email attachments, and email network or protocol activity.
+
+          Emails events can be produced by email security gateways, mail transfer
+          agents, email cloud service providers, or mail server monitoring applications.'
+        expected_event_types:
+        - info
+        name: email
       - description: Relating to a set of information that has been created on, or
           has existed on a filesystem. Use this category of events to visualize and
           analyze the creation, access, and deletions of files. Events in this category
