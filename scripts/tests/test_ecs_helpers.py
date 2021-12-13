@@ -112,6 +112,34 @@ class TestECSHelpers(unittest.TestCase):
         self.assertFalse(ecs_helpers.path_exists_in_git_tree(tree, 'nonexistant'))
         self.assertTrue(ecs_helpers.path_exists_in_git_tree(tree, 'schemas'))
 
+    # file helpers
+
+    def test_is_yaml(self):
+        self.assertTrue(ecs_helpers.is_yaml('./schemas/base.yml'))
+        self.assertTrue(ecs_helpers.is_yaml('./build/docs/conf.yaml'))
+        self.assertFalse(ecs_helpers.is_yaml('./README.md'))
+        self.assertFalse(ecs_helpers.is_yaml('./schemas/'))
+        self.assertFalse(ecs_helpers.is_yaml('./build'))
+
+    def test_glob_yaml_files(self):
+        self.assertEqual(ecs_helpers.glob_yaml_files('non_existent_file'), [])
+        self.assertEqual(ecs_helpers.glob_yaml_files('non_existent_directory/'), [])
+        self.assertEqual(ecs_helpers.glob_yaml_files('non_existent_wildcard.*'), [])
+        self.assertEqual(ecs_helpers.glob_yaml_files('schemas/base.yml'), ['schemas/base.yml'])
+        self.assertEqual(ecs_helpers.glob_yaml_files(['schemas/base.yml']), ['schemas/base.yml'])
+        # convert to set as element order is not being tested
+        self.assertEqual(set(ecs_helpers.glob_yaml_files(
+            ['schemas/base.yml', 'schemas/log.yml'])), {'schemas/base.yml', 'schemas/log.yml'})
+        self.assertTrue(set(ecs_helpers.glob_yaml_files('schemas/b*.yml')).intersection({'schemas/base.yml'}) != set())
+        self.assertTrue(set(ecs_helpers.glob_yaml_files(
+            'schemas/[bl]*.yml')).intersection({'schemas/base.yml', 'schemas/log.yml'}) != set())
+        min_schema_count = 46
+        self.assertTrue(len(ecs_helpers.glob_yaml_files(ecs_helpers.glob_yaml_files('schemas'))) >= min_schema_count)
+        self.assertTrue(len(ecs_helpers.glob_yaml_files(ecs_helpers.glob_yaml_files('schemas/'))) >= min_schema_count)
+        self.assertTrue(len(ecs_helpers.glob_yaml_files(
+            ecs_helpers.glob_yaml_files('schemas/*.yml'))) >= min_schema_count)
+        self.assertEqual(len(ecs_helpers.glob_yaml_files(ecs_helpers.glob_yaml_files('schemas/*.yaml'))), 0)
+
 
 if __name__ == '__main__':
     unittest.main()
