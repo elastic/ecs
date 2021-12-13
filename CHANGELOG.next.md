@@ -16,6 +16,8 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
+* Added two new fields (sha384,tlsh) to hash schema and one field to pe schema (pehash). #1678
+
 #### Improvements
 
 #### Deprecated
@@ -57,7 +59,6 @@ Thanks, you're awesome :-) -->
 #### Added
 
 * Added `faas.*` field set as beta. #1628
-* Added two new fields (sha384,tlsh) to hash schema and one field to pe schema (pehash). #1678
 
 #### Improvements
 
@@ -66,6 +67,8 @@ Thanks, you're awesome :-) -->
 * Threat indicator fields GA from RFC 0008. #1586
 
 ### Tooling and Artifact Changes
+
+* Align input options for --include and --subset arguments #1519
 
 #### Breaking Changes
 
@@ -77,6 +80,7 @@ Thanks, you're awesome :-) -->
 
 * Remove remaining Go deps after removing Go code generator. #1585
 * Add explicit `default_field: true` for Beats artifacts. #1633
+* Reorganize docs directory structure. #1679
 
 <!-- All empty sections:
 
