@@ -2488,7 +2488,7 @@ beta::[ These fields are in beta and subject to change.]
 [[field-email-attachments]]
 <<field-email-attachments, email.attachments>>
 
-| A list of attachment files sent along with an email message.
+| A list of objects describing the attachment files sent along with an email message.
 
 type: nested
 
@@ -2564,54 +2564,6 @@ type: long
 
 
 example: `64329`
-
-| extended
-
-// ===============================================================
-
-|
-[[field-email-attachments-hash-md5]]
-<<field-email-attachments-hash-md5, email.attachments.hash.md5>>
-
-| MD5 hash of the attachment file.
-
-type: keyword
-
-
-
-example: `e25f1c98ffdacf611473af364362ec48`
-
-| extended
-
-// ===============================================================
-
-|
-[[field-email-attachments-hash-sha1]]
-<<field-email-attachments-hash-sha1, email.attachments.hash.sha1>>
-
-| SHA-1 hash of the attachment file.
-
-type: keyword
-
-
-
-example: `8c1cd40f17109b427e61d4e72ca6d9a4fc8175f3`
-
-| extended
-
-// ===============================================================
-
-|
-[[field-email-attachments-hash-sha256]]
-<<field-email-attachments-hash-sha256, email.attachments.hash.sha256>>
-
-| SHA-256 hash of the attachment file.
-
-type: keyword
-
-
-
-example: `f0366b3559f577d8732f7e9cc343a4960d202e8137dcc42f9783f3963f6abc6a`
 
 | extended
 
@@ -2865,6 +2817,29 @@ example: `Spambot v2.5`
 | extended
 
 // ===============================================================
+
+|=====
+
+[discrete]
+==== Field Reuse
+
+[[ecs-email-nestings]]
+[discrete]
+===== Field sets that can be nested under Email
+
+[options="header"]
+|=====
+| Location | Field Set | Description
+
+// ===============================================================
+
+
+| `email.attachments.file.hash.*`
+| <<ecs-hash,hash>>
+| Hashes, usually file hashes.
+
+// ===============================================================
+
 
 |=====
 
@@ -4537,6 +4512,8 @@ The `hash` fields are expected to be nested at:
 
 
 * `dll.hash`
+
+* `email.attachments.file.hash`
 
 * `file.hash`
 

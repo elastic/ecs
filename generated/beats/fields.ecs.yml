@@ -1792,7 +1792,8 @@
     - name: attachments
       level: extended
       type: nested
-      description: A list of attachment files sent along with an email message.
+      description: A list of objects describing the attachment files sent along with
+        an email message.
       default_field: false
     - name: attachments.file.extension
       level: extended
@@ -1800,6 +1801,48 @@
       ignore_above: 1024
       description: Attachment file extension, excluding the leading dot.
       example: txt
+      default_field: false
+    - name: attachments.file.hash.md5
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: MD5 hash.
+      default_field: false
+    - name: attachments.file.hash.sha1
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SHA1 hash.
+      default_field: false
+    - name: attachments.file.hash.sha256
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SHA256 hash.
+      default_field: false
+    - name: attachments.file.hash.sha384
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SHA384 hash.
+      default_field: false
+    - name: attachments.file.hash.sha512
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SHA512 hash.
+      default_field: false
+    - name: attachments.file.hash.ssdeep
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SSDEEP hash.
+      default_field: false
+    - name: attachments.file.hash.tlsh
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: TLSH hash.
       default_field: false
     - name: attachments.file.mime_type
       level: extended
@@ -1823,27 +1866,6 @@
       type: long
       description: Attachment file size in bytes.
       example: 64329
-      default_field: false
-    - name: attachments.hash.md5
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: MD5 hash of the attachment file.
-      example: e25f1c98ffdacf611473af364362ec48
-      default_field: false
-    - name: attachments.hash.sha1
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: SHA-1 hash of the attachment file.
-      example: 8c1cd40f17109b427e61d4e72ca6d9a4fc8175f3
-      default_field: false
-    - name: attachments.hash.sha256
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: SHA-256 hash of the attachment file.
-      example: f0366b3559f577d8732f7e9cc343a4960d202e8137dcc42f9783f3963f6abc6a
       default_field: false
     - name: bcc.address
       level: extended
