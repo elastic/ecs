@@ -43,11 +43,1334 @@ Stage 2: Add or update all remaining field definitions. The list should now be e
 Stage 1: Describe at a high-level how these field changes will be used in practice. Real world examples are encouraged. The goal here is to understand how people would leverage these fields to gain insights or solve problems. ~1-3 paragraphs.
 -->
 
+1. Session View
+
+The primary use case for this data will be to drive the "Session view". A time ordered rendering of a linux session process tree. The addition of nested process ancestors entry_leader, session_leader, and group_leader will allow Session View to load only the events for a particular session.
+
+KQL examples:
+process.entry_leader.entity_id: &lt;entity_id of entry session leader>
+
+or
+
+process.session_leader.entity_id: &lt;entity_id of session leader>
+
+group_leader process info as well as file descriptors (process.fds) will allow the Session View to properly represent pipes and redirects in a familiar (shell) way.
+
+observer.boot.id and observer.pid_ns_ino will be used in generating unique uuids for the process using fn(process.pid, process.start, observer.pid_ns_ino, observer.boot.id)
+
+process.tty will be used to determine if the session is interactive. If the field is unset there is no controlling tty and the session is non-interactive (possibly a service).
+
+ppid and sid were (re)added for completeness. They are staples of the linux event model, and it's important they are set for the process and each of its nested ancestors.
+
+file_description fieldset will primarily be used to render pipes and redirects, but shed light on processes file and socket activity.
+
+2. Rule engines
+
+The new nested ancestor processes will provide rule engines a widened context to allow for improved specificity/scope. Rather than rely on sequences of events to decide when to take action, an informed decision can be made on a single event. This opens up the door for much quicker and pre-emptive actions. Like stopping a processes, or isolating a host.
+
+KQL example:
+
+Block a session if the user is connecting with root and trying to run mysql:
+process.entry_leader.user.name: root AND process.executable: /bin/mysql
+
+
 ## Source data
 
 <!--
 Stage 1: Provide a high-level description of example sources of data. This does not yet need to be a concrete example of a source document, but instead can simply describe a potential source (e.g. nginx access log). This will ultimately be fleshed out to include literal source examples in a future stage. The goal here is to identify practical sources for these fields in the real world. ~1-3 sentences or unordered list.
 -->
+
+The source of data will be via kprobes and ebpf sensors. All process execution lifecycle events will be sent up (fork, exec, end) as well as setsid, and output (tty) events.
+
+Here is a mock example of these events:
+
+### Fork event
+
+```json
+{
+  '@timestamp': '2021-10-14T08:05:34.853Z',
+  event: {
+    kind: 'event',
+    category: 'process',
+    action: 'fork',
+  },
+  host: {
+    architecture: 'x86_64',
+    hostname: 'james-fleet-714-2',
+    id: '48c1b3f1ac5da4e0057fc9f60f4d1d5d',
+    ip: '127.0.0.1,::1,10.132.0.50,fe80::7d39:3147:4d9a:f809',
+    mac: '42:01:0a:84:00:32',
+    name: 'james-fleet-714-2',
+    os: {
+      Ext: {
+        variant: 'CentOS'
+      },
+      family: 'centos',
+      full: 'CentOS 7.9.2009',
+      kernel: '3.10.0-1160.31.1.el7.x86_64 #1 SMP Thu Jun 10 13:32:12 UTC 2021',
+      name: 'Linux',
+      platform: 'centos',
+      version: '7.9.2009'
+    }
+  },
+  process: {
+    id: '4321',
+    args: ['/bin/sshd'],
+    args_count: 1,
+    command_line: 'sshd',
+    executable: '/bin/sshd',
+    name: 'sshd',
+    interactive: false,
+    working_directory: '/',
+    pid: 3,
+    ppid: 2,
+    sid: 1,
+    pgid: 2,
+    start: '2021-10-14T08:05:34.853Z',
+    sid_start: '2021-10-14T08:05:34.853Z',
+    ppid_start: '2021-10-14T08:05:34.853Z',
+    pgid_start: '2021-10-14T08:05:34.853Z',
+    user: {
+      id: '2',
+      name: 'kg',
+    },
+    parent: {
+      id: '4322',
+      args: ['/bin/sshd'],
+      args_count: 1,
+      command_line: 'sshd',
+      executable: '/bin/sshd',
+      name: 'sshd',
+      interactive: true,
+      working_directory: '/',
+      pid: 2,
+      ppid: 1,
+      sid: 1,
+      pgid: 2,
+      start: '2021-10-14T08:05:34.853Z',
+      sid_start: '2021-10-14T08:05:34.853Z',
+      ppid_start: '2021-10-14T08:05:34.853Z',
+      pgid_start: '2021-10-14T08:05:34.853Z',
+      user: {
+        id: '0',
+        name: 'root',
+      },
+      fds: [
+        {
+          descriptor:0,
+          type: 'char_device',
+          char_device: {
+            major: 8,
+            minor: 1
+          }
+        }
+      ],
+      tty: {
+        descriptor: 0,
+        type: 'char_device',
+        char_device: {
+          major: 8,
+          minor: 1
+        }
+      }
+    },
+    group_leader: {
+      id: '4321',
+      args: ['bash'],
+      args_count: 1,
+      command_line: 'bash',
+      executable: '/bin/bash',
+      name: 'bash',
+      interactive: true,
+      working_directory: '/home/kg',
+      pid: 3,
+      ppid: 1,
+      sid: 1,
+      pgid: 3,
+      start: '2021-10-14T08:05:34.853Z',
+      sid_start: '2021-10-14T08:05:34.853Z',
+      ppid_start: '2021-10-14T08:05:34.853Z',
+      pgid_start: '2021-10-14T08:05:34.853Z',
+      user: {
+        id: '2',
+        name: 'kg',
+      },
+      fds: [
+        {
+          descriptor:0,
+          type: 'char_device',
+          char_device: {
+            major: 8,
+            minor: 1
+          }
+        }
+      ],
+      tty: {
+        descriptor: 0,
+        type: 'char_device',
+        char_device: {
+          major: 8,
+          minor: 1
+        }
+      }
+    },
+    session_leader: {
+      id: '4321',
+      args: ['bash'],
+      args_count: 1,
+      command_line: 'bash',
+      executable: '/bin/bash',
+      name: 'bash',
+      interactive: true,
+      working_directory: '/home/kg',
+      pid: 3,
+      ppid: 1,
+      sid: 1,
+      pgid: 2,
+      start: '2021-10-14T08:05:34.853Z',
+      sid_start: '2021-10-14T08:05:34.853Z',
+      ppid_start: '2021-10-14T08:05:34.853Z',
+      pgid_start: '2021-10-14T08:05:34.853Z',
+      user: {
+        id: '2',
+        name: 'kg',
+      },
+      fds: [
+        {
+          descriptor:0,
+          type: 'char_device',
+          char_device: {
+            major: 8,
+            minor: 1
+          }
+        }
+      ],
+      tty: {
+        descriptor: 0,
+        type: 'char_device',
+        char_device: {
+          major: 8,
+          minor: 1
+        }
+      }
+    },
+    entry_leader: {
+      id: '4321',
+      args: ['bash'],
+      args_count: 1,
+      command_line: 'bash',
+      executable: '/bin/bash',
+      name: 'bash',
+      interactive: true,
+      working_directory: '/home/kg',
+      pid: 3,
+      ppid: 1,
+      sid: 1,
+      pgid: 2,
+      start: '2021-10-14T08:05:34.853Z',
+      sid_start: '2021-10-14T08:05:34.853Z',
+      ppid_start: '2021-10-14T08:05:34.853Z',
+      pgid_start: '2021-10-14T08:05:34.853Z',
+      user: {
+        id: '2',
+        name: 'kg',
+      },
+      entry_meta: {
+        type: 'sshd',
+        source: {
+          ip: '10.132.0.50',
+          geo: {
+            city_name: 'Vancouver',
+            continent_code: 'NA',
+            continent_name: 'North America',
+            country_iso_code: 'CA',
+            country_name: 'Canada',
+            location: {
+              lon: -73.614830,
+              lat: 45.505918
+            },
+            postal_code: 'V9J1E3',
+            region_iso_code: 'BC',
+            region_name: 'British Columbia',
+            timezone: 'America/Los_Angeles'
+          }
+        }
+      },
+      fds: [
+        {
+          descriptor:0,
+          type: 'char_device',
+          char_device: {
+            major: 8,
+            minor: 1
+          }
+        }
+      ],
+      tty: {
+        descriptor: 0,
+        type: 'char_device',
+        char_device: {
+          major: 8,
+          minor: 1
+        }
+      }
+    },
+    fds: [
+      {
+        descriptor:0,
+        type: 'char_device',
+        char_device: {
+          major: 8,
+          minor: 1
+        }
+      },
+      {
+        descriptor:1,
+        type:'pipe',
+        pipe: {
+          inode: '6183207'
+        }
+      }
+    ],
+    tty: {
+      descriptor: 0,
+      type: 'char_device',
+      char_device: {
+        major: 8,
+        minor: 1
+      }
+    }
+  }
+}
+```
+
+### Exec event
+
+```json
+{
+  '@timestamp': '2021-10-14T08:05:35.853Z',
+  event: {
+    kind: 'event',
+    category: 'process',
+    action: 'exec',
+  },
+  host: {
+    architecture: 'x86_64',
+    hostname: 'james-fleet-714-2',
+    id: '48c1b3f1ac5da4e0057fc9f60f4d1d5d',
+    ip: '127.0.0.1,::1,10.132.0.50,fe80::7d39:3147:4d9a:f809',
+    mac: '42:01:0a:84:00:32',
+    name: 'james-fleet-714-2',
+    os: {
+      Ext: {
+        variant: 'CentOS'
+      },
+      family: 'centos',
+      full: 'CentOS 7.9.2009',
+      kernel: '3.10.0-1160.31.1.el7.x86_64 #1 SMP Thu Jun 10 13:32:12 UTC 2021',
+      name: 'Linux',
+      platform: 'centos',
+      version: '7.9.2009'
+    }
+  },
+  process: {
+    id: '4321',
+    args: ['/bin/bash'],
+    args_count: 1,
+    command_line: 'bash',
+    executable: '/bin/bash',
+    name: 'bash',
+    interactive: true,
+    working_directory: '/home/kg',
+    pid: 3,
+    ppid: 1,
+    sid: 1,
+    pgid: 2,
+    start: '2021-10-14T08:05:34.853Z',
+    sid_start: '2021-10-14T08:05:34.853Z',
+    ppid_start: '2021-10-14T08:05:34.853Z',
+    pgid_start: '2021-10-14T08:05:34.853Z',
+    user: {
+      id: '2',
+      name: 'kg',
+    },
+    parent: {
+      id: '4322',
+      args: ['/bin/sshd'],
+      args_count: 1,
+      command_line: 'sshd',
+      executable: '/bin/sshd',
+      name: 'sshd',
+      interactive: true,
+      working_directory: '/',
+      pid: 2,
+      ppid: 1,
+      sid: 1,
+      pgid: 2,
+      start: '2021-10-14T08:05:34.853Z',
+      sid_start: '2021-10-14T08:05:34.853Z',
+      ppid_start: '2021-10-14T08:05:34.853Z',
+      pgid_start: '2021-10-14T08:05:34.853Z',
+      user: {
+        id: '0',
+        name: 'root',
+      },
+      fds: [
+        {
+          descriptor:0,
+          type: 'char_device',
+          char_device: {
+            major: 8,
+            minor: 1
+          }
+        }
+      ],
+      tty: {
+        descriptor: 0,
+        type: 'char_device',
+        char_device: {
+          major: 8,
+          minor: 1
+        }
+      }
+    },
+    group_leader: {
+      id: '4321',
+      args: ['bash'],
+      args_count: 1,
+      command_line: 'bash',
+      executable: '/bin/bash',
+      name: 'bash',
+      interactive: true,
+      working_directory: '/home/kg',
+      pid: 3,
+      ppid: 1,
+      sid: 1,
+      pgid: 3,
+      start: '2021-10-14T08:05:34.853Z',
+      sid_start: '2021-10-14T08:05:34.853Z',
+      ppid_start: '2021-10-14T08:05:34.853Z',
+      pgid_start: '2021-10-14T08:05:34.853Z',
+      user: {
+        id: '2',
+        name: 'kg',
+      },
+      fds: [
+        {
+          descriptor:0,
+          type: 'char_device',
+          char_device: {
+            major: 8,
+            minor: 1
+          }
+        }
+      ],
+      tty: {
+        descriptor: 0,
+        type: 'char_device',
+        char_device: {
+          major: 8,
+          minor: 1
+        }
+      }
+    },
+    session_leader: {
+      id: '4321',
+      args: ['bash'],
+      args_count: 1,
+      command_line: 'bash',
+      executable: '/bin/bash',
+      name: 'bash',
+      interactive: true,
+      working_directory: '/home/kg',
+      pid: 3,
+      ppid: 1,
+      sid: 1,
+      pgid: 2,
+      start: '2021-10-14T08:05:34.853Z',
+      sid_start: '2021-10-14T08:05:34.853Z',
+      ppid_start: '2021-10-14T08:05:34.853Z',
+      pgid_start: '2021-10-14T08:05:34.853Z',
+      user: {
+        id: '2',
+        name: 'kg',
+      },
+      fds: [
+        {
+          descriptor:0,
+          type: 'char_device',
+          char_device: {
+            major: 8,
+            minor: 1
+          }
+        }
+      ],
+      tty: {
+        descriptor: 0,
+        type: 'char_device',
+        char_device: {
+          major: 8,
+          minor: 1
+        }
+      }
+    },
+    entry_leader: {
+      id: '4321',
+      args: ['bash'],
+      args_count: 1,
+      command_line: 'bash',
+      executable: '/bin/bash',
+      name: 'bash',
+      interactive: true,
+      working_directory: '/home/kg',
+      pid: 3,
+      ppid: 1,
+      sid: 1,
+      pgid: 2,
+      start: '2021-10-14T08:05:34.853Z',
+      sid_start: '2021-10-14T08:05:34.853Z',
+      ppid_start: '2021-10-14T08:05:34.853Z',
+      pgid_start: '2021-10-14T08:05:34.853Z',
+      user: {
+        id: '2',
+        name: 'kg',
+      },
+      entry_meta: {
+        type: 'sshd',
+        source: {
+          ip: '10.132.0.50',
+          geo: {
+            city_name: 'Vancouver',
+            continent_code: 'NA',
+            continent_name: 'North America',
+            country_iso_code: 'CA',
+            country_name: 'Canada',
+            location: {
+              lon: -73.614830,
+              lat: 45.505918
+            },
+            postal_code: 'V9J1E3',
+            region_iso_code: 'BC',
+            region_name: 'British Columbia',
+            timezone: 'America/Los_Angeles'
+          }
+        }
+      },
+      fds: [
+        {
+          descriptor:0,
+          type: 'char_device',
+          char_device: {
+            major: 8,
+            minor: 1
+          }
+        }
+      ],
+      tty: {
+        descriptor: 0,
+        type: 'char_device',
+        char_device: {
+          major: 8,
+          minor: 1
+        }
+      }
+    },
+    fds: [
+      {
+        descriptor:0,
+        type: 'char_device',
+        char_device: {
+          major: 8,
+          minor: 1
+        }
+      },
+      {
+        descriptor:1,
+        type:'pipe',
+        pipe: {
+          inode: '6183207'
+        }
+      }
+    ],
+    tty: {
+      descriptor: 0,
+      type: 'char_device',
+      char_device: {
+        major: 8,
+        minor: 1
+      }
+    }
+  },
+}
+```
+
+### Exit event
+
+```json
+{
+  '@timestamp': '2021-10-14T08:05:36.853Z',
+  event: {
+    kind: 'event',
+    category: 'process',
+    action: 'end',
+  },
+  host: {
+    architecture: 'x86_64',
+    hostname: 'james-fleet-714-2',
+    id: '48c1b3f1ac5da4e0057fc9f60f4d1d5d',
+    ip: '127.0.0.1,::1,10.132.0.50,fe80::7d39:3147:4d9a:f809',
+    mac: '42:01:0a:84:00:32',
+    name: 'james-fleet-714-2',
+    os: {
+      Ext: {
+        variant: 'CentOS'
+      },
+      family: 'centos',
+      full: 'CentOS 7.9.2009',
+      kernel: '3.10.0-1160.31.1.el7.x86_64 #1 SMP Thu Jun 10 13:32:12 UTC 2021',
+      name: 'Linux',
+      platform: 'centos',
+      version: '7.9.2009'
+    }
+  },
+  process: {
+    id: '4321',
+    args: ['/bin/bash'],
+    args_count: 1,
+    command_line: 'bash',
+    executable: '/bin/bash',
+    name: 'bash',
+    interactive: true,
+    working_directory: '/home/kg',
+    pid: 3,
+    ppid: 2,
+    sid: 1,
+    pgid: 2,
+    start: '2021-10-14T08:05:34.853Z',
+    end: '2021-10-14T10:05:34.853Z',
+    sid_start: '2021-10-14T08:05:34.853Z',
+    ppid_start: '2021-10-14T08:05:34.853Z',
+    pgid_start: '2021-10-14T08:05:34.853Z',
+    exit_code: 137,
+    user: {
+      id: '2',
+      name: 'kg',
+    },
+    parent: {
+      id: '4322',
+      args: ['/bin/sshd'],
+      args_count: 1,
+      command_line: 'sshd',
+      executable: '/bin/sshd',
+      name: 'sshd',
+      interactive: true,
+      working_directory: '/',
+      pid: 2,
+      ppid: 1,
+      sid: 1,
+      pgid: 2,
+      start: '2021-10-14T08:05:34.853Z',
+      sid_start: '2021-10-14T08:05:34.853Z',
+      ppid_start: '2021-10-14T08:05:34.853Z',
+      pgid_start: '2021-10-14T08:05:34.853Z',
+      user: {
+        id: '0',
+        name: 'root',
+      },
+      fds: [
+        {
+          descriptor:0,
+          type: 'char_device',
+          char_device: {
+            major: 8,
+            minor: 1
+          }
+        }
+      ],
+      tty: {
+        descriptor: 0,
+        type: 'char_device',
+        char_device: {
+          major: 8,
+          minor: 1
+        }
+      },
+    },
+    group_leader: {
+      id: '4321',
+      args: ['bash'],
+      args_count: 1,
+      command_line: 'bash',
+      executable: '/bin/bash',
+      name: 'bash',
+      interactive: true,
+      working_directory: '/home/kg',
+      pid: 3,
+      ppid: 1,
+      sid: 1,
+      pgid: 3,
+      start: '2021-10-14T08:05:34.853Z',
+      sid_start: '2021-10-14T08:05:34.853Z',
+      ppid_start: '2021-10-14T08:05:34.853Z',
+      pgid_start: '2021-10-14T08:05:34.853Z',
+      user: {
+        id: '2',
+        name: 'kg',
+      },
+      fds: [
+        {
+          descriptor:0,
+          type: 'char_device',
+          char_device: {
+            major: 8,
+            minor: 1
+          }
+        }
+      ],
+      tty: {
+        descriptor: 0,
+        type: 'char_device',
+        char_device: {
+          major: 8,
+          minor: 1
+        }
+      }
+    },
+    session_leader: {
+      id: '4321',
+      args: ['bash'],
+      args_count: 1,
+      command_line: 'bash',
+      executable: '/bin/bash',
+      name: 'bash',
+      interactive: true,
+      working_directory: '/home/kg',
+      pid: 3,
+      ppid: 1,
+      sid: 1,
+      pgid: 2,
+      start: '2021-10-14T08:05:34.853Z',
+      sid_start: '2021-10-14T08:05:34.853Z',
+      ppid_start: '2021-10-14T08:05:34.853Z',
+      pgid_start: '2021-10-14T08:05:34.853Z',
+      user: {
+        id: '2',
+        name: 'kg',
+      },
+      fds: [
+        {
+          descriptor:0,
+          type: 'char_device',
+          char_device: {
+            major: 8,
+            minor: 1
+          }
+        }
+      ],
+      tty: {
+        descriptor: 0,
+        type: 'char_device',
+        char_device: {
+          major: 8,
+          minor: 1
+        }
+      },
+    },
+    entry_leader: {
+      id: '4321',
+      args: ['bash'],
+      args_count: 1,
+      command_line: 'bash',
+      executable: '/bin/bash',
+      name: 'bash',
+      interactive: true,
+      working_directory: '/home/kg',
+      pid: 3,
+      ppid: 1,
+      sid: 1,
+      pgid: 2,
+      start: '2021-10-14T08:05:34.853Z',
+      sid_start: '2021-10-14T08:05:34.853Z',
+      ppid_start: '2021-10-14T08:05:34.853Z',
+      pgid_start: '2021-10-14T08:05:34.853Z',
+      user: {
+        id: '2',
+        name: 'kg',
+      },
+      entry_meta: {
+        type: 'sshd',
+        source: {
+          ip: '10.132.0.50',
+          geo: {
+            city_name: 'Vancouver',
+            continent_code: 'NA',
+            continent_name: 'North America',
+            country_iso_code: 'CA',
+            country_name: 'Canada',
+            location: {
+              lon: -73.614830,
+              lat: 45.505918
+            },
+            postal_code: 'V9J1E3',
+            region_iso_code: 'BC',
+            region_name: 'British Columbia',
+            timezone: 'America/Los_Angeles'
+          }
+        }
+      },
+      fds: [
+        {
+          descriptor:0,
+          type: 'char_device',
+          char_device: {
+            major: 8,
+            minor: 1
+          }
+        }
+      ],
+      tty: {
+        descriptor: 0,
+        type: 'char_device',
+        char_device: {
+          major: 8,
+          minor: 1
+        }
+      },
+    },
+    fds: [
+      {
+        descriptor:0,
+        type: 'char_device',
+        char_device: {
+          major: 8,
+          minor: 1
+        }
+      },
+      {
+        descriptor:1,
+        type:'pipe',
+        pipe: {
+          inode: '6183207'
+        }
+      }
+    ],
+    tty: {
+      descriptor: 0,
+      type: 'char_device',
+      char_device: {
+        major: 8,
+        minor: 1
+      }
+    }
+  }
+}
+```
+
+### Setsid event
+
+```json
+{
+  '@timestamp': '2021-10-14T08:05:35.853Z',
+  event: {
+    kind: 'event',
+    category: 'process',
+    action: 'setsid',
+  },
+  host: {
+    architecture: 'x86_64',
+    hostname: 'james-fleet-714-2',
+    id: '48c1b3f1ac5da4e0057fc9f60f4d1d5d',
+    ip: '127.0.0.1,::1,10.132.0.50,fe80::7d39:3147:4d9a:f809',
+    mac: '42:01:0a:84:00:32',
+    name: 'james-fleet-714-2',
+    os: {
+      Ext: {
+        variant: 'CentOS'
+      },
+      family: 'centos',
+      full: 'CentOS 7.9.2009',
+      kernel: '3.10.0-1160.31.1.el7.x86_64 #1 SMP Thu Jun 10 13:32:12 UTC 2021',
+      name: 'Linux',
+      platform: 'centos',
+      version: '7.9.2009'
+    }
+  },
+  process: {
+    id: '4321',
+    args: ['/bin/bash'],
+    args_count: 1,
+    command_line: 'bash',
+    executable: '/bin/bash',
+    name: 'bash',
+    interactive: true,
+    working_directory: '/home/kg',
+    pid: 3,
+    ppid: 1,
+    sid: 1,
+    pgid: 2,
+    start: '2021-10-14T08:05:34.853Z',
+    sid_start: '2021-10-14T08:05:34.853Z',
+    ppid_start: '2021-10-14T08:05:34.853Z',
+    pgid_start: '2021-10-14T08:05:34.853Z',
+    user: {
+      id: '2',
+      name: 'kg',
+    },
+    parent: {
+      id: '4322',
+      args: ['/bin/sshd'],
+      args_count: 1,
+      command_line: 'sshd',
+      executable: '/bin/sshd',
+      name: 'sshd',
+      interactive: true,
+      working_directory: '/',
+      pid: 2,
+      ppid: 1,
+      sid: 1,
+      pgid: 2,
+      start: '2021-10-14T08:05:34.853Z',
+      sid_start: '2021-10-14T08:05:34.853Z',
+      ppid_start: '2021-10-14T08:05:34.853Z',
+      pgid_start: '2021-10-14T08:05:34.853Z',
+      user: {
+        id: '0',
+        name: 'root',
+      },
+      fds: [
+        {
+          descriptor:0,
+          type: 'char_device',
+          char_device: {
+            major: 8,
+            minor: 1
+          }
+        }
+      ],
+      tty: {
+        descriptor: 0,
+        type: 'char_device',
+        char_device: {
+          major: 8,
+          minor: 1
+        }
+      }
+    },
+    session_leader: {
+      id: '4321',
+      args: ['bash'],
+      args_count: 1,
+      command_line: 'bash',
+      executable: '/bin/bash',
+      name: 'bash',
+      interactive: true,
+      working_directory: '/home/kg',
+      pid: 3,
+      ppid: 1,
+      sid: 1,
+      pgid: 2,
+      start: '2021-10-14T08:05:34.853Z',
+      sid_start: '2021-10-14T08:05:34.853Z',
+      ppid_start: '2021-10-14T08:05:34.853Z',
+      pgid_start: '2021-10-14T08:05:34.853Z',
+      user: {
+        id: '2',
+        name: 'kg',
+      },
+      fds: [
+        {
+          descriptor:0,
+          type: 'char_device',
+          char_device: {
+            major: 8,
+            minor: 1
+          }
+        }
+      ],
+      tty: {
+        descriptor: 0,
+        type: 'char_device',
+        char_device: {
+          major: 8,
+          minor: 1
+        }
+      }
+    },
+    group_leader: {
+      id: '4321',
+      args: ['bash'],
+      args_count: 1,
+      command_line: 'bash',
+      executable: '/bin/bash',
+      name: 'bash',
+      interactive: true,
+      working_directory: '/home/kg',
+      pid: 3,
+      ppid: 1,
+      sid: 1,
+      pgid: 3,
+      start: '2021-10-14T08:05:34.853Z',
+      sid_start: '2021-10-14T08:05:34.853Z',
+      ppid_start: '2021-10-14T08:05:34.853Z',
+      pgid_start: '2021-10-14T08:05:34.853Z',
+      user: {
+        id: '2',
+        name: 'kg',
+      },
+      fds: [
+        {
+          descriptor:0,
+          type: 'char_device',
+          char_device: {
+            major: 8,
+            minor: 1
+          }
+        }
+      ],
+      tty: {
+        descriptor: 0,
+        type: 'char_device',
+        char_device: {
+          major: 8,
+          minor: 1
+        }
+      }
+    },
+    entry_leader: {
+      id: '4321',
+      args: ['bash'],
+      args_count: 1,
+      command_line: 'bash',
+      executable: '/bin/bash',
+      name: 'bash',
+      interactive: true,
+      working_directory: '/home/kg',
+      pid: 3,
+      ppid: 1,
+      sid: 1,
+      pgid: 2,
+      start: '2021-10-14T08:05:34.853Z',
+      sid_start: '2021-10-14T08:05:34.853Z',
+      ppid_start: '2021-10-14T08:05:34.853Z',
+      pgid_start: '2021-10-14T08:05:34.853Z',
+      user: {
+        id: '2',
+        name: 'kg',
+      },
+      entry_meta: {
+        type: 'sshd',
+        source: {
+          ip: '10.132.0.50',
+          geo: {
+            city_name: 'Vancouver',
+            continent_code: 'NA',
+            continent_name: 'North America',
+            country_iso_code: 'CA',
+            country_name: 'Canada',
+            location: {
+              lon: -73.614830,
+              lat: 45.505918
+            },
+            postal_code: 'V9J1E3',
+            region_iso_code: 'BC',
+            region_name: 'British Columbia',
+            timezone: 'America/Los_Angeles'
+          }
+        }
+      },
+      fds: [
+        {
+          descriptor:0,
+          type: 'char_device',
+          char_device: {
+            major: 8,
+            minor: 1
+          }
+        }
+      ],
+      tty: {
+        descriptor: 0,
+        type: 'char_device',
+        char_device: {
+          major: 8,
+          minor: 1
+        }
+      }
+    },
+    fds: [
+      {
+        descriptor:0,
+        type: 'char_device',
+        char_device: {
+          major: 8,
+          minor: 1
+        }
+      },
+      {
+        descriptor:1,
+        type:'pipe',
+        pipe: {
+          inode: '6183207'
+        }
+      }
+    ],
+    tty: {
+      descriptor: 0,
+      type: 'char_device',
+      char_device: {
+        major: 8,
+        minor: 1
+      }
+    }
+  }
+}
+```
+
+### Output event
+```json
+{
+  '@timestamp': '2021-10-14T08:05:36.853Z',
+  event: {
+    kind: 'event',
+    category: 'process',
+    action: 'output',
+  },
+  host: {
+    architecture: 'x86_64',
+    hostname: 'james-fleet-714-2',
+    id: '48c1b3f1ac5da4e0057fc9f60f4d1d5d',
+    ip: '127.0.0.1,::1,10.132.0.50,fe80::7d39:3147:4d9a:f809',
+    mac: '42:01:0a:84:00:32',
+    name: 'james-fleet-714-2',
+    os: {
+      Ext: {
+        variant: 'CentOS'
+      },
+      family: 'centos',
+      full: 'CentOS 7.9.2009',
+      kernel: '3.10.0-1160.31.1.el7.x86_64 #1 SMP Thu Jun 10 13:32:12 UTC 2021',
+      name: 'Linux',
+      platform: 'centos',
+      version: '7.9.2009'
+    }
+  },
+  process: {
+    id: '4321',
+    args: ['/bin/bash'],
+    args_count: 1,
+    command_line: 'bash',
+    executable: '/bin/bash',
+    name: 'bash',
+    interactive: true,
+    working_directory: '/home/kg',
+    pid: 3,
+    ppid: 2,
+    sid: 1,
+    pgid: 2,
+    start: '2021-10-14T08:05:34.853Z',
+    sid_start: '2021-10-14T08:05:34.853Z',
+    ppid_start: '2021-10-14T08:05:34.853Z',
+    pgid_start: '2021-10-14T08:05:34.853Z',
+    end: '2021-10-14T10:05:34.853Z',
+    exit_code: 137,
+    user: {
+      id: '2',
+      name: 'kg',
+    },
+    parent: {
+      id: '4322',
+      args: ['/bin/sshd'],
+      args_count: 1,
+      command_line: 'sshd',
+      executable: '/bin/sshd',
+      name: 'sshd',
+      interactive: true,
+      working_directory: '/',
+      pid: 2,
+      ppid: 1,
+      sid: 1,
+      pgid: 2,
+      start: '2021-10-14T08:05:34.853Z',
+      sid_start: '2021-10-14T08:05:34.853Z',
+      ppid_start: '2021-10-14T08:05:34.853Z',
+      pgid_start: '2021-10-14T08:05:34.853Z',
+      user: {
+        id: '0',
+        name: 'root',
+      },
+      fds: [
+        {
+          descriptor:0,
+          type: 'char_device',
+          char_device: {
+            major: 8,
+            minor: 1
+          }
+        }
+      ],
+      tty: {
+        descriptor: 0,
+        type: 'char_device',
+        char_device: {
+          major: 8,
+          minor: 1
+        }
+      },
+    },
+    session_leader: {
+      id: '4321',
+      args: ['bash'],
+      args_count: 1,
+      command_line: 'bash',
+      executable: '/bin/bash',
+      name: 'bash',
+      interactive: true,
+      working_directory: '/home/kg',
+      pid: 3,
+      ppid: 1,
+      sid: 1,
+      pgid: 2,
+      start: '2021-10-14T08:05:34.853Z',
+      sid_start: '2021-10-14T08:05:34.853Z',
+      ppid_start: '2021-10-14T08:05:34.853Z',
+      pgid_start: '2021-10-14T08:05:34.853Z',
+      user: {
+        id: '2',
+        name: 'kg',
+      },
+      fds: [
+        {
+          descriptor:0,
+          type: 'char_device',
+          char_device: {
+            major: 8,
+            minor: 1
+          }
+        }
+      ],
+      tty: {
+        descriptor: 0,
+        type: 'char_device',
+        char_device: {
+          major: 8,
+          minor: 1
+        }
+      },
+    },
+    entry_leader: {
+      id: '4321',
+      args: ['bash'],
+      args_count: 1,
+      command_line: 'bash',
+      executable: '/bin/bash',
+      name: 'bash',
+      interactive: true,
+      working_directory: '/home/kg',
+      pid: 3,
+      ppid: 1,
+      sid: 1,
+      pgid: 2,
+      start: '2021-10-14T08:05:34.853Z',
+      sid_start: '2021-10-14T08:05:34.853Z',
+      ppid_start: '2021-10-14T08:05:34.853Z',
+      pgid_start: '2021-10-14T08:05:34.853Z',
+      user: {
+        id: '2',
+        name: 'kg',
+      },
+      entry_meta: {
+        type: 'sshd',
+        source: {
+          ip: '10.132.0.50',
+          geo: {
+            city_name: 'Vancouver',
+            continent_code: 'NA',
+            continent_name: 'North America',
+            country_iso_code: 'CA',
+            country_name: 'Canada',
+            location: {
+              lon: -73.614830,
+              lat: 45.505918
+            },
+            postal_code: 'V9J1E3',
+            region_iso_code: 'BC',
+            region_name: 'British Columbia',
+            timezone: 'America/Los_Angeles'
+          }
+        }
+      },
+      fds: [
+        {
+          descriptor:0,
+          type: 'char_device',
+          char_device: {
+            major: 8,
+            minor: 1
+          }
+        }
+      ],
+      tty: {
+        descriptor: 0,
+        type: 'char_device',
+        char_device: {
+          major: 8,
+          minor: 1
+        }
+      },
+    },
+    fds: [
+      {
+        descriptor:0,
+        type: 'char_device',
+        char_device: {
+          major: 8,
+          minor: 1
+        }
+      },
+      {
+        descriptor:1,
+        type:'pipe',
+        pipe: {
+          inode: '6183207'
+        }
+      }
+    ],
+    tty: {
+      descriptor: 0,
+      type: 'char_device',
+      char_device: {
+        major: 8,
+        minor: 1
+      }
+    }
+  },
+  terminal: {
+    size: {
+      rows: 200,
+      columns: 80
+    },
+    termio: {
+      c_iflag: 0,
+      c_oflag: 1,
+      c_cflag: 2,
+      c_lflag: 3
+    }
+  },
+  output: {
+    fd: {
+      descriptor: 1,
+      type: 'char_device',
+      char_device: {
+        major: 1,
+        minor:4
+      }
+    },
+    echoed: true,
+    data: 'G1szMW10aGlzIHRleHQgaXMgcmVkCg==',
+    text: 'this text is red'
+  }
+}
+```
 
 <!--1
 Stage 2: Included a real world example source document. Ideally this example comes from the source(s) identified in stage 1. If not, it should replace them. The goal here is to validate the utility of these field changes in the context of a real world example. Format with the source name as a ### header and the example document in a GitHub code block with json formatting, or if on the larger side, add them to the corresponding RFC folder.
@@ -72,6 +1395,10 @@ The goal here is to research and understand the impact of these changes on users
 <!--
 Stage 1: Identify potential concerns, implementation challenges, or complexity. Spend some time on this. Play devil's advocate. Try to identify the sort of non-obvious challenges that tend to surface later. The goal here is to surface risks early, allow everyone the time to work through them, and ultimately document resolution for posterity's sake.
 -->
+
+Potential concerns for me are primary tied to message size. The nested ancestors and their many fields could add up. That being said, there is a larger concern wrt number of events that will dwarf any issue around message size. That effort will come down to defining a set of event filters to eliminate unwanted noise. Scraping /proc and sending up all process executions can be very load heavy task. This issue is probably outside of the scope of ECS though.
+
+Another point of concern is the re-use of process.entity_id. There is nuance around how this ID is calculated, and we are proposing a new hash/calculation based of a different set of fields. This issue is being tracked here: https://github.com/elastic/security-team/issues/2458
 
 <!--
 Stage 2: Document new concerns or resolutions to previously listed concerns. It's not critical that all concerns have resolutions at this point, but it would be helpful if resolutions were taking shape for the most significant concerns.
