@@ -1,19 +1,26 @@
-import copy
+# Licensed to Elasticsearch B.V. under one or more contributor
+# license agreements. See the NOTICE file distributed with
+# this work for additional information regarding copyright
+# ownership. Elasticsearch B.V. licenses this file to you under
+# the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# 	http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+
 import json
 import sys
 
 from os.path import join
 
 from generators import ecs_helpers
-from schema.cleaner import field_or_multi_field_datatype_defaults
-
-
-TYPE_FALLBACKS = {
-    'constant_keyword': 'keyword',
-    'wildcard': 'keyword',
-    'version': 'keyword',
-    'match_only_text': 'text'
-}
 
 # Composable Template
 
@@ -113,7 +120,6 @@ def generate_legacy(ecs_flat, ecs_version, out_dir, template_settings_file, mapp
     mappings_section = mapping_settings(mapping_settings_file)
     mappings_section['properties'] = field_mappings
 
-    generate_legacy_template_version(6, ecs_version, mappings_section, out_dir, template_settings_file)
     generate_legacy_template_version(7, ecs_version, mappings_section, out_dir, template_settings_file)
 
 
@@ -200,23 +206,7 @@ def template_settings(es_version, ecs_version, mappings_section, template_settin
     else:
         template = default_template_settings(ecs_version)
 
-    if es_version == 6:
-        mappings_section = copy.deepcopy(mappings_section)
-        es6_type_fallback(mappings_section['properties'])
-
-        # error.stack_trace needs special handling to set
-        # index: false and doc_values: false if the field
-        # is present in the mappings
-        try:
-            error_stack_trace_mappings = mappings_section['properties']['error']['properties']['stack_trace']
-            error_stack_trace_mappings.setdefault('index', False)
-            error_stack_trace_mappings.setdefault('doc_values', False)
-        except KeyError:
-            pass
-
-        template['mappings'] = {'_doc': mappings_section}
-    else:
-        template['mappings'] = mappings_section
+    template['mappings'] = mappings_section
 
     # _meta can't be at template root in legacy templates, so moving back to mappings section
     # if present
@@ -268,30 +258,3 @@ def default_mapping_settings():
             }
         ]
     }
-
-
-def es6_type_fallback(mappings):
-    """
-    Visits each leaf in mappings object and fallback to an
-    Elasticsearch 6.x supported type.
-
-    Since a field like `wildcard` won't have the same defaults as
-    a `keyword` field, we must add any missing defaults.
-    """
-
-    for (name, details) in mappings.items():
-        if 'type' in details:
-            fallback_type = TYPE_FALLBACKS.get(details['type'])
-            if fallback_type:
-                mappings[name]['type'] = fallback_type
-                field_or_multi_field_datatype_defaults(mappings[name])
-        # support multi-fields
-        if 'fields' in details:
-            # potentially multiple multi-fields
-            for field_name, field_value in details['fields'].items():
-                fallback_type = TYPE_FALLBACKS.get(field_value['type'])
-                if fallback_type:
-                    mappings[name]['fields'][field_name]['type'] = fallback_type
-                    field_or_multi_field_datatype_defaults(mappings[name]['fields'][field_name])
-        if 'properties' in details:
-            es6_type_fallback(details['properties'])

@@ -61,6 +61,7 @@ Thanks, you're awesome :-) -->
 * Removing deprecated --oss from generator #1404
 * Removing use-cases directory #1405
 * Remove Go code generator. #1567
+* Remove template generation for ES6. #1680
 
 #### Improvements
 
