@@ -164,11 +164,6 @@ Load the template in Elasticsearch from your shell.
 curl --user $"$auth" -XPOST 'localhost:9200/_template/try-ecs' \
   --header "Content-Type: application/json" \
   -d @'generated/elasticsearch/7/template.json'
-
-# or Elasticsearch 6
-curl --user $"$auth" -XPOST 'localhost:9200/_template/try-ecs' \
-  --header "Content-Type: application/json" \
-  -d @'generated/elasticsearch/6/template.json'
 ```
 
 #### Play from Kibana Dev Tools
