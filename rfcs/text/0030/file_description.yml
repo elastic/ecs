@@ -80,29 +80,6 @@
         The minor number is used only by the driver specified by the major number; other parts of the kernel don’t use it, and merely pass it along to the driver. It is common for a driver to control several devices; the minor number provides a way for the driver to differentiate among them.
       example: 128
 
-    - name: file.block_device
-      level: extended
-      type: object
-      short: Block device information on the file.
-      description: >
-        Block device information on the file.
-
-    - name: file.block_device.major
-      level: extended
-      type: long
-      short: The major block device number.
-      description: >
-        The major number identifies the driver associated with the device.
-      example: 1
-
-    - name: file.block_device.minor
-      level: extended
-      type: long
-      short: The minor block device number.
-      description: >
-        The minor number is used only by the driver specified by the major number; other parts of the kernel don’t use it, and merely pass it along to the driver. It is common for a driver to control several devices; the minor number provides a way for the driver to differentiate among them.
-      example: 128
-
     - name: socket
       level: extended
       type: object
@@ -196,12 +173,3 @@
         Whether a TCP socket is listening for connections.
 
         Only set for TCP sockets.
-
-    - name: pipe
-      level: extended
-      type: object
-      short: Pipe information for the FD.
-      description: >
-        Pipe information for the FD.
-
-        Only set if fd.type: pipe
