@@ -17,6 +17,7 @@ Thanks, you're awesome :-) -->
 #### Added
 
 * Added two new fields (sha384,tlsh) to hash schema and one field to pe schema (pehash). #1678
+* Added `email.*` beta field set. ##1688
 
 #### Improvements
 

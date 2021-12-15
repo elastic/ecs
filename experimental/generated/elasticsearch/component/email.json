@@ -16,6 +16,38 @@
                       "ignore_above": 1024,
                       "type": "keyword"
                     },
+                    "hash": {
+                      "properties": {
+                        "md5": {
+                          "ignore_above": 1024,
+                          "type": "keyword"
+                        },
+                        "sha1": {
+                          "ignore_above": 1024,
+                          "type": "keyword"
+                        },
+                        "sha256": {
+                          "ignore_above": 1024,
+                          "type": "keyword"
+                        },
+                        "sha384": {
+                          "ignore_above": 1024,
+                          "type": "keyword"
+                        },
+                        "sha512": {
+                          "ignore_above": 1024,
+                          "type": "keyword"
+                        },
+                        "ssdeep": {
+                          "ignore_above": 1024,
+                          "type": "keyword"
+                        },
+                        "tlsh": {
+                          "ignore_above": 1024,
+                          "type": "keyword"
+                        }
+                      }
+                    },
                     "mime_type": {
                       "ignore_above": 1024,
                       "type": "keyword"
@@ -28,33 +60,25 @@
                       "type": "long"
                     }
                   }
-                },
-                "hash": {
-                  "properties": {
-                    "md5": {
-                      "ignore_above": 1024,
-                      "type": "keyword"
-                    },
-                    "sha1": {
-                      "ignore_above": 1024,
-                      "type": "keyword"
-                    },
-                    "sha256": {
-                      "ignore_above": 1024,
-                      "type": "keyword"
-                    }
-                  }
                 }
               },
               "type": "nested"
             },
             "bcc": {
-              "ignore_above": 1024,
-              "type": "keyword"
+              "properties": {
+                "address": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                }
+              }
             },
             "cc": {
-              "ignore_above": 1024,
-              "type": "keyword"
+              "properties": {
+                "address": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                }
+              }
             },
             "content_type": {
               "ignore_above": 1024,
@@ -68,23 +92,38 @@
               "type": "keyword"
             },
             "from": {
-              "ignore_above": 1024,
-              "type": "keyword"
+              "properties": {
+                "address": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                }
+              }
             },
             "local_id": {
               "ignore_above": 1024,
               "type": "keyword"
             },
             "message_id": {
-              "ignore_above": 1024,
-              "type": "keyword"
+              "type": "wildcard"
             },
             "origination_timestamp": {
               "type": "date"
             },
             "reply_to": {
-              "ignore_above": 1024,
-              "type": "keyword"
+              "properties": {
+                "address": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                }
+              }
+            },
+            "sender": {
+              "properties": {
+                "address": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                }
+              }
             },
             "subject": {
               "fields": {
@@ -96,8 +135,12 @@
               "type": "keyword"
             },
             "to": {
-              "ignore_above": 1024,
-              "type": "keyword"
+              "properties": {
+                "address": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                }
+              }
             },
             "x_mailer": {
               "ignore_above": 1024,

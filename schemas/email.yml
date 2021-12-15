@@ -1,21 +1,25 @@
 - name: email
   title: Email
   group: 2
-  short: Fields describing an email transaction.
+  short: Describes an email transaction.
   description: >
-    Fields relating to an email transaction.
+    Event details relating to an email transaction.
 
     This field set focuses on the email message header, body, and attachments. Network protocols that send and receive
     email messages such as SMTP are outside the scope of the `email.*` fields.
+  beta: >
+    These fields are in beta and subject to change.
   type: group
   fields:
-
     - name: attachments
       level: extended
       type: nested
       short: List of objects describing the attachments.
       description: >
-        A list of attachment files sent along with an email message.
+        A list of objects describing the attachment files sent along with an email message.
+
+      normalize:
+        - array
 
     - name: attachments.file.extension
       level: extended
@@ -51,49 +55,23 @@
         Attachment file size in bytes.
       example: 64329
 
-    - name: attachments.hash.md5
+    - name: bcc.address
       level: extended
       type: keyword
-      short: MD5 hash of the attachment.
+      short: Email address of BCC recipient
       description: >
-        MD5 hash of the attachment file.
-      example: "e25f1c98ffdacf611473af364362ec48"
-
-    - name: attachments.hash.sha1
-      level: extended
-      type: keyword
-      short: SHA-1 hash of the attachment.
-      description: >
-        SHA-1 hash of the attachment file.
-      example: "8c1cd40f17109b427e61d4e72ca6d9a4fc8175f3"
-
-    - name: attachments.hash.sha256
-      level: extended
-      type: keyword
-      short: SHA-256 hash of the attachment.
-      description: >
-        SHA-256 hash of the attachment file.
-      example: "f0366b3559f577d8732f7e9cc343a4960d202e8137dcc42f9783f3963f6abc6a"
-
-    - name: bcc
-      level: extended
-      type: keyword
-      short: Email address(es) of BCC recipients
-      description: >
-        The email address(es) of the blind carbon carbon (BCC) recipients.
-      example: "['bcc.user1@example.com', 'bcc.user2@example.com']"
-
+        The email address of BCC recipient
+      example: "bcc.user1@example.com"
       normalize:
         - array
 
-    - name: cc
+    - name: cc.address
       level: extended
       type: keyword
-      short: Email address(es) of CC recipients
+      short: Email address of CC recipient
       description: >
-        The email address(es) of the carbon carbon (BCC) recipients.
-      example: "['cc.user1@example.com', 'cc.user2@example.com']"
-
+        The email address of CC recipient
+      example: "cc.user1@example.com"
       normalize:
         - array
 
@@ -123,13 +101,15 @@
         The direction of the message based on the sending and receiving domains.
       example: inbound
 
-    - name: from
+    - name: from.address
       level: extended
       type: keyword
       short: The sender's email address.
       description: >
         The email address of the sender, typically from the RFC 5322 `From:` header field.
       example: "sender@example.com"
+      normalize:
+        - array
 
     - name: local_id
       level: extended
@@ -143,7 +123,7 @@
 
     - name: message_id
       level: extended
-      type: keyword
+      type: wildcard
       short: Value from the Message-ID header.
       description: >
         Identifier from the RFC 5322 `Message-ID:` email header that refers to a particular email
@@ -159,13 +139,23 @@
         automatically when the message is sent by a user.
       example: "2020-11-10T22:12:34.8196921Z"
 
-    - name: reply_to
+    - name: reply_to.address
       level: extended
       type: keyword
       short: Address replies should be delivered to.
       description: >
         The address that replies should be delivered to based on the value in the RFC 5322 `Reply-To:` header.
       example: "reply.here@example.com"
+      normalize:
+        - array
+
+    - name: sender.address
+      level: extended
+      type: keyword
+      short: Address of the message sender.
+      description: >
+        Per RFC 5322, specifies the address responsible for the actual transmission of
+        the message.
 
     - name: subject
       level: extended
@@ -178,14 +168,13 @@
       - type: match_only_text
         name: text
 
-    - name: to
+    - name: to.address
       level: extended
       type: keyword
-      short: Email address(es) of the recipients.
+      short: Email address of recipient
       description: >
-        The email address(es) of the message recipients.
-      example: "['user1@example.com', 'user2@example.com']"
-
+        The email address of recipient
+      example: "user1@example.com"
       normalize:
         - array
 

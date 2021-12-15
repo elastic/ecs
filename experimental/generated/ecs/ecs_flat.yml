@@ -2285,11 +2285,13 @@ ecs.version:
   type: keyword
 email.attachments:
   dashed_name: email-attachments
-  description: A list of attachment files sent along with an email message.
+  description: A list of objects describing the attachment files sent along with an
+    email message.
   flat_name: email.attachments
   level: extended
   name: attachments
-  normalize: []
+  normalize:
+  - array
   short: List of objects describing the attachments.
   type: nested
 email.attachments.file.extension:
@@ -2302,6 +2304,83 @@ email.attachments.file.extension:
   name: attachments.file.extension
   normalize: []
   short: Attachment file extension.
+  type: keyword
+email.attachments.file.hash.md5:
+  dashed_name: email-attachments-file-hash-md5
+  description: MD5 hash.
+  flat_name: email.attachments.file.hash.md5
+  ignore_above: 1024
+  level: extended
+  name: md5
+  normalize: []
+  original_fieldset: hash
+  short: MD5 hash.
+  type: keyword
+email.attachments.file.hash.sha1:
+  dashed_name: email-attachments-file-hash-sha1
+  description: SHA1 hash.
+  flat_name: email.attachments.file.hash.sha1
+  ignore_above: 1024
+  level: extended
+  name: sha1
+  normalize: []
+  original_fieldset: hash
+  short: SHA1 hash.
+  type: keyword
+email.attachments.file.hash.sha256:
+  dashed_name: email-attachments-file-hash-sha256
+  description: SHA256 hash.
+  flat_name: email.attachments.file.hash.sha256
+  ignore_above: 1024
+  level: extended
+  name: sha256
+  normalize: []
+  original_fieldset: hash
+  short: SHA256 hash.
+  type: keyword
+email.attachments.file.hash.sha384:
+  dashed_name: email-attachments-file-hash-sha384
+  description: SHA384 hash.
+  flat_name: email.attachments.file.hash.sha384
+  ignore_above: 1024
+  level: extended
+  name: sha384
+  normalize: []
+  original_fieldset: hash
+  short: SHA384 hash.
+  type: keyword
+email.attachments.file.hash.sha512:
+  dashed_name: email-attachments-file-hash-sha512
+  description: SHA512 hash.
+  flat_name: email.attachments.file.hash.sha512
+  ignore_above: 1024
+  level: extended
+  name: sha512
+  normalize: []
+  original_fieldset: hash
+  short: SHA512 hash.
+  type: keyword
+email.attachments.file.hash.ssdeep:
+  dashed_name: email-attachments-file-hash-ssdeep
+  description: SSDEEP hash.
+  flat_name: email.attachments.file.hash.ssdeep
+  ignore_above: 1024
+  level: extended
+  name: ssdeep
+  normalize: []
+  original_fieldset: hash
+  short: SSDEEP hash.
+  type: keyword
+email.attachments.file.hash.tlsh:
+  dashed_name: email-attachments-file-hash-tlsh
+  description: TLSH hash.
+  flat_name: email.attachments.file.hash.tlsh
+  ignore_above: 1024
+  level: extended
+  name: tlsh
+  normalize: []
+  original_fieldset: hash
+  short: TLSH hash.
   type: keyword
 email.attachments.file.mime_type:
   dashed_name: email-attachments-file-mime-type
@@ -2337,62 +2416,29 @@ email.attachments.file.size:
   normalize: []
   short: Attachment file size.
   type: long
-email.attachments.hash.md5:
-  dashed_name: email-attachments-hash-md5
-  description: MD5 hash of the attachment file.
-  example: e25f1c98ffdacf611473af364362ec48
-  flat_name: email.attachments.hash.md5
+email.bcc.address:
+  dashed_name: email-bcc-address
+  description: The email address of BCC recipient
+  example: bcc.user1@example.com
+  flat_name: email.bcc.address
   ignore_above: 1024
   level: extended
-  name: attachments.hash.md5
-  normalize: []
-  short: MD5 hash of the attachment.
-  type: keyword
-email.attachments.hash.sha1:
-  dashed_name: email-attachments-hash-sha1
-  description: SHA-1 hash of the attachment file.
-  example: 8c1cd40f17109b427e61d4e72ca6d9a4fc8175f3
-  flat_name: email.attachments.hash.sha1
-  ignore_above: 1024
-  level: extended
-  name: attachments.hash.sha1
-  normalize: []
-  short: SHA-1 hash of the attachment.
-  type: keyword
-email.attachments.hash.sha256:
-  dashed_name: email-attachments-hash-sha256
-  description: SHA-256 hash of the attachment file.
-  example: f0366b3559f577d8732f7e9cc343a4960d202e8137dcc42f9783f3963f6abc6a
-  flat_name: email.attachments.hash.sha256
-  ignore_above: 1024
-  level: extended
-  name: attachments.hash.sha256
-  normalize: []
-  short: SHA-256 hash of the attachment.
-  type: keyword
-email.bcc:
-  dashed_name: email-bcc
-  description: The email address(es) of the blind carbon carbon (BCC) recipients.
-  example: '[''bcc.user1@example.com'', ''bcc.user2@example.com'']'
-  flat_name: email.bcc
-  ignore_above: 1024
-  level: extended
-  name: bcc
+  name: bcc.address
   normalize:
   - array
-  short: Email address(es) of BCC recipients
+  short: Email address of BCC recipient
   type: keyword
-email.cc:
-  dashed_name: email-cc
-  description: The email address(es) of the carbon carbon (BCC) recipients.
-  example: '[''cc.user1@example.com'', ''cc.user2@example.com'']'
-  flat_name: email.cc
+email.cc.address:
+  dashed_name: email-cc-address
+  description: The email address of CC recipient
+  example: cc.user1@example.com
+  flat_name: email.cc.address
   ignore_above: 1024
   level: extended
-  name: cc
+  name: cc.address
   normalize:
   - array
-  short: Email address(es) of CC recipients
+  short: Email address of CC recipient
   type: keyword
 email.content_type:
   dashed_name: email-content-type
@@ -2429,16 +2475,17 @@ email.direction:
   normalize: []
   short: Direction of the message.
   type: keyword
-email.from:
-  dashed_name: email-from
+email.from.address:
+  dashed_name: email-from-address
   description: The email address of the sender, typically from the RFC 5322 `From:`
     header field.
   example: sender@example.com
-  flat_name: email.from
+  flat_name: email.from.address
   ignore_above: 1024
   level: extended
-  name: from
-  normalize: []
+  name: from.address
+  normalize:
+  - array
   short: The sender's email address.
   type: keyword
 email.local_id:
@@ -2461,12 +2508,11 @@ email.message_id:
     to a particular email message.
   example: <81ce15$8r2j59@mail01.example.com>
   flat_name: email.message_id
-  ignore_above: 1024
   level: extended
   name: message_id
   normalize: []
   short: Value from the Message-ID header.
-  type: keyword
+  type: wildcard
 email.origination_timestamp:
   dashed_name: email-origination-timestamp
   description: The date and time the email message was composed. Many email clients
@@ -2478,17 +2524,29 @@ email.origination_timestamp:
   normalize: []
   short: Date and time the email was composed.
   type: date
-email.reply_to:
-  dashed_name: email-reply-to
+email.reply_to.address:
+  dashed_name: email-reply-to-address
   description: The address that replies should be delivered to based on the value
     in the RFC 5322 `Reply-To:` header.
   example: reply.here@example.com
-  flat_name: email.reply_to
+  flat_name: email.reply_to.address
   ignore_above: 1024
   level: extended
-  name: reply_to
-  normalize: []
+  name: reply_to.address
+  normalize:
+  - array
   short: Address replies should be delivered to.
+  type: keyword
+email.sender.address:
+  dashed_name: email-sender-address
+  description: Per RFC 5322, specifies the address responsible for the actual transmission
+    of the message.
+  flat_name: email.sender.address
+  ignore_above: 1024
+  level: extended
+  name: sender.address
+  normalize: []
+  short: Address of the message sender.
   type: keyword
 email.subject:
   dashed_name: email-subject
@@ -2505,17 +2563,17 @@ email.subject:
   normalize: []
   short: The subject of the email message.
   type: keyword
-email.to:
-  dashed_name: email-to
-  description: The email address(es) of the message recipients.
-  example: '[''user1@example.com'', ''user2@example.com'']'
-  flat_name: email.to
+email.to.address:
+  dashed_name: email-to-address
+  description: The email address of recipient
+  example: user1@example.com
+  flat_name: email.to.address
   ignore_above: 1024
   level: extended
-  name: to
+  name: to.address
   normalize:
   - array
-  short: Email address(es) of the recipients.
+  short: Email address of recipient
   type: keyword
 email.x_mailer:
   dashed_name: email-x-mailer
@@ -2680,6 +2738,15 @@ event.category:
     - info
     - start
     name: driver
+  - beta: This event categorization value is beta and subject to change.
+    description: 'This category is used for events relating to email messages, email
+      attachments, and email network or protocol activity.
+
+      Emails events can be produced by email security gateways, mail transfer agents,
+      email cloud service providers, or mail server monitoring applications.'
+    expected_event_types:
+    - info
+    name: email
   - description: Relating to a set of information that has been created on, or has
       existed on a filesystem. Use this category of events to visualize and analyze
       the creation, access, and deletions of files. Events in this category can come

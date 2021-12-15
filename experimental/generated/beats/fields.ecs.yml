@@ -1869,7 +1869,7 @@
   - name: email
     title: Email
     group: 2
-    description: 'Fields relating to an email transaction.
+    description: 'Event details relating to an email transaction.
 
       This field set focuses on the email message header, body, and attachments. Network
       protocols that send and receive email messages such as SMTP are outside the
@@ -1880,7 +1880,8 @@
     - name: attachments
       level: extended
       type: nested
-      description: A list of attachment files sent along with an email message.
+      description: A list of objects describing the attachment files sent along with
+        an email message.
       default_field: false
     - name: attachments.file.extension
       level: extended
@@ -1888,6 +1889,48 @@
       ignore_above: 1024
       description: Attachment file extension, excluding the leading dot.
       example: txt
+      default_field: false
+    - name: attachments.file.hash.md5
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: MD5 hash.
+      default_field: false
+    - name: attachments.file.hash.sha1
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SHA1 hash.
+      default_field: false
+    - name: attachments.file.hash.sha256
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SHA256 hash.
+      default_field: false
+    - name: attachments.file.hash.sha384
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SHA384 hash.
+      default_field: false
+    - name: attachments.file.hash.sha512
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SHA512 hash.
+      default_field: false
+    - name: attachments.file.hash.ssdeep
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SSDEEP hash.
+      default_field: false
+    - name: attachments.file.hash.tlsh
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: TLSH hash.
       default_field: false
     - name: attachments.file.mime_type
       level: extended
@@ -1912,40 +1955,19 @@
       description: Attachment file size in bytes.
       example: 64329
       default_field: false
-    - name: attachments.hash.md5
+    - name: bcc.address
       level: extended
       type: keyword
       ignore_above: 1024
-      description: MD5 hash of the attachment file.
-      example: e25f1c98ffdacf611473af364362ec48
+      description: The email address of BCC recipient
+      example: bcc.user1@example.com
       default_field: false
-    - name: attachments.hash.sha1
+    - name: cc.address
       level: extended
       type: keyword
       ignore_above: 1024
-      description: SHA-1 hash of the attachment file.
-      example: 8c1cd40f17109b427e61d4e72ca6d9a4fc8175f3
-      default_field: false
-    - name: attachments.hash.sha256
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: SHA-256 hash of the attachment file.
-      example: f0366b3559f577d8732f7e9cc343a4960d202e8137dcc42f9783f3963f6abc6a
-      default_field: false
-    - name: bcc
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: The email address(es) of the blind carbon carbon (BCC) recipients.
-      example: '[''bcc.user1@example.com'', ''bcc.user2@example.com'']'
-      default_field: false
-    - name: cc
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: The email address(es) of the carbon carbon (BCC) recipients.
-      example: '[''cc.user1@example.com'', ''cc.user2@example.com'']'
+      description: The email address of CC recipient
+      example: cc.user1@example.com
       default_field: false
     - name: content_type
       level: extended
@@ -1971,7 +1993,7 @@
         domains.
       example: inbound
       default_field: false
-    - name: from
+    - name: from.address
       level: extended
       type: keyword
       ignore_above: 1024
@@ -1991,8 +2013,7 @@
       default_field: false
     - name: message_id
       level: extended
-      type: keyword
-      ignore_above: 1024
+      type: wildcard
       description: Identifier from the RFC 5322 `Message-ID:` email header that refers
         to a particular email message.
       example: <81ce15$8r2j59@mail01.example.com>
@@ -2004,13 +2025,20 @@
         will fill in this value automatically when the message is sent by a user.
       example: '2020-11-10T22:12:34.8196921Z'
       default_field: false
-    - name: reply_to
+    - name: reply_to.address
       level: extended
       type: keyword
       ignore_above: 1024
       description: The address that replies should be delivered to based on the value
         in the RFC 5322 `Reply-To:` header.
       example: reply.here@example.com
+      default_field: false
+    - name: sender.address
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Per RFC 5322, specifies the address responsible for the actual
+        transmission of the message.
       default_field: false
     - name: subject
       level: extended
@@ -2022,12 +2050,12 @@
       description: A brief summary of the topic of the message.
       example: Please see this important message.
       default_field: false
-    - name: to
+    - name: to.address
       level: extended
       type: keyword
       ignore_above: 1024
-      description: The email address(es) of the message recipients.
-      example: '[''user1@example.com'', ''user2@example.com'']'
+      description: The email address of recipient
+      example: user1@example.com
       default_field: false
     - name: x_mailer
       level: extended
