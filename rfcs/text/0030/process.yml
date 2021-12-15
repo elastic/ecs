@@ -114,7 +114,7 @@
 
     - name: fds
       level: extended
-      type: file_description
+      type: object
       short: An array of the lowest file descriptors for the process.
       description: >
         An array of the lowest file descriptors for the process.
@@ -153,15 +153,18 @@
 
     - name: env_vars
       level: extended
-      type: nested
-      short: Array of environment variables.
+      type: object
+      short: Environment variables set at the time of the event.
       description: >
-        Array of environment variables.
+        Environment variables set at the time of the event.
 
         May be filtered to protect sensitive information.
-      example: "[{ key: 'PATH', value: '/usr/bin;/usr/local/bin;'}, { key: 'USER', value: 'ubuntu' }]"
-      normalize:
-        - array
+      example: >
+        {
+          "USER": "elastic",
+          "LANG": "en_US.UTF-8",
+          "HOME": "/home/elastic"
+        }
 
     - name: entry_meta.type
       level: extended
