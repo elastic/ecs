@@ -30,9 +30,9 @@ This RFC proposes a new top-level field set to facilitate email use cases, `emai
 | `email.attachments.file.name` | keyword | Name of the attachment file including the extension. |
 | `email.attachments.file.extension` | keyword | Attachment file extension, excluding the leading dot. |
 | `email.attachments.file.size` | long | Attachment file size in bytes. |
-| `email.attachments.hash.md5` | keyword | MD5 hash of the file attachment. |
-| `email.attachments.hash.sha1` | keyword | SHA-1 hash of the file attachment. |
-| `email.attachments.hash.sha256` | keyword | SHA-256 hash of the file attachment. |
+| `email.attachments.file.hash.md5` | keyword | MD5 hash of the file attachment. |
+| `email.attachments.file.hash.sha1` | keyword | SHA-1 hash of the file attachment. |
+| `email.attachments.file.hash.sha256` | keyword | SHA-256 hash of the file attachment. |
 
 ### Additional event categorization allowed values
 
