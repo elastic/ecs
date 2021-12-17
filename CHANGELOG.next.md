@@ -16,12 +16,32 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
-* Added two new fields (sha384,tlsh) to hash schema and one field to pe schema (pehash). #1678
-* Added `email.*` beta field set. ##1688
+#### Improvements
+
+#### Deprecated
+
+#### Removed
+
+### Tooling and Artifact Changes
+
+#### Breaking changes
+
+#### Bugfixes
+
+#### Added
 
 #### Improvements
 
 #### Deprecated
+
+## 8.1.0 (Soft Feature Freeze)
+
+### Schema Changes
+
+#### Added
+
+* Added two new fields (sha384,tlsh) to hash schema and one field to pe schema (pehash). #1678
+* Added `email.*` beta field set. ##1688
 
 #### Removed
 
@@ -30,22 +50,16 @@ Thanks, you're awesome :-) -->
 
 ### Tooling and Artifact Changes
 
-#### Breaking changes
-
 #### Bugfixes
 
 * Add `object` as fallback for `flattened` type. #1653
 
-#### Added
-
 #### Improvements
 
-* Clean up trailing spaces and additional newlines in schemas #1667
 * Update refs from master to main in USAGE.md etc #1658
+* Clean up trailing spaces and additional newlines in schemas #1667
 
-#### Deprecated
-
-## 8.0.0 (Feature Freeze)
+## 8.0.0 (Hard Feature Freeze)
 
 ### Schema Changes
 
