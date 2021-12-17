@@ -142,14 +142,10 @@ Select target branch(es) to backport to:
 ```bash
 ? Select commit #1234 (cb79e8f5)
 ? Select branch (Press <space> to select, <a> to toggle all, <i> to invert selection)
-❯◉ 1.x
- ◯ 1.6
- ◯ 1.5
- ◯ 1.4
- ◯ 1.3
- ◯ 1.2
- ◯ 1.1
- ◯ 1.0
+❯◯ 8.1
+ ◯ 8.0
+ ◯ 1.12
+...
 ```
 
 New PR(s) will be opened against the targeted branch(es).
