@@ -14,7 +14,6 @@ ECS is an open source project and we love to receive contributions from our comm
   - [Forking](#forking)
   - [Commits and Merging](#commits-and-merging)
   - [Issues](#issues)
-  - [Changelog](#changelog)
 - [Feature freezes and branching](#feature-freezes-and-branching)
   - [Changelogs](#changelogs)
   - [Backports](#backports)
