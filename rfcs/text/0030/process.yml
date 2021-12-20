@@ -27,44 +27,14 @@
         short_override: Information about the session leader process.
       - at: process
         as: group_leader
-        short_override: Information about the process group leader process. Undefined if same as process.
+        short_override: Information about the process group leader process.
+      - at: process.session_leader
+        as: parent 
+        short_override: Information about the session leaders parent. 
 
   fields:
-
-    - name: ppid
-      level: core
-      type: long
-      description: >
-        Parent process id.
-      example: 4242
-
-    - name: sid
-      level: core
-      type: long
-      description: >
-        Session id.
-      example: 4242
-
-    - name: ppid_start
-      level: extended
-      type: date
-      example: "2016-05-23T08:05:34.853Z"
-      description: >
-        The time this process's parent started.
-
-    - name: pgid_start
-      level: extended
-      type: date
-      example: "2016-05-23T08:05:34.853Z"
-      description: >
-        The time this process's process group started.
-
-    - name: sid_start
-      level: extended
-      type: date
-      example: "2016-05-23T08:05:34.853Z"
-      description: >
-        The time this process's session started.
+    
+    # Deprecation note: Because we are nesting process.group_leader above, it makes sense to deprecate process.pgid as this information can be accessed via process.group_leader.pid
 
     - name: previous_args
       level: extended
