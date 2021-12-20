@@ -45,6 +45,8 @@ type Process struct {
 	// Sometimes called program name or similar.
 	Name string `ecs:"name"`
 
+	// Deprecated for removal in the next major version. This field is
+	// superseded by `process.parent.pid`.
 	// Parent process' pid.
 	PPID int64 `ecs:"ppid"`
 
