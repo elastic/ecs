@@ -15,10 +15,6 @@ Stage 0: Provide a high level summary of the premise of these changes. Briefly d
 
 This RFC aims to introduce a significant number of additions to ECS (mostly the 'Process' fieldset) in an effort to provide a rich enough linux event model to drive Session view in Kibana, as well as provide wider context to EQL and other rule engines. Care has been taken to ensure this RFC doesn't break any existing uses of the process field set, and should be fully backwards compatible with existing endpoint agents.
 
-A recent doc (written by @ms-sample) has been added to the security-team repo that explains much of the reasoning behind these changes.  
-It can be found in a private repo here: https://github.com/elastic/security-team/blob/main/docs/adaptive-workload-protection-team/architecture/linux-event-model.md  
-It has also been copied to ECS for folks who can't access security-team repo: https://github.com/elastic/ecs/blob/5f39dd86a8db49bbdddddad2035da9b0198d3651/rfcs/text/0030/linux-event-model.md 
-
 <!--
 Stage 1: If the changes include field additions or modifications, please create a folder titled as the RFC number under rfcs/text/. This will be where proposed schema changes as standalone YAML files or extended example mappings and larger source documents will go as the RFC is iterated upon.
 -->
