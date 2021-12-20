@@ -55,13 +55,13 @@ def save_composable_template(ecs_version, component_names, out_dir, mapping_sett
             "mappings": mapping_settings(mapping_settings_file)
         }
     }
-    filename = join(out_dir, "elasticsearch/template.json")
+    filename = join(out_dir, "elasticsearch/composable/template.json")
     save_json(filename, template)
 
 
 def all_component_templates(ecs_nested, ecs_version, out_dir):
     """Generate one component template per field set"""
-    component_dir = join(out_dir, 'elasticsearch/component')
+    component_dir = join(out_dir, 'elasticsearch/composable/component')
     ecs_helpers.make_dirs(component_dir)
 
     for (fieldset_name, fieldset) in candidate_components(ecs_nested).items():
@@ -127,7 +127,7 @@ def generate_legacy_template_version(es_version, ecs_version, mappings_section, 
     ecs_helpers.make_dirs(join(out_dir, 'elasticsearch', str(es_version)))
     template = template_settings(es_version, ecs_version, mappings_section, template_settings_file)
 
-    filename = join(out_dir, "elasticsearch/{}/template.json".format(es_version))
+    filename = join(out_dir, "elasticsearch/legacy/template.json")
     save_json(filename, template)
 
 
